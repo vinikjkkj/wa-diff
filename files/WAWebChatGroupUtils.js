@@ -24,6 +24,7 @@ __d(
     "WAWebGroupType",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebLid1X1MigrationGating",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebNoop",
     "WAWebReachoutTimelockUtils",
@@ -97,7 +98,12 @@ __d(
     }
     function y(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return t.canSend && !h(t) && !_(t);
+      return (
+        t.canSend &&
+        !h(t) &&
+        !_(t) &&
+        !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t)
+      );
     }
     function C(e) {
       var t,

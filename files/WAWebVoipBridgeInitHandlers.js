@@ -55,10 +55,11 @@ __d(
             : o("WAWebVoipWebLoadable").prefetchVoipWasmLoaderModule();
         },
         startVoipInitReloadRecovery: function (t) {
-          var e = t.callId;
+          var e = t.callId,
+            n = t.canRing;
           return o(
             "WAWebVoipInitReloadRecovery",
-          ).startIncomingVoipInitReloadRecovery(e);
+          ).startIncomingVoipInitReloadRecovery(e, n);
         },
         finishVoipInitReloadRecovery: function (t) {
           var e = t.callId;

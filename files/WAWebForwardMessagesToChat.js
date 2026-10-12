@@ -10,6 +10,7 @@ __d(
     "WAWebForwardAssociatedChildren",
     "WAWebForwardContentMsgs",
     "WAWebForwardErrorChatAction",
+    "WAWebLimitSharingGatingUtils",
     "WAWebLogNewsletterMessageForward",
     "WAWebMsgActionCapability",
     "WAWebMsgCollection",
@@ -46,7 +47,10 @@ __d(
           var p = yield (e || (e = n("Promise"))).all(
               i
                 .filter(function (e) {
-                  return e.canSend;
+                  return (
+                    e.canSend &&
+                    !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(e)
+                  );
                 })
                 .map(
                   (function () {

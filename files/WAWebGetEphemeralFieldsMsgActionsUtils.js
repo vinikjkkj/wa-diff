@@ -1,44 +1,34 @@
 __d(
   "WAWebGetEphemeralFieldsMsgActionsUtils",
-  ["WAWebAfterReadUtils", "WAWebChatEphemerality", "WAWebChatGetters"],
+  ["WAWebChatEphemerality", "WAWebChatGetters"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = {},
-        n = o("WAWebChatEphemerality").getEphemeralSetting(e),
-        r = o("WAWebChatEphemerality").getAfterReadDurationForChat(e),
-        a =
-          r != null
-            ? r
-            : n != null &&
-                o("WAWebAfterReadUtils").isAfterReadEnabled() &&
-                o("WAWebAfterReadUtils").isAfterReadDuration(n)
-              ? n
-              : null,
-        i = a != null && a > 0 && o("WAWebAfterReadUtils").isAfterReadEnabled();
+        n = o("WAWebChatEphemerality").getAfterReadEnvelopeForChat(e),
+        r = n.afterReadDuration,
+        a = n.ephemeralDuration;
       o("WAWebChatEphemerality").isEphemeralSettingOn(e) &&
-        (t.ephemeralDuration = i
-          ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
-          : n);
-      var l = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(e);
-      l != null && (t.ephemeralSettingTimestamp = l);
-      var s = o("WAWebChatEphemerality").getDisappearingModeInitiator(e);
-      s != null && (t.disappearingModeInitiator = s);
-      var u = o("WAWebChatEphemerality").getDisappearingModeTrigger(e);
-      u != null && (t.disappearingModeTrigger = u);
-      var c = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(e);
+        (t.ephemeralDuration = a);
+      var i = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(e);
+      i != null && (t.ephemeralSettingTimestamp = i);
+      var l = o("WAWebChatEphemerality").getDisappearingModeInitiator(e);
+      l != null && (t.disappearingModeInitiator = l);
+      var s = o("WAWebChatEphemerality").getDisappearingModeTrigger(e);
+      s != null && (t.disappearingModeTrigger = s);
+      var u = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(e);
       if (
-        (c != null && (t.disappearingModeInitiatedByMe = c),
+        (u != null && (t.disappearingModeInitiatedByMe = u),
         o("WAWebChatGetters").getIsGroup(e))
       ) {
-        var d = o("WAWebChatEphemerality").getDisappearingModeTriggerGroups(e);
-        d != null && (t.disappearingModeTrigger = d);
-        var m = o(
+        var c = o("WAWebChatEphemerality").getDisappearingModeTriggerGroups(e);
+        c != null && (t.disappearingModeTrigger = c);
+        var d = o(
           "WAWebChatEphemerality",
         ).getDisappearingModeInitiatedByMeGroups(e);
-        m != null && (t.disappearingModeInitiatedByMe = m);
+        d != null && (t.disappearingModeInitiatedByMe = d);
       }
       return (
-        a != null && (t.afterReadDuration = a),
+        r != null && (t.afterReadDuration = r),
         babelHelpers.extends({}, t)
       );
     }

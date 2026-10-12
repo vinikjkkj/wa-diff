@@ -13,7 +13,8 @@ __d(
     "use strict";
     var e;
     function s(e) {
-      return e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere
+      return e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere ||
+        e === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
         ? o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere
         : e === o("WAWebVoipWaCallEnums").CallLogResult.Rejected ||
             e === o("WAWebVoipWaCallEnums").CallLogResult.Unavailable ||

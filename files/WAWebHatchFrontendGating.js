@@ -2,10 +2,12 @@ __d(
   "WAWebHatchFrontendGating",
   [
     "WAWebABProps",
+    "WAWebAIHatchIdentityStore",
     "WAWebBotBaseGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebHatchLinkedStatusManager",
+    "WAWebMuseDefaultAssistantVariant",
     "WAWebPrimaryFeaturesModel",
     "asyncToGeneratorRuntime",
   ],
@@ -86,6 +88,55 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ai_hatch_activity_enabled")
       );
     }
+    function y() {
+      return e()
+        ? (function (e) {
+            if (
+              e ===
+              o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+                .MuseAfterLinking
+            )
+              return r("WAWebHatchLinkedStatusManager").isLinked();
+            if (
+              e ===
+              o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+                .MuseAlways
+            )
+              return (
+                o("WAWebAIHatchIdentityStore").getHatchInitialIdentity()
+                  .name !== ""
+              );
+            if (
+              e ===
+              o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+                .MetaAI
+            )
+              return !1;
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          })(
+            o(
+              "WAWebMuseDefaultAssistantVariant",
+            ).getMuseDefaultAssistantVariant(),
+          )
+        : !1;
+    }
+    function C(e) {
+      return e ||
+        !o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_video_avatars_enabled",
+        )
+        ? "static"
+        : (function (e) {
+            return e === 1 ? "loop" : e === 2 ? "once" : "static";
+          })(
+            o("WAWebABProps").getABPropConfigValue(
+              "ai_hatch_fab_animation_variant",
+            ),
+          );
+    }
     ((l.isHatchIntegrationEnabled = e),
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
@@ -95,7 +146,9 @@ __d(
       (l.isHatchSecureCredentialsEnabled = _),
       (l.isHatchSpaceEnabled = f),
       (l.isHatchManageSubscriptionEnabled = g),
-      (l.isHatchActivityEnabled = h));
+      (l.isHatchActivityEnabled = h),
+      (l.isMuseNavBarEntryPointSelected = y),
+      (l.getHatchNavBarAnimationMode = C));
   },
   98,
 );

@@ -504,31 +504,32 @@ __d(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))));
       var m = I(e, d);
-      (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
-        !m &&
-        o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, d),
+      if (
+        (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+          !m &&
+          o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, d),
         (d.forwardedNewsletterMessageInfo = o(
           "WAWebGetNewsletterContextForForwardedMsg",
         ).getNewsletterContextForForwardedMsg(e)),
         (d.forwardedAiBotMessageInfo = o(
           "WAWebGetAiBotContextForForwardedMsg",
         ).getAiBotContextForForwardedMsg(e)),
-        o("WAWebChatEphemerality").isEphemeralSettingOn(t) &&
-          ((d.ephemeralDuration = o(
-            "WAWebChatEphemerality",
-          ).getEphemeralSetting(t)),
-          (d.afterReadDuration = o(
-            "WAWebChatEphemerality",
-          ).getAfterReadDurationForChat(t))));
-      var p = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
-      p != null && (d.ephemeralSettingTimestamp = p);
-      var _ = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
-      _ != null && (d.disappearingModeInitiator = _);
-      var f = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
-      f != null && (d.disappearingModeTrigger = f);
-      var g = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
+        o("WAWebChatEphemerality").isEphemeralSettingOn(t))
+      ) {
+        var p = o("WAWebChatEphemerality").getAfterReadEnvelopeForChat(t),
+          _ = p.afterReadDuration,
+          f = p.ephemeralDuration;
+        ((d.ephemeralDuration = f), (d.afterReadDuration = _));
+      }
+      var g = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
+      g != null && (d.ephemeralSettingTimestamp = g);
+      var h = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
+      h != null && (d.disappearingModeInitiator = h);
+      var y = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
+      y != null && (d.disappearingModeTrigger = y);
+      var C = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
       if (
-        (g != null && (d.disappearingModeInitiatedByMe = g),
+        (C != null && (d.disappearingModeInitiatedByMe = C),
         !(
           ((a = e.id.remote) != null && a.isBot()) ||
           ((i = e.mentionedJidList) == null
@@ -541,14 +542,14 @@ __d(
           (d.messageSecret = self.crypto.getRandomValues(new Uint8Array(32))),
         t.id.isBot())
       ) {
-        var h,
-          y =
-            (h = o("WAWebBotProfileCollection").BotProfileCollection.get(
+        var b,
+          v =
+            (b = o("WAWebBotProfileCollection").BotProfileCollection.get(
               t.id,
             )) == null
               ? void 0
-              : h.personaId;
-        y != null && (d.botPersonaId = y);
+              : b.personaId;
+        v != null && (d.botPersonaId = v);
       }
       return d;
     }

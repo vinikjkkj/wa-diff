@@ -8,7 +8,6 @@ __d(
     "WAWebLocaleToTranslation",
     "WAWebSupportedLocales",
     "err",
-    "filesize",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Set(["fa"]),
@@ -16,33 +15,36 @@ __d(
         "",
       ),
       u = 1024 * 1024 * 1024,
-      c = Math.pow(10, 6),
-      d = Math.pow(10, 3),
-      m = Math.pow(10, 4);
-    function p(e) {
+      c = 1024,
+      d = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"],
+      m = d.length - 1,
+      p = Math.pow(10, 6),
+      _ = Math.pow(10, 3),
+      f = Math.pow(10, 4);
+    function g(e) {
       return s[parseInt(e, 10)];
     }
-    var _ = r("err")("Unimplemented method"),
-      f = (function (t) {
+    var h = r("err")("Unimplemented method"),
+      y = (function (t) {
         function n(e) {
           var n;
-          if (((n = t.call(this) || this), !e)) throw _;
+          if (((n = t.call(this) || this), !e)) throw h;
           return ((n.$WAWebBaseL10n$p_1 = e), n.customizeMoment(), n);
         }
         babelHelpers.inheritsLoose(n, t);
         var a = n.prototype;
         return (
           (a.getLocale = function () {
-            throw _;
+            throw h;
           }),
           (a.getNormalizedLocale = function () {
-            throw _;
+            throw h;
           }),
           (a.getFullLocale = function () {
-            throw _;
+            throw h;
           }),
           (a.setLocale = function (t, n, r) {
-            throw _;
+            throw h;
           }),
           (a.normalizeLocaleToWajsLocale = function (t) {
             var e = t.replace(/-/g, "_").toLowerCase(),
@@ -101,7 +103,7 @@ __d(
             if (e != null && typeof t == "number")
               return e.format(t, this.getFullLocale());
             var a =
-              typeof t == "number" && (t >= c || (t >= d && t < m)) ? 1 : 0;
+              typeof t == "number" && (t >= p || (t >= _ && t < f)) ? 1 : 0;
             return this.n(
               t,
               n,
@@ -118,15 +120,26 @@ __d(
             return typeof t == "number"
               ? Intl.NumberFormat(this.getFullLocale(), r).format(t)
               : this.useArabicScriptDigits(n)
-                ? t.toString().replace(/[0-9]/g, p)
+                ? t.toString().replace(/[0-9]/g, g)
                 : t;
           }),
           (a.filesizeWithParams = function (t, n) {
-            var e = t > u ? 1 : 0,
-              o = this.getFullLocale();
-            return this.n(
-              r("filesize")(t, { base: 2, round: e, locale: o, symbols: n }),
-            );
+            var e;
+            if (Number.isNaN(t)) throw r("err")("Invalid filesize value: NaN");
+            var o = Math.abs(t),
+              a = Math.min(
+                m,
+                Math.max(0, Math.floor(Math.log(o) / Math.log(c))),
+              ),
+              i = t > u ? 10 : 1,
+              l = Math.round((o / Math.pow(c, a)) * i) / i;
+            l === c && a < m && ((l = 1), a++);
+            var s = d[a],
+              p = (e = n[s]) != null ? e : s,
+              _ = Intl.NumberFormat(this.getFullLocale()).format(
+                t < 0 ? -l : l,
+              );
+            return this.n(_ + " " + p);
           }),
           (a.customizeMoment = function () {
             var e;
@@ -138,7 +151,7 @@ __d(
           n
         );
       })(r("WAWebEventEmitter"));
-    l.WAWebBaseL10n = f;
+    l.WAWebBaseL10n = y;
   },
   98,
 );

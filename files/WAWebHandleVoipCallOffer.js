@@ -10,6 +10,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
     "WAWebSignalStoreApi",
+    "WAWebVoipBootInitDecision",
     "WAWebVoipContactUtils",
     "WAWebVoipGatingUtils",
     "WAWebVoipIncomingCallQpl",
@@ -36,6 +37,9 @@ __d(
           );
           var i = o("WAWebVoipIncomingCallQpl").startVoipIncomingCallQpl({
             bool: {
+              boot_deferred: o(
+                "WAWebVoipBootInitDecision",
+              ).isDeferredVoipBootInitEnabled(),
               is_video: (r = e.isVideoCall) != null ? r : !1,
               is_group: o("WAWebVoipGatingUtils").isGroupCallMessage(e),
               has_group_jid: e.group_jid != null,

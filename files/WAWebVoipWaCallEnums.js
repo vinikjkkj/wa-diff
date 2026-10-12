@@ -41,6 +41,7 @@ __d(
         AcceptedElsewhere: 6,
         Failed: 7,
         ConnectedLonely: 8,
+        ScreenedElsewhere: 9,
       });
     function m(e) {
       switch (e) {
@@ -58,6 +59,7 @@ __d(
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .CANCELLED;
         case d.AcceptedElsewhere:
+        case d.ScreenedElsewhere:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .ACCEPTEDELSEWHERE;
         case d.Unavailable:

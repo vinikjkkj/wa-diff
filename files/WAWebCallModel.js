@@ -540,8 +540,7 @@ __d(
                   !this.userEndedCall &&
                   !o("WAWebVoipCallStateUtils").isCallConnecting(a) &&
                   !o("WAWebVoipCallStateUtils").isCallConnected(a) &&
-                  this.callLogResult !==
-                    o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere &&
+                  !c(this.callLogResult) &&
                   r("WAWebCallNotificationBus").trigger("missed_call", e);
               }
             }
@@ -549,6 +548,12 @@ __d(
           n
         );
       })(r("WAWebEventEmitter"));
+    function c(e) {
+      return (
+        e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere ||
+        e === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
+      );
+    }
     l.default = u;
   },
   98,

@@ -791,6 +791,9 @@ __d(
           (i.setActiveNavBarItem = function (t) {
             this.trigger("set_active_nav_bar", t);
           }),
+          (i.setRightDrawerExpanded = function (t, n) {
+            this.trigger("set_right_drawer_expanded", t, n);
+          }),
           (i.setActiveFilter = function (t, n, r) {
             this.trigger("set_active_filter", t, n, r);
           }),

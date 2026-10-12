@@ -9,6 +9,7 @@ __d(
     "WAWebEnvironment",
     "WAWebLazyLoadedRetriable",
     "WAWebVoipGatingUtils",
+    "WAWebVoipInitEventEmitter",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -172,7 +173,7 @@ __d(
           var e = yield E(),
             t = e.createWAWebVoipStackInterface,
             n = e.getVoipStackInterfaceImpl;
-          if (n != null) return ((p = n()), p);
+          if (n != null) return ((p = n()), x(p), p);
           if (t == null)
             throw r("err")("voip stack interface module has no factory");
           return (p == null && (p = t()), p);
@@ -180,12 +181,18 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x() {
+    function x(e) {
+      e.type === "web" &&
+        o(
+          "WAWebVoipInitEventEmitter",
+        ).VoipInitEventEmitter.markVoipWebStackCreated(Date.now());
+    }
+    function $() {
       return p;
     }
     ((l.prefetchVoipStackInterfaceModule = k),
       (l.getVoipStackInterface = T),
-      (l.getCachedVoipStackInterface = x));
+      (l.getCachedVoipStackInterface = $));
   },
   98,
 );

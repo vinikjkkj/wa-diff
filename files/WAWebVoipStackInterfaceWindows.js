@@ -45,8 +45,9 @@ __d(
       L,
       E,
       k,
-      I = (e = n("cr:16754")) != null ? e : {},
-      T = I.VoipWinRTBridge;
+      I,
+      T = (e = n("cr:16754")) != null ? e : {},
+      D = T.VoipWinRTBridge;
     r("gkx")("4112") ||
       o("WALogger")
         .ERROR(
@@ -56,7 +57,7 @@ __d(
             ])),
         )
         .sendLogs("voip-stack-interface-windows-imported-without-gk");
-    function D() {
+    function x() {
       if (!r("WAWebEnvironment").isWindows)
         throw r("err")(
           "createWAWebVoipStackInterface: Attempted to create Windows stack in non-Windows environment",
@@ -81,7 +82,7 @@ __d(
               )) == null
                 ? void 0
                 : e.voip;
-          if (n != null && T != null && n instanceof T)
+          if (n != null && D != null && n instanceof D)
             try {
               n.setSelfCountryCode(t);
             } catch (e) {
@@ -222,7 +223,7 @@ __d(
               )) == null
                 ? void 0
                 : e.voip;
-          if (a != null && T != null && a instanceof T)
+          if (a != null && D != null && a instanceof D)
             try {
               a.simulateNativeAnr(t, n);
             } catch (e) {
@@ -631,11 +632,25 @@ __d(
                 callId: t,
               }));
           },
+          onRequestOngoingCallInfo: function () {
+            return (
+              o("WALogger").LOG(
+                I ||
+                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: onRequestOngoingCallInfo",
+                  ])),
+              ),
+              o("WAWebBackendApi").frontendSendAndReceive(
+                "getOngoingCallInfo",
+                void 0,
+              )
+            );
+          },
         },
         parsers: r("WAWebWindowsNativeVoipParsers"),
       };
     }
-    l.createWAWebVoipStackInterface = D;
+    l.createWAWebVoipStackInterface = x;
   },
   98,
 );

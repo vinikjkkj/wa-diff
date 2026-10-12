@@ -13,7 +13,7 @@ __d(
           if (a !== t) {
             var i;
             if (
-              (r("FBLogger")("serverjs_listener").mustfix(
+              (r("FBLogger")("serverjs_listener").warn(
                 "ServerJS payload nonce validation failed: %s v/s %s",
                 a,
                 t,

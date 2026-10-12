@@ -141,7 +141,7 @@ __d(
     function L(e) {
       return e == null
         ? !1
-        : I(e).some(function (e) {
+        : D(e).some(function (e) {
             return u(e.view_model).some(k);
           });
     }
@@ -163,21 +163,58 @@ __d(
       );
     }
     function I(e) {
-      var t;
-      return [].concat(
-        T(e),
-        ((t = e.nested_responses) != null ? t : []).flatMap(T),
-      );
+      return e == null
+        ? !1
+        : x(e).some(function (e) {
+            return u(e).some(T);
+          });
     }
     function T(e) {
+      return (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.__typename === "GenAISpaceCardPrimitive"
+      );
+    }
+    function D(e) {
+      var t;
+      return [].concat(
+        P(e),
+        ((t = e.nested_responses) != null ? t : []).flatMap(P),
+      );
+    }
+    function x(e) {
+      var t;
+      return [].concat(
+        D(e).map(function (e) {
+          return e.view_model;
+        }),
+        [e].concat((t = e.nested_responses) != null ? t : []).flatMap($),
+      );
+    }
+    function $(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.__typename === "GenAIUnifiedResponseInsertToStreamingCacheAction" &&
+          "insertions" in e
+        ) {
+          var t = e.insertions;
+          return (t != null ? t : []).map(function (e) {
+            return e.content;
+          });
+        }
+        return [];
+      })(e.streaming_action);
+    }
+    function P(e) {
       var t, n, r;
       return [].concat(
         (t = e.sections) != null ? t : [],
         (n = e.footer_sections) != null ? n : [],
-        ((r = e.embedded_screens) != null ? r : []).flatMap(D),
+        ((r = e.embedded_screens) != null ? r : []).flatMap(N),
       );
     }
-    function D(e) {
+    function N(e) {
       var t;
       return ((t = e.content) != null ? t : []).flatMap(function (e) {
         if ("view_model" in e) return [e];
@@ -195,20 +232,20 @@ __d(
         return [];
       });
     }
-    function x(e) {
+    function M(e) {
       return e == null
         ? !1
-        : I(e).some(function (e) {
-            return u(e.view_model).some($);
+        : D(e).some(function (e) {
+            return u(e.view_model).some(w);
           });
     }
-    function $(e) {
+    function w(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAISecureCredentialRequestPrimitive"
       );
     }
-    function P(e) {
+    function A(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -226,20 +263,20 @@ __d(
         }
       return n;
     }
-    function N(e) {
+    function F(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
-    function M(e) {
+    function O(e) {
       var t = e.sections,
-        n = t.map(w),
+        n = t.map(B),
         r = new Map();
       n.forEach(function (e, t) {
         if (e != null) {
           var o = r.get(e.browser_task_id),
             a = o != null ? n[o] : null;
-          (a == null || A(e, a)) && r.set(e.browser_task_id, t);
+          (a == null || W(e, a)) && r.set(e.browser_task_id, t);
         }
       });
       var o = t.filter(function (e, t) {
@@ -250,7 +287,7 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { sections: o });
     }
-    function w(e) {
+    function B(e) {
       var t = u(e.view_model);
       return t.length !== 1
         ? null
@@ -266,36 +303,36 @@ __d(
             return null;
           })(t[0]);
     }
-    function A(e, t) {
+    function W(e, t) {
       var n,
         r,
         o = (n = e.version) != null ? n : 0,
         a = (r = t.version) != null ? r : 0;
-      return o !== a ? o > a : F(e) >= F(t);
+      return o !== a ? o > a : q(e) >= q(t);
     }
-    function F(e) {
+    function q(e) {
       var t,
         n = Number((t = e.updated_at_ms) != null ? t : 0);
       return Number.isFinite(n) ? n : 0;
     }
-    function O(e) {
+    function U(e) {
       var t;
-      if (e == null || B(e)) return !1;
+      if (e == null || V(e)) return !1;
       var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
-      return n.length > 0 && n.every(W);
+      return n.length > 0 && n.every(H);
     }
-    function B(e) {
+    function V(e) {
       var t, n;
       return (
         ((t = e.nested_responses) != null ? t : []).length > 0 ||
         ((n = e.embedded_screens) != null ? n : []).length > 0
       );
     }
-    function W(e) {
+    function H(e) {
       var t = u(e.view_model);
-      return t.length > 0 && t.every(q);
+      return t.length > 0 && t.every(G);
     }
-    function q(e) {
+    function G(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBotProgressStatusPrimitive" &&
@@ -316,13 +353,14 @@ __d(
       (l.unifiedResponseHasMediaContent = R),
       (l.unifiedResponseHasConnectorActionCard = L),
       (l.hasMultipleConnectorActionCards = E),
-      (l.unifiedResponseHasSecureCredentialRequest = x),
-      (l.isSecureCredentialRequest = $),
-      (l.getMetaAiEmbeddedSources = P),
-      (l.stripEmbeddedScreens = N),
-      (l.highestVersionBrowserTasks = M),
-      (l.isSettledProgressStatusOnly = O),
-      (l.hasNestedOrEmbeddedContent = B));
+      (l.unifiedResponseHasSpaceCard = I),
+      (l.unifiedResponseHasSecureCredentialRequest = M),
+      (l.isSecureCredentialRequest = w),
+      (l.getMetaAiEmbeddedSources = A),
+      (l.stripEmbeddedScreens = F),
+      (l.highestVersionBrowserTasks = O),
+      (l.isSettledProgressStatusOnly = U),
+      (l.hasNestedOrEmbeddedContent = V));
   },
   98,
 );

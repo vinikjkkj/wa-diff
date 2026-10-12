@@ -35,6 +35,7 @@ __d(
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
     "WAWebVoipActivityTracker",
+    "WAWebVoipBootInitDecision",
     "WAWebVoipCallBlockedModals",
     "WAWebVoipCallFromUiStore",
     "WAWebVoipCallIdProvider",
@@ -302,9 +303,15 @@ __d(
                   : "unknown",
               c = o("WAWebVoipOutgoingCallQpl").startVoipOutgoingCallQpl({
                 bool: {
+                  boot_deferred: o(
+                    "WAWebVoipBootInitDecision",
+                  ).isDeferredVoipBootInitEnabled(),
                   is_video: t,
                   is_hidden_at_start: u !== "visible",
                   socket_connected_at_start: o("WAComms").isSocketConnected(),
+                  voip_init_in_flight_at_start: o(
+                    "WAWebVoipInitEventEmitter",
+                  ).VoipInitEventEmitter.getIsVoipInitAttemptInFlight(),
                   voip_inited_at_start: o(
                     "WAWebVoipInitEventEmitter",
                   ).VoipInitEventEmitter.getIsVoipInited(),

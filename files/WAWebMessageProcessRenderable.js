@@ -23,6 +23,7 @@ __d(
     "WAWebHandlePrivacyModeChange",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLimitSharingGatingUtils",
+    "WAWebLimitSharingProtoUtils",
     "WAWebMaybeUpdateMessageThreadDetails",
     "WAWebMessageAssociation.flow",
     "WAWebMessagePostprocessRenderable",
@@ -410,6 +411,11 @@ __d(
                           msgData: E,
                           uiNotified: Z,
                         });
+                ee.then(function () {
+                  return o(
+                    "WAWebLimitSharingProtoUtils",
+                  ).applyRidersHeldForStoredMsgs(E);
+                });
                 try {
                   if (
                     (E.forEach(function (e) {

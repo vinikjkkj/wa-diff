@@ -4,11 +4,15 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebAttachScheduledAssociationChildren",
     "WAWebBackendApi",
+    "WAWebDBDeleteAssociatedMsgsByMsgKey",
+    "WAWebExtractAssociationFieldsFromScheduledMsg",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
     "WAWebExtractMediaFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
+    "WAWebExtractPairedMediaTypeFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebHandleMsgTypes.flow",
     "WAWebHandleSingleMsg",
@@ -222,7 +226,10 @@ __d(
               e.scheduledTimestampS > 0
                 ? e.scheduledTimestampS
                 : o("WATimeUtils").unixTime();
-          yield o("WAWebSchemaMessage").getMessageTable().remove(m.toString());
+          (yield o("WAWebSchemaMessage").getMessageTable().remove(m.toString()),
+            yield o(
+              "WAWebDBDeleteAssociatedMsgsByMsgKey",
+            ).bulkDeleteMessagesByMsgKeys([m.toString()]));
           try {
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "removeScheduledMsgModelForReveal",
@@ -239,7 +246,17 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("mex-scheduled-msg-post-drop-model-failed");
           }
-          var L = babelHelpers.extends(
+          var L = o(
+              "WAWebExtractAssociationFieldsFromScheduledMsg",
+            ).extractAssociationFieldsFromScheduledMsg(t, {
+              id: m,
+              from: d,
+              to: c,
+              author: u ? d : void 0,
+              type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            }),
+            E = babelHelpers.extends(
               {},
               o(
                 "WAWebExtractEphemeralFieldsFromScheduledMsg",
@@ -253,8 +270,11 @@ __d(
               o(
                 "WAWebExtractQuoteFieldsFromScheduledMsg",
               ).extractQuoteFieldsFromScheduledMsg(t, m),
+              o(
+                "WAWebExtractPairedMediaTypeFromScheduledMsg",
+              ).extractPairedMediaTypeFromScheduledMsg(t),
             ),
-            E = babelHelpers.extends(
+            k = babelHelpers.extends(
               {
                 id: m,
                 from: d,
@@ -262,7 +282,7 @@ __d(
                 author: u ? d : void 0,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
               },
-              L,
+              E,
               {
                 t: R,
                 ack: o("WAWebAck").ACK.RECEIVED,
@@ -273,24 +293,39 @@ __d(
                 scheduledTimestampS: o("WATimeUtils").castToUnixTime(R),
               },
             ),
-            k =
-              i != null
-                ? babelHelpers.extends({}, E, i)
-                : babelHelpers.extends({}, E, {
-                    type: o("WAWebMsgType").MSG_TYPE.CHAT,
-                    kind: o("WAWebMsgType").MsgKind.Chat,
-                    body: l != null ? l : "",
-                  }),
-            I = yield o(
+            I = function () {
+              return i != null
+                ? L == null
+                  ? babelHelpers.extends({}, k, i)
+                  : i.kind === o("WAWebMsgType").MsgKind.Image
+                    ? babelHelpers.extends({}, k, i, L, {
+                        kind: o("WAWebMsgType").MsgKind.AssociatedImage,
+                      })
+                    : babelHelpers.extends({}, k, i, L, {
+                        kind: o("WAWebMsgType").MsgKind.AssociatedVideo,
+                      })
+                : L != null
+                  ? babelHelpers.extends({}, k, L, {
+                      type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+                      kind: o("WAWebMsgType").MsgKind.AssociatedUnknown,
+                    })
+                  : babelHelpers.extends({}, k, {
+                      type: o("WAWebMsgType").MSG_TYPE.CHAT,
+                      kind: o("WAWebMsgType").MsgKind.Chat,
+                      body: l != null ? l : "",
+                    });
+            },
+            T = I(),
+            D = yield o(
               "WAWebLimitSharingAcp2HideReceivedMsgs",
             ).hideMsgsReceivedInAcp2RestrictedChat({
               messageType: u
                 ? o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP
                 : o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT,
-              msgs: [k],
+              msgs: [T],
               proto: t,
             });
-          if (I.length === 0) {
+          if (D.length === 0) {
             o("WALogger").LOG(
               y ||
                 (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -315,7 +350,7 @@ __d(
           try {
             yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
               chatId: c,
-              newMsg: k,
+              newMsg: T,
               handleSingleMsgOrigin: "scheduledMsgReveal",
             });
           } catch (e) {
@@ -330,6 +365,12 @@ __d(
               .sendLogs("mex-scheduled-msg-post-insert-failed");
             return;
           }
+          yield o(
+            "WAWebAttachScheduledAssociationChildren",
+          ).attachScheduledAssociationChildren(
+            m,
+            L == null ? void 0 : L.parentMsgKey,
+          );
           try {
             yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(a);
           } catch (e) {

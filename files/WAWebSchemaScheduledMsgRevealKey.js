@@ -38,6 +38,7 @@ __d(
             n("reportingStanzaId"),
             n("reportingStanzaTs"),
             n("outerMessageSecret"),
+            n("isAssociationChild"),
           ],
         )
         .view(function (e) {

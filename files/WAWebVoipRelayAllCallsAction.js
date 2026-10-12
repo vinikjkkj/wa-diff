@@ -14,15 +14,19 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebUserPrefsGeneral").setUserPrivacySettings(
+          var t;
+          (o("WAWebUserPrefsGeneral").setUserPrivacySettings(
             babelHelpers.extends(
               {},
               o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
               { disallowAllP2p: e },
             ),
-          );
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          yield t == null ? void 0 : t.setHideMyIp(e);
+          ),
+            yield (t = o(
+              "WAWebVoipStackInterface",
+            ).getCachedVoipStackInterface()) == null
+              ? void 0
+              : t.setHideMyIp(e));
         })),
         s.apply(this, arguments)
       );

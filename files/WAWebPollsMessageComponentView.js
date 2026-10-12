@@ -31,6 +31,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "stylex",
+    "useWAWebIsChatAcp2Restricted",
     "useWAWebMsgValues",
     "useWAWebPollEndTime",
     "useWAWebQuizOptionOrderExposure",
@@ -84,7 +85,7 @@ __d(
         warningIcon: { color: "x1kt8ij1", $$css: !0 },
       };
     function C(t) {
-      var n = o("react-compiler-runtime").c(39),
+      var n = o("react-compiler-runtime").c(42),
         a,
         i;
       n[0] !== t
@@ -120,44 +121,52 @@ __d(
         y = o("useWAWebPollEndTime").useWAWebPollEndTime(a),
         C = y.isPollEnded,
         b = y.pollEndTime,
-        S = r("useWAWebUIM")(),
-        R = r("useWAWebQuizOptionOrderExposure")(a),
-        L;
-      n[4] !== u
-        ? ((L = o("WAWebPollOptionsRenderUtils").getVotedForOptions(u)),
-          (n[4] = u),
-          (n[5] = L))
-        : (L = n[5]);
-      var E = L,
-        k;
-      n[6] !== g || n[7] !== a
-        ? ((k =
+        S;
+      n[4] !== a
+        ? ((S = o("WAWebFrontendMsgGetters").getMaybeChat(a.unsafe())),
+          (n[4] = a),
+          (n[5] = S))
+        : (S = n[5]);
+      var R = r("useWAWebIsChatAcp2Restricted")(S),
+        L = C || R,
+        E = r("useWAWebUIM")(),
+        k = r("useWAWebQuizOptionOrderExposure")(a),
+        I;
+      n[6] !== u
+        ? ((I = o("WAWebPollOptionsRenderUtils").getVotedForOptions(u)),
+          (n[6] = u),
+          (n[7] = I))
+        : (I = n[7]);
+      var T = I,
+        D;
+      n[8] !== g || n[9] !== a
+        ? ((D =
             !g ||
             o(
               "WAWebNewsletterExtendedGatingUtils",
             ).isNewsletterPollsVotersEnabledForChat(
               o("WAWebFrontendMsgGetters").getChat(a.unsafe()),
             )),
-          (n[6] = g),
-          (n[7] = a),
-          (n[8] = k))
-        : (k = n[8]);
-      var I = k,
-        T,
-        D,
-        x;
-      if (n[9] !== s || n[10] !== a || n[11] !== S || n[12] !== E) {
-        T = function (t) {
+          (n[8] = g),
+          (n[9] = a),
+          (n[10] = D))
+        : (D = n[10]);
+      var x = D,
+        $,
+        P,
+        N;
+      if (n[11] !== s || n[12] !== a || n[13] !== E || n[14] !== T) {
+        $ = function (t) {
           o("WAWebPollOptionsRenderUtils").toggleOption({
             optionLocalId: t,
-            votedForOptions: E,
-            selectableOptionsCount: x,
+            votedForOptions: T,
+            selectableOptionsCount: N,
             msg: a,
           });
         };
-        var $;
-        (n[16] !== s || n[17] !== a || n[18] !== S
-          ? (($ = function () {
+        var M;
+        (n[18] !== s || n[19] !== a || n[20] !== E
+          ? ((M = function () {
               (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
                 self.setTimeout(function () {
                   o("WAWebDrawerManager").DrawerManager.openDrawerRight(
@@ -168,99 +177,101 @@ __d(
                     ),
                     {
                       transition: "slide-left",
-                      uim: S,
+                      uim: E,
                       focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
                       noFocus: !0,
                     },
                   );
                 }, 150));
             }),
-            (n[16] = s),
-            (n[17] = a),
-            (n[18] = S),
-            (n[19] = $))
-          : ($ = n[19]),
-          (D = $),
-          (x =
+            (n[18] = s),
+            (n[19] = a),
+            (n[20] = E),
+            (n[21] = M))
+          : (M = n[21]),
+          (P = M),
+          (N =
             a.pollSelectableOptionsCount === 0
               ? a.pollOptions.length
               : a.pollSelectableOptionsCount),
-          (n[9] = s),
-          (n[10] = a),
-          (n[11] = S),
-          (n[12] = E),
-          (n[13] = T),
-          (n[14] = D),
-          (n[15] = x));
-      } else ((T = n[13]), (D = n[14]), (x = n[15]));
-      var P = C ? r("WAWebNoop") : T,
-        N = h === !0,
-        M;
-      n[20] !== a || n[21] !== f
-        ? ((M =
+          (n[11] = s),
+          (n[12] = a),
+          (n[13] = E),
+          (n[14] = T),
+          (n[15] = $),
+          (n[16] = P),
+          (n[17] = N));
+      } else (($ = n[15]), (P = n[16]), (N = n[17]));
+      var w = L ? r("WAWebNoop") : $,
+        A = h === !0,
+        F;
+      n[22] !== a || n[23] !== f
+        ? ((F =
             a.pollType !== o("WAWebPollCreationUtils").PollType.QUIZ ||
             !o("WAWebMsgGetters").getIsSentByMe(a.unsafe())
               ? f
               : null),
-          (n[20] = a),
-          (n[21] = f),
-          (n[22] = M))
-        : (M = n[22]);
-      var w;
-      n[23] !== C ||
-      n[24] !== a ||
-      n[25] !== D ||
-      n[26] !== b ||
-      n[27] !== _ ||
-      n[28] !== i ||
-      n[29] !== x ||
-      n[30] !== I ||
-      n[31] !== P ||
+          (n[22] = a),
+          (n[23] = f),
+          (n[24] = F))
+        : (F = n[24]);
+      var O;
+      n[25] !== L ||
+      n[26] !== C ||
+      n[27] !== a ||
+      n[28] !== P ||
+      n[29] !== b ||
+      n[30] !== _ ||
+      n[31] !== i ||
       n[32] !== N ||
-      n[33] !== M ||
-      n[34] !== E
-        ? ((w = m.jsx(
+      n[33] !== x ||
+      n[34] !== w ||
+      n[35] !== A ||
+      n[36] !== F ||
+      n[37] !== T
+        ? ((O = m.jsx(
             v,
             babelHelpers.extends({}, i, {
               msg: a,
-              onOptionToggle: P,
-              onViewVotesAction: D,
+              onOptionToggle: w,
+              onViewVotesAction: P,
               isPollInvalid: _,
               isPollEnded: C,
               pollEndTime: b,
-              pollHideVoterNames: N,
-              pollSelectableOptionsCount: M,
-              votedForOptions: E,
-              showViewVotesButton: I,
-              selectableOptionsCount: x,
+              pollHideVoterNames: A,
+              pollSelectableOptionsCount: F,
+              votedForOptions: T,
+              showViewVotesButton: x,
+              selectableOptionsCount: N,
               testid: "poll-bubble",
-              readonly: C,
+              readonly: L,
             }),
           )),
-          (n[23] = C),
-          (n[24] = a),
-          (n[25] = D),
-          (n[26] = b),
-          (n[27] = _),
-          (n[28] = i),
-          (n[29] = x),
-          (n[30] = I),
-          (n[31] = P),
+          (n[25] = L),
+          (n[26] = C),
+          (n[27] = a),
+          (n[28] = P),
+          (n[29] = b),
+          (n[30] = _),
+          (n[31] = i),
           (n[32] = N),
-          (n[33] = M),
-          (n[34] = E),
-          (n[35] = w))
-        : (w = n[35]);
-      var A = w,
-        F;
+          (n[33] = x),
+          (n[34] = w),
+          (n[35] = A),
+          (n[36] = F),
+          (n[37] = T),
+          (n[38] = O))
+        : (O = n[38]);
+      var B = O,
+        W;
       return (
-        n[36] !== A || n[37] !== R
-          ? ((F = R == null ? A : m.jsx("div", { ref: R, children: A })),
-            (n[36] = A),
-            (n[37] = R),
-            (n[38] = F))
-          : (F = n[38]),
-        F
+        n[39] !== B || n[40] !== k
+          ? ((W = k == null ? B : m.jsx("div", { ref: k, children: B })),
+            (n[39] = B),
+            (n[40] = k),
+            (n[41] = W))
+          : (W = n[41]),
+        W
       );
     }
     function b(e) {

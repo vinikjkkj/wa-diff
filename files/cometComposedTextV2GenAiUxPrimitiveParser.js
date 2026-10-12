@@ -23,6 +23,7 @@ __d(
     "cometComposedTextV2GenAiReelUxPrimitiveParser",
     "cometComposedTextV2GenAiSearchResultPrimitiveParser",
     "cometComposedTextV2GenAiSecureCredentialRequestPrimitiveParser",
+    "cometComposedTextV2GenAiSpaceCardPrimitiveParser",
     "cometComposedTextV2GenAiSpacerPrimitiveParser",
     "cometComposedTextV2GenAiTableUxPrimitiveParser",
     "cometComposedTextV2GenAiTaskPrimitiveParser",
@@ -102,6 +103,8 @@ __d(
           return r(
             "cometComposedTextV2GenAiSecureCredentialRequestPrimitiveParser",
           )(e);
+        if (e.__typename === "GenAISpaceCardPrimitive")
+          return r("cometComposedTextV2GenAiSpaceCardPrimitiveParser")(e);
       }
       return o("cometComposedTextV2NodeBuilders")
         .buildRootNode()

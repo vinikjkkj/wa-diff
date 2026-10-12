@@ -15,6 +15,7 @@ __d(
     "WAWebHistorySyncOnDemandAction",
     "WAWebKeepInChatMsgAction",
     "WAWebLinkDeviceAction",
+    "WAWebMessageAssociationUIUtils",
     "WAWebMsgCollection",
     "WAWebReactionsCollection",
     "WAWebUpdateEditedMessagesAction",
@@ -295,6 +296,19 @@ __d(
             n = o("WAWebMsgCollection").MsgCollection.get(e);
           n != null && n.delete();
         },
+        loadAssociationChildrenIntoCollection: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.childMsgKeys,
+              n = e.parentMsgKey;
+            yield o(
+              "WAWebMessageAssociationUIUtils",
+            ).getAssociatedMessagesByMsgKeys(n, t);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         updateMsgRcat: function (t) {
           var e = t.msgKey,
             n = t.rcat,

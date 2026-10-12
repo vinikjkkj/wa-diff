@@ -112,33 +112,10 @@ __d(
               });
             });
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = o("WAWebStateUtils").unproxy(e);
-          return r.promises.sendDelete != null
-            ? 0
-            : (n = yield r
-                  .getMediaMsgs()
-                  .count(r, t)
-                  .catch(function () {
-                    return null;
-                  })) != null
-              ? n
-              : 0;
-        })),
-        f.apply(this, arguments)
-      );
-    }
     ((l.resetMediaMsgs = s),
       (l.addMediaMsgs = d),
       (l.constructMediaMsgs = m),
-      (l.countAllMedia = p),
-      (l.countMedia = _));
+      (l.countAllMedia = p));
   },
   98,
 );

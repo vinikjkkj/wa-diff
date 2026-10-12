@@ -20,7 +20,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (yield b(e.chatId))
+          return e.isAssociationChild !== !0 && (yield b(e.chatId))
             ? !1
             : (yield o("WAWebScheduledMsgRevealKeyStore").storeRevealKey({
                 chatId: e.chatId,
@@ -33,6 +33,7 @@ __d(
                 status: "PENDING",
                 createdAt: o("WATimeUtils").unixTime(),
                 senderJid: null,
+                isAssociationChild: e.isAssociationChild === !0 ? !0 : void 0,
               }),
               !0);
         })),
@@ -100,7 +101,8 @@ __d(
             .filter(function (e) {
               return (
                 (e.status === "PENDING" || e.status === "FAILED") &&
-                e.scheduledTimestampS > 0
+                e.scheduledTimestampS > 0 &&
+                e.isAssociationChild !== !0
               );
             })
             .sort(function (e, t) {
@@ -167,7 +169,11 @@ __d(
             "WAWebScheduledMsgRevealKeyStore",
           ).getRevealKeysForChat(e);
           return r("countWhere")(t, function (e) {
-            return e.status === "PENDING" && e.scheduledTimestampS > 0;
+            return (
+              e.status === "PENDING" &&
+              e.scheduledTimestampS > 0 &&
+              e.isAssociationChild !== !0
+            );
           });
         })),
         C.apply(this, arguments)

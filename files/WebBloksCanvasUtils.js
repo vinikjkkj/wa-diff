@@ -186,6 +186,27 @@ __d(
     function v(e, t) {
       return C(e, t.canvas.clientHeight);
     }
+    function S(e, t, n, r, o, a) {
+      if ("roundRect" in e) {
+        e.roundRect(t, n, r, o, a);
+        return;
+      }
+      var i = Math.min(t, t + r),
+        l = Math.min(n, n + o),
+        s = i + Math.abs(r),
+        u = l + Math.abs(o),
+        c = Math.min(a, (s - i) / 2, (u - l) / 2);
+      if (!(c > 0)) {
+        e.rect(i, l, s - i, u - l);
+        return;
+      }
+      (e.moveTo(i + c, l),
+        e.arcTo(s, l, s, u, c),
+        e.arcTo(s, u, i, u, c),
+        e.arcTo(i, u, i, l, c),
+        e.arcTo(i, l, s, l, c),
+        e.closePath());
+    }
     ((l.drawShadowToCanvas = m),
       (l.drawShadingToCanvas = p),
       (l.drawBlendingModeToCanvas = _),
@@ -195,7 +216,8 @@ __d(
       (l.createSecondaryCanvasElement = y),
       (l.getCanvasSizePixelValue = C),
       (l.getCanvasPixelValRelativeToWidth = b),
-      (l.getCanvasPixelValRelativeToHeight = v));
+      (l.getCanvasPixelValRelativeToHeight = v),
+      (l.addRoundRectToPath = S));
   },
   98,
 );

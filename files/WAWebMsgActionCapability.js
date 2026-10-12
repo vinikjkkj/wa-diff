@@ -38,6 +38,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebIsAiRichResponseForwardable",
     "WAWebKeepInChatMsgUtils",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaTypes",
     "WAWebMessageAssociation.flow",
@@ -431,6 +432,7 @@ __d(
         i = o("WAWebFrontendMsgGetters").getChat(a);
       if (
         o("WAWebChatGetters").getIsBroadcast(i) ||
+        o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(i) ||
         a.isViewOnce === !0 ||
         a.subtype === "view_once_unavailable_fanout" ||
         a.subtype === "acp_unavailable_fanout" ||
@@ -533,7 +535,8 @@ __d(
       )
         return !1;
       var r = o("WAWebFrontendMsgGetters").getChat(e);
-      if (N(r)) return !1;
+      if (N(r) || o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(r))
+        return !1;
       var a =
         (o("WAWebMsgGetters").getIsEdited(e) &&
           o("WAWebMsgGetters").getIsFailed(e) &&
@@ -952,6 +955,7 @@ __d(
         oe(n) &&
         !n.id.fromMe &&
         !!((t = r.groupMetadata) != null && t.participants.iAmAdmin()) &&
+        !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(r) &&
         a
       );
     }

@@ -35,7 +35,6 @@ __d(
     "WAWebPQGatingUtils",
     "WAWebPostPrekeysDepletionMetric",
     "WAWebReportingTokenUtils",
-    "WAWebScheduledMsgStanzaContributor",
     "WAWebSendMsgBotStanza",
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgCtwaAttributionNode",
@@ -802,12 +801,6 @@ __d(
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode());
           var _e =
-              k != null
-                ? o(
-                    "WAWebScheduledMsgStanzaContributor",
-                  ).genScheduledMsgMetaNode(k)
-                : null,
-            fe =
               Q == null
                 ? void 0
                 : Q.get(
@@ -815,22 +808,22 @@ __d(
                       o("WAWebWidFactory").asUserWidOrThrow(x),
                     ),
                   ),
-            ge =
-              fe != null
-                ? o("WAWap").wap("sender_content_binding", null, fe)
+            fe =
+              _e != null
+                ? o("WAWap").wap("sender_content_binding", null, _e)
                 : null,
-            he = p != null ? p : ee.botBody,
-            ye =
-              he == null
+            ge = p != null ? p : ee.botBody,
+            he =
+              ge == null
                 ? o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
                     N,
                   )
                 : null,
-            Ce =
-              he == null
+            ye =
+              ge == null
                 ? o("WAWebSendMsgBotStanza").getBotAgentEngagementType(!1, N, D)
                 : null,
-            be =
+            Ce =
               (E.fanoutType ===
                 o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT &&
                 E.isResendingMsg === !0) ||
@@ -838,14 +831,14 @@ __d(
                 ? null
                 : o("WAWebSendMsgBotStanza").genBotStanzaNode(
                     z,
-                    ye != null ? ye : null,
-                    Ce,
+                    he != null ? he : null,
+                    ye,
                     H != null,
                   ),
-            ve = !1,
-            Se = null;
-          he == null &&
-            ((Se = yield o(
+            be = !1,
+            ve = null;
+          ge == null &&
+            ((ve = yield o(
               "WAWebCoexV2SendContribution",
             ).buildCoexV2RelayContribution({
               botAttrs: z,
@@ -854,41 +847,42 @@ __d(
               msgProtobuf: R,
               relayPlan: Z,
             })),
-            Se != null &&
-              ((be = Se.node),
-              (ve = Se.shouldHaveIdentity),
-              yield Se.seedReceipts()));
-          var Re = o("WAWebSendMsgMetaNode").genMetaNode({
+            ve != null &&
+              ((Ce = ve.node),
+              (be = ve.shouldHaveIdentity),
+              yield ve.seedReceipts()));
+          var Se = o("WAWebSendMsgMetaNode").genMetaNode({
               chatId: g,
               groupData: v,
               includeAttributes: {
                 origin: Y == null ? void 0 : Y.lidOriginType,
                 hashedAiThreadId: G,
                 appendHostedSenderIntent:
-                  Se != null || ee.hasCoexV2RepresentedTargets === !0,
+                  ve != null || ee.hasCoexV2RepresentedTargets === !0,
               },
               msgProtobuf: R,
               msgRecord: L,
+              scheduledMsgMetadata: k,
             }),
-            Le = null;
-          if (ee.shouldHaveIdentity || f || ve) {
-            var Ee = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
-            Le = o("WAWap").wap("device-identity", null, Ee);
+            Re = null;
+          if (ee.shouldHaveIdentity || f || be) {
+            var Le = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
+            Re = o("WAWap").wap("device-identity", null, Le);
           }
-          var ke = yield o(
+          var Ee = yield o(
               "WAWebReportingTokenUtils",
             ).genReportingTokenBodyForStanza(D, R, $.toString()),
-            Ie = (s = yield T(Y)) != null ? s : yield w(Y, g),
-            Te;
+            ke = (s = yield T(Y)) != null ? s : yield w(Y, g),
+            Ie;
           v != null &&
-            (Te =
+            (Ie =
               (v == null ? void 0 : v.isLidAddressingMode) === !0
                 ? o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid
                 : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn);
-          var De = o("WAWebSendMsgCtwaAttributionNode").getCtwaAttributionNode(
+          var Te = o("WAWebSendMsgCtwaAttributionNode").getCtwaAttributionNode(
               Y,
             ),
-            xe = o("WAWap").wap(
+            De = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING($.id),
@@ -916,35 +910,34 @@ __d(
                   ? o("WAWebCommsWapMd").USER_JID(ue)
                   : o("WAWap").DROP_ATTR,
                 addressing_mode:
-                  Te != null
-                    ? o("WAWap").CUSTOM_STRING(Te)
+                  Ie != null
+                    ? o("WAWap").CUSTOM_STRING(Ie)
                     : o("WAWap").DROP_ATTR,
               },
               ee.body,
-              he,
-              te,
-              Le,
-              ae,
-              Re,
-              _e,
               ge,
-              be,
+              te,
+              Re,
+              ae,
+              Se,
+              fe,
+              Ce,
+              Ee,
               ke,
-              Ie,
-              De,
+              Te,
             );
           if (!N.isGroup() && !N.isStatus()) {
-            var $e;
-            ($e = S.sendReporter) == null ||
-              $e.setOppositeHasUsername(me != null);
+            var xe;
+            (xe = S.sendReporter) == null ||
+              xe.setOppositeHasUsername(me != null);
           }
-          var Pe = o("WAWebCommsAckParser").toCoreAckTemplate({
+          var $e = o("WAWebCommsAckParser").toCoreAckTemplate({
             id: $.id,
             class: "message",
             from: D.to,
             participant: null,
           });
-          return { stanza: xe, ackTemplate: Pe, deviceEncs: ee.deviceEncs };
+          return { stanza: De, ackTemplate: $e, deviceEncs: ee.deviceEncs };
         })),
         k.apply(this, arguments)
       );

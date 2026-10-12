@@ -1,11 +1,11 @@
 __d(
   "WAWebHatchBrowserTaskDisplay",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebHatchBrowserTaskState"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       var n,
-        r = t != null && !l(t.version, e.version) ? t : null,
+        r = t != null && !s(t.version, e.version) ? t : null,
         o =
           (r == null ? void 0 : r.screenshotURL) != null ||
           e.encryptedScreenshot != null,
@@ -13,53 +13,59 @@ __d(
           o ||
           e.previewAvailable === !0 ||
           (r == null ? void 0 : r.previewAvailable) === !0,
-        i = u(r, e.state),
-        d = s(r, i, a);
+        i = c(r, e),
+        l = i.state,
+        d = i.terminalReason,
+        p = u(r, l, a);
       return {
         canRecoverFromTombstone:
-          d &&
-          i !== "STOPPED" &&
-          _(r == null ? void 0 : r.status) !== "superseded",
+          p &&
+          l !== "STOPPED" &&
+          f(r == null ? void 0 : r.status) !== "superseded",
         hasPreview: o,
         isPreviewAvailable: a,
-        isTombstone: d,
+        isTombstone: p,
         liveScreenshotURL: r == null ? void 0 : r.screenshotURL,
-        state: i,
-        subtitle: c(i, e, r),
-        title: (n = p(r == null ? void 0 : r.title)) != null ? n : e.title,
+        state: l,
+        subtitle: m(l, e, r),
+        terminalReason: d,
+        title: (n = _(r == null ? void 0 : r.title)) != null ? n : e.title,
       };
     }
-    function l(e, t) {
+    function s(e, t) {
       return e != null && t != null && e < t;
     }
-    function s(e, t, n) {
-      return e != null && _(e.status) === "superseded" ? !0 : m(t) && !n;
+    function u(e, t, n) {
+      return e != null && f(e.status) === "superseded"
+        ? !0
+        : o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t) && !n;
     }
-    function u(e, t) {
-      var n, r, o, a, i;
-      if (e == null) return t;
-      var l = _(e.status);
-      return (n =
-        (r =
-          (o = (a = d(l)) != null ? a : m(t) ? t : null) != null
-            ? o
-            : f(_((i = p(e.displayState)) != null ? i : e.displayStatus))) !=
-        null
-          ? r
-          : g(l, e.terminalReason)) != null
-        ? n
-        : t;
+    function c(e, t) {
+      var n;
+      if (e == null) return d(t.state, t.terminalReason);
+      var r = f(e.status),
+        a = p(r);
+      if (a != null) return d(a, e.terminalReason);
+      if (o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t.state))
+        return d(t.state, t.terminalReason);
+      var i = g(f((n = _(e.displayState)) != null ? n : e.displayStatus));
+      if (i != null) return d(i, e.terminalReason);
+      var l = h(r, e.terminalReason);
+      return l != null ? d(l, e.terminalReason) : d(t.state, t.terminalReason);
     }
-    function c(e, t, n) {
+    function d(e, t) {
+      return { state: e, terminalReason: e === "FAILED" ? t : null };
+    }
+    function m(e, t, n) {
       var r,
         o,
         a,
         i,
         l,
         s =
-          (r = p(n == null ? void 0 : n.activityTitle)) != null
+          (r = _(n == null ? void 0 : n.activityTitle)) != null
             ? r
-            : p(n == null ? void 0 : n.siteDomain),
+            : _(n == null ? void 0 : n.siteDomain),
         u = t.state === e ? t.statusLabel : null;
       return e === "COMPLETED" || e === "FAILED" || e === "STOPPED"
         ? u
@@ -71,7 +77,7 @@ __d(
             ? i
             : t.siteDomain;
     }
-    function d(e) {
+    function p(e) {
       return e === "complete" || e === "completed"
         ? "COMPLETED"
         : e === "failed"
@@ -80,16 +86,13 @@ __d(
             ? "STOPPED"
             : null;
     }
-    function m(e) {
-      return e === "COMPLETED" || e === "FAILED" || e === "STOPPED";
-    }
-    function p(e) {
+    function _(e) {
       return e != null && e.trim() !== "" ? e : null;
     }
-    function _(e) {
+    function f(e) {
       return e == null ? void 0 : e.trim().toLowerCase().replace(/[- ]/g, "_");
     }
-    function f(e) {
+    function g(e) {
       return e === "queued"
         ? "QUEUED"
         : e === "starting"
@@ -110,7 +113,7 @@ __d(
                         ? "FAILED"
                         : null;
     }
-    function g(e, t) {
+    function h(e, t) {
       return e === "queued"
         ? "QUEUED"
         : e === "starting"
@@ -122,10 +125,10 @@ __d(
               : e === "user_controlled"
                 ? "PAUSED"
                 : e === "superseded"
-                  ? h(_(t))
+                  ? y(f(t))
                   : null;
     }
-    function h(e) {
+    function y(e) {
       return e === "awaiting_input_timed_out" ||
         e === "awaiting_user_input_timed_out" ||
         e === "user_control_heartbeat_timed_out"
@@ -134,7 +137,7 @@ __d(
           ? "STOPPED"
           : "FAILED";
     }
-    i.browserTaskCardDisplay = e;
+    l.browserTaskCardDisplay = e;
   },
-  66,
+  98,
 );

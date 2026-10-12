@@ -35,7 +35,6 @@ __d(
     "WAWebReportingTokenUtils",
     "WAWebResendGroupMsg",
     "WAWebResolveGroupAgentParticipants",
-    "WAWebScheduledMsgStanzaContributor",
     "WAWebSchemaMessage",
     "WAWebSendMsgBotStanza",
     "WAWebSendMsgCommonApi",
@@ -438,12 +437,8 @@ __d(
                   includeAttributes: {},
                   msgProtobuf: t,
                   msgRecord: e,
+                  scheduledMsgMetadata: _,
                 }),
-                _ != null
-                  ? o(
-                      "WAWebScheduledMsgStanzaContributor",
-                    ).genScheduledMsgMetaNode(_)
-                  : null,
                 X,
                 te,
                 re,

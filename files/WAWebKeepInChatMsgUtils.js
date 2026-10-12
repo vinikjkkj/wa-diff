@@ -9,6 +9,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataGetters",
     "WAWebLidMigrationUtils",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
@@ -105,6 +106,9 @@ __d(
       return (
         o("WAWebMsgGetters").getIsKept(e) &&
         _(e) &&
+        !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(
+          o("WAWebFrontendMsgGetters").getChat(e),
+        ) &&
         (C(e) || g(e) || e.isGif || o("WAWebMsgGetters").getIsStickerMsg(e))
       );
     }

@@ -1,10 +1,12 @@
 __d(
   "WAWebUnscheduleMsgAction",
   [
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebChatCollection",
     "WAWebCommonMsgSubtypeTypes",
+    "WAWebDBGetAssociatedMsgsByParentMsgKey",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgKey",
     "WAWebMsgModel",
@@ -21,21 +23,38 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var o = r === void 0 ? {} : r,
+            a = o.shouldLogTap,
+            i = a === void 0 ? !0 : a,
+            l = yield g(t);
+          (yield (d || (d = n("Promise"))).all(
+            l.map(function (t) {
+              return _(e, t, !1);
+            }),
+          ),
+            yield _(e, t, i));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t, n) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i,
-            l = a === void 0 ? {} : a,
-            d = l.shouldLogTap,
-            m = d === void 0 ? !0 : d,
-            p = yield o("WAWebScheduledMsgRevealKeyStore").getRevealKeyByMsgId(
+            l = yield o("WAWebScheduledMsgRevealKeyStore").getRevealKeyByMsgId(
               n,
             );
-          if (p == null) {
+          if (l == null) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,8 +65,8 @@ __d(
             );
             return;
           }
-          var _ = o("WAWebChatCollection").ChatCollection.get(t);
-          if (_ == null)
+          var d = o("WAWebChatCollection").ChatCollection.get(t);
+          if (d == null)
             throw (
               o("WALogger")
                 .ERROR(
@@ -61,10 +80,10 @@ __d(
                 .sendLogs("scheduled-msg-unschedule-no-chat"),
               r("err")("[scheduled_msg] cannot resolve chat for unschedule")
             );
-          var f = _.id;
-          (m &&
+          var m = d.id;
+          (a &&
             o("WAWebScheduledMsgActionLogger").logScheduledMsgTapUnschedule(
-              _,
+              d,
               1,
             ),
             o("WALogger").LOG(
@@ -75,33 +94,33 @@ __d(
                 ])),
               n,
             ));
-          var g = r("WAWebMsgKey").fromString(p.msgId),
-            h =
-              f.isGroup() &&
-              ((i = _.groupMetadata) == null
+          var p = r("WAWebMsgKey").fromString(l.msgId),
+            _ =
+              m.isGroup() &&
+              ((i = d.groupMetadata) == null
                 ? void 0
                 : i.isLidAddressingMode) === !0,
-            y = h
+            f = _
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
               : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-            C = f.isGroup() ? y : void 0,
-            b = new (r("WAWebMsgKey"))({
+            g = m.isGroup() ? f : void 0,
+            h = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),
-              remote: f,
+              remote: m,
               fromMe: !0,
-              participant: C,
+              participant: g,
             }),
-            v = new (o("WAWebMsgModel").Msg)({
-              id: b,
-              from: y,
-              to: f,
-              author: C,
+            y = new (o("WAWebMsgModel").Msg)({
+              id: h,
+              from: f,
+              to: m,
+              author: g,
               t: o("WATimeUtils").unixTime(),
               type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
               kind: o("WAWebMsgType").MsgKind.ProtocolRevoke,
               subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
                 .ScheduledMessageUnschedule,
-              protocolMessageKey: g,
+              protocolMessageKey: p,
               local: !0,
               viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
               isNewMsg: !0,
@@ -110,24 +129,24 @@ __d(
             {
               msgRecord: {
                 type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-                data: v,
+                data: y,
               },
               metricReporter: o(
                 "WAWebSendMsgMetricReporter",
               ).createMsgModelMetricReporter(
-                v,
+                y,
                 o("WAWebMessageSendReporterFrontendDeps")
                   .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
               ),
-              chatWid: f,
-              originalMsgKey: g,
-              revealKeyId: p.revealKeyId,
+              chatWid: m,
+              originalMsgKey: p,
+              revealKeyId: l.revealKeyId,
             },
           );
           try {
-            yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(p.msgId);
+            yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(l.msgId);
           } catch (e) {
-            var S = r("getErrorSafe")(e);
+            var C = r("getErrorSafe")(e);
             o("WALogger")
               .ERROR(
                 c ||
@@ -137,15 +156,32 @@ __d(
                     "",
                   ])),
                 n,
-                S,
+                C,
               )
               .sendLogs("scheduled-msg-unschedule-delete-reveal-key-failed");
           }
         })),
-        m.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.unscheduleMsgAction = d;
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!e.includes("_")) return [];
+          var t = yield o(
+            "WAWebDBGetAssociatedMsgsByParentMsgKey",
+          ).bulkGetMessagesByParentMsgKey([r("WAWebMsgKey").fromString(e)]);
+          return t.map(function (e) {
+            return e.msgKey;
+          });
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    l.unscheduleMsgAction = m;
   },
   98,
 );

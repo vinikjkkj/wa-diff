@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebConfirmPopup.react",
     "WAWebCoreActionsODS",
+    "WAWebEnvironment",
     "WAWebMiscBrowserUtils",
     "WAWebModalManager",
     "WAWebToast.react",
@@ -90,7 +91,11 @@ __d(
           if (
             !o(
               "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getDidVoipInitError()
+            ).VoipInitEventEmitter.getDidVoipInitError() ||
+            (o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getIsVoipInitAttemptInFlight() &&
+              !r("WAWebEnvironment").isWindows)
           )
             return !1;
           var e = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),

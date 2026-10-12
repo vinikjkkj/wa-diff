@@ -15,6 +15,7 @@ __d(
         function t(t, n) {
           var a = this;
           ((this.reportWebAnr = null),
+            (this.handleOngoingCallInfo = null),
             (this.handleVoipReady = function () {
               var e;
               (o("WAWebBackendApi").frontendFireAndForget(

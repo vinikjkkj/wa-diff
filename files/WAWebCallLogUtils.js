@@ -139,6 +139,7 @@ __d(
         case o("WAWebVoipWaCallEnums").CallLogResult.Canceled:
           return o("WAWebCallLogMsgData.flow").CallOutcome.Canceled;
         case o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere:
+        case o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere:
           return o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere;
         case o("WAWebVoipWaCallEnums").CallLogResult.Unavailable:
           return t != null && t > 0
@@ -402,7 +403,8 @@ __d(
             ? t
               ? s._(/*BTDS*/ "No answer")
               : s._(/*BTDS*/ "Call ended")
-            : e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere
+            : e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere ||
+                e === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
               ? s._(/*BTDS*/ "Answered elsewhere")
               : e === o("WAWebVoipWaCallEnums").CallLogResult.Failed
                 ? s._(/*BTDS*/ "Call failed")

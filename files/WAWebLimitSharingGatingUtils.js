@@ -43,8 +43,10 @@ __d(
       return e.isGroup() ? _() : m();
     }
     function h(e) {
-      var t;
-      return f(e) && ((t = e.acp2Setting) == null ? void 0 : t.enabled) === !0;
+      return y(e, e.acp2Setting);
+    }
+    function y(e, t) {
+      return (t == null ? void 0 : t.enabled) === !0 && f(e);
     }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),
@@ -56,7 +58,8 @@ __d(
       (l.isAcp2GroupEnabled = _),
       (l.isAcp2EnabledForChat = f),
       (l.isAcp2EnabledForWid = g),
-      (l.isChatAcp2Restricted = h));
+      (l.isChatAcp2Restricted = h),
+      (l.isAcp2RestrictedSetting = y));
   },
   98,
 );

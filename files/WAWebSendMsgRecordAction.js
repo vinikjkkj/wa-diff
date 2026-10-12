@@ -207,7 +207,10 @@ __d(
                 o("WAWebContactCollection").ContactCollection.assertGet(l),
               ),
             );
-          if (o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t)) {
+          if (
+            o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t) &&
+            i.subtype !== "sender_revoke"
+          ) {
             var S;
             if (
               (o("WALogger").WARN(

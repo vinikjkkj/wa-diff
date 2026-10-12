@@ -11,6 +11,7 @@ __d(
     "WAWebGroupAgentParticipant",
     "WAWebGroupMetadataGetters",
     "WAWebKeepInChatMsgUtils",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
@@ -60,7 +61,8 @@ __d(
         t.isCarouselCard ||
         o("WAWebMsgGetters").getIsBotFutureproofPlaceholder(t) ||
         (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
-          !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e))
+          !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
+        o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(n)
         ? !1
         : o("WAWebFrontendChatGetters").getIsCAG(n)
           ? t.messageSecret != null

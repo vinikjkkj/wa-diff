@@ -86,7 +86,10 @@ __d(
             placeholderProps: l != null ? l : void 0,
           }),
         });
-      _({ chat: t, childPrep: n, fileOrigin: a, options: i, parentSend: c });
+      return (
+        _({ chat: t, childPrep: n, fileOrigin: a, options: i, parentSend: c }),
+        c
+      );
     }
     function _(e) {
       return f.apply(this, arguments);
@@ -144,11 +147,16 @@ __d(
                   .MessageAssociationType.HD_IMAGE_DUAL_UPLOAD,
                 botPersonaId: _.botPersonaId,
                 fileOrigin: p,
+                isScheduledMsg: _.isScheduledMsg,
                 pairedMediaType: "HD_IMAGE_CHILD",
                 parentMsgKey: h,
+                scheduledTimestampS: _.scheduledTimestampS,
                 threadId: _.threadId,
                 type: o("WAWebMsgType").MSG_TYPE.IMAGE,
-                viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+                viewMode:
+                  _.isScheduledMsg === !0
+                    ? o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
+                    : o("WAWebViewMode.flow").ViewModeType.HIDDEN,
               },
             });
           } catch (e) {

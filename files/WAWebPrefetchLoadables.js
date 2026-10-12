@@ -155,9 +155,8 @@ __d(
                     o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
                   ]
                 : [],
-              r("WAWebEnvironment").isWeb &&
-                o("WAWebVoipGatingUtils").isVoipDownloadEnabled()
-                ? [o("WAWebVoipBackendLoadable").requireVoipJsBackend()]
+              r("WAWebEnvironment").isWeb
+                ? [o("WAWebVoipBackendLoadable").prefetchVoipJsBackendAtBoot()]
                 : [],
               r("WAWebEnvironment").isWeb ? [u()] : [],
               r("WAWebEnvironment").isWeb &&

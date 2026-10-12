@@ -6,10 +6,13 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebAttachScheduledAssociationChildren",
+    "WAWebExtractAssociationFieldsFromScheduledMsg",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
     "WAWebExtractMediaFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
+    "WAWebExtractPairedMediaTypeFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebHandleMsgTypes.flow",
     "WAWebHandleMsgValidate",
@@ -393,6 +396,9 @@ __d(
               .sendLogs("mex-scheduled-msg-reveal-insert-failed");
             return;
           }
+          yield o(
+            "WAWebAttachScheduledAssociationChildren",
+          ).attachScheduledAssociationChildren(t.id, t.parentMsgKey);
           try {
             yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(n);
           } catch (e) {
@@ -637,65 +643,97 @@ __d(
       );
     }
     function oe(e) {
-      var t = e.chatWid,
-        n = e.innerProto,
-        a = e.msgId,
-        i = e.scheduledTimestampS,
-        l = e.text,
-        s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        u = e.type === "group" ? e.senderWid : null,
-        c = a.includes("_") ? r("WAWebMsgKey").fromString(a).id : a,
-        d = new (r("WAWebMsgKey"))({
+      var t,
+        n = e.chatWid,
+        a = e.innerProto,
+        i = e.msgId,
+        l = e.scheduledTimestampS,
+        s = e.text,
+        u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        c = e.type === "group" ? e.senderWid : null,
+        d = i.includes("_") ? r("WAWebMsgKey").fromString(i).id : i,
+        m = new (r("WAWebMsgKey"))({
           fromMe: !1,
-          remote: t,
-          id: c,
-          participant: u != null ? u : void 0,
+          remote: n,
+          id: d,
+          participant: c != null ? c : void 0,
         }),
-        m = o(
-          "WAWebExtractEphemeralFieldsFromScheduledMsg",
-        ).extractEphemeralFieldsFromScheduledMsg(n, t),
         p = o(
-          "WAWebExtractMentionFieldsFromScheduledMsg",
-        ).extractMentionFieldsFromScheduledMsg(n),
+          "WAWebExtractEphemeralFieldsFromScheduledMsg",
+        ).extractEphemeralFieldsFromScheduledMsg(a, n),
         _ = o(
+          "WAWebExtractMentionFieldsFromScheduledMsg",
+        ).extractMentionFieldsFromScheduledMsg(a),
+        f = o(
           "WAWebExtractQuoteFieldsFromScheduledMsg",
-        ).extractQuoteFieldsFromScheduledMsg(n, d),
-        f = babelHelpers.extends(
+        ).extractQuoteFieldsFromScheduledMsg(a, m),
+        g = o(
+          "WAWebExtractPairedMediaTypeFromScheduledMsg",
+        ).extractPairedMediaTypeFromScheduledMsg(a),
+        h = o(
+          "WAWebExtractAssociationFieldsFromScheduledMsg",
+        ).extractAssociationFieldsFromScheduledMsg(a, {
+          id: m,
+          from: n,
+          to: u,
+          author: c != null ? c : void 0,
+          type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        }),
+        y = babelHelpers.extends(
           {
-            id: d,
-            from: t,
-            to: s,
-            author: u != null ? u : void 0,
-            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            id: m,
+            from: n,
+            to: u,
+            author: c != null ? c : void 0,
+            viewMode:
+              (t = h == null ? void 0 : h.viewMode) != null
+                ? t
+                : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
           },
-          m,
           p,
           _,
+          f,
+          g,
           {
-            t: i,
-            scheduledTimestampS: i,
+            t: l,
+            scheduledTimestampS: l,
             ack: o("WAWebAck").ACK.SENT,
             isNewMsg: !0,
             recvFresh: !0,
             invis: !1,
           },
         ),
-        g = o(
+        C = o(
           "WAWebExtractMediaFieldsFromScheduledMsg",
-        ).extractMediaFieldsFromScheduledMsg(n);
-      if (g != null) return babelHelpers.extends({}, f, g);
-      var h = o(
+        ).extractMediaFieldsFromScheduledMsg(a);
+      if (C != null)
+        return h != null
+          ? C.kind === o("WAWebMsgType").MsgKind.Image
+            ? babelHelpers.extends({}, y, C, h, {
+                kind: o("WAWebMsgType").MsgKind.AssociatedImage,
+              })
+            : babelHelpers.extends({}, y, C, h, {
+                kind: o("WAWebMsgType").MsgKind.AssociatedVideo,
+              })
+          : babelHelpers.extends({}, y, C);
+      if (h != null)
+        return babelHelpers.extends({}, y, h, {
+          type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+          kind: o("WAWebMsgType").MsgKind.AssociatedUnknown,
+        });
+      var b = o(
         "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
-      ).extractLinkPreviewFieldsFromScheduledMsg(n);
+      ).extractLinkPreviewFieldsFromScheduledMsg(a);
       return babelHelpers.extends(
         {},
-        f,
+        y,
         {
           type: o("WAWebMsgType").MSG_TYPE.CHAT,
           kind: o("WAWebMsgType").MsgKind.Chat,
-          body: l,
+          body: s,
         },
-        h,
+        b,
       );
     }
     function ae(e, t) {

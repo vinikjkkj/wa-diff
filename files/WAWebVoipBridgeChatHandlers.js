@@ -7,7 +7,9 @@ __d(
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebMsgGetters",
     "WAWebVoipEventConstants",
+    "WAWebVoipOngoingCallCollection",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -17,7 +19,8 @@ __d(
       s,
       u,
       c,
-      d = {
+      d,
+      m = {
         getTcToken: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = t.wid;
@@ -70,11 +73,55 @@ __d(
           }
           return r;
         })(),
+        getOngoingCallInfo: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e;
+            yield o(
+              "WAWebVoipOngoingCallCollection",
+            ).WAWebVoipOngoingCallCollection.waitUntilLoaded();
+            var t = o(
+              "WAWebVoipOngoingCallCollection",
+            ).WAWebVoipOngoingCallCollection.findOngoingCallActiveOnOtherSelfDevice();
+            if (t == null)
+              return (
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getOngoingCallInfo: no call active on another self device",
+                    ])),
+                ),
+                null
+              );
+            var n = t.id.remote,
+              r = (
+                (e = o("WAWebMsgGetters").getCallParticipants(t)) != null
+                  ? e
+                  : []
+              ).map(function (e) {
+                var t = e.participant;
+                return t.toString();
+              }),
+              a = t.callCreator;
+            return (
+              r.length === 0 && a != null && r.push(a.toString()),
+              {
+                callId: t.id.id,
+                isVideoCall: o("WAWebMsgGetters").getIsVideoCall(t),
+                groupJid: n.isGroup() ? n.toString() : null,
+                participantJids: r,
+              }
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         handleMutedByOthers: function (t) {
           var e = t.muterJid;
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: handleMutedByOthers muterJid=",
                 "",
               ])),
@@ -95,7 +142,7 @@ __d(
           );
         },
       };
-    l.VoipBridgeChatHandlers = d;
+    l.VoipBridgeChatHandlers = m;
   },
   98,
 );

@@ -20,6 +20,7 @@ __d(
             siteDomain: s((t = e.current_site) == null ? void 0 : t.domain),
             state: c(e),
             statusLabel: s(e.status_label),
+            terminalReason: e.terminal_reason,
             title: s(e.title),
             version: e.version,
           }),

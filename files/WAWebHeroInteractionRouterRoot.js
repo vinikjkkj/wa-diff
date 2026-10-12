@@ -26,7 +26,7 @@ __d(
             var n = "wa.web." + t;
             ((c = u.startInitialLoad({
               tracePolicy: n,
-              qplEvent: r("qpl")._(891430087, "3165"),
+              qplEvent: r("qpl")._(858078457, "1005"),
               metadata: {
                 subplatform: r("WAWebEnvironment").isWindows ? "hybrid" : "web",
                 environment: r("WAWebEnvironment").getEnvironment(),

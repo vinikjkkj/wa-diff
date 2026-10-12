@@ -394,8 +394,9 @@ __d(
             _,
             h = o("WebBloksUtils").cast(e);
           (t.beginPath(),
-            t.roundRect(
-              (p = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+            (p = o("WebBloksCanvasUtils")).addRoundRectToPath(
+              t,
+              p.getCanvasPixelValRelativeToWidth(
                 h.get(
                   (_ = o("WebBloksCanvasMinificationKeys")).CANVAS_SHAPE_RECT_X,
                 ),
@@ -687,8 +688,9 @@ __d(
             x,
             $,
             K = o("WebBloksUtils").cast(e);
-          t.roundRect(
-            (x = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+          (x = o("WebBloksCanvasUtils")).addRoundRectToPath(
+            t,
+            x.getCanvasPixelValRelativeToWidth(
               K.get(
                 ($ = o("WebBloksCanvasMinificationKeys")).CANVAS_PATH_RECT_X,
               ),

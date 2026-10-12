@@ -12,6 +12,7 @@ __d(
     "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
+    "WAWebVoipInitABPropExposure",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -65,6 +66,9 @@ __d(
             F());
           return;
         }
+        o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+          o("WAWebVoipInitABPropExposure").logVoipInitABPropExposures,
+        );
         try {
           var r = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
           if (r == null) {

@@ -314,39 +314,39 @@ __d(
             E = s.footer,
             k = s.quotedMsg ? s.quotedMsg.msgContextInfo(i.id) : {},
             I = (t = s.productMsgOptions) != null ? t : {},
-            T = o("WAWebChatEphemerality").isEphemeralSettingOn(i)
-              ? o("WAWebChatEphemerality").getEphemeralSetting(i)
-              : void 0,
-            D = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(i),
-            x = o("WAWebChatEphemerality").getDisappearingModeInitiator(i),
-            $ = o("WAWebChatEphemerality").getAfterReadDurationForChat(i),
-            P =
+            T = o("WAWebChatEphemerality").getAfterReadEnvelopeForChat(i),
+            D = T.afterReadDuration,
+            x = T.ephemeralDuration,
+            $ = o("WAWebChatEphemerality").isEphemeralSettingOn(i) ? x : void 0,
+            P = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(i),
+            N = o("WAWebChatEphemerality").getDisappearingModeInitiator(i),
+            M =
               o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(
                 L != null ? L : null,
               ) &&
               o("WAWebABProps").getABPropConfigValue(
                 "is_spoiler_rich_format_sender_enabled",
               ),
-            N,
-            M = !1;
-          i.isCAGAdmin() && (M = !0);
-          var w = (a = s.type) != null ? a : u.baseType;
+            w,
+            A = !1;
+          i.isCAGAdmin() && (A = !0);
+          var F = (a = s.type) != null ? a : u.baseType;
           o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
             o(
               "WAWebMessagePluginGenerateReportingTokenContent",
-            ).isMsgTypeReportingTokenCompatible(w) &&
-            (M = !0);
-          var A =
+            ).isMsgTypeReportingTokenCompatible(F) &&
+            (A = !0);
+          var O =
             i.id.isBot() &&
             (o("WAWebBotBaseGating").isBotEnabled() ||
               i.id.isSupportAgentBot());
-          (A && (M = !0),
-            M && (N = self.crypto.getRandomValues(new Uint8Array(32))));
-          var F = babelHelpers.extends(
+          (O && (A = !0),
+            A && (w = self.crypto.getRandomValues(new Uint8Array(32))));
+          var B = babelHelpers.extends(
             {},
-            yield o("WAWebMsgDataUtils").genOutgoingMsgData(i, w),
+            yield o("WAWebMsgDataUtils").genOutgoingMsgData(i, F),
             {
-              type: w,
+              type: F,
               caption: L,
               footer: E,
               quotedMsg: k.quotedMsg,
@@ -363,12 +363,12 @@ __d(
               multicast: s.multicast,
               forwardedFromWeb: s.forwardedFromWeb,
               ctwaContext: s.ctwaContext,
-              ephemeralDuration: T,
-              ephemeralSettingTimestamp: D,
-              disappearingModeInitiator: x,
-              afterReadDuration: $,
-              isSpoiler: P,
-              messageSecret: N,
+              ephemeralDuration: $,
+              ephemeralSettingTimestamp: P,
+              disappearingModeInitiator: N,
+              afterReadDuration: D,
+              isSpoiler: M,
+              messageSecret: w,
               botPersonaId: s.botPersonaId,
               aiMediaCollectionInfo: s.aiMediaCollectionInfo,
               botMetricsMetadata: s.botMetricsMetadata,
@@ -390,37 +390,37 @@ __d(
             I,
           );
           if (s.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK) {
-            var O;
-            ((F.description = s.description),
-              (F.isCaptionByUser = !!s.caption),
-              (F.thumbnailSha256 = s.thumbnailSha256),
-              (F.stickers = s.stickers),
-              (F.stickerPackPublisher = s.publisher),
-              (F.size = (O = s.fileLength) != null ? O : 0),
-              (F.stickerPackId = s.stickerPackId),
-              (F.thumbnailDirectPath = s.thumbnailDirectPath),
-              (F.thumbnailEncSha256 = s.thumbnailEncSha256),
-              (F.trayIconFileName = s.trayIconFileName),
-              (F.stickerPackSize = s.stickerPackSize));
+            var W;
+            ((B.description = s.description),
+              (B.isCaptionByUser = !!s.caption),
+              (B.thumbnailSha256 = s.thumbnailSha256),
+              (B.stickers = s.stickers),
+              (B.stickerPackPublisher = s.publisher),
+              (B.size = (W = s.fileLength) != null ? W : 0),
+              (B.stickerPackId = s.stickerPackId),
+              (B.thumbnailDirectPath = s.thumbnailDirectPath),
+              (B.thumbnailEncSha256 = s.thumbnailEncSha256),
+              (B.trayIconFileName = s.trayIconFileName),
+              (B.stickerPackSize = s.stickerPackSize));
           }
           (s.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
             s.caption &&
-            (F.isCaptionByUser = !0),
+            (B.isCaptionByUser = !0),
             s.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              ((F.nativeFlowInteractiveMsg = s.nativeFlowInteractiveMsg),
-              (F.nativeFlowName = s.nativeFlowName),
-              (F.interactiveHeader = s.interactiveHeader),
-              (F.interactiveType = s.interactiveType),
-              (F.interactivePayload = s.interactivePayload)),
-            s.isWamoSub === !0 && (F.isWamoSub = !0));
-          var B, W;
-          function q(e) {
-            return U.apply(this, arguments);
+              ((B.nativeFlowInteractiveMsg = s.nativeFlowInteractiveMsg),
+              (B.nativeFlowName = s.nativeFlowName),
+              (B.interactiveHeader = s.interactiveHeader),
+              (B.interactiveType = s.interactiveType),
+              (B.interactivePayload = s.interactivePayload)),
+            s.isWamoSub === !0 && (B.isWamoSub = !0));
+          var q, U;
+          function V(e) {
+            return H.apply(this, arguments);
           }
-          function U() {
+          function H() {
             return (
-              (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-                B = e;
+              (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+                q = e;
                 var t = s.aiProvenance;
                 s.aiProvenancePromise != null &&
                   (t = yield s.aiProvenancePromise.catch(
@@ -496,11 +496,11 @@ __d(
                   _ = p.kind,
                   f = p.mediaEntry,
                   g = d.mmsThumbnailData;
-                if (((W = _), !f))
+                if (((U = _), !f))
                   throw r("err")("upload failed: media entry was not created");
                 return (
                   yield r("WAWebMediaUpdateMsg")(
-                    B,
+                    q,
                     babelHelpers.extends(
                       {
                         aiProvenance: t,
@@ -542,64 +542,64 @@ __d(
                       g,
                     ),
                   ),
-                  B
+                  q
                 );
               })),
-              U.apply(this, arguments)
+              H.apply(this, arguments)
             );
           }
-          var V;
+          var G;
           if (s.addEvenWhilePreparing === !0) {
-            var H = s.placeholderProps || {},
-              G = babelHelpers.extends({}, H, F),
-              z = function (t) {
+            var z = s.placeholderProps || {},
+              j = babelHelpers.extends({}, z, B),
+              K = function (t) {
                 return (
-                  (B = t),
-                  R({ baseProps: F, chat: i, options: s, prep: u })
+                  (q = t),
+                  R({ baseProps: B, chat: i, options: s, prep: u })
                     .then(function (e) {
-                      return r("WAWebMediaUpdateMsg")(B, e);
+                      return r("WAWebMediaUpdateMsg")(q, e);
                     })
                     .then(function () {
-                      return q(B);
+                      return V(q);
                     })
                 );
               };
             o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
             o("WAWebChatGetters").getIsNewsletter(i)
               ? s.isNewsletterStatus === !0
-                ? (V = r("JSResourceForInteraction")(
+                ? (G = r("JSResourceForInteraction")(
                     "WAWebNewsletterSendStatusAction",
                   )
                     .__setRef("WAWebMediaPrep")
                     .load()
                     .then(function (e) {
                       return e.sendNewsletterStatusMediaMsgAction(
-                        G,
-                        z,
+                        j,
+                        K,
                         s.statusPostFunnelContext,
                       );
                     }))
-                : (V = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
+                : (G = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
                     i,
-                    G,
-                    z,
+                    j,
+                    K,
                   ))
               : i.id.isStatus()
-                ? (V = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction({
-                    beforeSend: z,
+                ? (G = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction({
+                    beforeSend: K,
                     funnelContext: s.statusPostFunnelContext,
-                    mediaMsgData: G,
+                    mediaMsgData: j,
                   }))
-                : (V = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+                : (G = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                     i,
-                    G,
-                    z,
+                    j,
+                    K,
                   )[1]);
           } else {
-            var j = R({ baseProps: F, chat: i, options: s, prep: u }).then(
+            var Q = R({ baseProps: B, chat: i, options: s, prep: u }).then(
               function (e) {
-                var t = s.useBasePropsType === !0 ? F.type : e.type;
-                return babelHelpers.extends({}, F, e, { type: t });
+                var t = s.useBasePropsType === !0 ? B.type : e.type;
+                return babelHelpers.extends({}, B, e, { type: t });
               },
             );
             if (
@@ -607,45 +607,45 @@ __d(
               o("WAWebChatGetters").getIsNewsletter(i)
             )
               if (s.isNewsletterStatus === !0) {
-                var K = yield j;
-                V = r("JSResourceForInteraction")(
+                var X = yield Q;
+                G = r("JSResourceForInteraction")(
                   "WAWebNewsletterSendStatusAction",
                 )
                   .__setRef("WAWebMediaPrep")
                   .load()
                   .then(function (e) {
                     return e.sendNewsletterStatusMediaMsgAction(
-                      K,
-                      q,
+                      X,
+                      V,
                       s.statusPostFunnelContext,
                     );
                   });
               } else
-                V = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
+                G = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
                   i,
-                  yield j,
-                  q,
+                  yield Q,
+                  V,
                 );
             else
               i.id.isStatus()
-                ? (V = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction({
-                    beforeSend: q,
+                ? (G = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction({
+                    beforeSend: V,
                     funnelContext: s.statusPostFunnelContext,
-                    mediaMsgData: yield j,
+                    mediaMsgData: yield Q,
                   }))
-                : F.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
-                  ? (V = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+                : B.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+                  ? (G = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                       i,
-                      yield j,
-                      q,
+                      yield Q,
+                      V,
                     )[1])
-                  : (V = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+                  : (G = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                       i,
-                      j,
-                      q,
+                      Q,
+                      V,
                     )[1]);
           }
-          return V.then(function (e) {
+          return G.then(function (e) {
             return { result: e, error: null };
           })
             .catch(function (e) {
@@ -660,29 +660,29 @@ __d(
                 o("WAWebSendMsgResultAction").SendMsgResult.OK
               )
                 return (
-                  B.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&
-                    B.isAvatar !== !0 &&
+                  q.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&
+                    q.isAvatar !== !0 &&
                     o(
                       "WAWebRecentStickerCollectionMd",
-                    ).RecentStickerCollectionMd.addStickerWithMediaData(B),
+                    ).RecentStickerCollectionMd.addStickerWithMediaData(q),
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.OK,
-                    msg: B,
+                    msg: q,
                   }
                 );
-              B && (B.ack = o("WAWebAck").ACK.FAILED);
+              q && (q.ack = o("WAWebAck").ACK.FAILED);
               var a =
-                (t = B) == null || (t = t.mediaObject) == null
+                (t = q) == null || (t = t.mediaObject) == null
                   ? void 0
                   : t.uploadStage;
               if (
-                B &&
-                o("WAWebMmsMediaTypes").getMsgMediaType(B) ===
+                q &&
+                o("WAWebMmsMediaTypes").getMsgMediaType(q) ===
                   o("WAWebMediaTypes").OUTWARD_TYPES.STICKER
               ) {
                 var i = a || "undefined";
-                W === o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR &&
+                U === o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR &&
                   o("WALogger")
                     .ERROR(
                       f ||
@@ -698,7 +698,7 @@ __d(
                     );
               }
               if (
-                W ===
+                U ===
                 o("WAWebMediaMmsV4Upload").UploadMediaResultKind.CANCELLATION
               ) {
                 var l;
@@ -709,7 +709,7 @@ __d(
                         "Media:sendToChat canceled",
                       ])),
                   ),
-                  (l = B.wamMessageSendReporter) == null ||
+                  (l = q.wamMessageSendReporter) == null ||
                     l.postFailure({
                       result: o("WAWebWamEnumMessageSendResultType")
                         .MESSAGE_SEND_RESULT_TYPE.ERROR_CANCELLED,
@@ -733,7 +733,7 @@ __d(
                     ])),
                   r,
                   a,
-                  W,
+                  U,
                   String(n),
                 ),
                 a != null)
@@ -745,9 +745,9 @@ __d(
                   case o("WAWebMediaTypes").UploadStage.ERROR_THROTTLED:
                     return {
                       messageSendResult: o("WAWebMediaPrepHelpers").errorUpload(
-                        B,
+                        q,
                       ),
-                      msg: B,
+                      msg: q,
                     };
                   case o("WAWebMediaTypes").UploadStage.ERROR_MISSING:
                     return (
@@ -756,25 +756,25 @@ __d(
                       {
                         messageSendResult: o("WAWebSendMsgResultAction")
                           .SendMsgResult.ERROR_EXPIRED,
-                        msg: B,
+                        msg: q,
                       }
                     );
                   default:
                 }
-              return W ===
+              return U ===
                 o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR
                 ? {
                     messageSendResult: o("WAWebMediaPrepHelpers").errorUpload(
-                      B,
+                      q,
                     ),
-                    msg: B,
+                    msg: q,
                   }
                 : r != null
-                  ? B != null
-                    ? babelHelpers.extends({}, r, { msg: B })
+                  ? q != null
+                    ? babelHelpers.extends({}, r, { msg: q })
                     : r
-                  : (B &&
-                      o("WAWebMmsMediaTypes").getMsgMediaType(B) ===
+                  : (q &&
+                      o("WAWebMmsMediaTypes").getMsgMediaType(q) ===
                         o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&
                       o("WALogger")
                         .ERROR(

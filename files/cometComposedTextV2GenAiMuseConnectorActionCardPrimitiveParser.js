@@ -1,6 +1,10 @@
 __d(
   "cometComposedTextV2GenAiMuseConnectorActionCardPrimitiveParser",
-  ["MSGDataclassTypes.flow", "cometComposedTextV2NodeBuilders"],
+  [
+    "MSGDataclassTypes.flow",
+    "cometComposedTextV2IsSafeHttpsUrl",
+    "cometComposedTextV2NodeBuilders",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Set([
@@ -12,7 +16,7 @@ __d(
       return !e.has(t.action) ||
         t.connector_id.trim() === "" ||
         t.title.trim() === "" ||
-        !u(t.action_url)
+        !r("cometComposedTextV2IsSafeHttpsUrl")(t.action_url)
         ? null
         : o("cometComposedTextV2NodeBuilders")
             .buildRootNode()
@@ -34,18 +38,6 @@ __d(
                 },
               ),
             );
-    }
-    function u(e) {
-      try {
-        var t = new URL(e),
-          n = t.hostname,
-          r = t.password,
-          o = t.protocol,
-          a = t.username;
-        return o === "https:" && n !== "" && a === "" && r === "";
-      } catch (e) {
-        return !1;
-      }
     }
     l.default = s;
   },

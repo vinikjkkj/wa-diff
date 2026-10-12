@@ -4,206 +4,299 @@ __d(
     "Promise",
     "WALogger",
     "WAResolvable",
+    "WAWebCoreActionsODS",
     "WAWebNoop",
     "WAWebVoipCallBlockedModals",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipPthreadHardening",
     "WAWebVoipQplHelpers",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u,
-      c = 3e4,
-      d = 1e3,
-      m = (function () {
+      c,
+      d = 3e4,
+      m = 9e4,
+      p = 6e4,
+      _ = 1e3,
+      f = (function () {
         function e(e) {
-          ((this.$1 = e),
-            (this.$2 = !1),
+          ((this.$1 = null),
+            (this.$2 = e),
             (this.$3 = !1),
-            (this.$4 = 0),
+            (this.$4 = !1),
             (this.$5 = 0),
-            (this.$6 = new Map()),
-            (this.$7 = null),
-            (this.$8 = new Map()));
+            (this.$6 = 0),
+            (this.$7 = new Map()),
+            (this.$8 = null),
+            (this.$9 = new Map()));
         }
         var t = e.prototype;
         return (
-          (t.$9 = function () {
-            this.$7 != null &&
-              (this.$1.cancelTimeout(this.$7), (this.$7 = null));
+          (t.$10 = function () {
+            this.$8 != null &&
+              (this.$2.cancelTimeout(this.$8), (this.$8 = null));
           }),
-          (t.$10 = function (t) {
-            var e = Array.from(this.$8.values());
-            this.$8.clear();
+          (t.$11 = function (t) {
+            var e = Array.from(this.$9.values());
+            this.$9.clear();
             for (var n of e) n.completion.resolve(t);
           }),
-          (t.$11 = function () {
+          (t.$12 = function (t) {
+            t === void 0 &&
+              (t = function () {
+                return !0;
+              });
             var e = null;
-            for (var t of this.$8.values())
-              (e == null || t.deadlineMs < e.deadlineMs) && (e = t);
+            for (var n of this.$9.values())
+              t(n) && (e == null || n.deadlineMs < e.deadlineMs) && (e = n);
             return e;
           }),
-          (t.$12 = function (t) {
+          (t.$13 = function (t) {
             var e,
-              n = this.$1.getNowMs(),
-              r = this.$6.values().next().value;
+              n = this.$2.getNowMs(),
+              r = this.$7.values().next().value;
             return {
-              details: S(r),
+              details: k(r),
               loadAgeMs: r == null ? 0 : n - r.startedAtMs,
               loadIndex: (e = r == null ? void 0 : r.index) != null ? e : 0,
-              pendingLoads: this.$6.size,
+              pendingLoads: this.$7.size,
+              ringableCalls: Array.from(this.$9.values()).filter(function (e) {
+                var t = e.canRing;
+                return t;
+              }).length,
               source: t.source,
               urgencyAgeMs: n - t.startedAtMs,
-              waitingCalls: this.$8.size,
+              waitingCalls: this.$9.size,
             };
           }),
-          (t.$13 = function (t) {
-            if (!this.$3) {
-              var e = this.$12(t);
-              ((this.$3 = !0),
-                this.$9(),
-                this.$6.clear(),
-                this.$10("unavailable"),
-                this.$1.onUnavailable(e));
+          (t.$14 = function (t) {
+            var e,
+              n = this.$2.getNowMs();
+            return {
+              source: t.source,
+              urgencyAgeMs: n - t.startedAtMs,
+              waitingCalls: this.$9.size,
+              webStackAgeMs:
+                n - ((e = this.$2.getWebStackCreatedAtMs()) != null ? e : n),
+            };
+          }),
+          (t.$15 = function (t) {
+            if (!this.$4)
+              e: {
+                if (t.rule === "wasm") {
+                  var e = this.$13(t.urgency);
+                  (this.$16(), this.$2.onUnavailable(e));
+                  break e;
+                }
+                if (t.rule === "pre_wasm") {
+                  var n = this.$14(t.urgency);
+                  (this.$16(), this.$2.onPreWasmUnavailable(n));
+                  break e;
+                }
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t.rule,
+                );
+              }
+          }),
+          (t.$16 = function () {
+            ((this.$4 = !0),
+              this.$10(),
+              this.$7.clear(),
+              this.$11("unavailable"));
+          }),
+          (t.$17 = function (t) {
+            return this.$2.getIsVoipInited() || !this.$2.getIsOnline()
+              ? !1
+              : t.rule === "wasm"
+                ? !this.$2.getDidVoipInitError() ||
+                  (this.$2.getIsVoipInitAttemptInFlight() &&
+                    !this.$2.isExtendedStuckLatchDisabled())
+                : t.rule === "pre_wasm"
+                  ? this.$2.getIsPrewarmVoipInitAttemptInFlight()
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          t.rule,
+                      );
+                    })();
+          }),
+          (t.$18 = function () {
+            return this.$7.size > 0 ? this.$19() : this.$20();
+          }),
+          (t.$19 = function () {
+            var e = this.$12();
+            if (e == null) return null;
+            var t = this.$7.values().next().value;
+            return {
+              deadlineMs:
+                t == null
+                  ? e.deadlineMs
+                  : Math.max(e.deadlineMs, t.startedAtMs + m),
+              rule: "wasm",
+              urgency: e,
+            };
+          }),
+          (t.$20 = function () {
+            if (this.$2.isExtendedStuckLatchDisabled()) return null;
+            var e = this.$6 === 0 ? this.$2.getWebStackCreatedAtMs() : null;
+            if (e == null) return null;
+            var t = this.$12(function (e) {
+              var t = e.canRing,
+                n = e.startedAfterWebStack;
+              return t && n;
+            });
+            return t == null
+              ? null
+              : {
+                  deadlineMs: Math.max(t.deadlineMs, e + p),
+                  rule: "pre_wasm",
+                  urgency: t,
+                };
+          }),
+          (t.$21 = function () {
+            this.$8 = null;
+            var e = this.$18();
+            if (e != null) {
+              if (e.deadlineMs > this.$2.getNowMs()) {
+                this.$22();
+                return;
+              }
+              if (this.$17(e)) {
+                this.$15(e);
+                return;
+              }
+              this.$22(_);
             }
           }),
-          (t.$14 = function () {
-            return (
-              this.$6.size > 0 &&
-              !this.$1.getIsVoipInited() &&
-              !this.$1.getDidVoipInitError() &&
-              this.$1.getIsOnline()
-            );
-          }),
-          (t.$15 = function () {
-            this.$7 = null;
-            var e = this.$11(),
-              t = this.$1.getNowMs();
-            if (e == null || e.deadlineMs > t) {
-              this.$16();
-              return;
-            }
-            if (this.$14()) {
-              this.$13(e);
-              return;
-            }
-            this.$16(d);
-          }),
-          (t.$16 = function (t) {
+          (t.$22 = function (t) {
             var e = this;
-            if (
-              (t === void 0 && (t = 0),
-              this.$9(),
-              !(this.$3 || this.$6.size === 0))
-            ) {
-              var n = this.$11();
+            if ((t === void 0 && (t = 0), this.$10(), !this.$4)) {
+              var n = this.$18();
               n != null &&
-                (this.$7 = this.$1.scheduleTimeout(
+                (this.$8 = this.$2.scheduleTimeout(
                   function () {
-                    return e.$15();
+                    return e.$21();
                   },
-                  Math.max(t, n.deadlineMs - this.$1.getNowMs()),
+                  Math.max(t, n.deadlineMs - this.$2.getNowMs()),
                 ));
             }
           }),
-          (t.$17 = function (t, r) {
-            if (this.$3)
+          (t.$23 = function (t, r, a) {
+            if (this.$4)
               return (
-                this.$1.showUnavailableModal(),
-                (u || (u = n("Promise"))).resolve(
-                  this.$2 ? "artifact_unavailable" : "unavailable",
+                this.$2.showUnavailableModal(),
+                (c || (c = n("Promise"))).resolve(
+                  this.$3 ? "artifact_unavailable" : "unavailable",
                 )
               );
-            var e = this.$8.get(t);
+            var e = this.$9.get(t);
             if (e != null) return e.completion.promise;
-            var a = new (o("WAResolvable").Resolvable)(),
-              i = this.$1.getNowMs();
-            return (
-              this.$8.set(t, {
-                completion: a,
-                deadlineMs: i + c,
+            var i = new (o("WAResolvable").Resolvable)(),
+              l = this.$2.getNowMs();
+            if (
+              (this.$9.set(t, {
+                canRing: a,
+                completion: i,
+                deadlineMs: l + d,
                 source: r,
-                startedAtMs: i,
+                startedAfterWebStack: this.$2.getWebStackCreatedAtMs() != null,
+                startedAtMs: l,
               }),
-              this.$16(),
-              a.promise
-            );
+              a)
+            ) {
+              var s;
+              ((s = this.$1) == null || s.resolve(), (this.$1 = null));
+            }
+            return (this.$22(), i.promise);
           }),
-          (t.$18 = function (t) {
-            var e = this.$8.get(t);
+          (t.$24 = function (t) {
+            var e = this.$9.get(t);
             e != null &&
-              (this.$8.delete(t),
+              (this.$9.delete(t),
               e.completion.resolve("cancelled"),
-              this.$16());
+              this.$22());
           }),
           (t.observeWasmLoaderPromise = function (t, n) {
             var e = this;
-            if (this.$3) return t;
-            if (!this.$6.has(t)) {
-              this.$6.set(t, {
+            if (this.$4) return t;
+            if (!this.$7.has(t)) {
+              this.$7.set(t, {
                 describe: n,
-                index: ++this.$5,
-                startedAtMs: this.$1.getNowMs(),
+                index: ++this.$6,
+                startedAtMs: this.$2.getNowMs(),
               });
               var r = function () {
-                (e.$6.delete(t), e.$16());
+                (e.$7.delete(t), e.$22());
               };
               t.then(r, r);
             }
-            return (this.$16(), t);
+            return (this.$22(), t);
           }),
           (t.beginOutgoing = function (t) {
             var e = this;
             if ((t == null ? void 0 : t.aborted) === !0)
               return {
                 finish: r("WAWebNoop"),
-                result: (u || (u = n("Promise"))).resolve("cancelled"),
+                result: (c || (c = n("Promise"))).resolve("cancelled"),
               };
-            var o = "outgoing:" + ++this.$4,
+            var o = "outgoing:" + ++this.$5,
               a = !1,
               i = function () {
                 a ||
                   ((a = !0),
                   t == null || t.removeEventListener("abort", i),
-                  e.$18(o));
+                  e.$24(o));
               },
-              l = this.$17(o, "outgoing");
+              l = this.$23(o, "outgoing", !0);
             return (
               t == null || t.addEventListener("abort", i, { once: !0 }),
               { finish: i, result: l }
             );
           }),
           (t.finishIncoming = function (t) {
-            this.$18("incoming:" + t);
+            this.$24("incoming:" + t);
           }),
           (t.handleVoipInitSuccess = function () {
-            if (this.$2) ((this.$2 = !1), (this.$3 = !1));
-            else if (this.$3) return;
-            (this.$9(), this.$6.clear(), this.$10("cancelled"));
+            if (this.$3) ((this.$3 = !1), (this.$4 = !1));
+            else if (this.$4) return;
+            (this.$10(), this.$7.clear(), this.$11("cancelled"));
           }),
           (t.isUnavailable = function () {
-            return this.$3;
+            return this.$4;
           }),
           (t.markArtifactUnavailable = function () {
-            if (!this.$3) {
-              ((this.$2 = !0), (this.$3 = !0), this.$9(), this.$6.clear());
-              var e = this.$11();
-              (this.$10("artifact_unavailable"),
-                this.$1.onArtifactUnavailable(e == null ? void 0 : e.source));
+            if (!this.$4) {
+              ((this.$3 = !0), (this.$4 = !0), this.$10(), this.$7.clear());
+              var e = this.$12();
+              (this.$11("artifact_unavailable"),
+                this.$2.onArtifactUnavailable(e == null ? void 0 : e.source));
             }
           }),
-          (t.startIncoming = function (t) {
-            return this.$17("incoming:" + t, "incoming");
+          (t.startIncoming = function (t, n) {
+            return this.$23("incoming:" + t, "incoming", n);
+          }),
+          (t.whenCallWaits = function () {
+            var e;
+            for (var t of this.$9.values())
+              if (t.canRing) return (c || (c = n("Promise"))).resolve();
+            return (
+              (e = this.$1) != null ||
+                (this.$1 = new (o("WAResolvable").Resolvable)()),
+              this.$1.promise
+            );
           }),
           e
         );
       })();
-    function p(e) {
-      return new m(e);
+    function g(e) {
+      return new f(e);
     }
-    var _ = p({
+    var h = g({
         cancelTimeout: function (t) {
           return self.clearTimeout(t);
         },
@@ -215,6 +308,16 @@ __d(
         getIsOnline: function () {
           return navigator.onLine;
         },
+        getIsPrewarmVoipInitAttemptInFlight: function () {
+          return o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.getIsPrewarmVoipInitAttemptInFlight();
+        },
+        getIsVoipInitAttemptInFlight: function () {
+          return o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.getIsVoipInitAttemptInFlight();
+        },
         getIsVoipInited: function () {
           return o(
             "WAWebVoipInitEventEmitter",
@@ -223,11 +326,18 @@ __d(
         getNowMs: function () {
           return Date.now();
         },
+        getWebStackCreatedAtMs: function () {
+          return o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.getVoipWebStackCreatedAtMs();
+        },
+        isExtendedStuckLatchDisabled: function () {
+          return r("justknobx")._("2449");
+        },
         onArtifactUnavailable: function (n) {
-          var t = n != null ? n : "prewarm";
           (o("WAWebVoipQplHelpers").endVoipInitQplFail(
             "wasm_artifact_terminal",
-            { string: { trigger_source: t } },
+            { string: { waiting_call_source: n != null ? n : "none" } },
           ),
             o("WALogger")
               .LOG(
@@ -236,7 +346,7 @@ __d(
                     "voip: WASM artifact unresolvable on this page; user reload required source=",
                     "",
                   ])),
-                t,
+                n != null ? n : "prewarm",
               )
               .sendLogs("voip-wasm-artifact-unavailable", {
                 sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
@@ -244,8 +354,33 @@ __d(
             n != null &&
               o("WAWebVoipCallBlockedModals").showVoipInitUnavailableModal());
         },
+        onPreWasmUnavailable: function (t) {
+          o("WAWebCoreActionsODS").logCallVoipInitPreWasmReloadRequired();
+          var e = T(t),
+            n = e.annotations,
+            r = e.fields;
+          (o("WAWebVoipQplHelpers").endVoipInitQplFail(
+            "pre_wasm_load_timeout_user_reload_required",
+            n,
+          ),
+            o("WALogger")
+              .LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: VoIP init stuck before the WASM load; user reload required source=",
+                    "",
+                    "",
+                  ])),
+                t.source,
+                r,
+              )
+              .sendLogs("voip-init-stuck-pre-wasm-reload-required", {
+                sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+              }),
+            o("WAWebVoipCallBlockedModals").showVoipInitUnavailableModal());
+        },
         onUnavailable: function (t) {
-          var e = R(t),
+          var e = I(t),
             n = e.annotations,
             r = e.fields;
           (o("WAWebVoipQplHelpers").endVoipInitQplFail(
@@ -254,8 +389,8 @@ __d(
           ),
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: WASM init stuck; user reload required source=",
                     "",
                     "",
@@ -274,33 +409,36 @@ __d(
         showUnavailableModal: o("WAWebVoipCallBlockedModals")
           .showVoipInitUnavailableModal,
       }),
-      f = !1;
-    function g() {
-      f ||
-        ((f = !0),
+      y = !1;
+    function C() {
+      y ||
+        ((y = !0),
         o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.on(
           "voipInitSuccess",
           function () {
-            return _.handleVoipInitSuccess();
+            return h.handleVoipInitSuccess();
           },
         ));
     }
-    function h() {
-      (g(), _.markArtifactUnavailable());
+    function b() {
+      (C(), h.markArtifactUnavailable());
     }
-    function y(e, t) {
-      return (g(), _.observeWasmLoaderPromise(e, t));
-    }
-    function C(e) {
-      return (g(), _.beginOutgoing(e));
-    }
-    function b(e) {
-      return (g(), _.startIncoming(e));
-    }
-    function v(e) {
-      _.finishIncoming(e);
+    function v(e, t) {
+      return (C(), h.observeWasmLoaderPromise(e, t));
     }
     function S(e) {
+      return (C(), h.beginOutgoing(e));
+    }
+    function R(e, t) {
+      return (C(), h.startIncoming(e, t));
+    }
+    function L(e) {
+      h.finishIncoming(e);
+    }
+    function E() {
+      return h.whenCallWaits();
+    }
+    function k(e) {
       try {
         var t;
         return (t = e == null || e.describe == null ? void 0 : e.describe()) !=
@@ -311,18 +449,49 @@ __d(
         return null;
       }
     }
-    function R(e) {
+    function I(e) {
       try {
         var t = document.visibilityState;
-        return { annotations: k(e, t), fields: " " + L(e, t) };
+        return { annotations: $(e, t), fields: " " + D(e, t) };
       } catch (t) {
         return {
-          annotations: { string: { trigger_source: e.source } },
+          annotations: { string: { waiting_call_source: e.source } },
           fields: "",
         };
       }
     }
-    function L(e, t) {
+    function T(e) {
+      try {
+        var t = document.visibilityState;
+        return {
+          annotations: {
+            int: {
+              urgency_age_ms: e.urgencyAgeMs,
+              waiting_calls: e.waitingCalls,
+              web_stack_age_ms: e.webStackAgeMs,
+            },
+            string: { page_visibility: t, waiting_call_source: e.source },
+          },
+          fields:
+            " wait_ms=" +
+            e.urgencyAgeMs +
+            " stack_ms=" +
+            e.webStackAgeMs +
+            " calls=" +
+            e.waitingCalls +
+            " vis=" +
+            t +
+            " age_s=" +
+            Math.round(self.performance.now() / 1e3),
+        };
+      } catch (t) {
+        return {
+          annotations: { string: { waiting_call_source: e.source } },
+          fields: "",
+        };
+      }
+    }
+    function D(e, t) {
       var n = e.details,
         r = [
           "level=" +
@@ -331,9 +500,9 @@ __d(
       return (
         n != null &&
           r.push(
-            "pin=" + E(n.pinWorkerGlue),
-            "unpinned=" + E(n.isPinnedGlueUnpinned),
-            "loader=" + E(n.isLoaderModuleLoaded),
+            "pin=" + x(n.pinWorkerGlue),
+            "unpinned=" + x(n.isPinnedGlueUnpinned),
+            "loader=" + x(n.isLoaderModuleLoaded),
             "wasm=" + n.wasmFetchState,
           ),
         r.push(
@@ -342,22 +511,23 @@ __d(
           "load_idx=" + e.loadIndex,
           "loads=" + e.pendingLoads,
           "calls=" + e.waitingCalls,
+          "ring=" + e.ringableCalls,
           "vis=" + t,
         ),
         n != null &&
           r.push(
             "vis_start=" + n.startVisibility,
-            "ca=" + E(n.isContentAddressed),
-            "webkit=" + E(n.isWebKit),
+            "ca=" + x(n.isContentAddressed),
+            "webkit=" + x(n.isWebKit),
           ),
         r.push("age_s=" + Math.round(self.performance.now() / 1e3)),
         r.join(" ")
       );
     }
-    function E(e) {
+    function x(e) {
       return e ? "1" : "0";
     }
-    function k(e, t) {
+    function $(e, t) {
       var n = e.details;
       return {
         bool:
@@ -369,6 +539,7 @@ __d(
               },
         int: {
           pending_wasm_loads: e.pendingLoads,
+          ringable_waiting_calls: e.ringableCalls,
           urgency_age_ms: e.urgencyAgeMs,
           waiting_calls: e.waitingCalls,
           wasm_load_age_ms: e.loadAgeMs,
@@ -377,17 +548,18 @@ __d(
         string: {
           load_start_visibility: n == null ? void 0 : n.startVisibility,
           page_visibility: t,
-          trigger_source: e.source,
+          waiting_call_source: e.source,
           wasm_fetch_state: n == null ? void 0 : n.wasmFetchState,
         },
       };
     }
-    ((l.createVoipInitReloadRecovery = p),
-      (l.markVoipWasmArtifactUnavailable = h),
-      (l.observeVoipWasmLoaderPromise = y),
-      (l.beginOutgoingVoipInitReloadRecovery = C),
-      (l.startIncomingVoipInitReloadRecovery = b),
-      (l.finishIncomingVoipInitReloadRecovery = v));
+    ((l.createVoipInitReloadRecovery = g),
+      (l.markVoipWasmArtifactUnavailable = b),
+      (l.observeVoipWasmLoaderPromise = v),
+      (l.beginOutgoingVoipInitReloadRecovery = S),
+      (l.startIncomingVoipInitReloadRecovery = R),
+      (l.finishIncomingVoipInitReloadRecovery = L),
+      (l.whenCallWaitsOnVoipInit = E));
   },
   98,
 );

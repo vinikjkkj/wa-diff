@@ -11,7 +11,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function () {
+      s,
+      u = (function () {
         function t(t, n) {
           var a = this;
           ((this.handleVoipReady = function () {
@@ -135,6 +136,40 @@ __d(
               var t;
               (t = a.$3) == null || t.onLidCallerDisplayInfo(e);
             }),
+            (this.requestOngoingCallInfo = function () {
+              var e,
+                t = function (t) {
+                  var e, n, r, o;
+                  return a.handleOngoingCallInfo(
+                    t != null,
+                    (e = t == null ? void 0 : t.callId) != null ? e : "",
+                    (n = t == null ? void 0 : t.isVideoCall) != null ? n : !1,
+                    (r = t == null ? void 0 : t.groupJid) != null ? r : "",
+                    (o = t == null ? void 0 : t.participantJids) != null
+                      ? o
+                      : [],
+                  );
+                },
+                n =
+                  (e = a.$3) == null || e.onRequestOngoingCallInfo == null
+                    ? void 0
+                    : e.onRequestOngoingCallInfo();
+              if (n == null) {
+                t(null);
+                return;
+              }
+              n.then(t).catch(function (e) {
+                (o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "VoipWinRTBridge: onRequestOngoingCallInfo failed",
+                      ])),
+                  )
+                  .sendLogs("voip-ongoing-call-info-failed"),
+                  t(null));
+              });
+            }),
             (this.requestJoinCall = function (e) {
               var t;
               (t = a.$3) == null ||
@@ -179,6 +214,10 @@ __d(
             this.$1.addEventListener(
               "handleRequestJoinCallEvent",
               this.requestJoinCall,
+            ),
+            this.$1.addEventListener(
+              "handleRequestOngoingCallInfoEvent",
+              this.requestOngoingCallInfo,
             ),
             this.$1.subscribe(null));
         }
@@ -228,6 +267,10 @@ __d(
               this.$1.removeEventListener(
                 "handleRequestJoinCallEvent",
                 this.requestJoinCall,
+              ),
+              this.$1.removeEventListener(
+                "handleRequestOngoingCallInfoEvent",
+                this.requestOngoingCallInfo,
               ));
           }),
           (a.handleIncomingSignalingOffer = function (
@@ -801,10 +844,29 @@ __d(
             }
             return t;
           })()),
+          (a.handleOngoingCallInfo = function (t, n, a, i, l) {
+            var e = this;
+            (r("WAWebODS").incr(
+              "web.hybrid.bridge.voip.send.handle_ongoing_call_info",
+            ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voip",
+                  method: "handleOngoingCallInfo",
+                  type: "async",
+                },
+                function () {
+                  var r;
+                  return (r = e.$1) == null || r.handleOngoingCallInfo == null
+                    ? void 0
+                    : r.handleOngoingCallInfo(t, n, a, i, l);
+                },
+              ));
+          }),
           t
         );
       })();
-    l.VoipWinRTBridge = s;
+    l.VoipWinRTBridge = u;
   },
   98,
 );

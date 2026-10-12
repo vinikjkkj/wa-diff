@@ -5,9 +5,6 @@ __d(
     var e,
       s = {
         B: (e = r("fbs"))._(/*BTDS*/ "B").toString(),
-        KB: e._(/*BTDS*/ "kB").toString(),
-        MB: e._(/*BTDS*/ "MB").toString(),
-        GB: e._(/*BTDS*/ "GB").toString(),
         KiB: e._(/*BTDS*/ "kB").toString(),
         MiB: e._(/*BTDS*/ "MB").toString(),
         GiB: e._(/*BTDS*/ "GB").toString(),

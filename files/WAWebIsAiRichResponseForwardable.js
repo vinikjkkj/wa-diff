@@ -27,7 +27,10 @@ __d(
         o("WAWebUnifiedResponseUtils").unifiedResponseHasConnectorActionCard(
           t.unifiedResponse,
         ) ||
-        s(e, t.unifiedResponse)
+        s(e, t.unifiedResponse) ||
+        o("WAWebUnifiedResponseUtils").unifiedResponseHasSpaceCard(
+          t.unifiedResponse,
+        )
       )
         return !1;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) return !0;

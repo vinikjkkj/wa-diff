@@ -32,8 +32,8 @@ __d(
           var i;
           try {
             i = yield o("WAWebScheduledMsgCrypto").decryptWithRevealKey(
-              p(t),
-              p(n),
+              _(t),
+              _(n),
               a,
             );
           } catch (t) {
@@ -53,9 +53,11 @@ __d(
           var l = new Uint8Array(i);
           try {
             return {
-              proto: o("decodeProtobuf").decodeProtobuf(
-                o("WAWebProtobufsE2E.pb").MessageSpec,
-                l,
+              proto: p(
+                o("decodeProtobuf").decodeProtobuf(
+                  o("WAWebProtobufsE2E.pb").MessageSpec,
+                  l,
+                ),
               ),
               protoBytes: l,
             };
@@ -78,6 +80,15 @@ __d(
       );
     }
     function p(e) {
+      var t,
+        n = (t = e.associatedChildMessage) == null ? void 0 : t.message;
+      return n == null
+        ? e
+        : babelHelpers.extends({}, n, {
+            messageContextInfo: e.messageContextInfo,
+          });
+    }
+    function _(e) {
       return e instanceof ArrayBuffer ? e : e.slice().buffer;
     }
     ((l.decryptAndDecodeRevealPayload = u),

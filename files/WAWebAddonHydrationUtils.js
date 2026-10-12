@@ -18,8 +18,9 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = {};
-    function u(e) {
+      s = {},
+      u = {};
+    function c(e) {
       var t,
         n = e,
         r =
@@ -32,36 +33,36 @@ __d(
         r &&
           (n = e.filter(function (e) {
             var t;
-            return (
-              e.type === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE
-                ? (t = e.id.remote)
-                : (t = o("WAWebAddonProcessMsgsUtils").getParentMsgKey(e)),
-              m(t, o("WAWebAddonCrossWindowUtils").getAddonProcessorType(e))
-            );
+            e.type === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE
+              ? (t = e.id.remote)
+              : (t = o("WAWebAddonProcessMsgsUtils").getParentMsgKey(e));
+            var n = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(e);
+            return p(t, n) || f(t, n);
           })),
         n
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.hydrationType,
             a = t.ids,
             i = function (t) {
-              (s[n] || (s[n] = new Set()), !m(t, n) && s[n].add(t.toString()));
+              (s[n] || (s[n] = new Set()), !p(t, n) && s[n].add(t.toString()));
             },
             l = a.filter(function (e) {
-              return !m(e, n);
+              return !p(e, n);
             });
           if (l.length !== 0) {
+            _(l, n);
             var u;
             try {
               var c,
                 d = o("WAWebAddonSelectUtils").getTableModeByMsgType(n),
-                p;
+                m;
               if (n === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE) {
                 u = yield o("WAWebAddonPerfUtils").createAddonQplMarker(
                   o("WAWebAddonPerfUtils").AddonQplMarkerType.UI,
@@ -72,12 +73,12 @@ __d(
                     size: 1,
                   },
                 );
-                var _ = r("compactMap")(l, function (e) {
+                var f = r("compactMap")(l, function (e) {
                   return e instanceof r("WAWebWid") ? e : null;
                 });
-                p = yield o(
+                m = yield o(
                   "WAWebAddonDBTable",
-                ).addonInternalDBTable.bulkGetByChatWid(d, _);
+                ).addonInternalDBTable.bulkGetByChatWid(d, f);
               } else {
                 u = yield o("WAWebAddonPerfUtils").createAddonQplMarker(
                   o("WAWebAddonPerfUtils").AddonQplMarkerType.UI,
@@ -88,26 +89,26 @@ __d(
                     size: 1,
                   },
                 );
-                var f = r("compactMap")(l, function (e) {
+                var g = r("compactMap")(l, function (e) {
                   return e instanceof r("WAWebMsgKey") ? e : null;
                 });
-                p = yield o(
+                m = yield o(
                   "WAWebAddonDBTable",
-                ).addonInternalDBTable.bulkGetByParentMsgKey(d, f);
+                ).addonInternalDBTable.bulkGetByParentMsgKey(d, g);
               }
               ((c = u) == null || c.success(),
-                p.length &&
+                m.length &&
                   (yield o("WAWebAddonPluginProcessor")
                     .getAddonProcessor(n)
                     .updateCollection(
-                      { add: p, remove: [] },
+                      { add: m, remove: [] },
                       o("WAWebAddonConstants").AddonProcessMode.Hydration,
                     )));
-              var g = o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
-              (g == null ? void 0 : g.recentCompleted) === !0 && l.forEach(i);
+              var h = o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
+              (h == null ? void 0 : h.recentCompleted) === !0 && l.forEach(i);
             } catch (t) {
-              var h;
-              ((h = u) == null || h.fail(),
+              var y;
+              ((y = u) == null || y.fail(),
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -127,14 +128,25 @@ __d(
             }
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function p(e, t) {
       var n;
       return !!((n = s[t]) != null && n.has(e.toString()));
     }
-    ((l.filterAddonsByHydratedStatus = u), (l.hydrateAddons = c));
+    function _(e, t) {
+      u[t] || (u[t] = new Set());
+      var n = u[t];
+      e.forEach(function (e) {
+        return n.add(e.toString());
+      });
+    }
+    function f(e, t) {
+      var n;
+      return !!((n = u[t]) != null && n.has(e.toString()));
+    }
+    ((l.filterAddonsByHydratedStatus = c), (l.hydrateAddons = d));
   },
   98,
 );

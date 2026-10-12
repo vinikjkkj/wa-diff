@@ -176,6 +176,29 @@ __d(
       } else n = t.afterReadDuration;
       return n == null || n <= 0 ? null : n;
     }
+    function v(e) {
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = S(t);
+      return {
+        ephemeralDuration:
+          n != null
+            ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
+            : u(t),
+        afterReadDuration: n,
+      };
+    }
+    function S(e) {
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = b(t);
+      if (n != null) return n;
+      var r = u(t);
+      return r == null
+        ? null
+        : o("WAWebAfterReadUtils").isAfterReadDuration(r) &&
+            o("WAWebAfterReadUtils").isAfterReadEnabled()
+          ? r
+          : null;
+    }
     ((l.getEphemeralSetting = u),
       (l.calculateEphemeralDurationForChat = c),
       (l.getEphemeralSettingTimestamp = d),
@@ -187,7 +210,9 @@ __d(
       (l.getDisappearingModeTriggerGroups = h),
       (l.getDisappearingModeInitiatedByMeGroups = y),
       (l.getChatEphemeralityFields = C),
-      (l.getAfterReadDurationForChat = b));
+      (l.getAfterReadDurationForChat = b),
+      (l.getAfterReadEnvelopeForChat = v),
+      (l.getInferredAfterReadDurationForChat = S));
   },
   98,
 );

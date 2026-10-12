@@ -137,22 +137,20 @@ __d(
         ? n.byNoUserOn()
         : n.byNoUserOff();
     }
-    function y(e) {
-      return o("WAWebLimitSharingGatingUtils").isOpusEnabled() || C(e)
-        ? !1
-        : e.hasCapi !== !0 &&
-            !e.id.isBot() &&
-            !r("WAWebWid").isPSA(e.contact.id) &&
-            !e.contact.isEnterprise;
+    function y(e, t, n) {
+      return e.hasCapi === !0 ||
+        e.id.isBot() ||
+        r("WAWebWid").isPSA(e.contact.id) ||
+        e.contact.isEnterprise
+        ? null
+        : o("WAWebLimitSharingGatingUtils").isAcp2EnabledForChat(e) && !C(t, n)
+          ? "acp2"
+          : o("WAWebLimitSharingGatingUtils").isOpusEnabled()
+            ? null
+            : "limitSharing";
     }
-    function C(e) {
-      return (
-        o("WAWebLimitSharingGatingUtils").isAcp2EnabledForChat(e) &&
-        e.hasCapi !== !0 &&
-        !e.id.isBot() &&
-        !r("WAWebWid").isPSA(e.contact.id) &&
-        !e.contact.isEnterprise
-      );
+    function C(e, t) {
+      return (t == null ? void 0 : t.enabled) !== !0 && f(e);
     }
     function b(e) {
       o("WAWebCmd").Cmd.acp2Drawer(e);
@@ -563,8 +561,7 @@ __d(
       (l.isLimitSharingReceiverEnabledForValue = f),
       (l.isLimitSharingReceiverEnabledForUsers = g),
       (l.getLimitSharingMessageSystemNotificationText = h),
-      (l.isLimitSharingSettingVisible = y),
-      (l.isAcp2SettingVisible = C),
+      (l.getAcpSettingRow = y),
       (l.showAcp2Drawer = b),
       (l.showLimitSharingInvokeBlockedPopup = v),
       (l.toggleLimitSharing = S),
