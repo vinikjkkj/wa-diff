@@ -304,7 +304,12 @@ __d(
                 yield P(j, l)),
                 B.push(
                   o("WAWebGroupParticipantsJob")
-                    .demoteParticipantsJob(l, a.participants, j, i)
+                    .demoteParticipantsJob({
+                      group: l,
+                      groupMetadata: j,
+                      isOffline: i,
+                      participants: a.participants,
+                    })
                     .catch(
                       o("WAFilteredCatch").filteredCatch(
                         o("WAWebDBParticipantTypes").GroupUnSyncedError,

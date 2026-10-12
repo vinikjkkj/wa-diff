@@ -85,21 +85,22 @@ __d(
             : r
               ? (m = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
               : n || (m = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
-          var p = i ? o("WAWap").CUSTOM_STRING("status") : o("WAWap").DROP_ATTR,
-            _ = o("WAJids").extractJidFromJidWithType(
+          var p = i ? "status" : void 0,
+            _ = p != null ? o("WAWap").CUSTOM_STRING(p) : o("WAWap").DROP_ATTR,
+            f = o("WAJids").extractJidFromJidWithType(
               o("WAWebWidToJid").widToJidWithType(d),
             ),
-            f =
+            g =
               m === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER ||
               m === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG,
-            g = f
+            h = g
               ? null
               : o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(s),
-            h = o("WAWap").wap(
+            y = o("WAWap").wap(
               "receipt",
               {
                 id: o("WAWap").CUSTOM_STRING(t),
-                to: o("WAWap").JID(_),
+                to: o("WAWap").JID(f),
                 participant:
                   (d.isGroup() || d.isBroadcast()) && l
                     ? o("WAWebCommsWapMd").DEVICE_JID(l)
@@ -109,17 +110,18 @@ __d(
                     ? o("WAWebCommsWapMd").USER_JID(u)
                     : o("WAWap").DROP_ATTR,
                 type: m,
-                class: p,
+                class: _,
               },
-              g,
+              h,
             );
           (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts({
             author: l || d,
             externalId: t,
             from: d,
             options: { sendsGroupAgentDeliveryReceipt: c },
+            receiptClass: p,
           }),
-            o("WADeprecatedSendIq").deprecatedCastStanza(h));
+            o("WADeprecatedSendIq").deprecatedCastStanza(y));
         })),
         d.apply(this, arguments)
       );

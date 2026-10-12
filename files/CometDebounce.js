@@ -16,7 +16,7 @@ __d(
         if (o === !0) {
           if (
             ((c = function () {
-              ((i = !0), (l = null));
+              ((i = !0), (l = void 0));
             }),
             !i)
           ) {
@@ -27,7 +27,7 @@ __d(
         } else
           (s.reset(),
             (c = function () {
-              ((l = null), e.apply(void 0, n));
+              ((l = void 0), e.apply(void 0, n));
             }));
         l = r("setTimeout")(c, a);
       }
@@ -36,7 +36,7 @@ __d(
           return l != null;
         }),
         (s.reset = function () {
-          (r("clearTimeout")(l), (l = null), (i = !0));
+          (r("clearTimeout")(l), (l = void 0), (i = !0));
         }),
         s
       );

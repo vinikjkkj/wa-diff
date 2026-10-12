@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCreateNackFromStanza",
+    "WAWebDeliveryReceiptClassUtils",
     "WAWebHandleMsgSendAck",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebSchemaDanglingReceipt",
@@ -54,7 +55,14 @@ __d(
                   msgInfo: p,
                   enc: c,
                 }),
-                n.push({ externalId: d, from: m, author: u }))
+                n.push({
+                  externalId: d,
+                  from: m,
+                  author: u,
+                  receiptClass: o(
+                    "WAWebDeliveryReceiptClassUtils",
+                  ).getDeliveryReceiptClass(m, _),
+                }))
               : (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -121,48 +129,44 @@ __d(
             var t = e.author,
               n = e.externalId,
               r = e.from,
-              o = f.get(r);
-            o || ((o = new Map()), f.set(r, o));
-            var a = o.get(t);
-            (a || ((a = []), o.set(t, a)),
-              a.push(n),
-              g.push({ from: String(r), author: String(t), externalId: n }));
+              a = e.receiptClass;
+            o("WAWebDeliveryReceiptClassUtils").addReceiptByClass(f, e);
+            var i = { from: String(r), author: String(t), externalId: n };
+            (a != null && (i.receiptClass = a), g.push(i));
           });
-          var y = String(o("WATimeUtils").unixTime());
+          var y = String(o("WATimeUtils").unixTime()),
+            C = [];
           return (
-            (m || (m = n("Promise")))
-              .all(
-                Array.from(f.keys(), function (e) {
-                  var t = f.get(e);
-                  if (t) {
-                    var n =
-                      e.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(e);
-                    return o("WAWebSendReceiptJobCommon").sendAggregateReceipts(
-                      {
-                        to: e,
-                        type: n
-                          ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER
-                          : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
-                              .DELIVERY,
-                        t: y,
-                        groupedReceipt: t,
-                        recipient: n ? e : null,
-                      },
-                    );
-                  }
-                }),
-              )
-              .catch(function (e) {
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "sendAggregateOfflineReceipts: error sending receipts",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("offline-receipt-send-error");
-              }),
+            f.forEach(function (e, t) {
+              e.forEach(function (e, n) {
+                var r = t.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(t),
+                  a = r
+                    ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER
+                    : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
+                  i = r ? t : null;
+                C.push(
+                  o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+                    to: t,
+                    type: a,
+                    t: y,
+                    groupedReceipt: e,
+                    receiptClass: n,
+                    recipient: i,
+                  }),
+                );
+              });
+            }),
+            (m || (m = n("Promise"))).all(C).catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "sendAggregateOfflineReceipts: error sending receipts",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("offline-receipt-send-error");
+            }),
             o("WAComms").cancelDeadSocketTimer(),
             g.length > 0 &&
               (yield o("WAWebSchemaDanglingReceipt")

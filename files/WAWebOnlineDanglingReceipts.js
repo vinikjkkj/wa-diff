@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCommsSendPing",
+    "WAWebDeliveryReceiptClassUtils",
     "WAWebNetworkStatus",
     "WAWebSendReceiptJobCommon",
     "WAWebWamOfflineResumeReporter",
@@ -25,19 +26,21 @@ __d(
       y = null,
       C = 120 * 1e3;
     function b(t) {
-      var n,
-        r = t.author,
-        a = t.externalId,
-        i = t.from,
-        l = t.options,
+      var n = t.author,
+        r = t.externalId,
+        a = t.from,
+        i = t.options,
+        l = t.receiptClass,
         s =
-          (l == null ? void 0 : l.sendsGroupAgentDeliveryReceipt) === !0
+          (i == null ? void 0 : i.sendsGroupAgentDeliveryReceipt) === !0
             ? h
             : g;
-      s.has(i) || s.set(i, new Map());
-      var u = s.get(i);
-      ((u != null && u.has(r)) || u == null || u.set(r, []),
-        u == null || (n = u.get(r)) == null || n.push(a),
+      (o("WAWebDeliveryReceiptClassUtils").addReceiptByClass(s, {
+        author: n,
+        externalId: r,
+        from: a,
+        receiptClass: l,
+      }),
         y == null &&
           (y = self.setTimeout(function () {
             (o("WALogger").LOG(
@@ -62,44 +65,40 @@ __d(
           var e = String(o("WATimeUtils").unixTime()),
             t = 0,
             r = [],
-            a = Array.from(g.keys()).map(function (n) {
-              var a = g.get(n);
-              if (a)
-                return (
-                  a.forEach(function (e) {
+            a = [],
+            i = function (i, l) {
+              i.forEach(function (n, i) {
+                n.forEach(function (n, s) {
+                  (n.forEach(function (e) {
                     t += e.length;
                   }),
-                  r.length < 3 && r.push(a.size),
-                  o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                    to: n,
-                    type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
-                    t: e,
-                    groupedReceipt: a,
-                  })
-                );
-            });
-          (h.forEach(function (n, r) {
-            (n.forEach(function (e) {
-              t += e.length;
-            }),
-              a.push(
-                o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                  to: r,
-                  type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
-                  t: e,
-                  groupedReceipt: n,
-                  sendsGroupAgentDeliveryReceipt: !0,
-                }),
-              ));
-          }),
+                    r.length < 3 && r.push(n.size),
+                    a.push(
+                      o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+                        to: i,
+                        type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
+                          .DELIVERY,
+                        t: e,
+                        groupedReceipt: n,
+                        receiptClass: s,
+                        sendsGroupAgentDeliveryReceipt: l,
+                      }),
+                    ));
+                });
+              });
+            };
+          (i(g, !1),
+            i(h, !0),
             r.length > 0 &&
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] sending dangling receipts for ",
+                    "[online-preacks] sending ",
+                    " dangling receipt buckets for ",
                     " chats => ",
                     "",
                   ])),
+                a.length,
                 g.size,
                 r,
               ),

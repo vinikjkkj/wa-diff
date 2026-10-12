@@ -90,9 +90,13 @@ __d(
                   a.bandwidthDiagnosticsFallbackDefaultEstimate,
                 ),
                 devicePixelRatio: m,
+                enableSmartPlayerStaticCapabilityFiltering:
+                  a.enableSmartPlayerStaticCapabilityFiltering,
                 isDocumentHidden: p,
                 playerDimensions: l,
                 prefetchResolutionThreshold: a.prefetchResolutionThreshold,
+                smartPlayerVideoDecodeCapabilities:
+                  a.smartPlayerVideoDecodeCapabilities,
               },
               prefetchInfo: n,
               type: "from_main_to_worker_prefetch",

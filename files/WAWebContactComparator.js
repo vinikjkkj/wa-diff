@@ -8,10 +8,11 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebL10NConstants",
     "WAWebOutContactModel",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    (_(), o("WAWebCmd").Cmd.on("set_collator", _));
+    (R(), o("WAWebCmd").Cmd.on("set_collator", R));
     function s(e) {
       if (e instanceof r("WAWebOutContactModel")) return e.getName();
       if (e.name) return e.name;
@@ -37,7 +38,15 @@ __d(
     function d(e) {
       return c.test(e);
     }
-    function m(t, n) {
+    var m = null;
+    function p(e, t) {
+      if (!r("gkx")("7")) return _(e, t);
+      var n = m != null ? m : [new h(e), new h(t)];
+      m = null;
+      var o = y(n[0].reset(e), n[1].reset(t), g);
+      return ((m = n), o);
+    }
+    function _(t, n) {
       var a,
         i,
         l,
@@ -82,10 +91,119 @@ __d(
         R = n.id.toString();
       return S && R ? S.localeCompare(R) : -1;
     }
-    function p() {
+    function f(e) {
+      var t = new Map(),
+        n = null,
+        r = function () {
+          return (n == null && (n = g()), n);
+        },
+        o = function (r) {
+          var n = t.get(r);
+          return (n == null && ((n = new h(e(r))), t.set(r, n)), n);
+        };
+      return function (e, t) {
+        return y(o(e), o(t), r);
+      };
+    }
+    function g() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_contact_sort_letters_first",
+        ) >= 1
+      );
+    }
+    var h = (function () {
+      function e(e) {
+        ((this.$2 = null),
+          (this.$3 = null),
+          (this.$4 = null),
+          (this.$5 = null),
+          (this.$6 = null),
+          (this.$1 = e));
+      }
+      var t = e.prototype;
+      return (
+        (t.reset = function (t) {
+          return (
+            (this.$1 = t),
+            (this.$2 = null),
+            (this.$3 = null),
+            (this.$4 = null),
+            (this.$5 = null),
+            (this.$6 = null),
+            this
+          );
+        }),
+        (t.name = function () {
+          if (this.$2 == null) {
+            var e;
+            this.$2 = (e = s(this.$1)) != null ? e : "";
+          }
+          return this.$2;
+        }),
+        (t.header = function () {
+          return (this.$3 == null && (this.$3 = u(this.$1)), this.$3);
+        }),
+        (t.headerStartsWithLetter = function () {
+          return (this.$4 == null && (this.$4 = d(this.header())), this.$4);
+        }),
+        (t.pushname = function () {
+          if (this.$5 == null) {
+            var e,
+              t = this.$1;
+            this.$5 =
+              t instanceof r("WAWebOutContactModel")
+                ? ""
+                : (e = o("WAWebContactGetters").getNotifyName(t)) != null
+                  ? e
+                  : "";
+          }
+          return this.$5;
+        }),
+        (t.id = function () {
+          return (
+            this.$6 == null && (this.$6 = this.$1.id.toString()),
+            this.$6
+          );
+        }),
+        e
+      );
+    })();
+    function y(e, t, n) {
+      var r = v(e.name(), t.name());
+      if (r != null) return r;
+      if (e.name() !== "") {
+        var o = C(e, t, n);
+        if (o != null) return o;
+      }
+      var a = b(e.pushname(), t.pushname());
+      if (a != null) return a;
+      var i = e.id(),
+        l = t.id();
+      return i && l ? i.localeCompare(l) : -1;
+    }
+    function C(t, n, r) {
+      var o = t.header(),
+        a = n.header();
+      if (o === "" || a === "") return null;
+      if (r()) {
+        var i = t.headerStartsWithLetter();
+        if (i !== n.headerStartsWithLetter()) return i ? -1 : 1;
+      }
+      var l = e.compare(o, a);
+      return l === 0 ? e.compare(t.name(), n.name()) : l;
+    }
+    function b(t, n) {
+      var r = v(t, n);
+      return r != null || t === "" ? r : e.compare(t, n);
+    }
+    function v(e, t) {
+      return e !== "" && t === "" ? -1 : e === "" && t !== "" ? 1 : null;
+    }
+    function S() {
       return e;
     }
-    function _(t) {
+    function R(t) {
       var n;
       if (
         (t === void 0 && (t = o("WAWebL10NConstants").DEFAULT_LOCALE),
@@ -108,7 +226,10 @@ __d(
           },
         };
     }
-    ((l.headerOf = u), (l.ContactComparator = m), (l.getCollator = p));
+    ((l.headerOf = u),
+      (l.ContactComparator = p),
+      (l.createContactSortComparator = f),
+      (l.getCollator = S));
   },
   98,
 );

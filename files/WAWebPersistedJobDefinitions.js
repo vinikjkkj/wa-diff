@@ -160,11 +160,15 @@ __d(
           uniqKey: "resendGroupMsg-" + e,
         };
       },
-      incrementNewsletterForwardCounter: function (t, n, r, o) {
+      incrementNewsletterForwardCounter: function (t) {
+        var e = t.delayedTime,
+          n = t.newsletterId,
+          r = t.retriesRemaining,
+          o = t.serverId;
         return {
           type: "incrementNewsletterForwardCounter",
-          args: { newsletterId: t, retriesRemaining: n, serverId: r },
-          waitUntil: o,
+          args: { newsletterId: n, retriesRemaining: r, serverId: o },
+          waitUntil: e,
         };
       },
     };

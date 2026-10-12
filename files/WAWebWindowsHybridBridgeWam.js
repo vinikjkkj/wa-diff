@@ -1,47 +1,52 @@
 __d(
   "WAWebWindowsHybridBridgeWam",
   [
-    "Promise",
     "WALogger",
     "WAWebAppTracker",
-    "WAWebBrowserApi",
     "WAWebCrashContextUtils",
     "WAWebCrashLogWamEvent",
     "WAWebMemoryStatWamEvent",
     "WAWebODS",
-    "WAWebWam",
     "WAWebWamCodegenUtils",
     "WAWebWamCodegenWamEvent",
     "WAWebWamEnumCrashApplicationState",
     "WAWebWamEnumCrashType",
+    "WAWebWamGlobals",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["4", "11", "31"],
+    var e,
       s,
       u,
       c,
       d,
       m,
-      p = function (a) {
+      p,
+      _,
+      f,
+      g,
+      h,
+      y,
+      C,
+      b = function (n) {
         var t = this;
         ((this.$2 = !1),
           (this.$3 = null),
           (this.initialize = function () {
-            var e, n, r;
+            var e, n, r, a;
             t.$2 ||
               ((t.$2 = !0),
-              (e = t.$1) == null ||
-                e.addEventListener("eventsSaved", t.handleEvents),
-              (n = t.$1) == null || n.subscribe(null),
-              ((r = t.$1) == null ? void 0 : r.setWebAppContext) != null &&
-                (o("WAWebAppTracker").AppTracker.subscribe(t.$4), t.$4()));
+              (e = t.$1) == null || e.addEventListener("globalsChanged", t.$4),
+              (n = t.$1) == null ||
+                n.addEventListener("eventsSaved", t.handleEvents),
+              (r = t.$1) == null || r.subscribe(null),
+              ((a = t.$1) == null ? void 0 : a.setWebAppContext) != null &&
+                (o("WAWebAppTracker").AppTracker.subscribe(t.$5), t.$5()));
           }),
-          (this.$4 = function () {
-            var e = o("WAWebAppTracker").AppTracker.getAppContext();
-            if (e !== t.$3) {
+          (this.$5 = function () {
+            var n = o("WAWebAppTracker").AppTracker.getAppContext();
+            if (n !== t.$3) {
               r("WAWebODS").incr(
                 "web.hybrid.bridge.wam.send.set_web_app_context",
               );
@@ -49,164 +54,231 @@ __d(
                 o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
                   { bridge: "wam", method: "setWebAppContext", type: "async" },
                   function () {
-                    var n;
-                    return (n = t.$1) == null || n.setWebAppContext == null
+                    var e;
+                    return (e = t.$1) == null || e.setWebAppContext == null
                       ? void 0
-                      : n.setWebAppContext(e);
+                      : e.setWebAppContext(n);
                   },
                 );
-              } catch (e) {
+              } catch (t) {
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[WindowsHybridBridgeWam] setWebAppContext failed",
                       ])),
                   )
-                  .catching(r("getErrorSafe")(e));
+                  .catching(r("getErrorSafe")(t));
                 return;
               }
-              t.$3 = e;
+              t.$3 = n;
             }
           }),
-          (this.handleEvents = (function () {
-            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (r) {
-                if (!t.$2) {
-                  o("WALogger").ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WindowsHybridBridgeWam] handleWamEvent: not init",
-                      ])),
-                  );
-                  return;
-                }
-                var a = JSON.parse(r),
-                  i = {
-                    4: {
-                      webGlobalName: "osVersion",
-                      webFieldId: 15,
-                      type: "string",
-                    },
-                    11: {
-                      webGlobalName: "memClass",
-                      webFieldId: 655,
-                      type: "number",
-                    },
-                    31: {
-                      webGlobalName: "numCpu",
-                      webFieldId: 10317,
-                      type: "number",
-                    },
-                  };
-                if (a.length > 0) {
-                  var l = a[0],
-                    s = [],
-                    p = [],
-                    _ = [];
-                  for (var f of Object.keys(i)) {
-                    var g = i[f],
-                      h = l[f];
-                    if (h != null) {
-                      var y = g.type === "string" ? String(h) : Number(h);
-                      (s.push(
-                        o("WAWebWam").Wam.set(
-                          o("WAWebWamCodegenUtils").metrics.getGlobal(
-                            g.webGlobalName,
+          (this.handleEvents = function (e) {
+            if (!t.$2) {
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WindowsHybridBridgeWam] handleWamEvent: not init",
+                  ])),
+              );
+              return;
+            }
+            var n;
+            try {
+              n = JSON.parse(e);
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WindowsHybridBridgeWam] malformed eventsSaved payload",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e));
+              return;
+            }
+            if (!Array.isArray(n)) {
+              o("WALogger").ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WindowsHybridBridgeWam] eventsSaved payload is not an array",
+                  ])),
+              );
+              return;
+            }
+            var a = [];
+            n.forEach(function (e) {
+              try {
+                if (
+                  e.id ===
+                  o("WAWebCrashLogWamEvent").CrashLogWamEvent.prototype.id
+                ) {
+                  var t = e[6],
+                    n = e[23],
+                    i = e[3],
+                    l = e[24],
+                    s = e[2],
+                    u = o("WAWebCrashContextUtils").cleanLegacyAppContext(
+                      e[32],
+                    ),
+                    c = o("WAWebCrashContextUtils").isPreviousSessionCrash(i)
+                      ? u
+                      : o("WAWebCrashContextUtils").mergeAppContexts(
+                          u,
+                          o("WAWebCrashContextUtils").getCrashEventAppContext(
+                            t,
+                            s,
                           ),
-                          y,
-                        ),
-                      ),
-                        g.webGlobalName === "memClass" &&
-                          o("WAWebBrowserApi").setMemClassOverride(Number(y)),
-                        p.push(g.webGlobalName + "=" + y));
-                    } else _.push(g.webGlobalName);
-                  }
-                  (yield (m || (m = n("Promise"))).all(s),
-                    p.length > 0,
-                    _.length > 0 &&
-                      o("WALogger").ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[WindowsHybridBridgeWam] missing globals: ",
+                        );
+                  if (
+                    ((e[32] = c),
+                    t ===
+                      o("WAWebWamEnumCrashType").CRASH_TYPE
+                        .DISPATCHER_NOT_RESPONDING &&
+                      n ===
+                        o("WAWebWamEnumCrashApplicationState")
+                          .CRASH_APPLICATION_STATE.FOREGROUND)
+                  ) {
+                    var p = l != null ? l : "unknown";
+                    o("WALogger")
+                      .ERROR(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "Native ",
+                            "s ANR detected: ",
                             "",
                           ])),
-                        _.join(", "),
-                      ));
-                }
-                (m || (m = n("Promise"))).all(
-                  a.map(function (t) {
-                    var n = t[4],
-                      r = t[11],
-                      a = t[31],
-                      i = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                    if (
-                      t.id ===
-                      o("WAWebCrashLogWamEvent").CrashLogWamEvent.prototype.id
-                    ) {
-                      var l = i[6],
-                        s = i[23],
-                        u = i[3],
-                        c = i[24],
-                        m = i[2],
-                        p = o("WAWebCrashContextUtils").cleanLegacyAppContext(
-                          i[32],
-                        ),
-                        _ = o("WAWebCrashContextUtils").isPreviousSessionCrash(
-                          u,
-                        )
-                          ? p
-                          : o("WAWebCrashContextUtils").mergeAppContexts(
-                              p,
-                              o(
-                                "WAWebCrashContextUtils",
-                              ).getCrashEventAppContext(l, m),
-                            );
-                      if (
-                        ((i[32] = _),
-                        l ===
-                          o("WAWebWamEnumCrashType").CRASH_TYPE
-                            .DISPATCHER_NOT_RESPONDING &&
-                          s ===
-                            o("WAWebWamEnumCrashApplicationState")
-                              .CRASH_APPLICATION_STATE.FOREGROUND)
-                      ) {
-                        var f = c != null ? c : "unknown";
-                        o("WALogger")
-                          .ERROR(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "Native ",
-                                "s ANR detected: ",
-                                "",
-                              ])),
-                            f,
-                            u,
-                          )
-                          .sendLogs("hybrid-native-anr-" + f + "s", {
-                            sampling: 0.01,
-                          });
-                      }
-                    } else
-                      t.id ===
-                        o("WAWebMemoryStatWamEvent").MemoryStatWamEvent
-                          .prototype.id &&
-                        (i[14] =
-                          o("WAWebAppTracker").AppTracker.getAppContext());
-                    return new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
-                      i,
-                    ).commitAndWaitForFlush(!0);
-                  }),
-                );
-              },
-            );
-            return function (e) {
-              return r.apply(this, arguments);
-            };
-          })()),
-          (this.$1 = a));
+                        p,
+                        i,
+                      )
+                      .sendLogs("hybrid-native-anr-" + p + "s", {
+                        sampling: 0.01,
+                      });
+                  }
+                } else
+                  e.id ===
+                    o("WAWebMemoryStatWamEvent").MemoryStatWamEvent.prototype
+                      .id &&
+                    (e[14] = o("WAWebAppTracker").AppTracker.getAppContext());
+                a.push(new (o("WAWebWamCodegenWamEvent").RawWamEvent)(e));
+              } catch (t) {
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WindowsHybridBridgeWam] dropped malformed event ",
+                        "",
+                      ])),
+                    e == null ? void 0 : e.id,
+                  )
+                  .catching(r("getErrorSafe")(t));
+              }
+            });
+            var i = a.pop();
+            (a.forEach(v), i != null && S(i));
+          }),
+          (this.$4 = function (e) {
+            var t;
+            try {
+              t = JSON.parse(e);
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WindowsHybridBridgeWam] malformed globalsChanged payload",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e));
+              return;
+            }
+            if (typeof t != "object" || t == null || Array.isArray(t)) {
+              o("WALogger").ERROR(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WindowsHybridBridgeWam] globalsChanged payload is not an object",
+                  ])),
+              );
+              return;
+            }
+            for (var n of Object.keys(t)) R(n, t[n]);
+          }),
+          (this.$1 = n));
       };
-    l.WindowsHybridBridgeWam = p;
+    function v(e) {
+      try {
+        e.commit();
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[WindowsHybridBridgeWam] failed to commit event ",
+                "",
+              ])),
+            e.id,
+          )
+          .catching(r("getErrorSafe")(t));
+      }
+    }
+    function S(e) {
+      var t;
+      try {
+        t = e.commitAndWaitForFlush(!0);
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "[WindowsHybridBridgeWam] failed to commit event ",
+                "",
+              ])),
+            e.id,
+          )
+          .catching(r("getErrorSafe")(t));
+        return;
+      }
+      t.catch(function (e) {
+        o("WALogger")
+          .ERROR(
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
+                "[WindowsHybridBridgeWam] forced flush failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      });
+    }
+    function R(e, t) {
+      if (!o("WAWebWamCodegenUtils").metrics.hasGlobal(e)) {
+        o("WALogger").ERROR(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "[WindowsHybridBridgeWam] unknown global: ",
+              "",
+            ])),
+          e,
+        );
+        return;
+      }
+      try {
+        var n;
+        o("WAWebWamGlobals").Global.set(((n = {}), (n[e] = t), n));
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
+                "[WindowsHybridBridgeWam] invalid value for global ",
+                "",
+              ])),
+            e,
+          )
+          .catching(r("getErrorSafe")(t));
+      }
+    }
+    l.WindowsHybridBridgeWam = b;
   },
   98,
 );

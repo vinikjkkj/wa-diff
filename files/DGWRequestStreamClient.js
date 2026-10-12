@@ -67,6 +67,9 @@ __d(
             }
             return (e || (e = n("Promise"))).resolve(p);
           }),
+          (a.refreshStreamGroup = function (t) {
+            this.$2.refreshStreamGroup(t);
+          }),
           t
         );
       })();

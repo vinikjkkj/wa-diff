@@ -69,8 +69,12 @@ __d(
         )
         .waitUntilCompleted(s);
     }
-    function d(e, t, n, r) {
-      var a = { group: e, participants: t, groupMetadata: n, isOffline: r };
+    function d(e) {
+      var t = e.group,
+        n = e.groupMetadata,
+        r = e.isOffline,
+        a = e.participants,
+        i = { group: t, participants: a, groupMetadata: n, isOffline: r };
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "demoteParticipants",
@@ -79,7 +83,7 @@ __d(
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
         )
-        .waitUntilCompleted(a);
+        .waitUntilCompleted(i);
     }
     function m(e, t, n, r) {
       var a = { group: e, participants: t, groupMetadata: n, isOffline: r };

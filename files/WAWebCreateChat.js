@@ -242,7 +242,10 @@ __d(
                   : "n/a",
               ));
           }
-          var X = O.isUser() && !O.isBot() ? yield x(O, W, b) : null;
+          var X =
+            O.isUser() && !O.isBot()
+              ? yield x({ firstIncomingMsg: b, id: O, userIsEnterprise: W })
+              : null;
           X != null &&
             (o("WALogger").LOG(
               _ ||
@@ -550,31 +553,34 @@ __d(
         a
       );
     }
-    function x(e, t, n) {
+    function x(e) {
       return $.apply(this, arguments);
     }
     function $() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.firstIncomingMsg,
+            r = e.id,
+            a = e.userIsEnterprise;
           o("WALogger").LOG(
             C ||
               (C = babelHelpers.taggedTemplateLiteralLoose([
                 "getDisappearingModeSettingForNewChat",
               ])),
           );
-          var a = yield (v || (v = n("Promise"))).all([
+          var i = yield (v || (v = n("Promise"))).all([
               o("WAWebApiContact").getContactRecord(
                 o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               ),
-              o("WAWebApiContact").getContactRecord(e),
+              o("WAWebApiContact").getContactRecord(r),
             ]),
-            i = a[0],
-            l = a[1];
+            l = i[0],
+            s = i[1];
           if (
-            l &&
+            s &&
             o(
               "WAWebEphemeralityUtils",
-            ).isEphemeralityDisabledForMessagingWithContact(l)
+            ).isEphemeralityDisabledForMessagingWithContact(s)
           )
             return (
               o("WALogger").LOG(
@@ -585,23 +591,23 @@ __d(
               ),
               null
             );
-          if (!t && e.isUser() && !e.isPSA()) {
-            var s = r == null || r.id.fromMe;
-            if (s)
+          if (!a && r.isUser() && !r.isPSA()) {
+            var u = t == null || t.id.fromMe;
+            if (u)
               return o("WAWebEphemeralityResolver").resolveNewChatDMSettings(
-                i,
                 l,
+                s,
               );
-            var u = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-              i,
+            var c = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+              l,
             );
             return o(
               "WAWebEphemeralityResolver",
             ).resolveNewIncomingChatDMSettings(
-              r
-                ? o("WAWebMsgEphemerality").getMsgEphemeralitySettings(r)
+              t
+                ? o("WAWebMsgEphemerality").getMsgEphemeralitySettings(t)
                 : null,
-              u,
+              c,
             );
           }
         })),

@@ -2,7 +2,6 @@ __d(
   "WAWebConversationMenus",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebBroadcastConversationMenuItems",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebChatAssignmentLogEvents.flow",
@@ -20,7 +19,6 @@ __d(
     "WAWebDeleteMenuItem.react",
     "WAWebEnvironment",
     "WAWebExportChatMenuItem.react",
-    "WAWebFrontendGroupMetadataGetters",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebHeader.react",
@@ -38,7 +36,6 @@ __d(
     "WAWebOpenLeaveAndReportGroupModalLoadable",
     "WAWebReachoutTimelockRestrictedModalLoadable",
     "WAWebReachoutTimelockUtils",
-    "WAWebSendTextFlow.react",
     "WAWebSpamConstants",
     "WAWebStateUtils",
     "WAWebWamEnumEphemeralSettingEntryPointType",
@@ -56,7 +53,6 @@ __d(
     "WDSIconIcPalette.react",
     "WDSIconIcPersonAdd.react",
     "WDSIconIcSearch.react",
-    "WDSIconIcShare.react",
     "WDSIconIcUnfavourite.react",
     "WDSIconWdsIcDisappearingMessages.react",
     "WDSIconWdsIcTransferOwnership.react",
@@ -113,7 +109,7 @@ __d(
     }
     function p(e) {
       var t,
-        a = o("react-compiler-runtime").c(85),
+        a = o("react-compiler-runtime").c(78),
         i = e.chat,
         l = e.container,
         p = e.onSearchChat,
@@ -548,80 +544,28 @@ __d(
           : (de = a[58]),
           v.push(de));
       }
-      var me = i.groupMetadata,
-        pe;
-      a[59] !== me
-        ? ((pe =
-            me != null
-              ? o("WAWebFrontendGroupMetadataGetters").getGroupInviteLink(me)
-              : null),
-          (a[59] = me),
-          (a[60] = pe))
-        : (pe = a[60]);
-      var _e = pe;
-      if (
-        _e != null &&
-        o("WAWebABProps").getABPropConfigValue("web_menu_share_group")
-      ) {
-        var fe;
-        a[61] !== _e
-          ? ((fe = function () {
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(r("WAWebSendTextFlow.react"), {
-                  title: s._(/*BTDS*/ "Share chat to"),
-                  text: _e,
-                }),
-                { transition: "modal-flow" },
-              );
-            }),
-            (a[61] = _e),
-            (a[62] = fe))
-          : (fe = a[62]);
-        var ge = fe,
-          he;
-        a[63] === Symbol.for("react.memo_cache_sentinel")
-          ? ((he = s._(/*BTDS*/ "Share chat")), (a[63] = he))
-          : (he = a[63]);
-        var ye = he,
-          Ce;
-        (a[64] !== ge
-          ? ((Ce = u.jsx(
-              r("WDSMenuItem.react"),
-              {
-                Icon: r("WDSIconIcShare.react"),
-                title: ye,
-                onPress: ge,
-                testid: "mi-share-chat",
-              },
-              "share",
-            )),
-            (a[64] = ge),
-            (a[65] = Ce))
-          : (Ce = a[65]),
-          v.push(Ce));
-      }
-      var be;
-      (a[66] !== i
-        ? ((be = u.jsx(
+      var me;
+      (a[59] !== i
+        ? ((me = u.jsx(
             r("WAWebExportChatMenuItem.react"),
             { chat: i },
             "export",
           )),
-          (a[66] = i),
-          (a[67] = be))
-        : (be = a[67]),
-        v.push(be));
-      var ve;
-      a[68] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ve = s._(/*BTDS*/ "Close chat")), (a[68] = ve))
-        : (ve = a[68]);
-      var Se;
-      (a[69] !== i
-        ? ((Se = u.jsx(
+          (a[59] = i),
+          (a[60] = me))
+        : (me = a[60]),
+        v.push(me));
+      var pe;
+      a[61] === Symbol.for("react.memo_cache_sentinel")
+        ? ((pe = s._(/*BTDS*/ "Close chat")), (a[61] = pe))
+        : (pe = a[61]);
+      var _e;
+      (a[62] !== i
+        ? ((_e = u.jsx(
             r("WDSMenuItem.react"),
             {
               Icon: r("WDSIconIcCancel.react"),
-              title: ve,
+              title: pe,
               onPress: function () {
                 return o("WAWebCmd").Cmd.closeChat(i);
               },
@@ -629,77 +573,77 @@ __d(
             },
             "close",
           )),
-          (a[69] = i),
-          (a[70] = Se))
-        : (Se = a[70]),
-        v.push(Se));
-      var Re;
-      (a[71] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Re = u.jsx(r("WDSMenuItem.react"), { type: "separator" })),
-          (a[71] = Re))
-        : (Re = a[71]),
-        v.push(Re));
-      var Le;
-      a[72] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Le = s._(/*BTDS*/ "Clear chat")), (a[72] = Le))
-        : (Le = a[72]);
-      var Ee = Le,
-        ke = o("useWAWebABPropConfigValue").useABPropConfigValue(
+          (a[62] = i),
+          (a[63] = _e))
+        : (_e = a[63]),
+        v.push(_e));
+      var fe;
+      (a[64] === Symbol.for("react.memo_cache_sentinel")
+        ? ((fe = u.jsx(r("WDSMenuItem.react"), { type: "separator" })),
+          (a[64] = fe))
+        : (fe = a[64]),
+        v.push(fe));
+      var ge;
+      a[65] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ge = s._(/*BTDS*/ "Clear chat")), (a[65] = ge))
+        : (ge = a[65]);
+      var he = ge,
+        ye = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "ai_learning_clear_chat_disable_empty_chats",
         ),
-        Ie;
-      a[73] !== i.msgs
-        ? ((Ie = i.msgs.getModelsArray().some(_)),
-          (a[73] = i.msgs),
-          (a[74] = Ie))
-        : (Ie = a[74]);
-      var Te = Ie,
-        De;
-      a[75] !== i
-        ? ((De = function () {
+        Ce;
+      a[66] !== i.msgs
+        ? ((Ce = i.msgs.getModelsArray().some(_)),
+          (a[66] = i.msgs),
+          (a[67] = Ce))
+        : (Ce = a[67]);
+      var be = Ce,
+        ve;
+      a[68] !== i
+        ? ((ve = function () {
             return o("WAWebCmd").Cmd.clearChat(i);
           }),
-          (a[75] = i),
-          (a[76] = De))
-        : (De = a[76]);
-      var xe = ke && !Te,
-        $e;
-      (a[77] !== De || a[78] !== xe
-        ? (($e = u.jsx(r("WDSMenuItem.react"), {
+          (a[68] = i),
+          (a[69] = ve))
+        : (ve = a[69]);
+      var Se = ye && !be,
+        Re;
+      (a[70] !== ve || a[71] !== Se
+        ? ((Re = u.jsx(r("WDSMenuItem.react"), {
             Icon: r("WDSIconIcDoNotDisturbOn.react"),
-            title: Ee,
-            onPress: De,
+            title: he,
+            onPress: ve,
             testid: "mi-clear",
             destructive: !0,
-            disabled: xe,
+            disabled: Se,
           })),
-          (a[77] = De),
-          (a[78] = xe),
-          (a[79] = $e))
-        : ($e = a[79]),
-        v.push($e));
-      var Pe;
-      a[80] !== i
-        ? ((Pe = function () {
+          (a[70] = ve),
+          (a[71] = Se),
+          (a[72] = Re))
+        : (Re = a[72]),
+        v.push(Re));
+      var Le;
+      a[73] !== i
+        ? ((Le = function () {
             m(i);
           }),
-          (a[80] = i),
-          (a[81] = Pe))
-        : (Pe = a[81]);
-      var Ne = Pe,
-        Me;
+          (a[73] = i),
+          (a[74] = Le))
+        : (Le = a[74]);
+      var Ee = Le,
+        ke;
       return (
-        a[82] !== i || a[83] !== Ne
-          ? ((Me = u.jsx(
+        a[75] !== i || a[76] !== Ee
+          ? ((ke = u.jsx(
               r("WAWebDeleteMenuItem.react"),
-              { onDeleteOrExit: Ne, chat: i },
+              { onDeleteOrExit: Ee, chat: i },
               "delete",
             )),
-            (a[82] = i),
-            (a[83] = Ne),
-            (a[84] = Me))
-          : (Me = a[84]),
-        v.push(Me),
+            (a[75] = i),
+            (a[76] = Ee),
+            (a[77] = ke))
+          : (ke = a[77]),
+        v.push(ke),
         n("cr:23149") == null || n("cr:23149").addDevItemsToMenu(v, i),
         v
       );

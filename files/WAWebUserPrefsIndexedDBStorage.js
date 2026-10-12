@@ -129,6 +129,16 @@ __d(
           (a.applySyncSet = function (t, n) {
             this.loadedUserPrefs != null && (this.loadedUserPrefs[t] = n);
           }),
+          (a.applyCommittedSet = function (t, n) {
+            var e,
+              r = L(t);
+            if (r != null) {
+              var a = o("WAWebUserPrefsPreProcessors").preProcessUserPref(t, n);
+              (this.applySyncSet(r, a),
+                (e = this.$1) == null ||
+                  e.call(this, { action: "set", key: r, value: a }));
+            }
+          }),
           (a.applySyncRemove = function (t) {
             this.loadedUserPrefs != null && delete this.loadedUserPrefs[t];
           }),

@@ -8,7 +8,6 @@ __d(
     "isPlainObject",
     "nullthrows",
     "omit",
-    "toposort",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["collections", "derived", "name", "props", "session"],
@@ -279,25 +278,25 @@ __d(
           },
         },
       });
-      for (var k = {}, I = 0; I < L; I++) {
-        var T = R[I];
-        "defaultValue" in p[T] && (k[T] = s);
+      for (var k = {}, T = 0; T < L; T++) {
+        var D = R[T];
+        "defaultValue" in p[D] && (k[D] = s);
       }
       if ((r("isEmptyObject")(k) || (i.__defaults = k), d.length)) {
-        var D = [],
-          x = {},
-          $ = {};
+        var x = [],
+          $ = {},
+          P = {};
         (Object.keys(_).forEach(function (e) {
           var t,
             n = _[e];
-          (($[e] = !0),
+          ((P[e] = !0),
             ((t = n.deps) != null ? t : []).forEach(function (t) {
-              (($[t] = !0), (x[t] || (x[t] = [])).push(e), D.push([e, t]));
+              ((P[t] = !0), ($[t] || ($[t] = [])).push(e), x.push([e, t]));
             }));
         }),
-          D.length &&
-            ((i._deps = x),
-            (i._topo = r("toposort").array(Object.keys($), D).reverse()),
+          x.length &&
+            ((i._deps = $),
+            (i._topo = I(Object.keys(P), _)),
             (i._topoIndexMap = new Map(
               i._topo.map(function (e, t) {
                 return [e, t];
@@ -305,6 +304,28 @@ __d(
             ))));
       }
       return a;
+    }
+    function I(e, t) {
+      var n = [],
+        o = new Set();
+      function a(e, i) {
+        if (i.includes(e))
+          throw r("err")("Cyclic dependency: " + JSON.stringify(e));
+        if (!o.has(e)) {
+          var l, s;
+          o.add(e);
+          for (
+            var u = (l = (s = t[e]) == null ? void 0 : s.deps) != null ? l : [],
+              c = u.length - 1;
+            c >= 0;
+            c--
+          )
+            a(u[c], [].concat(i, [e]));
+          n.push(e);
+        }
+      }
+      for (var i = e.length - 1; i >= 0; i--) a(e[i], []);
+      return n;
     }
     ((l.INIT = s),
       (l.Attr = u),

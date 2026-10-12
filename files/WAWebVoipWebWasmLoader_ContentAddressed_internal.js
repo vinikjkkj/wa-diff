@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "e4874b7cb19b64efc90b76b8c1f71e5f810f9c2fb72740314aee2484fd73ec89",
+      c = "2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4",
       d = {
+        "2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4":
+          function () {
+            return r("bx")("110618");
+          },
         e4874b7cb19b64efc90b76b8c1f71e5f810f9c2fb72740314aee2484fd73ec89:
           function () {
             return r("bx")("110532");
@@ -77,12 +81,8 @@ __d(
           function () {
             return r("bx")("110340");
           },
-        "046a653fb234340dc9750c81d378ee102013d2274013a690d881b7300b3503f8":
-          function () {
-            return r("bx")("110338");
-          },
       },
-      m = d.e4874b7cb19b64efc90b76b8c1f71e5f810f9c2fb72740314aee2484fd73ec89,
+      m = d["2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4"],
       p = null,
       _ = null;
     try {
@@ -91,6 +91,10 @@ __d(
       p = e;
     }
     var f = {
+        "2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4":
+          function () {
+            return r("bx")("110617");
+          },
         e4874b7cb19b64efc90b76b8c1f71e5f810f9c2fb72740314aee2484fd73ec89:
           function () {
             return r("bx")("110531");
@@ -151,16 +155,12 @@ __d(
           function () {
             return r("bx")("110339");
           },
-        "046a653fb234340dc9750c81d378ee102013d2274013a690d881b7300b3503f8":
-          function () {
-            return r("bx")("110337");
-          },
       },
-      g = f.e4874b7cb19b64efc90b76b8c1f71e5f810f9c2fb72740314aee2484fd73ec89,
+      g = f["2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4"],
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1791526142015" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1791785441483" });
     } catch (e) {
       h = e;
     }
@@ -199,7 +199,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/e4874b7cb19b64efc90b76b8c1f71e5f810f9c2fb72740314aee2484fd73ec89/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -924,10 +924,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1386735: function () {
+          1387871: function () {
             return Date.now();
           },
-          1386758: function (t, n) {
+          1387894: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7015,7 +7015,7 @@ __d(
                 if (e[n] === "Z") {
                   for (o = 0; o < 8 - e.length + 1; o++) i[n + o] = 0;
                   r = o - 1;
-                } else i[n + r] = Gi(parseInt(e[n], 16));
+                } else i[n + r] = zi(parseInt(e[n], 16));
               else i[n + r] = e[n];
             return [
               (i[1] << 16) | i[0],
@@ -7875,8 +7875,8 @@ __d(
             return (Vi = v._pthread_self = H.pthread_self)();
           }),
           Hi = Ne("ntohs"),
-          Gi = Ne("htons"),
-          zi = Ne("htonl"),
+          Gi = Ne("htonl"),
+          zi = Ne("htons"),
           ji = Ne("__cxa_increment_exception_refcount"),
           Ki = Ne("__cxa_decrement_exception_refcount"),
           Qi = (v.__emscripten_tls_init = Ne("_emscripten_tls_init")),
@@ -7922,8 +7922,8 @@ __d(
           Cl = (v.___get_exception_message = Ne("__get_exception_message")),
           bl = Ne("__cxa_can_catch"),
           vl = Ne("__cxa_is_pointer_type"),
-          Sl = (v.___start_em_js = 1380748),
-          Rl = (v.___stop_em_js = 1386735);
+          Sl = (v.___start_em_js = 1381884),
+          Rl = (v.___stop_em_js = 1387871);
         function Ll(e, t, n, r) {
           var o = fl();
           try {

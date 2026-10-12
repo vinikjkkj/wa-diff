@@ -27,12 +27,24 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function _(e) {
+      return e.parent.isGroupStatus !== !0
+        ? e
+        : babelHelpers.extends({}, e, {
+            encryptedMsgData: babelHelpers.extends({}, e.encryptedMsgData, {
+              isGroupStatus: !0,
+            }),
+            decryptedMsgData: babelHelpers.extends({}, e.decryptedMsgData, {
+              isGroupStatus: !0,
+            }),
+          });
     }
-    function f() {
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebAddonEncryptAddonMsgData").createDualEncryptionHelper(
               e,
               t,
@@ -47,17 +59,17 @@ __d(
             { add: [r] },
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
+    function h(e) {
       var t = e.id,
         n = t.remote;
       return t.fromMe && o("WAWebUserPrefsMeUser").isMePrimary(n)
         ? o("WAWebAck").ACK.READ
         : o("WAWebAck").ACK.SENT;
     }
-    function h(e, t) {
+    function y(e, t) {
       if (e.decryptedMsgData.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE) {
         var n = o("WAWebMsgGetters").getPollEndTime(e.parent),
           r = parseInt(t, 10) * 1e3;
@@ -65,17 +77,17 @@ __d(
       }
       return !1;
     }
-    var y = new Set([
+    var C = new Set([
       o("WAWebAddonConstants").AddonProcessMode.Send,
       o("WAWebAddonConstants").AddonProcessMode.SendRetry,
       o("WAWebAddonConstants").AddonProcessMode.SendRevoke,
     ]);
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n =
                 t.ack === o("WAWebAck").ACK.FAILED
@@ -89,7 +101,7 @@ __d(
               i = o("WAWebAddonSelectUtils")
                 .createAddonParentSelector(a)
                 .getForAddon(t);
-            yield _(
+            yield f(
               babelHelpers.extends({}, t, { ack: o("WAWebAck").ACK.FAILED }),
               i,
             );
@@ -107,15 +119,15 @@ __d(
               .sendLogs("sendAddonMsgData: mark-failed-without-send");
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebAddonConstants").AddonProcessMode.Send;
           (e.kind === o("WAWebMsgType").MsgKind.ProtocolAddonRevoke &&
             (n = o("WAWebAddonConstants").AddonProcessMode.SendRevoke),
@@ -124,7 +136,7 @@ __d(
           var a;
           try {
             var i;
-            if (!y.has(n))
+            if (!C.has(n))
               throw new (o("WAWebAddonInfraError").AddonInfraError)(
                 o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
               );
@@ -134,7 +146,7 @@ __d(
                 "WAWebAddonProcessMsgs",
               ).processOutgoingMsgOptimisticUpdate(n, e);
             else {
-              var f;
+              var g;
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -149,76 +161,77 @@ __d(
                 e.type,
                 e.id.id,
                 l.id,
-                (f = l.participant) == null ? void 0 : f.isLid(),
+                (g = l.participant) == null ? void 0 : g.isLid(),
               );
-              var C = yield o(
+              var b = yield o(
                   "WAWebAddonProcessMsgsUtils",
                 ).queryAddonParentMsgs([e], n),
-                b = C[0],
-                v = C[1];
+                v = b[0],
+                S = b[1];
               if (
                 ((a = {
-                  encryptedMsgData: v[0],
-                  decryptedMsgData: v[0],
+                  encryptedMsgData: S[0],
+                  decryptedMsgData: S[0],
                   parent: o("WAWebAddonSelectUtils")
-                    .createAddonParentSelector(b)
-                    .getForAddon(v[0]),
+                    .createAddonParentSelector(v)
+                    .getForAddon(S[0]),
                 }),
                 n === o("WAWebAddonConstants").AddonProcessMode.SendRetry &&
                   e.type === o("WAWebMsgType").MSG_TYPE.COMMENT)
               ) {
-                var S = o("WAWebAddonPluginProcessor").getAddonProcessor(
+                var R = o("WAWebAddonPluginProcessor").getAddonProcessor(
                   a.decryptedMsgData,
                 );
-                S.convert.toDualEncryptedMsgData != null &&
-                  (a.encryptedMsgData = yield S.convert.toDualEncryptedMsgData(
+                R.convert.toDualEncryptedMsgData != null &&
+                  (a.encryptedMsgData = yield R.convert.toDualEncryptedMsgData(
                     a.decryptedMsgData,
                     a.parent,
                   ));
               }
-              (n === o("WAWebAddonConstants").AddonProcessMode.Send ||
-                n === o("WAWebAddonConstants").AddonProcessMode.SendRetry) &&
-                (yield o("WAWebAddonProcessMsgs").processOutgoingMsg(
-                  n,
-                  a.encryptedMsgData,
-                  b,
-                  t,
-                ));
+              ((a = _(a)),
+                (n === o("WAWebAddonConstants").AddonProcessMode.Send ||
+                  n === o("WAWebAddonConstants").AddonProcessMode.SendRetry) &&
+                  (yield o("WAWebAddonProcessMsgs").processOutgoingMsg(
+                    n,
+                    a.encryptedMsgData,
+                    v,
+                    t,
+                  )));
             }
             yield o("WAWebAddonRetryRequestUtils").storeSelfMessageTypeRow(
               a.decryptedMsgData,
             );
-            var R =
+            var L =
               a.parent.broadcastId != null &&
               r("WAWebWid").isWid(a.parent.broadcastId) &&
               !!((i = a.parent.broadcastId) != null && i.isBroadcastList());
-            if (R) {
-              var L = o("WAWebReferentialMsgKey").getReferentialMsgKey(
+            if (L) {
+              var E = o("WAWebReferentialMsgKey").getReferentialMsgKey(
                 a.parent,
               );
               a.encryptedMsgData = o(
                 "WAWebAddonProcessMsgsUtils",
-              ).updateMsgParentKeyValue(a.encryptedMsgData, L);
+              ).updateMsgParentKeyValue(a.encryptedMsgData, E);
             }
-            var E = yield o("WAWebSendMsgJob").encryptAndSendMsg(
+            var k = yield o("WAWebSendMsgJob").encryptAndSendMsg(
                 {
                   type: o("WAWebSendMsgTypes").SendMessageRecordType.Addon,
                   data: a.encryptedMsgData,
                 },
                 t,
               ),
-              k = E.count,
-              I = E.error,
-              T = E.t;
+              I = k.count,
+              T = k.error,
+              D = k.t;
             if (
-              (R &&
+              (L &&
                 (a.encryptedMsgData = o(
                   "WAWebAddonProcessMsgsUtils",
                 ).updateMsgParentKeyValue(a.encryptedMsgData, a.parent.id)),
-              I != null)
+              T != null)
             )
-              throw new (o("WAWebHandleMsgError").MessageSentAckError)(I);
-            if (h(a, T))
+              throw new (o("WAWebHandleMsgError").MessageSentAckError)(T);
+            if (y(a, D))
               throw (
                 o("WALogger").LOG(
                   u ||
@@ -229,9 +242,9 @@ __d(
                 r("err")("Post-send validation failed")
               );
             return (
-              yield _(
+              yield f(
                 babelHelpers.extends({}, a.decryptedMsgData, {
-                  ack: g(a.encryptedMsgData),
+                  ack: h(a.encryptedMsgData),
                 }),
                 a.parent,
               ),
@@ -245,24 +258,24 @@ __d(
                 a.decryptedMsgData.type,
                 a.decryptedMsgData.id.id,
               ),
-              { t: parseInt(T, 10), count: k }
+              { t: parseInt(D, 10), count: I }
             );
           } catch (t) {
             if (a == null) {
               if (o("WAWebAddonSendMsgData").isOptimisticAddonSendSupported(e))
                 try {
-                  var D = yield o(
+                  var x = yield o(
                       "WAWebAddonProcessMsgsUtils",
                     ).queryAddonParentMsgs([e], n),
-                    x = D[0],
-                    $ = o("WAWebAddonSelectUtils")
-                      .createAddonParentSelector(x)
+                    $ = x[0],
+                    P = o("WAWebAddonSelectUtils")
+                      .createAddonParentSelector($)
                       .getForAddon(e);
-                  yield _(
+                  yield f(
                     babelHelpers.extends({}, e, {
                       ack: o("WAWebAck").ACK.FAILED,
                     }),
-                    $,
+                    P,
                   );
                 } catch (t) {
                   o("WALogger")
@@ -295,7 +308,7 @@ __d(
               );
             }
             throw (
-              yield _(
+              yield f(
                 babelHelpers.extends({}, a.decryptedMsgData, {
                   ack: o("WAWebAck").ACK.FAILED,
                 }),
@@ -313,10 +326,10 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.markAddonSendFailed = C), (l.sendAddonProcess = v));
+    ((l.markAddonSendFailed = b), (l.sendAddonProcess = S));
   },
   98,
 );

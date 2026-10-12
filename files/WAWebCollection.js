@@ -198,11 +198,17 @@ __d(
             return (
               t === void 0 && (t = {}),
               this._models.sort(
-                (e = t.comparator) != null ? e : this._comparator.bind(this),
+                (e = t.comparator) != null ? e : this.createSortComparator(),
               ),
               t.silent !== !0 && this.trigger("sort", this, t),
               this
             );
+          }),
+          (a.createSortComparator = function () {
+            var e = this;
+            return function (t, n) {
+              return e._comparator(t, n);
+            };
           }),
           (a.replaceId = function (t, n) {
             var e = this.get(t);

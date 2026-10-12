@@ -7,6 +7,7 @@ __d(
     "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebBoolFunc",
     "WAWebInAppSignupInfoCache",
     "WAWebModelStorageUtils",
     "WAWebSchemaInAppSignupInfo",
@@ -343,9 +344,7 @@ __d(
     function W() {
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return V(e, function () {
-            return !0;
-          });
+          return V(e, o("WAWebBoolFunc").returnTrue);
         })),
         W.apply(this, arguments)
       );

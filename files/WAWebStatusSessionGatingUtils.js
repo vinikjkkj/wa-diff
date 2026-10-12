@@ -24,7 +24,16 @@ __d(
         ? o("WAWebSessionScope").SessionScope.STATUS
         : o("WAWebSessionScope").SessionScope.DEFAULT;
     }
-    function c(t) {
+    function c(e) {
+      var t = e.from,
+        n = e.isGroupStatus,
+        r = e.metaSessionScope;
+      return (
+        t.isStatus() ||
+        (n === !0 && r === o("WAWebSessionScope").SessionScope.STATUS)
+      );
+    }
+    function d(t) {
       t === void 0 && (t = void 0);
       var n = s();
       return n === e.DISABLED
@@ -36,7 +45,8 @@ __d(
     ((l.StatusSessionReceiverState = e),
       (l.getStatusSessionReceiverState = s),
       (l.getStatusSessionScope = u),
-      (l.shouldUseStatusSessionForIncomingMessage = c));
+      (l.isIncomingStatusSessionContext = c),
+      (l.shouldUseStatusSessionForIncomingMessage = d));
   },
   98,
 );

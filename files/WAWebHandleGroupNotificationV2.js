@@ -24,6 +24,7 @@ __d(
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebMemberLabelGroupRemoveHandler",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebShouldTriggerQueryGroupInfo",
     "WAWebUpdateDbForGroupActionApi",
     "asyncToGeneratorRuntime",
@@ -482,37 +483,46 @@ __d(
           ((l = e), (s = t));
         });
       return (
-        o("WAWebMessageQueue").onMessageQueue({
-          chatWid: t,
-          isOffline: r,
-          msgCategory: null,
-          action: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e;
-              try {
-                if (yield a()) {
-                  l({
-                    inserted: !1,
-                    written: (m || (m = n("Promise"))).resolve(),
-                  });
-                  return;
-                }
-                e = c(i);
-              } catch (e) {
-                s(e);
-                return;
-              }
-              return (
-                l({ inserted: i.length > 0, written: e }),
-                r ? (m || (m = n("Promise"))).resolve() : e
+        o("WAWebMessageQueue")
+          .onMessageQueue({
+            chatWid: t,
+            isOffline: r,
+            msgCategory: null,
+            action: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var e;
+                  try {
+                    if (yield a()) {
+                      l({
+                        inserted: !1,
+                        written: (m || (m = n("Promise"))).resolve(),
+                      });
+                      return;
+                    }
+                    e = c(i);
+                  } catch (e) {
+                    s(e);
+                    return;
+                  }
+                  return (
+                    l({ inserted: i.length > 0, written: e }),
+                    r ? (m || (m = n("Promise"))).resolve() : e
+                  );
+                },
               );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-        }),
+              function t() {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
+          })
+          .catch(function (e) {
+            return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+              e,
+              "group_notification_v2",
+            );
+          }),
         u
       );
       function c(e) {

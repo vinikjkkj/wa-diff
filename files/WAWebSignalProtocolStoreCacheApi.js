@@ -164,6 +164,14 @@ __d(
           }
           return t;
         })()),
+        (t.hasDirty = function () {
+          return (
+            this.Dirty.session.size > 0 ||
+            this.Dirty.identity.size > 0 ||
+            this.Dirty.senderKey.size > 0 ||
+            this.Dirty.preKey.size > 0
+          );
+        }),
         (t.clearDirty = function () {
           this.Dirty = {
             session: new Set(),

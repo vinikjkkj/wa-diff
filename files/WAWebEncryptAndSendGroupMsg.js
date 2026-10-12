@@ -21,6 +21,7 @@ __d(
     "WAWebSendGroupSkmsgJob",
     "WAWebSendMsgQueueMap",
     "WAWebSendMsgTypes",
+    "WAWebStatusSessionGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -187,34 +188,38 @@ __d(
                     resolvedGroupAgentParticipants: [],
                   });
             var U =
+                m.isGroupStatus === !0
+                  ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
+                  : void 0,
+              V =
                 (I == null ? void 0 : I.isCapiGroup) === !0
                   ? o("WAWebE2EProtoGenerator").updateGroupMsgProtoWithCapiFlag(
                       i,
                     )
                   : i,
-              V = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
+              H = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
                 o(
                   "WAWebRemoveQuotedAttachmentMediaFields",
                 ).isGroupWithAgentParticipant(I)
                   ? o(
                       "WAWebRemoveQuotedAttachmentMediaFields",
-                    ).removeQuotedAttachmentMediaFields(U)
-                  : U,
+                    ).removeQuotedAttachmentMediaFields(V)
+                  : V,
                 (v = I.groupAgentParticipants) != null ? v : [],
               );
             if (
               (yield _({
                 groupAgentFanout: q,
-                groupMsgProtobuf: V,
+                groupMsgProtobuf: H,
                 isOpenBotGroup: I.isOpenBotGroup === !0,
                 isRevoke: R != null,
                 msgRecord: l,
               }),
               $.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.DIRECT)
             ) {
-              var H,
-                G,
-                z =
+              var G,
+                z,
+                j =
                   R != null
                     ? yield o("WAWebSendGroupSkmsgJob").createBotFanoutNode({
                         configuredGroupAgentParticipants: W,
@@ -225,43 +230,45 @@ __d(
                         ),
                         isScheduledMessage: !1,
                         msg: m,
-                        msgProtobuf: V,
+                        msgProtobuf: H,
                         shouldGateInvokedBot: !1,
                       })
                     : [null, !1],
-                j = z[0],
-                K = z[1],
-                Q = $,
-                X = Q.deviceList;
+                K = j[0],
+                Q = j[1],
+                X = $,
+                Y = X.deviceList;
               return (
-                (H = a.sendReporter) == null || H.setDeviceCount(X.length),
-                (G = a.sendPerfReporter) == null || G.setIsDirectedMessage(!0),
+                (G = a.sendReporter) == null || G.setDeviceCount(Y.length),
+                (z = a.sendPerfReporter) == null || z.setIsDirectedMessage(!0),
                 o("WAWebSendGroupDirectJob").encryptAndSendGroupDirectMsg({
-                  additionalBotBody: j,
-                  additionalBotShouldHaveIdentity: K,
-                  deviceList: X,
+                  additionalBotBody: K,
+                  additionalBotShouldHaveIdentity: Q,
+                  deviceList: Y,
                   groupData: I,
                   metricReporter: a,
-                  msgProtobuf: V,
+                  msgProtobuf: H,
                   msgRecord: l,
                   scheduledMsgMetadata: d,
+                  sessionScope: U,
                 })
               );
             }
-            var Y = $,
-              J = Y.senderKeyList;
+            var J = $,
+              Z = J.senderKeyList;
             return (
               (S = a.sendReporter) == null ||
-                S.setDeviceCount(J.skList.length + J.skDistribList.length),
+                S.setDeviceCount(Z.skList.length + Z.skDistribList.length),
               o("WAWebSendGroupSkmsgJob").encryptAndSendSenderKeyMsg(
                 l,
-                V,
-                J,
+                H,
+                Z,
                 I,
                 a,
                 D,
                 d,
                 q,
+                U,
               )
             );
           }),

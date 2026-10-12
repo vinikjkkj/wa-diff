@@ -4,7 +4,6 @@ __d(
     "FBUnifiedVideoPlayerControllerContext",
     "VideoShareDownstreamSignalTrackingTypes",
     "WebStorage",
-    "gkx",
     "react",
     "react-compiler-runtime",
     "useCometVideoPlayerStateAndController",
@@ -18,15 +17,14 @@ __d(
       d = u.useContext,
       m = 1e3 * 60 * 60 * 4;
     function p() {
-      var t;
-      if (!r("gkx")("24")) return null;
-      var n =
-        (t = (e || (e = r("WebStorage"))).getSessionStorage()) == null
-          ? void 0
-          : t.getItem(
-              o("VideoShareDownstreamSignalTrackingTypes")
-                .DOWNSTREAM_VIDEO_SHARE_SESSION_STORAGE_KEY,
-            );
+      var t,
+        n =
+          (t = (e || (e = r("WebStorage"))).getSessionStorage()) == null
+            ? void 0
+            : t.getItem(
+                o("VideoShareDownstreamSignalTrackingTypes")
+                  .DOWNSTREAM_VIDEO_SHARE_SESSION_STORAGE_KEY,
+              );
       if (n == null) return null;
       var a = JSON.parse(n);
       return !a || a.downstream_share_session_start_time + m < Date.now()

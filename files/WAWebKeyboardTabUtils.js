@@ -124,7 +124,13 @@ __d(
         o = n.width,
         a = n.x,
         i = n.y;
-      if (o === 0 || r === 0 || !v(e, a + o / 2, i + r / 2)) return !1;
+      if (
+        o === 0 ||
+        r === 0 ||
+        !v(e, a + o / 2, i + r / 2) ||
+        getComputedStyle(e).pointerEvents === "none"
+      )
+        return !1;
       var l = S(e, { height: r, width: o, x: a, y: i });
       return l == null ? !1 : b(e, l);
     }

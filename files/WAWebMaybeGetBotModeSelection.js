@@ -56,10 +56,7 @@ __d(
     }
     function b(e, t) {
       var n = t.to;
-      if (
-        o("WAWebBotUtils").isMetaAiBot(n) &&
-        o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
-      ) {
+      if (o("WAWebBotUtils").isMetaAiBot(n)) {
         var r = o("WAWebThreadMsgUtils").getMsgAiThread(t);
         if (r != null) {
           var a = C(e, r);

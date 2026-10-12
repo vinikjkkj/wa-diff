@@ -12,6 +12,7 @@ __d(
     "WAWebManageE2ESessionsJob",
     "WAWebMdRetryFromUnknownDeviceWamEvent",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebMsgKey",
     "WAWebPostMessageHighRetryCountMetric",
     "WAWebProcessRetryKeyBundle",
@@ -41,7 +42,7 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield I(e);
+          var t = yield T(e);
           if (t.error) {
             o("WALogger")
               .WARN(
@@ -68,124 +69,141 @@ __d(
           var _ = e.participant,
             f = e.recipient,
             g = e.retryCount,
-            h = e.type,
-            y = p.isStatus() || i.isStatus(),
-            C = y
-              ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
-              : o("WAWebSessionScope").SessionScope.DEFAULT,
-            b = y ? C : void 0;
-          return (
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleRetryRequest: receivedFrom=",
-                  " chat=",
-                  " sessionScope=",
-                  "",
-                ])),
-              p.toLogString(),
-              i.toLogString(),
-              C,
-            ),
-            o("WAWebMessageQueue").onMessageQueue({
+            h = e.type;
+          return o("WAWebMessageQueue")
+            .onMessageQueue({
               chatWid: i,
               isOffline: !1,
               msgCategory: null,
               action: (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
-                    var t = yield E(i, e, C);
-                    if (t != null) {
-                      var s = t.identity,
-                        u = t.isLidBot,
-                        y = t.originalMsgId,
-                        v = t.requester;
-                      r("gkx")("26258") ||
-                        n("cr:10198") == null ||
-                        n("cr:10198").injectDebug(
-                          i,
-                          "RetryReceiptReceived",
-                          "originalMsgId:" + y + " - requester:" + v.toString(),
-                        );
-                      try {
-                        if (h === "enc_rekey_retry") {
-                          var S = yield o(
-                            "WAWebVoipStackInterface",
-                          ).getVoipStackInterface();
-                          yield S == null
+                    try {
+                      var t = p.isStatus() || i.isStatus(),
+                        s = E(e, t)
+                          ? yield o(
+                              "WAWebProcessRetryKeyBundle",
+                            ).loadGroupSentMessage(i, e.originalMsgId)
+                          : null,
+                        y =
+                          (s == null
                             ? void 0
-                            : S.resendEncRekeyRetry(
-                                l.toString({ legacy: !0 }),
-                                g,
-                              );
-                        } else if (h !== "voip_1x1_retry") {
-                          var R = yield o(
+                            : s.msgRecord.data.isGroupStatus) === !0,
+                        C = t || y,
+                        b = C
+                          ? o(
+                              "WAWebStatusSessionGatingUtils",
+                            ).getStatusSessionScope()
+                          : o("WAWebSessionScope").SessionScope.DEFAULT,
+                        v = C ? b : void 0;
+                      o("WALogger").LOG(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleRetryRequest: receivedFrom=",
+                            " chat=",
+                            " sessionScope=",
+                            "",
+                          ])),
+                        p.toLogString(),
+                        i.toLogString(),
+                        b,
+                      );
+                      var S = yield k(i, e, b);
+                      if (S == null) return;
+                      var R = S.identity,
+                        L = S.isLidBot,
+                        I = S.originalMsgId,
+                        T = S.requester;
+                      if (
+                        (r("gkx")("26258") ||
+                          n("cr:10198") == null ||
+                          n("cr:10198").injectDebug(
+                            i,
+                            "RetryReceiptReceived",
+                            "originalMsgId:" +
+                              I +
+                              " - requester:" +
+                              T.toString(),
+                          ),
+                        h === "enc_rekey_retry")
+                      ) {
+                        var D = yield o(
+                          "WAWebVoipStackInterface",
+                        ).getVoipStackInterface();
+                        yield D == null
+                          ? void 0
+                          : D.resendEncRekeyRetry(
+                              l.toString({ legacy: !0 }),
+                              g,
+                            );
+                      } else if (h !== "voip_1x1_retry") {
+                        var x = yield o(
+                            "WAWebProcessRetryKeyBundle",
+                          ).getMsgIfAuthorized({
+                            chat: i,
+                            identity: R,
+                            loadedSentMessage: s != null ? s : void 0,
+                            originalMsgId: I,
+                            requester: T,
+                            retryCount: g,
+                            sessionScope: v,
+                          }),
+                          $ =
+                            x == null
+                              ? o("WAWebApiContact").getAlternateDeviceWid(
+                                  o(
+                                    "WAWebWidFactory",
+                                  ).createDeviceWidFromWidOrThrow(T),
+                                )
+                              : null;
+                        if (
+                          ($ &&
+                            (x = yield o(
                               "WAWebProcessRetryKeyBundle",
                             ).getMsgIfAuthorized({
                               chat: i,
-                              identity: s,
-                              originalMsgId: y,
-                              requester: v,
+                              identity: R,
+                              originalMsgId: I,
+                              requester: $,
                               retryCount: g,
-                              sessionScope: b,
-                            }),
-                            L =
-                              R == null
-                                ? o("WAWebApiContact").getAlternateDeviceWid(
-                                    o(
-                                      "WAWebWidFactory",
-                                    ).createDeviceWidFromWidOrThrow(v),
-                                  )
-                                : null;
-                          if (
-                            (L &&
-                              (R = yield o(
-                                "WAWebProcessRetryKeyBundle",
-                              ).getMsgIfAuthorized({
-                                chat: i,
-                                identity: s,
-                                originalMsgId: y,
-                                requester: L,
-                                retryCount: g,
-                                sessionScope: b,
-                              })),
-                            R == null)
-                          ) {
-                            o("WALogger").WARN(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
-                                  "handleMessageRetryRequest retry not authorized",
-                                ])),
-                            );
-                            return;
-                          }
-                          var k = R,
-                            I = k.msgRecord,
-                            T = k.retryContext,
-                            D = {
-                              to: p,
-                              participant: _,
-                              msgRecord: I,
-                              retryContext: T,
-                              retryCount: g,
-                              isLidBot: u,
-                              sessionScope: C,
-                            };
-                          (f && (D.recipient = f),
-                            m && (D.lidOrigin = m),
-                            a && (D.accountLid = a),
-                            yield o("WAWebSendRetryMsgJob").sendRetry(D));
+                              sessionScope: v,
+                            })),
+                          x == null)
+                        ) {
+                          o("WALogger").WARN(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                                "handleMessageRetryRequest retry not authorized",
+                              ])),
+                          );
+                          return;
                         }
-                      } catch (e) {
-                        o("WALogger").WARN(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
-                              "handleMessageRetryRequest error: ",
-                              "",
-                            ])),
-                          e,
-                        );
+                        var P = x,
+                          N = P.msgRecord,
+                          M = P.retryContext,
+                          w = {
+                            to: p,
+                            participant: _,
+                            msgRecord: N,
+                            retryContext: M,
+                            retryCount: g,
+                            isLidBot: L,
+                            sessionScope: b,
+                          };
+                        (f && (w.recipient = f),
+                          m && (w.lidOrigin = m),
+                          a && (w.accountLid = a),
+                          yield o("WAWebSendRetryMsgJob").sendRetry(w));
                       }
+                    } catch (e) {
+                      o("WALogger").WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleMessageRetryRequest error: ",
+                            "",
+                          ])),
+                        e,
+                      );
                     }
                   },
                 );
@@ -195,17 +213,32 @@ __d(
                 return s;
               })(),
             })
-          );
+            .catch(function (e) {
+              return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+                e,
+                "retry_request",
+              );
+            });
         })),
         L.apply(this, arguments)
       );
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
-    }
-    function k() {
+    function E(e, t) {
+      var n = e.retryCount,
+        r = e.type;
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        !t &&
+        n < o("WAWebPostMessageHighRetryCountMetric").MAX_RETRY &&
+        r !== "enc_rekey_retry" &&
+        r !== "voip_1x1_retry"
+      );
+    }
+    function k(e, t, n) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = t.from,
             i = t.isLid,
             l = i === void 0 ? !1 : i,
@@ -315,19 +348,19 @@ __d(
             );
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
-            i = D(e);
+            i = x(e);
           if (
             (o("WALogger").LOG(
               h ||
@@ -451,10 +484,10 @@ __d(
           }
           return { chat: i, from: e.from };
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(t) {
+    function x(t) {
       var n = t.from,
         r = t.recipient;
       if (n.isBot() && r != null) return r;
@@ -487,7 +520,7 @@ __d(
       }
       return n;
     }
-    ((l.handleRetryRequest = R), (l.getTargetChat = D));
+    ((l.handleRetryRequest = R), (l.getTargetChat = x));
   },
   98,
 );

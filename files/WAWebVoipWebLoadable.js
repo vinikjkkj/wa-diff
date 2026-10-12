@@ -8,6 +8,7 @@ __d(
     "WAPromiseTimeout",
     "WAWebABProps",
     "WAWebAppTracker",
+    "WAWebBoolFunc",
     "WAWebCoreActionsODS",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebLazyLoadedRetriable",
@@ -248,12 +249,8 @@ __d(
               (_ || (_ = n("Promise"))).race([
                 o("WAWebEventsWaitForOfflineDeliveryEnd")
                   .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
-                  .then(function () {
-                    return !1;
-                  }),
-                O(t).then(function () {
-                  return !0;
-                }),
+                  .then(o("WAWebBoolFunc").returnFalse),
+                O(t).then(o("WAWebBoolFunc").returnTrue),
               ]),
               h,
             );

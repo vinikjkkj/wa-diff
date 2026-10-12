@@ -111,6 +111,7 @@ __d(
       AYMT_PAYMENT_GROWTH_AD_ACCOUNT_GRACE_PERIOD_TIP_V2:
         "aymt_payment_growth_ad_account_grace_period_tip_v2",
       AYMT_RISK_DISABLED_AD_ACCOUNT_TIP: "aymt_risk_disabled_ad_account_tip",
+      AYMT_AGED_ACCOUNT_WARNING_TIP: "aymt_aged_account_warning_tip",
       AYMT_BILLING_MI_MANDATE_BUSINESS_TIP:
         "aymt_billing_mi_mandate_business_tip",
       AYMT_BILLING_MI_MANDATE_AD_ACCOUNT_TIP:

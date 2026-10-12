@@ -22,13 +22,16 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebSendClearChatAction",
     "WAWebSendTextMsgChatAction",
+    "WAWebSessionScope",
     "WAWebSignal",
+    "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
     "WAWebSignalSessionApi",
     "WAWebSignalStorage",
     "WAWebUserPrefsStatus",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "err",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -1147,6 +1150,136 @@ __d(
     }
     De.doc = "Send [message], [n] times to the active chat.";
     function $e(e) {
+      return Pe.apply(this, arguments);
+    }
+    function Pe() {
+      return (
+        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = we(e),
+            n = Fe(Ae(e, "scope")),
+            a = Oe(Ae(e, "action")),
+            i = o("WAWebSignalCommonUtils").createSignalAddress(t.deviceWid, n);
+          if (
+            n !== o("WAWebSessionScope").SessionScope.DEFAULT &&
+            i ===
+              o("WAWebSignalCommonUtils").createSignalAddress(
+                t.deviceWid,
+                o("WAWebSessionScope").SessionScope.DEFAULT,
+              )
+          )
+            throw r("err")(
+              n + " has no separate Signal session for this device",
+            );
+          var l = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
+            s = (yield l.loadSession(i)) != null,
+            u = s;
+          return (
+            a === "delete" &&
+              s &&
+              (yield l.removeSession(i),
+              yield l.flushBufferToDiskIfNotMemOnlyMode(),
+              (u = (yield l.loadSession(i)) != null)),
+            {
+              action: a,
+              target: {
+                peer: t.peer,
+                device: t.device,
+                deviceWid: String(t.deviceWid),
+                scope: n,
+              },
+              address: i,
+              before: { exists: s },
+              after: { exists: u },
+              changed: s !== u,
+            }
+          );
+        })),
+        Pe.apply(this, arguments)
+      );
+    }
+    $e.doc =
+      'Preview or delete one exact Signal session only. Example: Debug.exactSignalSession({peer: "12345@lid", device: 2, scope: "status", action: "preview"}). Delete preserves identity, sibling scopes/devices, sender keys, and chats.';
+    function Ne(e) {
+      return Me.apply(this, arguments);
+    }
+    function Me() {
+      return (
+        (Me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = we(e),
+            n = Be(Ae(e, "action")),
+            r = yield o(
+              "WAWebUserPrefsStatus",
+            ).previewOrResetStatusSenderKeyDistribution(t.deviceWid, n);
+          return {
+            action: n,
+            target: {
+              peer: t.peer,
+              device: t.device,
+              deviceWid: String(t.deviceWid),
+              alternateDeviceWid: r.alternateDeviceWid,
+              aliasResolution: r.aliasResolution,
+            },
+            before: r.before,
+            after: r.after,
+            changed: r.changed,
+          };
+        })),
+        Me.apply(this, arguments)
+      );
+    }
+    Ne.doc =
+      'Preview or reset status sender-key distribution bookkeeping for one exact device only. The result reports whether the PN/LID alias resolved; reset is an unchanged no-op when it did not. Example: Debug.exactStatusSenderKeyDistribution({peer: "12345@lid", device: 2, action: "preview"}).';
+    function we(e) {
+      var t = Ae(e, "peer"),
+        n = Ae(e, "device");
+      if (typeof t != "string" || t.length === 0)
+        throw r("err")(
+          "peer must be a non-empty account-level user JID string",
+        );
+      if (/:[0-9]+@/.test(t))
+        throw r("err")(
+          "peer must not contain a device; pass device separately",
+        );
+      if (typeof n != "number" || !Number.isInteger(n) || n < 0)
+        throw r("err")(
+          "device must be an integer greater than or equal to zero",
+        );
+      var a = o("WAWebWidFactory").createWid(t);
+      if (!a.isUser() || a.device != null)
+        throw r("err")("peer must be an account-level user JID");
+      var i = o("WAWebWidFactory").asUserWidOrThrow(a);
+      return {
+        peer: String(i),
+        device: n,
+        deviceWid: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
+          i.user,
+          i.server,
+          n,
+        ),
+      };
+    }
+    function Ae(e, t) {
+      if (typeof e != "object" || e == null || Array.isArray(e))
+        throw r("err")("expected one structured object argument");
+      if (!(t in e)) throw r("err")("missing required " + t);
+      return e[t];
+    }
+    function Fe(e) {
+      if (e === o("WAWebSessionScope").SessionScope.DEFAULT)
+        return o("WAWebSessionScope").SessionScope.DEFAULT;
+      if (e === o("WAWebSessionScope").SessionScope.STATUS)
+        return o("WAWebSessionScope").SessionScope.STATUS;
+      throw r("err")('scope must be exactly "default" or "status"');
+    }
+    function Oe(e) {
+      if (e === "preview" || e === "delete") return e;
+      throw r("err")('action must be exactly "preview" or "delete"');
+    }
+    function Be(e) {
+      if (e === "preview" || e === "reset") return e;
+      throw r("err")('action must be exactly "preview" or "reset"');
+    }
+    function We(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebWidFactory").createWid(e),
       );
@@ -1173,12 +1306,14 @@ __d(
           ),
           (J || (J = n("Promise"))).resolve());
     }
-    $e.doc =
+    We.doc =
       "Clear chat passing chatId string. The same as clear chat from dropdown menu.";
-    var Pe = {
-      clearChat: $e,
+    var qe = {
+      clearChat: We,
       diffSignalSessions: ie,
       encryptMockReactionMsg: se,
+      exactSignalSession: $e,
+      exactStatusSenderKeyDistribution: Ne,
       groupChatGetParticipantRecord: Ee,
       groupChatGetGroupMetadataRecord: Ie,
       groupChatRotateSelfSenderKey: Le,
@@ -1191,7 +1326,7 @@ __d(
       sendTextMessageToActiveChat: De,
       snapshotSignalSessions: oe,
     };
-    l.default = Pe;
+    l.default = qe;
   },
   98,
 );

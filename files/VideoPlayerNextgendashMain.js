@@ -1006,7 +1006,7 @@ __d(
                     : void 0
                 );
               case "update_config_from_env":
-                return p(K, B, Z, Q.type);
+                return _(K, B, Z, Q.type);
               case "select_video_quality":
                 return p(
                   K,

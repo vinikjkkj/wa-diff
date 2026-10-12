@@ -9,7 +9,9 @@ __d(
     "WAWebBackendEventBus",
     "WAWebEventsWaitForReadyForOffline",
     "WAWebHandleOfflineAbProps",
+    "WAWebMessageQueueImpl",
     "WAWebOfflineResumeUtils",
+    "WAWebOneQueue",
     "WAWebPageLoadLogging",
     "WAWebQplFlowWrapper",
     "WAWebRuntimeEnvironmentUtils",
@@ -87,7 +89,7 @@ __d(
               var e = this.$1;
               o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
               this.isResumeFromRestartComplete()
-                ? T(t.message)
+                ? D(t.message)
                   ? (o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -106,13 +108,15 @@ __d(
                     o("WAWebOfflineResumeUtils").refreshWindow())
                 : !this.$2 &&
                   !this.isResumeFromRestartComplete() &&
-                  T(t.message) &&
+                  D(t.message) &&
                   (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
                     blocking_resume: !1,
                   }),
                   (this.offlineResumeManager = e()));
             }
             ((this.$2 = !0),
+              T(),
+              o("WAWebOneQueue").handleOneQueueOfflineStart(t),
               this.offlineResumeManager.processOfflinePreview(t));
           }),
           (r.processMessageDecryptResult = function (t) {
@@ -177,6 +181,7 @@ __d(
             return (
               o("WAWebPageLoadLogging").addPageLoadQplPoint("offline_received"),
               o("WAWebQplFlowWrapper").QPL.markerPoint(y, "OfflineIbReceived"),
+              o("WAWebOneQueue").handleOneQueueOfflineIb(),
               this.offlineResumeManager
                 .processOfflineSessionComplete(t)
                 .finally(function () {
@@ -408,7 +413,18 @@ __d(
         );
       };
     }
-    function T(e) {
+    function T() {
+      var e = o("WAWebMessageQueueImpl").getMessageQueueImpl();
+      (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
+        message_queue_impl: e,
+      }),
+        o(
+          "WAWebWamOfflineResumeReporter",
+        ).OfflineResumeReporter.qpl.addAnnotations({
+          string: { message_queue_impl: e },
+        }));
+    }
+    function D(e) {
       return !(
         e >=
         o("WAWebABProps").getABPropConfigValue(
@@ -416,10 +432,10 @@ __d(
         )
       );
     }
-    var D = new E();
+    var x = new E();
     ((l.DEFAULT_MAX_BATCH_SIZE = v),
       (l.OfflineMessageHandlerImpl = E),
-      (l.OfflineMessageHandler = D));
+      (l.OfflineMessageHandler = x));
   },
   98,
 );

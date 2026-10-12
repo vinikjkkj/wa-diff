@@ -9,6 +9,7 @@ __d(
     "WAWebCanvasUtils",
     "WAWebDecodeWebpToRgba",
     "WAWebDocumentUploadEnrichment",
+    "WAWebFileTypeFromBytes",
     "WAWebFileUtils",
     "WAWebImageUtils",
     "WAWebMediaAnalyzer",
@@ -37,7 +38,6 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:10296",
     "err",
-    "file-type",
     "isStringNullOrEmpty",
     "nullthrows",
   ],
@@ -668,7 +668,7 @@ __d(
                 ? s
                 : o("WAWebMimeTypes").MSCFB_MIME;
             }
-            var u = r("file-type")(l);
+            var u = o("WAWebFileTypeFromBytes").fileTypeFromBytes(l);
             if (u != null && u.mime) {
               var c = o("WAWebMimeTypes").isAllowedDocumentMimetype(
                 u.mime,

@@ -8,6 +8,7 @@ __d(
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
+    "WAWebL10N",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -67,14 +68,14 @@ __d(
         ],
       );
     }
-    function p(e, t, n, r) {
+    function p(e, t, n, o) {
       return s._(
         /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}"}',
         [
-          s._plural(n, "number"),
+          s._plural(n, "number", r("WAWebL10N").n(n)),
           s._param("author name", e),
           s._param("receiver name", t),
-          s._param("timestamp", r),
+          s._param("timestamp", o),
         ],
       );
     }
@@ -89,15 +90,15 @@ __d(
         ],
       );
     }
-    function f(e, t, n, r, o) {
+    function f(e, t, n, o, a) {
       return s._(
         /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
         [
-          s._plural(n, "number"),
+          s._plural(n, "number", r("WAWebL10N").n(n)),
           s._param("author name", e),
           s._param("receiver name", t),
-          s._param("timestamp", r),
-          s._param("name of the non-history receiver", o),
+          s._param("timestamp", o),
+          s._param("name of the non-history receiver", a),
         ],
       );
     }

@@ -8,6 +8,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebEventsWaitForBbEvent",
     "WAWebMessageDeliveryCounters",
+    "WAWebMessageQueueImpl",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -74,7 +75,9 @@ __d(
                   }),
                   o(
                     "WAWebMessageDeliveryCounters",
-                  ).logOfflineDeliveryWaitTimeout());
+                  ).logOfflineDeliveryWaitTimeout(
+                    o("WAWebMessageQueueImpl").getMessageQueueImpl(),
+                  ));
                 return;
               }
               throw t;

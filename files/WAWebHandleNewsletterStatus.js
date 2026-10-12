@@ -10,6 +10,7 @@ __d(
     "WAWebJidToWid",
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebNewsletterStatusUtils",
     "WAWebOfflineHandler",
     "asyncToGeneratorRuntime",
@@ -56,90 +57,101 @@ __d(
               o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.isResumeFromRestartComplete() && (g = !1),
-              yield o("WAWebMessageQueue").onMessageQueue({
-                chatWid: m,
-                isOffline: g,
-                msgCategory: null,
-                action: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var e;
-                      try {
-                        e = p({
-                          content: f,
-                          from: m,
-                          isOffline: g,
-                          parsedRequest: l,
-                        });
-                      } catch (e) {
-                        if (
-                          !(
-                            e instanceof
-                            o("WAWebHandleMsgError").MessageValidationError
+              yield o("WAWebMessageQueue")
+                .onMessageQueue({
+                  chatWid: m,
+                  isOffline: g,
+                  msgCategory: null,
+                  action: (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* () {
+                        var e;
+                        try {
+                          e = p({
+                            content: f,
+                            from: m,
+                            isOffline: g,
+                            parsedRequest: l,
+                          });
+                        } catch (e) {
+                          if (
+                            !(
+                              e instanceof
+                              o("WAWebHandleMsgError").MessageValidationError
+                            )
                           )
-                        )
-                          throw e;
-                        return (
+                            throw e;
+                          return (
+                            o("WALogger")
+                              .ERROR(
+                                s ||
+                                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                                    "[newsletter][status] Invalid status content, skipping",
+                                  ])),
+                              )
+                              .catching(r("getErrorSafe")(e))
+                              .tags("newsletter", "status")
+                              .sendLogs(
+                                "newsletter-status-invalid-content-skipped",
+                              ),
+                            _({
+                              ack: d,
+                              from: m,
+                              isOffline: g,
+                              parsedRequest: l,
+                            })
+                          );
+                        }
+                        try {
+                          (yield o(
+                            "WAWebHandleSingleMsgWorkerCompatible",
+                          ).handleSingleMsg({
+                            chatId: m,
+                            newMsg: e,
+                            handleSingleMsgOrigin: "addStatusMessages",
+                          }),
+                            l.serverId != null &&
+                              o("WAWebBackendApi").frontendFireAndForget(
+                                "fillGapFromIncomingStanza",
+                                {
+                                  newsletterJid: l.from,
+                                  incomingServerId: l.serverId,
+                                  sentTime: l.t,
+                                },
+                              ));
+                        } catch (e) {
                           o("WALogger")
                             .ERROR(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[newsletter][status] Invalid status content, skipping",
+                              u ||
+                                (u = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[newsletter][status] Failed to process status stanza",
                                 ])),
                             )
                             .catching(r("getErrorSafe")(e))
                             .tags("newsletter", "status")
                             .sendLogs(
-                              "newsletter-status-invalid-content-skipped",
-                            ),
-                          _({ ack: d, from: m, isOffline: g, parsedRequest: l })
-                        );
-                      }
-                      try {
-                        (yield o(
-                          "WAWebHandleSingleMsgWorkerCompatible",
-                        ).handleSingleMsg({
-                          chatId: m,
-                          newMsg: e,
-                          handleSingleMsgOrigin: "addStatusMessages",
-                        }),
-                          l.serverId != null &&
-                            o("WAWebBackendApi").frontendFireAndForget(
-                              "fillGapFromIncomingStanza",
-                              {
-                                newsletterJid: l.from,
-                                incomingServerId: l.serverId,
-                                sentTime: l.t,
-                              },
-                            ));
-                      } catch (e) {
-                        o("WALogger")
-                          .ERROR(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "[newsletter][status] Failed to process status stanza",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(e))
-                          .tags("newsletter", "status")
-                          .sendLogs(
-                            "newsletter-status-failed-to-process-status-stanza",
-                          );
-                      }
-                      return _({
-                        ack: d,
-                        from: m,
-                        isOffline: g,
-                        parsedRequest: l,
-                      });
-                    },
-                  );
-                  function t() {
-                    return e.apply(this, arguments);
-                  }
-                  return t;
-                })(),
-              })
+                              "newsletter-status-failed-to-process-status-stanza",
+                            );
+                        }
+                        return _({
+                          ack: d,
+                          from: m,
+                          isOffline: g,
+                          parsedRequest: l,
+                        });
+                      },
+                    );
+                    function t() {
+                      return e.apply(this, arguments);
+                    }
+                    return t;
+                  })(),
+                })
+                .catch(function (e) {
+                  return o(
+                    "WAWebMessageQueueTimeout",
+                  ).handleMessageQueueTimeout(e, "newsletter_status");
+                })
             );
           } catch (e) {
             var h = r("getErrorSafe")(e);

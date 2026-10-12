@@ -63,25 +63,19 @@ __d(
       );
     }
     function g() {
-      return (
-        b() &&
-        o("WAWebABProps").getABPropConfigValue("biz_ai_responding_list_enabled")
-      );
-    }
-    function h() {
       return r("justknobx")._("3531");
     }
-    function y() {
-      return C(
+    function h() {
+      return y(
         o(
           "WAWebBizAiWebSmartComposerAiListsGateModel",
         ).isBizAiWebSmartComposerAiListsGateEnabled(),
       );
     }
-    function C(e) {
-      return !h() && e && g();
+    function y(e) {
+      return !g() && e && C();
     }
-    function b() {
+    function C() {
       return (
         o(
           "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
@@ -91,57 +85,57 @@ __d(
         ) === !0
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_priority_list_item_expire_days",
       );
     }
-    var S = 0,
-      R = 1,
-      L = 2;
-    function E() {
+    var v = 0,
+      S = 1,
+      R = 2;
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function k() {
-      return E() !== S;
+    function E() {
+      return L() !== v;
     }
-    function I() {
+    function k() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function T() {
+    function I() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
         ) === !0
       );
     }
-    function D() {
+    function T() {
       return (
         o("WAWebABProps").getABPropConfigValue("biz_ai_web_gdrive_enabled") ===
         !0
       );
     }
-    function x() {
+    function D() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_integration_hub_enabled",
         ) === !0
       );
     }
-    function $() {
+    function x() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_appointments_enabled",
         ) === !0
       );
     }
-    function P() {
+    function $() {
       return (function (e) {
         return e === "EXPERIMENT"
           ? "EXPERIMENT"
@@ -154,7 +148,7 @@ __d(
           .toUpperCase(),
       );
     }
-    function N() {
+    function P() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_onboarding_notification_dispatch_enabled",
@@ -170,24 +164,23 @@ __d(
       (l.isAiAgentAutoSaveEnabled = p),
       (l.isAiReplyFabConfirmModalEnabled = _),
       (l.isAiAgentMessageEditingEnabled = f),
-      (l.isAiRespondingChipEnabled = g),
-      (l.isSmartComposerAiListsEmergencyDisabled = h),
-      (l.isAiListsWebUIEnabled = y),
-      (l.isAiListsWebUIEnabledWithJointGate = C),
-      (l.isHandoffRemovalTimingSyncEnabled = b),
-      (l.getHandoffListExpireDays = v),
-      (l.MULTI_WEBSITE_DISABLED = S),
-      (l.MULTI_WEBSITE_BRAZIL = R),
-      (l.MULTI_WEBSITE_LATAM = L),
-      (l.getMultiWebsiteMode = E),
-      (l.isMultiWebsiteEnabled = k),
-      (l.isMaibaWASSReceivingEnabled = I),
-      (l.isMaibaWASSSendingEnabled = T),
-      (l.isGoogleDriveEnabled = D),
-      (l.isIntegrationHubEnabled = x),
-      (l.isAppointmentsEnabled = $),
-      (l.getResponseSettingsV2TriState = P),
-      (l.isWebOnboardingNotificationDispatchEnabled = N));
+      (l.isSmartComposerAiListsEmergencyDisabled = g),
+      (l.isAiListsWebUIEnabled = h),
+      (l.isAiListsWebUIEnabledWithJointGate = y),
+      (l.isHandoffRemovalTimingSyncEnabled = C),
+      (l.getHandoffListExpireDays = b),
+      (l.MULTI_WEBSITE_DISABLED = v),
+      (l.MULTI_WEBSITE_BRAZIL = S),
+      (l.MULTI_WEBSITE_LATAM = R),
+      (l.getMultiWebsiteMode = L),
+      (l.isMultiWebsiteEnabled = E),
+      (l.isMaibaWASSReceivingEnabled = k),
+      (l.isMaibaWASSSendingEnabled = I),
+      (l.isGoogleDriveEnabled = T),
+      (l.isIntegrationHubEnabled = D),
+      (l.isAppointmentsEnabled = x),
+      (l.getResponseSettingsV2TriState = $),
+      (l.isWebOnboardingNotificationDispatchEnabled = P));
   },
   98,
 );

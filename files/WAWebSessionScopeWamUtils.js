@@ -28,7 +28,13 @@ __d(
         r = e.isSkdm,
         a = e.metaSessionScope;
       if (r === !0)
-        return c({ from: t, isGroupStatus: n }) &&
+        return o(
+          "WAWebStatusSessionGatingUtils",
+        ).isIncomingStatusSessionContext({
+          from: t,
+          isGroupStatus: n,
+          metaSessionScope: a,
+        }) &&
           o(
             "WAWebStatusSessionGatingUtils",
           ).shouldUseStatusSessionForIncomingMessage(a)

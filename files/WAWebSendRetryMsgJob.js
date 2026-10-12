@@ -241,8 +241,9 @@ __d(
             );
             return { stanza: C.stanza, statusStanzaClass: C.stanzaClass };
           }
-          return p.isBroadcastList()
-            ? (u != null || s(0, 141738),
+          if (p.isBroadcastList())
+            return (
+              u != null || s(0, 141738),
               {
                 stanza: yield o(
                   "WAWebResendBroadcastMsg",
@@ -254,21 +255,24 @@ __d(
                   deviceMsgType: h,
                 }),
                 statusStanzaClass: "message",
-              })
-            : (u != null || s(0, 56263),
-              {
-                stanza: yield o(
-                  "WAWebSendMsgCreateDeviceStanza",
-                ).createGroupDeviceMsgStanza({
-                  msgProtobuf: g,
-                  msgRecord: l,
-                  params: babelHelpers.extends({}, y, {
-                    isLidBot: a,
-                    participant: u,
-                  }),
-                }),
-                statusStanzaClass: "message",
-              });
+              }
+            );
+          u != null || s(0, 56263);
+          var b = l.data.isGroupStatus === !0 ? m : void 0;
+          return {
+            stanza: yield o(
+              "WAWebSendMsgCreateDeviceStanza",
+            ).createGroupDeviceMsgStanza({
+              msgProtobuf: g,
+              msgRecord: l,
+              params: babelHelpers.extends({}, y, {
+                isLidBot: a,
+                participant: u,
+                sessionScope: b,
+              }),
+            }),
+            statusStanzaClass: "message",
+          };
         })),
         f.apply(this, arguments)
       );

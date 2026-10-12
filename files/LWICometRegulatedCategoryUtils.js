@@ -323,7 +323,12 @@ __d(
     function H(e) {
       return V(e).length !== 0;
     }
-    function G(e, t) {
+    function G(e) {
+      return e.some(function (e) {
+        return e !== "NONE";
+      });
+    }
+    function z(e, t) {
       var n = V(e),
         o = V(t);
       return (h || (h = r("areEqual")))(n, o)
@@ -334,10 +339,10 @@ __d(
             ? "SANITIZE_AUDIENCE_AND_SAVE_PREVIOUS_AUDIENCE_DATA"
             : "SANITIZE_AUDIENCE";
     }
-    function z(e) {
-      return e.length === 0 ? s._(/*BTDS*/ "Not declared") : j(e);
-    }
     function j(e) {
+      return e.length === 0 ? s._(/*BTDS*/ "Not declared") : K(e);
+    }
+    function K(e) {
       var t = e.length;
       switch (t) {
         case 0:
@@ -370,9 +375,10 @@ __d(
       (l.refetchSingaporeUniversalInfo = U),
       (l.getRestrictedCategories = V),
       (l.hasRestrictedRegulatedCategories = H),
-      (l.getActionAfterUpdateRegulatedCategories = G),
-      (l.getRegulatedCategoriesDeclarationLabel = z),
-      (l.getRegulatedCategoriesSelectedLabel = j));
+      (l.isAdvantagePlusAudienceBlockedByRegulatedCategories = G),
+      (l.getActionAfterUpdateRegulatedCategories = z),
+      (l.getRegulatedCategoriesDeclarationLabel = j),
+      (l.getRegulatedCategoriesSelectedLabel = K));
   },
   226,
 );

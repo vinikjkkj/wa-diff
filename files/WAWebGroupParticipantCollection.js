@@ -6,6 +6,7 @@ __d(
     "WAWebChatCollection",
     "WAWebCollection",
     "WAWebContactCollection",
+    "WAWebContactComparator",
     "WAWebDebounce",
     "WAWebFrontendContactGetters",
     "WAWebGroupAgentProfileRouting",
@@ -22,6 +23,7 @@ __d(
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -122,6 +124,15 @@ __d(
         }),
         (n.ensureSorted = function () {
           this.$ParticipantCollection$p_1.flush();
+        }),
+        (n.createSortComparator = function () {
+          return r("gkx")("7")
+            ? o("WAWebContactComparator").createContactSortComparator(
+                function (e) {
+                  return e.contact;
+                },
+              )
+            : e.prototype.createSortComparator.call(this);
         }),
         (n.set = function (n, r) {
           var t = r || {};

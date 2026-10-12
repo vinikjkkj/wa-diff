@@ -13,6 +13,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebScheduledMsgConstants",
     "WAWebScheduledMsgStanzaContributor",
+    "WAWebSessionScope",
     "WAWebUsernameTypes",
     "WAWebVerifyProtobufMsgObjectKeys",
   ],
@@ -87,14 +88,19 @@ __d(
         D = f(m, s),
         x = h(m),
         $ = ((a = m.data.mediaData) == null ? void 0 : a.isViewOnce) === !0,
-        P =
+        P = m.data.isGroupStatus === !0,
+        N =
+          P &&
+          (s == null ? void 0 : s.hasPairwisePayload) === !0 &&
+          s.sessionScope === o("WAWebSessionScope").SessionScope.STATUS,
+        M =
           y != null
             ? o(
                 "WAWebScheduledMsgStanzaContributor",
               ).genScheduledMsgMetaContribution(y)
             : null,
-        N =
-          P != null ||
+        w =
+          M != null ||
           b != null ||
           S != null ||
           L != null ||
@@ -105,9 +111,10 @@ __d(
           $ ||
           R != null ||
           x != null ||
-          v != null;
-      if (N) {
-        var M, w;
+          v != null ||
+          P;
+      if (w) {
+        var A, F;
         return o("WAWap").wap(
           "meta",
           {
@@ -122,11 +129,11 @@ __d(
             polltype: b != null ? b : o("WAWap").DROP_ATTR,
             event_type: S != null ? S : o("WAWap").DROP_ATTR,
             thread_msg_id:
-              ((M = L) == null ? void 0 : M.threadMsgId) != null
+              ((A = L) == null ? void 0 : A.threadMsgId) != null
                 ? o("WAWap").CUSTOM_STRING(L.threadMsgId)
                 : o("WAWap").DROP_ATTR,
             thread_msg_sender_jid:
-              (w = L) != null && w.threadMsgSenderLid
+              (F = L) != null && F.threadMsgSenderLid
                 ? o("WAWebCommsWapMd").USER_JID(L.threadMsgSenderLid)
                 : o("WAWap").DROP_ATTR,
             appdata:
@@ -138,18 +145,20 @@ __d(
               x != null ? o("WAWap").CUSTOM_STRING(x) : o("WAWap").DROP_ATTR,
             message_association_type:
               v != null ? o("WAWap").CUSTOM_STRING(v) : o("WAWap").DROP_ATTR,
+            is_group_status: P ? "true" : o("WAWap").DROP_ATTR,
+            session_scope: N ? "status" : o("WAWap").DROP_ATTR,
             type:
-              P != null
+              M != null
                 ? o("WAWap").CUSTOM_STRING(
                     o("WAWebScheduledMsgConstants").SCHEDULED_MSG_META_TYPE,
                   )
                 : o("WAWap").DROP_ATTR,
             st:
-              (P == null ? void 0 : P.scheduledTimestampS) != null
-                ? o("WAWap").CUSTOM_STRING(String(P.scheduledTimestampS))
+              (M == null ? void 0 : M.scheduledTimestampS) != null
+                ? o("WAWap").CUSTOM_STRING(String(M.scheduledTimestampS))
                 : o("WAWap").DROP_ATTR,
           },
-          P == null ? void 0 : P.keyNode,
+          M == null ? void 0 : M.keyNode,
         );
       }
     }

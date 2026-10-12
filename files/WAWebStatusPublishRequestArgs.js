@@ -333,7 +333,7 @@ __d(
         i = e.senderKeyCiphertext,
         l = e.senderKeyDistributions,
         s = e.statusSetting;
-      return babelHelpers.extends({}, I(e), {
+      return babelHelpers.extends({}, T(e), {
         statusEncSettingMixinArgs: s != null ? S(s) : null,
         statusBroadcastPublishTypeMixinsArgs: {
           statusBroadcastRegular: {
@@ -375,7 +375,7 @@ __d(
         throw r("err")(
           "toStatusDirectPublishArgs: directed status has no recipients",
         );
-      return babelHelpers.extends({}, I(e), {
+      return babelHelpers.extends({}, T(e), {
         statusBroadcastPublishTypeMixinsArgs: {
           statusBroadcastDirected: {
             statusEncFanoutSenderKeyEmptyOrRetryOrFanoutMixinGroupArgs: {
@@ -391,6 +391,45 @@ __d(
       });
     }
     function I(e) {
+      var t = e.ciphertextVersion,
+        n = e.clientReportingToken,
+        r = e.editOrRevoke,
+        a = e.encMediaType,
+        i = e.hideDecryptFail,
+        l = e.retryCount,
+        s = e.retryEnc,
+        u = s.ciphertext,
+        c = s.isPqSession,
+        d = s.participant,
+        m = s.type;
+      return babelHelpers.extends({}, T(e), {
+        statusBroadcastPublishTypeMixinsArgs: {
+          statusBroadcastDirected: {
+            statusDirectedRetryParticipantMixinArgs: {
+              statusParticipant: o("WAWebWidToJid").widToDeviceJid(d),
+            },
+            statusEncFanoutSenderKeyEmptyOrRetryOrFanoutMixinGroupArgs: {
+              statusEncRetry: {
+                encTypeIndividualMixinArgs: {
+                  encType: p(m),
+                  encElementValue: new Uint8Array(u),
+                  encMediaTypeMixinArgs: y(a),
+                  encStateOrSessionTypeMixinGroupArgs: c
+                    ? { isEncSessionType: !0 }
+                    : null,
+                },
+                hasStatusEncHideDecryptFail: i ? !0 : null,
+                encRetryMixinArgs: l > 0 ? { encCount: l } : null,
+                encVersionArgs: _(t),
+              },
+            },
+            statusReportingMixinArgs: L(n),
+            statusEditOrRevokeMixinGroupArgs: r,
+          },
+        },
+      });
+    }
+    function T(e) {
       var t,
         n = e.deviceIdentity,
         r = e.msgType,
@@ -414,7 +453,8 @@ __d(
       (l.toStatusSettingArgs = S),
       (l.toStatusFanoutArgs = R),
       (l.toStatusBroadcastPublishArgs = E),
-      (l.toStatusDirectPublishArgs = k));
+      (l.toStatusDirectPublishArgs = k),
+      (l.toStatusRetryPublishArgs = I));
   },
   98,
 );

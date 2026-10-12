@@ -183,9 +183,15 @@ __d(
               y = h + this.$1.appStart;
             return this.endTrace(i, y, l, m);
           }),
-          (a.startTrace = function (t, n, a, i) {
-            var e = this;
-            if ((i === void 0 && (i = this.$5), !this.$8)) return null;
+          (a.startTrace = function (t, n, a, i, l) {
+            var e = this,
+              s;
+            if (
+              (i === void 0 && (i = this.$5),
+              l === void 0 && (l = {}),
+              !this.$8)
+            )
+              return null;
             if (this.$3.has(t))
               return (
                 r("FBLogger")("web_loom").mustfix(
@@ -194,47 +200,59 @@ __d(
                 ),
                 null
               );
-            var l = this.$14++,
-              s = {
+            var u = this.$14++,
+              c = {
                 buffer: new (o("WebLoomEventBuffer").WebLoomEventBuffer)(),
                 triggerId: t,
                 triggerInfo: n,
                 startTime: a,
-                sequenceNumber: l,
+                sequenceNumber: u,
               },
-              u = new Set(),
-              c = [];
+              d = new Set(),
+              m = [];
             this.$7.forEach(function (t) {
               i.has(t.loomProviderId) &&
                 t.isSupported() &&
-                (c.push(t.getInstance(s, e.$2, e.$1)), u.add(t.loomProviderId));
+                (m.push(t.getInstance(c, e.$2, e.$1)), d.add(t.loomProviderId));
             });
-            var d = "STARTED";
+            var p = "STARTED";
             (this.$3.set(t, {
-              traceContext: s,
-              providerInstances: c,
-              status: d,
+              traceContext: c,
+              providerInstances: m,
+              loomProviders: d,
+              secondaryOneTraceLinkage:
+                (s = l.secondaryOneTraceLinkage) != null ? s : !1,
+              status: p,
               startURI: window.location.href,
             }),
               this.$12.forEach(function (e) {
-                return e(s, d);
+                return e(c, p);
               }));
-            var m = this.$18(s);
-            return (
-              r("one-trace") &&
-                (this.$15 && (this.$15(), (this.$15 = null)),
-                (this.$15 = r("one-trace").subscribe(
-                  "trace-start",
-                  function (e) {
-                    (e.traceType === "LONGTASK" || e.traceType === "INP") &&
-                      r("addAnnotations")(e.annotations, {
-                        string: { loomRefId: m },
-                        string_array: { loomProviders: Array.from(u) },
-                      });
-                  },
-                ))),
-              { traceReferenceId: m, loomProviders: u }
-            );
+            var _ = this.$18(c);
+            return (this.$19(), { traceReferenceId: _, loomProviders: d });
+          }),
+          (a.$19 = function () {
+            var e = this;
+            !r("one-trace") ||
+              this.$15 != null ||
+              this.$3.size === 0 ||
+              (this.$15 = r("one-trace").subscribe("trace-start", function (t) {
+                if (!(t.traceType !== "LONGTASK" && t.traceType !== "INP")) {
+                  var n = Array.from(e.$3.values()),
+                    o = n[n.length - 1];
+                  for (var a of n) a.secondaryOneTraceLinkage || (o = a);
+                  o != null &&
+                    r("addAnnotations")(t.annotations, {
+                      string: { loomRefId: e.$18(o.traceContext) },
+                      string_array: {
+                        loomProviders: Array.from(o.loomProviders),
+                        loomRefIds: n.map(function (t) {
+                          return e.$18(t.traceContext);
+                        }),
+                      },
+                    });
+                }
+              }));
           }),
           (a.$18 = function (t) {
             return this.$13 + "_" + t.sequenceNumber;
@@ -253,14 +271,16 @@ __d(
                   );
                 var u = s.traceContext.sequenceNumber;
                 (this.$3.delete(t),
+                  this.$3.size === 0 &&
+                    this.$15 &&
+                    (this.$15(), (this.$15 = null)),
                   this.$4.set(u, s),
-                  this.$19(s, "END_PENDING"));
+                  this.$20(s, "END_PENDING"));
                 var c = [];
-                (s.providerInstances.forEach(function (e) {
+                s.providerInstances.forEach(function (e) {
                   var t = e.loomTraceWillEnd();
                   t && c.push(t);
-                }),
-                  this.$15 && (this.$15(), (this.$15 = null)));
+                });
                 var d = window.location.href;
                 try {
                   yield (e || (e = n("Promise"))).all(c);
@@ -311,12 +331,12 @@ __d(
                       sample_rate: p.sample_rate,
                     };
                     (this.$2.Transport.post(g, {
-                      onComplete: this.$16 > 0 ? this.$20(u) : this.$21(u, s),
+                      onComplete: this.$16 > 0 ? this.$21(u) : this.$22(u, s),
                       isHighPri: this.$9,
                     }),
-                      this.$19(s, "UPLOAD_PENDING"));
+                      this.$20(s, "UPLOAD_PENDING"));
                   } else
-                    (this.$19(s, "COMPLETE"),
+                    (this.$20(s, "COMPLETE"),
                       this.$4.delete(u),
                       r("fb-error")
                         .FBLogger("webloom")
@@ -325,7 +345,7 @@ __d(
                           p.qpl_marker_id,
                         ));
                 } catch (e) {
-                  (this.$19(s, "ERROR"), this.$4.delete(u));
+                  (this.$20(s, "ERROR"), this.$4.delete(u));
                 }
                 return !0;
               },
@@ -360,25 +380,25 @@ __d(
           (a.setStuckTraceTimeoutMs = function (t) {
             this.$16 = t;
           }),
-          (a.$20 = function (t) {
+          (a.$21 = function (t) {
             var e = this,
               n = setTimeout(function () {
                 var n = e.$4.get(t);
-                n != null && (e.$19(n, "ERROR"), e.$4.delete(t));
+                n != null && (e.$20(n, "ERROR"), e.$4.delete(t));
               }, this.$16);
             return function () {
               clearTimeout(n);
               var r = e.$4.get(t);
-              r != null && (e.$19(r, "COMPLETE"), e.$4.delete(t));
+              r != null && (e.$20(r, "COMPLETE"), e.$4.delete(t));
             };
           }),
-          (a.$21 = function (t, n) {
+          (a.$22 = function (t, n) {
             var e = this;
             return function () {
-              e.$4.has(t) && (e.$19(n, "COMPLETE"), e.$4.delete(t));
+              e.$4.has(t) && (e.$20(n, "COMPLETE"), e.$4.delete(t));
             };
           }),
-          (a.$19 = function (t, n) {
+          (a.$20 = function (t, n) {
             ((t.status = n),
               this.$12.forEach(function (e) {
                 return e(t.traceContext, t.status);

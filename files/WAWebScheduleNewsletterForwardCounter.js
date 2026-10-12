@@ -25,12 +25,12 @@ __d(
           .fireAndForget(
             o(
               "WAWebPersistedJobDefinitions",
-            ).jobSerializers.incrementNewsletterForwardCounter(
-              e.newsletterId,
-              e.retriesRemaining,
-              e.serverId,
-              o("WATimeUtils").futureUnixTime(e.delaySeconds),
-            ),
+            ).jobSerializers.incrementNewsletterForwardCounter({
+              delayedTime: o("WATimeUtils").futureUnixTime(e.delaySeconds),
+              newsletterId: e.newsletterId,
+              retriesRemaining: e.retriesRemaining,
+              serverId: e.serverId,
+            }),
           );
         return;
       }

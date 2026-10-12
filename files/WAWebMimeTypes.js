@@ -2,9 +2,9 @@ __d(
   "WAWebMimeTypes",
   [
     "WATypedArraysEqual",
+    "WAWebFileTypeFromBytes",
     "WAWebMediaFileErrors",
     "WAWebMimeTypesBuildExtToMime",
-    "file-type",
     "filterObject",
   ],
   function (t, n, r, o, a, i, l) {
@@ -163,9 +163,9 @@ __d(
       return t == null ? void 0 : t.previewType;
     }
     function E(t, n) {
-      var a = n.subarray(0, e),
-        i = r("file-type")(a);
-      if (i) return i.mime;
+      var r = n.subarray(0, e),
+        a = o("WAWebFileTypeFromBytes").fileTypeFromBytes(r);
+      if (a) return a.mime;
       if (t === "image") return "image/jpeg";
       if (t === "group-history") return "application/protobuf";
       throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(

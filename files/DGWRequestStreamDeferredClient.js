@@ -10,6 +10,7 @@ __d(
     "RtiRequestStreamQosFalcoEvent",
     "RtiWebRequestStreamClient",
     "WebDriverConfig",
+    "asyncToGeneratorRuntime",
     "cr:3024",
     "gkx",
     "nullthrows",
@@ -24,6 +25,18 @@ __d(
         }
         var o = t.prototype;
         return (
+          (o.refreshStreamGroup = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.$1;
+                t == null || t.refreshStreamGroup(e);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (o.createStream = function (t, n, o, a, i) {
             return (
               this.$2(),

@@ -1,8 +1,23 @@
 __d(
   "WAWebDeviceSentMessageProtoUtils",
-  [],
-  function (t, n, r, o, a, i) {
-    function e(e, t) {
+  ["WAWebFutureproofProtoUtils"],
+  function (t, n, r, o, a, i, l) {
+    function e(e) {
+      for (var t = [e], n = t.pop(); n != null; n = t.pop()) {
+        var r, a;
+        if (n.deviceSentMessage != null) return !0;
+        var i =
+          (r = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(n)) ==
+          null
+            ? void 0
+            : r.message;
+        i != null && t.push(i);
+        var l = (a = n.groupStatusMessageV2) == null ? void 0 : a.message;
+        l != null && t.push(l);
+      }
+      return !1;
+    }
+    function s(e, t) {
       var n = e == null ? void 0 : e.messageContextInfo;
       if (n == null) {
         var r = {
@@ -21,7 +36,7 @@ __d(
         },
       };
     }
-    function l(e) {
+    function u(e) {
       var t,
         n,
         r,
@@ -98,7 +113,9 @@ __d(
       });
       return babelHelpers.extends({}, C, { messageContextInfo: b });
     }
-    ((i.wrapDeviceSentMessage = e), (i.unwrapDeviceSentMessage = l));
+    ((l.containsDeviceSentMessage = e),
+      (l.wrapDeviceSentMessage = s),
+      (l.unwrapDeviceSentMessage = u));
   },
-  66,
+  98,
 );

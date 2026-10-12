@@ -4,17 +4,20 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = "\uD83D\uDC9A",
       s = new Set([e]);
-    function u(e) {
-      if (e == null) return 0;
-      var t = 0;
-      for (var n of s) {
-        var r = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(n);
-        if (r != null) {
-          var a;
-          t += (a = e.get(r)) != null ? a : 0;
+    function u(e, t) {
+      var n =
+          t != null
+            ? o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(t)
+            : null,
+        r = 0;
+      for (var a of s) {
+        var i = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(a);
+        if (i != null) {
+          var l = e == null ? void 0 : e.get(i);
+          l != null ? (r += l) : n === i && (r += 1);
         }
       }
-      return t;
+      return r;
     }
     function c(e) {
       var t = new Set();

@@ -204,7 +204,7 @@ __d(
       oe = d({ UNKNOWN: 0, CONTROL_PASSED: 1, CONTROL_TAKEN: 2, INFO: 3 }),
       ae = d({ USER_VIDEO: 0, AI_GENERATED: 1 }),
       ie = d({ NONE: 0, GIPHY: 1, TENOR: 2, KLIPY: 3 }),
-      le = d({ UNKNOWN: 0, VINYL: 1 }),
+      le = d({ UNKNOWN: 0, VINYL: 1, MESSAGE_BUBBLE: 2, LYRICS: 3 }),
       se = d({ DEFAULT: 0, PARENT: 1, SUB: 2, DEFAULT_SUB: 3 }),
       ue = d({
         NONE: 0,

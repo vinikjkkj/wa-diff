@@ -7,6 +7,7 @@ __d(
     "WAWebVoipVideoCaptureOffThread",
     "WAWebVoipWasmHeapBuffer",
     "WAWebVoipWebCodecsEncoder",
+    "WAWebVoipWebTransportWorkerHandler",
     "WAWebVoipWorkerHandler",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,84 +23,82 @@ __d(
       g = null,
       h = 0,
       y = 0,
-      C = !1,
-      b = new (o("WAWebVoipStatsTracker").VoipStatsTracker)(),
-      v = 20,
-      S = 0,
-      R = 0;
-    function L(e, t) {
+      C = new (o("WAWebVoipStatsTracker").VoipStatsTracker)(),
+      b = 20,
+      v = 0,
+      S = 0;
+    function R(e, t) {
       var n = t.bufferedAmount;
-      (C && b.record(e, n), n > R && (R = n));
+      (C.record(e, n), n > S && (S = n));
       var r = Date.now();
-      if (r - S >= v) {
+      if (r - v >= b) {
         var o;
-        ((S = r),
-          (o = W) == null ||
+        ((v = r),
+          (o = B) == null ||
             o.updateSctpBufferedAmount == null ||
-            o.updateSctpBufferedAmount(R, n),
-          (R = 0));
+            o.updateSctpBufferedAmount(S, n),
+          (S = 0));
       }
     }
-    function E() {
-      C &&
-        (b.isPolling() ||
-          b.startPolling({
-            intervalMs: o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
-            resetPerInterval: !0,
-            onInterval: function (n) {
-              var t = n.getMostActiveId();
-              if (t != null) {
-                var r = e.get(t);
-                if (r != null && r.channel.readyState === "open") {
-                  var a,
-                    i = r.channel.bufferedAmount,
-                    l = (a = n.formatStats(t)) != null ? a : "N/A";
-                  o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
-                    3,
-                    "voip: [SctpStats] " +
-                      t +
-                      " bufferedAmount=" +
-                      i +
-                      " (" +
-                      l +
-                      ")",
-                  );
-                }
+    function L() {
+      C.isPolling() ||
+        C.startPolling({
+          intervalMs: o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
+          resetPerInterval: !0,
+          onInterval: function (n) {
+            var t = n.getMostActiveId();
+            if (t != null) {
+              var r = e.get(t);
+              if (r != null && r.channel.readyState === "open") {
+                var a,
+                  i = r.channel.bufferedAmount,
+                  l = (a = n.formatStats(t)) != null ? a : "N/A";
+                o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
+                  3,
+                  "voip: [SctpStats] " +
+                    t +
+                    " bufferedAmount=" +
+                    i +
+                    " (" +
+                    l +
+                    ")",
+                );
               }
-            },
-          }));
+            }
+          },
+        });
     }
-    function k() {
-      var e = b.stopPolling();
+    function E() {
+      var e = C.stopPolling();
       e != null &&
         o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
           3,
           "voip: [SctpStats] Call bufferedAmount summary: " + e,
         );
     }
-    function I(e) {
+    function k(e) {
       e.noFirstResponseWatchdog != null &&
         (self.clearTimeout(e.noFirstResponseWatchdog),
         (e.noFirstResponseWatchdog = null));
     }
-    function T(e) {
+    function I(e) {
       e.rxStallWatchdog != null &&
         (self.clearTimeout(e.rxStallWatchdog), (e.rxStallWatchdog = null));
     }
-    function D(e) {
+    function T(e) {
       var t = e.connectionId,
         n = e.delayMs,
         r = e.state;
-      T(r);
+      I(r);
       var o = n != null ? n : c;
       r.rxStallWatchdog = self.setTimeout(function () {
         r.rxStallWatchdog = null;
         var e = Date.now(),
           n = e - r.lastRxPacketTime;
-        n >= c ? $(t) : D({ connectionId: t, delayMs: c - n, state: r });
+        n >= c ? x(t) : T({ connectionId: t, delayMs: c - n, state: r });
       }, o);
     }
-    function x(e, t, n) {
+    function D(e, t, n) {
       if (d <= 0) return !1;
       var r = t.lastTxPacketTime === 0 ? null : n - t.lastTxPacketTime;
       if (r == null || r >= d) {
@@ -113,15 +112,15 @@ __d(
               a +
               ")",
           ),
-          D({ connectionId: e, state: t }),
+          T({ connectionId: e, state: t }),
           !0
         );
       }
       return n - t.txActiveSince < c
-        ? (D({ connectionId: e, state: t }), !0)
+        ? (T({ connectionId: e, state: t }), !0)
         : !1;
     }
-    function $(t) {
+    function x(t) {
       var n = e.get(t);
       if (
         !(
@@ -132,7 +131,7 @@ __d(
         )
       ) {
         var r = Date.now();
-        if (!x(t, n, r)) {
+        if (!D(t, n, r)) {
           var a = r - n.lastRxPacketTime;
           o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
             1,
@@ -148,7 +147,11 @@ __d(
               n.channel.bufferedAmount +
               ")",
           );
-          var i = j(t, "error", "rx_stall_timeout");
+          var i = z({
+            connectionId: t,
+            errorReason: "rx_stall_timeout",
+            event: "error",
+          });
           if (i != null)
             try {
               i.channel.close();
@@ -156,24 +159,24 @@ __d(
         }
       }
     }
-    function P(e, t) {
+    function $(e, t) {
       t.noFirstResponseWatchdog != null ||
         t.stats.firstSendTime === 0 ||
         t.stats.firstResponseRecvTime !== 0 ||
         t.channel.readyState !== "open" ||
         (t.noFirstResponseWatchdog = self.setTimeout(function () {
-          ((t.noFirstResponseWatchdog = null), K(e));
+          ((t.noFirstResponseWatchdog = null), j(e));
         }, c));
     }
-    function N(e, t, n) {
+    function P(e, t, n) {
       (t.stats.sentPackets++, (t.stats.sentBytes += n));
       var r = Date.now();
       (d > 0 && r - t.lastTxPacketTime >= d && (t.txActiveSince = r),
         (t.lastTxPacketTime = r),
-        t.stats.firstSendTime === 0 && ((t.stats.firstSendTime = r), P(e, t)));
+        t.stats.firstSendTime === 0 && ((t.stats.firstSendTime = r), $(e, t)));
     }
-    var M = new TextDecoder();
-    function w() {
+    var N = new TextDecoder();
+    function M() {
       if (f) {
         var t = m,
           n = p;
@@ -229,7 +232,7 @@ __d(
                 c,
                 _,
               ),
-              b = M.decode(C),
+              b = N.decode(C),
               v =
                 a +
                 o("WAWebVoipJsWorkerMessageHandlerHelpers")
@@ -241,17 +244,17 @@ __d(
                 d,
                 _,
               ),
-              R = o(
+              L = o(
                 "WAWebVoipJsWorkerMessageHandlerHelpers",
               ).getConnectionIdFromIpPort({
                 ip: b,
                 port: l,
                 removeRelayPortOverride: u,
               }),
-              E = e.get(R);
+              E = e.get(L);
             if (E != null && E.channel.readyState === "open")
               try {
-                (E.channel.send(S), L(R, E.channel), N(R, E, d), h++);
+                (E.channel.send(S), R(L, E.channel), P(L, E, d), h++);
               } catch (e) {
                 y++;
                 break;
@@ -259,27 +262,27 @@ __d(
             else if (E != null)
               (E.txBuffer.push(S.buffer), E.stats.txBufferedPackets++);
             else {
-              var k = s.get(R);
-              (k == null && ((k = []), s.set(R, k)), k.push(S.buffer));
+              var k = s.get(L);
+              (k == null && ((k = []), s.set(L, k)), k.push(S.buffer));
             }
             var I = (a + i) % _;
             (Atomics.store(t, 1, I), (a = I), (r = Atomics.load(t, 0)));
           }
       }
     }
-    function A() {
+    function w() {
       function e() {
         if (f) {
           try {
-            w();
+            M();
           } catch (e) {}
           g = self.setTimeout(e, 0);
         }
       }
       e();
     }
-    function F(e, t, n) {
-      (f && O(),
+    function A(e, t, n) {
+      (f && F(),
         (p = new Uint8Array(
           e,
           t +
@@ -292,13 +295,13 @@ __d(
         (h = 0),
         (y = 0),
         (f = !0),
-        A(),
+        w(),
         "" + n);
     }
-    function O() {
+    function F() {
       if (f)
         try {
-          w();
+          M();
         } catch (e) {}
       ((f = !1),
         g != null && (self.clearTimeout(g), (g = null)),
@@ -313,7 +316,7 @@ __d(
         (m = null),
         (p = null));
     }
-    function B(t, n, r) {
+    function O(t, n, r) {
       var a = o(
           "WAWebVoipJsWorkerMessageHandlerHelpers",
         ).getConnectionIdFromIpPort({
@@ -331,13 +334,13 @@ __d(
       try {
         var c = r instanceof ArrayBuffer ? r : new Uint8Array(r).buffer,
           d = c.byteLength;
-        return (l.send(c), L(a, l), N(a, i, d), !0);
+        return (l.send(c), R(a, l), P(a, i, d), !0);
       } catch (e) {
         return !1;
       }
     }
-    var W = null;
-    function q(t, n) {
+    var B = null;
+    function W(t, n) {
       var r = e.get(t);
       if (r == null) {
         "" + t;
@@ -347,11 +350,11 @@ __d(
         (r.stats.receivedBytes += n.byteLength),
         (r.lastRxPacketTime = Date.now()),
         r.stats.firstResponseRecvTime === 0 &&
-          ((r.stats.firstResponseRecvTime = r.lastRxPacketTime), I(r)),
+          ((r.stats.firstResponseRecvTime = r.lastRxPacketTime), k(r)),
         !r.receivedMedia &&
           !o("WAWebVoipJsWorkerMessageHandlerHelpers").isStunPacket(n) &&
-          ((r.receivedMedia = !0), D({ connectionId: t, state: r })));
-      var a = W;
+          ((r.receivedMedia = !0), T({ connectionId: t, state: r })));
+      var a = B;
       if (a == null) {
         r.rxBuffer.push(n);
         return;
@@ -376,7 +379,7 @@ __d(
           a.handleOnMessageFromHeap(l, i, r.ip, r.port));
       } catch (e) {}
     }
-    function U(t) {
+    function q(t) {
       var n = e.get(t);
       if (n != null) {
         var r = n.channel;
@@ -386,7 +389,7 @@ __d(
             if (a != null) {
               var i = a.byteLength;
               try {
-                (r.send(a), n.txBuffer.shift(), N(t, n, i));
+                (r.send(a), n.txBuffer.shift(), P(t, n, i));
               } catch (e) {
                 o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
                   1,
@@ -399,18 +402,18 @@ __d(
           }
       }
     }
-    function V(t) {
+    function U(t) {
       var n = e.get(t);
-      if (!(n == null || W == null)) {
+      if (!(n == null || B == null)) {
         var r = n.rxBuffer.splice(0);
-        for (var o of r) o != null && q(t, o);
+        for (var o of r) o != null && W(t, o);
       }
     }
-    function H(t, n) {
+    function V(t, n) {
       var r = n.channel;
       ((r.onmessage = function (e) {
         var n = e.data;
-        (n instanceof ArrayBuffer && q(t, n), w());
+        (n instanceof ArrayBuffer && W(t, n), M());
       }),
         (r.onopen = function () {
           try {
@@ -421,10 +424,11 @@ __d(
               connectionId: t,
             });
           } catch (e) {}
-          (U(t), V(t));
+          (q(t), U(t));
         }),
         (r.onclose = function () {
-          e.has(t) && j(t, "error", "remote_close");
+          e.has(t) &&
+            z({ connectionId: t, errorReason: "remote_close", event: "error" });
         }),
         (r.onerror = function (n) {
           var a = o(
@@ -439,10 +443,10 @@ __d(
                 "WAWebVoipJsWorkerMessageHandlerHelpers",
               ).formatDataChannelErrorDetails(a),
           ),
-            e.has(t) && j(t, "error"));
+            e.has(t) && z({ connectionId: t, event: "error" }));
         }));
     }
-    function G(t, n, r) {
+    function H(t, n, r) {
       var o = e.get(t);
       if (o != null)
         try {
@@ -469,7 +473,7 @@ __d(
           );
         } catch (e) {}
     }
-    function z(t) {
+    function G(t) {
       var n = e.get(t);
       n != null &&
         o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
@@ -488,22 +492,25 @@ __d(
             n.stats.txBufferedPackets,
         );
     }
-    function j(t, n, r) {
-      var a = e.get(t);
-      return a == null
+    function z(t) {
+      var n = t.connectionId,
+        r = t.errorReason,
+        a = t.event,
+        i = e.get(n);
+      return i == null
         ? null
-        : (I(a),
-          T(a),
-          z(t),
-          G(t, n, r),
-          W != null &&
-            o("WAWebVoipWasmHeapBuffer").freeHeapBuffer(W, a.wasmBuffer),
-          e.delete(t),
-          b.remove(t),
-          e.size === 0 && k(),
-          a);
+        : (k(i),
+          I(i),
+          G(n),
+          H(n, a, r),
+          B != null &&
+            o("WAWebVoipWasmHeapBuffer").freeHeapBuffer(B, i.wasmBuffer),
+          e.delete(n),
+          C.remove(n),
+          e.size === 0 && E(),
+          i);
     }
-    function K(t) {
+    function j(t) {
       var n = e.get(t);
       if (
         !(
@@ -528,15 +535,19 @@ __d(
             n.channel.bufferedAmount +
             ")",
         );
-        var a = j(t, "error", "no_first_response_timeout");
+        var a = z({
+          connectionId: t,
+          errorReason: "no_first_response_timeout",
+          event: "error",
+        });
         if (a != null)
           try {
             a.channel.close();
           } catch (e) {}
       }
     }
-    function Q(t, n, r, a, i, l) {
-      var u = {
+    function K(t, n, r, a, i) {
+      var l = {
         channel: r,
         ip: a,
         port: i,
@@ -559,15 +570,15 @@ __d(
           firstResponseRecvTime: 0,
         },
       };
-      e.set(n, u);
-      var c = s.get(n);
-      if (c != null) {
+      e.set(n, l);
+      var u = s.get(n);
+      if (u != null) {
         s.delete(n);
-        for (var d of c) (u.txBuffer.push(d), u.stats.txBufferedPackets++);
+        for (var c of u) (l.txBuffer.push(c), l.stats.txBufferedPackets++);
       }
-      (H(n, u), (C = l), E());
+      (V(n, l), L());
     }
-    function X(t, n) {
+    function Q(t, n) {
       var r = e.get(t);
       if (r != null) {
         var a = r.channel;
@@ -577,7 +588,7 @@ __d(
         }
         var i = n.byteLength;
         try {
-          (a.send(n), L(t, a), N(t, r, i));
+          (a.send(n), R(t, a), P(t, r, i));
         } catch (e) {
           o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
             1,
@@ -586,11 +597,11 @@ __d(
         }
       }
     }
-    function Y(t) {
+    function X(t) {
       if (t != null) {
         var n = e.get(t);
         if (n != null) {
-          j(t, "close");
+          z({ connectionId: t, event: "close" });
           try {
             n.channel.close();
           } catch (e) {}
@@ -600,7 +611,7 @@ __d(
         for (var o of Array.from(e.entries())) {
           var a = o[0],
             i = o[1];
-          (j(a, "close"), r.push(i.channel));
+          (z({ connectionId: a, event: "close" }), r.push(i.channel));
         }
         for (var l of r)
           try {
@@ -608,9 +619,14 @@ __d(
           } catch (e) {}
       }
     }
-    function J(e, t) {
-      if ((W == null && (W = e), t.jsWorkerCmd === "shutdown")) {
-        (k(), O(), s.clear(), Y(), (W = null));
+    function Y(e, t) {
+      if ((B == null && (B = e), t.jsWorkerCmd === "shutdown")) {
+        (E(),
+          F(),
+          s.clear(),
+          X(),
+          o("WAWebVoipWebTransportWorkerHandler").closeWebTransport(e),
+          (B = null));
         try {
           e.exitJsWorkerThread();
         } catch (e) {
@@ -622,45 +638,56 @@ __d(
         }
       } else if (t.jsWorkerCmd !== "ping") {
         if (t.jsWorkerCmd === "startVideoCapture")
-          t.useWebCodecsEncoder === !0
-            ? o("WAWebVoipWebCodecsEncoder")
-                .startVideoCaptureWithWebCodecsEncoderInWorker(
-                  t.captureObject,
-                  t.params,
-                  e,
-                  t.videoElementCapture,
-                  t.initialOrientationValue,
-                  t.isScreenShare === !0,
-                )
-                .catch(function (e) {
-                  o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
-                    2,
-                    "voip: [AV:startVideoCaptureWithWebCodecsEncoderInWorker] unhandled error: " +
-                      String(e),
-                  );
-                })
-            : t.captureObject != null
-              ? o("WAWebVoipVideoCaptureOffThread")
-                  .startVideoCaptureInWorker({
-                    captureObject: t.captureObject,
-                    initialOrientationValue: t.initialOrientationValue,
-                    onVideoDataFnType: t.onVideoDataFnType,
-                    params: t.params,
-                    voipWasm: e,
-                  })
+          (o("WAWebVoipVideoCaptureOffThread").updateInterruptCaptureOnStop(
+            t.interruptCaptureOnStop,
+          ),
+            t.useWebCodecsEncoder === !0
+              ? o("WAWebVoipWebCodecsEncoder")
+                  .startVideoCaptureWithWebCodecsEncoderInWorker(
+                    t.captureObject,
+                    t.params,
+                    e,
+                    {
+                      enableOutputWatchdog:
+                        t.enableWebCodecsEncoderOutputWatchdog,
+                      initialOrientationValue: t.initialOrientationValue,
+                      isScreenShare: t.isScreenShare === !0,
+                      normalizeVideoElementPresentationFrames:
+                        t.normalizeVideoElementPresentationFrames,
+                      videoElementCapture: t.videoElementCapture,
+                    },
+                  )
                   .catch(function (e) {
                     o(
                       "WAWebVoipJsWorkerMessageHandlerHelpers",
                     ).logToPhysicalLogs(
                       2,
-                      "voip: [AV:startVideoCaptureInWorker] unhandled error: " +
+                      "voip: [AV:startVideoCaptureWithWebCodecsEncoderInWorker] unhandled error: " +
                         String(e),
                     );
                   })
-              : o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
-                  2,
-                  "voip: [AV:startVideoCaptureInWorker] captureObject is null",
-                );
+              : t.captureObject != null
+                ? o("WAWebVoipVideoCaptureOffThread")
+                    .startVideoCaptureInWorker({
+                      captureObject: t.captureObject,
+                      initialOrientationValue: t.initialOrientationValue,
+                      onVideoDataFnType: t.onVideoDataFnType,
+                      params: t.params,
+                      voipWasm: e,
+                    })
+                    .catch(function (e) {
+                      o(
+                        "WAWebVoipJsWorkerMessageHandlerHelpers",
+                      ).logToPhysicalLogs(
+                        2,
+                        "voip: [AV:startVideoCaptureInWorker] unhandled error: " +
+                          String(e),
+                      );
+                    })
+                : o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
+                    2,
+                    "voip: [AV:startVideoCaptureInWorker] captureObject is null",
+                  ));
         else if (t.jsWorkerCmd === "stopVideoCapture")
           o("WAWebVoipVideoCaptureOffThread")
             .stopVideoCaptureInWorker()
@@ -676,10 +703,12 @@ __d(
         else if (t.jsWorkerCmd === "updateDeviceOrientation")
           o("WAWebVoipVideoCaptureOffThread").updateDeviceOrientationInWorker(
             t.orientationValue,
+            t.diagnostics,
           );
         else if (t.jsWorkerCmd === "deliverVideoFrame")
           o("WAWebVoipVideoCaptureOffThread").deliverVideoFrameToWorker(
             t.frame,
+            t.frameMetadata,
           );
         else if (t.jsWorkerCmd === "startVoipRpc") {
           o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
@@ -708,23 +737,48 @@ __d(
               token: t.token,
             }));
         } else if (t.jsWorkerCmd === "transferDataChannel")
-          Q(e, t.connectionId, t.channel, t.ip, t.port, t.enableStats);
-        else if (t.jsWorkerCmd === "sendPacket") X(t.connectionId, t.data);
-        else if (t.jsWorkerCmd === "closeDataChannel") Y(t.connectionId);
+          K(e, t.connectionId, t.channel, t.ip, t.port);
+        else if (t.jsWorkerCmd === "sendPacket") Q(t.connectionId, t.data);
+        else if (t.jsWorkerCmd === "closeDataChannel") X(t.connectionId);
         else if (t.jsWorkerCmd === "initRingBuffer")
-          F(t.heapBuffer, t.heapBufferOffset, t.dataSize);
-        else if (t.jsWorkerCmd === "shutdownRingBuffer") O();
+          A(t.heapBuffer, t.heapBufferOffset, t.dataSize);
+        else if (t.jsWorkerCmd === "shutdownRingBuffer") F();
         else if (t.jsWorkerCmd === "setRemoveRelayPortOverride") u = t.enabled;
         else if (t.jsWorkerCmd === "setSctpTimeoutMs") c = t.ms;
         else if (t.jsWorkerCmd === "setRelayParkedTxIdleMs") d = t.ms;
+        else if (t.jsWorkerCmd === "openWebTransport")
+          o("WAWebVoipWebTransportWorkerHandler").openWebTransport(
+            e,
+            t.connectionId,
+            t.url,
+            t.ip,
+            t.port,
+            t.relayGeneration,
+            t.attemptId,
+            t.sendRing,
+          );
+        else if (t.jsWorkerCmd === "resetWebTransportDatagramHealth")
+          o(
+            "WAWebVoipWebTransportWorkerHandler",
+          ).resetWebTransportDatagramHealth(t.relayGeneration);
+        else if (t.jsWorkerCmd === "sendWebTransportDatagram")
+          o("WAWebVoipWebTransportWorkerHandler").sendWebTransportDatagram(
+            t.connectionId,
+            t.data,
+          );
+        else if (t.jsWorkerCmd === "closeWebTransport")
+          o("WAWebVoipWebTransportWorkerHandler").closeWebTransport(
+            e,
+            t.connectionId,
+          );
         else if (t.jsWorkerCmd === "updateIceRtt") {
           var n;
-          ((n = W) == null ? void 0 : n.updateIceRtt) != null &&
-            W.updateIceRtt(t.rttMs, t.relayIp, t.relayPort);
+          ((n = B) == null ? void 0 : n.updateIceRtt) != null &&
+            B.updateIceRtt(t.rttMs, t.relayIp, t.relayPort);
         }
       }
     }
-    ((l.trySendDirectOnTransferredChannel = B), (l.handleJsWorkerMessage = J));
+    ((l.trySendDirectOnTransferredChannel = O), (l.handleJsWorkerMessage = Y));
   },
   98,
 );

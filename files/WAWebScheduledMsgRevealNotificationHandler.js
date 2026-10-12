@@ -19,6 +19,7 @@ __d(
     "WAWebHandleSingleMsg",
     "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebOfflineHandler",
@@ -131,30 +132,37 @@ __d(
             !o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.isResumeFromRestartComplete();
-          yield o("WAWebMessageQueue").onMessageQueue({
-            chatWid: _,
-            isOffline: f,
-            msgCategory: null,
-            action: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  return (
-                    yield F({
-                      mexScheduledTimestampS: p,
-                      receiverEnabled: r,
-                      rk: l,
-                      rkid: m,
-                    }),
-                    null
-                  );
-                },
+          yield o("WAWebMessageQueue")
+            .onMessageQueue({
+              chatWid: _,
+              isOffline: f,
+              msgCategory: null,
+              action: (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    return (
+                      yield F({
+                        mexScheduledTimestampS: p,
+                        receiverEnabled: r,
+                        rk: l,
+                        rkid: m,
+                      }),
+                      null
+                    );
+                  },
+                );
+                function t() {
+                  return e.apply(this, arguments);
+                }
+                return t;
+              })(),
+            })
+            .catch(function (e) {
+              return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+                e,
+                "scheduled_msg_reveal",
               );
-              function t() {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-          });
+            });
         })),
         A.apply(this, arguments)
       );

@@ -17,40 +17,48 @@ __d(
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          var a;
           try {
-            r = yield o("WAWebSchemaParticipant")
+            a = yield o("WAWebSchemaParticipant")
               .getParticipantTable()
-              .equals(["participants"], String(e));
-          } catch (e) {
+              .equals(["participants"], String(t));
+          } catch (t) {
             throw (
-              String(e).includes("Failed to read large IndexedDB value") &&
+              String(t).includes("Failed to read large IndexedDB value") &&
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "updateGroupParticipantsInTransaction: error: ",
                         "",
                       ])),
-                    e,
+                    t,
                   )
                   .sendLogs("indexeddb-participant-read-large-value"),
-              e
+              t
             );
           }
-          var a = _(r, "updateGroupParticipantsInTransaction").map(
-            function (r) {
-              var a = r.rotateKey,
-                i = new Map(r.senderKey);
+          var i = yield _(
+              a,
+              "updateGroupParticipantsInTransaction",
+              function () {
+                return o("WAWebSchemaParticipant")
+                  .getParticipantTable()
+                  .equalsPrimaryKeys(["participants"], String(t));
+              },
+            ),
+            l = i.map(function (e) {
+              var a = e.rotateKey,
+                i = new Map(e.senderKey);
               return (
-                n.forEach(function (t) {
+                r.forEach(function (e) {
                   var n,
                     r = String(
                       o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                        e.user,
-                        e.server,
-                        t,
+                        t.user,
+                        t.server,
+                        e,
                       ),
                     );
                   ((a = a || ((n = i.get(r)) != null ? n : !1)), i.delete(r));
@@ -59,26 +67,25 @@ __d(
                   i.forEach(function (e, t) {
                     return i.set(t, !1);
                   }),
-                t.forEach(function (t) {
+                n.forEach(function (e) {
                   i.set(
                     String(
                       o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                        e.user,
-                        e.server,
-                        t,
+                        t.user,
+                        t.server,
+                        e,
                       ),
                     ),
                     !1,
                   );
                 }),
-                f({ added: t, oldRecord: r, removed: n, rotateKey: a, wid: e }),
-                babelHelpers.extends({}, r, { senderKey: i, rotateKey: a })
+                y({ added: n, oldRecord: e, removed: r, rotateKey: a, wid: t }),
+                babelHelpers.extends({}, e, { senderKey: i, rotateKey: a })
               );
-            },
-          );
+            });
           return o("WAWebSchemaParticipant")
             .getParticipantTable()
-            .bulkCreateOrReplace(a);
+            .bulkCreateOrReplace(l);
         })),
         d.apply(this, arguments)
       );
@@ -105,8 +112,8 @@ __d(
                 String(e).includes("Failed to read large IndexedDB value") &&
                   o("WALogger")
                     .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "bulkUpdateGroupParticipantsInTransaction: error: ",
                           "",
                         ])),
@@ -116,7 +123,20 @@ __d(
                 e
               );
             }
-            var n = _(t, "bulkUpdateGroupParticipantsInTransaction");
+            var n = yield _(
+              t,
+              "bulkUpdateGroupParticipantsInTransaction",
+              function () {
+                return o("WAWebSchemaParticipant")
+                  .getParticipantTable()
+                  .anyOfPrimaryKeys(
+                    ["participants"],
+                    e.map(function (e) {
+                      return String(e.wid);
+                    }),
+                  );
+              },
+            );
             if (n.length !== 0) {
               var r = new Map();
               e.forEach(function (e) {
@@ -164,7 +184,7 @@ __d(
                             !1,
                           );
                         }),
-                        f({
+                        y({
                           added: l,
                           oldRecord: e,
                           removed: s,
@@ -185,28 +205,76 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(t, n) {
-      var r = t.filter(Boolean);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        r.length !== t.length &&
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "",
-                  ": participant query dropped ",
-                  " null records out of ",
-                  "",
-                ])),
-              n,
-              t.length - r.length,
-              t.length,
-            )
-            .sendLogs("participant-query-null-record"),
-        r
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = e.filter(Boolean);
+          if (r.length === e.length) return r;
+          var a = yield g(r, n);
+          return (
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": participant query dropped ",
+                    " null records out of ",
+                    ", ",
+                    "",
+                  ])),
+                t,
+                e.length - r.length,
+                e.length,
+                a,
+              )
+              .sendLogs("participant-query-null-record"),
+            r
+          );
+        })),
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n = new Set(
+                e.map(function (e) {
+                  return String(e.groupId);
+                }),
+              ),
+              r = yield t(),
+              a = r.filter(function (e) {
+                return !n.has(e);
+              }),
+              i = yield o("WAWebSchemaParticipant")
+                .getParticipantTable()
+                .bulkGet(a),
+              l = i.filter(function (e) {
+                return e == null;
+              }).length;
+            return (
+              "primary keys: " +
+              r.length +
+              ", missing: " +
+              a.length +
+              ", unreadable by primary key: " +
+              l
+            );
+          } catch (e) {
+            return "diagnostics failed: " + String(e);
+          }
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
       var t = e.added,
         n = e.oldRecord,
         r = e.removed,

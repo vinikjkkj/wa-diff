@@ -2,11 +2,13 @@ __d(
   "WAWebGroupPendingParticipantCollection",
   [
     "WAWebCollection",
+    "WAWebContactComparator",
     "WAWebDebounce",
     "WAWebGroupParticipantComparator",
     "WAWebGroupParticipantGetters",
     "WAWebGroupParticipantModel",
     "WAWebL10N",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -46,6 +48,15 @@ __d(
         }),
         (n.ensureSorted = function () {
           this.$PendingParticipantCollection$p_1.flush();
+        }),
+        (n.createSortComparator = function () {
+          return r("gkx")("7")
+            ? o("WAWebContactComparator").createContactSortComparator(
+                function (e) {
+                  return e.contact;
+                },
+              )
+            : e.prototype.createSortComparator.call(this);
         }),
         (n.set = function (n, r) {
           return (

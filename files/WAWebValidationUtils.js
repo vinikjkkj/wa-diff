@@ -3,22 +3,35 @@ __d(
   ["WAWebURLUtils"],
   function (t, n, r, o, a, i, l) {
     var e = new RegExp(
-        /^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+        /^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
         "i",
       ),
-      s = new RegExp(
+      s = 64,
+      u = 255,
+      c = 63,
+      d = new RegExp(
         /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/i,
       );
-    function u(t) {
-      return t == null || t === "" || e.test(t);
+    function m(t) {
+      if (t == null || t === "") return !0;
+      if (!e.test(t)) return !1;
+      var n = t.indexOf("@"),
+        r = t.slice(n + 1);
+      return (
+        n <= s &&
+        r.length <= u &&
+        r.split(".").every(function (e) {
+          return e.length <= c;
+        })
+      );
     }
-    function c(e) {
+    function p(e) {
       return e == null || e === "" || r("WAWebURLUtils").URL_REGEX.test(e);
     }
-    function d(e) {
-      return e == null || (e.trim() !== "" && s.test(e.trim()));
+    function _(e) {
+      return e == null || (e.trim() !== "" && d.test(e.trim()));
     }
-    ((l.validateEmail = u), (l.validateURL = c), (l.validateUUID = d));
+    ((l.validateEmail = m), (l.validateURL = p), (l.validateUUID = _));
   },
   98,
 );

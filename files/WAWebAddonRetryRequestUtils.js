@@ -154,8 +154,15 @@ __d(
                       .getParentMsgKey(g)
                       .toString(),
                   ),
-                );
-              return { msgData: yield c(g, h), selfMsgRow: n };
+                ),
+                y = yield c(g, h);
+              return {
+                msgData:
+                  h.isGroupStatus === !0
+                    ? babelHelpers.extends({}, y, { isGroupStatus: !0 })
+                    : y,
+                selfMsgRow: n,
+              };
             }
             return { msgData: i, selfMsgRow: n };
           }

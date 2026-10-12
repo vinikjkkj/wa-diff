@@ -130,9 +130,10 @@ __d(
           );
         },
         _ = function (a) {
-          var e = null;
-          if (n) {
-            var i = o("NavigationTracing").traceNavigation(
+          var e = null,
+            i = n;
+          if (i) {
+            var l = o("NavigationTracing").traceNavigation(
               {
                 interactionClass: "contingent",
                 qplEvent: a.qplEvent,
@@ -145,9 +146,9 @@ __d(
               },
             );
             return (
-              n({
+              i({
                 tracePolicy: a.tracePolicy,
-                interactionID: i,
+                interactionID: l,
                 routeFetchPromise: a.routeFetchPromise,
               }),
               e

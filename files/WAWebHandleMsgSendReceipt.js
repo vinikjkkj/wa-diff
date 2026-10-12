@@ -7,6 +7,7 @@ __d(
     "WAWebCoexV2ReceiptRecipient",
     "WAWebCoexV2SendReceipt",
     "WAWebCreateNackFromStanza",
+    "WAWebDeliveryReceiptClassUtils",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgSendAck",
     "WAWebHandleMsgTypes.flow",
@@ -67,7 +68,11 @@ __d(
                     : t.author,
               L = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
               E = !t.chat.isBot() && t.author.isBot(),
-              k = C.isStatus() || a.isGroupStatus === !0,
+              k =
+                o("WAWebDeliveryReceiptClassUtils").getDeliveryReceiptClass(
+                  C,
+                  a,
+                ) != null,
               I = a.isStatusStanza === !0 ? "status" : void 0;
             if (i.result == null)
               return (

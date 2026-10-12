@@ -23,7 +23,7 @@ __d(
       var e = f();
       return e == null
         ? u
-        : o("WAWebUA").UA.isSafari && e.echoCancellation
+        : o("WAWebUA").UA.isWebkit && e.echoCancellation
           ? c
           : y(e);
     }

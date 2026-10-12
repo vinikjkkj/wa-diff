@@ -12,6 +12,7 @@ __d(
     "WAWebLogReceivedMessages",
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterMsgParser",
     "WAWebNewsletterMsgProcessor",
@@ -48,111 +49,125 @@ __d(
               ).OfflineMessageHandler.isResumeFromRestartComplete() &&
                 ((l.offline = null), (m = !1)));
             var p = !o("WAWebNewsletterMsgProcessor").isAddOnType(l.type);
-            return yield o("WAWebMessageQueue").onMessageQueue({
-              chatWid: l.from,
-              isOffline: m,
-              msgCategory: null,
-              action: (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var t = o("WATimeUtils").unixTimeMs(),
-                      a = yield o(
-                        "WAWebNewsletterMsgProcessor",
-                      ).preprocessNewsletterMsg(l),
-                      u = a.isOrphan,
-                      _ = a.msgData,
-                      f = p
-                        ? o("WAWebMessageProcessorCache")
-                            .messageProcessorCache.addMessages([{ msg: _ }], !m)
-                            .then(function () {
-                              (o(
-                                "WAWebWamWorkerOfflineProcessReporter",
-                              ).WorkerOfflineResumeReporter.updateProcessedMessageCount(),
-                                o(
-                                  "WAWebLogReceivedMessages",
-                                ).logReceivedMessagesInWAM({
-                                  msgs: [_],
-                                  offline: l.offline,
-                                  tsMillis: l.t * 1e3,
-                                  clientReceivedTsMillis: d,
-                                  msgProcessStartTsMillis: t,
-                                  serverAddressingMode: null,
-                                  localAddressingMode: null,
-                                }));
-                            })
-                            .catch(function (t) {
-                              o("WALogger")
-                                .ERROR(
-                                  e ||
-                                    (e =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[newsletter] Failed to handle newsletter message",
-                                      ])),
-                                )
-                                .tags("newsletter")
-                                .sendLogs(
-                                  "newsletter-failed-to-store-incoming-message",
-                                );
-                            })
-                        : (c || (c = n("Promise"))).resolve();
-                    return (
-                      yield o(
-                        "WAWebHandleNewsletterMsgAddOns",
-                      ).maybeHandleNewsletterMsgAddOns(_, {
-                        pollVotes: l.pollVote,
-                      }),
-                      o("WAWebBackendEventBus").BackendEventBus
-                        .isMainStreamReadyMd &&
-                        (o("WAWebBackendEventBus").BackendEventBus
-                          .isOfflineDeliveryEnd && (yield f),
-                        o("WAWebBackendApi").frontendFireAndForget(
-                          "updateNewsletterMessageUI",
-                          { chatID: l.from, msg: _, isOrphan: u },
-                        )),
-                      m
-                        ? (o(
-                            "WAWebOfflineHandler",
-                          ).OfflineMessageHandler.processMessageDecryptResult(
-                            o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                              .SUCCESS,
-                          ),
-                          o("WAWebMessageProcessorCache")
-                            .messageProcessorCache.addMessages([
-                              {
-                                receiptInfo: {
-                                  externalId: l.id,
-                                  from: l.from,
-                                  author: l.from,
+            return yield o("WAWebMessageQueue")
+              .onMessageQueue({
+                chatWid: l.from,
+                isOffline: m,
+                msgCategory: null,
+                action: (function () {
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      var t = o("WATimeUtils").unixTimeMs(),
+                        a = yield o(
+                          "WAWebNewsletterMsgProcessor",
+                        ).preprocessNewsletterMsg(l),
+                        u = a.isOrphan,
+                        _ = a.msgData,
+                        f = p
+                          ? o("WAWebMessageProcessorCache")
+                              .messageProcessorCache.addMessages(
+                                [{ msg: _ }],
+                                !m,
+                              )
+                              .then(function () {
+                                (o(
+                                  "WAWebWamWorkerOfflineProcessReporter",
+                                ).WorkerOfflineResumeReporter.updateProcessedMessageCount(),
+                                  o(
+                                    "WAWebLogReceivedMessages",
+                                  ).logReceivedMessagesInWAM({
+                                    msgs: [_],
+                                    offline: l.offline,
+                                    tsMillis: l.t * 1e3,
+                                    clientReceivedTsMillis: d,
+                                    msgProcessStartTsMillis: t,
+                                    serverAddressingMode: null,
+                                    localAddressingMode: null,
+                                  }));
+                              })
+                              .catch(function (t) {
+                                o("WALogger")
+                                  .ERROR(
+                                    e ||
+                                      (e =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "[newsletter] Failed to handle newsletter message",
+                                          ],
+                                        )),
+                                  )
+                                  .tags("newsletter")
+                                  .sendLogs(
+                                    "newsletter-failed-to-store-incoming-message",
+                                  );
+                              })
+                          : (c || (c = n("Promise"))).resolve();
+                      return (
+                        yield o(
+                          "WAWebHandleNewsletterMsgAddOns",
+                        ).maybeHandleNewsletterMsgAddOns(_, {
+                          pollVotes: l.pollVote,
+                        }),
+                        o("WAWebBackendEventBus").BackendEventBus
+                          .isMainStreamReadyMd &&
+                          (o("WAWebBackendEventBus").BackendEventBus
+                            .isOfflineDeliveryEnd && (yield f),
+                          o("WAWebBackendApi").frontendFireAndForget(
+                            "updateNewsletterMessageUI",
+                            { chatID: l.from, msg: _, isOrphan: u },
+                          )),
+                        m
+                          ? (o(
+                              "WAWebOfflineHandler",
+                            ).OfflineMessageHandler.processMessageDecryptResult(
+                              o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                                .SUCCESS,
+                            ),
+                            o("WAWebMessageProcessorCache")
+                              .messageProcessorCache.addMessages([
+                                {
+                                  receiptInfo: {
+                                    externalId: l.id,
+                                    from: l.from,
+                                    author: l.from,
+                                  },
                                 },
-                              },
-                            ])
-                            .catch(function (e) {
-                              var t = r("getErrorSafe")(e);
-                              o("WALogger")
-                                .ERROR(
-                                  s ||
-                                    (s =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[newsletter] Failed to handle newsletter offline ack",
-                                      ])),
-                                )
-                                .catching(t)
-                                .tags("newsletter")
-                                .sendLogs(
-                                  "newsletter-failed-to-store-offline-ack",
-                                );
-                            }),
-                          null)
-                        : i
-                    );
-                  },
+                              ])
+                              .catch(function (e) {
+                                var t = r("getErrorSafe")(e);
+                                o("WALogger")
+                                  .ERROR(
+                                    s ||
+                                      (s =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "[newsletter] Failed to handle newsletter offline ack",
+                                          ],
+                                        )),
+                                  )
+                                  .catching(t)
+                                  .tags("newsletter")
+                                  .sendLogs(
+                                    "newsletter-failed-to-store-offline-ack",
+                                  );
+                              }),
+                            null)
+                          : i
+                      );
+                    },
+                  );
+                  function a() {
+                    return t.apply(this, arguments);
+                  }
+                  return a;
+                })(),
+              })
+              .catch(function (e) {
+                return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+                  e,
+                  "newsletter_msg",
                 );
-                function a() {
-                  return t.apply(this, arguments);
-                }
-                return a;
-              })(),
-            });
+              });
           } catch (e) {
             var _ = r("getErrorSafe")(e);
             throw (

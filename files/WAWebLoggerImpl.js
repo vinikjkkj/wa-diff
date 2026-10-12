@@ -342,24 +342,26 @@ __d(
                     r || (r = yield t.logs.orderBy("timestamp").last());
                     for (
                       var o = r ? r.line + 1 : 0,
-                        a = (n = r) != null && n.count ? r.count + 1 : o;
+                        a = (n = r) != null && n.count ? r.count + 1 : o,
+                        i = [];
                       e.logs[e.writeFrom] != null;
                     ) {
-                      var i = e.logs[e.writeFrom];
+                      var l = e.logs[e.writeFrom];
                       (e.$16(e.writeFrom, !1),
                         (e.writeFrom =
                           (e.writeFrom + 1) % e.logCapacityInDatabase),
                         (e.runningTimestamp =
-                          i.t <= e.runningTimestamp
+                          l.t <= e.runningTimestamp
                             ? e.runningTimestamp + e.microStep
-                            : i.t),
-                        t.logs.put({
+                            : l.t),
+                        i.push({
                           line: o++ % e.logCapacityInDatabase,
-                          log: i.m,
+                          log: l.m,
                           timestamp: e.runningTimestamp,
                           count: a++,
                         }));
                     }
+                    yield t.logs.bulkPut(i);
                   }),
                 );
               })

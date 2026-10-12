@@ -3,81 +3,132 @@ __d(
   ["WAWebHatchBrowserTaskState"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      var n,
-        r = t != null && !s(t.version, e.version) ? t : null,
-        o =
-          (r == null ? void 0 : r.screenshotURL) != null ||
+    function e(e, t, n) {
+      var r,
+        a,
+        i = (r = s(t, e)) != null ? r : s(n, e),
+        l =
+          (i == null ? void 0 : i.screenshotURL) != null ||
           e.encryptedScreenshot != null,
-        a =
-          o ||
+        u =
+          l ||
           e.previewAvailable === !0 ||
-          (r == null ? void 0 : r.previewAvailable) === !0,
-        i = c(r, e),
-        l = i.state,
-        d = i.terminalReason,
-        p = u(r, l, a);
+          (i == null ? void 0 : i.previewAvailable) === !0,
+        m = d(i, e),
+        f = m.state,
+        g = m.terminalReason,
+        h = c(i, f, u),
+        C = p(f, e, i);
       return {
         canRecoverFromTombstone:
-          p &&
-          l !== "STOPPED" &&
-          f(r == null ? void 0 : r.status) !== "superseded",
-        hasPreview: o,
-        isPreviewAvailable: a,
-        isTombstone: p,
-        liveScreenshotURL: r == null ? void 0 : r.screenshotURL,
-        state: l,
-        subtitle: m(l, e, r),
-        terminalReason: d,
-        title: (n = _(r == null ? void 0 : r.title)) != null ? n : e.title,
+          h &&
+          f !== "STOPPED" &&
+          y(i == null ? void 0 : i.status) !== "superseded",
+        completedTask: i != null && f === "COMPLETED" ? i : null,
+        completionDetail: C == null ? _(f, e, i) : null,
+        hasPreview: l,
+        isPreviewAvailable: u,
+        isTombstone: h,
+        liveScreenshotURL: i == null ? void 0 : i.screenshotURL,
+        state: f,
+        subtitle: C,
+        terminalReason: g,
+        title:
+          (a = o("WAWebHatchBrowserTaskState").nonBlank(
+            i == null ? void 0 : i.title,
+          )) != null
+            ? a
+            : e.title,
       };
     }
     function s(e, t) {
+      return e != null && !u(e.version, t.version) ? e : null;
+    }
+    function u(e, t) {
       return e != null && t != null && e < t;
     }
-    function u(e, t, n) {
-      return e != null && f(e.status) === "superseded"
+    function c(e, t, n) {
+      return e != null && y(e.status) === "superseded"
         ? !0
-        : o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t) && !n;
-    }
-    function c(e, t) {
-      var n;
-      if (e == null) return d(t.state, t.terminalReason);
-      var r = f(e.status),
-        a = p(r);
-      if (a != null) return d(a, e.terminalReason);
-      if (o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t.state))
-        return d(t.state, t.terminalReason);
-      var i = g(f((n = _(e.displayState)) != null ? n : e.displayStatus));
-      if (i != null) return d(i, e.terminalReason);
-      var l = h(r, e.terminalReason);
-      return l != null ? d(l, e.terminalReason) : d(t.state, t.terminalReason);
+        : e != null && t === "COMPLETED"
+          ? !1
+          : o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t) && !n;
     }
     function d(e, t) {
+      if (e == null) return m(t.state, t.terminalReason);
+      var n = y(e.status),
+        r = h(n);
+      if (r != null) return m(r, e.terminalReason);
+      if (o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t.state))
+        return m(t.state, t.terminalReason);
+      var a = g(e);
+      if (a != null) return m(a, e.terminalReason);
+      var i = b(n, e.terminalReason);
+      return i != null ? m(i, e.terminalReason) : m(t.state, t.terminalReason);
+    }
+    function m(e, t) {
       return { state: e, terminalReason: e === "FAILED" ? t : null };
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       var r,
-        o,
         a,
         i,
         l,
-        s =
-          (r = _(n == null ? void 0 : n.activityTitle)) != null
+        s,
+        u =
+          (r = o("WAWebHatchBrowserTaskState").nonBlank(
+            n == null ? void 0 : n.activityTitle,
+          )) != null
             ? r
-            : _(n == null ? void 0 : n.siteDomain),
-        u = t.state === e ? t.statusLabel : null;
-      return e === "COMPLETED" || e === "FAILED" || e === "STOPPED"
-        ? u
-        : e === "WAITING" || e === "NEEDS_USER" || e === "PAUSED"
-          ? (o = (a = s != null ? s : u) != null ? a : t.activityTitle) != null
-            ? o
-            : t.siteDomain
-          : (i = (l = s != null ? s : t.activityTitle) != null ? l : u) != null
-            ? i
-            : t.siteDomain;
+            : o("WAWebHatchBrowserTaskState").nonBlank(
+                n == null ? void 0 : n.siteDomain,
+              ),
+        c = t.state === e ? t.statusLabel : null;
+      return e === "COMPLETED"
+        ? o("WAWebHatchBrowserTaskState").nonBlank(c)
+        : e === "FAILED" || e === "STOPPED"
+          ? c
+          : e === "WAITING" || e === "NEEDS_USER" || e === "PAUSED"
+            ? (a = (i = u != null ? u : c) != null ? i : t.activityTitle) !=
+              null
+              ? a
+              : t.siteDomain
+            : (l = (s = u != null ? u : t.activityTitle) != null ? s : c) !=
+                null
+              ? l
+              : t.siteDomain;
     }
-    function p(e) {
+    function _(e, t, n) {
+      var r;
+      return e !== "COMPLETED"
+        ? null
+        : (r = f(n)
+              ? o("WAWebHatchBrowserTaskState").nonBlank(
+                  n == null ? void 0 : n.activityTitle,
+                )
+              : null) != null
+          ? r
+          : t.state === "COMPLETED"
+            ? o("WAWebHatchBrowserTaskState").nonBlank(t.activityTitle)
+            : null;
+    }
+    function f(e) {
+      var t;
+      return (
+        e != null && ((t = h(y(e.status))) != null ? t : g(e)) === "COMPLETED"
+      );
+    }
+    function g(e) {
+      var t;
+      return C(
+        y(
+          (t = o("WAWebHatchBrowserTaskState").nonBlank(e.displayState)) != null
+            ? t
+            : e.displayStatus,
+        ),
+      );
+    }
+    function h(e) {
       return e === "complete" || e === "completed"
         ? "COMPLETED"
         : e === "failed"
@@ -86,13 +137,10 @@ __d(
             ? "STOPPED"
             : null;
     }
-    function _(e) {
-      return e != null && e.trim() !== "" ? e : null;
-    }
-    function f(e) {
+    function y(e) {
       return e == null ? void 0 : e.trim().toLowerCase().replace(/[- ]/g, "_");
     }
-    function g(e) {
+    function C(e) {
       return e === "queued"
         ? "QUEUED"
         : e === "starting"
@@ -113,7 +161,7 @@ __d(
                         ? "FAILED"
                         : null;
     }
-    function h(e, t) {
+    function b(e, t) {
       return e === "queued"
         ? "QUEUED"
         : e === "starting"
@@ -125,10 +173,10 @@ __d(
               : e === "user_controlled"
                 ? "PAUSED"
                 : e === "superseded"
-                  ? y(f(t))
+                  ? v(y(t))
                   : null;
     }
-    function y(e) {
+    function v(e) {
       return e === "awaiting_input_timed_out" ||
         e === "awaiting_user_input_timed_out" ||
         e === "user_control_heartbeat_timed_out"
@@ -137,7 +185,7 @@ __d(
           ? "STOPPED"
           : "FAILED";
     }
-    l.browserTaskCardDisplay = e;
+    ((l.browserTaskCardDisplay = e), (l.acceptedBrowserTask = s));
   },
   98,
 );

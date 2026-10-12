@@ -414,10 +414,7 @@ __d(
       }
     }
     function L(e, t) {
-      if (
-        !(e == null || e.length === 0) &&
-        o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
-      )
+      if (!(e == null || e.length === 0))
         return {
           mode: e.map(
             o("WAWebBotModeSelectionProtoUtils")

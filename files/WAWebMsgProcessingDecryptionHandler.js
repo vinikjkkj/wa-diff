@@ -222,6 +222,11 @@ __d(
                   ? {
                       result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
                         .PARSE_VALIDATION_ERROR,
+                      e2eFailureReason:
+                        d instanceof
+                        o("WAWebHandleMsgError").DeviceSentMessageError
+                          ? d.e2eFailureReason
+                          : void 0,
                     }
                   : m === v.InvalidProtobuf
                     ? {

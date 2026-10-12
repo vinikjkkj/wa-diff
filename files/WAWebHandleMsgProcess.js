@@ -777,11 +777,12 @@ __d(
                 ),
                 (L = !0),
                 R.push(
-                  o("WAWebHandleMsgProcessUtils").processKeepInChatMsg(
-                    v[0],
-                    s,
-                    S,
-                  ),
+                  o("WAWebHandleMsgProcessUtils").processKeepInChatMsg({
+                    msg: v[0],
+                    msgInfo: s,
+                    msgMeta: C,
+                    reparsing: S,
+                  }),
                 ))
               : ((n = v[0]) == null ? void 0 : n.type) ===
                     o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -793,11 +794,12 @@ __d(
                       ])),
                   ),
                   R.push(
-                    o("WAWebHandleMsgProcessUtils").processEditProtocolMsg(
-                      v[0],
-                      s,
-                      S,
-                    ),
+                    o("WAWebHandleMsgProcessUtils").processEditProtocolMsg({
+                      msg: v[0],
+                      msgInfo: s,
+                      msgMeta: C,
+                      reparsing: S,
+                    }),
                   ))
                 : ((a = v[0]) == null ? void 0 : a.type) ===
                       o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -815,6 +817,7 @@ __d(
                       ).processEphemeralSyncResponseMsg({
                         msg: v[0],
                         msgInfo: s,
+                        msgMeta: C,
                         reparsing: S,
                       }),
                     ))

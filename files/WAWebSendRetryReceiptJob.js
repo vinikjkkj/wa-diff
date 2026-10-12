@@ -113,12 +113,12 @@ __d(
                 ),
               I;
             try {
-              I = yield f(
-                y,
-                o("WAWebCryptoCurve25519").toCurveKeyPair(E),
-                m,
-                k,
-              );
+              I = yield f({
+                identityKeyPair: o("WAWebCryptoCurve25519").toCurveKeyPair(E),
+                is1on1: k,
+                isStateless: m,
+                retryCount: y,
+              });
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -238,34 +238,37 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n, r) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            (n === void 0 && (n = !1), r === void 0 && (r = !1));
-            var a = yield h({
-                identityKeyPair: t,
-                is1on1: r,
-                isStateless: n,
-                retryCount: e,
-              }),
-              i = a[0],
-              l = a[1];
-            return (
-              l &&
-                (yield o("WAWebSignalStoreApi").waSignalStore.markKeyAsUploaded(
-                  l.keyId,
-                ),
-                yield o(
-                  "WAWebSignalStoreApi",
-                ).waSignalStore.markPreKeyAsDirectDistribution(l.keyId)),
-              i
-            );
-          },
-        )),
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.identityKeyPair,
+            n = e.is1on1,
+            r = n === void 0 ? !1 : n,
+            a = e.isStateless,
+            i = a === void 0 ? !1 : a,
+            l = e.retryCount,
+            s = yield h({
+              identityKeyPair: t,
+              is1on1: r,
+              isStateless: i,
+              retryCount: l,
+            }),
+            u = s[0],
+            c = s[1];
+          return (
+            c &&
+              (yield o("WAWebSignalStoreApi").waSignalStore.markKeyAsUploaded(
+                c.keyId,
+              ),
+              yield o(
+                "WAWebSignalStoreApi",
+              ).waSignalStore.markPreKeyAsDirectDistribution(c.keyId)),
+            u
+          );
+        })),
         g.apply(this, arguments)
       );
     }

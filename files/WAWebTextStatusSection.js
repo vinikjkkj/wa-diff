@@ -13,13 +13,13 @@ __d(
     "WAWebFlex.react",
     "WAWebFrontendContactGetters",
     "WAWebModalManager",
-    "WAWebPencilRefreshedIcon.react",
     "WAWebText.react",
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "WAWebUserPrefsMeUser",
     "WDSButton.react",
+    "WDSIconIcEdit.react",
     "WDSIconIcMood.react",
     "WDSMargins.stylex",
     "react",
@@ -249,8 +249,7 @@ __d(
                     {
                       children: c.jsx(r("WDSButton.react"), {
                         testid: "edit_text_status",
-                        Icon: o("WAWebPencilRefreshedIcon.react")
-                          .PencilRefreshedIcon,
+                        Icon: r("WDSIconIcEdit.react"),
                         variant: "borderless",
                         onPress: Y,
                         "aria-label": Z,

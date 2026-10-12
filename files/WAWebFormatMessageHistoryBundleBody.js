@@ -7,6 +7,7 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebGroupHistoryMsgData.flow",
+    "WAWebL10N",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -130,7 +131,7 @@ __d(
       return s._(
         /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}"}',
         [
-          s._plural(t, "number"),
+          s._plural(t, "number", r("WAWebL10N").n(t)),
           s._param("name of the group history receiver", e),
           s._param("timestamp", n),
         ],
@@ -169,14 +170,14 @@ __d(
         ],
       );
     }
-    function v(e, t, n, r) {
+    function v(e, t, n, o) {
       return s._(
         /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
         [
-          s._plural(t, "number"),
+          s._plural(t, "number", r("WAWebL10N").n(t)),
           s._param("name of the group history receiver", e),
           s._param("timestamp", n),
-          s._param("name of the non-history receiver", r),
+          s._param("name of the non-history receiver", o),
         ],
       );
     }

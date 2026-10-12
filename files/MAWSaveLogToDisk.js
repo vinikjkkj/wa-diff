@@ -152,10 +152,10 @@ __d(
           n = e(),
           o = n.getAll();
         return (
-          (o.onsuccess = function (e) {
-            var n = e.target.result,
-              r = n.slice(Math.max(0, n.length - c));
-            t.resolve(r);
+          (o.onsuccess = function () {
+            var e = o.result,
+              n = e.slice(Math.max(0, e.length - c));
+            t.resolve(n);
           }),
           (o.onerror = function (e) {
             return t.reject(e);
@@ -184,17 +184,17 @@ __d(
           i = a.openCursor(null, "prev"),
           l = [];
         return (
-          (i.onsuccess = function (e) {
-            var r = e.target.result;
-            if (r == null) {
+          (i.onsuccess = function () {
+            var e = i.result;
+            if (e == null) {
               n.resolve(l);
               return;
             }
-            if ((l.push(r.value), l.length >= t)) {
+            if ((l.push(e.value), l.length >= t)) {
               n.resolve(l);
               return;
             }
-            r.continue();
+            e.continue();
           }),
           (i.onerror = function (e) {
             return n.reject(e);

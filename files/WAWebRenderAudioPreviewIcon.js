@@ -1,6 +1,6 @@
 __d(
   "WAWebRenderAudioPreviewIcon",
-  ["WAWebIcHeadphonesIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcHeadphones.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -9,7 +9,11 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(o("WAWebIcHeadphonesIcon.react").IcHeadphonesIcon, {})),
+          ? ((n = s.jsx(r("WDSIconIcHeadphones.react"), {
+              height: 20,
+              width: 20,
+              testid: "ic-headphones",
+            })),
             (t[0] = n))
           : (n = t[0]),
         n

@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebDBProcessEditProtocolMsgs",
+    "WAWebDeliveryReceiptClassUtils",
     "WAWebGetMessageCache",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
@@ -17,19 +18,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t) {
-      var n = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
-        r = n
-          ? { msg: e }
-          : {
-              msg: e,
-              receiptInfo: {
-                externalId: e.id.id,
-                from: e.from,
-                author: t.author,
-              },
-            };
-      o("WAWebGetMessageCache").getMessageCache().addMessages([r], !1);
+    function s(e, t, n) {
+      var r = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
+        a = {
+          externalId: e.id.id,
+          from: e.from,
+          author: t.author,
+          receiptClass: o(
+            "WAWebDeliveryReceiptClassUtils",
+          ).getDeliveryReceiptClass(e.from, n),
+        },
+        i = r ? { msg: e } : { msg: e, receiptInfo: a };
+      o("WAWebGetMessageCache").getMessageCache().addMessages([i], !1);
     }
     function u(e, t) {
       return c.apply(this, arguments);
@@ -105,8 +105,9 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msg,
             n = e.msgInfo,
-            r = e.reparsing;
-          if (n.offline != null && !r) return s(t, n);
+            r = e.msgMeta,
+            a = e.reparsing;
+          if (n.offline != null && !a) return s(t, n, r);
           yield o("WAWebBackendApi").frontendSendAndReceive(
             "processEphemeralSyncResponse",
             { msg: t },
@@ -115,32 +116,40 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n) {
+    function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (t.offline != null && !n) return s(e, t);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msg,
+            n = e.msgInfo,
+            r = e.msgMeta,
+            a = e.reparsing;
+          if (n.offline != null && !a) return s(t, n, r);
           yield o("WAWebBackendApi").frontendSendAndReceive(
             "processKeepInChatMessage",
-            { keepInChatMessage: e, allowNotification: !0 },
+            { keepInChatMessage: t, allowNotification: !0 },
           );
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = e;
-          if (t.offline != null && !n) return s(r, t);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msg,
+            n = e.msgInfo,
+            r = e.msgMeta,
+            a = e.reparsing,
+            i = t;
+          if (n.offline != null && !a) return s(i, n, r);
           yield o("WAWebDBProcessEditProtocolMsgs").processEditProtocolMsgs(
-            [r],
-            n,
+            [i],
+            a,
           );
         })),
         g.apply(this, arguments)

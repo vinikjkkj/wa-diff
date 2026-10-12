@@ -106,7 +106,7 @@ __d(
                     a,
                     t,
                   );
-                ((l.innerText = s),
+                ((l.textContent = s),
                   (l.type = "application/json"),
                   l.setAttribute("name", "binary-transparency-manifest"),
                   (l.dataset.manifestRev = a),

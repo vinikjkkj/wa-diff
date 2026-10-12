@@ -16,11 +16,11 @@ __d(
     "WAWebMediaGatingUtils",
     "WAWebMenuBar.react",
     "WAWebModalManager",
-    "WAWebScissorsIcon.react",
     "WAWebStickerPanel.react",
     "WAWebUimUie.react",
     "WAWebUimUieMenu.react",
     "WDSIconIcBlurOn.react",
+    "WDSIconIcContentCut.react",
     "WDSIconIcCropRotate.react",
     "WDSIconIcCropSquare.react",
     "WDSIconIcEdit.react",
@@ -422,7 +422,10 @@ __d(
             u.jsx(
               o("WAWebMenuBar.react").MenuBarItem,
               {
-                icon: u.jsx(o("WAWebScissorsIcon.react").ScissorsIcon, {}),
+                icon: u.jsx(r("WDSIconIcContentCut.react"), {
+                  height: 24,
+                  width: 24,
+                }),
                 testid: "outline-button",
                 title: s._(/*BTDS*/ "Outline"),
                 onClick: re,

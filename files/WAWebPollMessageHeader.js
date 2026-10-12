@@ -6,7 +6,6 @@ __d(
     "WAWebExpandableText.react",
     "WAWebFormatConfigurationConversation",
     "WAWebFrontendMsgGetters",
-    "WAWebIcCheckCircleFilledIcon.react",
     "WAWebL10N",
     "WAWebMessageSpacerText.react",
     "WAWebMsgGetters",
@@ -18,6 +17,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollEndTimeLabel",
     "WAWebTextSizeUtils",
+    "WDSIconIcCheckCircleFilled.react",
     "WDSIconIcVisibilityOffFilled.react",
     "WDSPaddings.stylex",
     "react",
@@ -32,6 +32,7 @@ __d(
       d = {
         pollName: { fontWeight: "x1s688f", fontSize: "x1jchvi3", $$css: !0 },
         selectIcon: { fill: "x2u7xp1", $$css: !0 },
+        selectIconColor: { color: "x1bvqhpb", $$css: !0 },
       };
     function m(t) {
       var n = o("react-compiler-runtime").c(35),
@@ -242,10 +243,12 @@ __d(
       var _;
       t[3] !== n
         ? ((_ = n
-            ? c.jsx(
-                o("WAWebIcCheckCircleFilledIcon.react").IcCheckCircleFilledIcon,
-                { innerStyles: { background: d.selectIcon } },
-              )
+            ? c.jsx(r("WDSIconIcCheckCircleFilled.react"), {
+                height: 12,
+                width: 12,
+                testid: "ic-check-circle-filled",
+                iconXstyle: d.selectIconColor,
+              })
             : c.jsx(
                 o("WAWebMultiSelectIconFilledIcon.react")
                   .MultiSelectIconFilledIcon,

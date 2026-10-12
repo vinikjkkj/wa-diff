@@ -1,7 +1,6 @@
 __d(
   "WAWebWindowsHybridLegacyHangsMonitor",
   [
-    "WAWebWindowsHybridBridgeDebugFeatures.v2630",
     "WAWebWindowsHybridBridgeDebugFeatures.v2631",
     "WAWebWindowsHybridBridgeDebugFeatures.v2632",
     "WAWebWindowsHybridBridgeDebugFeatures.v2633",
@@ -26,11 +25,8 @@ __d(
             ? void 0
             : e.getDebugFeatures();
       (t instanceof
-        o("WAWebWindowsHybridBridgeDebugFeatures.v2630")
-          .WindowsHybridBridgeDebugFeatures_v2630 ||
-        t instanceof
-          o("WAWebWindowsHybridBridgeDebugFeatures.v2631")
-            .WindowsHybridBridgeDebugFeatures_v2631 ||
+        o("WAWebWindowsHybridBridgeDebugFeatures.v2631")
+          .WindowsHybridBridgeDebugFeatures_v2631 ||
         t instanceof
           o("WAWebWindowsHybridBridgeDebugFeatures.v2632")
             .WindowsHybridBridgeDebugFeatures_v2632 ||

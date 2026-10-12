@@ -21,7 +21,7 @@ __d(
         a = n.root,
         i = n.rootEqualityCheck,
         l = n.createCache,
-        u = l === void 0 ? E : l,
+        u = l === void 0 ? k : l,
         d = u();
       c.push(d);
       var m = s(),
@@ -60,7 +60,7 @@ __d(
             : _({
                 getterGroupId: m,
                 slots: b(),
-                resultEqualityCheck: i != null ? i : L,
+                resultEqualityCheck: i != null ? i : E,
                 cache: d,
               });
       if (S.kind !== "identity")
@@ -73,7 +73,7 @@ __d(
             r = e.default,
             o = e.getDefault,
             a = e.resultEqualityCheck,
-            i = a === void 0 ? L : a,
+            i = a === void 0 ? E : a,
             l;
           return (
             o != null
@@ -106,7 +106,7 @@ __d(
         computed: function (t, n, r) {
           var e = r || {},
             o = e.resultEqualityCheck,
-            a = o === void 0 ? L : o;
+            a = o === void 0 ? E : o;
           return p({
             getterGroupId: m,
             slots: b(),
@@ -119,7 +119,7 @@ __d(
         },
         unsafeIdentityGetter: S,
         clearCacheFor: function (t) {
-          d.delete(k(t));
+          d.delete(I(t));
         },
       };
     }
@@ -162,11 +162,11 @@ __d(
             var L = u[S],
               E = L.$$extractResult(l[L.$$getterGroupId]);
             if (E === void 0) throw r("err")("No result was stored");
-            v[S] = I(E);
+            v[S] = T(E);
           }
           var k = i(v),
-            T = p[m];
-          return _ != null && T !== void 0 && a(k, I(T))
+            I = p[m];
+          return _ != null && I !== void 0 && a(k, T(I))
             ? ((p[d] = o), _)
             : ((p[m] = k === void 0 ? R : k), (p[e] = o), (p[d] = o), o);
         },
@@ -193,7 +193,7 @@ __d(
             d = t,
             m = u[l],
             p = t == null ? 0 : t.revisionNumber || 0;
-          if (c !== void 0 && m === p && r(d, I(c))) return a;
+          if (c !== void 0 && m === p && r(d, T(c))) return a;
           var _ = a + 1;
           return ((u[s] = d === void 0 ? R : d), (u[e] = _), (u[l] = p), _);
         },
@@ -209,40 +209,53 @@ __d(
           l = e.root,
           s = e.slots,
           u = a.dependencies,
-          c = function (t) {
+          c = 0,
+          d = {},
+          m = function (t) {
             b(s);
-            for (var e = k(t), n = {}, a = 0; a < h.length; a++) {
-              var i = h[a],
-                l = f[i],
-                u = l.get(e);
-              (u == null && ((u = {}), l.set(e, u)), (n[i] = u));
+            var e = I(t),
+              n = c === 0 ? d : {};
+            c++;
+            try {
+              return p(t, e, n);
+            } finally {
+              if ((c--, n === d))
+                for (var r = 0; r < v.length; r++) d[v[r]] = L;
             }
-            var c = p.$$recomputeIfNeeded(
-                t,
-                p.$$extractChangedAt(n[p.$$getterGroupId]) || 0,
-                n,
-              ),
-              d = n[o],
-              _ = d[s.checkedAtIndex];
-            if (_ == null || c > _)
-              for (var g = 0; g < m.length; g++) {
-                for (var y = _ != null, C = m[g], v = 0; v < C.length; v++) {
-                  var S = C[v].$$recomputeIfNeeded(t, c, n);
-                  (_ == null || S > _) && (y = !1);
-                }
-                if (y) break;
-              }
-            var R = d[s.prevResultIndex];
-            if (R === void 0) throw r("err")("No result was stored");
-            return I(R);
           },
-          d = Object.assign(c, {
+          p = function (t, n, a) {
+            for (var e = 0; e < v.length; e++) {
+              var i = v[e],
+                l = C[i],
+                u = l.get(n);
+              (u == null && ((u = {}), l.set(n, u)), (a[i] = u));
+            }
+            var c = h.$$recomputeIfNeeded(
+                t,
+                h.$$extractChangedAt(a[h.$$getterGroupId]) || 0,
+                a,
+              ),
+              d = a[o],
+              m = d[s.checkedAtIndex];
+            if (m == null || c > m)
+              for (var p = 0; p < f.length; p++) {
+                for (var _ = m != null, g = f[p], y = 0; y < g.length; y++) {
+                  var b = g[y].$$recomputeIfNeeded(t, c, a);
+                  (m == null || b > m) && (_ = !1);
+                }
+                if (_) break;
+              }
+            var S = d[s.prevResultIndex];
+            if (S === void 0) throw r("err")("No result was stored");
+            return T(S);
+          },
+          _ = Object.assign(m, {
             kind: a.kind,
             dependencies: u,
             dependencyKey: a.dependencyKey,
             resultFunc: a.resultFunc,
             $$getterGroupId: o,
-            $$root: l || c,
+            $$root: l || m,
             $$cache: n,
             $$recomputeIfNeeded: i,
             $$extractChangedAt: function (t) {
@@ -252,30 +265,30 @@ __d(
               return t[s.prevResultIndex];
             },
           }),
-          m = g(d),
-          p = d.$$root,
-          _ = 0;
-        _ < u.length;
-        _++
+          f = g(_),
+          h = _.$$root,
+          y = 0;
+        y < u.length;
+        y++
       )
-        if (u[_].$$root !== p)
+        if (u[y].$$root !== h)
           throw r("err")(
             "Getter created with multiple roots. This means you used getters that came from different `createGetterFactories()` calls as dependencies in a `computed()` getter. If you want to do this, you must pass the identity getter created by one of the `createGetterFactories()` calls as the `root` option to the other.",
           );
       for (
-        var f = ((t = {}), (t[p.$$getterGroupId] = p.$$cache), t),
-          h = [p.$$getterGroupId],
-          y = 0;
-        y < m.length;
-        y++
+        var C = ((t = {}), (t[h.$$getterGroupId] = h.$$cache), t),
+          v = [h.$$getterGroupId],
+          S = 0;
+        S < f.length;
+        S++
       )
-        for (var C = 0; C < m[y].length; C++) {
-          var v = m[y][C],
-            S = v.$$cache,
-            R = v.$$getterGroupId;
-          f[R] == null && (h.push(R), (f[R] = S));
+        for (var R = 0; R < f[S].length; R++) {
+          var E = f[S][R],
+            k = E.$$cache,
+            D = E.$$getterGroupId;
+          C[D] == null && (v.push(D), (C[D] = k));
         }
-      return d;
+      return _;
     }
     function g(e) {
       for (var t = [e], n = 0; n < t.length; n++) {
@@ -337,14 +350,15 @@ __d(
           e
         );
       })(),
-      R = new S();
-    function L(e, t) {
+      R = new S(),
+      L = Object.freeze({});
+    function E(e, t) {
       return e === t;
     }
-    function E() {
+    function k() {
       return new Map();
     }
-    function k(e) {
+    function I(e) {
       if (e == null)
         throw r("err")("Getter was called with " + String(e) + " data.");
       var t = e.id;
@@ -355,7 +369,7 @@ __d(
         );
       return t.toString();
     }
-    function I(e) {
+    function T(e) {
       return e === R ? void 0 : e;
     }
     ((l.clearAllGetterCaches = d), (l.createGetterFactories = m));

@@ -16,6 +16,7 @@ __d(
     "WAWebRequestMsgResend",
     "WAWebSendDirectMsgToDeviceList",
     "WAWebSendMsgCommonApi",
+    "WAWebStatusSessionGatingUtils",
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWidFactory",
@@ -260,6 +261,10 @@ __d(
                 .tags("messaging");
               return;
             }
+            var V =
+              b.data.isGroupStatus === !0
+                ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
+                : void 0;
             (yield o(
               "WAWebSendDirectMsgToDeviceList",
             ).sendDirectMsgToDeviceList({
@@ -271,6 +276,7 @@ __d(
               option: {
                 fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
                 isResendingMsg: !0,
+                sessionScope: V,
               },
             }),
               o("WALogger")
@@ -284,7 +290,7 @@ __d(
                 )
                 .tags("messaging"));
           } catch (e) {
-            var V;
+            var H;
             throw (
               o("WALogger")
                 .LOG(
@@ -308,8 +314,8 @@ __d(
                   e,
                 )
                 .tags("messaging"),
-              (V = i.sendReporter) == null ||
-                V.postFailure({
+              (H = i.sendReporter) == null ||
+                H.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !1,

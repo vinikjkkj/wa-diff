@@ -70,27 +70,29 @@ __d(
             r,
             a = e.groupData,
             i = e.metricReporter,
-            l = e.skDistribList;
+            l = e.sessionScope,
+            u = e.skDistribList;
           if (
             ((t = i.sendPerfReporter) == null || t.startPrekeysFetchStage(),
             (n = i.sendPerfReporter) == null || n.setFetchedPrekeyCount(0),
-            l.length > 0)
+            u.length > 0)
           )
             try {
-              var u,
-                c = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              var c,
+                d = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                   identityChanged: !1,
-                  sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-                  wids: l,
+                  sessionScope:
+                    l != null ? l : o("WAWebSessionScope").SessionScope.DEFAULT,
+                  wids: u,
                 });
-              ((u = i.sendPerfReporter) == null ||
-                u.setFetchedPrekeyCount(
-                  c == null ? void 0 : c.missedPrekeyCount,
+              ((c = i.sendPerfReporter) == null ||
+                c.setFetchedPrekeyCount(
+                  d == null ? void 0 : d.missedPrekeyCount,
                 ),
                 o(
                   "WAWebPostPrekeysDepletionMetric",
                 ).maybePostPrekeysDepletionMetric({
-                  count: c == null ? void 0 : c.depletedPrekeyCount,
+                  count: d == null ? void 0 : d.depletedPrekeyCount,
                   prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                     .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                   messageType: o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP,
@@ -105,7 +107,7 @@ __d(
                       " devices: ",
                       "",
                     ])),
-                  l.length,
+                  u.length,
                   e,
                 )
                 .tags("messaging");
@@ -115,60 +117,60 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o, a, i, l, s, u) {
+    function C(e, t, n, r, o, a, i, l, s, u, c) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s, u, c) {
-            var d,
-              m,
+          function* (e, t, n, r, a, i, l, s, u, c, d) {
+            var m,
               p,
               _,
-              f =
-                o("WAWebBotBaseGating").isBotEnabled() &&
-                ((d = e.invokedBotWid) == null ? void 0 : d.isBot()) === !0,
+              f,
               g =
                 o("WAWebBotBaseGating").isBotEnabled() &&
+                ((m = e.invokedBotWid) == null ? void 0 : m.isBot()) === !0,
+              h =
+                o("WAWebBotBaseGating").isBotEnabled() &&
                 o("WAWebMsgGetters").getIsBotFeedbackMessage(e),
-              h = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(e),
-              y = c.configuredGroupAgentParticipants,
-              C = c.resolvedGroupAgentParticipants,
-              b = x(e, i),
-              v = e.invokedBotWid;
-            (m = l.sendPerfReporter) == null || m.startClientEncryptStage();
-            var S = o("WAWebSendMsgCommonApi").encodeAndPad(a),
-              R =
-                (u == null ? void 0 : u.kind) === "schedule"
-                  ? u.originalMediaType
+              y = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(e),
+              C = d.configuredGroupAgentParticipants,
+              b = d.resolvedGroupAgentParticipants,
+              v = x(e, i),
+              S = e.invokedBotWid;
+            (p = l.sendPerfReporter) == null || p.startClientEncryptStage();
+            var R = o("WAWebSendMsgCommonApi").encodeAndPad(a),
+              L =
+                (c == null ? void 0 : c.kind) === "schedule"
+                  ? c.originalMediaType
                   : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(a),
-              L = yield o("WAWebEncryptMsgProtobuf").encryptMsgSenderKey(
+              E = yield o("WAWebEncryptMsgProtobuf").encryptMsgSenderKey(
                 e,
                 t,
-                S,
+                R,
                 i,
               ),
-              E = L.ciphertext,
-              k = L.senderKeyBytes,
-              I;
+              k = E.ciphertext,
+              I = E.senderKeyBytes,
+              T;
             (n.length > 0 &&
-              (I = yield o(
+              (T = yield o(
                 "WAWebGetGroupKeyDistributionMsg",
-              ).getKeyDistributionMsg(e, t, n, k, !1)),
-              (p = l.sendPerfReporter) == null || p.postClientEncryptStage());
-            var T = null,
-              D = !1;
-            I && I.length > 0 && !g
-              ? (T = o("WAWap").wap(
+              ).getKeyDistributionMsg(e, t, n, I, !1, void 0, u)),
+              (_ = l.sendPerfReporter) == null || _.postClientEncryptStage());
+            var D = null,
+              P = !1;
+            T && T.length > 0 && !h
+              ? (D = o("WAWap").wap(
                   "participants",
                   null,
-                  I.map(function (e) {
+                  T.map(function (e) {
                     var t = e.ciphertext,
                       n = e.participant,
                       r = e.type;
                     r === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
-                      (D = !0);
+                      (P = !0);
                     var i =
                         s == null
                           ? void 0
@@ -208,7 +210,7 @@ __d(
                   }),
                 ))
               : s != null &&
-                (T = o("WAWap").wap(
+                (D = o("WAWap").wap(
                   "participants",
                   null,
                   r.map(function (e) {
@@ -229,7 +231,7 @@ __d(
                       : null;
                   }),
                 ));
-            var P = g
+            var N = h
                 ? null
                 : o("WAWap").wap(
                     "enc",
@@ -244,7 +246,7 @@ __d(
                       ),
                       mediatype: o(
                         "WAWebBackendJobsCommon",
-                      ).encodeMaybeMediaType(R),
+                      ).encodeMaybeMediaType(L),
                       "decrypt-fail": o(
                         "WAWebBackendJobsCommon",
                       ).encodeMaybeDecryptFail(
@@ -253,49 +255,50 @@ __d(
                         ).decryptFailAttributeFromProtobuf(a),
                       ),
                     },
-                    E,
+                    k,
                   ),
-              N = null,
-              M =
-                f &&
-                v != null &&
-                !o("WAWebBotUtils").isAnyMetaAiBot(v) &&
+              M = null,
+              w =
+                g &&
+                S != null &&
+                !o("WAWebBotUtils").isAnyMetaAiBot(S) &&
                 (yield o(
                   "WAWebResolveGroupAgentParticipants",
-                ).isGroupAgentProfile(v)),
-              w = C.length > 0,
-              A =
-                !b &&
-                (f ||
-                  g ||
+                ).isGroupAgentProfile(S)),
+              A = b.length > 0,
+              F =
+                !v &&
+                (g ||
                   h ||
+                  y ||
                   (o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                     i.isOpenBotGroup === !0) ||
-                  w)
+                  A)
                   ? yield $({
-                      configuredGroupAgentParticipants: y,
-                      encMediaType: R,
-                      groupAgentParticipants: C,
+                      configuredGroupAgentParticipants: C,
+                      encMediaType: L,
+                      groupAgentParticipants: b,
                       isOpenBotGroupSend:
-                        (_ = i.isOpenBotGroup) != null ? _ : !1,
+                        (f = i.isOpenBotGroup) != null ? f : !1,
                       isScheduledMessage:
-                        (u == null ? void 0 : u.kind) === "schedule",
+                        (c == null ? void 0 : c.kind) === "schedule",
                       msg: e,
                       msgProtobuf: a,
-                      shouldGateInvokedBot: M,
+                      shouldGateInvokedBot: w,
                     })
                   : [null, !1],
-              F = A[0],
-              O = A[1];
-            if (D || O) {
-              var B = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
-              N = o("WAWap").wap("device-identity", null, B);
+              O = F[0],
+              B = F[1];
+            if (P || B) {
+              var W = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
+              M = o("WAWap").wap("device-identity", null, W);
             }
             return {
-              keyDistributionMsg: T,
-              skeyEncryptedGroupMsg: P,
-              identityNode: N,
-              botMsgNode: F,
+              keyDistributionMsg: D,
+              skeyEncryptedGroupMsg: N,
+              identityNode: M,
+              botMsgNode: O,
+              hasPairwisePayload: T != null && T.length > 0 && !h,
             };
           },
         )),
@@ -325,24 +328,24 @@ __d(
       }
       return null;
     }
-    function S(e, t, n, r, o, a, i, l) {
+    function S(e, t, n, r, o, a, i, l, s) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s, _, f) {
-            var y,
-              b,
+          function* (e, t, a, i, l, s, _, f, y) {
+            var b,
               S,
               R,
               E,
               x,
               $,
-              P = e.data,
-              N = P.id,
-              M = P.to,
-              w = e.data;
+              P,
+              N = e.data,
+              M = N.id,
+              w = N.to,
+              A = e.data;
             o("WALogger")
               .LOG(
                 u ||
@@ -350,24 +353,24 @@ __d(
                     "encryptAndSendSenderKeyMsg: sending ",
                     "",
                   ])),
-                N,
+                M,
               )
               .tags("messaging");
-            var A = N.id,
-              F = a.rotateKey,
-              O = a.skDistribList,
-              B = a.skList,
-              W = ((y = i.groupAgentParticipants) != null ? y : []).map(I),
-              q = new Set(W.map(T)),
-              U = k(O, q),
-              V = k(B, q);
-            (D(M, l),
-              (b = l.sendPerfReporter) == null ||
-                b.setSenderKeyDistributionCount(U.length));
-            var H = V.concat(U),
-              G = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-              z = yield o("WAWebPhashUtils").phashV2(
-                [].concat(H, [G], W),
+            var F = M.id,
+              O = a.rotateKey,
+              B = a.skDistribList,
+              W = a.skList,
+              q = ((b = i.groupAgentParticipants) != null ? b : []).map(I),
+              U = new Set(q.map(T)),
+              V = k(B, U),
+              H = k(W, U);
+            (D(w, l),
+              (S = l.sendPerfReporter) == null ||
+                S.setSenderKeyDistributionCount(V.length));
+            var G = H.concat(V),
+              z = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+              j = yield o("WAWebPhashUtils").phashV2(
+                [].concat(G, [z], q),
                 o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                   i.isOpenBotGroup === !0,
                 o(
@@ -375,107 +378,113 @@ __d(
                 ).isTEEGroupBotParticipantAddEnabled() &&
                   i.isTeeBotGroup === !0,
               ),
-              j = o("WAWebMsgGetters").getIsBotFeedbackMessage(w);
+              K = o("WAWebMsgGetters").getIsBotFeedbackMessage(A);
             (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(
-              H.map(function (e) {
-                return { msgKey: N, receiverId: e };
+              G.map(function (e) {
+                return { msgKey: M, receiverId: e };
               }),
             ),
-              F &&
-                (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(M, G)),
-              yield h({ groupData: i, metricReporter: l, skDistribList: U }));
-            var K =
+              O &&
+                (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(w, z)),
+              yield h({
+                groupData: i,
+                metricReporter: l,
+                sessionScope: y,
+                skDistribList: V,
+              }));
+            var Q =
                 f != null
                   ? f
                   : yield o(
                       "WAWebResolveGroupAgentParticipants",
                     ).resolveGroupAgentFanoutForGroupSend(i),
-              Q = yield C(w, M, U, V, t, i, l, s, _, K),
-              X = Q.botMsgNode,
-              Y = Q.identityNode,
-              J = Q.keyDistributionMsg,
-              Z = Q.skeyEncryptedGroupMsg,
-              ee =
+              X = yield C(A, w, V, H, t, i, l, s, y, _, Q),
+              Y = X.botMsgNode,
+              J = X.hasPairwisePayload,
+              Z = X.identityNode,
+              ee = X.keyDistributionMsg,
+              te = X.skeyEncryptedGroupMsg,
+              ne =
                 s == null
                   ? void 0
                   : s.get(
                       o("WAWebWidToJid").widToUserJid(
-                        o("WAWebWidFactory").asUserWidOrThrow(G),
+                        o("WAWebWidFactory").asUserWidOrThrow(z),
                       ),
                     ),
-              te =
-                ee != null
-                  ? o("WAWap").wap("sender_content_binding", null, ee)
+              re =
+                ne != null
+                  ? o("WAWap").wap("sender_content_binding", null, ne)
                   : null,
-              ne =
+              oe =
                 i.isLidAddressingMode === !0
                   ? o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid
                   : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn,
-              re = yield o(
+              ae = yield o(
                 "WAWebReportingTokenUtils",
-              ).genReportingTokenBodyForStanza(w, t, N.toString()),
-              oe = o("WAWap").wap(
+              ).genReportingTokenBodyForStanza(A, t, M.toString()),
+              ie = o("WAWap").wap(
                 "message",
                 {
-                  id: o("WAWap").CUSTOM_STRING(A),
-                  to: o("WAWebCommsWapMd").CHAT_JID(M),
-                  phash: j ? o("WAWap").DROP_ATTR : o("WAWap").CUSTOM_STRING(z),
+                  id: o("WAWap").CUSTOM_STRING(F),
+                  to: o("WAWebCommsWapMd").CHAT_JID(w),
+                  phash: K ? o("WAWap").DROP_ATTR : o("WAWap").CUSTOM_STRING(j),
                   type:
-                    (S = _ == null ? void 0 : _.originalStanzaType) != null
-                      ? S
+                    (R = _ == null ? void 0 : _.originalStanzaType) != null
+                      ? R
                       : o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(t),
-                  edit: o("WAWebSendMsgCommonApi").editAttribute(t, w.subtype),
-                  addressing_mode: o("WAWap").CUSTOM_STRING(ne),
+                  edit: o("WAWebSendMsgCommonApi").editAttribute(t, A.subtype),
+                  addressing_mode: o("WAWap").CUSTOM_STRING(oe),
                 },
-                J,
+                ee,
+                te,
                 Z,
-                Y,
                 v(t, e),
                 o("WAWebSendMsgMetaNode").genMetaNode({
-                  chatId: M,
+                  chatId: w,
                   groupData: i,
-                  includeAttributes: {},
+                  includeAttributes: { hasPairwisePayload: J, sessionScope: y },
                   msgProtobuf: t,
                   msgRecord: e,
                   scheduledMsgMetadata: _,
                 }),
-                X,
-                te,
+                Y,
                 re,
+                ae,
               );
-            (yield o("WAWebSendMsgCommonApi").updateIdentityRange(e, H),
+            (yield o("WAWebSendMsgCommonApi").updateIdentityRange(e, G),
               yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
                 .flushBufferToDiskIfNotMemOnlyMode(),
-              (R = l.sendPerfReporter) == null || R.postReadyToSendStage(),
-              (E = l.sendPerfReporter) == null || E.startWrittenWireStage(),
+              (E = l.sendPerfReporter) == null || E.postReadyToSendStage(),
+              (x = l.sendPerfReporter) == null || x.startWrittenWireStage(),
               n("cr:10199") == null || n("cr:10199").printEncNode(t));
-            var ae = yield o(
+            var le = yield o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
-              oe,
+              ie,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: A,
+                id: F,
                 class: "message",
-                from: M,
+                from: w,
                 participant: null,
               }),
             );
-            if (J) {
-              var ie;
-              (ie = l.sendReporter) == null ||
-                ie.setMessageDistributionType(
+            if (ee) {
+              var se;
+              (se = l.sendReporter) == null ||
+                se.setMessageDistributionType(
                   o("WAWebWamEnumMessageDistributionEnumType")
                     .MESSAGE_DISTRIBUTION_ENUM_TYPE
                     .SENDER_KEY_DISTRIBUTION_MESSAGE,
                 );
             }
-            ((x = l.sendPerfReporter) == null || x.postWrittenWireStage(),
+            (($ = l.sendPerfReporter) == null || $.postWrittenWireStage(),
               (l.sendPerfReporter = null),
-              ($ = l.sendReporter) == null || $.postSuccess(),
+              (P = l.sendReporter) == null || P.postSuccess(),
               (l.sendReporter = null));
-            var le = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(ae);
-            if (le.error)
+            var ue = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(le);
+            if (ue.error)
               return (
                 o("WALogger")
                   .WARN(
@@ -484,7 +493,7 @@ __d(
                         "encryptAndSendSenderKeyMsg: invalid ack from server for ",
                         "",
                       ])),
-                    w.id,
+                    A.id,
                   )
                   .tags("messaging"),
                 (g || (g = n("Promise"))).reject(
@@ -493,23 +502,23 @@ __d(
                   ),
                 )
               );
-            var se = le.success.error;
+            var ce = ue.success.error;
             if (
-              se != null &&
-              (se ===
+              ce != null &&
+              (ce ===
                 o("WAWebCreateNackFromStanza").NackReason
                   .StaleGroupAddressingMode ||
-                se ===
+                ce ===
                   o("WAWebCreateNackFromStanza").NackReason.MessageNotAllowed)
             )
-              return L(M, e, se);
-            yield o("WAWebApiParticipantStore").markHasSenderKey(M, U);
-            var ue = le.success,
-              ce = ue.addressingMode,
-              de = ue.count,
-              me = ue.phash;
+              return L(w, e, ce);
+            yield o("WAWebApiParticipantStore").markHasSenderKey(w, V);
+            var de = ue.success,
+              me = de.addressingMode,
+              pe = de.count,
+              _e = de.phash;
             return (
-              me != null && me !== z
+              _e != null && _e !== j
                 ? (o("WALogger")
                     .LOG(
                       d ||
@@ -518,8 +527,8 @@ __d(
                           " server=",
                           "",
                         ])),
-                      w.id,
-                      me,
+                      A.id,
+                      _e,
                     )
                     .tags("messaging"),
                   o("WAWebResendGroupMsg")
@@ -527,11 +536,11 @@ __d(
                       isDirect: !1,
                       msgRecord: e,
                       msgProtobuf: t,
-                      oldList: H,
+                      oldList: G,
                       ackTime: o("WATimeUtils").unixTime(),
                       groupData: i,
                       metricReporter: l,
-                      serverAddressingMode: ce,
+                      serverAddressingMode: me,
                     })
                     .catch(function (t) {
                       (o("WALogger")
@@ -560,21 +569,21 @@ __d(
                             sampling: 0.01,
                           }));
                     }))
-                : ce != null &&
-                  ce !== ne &&
+                : me != null &&
+                  me !== oe &&
                   o(
                     "WAWebGroupHandleAddressingModeMismatch",
-                  ).handleAddressingModeMismatch(M, {
-                    localAddressingMode: ne,
-                    serverAddressingMode: ce,
+                  ).handleAddressingModeMismatch(w, {
+                    localAddressingMode: oe,
+                    serverAddressingMode: me,
                     mismatchOrigin: o("WAWebWamEnumMismatchOriginType")
                       .MISMATCH_ORIGIN_TYPE.ACK_OUTGOING_MESSAGE,
                   }),
-              de != null &&
+              pe != null &&
                 o("WAWebSchemaMessage")
                   .getMessageTable()
-                  .merge(String(N), { count: de }),
-              le.success
+                  .merge(String(M), { count: pe }),
+              ue.success
             );
           },
         )),

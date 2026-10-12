@@ -26,7 +26,8 @@ __d(
             d = t.msgProtobuf,
             m = t.msgRecord,
             p = t.scheduledMsgMetadata,
-            _ = m.data.to;
+            _ = t.sessionScope,
+            f = m.data.to;
           o("WALogger")
             .LOG(
               e ||
@@ -36,32 +37,33 @@ __d(
                   "",
                 ])),
               m.data.id,
-              _.toLogString(),
+              f.toLogString(),
             )
             .tags("messaging");
-          var f = a.filter(function (e) {
+          var g = a.filter(function (e) {
               return !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e);
             }),
-            g = yield o(
+            h = yield o(
               "WAWebSendDirectMsgToDeviceList",
             ).sendDirectMsgToDeviceList({
               additionalBotBody: n,
               additionalBotShouldHaveIdentity: r,
-              deviceList: f,
+              deviceList: g,
               groupData: i,
               metricReporter: l,
               msgProtobuf: d,
               msgRecord: m,
               option: {
                 fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                sessionScope: _,
               },
               scheduledMsgMetadata: p,
             }),
-            h = g.addressingMode,
-            y = g.phash;
+            y = h.addressingMode,
+            C = h.phash;
           return (
-            y != null &&
-              y !== "" &&
+            C != null &&
+              C !== "" &&
               (o("WALogger")
                 .LOG(
                   s ||
@@ -69,7 +71,7 @@ __d(
                       "[encryptAndSendGroupDirectMsg] phash mismatch, server: ",
                       "",
                     ])),
-                  y,
+                  C,
                 )
                 .tags("messaging"),
               o("WAWebResendGroupMsg")
@@ -77,12 +79,12 @@ __d(
                   isDirect: !0,
                   msgRecord: m,
                   msgProtobuf: d,
-                  oldList: f,
+                  oldList: g,
                   ackTime: o("WATimeUtils").unixTime(),
                   groupData: i,
-                  phash: y,
+                  phash: C,
                   metricReporter: l,
-                  serverAddressingMode: h,
+                  serverAddressingMode: y,
                 })
                 .catch(function (e) {
                   (o("WALogger")
@@ -109,7 +111,7 @@ __d(
                       .tags("messaging")
                       .sendLogs("message-resend-failed", { sampling: 0.01 }));
                 })),
-            g
+            h
           );
         })),
         m.apply(this, arguments)

@@ -106,42 +106,36 @@ __d(
       );
     }
     function I() {
-      return o("WAWebABProps").getABPropConfigValue("ai_mode_selector_enabled");
-    }
-    function T() {
-      return (
-        I() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_mode_selector_media_editor_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_mode_selector_media_editor_enabled",
       );
     }
-    function D() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_dynamic_mode_selector_enabled",
       );
     }
-    function x() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_infra_enabled",
       );
     }
-    function $() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_forward_receiving_enabled",
       );
     }
-    function P() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_forward_media_receiving_enabled",
       );
     }
-    function N() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_forward_sending_enabled",
       );
     }
-    function M(e) {
+    function N(e) {
       return o("WAWebBotUtils").isMetaAiBot(e.from) && r("justknobx")._("5352");
     }
     ((l.setBonsaiUserLanguage = c),
@@ -158,14 +152,13 @@ __d(
       (l.isAiSubscriptionMeteringEnabled = L),
       (l.isAiSubscriptionEnabled = E),
       (l.isAiAccountLinkingEnabled = k),
-      (l.isAiModeSelectorMessagingEnabled = I),
-      (l.isAiModeSelectorMediaEditorEnabled = T),
-      (l.isDynamicModeSelectorEnabled = D),
-      (l.isAiChatThreadsInfraEnabled = x),
-      (l.isRichResponseForwardReceivingEnabled = $),
-      (l.isRichResponseForwardMediaReceivingEnabled = P),
-      (l.isRichResponseForwardSendingEnabled = N),
-      (l.isLoadingMediaMessagesEnabled = M));
+      (l.isAiModeSelectorMediaEditorEnabled = I),
+      (l.isDynamicModeSelectorEnabled = T),
+      (l.isAiChatThreadsInfraEnabled = D),
+      (l.isRichResponseForwardReceivingEnabled = x),
+      (l.isRichResponseForwardMediaReceivingEnabled = $),
+      (l.isRichResponseForwardSendingEnabled = P),
+      (l.isLoadingMediaMessagesEnabled = N));
   },
   98,
 );

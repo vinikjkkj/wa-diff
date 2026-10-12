@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebFrontendMsgGetters",
     "WAWebGroupHistoryBundleProcessor",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMessageManager",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReceiverUserJourneyLogger",
@@ -45,9 +44,6 @@ __d(
           ) {
             if (
               !a.isUserInitiated &&
-              o(
-                "WAWebGroupHistoryGating",
-              ).isGroupHistoryReceiverDedupEnabled() &&
               (yield o(
                 "WAWebGroupHistoryMessageManager",
               ).hasReceivedBundleForJoinSession(t.id.remote, t.id, i))

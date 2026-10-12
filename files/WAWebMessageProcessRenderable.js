@@ -28,6 +28,7 @@ __d(
     "WAWebMessageAssociation.flow",
     "WAWebMessagePostprocessRenderable",
     "WAWebMessageProcessDBPipeline",
+    "WAWebMessageQueueImpl",
     "WAWebMessagingGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -432,7 +433,10 @@ __d(
                     te &&
                       (o(
                         "WAWebOfflineResumeCounters",
-                      ).maybeLogAwaitUnflushedMsgWrite(S),
+                      ).maybeLogAwaitUnflushedMsgWrite(
+                        S,
+                        o("WAWebMessageQueueImpl").getMessageQueueImpl(),
+                      ),
                       yield ee);
                     var ne = o(
                         "WAWebMessagePostprocessRenderable",

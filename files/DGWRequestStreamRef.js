@@ -586,18 +586,17 @@ __d(
                 .Accepted
           );
         }),
-        (a.$28 = function (t, n, r) {
+        (a.$28 = function (t, n, r, a) {
           var e;
           if (
-            (this.$10 &&
+            (a === void 0 && (a = !1),
+            (e = this.$12) == null || e.stop(),
+            this.$10 &&
               t !==
                 o("RequestStreamCloseReason").RequestStreamCloseReason
                   .StreamError &&
-              t !==
-                o("RequestStreamCloseReason").RequestStreamCloseReason
-                  .RemoteTermination &&
+              !a &&
               this.$10.close(),
-            (e = this.$12) == null || e.stop(),
             (this.$10 = null),
             (this.$9 = !0),
             this.$35(
@@ -611,13 +610,13 @@ __d(
             !this.$8)
           )
             if (r) {
-              var a;
-              (a = this.$22) == null ||
-                a.processEvent({ type: "error_terminal" });
-            } else {
               var i;
               (i = this.$22) == null ||
-                i.processEvent({ type: "error_retryable" });
+                i.processEvent({ type: "error_terminal" });
+            } else {
+              var l;
+              (l = this.$22) == null ||
+                l.processEvent({ type: "error_retryable" });
             }
           r &&
             !this.$8 &&
@@ -847,6 +846,7 @@ __d(
               o("RequestStreamCloseReason").RequestStreamCloseReason
                 .RemoteTermination,
               "Client receive OnClose and Server will not send more data",
+              !0,
               !0,
             ));
         }),

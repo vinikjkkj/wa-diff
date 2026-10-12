@@ -65,25 +65,23 @@ __d(
           ? null
           : o("WAWebBotTypes").getBotLocalAutomatedType(e.bizBotType),
         i,
-        l;
-      if (o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()) {
-        var s = e.botModeOverride;
-        if (
-          s != null &&
-          s.length > 0 &&
-          o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()
-        )
-          l = String(s[0]);
-        else {
-          var u = e.botModeSelection;
-          if (u != null && u.length > 0) {
-            var c = u[0];
-            c === o("WAWebBotModeSelectionTypes").BotUserSelectionMode.Default
-              ? (i = "default")
-              : c ===
-                  o("WAWebBotModeSelectionTypes").BotUserSelectionMode
-                    .ThinkHard && (i = "think_hard");
-          }
+        l,
+        s = e.botModeOverride;
+      if (
+        s != null &&
+        s.length > 0 &&
+        o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()
+      )
+        l = String(s[0]);
+      else {
+        var u = e.botModeSelection;
+        if (u != null && u.length > 0) {
+          var c = u[0];
+          c === o("WAWebBotModeSelectionTypes").BotUserSelectionMode.Default
+            ? (i = "default")
+            : c ===
+                o("WAWebBotModeSelectionTypes").BotUserSelectionMode
+                  .ThinkHard && (i = "think_hard");
         }
       }
       return {

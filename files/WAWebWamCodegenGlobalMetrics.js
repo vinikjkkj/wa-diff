@@ -66,6 +66,9 @@ __d(
               r("nullthrows")(this.$2.get(t), t)
             );
           }),
+          (t.hasGlobal = function (t) {
+            return this.$2.has(t);
+          }),
           (t.getGlobal = function (t) {
             return r("nullthrows")(this.$2.get(t), t);
           }),

@@ -286,6 +286,7 @@ __d(
               "WAWebSignalStorageLidMigration",
             WA_WEB_GALAXY_DISABLE_CTA_COLLECTION:
               "WAWebGalaxyDisableCTACollection",
+            WA_WEB_ANDROID_TABLET_VISIT_ID: "WAWebAndroidTabletVisitId",
             WA_WEB_GALAXY_DISABLE_CTA_AGM_COLLECTION:
               "WAWebGalaxyDisableCTAAGMCollection",
             WA_WEB_REFRESH_STATE: "wa_web_refresh_state",

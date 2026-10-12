@@ -5,20 +5,30 @@ __d(
     var e = {
         awaitUnflushedMsgWrite: function () {},
         msgRoutedToOnlineQueue: function () {},
+        oneQueueFlushFailed: function () {},
+        oneQueueTimeout: function () {},
       },
       l = e;
     function s(e) {
       l = e;
     }
-    function u(e) {
-      e && l.msgRoutedToOnlineQueue();
+    function u(e, t) {
+      e && l.msgRoutedToOnlineQueue(t);
     }
-    function c(e) {
-      e && l.awaitUnflushedMsgWrite();
+    function c(e, t) {
+      e && l.awaitUnflushedMsgWrite(t);
+    }
+    function d() {
+      l.oneQueueTimeout();
+    }
+    function m() {
+      l.oneQueueFlushFailed();
     }
     ((i.setOfflineResumeCounters = s),
       (i.maybeLogOfflineMsgRoutedToOnlineQueue = u),
-      (i.maybeLogAwaitUnflushedMsgWrite = c));
+      (i.maybeLogAwaitUnflushedMsgWrite = c),
+      (i.logOneQueueTimeout = d),
+      (i.logOneQueueFlushFailed = m));
   },
   66,
 );

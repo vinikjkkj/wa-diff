@@ -12,9 +12,11 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebJSHaltDetector",
     "WAWebMessageQueue",
+    "WAWebMessageQueueImpl",
     "WAWebOfflineResumeConst",
     "WAWebOfflineResumeTypes",
     "WAWebOfflineResumeUtils",
+    "WAWebOneQueue",
     "WAWebPageLoadLogging",
     "WAWebSignalProtocolStore",
     "WAWebThreadMetadata",
@@ -285,7 +287,10 @@ __d(
                   this.$1 ===
                   o("WAWebOfflineResumeConst").ResumeStatus.RESUME_WITH_OPEN_TAB
                 ) {
-                  (yield o("WAWebMessageQueue").waitForOnlineMessageQueue(),
+                  (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() ||
+                    (yield o(
+                      "WAWebMessageQueue",
+                    ).waitForLegacyOnlineMessageQueue()),
                     yield o("WAWebApiPendingDeviceSync").doPendingDeviceSync(),
                     this.$11(
                       o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE,
@@ -413,6 +418,7 @@ __d(
                     .sendLogs("blocking-offline-resume-timeout", {
                       sampling: 0.01,
                     }),
+                  o("WAWebOneQueue").handleOneQueueOfflineEnd(),
                   r.processOfflineSessionComplete(t + n).catch(function (e) {
                     o("WALogger")
                       .ERROR(
@@ -441,7 +447,9 @@ __d(
               (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                 "waitForOfflineMessageQueue",
               ),
-                yield o("WAWebMessageQueue").waitForOfflineMessageQueue(),
+                yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
+                  ? o("WAWebOneQueue").waitForOneQueueOfflineEnd()
+                  : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
                 o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                   "waitForOfflineMessageQueue",
                 ),

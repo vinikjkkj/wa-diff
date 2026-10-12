@@ -97,7 +97,9 @@ __d(
       Ge = {},
       ze = {},
       je = {},
-      Ke = {};
+      Ke = {},
+      Qe = {},
+      Xe = {};
     ((s.name = "MinosMessageMetadata"),
       (s.internalSpec = {
         mekId: [1, (e = o("WAProtoConst")).FLAGS.REQUIRED | e.TYPES.BYTES],
@@ -613,6 +615,7 @@ __d(
         deriveMessagingMailboxKeypairs: [29, e.TYPES.MESSAGE, We],
         decryptSelfMmkDistribution: [30, e.TYPES.MESSAGE, Ve],
         mandrakeValidateAndDecryptSelfMmk: [31, e.TYPES.MESSAGE, ze],
+        mandrakeCreateMmk: [32, e.TYPES.MESSAGE, Qe],
         __oneofs__: {
           commandInput: [
             "encryptAndSignMessage",
@@ -645,6 +648,7 @@ __d(
             "deriveMessagingMailboxKeypairs",
             "decryptSelfMmkDistribution",
             "mandrakeValidateAndDecryptSelfMmk",
+            "mandrakeCreateMmk",
           ],
         },
       }),
@@ -699,6 +703,21 @@ __d(
       (Ke.internalSpec = {
         mmkSeed: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         mailboxHeadHash: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+      }),
+      (Qe.name = "MandrakeCreateMmkInput"),
+      (Qe.internalSpec = {
+        exportRootKey: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        epochNumber: [2, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        epochHead: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        prevMmk: [4, e.TYPES.MESSAGE, ue],
+        currentPeers: [5, e.FLAGS.REPEATED | e.TYPES.MESSAGE, ce],
+        newPeers: [6, e.FLAGS.REPEATED | e.TYPES.MESSAGE, ce],
+      }),
+      (Xe.name = "MandrakeCreateMmkResult"),
+      (Xe.internalSpec = {
+        success: [1, e.TYPES.MESSAGE, _e],
+        errorMessage: [2, e.TYPES.STRING],
+        __oneofs__: { result: ["success", "errorMessage"] },
       }),
       (l.MinosMessageMetadataSpec = s),
       (l.MinosClientConfigSpec = u),
@@ -796,7 +815,9 @@ __d(
       (l.DecryptSelfMmkDistributionSuccessSpec = Ge),
       (l.MandrakeValidateAndDecryptSelfMmkInputSpec = ze),
       (l.MandrakeValidateAndDecryptSelfMmkResultSpec = je),
-      (l.MandrakeValidateAndDecryptSelfMmkSuccessSpec = Ke));
+      (l.MandrakeValidateAndDecryptSelfMmkSuccessSpec = Ke),
+      (l.MandrakeCreateMmkInputSpec = Qe),
+      (l.MandrakeCreateMmkResultSpec = Xe));
   },
   98,
 );

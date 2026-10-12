@@ -3,14 +3,22 @@ __d(
   [
     "WALogger",
     "WAWap",
+    "WAWebAdvSignatureApi",
+    "WAWebBackendJobs.flow",
+    "WAWebBackendJobsCommon",
     "WAWebCommsWapMd",
+    "WAWebDeviceSentMessageProtoUtils",
     "WAWebE2EProtoUtils",
     "WAWebEncryptAndSendStatusMsg",
+    "WAWebEncryptMsgProtobuf",
+    "WAWebICDCMetaApi",
     "WAWebLidMigrationUtils",
     "WAWebManageE2ESessionsJob",
     "WAWebReportingTokenUtils",
     "WAWebSendMsgCommonApi",
+    "WAWebSessionScope",
     "WAWebSignalProtocolStore",
+    "WAWebStatusPublishRequestArgs",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
     "WAWebWidFactory",
@@ -56,11 +64,12 @@ __d(
             g = f[0],
             y = f[1],
             b = f[2],
-            v = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+            v = f[3],
+            S = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
               r.data,
               n,
             ),
-            S = o("WAWap").wap(
+            R = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING(_.id),
@@ -75,11 +84,13 @@ __d(
               y,
               b,
               o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
-                sessionScope: i,
+                sessionScope: v
+                  ? i
+                  : o("WAWebSessionScope").SessionScope.DEFAULT,
               }),
-              v,
+              S,
             ),
-            R = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(S);
+            L = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(R);
           return (
             o("WALogger")
               .LOG(
@@ -94,7 +105,7 @@ __d(
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            { stanza: S, stanzaClass: R }
+            { stanza: R, stanzaClass: L }
           );
         })),
         _.apply(this, arguments)
@@ -106,13 +117,14 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msgProtobuf,
-            n = e.msgRecord,
-            a = e.participant,
-            i = e.sessionScope,
-            l = e.to,
-            s = C(a);
-          if (s == null)
+          var t = e.deviceMsgType,
+            n = e.msgProtobuf,
+            a = e.msgRecord,
+            i = e.participant,
+            l = e.sessionScope,
+            s = e.to,
+            d = C(i);
+          if (d == null)
             throw (
               o("WALogger")
                 .ERROR(
@@ -126,22 +138,58 @@ __d(
                 "sendStatusRetryMsgViaSmax: retry participant has no LID",
               )
             );
-          var d = yield h(e, s),
-            m = d.authorId,
-            p = d.participantList,
-            _ = d.skDistribList,
-            f = n.data.id,
-            g = yield o(
-              "WAWebEncryptAndSendStatusMsg",
-            ).genStatusBroadcastPublishRequest({
-              authorId: m,
-              msgProtobuf: t,
-              participantList: p,
-              sendMsgRecord: n,
-              sessionScope: i,
-              skDistribList: _,
-              statusSetting: null,
-              to: l,
+          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+            identityChanged: !1,
+            sessionScope: l,
+            wids: [d],
+          });
+          var m = o("WAWebUserPrefsMeUser").isMeAccount(d)
+            ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(n, s)
+            : n;
+          yield o("WAWebICDCMetaApi").populateICDCMeta(
+            o("WAWebWidFactory").asUserWidOrThrow(d),
+            m,
+          );
+          var p = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+              d,
+              t.retryCount,
+              m,
+              a.data,
+              o("WAWebBackendJobsCommon").getMetricEditTypeFromMsg(n, a.data),
+              l,
+            ),
+            _ = p.ciphertext,
+            f = p.type,
+            g = a.data.id,
+            h = o("WAWebStatusPublishRequestArgs").toStatusRetryPublishArgs({
+              ciphertextVersion: o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION,
+              clientReportingToken: yield o(
+                "WAWebReportingTokenUtils",
+              ).genClientReportingTokenMixinArgs(a.data, n),
+              deviceIdentity:
+                f === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                  ? yield o("WAWebAdvSignatureApi").getADVEncodedIdentity()
+                  : null,
+              editOrRevoke: o(
+                "WAWebStatusPublishRequestArgs",
+              ).toStatusEditOrRevokeArgs(n, a.data.subtype),
+              encMediaType: o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(
+                n,
+              ),
+              hideDecryptFail:
+                o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(n) ===
+                o("WAWebBackendJobs.flow").DecryptFailType.Hide,
+              msgType: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(n),
+              retryCount: t.retryCount,
+              retryEnc: {
+                ciphertext: _,
+                isPqSession: o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(_),
+                participant: d,
+                type: f,
+              },
+              statusId: g.id,
+              useStatusSessionScope:
+                l === o("WAWebSessionScope").SessionScope.STATUS,
             });
           return (
             yield o("WAWebSignalProtocolStore")
@@ -155,11 +203,11 @@ __d(
                     " to ",
                     "",
                   ])),
-                f.id,
-                l.toString(),
+                g.id,
+                s.toString(),
               )
               .tags("messaging"),
-            o("WAWebEncryptAndSendStatusMsg").sendStatusPublishOrThrow(g)
+            o("WAWebEncryptAndSendStatusMsg").sendStatusPublishOrThrow(h)
           );
         })),
         g.apply(this, arguments)

@@ -29,7 +29,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i) {
-            if (o("WAWebBizAiAgentGating").isAiRespondingChipEnabled())
+            if (o("WAWebBizAiAgentGating").isHandoffRemovalTimingSyncEnabled())
               try {
                 var l = yield o("WAWebChatThreadLogging").getChatThreadID(
                   t.id.toJid(),

@@ -269,7 +269,13 @@ __d(
                   });
                   return;
                 }
-                if (D.length === 0) return;
+                if (D.length === 0) {
+                  s({
+                    prefetchKey: r.prefetchInfo.prefetchKey,
+                    type: "_prefetch_task_completed",
+                  });
+                  return;
+                }
                 var x = u.prefetchTaskQueue;
                 return (
                   x ||

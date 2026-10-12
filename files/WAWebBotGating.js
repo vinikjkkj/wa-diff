@@ -204,9 +204,8 @@ __d(
       );
     }
     function P() {
-      return (
-        o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled() &&
-        o("WAWebABProps").getABPropConfigValue("is_ai_mode_selector_visible")
+      return o("WAWebABProps").getABPropConfigValue(
+        "is_ai_mode_selector_visible",
       );
     }
     function N() {

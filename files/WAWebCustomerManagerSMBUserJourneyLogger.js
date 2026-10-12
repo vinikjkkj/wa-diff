@@ -14,7 +14,6 @@ __d(
         CANCEL_BUTTON: "cancel_button",
         CLOSE_BUTTON: "close_button",
         COLUMN_SELECTOR_BUTTON: "column_selector_button",
-        CONFIRM_BUTTON: "confirm_button",
         EMPTY_STATE_ADD_CUSTOMER: "empty_state_add_customer",
         IMPORT_BUTTON: "import_button",
         IMPORT_DELETE_ALL_ERRORS_BUTTON: "import_delete_all_errors_button",
@@ -29,9 +28,7 @@ __d(
         IMPORT_UPLOAD_FILE_BUTTON: "import_upload_file_button",
         LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
         LEAD_STAGE_FILTER_CHIP: "lead_stage_filter_chip",
-        REMOVE_ACTION: "remove_action",
         ROW: "row",
-        ROW_ACTIONS_BUTTON: "row_actions_button",
         ROW_CHAT_BUTTON: "row_chat_button",
         SAVE_ACTION: "save_action",
         SAVE_BUTTON: "save_button",
@@ -46,17 +43,7 @@ __d(
         ERROR_NETWORK: "error_network",
         ERROR_UNKNOWN: "error_unknown",
       }),
-      u = n("$InternalEnum")({
-        SUCCESS: "success",
-        ERROR_NOT_CUSTOMER: "error_not_customer",
-        ERROR_NETWORK: "error_network",
-        ERROR_UNKNOWN: "error_unknown",
-      }),
-      c = n("$InternalEnum")({
-        ROW_ACTIONS_MENU: "row_actions_menu",
-        PROFILE_DRAWER: "profile_drawer",
-      }),
-      d = (function () {
+      u = (function () {
         function t() {}
         var n = t.prototype;
         return (
@@ -309,15 +296,6 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.clickRowActions = function () {
-            this.$1({
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_LIST,
-              userActionTarget: e.ROW_ACTIONS_BUTTON,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-            });
-          }),
           (n.clickToggleView = function (n) {
             var t = n === "list" ? "pipeline" : "list";
             this.$1({
@@ -433,16 +411,6 @@ __d(
               userActionTarget: "lead_stage_dropdown",
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.EDIT,
-            });
-          }),
-          (n.clickRowLeadStagePill = function (t) {
-            this.$1({
-              extraAttributes: { current_stage: t != null ? t : null },
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_LIST,
-              userActionTarget: "row_lead_stage_pill",
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
           (n.viewActionsMenu = function () {
@@ -575,51 +543,11 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.viewRemoveConfirm = function (t) {
-            this.$1({
-              extraAttributes: { triggered_from: t },
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_REMOVE_CONFIRM,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
-            });
-          }),
-          (n.clickRemoveConfirm = function () {
-            this.$1({
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_REMOVE_CONFIRM,
-              userActionTarget: e.CONFIRM_BUTTON,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-            });
-          }),
-          (n.removeCustomerResult = function (n, r) {
-            this.$1({
-              extraAttributes: { duration_ms: r, result: n },
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_REMOVE_CONFIRM,
-              userActionTarget: e.REMOVE_ACTION,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.API,
-            });
-          }),
-          (n.dismissRemoveConfirm = function () {
-            this.$1({
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_REMOVE_CONFIRM,
-              userActionTarget: e.CANCEL_BUTTON,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
-            });
-          }),
           t
         );
       })(),
-      m = new d();
-    ((l.SaveResult = s),
-      (l.RemoveResult = u),
-      (l.RemoveTrigger = c),
-      (l.CustomerManagerUserJourneyLogger = m));
+      c = new u();
+    ((l.SaveResult = s), (l.CustomerManagerUserJourneyLogger = c));
   },
   98,
 );

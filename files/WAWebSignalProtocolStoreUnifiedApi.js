@@ -785,6 +785,9 @@ __d(
               .tags("unified-store"),
               this.$1.clear());
           }),
+          (a.hasPendingPersistWrites = function () {
+            return this.$2 === b.Persist && this.$1.hasDirty();
+          }),
           (a.flushBufferToDiskIfNotMemOnlyMode = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (this.$2 === b.Memory)

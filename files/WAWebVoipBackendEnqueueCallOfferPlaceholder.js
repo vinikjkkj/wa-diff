@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebUserPrefsMeUser",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallOfferStanzaParser",
@@ -47,6 +48,12 @@ __d(
               t,
             );
           },
+        })
+        .catch(function (e) {
+          return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+            e,
+            "voip_call_offer_placeholder",
+          );
         })
         .catch(function (n) {
           (o("WALogger")

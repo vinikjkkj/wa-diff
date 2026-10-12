@@ -4,6 +4,7 @@ __d(
     "Promise",
     "QualityScoreUtils",
     "VideoPlayerNextgendashABR",
+    "VideoPlayerNextgendashDecodeCapabilityMatcher",
     "VideoPlayerNextgendashManifestParser",
     "VideoPlayerNextgendashMediaUtils",
     "VideoPlayerNextgendashNetworkDiagnosticsUtils",
@@ -111,17 +112,7 @@ __d(
           e.config.enableBandwidthDiagnosticsFallback,
           e.config.bandwidthDiagnosticsFallbackDefaultEstimate,
         );
-        (w(
-          e,
-          r,
-          t.representations,
-          n.devicePixelRatio,
-          n.isDocumentHidden,
-          n.prefetchResolutionThreshold,
-          a != null ? a : n.bandwidthDiagnostics,
-          n.abrConfig,
-          n.playerDimensions,
-        ),
+        (w(e, r, t.representations, n, a != null ? a : n.bandwidthDiagnostics),
           P(e, r, t.representations));
       } catch (t) {
         e.logging.log(e, {
@@ -165,12 +156,7 @@ __d(
       try {
         var r = C(t.prefetchKey);
         if (L(e, t.prefetchKey, r)) return [];
-        var a = N(
-            e,
-            t.representations,
-            n.devicePixelRatio,
-            n.prefetchResolutionThreshold,
-          ),
+        var a = N(e, t.representations, n),
           i = $(t.representations),
           l = E(t.prefetchKey, a, i, n);
         return l != null ? [l] : [];
@@ -261,16 +247,23 @@ __d(
       var r = $(n);
       r != null && G(e, t, r);
     }
-    function N(e, t, n, r) {
-      var o = t.filter(function (e) {
+    function N(e, t, n) {
+      var r = t.filter(function (e) {
           return e.mimeType.indexOf("video") > -1;
         }),
-        a = q(e, o, n, r);
+        o = q(e, r, {
+          devicePixelRatio: n.devicePixelRatio,
+          enableSmartPlayerStaticCapabilityFiltering:
+            n.enableSmartPlayerStaticCapabilityFiltering,
+          prefetchResolutionThreshold: n.prefetchResolutionThreshold,
+          smartPlayerVideoDecodeCapabilities:
+            n.smartPlayerVideoDecodeCapabilities,
+        });
       return (
-        a.sort(function (e, t) {
+        o.sort(function (e, t) {
           return e.bandwidth - t.bandwidth;
         }),
-        a
+        o
       );
     }
     function M(e, t, n, r, o, a, i, l) {
@@ -280,19 +273,19 @@ __d(
         c = u != null ? u : s;
       return c;
     }
-    function w(e, t, n, r, o, a, i, l, s) {
-      var u = N(e, n, r, a),
-        c = M(
-          u,
-          r,
+    function w(e, t, n, r, o) {
+      var a = N(e, n, r),
+        i = M(
+          a,
+          r.devicePixelRatio,
+          r.isDocumentHidden,
           o,
-          i,
-          l,
+          r.abrConfig,
           e.config.cacheQualityScoreInRepresentation,
           e.config.useSimpleBandwidthEstimate,
-          s,
+          r.playerDimensions,
         );
-      c != null && G(e, t, c);
+      i != null && G(e, t, i);
     }
     var A = 500,
       F = 400;
@@ -370,8 +363,8 @@ __d(
         width: e.width,
       };
     }
-    function q(e, t, n, r) {
-      var a = t.filter(function (t) {
+    function q(e, t, n) {
+      var r = t.filter(function (t) {
           var n = o(
             "VideoPlayerNextgendashMediaUtils",
           ).combineMimeTypeAndCodecs(t.mimeType, t.codecs);
@@ -386,10 +379,20 @@ __d(
               ))
           );
         }),
-        i = a.filter(function (e) {
-          var t = Math.min(e.width, e.height);
-          return t / n <= r;
-        });
+        a = r;
+      n.enableSmartPlayerStaticCapabilityFiltering === !0 &&
+        (a = r.filter(function (e) {
+          return o(
+            "VideoPlayerNextgendashDecodeCapabilityMatcher",
+          ).isVideoPlayerNextgendashRepresentationPlayable(
+            n.smartPlayerVideoDecodeCapabilities,
+            W(e, !1),
+          );
+        }));
+      var i = a.filter(function (e) {
+        var t = Math.min(e.width, e.height);
+        return t / n.devicePixelRatio <= n.prefetchResolutionThreshold;
+      });
       return i.length > 0 ? i : a.length > 0 ? [a[0]] : [];
     }
     function U(e, t, n) {
@@ -642,6 +645,7 @@ __d(
       (l.initiatePrefetch = v),
       (l.getPrefetchTasks = k),
       (l.processPrefetchTask = x),
+      (l.internal_filterVideoRepresentations = q),
       (l.internal_startFetchForPrefetch = H),
       (l.releasePrefetchKey = z),
       (l.getCachedRepresentationsForPrefetchKey = j),

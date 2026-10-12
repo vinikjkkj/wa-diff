@@ -35,13 +35,18 @@ __d(
             var l = o("WAWebWidFactory").asUserWidOrThrow(this.wid),
               c = !l.isLid() && l.isUser(),
               d = c ? o("WAWebApiContact").getCurrentLid(l) : l;
-            if (d == null) return [this.wid.user, t, "@c.us"].join("");
-            var m = [d.user, t, "@lid"].join("");
-            return this.$1 === o("WAWebSessionScope").SessionScope.STATUS
-              ? m + s
-              : this.$1 === o("WAWebSessionScope").SessionScope.PQ
-                ? m + u
+            if (d == null) {
+              var m = [this.wid.user, t, "@c.us"].join("");
+              return this.$1 === o("WAWebSessionScope").SessionScope.STATUS
+                ? m + s
                 : m;
+            }
+            var p = [d.user, t, "@lid"].join("");
+            return this.$1 === o("WAWebSessionScope").SessionScope.STATUS
+              ? p + s
+              : this.$1 === o("WAWebSessionScope").SessionScope.PQ
+                ? p + u
+                : p;
           }),
           t
         );

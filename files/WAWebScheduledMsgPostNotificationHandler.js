@@ -18,6 +18,7 @@ __d(
     "WAWebHandleSingleMsg",
     "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebMessageQueue",
+    "WAWebMessageQueueTimeout",
     "WAWebMsgType",
     "WAWebOfflineHandler",
     "WAWebScheduledMessagesGatingUtils",
@@ -97,65 +98,72 @@ __d(
               !o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.isResumeFromRestartComplete();
-            yield o("WAWebMessageQueue").onMessageQueue({
-              chatWid: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-              isOffline: _,
-              msgCategory: null,
-              action: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    try {
-                      var e = yield o(
-                        "WAWebScheduledMsgRevealKeyStore",
-                      ).getRevealKeyByRevealKeyId(l);
-                      if (e == null)
-                        return (
-                          o("WALogger").WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "[scheduled_msg][mex][post] no record found for rkid",
-                              ])),
-                          ),
-                          null
-                        );
-                      switch (p) {
-                        case "SUCCESS": {
-                          var t =
-                            e.revealKey.byteLength === 0
-                              ? null
-                              : yield o(
-                                  "WAWebScheduledMsgDecryptInnerProto",
-                                ).decryptAndDecodeRevealPayload(
-                                  e.encPayload,
-                                  e.encIv,
-                                  e.revealKey,
-                                );
-                          yield k(e, t);
-                          break;
+            yield o("WAWebMessageQueue")
+              .onMessageQueue({
+                chatWid: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                isOffline: _,
+                msgCategory: null,
+                action: (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      try {
+                        var e = yield o(
+                          "WAWebScheduledMsgRevealKeyStore",
+                        ).getRevealKeyByRevealKeyId(l);
+                        if (e == null)
+                          return (
+                            o("WALogger").WARN(
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[scheduled_msg][mex][post] no record found for rkid",
+                                ])),
+                            ),
+                            null
+                          );
+                        switch (p) {
+                          case "SUCCESS": {
+                            var t =
+                              e.revealKey.byteLength === 0
+                                ? null
+                                : yield o(
+                                    "WAWebScheduledMsgDecryptInnerProto",
+                                  ).decryptAndDecodeRevealPayload(
+                                    e.encPayload,
+                                    e.encIv,
+                                    e.revealKey,
+                                  );
+                            yield k(e, t);
+                            break;
+                          }
+                          default:
+                            yield T(e.msgId, p);
                         }
-                        default:
-                          yield T(e.msgId, p);
+                      } catch (e) {
+                        o("WALogger")
+                          .ERROR(
+                            m ||
+                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                                "[scheduled_msg][mex][post] handler failed",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("mex-scheduled-msg-post-handler-failed");
                       }
-                    } catch (e) {
-                      o("WALogger")
-                        .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
-                              "[scheduled_msg][mex][post] handler failed",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .sendLogs("mex-scheduled-msg-post-handler-failed");
-                    }
-                    return null;
-                  },
+                      return null;
+                    },
+                  );
+                  function t() {
+                    return e.apply(this, arguments);
+                  }
+                  return t;
+                })(),
+              })
+              .catch(function (e) {
+                return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+                  e,
+                  "scheduled_msg_post",
                 );
-                function t() {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
-            });
+              });
           }
         })),
         E.apply(this, arguments)

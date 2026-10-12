@@ -112,25 +112,20 @@ __d(
     }
     function b() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_receiver_dedup",
+        "group_history_send_once_default_on",
       );
     }
     function v() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_once_default_on",
+        "group_history_send_default_on",
       );
     }
     function S() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_default_on",
-      );
-    }
-    function R() {
-      return o("WAWebABProps").getABPropConfigValue(
         "group_history_per_group_toggle_md_sync",
       );
     }
-    function L() {
+    function R() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistoryReceiverEnabled = e),
@@ -144,11 +139,10 @@ __d(
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = h),
       (l.isGroupHistoryAfterJoinPrerequisitesEnabled = y),
       (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = C),
-      (l.isGroupHistoryReceiverDedupEnabled = b),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = v),
-      (l.isGroupHistorySendDefaultOnEnabled = S),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = R),
-      (l.shouldSkipUnsupportedMessagesFromBundle = L));
+      (l.isGroupHistorySendOnceDefaultOnEnabled = b),
+      (l.isGroupHistorySendDefaultOnEnabled = v),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = S),
+      (l.shouldSkipUnsupportedMessagesFromBundle = R));
   },
   98,
 );

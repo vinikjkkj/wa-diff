@@ -11,11 +11,13 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebJSHaltDetector",
     "WAWebMessageQueue",
+    "WAWebMessageQueueImpl",
     "WAWebOffdStorageUpdateOfflinePeerReceipts",
     "WAWebOfflineResumeConst",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebOfflineResumeTypes",
     "WAWebOfflineResumeUtils",
+    "WAWebOneQueue",
     "WAWebSignalProtocolStore",
     "WAWebThreadMetadata",
     "WAWebUserPrefsGeneral",
@@ -273,7 +275,10 @@ __d(
                   this.$1 ===
                   o("WAWebOfflineResumeConst").ResumeStatus.RESUME_WITH_OPEN_TAB
                 ) {
-                  (yield o("WAWebMessageQueue").waitForOnlineMessageQueue(),
+                  (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() ||
+                    (yield o(
+                      "WAWebMessageQueue",
+                    ).waitForLegacyOnlineMessageQueue()),
                     yield o("WAWebApiPendingDeviceSync").doPendingDeviceSync(),
                     this.$14(
                       o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE,
@@ -411,6 +416,7 @@ __d(
                     .sendLogs("non-blocking-offline-resume-timeout", {
                       sampling: 0.01,
                     }),
+                  o("WAWebOneQueue").handleOneQueueOfflineEnd(),
                   r.processOfflineSessionComplete(t + n),
                   (r.$9 = null),
                   o(
@@ -423,7 +429,9 @@ __d(
           }),
           (t.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield o("WAWebMessageQueue").waitForOfflineMessageQueue(),
+              (yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
+                ? o("WAWebOneQueue").waitForOneQueueOfflineEnd()
+                : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
                 o(
                   "WAWebWamOfflineResumeReporter",
                 ).OfflineResumeReporter.logOfflineDecryptionErrorCount(this.$3),

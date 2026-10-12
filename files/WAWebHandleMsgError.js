@@ -9,7 +9,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function (e) {
+      s,
+      u =
+        ((e = {}),
+        (e[o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_SENDER] = o(
+          "WAWebWamEnumE2eFailureReason",
+        ).E2E_FAILURE_REASON.INVALID_DSM_SENDER),
+        (e[o("WAWebWamEnumDsmError").DSM_ERROR.MISSING_DSM] = o(
+          "WAWebWamEnumE2eFailureReason",
+        ).E2E_FAILURE_REASON.DSM_MISSING),
+        (e[o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_DSM] = o(
+          "WAWebWamEnumE2eFailureReason",
+        ).E2E_FAILURE_REASON.INVALID_DSM),
+        e),
+      c = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -33,12 +46,13 @@ __d(
             }).commit(),
             (r.peerType = t),
             (r.dsmError = n),
+            (r.e2eFailureReason = u[n]),
             babelHelpers.assertThisInitialized(r)
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })((e = o("WACustomError")).CustomError),
-      u = (function (e) {
+      })((s = o("WACustomError")).CustomError),
+      d = (function (e) {
         function t(t) {
           var n;
           return (
@@ -48,8 +62,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      c = (function (e) {
+      })(s.CustomError),
+      m = (function (e) {
         function t(t, n, r) {
           var o, a;
           return (
@@ -63,8 +77,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      d = (function (e) {
+      })(s.CustomError),
+      p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -81,8 +95,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      m = (function (e) {
+      })(s.CustomError),
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -92,8 +106,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      p = n("$InternalEnum")({
+      })(s.CustomError),
+      f = n("$InternalEnum")({
         INVALID_POLL_UPDATE_STANZA: "poll_update_message_stanza_invalid",
         INVALID_REACTION_STANZA: "reaction_message_stanza_invalid",
         INVALID_PIN_IN_CHAT_STANZA: "pin_in_chat_message_stanza_invalid",
@@ -105,7 +119,7 @@ __d(
         INVALID_POLL_EDIT_STANZA: "poll_edit_message_stanza_invalid",
         INVALID_MEMBER_TAG_STANZA: "member_tag_message_stanza_invalid",
       }),
-      _ = (function (e) {
+      g = (function (e) {
         function t(t) {
           var n;
           return (
@@ -121,8 +135,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(c),
-      f = (function (e) {
+      })(m),
+      h = (function (e) {
         function t(t) {
           var n;
           return (
@@ -138,15 +152,15 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(c);
-    ((l.DeviceSentMessageError = s),
-      (l.UnknownDeviceMessageError = u),
-      (l.MessageValidationError = c),
-      (l.MessageSentAckError = d),
-      (l.BizNodeValidationError = m),
-      (l.MessageProtobufMismatchErrorCode = p),
-      (l.MessageProtobufMismatchError = _),
-      (l.MessageProtobufInvalidMessageTypes = f));
+      })(m);
+    ((l.DeviceSentMessageError = c),
+      (l.UnknownDeviceMessageError = d),
+      (l.MessageValidationError = m),
+      (l.MessageSentAckError = p),
+      (l.BizNodeValidationError = _),
+      (l.MessageProtobufMismatchErrorCode = f),
+      (l.MessageProtobufMismatchError = g),
+      (l.MessageProtobufInvalidMessageTypes = h));
   },
   98,
 );

@@ -13,12 +13,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d() {
+    function d(t) {
+      var n =
+        t == null
+          ? o("WAWebExternalLink.react").ANDROID_STORE_URIS.touchscreen_overlay
+          : o("WAWebExternalLink.react").ANDROID_STORE_URIS
+              .touchscreen_overlay +
+            "%26wa_web_visit_id%3D" +
+            t;
       try {
-        o("WAWebExternalLink.react").openExternalLink(
-          o("WAWebExternalLink.react").ANDROID_STORE_URIS.touchscreen_overlay,
-          { target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB },
-        );
+        o("WAWebExternalLink.react").openExternalLink(n, {
+          target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB,
+        });
       } catch (t) {
         o("WALogger")
           .ERROR(

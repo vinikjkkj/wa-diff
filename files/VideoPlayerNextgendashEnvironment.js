@@ -60,6 +60,7 @@ __d(
         enableQuotaExceededRecovery: !1,
         enableQuotaExceededRecoveryForCompositeErrors: !1,
         enableSkipRecoveryOnDeliberateDetach: !1,
+        enableSmartPlayerStaticCapabilityFiltering: !1,
         enableSplitAbrEvalSwitchIntervals: !1,
         enableStableAbrEvaluationCooldown: !1,
         enableStreamReaderFailureRecovery: !1,

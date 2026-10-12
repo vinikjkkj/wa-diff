@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCommsSendPing",
+    "WAWebDeliveryReceiptClassUtils",
     "WAWebNetworkStatus",
     "WAWebOfflineResumePreAckHandler",
     "WAWebSchemaDanglingReceipt",
@@ -50,29 +51,33 @@ __d(
             var t = e.acks,
               n = e.receipts;
             (n.forEach(function (e) {
-              var t = o("WAWebWidFactory").createWid(e.from),
-                n = o("WAWebWidFactory").createWid(e.author),
-                r = a.get(t);
-              r || ((r = new Map()), a.set(t, r));
-              var i = r.get(n);
-              (i || ((i = []), r.set(n, i)), i.push(e.externalId));
+              o("WAWebDeliveryReceiptClassUtils").addReceiptByClass(a, {
+                author: o("WAWebWidFactory").createWid(e.author),
+                externalId: e.externalId,
+                from: o("WAWebWidFactory").createWid(e.from),
+                receiptClass: e.receiptClass,
+              });
             }),
               (i = i.concat(t)));
           });
           var p = String(o("WATimeUtils").unixTime()),
-            _ = Array.from(a.keys()).map(function (e) {
-              var t = a.get(e);
-              if (t)
-                return o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                  to: e,
+            _ = [];
+          a.forEach(function (e, t) {
+            e.forEach(function (e, n) {
+              _.push(
+                o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+                  to: t,
                   type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
                   t: p,
-                  groupedReceipt: t,
-                });
-            }),
-            f = i.map(function (e) {
-              return o("WAWebOfflineResumePreAckHandler").sendOfflinePreAck(e);
+                  groupedReceipt: e,
+                  receiptClass: n,
+                }),
+              );
             });
+          });
+          var f = i.map(function (e) {
+            return o("WAWebOfflineResumePreAckHandler").sendOfflinePreAck(e);
+          });
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([

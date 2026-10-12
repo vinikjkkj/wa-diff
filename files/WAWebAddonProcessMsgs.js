@@ -332,31 +332,39 @@ __d(
             a = e.parentSelector,
             i = e.processMode,
             l = a.getForAddon(t),
-            s = (function () {
+            s =
+              l.isGroupStatus === !0
+                ? babelHelpers.extends({}, t, { isGroupStatus: !0 })
+                : t,
+            u = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
                   var e = o(
                     "WAWebAddonEncryptAddonMsgData",
-                  ).createDualEncryptionHelper(t, l);
-                  return e ? e.encrypt() : t;
+                  ).createDualEncryptionHelper(s, l);
+                  return e ? e.encrypt() : s;
                 },
               );
               return function () {
                 return e.apply(this, arguments);
               };
             })(),
-            u = yield (f || (f = n("Promise"))).all([
-              s(),
+            c = yield (f || (f = n("Promise"))).all([
+              u(),
               S(
                 { mode: i },
-                o("WAWebAddonSelectUtils").getAddonTableMode(t),
-                [t],
+                o("WAWebAddonSelectUtils").getAddonTableMode(s),
+                [s],
                 a,
                 r,
               ),
             ]),
-            c = u[0];
-          return { encryptedMsgData: c, decryptedMsgData: t, parent: l };
+            d = c[0],
+            m =
+              l.isGroupStatus === !0
+                ? babelHelpers.extends({}, d, { isGroupStatus: !0 })
+                : d;
+          return { encryptedMsgData: m, decryptedMsgData: s, parent: l };
         })),
         x.apply(this, arguments)
       );

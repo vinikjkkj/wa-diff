@@ -6,7 +6,15 @@ __d(
     function e(e) {
       return e === "COMPLETED" || e === "FAILED" || e === "STOPPED";
     }
-    i.isSettledBrowserTaskState = e;
+    function l(e) {
+      return e != null && e.trim() !== "" ? e : null;
+    }
+    function s(e) {
+      return e.slice(e.lastIndexOf(":") + 1);
+    }
+    ((i.isSettledBrowserTaskState = e),
+      (i.nonBlank = l),
+      (i.normalizedBrowserTaskID = s));
   },
   66,
 );
