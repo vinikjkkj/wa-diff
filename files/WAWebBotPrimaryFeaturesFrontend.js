@@ -14,8 +14,11 @@ __d(
           .PrimaryFeatures.aiHatchIntegrationEnabled,
       };
     }
-    var u =
-      "change:aiBotIntegrationEnabled change:aiHatchIntegrationEnabled change:aiArtifactsFixedEnabled";
+    var u = [
+      "change:aiBotIntegrationEnabled",
+      "change:aiHatchIntegrationEnabled",
+      "change:aiArtifactsFixedEnabled",
+    ];
     ((l.isBotArtifactDownloadEnabled = e),
       (l.getBotPrimaryFeatures = s),
       (l.BOT_PRIMARY_FEATURE_CHANGE_EVENTS = u));

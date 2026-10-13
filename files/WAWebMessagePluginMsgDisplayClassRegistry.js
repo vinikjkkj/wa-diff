@@ -210,6 +210,11 @@ __d(
           subtype: "ai_media_collection",
           msgDisplayClass: null,
         },
+        {
+          type: "protocol",
+          subtype: "biz_ai_metadata_sync",
+          msgDisplayClass: null,
+        },
         { type: "protocol", subtype: "bot_feedback", msgDisplayClass: null },
         {
           type: "protocol",

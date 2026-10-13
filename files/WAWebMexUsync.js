@@ -34,7 +34,12 @@ __d(
             }
             return {
               response: null,
-              error: d(500, "xwa2_fetch_wa_users null", !0, null),
+              error: d({
+                backoffMs: null,
+                code: 500,
+                retryable: !0,
+                text: "xwa2_fetch_wa_users null",
+              }),
             };
           } catch (e) {
             if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
@@ -44,7 +49,12 @@ __d(
                   : { backoffMs: null, retryable: !0 };
               return {
                 response: null,
-                error: d(e.statusCode, e.message, r.retryable, r.backoffMs),
+                error: d({
+                  backoffMs: r.backoffMs,
+                  code: e.statusCode,
+                  retryable: r.retryable,
+                  text: e.message,
+                }),
               };
             }
             throw e;
@@ -53,8 +63,12 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r) {
-      return { backoffMs: r, code: e, retryable: n, text: t };
+    function d(e) {
+      var t = e.backoffMs,
+        n = e.code,
+        r = e.retryable,
+        o = e.text;
+      return { backoffMs: t, code: n, retryable: r, text: o };
     }
     l.mexUsyncQuery = u;
   },

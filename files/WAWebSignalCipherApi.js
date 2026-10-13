@@ -75,7 +75,11 @@ __d(
                 )
               );
           }
-          return o("WAWebCryptoLibrary").decryptGroupSignalProto(l, i, a);
+          return o("WAWebCryptoLibrary").decryptGroupSignalProto({
+            author: i,
+            ciphertext: a,
+            groupId: l,
+          });
         })),
         p.apply(this, arguments)
       );

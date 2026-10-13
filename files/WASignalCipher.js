@@ -17,6 +17,7 @@ __d(
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
+    "gkx",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -412,83 +413,85 @@ __d(
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.ciphertext,
-            r = t.counter,
-            a = t.ratchetPubKey,
-            i = t.versionContentMac,
-            l = e.recvChains,
-            s = e.recvChains.findIndex(function (e) {
+            a = t.counter,
+            i = t.ratchetPubKey,
+            l = t.versionContentMac,
+            s = e.recvChains,
+            u = e.recvChains.findIndex(function (e) {
               return o("WACryptoUtils").serializedPubKeysEqual(
                 e.ratchetPubKey,
-                a,
+                i,
               );
             }),
-            u,
-            d;
-          if (s === -1) {
-            var m = yield o("WASignalWhitepaper").calculateRatchet(
+            d,
+            m;
+          if (u === -1) {
+            var p = yield o("WASignalWhitepaper").calculateRatchet(
                 e.rootKey,
                 e.sendChain.ratchetKey,
-                a,
+                i,
               ),
-              p = o("WASignalSessions").makeFreshRecvChain(a, m.chainKey),
-              _ = yield R(p, r);
-            if (!_.success) return _;
-            var f = _.value,
-              g = o("WASignalKeys").makeSerializedKeyPair(),
-              h = yield o("WASignalWhitepaper").calculateRatchet(
-                m.rootKey,
-                g,
-                a,
+              _ = o("WASignalSessions").makeFreshRecvChain(i, p.chainKey),
+              f = yield R(_, a);
+            if (!f.success) return f;
+            var g = f.value,
+              h = r("gkx")("7643")
+                ? yield o("WASignalKeys").makeSerializedKeyPairAsync()
+                : o("WASignalKeys").makeSerializedKeyPair(),
+              y = yield o("WASignalWhitepaper").calculateRatchet(
+                p.rootKey,
+                h,
+                i,
               ),
-              y = l.slice(-4);
-            (y.push(f.updatedChain),
-              (d = f.msgKey),
-              (u = o("WASignalSessions").ratchetSession(
+              C = s.slice(-4);
+            (C.push(g.updatedChain),
+              (m = g.msgKey),
+              (d = o("WASignalSessions").ratchetSession(
                 e,
-                y,
-                o("WASignalSessions").makeFreshSendChain(g, h.chainKey),
-                h.rootKey,
+                C,
+                o("WASignalSessions").makeFreshSendChain(h, y.chainKey),
+                y.rootKey,
               )));
           } else {
-            var C = yield R(l[s], r);
-            if (!C.success) return C;
-            var b = C.value,
-              v = l.slice();
-            ((v[s] = b.updatedChain),
-              (d = b.msgKey),
-              (u = o("WASignalSessions").updateChains(e, v, e.sendChain)));
+            var b = yield R(s[u], a);
+            if (!b.success) return b;
+            var v = b.value,
+              S = s.slice();
+            ((S[u] = v.updatedChain),
+              (m = v.msgKey),
+              (d = o("WASignalSessions").updateChains(e, S, e.sendChain)));
           }
-          var S = yield D(d),
-            L = S.cipherKey,
-            E = S.macKey,
-            k = o("WABinary")
-              .Binary.build(e.remote.pubKey, e.local.pubKey, i.subarray(0, -c))
+          var L = yield D(m),
+            E = L.cipherKey,
+            k = L.macKey,
+            I = o("WABinary")
+              .Binary.build(e.remote.pubKey, e.local.pubKey, l.subarray(0, -c))
               .readByteArrayView(),
-            I = yield T(E, k),
-            x = i.subarray(-c),
-            $ = !o("WACryptoUtils").uint8ArraysEqual(
-              new Uint8Array(I, 0, c),
-              x,
+            x = yield T(k, I),
+            $ = l.subarray(-c),
+            P = !o("WACryptoUtils").uint8ArraysEqual(
+              new Uint8Array(x, 0, c),
+              $,
             ),
-            P = null;
+            N = null;
           try {
-            P = yield o("WACryptoDependencies")
+            N = yield o("WACryptoDependencies")
               .getCrypto()
-              .subtle.decrypt({ name: "AES-CBC", iv: d.iv }, L, n);
+              .subtle.decrypt({ name: "AES-CBC", iv: m.iv }, E, n);
           } catch (e) {}
-          return $ && P == null
-            ? s === -1
+          return P && N == null
+            ? u === -1
               ? o("WAResultOrError").makeError(
                   "errInvalidMacInvalidCipherKeyNewChain",
                 )
               : o("WAResultOrError").makeError("errInvalidMacInvalidCipherKey")
-            : $
+            : P
               ? o("WAResultOrError").makeError(
                   "errInvalidMacWithDecryptedPlaintext",
                 )
-              : P == null
+              : N == null
                 ? o("WAResultOrError").makeError("errUnknownInvalidCipherKey")
-                : o("WAResultOrError").makeResult([u, P]);
+                : o("WAResultOrError").makeResult([d, N]);
         })),
         S.apply(this, arguments)
       );

@@ -443,37 +443,40 @@ __d(
           })
       );
     }
-    function B(e, t, a) {
+    function B(e) {
+      var t = e.author,
+        a = e.ciphertext,
+        i = e.groupId;
       o("WALogger").LOG(
         d ||
           (d = babelHelpers.taggedTemplateLiteralLoose([
             "CryptoLibrarySignal::decryptGroupSignalProto",
           ])),
       );
-      var i = null;
+      var l = null;
       return T()
         .decryptGroupContent(
           {
             loadSenderKeySession: k.loadSenderKeySession,
             saveSenderKeySession: k.saveSenderKeySession,
           },
-          o("WAWebWidToJid").widToMulticastJid(e),
+          o("WAWebWidToJid").widToMulticastJid(i),
           o("WAWebWidToJid").widToDeviceJid(t),
           a,
           function (e) {
             return (
-              (i = o("WAByteArray").uint8ArrayToBuffer(e)),
+              (l = o("WAByteArray").uint8ArrayToBuffer(e)),
               (E || (E = n("Promise"))).resolve()
             );
           },
         )
         .then(function (e) {
           if (e.success) {
-            if (i == null)
+            if (l == null)
               throw new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
                 "Null result on successful decryption of group msg",
               );
-            return i;
+            return l;
           }
           var t = e.error;
           throw (

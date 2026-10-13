@@ -29,11 +29,10 @@ __d(
             (this.expandedVariables = new Map()),
             (this.$1 = new Set()),
             (this.$2 = new Map()),
-            (this.$3 = new Map()),
-            (this.$4 = null),
+            (this.$3 = null),
             (this.subtreeReuseEnabled = !1),
             (this.instrumentationEnabled = !1),
-            (this.$5 = !1),
+            (this.$4 = !1),
             (this.bindDataModuleDelegate = new (o(
               "BindResourceProcessingDelegate",
             ).BindResourceProcessingDelegate)({
@@ -41,7 +40,7 @@ __d(
                 return a.containsVariable(t);
               },
             })),
-            (this.$6 = 0),
+            (this.$5 = 0),
             (this.bloksContext = e),
             (this.resources = t),
             (this.clientIdToScopedIdMapper = n),
@@ -51,7 +50,7 @@ __d(
               "WebBloksBindInstrumentation",
             ).isBindInstrumentationEnabled()),
             r)
-          )
+          ) {
             if (
               ((this.nextCache = new c(r.bindCache)),
               (this.cache = r.bindCache),
@@ -67,7 +66,14 @@ __d(
               }
             } else
               this.previousVariableDependencies = o("WebBloksUtils").EMPTY_MAP;
-          else
+            for (var u of this.cache.templatePayloads) {
+              var d = u[0],
+                m = u[1].payload;
+              t.payloads.get(d) !== m &&
+                ((this.variablesChanged = void 0),
+                this.nextCache.templatePayloads.delete(d));
+            }
+          } else
             ((this.nextCache = new c(null)),
               (this.cache = new c(null)),
               (this.previousExpandedVariables = o("WebBloksUtils").EMPTY_MAP),
@@ -78,13 +84,13 @@ __d(
         var t = e.prototype;
         return (
           (t.getClockReadCount = function () {
-            return this.$6;
+            return this.$5;
           }),
           (t.getBindTimeSnapshotMs = function () {
             return (
-              this.subtreeReuseEnabled && this.$6++,
-              this.$4 == null && (this.$4 = Date.now()),
-              this.$4
+              this.subtreeReuseEnabled && this.$5++,
+              this.$3 == null && (this.$3 = Date.now()),
+              this.$3
             );
           }),
           (t.cacheDependencies = function (t, n, r, o) {
@@ -92,7 +98,7 @@ __d(
               this.nextCache.cacheExpandedVariables(t, r),
               this.nextCache.cacheClockDependentSubtree(t, o));
           }),
-          (t.$7 = function (t) {
+          (t.$6 = function (t) {
             var e = this.variablesChanged;
             if (e == null) return !0;
             for (var n of t) if (e.has(n)) return !0;
@@ -104,14 +110,14 @@ __d(
             var e = this.cache.getVariableDependencies(t);
             if (e == null)
               return (
-                this.$5 ||
-                  ((this.$5 = !0),
+                this.$4 ||
+                  ((this.$4 = !0),
                   this.bloksContext.objectSet.environment.logger.warn(
                     "WebBloksBind: a previously bound node has no variable dependency set; skipping subtree reuse for it",
                   )),
                 !1
               );
-            if (this.$7(e)) return !1;
+            if (this.$6(e)) return !1;
             for (var o of e) n.add(o);
             var a = this.cache.getExpandedVariables(t);
             if (a != null)
@@ -252,9 +258,6 @@ __d(
               }
             }
           }),
-          (t.isResourceProcessed = function (t) {
-            return this.$1.has(t);
-          }),
           (t.collectTreeResource = function (t, n) {
             this.$1.has(n) ||
               (this.$1.add(n),
@@ -264,16 +267,18 @@ __d(
           (t.getCollectedTreeResources = function () {
             return this.$2;
           }),
-          (t.getCachedTemplatePayload = function (t) {
-            return this.$3.get(t);
+          (t.getCachedTemplatePayload = function (t, n) {
+            var e = this.nextCache.templatePayloads.get(t);
+            return e != null && e.payload === n ? e.parseResult : null;
           }),
-          (t.cacheTemplatePayload = function (t, n) {
-            this.$3.set(t, n);
+          (t.cacheTemplatePayload = function (t, n, r) {
+            this.nextCache.templatePayloads.set(t, {
+              payload: n,
+              parseResult: r,
+            });
           }),
           (t.containsVariable = function (t) {
-            return (
-              this.expandedVariables.has(t) || this.resources.variables.has(t)
-            );
+            return this.resources.variables.has(t);
           }),
           (t.processVariableManifestsInBind = function (t, n) {
             var e = this;
@@ -321,7 +326,9 @@ __d(
                     _ = (s = i.get(d)) != null ? s : new Map(),
                     f = m.setup(this.bloksContext, l, p, _);
                   (f.snapshot != null && i.set(d, f.snapshot),
-                    this.addExpandedVariable(c, f.initialData.initialValue),
+                    (this.resources = this.resources.withVariableUpdates(
+                      new Map([[c, f.initialData.initialValue]]),
+                    )),
                     this.bindDataModuleDelegate.collectVariable(
                       c,
                       l,
@@ -357,23 +364,21 @@ __d(
       })(),
       c = (function () {
         function e(e) {
-          var t, n, r, o;
-          ((this.expandedVariables =
-            (t = e == null ? void 0 : e.expandedVariables) != null
-              ? t
-              : new Map()),
-            (this.unboundChildTemplates =
-              (n = e == null ? void 0 : e.unboundChildTemplates) != null
-                ? n
-                : new Map()),
-            (this.variableDependencies =
-              (r = e == null ? void 0 : e.variableDependencies) != null
-                ? r
-                : new Map()),
-            (this.clockDependentSubtrees =
-              (o = e == null ? void 0 : e.clockDependentSubtrees) != null
-                ? o
-                : new Set()));
+          ((this.expandedVariables = new Map(
+            e == null ? void 0 : e.expandedVariables,
+          )),
+            (this.unboundChildTemplates = new Map(
+              e == null ? void 0 : e.unboundChildTemplates,
+            )),
+            (this.variableDependencies = new Map(
+              e == null ? void 0 : e.variableDependencies,
+            )),
+            (this.clockDependentSubtrees = new Set(
+              e == null ? void 0 : e.clockDependentSubtrees,
+            )),
+            (this.templatePayloads = new Map(
+              e == null ? void 0 : e.templatePayloads,
+            )));
         }
         var t = e.prototype;
         return (
@@ -594,6 +599,7 @@ __d(
     }
     function b(e, t, n, r, a, i, l, s, u) {
       if (i == null) return null;
+      if (i instanceof o("WebBloksModel").WebBloksModel) return i;
       var c;
       Array.isArray(i)
         ? (c = {
@@ -604,72 +610,68 @@ __d(
           })
         : (c = i);
       var d,
-        m = c.parseResult,
-        p = null;
-      if (m != null) {
-        var _;
-        d = m.unboundModel;
-        var f = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey);
-        p = o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, f);
-        var g = (_ = c.resourceIdentifier) != null ? _ : String(d.clientId);
-        if (!e.isResourceProcessed(g)) {
-          var h;
-          e.collectTreeResource(m.resources, g);
-          var y = (h = m.resources.variableDefinitions) != null ? h : [];
-          y.length > 0 && e.processVariableManifestsInBind(y, p);
-        }
+        m = null,
+        p = "",
+        _ = c.parseResult;
+      if (_ != null) {
+        var f;
+        ((d = _.unboundModel),
+          (m = _),
+          (p = (f = c.resourceIdentifier) != null ? f : String(d.clientId)));
       } else if (typeof c.templateId == "number") {
-        var C = c.templateId,
-          b = t.getChildren_DEPRECATED(
+        var g = c.templateId,
+          h = t.getChildren_DEPRECATED(
             o("WebBloksConstants").CHILD_TEMPLATES_ATTRIBUTE_KEY,
           );
-        if (C < 0 || C >= b.length)
+        if (g < 0 || g >= h.length)
           throw new (o("WebBloksErrors").WebBloksError)(
-            "Invalid child template index " + C + " for " + c.scopeKey,
+            "Invalid child template index " + g + " for " + c.scopeKey,
           );
-        d = b[C];
+        d = h[g];
       } else {
-        var S = c.templateId,
-          R = e.resources.payloads.get(S);
-        if (R != null) {
-          var L = e.getCachedTemplatePayload(S);
-          (L == null &&
-            ((L = o("WebBloksPayloadParser").parseTree(
-              R.payload,
+        var y = c.templateId,
+          C = e.resources.payloads.get(y);
+        if (C != null) {
+          var b = e.getCachedTemplatePayload(y, C);
+          (b == null &&
+            ((b = o("WebBloksPayloadParser").parseTree(
+              C.payload,
               l,
               s,
               u,
               null,
             )),
-            e.cacheTemplatePayload(S, L)),
-            (d = L.unboundModel));
-          var E = S;
-          if (!e.isResourceProcessed(E)) {
-            var k;
-            e.collectTreeResource(L.resources, E);
-            var I = (k = L.resources.variableDefinitions) != null ? k : [];
-            I.length > 0 && e.processVariableManifestsInBind(I, r);
-          }
+            e.cacheTemplatePayload(y, C, b)),
+            (d = b.unboundModel),
+            (m = b),
+            (p = y));
         } else {
-          var T = e.resources.templates.get(S);
-          if (T == null)
+          var S = e.resources.templates.get(y);
+          if (S == null)
             throw new (o("WebBloksErrors").WebBloksError)(
-              "No such template in tree resources: " + S,
+              "No such template in tree resources: " + y,
             );
-          d = T;
+          d = S;
         }
       }
-      var D = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey),
-        x =
-          p != null
-            ? p
-            : o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, D),
-        $ = o("WebBloksScopedIds").buildKeypathBase(x);
-      c.expandedVariables.size > 0 && v(e, c.expandedVariables, $, a);
-      var P = e.cache.getUnboundChildTemplates(n);
-      if (P) {
-        var N = P.get(D);
-        if (N) return N;
+      var R = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey),
+        L = o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, R),
+        E = o("WebBloksScopedIds").buildKeypathBase(L);
+      if (
+        (c.expandedVariables.size > 0 && v(e, c.expandedVariables, E, a),
+        m != null)
+      ) {
+        var k;
+        (e.collectTreeResource(m.resources, p),
+          e.processVariableManifestsInBind(
+            (k = m.resources.variableDefinitions) != null ? k : [],
+            L,
+          ));
+      }
+      var I = e.cache.getUnboundChildTemplates(n);
+      if (I) {
+        var T = I.get(R);
+        if (T) return T;
       }
       return o("WebBloksUpdateTraversal").runUpdateTraversal(
         d,
@@ -677,7 +679,7 @@ __d(
           apply: function (n) {
             return e.clientIdToScopedIdMapper.copyModelWithKeyPath(
               n,
-              x,
+              L,
               c.scopeKey,
             );
           },

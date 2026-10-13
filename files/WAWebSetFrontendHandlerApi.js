@@ -7,6 +7,7 @@ __d(
     "WAWebBizAiBridgeApi",
     "WAWebBizAiSettingsFetchOnLaunch",
     "WAWebBlocklistBridgeApi",
+    "WAWebBrazilPaymentStateBridgeApi",
     "WAWebBroadcastBridgeApi",
     "WAWebBusinessProfileBridgeApi",
     "WAWebCTWABridgeApi",
@@ -123,6 +124,7 @@ __d(
             o("WAWebPaymentInfoSyncBridgeApi").PaymentInfoSyncBridgeApi,
             o("WAWebCustomPaymentMethodsSyncBridgeApi")
               .CustomPaymentMethodsSyncBridgeApi,
+            o("WAWebBrazilPaymentStateBridgeApi").BrazilPaymentStateBridgeApi,
             o("WAWebDataSharing3pdLidBridgeApi").DataSharing3pdLidBridgeApi,
             o("WAWebUnreadMentionMetadataBridgeApi")
               .UnreadMentionMetadataBridgeApi,

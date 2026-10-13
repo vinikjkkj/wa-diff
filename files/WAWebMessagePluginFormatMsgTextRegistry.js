@@ -261,6 +261,11 @@ __d(
           subtype: "ai_media_collection",
           formatMsgText: null,
         },
+        {
+          type: "protocol",
+          subtype: "biz_ai_metadata_sync",
+          formatMsgText: null,
+        },
         { type: "protocol", subtype: "bot_feedback", formatMsgText: null },
         {
           type: "protocol",

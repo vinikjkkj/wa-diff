@@ -2,6 +2,7 @@ __d(
   "WAWebPsFmxActionWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumFmxBusinessHoldoutGroup",
     "WAWebWamEnumFmxEntryPoint",
     "WAWebWamEnumFmxEvent",
     "WAWebWamEnumHighlightGroupType",
@@ -15,6 +16,11 @@ __d(
             {
               commonGroupNum: [1, e.TYPES.INTEGER],
               countryShown: [2, e.TYPES.BOOLEAN],
+              fmxBusinessHoldoutGroup: [
+                11,
+                o("WAWebWamEnumFmxBusinessHoldoutGroup")
+                  .FMX_BUSINESS_HOLDOUT_GROUP,
+              ],
               fmxEntryPoint: [
                 3,
                 o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT,

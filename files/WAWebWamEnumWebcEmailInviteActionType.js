@@ -7,6 +7,8 @@ __d(
       EMAIL_TYPING_START: 2,
       GMAIL_CLICK: 3,
       MAILTO_CLICK: 4,
+      SERVER_SEND_START: 5,
+      SERVER_SEND_RESULT: 6,
     });
     i.WEBC_EMAIL_INVITE_ACTION_TYPE = e;
   },

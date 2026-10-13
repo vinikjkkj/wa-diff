@@ -527,6 +527,7 @@ __d(
                         "WAWebNotificationsKeepInChatNotification",
                       ).WAKeepInChatNotification)({
                         keepInChatMessage: a,
+                        kicSender: h,
                         parentMessage: k,
                         onClick: I,
                       }),

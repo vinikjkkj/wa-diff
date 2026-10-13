@@ -39,11 +39,12 @@ __d(
       }
     }
     function u(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
+      var t,
+        n = o("WAWebStateUtils").unproxy(e),
+        r = (t = n.groupMetadata) == null ? void 0 : t.participants;
       return (
-        t.groupMetadata &&
-          t.listenTo(t.groupMetadata.participants, "remove reset", s),
-        o("WAWebUserPrefsGeneral").getGroupParticipantAssignedColor(t.id)
+        r && (n.listenTo(r, "remove", s), n.listenTo(r, "reset", s)),
+        o("WAWebUserPrefsGeneral").getGroupParticipantAssignedColor(n.id)
       );
     }
     function c(e) {

@@ -240,6 +240,11 @@ __d(
           subtype: "ai_media_collection",
           renderPreviewIcon: null,
         },
+        {
+          type: "protocol",
+          subtype: "biz_ai_metadata_sync",
+          renderPreviewIcon: null,
+        },
         { type: "protocol", subtype: "bot_feedback", renderPreviewIcon: null },
         {
           type: "protocol",

@@ -19,6 +19,7 @@ __d(
     "WAWebParseImageMessageProto",
     "WAWebParseProductMessageProto",
     "WAWebParseVideoMessageProto",
+    "WAWebStripBrazilPaymentState",
     "WAWebWamEnumE2eFailureReason",
     "filterNulls",
   ],
@@ -83,7 +84,12 @@ __d(
             }),
           );
           if (
-            ((b = babelHelpers.extends({}, b, { nativeFlowName: E })),
+            ((b = babelHelpers.extends({}, b, {
+              nativeFlowName: E,
+              interactivePayload: o(
+                "WAWebStripBrazilPaymentState",
+              ).stripBrazilPaymentState(f.nativeFlowMessage),
+            })),
             !S && (m === "relay" || m === "history"))
           ) {
             var k,

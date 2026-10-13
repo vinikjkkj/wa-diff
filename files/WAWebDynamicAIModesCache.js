@@ -1,7 +1,7 @@
 __d(
   "WAWebDynamicAIModesCache",
   [
-    "WAWebBotGating",
+    "WAWebABProps",
     "WAWebTimedCache",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
@@ -23,7 +23,9 @@ __d(
         t,
         e != null
           ? e
-          : o("WAWebBotGating").getAiDynamicModeSelectorTtlSeconds() * 1e3,
+          : o("WAWebABProps").getABPropConfigValue(
+              "ai_dynamic_mode_selector_ttl_seconds",
+            ) * 1e3,
       );
     }
     function u() {

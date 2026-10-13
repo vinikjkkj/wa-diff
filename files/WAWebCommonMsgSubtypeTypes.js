@@ -95,6 +95,7 @@ __d(
       MissGroupVideo: "miss_group_video",
       Silence: "silence",
       HatchMetadataSync: "hatch_metadata_sync",
+      BizAIMetadataSync: "biz_ai_metadata_sync",
       AdminRevoke: "admin_revoke",
       SenderRevoke: "sender_revoke",
       EphemeralSetting: "ephemeral_setting",

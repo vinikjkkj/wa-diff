@@ -13,6 +13,7 @@ __d(
     "WAWebMsgModelFromData",
     "WAWebMsgType",
     "WAWebNewsletterBridgeMsgAddOnsUtils",
+    "WAWebNewsletterChatsMigrationCapability",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMetadataCollection",
@@ -221,6 +222,12 @@ __d(
           n = r("WAWebNewsletterCollection").get(e);
         n != null &&
           o("WAWebUpdateUnreadChatAction").updateUnreadCountMD(n, 0, !1);
+      },
+      updatePrimaryNewsletterChatsMigration: function (t) {
+        var e = t.migration;
+        o(
+          "WAWebNewsletterChatsMigrationCapability",
+        ).savePrimaryNewsletterChatsMigration(e);
       },
       subscribeToNewsletter: function (t) {
         var e = t.newsletter,

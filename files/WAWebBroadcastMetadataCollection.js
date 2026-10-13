@@ -97,10 +97,12 @@ __d(
         var i = a.prototype;
         return (
           (i.$BroadcastMetadataCollection$p_3 = function (t) {
-            var e = this;
-            this.listenTo(t.labelItemCollection, "add remove", function (t) {
-              e.$BroadcastMetadataCollection$p_4(t);
-            });
+            var e = this,
+              n = function (n) {
+                e.$BroadcastMetadataCollection$p_4(n);
+              };
+            (this.listenTo(t.labelItemCollection, "add", n),
+              this.listenTo(t.labelItemCollection, "remove", n));
           }),
           (i.$BroadcastMetadataCollection$p_4 = function (n) {
             var t = this;

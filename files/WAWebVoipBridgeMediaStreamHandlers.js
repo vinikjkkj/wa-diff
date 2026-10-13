@@ -6,6 +6,7 @@ __d(
     "WAWebMediaPermissionsUtils",
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipBridgeMediaStreamHelpers",
+    "WAWebVoipCameraFingerprint",
     "WAWebVoipCameraPrewarm",
     "WAWebVoipJoinWithoutCamera",
     "asyncToGeneratorRuntime",
@@ -58,6 +59,9 @@ __d(
         })(),
         cleanupPrewarmedCamera: function () {
           o("WAWebVoipCameraPrewarm").cleanupPrewarmedCamera();
+        },
+        logCameraFingerprint: function () {
+          return o("WAWebVoipCameraFingerprint").logCameraFingerprint();
         },
         getVoipCameraPermissionState: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

@@ -1,6 +1,7 @@
 __d(
   "WACryptoPrimitives",
   [
+    "Promise",
     "WACryptoDependencies",
     "WAHex",
     "asyncToGeneratorRuntime",
@@ -10,83 +11,141 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 256,
-      u = new WeakMap(),
-      c = null,
-      d = {
-        scalarbase: (e = n("cr:8712")).lowlevel.scalarbase,
-        crypto_hash: e.lowlevel.crypto_hash,
-        modL: e.lowlevel.modL,
-        pack25519: e.lowlevel.pack25519,
-        S: e.lowlevel.S,
-        M: e.lowlevel.M,
-        A: e.lowlevel.A,
-        Z: e.lowlevel.Z,
-        D: e.lowlevel.D,
-        unpack25519: e.lowlevel.unpack25519,
-        pow2523: e.lowlevel.pow2523,
-        crypto_verify_32: e.lowlevel.crypto_verify_32,
-        set25519: e.lowlevel.set25519,
-        add: e.lowlevel.add,
-        scalarmult: e.lowlevel.scalarmult,
-      };
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+      s,
+      u = 256,
+      c = new WeakMap(),
+      d = null,
+      m = {
+        scalarbase: (s = n("cr:8712")).lowlevel.scalarbase,
+        crypto_hash: s.lowlevel.crypto_hash,
+        modL: s.lowlevel.modL,
+        pack25519: s.lowlevel.pack25519,
+        S: s.lowlevel.S,
+        M: s.lowlevel.M,
+        A: s.lowlevel.A,
+        Z: s.lowlevel.Z,
+        D: s.lowlevel.D,
+        unpack25519: s.lowlevel.unpack25519,
+        pow2523: s.lowlevel.pow2523,
+        crypto_verify_32: s.lowlevel.crypto_verify_32,
+        set25519: s.lowlevel.set25519,
+        add: s.lowlevel.add,
+        scalarmult: s.lowlevel.scalarmult,
+      },
+      p = new Uint8Array([
+        48, 46, 2, 1, 0, 48, 5, 6, 3, 43, 101, 110, 4, 34, 4, 32,
+      ]),
+      _ = null;
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function p() {
+    function g() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = o("WACryptoDependencies").getCrypto().subtle,
+            l = i.deriveBits;
+          if (!r("gkx")("7643") || _ === i || l == null)
+            return n("cr:8712").scalarMult(t, a);
+          var s = new Uint8Array(p.length + 32);
+          (s.set(p), s.set(t, p.length));
+          try {
+            var u = yield (e || (e = n("Promise"))).all([
+                i.importKey("pkcs8", s, { name: "X25519" }, !1, ["deriveBits"]),
+                i.importKey("raw", a, { name: "X25519" }, !1, []),
+              ]),
+              c = u[0],
+              d = u[1],
+              m = yield l.call(i, { name: "X25519", public: d }, c, 256);
+            return new Uint8Array(m);
+          } catch (e) {
+            return (
+              e instanceof DOMException &&
+                e.name === "NotSupportedError" &&
+                (_ = i),
+              n("cr:8712").scalarMult(t, a)
+            );
+          } finally {
+            s.fill(0);
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    var h = new Uint8Array(32);
+    h[0] = 9;
+    function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!r("gkx")("7643")) return n("cr:8712").box.keyPair();
+          var e = n("cr:8712").randomBytes(32),
+            t = yield f(e, h);
+          return { publicKey: t, secretKey: e };
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e, t, n) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = o("WACryptoDependencies").getCrypto().subtle,
             l = i.verify;
-          if (!r("gkx")("6446") || c === i || l == null)
+          if (!r("gkx")("6446") || d === i || l == null)
             return n("cr:8712").sign.detached.verify(e, t, a);
           try {
-            var s = yield _(i, a);
+            var s = yield S(i, a);
             return yield l.call(i, { name: "Ed25519" }, s, t, e);
           } catch (r) {
             return (
               r instanceof DOMException &&
                 r.name === "NotSupportedError" &&
-                (c = i),
+                (d = i),
               n("cr:8712").sign.detached.verify(e, t, a)
             );
           }
         })),
-        p.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      if (!r("gkx")("6446") || !r("gkx")("27245")) return f(e, t);
-      var n = u.get(e),
+    function S(e, t) {
+      if (!r("gkx")("6446") || !r("gkx")("27245")) return R(e, t);
+      var n = c.get(e),
         a = n != null ? n : new Map();
-      n == null && u.set(e, a);
+      n == null && c.set(e, a);
       var i = o("WAHex").toHex(t),
         l = a.get(i);
       if (l != null) return (a.delete(i), a.set(i, l), l);
-      var c = f(e, t);
-      if ((a.set(i, c), a.size > s)) {
+      var s = R(e, t);
+      if ((a.set(i, s), a.size > u)) {
         var d = a.keys().next().value;
         d != null && a.delete(d);
       }
       return (
-        c.catch(function () {
-          a.get(i) === c && a.delete(i);
+        s.catch(function () {
+          a.get(i) === s && a.delete(i);
         }),
-        c
+        s
       );
     }
-    function f(e, t) {
+    function R(e, t) {
       return e.importKey("raw", t, { name: "Ed25519" }, !1, ["verify"]);
     }
-    ((l.lowlevel = d),
-      (l.keypairFromSecretKey = e.box.keyPair.fromSecretKey),
-      (l.keyPair = e.box.keyPair),
-      (l.signDetachedVerify = e.sign.detached.verify),
-      (l.signDetachedVerifyAsync = m),
-      (l.hash = e.hash),
-      (l.scalarMult = e.scalarMult),
-      (l.secretbox = e.secretbox),
-      (l.verify = e.verify));
+    ((l.lowlevel = m),
+      (l.keypairFromSecretKey = s.box.keyPair.fromSecretKey),
+      (l.keyPair = s.box.keyPair),
+      (l.signDetachedVerify = s.sign.detached.verify),
+      (l.scalarMultAsync = f),
+      (l.keyPairAsync = y),
+      (l.signDetachedVerifyAsync = b),
+      (l.hash = s.hash),
+      (l.scalarMult = s.scalarMult),
+      (l.secretbox = s.secretbox),
+      (l.verify = s.verify));
   },
   98,
 );

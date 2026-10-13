@@ -122,37 +122,47 @@ __d(
           }),
           (n.$10 = function () {
             var e = this;
-            this.$3 ||
+            if (!this.$3) {
               ((this.$3 = !0),
-              o("WAWebChatCollection").ChatCollection.on(
-                "remove",
-                function (t) {
-                  e.$9(t.id.toString());
-                },
-              ),
-              o("WAWebChatCollection").ChatCollection.on(
-                "change:isLocked change:archive change:groupSafetyChecked",
-                function (t) {
-                  e.$7();
-                },
-              ),
-              o("WAWebBlocklistCollection").BlocklistCollection.on(
-                "add remove reset",
-                function () {
-                  e.$7();
-                },
-              ),
-              o("WAWebChatCollection").ChatCollection.on(
-                "change:name",
-                function (t) {
-                  var n;
-                  (n = e.$1) != null &&
-                    n.some(function (e) {
-                      return e.id.toString() === t.id.toString();
-                    }) &&
-                    e.$6();
-                },
-              ));
+                o("WAWebChatCollection").ChatCollection.on(
+                  "remove",
+                  function (t) {
+                    e.$9(t.id.toString());
+                  },
+                ));
+              var t = function (n) {
+                e.$7();
+              };
+              (o("WAWebChatCollection").ChatCollection.on("change:isLocked", t),
+                o("WAWebChatCollection").ChatCollection.on("change:archive", t),
+                o("WAWebChatCollection").ChatCollection.on(
+                  "change:groupSafetyChecked",
+                  t,
+                ));
+              var n = function () {
+                e.$7();
+              };
+              (o("WAWebBlocklistCollection").BlocklistCollection.on("add", n),
+                o("WAWebBlocklistCollection").BlocklistCollection.on(
+                  "remove",
+                  n,
+                ),
+                o("WAWebBlocklistCollection").BlocklistCollection.on(
+                  "reset",
+                  n,
+                ),
+                o("WAWebChatCollection").ChatCollection.on(
+                  "change:name",
+                  function (t) {
+                    var n;
+                    (n = e.$1) != null &&
+                      n.some(function (e) {
+                        return e.id.toString() === t.id.toString();
+                      }) &&
+                      e.$6();
+                  },
+                ));
+            }
           }),
           (n.addEntry = function (t) {
             var e = this.$4(),

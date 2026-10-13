@@ -94,7 +94,7 @@ __d(
     }
     function H(e) {
       var t,
-        n = o("react-compiler-runtime").c(10),
+        n = o("react-compiler-runtime").c(11),
         r = O(!1),
         a = r[0],
         i = r[1],
@@ -131,33 +131,33 @@ __d(
         : (p = n[3]);
       var _ = p,
         f;
-      (n[4] !== _ || n[5] !== (u == null ? void 0 : u.mediaStage)
-        ? ((f = function () {
+      n[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = ["change:filehash", "change:mediaStage"]), (n[4] = f))
+        : (f = n[4]);
+      var g;
+      (n[5] !== _ || n[6] !== (u == null ? void 0 : u.mediaStage)
+        ? ((g = function () {
             ((u == null ? void 0 : u.mediaStage) ===
               o("WAWebMediaTypes").MediaDataStage.INIT && i(null),
               _());
           }),
-          (n[4] = _),
-          (n[5] = u == null ? void 0 : u.mediaStage),
-          (n[6] = f))
-        : (f = n[6]),
-        o("useWAWebListener").useListener(
-          u,
-          "change:filehash change:mediaStage",
-          f,
-        ));
-      var g, h;
+          (n[5] = _),
+          (n[6] = u == null ? void 0 : u.mediaStage),
+          (n[7] = g))
+        : (g = n[7]),
+        o("useWAWebListener").useListener(u, f, g));
+      var h, y;
       return (
-        n[7] !== _
-          ? ((g = function () {
+        n[8] !== _
+          ? ((h = function () {
               _();
             }),
-            (h = [_]),
-            (n[7] = _),
-            (n[8] = g),
-            (n[9] = h))
-          : ((g = n[8]), (h = n[9])),
-        F(g, h),
+            (y = [_]),
+            (n[8] = _),
+            (n[9] = h),
+            (n[10] = y))
+          : ((h = n[9]), (y = n[10])),
+        F(h, y),
         a
       );
     }

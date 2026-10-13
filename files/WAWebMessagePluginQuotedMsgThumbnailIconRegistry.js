@@ -246,6 +246,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "biz_ai_metadata_sync",
+          quotedMsgThumbnailIcon: null,
+        },
+        {
+          type: "protocol",
           subtype: "bot_feedback",
           quotedMsgThumbnailIcon: null,
         },

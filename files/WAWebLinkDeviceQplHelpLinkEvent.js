@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
+    "isWAWebFeatureDetectionAndroidTablet",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -107,7 +108,11 @@ __d(
         a = _(e);
       a != null && (r.android_tablet_overlay_event = a);
       var i = g(n);
-      return (i != null && (r.android_tablet_country = i), r);
+      i != null && (r.android_tablet_country = i);
+      var l = o(
+        "isWAWebFeatureDetectionAndroidTablet",
+      ).getWAWebFeatureDetectionAndroidTabletScreenClass();
+      return (l != null && (r.android_tablet_screen_class = l), r);
     }
     function _(e) {
       return e === s.ANDROID_TABLET_OVERLAY_SCREEN_LOADED

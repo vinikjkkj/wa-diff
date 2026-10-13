@@ -104,6 +104,7 @@ __d(
       { type: "protocol", subtype: "acp2_system_message", renderMsg: null },
       { type: "protocol", subtype: "admin_revoke", renderMsg: null },
       { type: "protocol", subtype: "ai_media_collection", renderMsg: null },
+      { type: "protocol", subtype: "biz_ai_metadata_sync", renderMsg: null },
       { type: "protocol", subtype: "bot_feedback", renderMsg: null },
       { type: "protocol", subtype: "bot_memu_onboarding", renderMsg: null },
       { type: "protocol", subtype: "bot_request_welcome", renderMsg: null },

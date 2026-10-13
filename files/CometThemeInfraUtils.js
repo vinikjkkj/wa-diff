@@ -1,6 +1,6 @@
 __d(
   "CometThemeInfraUtils",
-  ["gkx", "ifRequired"],
+  ["CometThemeInfraFallbackConfig", "gkx", "ifRequired"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -13,15 +13,16 @@ __d(
     }
     function s() {
       var t = { auto: null, dark: null, light: null };
-      return (
-        e() &&
-          r("ifRequired")("Xmds3CTheme", function (e) {
+      if (!e()) return t;
+      var n = r("CometThemeInfraFallbackConfig").fallbackThemes;
+      return n.auto != null
+        ? n
+        : (r("ifRequired")("Xmds3CTheme", function (e) {
             ((t.auto = e.Xmds3CThemeWebAuto),
               (t.dark = e.Xmds3CThemeWebDark),
               (t.light = e.Xmds3CThemeWebLight));
           }),
-        t
-      );
+          t);
     }
     ((l.enableCometThemeInfraThemeInXMDSComponents = e),
       (l.getCometThemeInfraThemesForApp = s));

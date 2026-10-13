@@ -6,6 +6,7 @@ __d(
     "WACryptoSha256",
     "WAResolvable",
     "WATimeUtils",
+    "WAWebAndroidTabletVisitId",
     "WAWebAppTracker",
     "WAWebLinkDeviceExperience",
     "WAWebLocalStorage",
@@ -48,7 +49,16 @@ __d(
               "WAWebMdLinkDeviceCompanionWamEvent",
             ).MdLinkDeviceCompanionWamEvent)()));
           var a = yield C(t, n);
-          return ((s = { regStartTime: r, sessionId: a }), a);
+          return (
+            (s = {
+              regStartTime: r,
+              sessionId: a,
+              visitId: o(
+                "WAWebAndroidTabletVisitId",
+              ).getExistingAndroidTabletVisitId(),
+            }),
+            a
+          );
         })),
         g.apply(this, arguments)
       );
@@ -113,8 +123,10 @@ __d(
               "WAWebLinkDeviceExperience",
             ).getWebCompanionLinkDeviceExperienceId(),
           });
-          var l = e;
-          (o("WAWebAppTracker").attachWAMAppContext(l, a * 1e3),
+          var l = e,
+            d = r.visitId;
+          (d != null && (l.waWebVisitId = d),
+            o("WAWebAppTracker").attachWAMAppContext(l, a * 1e3),
             l.commitAndWaitForFlush(!0),
             (n = c) == null || n.resolve(),
             (t != null ||

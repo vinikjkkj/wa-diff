@@ -1,50 +1,42 @@
 __d(
   "WAWebUsernameWorkerCompatibleGatingUtils",
-  ["WAWebABProps", "WAWebLid1X1MigrationGating", "WAWebPrimaryFeatures"],
+  ["WAWebABProps", "WAWebPrimaryFeatures"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o(
-        "WAWebLid1X1MigrationGating",
-      ).Lid1X1MigrationUtils.isLidMigrated();
+      return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
+        "companion_lid_contact_change_enabled",
+      );
     }
     function s() {
       return (
-        o("WAWebPrimaryFeatures").primaryFeatureEnabled(
-          "companion_lid_contact_change_enabled",
-        ) && e()
-      );
-    }
-    function u() {
-      return (
-        s() &&
+        e() &&
         o("WAWebABProps").getABPropConfigValue("username_contacts_ui_refresh")
       );
     }
-    function c() {
+    function u() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
         "username_account_linking_enabled",
       );
     }
-    function d() {
+    function c() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
         "username_reservation_only_mode",
       );
     }
-    function m() {
+    function d() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
         "username_supported",
       );
     }
-    function p() {
-      return m() && !d() && !c();
+    function m() {
+      return d() && !c() && !u();
     }
-    ((l.onlyShowLidContacts = e),
-      (l.usernameContactUIEnabled = s),
-      (l.usernameContactsUIRefreshEnabled = u),
-      (l.usernameAccountLinkingEnabled = c),
-      (l.usernameReservationOnlyMode = d),
-      (l.usernameCreationOrReservationEnabled = m),
-      (l.isUsernameCreationMode = p));
+    ((l.usernameContactUIEnabled = e),
+      (l.usernameContactsUIRefreshEnabled = s),
+      (l.usernameAccountLinkingEnabled = u),
+      (l.usernameReservationOnlyMode = c),
+      (l.usernameCreationOrReservationEnabled = d),
+      (l.isUsernameCreationMode = m));
   },
   98,
 );

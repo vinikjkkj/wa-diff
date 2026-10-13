@@ -78,7 +78,12 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      p = (function (e) {
+      p = n("$InternalEnum")({
+        MessageNotAllowed: 420,
+        StaleGroupAddressingMode: 421,
+        NewChatMessagesCapped: 475,
+      }),
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -96,7 +101,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      _ = (function (e) {
+      f = (function (e) {
         function t(t) {
           var n;
           return (
@@ -107,7 +112,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      f = n("$InternalEnum")({
+      g = n("$InternalEnum")({
         INVALID_POLL_UPDATE_STANZA: "poll_update_message_stanza_invalid",
         INVALID_REACTION_STANZA: "reaction_message_stanza_invalid",
         INVALID_PIN_IN_CHAT_STANZA: "pin_in_chat_message_stanza_invalid",
@@ -119,7 +124,7 @@ __d(
         INVALID_POLL_EDIT_STANZA: "poll_edit_message_stanza_invalid",
         INVALID_MEMBER_TAG_STANZA: "member_tag_message_stanza_invalid",
       }),
-      g = (function (e) {
+      h = (function (e) {
         function t(t) {
           var n;
           return (
@@ -136,7 +141,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(m),
-      h = (function (e) {
+      y = (function (e) {
         function t(t) {
           var n;
           return (
@@ -156,11 +161,12 @@ __d(
     ((l.DeviceSentMessageError = c),
       (l.UnknownDeviceMessageError = d),
       (l.MessageValidationError = m),
-      (l.MessageSentAckError = p),
-      (l.BizNodeValidationError = _),
-      (l.MessageProtobufMismatchErrorCode = f),
-      (l.MessageProtobufMismatchError = g),
-      (l.MessageProtobufInvalidMessageTypes = h));
+      (l.MessageSentAckErrorCode = p),
+      (l.MessageSentAckError = _),
+      (l.BizNodeValidationError = f),
+      (l.MessageProtobufMismatchErrorCode = g),
+      (l.MessageProtobufMismatchError = h),
+      (l.MessageProtobufInvalidMessageTypes = y));
   },
   98,
 );

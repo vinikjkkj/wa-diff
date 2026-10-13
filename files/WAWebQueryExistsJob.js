@@ -14,7 +14,6 @@ __d(
     "WAWebSetUsernameJob",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
-    "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWid",
@@ -137,11 +136,7 @@ __d(
                 flushImmediately: !0,
                 learningSource: "usync",
               }),
-              !m.isLid() &&
-                o(
-                  "WAWebUsernameWorkerCompatibleGatingUtils",
-                ).onlyShowLidContacts() &&
-                (y.wid = b)),
+              m.isLid() || (y.wid = b)),
             yield o("WAWebHandleUsernameSync").handleUsernameSync(i),
             o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
             y

@@ -40,14 +40,18 @@ __d(
                 "WAWebFrontendPinInChatGetters",
               ).clearFrontendPinInChatGetterCacheFor(this));
           }),
-          (n.leftExpirationTime = function () {
-            var e, t;
-            if (
+          (n.isNonExpiring = function () {
+            return (
+              this.pinType === o("WAWebPinMsgConstants").PIN_STATE.PIN &&
               this.pinExpiryDuration === 0 &&
               o(
                 "WAWebPinMsgGatingUtils",
               ).isPinnedMessagesInfiniteReceiverEnabled()
-            )
+            );
+          }),
+          (n.leftExpirationTime = function () {
+            var e, t;
+            if (this.isNonExpiring())
               return o("WAWebPinMsgConstants").PIN_TIME_REMAINING_INFINITE;
             var n =
               ((e = this.t) != null

@@ -9,12 +9,15 @@ __d(
         e.ListType.AI_RESPONDING,
       ]),
       c = new Set([e.ListType.CUSTOM, e.ListType.PREDEFINED]);
-    function d(e, t, n) {
-      var r = m(e),
-        o = p(r, n),
+    function d(e, t) {
+      return e == null ? !1 : (t && u.has(e)) || c.has(e);
+    }
+    function m(e, t, n) {
+      var r = p(e),
+        o = _(r, n),
         a = o.customLabels,
         i = o.staticLabels,
-        l = _(i, a, t),
+        l = f(i, a, t),
         s = new Set(
           l.map(function (e) {
             return e.id;
@@ -28,7 +31,7 @@ __d(
         });
       return { overflowCount: c.length, overflowedLabels: c, visibleLabels: l };
     }
-    function m(e) {
+    function p(e) {
       var t = [];
       for (var n of e) {
         var r = o("WAWebLabelCollection").LabelCollection.get(n);
@@ -36,16 +39,15 @@ __d(
       }
       return t;
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = [],
         r = [];
       for (var o of e)
-        t && o.type != null && u.has(o.type)
-          ? n.push(o)
-          : o.type != null && c.has(o.type) && r.push(o);
+        d(o.type, t) &&
+          (o.type != null && u.has(o.type) ? n.push(o) : r.push(o));
       return { customLabels: r, staticLabels: n };
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r = [];
       for (var o of e) {
         if (r.length >= s) break;
@@ -75,7 +77,7 @@ __d(
       }
       return r;
     }
-    l.selectVisiblePills = d;
+    ((l.isPillEligibleListType = d), (l.selectVisiblePills = m));
   },
   98,
 );

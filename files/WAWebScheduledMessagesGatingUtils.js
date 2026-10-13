@@ -17,15 +17,10 @@ __d(
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
-        "scheduled_messages_smart_defaults",
-      );
-    }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
         "scheduled_messages_window_duration_max_seconds",
       );
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "scheduled_messages_window_duration_min_seconds",
       );
@@ -33,9 +28,8 @@ __d(
     ((l.isScheduledMessagesSenderEnabled = e),
       (l.isScheduledMessagesReceiverEnabled = s),
       (l.isScheduledMessagesCleanupEnabled = u),
-      (l.isScheduledMessagesSmartDefaultsEnabled = c),
-      (l.getScheduledMessagesMaxDurationSeconds = d),
-      (l.getScheduledMessagesMinDurationSeconds = m));
+      (l.getScheduledMessagesMaxDurationSeconds = c),
+      (l.getScheduledMessagesMinDurationSeconds = d));
   },
   98,
 );

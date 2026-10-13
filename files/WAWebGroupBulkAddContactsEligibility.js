@@ -4,6 +4,7 @@ __d(
     "WAWebChatGroupUtils",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "group_info_participant_section_click";
@@ -18,6 +19,7 @@ __d(
     }
     function u(e) {
       return !(
+        o("WAWebUserPrefsMeUser").isMeAccount(e.id) ||
         o("WAWebFrontendContactGetters").getIsMyContact(e) ||
         e.pushname == null ||
         e.pushname === ""

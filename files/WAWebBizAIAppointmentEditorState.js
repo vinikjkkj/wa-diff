@@ -504,9 +504,7 @@ __d(
       (l.isAppointmentAvailabilityValid = x),
       (l.isAppointmentAvailabilityValidForEdit = $),
       (l.getCustomerFieldLabelText = P),
-      (l.getLocalTimeZoneId = N),
-      (l.toggleArrayValue = M),
-      (l.getDefaultCalendarId = F));
+      (l.toggleArrayValue = M));
   },
   226,
 );

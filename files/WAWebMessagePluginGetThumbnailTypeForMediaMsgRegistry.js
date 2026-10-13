@@ -257,6 +257,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "biz_ai_metadata_sync",
+        getThumbnailTypeForMediaMsg: null,
+      },
+      {
+        type: "protocol",
         subtype: "bot_feedback",
         getThumbnailTypeForMediaMsg: null,
       },

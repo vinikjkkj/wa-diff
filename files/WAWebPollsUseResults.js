@@ -24,7 +24,7 @@ __d(
       u = s.useEffect,
       c = s.useMemo;
     function d(e) {
-      var t = o("react-compiler-runtime").c(17),
+      var t = o("react-compiler-runtime").c(18),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((n = [
@@ -61,53 +61,57 @@ __d(
       var f = d,
         g = f[0],
         h;
-      t[5] !== g
-        ? ((h = function () {
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = ["add", "remove", "reset"]), (t[5] = h))
+        : (h = t[5]);
+      var y;
+      t[6] !== g
+        ? ((y = function () {
             return g.toArray();
           }),
-          (t[5] = g),
-          (t[6] = h))
-        : (h = t[6]);
-      var y = r("useWAWebEventTargetValue")(g, "add remove reset", h),
-        C = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
-        b,
-        v;
-      (t[7] !== i
-        ? ((b = function () {
+          (t[6] = g),
+          (t[7] = y))
+        : (y = t[7]);
+      var C = r("useWAWebEventTargetValue")(g, h, y),
+        b = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
+        v,
+        S;
+      (t[8] !== i
+        ? ((v = function () {
             o("WAWebAddonHydrationUtils").hydrateAddons({
               ids: [i],
               hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             });
           }),
-          (v = [i]),
-          (t[7] = i),
-          (t[8] = b),
-          (t[9] = v))
-        : ((b = t[8]), (v = t[9])),
-        u(b, v));
-      var S, R;
-      (t[10] !== C || t[11] !== y
-        ? ((S = function () {
-            var e = y.filter(p);
+          (S = [i]),
+          (t[8] = i),
+          (t[9] = v),
+          (t[10] = S))
+        : ((v = t[9]), (S = t[10])),
+        u(v, S));
+      var R, L;
+      (t[11] !== b || t[12] !== C
+        ? ((R = function () {
+            var e = C.filter(p);
             e.length !== 0 &&
-              C({
+              b({
                 addOnType: o("WAWebMessageAddOnType").MessageAddOnType.PollVote,
                 addOns: e.map(m),
               });
           }),
-          (R = [y, C]),
-          (t[10] = C),
-          (t[11] = y),
-          (t[12] = S),
-          (t[13] = R))
-        : ((S = t[12]), (R = t[13])),
-        u(S, R));
-      var L;
+          (L = [C, b]),
+          (t[11] = b),
+          (t[12] = C),
+          (t[13] = R),
+          (t[14] = L))
+        : ((R = t[13]), (L = t[14])),
+        u(R, L));
+      var E;
       return (
-        t[14] !== c || t[15] !== y
-          ? ((L = _(y, c)), (t[14] = c), (t[15] = y), (t[16] = L))
-          : (L = t[16]),
-        L
+        t[15] !== c || t[16] !== C
+          ? ((E = _(C, c)), (t[15] = c), (t[16] = C), (t[17] = E))
+          : (E = t[17]),
+        E
       );
     }
     function m(e) {

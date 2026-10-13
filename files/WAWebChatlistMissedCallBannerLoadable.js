@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
+    "WAWebNullFunc",
     "asyncToGeneratorRuntime",
     "react-loadable",
   ],
@@ -31,15 +32,11 @@ __d(
       ),
       u = r("react-loadable")({
         loader: e,
-        loading: function () {
-          return null;
-        },
+        loading: o("WAWebNullFunc").returnNull,
       }),
       c = r("react-loadable")({
         loader: s,
-        loading: function () {
-          return null;
-        },
+        loading: o("WAWebNullFunc").returnNull,
       });
     ((l.ChatlistMissedCallBannerContainerLoadable = u),
       (l.ChatlistMissedCallBannerLoadable = c));

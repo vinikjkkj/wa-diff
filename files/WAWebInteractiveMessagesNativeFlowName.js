@@ -18,6 +18,7 @@ __d(
         CTA_CATALOG: "cta_catalog",
         CATALOG_MESSAGE: "catalog_message",
         PAYMENT_INFO: "payment_info",
+        BR_PAYMENT_STATE: "br_payment_state",
         CTA_COPY_CODE: "cta_copy",
         MIXED: "mixed",
         CTA_FLOW: "galaxy_message",

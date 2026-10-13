@@ -11,6 +11,7 @@ __d(
     "WAWebWamEnumDiscoveryOriginType",
     "WAWebWamEnumInlineTosStatus",
     "WAWebWamEnumInputType",
+    "WAWebWamEnumMetaAiReadOnlyReasonType",
     "WAWebWamEnumPromptTriggerPoint",
     "WAWebWamEnumTsSurface",
   ],
@@ -85,6 +86,11 @@ __d(
               isMetaAiAssistant: [12, e.TYPES.BOOLEAN],
               isMetaAiCharacterBotChat: [9, e.TYPES.BOOLEAN],
               isUserCreatedAgent: [10, e.TYPES.BOOLEAN],
+              metaAiReadOnlyReason: [
+                58,
+                o("WAWebWamEnumMetaAiReadOnlyReasonType")
+                  .META_AI_READ_ONLY_REASON_TYPE,
+              ],
               metricCount: [17, e.TYPES.INTEGER],
               newBadgeVisible: [56, e.TYPES.BOOLEAN],
               promptTriggerPoint: [

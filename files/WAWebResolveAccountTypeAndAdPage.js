@@ -1,6 +1,8 @@
 __d(
   "WAWebResolveAccountTypeAndAdPage",
   [
+    "FBLogger",
+    "WAWebBizNativeAdsGatingUtils",
     "WAWebCreateWhatsAppAdsIdentity",
     "WAWebFetchAdAccountToken",
     "WAWebGetAccountNonce",
@@ -11,17 +13,20 @@ __d(
     "WAWebResolveAccountTypeAndAdPageQuery.graphql",
     "WAWebUserPrefsCTWA",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
+    var e,
+      s,
+      u = new Set();
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e === "FB") {
             var t = o("WAWebUserPrefsCTWA").getFBIdentity();
             if (t != null && t.token != null) return t;
@@ -31,15 +36,15 @@ __d(
           }
           return null;
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a,
             i,
             l =
@@ -59,15 +64,15 @@ __d(
             ? i
             : !1;
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             s !== void 0
               ? s
@@ -78,46 +83,74 @@ __d(
             { accessToken: e.token, environmentType: "facebook" },
           );
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
             t != null
               ? t
               : yield o("WAWebLinkedAccountsJob").queryLinkedPagesInfo();
           if (e.type === "WAA") {
-            if (n.waPageId != null)
-              return { pageId: n.waPageId, pageType: "wa_ads_identity_page" };
+            var a = n.waPageId;
+            if (a != null)
+              return (
+                o(
+                  "WAWebBizNativeAdsGatingUtils",
+                ).nativeAdsWAAAdsIdentityUpsertEnabled() && y(e, a),
+                { pageId: a, pageType: "wa_ads_identity_page" }
+              );
           } else if (n.fbPageId != null) {
-            var a = n.fbPageId,
-              i = yield r("WAWebGetFBAccountPages")(e),
-              l = i.some(function (e) {
-                return e.id === a;
+            var i = n.fbPageId,
+              l = yield r("WAWebGetFBAccountPages")(e),
+              s = l.some(function (e) {
+                return e.id === i;
               });
-            if (l) return { pageId: a, pageType: "linked_fb_page" };
+            if (s) return { pageId: i, pageType: "linked_fb_page" };
           } else if (n.waPageId != null) {
-            var s = n.waPageId,
-              u = yield d(e, s);
-            if (u) return { pageId: s, pageType: "wa_ads_identity_page" };
+            var u = n.waPageId,
+              c = yield m(e, u);
+            if (c) return { pageId: u, pageType: "wa_ads_identity_page" };
           }
-          var c = yield o("WAWebFetchAdAccountToken").fetchToken(),
-            m = r("nullthrows")(c.token),
-            p = yield r("WAWebGetAccountNonce")(m),
-            _ = yield r("WAWebCreateWhatsAppAdsIdentity")(e, p);
-          return { pageId: _, pageType: "wa_ads_identity_page" };
+          var d = yield o("WAWebFetchAdAccountToken").fetchToken(),
+            p = r("nullthrows")(d.token),
+            _ = yield r("WAWebGetAccountNonce")(p),
+            f = yield r("WAWebCreateWhatsAppAdsIdentity")(e, _);
+          return { pageId: f, pageType: "wa_ads_identity_page" };
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.resolveIdentityForAccountType = u),
-      (l.clearSavedOIDCLoginPreference = p),
-      (l.resolveAdsPage = f));
+    function y(e, t) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!u.has(t)) {
+            u.add(t);
+            try {
+              var n = yield r("WAWebGetAccountNonce")(e);
+              yield r("WAWebCreateWhatsAppAdsIdentity")(e, n);
+            } catch (e) {
+              (u.delete(t),
+                r("FBLogger")("wa_ctwa_web")
+                  .catching(r("getErrorSafe")(e))
+                  .warn("Failed to ensure WAA admin on WA ads identity page"));
+            }
+          }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    ((l.resolveIdentityForAccountType = c),
+      (l.clearSavedOIDCLoginPreference = _),
+      (l.resolveAdsPage = g));
   },
   98,
 );

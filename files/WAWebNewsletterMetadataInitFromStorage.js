@@ -9,6 +9,7 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterModelUtils",
     "WAWebSchemaNewsletterMetadata",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -92,9 +93,10 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    var t = o("WAWebWidFactory").createWid(e.id),
-                      n = {
-                        id: t,
+                    var t,
+                      n = o("WAWebWidFactory").createWid(e.id),
+                      l = {
+                        id: n,
                         creationTime: e.creationTime,
                         name: e.name,
                         nameUpdateTime: e.nameUpdateTime,
@@ -132,10 +134,14 @@ __d(
                         statusMetadata: e.statusMetadata,
                         lastFilledStatusServerId: e.lastFilledStatusServerId,
                         statusMute: e.statusMute === !0,
+                        followerActivityMuteExpiration:
+                          (t = e.followerActivityMuteExpiration) != null
+                            ? t
+                            : o("WAWebNewsletterModelUtils").UNMUTED_STATE,
                       };
                     if (
                       (r("WAWebNewsletterMetadataCollection") == null ||
-                        r("WAWebNewsletterMetadataCollection").add(n, {
+                        r("WAWebNewsletterMetadataCollection").add(l, {
                           merge: !0,
                         }),
                       e.statusMute === !0 &&
@@ -145,23 +151,23 @@ __d(
                         i.push({ id: e.id, statusMute: !0 }),
                       e.messageDeliveryUpdates != null)
                     ) {
-                      var l = [];
+                      var p = [];
                       e.messageDeliveryUpdates.forEach(function (e, t) {
-                        return l.push({ id: t, code: e.code });
+                        return p.push({ id: t, code: e.code });
                       });
-                      var p = yield o(
+                      var _ = yield o(
                           "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
                         ).getMessageDeliveryUpdatesModelToUpdate(
                           o("WAJids").toNewsletterJid(e.id),
-                          l,
+                          p,
                           [],
                         ),
-                        _ = p.modelUpdatesToAdd;
+                        f = _.modelUpdatesToAdd;
                       yield o("WAWebBackendApi").frontendFireAndForget(
                         "updateNewsletterMessageDeliveryUpdate",
                         {
-                          id: t,
-                          modelUpdatesToAdd: _,
+                          id: n,
+                          modelUpdatesToAdd: f,
                           modelUpdatesToRemove: [],
                         },
                       );

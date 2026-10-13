@@ -267,7 +267,14 @@ __d(
                       try {
                         var g = n.isBot() && (E || D || x),
                           C = n.isBot() && T,
-                          b = yield R(r, n, e, g, M, C);
+                          b = yield R({
+                            coexV2AgentSend: M,
+                            content: r,
+                            isAgentFeedbackCopy: C,
+                            msg: e,
+                            shouldFanoutToBot: g,
+                            wid: n,
+                          });
                         if (
                           o(
                             "WAWebWasaHatchOutboundWrapper",
@@ -524,38 +531,41 @@ __d(
         }
       );
     }
-    function R(e, t, n, r, o, a) {
+    function R(e) {
       return L.apply(this, arguments);
     }
     function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            i === void 0 && (i = !1);
-            var l = a && t.isFbidBot();
-            if (l)
-              return o("WAWebCoexV2SendContribution").prepareCoexV2AgentPayload(
-                e,
-                n,
-              );
-            var s = e;
-            return (
-              (r || i) &&
-                (s = yield o(
-                  "WAWebE2EProtoGenerator",
-                ).updateBotInvokeMsgProtoCopyForCapi({
-                  message: e,
-                  botMessageSecret: i ? null : n.botMessageSecret,
-                  mentionedJidList: n.mentionedJidList,
-                })),
-              t.isFbidBot() &&
-                (s = o("WAWebE2EProtoGenerator").updateFbidBotProtobuf(s)),
-              t.isBot() &&
-                (s = o("WAWebE2EProtoGenerator").updateBotProtobuf(s)),
-              s
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.coexV2AgentSend,
+            n = e.content,
+            r = e.isAgentFeedbackCopy,
+            a = r === void 0 ? !1 : r,
+            i = e.msg,
+            l = e.shouldFanoutToBot,
+            s = e.wid,
+            u = t && s.isFbidBot();
+          if (u)
+            return o("WAWebCoexV2SendContribution").prepareCoexV2AgentPayload(
+              n,
+              i,
             );
-          },
-        )),
+          var c = n;
+          return (
+            (l || a) &&
+              (c = yield o(
+                "WAWebE2EProtoGenerator",
+              ).updateBotInvokeMsgProtoCopyForCapi({
+                message: n,
+                botMessageSecret: a ? null : i.botMessageSecret,
+                mentionedJidList: i.mentionedJidList,
+              })),
+            s.isFbidBot() &&
+              (c = o("WAWebE2EProtoGenerator").updateFbidBotProtobuf(c)),
+            s.isBot() && (c = o("WAWebE2EProtoGenerator").updateBotProtobuf(c)),
+            c
+          );
+        })),
         L.apply(this, arguments)
       );
     }

@@ -358,6 +358,7 @@ __d(
                         case "member_label":
                         case "ai_media_collection":
                         case "hatch_metadata_sync":
+                        case "biz_ai_metadata_sync":
                           break;
                         default:
                           (V++, H.length < 3 && H.push(t.id.toString()));

@@ -2,20 +2,23 @@ __d(
   "WAWebGroupHistoryShareToggleDefaultAction",
   [
     "Promise",
+    "WALogger",
     "WAWebGroupHistoryGating",
     "WAWebGroupMetadataCollection",
     "WAWebPersistAndSyncGroupHistoryToggle",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           (yield o(
             "WAWebPersistAndSyncGroupHistoryToggle",
@@ -23,16 +26,36 @@ __d(
             (n = r("WAWebGroupMetadataCollection").get(e)) == null ||
               n.set({ shouldDefaultGroupHistoryShareOn: t }));
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function c(t, r, a) {
-      return a && o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(t)
-        ? s(t, r)
-        : (e || (e = n("Promise"))).resolve();
+    function d(t, a) {
+      var i = o("WAWebWidFactory").asGroupWidOrThrow(t);
+      return !o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(i) ||
+        !o(
+          "WAWebGroupHistoryGating",
+        ).isGroupHistoryPerGroupToggleMdSyncEnabled()
+        ? (s || (s = n("Promise"))).resolve()
+        : u(i, a).catch(function (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] failed to persist share-toggle choice",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("group-history-toggle-persist-failed");
+          });
     }
-    ((l.setGroupHistoryShareToggleDefault = s),
-      (l.persistGroupHistoryShareToggleDefaultOnAdd = c));
+    function m(e, t, r) {
+      return r && o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(e)
+        ? u(e, t)
+        : (s || (s = n("Promise"))).resolve();
+    }
+    ((l.setGroupHistoryShareToggleDefault = u),
+      (l.persistGroupHistoryToggleChoice = d),
+      (l.persistGroupHistoryShareToggleDefaultOnAdd = m));
   },
   98,
 );

@@ -410,6 +410,7 @@ __d(
         NCT_SALT: "WAWebNctSalt",
         OPUS_MIGRATION_COMPLETE: "WAOpusMigrationComplete",
         SIGNAL_SESSION_CLEANUP_COMPLETE: "WASignalSessionCleanupComplete",
+        BR_PAYMENT_STATE_PENDING_UPDATES: "WABrazilPaymentStatePendingUpdates",
       }),
       _ = Object.freeze({
         USER_PRIVACY_SETTINGS: "user-privacy-settings",

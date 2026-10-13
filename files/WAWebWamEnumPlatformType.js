@@ -32,7 +32,6 @@ __d(
       IPHONEWAMETATEST: 54,
       IPAD: 58,
       WAVOIP_CLI: 59,
-      MSGRT: 60,
       ANDROIDWAMETATEST: 62,
       MSGRSG: 63,
       INTEROP: 65,

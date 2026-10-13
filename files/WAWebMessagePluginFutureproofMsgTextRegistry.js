@@ -188,6 +188,11 @@ __d(
         subtype: "ai_media_collection",
         futureproofMsgText: null,
       },
+      {
+        type: "protocol",
+        subtype: "biz_ai_metadata_sync",
+        futureproofMsgText: null,
+      },
       { type: "protocol", subtype: "bot_feedback", futureproofMsgText: null },
       {
         type: "protocol",

@@ -18,90 +18,66 @@ __d(
         s._param("phone number", t),
       ]);
     }
-    function m() {
-      return s._(/*BTDS*/ "Not available");
-    }
-    function p(e) {
+    function m(e) {
       return s._(/*BTDS*/ '_j{"*":"{count}"}', [s._param("count", e, [0])]);
     }
-    function _(e, t) {
+    function p(e, t) {
       return s._(/*BTDS*/ '_j{"*":{"*":"{lower bound} - {upper bound}"}}', [
         s._param("lower bound", e, [0]),
         s._param("upper bound", t, [0]),
       ]);
     }
-    function f() {
-      return s._(/*BTDS*/ "Not available");
-    }
-    function g() {
-      return s._(/*BTDS*/ "Download CSV file");
-    }
-    function h() {
+    function _() {
       return s._(
         /*BTDS*/ "There's nothing to download yet. Your customer base has no subscribed recipients.",
       );
     }
-    function y() {
-      return s._(/*BTDS*/ "We couldn't find a customer base for this account.");
-    }
-    function C() {
+    function f() {
       return s._(
         /*BTDS*/ "Your last download is still being prepared. Try again once it's ready.",
       );
     }
-    function b() {
-      return s._(/*BTDS*/ "Couldn't load your customer base.");
-    }
-    function v() {
-      return s._(/*BTDS*/ "Loading your customer base");
-    }
-    function S(e) {
+    function g(e) {
       return s._(
         /*BTDS*/ '_j{"*":"Preparing your file \\u2022 {percentage}\\u0025"}',
         [s._param("percentage", e, [0])],
       );
     }
-    function R() {
+    function h() {
       return s._(/*BTDS*/ "Your file is ready");
     }
-    function L() {
+    function y() {
       return s._(
         /*BTDS*/ "Your file with subscribed recipients is ready to download.",
       );
     }
-    function E() {
+    function C() {
       return s._(/*BTDS*/ "Couldn't prepare your file");
     }
-    function k() {
+    function b() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
-    function I() {
+    function v() {
       return s._(/*BTDS*/ "Download");
     }
-    function T() {
+    function S() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
     ((l.getDownloadRecipientsModalTitle = e),
       (l.getDownloadRecipientsModalSubtitle = u),
       (l.getCustomerBaseColumnHeader = c),
       (l.getCustomerBaseLabel = d),
-      (l.getCustomerBaseNameUnavailableLabel = m),
-      (l.getRecipientCountExactLabel = p),
-      (l.getRecipientCountRangeLabel = _),
-      (l.getRecipientCountUnavailableLabel = f),
-      (l.getDownloadCSVFileButtonLabel = g),
-      (l.getNoSubscribedRecipientsLabel = h),
-      (l.getCustomerBaseUnavailableLabel = y),
-      (l.getDownloadStillPreparingLabel = C),
-      (l.getCustomerBaseLoadFailedLabel = b),
-      (l.getCustomerBaseLoadingLabel = v),
-      (l.getPreparingFileLabel = S),
-      (l.getFileReadyLabel = R),
-      (l.getFileReadySublabel = L),
-      (l.getFileFailedLabel = E),
-      (l.getFileFailedSublabel = k),
-      (l.getDownloadActionLabel = I),
-      (l.getSaveFailedToastLabel = T));
+      (l.getRecipientCountExactLabel = m),
+      (l.getRecipientCountRangeLabel = p),
+      (l.getNoSubscribedRecipientsLabel = _),
+      (l.getDownloadStillPreparingLabel = f),
+      (l.getPreparingFileLabel = g),
+      (l.getFileReadyLabel = h),
+      (l.getFileReadySublabel = y),
+      (l.getFileFailedLabel = C),
+      (l.getFileFailedSublabel = b),
+      (l.getDownloadActionLabel = v),
+      (l.getSaveFailedToastLabel = S));
   },
   226,
 );

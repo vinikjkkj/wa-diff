@@ -9,6 +9,7 @@ __d(
     "WASignalOther",
     "WASignalSessions",
     "asyncToGeneratorRuntime",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,38 +23,54 @@ __d(
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a = e.regId,
-            i = e.staticKeyPair,
-            l = t.identity,
-            u = t.signedKey.publicKey,
-            c = n.privateKey,
-            d = i.privateKey,
-            m = (r = t.oneTimeKey) == null ? void 0 : r.publicKey,
-            p = o("WABinary")
-              .Binary.build(s, E(d, u), E(c, l), E(c, u), m && E(c, m))
-              .readByteArrayView(),
-            _ = yield R(p, "WhisperText"),
-            f = _[0],
-            g = _[1],
-            h = t.ratchetKey,
-            y = o("WASignalSessions").makeFreshRecvChain(h, g),
-            C = o("WASignalKeys").makeSerializedKeyPair(),
-            b = yield v(f, C, h),
-            S = o("WASignalSessions").makeInitialExchangeInfo(
-              t.oneTimeKey == null ? null : t.oneTimeKey.id,
-              t.signedKey.id,
-              o("WASignalKeys").serializePubKey(n),
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          var l,
+            u = t.regId,
+            c = t.staticKeyPair,
+            d = a.identity,
+            m = a.signedKey.publicKey,
+            p = i.privateKey,
+            _ = c.privateKey,
+            f = (l = a.oneTimeKey) == null ? void 0 : l.publicKey,
+            g = r("gkx")("7643")
+              ? o("WABinary")
+                  .Binary.build.apply(
+                    o("WABinary").Binary,
+                    [s].concat(
+                      yield (e || (e = n("Promise"))).all([
+                        o("WASignalKeys").ecdhAsync(_, m),
+                        o("WASignalKeys").ecdhAsync(p, d),
+                        o("WASignalKeys").ecdhAsync(p, m),
+                        f && o("WASignalKeys").ecdhAsync(p, f),
+                      ]),
+                    ),
+                  )
+                  .readByteArrayView()
+              : o("WABinary")
+                  .Binary.build(s, E(_, m), E(p, d), E(p, m), f && E(p, f))
+                  .readByteArrayView(),
+            h = yield R(g, "WhisperText"),
+            y = h[0],
+            C = h[1],
+            b = a.ratchetKey,
+            S = o("WASignalSessions").makeFreshRecvChain(b, C),
+            L = r("gkx")("7643")
+              ? yield o("WASignalKeys").makeSerializedKeyPairAsync()
+              : o("WASignalKeys").makeSerializedKeyPair(),
+            k = yield v(y, L, b),
+            I = o("WASignalSessions").makeInitialExchangeInfo(
+              a.oneTimeKey == null ? null : a.oneTimeKey.id,
+              a.signedKey.id,
+              o("WASignalKeys").serializePubKey(i),
             );
           return o("WASignalSessions").makeFreshSession(
-            { regId: a, pubKey: o("WASignalKeys").serializePubKey(i) },
-            { regId: t.regId, pubKey: l },
-            b.rootKey,
-            [y],
-            o("WASignalSessions").makeFreshSendChain(C, b.chainKey),
-            S,
-            o("WASignalKeys").serializePubKey(n),
+            { regId: u, pubKey: o("WASignalKeys").serializePubKey(c) },
+            { regId: a.regId, pubKey: d },
+            k.rootKey,
+            [S],
+            o("WASignalSessions").makeFreshSendChain(L, k.chainKey),
+            I,
+            o("WASignalKeys").serializePubKey(i),
           );
         })),
         m.apply(this, arguments)
@@ -65,33 +82,47 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a,
-              i = e.regId,
-              l = e.staticKeyPair,
-              u = l.privateKey,
-              c = r.signed.privateKey,
-              d = n,
-              m = t.pubKey,
-              p = (a = r.oneTime) == null ? void 0 : a.privateKey,
-              _ = o("WABinary")
-                .Binary.build(s, k(m, c), k(d, u), k(d, c), p && k(d, p))
-                .readByteArrayView(),
-              f = yield R(_, "WhisperText"),
-              g = f[0],
-              h = f[1],
-              y = r.ratchet,
-              C = o("WASignalSessions").makeFreshSendChain(y, h);
+          function* (t, a, i, l) {
+            var u,
+              c = t.regId,
+              d = t.staticKeyPair,
+              m = d.privateKey,
+              p = l.signed.privateKey,
+              _ = i,
+              f = a.pubKey,
+              g = (u = l.oneTime) == null ? void 0 : u.privateKey,
+              h = r("gkx")("7643")
+                ? o("WABinary")
+                    .Binary.build.apply(
+                      o("WABinary").Binary,
+                      [s].concat(
+                        yield (e || (e = n("Promise"))).all([
+                          o("WASignalKeys").ecdhAsync(p, f),
+                          o("WASignalKeys").ecdhAsync(m, _),
+                          o("WASignalKeys").ecdhAsync(p, _),
+                          g && o("WASignalKeys").ecdhAsync(g, _),
+                        ]),
+                      ),
+                    )
+                    .readByteArrayView()
+                : o("WABinary")
+                    .Binary.build(s, k(f, p), k(_, m), k(_, p), g && k(_, g))
+                    .readByteArrayView(),
+              y = yield R(h, "WhisperText"),
+              C = y[0],
+              b = y[1],
+              v = l.ratchet,
+              S = o("WASignalSessions").makeFreshSendChain(v, b);
             return o("WASignalSessions").makeSession(
-              { regId: i, pubKey: o("WASignalKeys").serializePubKey(l) },
-              t,
-              g,
-              [],
+              { regId: c, pubKey: o("WASignalKeys").serializePubKey(d) },
+              a,
               C,
+              [],
+              S,
               null,
               0,
               [],
-              n,
+              i,
             );
           },
         )),
@@ -202,13 +233,15 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = t.privateKey,
-            a = n,
-            i = o("WASignalKeys").ecdh(r, a),
-            l = yield R(new Uint8Array(i), "WhisperRatchet", e),
-            s = l[0],
-            u = l[1];
-          return { rootKey: s, chainKey: u };
+          var a = t.privateKey,
+            i = n,
+            l = r("gkx")("7643")
+              ? yield o("WASignalKeys").ecdhAsync(a, i)
+              : o("WASignalKeys").ecdh(a, i),
+            s = yield R(new Uint8Array(l), "WhisperRatchet", e),
+            u = s[0],
+            c = s[1];
+          return { rootKey: u, chainKey: c };
         })),
         S.apply(this, arguments)
       );

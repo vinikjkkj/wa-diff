@@ -5,7 +5,6 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebLidAwareContactsDB",
-    "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -34,19 +33,16 @@ __d(
               return e.id;
             });
           }
-          var n = o(
-              "WAWebUsernameWorkerCompatibleGatingUtils",
-            ).onlyShowLidContacts(),
-            a = yield r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
-              ["isAddressBookContact"],
-              1,
-            );
-          return a
+          var n = yield r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
+            ["isAddressBookContact"],
+            1,
+          );
+          return n
             .map(function (e) {
               return o("WAWebWidFactory").createWid(e);
             })
             .filter(function (e) {
-              return n ? e.isLid() : !e.isLid();
+              return e.isLid();
             });
         })),
         u.apply(this, arguments)

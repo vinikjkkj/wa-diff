@@ -119,14 +119,22 @@ __d(
             );
           }),
           (a.enableSortListener = function (t) {
-            this.$ChatCollectionImpl$p_2 ||
-              (this.listenTo(
-                this,
-                "change:t change:pin change:id change:isLocked change:endOfHistoryTransferType change:isParentGroup change:msgs change:createdLocally change:msgsLength change:bbProEntrypointEnabled",
-                this.sort,
-              ),
-              t === !0 && this.sort(),
-              (this.$ChatCollectionImpl$p_2 = !0));
+            if (!this.$ChatCollectionImpl$p_2) {
+              for (var e of [
+                "change:t",
+                "change:pin",
+                "change:id",
+                "change:isLocked",
+                "change:endOfHistoryTransferType",
+                "change:isParentGroup",
+                "change:msgs",
+                "change:createdLocally",
+                "change:msgsLength",
+                "change:bbProEntrypointEnabled",
+              ])
+                this.listenTo(this, e, this.sort);
+              (t === !0 && this.sort(), (this.$ChatCollectionImpl$p_2 = !0));
+            }
           }),
           (a.disableSortListener = function () {
             this.$ChatCollectionImpl$p_2 &&

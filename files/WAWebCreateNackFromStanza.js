@@ -18,9 +18,8 @@ __d(
       p,
       _ = n("$InternalEnum")({
         UnsupportedMessage: 415,
-        MessageNotAllowed: 420,
-        StaleGroupAddressingMode: 421,
-        NewChatMessagesCapped: 475,
+        InvalidReportingToken: 420,
+        MissingReportingToken: 421,
         ParsingError: 487,
         UnrecognizedStanza: 488,
         UnrecognizedStanzaClass: 489,

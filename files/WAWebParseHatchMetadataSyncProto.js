@@ -9,29 +9,19 @@ __d(
     "WAWebHatchMetadataOperationDecoder",
     "WAWebHatchMetadataSyncValidationError",
     "WAWebMsgType",
-    "WAWebProtobufsE2E.pb",
     "WAWebWamEnumE2eFailureReason",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u;
-    function c(e) {
-      var t,
-        n,
+    function c(e, t) {
+      var n,
         r,
-        a = e.baseMessage,
-        i = e.messageProtobuf,
-        l = i.protocolMessage;
-      if (
-        l == null ||
-        l.type !==
-          o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-            .AI_METADATA_OPERATION
-      )
-        return null;
-      var s = (t = a.id) == null ? void 0 : t.remote;
-      if (s == null || !o("WAWebBotUtils").isHatchBot(s))
+        a,
+        i = e.baseMessage,
+        l = (n = i.id) == null ? void 0 : n.remote;
+      if (l == null || !o("WAWebBotUtils").isHatchBot(l))
         throw new (o(
           "WAWebHatchMetadataSyncValidationError",
         ).HatchMetadataSyncValidationError)(
@@ -39,18 +29,15 @@ __d(
             .HatchMetadataSyncValidationCode.UNEXPECTED_SENDER,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var u = d(
-        l.aiMetadataOperation,
-        (n = a.id) == null ? void 0 : n.toString(),
-      );
+      var s = d(t, (r = i.id) == null ? void 0 : r.toString());
       return (
-        m(u, (r = a.id) == null ? void 0 : r.id),
+        m(s, (a = i.id) == null ? void 0 : a.id),
         {
-          msgData: babelHelpers.extends({}, a, {
+          msgData: babelHelpers.extends({}, i, {
             type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
             kind: o("WAWebMsgType").MsgKind.Protocol,
             subtype: "hatch_metadata_sync",
-            hatchMetadataSync: u,
+            hatchMetadataSync: s,
           }),
           contextInfo: null,
         }

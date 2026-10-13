@@ -20,7 +20,6 @@ __d(
     "WAWebNotificationsDailyUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumNotificationTypeEnum",
-    "WAWebWidFactory",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -33,8 +32,9 @@ __d(
         function a(n) {
           var a,
             i = n.keepInChatMessage,
-            l = n.onClick,
-            s = n.parentMessage;
+            l = n.kicSender,
+            s = n.onClick,
+            c = n.parentMessage;
           return (
             (a = t.call(this) || this),
             (a.$WAKeepInChatNotification$p_3 = function (t, n, r) {
@@ -59,8 +59,9 @@ __d(
                   a.$WAKeepInChatNotification$p_1());
             }),
             (a.keepInChatMessage = i),
-            (a.parentMessage = s),
-            (a.$WAKeepInChatNotification$p_1 = l),
+            (a.kicSender = l),
+            (a.parentMessage = c),
+            (a.$WAKeepInChatNotification$p_1 = s),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -91,45 +92,45 @@ __d(
           }),
           (i.shouldMute = function (t) {
             var e;
-            if (o("WAWebNotificationHelpers").shouldMuteDueToAppState(t))
-              return r("WAWebNotificationMuteReason").AppState;
-            if (this.parentMessage.kicNotified)
-              return r("WAWebNotificationMuteReason").AlreadyNotifiedKic;
-            if (!o("WAWebMsgGetters").getIsEphemeral(this.parentMessage))
-              return r("WAWebNotificationMuteReason").KicOnNonEphemeralChat;
-            if (
-              !o("WAWebUserPrefsMeUser").isMeAccount(
-                o("WAWebMsgGetters").getSender(this.parentMessage),
-              )
-            )
-              return r("WAWebNotificationMuteReason").KicOnNonOriginalMsg;
-            var n = o("WAWebWidFactory").asUserWidOrThrow(
-              this.keepInChatMessage.author || this.keepInChatMessage.from,
-            );
-            return o("WAWebUserPrefsMeUser").isMeAccount(n)
-              ? r("WAWebNotificationMuteReason").KicByMe
-              : o("WAWebMuteGetters").getIsMuted(
-                    o("WAWebFrontendMsgGetters").getChat(this.parentMessage)
-                      .mute,
-                  )
-                ? r("WAWebNotificationMuteReason").MutedChat
-                : o("WAWebFrontendMsgGetters").getChat(this.parentMessage)
-                      .archive
-                  ? r("WAWebNotificationMuteReason").ArchivedChat
-                  : o("WAWebChatGetters").getIsGroup(
-                        o("WAWebFrontendMsgGetters").getChat(
-                          this.parentMessage,
-                        ),
-                      ) &&
-                      !(
-                        (e = o("WAWebFrontendMsgGetters").getChat(
-                          this.parentMessage,
-                        ).groupMetadata) != null && e.hasJoined()
-                      )
-                    ? r("WAWebNotificationMuteReason").UserLeftGroupKic
-                    : o("WAWebNotificationHelpers").isOfflineResumeInProgress()
-                      ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
-                      : null;
+            return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
+              ? r("WAWebNotificationMuteReason").AppState
+              : this.parentMessage.kicNotified
+                ? r("WAWebNotificationMuteReason").AlreadyNotifiedKic
+                : o("WAWebMsgGetters").getIsEphemeral(this.parentMessage)
+                  ? o("WAWebUserPrefsMeUser").isMeAccount(
+                      o("WAWebMsgGetters").getSender(this.parentMessage),
+                    )
+                    ? o("WAWebUserPrefsMeUser").isMeAccount(this.kicSender)
+                      ? r("WAWebNotificationMuteReason").KicByMe
+                      : o("WAWebMuteGetters").getIsMuted(
+                            o("WAWebFrontendMsgGetters").getChat(
+                              this.parentMessage,
+                            ).mute,
+                          )
+                        ? r("WAWebNotificationMuteReason").MutedChat
+                        : o("WAWebFrontendMsgGetters").getChat(
+                              this.parentMessage,
+                            ).archive
+                          ? r("WAWebNotificationMuteReason").ArchivedChat
+                          : o("WAWebChatGetters").getIsGroup(
+                                o("WAWebFrontendMsgGetters").getChat(
+                                  this.parentMessage,
+                                ),
+                              ) &&
+                              !(
+                                (e = o("WAWebFrontendMsgGetters").getChat(
+                                  this.parentMessage,
+                                ).groupMetadata) != null && e.hasJoined()
+                              )
+                            ? r("WAWebNotificationMuteReason").UserLeftGroupKic
+                            : o(
+                                  "WAWebNotificationHelpers",
+                                ).isOfflineResumeInProgress()
+                              ? r("WAWebNotificationMuteReason")
+                                  .OfflineResumeInProgress
+                              : null
+                    : r("WAWebNotificationMuteReason").KicOnNonOriginalMsg
+                  : r("WAWebNotificationMuteReason").KicOnNonEphemeralChat;
           }),
           (i.buildKey = function () {
             return "kic:" + this.parentMessage.id.toString();
@@ -194,7 +195,7 @@ __d(
               t = o("WAWebGetNotificationStrings").getNotificationBody(
                 babelHelpers.extends(
                   {},
-                  m(this.parentMessage, this.keepInChatMessage),
+                  m(this.parentMessage, this.kicSender),
                   {
                     msgDir: o("WAWebFrontendMsgGetters").getDir(
                       this.parentMessage,
@@ -240,9 +241,7 @@ __d(
         i = o("WAWebFrontendMsgGetters").getChat(e);
       if (o("WAWebMsgGetters").getIsGroupMsg(e)) {
         var l,
-          u = o("WAWebContactCollection").ContactCollection.gadd(
-            o("WAWebMsgGetters").getSender(t),
-          );
+          u = o("WAWebContactCollection").ContactCollection.gadd(t);
         r =
           (l = u.name) != null
             ? l

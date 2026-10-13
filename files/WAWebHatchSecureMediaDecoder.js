@@ -45,9 +45,7 @@ __d(
       var n = o("WAWebHatchJsonReaders").readString(e, t);
       return n != null && n !== "" ? n : null;
     }
-    ((l.readSecureMediaField = e),
-      (l.decodeSecureMediaMap = s),
-      (l.decodeHatchSecureMedia = u));
+    ((l.readSecureMediaField = e), (l.decodeSecureMediaMap = s));
   },
   98,
 );

@@ -1,7 +1,7 @@
 __d(
   "WAWebMetaAiNullStatePromptsCache",
   [
-    "WAWebBotGating",
+    "WAWebABProps",
     "WAWebTimedCache",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
@@ -26,8 +26,9 @@ __d(
       },
       getCacheTtlMs: function () {
         return (
-          o("WAWebBotGating").getMetaAiNullStatePromptsUpdateIntervalSeconds() *
-          1e3
+          o("WAWebABProps").getABPropConfigValue(
+            "ai_search_null_state_convo_starter_suggestions_update_interval",
+          ) * 1e3
         );
       },
     });

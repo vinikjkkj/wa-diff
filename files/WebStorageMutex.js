@@ -48,7 +48,7 @@ __d(
         }),
         (n.lock = function (t, n, o) {
           var e = this;
-          (this.$1 && r("clearTimeout")(this.$1),
+          (this.$1 != null && this.$1 !== 0 && r("clearTimeout")(this.$1),
             c === (this.$2() || c) && this.$3(o),
             (this.$1 = r("setTimeout")(function () {
               e.$1 = null;
@@ -57,7 +57,7 @@ __d(
             }, 0)));
         }),
         (n.unlock = function () {
-          this.$1 && r("clearTimeout")(this.$1);
+          this.$1 != null && this.$1 !== 0 && r("clearTimeout")(this.$1);
           var e = d();
           e && this.hasLock() && e.removeItem("mutex_" + this.name);
         }),

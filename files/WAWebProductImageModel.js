@@ -57,14 +57,12 @@ __d(
       return (
         (i.initialize = function () {
           var e = this;
-          (t.prototype.initialize.call(this),
-            this.listenTo(
-              this,
-              "change:mediaUrl change:fetchedFromServer",
-              function () {
-                return e.triggerImageUpdate();
-              },
-            ),
+          t.prototype.initialize.call(this);
+          var n = function () {
+            return e.triggerImageUpdate();
+          };
+          (this.listenTo(this, "change:mediaUrl", n),
+            this.listenTo(this, "change:fetchedFromServer", n),
             this.triggerImageUpdate());
         }),
         (i._processAndUpdateMediaData = function (a) {

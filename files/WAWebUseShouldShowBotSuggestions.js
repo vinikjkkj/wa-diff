@@ -16,7 +16,7 @@ __d(
     var e,
       s = (e || (e = o("react"))).useMemo;
     function u(e, t) {
-      var n = o("react-compiler-runtime").c(9),
+      var n = o("react-compiler-runtime").c(10),
         a;
       n[0] !== e || n[1] !== t
         ? ((a = o("WAWebThreadModelResolver").resolveThreadOrChat(e, t)),
@@ -31,8 +31,12 @@ __d(
         : (l = n[4]);
       var s = l,
         u;
-      n[5] !== e || n[6] !== i
-        ? ((u = function () {
+      n[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = ["add", "remove", "change:noEarlierMsgs"]), (n[5] = u))
+        : (u = n[5]);
+      var c;
+      n[6] !== e || n[7] !== i
+        ? ((c = function () {
             var t = o("WAWebBotBaseGating").isBotEnabled() && e.id.isBot();
             if (
               !t ||
@@ -51,28 +55,27 @@ __d(
             }
             return !1;
           }),
-          (n[5] = e),
-          (n[6] = i),
-          (n[7] = u))
-        : (u = n[7]);
-      var c;
+          (n[6] = e),
+          (n[7] = i),
+          (n[8] = c))
+        : (c = n[8]);
+      var d;
       return (
-        n[8] === Symbol.for("react.memo_cache_sentinel")
-          ? ((c = []), (n[8] = c))
-          : (c = n[8]),
-        r("useWAWebEventTargetValue")(
-          s,
-          "add remove change:noEarlierMsgs",
-          u,
-          c,
-        )
+        n[9] === Symbol.for("react.memo_cache_sentinel")
+          ? ((d = []), (n[9] = d))
+          : (d = n[9]),
+        r("useWAWebEventTargetValue")(s, u, c, d)
       );
     }
     function c(e, t) {
-      var n = o("react-compiler-runtime").c(5),
+      var n = o("react-compiler-runtime").c(6),
         a;
-      n[0] !== t || n[1] !== e.msgs
-        ? ((a = function () {
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["add", "remove"]), (n[0] = a))
+        : (a = n[0]);
+      var i;
+      n[1] !== t || n[2] !== e.msgs
+        ? ((i = function () {
             if (
               !o("WAWebBotGating").isBizBot3pAvailable() ||
               !t ||
@@ -91,14 +94,14 @@ __d(
             }
             return !e.msgs.some(d);
           }),
-          (n[0] = t),
-          (n[1] = e.msgs),
-          (n[2] = a))
-        : (a = n[2]);
-      var i;
+          (n[1] = t),
+          (n[2] = e.msgs),
+          (n[3] = i))
+        : (i = n[3]);
+      var l;
       return (
-        n[3] !== t ? ((i = [t]), (n[3] = t), (n[4] = i)) : (i = n[4]),
-        r("useWAWebEventTargetValue")(e.msgs, "add remove", a, i)
+        n[4] !== t ? ((l = [t]), (n[4] = t), (n[5] = l)) : (l = n[5]),
+        r("useWAWebEventTargetValue")(e.msgs, a, i, l)
       );
     }
     function d(e) {

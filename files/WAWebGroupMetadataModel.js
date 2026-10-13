@@ -233,20 +233,23 @@ __d(
           }),
           (i.initialize = function () {
             var e = this;
-            (o("WAWebBaseModel").BaseModel.prototype.initialize.call(this),
+            o("WAWebBaseModel").BaseModel.prototype.initialize.call(this);
+            var t = function () {
+              (e.isTrusted(), e.$GroupMetadata$p_3());
+            };
+            (this.listenTo(this.participants, "change:isAdmin", t),
+              this.listenTo(this.participants, "change:isSuperAdmin", t),
+              this.listenTo(this.participants, "change:contact.isMyContact", t),
+              this.listenTo(this.participants, "sort", t),
+              this.listenTo(this.participants, "remove", t),
+              this.listenTo(this.participants, "reset", t));
+            for (var n of ["bulk_add", "bulk_remove", "reset"])
               this.listenTo(
                 this.participants,
-                "change:isAdmin change:isSuperAdmin change:contact.isMyContact sort remove reset",
-                function () {
-                  (e.isTrusted(), e.$GroupMetadata$p_3());
-                },
-              ),
-              this.listenTo(
-                this.participants,
-                "bulk_add bulk_remove reset",
+                n,
                 this.triggerParticipantsChange,
-              ),
-              this.listenTo(this, "change:owner", this.isTrusted),
+              );
+            (this.listenTo(this, "change:owner", this.isTrusted),
               this.listenTo(
                 this,
                 "change:isParentGroup",
@@ -255,7 +258,22 @@ __d(
               this.listenTo(this, "change:desc", this.$GroupMetadata$p_3),
               this.listenTo(
                 this,
-                "change:parentGroup change:isParentGroup change:defaultSubgroup change:generalSubgroup",
+                "change:parentGroup",
+                this.$GroupMetadata$p_3,
+              ),
+              this.listenTo(
+                this,
+                "change:isParentGroup",
+                this.$GroupMetadata$p_3,
+              ),
+              this.listenTo(
+                this,
+                "change:defaultSubgroup",
+                this.$GroupMetadata$p_3,
+              ),
+              this.listenTo(
+                this,
+                "change:generalSubgroup",
                 this.$GroupMetadata$p_3,
               ),
               this.$GroupMetadata$p_3(),

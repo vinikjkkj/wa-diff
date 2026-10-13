@@ -272,6 +272,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "biz_ai_metadata_sync",
+          generateReportingTokenContent: null,
+        },
+        {
+          type: "protocol",
           subtype: "bot_feedback",
           generateReportingTokenContent: null,
         },

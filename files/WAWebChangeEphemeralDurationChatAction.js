@@ -99,7 +99,7 @@ __d(
               t.ephemeralSettingTimestamp == null
                 ? 1
                 : t.ephemeralSettingTimestamp + 1;
-          r("WAWebUpdateEphemeralSettingTimestampChatAction")(t, y);
+          yield r("WAWebUpdateEphemeralSettingTimestampChatAction")(t, y);
           var C = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
             t,
             h,
@@ -107,7 +107,7 @@ __d(
           C.messageSendResult ===
             o("WAWebSendMsgResultAction").SendMsgResult.OK &&
             C.t != null &&
-            r("WAWebUpdateEphemeralSettingTimestampChatAction")(t, C.t);
+            (yield r("WAWebUpdateEphemeralSettingTimestampChatAction")(t, C.t));
           var b = {
             disappearingModeTrigger: i,
             disappearingModeInitiatedByMe: !0,

@@ -180,20 +180,20 @@ __d(
           ? 1e4
           : e.bufferingEndRecentStallTimeoutMs,
         cacheQualityScoreInRepresentation: r("gkx")("8789"),
-        dataAppendOperationMinBytes: r("gkx")("5751")
+        dataAppendOperationMinBytes: r("gkx")("16681")
           ? null
           : e.dataAppendOperationMinBytes,
         debugLog: r("gkx")("17339"),
         debugOverlay: r("gkx")("26608"),
         debugViz: r("gkx")("17340"),
         disableFallbackFromRealWorkerAfterLinked: !0,
-        disablePlaybackLoopSchedulingOnTimer: r("gkx")("5795"),
+        disablePlaybackLoopSchedulingOnTimer: r("gkx")("16690"),
         disableZeroPlaybackRateWhileBuffering: r("gkx")("4185"),
-        eagerResyncOnMediaElementAttach: r("gkx")("6091"),
+        eagerResyncOnMediaElementAttach: r("gkx")("17429"),
         enableAdaptiveConcurrentSegmentFetching: r("gkx")("8486"),
         enableBandwidthDiagnosticsFallback: r("gkx")("23799") || t,
-        enableCdnUrlRefresh: r("gkx")("6370"),
-        enableCombinedInitSidxFetch: r("gkx")("6701"),
+        enableCdnUrlRefresh: r("gkx")("17628"),
+        enableCombinedInitSidxFetch: r("gkx")("17649"),
         enableDisposalResourceCleanup: r("gkx")("11526"),
         enableDynamicBufferWatermarks: r("gkx")("11395"),
         enableFBPrefetchCacheKeyNormalization: r("gkx")("18280"),
@@ -207,7 +207,7 @@ __d(
         enablePredictiveSidxPrefetch: r("gkx")("4970"),
         enablePrefetchBandwidthSampling: r("gkx")("12118"),
         enablePrefetchCacheKeyNormalization: r("gkx")("4090"),
-        enableQuotaExceededRecovery: r("gkx")("6862"),
+        enableQuotaExceededRecovery: r("gkx")("17813"),
         enableQuotaExceededRecoveryForCompositeErrors: r("gkx")("15535"),
         enableSkipRecoveryOnDeliberateDetach: r("gkx")("26845"),
         enableSplitAbrEvalSwitchIntervals: r("gkx")("18082"),
@@ -287,15 +287,15 @@ __d(
           ? 1080
           : e.prefetchResolutionThreshold,
         qplEnabled: r("gkx")("19263"),
-        reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("8280"),
-        resetTargetRepresentationWhenItGetsBlocked: r("gkx")("8531"),
-        retryShorterForUnrecoverableHTTP: r("gkx")("10018"),
-        segmentStallRecoveryEnabled: r("gkx")("10027"),
+        reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("18169"),
+        resetTargetRepresentationWhenItGetsBlocked: r("gkx")("18461"),
+        retryShorterForUnrecoverableHTTP: r("gkx")("18768"),
+        segmentStallRecoveryEnabled: r("gkx")("19141"),
         sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime:
           r("gkx")("19380"),
         skipPlayheadRestoreOnMediaElementChange: r("gkx")("17440"),
         trackScrollPosition: r("gkx")("20629"),
-        useExponentialBackoffRetryStrategy: r("gkx")("11270"),
+        useExponentialBackoffRetryStrategy: r("gkx")("19401"),
       });
     }
     var L = 0;
@@ -521,7 +521,7 @@ __d(
               if (
                 (B != null && (B(), (B = null)),
                 n && (B = A == null ? void 0 : A.subspan("media_source")),
-                !r("gkx")("11322"))
+                !r("gkx")("19514"))
               ) {
                 var e,
                   i =
@@ -646,7 +646,7 @@ __d(
                 (A == null || A.point("destroy"),
                 P == null || P(),
                 (P = null),
-                r("gkx")("11322"))
+                r("gkx")("19514"))
               ) {
                 var e, t;
                 (A == null || A.endWithAbort(),

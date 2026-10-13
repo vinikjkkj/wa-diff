@@ -8,6 +8,7 @@ __d(
     "WAWebCreateNackFromStanza",
     "WAWebDeliveryReceiptClassUtils",
     "WAWebHandleMsgSendAck",
+    "WAWebOfflineResumePreAckHandler",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebSchemaDanglingReceipt",
     "WAWebSendAggregateDeliveryReceipts",
@@ -15,6 +16,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -124,18 +126,32 @@ __d(
               t.length,
             ));
           var f = new Map(),
-            g = [];
+            g = [],
+            y = [];
           t.forEach(function (e) {
             var t = e.author,
               n = e.externalId,
-              r = e.from,
-              a = e.receiptClass;
+              a = e.from,
+              i = e.receiptClass,
+              l = e.statusAckType;
+            if (l != null && r("justknobx")._("6393")) {
+              y.push({
+                ackClass: "status",
+                ackId: n,
+                to: String(a),
+                tag: "ack",
+                participant: null,
+                type: l,
+                error: null,
+              });
+              return;
+            }
             o("WAWebDeliveryReceiptClassUtils").addReceiptByClass(f, e);
-            var i = { from: String(r), author: String(t), externalId: n };
-            (a != null && (i.receiptClass = a), g.push(i));
+            var s = { from: String(a), author: String(t), externalId: n };
+            (i != null && (s.receiptClass = i), g.push(s));
           });
-          var y = String(o("WATimeUtils").unixTime()),
-            C = [];
+          var C = String(o("WATimeUtils").unixTime()),
+            b = [];
           return (
             f.forEach(function (e, t) {
               e.forEach(function (e, n) {
@@ -144,11 +160,11 @@ __d(
                     ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER
                     : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
                   i = r ? t : null;
-                C.push(
+                b.push(
                   o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
                     to: t,
                     type: a,
-                    t: y,
+                    t: C,
                     groupedReceipt: e,
                     receiptClass: n,
                     recipient: i,
@@ -156,7 +172,7 @@ __d(
                 );
               });
             }),
-            (m || (m = n("Promise"))).all(C).catch(function (e) {
+            (m || (m = n("Promise"))).all(b).catch(function (e) {
               o("WALogger")
                 .ERROR(
                   d ||
@@ -168,10 +184,13 @@ __d(
                 .sendLogs("offline-receipt-send-error");
             }),
             o("WAComms").cancelDeadSocketTimer(),
-            g.length > 0 &&
+            y.forEach(function (e) {
+              o("WAWebOfflineResumePreAckHandler").sendOfflinePreAck(e);
+            }),
+            (g.length > 0 || y.length > 0) &&
               (yield o("WAWebSchemaDanglingReceipt")
                 .getTable()
-                .create({ receipts: g, acks: [] })),
+                .create({ receipts: g, acks: y })),
             h(a, _)
           );
         })),

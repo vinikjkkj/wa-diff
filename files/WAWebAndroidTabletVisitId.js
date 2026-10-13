@@ -8,16 +8,22 @@ __d(
       c = 30 * o("WATimeUtils").DAY_MILLISECONDS,
       d = null;
     function m() {
-      return (d == null && (d = { id: p() }), d.id);
+      return (d == null && (d = { id: _() }), d.id);
     }
     function p() {
-      var e = o("WATimeUtils").unixTimeMs(),
-        t = _(e);
-      if (t != null) return t;
-      var n = g();
-      return (n != null && f(n, e), n);
+      var e, t;
+      return (e = (t = d) == null ? void 0 : t.id) != null
+        ? e
+        : f(o("WATimeUtils").unixTimeMs());
     }
-    function _(t) {
+    function _() {
+      var e = o("WATimeUtils").unixTimeMs(),
+        t = f(e);
+      if (t != null) return t;
+      var n = h();
+      return (n != null && g(n, e), n);
+    }
+    function f(t) {
       var n;
       try {
         n = r("WAWebUserPrefsStore").get(
@@ -48,7 +54,7 @@ __d(
       var s = t - i;
       return s >= 0 && s < c ? l : null;
     }
-    function f(e, t) {
+    function g(e, t) {
       try {
         r("WAWebUserPrefsStore").set(
           o("WAWebUserPrefsKeys").KEYS.WA_WEB_ANDROID_TABLET_VISIT_ID,
@@ -64,7 +70,7 @@ __d(
         );
       }
     }
-    function g() {
+    function h() {
       try {
         var e = new Uint32Array(2);
         return (
@@ -83,7 +89,8 @@ __d(
         );
       }
     }
-    l.getOrCreateAndroidTabletVisitId = m;
+    ((l.getOrCreateAndroidTabletVisitId = m),
+      (l.getExistingAndroidTabletVisitId = p));
   },
   98,
 );

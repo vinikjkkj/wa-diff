@@ -17,7 +17,6 @@ __d(
     "WAWebBotUtils",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
-    "WAWebCreateNackFromStanza",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
     "WAWebE2EProtoUtils",
@@ -503,10 +502,11 @@ __d(
             if (
               ce != null &&
               (ce ===
-                o("WAWebCreateNackFromStanza").NackReason
+                o("WAWebHandleMsgError").MessageSentAckErrorCode
                   .StaleGroupAddressingMode ||
                 ce ===
-                  o("WAWebCreateNackFromStanza").NackReason.MessageNotAllowed)
+                  o("WAWebHandleMsgError").MessageSentAckErrorCode
+                    .MessageNotAllowed)
             )
               return L(w, e, ce);
             yield o("WAWebApiParticipantStore").markHasSenderKey(w, V);
@@ -623,7 +623,8 @@ __d(
               }),
             t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
               (yield t.data.updateAck(o("WAWebAck").ACK.FAILED, !1)),
-            a === o("WAWebCreateNackFromStanza").NackReason.MessageNotAllowed
+            a ===
+            o("WAWebHandleMsgError").MessageSentAckErrorCode.MessageNotAllowed
               ? new (o("WAWebHandleMsgError").MessageSentAckError)(a)
               : r("err")(
                   "[messaging] encryptAndSendSenderKeyMsg: ack with error code " +

@@ -86,7 +86,7 @@ __d(
                 return e.apply(this, arguments);
               };
             })();
-            return S(a, l(i), !1);
+            return S(a, l(i));
           }
           return (_ || (_ = n("Promise"))).resolve(null);
         })),
@@ -325,7 +325,17 @@ __d(
             };
           })(),
         ),
-        f = S(t, l, !0),
+        f = S(
+          t,
+          l.then(function (e) {
+            return (
+              o("WAWebAppTracker").AppTracker.start(
+                o("WAWebAppTracker").AppTrackerType.SendMessage,
+              ),
+              e
+            );
+          }),
+        ),
         g = i
           ? f.then(i).then(function () {
               return f;
@@ -354,7 +364,7 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e, t, r) {
+    function S(e, t) {
       return e.addQueue
         .enqueue(t)
         .then(
@@ -362,29 +372,25 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n,
-                  a = t.msg,
-                  i = t.systemMsgs;
+                  r = t.msg,
+                  a = t.systemMsgs;
                 if (
-                  (r &&
-                    o("WAWebAppTracker").AppTracker.start(
-                      o("WAWebAppTracker").AppTrackerType.SendMessage,
-                    ),
-                  (n = a.wamMessageSendPerfReporter) == null ||
+                  ((n = r.wamMessageSendPerfReporter) == null ||
                     n.startRenderedStage(),
-                  i)
+                  a)
                 ) {
-                  var l = i.map(function (e) {
+                  var i = a.map(function (e) {
                     return new (o("WAWebMsgModel").Msg)(e);
                   });
-                  e.msgs.add(l);
+                  e.msgs.add(i);
                 }
-                var s = e.msgs.add(a)[0];
+                var l = e.msgs.add(r)[0];
                 return (
                   o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(
                     e,
-                    [s],
+                    [l],
                   ),
-                  s
+                  l
                 );
               },
             );

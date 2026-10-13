@@ -335,7 +335,12 @@ __d(
         var t = o("WAWebWidFactory").createWid(e.receiverUserJid);
         o("WAWebUserPrefsMeUser").isMeAccount(t) ||
           (x(e),
-          E(s, e, t, l),
+          E({
+            isGroupMessage: l,
+            messageInfo: s,
+            messageInfoRecord: e,
+            receiverUserWid: t,
+          }),
           e.delivery != null &&
             e.deliveryPrivacyMode != null &&
             (s.deliveryPrivacyMode = e.deliveryPrivacyMode),
@@ -370,10 +375,14 @@ __d(
         s
       );
     }
-    function E(e, t, n, r) {
-      for (var o of m) {
-        var a = t[o];
-        if (a != null && (e[o].push({ id: n, t: a }), r)) return;
+    function E(e) {
+      var t = e.isGroupMessage,
+        n = e.messageInfo,
+        r = e.messageInfoRecord,
+        o = e.receiverUserWid;
+      for (var a of m) {
+        var i = r[a];
+        if (i != null && (n[a].push({ id: o, t: i }), t)) return;
       }
     }
     function k(e) {

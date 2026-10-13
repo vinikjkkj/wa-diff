@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebBotTypes",
+    "WAWebBrazilPaymentStateUpdatePayload",
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatGetters",
     "WAWebCommonMsgUtils",
@@ -19,6 +20,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -133,7 +135,7 @@ __d(
                                   ).isSilentProtocolMsg(e))) ||
                               t === o("WAWebMsgType").MSG_TYPE.REACTION
                             ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-                            : (a = o("WAWebCommonMsgUtils").EventType.DEFAULT),
+                            : (a = c(e)),
         a
       );
     }
@@ -144,12 +146,19 @@ __d(
         ? o("WAWebCommonMsgUtils").EventType.AMBIENT
         : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    function c(e) {
+      return o(
+        "WAWebBrazilPaymentStateUpdatePayload",
+      ).isBrazilPaymentStateUpdateMsg(e) && r("justknobx")._("6395")
+        ? o("WAWebCommonMsgUtils").EventType.IGNORE
+        : o("WAWebCommonMsgUtils").EventType.DEFAULT;
     }
-    function d() {
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i = t.id,
             l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
@@ -226,10 +235,10 @@ __d(
             }
           );
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    ((l.eventTypeFromMsgType = s), (l.genOutgoingMsgData = c));
+    ((l.eventTypeFromMsgType = s), (l.genOutgoingMsgData = d));
   },
   98,
 );

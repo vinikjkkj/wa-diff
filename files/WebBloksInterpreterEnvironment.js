@@ -105,7 +105,10 @@ __d(
           }),
           (r.readVariable = function (t) {
             var e,
-              n = this.requireResources().variables.get(t);
+              n =
+                this.$1 != null
+                  ? this.$1.getVariable(t)
+                  : this.requireResources().variables.get(t);
             return ((e = this.variableAccessLog) == null || e.add(t), n);
           }),
           (r.readExpandedVariable = function (t) {

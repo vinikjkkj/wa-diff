@@ -44,23 +44,26 @@ __d(
             (t.prototype.initialize.call(this),
               this.listenTo(this.msgs, "change:last", function () {
                 e.msgsChanged++;
-              }),
-              this.listenTo(this.msgs, "add remove bulk_add", function () {
-                (e.msgsChanged++, (e.msgsLength = e.msgs.length));
               }));
-            var n = this.id;
+            var n = function () {
+              (e.msgsChanged++, (e.msgsLength = e.msgs.length));
+            };
+            (this.listenTo(this.msgs, "add", n),
+              this.listenTo(this.msgs, "remove", n),
+              this.listenTo(this.msgs, "bulk_add", n));
+            var a = this.id;
             if (
-              n instanceof r("WAWebWid") &&
-              n.isGroup() &&
+              a instanceof r("WAWebWid") &&
+              a.isGroup() &&
               o(
                 "WAWebGroupHistoryGating",
               ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
             ) {
-              var a = function () {
+              var i = function () {
                 var t = e.msgs.msgLoadState.noEarlierMsgs;
                 e.noEarlierMsgs !== t && (e.noEarlierMsgs = t);
               };
-              ((this.$ChatMsgs$p_1 = this.msgs.onMsgLoadStateChange(a)), a());
+              ((this.$ChatMsgs$p_1 = this.msgs.onMsgLoadStateChange(i)), i());
             }
           }),
           (a.onEmptyMRM = function () {

@@ -661,12 +661,53 @@ __d(
                                                         ).THREAD_ACTION_TYPES
                                                           .TOP_NAV
                                                       ? "TOP_NAV"
-                                                      : (function () {
-                                                          throw Error(
-                                                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                              e,
-                                                          );
-                                                        })();
+                                                      : e ===
+                                                          o(
+                                                            "WAWebWamEnumThreadActionTypes",
+                                                          ).THREAD_ACTION_TYPES
+                                                            .MUTE
+                                                        ? "MUTE"
+                                                        : e ===
+                                                            o(
+                                                              "WAWebWamEnumThreadActionTypes",
+                                                            )
+                                                              .THREAD_ACTION_TYPES
+                                                              .UNMUTE
+                                                          ? "UNMUTE"
+                                                          : e ===
+                                                              o(
+                                                                "WAWebWamEnumThreadActionTypes",
+                                                              )
+                                                                .THREAD_ACTION_TYPES
+                                                                .CLEAR
+                                                            ? "CLEAR"
+                                                            : e ===
+                                                                o(
+                                                                  "WAWebWamEnumThreadActionTypes",
+                                                                )
+                                                                  .THREAD_ACTION_TYPES
+                                                                  .SHARE
+                                                              ? "SHARE"
+                                                              : e ===
+                                                                  o(
+                                                                    "WAWebWamEnumThreadActionTypes",
+                                                                  )
+                                                                    .THREAD_ACTION_TYPES
+                                                                    .ARCHIVE
+                                                                ? "ARCHIVE"
+                                                                : e ===
+                                                                    o(
+                                                                      "WAWebWamEnumThreadActionTypes",
+                                                                    )
+                                                                      .THREAD_ACTION_TYPES
+                                                                      .UNARCHIVE
+                                                                  ? "UNARCHIVE"
+                                                                  : (function () {
+                                                                      throw Error(
+                                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                          e,
+                                                                      );
+                                                                    })();
     }
     var v = null;
     function S(e) {

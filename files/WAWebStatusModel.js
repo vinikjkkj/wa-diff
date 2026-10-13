@@ -72,12 +72,14 @@ __d(
               this.addChild(
                 "contact",
                 o("WAWebContactCollection").ContactCollection.gadd(this.id),
-              ),
-              this.listenTo(this.msgs, "add bulk_add", function () {
-                self.setTimeout(function () {
-                  e.setupStatusExpiration();
-                });
-              }),
+              ));
+            var n = function () {
+              self.setTimeout(function () {
+                e.setupStatusExpiration();
+              });
+            };
+            (this.listenTo(this.msgs, "add", n),
+              this.listenTo(this.msgs, "bulk_add", n),
               this.listenTo(this, "change:msgsChanged", function () {
                 var t = o("WAWebFrontendStatusGetters").getLastStatus(e);
                 t && (e.t = t.t);

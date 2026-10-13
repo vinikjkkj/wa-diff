@@ -85,14 +85,15 @@ __d(
       return (
         (n.initialize = function () {
           var t = this;
-          (e.prototype.initialize.call(this),
-            this.listenTo(
-              this.subscribers,
-              "change add reset set remove",
-              function () {
-                t.updateAdminCount();
-              },
-            ));
+          e.prototype.initialize.call(this);
+          var n = function () {
+            t.updateAdminCount();
+          };
+          (this.listenTo(this.subscribers, "change", n),
+            this.listenTo(this.subscribers, "add", n),
+            this.listenTo(this.subscribers, "reset", n),
+            this.listenTo(this.subscribers, "set", n),
+            this.listenTo(this.subscribers, "remove", n));
         }),
         (n.getCollection = function () {
           return r("WAWebNewsletterMetadataCollection");

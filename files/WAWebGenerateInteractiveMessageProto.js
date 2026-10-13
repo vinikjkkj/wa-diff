@@ -6,7 +6,9 @@ __d(
     "WAWebGenerateImageMessageProto",
     "WAWebGenerateVideoMessageProto",
     "WAWebInteractiveMessageHeaderMediaType",
+    "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebStripBrazilPaymentState",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -64,7 +66,7 @@ __d(
               break;
           }
       }
-      var s = babelHelpers.extends(
+      var u = babelHelpers.extends(
           {
             body:
               n.caption ||
@@ -77,10 +79,17 @@ __d(
           },
           t && { contextInfo: t },
         ),
-        u = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(
+        c = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(
           n.interactiveType,
         );
-      return (u && (s[u] = n.interactivePayload), { interactiveMessage: s });
+      return (c && (u[c] = s(n)), { interactiveMessage: u });
+    }
+    function s(e) {
+      return e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW
+        ? o("WAWebStripBrazilPaymentState").stripBrazilPaymentState(
+            e.interactivePayload,
+          )
+        : e.interactivePayload;
     }
     l.default = e;
   },

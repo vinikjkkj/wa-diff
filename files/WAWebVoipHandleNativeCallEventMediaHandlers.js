@@ -6,6 +6,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCallUserJourneyLogger",
     "WAWebUserPrefsMeUser",
+    "WAWebVoipCameraFingerprintLogging",
     "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipEncodeTargetFpsState",
     "WAWebVoipStackInterface",
@@ -68,6 +69,9 @@ __d(
               (o(
                 "WAWebCallUserJourneyLogger",
               ).CallUserJourneyLogger.setVideoCall(n.videoEnabled === !0),
+                o(
+                  "WAWebVoipCameraFingerprintLogging",
+                ).maybeLogCameraFingerprint(n.videoEnabled === !0, !0),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "handleVoipSettingsUpdate",
                   {

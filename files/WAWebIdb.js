@@ -12,6 +12,7 @@ __d(
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
     "WAWebIdbTransactionCounter",
+    "WAWebStorageCmd",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -1369,6 +1370,7 @@ __d(
             this.db.use(
               o("WAWebIdbTransactionCounter").idbTransactionCounterMiddleware,
             ),
+            o("WAWebStorageCmd").notifyOnVersionChange(this.db, e),
             (this.packColumns = !!(t != null && t.packColumns)));
         }
         var t = e.prototype;

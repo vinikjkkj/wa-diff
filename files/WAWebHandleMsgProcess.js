@@ -11,6 +11,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBackendJobs.flow",
     "WAWebCoexV2PushnameUpdate",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebConditionalRevealPreProcessor",
     "WAWebCurrentUser",
     "WAWebDBMsgUtils",
@@ -154,25 +155,25 @@ __d(
                 : t.conditionalRevealMessage,
             w = (a = $.conditionalRevealMessage) != null ? a : M;
           if (w != null) {
-            var F,
-              W,
+            var A,
+              O,
               q,
               U,
               V,
               H,
-              j,
+              G,
               K =
                 $.conditionalRevealMessage == null && M != null
-                  ? (F =
-                      (W =
+                  ? (A =
+                      (O =
                         (q = $.deviceSentMessage) == null
                           ? void 0
                           : q.destinationJid) != null
-                        ? W
+                        ? O
                         : (U = c.chat) == null
                           ? void 0
                           : U.toString()) != null
-                    ? F
+                    ? A
                     : ""
                   : (V = (H = c.chat) == null ? void 0 : H.toString()) != null
                     ? V
@@ -219,8 +220,8 @@ __d(
                 reportingTokenInfo: T,
                 senderJid: X,
                 stanzaScheduledMsgMeta:
-                  (j = _ == null ? void 0 : _.scheduledMsgMeta) != null
-                    ? j
+                  (G = _ == null ? void 0 : _.scheduledMsgMeta) != null
+                    ? G
                     : null,
               });
             if (
@@ -253,7 +254,7 @@ __d(
                     chatWid: c.chat,
                     clientReceivedTsMillis: c.clientReceivedTsMillis,
                     msgProcessStartTsMillis: c.msgProcessStartTsMillis,
-                    offline: z(c.offline),
+                    offline: j(c.offline),
                     tsMillis: c.ts * 1e3,
                   }),
                 o("WALogger").LOG(
@@ -344,7 +345,7 @@ __d(
                   ).validateAndProcessReportingTokenInfo({
                     renderableMsgs: oe,
                   })));
-              var ae = A({
+              var ae = F({
                   renderableMsgs: oe,
                   reparsing: !0,
                   bizInfo: i,
@@ -609,7 +610,7 @@ __d(
                 ),
                 proto: $,
               }),
-              be = A({
+              be = F({
                 renderableMsgs: Ce,
                 reparsing: h,
                 bizInfo: i,
@@ -627,7 +628,7 @@ __d(
               )
             ) {
               var Le = Ce[0],
-                Ee = O(Le);
+                Ee = B(Le);
               if (Ee != null) {
                 var ke = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([
                     Ee,
@@ -676,8 +677,8 @@ __d(
                     ])),
                   c.author.toString(),
                 );
-            B(c, _);
-            var Ne = G(c.chat);
+            W(c, _);
+            var Ne = z(c.chat);
             yield (I || (I = n("Promise"))).all(Se);
             var Me = yield Ne;
             return (
@@ -691,7 +692,7 @@ __d(
               }),
               o("WAWebLogReceivedMessages").logReceivedMessagesInWAM({
                 msgs: ye,
-                offline: z(c.offline),
+                offline: j(c.offline),
                 tsMillis: c.ts * 1e3,
                 clientReceivedTsMillis: c.clientReceivedTsMillis,
                 msgProcessStartTsMillis: c.msgProcessStartTsMillis,
@@ -720,7 +721,11 @@ __d(
         w.apply(this, arguments)
       );
     }
-    function A(e) {
+    var A = new Set([
+      o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BizAIMetadataSync,
+      o("WAWebCommonMsgSubtypeTypes").MsgSubtype.HatchMetadataSync,
+    ]);
+    function F(e) {
       var t,
         n,
         r,
@@ -752,7 +757,7 @@ __d(
             ),
             (L = !0),
             R.push(
-              V({
+              H({
                 messageOverwriteOption: y,
                 msg: k,
                 msgInfo: s,
@@ -766,7 +771,7 @@ __d(
                     "processMsgs: pollVote",
                   ])),
               ),
-              R.push(q(E, s, S)))
+              R.push(U(E, s, S)))
             : ((t = v[0]) == null ? void 0 : t.type) ===
                 o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT
               ? (o("WALogger").LOG(
@@ -834,12 +839,11 @@ __d(
                         (L = !0))
                       : (E == null ? void 0 : E.type) ===
                             o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-                          (E == null ? void 0 : E.subtype) ===
-                            "hatch_metadata_sync"
+                          A.has(E.subtype)
                         ? (o("WALogger").LOG(
                             f ||
                               (f = babelHelpers.taggedTemplateLiteralLoose([
-                                "processMsgs: hatchMetadataSync",
+                                "processMsgs: aiMetadataSync",
                               ])),
                           ),
                           (L = !0))
@@ -867,11 +871,11 @@ __d(
                                     "processMsgs: renderableMsgs",
                                   ])),
                               ),
-                    R.push(F(v, s, b, l, C, y, S))),
+                    R.push(O(v, s, b, l, C, y, S))),
         { tasks: R, hasInactiveMsg: L }
       );
     }
-    function F(e, t, n, r, a, i, l) {
+    function O(e, t, n, r, a, i, l) {
       return o("WAWebMessageProcessRenderable").processRenderableMessages(
         e,
         t,
@@ -882,7 +886,7 @@ __d(
         l,
       );
     }
-    function O(e) {
+    function B(e) {
       if (e == null) return null;
       if ((D == null ? void 0 : D(e)) != null) {
         var t;
@@ -899,7 +903,7 @@ __d(
             ? e.protocolMessageKey
             : null;
     }
-    function B(e, t) {
+    function W(e, t) {
       var n = e.pushname;
       if (!r("isStringNullOrEmpty")(n)) {
         var a = o("WAWebCoexV2PushnameUpdate").maybeGetCoexV2PushnameUpdatePlan(
@@ -915,15 +919,15 @@ __d(
           );
       }
     }
-    function W(e) {
+    function q(e) {
       return o("WAWebMessageProcessPlaceholder").processPlaceholderMessage(e);
     }
-    function q(e, t, n) {
-      return U.apply(this, arguments);
+    function U(e, t, n) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = t.offline != null && !n,
             a = e,
             i = o("WAWebGetMessageCache")
@@ -935,15 +939,15 @@ __d(
                 .isOfflineDeliveryEnd)) &&
             (yield i);
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function H(e) {
+      return G.apply(this, arguments);
     }
-    function H() {
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.messageOverwriteOption,
             n = e.msg,
             r = e.msgInfo,
@@ -963,21 +967,21 @@ __d(
                 msg: n,
               }));
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function G(e) {
+    function z(e) {
       return o("WAWebGetGroupAddressingMode").getGroupAddressingMode(e);
     }
-    function z(e) {
+    function j(e) {
       var t = parseInt(e, 10);
       return Number.isNaN(t) ? null : t;
     }
     ((l.processDecryptedMessageProto = M),
-      (l.processMsgs = A),
-      (l.processRenderableMsg = F),
-      (l.updateIncomingMessagePushname = B),
-      (l.processPlaceholderMsg = W));
+      (l.processMsgs = F),
+      (l.processRenderableMsg = O),
+      (l.updateIncomingMessagePushname = W),
+      (l.processPlaceholderMsg = q));
   },
   98,
 );

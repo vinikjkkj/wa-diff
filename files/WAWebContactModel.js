@@ -218,11 +218,8 @@ __d(
               } else
                 this.id.isUser() &&
                   (this.$Contact$p_7(),
-                  this.listenTo(
-                    this,
-                    "change:name change:statusMute",
-                    this.$Contact$p_7,
-                  ));
+                  this.listenTo(this, "change:name", this.$Contact$p_7),
+                  this.listenTo(this, "change:statusMute", this.$Contact$p_7));
               this.id.isBot() &&
                 o("WAWebInitializeBotContact").initializeBotContact(this);
             }

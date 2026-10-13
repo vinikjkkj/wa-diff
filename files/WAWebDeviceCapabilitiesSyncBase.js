@@ -7,6 +7,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebMobilePlatforms",
+    "WAWebNewsletterChatsMigrationCapability",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebProtobufsServerSync.pb",
@@ -126,6 +127,14 @@ __d(
                       (o(
                         "WAWebUserPrefsDeviceCapabilities",
                       ).mergeDeviceCapabilitiesToStorage(s, "primary"),
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "updatePrimaryNewsletterChatsMigration",
+                          {
+                            migration: o(
+                              "WAWebNewsletterChatsMigrationCapability",
+                            ).getNewsletterChatsMigrationFromCapabilities(t),
+                          },
+                        ),
                         r++);
                       var u =
                         (l = s.aiThread) == null ? void 0 : l.supportLevel;

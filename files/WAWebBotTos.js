@@ -7,6 +7,7 @@ __d(
     "WAPromiseTimeout",
     "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBotGating",
     "WAWebBotTosIds",
     "WAWebBotTypes",
@@ -307,7 +308,7 @@ __d(
     function K(e) {
       if (
         (e === o("WAWebBotTypes").BizBotType.BIZ_1P &&
-          !o("WAWebBotGating").isBizBotConsentRequired()) ||
+          !o("WAWebABProps").getABPropConfigValue("wabai_consent_required")) ||
         Q()
       )
         return !0;

@@ -115,7 +115,17 @@ __d(
               })),
               this.listenTo(
                 o("WAWebSocketModel").Socket,
-                "change:state change:stream change:hasSynced",
+                "change:state",
+                this.$StreamImpl$p_1,
+              ),
+              this.listenTo(
+                o("WAWebSocketModel").Socket,
+                "change:stream",
+                this.$StreamImpl$p_1,
+              ),
+              this.listenTo(
+                o("WAWebSocketModel").Socket,
+                "change:hasSynced",
                 this.$StreamImpl$p_1,
               ),
               (this.hasSynced = o("WAWebSocketModel").Socket.hasSynced),
@@ -128,17 +138,14 @@ __d(
               this.listenTo(this, "change:phoneAuthed", this.$StreamImpl$p_3),
               this.listenTo(this, "change:info", this.logPageResume),
               this.listenTo(this, "change:info", this.updateWamLog),
-              this.listenTo(this, "change:mode", this.logModeChange),
-              this.listenTo(
-                this,
-                "change:available change:uiActive",
-                this.updateCouldForce,
-              ),
-              this.listenTo(
-                r("WAWebCallCollection"),
-                "change:activeCall",
-                this.updateCouldForce,
-              ),
+              this.listenTo(this, "change:mode", this.logModeChange));
+            for (var n of ["change:available", "change:uiActive"])
+              this.listenTo(this, n, this.updateCouldForce);
+            (this.listenTo(
+              r("WAWebCallCollection"),
+              "change:activeCall",
+              this.updateCouldForce,
+            ),
               o(
                 "WAWebBackendEventBus",
               ).BackendEventBus.onSocketStreamDisconnected(function () {

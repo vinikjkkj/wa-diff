@@ -3,10 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebBackendApi",
     "WAWebBizBroadcastsDeviceCapability",
-    "WAWebBotGating",
     "WAWebDeviceCapabilitiesSync",
     "WAWebDeviceCapabilitiesV2Sync",
+    "WAWebNewsletterChatsMigrationCapability",
     "WAWebPrimaryDeviceCapabilities",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
@@ -29,9 +30,9 @@ __d(
                 chatLockSupportLevel: o("WAWebProtobufsDeviceCapabilities.pb")
                   .DeviceCapabilities$ChatLockSupportLevel.FULL,
                 aiThread: {
-                  supportLevel: o(
-                    "WAWebBotGating",
-                  ).isAiThreadCapabilityEnabled()
+                  supportLevel: o("WAWebABProps").getABPropConfigValue(
+                    "ai_chat_thread_capability_enabled",
+                  )
                     ? o("WAWebProtobufsDeviceCapabilities.pb")
                         .DeviceCapabilities$AiThread$SupportLevel.INFRA
                     : o("WAWebProtobufsDeviceCapabilities.pb")
@@ -89,9 +90,17 @@ __d(
           var t = o(
             "WAWebUserPrefsDeviceCapabilities",
           ).mapProtobufToAllDeviceCapabilities(e);
-          o(
+          (o(
             "WAWebUserPrefsDeviceCapabilities",
-          ).mergeDeviceCapabilitiesToStorage(t, "primary");
+          ).mergeDeviceCapabilitiesToStorage(t, "primary"),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updatePrimaryNewsletterChatsMigration",
+              {
+                migration: o(
+                  "WAWebNewsletterChatsMigrationCapability",
+                ).getNewsletterChatsMigrationFromCapabilities(e),
+              },
+            ));
         })),
         p.apply(this, arguments)
       );

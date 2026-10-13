@@ -49,6 +49,7 @@ __d(
     "WAWebWamEnumLobbyEntryPointType",
     "asyncToGeneratorRuntime",
     "err",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -97,9 +98,17 @@ __d(
           .sendLogs("voip-stack-interface-web-created-on-windows");
       });
     function U() {
+      try {
+        return r("justknobx")._("360");
+      } catch (e) {
+        return !1;
+      }
+    }
+    function V() {
       if (
+        (U(),
         r("WAWebEnvironment").isWindows &&
-        !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+          !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled())
       )
         throw (
           q(),
@@ -133,11 +142,11 @@ __d(
       }
       var i = o("WAWebVoipWasmHeapBuffer").createHeapBufferState(),
         l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
-        U = null;
-      function H() {
+        V = null;
+      function G() {
         o("WAWebVoipWebTransportConnectionManager").registerPacketHandler(
           function (e, t, n) {
-            var r = U;
+            var r = V;
             if (r == null) {
               o("WALogger").WARN(
                 s ||
@@ -167,7 +176,7 @@ __d(
             function* (e, t, n) {
               var r,
                 a = yield l;
-              ((U = a),
+              ((V = a),
                 o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
                 a.initVoipLogging(),
                 o("WALogger").LOG(
@@ -178,7 +187,7 @@ __d(
                     ])),
                   String(o("WAWebVoipGatingUtils").isWebTransportEnabled()),
                 ),
-                H(),
+                G(),
                 o(
                   "WAWebVoipWebTransportConnectionManager",
                 ).registerFallbackHandler(function (e) {
@@ -464,7 +473,7 @@ __d(
               t.forEach(function (e) {
                 c.push_back(e);
               });
-              var d = V(u, s);
+              var d = H(u, s);
               try {
                 u.startVoipCall(e.toString({ legacy: !0 }), c, n, r, a, i, d);
               } catch (e) {
@@ -967,7 +976,7 @@ __d(
                 });
               var m = e.node(),
                 p = o("WABase64").encodeB64(o("WAWap").encodeStanza(m)),
-                _ = V(d, c),
+                _ = H(d, c),
                 f = r != null ? String(r) : "0",
                 g = a != null ? String(a) : "0";
               try {
@@ -1000,7 +1009,7 @@ __d(
               c = e.xmlNode,
               d = yield l,
               m = o("WABase64").encodeB64(o("WAWap").encodeStanza(c.node())),
-              p = V(d, u),
+              p = H(d, u),
               _ = t != null ? String(t) : "0",
               f = a != null ? String(a) : "0";
             try {
@@ -1027,7 +1036,7 @@ __d(
               s = yield l,
               u = i.node(),
               c = o("WABase64").encodeB64(o("WAWap").encodeStanza(u)),
-              d = V(s, a);
+              d = H(s, a);
             try {
               s.handleIncomingSignalingAck(c, t, n, r, d);
             } catch (e) {
@@ -1047,7 +1056,7 @@ __d(
             function* (e, t, n) {
               var r = yield l,
                 a = o("WABase64").encodeB64(o("WAWap").encodeStanza(e.node())),
-                i = V(r, n);
+                i = H(r, n);
               try {
                 r.handleIncomingSignalingReceipt(a, t, i);
               } catch (e) {
@@ -1094,7 +1103,7 @@ __d(
         handleOnTransportMessage: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              var r = U != null ? U : yield l,
+              var r = V != null ? V : yield l,
                 a = new Uint8Array(e),
                 s = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
                   r,
@@ -1114,7 +1123,7 @@ __d(
         markRelayConnected: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = U != null ? U : yield l;
+              var n = V != null ? V : yield l;
               n.markRelayConnected(e, t);
             },
           );
@@ -1623,7 +1632,7 @@ __d(
         })(),
       };
     }
-    function V(e, t) {
+    function H(e, t) {
       var n = new e.Uint8List();
       if (t) {
         var r = new Uint8Array(t);
@@ -1633,7 +1642,7 @@ __d(
       }
       return n;
     }
-    l.createWAWebVoipStackInterface = U;
+    l.createWAWebVoipStackInterface = V;
   },
   98,
 );

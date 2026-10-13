@@ -577,24 +577,33 @@ __d(
           (e === void 0 && (e = { passive: !1, pull: !0 }),
             o("WAWebPageLoadLogging").startPageLoadQplMeasure("startWebComms"));
           var i = o("WAWebCommsConfig").getCommsConfig(e);
-          yield o("WAWebEventsWaitForMain").waitForMain();
+          (o("WAWebPageLoadLogging").startPageLoadQplMeasure("waitForMain"),
+            yield o("WAWebEventsWaitForMain").waitForMain(),
+            o("WAWebPageLoadLogging").endPageLoadQplMeasure("waitForMain"));
           var l = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
+          o("WAWebCommsWorkerProxy").setStartCommsArgs({
+            passive: (t = e) == null ? void 0 : t.passive,
+            pull: (a = e) == null ? void 0 : a.pull,
+          });
+          var s = o("WAWebCommsGating").isCommsInWorker();
           if (
-            (o("WAWebCommsWorkerProxy").setStartCommsArgs({
-              passive: (t = e) == null ? void 0 : t.passive,
-              pull: (a = e) == null ? void 0 : a.pull,
+            (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
+              comms_in_worker: s,
             }),
-            o("WAWebCommsGating").isCommsInWorker())
+            s)
           ) {
-            o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
-              comms_in_worker: !0,
-            });
-            var s = yield o(
+            o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+              "getBackendWorkerBridge",
+            );
+            var u = yield o(
               "WAWebBackendWorkerClient",
             ).getBackendWorkerBridge();
-            o("WAComms").setCommsFactory(function () {
-              return o("WAWebCommsWorkerProxy").createCommsWorkerProxy(s);
-            });
+            (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+              "getBackendWorkerBridge",
+            ),
+              o("WAComms").setCommsFactory(function () {
+                return o("WAWebCommsWorkerProxy").createCommsWorkerProxy(u);
+              }));
           }
           (o("WAComms").startComms(
             r("WAWebCommsHandleStanza"),
@@ -604,7 +613,14 @@ __d(
             },
             l,
           ),
-            l && (yield o("WAComms").waitForConnection()),
+            l &&
+              (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                "waitForConnection",
+              ),
+              yield o("WAComms").waitForConnection(),
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                "waitForConnection",
+              )),
             o("WAWebPageLoadLogging").endPageLoadQplMeasure("startWebComms"));
         })),
         A.apply(this, arguments)

@@ -35,6 +35,7 @@ __d(
               mdTimestampS: [7, e.TYPES.INTEGER],
               mdWasUpgraded: [5, e.TYPES.BOOLEAN],
               userLocale: [15, e.TYPES.STRING],
+              waWebVisitId: [19, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

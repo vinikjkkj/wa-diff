@@ -14,16 +14,22 @@ __d(
         .then(function () {
           return o("WAWebSyncLeadStageToProfile").syncLeadStageToProfile(t, n);
         })
+        .then(function () {
+          return !0;
+        })
         .catch(function (t) {
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[customer_manager] lead stage write from the pipeline failed",
-                ])),
-            )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("lead-stage-sublist-pipeline-apply-fail");
+          return (
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[customer_manager] lead stage write from the pipeline failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("lead-stage-sublist-pipeline-apply-fail"),
+            !1
+          );
         });
     }
     l.applyPipelineLeadStage = s;

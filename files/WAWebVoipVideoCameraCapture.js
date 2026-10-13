@@ -7,6 +7,7 @@ __d(
     "WAWebNoop",
     "WAWebUA",
     "WAWebUserPrefsVoip",
+    "WAWebVoipCameraFingerprintLogging",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipPthreadHardening",
     "WAWebVoipResolutionCap",
@@ -383,7 +384,10 @@ __d(
                   ).videoRendererRegistry.resetFirstFrameReceivedForSource(Le),
                   this.__monitorFrameProduction(T));
                 var D = this.__updateDeviceFromAcquiredTrack(E, L);
-                (this.__updateFacingFromAcquiredTrack(k, i, D),
+                (o(
+                  "WAWebVoipCameraFingerprintLogging",
+                ).retryCameraFingerprint(),
+                  this.__updateFacingFromAcquiredTrack(k, i, D),
                   o("WAWebUA").UA.isFirefox &&
                     v != null &&
                     (be.trigger("deviceListRefreshRequested"),

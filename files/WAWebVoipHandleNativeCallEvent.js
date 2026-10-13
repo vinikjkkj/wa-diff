@@ -16,6 +16,7 @@ __d(
     "WAWebVoipCallEnterPipModeCountStore",
     "WAWebVoipCallStateUtils",
     "WAWebVoipCalleeOfferToRingStore",
+    "WAWebVoipCameraFingerprintLogging",
     "WAWebVoipContactUtils",
     "WAWebVoipCrashRecovery",
     "WAWebVoipDtlsCertCallRegistration",
@@ -989,7 +990,10 @@ __d(
             o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
             !o("WAWebVoipCallStateUtils").isCallTerminal(l);
           (c &&
-            (o("WAWebVoipHardwareInfo").ensureHardwareInfoDetected(),
+            (o(
+              "WAWebVoipCameraFingerprintLogging",
+            ).resetCameraFingerprintLogging(),
+            o("WAWebVoipHardwareInfo").ensureHardwareInfoDetected(),
             o("WAWebVoipErrorLogUpload").resetReconnectingStateForNewCall(),
             o("WAWebVoipTransportFallbackTracker").resetFallbackTracker(),
             o(
@@ -1144,7 +1148,11 @@ __d(
               callInfo: i.call_info,
             }),
             l === o("WAWebVoipWaCallEnums").CallState.CallActive)
-          )
+          ) {
+            o("WAWebVoipCameraFingerprintLogging").maybeLogCameraFingerprint(
+              s.videoEnabled === !0,
+              a.type === "web",
+            );
             try {
               var g = i.call_info.callId;
               j = g;
@@ -1260,6 +1268,7 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e));
             }
+          }
           var k = o("WAWebVoipCallStateUtils").isCallTerminal(l);
           if (
             (k &&

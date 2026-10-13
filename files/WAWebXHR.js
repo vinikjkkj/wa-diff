@@ -101,15 +101,11 @@ __d(
     function h(e, t, n) {
       return f(e, m.POST, t, n);
     }
-    function y(e, t) {
-      return f(e, m.HEAD, null, t);
-    }
     ((l.VERB = m),
       (l.RESP_TYPE = p),
       (l.request = f),
       (l.get = g),
-      (l.post = h),
-      (l.head = y));
+      (l.post = h));
   },
   98,
 );

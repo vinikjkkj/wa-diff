@@ -121,73 +121,70 @@ __d(
           var n = o("WAWebPresenceGetters").getIsGroup(this)
             ? { id: "", type: "unavailable" }
             : { id: this.id };
-          (this.addChild("chatstate", new h(n)),
-            o("WAWebPresenceGetters").getIsGroup(this)
-              ? (this.listenTo(
-                  this.chatstates,
-                  "add change",
-                  r("WAWebDebounce")(function () {
-                    var t,
-                      n = !1,
-                      a = [],
-                      i = [];
-                    e.chatstates.forEach(function (e) {
-                      ((e.type === "typing" || e.type === "recording_audio") &&
-                        (e.type === "typing"
-                          ? a.push({ id: e.id, updateTime: e.updateTime })
-                          : i.push({ id: e.id, updateTime: e.updateTime }),
-                        (!t || t.updateTime < e.updateTime) && (t = e)),
-                        (n = n || e.type === "available"));
-                    });
-                    var l = a
-                        .sort(function (e, t) {
-                          return e.updateTime - t.updateTime;
-                        })
-                        .map(function (e) {
-                          return e.id;
-                        }),
-                      s = i
-                        .sort(function (e, t) {
-                          return e.updateTime - t.updateTime;
-                        })
-                        .map(function (e) {
-                          return e.id;
-                        }),
-                      u = o("WAWebPresenceOrder").preserveUserOrder(
-                        e.typingUserIds,
-                        l,
-                      ),
-                      c = o("WAWebPresenceOrder").preserveUserOrder(
-                        e.recordingUserIds,
-                        s,
-                      ),
-                      d = !r("WAArraysShallowEqual")(u, e.typingUserIds),
-                      m = !r("WAArraysShallowEqual")(c, e.recordingUserIds);
-                    ((d || m || e.isOnline !== n) &&
-                      e.set({
-                        isOnline: n,
-                        typingUserIds: u,
-                        recordingUserIds: c,
-                      }),
-                      e.chatstate.set({
-                        id: t ? t.id : "",
-                        type: t ? t.type : "unavailable",
-                      }));
-                  }, 0),
+          if (
+            (this.addChild("chatstate", new h(n)),
+            o("WAWebPresenceGetters").getIsGroup(this))
+          ) {
+            var a = r("WAWebDebounce")(function () {
+              var t,
+                n = !1,
+                a = [],
+                i = [];
+              e.chatstates.forEach(function (e) {
+                ((e.type === "typing" || e.type === "recording_audio") &&
+                  (e.type === "typing"
+                    ? a.push({ id: e.id, updateTime: e.updateTime })
+                    : i.push({ id: e.id, updateTime: e.updateTime }),
+                  (!t || t.updateTime < e.updateTime) && (t = e)),
+                  (n = n || e.type === "available"));
+              });
+              var l = a
+                  .sort(function (e, t) {
+                    return e.updateTime - t.updateTime;
+                  })
+                  .map(function (e) {
+                    return e.id;
+                  }),
+                s = i
+                  .sort(function (e, t) {
+                    return e.updateTime - t.updateTime;
+                  })
+                  .map(function (e) {
+                    return e.id;
+                  }),
+                u = o("WAWebPresenceOrder").preserveUserOrder(
+                  e.typingUserIds,
+                  l,
                 ),
-                this.listenTo(
-                  o("WAWebPresenceCollection").PresenceCollection,
-                  "change:isOnline",
-                  r("WAWebDebounce")(function () {
-                    return e.$PresenceImpl$p_1();
-                  }, 100),
-                ))
-              : this.listenTo(this.chatstate, "change:type", function () {
-                  e.chatstate.type === "available"
-                    ? (e.isOnline = !0)
-                    : e.chatstate.type === "unavailable" && (e.isOnline = !1);
-                }),
-            this.listenTo(this, "change:chatActive", this.$PresenceImpl$p_2));
+                c = o("WAWebPresenceOrder").preserveUserOrder(
+                  e.recordingUserIds,
+                  s,
+                ),
+                d = !r("WAArraysShallowEqual")(u, e.typingUserIds),
+                m = !r("WAArraysShallowEqual")(c, e.recordingUserIds);
+              ((d || m || e.isOnline !== n) &&
+                e.set({ isOnline: n, typingUserIds: u, recordingUserIds: c }),
+                e.chatstate.set({
+                  id: t ? t.id : "",
+                  type: t ? t.type : "unavailable",
+                }));
+            }, 0);
+            (this.listenTo(this.chatstates, "add", a),
+              this.listenTo(this.chatstates, "change", a),
+              this.listenTo(
+                o("WAWebPresenceCollection").PresenceCollection,
+                "change:isOnline",
+                r("WAWebDebounce")(function () {
+                  return e.$PresenceImpl$p_1();
+                }, 100),
+              ));
+          } else
+            this.listenTo(this.chatstate, "change:type", function () {
+              e.chatstate.type === "available"
+                ? (e.isOnline = !0)
+                : e.chatstate.type === "unavailable" && (e.isOnline = !1);
+            });
+          this.listenTo(this, "change:chatActive", this.$PresenceImpl$p_2);
         }),
         (a.delete = function () {
           (t.prototype.delete.call(this),

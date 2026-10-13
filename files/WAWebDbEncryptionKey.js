@@ -12,6 +12,7 @@ __d(
     "WAWebDexieCastTypes",
     "WAWebDexieObservability",
     "WAWebPageLoadLogging",
+    "WAWebStorageCmd",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -277,6 +278,7 @@ __d(
               addons: [],
             })),
               o("WAWebDexieObservability").dropDexieObservability(this.$1),
+              o("WAWebStorageCmd").notifyOnVersionChange(this.$13(), m),
               this.$13()
                 .version(1)
                 .stores(

@@ -32,6 +32,7 @@ __d(
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMsgKey",
     "WAWebNetworkStatusStateManager",
+    "WAWebNoop",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPageLoadLogging",
     "WAWebPersistedJobManagerWorkerCompatible",
@@ -652,6 +653,44 @@ __d(
               },
             },
           },
+          {
+            namespace: "mainthread_pageloadqpl",
+            handlers: {
+              endPageLoadQpl: function (t) {
+                var e = t.locale,
+                  n = t.qrScreen,
+                  r = t.qrScreenExperience;
+                o("WAWebPageLoadLogging").endPageLoadQpl(n, r, e);
+              },
+              startPageLoadQplMeasure: function (t) {
+                var e = t.measure;
+                o("WAWebPageLoadLogging").startPageLoadQplMeasure(e);
+              },
+              endPageLoadQplMeasure: function (t) {
+                var e = t.measure;
+                o("WAWebPageLoadLogging").endPageLoadQplMeasure(e);
+              },
+              addPageLoadQplPoint: function (t) {
+                var e = t.point;
+                o("WAWebPageLoadLogging").addPageLoadQplPoint(e);
+              },
+              addPageLoadQplAnnotation: function (t) {
+                var e = t.annotations;
+                o("WAWebPageLoadLogging").addPageLoadQplAnnotation(e);
+              },
+              incrementPageLoadQplSocketError: function () {
+                o("WAWebPageLoadLogging").incrementPageLoadQplSocketError();
+              },
+              addPageLoadValidationData: function (t) {
+                var e = t.data,
+                  n = t.point;
+                o("WAWebPageLoadLogging").addPageLoadValidationData(n, e);
+              },
+              setWamCompleteForValidation: function () {
+                o("WAWebPageLoadLogging").setWamCompleteForValidation();
+              },
+            },
+          },
         ]);
       return (
         a.setNamespaceHandler("event", function (e, t, n) {
@@ -698,15 +737,35 @@ __d(
       }
     }
     var x = 3,
-      $ = 10;
-    function P(e) {
-      return N.apply(this, arguments);
+      $ = 10,
+      P = (h || (h = n("Promise"))).resolve();
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (
+            (P = P.catch(r("WAWebNoop")).then(function () {
+              return A(e);
+            })),
+            P
+          );
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    var w;
+    function A(e) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, a;
-          o("WAWebPageLoadLogging").startPageLoadQplMeasure("backendWorker");
+          (o("WAWebPageLoadLogging").startPageLoadQplMeasure("backendWorker"),
+            w != null && w.abort(),
+            (w = new AbortController()));
           var i = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
             l =
               (a = e == null ? void 0 : e.qpl) != null
@@ -716,6 +775,7 @@ __d(
                       bool: {
                         wa_web_media_wasm_worker_split: r("gkx")("24042"),
                         supportModule: r("supportsModuleWorker")(!1),
+                        early_backend_worker: r("gkx")("27242"),
                       },
                       int: { retryStart: i },
                     },
@@ -743,7 +803,7 @@ __d(
                 c.then(function () {
                   l.addPoint("worker_init_end");
                 }),
-                M(g).then(function () {
+                O(g).then(function () {
                   l.addPoint("worker_ready_end");
                 }),
               ]),
@@ -755,7 +815,7 @@ __d(
                 ).getBackendWorkerBridge())
               : (y = E());
             var S = L(g),
-              N = T;
+              P = T;
             ((T = o("WAWebBackendWorkerBridge").attachBridgeToPortal(y, S, [
               "historySync",
               "deviceSync",
@@ -769,7 +829,7 @@ __d(
               "networkStatusSync",
               "comms",
             ])),
-              D(N, "backend worker restarted"),
+              D(P, "backend worker restarted"),
               o("WAWebBackendWorkerClient")
                 .getBackendWorkerBridge()
                 .then(function (e) {
@@ -863,14 +923,15 @@ __d(
               globalThis.navigator.locks != null &&
                 globalThis.navigator.locks.request(
                   C + "-kill-switch-lock",
+                  { signal: w.signal },
                   function () {
                     (o("WAWebCommsWorkerReady").setCommsWorkerReady(!1),
                       D(T, "backend worker stopped"),
-                      i < $ && P({ retryStart: i + 1 }));
+                      i < $ && N({ retryStart: i + 1 }));
                   },
                 ));
           } catch (t) {
-            var w;
+            var M;
             globalThis.navigator.locks != null &&
               (yield globalThis.navigator.locks.request(
                 C + "-kill-switch-lock",
@@ -899,9 +960,9 @@ __d(
               });
               return;
             }
-            var F = (w = e == null ? void 0 : e.retryInit) != null ? w : 0;
+            var F = (M = e == null ? void 0 : e.retryInit) != null ? M : 0;
             F < x && globalThis.navigator.locks != null
-              ? (l.addPoint("retry_" + F), P({ qpl: l, retryInit: F + 1 }))
+              ? (l.addPoint("retry_" + F), N({ qpl: l, retryInit: F + 1 }))
               : l.endFail("error", {
                   string: {
                     error: o("getSafeQplErrorMessage").getSafeQPLErrorMessage(
@@ -911,10 +972,10 @@ __d(
                 });
           }
         })),
-        N.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function M(e) {
+    function O(e) {
       return new (h || (h = n("Promise")))(function (t, n) {
         var r = function (a) {
           var o = a.data,
@@ -927,7 +988,7 @@ __d(
         e.addEventListener("message", r);
       });
     }
-    l.startBackendWorker = P;
+    l.startBackendWorker = N;
   },
   98,
 );

@@ -23,7 +23,12 @@ __d(
             l = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
             s = yield o("WAWebApiContact").getContactRecord(l);
           if (s) {
-            var u = c(s, r, i, a);
+            var u = c({
+              contact: s,
+              newDuration: r,
+              newEphemeralityDisabled: a,
+              newSettingTimestamp: i,
+            });
             if (u) {
               var d = u.contactChange,
                 m = u.effectiveDuration,
@@ -59,32 +64,36 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n, r) {
-      var o,
-        a = e.disappearingModeSettingTimestamp,
-        i = (a == null && n !== 0) || (a != null && a < n),
-        l = {},
-        s = e.isEphemeralityDisabled,
-        u = !1;
+    function c(e) {
+      var t,
+        n = e.contact,
+        r = e.newDuration,
+        o = e.newEphemeralityDisabled,
+        a = e.newSettingTimestamp,
+        i = n.disappearingModeSettingTimestamp,
+        l = (i == null && a !== 0) || (i != null && i < a),
+        s = {},
+        u = n.isEphemeralityDisabled,
+        c = !1;
       if (
-        (r === !0 && e.isEphemeralityDisabled !== !0
-          ? ((l.isEphemeralityDisabled = !0), (s = !0), (u = !0))
-          : r === !1 &&
-            e.isEphemeralityDisabled != null &&
-            ((l.isEphemeralityDisabled = void 0), (s = void 0), (u = !0)),
-        !i && !u)
+        (o === !0 && n.isEphemeralityDisabled !== !0
+          ? ((s.isEphemeralityDisabled = !0), (u = !0), (c = !0))
+          : o === !1 &&
+            n.isEphemeralityDisabled != null &&
+            ((s.isEphemeralityDisabled = void 0), (u = void 0), (c = !0)),
+        !l && !c)
       )
         return null;
-      i &&
-        ((l.disappearingModeDuration = t),
-        (l.disappearingModeSettingTimestamp = n));
-      var c = i ? t : (o = e.disappearingModeDuration) != null ? o : 0,
-        d = i ? n : a != null ? a : 0;
+      l &&
+        ((s.disappearingModeDuration = r),
+        (s.disappearingModeSettingTimestamp = a));
+      var d = l ? r : (t = n.disappearingModeDuration) != null ? t : 0,
+        m = l ? a : i != null ? i : 0;
       return {
-        contactChange: l,
-        ephemeralityDisabledInFrontend: s,
-        effectiveDuration: c,
-        effectiveSettingTimestamp: d,
+        contactChange: s,
+        ephemeralityDisabledInFrontend: u,
+        effectiveDuration: d,
+        effectiveSettingTimestamp: m,
       };
     }
     l.updateDisappearingModeForContact = s;

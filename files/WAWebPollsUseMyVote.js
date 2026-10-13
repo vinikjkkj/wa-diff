@@ -18,7 +18,7 @@ __d(
     function e(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(6),
+        a = o("react-compiler-runtime").c(7),
         i = e.includeUnvote,
         l = e.pollCreationMsg,
         u = l == null ? void 0 : l.id,
@@ -31,8 +31,12 @@ __d(
         : (m = a[2]);
       var p = m,
         _;
-      a[3] !== d || a[4] !== u
-        ? ((_ = function () {
+      a[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = ["add", "remove", "reset"]), (a[3] = _))
+        : (_ = a[3]);
+      var f;
+      a[4] !== d || a[5] !== u
+        ? ((f = function () {
             if (
               d instanceof
               o("WAWebPollsPollVoteCollection").GroupedPollVoteCollection
@@ -40,35 +44,35 @@ __d(
               return d.getVoteFromSenderAddressingModeInsensitive(p);
             if (u != null) return d == null ? void 0 : d.get(u);
           }),
-          (a[3] = d),
-          (a[4] = u),
-          (a[5] = _))
-        : (_ = a[5]);
-      var f = r("useWAWebEventTargetValue")(d, "add remove reset", _),
-        g = f instanceof o("WAWebPollsPollVoteModel").PollVote ? f : null,
-        h =
-          f instanceof o("WAWebNewsletterPollVotesModel").NewsletterPollVotes
-            ? f
-            : null,
+          (a[4] = d),
+          (a[5] = u),
+          (a[6] = f))
+        : (f = a[6]);
+      var g = r("useWAWebEventTargetValue")(d, _, f),
+        h = g instanceof o("WAWebPollsPollVoteModel").PollVote ? g : null,
         y =
+          g instanceof o("WAWebNewsletterPollVotesModel").NewsletterPollVotes
+            ? g
+            : null,
+        C =
           (t = o(
             "useWAWebNewsletterPollVotesValues",
-          ).useOptionalNewsletterPollVotesValues(h == null ? void 0 : h.id, [
+          ).useOptionalNewsletterPollVotesValues(y == null ? void 0 : y.id, [
             o("WAWebNewsletterPollVotesGetters").getIsUnvote,
           ])) != null
             ? t
             : [],
-        C = y[0],
-        b =
+        b = C[0],
+        v =
           (n = o("useWAWebPollVoteValues").useOptionalPollVoteValues(
-            g == null ? void 0 : g.id,
+            h == null ? void 0 : h.id,
             [o("WAWebPollVoteGetters").getIsUnvote],
           )) != null
             ? n
             : [],
-        v = b[0],
-        S = C != null ? C : v;
-      return f == null || (S === !0 && !i) ? null : f;
+        S = v[0],
+        R = b != null ? b : S;
+      return g == null || (R === !0 && !i) ? null : g;
     }
     function s(e) {
       if (e == null) return null;

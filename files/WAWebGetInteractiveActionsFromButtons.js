@@ -143,6 +143,7 @@ __d(
             case r("WAWebInteractiveMessagesNativeFlowName")
               .MESSAGE_WITH_LINK_STATUS:
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO:
+            case r("WAWebInteractiveMessagesNativeFlowName").BR_PAYMENT_STATE:
             case r("WAWebInteractiveMessagesNativeFlowName").MIXED:
             case r("WAWebInteractiveMessagesNativeFlowName")
               .CALL_PERMISSION_REQUEST:

@@ -3,6 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebHatchBrowserTask",
+    "WAWebHatchBrowserTaskCompletionSafety",
+    "WAWebHatchBrowserTaskSnapshotStore",
+    "WAWebHatchBrowserTaskState",
+    "WAWebHatchLinkedStatusManager",
     "WAWebHatchVmConnection",
     "WAWebHatchVmSubscription",
     "WAWebHatchVmTransport",
@@ -16,49 +20,126 @@ __d(
       s,
       u,
       c,
-      d = new Set(),
-      m = new Map(),
-      p = new Set(),
-      _ = null;
-    function f(e, t) {
-      var n = { onUpdate: t, taskID: y(e) };
-      d.add(n);
-      var r = m.get(n.taskID);
+      d,
+      m = new Set(),
+      p = new Map(),
+      _ = new Map(),
+      f = new Set(),
+      g = null,
+      h = !1,
+      y = null,
+      C = 0;
+    function b() {
+      return (I(), C);
+    }
+    function v(e) {
+      return f.has(k(e));
+    }
+    function S(e, t) {
+      var n;
+      I();
+      var r = k(e),
+        o = (n = _.get(r)) != null ? n : new Set();
+      _.set(r, o);
+      var a = function () {
+        return t();
+      };
       return (
-        r != null && I(n, r),
-        _ == null && C(),
+        o.add(a),
+        U(a),
         function () {
-          if (d.delete(n) && d.size === 0) {
+          (o.delete(a), o.size === 0 && _.get(r) === o && _.delete(r));
+        }
+      );
+    }
+    function R(e, t) {
+      I();
+      var n = { onUpdate: t, taskID: k(e) };
+      m.add(n);
+      var r = p.get(n.taskID);
+      return (
+        r != null && B(n, r),
+        g == null && x(),
+        function () {
+          if (m.delete(n) && m.size === 0) {
             var e;
-            ((e = _) == null || e.stop(), (_ = null), m.clear());
+            ((e = g) == null || e.stop(),
+              (g = null),
+              p.clear(),
+              o(
+                "WAWebHatchBrowserTaskCompletionSafety",
+              ).clearBrowserTaskVersionHighWater());
           }
         }
       );
     }
-    function g(e) {
-      var t = y(e);
-      p.add(t);
-      var n = m.get(t);
+    function L(e) {
+      var t = k(e);
+      f.add(t);
+      var n = p.get(t);
       if (n != null) {
-        var r = E(n);
-        (m.set(t, r), k(t, r));
+        var r = F(n);
+        (p.set(t, r), O(t, r));
       }
+      q(t);
     }
-    function h(e) {
-      return m.get(y(e));
+    function E(e) {
+      return p.get(k(e));
     }
-    function y(e) {
-      return e.slice(e.lastIndexOf(":") + 1);
+    function k(e) {
+      return o("WAWebHatchBrowserTaskState").normalizedBrowserTaskID(e);
     }
-    function C() {
+    function I() {
+      h ||
+        ((h = !0),
+        (y = T()),
+        r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(function () {
+          var e = T();
+          if (!(e == null || e === y)) {
+            var t = y != null;
+            ((y = e), t && D());
+          }
+        }));
+    }
+    function T() {
+      var e,
+        t =
+          (e = r("WAWebHatchLinkedStatusManager").getLinkedStatus()) == null
+            ? void 0
+            : e.channelFbid;
+      return (function (e) {
+        return e === "linked"
+          ? t == null
+            ? null
+            : "linked:" + t
+          : e === "unlinked"
+            ? "unlinked"
+            : null;
+      })(r("WAWebHatchLinkedStatusManager").getLinkedStatusState());
+    }
+    function D() {
+      C++;
+      var e = g;
+      ((g = null),
+        e == null || e.stop(),
+        p.clear(),
+        f.clear(),
+        o("WAWebHatchBrowserTaskSnapshotStore").resetBrowserTaskSnapshots(),
+        o(
+          "WAWebHatchBrowserTaskCompletionSafety",
+        ).resetBrowserTaskCompletionSafety(),
+        W(),
+        e != null && m.size > 0 && g == null && x());
+    }
+    function x() {
       var e = new (r("WAWebHatchVmSubscription"))({
         connect: o("WAWebHatchVmConnection").connectHatchVmApi,
         kind: "computer",
         onEvent: function (n) {
-          return b(n, e);
+          return $(n, e);
         },
         onResubscribed: function () {
-          v(e);
+          P(e);
         },
         open: function (t, n) {
           return t.openEventSubscription(
@@ -67,9 +148,9 @@ __d(
           );
         },
       });
-      ((_ = e), e.start(), v(e));
+      ((g = e), e.start(), P(e));
     }
-    function b(t, n) {
+    function $(t, n) {
       var r = o("WAWebHatchBrowserTask").decodeHatchComputerEvent(
         t.name,
         t.payload,
@@ -93,22 +174,22 @@ __d(
             ])),
           r.malformedCount,
         ),
-        R(r.tasks, n, "stream"));
+        M(r.tasks, n, "stream"));
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function S() {
+    function N() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebRequestHatchBrowserTasks")
             .requestHatchBrowserTasks()
             .catch(function (e) {
               return (
                 o("WALogger")
                   .WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "hatch-computer/refresh-failed",
                       ])),
                   )
@@ -117,27 +198,36 @@ __d(
               );
             });
           (t == null ? void 0 : t.kind) === "ok" &&
-            _ === e &&
-            R(t.tasks, e, "refresh");
+            g === e &&
+            M(t.tasks, e, "refresh");
         })),
-        S.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function R(e, t, n) {
-      for (var r of e) {
-        if (_ !== t) return;
-        var o = y(r.browserTaskID),
-          a = m.get(o);
-        if (!L(r.version, a == null ? void 0 : a.version, n)) {
-          var i = p.has(o) ? E(r) : r;
-          (m.set(o, i), k(o, i));
+    function M(e, t, n) {
+      if (g === t) {
+        w(e);
+        for (var r of e) {
+          if (g !== t) return;
+          var o = k(r.browserTaskID),
+            a = p.get(o);
+          if (!A(r.version, a == null ? void 0 : a.version, n)) {
+            var i = f.has(o) ? F(r) : r;
+            (p.set(o, i), O(o, i));
+          }
         }
       }
     }
-    function L(e, t, n) {
+    function w(e) {
+      for (var t of e)
+        o(
+          "WAWebHatchBrowserTaskCompletionSafety",
+        ).raiseBrowserTaskVersionHighWater(k(t.browserTaskID), t.version);
+    }
+    function A(e, t, n) {
       return t != null && (e == null ? n === "refresh" : e < t);
     }
-    function E(e) {
+    function F(e) {
       return babelHelpers.extends({}, e, {
         displayState: "stopped",
         displayStatus: null,
@@ -146,10 +236,10 @@ __d(
         status: "stopped",
       });
     }
-    function k(e, t) {
-      for (var n of Array.from(d)) n.taskID === e && d.has(n) && I(n, t);
+    function O(e, t) {
+      for (var n of Array.from(m)) n.taskID === e && m.has(n) && B(n, t);
     }
-    function I(e, t) {
+    function B(e, t) {
       try {
         e.onUpdate(t);
       } catch (e) {
@@ -163,10 +253,35 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    ((l.observeHatchBrowserTask = f),
-      (l.markHatchBrowserTaskStopped = g),
-      (l.getObservedHatchBrowserTask = h),
-      (l.normalizedTaskID = y));
+    function W() {
+      for (var e of Array.from(_.keys())) q(e);
+    }
+    function q(e) {
+      var t = _.get(e);
+      for (var n of Array.from(t != null ? t : []))
+        t != null && t.has(n) && U(n);
+    }
+    function U(e) {
+      try {
+        e();
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-computer/stop-observer-failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      }
+    }
+    ((l.getHatchBrowserTaskAccountGeneration = b),
+      (l.isHatchBrowserTaskLocallyStopped = v),
+      (l.subscribeToHatchBrowserTaskLocalStop = S),
+      (l.observeHatchBrowserTask = R),
+      (l.markHatchBrowserTaskStopped = L),
+      (l.getObservedHatchBrowserTask = E),
+      (l.normalizedTaskID = k));
   },
   98,
 );

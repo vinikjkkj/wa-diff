@@ -8,11 +8,11 @@ __d(
     "WAWebBusinessProfileGetters",
     "WAWebChatCollection",
     "WAWebChatGetters",
+    "WAWebChatListPillUtils",
     "WAWebCommunityGatingUtils",
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
-    "WAWebListUtils",
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
@@ -176,17 +176,16 @@ __d(
     }
     function x(e) {
       var t = e.labels;
-      return t == null || t.length === 0
-        ? !1
-        : t.some(function (e) {
-            var t = o("WAWebLabelCollection").LabelCollection.get(e);
-            return (
-              t != null &&
-              !!t.name &&
-              (!o("WAWebListUtils").isAiList(t.type) ||
-                o("WAWebBizAiAgentGating").isAiListsWebUIEnabled())
-            );
-          });
+      if (t == null || t.length === 0) return !1;
+      var n = o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
+      return t.some(function (e) {
+        var t = o("WAWebLabelCollection").LabelCollection.get(e);
+        return (
+          t != null &&
+          !!t.name &&
+          o("WAWebChatListPillUtils").isPillEligibleListType(t.type, n)
+        );
+      });
     }
     function $(e, t) {
       return (

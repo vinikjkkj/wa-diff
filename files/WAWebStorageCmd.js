@@ -9,7 +9,12 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(r("WAWebEventEmitter")),
       s = new e();
-    l.StorageCmd = s;
+    function u(e, t) {
+      e.on("versionchange", function () {
+        s.trigger("idb_version_change", t);
+      });
+    }
+    ((l.StorageCmd = s), (l.notifyOnVersionChange = u));
   },
   98,
 );

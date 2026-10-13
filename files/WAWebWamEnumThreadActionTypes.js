@@ -27,6 +27,12 @@ __d(
       CLICK_CHAT_INFO: 22,
       CREATION_SHEET_DISMISSED: 23,
       TOP_NAV: 24,
+      MUTE: 25,
+      UNMUTE: 26,
+      CLEAR: 27,
+      SHARE: 28,
+      ARCHIVE: 29,
+      UNARCHIVE: 30,
     });
     i.THREAD_ACTION_TYPES = e;
   },

@@ -65,14 +65,13 @@ __d(
                   isBusiness: !0,
                   type: "out",
                 }),
-              ),
-              this.listenTo(
-                this,
-                "change:product change:isDeprecated change:isDeleted",
-                function () {
-                  (n.$BotProfile$p_1(), n.$BotProfile$p_2());
-                },
-              ),
+              ));
+            var r = function () {
+              (n.$BotProfile$p_1(), n.$BotProfile$p_2());
+            };
+            (this.listenTo(this, "change:product", r),
+              this.listenTo(this, "change:isDeprecated", r),
+              this.listenTo(this, "change:isDeleted", r),
               this.listenTo(this, "change:name", function () {
                 n.$BotProfile$p_2();
               }),

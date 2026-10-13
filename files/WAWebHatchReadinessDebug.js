@@ -14,6 +14,7 @@ __d(
         "ai_hatch_connectors_enabled",
         "ai_hatch_secure_credentials_enabled",
         "ai_hatch_browser_enabled",
+        "ai_hatch_response_ux_parity_enabled",
       ],
       u = [
         {
@@ -57,6 +58,14 @@ __d(
             text: "Browser task cards are off",
           },
         },
+        {
+          capability:
+            e.BotCapabilityMetadata$BotCapabilityType
+              .AI_MUSE_JARVIS_SCHEMA_ENABLED,
+          label: "Muse Jarvis schema",
+          prop: "ai_hatch_response_ux_parity_enabled",
+          offVerdict: null,
+        },
       ],
       c = [
         {
@@ -64,12 +73,6 @@ __d(
             e.BotCapabilityMetadata$BotCapabilityType
               .HATCH_ARTIFACT_CARD_ENABLED,
           label: "Space card",
-        },
-        {
-          capability:
-            e.BotCapabilityMetadata$BotCapabilityType
-              .AI_MUSE_JARVIS_SCHEMA_ENABLED,
-          label: "Muse Jarvis schema",
         },
       ],
       d =
@@ -104,6 +107,9 @@ __d(
           ),
           ai_hatch_browser_enabled: t.peekABPropConfigValue(
             "ai_hatch_browser_enabled",
+          ),
+          ai_hatch_response_ux_parity_enabled: t.peekABPropConfigValue(
+            "ai_hatch_response_ux_parity_enabled",
           ),
         },
       };

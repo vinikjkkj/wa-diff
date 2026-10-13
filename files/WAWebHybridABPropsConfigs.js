@@ -649,6 +649,7 @@ __d(
       win_call_log_send_outgoing_syncd_mutations: [5308, "bool", !1, !0],
       win_enable_ss_button_audio: [9633, "bool", !1, !1],
       win_hybrid_background_message_sync: [37827, "bool", !1, !0],
+      win_hybrid_bridge_ui_thread_completion_enabled: [39187, "bool", !1, !1],
       win_hybrid_bt_enabled: [30041, "bool", !1, !0],
       win_hybrid_eager_device_watching: [37128, "bool", !1, !0],
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],

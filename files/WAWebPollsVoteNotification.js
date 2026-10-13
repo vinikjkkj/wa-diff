@@ -98,14 +98,38 @@ __d(
         (a.afterBannerShown = function (t) {
           var e = this;
           (this.$PollVoteNotification$p_2.on(
-            "change add remove reset",
+            "change",
             this.$PollVoteNotification$p_3,
           ),
+            this.$PollVoteNotification$p_2.on(
+              "add",
+              this.$PollVoteNotification$p_3,
+            ),
+            this.$PollVoteNotification$p_2.on(
+              "remove",
+              this.$PollVoteNotification$p_3,
+            ),
+            this.$PollVoteNotification$p_2.on(
+              "reset",
+              this.$PollVoteNotification$p_3,
+            ),
             t.waitForClose().then(function () {
-              e.$PollVoteNotification$p_2.off(
-                "change add remove reset",
+              (e.$PollVoteNotification$p_2.off(
+                "change",
                 e.$PollVoteNotification$p_3,
-              );
+              ),
+                e.$PollVoteNotification$p_2.off(
+                  "add",
+                  e.$PollVoteNotification$p_3,
+                ),
+                e.$PollVoteNotification$p_2.off(
+                  "remove",
+                  e.$PollVoteNotification$p_3,
+                ),
+                e.$PollVoteNotification$p_2.off(
+                  "reset",
+                  e.$PollVoteNotification$p_3,
+                ));
             }));
         }),
         (a.buildKey = function () {

@@ -47,8 +47,7 @@ __d(
         ),
         S = n.get(e);
       (S != null && (v.controllerName = S),
-        t.objectSet.navigationManager.open(v, a),
-        t.objectSet.navigationManager.setScreenController(v));
+        t.objectSet.navigationManager.open(v, a));
     }
     l.default = c;
   },

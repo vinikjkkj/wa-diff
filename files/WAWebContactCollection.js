@@ -16,7 +16,6 @@ __d(
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebUserPrefsMeUser",
-    "WAWebUsernameWorkerCompatibleGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["cancelAt"],
@@ -118,23 +117,20 @@ __d(
             var t = r.cancelAt,
               a = t === void 0 ? null : t,
               i = babelHelpers.objectWithoutPropertiesLoose(r, e),
-              l = o(
-                "WAWebUsernameWorkerCompatibleGatingUtils",
-              ).onlyShowLidContacts(),
-              s = this.getModelsArray(),
-              c =
+              l = this.getModelsArray(),
+              s =
                 o(
                   "WAWebContactSearchGatingUtils",
                 ).getFuzzySearchTimeoutThreshold() * 1e3,
-              d = new (o("WATimeUtils").MonotonicTimer)(),
-              m = !1;
+              c = new (o("WATimeUtils").MonotonicTimer)(),
+              d = !1;
             return {
-              candidates: s,
+              candidates: l,
               limit: a,
               isTimedOut: function () {
-                if (m) return !0;
-                var e = d.elapsed();
-                return e > c
+                if (d) return !0;
+                var e = c.elapsed();
+                return e > s
                   ? (o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -143,16 +139,14 @@ __d(
                           "ms)",
                         ])),
                       e,
-                      c,
+                      s,
                     ),
-                    (m = !0),
+                    (d = !0),
                     !0)
                   : !1;
               },
               matchOne: function (t) {
-                if (
-                  !o("WAWebContactCollectionUtils").passesContactFilter(t, l, i)
-                )
+                if (!o("WAWebContactCollectionUtils").passesContactFilter(t, i))
                   return null;
                 var e = t.searchMatchFuzzy(n.text);
                 return e == null ? null : { contact: t, searchMatch: e };
@@ -169,12 +163,7 @@ __d(
             return i == null ? [] : o("WAWebSlicedMatcher").drainMatcherSync(i);
           }),
           (i.getMeContact = function () {
-            var e = o(
-              "WAWebUsernameWorkerCompatibleGatingUtils",
-            ).onlyShowLidContacts()
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-            return e == null ? null : this.get(e);
+            return this.get(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
           }),
           a
         );
