@@ -24,16 +24,7 @@ __d(
     function s() {
       return o("WAWebModelStorageUtils").getStorage().table("experience-id");
     }
-    function u() {
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .doesLocalSchemaIncludeVersion(
-          o("WAWebModelStorageVersions").experienceIdCreateTable(),
-        );
-    }
-    ((l.addTable = e),
-      (l.getExperienceIdTable = s),
-      (l.canUseExperienceIdTable = u));
+    ((l.addTable = e), (l.getExperienceIdTable = s));
   },
   98,
 );

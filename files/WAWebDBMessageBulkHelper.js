@@ -12,6 +12,7 @@ __d(
     "WAWebDBCAPIPermissions",
     "WAWebDBChatValidation",
     "WAWebDBEncryptMultipleMsgs",
+    "WAWebDBExperienceIdStore",
     "WAWebDBMessageUtils",
     "WAWebDBStoreEncryptedMsgs",
     "WAWebDBStoreNewsletterEncryptedMsgs",
@@ -240,44 +241,46 @@ __d(
               "message-association",
             ],
             m = a.length > 0 ? [].concat(d, ["quarantine-data"]) : d;
-          (yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              m,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = e[0],
-                      i = e[1],
-                      l = e[2],
-                      u = e[3],
-                      d = e[4];
-                    (o("WALogger")
-                      .LOG(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
-                            "persistNewMessagesInBulk: bulkCreateOrMerge",
-                          ])),
-                      )
-                      .tags("missing-lid"),
-                      o("WAWebDBChatValidation").validateAccountLidInChatRows(
-                        c,
-                        "persistNewMessagesInBulk",
-                      ),
-                      yield n.bulkCreateOrMerge(c),
-                      yield o(
-                        "WAWebDBStoreEncryptedMsgs",
-                      ).storeEncryptedDBMessages(s, t, !1, r),
-                      yield o(
-                        "WAWebQuarantineDataStore",
-                      ).bulkCreateOrReplaceQuarantineData(a, d));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
+          (o("WAWebDBExperienceIdStore").shouldLockExperienceIdTable(e) &&
+            m.push("experience-id"),
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                m,
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var n = e[0],
+                        i = e[1],
+                        l = e[2],
+                        u = e[3],
+                        d = e[4];
+                      (o("WALogger")
+                        .LOG(
+                          f ||
+                            (f = babelHelpers.taggedTemplateLiteralLoose([
+                              "persistNewMessagesInBulk: bulkCreateOrMerge",
+                            ])),
+                        )
+                        .tags("missing-lid"),
+                        o("WAWebDBChatValidation").validateAccountLidInChatRows(
+                          c,
+                          "persistNewMessagesInBulk",
+                        ),
+                        yield n.bulkCreateOrMerge(c),
+                        yield o(
+                          "WAWebDBStoreEncryptedMsgs",
+                        ).storeEncryptedDBMessages(s, t, !1, r),
+                        yield o(
+                          "WAWebQuarantineDataStore",
+                        ).bulkCreateOrReplaceQuarantineData(a, d));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
             u.length > 0 &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "bulkUpdateChatCapiCallingPermissionType",
@@ -300,38 +303,41 @@ __d(
             r = t[0],
             a = t[1],
             i = r.capiCallingPermissionUpdates,
-            l = r.chatUpdates;
-          (yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["chat", "message", "message-association"],
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e[0];
-                    (o("WALogger")
-                      .LOG(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
-                            "persistNewNewsletterMessagesInBulk: bulkCreateOrMerge",
-                          ])),
-                      )
-                      .tags("missing-lid"),
-                      o("WAWebDBChatValidation").validateAccountLidInChatRows(
-                        l,
-                        "persistNewNewsletterMessagesInBulk",
-                      ),
-                      yield t.bulkCreateOrMerge(l),
-                      yield o(
-                        "WAWebDBStoreNewsletterEncryptedMsgs",
-                      ).storeEncryptedNewsletterMessages(a));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
+            l = r.chatUpdates,
+            s = ["chat", "message", "message-association"];
+          (o("WAWebDBExperienceIdStore").shouldLockExperienceIdTable(e) &&
+            s.push("experience-id"),
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                s,
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0];
+                      (o("WALogger")
+                        .LOG(
+                          g ||
+                            (g = babelHelpers.taggedTemplateLiteralLoose([
+                              "persistNewNewsletterMessagesInBulk: bulkCreateOrMerge",
+                            ])),
+                        )
+                        .tags("missing-lid"),
+                        o("WAWebDBChatValidation").validateAccountLidInChatRows(
+                          l,
+                          "persistNewNewsletterMessagesInBulk",
+                        ),
+                        yield t.bulkCreateOrMerge(l),
+                        yield o(
+                          "WAWebDBStoreNewsletterEncryptedMsgs",
+                        ).storeEncryptedNewsletterMessages(a));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
             i.length > 0 &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "bulkUpdateChatCapiCallingPermissionType",

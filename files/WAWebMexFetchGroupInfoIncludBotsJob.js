@@ -406,45 +406,41 @@ __d(
             p = e.participant,
             _ = e.role,
             f = !1,
-            g = !1,
-            h = p != null ? p : m;
-          if (h == null)
+            g = p != null ? p : m;
+          if (g == null)
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
               500,
               "missing participant or node in group info participant response",
             );
-          var y, C, b;
-          if (h.id != null)
-            ((y = o("WAWebWidFactory").createWid(h.id)),
-              h.lid != null && (C = o("WAWebWidFactory").createWid(h.lid)),
-              h.pn != null && (b = o("WAWebWidFactory").createWid(h.pn)));
-          else if (h.jid != null)
-            ((y = o("WAWebWidFactory").createWid(h.jid)),
-              y.isBot() &&
-                (o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(y)
+          var h, y, C;
+          if (g.id != null)
+            ((h = o("WAWebWidFactory").createWid(g.id)),
+              g.lid != null && (y = o("WAWebWidFactory").createWid(g.lid)),
+              g.pn != null && (C = o("WAWebWidFactory").createWid(g.pn)));
+          else if (g.jid != null)
+            ((h = o("WAWebWidFactory").createWid(g.jid)),
+              h.isBot() &&
+                (o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(h)
                   ? ((f = !0),
                     (i = o(
                       "WAWebBotGroupGatingUtils",
                     ).isOpenGroupBotSendEnabled()))
-                  : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(y) &&
-                    ((g = !0),
-                    (l = o(
-                      "WAWebBotGroupGatingUtils",
-                    ).isTEEGroupBotParticipantAddEnabled()))));
+                  : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(h) &&
+                    (l = !0)));
           else
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
               500,
               "missing id or jid in group info participant response",
             );
-          var v = {
-            id: y,
-            lid: C,
-            phoneNumber: b != null ? b : null,
-            displayName: (t = h.display_name) != null ? t : null,
+          var b = {
+            id: h,
+            lid: y,
+            phoneNumber: C != null ? C : null,
+            displayName: (t = g.display_name) != null ? t : null,
             isAdmin: _ === "ADMIN_MEMBER" || _ === "SUPERADMIN_MEMBER",
             isSuperAdmin: _ === "SUPERADMIN_MEMBER",
             username: n
-              ? (u = h.username_info) == null
+              ? (u = g.username_info) == null
                 ? void 0
                 : u.username
               : null,
@@ -453,15 +449,10 @@ __d(
               ? o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(c)
               : void 0,
           };
-          !(f || g) ||
-          (f &&
-            o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled()) ||
-          (g &&
-            o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled())
-            ? a.push(v)
-            : s.length < 3 && s.push(y.toString());
+          !f ||
+          o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled()
+            ? a.push(b)
+            : s.length < 3 && s.push(h.toString());
         }),
         s.length > 0 &&
           o("WALogger").LOG(

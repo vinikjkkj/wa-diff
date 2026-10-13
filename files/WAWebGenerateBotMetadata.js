@@ -197,6 +197,13 @@ __d(
                     .HATCH_BROWSER_TASK_CARD_ENABLED,
                 ]
               : [],
+            o("WAWebHatchBackendGating").isHatchJarvisSchemaEnabledOnBackend()
+              ? [
+                  o("WAWebProtobufsAICommon.pb")
+                    .BotCapabilityMetadata$BotCapabilityType
+                    .AI_MUSE_JARVIS_SCHEMA_ENABLED,
+                ]
+              : [],
           )
         : [];
     }

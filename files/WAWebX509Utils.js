@@ -4,12 +4,12 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WATypedArraysEqual",
     "WAWebCertificateString",
     "WAWebCertificateUtils",
     "asyncToGeneratorRuntime",
     "filterNulls",
     "getErrorSafe",
-    "pvutils-1.0.17",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -63,7 +63,10 @@ __d(
     function v(e, t) {
       return e.flat().reduce(function (e, n) {
         return e.every(function (e) {
-          return !o("pvutils-1.0.17").isEqualBuffer(e.tbs, n.tbs);
+          return !r("WATypedArraysEqual")(
+            new Uint8Array(e.tbs),
+            new Uint8Array(n.tbs),
+          );
         }) && t.includes(n)
           ? [].concat(e, [n])
           : e;

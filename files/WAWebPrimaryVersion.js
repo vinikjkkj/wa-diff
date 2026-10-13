@@ -3,22 +3,44 @@ __d(
   [
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaSyncActions",
+    "WAWebUserPrefsIndexedDBStorage",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return u("current");
+      return _("current");
     }
-    function s() {
-      return u("session_start");
+    var s = "WAPrimaryCurrentVersion";
+    function u() {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s);
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e) {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, e);
     }
-    function c() {
+    function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (u() == null) {
+            var t = yield e();
+            t != null && u() == null && (yield c(t));
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
+      return _("session_start");
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaSyncActions")
             .getSyncActionsTable()
             .get('["primary_version","' + e + '"]');
@@ -34,10 +56,14 @@ __d(
           }
           return null;
         })),
-        c.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.getPrimaryCurrentVersion = e), (l.getPrimarySessionStartVersion = s));
+    ((l.getPrimaryCurrentVersion = e),
+      (l.getStoredPrimaryCurrentVersion = u),
+      (l.storePrimaryCurrentVersion = c),
+      (l.maybeBackfillStoredPrimaryCurrentVersion = d),
+      (l.getPrimarySessionStartVersion = p));
   },
   98,
 );

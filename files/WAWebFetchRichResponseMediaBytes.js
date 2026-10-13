@@ -59,7 +59,7 @@ __d(
                           mediaKey: t.mediaKey,
                           mediaKeyTimestamp: t.mediaKeyTimestamp,
                           mimetype: t.mimetype,
-                          type: o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
+                          type: f(t.mediaType),
                           signal: e,
                           userDownloadAttemptCount: 0,
                           downloadQpl: m,
@@ -80,21 +80,21 @@ __d(
                 })(),
               );
             e: {
-              var f = _;
+              var g = _;
               if (
-                ((typeof f == "object" && f !== null) ||
-                  typeof f == "function") &&
-                f.kind === "completed" &&
-                "value" in f
+                ((typeof g == "object" && g !== null) ||
+                  typeof g == "function") &&
+                g.kind === "completed" &&
+                "value" in g
               ) {
-                var g = f.value;
-                return (m.endSuccess(), g);
+                var h = g.value;
+                return (m.endSuccess(), h);
                 break e;
               }
               if (
-                ((typeof f == "object" && f !== null) ||
-                  typeof f == "function") &&
-                f.kind === "timedOut"
+                ((typeof g == "object" && g !== null) ||
+                  typeof g == "function") &&
+                g.kind === "timedOut"
               ) {
                 return (
                   m.endFailWithError(
@@ -106,9 +106,9 @@ __d(
                 break e;
               }
               if (
-                ((typeof f == "object" && f !== null) ||
-                  typeof f == "function") &&
-                f.kind === "callerAborted"
+                ((typeof g == "object" && g !== null) ||
+                  typeof g == "function") &&
+                g.kind === "callerAborted"
               ) {
                 return (
                   m.endFailWithError("download_aborted", "download_aborted"),
@@ -117,14 +117,14 @@ __d(
                 break e;
               }
               if (
-                ((typeof f == "object" && f !== null) ||
-                  typeof f == "function") &&
-                f.kind === "failed" &&
-                "error" in f
+                ((typeof g == "object" && g !== null) ||
+                  typeof g == "function") &&
+                g.kind === "failed" &&
+                "error" in g
               ) {
-                var h = f.error;
+                var y = g.error;
                 return (
-                  m.endFailWithError("download_failed", h.message),
+                  m.endFailWithError("download_failed", y.message),
                   o("WALogger")
                     .WARN(
                       e ||
@@ -132,7 +132,7 @@ __d(
                           "rich response: media download failed",
                         ])),
                     )
-                    .catching(h)
+                    .catching(y)
                     .sendLogs("rich-response-media-download-failed"),
                   null
                 );
@@ -140,7 +140,7 @@ __d(
               }
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  f,
+                  g,
               );
             }
           } catch (e) {
@@ -189,6 +189,22 @@ __d(
         })),
         _.apply(this, arguments)
       );
+    }
+    function f(e) {
+      return e === "audio"
+        ? o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO
+        : e === "document"
+          ? o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT
+          : e === "video"
+            ? o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO
+            : e === "image" || e === null || e === void 0
+              ? o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     l.fetchRichResponseMediaBytes = d;
   },

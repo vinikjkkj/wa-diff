@@ -419,17 +419,15 @@ __d(
     function Q(e) {
       var t = e.map(function (e) {
         var t,
-          n = o("WAWebSchemaOrg").OrgMemberRole.cast(e.role);
-        return e.display_name == null ||
-          e.org_id == null ||
-          e.org_id === "" ||
-          n == null
+          n,
+          r = o("WAWebSchemaOrg").OrgMemberRole.cast(e.role);
+        return e.org_id == null || e.org_id === "" || r == null
           ? null
           : {
-              memberName: e.display_name,
-              memberTag: (t = e.member_tag) != null ? t : "",
+              memberName: (t = e.display_name) != null ? t : "",
+              memberTag: (n = e.member_tag) != null ? n : "",
               orgId: e.org_id,
-              role: n,
+              role: r,
             };
       });
       return t.some(function (e) {

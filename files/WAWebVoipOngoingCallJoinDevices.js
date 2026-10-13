@@ -7,6 +7,7 @@ __d(
     "WAWebNoop",
     "WAWebUA",
     "WAWebVoipAcquireMediaStream",
+    "WAWebVoipCallAudioUnlock",
     "WAWebVoipDeviceAccessRecoveryGating",
     "WAWebVoipJoinWithoutCamera",
     "WAWebVoipMicrophoneRefusalState",
@@ -23,7 +24,7 @@ __d(
       d,
       m,
       p = { afterJoin: r("WAWebNoop") },
-      _ = { afterJoin: R };
+      _ = { afterJoin: E };
     function f(e, t, n) {
       return g.apply(this, arguments);
     }
@@ -42,8 +43,9 @@ __d(
                 : "unknown",
             ]),
             i = a[0],
-            l = a[1],
-            s = i === "denied";
+            l = a[1];
+          v(i, r);
+          var s = i === "denied";
           return (!s && l !== "denied") ||
             !o(
               "WAWebVoipDeviceAccessRecoveryGating",
@@ -100,7 +102,11 @@ __d(
                 return o;
               })(),
             });
-          if (r) return !e.checkVideo && e.isCameraOff ? v(e.callId) : p;
+          if (r)
+            return (
+              o("WAWebVoipCallAudioUnlock").releaseCallAudioUnlock(),
+              !e.checkVideo && e.isCameraOff ? S(e.callId) : p
+            );
           var a = yield t;
           return (a == null ? void 0 : a.type) === "check_microphone_alone"
             ? h(
@@ -109,9 +115,9 @@ __d(
                   isCameraOff: !0,
                 }),
               )
-            : (a == null ? void 0 : a.type) === "join"
-              ? a.join
-              : null;
+            : (a == null ? void 0 : a.type) !== "join"
+              ? (o("WAWebVoipCallAudioUnlock").releaseCallAudioUnlock(), null)
+              : a.join;
         })),
         y.apply(this, arguments)
       );
@@ -145,7 +151,7 @@ __d(
               ),
               { type: "check_microphone_alone" }
             );
-          var r = S(e, t, n);
+          var r = R(e, t, n);
           return r == null
             ? null
             : { type: "join", join: r, keepsGuide: t === "unavailable" };
@@ -153,24 +159,29 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e) {
+    function v(e, t) {
+      o("WAWebUA").UA.isWebkit &&
+        t &&
+        (e === "prompt" || e === "denied") &&
+        o(
+          "WAWebVoipDeviceAccessRecoveryGating",
+        ).isDeviceAccessRecoveryEnabled() &&
+        o("WAWebVoipCallAudioUnlock").unlockCallAudio();
+    }
+    function S(e) {
       return {
         afterJoin: function () {
           return o("WAWebVoipJoinWithoutCamera").markJoinWithoutCamera(e);
         },
       };
     }
-    function S(t, n, r) {
+    function R(t, n, r) {
       var a = t.callId,
         i = t.isCameraOff,
         l = t.joinAndAccept;
-      return !o("WAWebUA").UA.isWebkit ||
-        (r !== "denied" && r !== "prompt") ||
-        !o(
-          "WAWebVoipDeviceAccessRecoveryGating",
-        ).isDeviceAccessRecoveryEnabled()
-        ? null
-        : (o("WALogger").LOG(
+      return L(r, l)
+        ? (o("WAWebVoipCallAudioUnlock").holdUnlockedCallAudio(),
+          o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: microphone ",
@@ -186,16 +197,25 @@ __d(
             afterJoin: function () {
               (i && o("WAWebVoipJoinWithoutCamera").markJoinWithoutCamera(a),
                 l &&
-                  (R(),
+                  (E(),
                   n === "denied" &&
                     o(
                       "WAWebVoipMicrophoneRefusalState",
                     ).reportMicrophoneRefused(a)));
             },
-          });
+          })
+        : null;
     }
-    function R() {
-      L().catch(function (e) {
+    function L(e, t) {
+      return (
+        o("WAWebUA").UA.isWebkit &&
+        (e === "denied" || e === "prompt") &&
+        (!t || o("WAWebVoipCallAudioUnlock").canStartCallAudio()) &&
+        o("WAWebVoipDeviceAccessRecoveryGating").isDeviceAccessRecoveryEnabled()
+      );
+    }
+    function E() {
+      k().catch(function (e) {
         o("WALogger")
           .WARN(
             s ||
@@ -206,12 +226,12 @@ __d(
           .catching(r("getErrorSafe")(e));
       });
     }
-    function L() {
-      return E.apply(this, arguments);
+    function k() {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((e == null ? void 0 : e.type) === "web") {
             var t = yield e.setCallMute(!0);
@@ -226,7 +246,7 @@ __d(
               );
           }
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
     l.checkOngoingCallJoinDevices = f;

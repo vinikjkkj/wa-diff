@@ -202,13 +202,51 @@ __d(
                 );
               })();
     }
+    function f() {
+      return s._(/*BTDS*/ "Exceptions");
+    }
+    function g() {
+      return s._(/*BTDS*/ "Never respond to...");
+    }
+    function h(e) {
+      return s._(/*BTDS*/ '_j{"*":"{number} excluded","_1":"1 excluded"}', [
+        s._plural(e, "number"),
+      ]);
+    }
+    function y() {
+      return s._(/*BTDS*/ "Your AI agent never responds to these people.");
+    }
+    function C() {
+      return s._(/*BTDS*/ "Search");
+    }
+    function b() {
+      return s._(/*BTDS*/ "Deselect all");
+    }
+    function v() {
+      return s._(/*BTDS*/ "Save");
+    }
+    function S(e) {
+      return s._(/*BTDS*/ "{name} is selected", [s._param("name", e)]);
+    }
+    function R() {
+      return s._(/*BTDS*/ "Deselect");
+    }
     ((l.DISCONNECT_AI_FAQ_ARTICLE_ID = e),
       (l.getAudienceLabel = u),
       (l.getStatusSummary = c),
       (l.getModeLabel = d),
       (l.getModeDescription = m),
       (l.getModePickerHeader = p),
-      (l.getModePickerFooter = _));
+      (l.getModePickerFooter = _),
+      (l.getExceptionsHeader = f),
+      (l.getExceptionsTitle = g),
+      (l.getExceptionsCount = h),
+      (l.getExceptionsFooter = y),
+      (l.getExceptionsSearchPlaceholder = C),
+      (l.getExceptionsDeselectAllLabel = b),
+      (l.getExceptionsSaveLabel = v),
+      (l.getExceptionsSelectedChipLabel = S),
+      (l.getExceptionsDeselectLabel = R));
   },
   226,
 );

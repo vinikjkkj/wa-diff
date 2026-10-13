@@ -43,6 +43,13 @@ __d(
                 selections: t,
                 storageKey: null,
               },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "unresolved_lids",
+                storageKey: null,
+              },
             ],
             storageKey: null,
           },

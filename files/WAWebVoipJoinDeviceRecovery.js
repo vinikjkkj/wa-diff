@@ -9,6 +9,7 @@ __d(
     "WAWebNoop",
     "WAWebUA",
     "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipCallAudioUnlock",
     "WAWebVoipCallStateUtils",
     "WAWebVoipDeviceAccessRecoveryGating",
     "WAWebVoipDevicePermissionRequest",
@@ -39,7 +40,7 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t == null || !k(t.getState()) || r("WAWebEnvironment").isWindows)
+          if (t == null || !T(t.getState()) || r("WAWebEnvironment").isWindows)
             return null;
           var n = {
               camera: e.camera,
@@ -47,10 +48,10 @@ __d(
             },
             a = yield R(n);
           return !a.isRecoveryNeeded ||
-            E(a) ||
             !o(
               "WAWebVoipDeviceAccessRecoveryGating",
-            ).isDeviceAccessRecoveryEnabled()
+            ).isDeviceAccessRecoveryEnabled() ||
+            (k(a), E(a))
             ? null
             : (o("WALogger").LOG(
                 u ||
@@ -65,7 +66,7 @@ __d(
               {
                 acceptMuted: a.isMicrophoneOff,
                 acceptWithoutCamera: a.isCameraOff || a.neverAsked.microphone,
-                afterAccept: I(a, n, t),
+                afterAccept: D(a, n, t),
               });
         })),
         b.apply(this, arguments)
@@ -77,7 +78,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          if (!o("WAWebUA").UA.isWebkit || t == null || !k(t.getState()))
+          if (!o("WAWebUA").UA.isWebkit || t == null || !T(t.getState()))
             return null;
           var i = yield (g || (g = n("Promise"))).all([
               o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
@@ -91,12 +92,9 @@ __d(
             ]),
             l = i[0],
             s = i[1];
-          return (l !== "denied" && l !== "prompt") ||
-            !o(
-              "WAWebVoipDeviceAccessRecoveryGating",
-            ).isDeviceAccessRecoveryEnabled()
-            ? null
-            : (a
+          return I(l)
+            ? (o("WAWebVoipCallAudioUnlock").holdUnlockedCallAudio(),
+              a
                 ? o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -123,7 +121,8 @@ __d(
                 acceptMuted: !0,
                 acceptWithoutCamera: s !== "granted",
                 afterAccept: r("WAWebNoop"),
-              });
+              })
+            : null;
         })),
         S.apply(this, arguments)
       );
@@ -166,12 +165,24 @@ __d(
       return o("WAWebUA").UA.isWebkit && e.isMicrophoneNeverAsked;
     }
     function k(e) {
+      o("WAWebUA").UA.isWebkit &&
+        e.isMicrophoneOff &&
+        o("WAWebVoipCallAudioUnlock").unlockCallAudio();
+    }
+    function I(e) {
+      return (
+        (e === "denied" || e === "prompt") &&
+        o("WAWebVoipCallAudioUnlock").canStartCallAudio() &&
+        o("WAWebVoipDeviceAccessRecoveryGating").isDeviceAccessRecoveryEnabled()
+      );
+    }
+    function T(e) {
       return (
         o("WAWebVoipCallStateUtils").isCallIncoming(e) ||
         e === o("WAWebVoipWaCallEnums").CallState.Rejoining
       );
     }
-    function I(t, n, a) {
+    function D(t, n, a) {
       var i = t.neverAsked;
       if (!i.camera && !i.microphone) return r("WAWebNoop");
       var l = t.isMicrophoneOff
@@ -190,18 +201,18 @@ __d(
           ),
         function () {
           var s,
-            u = D(
+            u = $(
               (s =
                 l == null
                   ? void 0
                   : l.then(function (e) {
-                      return (T(t, a, e), e.granted);
+                      return (x(t, a, e), e.granted);
                     })) != null
                 ? s
-                : x(i, a),
+                : P(i, a),
             );
           u.then(function (e) {
-            return e == null ? void 0 : P(t, n, a, e);
+            return e == null ? void 0 : M(t, n, a, e);
           }).catch(function (t) {
             o("WALogger")
               .WARN(
@@ -215,14 +226,14 @@ __d(
         }
       );
     }
-    function T(e, t, n) {
+    function x(e, t, n) {
       var a = n.isRefused;
       e.neverAsked.microphone &&
         a &&
         r("WAWebCallCollection").activeCall === t &&
         o("WAWebVoipMicrophoneRefusalState").reportMicrophoneRefused(t.id);
     }
-    function D(e) {
+    function $(e) {
       var t = Date.now();
       return e.then(function (e) {
         var n = Date.now() - t;
@@ -239,13 +250,13 @@ __d(
             null);
       });
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield W();
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield U();
           if (!n || r("WAWebCallCollection").activeCall !== t) return null;
           var a = yield o(
               "WAWebVoipDevicePermissionRequest",
@@ -253,34 +264,34 @@ __d(
             i = a.granted;
           return i;
         })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t, n, r) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield M(t, r),
-              a =
-                t.microphone &&
-                e.isMicrophoneOff &&
-                o.microphone &&
-                (yield W());
-            (o.camera && (yield A(n)), a && (yield O(n)));
-          },
-        )),
         N.apply(this, arguments)
       );
     }
-    function M(e, t) {
+    function M(e, t, n, r) {
       return w.apply(this, arguments);
     }
     function w() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var o = yield A(t, r),
+              a =
+                t.microphone &&
+                e.isMicrophoneOff &&
+                o.microphone &&
+                (yield U());
+            (o.camera && (yield O(n)), a && (yield W(n)));
+          },
+        )),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e, t) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield (g || (g = n("Promise"))).all([
               o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
                 "microphone",
@@ -298,15 +309,15 @@ __d(
             microphone: t.microphone || a === "granted",
           };
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if (
             !(
@@ -332,15 +343,15 @@ __d(
               );
           }
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if (
             !(
@@ -366,10 +377,10 @@ __d(
               );
           }
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W() {
+    function U() {
       return new (g || (g = n("Promise")))(function (e) {
         if (
           o("WAWebVoipMicrophoneInputState").getMicrophoneInputStatus() ===

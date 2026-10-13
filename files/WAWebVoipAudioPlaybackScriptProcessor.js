@@ -6,6 +6,7 @@ __d(
     "WAWebAudioRingBuffer",
     "WAWebBackendApi",
     "WAWebNoop",
+    "WAWebVoipCallAudioUnlock",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -139,7 +140,9 @@ __d(
                     this.playbackScriptProcessor.connect(
                       this.playbackMediaStreamDestination,
                     ),
-                  (this.playbackAudioElement = new Audio()),
+                  (this.playbackAudioElement = o(
+                    "WAWebVoipCallAudioUnlock",
+                  ).createCallPlaybackElement()),
                   this.playbackMediaStreamDestination != null &&
                     (this.playbackAudioElement.srcObject =
                       this.playbackMediaStreamDestination.stream),

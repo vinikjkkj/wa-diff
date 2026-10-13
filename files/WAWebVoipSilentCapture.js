@@ -7,6 +7,7 @@ __d(
     "WAWebMediaPermissionsUtils",
     "WAWebNoop",
     "WAWebUA",
+    "WAWebVoipCallAudioUnlock",
     "WAWebVoipMicrophoneLevelAccumulator",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -60,8 +61,9 @@ __d(
           : null;
     }
     function I(t) {
+      var n;
       if (o("WAWebUA").UA.isFirefox) {
-        var n = new AudioContext({ latencyHint: "interactive" });
+        var r = new AudioContext({ latencyHint: "interactive" });
         return (
           o("WALogger").LOG(
             e ||
@@ -70,16 +72,21 @@ __d(
                 "Hz, VoIP expects ",
                 "Hz",
               ])),
-            n.sampleRate,
+            r.sampleRate,
             t.sampleRate,
           ),
-          n
+          r
         );
       }
-      return new AudioContext({
-        sampleRate: t.sampleRate,
-        latencyHint: "interactive",
-      });
+      return (n = o("WAWebVoipCallAudioUnlock").takeUnlockedAudioContext(
+        "capture",
+        t.sampleRate,
+      )) != null
+        ? n
+        : new AudioContext({
+            sampleRate: t.sampleRate,
+            latencyHint: "interactive",
+          });
     }
     function T(e, t) {
       var n = I(e);

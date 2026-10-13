@@ -14,9 +14,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t = /\S/.exec(e);
-      return t != null && (e[t.index] === "{" || e[t.index] === "[")
-        ? e.slice(0, t.index + 1) + "/*x*/" + e.slice(t.index + 1)
+      var t = /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:/.exec(e);
+      if (t != null) return t[0] + "/*x*/" + e.slice(t[0].length);
+      var n = /\S/.exec(e);
+      return n != null && (e[n.index] === "{" || e[n.index] === "[")
+        ? e.slice(0, n.index + 1) + "/*x*/" + e.slice(n.index + 1)
         : "/*x*/" + e;
     }
     function u(t) {
@@ -76,7 +78,7 @@ __d(
           }
         if (!d && n("cr:7329"))
           try {
-            ((c = n("cr:7329").fromChunk(s(t))), (d = !0));
+            ((c = n("cr:7329").fromBlock(s(t))), (d = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))

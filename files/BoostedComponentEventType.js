@@ -1478,6 +1478,9 @@ __d(
       INDIA_FINSERV_CHECKBOX_IMPRESSION: "india_finserv_checkbox_impression",
       INDIA_FINSERV_BENEFICIARY_AND_PAYER_DROPDOWN_IMPRESSION:
         "india_finserv_beneficiary_and_payer_dropdown_impression",
+      US_SECURITIES_CHECKBOX_UNCHECKED: "us_securities_checkbox_unchecked",
+      US_SECURITIES_CHECKBOX_CHECKED: "us_securities_checkbox_checked",
+      US_SECURITIES_CHECKBOX_IMPRESSION: "us_securities_checkbox_impression",
       BIZAPP_RUN_STATUS_UPDATE: "bizapp_run_status_update",
       BIZAPP_CLEAR_SANDBOX_CLICK: "bizapp_clear_sandbox_click",
       BIZAPP_SET_SANDBOX_ON_TOAST: "bizapp_set_sandbox_on_toast",

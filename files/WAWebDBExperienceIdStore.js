@@ -3,58 +3,58 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWeb-dexie",
     "WAWebSchemaExperienceId",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      try {
-        if (
-          !e.some(function (e) {
-            var t, n;
-            return (
-              ((t = (n = e.experienceIds) == null ? void 0 : n.length) != null
-                ? t
-                : 0) > 0
-            );
-          }) ||
-          !o("WAWebSchemaExperienceId").canUseExperienceIdTable() ||
-          !r("justknobx")._("6170")
-        )
-          return;
-        var t = o("WATimeUtils").unixTimeMs(),
-          n = e.flatMap(function (e) {
-            var n = e.experienceIds,
-              r = e.id;
-            return n != null && n.length > 0
-              ? [{ msgKey: r, experienceIds: n, storedAtMs: t }]
-              : [];
-          });
-        r("WAWeb-dexie").ignoreTransaction(function () {
-          o("WAWebSchemaExperienceId")
-            .getExperienceIdTable()
-            .bulkCreateOrReplace(n)
-            .catch(u);
-        });
-      } catch (e) {
-        u(e);
-      }
+      return e.some(function (e) {
+        var t, n;
+        return (
+          ((t = (n = e.experienceIds) == null ? void 0 : n.length) != null
+            ? t
+            : 0) > 0
+        );
+      });
     }
-    function u(t) {
-      o("WALogger")
-        .ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "recordReceivedExperienceIds: dropping rows",
-            ])),
-        )
-        .catching(r("getErrorSafe")(t))
-        .sendLogs("experience-id-record-failed");
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    l.recordReceivedExperienceIds = s;
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            if (!s(t) || !r("justknobx")._("6170")) return;
+            var n = o("WATimeUtils").unixTimeMs(),
+              a = t.flatMap(function (e) {
+                var t = e.experienceIds,
+                  r = e.id;
+                return t != null && t.length > 0
+                  ? [{ msgKey: r, experienceIds: t, storedAtMs: n }]
+                  : [];
+              });
+            yield o("WAWebSchemaExperienceId")
+              .getExperienceIdTable()
+              .bulkCreateOrReplace(a);
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "recordReceivedExperienceIds: dropping rows",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("experience-id-record-failed");
+          }
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    ((l.shouldLockExperienceIdTable = s), (l.recordReceivedExperienceIds = u));
   },
   98,
 );

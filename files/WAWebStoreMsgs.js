@@ -16,6 +16,7 @@ __d(
     "WAWebCommonMsgUtils",
     "WAWebCurrentUser",
     "WAWebDBAddOnProviders",
+    "WAWebDBExperienceIdStore",
     "WAWebDBMessageBulkHelper",
     "WAWebDBMessageSerialization",
     "WAWebDBProcessEditProtocolMsgs",
@@ -310,33 +311,34 @@ __d(
               t.filter(function (e) {
                 return r.has(e.id.toString());
               }),
-            );
-          if (a.length === 0) {
-            yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkCreateOrReplace(e);
-            return;
-          }
-          yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["message", "quarantine-data"],
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = t[0],
-                      r = t[1];
-                    (yield n.bulkCreateOrReplace(e),
-                      yield o(
-                        "WAWebQuarantineDataStore",
-                      ).bulkCreateOrReplaceQuarantineData(a, r));
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
+            ),
+            i = ["message"];
+          (a.length > 0 && i.push("quarantine-data"),
+            o("WAWebDBExperienceIdStore").shouldLockExperienceIdTable(e) &&
+              i.push("experience-id"),
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                i,
+                (function () {
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (t) {
+                      var n = t[0],
+                        r = t[1];
+                      (yield n.bulkCreateOrReplace(e),
+                        yield o(
+                          "WAWebQuarantineDataStore",
+                        ).bulkCreateOrReplaceQuarantineData(a, r),
+                        yield o(
+                          "WAWebDBExperienceIdStore",
+                        ).recordReceivedExperienceIds(e));
+                    },
+                  );
+                  return function (e) {
+                    return t.apply(this, arguments);
+                  };
+                })(),
+              ));
         })),
         S.apply(this, arguments)
       );

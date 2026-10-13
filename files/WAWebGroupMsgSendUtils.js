@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebAddonGatingUtils",
     "WAWebBotGroupGatingUtils",
+    "WAWebBotUtils",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebGroupUtils",
@@ -68,16 +69,14 @@ __d(
               (s.isCapiGroup = i.hasCapi === !0),
               (s.isOpenBotGroup =
                 o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
-                i.isOpenBotGroup === !0),
-              (s.isTeeBotGroup =
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isTEEGroupBotParticipantAddEnabled() &&
-                i.isTeeBotGroup === !0));
+                i.isOpenBotGroup === !0));
           }
           if (n != null) {
             var m = o("WAWebGroupUtils").amIGroupAdmin(n.admins);
             ((s.amIAdmin = m),
+              (s.isTeeBotGroup = n.participants.includes(
+                o("WAWebBotUtils").META_BOT_TEE_FBID_WID.toString(),
+              )),
               (s = babelHelpers.extends(
                 {},
                 s,

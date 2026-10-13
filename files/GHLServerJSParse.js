@@ -22,9 +22,11 @@ __d(
       return o + t.slice(a);
     }
     function m(e) {
-      var t = /\S/.exec(e);
-      return t != null && (e[t.index] === "{" || e[t.index] === "[")
-        ? e.slice(0, t.index + 1) + "/*x*/" + e.slice(t.index + 1)
+      var t = /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:/.exec(e);
+      if (t != null) return t[0] + "/*x*/" + e.slice(t[0].length);
+      var n = /\S/.exec(e);
+      return n != null && (e[n.index] === "{" || e[n.index] === "[")
+        ? e.slice(0, n.index + 1) + "/*x*/" + e.slice(n.index + 1)
         : "/*x*/" + e;
     }
     function p(e) {
@@ -87,7 +89,7 @@ __d(
             } catch (e) {
               R = !1;
             }
-          R || (t = r("json5").fromChunk(m(p)));
+          R || (t = r("json5").fromBlock(m(p)));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
@@ -104,7 +106,7 @@ __d(
         t
       );
     }
-    l.expandBootPayload = p;
+    l.unpackBootPayload = p;
   },
   98,
 );

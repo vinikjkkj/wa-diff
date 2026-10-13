@@ -114,7 +114,7 @@ __d(
               u,
               t,
             ),
-            !o("WAWebVoipGatingUtils").callLinksEnabled())
+            !o("WAWebVoipGatingUtils").isCallingEnabled())
           ) {
             (o("WALogger").LOG(
               f ||

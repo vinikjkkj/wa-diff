@@ -2,6 +2,7 @@ __d(
   "WAWebPrimaryVersionSync",
   [
     "WALogger",
+    "WAWebPrimaryVersion",
     "WAWebSyncdAction",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
@@ -37,7 +38,8 @@ __d(
                 var n = this,
                   r = 0,
                   a = 0,
-                  i = t.map(function (e) {
+                  i = null,
+                  l = t.map(function (e) {
                     var t;
                     if (e.operation !== "set")
                       return (
@@ -47,22 +49,23 @@ __d(
                             o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
-                    var i = e.indexParts,
-                      l = e.value,
-                      s = i[1];
-                    if (!s || (s !== u.CURRENT && s !== u.SESSION_START))
+                    var l = e.indexParts,
+                      s = e.value,
+                      c = l[1];
+                    if (!c || (c !== u.CURRENT && c !== u.SESSION_START))
                       return n.malformedActionIndex();
-                    var c =
-                      (t = l.primaryVersionAction) == null ? void 0 : t.version;
-                    return c == null
+                    var d =
+                      (t = s.primaryVersionAction) == null ? void 0 : t.version;
+                    return d == null
                       ? (a++,
                         o("WAWebSyncdIndexUtils").malformedActionValue(
                           n.collectionName,
                         ))
-                      : {
+                      : (c === u.CURRENT && (i = d),
+                        {
                           actionState:
                             o("WAWebSyncdConst").SyncActionState.Success,
-                        };
+                        });
                   });
                 return (
                   r > 0 &&
@@ -83,7 +86,11 @@ __d(
                         ])),
                       a,
                     ),
-                  i
+                  i != null &&
+                    (yield o("WAWebPrimaryVersion").storePrimaryCurrentVersion(
+                      i,
+                    )),
+                  l
                 );
               },
             );

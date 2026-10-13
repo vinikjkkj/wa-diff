@@ -1,6 +1,12 @@
 __d(
   "WAWebHatchBackendGating",
-  ["WAWebABProps", "WAWebHatchGating", "WAWebPrimaryFeatures"],
+  [
+    "WAWebABProps",
+    "WAWebHatchGating",
+    "WAWebHatchMinPrimaryVersions",
+    "WAWebPrimaryFeatures",
+    "WAWebPrimaryVersionGating",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "ai_hatch_integration_enabled";
@@ -22,18 +28,30 @@ __d(
     function c() {
       return (
         s() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
       );
     }
     function d() {
       return (
         s() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
       );
     }
     function m() {
       return (
         s() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_secure_credentials_enabled",
         )
@@ -41,7 +59,20 @@ __d(
     }
     function p() {
       return (
-        s() && o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
+        s() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
+      );
+    }
+    function _() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_response_ux_parity_enabled",
+        )
       );
     }
     ((l.HATCH_PRIMARY_FEATURE = e),
@@ -50,7 +81,8 @@ __d(
       (l.isHatchBrowserEnabledOnBackend = c),
       (l.isHatchConnectorsEnabledOnBackend = d),
       (l.isHatchSecureCredentialsEnabledOnBackend = m),
-      (l.isHatchSpaceEnabledOnBackend = p));
+      (l.isHatchSpaceEnabledOnBackend = p),
+      (l.isHatchJarvisSchemaEnabledOnBackend = _));
   },
   98,
 );

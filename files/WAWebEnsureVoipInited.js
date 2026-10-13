@@ -53,8 +53,9 @@ __d(
               );
             },
           );
-          var n = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
-            a = n.WAWebVoipInit;
+          var n = self.performance.now(),
+            a = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
+            i = a.WAWebVoipInit;
           if (
             (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
@@ -68,18 +69,23 @@ __d(
                 );
               },
             ),
-            yield a.initWAWebVoip(t),
+            yield i.initWAWebVoip(
+              t,
+              void 0,
+              void 0,
+              Math.round(self.performance.now() - n),
+            ),
             o(
               "WAWebVoipInitEventEmitter",
             ).VoipInitEventEmitter.getIsVoipInited())
           )
             return !1;
-          var i = !1;
+          var l = !1;
           if (
             (o(
               "WAWebVoipInitEventEmitter",
             ).VoipInitEventEmitter.getDidVoipInitError() &&
-              ((i = !0),
+              ((l = !0),
               o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
                 function () {
                   o("WALogger").LOG(
@@ -92,13 +98,13 @@ __d(
                   );
                 },
               ),
-              yield a.retryWAWebVoipInitAfterFailure()),
+              yield i.retryWAWebVoipInitAfterFailure()),
             !o(
               "WAWebVoipInitEventEmitter",
             ).VoipInitEventEmitter.getIsVoipInited())
           )
             throw r("err")("VoIP initialization did not complete");
-          return i;
+          return l;
         })),
         h.apply(this, arguments)
       );

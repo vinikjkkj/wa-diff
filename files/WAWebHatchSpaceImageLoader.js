@@ -2,6 +2,7 @@ __d(
   "WAWebHatchSpaceImageLoader",
   [
     "WALogger",
+    "WAPromiseDelays",
     "WAWebDownloadManager",
     "WAWebHatchVmConnection",
     "WAWebMediaFileErrors",
@@ -16,83 +17,76 @@ __d(
     "use strict";
     var e,
       s = 3e4,
-      u = 4 * 1024 * 1024,
-      c = "VM response exceeds size limit",
-      d = [137, 80, 78, 71, 13, 10, 26, 10],
-      m = [255, 216, 255],
-      p = [82, 73, 70, 70],
-      _ = [87, 69, 66, 80];
-    function f(e) {
-      return g.apply(this, arguments);
+      u = 202,
+      c = 3,
+      d = 1e3,
+      m = 4 * 1024 * 1024,
+      p = "VM response exceeds size limit",
+      _ = [137, 80, 78, 71, 13, 10, 26, 10],
+      f = [255, 216, 255],
+      g = [82, 73, 70, 70],
+      h = [87, 69, 66, 80];
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function g() {
+    function C() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h(e);
-          return (function (e) {
-            if (e === null) return k("session", !1);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "response" &&
-              "body" in e &&
-              "statusCode" in e
-            ) {
-              var t = e.body,
-                n = e.statusCode;
-              return b(t, n);
-            }
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "failure" &&
-              "detail" in e &&
-              e.detail === c
-            )
-              return k("responseTooLarge", !0);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "failure"
-            )
-              return k("transport", !1);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "rejected"
-            )
-              return k("rejected", !0);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "unreadable"
-            )
-              return k("malformedResponse", !0);
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e,
-            );
-          })(t);
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t === void 0 ? {} : t,
+            r = n.maxBytes,
+            o = r === void 0 ? m : r,
+            a = n.timeoutMs,
+            i = a === void 0 ? s : a,
+            l = yield b(e, i);
+          return L(l)
+            ? M("rendering", !1)
+            : (function (e) {
+                if (e === null) return M("session", !1);
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  e.kind === "response" &&
+                  "body" in e &&
+                  "statusCode" in e
+                ) {
+                  var t = e.body,
+                    n = e.statusCode;
+                  return T(t, n, o);
+                }
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  e.kind === "failure" &&
+                  "detail" in e &&
+                  e.detail === p
+                )
+                  return M("responseTooLarge", !0);
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  e.kind === "failure"
+                )
+                  return M("transport", !1);
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  e.kind === "rejected"
+                )
+                  return M("rejected", !0);
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  e.kind === "unreadable"
+                )
+                  return M("malformedResponse", !0);
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })(l);
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (t == null) return null;
-          var n = yield C(t, e);
-          return n.kind === "failure" && n.detail !== c ? C(t, e) : n;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
-      return e.exchange("GET", t, { timeoutMs: s });
     }
     function b(e, t) {
       return v.apply(this, arguments);
@@ -100,11 +94,57 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t < 200 || t >= 300) return k("http." + t, t < 500);
-          if (e.length > u) return k("responseTooLarge", !0);
-          var n = S(e);
-          if (n == null) return k("notAnImage", !0);
-          var r = yield L(e.slice().buffer, n);
+          var n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+          return n == null ? null : S(n, e, t, c);
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e, t, n, r) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield E(e, t, n);
+            return r <= 1 || !L(a)
+              ? a
+              : (yield o("WAPromiseDelays").delayMs(d), S(e, t, n, r - 1));
+          },
+        )),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      return (e == null ? void 0 : e.kind) === "response" && e.statusCode === u;
+    }
+    function E(e, t, n) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield I(e, t, n);
+          return r.kind === "failure" && r.detail !== p ? I(e, t, n) : r;
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(e, t, n) {
+      return e.exchange("GET", t, { timeoutMs: n });
+    }
+    function T(e, t, n) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (t < 200 || t >= 300) return M("http." + t, t < 500);
+          if (e.length > n) return M("responseTooLarge", !0);
+          var r = x(e);
+          if (r == null) return M("notAnImage", !0);
+          var o = yield P(e.slice().buffer, r);
           return (function (e) {
             if (
               ((typeof e == "object" && e !== null) ||
@@ -113,49 +153,49 @@ __d(
               "bytes" in e
             ) {
               var t = e.bytes;
-              return { bytes: t, kind: "loaded", mimetype: n };
+              return { bytes: t, kind: "loaded", mimetype: r };
             }
             if (
               ((typeof e == "object" && e !== null) ||
                 typeof e == "function") &&
               e.kind === "rejected"
             )
-              return k("scanRejected", !0);
+              return M("scanRejected", !0);
             if (
               ((typeof e == "object" && e !== null) ||
                 typeof e == "function") &&
               e.kind === "unavailable"
             )
-              return k("scanUnavailable", !1);
+              return M("scanUnavailable", !1);
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                 e,
             );
-          })(r);
+          })(o);
         })),
-        v.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R(e, d)
+    function x(e) {
+      return $(e, _)
         ? "image/png"
-        : R(e, m)
+        : $(e, f)
           ? "image/jpeg"
-          : R(e, p) && R(e.subarray(8), _)
+          : $(e, g) && $(e.subarray(8), h)
             ? "image/webp"
             : null;
     }
-    function R(e, t) {
+    function $(e, t) {
       return t.every(function (t, n) {
         return e[n] === t;
       });
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function E() {
+    function N() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
               entryPoint: "DownloadHatchSpaceImage",
             }),
@@ -186,10 +226,10 @@ __d(
                 { kind: "unavailable" });
           }
         })),
-        E.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function k(t, n) {
+    function M(t, n) {
       var r = o("WALogger").WARN(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -203,7 +243,7 @@ __d(
         { kind: "failed", permanent: n, reason: t }
       );
     }
-    l.loadHatchSpaceImage = f;
+    l.loadHatchSpaceImage = y;
   },
   98,
 );

@@ -1,16 +1,12 @@
 __d(
   "WAWebContactManagerCustomerProfileUpsertMutation",
   [
-    "WAJids",
     "WALogger",
-    "WATimeUtils",
     "WAWebContactManagerCustomerProfileQuery",
+    "WAWebContactManagerCustomerProfileUpsertInput",
     "WAWebContactManagerCustomerProfileUpsertMutation.graphql",
     "WAWebContactManagerCustomerProfilesQuery",
-    "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerManagerRequestErrors",
-    "WAWebCustomerOrderPreferences",
-    "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
@@ -20,39 +16,134 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c =
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebContactManagerCustomerProfileUpsertMutation.graphql"));
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield p([{ chatJid: e, profile: t }]);
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield g([{ chatJid: e, profile: t }]);
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return [];
+          var t = e.map(function (e) {
+              var t = e.chatJid,
+                n = e.profile;
+              return babelHelpers.extends(
+                {},
+                o(
+                  "WAWebContactManagerCustomerProfileUpsertInput",
+                ).buildUpsertInput(t, n),
+                { if_match: "" },
+              );
+            }),
+            n = new Set(
+              t.map(function (e) {
+                var t = e.lid;
+                return t;
+              }),
+            );
+          if (n.size !== e.length)
+            throw r("err")(
+              "[CustomerManager] customer profile import: duplicate LID",
+            );
+          var a = yield I(t);
+          if (
+            (a == null ? void 0 : a.profiles) == null ||
+            a.conflicts == null ||
+            a.unresolved_lids == null
+          )
+            throw r("err")(
+              "[CustomerManager] customer profile import: missing write results",
+            );
+          var i = new Map();
+          function l(e, t) {
+            if (e == null || !n.delete(e))
+              throw r("err")(
+                "[CustomerManager] customer profile import: unexpected or duplicate result LID",
+              );
+            i.set(e, t);
+          }
+          return (
+            a.profiles.forEach(function (e) {
+              var t = e.lid;
+              return l(t, "written");
+            }),
+            a.conflicts.forEach(function (e) {
+              var t = e.lid;
+              return l(t, "existing");
+            }),
+            a.unresolved_lids.forEach(function (e) {
+              return l(e, "unresolved");
+            }),
+            t.map(function (e) {
+              var t = e.lid,
+                n = i.get(t);
+              if (n == null)
+                throw r("err")(
+                  "[CustomerManager] customer profile import: missing result LID",
+                );
+              return n;
+            })
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t, n) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (n === "")
+            throw r("err")(
+              "[CustomerManager] customer profile patch requires an etag",
+            );
+          return L([
+            babelHelpers.extends(
+              {},
+              o(
+                "WAWebContactManagerCustomerProfileUpsertInput",
+              ).buildUpsertInput(e, t),
+              { if_match: n },
+            ),
+          ]);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
-            var t = e.length === 1 ? f(e[0].profile) : null;
+            var t = e.length === 1 ? y(e[0].profile) : null;
             if (t != null) {
-              yield g(e[0].chatJid, e[0].profile, t);
+              yield C(e[0].chatJid, e[0].profile, t);
               return;
             }
-            var n = yield v(
+            var n = yield L(
               e.map(function (e) {
                 var t = e.chatJid,
                   n = e.profile;
-                return E(t, n);
+                return o(
+                  "WAWebContactManagerCustomerProfileUpsertInput",
+                ).buildUpsertInput(t, n);
               }),
             );
             if (!n)
@@ -61,27 +152,34 @@ __d(
               );
           }
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function f(e) {
+    function y(e) {
       var t = e.birthday,
         n = t == null ? void 0 : t.ifMatch;
       return t != null && n != null
         ? babelHelpers.extends({}, t, { ifMatch: n })
         : null;
     }
-    function g(e, t, n, r) {
-      return h.apply(this, arguments);
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
     }
-    function h() {
+    function b() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i, l;
             if (
               (a === void 0 && (a = 1),
-              !(yield v([E(e, babelHelpers.extends({}, t, { birthday: n }))])))
+              !(yield L([
+                o(
+                  "WAWebContactManagerCustomerProfileUpsertInput",
+                ).buildUpsertInput(
+                  e,
+                  babelHelpers.extends({}, t, { birthday: n }),
+                ),
+              ])))
             ) {
               if (a === 3)
                 throw r("err")(
@@ -94,7 +192,7 @@ __d(
                 throw r("err")(
                   "[CustomerManager] customer profile birthday could not be verified after conflict",
                 );
-              yield g(
+              yield C(
                 e,
                 t,
                 babelHelpers.extends({}, n, {
@@ -107,34 +205,105 @@ __d(
             }
           },
         )),
-        h.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield v([R(e, t)]);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield L([
+            o(
+              "WAWebContactManagerCustomerProfileUpsertInput",
+            ).buildFieldUpdateInput(e, t),
+          ]);
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e) {
+    function R(e) {
       if (e === 0)
         throw r("err")(
           "[CustomerManager] customer profile last order date cannot be Unix epoch zero",
         );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            a,
+            i = yield I(e),
+            l = e.length === 1 ? e[0] : null;
+          if (
+            l != null &&
+            l.if_match != null &&
+            !k(
+              i == null ? void 0 : i.profiles,
+              i == null ? void 0 : i.conflicts,
+              l.lid,
+            )
+          )
+            throw r("err")(
+              "[CustomerManager] customer profile upsert: no confirmed profile write",
+            );
+          if (
+            ((t = i == null || (n = i.conflicts) == null ? void 0 : n.length) !=
+            null
+              ? t
+              : 0) > 0
+          ) {
+            if (
+              e.every(function (e) {
+                return e.if_match == null;
+              })
+            )
+              throw r("err")(
+                "[CustomerManager] customer profile upsert: conflict without version precondition",
+              );
+            return !1;
+          }
+          if (
+            (i == null || (a = i.profiles) == null ? void 0 : a.length) !==
+            e.length
+          )
+            throw r("err")(
+              "[CustomerManager] customer profile upsert: no confirmed profile write",
+            );
+          return (
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[CustomerManager] customer profile upsert: synced ",
+                  " profiles",
+                ])),
+              e.length,
+            ),
+            !0
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e, t, n) {
+      var r;
+      if (e == null || t == null) return !1;
+      var o = (r = e[0]) != null ? r : t[0];
+      return e.length + t.length === 1 && (o == null ? void 0 : o.lid) === n;
+    }
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e.forEach(function (e) {
-            b(e.last_order_date);
+            R(e.last_order_date);
           });
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (t.type !== "success")
@@ -145,39 +314,12 @@ __d(
             );
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
-            var n,
-              a,
-              i,
-              l = yield o("WAWebRelayClient").commitMutation(
-                c,
-                { input: e },
-                { accessToken: t.token, environmentType: "facebook" },
-              ),
-              s = l == null ? void 0 : l.xfb_wa_upsert_customer_profiles;
-            if (
-              ((n =
-                s == null || (a = s.conflicts) == null ? void 0 : a.length) !=
-              null
-                ? n
-                : 0) > 0
-            ) {
-              if (
-                e.every(function (e) {
-                  return e.if_match == null;
-                })
-              )
-                throw r("err")(
-                  "[CustomerManager] customer profile upsert: conflict without version precondition",
-                );
-              return !1;
-            }
-            if (
-              (s == null || (i = s.profiles) == null ? void 0 : i.length) !==
-              e.length
-            )
-              throw r("err")(
-                "[CustomerManager] customer profile upsert: no confirmed profile write",
-              );
+            var n = yield o("WAWebRelayClient").commitMutation(
+              u,
+              { input: e },
+              { accessToken: t.token, environmentType: "facebook" },
+            );
+            return n == null ? void 0 : n.xfb_wa_upsert_customer_profiles;
           } catch (e) {
             throw (
               o("WAWebContactManagerCustomerProfilesQuery").logIfRateLimited(
@@ -189,156 +331,16 @@ __d(
               ).asCustomerManagerRequestError(e)
             );
           }
-          return (
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[CustomerManager] customer profile upsert: synced ",
-                  " profiles",
-                ])),
-              e.length,
-            ),
-            !0
-          );
         })),
-        S.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      var n = { lid: k(e) };
-      e: {
-        var r = t;
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "email" &&
-          "value" in r
-        ) {
-          var a = r.value;
-          n.email = L(a);
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "address" &&
-          "value" in r
-        ) {
-          var i = r.value;
-          n.address = L(i);
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "birthday" &&
-          "value" in r &&
-          "storedDob" in r
-        ) {
-          var l = r.value,
-            u = r.storedDob;
-          n.dob =
-            l != null
-              ? o("WAWebCustomerProfileBirthday").formatBirthdayToIso(
-                  o("WATimeUtils").castToUnixTime(l),
-                  u,
-                )
-              : null;
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "leadStage" &&
-          "value" in r
-        ) {
-          var c = r.value;
-          n.lead_stage = c != null ? String(c) : null;
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "orderPreferences" &&
-          "value" in r
-        ) {
-          var d = r.value;
-          n.order_preferences = o(
-            "WAWebCustomerOrderPreferences",
-          ).toOrderPreferences(d);
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "lastOrder" &&
-          "value" in r
-        ) {
-          var m = r.value;
-          n.last_order_date = m != null ? m : null;
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "acquisitionSource" &&
-          "value" in r
-        ) {
-          var p = r.value,
-            _ = o(
-              "WAWebCustomerManagerCustomerProfileDecoders",
-            ).fromProfileAcquisitionSourceId(p);
-          p == null
-            ? (n.acquisition_source = null)
-            : _ != null
-              ? (n.acquisition_source = _)
-              : o("WALogger")
-                  .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[CustomerManager] customer profile upsert: acquisition source ",
-                        " has no server enum member; leaving the stored value unchanged",
-                      ])),
-                    p,
-                  )
-                  .sendLogs("customer_manager_acquisition_source_unmapped");
-          break e;
-        }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            r,
-        );
-      }
-      return n;
-    }
-    function L(e) {
-      return e == null || e === "" ? null : e;
-    }
-    function E(e, t) {
-      var n = { lid: k(e) };
-      (t.leadStage != null && (n.lead_stage = String(t.leadStage)),
-        t.name != null && t.name !== "" && (n.name = t.name),
-        t.email != null && t.email !== "" && (n.email = t.email),
-        t.address != null && t.address !== "" && (n.address = t.address));
-      var r = t.birthday;
-      (r != null &&
-        ((n.dob = o("WAWebCustomerProfileBirthday").formatBirthdayToIso(
-          r.value,
-          r.storedDob,
-        )),
-        r.ifMatch != null && (n.if_match = r.ifMatch)),
-        t.lastOrder != null && (n.last_order_date = t.lastOrder));
-      var a = o(
-        "WAWebCustomerManagerCustomerProfileDecoders",
-      ).fromProfileAcquisitionSourceId(t.acquisitionSource);
-      return (a != null && (n.acquisition_source = a), n);
-    }
-    function k(e) {
-      if (!e.endsWith(o("WAJids").LID_DOMAIN))
-        throw r("err")(
-          '[CustomerManager] customer profile upsert: chatJid must be a LID-based JID, got "' +
-            e +
-            '"',
-        );
-      return e.slice(0, -o("WAJids").LID_DOMAIN.length);
-    }
-    ((l.upsertCustomerProfileToServer = d),
-      (l.upsertCustomerProfilesToServer = p),
-      (l.upsertCustomerProfileFieldToServer = y),
-      (l.assertPersistableLastOrderDate = b));
+    ((l.upsertCustomerProfileToServer = c),
+      (l.createCustomerProfilesIfAbsent = m),
+      (l.updateCustomerProfileIfUnchanged = _),
+      (l.upsertCustomerProfilesToServer = g),
+      (l.upsertCustomerProfileFieldToServer = v),
+      (l.assertPersistableLastOrderDate = R));
   },
   98,
 );

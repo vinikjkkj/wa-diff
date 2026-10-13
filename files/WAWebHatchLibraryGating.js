@@ -8,7 +8,13 @@ __d(
         o("WAWebHatchFrontendGating").isHatchSpaceEnabled()
       );
     }
-    l.isHatchLibraryChat = e;
+    function s(e) {
+      return (
+        o("WAWebBotUtils").isHatchBot(e) &&
+        o("WAWebHatchFrontendGating").isHatchMediaEnabled()
+      );
+    }
+    ((l.isHatchLibraryChat = e), (l.isHatchWorkspaceMediaChat = s));
   },
   98,
 );

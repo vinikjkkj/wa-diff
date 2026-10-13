@@ -45,13 +45,19 @@ __d(
       k = (e = n("cr:375")) != null ? e : {},
       I = k.ftsLightClient;
     function T(e, t, a, i, l) {
+      (a === void 0 && (a = !1), i === void 0 && (i = !1));
+      var b = ["message", "message-association"];
       return (
-        a === void 0 && (a = !1),
-        i === void 0 && (i = !1),
+        o("WAWebDBExperienceIdStore").shouldLockExperienceIdTable(
+          e.map(function (e) {
+            var t = e[0];
+            return t;
+          }),
+        ) && b.push("experience-id"),
         o("WAWebModelStorageUtils")
           .getStorage()
           .lock(
-            ["message", "message-association"],
+            b,
             (function () {
               var y = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (y) {
@@ -297,7 +303,12 @@ __d(
                         ));
                     else throw ((i || !D(e.length, q)) && (x(w, q), $(w)), q);
                   }
-                  return w;
+                  return (
+                    yield o(
+                      "WAWebDBExperienceIdStore",
+                    ).recordReceivedExperienceIds(w),
+                    w
+                  );
                 },
               );
               return function (e) {
@@ -308,7 +319,7 @@ __d(
           .then(function (t) {
             t &&
               t.length > 0 &&
-              (r("WAWeb-dexie").ignoreTransaction(
+              r("WAWeb-dexie").ignoreTransaction(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   (a &&
                     o("WALogger").LOG(
@@ -341,8 +352,7 @@ __d(
                       ),
                     I == null || I.index().catch(r("WAWebNoop")));
                 }),
-              ),
-              o("WAWebDBExperienceIdStore").recordReceivedExperienceIds(t));
+              );
           })
       );
     }

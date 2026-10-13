@@ -9,7 +9,6 @@ __d(
     "WAWebOrgContactCollection",
     "WAWebOrgDirectoryRepository",
     "WAWebOrgGatingUtils",
-    "WAWebPhoneNumberSearch",
     "WAWebSchemaOrg",
     "WAWebSearchUtils",
     "WAWebSimpleSearch",
@@ -45,7 +44,7 @@ __d(
             var a = o("WAWebOrgCollection").OrgCollection.getModelsArray();
             if (a.length === 0) return _;
             var i = h(a, n);
-            return i != null ? M(i) : (t == null || t(), M(yield y(a, n)));
+            return i != null ? N(i) : (t == null || t(), N(yield y(a, n)));
           } catch (e) {
             return (
               o("WALogger")
@@ -78,19 +77,19 @@ __d(
         })
       )
         return null;
-      var r = k(t);
+      var r = E(t);
       return e.map(function (e, t) {
         var o = n[t];
-        return R(e, r.text)
-          ? D(e, v(o, r))
-          : D(
+        return R(e, r)
+          ? T(e, v(o, r))
+          : T(
               e,
               o
                 .filter(function (e) {
-                  return I(e, r);
+                  return k(e, r);
                 })
-                .map(T)
-                .sort(x),
+                .map(I)
+                .sort(D),
             );
       });
     }
@@ -109,9 +108,9 @@ __d(
                       var n = yield o(
                         "WAWebOrgAdminGraphQL",
                       ).loadOrgAdminMemberSearchPage(e.id, t, null, null);
-                      return D(e, n.members);
+                      return T(e, n.members);
                     } catch (t) {
-                      return $(e, t);
+                      return x(e, t);
                     }
                   },
                 );
@@ -129,10 +128,10 @@ __d(
     function v(e, t) {
       var n = [],
         r = [];
-      for (var o of e) I(o, t) ? n.push(o) : r.push(o);
+      for (var o of e) k(o, t) ? n.push(o) : r.push(o);
       return []
         .concat(n.sort(S), r.sort(S).slice(0, Math.max(0, b - n.length)))
-        .map(T);
+        .map(I);
     }
     function S(e, t) {
       return e.memberName.localeCompare(t.memberName);
@@ -154,30 +153,19 @@ __d(
           : n.status) === "ready"
       );
     }
-    var E = /[^0-9]/g;
-    function k(e) {
-      var t = o("WAWebSearchUtils").normalizeString(e),
-        n = o("WAWebPhoneNumberSearch").numberSearch(t);
-      return { number: n === "" ? null : n, text: t };
+    function E(e) {
+      var t = o("WAWebSearchUtils").normalizeString(e);
+      return t.startsWith("@") ? t.slice(1).trim() : t;
     }
-    function I(e, t) {
-      var n,
-        r = (n = e.phoneNumber) == null ? void 0 : n.replace(E, "");
-      return t.number != null && r != null && r.includes(t.number)
-        ? !0
-        : t.text === ""
-          ? !1
-          : [
-              e.memberName,
-              o("WAWebUsernameTypes").serializeMaybeUsername(e.username),
-            ].some(function (e) {
-              return (
-                e != null &&
-                o("WAWebSearchUtils").normalizeString(e).includes(t.text)
-              );
-            });
+    function k(e, t) {
+      if (t === "") return !1;
+      var n = o("WAWebUsernameTypes").serializeMaybeUsername(e.username);
+      return (
+        o("WAWebSimpleSearch").simpleSearch(t, [e.memberName]) ||
+        (n != null && o("WAWebSearchUtils").normalizeString(n).startsWith(t))
+      );
     }
-    function T(e) {
+    function I(e) {
       var t, n;
       return {
         displayName: e.memberName,
@@ -197,7 +185,7 @@ __d(
             : null,
       };
     }
-    function D(e, t) {
+    function T(e, t) {
       return {
         failure: null,
         loading: !1,
@@ -206,10 +194,10 @@ __d(
         orgName: e.name,
       };
     }
-    function x(e, t) {
+    function D(e, t) {
       return e.displayName.localeCompare(t.displayName);
     }
-    function $(t, n) {
+    function x(t, n) {
       return (
         o("WALogger")
           .ERROR(
@@ -223,34 +211,34 @@ __d(
         {
           failure: r("WAWebNetworkStatus").online ? "unavailable" : "offline",
           loading: !1,
-          members: N,
+          members: P,
           orgId: t.id,
           orgName: t.name,
         }
       );
     }
-    function P() {
-      return M(
+    function $() {
+      return N(
         o("WAWebOrgCollection")
           .OrgCollection.getModelsArray()
           .map(function (e) {
             return {
               failure: null,
               loading: !0,
-              members: N,
+              members: P,
               orgId: e.id,
               orgName: e.name,
             };
           }),
       );
     }
-    var N = Object.freeze([]);
-    function M(e) {
+    var P = Object.freeze([]);
+    function N(e) {
       var t = e
           .filter(function (e) {
             return e.failure != null || e.loading || e.members.length > 0;
           })
-          .sort(w),
+          .sort(M),
         n = []
           .concat(
             t.filter(function (e) {
@@ -261,15 +249,15 @@ __d(
             }),
           )
           .slice(0, d)
-          .sort(w);
+          .sort(M);
       return n.length === 0 ? _ : n;
     }
-    function w(e, t) {
+    function M(e, t) {
       return e.orgName.localeCompare(t.orgName);
     }
     ((l.EMPTY_ORG_SECTIONS = _),
       (l.searchOrgMembers = f),
-      (l.getOrgMemberSearchLoadingSections = P));
+      (l.getOrgMemberSearchLoadingSections = $));
   },
   98,
 );

@@ -46,8 +46,19 @@ __d(
                   {
                     alias: null,
                     args: null,
-                    kind: "ScalarField",
-                    name: "member_count",
+                    concreteType: "XWAOrgMembersConnection",
+                    kind: "LinkedField",
+                    name: "members",
+                    plural: !1,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "count",
+                        storageKey: null,
+                      },
+                    ],
                     storageKey: null,
                   },
                 ],
@@ -75,7 +86,7 @@ __d(
           selections: t,
         },
         params: {
-          id: "28130496313288374",
+          id: "28986698047634303",
           metadata: {},
           name: "WAWebOrgAdminGraphQLRemoveMemberMutation",
           operationKind: "mutation",

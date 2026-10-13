@@ -40,7 +40,7 @@ __d(
                         );
                       yield r.bulkCreateOrReplace(
                         e.map(function (e, t) {
-                          return P(e, o[t]);
+                          return N(e, o[t]);
                         }),
                       );
                     },
@@ -96,14 +96,14 @@ __d(
                       (t.length > 0 &&
                         (yield l.bulkCreateOrReplace(
                           t.map(function (e) {
-                            return P(e, d.get(e.orgId));
+                            return N(e, d.get(e.orgId));
                           }),
                         )),
                         yield (e || (e = n("Promise"))).all(
                           m.map(function (t) {
                             return (e || (e = n("Promise"))).all([
                               l.remove(t),
-                              D(s, t),
+                              x(s, t),
                             ]);
                           }),
                         ),
@@ -138,7 +138,7 @@ __d(
                       r = t[1],
                       o = n,
                       a = r;
-                    (yield o.remove(e), yield D(a, e));
+                    (yield o.remove(e), yield x(a, e));
                   },
                 );
                 return function (e) {
@@ -185,10 +185,10 @@ __d(
                           throw r("err")(
                             "Cannot complete roster for missing org " + e,
                           );
-                        (yield D(u, e),
+                        (yield x(u, e),
                           yield u.bulkCreateOrReplace(
                             t.map(function (t) {
-                              return $(
+                              return P(
                                 babelHelpers.extends({}, t, { orgId: e }),
                               );
                             }),
@@ -221,29 +221,46 @@ __d(
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = Array.from(e.keys());
           if (t.length === 0) return [];
-          var r = Array.from(e).flatMap(function (e) {
-            var t = e[0],
-              n = e[1];
-            return n.map(function (e) {
-              return $(babelHelpers.extends({}, e, { lid: t }));
-            });
-          });
+          var r = [];
           return (
             yield o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
                 [u],
                 (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = e[0],
-                        o = n;
-                      (yield o.bulkRemoveByIndex(["lid"], t),
-                        r.length > 0 && (yield o.bulkCreateOrReplace(r)));
+                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (n) {
+                      var o = n[0],
+                        a = o,
+                        i = new Map(
+                          (yield a.anyOf(["lid"], t)).map(function (e) {
+                            return [E(e.orgId, e.lid), e.memberName];
+                          }),
+                        );
+                      ((r = Array.from(e).flatMap(function (e) {
+                        var t = e[0],
+                          n = e[1];
+                        return n.map(function (e) {
+                          var n;
+                          return P(
+                            babelHelpers.extends({}, e, {
+                              lid: t,
+                              memberName:
+                                e.memberName === ""
+                                  ? (n = i.get(E(e.orgId, t))) != null
+                                    ? n
+                                    : ""
+                                  : e.memberName,
+                            }),
+                          );
+                        });
+                      })),
+                        yield a.bulkRemoveByIndex(["lid"], t),
+                        r.length > 0 && (yield a.bulkCreateOrReplace(r)));
                     },
                   );
-                  return function (t) {
-                    return e.apply(this, arguments);
+                  return function (e) {
+                    return o.apply(this, arguments);
                   };
                 })(),
               ),
@@ -253,12 +270,15 @@ __d(
         L.apply(this, arguments)
       );
     }
-    function E(e, t, n, r) {
-      return k.apply(this, arguments);
+    function E(e, t) {
+      return e + "" + t;
     }
-    function k() {
+    function k(e, t, n, r) {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = !1,
               l = o("WAWebModelStorageUtils")
@@ -302,15 +322,15 @@ __d(
             return (yield l, i);
           },
         )),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = !1,
             i = o("WAWebModelStorageUtils")
               .getStorage()
@@ -362,21 +382,21 @@ __d(
               );
           return (yield i, a);
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield e.bulkDeleteRange(["orgId", "lid"], [t, c], [t, d]);
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
+    function P(e) {
       var t = {
         orgId: e.orgId,
         lid: e.lid,
@@ -390,7 +410,7 @@ __d(
         t
       );
     }
-    function P(e, t) {
+    function N(e, t) {
       var n,
         r,
         a = {
@@ -406,28 +426,47 @@ __d(
               ? n
               : o("WAWebSchemaOrg").OrgMemberRole.Member,
         };
+      (M(a, e), w(a, e, t));
+      var i = F(e, t);
+      return (i != null && (a.directoryIsComplete = i), a);
+    }
+    function M(e, t) {
+      (t.description != null && (e.description = t.description),
+        t.isMemberDirectoryEnabled != null &&
+          (e.isMemberDirectoryEnabled = t.isMemberDirectoryEnabled),
+        t.memberCount != null && (e.memberCount = t.memberCount),
+        t.memberTagOptions != null && (e.memberTagOptions = t.memberTagOptions),
+        t.iconHandle != null && (e.iconHandle = t.iconHandle),
+        t.iconThumbUrl != null && (e.iconThumbUrl = t.iconThumbUrl),
+        t.iconFullUrl != null && (e.iconFullUrl = t.iconFullUrl));
+    }
+    function w(e, t, n) {
+      var r = A(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
+      r != null && (e.orgUpdatedTsUsec = r);
+      var o = A(
+        t.memberUpdatedTsUsec,
+        n == null ? void 0 : n.memberUpdatedTsUsec,
+      );
+      o != null && (e.memberUpdatedTsUsec = o);
+      var a = A(t.managedGroups, n == null ? void 0 : n.managedGroups);
+      a != null && (e.managedGroups = a);
+      var i = A(t.managedChannels, n == null ? void 0 : n.managedChannels);
+      i != null && (e.managedChannels = i);
+    }
+    function A(e, t) {
+      return e === void 0 ? t : e;
+    }
+    function F(e, t) {
       if (
-        (e.description != null && (a.description = e.description),
-        e.isMemberDirectoryEnabled != null &&
-          (a.isMemberDirectoryEnabled = e.isMemberDirectoryEnabled),
-        e.memberCount != null && (a.memberCount = e.memberCount),
-        e.memberTagOptions != null && (a.memberTagOptions = e.memberTagOptions),
-        e.iconHandle != null && (a.iconHandle = e.iconHandle),
-        e.iconThumbUrl != null && (a.iconThumbUrl = e.iconThumbUrl),
-        e.iconFullUrl != null && (a.iconFullUrl = e.iconFullUrl),
-        e.managedGroups != null && (a.managedGroups = e.managedGroups),
-        e.managedChannels != null && (a.managedChannels = e.managedChannels),
-        e.directoryIsComplete != null)
+        e.directoryIsComplete != null ||
+        (t == null ? void 0 : t.directoryIsComplete) == null
       )
-        a.directoryIsComplete = e.directoryIsComplete;
-      else if ((t == null ? void 0 : t.directoryIsComplete) != null) {
-        var i = e.memberCount != null && e.memberCount !== t.memberCount,
-          l =
-            e.isMemberDirectoryEnabled != null &&
-            e.isMemberDirectoryEnabled !== t.isMemberDirectoryEnabled;
-        a.directoryIsComplete = i || l ? !1 : t.directoryIsComplete;
-      }
-      return a;
+        return e.directoryIsComplete;
+      var n = e.memberCount != null && e.memberCount !== t.memberCount,
+        r =
+          e.isMemberDirectoryEnabled != null &&
+          e.isMemberDirectoryEnabled !== t.isMemberDirectoryEnabled;
+      return n || r ? !1 : t.directoryIsComplete;
     }
     ((l.getOrgs = m),
       (l.putOrgs = p),
@@ -437,8 +476,8 @@ __d(
       (l.getOrgContactsByLids = b),
       (l.replaceCompleteOrgRoster = v),
       (l.replaceOrgMembershipsForLids = R),
-      (l.updateOrgMemberRole = E),
-      (l.removeOrgMember = I));
+      (l.updateOrgMemberRole = k),
+      (l.removeOrgMember = T));
   },
   98,
 );

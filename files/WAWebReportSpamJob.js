@@ -134,7 +134,7 @@ __d(
           var l = o("WAWebMsgGetters").getSender(n);
           if (l == null)
             throw r("err")("report status failed due to missing sender");
-          var s = [h(n, i, l)],
+          var s = [h({ msg: n, msgMixin: i, sender: l })],
             u = yield y(n, l);
           u != null && s.push(u);
           var c = {
@@ -188,13 +188,16 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
-      return babelHelpers.extends({ messageFrom: o("WAJids").STATUS_JID }, t, {
+    function h(e) {
+      var t = e.msg,
+        n = e.msgMixin,
+        r = e.sender;
+      return babelHelpers.extends({ messageFrom: o("WAJids").STATUS_JID }, n, {
         messageParticipantMixinArgs: {
-          messageParticipant: o("WAWebWidToJid").widToUserJid(n),
+          messageParticipant: o("WAWebWidToJid").widToUserJid(r),
         },
         messageRecipientMixinArgs: {
-          messageTo: o("WAWebWidToJid").widToUserJid(e.to),
+          messageTo: o("WAWebWidToJid").widToUserJid(t.to),
         },
       });
     }
@@ -210,7 +213,11 @@ __d(
           if (a == null) return null;
           var i = yield b(a);
           return i != null
-            ? h(a, i, (n = o("WAWebMsgGetters").getSender(a)) != null ? n : t)
+            ? h({
+                msg: a,
+                msgMixin: i,
+                sender: (n = o("WAWebMsgGetters").getSender(a)) != null ? n : t,
+              })
             : null;
         })),
         C.apply(this, arguments)

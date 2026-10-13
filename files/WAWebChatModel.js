@@ -150,6 +150,7 @@ __d(
             (e.isAiHandoff = o("WAWebBaseModel").prop()),
             (e.aiHandoffRemovalExpiry = o("WAWebBaseModel").prop()),
             (e.aiHandoffStartedAt = o("WAWebBaseModel").prop()),
+            (e.aiLastHandoffActor = o("WAWebBaseModel").prop()),
             (e.suggestedRepliesEnabled = o("WAWebBaseModel").prop()),
             (e.capiCallingPermissionType = o("WAWebBaseModel").prop()),
             (e.ephemeralDuration = o("WAWebBaseModel").prop()),

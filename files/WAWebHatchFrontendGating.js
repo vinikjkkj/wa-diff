@@ -7,8 +7,10 @@ __d(
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebHatchLinkedStatusManager",
+    "WAWebHatchMinPrimaryVersions",
     "WAWebMuseDefaultAssistantVariant",
     "WAWebPrimaryFeaturesModel",
+    "WAWebPrimaryVersionGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,6 +31,10 @@ __d(
     function u() {
       return (
         e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
       );
     }
@@ -49,31 +55,65 @@ __d(
     }
     function m() {
       return (
-        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_ideas_enabled")
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_response_ux_parity_enabled",
+        )
       );
     }
-    function p(t) {
+    function p() {
       return (
-        t != null &&
-        o("WAWebBotUtils").isHatchBot(t) &&
         e() &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_vm_capability_sync_enabled",
+        )
       );
     }
     function _() {
       return (
+        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_ideas_enabled")
+      );
+    }
+    function f(t) {
+      return (
+        t != null &&
+        o("WAWebBotUtils").isHatchBot(t) &&
         e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
+      );
+    }
+    function g() {
+      return (
+        e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_secure_credentials_enabled",
         )
       );
     }
-    function f() {
+    function h() {
       return (
-        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
+        e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
       );
     }
-    function g() {
+    function y() {
+      return (
+        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_media_enabled")
+      );
+    }
+    function C() {
       return (
         e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
@@ -82,13 +122,13 @@ __d(
         )
       );
     }
-    function h() {
+    function b() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_activity_enabled")
       );
     }
-    function y() {
+    function v() {
       return e()
         ? (function (e) {
             if (
@@ -123,7 +163,7 @@ __d(
           )
         : !1;
     }
-    function C(e) {
+    function S(e) {
       return e ||
         !o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_video_avatars_enabled",
@@ -141,14 +181,17 @@ __d(
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
       (l.isHatchConnectorsEnabledForLoad = c),
-      (l.isHatchIdeasEnabled = m),
-      (l.isHatchBrowserEnabled = p),
-      (l.isHatchSecureCredentialsEnabled = _),
-      (l.isHatchSpaceEnabled = f),
-      (l.isHatchManageSubscriptionEnabled = g),
-      (l.isHatchActivityEnabled = h),
-      (l.isMuseNavBarEntryPointSelected = y),
-      (l.getHatchNavBarAnimationMode = C));
+      (l.isHatchJarvisRendererEnabled = m),
+      (l.isHatchVmCapabilitySyncEnabled = p),
+      (l.isHatchIdeasEnabled = _),
+      (l.isHatchBrowserEnabled = f),
+      (l.isHatchSecureCredentialsEnabled = g),
+      (l.isHatchSpaceEnabled = h),
+      (l.isHatchMediaEnabled = y),
+      (l.isHatchManageSubscriptionEnabled = C),
+      (l.isHatchActivityEnabled = b),
+      (l.isMuseNavBarEntryPointSelected = v),
+      (l.getHatchNavBarAnimationMode = S));
   },
   98,
 );

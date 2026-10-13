@@ -169,6 +169,11 @@ __d(
           wasmKey: "voip_stack_incoming_message_ownership_transfer",
           type: "bool",
         },
+        {
+          abProp: "enable_1on1_call_transfer_entry_point",
+          wasmKey: "enable_1on1_call_transfer_entry_point",
+          type: "bool",
+        },
       ],
       l = e;
     i.default = l;

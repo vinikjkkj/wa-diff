@@ -18,7 +18,7 @@ __d(
       var a = (r = t.match(e)) != null ? r : t.match(s);
       return (
         a == null && o("WAWebCurrentUser").isEmployee() && (a = t.match(u)),
-        a == null || (!n && !o("WAWebVoipGatingUtils").callLinksEnabled())
+        a == null || (!n && !o("WAWebVoipGatingUtils").isCallingEnabled())
           ? null
           : a[1].toLowerCase() === "video"
             ? "video"

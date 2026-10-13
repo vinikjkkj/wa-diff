@@ -539,6 +539,7 @@ __d(
                 l.viewMode,
                 t.viewMode,
               )
+              .tags("non-sad")
               .sendLogs("voip-callog-promote-non-visible");
           var d =
               u && t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE

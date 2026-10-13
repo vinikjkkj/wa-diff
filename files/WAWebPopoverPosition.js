@@ -22,109 +22,124 @@ __d(
     function _(e, t) {
       return e.top + e.height / 2 - t.height / 2;
     }
-    function f(t, n, o, a, i, l, f, g, h) {
-      var y, C, b;
+    function f(t, n, o, a, i, l, f, h, C) {
+      var b, v, S;
       (i === void 0 && (i = 0),
         f === void 0 && (f = window.innerWidth),
-        g === void 0 && (g = window.innerHeight),
-        h === void 0 && (h = !1));
-      var v = (y = l == null ? void 0 : l.height) != null ? y : 0,
-        S = (C = l == null ? void 0 : l.width) != null ? C : 0,
-        R = (b = l == null ? void 0 : l.offset) != null ? b : 0,
-        L,
-        E,
-        k = 1,
-        I = i + v,
-        T = o;
+        h === void 0 && (h = window.innerHeight),
+        C === void 0 && (C = !1));
+      var R = (b = l == null ? void 0 : l.height) != null ? b : 0,
+        L = (v = l == null ? void 0 : l.width) != null ? v : 0,
+        E = (S = l == null ? void 0 : l.offset) != null ? S : 0,
+        k,
+        I,
+        T = 1,
+        D = i + R,
+        x = o;
       r("WAWebL10N").isRTL() &&
-        (o === e.Start ? (T = e.End) : o === e.End && (T = e.Start));
-      var D = {
+        (o === e.Start ? (x = e.End) : o === e.End && (x = e.Start));
+      var $ = {
           coords: { top: 0, left: 0 },
           alignment: a,
-          position: T,
+          position: x,
           arrowCoords: null,
         },
-        x = 0;
-      if (
-        (l != null &&
-          (a === s.Start || a === s.End) &&
-          ((T === e.Top || T === e.Bottom) && t.width < R * 2 + S
-            ? (x = R + S / 2 - t.width / 2)
-            : (T === e.Start || T === e.End) &&
-              t.height < R * 2 + S &&
-              (x = R + S / 2 - t.height / 2),
-          a === s.Start && (x = -x)),
-        T === e.Top
-          ? ((D.coords.top = u(t, n, I)), (E = "100%"))
-          : T === e.End
-            ? ((D.coords.left = c(t, I)), (L = -v + k))
-            : T === e.Bottom
-              ? ((D.coords.top = d(t, I)), (E = -v + k))
-              : T === e.Start && ((D.coords.left = m(t, n, I)), (L = "100%")),
-        a === s.Center
-          ? T === e.Top || T === e.Bottom
-            ? ((L = "calc(50% - " + S / 2 + "px)"), (D.coords.left = p(t, n)))
-            : ((E = "calc(50% - " + S / 2 + "px)"), (D.coords.top = _(t, n)))
-          : a === s.Start
-            ? T === e.Top || T === e.Bottom
-              ? ((L = R), (D.coords.left = t.left + x))
-              : ((E = R), (D.coords.top = t.top + x))
-            : a === s.End &&
-              (T === e.Top || T === e.Bottom
-                ? ((L = "calc(100% - " + (R + S) + "px)"),
-                  (D.coords.left = t.right - n.width + x))
-                : ((E = "calc(100% - " + (R + S) + "px)"),
-                  (D.coords.top = t.bottom - n.height + x))),
-        D.coords.left < 0
-          ? T === e.Top || T === e.Bottom
-            ? ((D.alignment = s.Start), (D.coords.left = t.left + x), (L = R))
-            : ((D.position = e.End), (D.coords.left = c(t, I)), (L = "0px"))
-          : D.coords.left + n.width > f &&
-            (T === e.Top || T === e.Bottom
-              ? ((D.alignment = s.End),
-                (D.coords.left = t.right - n.width + x),
-                (L = "calc(100% - " + S + "px)"))
-              : ((D.position = e.Start),
-                (D.coords.left = m(t, n, I)),
-                (L = "100%"))),
-        D.coords.top < 0
-          ? T === e.Start || T === e.End
-            ? ((D.alignment = s.Start), (D.coords.top = t.top + x), (E = R))
-            : ((D.position = e.Bottom), (D.coords.top = d(t, I)), (E = "0px"))
-          : D.coords.top + n.height > g &&
-            (T === e.Start || T === e.End
-              ? ((D.alignment = s.End),
-                (D.coords.top = t.bottom - n.height + x),
-                (E = "calc(100% - " + R + "px)"))
-              : ((D.position = e.Top),
-                (D.coords.top = u(t, n, I)),
-                (E = "100%"))),
+        P = 0;
+      return (
         l != null &&
-          E != null &&
-          L != null &&
-          (D.arrowCoords = { top: E, left: L }),
-        h === !0 && l == null)
-      )
-        if (T === e.Top || T === e.Bottom) {
-          var $ = D.coords.left,
-            P = Math.min(Math.max($, 0), Math.max(f - n.width, 0));
-          if (((D.coords.left = P), P !== $)) {
-            var N = D.position === e.Top ? "bottom" : "top",
-              M = Math.min(Math.max(t.left + t.width / 2 - P, 0), n.width);
-            D.transformOrigin = M + "px " + N;
-          }
-        } else {
-          var w = D.coords.top,
-            A = Math.min(Math.max(w, 0), Math.max(g - n.height, 0));
-          if (((D.coords.top = A), A !== w)) {
-            var F = D.position === e.Start ? "right" : "left",
-              O = Math.min(Math.max(t.top + t.height / 2 - A, 0), n.height);
-            D.transformOrigin = F + " " + O + "px";
-          }
-        }
-      return D;
+          (a === s.Start || a === s.End) &&
+          ((x === e.Top || x === e.Bottom) && t.width < E * 2 + L
+            ? (P = E + L / 2 - t.width / 2)
+            : (x === e.Start || x === e.End) &&
+              t.height < E * 2 + L &&
+              (P = E + L / 2 - t.height / 2),
+          a === s.Start && (P = -P)),
+        x === e.Top
+          ? (($.coords.top = u(t, n, D)), (I = "100%"))
+          : x === e.End
+            ? (($.coords.left = c(t, D)), (k = -R + T))
+            : x === e.Bottom
+              ? (($.coords.top = d(t, D)), (I = -R + T))
+              : x === e.Start && (($.coords.left = m(t, n, D)), (k = "100%")),
+        a === s.Center
+          ? x === e.Top || x === e.Bottom
+            ? ((k = "calc(50% - " + L / 2 + "px)"), ($.coords.left = p(t, n)))
+            : ((I = "calc(50% - " + L / 2 + "px)"), ($.coords.top = _(t, n)))
+          : a === s.Start
+            ? x === e.Top || x === e.Bottom
+              ? ((k = E), ($.coords.left = t.left + P))
+              : ((I = E), ($.coords.top = t.top + P))
+            : a === s.End &&
+              (x === e.Top || x === e.Bottom
+                ? ((k = "calc(100% - " + (E + L) + "px)"),
+                  ($.coords.left = t.right - n.width + P))
+                : ((I = "calc(100% - " + (E + L) + "px)"),
+                  ($.coords.top = t.bottom - n.height + P))),
+        $.coords.left < 0
+          ? x === e.Top || x === e.Bottom
+            ? (($.alignment = s.Start), ($.coords.left = t.left + P), (k = E))
+            : (($.position = e.End), ($.coords.left = c(t, D)), (k = "0px"))
+          : $.coords.left + n.width > f &&
+            (x === e.Top || x === e.Bottom
+              ? (($.alignment = s.End),
+                ($.coords.left = t.right - n.width + P),
+                (k = "calc(100% - " + L + "px)"))
+              : (($.position = e.Start),
+                ($.coords.left = m(t, n, D)),
+                (k = "100%"))),
+        $.coords.top < 0
+          ? x === e.Start || x === e.End
+            ? (($.alignment = s.Start), ($.coords.top = t.top + P), (I = E))
+            : (($.position = e.Bottom), ($.coords.top = d(t, D)), (I = "0px"))
+          : $.coords.top + n.height > h &&
+            (x === e.Start || x === e.End
+              ? (($.alignment = s.End),
+                ($.coords.top = t.bottom - n.height + P),
+                (I = "calc(100% - " + E + "px)"))
+              : (($.position = e.Top),
+                ($.coords.top = u(t, n, D)),
+                (I = "100%"))),
+        l != null &&
+          I != null &&
+          k != null &&
+          ($.arrowCoords = { top: I, left: k }),
+        C === !0 &&
+          l == null &&
+          (x === e.Top || x === e.Bottom ? g($, t, n, f, h) : y($, t, n, h)),
+        $
+      );
     }
-    function g(e) {
+    function g(e, t, n, r, o) {
+      var a = e.coords,
+        i = a.left,
+        l = a.top,
+        s = C(i, r - n.width),
+        u = C(l, o - n.height);
+      if (((e.coords.left = s), (e.coords.top = u), !(s === i && u === l))) {
+        var c = C(t.left + t.width / 2 - s, n.width),
+          d =
+            u === l
+              ? h(e.position)
+              : C(t.top + t.height / 2 - u, n.height) + "px";
+        e.transformOrigin = c + "px " + d;
+      }
+    }
+    function h(t) {
+      return t === e.Top ? "bottom" : "top";
+    }
+    function y(t, n, r, o) {
+      var a = t.coords.top,
+        i = C(a, o - r.height);
+      if (((t.coords.top = i), i !== a)) {
+        var l = t.position === e.Start ? "right" : "left",
+          s = C(n.top + n.height / 2 - i, r.height);
+        t.transformOrigin = l + " " + s + "px";
+      }
+    }
+    function C(e, t) {
+      return Math.min(Math.max(e, 0), Math.max(t, 0));
+    }
+    function b(e) {
       var t,
         n,
         r = e.alignment,
@@ -165,7 +180,7 @@ __d(
         s,
       );
     }
-    function h(t) {
+    function v(t) {
       var n = t.alignment,
         r = t.position,
         o = "left",
@@ -190,8 +205,8 @@ __d(
     }
     ((l.PopoverPosition = e),
       (l.PopoverAlignment = s),
-      (l.getFixedElementPosition = g),
-      (l.getDefaultTransformOrigin = h));
+      (l.getFixedElementPosition = b),
+      (l.getDefaultTransformOrigin = v));
   },
   98,
 );

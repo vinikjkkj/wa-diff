@@ -68,12 +68,21 @@ __d(
           );
     }
     function _(e) {
-      return o("WAWebMsgGetters").getIsSentByMe(e) ||
-        e.ack >= o("WAWebAck").ACK.PLAYED
-        ? !1
-        : o("WAWebMsgGetters").getIsAckPlayable(e) || e.isViewOnce;
+      return f({
+        ack: e.ack,
+        isAckPlayable: o("WAWebMsgGetters").getIsAckPlayable(e),
+        isSentByMe: o("WAWebMsgGetters").getIsSentByMe(e),
+        isViewOnce: e.isViewOnce,
+      });
     }
-    ((l.markPlayed = d), (l.canMarkPlayed = m));
+    function f(e) {
+      var t = e.ack,
+        n = e.isAckPlayable,
+        r = e.isSentByMe,
+        a = e.isViewOnce;
+      return r || (t != null && t >= o("WAWebAck").ACK.PLAYED) ? !1 : n || a;
+    }
+    ((l.markPlayed = d), (l.canMarkPlayed = m), (l.canMarkPlayedFor = f));
   },
   98,
 );

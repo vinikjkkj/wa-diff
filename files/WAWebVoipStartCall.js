@@ -36,6 +36,7 @@ __d(
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
     "WAWebVoipActivityTracker",
     "WAWebVoipBootInitDecision",
+    "WAWebVoipCallAudioUnlock",
     "WAWebVoipCallBlockedModals",
     "WAWebVoipCallFromUiStore",
     "WAWebVoipCallIdProvider",
@@ -198,6 +199,7 @@ __d(
                 .color(se),
               null
             );
+          e.isJoin || o("WAWebVoipCallAudioUnlock").releaseCallAudioUnlock();
           var t = new AbortController();
           Ce({
             abortController: t,
@@ -1311,9 +1313,10 @@ __d(
             p = e.lobbyEntryPoint,
             _ = p === void 0 ? 0 : p;
           if (
+            (o("WAWebVoipCallAudioUnlock").prepareCallAudioElement(),
             !(yield o(
               "WAWebVoipCallBlockedModals",
-            ).showCallBlockedModalIfNeeded())
+            ).showCallBlockedModalIfNeeded()))
           ) {
             (o("WAWebVoipActivityTracker").startActivityTracking(),
               o("WAWebVoipActivityTracker").startUiActivityTracking());

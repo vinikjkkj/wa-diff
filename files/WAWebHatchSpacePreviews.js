@@ -16,108 +16,57 @@ __d(
       c = 4 * 1024 * 1024,
       d = 300 * 1e3,
       m = new Map(),
-      p = "VM response exceeds size limit",
-      _ = m,
-      f = 0,
-      g = !1,
-      h = null,
-      y = 0,
-      C = new Set();
-    function b() {
-      if (self.performance.now() < f)
-        return (s || (s = n("Promise"))).resolve(_);
-      if (h == null) {
-        var e = E(y).finally(function () {
-          h === e && (h = null);
-        });
-        h = e;
-      }
-      return h;
-    }
+      p = { cards: m, thumbnails: m },
+      _ = "VM response exceeds size limit",
+      f = p,
+      g = 0,
+      h = !1,
+      y = null,
+      C = 0,
+      b = new Set();
     function v() {
-      return _;
+      if (self.performance.now() < g)
+        return (s || (s = n("Promise"))).resolve(f.thumbnails);
+      if (y == null) {
+        var e = I(C).finally(function () {
+          y === e && (y = null);
+        });
+        y = e;
+      }
+      return y;
     }
     function S() {
-      return g;
+      return f.thumbnails;
     }
-    function R(e) {
+    function R() {
+      return f.cards;
+    }
+    function L() {
+      return h;
+    }
+    function E(e) {
       var t = { listener: e };
       return (
-        C.add(t),
+        b.add(t),
         function () {
-          C.delete(t);
+          b.delete(t);
         }
       );
     }
-    function L() {
-      ((g = !1), y++, (h = null), (f = 0), F(m));
-    }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
     function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield I();
-          return y !== e
-            ? m
-            : (t != null && ((f = self.performance.now() + d), (g = !0), F(t)),
-              _);
-        })),
-        k.apply(this, arguments)
-      );
+      ((h = !1), C++, (y = null), (g = 0), B(p));
     }
-    function I() {
+    function I(e) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield D();
-          return (function (e) {
-            if (e === null) return A("session", !1);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "response" &&
-              "body" in e &&
-              "statusCode" in e
-            ) {
-              var t = e.body,
-                n = e.statusCode;
-              return P(t, n);
-            }
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "failure" &&
-              "detail" in e &&
-              e.detail === p
-            )
-              return A("responseTooLarge", !0);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "failure"
-            )
-              return A("transport", !1);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "rejected"
-            )
-              return A("rejected", !0);
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "unreadable"
-            )
-              return A("malformedResponse", !0);
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e,
-            );
-          })(e);
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield D();
+          return C !== e
+            ? m
+            : (t != null && ((g = self.performance.now() + d), (h = !0), B(t)),
+              f.thumbnails);
         })),
         T.apply(this, arguments)
       );
@@ -128,28 +77,88 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (e == null) return null;
-          var t = yield $(e);
-          return t.kind === "failure" && t.detail !== p ? $(e) : t;
+          var e = yield $();
+          return (function (e) {
+            if (e === null) return O("session", !1);
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.kind === "response" &&
+              "body" in e &&
+              "statusCode" in e
+            ) {
+              var t = e.body,
+                n = e.statusCode;
+              return M(t, n);
+            }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.kind === "failure" &&
+              "detail" in e &&
+              e.detail === _
+            )
+              return O("responseTooLarge", !0);
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.kind === "failure"
+            )
+              return O("transport", !1);
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.kind === "rejected"
+            )
+              return O("rejected", !0);
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.kind === "unreadable"
+            )
+              return O("malformedResponse", !0);
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          })(e);
         })),
         x.apply(this, arguments)
       );
     }
-    function $(e) {
+    function $() {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+          if (e == null) return null;
+          var t = yield N(e);
+          return t.kind === "failure" && t.detail !== _ ? N(e) : t;
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(e) {
       return e.exchange(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.SPACES_CATALOG,
         { timeoutMs: u },
       );
     }
-    function P(e, t) {
-      if (t < 200 || t >= 300) return A("http." + t, t < 500);
-      if (e.length > c) return A("responseTooLarge", !0);
-      var n = N(e);
-      return n == null ? A("malformedResponse", !0) : M(n);
+    function M(e, t) {
+      if (t < 200 || t >= 300) return O("http." + t, t < 500);
+      if (e.length > c) return O("responseTooLarge", !0);
+      var n = w(e);
+      return n == null
+        ? O("malformedResponse", !0)
+        : {
+            cards: A(n, "preview_card_url"),
+            thumbnails: A(n, "thumbnail_url"),
+          };
     }
-    function N(e) {
+    function w(e) {
       try {
         return o("WAWebHatchJsonReaders").readArray(
           JSON.parse(new TextDecoder().decode(e)),
@@ -159,26 +168,26 @@ __d(
         return null;
       }
     }
-    function M(e) {
-      var t = new Map();
-      for (var n of e) {
-        var r = o("WAWebHatchJsonReaders").readString(n, "slug"),
-          a = w(n);
-        r != null && r !== "" && a != null && !t.has(r) && t.set(r, a);
+    function A(e, t) {
+      var n = new Map();
+      for (var r of e) {
+        var a = o("WAWebHatchJsonReaders").readString(r, "slug"),
+          i = F(r, t);
+        a != null && a !== "" && i != null && !n.has(a) && n.set(a, i);
       }
-      return t;
+      return n;
     }
-    function w(e) {
-      var t = o("WAWebHatchJsonReaders").readString(
+    function F(e, t) {
+      var n = o("WAWebHatchJsonReaders").readString(
         o("WAWebHatchJsonReaders").readObject(e, "preview_image"),
-        "thumbnail_url",
+        t,
       );
-      return t == null ||
+      return n == null ||
         o("WAWebHatchJsonReaders").readBool(e, "is_shared") === !0
         ? null
-        : o("WAWebHatchVmTransport").JarvisPaths.SPACE_IMAGE(t);
+        : o("WAWebHatchVmTransport").JarvisPaths.SPACE_IMAGE(n);
     }
-    function A(t, n) {
+    function O(t, n) {
       var r = o("WALogger").WARN(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -189,17 +198,18 @@ __d(
       );
       return (n && r.sendLogs("hatch-space-previews-load-failed"), null);
     }
-    function F(e) {
-      if (_ !== e) {
-        _ = e;
-        for (var t of Array.from(C)) t.listener();
+    function B(e) {
+      if (f !== e) {
+        f = e;
+        for (var t of Array.from(b)) t.listener();
       }
     }
-    ((l.requestHatchSpacePreviewRoutes = b),
-      (l.getHatchSpacePreviewRoutes = v),
-      (l.hasHatchSpacePreviewRoutesLoaded = S),
-      (l.subscribeToHatchSpacePreviewRoutes = R),
-      (l.clearHatchSpacePreviewRoutes = L));
+    ((l.requestHatchSpacePreviewRoutes = v),
+      (l.getHatchSpacePreviewRoutes = S),
+      (l.getHatchSpaceCardPreviewRoutes = R),
+      (l.hasHatchSpacePreviewRoutesLoaded = L),
+      (l.subscribeToHatchSpacePreviewRoutes = E),
+      (l.clearHatchSpacePreviewRoutes = k));
   },
   98,
 );

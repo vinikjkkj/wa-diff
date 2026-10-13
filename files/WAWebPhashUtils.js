@@ -70,11 +70,7 @@ __d(
           (o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
             t === !0 &&
             a.push(o("WAWebBotUtils").META_BOT_FBID_WID),
-            o(
-              "WAWebBotGroupGatingUtils",
-            ).isTEEGroupBotParticipantAddEnabled() &&
-              n === !0 &&
-              a.push(o("WAWebBotUtils").META_BOT_TEE_FBID_WID));
+            n === !0 && a.push(o("WAWebBotUtils").META_BOT_TEE_FBID_WID));
           for (
             var i = a
                 .map(function (e) {

@@ -13,54 +13,81 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("WAWebLazyLoadedRetriable")(
+      s,
+      u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
             "WAWebVoipCallsTabResolveCallInfo",
           )
             .__setRef("WAWebVoipCallsTabOpenCallInfo")
             .load();
-          return e.openCallLogInfoPanelForCallId;
+          return e;
         }),
         "WAWebVoipCallsTabResolveCallInfo",
       );
-    function u(e) {
+    function c(e) {
       return (
         o("WAWebCmd").Cmd.setActiveNavBarItem(
           o("WAWebNavBarTypes").NavBarItems.Calls,
         ),
         o("WAWebCmd").Cmd.closeActiveChat(),
         o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}),
-        c(e)
+        p(e)
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = yield s();
-            yield n(t);
-          } catch (n) {
+            var n = yield u(),
+              a = n.openFavoriteCallInfoOrChat;
+            yield a(t);
+          } catch (t) {
             o("WALogger")
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "WAWebVoipCallsTabOpenCallInfo: failed to open favorite",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("calls-tab-open-favorite-failed");
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            var t = yield u(),
+              n = t.openCallLogInfoPanelForCallId;
+            yield n(e);
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "WAWebVoipCallsTabOpenCallInfo: failed to resolve call log ",
                     "",
                   ])),
-                t,
+                e,
               )
-              .catching(r("getErrorSafe")(n))
+              .catching(r("getErrorSafe")(t))
               .sendLogs("calls-tab-open-call-info-failed");
           }
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.openVoipCallsTabCallInfo = u;
+    ((l.openVoipCallsTabCallInfo = c), (l.openVoipCallsTabFavorite = d));
   },
   98,
 );

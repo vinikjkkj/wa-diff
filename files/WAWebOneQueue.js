@@ -8,6 +8,7 @@ __d(
     "WALogger",
     "WAOfflineUtils",
     "WAOneQueue",
+    "WAWebBoolFunc",
     "WAWebDanglingReceiptQueue",
     "WAWebMessageDeliveryCounters",
     "WAWebMessageQueueImpl",
@@ -38,9 +39,7 @@ __d(
             pullMode: {
               clear: function () {},
               offlineStart: function () {},
-              shouldFlash: function () {
-                return !1;
-              },
+              shouldFlash: o("WAWebBoolFunc").returnFalse,
               stanzaProcessed: function () {},
               stanzaReceived: function () {},
             },

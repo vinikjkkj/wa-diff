@@ -50,9 +50,7 @@ __d(
           },
           { merge: !0 },
         ),
-        i
-          ? o("WAWebVoipGatingUtils").isGroupCallingEnabled()
-          : o("WAWebVoipGatingUtils").isCallingEnabled())
+        o("WAWebVoipGatingUtils").isCallingEnabled())
       )
         o("WALogger")
           .ERROR(

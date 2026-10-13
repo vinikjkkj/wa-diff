@@ -6,6 +6,7 @@ __d(
     "WASignalKeys",
     "WASignalPQTypes",
     "WAWebABProps",
+    "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebKyberPreKeyStore",
     "WAWebPQGatingUtils",
     "WAWebReleaseToEventLoop",
@@ -77,28 +78,28 @@ __d(
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           try {
             yield (C || (C = n("Promise"))).all(
               [].concat(
-                t.map(function (e) {
+                e.map(function (e) {
                   return o("WAWebKyberPreKeyStore").removeKyberPreKey(e.id);
                 }),
-                [o("WAWebKyberPreKeyStore").removeKyberLastResortKey(a.id)],
+                [o("WAWebKyberPreKeyStore").removeKyberLastResortKey(t.id)],
               ),
             );
-          } catch (t) {
-            if (L(t)) return;
+          } catch (e) {
+            if (L(e)) return;
             o("WALogger")
               .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "generateAndUploadPQPreKeys: failed to remove initial SET PQ keys after ",
                     " failure",
                   ])),
-                i,
+                a,
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .sendLogs("pq-prekeys-set-cleanup-failed");
           }
         })),
@@ -114,8 +115,8 @@ __d(
           try {
             if (!o("WAWebPQGatingUtils").isPqKeysUploadEnabled()) {
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "generateAndUploadPQPreKeys: PQ upload not enabled, skipping",
                   ])),
               );
@@ -124,16 +125,16 @@ __d(
             var e = yield o("WAWebKyberPreKeyStore").isPQMigrated();
             if (e) {
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "generateAndUploadPQPreKeys: already PQ migrated, skipping",
                   ])),
               );
               return;
             }
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "generateAndUploadPQPreKeys: starting PQ prekey generation/upload",
                 ])),
             );
@@ -142,126 +143,149 @@ __d(
             ).waSignalStore.getRegistrationInfo();
             if (t == null) {
               o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "generateAndUploadPQPreKeys: no registration info available",
                   ])),
               );
               return;
             }
-            var a = o("WASignalKeys").makeKeyPairFromArrayBuffers(
+            var r = o("WASignalKeys").makeKeyPairFromArrayBuffers(
                 t.identityKeyPair.pubKey,
                 t.identityKeyPair.privKey,
               ),
-              i = yield (C || (C = n("Promise"))).all([b.load(), v.load()]),
-              l = i[0].uploadPQPreKeysProtocol,
-              h = i[1],
-              y = h.generateKyberLastResortKey,
-              T = h.generateKyberPreKeys,
-              D = Math.max(
+              a = yield (C || (C = n("Promise"))).all([b.load(), v.load()]),
+              i = a[0].uploadPQPreKeysProtocol,
+              l = a[1],
+              s = l.generateKyberLastResortKey,
+              f = l.generateKyberPreKeys,
+              g = Math.max(
                 1,
                 o("WAWebABProps").getABPropConfigValue("pq_batch_upload_size"),
               ),
-              x = o("WAWebABProps").getABPropConfigValue(
+              h = o("WAWebABProps").getABPropConfigValue(
                 "pq_max_keys_on_server",
               ),
-              P = Number.isFinite(x)
+              y = Number.isFinite(h)
                 ? Math.min(
-                    Math.max(1, x),
+                    Math.max(1, h),
                     o("WASignalPQTypes").PQ_PRE_KEY_NON_INCLUSIVE_UPPER_BORDER -
                       1,
                   )
                 : S,
-              N = yield o("WAWebKyberPreKeyStore").reserveKyberPreKeyIds(P + 1),
-              M = R(N, P);
+              L = yield o("WAWebKyberPreKeyStore").reserveKyberPreKeyIds(y + 1),
+              T = R(L, y);
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "generateAndUploadPQPreKeys: generating ",
                   " PQ prekeys starting at ID ",
                   "",
                 ])),
-              P,
-              N,
+              y,
+              L,
             );
-            var w = yield y(M, a),
-              A = Math.min(D, P);
+            var D = yield s(T, r),
+              x = Math.min(g, y);
             yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
-            var F = yield T(N, A, a),
-              O = k(w);
+            var P = yield f(L, x, r),
+              M = k(D);
             try {
-              (yield o("WAWebKyberPreKeyStore").saveKyberLastResortKey(O),
-                yield o("WAWebKyberPreKeyStore").saveKyberPreKeys(F.map(E)));
+              (yield o("WAWebKyberPreKeyStore").saveKyberLastResortKey(M),
+                yield o("WAWebKyberPreKeyStore").saveKyberPreKeys(P.map(E)));
             } catch (e) {
-              throw (yield I(F, w, "storage"), e);
+              throw (yield I(P, D, "storage"), e);
             }
-            var B = yield l(F, w);
-            if (!B.success) {
+            var w = yield i(P, D);
+            if (!w.success) {
               (o("WALogger")
                 .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "generateAndUploadPQPreKeys: initial PQ prekey upload failed",
                     ])),
                 )
                 .sendLogs("pq-prekeys-set-upload-failed"),
-                yield I(F, w, "set"));
+                yield I(P, D, "set"));
               return;
             }
             (yield o("WAWebKyberPreKeyStore").setPQMigrated(!0),
               yield o("WAWebKyberPreKeyStore").markKyberPreKeysAsSent(
-                F.map(function (e) {
+                P.map(function (e) {
                   return e.id;
                 }),
-              ));
-            var W = P - A,
-              q = yield $(R(N, A), D, W, a),
-              U = F.length + q;
-            if (U < P) {
-              o("WALogger")
-                .WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "generateAndUploadPQPreKeys: PQ migration incomplete, ",
-                      "/",
-                      " prekeys uploaded",
-                    ])),
-                  U,
-                  P,
-                )
-                .sendLogs("pq-prekeys-partial-upload");
-              return;
-            }
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "generateAndUploadPQPreKeys: PQ migration complete, ",
-                  " prekeys uploaded",
-                ])),
-              U,
-            );
+              ),
+              $(R(L, x), g, y - x, P.length, y, r));
           } catch (e) {
-            if (L(e)) return;
-            o("WALogger")
-              .ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "generateAndUploadPQPreKeys: error during PQ key generation/upload",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("pq-prekeys-upload-failed");
+            N(e);
           }
         })),
         x.apply(this, arguments)
       );
     }
-    function $(e, t, n, r) {
+    function $(e, t, n, r, o, a) {
       return P.apply(this, arguments);
     }
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a, i) {
+            try {
+              n > 0 &&
+                (yield o(
+                  "WAWebEventsWaitForOfflineDeliveryEnd",
+                ).waitForOfflineDeliveryEnd({ ignoreInit: !0 }));
+              var l = yield M(e, t, n, i),
+                s = r + l;
+              if (s < a) {
+                o("WALogger")
+                  .WARN(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "generateAndUploadPQPreKeys: PQ migration incomplete, ",
+                        "/",
+                        " prekeys uploaded",
+                      ])),
+                    s,
+                    a,
+                  )
+                  .sendLogs("pq-prekeys-partial-upload");
+                return;
+              }
+              o("WALogger").LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "generateAndUploadPQPreKeys: PQ migration complete, ",
+                    " prekeys uploaded",
+                  ])),
+                s,
+              );
+            } catch (e) {
+              N(e);
+            }
+          },
+        )),
+        P.apply(this, arguments)
+      );
+    }
+    function N(t) {
+      L(t) ||
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "generateAndUploadPQPreKeys: error during PQ key generation/upload",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("pq-prekeys-upload-failed");
+    }
+    function M(e, t, n, r) {
+      return w.apply(this, arguments);
+    }
+    function w() {
+      return (
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = yield (C || (C = n("Promise"))).all([b.load(), v.load()]),
               l = i[0].addPQPreKeysProtocol,
@@ -315,7 +339,7 @@ __d(
             return c;
           },
         )),
-        P.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
     l.generateAndUploadPQPreKeys = D;

@@ -160,7 +160,7 @@ __d(
     }
     W.displayName = W.name + " [from " + i.id + "]";
     function q() {
-      return s._(/*BTDS*/ "Business broadcasts with advanced tools");
+      return s._(/*BTDS*/ "Business broadcasts");
     }
     q.displayName = q.name + " [from " + i.id + "]";
     function U(e) {
@@ -175,9 +175,7 @@ __d(
     }
     V.displayName = V.name + " [from " + i.id + "]";
     function H() {
-      return s._(
-        /*BTDS*/ "Learn more about business broadcasts with advanced tools",
-      );
+      return s._(/*BTDS*/ "Learn more about business broadcasts");
     }
     H.displayName = H.name + " [from " + i.id + "]";
     function G() {
@@ -683,16 +681,7 @@ __d(
     Ut.displayName = Ut.name + " [from " + i.id + "]";
     function Vt() {
       return s._(
-        /*BTDS*/ "Turn off advanced tools on your primary phone. {=m2}",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(r("WDSTextualLink.react"), {
-              href: o("WAWebFaqUrl").getBusinessBroadcastsLearnMoreUrl(),
-              children: s._(/*BTDS*/ "Learn about advanced tools"),
-            }),
-          ),
-        ],
+        /*BTDS*/ "Business broadcasts need to be disconnected on your primary phone.",
       );
     }
     Vt.displayName = Vt.name + " [from " + i.id + "]";

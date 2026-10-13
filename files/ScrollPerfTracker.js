@@ -139,15 +139,19 @@ __d(
       r("addAnnotations")(o.annotations, { string: { traceType: "SCROLL" } });
       var a = C(o),
         i = b(o);
-      return function () {
-        var t = (e || (e = r("performanceNow")))();
-        ((o.endTime = t),
+      return function (t) {
+        var n = (e || (e = r("performanceNow")))();
+        ((o.endTime = n),
           r("addAnnotations")(o.annotations, {
-            int: { scrollDuration: t - o.startTime },
+            int: { scrollDuration: n - o.startTime },
           }),
+          t != null &&
+            r("addAnnotations")(o.annotations, {
+              double: { scrollDistanceX: t.x, scrollDistanceY: t.y },
+            }),
           a(),
           i(),
-          r("OneTraceCore").endTrace(o.traceID, t, "SUCCESS"));
+          r("OneTraceCore").endTrace(o.traceID, n, "SUCCESS"));
       };
     }
     function C(e) {

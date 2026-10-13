@@ -168,7 +168,13 @@ __d(
     function ae() {
       return s._(/*BTDS*/ "Payment pending");
     }
-    function ie(e) {
+    function ie() {
+      return s._(/*BTDS*/ "Choose audience");
+    }
+    function le() {
+      return s._(/*BTDS*/ "Message can't be empty");
+    }
+    function se(e) {
       var t = e.broadcastJidIsNull,
         n = e.checkoutFailed,
         r = e.contactsCount,
@@ -181,7 +187,7 @@ __d(
       return l
         ? null
         : t
-          ? s._(/*BTDS*/ "Choose audience")
+          ? ie()
           : u
             ? s._(/*BTDS*/ "Loading...")
             : i
@@ -197,7 +203,7 @@ __d(
                   : a
                     ? ae()
                     : c
-                      ? s._(/*BTDS*/ "Message can't be empty")
+                      ? le()
                       : n
                         ? s._(
                             /*BTDS*/ "Something went wrong. Please try again later.",
@@ -259,7 +265,9 @@ __d(
       (l.getExitConfirmationBody = re),
       (l.getExitConfirmationContinueButton = oe),
       (l.getPaymentPendingDisabledReason = ae),
-      (l.getSendNowButtonDisabledReason = ie));
+      (l.getChooseAudienceDisabledReason = ie),
+      (l.getMessageEmptyDisabledReason = le),
+      (l.getSendNowButtonDisabledReason = se));
   },
   226,
 );

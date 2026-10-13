@@ -14,6 +14,7 @@ __d(
     "WAWebSchemaNote",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e;
@@ -122,12 +123,66 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.canonicalChatJid,
+            a = e.chatJid,
+            i = e.content,
+            l = e.type;
+          o("WAWebMobilePlatforms").isSMB() || s(0, 79042);
+          var u = o("WATimeUtils").unixTime(),
+            c = {
+              id: yield o("WAWebNotesIdUtils").generateNoteId(a),
+              type: l,
+              chatJid: a,
+              content: i,
+              createdAt: u,
+              modifiedAt: u,
+            },
+            d = yield r("WAWebNoteSync").getNoteMutation(c),
+            m = r("err")("Note already exists");
+          try {
+            yield o("WAWebSyncdCoreApi").lockForSync(
+              ["note"],
+              [d],
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                if (
+                  (yield o("WAWebDBNoteDatabaseApi").getNotesByChatJid(a))
+                    .length > 0 ||
+                  (t != null &&
+                    t !== a &&
+                    (yield o("WAWebDBNoteDatabaseApi").getNotesByChatJid(t))
+                      .length > 0)
+                )
+                  throw m;
+                yield o("WAWebDBNoteDatabaseApi").addOrEditNote(c);
+              }),
+            );
+          } catch (e) {
+            if (e === m) return !1;
+            throw e;
+          }
+          return (
+            o("WAWebNoteCollection").NoteCollection.add(
+              babelHelpers.extends({}, c),
+              { merge: !0 },
+            ),
+            !0
+          );
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebDBNoteDatabaseApi").getNotesByChatJid(t);
           n.length > 0 &&
             (yield o("WAWebSchemaNote")
@@ -158,14 +213,15 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.retrieveOnlyNoteForChatJid = u),
       (l.noteAddAction = d),
       (l.noteEditAction = p),
       (l.addOrEditNoteAction = f),
-      (l.updateNoteJidAction = h));
+      (l.noteAddIfAbsentAction = h),
+      (l.updateNoteJidAction = C));
   },
   98,
 );

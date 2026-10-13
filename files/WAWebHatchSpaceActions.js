@@ -6,6 +6,7 @@ __d(
     "WAWebHatchSpacesManager",
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
+    "WAWebNullFunc",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,9 +21,7 @@ __d(
           var n = t ? "pin" : "unpin",
             r = yield o("WAWebHatchVmConnection")
               .connectHatchVmApi()
-              .catch(function () {
-                return null;
-              });
+              .catch(o("WAWebNullFunc").returnNull);
           if (r == null) return f(n, "no_session");
           var a = yield r.request(
             "POST",
@@ -53,9 +52,7 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebHatchVmConnection")
               .connectHatchVmApi()
-              .catch(function () {
-                return null;
-              }),
+              .catch(o("WAWebNullFunc").returnNull),
             n =
               t == null
                 ? null

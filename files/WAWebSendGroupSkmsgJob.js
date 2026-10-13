@@ -373,10 +373,7 @@ __d(
                 [].concat(G, [z], q),
                 o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                   i.isOpenBotGroup === !0,
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isTEEGroupBotParticipantAddEnabled() &&
-                  i.isTeeBotGroup === !0,
+                i.isTeeBotGroup === !0,
               ),
               K = o("WAWebMsgGetters").getIsBotFeedbackMessage(A);
             (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(

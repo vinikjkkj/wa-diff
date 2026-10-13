@@ -2,6 +2,7 @@ __d(
   "WAWebHatchSecureCredentialsVault",
   [
     "WALogger",
+    "WAWebHatchBoundChatDecoder",
     "WAWebHatchJsonReaders",
     "WAWebHatchSecureCredentialDecoder",
     "WAWebHatchSecureCredentialVaultError",
@@ -11,58 +12,41 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 100,
-      u = { kind: "not_found" },
-      c = { raw: "session", reason: "session" },
-      d = { raw: "transport", reason: "transport" },
-      m = { raw: "malformed_response", reason: "malformed_response" },
-      p = { raw: "unknown", reason: "unknown" },
-      _ = { Failure: d, Unreadable: m };
-    function f() {
-      return g(null, new Set(), [], 0);
-    }
-    function g(e, t, n, r) {
-      return h.apply(this, arguments);
-    }
+      s,
+      u = 100,
+      c = 5e3,
+      d = { kind: "not_found" },
+      m = { raw: "session", reason: "session" },
+      p = { raw: "transport", reason: "transport" },
+      _ = { raw: "malformed_response", reason: "malformed_response" },
+      f = { raw: "unknown", reason: "unknown" },
+      g = { Failure: p, Unreadable: _ };
     function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (r >= s) throw x("catalog_too_many_pages", p);
-            var a = yield k(function (t) {
-              return t.credentialCatalog(e);
-            }, "catalog");
-            if (a.kind === "not_found") throw x("catalog_not_found", D(404));
-            var i = o(
-              "WAWebHatchSecureCredentialDecoder",
-            ).decodeHatchSecureCredentialCatalogPage(a.value);
-            if (i == null) throw x("catalog_malformed", m);
-            var l = [].concat(n, i.items),
-              u = i.nextCursor;
-            if (u == null) return l;
-            if (t.has(u)) throw x("catalog_cursor_repeated", p);
-            return (t.add(u), g(u, t, l, r + 1));
-          },
-        )),
-        h.apply(this, arguments)
-      );
+      return y(null, new Set(), [], 0);
     }
-    function y(e) {
+    function y(e, t, n, r) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield k(function (t) {
-            return t.credentialDetails(e);
-          }, "details");
-          if (t.kind === "not_found") return u;
-          var n = o(
-            "WAWebHatchSecureCredentialDecoder",
-          ).decodeHatchSecureCredentialDetails(t.value, e);
-          if (n == null) throw x("details_malformed", m);
-          return { kind: "ok", value: n };
-        })),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            if (r >= u) throw O("catalog_too_many_pages", f);
+            var a = yield M(function (t) {
+              return t.credentialCatalog(e);
+            }, "catalog");
+            if (a.kind === "not_found") throw O("catalog_not_found", F(404));
+            var i = o(
+              "WAWebHatchSecureCredentialDecoder",
+            ).decodeHatchSecureCredentialCatalogPage(a.value);
+            if (i == null) throw O("catalog_malformed", _);
+            var l = [].concat(n, i.items),
+              s = i.nextCursor;
+            if (s == null) return l;
+            if (t.has(s)) throw O("catalog_cursor_repeated", f);
+            return (t.add(s), y(s, t, l, r + 1));
+          },
+        )),
         C.apply(this, arguments)
       );
     }
@@ -72,25 +56,15 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [];
-          (e.username != null &&
-            t.push({ name: "username", protected: !0, value: e.username }),
-            t.push({ name: "password", protected: !0, value: e.password }));
-          var n = yield I(function (n) {
-            return n.credentialCapture({
-              fields: t,
-              idempotency_key: e.idempotencyKey,
-              label: null,
-              lifetime: "persist",
-              page_url: e.pageUrl,
-            });
-          }, "capture");
-          if (n.kind === "not_found") throw x("capture_not_found", D(404));
-          var r = o(
+          var t = yield M(function (t) {
+            return t.credentialDetails(e);
+          }, "details");
+          if (t.kind === "not_found") return d;
+          var n = o(
             "WAWebHatchSecureCredentialDecoder",
-          ).decodeHatchSecureCredentialCaptureId(n.value);
-          if (r == null) throw x("capture_malformed", m);
-          return r;
+          ).decodeHatchSecureCredentialDetails(t.value, e);
+          if (n == null) throw O("details_malformed", _);
+          return { kind: "ok", value: n };
         })),
         v.apply(this, arguments)
       );
@@ -102,28 +76,27 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
-          if (
-            (e.username != null &&
-              t.push({ name: "username", value: e.username }),
-            e.password != null &&
-              t.push({ name: "password", value: e.password }),
-            t.length === 0 && e.agentPermission == null)
-          )
-            return { kind: "ok", value: null };
-          var n = yield I(function (n) {
-            return n.credentialUpdate(
-              babelHelpers.extends(
-                { fields: t, id: e.id },
-                e.agentPermission == null
-                  ? {}
-                  : { agent_permission: e.agentPermission },
-              ),
-            );
-          }, "update");
-          if (n.kind === "not_found") return u;
-          if (o("WAWebHatchJsonReaders").readBool(n.value, "updated") !== !0)
-            throw x("update_refused", p);
-          return { kind: "ok", value: null };
+          (e.username != null &&
+            t.push({ name: "username", protected: !0, value: e.username }),
+            t.push({ name: "password", protected: !0, value: e.password }));
+          var n = e.requestId == null ? null : yield T(e.requestId),
+            r = yield w(function (r) {
+              return r.credentialCapture(
+                babelHelpers.extends({}, P(n), {
+                  fields: t,
+                  idempotency_key: e.idempotencyKey,
+                  label: null,
+                  lifetime: "persist",
+                  page_url: e.pageUrl,
+                }),
+              );
+            }, "capture");
+          if (r.kind === "not_found") throw O("capture_not_found", F(404));
+          var a = o(
+            "WAWebHatchSecureCredentialDecoder",
+          ).decodeHatchSecureCredentialCaptureId(r.value);
+          if (a == null) throw O("capture_malformed", _);
+          return a;
         })),
         R.apply(this, arguments)
       );
@@ -134,66 +107,181 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield I(function (t) {
-            return t.credentialDelete(e);
-          }, "delete");
-          if (t.kind === "not_found") return u;
-          if (o("WAWebHatchJsonReaders").readBool(t.value, "deleted") !== !0)
-            throw x("delete_refused", p);
+          var t = [];
+          if (
+            (e.username != null &&
+              t.push({ name: "username", value: e.username }),
+            e.password != null &&
+              t.push({ name: "password", value: e.password }),
+            t.length === 0 && e.agentPermission == null)
+          )
+            return { kind: "ok", value: null };
+          var n = yield w(function (n) {
+            return n.credentialUpdate(
+              babelHelpers.extends(
+                { fields: t, id: e.id },
+                e.agentPermission == null
+                  ? {}
+                  : { agent_permission: e.agentPermission },
+              ),
+            );
+          }, "update");
+          if (n.kind === "not_found") return d;
+          if (o("WAWebHatchJsonReaders").readBool(n.value, "updated") !== !0)
+            throw O("update_refused", f);
           return { kind: "ok", value: null };
         })),
         E.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I(e, t, !0);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
-    }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = !1);
-          var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (r == null) throw x(t + "_no_session", c);
-          var a = yield e(r);
-          if ((n && a.kind === "Failure" && (a = yield e(r)), a.kind === "Ok"))
-            return { kind: "ok", value: a.value };
-          if (a.kind === "Rejected") {
-            if (a.statusCode === 404) return u;
-            throw x(t + "_rejected", D(a.statusCode));
-          }
-          throw x(t + "_" + a.kind.toLowerCase(), _[a.kind]);
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield w(function (t) {
+            return t.credentialDelete(e);
+          }, "delete");
+          if (t.kind === "not_found") return d;
+          if (o("WAWebHatchJsonReaders").readBool(t.value, "deleted") !== !0)
+            throw O("delete_refused", f);
+          return { kind: "ok", value: null };
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e) {
-      return { raw: e == null ? "http" : "http." + e, reason: "http" };
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function x(t, n) {
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = Date.now() + c,
+            n = function () {
+              return { timeoutMs: t - Date.now() };
+            };
+          try {
+            var r,
+              a,
+              i = yield x(function (e) {
+                return e.chats(n());
+              });
+            if (i == null) return N("chats_read_failed");
+            var l =
+              (r = o("WAWebHatchBoundChatDecoder").decodeHatchBoundChat(
+                i,
+                "whatsapp",
+              )) == null
+                ? void 0
+                : r.chatId;
+            if (l == null) return N("no_whatsapp_chat");
+            var s = yield x(function (t) {
+              return t.chatMessage(l, e, n());
+            });
+            return s == null
+              ? N("message_read_failed")
+              : (a = o(
+                    "WAWebHatchSecureCredentialDecoder",
+                  ).decodeHatchSecureCredentialCaptureContext(s)) != null
+                ? a
+                : N("not_a_capture_card");
+          } catch (e) {
+            return N("read_failed");
+          }
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+          if (t == null) return null;
+          var n = yield e(t);
+          return (
+            n.kind === "Failure" && (n = yield e(t)),
+            n.kind === "Ok" ? n.value : null
+          );
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e) {
+      if (e == null) return {};
+      var t = e.captureAuthorization,
+        n = e.sessionId;
+      return t == null
+        ? { session_id: n }
+        : { capture_authorization: t, session_id: n };
+    }
+    function N(t) {
       return (
         o("WALogger")
           .WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "hatch-secure-credentials: vault call failed reason=",
+                "hatch-secure-credentials: no capture context reason=",
                 "",
               ])),
             t,
           )
+          .sendLogs("hatch-secure-credentials-capture-context-missing"),
+        null
+      );
+    }
+    function M(e, t) {
+      return w(e, t, !0);
+    }
+    function w(e, t, n) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          n === void 0 && (n = !1);
+          var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+          if (r == null) throw O(t + "_no_session", m);
+          var a = yield e(r);
+          if ((n && a.kind === "Failure" && (a = yield e(r)), a.kind === "Ok"))
+            return { kind: "ok", value: a.value };
+          if (a.kind === "Rejected") {
+            if (a.statusCode === 404) return d;
+            throw O(t + "_rejected", F(a.statusCode));
+          }
+          throw O(t + "_" + a.kind.toLowerCase(), g[a.kind]);
+        })),
+        A.apply(this, arguments)
+      );
+    }
+    function F(e) {
+      return { raw: e == null ? "http" : "http." + e, reason: "http" };
+    }
+    function O(e, t) {
+      return (
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-secure-credentials: vault call failed reason=",
+                "",
+              ])),
+            e,
+          )
           .sendLogs("hatch-secure-credentials-vault-failed"),
         new (o(
           "WAWebHatchSecureCredentialVaultError",
-        ).HatchSecureCredentialVaultError)(n)
+        ).HatchSecureCredentialVaultError)(t)
       );
     }
-    ((l.requestHatchSecureCredentials = f),
-      (l.requestHatchSecureCredentialDetails = y),
-      (l.addHatchSecureCredential = b),
-      (l.updateHatchSecureCredential = S),
-      (l.deleteHatchSecureCredential = L));
+    ((l.requestHatchSecureCredentials = h),
+      (l.requestHatchSecureCredentialDetails = b),
+      (l.addHatchSecureCredential = S),
+      (l.updateHatchSecureCredential = L),
+      (l.deleteHatchSecureCredential = k));
   },
   98,
 );

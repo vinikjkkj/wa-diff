@@ -213,44 +213,44 @@ __d(
             b = s.Store,
             v = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t, n) {
-                  var a,
-                    i,
-                    l,
-                    s =
-                      (a = e.environmentType) != null ? a : "whatsapp_catalog",
-                    u = {
+                function* (t, n, a, i) {
+                  var l,
+                    s,
+                    u,
+                    c =
+                      (l = e.environmentType) != null ? l : "whatsapp_catalog",
+                    h = {
                       Accept: "application/json",
                       "Content-Type": "application/json",
                     };
-                  if (s === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
-                    var c = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
-                    c != null && (u["X-WA-Device-ID"] = c);
+                  if (c === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
+                    var y = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
+                    y != null && (h["X-WA-Device-ID"] = y);
                   }
-                  var h =
-                      (i = o("WAWebGraphQLPersistedQueries").PersistedQueries[
+                  var C =
+                      (s = o("WAWebGraphQLPersistedQueries").PersistedQueries[
                         t.name
                       ]) != null
-                        ? i
+                        ? s
                         : t.id,
-                    y = m(s),
-                    C = yield o("WAWebBackendApi").frontendSendAndReceive(
+                    b = m(c),
+                    v = yield o("WAWebBackendApi").frontendSendAndReceive(
                       "getFullLocale",
                       void 0,
                     ),
-                    b = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
-                      C.replace("-", "_"),
+                    S = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
+                      v.replace("-", "_"),
                       o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
                     );
-                  if (s === "whatsapp_web")
+                  if (c === "whatsapp_web")
                     return g({
-                      docId: h,
-                      locale: b,
-                      localeParameterName: y,
+                      docId: C,
+                      locale: S,
+                      localeParameterName: b,
                       variables: n,
                     });
                   if (
-                    s === "whatsapp_guest" &&
+                    c === "whatsapp_guest" &&
                     (e == null ? void 0 : e.accessToken) == null
                   )
                     throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
@@ -264,52 +264,70 @@ __d(
                         ],
                       },
                     );
-                  var v = babelHelpers.extends(
+                  var R = babelHelpers.extends(
                       {
                         access_token:
-                          (l = e == null ? void 0 : e.accessToken) != null
-                            ? l
+                          (u = e == null ? void 0 : e.accessToken) != null
+                            ? u
                             : o("WAWebGraphQLConstants")
                                 .WHATSAPP_GRAPHQL_CATALOG_ACCESS_TOKEN,
-                        doc_id: h,
+                        doc_id: C,
                         variables: n,
                       },
-                      y === "lang" ? { lang: b } : { locale: b },
+                      b === "lang" ? { lang: S } : { locale: S },
                     ),
-                    S = yield self.fetch(d(s), {
-                      method: "POST",
-                      headers: u,
-                      body: JSON.stringify(v),
-                    });
-                  if (!S.ok) {
-                    var R, L;
+                    L;
+                  if (i != null && Object.keys(i).length > 0) {
+                    var E;
+                    delete h["Content-Type"];
+                    var k = new FormData();
+                    (k.append("access_token", R.access_token),
+                      R.doc_id != null && k.append("doc_id", R.doc_id),
+                      k.append(
+                        "variables",
+                        JSON.stringify((E = R.variables) != null ? E : {}),
+                      ),
+                      R.lang != null && k.append("lang", R.lang),
+                      R.locale != null && k.append("locale", R.locale),
+                      Object.keys(i).forEach(function (e) {
+                        k.append(e, i[e]);
+                      }),
+                      (L = k));
+                  } else L = JSON.stringify(R);
+                  var I = yield self.fetch(d(c), {
+                    method: "POST",
+                    headers: h,
+                    body: L,
+                  });
+                  if (!I.ok) {
+                    var T, D;
                     try {
-                      L = yield S.json();
+                      D = yield I.json();
                     } catch (e) {
-                      p(S);
+                      p(I);
                     }
-                    if (((R = L) == null ? void 0 : R.error) != null)
+                    if (((T = D) == null ? void 0 : T.error) != null)
                       throw new (o(
                         "WAWebGraphQLServerError",
                       ).GraphQLServerError)({
-                        errors: [L.error],
-                        httpStatus: S.status,
+                        errors: [D.error],
+                        httpStatus: I.status,
                       });
-                    p(S);
+                    p(I);
                   }
-                  if (s === "facebook" && !r("justknobx")._("1636")) {
-                    var E = _(yield S.text());
-                    return (f(E), E);
+                  if (c === "facebook" && !r("justknobx")._("1636")) {
+                    var x = _(yield I.text());
+                    return (f(x), x);
                   }
-                  var k = yield S.json();
-                  if ((k == null ? void 0 : k.errors) != null)
+                  var $ = yield I.json();
+                  if (($ == null ? void 0 : $.errors) != null)
                     throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
-                      { errors: k.errors },
+                      { errors: $.errors },
                     );
-                  return k;
+                  return $;
                 },
               );
-              return function (n, r) {
+              return function (n, r, o, a) {
                 return t.apply(this, arguments);
               };
             })(),

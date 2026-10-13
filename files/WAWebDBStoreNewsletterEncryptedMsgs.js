@@ -14,108 +14,103 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    function u(t) {
+      var a = ["message", "chat", "message-association"];
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["message", "chat", "message-association"],
-              (function () {
-                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (a) {
-                    var i = a[0],
-                      l = a[1],
-                      u = a[2],
-                      c = yield o("WAWebDBStoreMsgsUtils").getLastRowId(i),
-                      d = (yield o("WAPromiseMap").promiseMap(
-                        t,
-                        (function () {
-                          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* (t, n) {
-                              var a,
-                                i = t[0],
-                                l = t[1],
-                                s =
-                                  (a = i.serverId) != null
-                                    ? a
-                                    : yield o(
-                                        "WAWebNewsletterDBUtils",
-                                      ).getTemporaryServerId(i.to);
-                              if (s == null)
-                                return (
-                                  o("WALogger")
-                                    .ERROR(
-                                      e ||
-                                        (e =
-                                          babelHelpers.taggedTemplateLiteralLoose(
-                                            [
-                                              "[newsletter][storage] serverId is missing from message",
-                                            ],
-                                          )),
-                                    )
-                                    .tags("newsletter")
-                                    .sendLogs("newsletter-missing-serverId"),
-                                  null
-                                );
-                              var u = r("WAWebMsgKey").fromString(i.id),
-                                d = o(
-                                  "WAWebDBStoreMessage",
-                                ).isPendingUnreadReceipt(u, i),
-                                m = o(
-                                  "WAWebDBStoreMessage",
-                                ).addMsgMetadataToMsgRow({
-                                  msg: i,
-                                  chatId: u.remote.toString(),
-                                  hasLink: l,
-                                  inChatMsgId: s,
-                                  rowId: c + n + 1,
-                                  pendingReadReceipt: d,
-                                });
-                              return (delete m.serverId, m);
-                            },
-                          );
-                          return function (e, n) {
-                            return t.apply(this, arguments);
-                          };
-                        })(),
-                      )).filter(Boolean);
-                    try {
-                      return (
-                        yield o(
-                          "WAWebDBStoreMessageAssociations",
-                        ).bulkStoreMessageAssociations(d),
-                        yield i.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(
-                          d,
-                        ),
-                        d
-                      );
-                    } catch (e) {
-                      return (
-                        o("WALogger")
-                          .ERROR(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "[newsletter-store] Failed to store messages",
-                              ])),
-                          )
-                          .tags("newsletter"),
-                        []
-                      );
-                    }
-                  },
-                );
-                return function (e) {
-                  return a.apply(this, arguments);
-                };
-              })(),
-            );
-          o("WAWebDBExperienceIdStore").recordReceivedExperienceIds(a);
-        })),
-        c.apply(this, arguments)
+        o("WAWebDBExperienceIdStore").shouldLockExperienceIdTable(
+          t.map(function (e) {
+            var t = e[0];
+            return t;
+          }),
+        ) && a.push("experience-id"),
+        o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            a,
+            (function () {
+              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (a) {
+                  var i = a[0],
+                    l = a[1],
+                    u = a[2],
+                    c = yield o("WAWebDBStoreMsgsUtils").getLastRowId(i),
+                    d = (yield o("WAPromiseMap").promiseMap(
+                      t,
+                      (function () {
+                        var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (t, n) {
+                            var a,
+                              i = t[0],
+                              l = t[1],
+                              s =
+                                (a = i.serverId) != null
+                                  ? a
+                                  : yield o(
+                                      "WAWebNewsletterDBUtils",
+                                    ).getTemporaryServerId(i.to);
+                            if (s == null)
+                              return (
+                                o("WALogger")
+                                  .ERROR(
+                                    e ||
+                                      (e =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "[newsletter][storage] serverId is missing from message",
+                                          ],
+                                        )),
+                                  )
+                                  .tags("newsletter")
+                                  .sendLogs("newsletter-missing-serverId"),
+                                null
+                              );
+                            var u = r("WAWebMsgKey").fromString(i.id),
+                              d = o(
+                                "WAWebDBStoreMessage",
+                              ).isPendingUnreadReceipt(u, i),
+                              m = o(
+                                "WAWebDBStoreMessage",
+                              ).addMsgMetadataToMsgRow({
+                                msg: i,
+                                chatId: u.remote.toString(),
+                                hasLink: l,
+                                inChatMsgId: s,
+                                rowId: c + n + 1,
+                                pendingReadReceipt: d,
+                              });
+                            return (delete m.serverId, m);
+                          },
+                        );
+                        return function (e, n) {
+                          return t.apply(this, arguments);
+                        };
+                      })(),
+                    )).filter(Boolean);
+                  try {
+                    (yield o(
+                      "WAWebDBStoreMessageAssociations",
+                    ).bulkStoreMessageAssociations(d),
+                      yield i.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(d),
+                      yield o(
+                        "WAWebDBExperienceIdStore",
+                      ).recordReceivedExperienceIds(d));
+                  } catch (e) {
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[newsletter-store] Failed to store messages",
+                          ])),
+                      )
+                      .tags("newsletter");
+                  }
+                },
+              );
+              return function (e) {
+                return a.apply(this, arguments);
+              };
+            })(),
+          )
       );
     }
     l.storeEncryptedNewsletterMessages = u;

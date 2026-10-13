@@ -14,9 +14,9 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "2780294485a5b9a15b1bb76de665be6eb98afc64a8130bd2949c6828217ac7e4",
+      c = "55fe9b69e4ab2c508e87ba56c102718856f20e2d9b3058b7562a21f5097575e4",
       d = null,
-      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1791785441483" }),
+      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1791851273716" }),
       p = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -82,9 +82,9 @@ __d(
               "_renderVideoFrame_js",
               "_sendSignalingXMPP_js_sync",
               "_fflush",
-              "___indirect_function_table",
               "__ZN5folly15SharedMutexImplILb1EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj",
               "__ZN5folly15SharedMutexImplILb0EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj",
+              "___indirect_function_table",
               "_call_sendto",
               "_call_init_capture_driver_js_sync",
               "_call_start_capture_js_sync",
@@ -769,10 +769,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var Qe = {
-            1387871: function () {
+            1388511: function () {
               return Date.now();
             },
-            1387894: function (t, n) {
+            1388534: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -7839,8 +7839,8 @@ __d(
             yl = (b.___get_exception_message = Pe("__get_exception_message")),
             Cl = Pe("__cxa_can_catch"),
             bl = Pe("__cxa_is_pointer_type"),
-            vl = (b.___start_em_js = 1381884),
-            Sl = (b.___stop_em_js = 1387871);
+            vl = (b.___start_em_js = 1382524),
+            Sl = (b.___stop_em_js = 1388511);
           function Rl(e, t, n, r) {
             var o = _l();
             try {

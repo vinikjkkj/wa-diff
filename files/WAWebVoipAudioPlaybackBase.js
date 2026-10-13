@@ -13,6 +13,7 @@ __d(
     "WAWebVoipAudioPlaybackScriptProcessor",
     "WAWebVoipAudioPlaybackSharedBufferWorklet",
     "WAWebVoipAudioPlaybackWorklet",
+    "WAWebVoipCallAudioUnlock",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
   ],
@@ -145,10 +146,7 @@ __d(
                 var _ = this.playbackParams;
                 try {
                   var f, g;
-                  ((this.playbackAudioContext = new AudioContext({
-                    sampleRate: _.sampleRate,
-                    latencyHint: "interactive",
-                  })),
+                  ((this.playbackAudioContext = P(_.sampleRate)),
                     o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                       o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                         .WORKLET_PRELOAD,
@@ -619,6 +617,15 @@ __d(
           t
         );
       })();
+    function P(e) {
+      var t;
+      return (t = o("WAWebVoipCallAudioUnlock").takeUnlockedAudioContext(
+        "playback",
+        e,
+      )) != null
+        ? t
+        : new AudioContext({ sampleRate: e, latencyHint: "interactive" });
+    }
     l.WAWebVoipAudioPlaybackBase = $;
   },
   98,

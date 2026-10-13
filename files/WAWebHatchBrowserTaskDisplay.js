@@ -17,21 +17,23 @@ __d(
         m = d(i, e),
         f = m.state,
         g = m.terminalReason,
-        h = c(i, f, u),
-        C = p(f, e, i);
+        h = c(i, f),
+        y = p(f, e, i);
       return {
-        canRecoverFromTombstone:
-          h &&
-          f !== "STOPPED" &&
-          y(i == null ? void 0 : i.status) !== "superseded",
-        completedTask: i != null && f === "COMPLETED" ? i : null,
-        completionDetail: C == null ? _(f, e, i) : null,
+        canRecoverFromTombstone: !1,
+        completionDetail: y == null ? _(f, e, i) : null,
         hasPreview: l,
         isPreviewAvailable: u,
+        isSettled: o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(f),
         isTombstone: h,
         liveScreenshotURL: i == null ? void 0 : i.screenshotURL,
+        settledTask:
+          i != null &&
+          o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(f)
+            ? i
+            : null,
         state: f,
-        subtitle: C,
+        subtitle: y,
         terminalReason: g,
         title:
           (a = o("WAWebHatchBrowserTaskState").nonBlank(
@@ -47,12 +49,12 @@ __d(
     function u(e, t) {
       return e != null && t != null && e < t;
     }
-    function c(e, t, n) {
-      return e != null && y(e.status) === "superseded"
-        ? !0
-        : e != null && t === "COMPLETED"
-          ? !1
-          : o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t) && !n;
+    function c(e, t) {
+      return (
+        e != null &&
+        y(e.status) === "superseded" &&
+        !o("WAWebHatchBrowserTaskState").isSettledBrowserTaskState(t)
+      );
     }
     function d(e, t) {
       if (e == null) return m(t.state, t.terminalReason);

@@ -288,10 +288,12 @@ __d(
         (n.$12 = function (t, n) {
           var e,
             r = this.$9.get(t, n);
-          r &&
-            (e = this.$1.runtimeAbstractionLayer) != null &&
-            e.clearTimeout &&
-            (this.$1.runtimeAbstractionLayer.clearTimeout(r), this.$17(t, n));
+          r == null ||
+            r === 0 ||
+            ((e = this.$1.runtimeAbstractionLayer) != null &&
+              e.clearTimeout &&
+              (this.$1.runtimeAbstractionLayer.clearTimeout(r),
+              this.$17(t, n)));
         }),
         (n.$14 = function (n, r, a, i) {
           var t = this,

@@ -97,6 +97,13 @@ __d(
           }
           return t;
         })()),
+        (r.registerCapabilities = function (t) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CLIENT_REGISTER_CAPABILITIES,
+            { body: p(t), responseShape: "flat-or-envelope" },
+          );
+        }),
         (r.connectors = function (t, n) {
           return (
             t === void 0 && (t = []),
@@ -221,6 +228,13 @@ __d(
             "GET",
             o("WAWebHatchVmTransport").JarvisPaths.CHATS_LIST,
             t,
+          );
+        }),
+        (r.chatMessage = function (t, n, r) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CHATS_MESSAGE(t, n),
+            babelHelpers.extends({}, r, { responseShape: "flat-or-envelope" }),
           );
         }),
         (r.oauthCallback = function (t, n) {

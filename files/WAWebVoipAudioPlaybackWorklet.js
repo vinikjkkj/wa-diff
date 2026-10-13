@@ -6,6 +6,7 @@ __d(
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
     "WAWebVoipAudioPlaybackWorkletProcessorConfig",
+    "WAWebVoipCallAudioUnlock",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -143,7 +144,9 @@ __d(
                       this.audioWorkletNode.connect(
                         this.playbackMediaStreamDestination,
                       ),
-                    (this.playbackAudioElement = new Audio()),
+                    (this.playbackAudioElement = o(
+                      "WAWebVoipCallAudioUnlock",
+                    ).createCallPlaybackElement()),
                     this.playbackMediaStreamDestination != null &&
                       (this.playbackAudioElement.srcObject =
                         this.playbackMediaStreamDestination.stream),

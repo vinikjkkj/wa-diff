@@ -25,60 +25,62 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = d(e),
-            n = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (n.type !== "success")
+          var t,
+            n = d(e),
+            a = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (a.type !== "success")
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: no access token (" +
-                n.type +
+                a.type +
                 ")",
             );
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var a;
+          var i;
           try {
-            a = yield o("WAWebRelayClient").fetchQuery(
+            i = yield o("WAWebRelayClient").fetchQuery(
               s,
-              { lid: t },
-              { accessToken: n.token, environmentType: "facebook" },
+              { lid: n },
+              { accessToken: a.token, environmentType: "facebook" },
             );
           } catch (e) {
             throw o(
               "WAWebCustomerManagerRequestErrors",
             ).asCustomerManagerRequestError(e);
           }
-          if (a == null)
+          if (i == null || i.xfb_wa_customer_profile === void 0)
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: incomplete response",
             );
-          var i = a.xfb_wa_customer_profile;
-          if (i === void 0)
-            throw r("err")(
-              "[CustomerManager] fetchCustomerProfile: incomplete response",
-            );
-          if (i == null) return null;
-          var l = i.etag;
-          if (l == null || l === "")
+          var l = i.xfb_wa_customer_profile;
+          if (l == null) return null;
+          var u = l.etag;
+          if (u == null || u === "")
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: missing profile etag",
             );
+          var c = (t = l.last_updates) != null ? t : [],
+            m = c.flatMap(function (e) {
+              var t = e.field_name;
+              return t != null && t !== "" ? [t] : [];
+            });
           return {
             acquisitionDate: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toOptionalUnixTime(i.acquisition_date),
+            ).toOptionalUnixTime(l.acquisition_date),
             acquisitionSource: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toProfileAcquisitionSourceId(i.acquisition_source),
-            address: i.address,
+            ).toProfileAcquisitionSourceId(l.acquisition_source),
+            address: l.address,
             birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
-              i.dob,
+              l.dob,
             ),
-            birthdayIso: i.dob,
-            etag: l,
-            email: i.email,
+            birthdayIso: l.dob,
+            etag: u,
+            email: l.email,
             fieldUpdates: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toFieldUpdates(
-              i.last_updates.map(function (e) {
+              l.last_updates.map(function (e) {
                 var t = e.field_name,
                   n = e.source,
                   r = e.ts;
@@ -87,22 +89,24 @@ __d(
             ),
             lastOrder: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toOptionalUnixTime(i.last_order_date),
+            ).toOptionalUnixTime(l.last_order_date),
             leadStage: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toLeadStageType(i.lead_stage),
+            ).toLeadStageType(l.lead_stage),
             modifiedAt: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).latestUpdateTs(
-              i.last_updates.map(function (e) {
+              c.map(function (e) {
                 var t = e.ts;
                 return t;
               }),
             ),
-            name: i.name,
+            name: l.name,
             orderPreferences: o(
               "WAWebCustomerOrderPreferences",
-            ).toOrderPreferences(i.order_preferences),
+            ).toOrderPreferences(l.order_preferences),
+            updatedFields:
+              l.last_updates != null && m.length === c.length ? m : void 0,
           };
         })),
         c.apply(this, arguments)

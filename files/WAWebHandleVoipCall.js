@@ -8,7 +8,6 @@ __d(
     "WATimeUtils",
     "WAWap",
     "WAWebBackendApi",
-    "WAWebCallLogMsgData.flow",
     "WAWebCommsWapMd",
     "WAWebCoreActionsODS",
     "WAWebEnvironment",
@@ -235,7 +234,8 @@ __d(
               );
             },
           );
-          var t = yield o("WAWebVoipBackendLoadable")
+          var t = self.performance.now(),
+            n = yield o("WAWebVoipBackendLoadable")
               .requireVoipJsBackend()
               .catch(function (e) {
                 throw (
@@ -256,7 +256,7 @@ __d(
                   e
                 );
               }),
-            n = t.WAWebVoipInit;
+            r = n.WAWebVoipInit;
           o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
             function () {
               o("WALogger").LOG(
@@ -269,9 +269,9 @@ __d(
               );
             },
           );
-          var r = !1;
+          var a = !1;
           try {
-            if (n.VoipInitEventEmitter.getIsVoipInited())
+            if (r.VoipInitEventEmitter.getIsVoipInited())
               return (
                 o(
                   "WAWebVoipDeferredBootLogging",
@@ -288,10 +288,15 @@ __d(
                 !0
               );
             if (
-              (yield n.initWAWebVoip(M, void 0, e),
-              !n.VoipInitEventEmitter.getIsVoipInited() &&
-                n.VoipInitEventEmitter.getDidVoipInitError() &&
-                ((r = !0),
+              (yield r.initWAWebVoip(
+                M,
+                void 0,
+                e,
+                Math.round(self.performance.now() - t),
+              ),
+              !r.VoipInitEventEmitter.getIsVoipInited() &&
+                r.VoipInitEventEmitter.getDidVoipInitError() &&
+                ((a = !0),
                 o(
                   "WAWebVoipDeferredBootLogging",
                 ).safelyLogVoipDeferredBootEvent(function () {
@@ -304,8 +309,8 @@ __d(
                     M,
                   );
                 }),
-                yield n.retryWAWebVoipInitAfterFailure()),
-              n.VoipInitEventEmitter.getIsVoipInited())
+                yield r.retryWAWebVoipInitAfterFailure()),
+              r.VoipInitEventEmitter.getIsVoipInited())
             )
               return (
                 o(
@@ -319,7 +324,7 @@ __d(
                         "",
                       ])),
                     M,
-                    r,
+                    a,
                   );
                 }),
                 !0
@@ -344,7 +349,7 @@ __d(
             );
           }
           if (o("WAWebVoipGatingUtils").isUnsupportedBrowserForWebCalling()) {
-            var a;
+            var i;
             return (
               o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
                 function () {
@@ -356,7 +361,7 @@ __d(
                         "",
                       ])),
                     M,
-                    r,
+                    a,
                   );
                 },
               ),
@@ -367,10 +372,10 @@ __d(
                       "voip: skip call stanza, unsupported browser: ",
                       "",
                     ])),
-                  (a = o(
+                  (i = o(
                     "WAWebVoipGatingUtils",
                   ).getUnsupportedBrowserReason()) != null
-                    ? a
+                    ? i
                     : "unknown",
                 )
                 .sendLogs("voip-call-stanza-unsupported-browser", {
@@ -391,7 +396,7 @@ __d(
                       "",
                     ])),
                   M,
-                  r,
+                  a,
                 );
               },
             ),
@@ -714,35 +719,6 @@ __d(
             s = e.payloadTag,
             u = e.stanzaId,
             c = e.voipNode;
-          if (
-            t &&
-            o("WAWebVoipGatingUtils").isGroupCallMessage(i) &&
-            !o("WAWebVoipGatingUtils").isGroupCallingEnabled()
-          ) {
-            var d,
-              m =
-                i.group_jid != null
-                  ? { isGroup: !0, groupJid: i.group_jid }
-                  : { isGroup: !0, groupJid: null };
-            return (
-              o("WAWebBackendApi").frontendFireAndForget(
-                "generateCallLogOfferNotice",
-                babelHelpers.extends(
-                  {
-                    callCreatorWid: i.call_creator,
-                    offerTime: i.t,
-                    isVideo: (d = i.isVideoCall) != null ? d : !1,
-                    callId: i.call_id,
-                    isOffline: i.is_offline,
-                    callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
-                      .Missed,
-                  },
-                  m,
-                ),
-              ),
-              ($ || ($ = n("Promise"))).resolve("NO_ACK")
-            );
-          }
           if (X(i.type)) return Z(i, a, u, c, t);
           switch (i.type) {
             case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:

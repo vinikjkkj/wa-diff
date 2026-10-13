@@ -32,6 +32,8 @@ __d(
           n("managedGroups"),
           n("managedChannels"),
           n("directoryIsComplete"),
+          n("orgUpdatedTsUsec"),
+          n("memberUpdatedTsUsec"),
         ])
         .view(function (e) {
           return e;

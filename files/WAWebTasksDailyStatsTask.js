@@ -49,6 +49,7 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebScreenLockSettingsDataWamEvent",
     "WAWebSubmitChatLockDailyStats",
+    "WAWebTasksExperienceIdDailyReport",
     "WAWebTextStatusGatingUtils",
     "WAWebUserPrefsCartLidMigration",
     "WAWebUserPrefsContactManagement",
@@ -351,6 +352,7 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("lid-migration-daily-dropped");
           }
+          o("WAWebTasksExperienceIdDailyReport").reportExperienceIdDailyStats();
           var g = new (o(
             "WAWebWebcFtsStorageWamEvent",
           ).WebcFtsStorageWamEvent)();

@@ -75,7 +75,7 @@ __d(
       return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
         ? f()
         : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-          ? g()
+          ? !0
           : s();
     }
     function y(e) {

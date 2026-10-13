@@ -131,13 +131,16 @@ __d(
     function b(e) {
       return {
         description: e.description,
-        iconFullUrl: e.iconURI,
+        iconFullUrl: e.iconLargeURI,
+        iconHandle: e.iconHandle,
         iconThumbUrl: e.iconURI,
         isMemberDirectoryEnabled: e.isMemberDirectoryEnabled,
         memberCount: e.memberCount,
         memberTagOptions: e.memberTagOptions,
+        memberUpdatedTsUsec: e.memberUpdatedTsUsec,
         name: e.name,
         orgId: e.id,
+        orgUpdatedTsUsec: e.orgUpdatedTsUsec,
         viewerRole: e.viewerRole == null ? null : S(e.viewerRole),
       };
     }

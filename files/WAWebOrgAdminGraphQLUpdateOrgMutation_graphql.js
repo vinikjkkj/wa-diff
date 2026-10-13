@@ -5,7 +5,14 @@ __d(
     "use strict";
     var e = (function () {
       var e = [{ defaultValue: null, kind: "LocalArgument", name: "input" }],
-        t = [
+        t = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "uri",
+          storageKey: null,
+        },
+        n = [
           {
             alias: null,
             args: [{ kind: "Variable", name: "input", variableName: "input" }],
@@ -44,7 +51,17 @@ __d(
                     storageKey: null,
                   },
                   {
-                    alias: null,
+                    alias: "icon_large",
+                    args: [{ kind: "Literal", name: "size", value: "LARGE" }],
+                    concreteType: "XWAOrgIcon",
+                    kind: "LinkedField",
+                    name: "icon",
+                    plural: !1,
+                    selections: [t],
+                    storageKey: 'icon(size:"LARGE")',
+                  },
+                  {
+                    alias: "icon_small",
                     args: [{ kind: "Literal", name: "size", value: "SMALL" }],
                     concreteType: "XWAOrgIcon",
                     kind: "LinkedField",
@@ -55,9 +72,10 @@ __d(
                         alias: null,
                         args: null,
                         kind: "ScalarField",
-                        name: "uri",
+                        name: "handle",
                         storageKey: null,
                       },
+                      t,
                     ],
                     storageKey: 'icon(size:"SMALL")',
                   },
@@ -71,8 +89,19 @@ __d(
                   {
                     alias: null,
                     args: null,
-                    kind: "ScalarField",
-                    name: "member_count",
+                    concreteType: "XWAOrgMembersConnection",
+                    kind: "LinkedField",
+                    name: "members",
+                    plural: !1,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "count",
+                        storageKey: null,
+                      },
+                    ],
                     storageKey: null,
                   },
                   {
@@ -100,6 +129,20 @@ __d(
                     alias: null,
                     args: null,
                     kind: "ScalarField",
+                    name: "org_member_updated_ts_usec",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "org_updated_ts_usec",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
                     name: "viewer_role",
                     storageKey: null,
                   },
@@ -116,7 +159,7 @@ __d(
           kind: "Fragment",
           metadata: null,
           name: "WAWebOrgAdminGraphQLUpdateOrgMutation",
-          selections: t,
+          selections: n,
           type: "Mutation",
           abstractKey: null,
         },
@@ -125,10 +168,10 @@ __d(
           argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebOrgAdminGraphQLUpdateOrgMutation",
-          selections: t,
+          selections: n,
         },
         params: {
-          id: "28301720222820867",
+          id: "26730170143346991",
           metadata: {},
           name: "WAWebOrgAdminGraphQLUpdateOrgMutation",
           operationKind: "mutation",

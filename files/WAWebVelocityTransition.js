@@ -9,6 +9,7 @@ __d(
     "WAWebTransitionPrimitive.react",
     "WAWebTransitions",
     "WAWebUiIdleEventBus",
+    "WAWebUimUtils",
     "WAWebVelocityAnimate",
     "compactMap",
     "err",
@@ -63,7 +64,11 @@ __d(
             return c.current;
           var t = T.current;
           if (t != null) {
-            if (t instanceof HTMLElement) return t;
+            if (
+              t instanceof HTMLElement ||
+              o("WAWebUimUtils").isCrossWindowHTMLElement(t)
+            )
+              return t;
             var r = t.getElement == null ? void 0 : t.getElement();
             if (r) return r;
           }

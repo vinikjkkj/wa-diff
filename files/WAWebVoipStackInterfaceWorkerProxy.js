@@ -39,7 +39,6 @@ __d(
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
-    "WAWebVoipRelayOverrides",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStorageInit",
     "WAWebVoipTransportFallbackTracker",
@@ -1064,7 +1063,7 @@ __d(
               function* (e, t, n, r, a, l, s, u, c, d, m, p, _) {
                 if (
                   (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!0),
-                  !o("WAWebVoipGatingUtils").isGroupCallingEnabled())
+                  !o("WAWebVoipGatingUtils").isCallingEnabled())
                 ) {
                   o("WALogger").ERROR(
                     F ||
@@ -1210,7 +1209,7 @@ __d(
               function* (e, t, n, r, a, i, l, s, u, c, d, m, p, _, f, g, h) {
                 if (
                   (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!0),
-                  !o("WAWebVoipGatingUtils").isGroupCallingEnabled())
+                  !o("WAWebVoipGatingUtils").isCallingEnabled())
                 ) {
                   o("WALogger").ERROR(
                     B ||
@@ -1256,7 +1255,7 @@ __d(
           previewCallLink: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, a) {
-                if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                if (!o("WAWebVoipGatingUtils").isCallingEnabled())
                   return (
                     o("WALogger").ERROR(
                       W ||
@@ -1319,7 +1318,7 @@ __d(
           })(),
           joinCallLink: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
+              if (!o("WAWebVoipGatingUtils").isCallingEnabled()) {
                 o("WALogger").ERROR(
                   V ||
                     (V = babelHelpers.taggedTemplateLiteralLoose([
@@ -1338,7 +1337,7 @@ __d(
           previewAndJoinCallLink: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, a, l) {
-                if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                if (!o("WAWebVoipGatingUtils").isCallingEnabled())
                   return (
                     o("WALogger").ERROR(
                       H ||
@@ -1385,10 +1384,10 @@ __d(
           })(),
           handleIncomingSignalingOffer: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a, l, s, u, c, d) {
-                var m = yield i;
+              function* (e, t, n, r, a, l, s, u, c) {
+                var d = yield i;
                 o("WAWebMLModelManager")
-                  .initMLModelsForCall(m)
+                  .initMLModelsForCall(d)
                   .catch(function (e) {
                     o("WALogger").WARN(
                       z ||
@@ -1399,22 +1398,20 @@ __d(
                       e,
                     );
                   });
-                var p = e.node();
-                r("justknobx")._("360") &&
-                  o("WAWebVoipRelayOverrides").overrideRelayIp(p);
-                var _ = o("WABase64").encodeB64(o("WAWap").encodeStanza(p)),
-                  f = a != null ? String(a) : "0",
-                  g = l != null ? String(l) : "0";
+                var m = e.node(),
+                  p = o("WABase64").encodeB64(o("WAWap").encodeStanza(m)),
+                  _ = r != null ? String(r) : "0",
+                  f = a != null ? String(a) : "0";
                 yield be("handleIncomingSignalingOffer", {
-                  b64Stanza: _,
+                  b64Stanza: p,
                   msgPlatform: t,
                   msgVersion: n,
-                  msgEStr: f,
-                  msgTStr: g,
-                  msgOffline: s,
-                  isOfferNotContact: u,
-                  peerJid: c,
-                  tcToken: d,
+                  msgEStr: _,
+                  msgTStr: f,
+                  msgOffline: l,
+                  isOfferNotContact: s,
+                  peerJid: u,
+                  tcToken: c,
                 });
               },
             );
@@ -1428,27 +1425,25 @@ __d(
               function* (e) {
                 var t = e.msgE,
                   n = e.msgOffline,
-                  a = e.msgPlatform,
-                  i = e.msgT,
-                  l = e.msgVersion,
-                  s = e.peerJid,
-                  u = e.tcToken,
-                  c = e.xmlNode,
-                  d = c.node();
-                r("justknobx")._("360") &&
-                  o("WAWebVoipRelayOverrides").overrideRelayIp(d);
-                var m = o("WABase64").encodeB64(o("WAWap").encodeStanza(d)),
-                  p = t != null ? String(t) : "0",
-                  _ = i != null ? String(i) : "0";
+                  r = e.msgPlatform,
+                  a = e.msgT,
+                  i = e.msgVersion,
+                  l = e.peerJid,
+                  s = e.tcToken,
+                  u = e.xmlNode,
+                  c = u.node(),
+                  d = o("WABase64").encodeB64(o("WAWap").encodeStanza(c)),
+                  m = t != null ? String(t) : "0",
+                  p = a != null ? String(a) : "0";
                 yield be("handleIncomingSignalingMessage", {
-                  b64Stanza: m,
-                  msgPlatform: a,
-                  msgVersion: l,
-                  msgEStr: p,
-                  msgTStr: _,
+                  b64Stanza: d,
+                  msgPlatform: r,
+                  msgVersion: i,
+                  msgEStr: m,
+                  msgTStr: p,
                   msgOffline: n,
-                  peerJid: s,
-                  tcToken: u,
+                  peerJid: l,
+                  tcToken: s,
                 });
               },
             );
@@ -1462,19 +1457,17 @@ __d(
               function* (e) {
                 var t = e.ackInfoError,
                   n = e.ackInfoType,
-                  a = e.peerJid,
-                  i = e.tcToken,
-                  l = e.xmlNode,
-                  s = l.node();
-                r("justknobx")._("360") &&
-                  o("WAWebVoipRelayOverrides").overrideRelayIp(s);
-                var u = o("WABase64").encodeB64(o("WAWap").encodeStanza(s));
+                  r = e.peerJid,
+                  a = e.tcToken,
+                  i = e.xmlNode,
+                  l = i.node(),
+                  s = o("WABase64").encodeB64(o("WAWap").encodeStanza(l));
                 yield be("handleIncomingSignalingAck", {
-                  b64Stanza: u,
+                  b64Stanza: s,
                   ackInfoError: t,
                   ackInfoType: n,
-                  peerJid: a,
-                  tcToken: i,
+                  peerJid: r,
+                  tcToken: a,
                 });
               },
             );
@@ -1486,12 +1479,10 @@ __d(
           handleIncomingSignalingReceipt: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n) {
-                var a = e.node();
-                r("justknobx")._("360") &&
-                  o("WAWebVoipRelayOverrides").overrideRelayIp(a);
-                var i = o("WABase64").encodeB64(o("WAWap").encodeStanza(a));
+                var r = e.node(),
+                  a = o("WABase64").encodeB64(o("WAWap").encodeStanza(r));
                 yield be("handleIncomingSignalingReceipt", {
-                  b64Stanza: i,
+                  b64Stanza: a,
                   peerJid: t,
                   tcToken: n,
                 });

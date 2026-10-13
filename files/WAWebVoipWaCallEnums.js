@@ -341,7 +341,8 @@ __d(
         MlNoiseSuppressionUiEnabled: 175,
         SelfCameraAutoOff: 176,
         CallScreening: 177,
-        Max: 178,
+        SwitchEntryPointChanged: 178,
+        Max: 179,
       }),
       b = s({
         Unknown: 0,
