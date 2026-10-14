@@ -182,7 +182,10 @@ __d(
               r.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   o("WAWebWidFactory").createWid(i),
-                  { suspended: t },
+                  babelHelpers.extends(
+                    { suspended: t },
+                    t ? { suspendAppealApprovedSeen: !1 } : null,
+                  ),
                   n,
                 ),
               ),

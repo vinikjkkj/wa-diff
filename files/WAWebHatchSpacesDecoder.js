@@ -43,8 +43,8 @@ __d(
           };
     }
     function g(e) {
-      var t = R(e, "chunk_number");
-      if (t !== R(e, "chunk_count"))
+      var t = S(e, "chunk_number");
+      if (t !== S(e, "chunk_count"))
         return (
           o("WALogger")
             .WARN(
@@ -56,8 +56,8 @@ __d(
             .sendLogs("hatch-spaces-chunk-half-position"),
           null
         );
-      var n = t ? L(e, "chunk_number") : 1,
-        r = t ? L(e, "chunk_count") : 1;
+      var n = t ? o("WAWebHatchJsonReaders").readInteger(e, "chunk_number") : 1,
+        r = t ? o("WAWebHatchJsonReaders").readInteger(e, "chunk_count") : 1;
       return n == null || r == null || r < 1 || n < 1 || n > r
         ? (o("WALogger")
             .WARN(
@@ -117,10 +117,13 @@ __d(
     function v(e) {
       if (o("WAWebHatchJsonReaders").readString(e, "media_transport") !== c)
         return null;
-      var t = S(e, "direct_path"),
-        n = S(e, "media_key_b64"),
-        r = S(e, "file_enc_sha256_b64"),
-        a = S(e, "file_sha256_b64");
+      var t = o("WAWebHatchJsonReaders").readNonEmptyString(e, "direct_path"),
+        n = o("WAWebHatchJsonReaders").readNonEmptyString(e, "media_key_b64"),
+        r = o("WAWebHatchJsonReaders").readNonEmptyString(
+          e,
+          "file_enc_sha256_b64",
+        ),
+        a = o("WAWebHatchJsonReaders").readNonEmptyString(e, "file_sha256_b64");
       return t == null || n == null || r == null || a == null
         ? null
         : {
@@ -139,15 +142,7 @@ __d(
           };
     }
     function S(e, t) {
-      var n = o("WAWebHatchJsonReaders").readString(e, t);
-      return n != null && n !== "" ? n : null;
-    }
-    function R(e, t) {
       return o("WAWebHatchJsonReaders").readField(e, t) !== void 0;
-    }
-    function L(e, t) {
-      var n = o("WAWebHatchJsonReaders").readNumber(e, t);
-      return n != null && Number.isInteger(n) ? n : null;
     }
     ((l.HATCH_SPACES_SNAPSHOT_OP_KEY = d),
       (l.HATCH_SPACES_UPDATED_OP_KEY = m),

@@ -18,17 +18,20 @@ __d(
     var e,
       s,
       u,
-      c = {
-        abProps: new (u = o("WAResolvable")).Resolvable(),
-        dbInit: new u.Resolvable(),
-        dbFinalKey: new u.Resolvable(),
-        eventBusSyncState: new u.Resolvable(),
-        jidsReady: new u.Resolvable(),
+      c,
+      d = 3e4,
+      m = {
+        abProps: new (c = o("WAResolvable")).Resolvable(),
+        dbInit: new c.Resolvable(),
+        dbFinalKey: new c.Resolvable(),
+        eventBusSyncState: new c.Resolvable(),
+        jidsReady: new c.Resolvable(),
       },
-      d = null;
-    function m(t) {
-      if (((d = t), !c.abProps.resolveWasCalled())) {
-        c.abProps.resolve(t);
+      p = !1,
+      _ = null;
+    function f(t) {
+      if (((_ = t), !m.abProps.resolveWasCalled())) {
+        m.abProps.resolve(t);
         return;
       }
       o("WAWebBackendWorkerClient")
@@ -49,31 +52,53 @@ __d(
             .sendLogs("worker-abprop-sync-failed");
         });
     }
-    function p(e) {
-      c.dbInit.resolveWasCalled() ||
-        c.dbInit.resolve(
+    function g(e) {
+      m.dbInit.resolveWasCalled() ||
+        m.dbInit.resolve(
           babelHelpers.extends({}, e, { salt: new Uint8Array(e.salt) }),
         );
     }
-    function _(e) {
-      c.dbFinalKey.resolveWasCalled() || c.dbFinalKey.resolve(e);
-    }
-    function f(e) {
-      c.eventBusSyncState.resolveWasCalled() || c.eventBusSyncState.resolve(e);
-    }
-    function g() {
-      c.jidsReady.resolveWasCalled() || c.jidsReady.resolve();
-    }
     function h(e) {
-      return y.apply(this, arguments);
+      m.dbFinalKey.resolveWasCalled() || m.dbFinalKey.resolve(e);
     }
-    function y() {
+    function y(e) {
+      m.eventBusSyncState.resolveWasCalled() || m.eventBusSyncState.resolve(e);
+    }
+    function C() {
+      m.jidsReady.resolveWasCalled() || m.jidsReady.resolve();
+    }
+    function b() {
+      p || ((p = !0), self.setTimeout(v, d));
+    }
+    function v() {
+      var e = [];
+      (m.dbInit.resolveWasCalled() || e.push("dbInit"),
+        m.eventBusSyncState.resolveWasCalled() || e.push("eventBusSyncState"),
+        m.jidsReady.resolveWasCalled() || e.push("jidsReady"),
+        e.length !== 0 &&
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Backend worker init data not ready after ",
+                  "ms, outstanding: ",
+                  "",
+                ])),
+              d,
+              e.join(","),
+            )
+            .sendLogs("backend-worker-init-data-timeout"));
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (s || (s = n("Promise"))).all([
-              c.dbInit.promise,
-              c.eventBusSyncState.promise,
-              c.jidsReady.promise,
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield (u || (u = n("Promise"))).all([
+              m.dbInit.promise,
+              m.eventBusSyncState.promise,
+              m.jidsReady.promise,
             ]),
             r = t[0],
             a = t[1],
@@ -102,24 +127,25 @@ __d(
             }),
             eventBusSyncState: a,
           }),
-            c.abProps.promise.then(function (t) {
+            m.abProps.promise.then(function (t) {
               e.fireAndForget("workerInit", "setAbProps", {
-                abProps: d != null ? d : t,
+                abProps: _ != null ? _ : t,
               });
             }),
-            c.dbFinalKey.promise.then(function (t) {
+            m.dbFinalKey.promise.then(function (t) {
               e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
             }));
         })),
-        y.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.recordInitAbProps = m),
-      (l.recordInitDbInit = p),
-      (l.recordInitDbFinalKey = _),
-      (l.recordInitEventBusSyncState = f),
-      (l.resolveJidsReady = g),
-      (l.sendInitState = h));
+    ((l.recordInitAbProps = f),
+      (l.recordInitDbInit = g),
+      (l.recordInitDbFinalKey = h),
+      (l.recordInitEventBusSyncState = y),
+      (l.resolveJidsReady = C),
+      (l.startWorkerInitDataTimeout = b),
+      (l.sendInitState = S));
   },
   98,
 );

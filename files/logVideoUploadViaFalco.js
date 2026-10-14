@@ -46,7 +46,10 @@ __d(
       if (!(e == null || typeof e != "object")) return e;
     }
     function p(e, t) {
-      if (e != null && Object.values(t).indexOf(e) >= 0) return e;
+      if (e != null) {
+        var n = Object.values(t);
+        if (n.indexOf(e) >= 0) return e;
+      }
     }
     function _(t) {
       var n = s(t.waterfall_id);

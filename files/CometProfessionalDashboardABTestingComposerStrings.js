@@ -21,7 +21,7 @@ __d(
       R = s._(/*BTDS*/ "Delete media"),
       L = s._(/*BTDS*/ "Test variables"),
       E = s._(
-        /*BTDS*/ "Variables are the parts of your test versions that differ. This can be media, thumbnails, video titles, descriptions, and hashtags. Using a single variable is recommended.",
+        /*BTDS*/ "Variables are the parts of your test versions that differ. This can be media, thumbnails, video titles, descriptions and hashtags. Using a single variable is recommended.",
       ),
       k = s._(/*BTDS*/ "Loading video"),
       I = s._(/*BTDS*/ "Loading image"),

@@ -118,7 +118,7 @@ __d(
               : n.name) != null
             ? t
             : null,
-        canEditAvailability: !1,
+        canEditAvailability: !0,
         customDurationHours: "",
         customDurationMinutes: "",
         customerFields: O(),

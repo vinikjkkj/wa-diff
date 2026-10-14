@@ -6,6 +6,7 @@ __d(
     "composerMediaAttachmentReducerItemHandlers",
     "composerMediaAttachmentReducerMediaPropertyHandlers",
     "composerMediaAttachmentReducerUploadHandlers",
+    "getComposerAttachmentStableID",
     "getMediaAttachmentDateNumber",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,7 +61,11 @@ __d(
     function u(e, t) {
       return babelHelpers.extends({}, e, {
         mediaAttachments: (e.mediaAttachments || []).map(function (e, n) {
-          if (n !== t.currentIndex) return e;
+          var o =
+            t.attachmentID != null
+              ? r("getComposerAttachmentStableID")(e) === t.attachmentID
+              : n === t.currentIndex;
+          if (!o) return e;
           switch (e.state) {
             case "NEW":
               switch (e.fileType) {

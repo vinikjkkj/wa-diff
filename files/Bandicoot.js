@@ -72,7 +72,7 @@ __d(
               this.logBrowserUnsupported();
               return;
             }
-            this.$2 ||
+            this.$2 == null &&
               ((this.sessionID == null || this.sessionID === "") &&
                 (this.sessionID = Math.random().toString(36).slice(2, 9)),
               this.sessionStartTime == null &&
@@ -87,7 +87,7 @@ __d(
           }),
           (n.endSession = function () {
             this.storage &&
-              this.$2 &&
+              this.$2 != null &&
               (clearInterval(this.$2),
               (this.$2 = null),
               this.$3 !== !0 &&
@@ -99,7 +99,7 @@ __d(
           }),
           (n.logKnownCrashes = function () {
             var e = this;
-            if (this.storage && !this.$2) {
+            if (this.storage && this.$2 == null) {
               var t = this.$8();
               ((t = this.$12(t, function (t, n) {
                 return o("BandicootSession").isCrashedSession(t)
@@ -161,18 +161,21 @@ __d(
             });
           }),
           (n.$8 = function (t) {
-            var e = t != null ? t : this.$5,
-              n = this.storage.getItem(e) || "{}";
+            var e,
+              n = t != null ? t : this.$5,
+              o = ((e = this.storage) == null ? void 0 : e.getItem(n)) || "{}",
+              a;
             try {
-              n = JSON.parse(n);
-            } catch (t) {
-              ((n = {}),
-                this.storage.removeItem(e),
+              a = JSON.parse(o);
+            } catch (e) {
+              var i;
+              ((a = {}),
+                (i = this.storage) == null || i.removeItem(n),
                 r("FBLogger")("bandicoot")
-                  .catching(r("getErrorSafe")(t))
+                  .catching(r("getErrorSafe")(e))
                   .warn("Invalid JSON data"));
             }
-            return n;
+            return a;
           }),
           (n.$11 = function (t) {
             t.lastUpdated = Date.now();
@@ -186,14 +189,16 @@ __d(
           (n.$13 = function (n) {
             var t = JSON.stringify(n);
             try {
-              this.storage.setItem(this.$5, t);
+              var o;
+              (o = this.storage) == null || o.setItem(this.$5, t);
             } catch (t) {
-              var o = this.$6,
-                a = Date.now();
-              (o == null || a > o + e) &&
-                (this.logTrackingError(), (this.$6 = a));
+              var a = this.$6,
+                i = Date.now();
+              (a == null || i > a + e) &&
+                (this.logTrackingError(), (this.$6 = i));
               try {
-                this.storage.removeItem(this.$5);
+                var l;
+                (l = this.storage) == null || l.removeItem(this.$5);
               } catch (e) {
                 ((this.$3 = !0),
                   this.endSession(),
@@ -204,18 +209,31 @@ __d(
             }
           }),
           (n.$10 = function () {
-            for (var e = 0; e < this.storage.length; ++e) {
-              var t = this.storage.key(e);
-              if (t.indexOf(c) === 0 && t !== this.$5) {
-                var n = this.$8(t),
-                  r = Object.keys(n).every(function (e) {
-                    var t = n[e];
+            for (
+              var e = 0;
+              e <
+              ((t = (n = this.storage) == null ? void 0 : n.length) != null
+                ? t
+                : 0);
+              ++e
+            ) {
+              var t,
+                n,
+                r,
+                a = (r = this.storage) == null ? void 0 : r.key(e);
+              if (a != null && a.indexOf(c) === 0 && a !== this.$5) {
+                var i = this.$8(a),
+                  l = Object.keys(i).every(function (e) {
+                    var t = i[e];
                     return (
                       !o("BandicootSession").isValidSession(t) ||
                       o("BandicootSession").isOrphanSession(t)
                     );
                   });
-                r && this.storage.removeItem(t);
+                if (l) {
+                  var s;
+                  (s = this.storage) == null || s.removeItem(a);
+                }
               }
             }
           }),

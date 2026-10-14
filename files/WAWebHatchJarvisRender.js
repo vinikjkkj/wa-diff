@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchJarvisRender",
-  ["WAWebHatchJarvisWidgets", "WAWebHatchJsonReaders"],
+  ["WAWebHatchJarvisWidgets", "WAWebHatchJsonReaders", "WAWebHatchUrl"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "jarvis-item:",
@@ -211,9 +211,7 @@ __d(
           return u != null ? [{ item: u, type: "item" }] : [];
         }
         if (e.kind === "image_options") {
-          var c = o("WAWebHatchJarvisWidgets").objects(
-              o("WAWebHatchJsonReaders").readArray(a, "images"),
-            ),
+          var c = o("WAWebHatchJsonReaders").readObjects(a, "images"),
             d = [],
             m = [];
           for (var p of c) {
@@ -240,8 +238,8 @@ __d(
         if (e.kind === "voice_options")
           return k(
             T(
-              o("WAWebHatchJarvisWidgets")
-                .objects(o("WAWebHatchJsonReaders").readArray(a, "options"))
+              o("WAWebHatchJsonReaders")
+                .readObjects(a, "options")
                 .map(function (e) {
                   return o("WAWebHatchJarvisWidgets").text(
                     o("WAWebHatchJsonReaders").readString(e, "name"),
@@ -281,8 +279,8 @@ __d(
           return k(
             [].concat(
               v != null ? [v] : [],
-              o("WAWebHatchJarvisWidgets")
-                .objects(o("WAWebHatchJsonReaders").readArray(b, "elements"))
+              o("WAWebHatchJsonReaders")
+                .readObjects(b, "elements")
                 .map(D)
                 .filter(Boolean),
             ),
@@ -356,7 +354,7 @@ __d(
             G = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "subtitle"),
             ),
-            z = o("WAWebHatchJarvisWidgets").webUrl(
+            z = o("WAWebHatchUrl").toWebUrl(
               o("WAWebHatchJsonReaders").readString(
                 o("WAWebHatchJsonReaders").readObject(a, "data"),
                 "url",
@@ -451,7 +449,7 @@ __d(
               o("WAWebHatchJsonReaders").readString(e, "name"),
             );
           if (i == null) return null;
-          var l = o("WAWebHatchJarvisWidgets").webUrl(
+          var l = o("WAWebHatchUrl").toWebUrl(
             o("WAWebHatchJsonReaders").readString(e, "url"),
           );
           return x(l != null ? "[" + i + "](" + l + ")" : i, [
@@ -471,9 +469,7 @@ __d(
       var t = o("WAWebHatchJsonReaders").readObject(e, "button");
       return [].concat(
         t != null ? [t] : [],
-        o("WAWebHatchJarvisWidgets").objects(
-          o("WAWebHatchJsonReaders").readArray(e, "secondary_buttons"),
-        ),
+        o("WAWebHatchJsonReaders").readObjects(e, "secondary_buttons"),
       );
     }
     function P(e) {
@@ -481,7 +477,7 @@ __d(
         o("WAWebHatchJsonReaders").readString(e, "label"),
       );
       if (t == null) return null;
-      var n = o("WAWebHatchJarvisWidgets").webUrl(
+      var n = o("WAWebHatchUrl").toWebUrl(
         o("WAWebHatchJsonReaders").readString(e, "url"),
       );
       return n != null ? "[" + t + "](" + n + ")" : t;
@@ -520,7 +516,7 @@ __d(
     function w(e) {
       var t = e.map(function (e) {
         var t,
-          n = o("WAWebHatchJarvisWidgets").webUrl(e.uri);
+          n = o("WAWebHatchUrl").toWebUrl(e.uri);
         return {
           __typename: "GenAISourcedItem",
           favicon:

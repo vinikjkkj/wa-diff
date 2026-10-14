@@ -56,7 +56,41 @@ __d(
                   );
       return o("WebBloksUtils").isPercentage(l);
     }
-    function u(t) {
+    function u(e) {
+      var t,
+        n =
+          (t = e.getStyle(
+            o("WebBloksCollectionMinificationKeys").BASE_STYLE,
+          )) == null
+            ? void 0
+            : t.get(
+                o("WebBloksCollectionMinificationKeys").BASE_STYLE_ALIGN_SELF,
+              );
+      switch (n) {
+        case "start":
+        case "end":
+        case "center":
+        case "stretch":
+          return n;
+        default:
+          return null;
+      }
+    }
+    function c(e) {
+      var t = u(e);
+      return t == null || t === "stretch";
+    }
+    function d(e, t) {
+      var n = e.getStyle(o("WebBloksCollectionMinificationKeys").BASE_STYLE);
+      return t === "width"
+        ? n == null
+          ? void 0
+          : n.get(o("WebBloksCollectionMinificationKeys").BASE_STYLE_WIDTH)
+        : n == null
+          ? void 0
+          : n.get(o("WebBloksCollectionMinificationKeys").BASE_STYLE_HEIGHT);
+    }
+    function m(t) {
       var n,
         r = t.getSubNodes(
           o("WebBloksCollectionMinificationKeys").COLLECTION_CHILDREN,
@@ -74,7 +108,7 @@ __d(
             : !1;
       return u ? (a === "column" ? "size" : "inline-size") : "normal";
     }
-    function c(e) {
+    function p(e) {
       return (
         e.get(
           o("WebBloksCollectionMinificationKeys")
@@ -84,8 +118,11 @@ __d(
     }
     ((l.getDirectionPropNames = e),
       (l.hasCollectionDimensionInPct = s),
-      (l.getContainerType = u),
-      (l.shouldUseWebBloksCollectionV2 = c));
+      (l.getCollectionCellAlign = u),
+      (l.shouldStretchCollectionChild = c),
+      (l.getBaseCrossAxisSize = d),
+      (l.getContainerType = m),
+      (l.shouldUseWebBloksCollectionV2 = p));
   },
   98,
 );

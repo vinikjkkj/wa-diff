@@ -159,6 +159,11 @@ __d(
         "wa_web_status_chain_from_chatlist",
       );
     }
+    function P() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_companion_read_sync_fix_enabled",
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isStatusLikesPosterCounterEnabled = d),
@@ -180,7 +185,8 @@ __d(
       (l.statusChainUnseenMinPog = T),
       (l.isChainingFromMyStatusEnabled = D),
       (l.getStatusChainFromMyInteractionLimit = x),
-      (l.isChainFromChatListEnabled = $));
+      (l.isChainFromChatListEnabled = $),
+      (l.isStatusCompanionReadSyncEnabled = P));
   },
   98,
 );

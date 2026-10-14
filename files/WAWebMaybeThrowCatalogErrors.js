@@ -41,11 +41,13 @@ __d(
           case 2498054:
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(421);
           case 3095069:
-            throw new (o("WAWebBackendErrors").CatalogEditServerError)(
-              406,
-              [{ detail: null, name: "retailer_id", reason: "duplicate" }],
-              t.message,
-            );
+            throw new (o("WAWebBackendErrors").CatalogEditServerError)({
+              errors: [
+                { detail: null, name: "retailer_id", reason: "duplicate" },
+              ],
+              message: t.message,
+              statusCode: 406,
+            });
           case 2498103:
           case 2498102:
             throw new (o("WAWebBackendErrors").CollectionReorderError)();

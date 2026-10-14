@@ -20,18 +20,19 @@ __d(
       return o.join("\n" + n);
     }
     function u(e, t, r, o) {
-      if (t) {
-        var a = r.getEntity(t);
-        if (a.getType() === "MENTION") {
+      var a = e;
+      if (t != null && t !== "") {
+        var i = r.getEntity(t);
+        if (i.getType() === "MENTION") {
           o &&
-            (e = e.replace(l, function (e) {
+            (a = a.replace(l, function (e) {
               return "\\" + e;
             }));
-          var i = a.getData().id;
-          if (/^\d+$/.test(i)) return "@[" + i + ":" + e + "]";
+          var s = i.getData().id;
+          if (/^\d+$/.test(s)) return "@[" + s + ":" + a + "]";
         }
       }
-      return n("getChunkForContentState")(e, t, r);
+      return n("getChunkForContentState")(a, t, r);
     }
     a.exports = s;
   },

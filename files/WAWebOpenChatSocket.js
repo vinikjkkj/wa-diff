@@ -116,19 +116,39 @@ __d(
                       t.startWebcAuthHandshakeDuration(),
                       d != null)
                     ) {
-                      var m = yield o(
+                      var m;
+                      ((m = o(
+                        "WAWebPageLoadLogging",
+                      )).addPageLoadQplAnnotationNow({
+                        handshake_path: "resume",
+                      }),
+                        m.startPageLoadQplMeasure("hs_noise_read"));
+                      var p = yield o(
                         "WAWebUserPrefsInfoStore",
                       ).waNoiseInfo.get();
-                      return q(
+                      (m.endPageLoadQplMeasure("hs_noise_read"),
+                        m.startPageLoadQplMeasure("hs_handshake_net"));
+                      var _ = yield q(
                         c,
                         r,
                         e,
                         s,
-                        m == null ? void 0 : m.staticKeyPair,
+                        p == null ? void 0 : p.staticKeyPair,
                         d,
                       );
+                      return (
+                        o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                          "hs_handshake_net",
+                        ),
+                        _
+                      );
                     }
-                    return W(c, s, e, r);
+                    return (
+                      o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+                        handshake_path: "full",
+                      }),
+                      W(c, s, e, r)
+                    );
                   },
                 );
                 return function (e) {
@@ -154,15 +174,23 @@ __d(
           .tags("handshake"),
         i.authenticate(n.pubKey));
       var l = { clientHello: { ephemeral: n.pubKey } };
-      return i
-        .sendAndReceive(
-          o("encodeProtobuf")
-            .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, l)
-            .readByteArrayView(),
-        )
-        .then(function (e) {
-          return H(i, e, n, r, a);
-        });
+      return (
+        o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_handshake_net"),
+        i
+          .sendAndReceive(
+            o("encodeProtobuf")
+              .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, l)
+              .readByteArrayView(),
+          )
+          .then(function (e) {
+            return (
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                "hs_handshake_net",
+              ),
+              H(i, e, n, r, a)
+            );
+          })
+      );
     }
     function q(e, t, a, i, l, v) {
       if (l == null)
@@ -420,31 +448,35 @@ __d(
             l = e.options,
             s = e.serverEphemeral,
             u = e.serverStatic;
-          (yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
-            certificate: t,
-            serverStatic: u,
-            isRegistered: i,
-          }),
+          (o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_cert_verify"),
+            yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
+              certificate: t,
+              serverStatic: u,
+              isRegistered: i,
+            }),
+            o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_cert_verify"),
             yield s);
           var c = i
-              ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(l)
-              : o(
-                  "WAWebGetClientPayloadForRegistration",
-                ).getClientPayloadForRegistration(l),
-            d = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
-          d == null &&
-            (o("WALogger")
-              .LOG(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "[socket] Unable to decrypt noise data",
-                  ])),
-              )
-              .tags("launch-socket-chat", "handshake"),
-            o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-            o("WAWebCoreActionsODS").logSessionForcedLogout(),
-            yield o("WAWebSocketLogoutJob").socketLogout(),
-            r("nullthrows")(d, "Unexpected null: noiseData"));
+            ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(l)
+            : o(
+                "WAWebGetClientPayloadForRegistration",
+              ).getClientPayloadForRegistration(l);
+          o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_noise_read");
+          var d = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
+          (o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_noise_read"),
+            d == null &&
+              (o("WALogger")
+                .LOG(
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket] Unable to decrypt noise data",
+                    ])),
+                )
+                .tags("launch-socket-chat", "handshake"),
+              o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
+              o("WAWebCoreActionsODS").logSessionForcedLogout(),
+              yield o("WAWebSocketLogoutJob").socketLogout(),
+              r("nullthrows")(d, "Unexpected null: noiseData")));
           var m = r("nullthrows")(d).staticKeyPair;
           return (x || (x = n("Promise")))
             .all([j(m, a, s), a.encrypt(x.resolve(c))])

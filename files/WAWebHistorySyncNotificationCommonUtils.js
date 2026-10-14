@@ -6,6 +6,7 @@ __d(
     "WAWebHistorySyncLidChatGating",
     "WAWebHistorySyncLogUtils",
     "WAWebHistorySyncMsgKeyOverrideUtils",
+    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
     "WAWebParseWebMessageInfoApi",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
@@ -61,14 +62,20 @@ __d(
         u = e.totalMissingMapping,
         c = null;
       try {
-        (l != null &&
-          (c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(l, i)),
-          R({
-            allLidMapping: t,
-            message: l,
-            parsedMsg: c,
-            totalMissingMapping: u,
-          }));
+        if (
+          (l != null &&
+            (c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(l, i)),
+          o(
+            "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+          ).isRoutedBrazilPaymentStateUpdateMsg(c))
+        )
+          return null;
+        R({
+          allLidMapping: t,
+          message: l,
+          parsedMsg: c,
+          totalMissingMapping: u,
+        });
       } catch (e) {
         var d = r("getErrorSafe")(e);
         (o("WALogger")

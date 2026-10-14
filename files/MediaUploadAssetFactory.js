@@ -43,17 +43,14 @@ __d(
           );
         }),
         (n.createFromHTMLInput = function (t, n) {
-          var e;
           n === void 0 && (n = r("MediaUploadMediaType").VIDEO);
-          var o;
-          if (
-            this.$1.supportFileFromHTML &&
-            ((e = t.files) == null ? void 0 : e.length) > 0
-          ) {
-            var a = t.files[0];
-            o = this.$2(a);
-          } else o = this.$3(t);
-          return new (r("MediaUploadAsset"))({ mediaType: n, data: o });
+          var e,
+            o = t.files;
+          if (this.$1.supportFileFromHTML && o != null && o.length > 0) {
+            var a = o[0];
+            e = this.$2(a);
+          } else e = this.$3(t);
+          return new (r("MediaUploadAsset"))({ mediaType: n, data: e });
         }),
         t
       );

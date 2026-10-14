@@ -14,6 +14,8 @@ __d(
         return s.jsx(e.Component, babelHelpers.extends({}, t, e.data));
       if (e.typename === "VideoPlayerNextgendashImplementation")
         return s.jsx(e.Component, babelHelpers.extends({}, t, e.data));
+      if (e.typename === "VideoPlayerFmp4StreamImplementation")
+        return s.jsx(e.Component, babelHelpers.extends({}, t, e.data));
       throw (
         e.typename,
         r("FBLogger")("comet_video_player").mustfixThrow(

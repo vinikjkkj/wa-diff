@@ -152,7 +152,13 @@ __d(
       var n = r("WAWebGroupMetadataCollection").assertGet(e);
       if (!(n.defaultSubgroup !== !0 || n.parentGroup == null)) {
         var o = r("WAWebGroupMetadataCollection").get(n.parentGroup);
-        o == null || o.set({ suspended: t });
+        o == null ||
+          o.set(
+            babelHelpers.extends(
+              { suspended: t },
+              t ? { suspendAppealApprovedSeen: !1 } : null,
+            ),
+          );
       }
     }
     ((l.updateModelsForSubgroupLink = s),

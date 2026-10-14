@@ -112,59 +112,67 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return s.getAccountLinkingData();
+          yield o("WAWebAccountLinkingAPI").forceWafflePkiV2ForDebug();
+          var e = yield C();
+          if (e.pkiVersion !== 2)
+            throw r("err")(
+              "[WAFFLE Debug] The request path did not retain PKI V2",
+            );
+          return e;
         })),
         S.apply(this, arguments)
       );
     }
-    v.doc = "Get account linking data in debug mode";
+    v.doc =
+      "Force a fresh validated V2 certificate fetch and replace the certificate cache, without IQ fallback. Enable ?gk_enable=web_waffle_pki_migration first. Reports the PKI version selected by the next request; passwordIsOaepSha256 reports whether the password key also migrated. Does not relink the account or refresh existing tokens.";
     function R() {
       return L.apply(this, arguments);
     }
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").refreshAccessToken();
+          return s.getAccountLinkingData();
         })),
         L.apply(this, arguments)
       );
     }
-    R.doc = "Refresh access token in debug mode";
+    R.doc = "Get account linking data in debug mode";
     function E() {
       return k.apply(this, arguments);
     }
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").ping();
+          yield o("WAWebAccountLinkingAPI").refreshAccessToken();
         })),
         k.apply(this, arguments)
       );
     }
-    E.doc = "Ping in debug mode";
+    E.doc = "Refresh access token in debug mode";
     function I() {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAPI").ping();
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    I.doc = "Ping in debug mode";
+    function D() {
       var e = o("WAWebAccountLinkingUtils").checkGPCSetting();
       return "GPC setting is: " + e.toString();
     }
-    I.doc = "Check GPC setting in debug mode";
-    function T() {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").stateExists();
-        })),
-        D.apply(this, arguments)
-      );
-    }
+    D.doc = "Check GPC setting in debug mode";
     function x() {
       return $.apply(this, arguments);
     }
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").fetchServiceData();
+          yield o("WAWebAccountLinkingAPI").stateExists();
         })),
         $.apply(this, arguments)
       );
@@ -175,7 +183,7 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield s.purgeWaffleData();
+          yield o("WAWebAccountLinkingAPI").fetchServiceData();
         })),
         N.apply(this, arguments)
       );
@@ -186,29 +194,29 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingScheduledJobs").scheduledWaffleJobs();
+          yield s.purgeWaffleData();
         })),
         w.apply(this, arguments)
       );
     }
-    function A(e) {
+    function A() {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield s.updatePingInterval(e);
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingScheduledJobs").scheduledWaffleJobs();
         })),
         F.apply(this, arguments)
       );
     }
-    function O() {
+    function O(e) {
       return B.apply(this, arguments);
     }
     function B() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebGpcUoomAPI").updateUOOMData();
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield s.updatePingInterval(e);
         })),
         B.apply(this, arguments)
       );
@@ -219,6 +227,17 @@ __d(
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebGpcUoomAPI").updateUOOMData();
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    function U() {
+      return V.apply(this, arguments);
+    }
+    function V() {
+      return (
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingAdminAPI").generateWAEntACUser({
             rawPassword: "test",
             disclosureId: 1,
@@ -227,45 +246,45 @@ __d(
             disclosureLc: "US",
           });
         })),
-        q.apply(this, arguments)
-      );
-    }
-    W.doc = "Generate WAEntACUser in debug mode";
-    function U() {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAdminAPI").generateAccessTokens();
-        })),
         V.apply(this, arguments)
       );
     }
-    U.doc = "Generate access tokens for the created WAEntACUser";
-    function H(e) {
+    U.doc = "Generate WAEntACUser in debug mode";
+    function H() {
       return G.apply(this, arguments);
     }
     function G() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAdminAPI").generateAccessTokens();
+        })),
+        G.apply(this, arguments)
+      );
+    }
+    H.doc = "Generate access tokens for the created WAEntACUser";
+    function z(e) {
+      return j.apply(this, arguments);
+    }
+    function j() {
+      return (
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebAccountLinkingAdminAPI").sendLinkingMutation(
             e,
             "IG",
             "waffle_debug",
           );
         })),
-        G.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    H.doc =
+    z.doc =
       'Send linking mutation with an opaque target account. Usage: sendLinkingMutationDebug("opaque_target_account_string")';
-    function z(e) {
-      return j.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function j() {
+    function Q() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n, r;
             (yield o("WAWebAccountLinkingAdminAPI").generateWAEntACUser({
@@ -314,24 +333,24 @@ __d(
             );
           }
         })),
-        j.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    z.doc =
+    K.doc =
       'Run createEntAcUser, generateAccessTokens, linkingMutation, and stateExists. Usage: fullLinkFlowDebug("opaque_target_account_string")';
-    function K() {
+    function X() {
       return o(
         "WAWebMetaAiWaffleAuthTokenCache",
       ).getMetaAiWaffleAuthTokenBlobCacheStateForDebug();
     }
-    K.doc =
+    X.doc =
       "Inspect the Meta AI WAFFLE auth-token cache: blob length, build count, age, TTL, and whether it is stale or refreshing. The blob itself is withheld so a token is not left in console history; use buildCount to tell one build from the next.";
-    function Q() {
-      return X.apply(this, arguments);
+    function Y() {
+      return J.apply(this, arguments);
     }
-    function X() {
+    function J() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             yield o(
               "WAWebMetaAiWaffleAuthTokenCache",
@@ -341,12 +360,12 @@ __d(
             ).getMetaAiWaffleAuthTokenBlobCacheStateForDebug()
           );
         })),
-        X.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    Q.doc =
+    Y.doc =
       "Rebuild the Meta AI WAFFLE auth-token blob now and return the resulting cache state.";
-    function Y() {
+    function Z() {
       return (
         o(
           "WAWebMetaAiWaffleAuthTokenCache",
@@ -356,34 +375,35 @@ __d(
         ).getMetaAiWaffleAuthTokenBlobCacheStateForDebug()
       );
     }
-    Y.doc =
+    Z.doc =
       "Drop the cached Meta AI WAFFLE auth-token blob, simulating a cold cache.";
-    var J = {
+    var ee = {
       updateAccountLinkingStateDebug: u,
       requestNonceFromPrimaryDebug: p,
       fetchValidCertificateDebug: f,
       updateAccountLinkingDataDebug: d,
-      getAccountLinkingDataDebug: v,
-      refreshAccessTokenDebug: R,
-      pingDebug: E,
-      checkGPCSettingDebug: I,
-      stateExistsDebug: T,
-      fetchServiceDataDebug: x,
-      purgeWaffleDataDebug: P,
-      scheduledWaffleJobsDebug: M,
-      setPingIntervalDebug: A,
-      updateUoomMutationDebug: O,
-      generateWAEntACUserDebug: W,
-      generateAccessTokensDebug: U,
-      sendLinkingMutationDebug: H,
-      fullLinkFlowDebug: z,
-      metaAiWaffleTokenCacheDebug: K,
-      refreshMetaAiWaffleTokenDebug: Q,
-      clearMetaAiWaffleTokenDebug: Y,
+      getAccountLinkingDataDebug: R,
+      refreshAccessTokenDebug: E,
+      pingDebug: I,
+      checkGPCSettingDebug: D,
+      stateExistsDebug: x,
+      fetchServiceDataDebug: P,
+      purgeWaffleDataDebug: M,
+      scheduledWaffleJobsDebug: A,
+      setPingIntervalDebug: O,
+      updateUoomMutationDebug: W,
+      generateWAEntACUserDebug: U,
+      generateAccessTokensDebug: H,
+      sendLinkingMutationDebug: z,
+      fullLinkFlowDebug: K,
+      metaAiWaffleTokenCacheDebug: X,
+      refreshMetaAiWaffleTokenDebug: Y,
+      clearMetaAiWaffleTokenDebug: Z,
       waffleGetCertsQueryDebug: h,
       waffleCertVersionDebug: C,
+      forceWafflePkiV2Debug: v,
     };
-    l.default = J;
+    l.default = ee;
   },
   98,
 );

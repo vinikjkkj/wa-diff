@@ -101,24 +101,42 @@ __d(
             });
           }),
           (a.$3 = function (t, n) {
-            var e, r, a, i, l, u;
+            var e, r, a, i, l, u, c;
             t.processing.rawData.set(s, n);
-            var c = (e = n.format) == null ? void 0 : e.duration,
-              d = c == null ? void 0 : o("MediaUploadTime").secondsToTime(c),
-              m =
-                (r = n.streams) == null || (r = r.primaryVideo) == null
-                  ? void 0
-                  : r.width,
-              p =
-                (a = n.streams) == null || (a = a.primaryVideo) == null
-                  ? void 0
-                  : a.height;
+            var d = (e = n.format) == null ? void 0 : e.duration,
+              m = d == null ? void 0 : o("MediaUploadTime").secondsToTime(d),
+              p = (r = n.streams) == null ? void 0 : r.primaryVideo,
+              _ = p == null ? void 0 : p.sampleCount,
+              f = p == null ? void 0 : p.codec,
+              g = d != null && d > 0 && _ != null ? Math.round(_ / d) : void 0,
+              h =
+                d != null && d > 0
+                  ? Math.round(
+                      (((a =
+                        (i = t.asset.dataAsFile()) == null ? void 0 : i.size) !=
+                      null
+                        ? a
+                        : 0) *
+                        8) /
+                        d,
+                    )
+                  : void 0,
+              y = p == null ? void 0 : p.width,
+              C = p == null ? void 0 : p.height;
             n.videoPlayerData != null &&
-              ((i = n.videoPlayerData) == null ? void 0 : i.width) > 0 &&
-              ((l = n.videoPlayerData) == null ? void 0 : l.height) > 0 &&
-              ((m = n.videoPlayerData.width), (p = n.videoPlayerData.height));
-            var _ = (u = n.format) == null ? void 0 : u.isSpherical;
-            t.metadata = { duration: d, width: m, height: p, isSpherical: _ };
+              ((l = n.videoPlayerData) == null ? void 0 : l.width) > 0 &&
+              ((u = n.videoPlayerData) == null ? void 0 : u.height) > 0 &&
+              ((y = n.videoPlayerData.width), (C = n.videoPlayerData.height));
+            var b = (c = n.format) == null ? void 0 : c.isSpherical;
+            t.metadata = {
+              duration: m,
+              width: y,
+              height: C,
+              frameRate: g,
+              bitRate: h,
+              videoCodec: f,
+              isSpherical: b,
+            };
           }),
           t
         );

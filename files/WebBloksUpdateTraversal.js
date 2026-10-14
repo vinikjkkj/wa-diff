@@ -5,7 +5,9 @@ __d(
     "use strict";
     function e(t, n, r) {
       var a = n.apply(t),
-        i = !!a.getUntyped(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY),
+        i =
+          a.styleId === o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND ||
+          !!a.getUntyped(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY),
         l = r[a.styleId];
       if (l) {
         if (l.subnodes)

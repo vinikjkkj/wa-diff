@@ -60,7 +60,7 @@ __d(
     }
     function p(e) {
       var t,
-        n = b(o("WAWebHatchJsonReaders").readString(e, "kind"));
+        n = o("WAWebHatchJsonReaders").readNonEmptyString(e, "kind");
       return n == null
         ? null
         : {
@@ -68,7 +68,7 @@ __d(
               (t = o("WAWebHatchJsonReaders").readObject(e, "data")) != null
                 ? t
                 : {},
-            id: b(o("WAWebHatchJsonReaders").readString(e, "id")),
+            id: o("WAWebHatchJsonReaders").readNonEmptyString(e, "id"),
             kind: n,
           };
     }
@@ -110,17 +110,24 @@ __d(
       if (e == null || typeof e != "object") return t;
       for (var n of Object.keys(e)) {
         var r = o("WAWebHatchJsonReaders").readObject(e, n),
-          a = b(o("WAWebHatchJsonReaders").readString(r, "url"));
+          a = o("WAWebHatchJsonReaders").readNonEmptyString(r, "url");
         a != null &&
           t.set(n, {
             encryptedMedia: h(
               o("WAWebHatchJsonReaders").readObject(r, "encrypted_media"),
             ),
-            filename: b(o("WAWebHatchJsonReaders").readString(r, "filename")),
-            mimeType: b(o("WAWebHatchJsonReaders").readString(r, "mime_type")),
-            sizeBytes: C(r, "size_bytes"),
-            thumbnailJpegB64: b(
-              o("WAWebHatchJsonReaders").readString(r, "thumbnail_jpeg_b64"),
+            filename: o("WAWebHatchJsonReaders").readNonEmptyString(
+              r,
+              "filename",
+            ),
+            mimeType: o("WAWebHatchJsonReaders").readNonEmptyString(
+              r,
+              "mime_type",
+            ),
+            sizeBytes: o("WAWebHatchJsonReaders").readInteger(r, "size_bytes"),
+            thumbnailJpegB64: o("WAWebHatchJsonReaders").readNonEmptyString(
+              r,
+              "thumbnail_jpeg_b64",
             ),
             url: a,
           });
@@ -129,15 +136,15 @@ __d(
     }
     function h(e) {
       var t,
-        n = b((t = o("WAWebHatchJsonReaders")).readString(e, "mime_type")),
-        r = b(t.readString(e, "media_transport")),
-        a = b(t.readString(e, "direct_path")),
-        i = b(t.readString(e, "media_type")),
-        l = C(e, "file_length"),
-        s = b(t.readString(e, "media_key_b64")),
-        u = b(t.readString(e, "file_sha256_b64")),
-        c = b(t.readString(e, "file_enc_sha256_b64")),
-        d = C(e, "media_key_timestamp_ms");
+        n = (t = o("WAWebHatchJsonReaders")).readNonEmptyString(e, "mime_type"),
+        r = t.readNonEmptyString(e, "media_transport"),
+        a = t.readNonEmptyString(e, "direct_path"),
+        i = t.readNonEmptyString(e, "media_type"),
+        l = t.readInteger(e, "file_length"),
+        s = t.readNonEmptyString(e, "media_key_b64"),
+        u = t.readNonEmptyString(e, "file_sha256_b64"),
+        c = t.readNonEmptyString(e, "file_enc_sha256_b64"),
+        d = t.readInteger(e, "media_key_timestamp_ms");
       return n == null ||
         r == null ||
         a == null ||
@@ -153,14 +160,14 @@ __d(
             fileEncSha256B64: c,
             fileLength: l,
             fileSha256B64: u,
-            height: C(e, "height"),
+            height: o("WAWebHatchJsonReaders").readInteger(e, "height"),
             mediaKeyB64: s,
             mediaKeyTimestampMs: d,
             mediaTransport: r,
             mediaType: i,
             mimeType: n,
-            seconds: C(e, "seconds"),
-            width: C(e, "width"),
+            seconds: o("WAWebHatchJsonReaders").readInteger(e, "seconds"),
+            width: o("WAWebHatchJsonReaders").readInteger(e, "width"),
           };
     }
     function y(e) {
@@ -171,13 +178,6 @@ __d(
       } catch (e) {
         return null;
       }
-    }
-    function C(e, t) {
-      var n = o("WAWebHatchJsonReaders").readNumber(e, t);
-      return n != null && Number.isInteger(n) ? n : null;
-    }
-    function b(e) {
-      return e != null && e !== "" ? e : null;
     }
     l.parseHatchJarvisPayload = d;
   },

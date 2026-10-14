@@ -11,34 +11,30 @@ __d(
         a,
         i = e.toError();
       if (i == null) return i;
-      var l = e.payload,
-        s = l == null ? void 0 : l.error,
-        u =
+      var l = i,
+        s = e.payload,
+        u = s == null ? void 0 : s.error,
+        c =
           (t =
-            (n = s == null ? void 0 : s.message) != null
+            (n = u == null ? void 0 : u.message) != null
               ? n
-              : l == null
+              : s == null
                 ? void 0
-                : l.message) != null
+                : s.message) != null
             ? t
             : e.errorSummary;
-      if (
-        (u != null && (i.message = String(u)),
-        l != null && typeof l == "object")
-      ) {
-        var c = i;
-        c.responseObject = l;
-      }
-      (Array.isArray(s == null ? void 0 : s.opes_mids) &&
-        (i.opes_mids = s.opes_mids),
-        (s == null ? void 0 : s.code) != null && (i.code = s.code));
+      (c != null && (i.message = String(c)),
+        s != null && typeof s == "object" && (l.responseObject = s),
+        Array.isArray(u == null ? void 0 : u.opes_mids) &&
+          (l.opes_mids = u.opes_mids),
+        (u == null ? void 0 : u.code) != null && (i.code = u.code));
       var d =
         (r = (o = e.payload) == null ? void 0 : o.fbtrace_id) != null
           ? r
           : (a = e.payload) == null
             ? void 0
             : a.__www_request_id__;
-      return (d != null && (i.fbtrace_id = String(d)), i);
+      return (d != null && (l.fbtrace_id = String(d)), i);
     }
     i.default = e;
   },

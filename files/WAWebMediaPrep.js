@@ -77,9 +77,10 @@ __d(
             })),
             (this.$1 = n.then(
               function (t) {
-                if ((a.mediaData.set(t), !t.filehash))
+                if ((a.mediaData.set(t), !t.filehash)) {
+                  var n = t.mediaBlob;
                   return (
-                    t.mediaBlob ||
+                    n ||
                       o("WALogger")
                         .ERROR(
                           e ||
@@ -89,11 +90,12 @@ __d(
                         )
                         .sendLogs("media-fault: no hash or blob"),
                     o("WAWebCryptoCalculateFilehash")
-                      .calculateFilehashFromBlob(t.mediaBlob)
+                      .calculateFilehashFromBlob(r("nullthrows")(n))
                       .then(function (e) {
                         a.mediaData.filehash = e;
                       })
                   );
+                }
               },
               function (e) {
                 throw (

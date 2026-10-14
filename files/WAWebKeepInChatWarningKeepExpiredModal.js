@@ -32,7 +32,7 @@ __d(
             surface: "unknown",
             viewName: "kic-keep-expired",
           },
-          onCancel: o("WAWebModalManager").closeModalManager,
+          onCancel: o("WAWebModalManager").closeSupportOrModal,
           children: s._(
             /*BTDS*/ "This message can't be kept because the message timer has expired.",
           ),

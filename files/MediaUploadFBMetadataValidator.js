@@ -70,24 +70,25 @@ __d(
                 }),
                 r("MediaUploadOperationOutcome").SUCCESS
               );
-            if (this.configuration == null)
+            var o = this.configuration;
+            if (o == null)
               throw this.$2.createThrowableError(
                 "Missing configuration in the MediaUploadFBMetadataValidator",
               );
-            var o = new (r("VideoUploadFile"))(
+            var a = new (r("VideoUploadFile"))(
                 null,
                 e.file,
                 e.size,
                 e.extension,
               ),
-              a = this.$4(this.configuration),
-              i = new (r("VideoUploadFileValidator"))(a),
-              l = i.getValidationErrorMessage(o, n);
-            return l != null
+              i = this.$4(o),
+              l = new (r("VideoUploadFileValidator"))(i),
+              s = l.getValidationErrorMessage(a, n);
+            return s != null
               ? (t.recordStageOutcome({
                   stage: this.$1,
                   outcome: r("MediaUploadFBStageOutcome").INTERNAL_FAILURE,
-                  displayError: l,
+                  displayError: s,
                 }),
                 r("MediaUploadOperationOutcome").FAILED_NON_TRANSIENT)
               : (t.recordStageOutcome({

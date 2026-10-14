@@ -4,7 +4,6 @@ __d(
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
     "WAWap",
-    "WAWapDeprecatedSmaxID",
     "WAWebBackendErrors",
     "WAWebBizCatalogManagementUpdateCommerceSettings",
     "WAWebBizGetPriceTiersQuery",
@@ -16,21 +15,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))(
-        "businessProfileResponse",
-        function (e) {
-          (e.assertTag("iq"), e.assertFromServer());
-        },
-      ),
-      s = new (r("WADeprecatedWapParser"))(
-        "commerceSettingsResponse",
-        function (e) {
-          (e.assertTag("iq"), e.assertFromServer());
-          var t = e.child("commerce_settings"),
-            n = t.child("cart").attrString("enabled");
-          return n === "true";
-        },
-      );
-    function u(e) {
+      "businessProfileResponse",
+      function (e) {
+        (e.assertTag("iq"), e.assertFromServer());
+      },
+    );
+    function s(e) {
       var t = e.config,
         n = e.note,
         r = e.timezone,
@@ -79,45 +69,12 @@ __d(
         )
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = (t = o("WAWap")).wap(
-              "iq",
-              {
-                to: t.S_WHATSAPP_NET,
-                smax_id: t.SMAX_ID(
-                  r("WAWapDeprecatedSmaxID").CommerceSettingsSet,
-                ),
-                xmlns: "fb:thrift_iq",
-                id: t.generateId(),
-                type: "set",
-              },
-              t.wap(
-                "commerce_settings",
-                null,
-                t.wap("cart", { enabled: t.CUSTOM_STRING(e.toString()) }),
-              ),
-            ),
-            a = yield o("WADeprecatedSendIq").deprecatedSendIq(n, s);
-          if (a.success) return a.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            a.errorCode,
-          );
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             a = yield o(
@@ -132,45 +89,44 @@ __d(
               cart_enabled: e,
             });
           if (a.type === "success") return a.result;
-          if (a.type === "graphql-error")
-            o(
-              "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(a.error);
-          else {
-            if (a.type === "recovery-required") return c(e);
-            a.type;
-          }
-          throw r("err")(
-            "updateCartEnabledGraphQL: error handling flow not implemented for " +
-              JSON.stringify(a),
+          throw (
+            a.type === "graphql-error"
+              ? o(
+                  "WAWebMaybeThrowCatalogErrors",
+                ).maybeThrowLocalErrorForCatalogQuery(a.error)
+              : a.type,
+            r("err")(
+              "updateCartEnabledGraphQL: error handling flow not implemented for " +
+                JSON.stringify(a),
+            )
           );
         })),
-        p.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function f() {
+    function m() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return m(e);
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return u(e);
         })),
-        f.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function h() {
+    function _() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             r = t.address,
             a = t.businessHours,
             i = t.categories,
             l = t.description,
-            s = t.email,
+            u = t.email,
             c = t.latitude,
             d = t.longitude,
             m = t.priceTier,
@@ -195,7 +151,7 @@ __d(
                   ? o("WAWap").wap("longitude", null, String(d))
                   : null,
                 l !== void 0 ? o("WAWap").wap("description", null, l) : null,
-                s !== void 0 ? o("WAWap").wap("email", null, s) : null,
+                u !== void 0 ? o("WAWap").wap("email", null, u) : null,
                 _ && _.length === 0 ? o("WAWap").wap("website", null) : null,
                 _ && _.length > 0
                   ? o("WAWap").wap("website", null, _[0].url)
@@ -214,7 +170,7 @@ __d(
                       }),
                     )
                   : null,
-                a ? u(a) : null,
+                a ? s(a) : null,
                 m !== void 0
                   ? (function () {
                       var e =
@@ -262,15 +218,15 @@ __d(
               g.errorCode,
             );
         })),
-        h.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function C() {
+    function g() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           var a,
             i = (a = o("WAWap")).wap(
               "iq",
@@ -297,15 +253,15 @@ __d(
               l.errorCode,
             );
         })),
-        C.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function v() {
+    function y() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             r = (n = o("WAWap")).wap(
               "iq",
@@ -327,13 +283,13 @@ __d(
               a.errorCode,
             );
         })),
-        v.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.updateCartEnabled = _),
-      (l.editBusinessProfile = g),
-      (l.sendCoverPhoto = y),
-      (l.deleteCoverPhoto = b));
+    ((l.updateCartEnabled = d),
+      (l.editBusinessProfile = p),
+      (l.sendCoverPhoto = f),
+      (l.deleteCoverPhoto = h));
   },
   98,
 );

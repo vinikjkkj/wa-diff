@@ -35,6 +35,7 @@ __d(
       TO_YOU: 29,
       META_AI: 30,
       ONE_ON_ONE: 31,
+      EVENTS: 32,
     });
     i.CHAT_FILTER_TYPES = e;
   },

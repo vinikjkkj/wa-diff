@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAPromiseDelays",
+    "WAWebBoolFunc",
     "WAWebDownloadManager",
     "WAWebHatchVmConnection",
     "WAWebMediaFileErrors",
@@ -123,10 +124,7 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 &&
-            (n = function () {
-              return !0;
-            });
+          n === void 0 && (n = o("WAWebBoolFunc").returnTrue);
           var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           return r == null || !n() ? null : I(r, e, t, c);
         })),

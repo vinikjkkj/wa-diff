@@ -50,7 +50,7 @@ __d(
                 m.byteLength,
                 i.byteLength,
               ),
-              C = d(m, i, y, c),
+              C = d({ index: m, padding: y, value: i, version: c }),
               b = yield a.generateCipherText(h, f, C),
               v = a.generateAssociatedData(u, n),
               S = yield a.generateMac(v, b, g),
@@ -76,15 +76,19 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r) {
+    function d(e) {
+      var t = e.index,
+        n = e.padding,
+        r = e.value,
+        a = e.version;
       return o("WAWebSyncdRequestEncode").encodeSyncActionData({
-        index: e,
+        index: t,
         value: o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-          t,
+          r,
         ),
         padding: n,
-        version: r,
+        version: a,
       });
     }
     l.syncdEncryptMutation = u;

@@ -221,20 +221,20 @@ __d(
         },
         isSharedVideoAttachment: function (t) {
           var e =
-            t.attach_type === "share" &&
-            t.share &&
-            t.share.subattachments &&
-            t.share.subattachments[0];
+            t.attach_type === "share"
+              ? t.share && t.share.subattachments && t.share.subattachments[0]
+              : null;
           return !!(e && e.target && e.target.video_id);
         },
         isGenieSharedVideoAttachment: function (t) {
+          var e = t.share;
           return !!(
             t.attach_type === "share" &&
-            t.share &&
-            t.share.style_list.indexOf("genie_message") > -1 &&
-            t.share.target &&
-            t.share.target.attachment &&
-            c.isSharedVideoAttachment(t.share.target.attachment)
+            e &&
+            e.style_list.indexOf("genie_message") > -1 &&
+            e.target &&
+            e.target.attachment &&
+            c.isSharedVideoAttachment(e.target.attachment)
           );
         },
         isSharedVideoAttachmentMessage: function (n) {

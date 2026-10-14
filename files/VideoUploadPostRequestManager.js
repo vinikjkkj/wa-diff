@@ -1,6 +1,7 @@
 __d(
   "VideoUploadPostRequestManager",
   [
+    "FBLogger",
     "VideoUploadLogger",
     "VideoUploadRequest",
     "clearTimeout",
@@ -30,16 +31,14 @@ __d(
         var o = n.prototype;
         return (
           (o.$VideoUploadPostRequestManager9 = function () {
-            return this.$VideoUploadPostRequestManager1
+            var e = this.$VideoUploadPostRequestManager1;
+            return e
               ? new (r("VideoUploadLogger"))({
-                  source: this.$VideoUploadPostRequestManager1.getSource(),
-                  waterfall_id:
-                    this.$VideoUploadPostRequestManager1.getWaterfallID(),
-                  target_id: this.$VideoUploadPostRequestManager1.getTargetID(),
+                  source: e.getSource(),
+                  waterfall_id: e.getWaterfallID(),
+                  target_id: e.getTargetID(),
                   composer_entry_point_ref:
-                    this.$VideoUploadPostRequestManager1
-                      .getComposerEntryPointRef &&
-                    this.$VideoUploadPostRequestManager1.getComposerEntryPointRef(),
+                    e.getComposerEntryPointRef && e.getComposerEntryPointRef(),
                 })
               : null;
           }),

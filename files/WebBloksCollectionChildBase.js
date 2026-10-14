@@ -1,6 +1,7 @@
 __d(
   "WebBloksCollectionChildBase",
   [
+    "WebBloksCollectionHelpers",
     "WebBloksCollectionMinificationKeys",
     "WebBloksComponentContext",
     "react-compiler-runtime",
@@ -8,63 +9,72 @@ __d(
     "useWebBloksCollectionStickyChildStyle",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.collectionNode,
-        a = e.extraStyles,
-        i = e.node,
-        l = e.scrollerRef,
-        s = o("WebBloksComponentContext").useWebBloksContext(),
-        u = s.renderNode,
-        c;
-      t[0] !== n
-        ? ((c = n.get(
+    var e = {
+      start: "flex-start",
+      end: "flex-end",
+      center: "center",
+      stretch: "stretch",
+    };
+    function s(t) {
+      var n = o("react-compiler-runtime").c(9),
+        a = t.collectionNode,
+        i = t.extraStyles,
+        l = t.node,
+        s = t.scrollerRef,
+        u = o("WebBloksComponentContext").useWebBloksContext(),
+        c = u.renderNode,
+        d;
+      n[0] !== a
+        ? ((d = a.get(
             o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION,
           )),
-          (t[0] = n),
-          (t[1] = c))
-        : (c = t[1]);
-      var d = c,
-        m = n.get(o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP),
-        p = n.get(
+          (n[0] = a),
+          (n[1] = d))
+        : (d = n[1]);
+      var m = d,
+        p = a.get(o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP),
+        _ = a.get(
           o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP_STYLE,
         ),
-        _;
-      t[2] !== d || t[3] !== i
-        ? ((_ = { node: i, direction: d }), (t[2] = d), (t[3] = i), (t[4] = _))
-        : (_ = t[4]);
-      var f;
-      t[5] !== n || t[6] !== i || t[7] !== l
-        ? ((f = { node: i, collectionNode: n, scrollerRef: l }),
-          (t[5] = n),
-          (t[6] = i),
-          (t[7] = l),
-          (t[8] = f))
-        : (f = t[8]);
-      var g = babelHelpers.extends(
+        f = o("WebBloksCollectionHelpers").getCollectionCellAlign(l),
+        g = f != null ? { alignSelf: e[f] } : {},
+        h;
+      n[2] !== m || n[3] !== l
+        ? ((h = { node: l, direction: m }), (n[2] = m), (n[3] = l), (n[4] = h))
+        : (h = n[4]);
+      var y;
+      n[5] !== a || n[6] !== l || n[7] !== s
+        ? ((y = { node: l, collectionNode: a, scrollerRef: s }),
+          (n[5] = a),
+          (n[6] = l),
+          (n[7] = s),
+          (n[8] = y))
+        : (y = n[8]);
+      var C = babelHelpers.extends(
           {
             display: "inline-flex",
             width: "auto",
             height: "auto",
             overflow: "hidden",
           },
-          r("useWebBloksCollectionStickyChildStyle")(_),
-          r("useWebBloksCollectionChildSizes")(f),
-          a,
-        ),
-        h;
-      return (
-        p == null || p === "pager" ? (h = "always") : (h = "normal"),
-        u(
+          r("useWebBloksCollectionStickyChildStyle")(h),
+          r("useWebBloksCollectionChildSizes")(y),
+          g,
           i,
-          babelHelpers.extends({}, g, {
-            scrollSnapAlign: m,
-            scrollSnapStop: h,
+        ),
+        b;
+      return (
+        _ == null || _ === "pager" ? (b = "always") : (b = "normal"),
+        c(
+          l,
+          babelHelpers.extends({}, C, {
+            scrollSnapAlign: p,
+            scrollSnapStop: b,
           }),
         )
       );
     }
-    l.default = e;
+    l.default = s;
   },
   98,
 );

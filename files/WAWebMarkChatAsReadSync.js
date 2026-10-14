@@ -155,12 +155,14 @@ __d(
                                   o("WAWebWidFactory").createWid(s),
                                 );
                                 return m.success
-                                  ? a.$MarkChatAsReadSync$p_3(
-                                      o("WAWebWidFactory").createWid(m.chat.id),
-                                      d,
-                                      c,
-                                      n,
-                                    )
+                                  ? a.$MarkChatAsReadSync$p_3({
+                                      chatWid: o("WAWebWidFactory").createWid(
+                                        m.chat.id,
+                                      ),
+                                      incomingRange: c,
+                                      read: d,
+                                      syncActionValue: n,
+                                    })
                                   : {
                                       actionState:
                                         o("WAWebSyncdConst").SyncActionState
@@ -220,33 +222,37 @@ __d(
           })()),
           (i.$MarkChatAsReadSync$p_3 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r, a) {
+              function* (e) {
+                var t = e.chatWid,
+                  r = e.incomingRange,
+                  a = e.read,
+                  i = e.syncActionValue;
                 yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-                  e.toString(),
+                  t.toString(),
                   o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                     "markChatAsRead",
                   ),
                 );
-                var i = yield o("WAWebMessageRangeUtils").constructMessageRange(
-                    e,
+                var l = yield o("WAWebMessageRangeUtils").constructMessageRange(
+                    t,
                     { forOutgoingMutation: !1 },
                   ),
-                  l = o("WAWebMessageRangeUtils").compareMessageRanges(i, r),
-                  s = o("encodeProtobuf")
+                  s = o("WAWebMessageRangeUtils").compareMessageRanges(l, r),
+                  d = o("encodeProtobuf")
                     .encodeProtobuf(
                       o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                      a,
+                      i,
                     )
                     .readBuffer(),
-                  d = function () {
+                  m = function () {
                     return o(
                       "WAWebApiAddActiveMessageRange",
                     ).addActiveMessageRange(
-                      e.toString(),
+                      t.toString(),
                       o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                         "markChatAsRead",
                       ),
-                      s,
+                      d,
                     );
                   };
                 switch (
@@ -256,26 +262,26 @@ __d(
                         "[syncd] before use case will update chat table",
                       ])),
                   ),
-                  l)
+                  s)
                 ) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesAreEqual:
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeBEnclosesRangeA:
                     return (
-                      yield d(),
-                      yield this.$MarkChatAsReadSync$p_1(e, t),
-                      (p || (p = n("Promise"))).resolve(_(e, l))
+                      yield m(),
+                      yield this.$MarkChatAsReadSync$p_1(t, a),
+                      (p || (p = n("Promise"))).resolve(_(t, s))
                     );
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesNotEnclosing:
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeAEnclosesRangeB:
                     return (
-                      t &&
-                        (yield this.$MarkChatAsReadSync$p_2(e)) &&
-                        (yield this.$MarkChatAsReadSync$p_1(e, t)),
-                      (p || (p = n("Promise"))).resolve(_(e, l))
+                      a &&
+                        (yield this.$MarkChatAsReadSync$p_2(t)) &&
+                        (yield this.$MarkChatAsReadSync$p_1(t, a)),
+                      (p || (p = n("Promise"))).resolve(_(t, s))
                     );
                 }
                 o("WALogger").LOG(
@@ -286,7 +292,7 @@ __d(
                 );
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

@@ -12,11 +12,25 @@ __d(
     "setTimeout",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = (function (e) {
-      function t(t, n, r, o) {
+    function e(e) {
+      if (e != null && typeof e == "object") {
+        var t = e.code;
+        if (typeof t == "number" && t !== 0) return t;
+      }
+      return null;
+    }
+    function s(e) {
+      if (e != null && typeof e == "object") {
+        var t = e.summary;
+        if (typeof t == "string" && t !== "") return t;
+      }
+      return null;
+    }
+    var u = (function (t) {
+      function n(e, n, r, o) {
         var a;
         return (
-          (a = e.call(this) || this),
+          (a = t.call(this) || this),
           (a.$VideoUploadGraphQLPostRequestManager$p_1 = 0),
           (a.$VideoUploadGraphQLPostRequestManager$p_2 = 0),
           (a.$VideoUploadGraphQLPostRequestManager$p_3 = 0),
@@ -26,7 +40,7 @@ __d(
           (a.$VideoUploadGraphQLPostRequestManager$p_7 = null),
           (a.$VideoUploadGraphQLPostRequestManager$p_8 = null),
           (a.$VideoUploadGraphQLPostRequestManager$p_9 = !1),
-          (a.$VideoUploadGraphQLPostRequestManager$p_1 = t),
+          (a.$VideoUploadGraphQLPostRequestManager$p_1 = e),
           (a.$VideoUploadGraphQLPostRequestManager$p_2 = n),
           (a.$VideoUploadGraphQLPostRequestManager$p_3 = 0),
           (a.$VideoUploadGraphQLPostRequestManager$p_4 = r),
@@ -35,10 +49,10 @@ __d(
           a
         );
       }
-      babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (n.sendRequest = function (t) {
+        (a.sendRequest = function (t) {
           if (
             ((this.$VideoUploadGraphQLPostRequestManager$p_8 = t),
             this.$VideoUploadGraphQLPostRequestManager$p_9)
@@ -51,12 +65,12 @@ __d(
           (this.$VideoUploadGraphQLPostRequestManager$p_10(),
             this.inform("request-started"));
         }),
-        (n.clearRequest = function () {
+        (a.clearRequest = function () {
           ((this.$VideoUploadGraphQLPostRequestManager$p_9 = !1),
             (this.$VideoUploadGraphQLPostRequestManager$p_6 = 0),
             (this.$VideoUploadGraphQLPostRequestManager$p_3 = 0));
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_10 = function () {
+        (a.$VideoUploadGraphQLPostRequestManager$p_10 = function () {
           var e = this.$VideoUploadGraphQLPostRequestManager$p_8;
           if (e != null) {
             (r("clearTimeout")(this.$VideoUploadGraphQLPostRequestManager$p_7),
@@ -75,7 +89,7 @@ __d(
             );
           }
         }),
-        (n.__createRequestData = function (t) {
+        (a.__createRequestData = function (t) {
           var e = t.getVideoID(),
             n = t.getTargetID();
           if (e == null) throw r("err")("Video id cannot be null");
@@ -93,7 +107,7 @@ __d(
             supports_chunking: t.getSupportsChunking(),
           };
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_11 = function (t) {
+        (a.$VideoUploadGraphQLPostRequestManager$p_11 = function (t) {
           var e;
           (this.inform("request-finished", {
             video_asset_id:
@@ -101,16 +115,17 @@ __d(
           }),
             this.clearRequest());
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_13 = function (t) {
+        (a.$VideoUploadGraphQLPostRequestManager$p_13 = function (n) {
+          var t, r;
           (this.inform("request-failed", {
-            error_code: t.number,
-            error_description: t.message,
-            error_summary: t.name,
-            error_object: t,
+            error_code: (t = e(n)) != null ? t : n.number,
+            error_description: n.message,
+            error_summary: (r = s(n)) != null ? r : n.name,
+            error_object: n,
           }),
             this.clearRequest());
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_12 = function (t) {
+        (a.$VideoUploadGraphQLPostRequestManager$p_12 = function (t) {
           this.$VideoUploadGraphQLPostRequestManager$p_14(t) &&
           this.$VideoUploadGraphQLPostRequestManager$p_6 <
             this.$VideoUploadGraphQLPostRequestManager$p_4
@@ -127,17 +142,17 @@ __d(
               ))
             : this.$VideoUploadGraphQLPostRequestManager$p_13(t);
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_16 = function (t, n) {
+        (a.$VideoUploadGraphQLPostRequestManager$p_16 = function (t, n) {
           return Math.pow(t, n) * 1e3;
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_15 = function (t) {
+        (a.$VideoUploadGraphQLPostRequestManager$p_15 = function (t) {
           (r("clearTimeout")(this.$VideoUploadGraphQLPostRequestManager$p_7),
             (this.$VideoUploadGraphQLPostRequestManager$p_7 = r("setTimeout")(
               this.$VideoUploadGraphQLPostRequestManager$p_10.bind(this),
               t,
             )));
         }),
-        (n.$VideoUploadGraphQLPostRequestManager$p_14 = function (t) {
+        (a.$VideoUploadGraphQLPostRequestManager$p_14 = function (t) {
           var e = t.toString();
           return !!(
             e.includes("NetworkTransportError") ||
@@ -145,15 +160,15 @@ __d(
             e.includes("NetworkRequestError")
           );
         }),
-        (n.hasAPISupport = function (t) {
+        (a.hasAPISupport = function (t) {
           return o("GraphQLVideoPublisherInputDataHandlerBase").hasAPISupport(
             t,
           );
         }),
-        t
+        n
       );
     })(r("mixin")(n("cr:909282")));
-    l.default = e;
+    l.default = u;
   },
   98,
 );

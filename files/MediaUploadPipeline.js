@@ -33,8 +33,9 @@ __d(
             if (o.length === 0)
               ((this.$3 = null), t(r("MediaUploadOperationOutcome").SUCCESS));
             else {
-              var a = o.shift(),
-                i = a();
+              var a = o[0];
+              o.shift();
+              var i = a();
               (this.$1.promiseTerminator(
                 i.promise
                   .then(function (a) {

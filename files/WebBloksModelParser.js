@@ -68,7 +68,9 @@ __d(
                 "Missing style minification map for unminified WebBloks payload.",
               ),
             ),
-        C = y.get(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY) != null,
+        C =
+          l === o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND ||
+          y.get(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY) != null,
         b = t[l];
       if (b != null) {
         var v = b.plural_subnodes,

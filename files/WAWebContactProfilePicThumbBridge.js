@@ -7,9 +7,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebChangeProfilePicThumb",
     "WAWebDBBulkPersistProfilePic",
-    "WAWebFetchCommunityProfilePic",
     "WAWebFetchNewsletterProfilePic",
-    "WAWebGetProfilePicJob",
     "WAWebProfilePicConstants",
     "WAWebSendProfilePictureJob",
     "WAWebURLUtils",
@@ -18,15 +16,30 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f;
-    function g(e) {
-      return h.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g = r("requireDeferred")("WAWebFetchCommunityProfilePic").__setRef(
+        "WAWebContactProfilePicThumbBridge",
+      ),
+      h = r("requireDeferred")("WAWebGetProfilePicJob").__setRef(
+        "WAWebContactProfilePicThumbBridge",
+      );
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("WAWebSendProfilePictureJob")(e, null).then(function () {
               return { status: 200 };
             }),
@@ -50,27 +63,27 @@ __d(
             n
           );
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = r("WAWebURLUtils").parseDataURL(a).data,
             l = o("WABase64").decodeB64(i),
             s = r("WAWebSendProfilePictureJob")(e, l).then(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield o("WAWebGetProfilePicJob").getProfilePic(e, {
-                  preview: !1,
-                });
+                var t = yield h.load(),
+                  n = t.getProfilePic,
+                  r = yield n(e, { preview: !1 });
                 return {
-                  tag: t.tag,
-                  eurl: t.eurl,
-                  fullDirectPath: t.directPath,
-                  filehash: t.filehash,
+                  tag: r.tag,
+                  eurl: r.eurl,
+                  fullDirectPath: r.directPath,
+                  filehash: r.filehash,
                   status: 200,
                 };
               }),
@@ -95,10 +108,10 @@ __d(
             c
           );
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function S(e, t) {
       var n, r, o, a, i, l;
       return {
         id: e.toString(),
@@ -114,35 +127,33 @@ __d(
         timestamp: Date.now(),
       };
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = b(e, t);
-          yield o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(n);
-        })),
-        S.apply(this, arguments)
-      );
-    }
     function R(e, t) {
       return L.apply(this, arguments);
     }
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = (f || (f = n("Promise")))
-            .all([
-              o("WAWebGetProfilePicJob").getProfilePic(
-                e,
-                babelHelpers.extends({}, t, { preview: !1 }),
-              ),
-              o("WAWebGetProfilePicJob").getProfilePic(
-                e,
-                babelHelpers.extends({}, t, { preview: !0 }),
-              ),
-            ])
+          var n = S(e, t);
+          yield o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(n);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = h
+            .load()
+            .then(function (r) {
+              var o = r.getProfilePic;
+              return (f || (f = n("Promise"))).all([
+                o(e, babelHelpers.extends({}, t, { preview: !1 })),
+                o(e, babelHelpers.extends({}, t, { preview: !0 })),
+              ]);
+            })
             .then(function (e) {
               var t,
                 n = e[0],
@@ -159,7 +170,7 @@ __d(
             });
           try {
             var i = yield a;
-            (v(e, i).catch(function (e) {
+            (R(e, i).catch(function (e) {
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -169,10 +180,10 @@ __d(
                 r("getErrorSafe")(e).message,
               );
             }),
-              I(e, i.eurl));
+              D(e, i.eurl));
           } catch (t) {
-            (I(e),
-              E(e, r("getErrorSafe")(t)).catch(function (e) {
+            (D(e),
+              I(e, r("getErrorSafe")(t)).catch(function (e) {
                 o("WALogger").WARN(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -185,15 +196,15 @@ __d(
           }
           return a;
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function k() {
+    function T() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
             var n = t.status;
             n === 500 || n === 501 || n === 503
@@ -206,27 +217,27 @@ __d(
                   n,
                 )
               : n === 404
-                ? yield v(e)
-                : n === 401 && !e.isGroup() && (yield v(e));
+                ? yield R(e)
+                : n === 401 && !e.isGroup() && (yield R(e));
           }
         })),
-        k.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function I(e, t) {
+    function D(e, t) {
       o("WAWebUserPrefsMeUser").isMeAccount(e) &&
         o("WAWebUserPrefsMultiDevice").setCachedProfilePicEURL(
           t != null ? t : "",
         );
     }
-    function T(t) {
+    function x(t) {
       return (f || (f = n("Promise"))).all(
         t.map(
           (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 try {
-                  var n = yield R(t.id, {
+                  var n = yield E(t.id, {
                     tcToken: t.tcToken,
                     commonGid: t.commonGid,
                   });
@@ -287,12 +298,12 @@ __d(
         ),
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.commonGid,
             a = e.id,
             i = e.newsletterRole,
@@ -307,7 +318,7 @@ __d(
                 i,
               );
               return (
-                v(a, u).catch(function (e) {
+                R(a, u).catch(function (e) {
                   o("WALogger").WARN(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -321,11 +332,11 @@ __d(
               );
             }
             if (l != null) {
-              var c = yield o(
-                "WAWebFetchCommunityProfilePic",
-              ).fetchCommunityProfilePic(a, l);
+              var c = yield g.load(),
+                d = c.fetchCommunityProfilePic,
+                m = yield d(a, l);
               return (
-                v(a, c).catch(function (e) {
+                R(a, m).catch(function (e) {
                   o("WALogger").WARN(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -335,52 +346,52 @@ __d(
                     r("getErrorSafe")(e).message,
                   );
                 }),
-                c
+                m
               );
             }
-            var d = yield R(a, { tcToken: s, commonGid: t }),
-              m = babelHelpers.extends({}, d, {
+            var h = yield E(a, { tcToken: s, commonGid: t }),
+              y = babelHelpers.extends({}, h, {
                 id: a,
                 timestamp: Date.now(),
                 eurlStale: !1,
                 stale: !1,
               });
-            return m;
+            return y;
           } catch (e) {
             if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-              var g = { id: a };
+              var C = { id: a };
               switch (e.status) {
                 case 401:
                 case 404:
-                  ((g.tag = ""),
-                    (g.timestamp = Date.now()),
-                    (g.eurlStale = !1),
-                    (g.stale = !1));
+                  ((C.tag = ""),
+                    (C.timestamp = Date.now()),
+                    (C.eurlStale = !1),
+                    (C.stale = !1));
                   break;
                 case 423:
-                  g.stale = !0;
+                  C.stale = !0;
                   break;
                 case 429:
-                  g.stale = !0;
+                  C.stale = !0;
                   break;
                 default:
-                  g.eurlStale = !1;
+                  C.eurlStale = !1;
                   break;
               }
-              return (f || (f = n("Promise"))).resolve(g);
+              return (f || (f = n("Promise"))).resolve(C);
             }
             throw e;
           }
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((l.requestDeletePicture = g),
-      (l.sendSetPicture = y),
-      (l.mapProfilePictureToProfilePicThumbRowType = b),
-      (l.persistProfilePicToDB = v),
-      (l.profilePicResync = T),
-      (l.requestProfilePicFromServer = D));
+    ((l.requestDeletePicture = y),
+      (l.sendSetPicture = b),
+      (l.mapProfilePictureToProfilePicThumbRowType = S),
+      (l.persistProfilePicToDB = R),
+      (l.profilePicResync = x),
+      (l.requestProfilePicFromServer = $));
   },
   98,
 );

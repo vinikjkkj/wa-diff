@@ -52,7 +52,7 @@ __d(
             }
           }),
           (i._click = function (e) {
-            for (var t = e.getTarget(); r("isElementNode")(t); ) {
+            for (var t = e.getTarget(); t != null && r("isElementNode")(t); ) {
               if (t.type === "submit") {
                 ((i._clickTarget = t), r("setTimeout")(i._unclick, 0));
                 break;
@@ -162,7 +162,10 @@ __d(
                 return (t.failure(n, n.getResponse()), !1);
               }),
               a.subscribe("complete", function () {
-                for (; l.length; ) l.pop().unsubscribe();
+                for (; l.length; ) {
+                  var e;
+                  (e = l.pop()) == null || e.unsubscribe();
+                }
               }),
             ];
           } else {
@@ -241,7 +244,8 @@ __d(
           this._request = null;
         }),
         (a._getStatusElement = function () {
-          return o("Parent").byClass(this._form, "stat_elem") || this._form;
+          var e = o("Parent").byClass(this._form, "stat_elem");
+          return e instanceof HTMLElement ? e : this._form;
         }),
         (n.getInstance = function (t) {
           return o("DataStore").get(t, "FileForm");

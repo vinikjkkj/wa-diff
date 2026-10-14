@@ -15,30 +15,30 @@ __d(
       s,
       u = s || (s = o("react")),
       c = 0;
-    function d(t, n, a) {
-      var i = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
+    function d(t, n, a, i) {
+      var l = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
         "mid",
       );
-      if (!(i == null || !m(n, a))) {
-        var l = ++c,
-          s = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
+      if (!(l == null || !m(n, a))) {
+        var s = ++c,
+          u = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
             "right",
           );
-        if (s == null || !s.existsDrawer()) {
-          g(t);
+        if (u == null || !u.existsDrawer()) {
+          g(t, i);
           return;
         }
-        var u = {
+        var d = {
           activeChat: o("WAWebChatCollection").ChatCollection.getActive(),
           chatId: n,
-          mid: _(i),
-          request: l,
-          right: _(s),
+          mid: _(l),
+          request: s,
+          right: _(u),
           signal: a,
         };
-        s.closeDrawer(u.right.drawerId, { isConflictingDrawerOpening: !0 })
+        u.closeDrawer(d.right.drawerId, { isConflictingDrawerOpening: !0 })
           .then(function (e) {
-            e && p(u) && g(t);
+            e && p(d) && g(t, i);
           })
           .catch(function (t) {
             o("WALogger")
@@ -79,12 +79,12 @@ __d(
     function f(e, t) {
       return e != null && e.uieRef === t.uieRef && e.drawerId === t.drawerId;
     }
-    function g(e) {
+    function g(e, t) {
       o("WAWebDrawerManager").DrawerManager.openDrawerMid(
         u.jsx(
           o("WAWebHatchBrowserViewerFlowShellLoadable")
             .WAWebHatchBrowserViewerFlowShellLoadable,
-          { taskID: e },
+          { onStopped: t, taskID: e },
         ),
         { transition: "none" },
       );

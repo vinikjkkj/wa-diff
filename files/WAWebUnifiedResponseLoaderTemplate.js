@@ -6,43 +6,70 @@ __d(
       layout: {
         bloks_payload: {
           data: [],
+          embedded_payloads: [
+            {
+              id: "kMjbWCOLMmjVeK-bT7UEog:206zs6c4w8",
+              payload: {
+                layout: {
+                  bloks_payload: {
+                    tree: {
+                      䇓: {
+                        " ": [],
+                        "\x87": [" ", '	(dkc (dnv "206zs6c4w3-1" 1))'],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          ],
+          templates: {
+            "1B3lTLgrkxzLgrjGDWwQGQ:206zs6c4wg": {
+              㐈: {
+                ")": "column",
+                ",": "center",
+                $: "center",
+                " ": [{ 㐗: { ")": "Sorry, something went wrong" } }],
+              },
+            },
+          },
           error_attribution: {
             logging_id:
-              '{"callsite":"{\\"product\\":\\"unified_response\\",\\"feature\\":\\"unified_response_loader\\",\\"oncall\\":\\"product_elements\\"}","push_phase":"sandcastle","version":1,"request_id":"AOfW5lA1QNsVgTYWpNcp4ak","www_revision":1035118642}',
-            source_map_id: "JP8J4MZqDXPjFActo5Td0g",
+              '{"callsite":"{\\"product\\":\\"unified_response\\",\\"feature\\":\\"unified_response_loader\\",\\"oncall\\":\\"product_elements\\"}","push_phase":"dev","version":1,"request_id":"AU-PjoeFKORiFj-qxBmjNaa","www_revision":1047540049}',
+            source_map_id: "cY8I59YnT9VvnTMofuIfVw",
           },
           tree: {
-            "bk.components.Flexbox": {
-              children: [
+            㐈: {
+              " ": [
                 {
-                  "bk.components.Flexbox": {
-                    children: [
+                  㐈: {
+                    " ": [
                       {
-                        "bk.components.Flexbox": {
-                          justify_content: "center",
-                          align_items: "center",
-                          children: [{ "bk.components.Spinner": {} }],
-                          _style: { flex: { width: "100%" } },
+                        㐈: {
+                          ",": "center",
+                          $: "center",
+                          " ": [{ 㕢: {} }],
+                          "\x84": { 㐸: { D: "100%" } },
                         },
                       },
                     ],
-                    id: "1gy2m0:1",
+                    "!": "xol49i:1",
                   },
                 },
               ],
-              extensions: [
+              "\x85": [
                 {
-                  "bk.extensions.OnDataChange": {
-                    on_change:
-                      '(bk.action.core.Apply, (bk.action.core.FuncConst, (bk.action.core.TakeLast, (bk.action.core.If, (bk.action.core.Match, "failed", (bk.action.array.Make, (bk.action.core.Pattern, (bk.action.core.GetArg, 1), (bk.action.core.FuncConst, true))), (bk.action.core.Default, (bk.action.core.FuncConst, false))), (bk.action.core.Apply, (bk.action.core.FuncConst, 1), (bk.action.core.GetArg, 0)), null), (bk.action.core.If, (bk.action.core.If, (bk.action.core.Match, "resolved_sync", (bk.action.array.Make, (bk.action.core.Pattern, (bk.action.core.GetArg, 1), (bk.action.core.FuncConst, true))), (bk.action.core.Default, (bk.action.core.FuncConst, false))), true, (bk.action.core.Match, "resolved_async", (bk.action.array.Make, (bk.action.core.Pattern, (bk.action.core.GetArg, 1), (bk.action.core.FuncConst, true))), (bk.action.core.Default, (bk.action.core.FuncConst, false)))), (bk.action.core.Apply, (bk.action.core.FuncConst, 1), (bk.action.core.GetArg, 0)), null))), (bk.action.core.GetArg, 0), (bk.action.core.GetArg, 2))',
-                    on_bind:
-                      '(bk.action.array.Make, "data", (bk.action.core.If, (bk.action.core.Match, (bk.action.bloks.GetVariable2, "query_info_35hdhx340"), (bk.action.array.Make, (bk.action.core.Pattern, null, (bk.action.core.FuncConst, true))), (bk.action.core.Default, (bk.action.core.FuncConst, false))), null, (bk.action.map.Get, (bk.action.bloks.GetVariable2, "query_info_35hdhx340"), "resolution_type")))',
+                  㾶: {
+                    "#": '	(e1w (e24 (e2f (e2a (e2b "failed" (dkc (e2c (e25 1) (e24 true))) (e22 (e24 false))) (e2f (e2e 2 (e1w (e24 (f4i (dkc "onErrorAction" "errorFallbackUI") (dkc 1 (fna "1B3lTLgrkxzLgrjGDWwQGQ:206zs6c4wg" (f4i (dkc) (dkc)) "ac-default-error-fallback-ui")))) (e25 0) (e1w (e24 (e2f (e2e 0 (f4i (dkc "errorMessage" "errorCode") (dkc null null))) (e2a (e2b (dnt "query_info_206zs6c4w0") (dkc (e2c null (e24 true))) (e22 (e24 false))) (e25 0) (e1z (f4g (dnt "query_info_206zs6c4w0") "error_info") (e25 0)))))))) (e2e 3 (dk8 (e25 2) "errorFallbackUI")) (dk8 (e25 2) "onErrorAction") (e2a (e2b (e25 3) (dkc (e2c null (e24 true))) (e22 (e24 false))) null (dpp "xol49i:1" (dkc (dnh "kMjbWCOLMmjVeK-bT7UEog:206zs6c4w8" (f4i (dkc "206zs6c4w3-1") (dkc (e25 3))))) (e25 0)))) null) (e2a (e2a (e2b "resolved_sync" (dkc (e2c (e25 1) (e24 true))) (e22 (e24 false))) true (e2b "resolved_async" (dkc (e2c (e25 1) (e24 true))) (e22 (e24 false)))) (e1w (e24 1) (e25 0)) null))) (e25 0) (e25 2))',
+                    "\x87": [
+                      ")",
+                      '	(e2a (e2b (dnt "query_info_206zs6c4w0") (dkc (e2c null (e24 true))) (e22 (e24 false))) null (f4g (dnt "query_info_206zs6c4w0") "resolution_type"))',
+                    ],
                   },
                 },
                 {
-                  "bk.components.OnMount": {
-                    on_first_mount:
-                      '(bk.action.bloks.FetchAsyncComponents, "com.bloks.www.async.components.BloksURComponentAsyncComponentQuery", (bk.action.map.Make, (bk.action.array.Make, "type", "data", "uuid"), (bk.action.array.Make, (bk.action.bloks.GetParameter, "type"), (bk.action.bloks.GetParameter, "data"), (bk.action.bloks.GetParameter, "uuid"))), (bk.action.i64.Const, 604800), (bk.action.tree.Make, "bk.data.action.bloks.FetchAsyncComponentsOptions"))',
+                  㙚: {
+                    ")": '	(dn1 "com.bloks.www.async.components.BloksURComponentAsyncComponentQuery" (f4i (dkc "type" "data" "uuid") (dkc (dng "type") (dng "data") (dng "uuid"))) (eud 604800) (fom 16376))',
                   },
                 },
               ],
@@ -50,15 +77,15 @@ __d(
           },
           component_queries: [
             {
-              id: "35hdhx340",
-              targets: { component: "1gy2m0:1" },
+              id: "206zs6c4w0",
+              targets: { component: "xol49i:1" },
               app_id_expr:
-                '(bk.action.core.TakeLast, "com.bloks.www.async.components.BloksURComponentAsyncComponentQuery")',
+                '	(e2f, "com.bloks.www.async.components.BloksURComponentAsyncComponentQuery")',
               params:
-                '(bk.action.map.Make, (bk.action.array.Make, "type", "data", "uuid"), (bk.action.array.Make, (bk.action.bloks.GetParameter, "type"), (bk.action.bloks.GetParameter, "data"), (bk.action.bloks.GetParameter, "uuid")))',
+                '	(f4i (dkc "type" "data" "uuid") (dkc (dng "type") (dng "data") (dng "uuid")))',
               client_params:
-                '(bk.action.map.Make, (bk.action.array.Make, "__ref_store", "__infra_component_did_render"), (bk.action.array.Make, (bk.action.map.Make, (bk.action.array.Make), (bk.action.array.Make)), null))',
-              cache_ttl_expr: "(bk.action.i64.Const, 604800)",
+                '	(f4i (dkc "__ref_store" "__infra_component_did_render") (dkc (f4i (dkc) (dkc)) null))',
+              cache_ttl_expr: "	(eud 604800)",
               is_scoped: !0,
             },
           ],

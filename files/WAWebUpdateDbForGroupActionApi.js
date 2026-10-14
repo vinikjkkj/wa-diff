@@ -620,7 +620,10 @@ __d(
               B.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
-                  { suspended: pe },
+                  babelHelpers.extends(
+                    { suspended: pe },
+                    pe ? { suspendAppealApprovedSeen: !1 } : null,
+                  ),
                   i,
                 ),
               );

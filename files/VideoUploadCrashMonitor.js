@@ -30,7 +30,7 @@ __d(
           return this.$VideoUploadCrashMonitor1;
         }),
         (n.logCrash = function (t, n, o) {
-          if (n.waterfallID) {
+          if (!(n.waterfallID == null || n.waterfallID === "")) {
             var e = new (r("VideoUploadLogger"))({
                 actor_id: n.actorID,
                 source: n.source,
@@ -46,7 +46,7 @@ __d(
                   "Detected video upload did not complete due to a crash",
               };
             (e.logEvent(r("VideoUploadLogger").EVENT_FAILED_UPLOADING, a),
-              n.flowStarted &&
+              n.flowStarted === !0 &&
                 e.logEvent(r("VideoUploadLogger").EVENT_RESIGNED_FLOW, {}));
           }
         }),

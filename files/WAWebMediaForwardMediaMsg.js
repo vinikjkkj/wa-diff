@@ -25,6 +25,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -258,7 +259,7 @@ __d(
               nativeFlowName: (T = w.nativeFlowName) != null ? T : void 0,
             },
             te = yield new (o("WAWebMediaPrep").MediaPrep)(
-              q.type,
+              r("nullthrows")(q.type),
               (d || (d = n("Promise"))).resolve(q),
             ).sendToChat({
               chat: P,

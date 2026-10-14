@@ -8,6 +8,7 @@ __d(
     "cr:13920",
     "react",
     "react-compiler-runtime",
+    "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -47,31 +48,45 @@ __d(
     }
     var _ = 115;
     function f(e) {
-      var t = e.getContainerAndImageDimensions,
-        n = e.panOffset,
-        r = c(o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx),
-        a = u(
-          function () {
-            var e = t();
-            if (!e) return !1;
-            var o = r.getCaptionHeight(),
-              a = e.containerH,
-              i = e.imageH,
-              l = i * r.currentImageScale,
-              s = n.y + l;
-            return s - a > _ + o;
-          },
-          [t, n.y, r],
-        ),
-        i = r.currentImageScale;
-      d(
-        function () {
-          var e = a();
-          r.hasOverflownThumbnailSection !== e &&
-            r.setHasOverflownThumbnailSection(e);
-        },
-        [i],
-      );
+      var t = o("react-compiler-runtime").c(8),
+        n = e.getContainerAndImageDimensions,
+        a = e.panOffset,
+        i = c(o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx),
+        l;
+      t[0] !== n || t[1] !== a || t[2] !== i
+        ? ((l = function (t) {
+            var e = n(),
+              r = !1;
+            if (e) {
+              var o = i.getCaptionHeight(),
+                l = e.containerH,
+                s = e.imageH,
+                u = a.y + s * t;
+              r = u - l > _ + o;
+            }
+            i.hasOverflownThumbnailSection !== r &&
+              i.setHasOverflownThumbnailSection(r);
+          }),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i),
+          (t[3] = l))
+        : (l = t[3]);
+      var s = r("useWAWebStableCallback")(l),
+        u = i.currentImageScale,
+        m,
+        p;
+      (t[4] !== u || t[5] !== s
+        ? ((m = function () {
+            s(u);
+          }),
+          (p = [u, s]),
+          (t[4] = u),
+          (t[5] = s),
+          (t[6] = m),
+          (t[7] = p))
+        : ((m = t[6]), (p = t[7])),
+        d(m, p));
     }
     function g(e, t) {
       var r = o("react-compiler-runtime").c(14),

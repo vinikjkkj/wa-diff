@@ -7,6 +7,7 @@ __d(
     "WAWebAck",
     "WAWebAuraGating",
     "WAWebBizAiAgentGating",
+    "WAWebBizBroadcastProChatUtils",
     "WAWebBizCtwaAGMUtils",
     "WAWebBotBaseGating",
     "WAWebBotComposerTreatment",
@@ -680,7 +681,10 @@ __d(
     }
     function z(e, t, n) {
       return (
-        G(e) && H(t) && !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n)
+        G(e) &&
+        H(t) &&
+        !o("WAWebBizBroadcastProChatUtils").getIsBizBroadcastProChat(n) &&
+        !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n)
       );
     }
     function j(e) {

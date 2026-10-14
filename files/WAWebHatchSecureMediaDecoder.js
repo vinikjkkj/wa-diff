@@ -16,19 +16,20 @@ __d(
       return n;
     }
     function u(e) {
-      var t = c(o("WAWebHatchJsonReaders").readString(e, "media_type")),
-        n = d(e, "direct_path"),
-        r = d(e, "media_key_b64"),
-        a = d(e, "file_enc_sha256_b64"),
-        i = d(e, "file_sha256_b64");
-      return t == null || n == null || r == null || a == null || i == null
+      var t,
+        n = c((t = o("WAWebHatchJsonReaders")).readString(e, "media_type")),
+        r = t.readNonEmptyString(e, "direct_path"),
+        a = t.readNonEmptyString(e, "media_key_b64"),
+        i = t.readNonEmptyString(e, "file_enc_sha256_b64"),
+        l = t.readNonEmptyString(e, "file_sha256_b64");
+      return n == null || r == null || a == null || i == null || l == null
         ? null
         : {
-            directPath: n,
-            mediaKey: r,
-            encFilehash: a,
-            filehash: i,
-            mediaType: t,
+            directPath: r,
+            mediaKey: a,
+            encFilehash: i,
+            filehash: l,
+            mediaType: n,
             mimeType: o("WAWebHatchJsonReaders").readString(e, "mime_type"),
             sidecarB64: o("WAWebHatchJsonReaders").readString(e, "sidecar_b64"),
             fileLength: o("WAWebHatchJsonReaders").readNumber(e, "file_length"),
@@ -40,10 +41,6 @@ __d(
     }
     function c(e) {
       return e === "image" || e === "video" ? e : null;
-    }
-    function d(e, t) {
-      var n = o("WAWebHatchJsonReaders").readString(e, t);
-      return n != null && n !== "" ? n : null;
     }
     ((l.readSecureMediaField = e), (l.decodeSecureMediaMap = s));
   },

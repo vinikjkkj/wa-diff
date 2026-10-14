@@ -12,6 +12,7 @@ __d(
       STICKER: 7,
       POLL: 8,
       OTHER: 9,
+      EVENT: 10,
     });
     i.SEARCH_UJ_FILTER_TYPE = e;
   },

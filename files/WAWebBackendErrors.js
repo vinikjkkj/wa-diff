@@ -32,15 +32,18 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(u),
       d = (function (e) {
-        function t(t, n, r) {
-          var o;
+        function t(t) {
+          var n,
+            r = t.errors,
+            o = t.message,
+            a = t.statusCode;
           return (
-            (o = e.call(this, r != null ? r : "") || this),
-            (o.name = "CatalogEditServerError"),
-            (o.errors = n),
-            (o.status = t),
-            (o.statusCode = t),
-            o
+            (n = e.call(this, o != null ? o : "") || this),
+            (n.name = "CatalogEditServerError"),
+            (n.errors = r),
+            (n.status = a),
+            (n.statusCode = a),
+            n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);

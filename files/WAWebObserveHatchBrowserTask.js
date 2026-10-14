@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebHatchBrowserTask",
     "WAWebHatchBrowserTaskCompletionSafety",
+    "WAWebHatchBrowserTaskMessageData",
     "WAWebHatchBrowserTaskSnapshotStore",
     "WAWebHatchBrowserTaskState",
     "WAWebHatchLinkedStatusManager",
@@ -23,48 +24,50 @@ __d(
       d,
       m = new Set(),
       p = new Map(),
-      _ = new Map(),
-      f = new Set(),
-      g = null,
-      h = !1,
+      _ = new WeakMap(),
+      f = new WeakSet(),
+      g = new Map(),
+      h = new Set(),
       y = null,
-      C = 0;
-    function b() {
-      return (I(), C);
+      C = !1,
+      b = null,
+      v = 0,
+      S = 0;
+    function R() {
+      return (x(), v);
     }
-    function v(e) {
-      return f.has(k(e));
+    function L(e) {
+      return h.has(D(e));
     }
-    function S(e, t) {
+    function E(e, t) {
       var n;
-      I();
-      var r = k(e),
-        o = (n = _.get(r)) != null ? n : new Set();
-      _.set(r, o);
+      x();
+      var r = D(e),
+        o = (n = g.get(r)) != null ? n : new Set();
+      g.set(r, o);
       var a = function () {
         return t();
       };
       return (
         o.add(a),
-        U(a),
+        X(a),
         function () {
-          (o.delete(a), o.size === 0 && _.get(r) === o && _.delete(r));
+          (o.delete(a), o.size === 0 && g.get(r) === o && g.delete(r));
         }
       );
     }
-    function R(e, t) {
-      I();
-      var n = { onUpdate: t, taskID: k(e) };
-      m.add(n);
-      var r = p.get(n.taskID);
+    function k(e, t, n) {
+      x();
+      var r = { onUpdate: t, onAcceptedTask: n, taskID: D(e) };
       return (
-        r != null && B(n, r),
-        g == null && x(),
+        m.add(r),
+        V(r),
+        y == null && N(),
         function () {
-          if (m.delete(n) && m.size === 0) {
+          if (m.delete(r) && m.size === 0) {
             var e;
-            ((e = g) == null || e.stop(),
-              (g = null),
+            ((e = y) == null || e.stop(),
+              (y = null),
               p.clear(),
               o(
                 "WAWebHatchBrowserTaskCompletionSafety",
@@ -73,35 +76,35 @@ __d(
         }
       );
     }
-    function L(e) {
-      var t = k(e);
-      f.add(t);
+    function I(e) {
+      var t = D(e);
+      h.add(t);
       var n = p.get(t);
       if (n != null) {
-        var r = F(n);
-        (p.set(t, r), O(t, r));
+        var r = W(n);
+        (U(t, r, _.get(n)), G(t, r));
       }
-      q(t);
+      Q(t);
     }
-    function E(e) {
-      return p.get(k(e));
+    function T(e) {
+      return p.get(D(e));
     }
-    function k(e) {
+    function D(e) {
       return o("WAWebHatchBrowserTaskState").normalizedBrowserTaskID(e);
     }
-    function I() {
-      h ||
-        ((h = !0),
-        (y = T()),
+    function x() {
+      C ||
+        ((C = !0),
+        (b = $()),
         r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(function () {
-          var e = T();
-          if (!(e == null || e === y)) {
-            var t = y != null;
-            ((y = e), t && D());
+          var e = $();
+          if (!(e == null || e === b)) {
+            var t = b != null;
+            ((b = e), t && P());
           }
         }));
     }
-    function T() {
+    function $() {
       var e,
         t =
           (e = r("WAWebHatchLinkedStatusManager").getLinkedStatus()) == null
@@ -117,29 +120,30 @@ __d(
             : null;
       })(r("WAWebHatchLinkedStatusManager").getLinkedStatusState());
     }
-    function D() {
-      C++;
-      var e = g;
-      ((g = null),
+    function P() {
+      v++;
+      var e = y;
+      ((y = null),
         e == null || e.stop(),
         p.clear(),
-        f.clear(),
+        h.clear(),
         o("WAWebHatchBrowserTaskSnapshotStore").resetBrowserTaskSnapshots(),
         o(
           "WAWebHatchBrowserTaskCompletionSafety",
         ).resetBrowserTaskCompletionSafety(),
-        W(),
-        e != null && m.size > 0 && g == null && x());
+        K(),
+        e != null && m.size > 0 && y == null && N());
     }
-    function x() {
+    function N() {
+      S++;
       var e = new (r("WAWebHatchVmSubscription"))({
         connect: o("WAWebHatchVmConnection").connectHatchVmApi,
         kind: "computer",
         onEvent: function (n) {
-          return $(n, e);
+          return M(n, e);
         },
         onResubscribed: function () {
-          P(e);
+          w(e);
         },
         open: function (t, n) {
           return t.openEventSubscription(
@@ -148,9 +152,9 @@ __d(
           );
         },
       });
-      ((g = e), e.start(), P(e));
+      ((y = e), e.start(), w(e));
     }
-    function $(t, n) {
+    function M(t, n) {
       var r = o("WAWebHatchBrowserTask").decodeHatchComputerEvent(
         t.name,
         t.payload,
@@ -174,14 +178,14 @@ __d(
             ])),
           r.malformedCount,
         ),
-        M(r.tasks, n, "stream"));
+        F(r.tasks, n, "stream"));
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function N() {
+    function A() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebRequestHatchBrowserTasks")
             .requestHatchBrowserTasks()
             .catch(function (e) {
@@ -198,36 +202,29 @@ __d(
               );
             });
           (t == null ? void 0 : t.kind) === "ok" &&
-            g === e &&
-            M(t.tasks, e, "refresh");
+            y === e &&
+            F(t.tasks, e, "refresh");
         })),
-        N.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
-      if (g === t) {
-        w(e);
-        for (var r of e) {
-          if (g !== t) return;
-          var o = k(r.browserTaskID),
-            a = p.get(o);
-          if (!A(r.version, a == null ? void 0 : a.version, n)) {
-            var i = f.has(o) ? F(r) : r;
-            (p.set(o, i), O(o, i));
-          }
-        }
+    function F(e, t, n) {
+      if (y === t) {
+        var r = H(t);
+        O(e);
+        for (var o of e) if (!q(o, t, r, n)) return;
       }
     }
-    function w(e) {
+    function O(e) {
       for (var t of e)
         o(
           "WAWebHatchBrowserTaskCompletionSafety",
-        ).raiseBrowserTaskVersionHighWater(k(t.browserTaskID), t.version);
+        ).raiseBrowserTaskVersionHighWater(D(t.browserTaskID), t.version);
     }
-    function A(e, t, n) {
+    function B(e, t, n) {
       return t != null && (e == null ? n === "refresh" : e < t);
     }
-    function F(e) {
+    function W(e) {
       return babelHelpers.extends({}, e, {
         displayState: "stopped",
         displayStatus: null,
@@ -236,12 +233,57 @@ __d(
         status: "stopped",
       });
     }
-    function O(e, t) {
-      for (var n of Array.from(m)) n.taskID === e && m.has(n) && B(n, t);
+    function q(e, t, n, r) {
+      var o;
+      if (y !== t || !n()) return !1;
+      var a = D(e.browserTaskID);
+      if (B(e.version, (o = p.get(a)) == null ? void 0 : o.version, r))
+        return !0;
+      var i = h.has(a) ? W(e) : e;
+      U(a, i, e);
+      var l = H(t, i);
+      return (G(a, e, l), y !== t || !l() ? n() : (G(a, i), !0));
     }
-    function B(e, t) {
+    function U(e, t, n) {
+      var r = p.get(e),
+        o = r == null ? null : _.get(r);
+      (o != null && o !== n && f.add(o), n != null && _.set(t, n), p.set(e, t));
+    }
+    function V(e) {
+      var t = y,
+        n = p.get(e.taskID);
+      if (n != null) {
+        var r = _.get(n),
+          a = H(t, n);
+        (r != null &&
+          o("WAWebHatchBrowserTaskMessageData").browserTaskMessageTerminalState(
+            r,
+          ) != null &&
+          z(e, r, a),
+          a() && z(e, n));
+      }
+    }
+    function H(e, t) {
+      var n = v,
+        r = S,
+        o = t == null ? null : _.get(t);
+      return function () {
+        var t = o == null ? null : p.get(D(o.browserTaskID));
+        return (
+          n === v &&
+          r === S &&
+          (y == null || y === e) &&
+          (o == null ||
+            (!f.has(o) && (y == null || (t != null && _.get(t) === o))))
+        );
+      };
+    }
+    function G(e, t, n) {
+      for (var r of Array.from(m)) r.taskID === e && z(r, t, n);
+    }
+    function z(e, t, n) {
       try {
-        e.onUpdate(t);
+        j(e, t, n);
       } catch (e) {
         o("WALogger")
           .WARN(
@@ -253,15 +295,21 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function W() {
-      for (var e of Array.from(_.keys())) q(e);
+    function j(e, t, n) {
+      m.has(e) &&
+        (n == null
+          ? p.get(e.taskID) === t && e.onUpdate(t)
+          : n() && (e.onAcceptedTask == null || e.onAcceptedTask(t, n)));
     }
-    function q(e) {
-      var t = _.get(e);
+    function K() {
+      for (var e of Array.from(g.keys())) Q(e);
+    }
+    function Q(e) {
+      var t = g.get(e);
       for (var n of Array.from(t != null ? t : []))
-        t != null && t.has(n) && U(n);
+        t != null && t.has(n) && X(n);
     }
-    function U(e) {
+    function X(e) {
       try {
         e();
       } catch (e) {
@@ -275,13 +323,13 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    ((l.getHatchBrowserTaskAccountGeneration = b),
-      (l.isHatchBrowserTaskLocallyStopped = v),
-      (l.subscribeToHatchBrowserTaskLocalStop = S),
-      (l.observeHatchBrowserTask = R),
-      (l.markHatchBrowserTaskStopped = L),
-      (l.getObservedHatchBrowserTask = E),
-      (l.normalizedTaskID = k));
+    ((l.getHatchBrowserTaskAccountGeneration = R),
+      (l.isHatchBrowserTaskLocallyStopped = L),
+      (l.subscribeToHatchBrowserTaskLocalStop = E),
+      (l.observeHatchBrowserTask = k),
+      (l.markHatchBrowserTaskStopped = I),
+      (l.getObservedHatchBrowserTask = T),
+      (l.normalizedTaskID = D));
   },
   98,
 );

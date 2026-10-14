@@ -6,13 +6,13 @@ __d(
     "WAWebABProps",
     "WAWebBotBaseGating",
     "WAWebPersistBotProfiles",
-    "WAWebRequestBotList",
     "WAWebRequestBotProfiles",
     "WAWebRestoreBotProfilesFromDb",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUserPrefsBot",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -25,21 +25,24 @@ __d(
       _,
       f,
       g,
-      h = 2e3;
-    function y() {
+      h = r("requireDeferred")("WAWebRequestBotList").__setRef(
+        "WAWebInitializeBots",
+      ),
+      y = 2e3;
+    function C() {
       return o("WAWebUserPrefsBot").getBotListLastRequestedTimestamp();
     }
-    var C = null;
-    function b(e) {
-      (C != null && self.clearTimeout(C),
-        (C = self.setTimeout(function () {
-          ((C = null), R());
+    var b = null;
+    function v(e) {
+      (b != null && self.clearTimeout(b),
+        (b = self.setTimeout(function () {
+          ((b = null), L());
         }, e * 1e3)));
     }
-    function v(t) {
+    function S(t) {
       var n = t.didFetchFromServer,
         r = t.durationMs;
-      r <= h ||
+      r <= y ||
         o("WALogger")
           .WARN(
             e ||
@@ -53,22 +56,22 @@ __d(
           )
           .sendLogs("bot-initialize-slow", { sampling: 0.01 });
     }
-    var S = null;
-    function R() {
+    var R = null;
+    function L() {
       return (
-        S != null ||
-          (S = L().finally(function () {
-            S = null;
+        R != null ||
+          (R = E().finally(function () {
+            R = null;
           })),
-        S
+        R
       );
     }
-    function L() {
-      return E.apply(this, arguments);
-    }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebRuntimeEnvironmentUtils").isWorker()) {
             o("WALogger").LOG(
               s ||
@@ -88,7 +91,7 @@ __d(
             return;
           }
           var e = self.performance.now(),
-            t = y(),
+            t = C(),
             n = o("WATimeUtils").unixTime(),
             a = o("WAWebABProps").getABPropConfigValue(
               "bonsai_update_interval",
@@ -122,14 +125,14 @@ __d(
                     "[bot] requesting bots from server",
                   ])),
               ),
-              yield k(),
+              yield I(),
               (i = a))
             : (i = t + a - n),
-            v({
+            S({
               didFetchFromServer: l,
               durationMs: self.performance.now() - e,
             }),
-            b(i),
+            v(i),
             o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -139,18 +142,20 @@ __d(
               n + i,
             ));
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k() {
-      return I.apply(this, arguments);
-    }
     function I() {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           try {
-            e = yield o("WAWebRequestBotList").requestBotList();
+            var t = yield h.load(),
+              n = t.requestBotList;
+            e = yield n();
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -163,9 +168,9 @@ __d(
               .sendLogs("bot-request-bot-list-error");
             return;
           }
-          var t;
+          var a;
           try {
-            t = yield o("WAWebRequestBotProfiles").requestBotProfiles(e);
+            a = yield o("WAWebRequestBotProfiles").requestBotProfiles(e);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -179,7 +184,7 @@ __d(
             return;
           }
           try {
-            yield o("WAWebPersistBotProfiles").persistBotProfiles(t);
+            yield o("WAWebPersistBotProfiles").persistBotProfiles(a);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -192,17 +197,17 @@ __d(
               .sendLogs("bot-persist-bot-profiles-error");
             return;
           }
-          T();
+          D();
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T() {
+    function D() {
       o("WAWebUserPrefsBot").setBotListLastRequestedTimestamp(
         o("WATimeUtils").unixTime(),
       );
     }
-    ((l.initializeBots = R), (l.getBotProfilesFromServer = k));
+    ((l.initializeBots = L), (l.getBotProfilesFromServer = I));
   },
   98,
 );

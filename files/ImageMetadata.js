@@ -98,8 +98,8 @@ __d(
           (i.$14 = function (t) {}),
           (i.$11 = function (t, n) {
             var e = this;
-            return n.split("").every(function (n) {
-              return e.$7[t++] === n.charCodeAt(0);
+            return n.split("").every(function (n, r) {
+              return e.$7[t + r] === n.charCodeAt(0);
             });
           }),
           (i.$9 = function (t) {

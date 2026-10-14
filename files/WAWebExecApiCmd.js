@@ -10,6 +10,7 @@ __d(
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebAddEditPixFeature",
     "WAWebApi",
+    "WAWebBizAIOAuthCallbackEventBus",
     "WAWebBizBotLogging",
     "WAWebBizBotProfileUtils",
     "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable",
@@ -1674,6 +1675,17 @@ __d(
           return (
             o("WAWebOIDCCallbackEventBus").WAWebOIDCCallbackEventBus.trigger(
               o("WAWebOIDCCallbackEventBus").OIDCCallbackEvent.OIDC_CALLBACK,
+              t.data,
+            ),
+            !0
+          );
+        case "BIZ_AI_OAUTH_CALLBACK":
+          return (
+            o(
+              "WAWebBizAIOAuthCallbackEventBus",
+            ).WAWebBizAIOAuthCallbackEventBus.trigger(
+              o("WAWebBizAIOAuthCallbackEventBus").BizAIOAuthCallbackEvent
+                .BIZ_AI_OAUTH_CALLBACK,
               t.data,
             ),
             !0

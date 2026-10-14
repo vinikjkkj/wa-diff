@@ -1,18 +1,18 @@
 __d(
   "WAWebPREGatingUtils",
-  ["WAWebABProps", "justknobx"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return !!r("justknobx")._("5005");
+      return !0;
     }
     function s() {
-      return !!r("justknobx")._("1784");
+      return !0;
     }
     function u() {
-      return r("justknobx")._("2349")
-        ? o("WAWebABProps").getABPropConfigValue("wa_media_image_upload_cache")
-        : !1;
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_media_image_upload_cache",
+      );
     }
     function c(e) {
       var t = o("WAWebABProps").getABPropConfigValue(

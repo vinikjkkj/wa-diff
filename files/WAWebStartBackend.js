@@ -17,6 +17,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendWorkerClient",
+    "WAWebBackendWorkerInitState",
     "WAWebBackgroundSyncReporter",
     "WAWebBootstrapBizBroadcastCampaigns",
     "WAWebBootstrapPremiumMessages",
@@ -262,7 +263,8 @@ __d(
             return;
           }
           if (
-            (o("WALogger").LOG(
+            (o("WAWebBackendWorkerInitState").startWorkerInitDataTimeout(),
+            o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[startBackend]: connected as ",

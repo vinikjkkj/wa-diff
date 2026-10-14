@@ -8,8 +8,6 @@ __d(
     "WebBloksHasteEnvironment",
     "WebBloksUtils",
     "react-compiler-runtime",
-    "waWebMinificationMap",
-    "waWebSignatureMinificationMap",
     "waWebStyleUnminificationMap",
     "waWebTraversalKeys",
     "waWebVersioningId",
@@ -30,10 +28,10 @@ __d(
                   {
                     minificationMaps: {
                       toLogicalStyle: r("waWebStyleUnminificationMap"),
-                      toMinifiedSignature: r("waWebSignatureMinificationMap"),
-                      toMinifiedStyle: r("waWebMinificationMap"),
+                      toMinifiedSignature: null,
+                      toMinifiedStyle: null,
                     },
-                    useMinification: !1,
+                    useMinification: !0,
                   },
                   {
                     appLoader: o(

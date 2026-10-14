@@ -32,10 +32,10 @@ __d(
         (o("WAWebExternalLink.react").openExternalLink(
           o("WAWebFaqUrl").getEphemeralFaqUrl(),
         ),
-          o("WAWebModalManager").ModalManager.close());
+          o("WAWebModalManager").ModalManager.closeSupportOrModal());
       },
       p = function () {
-        o("WAWebModalManager").ModalManager.close();
+        o("WAWebModalManager").ModalManager.closeSupportOrModal();
       };
     function _(e) {
       var t = e.message;

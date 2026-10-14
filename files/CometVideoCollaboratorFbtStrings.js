@@ -35,7 +35,7 @@ __d(
       ),
       h = s._(/*BTDS*/ "Maximum collaborators added"),
       y = s._(
-        /*BTDS*/ "You can't add anymore collaborators to this post. You can remove a collaborator and try again.",
+        /*BTDS*/ "You can't add any more collaborators to this post. You can remove a collaborator and try again.",
       );
     function C(e) {
       return s._(

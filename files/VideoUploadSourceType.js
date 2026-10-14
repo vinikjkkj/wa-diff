@@ -86,6 +86,7 @@ __d(
       PROFILE_FEATURED: "profile_featured",
       INSTANT_GAMES_DVR: "instant_games_dvr",
       BCMP_PROFILE_PITCHDECK: "branded_content_profile_pitchdeck",
+      BRAND_FUNDED_BRAND_PITCH: "brand_funded_brand_pitch",
       MEDIA_MANAGER_INSTAGRAM_VIDEO_COMPOSER:
         "media_manager_instagram_video_composer",
       MEDIA_MANAGER_INSTAGRAM_VIDEO: "media_manager_instagram_video",
@@ -95,6 +96,7 @@ __d(
       WHATSAPP_XPOST: "whatsapp_xpost",
       HORIZON_XPOST: "horizon_xpost",
       PH_XPOST: "ph_xpost",
+      TH_XPOST: "th_xpost",
       DIM_SUM: "dim_sum",
       VML_VIDEO_SUPERRES: "vml_video_superres_service",
       MEDIA_MANAGER_BULK_VIDEO_IMPORTER: "media_manager_bulk_video_importer",

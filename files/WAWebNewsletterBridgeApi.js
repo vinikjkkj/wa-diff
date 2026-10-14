@@ -13,7 +13,7 @@ __d(
     "WAWebMsgModelFromData",
     "WAWebMsgType",
     "WAWebNewsletterBridgeMsgAddOnsUtils",
-    "WAWebNewsletterChatsMigrationCapability",
+    "WAWebNewsletterChatsMigrationBanners",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMetadataCollection",
@@ -226,8 +226,8 @@ __d(
       updatePrimaryNewsletterChatsMigration: function (t) {
         var e = t.migration;
         o(
-          "WAWebNewsletterChatsMigrationCapability",
-        ).savePrimaryNewsletterChatsMigration(e);
+          "WAWebNewsletterChatsMigrationBanners",
+        ).applyPrimaryNewsletterChatsMigration(e);
       },
       subscribeToNewsletter: function (t) {
         var e = t.newsletter,

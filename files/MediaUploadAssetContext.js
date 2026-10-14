@@ -111,6 +111,7 @@ __d(
           return this.$4 === r("MediaUploadAssetStatus").FAILED;
         }),
         (t.__composeBaseSnapshot = function () {
+          var e = this.metadata;
           return {
             asset: this.asset,
             assetID: this.assetID,
@@ -122,16 +123,19 @@ __d(
               this.progress.lastAttemptStartedAt,
             ),
             metadata:
-              this.metadata == null
+              e == null
                 ? void 0
                 : {
-                    width: this.metadata.width,
-                    height: this.metadata.height,
-                    isSpherical: this.metadata.isSpherical,
+                    width: e.width,
+                    height: e.height,
+                    isSpherical: e.isSpherical,
                     durationMs: o("MediaUploadTime").maybeTimeToMilliseconds(
-                      this.metadata.duration,
+                      e.duration,
                     ),
                   },
+            sourceFrameRate: e == null ? void 0 : e.frameRate,
+            sourceBitRate: e == null ? void 0 : e.bitRate,
+            sourceVideoCodec: e == null ? void 0 : e.videoCodec,
             retries: { totalRetryAttempts: this.retryState.getRetryAttempts() },
             uploadSummary: this.uploadSummary.computeSnapshot(),
             percentageComplete: this.progress.calculated.percentageComplete,

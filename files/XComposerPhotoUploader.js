@@ -418,7 +418,7 @@ __d(
                       .set("original_height", l.originalHeight)
                       .set("upload_width", l.outputWidth)
                       .set("upload_height", l.outputHeight));
-                  var g = u === null;
+                  var g = !1;
                   ((e.getFile().filename = n.name),
                     this.$10(
                       n,

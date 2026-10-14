@@ -60,7 +60,7 @@ __d(
           (n.$7 = function () {
             for (; this.releaseOnFinish.length > 0; ) {
               var e = this.releaseOnFinish.pop();
-              e.cancel();
+              e == null || e.cancel();
             }
           }),
           (n.updateStatusAndEmit = function (n) {

@@ -383,7 +383,7 @@ __d(
                                 l.maybeSendPendingStanza(e);
                                 break;
                               case "ack":
-                                l.callStanza(e.stanza);
+                                l.$9(e);
                                 break;
                               default:
                                 e.type;
@@ -494,7 +494,36 @@ __d(
           (a.sendPendingStanza = function (t) {
             (t.cleanup == null || t.cleanup(),
               (t.cleanup = void 0),
-              this.callStanza(t.stanza));
+              this.$9(t));
+          }),
+          (a.$9 = function (t) {
+            var e = this;
+            this.callStanza(t.stanza).catch(function (n) {
+              if (!(n instanceof o("WAErrors").BufferTooLargeError)) throw n;
+              e.$10(t, n);
+            });
+          }),
+          (a.$10 = function (t, r) {
+            if (t.type === "ack") {
+              var e = this.ackHandlers.indexOf(t);
+              if (e === -1) return;
+              o("WAArrayUtils").removeIndexWithoutPreservingOrder(
+                this.ackHandlers,
+                e,
+              );
+            } else {
+              var a = t.stanza.attrs.id;
+              if (typeof a != "string") return;
+              if (t.type === "iq") {
+                if (this.pendingIqs.get(a) !== t) return;
+                this.pendingIqs.delete(a);
+              } else {
+                if ((t.type, this.pendingSmaxStanzas.get(a) !== t)) return;
+                this.pendingSmaxStanzas.delete(a);
+              }
+              (t.cleanup == null || t.cleanup(), (t.cleanup = void 0));
+            }
+            t.resolve((U || (U = n("Promise"))).reject(r));
           }),
           (a.maybeSendPendingStanza = function (t) {
             if (t.attempt >= this.config.maxRetries) {

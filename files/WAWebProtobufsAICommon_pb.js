@@ -68,6 +68,7 @@ __d(
         NEW_CHAT_LIST: 56,
         CONTACTS_TAB: 57,
         NEW_3P_AGENT_CREATION: 58,
+        SHARE: 59,
       }),
       g = u({
         AI_TAB_THREAD: 1,
@@ -177,6 +178,7 @@ __d(
         HATCH_ARTIFACT_CARD_ENABLED: 79,
         AI_STUDY_CENTER_ENABLED: 80,
         AI_MUSE_JARVIS_SCHEMA_ENABLED: 81,
+        AI_STUDY_QUIZ_ENABLED: 82,
       }),
       I = u({ DEFAULT_MODE: 0, THINK_HARD_MODE: 1 }),
       T = u({ UNKNOWN_FEATURE: 0, REASONING_FEATURE: 1 }),

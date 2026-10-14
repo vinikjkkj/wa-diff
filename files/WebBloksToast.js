@@ -35,54 +35,50 @@ __d(
         },
       });
     function d(e) {
-      var t = o("react-compiler-runtime").c(13),
+      var t = o("react-compiler-runtime").c(11),
         n = e.actionText,
-        a = e.className,
-        i = e.onActionClick,
-        l = e.text,
-        u;
-      t[0] !== i
-        ? ((u = function (t) {
-            (t.preventDefault(), i && i(t));
+        a = e.onActionClick,
+        i = e.text,
+        l;
+      t[0] !== a
+        ? ((l = function (t) {
+            (t.preventDefault(), a && a(t));
           }),
-          (t[0] = i),
-          (t[1] = u))
-        : (u = t[1]);
-      var d = u,
-        m;
-      t[2] !== a
-        ? ((m = o("WebBloksStyle").classNames(a, c.root)),
-          (t[2] = a),
-          (t[3] = m))
-        : (m = t[3]);
-      var p;
-      t[4] !== l
-        ? ((p = s.jsx("div", {
+          (t[0] = a),
+          (t[1] = l))
+        : (l = t[1]);
+      var u = l,
+        d;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = o("WebBloksStyle").classNames(c.root)), (t[2] = d))
+        : (d = t[2]);
+      var m;
+      t[3] !== i
+        ? ((m = s.jsx("div", {
             className: c.messageContainer,
-            children: s.jsx("p", { className: c.message, children: l }),
+            children: s.jsx("p", { className: c.message, children: i }),
           })),
-          (t[4] = l),
-          (t[5] = p))
-        : (p = t[5]);
-      var _;
-      t[6] !== n || t[7] !== d
-        ? ((_ =
+          (t[3] = i),
+          (t[4] = m))
+        : (m = t[4]);
+      var p;
+      t[5] !== n || t[6] !== u
+        ? ((p =
             n != null &&
-            s.jsx(r("WebBloksAbstractButton"), { title: n, onClick: d })),
-          (t[6] = n),
-          (t[7] = d),
-          (t[8] = _))
-        : (_ = t[8]);
-      var f;
+            s.jsx(r("WebBloksAbstractButton"), { title: n, onClick: u })),
+          (t[5] = n),
+          (t[6] = u),
+          (t[7] = p))
+        : (p = t[7]);
+      var _;
       return (
-        t[9] !== m || t[10] !== p || t[11] !== _
-          ? ((f = s.jsxs("div", { className: m, children: [p, _] })),
-            (t[9] = m),
-            (t[10] = p),
-            (t[11] = _),
-            (t[12] = f))
-          : (f = t[12]),
-        f
+        t[8] !== m || t[9] !== p
+          ? ((_ = s.jsxs("div", { className: d, children: [m, p] })),
+            (t[8] = m),
+            (t[9] = p),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
       );
     }
     l.default = d;

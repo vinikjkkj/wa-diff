@@ -452,6 +452,7 @@ __d(
             ((l.unreadCount = -1),
             o("WAWebChatSeenBridge").markConversationUnseen(i)),
             (_.suspended = z),
+            z && (_.suspendAppealApprovedSeen = !1),
             o(
               "WAWebUpdateModelsForCommunityAction",
             ).maybeUpdateModelsForCommunitySuspendedStatus(i, z));

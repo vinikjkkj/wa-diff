@@ -10,9 +10,9 @@ __d(
       var r = new FileReader();
       (r.addEventListener(
         "load",
-        function (t) {
-          var r = t.target.result,
-            o = e(r);
+        function () {
+          var t = r.result,
+            o = e(t);
           n(o);
         },
         !1,

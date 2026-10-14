@@ -14,7 +14,6 @@ __d(
     "fileSlice",
     "getErrorSafe",
     "getVideo64BitAtomLength",
-    "justknobx",
     "nullthrows",
     "promiseDone",
   ],
@@ -72,14 +71,16 @@ __d(
               this.$3 != null && this.$3({ success: !0, metadata: t }));
           }),
           (a.$8 = function (t, n) {
-            if ((this.$2(null), this.$3 != null)) {
-              var e =
+            this.$2(null);
+            var e = this.$3;
+            if (e != null) {
+              var o =
                 n == null
                   ? void 0
                   : r("ErrorNormalizeUtils").normalizeError(
                       r("getErrorSafe")(n),
                     );
-              this.$3({ success: !1, errorCode: t, errorObject: e });
+              e({ success: !1, errorCode: t, errorObject: o });
             }
           }),
           (a.parse = function () {
@@ -386,7 +387,7 @@ __d(
               }
               var P = function () {
                 var n = t.getUint8(e + g),
-                  o = n === 1 && r("justknobx")._("534"),
+                  o = n === 1,
                   a = o ? f : _,
                   i = o ? m : d,
                   l = t.getUint32(e + a);
@@ -477,15 +478,30 @@ __d(
                   e += E;
                   break;
                 case "avc1":
-                  if (this.$5 && l.samples.length > 0) {
+                case "avc3":
+                case "hvc1":
+                case "hev1":
+                case "dvav":
+                case "dva1":
+                case "dvhe":
+                case "dvh1":
+                case "vp08":
+                case "vp09":
+                case "av01":
+                case "mp4v": {
+                  if (l.samples.length > 0) {
                     var H = l.samples[l.samples.length - 1];
-                    H.descriptions.push({
-                      width: t.getUint16(e + A),
-                      height: t.getUint16(e + F),
-                    });
+                    ((H.codec = D),
+                      D === "avc1" &&
+                        this.$5 &&
+                        H.descriptions.push({
+                          width: t.getUint16(e + A),
+                          height: t.getUint16(e + F),
+                        }));
                   }
                   e += T;
                   break;
+                }
                 case "mp4a":
                 case "sowt":
                 case "raw ":
@@ -527,61 +543,68 @@ __d(
             );
           }),
           (a.$14 = function (t) {
-            var e = {
-                streams: { numAudioTracks: 0 },
-                format: {},
-                metadata: {},
-              },
-              n = t.widths.length,
-              r = t.heights.length,
-              o = t.streamTypes.length,
-              a = t.streamDurations.length,
-              i = t.streamSampleCounts.length,
-              l = t.samples.length;
-            if (n !== r || n !== o || n !== a || n !== i || n !== l) {
-              var s = new Error(
+            var e = this,
+              n = { streams: { numAudioTracks: 0 }, format: {}, metadata: {} },
+              r = t.widths.length,
+              o = t.heights.length,
+              a = t.streamTypes.length,
+              i = t.streamDurations.length,
+              l = t.streamSampleCounts.length,
+              s = t.samples.length;
+            if (r !== o || r !== a || r !== i || r !== l || r !== s) {
+              var u = new Error(
                 "Number of parsed widths, heights, durations or sample counts for video file are mismatched.",
               );
-              throw (s.stack, s);
+              throw (u.stack, u);
             }
-            for (var u = 0; u < n; u++) {
-              var c = {
-                width: t.widths[u],
-                height: t.heights[u],
-                duration: t.streamDurations[u],
-                type: t.streamTypes[u],
-                sampleCount: t.streamSampleCounts[u],
-              };
-              if (c.type === "video") {
-                this.$5 &&
-                  t.samples[u].descriptions.forEach(function (e) {
-                    e.width > c.width &&
-                      e.height > c.height &&
-                      ((c.width = e.width), (c.height = e.height));
-                  });
-                var d = c.width * c.height,
-                  m = e.streams.primaryVideo;
-                (!m || m.width * m.height > d) && (e.streams.primaryVideo = c);
-              } else if (c.type === "audio") {
-                var p = e.streams.primaryAudio;
-                ((!p || p.duration < c.duration) &&
-                  (e.streams.primaryAudio = c),
-                  e.streams.numAudioTracks++);
-              }
-            }
+            for (
+              var c = function () {
+                  var r = t.samples[d],
+                    o = {
+                      width: t.widths[d],
+                      height: t.heights[d],
+                      duration: t.streamDurations[d],
+                      type: t.streamTypes[d],
+                      sampleCount: t.streamSampleCounts[d],
+                      codec: r == null ? void 0 : r.codec,
+                    };
+                  if (o.type === "video") {
+                    e.$5 &&
+                      (r == null ||
+                        r.descriptions.forEach(function (e) {
+                          e.width > o.width &&
+                            e.height > o.height &&
+                            ((o.width = e.width), (o.height = e.height));
+                        }));
+                    var a = o.width * o.height,
+                      i = n.streams.primaryVideo;
+                    (!i || i.width * i.height > a) &&
+                      (n.streams.primaryVideo = o);
+                  } else if (o.type === "audio") {
+                    var l = n.streams.primaryAudio;
+                    ((!l || l.duration < o.duration) &&
+                      (n.streams.primaryAudio = o),
+                      n.streams.numAudioTracks++);
+                  }
+                },
+                d = 0;
+              d < r;
+              d++
+            )
+              c();
             return (
-              (e.format.duration = t.duration),
-              (e.format.isSpherical = t.sphericalMetadata.spherical),
+              (n.format.duration = t.duration),
+              (n.format.isSpherical = t.sphericalMetadata.spherical),
               t.sphericalMetadata.spherical &&
-                ((e.metadata.sphericalMetadataXml =
+                ((n.metadata.sphericalMetadataXml =
                   t.sphericalMetadata.sphericalMetadataXml),
-                (e.metadata.FBSphericalMetadataXML =
+                (n.metadata.FBSphericalMetadataXML =
                   t.sphericalMetadata.FBSphericalMetadataXML),
-                (e.metadata.fbSpatialAudioMetadataXml =
+                (n.metadata.fbSpatialAudioMetadataXml =
                   t.sphericalMetadata.fbSpatialAudioMetadataXml),
-                (e.metadata.ytSa3dMetadataJson =
+                (n.metadata.ytSa3dMetadataJson =
                   t.sphericalMetadata.ytSa3dMetadataJson)),
-              e
+              n
             );
           }),
           t

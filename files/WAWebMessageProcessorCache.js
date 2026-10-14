@@ -12,6 +12,7 @@ __d(
     "WAWebHandleMessageTypes",
     "WAWebHandleMsgCommon",
     "WAWebIdbTransactionCounter",
+    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
     "WAWebMessageReceiveFlow",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPromiseQueue",
@@ -230,7 +231,11 @@ __d(
                         ).msgProcessReporter.stage.DBStoring,
                       )
                     : null;
-                (yield o("WAWebStoreMsgs").storeMsgs(n),
+                (yield o("WAWebStoreMsgs").storeMsgs(
+                  o(
+                    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+                  ).withoutRoutedBrazilPaymentStateUpdates(n),
+                ),
                   i == null || i(),
                   o(
                     "WAWebMessageReceiveFlow",
@@ -239,7 +244,10 @@ __d(
                     transactionCount:
                       o("WAWebIdbTransactionCounter").getIdbTransactionCount() -
                       a,
-                  }));
+                  }),
+                  yield o(
+                    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+                  ).keepAndApplyBrazilPaymentStateUpdatesInBatch(n));
               },
             );
             function t(t, n) {

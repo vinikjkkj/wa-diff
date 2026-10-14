@@ -32,6 +32,7 @@ __d(
     "WAWebDeriveViewRepliesThreadIdForIncomingMsgs",
     "WAWebHandleForMessageRange",
     "WAWebHandlePlaceholderWam",
+    "WAWebHatchBrowserTaskMessageData",
     "WAWebLinkify",
     "WAWebMessageAssociationUIUpdateFromStorage",
     "WAWebMmSignalSharingExpirationWindowWorker",
@@ -632,7 +633,10 @@ __d(
       var r,
         a,
         i = o("WAWebDBMessageSerialization").dbRowFromMessage(t);
-      ((i.t = n.t),
+      ((i.unifiedResponse = o(
+        "WAWebHatchBrowserTaskMessageData",
+      ).preserveBrowserTaskMessageResponse(i, n)),
+        (i.t = n.t),
         (i.internalId = n.internalId),
         (i.rowId = n.rowId),
         (i.pendingReadReceipt = n.pendingReadReceipt),

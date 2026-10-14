@@ -105,7 +105,7 @@ __d(
         }),
       );
     }
-    function p(e, t, n) {
+    function p(e, t, n, a) {
       if (
         (o("WAWebModalManager").closeModalManager(),
         o("WAWebFrontendChatGetters").getIsCAG(e))
@@ -114,8 +114,9 @@ __d(
           d.jsx(r("WAWebCommentsModal.react"), { parentMsgs: [t] }),
         );
       else {
-        var a = o("WAWebStateUtils").unproxy(t);
-        ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(a)),
+        var i = o("WAWebStateUtils").unproxy(t);
+        ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(i)),
+          (a == null ? void 0 : a.replyInPlace) === !0 ||
           e === o("WAWebChatCollection").ChatCollection.getActive()
             ? o("WAWebComposeBoxActions").ComposeBoxActions.focus(e)
             : o("WAWebCmd").Cmd.openChatBottom({

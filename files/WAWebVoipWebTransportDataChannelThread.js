@@ -12,7 +12,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = (function () {
+      s = {
+        incomingMaxBufferedDatagrams: 512,
+        outgoingMaxBufferedDatagrams: 64,
+        outgoingMaxAgeMs: 0,
+      },
+      u = (function () {
         function t(e) {
           ((this.$3 = o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
             o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
@@ -110,56 +115,60 @@ __d(
           (a.registerStateHandler = function (t) {
             this.$9 = t;
           }),
-          (a.connect = function (a, i, l, s, u) {
+          (a.connect = function (a, i, l, u, c, d) {
             var t = this;
-            return this.$4
-              ? this.$6.has(a)
-                ? (e || (e = n("Promise"))).reject(
-                    r("err")("WebTransport connection already pending: " + a),
-                  )
-                : new (e || (e = n("Promise")))(function (e, n) {
-                    var r = ++t.$5,
-                      c = t.$3
-                        ? o(
-                            "WAWebVoipWebTransportSendRingBuffer",
-                          ).createWebTransportSendRing()
-                        : null,
-                      d = {
-                        attemptId: r,
-                        reject: n,
-                        resolve: e,
-                        sendRing: c == null ? void 0 : c.producer,
-                      };
-                    (t.$6.set(a, d), t.$8.set(a, r));
-                    try {
-                      t.$16(
-                        a,
-                        i,
-                        l,
-                        s,
-                        u,
-                        r,
-                        c == null ? void 0 : c.ringBuffer,
-                      );
-                      return;
-                    } catch (e) {
-                      if (c == null) {
-                        t.$17(a, r, n, e);
+            return (
+              d === void 0 && (d = s),
+              this.$4
+                ? this.$6.has(a)
+                  ? (e || (e = n("Promise"))).reject(
+                      r("err")("WebTransport connection already pending: " + a),
+                    )
+                  : new (e || (e = n("Promise")))(function (e, n) {
+                      var r = ++t.$5,
+                        s = t.$3
+                          ? o(
+                              "WAWebVoipWebTransportSendRingBuffer",
+                            ).createWebTransportSendRing()
+                          : null,
+                        m = {
+                          attemptId: r,
+                          reject: n,
+                          resolve: e,
+                          sendRing: s == null ? void 0 : s.producer,
+                        };
+                      (t.$6.set(a, m), t.$8.set(a, r));
+                      try {
+                        t.$16(
+                          a,
+                          i,
+                          l,
+                          u,
+                          c,
+                          r,
+                          d,
+                          s == null ? void 0 : s.ringBuffer,
+                        );
                         return;
+                      } catch (e) {
+                        if (s == null) {
+                          t.$17(a, r, n, e);
+                          return;
+                        }
+                        ((t.$3 = !1), (m.sendRing = null));
                       }
-                      ((t.$3 = !1), (d.sendRing = null));
-                    }
-                    try {
-                      t.$16(a, i, l, s, u, r);
-                    } catch (e) {
-                      t.$17(a, r, n, e);
-                    }
-                  })
-              : (e || (e = n("Promise"))).reject(
-                  r("err")("WebTransport worker is not active"),
-                );
+                      try {
+                        t.$16(a, i, l, u, c, r, d);
+                      } catch (e) {
+                        t.$17(a, r, n, e);
+                      }
+                    })
+                : (e || (e = n("Promise"))).reject(
+                    r("err")("WebTransport worker is not active"),
+                  )
+            );
           }),
-          (a.$16 = function (t, n, r, o, a, i, l) {
+          (a.$16 = function (t, n, r, o, a, i, l, s) {
             this.$2.worker.postMessage({
               type: "cmd",
               cmd: "jsWorkerCmd",
@@ -170,7 +179,8 @@ __d(
               port: o,
               relayGeneration: a,
               attemptId: i,
-              sendRing: l,
+              datagramConfig: l,
+              sendRing: s,
             });
           }),
           (a.$17 = function (t, n, o, a) {
@@ -281,7 +291,7 @@ __d(
           t
         );
       })();
-    l.default = s;
+    l.default = u;
   },
   98,
 );

@@ -316,7 +316,7 @@ __d(
       return (
         n === void 0 && (n = !1),
         n
-          ? m(babelHelpers.extends({ id: e.toString() }, t))
+          ? m(babelHelpers.extends({}, t, { id: e.toString() }))
           : o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
               .createOrMerge(

@@ -11,7 +11,6 @@ __d(
         RefreshCart: 11,
         CatalogGetProductList: 21,
         SetCatalogVisibility: 23,
-        CommerceSettingsSet: 25,
         CatalogGetSingleCollection: 30,
         CatalogGetCollections: 35,
         CatalogCreateCollection: 36,

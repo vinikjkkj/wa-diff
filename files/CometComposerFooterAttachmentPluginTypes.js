@@ -14,7 +14,6 @@ __d(
       "SEND_UPDATES",
       "ROOM",
       "GET_WHATSAPP_MESSAGES",
-      "SEE_DETAILS",
       "EVENT",
     ]);
     i.CometComposerFooterAttachmentPluginTypes = e;

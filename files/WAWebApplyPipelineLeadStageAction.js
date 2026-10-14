@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebApplyLeadStageSublistAction",
+    "WAWebBoolFunc",
     "WAWebSyncLeadStageToProfile",
     "getErrorSafe",
   ],
@@ -14,9 +15,7 @@ __d(
         .then(function () {
           return o("WAWebSyncLeadStageToProfile").syncLeadStageToProfile(t, n);
         })
-        .then(function () {
-          return !0;
-        })
+        .then(o("WAWebBoolFunc").returnTrue)
         .catch(function (t) {
           return (
             o("WALogger")

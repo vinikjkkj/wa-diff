@@ -361,12 +361,19 @@ __d(
           (a.__extractVideoMetadata = function (t) {
             var e,
               n = (e = r("getByPath"))(t, ["streams", "primaryVideo"]),
-              o = {
+              o = e(n, ["duration"]),
+              a = e(n, ["sampleCount"]),
+              i = this.$VideoUploadSession53.getSize(),
+              l = {
                 source_height: e(n, ["height"]),
                 source_width: e(n, ["width"]),
-                duration: e(n, ["duration"]) * 1e3,
+                duration: o * 1e3,
+                source_frame_rate:
+                  o > 0 && a != null ? Math.round(a / o) : void 0,
+                source_bit_rate: o > 0 ? Math.round((i * 8) / o) : void 0,
+                source_video_codec: r("getByPath")(n, ["codec"]),
               };
-            return ((o.original_video_duration = o.duration), o);
+            return ((l.original_video_duration = l.duration), l);
           }),
           (a.$VideoUploadSession$p_67 = function (t) {
             var e, n;
@@ -664,15 +671,16 @@ __d(
               : this.$VideoUploadSession43.getTotalRetryCount();
           }),
           (a.$VideoUploadSession$p_83 = function (t, n) {
-            (this.__logEvent(
-              r("VideoUploadLogger").EVENT_PROGRESS_UPLOADING_START_REQUEST,
-              {
-                retries: this.$VideoUploadSession$p_101(n),
-                transport_retries: n.transport_retries,
-                hash_time: n.hash_time,
-                skip_upload: n.skip_upload ? 1 : null,
-              },
-            ),
+            if (
+              (this.__logEvent(
+                r("VideoUploadLogger").EVENT_PROGRESS_UPLOADING_START_REQUEST,
+                {
+                  retries: this.$VideoUploadSession$p_101(n),
+                  transport_retries: n.transport_retries,
+                  hash_time: n.hash_time,
+                  skip_upload: n.skip_upload ? 1 : null,
+                },
+              ),
               this.__logEvent(
                 r("VideoUploadLogger").EVENT_FINISHED_START_REQUEST,
                 babelHelpers.extends(
@@ -684,24 +692,37 @@ __d(
               (this.$VideoUploadSession58 = n.upload_session_id),
               (this.$VideoUploadSession59 = n.fb_region),
               (this.$VideoUploadSession102 = n.skip_upload),
-              n.skip_upload
-                ? (this.$VideoUploadSession$p_103(),
-                  this.inform("upload-progressed", {
-                    start_offset: 0,
-                    end_offset: this.$VideoUploadSession53.getSize(),
-                    file_size: this.$VideoUploadSession53.getSize(),
-                    sent_bytes: this.$VideoUploadSession53.getSize(),
-                    video_id: n.video_id,
-                    skip_upload: n.skip_upload,
-                  }),
-                  this.$VideoUploadSession8 && this.__logFinishedUploading(),
-                  this.inform("upload-finished", {
-                    start_offset: 0,
-                    end_offset: this.$VideoUploadSession53.getSize(),
-                    video_id: n.video_id,
-                    is_spherical_video: this.$VideoUploadSession64,
-                  }))
-                : this.$VideoUploadSession$p_81(n));
+              !n.skip_upload)
+            )
+              this.$VideoUploadSession$p_81(n);
+            else {
+              (this.$VideoUploadSession$p_103(),
+                this.inform("upload-progressed", {
+                  start_offset: 0,
+                  end_offset: this.$VideoUploadSession53.getSize(),
+                  file_size: this.$VideoUploadSession53.getSize(),
+                  sent_bytes: this.$VideoUploadSession53.getSize(),
+                  video_id: n.video_id,
+                  skip_upload: n.skip_upload,
+                }),
+                this.$VideoUploadSession8 && this.__logFinishedUploading());
+              var e = {
+                start_offset: 0,
+                end_offset: this.$VideoUploadSession53.getSize(),
+                video_id: n.video_id,
+                is_spherical_video: this.$VideoUploadSession64,
+              };
+              (this.inform("upload-finished", e),
+                this.$VideoUploadSession14 &&
+                  this.$VideoUploadSession$p_104(e));
+            }
+          }),
+          (a.$VideoUploadSession$p_104 = function (t) {
+            (this.$VideoUploadSession8 || this.__logFinishedUploading(),
+              this.__logEvent(r("VideoUploadLogger").EVENT_FINISHED_FLOW, t),
+              (this.$VideoUploadSession71 = !1),
+              this.$VideoUploadSession$p_105(),
+              this.inform("multimedia-upload-finished", t));
           }),
           (a.__fetchReceiveRequestManagerStateLogData = function () {
             var e = {};
@@ -834,10 +855,10 @@ __d(
               : r("VideoUploadLogger").EVENT_FAILED_FLOW;
             (this.$VideoUploadSession8
               ? this.$VideoUploadSession71 &&
-                (this.__logEvent(o), (this.$VideoUploadSession71 = !1))
-              : this.__logEvent(o),
+                (this.__logEvent(o, e), (this.$VideoUploadSession71 = !1))
+              : this.__logEvent(o, e),
               this.$VideoUploadSession$p_103(),
-              this.$VideoUploadSession$p_104(),
+              this.$VideoUploadSession$p_105(),
               this.inform("upload-failed", n));
           }),
           (a.$VideoUploadSession$p_85 = function (t) {
@@ -979,12 +1000,7 @@ __d(
               (n.video_id = this.$VideoUploadSession57),
               (n.is_spherical_video = this.$VideoUploadSession64),
               this.inform("upload-finished", n),
-              this.$VideoUploadSession14 &&
-                (this.$VideoUploadSession8 || this.__logFinishedUploading(),
-                this.__logEvent(r("VideoUploadLogger").EVENT_FINISHED_FLOW, n),
-                (this.$VideoUploadSession71 = !1),
-                this.$VideoUploadSession$p_104(),
-                this.inform("multimedia-upload-finished", n)));
+              this.$VideoUploadSession14 && this.$VideoUploadSession$p_104(n));
           }),
           (a.$VideoUploadSession$p_89 = function (t, n) {
             var e = this.__getLogErrorData(n);
@@ -1016,7 +1032,7 @@ __d(
                   (this.__logEvent(o, e), (this.$VideoUploadSession71 = !1))
                 : this.__logEvent(o, e);
             }
-            (this.$VideoUploadSession$p_104(), this.inform("upload-failed", n));
+            (this.$VideoUploadSession$p_105(), this.inform("upload-failed", n));
           }),
           (a.$VideoUploadSession$p_90 = function (t) {
             this.$VideoUploadSession28
@@ -1074,7 +1090,7 @@ __d(
               this.$VideoUploadSession8 || this.__logFinishedUploading(),
               this.__logEvent(r("VideoUploadLogger").EVENT_FINISHED_FLOW),
               (this.$VideoUploadSession71 = !1),
-              this.$VideoUploadSession$p_104());
+              this.$VideoUploadSession$p_105());
             var e = babelHelpers.extends({}, n, this.$VideoUploadSession68);
             this.inform("post-finished", e);
           }),
@@ -1107,7 +1123,7 @@ __d(
                 : r("VideoUploadLogger").EVENT_FAILED_FLOW;
               this.__logEvent(o, e);
             }
-            (this.$VideoUploadSession$p_104(), this.inform("post-failed", n));
+            (this.$VideoUploadSession$p_105(), this.inform("post-failed", n));
           }),
           (a.$VideoUploadSession$p_103 = function () {
             if (
@@ -1124,7 +1140,7 @@ __d(
           (a.$VideoUploadSession$p_70 = function () {
             (this.$VideoUploadSession34.cancelRequest(),
               this.$VideoUploadSession$p_103(),
-              this.$VideoUploadSession$p_104(),
+              this.$VideoUploadSession$p_105(),
               this.$VideoUploadSession57 &&
                 (n.deleteVideo(this.$VideoUploadSession57),
                 (this.$VideoUploadSession57 = null),
@@ -1178,7 +1194,7 @@ __d(
                 )),
                 this.$VideoUploadSession73.startSession()));
           }),
-          (a.$VideoUploadSession$p_104 = function () {
+          (a.$VideoUploadSession$p_105 = function () {
             ((this.$VideoUploadSession60 = !1),
               this.$VideoUploadSession62 &&
                 (this.$VideoUploadSession62.release(),
