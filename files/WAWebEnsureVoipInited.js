@@ -23,14 +23,15 @@ __d(
       p,
       _,
       f = (function (e) {
-        function t() {
-          var t;
+        function t(t) {
+          var n;
           return (
-            (t =
+            (n =
               e.call(this, "VoIP initialization requires a page reload") ||
               this),
-            (t.name = "VoipInitUnavailableError"),
-            t
+            (n.name = "VoipInitUnavailableError"),
+            (n.reason = t),
+            n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
@@ -115,7 +116,16 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if ((yield e) !== "cancelled") throw new f();
+          var n = (function (e) {
+            if (e === "cancelled") return null;
+            if (e === "artifact_unavailable") return "artifact_unavailable";
+            if (e === "unavailable") return "stuck";
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          })(yield e);
+          if (n != null) throw new f(n);
           return yield t;
         })),
         C.apply(this, arguments)
@@ -148,7 +158,7 @@ __d(
               ),
               o("WAWebCoreActionsODS").logCallInitBlockedStackUnresponsive(),
               o("WAWebVoipCallBlockedModals").showVoipInitUnavailableModal(),
-              new f()
+              new f("stack_unresponsive")
             );
           if (
             o(

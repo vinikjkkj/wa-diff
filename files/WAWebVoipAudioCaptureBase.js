@@ -13,6 +13,7 @@ __d(
     "WAWebUA",
     "WAWebUserPrefsVoip",
     "WAWebVoipAudioCaptureImplementationFactory",
+    "WAWebVoipAudioContextResume",
     "WAWebVoipDeviceAccessRecoveryGating",
     "WAWebVoipMicStreamBackstop",
     "WAWebVoipMicrophoneHealthPresence",
@@ -930,7 +931,9 @@ __d(
               try {
                 if (e.state === "suspended") {
                   try {
-                    (yield e.resume(),
+                    (yield o(
+                      "WAWebVoipAudioContextResume",
+                    ).resumeAudioContextLoggingDelays(e, "startCapture"),
                       o("WALogger").LOG(
                         U ||
                           (U = babelHelpers.taggedTemplateLiteralLoose([

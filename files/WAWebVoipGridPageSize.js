@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipGridPageSize",
-  ["WAWebABProps", "WAWebBrowserApi", "WAWebVoipDeviceClassUtils"],
+  ["WAWebBrowserApi", "WAWebVoipDeviceClassUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 4,
@@ -9,12 +9,6 @@ __d(
       c = 540,
       d = 6;
     function m() {
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_voip_adaptive_grid_page_size",
-        ) !== !0
-      )
-        return e;
       var t = o("WAWebBrowserApi").getNumCpu(),
         n = o("WAWebBrowserApi").getMemClass(),
         r = n != null ? Math.round(n / 1e3) : null,

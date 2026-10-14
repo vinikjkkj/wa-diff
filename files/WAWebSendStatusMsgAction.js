@@ -130,10 +130,7 @@ __d(
                 "sendStatusMediaMsgAction: start to send status message",
               ])),
           );
-          var h = yield o(
-              "WAWebStatusMsgDataUtils",
-            ).getCanBeResharedForNewStatus(),
-            y = babelHelpers.extends({}, g, {
+          var h = babelHelpers.extends({}, g, {
               id: new (r("WAWebMsgKey"))({
                 fromMe: g.id.fromMe,
                 remote: g.id.remote,
@@ -148,45 +145,45 @@ __d(
               author: o("WAWebLidStatusMigrationUtils").matWidConvert(
                 o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               ),
-              canBeReshared: h,
+              canBeReshared: !1,
             }),
-            C = new (o("WAWebMsgModel").Msg)(y);
-          C.wamMessageSendPerfReporter = new (o(
+            y = new (o("WAWebMsgModel").Msg)(h);
+          y.wamMessageSendPerfReporter = new (o(
             "WAWebMessageSendPerfReporter",
           ).MessageSendPerfReporter)({
-            chatWid: C.to,
-            mediaType: o("WAWebWamMsgUtils").getWamMediaType(C),
-            messageType: o("WAWebWamMsgUtils").getWamMessageType(C),
+            chatWid: y.to,
+            mediaType: o("WAWebWamMsgUtils").getWamMediaType(y),
+            messageType: o("WAWebWamMsgUtils").getWamMessageType(y),
           });
-          var b = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
-            C,
+          var C = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
+            y,
             o("WAWebMessageSendReporterFrontendDeps")
               .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           );
-          ((b.sendReporter =
-            (t = b.sendReporter) != null ? t : b.createSendReporter()),
-            (n = b.sendPerfReporter) == null || n.startRenderedStage(),
-            o("WAWebStatusCollection").StatusCollection.handleUpdate(y, !1),
+          ((C.sendReporter =
+            (t = C.sendReporter) != null ? t : C.createSendReporter()),
+            (n = C.sendPerfReporter) == null || n.startRenderedStage(),
+            o("WAWebStatusCollection").StatusCollection.handleUpdate(h, !1),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
-              C.author,
-              [C],
+              y.author,
+              [y],
             ),
-            (a = b.sendPerfReporter) == null || a.postRenderedStage(),
-            (i = b.sendPerfReporter) == null || i.startSavedStage(),
-            yield o("WAWebDBProcessMessage").storeMessages([y], C.to),
+            (a = C.sendPerfReporter) == null || a.postRenderedStage(),
+            (i = C.sendPerfReporter) == null || i.startSavedStage(),
+            yield o("WAWebDBProcessMessage").storeMessages([h], y.to),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
                   "sendStatusMediaMsgAction: store media message",
                 ])),
             ),
-            (l = b.sendPerfReporter) == null || l.postSavedStage(),
-            (s = b.sendPerfReporter) == null || s.startReadyToSendStage(),
-            yield C.waitForPrep());
+            (l = C.sendPerfReporter) == null || l.postSavedStage(),
+            (s = C.sendPerfReporter) == null || s.startReadyToSendStage(),
+            yield y.waitForPrep());
           try {
-            yield _(C);
+            yield _(y);
           } catch (e) {
-            var v;
+            var b;
             return (
               o("WALogger")
                 .ERROR(
@@ -198,8 +195,8 @@ __d(
                   e,
                 )
                 .sendLogs("status-send-media-error"),
-              (v = b.sendReporter) == null ||
-                v.postFailure({
+              (b = C.sendReporter) == null ||
+                b.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UPLOAD,
                   isTerminal: !0,
@@ -211,7 +208,7 @@ __d(
             );
           }
           return (
-            (u = b.sendPerfReporter) == null || u.postReadyToSendStage(),
+            (u = C.sendPerfReporter) == null || u.postReadyToSendStage(),
             o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -220,9 +217,9 @@ __d(
             ),
             R({
               funnelContext: f,
-              metricsReporter: b,
-              msg: C,
-              msgData: y,
+              metricsReporter: C,
+              msg: y,
+              msgData: h,
               retryCount: 0,
             })
           );

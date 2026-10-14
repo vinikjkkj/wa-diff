@@ -197,7 +197,7 @@ __d(
           if (
             !o("WAWebAccountLinkingGatingUtils").isWafflePkiMigrationEnabled()
           )
-            return Q();
+            return Y();
           var e = yield V();
           return e != null
             ? e
@@ -211,7 +211,7 @@ __d(
                 .sendLogs("waffle-graphql-cert-fetch-fallback", {
                   sampling: 0.1,
                 }),
-              Q());
+              Y());
         })),
         q.apply(this, arguments)
       );
@@ -383,8 +383,40 @@ __d(
         H.apply(this, arguments)
       );
     }
-    var G = "whatsapp_web",
-      z = {
+    function G() {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (
+            (N("fetchValidCertificate"),
+            !o("WAWebAccountLinkingGatingUtils").isWafflePkiMigrationEnabled())
+          )
+            throw r("err")(
+              "[WAFFLE Debug] Enable web_waffle_pki_migration for this session with ?gk_enable=web_waffle_pki_migration before forcing V2",
+            );
+          var e = yield V();
+          if (e == null)
+            throw r("err")(
+              "[WAFFLE Debug] V2 certificate fetch or validation failed; inspect the GetCerts error logs",
+            );
+          var t = yield o("WAWebWaffleCertificateCache").loadCertFromIDB();
+          if (
+            t == null ||
+            t.payloadKeyId !== e.payloadKeyId ||
+            t.passwordIsOaep !== e.passwordKeyIsOaepSha256
+          )
+            throw r("err")(
+              "[WAFFLE Debug] V2 certificate was not persisted to the cache",
+            );
+          return e;
+        })),
+        z.apply(this, arguments)
+      );
+    }
+    var j = "whatsapp_web",
+      K = {
         passwordChainLength: null,
         passwordKeyId: null,
         passwordTtlSeconds: null,
@@ -392,12 +424,12 @@ __d(
         payloadKeyId: null,
         payloadTtlSeconds: null,
       };
-    function j() {
-      return K.apply(this, arguments);
+    function Q() {
+      return X.apply(this, arguments);
     }
-    function K() {
+    function X() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e,
               t,
@@ -412,7 +444,7 @@ __d(
               m = yield o("WAWebRelayClient").fetchQuery(
                 U,
                 {},
-                { environmentType: G },
+                { environmentType: j },
               ),
               p =
                 m == null || (e = m.waffle_get_certs) == null
@@ -423,7 +455,7 @@ __d(
                   ? void 0
                   : t.password_encryption;
             return {
-              environmentType: G,
+              environmentType: j,
               error: null,
               rawError: null,
               ok: (p == null ? void 0 : p.key_id) != null,
@@ -452,8 +484,8 @@ __d(
             };
           } catch (e) {
             var f, g;
-            return babelHelpers.extends({}, z, {
-              environmentType: G,
+            return babelHelpers.extends({}, K, {
+              environmentType: j,
               error:
                 e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                   ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
@@ -470,15 +502,15 @@ __d(
             });
           }
         })),
-        K.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function Q() {
-      return X.apply(this, arguments);
+    function Y() {
+      return J.apply(this, arguments);
     }
-    function X() {
+    function J() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Math.floor(Date.now() / 1e3);
           try {
             var t = yield o(
@@ -591,25 +623,25 @@ __d(
               .catching(r("getErrorSafe")(e));
           }
         })),
-        X.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    var Y = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      J = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      Z = null;
-    function ee(e, t) {
-      return te.apply(this, arguments);
+    var Z = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      ee = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      te = null;
+    function ne(e, t) {
+      return re.apply(this, arguments);
     }
-    function te() {
+    function re() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           e: {
             if (e === "request_nonce")
               return o("WAWebWaffleIQErrorHandler").handleNonceRetry(t);
             if (e === "refresh_token") {
               var n = t.nextBackoffMs();
               if (n == null) return !1;
-              return (yield o("WAPromiseDelays").delayMs(n), ne());
+              return (yield o("WAPromiseDelays").delayMs(n), oe());
               break e;
             }
             if (e === "refetch_certs") {
@@ -641,7 +673,7 @@ __d(
               break e;
             }
             if (e === "server_purge") {
-              var i = yield de();
+              var i = yield pe();
               return (
                 i &&
                   (o(
@@ -656,7 +688,7 @@ __d(
               break e;
             }
             if (e === "server_pause") {
-              var l = yield pe();
+              var l = yield fe();
               return (
                 l &&
                   (yield o("WAWebAccountLinkingHandler").handlePausedState()),
@@ -671,29 +703,6 @@ __d(
             );
           }
         })),
-        te.apply(this, arguments)
-      );
-    }
-    function ne() {
-      return re.apply(this, arguments);
-    }
-    function re() {
-      return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          N("refreshAccessToken");
-          var e = Z;
-          return e != null
-            ? (o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
-                traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
-                  .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE
-                  .REFRESH_TOKEN_DEDUPLICATED,
-              }),
-              e)
-            : ((Z = oe().finally(function () {
-                Z = null;
-              })),
-              Z);
-        })),
         re.apply(this, arguments)
       );
     }
@@ -703,13 +712,36 @@ __d(
     function ae() {
       return (
         (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          N("refreshAccessToken");
+          var e = te;
+          return e != null
+            ? (o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
+                traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
+                  .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE
+                  .REFRESH_TOKEN_DEDUPLICATED,
+              }),
+              e)
+            : ((te = ie().finally(function () {
+                te = null;
+              })),
+              te);
+        })),
+        ae.apply(this, arguments)
+      );
+    }
+    function ie() {
+      return le.apply(this, arguments);
+    }
+    function le() {
+      return (
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Date.now();
           o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
             traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
               .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_INITIATED,
           });
           var t = yield $.getAccountLinkingData();
-          if (t == null) return (ie(e), !1);
+          if (t == null) return (se(e), !1);
           var n = t.fbid,
             a = t.nonce,
             i = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
@@ -736,7 +768,7 @@ __d(
               fbidElementValue: n,
             });
             if (m.name === "RefreshAccessTokensResponseSuccess") {
-              Y.reset();
+              Z.reset();
               var p = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
                   m.value.encryptionMetadataRSAEncryptionMetadataMixin,
                 ),
@@ -767,7 +799,7 @@ __d(
                     }),
                     !0
                   );
-                ie(e);
+                se(e);
               } catch (t) {
                 (o("WALogger")
                   .ERROR(
@@ -777,7 +809,7 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                  ie(e));
+                  se(e));
               }
             } else {
               var C,
@@ -797,7 +829,7 @@ __d(
                 traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
                   .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
               }),
-                yield ee(R, Y),
+                yield ne(R, Z),
                 o("WALogger").ERROR(
                   v ||
                     (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -807,13 +839,13 @@ __d(
                   S.name,
                 ));
             }
-          } else ie(e);
+          } else se(e);
           return !1;
         })),
-        ae.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function ie(e) {
+    function se(e) {
       o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
         elapsedMs: Date.now() - e,
         hasAccessToken: !1,
@@ -821,12 +853,12 @@ __d(
           .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
       });
     }
-    function le() {
-      return se.apply(this, arguments);
+    function ue() {
+      return ce.apply(this, arguments);
     }
-    function se() {
+    function ce() {
       return (
-        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           N("ping");
           var e = Date.now(),
             t = yield $.getAccountLinkingData();
@@ -848,7 +880,7 @@ __d(
                   fbidElementValue: r,
                 });
                 if (l.name === "WFPingResponseSuccess") {
-                  J.reset();
+                  ee.reset();
                   var s = l.value.pingIntervalElementValue;
                   (yield $.updatePingInterval(s),
                     o("WAWebWaffleLifecycleWamLogger").logPing({
@@ -871,7 +903,7 @@ __d(
                     hasAccessToken: !0,
                     pkiVersion: u.mapPkiVersionToWam(i.version),
                   }),
-                    yield ee(d, J),
+                    yield ne(d, ee),
                     o("WALogger").ERROR(
                       S ||
                         (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -895,15 +927,15 @@ __d(
             }
           }
         })),
-        se.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function ue() {
-      return ce.apply(this, arguments);
+    function de() {
+      return me.apply(this, arguments);
     }
-    function ce() {
+    function me() {
       return (
-        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           N("stateExists");
           var e = yield o("WASmaxWaffleStateExistsRPC").sendStateExistsRPC({
             timestampElementValue: Date.now(),
@@ -935,15 +967,15 @@ __d(
               ));
           }
         })),
-        ce.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    function de() {
-      return me.apply(this, arguments);
+    function pe() {
+      return _e.apply(this, arguments);
     }
-    function me() {
+    function _e() {
       return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           N("forceDeleteState");
           var e = yield o(
             "WASmaxWaffleForceDeleteStateRPC",
@@ -966,15 +998,15 @@ __d(
             !1
           );
         })),
-        me.apply(this, arguments)
+        _e.apply(this, arguments)
       );
     }
-    function pe() {
-      return _e.apply(this, arguments);
+    function fe() {
+      return ge.apply(this, arguments);
     }
-    function _e() {
+    function ge() {
       return (
-        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           N("forceSuspendState");
           var e = yield o(
             "WASmaxWaffleForceSuspendStateRPC",
@@ -999,15 +1031,15 @@ __d(
             !1
           );
         })),
-        _e.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    function fe() {
-      return ge.apply(this, arguments);
+    function he() {
+      return ye.apply(this, arguments);
     }
-    function ge() {
+    function ye() {
       return (
-        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           N("fetchServiceData");
           var e = yield $.getAccountLinkingData();
           if (e != null) {
@@ -1061,17 +1093,18 @@ __d(
             yield $.updateServiceData(i);
           }
         })),
-        ge.apply(this, arguments)
+        ye.apply(this, arguments)
       );
     }
     ((l.assertModeAllowed = N),
       (l.fetchValidCertificate = M),
-      (l.runWaffleGetCertsForDebug = j),
-      (l.handleRecoveryAction = ee),
-      (l.refreshAccessToken = ne),
-      (l.ping = le),
-      (l.stateExists = ue),
-      (l.fetchServiceData = fe));
+      (l.forceWafflePkiV2ForDebug = G),
+      (l.runWaffleGetCertsForDebug = Q),
+      (l.handleRecoveryAction = ne),
+      (l.refreshAccessToken = oe),
+      (l.ping = ue),
+      (l.stateExists = de),
+      (l.fetchServiceData = he));
   },
   98,
 );

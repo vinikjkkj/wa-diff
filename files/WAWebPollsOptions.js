@@ -3,12 +3,14 @@ __d(
   [
     "JSResourceForInteraction",
     "WAWebFrontendMsgGetters",
+    "WAWebMsgGetters",
     "WAWebPollCreationUtils",
     "WAWebPollOptionsRenderUtils",
     "WAWebPollsOptionRow",
     "compactMap",
     "react",
     "react-compiler-runtime",
+    "useWAWebMsgValues",
     "useWAWebPollAssociatedMessagesMap",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,13 +18,13 @@ __d(
       s = e || (e = o("react")),
       u = e.useMemo;
     function c(e) {
-      var t = o("react-compiler-runtime").c(30),
+      var t = o("react-compiler-runtime").c(33),
         n = e.associatedMessages,
         a = e.checkedOptionLocalIds,
         i = e.correctOptionIndex,
         l = e.isPollEnded,
         u = e.isPollInvalid,
-        c = e.msg,
+        c = e.msgKey,
         m = e.onDetailImageClick,
         p = e.onOptionToggle,
         _ = e.onPhotoThumbClick,
@@ -32,80 +34,91 @@ __d(
         y = e.trusted,
         C = e.view,
         b;
-      t[0] !== f
-        ? ((b = Array.from(f.entries())), (t[0] = f), (t[1] = b))
-        : (b = t[1]);
-      var v = b,
-        S;
-      t[2] !== f
-        ? ((S = Array.from(f.keys())), (t[2] = f), (t[3] = S))
-        : (S = t[3]);
-      var R = S,
-        L = o("useWAWebPollAssociatedMessagesMap").usePollAssociatedMessagesMap(
-          R,
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = [
+            o("WAWebMsgGetters").getPollType,
+            o("WAWebMsgGetters").getIsNewsletterMsg,
+          ]),
+          (t[0] = b))
+        : (b = t[0]);
+      var v = o("useWAWebMsgValues").useMsgValues(c, b),
+        S = v[0],
+        R = v[1],
+        L;
+      t[1] !== f
+        ? ((L = Array.from(f.entries())), (t[1] = f), (t[2] = L))
+        : (L = t[2]);
+      var E = L,
+        k;
+      t[3] !== f
+        ? ((k = Array.from(f.keys())), (t[3] = f), (t[4] = k))
+        : (k = t[4]);
+      var I = k,
+        T = o("useWAWebPollAssociatedMessagesMap").usePollAssociatedMessagesMap(
+          I,
           n,
         ),
-        E = n.length > 0 && n.length > L.size,
-        k;
-      t[4] !== n
-        ? ((k = r("compactMap")(n, d)), (t[4] = n), (t[5] = k))
-        : (k = t[5]);
-      var I = k,
-        T;
-      if (t[6] !== c) {
-        var D,
-          x,
-          $ = o("WAWebFrontendMsgGetters").getChat(c.unsafe());
-        ((T =
-          (D =
-            (x = $.newsletterMetadata) == null
+        D = n.length > 0 && n.length > T.size,
+        x;
+      t[5] !== n
+        ? ((x = r("compactMap")(n, d)), (t[5] = n), (t[6] = x))
+        : (x = t[6]);
+      var $ = x,
+        P;
+      if (t[7] !== R || t[8] !== c) {
+        var N,
+          M,
+          w = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(c, R);
+        ((P =
+          (N =
+            w == null || (M = w.newsletterMetadata) == null
               ? void 0
-              : x.iAmAdminOrOwner()) != null
-            ? D
+              : M.iAmAdminOrOwner()) != null
+            ? N
             : !1),
-          (t[6] = c),
-          (t[7] = T));
-      } else T = t[7];
-      var P = T,
-        N =
-          c.pollType === o("WAWebPollCreationUtils").PollType.QUIZ &&
-          !P &&
-          a.size === 0,
-        M;
-      t[8] !== c.pollType
-        ? ((M =
-            c.pollType === o("WAWebPollCreationUtils").PollType.QUIZ
+          (t[7] = R),
+          (t[8] = c),
+          (t[9] = P));
+      } else P = t[9];
+      var A = P,
+        F =
+          S === o("WAWebPollCreationUtils").PollType.QUIZ && !A && a.size === 0,
+        O;
+      t[10] !== S
+        ? ((O =
+            S === o("WAWebPollCreationUtils").PollType.QUIZ
               ? r("JSResourceForInteraction")("WAWebConfettiAnimationData")
                   .__setRef("WAWebPollsOptions")
                   .load()
               : null),
-          (t[8] = c.pollType),
-          (t[9] = M))
-        : (M = t[9]);
-      var w = M,
-        A;
+          (t[10] = S),
+          (t[11] = O))
+        : (O = t[11]);
+      var B = O,
+        W;
       return (
-        t[10] !== w ||
-        t[11] !== a ||
-        t[12] !== i ||
-        t[13] !== v ||
-        t[14] !== N ||
-        t[15] !== P ||
-        t[16] !== l ||
-        t[17] !== u ||
-        t[18] !== E ||
-        t[19] !== I ||
-        t[20] !== c ||
-        t[21] !== m ||
-        t[22] !== p ||
-        t[23] !== _ ||
-        t[24] !== L ||
-        t[25] !== g ||
-        t[26] !== h ||
-        t[27] !== y ||
-        t[28] !== C
-          ? ((A = s.jsx(s.Fragment, {
-              children: v.map(function (e, t) {
+        t[12] !== B ||
+        t[13] !== a ||
+        t[14] !== i ||
+        t[15] !== E ||
+        t[16] !== F ||
+        t[17] !== A ||
+        t[18] !== l ||
+        t[19] !== u ||
+        t[20] !== D ||
+        t[21] !== $ ||
+        t[22] !== c ||
+        t[23] !== m ||
+        t[24] !== p ||
+        t[25] !== _ ||
+        t[26] !== T ||
+        t[27] !== S ||
+        t[28] !== g ||
+        t[29] !== h ||
+        t[30] !== y ||
+        t[31] !== C
+          ? ((W = s.jsx(s.Fragment, {
+              children: E.map(function (e, t) {
                 var n = e[0],
                   d = e[1],
                   f = a.has(n.localId),
@@ -113,16 +126,16 @@ __d(
                     !u &&
                     !g &&
                     (f || h === 1 || a.size < h) &&
-                    (c.pollType !== o("WAWebPollCreationUtils").PollType.QUIZ ||
+                    (S !== o("WAWebPollCreationUtils").PollType.QUIZ ||
                       a.size === 0),
                   v = o("WAWebPollOptionsRenderUtils").getIsCorrectOption(i, n);
                 return s.jsx(
                   "div",
                   {
                     children: s.jsx(r("WAWebPollsOptionRow"), {
-                      albumMsgs: I,
-                      msg: c,
-                      associatedMsg: L.get(n),
+                      albumMsgs: $,
+                      msgKey: c,
+                      associatedMsg: T.get(n),
                       option: n,
                       result: d,
                       index: t,
@@ -135,39 +148,40 @@ __d(
                       isPollEnded: l,
                       onPhotoThumbClick: _,
                       view: C,
-                      loadingPhotoThumb: E,
-                      hideResults: N,
+                      loadingPhotoThumb: D,
+                      hideResults: F,
                       isCorrectOption: v,
-                      animationPromise: w,
-                      isAdminOrOwner: P,
+                      animationPromise: B,
+                      isAdminOrOwner: A,
                     }),
                   },
                   t,
                 );
               }),
             })),
-            (t[10] = w),
-            (t[11] = a),
-            (t[12] = i),
-            (t[13] = v),
-            (t[14] = N),
-            (t[15] = P),
-            (t[16] = l),
-            (t[17] = u),
-            (t[18] = E),
-            (t[19] = I),
-            (t[20] = c),
-            (t[21] = m),
-            (t[22] = p),
-            (t[23] = _),
-            (t[24] = L),
-            (t[25] = g),
-            (t[26] = h),
-            (t[27] = y),
-            (t[28] = C),
-            (t[29] = A))
-          : (A = t[29]),
-        A
+            (t[12] = B),
+            (t[13] = a),
+            (t[14] = i),
+            (t[15] = E),
+            (t[16] = F),
+            (t[17] = A),
+            (t[18] = l),
+            (t[19] = u),
+            (t[20] = D),
+            (t[21] = $),
+            (t[22] = c),
+            (t[23] = m),
+            (t[24] = p),
+            (t[25] = _),
+            (t[26] = T),
+            (t[27] = S),
+            (t[28] = g),
+            (t[29] = h),
+            (t[30] = y),
+            (t[31] = C),
+            (t[32] = W))
+          : (W = t[32]),
+        W
       );
     }
     function d(e) {

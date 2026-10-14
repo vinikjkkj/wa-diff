@@ -1028,6 +1028,12 @@ __d(
               o(
                 "WAWebCallUserJourneyLogger",
               ).CallUserJourneyLogger.clearCall()),
+            u === o("WAWebVoipWaCallEnums").CallState.CallActive &&
+              l === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely &&
+              (o("WAWebVoipWebTransportConnectionManager").closeAllConnections(
+                !1,
+              ),
+              o("WAWebVoipSctpConnectionManager").closeAllRelayConnections()),
             o(
               "WAWebCallUserJourneyLogger",
             ).CallUserJourneyLogger.setCallConnected(

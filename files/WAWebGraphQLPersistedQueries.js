@@ -16,7 +16,7 @@ __d(
       WAWebGraphQLVerifyPostcodeJobQuery: "7573183149457062",
       WAWebGalaxyFlowsDrawerGetFlowDataQuery: "24989855014035777",
       WAWebNativeMLModelQuery: "9175958945830972",
-      WAWebSignupMetadataQuery: "26378108788468347",
+      WAWebSignupMetadataQuery: "28516250088045061",
       WAWebCreateLabyrinthBackupJobMutation: "28411481768458599",
       WAWebRotateLabyrinthEpochJobMutation: "27609636825359813",
       WAWebUploadLabyrinthMessagesJobMutation: "28023438937253549",

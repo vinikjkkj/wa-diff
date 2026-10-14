@@ -61,7 +61,7 @@ __d(
         i = e.onOpenContactInfo,
         l = e.optionLocalId,
         s = e.ref,
-        u = o("WAWebPollsUseResults").useResults(r),
+        u = o("WAWebPollsUseResults").useResults(r.id),
         c;
       return (
         t[0] !== n ||
@@ -106,7 +106,7 @@ __d(
         ? ((u = { pollVoteLocalId: l }), (t[0] = l), (t[1] = u))
         : (u = t[1]);
       var c = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(
-          r,
+          r.id,
           u,
         ),
         m;

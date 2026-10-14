@@ -3,7 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = 20;
+    var e = 10;
     i.AUDIENCE_PAGE_SIZE = e;
   },
   66,

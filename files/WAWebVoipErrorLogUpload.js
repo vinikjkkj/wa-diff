@@ -5,6 +5,7 @@ __d(
     "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebUA",
+    "WAWebVoipInvestigationLogUploadGating",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipTransportFallbackTracker",
     "WAWebVoipWebTransportCallSummary",
@@ -12,7 +13,6 @@ __d(
     "WAWebWamEnumCallResultType",
     "getErrorSafe",
     "gkx",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -139,7 +139,13 @@ __d(
     function B() {
       var e = N;
       ((N = !1),
-        !(!e || !r("WAWebEnvironment").isWeb || !r("justknobx")._("5297")) &&
+        !(
+          !e ||
+          !r("WAWebEnvironment").isWeb ||
+          !o(
+            "WAWebVoipInvestigationLogUploadGating",
+          ).isInvestigationLogUploadEnabled()
+        ) &&
           (W(),
           (w = window.setTimeout(function () {
             ((w = null),
@@ -172,16 +178,21 @@ __d(
       w != null && (window.clearTimeout(w), (w = null));
     }
     function q(e) {
-      if (!r("justknobx")._("5297")) return null;
+      if (
+        !o(
+          "WAWebVoipInvestigationLogUploadGating",
+        ).isInvestigationLogUploadEnabled()
+      )
+        return null;
       var t = e === C || e === b;
       if (!t) return null;
       var n = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
-        a = o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall(),
-        i = a ? "webtransport-" : "",
-        l = e === C ? "setup-error" : "accepted-but-not-connected",
-        s = o("WAWebUA").UA.isChrome ? S : v,
-        u = a && e === b ? R : s;
-      return { reason: "voip-call-error-" + n + "-" + i + l, sampling: u };
+        r = o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall(),
+        a = r ? "webtransport-" : "",
+        i = e === C ? "setup-error" : "accepted-but-not-connected",
+        l = o("WAWebUA").UA.isChrome ? S : v,
+        s = r && e === b ? R : l;
+      return { reason: "voip-call-error-" + n + "-" + a + i, sampling: s };
     }
     function U() {
       var e,
@@ -245,7 +256,9 @@ __d(
           !a ||
           e.groupCallIsLastSegment !== !0 ||
           e.maxConnectedParticipants < D ||
-          !r("justknobx")._("5297")
+          !o(
+            "WAWebVoipInvestigationLogUploadGating",
+          ).isInvestigationLogUploadEnabled()
         )
       ) {
         var i =

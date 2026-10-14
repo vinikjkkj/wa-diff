@@ -197,7 +197,7 @@ __d(
                     ])),
                 )
                 .color(se),
-              null
+              { notReady: { reason: "duplicate_start" }, status: "not_ready" }
             );
           e.isJoin || o("WAWebVoipCallAudioUnlock").releaseCallAudioUnlock();
           var t = new AbortController();
@@ -215,8 +215,9 @@ __d(
           try {
             yield r("WAPromiseRaceAbort")(n, t.signal);
           } catch (e) {
-            return t.signal.aborted
-              ? (o("WALogger")
+            if (t.signal.aborted)
+              return (
+                o("WALogger")
                   .LOG(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -224,31 +225,46 @@ __d(
                       ])),
                   )
                   .color(se),
-                null)
-              : (o("WAWebVoipCancelOutgoingCall").cancelPendingOutgoingCall(),
-                e instanceof o("WAWebEnsureVoipInited").VoipInitUnavailableError
-                  ? (o("WALogger")
-                      .LOG(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: outgoing call stopped because VoIP init requires reload",
-                          ])),
-                      )
-                      .color(se),
-                    null)
-                  : (o("WALogger")
-                      .ERROR(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: outgoing call: VoIP init failed, aborting",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("voip-outgoing-ensure-init-failed"),
-                    o(
-                      "WAWebVoipCallBlockedModals",
-                    ).showCouldNotPlaceCallModal(),
-                    null));
+                { notReady: { reason: "user_cancelled" }, status: "not_ready" }
+              );
+            if (
+              (o("WAWebVoipCancelOutgoingCall").cancelPendingOutgoingCall(),
+              e instanceof o("WAWebEnsureVoipInited").VoipInitUnavailableError)
+            )
+              return (
+                o("WALogger")
+                  .LOG(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: outgoing call stopped because VoIP init requires reload",
+                      ])),
+                  )
+                  .color(se),
+                {
+                  notReady: {
+                    reason: "reload_required",
+                    reloadReason: e.reason,
+                  },
+                  status: "not_ready",
+                }
+              );
+            var a = r("getErrorSafe")(e);
+            return (
+              o("WALogger")
+                .ERROR(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: outgoing call: VoIP init failed, aborting",
+                    ])),
+                )
+                .catching(a)
+                .sendLogs("voip-outgoing-ensure-init-failed"),
+              o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal(),
+              {
+                notReady: { initErrorName: a.name, reason: "init_failed" },
+                status: "not_ready",
+              }
+            );
           }
           return (
             o("WAWebVoipGatingUtils").isWebCallingUiEnabled() &&
@@ -270,7 +286,7 @@ __d(
                       .catching(r("getErrorSafe")(e));
                   },
                 ),
-            t
+            { abortController: t, status: "ready" }
           );
         })),
         ve.apply(this, arguments)
@@ -464,11 +480,11 @@ __d(
                   .VOIP_READY_START,
               ));
             var d = yield be({ isGroup: !1, isJoin: !1, isVideo: a });
-            if (d == null)
+            if (d.status === "not_ready")
               return (
-                o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplCancel(
+                o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplNotReady(
                   e,
-                  "voip_not_ready",
+                  d.notReady,
                 ),
                 !1
               );
@@ -477,7 +493,7 @@ __d(
               o("WAWebVoipOutgoingCallQpl").VoipOutgoingCallQplPoint
                 .VOIP_READY_END,
             );
-            var m = d.signal;
+            var m = d.abortController.signal;
             Le(e);
             var p = _e();
             o("WAWebVoipOutgoingCallQpl").voipOutgoingCallQplAddPoint(
@@ -893,8 +909,8 @@ __d(
                   .USER_INITIATE_OUTGOING_CALL,
               ));
             var c = yield be({ isGroup: !0, isJoin: !1, isVideo: t });
-            if (c != null) {
-              var d = c.signal,
+            if (c.status !== "not_ready") {
+              var d = c.abortController.signal,
                 m = yield o(
                   "WAWebVoipAcquireMediaStream",
                 ).checkVoipDevicePermissions(t, null, d);
@@ -1451,8 +1467,8 @@ __d(
                 return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
               }),
               v = yield be({ isGroup: !0, isJoin: !0, isVideo: c });
-            if (v != null) {
-              var S = v.signal,
+            if (v.status !== "not_ready") {
+              var S = v.abortController.signal,
                 R = (ae || (ae = n("Promise"))).all([
                   o("WAWebVoipStackInterface").getVoipStackInterface(),
                   Ge(b, !0),

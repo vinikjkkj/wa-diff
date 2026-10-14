@@ -22,17 +22,26 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          yield p([{ chatJid: e, extraFields: n, leadStage: t }]);
+          yield _([{ chatJid: e, extraFields: n, leadStage: t }]);
         })),
         m.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function p(e, t) {
+      var n = e.chatJid,
+        r = e.extraFields,
+        o = e.leadStage;
+      return {
+        chatJid: n,
+        profile: babelHelpers.extends({}, r, { leadStage: o, name: t }),
+      };
     }
-    function _() {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           t.forEach(function (t) {
             var n = t.chatJid,
               a = t.leadStage;
@@ -58,21 +67,7 @@ __d(
               "WAWebContactManagerCustomerProfileUpsertMutation",
             ).upsertCustomerProfilesToServer(
               t.map(function (e) {
-                var t = e.chatJid,
-                  n = e.extraFields,
-                  r = e.leadStage;
-                return {
-                  chatJid: t,
-                  profile: {
-                    acquisitionSource: n == null ? void 0 : n.acquisitionSource,
-                    address: n == null ? void 0 : n.address,
-                    birthday: n == null ? void 0 : n.birthday,
-                    email: n == null ? void 0 : n.email,
-                    lastOrder: n == null ? void 0 : n.lastOrder,
-                    leadStage: r,
-                    name: T(t),
-                  },
-                };
+                return p(e, $(e.chatJid));
               }),
             );
           } finally {
@@ -83,37 +78,89 @@ __d(
               ).notifyCustomerProfileChanged(t);
             });
           }
-          yield g(t, 0);
+          yield C(t);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    var f = 10;
     function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!(t >= e.length)) {
-            var r = e.slice(t, t + f);
-            (yield (c || (c = n("Promise"))).all(
-              r.map(function (e) {
-                return (c || (c = n("Promise"))).all([y(e.chatJid), b(e)]);
+          e.forEach(function (e, t) {
+            var n = e.chatJid;
+            if (!n.endsWith(o("WAJids").LID_DOMAIN))
+              throw r("err")(
+                "[CustomerManager] createCustomersIfAbsent: chatJid must be LID-based at entry " +
+                  (t + 1),
+              );
+          });
+          var n;
+          try {
+            n = yield o(
+              "WAWebContactManagerCustomerProfileUpsertMutation",
+            ).createCustomerProfilesIfAbsent(
+              e.map(function (e) {
+                var t;
+                return p(
+                  e,
+                  ((t = e.extraFields) == null || (t = t.name) == null
+                    ? void 0
+                    : t.trim()) || $(e.chatJid),
+                );
               }),
-            ),
-              yield g(e, t + f));
+            );
+          } finally {
+            e.forEach(function (e) {
+              var t = e.chatJid;
+              return o(
+                "WAWebCustomerProfileChangeNotifier",
+              ).notifyCustomerProfileChanged(t);
+            });
           }
+          return (
+            (t == null ? void 0 : t.skipLeadArtifacts) !== !0 &&
+              (yield C(
+                e.filter(function (e, t) {
+                  return n[t] === "written";
+                }),
+              )),
+            n
+          );
         })),
         h.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    var y = 10;
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if ((t === void 0 && (t = 0), !(t >= e.length))) {
+            var r = e.slice(t, t + y);
+            return (
+              yield (c || (c = n("Promise"))).all(
+                r.map(function (e) {
+                  return (c || (c = n("Promise"))).all([v(e.chatJid), R(e)]);
+                }),
+              ),
+              C(e, t + y)
+            );
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o(
               "WAWebCustomerManagerApplyLeadLabelAction",
@@ -131,15 +178,15 @@ __d(
               .sendLogs("customer_manager_label_apply_failed");
           }
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatJid,
             n = e.leadStage;
           if (n != null)
@@ -159,31 +206,31 @@ __d(
                 .sendLogs("customer_manager_lead_stage_sublist_write_failed");
             }
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
-          ).upsertCustomerProfileToServer(e, { leadStage: t, name: T(e) }),
+          ).upsertCustomerProfileToServer(e, { leadStage: t, name: $(e) }),
             o(
               "WAWebCustomerProfileChangeNotifier",
             ).notifyCustomerProfileChanged(e));
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
           ).upsertCustomerProfileFieldToServer(e, {
@@ -194,15 +241,15 @@ __d(
               "WAWebCustomerProfileChangeNotifier",
             ).notifyCustomerProfileChanged(e));
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function I() {
+    function x() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
           ).upsertCustomerProfileFieldToServer(e, t),
@@ -210,20 +257,21 @@ __d(
               "WAWebCustomerProfileChangeNotifier",
             ).notifyCustomerProfileChanged(e));
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function T(e) {
+    function $(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       return t != null
         ? o("WAWebFrontendContactGetters").getDisplayName(t)
         : null;
     }
     ((l.upsertAsCustomer = d),
-      (l.upsertAsCustomers = p),
-      (l.upsertLeadStageToProfile = S),
-      (l.clearLeadStageOnProfile = L),
-      (l.upsertCustomerFieldToProfile = k));
+      (l.upsertAsCustomers = _),
+      (l.createCustomersIfAbsent = g),
+      (l.upsertLeadStageToProfile = E),
+      (l.clearLeadStageOnProfile = I),
+      (l.upsertCustomerFieldToProfile = D));
   },
   98,
 );

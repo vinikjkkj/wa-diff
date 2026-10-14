@@ -29,14 +29,16 @@ __d(
     function p() {
       var e = o("WAWebModelStorageUtils").getStorage(),
         t = o("WAWebStorageMutationBuilder").columnBuilder(e.config),
-        n = t.addCompositeIndex,
-        r = t.addCompositePrimaryKey,
-        a = t.addIndex;
+        n = t.addColumn,
+        r = t.addCompositeIndex,
+        a = t.addCompositePrimaryKey,
+        i = t.addIndex;
       e.add("label-association")
         .version(o("WAWebModelStorageVersions").labelAssociationCreateTable(), [
-          r(["labelId", "associationId", "type"]),
-          a("labelId"),
-          n(["associationId", "type"]),
+          a(["labelId", "associationId", "type"]),
+          n("pendingImportLeadStage"),
+          i("labelId"),
+          r(["associationId", "type"]),
         ])
         .view(function (e) {
           return e;

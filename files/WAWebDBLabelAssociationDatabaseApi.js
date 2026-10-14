@@ -3,6 +3,7 @@ __d(
   [
     "WAWebApiContact",
     "WAWebLidMigrationDbUtils",
+    "WAWebModelStorageUtils",
     "WAWebSchemaLabelAssociation",
     "WAWebUserPrefsLabelAssociationsLidMigration",
     "WAWebWidFactory",
@@ -18,11 +19,11 @@ __d(
           var t = o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? [].concat(yield g(e), e)
+            ? [].concat(yield R(e), e)
             : e;
           yield o("WAWebSchemaLabelAssociation")
             .getLabelAssociationTable()
-            .bulkRemove([].concat(t, f(e)));
+            .bulkRemove([].concat(t, S(e)));
         })),
         s.apply(this, arguments)
       );
@@ -33,14 +34,9 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebUserPrefsLabelAssociationsLidMigration",
-          ).isLabelAssociationsMigrationComplete()
-            ? yield y(e)
-            : e;
           yield o("WAWebSchemaLabelAssociation")
             .getLabelAssociationTable()
-            .bulkCreateOrReplace(t);
+            .bulkCreateOrReplace(yield b(e));
         })),
         c.apply(this, arguments)
       );
@@ -51,28 +47,102 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield b(e);
+          t.length !== 0 &&
+            (yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                ["label-association"],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var n = e[0],
+                        r = n,
+                        a = yield r.bulkGet(
+                          t.map(
+                            o("WAWebSchemaLabelAssociation")
+                              .createLabelAssociationPrimaryKey,
+                          ),
+                        ),
+                        i = new Map();
+                      (a.forEach(function (e) {
+                        e != null && i.set(C(e), e);
+                      }),
+                        yield r.bulkCreateOrReplace(
+                          t.map(function (e) {
+                            var t;
+                            return babelHelpers.extends(
+                              {},
+                              (t = i.get(C(e))) != null ? t : {},
+                              e,
+                            );
+                          }),
+                        ));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ));
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o(
+              "WAWebSchemaLabelAssociation",
+            ).createLabelAssociationPrimaryKey({
+              associationId: t,
+              labelId: e,
+              type: o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
+            }),
+            r = o(
+              "WAWebUserPrefsLabelAssociationsLidMigration",
+            ).isLabelAssociationsMigrationComplete()
+              ? yield R([n])
+              : [n],
+            a = r[0];
+          yield o("WAWebSchemaLabelAssociation")
+            .getLabelAssociationTable()
+            .merge(a, { pendingImportLeadStage: null });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaLabelAssociation")
             .getLabelAssociationTable()
             .anyOf(["labelId"], e);
           return o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? S(t)
+            ? D(t)
             : t;
         })),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function _() {
+    function y() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
               "WAWebUserPrefsLabelAssociationsLidMigration",
             ).isLabelAssociationsMigrationComplete()
-              ? yield b(e)
+              ? yield I(e)
               : e,
             n = yield o("WAWebSchemaLabelAssociation")
               .getLabelAssociationTable()
@@ -87,13 +157,31 @@ __d(
           return o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? S(n)
+            ? D(n)
             : n;
         })),
-        _.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function f(e) {
+    function C(e) {
+      return [e.labelId, e.associationId, e.type].join("\0");
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o(
+            "WAWebUserPrefsLabelAssociationsLidMigration",
+          ).isLabelAssociationsMigrationComplete()
+            ? E(e)
+            : e;
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
       var t = [];
       for (var n of e)
         if (
@@ -118,12 +206,12 @@ __d(
         }
       return t;
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function h() {
+    function L() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
               e
                 .filter(function (e) {
@@ -155,33 +243,36 @@ __d(
                 ).replaceAssociationIdInPrimaryKey(e, t);
           });
         })),
-        h.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function C() {
+    function k() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(
               o("WAWebSchemaLabelAssociation").createLabelAssociationPrimaryKey,
             ),
-            n = yield g(t);
-          return n.map(
-            o("WAWebSchemaLabelAssociation")
-              .createLabelAssociationRowFromPrimaryKey,
-          );
+            n = yield R(t);
+          return n.map(function (t, n) {
+            return babelHelpers.extends({}, e[n], {
+              associationId: o(
+                "WAWebSchemaLabelAssociation",
+              ).getAssociationIdFromPrimaryKey(t),
+            });
+          });
         })),
-        C.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function v() {
+    function T() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return o(
                 "WAWebSchemaLabelAssociation",
@@ -191,7 +282,7 @@ __d(
                 labelId: "1",
               });
             }),
-            n = yield g(t);
+            n = yield R(t);
           return n.map(function (e) {
             return {
               associationId: o(
@@ -203,15 +294,15 @@ __d(
             };
           });
         })),
-        v.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function R() {
+    function x() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
               e
                 .filter(function (e) {
@@ -235,13 +326,15 @@ __d(
             });
           });
         })),
-        R.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     ((l.removeLabelAssociations = e),
       (l.addOrEditLabelAssociations = u),
-      (l.queryLabelAssociationsForLabelIds = d),
-      (l.queryLocalLabelAssociations = p));
+      (l.mergeReceivedLabelAssociations = d),
+      (l.clearPendingImportLeadStage = p),
+      (l.queryLabelAssociationsForLabelIds = f),
+      (l.queryLocalLabelAssociations = h));
   },
   98,
 );

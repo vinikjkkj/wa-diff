@@ -5,6 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebBackendApi",
     "WAWebCoreActionsODS",
+    "WAWebDbEncryptionKey",
     "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
@@ -47,7 +48,7 @@ __d(
       try {
         var a =
           t.type === o("WAWebVoipSignalingEnums").TYPE.OFFER ? C(t) : S(t, n);
-        return (a != null && T(a, t), a);
+        return (a != null && x(a, t), a);
       } catch (t) {
         return (
           o("WALogger")
@@ -82,19 +83,7 @@ __d(
           );
         }
       } catch (e) {
-        o("WALogger")
-          .ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [deferred-boot] stale call log write failed",
-              ])),
-          )
-          .catching(r("getErrorSafe")(e))
-          .tags("non-sad")
-          .sendLogs("voip-deferred-boot-stale-call-log-failed", {
-            sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-            sampling: 0.01,
-          });
+        I(e);
       }
     }
     function y() {
@@ -135,29 +124,56 @@ __d(
       }
     }
     function L(e) {
-      (o("WAWebCoreActionsODS").logCallIncomingMissed(),
+      o("WAWebCoreActionsODS").logCallIncomingMissed();
+      var t = Date.now();
+      k(function () {
         o("WAWebBackendApi").frontendFireAndForget(
           "generateCallLogFromEventCallMissed",
-          { callMissedData: k(e) },
-        ));
+          { callMissedData: T(e, Date.now() - t) },
+        );
+      });
     }
     function E(e) {
       var t;
       e.type !== o("WAWebVoipSignalingEnums").TYPE.TERMINATE ||
         !p.has((t = e.terminate_reason) != null ? t : "") ||
-        o("WAWebBackendApi").frontendFireAndForget(
-          "generateCallLogFromEventUpdate1to1",
-          {
-            call1to1LogData: {
-              CallId: e.call_id,
-              PeerJid: o("WAWebWidFactory").asUserWidOrThrow(e.peer_jid),
-              Result: o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere,
+        k(function () {
+          o("WAWebBackendApi").frontendFireAndForget(
+            "generateCallLogFromEventUpdate1to1",
+            {
+              call1to1LogData: {
+                CallId: e.call_id,
+                PeerJid: o("WAWebWidFactory").asUserWidOrThrow(e.peer_jid),
+                Result: o("WAWebVoipWaCallEnums").CallLogResult
+                  .AcceptedElsewhere,
+              },
             },
-          },
-        );
+          );
+        });
     }
     function k(e) {
-      var t = I(e.terminate_reason);
+      o("WAWebDbEncryptionKey")
+        .DbEncKeyStore.waitForFinalDbMsgEncKey()
+        .then(e)
+        .catch(I);
+    }
+    function I(e) {
+      o("WALogger")
+        .ERROR(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [deferred-boot] stale call log write failed",
+            ])),
+        )
+        .catching(r("getErrorSafe")(e))
+        .tags("non-sad")
+        .sendLogs("voip-deferred-boot-stale-call-log-failed", {
+          sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+          sampling: 0.01,
+        });
+    }
+    function T(e, t) {
+      var n = D(e.terminate_reason);
       return babelHelpers.extends(
         {
           CallId: e.call_id,
@@ -166,13 +182,13 @@ __d(
           IsVideoCall: e.isVideoCall === !0,
           GroupInfo: null,
           CallParticipantInfos: [],
-          TimeElapsedSinceCallOffer: e.e,
+          TimeElapsedSinceCallOffer: e.e + t,
           SilenceReason: d,
         },
-        t == null ? null : { CallTermReason: t },
+        n == null ? null : { CallTermReason: n },
       );
     }
-    function I(e) {
+    function D(e) {
       return e === "accepted_elsewhere" || e === "screened_elsewhere"
         ? o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ACCEPTED_ELSEWHERE
         : e === "rejected_elsewhere"
@@ -181,7 +197,7 @@ __d(
             ? o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.DEVICE_SWITCH
             : null;
     }
-    function T(e, t) {
+    function x(e, t) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           e: {

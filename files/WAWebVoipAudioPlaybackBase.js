@@ -10,6 +10,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebDebounce",
     "WAWebUA",
+    "WAWebVoipAudioContextResume",
     "WAWebVoipAudioPlaybackScriptProcessor",
     "WAWebVoipAudioPlaybackSharedBufferWorklet",
     "WAWebVoipAudioPlaybackWorklet",
@@ -336,7 +337,9 @@ __d(
                             "voip: [AV:startPlayback] resuming suspended AudioContext",
                           ])),
                       ),
-                      yield e.resume(),
+                      yield o(
+                        "WAWebVoipAudioContextResume",
+                      ).resumeAudioContextLoggingDelays(e, "startPlayback"),
                       n())
                     )
                       return;

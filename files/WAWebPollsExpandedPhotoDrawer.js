@@ -51,7 +51,7 @@ __d(
         y = e.ref,
         C = e.selectableOptionsCount,
         b = e.trusted,
-        v = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(m),
+        v = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(m.id),
         S;
       t[0] !== v
         ? ((S = o("WAWebPollOptionsRenderUtils").getVotedForOptions(v)),
@@ -95,63 +95,64 @@ __d(
       t[9] === Symbol.for("react.memo_cache_sentinel")
         ? ((T = [c.paddingHoriz32, c.paddingVert2]), (t[9] = T))
         : (T = t[9]);
-      var D =
+      var D = m.id,
+        x =
           m.pollType === o("WAWebPollCreationUtils").PollType.QUIZ && d
             ? null
             : C,
-        x;
+        $;
       t[10] !== m
-        ? ((x = o("WAWebMsgModelPropUtils").isTrusted(m.unsafe())),
+        ? (($ = o("WAWebMsgModelPropUtils").isTrusted(m.unsafe())),
           (t[10] = m),
-          (t[11] = x))
-        : (x = t[11]);
-      var $;
+          (t[11] = $))
+        : ($ = t[11]);
+      var P;
       t[12] !== l ||
       t[13] !== d ||
-      t[14] !== m ||
+      t[14] !== m.id ||
       t[15] !== _ ||
       t[16] !== f ||
       t[17] !== g ||
-      t[18] !== D ||
-      t[19] !== x
-        ? (($ = s.jsx(r("WAWebDrawerSection.react"), {
+      t[18] !== x ||
+      t[19] !== $
+        ? ((P = s.jsx(r("WAWebDrawerSection.react"), {
             xstyle: T,
             children: s.jsx(r("WAWebPollMessageHeader"), {
               isPollEnded: l,
-              msg: m,
+              msgKey: D,
               name: g,
               isSentByMe: d,
               pollEndTime: _,
               pollHideVoterNames: f,
-              pollSelectableOptionsCount: D,
-              trusted: x,
+              pollSelectableOptionsCount: x,
+              trusted: $,
             }),
           })),
           (t[12] = l),
           (t[13] = d),
-          (t[14] = m),
+          (t[14] = m.id),
           (t[15] = _),
           (t[16] = f),
           (t[17] = g),
-          (t[18] = D),
-          (t[19] = x),
-          (t[20] = $))
-        : ($ = t[20]);
-      var P;
+          (t[18] = x),
+          (t[19] = $),
+          (t[20] = P))
+        : (P = t[20]);
+      var N;
       t[21] !== n ||
       t[22] !== i ||
       t[23] !== E ||
       t[24] !== l ||
       t[25] !== u ||
-      t[26] !== m ||
+      t[26] !== m.id ||
       t[27] !== p ||
       t[28] !== v ||
       t[29] !== h ||
       t[30] !== C ||
       t[31] !== b ||
       t[32] !== R
-        ? ((P = s.jsx(r("WAWebPollsOptions"), {
-            msg: m,
+        ? ((N = s.jsx(r("WAWebPollsOptions"), {
+            msgKey: m.id,
             options: v,
             checkedOptionLocalIds: R,
             trusted: b,
@@ -170,44 +171,44 @@ __d(
           (t[23] = E),
           (t[24] = l),
           (t[25] = u),
-          (t[26] = m),
+          (t[26] = m.id),
           (t[27] = p),
           (t[28] = v),
           (t[29] = h),
           (t[30] = C),
           (t[31] = b),
           (t[32] = R),
-          (t[33] = P))
-        : (P = t[33]);
-      var N;
-      t[34] !== $ || t[35] !== P
-        ? ((N = s.jsxs(r("WAWebDrawerBody.react"), {
-            xstyle: c.body,
-            children: [$, P],
-          })),
-          (t[34] = $),
-          (t[35] = P),
-          (t[36] = N))
-        : (N = t[36]);
+          (t[33] = N))
+        : (N = t[33]);
       var M;
+      t[34] !== N || t[35] !== P
+        ? ((M = s.jsxs(r("WAWebDrawerBody.react"), {
+            xstyle: c.body,
+            children: [P, N],
+          })),
+          (t[34] = N),
+          (t[35] = P),
+          (t[36] = M))
+        : (M = t[36]);
+      var w;
       return (
-        t[37] !== y || t[38] !== N || t[39] !== I
-          ? ((M = s.jsxs(
+        t[37] !== y || t[38] !== M || t[39] !== I
+          ? ((w = s.jsxs(
               r("WAWebDrawer.react"),
               {
                 ref: y,
                 testid: "photo-poll-expanded-view-drawer",
                 tsNavigationData: k,
-                children: [I, N],
+                children: [I, M],
               },
               "photo-poll-expanded-view-drawer",
             )),
             (t[37] = y),
-            (t[38] = N),
+            (t[38] = M),
             (t[39] = I),
-            (t[40] = M))
-          : (M = t[40]),
-        M
+            (t[40] = w))
+          : (w = t[40]),
+        w
       );
     }
     l.default = d;

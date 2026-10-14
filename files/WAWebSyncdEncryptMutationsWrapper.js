@@ -2,10 +2,10 @@ __d(
   "WAWebSyncdEncryptMutationsWrapper",
   [
     "WALogger",
-    "WAWebEncryptionManagerSelector",
     "WAWebGetSyncAction",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdCrypto",
+    "WAWebSyncdEncryptionManager",
     "WAWebSyncdError",
     "WAWebSyncdKeyCache",
     "asyncToGeneratorRuntime",
@@ -19,60 +19,60 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = o("WAWebEncryptionManagerSelector").syncdEncryptionManager()
-              .encryptMutation,
-            a = t.index,
-            i = t.operation,
-            l = n.keyId,
-            s = n.keyData,
-            u;
+          var r = t.index,
+            a = t.operation,
+            i = n.keyId,
+            l = n.keyData,
+            s;
           e: {
             if (
-              i ===
+              a ===
               o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation.SET
             )
               break e;
             if (
-              i ===
+              a ===
               o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
                 .REMOVE
             ) {
               if (
-                ((u =
-                  yield o("WAWebGetSyncAction").getSyncActionInTransaction(a)),
-                !u)
+                ((s =
+                  yield o("WAWebGetSyncAction").getSyncActionInTransaction(r)),
+                !s)
               )
                 throw new (o("WAWebSyncdError").SyncdFatalError)(
                   "no corresponding set mutation",
                 );
-              var c = u.keyId,
-                d = yield o("WAWebSyncdKeyCache").getKeyData(c);
-              if (d == null)
+              var u = s.keyId,
+                c = yield o("WAWebSyncdKeyCache").getKeyData(u);
+              if (c == null)
                 throw new (o("WAWebSyncdError").SyncdFatalError)(
                   "no key data for corresponding mutation",
                 );
-              ((l = c), (s = d));
+              ((i = u), (l = c));
               break e;
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                i,
+                a,
             );
           }
           try {
-            var m = yield r(t, l, s),
-              p = m.indexAndValueCipherText,
-              _ = m.indexMac,
-              f = o("WAWebSyncdCrypto").valueMacFromIndexAndValueCipherText(p);
+            var d = yield o(
+                "WAWebSyncdEncryptionManager",
+              ).WASyncdEncryptionManager.encryptMutation(t, i, l),
+              m = d.indexAndValueCipherText,
+              p = d.indexMac,
+              _ = o("WAWebSyncdCrypto").valueMacFromIndexAndValueCipherText(m);
             return babelHelpers.extends({}, t, {
-              keyId: l,
-              keyData: s,
-              indexMac: _,
-              indexAndValueCipherText: p,
-              valueMac: f,
+              keyId: i,
+              keyData: l,
+              indexMac: p,
+              indexAndValueCipherText: m,
+              valueMac: _,
             });
           } catch (t) {
-            var g = t instanceof Error ? t.message : String(t);
+            var f = t instanceof Error ? t.message : String(t);
             throw (
               o("WALogger")
                 .ERROR(
@@ -81,7 +81,7 @@ __d(
                       "syncd: encryption failed: ",
                       "",
                     ])),
-                  g,
+                  f,
                 )
                 .sendLogs("syncd: encryption failed"),
               t

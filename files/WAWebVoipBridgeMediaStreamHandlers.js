@@ -9,25 +9,38 @@ __d(
     "WAWebVoipCameraFingerprint",
     "WAWebVoipCameraPrewarm",
     "WAWebVoipJoinWithoutCamera",
+    "WAWebVoipLocalVideoPolicy",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = {
+      s,
+      u = {
         voipAcquireMediaStream: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n,
-              a =
-                (n = r("WAWebCallCollection").activeCall) == null
-                  ? void 0
-                  : n.id;
+            var n;
+            if (
+              t.type === "camera" &&
+              !o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+            )
+              return (
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV] local video is blocked, skipping camera acquisition",
+                    ])),
+                ),
+                null
+              );
+            var a =
+              (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.id;
             return t.type === "camera" &&
               a != null &&
               o("WAWebVoipJoinWithoutCamera").consumeJoinWithoutCamera(a)
               ? (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV] the call joins with its camera off, skipping camera acquisition",
                     ])),
                 ),
@@ -60,14 +73,22 @@ __d(
         cleanupPrewarmedCamera: function () {
           o("WAWebVoipCameraPrewarm").cleanupPrewarmedCamera();
         },
-        logCameraFingerprint: function () {
-          return o("WAWebVoipCameraFingerprint").logCameraFingerprint();
-        },
+        logCameraFingerprint: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+              ? o("WAWebVoipCameraFingerprint").logCameraFingerprint()
+              : !1;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         getVoipCameraPermissionState: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o(
-              "WAWebVoipAcquireMediaStream",
-            ).queryCameraPermissionStrict();
+            return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+              ? o("WAWebVoipAcquireMediaStream").queryCameraPermissionStrict()
+              : null;
           });
           function t() {
             return e.apply(this, arguments);
@@ -76,7 +97,7 @@ __d(
         })(),
         getVoipMicPermissionGranted: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return u(
+            return c(
               yield o(
                 "WAWebMediaPermissionsUtils",
               ).queryMediaPermissionStateStrict("microphone"),
@@ -89,11 +110,13 @@ __d(
         })(),
         getVoipCameraPermissionGranted: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return u(
-              yield o(
-                "WAWebVoipAcquireMediaStream",
-              ).queryCameraPermissionStrict(),
-            );
+            return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+              ? c(
+                  yield o(
+                    "WAWebVoipAcquireMediaStream",
+                  ).queryCameraPermissionStrict(),
+                )
+              : null;
           });
           function t() {
             return e.apply(this, arguments);
@@ -101,14 +124,14 @@ __d(
           return t;
         })(),
       };
-    function u(e) {
+    function c(e) {
       return e === "granted"
         ? !0
         : e === "denied" || e === "prompt"
           ? !1
           : null;
     }
-    l.VoipBridgeMediaStreamHandlers = s;
+    l.VoipBridgeMediaStreamHandlers = u;
   },
   98,
 );

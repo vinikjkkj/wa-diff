@@ -22,6 +22,7 @@ __d(
     "WAWebFetchQuickPromotionsCore",
     "WAWebJobUpdateQPSurfaces",
     "WAWebL10NCountryCodes",
+    "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebQplFlowWrapper",
@@ -99,8 +100,9 @@ __d(
       });
     }
     function F() {
-      return o("WAWebQuickPromotionGating").consumerQpGraphQLEnabled()
-        ? o("WAWebCanonicalUtils").isCanonicalPresent()
+      return o("WAWebMobilePlatforms").isSMB()
+        ? (R || (R = n("Promise"))).resolve({ type: "not-enabled" })
+        : o("WAWebCanonicalUtils").isCanonicalPresent()
           ? o("WAWebOrchestratorNonPersistedJob")
               .createNonPersistedJob(
                 "fetchConsumerQuickPromotions",
@@ -113,8 +115,7 @@ __d(
                 },
               )
               .waitUntilCompleted()
-          : (R || (R = n("Promise"))).resolve({ type: "error" })
-        : (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
+          : (R || (R = n("Promise"))).resolve({ type: "error" });
     }
     function O(e) {
       return r("WAWebNetworkStatus")

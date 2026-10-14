@@ -65,11 +65,11 @@ __d(
         var e;
         o("CometSSRContentRevealer").unhideElement(
           (e = _) == null ? void 0 : e.eid,
-          pe(),
+          _e(),
           N(),
         );
       }
-      Ee();
+      ke();
     }
     function w(t) {
       var n;
@@ -92,9 +92,9 @@ __d(
       }
       A() ||
         ((h = !0),
-        (n = se) == null || n.removeSplashScreen(),
-        ke(m, p),
-        X(t, "ERROR"));
+        (n = ue) == null || n.removeSplashScreen(),
+        Ie(m, p),
+        Y(t, "ERROR"));
     }
     function A() {
       return (!!y && y.status === "ERROR") || h;
@@ -109,17 +109,20 @@ __d(
       (P(),
         o("CometSSRContentRevealer").unhideElement(
           (t = _) == null ? void 0 : t.eid,
-          pe(),
+          _e(),
           N(),
         ),
-        H({
+        G({
           id: "Error - SSR is disabled from server",
           payloadType: "LAST",
           renderPassCount: 0,
           status: e,
         }));
     }
-    function O(e) {
+    function O() {
+      return _;
+    }
+    function B(e) {
       if (_ == null)
         return r("FBLogger")("comet_ssr").mustfix(
           'logQPLPoint(): Cannot log QPL point "%s" - ssrInit did not run',
@@ -127,26 +130,26 @@ __d(
         );
       _.enabled && r("qplTimingsServerJS")(_.cavalry_get_lid, e);
     }
-    function B(e, t) {
-      (W(e) || w("Checks for useMatchViewport failed"),
-        t != null && ie.current.logViewportGuess(t));
+    function W(e, t) {
+      (q(e) || w("Checks for useMatchViewport failed"),
+        t != null && le.current.logViewportGuess(t));
     }
-    function W(e) {
+    function q(e) {
       return window.matchMedia
         ? e.every(function (e) {
             var t = e.dimension,
               n = e.numPixels,
               r = e.operation,
               o = e.result,
-              a = q(r, t, n);
+              a = U(r, t, n);
             return window.matchMedia(a).matches === o;
           })
         : !1;
     }
-    function q(e, t, n) {
+    function U(e, t, n) {
       return "(" + e + "-" + t + ": " + n + "px)";
     }
-    function U(e) {
+    function V(e) {
       var t;
       S.push(e);
       var n = "pending",
@@ -155,12 +158,12 @@ __d(
       if (e.status === "success") n = "content_injected";
       else {
         e.status === "fail_ssr_disabled" && P();
-        var a = ue(e.status);
-        (e.status !== "fail_ssr_disabled" && he(a),
+        var a = ce(e.status);
+        (e.status !== "fail_ssr_disabled" && ye(a),
           (r = a),
           (n = "client_rendered"),
           (o = "error"),
-          (le = le === null || le === "unknown" ? a : le));
+          (se = se === null || se === "unknown" ? a : se));
       }
       var i = {
           readyPreloaders: (t = e.readyPreloaders) != null ? t : [],
@@ -170,27 +173,27 @@ __d(
       ((R[l] = { debug: i, errorStatus: r, renderStatus: n, status: o }),
         (x = l));
     }
-    function V(e, t) {
+    function H(e, t) {
       var n = e.revealSSRContent;
       return {
         removeSplashScreen: function () {
           n &&
             n(function () {
-              return o("CometSSRContentRevealer").unhideElement(t, pe(), N());
+              return o("CometSSRContentRevealer").unhideElement(t, _e(), N());
             });
         },
       };
     }
-    function H(e, t) {
+    function G(e, t) {
       if (!A()) {
-        if ((U(e), z(e), j(e.fizzRootId || ""), !v)) {
+        if ((V(e), j(e), K(e.fizzRootId || ""), !v)) {
           k.push(e);
           return;
         }
-        G(e);
+        z(e);
       }
     }
-    function G(e) {
+    function z(e) {
       if (_ == null) {
         var t;
         return r("FBLogger")("comet_ssr").mustfix(
@@ -207,31 +210,31 @@ __d(
       }
       if ((_.gks.comet_ssr_wait_for_dev || M(), o === "LAST")) {
         var i;
-        (O("ssr_injected"),
-          (i = se) == null || i.removeSplashScreen(),
-          X("", "INJECTED"));
+        (B("ssr_injected"),
+          (i = ue) == null || i.removeSplashScreen(),
+          Y("", "INJECTED"));
       } else {
         var l;
-        (l = se) == null || l.removeSplashScreen();
+        (l = ue) == null || l.removeSplashScreen();
       }
-      (ie.current.logSSRIndividualPaint(!0, e.renderPassCount), Se());
-    }
-    function z(e) {
-      O("ssr_received_" + e.id);
+      (le.current.logSSRIndividualPaint(!0, e.renderPassCount), Re());
     }
     function j(e) {
+      B("ssr_received_" + e.id);
+    }
+    function K(e) {
       if (!C) {
         if (((C = !0), _ == null))
           return r("FBLogger")("comet_ssr").mustfix(
             "mountSSRRootContent(): Cannot mount SSR root content - ssrInit did not run",
           );
-        ((D = document.getElementById(_.eid)), D && I && fe(D, I));
+        ((D = document.getElementById(_.eid)), D && I && ge(D, I));
       }
     }
-    function K() {
+    function Q() {
       return { removeSplashScreen: g };
     }
-    function Q() {
+    function X() {
       if (D != null) {
         var e = D;
         N()
@@ -239,7 +242,7 @@ __d(
           : (e.style.display = "none");
       }
     }
-    function X(e, t) {
+    function Y(e, t) {
       var n, a, i;
       if (!b) {
         ((b = !0),
@@ -253,39 +256,39 @@ __d(
         var l = y;
         (o("CometSSRContentRevealer").unhideElement(
           (n = (a = _) == null ? void 0 : a.eid) != null ? n : "",
-          pe(),
+          _e(),
           N(),
         ),
           l.status !== "INJECTED"
-            ? (ke(m, p), ge())
+            ? (Ie(m, p), he())
             : ((i = _) != null && i.gks.comet_ssr_wait_for_dev) || M(),
           r("maybeScheduleFeedHydration")(p),
-          ie.current.logSSRInjection(l),
-          Se(),
+          le.current.logSSRInjection(l),
+          Re(),
           (f = !0));
       }
     }
-    function Y(e) {
+    function J(e) {
       if (((D = e), !!_)) {
         if (
           (_.gks.mwp_ssr_enabled && _.enabled) ||
           _.gks.stop_render_at_splashscreen
         )
-          _.is_in_crawler_mode || Q();
+          _.is_in_crawler_mode || X();
         else if (!_.enabled) {
           var t;
           F((t = _.disabled_reason) != null ? t : "fail_ssr_disabled");
         }
       }
     }
-    function J() {
+    function Z() {
       (m == null &&
-        Z("SSR wait for too long and cannot receive Comet Root Component"),
+        ee("SSR wait for too long and cannot receive Comet Root Component"),
         p == null &&
           !o("CometClientRootRendererUtils").getIsClientSideRendered() &&
-          Z("SSR wait for too long and never hydrated/client rendered"));
+          ee("SSR wait for too long and never hydrated/client rendered"));
     }
-    function Z(e) {
+    function ee(e) {
       var t =
         "SSR Statuses:\n  Is root component available: " +
         String(m != null) +
@@ -303,8 +306,8 @@ __d(
         .addMetadata("COMET_INFRA", "SSR", t)
         .mustfix(e);
     }
-    function ee(e) {
-      (o("CometSSRContentRevealer").unhideElement(e.eid, pe(), N()),
+    function te(e) {
+      (o("CometSSRContentRevealer").unhideElement(e.eid, _e(), N()),
         !f &&
           !o("CometClientRootRendererUtils").getIsClientSideRendered() &&
           (w("Timed out waiting for SSR payload"),
@@ -315,15 +318,15 @@ __d(
             String(f),
             String(o("CometClientRootRendererUtils").getIsClientSideRendered()),
           ),
-          J()));
+          Z()));
     }
-    function te(e) {
+    function ne(e) {
       ((_ = e),
-        O("ssr_init"),
+        B("ssr_init"),
         (D = document.getElementById(e.eid)),
         P(),
         ($ = window.setTimeout(function () {
-          (($ = null), ee(e));
+          (($ = null), te(e));
         }, c)));
       var t = ["success_status", "eid"].filter(function (t) {
         return !e[t];
@@ -333,14 +336,14 @@ __d(
           w("Error receiving SSRData: missing keys " + t.toString()),
         D)
       )
-        Y(D);
+        J(D);
       else if (!_.enabled) {
         var n;
         F((n = _.disabled_reason) != null ? n : "fail_ssr_disabled");
       }
       ((window.__invalidateSSR = function (e) {
         (r("FBLogger")("comet_ssr").warn(e),
-          H({
+          G({
             id: "Error",
             payloadType: "LAST",
             renderPassCount: 0,
@@ -353,22 +356,22 @@ __d(
           }),
         typeof window.requireLazy == "function" &&
           window.requireLazy(["m#ReactDOM"], function (e) {
-            O("ssr_reactdom_ready");
+            B("ssr_reactdom_ready");
           }));
     }
-    function ne() {
+    function re() {
       var e, t;
       return (e = (t = _) == null ? void 0 : t.is_in_crawler_mode) != null
         ? e
         : !1;
     }
-    function re(e) {
+    function oe(e) {
       window.__onSSRError && window.__onSSRError(e);
     }
-    function oe(e) {
+    function ae(e) {
       window.__SSRFailJestOnError && window.__SSRFailJestOnError(e);
     }
-    function ae() {
+    function ie() {
       ((window.__receivedSSRErrors = window.__receivedSSRErrors || []),
         (window.__onSSRError =
           window.__onSSRError ||
@@ -377,10 +380,10 @@ __d(
             (t = window.__receivedSSRErrors) == null || t.push(e);
           }));
     }
-    var ie = o("CometSSRLogger").getSSRLogger(),
-      le = null,
-      se = K();
-    function ue(e) {
+    var le = o("CometSSRLogger").getSSRLogger(),
+      se = null,
+      ue = Q();
+    function ce(e) {
       switch (e) {
         case "fail_js_error":
           return "server_js_error";
@@ -398,15 +401,15 @@ __d(
           return "unknown";
       }
     }
-    var ce = null,
-      de = !1;
-    function me(e) {
-      de || ((ce = e), A() && (ce(), (de = !0)));
+    var de = null,
+      me = !1;
+    function pe(e) {
+      me || ((de = e), A() && (de(), (me = !0)));
     }
-    function pe() {
-      return r("justknobx")._("957") || ne();
+    function _e() {
+      return r("justknobx")._("957") || re();
     }
-    function _e(e, t, n, r, a) {
+    function fe(e, t, n, r, a) {
       for (
         v = !0,
           m = t,
@@ -416,20 +419,20 @@ __d(
           ),
           e &&
             ((I = e),
-            (ie.current = o("CometSSRLogger").initLogger(e)),
+            (le.current = o("CometSSRLogger").initLogger(e)),
             o("CometSSRHydrationHelpers").initHydrationHelperTraceAPIObj(e),
-            fe(D, e),
-            ie.current.logSSRFizzInit()),
-          se = V(a, r),
-          A() && ke(m, p),
-          ie.current.logSSRPayloadQueued(k.length === 0);
+            ge(D, e),
+            le.current.logSSRFizzInit()),
+          ue = H(a, r),
+          A() && Ie(m, p),
+          le.current.logSSRPayloadQueued(k.length === 0);
         k.length > 0;
       ) {
         var i = k.shift();
-        i != null && G(i);
+        i != null && z(i);
       }
     }
-    function fe(e, t) {
+    function ge(e, t) {
       e != null &&
         t.onComplete(function () {
           (t.addMetadata("ssr_root_node_visible", e.style.display !== "none"),
@@ -443,10 +446,10 @@ __d(
             ));
         });
     }
-    function ge() {
-      le = le === null || le === "unknown" ? "ssr_disabled" : le;
+    function he() {
+      se = se === null || se === "unknown" ? "ssr_disabled" : se;
     }
-    function he(e) {
+    function ye(e) {
       r("gkx")("23415") &&
         r("jestOnlyViolation")(
           "Encountered error during server rendering: " +
@@ -455,10 +458,10 @@ __d(
           "comet_ssr",
         );
     }
-    function ye(e, t, n) {
-      (T.push({ error: t, errorInfo: n, message: e }), Se());
+    function Ce(e, t, n) {
+      (T.push({ error: t, errorInfo: n, message: e }), Re());
     }
-    function Ce(e) {
+    function be(e) {
       if (!A() && Object.keys(R).length !== 0) {
         var t = R[x];
         if (t == null) {
@@ -472,18 +475,18 @@ __d(
         (t.debug == null
           ? (t.debug = { readyPreloaders: [], wallTime: e })
           : (t.debug.wallTime = e),
-          Se());
+          Re());
       }
     }
-    function be(e) {
-      A() || (e.length > 0 && L.push(e), Se());
-    }
     function ve(e) {
-      A() || (E.push(e), Se());
+      A() || (e.length > 0 && L.push(e), Re());
     }
-    function Se() {
+    function Se(e) {
+      A() || (E.push(e), Re());
+    }
+    function Re() {
       (o("CometSSRDebugHelper").updateSSRDebugState({
-        globalBoundaryErrorStatus: le,
+        globalBoundaryErrorStatus: se,
         ignoredHydrationErrors: T,
         lastPayloadArrived: b,
         sampleProfiles: L,
@@ -493,14 +496,14 @@ __d(
       }),
         o("CometSSRDebugHelper").triggerDebugStateUpdate());
     }
-    function Re() {
-      b || ((b = !0), Se());
-    }
     function Le() {
-      ((h = !0), (b = !0), Se());
+      b || ((b = !0), Re());
     }
-    window.__SSRFailJestOnError = he;
     function Ee() {
+      ((h = !0), (b = !0), Re());
+    }
+    window.__SSRFailJestOnError = ye;
+    function ke() {
       if (
         !(
           p !== null ||
@@ -522,7 +525,7 @@ __d(
         );
       }
     }
-    function ke(e, t) {
+    function Ie(e, t) {
       if (_ == null)
         return r("FBLogger")("comet_ssr").mustfix(
           o("CometSSRLogger").SSR_NOT_INITIALIZED,
@@ -546,24 +549,25 @@ __d(
       }
       t.render(e);
     }
-    ((l.logQPLPoint = O),
-      (l.onViewportGuessValidation = B),
-      (l.updateRenderPassStatus = U),
-      (l.onPayloadReceived = H),
-      (l.processRootElement = Y),
-      (l.ssrInit = te),
-      (l.onSSRError = re),
-      (l.onSSRFailJestOnError = oe),
-      (l.injectOnSSRErrorHandlerDefaultOnWindow = ae),
-      (l.onForceHydration = me),
-      (l.initFizz = _e),
-      (l.logRecoverableHydrationError = ye),
-      (l.updateSSRRequestTime = Ce),
-      (l.updateSampleProfile = be),
-      (l.updateServerInfo = ve),
-      (l.updateSSRDebugState = Se),
-      (l.markSSRComplete = Re),
-      (l.markSSRError = Le));
+    ((l.getSSRData = O),
+      (l.logQPLPoint = B),
+      (l.onViewportGuessValidation = W),
+      (l.updateRenderPassStatus = V),
+      (l.onPayloadReceived = G),
+      (l.processRootElement = J),
+      (l.ssrInit = ne),
+      (l.onSSRError = oe),
+      (l.onSSRFailJestOnError = ae),
+      (l.injectOnSSRErrorHandlerDefaultOnWindow = ie),
+      (l.onForceHydration = pe),
+      (l.initFizz = fe),
+      (l.logRecoverableHydrationError = Ce),
+      (l.updateSSRRequestTime = be),
+      (l.updateSampleProfile = ve),
+      (l.updateServerInfo = Se),
+      (l.updateSSRDebugState = Re),
+      (l.markSSRComplete = Le),
+      (l.markSSRError = Ee));
   },
   98,
 );

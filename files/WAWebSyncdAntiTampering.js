@@ -13,7 +13,6 @@ __d(
     "WAWebABProps",
     "WAWebConnModel",
     "WAWebCurrentUser",
-    "WAWebEncryptionManagerSelector",
     "WAWebGetCollectionVersion",
     "WAWebGetSyncAction",
     "WAWebKeyManagementUtils",
@@ -26,6 +25,7 @@ __d(
     "WAWebSyncdCrypto",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDbCallbacksApi",
+    "WAWebSyncdEncryptionManager",
     "WAWebSyncdError",
     "WAWebSyncdKeyCache",
     "WAWebSyncdMetricFatalError",
@@ -514,20 +514,20 @@ __d(
                 ),
                 null
               );
-            var I = o("WAWebEncryptionManagerSelector").syncdEncryptionManager()
-                .generateSnapshotMac,
-              T = yield I(n, r, u, e),
-              D = o("WACryptoUtils").arrayBuffersEqual(T, t),
-              x = o(
+            var I = yield o(
+                "WAWebSyncdEncryptionManager",
+              ).WASyncdEncryptionManager.generateSnapshotMac(n, r, u, e),
+              T = o("WACryptoUtils").arrayBuffersEqual(I, t),
+              D = o(
                 "WAWebSyncdSnapshotRecoveryGatingUtils",
               ).shouldPreformSnapshotRecovery(
                 e,
                 s,
                 new (o("WAWebSyncdError").SyncdFatalError)("probe"),
               ),
-              $ = !D && l && x.shouldPerformRecovery;
-            if (!D) {
-              ($ &&
+              x = !T && l && D.shouldPerformRecovery;
+            if (!T) {
+              (x &&
                 o("WALogger").ERROR(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -547,109 +547,109 @@ __d(
                   e,
                   "[" + R + "] failed validate snapshot mac",
                 ));
-              var P = yield o("WAWebSyncdAntiTamperingLtHash").checkLtHash(
+              var $ = yield o("WAWebSyncdAntiTamperingLtHash").checkLtHash(
                   R,
                   e,
                 ),
-                N = P.isLtHashConsistent,
-                M = P.scratchLtHash,
-                w = l
+                P = $.isLtHashConsistent,
+                N = $.scratchLtHash,
+                M = l
                   ? o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
                       .SNAPSHOT_MAC_MISMATCH_IN_SNAPSHOT
                   : o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
                       .SNAPSHOT_MAC_MISMATCH_IN_PATCH,
-                A =
+                w =
                   (c == null ? void 0 : c.collectionName) &&
                   !o("WACryptoUtils").arrayBuffersEqual(
                     i,
                     c == null ? void 0 : c.collectionName,
                   ),
-                F =
+                A =
                   (c == null ? void 0 : c.newLthash) &&
                   !o("WACryptoUtils").arrayBuffersEqual(
                     r,
                     c == null ? void 0 : c.newLthash,
                   ),
-                O =
+                F =
                   (c == null ? void 0 : c.patchVersion) &&
                   !o("WACryptoUtils").arrayBuffersEqual(
                     a,
                     c == null ? void 0 : c.patchVersion,
                   ),
-                B =
+                O =
                   (c == null ? void 0 : c.currentLthash) &&
                   d &&
                   !o("WACryptoUtils").arrayBuffersEqual(
                     d,
                     c == null ? void 0 : c.currentLthash,
                   ),
-                W =
+                B =
                   (c == null ? void 0 : c.newLthashSubtract) &&
                   (m == null ? void 0 : m.subtractResult) &&
                   !o("WACryptoUtils").arrayBuffersEqual(
                     m == null ? void 0 : m.subtractResult,
                     c == null ? void 0 : c.newLthashSubtract,
                   ),
-                q = m == null ? void 0 : m.hasOverride,
-                U = m == null ? void 0 : m.numAdd,
-                V = m == null ? void 0 : m.numRemove,
-                G =
+                W = m == null ? void 0 : m.hasOverride,
+                q = m == null ? void 0 : m.numAdd,
+                U = m == null ? void 0 : m.numRemove,
+                V =
                   (c == null ? void 0 : c.currentLthash) &&
-                  M &&
+                  N &&
                   !o("WACryptoUtils").arrayBuffersEqual(
-                    M,
+                    N,
                     c == null ? void 0 : c.currentLthash,
                   ),
-                z = p === 0,
-                j =
+                G = p === 0,
+                z =
                   (c == null ? void 0 : c.numberAdd) != null &&
                   (m == null ? void 0 : m.numAdd) != null &&
                   (m == null ? void 0 : m.numAdd) !==
                     (c == null ? void 0 : c.numberAdd),
-                K =
+                j =
                   (c == null ? void 0 : c.numberRemove) != null &&
                   (m == null ? void 0 : m.numRemove) != null &&
                   (m == null ? void 0 : m.numRemove) !==
                     (c == null ? void 0 : c.numberRemove),
-                Q = m == null ? void 0 : m.didUseFallback,
-                X = m == null ? void 0 : m.hasMissingRemove,
-                Y =
+                K = m == null ? void 0 : m.didUseFallback,
+                Q = m == null ? void 0 : m.hasMissingRemove,
+                X =
                   (yield o("WAWebKeyManagementUtils").getPeerDevices()).length >
                   1;
               if (
                 (o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
-                  w,
+                  M,
                   {
                     collection: e,
                     patchSnapshotMutationCount: s,
                     patchVersion: u,
                     isFatal: !E,
-                    isLtHashConsistent: N,
-                    macFatalCollectionNameMismatch: A,
-                    macFatalCurrentLthashMismatch: B,
-                    macFatalNewLthashMismatch: F,
-                    macFatalPatchVersionMismatch: O,
-                    macFatalNewLthashSubtractMismatch: W,
-                    macFatalNumberHasOverrideMutation: q,
-                    macFatalNumberNumAddMutation: U,
-                    macFatalNumberNumRemoveMutation: V,
+                    isLtHashConsistent: P,
+                    macFatalCollectionNameMismatch: w,
+                    macFatalCurrentLthashMismatch: O,
+                    macFatalNewLthashMismatch: A,
+                    macFatalPatchVersionMismatch: F,
+                    macFatalNewLthashSubtractMismatch: B,
+                    macFatalNumberHasOverrideMutation: W,
+                    macFatalNumberNumAddMutation: q,
+                    macFatalNumberNumRemoveMutation: U,
                     macFatalSenderCurrentLthashToLocalCalculatedCurrentLthashMismatch:
-                      G,
-                    isPatchSenderPrimary: z,
-                    macFatalDidUseMacFetchFallback: Q,
-                    macFatalHasMissingRemove: X,
-                    macFatalNumberAddMismatch: j,
-                    macFatalNumberRemoveMismatch: K,
-                    isThereAnotherSyncdCompanion: Y,
+                      V,
+                    isPatchSenderPrimary: G,
+                    macFatalDidUseMacFetchFallback: K,
+                    macFatalHasMissingRemove: Q,
+                    macFatalNumberAddMismatch: z,
+                    macFatalNumberRemoveMismatch: j,
+                    isThereAnotherSyncdCompanion: X,
                     isPureSyncdSession: yield o(
                       "WAWebSyncdAntiTamperingLtHash",
                     ).getPureSyncDSessionDetails(),
                     lidMigrationStage: o(
                       "WAWebSyncdAntiTamperingLtHash",
                     ).getLidMigrationStage(),
-                    recoveryStatus: x.reason,
+                    recoveryStatus: D.reason,
                   },
-                  $,
+                  x,
                 ),
                 o("WALogger").LOG(
                   g ||
@@ -678,31 +678,31 @@ __d(
                       "\n    ",
                     ])),
                   R,
-                  w,
+                  M,
                   e,
                   s,
                   u,
-                  N,
-                  A,
-                  B,
-                  F,
+                  P,
+                  w,
                   O,
+                  A,
+                  F,
+                  B,
                   W,
                   q,
                   U,
                   V,
                   G,
-                  z,
-                  Q,
-                  X,
-                  j,
                   K,
-                  Y,
+                  Q,
+                  z,
+                  j,
+                  X,
                 ),
                 E)
               ) {
                 yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(e);
-                var J =
+                var Y =
                   "syncd: unable to validate snapshot mac. collection: " + e;
                 if (o("WAWebCurrentUser").isEmployee())
                   o("WALogger")
@@ -714,11 +714,11 @@ __d(
                           "",
                         ])),
                       R,
-                      J,
+                      Y,
                     )
-                    .sendLogs(J, { sampling: 1 });
+                    .sendLogs(Y, { sampling: 1 });
                 else if (c != null) {
-                  var Z = J + " (additional info)";
+                  var J = Y + " (additional info)";
                   o("WALogger")
                     .ERROR(
                       y ||
@@ -728,9 +728,9 @@ __d(
                           "",
                         ])),
                       R,
-                      Z,
+                      J,
                     )
-                    .sendLogs(Z, { sampling: 1 });
+                    .sendLogs(J, { sampling: 1 });
                 } else
                   o("WALogger")
                     .ERROR(
@@ -741,9 +741,9 @@ __d(
                           "",
                         ])),
                       R,
-                      J,
+                      Y,
                     )
-                    .sendLogs(J, { sampling: 0.01 });
+                    .sendLogs(Y, { sampling: 0.01 });
                 if (
                   (yield o(
                     "WAWebGetCollectionVersion",
@@ -758,9 +758,9 @@ __d(
                     R,
                     e,
                   ),
-                  G === !1 && B === !0)
+                  V === !1 && O === !0)
                 ) {
-                  var ee;
+                  var Z;
                   (o("WALogger").LOG(
                     v ||
                       (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -773,14 +773,14 @@ __d(
                     R,
                     o("WAWebSyncdCryptoUtils")
                       .arrayBufferToHexPadded(
-                        (ee = c == null ? void 0 : c.currentLthash) != null
-                          ? ee
+                        (Z = c == null ? void 0 : c.currentLthash) != null
+                          ? Z
                           : new ArrayBuffer(0),
                       )
                       .slice(-16),
                     o("WAWebSyncdCryptoUtils")
                       .arrayBufferToHexPadded(
-                        M != null ? M : new ArrayBuffer(0),
+                        N != null ? N : new ArrayBuffer(0),
                       )
                       .slice(-16),
                     o("WAWebSyncdCryptoUtils")
@@ -800,13 +800,13 @@ __d(
                         "syncd: snapshot_mac_mismatch_in_patch due to cache mismatch",
                       ));
                 }
-                return T;
+                return I;
               }
               throw new (o("WAWebSyncdError").SyncdFatalError)(
                 "unable to validate snapshot mac",
               );
             }
-            return T;
+            return I;
           },
         )),
         j.apply(this, arguments)
@@ -819,17 +819,17 @@ __d(
       return (
         (Q = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i, l, s) {
-            var u = o("WAWebEncryptionManagerSelector").syncdEncryptionManager()
-                .generatePatchMac,
-              c = yield u({
+            var u = yield o(
+                "WAWebSyncdEncryptionManager",
+              ).WASyncdEncryptionManager.generatePatchMac({
                 collection: e,
                 keyData: n,
                 patchVersion: l,
                 snapshotMac: r,
                 valueMacs: a,
               }),
-              d = o("WACryptoUtils").arrayBuffersEqual(c, t);
-            if (!d)
+              c = o("WACryptoUtils").arrayBuffersEqual(u, t);
+            if (!c)
               throw (
                 yield H(e, l, s),
                 yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
@@ -859,7 +859,7 @@ __d(
                   "unable to validate patch mac",
                 )
               );
-            return c;
+            return u;
           },
         )),
         Q.apply(this, arguments)
@@ -883,20 +883,23 @@ __d(
                   })) + 1,
               i = o("WAWebSyncdCryptoUtils").to64BitNetworkOrder(a),
               l = o("WAEncodeString").toUtf8(e).buffer,
-              s = o("WAWebEncryptionManagerSelector").syncdEncryptionManager(),
-              u = yield s.generateSnapshotMac(r, t, a, e),
-              c = yield s.generatePatchMac({
+              s = yield o(
+                "WAWebSyncdEncryptionManager",
+              ).WASyncdEncryptionManager.generateSnapshotMac(r, t, a, e),
+              u = yield o(
+                "WAWebSyncdEncryptionManager",
+              ).WASyncdEncryptionManager.generatePatchMac({
                 collection: e,
                 keyData: r,
                 patchVersion: a,
-                snapshotMac: u,
+                snapshotMac: s,
                 valueMacs: n.map(function (e) {
                   return e.valueMac;
                 }),
               }),
-              d = yield o("WAWebSyncdCrypto").generateEncryptionKeys(r),
-              m = d.patchMacKey,
-              p = d.snapshotMacKey;
+              c = yield o("WAWebSyncdCrypto").generateEncryptionKeys(r),
+              d = c.patchMacKey,
+              m = c.snapshotMacKey;
             return (
               o("WALogger").LOG(
                 L ||
@@ -913,10 +916,10 @@ __d(
                 a,
                 o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(i),
                 o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(l),
+                o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(s),
                 o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(u),
-                o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(c),
               ),
-              { snapshotMac: u, patchMac: c }
+              { snapshotMac: s, patchMac: u }
             );
           },
         )),

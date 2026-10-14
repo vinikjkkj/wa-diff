@@ -4,6 +4,7 @@ __d(
     "WAAbortError",
     "WABinary",
     "WASocketTransport",
+    "WAWebABProps",
     "WAWebEventsWaitForEvent",
     "WAWebNoop",
   ],
@@ -26,6 +27,14 @@ __d(
               return n.close();
             })
             .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))),
+          o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4") &&
+            t.addEventListener(
+              "close",
+              function () {
+                return n.$WatchedSocket$p_2.abort();
+              },
+              { once: !0 },
+            ),
           n
         );
       }

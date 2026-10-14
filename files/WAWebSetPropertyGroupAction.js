@@ -13,7 +13,6 @@ __d(
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupModifyInfoJob",
-    "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingUIUtils",
     "WAWebMexUpdateGroupPropertyJob",
     "WAWebMiscErrors",
@@ -266,8 +265,7 @@ __d(
         (f === o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL &&
           (S = !0),
         f === o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING &&
-          (!o("WAWebLimitSharingGatingUtils").isOpusAdminOnly() ||
-            i.isCAGAdmin()) &&
+          i.isCAGAdmin() &&
           (S = !0),
         !S && !((a = i.groupMetadata) != null && a.canSetGroupProperty()))
       )

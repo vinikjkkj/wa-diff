@@ -16,6 +16,7 @@ __d(
         ADMIN_REMOVE_GROUP_PARTICIPANT: 11,
         ADMIN_CHANGE_GROUP_ADMINS: 12,
         ADMIN_SET_GROUP_PARTICIPANT_UPDATE_MODE: 13,
+        PAYMENTS_OPG_XMA: 14,
       }),
       l = e;
     i.default = l;

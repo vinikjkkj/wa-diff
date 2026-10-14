@@ -54,6 +54,19 @@ __d(
       e.endCancel(void 0, { string: { cancel_reason: t } });
     }
     function f(e, t) {
+      var n = t.initErrorName,
+        r = t.reason,
+        o = t.reloadReason;
+      e.endCancel(void 0, {
+        string: {
+          cancel_reason: "voip_not_ready",
+          voip_init_error_name: n,
+          voip_init_reload_reason: o,
+          voip_not_ready_reason: r,
+        },
+      });
+    }
+    function g(e, t) {
       e.endFail(t);
     }
     ((l.VoipOutgoingCallQplPoint = u),
@@ -62,7 +75,8 @@ __d(
       (l.voipOutgoingCallQplAddAnnotations = m),
       (l.endVoipOutgoingCallQplSuccess = p),
       (l.endVoipOutgoingCallQplCancel = _),
-      (l.endVoipOutgoingCallQplFail = f));
+      (l.endVoipOutgoingCallQplNotReady = f),
+      (l.endVoipOutgoingCallQplFail = g));
   },
   98,
 );

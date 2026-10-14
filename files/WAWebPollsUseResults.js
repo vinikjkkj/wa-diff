@@ -27,91 +27,86 @@ __d(
       var t = o("react-compiler-runtime").c(18),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [
-            o("WAWebMsgGetters").getId,
-            o("WAWebMsgGetters").getPollOptions,
-          ]),
-          (t[0] = n))
+        ? ((n = [o("WAWebMsgGetters").getPollOptions]), (t[0] = n))
         : (n = t[0]);
       var a = o("useWAWebMsgValues").useMsgValues(
-          e.id,
+          e,
           r("WAWebCastToPollCreationMsg"),
           n,
         ),
         i = a[0],
-        l = a[1],
-        s;
-      t[1] !== l
-        ? ((s = r("nullthrows")(
-            l,
+        l;
+      t[1] !== i
+        ? ((l = r("nullthrows")(
+            i,
             "Poll creation message is missing poll options",
           )),
-          (t[1] = l),
-          (t[2] = s))
-        : (s = t[2]);
-      var c = s,
-        d;
-      t[3] !== i
-        ? ((d = o(
+          (t[1] = i),
+          (t[2] = l))
+        : (l = t[2]);
+      var s = l,
+        c;
+      t[3] !== e
+        ? ((c = o(
             "WAWebPollsPollVoteCollection",
-          ).PollVoteCollection.getForParentAddressingModeInsensitive([i])),
-          (t[3] = i),
-          (t[4] = d))
-        : (d = t[4]);
-      var f = d,
-        g = f[0],
-        h;
+          ).PollVoteCollection.getForParentAddressingModeInsensitive([e])),
+          (t[3] = e),
+          (t[4] = c))
+        : (c = t[4]);
+      var d = c,
+        f = d[0],
+        g;
       t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = ["add", "remove", "reset"]), (t[5] = h))
-        : (h = t[5]);
-      var y;
-      t[6] !== g
-        ? ((y = function () {
-            return g.toArray();
+        ? ((g = ["add", "remove", "reset"]), (t[5] = g))
+        : (g = t[5]);
+      var h;
+      t[6] !== f
+        ? ((h = function () {
+            return f.toArray();
           }),
-          (t[6] = g),
-          (t[7] = y))
-        : (y = t[7]);
-      var C = r("useWAWebEventTargetValue")(g, h, y),
-        b = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
-        v,
-        S;
-      (t[8] !== i
-        ? ((v = function () {
+          (t[6] = f),
+          (t[7] = h))
+        : (h = t[7]);
+      var y = r("useWAWebEventTargetValue")(f, g, h),
+        C = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
+        b,
+        v;
+      (t[8] !== e
+        ? ((b = function () {
             o("WAWebAddonHydrationUtils").hydrateAddons({
-              ids: [i],
+              ids: [e],
               hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             });
           }),
-          (S = [i]),
-          (t[8] = i),
-          (t[9] = v),
-          (t[10] = S))
-        : ((v = t[9]), (S = t[10])),
-        u(v, S));
-      var R, L;
-      (t[11] !== b || t[12] !== C
-        ? ((R = function () {
-            var e = C.filter(p);
+          (v = [e]),
+          (t[8] = e),
+          (t[9] = b),
+          (t[10] = v))
+        : ((b = t[9]), (v = t[10])),
+        u(b, v));
+      var S, R;
+      (t[11] !== C || t[12] !== y
+        ? ((S = function () {
+            var e = y.filter(p);
             e.length !== 0 &&
-              b({
+              C({
                 addOnType: o("WAWebMessageAddOnType").MessageAddOnType.PollVote,
                 addOns: e.map(m),
               });
           }),
-          (L = [C, b]),
-          (t[11] = b),
-          (t[12] = C),
-          (t[13] = R),
-          (t[14] = L))
-        : ((R = t[13]), (L = t[14])),
-        u(R, L));
-      var E;
+          (R = [y, C]),
+          (t[11] = C),
+          (t[12] = y),
+          (t[13] = S),
+          (t[14] = R))
+        : ((S = t[13]), (R = t[14])),
+        u(S, R));
+      var L;
       return (
-        t[15] !== c || t[16] !== C
-          ? ((E = _(C, c)), (t[15] = c), (t[16] = C), (t[17] = E))
-          : (E = t[17]),
-        E
+        t[15] !== s || t[16] !== y
+          ? ((L = _(y, s)), (t[15] = s), (t[16] = y), (t[17] = L))
+          : (L = t[17]),
+        L
       );
     }
     function m(e) {

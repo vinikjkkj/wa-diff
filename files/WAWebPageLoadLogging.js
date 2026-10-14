@@ -9,6 +9,7 @@ __d(
       startPageLoadQplMeasure: function () {},
       addPageLoadQplPoint: function () {},
       addPageLoadQplAnnotation: function () {},
+      addPageLoadQplAnnotationNow: function () {},
       incrementPageLoadQplSocketError: function () {},
       addPageLoadValidationData: function () {},
       setWamCompleteForValidation: function () {},
@@ -32,19 +33,22 @@ __d(
     function p(t) {
       return e.addPageLoadQplAnnotation(t);
     }
-    function _(t, n) {
+    function _(t) {
+      return e.addPageLoadQplAnnotationNow(t);
+    }
+    function f(t, n) {
       return e.addPageLoadValidationData(t, n);
     }
-    function f() {
+    function g() {
       return e.incrementPageLoadQplSocketError();
     }
-    function g() {
+    function h() {
       return e.setWamCompleteForValidation();
     }
-    function h() {
+    function y() {
       return e.PAGE_LOAD_ID;
     }
-    function y() {
+    function C() {
       return s;
     }
     ((i.setImpl = l),
@@ -53,11 +57,12 @@ __d(
       (i.endPageLoadQplMeasure = d),
       (i.addPageLoadQplPoint = m),
       (i.addPageLoadQplAnnotation = p),
-      (i.addPageLoadValidationData = _),
-      (i.incrementPageLoadQplSocketError = f),
-      (i.setWamCompleteForValidation = g),
-      (i.getPageLoadId = h),
-      (i.wasPageLoadQplLogged = y));
+      (i.addPageLoadQplAnnotationNow = _),
+      (i.addPageLoadValidationData = f),
+      (i.incrementPageLoadQplSocketError = g),
+      (i.setWamCompleteForValidation = h),
+      (i.getPageLoadId = y),
+      (i.wasPageLoadQplLogged = C));
   },
   66,
 );

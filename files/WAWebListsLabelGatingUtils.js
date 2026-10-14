@@ -12,12 +12,7 @@ __d(
           ))
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_smb_label_chat_header_enabled_web",
-      );
-    }
-    ((l.smartFiltersEnabled = e), (l.isCTWASMBLabelChatHeaderEnabledWeb = s));
+    l.smartFiltersEnabled = e;
   },
   98,
 );

@@ -3,23 +3,27 @@ __d(
   ["invariant", "WALogger", "WAWebStorageSchema", "err", "gkx"],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c;
-    function d(e, t, n, r) {
-      return e.reduce(function (e, a) {
-        var i = o("WAWebStorageSchema").cloneSchema(a);
+    function d(e) {
+      var t = e.schemas,
+        n = e.tableColumns,
+        r = e.tableEncryptedColumns,
+        a = e.tableNames;
+      return t.reduce(function (e, t) {
+        var i = o("WAWebStorageSchema").cloneSchema(t);
         if ((!(i.name in e) || s(0, 107631), i.deleted === !0))
           return ((e[i.name] = null), e);
-        (t.set(a.name, i.name),
+        (a.set(t.name, i.name),
           n.set(
-            a.name,
+            t.name,
             i.columns.reduce(function (e, t) {
               return (e.set(t.name, t), e);
             }, new Map()),
           ),
-          r.set(a.name, i.encryptedColumns || {}));
+          r.set(t.name, i.encryptedColumns || {}));
         var l = i.columns.filter(function (e) {
           return e.primaryKey;
         });
-        l.length >= 1 || s(0, 75745, a.name);
+        l.length >= 1 || s(0, 75745, t.name);
         var u = [m(l)].concat(i.indexes.map(p)).join(", ");
         return ((e[i.name] = u), e);
       }, {});

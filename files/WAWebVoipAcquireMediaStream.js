@@ -578,6 +578,8 @@ __d(
           function* (e, t, n, r) {
             var o = yield ct({
               checkVideo: e,
+              onFailureGuideConfirm:
+                r == null ? void 0 : r.onFailureGuideConfirm,
               showFailureModal: !0,
               shouldOpenFailureGuide:
                 r == null ? void 0 : r.shouldOpenFailureGuide,
@@ -600,57 +602,58 @@ __d(
           var t = e.abortSignal,
             n = e.captureTypeOverride,
             a = e.checkVideo,
-            i = e.originatingCall,
-            l = e.shouldOpenFailureGuide,
-            s = e.showFailureModal,
-            u = e.suppressPromptGuide,
-            c = e.timeoutLimitOverride;
+            i = e.onFailureGuideConfirm,
+            l = e.originatingCall,
+            s = e.shouldOpenFailureGuide,
+            u = e.showFailureModal,
+            c = e.suppressPromptGuide,
+            d = e.timeoutLimitOverride;
           if (
             r("WAWebEnvironment").isWindows &&
             !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
           )
             return ((Le.microphone = !0), (Le.camera = !0), "granted");
-          var d = a && !ge(),
-            m = o(
+          var m = a && !ge(),
+            p = o(
               "WAWebVoipPermissionCheckCaptureOwner",
-            ).getPermissionCheckOwner(i),
-            p = yield Xe(a);
-          if (ft(i, t)) return "unavailable";
-          var _ =
+            ).getPermissionCheckOwner(l),
+            _ = yield Xe(a);
+          if (ft(l, t)) return "unavailable";
+          var f =
               n != null
                 ? n
-                : d
+                : m
                   ? o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                       .CAMERA_AND_MICROPHONE
                   : o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                       .MICROPHONE,
-            f =
-              _ ===
+            g =
+              f ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA,
-            g =
-              _ ===
+            h =
+              f ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA_AND_MICROPHONE;
           try {
-            lt(f, g, !0);
-            var h = yield Tt(_, d, m, t, s, c, u);
+            lt(g, h, !0);
+            var y = yield Tt(f, m, p, t, u, d, c);
             return (
-              bt(h, _, p),
-              _t(h, {
+              bt(y, f, _),
+              _t(y, {
                 abortSignal: t,
-                isCameraOnly: f,
-                originatingCall: i,
-                shouldCheckVideo: d,
+                isCameraOnly: g,
+                originatingCall: l,
+                shouldCheckVideo: m,
               })
             );
           } catch (e) {
-            if (gt(i, e, t)) return "unavailable";
-            Ct(e, _, p);
-            var y = at(e);
-            return (St(e, _, d, p, s && (yield mt(l, y))), y);
+            if (gt(l, e, t)) return "unavailable";
+            Ct(e, f, _);
+            var C = at(e);
+            return (St(e, f, m, _, u && (yield mt(s, C)), i), C);
           } finally {
-            lt(f, g, !1);
+            lt(g, h, !1);
           }
         })),
         dt.apply(this, arguments)
@@ -833,7 +836,7 @@ __d(
         ? "mic=" + t.micPermission
         : "mic=" + t.micPermission + ", camera=" + t.cameraPermission;
     }
-    function St(e, t, n, r, a) {
+    function St(e, t, n, r, a, i) {
       if (
         (a === void 0 && (a = !0),
         e instanceof o("WAWebGetUserMediaErrors").NotAllowedError)
@@ -843,6 +846,7 @@ __d(
             Rt(
               Et(e, t, n, r),
               o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK,
+              i,
             ));
         return;
       }
@@ -851,7 +855,8 @@ __d(
         e instanceof o("WAWebGetUserMediaErrors").SourceUnavailableError
       ) {
         (o("WAWebCoreActionsODS").logCallPermissionDeviceError(),
-          a && Rt(Lt(t), o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE));
+          a &&
+            Rt(Lt(t), o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE, i));
         return;
       }
       e instanceof o("WAWebGetUserMediaErrors").GetUserMediaError &&
@@ -861,13 +866,20 @@ __d(
             ? o("WAWebGuidePopup.react").Messaging.CAMERA_AND_MIC_MISSING
             : o("WAWebGuidePopup.react").Messaging.MIC_MISSING,
           o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE,
+          i,
         );
     }
-    function Rt(e, t) {
+    function Rt(e, t, n) {
       o("WAWebModalManager").ModalManager.open(
         fe.jsx(o("WAWebGuidePopup.react").GuidePopup, {
           messaging: e,
           type: t,
+          onConfirm:
+            n == null
+              ? void 0
+              : function () {
+                  (n(), o("WAWebModalManager").closeModalManager());
+                },
           featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
           hideReloadHint:
             t === o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK &&

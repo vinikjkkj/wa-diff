@@ -25,99 +25,97 @@ __d(
       _ = [137, 80, 78, 71, 13, 10, 26, 10],
       f = [255, 216, 255],
       g = [82, 73, 70, 70],
-      h = [87, 69, 66, 80];
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t === void 0 ? {} : t,
-            r = n.maxBytes,
-            o = r === void 0 ? m : r,
-            a = n.timeoutMs,
-            i = a === void 0 ? s : a,
-            l = yield b(e, i);
-          return L(l)
-            ? M("rendering", !1)
-            : (function (e) {
-                if (e === null) return M("session", !1);
-                if (
-                  ((typeof e == "object" && e !== null) ||
-                    typeof e == "function") &&
-                  e.kind === "response" &&
-                  "body" in e &&
-                  "statusCode" in e
-                ) {
-                  var t = e.body,
-                    n = e.statusCode;
-                  return T(t, n, o);
-                }
-                if (
-                  ((typeof e == "object" && e !== null) ||
-                    typeof e == "function") &&
-                  e.kind === "failure" &&
-                  "detail" in e &&
-                  e.detail === p
-                )
-                  return M("responseTooLarge", !0);
-                if (
-                  ((typeof e == "object" && e !== null) ||
-                    typeof e == "function") &&
-                  e.kind === "failure"
-                )
-                  return M("transport", !1);
-                if (
-                  ((typeof e == "object" && e !== null) ||
-                    typeof e == "function") &&
-                  e.kind === "rejected"
-                )
-                  return M("rejected", !0);
-                if (
-                  ((typeof e == "object" && e !== null) ||
-                    typeof e == "function") &&
-                  e.kind === "unreadable"
-                )
-                  return M("malformedResponse", !0);
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })(l);
-        })),
-        C.apply(this, arguments)
-      );
-    }
+      h = [87, 69, 66, 80],
+      y = new Set([9, 10, 13, 32]),
+      C = 123;
     function b(e, t) {
-      return v.apply(this, arguments);
+      var n = t === void 0 ? {} : t,
+        r = n.maxBytes,
+        o = r === void 0 ? m : r,
+        a = n.timeoutMs,
+        i = a === void 0 ? s : a;
+      return R(e, i, function (e, t) {
+        return N(e, t, o);
+      });
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          return n == null ? null : S(n, e, t, c);
-        })),
-        v.apply(this, arguments)
+    function v(e, t, n) {
+      var r = n.maxBytes,
+        o = n.timeoutMs;
+      return R(e, o, function (e, n) {
+        return w(e, n, t, r);
+      });
+    }
+    function S(e, t, n) {
+      var r = n.isHeld,
+        o = n.maxBytes,
+        a = n.timeoutMs;
+      return R(
+        e,
+        a,
+        function (e, n) {
+          return F(e, n, t, o);
+        },
+        r,
       );
     }
-    function S(e, t, n, r) {
-      return R.apply(this, arguments);
+    function R(e, t, n, r) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield E(e, t, n);
-            return r <= 1 || !L(a)
-              ? a
-              : (yield o("WAPromiseDelays").delayMs(d), S(e, t, n, r - 1));
+            var o = yield E(e, t, r);
+            return D(o)
+              ? G("rendering", !1)
+              : (function (e) {
+                  if (e === null) return G("session", !1);
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    e.kind === "response" &&
+                    "body" in e &&
+                    "statusCode" in e
+                  ) {
+                    var t = e.body,
+                      r = e.statusCode;
+                    return n(t, r);
+                  }
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    e.kind === "failure" &&
+                    "detail" in e &&
+                    e.detail === p
+                  )
+                    return G("responseTooLarge", !0);
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    e.kind === "failure"
+                  )
+                    return G("transport", !1);
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    e.kind === "rejected"
+                  )
+                    return G("rejected", !0);
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    e.kind === "unreadable"
+                  )
+                    return G("malformedResponse", !0);
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })(o);
           },
         )),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
-    }
-    function L(e) {
-      return (e == null ? void 0 : e.kind) === "response" && e.statusCode === u;
     }
     function E(e, t, n) {
       return k.apply(this, arguments);
@@ -125,26 +123,65 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield I(e, t, n);
-          return r.kind === "failure" && r.detail !== p ? I(e, t, n) : r;
+          n === void 0 &&
+            (n = function () {
+              return !0;
+            });
+          var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+          return r == null || !n() ? null : I(r, e, t, c);
         })),
         k.apply(this, arguments)
       );
     }
-    function I(e, t, n) {
+    function I(e, t, n, r) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield x(e, t, n);
+            return r <= 1 || !D(a)
+              ? a
+              : (yield o("WAPromiseDelays").delayMs(d), I(e, t, n, r - 1));
+          },
+        )),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e) {
+      return (e == null ? void 0 : e.kind) === "response" && e.statusCode === u;
+    }
+    function x(e, t, n) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield P(e, t, n);
+          return r.kind === "failure" && r.detail !== p ? P(e, t, n) : r;
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e, t, n) {
       return e.exchange("GET", t, { timeoutMs: n });
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function N(e, t, n) {
+      return M.apply(this, arguments);
     }
-    function D() {
+    function M() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (t < 200 || t >= 300) return M("http." + t, t < 500);
-          if (e.length > n) return M("responseTooLarge", !0);
-          var r = x(e);
-          if (r == null) return M("notAnImage", !0);
-          var o = yield P(e.slice().buffer, r);
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = B(e, t, n);
+          if (r != null) return r;
+          var a = q(e);
+          if (a == null) return G("notAnImage", !0);
+          var i = yield V(
+            e.slice().buffer,
+            o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
+            a,
+          );
           return (function (e) {
             if (
               ((typeof e == "object" && e !== null) ||
@@ -153,83 +190,190 @@ __d(
               "bytes" in e
             ) {
               var t = e.bytes;
-              return { bytes: t, kind: "loaded", mimetype: r };
+              return { bytes: t, kind: "loaded", mimetype: a };
             }
             if (
               ((typeof e == "object" && e !== null) ||
                 typeof e == "function") &&
               e.kind === "rejected"
             )
-              return M("scanRejected", !0);
+              return G("scanRejected", !0);
             if (
               ((typeof e == "object" && e !== null) ||
                 typeof e == "function") &&
               e.kind === "unavailable"
             )
-              return M("scanUnavailable", !1);
+              return G("scanUnavailable", !1);
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                 e,
             );
-          })(o);
+          })(i);
         })),
-        D.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $(e, _)
+    function w(e, t, n, r) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = B(e, t, r);
+            if (a != null) return a;
+            if (W(e)) return G("notAVideo", !0);
+            var i = yield V(
+              e.slice().buffer,
+              o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO,
+              n,
+            );
+            return (function (e) {
+              if (
+                ((typeof e == "object" && e !== null) ||
+                  typeof e == "function") &&
+                e.kind === "clean" &&
+                "bytes" in e
+              ) {
+                var t = e.bytes;
+                return { bytes: t, kind: "loaded", mimetype: n };
+              }
+              if (
+                ((typeof e == "object" && e !== null) ||
+                  typeof e == "function") &&
+                e.kind === "rejected"
+              )
+                return G("scanRejected", !0);
+              if (
+                ((typeof e == "object" && e !== null) ||
+                  typeof e == "function") &&
+                e.kind === "unavailable"
+              )
+                return G("scanUnavailable", !1);
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e,
+              );
+            })(i);
+          },
+        )),
+        A.apply(this, arguments)
+      );
+    }
+    function F(e, t, n, r) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = B(e, t, r);
+            if (a != null) return a;
+            if (e.length === 0) return G("emptyFile", !0);
+            var i = yield V(
+              e.slice().buffer,
+              o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT,
+              n,
+            );
+            return (function (e) {
+              if (
+                ((typeof e == "object" && e !== null) ||
+                  typeof e == "function") &&
+                e.kind === "clean" &&
+                "bytes" in e
+              ) {
+                var t = e.bytes;
+                return { bytes: t, kind: "loaded", mimetype: n };
+              }
+              if (
+                ((typeof e == "object" && e !== null) ||
+                  typeof e == "function") &&
+                e.kind === "rejected"
+              )
+                return G("scanRejected", !0);
+              if (
+                ((typeof e == "object" && e !== null) ||
+                  typeof e == "function") &&
+                e.kind === "unavailable"
+              )
+                return G("scanUnavailable", !1);
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e,
+              );
+            })(i);
+          },
+        )),
+        O.apply(this, arguments)
+      );
+    }
+    function B(e, t, n) {
+      return t < 200 || t >= 300
+        ? G("http." + t, t < 500)
+        : e.length > n
+          ? G("responseTooLarge", !0)
+          : null;
+    }
+    function W(e) {
+      var t = e.find(function (e) {
+        return !y.has(e);
+      });
+      return t == null || t === C;
+    }
+    function q(e) {
+      return U(e, _)
         ? "image/png"
-        : $(e, f)
+        : U(e, f)
           ? "image/jpeg"
-          : $(e, g) && $(e.subarray(8), h)
+          : U(e, g) && U(e.subarray(8), h)
             ? "image/webp"
             : null;
     }
-    function $(e, t) {
+    function U(e, t) {
       return t.every(function (t, n) {
         return e[n] === t;
       });
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function V(e, t, n) {
+      return H.apply(this, arguments);
     }
-    function N() {
+    function H() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
               entryPoint: "DownloadHatchSpaceImage",
             }),
-            a = !1;
+            i = !1;
           try {
-            var i = yield o("WAWebDownloadManager").screenDecryptedMedia({
+            var l = yield o("WAWebDownloadManager").screenDecryptedMedia({
               input: e,
-              type: o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
-              mimetype: t,
+              type: t,
+              mimetype: n,
               downloadOrigin: o("WAWebWamEnumDownloadOriginType")
                 .DOWNLOAD_ORIGIN_TYPE.CHAT_PERSONAL,
-              downloadQpl: n,
+              downloadQpl: a,
               onSuspiciousContent: function (t) {
-                a = t !== o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO;
+                i = t !== o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO;
               },
             });
-            return a
-              ? (n.endFailWithError("scan_suspicious"), { kind: "rejected" })
-              : (n.endSuccess(), { bytes: i, kind: "clean" });
+            return i
+              ? (a.endFailWithError("scan_suspicious"), { kind: "rejected" })
+              : (a.endSuccess(), { bytes: l, kind: "clean" });
           } catch (e) {
             return e instanceof o("WAWebMediaFileErrors").InvalidMediaFileType
-              ? (n.endFailWithError("scan_rejected", e.message),
+              ? (a.endFailWithError("scan_rejected", e.message),
                 { kind: "rejected" })
-              : (n.endFailWithError(
+              : (a.endFailWithError(
                   "scan_unavailable",
                   r("getErrorSafe")(e).message,
                 ),
                 { kind: "unavailable" });
           }
         })),
-        N.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function M(t, n) {
+    function G(t, n) {
       var r = o("WALogger").WARN(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -243,7 +387,9 @@ __d(
         { kind: "failed", permanent: n, reason: t }
       );
     }
-    l.loadHatchSpaceImage = y;
+    ((l.loadHatchSpaceImage = b),
+      (l.loadHatchSpaceVideo = v),
+      (l.loadHatchFile = S));
   },
   98,
 );

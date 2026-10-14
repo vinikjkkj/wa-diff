@@ -281,10 +281,7 @@ __d(
               .BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE) ||
         (s.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
           s.mimetype === _ &&
-          u &&
-          !o("WAWebABProps").getABPropConfigValue(
-            "ai_hatch_forwarding_html_enabled",
-          ))
+          u)
       )
         return !1;
       if (o("WAWebFrontendMsgGetters").getAsMms(s)) {

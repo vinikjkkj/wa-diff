@@ -6,7 +6,6 @@ __d(
     "WAWebMsgQueryUtils",
     "WAWebPhoneNumberSearch",
     "WAWebUserPrefsMeUser",
-    "WAWebVoipOngoingCallCollection",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,32 +30,25 @@ __d(
         })()),
         (r.filterMsgs = function (t, n) {
           var e = t.filter(function (e) {
-              return (
-                o(
-                  "WAWebVoipOngoingCallCollection",
-                ).WAWebVoipOngoingCallCollection.getByCallId(e.id.id) == null
-              );
-            }),
-            r = e.filter(function (e) {
-              var t,
-                n = e.callParticipants;
-              if (n == null) return !0;
-              var r =
-                  (t = n.some(function (e) {
-                    return e.participant.isLid();
-                  })) != null
-                    ? t
-                    : !1,
-                a = r
-                  ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                  : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-              return n.some(function (e) {
-                return !e.participant.equals(a);
-              });
+            var t,
+              n = e.callParticipants;
+            if (n == null) return !0;
+            var r =
+                (t = n.some(function (e) {
+                  return e.participant.isLid();
+                })) != null
+                  ? t
+                  : !1,
+              a = r
+                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+                : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+            return n.some(function (e) {
+              return !e.participant.equals(a);
             });
+          });
           return n === ""
-            ? r
-            : r.filter(function (e) {
+            ? e
+            : e.filter(function (e) {
                 var t,
                   r = o("WAWebPhoneNumberSearch").numberSearch(n),
                   a = o("WAWebContactCollection").ContactCollection.get(e.from);

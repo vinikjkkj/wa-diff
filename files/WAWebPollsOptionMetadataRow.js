@@ -60,7 +60,7 @@ __d(
               alignSelf: "start",
               shrink: 0,
               children: c.jsx(r("WAWebPollOptionImage.react"), {
-                msg: a,
+                msgKey: a.id,
                 size: "small",
               }),
             }),

@@ -1377,12 +1377,12 @@ __d(
         return (
           (t.initialize = function (t, r, a, i) {
             i && (this.errorHandlers = i);
-            var e = o("WAWebIdbHelpers").schemasToStores(
-              r,
-              this.tableNames,
-              this.tableColumns,
-              this.tableEncryptedColumns,
-            );
+            var e = o("WAWebIdbHelpers").schemasToStores({
+              schemas: r,
+              tableColumns: this.tableColumns,
+              tableEncryptedColumns: this.tableEncryptedColumns,
+              tableNames: this.tableNames,
+            });
             return (
               this.db
                 .version(t + 1)

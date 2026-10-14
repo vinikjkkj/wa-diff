@@ -7,6 +7,7 @@ __d(
     "WAPromiseTimeout",
     "WAWebCTWAConstants",
     "WAWebConsumerQuickPromotionActionGraphQL",
+    "WAWebMobilePlatforms",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebQuickPromotionGating",
   ],
@@ -17,7 +18,7 @@ __d(
       c,
       d = { type: "error" };
     function m(e) {
-      if (!o("WAWebQuickPromotionGating").consumerQpGraphQLEnabled())
+      if (o("WAWebMobilePlatforms").isSMB())
         return (c || (c = n("Promise"))).resolve({ type: "not-enabled" });
       var t = o("WAWebCTWAConstants").KNOWN_QP_SURFACES.get(e.surface_nux_id);
       return t == null ||

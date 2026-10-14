@@ -678,6 +678,10 @@ __d(
                 var e = t.annotations;
                 o("WAWebPageLoadLogging").addPageLoadQplAnnotation(e);
               },
+              addPageLoadQplAnnotationNow: function (t) {
+                var e = t.annotations;
+                o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow(e);
+              },
               incrementPageLoadQplSocketError: function () {
                 o("WAWebPageLoadLogging").incrementPageLoadQplSocketError();
               },

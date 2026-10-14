@@ -15,7 +15,6 @@ __d(
     "WAWebLabelsDropdown.react",
     "WAWebListIcon.react",
     "WAWebListIconStacked.react",
-    "WAWebListsLabelGatingUtils",
     "WAWebMenuBar.react",
     "WAWebMobilePlatforms",
     "WAWebTabOrder",
@@ -107,7 +106,6 @@ __d(
     function f(e, t, n) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
-        !o("WAWebListsLabelGatingUtils").isCTWASMBLabelChatHeaderEnabledWeb() ||
         r("WAWebEnvironment").isGuest ||
         !e.canSend ||
         o("WAWebChatGetters").getIsBroadcast(e) ||

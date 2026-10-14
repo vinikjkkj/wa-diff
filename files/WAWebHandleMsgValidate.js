@@ -9,6 +9,7 @@ __d(
     "WAWebApiContact",
     "WAWebApiDeviceList",
     "WAWebBotUtils",
+    "WAWebBrAddPixKeyOfferReceipt",
     "WAWebBroadcastInvalidChannelsContextSourceMessageDropWamEvent",
     "WAWebE2EProtoUtils",
     "WAWebGetMessageCache",
@@ -561,11 +562,30 @@ __d(
       }
     }
     function M(e) {
-      return w.apply(this, arguments);
+      var t = e.info,
+        n = e.proto,
+        r = e.renderableMsgs;
+      if (
+        o("WAWebBrAddPixKeyOfferReceipt").shouldDropAddPixKeyOffer({
+          fromMe: r.some(function (e) {
+            return e.id.fromMe;
+          }),
+          proto: n,
+          senders: [t.author, t.senderPn, t.senderLid],
+        })
+      )
+        throw new (o("WAWebHandleMsgError").MessageValidationError)(
+          "offer_payment_account from a sender no Pix key partner claims",
+          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
+          { sendLogs: 0 },
+        );
     }
-    function w() {
+    function w(e) {
+      return A.apply(this, arguments);
+    }
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
@@ -592,7 +612,7 @@ __d(
                 var _ =
                     (t = s.protocolMessageKey) == null ? void 0 : t.toString(),
                   f = {
-                    msgKey: A(s),
+                    msgKey: F(s),
                     stanzaId: s.id.id,
                     reportingTag: d,
                     receivedTs: o("WATimeUtils").unixTimeMs(),
@@ -666,10 +686,10 @@ __d(
             }
           }
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
+    function F(e) {
       var t, n;
       return e.kind === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
         ? e.id.toString()
@@ -683,7 +703,8 @@ __d(
       (l.isFromKnownDevice = k),
       (l.validateBizNode = T),
       (l.renderableMessagesValidation = N),
-      (l.validateAndProcessReportingTokenInfo = M));
+      (l.validateAddPixKeyOfferSender = M),
+      (l.validateAndProcessReportingTokenInfo = w));
   },
   98,
 );

@@ -207,7 +207,7 @@ __d(
             r = e.pendingMutations,
             a = e.session,
             i = yield o("WAWebSyncdKeyManagement").getActiveKey(!L(r)),
-            l = yield T(t, r, i),
+            l = yield T({ activeKey: i, collection: t, pendingMutations: r }),
             s = l.map(function (e, t) {
               return o("WAWebSyncdEncryptMutationsWrapper")
                 .encryptMutation(e, i)
@@ -404,28 +404,31 @@ __d(
         },
       };
     }
-    function T(e, t, n) {
+    function T(e) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o(
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.activeKey,
+            n = e.collection,
+            r = e.pendingMutations,
+            a = yield o(
               "WAWebGetSyncAction",
-            ).getSyncActionsByCollectionsInTransaction([e]),
-            a = new Set(
-              r.map(function (e) {
+            ).getSyncActionsByCollectionsInTransaction([n]),
+            i = new Set(
+              a.map(function (e) {
                 return e.index;
               }),
             ),
-            i = t.filter(function (t) {
+            l = r.filter(function (e) {
               if (
-                t.operation ===
+                e.operation ===
                   o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
                     .REMOVE &&
-                !a.has(t.index)
+                !i.has(e.index)
               ) {
-                var n;
+                var t;
                 return (
                   o("WALogger").WARN(
                     m ||
@@ -434,21 +437,21 @@ __d(
                         ", action: ",
                         "",
                       ])),
-                    e,
-                    (n = t.action) != null ? n : "unknown",
+                    n,
+                    (t = e.action) != null ? t : "unknown",
                   ),
                   !1
                 );
               }
               return !0;
             }),
-            l = x(r, t, n.keyId);
-          i = i.concat(l);
-          var s = $(r, i, n.keyId);
+            s = x(a, r, t.keyId);
+          l = l.concat(s);
+          var u = $(a, l, t.keyId);
           return (
-            o("WAWebSyncdWamAppState").addKeyRotationRemoveCount(s.length),
-            (i = i.concat(s)),
-            i
+            o("WAWebSyncdWamAppState").addKeyRotationRemoveCount(u.length),
+            (l = l.concat(u)),
+            l
           );
         })),
         D.apply(this, arguments)

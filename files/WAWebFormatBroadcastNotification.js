@@ -1,12 +1,12 @@
 __d(
   "WAWebFormatBroadcastNotification",
-  ["fbt", "WAWebFormatParticipantNames"],
+  ["fbt", "WAWebCommonMsgSubtypeTypes", "WAWebFormatParticipantNames"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "You created an audience.");
     }
     function u() {
-      return s._(/*BTDS*/ "Business broadcast chat");
+      return s._(/*BTDS*/ "About this business broadcast");
     }
     function c(e) {
       var t = e.length;
@@ -37,13 +37,15 @@ __d(
     function m(t) {
       var n = t.recipients,
         r = t.subtype;
-      return r === "create"
-        ? e().toString()
-        : r === "add"
-          ? c(n).toString()
-          : r === "remove"
-            ? d(n).toString()
-            : "";
+      return r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BbProCreate
+        ? u().toString()
+        : r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Create
+          ? e().toString()
+          : r === "add"
+            ? c(n).toString()
+            : r === "remove"
+              ? d(n).toString()
+              : "";
     }
     ((l.getAudienceCreateMessage = e),
       (l.getBizBroadcastProChatMessage = u),

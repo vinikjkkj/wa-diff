@@ -23,6 +23,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "stylex",
+    "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -35,51 +36,83 @@ __d(
         selectIconColor: { color: "x1bvqhpb", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(35),
+      var n = o("react-compiler-runtime").c(48),
         a = t.isPollEnded,
         i = t.isSentByMe,
-        l = t.msg,
+        l = t.msgKey,
         s = t.name,
         u = t.pollEndTime,
         m = t.pollHideVoterNames,
         f = t.pollSelectableOptionsCount,
         g = t.trusted,
         h;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (n[0] = h))
-        : (h = n[0]);
-      var y = h.pollQuestionTextSize,
-        C = f === 1,
-        b,
-        v,
-        S;
+      if (n[0] === Symbol.for("react.memo_cache_sentinel")) {
+        var y;
+        ((h = [
+          (y = o("WAWebMsgGetters")).getSender,
+          y.getInitialPageSize,
+          y.getIsSpoiler,
+          o("WAWebFrontendMsgGetters").getRtl,
+          o("WAWebFrontendMsgGetters").getDir,
+          y.getMentionedJidList,
+          y.getGroupMentions,
+          y.getPollType,
+        ]),
+          (n[0] = h));
+      } else h = n[0];
+      var C = o("useWAWebMsgValues").useMsgValues(l, h),
+        b = C[0],
+        v = C[1],
+        S = C[2],
+        R = C[3],
+        L = C[4],
+        E = C[5],
+        k = C[6],
+        I = C[7],
+        T;
+      n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((T = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (n[1] = T))
+        : (T = n[1]);
+      var D = T.pollQuestionTextSize,
+        x = f === 1,
+        $,
+        P,
+        N;
       if (
-        n[1] !== a ||
-        n[2] !== i ||
-        n[3] !== C ||
-        n[4] !== l ||
-        n[5] !== s ||
-        n[6] !== u ||
-        n[7] !== m ||
-        n[8] !== f ||
-        n[9] !== g
+        n[2] !== L ||
+        n[3] !== k ||
+        n[4] !== v ||
+        n[5] !== a ||
+        n[6] !== i ||
+        n[7] !== x ||
+        n[8] !== S ||
+        n[9] !== E ||
+        n[10] !== l ||
+        n[11] !== s ||
+        n[12] !== u ||
+        n[13] !== m ||
+        n[14] !== f ||
+        n[15] !== I ||
+        n[16] !== R ||
+        n[17] !== b ||
+        n[18] !== g
       ) {
-        var R = [];
+        var M = [];
         (f != null &&
           !a &&
-          R.push({
+          M.push({
             key: "selectable-options",
             render: function (t) {
               return c.jsx(_, {
-                isSingleOptionPoll: C,
-                pollType: l.pollType,
+                isSingleOptionPoll: x,
+                pollType: I,
                 trailingSeparator: t,
               });
             },
           }),
-          m && R.push({ key: "hidden-voter-names", render: p }),
+          m && M.push({ key: "hidden-voter-names", render: p }),
           u != null &&
-            R.push({
+            M.push({
               key: "end-time",
               render: function (t) {
                 return c.jsx(r("WAWebPollEndTimeLabel"), {
@@ -89,126 +122,140 @@ __d(
                 });
               },
             }));
-        var L = l.id,
-          E = l.id,
-          k;
-        n[13] === Symbol.for("react.memo_cache_sentinel")
-          ? ((k = (e || (e = r("stylex"))).props(
+        var w;
+        n[22] === Symbol.for("react.memo_cache_sentinel")
+          ? ((w = (e || (e = r("stylex"))).props(
               o("WDSPaddings.stylex").wdsPaddings.padding4,
             )),
-            (n[13] = k))
-          : (k = n[13]);
-        var I;
-        n[14] !== l
-          ? ((I = o("WAWebMsgGetters").getInitialPageSize(l.unsafe())),
-            (n[14] = l),
-            (n[15] = I))
-          : (I = n[15]);
-        var T;
-        n[16] !== i || n[17] !== l || n[18] !== s || n[19] !== g
-          ? ((T = function (t) {
+            (n[22] = w))
+          : (w = n[22]);
+        var A;
+        n[23] !== L ||
+        n[24] !== k ||
+        n[25] !== i ||
+        n[26] !== S ||
+        n[27] !== E ||
+        n[28] !== l.remote ||
+        n[29] !== s ||
+        n[30] !== R ||
+        n[31] !== b ||
+        n[32] !== g
+          ? ((A = function (t) {
               var e = t.textLimit,
                 n = o("WAWebFormatConfigurationConversation").Conversation({
-                  mentions: o("WAWebMsgMentionMap").calculateMsgMentionMap(l),
-                  groupMentions:
-                    o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(l),
-                  links: o("WAWebMsgLinks").getLinksFromMsg(l.unsafe(), e),
+                  mentions: o("WAWebMsgMentionMap").calculateMsgMentionMap({
+                    mentionedJidList: E,
+                  }),
+                  groupMentions: o(
+                    "WAWebMsgMentionMap",
+                  ).calculateMsgGroupMentionMap({ groupMentions: k }),
+                  links: o("WAWebMsgLinks").getLinksFromText(s, b, e),
                   phoneNumbers: o(
                     "WAWebMsgPhoneNumbers",
-                  ).getPhoneNumbersFromMsg(l.unsafe(), e),
+                  ).getPhoneNumbersFromText(s, e),
                   selectable: !0,
                   trusted: g === !0,
                   fromMe: i,
-                  fromChatWid: l.id.remote,
-                  messageHasSpoiler: o("WAWebMsgGetters").getIsSpoiler(
-                    l.unsafe(),
-                  ),
+                  fromChatWid: l.remote,
+                  messageHasSpoiler: S,
                 });
               return c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 text: s,
-                dirMismatch:
-                  o("WAWebFrontendMsgGetters").getRtl(l.unsafe()) !==
-                  r("WAWebL10N").isRTL(),
-                direction: o("WAWebFrontendMsgGetters").getDir(l.unsafe()),
+                dirMismatch: R !== r("WAWebL10N").isRTL(),
+                direction: L,
                 inferLinesDirection: !0,
                 formatters: n,
                 selectable: !0,
                 textLimit: e,
-                xstyle: [d.pollName, y],
+                xstyle: [d.pollName, D],
               });
             }),
-            (n[16] = i),
-            (n[17] = l),
-            (n[18] = s),
-            (n[19] = g),
-            (n[20] = T))
-          : (T = n[20]);
-        var D;
-        (n[21] !== s || n[22] !== I || n[23] !== T
-          ? ((D = c.jsx(
+            (n[23] = L),
+            (n[24] = k),
+            (n[25] = i),
+            (n[26] = S),
+            (n[27] = E),
+            (n[28] = l.remote),
+            (n[29] = s),
+            (n[30] = R),
+            (n[31] = b),
+            (n[32] = g),
+            (n[33] = A))
+          : (A = n[33]);
+        var F;
+        (n[34] !== v || n[35] !== s || n[36] !== A
+          ? ((F = c.jsx(
               "div",
-              babelHelpers.extends({}, k, {
+              babelHelpers.extends({}, w, {
                 children: c.jsx(o("WAWebExpandableText.react").ExpandableText, {
                   text: s,
-                  textLimit: I,
-                  children: T,
+                  textLimit: v,
+                  children: A,
                 }),
               }),
             )),
-            (n[21] = s),
-            (n[22] = I),
-            (n[23] = T),
-            (n[24] = D))
-          : (D = n[24]),
-          n[25] !== l.id || n[26] !== D
-            ? ((S = c.jsx(r("WAWebMessageSpacerText.react"), {
-                msgKey: L,
+            (n[34] = v),
+            (n[35] = s),
+            (n[36] = A),
+            (n[37] = F))
+          : (F = n[37]),
+          n[38] !== l || n[39] !== F
+            ? ((N = c.jsx(r("WAWebMessageSpacerText.react"), {
+                msgKey: l,
                 spacer: !1,
-                "data-id": E,
-                children: D,
+                "data-id": l,
+                children: F,
               })),
-              (n[25] = l.id),
-              (n[26] = D),
-              (n[27] = S))
-            : (S = n[27]),
-          n[28] === Symbol.for("react.memo_cache_sentinel")
-            ? ((b = { className: "x78zum5 x6s0dn4 x1q0g3np x1a02dak" }),
-              (n[28] = b))
-            : (b = n[28]),
-          (v = R.map(function (e, t) {
+              (n[38] = l),
+              (n[39] = F),
+              (n[40] = N))
+            : (N = n[40]),
+          n[41] === Symbol.for("react.memo_cache_sentinel")
+            ? (($ = { className: "x78zum5 x6s0dn4 x1q0g3np x1a02dak" }),
+              (n[41] = $))
+            : ($ = n[41]),
+          (P = M.map(function (e, t) {
             var n = e.key,
               r = e.render;
-            return c.jsx(c.Fragment, { children: r(t < R.length - 1) }, n);
+            return c.jsx(c.Fragment, { children: r(t < M.length - 1) }, n);
           })),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = C),
-          (n[4] = l),
-          (n[5] = s),
-          (n[6] = u),
-          (n[7] = m),
-          (n[8] = f),
-          (n[9] = g),
-          (n[10] = b),
-          (n[11] = v),
-          (n[12] = S));
-      } else ((b = n[10]), (v = n[11]), (S = n[12]));
-      var x;
-      n[29] !== b || n[30] !== v
-        ? ((x = c.jsx("div", babelHelpers.extends({}, b, { children: v }))),
-          (n[29] = b),
-          (n[30] = v),
-          (n[31] = x))
-        : (x = n[31]);
-      var $;
+          (n[2] = L),
+          (n[3] = k),
+          (n[4] = v),
+          (n[5] = a),
+          (n[6] = i),
+          (n[7] = x),
+          (n[8] = S),
+          (n[9] = E),
+          (n[10] = l),
+          (n[11] = s),
+          (n[12] = u),
+          (n[13] = m),
+          (n[14] = f),
+          (n[15] = I),
+          (n[16] = R),
+          (n[17] = b),
+          (n[18] = g),
+          (n[19] = $),
+          (n[20] = P),
+          (n[21] = N));
+      } else (($ = n[19]), (P = n[20]), (N = n[21]));
+      var O;
+      n[42] !== $ || n[43] !== P
+        ? ((O = c.jsx("div", babelHelpers.extends({}, $, { children: P }))),
+          (n[42] = $),
+          (n[43] = P),
+          (n[44] = O))
+        : (O = n[44]);
+      var B;
       return (
-        n[32] !== S || n[33] !== x
-          ? (($ = c.jsxs(c.Fragment, { children: [S, x] })),
-            (n[32] = S),
-            (n[33] = x),
-            (n[34] = $))
-          : ($ = n[34]),
-        $
+        n[45] !== N || n[46] !== O
+          ? ((B = c.jsxs(c.Fragment, { children: [N, O] })),
+            (n[45] = N),
+            (n[46] = O),
+            (n[47] = B))
+          : (B = n[47]),
+        B
       );
     }
     function p(e) {

@@ -21,21 +21,14 @@ __d(
       });
     }
     function s() {
-      return (
-        e() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_hatch_approval_notification_enabled",
-        )
-      );
+      return R({ abProp: "ai_hatch_approval_notification_enabled" });
     }
     function u() {
       return (
-        e() &&
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
+        ) && R({ abProp: "ai_hatch_connectors_enabled" })
       );
     }
     function c() {
@@ -54,64 +47,43 @@ __d(
       );
     }
     function m() {
-      return (
-        e() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_hatch_response_ux_parity_enabled",
-        )
-      );
+      return R({ abProp: "ai_hatch_response_ux_parity_enabled" });
     }
     function p() {
-      return (
-        e() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_hatch_vm_capability_sync_enabled",
-        )
-      );
+      return R({ abProp: "ai_hatch_vm_capability_sync_enabled" });
     }
     function _() {
-      return (
-        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_ideas_enabled")
-      );
+      return R({ abProp: "ai_hatch_ideas_enabled" });
     }
-    function f(t) {
+    function f(e) {
       return (
-        t != null &&
-        o("WAWebBotUtils").isHatchBot(t) &&
-        e() &&
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
+        R({ abProp: "ai_hatch_browser_enabled" })
       );
     }
     function g() {
       return (
-        e() &&
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_hatch_secure_credentials_enabled",
-        )
+        ) && R({ abProp: "ai_hatch_secure_credentials_enabled" })
       );
     }
     function h() {
       return (
-        e() &&
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
+        ) && R({ abProp: "ai_hatch_space_enabled" })
       );
     }
     function y() {
-      return (
-        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_media_enabled")
-      );
+      return R({ abProp: "ai_hatch_media_enabled" });
     }
     function C() {
       return (
@@ -123,10 +95,7 @@ __d(
       );
     }
     function b() {
-      return (
-        e() &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_activity_enabled")
-      );
+      return R({ abProp: "ai_hatch_activity_enabled" });
     }
     function v() {
       return e()
@@ -176,6 +145,16 @@ __d(
               "ai_hatch_fab_animation_variant",
             ),
           );
+    }
+    function R(t) {
+      var n = t.abProp,
+        r = t.primaryFeature;
+      return (
+        e() &&
+        (r == null ||
+          o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(r)) &&
+        o("WAWebABProps").getABPropConfigValue(n)
+      );
     }
     ((l.isHatchIntegrationEnabled = e),
       (l.isHatchApprovalNotificationEnabled = s),

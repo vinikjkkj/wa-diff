@@ -24,63 +24,76 @@ __d(
           : e.pix) != null
       );
     }
-    function d(e, t) {
-      var n;
-      m(
+    function d(e, t, n, r) {
+      var o;
+      p(
         "chat",
         "chat",
         {
           keyType: e.keyType,
-          name: (n = e.holderName) != null ? n : void 0,
+          name: (o = e.holderName) != null ? o : void 0,
           value: e.keyValue,
         },
         t,
+        n,
+        r,
       );
     }
-    function m(e, t, n, r) {
-      var a,
-        i,
-        l = function (a) {
+    function m() {
+      o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
+        "chat",
+        "chat",
+      );
+    }
+    function p(e, t, n, r, a, i) {
+      var l,
+        d,
+        m = function (a, i) {
           o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
             e,
             t,
             n,
             a,
+            i,
           );
         },
-        d = n == null ? void 0 : n.value;
-      if (n == null || d == null || d === "" || c()) {
-        l();
+        p = n == null ? void 0 : n.value;
+      if (n == null || p == null || p === "" || c()) {
+        m();
         return;
       }
-      var m =
-          (a = n.keyType) != null
-            ? a
+      var _ =
+          (l = n.keyType) != null
+            ? l
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
-        p =
-          m === o("WAWebUserPrefsTypes").PixKeyType.PHONE && d.startsWith(u)
-            ? d.slice(u.length)
-            : d;
+        f =
+          _ === o("WAWebUserPrefsTypes").PixKeyType.PHONE && p.startsWith(u)
+            ? p.slice(u.length)
+            : p;
       o("WAWebModalManager").ModalManager.open(
         s.jsx(
           o("WAWebBrSavePartnerPixKeyModalLoadable")
             .BrSavePartnerPixKeyModalLoadable,
           {
             bankId: n.bankId,
-            displayName: (i = n.name) != null ? i : "",
+            displayName: (d = n.name) != null ? d : "",
             onClose: o("WAWebModalManager").closeModalManager,
             onOpenForm: function (t) {
-              (o("WAWebModalManager").ModalManager.close(), l(t));
+              (o("WAWebModalManager").ModalManager.close(), m(t, i));
             },
-            pixKey: p,
-            pixKeyType: m,
+            onPixKeySaved: i,
+            partnerCatalogId: a,
+            pixKey: f,
+            pixKeyType: _,
             referral: t,
             resolvedAttribution: r,
           },
         ),
       );
     }
-    ((l.openAddPixKeyMessageScreen = d), (l.openAddPixKeyDeepLinkScreen = m));
+    ((l.openAddPixKeyMessageScreen = d),
+      (l.openSavedPixKeyFromMessage = m),
+      (l.openAddPixKeyDeepLinkScreen = p));
   },
   98,
 );

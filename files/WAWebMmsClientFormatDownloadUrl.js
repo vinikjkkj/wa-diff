@@ -4,7 +4,6 @@ __d(
     "WABase64UrlSafe",
     "WALogger",
     "WAWebABProps",
-    "WAWebMmsClientFormatHashUrl",
     "WAWebSharedConstants",
     "err",
     "isStringNullOrEmpty",
@@ -12,64 +11,45 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(t) {
-      var n,
-        a = t.byteRange,
-        i = t.directPath,
-        l = t.downloadBucket,
-        s = t.encFilehash,
-        u = t.hostname,
-        d = t.mode,
-        m = t.type;
-      if (!r("isStringNullOrEmpty")(i)) {
-        var p;
+      var n = t.byteRange,
+        a = t.directPath,
+        i = t.downloadBucket,
+        l = t.encFilehash,
+        s = t.hostname,
+        u = t.mode,
+        d = t.type;
+      if (!r("isStringNullOrEmpty")(a)) {
+        var m;
         return c({
-          encFilehash: s,
-          hostname: u,
-          directPath: i,
+          encFilehash: l,
+          hostname: s,
+          directPath: a,
           query:
-            ((p = {
-              mode: d,
-              bytestart: a == null ? void 0 : a.start.toString(),
-              byteend: a == null ? void 0 : a.end.toString(),
+            ((m = {
+              mode: u,
+              bytestart: n == null ? void 0 : n.start.toString(),
+              byteend: n == null ? void 0 : n.end.toString(),
             }),
-            (p[o("WAWebSharedConstants").MMS_URL_MEDIA_TYPE_SEARCH_PARAM] = m),
-            (p[o("WAWebSharedConstants").IS_MMS_URL_SEARCH_PARAM] = ""),
-            p),
-          downloadBucket: l,
-          type: m,
+            (m[o("WAWebSharedConstants").MMS_URL_MEDIA_TYPE_SEARCH_PARAM] = d),
+            (m[o("WAWebSharedConstants").IS_MMS_URL_SEARCH_PARAM] = ""),
+            m),
+          downloadBucket: i,
+          type: d,
         });
       }
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_deprecate_mms4_hash_based_download",
-        )
-      )
-        throw (
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[mms] missing direct path, media type: ",
-                  "",
-                ])),
-              m,
-            )
-            .sendLogs("media-fault: missing direct path"),
-          r("err")("No direct path is available for download, abort")
-        );
-      if (s == null)
-        throw r("err")(
-          "No direct path or encFilehash available for download, abort",
-        );
-      return r("WAWebMmsClientFormatHashUrl")({
-        hostname: u,
-        type: m,
-        encFilehash: s,
-        query:
-          ((n = { mode: d }),
-          (n[o("WAWebSharedConstants").IS_MMS_URL_SEARCH_PARAM] = ""),
-          n),
-      });
+      throw (
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[mms] missing direct path, media type: ",
+                "",
+              ])),
+            d,
+          )
+          .sendLogs("media-fault: missing direct path"),
+        r("err")("No direct path is available for download, abort")
+      );
     }
     function c(e) {
       var t = e.directPath,

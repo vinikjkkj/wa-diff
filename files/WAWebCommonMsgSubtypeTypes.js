@@ -311,6 +311,7 @@ __d(
       LoadingVideo: "loading_video",
       HostedGroupDoNotUseS440891: "is_hosted_group",
       GroupTransitionToBotGroupSystemMsg: "group_transition_to_bot_group",
+      BbProCreate: "bb_pro_create",
       BizBroadcastStatus: "biz_broadcast_status",
       GroupTransitionToTeeBotGroupSystemMsg:
         "group_transition_to_tee_bot_group",

@@ -98,9 +98,9 @@ __d(
             "WAWebDeviceFeatures",
           ).getTouchPresenceForTouchOnlyCallers(),
         }),
-          P(),
           N(),
-          v($(f)),
+          M(),
+          v(P(f)),
           (a = p) == null || a.end(2),
           (p = null),
           new (o("WAWebWebcPageLoad2WamEvent").WebcPageLoad2WamEvent)({
@@ -113,7 +113,7 @@ __d(
             ? o("WAWebCoreActionsODS").logPageLoadSuccessQr()
             : o("WAWebCoreActionsODS").logPageLoadSuccessMain(),
           o("WAWebCoreActionsODS").markPageLoadComplete(),
-          A(),
+          F(),
           o("WAWebABProps").getABPropConfigValue(
             "webc_page_load_early_commit_enabled",
           ) && o("WAWebWamPageLoadReporter").logWamPageLoad(),
@@ -132,9 +132,9 @@ __d(
           page_load_id: g,
           sub_platform: L(),
         }),
-        P(),
         N(),
-        v($(f)),
+        M(),
+        v(P(f)),
         (e = p) == null || e.end(113),
         (p = null));
     }
@@ -165,15 +165,18 @@ __d(
     }
     function T(e) {
       var t = Math.floor(self.performance.now());
-      (w(e, { qpl: t }), C(), b(e, { timestamp: t }));
+      (A(e, { qpl: t }), C(), b(e, { timestamp: t }));
     }
     function D(e) {
       f = babelHelpers.extends({}, f, e);
     }
-    function x() {
+    function x(e) {
+      (D(e), C() && v(P(e)));
+    }
+    function $() {
       f.socket_error_count++;
     }
-    function $(e) {
+    function P(e) {
       var t = {};
       for (var n of Object.keys(e)) {
         var r = e[n];
@@ -186,7 +189,7 @@ __d(
       }
       return t;
     }
-    function P() {
+    function N() {
       var e;
       if (p != null) {
         var t =
@@ -207,7 +210,7 @@ __d(
           b("dom_complete", { timestamp: t.domComplete }));
       }
     }
-    function N() {
+    function M() {
       if (p != null) {
         var e = o("WAWebPageLoadTierStats").getTierStats(),
           t = e[0],
@@ -227,27 +230,27 @@ __d(
           }
       }
     }
-    var M = { wamComplete: !1, qplComplete: !1, timestamps: new Map() };
-    function w(e, t) {
-      var n = M.timestamps.get(e);
-      (n == null && ((n = {}), M.timestamps.set(e, n)),
+    var w = { wamComplete: !1, qplComplete: !1, timestamps: new Map() };
+    function A(e, t) {
+      var n = w.timestamps.get(e);
+      (n == null && ((n = {}), w.timestamps.set(e, n)),
         n.qpl == null && t.qpl != null && (n.qpl = t.qpl),
         n.wam == null && t.wam != null && (n.wam = t.wam));
     }
-    function A() {
-      ((M.qplComplete = !0), q());
-    }
     function F() {
-      ((M.wamComplete = !0), q());
+      ((w.qplComplete = !0), U());
     }
-    var O = 20,
-      B = 9e4,
-      W = null;
-    function q() {
-      if (!(M.wamComplete && M.qplComplete)) {
-        W == null &&
-          (W = self.setTimeout(function () {
-            var e = M.wamComplete ? "qpl" : "wam",
+    function O() {
+      ((w.wamComplete = !0), U());
+    }
+    var B = 20,
+      W = 9e4,
+      q = null;
+    function U() {
+      if (!(w.wamComplete && w.qplComplete)) {
+        q == null &&
+          (q = self.setTimeout(function () {
+            var e = w.wamComplete ? "qpl" : "wam",
               t = "page-load-validation-missing-" + e;
             if (e === "wam") {
               var n = o(
@@ -272,22 +275,22 @@ __d(
                     "ms",
                   ])),
                 e,
-                B,
+                W,
               )
               .sendLogs(t, { sampling: 0.01 });
-          }, B));
+          }, W));
         return;
       }
-      W != null && (self.clearTimeout(W), (W = null));
+      q != null && (self.clearTimeout(q), (q = null));
       var e = !1;
-      for (var t of M.timestamps.entries()) {
+      for (var t of w.timestamps.entries()) {
         var n = t[0],
           r = t[1],
           a = r.qpl,
           i = r.wam;
         a != null &&
           i != null &&
-          Math.abs(a - i) > O &&
+          Math.abs(a - i) > B &&
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -314,23 +317,35 @@ __d(
           )
           .sendLogs("page-load-validation", { sampling: 0.01 });
     }
-    function U() {
+    function V() {
       return null;
     }
-    function V() {
+    function H() {
+      (h != null && (self.clearTimeout(h), (h = null)),
+        q != null && (self.clearTimeout(q), (q = null)),
+        (p = null),
+        (_ = !1),
+        (f = { socket_error_count: 0 }),
+        E.clear(),
+        (w.wamComplete = !1),
+        (w.qplComplete = !1),
+        w.timestamps.clear());
+    }
+    function G() {
       o("WAWebPageLoadLogging").setImpl({
         endPageLoadQpl: S,
         endPageLoadQplMeasure: I,
         startPageLoadQplMeasure: k,
         addPageLoadQplPoint: T,
         addPageLoadQplAnnotation: D,
-        incrementPageLoadQplSocketError: x,
-        addPageLoadValidationData: w,
-        setWamCompleteForValidation: F,
+        addPageLoadQplAnnotationNow: x,
+        incrementPageLoadQplSocketError: $,
+        addPageLoadValidationData: A,
+        setWamCompleteForValidation: O,
         PAGE_LOAD_ID: g,
       });
     }
-    l.setPageLoadLoggingImpl = V;
+    ((l.resetPageLoadLoggingForTests = H), (l.setPageLoadLoggingImpl = G));
   },
   98,
 );

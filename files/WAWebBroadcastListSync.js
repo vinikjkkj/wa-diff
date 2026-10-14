@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAudienceExpressionTypes",
+    "WAWebBizBroadcastProListUtils",
     "WAWebBroadcastListStorageUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
@@ -73,24 +74,25 @@ __d(
                                     d = s.labelIds,
                                     m = s.listName,
                                     p = s.participants,
-                                    _ = c != null && c.length > 0 ? c : void 0,
-                                    f = o("WAWebUserPrefsMeUser")
+                                    _ = c == null ? void 0 : c.trim(),
+                                    f = _ != null && _.length > 0 ? _ : void 0,
+                                    g = o("WAWebUserPrefsMeUser")
                                       .getMeLidUserOrThrow()
                                       .toString(),
-                                    g = (p != null ? p : []).filter(
+                                    h = (p != null ? p : []).filter(
                                       function (e) {
-                                        return e.lidJid !== f;
+                                        return e.lidJid !== g;
                                       },
                                     ),
-                                    h =
+                                    y =
                                       u != null
                                         ? o(
                                             "WAWebAudienceExpressionTypes",
                                           ).parseAudienceExpressionJson(u)
                                         : null,
-                                    y =
-                                      h != null
-                                        ? h
+                                    C =
+                                      y != null
+                                        ? y
                                         : (d != null ? d : []).length > 0
                                           ? o(
                                               "WAWebAudienceExpressionTypes",
@@ -100,7 +102,7 @@ __d(
                                           : o(
                                               "WAWebAudienceExpressionTypes",
                                             ).createExplicitExpression(
-                                              g.map(function (e) {
+                                              h.map(function (e) {
                                                 return e.lidJid;
                                               }),
                                             );
@@ -108,9 +110,12 @@ __d(
                                     yield o(
                                       "WAWebBroadcastListStorageUtils",
                                     ).updateBroadcastListStorage({
-                                      audienceExpression: y,
-                                      customAudienceFbid: _,
+                                      audienceExpression: C,
+                                      customAudienceFbid: f,
                                       id: n,
+                                      isBizBroadcastPro: o(
+                                        "WAWebBizBroadcastProListUtils",
+                                      ).isBizBroadcastProList(f),
                                       listName: m != null ? m : "",
                                       shouldInsertInitialSystemMessages: o(
                                         "WAWebUserPrefsHistorySync",

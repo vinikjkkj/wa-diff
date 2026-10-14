@@ -132,7 +132,7 @@ __d(
           o("WAWebFtsClient").ftsClient.initialize(),
         o("WAWebStartBackend").setupStartBackendListeners(),
         r("gkx")("27242") &&
-          (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
+          (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
             early_backend_worker: !0,
           }),
           o("WAWebStartBackendWorker").startBackendWorker()),

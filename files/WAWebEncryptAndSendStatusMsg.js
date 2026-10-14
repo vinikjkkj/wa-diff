@@ -352,7 +352,14 @@ __d(
             s = e.statusSetting,
             u = e.to,
             c = a.data.id,
-            d = yield z(u, t, l, r, n, i),
+            d = yield z({
+              authorId: t,
+              msgProtobuf: n,
+              participantList: r,
+              sessionScope: i,
+              skDistribList: l,
+              to: u,
+            }),
             m = d[0],
             p = d[1],
             _ = d[2],
@@ -612,67 +619,67 @@ __d(
         G.apply(this, arguments)
       );
     }
-    function z(e, t, n, r, o, a) {
+    function z(e) {
       return j.apply(this, arguments);
     }
     function j() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            var l = yield U(e, t, n, a, i),
-              s = l.advIdentity,
-              u = l.encMediaType,
-              c = l.keyDistributions,
-              d = l.senderKeyCiphertext,
-              m = c.map(function (e) {
-                var t,
-                  n = e.ciphertext,
-                  r = e.participant,
-                  a = e.type;
-                return (t = o("WAWap")).wap(
-                  "to",
-                  { jid: o("WAWebCommsWapMd").DEVICE_JID(r) },
-                  t.wap(
-                    "enc",
-                    {
-                      v: t.CUSTOM_STRING(
-                        o(
-                          "WAWebBackendJobsCommon",
-                        ).CIPHERTEXT_VERSION.toString(),
-                      ),
-                      type: t.CUSTOM_STRING(a),
-                    },
-                    n,
-                  ),
-                );
-              }),
-              p = r.map(function (e) {
-                return o("WAWap").wap("to", {
-                  jid: o("WAWebCommsWapMd").USER_JID(e),
-                });
-              }),
-              _ = null;
-            (p.length > 0 || m.length > 0) &&
-              (_ = o("WAWap").wap("participants", null, m.concat(p)));
-            var f = o("WAWap").wap(
-                "enc",
-                {
-                  v: o("WAWap").CUSTOM_STRING(
-                    o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
-                  ),
-                  type: o("WAWap").CUSTOM_STRING(
-                    o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                  ),
-                  mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(
-                    u,
-                  ),
-                },
-                d,
-              ),
-              g = s != null ? o("WAWap").wap("device-identity", null, s) : null;
-            return [_, f, g, c.length > 0];
-          },
-        )),
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.authorId,
+            n = e.msgProtobuf,
+            r = e.participantList,
+            a = e.sessionScope,
+            i = e.skDistribList,
+            l = e.to,
+            s = yield U(l, t, i, n, a),
+            u = s.advIdentity,
+            c = s.encMediaType,
+            d = s.keyDistributions,
+            m = s.senderKeyCiphertext,
+            p = d.map(function (e) {
+              var t,
+                n = e.ciphertext,
+                r = e.participant,
+                a = e.type;
+              return (t = o("WAWap")).wap(
+                "to",
+                { jid: o("WAWebCommsWapMd").DEVICE_JID(r) },
+                t.wap(
+                  "enc",
+                  {
+                    v: t.CUSTOM_STRING(
+                      o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
+                    ),
+                    type: t.CUSTOM_STRING(a),
+                  },
+                  n,
+                ),
+              );
+            }),
+            _ = r.map(function (e) {
+              return o("WAWap").wap("to", {
+                jid: o("WAWebCommsWapMd").USER_JID(e),
+              });
+            }),
+            f = null;
+          (_.length > 0 || p.length > 0) &&
+            (f = o("WAWap").wap("participants", null, p.concat(_)));
+          var g = o("WAWap").wap(
+              "enc",
+              {
+                v: o("WAWap").CUSTOM_STRING(
+                  o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
+                ),
+                type: o("WAWap").CUSTOM_STRING(
+                  o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                ),
+                mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(c),
+              },
+              m,
+            ),
+            h = u != null ? o("WAWap").wap("device-identity", null, u) : null;
+          return [f, g, h, d.length > 0];
+        })),
         j.apply(this, arguments)
       );
     }

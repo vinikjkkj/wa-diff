@@ -337,6 +337,11 @@ __d(
                 proto: $,
                 bizInfo: i,
               }),
+                o("WAWebHandleMsgValidate").validateAddPixKeyOfferSender({
+                  info: c,
+                  proto: $,
+                  renderableMsgs: oe,
+                }),
                 o(
                   "WAWebMessagingGatingUtils",
                 ).isWebReportingTokenDelayProcessingEnabled() ||
@@ -579,6 +584,11 @@ __d(
                 info: c,
                 proto: $,
                 bizInfo: i,
+              }),
+              o("WAWebHandleMsgValidate").validateAddPixKeyOfferSender({
+                info: c,
+                proto: $,
+                renderableMsgs: ge,
               }),
               !o(
                 "WAWebMessagingGatingUtils",

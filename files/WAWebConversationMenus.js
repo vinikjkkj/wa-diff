@@ -25,7 +25,6 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebLeaveCommunityModalUtilsLoadable",
-    "WAWebListsLabelGatingUtils",
     "WAWebManageLabelFlowLoadable",
     "WAWebMobilePlatforms",
     "WAWebModalManager",
@@ -303,9 +302,6 @@ __d(
           : (q = a[23]),
         v.push(q),
         o("WAWebMobilePlatforms").isSMB() &&
-          o(
-            "WAWebListsLabelGatingUtils",
-          ).isCTWASMBLabelChatHeaderEnabledWeb() &&
           r("WAWebEnvironment").isWindows &&
           !r("WAWebEnvironment").isGuest &&
           o("WAWebHeader.react").isCommunityRelatedChat(i) &&

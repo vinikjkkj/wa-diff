@@ -46,7 +46,30 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,
       });
     }
-    function d(e, t, n, r, a, i, l) {
+    function d(e) {
+      var t = e.entryPoint,
+        n = e.floorMinimum,
+        r = e.log,
+        a = e.recipientCount,
+        i = e.validationSucceeded;
+      r({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
+        entryPoint: t,
+        extraAttributes: babelHelpers.extends(
+          {
+            floor_check_point: "creation",
+            floor_minimum: n,
+            recipient_count: a,
+            validation_succeeded: i,
+          },
+          i ? void 0 : { validation_error_type: "below_minimum" },
+        ),
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_RECIPIENT_PICKER,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,
+      });
+    }
+    function m(e, t, n, r, a, i, l) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: l,
@@ -59,7 +82,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,
       });
     }
-    function m(e, t, n, r, a, i) {
+    function p(e, t, n, r, a, i) {
       var l =
         r != null
           ? babelHelpers.extends({}, i, {
@@ -81,8 +104,9 @@ __d(
       (l.createAudienceContactCheckboxClicked = s),
       (l.createAudienceBackClicked = u),
       (l.createAudienceSaveClicked = c),
-      (l.createAudienceSaveResult = d),
-      (l.importAudienceSaveResult = m));
+      (l.proAudienceFloorChecked = d),
+      (l.createAudienceSaveResult = m),
+      (l.importAudienceSaveResult = p));
   },
   98,
 );

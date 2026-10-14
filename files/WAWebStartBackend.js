@@ -8,6 +8,7 @@ __d(
     "WAGzip",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebABPropsCache",
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
     "WAWebAfterReadSendingRollbackListener",
@@ -573,47 +574,53 @@ __d(
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, a;
+          var t, a, i;
           (e === void 0 && (e = { passive: !1, pull: !0 }),
             o("WAWebPageLoadLogging").startPageLoadQplMeasure("startWebComms"));
-          var i = o("WAWebCommsConfig").getCommsConfig(e);
+          var l = o("WAWebCommsConfig").getCommsConfig(e);
           (o("WAWebPageLoadLogging").startPageLoadQplMeasure("waitForMain"),
             yield o("WAWebEventsWaitForMain").waitForMain(),
             o("WAWebPageLoadLogging").endPageLoadQplMeasure("waitForMain"));
-          var l = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
+          var s = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
           o("WAWebCommsWorkerProxy").setStartCommsArgs({
             passive: (t = e) == null ? void 0 : t.passive,
             pull: (a = e) == null ? void 0 : a.pull,
           });
-          var s = o("WAWebCommsGating").isCommsInWorker();
+          var u = o("WAWebCommsGating").isCommsInWorker();
           if (
-            (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
-              comms_in_worker: s,
+            (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+              comms_in_worker: u,
+              comms_in_worker_expo_key:
+                (i = o("WAWebABPropsCache").getABPropExpoKey(
+                  "waweb_comms_in_backend_worker",
+                )) != null
+                  ? i
+                  : void 0,
             }),
-            s)
+            u)
           ) {
             o("WAWebPageLoadLogging").startPageLoadQplMeasure(
               "getBackendWorkerBridge",
             );
-            var u = yield o(
+            var c = yield o(
               "WAWebBackendWorkerClient",
             ).getBackendWorkerBridge();
             (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
               "getBackendWorkerBridge",
             ),
               o("WAComms").setCommsFactory(function () {
-                return o("WAWebCommsWorkerProxy").createCommsWorkerProxy(u);
+                return o("WAWebCommsWorkerProxy").createCommsWorkerProxy(c);
               }));
           }
           (o("WAComms").startComms(
             r("WAWebCommsHandleStanza"),
-            i,
+            l,
             function (e) {
               return (k || (k = n("Promise"))).resolve(o("WAGzip").inflate(e));
             },
-            l,
+            s,
           ),
-            l &&
+            s &&
               (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                 "waitForConnection",
               ),

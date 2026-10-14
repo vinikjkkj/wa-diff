@@ -1,7 +1,6 @@
 __d(
   "WAWebMaibaAiHubSettledProgressEdit",
   [
-    "WAWebBizAiAgentGating",
     "WAWebBotTypes",
     "WAWebMaibaWASSMigration",
     "WAWebUnifiedResponseUtils",
@@ -28,16 +27,14 @@ __d(
         o("WAWebViewModeUtils").isViewModeVisibleInSurface(
           o("WAWebViewMode.flow").ViewModeSurface.CHAT,
           e.viewMode,
-        ) &&
-        o("WAWebBizAiAgentGating").isMaibaWASSReceivingEnabled()
+        )
       );
     }
     function u(e, t) {
       return (
         !t &&
         e.viewMode === o("WAWebViewMode.flow").ViewModeType.HIDDEN &&
-        e.associationType == null &&
-        o("WAWebBizAiAgentGating").isMaibaWASSReceivingEnabled()
+        e.associationType == null
       );
     }
     l.getMaibaAiHubSettledProgressEditViewMode = e;

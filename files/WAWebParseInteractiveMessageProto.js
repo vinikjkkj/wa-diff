@@ -1,7 +1,6 @@
 __d(
   "WAWebParseInteractiveMessageProto",
   [
-    "WAWebABProps",
     "WAWebBotUtils",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
@@ -31,13 +30,13 @@ __d(
         i = t.baseMessage,
         l = t.bizInfo,
         s = t.bizSource,
-        u = t.messageProtobuf,
-        m = t.msgContext,
-        f = u.interactiveMessage;
+        d = t.messageProtobuf,
+        _ = t.msgContext,
+        f = d.interactiveMessage;
       if (f != null) {
         var g = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(f);
         if (!g || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(g))
-          return _(i, f);
+          return p(i, f);
         var h = f.body,
           y = f.footer,
           C = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(g),
@@ -58,8 +57,8 @@ __d(
         if (
           !o("WAWebE2EProtoUtils").isSupportedInteractiveMessageVersion(g, f[C])
         )
-          return _(i, f);
-        var v = p(f),
+          return p(i, f);
+        var v = m(f),
           S =
             (v == null ? void 0 : v.type) === e &&
             o("WAWebHsmGatingUtils").isBloksWidgetEnabled(),
@@ -67,16 +66,16 @@ __d(
           L = f.carouselMessage;
         if (
           L != null &&
-          ((R = d({
+          ((R = c({
             baseMessage: i,
             bizInfo: l,
             bizSource: s,
             carouselMessage: L,
-            msgContext: m,
+            msgContext: _,
           })),
           R == null)
         )
-          return _(i, f);
+          return p(i, f);
         if (g === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
           var E = r("WAWebInteractiveMessagesNativeFlowName").cast(
             o("WAWebE2EProtoUtils").getBizNativeFlowName({
@@ -90,7 +89,7 @@ __d(
                 "WAWebStripBrazilPaymentState",
               ).stripBrazilPaymentState(f.nativeFlowMessage),
             })),
-            !S && (m === "relay" || m === "history"))
+            !S && (_ === "relay" || _ === "history"))
           ) {
             var k,
               I,
@@ -104,7 +103,7 @@ __d(
                 o("WAWebE2EProtoUtils").isValidNativeFlowName({
                   name: E,
                   bizInfo: l,
-                  msgContext: m,
+                  msgContext: _,
                 });
             if (
               !D ||
@@ -115,10 +114,10 @@ __d(
                 msg: b,
               })
             )
-              return _(i, f);
+              return p(i, f);
           }
         }
-        var x = f.header != null ? c(f.header, i, m) : void 0;
+        var x = f.header != null ? u(f.header, i, _) : void 0;
         return {
           msgData: babelHelpers.extends(
             {},
@@ -140,12 +139,7 @@ __d(
         };
       }
     }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "enable_product_carousel_message",
-      );
-    }
-    function c(e, t, n) {
+    function u(e, t, n) {
       var a = function () {
           if (e.imageMessage) {
             var a,
@@ -186,7 +180,7 @@ __d(
           }
           if (e.videoMessage) {
             var s,
-              c =
+              u =
                 (s = r("WAWebParseVideoMessageProto")({
                   messageProtobuf: { videoMessage: e.videoMessage },
                   baseMessage: t,
@@ -194,30 +188,30 @@ __d(
                 })) == null
                   ? void 0
                   : s.msgData;
-            if (c && c.kind !== o("WAWebMsgType").MsgKind.Video)
+            if (u && u.kind !== o("WAWebMsgType").MsgKind.Video)
               throw new (o("WAWebHandleMsgError").MessageValidationError)(
                 "parseInteractiveHeaderMessageProto: header videoMessage is not an VideoMsgData",
                 o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                   .INVALID_MESSAGE,
               );
             return {
-              headerMessage: c,
+              headerMessage: u,
               mediaType: o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.VIDEO,
             };
           }
-          if (u() && e.productMessage) {
-            var d,
-              m =
-                (d = r("WAWebParseProductMessageProto")({
+          if (e.productMessage) {
+            var c,
+              d =
+                (c = r("WAWebParseProductMessageProto")({
                   messageProtobuf: { productMessage: e.productMessage },
                   baseMessage: t,
                   msgContext: n,
                 })) == null
                   ? void 0
-                  : d.msgData;
+                  : c.msgData;
             return {
-              headerMessage: m,
+              headerMessage: d,
               mediaType: o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.PRODUCT,
             };
@@ -239,7 +233,7 @@ __d(
         },
       };
     }
-    function d(e) {
+    function c(e) {
       var t = e.baseMessage,
         n = e.bizInfo,
         a = e.bizSource,
@@ -251,7 +245,7 @@ __d(
       )
         return null;
       var s = i.cards.map(function (e) {
-          return m({
+          return d({
             baseMessage: t,
             bizInfo: n,
             bizSource: a,
@@ -262,74 +256,74 @@ __d(
         u = r("filterNulls")(s);
       return u.length === 0 ? null : u;
     }
-    function m(e) {
+    function d(e) {
       var t,
         n = e.baseMessage,
         a = e.bizInfo,
         i = e.bizSource,
         l = e.card,
         s = e.msgContext,
-        d = l.body,
-        m = l.header,
-        p = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(l);
-      if (!p || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(p))
+        c = l.body,
+        d = l.header,
+        m = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(l);
+      if (!m || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(m))
         return null;
-      var _ = babelHelpers.extends({}, m, {
+      var p = babelHelpers.extends({}, d, {
           type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
           kind: o("WAWebMsgType").MsgKind.Interactive,
           caption:
             (t = o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-              d == null ? void 0 : d.text,
+              c == null ? void 0 : c.text,
             )) != null
               ? t
               : "",
-          interactiveType: p,
+          interactiveType: m,
           interactivePayload: l.nativeFlowMessage,
           pmCampaignId: a == null ? void 0 : a.campaignId,
           bizSource: i,
         }),
-        f = m != null ? c(m, n, s) : void 0,
-        g = f == null ? void 0 : f.headerMessage;
-      if (f == null || g == null) return null;
-      var h = babelHelpers.extends({}, f.interactiveHeader, {
+        _ = d != null ? u(d, n, s) : void 0,
+        f = _ == null ? void 0 : _.headerMessage;
+      if (_ == null || f == null) return null;
+      var g = babelHelpers.extends({}, _.interactiveHeader, {
           title: null,
           subtitle: null,
         }),
-        y = new (r("WAWebMsgKey"))({
-          fromMe: g.id.fromMe,
-          remote: g.id.remote,
-          participant: g.id.participant,
+        h = new (r("WAWebMsgKey"))({
+          fromMe: f.id.fromMe,
+          remote: f.id.remote,
+          participant: f.id.participant,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
-      if (g.type === o("WAWebMsgType").MSG_TYPE.VIDEO)
-        return babelHelpers.extends({}, g, _, {
-          id: y,
-          interactiveHeader: h,
+      if (f.type === o("WAWebMsgType").MSG_TYPE.VIDEO)
+        return babelHelpers.extends({}, f, p, {
+          id: h,
+          interactiveHeader: g,
           footer: null,
           isCarouselCard: !0,
           parentMsgId: n.id.clone(),
           bloksWidget: null,
         });
-      if (g.type === o("WAWebMsgType").MSG_TYPE.IMAGE)
-        return babelHelpers.extends({}, g, _, {
-          id: y,
-          interactiveHeader: h,
+      if (f.type === o("WAWebMsgType").MSG_TYPE.IMAGE)
+        return babelHelpers.extends({}, f, p, {
+          id: h,
+          interactiveHeader: g,
           footer: null,
           isCarouselCard: !0,
           parentMsgId: n.id.clone(),
           bloksWidget: null,
         });
-      if (u() && g.type === o("WAWebMsgType").MSG_TYPE.PRODUCT)
-        return babelHelpers.extends({}, g, _, {
-          id: y,
-          interactiveHeader: h,
+      if (f.type === o("WAWebMsgType").MSG_TYPE.PRODUCT)
+        return babelHelpers.extends({}, f, p, {
+          id: h,
+          interactiveHeader: g,
           footer: null,
           isCarouselCard: !0,
           parentMsgId: n.id.clone(),
           bloksWidget: null,
         });
     }
-    function p(e) {
+    function m(e) {
       var t;
       if (e.bloksWidget != null) {
         var n, r, o, a;
@@ -351,7 +345,7 @@ __d(
       }
       return null;
     }
-    function _(e, t) {
+    function p(e, t) {
       return {
         msgData: babelHelpers.extends({}, e, {
           type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,

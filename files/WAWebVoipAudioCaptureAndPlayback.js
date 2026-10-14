@@ -10,6 +10,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebUA",
     "WAWebVoipAudioCaptureBase",
+    "WAWebVoipAudioContextResume",
     "WAWebVoipAudioPlaybackBase",
     "WAWebVoipAudioPlaybackState",
     "WAWebVoipAvDriverInitQpl",
@@ -287,7 +288,16 @@ __d(
                     var n = (e = U) == null ? void 0 : e.playbackAudioContext;
                     if (n != null && n.state === "suspended")
                       try {
-                        if ((yield n.resume(), t && r !== W)) return;
+                        if (
+                          (yield o(
+                            "WAWebVoipAudioContextResume",
+                          ).resumeAudioContextLoggingDelays(
+                            n,
+                            "startCaptureJS",
+                          ),
+                          t && r !== W)
+                        )
+                          return;
                         (he(n),
                           o("WALogger").LOG(
                             h ||

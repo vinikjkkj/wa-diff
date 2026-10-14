@@ -16,17 +16,19 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
+    function s(e, t) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield r("WAWebInitialSystemMsg")(t, null, null),
-            i = o("WAWebBroadcastSystemMsg").genBroadcastCreateSystemMsg(t),
-            l = [].concat(a, [i]);
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = a ? [] : yield r("WAWebInitialSystemMsg")(t, null, null),
+            l = a
+              ? o("WAWebBroadcastSystemMsg").genBroadcastProCreateSystemMsg(t)
+              : o("WAWebBroadcastSystemMsg").genBroadcastCreateSystemMsg(t),
+            s = [].concat(i, [l]);
           yield (e || (e = n("Promise"))).all(
-            l.map(function (e) {
+            s.map(function (e) {
               return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: t,
                 handleSingleMsgOrigin: "createChat",
@@ -64,15 +66,16 @@ __d(
           var r = e.audienceExpression,
             a = e.customAudienceFbid,
             i = e.id,
-            l = e.listName,
-            u = e.shouldInsertInitialSystemMessages,
-            d = e.timestamp,
-            m = o("WAWebWidFactory").createWid(i),
-            p = yield o("WAWebAudienceResolver").resolveAudienceExpression(r),
-            _ = c(r),
-            f = { id: m, name: l },
-            g = !1,
-            h = a;
+            l = e.isBizBroadcastPro,
+            u = e.listName,
+            d = e.shouldInsertInitialSystemMessages,
+            m = e.timestamp,
+            p = o("WAWebWidFactory").createWid(i),
+            _ = yield o("WAWebAudienceResolver").resolveAudienceExpression(r),
+            f = c(r),
+            g = { id: p, name: u },
+            h = !1,
+            y = a;
           (yield o("WAWebSyncdCoreApi").lockForSync(
             ["chat", "broadcast-metadata", "contact"],
             t != null ? t : [],
@@ -80,49 +83,49 @@ __d(
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
                   var n,
+                    l,
                     s,
-                    u,
                     c,
-                    m,
-                    y = t[0],
+                    d,
+                    p = t[0],
                     C = t[1],
                     b = t[2],
-                    v = yield y.get(i);
-                  (v == null && ((g = !0), (f.t = d)),
-                    yield y.createOrMerge(
+                    v = yield p.get(i);
+                  (v == null && ((h = !0), (g.t = m)),
+                    yield p.createOrMerge(
                       i,
-                      babelHelpers.extends({}, f, { id: i }),
+                      babelHelpers.extends({}, g, { id: i }),
                     ),
-                    yield b.createOrMerge(i, { id: i, name: l }));
+                    yield b.createOrMerge(i, { id: i, name: u }));
                   var S = yield o("WAWebSchemaBroadcastMetadata")
                     .getBroadcastMetadataTable()
                     .get(i);
-                  ((h =
+                  ((y =
                     (n = S == null ? void 0 : S.customAudienceFbid) != null
                       ? n
                       : a),
                     yield C.createOrReplace({
                       audienceExpression: r,
-                      customAudienceFbid: h,
+                      customAudienceFbid: y,
                       id: i,
                       isWebCreatedList:
-                        (s =
-                          (u = e.isWebCreatedList) != null
-                            ? u
+                        (l =
+                          (s = e.isWebCreatedList) != null
+                            ? s
                             : S == null
                               ? void 0
                               : S.isWebCreatedList) != null
-                          ? s
+                          ? l
                           : !1,
-                      labels: _,
-                      recipients: p,
+                      labels: f,
+                      recipients: _,
                       senderKeyDevices:
                         (c = S == null ? void 0 : S.senderKeyDevices) != null
                           ? c
                           : [],
                       senderKeyRotate:
-                        (m = S == null ? void 0 : S.senderKeyRotate) != null
-                          ? m
+                        (d = S == null ? void 0 : S.senderKeyRotate) != null
+                          ? d
                           : !1,
                     }));
                 },
@@ -132,18 +135,18 @@ __d(
               };
             })(),
           ),
-            g && u && (yield s(m)),
+            h && d && (yield s(p, l)),
             o("WAWebBackendApi").frontendFireAndForget("updateBroadcastList", {
               broadcastMetadata: {
                 audienceExpression: r,
-                customAudienceFbid: h,
-                id: m,
-                recipients: p.map(function (e) {
+                customAudienceFbid: y,
+                id: p,
+                recipients: _.map(function (e) {
                   return { id: o("WAWebWidFactory").createWid(e) };
                 }),
               },
-              chat: f,
-              contact: { id: m, name: l },
+              chat: g,
+              contact: { id: p, name: u },
             }));
         })),
         m.apply(this, arguments)

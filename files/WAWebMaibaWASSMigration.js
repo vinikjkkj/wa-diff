@@ -8,8 +8,7 @@ __d(
       );
     }
     function s(e) {
-      return o("WAWebBizAiAgentGating").isMaibaWASSReceivingEnabled() &&
-        o("WAWebBotUtils").isMaibaAiHubFbid(e)
+      return o("WAWebBotUtils").isMaibaAiHubFbid(e)
         ? o("WAWebBotUtils").MAIBA_AI_HUB_LID_WID
         : null;
     }
@@ -28,8 +27,7 @@ __d(
             (e.data = babelHelpers.extends({}, e.data, { to: n })));
     }
     function d(e) {
-      return o("WAWebBizAiAgentGating").isMaibaWASSReceivingEnabled() &&
-        o("WAWebBotUtils").isMaibaAiHubFbid(e)
+      return o("WAWebBotUtils").isMaibaAiHubFbid(e)
         ? o("WAWebBotUtils").MAIBA_AI_HUB_LID_WID
         : e;
     }

@@ -251,6 +251,15 @@ __d(
               i,
             );
           }),
+          (t.proAudienceFloorChecked = function (t, n, r, a) {
+            o("WAWebBBAudienceLogs").proAudienceFloorChecked({
+              entryPoint: t,
+              floorMinimum: a,
+              log: this.$1,
+              recipientCount: r,
+              validationSucceeded: n,
+            });
+          }),
           (t.createAudienceSaveResult = function (t, n, r, a, i, l) {
             o("WAWebBBAudienceLogs").createAudienceSaveResult(
               this.$1,

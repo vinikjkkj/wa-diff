@@ -52,7 +52,7 @@ __d(
         i = e.onOpenContactInfo,
         l = e.onViewAllVotes,
         s = e.ref,
-        u = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(r),
+        u = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(r.id),
         c;
       return (
         t[0] !== n ||
@@ -92,7 +92,7 @@ __d(
         i = e.onOpenContactInfo,
         l = e.onViewAllVotes,
         s = e.ref,
-        u = o("WAWebPollsUseResults").useResults(r),
+        u = o("WAWebPollsUseResults").useResults(r.id),
         c;
       return (
         t[0] !== n ||
@@ -127,57 +127,55 @@ __d(
     function g(e) {
       var t,
         n,
-        a,
-        i = e.associatedMessages,
-        l = e.mode,
-        c = e.msg,
-        _ = e.onClose,
-        f = e.onOpenContactInfo,
-        g = e.onViewAllVotes,
-        h = e.optionsToResults,
-        y = e.ref,
-        C =
+        a = e.associatedMessages,
+        i = e.mode,
+        l = e.msg,
+        c = e.onClose,
+        _ = e.onOpenContactInfo,
+        f = e.onViewAllVotes,
+        g = e.optionsToResults,
+        h = e.ref,
+        y =
           o("WAWebTextSizeUtils").getWAWebTextSizeStyles()
             .pollDetailsQuestionTextSize,
-        b = r("useWAWebPollOptionDecorations")(c.id, h, i),
-        v = b.addOptionMsgs,
-        S = b.optionsMsgsMap,
-        R = o("WAWebPollsUseVoteCount").useVoteCount(c),
-        L = o("useWAWebMsgValues").useMsgValues(c.id, [
-          (a = o("WAWebMsgGetters")).getPollName,
-          a.getId,
-          a.getPollInvalidated,
-          a.getPollHideVoterNames,
+        C = r("useWAWebPollOptionDecorations")(l.id, g, a),
+        b = C.addOptionMsgs,
+        v = C.optionsMsgsMap,
+        S = o("WAWebPollsUseVoteCount").useVoteCount(l),
+        R = o("useWAWebMsgValues").useMsgValues(l.id, [
+          (n = o("WAWebMsgGetters")).getPollName,
+          n.getId,
+          n.getPollInvalidated,
+          n.getPollHideVoterNames,
+          n.getSender,
         ]),
-        E = L[0],
-        k = L[1],
-        I = L[2],
-        T = L[3],
-        D = o("WAWebFrontendMsgGetters").getChat(c.unsafe()),
-        x = o("WAWebPollsUseStickySortedResults").useStickySortedResults(h),
-        $ = o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
+        L = R[0],
+        E = R[1],
+        k = R[2],
+        I = R[3],
+        T = R[4],
+        D = o("WAWebFrontendMsgGetters").getChat(l.unsafe()),
+        x = o("WAWebPollsUseStickySortedResults").useStickySortedResults(g),
+        $ = o("WAWebMsgModelPropUtils").isTrusted(l.unsafe()),
         P = o("WAWebFormatConfigurationConversation").Conversation({
-          links:
-            (t = o("WAWebMsgLinks").getLinksFromMsg(c.unsafe())) != null
-              ? t
-              : [],
+          links: L == null ? [] : o("WAWebMsgLinks").getLinksFromText(L, T),
           phoneNumbers: [],
           selectable: !0,
           trusted: $,
-          fromMe: k.fromMe,
+          fromMe: E.fromMe,
         }),
         N = m(function () {
           return new (r("WAWebFlatListController"))();
         }, []),
         M = o("WAWebChatGetters").getIsGroup(D)
-          ? (n = D.groupMetadata) == null
+          ? (t = D.groupMetadata) == null
             ? void 0
-            : n.participants.length
+            : t.participants.length
           : 0;
       return d.jsxs(
         r("WAWebDrawer.react"),
         {
-          ref: y,
+          ref: h,
           theme: "striped",
           testid: "poll-details-drawer",
           tsNavigationData: {
@@ -187,11 +185,11 @@ __d(
           children: [
             d.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
               title:
-                c.pollType === o("WAWebPollCreationUtils").PollType.QUIZ
+                l.pollType === o("WAWebPollCreationUtils").PollType.QUIZ
                   ? s._(/*BTDS*/ "Quiz responses")
                   : s._(/*BTDS*/ "Poll details"),
               type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-              onCancel: _,
+              onCancel: c,
               focusBackOrCancel: !0,
             }),
             d.jsxs(r("WAWebDrawerBody.react"), {
@@ -200,7 +198,7 @@ __d(
                 d.jsxs(r("WAWebDrawerSection.react"), {
                   theme: "no-padding",
                   children: [
-                    I &&
+                    k &&
                       d.jsx("div", {
                         className: "x1380le5 xefnzgg x1uvdrpn x14mko6t",
                         children: d.jsx(r("WDSBanner.react"), {
@@ -215,10 +213,10 @@ __d(
                       className: "x1h678fw xv6tirj x1m4z3lf x1evaxtz",
                       children: [
                         d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                          text: E,
+                          text: L,
                           selectable: !0,
                           formatters: P,
-                          className: (u || (u = r("stylex")))(p.pollName, C),
+                          className: (u || (u = r("stylex")))(p.pollName, y),
                         }),
                         M != null &&
                           M > 1 &&
@@ -228,7 +226,7 @@ __d(
                               /*BTDS*/ '_j{"*":"{vote_count} of {group_length} members voted","_1":"{vote_count} of 1 member voted"}',
                               [
                                 s._plural(M, "group_length"),
-                                s._param("vote_count", R),
+                                s._param("vote_count", S),
                               ],
                             ),
                           }),
@@ -242,26 +240,26 @@ __d(
                   return d.jsx(
                     r("WAWebPollsOptionSection"),
                     {
-                      associatedMsg: S.get(t),
-                      addOptionMsg: v.get(t),
-                      mode: l,
+                      associatedMsg: v.get(t),
+                      addOptionMsg: b.get(t),
+                      mode: i,
                       option: t,
                       result: n,
-                      isPollFromMe: k.fromMe,
+                      isPollFromMe: E.fromMe,
                       links: $
-                        ? o("WAWebMsgLinks").getPollOptionLinks(c.unsafe(), t)
+                        ? o("WAWebMsgLinks").getPollOptionLinks(l.unsafe(), t)
                         : null,
                       trusted: $,
                       onViewAllVotes: function () {
-                        g(t.localId);
+                        f(t.localId);
                       },
-                      onOpenContactInfo: f,
+                      onOpenContactInfo: _,
                       flatListController: N,
                       testid: "poll-details-option-" + t.localId,
                       isCorrectOption: o(
                         "WAWebPollOptionsRenderUtils",
-                      ).getIsCorrectOption(c.correctOptionIndex, t),
-                      hideVoterNames: T === !0,
+                      ).getIsCorrectOption(l.correctOptionIndex, t),
+                      hideVoterNames: I === !0,
                     },
                     t.localId,
                   );

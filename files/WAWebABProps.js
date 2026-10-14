@@ -26,6 +26,7 @@ __d(
         "web_disable_logs_low_end_device",
         "web_low_end_device_level",
         "wa_web_pre_chat_device_id_test",
+        "falco_md_id_fix_web_enabled",
       ],
       c = null;
     function d(t) {

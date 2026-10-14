@@ -34,6 +34,7 @@ __d(
         BUSINESS_BACK_OFFICE: 27,
         WAIL_WAI: 28,
         WAIL_ALEXA: 29,
+        AUTOMOTIVE: 30,
       }),
       u = {},
       c = {},

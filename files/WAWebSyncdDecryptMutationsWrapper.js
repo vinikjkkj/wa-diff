@@ -6,10 +6,10 @@ __d(
     "WASyncdKeyTypes",
     "WATextEncoding",
     "WAWebABProps",
-    "WAWebEncryptionManagerSelector",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDbCallbacksApi",
+    "WAWebSyncdEncryptionManager",
     "WAWebSyncdError",
     "WAWebSyncdKeyCache",
     "asyncToGeneratorRuntime",
@@ -103,18 +103,16 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = o("WAWebEncryptionManagerSelector").syncdEncryptionManager()
-              .decryptMutation,
-            a = n.keyId.id,
-            i = yield o("WAWebSyncdKeyCache").getKeyData(a);
-          if (!i) {
+          var r = n.keyId.id,
+            a = yield o("WAWebSyncdKeyCache").getKeyData(r);
+          if (!a) {
             if (
               t ===
               o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
                 .REMOVE
             ) {
-              var l = o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                o("WASyncdKeyTypes").fromSyncKeyId(a),
+              var i = o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
+                o("WASyncdKeyTypes").fromSyncKeyId(r),
               );
               if (
                 o("WAWebABProps").getABPropConfigValue(
@@ -128,11 +126,11 @@ __d(
                         "syncd: no key data for remove mutation with key id ",
                         "",
                       ])),
-                    l,
+                    i,
                   ),
                   new (o("WAWebSyncdError").SyncdMissingKeyError)()
                 );
-              var d = o("WAWebSyncdCryptoUtils")
+              var l = o("WAWebSyncdCryptoUtils")
                 .arrayBufferToHexPadded(n.index.blob)
                 .slice(-16);
               throw (
@@ -143,8 +141,8 @@ __d(
                       " mac=",
                       "",
                     ])),
+                  i,
                   l,
-                  d,
                 ),
                 yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   e,
@@ -158,24 +156,26 @@ __d(
             throw new (o("WAWebSyncdError").SyncdMissingKeyError)();
           }
           try {
-            var p = yield r(e, a, i, t, n),
-              _ = p.index,
-              f = p.indexMac,
-              g = p.plaintext,
-              h = p.valueMac,
-              y = p.version;
+            var d = yield o(
+                "WAWebSyncdEncryptionManager",
+              ).WASyncdEncryptionManager.decryptMutation(e, r, a, t, n),
+              p = d.index,
+              _ = d.indexMac,
+              f = d.plaintext,
+              g = d.valueMac,
+              h = d.version;
             return {
-              index: m.decode(_),
-              version: y,
-              keyId: a,
+              index: m.decode(p),
+              version: h,
+              keyId: r,
               operation: t,
-              indexMac: f,
-              valueMac: h,
+              indexMac: _,
+              valueMac: g,
               collection: e,
-              binarySyncData: g,
+              binarySyncData: f,
             };
           } catch (e) {
-            var C = e instanceof Error ? e.message : String(e);
+            var y = e instanceof Error ? e.message : String(e);
             throw (
               o("WALogger")
                 .ERROR(
@@ -184,7 +184,7 @@ __d(
                       "syncd: decryption failed: ",
                       "",
                     ])),
-                  C,
+                  y,
                 )
                 .sendLogs("syncd: decryption failed"),
               e

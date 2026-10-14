@@ -104,7 +104,12 @@ __d(
         .toString(),
       s
         ._(
-          /*BTDS*/ "Lead stage must be one of: {lead stage values}. Leave it blank to import someone with no stage set.",
+          /*BTDS*/ "When a row has a phone number, the username is shown for review but won't be saved; the phone number identifies the customer.",
+        )
+        .toString(),
+      s
+        ._(
+          /*BTDS*/ "Lead stage must be one of: {lead stage values}. Leave it blank to keep an existing stage or import a new contact without one.",
           [s._param("lead stage values", D())],
         )
         .toString(),
@@ -115,7 +120,12 @@ __d(
         .toString(),
       s
         ._(
-          /*BTDS*/ "Lead stage and Source ignore capitalization. Anyone already saved as a customer is skipped.",
+          /*BTDS*/ "Lead stage and Source ignore capitalization. Existing customers are matched by phone number; only missing information is filled in.",
+        )
+        .toString(),
+      s
+        ._(
+          /*BTDS*/ "A Lead stage won't add an existing customer to the Lead list.",
         )
         .toString(),
       v(),
@@ -191,18 +201,19 @@ __d(
         .join(", ");
     }
     function x() {
-      var e = [];
-      return (
-        o(
-          "WAWebCustomerProfileAcquisitionSource",
-        ).PROFILE_ACQUISITION_SOURCE_ORDER.forEach(function (t) {
-          var n = o(
+      return o("WAWebCustomerProfileAcquisitionSource")
+        .PROFILE_ACQUISITION_SOURCE_ORDER.map(function (e) {
+          var t;
+          return (t = o(
             "WAWebCustomerProfileAcquisitionSourceNames",
-          ).getProfileAcquisitionSourceLabel(t);
-          n != null && e.push(n.toString());
-        }),
-        e.join(", ")
-      );
+          ).getProfileAcquisitionSourceLabel(e)) == null
+            ? void 0
+            : t.toString();
+        })
+        .filter(function (e) {
+          return e != null;
+        })
+        .join(", ");
     }
     ((l.FBT_USERNAME = c),
       (l.FBT_EMAIL = d),

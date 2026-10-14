@@ -25,26 +25,33 @@ __d(
           p = u.errorCode,
           _ = u.helpCenterID,
           f = u.originalError,
-          g = u.sourceState,
-          h = u.stack,
-          y = u.summary;
+          g = u.richDescription,
+          h = u.sourceState,
+          y = u.stack,
+          C = u.summary;
         return (
           (s.apiErrorCode = c),
           (s.errorCategory = m),
           (s.originalError = f),
           (s.type = r),
           (s.helpCenterID = _),
-          (s.sourceState = g),
+          (s.sourceState = h),
           (s.errorPayload = {
-            error_stacktrace: h != null ? h : void 0,
+            error_stacktrace: y != null ? y : void 0,
             event: o,
             exception_class: i,
             exception_code: p != null ? p : void 0,
-            exception_message: e(n, y, d, c),
+            exception_message: e(
+              n,
+              C,
+              d != null ? d : g == null ? void 0 : g.toString(),
+              c,
+            ),
             upl_event: a != null ? a : { action: "unknown" },
           }),
-          y != null && (s.summary = y),
+          C != null && (s.summary = C),
           d != null && (s.description = d),
+          g != null && (s.richDescription = g),
           s
         );
       }

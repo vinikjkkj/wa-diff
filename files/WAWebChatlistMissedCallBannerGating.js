@@ -17,6 +17,7 @@ __d(
     "WAWebVoipGatingUtils",
     "react",
     "react-compiler-runtime",
+    "useWAWebCallsTabCallLogVisibilityChange",
     "useWAWebDebouncedCallback",
     "useWAWebListener",
     "useWAWebTimeout",
@@ -74,14 +75,15 @@ __d(
       ),
         o("useWAWebListener").useListener(
           o("WAWebChatCollection").ChatCollection,
-          "add remove change:msgsLength change:isLocked",
+          "add remove change:msgsLength",
           p,
         ),
         o("useWAWebListener").useListener(
           o("WAWebContactCollection").ContactCollection,
           "add remove change:isContactBlocked change:name",
           p,
-        ));
+        ),
+        r("useWAWebCallsTabCallLogVisibilityChange")(l));
       var _ = o("useWAWebTimeout").useManualTimeout(l),
         f = _[0],
         h = _[1],

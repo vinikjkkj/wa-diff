@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebNoop",
+    "WAWebVoipLocalVideoPolicy",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -99,7 +100,9 @@ __d(
     }
     function h(e) {
       var t = e.permissions;
-      t != null && (v(t, "camera"), v(t, "microphone"));
+      t != null &&
+        (o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed() && v(t, "camera"),
+        v(t, "microphone"));
     }
     function y(e, t) {
       return C.apply(this, arguments);

@@ -10,13 +10,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t, n, r) {
+    function u(e, t, n, r, a) {
       o("WAWebPixPaymentRequestFeature").isPixPaymentRequestEnabled()
         ? o("WAWebModalManager").ModalManager.open(
             s.jsx(
               o("WAWebPaymentOnboardingFlowLoadable")
                 .PaymentOnboardingFlowLoadable,
-              { prefill: n, prefillOutcome: r, referral: t, previousScreen: e },
+              {
+                onPixKeySaved: a,
+                prefill: n,
+                prefillOutcome: r,
+                referral: t,
+                previousScreen: e,
+              },
             ),
             { transition: "modal-flow" },
           )
@@ -24,7 +30,13 @@ __d(
             s.jsx(
               o("WAWebBusinessAddPixModalLoadable")
                 .WAWebBizPaymentsBrazilAddPixModalLoadable,
-              { prefill: n, prefillOutcome: r, referral: t, previousScreen: e },
+              {
+                onPixKeySaved: a,
+                prefill: n,
+                prefillOutcome: r,
+                referral: t,
+                previousScreen: e,
+              },
             ),
           );
     }

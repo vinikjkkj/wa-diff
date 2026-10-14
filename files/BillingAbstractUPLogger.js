@@ -6,6 +6,7 @@ __d(
     "IsWebDriverTestRunning",
     "RelayAPIConfig",
     "UplBundleBillingFalcoEvent",
+    "UplRelayHelper",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,8 +23,11 @@ __d(
       var t = e.prototype;
       return (
         (t.setRelayHeaders = function () {
-          r("RelayAPIConfig").customHeaders["X-FB-UPL-SESSIONID"] =
-            this.metadata.session_id;
+          ((r("RelayAPIConfig").customHeaders["X-FB-UPL-SESSIONID"] =
+            this.metadata.session_id),
+            o("UplRelayHelper").applyRelayConfigSessionId_SHADOW(
+              this.metadata.session_id,
+            ));
         }),
         (t.logEvent = function (n) {
           var t,
@@ -196,11 +200,12 @@ __d(
           }
         }),
         (t.appendMetadataIfNotNull = function (t) {
-          var e = {};
-          for (var n in t)
-            if (t[n] != null) {
-              var r;
-              e = babelHelpers.extends({}, e, ((r = {}), (r[n] = t[n]), r));
+          var e = {},
+            n = t;
+          for (var r in t)
+            if (n[r] != null) {
+              var o;
+              e = babelHelpers.extends({}, e, ((o = {}), (o[r] = n[r]), o));
             }
           this.metadata = babelHelpers.extends({}, this.metadata, e);
         }),

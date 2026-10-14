@@ -128,16 +128,15 @@ __d(
             a = e.customAudienceFbid,
             i = e.id,
             l = e.isWebCreatedList,
-            d = e.listName;
-          if (
-            !(
-              n.length === 0 &&
-              !o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(a)
-            )
-          ) {
-            var m = yield h(n),
-              f = o("WATimeUtils").unixTimeMs(),
-              g = m.flatMap(function (e) {
+            d = e.listName,
+            m = a == null ? void 0 : a.trim(),
+            f = m != null && m.length > 0 ? m : void 0,
+            g = f != null ? { customAudienceFbid: f } : {},
+            y = o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(f);
+          if (!(n.length === 0 && !y)) {
+            var C = yield h(n),
+              b = o("WATimeUtils").unixTimeMs(),
+              v = C.flatMap(function (e) {
                 var t = o(
                     "WAWebContactImportFileProcessor",
                   ).normalizePhoneNumber(e.phone),
@@ -149,7 +148,7 @@ __d(
                 };
                 return [r];
               });
-            g.length === 0 &&
+            v.length === 0 &&
               n.length > 0 &&
               o("WALogger")
                 .ERROR(
@@ -162,44 +161,37 @@ __d(
                 )
                 .sendLogs("business-broadcast-no-participants");
             try {
-              var y =
+              var S =
                   t != null
                     ? t
                     : o(
                         "WAWebAudienceExpressionTypes",
                       ).createExplicitExpression(
-                        g.flatMap(function (e) {
+                        v.flatMap(function (e) {
                           return e.lidJid != null ? [e.lidJid] : [];
                         }),
                       ),
-                C = r("WAWebBroadcastListSync").getBroadcastListMutation(
-                  babelHelpers.extends(
-                    {},
-                    a != null ? { customAudienceFbid: a } : {},
-                    {
-                      expression: y,
-                      id: i,
-                      listName: d,
-                      participants: g,
-                      timestamp: f,
-                    },
-                  ),
+                R = r("WAWebBroadcastListSync").getBroadcastListMutation(
+                  babelHelpers.extends({}, g, {
+                    expression: S,
+                    id: i,
+                    listName: d,
+                    participants: v,
+                    timestamp: b,
+                  }),
                 );
               yield o(
                 "WAWebBroadcastListStorageUtils",
               ).updateBroadcastListStorage(
-                babelHelpers.extends(
-                  { audienceExpression: y },
-                  a != null ? { customAudienceFbid: a } : {},
-                  {
-                    id: i,
-                    isWebCreatedList: l,
-                    listName: d,
-                    shouldInsertInitialSystemMessages: !0,
-                    timestamp: o("WATimeUtils").castMilliSecondsToUnixTime(f),
-                  },
-                ),
-                [C],
+                babelHelpers.extends({ audienceExpression: S }, g, {
+                  id: i,
+                  isBizBroadcastPro: y,
+                  isWebCreatedList: l,
+                  listName: d,
+                  shouldInsertInitialSystemMessages: !0,
+                  timestamp: o("WATimeUtils").castMilliSecondsToUnixTime(b),
+                }),
+                [R],
               );
             } catch (e) {
               throw (
@@ -213,7 +205,7 @@ __d(
                   _,
                   e,
                 ),
-                o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(a) ||
+                y ||
                   o("WAWebToastManager").ToastManager.open(
                     p.jsx(o("WAWebToast.react").Toast, {
                       action: { actionText: s._(/*BTDS*/ "OK"), dismiss: !0 },
