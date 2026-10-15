@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBroadcastConsts",
     "WAWebFaqUrl",
+    "WAWebFbtCommon",
     "WAWebL10N",
     "WDSTextualLink.react",
     "react",
@@ -321,9 +322,8 @@ __d(
     }
     Le.displayName = Le.name + " [from " + i.id + "]";
     function Ee() {
-      return s._(/*BTDS*/ "Cancel");
+      return r("WAWebFbtCommon")("Cancel");
     }
-    Ee.displayName = Ee.name + " [from " + i.id + "]";
     function ke(e) {
       return s._(/*BTDS*/ '_j{"*":"{percentage}\\u0025"}', [
         s._param("percentage", e, [0]),
@@ -458,9 +458,8 @@ __d(
     }
     Je.displayName = Je.name + " [from " + i.id + "]";
     function Ze() {
-      return s._(/*BTDS*/ "OK");
+      return r("WAWebFbtCommon")("OK");
     }
-    Ze.displayName = Ze.name + " [from " + i.id + "]";
     function et() {
       return s._(
         /*BTDS*/ "Insights update until broadcast delivery is complete.",

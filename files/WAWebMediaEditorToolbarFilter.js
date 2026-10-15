@@ -6,72 +6,70 @@ __d(
     "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
-    "stylex",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = s || (s = o("react"));
-    function c(t) {
-      var n = o("react-compiler-runtime").c(14),
-        a = t.filters,
-        i = t.imageUrl,
-        l = t.onFilterChange,
-        s = t.onHover,
-        c = t.selectedFilter,
-        d;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = (e || (e = r("stylex")))(
+      s = e || (e = o("react"));
+    function u(e) {
+      var t = o("react-compiler-runtime").c(14),
+        n = e.filters,
+        a = e.imageUrl,
+        i = e.onFilterChange,
+        l = e.onHover,
+        u = e.selectedFilter,
+        c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = [
             o("WDSMargins.stylex").wdsMargins.marginVer0,
             o("WDSMargins.stylex").wdsMargins.marginHor8,
-          )),
-          (n[0] = d))
-        : (d = n[0]);
-      var m;
-      if (n[1] !== a || n[2] !== i || n[3] !== l || n[4] !== s || n[5] !== c) {
-        var p;
-        (n[7] !== i || n[8] !== l || n[9] !== s || n[10] !== c
-          ? ((p = function (t, n) {
-              return u.jsx(
+          ]),
+          (t[0] = c))
+        : (c = t[0]);
+      var d;
+      if (t[1] !== n || t[2] !== a || t[3] !== i || t[4] !== l || t[5] !== u) {
+        var m;
+        (t[7] !== a || t[8] !== i || t[9] !== l || t[10] !== u
+          ? ((m = function (t, n) {
+              return s.jsx(
                 r("WAWebMediaEditorToolbarFilterOption.react"),
                 {
                   filter: t,
-                  imageUrl: i,
-                  onFilterChange: l,
-                  selected: t === c,
-                  onHover: s,
+                  imageUrl: a,
+                  onFilterChange: i,
+                  selected: t === u,
+                  onHover: l,
                 },
                 n,
               );
             }),
-            (n[7] = i),
-            (n[8] = l),
-            (n[9] = s),
-            (n[10] = c),
-            (n[11] = p))
-          : (p = n[11]),
-          (m = a.map(p)),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = l),
-          (n[4] = s),
-          (n[5] = c),
-          (n[6] = m));
-      } else m = n[6];
-      var _;
+            (t[7] = a),
+            (t[8] = i),
+            (t[9] = l),
+            (t[10] = u),
+            (t[11] = m))
+          : (m = t[11]),
+          (d = n.map(m)),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = l),
+          (t[5] = u),
+          (t[6] = d));
+      } else d = t[6];
+      var p;
       return (
-        n[12] !== m
-          ? ((_ = u.jsx(o("WAWebFlex.react").FlexRow, {
-              className: d,
-              children: m,
+        t[12] !== d
+          ? ((p = s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: c,
+              children: d,
             })),
-            (n[12] = m),
-            (n[13] = _))
-          : (_ = n[13]),
-        _
+            (t[12] = d),
+            (t[13] = p))
+          : (p = t[13]),
+        p
       );
     }
-    l.default = c;
+    l.default = u;
   },
   98,
 );

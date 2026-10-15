@@ -77,7 +77,7 @@ __d(
                 n = i[t];
               return (n == null ? void 0 : n.isWhatsAppUser) === !0 &&
                 n.lid != null
-                ? babelHelpers.extends({}, e, { lid: String(n.lid) })
+                ? babelHelpers.extends({}, e, { lid: n.lid })
                 : e;
             });
           } catch (n) {

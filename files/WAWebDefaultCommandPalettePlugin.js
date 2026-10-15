@@ -23,12 +23,12 @@ __d(
     "WAWebSearchCollection",
     "WAWebSettingSearchModel",
     "WAWebSettings.MenuItem",
-    "WAWebSparklesIcon.react",
     "WAWebStaticMenuItem.react",
     "WAWebWamEnumProfileEntryPoint",
     "WDSIconIcPerson.react",
     "WDSIconIcSchedule.react",
     "WDSIconIcSettingsFilled.react",
+    "WDSIconWdsIcAi.react",
     "WDSIconWdsIcChat.react",
     "WDSText.react",
     "react",
@@ -411,7 +411,7 @@ __d(
       var n, a;
       e[1] === Symbol.for("react.memo_cache_sentinel")
         ? ((n = [8, 24, 16, 24]),
-          (a = u.jsx(o("WAWebSparklesIcon.react").SparklesIcon, {
+          (a = u.jsx(r("WDSIconWdsIcAi.react"), {
             iconXstyle: _.tealColor,
             height: 32,
             width: 32,

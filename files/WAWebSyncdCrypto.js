@@ -4,16 +4,18 @@ __d(
     "WABase64",
     "WACryptoHmac",
     "WAMemoizeCache",
-    "WASyncdKeyTypes",
     "WAWebSyncdCryptoConst",
     "WAWebSyncdCryptoHelper",
+    "WAWebSyncdKeyTypes",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = o("WAMemoizeCache").memoizeWithArgs(
       o("WAWebSyncdCryptoHelper").generateEncryptionKeysUnmemoized,
       function (e) {
-        return o("WABase64").encodeB64(o("WASyncdKeyTypes").fromSyncKeyData(e));
+        return o("WABase64").encodeB64(
+          o("WAWebSyncdKeyTypes").fromSyncKeyData(e),
+        );
       },
     );
     function s(e, t) {

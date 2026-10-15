@@ -18,7 +18,7 @@ __d(
     "WAWebFormatUprAmount",
     "WAWebModalManager",
     "WAWebOrderDetailItems",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathPercentageSymbol",
     "WAWebOrderDetailSectionContainer.react",
     "WAWebOrderDetailSellerProfile.react",
     "WAWebOrderDetailSharedStyles",
@@ -118,7 +118,8 @@ __d(
         ? ((h =
             a != null &&
             a.discountText &&
-            a.discountType === o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL
+            a.discountType ===
+              o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL
               ? s._(/*BTDS*/ "({discount_percent}\u0025)", [
                   s._param("discount_percent", a.discountText),
                 ])
@@ -132,7 +133,8 @@ __d(
         ? ((C =
             a != null &&
             a.taxText &&
-            a.taxType === o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL
+            a.taxType ===
+              o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL
               ? s._(/*BTDS*/ "({tax_percent}\u0025)", [
                   s._param("tax_percent", a.taxText),
                 ])

@@ -5,12 +5,12 @@ __d(
     "WAJids",
     "WALogger",
     "WALongInt",
-    "WASyncdKeyTypes",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdFatal",
     "WAWebSyncdHandleKeyShare",
     "WAWebSyncdKeyManagementUtils",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdUploadFatalErrorMetric",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
@@ -74,12 +74,13 @@ __d(
                   n = (t = e.keyId) == null ? void 0 : t.keyId,
                   r = e.keyData,
                   l = r == null ? void 0 : r.keyData,
-                  s = l == null ? null : o("WASyncdKeyTypes").toSyncKeyData(l);
+                  s =
+                    l == null ? null : o("WAWebSyncdKeyTypes").toSyncKeyData(l);
                 if (!n) {
                   _++;
                   return;
                 }
-                var m = o("WASyncdKeyTypes").toSyncKeyId(n),
+                var m = o("WAWebSyncdKeyTypes").toSyncKeyId(n),
                   p = o("WAWebSyncdCryptoUtils").syncKeyIdToHex(m);
                 if (
                   (l != null ? y++ : C++,

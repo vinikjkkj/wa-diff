@@ -25,6 +25,7 @@ __d(
               ],
               mmUserControlsErrorType: [4, e.TYPES.STRING],
               mmUserControlsRolloutVariant: [5, e.TYPES.INTEGER],
+              psIdNewSot: [11, e.TYPES.STRING],
               sequenceNumber: [6, e.TYPES.INTEGER],
               stopDuration: [10, e.TYPES.TIMER],
               templateId: [7, e.TYPES.STRING],

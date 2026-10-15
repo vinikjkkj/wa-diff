@@ -14,9 +14,9 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1",
+      c = "c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b",
       d = null,
-      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1791958130569" }),
+      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1792043689987" }),
       p = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -769,10 +769,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var Qe = {
-            1390655: function () {
+            1392031: function () {
               return Date.now();
             },
-            1390678: function (t, n) {
+            1392054: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -3429,7 +3429,7 @@ __d(
               k(e, new Ct(e)));
           }
           var nn = function (t, n) {
-              if (((z = t), lc(), $)) throw (j(!n), cn(t), "unwind");
+              if (((z = t), sc(), $)) throw (j(!n), cn(t), "unwind");
               if (_e() && !n) {
                 var e =
                   "program exited (with status: " +
@@ -3625,7 +3625,7 @@ __d(
                             " actual=" +
                             t.actualBuildSha
                           : "voip: pinned worker glue load failed: " + t.error;
-                      if (oc && typeof b.onPthreadGlueFailure == "function")
+                      if (ac && typeof b.onPthreadGlueFailure == "function")
                         b.onPthreadGlueFailure(
                           r === "wasmGlueBuildMismatch"
                             ? {
@@ -7615,10 +7615,10 @@ __d(
               getentropy: ui,
               gethostbyname: fi,
               invoke_d: Os,
-              invoke_diii: ec,
+              invoke_diii: tc,
               invoke_fi: nu,
               invoke_fii: hs,
-              invoke_fiii: Zu,
+              invoke_fiii: ec,
               invoke_fiiiiii: Su,
               invoke_i: El,
               invoke_id: ou,
@@ -7642,12 +7642,12 @@ __d(
               invoke_iiiifiii: Ls,
               invoke_iiiifiiiiii: Ts,
               invoke_iiiii: Nl,
-              invoke_iiiiid: Yu,
+              invoke_iiiiid: Ju,
               invoke_iiiiii: Wl,
               invoke_iiiiiii: xl,
-              invoke_iiiiiiiddiiid: ju,
+              invoke_iiiiiiiddiiid: Ku,
               invoke_iiiiiiii: Ol,
-              invoke_iiiiiiiidi: Ku,
+              invoke_iiiiiiiidi: Qu,
               invoke_iiiiiiiifii: Zs,
               invoke_iiiiiiiii: Ml,
               invoke_iiiiiiiiii: Fl,
@@ -7663,6 +7663,7 @@ __d(
               invoke_iiiiiiiiiiiiiiii: eu,
               invoke_iiiiiiiiiiiiiiiiiffiiiii: Ss,
               invoke_iiiiiiiiiiiiiiiiii: zl,
+              invoke_iiiiiiiiiiiiiiiiiiiiiiiiiiii: ju,
               invoke_iiiiiiiiiiji: es,
               invoke_iiiiiiiiij: Uu,
               invoke_iiiiiiiij: Wu,
@@ -7699,12 +7700,12 @@ __d(
               invoke_iijjjj: Mu,
               invoke_iijjjji: Pu,
               invoke_ij: js,
-              invoke_iji: Xu,
+              invoke_iji: Yu,
               invoke_j: jl,
               invoke_ji: Xl,
               invoke_jii: qs,
               invoke_jiii: wl,
-              invoke_jiiii: Ju,
+              invoke_jiiii: Zu,
               invoke_jiiiii: Gu,
               invoke_jiiiiiiii: Bu,
               invoke_jiiiiiji: Hu,
@@ -7733,11 +7734,11 @@ __d(
               invoke_viiiiiiiiii: ts,
               invoke_viiiiiiiiiiii: wu,
               invoke_viiiiiiiiiiiii: Ru,
-              invoke_viiiiiiiiiiiiiii: tc,
+              invoke_viiiiiiiiiiiiiii: nc,
               invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: $u,
               invoke_viiiiiiij: Lu,
               invoke_viiiiij: au,
-              invoke_viiiiiji: Qu,
+              invoke_viiiiiji: Xu,
               invoke_viiiij: iu,
               invoke_viiiijiiii: Is,
               invoke_viiij: fu,
@@ -7839,8 +7840,8 @@ __d(
             yl = (b.___get_exception_message = Pe("__get_exception_message")),
             Cl = Pe("__cxa_can_catch"),
             bl = Pe("__cxa_is_pointer_type"),
-            vl = (b.___start_em_js = 1384668),
-            Sl = (b.___stop_em_js = 1390655);
+            vl = (b.___start_em_js = 1386044),
+            Sl = (b.___stop_em_js = 1392031);
           function Rl(e, t, n, r) {
             var o = _l();
             try {
@@ -9272,7 +9273,73 @@ __d(
               ul(1, 0);
             }
           }
-          function ju(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+          function ju(
+            e,
+            t,
+            n,
+            r,
+            o,
+            a,
+            i,
+            l,
+            s,
+            u,
+            c,
+            d,
+            m,
+            p,
+            _,
+            f,
+            g,
+            h,
+            y,
+            C,
+            b,
+            v,
+            S,
+            R,
+            L,
+            E,
+            k,
+            I,
+          ) {
+            var T = _l();
+            try {
+              return _n(e)(
+                t,
+                n,
+                r,
+                o,
+                a,
+                i,
+                l,
+                s,
+                u,
+                c,
+                d,
+                m,
+                p,
+                _,
+                f,
+                g,
+                h,
+                y,
+                C,
+                b,
+                v,
+                S,
+                R,
+                L,
+                E,
+                k,
+                I,
+              );
+            } catch (e) {
+              if ((fl(T), !(e instanceof Ne))) throw e;
+              ul(1, 0);
+            }
+          }
+          function Ku(e, t, n, r, o, a, i, l, s, u, c, d, m) {
             var p = _l();
             try {
               return _n(e)(t, n, r, o, a, i, l, s, u, c, d, m);
@@ -9281,7 +9348,7 @@ __d(
               ul(1, 0);
             }
           }
-          function Ku(e, t, n, r, o, a, i, l, s, u) {
+          function Qu(e, t, n, r, o, a, i, l, s, u) {
             var c = _l();
             try {
               return _n(e)(t, n, r, o, a, i, l, s, u);
@@ -9290,7 +9357,7 @@ __d(
               ul(1, 0);
             }
           }
-          function Qu(e, t, n, r, o, a, i, l) {
+          function Xu(e, t, n, r, o, a, i, l) {
             var s = _l();
             try {
               _n(e)(t, n, r, o, a, i, l);
@@ -9299,7 +9366,7 @@ __d(
               ul(1, 0);
             }
           }
-          function Xu(e, t, n) {
+          function Yu(e, t, n) {
             var r = _l();
             try {
               return _n(e)(t, n);
@@ -9308,7 +9375,7 @@ __d(
               ul(1, 0);
             }
           }
-          function Yu(e, t, n, r, o, a) {
+          function Ju(e, t, n, r, o, a) {
             var i = _l();
             try {
               return _n(e)(t, n, r, o, a);
@@ -9317,22 +9384,13 @@ __d(
               ul(1, 0);
             }
           }
-          function Ju(e, t, n, r, o) {
+          function Zu(e, t, n, r, o) {
             var a = _l();
             try {
               return _n(e)(t, n, r, o);
             } catch (e) {
               if ((fl(a), !(e instanceof Ne))) throw e;
               return (ul(1, 0), BigInt(0));
-            }
-          }
-          function Zu(e, t, n, r) {
-            var o = _l();
-            try {
-              return _n(e)(t, n, r);
-            } catch (e) {
-              if ((fl(o), !(e instanceof Ne))) throw e;
-              ul(1, 0);
             }
           }
           function ec(e, t, n, r) {
@@ -9344,7 +9402,16 @@ __d(
               ul(1, 0);
             }
           }
-          function tc(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+          function tc(e, t, n, r) {
+            var o = _l();
+            try {
+              return _n(e)(t, n, r);
+            } catch (e) {
+              if ((fl(o), !(e instanceof Ne))) throw e;
+              ul(1, 0);
+            }
+          }
+          function nc(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
             var g = _l();
             try {
               _n(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
@@ -9361,7 +9428,7 @@ __d(
             (b.FS = Jt),
             (b.PThread = ln),
             (b.registeredTypes = ur));
-          var nc = [
+          var rc = [
             "writeI53ToI64",
             "writeI53ToI64Clamped",
             "writeI53ToI64Signaling",
@@ -9515,8 +9582,8 @@ __d(
             "emval_allocateDestructors",
             "emval_addMethodCaller",
           ];
-          nc.forEach(ze);
-          var rc = [
+          rc.forEach(ze);
+          var oc = [
             "run",
             "addOnPreRun",
             "addOnInit",
@@ -9766,24 +9833,24 @@ __d(
             "emval_registeredMethods",
             "IDBFS",
           ];
-          rc.forEach(je);
-          var oc;
+          oc.forEach(je);
+          var ac;
           Re = function e() {
-            (oc || ic(), oc || (Re = e));
+            (ac || lc(), ac || (Re = e));
           };
-          function ac() {
+          function ic() {
             (j(!$), dl(), le());
           }
-          function ic() {
+          function lc() {
             if (ve > 0) return;
-            if (($ || ac(), $)) {
+            if (($ || ic(), $)) {
               (v(b), ge(), startWorker(b));
               return;
             }
             if ((fe(), ve > 0)) return;
             function e() {
-              oc ||
-                ((oc = !0),
+              ac ||
+                ((ac = !0),
                 (b.calledRun = !0),
                 !G &&
                   (ge(),
@@ -9806,7 +9873,7 @@ __d(
               : e(),
               se());
           }
-          function lc() {
+          function sc() {
             var e = O,
               t = B,
               n = !1;
@@ -9838,7 +9905,7 @@ __d(
               b.preInit.length > 0;
             )
               b.preInit.pop()();
-          return (ic(), a.ready);
+          return (lc(), a.ready);
         };
       })();
     ((p.BUILD_SHA = c),

@@ -281,11 +281,7 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.contacts.map(function (e) {
-              var t;
-              return {
-                lid: (t = e.lid) == null ? void 0 : t.toString(),
-                phone: e.phone,
-              };
+              return { lid: e.lid, phone: e.phone };
             }),
             n = e.name.trim(),
             r = yield o("WAWebBroadcastListAction").createBroadcastListAction({

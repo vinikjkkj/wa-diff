@@ -114,9 +114,9 @@ __d(
     }
     function _(e) {
       if (e == null || !o("WAWebChatGetters").getIsNewsletter(e)) return !1;
-      var t = o(
-        "WAWebNewsletterGatingUtils",
-      ).isNewsletterForwardCounterUIEnabled();
+      var t = o("WAWebABProps").getABPropConfigValue(
+        "newsletter_forward_counter_ui_enabled",
+      );
       if (t === 2) return !0;
       if (t === 1) {
         var n, r;

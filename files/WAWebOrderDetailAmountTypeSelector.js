@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebCurrencyUtils",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathPercentageSymbol",
     "WAWebOrderDetailSelector",
     "fbs",
     "react",
@@ -24,10 +24,10 @@ __d(
             label: s._(/*BTDS*/ "by percentage ({percentage-symbol})", [
               s._param(
                 "percentage-symbol",
-                o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL,
+                o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL,
               ),
             ]),
-            value: o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL,
+            value: o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL,
           },
           {
             id: "flat-amount",

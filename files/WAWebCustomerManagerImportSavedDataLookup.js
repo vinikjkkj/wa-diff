@@ -6,12 +6,10 @@ __d(
     "WALogger",
     "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerImportLeadStageLookup",
-    "WAWebCustomerManagerImportLidUtils",
     "WAWebDBCustomerDataDatabaseApi",
     "WAWebLidAwareContactsDB",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,36 +20,34 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a, i;
+          var o, a;
           r === void 0 && (r = []);
-          var l = h(r),
-            s = yield y(e),
-            u =
-              s != null
-                ? yield (_ || (_ = n("Promise"))).all([b(e, t, l), S(e), L(e)])
+          var i = h(r),
+            l = yield y(e),
+            s =
+              l != null
+                ? yield (_ || (_ = n("Promise"))).all([b(e, t, i), S(e), L(e)])
                 : [null, null, null],
-            c = u[0],
-            d = u[1],
-            m = u[2],
-            p = new Map();
-          for (var f of s != null ? s : []) {
-            var g = o("WAWebCustomerManagerImportLidUtils").toBareLid(
-              f.chatJid,
+            u = s[0],
+            c = s[1],
+            d = s[2],
+            m = new Map(
+              (l != null ? l : []).map(function (e) {
+                return [e.chatJid, e];
+              }),
             );
-            g != null && p.set(g, f);
-          }
           return {
-            complete: s != null && c != null && d != null && m != null,
-            leadStagesByLid: m != null ? m : new Map(),
-            legacyByLid: d != null ? d : new Map(),
+            complete: l != null && u != null && c != null && d != null,
+            leadStagesByLid: d != null ? d : new Map(),
+            legacyByLid: c != null ? c : new Map(),
             physicalNamesByPhoneJid:
-              (a = c == null ? void 0 : c.physicalNamesByPhoneJid) != null
-                ? a
+              (o = u == null ? void 0 : u.physicalNamesByPhoneJid) != null
+                ? o
                 : new Map(),
-            profiles: p,
+            profiles: m,
             savedNamesByContactRowId:
-              (i = c == null ? void 0 : c.savedNamesByContactRowId) != null
-                ? i
+              (a = u == null ? void 0 : u.savedNamesByContactRowId) != null
+                ? a
                 : new Map(),
           };
         })),
@@ -59,13 +55,10 @@ __d(
       );
     }
     function h(e) {
-      var t = [];
-      for (var n of e) {
-        var a = o("WAWebWidFactory").createUserWidOrThrow(n);
-        if (a.isLid()) throw r("err")("Expected verified phone JID");
-        t.push(a.toJid(), a.toString());
-      }
-      return t;
+      return e.flatMap(function (e) {
+        var t = o("WAWebWidFactory").createUserWidOrThrow(e);
+        return [t.toJid(), t.toString()];
+      });
     }
     function y(e) {
       return C.apply(this, arguments);
@@ -76,7 +69,9 @@ __d(
           try {
             var n = yield o(
               "WAWebContactManagerCustomerProfilesQuery",
-            ).fetchCompleteCustomerProfileRecords({ candidateLids: t });
+            ).fetchCompleteCustomerProfileRecords({
+              candidateLids: t.map(o("WAJids").lidFromLidUserJid),
+            });
             return (
               n == null &&
                 o("WALogger")
@@ -118,26 +113,25 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           try {
-            var i = e.map(o("WAJids").toLidUserJid),
-              l = new Set();
-            for (var s of t) {
-              var d = s.replace(/\D/g, "");
-              if (d !== "") {
-                var m = o("WAWebWidFactory").createUserWidOrThrow(
-                  o("WAJids").toPhoneUserJid(d),
+            var i = new Set();
+            for (var l of t) {
+              var s = l.replace(/\D/g, "");
+              if (s !== "") {
+                var d = o("WAWebWidFactory").createUserWidOrThrow(
+                  o("WAJids").toPhoneUserJid(s),
                 );
-                (l.add(m.toJid()), l.add(m.toString()));
+                (i.add(d.toJid()), i.add(d.toString()));
               }
             }
-            for (var p of a) l.add(p);
-            var f = Array.from(l),
-              g = yield (_ || (_ = n("Promise"))).all([
-                r("WAWebLidAwareContactsDB").bulkGet(i),
-                r("WAWebLidAwareContactsDB").bulkGetPhysicalPhoneRows(f),
+            for (var m of a) i.add(m);
+            var p = Array.from(i),
+              f = yield (_ || (_ = n("Promise"))).all([
+                r("WAWebLidAwareContactsDB").bulkGet(e),
+                r("WAWebLidAwareContactsDB").bulkGetPhysicalPhoneRows(p),
               ]),
-              h = g[0],
-              y = g[1];
-            if (h.length !== i.length || y.length !== f.length)
+              g = f[0],
+              h = f[1];
+            if (g.length !== e.length || h.length !== p.length)
               return (
                 o("WALogger")
                   .WARN(
@@ -149,26 +143,26 @@ __d(
                   .sendLogs("cm-import-saved-contact-lookup-incomplete"),
                 null
               );
-            var C = new Map();
-            h.forEach(function (e, t) {
-              var n,
-                r =
-                  e == null || (n = e.name) == null
+            var y = new Map();
+            g.forEach(function (t, n) {
+              var r,
+                o =
+                  t == null || (r = t.name) == null
                     ? void 0
-                    : n.trim().replace(/\s+/g, " ");
-              r != null && r !== "" && C.set(i[t], r);
+                    : r.trim().replace(/\s+/g, " ");
+              o != null && o !== "" && y.set(e[n], o);
             });
-            var b = new Map();
+            var C = new Map();
             return (
-              y.forEach(function (e, t) {
+              h.forEach(function (e, t) {
                 var n,
                   r =
                     e == null || (n = e.name) == null
                       ? void 0
                       : n.trim().replace(/\s+/g, " ");
-                r != null && r !== "" && b.set(f[t], r);
+                r != null && r !== "" && C.set(p[t], r);
               }),
-              { physicalNamesByPhoneJid: b, savedNamesByContactRowId: C }
+              { physicalNamesByPhoneJid: C, savedNamesByContactRowId: y }
             );
           } catch (e) {
             return (
@@ -197,7 +191,7 @@ __d(
           try {
             var t = yield o(
               "WAWebDBCustomerDataDatabaseApi",
-            ).getCustomerDataByChatJids(e.map(o("WAJids").toLidUserJid));
+            ).getCustomerDataByChatJids(e);
             if (t.length !== e.length)
               return (
                 o("WALogger")

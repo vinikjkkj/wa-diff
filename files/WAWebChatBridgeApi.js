@@ -79,7 +79,7 @@ __d(
             var t = e.id,
               n = e.integritySignalsPromise,
               r = babelHelpers.objectWithoutPropertiesLoose(e, c),
-              a = o("WAWebChatCollection").ChatCollection.get(t);
+              a = o("WAWebChatGetExistingBridge").getChatOrNewsletter(t);
             a && (a.set(r), n != null && (a.promises.integritySignals = n));
           });
         },

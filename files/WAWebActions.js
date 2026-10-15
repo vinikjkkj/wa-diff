@@ -1,6 +1,6 @@
 __d(
   "WAWebActions",
-  ["fbt", "$InternalEnum"],
+  ["fbt", "$InternalEnum", "WAWebFbtCommon"],
   function (t, n, r, o, a, i, l, s) {
     var e = n("$InternalEnum").Mirrored([
       "CONTACT_US",
@@ -71,7 +71,7 @@ __d(
         case e.TOGGLE_PIN:
           return s._(/*BTDS*/ "Pin chat");
         case e.SEARCH:
-          return s._(/*BTDS*/ "Search");
+          return r("WAWebFbtCommon")("Search");
         case e.SEARCH_IN_CHAT:
           return s._(/*BTDS*/ "Search chat");
         case e.OPEN_NEW_CHAT:

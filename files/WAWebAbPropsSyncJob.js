@@ -106,12 +106,12 @@ __d(
           ) {
             o("WAWebABPropsGlobals").updateGlobalABKey(_ != null ? _ : "");
             var R = Date.now();
-            o("WAWebABPropsLocalStorage").updateAttributesLocalStorage(
-              _,
-              g,
-              C,
-              R,
-            );
+            o("WAWebABPropsLocalStorage").updateAttributesLocalStorage({
+              abKey: _,
+              currentTime: R,
+              hash: g,
+              refresh: C,
+            });
           }
           if (
             (b != null && o("WAWebABPropsLocalStorage").setRefreshId(b),

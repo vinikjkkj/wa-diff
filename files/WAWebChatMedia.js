@@ -11,7 +11,6 @@ __d(
     "WAWebStateUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
-    "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -94,28 +93,7 @@ __d(
       }
       return a;
     }
-    function p(t, a) {
-      var i = o("WAWebStateUtils").unproxy(t);
-      return i.promises.sendDelete != null
-        ? (e || (e = n("Promise"))).resolve(0)
-        : (e || (e = n("Promise")))
-            .all(
-              [i.getMediaMsgs(), i.getLinkMsgs(), i.getDocMsgs()].map(
-                function (e) {
-                  return e.count(i, a);
-                },
-              ),
-            )
-            .then(function (e) {
-              return r("sumBy")(e, function (e) {
-                return e != null ? e : 0;
-              });
-            });
-    }
-    ((l.resetMediaMsgs = s),
-      (l.addMediaMsgs = d),
-      (l.constructMediaMsgs = m),
-      (l.countAllMedia = p));
+    ((l.resetMediaMsgs = s), (l.addMediaMsgs = d), (l.constructMediaMsgs = m));
   },
   98,
 );

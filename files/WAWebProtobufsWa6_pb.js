@@ -115,6 +115,7 @@ __d(
         WAIL: 38,
         WORK_ANDROID: 39,
         WORK_IOS: 40,
+        AUTOMOTIVE: 41,
       }),
       S = {},
       R = {},

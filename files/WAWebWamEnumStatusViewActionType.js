@@ -12,6 +12,7 @@ __d(
       RESHARE_BUTTON_TAP: 6,
       CLOSE_SHARING_EMOJI_CLICK: 7,
       URL_CLICK: 8,
+      REPLY_UI_OPENED: 9,
     });
     i.STATUS_VIEW_ACTION_TYPE = e;
   },

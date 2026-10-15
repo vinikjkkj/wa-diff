@@ -19,6 +19,7 @@ __d(
     "WAWebContactCollection",
     "WAWebDrawerManager",
     "WAWebDrawerManagerGlobalContext",
+    "WAWebFbtCommon",
     "WAWebKeyboardTabUtils",
     "WAWebLockScreenResolver",
     "WAWebManageLabelFlowLoadable",
@@ -361,7 +362,7 @@ __d(
           },
           okText: s._(/*BTDS*/ "Log out"),
           onCancel: o("WAWebModalManager").closeModalManager,
-          cancelText: s._(/*BTDS*/ "Cancel"),
+          cancelText: r("WAWebFbtCommon")("Cancel"),
           children: s._(/*BTDS*/ "Some of your messages are still sending."),
         }),
       );

@@ -5,7 +5,7 @@ __d(
     "WAWebAppTracker",
     "WAWebBackendWorkerClient",
     "WAWebCryptoEncryptMedia",
-    "WAWebCryptoEncryptMediaFromBlob",
+    "WAWebCryptoEncryptMediaFromBlobLoadable",
     "WAWebDeserializeBridgedError",
     "WAWebMainThreadQplHandler",
     "WAWebMainThreadUploadManagerHandler",
@@ -28,7 +28,7 @@ __d(
                 },
               },
               encryptMedia: r("WAWebCryptoEncryptMedia"),
-              encryptMediaFromBlob: r("WAWebCryptoEncryptMediaFromBlob"),
+              encryptMediaFromBlob: s,
             }) || this
           );
         }
@@ -89,8 +89,15 @@ __d(
           t
         );
       })(o("WAWebUploadManagerBase").UploadManagerBase),
-      s = new e();
-    l.default = s;
+      s = function (t) {
+        return o("WAWebCryptoEncryptMediaFromBlobLoadable")
+          .requireEncryptMediaFromBlob()
+          .then(function (e) {
+            return e(t);
+          });
+      },
+      u = new e();
+    l.default = u;
   },
   98,
 );

@@ -3,7 +3,6 @@ __d(
   [
     "$InternalEnum",
     "WAWebABProps",
-    "WAWebNewsletterGatingUtils",
     "WAWebTimedCache",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
@@ -108,8 +107,11 @@ __d(
             t,
           );
         },
-        getCacheTtlMs: o("WAWebNewsletterGatingUtils")
-          .getNewsletterDirectoryCategoriesPreviewRefreshIntervalMs,
+        getCacheTtlMs: function () {
+          return o("WAWebABProps").getABPropConfigValue(
+            "channels_directory_categories_cache_refresh_interval_ms",
+          );
+        },
       });
     ((l.getNewsletterTabLastSeenTimestamp = e),
       (l.setNewsletterTabLastSeenTimestamp = s),

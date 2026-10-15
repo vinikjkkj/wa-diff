@@ -99,31 +99,34 @@ __d(
           })()),
           (a._cleanupCipherTextAndIV = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = e,
-                  a = t === 0,
-                  i = r.byteLength % h === 0,
-                  l = !i,
-                  s;
-                if (a) s = n.iv;
+              function* (e) {
+                var t = e.chunkIndex,
+                  n = e.cipherText,
+                  r = e.cryptoKeys,
+                  a = n,
+                  i = t === 0,
+                  l = a.byteLength % h === 0,
+                  s = !l,
+                  u;
+                if (i) u = r.iv;
                 else {
-                  var u = this._increasingScanLengths[t - 1];
-                  s = this._downloadedBytes.slice(u - h, u);
+                  var c = this._increasingScanLengths[t - 1];
+                  u = this._downloadedBytes.slice(c - h, c);
                 }
-                if ((l && (r = r.slice(0, r.byteLength - g)), i)) {
-                  var c = yield v(r, n);
+                if ((s && (a = a.slice(0, a.byteLength - g)), l)) {
+                  var d = yield v(a, r);
                   return {
                     cipherText: o("WATypedArraysConcat").concatTypedArrays(
                       Uint8Array,
-                      [new Uint8Array(r), new Uint8Array(c)],
+                      [new Uint8Array(a), new Uint8Array(d)],
                     ),
-                    iv: s,
+                    iv: u,
                   };
                 }
-                return { cipherText: r, iv: s };
+                return { cipherText: a, iv: u };
               },
             );
-            function t(t, n, r) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;
@@ -137,7 +140,11 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, n, r) {
                 yield this._validateSidecar(t, n, r);
-                var a = yield this._cleanupCipherTextAndIV(t, n, r),
+                var a = yield this._cleanupCipherTextAndIV({
+                    chunkIndex: n,
+                    cipherText: t,
+                    cryptoKeys: r,
+                  }),
                   i = a.cipherText,
                   l = a.iv,
                   s = yield o("WACryptoAesCbc").aesCbcDecrypt(r.encKey, l, i),

@@ -11,7 +11,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetNotificationStrings",
     "WAWebMsgGetters",
-    "WAWebMsgModelUtils",
+    "WAWebMsgNotificationPreview",
     "WAWebMsgType",
     "WAWebMuteGetters",
     "WAWebNotificationHelpers",
@@ -254,7 +254,7 @@ __d(
               .toString(),
           }
         : (e.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
-          !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
+          !o("WAWebMsgNotificationPreview").shouldShowMsgNotificationPreview(e)
             ? (n = s._(/*BTDS*/ "Kept your message from disappearing"))
             : ((n = o("WAWebGetNotificationStrings").getNotificationMessageBody(
                 e,

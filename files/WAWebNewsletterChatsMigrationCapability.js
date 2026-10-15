@@ -1,17 +1,10 @@
 __d(
   "WAWebNewsletterChatsMigrationCapability",
-  ["$InternalEnum", "WALongInt", "WAWebEventEmitter", "WAWebUserPrefsStore"],
+  ["WALongInt", "WAWebEventEmitter", "WAWebUserPrefsDeviceCapabilities"],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum").Mirrored([
-        "PrimaryNewsletterChatsCountdownEndsAt",
-        "PrimaryNewsletterChatsMigrated",
-        "PrimaryNewsletterChatsRolledBack",
-      ]),
-      s = new (r("WAWebEventEmitter"))(),
-      u = e.PrimaryNewsletterChatsMigrated,
-      c = e.PrimaryNewsletterChatsCountdownEndsAt,
-      d = e.PrimaryNewsletterChatsRolledBack;
-    function m(e) {
+    var e = new (r("WAWebEventEmitter"))(),
+      s = { countdownEndsAt: null, effectiveMigrated: null, rolledBack: null };
+    function u(e) {
       var t,
         n,
         r = e == null ? void 0 : e.newsletterChatsMigration;
@@ -24,42 +17,44 @@ __d(
         rolledBack: (n = r == null ? void 0 : r.rolledBack) != null ? n : null,
       };
     }
-    function p() {
-      var e = r("WAWebUserPrefsStore").getUser(c);
-      return {
-        countdownEndsAt: typeof e == "number" ? e : null,
-        effectiveMigrated: g(u),
-        rolledBack: g(d),
-      };
+    function c() {
+      var e;
+      return (e = o(
+        "WAWebUserPrefsDeviceCapabilities",
+      ).getPrimaryDeviceCapabilitiesFromLocalStorage()
+        .newsletterChatsMigration) != null
+        ? e
+        : s;
     }
-    function _() {
-      return p().effectiveMigrated === !0;
+    function d() {
+      return c().effectiveMigrated === !0;
     }
-    function f(e) {
-      var t = p(),
-        n = [
-          h(u, t.effectiveMigrated, e.effectiveMigrated),
-          h(c, t.countdownEndsAt, e.countdownEndsAt),
-          h(d, t.rolledBack, e.rolledBack),
-        ].includes(!0);
-      return (n && s.trigger("change"), t);
+    function m(t) {
+      var n = c();
+      return (
+        p(n, t) ||
+          (o(
+            "WAWebUserPrefsDeviceCapabilities",
+          ).mergeDeviceCapabilitiesToStorage(
+            { newsletterChatsMigration: t },
+            "primary",
+          ),
+          e.trigger("change")),
+        n
+      );
     }
-    function g(e) {
-      var t = r("WAWebUserPrefsStore").getUser(e);
-      return typeof t == "boolean" ? t : null;
+    function p(e, t) {
+      return (
+        e.countdownEndsAt === t.countdownEndsAt &&
+        e.effectiveMigrated === t.effectiveMigrated &&
+        e.rolledBack === t.rolledBack
+      );
     }
-    function h(e, t, n) {
-      return t === n
-        ? !1
-        : (r("WAWebUserPrefsStore").setUser(e, n, { shouldWriteToIdb: !0 }),
-          !0);
-    }
-    ((l.NewsletterChatsMigrationUserPrefs = e),
-      (l.newsletterChatsMigrationEmitter = s),
-      (l.getNewsletterChatsMigrationFromCapabilities = m),
-      (l.getPrimaryNewsletterChatsMigration = p),
-      (l.getPrimaryHasMigratedNewsletterChats = _),
-      (l.savePrimaryNewsletterChatsMigration = f));
+    ((l.newsletterChatsMigrationEmitter = e),
+      (l.getNewsletterChatsMigrationFromCapabilities = u),
+      (l.getPrimaryNewsletterChatsMigration = c),
+      (l.getPrimaryHasMigratedNewsletterChats = d),
+      (l.savePrimaryNewsletterChatsMigration = m));
   },
   98,
 );

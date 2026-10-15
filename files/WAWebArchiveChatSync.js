@@ -7,6 +7,7 @@ __d(
     "WAWebApiAddActiveMessageRange",
     "WAWebChatDbUpdatesApi",
     "WAWebMessageRangeUtils",
+    "WAWebNewsletterArchiveUtils",
     "WAWebPinChatSync",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
@@ -313,7 +314,11 @@ __d(
                     "WAWebUserPrefsMultiDevice",
                   ).getArchiveV2EnabledSetting(),
                   d = o("WAWebUserPrefsMultiDevice").getUnarchiveChatsSetting(),
-                  m = c && !d;
+                  m = c && !d,
+                  p =
+                    o(
+                      "WAWebNewsletterArchiveUtils",
+                    ).shouldKeepChannelArchivedUntilMigration(n) || m;
                 switch (l) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesAreEqual:
@@ -330,11 +335,12 @@ __d(
                     .RangeAEnclosesRangeB:
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesNotEnclosing:
-                    return m
-                      ? {
+                    return p
+                      ? (m || (yield u()),
+                        {
                           updates: { id: n.toString(), archive: t },
                           syncApplyActionResult: h(n, l),
-                        }
+                        })
                       : (yield u(),
                         { updates: void 0, syncApplyActionResult: h(n, l) });
                 }

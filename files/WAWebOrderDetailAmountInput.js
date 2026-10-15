@@ -4,7 +4,7 @@ __d(
     "fbt",
     "WAWebCurrencyUtils",
     "WAWebOrderDetailErrorUtils",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathDefaultOffset",
     "WAWebRichTextField.react",
     "react",
     "react-compiler-runtime",
@@ -22,7 +22,7 @@ __d(
         return s._(/*BTDS*/ "Enter a valid price");
       var n =
         o("WAWebCurrencyUtils").valueFromString(t, e) /
-        o("WAWebOrderDetailMath").DEFAULT_OFFSET;
+        o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET;
       if (n < 0) return s._(/*BTDS*/ "Enter a positive price");
     }
     function m(e) {

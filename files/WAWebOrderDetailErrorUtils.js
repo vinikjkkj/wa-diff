@@ -4,7 +4,8 @@ __d(
     "fbt",
     "WATypeUtils",
     "WAWebCurrencyUtils",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathDefaultOffset",
+    "WAWebOrderDetailMathPercentageSymbol",
     "WAWebToast.react",
     "WAWebToastManager",
     "react",
@@ -72,9 +73,9 @@ __d(
       if (!o("WAWebCurrencyUtils").validatePriceString(t, l)) return m();
       var s =
         o("WAWebCurrencyUtils").valueFromString(t, l) /
-        o("WAWebOrderDetailMath").DEFAULT_OFFSET;
+        o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET;
       if (s < 0) return p();
-      if (r === o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL) {
+      if (r === o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL) {
         if (n && s > 100) return _(a != null ? a : "");
       } else if (o("WATypeUtils").isNumber(i) && s > i)
         return f(a != null ? a : "");

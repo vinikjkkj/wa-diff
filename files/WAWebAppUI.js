@@ -17,12 +17,12 @@ __d(
     "WAWebLinkDeviceScreen.react",
     "WAWebLockScreenLoadable",
     "WAWebLogoutLoadingScreen.react",
+    "WAWebModal.react",
     "WAWebModalManagerImplWrapper.react",
     "WAWebNativeCameraQRLinkedDeviceUtils",
     "WAWebNoop",
     "WAWebOffline.react",
     "WAWebProxied.react",
-    "WAWebServiceUnavailable.react",
     "WAWebSocketModel",
     "WAWebStartup.react",
     "WAWebTempBanScreen.react",
@@ -33,54 +33,50 @@ __d(
     "cr:8094",
     "nullthrows",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
-    function c(e) {
+    function c() {
+      var e = o("react-compiler-runtime").c(2),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = s._(/*BTDS*/ "Service unavailable")), (e[0] = t))
+        : (t = e[0]);
+      var n;
+      return (
+        e[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((n = u.jsx(o("WAWebModal.react").Modal, {
+              title: t,
+              cover: !0,
+              children: s._(
+                /*BTDS*/ "We're having trouble connecting to WhatsApp. Please try again in a few minutes.",
+              ),
+            })),
+            (e[1] = n))
+          : (n = e[1]),
+        n
+      );
+    }
+    function d(e) {
       var t = e.Main,
         a = e.animate,
         i = e.contextMenuRef,
         l = e.handleReadyForMainScreen,
-        c = e.mdReloadPageOnTakeOver,
-        d = e.screen,
-        m = e.state,
-        p = d;
-      switch (d) {
+        d = e.mdReloadPageOnTakeOver,
+        m = e.screen,
+        p = e.state,
+        _ = m;
+      switch (m) {
         case o("WAWebAppScreenTypes").AppScreen.ANOTHER_SESSION: {
-          var _, f;
-          m.takingOver
-            ? ((_ = r("WAWebNoop")), (f = s._(/*BTDS*/ "Connecting\u2026")))
-            : ((_ = function () {
-                c();
+          var f, g;
+          p.takingOver
+            ? ((f = r("WAWebNoop")), (g = s._(/*BTDS*/ "Connecting\u2026")))
+            : ((f = function () {
+                d();
               }),
-              (f = s._(/*BTDS*/ "Use here")));
-          var g = window.open.bind(
-            window,
-            "https://www.whatsapp.com/",
-            "_self",
-          );
-          return {
-            appScreenUI: [
-              {
-                ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
-                  children: u.jsx(r("WAWebConflict.react"), {
-                    cancelText: r("WAWebFbtCommon")("Close"),
-                    onCancel: g,
-                    okText: f,
-                    onOK: _,
-                    children: s._(
-                      /*BTDS*/ 'WhatsApp is open in another window. Click "Use here" to use WhatsApp in this window.',
-                    ),
-                  }),
-                }),
-                errorBoundaryName: p,
-              },
-            ],
-            requiresBackendCheck: !1,
-          };
-        }
-        case o("WAWebAppScreenTypes").AppScreen.CALL_TAKEOVER_PREVENTION: {
+              (g = s._(/*BTDS*/ "Use here")));
           var h = window.open.bind(
             window,
             "https://www.whatsapp.com/",
@@ -93,6 +89,32 @@ __d(
                   children: u.jsx(r("WAWebConflict.react"), {
                     cancelText: r("WAWebFbtCommon")("Close"),
                     onCancel: h,
+                    okText: g,
+                    onOK: f,
+                    children: s._(
+                      /*BTDS*/ 'WhatsApp is open in another window. Click "Use here" to use WhatsApp in this window.',
+                    ),
+                  }),
+                }),
+                errorBoundaryName: _,
+              },
+            ],
+            requiresBackendCheck: !1,
+          };
+        }
+        case o("WAWebAppScreenTypes").AppScreen.CALL_TAKEOVER_PREVENTION: {
+          var y = window.open.bind(
+            window,
+            "https://www.whatsapp.com/",
+            "_self",
+          );
+          return {
+            appScreenUI: [
+              {
+                ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
+                  children: u.jsx(r("WAWebConflict.react"), {
+                    cancelText: r("WAWebFbtCommon")("Close"),
+                    onCancel: y,
                     okText: s._(/*BTDS*/ "Notify other tab"),
                     onOK: function () {
                       r("WAWebAppMutex").requestFocusOnOtherTab();
@@ -102,7 +124,7 @@ __d(
                     ),
                   }),
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !1,
@@ -113,9 +135,9 @@ __d(
             appScreenUI: [
               {
                 ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
-                  children: u.jsx(r("WAWebServiceUnavailable.react"), {}),
+                  children: u.jsx(c, {}),
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !1,
@@ -125,9 +147,9 @@ __d(
             appScreenUI: [
               {
                 ui: u.jsx(r("WAWebTempBanScreen.react"), {
-                  banData: m.temporaryBan,
+                  banData: p.temporaryBan,
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !0,
@@ -161,10 +183,10 @@ __d(
               {
                 ui: u.jsx(o("WAWebFavicon.react").DefaultFavicon, {
                   children: n("cr:8094")
-                    ? u.jsx(n("cr:8094"), { apiCmd: m.apiCmd })
+                    ? u.jsx(n("cr:8094"), { apiCmd: p.apiCmd })
                     : u.jsx(
                         r("WAWebLinkDeviceScreen.react"),
-                        { apiCmd: m.apiCmd },
+                        { apiCmd: p.apiCmd },
                         "qr-code",
                       ),
                 }),
@@ -184,11 +206,11 @@ __d(
                   {
                     ui: u.jsx(o("WAWebFavicon.react").DefaultFavicon, {
                       children: u.jsx(r("WAWebStartup.react"), {
-                        initialLoadState: m.initialLoadState,
+                        initialLoadState: p.initialLoadState,
                         onReady: l,
                       }),
                     }),
-                    errorBoundaryName: p,
+                    errorBoundaryName: _,
                   },
                 ],
                 requiresBackendCheck: !0,
@@ -200,7 +222,7 @@ __d(
                 ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
                   children: u.jsx(r("WAWebOffline.react"), {}),
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !0,
@@ -212,7 +234,7 @@ __d(
                 ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
                   children: u.jsx(r("WAWebProxied.react"), {}),
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !0,
@@ -236,7 +258,7 @@ __d(
                     ),
                   }),
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !0,
@@ -262,7 +284,7 @@ __d(
                     u.jsx(r("WAWebLogoutLoadingScreen.react"), {}, "logout"),
                   ],
                 }),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !0,
@@ -272,16 +294,16 @@ __d(
             appScreenUI: [
               {
                 ui: u.jsx(o("WAWebLockScreenLoadable").LockScreenLoadable, {}),
-                errorBoundaryName: p,
+                errorBoundaryName: _,
               },
             ],
             requiresBackendCheck: !0,
           };
         case o("WAWebAppScreenTypes").AppScreen.MAIN: {
-          var y,
-            C,
-            b = r("nullthrows")(t),
-            v = b.MainComponent;
+          var C,
+            b,
+            v = r("nullthrows")(t),
+            S = v.MainComponent;
           return {
             appScreenUI: [
               {
@@ -309,33 +331,33 @@ __d(
               },
               {
                 ui: u.jsx(
-                  (y = o("WAWebModalManagerImplWrapper.react"))
+                  (C = o("WAWebModalManagerImplWrapper.react"))
                     .ModalManagerImplWrapper,
-                  { contextMenuRef: i, type: y.ModalType },
+                  { contextMenuRef: i, type: C.ModalType },
                   "main-modal-manager",
                 ),
                 errorBoundaryName: "main-modal-manager",
               },
               {
                 ui: u.jsx(
-                  y.ModalManagerImplWrapper,
-                  { contextMenuRef: i, type: y.MediaType },
+                  C.ModalManagerImplWrapper,
+                  { contextMenuRef: i, type: C.MediaType },
                   "media-modal-manager",
                 ),
                 errorBoundaryName: "media-modal-manager",
               },
               {
                 ui: u.jsx(
-                  y.ModalManagerImplWrapper,
-                  { contextMenuRef: i, type: y.SupportType },
+                  C.ModalManagerImplWrapper,
+                  { contextMenuRef: i, type: C.SupportType },
                   "support-modal-manager",
                 ),
                 errorBoundaryName: "support-modal-manager",
               },
               {
                 ui: u.jsx(
-                  y.ModalManagerImplWrapper,
-                  { type: y.AlertType },
+                  C.ModalManagerImplWrapper,
+                  { type: C.AlertType },
                   "alert-modal-manager",
                 ),
                 errorBoundaryName: "alert-modal-manager",
@@ -350,16 +372,16 @@ __d(
               },
               {
                 ui: u.jsx(
-                  (C = o("WAWebContextMenuManager.react")).ContextMenuManager,
-                  { ref: i, type: C.Type.MENU },
+                  (b = o("WAWebContextMenuManager.react")).ContextMenuManager,
+                  { ref: i, type: b.Type.MENU },
                   "context-menu-manager",
                 ),
                 errorBoundaryName: "context-menu-manager",
               },
               {
                 ui: u.jsx(
-                  C.ContextMenuManager,
-                  { type: C.Type.TOOLTIP },
+                  b.ContextMenuManager,
+                  { type: b.Type.TOOLTIP },
                   "tooltip-manager",
                 ),
                 errorBoundaryName: "tooltip-manager",
@@ -398,7 +420,7 @@ __d(
                         fallback: o("WAWebErrorBoundaryPopup.react")
                           .errorBoundaryPopupFallback,
                         sendLogs: !0,
-                        children: u.jsx(v, {
+                        children: u.jsx(S, {
                           conn: o("WAWebConnModel").Conn,
                           animate: a,
                         }),
@@ -415,7 +437,7 @@ __d(
         }
       }
     }
-    l.getAppUI = c;
+    l.getAppUI = d;
   },
   226,
 );

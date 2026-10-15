@@ -8,7 +8,6 @@ __d(
     "WAEncodeString",
     "WALogger",
     "WAPromiseEach",
-    "WASyncdKeyTypes",
     "WATextEncoding",
     "WAWebABProps",
     "WAWebConnModel",
@@ -28,6 +27,7 @@ __d(
     "WAWebSyncdEncryptionManager",
     "WAWebSyncdError",
     "WAWebSyncdKeyCache",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdMetricFatalError",
     "WAWebSyncdMetrics",
     "WAWebSyncdSnapshotRecoveryGatingUtils",
@@ -294,7 +294,7 @@ __d(
               o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(L),
               o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(E),
               o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                o("WASyncdKeyTypes").fromSyncKeyId(f),
+                o("WAWebSyncdKeyTypes").fromSyncKeyId(f),
               ),
             );
             var k, I;

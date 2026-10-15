@@ -2,9 +2,9 @@ __d(
   "WAWebSyncdValidateServerSyncProtobuf",
   [
     "WALongInt",
-    "WASyncdKeyTypes",
     "WAWebProtobufSyncAction.pb",
     "WAWebSyncdError",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdMetricFatalError",
     "decodeProtobuf",
   ],
@@ -285,7 +285,7 @@ __d(
                 "missing mutation key id",
               )
             );
-          return { id: o("WASyncdKeyTypes").toSyncKeyId(e) };
+          return { id: o("WAWebSyncdKeyTypes").toSyncKeyId(e) };
         }),
         e
       );

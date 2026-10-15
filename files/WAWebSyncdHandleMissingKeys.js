@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWebABProps",
     "WAWebGetMissingKey",
     "WAWebGetSyncKey",
@@ -11,6 +10,7 @@ __d(
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdError",
     "WAWebSyncdKeyCallbacksApi",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdStoreMissingKeys",
     "asyncToGeneratorRuntime",
   ],
@@ -24,7 +24,7 @@ __d(
       m,
       p,
       _,
-      f = o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(0));
+      f = o("WAWebSyncdKeyTypes").toSyncKeyId(new ArrayBuffer(0));
     function g(e, t) {
       return h.apply(this, arguments);
     }
@@ -195,7 +195,7 @@ __d(
           )
             return (_ || (_ = n("Promise"))).resolve();
           var l = i.map(function (e) {
-              return o("WASyncdKeyTypes").toSyncKeyId(
+              return o("WAWebSyncdKeyTypes").toSyncKeyId(
                 o("WAWebSyncdCryptoUtils").hexToUint8Array(e).buffer,
               );
             }),

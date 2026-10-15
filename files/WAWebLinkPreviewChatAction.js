@@ -121,11 +121,12 @@ __d(
           else if (R.resultType === o("WAWebApi").APICmd.GROUP_INVITE) {
             var L = yield o(
               "WAWebLinkPreviewGroupUtils",
-            ).getGroupInviteLinkPreview(
-              e.url,
-              R.data.code,
-              o("WAWebProfilePicThumbGetters").getMaybeImg,
-            );
+            ).getGroupInviteLinkPreview({
+              code: R.data.code,
+              resolveProfilePicUrl: o("WAWebProfilePicThumbGetters")
+                .getMaybeImg,
+              url: e.url,
+            });
             L && (b = L);
           } else
             R.resultType === o("WAWebApi").APICmd.PAYMENT_LINK &&

@@ -6,7 +6,6 @@ __d(
     "WACryptoUtils",
     "WALogger",
     "WALongInt",
-    "WASyncdKeyTypes",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebCurrentUser",
@@ -30,6 +29,7 @@ __d(
     "WAWebSyncdError",
     "WAWebSyncdGetActionHandler",
     "WAWebSyncdHandleMissingKeys",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdMMSDownload",
     "WAWebSyncdMetricCriticalBootstrapStage",
     "WAWebSyncdMetricFatalError",
@@ -1781,7 +1781,7 @@ __d(
                         .slice(-16) +
                       ", key id: " +
                       o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                        o("WASyncdKeyTypes").fromSyncKeyId(e.keyId),
+                        o("WAWebSyncdKeyTypes").fromSyncKeyId(e.keyId),
                       )
                     );
                   })

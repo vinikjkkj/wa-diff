@@ -24,17 +24,9 @@ __d(
         s._param("organization name", e),
       ]);
     }
-    function d() {
-      return s._(/*BTDS*/ "Searching for organization members");
-    }
-    function m() {
-      return s._(/*BTDS*/ "Try again");
-    }
     ((l.ORG_MEMBER_SEARCH_DEBOUNCE_MS = e),
       (l.getOrgMemberSearchErrorText = u),
-      (l.getOrgMemberSearchHeader = c),
-      (l.getOrgMemberSearchLoadingLabel = d),
-      (l.getOrgMemberSearchRetryLabel = m));
+      (l.getOrgMemberSearchHeader = c));
   },
   226,
 );

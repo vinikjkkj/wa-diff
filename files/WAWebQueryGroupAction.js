@@ -1,111 +1,48 @@
 __d(
   "WAWebQueryGroupAction",
   [
-    "WALogger",
     "WAWebChatCollection",
     "WAWebContactCollection",
-    "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataModel",
     "WAWebGroupQueryBridge",
     "WAWebLidMappingUsernameLearnUtils",
-    "WAWebPnhCagUtils",
-    "WAWebSyncDeviceAdvDeviceListJob",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c = ["membershipApprovalRequest", "parentGroupSubject", "subject"];
-    function d(e) {
-      return m.apply(this, arguments);
+    var e = ["membershipApprovalRequest", "parentGroupSubject", "subject"];
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function m() {
+    function u() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebGroupQueryBridge").sendQueryGroupInvite(e),
-            n = t.groupInfo,
-            a = t.status;
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = yield o("WAWebGroupQueryBridge").sendQueryGroupInvite(t),
+            a = n.groupInfo,
+            i = n.status;
           yield o(
             "WAWebLidMappingUsernameLearnUtils",
-          ).processParsedGroupInfosForLidMappingAndUsernames([n]);
-          var i = n.membershipApprovalRequest,
-            l = n.parentGroupSubject,
-            s = n.subject,
-            u = babelHelpers.objectWithoutPropertiesLoose(n, c),
-            d = new (r("WAWebGroupMetadataModel"))(u);
+          ).processParsedGroupInfosForLidMappingAndUsernames([a]);
+          var l = a.membershipApprovalRequest,
+            s = a.parentGroupSubject,
+            u = a.subject,
+            c = babelHelpers.objectWithoutPropertiesLoose(a, e),
+            d = new (r("WAWebGroupMetadataModel"))(c);
           o("WAWebContactCollection").ContactCollection.gadd(d.id);
           var m = o("WAWebChatCollection").ChatCollection.get(d.id),
             p = !!m && !m.isReadOnly;
           return {
-            status: a,
-            subject: s,
+            status: i,
+            subject: u,
             groupMetadata: d,
             inGroup: p,
-            parentGroupSubject: l,
-            membershipApprovalRequest: !!i,
+            parentGroupSubject: s,
+            membershipApprovalRequest: !!l,
           };
         })),
-        m.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.deviceStale) {
-            if (t.deviceQueryPromise)
-              return (
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "maybeQueryGroupDevice: ",
-                      " - skip duplicate query",
-                    ])),
-                  t.id,
-                ),
-                t.deviceQueryPromise
-              );
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "maybeQueryGroupDevice: ",
-                  " - start query device",
-                ])),
-              t.id,
-            );
-            var n = o("WAWebGroupMetadataGetters").getIsCag(t)
-              ? o("WAWebPnhCagUtils").augmentedCagGroupMetadataParticipantList(
-                  t,
-                )
-              : t.participants.map(function (e) {
-                  return e.id;
-                });
-            t.deviceQueryPromise = o(
-              "WAWebSyncDeviceAdvDeviceListJob",
-            ).syncDeviceListJob(n);
-            try {
-              (yield t.deviceQueryPromise,
-                (t.deviceStale = !1),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "maybeQueryGroupDevice: ",
-                      " - complete query device",
-                    ])),
-                  t.id,
-                ));
-            } finally {
-              t.deviceQueryPromise = null;
-            }
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    ((l.queryGroupInviteInfo = d), (l.maybeQueryGroupDevice = p));
+    l.queryGroupInviteInfo = s;
   },
   98,
 );

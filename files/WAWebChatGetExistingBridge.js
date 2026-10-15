@@ -31,7 +31,15 @@ __d(
         s.apply(this, arguments)
       );
     }
-    l.getExisting = e;
+    function u(e) {
+      var t;
+      return (t = o("WAWebChatCollection").ChatCollection.get(e)) != null
+        ? t
+        : e.isNewsletter()
+          ? r("WAWebNewsletterCollection").get(e)
+          : void 0;
+    }
+    ((l.getExisting = e), (l.getChatOrNewsletter = u));
   },
   98,
 );

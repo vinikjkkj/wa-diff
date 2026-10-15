@@ -6,7 +6,6 @@ __d(
     "WAWebBrazilPaymentState",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebGetBrazilnteractiveActions",
     "WAWebLazyLoadedRetriable",
     "WAWebMsgCollection",
     "WAWebPaymentDetailsModels",
@@ -51,12 +50,9 @@ __d(
             },
             testid: "payment-details-bubble-mark-as-paid",
           }),
-        o("WAWebPaymentDetailsStatusPolicy").showsCopyPixKeyCta(i, s) &&
-          u.push(
-            o(
-              "WAWebGetBrazilnteractiveActions",
-            ).getPaymentInfoOrderDetailsInteractiveAction(t, a),
-          ),
+        t != null &&
+          o("WAWebPaymentDetailsStatusPolicy").showsCopyCta(i, s) &&
+          u.push(t),
         o("WAWebPaymentDetailsStatusPolicy").canAttachReceipt(
           i,
           l.receiptMsgId,

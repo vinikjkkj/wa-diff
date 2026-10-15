@@ -1,11 +1,11 @@
 __d(
   "WAWebKeyShareQueue",
   [
-    "WASyncdKeyTypes",
     "WAWebKeyShareQueueDef",
     "WAWebRecoverableQueue",
     "WAWebScheduledOperations",
     "WAWebSendRequestedKeyShareJob",
+    "WAWebSyncdKeyTypes",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 1,
@@ -16,7 +16,7 @@ __d(
     function c(e, t, n) {
       return p().addAndDrain({
         keys: e.map(d),
-        orphanKeys: t.map(o("WASyncdKeyTypes").fromSyncKeyId),
+        orphanKeys: t.map(o("WAWebSyncdKeyTypes").fromSyncKeyId),
         peerDeviceId: n.toString(),
       });
     }
@@ -27,9 +27,9 @@ __d(
           deviceIndexes: e.fingerprint.deviceIndexes,
           rawId: e.fingerprint.rawId,
         },
-        keyData: o("WASyncdKeyTypes").fromSyncKeyData(e.keyData),
+        keyData: o("WAWebSyncdKeyTypes").fromSyncKeyData(e.keyData),
         keyEpoch: e.keyEpoch,
-        keyId: o("WASyncdKeyTypes").fromSyncKeyId(e.keyId),
+        keyId: o("WAWebSyncdKeyTypes").fromSyncKeyId(e.keyId),
         timestamp: e.timestamp,
       };
     }
@@ -40,9 +40,9 @@ __d(
           deviceIndexes: [].concat(e.fingerprint.deviceIndexes),
           rawId: e.fingerprint.rawId,
         },
-        keyData: o("WASyncdKeyTypes").toSyncKeyData(e.keyData),
+        keyData: o("WAWebSyncdKeyTypes").toSyncKeyData(e.keyData),
         keyEpoch: e.keyEpoch,
-        keyId: o("WASyncdKeyTypes").toSyncKeyId(e.keyId),
+        keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(e.keyId),
         timestamp: e.timestamp,
       };
     }
@@ -57,7 +57,9 @@ __d(
             run: function (t) {
               return o("WAWebSendRequestedKeyShareJob").sendKeyShare({
                 keys: t.keys.map(m),
-                orphanKeys: t.orphanKeys.map(o("WASyncdKeyTypes").toSyncKeyId),
+                orphanKeys: t.orphanKeys.map(
+                  o("WAWebSyncdKeyTypes").toSyncKeyId,
+                ),
                 peerDeviceId: t.peerDeviceId,
               });
             },

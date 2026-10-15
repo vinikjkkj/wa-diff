@@ -2,12 +2,14 @@ __d(
   "WAWebNewsletterContextMenu",
   [
     "fbt",
+    "WAWebChatContextMenuItemArchive.react",
     "WAWebChatContextMenuItemMarkUnread.react",
     "WAWebChatContextMenuItemPin.react",
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebModalManager",
     "WAWebMuteMenuItem.react",
+    "WAWebNewsletterChatListUtils",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMsgLinkUtils",
@@ -32,52 +34,64 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e) {
-      var t,
-        n,
-        a,
-        i,
-        l,
-        s,
-        c = o("WAWebStateUtils").unproxy(e),
-        C =
-          (t = (n = c.newsletterMetadata) == null ? void 0 : n.adminCount) !=
+    function c(e, t) {
+      var n, a, i, l, s, c;
+      t === void 0 && (t = !1);
+      var b = o("WAWebStateUtils").unproxy(e),
+        v =
+          (n = (a = b.newsletterMetadata) == null ? void 0 : a.adminCount) !=
           null
-            ? t
+            ? n
             : 0,
-        b =
-          (a =
-            (i = c.newsletterMetadata) == null ? void 0 : i.iAmSubscriber()) !=
+        S =
+          (i =
+            (l = b.newsletterMetadata) == null ? void 0 : l.iAmSubscriber()) !=
           null
-            ? a
+            ? i
             : !1,
-        v = [u.jsx(m, { chat: c }, "Info"), u.jsx(d, { chat: c }, "Pin")];
-      ((b ||
-        C > 1 ||
-        o(
-          "WAWebNewsletterExtendedGatingUtils",
-        ).isNewsletterAdminNotificationsEnabled(c.newsletterMetadata)) &&
-        (v.push(u.jsx(p, { chat: c }, "Mute")),
-        v.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
-        v.push(u.jsx(f, { chat: c }, "CopyLink")),
-        v.push(u.jsx(g, { chat: c }, "EmbedChannel")));
-      var S = u.jsx(
+        R = [u.jsx(p, { chat: b }, "Info")];
+      (d(b, t) &&
+        R.push(
+          u.jsx(
+            r("WAWebChatContextMenuItemArchive.react"),
+            { chat: b },
+            "Archive",
+          ),
+        ),
+        R.push(u.jsx(m, { chat: b }, "Pin")),
+        (S ||
+          v > 1 ||
+          o(
+            "WAWebNewsletterExtendedGatingUtils",
+          ).isNewsletterAdminNotificationsEnabled(b.newsletterMetadata)) &&
+          (R.push(u.jsx(_, { chat: b }, "Mute")),
+          R.push(u.jsx(f, { chat: b }, "MarkAsRead"))),
+        R.push(u.jsx(g, { chat: b }, "CopyLink")),
+        R.push(u.jsx(h, { chat: b }, "EmbedChannel")));
+      var L = u.jsx(
         r("WDSMenuItem.react"),
         { type: "separator" },
         "newsletter-context-menu-separator",
       );
       return (
-        v.push(S),
-        b && v.push(u.jsx(h, { chat: c }, "Unfollow")),
-        (l = (s = c.newsletterMetadata) == null ? void 0 : s.iAmOwner()) !=
+        R.push(L),
+        S && R.push(u.jsx(y, { chat: b }, "Unfollow")),
+        (s = (c = b.newsletterMetadata) == null ? void 0 : c.iAmOwner()) !=
           null &&
-          l &&
-          v.push(u.jsx(y, { chat: c }, "Delete")),
-        v[v.length - 1] === S && v.pop(),
-        v
+          s &&
+          R.push(u.jsx(C, { chat: b }, "Delete")),
+        R[R.length - 1] === L && R.pop(),
+        R
       );
     }
-    function d(e) {
+    function d(e, t) {
+      return (
+        !t &&
+        o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled() &&
+        o("WAWebNewsletterChatListUtils").isUnlockedSubscribedOrOwnedChannel(e)
+      );
+    }
+    function m(e) {
       var t = o("react-compiler-runtime").c(2),
         n = e.chat,
         a;
@@ -94,7 +108,7 @@ __d(
         a
       );
     }
-    function m(e) {
+    function p(e) {
       var t = o("react-compiler-runtime").c(5),
         a = e.chat,
         i;
@@ -142,7 +156,7 @@ __d(
         m
       );
     }
-    function p(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(7),
         n = e.chat,
         a = o("useWAWebNewsletterMuteState").useNewsletterMuteState(n),
@@ -183,7 +197,7 @@ __d(
         m
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(2),
         n = e.chat,
         a;
@@ -198,7 +212,7 @@ __d(
         a
       );
     }
-    function f(e) {
+    function g(e) {
       var t,
         n = o("react-compiler-runtime").c(5),
         a = e.chat,
@@ -239,7 +253,7 @@ __d(
         p
       );
     }
-    function g(e) {
+    function h(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.chat;
       if (
@@ -283,7 +297,7 @@ __d(
         d
       );
     }
-    function h(e) {
+    function y(e) {
       var t = o("react-compiler-runtime").c(5),
         a = e.chat,
         i;
@@ -341,7 +355,7 @@ __d(
         m
       );
     }
-    function y(e) {
+    function C(e) {
       var t = o("react-compiler-runtime").c(5),
         a = e.chat,
         i;

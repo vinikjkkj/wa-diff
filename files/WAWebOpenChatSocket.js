@@ -14,12 +14,13 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebGetClientPayloadForLogin",
     "WAWebGetClientPayloadForRegistration",
+    "WAWebNoiseInfoWorkerCompatible",
     "WAWebOpenSocket",
     "WAWebPageLoadLogging",
+    "WAWebParseCertificateChain",
     "WAWebProcessCertificate",
     "WAWebProtobufsWa6.pb",
     "WAWebSocketLogoutJob",
-    "WAWebUserPrefsInfoStore",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsScreenLockWorkerCompatible",
     "WAWebWamEnumWebcSocketConnectReasonType",
@@ -123,8 +124,8 @@ __d(
                           "hs_noise_read",
                         ));
                       var m = yield o(
-                        "WAWebUserPrefsInfoStore",
-                      ).waNoiseInfo.get();
+                        "WAWebNoiseInfoWorkerCompatible",
+                      ).getNoiseInfo();
                       return (
                         o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                           "hs_noise_read",
@@ -441,7 +442,7 @@ __d(
                 "WAWebGetClientPayloadForRegistration",
               ).getClientPayloadForRegistration(l);
           o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_noise_read");
-          var d = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
+          var d = yield o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
           (o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_noise_read"),
             d == null &&
               (o("WALogger")
@@ -523,7 +524,7 @@ __d(
               null
             );
           try {
-            var t = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
+            var t = yield o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
             if (t == null)
               return (
                 o("WALogger")
@@ -537,7 +538,7 @@ __d(
                 null
               );
             var n = t.certificateChainBuffer
-              ? o("WAWebUserPrefsInfoStore").waNoiseInfo.getCertificateChain(
+              ? o("WAWebParseCertificateChain").parseCertificateChain(
                   t.certificateChainBuffer,
                 )
               : null;

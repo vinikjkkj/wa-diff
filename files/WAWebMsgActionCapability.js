@@ -66,7 +66,6 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
     "cr:6009",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -345,13 +344,6 @@ __d(
       );
     }
     function I(e) {
-      if (!r("justknobx")._("5917")) {
-        var t = e.mediaData.mediaStage;
-        return (
-          t === o("WAWebMediaTypes").MediaDataStage.RESOLVED ||
-          t === o("WAWebMediaTypes").MediaDataStage.EXISTS
-        );
-      }
       return S(e);
     }
     function T(e) {
@@ -632,6 +624,7 @@ __d(
         (t === void 0 && (t = !1),
         o("WAWebMessageEditUtils").getMsgEditType(e.type) !==
           o("WAWebMessageEditUtils").MsgEditType.PollEdit ||
+          o("WAWebMsgGetters").getIsNewsletterMsg(e) ||
           !o("WAWebPollsGatingUtils").isPollCreatorEditSendingEnabled(
             e.id.remote,
           ))

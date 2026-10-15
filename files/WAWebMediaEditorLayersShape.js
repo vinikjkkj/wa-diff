@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WADeepEquals",
     "WAWebMediaEditorEnumsColors",
+    "WAWebMediaEditorEnumsColorsGetColorValue",
     "WAWebMediaEditorGeometryRect",
     "WAWebMediaEditorGeometrySize",
     "WAWebMediaEditorUtilsGenerateLayerId",
@@ -185,7 +186,7 @@ __d(
             var e;
             return (e = this.$1.fillColor) != null
               ? e
-              : o("WAWebMediaEditorEnumsColors").getColorValue(
+              : o("WAWebMediaEditorEnumsColorsGetColorValue").getColorValue(
                   o("WAWebMediaEditorEnumsColors").ColorType.BLACK,
                 );
           }),
@@ -193,7 +194,7 @@ __d(
             var e;
             return (e = this.$1.strokeColor) != null
               ? e
-              : o("WAWebMediaEditorEnumsColors").getColorValue(
+              : o("WAWebMediaEditorEnumsColorsGetColorValue").getColorValue(
                   o("WAWebMediaEditorEnumsColors").ColorType.BLACK,
                 );
           }),

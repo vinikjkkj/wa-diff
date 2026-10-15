@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebAttachMediaCollection",
     "WAWebBroadcastMsgDataUtils",
-    "WAWebMediaPrep",
+    "WAWebMediaPrepMediaProps",
     "WAWebMediaUploadMediaWithPrep",
     "WAWebMsgType",
     "WAWebWamEnumMediaPickerOriginType",
@@ -133,10 +133,7 @@ __d(
                       caption: a != null && a.trim() !== "" ? a.trim() : void 0,
                       type: u.type,
                     },
-                    g = yield o("WAWebMediaPrep").getMediaPropsNew(
-                      u.mediaPrep,
-                      _,
-                    );
+                    g = yield r("WAWebMediaPrepMediaProps")(u.mediaPrep, _);
                   return (
                     (g.isCaptionByUser =
                       _.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&

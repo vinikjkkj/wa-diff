@@ -8,7 +8,7 @@ __d(
     "WAWebFormatConfigurationConversation",
     "WAWebFrontendMsgGetters",
     "WAWebL10N",
-    "WAWebListMsgModal.react",
+    "WAWebListMsgModalLoadable",
     "WAWebMessageBubbleActions.react",
     "WAWebMessageMeta.react",
     "WAWebMessageSpacerText.react",
@@ -94,7 +94,9 @@ __d(
           case o("WAWebProtobufsE2E.pb").Message$ListMessage$ListType
             .SINGLE_SELECT:
             o("WAWebModalManager").ModalManager.open(
-              c.jsx(r("WAWebListMsgModal.react"), { msg: e }),
+              c.jsx(o("WAWebListMsgModalLoadable").ListMsgModalLoadable, {
+                msg: e,
+              }),
             );
             break;
           case o("WAWebProtobufsE2E.pb").Message$ListMessage$ListType

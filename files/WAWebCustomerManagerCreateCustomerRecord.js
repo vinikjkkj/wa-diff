@@ -172,7 +172,6 @@ __d(
       (l.readProfileForGuardedBirthday = u),
       (l.createCustomerChat = p),
       (l.buildCustomerProfileFields = f),
-      (l.writeCustomerNote = g),
       (l.saveCustomerContact = y));
   },
   98,

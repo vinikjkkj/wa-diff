@@ -19,7 +19,7 @@ __d(
     }
     function u(e) {
       if (e != null) {
-        var t = c(o("WAWebBrazilPaymentState").getPaymentInfoParamsJson(e));
+        var t = c(o("WAWebBrazilPaymentState").getPaymentRequestParamsJson(e));
         if (t == null || !Array.isArray(e.buttons) || !r("justknobx")._("6396"))
           return e;
         var n = e.buttons,

@@ -33,7 +33,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
-    "WAWebMuteCollection",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
@@ -485,16 +484,7 @@ __d(
           ? 0
           : t - o("WATimeUtils").unixTime();
     }
-    function U(e) {
-      var t;
-      return (
-        !(
-          (t = o("WAWebFrontendMsgGetters").getAsViewOnce(e)) != null &&
-          t.isViewOnce
-        ) && o("WAWebMuteCollection").MuteCollection.getGlobalPreviews()
-      );
-    }
-    function V(e, t) {
+    function U(e, t) {
       var n = t.duringDetach,
         r = e.parentMsgKey;
       if (r) {
@@ -515,7 +505,7 @@ __d(
           );
       }
     }
-    function H(e, t) {
+    function V(e, t) {
       var n;
       t === void 0 && (t = {});
       var a = t,
@@ -596,9 +586,8 @@ __d(
       (l.isLastMsg = B),
       (l.getMsgForwardingScoreWhenForwarded = W),
       (l.getMsgTimeUntilExpiration = q),
-      (l.shouldShowMsgNotificationPreview = U),
-      (l.hideParentMessageInChat = V),
-      (l.getMsgDisplayName = H));
+      (l.hideParentMessageInChat = U),
+      (l.getMsgDisplayName = V));
   },
   226,
 );

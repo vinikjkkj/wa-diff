@@ -115,7 +115,9 @@ __d(
           return o("WAWebGalaxyFlowResponseUtils").isGalaxyFlowsResponseBubble(
             l,
           )
-            ? s._(/*BTDS*/ "Response sent")
+            ? o("WAWebGalaxyFlowResponseUtils").getGalaxyFlowResponseSubtitle(
+                l.id,
+              )
             : l.body || "";
         case o("WAWebMsgType").MSG_TYPE.PTV: {
           if (b.isViewOnce)

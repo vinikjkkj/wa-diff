@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAVerifyChainCertificateWA6",
     "WAWebDbEncryptionKey",
-    "WAWebUserPrefsInfoStore",
+    "WAWebNoiseInfoWorkerCompatible",
     "WAWebUserPrefsScreenLockWorkerCompatible",
     "asyncToGeneratorRuntime",
     "err",
@@ -68,8 +68,8 @@ __d(
               o("WAWebDbEncryptionKey")
                 .DbEncKeyStore.waitForInit()
                 .then(function () {
-                  o("WAWebUserPrefsInfoStore")
-                    .waNoiseInfo.setCertificateChain({
+                  o("WAWebNoiseInfoWorkerCompatible")
+                    .setCertificateChain({
                       intermediate: {
                         key: p.key,
                         notAfter: Number(p.notAfter),

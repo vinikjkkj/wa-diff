@@ -10,6 +10,7 @@ __d(
     "WAWebNewsletterBridgeMsgAddOnsUtils",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataJob",
+    "WAWebNewsletterStatusReactionTaps",
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebStatusCollection",
     "asyncToGeneratorRuntime",
@@ -117,30 +118,40 @@ __d(
         });
       }
     }
-    function f(e, t, n, r) {
-      var o = [],
-        a = new Map(),
-        i = [],
-        l = [];
-      for (var s of e.msgs.toArray()) {
-        var u = s.serverId;
-        if (u != null) {
-          var c = t.get(u),
-            d = n == null ? void 0 : n.get(u);
-          (c == null && d == null) ||
-            (c != null && (s.set("viewCount", c), a.set(s.id.toString(), c)),
-            o.push(s.id),
-            n != null &&
-              (d != null
-                ? i.push({
-                    parentMsgKey: s.id,
-                    emojiCountMap: new Map(d),
-                    serverTimestamp: r,
+    function f(e) {
+      var t = e.reactionsByServerId,
+        n = e.reactionServerTs,
+        r = e.requestedAt,
+        a = e.statusModel,
+        i = e.viewsByServerId,
+        l = [],
+        s = new Map(),
+        u = [],
+        c = [];
+      for (var d of a.msgs.toArray()) {
+        var m = d.serverId;
+        if (m != null) {
+          var p = i.get(m),
+            _ = t == null ? void 0 : t.get(m);
+          (p == null && _ == null) ||
+            (p != null && (d.set("viewCount", p), s.set(d.id.toString(), p)),
+            l.push(d.id),
+            !(
+              t == null ||
+              o(
+                "WAWebNewsletterStatusReactionTaps",
+              ).wasStatusReactionTappedSince(d.id.toString(), r)
+            ) &&
+              (_ != null
+                ? u.push({
+                    parentMsgKey: d.id,
+                    emojiCountMap: new Map(_),
+                    serverTimestamp: n,
                   })
-                : l.push(s.id.toString())));
+                : c.push(d.id.toString())));
         }
       }
-      return { ids: o, reactionIdsToRemove: l, reactions: i, viewCounts: a };
+      return { ids: l, reactionIdsToRemove: c, reactions: u, viewCounts: s };
     }
     function g(e) {
       return h.apply(this, arguments);
@@ -150,28 +161,35 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.from,
             n = e.reactionsByServerId,
-            r = e.serverTimestamp,
-            a = e.viewsByServerId,
-            i = o("WAWebStatusCollection").StatusCollection.get(t);
-          if (i != null) {
-            var l = f(i, a, n, r != null ? r : o("WATimeUtils").unixTime()),
-              s = l.ids,
-              u = l.reactionIdsToRemove,
-              c = l.reactions,
-              d = l.viewCounts;
-            s.length !== 0 &&
+            r = e.requestedAt,
+            a = e.serverTimestamp,
+            i = e.viewsByServerId,
+            l = o("WAWebStatusCollection").StatusCollection.get(t);
+          if (l != null) {
+            var s = f({
+                reactionServerTs: a != null ? a : o("WATimeUtils").unixTime(),
+                reactionsByServerId: n,
+                requestedAt: r,
+                statusModel: l,
+                viewsByServerId: i,
+              }),
+              u = s.ids,
+              c = s.reactionIdsToRemove,
+              d = s.reactions,
+              m = s.viewCounts;
+            u.length !== 0 &&
               (yield o(
                 "WAWebNewsletterBackendAddOnsUtils",
               ).persistNewsletterStatusInteractions({
-                ids: s,
-                reactionIdsToRemove: u,
-                reactions: c,
+                ids: u,
+                reactionIdsToRemove: c,
+                reactions: d,
                 timestamp: Date.now(),
-                viewCounts: d,
+                viewCounts: m,
               }),
               n != null &&
                 (yield o("WAWebNewsletterBridgeMsgAddOnsUtils").updateReactions(
-                  { ids: s, reactionIdsToRemove: u, reactions: c },
+                  { ids: u, reactionIdsToRemove: c, reactions: d },
                 )));
           }
         })),

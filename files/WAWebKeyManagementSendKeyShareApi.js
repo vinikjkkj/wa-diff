@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWebApiPeerMessageStore",
     "WAWebKeyManagementUtils",
     "WAWebMsgKey",
@@ -11,6 +10,7 @@ __d(
     "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebSyncdCryptoUtils",
+    "WAWebSyncdKeyTypes",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -122,9 +122,9 @@ __d(
     function m(e, t) {
       var n = e.map(function (e) {
         return {
-          keyId: { keyId: o("WASyncdKeyTypes").fromSyncKeyId(e.keyId) },
+          keyId: { keyId: o("WAWebSyncdKeyTypes").fromSyncKeyId(e.keyId) },
           keyData: {
-            keyData: o("WASyncdKeyTypes").fromSyncKeyData(e.keyData),
+            keyData: o("WAWebSyncdKeyTypes").fromSyncKeyData(e.keyData),
             fingerprint: {
               rawId: e.fingerprint.rawId,
               currentIndex: e.fingerprint.currentIndex,
@@ -137,7 +137,7 @@ __d(
       if (t) {
         var r = t.map(function (e) {
           return {
-            keyId: { keyId: o("WASyncdKeyTypes").fromSyncKeyId(e) },
+            keyId: { keyId: o("WAWebSyncdKeyTypes").fromSyncKeyId(e) },
             keyData: void 0,
           };
         });

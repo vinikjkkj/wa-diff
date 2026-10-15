@@ -6,6 +6,7 @@ __d(
     "WAWebCellRequestState",
     "WAWebCommunityGatingUtils",
     "WAWebCommunitySubgroupSuggestionsModals.react",
+    "WAWebCommunitySubgroupSuggestionsModalsSubgroupSuggestionsApproveLimit.react",
     "WAWebModalManager",
     "WAWebStateUtils",
     "WAWebSubgroupSuggestionsActionJob",
@@ -186,8 +187,9 @@ __d(
             if (i <= 0) {
               o("WAWebModalManager").ModalManager.open(
                 u.jsx(
-                  o("WAWebCommunitySubgroupSuggestionsModals.react")
-                    .SubgroupSuggestionsApproveLimit,
+                  o(
+                    "WAWebCommunitySubgroupSuggestionsModalsSubgroupSuggestionsApproveLimit.react",
+                  ).SubgroupSuggestionsApproveLimit,
                   { onOK: n },
                 ),
               );

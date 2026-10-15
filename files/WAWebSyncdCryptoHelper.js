@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdCryptoHelper",
   [
     "WACryptoHkdf",
-    "WASyncdKeyTypes",
     "WAWebSyncdCryptoConst",
+    "WAWebSyncdKeyTypes",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,7 +41,7 @@ __d(
     }
     function u(e) {
       return o("WACryptoHkdf").extractAndExpand(
-        o("WASyncdKeyTypes").fromSyncKeyData(e),
+        o("WAWebSyncdKeyTypes").fromSyncKeyData(e),
         o("WAWebSyncdCryptoConst").HKDF_INFO,
         o("WAWebSyncdCryptoConst").DERIVED_KEY_LENGTH,
       );

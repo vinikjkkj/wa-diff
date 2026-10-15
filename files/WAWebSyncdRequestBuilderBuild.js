@@ -5,7 +5,6 @@ __d(
     "WABaseGlobals",
     "WAJids",
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWap",
     "WAWebABProps",
     "WAWebBrokerGlobalAppState",
@@ -21,6 +20,7 @@ __d(
     "WAWebSyncdError",
     "WAWebSyncdKeyManagement",
     "WAWebSyncdKeyManagementUtils",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdMMSUpload",
     "WAWebSyncdRequestBuilderTypesConverter",
     "WAWebSyncdRequestEncode",
@@ -381,7 +381,7 @@ __d(
           })
           .readBuffer();
       return o("WAWebSyncdRequestEncode").encodeSyncdPatch({
-        keyId: { id: o("WASyncdKeyTypes").fromSyncKeyId(t) },
+        keyId: { id: o("WAWebSyncdKeyTypes").fromSyncKeyId(t) },
         mutations: e,
         snapshotMac: n,
         patchMac: r,
@@ -398,7 +398,7 @@ __d(
       return {
         operation: t,
         record: {
-          keyId: { id: o("WASyncdKeyTypes").fromSyncKeyId(e) },
+          keyId: { id: o("WAWebSyncdKeyTypes").fromSyncKeyId(e) },
           index: { blob: n },
           value: { blob: r },
         },

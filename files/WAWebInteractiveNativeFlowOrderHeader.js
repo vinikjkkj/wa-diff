@@ -25,6 +25,7 @@ __d(
     "WAWebPaymentBoletoLogoIcon.react",
     "WAWebPaymentDetailsBubbleHeaderLoadable",
     "WAWebPaymentDetailsGating",
+    "WAWebPaymentDetailsPixCodeBubbleHeader.react",
     "WAWebPaymentLogoPixIcon.react",
     "WAWebPaymentVisaLogoIcon.react",
     "WAWebPaymentsGatingUtils",
@@ -106,142 +107,147 @@ __d(
       } else l = n[0];
       var d = o("useWAWebMsgValues").useMsgValues(i, l),
         _ = d[0],
-        f = d[1],
-        g = d[2],
-        h = d[3],
-        y = d[4],
-        C = d[5],
-        b = d[6],
-        v = d[7],
-        S = d[8],
-        R =
-          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(b, [
+        g = d[1],
+        h = d[2],
+        y = d[3],
+        C = d[4],
+        b = d[5],
+        v = d[6],
+        S = d[7],
+        R = d[8],
+        L =
+          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(v, [
             o("WAWebMediaDataGetters").getPreview,
           ])) != null
             ? t
             : [null],
-        L = R[0],
-        E = o("WAWebOrderDetails").getOrderInfoFor({
-          interactivePayload: h,
-          interactiveType: g,
-          nativeFlowButtons: y,
-          nativeFlowName: f,
+        E = L[0],
+        k = o("WAWebOrderDetails").getOrderInfoFor({
+          interactivePayload: y,
+          interactiveType: h,
+          nativeFlowButtons: C,
+          nativeFlowName: g,
           type: _,
         }),
-        k;
-      n[1] !== S || n[2] !== i
-        ? ((k = o("WAWebFrontendMsgGetters").getChatByMsgKey(i, S)),
-          (n[1] = S),
+        I;
+      n[1] !== R || n[2] !== i
+        ? ((I = o("WAWebFrontendMsgGetters").getChatByMsgKey(i, R)),
+          (n[1] = R),
           (n[2] = i),
-          (n[3] = k))
-        : (k = n[3]);
-      var I = k,
-        T = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          I,
-          E == null ? void 0 : E.referenceId,
-          o("WAWebOrderStatus").isSimplifiedOrder(E),
+          (n[3] = I))
+        : (I = n[3]);
+      var T = I,
+        D = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+          T,
+          k == null ? void 0 : k.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(k),
         );
       if (
         _ !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
         _ !== o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW
       )
         return null;
-      if (f === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO)
-        E &&
-          (a = p(
+      if (g === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO)
+        k &&
+          (a = f(
             i,
             o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledFor({
-              interactivePayload: h,
-              interactiveType: g,
+              interactivePayload: y,
+              interactiveType: h,
               msgKey: i,
-              nativeFlowName: f,
+              nativeFlowName: g,
               type: _,
             }),
-            E,
-            v,
+            k,
+            S,
           ));
       else if (
-        f === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+        g === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
       ) {
-        if (E) {
-          var D =
+        if (k) {
+          var x =
             _ === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-            (C == null ? void 0 : C.mediaType) ===
+            (b == null ? void 0 : b.mediaType) ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.DOCUMENT;
-          if (o("WAWebOrderStatus").isSimplifiedOrder(E) && !D)
-            a = s.jsx(r("WAWebSimplifiedPaymentHeader.react"), {
-              amount1000: E.totalAmount * 1e3,
-              currency: E.currency,
-              isSentByMe: v,
-              payIcons: m(I, E),
-              orderPaymentStatus: T,
-              chat: I,
-              isPaymentRequest: o("WAWebOrderStatus").isPaymentRequest(I, E),
-              msgKey: i,
-              paymentSettings: E.paymentSettings,
+          if (o("WAWebOrderStatus").isSimplifiedOrder(k) && !x)
+            a = p({
+              chat: T,
               displayType: e.displayType,
+              info: k,
+              isPaymentDetailsEnabled: o(
+                "WAWebPaymentDetailsGating",
+              ).isPaymentDetailsEnabledFor({
+                interactivePayload: y,
+                interactiveType: h,
+                msgKey: i,
+                nativeFlowName: g,
+                type: _,
+              }),
+              isSentByMe: S,
+              msgKey: i,
+              orderPaymentStatus: D,
             });
           else {
-            var x, $;
-            ((x =
-              ($ = o(
+            var $, P;
+            (($ =
+              (P = o(
                 "WAWebOrdersExpansionCountries",
               ).getOrdersExpansionAllowedCountries()) == null
                 ? void 0
-                : $.length) != null
-              ? x
-              : 0) === 0 && (T = null);
-            var P;
-            n[4] !== D || n[5] !== i
-              ? ((P = D
+                : P.length) != null
+              ? $
+              : 0) === 0 && (D = null);
+            var N;
+            n[4] !== x || n[5] !== i
+              ? ((N = x
                   ? s.jsx(r("WAWebMediaDocumentPreview"), {
                       embedded: !0,
                       msgKey: i,
                     })
                   : void 0),
-                (n[4] = D),
+                (n[4] = x),
                 (n[5] = i),
-                (n[6] = P))
-              : (P = n[6]);
-            var N = P,
-              M;
-            if (n[7] !== C || n[8] !== L || n[9] !== _) {
-              var w;
-              ((M =
-                (w = c({ interactiveHeader: C, preview: L, type: _ })) != null
-                  ? w
+                (n[6] = N))
+              : (N = n[6]);
+            var M = N,
+              w;
+            if (n[7] !== b || n[8] !== E || n[9] !== _) {
+              var A;
+              ((w =
+                (A = c({ interactiveHeader: b, preview: E, type: _ })) != null
+                  ? A
                   : void 0),
-                (n[7] = C),
-                (n[8] = L),
+                (n[7] = b),
+                (n[8] = E),
                 (n[9] = _),
-                (n[10] = M));
-            } else M = n[10];
+                (n[10] = w));
+            } else w = n[10];
             a = s.jsx(r("WAWebNativeFlowOrderDetailsHeader"), {
               amount: o("WAWebCurrencyUtils").formatAmount({
-                amount: E.totalAmount,
-                currency: E.currency,
+                amount: k.totalAmount,
+                currency: k.currency,
               }),
-              documentPreview: N,
-              quantity: E.quantity,
-              orderId: E.referenceId,
+              documentPreview: M,
+              quantity: k.quantity,
+              orderId: k.referenceId,
               text: o(
                 "WAWebOrderDetailProductLabel",
-              ).getOrderDetailProductLabel(E.items),
-              numberOfItems: E.items.length,
-              isSentByMe: v,
-              thumbnail: M,
-              payIcons: m(I, E),
-              orderPaymentStatus: T,
+              ).getOrderDetailProductLabel(k.items),
+              numberOfItems: k.items.length,
+              isSentByMe: S,
+              thumbnail: w,
+              payIcons: m(T, k),
+              orderPaymentStatus: D,
             });
           }
         }
       } else if (
-        f === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+        g === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var A;
+        var F;
         (n[11] !== i || n[12] !== e.displayType || n[13] !== e.quotedMsg
-          ? ((A = s.jsx(
+          ? ((F = s.jsx(
               o("WAWebInteractiveOrderStatusHeader.react")
                 .InteractiveOrderStatusHeader,
               { displayType: e.displayType, msgKey: i, quotedMsg: e.quotedMsg },
@@ -249,16 +255,16 @@ __d(
             (n[11] = i),
             (n[12] = e.displayType),
             (n[13] = e.quotedMsg),
-            (n[14] = A))
-          : (A = n[14]),
-          (a = A));
+            (n[14] = F))
+          : (F = n[14]),
+          (a = F));
       } else if (
-        f === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
-        f === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
+        g === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
+        g === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
       ) {
-        var F;
+        var O;
         (n[15] !== i || n[16] !== e.displayType || n[17] !== e.quotedMsg
-          ? ((F = s.jsx(r("WAWebInteractiveOrderQuotedMessage.react"), {
+          ? ((O = s.jsx(r("WAWebInteractiveOrderQuotedMessage.react"), {
               displayType: e.displayType,
               msgKey: i,
               quotedMsg: e.quotedMsg,
@@ -266,9 +272,9 @@ __d(
             (n[15] = i),
             (n[16] = e.displayType),
             (n[17] = e.quotedMsg),
-            (n[18] = F))
-          : (F = n[18]),
-          (a = F));
+            (n[18] = O))
+          : (O = n[18]),
+          (a = O));
       }
       return a;
     }
@@ -333,7 +339,42 @@ __d(
       }
       return n;
     }
-    function p(e, t, n, a) {
+    function p(e) {
+      var t = e.chat,
+        n = e.displayType,
+        a = e.info,
+        i = e.isPaymentDetailsEnabled,
+        l = e.isSentByMe,
+        u = e.msgKey,
+        c = e.orderPaymentStatus;
+      return o("WAWebOrderStatus").isPaymentRequest(t, a) && !_(t) && i
+        ? s.jsx(r("WAWebPaymentDetailsPixCodeBubbleHeader.react"), {
+            displayType: n,
+            msgKey: u,
+          })
+        : s.jsx(r("WAWebSimplifiedPaymentHeader.react"), {
+            amount1000: a.totalAmount * 1e3,
+            currency: a.currency,
+            isSentByMe: l,
+            payIcons: m(t, a),
+            orderPaymentStatus: c,
+            chat: t,
+            isPaymentRequest: o("WAWebOrderStatus").isPaymentRequest(t, a),
+            msgKey: u,
+            paymentSettings: a.paymentSettings,
+            displayType: n,
+          });
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
+      var t;
+      return (
+        (e.contact.isEnterprise ||
+          ((t = e.contact) == null ? void 0 : t.isHosted) === !0) &&
+        o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
+      );
+    }
+    function f(e, t, n, a) {
       return t
         ? s.jsx(
             o("WAWebPaymentDetailsBubbleHeaderLoadable")
@@ -345,7 +386,7 @@ __d(
             orderInfo: n,
           });
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = d));
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

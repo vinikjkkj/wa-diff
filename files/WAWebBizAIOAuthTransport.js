@@ -45,7 +45,7 @@ __d(
           }),
           !0);
     }
-    ((l.isHybridClient = u), (l.openOAuthTransport = c));
+    l.openOAuthTransport = c;
   },
   98,
 );

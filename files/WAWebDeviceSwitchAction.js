@@ -1,7 +1,7 @@
 __d(
   "WAWebDeviceSwitchAction",
   [
-    "WAWebDeviceSwitchingPopup.react",
+    "WAWebDeviceSwitchingPopupLoadable",
     "WAWebModalManager",
     "WAWebNotificationBackend",
     "WAWebUserPrefsMeUser",
@@ -15,7 +15,10 @@ __d(
         n = { wid: t, otpCode: e };
       (o("WAWebNotificationBackend").showDeviceSwitchNotification(n),
         o("WAWebModalManager").ModalManager.open(
-          s.jsx(r("WAWebDeviceSwitchingPopup.react"), { otpCode: e }),
+          s.jsx(
+            o("WAWebDeviceSwitchingPopupLoadable").DeviceSwitchingPopupLoadable,
+            { otpCode: e },
+          ),
         ));
     }
     l.handleOpenDeviceSwitchCode = u;

@@ -4,8 +4,8 @@ __d(
     "WAWebGifRefreshedIcon.react",
     "WAWebMsgGetters",
     "WAWebViewOnceState",
-    "WAWebViewOnceViewedIcon.react",
     "WDSIconIcVideocam.react",
+    "WDSIconWdsIcEphemeral.react",
     "WDSIconWdsIcViewOnce.react",
     "react",
     "react-compiler-runtime",
@@ -43,10 +43,11 @@ __d(
                       height: 20,
                       testid: "wds-ic-view-once",
                     })
-                  : s.jsx(
-                      o("WAWebViewOnceViewedIcon.react").ViewOnceViewedIcon,
-                      { width: 20, height: 20 },
-                    )),
+                  : s.jsx(r("WDSIconWdsIcEphemeral.react"), {
+                      width: 20,
+                      height: 20,
+                      testid: "view-once-opened-icon",
+                    })),
               (t[1] = n),
               (t[2] = a.viewOnceStatic),
               (t[3] = d))

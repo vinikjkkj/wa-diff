@@ -38,6 +38,7 @@ __d(
           "android_tablet_overlay_download_app",
         ANDROID_TABLET_OVERLAY_CONTROL: "android_tablet_overlay_control",
         ANDROID_TABLET_OVERLAY_COUNTRY: "android_tablet_overlay_country",
+        ANDROID_TABLET_DETECTION_FAILED: "android_tablet_detection_failed",
         APPLE_TOUCHSCREEN_OVERLAY_CONTINUE_TO_WEB:
           "apple_touchscreen_overlay_continue_to_web",
         HYBRID_REG_WELCOME_SCREEN_LOADED: "hybrid_reg_welcome_screen_loaded",
@@ -60,35 +61,37 @@ __d(
       }),
       u = r("qpl")._(891430409, "3269"),
       c = /^[A-Z]{2}$/;
-    function d(e, t, n, r, o) {
+    function d(e, t, n, r, o, a) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l) {
+          function* (t, n, a, i, l, s) {
             try {
               if (!r("WAWebEnvironment").isWeb) return;
-              var s = babelHelpers.extends({}, i != null ? p(t, i, l) : null, {
+              var c = p(t, i, l, s),
+                d = babelHelpers.extends({}, c, {
                   md_link_device_experience_id: o(
                     "WAWebLinkDeviceExperience",
                   ).getWebCompanionLinkDeviceExperienceId(n),
                 }),
-                c = {
+                m = {
                   source_type: t,
                   code_type: o("WAWebAltDeviceLinkingApi").getPairingType(),
                 };
-              (a != null && (c.surface = a),
-                i != null &&
-                  ((
+              (a != null && (m.surface = a),
+                c != null &&
+                  (
                     e || (e = r("QuickPerformanceLogger"))
                   ).setAlwaysOnSampleRate(u, 1),
-                  (c.android_tablet_detection_source = i.detectionSource),
-                  (c.android_tablet_model_source = i.modelSource)));
-              var d = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
-                annotations: { int: s, string: c },
+                i != null &&
+                  ((m.android_tablet_detection_source = i.detectionSource),
+                  (m.android_tablet_model_source = i.modelSource)));
+              var _ = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
+                annotations: { int: d, string: m },
               });
-              d.end(2);
+              _.end(2);
             } catch (e) {
               o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3);
             }
@@ -97,24 +100,46 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n) {
-      var r = {
-          android_tablet_browser_linked_before: f() ? 1 : 0,
-          android_tablet_detector_version: t.detectorVersion,
-          android_tablet_visit_id: o(
-            "WAWebAndroidTabletVisitId",
-          ).getOrCreateAndroidTabletVisitId(),
+    function p(e, t, n, r) {
+      return t != null
+        ? _(
+            e,
+            t.detectorVersion,
+            o("WAWebAndroidTabletVisitId").getOrCreateAndroidTabletVisitId(),
+            n,
+          )
+        : r != null
+          ? babelHelpers.extends(
+              {},
+              _(
+                e,
+                o("isWAWebFeatureDetectionAndroidTablet")
+                  .ANDROID_TABLET_DETECTOR_VERSION,
+                o(
+                  "WAWebAndroidTabletVisitId",
+                ).getExistingAndroidTabletVisitId(),
+                void 0,
+              ),
+              r,
+            )
+          : null;
+    }
+    function _(e, t, n, r) {
+      var a = {
+          android_tablet_browser_linked_before: g() ? 1 : 0,
+          android_tablet_detector_version: t,
+          android_tablet_visit_id: n,
         },
-        a = _(e);
-      a != null && (r.android_tablet_overlay_event = a);
-      var i = g(n);
-      i != null && (r.android_tablet_country = i);
-      var l = o(
+        i = f(e);
+      i != null && (a.android_tablet_overlay_event = i);
+      var l = h(r);
+      l != null && (a.android_tablet_country = l);
+      var s = o(
         "isWAWebFeatureDetectionAndroidTablet",
       ).getWAWebFeatureDetectionAndroidTabletScreenClass();
-      return (l != null && (r.android_tablet_screen_class = l), r);
+      return (s != null && (a.android_tablet_screen_class = s), a);
     }
-    function _(e) {
+    function f(e) {
       return e === s.ANDROID_TABLET_OVERLAY_SCREEN_LOADED
         ? 1
         : e === s.ANDROID_TABLET_OVERLAY_DOWNLOAD_APP
@@ -127,16 +152,18 @@ __d(
                 ? 5
                 : e === s.ANDROID_TABLET_OVERLAY_COUNTRY
                   ? 6
-                  : null;
+                  : e === s.ANDROID_TABLET_DETECTION_FAILED
+                    ? 7
+                    : null;
     }
-    function f() {
+    function g() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.PRESERVED_USER_KEYS,
         { storage: r("WAWebPermanentStorage") },
       );
       return Array.isArray(e) && e.length > 0;
     }
-    function g(e) {
+    function h(e) {
       return e == null || !c.test(e)
         ? null
         : e.charCodeAt(0) * 256 + e.charCodeAt(1);

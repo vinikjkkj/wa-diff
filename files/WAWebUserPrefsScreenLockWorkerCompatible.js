@@ -12,32 +12,7 @@ __d(
     function c() {
       return u().getScreenLockEnabled();
     }
-    function d() {
-      return u().getScreenLockIterations();
-    }
-    function m() {
-      return u().getScreenLockIvString();
-    }
-    function p() {
-      return u().getScreenLockSalt();
-    }
-    function _(e) {
-      return u().setScreenLockIterations(e);
-    }
-    function f(e) {
-      return u().setScreenLockIvString(e);
-    }
-    function g(e) {
-      return u().setScreenLockSalt(e);
-    }
-    ((l.setInstance = s),
-      (l.getScreenLockEnabled = c),
-      (l.getScreenLockIterations = d),
-      (l.getScreenLockIvString = m),
-      (l.getScreenLockSalt = p),
-      (l.setScreenLockIterations = _),
-      (l.setScreenLockIvString = f),
-      (l.setScreenLockSalt = g));
+    ((l.setInstance = s), (l.getScreenLockEnabled = c));
   },
   98,
 );

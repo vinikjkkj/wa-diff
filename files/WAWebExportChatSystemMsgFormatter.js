@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebContactCollection",
     "WAWebEphemeralConstants",
+    "WAWebFbtCommon",
     "WAWebFormatNotificationTemplateText",
     "WAWebFrontendContactGetters",
     "WAWebMsgGetters",
@@ -16,7 +17,7 @@ __d(
     "use strict";
     function e(e) {
       if (o("WAWebUserPrefsMeUser").isMeAccount(e))
-        return s._(/*BTDS*/ "You").toString();
+        return r("WAWebFbtCommon")("You").toString();
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       if (t != null) {
         var n = o("WAWebFrontendContactGetters").getFormattedName(t);

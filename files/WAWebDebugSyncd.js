@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdKeyTypes",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
     "WAWebDeleteMessageForMeSync",
@@ -23,6 +22,7 @@ __d(
     "WAWebSyncdDb",
     "WAWebSyncdFatal",
     "WAWebSyncdIndexUtils",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdWamUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -105,7 +105,9 @@ __d(
                 {
                   index: e.index,
                   version: e.version,
-                  keyId: o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(6)),
+                  keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(
+                    new ArrayBuffer(6),
+                  ),
                   indexMac: new ArrayBuffer(32),
                   valueMac: new ArrayBuffer(32),
                   collection: e.collection,
@@ -166,7 +168,9 @@ __d(
                 {
                   index: e.index,
                   version: e.version,
-                  keyId: o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(6)),
+                  keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(
+                    new ArrayBuffer(6),
+                  ),
                   indexMac: new ArrayBuffer(32),
                   valueMac: new ArrayBuffer(32),
                   collection: e.collection,

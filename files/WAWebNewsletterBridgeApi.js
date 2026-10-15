@@ -51,9 +51,9 @@ __d(
       y = r("requireDeferred")("WAWebNewsletterRouteBridgeApi").__setRef(
         "WAWebNewsletterBridgeApi",
       );
-    function C(e, t) {
-      var n = r("WAWebNewsletterCollection").get(e);
-      n == null || n.mute.setMute(t, !1, !0);
+    function C(e, t, n) {
+      var o = r("WAWebNewsletterCollection").get(e);
+      o == null || o.mute.setMute(t, !1, !0, n);
     }
     function b(e) {
       o("WALogger")
@@ -187,9 +187,10 @@ __d(
               .set({ name: c.name }, { merge: !0 }));
       },
       toggleNewsletterAdminActivityMuteState: function (t) {
-        var e = t.id,
-          n = t.muteExpirationValue;
-        C(e, n);
+        var e = t.fromMultiselect,
+          n = t.id,
+          r = t.muteExpirationValue;
+        C(n, r, e);
       },
       toggleNewsletterFollowerActivityMuteState: function (t) {
         var e,

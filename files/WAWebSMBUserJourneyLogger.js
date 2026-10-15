@@ -62,9 +62,11 @@ __d(
                 t.stickyEntryPoint !== !1 &&
                 this.$4.set(t.featureName, t.entryPointDetails));
             var s =
-              (n = t.entryPointDetails) != null
-                ? n
-                : this.$4.get(t.featureName);
+              t.stickyEntryPoint === !1
+                ? t.entryPointDetails
+                : (n = t.entryPointDetails) != null
+                  ? n
+                  : this.$4.get(t.featureName);
             (s != null && (r.entryPointDetails = s),
               t.userActionTarget != null &&
                 (r.userActionTarget = t.userActionTarget),

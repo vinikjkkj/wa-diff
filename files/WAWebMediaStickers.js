@@ -217,7 +217,7 @@ __d(
         (a.fullWidth = p),
         (a.fullHeight = p),
         t
-          ? new (o("WAWebMediaPrep").MediaPrep)(
+          ? new (r("WAWebMediaPrep"))(
               a.type,
               (m || (m = n("Promise"))).resolve(a),
             )
@@ -228,7 +228,7 @@ __d(
                 e.id,
               )
               .sendLogs("media-fault: prepSticker sticker without mediaObject"),
-            new (o("WAWebMediaPrep").MediaPrep)(
+            new (r("WAWebMediaPrep"))(
               a.type,
               (m || (m = n("Promise"))).reject(
                 r("err")("non initialized media"),

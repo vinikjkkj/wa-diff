@@ -17,7 +17,6 @@ __d(
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebPDFNTypes",
-    "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebQueryAndUpdateGroupMetadataJob",
     "WAWebSyncd",
     "WAWebSyncdConst",
@@ -27,15 +26,21 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c = r("requireDeferred")(
+        "WAWebQueryAndUpdateAllNewslettersMetadataAction",
+      ).__setRef("WAWebHandleDirtyBits");
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e === void 0 && (e = []);
           var t = r("compactMap")(e, function (e) {
             return o("WAWebAccountSyncJob").AccountSyncType.cast(e);
@@ -47,7 +52,7 @@ __d(
             yield (u || (u = n("Promise"))).all(
               t.map(function (e) {
                 if (e === o("WAWebAccountSyncJob").AccountSyncType.DEVICES)
-                  return _();
+                  return f();
                 if (e === o("WAWebAccountSyncJob").AccountSyncType.PICTURE)
                   return o("WAWebAccountSyncJob").getAndUpdateProfilePicture();
                 e === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY
@@ -61,21 +66,21 @@ __d(
                           "updateOptOutList",
                         )
                       : e === o("WAWebAccountSyncJob").AccountSyncType.NOTICE &&
-                        f();
+                        g();
               }),
             ));
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
+    function p(e) {
       return (e.patches != null && e.patches.length > 0) || e.snapshot != null;
     }
-    function p() {
+    function _() {
       return (
         o("WAWebBackendEventBus").BackendEventBus.onceAppStateSyncCompleted(
           function (e) {
-            var t = e.some(m);
+            var t = e.some(p);
             new (o(
               "WAWebMdAppStateDirtyBitsWamEvent",
             ).MdAppStateDirtyBitsWamEvent)({
@@ -88,7 +93,7 @@ __d(
         )
       );
     }
-    function _() {
+    function f() {
       if (
         !o(
           "WAWebOfflineHandler",
@@ -135,12 +140,12 @@ __d(
         );
       return o("WAWebAccountSyncJob").getDevices("notification");
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebTos").TosManager.run();
           var e = [
               o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
@@ -164,15 +169,15 @@ __d(
             )
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.protocols,
             r = e.supported,
             a = e.unsupported,
@@ -196,12 +201,12 @@ __d(
             i,
             l,
           );
-          var d = [].concat(a, r);
+          var m = [].concat(a, r);
           return (
             yield (u || (u = n("Promise"))).all(
               r.map(function (e) {
-                var n = e.type;
-                if (n === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.groups)
+                var r = e.type;
+                if (r === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.groups)
                   return o("WAWebEventsWaitForOfflineDeliveryEnd")
                     .waitForOfflineDeliveryEnd()
                     .then(function () {
@@ -210,40 +215,44 @@ __d(
                       ).queryAndUpdateAllGroupMetadata({});
                     });
                 if (
-                  n ===
+                  r ===
                   o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE
                     .newsletter_metadata
                 )
                   return o("WAWebEventsWaitForOfflineDeliveryEnd")
                     .waitForOfflineDeliveryEnd()
-                    .then(function () {
-                      return o(
-                        "WAWebQueryAndUpdateAllNewslettersMetadataAction",
-                      ).queryAndUpdateAllNewsletterMetadataAction(
-                        o("WAWebCommonNewsletterEnums")
-                          .NewsletterMetadataUpdateEntryPoint.DirtyBit,
-                        { messageCount: 1 },
-                      );
-                    });
+                    .then(
+                      n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* () {
+                          var e = yield c.load(),
+                            t = e.queryAndUpdateAllNewsletterMetadataAction;
+                          return t(
+                            o("WAWebCommonNewsletterEnums")
+                              .NewsletterMetadataUpdateEntryPoint.DirtyBit,
+                            { messageCount: 1 },
+                          );
+                        },
+                      ),
+                    );
                 if (
-                  n ===
+                  r ===
                   o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.account_sync
                 )
-                  return c(t);
+                  return d(t);
                 if (
-                  n ===
+                  r ===
                   o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.syncd_app_state
                 )
-                  return p();
+                  return _();
               }),
             ),
-            o("WAWebClearDirtyBitsJob").clearDirtyBits(d)
+            o("WAWebClearDirtyBitsJob").clearDirtyBits(m)
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    l.handleDirtyBits = h;
+    l.handleDirtyBits = y;
   },
   98,
 );

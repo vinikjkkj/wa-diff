@@ -17,75 +17,79 @@ __d(
     var e = r("bx").getURL(r("bx")("9583")),
       u = 100,
       c = s._(/*BTDS*/ "Group chat invite").toString();
-    function d(e, t, n) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i, l;
-          if (n == null) return null;
-          var s, c, d;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            a,
+            i = t.code,
+            l = t.resolveProfilePicUrl,
+            s = t.url;
+          if (i == null) return null;
+          var c, d, m;
           try {
-            var m,
-              _ = r("WAWebGroupMetadataCollection").filter(function (e) {
-                return e.inviteCode === n;
+            var _,
+              f = r("WAWebGroupMetadataCollection").filter(function (e) {
+                return e.inviteCode === i;
               });
-            if (_ == null || _.length < 1) return null;
-            ((s = _[0]),
-              (d = o("WAWebChatCollection").ChatCollection.get(s.id)),
-              (c = a(
-                (m = d) == null || (m = m.contact) == null
+            if (f == null || f.length < 1) return null;
+            ((c = f[0]),
+              (m = o("WAWebChatCollection").ChatCollection.get(c.id)),
+              (d = l(
+                (_ = m) == null || (_ = _.contact) == null
                   ? void 0
-                  : m.profilePicThumb,
+                  : _.profilePicThumb,
               )));
           } catch (e) {
             return null;
           }
-          var f = 0.75;
-          (c == null || c === "") &&
-            (o("WAWebGroupMetadataGetters").getGroupType(s) ===
+          var g = 0.75;
+          (d == null || d === "") &&
+            (o("WAWebGroupMetadataGetters").getGroupType(c) ===
             o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
-              ? (c = o(
+              ? (d = o(
                   "WAWebCommunityGeneralChatImage.react",
                 ).GeneralChatPlaceholderFullUrl)
-              : (c = e),
-            (f = 1));
-          var g = [
+              : (d = e),
+            (g = 1));
+          var h = [
               {
                 width: u,
                 height: u,
                 imageFormat: "image/jpeg",
-                imageFormatOptions: f,
+                imageFormatOptions: g,
               },
             ],
-            h = yield o("WAWebMediaDataUtils").getResizedThumbData(c, g),
-            y = h != null && h.length > 0 ? h[0] : void 0,
-            C =
-              (i = s.getParentGroupChat()) == null ? void 0 : i.formattedTitle,
-            b;
-          o("WAWebGroupMetadataGetters").getGroupType(s) ===
+            y = yield o("WAWebMediaDataUtils").getResizedThumbData(d, h),
+            C = y != null && y.length > 0 ? y[0] : void 0,
+            b =
+              (n = c.getParentGroupChat()) == null ? void 0 : n.formattedTitle,
+            v;
+          o("WAWebGroupMetadataGetters").getGroupType(c) ===
           o("WAWebGroupType").GroupType.LINKED_SUBGROUP
-            ? (b = C)
-            : (b = p(o("WAWebGroupMetadataGetters").getGroupType(s), C));
-          var v = o("WAWebLinkPreviewUtils").genLinkPreview({
-            url: t,
+            ? (v = b)
+            : (v = p(o("WAWebGroupMetadataGetters").getGroupType(c), b));
+          var S = o("WAWebLinkPreviewUtils").genLinkPreview({
+            url: s,
             linkDetails: {
-              title: (l = d) == null ? void 0 : l.formattedTitle,
-              description: b,
+              title: (a = m) == null ? void 0 : a.formattedTitle,
+              description: v,
               richPreviewType: o("WAWebProtobufsE2E.pb")
                 .Message$ExtendedTextMessage$PreviewType.NONE,
               doNotPlayInline: !0,
-              inviteGrpType: o("WAWebGroupMetadataGetters").getGroupType(s),
+              inviteGrpType: o("WAWebGroupMetadataGetters").getGroupType(c),
               isLoading: !1,
             },
             linkThumbnail: {
-              thumbnail: y == null ? void 0 : y.dataUrl,
-              thumbnailHeight: y == null ? void 0 : y.height,
-              thumbnailWidth: y == null ? void 0 : y.width,
+              thumbnail: C == null ? void 0 : C.dataUrl,
+              thumbnailHeight: C == null ? void 0 : C.height,
+              thumbnailWidth: C == null ? void 0 : C.width,
             },
           });
-          return v;
+          return S;
         })),
         m.apply(this, arguments)
       );

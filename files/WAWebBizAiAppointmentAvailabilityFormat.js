@@ -1,6 +1,11 @@
 __d(
   "WAWebBizAiAppointmentAvailabilityFormat",
-  ["fbt", "WAWebSmbUtilsTimeUtils", "react"],
+  [
+    "fbt",
+    "WAWebBizAiAppointmentAvailabilityNormalize",
+    "WAWebSmbUtilsTimeUtils",
+    "react",
+  ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
@@ -31,6 +36,21 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e, t) {
+      var n;
+      return (n = _(e, t)) != null ? n : f(e, t);
+    }
+    function _(e, t) {
+      return e.startTimeMinutes !== 0 ||
+        e.endTimeMinutes !==
+          o("WAWebBizAiAppointmentAvailabilityNormalize").MINUTES_IN_DAY
+        ? null
+        : t === ""
+          ? s._(/*BTDS*/ "Open 24 hours")
+          : s._(/*BTDS*/ "Open 24 hours {time zone abbreviation}", [
+              s._param("time zone abbreviation", t),
+            ]);
+    }
+    function f(e, t) {
       var n = o("WAWebSmbUtilsTimeUtils").minutesToTime(e.startTimeMinutes),
         r = o("WAWebSmbUtilsTimeUtils").minutesToTime(e.endTimeMinutes);
       return t === ""
@@ -44,7 +64,7 @@ __d(
             s._param("time zone abbreviation", t),
           ]);
     }
-    function _(e, t) {
+    function g(e, t) {
       if (e == null || e === "") return "";
       try {
         var n,
@@ -67,7 +87,7 @@ __d(
     ((l.DAYS_IN_WEEK = c),
       (l.getAvailabilityForDay = d),
       (l.formatAvailability = m),
-      (l.getTimeZoneAbbreviation = _));
+      (l.getTimeZoneAbbreviation = g));
   },
   226,
 );

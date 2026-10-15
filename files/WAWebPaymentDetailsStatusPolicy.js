@@ -34,7 +34,7 @@ __d(
       (l.canMarkAsPaid = s),
       (l.canAttachReceipt = u),
       (l.canDeleteReceipt = c),
-      (l.showsCopyPixKeyCta = d));
+      (l.showsCopyCta = d));
   },
   98,
 );

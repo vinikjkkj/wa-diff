@@ -2,10 +2,10 @@ __d(
   "WAWebKeyManagementHandleKeyRequestApi",
   [
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWebRequestKeyShare",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdHandleKeyRequest",
+    "WAWebSyncdKeyTypes",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -33,7 +33,7 @@ __d(
           if (a) {
             var i = r("compactMap")(a, function (e) {
               return e.keyId;
-            }).map(o("WASyncdKeyTypes").toSyncKeyId);
+            }).map(o("WAWebSyncdKeyTypes").toSyncKeyId);
             if (
               (o("WALogger").LOG(
                 s ||

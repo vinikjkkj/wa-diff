@@ -14,11 +14,13 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterGetMyAddOnsJob",
     "WAWebNewsletterMembershipActionLogger",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterQplGatingUtils",
     "WAWebNewsletterQueues",
     "WAWebNewsletterStorageUtils",
     "WAWebNewsletterSubscribeJob",
+    "WAWebNewsletterToggleAdminActivityMuteStateAction",
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebNewsletterUpdateNewslettersRecordsJob",
     "WAWebQplFlowWrapper",
@@ -91,22 +93,23 @@ __d(
                     .CHANNEL_UPDATES_HOME && h,
               ),
             );
-            var l = o("WAJids").toNewsletterJid(t.id.toJid());
+            var l = o("WAJids").toNewsletterJid(t.id.toJid()),
+              u = o("WAWebNewsletterMetadataGetters").getIsPreview(n);
             try {
-              var u, c, C;
+              var c, C, b;
               if (
                 (yield p(o("WAWebWidFactory").asNewsletterWidOrThrow(t.id), i),
                 (t.t =
-                  (u = (c = t.msgs.last()) == null ? void 0 : c.t) != null
-                    ? u
+                  (c = (C = t.msgs.last()) == null ? void 0 : C.t) != null
+                    ? c
                     : n.creationTime),
                 o(
                   "WAWebNewsletterGatingUtils",
                 ).isSimilarNewsletterInThreadEnabled())
               ) {
-                var b;
-                (b = t.newsletterMetadata) == null ||
-                  b.set("recentlyFollowedFrom", _);
+                var v;
+                (v = t.newsletterMetadata) == null ||
+                  v.set("recentlyFollowedFrom", _);
               }
               ((n.membershipType = o(
                 "WAWebCommonNewsletterEnums",
@@ -138,6 +141,13 @@ __d(
                 yield o(
                   "WAWebNewsletterBridgeApi",
                 ).NewsletterBridgeApi.subscribeToNewsletter({ newsletter: t }),
+                u &&
+                  o(
+                    "WAWebNewsletterGatingUtils",
+                  ).isChannelsInChatListEnabled() &&
+                  o(
+                    "WAWebNewsletterToggleAdminActivityMuteStateAction",
+                  ).unmuteNewsletterAdminActivitySilentlyAction(t.id),
                 r("JSResourceForInteraction")(
                   "WAWebNewsletterStatusGapFillAction",
                 )
@@ -146,11 +156,11 @@ __d(
                   .then(function (e) {
                     return e.fillNewsletterStatusGap(l, void 0, !0);
                   }),
-                (C = y) == null || C.end(2));
+                (b = y) == null || b.end(2));
             } catch (e) {
-              var v;
+              var S;
               throw (
-                (v = y) == null || v.end(3),
+                (S = y) == null || S.end(3),
                 o("WALogger")
                   .ERROR(
                     s ||

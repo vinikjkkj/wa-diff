@@ -3,6 +3,7 @@ __d(
   [
     "WADeepEquals",
     "WAWebMediaEditorEnumsColors",
+    "WAWebMediaEditorEnumsColorsGetColorValue",
     "WAWebMediaEditorGeometryPoint",
     "WAWebMediaEditorGeometryRect",
     "WAWebMediaEditorGeometrySize",
@@ -173,10 +174,10 @@ __d(
           }),
           (n.getTextBackgroundColor = function () {
             return this.getTextColor().isLight()
-              ? o("WAWebMediaEditorEnumsColors").getColorValue(
+              ? o("WAWebMediaEditorEnumsColorsGetColorValue").getColorValue(
                   o("WAWebMediaEditorEnumsColors").ColorType.BLACK,
                 )
-              : o("WAWebMediaEditorEnumsColors").getColorValue(
+              : o("WAWebMediaEditorEnumsColorsGetColorValue").getColorValue(
                   o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
                 );
           }),

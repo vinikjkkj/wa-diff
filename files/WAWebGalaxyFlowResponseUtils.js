@@ -1,10 +1,15 @@
 __d(
   "WAWebGalaxyFlowResponseUtils",
-  ["WALogger", "WAWebInteractiveMessagesNativeFlowName", "WAWebMsgType"],
-  function (t, n, r, o, a, i, l) {
+  ["fbt", "WALogger", "WAWebInteractiveMessagesNativeFlowName", "WAWebMsgType"],
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e;
-    function s(t) {
+    function u(e) {
+      return e.fromMe
+        ? s._(/*BTDS*/ "Response sent")
+        : s._(/*BTDS*/ "Response received");
+    }
+    function c(t) {
       if (
         t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE ||
         t.nativeFlowName !==
@@ -31,7 +36,8 @@ __d(
       }
       return !(n == null || n.wa_flow_response_params == null);
     }
-    l.isGalaxyFlowsResponseBubble = s;
+    ((l.getGalaxyFlowResponseSubtitle = u),
+      (l.isGalaxyFlowsResponseBubble = c));
   },
-  98,
+  226,
 );

@@ -51,21 +51,25 @@ __d(
         a = e.nativeFlowName,
         i = e.type;
       if (
-        i === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        n === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        a === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO &&
-        t != null &&
-        t.buttons
-      ) {
-        var l = t;
-        return l;
-      }
-      return null;
+        i !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        n !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !(t != null && t.buttons)
+      )
+        return null;
+      var l = t;
+      return p(a, l) ? l : null;
+    }
+    function p(e, t) {
+      return (
+        e === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
+        (e === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+          o("WAWebBrazilPaymentState").isPixCodeRequestPayload(t))
+      );
     }
     ((l.isPaymentDetailsEnabledForMsg = s),
       (l.isPaymentDetailsEnabledFor = u),
       (l.isPaymentDetailsEnabledForReceiptNotice = c),
-      (l.getPaymentInfoPayload = d));
+      (l.getPaymentRequestPayload = d));
   },
   98,
 );

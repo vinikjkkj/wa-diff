@@ -32,6 +32,7 @@ __d(
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMsgKey",
     "WAWebNetworkStatusStateManager",
+    "WAWebNoiseInfoMainThread",
     "WAWebNoop",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPageLoadLogging",
@@ -41,7 +42,6 @@ __d(
     "WAWebUA",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
     "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsMultiDeviceMainThread",
     "WAWebUserPrefsScreenLockMainThread",
     "WAWebUserPrefsTabMutex",
     "WAWebWorkerSafeBackendApi",
@@ -419,29 +419,18 @@ __d(
             },
           },
           {
-            namespace: "mainthread_userPrefsMultiDevice",
+            namespace: "mainthread_noiseInfo",
             handlers: {
               getNoiseInfo: function () {
                 return o(
-                  "WAWebUserPrefsMultiDeviceMainThread",
-                ).userPrefsMultiDeviceMainThread.getNoiseInfo();
+                  "WAWebNoiseInfoMainThread",
+                ).noiseInfoMainThread.getNoiseInfo();
               },
-              getNoiseInfoIv: function () {
+              setCertificateChain: function (t) {
+                var e = t.cert;
                 return o(
-                  "WAWebUserPrefsMultiDeviceMainThread",
-                ).userPrefsMultiDeviceMainThread.getNoiseInfoIv();
-              },
-              setNoiseInfo: function (t) {
-                var e = t.info;
-                return o(
-                  "WAWebUserPrefsMultiDeviceMainThread",
-                ).userPrefsMultiDeviceMainThread.setNoiseInfo(e);
-              },
-              setNoiseInfoIv: function (t) {
-                var e = t.iv;
-                return o(
-                  "WAWebUserPrefsMultiDeviceMainThread",
-                ).userPrefsMultiDeviceMainThread.setNoiseInfoIv(e);
+                  "WAWebNoiseInfoMainThread",
+                ).noiseInfoMainThread.setCertificateChain(e);
               },
             },
           },
@@ -452,39 +441,6 @@ __d(
                 return o(
                   "WAWebUserPrefsScreenLockMainThread",
                 ).userPrefsScreenLockMainThread.getScreenLockEnabled();
-              },
-              getScreenLockIterations: function () {
-                return o(
-                  "WAWebUserPrefsScreenLockMainThread",
-                ).userPrefsScreenLockMainThread.getScreenLockIterations();
-              },
-              getScreenLockIvString: function () {
-                return o(
-                  "WAWebUserPrefsScreenLockMainThread",
-                ).userPrefsScreenLockMainThread.getScreenLockIvString();
-              },
-              getScreenLockSalt: function () {
-                return o(
-                  "WAWebUserPrefsScreenLockMainThread",
-                ).userPrefsScreenLockMainThread.getScreenLockSalt();
-              },
-              setScreenLockIterations: function (t) {
-                var e = t.iterations;
-                return o(
-                  "WAWebUserPrefsScreenLockMainThread",
-                ).userPrefsScreenLockMainThread.setScreenLockIterations(e);
-              },
-              setScreenLockIvString: function (t) {
-                var e = t.iv;
-                return o(
-                  "WAWebUserPrefsScreenLockMainThread",
-                ).userPrefsScreenLockMainThread.setScreenLockIvString(e);
-              },
-              setScreenLockSalt: function (t) {
-                var e = t.salt;
-                return o(
-                  "WAWebUserPrefsScreenLockMainThread",
-                ).userPrefsScreenLockMainThread.setScreenLockSalt(e);
               },
             },
           },

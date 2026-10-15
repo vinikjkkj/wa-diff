@@ -11,7 +11,6 @@ __d(
     "WAWebMediaDownloadMsg",
     "WAWebMediaMetadata",
     "WAWebMediaMsgRegistration",
-    "WAWebMediaPrep",
     "WAWebMediaProduct",
     "WAWebMediaResumeUploadMsg",
     "WAWebMediaStickers",
@@ -22,18 +21,17 @@ __d(
     var e = importNamespace(
         "WAWebDownloadVideoThumbnail",
       ).downloadVideoThumbnail,
-      l = importNamespace("WAWebMediaPrep").MediaPrep,
-      s = importNamespace("WAWebCheckMediaExistence").checkMediaExistence,
-      u = importNamespace("WAWebMediaDownloadMsg").downloadMsg,
-      c = importNamespace(
+      l = importNamespace("WAWebCheckMediaExistence").checkMediaExistence,
+      s = importNamespace("WAWebMediaDownloadMsg").downloadMsg,
+      u = importNamespace(
         "WAWebDownloadProgressiveJpegThumbnail",
       ).downloadProgressiveJpegThumbnail,
-      d = importNamespace(
+      c = importNamespace(
         "WAWebDownloadStatusThumbnail",
       ).downloadStatusThumbnail,
-      m = importNamespace("WAWebManuallySetMedia").manuallySetMedia,
-      p = importNamespace("WAWebPrepRawMedia").prepRawMedia,
-      _ = importNamespace("WAWebMediaResumeUploadMsg").resumeUploadMsg;
+      d = importNamespace("WAWebManuallySetMedia").manuallySetMedia,
+      m = importNamespace("WAWebPrepRawMedia").prepRawMedia,
+      p = importNamespace("WAWebMediaResumeUploadMsg").resumeUploadMsg;
     (Object.keys(importNamespace("WAWebMediaCancelDownloadMsg")).forEach(
       function (e) {
         e === "default" ||
@@ -78,14 +76,13 @@ __d(
         },
       ),
       (i.downloadVideoThumbnail = e),
-      (i.MediaPrep = l),
-      (i.checkMediaExistence = s),
-      (i.downloadMsg = u),
-      (i.downloadProgressiveJpegThumbnail = c),
-      (i.downloadStatusThumbnail = d),
-      (i.manuallySetMedia = m),
-      (i.prepRawMedia = p),
-      (i.resumeUploadMsg = _));
+      (i.checkMediaExistence = l),
+      (i.downloadMsg = s),
+      (i.downloadProgressiveJpegThumbnail = u),
+      (i.downloadStatusThumbnail = c),
+      (i.manuallySetMedia = d),
+      (i.prepRawMedia = m),
+      (i.resumeUploadMsg = p));
   },
   66,
 );

@@ -9,7 +9,9 @@ __d(
     "WAWebContactProfilePicThumbBridge",
     "WAWebCreateChat",
     "WAWebDBBulkPersistProfilePic",
+    "WAWebNewsletterChatListUtils",
     "WAWebNewsletterCollection",
+    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterGetAdminCapabilitiesJob",
     "WAWebNewsletterGetAdminInfoJob",
     "WAWebNewsletterMetadataCollection",
@@ -171,15 +173,20 @@ __d(
                 "[newsletters][updateCollections] Start",
               ])),
           );
-          var C = E(a, l, s),
-            b = C.filteredChats,
-            v = C.filteredMetadata,
-            S = C.filteredPics;
+          var C = o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled()
+              ? o(
+                  "WAWebNewsletterChatListUtils",
+                ).getNewsletterChatsWithLatestTimestamps(a)
+              : a,
+            b = E(C, l, s),
+            v = b.filteredChats,
+            S = b.filteredMetadata,
+            R = b.filteredPics;
           (u == null || u.addPoint("updateNewsletterChatRecords_start"),
             yield o(
               "WAWebNewsletterUpdateNewslettersRecordsJob",
             ).updateNewsletterChatRecords(
-              b.map(o("WAWebCreateChat").createNewsletterObjectForStorage),
+              v.map(o("WAWebCreateChat").createNewsletterObjectForStorage),
             ),
             u == null || u.addPoint("updateNewsletterChatRecords_end"),
             o("WALogger").LOG(
@@ -190,7 +197,7 @@ __d(
             ),
             u == null || u.addPoint("updateNewsletterMetadata_start"),
             yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
-              v.map(
+              S.map(
                 o("WAWebNewsletterStorageUtils")
                   .createNewsletterMetadataObjectForStorage,
               ),
@@ -206,7 +213,7 @@ __d(
             yield o(
               "WAWebDBBulkPersistProfilePic",
             ).bulkPersistProfilePicChanges(
-              r("compactMap")(S, function (e) {
+              r("compactMap")(R, function (e) {
                 var t, n, r, a;
                 if (Object.prototype.hasOwnProperty.call(e, "eurl")) {
                   var i = o("WAWebWidFactory").createWid(e.id.toString());
@@ -242,7 +249,7 @@ __d(
               s,
               { merge: !0 },
             ),
-            r("WAWebNewsletterCollection").add(a, { merge: !0 }),
+            r("WAWebNewsletterCollection").add(C, { merge: !0 }),
             u == null || u.addPoint("pullNewsletterMessagesFromServer_start"),
             o("WALogger").LOG(
               f ||
@@ -298,14 +305,14 @@ __d(
                 ])),
             ),
             u == null || u.addPoint("contactUpdates_start"));
-          var R = l
+          var L = l
             .filter(function (e) {
               return e.name;
             })
             .map(function (e) {
               return { id: e.id, name: e.name };
             });
-          (o("WAWebContactCollection").ContactCollection.add(R, { merge: !0 }),
+          (o("WAWebContactCollection").ContactCollection.add(L, { merge: !0 }),
             u == null || u.addPoint("contactUpdates_end"));
         })),
         L.apply(this, arguments)

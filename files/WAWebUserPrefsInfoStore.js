@@ -15,8 +15,8 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebSocketConstants",
     "WAWebSocketLogoutJob",
-    "WAWebUserPrefsMultiDeviceWorkerCompatible",
-    "WAWebUserPrefsScreenLockWorkerCompatible",
+    "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsScreenLock",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -27,12 +27,11 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 128,
-      f = "AES-GCM",
-      g = "PBKDF2",
-      h = r("gkx")("26256") ? 1e4 : 6e5,
-      y = (function () {
+      p = 128,
+      _ = "AES-GCM",
+      f = "PBKDF2",
+      g = r("gkx")("26256") ? 1e4 : 6e5,
+      h = (function () {
         function t() {
           this.cachedPasscodeDerivedKey = null;
         }
@@ -41,70 +40,15 @@ __d(
           (r.resetCachedPasscodeDerivedKey = function () {
             this.cachedPasscodeDerivedKey = null;
           }),
-          (r.getCertificateChain = function (n) {
-            var t = o("WAArrayBufferUtils").arrayBufferToString(n);
-            try {
-              var r = JSON.parse(t),
-                a = r.intermediate,
-                i = r.leaf;
-              return {
-                intermediate: {
-                  key: o("WABase64").decodeB64(a.key),
-                  notAfter: Number(a.notAfter),
-                  notBefore: Number(a.notBefore),
-                },
-                leaf: {
-                  key: o("WABase64").decodeB64(i.key),
-                  notAfter: Number(i.notAfter),
-                  notBefore: Number(i.notBefore),
-                },
-              };
-            } catch (t) {
-              return (
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Error parsing certificate chain: ",
-                      "",
-                    ])),
-                  t,
-                ),
-                null
-              );
-            }
-          }),
           (r.get = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                "hs_noise_load",
-              );
-              var e = yield o(
-                "WAWebUserPrefsMultiDeviceWorkerCompatible",
-              ).getNoiseInfo();
-              if (!e)
-                return (
-                  o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                    "hs_noise_load",
-                  ),
-                  null
-                );
-              var t = yield this.$1();
-              if (!t)
-                return (
-                  o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                    "hs_noise_load",
-                  ),
-                  null
-                );
-              e = yield this.$2(e, t);
-              var n = yield o(
-                "WAWebUserPrefsScreenLockWorkerCompatible",
-              ).getScreenLockEnabled();
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t = yield o("WAWebUserPrefsMultiDevice").getNoiseInfo();
+              if (!t) return null;
+              var n = yield this.$1();
+              if (!n) return null;
               if (
-                (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                  "hs_noise_load",
-                ),
-                n)
+                ((t = yield this.$2(t, n)),
+                yield o("WAWebUserPrefsScreenLock").getScreenLockEnabled())
               ) {
                 (o("WAWebBackendEventBusWorkerCompatible")
                   .getBackendEventBus()
@@ -114,29 +58,29 @@ __d(
                   o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                     "hs_passcode_wait",
                   ));
-                var r = yield this.passcodeUnlockNoiseInfo(e);
+                var r = yield this.passcodeUnlockNoiseInfo(t);
                 (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                   "hs_passcode_wait",
                 ),
-                  r && (e = r));
+                  r && (t = r));
               }
-              var a = yield this.$3(e);
+              var a = yield this.$3(t);
               return a
-                ? e
+                ? t
                 : (o("WALogger")
                     .LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "Decrypted noise key was invalid.",
                         ])),
                     )
                     .tags("info-store"),
                   null);
             });
-            function t() {
-              return e.apply(this, arguments);
+            function r() {
+              return t.apply(this, arguments);
             }
-            return t;
+            return r;
           })()),
           (r.setCertificateChain = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -159,8 +103,8 @@ __d(
                   } catch (e) {
                     o("WALogger")
                       .LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "Error serializing certificate chain: ",
                             "",
                           ])),
@@ -189,18 +133,18 @@ __d(
                     c = u.privKey,
                     d = u.pubKey;
                   try {
-                    var m = yield (p || (p = n("Promise"))).all(
+                    var p = yield (m || (m = n("Promise"))).all(
                       [s, d, c, l].map(function (e) {
                         return t.encryptNoiseWithPasscodeDerivedKey(e, a);
                       }),
                     );
-                    m[0] &&
-                      m[1] &&
-                      m[2] &&
+                    p[0] &&
+                      p[1] &&
+                      p[2] &&
                       (r = {
-                        recoveryToken: m[0],
-                        staticKeyPair: { pubKey: m[1], privKey: m[2] },
-                        certificateChainBuffer: m[3],
+                        recoveryToken: p[0],
+                        staticKeyPair: { pubKey: p[1], privKey: p[2] },
+                        certificateChainBuffer: p[3],
                       });
                   } catch (e) {}
                 }
@@ -208,13 +152,13 @@ __d(
                 self.crypto.getRandomValues(_);
                 var f = this.$4(_);
                 yield this.$5(f);
-                var g = yield (p || (p = n("Promise"))).all([
+                var g = yield (m || (m = n("Promise"))).all([
                     this.$6(r.recoveryToken, f[0]),
                     this.$6(r.staticKeyPair.pubKey, f[1]),
                     this.$6(r.staticKeyPair.privKey, f[2]),
                     r.certificateChainBuffer
                       ? this.$6(r.certificateChainBuffer, f[3])
-                      : (p || (p = n("Promise"))).resolve(void 0),
+                      : (m || (m = n("Promise"))).resolve(void 0),
                   ]),
                   h = g[0],
                   y = g[1],
@@ -225,7 +169,7 @@ __d(
                   (r.staticKeyPair.pubKey = y),
                   (r.staticKeyPair.privKey = C),
                   (r.certificateChainBuffer = b),
-                  o("WAWebUserPrefsMultiDeviceWorkerCompatible").setNoiseInfo(r)
+                  o("WAWebUserPrefsMultiDevice").setNoiseInfo(r)
                 );
               },
             );
@@ -235,15 +179,13 @@ __d(
             return t;
           })()),
           (r.$5 = function (t) {
-            return o(
-              "WAWebUserPrefsMultiDeviceWorkerCompatible",
-            ).setNoiseInfoIv(t.map(o("WABase64").encodeB64));
+            return o("WAWebUserPrefsMultiDevice").setNoiseInfoIv(
+              t.map(o("WABase64").encodeB64),
+            );
           }),
           (r.$1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o(
-                "WAWebUserPrefsMultiDeviceWorkerCompatible",
-              ).getNoiseInfoIv();
+              var e = yield o("WAWebUserPrefsMultiDevice").getNoiseInfoIv();
               return e
                 ? e.map(function (e) {
                     return new Uint8Array(o("WABase64").decodeB64(e));
@@ -284,13 +226,13 @@ __d(
           (r.$2 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                var r = yield (p || (p = n("Promise"))).all([
+                var r = yield (m || (m = n("Promise"))).all([
                     this.$7(e.recoveryToken, t[0]),
                     this.$7(e.staticKeyPair.pubKey, t[1]),
                     this.$7(e.staticKeyPair.privKey, t[2]),
                     e.certificateChainBuffer != null
                       ? this.$7(e.certificateChainBuffer, t[3])
-                      : (p || (p = n("Promise"))).resolve(void 0),
+                      : (m || (m = n("Promise"))).resolve(void 0),
                   ]),
                   o = r[0],
                   a = r[1],
@@ -350,8 +292,8 @@ __d(
                 } catch (e) {
                   (o("WALogger")
                     .LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Decrypted noise key failed validation.",
                         ])),
                     )
@@ -412,8 +354,8 @@ __d(
                 return !a || !(yield this.$3(a))
                   ? (o("WALogger")
                       .LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
                             "Decrypted noise key was invalid.",
                           ])),
                       )
@@ -446,7 +388,7 @@ __d(
                   l = i.privKey,
                   s = i.pubKey;
                 try {
-                  var u = yield (p || (p = n("Promise"))).all(
+                  var u = yield (m || (m = n("Promise"))).all(
                     [a, s, l, o].map(function (e) {
                       return r.decryptNoiseWithPasscodeDerivedKey(e, t);
                     }),
@@ -473,9 +415,7 @@ __d(
           (r.removeLockOnNoiseInfo = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = yield o(
-                  "WAWebUserPrefsMultiDeviceWorkerCompatible",
-                ).getNoiseInfo();
+                var t = yield o("WAWebUserPrefsMultiDevice").getNoiseInfo();
                 if (!t) return !1;
                 var n = yield this.$1();
                 if (!n) return !1;
@@ -487,20 +427,20 @@ __d(
                   return i
                     ? ((this.cachedPasscodeDerivedKey = null),
                       yield this.set(a),
+                      yield o("WAWebUserPrefsScreenLock").setScreenLockSalt(
+                        null,
+                      ),
+                      yield o("WAWebUserPrefsScreenLock").setScreenLockIvString(
+                        "",
+                      ),
                       yield o(
-                        "WAWebUserPrefsScreenLockWorkerCompatible",
-                      ).setScreenLockSalt(null),
-                      yield o(
-                        "WAWebUserPrefsScreenLockWorkerCompatible",
-                      ).setScreenLockIvString(""),
-                      yield o(
-                        "WAWebUserPrefsScreenLockWorkerCompatible",
+                        "WAWebUserPrefsScreenLock",
                       ).setScreenLockIterations(null),
                       !0)
                     : (o("WALogger")
                         .LOG(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "Decrypted noise key was invalid.",
                             ])),
                         )
@@ -522,20 +462,20 @@ __d(
                   n = yield self.crypto.subtle.importKey(
                     "raw",
                     t,
-                    { name: g },
+                    { name: f },
                     !1,
                     ["deriveKey"],
                   ),
                   r = yield this.getOrGenScreenLockSalt(),
                   o = yield self.crypto.subtle.deriveKey(
                     {
-                      name: g,
+                      name: f,
                       hash: "SHA-256",
                       salt: r,
                       iterations: yield this.getScreenLockIterationCount(),
                     },
                     n,
-                    { name: f, length: _ },
+                    { name: _, length: p },
                     !1,
                     ["encrypt", "decrypt"],
                   );
@@ -551,10 +491,8 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = null;
               return (
-                (yield o(
-                  "WAWebUserPrefsScreenLockWorkerCompatible",
-                ).getScreenLockEnabled()) ||
-                  ((e = new Uint8Array(_)),
+                (yield o("WAWebUserPrefsScreenLock").getScreenLockEnabled()) ||
+                  ((e = new Uint8Array(p)),
                   self.crypto.getRandomValues(e),
                   (e = btoa(
                     String.fromCharCode.apply(
@@ -562,12 +500,8 @@ __d(
                       Array.from(new Uint8Array(e)),
                     ),
                   )),
-                  yield o(
-                    "WAWebUserPrefsScreenLockWorkerCompatible",
-                  ).setScreenLockSalt(e)),
-                (e = yield o(
-                  "WAWebUserPrefsScreenLockWorkerCompatible",
-                ).getScreenLockSalt()),
+                  yield o("WAWebUserPrefsScreenLock").setScreenLockSalt(e)),
+                (e = yield o("WAWebUserPrefsScreenLock").getScreenLockSalt()),
                 e == null &&
                   (o("WAWebCoreActionsODS").logSessionForcedLogout(),
                   o("WAWebSocketLogoutJob").socketLogout(
@@ -590,9 +524,9 @@ __d(
               var e = new Uint8Array(16);
               self.crypto.getRandomValues(e);
               var t = new (o("WABinary").Binary)(e).readByteArrayView(16);
-              yield o(
-                "WAWebUserPrefsScreenLockWorkerCompatible",
-              ).setScreenLockIvString(o("WABase64").encodeB64(t));
+              yield o("WAWebUserPrefsScreenLock").setScreenLockIvString(
+                o("WABase64").encodeB64(t),
+              );
             });
             function t() {
               return e.apply(this, arguments);
@@ -602,7 +536,7 @@ __d(
           (r.getScreenLockIvArray = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = yield o(
-                "WAWebUserPrefsScreenLockWorkerCompatible",
+                "WAWebUserPrefsScreenLock",
               ).getScreenLockIvString();
               return e ? new Uint8Array(o("WABase64").decodeB64(e)) : null;
             });
@@ -618,7 +552,7 @@ __d(
                 var n = yield this.getScreenLockIvArray();
                 if (!n) return null;
                 var r = yield self.crypto.subtle.encrypt(
-                  { iv: n, name: f },
+                  { iv: n, name: _ },
                   t,
                   e,
                 );
@@ -637,7 +571,7 @@ __d(
                 var n = yield this.getScreenLockIvArray();
                 if (!n) return null;
                 var r = yield self.crypto.subtle.decrypt(
-                  { iv: n, name: f },
+                  { iv: n, name: _ },
                   t,
                   e,
                 );
@@ -651,22 +585,22 @@ __d(
           })()),
           (r.calculatePBKDF2Iterations = function () {
             var e = navigator.hardwareConcurrency;
-            return h * Math.max(1, Number.isNaN(e) ? 1 : e);
+            return g * Math.max(1, Number.isNaN(e) ? 1 : e);
           }),
           (r.getScreenLockIterationCount = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = yield o(
-                "WAWebUserPrefsScreenLockWorkerCompatible",
+                "WAWebUserPrefsScreenLock",
               ).getScreenLockIterations();
               return (
                 (!(yield o(
-                  "WAWebUserPrefsScreenLockWorkerCompatible",
+                  "WAWebUserPrefsScreenLock",
                 ).getScreenLockEnabled()) ||
                   e == null) &&
                   ((e = this.calculatePBKDF2Iterations()),
-                  yield o(
-                    "WAWebUserPrefsScreenLockWorkerCompatible",
-                  ).setScreenLockIterations(e)),
+                  yield o("WAWebUserPrefsScreenLock").setScreenLockIterations(
+                    e,
+                  )),
                 e
               );
             });
@@ -678,8 +612,8 @@ __d(
           t
         );
       })(),
-      C = new y();
-    l.waNoiseInfo = C;
+      y = new h();
+    l.waNoiseInfo = y;
   },
   98,
 );

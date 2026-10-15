@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdKeyTypes",
     "WATextEncoding",
     "WAWebABProps",
     "WAWebProtobufsServerSync.pb",
@@ -12,6 +11,7 @@ __d(
     "WAWebSyncdEncryptionManager",
     "WAWebSyncdError",
     "WAWebSyncdKeyCache",
+    "WAWebSyncdKeyTypes",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -93,7 +93,7 @@ __d(
           .arrayBufferToHexPadded(e.record.index.blob)
           .slice(-16),
         n = o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-          o("WASyncdKeyTypes").fromSyncKeyId(e.record.keyId.id),
+          o("WAWebSyncdKeyTypes").fromSyncKeyId(e.record.keyId.id),
         );
       return "[keyId: " + n + ", mac: " + t + "]";
     }
@@ -112,7 +112,7 @@ __d(
                 .REMOVE
             ) {
               var i = o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                o("WASyncdKeyTypes").fromSyncKeyId(r),
+                o("WAWebSyncdKeyTypes").fromSyncKeyId(r),
               );
               if (
                 o("WAWebABProps").getABPropConfigValue(

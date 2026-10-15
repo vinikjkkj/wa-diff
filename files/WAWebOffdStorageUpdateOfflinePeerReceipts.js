@@ -454,14 +454,13 @@ __d(
               p.apply(this, arguments)
             );
           }
-          function _(e, n) {
-            var r = n.id,
-              o = n.rowId;
+          function _(e, t) {
+            var n = t.rowId;
             e == null ||
-              o == null ||
-              (t.has(r) &&
-                (e.lastUnreadMsgRowId == null || o > e.lastUnreadMsgRowId) &&
-                (e.lastUnreadMsgRowId = o));
+              n == null ||
+              (C(t) &&
+                (e.lastUnreadMsgRowId == null || n > e.lastUnreadMsgRowId) &&
+                (e.lastUnreadMsgRowId = n));
           }
           function g(e, t) {
             var n = t.rowId;
@@ -483,7 +482,8 @@ __d(
                 ? null
                 : t <= n.lastUnreadMsgRowId
                   ? e.pendingReadReceipt ===
-                    o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit
+                      o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit &&
+                    !y(e)
                     ? null
                     : {
                         id: e.id,
@@ -492,6 +492,12 @@ __d(
                       }
                   : null;
             });
+          }
+          function y(e) {
+            return e.latestEditMsgKey != null && t.has(e.latestEditMsgKey);
+          }
+          function C(e) {
+            return t.has(e.id) || y(e);
           }
         })),
         E.apply(this, arguments)

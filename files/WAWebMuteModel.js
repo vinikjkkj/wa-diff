@@ -83,7 +83,7 @@ __d(
                 this.mentionAllMuteExpiration,
               ));
         }),
-        (i.setMute = function (t, n, r) {
+        (i.setMute = function (t, n, r, o) {
           (n === void 0 && (n = !1),
             !(
               ((t == null || t === 0) &&
@@ -91,8 +91,13 @@ __d(
               t === this.expiration
             ) &&
               (t
-                ? this.mute({ expiration: t, isAutoMuted: n, sendDevice: r })
-                : this.unmute({ sendDevice: r })));
+                ? this.mute({
+                    expiration: t,
+                    fromMultiselect: o,
+                    isAutoMuted: n,
+                    sendDevice: r,
+                  })
+                : this.unmute({ fromMultiselect: o, sendDevice: r })));
         }),
         (i.setAutoMuted = function (t) {
           this.set({ isAutoMuted: t });
@@ -172,7 +177,7 @@ __d(
               }
               t.set({ expiration: v, isAutoMuted: f });
             },
-            E = k(this.id, p);
+            E = k(this.id, p && !r("WAWebWid").isNewsletter(this.id));
           if (g === !0) {
             var I;
             if (
@@ -406,7 +411,7 @@ __d(
                   ),
                 ));
             },
-            f = k(this.id, l);
+            f = k(this.id, l && !r("WAWebWid").isNewsletter(this.id));
           if (u === !0) {
             var g;
             if (!r("WAWebWid").isNewsletter(this.id) && this.promises.unmute)
@@ -460,39 +465,40 @@ __d(
                     });
                 })
                 .then(function (t) {
-                  if (t.status === 200)
-                    return f === "group"
-                      ? new (o("WAWebActionToast.react").ActionType)(
-                          s._(/*BTDS*/ "Group unmuted"),
-                        )
-                      : f === "newsletter"
-                        ? new (o("WAWebActionToast.react").ActionType)(
-                            s._(/*BTDS*/ "Channel unmuted"),
-                            {
-                              actionText: s._(/*BTDS*/ "Undo"),
-                              actionHandler: function () {
-                                return o(
-                                  "WAWebNewsletterUpdateUserSettingsAction",
-                                ).updateNewsletterUserSettingsAction(
-                                  e.id,
-                                  o("WAWebNewsletterModelUtils").MUTED_STATE,
-                                  [
-                                    o("WAWebNewsletterUpdateUserSettingsAction")
-                                      .NewsletterUserSetting.AdminActivity,
-                                  ],
-                                  {
-                                    eventSurface: o(
-                                      "WAWebWamEnumChannelEventSurface",
-                                    ).CHANNEL_EVENT_SURFACE.CHANNEL_THREAD,
-                                  },
-                                );
-                              },
+                  if (t.status === 200) {
+                    if (f === "group")
+                      return new (o("WAWebActionToast.react").ActionType)(
+                        s._(/*BTDS*/ "Group unmuted"),
+                      );
+                    if (f === "newsletter") {
+                      var n = s._(/*BTDS*/ "Channel unmuted");
+                      return l
+                        ? new (o("WAWebActionToast.react").ActionType)(n)
+                        : new (o("WAWebActionToast.react").ActionType)(n, {
+                            actionText: s._(/*BTDS*/ "Undo"),
+                            actionHandler: function () {
+                              return o(
+                                "WAWebNewsletterUpdateUserSettingsAction",
+                              ).updateNewsletterUserSettingsAction(
+                                e.id,
+                                o("WAWebNewsletterModelUtils").MUTED_STATE,
+                                [
+                                  o("WAWebNewsletterUpdateUserSettingsAction")
+                                    .NewsletterUserSetting.AdminActivity,
+                                ],
+                                {
+                                  eventSurface: o(
+                                    "WAWebWamEnumChannelEventSurface",
+                                  ).CHANNEL_EVENT_SURFACE.CHANNEL_THREAD,
+                                },
+                              );
                             },
-                          )
-                        : new (o("WAWebActionToast.react").ActionType)(
-                            s._(/*BTDS*/ "Chat unmuted"),
-                          );
-                  if (t.status >= 400)
+                          });
+                    }
+                    return new (o("WAWebActionToast.react").ActionType)(
+                      s._(/*BTDS*/ "Chat unmuted"),
+                    );
+                  } else if (t.status >= 400)
                     throw f === "newsletter"
                       ? new (o("WAWebActionToast.react").ActionType)(
                           s._(/*BTDS*/ "Couldn't unmute channel"),

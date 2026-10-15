@@ -37,16 +37,15 @@ __d(
         c = a.cid,
         d = a.isOriginalAuthor,
         m = a.isStarredPost,
-        p = a.isVpvImpression,
-        _ = a.mediaData,
-        f = a.postId;
+        p = a.mediaData,
+        _ = a.postId;
       if (
         o(
           "WAWebNewsletterGatingUtils",
         ).isNewsletterVPVMessageVisibilityLoggingEnabled() &&
-        !(_ != null && !g(_))
+        !(p != null && !g(p))
       ) {
-        var h = function () {
+        var f = function () {
           var e,
             t = new (o(
               "WAWebChannelMessageVisibilityTrackingWamEvent",
@@ -54,8 +53,7 @@ __d(
               cid: c,
               isOriginalAuthor: d,
               isStarredPost: m,
-              isVpvImpression: p,
-              postId: f,
+              postId: _,
               unifiedSessionId:
                 (e = o(
                   "WAWebUnifiedSession",
@@ -68,7 +66,7 @@ __d(
             });
           t.commit();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(t, n, r, u, h);
+        o("MerlinImpressionManager").logVisibilityTimestamps(t, n, r, u, f);
       }
     }
     function m(e) {

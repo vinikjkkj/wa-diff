@@ -652,6 +652,8 @@ __d(
       win_hybrid_bridge_ui_thread_completion_enabled: [39187, "bool", !1, !1],
       win_hybrid_bt_enabled: [30041, "bool", !1, !0],
       win_hybrid_eager_device_watching: [37128, "bool", !1, !0],
+      win_hybrid_expiry_server_time_killswitch: [39501, "bool", !0, !0],
+      win_hybrid_expiry_wrong_clock_block_enabled: [39502, "bool", !1, !0],
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
       win_hybrid_tray_wake_keep_resumed_seconds: [38862, "int", 0, 600],

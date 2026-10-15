@@ -3,8 +3,8 @@ __d(
   [
     "WAWebCreateRegexMutator",
     "WAWebInternFormatRegex",
-    "WAWebInternMutatorComponent.react",
     "WAWebLinkFormatMutator",
+    "WAWebLinkMutatorComponent.react",
     "WAWebMentionFormatMutator",
     "react",
   ],
@@ -22,7 +22,7 @@ __d(
             var e = o.selectable,
               a = e === void 0 ? !1 : e,
               i = p(n);
-            return s.jsx(r("WAWebInternMutatorComponent.react"), {
+            return s.jsx(r("WAWebLinkMutatorComponent.react"), {
               href: i,
               selectable: a,
               children: t,

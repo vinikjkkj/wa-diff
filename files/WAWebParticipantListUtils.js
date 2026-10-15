@@ -11,6 +11,7 @@ __d(
     "WAWebCompactMapString",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebFbtCommon",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
     "WAWebGroupAgentProfileRouting",
@@ -29,7 +30,7 @@ __d(
         var t,
           n = (t = e.participants.head()) == null ? void 0 : t.contact;
         if (n != null && o("WAWebContactGetters").getIsMe(n))
-          return s._(/*BTDS*/ "You").toString();
+          return r("WAWebFbtCommon")("You").toString();
       }
       var a = c(e, !0);
       if (a.length === 1) return a[0];
@@ -67,16 +68,16 @@ __d(
         var a,
           i = (a = e.participants.head()) == null ? void 0 : a.contact;
         if (i != null && o("WAWebContactGetters").getIsMe(i))
-          return s._(/*BTDS*/ "You").toString();
+          return r("WAWebFbtCommon")("You").toString();
       }
       var l = c(e, t);
       if (l.length === 1) return l[0];
-      var u = r("WAWebFbtIntlList")(
+      var s = r("WAWebFbtIntlList")(
         l,
         r("WAWebFbtIntlList").CONJUNCTIONS.AND,
         r("WAWebFbtIntlList").DELIMITERS.COMMA,
       );
-      return u.toString();
+      return s.toString();
     }
     function c(e, t, n) {
       (t === void 0 && (t = !1), n === void 0 && (n = !0));
@@ -314,75 +315,75 @@ __d(
       t === void 0 && (t = !0);
       var n = e.length;
       if (n === 0) return s._(/*BTDS*/ "Group call").toString();
-      var r = e.map(function (e) {
+      var a = e.map(function (e) {
         var n =
             e.isUser() && e.device != null && e.device !== 0
               ? o("WAWebWidFactory").asUserWidOrThrow(e)
               : e,
-          r = o("WAWebContactCollection").ContactCollection.get(n),
-          a = null;
-        if ((r == null || !r.name) && e.isUser()) {
+          a = o("WAWebContactCollection").ContactCollection.get(n),
+          i = null;
+        if ((a == null || !a.name) && e.isUser()) {
           if (
-            ((a = o("WAWebApiContact").getAlternateUserWid(
+            ((i = o("WAWebApiContact").getAlternateUserWid(
               o("WAWebWidFactory").asUserWidOrThrow(e),
             )),
-            a != null)
+            i != null)
           ) {
-            var i = o("WAWebContactCollection").ContactCollection.get(a);
-            i != null && (r == null || i.name) && (r = i);
+            var l = o("WAWebContactCollection").ContactCollection.get(i);
+            l != null && (a == null || l.name) && (a = l);
           }
-          if (r != null && !r.name && r.phoneNumber) {
-            var l = o("WAWebContactCollection").ContactCollection.get(
-              r.phoneNumber,
+          if (a != null && !a.name && a.phoneNumber) {
+            var s = o("WAWebContactCollection").ContactCollection.get(
+              a.phoneNumber,
             );
-            l != null && l.name && (r = l);
+            s != null && s.name && (a = s);
           }
         }
-        if (r == null)
-          return e.isLid() && a != null
-            ? o("WAWebWidFormat").widToFormattedUser(a)
+        if (a == null)
+          return e.isLid() && i != null
+            ? o("WAWebWidFormat").widToFormattedUser(i)
             : o("WAWebWidFormat").widToFormattedUser(e);
-        if (o("WAWebContactGetters").getIsMe(r))
-          return s._(/*BTDS*/ "You").toString();
+        if (o("WAWebContactGetters").getIsMe(a))
+          return r("WAWebFbtCommon")("You").toString();
         var u = t
           ? o(
               "WAWebFrontendContactGetters",
-            ).getFormattedShortNameWithNonBreakingSpaces(r)
-          : o("WAWebFrontendContactGetters").getFormattedName(r);
+            ).getFormattedShortNameWithNonBreakingSpaces(a)
+          : o("WAWebFrontendContactGetters").getFormattedName(a);
         return (
           u ||
-          o("WAWebContactGetters").getNotifyName(r) ||
-          o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(r) ||
+          o("WAWebContactGetters").getNotifyName(a) ||
+          o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(a) ||
           o("WAWebWidFormat").widToFormattedUser(e)
         );
       });
-      if (n === 1) return r[0];
+      if (n === 1) return a[0];
       if (n === 2)
         return s
           ._(/*BTDS*/ "{first_name} & {second_name}", [
-            s._param("first_name", r[0]),
-            s._param("second_name", r[1]),
+            s._param("first_name", a[0]),
+            s._param("second_name", a[1]),
           ])
           .toString();
       if (n === 3)
         return s
           ._(/*BTDS*/ "{first_name}, {second_name} & {third_name}", [
-            s._param("first_name", r[0]),
-            s._param("second_name", r[1]),
-            s._param("third_name", r[2]),
+            s._param("first_name", a[0]),
+            s._param("second_name", a[1]),
+            s._param("third_name", a[2]),
           ])
           .toString();
-      var a = r[0],
-        i = n - 1,
-        l = s
+      var i = a[0],
+        l = n - 1,
+        u = s
           ._(/*BTDS*/ '_j{"*":"{other_participants} others","_1":"1 other"}', [
-            s._plural(i, "other_participants"),
+            s._plural(l, "other_participants"),
           ])
           .toString();
       return s
         ._(/*BTDS*/ "{first_name} & {others}", [
-          s._param("first_name", a),
-          s._param("others", l),
+          s._param("first_name", i),
+          s._param("others", u),
         ])
         .toString();
     }

@@ -19,7 +19,8 @@ __d(
           var r = yield m(t, n),
             a = r.find(function (e) {
               return (
-                o("WAWebPaymentDetailsGating").getPaymentInfoPayload(e) != null
+                o("WAWebPaymentDetailsGating").getPaymentRequestPayload(e) !=
+                null
               );
             });
           return a == null

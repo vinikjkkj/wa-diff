@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1",
+      c = "c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b",
       d = {
+        c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b:
+          function () {
+            return r("bx")("110636");
+          },
         "7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1":
           function () {
             return r("bx")("110630");
@@ -77,12 +81,8 @@ __d(
           function () {
             return r("bx")("110363");
           },
-        a00720dfbbc6024f9faf2e536ced91d2d240c4e7ea3080a890a588c6202597ed:
-          function () {
-            return r("bx")("110352");
-          },
       },
-      m = d["7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1"],
+      m = d.c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b,
       p = null,
       _ = null;
     try {
@@ -91,6 +91,10 @@ __d(
       p = e;
     }
     var f = {
+        c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b:
+          function () {
+            return r("bx")("110635");
+          },
         "7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1":
           function () {
             return r("bx")("110629");
@@ -151,16 +155,12 @@ __d(
           function () {
             return r("bx")("110362");
           },
-        a00720dfbbc6024f9faf2e536ced91d2d240c4e7ea3080a890a588c6202597ed:
-          function () {
-            return r("bx")("110351");
-          },
       },
-      g = f["7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1"],
+      g = f.c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b,
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1791958130569" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1792043689987" });
     } catch (e) {
       h = e;
     }
@@ -199,7 +199,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/c02028313d6fdcb2450fcad43d444e8e32c1f716ba06163725c78d6cf3d6305b/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -924,10 +924,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1390655: function () {
+          1392031: function () {
             return Date.now();
           },
-          1390678: function (t, n) {
+          1392054: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -3558,7 +3558,7 @@ __d(
             I(e, new bt(e)));
         }
         var rn = function (t, n) {
-            if (((j = t), sc(), P)) throw (K(!n), dn(t), "unwind");
+            if (((j = t), uc(), P)) throw (K(!n), dn(t), "unwind");
             if (fe() && !n) {
               var e =
                 "program exited (with status: " +
@@ -3754,7 +3754,7 @@ __d(
                           " actual=" +
                           t.actualBuildSha
                         : "voip: pinned worker glue load failed: " + t.error;
-                    if (ac && typeof v.onPthreadGlueFailure == "function")
+                    if (ic && typeof v.onPthreadGlueFailure == "function")
                       v.onPthreadGlueFailure(
                         r === "wasmGlueBuildMismatch"
                           ? {
@@ -7700,10 +7700,10 @@ __d(
             getentropy: ci,
             gethostbyname: gi,
             invoke_d: Bs,
-            invoke_diii: tc,
+            invoke_diii: nc,
             invoke_fi: ru,
             invoke_fii: ys,
-            invoke_fiii: ec,
+            invoke_fiii: tc,
             invoke_fiiiiii: Ru,
             invoke_i: kl,
             invoke_id: au,
@@ -7727,12 +7727,12 @@ __d(
             invoke_iiiifiii: Es,
             invoke_iiiifiiiiii: Ds,
             invoke_iiiii: Ml,
-            invoke_iiiiid: Ju,
+            invoke_iiiiid: Zu,
             invoke_iiiiii: ql,
             invoke_iiiiiii: $l,
-            invoke_iiiiiiiddiiid: Ku,
+            invoke_iiiiiiiddiiid: Qu,
             invoke_iiiiiiii: Bl,
-            invoke_iiiiiiiidi: Qu,
+            invoke_iiiiiiiidi: Xu,
             invoke_iiiiiiiifii: eu,
             invoke_iiiiiiiii: wl,
             invoke_iiiiiiiiii: Ol,
@@ -7748,6 +7748,7 @@ __d(
             invoke_iiiiiiiiiiiiiiii: tu,
             invoke_iiiiiiiiiiiiiiiiiffiiiii: Rs,
             invoke_iiiiiiiiiiiiiiiiii: jl,
+            invoke_iiiiiiiiiiiiiiiiiiiiiiiiiiii: Ku,
             invoke_iiiiiiiiiiji: ts,
             invoke_iiiiiiiiij: Vu,
             invoke_iiiiiiiij: qu,
@@ -7784,12 +7785,12 @@ __d(
             invoke_iijjjj: wu,
             invoke_iijjjji: Nu,
             invoke_ij: Ks,
-            invoke_iji: Yu,
+            invoke_iji: Ju,
             invoke_j: Kl,
             invoke_ji: Yl,
             invoke_jii: Us,
             invoke_jiii: Al,
-            invoke_jiiii: Zu,
+            invoke_jiiii: ec,
             invoke_jiiiii: zu,
             invoke_jiiiiiiii: Wu,
             invoke_jiiiiiji: Gu,
@@ -7818,11 +7819,11 @@ __d(
             invoke_viiiiiiiiii: ns,
             invoke_viiiiiiiiiiii: Au,
             invoke_viiiiiiiiiiiii: Lu,
-            invoke_viiiiiiiiiiiiiii: nc,
+            invoke_viiiiiiiiiiiiiii: rc,
             invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: Pu,
             invoke_viiiiiiij: Eu,
             invoke_viiiiij: iu,
-            invoke_viiiiiji: Xu,
+            invoke_viiiiiji: Yu,
             invoke_viiiij: lu,
             invoke_viiiijiiii: Ts,
             invoke_viiij: gu,
@@ -7922,8 +7923,8 @@ __d(
           Cl = (v.___get_exception_message = Ne("__get_exception_message")),
           bl = Ne("__cxa_can_catch"),
           vl = Ne("__cxa_is_pointer_type"),
-          Sl = (v.___start_em_js = 1384668),
-          Rl = (v.___stop_em_js = 1390655);
+          Sl = (v.___start_em_js = 1386044),
+          Rl = (v.___stop_em_js = 1392031);
         function Ll(e, t, n, r) {
           var o = fl();
           try {
@@ -9355,7 +9356,73 @@ __d(
             cl(1, 0);
           }
         }
-        function Ku(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+        function Ku(
+          e,
+          t,
+          n,
+          r,
+          o,
+          a,
+          i,
+          l,
+          s,
+          u,
+          c,
+          d,
+          m,
+          p,
+          _,
+          f,
+          g,
+          h,
+          y,
+          C,
+          b,
+          v,
+          S,
+          R,
+          L,
+          E,
+          k,
+          I,
+        ) {
+          var T = fl();
+          try {
+            return fn(e)(
+              t,
+              n,
+              r,
+              o,
+              a,
+              i,
+              l,
+              s,
+              u,
+              c,
+              d,
+              m,
+              p,
+              _,
+              f,
+              g,
+              h,
+              y,
+              C,
+              b,
+              v,
+              S,
+              R,
+              L,
+              E,
+              k,
+              I,
+            );
+          } catch (e) {
+            if ((gl(T), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Qu(e, t, n, r, o, a, i, l, s, u, c, d, m) {
           var p = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
@@ -9364,7 +9431,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Qu(e, t, n, r, o, a, i, l, s, u) {
+        function Xu(e, t, n, r, o, a, i, l, s, u) {
           var c = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u);
@@ -9373,7 +9440,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Xu(e, t, n, r, o, a, i, l) {
+        function Yu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             fn(e)(t, n, r, o, a, i, l);
@@ -9382,7 +9449,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Yu(e, t, n) {
+        function Ju(e, t, n) {
           var r = fl();
           try {
             return fn(e)(t, n);
@@ -9391,7 +9458,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Ju(e, t, n, r, o, a) {
+        function Zu(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -9400,22 +9467,13 @@ __d(
             cl(1, 0);
           }
         }
-        function Zu(e, t, n, r, o) {
+        function ec(e, t, n, r, o) {
           var a = fl();
           try {
             return fn(e)(t, n, r, o);
           } catch (e) {
             if ((gl(a), !(e instanceof Me))) throw e;
             return (cl(1, 0), BigInt(0));
-          }
-        }
-        function ec(e, t, n, r) {
-          var o = fl();
-          try {
-            return fn(e)(t, n, r);
-          } catch (e) {
-            if ((gl(o), !(e instanceof Me))) throw e;
-            cl(1, 0);
           }
         }
         function tc(e, t, n, r) {
@@ -9427,7 +9485,16 @@ __d(
             cl(1, 0);
           }
         }
-        function nc(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+        function nc(e, t, n, r) {
+          var o = fl();
+          try {
+            return fn(e)(t, n, r);
+          } catch (e) {
+            if ((gl(o), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function rc(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
           var g = fl();
           try {
             fn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
@@ -9444,7 +9511,7 @@ __d(
           (v.FS = Zt),
           (v.PThread = sn),
           (v.registeredTypes = cr));
-        var rc = [
+        var oc = [
           "writeI53ToI64",
           "writeI53ToI64Clamped",
           "writeI53ToI64Signaling",
@@ -9598,8 +9665,8 @@ __d(
           "emval_allocateDestructors",
           "emval_addMethodCaller",
         ];
-        rc.forEach(je);
-        var oc = [
+        oc.forEach(je);
+        var ac = [
           "run",
           "addOnPreRun",
           "addOnInit",
@@ -9849,24 +9916,24 @@ __d(
           "emval_registeredMethods",
           "IDBFS",
         ];
-        oc.forEach(Ke);
-        var ac;
+        ac.forEach(Ke);
+        var ic;
         Le = function e() {
-          (ac || lc(), ac || (Le = e));
+          (ic || sc(), ic || (Le = e));
         };
-        function ic() {
+        function lc() {
           (K(!P), ml(), se());
         }
-        function lc() {
+        function sc() {
           if (Se > 0) return;
-          if ((P || ic(), P)) {
+          if ((P || lc(), P)) {
             (S(v), he(), startWorker(v));
             return;
           }
           if ((ge(), Se > 0)) return;
           function e() {
-            ac ||
-              ((ac = !0),
+            ic ||
+              ((ic = !0),
               (v.calledRun = !0),
               !z &&
                 (he(),
@@ -9889,7 +9956,7 @@ __d(
             : e(),
             ue());
         }
-        function sc() {
+        function uc() {
           var e = B,
             t = W,
             n = !1;
@@ -9921,7 +9988,7 @@ __d(
             v.preInit.length > 0;
           )
             v.preInit.pop()();
-        return (lc(), a.ready);
+        return (sc(), a.ready);
       };
     })();
     ((C.BUILD_SHA = c),

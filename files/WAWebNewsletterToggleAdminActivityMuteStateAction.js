@@ -11,14 +11,15 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a =
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          a === void 0 && (a = !1);
+          var i =
             n === o("WAWebNewsletterModelUtils").MUTED_STATE
               ? "mute"
               : "unmute";
@@ -30,16 +31,16 @@ __d(
                     "[newsletter] ",
                     "AdminActivityAction: not a newsletter",
                   ])),
-                a,
+                i,
               )
               .tags("newsletter")
-              .sendLogs(a + "-admin-activity-not-a-newsletter");
+              .sendLogs(i + "-admin-activity-not-a-newsletter");
             return;
           }
           try {
-            var i = r("WAWebNewsletterCollection").get(t);
-            if (i == null) throw r("err")("Failed to retrieve newsletter");
-            var l = o("WAWebNewsletterUpdateUserSettingJob")
+            var l = r("WAWebNewsletterCollection").get(t);
+            if (l == null) throw r("err")("Failed to retrieve newsletter");
+            var u = o("WAWebNewsletterUpdateUserSettingJob")
               .updateNewsletterUserSetting({
                 newsletterJid: o("WAJids").toNewsletterJid(t.toJid()),
                 type: o("WAWebNewsletterModelUtils").ADMIN_NOTIFICATIONS,
@@ -52,14 +53,15 @@ __d(
                 return { status: 400 };
               });
             (n === o("WAWebNewsletterModelUtils").MUTED_STATE
-              ? (i.mute.promises.mute = l)
-              : (i.mute.promises.unmute = l),
-              yield l,
+              ? (l.mute.promises.mute = u)
+              : (l.mute.promises.unmute = u),
+              yield u,
               yield o(
                 "WAWebNewsletterBridgeApi",
               ).NewsletterBridgeApi.toggleNewsletterAdminActivityMuteState({
                 id: t,
                 muteExpirationValue: n,
+                fromMultiselect: a,
               }));
           } catch (e) {
             o("WALogger")
@@ -69,16 +71,49 @@ __d(
                     "[newsletter] ",
                     "AdminActivityAction failed",
                   ])),
-                a,
+                i,
               )
               .tags("newsletter")
-              .sendLogs("newsletter-" + a + "-admin-activity-action-failed");
+              .sendLogs("newsletter-" + i + "-admin-activity-action-failed");
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.toggleNewsletterAdminActivityMuteStateAction = u;
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            var t;
+            (yield o(
+              "WAWebNewsletterUpdateUserSettingJob",
+            ).updateNewsletterUserSetting({
+              newsletterJid: o("WAJids").toNewsletterJid(e.toJid()),
+              type: o("WAWebNewsletterModelUtils").ADMIN_NOTIFICATIONS,
+              muteExpirationValue: o("WAWebNewsletterModelUtils").UNMUTED_STATE,
+            }),
+              (t = r("WAWebNewsletterCollection").get(e)) == null ||
+                t.mute.setMute(o("WAWebNewsletterModelUtils").UNMUTED_STATE));
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[newsletter] silent admin activity unmute failed",
+                  ])),
+              )
+              .tags("newsletter")
+              .sendLogs("newsletter-silent-unmute-admin-activity-failed");
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    ((l.toggleNewsletterAdminActivityMuteStateAction = c),
+      (l.unmuteNewsletterAdminActivitySilentlyAction = m));
   },
   98,
 );

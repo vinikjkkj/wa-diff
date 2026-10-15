@@ -6,7 +6,7 @@ __d(
     "WAWebGalaxyFlowMediaEditorCollection",
     "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
-    "WAWebMediaPrep",
+    "WAWebMediaPrepMediaProps",
     "WAWebMediaUpdateMsg",
     "WAWebMediaUploadMediaWithPrep",
     "WAWebMsgKey",
@@ -93,11 +93,11 @@ __d(
             l = t.options;
           try {
             var c = yield u(i),
-              m = o("WAWebMediaPrep")
-                .getMediaPropsNew(i.mediaPrep, l)
-                .then(function (e) {
+              m = r("WAWebMediaPrepMediaProps")(i.mediaPrep, l).then(
+                function (e) {
                   return babelHelpers.extends({}, c, e, { type: e.type });
-                }),
+                },
+              ),
               p = babelHelpers.extends({}, yield m, {
                 id: c.id,
                 from: c.from,

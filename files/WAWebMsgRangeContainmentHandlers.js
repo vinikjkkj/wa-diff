@@ -5,6 +5,7 @@ __d(
     "WAWebBackendApi",
     "WAWebChatDbUpdatesApi",
     "WAWebHandleForMessageRangeEnums",
+    "WAWebNewsletterArchiveUtils",
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -20,6 +21,14 @@ __d(
             t ===
             o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN
           ) {
+            if (
+              o(
+                "WAWebNewsletterArchiveUtils",
+              ).shouldKeepChannelArchivedUntilMigration(
+                o("WAWebWidFactory").createWid(e.chatId),
+              )
+            )
+              return;
             var n = yield o(
                 "WAWebUserPrefsMultiDevice",
               ).getArchiveV2EnabledSetting(),

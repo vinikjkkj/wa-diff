@@ -14,7 +14,12 @@ __d(
     }
     function p(e, t, n, r) {
       var o = _(e);
-      return g("single", n, t, o + "." + r);
+      return g({
+        emojiType: n,
+        identifier: o + "." + r,
+        packaging: "single",
+        size: t,
+      });
     }
     function _(e) {
       return Array.from(e, function (e) {
@@ -22,10 +27,19 @@ __d(
       }).join("_");
     }
     function f(e, t, n, r) {
-      return g("sprite", e, n, t + "." + r);
+      return g({
+        emojiType: e,
+        identifier: t + "." + r,
+        packaging: "sprite",
+        size: n,
+      });
     }
-    function g(e, t, n, r) {
-      return [s, u, c, d, e, t.toLowerCase().slice(0, 1), n, r].join("/");
+    function g(e) {
+      var t = e.emojiType,
+        n = e.identifier,
+        r = e.packaging,
+        o = e.size;
+      return [s, u, c, d, r, t.toLowerCase().slice(0, 1), o, n].join("/");
     }
     ((l.getGlyphExperimentalPath = m), (l.getEmojiSpritesExperimentalPath = f));
   },

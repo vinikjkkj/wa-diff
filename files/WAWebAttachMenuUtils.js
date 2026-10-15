@@ -7,9 +7,6 @@ __d(
     "WAWebChatGetters",
     "WAWebConnGetters",
     "WAWebConnModel",
-    "WAWebContactGetters",
-    "WAWebL10NCountryCodes",
-    "WAWebLidMigrationUtils",
     "WAWebLinkedCatalogHelper",
     "WAWebOrderGatingUtils",
     "WAWebProductCatalogMetaLinkingGatingUtils",
@@ -62,23 +59,9 @@ __d(
       );
       return !o("WAWebBusinessProfileUtils").hasShop(e);
     }
-    function d(e) {
-      var t = o("WAWebLidMigrationUtils").toPn(e.contact.id),
-        n = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-          t == null ? void 0 : t.user,
-        );
-      return !(
-        !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
-        o("WAWebChatGetters").getIsGroup(e) ||
-        o("WAWebContactGetters").getIsMe(e.contact) ||
-        n !== "BR" ||
-        e.contact.isEnterprise
-      );
-    }
     ((l.shouldShowCatalogOption = e),
       (l.shouldShowDisabledCatalogOption = s),
-      (l.canSendOrder = u),
-      (l.canSendPix = d));
+      (l.canSendOrder = u));
   },
   98,
 );

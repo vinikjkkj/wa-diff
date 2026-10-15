@@ -2,9 +2,7 @@ __d(
   "WAWebContactModel",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebABProps",
-    "WAWebAlarm",
     "WAWebApiContact",
     "WAWebBaseModel",
     "WAWebBizBotProfileUtils",
@@ -19,6 +17,7 @@ __d(
     "WAWebContactGetters",
     "WAWebContactSearchMatcher",
     "WAWebContactShortName",
+    "WAWebContactTextStatusExpiry",
     "WAWebFrontendContactGetters",
     "WAWebInitializeBotContact",
     "WAWebL10N",
@@ -27,7 +26,6 @@ __d(
     "WAWebTextStatusCollection",
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
-    "WAWebUpdateTextStatusForContact",
     "WAWebWid",
     "WAWebWidFactory",
   ],
@@ -35,8 +33,7 @@ __d(
     var e,
       s,
       u,
-      c = 1e3,
-      d = (function (t) {
+      c = (function (t) {
         function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -108,41 +105,8 @@ __d(
         babelHelpers.inheritsLoose(n, t);
         var a = n.prototype;
         return (
-          (a.$Contact$p_1 = function () {
-            var e;
-            (r("WAWebAlarm").clearTimeout(this.meTextStatusExpiryTimer),
-              this.unset(["meTextStatusExpiryTimer"]),
-              o("WAWebUpdateTextStatusForContact").updateTextStatusForContact({
-                contactId: this.id,
-                textString: (e = o("WAWebTextStatusUtils"))
-                  .CLEAR_TEXT_STATUS_STRING_VAL,
-                emoji: e.CLEAR_TEXT_STATUS_EMOJI_VAL,
-                ephemeralDuration: e.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL,
-                newUpdateTime: e.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL,
-                source: "clear-self-expiry",
-              }));
-          }),
-          (a.setupStatusExpiration = function () {
-            var e = this,
-              t = this.textStatusExpiryTs;
-            t != null &&
-              (this.meTextStatusExpiryTimer != null &&
-                r("WAWebAlarm").clearTimeout(this.meTextStatusExpiryTimer),
-              t < o("WATimeUtils").unixTime()
-                ? self.setTimeout(function () {
-                    e.$Contact$p_1();
-                  })
-                : (this.meTextStatusExpiryTimer = r(
-                    "WAWebAlarm",
-                  ).setGlobalTimeout(
-                    function () {
-                      return e.$Contact$p_1();
-                    },
-                    t * c,
-                    this.meTextStatusExpiryTimer,
-                  )));
-          }),
           (a.initialize = function () {
+            var n = this;
             if ((t.prototype.initialize.call(this), !!this.id)) {
               (this.id.device != null &&
                 o("WALogger")
@@ -164,12 +128,16 @@ __d(
                   ),
                 o("WAWebContactGetters").getIsMe(this) &&
                   o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-                  (this.setupStatusExpiration(),
-                  this.listenTo(
-                    this,
-                    "change:textStatusExpiryTs",
-                    this.$Contact$p_2,
-                  )),
+                  (o(
+                    "WAWebContactTextStatusExpiry",
+                  ).setupContactTextStatusExpiration(this),
+                  this.listenTo(this, "change:textStatusExpiryTs", function () {
+                    self.setTimeout(function () {
+                      o(
+                        "WAWebContactTextStatusExpiry",
+                      ).setupContactTextStatusExpiration(n);
+                    });
+                  })),
                 o("WAWebContactGetters").getIsMe(this) &&
                   this.addChild(
                     "profilePicThumb",
@@ -188,12 +156,12 @@ __d(
                       "WAWebBusinessProfileCollection",
                     ).BusinessProfileCollection.gadd(this.id),
                   ),
-                this.listenTo(this, "change:isBusiness", this.$Contact$p_3),
+                this.listenTo(this, "change:isBusiness", this.$Contact$p_1),
                 o("WAWebContactGetters").getIsMe(this) &&
                   this.listenTo(
                     o("WAWebConnModel").Conn,
                     "change:pushname",
-                    this.$Contact$p_4,
+                    this.$Contact$p_2,
                   ),
                 o("WAWebABProps").getABPropConfigValue(
                   "web_contact_collection_locale_listener",
@@ -201,42 +169,36 @@ __d(
                   this.listenTo(
                     r("WAWebL10N"),
                     "locale_change",
-                    this.$Contact$p_5,
+                    this.$Contact$p_3,
                   ),
                 this.id.isUser() &&
                   (o("WAWebContactBlocklistUtils").updateContactBlocked(this),
                   this.updateContactOptedOutOfMarketingMessages()),
-                this.listenTo(this, "change:name", this.$Contact$p_6),
+                this.listenTo(this, "change:name", this.$Contact$p_4),
                 this.listenTo(this, "change:name", this.updateName),
                 (this.pendingAction = 0),
                 o("WAWebBizLabelUtils").initializeLabels(this));
-              var n = this.id;
-              if (n.isLid()) {
-                var a =
-                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(n);
-                a != null && this.copyFieldsFromPnContact(a);
+              var a = this.id;
+              if (a.isLid()) {
+                var i =
+                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(a);
+                i != null && this.copyFieldsFromPnContact(i);
               } else
                 this.id.isUser() &&
-                  (this.$Contact$p_7(),
-                  this.listenTo(this, "change:name", this.$Contact$p_7),
-                  this.listenTo(this, "change:statusMute", this.$Contact$p_7));
+                  (this.$Contact$p_5(),
+                  this.listenTo(this, "change:name", this.$Contact$p_5),
+                  this.listenTo(this, "change:statusMute", this.$Contact$p_5));
               this.id.isBot() &&
                 o("WAWebInitializeBotContact").initializeBotContact(this);
             }
           }),
-          (a.$Contact$p_2 = function () {
-            var e = this;
-            self.setTimeout(function () {
-              e.setupStatusExpiration();
-            });
-          }),
-          (a.$Contact$p_3 = function () {
+          (a.$Contact$p_1 = function () {
             o("WAWebBizBusinessChangeAction").handleBusinessChange(this);
           }),
-          (a.$Contact$p_4 = function () {
+          (a.$Contact$p_2 = function () {
             this.set({ pushname: o("WAWebConnModel").Conn.pushname });
           }),
-          (a.$Contact$p_5 = function () {
+          (a.$Contact$p_3 = function () {
             this.locale = r("WAWebL10N").getLocale();
           }),
           (a.updateName = function () {
@@ -248,7 +210,7 @@ __d(
               this.verifiedName != null &&
               this.set({ name: this.verifiedName });
           }),
-          (a.$Contact$p_6 = function () {
+          (a.$Contact$p_4 = function () {
             if (
               o("WAWebContactGetters").getIsUser(this) &&
               this.name &&
@@ -258,7 +220,7 @@ __d(
               e != null && this.set("shortName", e);
             }
           }),
-          (a.$Contact$p_8 = function () {
+          (a.$Contact$p_6 = function () {
             var e = o("WAWebWidFactory").asUserWidOrThrow(this.id);
             if (e.isLid()) return this;
             var t = o("WAWebApiContact").getCurrentLid(e);
@@ -266,8 +228,8 @@ __d(
               ? o("WAWebContactCollection").ContactCollection.get(t)
               : null;
           }),
-          (a.$Contact$p_7 = function () {
-            var e = this.$Contact$p_8();
+          (a.$Contact$p_5 = function () {
+            var e = this.$Contact$p_6();
             e &&
               (e.set({ name: this.name }),
               e.set({ parentStatusMute: this.statusMute }));
@@ -310,11 +272,11 @@ __d(
           (a.addPendingAction = function (t) {
             var e = this,
               n = function () {
-                e.$Contact$p_9();
+                e.$Contact$p_7();
               };
             return (t.then(n, n), this.pendingAction++, t);
           }),
-          (a.$Contact$p_9 = function () {
+          (a.$Contact$p_7 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(
@@ -389,9 +351,9 @@ __d(
           n
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((d.Proxy = "contact"), (d.idClass = r("WAWebWid")));
-    var m = o("WAWebBaseModel").defineModel(d);
-    l.default = m;
+    ((c.Proxy = "contact"), (c.idClass = r("WAWebWid")));
+    var d = o("WAWebBaseModel").defineModel(c);
+    l.default = d;
   },
   98,
 );

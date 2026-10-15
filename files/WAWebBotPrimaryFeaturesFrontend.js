@@ -8,8 +8,6 @@ __d(
     }
     function s() {
       return {
-        aiBotIntegrationEnabled: o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-          .aiBotIntegrationEnabled,
         aiHatchIntegrationEnabled: o("WAWebPrimaryFeaturesModel")
           .PrimaryFeatures.aiHatchIntegrationEnabled,
       };

@@ -9,32 +9,32 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(t, r) {
+    function u(t, a) {
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose(["Prepping raw media"])),
       );
-      var a;
-      r.isPtt === !0
-        ? (a = o("WAWebMediaTypes").OUTWARD_TYPES.PTT)
-        : r.asDocument === !0
-          ? (a = o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT)
-          : r.asGif === !0
-            ? (a = o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO)
-            : r.isAudio === !0
-              ? (a = o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO)
-              : r.asSticker === !0
-                ? (a = o("WAWebMediaTypes").OUTWARD_TYPES.STICKER)
-                : r.asStickerPack === !0
-                  ? (a = o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK)
-                  : (a = o("WAWebMediaTypes").OUTWARD_TYPES.UNKNOWN);
-      var i = (s || (s = n("Promise"))).resolve(t).then(function (e) {
+      var i;
+      a.isPtt === !0
+        ? (i = o("WAWebMediaTypes").OUTWARD_TYPES.PTT)
+        : a.asDocument === !0
+          ? (i = o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT)
+          : a.asGif === !0
+            ? (i = o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO)
+            : a.isAudio === !0
+              ? (i = o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO)
+              : a.asSticker === !0
+                ? (i = o("WAWebMediaTypes").OUTWARD_TYPES.STICKER)
+                : a.asStickerPack === !0
+                  ? (i = o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK)
+                  : (i = o("WAWebMediaTypes").OUTWARD_TYPES.UNKNOWN);
+      var l = (s || (s = n("Promise"))).resolve(t).then(function (e) {
         return (
-          e.autoreleaseWhenPromiseCompletes(i),
-          o("WAWebProcessRawMedia").processRawMedia(e, r)
+          e.autoreleaseWhenPromiseCompletes(l),
+          o("WAWebProcessRawMedia").processRawMedia(e, a)
         );
       });
-      return new (o("WAWebMediaPrep").MediaPrep)(a, i);
+      return new (r("WAWebMediaPrep"))(i, l);
     }
     l.prepRawMedia = u;
   },

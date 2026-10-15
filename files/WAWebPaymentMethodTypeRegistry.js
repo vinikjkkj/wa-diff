@@ -37,11 +37,15 @@ __d(
       flushErrors: o("WAWebPaymentMethodPIX").flushPixErrors,
       isStoredValid: o("WAWebPaymentMethodPIX").isStoredPIXValid,
     };
-    function E(e, t, n, r) {
-      var a = o("WAWebPaymentMethodPIX").findMetadataValue(e, t);
-      return a == null || !o("WAWebUserPrefsValidators").isStringFieldValid(a)
-        ? (o("WAWebPaymentMethodPIX").recordError(r, n), null)
-        : a;
+    function E(e) {
+      var t = e.errorKey,
+        n = e.errors,
+        r = e.input,
+        a = e.metadataKey,
+        i = o("WAWebPaymentMethodPIX").findMetadataValue(r, a);
+      return i == null || !o("WAWebUserPrefsValidators").isStringFieldValid(i)
+        ? (o("WAWebPaymentMethodPIX").recordError(n, t), null)
+        : i;
     }
     function k(e, t) {
       var n = e.findIndex(function (e) {
@@ -56,16 +60,26 @@ __d(
         i,
         l,
         s,
-        u = E(e, "key", "clabe_key_null", n);
+        u = E({
+          errorKey: "clabe_key_null",
+          errors: n,
+          input: e,
+          metadataKey: "key",
+        });
       if (u == null) return !1;
-      var c = E(e, "institution_name", "clabe_institution_name_null", n);
+      var c = E({
+        errorKey: "clabe_institution_name_null",
+        errors: n,
+        input: e,
+        metadataKey: "institution_name",
+      });
       if (c == null) return !1;
-      var d = E(
-        e,
-        "full_name_on_account",
-        "clabe_full_name_on_account_null",
-        n,
-      );
+      var d = E({
+        errorKey: "clabe_full_name_on_account_null",
+        errors: n,
+        input: e,
+        metadataKey: "full_name_on_account",
+      });
       if (d == null) return !1;
       var m =
           (r =
@@ -299,9 +313,24 @@ __d(
         })(e.type.toUpperCase());
       if (l == null || s == null) return !0;
       var u = A(e),
-        c = E(e, "key", "upr_key_null", n),
-        d = E(e, "institution_name", "upr_institution_name_null", n),
-        m = E(e, "full_name_on_account", "upr_full_name_on_account_null", n);
+        c = E({
+          errorKey: "upr_key_null",
+          errors: n,
+          input: e,
+          metadataKey: "key",
+        }),
+        d = E({
+          errorKey: "upr_institution_name_null",
+          errors: n,
+          input: e,
+          metadataKey: "institution_name",
+        }),
+        m = E({
+          errorKey: "upr_full_name_on_account_null",
+          errors: n,
+          input: e,
+          metadataKey: "full_name_on_account",
+        });
       return u == null || !o("WAWebUserPrefsValidators").isStringFieldValid(u)
         ? (o("WAWebPaymentMethodPIX").recordError(n, "upr_currency_null"), !0)
         : (c == null ||
@@ -380,11 +409,26 @@ __d(
         l,
         s,
         u,
-        c = E(e, "key", "id_key_null", n);
+        c = E({
+          errorKey: "id_key_null",
+          errors: n,
+          input: e,
+          metadataKey: "key",
+        });
       if (c == null) return !1;
-      var d = E(e, "institution_name", "id_institution_name_null", n);
+      var d = E({
+        errorKey: "id_institution_name_null",
+        errors: n,
+        input: e,
+        metadataKey: "institution_name",
+      });
       if (d == null) return !1;
-      var m = E(e, "full_name_on_account", "id_full_name_on_account_null", n);
+      var m = E({
+        errorKey: "id_full_name_on_account_null",
+        errors: n,
+        input: e,
+        metadataKey: "full_name_on_account",
+      });
       if (m == null) return !1;
       var p = o("WAWebPaymentMethodPIX").findMetadataValue(e, "account_type");
       if (p == null)

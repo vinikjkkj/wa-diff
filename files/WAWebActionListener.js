@@ -27,7 +27,7 @@ __d(
     "WAWebChatSendMessages",
     "WAWebClearChatDialogV2.react",
     "WAWebClearChatPopup.react",
-    "WAWebClearSelectedChatsPopup.react",
+    "WAWebClearSelectedChatsPopupLoadable",
     "WAWebCmd",
     "WAWebCommandPalette.react",
     "WAWebConfirmPopup.react",
@@ -37,6 +37,7 @@ __d(
     "WAWebDeleteSelectedChatsPopup.react",
     "WAWebDrawerManager",
     "WAWebEventInfoFlowLoadable",
+    "WAWebFbtCommon",
     "WAWebGroupsV4InviteFlowLoadable",
     "WAWebHeader.react",
     "WAWebKeyboardTabUtils",
@@ -385,7 +386,7 @@ __d(
                   onOK: p,
                   okText: s._(/*BTDS*/ "Unmute"),
                   onCancel: o("WAWebModalManager").closeModalManager,
-                  cancelText: s._(/*BTDS*/ "Cancel"),
+                  cancelText: r("WAWebFbtCommon")("Cancel"),
                   children: u,
                 }),
               );
@@ -460,10 +461,11 @@ __d(
       a[20] !== d
         ? ((ae = function (t, n) {
             o("WAWebModalManager").ModalManager.open(
-              m.jsx(r("WAWebClearSelectedChatsPopup.react"), {
-                chats: t,
-                onComplete: n,
-              }),
+              m.jsx(
+                o("WAWebClearSelectedChatsPopupLoadable")
+                  .ClearSelectedChatsPopupLoadable,
+                { chats: t, onComplete: n },
+              ),
               { transition: "modal", uim: d },
             );
           }),

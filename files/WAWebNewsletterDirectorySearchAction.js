@@ -206,11 +206,39 @@ __d(
       );
     }
     function T(e) {
-      return D.apply(this, arguments);
+      return {
+        countryCode: e,
+        categories: o(
+          "WAWebNewsletterExtendedGatingUtils",
+        ).getNewsletterDirectoryCategoryTypes(),
+        locale: r("WAWebL10N").getLocale(),
+        perCategoryLimit: o("WAWebABProps").getABPropConfigValue(
+          "directory_categories_newsletters_per_category_limit",
+        ),
+      };
     }
-    function D() {
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebNewsletterDirectorySearchJob",
+          ).getNewsletterDirectoryCategoriesPreview(T(e));
+          return t.map(function (e) {
+            return e.category;
+          });
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -219,17 +247,8 @@ __d(
           );
           var t = yield o(
               "WAWebNewsletterDirectorySearchJob",
-            ).getNewsletterDirectoryCategoriesPreview({
-              countryCode: e,
-              categories: o(
-                "WAWebNewsletterExtendedGatingUtils",
-              ).getNewsletterDirectoryCategoryTypes(),
-              locale: r("WAWebL10N").getLocale(),
-              perCategoryLimit: o("WAWebABProps").getABPropConfigValue(
-                "directory_categories_newsletters_per_category_limit",
-              ),
-            }),
-            a = yield (y || (y = n("Promise"))).all(
+            ).getNewsletterDirectoryCategoriesPreview(T(e)),
+            r = yield (y || (y = n("Promise"))).all(
               t.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -262,17 +281,18 @@ __d(
                   "[getNewsletterDirectoryCategoriesPreviewAction] End",
                 ])),
             ),
-            a
+            r
           );
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     ((l.fetchNewsletterDirectories = b),
       (l.getSimilarNewslettersAction = S),
       (l.getNewsletterDirectoryListAction = L),
       (l.getNewsletterDirectorySearchResultsAction = k),
-      (l.getNewsletterDirectoryCategoriesPreviewAction = T));
+      (l.getNewsletterDirectoryCategoriesAction = D),
+      (l.getNewsletterDirectoryCategoriesPreviewAction = $));
   },
   98,
 );

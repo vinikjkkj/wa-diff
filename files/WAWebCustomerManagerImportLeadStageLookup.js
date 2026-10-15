@@ -2,16 +2,15 @@ __d(
   "WAWebCustomerManagerImportLeadStageLookup",
   [
     "Promise",
-    "WAJids",
     "WALogger",
     "WAWebApiContact",
+    "WAWebJidToWid",
     "WAWebLeadListConstants",
     "WAWebLeadStage",
     "WAWebSchemaChat",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
     "WAWebSchemaLabelSublist",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,22 +21,13 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map(),
-            r = new Map();
-          for (var a of e)
-            try {
-              (r.set(
-                a,
-                o("WAWebWidFactory").createUserLidOrThrow(
-                  String(o("WAJids").toLidUserJid(a)),
-                ),
-              ),
-                t.set(a, { isResolved: !0, stage: null }));
-            } catch (e) {
-              t.set(a, { isResolved: !1, stage: null });
-            }
-          if (r.size === 0) return t;
-          var i = (yield o("WAWebSchemaLabel").getLabelTable().all())
+          var t = new Map(
+            e.map(function (e) {
+              return [e, { isResolved: !0, stage: null }];
+            }),
+          );
+          if (e.length === 0) return t;
+          var r = (yield o("WAWebSchemaLabel").getLabelTable().all())
             .filter(function (e) {
               return o("WAWebLeadListConstants").isLeadListPredefinedId(
                 e.predefinedId,
@@ -46,19 +36,14 @@ __d(
             .map(function (e) {
               return e.id;
             });
-          if (i.length === 0) return t;
-          var l = Array.from(r.values()),
-            u = new Set(
-              l.map(function (e) {
-                return e.toString();
-              }),
-            ),
-            c = d(l),
-            h = Array.from(c.keys()),
-            y = yield (s || (s = n("Promise"))).all([
+          if (r.length === 0) return t;
+          var a = new Set(e),
+            i = d(e.map(o("WAWebJidToWid").lidUserJidToUserLid)),
+            l = Array.from(i.keys()),
+            u = yield (s || (s = n("Promise"))).all([
               o("WAWebSchemaLabelAssociation")
                 .getLabelAssociationTable()
-                .anyOf(["labelId"], i),
+                .anyOf(["labelId"], r),
               o("WAWebSchemaLabelSublist")
                 .getLabelSublistTable()
                 .anyOf(
@@ -67,32 +52,29 @@ __d(
                 ),
               o("WAWebSchemaChat")
                 .getChatTable()
-                .anyOf(["accountLid"], Array.from(u)),
-              o("WAWebSchemaChat").getChatTable().bulkGet(h),
+                .anyOf(["accountLid"], Array.from(a)),
+              o("WAWebSchemaChat").getChatTable().bulkGet(l),
             ]),
-            C = y[0],
-            b = y[1],
-            v = y[2],
-            S = y[3],
-            R = m([].concat(v, S)),
-            L = _(C, R, u),
-            E = f(b, R, L),
-            k = p(C, R, c),
-            I = g(b, R, c);
-          for (var T of r) {
-            var D = T[0],
-              x = T[1],
-              $ = x.toString();
-            if (!L.has($)) {
-              k.has($) && t.set(D, { isResolved: !1, stage: null });
+            c = u[0],
+            h = u[1],
+            y = u[2],
+            C = u[3],
+            b = m([].concat(y, C)),
+            v = _(c, b, a),
+            S = f(h, b, v),
+            R = p(c, b, i),
+            L = g(h, b, i);
+          for (var E of e) {
+            if (!v.has(E)) {
+              R.has(E) && t.set(E, { isResolved: !1, stage: null });
               continue;
             }
-            var P = E.get($);
+            var k = S.get(E);
             t.set(
-              D,
-              P != null
-                ? P
-                : I.has($)
+              E,
+              k != null
+                ? k
+                : L.has(E)
                   ? { isResolved: !1, stage: null }
                   : {
                       isResolved: !0,

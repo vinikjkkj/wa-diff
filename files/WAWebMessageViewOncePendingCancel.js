@@ -1,18 +1,17 @@
 __d(
   "WAWebMessageViewOncePendingCancel",
   [
-    "fbt",
+    "WAWebFbtCommon",
     "WAWebFlex.react",
     "WAWebSpinner.react",
     "WDSIconIcClose.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebStaticButtonA11y",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react")),
-      c = {
+      s = e || (e = o("react")),
+      u = {
         inactiveIconSvg: { opacity: "xbyyjgo", $$css: !0 },
         spinner: {
           position: "x10l6tqk",
@@ -25,86 +24,51 @@ __d(
           $$css: !0,
         },
       };
-    function d(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.onClick,
-        a = r("useWAWebStaticButtonA11y")(n),
-        i = a[0],
-        l = a[1],
-        d = n == null,
-        m;
-      t[0] !== l || t[1] !== d
-        ? ((m = d ? l : {}), (t[0] = l), (t[1] = d), (t[2] = m))
-        : (m = t[2]);
-      var p = m,
-        _;
-      t[3] !== d
-        ? ((_ = {
-            0: "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h",
-            1: "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h x1h6gzvc",
-          }[!!d << 0]),
-          (t[3] = d),
-          (t[4] = _))
-        : (_ = t[4]);
-      var f;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = s._(/*BTDS*/ "Cancel")), (t[5] = f))
-        : (f = t[5]);
-      var g;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = { className: "xhslqc4" }), (t[6] = g))
-        : (g = t[6]);
-      var h = d && c.inactiveIconSvg,
-        y;
-      t[7] !== h
-        ? ((y = u.jsx(
-            "div",
-            babelHelpers.extends({}, g, {
-              children: u.jsx(r("WDSIconIcClose.react"), {
-                height: 14,
-                iconXstyle: h,
-                width: 14,
+    function c(e) {
+      var t = e.onClick,
+        n = r("useWAWebStaticButtonA11y")(t),
+        a = n[0],
+        i = n[1],
+        l = t == null,
+        c = l ? i : {};
+      return s.jsxs(
+        "div",
+        babelHelpers.extends(
+          {
+            className: {
+              0: "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h",
+              1: "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h x1h6gzvc",
+            }[!!l << 0],
+            ref: a,
+            "aria-label": r("WAWebFbtCommon")("Cancel"),
+          },
+          c,
+          {
+            children: [
+              s.jsx("div", {
+                className: "xhslqc4",
+                children: s.jsx(r("WDSIconIcClose.react"), {
+                  height: 14,
+                  iconXstyle: l && u.inactiveIconSvg,
+                  width: 14,
+                }),
               }),
-            }),
-          )),
-          (t[7] = h),
-          (t[8] = y))
-        : (y = t[8]);
-      var C;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = u.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: c.spinner,
-            align: "center",
-            justify: "center",
-            children: u.jsx(o("WAWebSpinner.react").Spinner, {
-              color: "accent",
-              size: 18,
-              stroke: 5,
-            }),
-          })),
-          (t[9] = C))
-        : (C = t[9]);
-      var b;
-      return (
-        t[10] !== i || t[11] !== p || t[12] !== _ || t[13] !== y
-          ? ((b = u.jsxs(
-              "div",
-              babelHelpers.extends(
-                { className: _, ref: i, "aria-label": f },
-                p,
-                { children: [y, C] },
-              ),
-            )),
-            (t[10] = i),
-            (t[11] = p),
-            (t[12] = _),
-            (t[13] = y),
-            (t[14] = b))
-          : (b = t[14]),
-        b
+              s.jsx(o("WAWebFlex.react").FlexRow, {
+                xstyle: u.spinner,
+                align: "center",
+                justify: "center",
+                children: s.jsx(o("WAWebSpinner.react").Spinner, {
+                  color: "accent",
+                  size: 18,
+                  stroke: 5,
+                }),
+              }),
+            ],
+          },
+        ),
       );
     }
-    l.default = d;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
-  226,
+  98,
 );

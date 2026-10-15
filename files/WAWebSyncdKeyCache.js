@@ -1,6 +1,11 @@
 __d(
   "WAWebSyncdKeyCache",
-  ["WABase64", "WASyncdKeyTypes", "WAWebGetSyncKey", "asyncToGeneratorRuntime"],
+  [
+    "WABase64",
+    "WAWebGetSyncKey",
+    "WAWebSyncdKeyTypes",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Map();
@@ -11,7 +16,9 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
-            r = o("WABase64").encodeB64(o("WASyncdKeyTypes").fromSyncKeyId(t)),
+            r = o("WABase64").encodeB64(
+              o("WAWebSyncdKeyTypes").fromSyncKeyId(t),
+            ),
             a = e.get(r);
           return a
             ? a.keyData

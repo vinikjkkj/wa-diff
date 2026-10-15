@@ -1,7 +1,7 @@
 __d(
   "WAWebFeedbackModalUtils",
   [
-    "WAWebFeedbackIntroNuxModal.react",
+    "WAWebFeedbackIntroNuxModalLoadable",
     "WAWebModalManager",
     "WAWebNux",
     "WAWebSendFeedbackModal.react",
@@ -17,15 +17,19 @@ __d(
         o("WAWebNux").NUX.FEEDBACK_INTRO,
       )
         ? o("WAWebModalManager").ModalManager.open(
-            s.jsx(r("WAWebFeedbackIntroNuxModal.react"), {
-              onAcknowledge: function () {
-                o("WAWebModalManager").ModalManager.open(
-                  s.jsx(r("WAWebSendFeedbackModal.react"), {
-                    bugReportingEntryPoint: e,
-                  }),
-                );
+            s.jsx(
+              o("WAWebFeedbackIntroNuxModalLoadable")
+                .FeedbackIntroNuxModalLoadable,
+              {
+                onAcknowledge: function () {
+                  o("WAWebModalManager").ModalManager.open(
+                    s.jsx(r("WAWebSendFeedbackModal.react"), {
+                      bugReportingEntryPoint: e,
+                    }),
+                  );
+                },
               },
-            }),
+            ),
           )
         : o("WAWebModalManager").ModalManager.open(
             s.jsx(r("WAWebSendFeedbackModal.react"), {

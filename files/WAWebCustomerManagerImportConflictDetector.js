@@ -91,24 +91,21 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(t) {
-      var n = new Map(),
-        r = t.phone.replace(/\D/g, "");
-      if (r !== "") {
-        var a = o("WAWebWidFactory").createUserWidOrThrow(
-          o("WAJids").toPhoneUserJid(r),
+    function m(e) {
+      var t = new Map(),
+        n = e.phone.replace(/\D/g, "");
+      if (n !== "") {
+        var r = o("WAWebWidFactory").createUserWidOrThrow(
+          o("WAJids").toPhoneUserJid(n),
         );
-        n.set(a.toJid(), a);
+        t.set(r.toJid(), r);
       }
-      var i = t.verifiedPhoneJid;
-      if (i != null) {
-        var l = i.replace(/@c\.us$/, "@s.whatsapp.net");
-        if (o("WAJids").interpretAndValidateJid(l).jidType !== "phoneUser")
-          throw new e("malformed-verified-jid");
-        var s = o("WAWebWidFactory").createUserWidOrThrow(l);
-        n.set(s.toJid(), s);
+      var a = e.verifiedPhoneJid;
+      if (a != null) {
+        var i = o("WAWebWidFactory").createUserWidOrThrow(a);
+        t.set(i.toJid(), i);
       }
-      return Array.from(n.values());
+      return Array.from(t.values());
     }
     function p(e, t, n, r) {
       var a,

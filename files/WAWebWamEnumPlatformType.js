@@ -41,6 +41,7 @@ __d(
       WAIL: 70,
       WORKA: 71,
       WORKI: 72,
+      WAUTO: 73,
       TEST: 9,
       UNKNOWN: 10,
     });

@@ -31,6 +31,7 @@ __d(
       BUSINESS_BROADCAST: 25,
       PAYMENTS_HOME: 26,
       MISSED_CALL_FOLLOWUP: 27,
+      CONTENT_HUB: 28,
     });
     i.BUSINESS_TOOLS_ITEM_TYPE = e;
   },

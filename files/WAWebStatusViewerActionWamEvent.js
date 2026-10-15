@@ -3,6 +3,7 @@ __d(
   [
     "WAWebWamCodegenUtils",
     "WAWebWamEnumInlineVideoType",
+    "WAWebWamEnumReplyEntryMethod",
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusViewActionType",
     "WAWebWamEnumTopBarAttributionType",
@@ -27,6 +28,10 @@ __d(
                 o("WAWebWamEnumInlineVideoType").INLINE_VIDEO_TYPE,
               ],
               psaCampaignId: [11, e.TYPES.STRING],
+              replyEntryMethod: [
+                15,
+                o("WAWebWamEnumReplyEntryMethod").REPLY_ENTRY_METHOD,
+              ],
               statusCategory: [
                 4,
                 o("WAWebWamEnumStatusCategory").STATUS_CATEGORY,

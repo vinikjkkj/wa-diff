@@ -8,11 +8,13 @@ __d(
     "WAWebLoadable",
     "WDSText.react",
     "react",
+    "stylex",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = {
+      s,
+      u = s || (s = o("react")),
+      c = {
         placeholder: {
           backgroundColor: "x1bu39yj",
           borderStartStartRadius: "x1i282gy",
@@ -24,6 +26,7 @@ __d(
           width: "xh8yej3",
           $$css: !0,
         },
+        pixCodePlaceholder: { height: "x185x1x2", $$css: !0 },
         retry: {
           alignItems: "x6s0dn4",
           display: "x78zum5",
@@ -31,44 +34,66 @@ __d(
           $$css: !0,
         },
       },
-      c = r("WAWebLazyLoadedRetriable")(function () {
+      d = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")(
           "WAWebPaymentDetailsBubbleHeader.react",
         )
           .__setRef("WAWebPaymentDetailsBubbleHeaderLoadable")
           .load();
       }, "WAWebPaymentDetailsBubbleHeader"),
-      d = r("WAWebLoadable")({
-        loader: c,
+      m = r("WAWebLoadable")({
+        loader: d,
         loading: function (t) {
-          return s.jsx(m, { hasFailed: t.error != null, onRetry: t.retry });
+          return u.jsx(_, { hasFailed: t.error != null, onRetry: t.retry });
+        },
+        renderLoadingImmediately: !0,
+      }),
+      p = r("WAWebLoadable")({
+        loader: d,
+        loading: function (t) {
+          return u.jsx(_, {
+            hasFailed: t.error != null,
+            isPixCode: !0,
+            onRetry: t.retry,
+          });
         },
         renderLoadingImmediately: !0,
       });
-    function m(e) {
-      var t = e.hasFailed,
-        n = e.onRetry;
-      return t
-        ? s.jsx(o("WAWebClickable.react").Clickable, {
+    function _(t) {
+      var n = t.hasFailed,
+        a = t.isPixCode,
+        i = a === void 0 ? !1 : a,
+        l = t.onRetry,
+        s = i ? c.pixCodePlaceholder : null;
+      return n
+        ? u.jsx(o("WAWebClickable.react").Clickable, {
             dataTestId: "payment-details-bubble-header-retry",
             onClick: function (t) {
-              (t.stopPropagation(), n());
+              (t.stopPropagation(), l());
             },
-            xstyle: [u.placeholder, u.retry],
-            children: s.jsx(r("WDSText.react"), {
+            xstyle: [c.placeholder, s, c.retry],
+            children: u.jsx(r("WDSText.react"), {
               colorName: "contentDeemphasized",
               type: "Body2",
               children: r("WAWebFbtCommon")("Try again"),
             }),
           })
-        : s.jsx("div", {
-            className:
-              "x1bu39yj x1i282gy xx9ypkp xd15eu0 x11ecxm0 xnxb3zj xcytdqz xh8yej3",
-            "data-testid": "payment-details-bubble-header-placeholder",
-          });
+        : u.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(c.placeholder, s),
+              {
+                "data-testid": i
+                  ? "payment-details-pix-code-bubble-header-placeholder"
+                  : "payment-details-bubble-header-placeholder",
+              },
+            ),
+          );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"),
-      (l.WAWebPaymentDetailsBubbleHeaderLoadable = d));
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.WAWebPaymentDetailsBubbleHeaderLoadable = m),
+      (l.WAWebPaymentDetailsPixCodeBubbleHeaderLoadable = p));
   },
   98,
 );

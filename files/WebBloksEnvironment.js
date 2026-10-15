@@ -134,13 +134,30 @@ __d(
         throw new (o("WebBloksErrors").WebBloksError)(
           "A WebBloks environment must declare a versioningID. Import the generated module for your app (e.g. `import id from 'fbWebVersioningId'`) and pass it as `versioningID`. There is no longer an ambient fallback: inheriting the id the server picked for the page means the server reduces against a capability set this bundle may not have.",
         );
+      if (typeof jest == "undefined") {
+        var h = []
+          .concat(
+            Object.keys(g.actions),
+            Object.keys(g.components),
+            Object.keys(g.extensionHandlers),
+          )
+          .find(function (e) {
+            return e.includes(".");
+          });
+        h != null &&
+          g.logger.mustfix(
+            'WebBloks registration "%s" must use a minified key (versioningID: %s).',
+            h,
+            g.versioningID,
+          );
+      }
       ((a = g.appLoader) == null ||
         a.setVersioningID == null ||
         a.setVersioningID(g.versioningID),
         (i = g.appLoader) == null ||
           i.setLogger == null ||
           i.setLogger(g.logger));
-      var h = babelHelpers.extends({}, g, {
+      var y = babelHelpers.extends({}, g, {
         actions: new (r("WebBloksModuleStore"))(
           g.useMinification
             ? g.actions
@@ -150,7 +167,7 @@ __d(
         extensionHandlers: new (r("WebBloksModuleStore"))(g.extensionHandlers),
         containerConfigs: new (r("WebBloksModuleStore"))(g.containerConfigs),
       });
-      return h;
+      return y;
     }
     function p(e) {
       return s(e)[0];

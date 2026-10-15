@@ -9,6 +9,7 @@ __d(
     "WAWebGroupAgentAuthorName",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
+    "WAWebMsgNotificationPreview",
     "WAWebMsgType",
     "WAWebQuotedMsgModelUtils",
     "WAWebUA",
@@ -82,7 +83,7 @@ __d(
         };
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
-        !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
+        !o("WAWebMsgNotificationPreview").shouldShowMsgNotificationPreview(e)
       ) {
         var m,
           f = (m = d == null ? void 0 : d()) != null ? m : null;

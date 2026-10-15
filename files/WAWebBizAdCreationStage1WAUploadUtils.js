@@ -12,7 +12,7 @@ __d(
     "WAWebDataTransfer",
     "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
-    "WAWebMediaPrep",
+    "WAWebMediaPrepMediaProps",
     "WAWebMediaUploadMediaWithPrep",
     "WAWebMsgKey",
     "WAWebMsgModel",
@@ -68,11 +68,11 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield m(e),
-            a = o("WAWebMediaPrep")
-              .getMediaPropsNew(e.mediaPrep, t)
-              .then(function (e) {
+            a = r("WAWebMediaPrepMediaProps")(e.mediaPrep, t).then(
+              function (e) {
                 return babelHelpers.extends({}, n, e, { type: e.type });
-              }),
+              },
+            ),
             i = babelHelpers.extends({}, yield a, {
               author: n.author,
               from: n.from,

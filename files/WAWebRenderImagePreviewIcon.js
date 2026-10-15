@@ -3,8 +3,8 @@ __d(
   [
     "WAWebMsgGetters",
     "WAWebViewOnceState",
-    "WAWebViewOnceViewedIcon.react",
     "WDSIconIcImage.react",
+    "WDSIconWdsIcEphemeral.react",
     "WDSIconWdsIcViewOnce.react",
     "react",
     "react-compiler-runtime",
@@ -41,10 +41,12 @@ __d(
                       "aria-hidden": !0,
                       testid: "wds-ic-view-once",
                     })
-                  : s.jsx(
-                      o("WAWebViewOnceViewedIcon.react").ViewOnceViewedIcon,
-                      { width: 20, height: 20, "aria-hidden": !0 },
-                    )),
+                  : s.jsx(r("WDSIconWdsIcEphemeral.react"), {
+                      width: 20,
+                      height: 20,
+                      "aria-hidden": !0,
+                      testid: "view-once-opened-icon",
+                    })),
               (t[1] = n),
               (t[2] = a.viewOnceStatic),
               (t[3] = c))

@@ -121,29 +121,54 @@ __d(
       return $(n);
     }
     var N = function (t, n) {
-        var e = $(t),
-          r = n * Math.pow(L, e - 1);
-        return { scale: r, zoomLevel: e };
-      },
-      M = function (t) {
-        var e = t.container,
-          n = t.currentScale,
-          r = t.getMinScaleToFit,
-          o = t.zoomIn,
-          a = r(),
-          i = a,
-          l = Math.log(n / i) / Math.log(L) + 1,
-          s = $(l),
-          u = o ? s + 1 : s - 1,
-          c = N(u, i),
-          d = c.scale,
-          m = c.zoomLevel,
-          p = e.getBoundingClientRect(),
-          _ = p.left + p.width / 2,
-          f = p.top + p.height / 2;
-        return { scale: d, centerX: _, centerY: f, zoomLevel: m };
-      };
+      var e = $(t),
+        r = n * Math.pow(L, e - 1);
+      return { scale: r, zoomLevel: e };
+    };
+    function M(e, t) {
+      return !e || !t
+        ? null
+        : {
+            containerW: e.offsetWidth,
+            containerH: e.offsetHeight,
+            imageW: t.offsetWidth,
+            imageH: t.offsetHeight,
+          };
+    }
     function w(e) {
+      if (!e) return 1;
+      var t = e.containerH,
+        n = e.containerW,
+        r = e.imageH,
+        o = e.imageW;
+      return Math.min(n / o, t / r);
+    }
+    function A(e, t) {
+      var n = e.containerH,
+        r = e.containerW,
+        o = e.imageH,
+        a = e.imageW;
+      return { x: (r - a * t) / 2, y: (n - o * t) / 2 };
+    }
+    var F = function (t) {
+      var e = t.container,
+        n = t.currentScale,
+        r = t.getMinScaleToFit,
+        o = t.zoomIn,
+        a = r(),
+        i = a,
+        l = Math.log(n / i) / Math.log(L) + 1,
+        s = $(l),
+        u = o ? s + 1 : s - 1,
+        c = N(u, i),
+        d = c.scale,
+        m = c.zoomLevel,
+        p = e.getBoundingClientRect(),
+        _ = p.left + p.width / 2,
+        f = p.top + p.height / 2;
+      return { scale: d, centerX: _, centerY: f, zoomLevel: m };
+    };
+    function O(e) {
       var t = o("react-compiler-runtime").c(19),
         n = h(0),
         r = y(!1),
@@ -239,7 +264,7 @@ __d(
         P;
       return (
         t[16] !== e.children || t[17] !== $
-          ? ((P = c.jsx(A.Provider, { value: $, children: e.children })),
+          ? ((P = c.jsx(B.Provider, { value: $, children: e.children })),
             (t[16] = e.children),
             (t[17] = $),
             (t[18] = P))
@@ -247,7 +272,7 @@ __d(
         P
       );
     }
-    var A = c.createContext({
+    var B = c.createContext({
       msgId: "",
       isEnabled: !1,
       currentImageScale: 1,
@@ -265,14 +290,14 @@ __d(
       hasOverflownThumbnailSection: !1,
       setHasOverflownThumbnailSection: function () {},
     });
-    function F(t) {
+    function W(t) {
       var n = t.addonBubble,
         a = t.image,
         i = t.size,
         l = y(null),
         s = l[0],
         u = l[1],
-        d = p(A),
+        d = p(B),
         g = h(null),
         C = h(null),
         b = y({ x: 0, y: 0 }),
@@ -281,72 +306,43 @@ __d(
         T = y(!1),
         x = T[0],
         $ = T[1],
-        w = y({ x: 0, y: 0 }),
-        F = w[0],
-        O = w[1],
-        B = y({ x: 0, y: 0 }),
-        W = B[0],
-        q = B[1],
-        U = y(0),
+        O = y({ x: 0, y: 0 }),
+        W = O[0],
+        q = O[1],
+        U = y({ x: 0, y: 0 }),
         V = U[0],
         H = U[1],
-        G = m(function () {
-          var e = g.current,
-            t = C.current;
-          if (!e || !t) return null;
-          var n = e.offsetWidth,
-            r = e.offsetHeight,
-            o = t.offsetWidth,
-            a = t.offsetHeight;
-          return { containerW: n, containerH: r, imageW: o, imageH: a };
+        G = y(0),
+        z = G[0],
+        j = G[1],
+        K = m(function () {
+          return M(g.current, C.current);
         }, []);
       o("WAWebIncrementalZoomUtils").useThumbnailOverflow({
         panOffset: L,
-        getContainerAndImageDimensions: G,
+        getContainerAndImageDimensions: K,
       });
-      var z = m(
+      var Q = m(
         function () {
-          var e = G();
-          if (!e) return 1;
-          var t = e.containerH,
-            n = e.containerW,
-            r = e.imageH,
-            o = e.imageW,
-            a = n / o,
-            i = t / r;
-          return Math.min(a, i);
+          return w(K());
         },
-        [G],
+        [K],
       );
       _(function () {
-        H(z());
+        var e = M(g.current, C.current);
+        j(w(e));
       }, []);
-      var j = m(
-          function (e) {
-            var t = G();
-            if (!t) return null;
-            var n = t.containerH,
-              r = t.containerW,
-              o = t.imageH,
-              a = t.imageW,
-              i = a * e,
-              l = o * e;
-            return { x: (r - i) / 2, y: (n - l) / 2 };
-          },
-          [G],
-        ),
-        K = function () {
-          var e = G();
+      var X = function () {
+          var e = M(g.current, C.current);
           if (e) {
-            var t = z(),
-              n = j(t);
-            n && (d.setCurrentImageScale(t), k(n), d.setCurrentZoomLevel(1));
+            var t = w(e);
+            (d.setCurrentImageScale(t), k(A(e, t)), d.setCurrentZoomLevel(1));
           }
         },
-        Q = m(
+        Y = m(
           function (e, t, n) {
             n === void 0 && (n = d.currentImageScale);
-            var r = G();
+            var r = K();
             if (!r) return { x: e, y: t };
             var a = r.containerH,
               i = r.containerW,
@@ -377,36 +373,36 @@ __d(
               C = h[1];
             return { x: p(f, g, e), y: p(y, C, t) };
           },
-          [d, G],
+          [d, K],
         ),
-        X = m(
-          function (e) {
-            d.currentImageScale !== V &&
-              (e.preventDefault(),
-              $(!0),
-              O({ x: e.clientX, y: e.clientY }),
-              q({ x: L.x, y: L.y }));
-          },
-          [V, L.x, L.y, d.currentImageScale],
-        ),
-        Y = m(function () {
-          $(!1);
-        }, []),
         J = m(
           function (e) {
-            var t = z(),
+            d.currentImageScale !== z &&
+              (e.preventDefault(),
+              $(!0),
+              q({ x: e.clientX, y: e.clientY }),
+              H({ x: L.x, y: L.y }));
+          },
+          [z, L.x, L.y, d.currentImageScale],
+        ),
+        Z = m(function () {
+          $(!1);
+        }, []),
+        ee = m(
+          function (e) {
+            var t = Q(),
               n = N(D, t),
               r = n.scale;
             return Math.min(r, Math.max(t, e));
           },
-          [z],
+          [Q],
         ),
-        Z = m(
+        te = m(
           function (e) {
             var t = e.scale,
               n = e.x,
               r = e.y,
-              o = G();
+              o = K();
             if (o) {
               var a = o.containerH,
                 i = o.containerW,
@@ -414,7 +410,7 @@ __d(
                 s = o.imageW,
                 u = g.current;
               if (u) {
-                var c = J(t),
+                var c = ee(t),
                   m = s * c,
                   p = l * c,
                   _ = m <= i,
@@ -434,27 +430,27 @@ __d(
                   I = v - R * c,
                   T = S - E * c;
                 (_ && (I = (i - m) / 2), f && (T = (a - p) / 2));
-                var D = Q(I, T, c);
+                var D = Y(I, T, c);
                 (k(D), d.setCurrentImageScale(c));
               }
             }
           },
-          [d, L, Q, G, J],
+          [d, L, Y, K, ee],
         ),
-        ee = m(
+        ne = m(
           function (e) {
             if (x) {
-              var t = e.clientX - F.x,
-                n = e.clientY - F.y,
-                r = W.x + t,
-                o = W.y + n,
-                a = Q(r, o, d.currentImageScale);
+              var t = e.clientX - W.x,
+                n = e.clientY - W.y,
+                r = V.x + t,
+                o = V.y + n,
+                a = Y(r, o, d.currentImageScale);
               k(a);
             }
           },
-          [x, F, W, Q, d.currentImageScale],
+          [x, W, V, Y, d.currentImageScale],
         ),
-        te = m(
+        re = m(
           function (e, t) {
             var n = e.deltaY || e.detail,
               r = Math.abs(n) < 10,
@@ -462,20 +458,20 @@ __d(
                 var e = r ? R : S;
                 return 1 + (n > 0 ? -e : e);
               };
-            return J(t * o());
+            return ee(t * o());
           },
-          [J],
+          [ee],
         ),
-        ne = m(
+        oe = m(
           function (e) {
             e.preventDefault();
-            var t = te(e, d.currentImageScale);
-            (Z({ scale: t, x: e.clientX, y: e.clientY }),
-              d.setCurrentZoomLevel(P(t, z())));
+            var t = re(e, d.currentImageScale);
+            (te({ scale: t, x: e.clientX, y: e.clientY }),
+              d.setCurrentZoomLevel(P(t, Q())));
           },
-          [te, d, Z, z],
+          [re, d, te, Q],
         ),
-        re = m(
+        ae = m(
           function (e) {
             if (d.isEnabled) {
               var t = e.key;
@@ -489,71 +485,71 @@ __d(
                 var n = E.includes(e.key),
                   r = g.current;
                 if (r) {
-                  var a = M({
+                  var a = F({
                       currentScale: d.currentImageScale,
                       zoomIn: n,
                       container: r,
-                      getMinScaleToFit: z,
+                      getMinScaleToFit: Q,
                     }),
                     i = a.centerX,
                     l = a.centerY,
                     s = a.scale,
                     u = a.zoomLevel;
-                  (Z({ scale: s, x: i, y: l }), d.setCurrentZoomLevel(u));
+                  (te({ scale: s, x: i, y: l }), d.setCurrentZoomLevel(u));
                 }
               }
             }
           },
-          [d, z, Z],
+          [d, Q, te],
         );
       (f(
         function () {
           if (d.isEnabled)
             return (
-              document.addEventListener("keydown", re),
+              document.addEventListener("keydown", ae),
               function () {
-                document.removeEventListener("keydown", re);
+                document.removeEventListener("keydown", ae);
               }
             );
         },
-        [re, d.isEnabled],
+        [ae, d.isEnabled],
       ),
         f(function () {
-          K();
+          X();
         }, []),
         _(
           function () {
-            var e = z();
-            u(e);
+            var e = M(g.current, C.current);
+            u(w(e));
           },
-          [z, i],
+          [i],
         ));
-      var oe = m(
+      var ie = m(
         function () {
-          Z({ scale: d.currentImageScale });
+          te({ scale: d.currentImageScale });
         },
-        [Z, d.currentImageScale],
+        [te, d.currentImageScale],
       );
       (_(
         function () {
           return (
-            window.addEventListener("resize", oe),
+            window.addEventListener("resize", ie),
             function () {
-              window.removeEventListener("resize", oe);
+              window.removeEventListener("resize", ie);
             }
           );
         },
-        [oe],
+        [ie],
       ),
         _(
           function () {
             var e = {
               performZoom: function (t) {
-                var e = z(),
+                var e = Q(),
                   n = N(t, e),
                   r = n.scale,
                   o = n.zoomLevel;
-                (Z({ scale: r }), d.setCurrentZoomLevel(o));
+                (te({ scale: r }), d.setCurrentZoomLevel(o));
               },
             };
             return (
@@ -563,22 +559,22 @@ __d(
               }
             );
           },
-          [z, Z, d],
+          [Q, te, d],
         ));
-      var ae = d.currentImageScale,
-        ie = s != null && ae > s;
+      var le = d.currentImageScale,
+        se = s != null && le > s;
       _(
         function () {
-          d.isZoomedIn !== ie && d.setIsZoomedIn(ie);
+          d.isZoomedIn !== se && d.setIsZoomedIn(se);
         },
-        [ie, d],
+        [se, d],
       );
-      var le = m(
+      var ue = m(
           function (e) {
-            var t = z(),
+            var t = Q(),
               n = 1,
               r = 2,
-              o = J(1 / 0),
+              o = ee(1 / 0),
               a = 1e-4,
               i = [t];
             n > t + a && i.push(n);
@@ -591,84 +587,84 @@ __d(
                 u = c;
                 break;
               }
-            (Z({ scale: u, x: e.clientX, y: e.clientY }),
+            (te({ scale: u, x: e.clientX, y: e.clientY }),
               d.setCurrentZoomLevel(P(u, t)));
           },
-          [z, d, Z, J],
+          [Q, d, te, ee],
         ),
-        se = o("WAWebIncrementalZoomUtils").useCursorStyles({
+        ce = o("WAWebIncrementalZoomUtils").useCursorStyles({
           isDragging: x,
           defaultSizeScale: s,
         }),
-        ue = {
+        de = {
           height: i.height,
           width: i.width,
           x: L.x,
           y: L.y,
           scale: d.currentImageScale,
         },
-        ce = (e || (e = r("stylex"))).props(v.image(ue), se),
-        de = d.currentImageScale,
-        me = e.props(
-          v.addonBubbleContainer(i.height * de, i.width * de, L.x, L.y),
+        me = (e || (e = r("stylex"))).props(v.image(de), ce),
+        pe = d.currentImageScale,
+        _e = e.props(
+          v.addonBubbleContainer(i.height * pe, i.width * pe, L.x, L.y),
         );
       return c.jsxs("div", {
         className: "x1n2onr6 xh8yej3 x5yr21d",
         ref: g,
-        onWheel: ne,
+        onWheel: oe,
         children: [
           c.jsx(
             "div",
-            babelHelpers.extends({}, ce, {
+            babelHelpers.extends({}, me, {
               ref: C,
-              onMouseDown: X,
-              onMouseMove: ee,
-              onMouseUp: Y,
-              onMouseLeave: Y,
-              onDoubleClick: le,
+              onMouseDown: J,
+              onMouseMove: ne,
+              onMouseUp: Z,
+              onMouseLeave: Z,
+              onDoubleClick: ue,
               role: "img",
               children: a,
             }),
           ),
           c.jsx(
             "div",
-            babelHelpers.extends({}, me, {
+            babelHelpers.extends({}, _e, {
               children: c.jsx("div", { className: "x67bb7w", children: n }),
             }),
           ),
         ],
       });
     }
-    F.displayName = F.name + " [from " + i.id + "]";
-    var O = n("$InternalEnum")({ IN: "in", OUT: "out" });
-    function B(e) {
+    W.displayName = W.name + " [from " + i.id + "]";
+    var q = n("$InternalEnum")({ IN: "in", OUT: "out" });
+    function U(e) {
       var t = o("react-compiler-runtime").c(14),
         n = e.direction,
-        a = p(A),
+        a = p(B),
         i =
-          (n === O.OUT && a.currentZoomLevel === T) ||
-          (n === O.IN && a.currentZoomLevel === D),
+          (n === q.OUT && a.currentZoomLevel === T) ||
+          (n === q.IN && a.currentZoomLevel === D),
         l;
       t[0] !== n || t[1] !== i
-        ? ((l = W(n, i)), (t[0] = n), (t[1] = i), (t[2] = l))
+        ? ((l = V(n, i)), (t[0] = n), (t[1] = i), (t[2] = l))
         : (l = t[2]);
       var u = l,
         d;
       t[3] !== n
         ? ((d =
-            n === O.IN ? s._(/*BTDS*/ "Zoom in") : s._(/*BTDS*/ "Zoom out")),
+            n === q.IN ? s._(/*BTDS*/ "Zoom in") : s._(/*BTDS*/ "Zoom out")),
           (t[3] = n),
           (t[4] = d))
         : (d = t[4]);
       var m = d,
-        _ = n === O.IN ? "media-zoom-in-button" : "media-zoom-out-button",
+        _ = n === q.IN ? "media-zoom-in-button" : "media-zoom-out-button",
         f;
       t[5] !== n || t[6] !== a
         ? ((f = function () {
             var e = a.getHandler();
             if (e) {
               var t =
-                n === O.IN ? a.currentZoomLevel + 1 : a.currentZoomLevel - 1;
+                n === q.IN ? a.currentZoomLevel + 1 : a.currentZoomLevel - 1;
               e.performZoom(t);
             }
           }),
@@ -697,20 +693,20 @@ __d(
         h
       );
     }
-    function W(e, t) {
+    function V(e, t) {
       var n = { iconXstyle: [t ? v.zoomIconDisabled : null] },
         o =
-          e === O.IN ? r("WDSIconIcZoomIn.react") : r("WDSIconIcZoomOut.react");
+          e === q.IN ? r("WDSIconIcZoomIn.react") : r("WDSIconIcZoomOut.react");
       return function () {
         return c.jsx(o, babelHelpers.extends({}, n));
       };
     }
     ((l.ZOOM_KEYS = I),
-      (l.MediaIncrementalZoomCtxProvider = w),
-      (l.MediaIncrementalZoomCtx = A),
-      (l.IncrementalImageRenderer = F),
-      (l.ZoomDirection = O),
-      (l.ZoomButton = B));
+      (l.MediaIncrementalZoomCtxProvider = O),
+      (l.MediaIncrementalZoomCtx = B),
+      (l.IncrementalImageRenderer = W),
+      (l.ZoomDirection = q),
+      (l.ZoomButton = U));
   },
   226,
 );

@@ -1,18 +1,18 @@
 __d(
   "WAWebMeTabFlowLoadable",
   [
-    "fbt",
     "JSResourceForInteraction",
+    "WAWebFbtCommon",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
+      s = e || (e = o("react")),
+      u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")("WAWebMeTabFlow.react")
             .__setRef("WAWebMeTabFlowLoadable")
@@ -21,16 +21,16 @@ __d(
         }),
         "MeTabFlow",
       ),
-      d = r("react-loadable")({
-        loader: c,
+      c = r("react-loadable")({
+        loader: u,
         loading: function (t) {
-          return u.jsx(r("WAWebLoadingDrawer.react"), {
-            title: s._(/*BTDS*/ "You"),
+          return s.jsx(r("WAWebLoadingDrawer.react"), {
+            title: r("WAWebFbtCommon")("You"),
             error: !!t.error,
           });
         },
       });
-    ((l.requireBundle = c), (l.MeTabFlowLoadable = d));
+    ((l.requireBundle = u), (l.MeTabFlowLoadable = c));
   },
-  226,
+  98,
 );

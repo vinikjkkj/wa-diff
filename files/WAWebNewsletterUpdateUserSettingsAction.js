@@ -24,7 +24,9 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, r, a, i) {
             var l = i.eventSurface,
-              u =
+              u = i.fromMultiselect,
+              c = u === void 0 ? !1 : u,
+              d =
                 r === o("WAWebNewsletterModelUtils").MUTED_STATE
                   ? o("WAWebWamEnumChannelEventType").CHANNEL_EVENT_TYPE.MUTE
                   : o("WAWebWamEnumChannelEventType").CHANNEL_EVENT_TYPE.UNMUTE;
@@ -33,7 +35,7 @@ __d(
             ).NewsletterCoreEventLogger.log({
               eventSurface: l,
               cid: t,
-              channelCoreEventType: u,
+              channelCoreEventType: d,
               channelRequestMetadata: JSON.stringify(
                 a.map(function (e) {
                   return (
@@ -46,20 +48,20 @@ __d(
                 }),
               ),
             });
-            var c = [];
+            var m = [];
             (a.includes(s.AdminActivity) &&
-              c.push(
+              m.push(
                 o(
                   "WAWebNewsletterToggleAdminActivityMuteStateAction",
-                ).toggleNewsletterAdminActivityMuteStateAction(t, r),
+                ).toggleNewsletterAdminActivityMuteStateAction(t, r, c),
               ),
               a.includes(s.FollowerActivity) &&
-                c.push(
+                m.push(
                   o(
                     "WAWebNewsletterToggleFollowerActivityMuteStateAction",
                   ).toggleNewsletterFollowerActivityMuteStateAction(t, r),
                 ),
-              yield (e || (e = n("Promise"))).all(c));
+              yield (e || (e = n("Promise"))).all(m));
           },
         )),
         c.apply(this, arguments)

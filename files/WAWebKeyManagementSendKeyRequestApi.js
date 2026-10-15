@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWebApiPeerMessageStore",
     "WAWebKeyManagementUtils",
     "WAWebMsgKey",
@@ -12,6 +11,7 @@ __d(
     "WAWebSendAppStateSyncMsgJob",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdCryptoUtils",
+    "WAWebSyncdKeyTypes",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "asyncToGeneratorRuntime",
     "err",
@@ -31,7 +31,7 @@ __d(
               "syncd: sendAppStateSyncKeyRequest: no peer devices available to request key from",
             );
           var i = t.map(function (e) {
-              return { keyId: o("WASyncdKeyTypes").fromSyncKeyId(e) };
+              return { keyId: o("WAWebSyncdKeyTypes").fromSyncKeyId(e) };
             }),
             l = { keyIds: i },
             d = a.map(function (e) {

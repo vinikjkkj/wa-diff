@@ -1,6 +1,6 @@
 __d(
   "WAWebBusinessProfileLabels",
-  ["fbt", "WAWebClock"],
+  ["fbt", "WAWebClock", "WAWebFbtCommon"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "Business name");
@@ -107,7 +107,7 @@ __d(
       return s._(/*BTDS*/ "Add to catalog");
     }
     function W() {
-      return s._(/*BTDS*/ "Cancel");
+      return r("WAWebFbtCommon")("Cancel");
     }
     function q() {
       return s._(/*BTDS*/ "Hide item");

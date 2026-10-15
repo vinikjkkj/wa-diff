@@ -6,7 +6,6 @@ __d(
     "WACryptoDependencies",
     "WACryptoSha256",
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWebABProps",
     "WAWebGetSharedSessionId",
     "WAWebMdSyncdBundleWamEvent",
@@ -16,6 +15,7 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
     "WAWebSyncdKeyCache",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumKmpSyncdFlowEnum",
     "WAWebWamEnumMutationBundleType",
@@ -168,11 +168,11 @@ __d(
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = o("WASyncdKeyTypes").fromSyncKeyId(e),
+            var t = o("WAWebSyncdKeyTypes").fromSyncKeyId(e),
               n = o("WABase64").encodeB64UrlSafe(t),
               r = yield o("WAWebSyncdKeyCache").getKeyData(e);
             if (r == null) return { syncdKeyId: n, syncdKeyHash: "" };
-            var a = yield R(o("WASyncdKeyTypes").fromSyncKeyData(r));
+            var a = yield R(o("WAWebSyncdKeyTypes").fromSyncKeyData(r));
             return { syncdKeyId: n, syncdKeyHash: a };
           } catch (e) {
             return (
@@ -264,7 +264,7 @@ __d(
           var t = new Map();
           for (var r of e) {
             var a = o("WABase64").encodeB64UrlSafe(
-              o("WASyncdKeyTypes").fromSyncKeyId(r.keyId),
+              o("WAWebSyncdKeyTypes").fromSyncKeyId(r.keyId),
             );
             t.set(a, r.keyId);
           }
@@ -280,7 +280,7 @@ __d(
                         r = yield o("WAWebSyncdKeyCache").getKeyData(n);
                       r != null &&
                         (i[t] = yield R(
-                          o("WASyncdKeyTypes").fromSyncKeyData(r),
+                          o("WAWebSyncdKeyTypes").fromSyncKeyData(r),
                         ));
                     },
                   );

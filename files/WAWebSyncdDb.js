@@ -1,11 +1,11 @@
 __d(
   "WAWebSyncdDb",
   [
-    "WASyncdKeyTypes",
     "WAWebSchemaMissingKeys",
     "WAWebSchemaPendingMutations",
     "WAWebSchemaSyncActions",
     "WAWebSchemaSyncKeys",
+    "WAWebSyncdKeyTypes",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -77,7 +77,7 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaSyncKeys")
             .getSyncKeysTable()
-            .get(new Uint8Array(o("WASyncdKeyTypes").fromSyncKeyId(e)));
+            .get(new Uint8Array(o("WAWebSyncdKeyTypes").fromSyncKeyId(e)));
           return t == null
             ? t
             : o("WAWebSchemaSyncKeys").convertToSyncKeyFromRow(t);
@@ -98,7 +98,7 @@ __d(
         .getSyncKeysTable()
         .createOrReplace(o("WAWebSchemaSyncKeys").convertFromSyncKeyToRow(e))
         .then(function (e) {
-          return o("WASyncdKeyTypes").toSyncKeyId(e.buffer);
+          return o("WAWebSyncdKeyTypes").toSyncKeyId(e.buffer);
         });
     }
     function R(e) {

@@ -6,6 +6,7 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
+    "WAWebFbtCommon",
     "WAWebL10N",
     "WAWebNewsletterDirectoryFilterUtils",
     "WAWebUsernameGatingUtils",
@@ -156,7 +157,7 @@ __d(
     function I(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin:
-          return s._(/*BTDS*/ "Admin");
+          return r("WAWebFbtCommon")("Admin");
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner:
           return s._(/*BTDS*/ "Owner");
         default:

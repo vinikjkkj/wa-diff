@@ -9,6 +9,7 @@ __d(
     "WAWebContactGetters",
     "WAWebDropdown.react",
     "WAWebElevatedPushNamesFlag",
+    "WAWebFbtCommon",
     "WAWebFbtIntlList",
     "WAWebFileUtils",
     "WAWebFrontendContactGetters",
@@ -289,7 +290,7 @@ __d(
       if (t != null)
         if (u) {
           if (a) return "";
-          c = s._(/*BTDS*/ "You");
+          c = r("WAWebFbtCommon")("You");
         } else if (
           o("WAWebContactGetters").getName(t) ||
           (o("WAWebContactGetters").getVerifiedName(t) &&

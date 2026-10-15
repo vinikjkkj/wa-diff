@@ -1,10 +1,10 @@
 __d(
   "WAWebSchemaMissingKeys",
   [
-    "WASyncdKeyTypes",
     "WAWebModelStorageUtils",
     "WAWebModelStorageVersions",
     "WAWebStorageMutationBuilder",
+    "WAWebSyncdKeyTypes",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -14,7 +14,7 @@ __d(
         a = e.timestamp;
       return {
         keyHex: n,
-        keyId: o("WASyncdKeyTypes").toSyncKeyId(r),
+        keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(r),
         timestamp: a,
         deviceResponses: t,
       };
@@ -26,7 +26,7 @@ __d(
         a = e.timestamp;
       return {
         keyHex: n,
-        keyId: o("WASyncdKeyTypes").fromSyncKeyId(r),
+        keyId: o("WAWebSyncdKeyTypes").fromSyncKeyId(r),
         timestamp: a,
         deviceResponses: t,
       };

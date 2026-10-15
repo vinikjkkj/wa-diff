@@ -1,27 +1,27 @@
 __d(
   "WAWebSchemaSyncKeys",
   [
-    "WASyncdKeyTypes",
     "WAWebModelStorageUtils",
     "WAWebModelStorageVersions",
     "WAWebStorageMutationBuilder",
     "WAWebStorageSchema",
+    "WAWebSyncdKeyTypes",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.keyData,
         n = e.keyId;
       return babelHelpers.extends({}, e, {
-        keyId: o("WASyncdKeyTypes").toSyncKeyId(n.buffer),
-        keyData: o("WASyncdKeyTypes").toSyncKeyData(t),
+        keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(n.buffer),
+        keyData: o("WAWebSyncdKeyTypes").toSyncKeyData(t),
       });
     }
     function s(e) {
       var t = e.keyData,
         n = e.keyId;
       return babelHelpers.extends({}, e, {
-        keyId: new Uint8Array(o("WASyncdKeyTypes").fromSyncKeyId(n)),
-        keyData: o("WASyncdKeyTypes").fromSyncKeyData(t),
+        keyId: new Uint8Array(o("WAWebSyncdKeyTypes").fromSyncKeyId(n)),
+        keyData: o("WAWebSyncdKeyTypes").fromSyncKeyData(t),
       });
     }
     function u() {

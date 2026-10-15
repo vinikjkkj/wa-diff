@@ -95,7 +95,7 @@ __d(
               ));
             var s = yield o(
               "WAWebNewsletterStatusFetchAction",
-            ).fetchNewsletterStatuses(l);
+            ).fetchNewsletterStatusesAndMyReactions(l);
             if (
               s ===
               o("WAWebNewsletterStatusFetchAction").FetchResult.FetchFailed

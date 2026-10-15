@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAResolvable",
-    "WASyncdKeyTypes",
     "WATextEncoding",
     "WATimeUtils",
     "WAWebProtobufSyncAction.pb",
@@ -15,6 +14,7 @@ __d(
     "WAWebSyncdConst",
     "WAWebSyncdCrypto",
     "WAWebSyncdKeyCache",
+    "WAWebSyncdKeyTypes",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
@@ -171,7 +171,7 @@ __d(
                           var u = null;
                           try {
                             u = yield o("WAWebSyncdKeyCache").getKeyData(
-                              o("WASyncdKeyTypes").toSyncKeyId(t),
+                              o("WAWebSyncdKeyTypes").toSyncKeyId(t),
                             );
                           } catch (e) {
                             var d = e instanceof Error && e.name;
@@ -212,7 +212,7 @@ __d(
                             operation: o("WAWebProtobufsServerSync.pb")
                               .SyncdMutation$SyncdOperation.SET,
                             version: s,
-                            keyId: o("WASyncdKeyTypes").toSyncKeyId(t),
+                            keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(t),
                             indexMac: f,
                             valueMac: n,
                             collection: h,

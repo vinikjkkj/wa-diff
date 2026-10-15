@@ -19,11 +19,11 @@ __d(
     "WAWebCustomerManagerImportProfileMerge",
     "WAWebCustomerManagerImportTemplateUtils",
     "WAWebCustomerProfileAcquisitionSourceNames",
+    "WAWebJidToWid",
     "WAWebLeadStageNames",
     "WAWebSaveContactAction",
     "WAWebSyncContactJob",
     "WAWebWidFactory",
-    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -138,9 +138,7 @@ __d(
       return (
         t.forEach(function (e) {
           var t,
-            a = o(
-              "WAWebCustomerManagerImportExistingCustomerDetector",
-            ).resolveBareLid(e);
+            a = e.lid;
           if (
             a == null ||
             o("WAWebContactImportFileProcessor").normalizePhoneNumber(
@@ -189,7 +187,6 @@ __d(
         n = e.lid;
       if (n == null)
         throw r("err")("Imported contact missing lid; cannot resolve chatJid");
-      var a = o("WAWebWidFactory").createUserLidOrThrow(n);
       return {
         acquisitionSource: x(e),
         address:
@@ -199,7 +196,7 @@ __d(
             ? t
             : "",
         birthday: T(e, "birthday"),
-        chatJid: o("WAWebWidToJid").widToChatJid(a),
+        chatJid: n,
         email: I(e),
         firstName: e.firstName,
         lastName: e.lastName,
@@ -211,7 +208,7 @@ __d(
         phoneNumber: o("WAWebContactImportFileProcessor").normalizePhoneNumber(
           e.phone,
         ),
-        profileWid: a,
+        profileWid: o("WAWebJidToWid").lidUserJidToUserLid(n),
         username: null,
       };
     }
@@ -301,16 +298,12 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(
-              o("WAWebCustomerManagerImportExistingCustomerDetector")
-                .resolveBareLid,
-            ),
-            a = yield w(t);
-          if (a == null)
+          var t = yield w(e);
+          if (t == null)
             throw r("err")(
               "Imported customer profile existence lookup unavailable",
             );
-          var i = yield O(
+          var a = yield O(
               e,
               C,
               (function () {
@@ -340,7 +333,7 @@ __d(
                             function* (e) {
                               var t = e.lid;
                               return t != null
-                                ? N(t)
+                                ? N(o("WAWebJidToWid").lidUserJidToUserLid(t))
                                 : { savedContactName: null, wasNewContact: !1 };
                             },
                           );
@@ -357,11 +350,11 @@ __d(
                 };
               })(),
             ),
-            l = new Map();
+            i = new Map();
           return (
             e.forEach(function (e, n) {
-              var s = i[n];
-              if (s.status === "rejected") {
+              var l = a[n];
+              if (l.status === "rejected") {
                 o("WALogger")
                   .WARN(
                     m ||
@@ -371,24 +364,20 @@ __d(
                       ])),
                     e.rowIndex,
                   )
-                  .catching(r("getErrorSafe")(s.reason))
+                  .catching(r("getErrorSafe")(l.reason))
                   .sendLogs("cm-import-contact-state-unavailable");
                 return;
               }
-              var u = e.lid,
-                c = t[n];
-              u == null ||
-                c == null ||
-                l.set(e, {
-                  chatJid: o("WAWebWidToJid").widToChatJid(
-                    o("WAWebWidFactory").createUserLidOrThrow(u),
-                  ),
-                  savedContactName: s.value.savedContactName,
-                  wasNewContact: s.value.wasNewContact,
-                  wasNewProfile: !a.has(c),
+              var s = e.lid;
+              s != null &&
+                i.set(e, {
+                  chatJid: s,
+                  savedContactName: l.value.savedContactName,
+                  wasNewContact: l.value.wasNewContact,
+                  wasNewProfile: !t.has(s),
                 });
             }),
-            l
+            i
           );
         })),
         P.apply(this, arguments)
@@ -402,9 +391,7 @@ __d(
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            a = yield o("WAWebApiContact").getContactRecord(
-              o("WAWebWidFactory").createUserLidOrThrow(e),
-            );
+            a = yield o("WAWebApiContact").getContactRecord(e);
           if (a == null)
             throw r("err")("[cm:import] saved contact state unavailable");
           return o("WAWebCustomerManagerContactTypeQuery").isSavedContact(a)
@@ -428,7 +415,8 @@ __d(
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
             e.flatMap(function (e) {
-              return e == null ? [] : [e];
+              var t = e.lid;
+              return t == null ? [] : [t];
             }),
           );
           if (t.size === 0) return new Set();
@@ -679,7 +667,7 @@ __d(
       return (
         (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!e.wasNewContact) return !1;
-          var n = yield N(e.input.profileWid.toString());
+          var n = yield N(e.input.profileWid);
           return n.wasNewContact
             ? !0
             : (t.set(e.contact, Y(e, n.savedContactName)), !1);

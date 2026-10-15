@@ -4,6 +4,7 @@ __d(
     "WAWebBizOrderDetailsParams",
     "WAWebBrazilPaymentState",
     "WAWebBrazilPaymentStateKeys",
+    "WAWebCurrencyUtils",
     "WAWebOrderDetails",
     "WAWebPaymentDetailsModels",
     "WAWebUserPrefsTypes",
@@ -16,12 +17,13 @@ __d(
         a,
         i = e.isPaymentFromMe,
         l = e.payload,
-        s =
-          (t = o("WAWebOrderDetails").paramsJsonToOrderInfo(
-            o("WAWebBrazilPaymentStateKeys").PAYMENT_INFO_BUTTON_NAME,
-            o("WAWebBrazilPaymentState").getPaymentInfoParamsJson(l),
-          )) == null ||
-          (t = t.paymentSettings) == null ||
+        u = o("WAWebOrderDetails").paramsJsonToOrderInfo(
+          o("WAWebBrazilPaymentState").getPaymentRequestButtonName(l),
+          o("WAWebBrazilPaymentState").getPaymentRequestParamsJson(l),
+        ),
+        c =
+          u == null ||
+          (t = u.paymentSettings) == null ||
           (t = t.find(function (e) {
             return (
               e.type ===
@@ -33,22 +35,41 @@ __d(
                 o("WAWebBizOrderDetailsParams").PaymentSettingType
                   .PIX_STATIC_CODE
               ],
-        u = o("WAWebBrazilPaymentState").getBrazilPaymentState(l);
+        d = o("WAWebBrazilPaymentState").getBrazilPaymentState(l),
+        m = s(u);
       return {
         pov: o("WAWebPaymentDetailsModels").getPaymentDetailsPov(i),
-        state: u,
-        status: o("WAWebBrazilPaymentState").getPaymentDetailsStatus(u),
+        state: d,
+        status: o("WAWebBrazilPaymentState").getPaymentDetailsStatus(d),
         recipientName:
-          (n = s == null ? void 0 : s.merchant_name) != null ? n : "",
-        pixKey: (r = s == null ? void 0 : s.key) != null ? r : "",
+          (n = c == null ? void 0 : c.merchant_name) != null ? n : "",
+        pixKey: (r = c == null ? void 0 : c.key) != null ? r : "",
         pixKeyType:
           (a = o("WAWebUserPrefsTypes").PixKeyType.cast(
-            s == null ? void 0 : s.key_type,
+            c == null ? void 0 : c.key_type,
           )) != null
             ? a
             : null,
         note: o("WAWebBrazilPaymentState").getPaymentNote(l),
+        amount:
+          m != null
+            ? o("WAWebCurrencyUtils").formatAmount1000({
+                amount: m.amount1000,
+                currency: m.currency,
+              })
+            : null,
+        requestedAmount: m,
       };
+    }
+    function s(e) {
+      return e == null ||
+        e.buttonName !==
+          o("WAWebBrazilPaymentStateKeys").PIX_CODE_REQUEST_BUTTON_NAME ||
+        !o("WAWebCurrencyUtils").isSupportedCurrency(e.currency) ||
+        !Number.isFinite(e.totalAmount) ||
+        e.totalAmount <= 0
+        ? null
+        : { amount1000: Math.round(e.totalAmount * 1e3), currency: e.currency };
     }
     l.getPaymentDetailsModel = e;
   },

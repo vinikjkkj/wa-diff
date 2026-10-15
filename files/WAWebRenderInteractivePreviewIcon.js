@@ -1,10 +1,10 @@
 __d(
   "WAWebRenderInteractivePreviewIcon",
   [
-    "WAWebIcChatlistEventIcon.react",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
+    "WDSIconIcEventFilled.react",
     "WDSIconIcReceipt.react",
     "WDSIconIcShoppingBagFill.react",
     "WDSIconWdsIcUnsupportedMessage.react",
@@ -66,14 +66,12 @@ __d(
                   : c ===
                       r("WAWebInteractiveMessagesNativeFlowName")
                         .BOOKING_CONFIRMATION
-                    ? s.jsx(
-                        o("WAWebIcChatlistEventIcon.react").IcChatlistEventIcon,
-                        {
-                          iconXstyle: [u.container, u.marginTop2],
-                          width: 13,
-                          height: 14,
-                        },
-                      )
+                    ? s.jsx(r("WDSIconIcEventFilled.react"), {
+                        iconXstyle: [u.container, u.marginTop2],
+                        width: 14,
+                        height: 14,
+                        testid: "booking-confirmation-preview-icon",
+                      })
                     : c ===
                         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
                       ? null

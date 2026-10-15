@@ -6,7 +6,6 @@ __d(
     "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerImportContactClassifier",
     "WAWebCustomerManagerImportErrorMessage",
-    "WAWebCustomerManagerImportLidUtils",
     "WAWebCustomerManagerImportSavedDataLookup",
     "WAWebDBCustomerDataDatabaseApi",
     "asyncToGeneratorRuntime",
@@ -31,20 +30,17 @@ __d(
             m = 0;
           if (
             (t.forEach(function (e) {
-              var t = _(e),
+              var t = e.lid,
                 s = e.phone.replace(/\D/g, "");
               if (t != null && s !== "") {
                 var p = o("WAJids").interpretAndValidateJid(
                     o("WAJids").toPhoneUserJid(s),
                   ),
-                  g = f(e.verifiedPhoneJid);
-                if (
-                  p.jidType !== "phoneUser" ||
-                  (e.verifiedPhoneJid != null && g == null)
-                ) {
+                  _ = e.verifiedPhoneJid;
+                if (p.jidType !== "phoneUser") {
                   (d++,
                     c.push(
-                      C(
+                      h(
                         e,
                         o("WAWebCustomerManagerImportErrorMessage")
                           .CustomerManagerImportConflictError
@@ -53,10 +49,10 @@ __d(
                     ));
                   return;
                 }
-                if (g == null) {
+                if (_ == null) {
                   (m++,
                     c.push(
-                      C(
+                      h(
                         e,
                         o("WAWebCustomerManagerImportErrorMessage")
                           .CustomerManagerImportConflictError
@@ -65,7 +61,7 @@ __d(
                     ));
                   return;
                 }
-                (l.set(e, [p.userJid, g]), a.add(s), i.add(g));
+                (l.set(e, [p.userJid, _]), a.add(s), i.add(_));
               }
               (u.push(e), t != null && !n.has(t) && (n.add(t), r.push(t)));
             }),
@@ -112,40 +108,28 @@ __d(
                     profiles: new Map(),
                     savedNamesByContactRowId: new Map(),
                   },
-            h = yield o(
+            f = yield o(
               "WAWebCustomerManagerImportContactClassifier",
             ).classifyContacts(u, p),
-            y = yield g(h.validContacts, l);
+            g = yield _(f.validContacts, l);
           return {
             errorList: []
-              .concat(c, h.errorList, y.errorList)
+              .concat(c, f.errorList, g.errorList)
               .sort(function (e, t) {
                 return e.rowIndex - t.rowIndex;
               }),
-            validContacts: y.validContacts,
+            validContacts: g.validContacts,
           };
         })),
         p.apply(this, arguments)
       );
     }
-    function _(e) {
-      var t = e.lid != null ? o("WAJids").validateLidUserJid(e.lid) : null;
-      return t != null
-        ? o("WAWebCustomerManagerImportLidUtils").toBareLid(t)
-        : null;
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function f(e) {
-      if (e == null) return null;
-      var t = e.replace(/@c\.us$/, "@s.whatsapp.net"),
-        n = o("WAJids").interpretAndValidateJid(t);
-      return n.jidType === "phoneUser" ? n.userJid : null;
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    function f() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new Set(),
             a = 0;
           if (
@@ -179,7 +163,7 @@ __d(
                 )
                 .catching(r("getErrorSafe")(n))
                 .sendLogs("cm-import-pn-customer-data-lookup-failed"),
-              y(
+              g(
                 e,
                 t,
                 null,
@@ -201,7 +185,7 @@ __d(
                   a,
                 )
                 .sendLogs("cm-import-pn-customer-data-lookup-incomplete"),
-              y(
+              g(
                 e,
                 t,
                 null,
@@ -214,7 +198,7 @@ __d(
           l.forEach(function (e, t) {
             e != null && s.add(i[t]);
           });
-          var m = y(
+          var m = g(
             e,
             t,
             s,
@@ -236,10 +220,10 @@ __d(
             m
           );
         })),
-        h.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function y(e, t, n, r) {
+    function g(e, t, n, r) {
       var o = [],
         a = [];
       return (
@@ -250,13 +234,13 @@ __d(
             i.some(function (e) {
               return n.has(e);
             }))
-            ? o.push(C(e, r))
+            ? o.push(h(e, r))
             : a.push(e);
         }),
         { errorList: o, validContacts: a }
       );
     }
-    function C(e, t) {
+    function h(e, t) {
       var n;
       return {
         contactIndex: null,
@@ -266,33 +250,29 @@ __d(
         type: "error",
       };
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function v() {
+    function C() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebContactManagerCustomerProfilesQuery",
-          ).fetchCompleteCustomerProfileRecords({ candidateLids: e });
-          if (t == null) return null;
-          var n = new Set();
-          return (
-            t.forEach(function (e) {
-              var t = o("WAWebCustomerManagerImportLidUtils").toBareLid(
-                e.chatJid,
-              );
-              t != null && n.add(t);
-            }),
-            n
-          );
+          ).fetchCompleteCustomerProfileRecords({
+            candidateLids: e.map(o("WAJids").lidFromLidUserJid),
+          });
+          return t != null
+            ? new Set(
+                t.map(function (e) {
+                  return e.chatJid;
+                }),
+              )
+            : null;
         })),
-        v.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((l.detectExistingCustomers = m),
-      (l.resolveBareLid = _),
-      (l.fetchExistingProfileLids = b));
+    ((l.detectExistingCustomers = m), (l.fetchExistingProfileLids = y));
   },
   98,
 );

@@ -15,7 +15,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebOrderCollection",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathDefaultOffset",
     "WAWebOrderStatus",
     "WAWebPaymentsGatingUtils",
     "WAWebPaymentsPixBannerUtils",
@@ -155,8 +155,16 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i,
-              l = o("WAWebOrderCollection").OrderCollection.addOrder(),
-              s = {
+              l =
+                o("WAWebPaymentsGatingUtils").isReceiptAndStateP2mEligibleChat(
+                  e,
+                ) &&
+                (yield v(e)) &&
+                o(
+                  "WAWebPaymentsGatingUtils",
+                ).isPixCodeReceiptAndStateP2mEnabled(),
+              s = o("WAWebOrderCollection").OrderCollection.addOrder(),
+              u = {
                 reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
                 type: "physical-goods",
                 payment_configuration: "merchant_categorization_code",
@@ -178,14 +186,20 @@ __d(
                 ],
                 currency: "BRL",
                 total_amount: { value: n, offset: a },
-                order_request_id: l.id,
+                order_request_id: s.id,
+                br_receipt_and_state_enabled:
+                  o(
+                    "WAWebPaymentsGatingUtils",
+                  ).isPixCodeReceiptAndStateAssignedOnSend(e) || l
+                    ? !0
+                    : void 0,
               };
             yield d({
               caption: null,
               chat: e,
               nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
                 .ORDER_DETAILS,
-              buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(s),
+              buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(u),
               errorMessage: "Pix payment request send to chat failure",
               thumbnail: "",
               buttonName: "review_and_pay",
@@ -292,7 +306,7 @@ __d(
                 currency: a.currency,
                 total_amount: {
                   value: 0,
-                  offset: o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+                  offset: o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET,
                 },
                 order_request_id: a.id,
                 order: {
@@ -304,7 +318,8 @@ __d(
                         "WAWebBizOrderGetFriendlyRandomIdAction",
                       )(),
                       amount: {
-                        offset: o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+                        offset: o("WAWebOrderDetailMathDefaultOffset")
+                          .DEFAULT_OFFSET,
                         value: 0,
                       },
                       name: "",
@@ -315,7 +330,8 @@ __d(
                   ],
                   subtotal: {
                     value: 0,
-                    offset: o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+                    offset: o("WAWebOrderDetailMathDefaultOffset")
+                      .DEFAULT_OFFSET,
                   },
                   tax: null,
                   shipping: null,

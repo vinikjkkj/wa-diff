@@ -426,7 +426,7 @@ __d(
                 te.then(function () {
                   return o(
                     "WAWebLimitSharingProtoUtils",
-                  ).applyRidersHeldForStoredMsgs(I);
+                  ).applyLimitSharingHeldForStoredMsgs(I);
                 });
                 try {
                   if (

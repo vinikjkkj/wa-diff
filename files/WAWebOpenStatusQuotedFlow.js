@@ -7,7 +7,6 @@ __d(
     "WAWebModalManager",
     "WAWebNewsletterGatingUtils",
     "WAWebNoop",
-    "WAWebNullFunc",
     "WAWebStatusCollection",
     "WAWebStatusQuotedFlowLoadable",
     "asyncToGeneratorRuntime",
@@ -59,18 +58,7 @@ __d(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = yield (s || (s = n("Promise"))).all([
-                    e.fetchNewsletterStatuses(a),
-                    e
-                      .fetchMyStatusReactions(a)
-                      .catch(o("WAWebNullFunc").returnNull),
-                  ]),
-                  i = t[1];
-                i != null &&
-                  (yield e.hydrateMyStatusReactions(i, a).catch(r("WAWebNoop")),
-                  yield e
-                    .reconcileMyStatusReactions(i, a)
-                    .catch(r("WAWebNoop")));
+                yield e.fetchNewsletterStatusesAndMyReactions(a);
               },
             );
             return function (t) {

@@ -185,7 +185,10 @@ __d(
       D = u({ UNKNOWN: 0, IMAGINE: 1, MEMU: 2, FLASH: 3, EDIT: 4 }),
       x = u({ O18_BINARY: 0, WAFFLE: 1 }),
       $ = u({ UNKNOWN: 0, BING: 1, GOOGLE: 2, SUPPORT: 3, OTHER: 4 }),
-      P = u({ BOT_MESSAGE_ORIGIN_TYPE_AI_INITIATED: 0 }),
+      P = u({
+        BOT_MESSAGE_ORIGIN_TYPE_AI_INITIATED: 0,
+        BOT_MESSAGE_ORIGIN_TYPE_META_AI_THREAD_WELCOME: 1,
+      }),
       N = u({
         UNKNOWN: 0,
         DEFAULT: 1,

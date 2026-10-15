@@ -13,6 +13,7 @@ __d(
     "WAWebMediaEditorLayersShape",
     "WAWebMediaEditorLayersText",
     "WAWebMediaEditorUtilsShapes",
+    "WAWebMediaEditorUtilsShapesGetIconForShape",
     "WAWebMediaGatingUtils",
     "WAWebMenuBar.react",
     "WAWebModalManager",
@@ -39,7 +40,16 @@ __d(
       c = e,
       d = c.useRef,
       m = c.useState,
-      p = { hdIcon: { opacity: "xyd83as", $$css: !0 } };
+      p = {
+        hdIcon: { opacity: "xyd83as", $$css: !0 },
+        paddingAll8: {
+          paddingTop: "x16ovd2e",
+          paddingInlineEnd: "x1nzty39",
+          paddingBottom: "x12xbjc7",
+          paddingInlineStart: "x12w63v0",
+          $$css: !0,
+        },
+      };
     function _(e) {
       var t = o("react-compiler-runtime").c(151),
         n = e.hdEligible,
@@ -263,10 +273,10 @@ __d(
                         return pe(e);
                       },
                       children: u.jsx(o("WAWebFlex.react").FlexRow, {
-                        className: "x16ovd2e x1nzty39 x12xbjc7 x12w63v0",
+                        xstyle: p.paddingAll8,
                         justify: "center",
                         children: o(
-                          "WAWebMediaEditorUtilsShapes",
+                          "WAWebMediaEditorUtilsShapesGetIconForShape",
                         ).getIconForShape(e),
                       }),
                     },

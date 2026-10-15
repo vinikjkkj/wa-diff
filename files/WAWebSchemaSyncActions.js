@@ -2,11 +2,11 @@ __d(
   "WAWebSchemaSyncActions",
   [
     "WALogger",
-    "WASyncdKeyTypes",
     "WAWebModelStorageUtils",
     "WAWebModelStorageVersions",
     "WAWebStorageMutationBuilder",
     "WAWebSyncdCollectionHandlerTypesConverter",
+    "WAWebSyncdKeyTypes",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -65,14 +65,14 @@ __d(
     function u(e) {
       var t = e.keyId;
       return babelHelpers.extends({}, e, {
-        keyId: o("WASyncdKeyTypes").toSyncKeyId(t),
+        keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(t),
       });
     }
     function c(e) {
       var t = babelHelpers.extends({}, e);
       return (
         t.keyId != null &&
-          (t.keyId = o("WASyncdKeyTypes").fromSyncKeyId(t.keyId)),
+          (t.keyId = o("WAWebSyncdKeyTypes").fromSyncKeyId(t.keyId)),
         t
       );
     }

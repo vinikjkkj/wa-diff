@@ -5,8 +5,8 @@ __d(
     "WABaseGlobals",
     "WAJids",
     "WAMediaCalculateFilehash",
-    "WASyncdKeyTypes",
     "WAWebSyncdGatingUtils",
+    "WAWebSyncdKeyTypes",
     "WAWebSyncdNetCallbacksApi",
     "WAWebSyncdRequestEncode",
     "asyncToGeneratorRuntime",
@@ -69,7 +69,7 @@ __d(
         a = e.snapshotMac,
         i = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid());
       return o("WAWebSyncdRequestEncode").encodeSyncdPatch({
-        keyId: { id: o("WASyncdKeyTypes").fromSyncKeyId(n) },
+        keyId: { id: o("WAWebSyncdKeyTypes").fromSyncKeyId(n) },
         externalMutations: t,
         snapshotMac: a,
         patchMac: r,

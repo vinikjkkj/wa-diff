@@ -4,15 +4,15 @@ __d(
     "WACryptoAesCbc",
     "WACryptoDependencies",
     "WACryptoHmac",
-    "WASyncdKeyTypes",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdCryptoConst",
     "WAWebSyncdCryptoUtils",
+    "WAWebSyncdKeyTypes",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      var n = o("WASyncdKeyTypes").fromSyncKeyId(t),
+      var n = o("WAWebSyncdKeyTypes").fromSyncKeyId(t),
         r =
           e ===
           o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation.SET

@@ -1,6 +1,6 @@
 __d(
   "WAWebSyncdCryptoUtils",
-  ["WACryptoUtils", "WASyncdKeyTypes", "err"],
+  ["WACryptoUtils", "WAWebSyncdKeyTypes", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -39,7 +39,7 @@ __d(
     }
     function c(e) {
       return Array.from(
-        new Uint8Array(o("WASyncdKeyTypes").fromSyncKeyId(e)),
+        new Uint8Array(o("WAWebSyncdKeyTypes").fromSyncKeyId(e)),
         function (e) {
           return e.toString(16);
         },
@@ -58,8 +58,8 @@ __d(
     }
     function p(e, t) {
       return o("WACryptoUtils").arrayBuffersEqual(
-        o("WASyncdKeyTypes").fromSyncKeyId(e),
-        o("WASyncdKeyTypes").fromSyncKeyId(t),
+        o("WAWebSyncdKeyTypes").fromSyncKeyId(e),
+        o("WAWebSyncdKeyTypes").fromSyncKeyId(t),
       );
     }
     ((l.combine = e),

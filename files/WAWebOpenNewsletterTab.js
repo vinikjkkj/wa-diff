@@ -2,17 +2,23 @@ __d(
   "WAWebOpenNewsletterTab",
   [
     "WAWebAdaptiveLayoutGatingUtils",
-    "WAWebBootstrapNewsletter",
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
     "WAWebNewsletterTabFlowLoadable",
     "react",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react"));
-    function u() {
-      (o("WAWebBootstrapNewsletter").bootstrapNewsletterBackend(),
+      s = e || (e = o("react")),
+      u = r("requireDeferred")("WAWebBootstrapNewsletter").__setRef(
+        "WAWebOpenNewsletterTab",
+      );
+    function c() {
+      (u.load().then(function (e) {
+        var t = e.bootstrapNewsletterBackend;
+        return t();
+      }),
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "newsletter_tab" }
@@ -28,7 +34,7 @@ __d(
           },
         ));
     }
-    l.openNewsletterTab = u;
+    l.openNewsletterTab = c;
   },
   98,
 );

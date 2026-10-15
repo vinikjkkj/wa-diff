@@ -5,24 +5,28 @@ __d(
     var e = 600,
       s = 604800,
       u = 86400;
-    function c(t, n, a, i) {
-      var l,
-        u,
-        c = null;
-      a != null && ((c = a), c < e ? (c = e) : c > s && (c = s));
-      var m = d() || {},
-        p = {
-          abKey: t != null ? t : m.abKey,
-          hash: n != null ? n : m.hash,
+    function c(t) {
+      var n,
+        a,
+        i = t.abKey,
+        l = t.currentTime,
+        u = t.hash,
+        c = t.refresh,
+        m = null;
+      c != null && ((m = c), m < e ? (m = e) : m > s && (m = s));
+      var p = d() || {},
+        _ = {
+          abKey: i != null ? i : p.abKey,
+          hash: u != null ? u : p.hash,
           refresh:
-            (l = (u = c) == null ? void 0 : u.toString()) != null
-              ? l
-              : m.refresh,
-          lastSyncTime: i,
+            (n = (a = m) == null ? void 0 : a.toString()) != null
+              ? n
+              : p.refresh,
+          lastSyncTime: l,
         };
       r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").KEYS.ABPROPS,
-        JSON.stringify(p),
+        JSON.stringify(_),
       );
     }
     function d() {

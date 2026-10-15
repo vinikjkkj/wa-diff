@@ -258,7 +258,7 @@ __d(
                   : void 0,
               nativeFlowName: (T = w.nativeFlowName) != null ? T : void 0,
             },
-            te = yield new (o("WAWebMediaPrep").MediaPrep)(
+            te = yield new (r("WAWebMediaPrep"))(
               r("nullthrows")(q.type),
               (d || (d = n("Promise"))).resolve(q),
             ).sendToChat({

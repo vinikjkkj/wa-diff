@@ -12,6 +12,7 @@ __d(
       PEER_COMPANION_UNPAIR: 7,
       OTHER_DEVICE_UNPAIR: 8,
       ACP2_ENABLED: 9,
+      ONE_TIME_SENDER_KEY: 10,
     });
     i.EXPIRY_REASON = e;
   },

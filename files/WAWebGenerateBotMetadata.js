@@ -304,18 +304,18 @@ __d(
                         .RICH_RESPONSE_UR_BLOKS_ENABLED,
                     ]
                   : [],
-                o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isUrZeitgeistCitationsEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "ai_rich_response_post_citations_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType
                         .RICH_RESPONSE_UR_ZEITGEIST_CITATIONS,
                     ]
                   : [],
-                o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isUrZeitgeistCarouselEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "ai_rich_response_zeitgeist_carousel_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType

@@ -2,12 +2,10 @@ __d(
   "WAWebCustomerManagerImportContactClassifier",
   [
     "Promise",
-    "WAJids",
     "WALogger",
     "WAWebContactImportTypedError",
     "WAWebCustomerManagerImportConflictDetector",
     "WAWebCustomerManagerImportErrorMessage",
-    "WAWebCustomerManagerImportLidUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -17,15 +15,13 @@ __d(
       u,
       c,
       d,
-      m,
-      p,
-      _ = 10;
-    function f(e, t) {
-      return g.apply(this, arguments);
+      m = 10;
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function g() {
+    function _() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = [],
             r = [],
             o = [],
@@ -35,15 +31,15 @@ __d(
               s = i[1];
             a.set(l, s);
           }
-          yield C(e, t, a, 0, o);
+          yield h(e, t, a, 0, o);
           for (var u of o)
             u.kind === "valid" ? n.push(u.contact) : r.push(u.error);
-          return (h(o), { errorList: r, validContacts: n });
+          return (f(o), { errorList: r, validContacts: n });
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function h(e) {
+    function f(e) {
       var t = new Map(),
         n = null;
       for (var r of e) {
@@ -56,146 +52,106 @@ __d(
               (n = a.error));
         }
       }
-      y(t, n);
+      g(t, n);
     }
-    function y(t, n) {
+    function g(t, n) {
       var r = function (n) {
           var e;
           return (e = t.get(n)) != null ? e : 0;
         },
-        a = r("malformed-verified-jid"),
-        i = r("malformed-verified-lid"),
-        l = r("unowned-phone-note"),
-        p = r("unresolved-lead-stage-owner"),
-        _ = r("missing-lead-stage-result"),
-        f = r("saved-data-lookup-failed");
+        a = r("unowned-phone-note"),
+        i = r("unresolved-lead-stage-owner"),
+        l = r("missing-lead-stage-result"),
+        d = r("saved-data-lookup-failed");
       (a > 0 &&
         o("WALogger")
           .WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[cm:import] malformed server-verified phone identity for ",
+                "[cm:import] saved phone data owner unverified for ",
                 " rows; held for review",
               ])),
             a,
           )
-          .sendLogs("cm-import-verified-phone-jid-malformed"),
+          .sendLogs("cm-import-pn-data-owner-unverified"),
         i > 0 &&
           o("WALogger")
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[cm:import] malformed verified LID for ",
+                  "[cm:import] saved Lead stage owner unverified for ",
                   " rows; held for review",
                 ])),
               i,
             )
-            .sendLogs("cm-import-verified-lid-malformed"),
+            .sendLogs("cm-import-lead-stage-owner-unverified"),
         l > 0 &&
           o("WALogger")
             .WARN(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[cm:import] saved phone data owner unverified for ",
-                  " rows; held for review",
-                ])),
-              l,
-            )
-            .sendLogs("cm-import-pn-data-owner-unverified"),
-        p > 0 &&
-          o("WALogger")
-            .WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[cm:import] saved Lead stage owner unverified for ",
-                  " rows; held for review",
-                ])),
-              p,
-            )
-            .sendLogs("cm-import-lead-stage-owner-unverified"),
-        _ > 0 &&
-          o("WALogger")
-            .WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[cm:import] saved Lead stage result missing for ",
                   " rows; held for retry",
                 ])),
-              _,
+              l,
             )
             .sendLogs("cm-import-lead-stage-result-missing"),
         n != null &&
           o("WALogger")
             .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[cm:import] saved customer data lookup failed for ",
                   " rows; held for retry",
                 ])),
-              f,
+              d,
             )
             .catching(n)
             .sendLogs("cm-import-saved-data-lookup-failed"));
     }
-    function C(e, t, n, r, o) {
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r, o, a) {
+            if (!(o >= e.length)) {
+              var i = yield (d || (d = n("Promise"))).all(
+                e.slice(o, o + m).map(function (e) {
+                  return C(e, t, r);
+                }),
+              );
+              (a.push.apply(a, i), yield h(e, t, r, o + m, a));
+            }
+          },
+        )),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, n) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, o, a) {
-            if (!(o >= e.length)) {
-              var i = yield (p || (p = n("Promise"))).all(
-                e.slice(o, o + _).map(function (e) {
-                  return v(e, t, r);
-                }),
-              );
-              (a.push.apply(a, i), yield C(e, t, r, o + _, a));
-            }
-          },
-        )),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = e.lid != null ? o("WAJids").validateLidUserJid(e.lid) : null,
-            i =
-              a != null
-                ? o("WAWebCustomerManagerImportLidUtils").toBareLid(a)
-                : null;
-          if (i == null)
-            return e.lid == null
-              ? { kind: "valid", contact: e }
-              : {
-                  kind: "error",
-                  error: R(
-                    e,
-                    o("WAWebCustomerManagerImportErrorMessage")
-                      .CustomerManagerImportConflictError
-                      .PHONE_DATA_OWNER_UNVERIFIED,
-                  ),
-                  diagnostic: { reason: "malformed-verified-lid" },
-                };
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = e.lid;
+          if (a == null) return { kind: "valid", contact: e };
           if (!t.complete)
             return {
               kind: "error",
-              error: R(
+              error: v(
                 e,
                 o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
                   .CUSTOMER_DATA_LOOKUP_FAILED,
               ),
             };
-          var l = t.leadStagesByLid.get(i);
-          if (l == null)
+          var i = t.leadStagesByLid.get(a);
+          if (i == null)
             return {
               kind: "error",
-              error: R(
+              error: v(
                 e,
                 o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
@@ -204,28 +160,28 @@ __d(
               diagnostic: { reason: "missing-lead-stage-result" },
             };
           try {
-            var s = t.profiles.get(i),
-              u = yield o(
+            var l = t.profiles.get(a),
+              s = yield o(
                 "WAWebCustomerManagerImportConflictDetector",
-              ).getConflictingCustomerFields(e, o("WAJids").toLidUserJid(i), {
+              ).getConflictingCustomerFields(e, a, {
                 complete: t.complete,
-                legacy: t.legacyByLid.get(i),
-                localLeadStage: l,
-                profile: s,
+                legacy: t.legacyByLid.get(a),
+                localLeadStage: i,
+                profile: l,
                 savedNames: n,
               });
-            return s == null && u.length === 0
+            return l == null && s.length === 0
               ? { kind: "valid", contact: e }
               : {
                   kind: "error",
-                  error: R(
+                  error: v(
                     e,
-                    u.length > 0
+                    s.length > 0
                       ? o("WAWebCustomerManagerImportErrorMessage")
                           .CustomerManagerImportConflictError.MERGE_CONFLICT
                       : o("WAWebContactImportTypedError").ExistingContactError
                           .ALREADY_EXISTS,
-                    u,
+                    s,
                   ),
                 };
           } catch (t) {
@@ -234,7 +190,7 @@ __d(
                 .CustomerManagerImportPhoneDataOwnershipError
               ? {
                   kind: "error",
-                  error: R(
+                  error: v(
                     e,
                     o("WAWebCustomerManagerImportErrorMessage")
                       .CustomerManagerImportConflictError
@@ -244,7 +200,7 @@ __d(
                 }
               : {
                   kind: "error",
-                  error: R(
+                  error: v(
                     e,
                     o("WAWebCustomerManagerImportErrorMessage")
                       .CustomerManagerImportConflictError
@@ -257,10 +213,10 @@ __d(
                 };
           }
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function R(e, t, n) {
+    function v(e, t, n) {
       var r;
       return babelHelpers.extends(
         {},
@@ -274,7 +230,7 @@ __d(
         },
       );
     }
-    l.classifyContacts = f;
+    l.classifyContacts = p;
   },
   98,
 );

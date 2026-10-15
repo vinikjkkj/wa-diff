@@ -51,6 +51,7 @@ __d(
               otpSdkVersion: [22, e.TYPES.STRING],
               otpSenderAttributes: [27, e.TYPES.STRING],
               otpSessionId: [8, e.TYPES.STRING],
+              psIdNewSot: [30, e.TYPES.STRING],
               receiverCountryCode: [18, e.TYPES.STRING],
               templateId: [17, e.TYPES.STRING],
               thirdPartyPackageNameFromIntent: [9, e.TYPES.STRING],

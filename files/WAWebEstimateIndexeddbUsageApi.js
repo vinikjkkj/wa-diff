@@ -8,6 +8,8 @@ __d(
     "WAWebDbUsageApiUtils",
     "WAWebIndexedDB",
     "WAWebScanDbRowApi",
+    "WAWebScanDbRowApiGetSampleRateOverride",
+    "WAWebScanDbRowApiSkipRow",
     "asyncToGeneratorRuntime",
     "gkx",
     "nullthrows",
@@ -198,18 +200,16 @@ __d(
                       e.count(),
                     );
                   if (n === 0) return 1;
-                  var r = o("WAWebScanDbRowApi").getSampleRateOverride(
-                      m,
-                      t,
-                      C.name,
-                    ),
+                  var r = o(
+                      "WAWebScanDbRowApiGetSampleRateOverride",
+                    ).getSampleRateOverride(m, t, C.name),
                     a = Math.min(Math.ceil(n * r), p),
                     i = a,
                     l = 0;
                   yield o("WAWebDbUsageApiUtils").objectStoreIterator(
                     e,
                     function (e) {
-                      return o("WAWebScanDbRowApi").skipRow(e, t)
+                      return o("WAWebScanDbRowApiSkipRow").skipRow(e, t)
                         ? !0
                         : ((l += o("WAWebScanDbRowApi").estimateSize(e, t)),
                           i--,

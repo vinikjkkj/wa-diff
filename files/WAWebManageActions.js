@@ -99,7 +99,7 @@ __d(
               title: s._(/*BTDS*/ "Delete item"),
               okText: r("WAWebFbtCommon")("OK"),
               okButtonType: "solid-warning",
-              cancelText: s._(/*BTDS*/ "Cancel"),
+              cancelText: r("WAWebFbtCommon")("Cancel"),
               onOK: function () {
                 (o("WAWebModalManager").ModalManager.close(),
                   o("WAWebQplFlowWrapper").QPL.markerStart(p, {
@@ -168,7 +168,7 @@ __d(
                 viewName: "manage-catalog",
               },
               okText: r("WAWebFbtCommon")("OK"),
-              cancelText: s._(/*BTDS*/ "Cancel"),
+              cancelText: r("WAWebFbtCommon")("Cancel"),
               onOK: function () {
                 (o("WAWebQplFlowWrapper").QPL.markerStart(_, {
                   annotations: { string: { EntryPoint: i } },
@@ -243,7 +243,7 @@ __d(
           tsNavigationData: { surface: "unknown", viewName: "manage-catalog" },
           title: s._(/*BTDS*/ "Delete collection"),
           okText: r("WAWebFbtCommon")("OK"),
-          cancelText: s._(/*BTDS*/ "Cancel"),
+          cancelText: r("WAWebFbtCommon")("Cancel"),
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(),
               S({ catalog: t, collection: n, context: a }).catch(

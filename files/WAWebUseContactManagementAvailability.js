@@ -1,7 +1,6 @@
 __d(
   "WAWebUseContactManagementAvailability",
   [
-    "$InternalEnum",
     "WAWebPrimaryFeaturesGetters",
     "react-compiler-runtime",
     "useWAWebPrimaryFeaturesValues",
@@ -35,25 +34,7 @@ __d(
         s
       );
     }
-    var s = n("$InternalEnum").Mirrored(["PENDING", "TIMELOCK", "PASS"]);
-    function u() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = [
-            o("WAWebPrimaryFeaturesGetters").getIsAccountIntegrityStatePending,
-            o("WAWebPrimaryFeaturesGetters").getIsAccountIntegrityStateTimelock,
-          ]),
-          (e[0] = t))
-        : (t = e[0]);
-      var n = o("useWAWebPrimaryFeaturesValues").usePrimaryFeaturesValues(t),
-        r = n[0],
-        a = n[1];
-      return a ? s.TIMELOCK : r ? s.PENDING : s.PASS;
-    }
-    ((l.useContactManagementAvailability = e),
-      (l.AccountIntegrityState = s),
-      (l.useAccountIntegrityState = u));
+    l.useContactManagementAvailability = e;
   },
   98,
 );

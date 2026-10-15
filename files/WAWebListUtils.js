@@ -233,16 +233,17 @@ __d(
           ? r
           : 0;
     }
-    function F() {
-      var e,
-        t = o("WAWebLabelCollection").LabelCollection.toArray(),
+    var F = { channelsPillCount: 0, unreadPillCount: 0 };
+    function O(e) {
+      e === void 0 && (e = F);
+      var t = o("WAWebLabelCollection").LabelCollection.toArray(),
         n = new Map(),
         r = 0,
         a = 0,
         i = 0,
         l = 0,
         s = 0,
-        u = 0;
+        u = e.channelsPillCount;
       return (
         t.forEach(function (e) {
           n.set(e.id, 0);
@@ -275,18 +276,18 @@ __d(
                 })));
         }),
         n.set(
-          String((e = o("WAWebChatSearchFilters")).SearchFilters.UNREAD),
-          r,
+          String(o("WAWebChatSearchFilters").SearchFilters.UNREAD),
+          r + e.unreadPillCount,
         ),
-        n.set(String(e.SearchFilters.GROUP), a),
-        n.set(String(e.SearchFilters.FAVORITES), i),
-        n.set(String(e.SearchFilters.COMMUNITY), l),
-        n.set(String(e.SearchFilters.CHANNELS), u),
-        n.set(String(e.SearchFilters.TO_YOU), s),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.GROUP), a),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.FAVORITES), i),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.COMMUNITY), l),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.CHANNELS), u),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.TO_YOU), s),
         n
       );
     }
-    function O(e) {
+    function B(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -305,7 +306,7 @@ __d(
             return null;
         }
     }
-    function B(e) {
+    function W(e) {
       var t;
       if (
         (e.label != null
@@ -329,10 +330,10 @@ __d(
       }
       return null;
     }
-    function W() {
+    function q() {
       return s._(/*BTDS*/ "Lead stage");
     }
-    function q() {
+    function U() {
       return s._(/*BTDS*/ "Lead stage (preset)");
     }
     ((l.getAllLabelColors = d),
@@ -358,11 +359,11 @@ __d(
       (l.resolvePillLabel = M),
       (l.resolvePillLabelForState = w),
       (l.getUnreadChatsCountForFilter = A),
-      (l.getListsUnreadChatCountMap = F),
-      (l.getListTypeFromFilter = O),
-      (l.getManageListInfo = B),
-      (l.getLeadStageListName = W),
-      (l.getLeadListManagerDisplayName = q));
+      (l.getListsUnreadChatCountMap = O),
+      (l.getListTypeFromFilter = B),
+      (l.getManageListInfo = W),
+      (l.getLeadStageListName = q),
+      (l.getLeadListManagerDisplayName = U));
   },
   226,
 );

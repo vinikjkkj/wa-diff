@@ -10,7 +10,8 @@ __d(
     "WAWebOrderAdditionalChargesTextInput",
     "WAWebOrderConfirmDiscardModal",
     "WAWebOrderDetailErrorUtils",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathDefaultOffset",
+    "WAWebOrderDetailMathPercentageSymbol",
     "WAWebOrderTotalPrice",
     "WAWebRichTextField.react",
     "react",
@@ -43,13 +44,13 @@ __d(
         L = S[1],
         E =
           (n == null ? void 0 : n.discountType) ||
-          o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL,
+          o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL,
         k = m(E),
         I = k[0],
         T = k[1],
         D =
           (n == null ? void 0 : n.taxType) ||
-          o("WAWebOrderDetailMath").PERCENTAGE_SYMBOL,
+          o("WAWebOrderDetailMathPercentageSymbol").PERCENTAGE_SYMBOL,
         x = m(D),
         $ = x[0],
         P = x[1],
@@ -63,7 +64,7 @@ __d(
         ? ((w = s._(/*BTDS*/ "Tax")), (t[1] = w))
         : (w = t[1]);
       var A = w,
-        F = c / o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+        F = c / o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET,
         O;
       t[2] !== a || t[3] !== f || t[4] !== I || t[5] !== F
         ? ((O = o("WAWebOrderDetailErrorUtils").additionalChargeErrorHandler({
