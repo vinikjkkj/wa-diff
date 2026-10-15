@@ -33,6 +33,7 @@ __d(
         bubbleIn: { backgroundColor: "x1bu39yj", $$css: !0 },
         bubbleOut: { backgroundColor: "x1bu39yj", $$css: !0 },
         paymentInfo: { width: "xh8yej3", $$css: !0 },
+        paymentInfoWrapper: { width: "xh8yej3", $$css: !0 },
         paymentInfoContent: {
           overflowX: "x6ikm8r",
           overflowY: "x10wlt62",
@@ -64,7 +65,7 @@ __d(
       );
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(23),
+      var t = o("react-compiler-runtime").c(22),
         n = e.isSentByMe,
         a = e.orderInfo,
         i = a.paymentSettings,
@@ -123,10 +124,9 @@ __d(
           (t[6] = S),
           (t[7] = R))
         : (R = t[7]);
-      var L, E;
+      var L;
       t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = "xh8yej3"),
-          (E = m()
+        ? ((L = m()
             ? u.jsx(r("WDSIconWdsSmbPaymentsPixFilled.react"), {
                 testid: "wds-smb-payments-pix-filled",
                 height: 24,
@@ -140,21 +140,20 @@ __d(
                   primary: d.iconPrimary,
                 },
               })),
-          (t[8] = L),
-          (t[9] = E))
-        : ((L = t[8]), (E = t[9]));
-      var k;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = [
+          (t[8] = L))
+        : (L = t[8]);
+      var E;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = [
             d.paymentInfoContent,
             o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
             m() && o("WDSPaddings.stylex").wdsPaddings.paddingTop4,
           ]),
-          (t[10] = k))
-        : (k = t[10]);
-      var I;
-      t[11] !== p || t[12] !== v
-        ? ((I = m()
+          (t[9] = E))
+        : (E = t[9]);
+      var k;
+      t[10] !== p || t[11] !== v
+        ? ((k = m()
             ? u.jsx(r("WDSText.react"), {
                 type: "Body2Emphasized",
                 colorName: "contentDefault",
@@ -164,13 +163,13 @@ __d(
                 textWrap: "ellipsis",
                 children: p,
               })),
-          (t[11] = p),
-          (t[12] = v),
-          (t[13] = I))
-        : (I = t[13]);
-      var T;
-      t[14] !== l || t[15] !== _
-        ? ((T = m()
+          (t[10] = p),
+          (t[11] = v),
+          (t[12] = k))
+        : (k = t[12]);
+      var I;
+      t[13] !== l || t[14] !== _
+        ? ((I = m()
             ? u.jsx(r("WDSText.react"), {
                 type: "Body3",
                 colorName: "contentDeemphasized",
@@ -181,43 +180,43 @@ __d(
                 textWrap: "ellipsis",
                 children: [_, ": ", l],
               })),
-          (t[14] = l),
-          (t[15] = _),
-          (t[16] = T))
-        : (T = t[16]);
-      var D;
-      t[17] !== I || t[18] !== T
-        ? ((D = u.jsx(o("WAWebFlex.react").FlexRow, {
+          (t[13] = l),
+          (t[14] = _),
+          (t[15] = I))
+        : (I = t[15]);
+      var T;
+      t[16] !== k || t[17] !== I
+        ? ((T = u.jsx(o("WAWebFlex.react").FlexRow, {
             xstyle: d.paymentInfo,
             justify: "all",
             children: u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
-              className: L,
+              xstyle: d.paymentInfoWrapper,
               children: [
-                E,
+                L,
                 u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: k,
-                  children: [I, T],
+                  xstyle: E,
+                  children: [k, I],
                 }),
               ],
             }),
           })),
+          (t[16] = k),
           (t[17] = I),
-          (t[18] = T),
-          (t[19] = D))
-        : (D = t[19]);
-      var x;
+          (t[18] = T))
+        : (T = t[18]);
+      var D;
       return (
-        t[20] !== R || t[21] !== D
-          ? ((x = u.jsx(o("WAWebFlex.react").FlexColumn, {
+        t[19] !== R || t[20] !== T
+          ? ((D = u.jsx(o("WAWebFlex.react").FlexColumn, {
               xstyle: R,
-              children: D,
+              children: T,
             })),
-            (t[20] = R),
-            (t[21] = D),
-            (t[22] = x))
-          : (x = t[22]),
-        x
+            (t[19] = R),
+            (t[20] = T),
+            (t[21] = D))
+          : (D = t[21]),
+        D
       );
     }
     l.default = p;

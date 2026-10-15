@@ -3,27 +3,31 @@ __d(
   [
     "CometRelay",
     "WAWebBizBroadcastProCampaignTableQuery.graphql",
-    "WAWebBizBroadcastProDataSharingConsentState",
+    "WAWebBusinessBroadcastProHomeFlowBoundary",
     "react",
     "react-compiler-runtime",
     "useWAWebBizBroadcastProCampaignTablePagination",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s,
-      u = s || (s = o("react")),
-      c =
-        e !== void 0
-          ? e
-          : (e = n("WAWebBizBroadcastProCampaignTableQuery.graphql"));
-    function d(e) {
+    var e = ["queryRef"],
+      s = ["backingWabaRef", "proHomeQueryRef", "queryRef"],
+      u,
+      c,
+      d = c || (c = o("react")),
+      m = c.useMemo,
+      p = d.createContext(null),
+      _ =
+        u !== void 0
+          ? u
+          : (u = n("WAWebBizBroadcastProCampaignTableQuery.graphql"));
+    function f(e) {
       var t,
         n,
         r = o("react-compiler-runtime").c(3),
         a = e.children,
         i = e.queryRef,
-        l = o("CometRelay").usePreloadedQuery(c, i),
+        l = o("CometRelay").usePreloadedQuery(_, i),
         s =
           (t = (n = l.viewer) == null ? void 0 : n.backing_waba) != null
             ? t
@@ -36,84 +40,94 @@ __d(
         u
       );
     }
-    function m(e) {
-      var t,
+    function g(t) {
+      var n,
+        r = o("react-compiler-runtime").c(8),
+        a,
+        i;
+      r[0] !== t
+        ? ((i = t.queryRef),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (r[0] = t),
+          (r[1] = a),
+          (r[2] = i))
+        : ((a = r[1]), (i = r[2]));
+      var l = o("CometRelay").usePreloadedQuery(_, i),
+        s = (n = l.viewer) == null ? void 0 : n.backing_waba,
+        u;
+      return (
+        r[3] !== s || r[4] !== a || r[5] !== l || r[6] !== i
+          ? ((u = d.jsx(
+              h,
+              babelHelpers.extends({}, a, {
+                backingWabaRef: s,
+                proHomeQueryRef: l,
+                queryRef: i,
+              }),
+            )),
+            (r[3] = s),
+            (r[4] = a),
+            (r[5] = l),
+            (r[6] = i),
+            (r[7] = u))
+          : (u = r[7]),
+        u
+      );
+    }
+    function h(e) {
+      var t = o("react-compiler-runtime").c(14),
         n,
         r,
         a,
-        i = o("react-compiler-runtime").c(6),
-        l = e.children,
-        s = e.queryRef,
-        u = o("CometRelay").usePreloadedQuery(c, s),
-        d =
-          (t = u.viewer) == null || (t = t.backing_waba) == null
-            ? void 0
-            : t.owner_business,
-        m = d == null ? void 0 : d.id,
-        p =
-          (n = u.viewer) == null || (n = n.backing_waba) == null
-            ? void 0
-            : n.name,
-        _;
-      if (
-        i[0] !==
-          (d == null ||
-          (r = d.marketing_message_whatsapp_event_sharing_consent) == null
-            ? void 0
-            : r.marketing_message_optimization_consent_status) ||
-        i[1] !== l ||
-        i[2] !==
-          ((a = u.xfb_whatsapp_bb_pro) == null ||
-          (a = a.default_subscriber_pool) == null
-            ? void 0
-            : a.id) ||
-        i[3] !== m ||
-        i[4] !== p
-      ) {
-        var f, g, h, y, C;
-        ((_ = l({
-          businessID: m,
-          customerBaseName: p,
-          isDataSharingEnabled: o(
-            "WAWebBizBroadcastProDataSharingConsentState",
-          ).isBizBroadcastProDataSharingEnabled(
-            d == null ||
-              (f = d.marketing_message_whatsapp_event_sharing_consent) == null
-              ? void 0
-              : f.marketing_message_optimization_consent_status,
-          ),
-          subscriberPoolID:
-            (g =
-              (h = u.xfb_whatsapp_bb_pro) == null ||
-              (h = h.default_subscriber_pool) == null
-                ? void 0
-                : h.id) != null
-              ? g
-              : null,
-        })),
-          (i[0] =
-            d == null ||
-            (y = d.marketing_message_whatsapp_event_sharing_consent) == null
-              ? void 0
-              : y.marketing_message_optimization_consent_status),
-          (i[1] = l),
-          (i[2] =
-            (C = u.xfb_whatsapp_bb_pro) == null ||
-            (C = C.default_subscriber_pool) == null
-              ? void 0
-              : C.id),
-          (i[3] = m),
-          (i[4] = p),
-          (i[5] = _));
-      } else _ = i[5];
-      return _;
+        i;
+      t[0] !== e
+        ? ((n = e.backingWabaRef),
+          (a = e.proHomeQueryRef),
+          (i = e.queryRef),
+          (r = babelHelpers.objectWithoutPropertiesLoose(e, s)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r),
+          (t[3] = a),
+          (t[4] = i))
+        : ((n = t[1]), (r = t[2]), (a = t[3]), (i = t[4]));
+      var l;
+      t[5] !== n || t[6] !== i
+        ? ((l = { fragmentRef: n, queryRef: i }),
+          (t[5] = n),
+          (t[6] = i),
+          (t[7] = l))
+        : (l = t[7]);
+      var u = l,
+        c;
+      t[8] !== r || t[9] !== a
+        ? ((c = d.jsx(
+            o("WAWebBusinessBroadcastProHomeFlowBoundary")
+              .WAWebBusinessBroadcastProHomeFlowBoundary,
+            babelHelpers.extends({}, r, { proHomeQueryRef: a }),
+          )),
+          (t[8] = r),
+          (t[9] = a),
+          (t[10] = c))
+        : (c = t[10]);
+      var m;
+      return (
+        t[11] !== u || t[12] !== c
+          ? ((m = d.jsx(p.Provider, { value: u, children: c })),
+            (t[11] = u),
+            (t[12] = c),
+            (t[13] = m))
+          : (m = t[13]),
+        m
+      );
     }
     ((l.useWAWebBizBroadcastProCampaignTablePagination = r(
       "useWAWebBizBroadcastProCampaignTablePagination",
     )),
-      (l.proCampaignTableQuery = c),
-      (l.WAWebBizBroadcastProCampaignTableQueryReader = d),
-      (l.WAWebBizBroadcastProHomeQueryReader = m));
+      (l.ProCampaignTablePaginationContext = p),
+      (l.proCampaignTableQuery = _),
+      (l.WAWebBizBroadcastProCampaignTableQueryReader = f),
+      (l.WAWebBizBroadcastProHomeQueryReader = g));
   },
   98,
 );

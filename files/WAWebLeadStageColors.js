@@ -20,7 +20,25 @@ __d(
                     );
                   })();
     }
-    i.getLeadStageDotColor = e;
+    function l(e) {
+      return e === 0
+        ? 12
+        : e === 1
+          ? 17
+          : e === 2
+            ? 20
+            : e === 3
+              ? 19
+              : e === 4
+                ? 8
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
+    }
+    ((i.getLeadStageDotColor = e), (i.getLeadStagePillColorIndex = l));
   },
   66,
 );

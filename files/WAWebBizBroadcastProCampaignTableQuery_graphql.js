@@ -6,13 +6,10 @@ __d(
     var e = (function () {
       var e = { defaultValue: null, kind: "LocalArgument", name: "after" },
         t = { defaultValue: null, kind: "LocalArgument", name: "first" },
-        r = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "name",
-          storageKey: null,
-        },
+        r = [
+          { kind: "Variable", name: "after", variableName: "after" },
+          { kind: "Variable", name: "first", variableName: "first" },
+        ],
         o = {
           alias: null,
           args: null,
@@ -24,56 +21,17 @@ __d(
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "marketing_message_optimization_consent_status",
-          storageKey: null,
-        },
-        i = [
-          { kind: "Variable", name: "after", variableName: "after" },
-          { kind: "Variable", name: "first", variableName: "first" },
-        ],
-        l = {
-          alias: null,
-          args: null,
-          concreteType: "XFBWhatsAppSMBBBPro",
-          kind: "LinkedField",
-          name: "xfb_whatsapp_bb_pro",
-          plural: !1,
-          selections: [
-            {
-              alias: null,
-              args: null,
-              concreteType: "XFBMarketingMessageWhatsAppSubscriberPool",
-              kind: "LinkedField",
-              name: "default_subscriber_pool",
-              plural: !1,
-              selections: [o],
-              storageKey: null,
-            },
-          ],
-          storageKey: null,
-        },
-        s = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "status",
-          storageKey: null,
-        },
-        u = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
           name: "type",
           storageKey: null,
         },
-        c = {
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "text",
           storageKey: null,
         },
-        d = [
+        l = [
           {
             alias: null,
             args: null,
@@ -82,7 +40,7 @@ __d(
             storageKey: null,
           },
         ],
-        m = [
+        s = [
           {
             alias: null,
             args: null,
@@ -90,7 +48,7 @@ __d(
             kind: "LinkedField",
             name: "count_data",
             plural: !1,
-            selections: d,
+            selections: l,
             storageKey: null,
           },
         ];
@@ -101,6 +59,11 @@ __d(
           metadata: null,
           name: "WAWebBizBroadcastProCampaignTableQuery",
           selections: [
+            {
+              args: null,
+              kind: "FragmentSpread",
+              name: "WAWebBusinessBroadcastProHomeFlowBoundary_query",
+            },
             {
               alias: null,
               args: null,
@@ -117,32 +80,8 @@ __d(
                   name: "backing_waba",
                   plural: !1,
                   selections: [
-                    r,
                     {
-                      alias: null,
-                      args: null,
-                      concreteType: "AdBusiness",
-                      kind: "LinkedField",
-                      name: "owner_business",
-                      plural: !1,
-                      selections: [
-                        o,
-                        {
-                          alias: null,
-                          args: null,
-                          concreteType:
-                            "XFBMarketingMessageWhatsAppEventSharingBusinessDefault",
-                          kind: "LinkedField",
-                          name: "marketing_message_whatsapp_event_sharing_consent",
-                          plural: !1,
-                          selections: [a],
-                          storageKey: null,
-                        },
-                      ],
-                      storageKey: null,
-                    },
-                    {
-                      args: i,
+                      args: r,
                       kind: "FragmentSpread",
                       name: "useWAWebBizBroadcastProCampaignTablePagination_campaigns",
                     },
@@ -152,7 +91,6 @@ __d(
               ],
               storageKey: null,
             },
-            l,
           ],
           type: "Query",
           abstractKey: null,
@@ -179,7 +117,13 @@ __d(
                   name: "backing_waba",
                   plural: !1,
                   selections: [
-                    r,
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "name",
+                      storageKey: null,
+                    },
                     {
                       alias: null,
                       args: null,
@@ -197,15 +141,32 @@ __d(
                           kind: "LinkedField",
                           name: "marketing_message_whatsapp_event_sharing_consent",
                           plural: !1,
-                          selections: [a, o],
+                          selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "marketing_message_optimization_consent_status",
+                              storageKey: null,
+                            },
+                            o,
+                          ],
                           storageKey: null,
                         },
                       ],
                       storageKey: null,
                     },
+                    o,
                     {
                       alias: null,
-                      args: i,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "is_custom_param_restricted_for_first_party_paid_messaging",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: r,
                       concreteType:
                         "WhatsAppBusinessAccountWaBbProCampaignsConnection",
                       kind: "LinkedField",
@@ -240,13 +201,33 @@ __d(
                                 {
                                   alias: null,
                                   args: null,
+                                  kind: "ScalarField",
+                                  name: "bb_pro_can_stop",
+                                  storageKey: null,
+                                },
+                                {
+                                  alias: null,
+                                  args: null,
+                                  kind: "ScalarField",
+                                  name: "bb_pro_display_status",
+                                  storageKey: null,
+                                },
+                                {
+                                  alias: null,
+                                  args: null,
                                   concreteType:
                                     "XFBBMCampaignDeliveryStatusInfo",
                                   kind: "LinkedField",
                                   name: "delivery_status_info",
                                   plural: !1,
                                   selections: [
-                                    s,
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "status",
+                                      storageKey: null,
+                                    },
                                     {
                                       alias: null,
                                       args: null,
@@ -285,12 +266,18 @@ __d(
                                       name: "start_time",
                                       storageKey: null,
                                     },
-                                    s,
                                     {
                                       alias: null,
                                       args: null,
                                       kind: "ScalarField",
                                       name: "customer_list_name",
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "custom_audience_id",
                                       storageKey: null,
                                     },
                                     {
@@ -352,8 +339,8 @@ __d(
                                           name: "hsm_components",
                                           plural: !0,
                                           selections: [
-                                            u,
-                                            c,
+                                            a,
+                                            i,
                                             {
                                               alias: null,
                                               args: null,
@@ -389,8 +376,8 @@ __d(
                                               name: "buttons",
                                               plural: !0,
                                               selections: [
-                                                u,
-                                                c,
+                                                a,
+                                                i,
                                                 {
                                                   alias: null,
                                                   args: null,
@@ -423,7 +410,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "sent",
                                       plural: !1,
-                                      selections: d,
+                                      selections: l,
                                       storageKey: null,
                                     },
                                     {
@@ -434,7 +421,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "read",
                                       plural: !1,
-                                      selections: d,
+                                      selections: l,
                                       storageKey: null,
                                     },
                                     {
@@ -445,7 +432,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "ads_delivered",
                                       plural: !1,
-                                      selections: d,
+                                      selections: l,
                                       storageKey: null,
                                     },
                                     {
@@ -456,7 +443,21 @@ __d(
                                       kind: "LinkedField",
                                       name: "first_customer_reply",
                                       plural: !1,
-                                      selections: d,
+                                      selections: l,
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "read_rate",
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "reply_rate",
                                       storageKey: null,
                                     },
                                     {
@@ -467,7 +468,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "quick_reply_clicks",
                                       plural: !0,
-                                      selections: m,
+                                      selections: s,
                                       storageKey: null,
                                     },
                                     {
@@ -478,7 +479,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "cta_url_clicks",
                                       plural: !0,
-                                      selections: m,
+                                      selections: s,
                                       storageKey: null,
                                     },
                                   ],
@@ -534,21 +535,40 @@ __d(
                     },
                     {
                       alias: null,
-                      args: i,
+                      args: r,
                       filters: null,
                       handle: "connection",
                       key: "useWAWebBizBroadcastProCampaignTablePagination_wa_bb_pro_campaigns",
                       kind: "LinkedHandle",
                       name: "wa_bb_pro_campaigns",
                     },
-                    o,
                   ],
                   storageKey: null,
                 },
               ],
               storageKey: null,
             },
-            l,
+            {
+              alias: null,
+              args: null,
+              concreteType: "XFBWhatsAppSMBBBPro",
+              kind: "LinkedField",
+              name: "xfb_whatsapp_bb_pro",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "XFBMarketingMessageWhatsAppSubscriberPool",
+                  kind: "LinkedField",
+                  name: "default_subscriber_pool",
+                  plural: !1,
+                  selections: [o],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
           ],
         },
         params: {

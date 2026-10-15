@@ -1,8 +1,18 @@
 __d(
   "WAWebOrgMemberDisplayName",
-  ["WAWebBusinessProfileTypes"],
+  ["WAWebBusinessProfileTypes", "WAWebUsernameTypes"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t, n) {
+      if (e.trim() !== "") return e;
+      var r = t == null ? void 0 : t.trim();
+      if (r != null && r !== "")
+        return o("WAWebUsernameTypes").displayUsername(
+          o("WAWebUsernameTypes").asUsername(r),
+        );
+      var a = n == null ? void 0 : n.trim();
+      return a == null || a === "" ? e : a;
+    }
+    function s(e) {
       var t = e.isBusiness,
         n = t === void 0 ? !1 : t,
         r = e.memberName,
@@ -23,7 +33,8 @@ __d(
               ? a
               : null;
     }
-    l.resolveWAWebOrgMemberDisplayName = e;
+    ((l.getOrgMemberNameWithUsernameFallback = e),
+      (l.resolveWAWebOrgMemberDisplayName = s));
   },
   98,
 );

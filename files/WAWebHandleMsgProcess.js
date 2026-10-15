@@ -18,6 +18,7 @@ __d(
     "WAWebGalaxyFlowsUtils",
     "WAWebGetGroupAddressingMode",
     "WAWebGetMessageCache",
+    "WAWebGetPlatformFromStanzaId",
     "WAWebHandleCloudApiThreadControlNotification",
     "WAWebHandleMsgError",
     "WAWebHandleMsgProcessUtils",
@@ -548,8 +549,12 @@ __d(
               .ERROR(
                 E ||
                   (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "[LID] received peer migration stanza but client-to-LID migration is no longer supported",
+                    "[LID] received peer migration stanza but client-to-LID migration is no longer supported, sender: ",
+                    "",
                   ])),
+                o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
+                  c.externalId,
+                ),
               )
               .sendLogs(
                 o("WAWebUserPrefsMeUser").isMeAccount(Z)

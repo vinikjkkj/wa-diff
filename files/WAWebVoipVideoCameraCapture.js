@@ -692,6 +692,9 @@ __d(
                 : n.lastFrameTimestampMs;
             return l != null && window.performance.now() - l < Re;
           }),
+          (a.isStackCaptureWanted = function () {
+            return this.__stackCaptureWanted;
+          }),
           (a.switchVideoDevice = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {

@@ -5,13 +5,7 @@ __d(
     "use strict";
     var e = {
       getPreloadProps: function (t) {
-        var e;
-        return {
-          extraProps: {
-            shouldShowXMDS:
-              (e = t == null ? void 0 : t.shouldShowXMDS) != null ? e : !1,
-          },
-        };
+        return {};
       },
       root: r("JSResourceForInteraction")("BillingLazyWizard.react").__setRef(
         "BillingLazyWizard.entrypoint",

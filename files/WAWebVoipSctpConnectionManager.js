@@ -755,7 +755,7 @@ __d(
                 "WAWebVoipSctpWarmStandby",
               ).getWebTransportSctpWarmStandbyRelayState(e),
               l = o("WAWebVoipGatingUtils").isCurrentCallGroup(),
-              s = l && e.enable_web_group_early_packet_relay_reconnect === !0;
+              s = e.enable_web_group_early_packet_relay_reconnect === !0;
             for (var u of o("WAWebVoipSctpConnectionState").currentRelayState) {
               var c = u[0],
                 d = u[1];

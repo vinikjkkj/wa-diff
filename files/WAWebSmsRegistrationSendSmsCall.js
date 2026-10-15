@@ -17,14 +17,14 @@ __d(
       s,
       u = "for (;;);",
       c = n("$InternalEnum")({ SENT: 1, ERROR: 2 });
-    function d(e, t) {
+    function d(e, t, n) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           try {
-            var a = r("WAXWhatsAppWebRegistrationControllerRouteBuilder")
+            var i = r("WAXWhatsAppWebRegistrationControllerRouteBuilder")
                 .buildUri({
                   phone: t,
                   step: "otp",
@@ -33,15 +33,16 @@ __d(
                   exp_bucket: o(
                     "WAWebLandingPromoGating",
                   ).getLandingPromoExpBucket(),
+                  access_session_id: a === "" ? void 0 : a,
                 })
                 .toString()
                 .concat("&__a=1"),
-              i = yield window.fetch(a, {
+              l = yield window.fetch(i, {
                 headers: { "Content-Type": "application/json" },
               }),
-              l = yield i.text();
-            l.startsWith(u) && (l = l.substring(u.length));
-            var d = JSON.parse(l).payload;
+              d = yield l.text();
+            d.startsWith(u) && (d = d.substring(u.length));
+            var m = JSON.parse(d).payload;
             return (
               o("WALogger").LOG(
                 e ||
@@ -49,7 +50,7 @@ __d(
                     "[WAWebSmsRegistrationSendSmsCall] sendSmsCall +",
                   ])),
               ),
-              d
+              m
             );
           } catch (e) {
             o("WALogger")

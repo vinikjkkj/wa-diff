@@ -12,6 +12,7 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebDbEncryptionKey",
     "WAWebLogoutReasonConstants",
+    "WAWebPageLoadLogging",
     "WAWebSocketConstants",
     "WAWebSocketLogoutJob",
     "WAWebUserPrefsMultiDeviceWorkerCompatible",
@@ -74,28 +75,53 @@ __d(
           }),
           (r.get = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                "hs_noise_load",
+              );
               var e = yield o(
                 "WAWebUserPrefsMultiDeviceWorkerCompatible",
               ).getNoiseInfo();
-              if (!e) return null;
+              if (!e)
+                return (
+                  o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                    "hs_noise_load",
+                  ),
+                  null
+                );
               var t = yield this.$1();
-              if (!t) return null;
+              if (!t)
+                return (
+                  o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                    "hs_noise_load",
+                  ),
+                  null
+                );
+              e = yield this.$2(e, t);
+              var n = yield o(
+                "WAWebUserPrefsScreenLockWorkerCompatible",
+              ).getScreenLockEnabled();
               if (
-                ((e = yield this.$2(e, t)),
-                yield o(
-                  "WAWebUserPrefsScreenLockWorkerCompatible",
-                ).getScreenLockEnabled())
+                (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                  "hs_noise_load",
+                ),
+                n)
               ) {
-                o("WAWebBackendEventBusWorkerCompatible")
+                (o("WAWebBackendEventBusWorkerCompatible")
                   .getBackendEventBus()
                   .triggerSetSocketState(
                     o("WAWebSocketConstants").SOCKET_STATE.SCREEN_LOCKED,
-                  );
-                var n = yield this.passcodeUnlockNoiseInfo(e);
-                n && (e = n);
+                  ),
+                  o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                    "hs_passcode_wait",
+                  ));
+                var r = yield this.passcodeUnlockNoiseInfo(e);
+                (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                  "hs_passcode_wait",
+                ),
+                  r && (e = r));
               }
-              var r = yield this.$3(e);
-              return r
+              var a = yield this.$3(e);
+              return a
                 ? e
                 : (o("WALogger")
                     .LOG(

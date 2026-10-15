@@ -25,7 +25,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        b(t) &&
+        S(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -43,7 +43,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        b(t) &&
+        S(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -61,7 +61,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        b(t) &&
+        S(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "pix_payment_request_web_enabled",
         )
@@ -76,7 +76,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        b(t) &&
+        S(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -94,7 +94,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        b(t) &&
+        S(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -116,7 +116,7 @@ __d(
             : e.user;
       return (
         t != null &&
-        b(t) &&
+        S(t) &&
         p() &&
         !o("WAWebABProps").getABPropConfigValue(
           "payments_receipt_and_state_details_kill_switch",
@@ -126,28 +126,36 @@ __d(
     function f(e) {
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
-        g(e) &&
+        y(e) &&
         o("WAWebABProps").getABPropConfigValue(
           "payments_receipt_and_state_copy_pix_key_p2p",
         )
       );
     }
     function g(e) {
+      return o("WAWebMobilePlatforms").isSMB() && y(e);
+    }
+    function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "payments_receipt_and_state_copy_pix_key_p2m",
+      );
+    }
+    function y(e) {
       return e.id.isUser() && !e.id.isBot() && !e.contact.isBusiness && _();
     }
-    function h(e) {
+    function C(e) {
       var t;
       if (!e) return !1;
       var n =
         (t = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : t.user;
-      return n == null ? !1 : v(n) || b(n);
+      return n == null ? !1 : R(n) || S(n);
     }
-    function y() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "payments_link_to_lite_consumer_enabled",
       );
     }
-    function C(e) {
+    function v(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
           t == null ? void 0 : t.user,
@@ -158,11 +166,11 @@ __d(
         );
       return n === "BR" && a === "BR";
     }
-    function b(e) {
+    function S(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e);
       return t === "BR";
     }
-    function v(e) {
+    function R(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""),
         n = o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA;
       return (
@@ -181,9 +189,11 @@ __d(
       (l.isBrazilPaymentStateUpdateSupported = p),
       (l.isBrazilPaymentDetailsAvailable = _),
       (l.isPixKeyReceiptAndStateAssignedOnSend = f),
-      (l.isWidInPaymentsCountry = h),
-      (l.isMessageWithLinkNfmEnabled = y),
-      (l.isBrazilToBrazilOrder = C));
+      (l.isReceiptAndStateP2mEligibleChat = g),
+      (l.isPixKeyReceiptAndStateP2mEnabled = h),
+      (l.isWidInPaymentsCountry = C),
+      (l.isMessageWithLinkNfmEnabled = b),
+      (l.isBrazilToBrazilOrder = v));
   },
   98,
 );

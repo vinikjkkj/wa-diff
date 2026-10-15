@@ -759,7 +759,11 @@ __d(
             s = t.senderLid,
             u = t.stanzaId,
             c = t.voipNode,
-            d = o("WAWebVoipDeferredBootStaleCalls").claimStaleCallStanza(i, l);
+            d = o("WAWebVoipDeferredBootStaleCalls").claimStaleCallStanza(
+              i,
+              l,
+              c,
+            );
           i.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
             o("WAWebVoipCallStateUtils").isCallTerminal(
               o("WAWebVoipLocalCallStateStore").getLocalCallState(),

@@ -4,11 +4,13 @@ __d(
     "DGWBestEffortCallbacks",
     "DGWConstants",
     "DGWExponentialBackoff",
+    "DGWInternalCertPriming",
     "DGWPinger",
     "DGWStream",
     "DGWStreamGroupCallbacks",
     "DGWTransportEvents",
     "DGWUtils",
+    "DGWWebSocketGating",
     "DGWWebSocketTransport",
     "GroupedStream",
     "IDGWLoggingContext",
@@ -494,8 +496,14 @@ __d(
           })()),
           (t.$31 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, n, a, i, l, s, u, c) {
-                var d = new t(
+              function* (e, n, a, i, l, s, u, c, d) {
+                d === void 0 && (d = !1);
+                var m = e !== "" ? e : n.connectEndpoint;
+                !d &&
+                  o("DGWInternalCertPriming").shouldPrimeInternalCert(m) &&
+                  o("DGWWebSocketGating").isInternalCertPrimingEnabled() &&
+                  (yield o("DGWInternalCertPriming").primeInternalCertOnce(m));
+                var p = new t(
                   e,
                   o("DGWWebSocketTransport").getWebSocketConnection,
                   a,
@@ -506,19 +514,19 @@ __d(
                   u,
                   c,
                 );
-                ((d.$1.onmessage = t.$32(d)),
-                  (d.$1.onopen = function () {
-                    (d.__markerPoint("onopen"),
+                ((p.$1.onmessage = t.$32(p)),
+                  (p.$1.onopen = function () {
+                    (p.__markerPoint("onopen"),
                       a.transportEstablished(e),
-                      d.$11 != null && d.$11.cancel(),
-                      d.$7 != null &&
-                        (d.$11 = new (o("DGWPinger").DGWPinger)(
-                          d.$7,
+                      p.$11 != null && p.$11.cancel(),
+                      p.$7 != null &&
+                        (p.$11 = new (o("DGWPinger").DGWPinger)(
+                          p.$7,
                           function () {
-                            d.$33();
+                            p.$33();
                           },
                           function () {
-                            d.abort(
+                            p.abort(
                               o("DGWStreamGroupCallbacks").DGWStreamGroupError
                                 .TRANSPORT_KEEPALIVE_TIMEOUT,
                               o("DGWStream").StreamError.KEEPALIVE_TIMEOUT,
@@ -526,61 +534,61 @@ __d(
                                 .KEEPALIVE_TIMEOUT,
                               "Aborting transport because of keepalive timeout",
                               "readyState:" +
-                                d.$1.readyState +
+                                p.$1.readyState +
                                 ", bufferedAmount:" +
-                                d.$1.bufferedAmount,
+                                p.$1.bufferedAmount,
                             );
                           },
                           l,
                         )));
                   }),
-                  (d.$1.onerror = function () {
-                    (d.__markerPoint("onerror"),
-                      d.$14.transportError(
+                  (p.$1.onerror = function () {
+                    (p.__markerPoint("onerror"),
+                      p.$14.transportError(
                         "onerror",
-                        "readyState: " + d.$1.readyState,
+                        "readyState: " + p.$1.readyState,
                       ));
                   }),
-                  (d.$1.onclose = t.$34(d)));
+                  (p.$1.onclose = t.$34(p)));
                 try {
-                  return yield t.getTransportPromise(d);
-                } catch (f) {
-                  if (d.$3) {
-                    var m = yield o(
-                      "DGWWebSocketTransport",
-                    ).primeInternalCertOnce(d.$1.url);
-                    if (m) {
-                      var p = "url:" + d.$1.url;
-                      (d.__markerPoint("internal_cert_priming_retry_attempt"),
-                        a.internalCertPrimingRetryAttempt(p));
+                  return yield t.getTransportPromise(p);
+                } catch (m) {
+                  if (!d && p.$3) {
+                    var _ = yield o(
+                      "DGWInternalCertPriming",
+                    ).primeInternalCertForRetryOnce(p.$1.url);
+                    if (_) {
+                      var f = "url:" + p.$1.url;
+                      (p.__markerPoint("internal_cert_priming_retry_attempt"),
+                        a.internalCertPrimingRetryAttempt(f));
                       try {
-                        var _ = yield t.$31(e, n, a, i, l, s, u, c);
+                        var g = yield t.$31(e, n, a, i, l, s, u, c, !0);
                         return (
-                          d.__markerPoint(
+                          p.__markerPoint(
                             "internal_cert_priming_retry_success",
                           ),
-                          a.internalCertPrimingRetrySuccess(p),
-                          _
+                          a.internalCertPrimingRetrySuccess(f),
+                          g
                         );
                       } catch (e) {
                         throw (
-                          d.__markerPoint(
+                          p.__markerPoint(
                             "internal_cert_priming_retry_failure",
                           ),
                           a.internalCertPrimingRetryFailure(
                             r("getErrorSafe")(e).message,
-                            p,
+                            f,
                           ),
                           e
                         );
                       }
                     }
                   }
-                  throw f;
+                  throw m;
                 }
               },
             );
-            function a(t, n, r, o, a, i, l, s) {
+            function a(t, n, r, o, a, i, l, s, u) {
               return e.apply(this, arguments);
             }
             return a;

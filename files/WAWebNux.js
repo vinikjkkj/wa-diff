@@ -61,6 +61,7 @@ __d(
       BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
       CALLS_TAB_NOTIFICATIONS_OFF_BANNER: "calls_tab_notifications_off_banner",
       TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
+      CALLS_TAB_PERMISSIONS_OFF_BANNER: "calls_tab_permissions_off_banner",
     };
     function l(e) {
       return "community_admin_promote_" + e;

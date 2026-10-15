@@ -8,6 +8,7 @@ __d(
     "WAWebBrazilPaymentStateUpdatePayload",
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatGetters",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebCommonMsgUtils",
     "WAWebCurrentUser",
     "WAWebMsgGetters",
@@ -23,8 +24,15 @@ __d(
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e,
+      s,
+      u = new Set([
+        (s = o("WAWebCommonMsgSubtypeTypes")).MsgSubtype.Create,
+        s.MsgSubtype.BbProCreate,
+        s.MsgSubtype.ScheduledMessageCreated,
+        s.MsgSubtype.BrazilPaymentReceiptAdded,
+      ]);
+    function c(e) {
       var t = e.type,
         n = e.subtype,
         a;
@@ -85,11 +93,10 @@ __d(
           : t === o("WAWebMsgType").MSG_TYPE.BROADCAST_NOTIFICATION ||
               t === o("WAWebMsgType").MSG_TYPE.NOTIFICATION ||
               t === o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION
-            ? n === "create" ||
-              n === "bb_pro_create" ||
-              n === "scheduled_message_created"
-              ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
-              : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
+            ? (a =
+                n != null && u.has(n)
+                  ? o("WAWebCommonMsgUtils").EventType.NOTEWORTHY
+                  : o("WAWebCommonMsgUtils").EventType.IGNORE)
             : t === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
                 o("WAWebUserPrefsMeUser").isMePrimary(e.from)
               ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
@@ -101,7 +108,7 @@ __d(
                       o("WAWebViewMode.flow").ViewModeType
                         .CALL_LOG_AD_HOC_GROUP_CALL
                       ? o("WAWebCommonMsgUtils").EventType.IGNORE
-                      : u(e))
+                      : d(e))
                 : e.broadcast === !0
                   ? r("WAWebWid").isBroadcast(e.id.remote)
                     ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
@@ -137,30 +144,30 @@ __d(
                                   ).isSilentProtocolMsg(e))) ||
                               t === o("WAWebMsgType").MSG_TYPE.REACTION
                             ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-                            : (a = c(e)),
+                            : (a = m(e)),
         a
       );
     }
-    function u(e) {
+    function d(e) {
       return o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
         e.viewMode,
       )
         ? o("WAWebCommonMsgUtils").EventType.AMBIENT
         : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
     }
-    function c(e) {
+    function m(e) {
       return o(
         "WAWebBrazilPaymentStateUpdatePayload",
       ).isBrazilPaymentStateUpdateMsg(e) && r("justknobx")._("6395")
         ? o("WAWebCommonMsgUtils").EventType.IGNORE
         : o("WAWebCommonMsgUtils").EventType.DEFAULT;
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i = t.id,
             l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
@@ -237,10 +244,10 @@ __d(
             }
           );
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.eventTypeFromMsgType = s), (l.genOutgoingMsgData = d));
+    ((l.eventTypeFromMsgType = c), (l.genOutgoingMsgData = p));
   },
   98,
 );

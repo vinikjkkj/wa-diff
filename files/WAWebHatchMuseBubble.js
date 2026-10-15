@@ -7,15 +7,51 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return t ||
-        e == null ||
-        !o("WAWebBotUtils").isHatchBot(e) ||
-        !o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled()
+    var e = {
+      "--WAWeb-minimal-msg-bubble-shadow": "none",
+      "--WAWeb-minimal-tail-shadow-opacity": "0",
+    };
+    function s(e, t) {
+      return e == null || !o("WAWebBotUtils").isHatchBot(e)
         ? null
-        : o("WAWebHatchMuseBubbleTheme.stylex").museBubbleLight;
+        : o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+          ? t
+            ? o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleDark
+            : o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleLight
+          : !t && o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled()
+            ? o("WAWebHatchMuseBubbleTheme.stylex").museBubbleLight
+            : null;
     }
-    l.getHatchMuseBubbleStyle = e;
+    function u(e, t) {
+      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+        ? { isMinimalMode: !1, isVibrant: !1 }
+        : t;
+    }
+    function c(t, n) {
+      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(t)
+        ? babelHelpers.extends({}, n, e)
+        : n;
+    }
+    function d(e, t) {
+      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+        ? t
+          ? o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperDark
+          : o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperLight
+        : null;
+    }
+    function m(e, t, n) {
+      var r = d(e, t);
+      if (r == null) return n;
+      var o = {};
+      for (var a of Object.keys(n.backgroundWrapperStyle))
+        a.startsWith("--") || (o[a] = n.backgroundWrapperStyle[a]);
+      return { backgroundWrapperStyle: o, wallpaperStyle: r };
+    }
+    ((l.getHatchMuseBubbleStyle = s),
+      (l.getHatchMuseChatThemeFlags = u),
+      (l.withHatchMuseInlineOverrides = c),
+      (l.getHatchMuseWallpaperStyle = d),
+      (l.getHatchMusePanelTheme = m));
   },
   98,
 );

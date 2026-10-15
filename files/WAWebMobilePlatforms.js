@@ -5,6 +5,7 @@ __d(
     "WAWebEnvironment",
     "WAWebMobilePlatformPersistence",
     "asyncToGeneratorRuntime",
+    "cr:16728",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,23 +19,27 @@ __d(
       },
       c;
     function d() {
-      return r("WAWebEnvironment").isGuest
-        ? null
-        : (c == null &&
-            o("WALogger").ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Failed to get primary platform",
-                ])),
-            ),
-          c);
+      return r("WAWebEnvironment").isGuest ? null : c;
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    function m() {
+      var t = d();
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        t == null &&
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Failed to get primary platform",
+              ])),
+          ),
+        t
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t === void 0 && (t = !0),
             t &&
               (yield o("WAWebMobilePlatformPersistence").setLastMobilePlatform(
@@ -50,24 +55,36 @@ __d(
               e,
             ));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _() {
+    function f() {
       return c === u.SMBA || c === u.SMBI;
     }
-    function f() {
-      return c === u.ANDROID || c === u.SMBA;
-    }
     function g() {
-      return c === u.IPHONE || c === u.IPAD || c === u.SMBI;
+      return (
+        c === u.ANDROID ||
+        c === u.SMBA ||
+        (n("cr:16728") == null
+          ? void 0
+          : n("cr:16728").isAndroidPlatform(c)) === !0
+      );
+    }
+    function h() {
+      return (
+        c === u.IPHONE ||
+        c === u.IPAD ||
+        c === u.SMBI ||
+        (n("cr:16728") == null ? void 0 : n("cr:16728").isIOSPlatform(c)) === !0
+      );
     }
     ((l.PLATFORMS = u),
-      (l.getMobilePlatform = d),
-      (l.setMobilePlatform = m),
-      (l.isSMB = _),
-      (l.isAndroidPrimary = f),
-      (l.isIOSPrimary = g));
+      (l.getMaybeMobilePlatform = d),
+      (l.getMobilePlatform = m),
+      (l.setMobilePlatform = p),
+      (l.isSMB = f),
+      (l.isAndroidPrimary = g),
+      (l.isIOSPrimary = h));
   },
   98,
 );

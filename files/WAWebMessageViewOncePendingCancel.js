@@ -12,9 +12,21 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = { inactiveIconSvg: { opacity: "xbyyjgo", $$css: !0 } };
+      c = {
+        inactiveIconSvg: { opacity: "xbyyjgo", $$css: !0 },
+        spinner: {
+          position: "x10l6tqk",
+          top: "x13vifvy",
+          insetInlineEnd: "xtijo5x",
+          bottom: "x1ey2m1c",
+          insetInlineStart: "x1o0tod",
+          left: null,
+          right: null,
+          $$css: !0,
+        },
+      };
     function d(e) {
-      var t = o("react-compiler-runtime").c(16),
+      var t = o("react-compiler-runtime").c(15),
         n = e.onClick,
         a = r("useWAWebStaticButtonA11y")(n),
         i = a[0],
@@ -60,12 +72,8 @@ __d(
         : (y = t[8]);
       var C;
       t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = "x10l6tqk x13vifvy xtijo5x x1ey2m1c x1o0tod"), (t[9] = C))
-        : (C = t[9]);
-      var b;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = u.jsx(o("WAWebFlex.react").FlexRow, {
-            className: C,
+        ? ((C = u.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: c.spinner,
             align: "center",
             justify: "center",
             children: u.jsx(o("WAWebSpinner.react").Spinner, {
@@ -74,26 +82,26 @@ __d(
               stroke: 5,
             }),
           })),
-          (t[10] = b))
-        : (b = t[10]);
-      var v;
+          (t[9] = C))
+        : (C = t[9]);
+      var b;
       return (
-        t[11] !== i || t[12] !== p || t[13] !== _ || t[14] !== y
-          ? ((v = u.jsxs(
+        t[10] !== i || t[11] !== p || t[12] !== _ || t[13] !== y
+          ? ((b = u.jsxs(
               "div",
               babelHelpers.extends(
                 { className: _, ref: i, "aria-label": f },
                 p,
-                { children: [y, b] },
+                { children: [y, C] },
               ),
             )),
-            (t[11] = i),
-            (t[12] = p),
-            (t[13] = _),
-            (t[14] = y),
-            (t[15] = v))
-          : (v = t[15]),
-        v
+            (t[10] = i),
+            (t[11] = p),
+            (t[12] = _),
+            (t[13] = y),
+            (t[14] = b))
+          : (b = t[14]),
+        b
       );
     }
     l.default = d;

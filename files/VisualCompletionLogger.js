@@ -23,11 +23,31 @@ __d(
     var e,
       s,
       u = "manualVCPointCandidate",
-      c = 1;
-    function d() {
+      c = "firstContentfulPaintInHTRoot",
+      d = "largestContentfulPaintInHTRoot",
+      m = 1;
+    function p() {
       return { bottom: 0, left: 0, right: 0, top: 0 };
     }
-    var m = (function () {
+    function _(e, t) {
+      var n = e.rectangle;
+      return {
+        data: {
+          height: Math.floor(n.bottom - n.top),
+          mutationType: e.mutationType,
+          pixels: e.pixels,
+          tagName: o("VisualCompletionUtil").getTagName(t),
+          type: e.type,
+          veid: e.veid,
+          width: Math.floor(n.right - n.left),
+          x: Math.floor(n.left),
+          y: Math.floor(n.top),
+        },
+        element: e.element,
+        timestamp: e.timestamp,
+      };
+    }
+    var f = (function () {
       function t(e, t, n, a, i) {
         var l;
         ((this.bgCheckCount = 0),
@@ -148,7 +168,7 @@ __d(
         (n.addVCPointCandidate = function (t, n) {
           (n === void 0 && (n = {}), this.addMarkerPoint(u, t, n));
         }),
-        (n.addVisualElement = function (t, n, r, a, i, l, s, u, d) {
+        (n.addVisualElement = function (t, n, r, a, i, l, s, u, c) {
           this.scrolled &&
             ((this.currentScrollY = o("VisualCompletionUtil").getScrollPosition(
               this,
@@ -159,11 +179,11 @@ __d(
             s != null &&
             (s.bottom === s.top || s.left === s.right) &&
             (e = !1);
-          var m = {
+          var d = {
             element: new (o("WebAPIs").WeakRef)(n),
             record: {
               detached: !1,
-              imgLoadEnd: d,
+              imgLoadEnd: c,
               imgLoadStart: u,
               isMediaVCElement: !1,
               mutationSeq: t,
@@ -172,13 +192,13 @@ __d(
               paintTime: i,
               rectAtMutation: s,
               scrollY: this.currentScrollY,
-              veid: c++,
+              veid: m++,
               visibleAtMutation: e,
               visibleAtTraceEnd: !1,
             },
           };
-          (o("VisualCompletionUtil").getImageNaturalSize(n, m),
-            this.visualChangeRecordList.push(m));
+          (o("VisualCompletionUtil").getImageNaturalSize(n, d),
+            this.visualChangeRecordList.push(d));
         }),
         (n.logLoadingElementStart = function (t, n, r) {
           this.$4.set(t, {
@@ -257,76 +277,90 @@ __d(
             viewport: this.$7,
             visuallyComplete: 0,
           };
-          (r("addAnnotations")(this.annotations, {
+          r("addAnnotations")(this.annotations, {
             int: {
               mutationRootCount: this.mutationRoots.size(),
               mutatedElementCount: this.mutatedElementCount,
               visualChangeRecordCount: this.visualChangeRecordList.length,
               paintedElementCount: this.$2.length,
             },
-          }),
-            this.$2.length &&
-              (this.addMarkerPoint("FP", this.$2[this.$2.length - 1].timestamp),
-              this.$2.forEach(function (e) {
-                var n = o("WebAPIs").derefOnlyAttachedElement(e.element);
-                if (n) {
-                  var r = e.pagelet;
-                  if (i.vcWithoutImage === 0 && e.type === "component") {
-                    var a = {
-                      height: Math.floor(e.rectangle.bottom - e.rectangle.top),
-                      mutationType: e.mutationType,
-                      tagName: o("VisualCompletionUtil").getTagName(n),
-                      type: e.type,
-                      width: Math.floor(e.rectangle.right - e.rectangle.left),
-                      x: Math.floor(e.rectangle.left),
-                      y: Math.floor(e.rectangle.top),
-                    };
-                    (r && (a.pagelet = r.name),
-                      (i.vcWithoutImage = e.latency),
-                      i.markerPoints.set("vcWithoutImage", {
-                        data: a,
-                        element: new (o("WebAPIs").WeakRef)(n),
-                        timestamp: e.latency + t.startTime,
-                      }),
-                      i.markerPoints.set("lastMutationBeforeVC", {
-                        element: new (o("WebAPIs").WeakRef)(n),
-                        timestamp: e.mutationTimestamp,
-                      }));
-                  }
-                  if (i.visuallyComplete === 0) {
-                    var l = {
-                      height: Math.floor(e.rectangle.bottom - e.rectangle.top),
-                      mutationType: e.mutationType,
-                      tagName: o("VisualCompletionUtil").getTagName(n),
-                      type: e.type,
-                      width: Math.floor(e.rectangle.right - e.rectangle.left),
-                      x: Math.floor(e.rectangle.left),
-                      y: Math.floor(e.rectangle.top),
-                    };
-                    (r && (l.pagelet = r.name),
-                      (i.visuallyComplete = e.latency),
-                      i.markerPoints.set("visuallyComplete", {
-                        data: l,
-                        element: new (o("WebAPIs").WeakRef)(n),
-                        timestamp: e.latency + t.startTime,
-                      }),
-                      (i.scrollY = e.scrollY));
-                  }
-                  switch (
-                    ((i.speedIndex += (e.pixels / t.$9) * e.latency), e.type)
-                  ) {
-                    case "component":
-                      (i.compNum++, (i.compPixels += e.pixels));
-                      break;
-                    case "img":
-                      (i.imgNum++, (i.imgPixels += e.pixels));
-                      break;
-                    case "bg":
-                      (i.bgNum++, (i.bgPixels += e.pixels));
-                      break;
-                  }
+          });
+          var l = null,
+            s = null;
+          (this.$2.length &&
+            (this.addMarkerPoint("FP", this.$2[this.$2.length - 1].timestamp),
+            this.$2.forEach(function (e) {
+              var n = o("WebAPIs").derefOnlyAttachedElement(e.element);
+              if (n) {
+                t.config.log_contentful_paint_in_ht_root === !0 &&
+                  e.pixels > 0 &&
+                  t.isOutsideLoadingStateInHTRoot(n) &&
+                  ((l == null || e.timestamp < l.paint.timestamp) &&
+                    (l = { element: n, paint: e }),
+                  (s == null ||
+                    e.pixels > s.paint.pixels ||
+                    (e.pixels === s.paint.pixels &&
+                      e.timestamp > s.paint.timestamp)) &&
+                    (s = { element: n, paint: e }));
+                var r = e.pagelet;
+                if (i.vcWithoutImage === 0 && e.type === "component") {
+                  var a = {
+                    height: Math.floor(e.rectangle.bottom - e.rectangle.top),
+                    mutationType: e.mutationType,
+                    tagName: o("VisualCompletionUtil").getTagName(n),
+                    type: e.type,
+                    width: Math.floor(e.rectangle.right - e.rectangle.left),
+                    x: Math.floor(e.rectangle.left),
+                    y: Math.floor(e.rectangle.top),
+                  };
+                  (r && (a.pagelet = r.name),
+                    (i.vcWithoutImage = e.latency),
+                    i.markerPoints.set("vcWithoutImage", {
+                      data: a,
+                      element: new (o("WebAPIs").WeakRef)(n),
+                      timestamp: e.latency + t.startTime,
+                    }),
+                    i.markerPoints.set("lastMutationBeforeVC", {
+                      element: new (o("WebAPIs").WeakRef)(n),
+                      timestamp: e.mutationTimestamp,
+                    }));
                 }
-              })),
+                if (i.visuallyComplete === 0) {
+                  var u = {
+                    height: Math.floor(e.rectangle.bottom - e.rectangle.top),
+                    mutationType: e.mutationType,
+                    tagName: o("VisualCompletionUtil").getTagName(n),
+                    type: e.type,
+                    width: Math.floor(e.rectangle.right - e.rectangle.left),
+                    x: Math.floor(e.rectangle.left),
+                    y: Math.floor(e.rectangle.top),
+                  };
+                  (r && (u.pagelet = r.name),
+                    (i.visuallyComplete = e.latency),
+                    i.markerPoints.set("visuallyComplete", {
+                      data: u,
+                      element: new (o("WebAPIs").WeakRef)(n),
+                      timestamp: e.latency + t.startTime,
+                    }),
+                    (i.scrollY = e.scrollY));
+                }
+                switch (
+                  ((i.speedIndex += (e.pixels / t.$9) * e.latency), e.type)
+                ) {
+                  case "component":
+                    (i.compNum++, (i.compPixels += e.pixels));
+                    break;
+                  case "img":
+                    (i.imgNum++, (i.imgPixels += e.pixels));
+                    break;
+                  case "bg":
+                    (i.bgNum++, (i.bgPixels += e.pixels));
+                    break;
+                }
+              }
+            })),
+            l != null && i.markerPoints.set(c, _(l.paint, l.element)),
+            s != null && i.markerPoints.set(d, _(s.paint, s.element)),
             this.logPagelets(),
             this.logPixelProgress(),
             n &&
@@ -340,24 +374,30 @@ __d(
                 data: {},
                 timestamp: i.vcWithoutImage + this.startTime,
               })));
-          var l = e();
-          ((i.vcCalculationOverhead = l - a),
+          var u = e();
+          ((i.vcCalculationOverhead = u - a),
             this.setupMetaData(i),
             this.logCssBgElementsMetaData(),
             (this.reported = !0));
-          var s = e() - l;
+          var m = e() - u;
           return (
             r("addAnnotations")(i.annotations, {
               double: {
-                vcMetaDataLoggingLatency: s,
+                vcMetaDataLoggingLatency: m,
                 vcTotalLoggingOverhead:
-                  s +
+                  m +
                   i.cssBgScanOverhead +
                   i.mutationProcessingOverhead +
                   i.vcCalculationOverhead,
               },
             }),
             i
+          );
+        }),
+        (n.isOutsideLoadingStateInHTRoot = function (t) {
+          return o("VisualCompletionUtil").isOutsideLoadingStateInHTRoot(
+            t,
+            this,
           );
         }),
         (n.cleanupPaintedElements = function () {
@@ -438,8 +478,8 @@ __d(
                   s,
                   i.rectangle,
                 ),
-                d = o("VisualCompletionUtilCommon").getPixels(u);
-              if (d === 0 || (e.measureOriginalViewport && l > e.$7.height))
+                c = o("VisualCompletionUtilCommon").getPixels(u);
+              if (c === 0 || (e.measureOriginalViewport && l > e.$7.height))
                 return;
               if (
                 (((n = t.resourceTiming) == null ? void 0 : n.responseEnd) ==
@@ -450,10 +490,10 @@ __d(
                 ((r = t.resourceTiming) == null ? void 0 : r.responseEnd) !=
                   null)
               ) {
-                var m = t.resourceTiming,
-                  p = m.responseEnd,
+                var d = t.resourceTiming,
+                  p = d.responseEnd,
                   _ = e.findPagelet(a);
-                if (m.startTime >= e.startTime && p > i.timestamp) {
+                if (d.startTime >= e.startTime && p > i.timestamp) {
                   var f = {
                     children: [],
                     element: new (o("WebAPIs").WeakRef)(a),
@@ -466,12 +506,12 @@ __d(
                     offsetTop: l,
                     pagelet: _,
                     parent: i,
-                    pixels: d,
+                    pixels: c,
                     rectangle: u,
                     scrollY: i.scrollY,
                     timestamp: p,
                     type: "bg",
-                    veid: String(c++),
+                    veid: String(m++),
                   };
                   (i.children.push(f), e.$3.set(a, f), e.$2.push(f));
                 }
@@ -480,18 +520,17 @@ __d(
           });
         }),
         (n.getRelativeBoundingClientRect = function (t, n) {
-          var e = d();
-          return typeof t.getBoundingClientRect != "function"
-            ? e
-            : ((e = o("VisualCompletionUtilCommon").castToRect(
-                t.getBoundingClientRect(),
-              )),
-              {
-                bottom: n != null ? n + (e.bottom - e.top) : e.bottom,
-                left: e.left,
-                right: e.right,
-                top: n != null ? n : e.top,
-              });
+          var e,
+            r =
+              (e = o("VisualCompletionUtil").getMeasuredRect(t)) != null
+                ? e
+                : p();
+          return {
+            bottom: n != null ? n + (r.bottom - r.top) : r.bottom,
+            left: r.left,
+            right: r.right,
+            top: n != null ? n : r.top,
+          };
         }),
         (n.findFirstVisibleChild = function (t) {
           for (
@@ -503,11 +542,9 @@ __d(
                   a;
                 if (
                   (n.forEach(function (n) {
-                    if (typeof n.getBoundingClientRect == "function") {
-                      var i = o("VisualCompletionUtilCommon").castToRect(
-                          n.getBoundingClientRect(),
-                        ),
-                        l = o("VisualCompletionUtilCommon").getPixels(i);
+                    var i = o("VisualCompletionUtil").getMeasuredRect(n);
+                    if (i != null) {
+                      var l = o("VisualCompletionUtilCommon").getPixels(i);
                       (l > 0 &&
                         (i.bottom <= 0 ||
                           i.right <= 0 ||
@@ -531,7 +568,7 @@ __d(
         }),
         (n.getRectangle = function (t, n) {
           var e = this.findFirstVisibleChild(t);
-          if (e == null) return d();
+          if (e == null) return p();
           var r = this.getRelativeBoundingClientRect(e),
             a = r.bottom,
             i = r.left,
@@ -976,7 +1013,7 @@ __d(
         t
       );
     })();
-    l.default = m;
+    l.default = f;
   },
   98,
 );

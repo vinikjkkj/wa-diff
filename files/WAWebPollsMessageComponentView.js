@@ -175,14 +175,12 @@ __d(
       ) {
         var B;
         A = function (t) {
-          var e = D(n);
-          e != null &&
-            o("WAWebPollOptionsRenderUtils").toggleOption({
-              optionLocalId: t,
-              votedForOptions: N,
-              selectableOptionsCount: O,
-              msg: e,
-            });
+          o("WAWebPollOptionsRenderUtils").toggleOption({
+            optionLocalId: t,
+            votedForOptions: N,
+            selectableOptionsCount: O,
+            msgKey: n,
+          });
         };
         var W;
         (t[21] !== l || t[22] !== n || t[23] !== x
@@ -461,7 +459,7 @@ __d(
                   r("WAWebPollsExpandedPhotoDrawer"),
                   babelHelpers.extends(
                     {
-                      msg: n,
+                      msgKey: c,
                       chatName:
                         (e =
                           (t = o("WAWebFrontendMsgGetters").getChat(

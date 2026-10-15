@@ -1,8 +1,10 @@
 __d(
   "WAWebHandleRetryRequest",
   [
+    "Promise",
     "WAJids",
     "WALogger",
+    "WAWebAddonRetryRequestUtils",
     "WAWebApiContact",
     "WAWebApiDeviceList",
     "WAWebHandleRetryRequestNonMigratedLog",
@@ -35,14 +37,14 @@ __d(
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S;
-    function R(e) {
-      return L.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R;
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield T(e);
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield D(e);
           if (t.error) {
             o("WALogger")
               .WARN(
@@ -80,7 +82,7 @@ __d(
                   function* () {
                     try {
                       var t = p.isStatus() || i.isStatus(),
-                        s = E(e, t)
+                        s = k(e, t)
                           ? yield o(
                               "WAWebProcessRetryKeyBundle",
                             ).loadGroupSentMessage(i, e.originalMsgId)
@@ -108,11 +110,11 @@ __d(
                         i.toLogString(),
                         b,
                       );
-                      var S = yield k(i, e, b);
+                      var S = yield I(i, e, b);
                       if (S == null) return;
                       var R = S.identity,
                         L = S.isLidBot,
-                        I = S.originalMsgId,
+                        E = S.originalMsgId,
                         T = S.requester;
                       if (
                         (r("gkx")("26258") ||
@@ -121,7 +123,7 @@ __d(
                             i,
                             "RetryReceiptReceived",
                             "originalMsgId:" +
-                              I +
+                              E +
                               " - requester:" +
                               T.toString(),
                           ),
@@ -143,7 +145,7 @@ __d(
                             chat: i,
                             identity: R,
                             loadedSentMessage: s != null ? s : void 0,
-                            originalMsgId: I,
+                            originalMsgId: E,
                             requester: T,
                             retryCount: g,
                             sessionScope: v,
@@ -163,7 +165,7 @@ __d(
                             ).getMsgIfAuthorized({
                               chat: i,
                               identity: R,
-                              originalMsgId: I,
+                              originalMsgId: E,
                               requester: $,
                               retryCount: g,
                               sessionScope: v,
@@ -220,10 +222,10 @@ __d(
               );
             });
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       var n = e.retryCount,
         r = e.type;
       return (
@@ -233,12 +235,12 @@ __d(
         r !== "voip_1x1_retry"
       );
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = t.from,
             i = t.isLid,
             l = i === void 0 ? !1 : i,
@@ -348,19 +350,19 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
-            i = x(e);
+            i = N(e);
           if (
             (o("WALogger").LOG(
               h ||
@@ -426,17 +428,14 @@ __d(
                   remote: i,
                   id: e.originalMsgId,
                 }),
-                c = [u, o("WAWebLidMigrationUtils").getAlternateMsgKey(u)]
-                  .filter(Boolean)
-                  .map(function (e) {
-                    return e.toString();
-                  }),
+                c = [
+                  u,
+                  o("WAWebLidMigrationUtils").getAlternateMsgKey(u),
+                ].filter(Boolean),
                 d;
               if (e.type === "retry") {
-                var m = (yield o("WAWebSchemaMessage")
-                  .getMessageTable()
-                  .bulkGet(c, !1)).filter(Boolean);
-                if (m.length === 0)
+                var m = yield $(c, e.originalMsgId);
+                if (m == null)
                   return (
                     o("WALogger").LOG(
                       v ||
@@ -450,14 +449,7 @@ __d(
                       ).selectRetryErrorType(e),
                     }
                   );
-                (m.length > 1 &&
-                  o("WALogger").WARN(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
-                        "getActualChatInfo: multiple messages found",
-                      ])),
-                  ),
-                  (d = o("WAWebWidFactory").createWidFromWidLike(m[0].to)));
+                d = m;
               } else (e.type, (d = e.from));
               var p;
               if (e.from.isBot()) p = e.from;
@@ -474,20 +466,56 @@ __d(
                   (s = e.from.device) != null ? s : 0,
                 ),
                 g = yield o("WAWebSchemaChat").getChatTable().get(d.toString()),
-                R = g == null ? void 0 : g.lidOriginType,
-                L =
+                S = g == null ? void 0 : g.lidOriginType,
+                R =
                   (g == null ? void 0 : g.accountLid) != null
                     ? o("WAWebWidFactory").createWidFromWidLike(g.accountLid)
                     : void 0;
-              return { chat: d, from: f, lidOrigin: R, accountLid: L };
+              return { chat: d, from: f, lidOrigin: S, accountLid: R };
             }
           }
           return { chat: i, from: e.from };
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(t) {
+    function $(e, t) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r,
+            a = (yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .bulkGet(
+                e.map(function (e) {
+                  return e.toString();
+                }),
+                !1,
+              )).filter(Boolean);
+          if (
+            (a.length > 1 &&
+              o("WALogger").WARN(
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                    "getActualChatInfo: multiple messages found",
+                  ])),
+              ),
+            a.length > 0)
+          )
+            return o("WAWebWidFactory").createWidFromWidLike(a[0].to);
+          var i = yield (R || (R = n("Promise"))).all(
+            e.map(function (e) {
+              return o("WAWebAddonRetryRequestUtils").getSentAddonMsgRecord(e);
+            }),
+          );
+          return (r = i.find(Boolean)) == null ? void 0 : r.msgData.id.remote;
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(t) {
       var n = t.from,
         r = t.recipient;
       if (n.isBot() && r != null) return r;
@@ -520,7 +548,7 @@ __d(
       }
       return n;
     }
-    ((l.handleRetryRequest = R), (l.getTargetChat = x));
+    ((l.handleRetryRequest = L), (l.getTargetChat = N));
   },
   98,
 );

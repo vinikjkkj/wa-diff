@@ -1,11 +1,11 @@
 __d(
   "processRelayPrefetchURIsPayload",
   [
+    "CometFeedImagePrefetchConfig",
     "CometImagePrefetchCache",
     "ExecutionEnvironment",
     "getCometImageClientDPR",
     "getCometImageWidthForSurface",
-    "gkx",
     "rewriteCometImageCDNParamsMaybe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,7 +13,7 @@ __d(
     var e;
     function s(t) {
       if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
-        var n = r("gkx")("25523"),
+        var n = r("CometFeedImagePrefetchConfig").dedupe,
           a = {
             innerHeight: window.innerHeight,
             innerWidth: window.innerWidth,

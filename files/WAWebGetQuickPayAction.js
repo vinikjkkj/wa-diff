@@ -14,10 +14,10 @@ __d(
         },
       };
     };
-    function u(t, n, r) {
-      var a = o("WAWebOrderGatingUtils").QuickPayProductTypeGating.cast(n);
-      return a && o("WAWebOrderGatingUtils").isOrderDetailsQuickPayEnabled(a)
-        ? e(r)
+    function u(t, n) {
+      var r = o("WAWebOrderGatingUtils").QuickPayProductTypeGating.cast(t);
+      return r && o("WAWebOrderGatingUtils").isOrderDetailsQuickPayEnabled(r)
+        ? e(n)
         : null;
     }
     l.getQuickPayAction = u;

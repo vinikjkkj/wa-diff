@@ -44,20 +44,21 @@ __d(
       updateChatCapiThreadControl: function (n) {
         var t = n.consumerLid,
           r = n.consumerPhoneNumber,
-          a = n.shouldSuppressNotification,
-          i = n.status,
-          l = n.suggestedRepliesEnabled,
-          c = n.timestampMs;
+          a = n.lastHandoffActor,
+          i = n.shouldSuppressNotification,
+          l = n.status,
+          c = n.suggestedRepliesEnabled,
+          d = n.timestampMs;
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[BizAI] updateChatCapiThreadControl status=",
               "",
             ])),
-          i,
+          l,
         );
-        var d = f(t, r);
-        d != null
+        var m = f(t, r);
+        m != null
           ? (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -65,14 +66,18 @@ __d(
                   " chat=",
                   "",
                 ])),
-              i,
-              d.id.toLogString(),
+              l,
+              m.id.toLogString(),
             ),
             o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
-              chat: d,
-              options: { suppressNotification: a, suggestedRepliesEnabled: l },
-              status: i,
-              timestampMs: c,
+              chat: m,
+              options: {
+                suppressNotification: i,
+                suggestedRepliesEnabled: c,
+                lastHandoffActor: a,
+              },
+              status: l,
+              timestampMs: d,
             }))
           : o("WALogger")
               .ERROR(
@@ -107,6 +112,7 @@ __d(
                   options: {
                     suppressNotification: !0,
                     suggestedRepliesEnabled: u.suggestedRepliesEnabled,
+                    lastHandoffActor: u.lastHandoffActor,
                   },
                   status: u.status,
                   timestampMs: u.timestampMs,

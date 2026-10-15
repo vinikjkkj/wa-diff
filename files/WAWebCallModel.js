@@ -69,6 +69,8 @@ __d(
             (n.shouldShowPostCallSurvey = !1),
             (n.postCallSurveyInteracted = !1),
             (n.wasEverConnected = !1),
+            (n.wasEverActive = !1),
+            (n.didRefreshGroupInfoOnMismatch = !1),
             (n.callLogResult = null),
             (n.userEndedCall = !1),
             (n.callFailedReason = null),
@@ -113,6 +115,8 @@ __d(
               ),
               o("WAWebVoipCallStateUtils").isCallConnected(t) &&
                 (this.wasEverConnected = !0),
+              o("WAWebVoipCallStateUtils").isCallActive(t) &&
+                (this.wasEverActive = !0),
               this.$Call$p_16(e),
               !r("WAWebEnvironment").isWindows &&
                 this.wasEverConnected &&

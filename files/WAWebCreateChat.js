@@ -16,6 +16,7 @@ __d(
     "WAWebBotStaticProfiles",
     "WAWebBotTypes",
     "WAWebChatOriginTypes",
+    "WAWebChatViewMode.flow",
     "WAWebContactSystemMsg",
     "WAWebCtwaAGMUtils",
     "WAWebEphemeralityResolver",
@@ -478,7 +479,8 @@ __d(
         s,
         u,
         c,
-        d = {
+        d,
+        m = {
           id: t.id.toString(),
           accountLid: (n = t.accountLid) == null ? void 0 : n.toString(),
           t: t.t,
@@ -494,24 +496,28 @@ __d(
           tcTokenSenderTimestamp:
             (s = t.tcTokenSenderTimestamp) != null ? s : void 0,
           bizBotSystemMsgType: t.bizBotSystemMsgType,
+          chatViewMode:
+            (u = t.chatViewMode) != null
+              ? u
+              : o("WAWebChatViewMode.flow").ChatViewModeType.VISIBLE,
           lidOriginType: t.lidOriginType,
-          createdLocally: (u = t.createdLocally) != null ? u : !1,
+          createdLocally: (c = t.createdLocally) != null ? c : !1,
         };
-      ((d.disappearingModeTrigger =
+      ((m.disappearingModeTrigger =
         (t.disappearingModeTrigger != null, t.disappearingModeTrigger)),
-        (d.disappearingModeInitiatedByMe =
-          (c = t.disappearingModeInitiatedByMe) != null ? c : void 0));
-      var m = t;
-      (m.isUsernameThreadAtCreation != null &&
-        (d.isUsernameThreadAtCreation = m.isUsernameThreadAtCreation),
-        m.isSenderNewAccount != null &&
-          (d.isSenderNewAccount = m.isSenderNewAccount),
-        t.name != null && (d.name = t.name),
-        t.isReadOnly != null && (d.isReadOnly = t.isReadOnly),
-        t.muteExpiration != null && (d.muteExpiration = t.muteExpiration));
+        (m.disappearingModeInitiatedByMe =
+          (d = t.disappearingModeInitiatedByMe) != null ? d : void 0));
+      var p = t;
+      (p.isUsernameThreadAtCreation != null &&
+        (m.isUsernameThreadAtCreation = p.isUsernameThreadAtCreation),
+        p.isSenderNewAccount != null &&
+          (m.isSenderNewAccount = p.isSenderNewAccount),
+        t.name != null && (m.name = t.name),
+        t.isReadOnly != null && (m.isReadOnly = t.isReadOnly),
+        t.muteExpiration != null && (m.muteExpiration = t.muteExpiration));
       try {
-        var p = t;
-        p.originalLid != null && (d.originalLid = p.originalLid.toString());
+        var _ = t;
+        _.originalLid != null && (m.originalLid = _.originalLid.toString());
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -525,7 +531,7 @@ __d(
             "createChat-lid-offline-resume-workaround-failed-conversion",
           );
       }
-      return d;
+      return m;
     }
     function T(e) {
       return o("WAFilterObjectNullishProps").filterObjectNullishProps(I(e));

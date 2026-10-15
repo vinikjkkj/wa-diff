@@ -38,6 +38,7 @@ __d(
         observeTextMutation: !1,
         retain_element_reference: r("gkx")("4022") || r("gkx")("12296"),
         use_image_download_tracker: r("gkx")("6123"),
+        log_contentful_paint_in_ht_root: !1,
         log_lcp_image_url: r("gkx")("9738"),
         log_lcp_metadata: r("gkx")("12297"),
         log_pagelet_size: r("gkx")("19108"),

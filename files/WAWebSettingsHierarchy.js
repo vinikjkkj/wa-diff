@@ -81,6 +81,8 @@ __d(
               "theme",
               "wallpaper",
               "chat_theme",
+              "chatlist-density",
+              "chatlist-show-parent-name",
               "media_upload_quality",
               "media_auto_download_quality",
               "media_auto_download",
@@ -590,6 +592,33 @@ __d(
           x,
           T,
           D,
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.ChatlistDensity,
+            id: "chatlist-density",
+            isAvailable: function () {
+              return r("gkx")("22829");
+            },
+            title: o("WAWebSettingsFBT").chatlistDensityTitle,
+            searchCriteria: [
+              String(o("WAWebSettingsFBT").chatlistDensityTitle()),
+              String(o("WAWebSettingsFBT").chatlistDensityDefaultLabel()),
+              String(o("WAWebSettingsFBT").chatlistDensityCompactLabel()),
+              String(o("WAWebSettingsFBT").chatlistDensitySingleLineLabel()),
+            ]
+              .join(" ")
+              .toLowerCase(),
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.Chats,
+            id: "chatlist-show-parent-name",
+            isAvailable: function () {
+              return r("gkx")("22829");
+            },
+            title: o("WAWebSettingsFBT").chatlistShowParentNameTitle,
+            searchCriteria: String(
+              o("WAWebSettingsFBT").chatlistShowParentNameTitle(),
+            ).toLowerCase(),
+          },
           P,
           N,
           $,

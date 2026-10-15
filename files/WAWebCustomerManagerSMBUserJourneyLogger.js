@@ -640,16 +640,6 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
             });
           }),
-          (n.enterAddCustomerField = function (t, n) {
-            this.$2({
-              extraAttributes: babelHelpers.extends({}, n, { field: t }),
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_ADD_CUSTOMER,
-              userActionTarget: "add_customer_field_" + t,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.ENTER,
-            });
-          }),
           (n.clickAddCustomerLeadStageDropdown = function (t) {
             this.$2({
               extraAttributes: { selected: t != null ? t : null },

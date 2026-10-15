@@ -3,7 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebApiVerifiedBusinessName",
+    "WAWebBizBroadcastProHiddenChatClassifier",
     "WAWebBusinessProfileTypes",
+    "WAWebChatViewMode.flow",
     "WAWebCheckChatExistsOrCreate",
     "WAWebCoexV2RepresentedIdentityFromMessage",
     "WAWebHandlePrivacyModeUpdateMsgAction",
@@ -51,27 +53,40 @@ __d(
                   f.privacyMode,
                 )
               : null,
-            h = yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate(
+            h =
+              o(
+                "WAWebBizBroadcastProHiddenChatClassifier",
+              ).isBizBroadcastProMarketingOnlyBatch(s, m) &&
+              o(
+                "WAWebBizBroadcastProHiddenChatClassifier",
+              ).isBizBroadcastProHiddenChatsEnabled(),
+            y = yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate(
               {
                 destinationChat: d,
                 msgMeta: l,
                 options: { firstIncomingMsg: u, nextPrivacyMode: g },
+                initialProps: h
+                  ? {
+                      chatViewMode: o("WAWebChatViewMode.flow").ChatViewModeType
+                        .ONLY_MARKETING_FROM_SELF,
+                    }
+                  : void 0,
                 chatOriginType: "createChatOnNewMsg",
               },
             ),
-            y =
+            C =
               _ &&
-              (h !== !0 ||
+              (y !== !0 ||
                 f.verifiedLevel !==
                   o("WAWebBusinessProfileTypes").convertLevel(r.verifiedLevel));
           try {
             return (
-              h &&
+              y &&
                 g != null &&
                 (yield o(
                   "WAWebHandlePrivacyModeUpdateMsgAction",
                 ).handlePrivacyModeTransition(m, g, { shouldRunMATonWid: !1 })),
-              { shouldQueryContactInfo: y, latestPrivacyMode: g }
+              { shouldQueryContactInfo: C, latestPrivacyMode: g }
             );
           } catch (t) {
             o("WALogger")

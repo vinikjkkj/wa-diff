@@ -157,15 +157,17 @@ __d(
                     });
                   });
             var c = n.decisionId,
-              d = n.sourceType,
-              m = n.decisionSources;
+              d = n.deliveryContextSourceType,
+              m = n.sourceType,
+              p = n.decisionSources;
             return (
-              (c != null || d != null || m != null) &&
+              (c != null || d != null || m != null || p != null) &&
                 (i = i.map(function (e) {
                   return babelHelpers.extends({}, e, {
+                    deliveryContextSourceType: d,
                     decisionId: c,
-                    sourceType: d,
-                    decisionSources: m,
+                    sourceType: m,
+                    decisionSources: p,
                   });
                 })),
               (i = yield o(

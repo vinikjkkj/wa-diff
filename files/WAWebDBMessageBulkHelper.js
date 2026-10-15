@@ -6,6 +6,9 @@ __d(
     "WALoggerUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
+    "WAWebBizBroadcastProHiddenChatClassifier",
+    "WAWebBizBroadcastProHiddenChatStorage",
+    "WAWebChatViewMode.flow",
     "WAWebCommonMsgUtils",
     "WAWebCurrentUser",
     "WAWebDBAddOnProviders",
@@ -286,6 +289,20 @@ __d(
                 "bulkUpdateChatCapiCallingPermissionType",
                 { updates: u },
               ));
+          var p = [];
+          for (var g of c) {
+            var h = g.chatViewMode,
+              y = g.id;
+            h != null &&
+              p.push({
+                id: o("WAWebWidFactory").createWid(y),
+                chatViewMode: h,
+              });
+          }
+          p.length > 0 &&
+            o("WAWebBackendApi").frontendFireAndForget("chatCollectionUpdate", {
+              updates: p,
+            });
         })),
         k.apply(this, arguments)
       );
@@ -353,101 +370,119 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map();
+          var t = new Map(),
+            n = new Set(),
+            a = new Map(),
+            i = !1;
           e.forEach(function (e) {
-            var n = e.id,
-              r = n.remote.toString(),
-              a = t.get(r) || {
+            var r = e.id,
+              l = r.remote.toString();
+            if (
+              r.remote.isRegularUser() &&
+              o(
+                "WAWebBizBroadcastProHiddenChatClassifier",
+              ).isBizBroadcastProHiddenChatsEnabled()
+            ) {
+              i = !0;
+              var s = a.get(l);
+              s == null ? a.set(l, [e]) : s.push(e);
+            }
+            var u = t.get(l) || {
                 unread: 0,
                 t: 0,
                 unreadMentionsOfMe: [],
                 broadcast: e.broadcast === !0,
               },
-              i = o("WAWebMsgGetters").getIsUnreadType(e),
-              l = i || $(e);
-            if (!o("WAWebMsgGetters").getIsStatus(e) && l) {
+              c = o("WAWebMsgGetters").getIsUnreadType(e),
+              d = c || P(e);
+            if (!o("WAWebMsgGetters").getIsStatus(e) && d) {
               if (
-                i &&
-                !n.fromMe &&
+                c &&
+                !r.fromMe &&
                 e.read !== !0 &&
-                ((a.unread += 1), o("WAWebMsgGetters").getIsImportantMessage(e))
+                ((u.unread += 1), o("WAWebMsgGetters").getIsImportantMessage(e))
               ) {
-                var s = { id: e.id.toString(), timestamp: e.t };
-                a.unreadMentionsOfMe
-                  ? a.unreadMentionsOfMe.push(s)
-                  : (a.unreadMentionsOfMe = [s]);
+                var m = { id: e.id.toString(), timestamp: e.t };
+                u.unreadMentionsOfMe
+                  ? u.unreadMentionsOfMe.push(m)
+                  : (u.unreadMentionsOfMe = [m]);
               }
-              (e.t != null && e.t > a.t && (a.t = Math.max(e.t, a.t)),
-                t.set(r, a));
+              (e.t != null && e.t > 0 && n.add(e.id.toString()),
+                e.t != null && e.t > u.t && (u.t = Math.max(e.t, u.t)),
+                t.set(l, u));
             }
-            var u = o(
+            var p = o(
                 "WAWebDBMessageUtils",
               ).isCoexCallingPermissionsRequestMessage(e),
-              c =
-                !u &&
+              _ =
+                !p &&
                 o(
                   "WAWebDBMessageUtils",
                 ).isCoexCallingPermissionsResponseMessage(e);
-            (u || c) &&
+            (p || _) &&
               o("WAWebVoipGatingUtils").isCoexCallingPermissionsEnabled() &&
-              (u
-                ? (a.capiCallingPermissionType = o(
+              (p
+                ? (u.capiCallingPermissionType = o(
                     "WAWebDBCAPIPermissions",
                   ).CloudAPICallingPermissionType.PENDING)
-                : c &&
-                  (a.capiCallingPermissionType = o(
+                : _ &&
+                  (u.capiCallingPermissionType = o(
                     "WAWebDBMessageUtils",
                   ).getSelectedCallingPermissions(e)),
-              t.set(r, a));
+              t.set(l, u));
           });
-          var n = Array.from(t.keys()),
-            a = yield o("WAWebSchemaChat").getChatTable().bulkGet(n),
-            i = r("justknobx")._("310"),
-            l = [],
-            s = [],
-            u = !1,
-            c = a.map(function (e, r) {
-              var a,
-                c,
-                d,
-                m = n[r],
-                p = t.get(m),
-                _ = (p == null ? void 0 : p.unread) || 0,
+          var l = Array.from(t.keys()),
+            s = Array.from(a.keys()).filter(function (e) {
+              return !t.has(e);
+            }),
+            u = yield o("WAWebSchemaChat").getChatTable().bulkGet(l.concat(s)),
+            c = u.slice(0, l.length),
+            d = r("justknobx")._("310"),
+            m = [],
+            p = [],
+            _ = !1,
+            f = c.map(function (e, n) {
+              var r,
+                a,
+                i,
+                s = l[n],
+                u = t.get(s),
+                c = (u == null ? void 0 : u.unread) || 0,
                 f = Math.max(0, e ? e.unreadCount : 0),
-                g = (p == null ? void 0 : p.t) || void 0;
+                g = (u == null ? void 0 : u.t) || void 0;
               e && e.t != null && (g == null || e.t > g) && (g = e.t);
               var h = [],
                 y =
-                  (a = e == null ? void 0 : e.archiveAtMentionViewedInDrawer) !=
+                  (r = e == null ? void 0 : e.archiveAtMentionViewedInDrawer) !=
                   null
-                    ? a
+                    ? r
                     : !1,
                 C =
-                  (c = p == null ? void 0 : p.unreadMentionsOfMe) != null
-                    ? c
+                  (a = u == null ? void 0 : u.unreadMentionsOfMe) != null
+                    ? a
                     : [],
                 b =
-                  (d = e == null ? void 0 : e.unreadMentionsOfMe) != null
-                    ? d
+                  (i = e == null ? void 0 : e.unreadMentionsOfMe) != null
+                    ? i
                     : [];
               (C.length > 0 && (y = !1), (h = C.concat(b)));
               var v = {
-                id: m,
-                unreadCount: f + _,
+                id: s,
+                unreadCount: f + c,
                 t: g,
                 unreadMentionsOfMe: h,
                 archiveAtMentionViewedInDrawer: y,
               };
-              i &&
+              d &&
                 e == null &&
-                (p == null ? void 0 : p.broadcast) === !0 &&
+                (u == null ? void 0 : u.broadcast) === !0 &&
                 (v.createdLocally = !0);
-              var S = o("WAWebWidFactory").createWid(m),
-                R = p == null ? void 0 : p.capiCallingPermissionType;
+              var S = o("WAWebWidFactory").createWid(s),
+                R = u == null ? void 0 : u.capiCallingPermissionType;
               return (
                 R != null &&
                   ((v.capiCallingPermissionType = R),
-                  l.push({ chatId: S, capiCallingPermissionType: R })),
+                  m.push({ chatId: S, capiCallingPermissionType: R })),
                 o("WAWebLidMigrationUtils").shouldHaveAccountLid(S) &&
                   (e == null
                     ? ((v.accountLid = o("WAWebLidMigrationUtils")
@@ -463,14 +498,14 @@ __d(
                           : (v.lidOriginType =
                               o("WAWebUsernameTypes").LidOriginType.PNH_CTWA)))
                     : e.accountLid == null &&
-                      (u ||
+                      (_ ||
                         (o("WAWebLidMigrationLogging").logLidMetadata(),
-                        (u = !0)),
-                      s.length < 3 && s.push(S.toLogString()))),
+                        (_ = !0)),
+                      p.length < 3 && p.push(S.toLogString()))),
                 v
               );
             });
-          (s.length > 0 &&
+          (p.length > 0 &&
             o("WALogger")
               .ERROR(
                 h ||
@@ -479,8 +514,8 @@ __d(
                     " chats from DB have no account_lid => ",
                     "",
                   ])),
-                s.length,
-                s,
+                p.length,
+                p,
               )
               .sendLogs("chat-in-db-has-no-account-lid")
               .tags("missing-lid"),
@@ -490,25 +525,25 @@ __d(
                   "[offline-resume][msg-cache]: storing chat updates for ",
                   " chats",
                 ])),
-              c.length,
+              f.length,
             ));
-          var d = a.some(function (e) {
+          var g = c.some(function (e) {
             return e == null;
           });
-          if (d) {
-            var m = new Set(
-                a.map(function (e) {
+          if (g) {
+            var b = new Set(
+                c.map(function (e) {
                   return e == null ? void 0 : e.id;
                 }),
               ),
-              p = r("countWhere")(n, function (e) {
-                return r("WAWebWid").isRegularUserNoImply(e) && !m.has(e);
+              v = r("countWhere")(l, function (e) {
+                return r("WAWebWid").isRegularUserNoImply(e) && !b.has(e);
               });
-            p > 0 &&
+            v > 0 &&
               (new (o("WAWebWebcChatCreateWamEvent").WebcChatCreateWamEvent)({
                 creationMethod: o("WAWebWamEnumWebcChatCreateCreationMethod")
                   .WEBC_CHAT_CREATE_CREATION_METHOD.MISSING_WHEN_SAVING_MESSAGE,
-                noCreated: p,
+                noCreated: v,
               }).commit(),
               o("WALogger")
                 .ERROR(
@@ -517,7 +552,7 @@ __d(
                       "[offline-resume][msg-cache]: missing chats when saving message: ",
                       "",
                     ])),
-                  p,
+                  v,
                 )
                 .sendLogs("missing-chats-when-saving-message", {
                   sampling: r("gkx")("26258")
@@ -525,12 +560,38 @@ __d(
                     : 1,
                 }));
           }
-          return { chatUpdates: c, capiCallingPermissionUpdates: l };
+          if (!i) return { chatUpdates: f, capiCallingPermissionUpdates: m };
+          var S = f.map(function (e, t) {
+            return $(c[t], e, a, n);
+          });
+          return (
+            s.forEach(function (e, t) {
+              var r = u[l.length + t];
+              (r == null ? void 0 : r.chatViewMode) ===
+                o("WAWebChatViewMode.flow").ChatViewModeType
+                  .ONLY_MARKETING_FROM_SELF && S.push($(r, { id: e }, a, n));
+            }),
+            { chatUpdates: S, capiCallingPermissionUpdates: m }
+          );
         })),
         x.apply(this, arguments)
       );
     }
-    function $(e) {
+    function $(e, t, n, r) {
+      var a = n.get(t.id);
+      return a == null
+        ? t
+        : o(
+            "WAWebBizBroadcastProHiddenChatStorage",
+          ).applyBizBroadcastProHiddenChatState(
+            e,
+            t,
+            a,
+            o("WAWebWidFactory").createWid(t.id),
+            r,
+          );
+    }
+    function P(e) {
       return (
         o("WAWebCommonMsgUtils").isFutureproofMsg(
           o("WAWebMsgGetters").getType(e),

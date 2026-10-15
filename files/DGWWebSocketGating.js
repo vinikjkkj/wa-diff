@@ -1,6 +1,6 @@
 __d(
   "DGWWebSocketGating",
-  ["DGWWebConfig", "gkx", "qex"],
+  ["DGWWebConfig", "gkx", "justknobx", "qex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null;
@@ -32,9 +32,13 @@ __d(
       var o = (t = r("qex")._("5232")) != null ? t : !1;
       return ((e = o), o);
     }
+    function p() {
+      return r("justknobx")._("6455");
+    }
     ((l.isDeauthBroadcastEnabled = c),
       (l.isWsCompressionEnabled = d),
-      (l.isTaskMuxEnabled = m));
+      (l.isTaskMuxEnabled = m),
+      (l.isInternalCertPrimingEnabled = p));
   },
   98,
 );

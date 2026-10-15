@@ -13,38 +13,41 @@ __d(
           name: "id",
           storageKey: null,
         },
-        o = {
-          alias: null,
-          args: null,
-          concreteType: "CustomAudienceOperationStatus",
-          kind: "LinkedField",
-          name: "operation_status",
-          plural: !1,
-          selections: [
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "status_code",
-              storageKey: null,
-            },
-          ],
-          storageKey: null,
-        },
-        a = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "subscriber_size",
-          storageKey: null,
-        },
-        i = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "name",
-          storageKey: null,
-        };
+        o = [
+          r,
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "name",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "subscriber_size",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "CustomAudienceOperationStatus",
+            kind: "LinkedField",
+            name: "operation_status",
+            plural: !1,
+            selections: [
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "status_code",
+                storageKey: null,
+              },
+            ],
+            storageKey: null,
+          },
+        ];
       return {
         fragment: {
           argumentDefinitions: e,
@@ -94,13 +97,10 @@ __d(
                               name: "node",
                               plural: !1,
                               selections: [
-                                r,
-                                o,
-                                a,
                                 {
                                   kind: "InlineDataFragmentSpread",
                                   name: "WAWebBizBroadcastProAudienceTableData_audience",
-                                  selections: [r, i, a, o],
+                                  selections: o,
                                   args: null,
                                   argumentDefinitions: [],
                                 },
@@ -170,7 +170,7 @@ __d(
                               kind: "LinkedField",
                               name: "node",
                               plural: !1,
-                              selections: [r, o, a, i],
+                              selections: o,
                               storageKey: null,
                             },
                           ],

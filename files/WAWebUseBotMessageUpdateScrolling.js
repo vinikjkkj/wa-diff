@@ -13,35 +13,51 @@ __d(
     var e,
       s = (e || (e = o("react"))).useEffect;
     function u(e) {
-      var t = o("react-compiler-runtime").c(7),
+      var t = o("react-compiler-runtime").c(9),
         n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [o("WAWebMsgGetters").getLastBotEditBodyLength]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebMsgValues").useMsgValues(e.id, n),
-        a = r[0],
-        i;
-      t[1] !== e
-        ? ((i = o("WAWebBotFrontendUtils").getBotMsgBodyLength(e)),
-          (t[1] = e),
-          (t[2] = i))
-        : (i = t[2]);
-      var l = i,
-        u,
-        c;
-      (t[3] !== l || t[4] !== a
-        ? ((u = function () {
-            l == null ||
-              a == null ||
-              (l !== a && o("WAWebCmd").Cmd.scrollChatToBottom());
+      if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
+        var r;
+        ((n = [
+          (r = o("WAWebMsgGetters")).getLastBotEditBodyLength,
+          r.getBody,
+          r.getRichResponse,
+          r.getType,
+        ]),
+          (t[0] = n));
+      } else n = t[0];
+      var a = o("useWAWebMsgValues").useMsgValues(e, n),
+        i = a[0],
+        l = a[1],
+        u = a[2],
+        c = a[3],
+        d;
+      t[1] !== l || t[2] !== u || t[3] !== c
+        ? ((d = o("WAWebBotFrontendUtils").getBotMsgBodyLengthFor({
+            body: l,
+            richResponse: u,
+            type: c,
+          })),
+          (t[1] = l),
+          (t[2] = u),
+          (t[3] = c),
+          (t[4] = d))
+        : (d = t[4]);
+      var m = d,
+        p,
+        _;
+      (t[5] !== m || t[6] !== i
+        ? ((p = function () {
+            m == null ||
+              i == null ||
+              (m !== i && o("WAWebCmd").Cmd.scrollChatToBottom());
           }),
-          (c = [a, l]),
-          (t[3] = l),
-          (t[4] = a),
-          (t[5] = u),
-          (t[6] = c))
-        : ((u = t[5]), (c = t[6])),
-        s(u, c));
+          (_ = [i, m]),
+          (t[5] = m),
+          (t[6] = i),
+          (t[7] = p),
+          (t[8] = _))
+        : ((p = t[7]), (_ = t[8])),
+        s(p, _));
     }
     l.useBotMessageUpdateScrolling = u;
   },

@@ -72,6 +72,17 @@ __d(
       },
       T = r("bx").getURL(r("bx")("10047")),
       D = {
+        ptvOuterContainer: {
+          transform: "x3oybdh",
+          transitionDuration: "x1d8287x",
+          transitionProperty: "x11xpdln",
+          $$css: !0,
+        },
+        depressed: {
+          transform: "x1jec706",
+          transitionDuration: "x1pv9i8n",
+          $$css: !0,
+        },
         ptvContainer: {
           width: "x143tcsw",
           height: "x12bdpze",
@@ -144,6 +155,16 @@ __d(
         authorIsMe: { backgroundColor: "x1g5lz36", $$css: !0 },
         authorIsNotMe: { backgroundColor: "x1ew7x2d", $$css: !0 },
         isFirst: { borderStartStartRadius: "x1bczwif", $$css: !0 },
+        videoTimestamp: {
+          position: "x10l6tqk",
+          bottom: "x1wa3icf",
+          width: "xh8yej3",
+          color: "x1awj2ng",
+          fontSize: "x1pg5gke",
+          fontWeight: "x1xlr1w8",
+          zIndex: "xhtitgo",
+          $$css: !0,
+        },
         muteIcon: {
           transitionProperty: "x1oc9h5i",
           transitionTimingFunction: "xz4gly6",
@@ -443,21 +464,18 @@ __d(
             justify: o("WAWebDisplayType").isWideDisplay(l)
               ? "center"
               : "start",
-            className: {
-              0: "x3oybdh x1d8287x x11xpdln",
-              1: "x11xpdln x1jec706 x1pv9i8n",
-            }[!!ye << 0],
+            xstyle: [D.ptvOuterContainer, ye && D.depressed],
             children: c.jsxs(o("WAWebFlex.react").FlexRow, {
               justify: "center",
               align: "center",
-              className: (s || (s = r("stylex")))(
+              xstyle: [
                 D.ptvContainer,
                 D.animateDimensions,
                 o("WDSMargins.stylex").wdsMargins.marginTop12,
                 o("WDSMargins.stylex").wdsMargins.marginBottom4,
                 ee && l === "MSG_INFO" && D.activePtvContainerInMsgInfo,
                 ee && l !== "MSG_INFO" && D.activePtvContainer,
-              ),
+              ],
               children: [
                 c.jsx("div", {
                   className: "x10l6tqk x1rn7vjc xb51amx x1d8287x",
@@ -546,8 +564,7 @@ __d(
                           c.jsxs(o("WAWebFlex.react").FlexRow, {
                             justify: "center",
                             align: "center",
-                            className:
-                              "x10l6tqk x1wa3icf xh8yej3 x1awj2ng x1pg5gke x1xlr1w8 xhtitgo",
+                            xstyle: D.videoTimestamp,
                             children: [
                               c.jsx(r("WDSIconIcVolumeOff.react"), {
                                 height: 10,

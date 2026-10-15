@@ -5,14 +5,15 @@ __d(
     "use strict";
     var e = new Set(),
       l = !1,
-      s = null;
-    function u(t) {
+      s = null,
+      u = !1;
+    function c(t) {
       if (t !== l) {
         l = t;
         for (var n of e) n(t);
       }
     }
-    function c(t) {
+    function d(t) {
       return (
         e.add(t),
         l && t(!0),
@@ -21,16 +22,24 @@ __d(
         }
       );
     }
-    function d(e) {
+    function m(e) {
       return s === e ? !1 : ((s = e), !0);
     }
-    function m() {
-      (e.clear(), (l = !1), (s = null));
+    function p(e) {
+      u = e;
     }
-    ((i.reportBrowserMuteSuspected = u),
-      (i.subscribeToBrowserMuteSuspected = c),
-      (i.claimBrowserMuteToast = d),
-      (i.resetBrowserMuteStateForTesting = m));
+    function _() {
+      return u;
+    }
+    function f() {
+      (e.clear(), (l = !1), (s = null), (u = !1));
+    }
+    ((i.reportBrowserMuteSuspected = c),
+      (i.subscribeToBrowserMuteSuspected = d),
+      (i.claimBrowserMuteToast = m),
+      (i.recordPlaybackBrowserMuted = p),
+      (i.wasLastPlaybackBrowserMuted = _),
+      (i.resetBrowserMuteStateForTesting = f));
   },
   66,
 );

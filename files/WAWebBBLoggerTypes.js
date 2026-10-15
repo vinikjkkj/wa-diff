@@ -38,6 +38,7 @@ __d(
         ATTACHMENTS_CATALOG_DROPDOWN: "attachments_catalog_dropdown",
         ATTACHMENTS_DOCUMENT_DROPDOWN: "attachments_document_dropdown",
         ATTACHMENTS_IMAGE_VIDEOS_DROPDOWN: "attachments_image_videos_dropdown",
+        AUDIENCE_BELOW_FLOOR_BANNER: "audience_below_floor_banner",
         AUDIENCE_INFO_BUTTON: "audience_info_button",
         AUDIENCES_TAB_BUTTON: "audiences_tab_button",
         BACK_BUTTON: "back_button",

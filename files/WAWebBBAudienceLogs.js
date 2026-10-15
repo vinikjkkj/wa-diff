@@ -69,7 +69,24 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,
       });
     }
-    function m(e, t, n, r, a, i, l) {
+    function m(e) {
+      var t = e.entryPoint,
+        n = e.floorMinimum,
+        r = e.log,
+        a = e.recipientCount;
+      r({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: t,
+        extraAttributes: babelHelpers.extends(
+          { floor_check_point: "send", floor_minimum: n },
+          a != null ? { recipient_count: a } : void 0,
+        ),
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCE_BELOW_FLOOR_BANNER,
+      });
+    }
+    function p(e, t, n, r, a, i, l) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: l,
@@ -82,7 +99,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,
       });
     }
-    function p(e, t, n, r, a, i) {
+    function _(e, t, n, r, a, i) {
       var l =
         r != null
           ? babelHelpers.extends({}, i, {
@@ -105,8 +122,9 @@ __d(
       (l.createAudienceBackClicked = u),
       (l.createAudienceSaveClicked = c),
       (l.proAudienceFloorChecked = d),
-      (l.createAudienceSaveResult = m),
-      (l.importAudienceSaveResult = p));
+      (l.proAudienceBelowFloorBannerViewed = m),
+      (l.createAudienceSaveResult = p),
+      (l.importAudienceSaveResult = _));
   },
   98,
 );

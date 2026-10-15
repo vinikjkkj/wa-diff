@@ -63,27 +63,49 @@ __d(
       }
     }
     function d(e) {
-      var t;
-      if (!o("WAWebE2EProtoUtils").isOrderNativeFlow(e.nativeFlowName))
-        return null;
-      if (
-        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        (t = e.interactivePayload) != null &&
-        t.buttons
-      ) {
-        var n = e.interactivePayload.buttons[0].buttonParamsJson;
-        return c(n);
-      } else if (e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
-        var a,
-          i = ((a = e.nativeFlowButtons) != null ? a : [])[0].nativeFlowInfo;
-        return c(i == null ? void 0 : i.paramsJson);
-      }
+      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? m({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowButtons: null,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          })
+        : e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW
+          ? m({
+              interactivePayload: null,
+              interactiveType: null,
+              nativeFlowButtons: e.nativeFlowButtons,
+              nativeFlowName: e.nativeFlowName,
+              type: e.type,
+            })
+          : null;
     }
     function m(e) {
-      return o("WAWebOrderStatusButton").getOrderStatusButton(e) != null;
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowButtons,
+        i = e.nativeFlowName,
+        l = e.type;
+      if (!o("WAWebE2EProtoUtils").isOrderNativeFlow(i)) return null;
+      if (
+        l === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        n === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        t != null &&
+        t.buttons
+      ) {
+        var s = t.buttons[0].buttonParamsJson;
+        return c(s);
+      } else if (l === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
+        var u,
+          d = a == null || (u = a[0]) == null ? void 0 : u.nativeFlowInfo;
+        return c(d == null ? void 0 : d.paramsJson);
+      }
     }
     function p(e) {
+      return o("WAWebOrderStatusButton").getOrderStatusButton(e) != null;
+    }
+    function _(e) {
       var t = e.order,
         n = t.status,
         r = t.tracking;
@@ -91,7 +113,7 @@ __d(
         r != null && n !== u.Canceled && n !== u.Refunded && n !== u.Failed
       );
     }
-    function _(t, n) {
+    function f(t, n) {
       for (
         var a = t.msgs.getModelsArray().slice(e), i = a.length - 1;
         i >= 0;
@@ -125,7 +147,7 @@ __d(
       }
       return null;
     }
-    var f = function (n, a) {
+    var g = function (n, a) {
         var t,
           i = n.msgs.getModelsArray().slice(e),
           l =
@@ -147,7 +169,7 @@ __d(
           ? l
           : null;
       },
-      g = function (n, a, i) {
+      h = function (n, a, i) {
         var t;
         i === void 0 && (i = !1);
         var l = n.msgs.getModelsArray().slice(e),
@@ -186,7 +208,7 @@ __d(
           ? s
           : null;
       },
-      h = function (t) {
+      y = function (t) {
         return t == null
           ? null
           : t === u.Complete
@@ -212,28 +234,28 @@ __d(
                     );
                   })();
       };
-    function y(e) {
+    function C(e) {
       return e == null ? !1 : e.items.length === 0;
     }
-    function C(e, t) {
-      return !e.contact.isEnterprise && y(t);
-    }
     function b(e, t) {
-      return !e.contact.isEnterprise && !y(t);
+      return !e.contact.isEnterprise && C(t);
     }
-    function v() {
+    function v(e, t) {
+      return !e.contact.isEnterprise && !C(t);
+    }
+    function S() {
       return o("WAWebOrderGatingUtils").isOrderStatusM1Enabled()
         ? u.PaymentRequested
         : u.Pending;
     }
-    function S(e, t) {
+    function R(e, t) {
       var n,
-        r = f(e, t),
+        r = g(e, t),
         o = r != null ? d(r) : null;
       return (n = o == null ? void 0 : o.status) != null ? n : u.Pending;
     }
-    function R(e, t) {
-      var n = f(e, t);
+    function L(e, t) {
+      var n = g(e, t);
       if (n == null) return !1;
       var r = d(n);
       if (r == null) return !1;
@@ -247,9 +269,9 @@ __d(
             o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending;
       return !(a && i);
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       n === void 0 && (n = !1);
-      var a = g(e, t, n),
+      var a = h(e, t, n),
         i = null;
       if (
         a &&
@@ -258,7 +280,7 @@ __d(
       ) {
         var l = d(a);
         ((i = l == null ? void 0 : l.paymentStatus),
-          i == null && (i = h(l == null ? void 0 : l.status)));
+          i == null && (i = y(l == null ? void 0 : l.status)));
       } else if (
         a &&
         (a == null ? void 0 : a.nativeFlowName) ===
@@ -274,7 +296,7 @@ __d(
       }
       return i;
     }
-    function E(e, t) {
+    function k(e, t) {
       var n = e.msgs.reduce(
           function (e, n) {
             var r,
@@ -309,17 +331,18 @@ __d(
     ((l.OrderStatus = u),
       (l.paramsJsonToOrderStatusInfo = c),
       (l.getOrderStatusInfo = d),
-      (l.hasOrderStatusButton = m),
-      (l.shouldShowTrackingInfo = p),
-      (l.findOrderDetailsMessage = _),
-      (l.isSimplifiedOrder = y),
-      (l.isPaymentRequest = C),
-      (l.isCharge = b),
-      (l.getDefaultOrderStatus = v),
-      (l.findOrderStatus = S),
-      (l.hasOrderStatusUpdatedFromPending = R),
-      (l.findOrderPaymentStatus = L),
-      (l.getMergedOrderStatus = E));
+      (l.getOrderStatusInfoFor = m),
+      (l.hasOrderStatusButton = p),
+      (l.shouldShowTrackingInfo = _),
+      (l.findOrderDetailsMessage = f),
+      (l.isSimplifiedOrder = C),
+      (l.isPaymentRequest = b),
+      (l.isCharge = v),
+      (l.getDefaultOrderStatus = S),
+      (l.findOrderStatus = R),
+      (l.hasOrderStatusUpdatedFromPending = L),
+      (l.findOrderPaymentStatus = E),
+      (l.getMergedOrderStatus = k));
   },
   98,
 );

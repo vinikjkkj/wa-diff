@@ -318,6 +318,7 @@ __d(
       Signup: "signup",
       ScheduledMessageCreated: "scheduled_message_created",
       ScheduledMessageUnschedule: "scheduled_message_unschedule",
+      BrazilPaymentReceiptAdded: "br_payment_receipt_added",
     });
     i.MsgSubtype = e;
   },

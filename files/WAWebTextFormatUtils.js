@@ -3,10 +3,12 @@ __d(
   [
     "$InternalEnum",
     "Lexical",
+    "WAWebABProps",
     "WAWebDelimiterNode",
     "WAWebLexicalUtils",
     "WAWebListBulletNode",
     "WAWebListNumberNode",
+    "WAWebQuoteLineUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,7 +36,7 @@ __d(
         a && i;
       ) {
         var l = null;
-        for (var s of L)
+        for (var s of x)
           if (
             a.getTextContent().endsWith(s) &&
             i.getTextContent().startsWith(s)
@@ -216,7 +218,7 @@ __d(
           var m = u.splitText(r + 1);
           u = m[0];
         }
-      var p = E(n),
+      var p = $(n),
         _ = o("WAWebDelimiterNode").$createDelimiterNode(p, "open"),
         f = o("WAWebDelimiterNode").$createDelimiterNode(p, "close");
       (s.insertBefore(_), u.insertAfter(f));
@@ -233,7 +235,7 @@ __d(
         !o("WAWebDelimiterNode").$isDelimiterNode(y) &&
         f.insertAfter(o("Lexical").$createTextNode(" "));
       var b = n !== e.InlineCode && n !== e.Code;
-      k(i, s, u, b);
+      P(i, s, u, b);
     }
     function g(e, t) {
       var n;
@@ -298,7 +300,7 @@ __d(
         }
       }
       for (g(t, { keepNumberedList: n === e.NumberedList }); s; ) {
-        I(s.getFirstChild());
+        N(s.getFirstChild());
         var C = s.getFirstChild();
         if (
           (!C &&
@@ -329,16 +331,79 @@ __d(
         if (((s = s.getNextSibling()), s === c)) break;
       }
     }
-    function y(e, t) {
+    function y(t) {
+      return (
+        t === e.Quote &&
+        o("WAWebABProps").getABPropConfigValue(
+          "expanded_formatting_menu_items_enabled",
+        )
+      );
+    }
+    function C(e) {
+      for (
+        var t = e.endNode,
+          n = e.startNode,
+          a = r("nullthrows")(n.getParent()),
+          i = r("nullthrows")(t.getParent()).getNextSibling(),
+          l = b(a),
+          s = [],
+          u = a;
+        u && u !== i;
+      ) {
+        var c = u.getTextContent(),
+          d = o("WAWebQuoteLineUtils").isInsideCodeBlock(c);
+        (!l && !d && c.trim() !== "" && s.push(u),
+          d && (l = !l),
+          (u = u.getNextSibling()));
+      }
+      return s;
+    }
+    function b(e) {
+      for (var t = [], n = e.getPreviousSibling(); n; )
+        (t.push(n.getTextContent()), (n = n.getPreviousSibling()));
+      return o("WAWebQuoteLineUtils").isInsideCodeBlock(t.join("\n"));
+    }
+    function v(t) {
+      var n = C(t);
+      if (n.length === 0) {
+        h(t, e.Quote);
+        return;
+      }
+      for (var r of n)
+        if (r.getQuoteLineNode() == null) {
+          var a;
+          (N(r.getFirstChild()),
+            (a = r.getFirstChild()) == null ||
+              a.insertBefore(
+                o("WAWebListNumberNode").$createListNumberNode(
+                  o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX,
+                ),
+              ));
+        }
+    }
+    function S(e) {
+      for (var t of C(e)) {
+        var n = t.getQuoteLineNode();
+        if (n) {
+          var r = n.getNextSibling();
+          if ((n.remove(), r)) {
+            var o = r.splitText(1),
+              a = o[0];
+            a.remove();
+          }
+        }
+      }
+    }
+    function R(e, t) {
       var n = e.endOffset,
         o = e.selectedNodes,
         a = e.selection,
         i = e.startOffset,
-        l = r("nullthrows")(b(o, i, t)),
-        s = r("nullthrows")(v({ format: t, nodes: o, offset: n }));
-      (k(a, l, s), l.remove(), s.remove());
+        l = r("nullthrows")(k(o, i, t)),
+        s = r("nullthrows")(I({ format: t, nodes: o, offset: n }));
+      (P(a, l, s), l.remove(), s.remove());
     }
-    function C(t, n) {
+    function L(t, n) {
       var o = t.endNode,
         a = t.endOffset,
         i = t.isCollapsed,
@@ -352,37 +417,47 @@ __d(
       if (p) {
         var f = r("nullthrows")(d.getParent()),
           g = r("nullthrows")(o.getParent()).getNextSibling();
-        if (!l && f.getTextContentSize() === 0) return c.Add;
-        for (var h = !0, y = f; y; ) {
+        if (!l && f.getTextContentSize() === 0) return E(f, n);
+        if (y(n)) {
+          var h = C(t);
+          return h.length === 0
+            ? c.Skip
+            : h.every(function (e) {
+                  return e.getQuoteLineNode() != null;
+                })
+              ? c.Remove
+              : c.Add;
+        }
+        for (var b = !0, v = f; v; ) {
           if (
-            y.getTextContentSize() !== 0 &&
-            ((n === e.BulletedList && y.getBulletNode() == null) ||
-              (n === e.NumberedList && y.getNumberNode() == null) ||
-              (n === e.Quote && y.getQuoteLineNode() == null))
+            v.getTextContentSize() !== 0 &&
+            ((n === e.BulletedList && v.getBulletNode() == null) ||
+              (n === e.NumberedList && v.getNumberNode() == null) ||
+              (n === e.Quote && v.getQuoteLineNode() == null))
           ) {
-            h = !1;
+            b = !1;
             break;
           }
-          if (((y = y.getNextSibling()), y === g)) break;
+          if (((v = v.getNextSibling()), v === g)) break;
         }
-        return h ? c.Remove : c.Add;
+        return b ? c.Remove : c.Add;
       }
       if (
         d !== o &&
-        ((m !== 0 && S([d]).length !== 0) ||
-          (a + 1 !== o.getTextContentSize() && S([o]).length !== 0))
+        ((m !== 0 && T([d]).length !== 0) ||
+          (a + 1 !== o.getTextContentSize() && T([o]).length !== 0))
       )
         return c.Skip;
-      var C = b(u, m, n),
-        R = v({ format: n, nodes: u, offset: a }),
-        L = !!(C && R);
+      var S = k(u, m, n),
+        R = I({ format: n, nodes: u, offset: a }),
+        L = !!(S && R);
       if (!L) {
-        var E = S(i ? [u[0].getPreviousSibling(), u[0].getNextSibling()] : u);
+        var D = T(i ? [u[0].getPreviousSibling(), u[0].getNextSibling()] : u);
         if (
-          !E.some(function (e) {
+          !D.some(function (e) {
             return e === n;
           }) &&
-          !E.some(function (t) {
+          !D.some(function (t) {
             return t === e.Code || t === e.InlineCode;
           })
         )
@@ -390,15 +465,18 @@ __d(
       }
       return L ? c.Remove : c.Skip;
     }
-    function b(e, t, n) {
+    function E(e, t) {
+      return y(t) && b(e) ? c.Skip : c.Add;
+    }
+    function k(e, t, n) {
       if (t !== 0) return null;
       for (var r of e) {
         if (!o("WAWebDelimiterNode").$isDelimiterNode(r)) break;
-        if (r.getTextContent() === E(n)) return r;
+        if (r.getTextContent() === $(n)) return r;
       }
       return null;
     }
-    function v(e) {
+    function I(e) {
       var t,
         n = e.format,
         r = e.nodes,
@@ -411,11 +489,11 @@ __d(
       for (var i = r.length - 1; i >= 0; i--) {
         var l = r[i];
         if (!o("WAWebDelimiterNode").$isDelimiterNode(l)) break;
-        if (l.getTextContent() === E(n)) return l;
+        if (l.getTextContent() === $(n)) return l;
       }
       return null;
     }
-    function S(t) {
+    function T(t) {
       var n = [];
       return (
         t.forEach(function (t) {
@@ -441,18 +519,18 @@ __d(
         n
       );
     }
-    var R = {};
-    ((R[e.Bold] = "*"),
-      (R[e.Italic] = "_"),
-      (R[e.Strikethrough] = "~"),
-      (R[e.Spoiler] = "||"),
-      (R[e.Code] = "```"),
-      (R[e.InlineCode] = "`"));
-    var L = Array.from(Object.values(R));
-    function E(e) {
-      return r("nullthrows")(R[e]);
+    var D = {};
+    ((D[e.Bold] = "*"),
+      (D[e.Italic] = "_"),
+      (D[e.Strikethrough] = "~"),
+      (D[e.Spoiler] = "||"),
+      (D[e.Code] = "```"),
+      (D[e.InlineCode] = "`"));
+    var x = Array.from(Object.values(D));
+    function $(e) {
+      return r("nullthrows")(D[e]);
     }
-    function k(e, t, n, a) {
+    function P(e, t, n, a) {
       a === void 0 && (a = !0);
       for (
         var i = t, l = n;
@@ -465,7 +543,7 @@ __d(
           (l = r("nullthrows")(l.getPreviousSibling())));
       e.setTextNodeRange(i, 0, l, l.getTextContentSize());
     }
-    function I(e) {
+    function N(e) {
       if (e) {
         var t = e.getTextContent(),
           n = t.trimStart();
@@ -481,24 +559,24 @@ __d(
         }
       }
     }
-    function T(e) {
+    function M(e) {
       var t = m();
       if (!t) return !1;
-      var n = C(t, e);
+      var n = L(t, e);
       if (s.includes(e))
         switch (n) {
           case c.Add:
-            return (h(t, e), !0);
+            return (y(e) ? v(t) : h(t, e), !0);
           case c.Remove:
-            return (g(t), !0);
+            return (y(e) ? S(t) : g(t), !0);
           case c.Skip:
             return !1;
         }
-      switch (C(t, e)) {
+      switch (L(t, e)) {
         case c.Add:
           return (f(t, e), !0);
         case c.Remove:
-          return (y(t, e), !0);
+          return (R(t, e), !0);
         case c.Skip:
           return !1;
       }
@@ -506,8 +584,8 @@ __d(
     ((l.TextFormatType = e),
       (l.TextFormatActionType = c),
       (l.$normalizeTextSelection = m),
-      (l.$getTextFormatAction = C),
-      (l.$toggleTextFormat = T));
+      (l.$getTextFormatAction = L),
+      (l.$toggleTextFormat = M));
   },
   98,
 );

@@ -1,6 +1,11 @@
 __d(
   "WAWebChatFindBridge",
-  ["WAWebApiHydrateWidsUtil", "WAWebSchemaChat", "asyncToGeneratorRuntime"],
+  [
+    "WAWebApiHydrateWidsUtil",
+    "WAWebChatViewMode.flow",
+    "WAWebSchemaChat",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -9,7 +14,18 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaChat").getChatTable().get(e, !1);
-          return t ? o("WAWebApiHydrateWidsUtil").hydrateWids(t) : null;
+          if (t) {
+            var n;
+            return o("WAWebApiHydrateWidsUtil").hydrateWids(
+              babelHelpers.extends({}, t, {
+                chatViewMode:
+                  (n = t.chatViewMode) != null
+                    ? n
+                    : o("WAWebChatViewMode.flow").ChatViewModeType.VISIBLE,
+              }),
+            );
+          }
+          return null;
         })),
         s.apply(this, arguments)
       );

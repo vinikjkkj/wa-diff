@@ -10,13 +10,14 @@ __d(
       d = !1,
       m = !1,
       p = !1,
-      _ = "static",
-      f = !1,
+      _ = !1,
+      f = "static",
       g = !1,
       h = !1,
-      y = new Set(["static", "dynamic"]),
-      C = new Set(["thread_view", "weave_inbox_thread"]),
-      b = {
+      y = !1,
+      C = new Set(["static", "dynamic"]),
+      b = new Set(["thread_view", "weave_inbox_thread"]),
+      v = {
         polaris_feed_story_tray_item: {
           hiding_disabled: !1,
           pin_children_on_interaction: !0,
@@ -39,7 +40,7 @@ __d(
           surface_enabled: !0,
         },
       },
-      v = {
+      S = {
         comet_feed_unit_card: {
           hiding_disabled: !1,
           pin_children_on_interaction: !0,
@@ -49,7 +50,7 @@ __d(
         },
         marketplace_item: { surface_enabled: !1 },
       },
-      S = {
+      R = {
         comet_feed_unit_card: {
           hiding_disabled: !1,
           pin_children_on_interaction: !0,
@@ -103,7 +104,7 @@ __d(
           surface_enabled: !0,
         },
       },
-      R = {
+      L = {
         comet_feed_unit_card: {
           hiding_disabled: !1,
           pin_children_on_interaction: !0,
@@ -118,21 +119,22 @@ __d(
       (l.DEFAULT_PIN_CHILDREN_WITH_PLAYER = u),
       (l.DEFAULT_PIN_EXCLUSION_ENABLED = c),
       (l.DEFAULT_PERSISTED_MARGIN_ENABLED = d),
+      (l.DEFAULT_SHARED_MARGIN_ENABLED = m),
       (l.DEFAULT_EMA_WEIGHT_CAP = o(
         "cometVirtualizationMarginReconcile",
       ).EMA_WEIGHT_CAP),
-      (l.DEFAULT_DISABLE_HIDING = m),
-      (l.DEFAULT_ACTIVITY_MODE_ON = p),
-      (l.DEFAULT_VIRTUALIZATION_STRATEGY = _),
-      (l.DEFAULT_AT_BOTTOM_SCROLL_UP = f),
-      (l.DEFAULT_TEXT_SEARCHABLE = g),
-      (l.DEFAULT_SKIP_SCROLL_ANCHORING_CHECK = h),
-      (l.VALID_STRATEGIES = y),
-      (l.infiniteScrollUpSurfaces = C),
-      (l.ROLLOUT_CONFIG = b),
-      (l.GK_HOLDOUT_CONFIG = v),
-      (l.GK_ROLLOUT_CONFIG = S),
-      (l.FIREFOX_ROLLOUT_CONFIG = R));
+      (l.DEFAULT_DISABLE_HIDING = p),
+      (l.DEFAULT_ACTIVITY_MODE_ON = _),
+      (l.DEFAULT_VIRTUALIZATION_STRATEGY = f),
+      (l.DEFAULT_AT_BOTTOM_SCROLL_UP = g),
+      (l.DEFAULT_TEXT_SEARCHABLE = h),
+      (l.DEFAULT_SKIP_SCROLL_ANCHORING_CHECK = y),
+      (l.VALID_STRATEGIES = C),
+      (l.infiniteScrollUpSurfaces = b),
+      (l.ROLLOUT_CONFIG = v),
+      (l.GK_HOLDOUT_CONFIG = S),
+      (l.GK_ROLLOUT_CONFIG = R),
+      (l.FIREFOX_ROLLOUT_CONFIG = L));
   },
   98,
 );

@@ -761,7 +761,8 @@ __d(
       var n,
         r,
         a,
-        i = !!(!(t == null || (n = t.author) == null) && n.isBot());
+        i,
+        l = !!(!(t == null || (n = t.author) == null) && n.isBot());
       if (T(t))
         return {
           verifiedNameSerial: null,
@@ -771,67 +772,72 @@ __d(
           nativeFlowName: null,
           campaignId: null,
         };
-      var l = e.hasChild("verified_name")
+      var s = e.hasChild("verified_name")
           ? e.child("verified_name").contentBytes()
           : null,
-        s = e.maybeAttrEnum(
+        u = e.maybeAttrEnum(
           "verified_level",
           o("WAWebHandleMsgCommon").MSG_VERIFIED_LEVEL,
         ),
-        u = e.hasAttr("verified_name") ? e.attrInt("verified_name") : -1,
-        c = e.maybeChild("biz"),
-        d = null;
-      if (c != null) {
-        var m = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
-            c.maybeAttrInt("actual_actors"),
+        c = e.hasAttr("verified_name") ? e.attrInt("verified_name") : -1,
+        d = e.maybeChild("biz"),
+        m = null;
+      if (d != null) {
+        var p = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+            d.maybeAttrInt("actual_actors"),
           ),
-          p = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
-            c.maybeAttrInt("host_storage"),
+          _ = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+            d.maybeAttrInt("host_storage"),
           ),
-          _ = c.maybeAttrInt("privacy_mode_ts");
-        m != null &&
-          p != null &&
+          f = d.maybeAttrInt("privacy_mode_ts");
+        p != null &&
           _ != null &&
-          !i &&
-          (d = { actualActors: m, hostStorage: p, privacyModeTs: _ });
+          f != null &&
+          !l &&
+          (m = { actualActors: p, hostStorage: _, privacyModeTs: f });
       }
-      var f =
+      var g =
           (r =
-            c == null ||
-            (a = c.maybeChild("interactive")) == null ||
+            d == null ||
+            (a = d.maybeChild("interactive")) == null ||
             (a = a.maybeChild("native_flow")) == null
               ? void 0
               : a.maybeAttrString("name")) != null
             ? r
-            : c == null
+            : d == null
               ? void 0
-              : c.maybeAttrString("native_flow_name"),
-        g = c == null ? void 0 : c.maybeChild("quality_control"),
-        h = g == null ? void 0 : g.maybeAttrString("decision_id"),
-        y = g == null ? void 0 : g.maybeAttrString("source_type"),
-        C = [];
-      g == null ||
-        g.forEachChildWithTag("decision_source", function (e) {
+              : d.maybeAttrString("native_flow_name"),
+        h = d == null ? void 0 : d.maybeChild("quality_control"),
+        y =
+          d == null || (i = d.maybeChild("delivery_context")) == null
+            ? void 0
+            : i.maybeAttrString("source_type"),
+        C = h == null ? void 0 : h.maybeAttrString("decision_id"),
+        b = h == null ? void 0 : h.maybeAttrString("source_type"),
+        v = [];
+      h == null ||
+        h.forEachChildWithTag("decision_source", function (e) {
           var t = e.maybeAttrString("value");
-          t != null && C.push(t);
+          t != null && v.push(t);
         });
-      var b = c == null ? void 0 : c.maybeAttrString("campaign_id");
+      var S = d == null ? void 0 : d.maybeAttrString("campaign_id");
       return babelHelpers.extends(
         {
-          verifiedNameCert: l,
-          verifiedLevel: s,
-          verifiedNameSerial: u,
-          privacyMode: d,
-          nativeFlowName: f,
-          campaignId: b,
+          verifiedNameCert: s,
+          verifiedLevel: u,
+          verifiedNameSerial: c,
+          privacyMode: m,
+          nativeFlowName: g,
+          campaignId: S,
         },
-        c && {
-          verifiedButtonsEnvelope: c.hasChild("buttons"),
-          verifiedListEnvelope: c.hasChild("list"),
+        d && {
+          verifiedButtonsEnvelope: d.hasChild("buttons"),
+          verifiedListEnvelope: d.hasChild("list"),
           verifiedHsmEnvelope: e.hasChild("hsm"),
-          decisionId: h,
-          sourceType: y,
-          decisionSources: C.length > 0 ? C : void 0,
+          deliveryContextSourceType: y,
+          decisionId: C,
+          sourceType: b,
+          decisionSources: v.length > 0 ? v : void 0,
         },
       );
     }

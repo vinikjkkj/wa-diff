@@ -2,6 +2,7 @@ __d(
   "WAWebHatchConnectorsFlowLoadable",
   [
     "JSResourceForInteraction",
+    "WAWebDrawerManager",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
@@ -29,7 +30,17 @@ __d(
           return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
         },
       });
-    l.WAWebHatchConnectorsFlowLoadable = c;
+    function d(e, t) {
+      o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+        s.jsx(c, {
+          initialConnectorId: e,
+          initialConnectorName: t,
+          onClose: o("WAWebDrawerManager").closeDrawerRight,
+        }),
+      );
+    }
+    ((l.WAWebHatchConnectorsFlowLoadable = c),
+      (l.openHatchConnectorDrawer = d));
   },
   98,
 );

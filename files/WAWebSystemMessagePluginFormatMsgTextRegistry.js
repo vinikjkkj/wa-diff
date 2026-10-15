@@ -1,6 +1,7 @@
 __d(
   "WAWebSystemMessagePluginFormatMsgTextRegistry",
   [
+    "WAWebBrazilPaymentReceiptAddedFormatMsgText",
     "WAWebFormatCallLog",
     "WAWebGroupsGp2AddFormatSystemMessageText",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
@@ -28,6 +29,11 @@ __d(
           formatMsgText: r(
             "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
           ),
+        },
+        {
+          type: "notification",
+          subtype: "br_payment_receipt_added",
+          formatMsgText: r("WAWebBrazilPaymentReceiptAddedFormatMsgText"),
         },
       ];
     l.default = s;

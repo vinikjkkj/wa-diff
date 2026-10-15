@@ -19,6 +19,11 @@ __d(
           subtype: "member_share_group_history_mode",
           renderPreviewIcon: null,
         },
+        {
+          type: "notification",
+          subtype: "br_payment_receipt_added",
+          renderPreviewIcon: null,
+        },
       ];
     l.default = s;
   },

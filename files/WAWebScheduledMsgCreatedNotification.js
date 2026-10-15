@@ -7,7 +7,6 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDrawerManager",
     "WAWebFormatCTAText",
-    "WAWebIcChatlistClockIcon.react",
     "WAWebMsgType",
     "WAWebScheduledMessagesListLoadable",
     "WAWebScheduledMsgActionLogger",
@@ -15,6 +14,7 @@ __d(
     "WAWebSystemMessageGatingUtils",
     "WAWebUnscheduleMsgAction",
     "WAWebWamEnumScheduledMessageEntrypoint",
+    "WDSIconIcSchedule.react",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -42,7 +42,7 @@ __d(
           subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
             .ScheduledMessageCreated,
         }),
-        u = c.jsx(o("WAWebIcChatlistClockIcon.react").IcChatlistClockIcon, {
+        u = c.jsx(r("WDSIconIcSchedule.react"), {
           height: 14,
           width: 14,
           xstyle: d.icon,

@@ -20,6 +20,7 @@ __d(
     "WAWebVoipCallFromUiStore",
     "WAWebVoipCallRatingStore",
     "WAWebVoipCalleeOfferToRingStore",
+    "WAWebVoipCrashRecovery",
     "WAWebVoipDeviceClassUtils",
     "WAWebVoipErrorLogUpload",
     "WAWebVoipFocusTracker",
@@ -988,6 +989,9 @@ __d(
             (t != null && p && (ne.userRating = t),
               yield o("WAWebVoipLabMetricsFile").patchLabMetricsSelfRow(ne),
               o("WAWebVoipCallRatingStore").markPersistedFieldstatsHandedOff(n),
+              o("WAWebVoipCrashRecovery").clearCallRandomIdMarker(
+                e.callRandomId,
+              ),
               Q.add(e),
               Te(e),
               o("WAWebVoipCallRatingStore").clearPendingFieldstats(e),

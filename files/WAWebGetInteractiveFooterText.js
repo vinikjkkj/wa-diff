@@ -16,45 +16,61 @@ __d(
       day: "numeric",
       weekday: "short",
     });
-    function u(t) {
+    function u(e) {
+      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? c({
+            footer: e.footer,
+            interactivePayload: e.interactivePayload,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          })
+        : e.footer;
+    }
+    function c(t) {
+      var n = t.footer,
+        a = t.interactivePayload,
+        i = t.nativeFlowName,
+        l = t.type;
       if (
-        t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        t.nativeFlowName ===
-          r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+        l === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        i === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var n = o("WAWebOrderStatusButton").getOrderStatusButton(t);
-        if (n != null) {
-          var a = n.order,
-            i = a.order_creator_surface,
-            l = a.order_date,
-            u = a.shipping_method,
-            c = a.tracking;
+        var u = o("WAWebOrderStatusButton").getOrderStatusButtonFor({
+          interactivePayload: a,
+          type: l,
+        });
+        if (u != null) {
+          var c = u.order,
+            d = c.order_creator_surface,
+            m = c.order_date,
+            p = c.shipping_method,
+            _ = c.tracking;
           if (
-            i === "biz_inbox" &&
+            d === "biz_inbox" &&
             o("WAWebABProps").getABPropConfigValue(
               "utility_order_view_mbs_enabled",
             )
           ) {
-            if (l == null) return null;
-            var d = e.format(Number(l) * 1e3);
+            if (m == null) return null;
+            var f = e.format(Number(m) * 1e3);
             return s
-              ._(/*BTDS*/ "Placed on {order_date}", [s._param("order_date", d)])
+              ._(/*BTDS*/ "Placed on {order_date}", [s._param("order_date", f)])
               .toString();
           }
-          if (c) return c.courier_name + " \u2022 " + c.tracking_ref;
-          var m = r("isStringNullOrEmpty")(u)
+          if (_) return _.courier_name + " \u2022 " + _.tracking_ref;
+          var g = r("isStringNullOrEmpty")(p)
             ? s._(/*BTDS*/ "Not available")
-            : u;
+            : p;
           return s
             ._(/*BTDS*/ "Shipping method: {shipping_method}", [
-              s._param("shipping_method", m),
+              s._param("shipping_method", g),
             ])
             .toString();
         }
       }
-      return t.footer;
+      return n;
     }
-    l.getInteractiveFooterText = u;
+    ((l.getInteractiveFooterText = u), (l.getInteractiveFooterTextFor = c));
   },
   226,
 );

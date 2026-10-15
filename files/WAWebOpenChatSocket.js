@@ -116,31 +116,20 @@ __d(
                       t.startWebcAuthHandshakeDuration(),
                       d != null)
                     ) {
-                      var m;
-                      ((m = o(
-                        "WAWebPageLoadLogging",
-                      )).addPageLoadQplAnnotationNow({
+                      (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
                         handshake_path: "resume",
                       }),
-                        m.startPageLoadQplMeasure("hs_noise_read"));
-                      var p = yield o(
+                        o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                          "hs_noise_read",
+                        ));
+                      var m = yield o(
                         "WAWebUserPrefsInfoStore",
                       ).waNoiseInfo.get();
-                      (m.endPageLoadQplMeasure("hs_noise_read"),
-                        m.startPageLoadQplMeasure("hs_handshake_net"));
-                      var _ = yield q(
-                        c,
-                        r,
-                        e,
-                        s,
-                        p == null ? void 0 : p.staticKeyPair,
-                        d,
-                      );
                       return (
                         o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                          "hs_handshake_net",
+                          "hs_noise_read",
                         ),
-                        _
+                        q(c, r, e, s, m == null ? void 0 : m.staticKeyPair, d)
                       );
                     }
                     return (
@@ -174,23 +163,15 @@ __d(
           .tags("handshake"),
         i.authenticate(n.pubKey));
       var l = { clientHello: { ephemeral: n.pubKey } };
-      return (
-        o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_handshake_net"),
-        i
-          .sendAndReceive(
-            o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, l)
-              .readByteArrayView(),
-          )
-          .then(function (e) {
-            return (
-              o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                "hs_handshake_net",
-              ),
-              H(i, e, n, r, a)
-            );
-          })
-      );
+      return i
+        .sendAndReceive(
+          o("encodeProtobuf")
+            .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, l)
+            .readByteArrayView(),
+        )
+        .then(function (e) {
+          return H(i, e, n, r, a);
+        });
     }
     function q(e, t, a, i, l, v) {
       if (l == null)
@@ -448,13 +429,11 @@ __d(
             l = e.options,
             s = e.serverEphemeral,
             u = e.serverStatic;
-          (o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_cert_verify"),
-            yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
-              certificate: t,
-              serverStatic: u,
-              isRegistered: i,
-            }),
-            o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_cert_verify"),
+          (yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
+            certificate: t,
+            serverStatic: u,
+            isRegistered: i,
+          }),
             yield s);
           var c = i
             ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(l)

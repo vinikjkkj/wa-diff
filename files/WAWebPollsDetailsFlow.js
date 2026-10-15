@@ -74,7 +74,7 @@ __d(
       switch (l.step) {
         case m.Details:
           S = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
-            msg: n,
+            msgKey: C,
             associatedMessages: t,
             onClose: function () {
               l.pop();
@@ -87,7 +87,7 @@ __d(
           break;
         case m.ViewAll:
           S = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
-            msg: n,
+            msgKey: C,
             associatedMessages: t,
             optionLocalId: r("nullthrows")(p),
             onBack: function () {

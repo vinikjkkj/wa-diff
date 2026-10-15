@@ -193,36 +193,56 @@ __d(
       };
     }
     function g(e) {
-      var t;
+      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? h({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowButtons: null,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          })
+        : h({
+            interactivePayload: null,
+            interactiveType: null,
+            nativeFlowButtons: e.nativeFlowButtons,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          });
+    }
+    function h(e) {
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowButtons,
+        i = e.nativeFlowName,
+        l = e.type;
       if (
-        e.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-        e.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
+        i !== r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+        i !== r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       )
         return null;
       if (
-        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        (t = e.interactivePayload) != null &&
+        l === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        n === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        t != null &&
         t.buttons
       ) {
-        var n = e.interactivePayload.buttons[0],
-          a = n.buttonParamsJson,
-          i = n.name;
-        return m(i, a);
-      } else if (e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
-        var l,
-          s = ((l = e.nativeFlowButtons) != null ? l : [])[0].nativeFlowInfo;
+        var s = t.buttons[0],
+          u = s.buttonParamsJson,
+          c = s.name;
+        return m(c, u);
+      } else if (l === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
+        var d,
+          p = a == null || (d = a[0]) == null ? void 0 : d.nativeFlowInfo;
         return m(
-          s == null ? void 0 : s.name,
-          s == null ? void 0 : s.paramsJson,
+          p == null ? void 0 : p.name,
+          p == null ? void 0 : p.paramsJson,
         );
       }
     }
     ((l.CUSTOM_ITEM_ID_PREFIX = d),
       (l.paramsJsonToOrderInfo = m),
-      (l.getOrderInfo = g));
+      (l.getOrderInfo = g),
+      (l.getOrderInfoFor = h));
   },
   98,
 );

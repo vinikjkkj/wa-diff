@@ -36,6 +36,7 @@ __d(
           lineHeight: "x1dbl2gt",
           $$css: !0,
         },
+        orderInfoWrapper: { width: "xh8yej3", $$css: !0 },
         hr: {
           width: "xh8yej3",
           borderTopWidth: "x178xt8z",
@@ -168,7 +169,7 @@ __d(
               ? i
               : c.jsxs(o("WAWebFlex.react").FlexRow, {
                   align: "center",
-                  className: "xh8yej3",
+                  xstyle: m.orderInfoWrapper,
                   children: [
                     C != null && C !== ""
                       ? c.jsx("div", {

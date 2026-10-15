@@ -63,6 +63,7 @@ __d(
               r("capiThreadControl"),
               r("capiCallingPermissionType"),
               r("createdLocally"),
+              r("chatViewMode"),
               r("limitSharing"),
               r("mmSignalSharingExpirationWindow"),
               r("toneId"),

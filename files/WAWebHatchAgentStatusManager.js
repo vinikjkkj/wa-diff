@@ -1,15 +1,23 @@
 __d(
   "WAWebHatchAgentStatusManager",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebBaseJSHaltDetector", "WAWebJSHaltDetector"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = (function () {
-        function e() {
-          ((this.$1 = null), (this.$2 = []));
+    var e = 3e5,
+      s = (function () {
+        function t() {
+          var e = this;
+          ((this.$1 = null),
+            (this.$2 = []),
+            (this.$3 = 0),
+            (this.$4 = null),
+            (this.$8 = function () {
+              Date.now() >= e.$3 && e.clearAgentStatus();
+            }));
         }
-        var t = e.prototype;
+        var n = t.prototype;
         return (
-          (t.subscribeToStatusText = function (t) {
+          (n.subscribeToStatusText = function (t) {
             var e = this;
             return (
               this.$2.push(t),
@@ -20,32 +28,53 @@ __d(
               }
             );
           }),
-          (t.getAgentStatus = function () {
+          (n.getAgentStatus = function () {
             return this.$1;
           }),
-          (t.setAgentStatus = function (t) {
-            ((this.$1 = t), this.$3(this.$4(t)));
+          (n.setAgentStatus = function (t) {
+            ((this.$1 = t), this.$5(), this.$6(this.getDisplayText(t)));
           }),
-          (t.clearAgentStatus = function () {
-            ((this.$1 = null), this.$3(null));
+          (n.clearAgentStatus = function () {
+            (this.$7(), (this.$1 = null), this.$6(null));
           }),
-          (t.__resetForTesting = function () {
-            ((this.$1 = null), (this.$2 = []));
+          (n.__resetForTesting = function () {
+            (this.$7(), (this.$1 = null), (this.$2 = []));
           }),
-          (t.$4 = function (t) {
+          (n.getDisplayText = function (t) {
             var e = t.activityEmoji,
               n = t.activityText;
             return e != null && e !== "" ? e + " " + n : n;
           }),
-          (t.$3 = function (t) {
+          (n.$6 = function (t) {
             for (var e of [].concat(this.$2)) e(t);
           }),
-          e
+          (n.$5 = function () {
+            var t = this;
+            (this.$7(),
+              (this.$3 = Date.now() + e),
+              (this.$4 = self.setTimeout(function () {
+                return t.clearAgentStatus();
+              }, e)),
+              o("WAWebJSHaltDetector").jsHaltDetector.on(
+                o("WAWebBaseJSHaltDetector").JS_HALT_EVENT,
+                this.$8,
+              ));
+          }),
+          (n.$7 = function () {
+            this.$4 != null &&
+              (self.clearTimeout(this.$4),
+              (this.$4 = null),
+              o("WAWebJSHaltDetector").jsHaltDetector.off(
+                o("WAWebBaseJSHaltDetector").JS_HALT_EVENT,
+                this.$8,
+              ));
+          }),
+          t
         );
       })(),
-      l = new e(),
-      s = l;
-    i.default = s;
+      u = new s(),
+      c = u;
+    l.default = c;
   },
-  66,
+  98,
 );

@@ -129,23 +129,55 @@ __d(
         return e;
       }
     }
-    var x = /^[A-Za-z0-9\-_~]$/;
-    function $(e) {
+    var x = "/api/idea-cards/media/",
+      $ = /^v=[A-Za-z0-9._~-]+$/,
+      P = 1024,
+      N = 3;
+    function M(t) {
+      if (t.length > P || t.includes("#")) return null;
+      var n = t.indexOf("?"),
+        r = n === -1 ? t : t.slice(0, n);
+      return !r.startsWith(x) ||
+        r.length === x.length ||
+        u(r.slice(1)) == null ||
+        !r.split("/").every(w) ||
+        (n !== -1 && !$.test(t.slice(n + 1)))
+        ? null
+        : t;
+    }
+    function w(e) {
+      for (var t = e, n = 0; n < N; n++) {
+        var r = void 0;
+        try {
+          r = decodeURIComponent(t);
+        } catch (e) {
+          return !1;
+        }
+        if (r === t)
+          return (
+            t !== "." && t !== ".." && !t.includes("/") && !t.includes("\\")
+          );
+        t = r;
+      }
+      return !1;
+    }
+    var A = /^[A-Za-z0-9\-_~]$/;
+    function F(e) {
       var t = "";
       for (var n of new TextEncoder().encode(e)) {
         var r = String.fromCharCode(n);
-        t += x.test(r)
+        t += A.test(r)
           ? r
           : "%" + n.toString(16).toUpperCase().padStart(2, "0");
       }
       return t;
     }
-    var P = Object.freeze({
+    var O = Object.freeze({
       ARTIFACTS_LIST: "/api/artifacts",
       ARTIFACTS_PIN: "/api/artifacts/pin",
       ARTIFACTS_SUBSCRIBE: "/api/artifacts/subscribe",
       BROWSER_TASK: function (n, r) {
-        return "/api/browser-task/" + $(n) + "/" + r;
+        return "/api/browser-task/" + F(n) + "/" + r;
       },
       CHATS_LIST: "/api/chats/list?limit=100",
       CHATS_MESSAGE: function (n, r) {
@@ -233,6 +265,13 @@ __d(
         return "/api/foa/accounts?app=" + encodeURIComponent(n);
       },
       FOA_AUTH_CALLBACK: "/api/foa_auth/callback",
+      IDEA_CARD: function (n) {
+        return (
+          "/api/idea-cards/" + encodeURIComponent(n) + "?iconPalette=color"
+        );
+      },
+      IDEA_CARD_ICON: M,
+      IDEA_CARDS: "/api/idea-cards?iconPalette=color",
       MESSENGER_PIN_STATUS: "/api/messenger_companion/pin-status",
       MESSENGER_UNLOCK: "/api/messenger_companion/unlock",
       NAVIGATION_SUBSCRIBE: "/api/navigation/subscribe",
@@ -242,6 +281,7 @@ __d(
         return "/spaces/v2/" + n + "?source=space";
       },
       SPACE_IMAGE: E,
+      SPACE_RENAME: "/api/spaces/rename",
       SPACES_CATALOG: "/spaces/v2",
       WORKSPACE_DELETE: "/fs/delete",
       WORKSPACE_LIBRARY: "/fs/library",
@@ -252,12 +292,12 @@ __d(
         return p(C, t, "?p=" + r + "&v=" + n);
       },
     });
-    function N(e) {
+    function B(e) {
       return e;
     }
     ((i.confineWorkspaceMediaPath = d),
-      (i.JarvisPaths = P),
-      (i.serializeJarvisPath = N));
+      (i.JarvisPaths = O),
+      (i.serializeJarvisPath = B));
   },
   66,
 );

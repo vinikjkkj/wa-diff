@@ -6,6 +6,7 @@ __d(
     "WAWebApiChatCommon",
     "WAWebApiHydrateWidsUtil",
     "WAWebBackendApi",
+    "WAWebChatViewMode.flow",
     "WAWebCreateChat",
     "WAWebCurrentUser",
     "WAWebGhostEphemeralChatSkip",
@@ -189,19 +190,27 @@ __d(
               ) {
                 var v = yield o("WAWebApiChatCommon").getChatRecord(i);
                 if (v != null) {
+                  var S;
                   yield o("WAWebBackendApi").frontendFireAndForget(
                     "chatCollectionGadd",
                     {
                       chat: babelHelpers.extends(
                         {},
                         o("WAWebApiHydrateWidsUtil").hydrateWids(v),
-                        { id: i },
+                        {
+                          id: i,
+                          chatViewMode:
+                            (S = v.chatViewMode) != null
+                              ? S
+                              : o("WAWebChatViewMode.flow").ChatViewModeType
+                                  .VISIBLE,
+                        },
                       ),
                     },
                   );
-                  var S = yield g(i);
+                  var R = yield g(i);
                   return (
-                    S ||
+                    R ||
                       o("WALogger")
                         .ERROR(
                           p ||
@@ -216,7 +225,7 @@ __d(
                           "checkChatExistsOrCreate failed to restore chat",
                           { sampling: 0.01 },
                         ),
-                    S
+                    R
                   );
                 }
               }

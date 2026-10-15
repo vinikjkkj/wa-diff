@@ -4,6 +4,7 @@ __d(
     "CometRelay",
     "WALogger",
     "WAWebBizBroadcastProCampaignListItemDerive",
+    "WAWebBizBroadcastProCampaignStatusRefreshQuery",
     "WAWebBizBroadcastProCampaignTableData_campaign.graphql",
     "getErrorSafe",
   ],
@@ -19,21 +20,27 @@ __d(
       var t = [];
       for (var n of e)
         if (n != null) {
-          var r = d(o("CometRelay").readInlineData(u, n));
-          if (r != null) {
-            var a = o(
+          var r = o("CometRelay").readInlineData(u, n),
+            a = d(
+              r,
+              o(
+                "WAWebBizBroadcastProCampaignStatusRefreshQuery",
+              ).readProCampaignStatus(r),
+            );
+          if (a != null) {
+            var i = o(
               "WAWebBizBroadcastProCampaignListItemDerive",
-            ).tryDeriveListItemFromProCampaign(r);
-            a != null && t.push(a);
+            ).tryDeriveListItemFromProCampaign(a);
+            i != null && t.push(i);
           }
         }
       return t;
     }
-    function d(e) {
-      var t = e.id;
-      if (t == null) return null;
+    function d(e, t) {
+      var n = e.id;
+      if (n == null) return null;
       try {
-        return m(e);
+        return m(e, t);
       } catch (e) {
         return (
           o("WALogger")
@@ -43,7 +50,7 @@ __d(
                   "Skipping malformed BB Pro campaign ",
                   "",
                 ])),
-              t,
+              n,
             )
             .catching(r("getErrorSafe")(e))
             .sendLogs("bb-pro-campaign-node-normalization-failed"),
@@ -51,65 +58,75 @@ __d(
         );
       }
     }
-    function m(e) {
-      var t,
-        n,
+    function m(e, t) {
+      var n,
         r,
-        a = e.id;
-      if (a == null) return null;
-      var i = e.broadcast_insights,
-        l = o(
+        a,
+        i,
+        l = e.id;
+      if (l == null) return null;
+      var s = e.broadcast_insights,
+        u = o(
           "WAWebBizBroadcastProCampaignListItemDerive",
-        ).requireProCampaignInsights(i, i == null ? void 0 : i.start_time),
-        s = l.insights,
-        u = l.startTime,
-        c = e.delivery_status_info,
-        d = s.template;
+        ).requireProCampaignInsights(s, s == null ? void 0 : s.start_time),
+        c = u.insights,
+        d = u.startTime,
+        m = t.deliveryStatus,
+        _ = c.template;
       return {
-        id: a,
+        id: l,
         campaign_name: e.campaign_name,
+        bb_pro_display_status: t.displayStatus,
+        bb_pro_can_stop: t.canStop,
         delivery_status_info:
-          c == null
+          m == null && e.delivery_status_info == null
             ? null
             : {
                 extra_data:
-                  c.extra_data == null
+                  ((n = e.delivery_status_info) == null
+                    ? void 0
+                    : n.extra_data) == null
                     ? null
-                    : { template_id: c.extra_data.template_id },
-                status: c.status,
+                    : {
+                        template_id:
+                          e.delivery_status_info.extra_data.template_id,
+                      },
+                status: m,
               },
         broadcast_insights: {
-          ads_amount_spent: s.ads_amount_spent,
-          bid_amount_long: s.bid_amount_long,
-          currency: s.currency,
-          customer_list_name: s.customer_list_name,
-          lifetime_budget_long: s.lifetime_budget_long,
+          ads_amount_spent: c.ads_amount_spent,
+          bid_amount_long: c.bid_amount_long,
+          currency: c.currency,
+          custom_audience_id: c.custom_audience_id,
+          customer_list_name: c.customer_list_name,
+          lifetime_budget_long: c.lifetime_budget_long,
           quick_reply_clicks:
-            (t = s.quick_reply_clicks) == null
+            (r = c.quick_reply_clicks) == null
               ? void 0
-              : t.map(function (e) {
+              : r.map(function (e) {
                   return { count_data: p(e == null ? void 0 : e.count_data) };
                 }),
           cta_url_clicks:
-            (n = s.cta_url_clicks) == null
+            (a = c.cta_url_clicks) == null
               ? void 0
-              : n.map(function (e) {
+              : a.map(function (e) {
                   return { count_data: p(e == null ? void 0 : e.count_data) };
                 }),
-          read: p(s.read),
-          sent: p(s.sent),
-          ads_delivered: p(s.ads_delivered),
-          first_customer_reply: p(s.first_customer_reply),
-          start_time: u,
-          status: s.status,
+          read: p(c.read),
+          sent: p(c.sent),
+          ads_delivered: p(c.ads_delivered),
+          first_customer_reply: p(c.first_customer_reply),
+          read_rate: c.read_rate,
+          reply_rate: c.reply_rate,
+          start_time: d,
           template:
-            d == null
+            _ == null
               ? null
               : {
-                  element: d.element,
+                  element: _.element,
                   header_type:
-                    d.header_type == null ? null : String(d.header_type),
-                  hsm_components: ((r = d.hsm_components) != null ? r : []).map(
+                    _.header_type == null ? null : String(_.header_type),
+                  hsm_components: ((i = _.hsm_components) != null ? i : []).map(
                     function (e) {
                       var t,
                         n = e.example;

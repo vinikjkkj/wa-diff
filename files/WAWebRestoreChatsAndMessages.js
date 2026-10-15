@@ -13,6 +13,7 @@ __d(
     "WAWebChatComparator",
     "WAWebChatGetters",
     "WAWebChatMsgsCollection",
+    "WAWebChatViewMode.flow",
     "WAWebCmd",
     "WAWebDBAddOnProviders",
     "WAWebDBMessageSerialization",
@@ -63,20 +64,25 @@ __d(
       return e.reduce(
         function (e, n) {
           var r,
-            a = o("WAWebApiHydrateWidsUtil").hydrateWids(
+            a,
+            i = o("WAWebApiHydrateWidsUtil").hydrateWids(
               babelHelpers.extends({}, n, {
                 pendingInitialLoading: !0,
                 isReadOnly: (r = n.isReadOnly) != null ? r : !1,
+                chatViewMode:
+                  (a = n.chatViewMode) != null
+                    ? a
+                    : o("WAWebChatViewMode.flow").ChatViewModeType.VISIBLE,
               }),
             ),
-            i = o("WAWebThreadMetadataUtil").getOfflineMetaPreviewForChat({
+            l = o("WAWebThreadMetadataUtil").getOfflineMetaPreviewForChat({
               chatTimestamp: t,
-              chatId: a.id,
-              accountLid: a.accountLid,
+              chatId: i.id,
+              accountLid: i.accountLid,
             });
           return (
-            i != null && (a.previewT = i),
-            a.id.isNewsletter() ? e.newsletters.push(a) : e.chats.push(a),
+            l != null && (i.previewT = l),
+            i.id.isNewsletter() ? e.newsletters.push(i) : e.chats.push(i),
             e
           );
         },

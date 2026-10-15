@@ -2,8 +2,8 @@ __d(
   "cometVirtualizationPinExclusion",
   [
     "FocusManager",
+    "VirtualizationConfig",
     "WeakRefApiUtils",
-    "justknobx",
     "react",
     "react-compiler-runtime",
   ],
@@ -98,17 +98,17 @@ __d(
     }
     function L(e, t, n) {
       if (
-        !r("justknobx")._("6042") ||
+        !o("VirtualizationConfig").isNonInteractiveClickPinExclusionEnabled() ||
         e !== "click" ||
         !(t instanceof Element) ||
         !(n instanceof Element) ||
         !n.contains(t)
       )
         return !1;
-      for (var o = t; o != null; ) {
-        if (R(o)) return !1;
-        if (o === n) return !0;
-        o = o.parentElement;
+      for (var r = t; r != null; ) {
+        if (R(r)) return !1;
+        if (r === n) return !0;
+        r = r.parentElement;
       }
       return !1;
     }

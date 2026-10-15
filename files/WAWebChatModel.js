@@ -44,6 +44,7 @@ __d(
     "WAWebChatThemeValue",
     "WAWebChatUnreadMentions",
     "WAWebChatUpdates",
+    "WAWebChatViewMode.flow",
     "WAWebCmd",
     "WAWebCollectionConstants",
     "WAWebConnGetters",
@@ -161,6 +162,9 @@ __d(
             (e.disappearingModeTrigger = o("WAWebBaseModel").prop()),
             (e.disappearingModeInitiatedByMe = o("WAWebBaseModel").prop()),
             (e.createdLocally = o("WAWebBaseModel").prop()),
+            (e.chatViewMode = o("WAWebBaseModel").prop(
+              o("WAWebChatViewMode.flow").ChatViewModeType.VISIBLE,
+            )),
             (e.pendingAction = o("WAWebBaseModel").session()),
             (e.formattedTitle = o("WAWebBaseModel").session()),
             (e.active = o("WAWebBaseModel").session()),

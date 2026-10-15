@@ -6,13 +6,14 @@ __d(
     "WAWebDrawerHeader.react",
     "WAWebDrawerManager",
     "WAWebDrawerSection.react",
-    "WAWebMsgModelPropUtils",
+    "WAWebMsgGetters",
     "WAWebPollCreationUtils",
     "WAWebPollMessageHeader",
     "WAWebPollOptionsRenderUtils",
     "WAWebPollsOptions",
     "react",
     "react-compiler-runtime",
+    "useWAWebMsgValues",
     "useWAWebNewsletterPollsResults",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,14 +36,14 @@ __d(
         },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(41),
+      var t = o("react-compiler-runtime").c(40),
         n = e.associatedMessages,
         a = e.chatName,
         i = e.correctOptionIndex,
         l = e.isPollEnded,
         u = e.isPollInvalid,
         d = e.isSentByMe,
-        m = e.msg,
+        m = e.msgKey,
         p = e.onDetailImageClick,
         _ = e.pollEndTime,
         f = e.pollHideVoterNames,
@@ -51,114 +52,110 @@ __d(
         y = e.ref,
         C = e.selectableOptionsCount,
         b = e.trusted,
-        v = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(m.id),
+        v = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(m),
         S;
-      t[0] !== v
-        ? ((S = o("WAWebPollOptionsRenderUtils").getVotedForOptions(v)),
-          (t[0] = v),
-          (t[1] = S))
-        : (S = t[1]);
-      var R = S,
-        L;
-      t[2] !== m || t[3] !== C || t[4] !== R
-        ? ((L = function (t) {
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = [o("WAWebMsgGetters").getPollType]), (t[0] = S))
+        : (S = t[0]);
+      var R = o("useWAWebMsgValues").useMsgValues(m, S),
+        L = R[0],
+        E;
+      t[1] !== v
+        ? ((E = o("WAWebPollOptionsRenderUtils").getVotedForOptions(v)),
+          (t[1] = v),
+          (t[2] = E))
+        : (E = t[2]);
+      var k = E,
+        I;
+      t[3] !== m || t[4] !== C || t[5] !== k
+        ? ((I = function (t) {
             o("WAWebPollOptionsRenderUtils").toggleOption({
               optionLocalId: t,
-              votedForOptions: R,
+              votedForOptions: k,
               selectableOptionsCount: C,
-              msg: m,
+              msgKey: m,
             });
           }),
-          (t[2] = m),
-          (t[3] = C),
-          (t[4] = R),
-          (t[5] = L))
-        : (L = t[5]);
-      var E = L,
-        k;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = { surface: "unknown", viewName: "polls-expanded-photo" }),
-          (t[6] = k))
-        : (k = t[6]);
-      var I;
-      t[7] !== a
-        ? ((I = s.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+          (t[3] = m),
+          (t[4] = C),
+          (t[5] = k),
+          (t[6] = I))
+        : (I = t[6]);
+      var T = I,
+        D;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = { surface: "unknown", viewName: "polls-expanded-photo" }),
+          (t[7] = D))
+        : (D = t[7]);
+      var x;
+      t[8] !== a
+        ? ((x = s.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
             title: a,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
             onCancel: o("WAWebDrawerManager").closeDrawerRight,
             focusBackOrCancel: !0,
           })),
-          (t[7] = a),
-          (t[8] = I))
-        : (I = t[8]);
-      var T;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = [c.paddingHoriz32, c.paddingVert2]), (t[9] = T))
-        : (T = t[9]);
-      var D = m.id,
-        x =
-          m.pollType === o("WAWebPollCreationUtils").PollType.QUIZ && d
-            ? null
-            : C,
-        $;
-      t[10] !== m
-        ? (($ = o("WAWebMsgModelPropUtils").isTrusted(m.unsafe())),
-          (t[10] = m),
-          (t[11] = $))
-        : ($ = t[11]);
-      var P;
-      t[12] !== l ||
-      t[13] !== d ||
-      t[14] !== m.id ||
-      t[15] !== _ ||
-      t[16] !== f ||
-      t[17] !== g ||
-      t[18] !== x ||
-      t[19] !== $
-        ? ((P = s.jsx(r("WAWebDrawerSection.react"), {
-            xstyle: T,
+          (t[8] = a),
+          (t[9] = x))
+        : (x = t[9]);
+      var $;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = [c.paddingHoriz32, c.paddingVert2]), (t[10] = $))
+        : ($ = t[10]);
+      var P = L === o("WAWebPollCreationUtils").PollType.QUIZ && d ? null : C,
+        N;
+      t[11] !== l ||
+      t[12] !== d ||
+      t[13] !== m ||
+      t[14] !== _ ||
+      t[15] !== f ||
+      t[16] !== g ||
+      t[17] !== P ||
+      t[18] !== b
+        ? ((N = s.jsx(r("WAWebDrawerSection.react"), {
+            xstyle: $,
             children: s.jsx(r("WAWebPollMessageHeader"), {
               isPollEnded: l,
-              msgKey: D,
+              msgKey: m,
               name: g,
               isSentByMe: d,
               pollEndTime: _,
               pollHideVoterNames: f,
-              pollSelectableOptionsCount: x,
-              trusted: $,
+              pollSelectableOptionsCount: P,
+              trusted: b,
             }),
           })),
-          (t[12] = l),
-          (t[13] = d),
-          (t[14] = m.id),
-          (t[15] = _),
-          (t[16] = f),
-          (t[17] = g),
-          (t[18] = x),
-          (t[19] = $),
-          (t[20] = P))
-        : (P = t[20]);
-      var N;
-      t[21] !== n ||
-      t[22] !== i ||
-      t[23] !== E ||
-      t[24] !== l ||
-      t[25] !== u ||
-      t[26] !== m.id ||
-      t[27] !== p ||
-      t[28] !== v ||
-      t[29] !== h ||
-      t[30] !== C ||
-      t[31] !== b ||
-      t[32] !== R
-        ? ((N = s.jsx(r("WAWebPollsOptions"), {
-            msgKey: m.id,
+          (t[11] = l),
+          (t[12] = d),
+          (t[13] = m),
+          (t[14] = _),
+          (t[15] = f),
+          (t[16] = g),
+          (t[17] = P),
+          (t[18] = b),
+          (t[19] = N))
+        : (N = t[19]);
+      var M;
+      t[20] !== n ||
+      t[21] !== i ||
+      t[22] !== T ||
+      t[23] !== l ||
+      t[24] !== u ||
+      t[25] !== m ||
+      t[26] !== p ||
+      t[27] !== v ||
+      t[28] !== h ||
+      t[29] !== C ||
+      t[30] !== b ||
+      t[31] !== k
+        ? ((M = s.jsx(r("WAWebPollsOptions"), {
+            msgKey: m,
             options: v,
-            checkedOptionLocalIds: R,
+            checkedOptionLocalIds: k,
             trusted: b,
             isPollEnded: l,
             isPollInvalid: u,
-            onOptionToggle: E,
+            onOptionToggle: T,
             onDetailImageClick: p,
             selectableOptionsCount: C,
             readonly: h,
@@ -166,49 +163,49 @@ __d(
             view: "expanded",
             correctOptionIndex: i,
           })),
-          (t[21] = n),
-          (t[22] = i),
-          (t[23] = E),
-          (t[24] = l),
-          (t[25] = u),
-          (t[26] = m.id),
-          (t[27] = p),
-          (t[28] = v),
-          (t[29] = h),
-          (t[30] = C),
-          (t[31] = b),
-          (t[32] = R),
-          (t[33] = N))
-        : (N = t[33]);
-      var M;
-      t[34] !== N || t[35] !== P
-        ? ((M = s.jsxs(r("WAWebDrawerBody.react"), {
-            xstyle: c.body,
-            children: [P, N],
-          })),
-          (t[34] = N),
-          (t[35] = P),
-          (t[36] = M))
-        : (M = t[36]);
+          (t[20] = n),
+          (t[21] = i),
+          (t[22] = T),
+          (t[23] = l),
+          (t[24] = u),
+          (t[25] = m),
+          (t[26] = p),
+          (t[27] = v),
+          (t[28] = h),
+          (t[29] = C),
+          (t[30] = b),
+          (t[31] = k),
+          (t[32] = M))
+        : (M = t[32]);
       var w;
+      t[33] !== N || t[34] !== M
+        ? ((w = s.jsxs(r("WAWebDrawerBody.react"), {
+            xstyle: c.body,
+            children: [N, M],
+          })),
+          (t[33] = N),
+          (t[34] = M),
+          (t[35] = w))
+        : (w = t[35]);
+      var A;
       return (
-        t[37] !== y || t[38] !== M || t[39] !== I
-          ? ((w = s.jsxs(
+        t[36] !== y || t[37] !== w || t[38] !== x
+          ? ((A = s.jsxs(
               r("WAWebDrawer.react"),
               {
                 ref: y,
                 testid: "photo-poll-expanded-view-drawer",
-                tsNavigationData: k,
-                children: [I, M],
+                tsNavigationData: D,
+                children: [x, w],
               },
               "photo-poll-expanded-view-drawer",
             )),
-            (t[37] = y),
-            (t[38] = M),
-            (t[39] = I),
-            (t[40] = w))
-          : (w = t[40]),
-        w
+            (t[36] = y),
+            (t[37] = w),
+            (t[38] = x),
+            (t[39] = A))
+          : (A = t[39]),
+        A
       );
     }
     l.default = d;

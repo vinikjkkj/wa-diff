@@ -8,6 +8,7 @@ __d(
         CONTACT_MANAGER_SUBSCRIPTION_REQUIRED: 2494193,
         BUSINESS_BANHAMMERED: 2859017,
         AD_ACCOUNT_LINKING_DISABLED: 2859050,
+        WASS_BOT_NOT_FOUND: 5171003,
       }),
       l = (function (e) {
         function t(t) {
@@ -37,9 +38,12 @@ __d(
       return s(t, e.RATE_LIMIT_EXCEEDED);
     }
     function c(t) {
+      return s(t, e.WASS_BOT_NOT_FOUND);
+    }
+    function d(t) {
       return s(t, e.CONTACT_MANAGER_SUBSCRIPTION_REQUIRED);
     }
-    function d(e) {
+    function m(e) {
       var t,
         n,
         r = (t = (n = e.source) == null ? void 0 : n.errors) != null ? t : [];
@@ -58,8 +62,9 @@ __d(
     ((i.GraphQLErrorCode = e),
       (i.GraphQLServerError = l),
       (i.isRateLimitError = u),
-      (i.isContactManagerSubscriptionRequiredError = c),
-      (i.formatGraphQLServerError = d));
+      (i.isWassBotNotFoundError = c),
+      (i.isContactManagerSubscriptionRequiredError = d),
+      (i.formatGraphQLServerError = m));
   },
   66,
 );

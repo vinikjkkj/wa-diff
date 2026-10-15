@@ -8,6 +8,7 @@ __d(
         "BusinessTools",
         "ScreenLock",
         "Theme",
+        "ChatlistDensity",
         "Language",
         "Lists",
         "Agents",

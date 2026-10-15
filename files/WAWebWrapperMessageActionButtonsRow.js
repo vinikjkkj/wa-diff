@@ -13,7 +13,33 @@ __d(
           transition: "xcxita6",
           $$css: !0,
         },
+        container: {
+          marginTop: "xken49m",
+          paddingTop: "xexx8yu",
+          paddingBottom: "x18d9i69",
+          paddingInlineStart: "x135b78x",
+          paddingInlineEnd: "x11lfxj5",
+          paddingLeft: null,
+          paddingRight: null,
+          position: "x10l6tqk",
+          top: "xwa60dl",
+          width: "xfvs6mw",
+          $$css: !0,
+        },
+        transparentContainer: { pointerEvents: "x47corl", $$css: !0 },
         interactiveButton: { pointerEvents: "x67bb7w", $$css: !0 },
+        positionLeft: {
+          insetInlineStart: "xho9bl7",
+          left: null,
+          right: null,
+          $$css: !0,
+        },
+        positionRight: {
+          insetInlineEnd: "xej21xi",
+          left: null,
+          right: null,
+          $$css: !0,
+        },
       };
     function c(e) {
       var t = o("react-compiler-runtime").c(16),
@@ -54,39 +80,32 @@ __d(
       } else p = t[4];
       var f = "end";
       !n && !a && (f = "start");
-      var g = f,
-        h;
-      t[8] !== l || t[9] !== c || t[10] !== m
-        ? ((h = {
-            0: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw",
-            4: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xho9bl7",
-            2: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xej21xi",
-            6: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xho9bl7 xej21xi",
-            1: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw x47corl",
-            5: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xho9bl7 x47corl",
-            3: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xej21xi x47corl",
-            7: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xho9bl7 xej21xi x47corl",
-          }[(!!l << 2) | (!!c << 1) | (!!m << 0)]),
-          (t[8] = l),
-          (t[9] = c),
-          (t[10] = m),
-          (t[11] = h))
-        : (h = t[11]);
-      var y;
+      var g = l && u.positionLeft,
+        h = c && u.positionRight,
+        y = m && u.transparentContainer,
+        C;
+      t[8] !== g || t[9] !== h || t[10] !== y
+        ? ((C = [u.container, g, h, y]),
+          (t[8] = g),
+          (t[9] = h),
+          (t[10] = y),
+          (t[11] = C))
+        : (C = t[11]);
+      var b;
       return (
-        t[12] !== f || t[13] !== h || t[14] !== p
-          ? ((y = s.jsx(o("WAWebFlex.react").FlexRow, {
-              justify: g,
+        t[12] !== f || t[13] !== C || t[14] !== p
+          ? ((b = s.jsx(o("WAWebFlex.react").FlexRow, {
+              justify: f,
               align: "center",
-              className: h,
+              xstyle: C,
               children: p,
             })),
             (t[12] = f),
-            (t[13] = h),
+            (t[13] = C),
             (t[14] = p),
-            (t[15] = y))
-          : (y = t[15]),
-        y
+            (t[15] = b))
+          : (b = t[15]),
+        b
       );
     }
     l.default = c;

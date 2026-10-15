@@ -1,14 +1,21 @@
 __d(
   "WAWebCustomerManagerRequestErrors",
-  ["WAWebCustomerManagerAccessDeniedError", "WAWebGraphQLServerError"],
+  [
+    "WAWebCustomerManagerAccessDeniedError",
+    "WAWebCustomerManagerAccessDeniedNotifier",
+    "WAWebGraphQLServerError",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o(
         "WAWebGraphQLServerError",
       ).isContactManagerSubscriptionRequiredError(e)
-        ? new (o(
+        ? (o(
+            "WAWebCustomerManagerAccessDeniedNotifier",
+          ).notifyCustomerManagerAccessDenied(),
+          new (o(
             "WAWebCustomerManagerAccessDeniedError",
-          ).CustomerManagerAccessDeniedError)()
+          ).CustomerManagerAccessDeniedError)())
         : e;
     }
     l.asCustomerManagerRequestError = e;

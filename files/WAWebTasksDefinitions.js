@@ -838,7 +838,7 @@ __d(
                                                               ).waitForABPropConfigsReady(),
                                                               !o(
                                                                 "WAWebScheduledMessagesGatingUtils",
-                                                              ).isScheduledMessagesCleanupEnabled())
+                                                              ).isScheduledMessagesReceiverEnabled())
                                                             )
                                                               return o(
                                                                 "WATimeUtils",

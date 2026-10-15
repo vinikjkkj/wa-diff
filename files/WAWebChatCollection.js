@@ -129,6 +129,7 @@ __d(
                 "change:isParentGroup",
                 "change:msgs",
                 "change:createdLocally",
+                "change:chatViewMode",
                 "change:msgsLength",
                 "change:bbProEntrypointEnabled",
               ])

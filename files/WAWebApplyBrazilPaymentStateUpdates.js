@@ -8,22 +8,36 @@ __d(
     "WAWebBrazilPaymentStateDb",
     "WAWebBrazilPaymentStateUpdatePayload",
     "WAWebBrazilPaymentStateUpdateRules",
+    "WAWebCommonMsgSubtypeTypes",
+    "WAWebContactSystemMsg",
     "WAWebFindBrazilPaymentRequestMsg",
+    "WAWebHandleSingleMsg",
     "WAWebHideBrazilPaymentReceiptImage",
+    "WAWebLidMigrationUtils",
+    "WAWebMsgKey",
+    "WAWebMsgType",
+    "WAWebSchemaMessage",
+    "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = 1e3;
-    function m(t) {
+      d,
+      m,
+      p,
+      _,
+      f = 1e3,
+      g = /^[A-Za-z0-9-]{1,64}$/;
+    function h(t) {
       return t.reduce(
         function (t, n) {
           return t.then(function (t) {
-            return p(n)
+            return y(n)
               .catch(function (t) {
                 return (
                   o("WALogger")
@@ -43,15 +57,15 @@ __d(
               });
           });
         },
-        (c || (c = n("Promise"))).resolve(!0),
+        (_ || (_ = n("Promise"))).resolve(!0),
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function _() {
+    function C() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
             "WAWebBrazilPaymentStateUpdatePayload",
           ).getBrazilPaymentStateUpdate(e);
@@ -67,8 +81,8 @@ __d(
           )
             return (
               o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[br-payment-state] rejecting a status only the requester can set",
                   ])),
               ),
@@ -79,57 +93,183 @@ __d(
             ).hasAcceptedReceiptUpdate(t, a),
             l = o("WAWebBrazilPaymentStateUpdateRules").getUpdateTimestampMs(
               t,
-              y(e) * d,
+              x(e) * f,
             ),
-            c = yield o(
+            s = yield o(
               "WAWebBrazilPaymentStateDb",
             ).updateStoredBrazilPaymentState(r.id, function (e) {
               return o(
                 "WAWebBrazilPaymentStateUpdateRules",
               ).getNextBrazilPaymentState(e, t, a, l);
             });
-          return c == null
+          return s == null
             ? (o("WALogger")
                 .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[br-payment-state] could not write the update to the payment message",
                     ])),
                 )
                 .sendLogs("br-payment-state-write-failed"),
               !1)
-            : (f(r.id, c.updatedPayload), i && (yield g(e, t)), !0);
+            : (b(r.id, s.updatedPayload),
+              i &&
+                (yield v({
+                  paymentMsgKey: r.id,
+                  update: t,
+                  updateMsg: e,
+                  write: s,
+                })),
+              !0);
         })),
-        _.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function b(e, t) {
       t != null &&
         o("WAWebBackendApi").frontendFireAndForget(
           "updateBrazilPaymentStateMsgs",
           { updates: [{ msgKey: e, interactivePayload: t }] },
         );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function h() {
+    function S() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.receiptMsgId;
-          n != null &&
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.paymentMsgKey,
+            n = e.update,
+            r = e.updateMsg,
+            a = e.write,
+            i = n.receiptMsgId;
+          i != null &&
             (yield o(
               "WAWebHideBrazilPaymentReceiptImage",
-            ).hideBrazilPaymentReceiptImage(e.id.remote, e.id.fromMe, n));
+            ).hideBrazilPaymentReceiptImage(r.id.remote, r.id.fromMe, i),
+            T(r, a, i) &&
+              (yield L({
+                chatId: r.id.remote,
+                paymentMsgKey: t,
+                receiptMsgId: i,
+                t: x(r),
+              })));
         })),
-        h.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function y(e) {
+    function R(e, t) {
+      return new (r("WAWebMsgKey"))({
+        fromMe: !1,
+        remote: e,
+        id: "BRRECEIPTADDED" + t,
+      });
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatId,
+            n = e.paymentMsgKey,
+            a = e.receiptMsgId,
+            i = e.t,
+            l = R(t, a);
+          try {
+            if (yield k(l)) return;
+            var s = o("WAWebContactSystemMsg").genNotificationMsg(t, {
+              id: l,
+              type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
+              kind: o("WAWebMsgType").MsgKind.Notification,
+              subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
+                .BrazilPaymentReceiptAdded,
+              templateParams: [n.toString()],
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              t: i,
+            });
+            if (
+              (yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
+                chatId: t,
+                newMsg: s,
+                handleSingleMsgOrigin: "brazilPaymentReceiptAdded",
+              }),
+              !(yield k(l)))
+            ) {
+              o("WALogger")
+                .WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[br-payment-state] the receipt notice was not stored",
+                    ])),
+                )
+                .sendLogs("br-payment-state-receipt-notice-not-stored");
+              return;
+            }
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[br-payment-state] added the receipt notice",
+                ])),
+            );
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[br-payment-state] could not add the receipt notice",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("br-payment-state-receipt-notice-failed");
+          }
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(
+              [e, o("WAWebLidMigrationUtils").getAlternateMsgKey(e)]
+                .filter(Boolean)
+                .map(String),
+              !1,
+            );
+          return t.some(Boolean);
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e, t, n) {
+      var o = t.next;
+      return (
+        !e.id.fromMe && o.receiptMsgId === n && D(n) && r("justknobx")._("6447")
+      );
+    }
+    function D(e) {
+      return g.test(e)
+        ? !0
+        : (o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[br-payment-state] no receipt notice for an unexpected receipt id",
+                ])),
+            )
+            .sendLogs("br-payment-state-receipt-notice-bad-id"),
+          !1);
+    }
+    function x(e) {
       var t;
       return (t = e.t) != null ? t : o("WATimeUtils").unixTime();
     }
-    l.applyBrazilPaymentStateUpdates = m;
+    ((l.applyBrazilPaymentStateUpdates = h), (l.getReceiptAddedNoticeKey = R));
   },
   98,
 );

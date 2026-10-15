@@ -21,14 +21,14 @@ __d(
       });
     }
     function s() {
-      return R({ abProp: "ai_hatch_approval_notification_enabled" });
+      return E({ abProp: "ai_hatch_approval_notification_enabled" });
     }
     function u() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && R({ abProp: "ai_hatch_connectors_enabled" })
+        ) && E({ abProp: "ai_hatch_connectors_enabled" })
       );
     }
     function c() {
@@ -47,13 +47,13 @@ __d(
       );
     }
     function m() {
-      return R({ abProp: "ai_hatch_response_ux_parity_enabled" });
+      return E({ abProp: "ai_hatch_response_ux_parity_enabled" });
     }
     function p() {
-      return R({ abProp: "ai_hatch_vm_capability_sync_enabled" });
+      return E({ abProp: "ai_hatch_vm_capability_sync_enabled" });
     }
     function _() {
-      return R({ abProp: "ai_hatch_ideas_enabled" });
+      return E({ abProp: "ai_hatch_ideas_enabled" });
     }
     function f(e) {
       return (
@@ -63,29 +63,47 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        R({ abProp: "ai_hatch_browser_enabled" })
+        E({ abProp: "ai_hatch_browser_enabled" })
       );
     }
-    function g() {
+    function g(t) {
       return (
-        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
-          o("WAWebHatchMinPrimaryVersions")
-            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && R({ abProp: "ai_hatch_secure_credentials_enabled" })
+        t != null &&
+        o("WAWebBotUtils").isHatchBot(t) &&
+        e() &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_theme_enabled")
       );
     }
-    function h() {
+    function h(t) {
       return (
-        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
-          o("WAWebHatchMinPrimaryVersions")
-            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && R({ abProp: "ai_hatch_space_enabled" })
+        t != null &&
+        o("WAWebBotUtils").isHatchBot(t) &&
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_avatar_working_video_enabled",
+        )
       );
     }
     function y() {
-      return R({ abProp: "ai_hatch_media_enabled" });
+      return (
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) && E({ abProp: "ai_hatch_secure_credentials_enabled" })
+      );
     }
     function C() {
+      return (
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) && E({ abProp: "ai_hatch_space_enabled" })
+      );
+    }
+    function b() {
+      return E({ abProp: "ai_hatch_media_enabled" });
+    }
+    function v() {
       return (
         e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
@@ -94,10 +112,10 @@ __d(
         )
       );
     }
-    function b() {
-      return R({ abProp: "ai_hatch_activity_enabled" });
+    function S() {
+      return E({ abProp: "ai_hatch_activity_enabled" });
     }
-    function v() {
+    function R() {
       return e()
         ? (function (e) {
             if (
@@ -132,7 +150,7 @@ __d(
           )
         : !1;
     }
-    function S(e) {
+    function L(e) {
       return e ||
         !o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_video_avatars_enabled",
@@ -146,7 +164,7 @@ __d(
             ),
           );
     }
-    function R(t) {
+    function E(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -164,13 +182,15 @@ __d(
       (l.isHatchVmCapabilitySyncEnabled = p),
       (l.isHatchIdeasEnabled = _),
       (l.isHatchBrowserEnabled = f),
-      (l.isHatchSecureCredentialsEnabled = g),
-      (l.isHatchSpaceEnabled = h),
-      (l.isHatchMediaEnabled = y),
-      (l.isHatchManageSubscriptionEnabled = C),
-      (l.isHatchActivityEnabled = b),
-      (l.isMuseNavBarEntryPointSelected = v),
-      (l.getHatchNavBarAnimationMode = S));
+      (l.isHatchThemeEnabled = g),
+      (l.isHatchAvatarWorkingVideoEnabled = h),
+      (l.isHatchSecureCredentialsEnabled = y),
+      (l.isHatchSpaceEnabled = C),
+      (l.isHatchMediaEnabled = b),
+      (l.isHatchManageSubscriptionEnabled = v),
+      (l.isHatchActivityEnabled = S),
+      (l.isMuseNavBarEntryPointSelected = R),
+      (l.getHatchNavBarAnimationMode = L));
   },
   98,
 );

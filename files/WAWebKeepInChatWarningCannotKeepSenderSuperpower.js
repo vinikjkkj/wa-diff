@@ -19,6 +19,7 @@ __d(
       u = e || (e = o("react")),
       c = e.useEffect,
       d = {
+        header: { backgroundColor: "xjkh2o", textAlign: "x2b8uid", $$css: !0 },
         icon: {
           textAlign: "x2b8uid",
           marginTop: "x98l61r",
@@ -53,7 +54,7 @@ __d(
       var n = u.jsx(o("WAWebFlex.react").FlexRow, {
           align: "center",
           justify: "center",
-          className: "xjkh2o x2b8uid",
+          xstyle: d.header,
           children: u.jsx(r("WDSIllustrationWdsPictoGenericWarning.react"), {
             testid: "keep-warning",
             xstyle: d.icon,

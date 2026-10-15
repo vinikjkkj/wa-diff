@@ -1,6 +1,6 @@
 __d(
   "VideoPlayerControlsBottomRowAddOnContext",
-  ["react", "react-compiler-runtime", "useStable"],
+  ["react", "react-compiler-runtime", "useStable", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -12,8 +12,9 @@ __d(
       p = s.createContext(null);
     function _(e) {
       var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        a = r("useStable")(f),
+        n = e.children;
+      r("vulture")("jU4dRZqBdnXoM3is5fUytDH5PWY=");
+      var a = r("useStable")(f),
         i;
       return (
         t[0] !== n || t[1] !== a

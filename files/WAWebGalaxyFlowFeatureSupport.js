@@ -82,21 +82,49 @@ __d(
         }
         if (n != null) return r.includes(n);
       }
-      if (e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE) {
-        var l = e == null ? void 0 : e.to;
-        if (l) {
-          var s = o("WAWebLidMigrationUtils").toPn(l);
-          s && (n = o("WAWebWidFactory").asUserWidOrThrow(s).user);
-        }
-        if (n != null) return r.includes(n);
-      }
-      return !1;
+      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE
+        ? p(e == null ? void 0 : e.to, r)
+        : !1;
     }
-    function p(e, t, n) {
-      if (m(e, n)) return !1;
-      var r = n != null ? n.galaxyFlowDisabled !== void 0 : !1;
+    function p(e, t) {
+      var n = e ? o("WAWebLidMigrationUtils").toPn(e) : null;
+      return n == null
+        ? !1
+        : t.includes(o("WAWebWidFactory").asUserWidOrThrow(n).user);
+    }
+    function _(e) {
+      var t = e.buttonParamsJson,
+        n = e.interactiveType,
+        a = e.to,
+        i = o("WAWebABProps")
+          .getABPropConfigValue(
+            "enable_futureproof_galaxy_flow_message_for_business_numbers",
+          )
+          .split(",");
+      return p(a, i) ||
+        !o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+          .isGalaxyFlowCompanionSyncSupported ||
+        n !== r("WAWebInteractiveMessageType").NATIVE_FLOW
+        ? !1
+        : c(t) != null;
+    }
+    function f(e, t, n) {
       if (
-        !r &&
+        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE &&
+        n == null
+      ) {
+        var r;
+        return _({
+          buttonParamsJson:
+            (r = e.interactivePayload) == null ? void 0 : r.buttonParamsJson,
+          interactiveType: e.interactiveType,
+          to: e.to,
+        });
+      }
+      if (m(e, n)) return !1;
+      var a = n != null ? n.galaxyFlowDisabled !== void 0 : !1;
+      if (
+        !a &&
         !o("WAWebPrimaryFeaturesModel").PrimaryFeatures
           .isGalaxyFlowCompanionSyncSupported
       )
@@ -106,19 +134,19 @@ __d(
         t != null
       )
         return u({ flow_message_version: t }, e);
-      if (!_(e)) return !1;
-      var a = d(e),
-        i = c(a);
-      return i == null ? !1 : u(i, e);
+      if (!g(e)) return !1;
+      var i = d(e),
+        l = c(i);
+      return l == null ? !1 : u(l, e);
     }
-    function _(e) {
+    function g(e) {
       return (
         (e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
           e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE) &&
         e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW
       );
     }
-    l.isFlowSupported = p;
+    ((l.isFlowResponseSupportedFor = _), (l.isFlowSupported = f));
   },
   98,
 );

@@ -18,7 +18,8 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = {
+      d = { marginInlineEnd6: { marginInlineEnd: "xbelrpt", $$css: !0 } },
+      m = {
         option: {
           fontWeight: "xo1l8bm",
           fontSize: "x1jchvi3",
@@ -28,23 +29,23 @@ __d(
         },
         voteCount: { minWidth: "x1pshirs", $$css: !0 },
       };
-    function m(t) {
+    function p(t) {
       var n = t.addOptionMsg,
         a = t.associatedMsg,
         i = t.isCorrectOption,
         l = t.isCurrentLeader,
         s = t.isPollFromMe,
         u = t.links,
-        m = t.name,
-        f = t.trusted,
-        g = t.voteCount,
-        h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
-        y = h.pollDetailsOptionTextSize,
-        C = o("WAWebFormatConfigurationConversation").Conversation({
+        p = t.name,
+        g = t.trusted,
+        h = t.voteCount,
+        y = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+        C = y.pollDetailsOptionTextSize,
+        b = o("WAWebFormatConfigurationConversation").Conversation({
           links: u != null ? u : [],
           phoneNumbers: [],
           selectable: !0,
-          trusted: f === !0,
+          trusted: g === !0,
           fromMe: s,
         });
       return c.jsxs(o("WAWebFlex.react").FlexRow, {
@@ -65,13 +66,13 @@ __d(
               }),
             }),
           c.jsxs(o("WAWebFlex.react").FlexColumn, {
-            className: "xbelrpt",
+            xstyle: d.marginInlineEnd6,
             children: [
               c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                text: m,
+                text: p,
                 selectable: !0,
-                formatters: C,
-                className: (e || (e = r("stylex")))(d.option, y),
+                formatters: b,
+                className: (e || (e = r("stylex")))(m.option, C),
               }),
               n != null &&
                 c.jsx(r("WAWebPollAddedByLabel"), { addOptionMsg: n }),
@@ -82,22 +83,22 @@ __d(
             babelHelpers.extends(
               {},
               e.props(
-                d.voteCount,
+                m.voteCount,
                 o("WDSMargins.stylex").wdsMargins.marginStartAuto,
               ),
               {
                 children:
                   i == null
-                    ? c.jsx(p, { count: g, isCurrentLeader: l })
-                    : c.jsx(_, { count: g, isCorrectOption: i }),
+                    ? c.jsx(_, { count: h, isCurrentLeader: l })
+                    : c.jsx(f, { count: h, isCorrectOption: i }),
               },
             ),
           ),
         ],
       });
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.count,
         r = e.isCurrentLeader,
@@ -139,7 +140,7 @@ __d(
         m
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.count,
         r = e.isCorrectOption,
@@ -176,7 +177,7 @@ __d(
         u
       );
     }
-    l.default = m;
+    l.default = p;
   },
   226,
 );

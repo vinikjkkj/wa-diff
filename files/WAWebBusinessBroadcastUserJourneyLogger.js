@@ -260,6 +260,14 @@ __d(
               validationSucceeded: n,
             });
           }),
+          (t.proAudienceBelowFloorBannerViewed = function (t, n, r) {
+            o("WAWebBBAudienceLogs").proAudienceBelowFloorBannerViewed({
+              entryPoint: t,
+              floorMinimum: r,
+              log: this.$1,
+              recipientCount: n,
+            });
+          }),
           (t.createAudienceSaveResult = function (t, n, r, a, i, l) {
             o("WAWebBBAudienceLogs").createAudienceSaveResult(
               this.$1,

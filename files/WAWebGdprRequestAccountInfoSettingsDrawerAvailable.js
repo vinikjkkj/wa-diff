@@ -6,13 +6,13 @@ __d(
     "WAWeb-moment",
     "WAWebDrawerButton.react",
     "WAWebGdprRequestAccountInfoSettingsDrawerConfirmPopup",
-    "WAWebIcDownloadIcon.react",
     "WAWebL10nFilesize",
     "WAWebModalManager",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebText.react",
     "WAWebText_DONOTUSE.react",
     "WDSIconIcDelete.react",
+    "WDSIconIcDownload.react",
     "react",
     "react-compiler-runtime",
     "useWAWebGdprDelete",
@@ -73,7 +73,7 @@ __d(
         E = "dark",
         k;
       t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = u.jsx(o("WAWebIcDownloadIcon.react").IcDownloadIcon, {})),
+        ? ((k = u.jsx(r("WDSIconIcDownload.react"), { width: 24, height: 24 })),
           (t[3] = k))
         : (k = t[3]);
       var I;

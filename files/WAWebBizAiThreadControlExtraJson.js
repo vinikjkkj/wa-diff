@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAiThreadControlExtraJson",
-  ["WAWebBoolFunc", "WAWebProtobufsE2E.pb"],
+  ["WAWebBizAiHandoffActor", "WAWebBoolFunc", "WAWebProtobufsE2E.pb"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -37,21 +37,26 @@ __d(
       var t,
         n,
         r = e.entry,
-        o = e.notificationTimestampMs,
-        a = e.smartComposerEnabled,
-        i = c(r.ai_reply_status, a);
-      if (i == null) return null;
-      var l = (t = r.consumer_uid) == null ? void 0 : t.lid,
-        s = (n = r.consumer_uid) == null ? void 0 : n.pn;
-      if (l == null && s == null) return null;
-      var u = r.ai_reply_status_update_ts,
-        d = a ? r.ai_reply_status === "suggested_replies" : void 0;
+        a = e.notificationTimestampMs,
+        i = e.smartComposerEnabled,
+        l = c(r.ai_reply_status, i);
+      if (l == null) return null;
+      var s = (t = r.consumer_uid) == null ? void 0 : t.lid,
+        u = (n = r.consumer_uid) == null ? void 0 : n.pn;
+      if (s == null && u == null) return null;
+      var d = r.ai_reply_status_update_ts,
+        m = i ? r.ai_reply_status === "suggested_replies" : void 0;
       return {
-        consumerLid: l,
-        consumerPhoneNumber: s,
-        status: i,
-        suggestedRepliesEnabled: d,
-        timestampMs: u != null && u > 0 ? u : o,
+        consumerLid: s,
+        consumerPhoneNumber: u,
+        lastHandoffActor: {
+          actor: o("WAWebBizAiHandoffActor").parseBizAiHandoffActor(
+            r.last_handoff_actor,
+          ),
+        },
+        status: l,
+        suggestedRepliesEnabled: m,
+        timestampMs: d != null && d > 0 ? d : a,
       };
     }
     function c(e, t) {
@@ -75,8 +80,17 @@ __d(
             : t.suggested_replies_enabled;
       return typeof r == "boolean" ? r : null;
     }
+    function m(e) {
+      var t;
+      if (e == null) return null;
+      var n = (t = s(e)) == null ? void 0 : t.last_handoff_actor;
+      return typeof n == "string"
+        ? o("WAWebBizAiHandoffActor").parseBizAiHandoffActor(n)
+        : null;
+    }
     ((l.parseBulkThreadControl = e),
-      (l.parseSuggestedRepliesFromUpdateState = d));
+      (l.parseSuggestedRepliesFromUpdateState = d),
+      (l.parseLastHandoffActor = m));
   },
   98,
 );

@@ -17,12 +17,40 @@ __d(
       s,
       u,
       c = /url\(.*(http.*)\)/gi;
-    function d(e) {
+    function d(t, n) {
+      for (var o = t; o != null; ) {
+        if (
+          o.getAttribute(
+            (e || (e = r("VisualCompletionConstants"))).ATTRIBUTE_NAME,
+          ) === (e || (e = r("VisualCompletionConstants"))).LOADING_STATE
+        )
+          return !1;
+        if (n.mutationRoots.has(o)) break;
+        o = o.parentElement;
+      }
+      return !0;
+    }
+    function m(e) {
+      var t = Reflect.get(e, "getBoundingClientRect");
+      if (typeof t != "function") return null;
+      var n = Reflect.apply(t, e, []),
+        r = n.bottom,
+        o = n.left,
+        a = n.right,
+        i = n.top;
+      return typeof r != "number" ||
+        typeof o != "number" ||
+        typeof a != "number" ||
+        typeof i != "number"
+        ? null
+        : { bottom: r, left: o, right: a, top: i };
+    }
+    function p(e) {
       return { height: window.innerHeight, width: window.innerWidth };
     }
-    function m(e, t) {
+    function _(e, t) {
       if (typeof e.getBoundingClientRect != "function") return !1;
-      var n = d(t),
+      var n = p(t),
         r = e.getBoundingClientRect(),
         a = r.bottom,
         i = r.left,
@@ -31,19 +59,19 @@ __d(
         u = o("VisualCompletionUtilCommon").getPixels(
           o("VisualCompletionUtilCommon").getRectIntersection(
             { bottom: a, left: i, right: l, top: s },
-            { bottom: n.height, left: 0, right: n.width, top: -p(t).scrollY },
+            { bottom: n.height, left: 0, right: n.width, top: -f(t).scrollY },
           ),
         );
       return u > 0;
     }
-    function p(e) {
+    function f(e) {
       var t,
         n,
         r = (t = window.scrollX) != null ? t : 0,
         o = (n = window.scrollY) != null ? n : 0;
       return { scrollX: r, scrollY: o };
     }
-    function _(e, t) {
+    function g(e, t) {
       for (
         var n = 0, r = e;
         r && r.offsetParent && typeof r.offsetTop == "number";
@@ -60,7 +88,7 @@ __d(
       }
       return n;
     }
-    function f(e) {
+    function h(e) {
       if (e == null || e === "") return !1;
       var t = e.replace(/ /g, "");
       return (
@@ -69,10 +97,10 @@ __d(
         t.indexOf("content-visibility:hidden") >= 0
       );
     }
-    function g(e) {
+    function y(e) {
       for (var t = e; t; ) {
         if (
-          (typeof t.getAttribute == "function" && f(t.getAttribute("style"))) ||
+          (typeof t.getAttribute == "function" && h(t.getAttribute("style"))) ||
           (typeof t.hasAttribute == "function" && t.hasAttribute("hidden"))
         )
           return !0;
@@ -80,23 +108,23 @@ __d(
       }
       return !1;
     }
-    function h(e, t) {
+    function C(e, t) {
       if (t.has(e)) return t.get(e) === !0;
       var n = !1;
       return (
-        (typeof e.getAttribute == "function" && f(e.getAttribute("style"))) ||
+        (typeof e.getAttribute == "function" && h(e.getAttribute("style"))) ||
         (typeof e.hasAttribute == "function" && e.hasAttribute("hidden"))
           ? (n = !0)
-          : e.parentElement != null && (n = h(e.parentElement, t)),
+          : e.parentElement != null && (n = C(e.parentElement, t)),
         t.set(e, n),
         n
       );
     }
-    function y(t, n, o) {
+    function b(t, n, o) {
       if (n.config.useIntersectionObserverForVisibility !== !0) {
         if (n.config.invisibleStyleMemoization === !0 && o != null) {
-          if (h(t, o)) return !0;
-        } else if (g(t)) return !0;
+          if (C(t, o)) return !0;
+        } else if (y(t)) return !0;
       }
       for (var a = t; a; ) {
         if (n.mutationRoots.has(a)) return !1;
@@ -117,15 +145,15 @@ __d(
       }
       return !1;
     }
-    function C(e, t, n) {
+    function v(e, t, n) {
       if (
-        F(t) &&
-        !y(t, e) &&
+        B(t) &&
+        !b(t, e) &&
         t.textContent != null &&
         t.parentElement != null
       ) {
         var r = t.parentElement;
-        if (A(r)) {
+        if (O(r)) {
           var o = t.textContent;
           if ((typeof o == "string" && (o = o.trim()), o !== ""))
             return n != null && n.trim() === o ? null : r;
@@ -133,37 +161,37 @@ __d(
       }
       return null;
     }
-    function b(e, t, n) {
+    function S(e, t, n) {
       var r = [],
         o = null;
       return (
         n.config.invisibleStyleMemoization === !0 && (o = new Map()),
         Array.from(e).forEach(function (e) {
-          if (!(!A(e.target) && !F(e.target))) {
+          if (!(!O(e.target) && !B(e.target))) {
             var a = e.target;
             if (e.type === "childList" && e.addedNodes && e.addedNodes.length)
               Array.from(e.addedNodes).forEach(function (e) {
                 var a = e;
-                if (!y(a, n, o)) {
-                  if (v(a)) {
-                    T(n.mutationSeq, a, "imgLoad", t, n);
+                if (!b(a, n, o)) {
+                  if (R(a)) {
+                    x(n.mutationSeq, a, "imgLoad", t, n);
                     return;
-                  } else if (A(a)) {
+                  } else if (O(a)) {
                     var i;
                     (typeof a.querySelectorAll == "function" &&
-                      I(n.mutationSeq, a, t, n, o),
+                      D(n.mutationSeq, a, t, n, o),
                       n.interactionType === "INITIAL_LOAD" &&
                       (i = n.config.SSRInjectedElements) != null &&
                       i.has(a)
                         ? r.push([a, "ssrInject"])
                         : r.push([a, "mutationAdd"]));
-                  } else if (n.config.observeTextMutation && F(a)) {
-                    var l = C(n, a);
+                  } else if (n.config.observeTextMutation && B(a)) {
+                    var l = v(n, a);
                     l != null && r.push([l, "mutationTextAdd"]);
                   }
                 }
               });
-            else if (e.type === "attributes" && !y(a, n, o))
+            else if (e.type === "attributes" && !b(a, n, o))
               if (e.attributeName === "hidden") {
                 if (!a.hasAttribute("hidden")) {
                   var i;
@@ -176,7 +204,7 @@ __d(
               } else if (e.attributeName === "style") {
                 var l = a.getAttribute("style"),
                   s = e.oldValue;
-                if (f(s) && !f(l)) {
+                if (h(s) && !h(l)) {
                   var u;
                   n.interactionType === "INITIAL_LOAD" &&
                   (u = n.config.SSRInjectedElements) != null &&
@@ -185,15 +213,15 @@ __d(
                     : r.push([a, "mutationStyleAttribute"]);
                 }
               } else
-                ((w(a) === "image" && e.attributeName === "href") ||
-                  (w(a) === "IMG" && e.attributeName === "src")) &&
-                  T(n.mutationSeq, a, "mutationImageAttribute", t, n);
+                ((F(a) === "image" && e.attributeName === "href") ||
+                  (F(a) === "IMG" && e.attributeName === "src")) &&
+                  x(n.mutationSeq, a, "mutationImageAttribute", t, n);
             else if (
               n.config.observeTextMutation &&
               e.type === "characterData" &&
-              F(a)
+              B(a)
             ) {
-              var c = C(n, a, e.oldValue);
+              var c = v(n, a, e.oldValue);
               c != null && r.push([c, "mutationTextUpdate"]);
             }
           }
@@ -202,16 +230,16 @@ __d(
         r
       );
     }
-    function v(e) {
-      return w(e) === "IMG" || w(e) === "image";
-    }
-    function S(e) {
-      return w(e) === "picture";
-    }
     function R(e) {
-      return v(e) || S(e);
+      return F(e) === "IMG" || F(e) === "image";
     }
     function L(e) {
+      return F(e) === "picture";
+    }
+    function E(e) {
+      return R(e) || L(e);
+    }
+    function k(e) {
       if (typeof window.getComputedStyle != "function") return null;
       var t = window.getComputedStyle(e),
         n = t["background-image"];
@@ -222,7 +250,7 @@ __d(
       }
       return null;
     }
-    function E(e) {
+    function I(e) {
       if (!e.reported) {
         var t = (s || (s = r("performanceNow")))();
         (e.checkViewport(),
@@ -235,11 +263,11 @@ __d(
                     t.textContent ||
                     t.children.length ||
                     e.cssBgElements.has(t) ||
-                    y(t, e) ||
+                    b(t, e) ||
                     !e.inViewport(t)
                   )
                 ) {
-                  var n = L(t);
+                  var n = k(t);
                   if ((e.bgCheckCount++, n != null)) {
                     var r = {
                       element: new (o("WebAPIs").WeakRef)(t),
@@ -256,7 +284,7 @@ __d(
           (e.cssBgScanOverhead = s() - t));
       }
     }
-    function k(t, n) {
+    function T(t, n) {
       if (
         typeof t.getAttribute == "function" &&
         t.getAttribute(
@@ -277,13 +305,13 @@ __d(
         });
       }
     }
-    function I(e, t, n, r, o) {
+    function D(e, t, n, r, o) {
       var a = t.querySelectorAll("img, image");
       Array.from(a).forEach(function (t) {
-        y(t, r, o) || T(e, t, "imgLoad", n, r);
+        b(t, r, o) || x(e, t, "imgLoad", n, r);
       });
     }
-    function T(t, n, o, a, i) {
+    function x(t, n, o, a, i) {
       if (!i.trackedImages.has(n)) {
         if ((i.trackedImages.add(n), n.complete)) {
           n.getAttribute(
@@ -294,7 +322,7 @@ __d(
         }
         var l = n.currentSrc || n.src,
           u = n.crossOrigin;
-        if (w(n) === "image" && typeof n.getAttribute == "function") {
+        if (F(n) === "image" && typeof n.getAttribute == "function") {
           var c = n.getAttribute("xlink:href");
           c != null && (l = c);
         }
@@ -306,7 +334,7 @@ __d(
               i.imageWait(n);
             };
           if (n.getAttribute("loading") === "lazy") {
-            var p = D(t, n, o, a, d, i),
+            var p = $(t, n, o, a, d, i),
               _ = p.errorHandler,
               f = p.loadHandler;
             i.scheduleElementVisibleObserver(
@@ -331,7 +359,7 @@ __d(
                 return d();
               });
           } else {
-            var h = D(t, n, o, a, d, i),
+            var h = $(t, n, o, a, d, i),
               y = h.errorHandler,
               C = h.loadHandler;
             (m(),
@@ -341,7 +369,7 @@ __d(
         }
       }
     }
-    function D(e, t, n, o, a, i) {
+    function $(e, t, n, o, a, i) {
       var l = (s || (s = r("performanceNow")))(),
         u = function () {
           var d = (s || (s = r("performanceNow")))();
@@ -357,7 +385,7 @@ __d(
         };
       return { loadHandler: u, errorHandler: c };
     }
-    function x(t, n) {
+    function P(t, n) {
       return (
         typeof t.getAttribute == "function" &&
         t.getAttribute(
@@ -365,7 +393,7 @@ __d(
         ) === n
       );
     }
-    function $(e) {
+    function N(e) {
       var t = function () {
         ((e.scrolled = !0),
           e.markerPoints.has("scroll_start") ||
@@ -383,16 +411,16 @@ __d(
         if (e.message !== "can't access dead object") throw e;
       }
     }
-    function P(t, n) {
+    function M(t, n) {
       t instanceof HTMLImageElement &&
-        ((n.record.isMediaVCElement = x(
+        ((n.record.isMediaVCElement = P(
           t,
           (e || (e = r("VisualCompletionConstants"))).MEDIA_VC_IMAGE,
         )),
         (n.record.imgNaturalWidth = t.naturalWidth),
         (n.record.imgNaturalHeight = t.naturalHeight));
     }
-    function N(e, t) {
+    function w(e, t) {
       if (
         (typeof window.devicePixelRatio == "number" &&
           r("addAnnotations")(e.annotations, {
@@ -421,7 +449,7 @@ __d(
           });
       }
     }
-    var M = {
+    var A = {
       attributeFilter: ["hidden", "style", "href", "src"],
       attributeOldValue: !0,
       attributes: !0,
@@ -429,11 +457,11 @@ __d(
       childList: !0,
       subtree: !0,
     };
-    function w(e) {
+    function F(e) {
       var t;
       return (t = e.tagName) != null ? t : "";
     }
-    function A(e) {
+    function O(e) {
       return (
         e.nodeType === Node.ELEMENT_NODE &&
         e.tagName !== "SCRIPT" &&
@@ -441,17 +469,17 @@ __d(
         e.tagName !== "LINK"
       );
     }
-    function F(e) {
+    function B(e) {
       return e.nodeType === Node.TEXT_NODE;
     }
-    function O(e) {
+    function W(e) {
       return {
         onError: function () {},
         onLoad: function () {},
         unmountCallback: function () {},
       };
     }
-    function B(e) {
+    function q(e) {
       var t = 4,
         n = 0,
         r = 0;
@@ -483,7 +511,7 @@ __d(
         return !0;
       });
     }
-    function W(e, t, n) {
+    function U(e, t, n) {
       e.mutationRoots.forEach(function (e) {
         var r = function () {
           t(null, !0);
@@ -501,36 +529,38 @@ __d(
           e.addEventListener("keyDown", o));
       });
     }
-    ((l.getViewportSize = d),
-      (l.isInAboveTheFold = m),
-      (l.getScrollPosition = p),
-      (l.offsetTop = _),
-      (l.checkInvisibleStyle = f),
-      (l.checkInvisibleStyleElement = g),
-      (l.checkInvisibleStyleElementRecursive = h),
-      (l.shouldIgnoreMutation = y),
-      (l.getParentElementForTextNodeChange = C),
-      (l.extractMutationElements = b),
-      (l.isImage = v),
-      (l.isPicture = S),
-      (l.isImageOrPicture = R),
-      (l.getStyleBackground = L),
-      (l.scanCssBgElements = E),
-      (l.checkLoadingStates = k),
-      (l.trackAllChildImages = I),
-      (l.trackImage = T),
-      (l.getImageLoadHandlers = D),
-      (l.checkDOMElementAttributeValue = x),
-      (l.setupScrollHandler = $),
-      (l.getImageNaturalSize = P),
-      (l.addPlatformMetaData = N),
-      (l.mutationObserverConfig = M),
-      (l.getTagName = w),
-      (l.isElementNode = A),
-      (l.isTextNode = F),
-      (l.trackImageLoad = O),
-      (l.processMediaVCImage = B),
-      (l.subscribeUserInputForExtraMutation = W));
+    ((l.isOutsideLoadingStateInHTRoot = d),
+      (l.getMeasuredRect = m),
+      (l.getViewportSize = p),
+      (l.isInAboveTheFold = _),
+      (l.getScrollPosition = f),
+      (l.offsetTop = g),
+      (l.checkInvisibleStyle = h),
+      (l.checkInvisibleStyleElement = y),
+      (l.checkInvisibleStyleElementRecursive = C),
+      (l.shouldIgnoreMutation = b),
+      (l.getParentElementForTextNodeChange = v),
+      (l.extractMutationElements = S),
+      (l.isImage = R),
+      (l.isPicture = L),
+      (l.isImageOrPicture = E),
+      (l.getStyleBackground = k),
+      (l.scanCssBgElements = I),
+      (l.checkLoadingStates = T),
+      (l.trackAllChildImages = D),
+      (l.trackImage = x),
+      (l.getImageLoadHandlers = $),
+      (l.checkDOMElementAttributeValue = P),
+      (l.setupScrollHandler = N),
+      (l.getImageNaturalSize = M),
+      (l.addPlatformMetaData = w),
+      (l.mutationObserverConfig = A),
+      (l.getTagName = F),
+      (l.isElementNode = O),
+      (l.isTextNode = B),
+      (l.trackImageLoad = W),
+      (l.processMediaVCImage = q),
+      (l.subscribeUserInputForExtraMutation = U));
   },
   98,
 );

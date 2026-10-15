@@ -18,25 +18,25 @@ __d(
         i = t.senderNotificationTimestampMs,
         l = t.shouldSuppressNotification,
         c = t.status,
-        m = o("WALongInt").maybeNumber(i),
-        p = o("WAWebBizAiThreadControlExtraJson").parseBulkThreadControl({
+        p = o("WALongInt").maybeNumber(i),
+        _ = o("WAWebBizAiThreadControlExtraJson").parseBulkThreadControl({
           raw: (n = t.notificationContent) == null ? void 0 : n.extraJson,
           isSmartComposerEnabled: o("WAWebBizAiAgentGating")
             .isSmartComposerWebEnabled,
-          notificationTimestampMs: m,
+          notificationTimestampMs: p,
         });
-      if (p != null) {
+      if (_ != null) {
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[Biz AI] Received bulk thread control notification, count: ",
               "",
             ])),
-          p.length,
+          _.length,
         ),
           o("WAWebBackendApi").frontendFireAndForget(
             "bulkUpdateChatCapiThreadControl",
-            { updates: p },
+            { updates: _ },
           ));
         return;
       }
@@ -65,9 +65,10 @@ __d(
             consumerPhoneNumber: a,
             consumerLid: r,
             status: c,
-            timestampMs: m,
+            timestampMs: p,
             shouldSuppressNotification: l,
             suggestedRepliesEnabled: d(t, c),
+            lastHandoffActor: m(t, c),
           },
         ));
     }
@@ -97,6 +98,26 @@ __d(
               )) != null
             ? n
             : void 0;
+    }
+    function m(e, t) {
+      var n;
+      if (
+        !(
+          t !==
+            o("WAWebProtobufsE2E.pb")
+              .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+              .CONTROL_TAKEN &&
+          t !==
+            o("WAWebProtobufsE2E.pb")
+              .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+              .CONTROL_PASSED
+        )
+      )
+        return {
+          actor: o("WAWebBizAiThreadControlExtraJson").parseLastHandoffActor(
+            (n = e.notificationContent) == null ? void 0 : n.extraJson,
+          ),
+        };
     }
     l.default = c;
   },

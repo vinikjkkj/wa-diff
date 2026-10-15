@@ -2,12 +2,10 @@ __d(
   "WAWebBizBroadcastProAudienceTableQuery",
   [
     "CometRelay",
-    "WAWebBizBroadcastProAudienceListItemDerive",
     "WAWebBizBroadcastProAudienceTableData",
     "WAWebBizBroadcastProAudienceTableQuery.graphql",
     "react",
     "react-compiler-runtime",
-    "useWAWebBizBroadcastProAudienceIngestion",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,55 +16,16 @@ __d(
       d =
         e !== void 0
           ? e
-          : (e = n("WAWebBizBroadcastProAudienceTableQuery.graphql"));
-    function m(e) {
-      var t,
-        n =
-          (t = e.viewer) == null ||
-          (t = t.backing_waba) == null ||
-          (t = t.wa_bb_pro_custom_audiences) == null
-            ? void 0
-            : t.edges,
-        r = new Map();
-      for (var a of n != null ? n : []) {
-        var i,
-          l = a == null ? void 0 : a.node;
-        if (
-          (l == null ? void 0 : l.id) != null &&
-          ((i = l.operation_status) == null ? void 0 : i.status_code) ===
-            o("WAWebBizBroadcastProAudienceListItemDerive")
-              .PRO_AUDIENCE_INGESTING_STATUS_CODE
-        ) {
-          var s;
-          r.set(l.id, (s = l.subscriber_size) != null ? s : 0);
-        }
-      }
-      return r;
-    }
+          : (e = n("WAWebBizBroadcastProAudienceTableQuery.graphql")),
+      m = [];
     function p(e) {
-      var t,
-        n =
-          (t = e.viewer) == null ||
-          (t = t.backing_waba) == null ||
-          (t = t.wa_bb_pro_custom_audiences) == null
-            ? void 0
-            : t.edges,
-        r = new Map();
-      for (var o of n != null ? n : []) {
-        var a = o == null ? void 0 : o.node;
-        (a == null ? void 0 : a.id) != null && r.set(a.id, a.subscriber_size);
-      }
-      return r;
-    }
-    var _ = [];
-    function f(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.children,
         r = e.queryRef,
         a;
       t[0] !== n
         ? ((a = function (t) {
-            return n(t != null ? t : _);
+            return n(t != null ? t : m);
           }),
           (t[0] = n),
           (t[1] = a))
@@ -74,7 +33,7 @@ __d(
       var i;
       return (
         t[2] !== r || t[3] !== a
-          ? ((i = u.jsx(g, { queryRef: r, children: a })),
+          ? ((i = u.jsx(_, { queryRef: r, children: a })),
             (t[2] = r),
             (t[3] = a),
             (t[4] = i))
@@ -82,7 +41,7 @@ __d(
         i
       );
     }
-    function g(e) {
+    function _(e) {
       var t,
         n = o("react-compiler-runtime").c(5),
         r = e.children,
@@ -101,31 +60,25 @@ __d(
               ? null
               : o(
                   "WAWebBizBroadcastProAudienceTableData",
-                ).readProAudienceListItems(l.map(h))),
+                ).readProAudienceListItems(l.map(f))),
           (n[0] = l),
           (n[1] = s))
         : (s = n[1]);
       var u = s,
-        c = o(
-          "useWAWebBizBroadcastProAudienceIngestion",
-        ).useIngestionAdjustedProAudiences(u != null ? u : _),
-        m = u == null ? null : c,
-        p;
+        c;
       return (
-        n[2] !== r || n[3] !== m
-          ? ((p = r(m)), (n[2] = r), (n[3] = m), (n[4] = p))
-          : (p = n[4]),
-        p
+        n[2] !== u || n[3] !== r
+          ? ((c = r(u)), (n[2] = u), (n[3] = r), (n[4] = c))
+          : (c = n[4]),
+        c
       );
     }
-    function h(e) {
+    function f(e) {
       return e == null ? void 0 : e.node;
     }
     ((l.proAudienceTableQuery = d),
-      (l.getIngestingProAudienceTallies = m),
-      (l.getProAudienceSubscriberSizes = p),
-      (l.WAWebBizBroadcastProAudienceTableQueryReader = f),
-      (l.WAWebBizBroadcastProAudienceTableQueryNullableReader = g));
+      (l.WAWebBizBroadcastProAudienceTableQueryReader = p),
+      (l.WAWebBizBroadcastProAudienceTableQueryNullableReader = _));
   },
   98,
 );

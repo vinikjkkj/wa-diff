@@ -10,12 +10,14 @@ __d(
     "WAWebBackendErrors",
     "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebBizAiHandoffRemoval",
+    "WAWebBizBroadcastProHiddenChatClassifier",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebCTWAGatingUtils",
     "WAWebChangePresenceHandlerAction",
     "WAWebChatEphemerality",
     "WAWebChatGetters",
     "WAWebChatLoadMessages",
+    "WAWebChatViewMode.flow",
     "WAWebCmd",
     "WAWebCollectionConstants",
     "WAWebCommonCTWAConsumerTransparency",
@@ -204,16 +206,23 @@ __d(
                   o(
                     "WAWebViewModeUtils",
                   ).isOfflineResumeCallLogPlaceholderViewMode(t.viewMode))
-              )
-                (o("WALogger").LOG(
+              ) {
+                o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
                       "handleNewMsgForChat: updating UI immediatelly ",
                       "",
                     ])),
                   e.id.toLogString(),
-                ),
-                  (f.t = t.t),
+                );
+                var h =
+                  e.chatViewMode !==
+                    o("WAWebChatViewMode.flow").ChatViewModeType
+                      .ONLY_MARKETING_FROM_SELF &&
+                  o(
+                    "WAWebBizBroadcastProHiddenChatClassifier",
+                  ).isBizBroadcastProMarketingPeerCopy(t, e.id);
+                (h || (f.t = t.t),
                   (o("WAWebFrontendMsgGetters").getEventType(t) ===
                     o("WAWebCommonMsgUtils").EventType.AMBIENT ||
                     o("WAWebFrontendMsgGetters").getEventType(t) ===
@@ -227,12 +236,12 @@ __d(
                         e.activeUnreadCount > 0 &&
                           e.set({ activeUnreadCount: e.activeUnreadCount + 1 }))
                       : (i = !0)));
-              else {
-                var h = yield o("WAWebApiChat").getChatMeta(e.id),
-                  y = h.timestamp,
-                  C = h.unreadCount;
-                ((f.unreadCount = C),
-                  (f.t = y),
+              } else {
+                var y = yield o("WAWebApiChat").getChatMeta(e.id),
+                  C = y.timestamp,
+                  S = y.unreadCount;
+                ((f.unreadCount = S),
+                  (f.t = C),
                   e.activeUnreadCount > 0 &&
                     (f.activeUnreadCount =
                       e.activeUnreadCount +
@@ -245,7 +254,7 @@ __d(
               }
               f.unreadDividerOffset = 0;
             } catch (t) {
-              var S = r("getErrorSafe")(t);
+              var R = r("getErrorSafe")(t);
               if (
                 (o("WALogger")
                   .ERROR(
@@ -256,22 +265,22 @@ __d(
                       ])),
                     e.id.toLogString(),
                   )
-                  .catching(S),
+                  .catching(R),
                 !v)
               ) {
-                var R, L;
+                var L, E;
                 v = !0;
-                var E = yield o("WAWebSchemaChat")
+                var k = yield o("WAWebSchemaChat")
                     .getChatTable()
                     .get(e.id.toString()),
-                  k = e.accountLid
+                  I = e.accountLid
                     ? yield o("WAWebSchemaChat")
                         .getChatTable()
-                        .get((R = e.accountLid) == null ? void 0 : R.toString())
+                        .get((L = e.accountLid) == null ? void 0 : L.toString())
                     : null;
                 o("WAWebLidMigrationLogging").logLidMetadata();
-                var I = E != null,
-                  T = k != null;
+                var T = k != null,
+                  D = I != null;
                 (o("WALogger")
                   .LOG(
                     p ||
@@ -283,9 +292,9 @@ __d(
                         "",
                       ])),
                     e.id.toLogString(),
-                    (L = e.accountLid) == null ? void 0 : L.toLogString(),
-                    I,
+                    (E = e.accountLid) == null ? void 0 : E.toLogString(),
                     T,
+                    D,
                   )
                   .tags("missing-lid"),
                   o("WALogger")
@@ -297,7 +306,7 @@ __d(
                         ])),
                       e.id.toLogString(),
                     )
-                    .catching(S)
+                    .catching(R)
                     .sendLogs(
                       "onNewMsg: unable to find metadata from chat table",
                     ));

@@ -258,7 +258,8 @@ __d(
             (T != null || D != null || x != null) &&
               l.addEventListener("dblclick", Q),
             function () {
-              (l.removeEventListener("touchstart", U),
+              (W(),
+                l.removeEventListener("touchstart", U),
                 l.removeEventListener("touchmove", H),
                 l.removeEventListener("touchend", z),
                 l.removeEventListener("touchcancel", z),

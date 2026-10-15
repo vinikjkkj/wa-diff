@@ -98,12 +98,16 @@ __d(
         : _.QuarantineWithText(e);
     }
     function C(e) {
+      var t;
       return e == null
         ? !1
         : e.jpegThumbnail != null ||
             e.thumbnailDirectPath != null ||
             e.mediaKey != null ||
-            e.thumbnailSha256 != null;
+            e.thumbnailSha256 != null ||
+            ((t = e.contextInfo) == null || (t = t.externalAdReply) == null
+              ? void 0
+              : t.thumbnail) != null;
     }
     function b(e, t) {
       return (

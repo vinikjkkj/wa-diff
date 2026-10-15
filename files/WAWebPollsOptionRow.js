@@ -23,7 +23,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = {
+      u = e.useId,
+      c = {
         paddingInline48: {
           paddingInlineStart: "x1oiqv2n",
           paddingInlineEnd: "x15zmtp0",
@@ -32,7 +33,7 @@ __d(
           $$css: !0,
         },
       },
-      c = {
+      d = {
         infoLayoutContainer: { overflowWrap: "x1mzt3pk", $$css: !0 },
         loadingThumb: {
           width: "x15yg21f",
@@ -45,57 +46,55 @@ __d(
           $$css: !0,
         },
       },
-      d = 18;
-    function m(e) {
-      var t = o("react-compiler-runtime").c(61),
+      m = 18;
+    function p(e) {
+      var t = o("react-compiler-runtime").c(59),
         n = e.albumMsgs,
         a = e.animationPromise,
         i = e.associatedMsg,
         l = e.checked,
-        m = e.hideResults,
-        f = e.index,
-        g = e.isAdminOrOwner,
-        h = e.isCorrectOption,
-        y = e.isPollEnded,
-        C = e.loadingPhotoThumb,
-        b = e.msgKey,
-        v = e.onDetailImageClick,
-        S = e.onOptionToggle,
-        R = e.onPhotoThumbClick,
-        L = e.option,
-        E = e.readonly,
-        k = e.result,
-        I = e.selectable,
-        T = e.trusted,
-        D = e.view,
-        x = L.localId,
-        $;
-      t[0] !== b ? (($ = b.toString()), (t[0] = b), (t[1] = $)) : ($ = t[1]);
-      var P = $ + "-option-" + x,
+        p = e.hideResults,
+        g = e.index,
+        h = e.isAdminOrOwner,
+        y = e.isCorrectOption,
+        C = e.isPollEnded,
+        b = e.loadingPhotoThumb,
+        v = e.msgKey,
+        S = e.onDetailImageClick,
+        R = e.onOptionToggle,
+        L = e.onPhotoThumbClick,
+        E = e.option,
+        k = e.readonly,
+        I = e.result,
+        T = e.selectable,
+        D = e.trusted,
+        x = e.view,
+        $ = E.localId,
+        P = u(),
         N;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((N = [o("WAWebMsgGetters").getIsSentByMe]), (t[2] = N))
-        : (N = t[2]);
-      var M = o("useWAWebMsgValues").useMsgValues(b, N),
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((N = [o("WAWebMsgGetters").getIsSentByMe]), (t[0] = N))
+        : (N = t[0]);
+      var M = o("useWAWebMsgValues").useMsgValues(v, N),
         w = M[0],
         A;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
+      t[1] === Symbol.for("react.memo_cache_sentinel")
         ? ((A = o(
             "WAWebPollsGatingUtils",
           ).isTappableLinksInPollOptionEnabled()),
-          (t[3] = A))
-        : (A = t[3]);
+          (t[1] = A))
+        : (A = t[1]);
       var F = A,
         O;
-      t[4] !== i || t[5] !== C || t[6] !== R
+      t[2] !== i || t[3] !== b || t[4] !== L
         ? ((O =
-            C === !0
+            b === !0
               ? s.jsx(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: c.loadingThumb,
+                  xstyle: d.loadingThumb,
                   justify: "center",
                   align: "center",
                   shrink: 0,
-                  children: s.jsx(o("WAWebSpinner.react").Spinner, { size: d }),
+                  children: s.jsx(o("WAWebSpinner.react").Spinner, { size: m }),
                 })
               : i &&
                 s.jsx(o("WAWebFlex.react").FlexColumn, {
@@ -104,70 +103,70 @@ __d(
                   children: s.jsx(r("WAWebPollOptionImage.react"), {
                     msgKey: i.id,
                     size: "large",
-                    onClick: R,
+                    onClick: L,
                   }),
                 })),
-          (t[4] = i),
-          (t[5] = C),
-          (t[6] = R),
-          (t[7] = O))
-        : (O = t[7]);
+          (t[2] = i),
+          (t[3] = b),
+          (t[4] = L),
+          (t[5] = O))
+        : (O = t[5]);
       var B;
-      t[8] !== O
-        ? ((B = s.jsx(s.Fragment, { children: O })), (t[8] = O), (t[9] = B))
-        : (B = t[9]);
+      t[6] !== O
+        ? ((B = s.jsx(s.Fragment, { children: O })), (t[6] = O), (t[7] = B))
+        : (B = t[7]);
       var W = B,
         q;
-      t[10] !== P ||
-      t[11] !== l ||
-      t[12] !== S ||
-      t[13] !== L ||
-      t[14] !== k.count
+      t[8] !== P ||
+      t[9] !== l ||
+      t[10] !== R ||
+      t[11] !== E ||
+      t[12] !== I.count
         ? ((q = {
-            option: L,
+            option: E,
             checked: l,
             id: P,
-            onOptionToggle: S,
-            count: k.count,
+            onOptionToggle: R,
+            count: I.count,
           }),
-          (t[10] = P),
-          (t[11] = l),
-          (t[12] = S),
-          (t[13] = L),
-          (t[14] = k.count),
-          (t[15] = q))
-        : (q = t[15]);
+          (t[8] = P),
+          (t[9] = l),
+          (t[10] = R),
+          (t[11] = E),
+          (t[12] = I.count),
+          (t[13] = q))
+        : (q = t[13]);
       var U = q,
-        V = F && I,
+        V = F && T,
         H;
-      t[16] !== a ||
-      t[17] !== U ||
-      t[18] !== m ||
-      t[19] !== f ||
-      t[20] !== g ||
-      t[21] !== h ||
-      t[22] !== w ||
-      t[23] !== b ||
-      t[24] !== E ||
-      t[25] !== I
+      t[14] !== a ||
+      t[15] !== U ||
+      t[16] !== p ||
+      t[17] !== g ||
+      t[18] !== h ||
+      t[19] !== y ||
+      t[20] !== w ||
+      t[21] !== v ||
+      t[22] !== k ||
+      t[23] !== T
         ? ((H =
-            !E &&
+            !k &&
             s.jsx(r("WAWebFlexItem.react"), {
               align: "start",
               shrink: 0,
               children:
-                h == null
+                y == null
                   ? s.jsx(
                       r("WAWebPollsOptionCheckbox"),
                       babelHelpers.extends(
                         {
-                          disabled: !I,
+                          disabled: !T,
                           theme: w
                             ? o("WAWebCheckBox.react").CheckboxTheme
                                 .POLLS_SENDER
                             : o("WAWebCheckBox.react").CheckboxTheme
                                 .POLLS_RECEIVER,
-                          testid: "poll-option-" + f,
+                          testid: "poll-option-" + g,
                         },
                         U,
                       ),
@@ -176,89 +175,89 @@ __d(
                       r("WAWebQuizOptionCheckbox"),
                       babelHelpers.extends(
                         {
-                          isAdminOrOwner: g,
-                          hideResults: m,
-                          testid: "quiz-option-" + f,
-                          isCorrectOption: h,
-                          msgId: b,
+                          isAdminOrOwner: h,
+                          hideResults: p,
+                          testid: "quiz-option-" + g,
+                          isCorrectOption: y,
+                          msgId: v,
                           animationPromise: a,
                         },
                         U,
                       ),
                     ),
             })),
-          (t[16] = a),
-          (t[17] = U),
-          (t[18] = m),
-          (t[19] = f),
-          (t[20] = g),
-          (t[21] = h),
-          (t[22] = w),
-          (t[23] = b),
-          (t[24] = E),
-          (t[25] = I),
-          (t[26] = H))
-        : (H = t[26]);
-      var G = (i || C) && D === "message" ? "vertical" : "horizontal",
-        z = D === "message",
+          (t[14] = a),
+          (t[15] = U),
+          (t[16] = p),
+          (t[17] = g),
+          (t[18] = h),
+          (t[19] = y),
+          (t[20] = w),
+          (t[21] = v),
+          (t[22] = k),
+          (t[23] = T),
+          (t[24] = H))
+        : (H = t[24]);
+      var G = (i || b) && x === "message" ? "vertical" : "horizontal",
+        z = x === "message",
         j;
-      t[27] !== P ||
-      t[28] !== l ||
-      t[29] !== m ||
-      t[30] !== f ||
-      t[31] !== g ||
-      t[32] !== h ||
-      t[33] !== y ||
-      t[34] !== b ||
-      t[35] !== v ||
-      t[36] !== L ||
-      t[37] !== k ||
-      t[38] !== I ||
-      t[39] !== G ||
-      t[40] !== z ||
-      t[41] !== T
+      t[25] !== P ||
+      t[26] !== l ||
+      t[27] !== p ||
+      t[28] !== g ||
+      t[29] !== h ||
+      t[30] !== y ||
+      t[31] !== C ||
+      t[32] !== v ||
+      t[33] !== S ||
+      t[34] !== E ||
+      t[35] !== I ||
+      t[36] !== T ||
+      t[37] !== G ||
+      t[38] !== z ||
+      t[39] !== D
         ? ((j = s.jsx(r("WAWebFlexItem.react"), {
-            xstyle: c.infoLayoutContainer,
+            xstyle: d.infoLayoutContainer,
             grow: 1,
             children: s.jsx(r("WAWebPollOptionInfo"), {
               checkBoxId: P,
-              index: f,
-              isPollEnded: y,
-              msgKey: b,
-              name: L.name,
-              onDetailImageClick: v,
-              option: L,
-              result: k,
-              selectable: I,
-              trusted: T,
+              index: g,
+              isPollEnded: C,
+              msgKey: v,
+              name: E.name,
+              onDetailImageClick: S,
+              option: E,
+              result: I,
+              selectable: T,
+              trusted: D,
               layout: G,
               showFacePile: z,
-              hideResults: m,
+              hideResults: p,
               checked: l,
-              isCorrectOption: h,
-              isAdminOrOwner: g,
+              isCorrectOption: y,
+              isAdminOrOwner: h,
             }),
           })),
-          (t[27] = P),
-          (t[28] = l),
-          (t[29] = m),
-          (t[30] = f),
-          (t[31] = g),
-          (t[32] = h),
-          (t[33] = y),
-          (t[34] = b),
-          (t[35] = v),
-          (t[36] = L),
-          (t[37] = k),
-          (t[38] = I),
-          (t[39] = G),
-          (t[40] = z),
-          (t[41] = T),
-          (t[42] = j))
-        : (j = t[42]);
-      var K = D === "message" && W,
+          (t[25] = P),
+          (t[26] = l),
+          (t[27] = p),
+          (t[28] = g),
+          (t[29] = h),
+          (t[30] = y),
+          (t[31] = C),
+          (t[32] = v),
+          (t[33] = S),
+          (t[34] = E),
+          (t[35] = I),
+          (t[36] = T),
+          (t[37] = G),
+          (t[38] = z),
+          (t[39] = D),
+          (t[40] = j))
+        : (j = t[40]);
+      var K = x === "message" && W,
         Q;
-      t[43] !== j || t[44] !== K || t[45] !== H
+      t[41] !== K || t[42] !== H || t[43] !== j
         ? ((Q = s.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             paddingTop: 12,
@@ -266,66 +265,66 @@ __d(
             columnGap: 8,
             children: [H, j, K],
           })),
+          (t[41] = K),
+          (t[42] = H),
           (t[43] = j),
-          (t[44] = K),
-          (t[45] = H),
-          (t[46] = Q))
-        : (Q = t[46]);
+          (t[44] = Q))
+        : (Q = t[44]);
       var X = Q,
         Y;
-      t[47] !== V || t[48] !== x || t[49] !== S || t[50] !== X
+      t[45] !== V || t[46] !== $ || t[47] !== R || t[48] !== X
         ? ((Y = V
-            ? s.jsx(p, { onOptionToggle: S, localId: x, children: X })
+            ? s.jsx(_, { onOptionToggle: R, localId: $, children: X })
             : s.jsx("div", {
                 className:
                   "x1nkjj8i xnnj0qo x1fpiwec x1xp25i x1om80sa xe2bo3s xw8deok xyqdcma",
                 children: X,
               })),
-          (t[47] = V),
-          (t[48] = x),
-          (t[49] = S),
-          (t[50] = X),
-          (t[51] = Y))
-        : (Y = t[51]);
+          (t[45] = V),
+          (t[46] = $),
+          (t[47] = R),
+          (t[48] = X),
+          (t[49] = Y))
+        : (Y = t[49]);
       var J = Y;
-      if (D === "message") return J;
+      if (x === "message") return J;
       var Z;
-      t[52] === Symbol.for("react.memo_cache_sentinel")
+      t[50] === Symbol.for("react.memo_cache_sentinel")
         ? ((Z = [
-            u.paddingInline48,
+            c.paddingInline48,
             o("WDSPaddings.stylex").wdsPaddings.paddingVer20,
           ]),
-          (t[52] = Z))
-        : (Z = t[52]);
+          (t[50] = Z))
+        : (Z = t[50]);
       var ee;
-      t[53] !== n || t[54] !== i || t[55] !== f || t[56] !== T
-        ? ((ee = s.jsx(_, {
+      t[51] !== n || t[52] !== i || t[53] !== g || t[54] !== D
+        ? ((ee = s.jsx(f, {
             associatedMsg: i,
             albumMsgs: n,
-            albumIndex: f,
-            trusted: T,
+            albumIndex: g,
+            trusted: D,
           })),
-          (t[53] = n),
-          (t[54] = i),
-          (t[55] = f),
-          (t[56] = T),
-          (t[57] = ee))
-        : (ee = t[57]);
+          (t[51] = n),
+          (t[52] = i),
+          (t[53] = g),
+          (t[54] = D),
+          (t[55] = ee))
+        : (ee = t[55]);
       var te;
       return (
-        t[58] !== J || t[59] !== ee
+        t[56] !== J || t[57] !== ee
           ? ((te = s.jsxs(r("WAWebDrawerSection.react"), {
               xstyle: Z,
               children: [ee, J],
             })),
-            (t[58] = J),
-            (t[59] = ee),
-            (t[60] = te))
-          : (te = t[60]),
+            (t[56] = J),
+            (t[57] = ee),
+            (t[58] = te))
+          : (te = t[58]),
         te
       );
     }
-    function p(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.children,
         r = e.localId,
@@ -384,7 +383,7 @@ __d(
         m
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.albumIndex,
         r = e.albumMsgs,
@@ -428,7 +427,7 @@ __d(
         }
       }
     }
-    l.default = m;
+    l.default = p;
   },
   98,
 );

@@ -178,20 +178,62 @@ __d(
         if (a <= i.watermarkMs) return;
         i.watermarkMs = a;
       }
-      i.pendingMutations > 0 ||
-        (S({
+      if (!(i.pendingMutations > 0)) {
+        var l = R(t, r, n);
+        if (
+          ((i.serverConfirmed = r), (i.desired = r), t.capiThreadControl !== r)
+        ) {
+          var s = L(t, n, l);
+          s == null
+            ? o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)
+            : o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r, s);
+          return;
+        }
+        (E({
           chat: t,
           suggestedRepliesEnabled:
             n == null ? void 0 : n.suggestedRepliesEnabled,
         }),
-        (i.serverConfirmed = r),
-        (i.desired = r),
-        t.capiThreadControl !== r &&
-          ((n == null ? void 0 : n.suppressNotification) === !0
-            ? o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r, d)
-            : o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)));
+          l != null &&
+            o("WAWebBizAiCapiThreadControl").setAiLastHandoffActor(t, l));
+      }
     }
-    function S(e) {
+    function S(e, t, n) {
+      return (
+        e.capiThreadControl !== t ||
+        (t ===
+          o("WAWebProtobufsE2E.pb")
+            .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+            .CONTROL_PASSED &&
+          typeof n == "boolean" &&
+          (e.suggestedRepliesEnabled === !0) !== n)
+      );
+    }
+    function R(e, t, n) {
+      var r = n == null ? void 0 : n.lastHandoffActor;
+      return r == null
+        ? null
+        : r.actor != null
+          ? r.actor
+          : S(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
+            ? "UNKNOWN"
+            : null;
+    }
+    function L(e, t, n) {
+      var r =
+          (t == null ? void 0 : t.suppressNotification) === !0
+            ? babelHelpers.extends({}, d)
+            : {},
+        o = t == null ? void 0 : t.suggestedRepliesEnabled;
+      return (
+        typeof o == "boolean" &&
+          e.suggestedRepliesEnabled !== o &&
+          (r.suggestedRepliesEnabled = o),
+        n != null && e.aiLastHandoffActor !== n && (r.aiLastHandoffActor = n),
+        Object.keys(r).length > 0 ? r : null
+      );
+    }
+    function E(e) {
       var t = e.chat,
         n = e.suggestedRepliesEnabled;
       typeof n == "boolean" &&

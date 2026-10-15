@@ -22,7 +22,7 @@ __d(
             r = yield o("WAWebHatchVmConnection")
               .connectHatchVmApi()
               .catch(o("WAWebNullFunc").returnNull);
-          if (r == null) return f(n, "no_session");
+          if (r == null) return y(n, "no_session");
           var a = yield r.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.ARTIFACTS_PIN,
@@ -33,23 +33,53 @@ __d(
             },
           );
           return a.kind !== "Ok"
-            ? f(n, _(a))
+            ? y(n, g(a))
             : o("WAWebHatchJsonReaders").readBool(
                   o("WAWebHatchJsonReaders").readObject(a.value, "artifact"),
                   "is_pinned",
                 ) !== t
-              ? f(n, "not_confirmed")
+              ? y(n, "not_confirmed")
               : !0;
         })),
         u.apply(this, arguments)
       );
     }
-    function c(e) {
+    function c(e, t) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.trim();
+          if (n === "") return h("empty_name");
+          var r = yield o("WAWebHatchVmConnection")
+            .connectHatchVmApi()
+            .catch(o("WAWebNullFunc").returnNull);
+          if (r == null) return h("no_session");
+          var a = yield r.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.SPACE_RENAME,
+            {
+              body: new TextEncoder().encode(
+                JSON.stringify({ name: n, slug: e }),
+              ),
+            },
+          );
+          if (a.kind !== "Ok") return h(g(a));
+          var i = o("WAWebHatchJsonReaders").readString(a.value, "name");
+          return i == null || o("WAWebHatchJsonReaders").isBlankText(i)
+            ? h("not_confirmed")
+            : i;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebHatchVmConnection")
               .connectHatchVmApi()
               .catch(o("WAWebNullFunc").returnNull),
@@ -64,21 +94,21 @@ __d(
             n.statusCode >= 200 &&
             n.statusCode < 300
             ? !0
-            : m(e)
-              ? f("delete", p(n))
+            : _(e)
+              ? y("delete", f(n))
               : !0;
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(e) {
+    function _(e) {
       return r("WAWebHatchSpacesManager")
         .getCatalog()
         .spaces.some(function (t) {
           return t.itemKey === e;
         });
     }
-    function p(e) {
+    function f(e) {
       return (function (e) {
         if (e == null) return "no_session";
         if (
@@ -102,13 +132,16 @@ __d(
         );
       })(e);
     }
-    function _(e) {
+    function g(e) {
       var t;
       return e.kind === "Rejected"
         ? "rejected." + ((t = e.statusCode) != null ? t : "none")
         : e.kind.toLowerCase();
     }
-    function f(t, n) {
+    function h(e) {
+      return (y("rename", e), null);
+    }
+    function y(t, n) {
       return (
         o("WALogger")
           .WARN(
@@ -125,7 +158,9 @@ __d(
         !1
       );
     }
-    ((l.updateHatchSpacePinned = s), (l.deleteHatchSpace = c));
+    ((l.updateHatchSpacePinned = s),
+      (l.renameHatchSpace = c),
+      (l.deleteHatchSpace = m));
   },
   98,
 );

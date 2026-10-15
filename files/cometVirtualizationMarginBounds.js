@@ -1,27 +1,27 @@
 __d(
   "cometVirtualizationMarginBounds",
-  ["justknobx"],
+  ["VirtualizationConfig"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s,
-      u = ((e = r("justknobx")._("3655")) != null ? e : 0) / 10,
-      c = (s = r("justknobx")._("3657")) != null ? s : 0;
-    function d(e, t, n, r) {
-      var o = n ? 1 : u,
-        a = n ? u : 1,
-        i = Math.min(e * a, t),
-        l = Math.min(e * o, t);
+    var e = o("VirtualizationConfig").getScrollDirectionDiscount(),
+      s = o(
+        "VirtualizationConfig",
+      ).getTopBottomMarginLowerBoundScreenHeightRatio();
+    function u(t, n, r, o) {
+      var a = r ? 1 : e,
+        i = r ? e : 1,
+        l = Math.min(t * i, n),
+        u = Math.min(t * a, n);
       return {
-        bottomMax: r != null && !n ? r : i,
-        lowerBound: t / c,
-        topMax: r != null && n ? r : l,
+        bottomMax: o != null && !r ? o : l,
+        lowerBound: n / s,
+        topMax: o != null && r ? o : u,
       };
     }
-    function m(e, t, n) {
+    function c(e, t, n) {
       return Math.min(t, Math.max(n, e));
     }
-    ((l.computeMarginBounds = d), (l.clampRestoredMargin = m));
+    ((l.computeMarginBounds = u), (l.clampRestoredMargin = c));
   },
   98,
 );

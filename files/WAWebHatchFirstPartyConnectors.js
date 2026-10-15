@@ -5,27 +5,37 @@ __d(
     "use strict";
     var e = Object.freeze({
         facebook: {
+          avatarField: "profile_pic_url",
           idField: "fb_user_id",
           nameField: "name",
           wireValue: "facebook",
         },
         instagram: {
+          avatarField: "profile_picture_url",
           idField: "user_fbid",
           nameField: "username",
           wireValue: "instagram",
         },
         instagram_messages: {
+          avatarField: "profile_picture_url",
           idField: "user_fbid",
           nameField: "username",
           wireValue: "instagram_messages",
         },
-        threads: { idField: "id", nameField: "username", wireValue: "threads" },
+        threads: {
+          avatarField: "profile_pic_url",
+          idField: "id",
+          nameField: "username",
+          wireValue: "threads",
+        },
         threads_messages: {
+          avatarField: "profile_pic_url",
           idField: "id",
           nameField: "username",
           wireValue: "threads_messages",
         },
         meta_business: {
+          avatarField: "profile_picture_url",
           idField: "id",
           nameField: "label",
           wireValue: "meta_business",

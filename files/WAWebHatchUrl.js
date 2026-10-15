@@ -5,14 +5,28 @@ __d(
     "use strict";
     var e = /^https:\/\/[^/\\\s?#]/i,
       l = /^https?:\/\/[^/\\\s?#]/i,
-      s = /[\s\\]/;
-    function u(t) {
-      return d(t, e);
+      s = /[\s\\]/,
+      u = "agent.meta.ai",
+      c = /^\/connectors\/connect\/([A-Za-z0-9_-]+)\/?$/;
+    function d(t) {
+      return _(t, e);
     }
-    function c(e) {
-      return d(e, l);
+    function m(e) {
+      return _(e, l);
     }
-    function d(e, t) {
+    function p(e) {
+      var t,
+        n,
+        r = d(e);
+      if (r == null) return null;
+      var o = new URL(r),
+        a = o.host,
+        i = o.pathname;
+      return a === u && (t = (n = c.exec(i)) == null ? void 0 : n[1]) != null
+        ? t
+        : null;
+    }
+    function _(e, t) {
       var n = e == null ? void 0 : e.trim();
       if (n == null || !t.test(n) || s.test(n)) return null;
       var r;
@@ -25,7 +39,9 @@ __d(
         ? n
         : null;
     }
-    ((i.toHttpsUrl = u), (i.toWebUrl = c));
+    ((i.toHttpsUrl = d),
+      (i.toWebUrl = m),
+      (i.getHatchConnectLinkConnectorId = p));
   },
   66,
 );

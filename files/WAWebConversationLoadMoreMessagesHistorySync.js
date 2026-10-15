@@ -12,7 +12,6 @@ __d(
     "WAWebHistorySyncPausedPopup.react",
     "WAWebHistorySyncProgressGetters",
     "WAWebHistorySyncUIText",
-    "WAWebIcSyncIcon.react",
     "WAWebLinkDeviceCommonInstructions.react",
     "WAWebModalManager",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
@@ -21,6 +20,7 @@ __d(
     "WAWebSpinner.react",
     "WAWebSyncGatingUtils",
     "WAWebUserPrefsHistorySync",
+    "WDSIconIcSync.react",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
@@ -225,7 +225,9 @@ __d(
                 width: 14,
                 height: 14,
               })
-            : m.jsx(o("WAWebIcSyncIcon.react").IcSyncIcon, {
+            : m.jsx(r("WDSIconIcSync.react"), {
+                height: 24,
+                width: 24,
                 viewBox: { x: -10, y: -5, width: 32, height: 32 },
               })),
           (I = _
