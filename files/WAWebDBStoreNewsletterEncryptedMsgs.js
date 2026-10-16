@@ -14,41 +14,41 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(t) {
-      var a = ["message", "chat", "message-association"];
+    function u(t, a) {
+      var i = ["message", "chat", "message-association"];
       return (
         o("WAWebDBExperienceIdStore").shouldLockExperienceIdTable(
           t.map(function (e) {
             var t = e[0];
             return t;
           }),
-        ) && a.push("experience-id"),
+        ) && i.push("experience-id"),
         o("WAWebModelStorageUtils")
           .getStorage()
           .lock(
-            a,
+            i,
             (function () {
-              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (a) {
-                  var i = a[0],
-                    l = a[1],
-                    u = a[2],
-                    c = yield o("WAWebDBStoreMsgsUtils").getLastRowId(i),
-                    d = (yield o("WAPromiseMap").promiseMap(
+              var i = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (i) {
+                  var l = i[0],
+                    u = i[1],
+                    c = i[2],
+                    d = yield o("WAWebDBStoreMsgsUtils").getLastRowId(l),
+                    m = (yield o("WAPromiseMap").promiseMap(
                       t,
                       (function () {
                         var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                           function* (t, n) {
-                            var a,
-                              i = t[0],
-                              l = t[1],
-                              s =
-                                (a = i.serverId) != null
-                                  ? a
+                            var i,
+                              l = t[0],
+                              s = t[1],
+                              u =
+                                (i = l.serverId) != null
+                                  ? i
                                   : yield o(
                                       "WAWebNewsletterDBUtils",
-                                    ).getTemporaryServerId(i.to);
-                            if (s == null)
+                                    ).getTemporaryServerId(l.to);
+                            if (u == null)
                               return (
                                 o("WALogger")
                                   .ERROR(
@@ -64,21 +64,23 @@ __d(
                                   .sendLogs("newsletter-missing-serverId"),
                                 null
                               );
-                            var u = r("WAWebMsgKey").fromString(i.id),
-                              d = o(
-                                "WAWebDBStoreMessage",
-                              ).isPendingUnreadReceipt(u, i),
+                            var c = r("WAWebMsgKey").fromString(l.id),
                               m = o(
                                 "WAWebDBStoreMessage",
+                              ).isPendingUnreadReceipt(c, l),
+                              p = c.remote.toString(),
+                              _ = m && !a.has(p),
+                              f = o(
+                                "WAWebDBStoreMessage",
                               ).addMsgMetadataToMsgRow({
-                                msg: i,
-                                chatId: u.remote.toString(),
-                                hasLink: l,
-                                inChatMsgId: s,
-                                rowId: c + n + 1,
-                                pendingReadReceipt: d,
+                                msg: l,
+                                chatId: p,
+                                hasLink: s,
+                                inChatMsgId: u,
+                                rowId: d + n + 1,
+                                pendingReadReceipt: _,
                               });
-                            return (delete m.serverId, m);
+                            return (delete f.serverId, f);
                           },
                         );
                         return function (e, n) {
@@ -89,11 +91,11 @@ __d(
                   try {
                     (yield o(
                       "WAWebDBStoreMessageAssociations",
-                    ).bulkStoreMessageAssociations(d),
-                      yield i.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(d),
+                    ).bulkStoreMessageAssociations(m),
+                      yield l.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(m),
                       yield o(
                         "WAWebDBExperienceIdStore",
-                      ).recordReceivedExperienceIds(d));
+                      ).recordReceivedExperienceIds(m));
                   } catch (e) {
                     o("WALogger")
                       .ERROR(
@@ -107,7 +109,7 @@ __d(
                 },
               );
               return function (e) {
-                return a.apply(this, arguments);
+                return i.apply(this, arguments);
               };
             })(),
           )

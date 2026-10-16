@@ -51,6 +51,7 @@ __d(
     "WAWebGenerateTemplateButtonReplyMessageProto",
     "WAWebGenerateVcardMessageProto",
     "WAWebGenerateVideoMessageProto",
+    "WAWebMusicGenerateMusicMessageProto",
     "WAWebPollsGeneratePollCreationMessageProto",
     "WAWebPollsGeneratePollEditMessageProto",
     "WAWebPollsGeneratePollVoteMessageProto",
@@ -212,7 +213,11 @@ __d(
           subtype: void 0,
           generateProtobuf: r("WAWebGenerateMultiVcardMessageProto"),
         },
-        { type: "music", subtype: void 0, generateProtobuf: null },
+        {
+          type: "music",
+          subtype: void 0,
+          generateProtobuf: r("WAWebMusicGenerateMusicMessageProto"),
+        },
         {
           type: "native_flow",
           subtype: void 0,

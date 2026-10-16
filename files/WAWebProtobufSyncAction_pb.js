@@ -112,6 +112,7 @@ __d(
         GROUP_HISTORY_TOGGLE_ACTION: 97,
         BB_PRO_PENDING_CUSTOMER_BASE_ACTION: 98,
         COMMUNITY_NESTING_STATE_ACTION: 99,
+        SHARED_DEVICE_SECRET_ACTION: 100,
         SHARE_OWN_PN: 10001,
         BUSINESS_BROADCAST_ACTION: 10002,
         AI_THREAD_DELETE_ACTION: 10003,
@@ -368,6 +369,7 @@ __d(
         BB_PRO_PENDING_CUSTOMER_BASE_ACTION:
           "bb_pro_pending_customer_base_action",
         COMMUNITY_NESTING_STATE_ACTION: "community_nesting_state",
+        SHARED_DEVICE_SECRET_ACTION: "shared_device_secret",
         SHARE_OWN_PN: "shareOwnPn",
         BUSINESS_BROADCAST_ACTION: "broadcast",
         AI_THREAD_DELETE_ACTION: "ai_thread_delete",
@@ -584,19 +586,22 @@ __d(
                                                                                                                           c.COMMUNITY_NESTING_STATE_ACTION
                                                                                                                       ? u.REGULAR_LOW
                                                                                                                       : e ===
-                                                                                                                            c.SHARE_OWN_PN ||
-                                                                                                                          e ===
-                                                                                                                            c.BUSINESS_BROADCAST_ACTION
-                                                                                                                        ? u.REGULAR
+                                                                                                                          c.SHARED_DEVICE_SECRET_ACTION
+                                                                                                                        ? u.REGULAR_HIGH
                                                                                                                         : e ===
-                                                                                                                            c.AI_THREAD_DELETE_ACTION
-                                                                                                                          ? u.REGULAR_HIGH
-                                                                                                                          : (function () {
-                                                                                                                              throw Error(
-                                                                                                                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                                  e,
-                                                                                                                              );
-                                                                                                                            })();
+                                                                                                                              c.SHARE_OWN_PN ||
+                                                                                                                            e ===
+                                                                                                                              c.BUSINESS_BROADCAST_ACTION
+                                                                                                                          ? u.REGULAR
+                                                                                                                          : e ===
+                                                                                                                              c.AI_THREAD_DELETE_ACTION
+                                                                                                                            ? u.REGULAR_HIGH
+                                                                                                                            : (function () {
+                                                                                                                                throw Error(
+                                                                                                                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                                    e,
+                                                                                                                                );
+                                                                                                                              })();
     }
     var q = s({
         REGULAR: "regular",
@@ -708,7 +713,8 @@ __d(
       Mt = {},
       wt = {},
       At = {},
-      Ft = {};
+      Ft = {},
+      Ot = {};
     ((U.name = "RecentEmojiWeight"),
       (U.internalSpec = {
         emoji: [1, (e = o("WAProtoConst")).TYPES.STRING],
@@ -743,8 +749,8 @@ __d(
       (z.name = "SyncActionValue"),
       (z.internalSpec = {
         timestamp: [1, e.TYPES.INT64],
-        starAction: [2, e.TYPES.MESSAGE, wt],
-        contactAction: [3, e.TYPES.MESSAGE, Mt],
+        starAction: [2, e.TYPES.MESSAGE, At],
+        contactAction: [3, e.TYPES.MESSAGE, wt],
         muteAction: [4, e.TYPES.MESSAGE, Pt],
         pinAction: [5, e.TYPES.MESSAGE, $t],
         pushNameSetting: [7, e.TYPES.MESSAGE, xt],
@@ -842,12 +848,13 @@ __d(
           o("WAWebProtobufsDeviceCapabilities.pb").DeviceCapabilitiesSpec,
         ],
         ctwaMessageReceivedAction: [93, e.TYPES.MESSAGE, Y],
-        sharedDeviceAllowlistAction: [94, e.TYPES.MESSAGE, Nt],
+        sharedDeviceAllowlistAction: [94, e.TYPES.MESSAGE, Mt],
         contactManagerMetadataAction: [95, e.TYPES.MESSAGE, oe],
         businessFolderActivationAction: [96, e.TYPES.MESSAGE, X],
         groupHistoryToggleAction: [97, e.TYPES.MESSAGE, Q],
         bbProPendingCustomerBaseAction: [98, e.TYPES.MESSAGE, K],
         communityNestingStateAction: [99, e.TYPES.MESSAGE, j],
+        sharedDeviceSecretAction: [100, e.TYPES.MESSAGE, Nt],
       }),
       (j.name = "SyncActionValue$CommunityNestingStateAction"),
       (j.internalSpec = { nestingState: [1, e.TYPES.ENUM, _] }),
@@ -1285,10 +1292,15 @@ __d(
         autoMuted: [3, e.TYPES.BOOL],
         muteEveryoneMentionEndTimestamp: [4, e.TYPES.INT64],
       }),
-      (Nt.name = "SyncActionValue$SharedDeviceAllowlistAction"),
-      (Nt.internalSpec = { allowed: [1, e.TYPES.BOOL] }),
-      (Mt.name = "SyncActionValue$ContactAction"),
-      (Mt.internalSpec = {
+      (Nt.name = "SyncActionValue$SharedDeviceSecretAction"),
+      (Nt.internalSpec = {
+        secret: [1, e.TYPES.BYTES],
+        ttlMs: [2, e.TYPES.INT64],
+      }),
+      (Mt.name = "SyncActionValue$SharedDeviceAllowlistAction"),
+      (Mt.internalSpec = { allowed: [1, e.TYPES.BOOL] }),
+      (wt.name = "SyncActionValue$ContactAction"),
+      (wt.internalSpec = {
         fullName: [1, e.TYPES.STRING],
         firstName: [2, e.TYPES.STRING],
         lidJid: [3, e.TYPES.STRING],
@@ -1297,17 +1309,17 @@ __d(
         username: [6, e.TYPES.STRING],
         birthday: [7, e.TYPES.STRING],
       }),
-      (wt.name = "SyncActionValue$StarAction"),
-      (wt.internalSpec = { starred: [1, e.TYPES.BOOL] }),
-      (At.name = "SyncActionData"),
-      (At.internalSpec = {
+      (At.name = "SyncActionValue$StarAction"),
+      (At.internalSpec = { starred: [1, e.TYPES.BOOL] }),
+      (Ft.name = "SyncActionData"),
+      (Ft.internalSpec = {
         index: [1, e.TYPES.BYTES],
         value: [2, e.TYPES.MESSAGE, z],
         padding: [3, e.TYPES.BYTES],
         version: [4, e.TYPES.INT32],
       }),
-      (Ft.name = "PatchDebugData"),
-      (Ft.internalSpec = {
+      (Ot.name = "PatchDebugData"),
+      (Ot.internalSpec = {
         currentLthash: [1, e.TYPES.BYTES],
         newLthash: [2, e.TYPES.BYTES],
         patchVersion: [3, e.TYPES.BYTES],
@@ -1457,11 +1469,12 @@ __d(
       (l.SyncActionValue$PushNameSettingSpec = xt),
       (l.SyncActionValue$PinActionSpec = $t),
       (l.SyncActionValue$MuteActionSpec = Pt),
-      (l.SyncActionValue$SharedDeviceAllowlistActionSpec = Nt),
-      (l.SyncActionValue$ContactActionSpec = Mt),
-      (l.SyncActionValue$StarActionSpec = wt),
-      (l.SyncActionDataSpec = At),
-      (l.PatchDebugDataSpec = Ft));
+      (l.SyncActionValue$SharedDeviceSecretActionSpec = Nt),
+      (l.SyncActionValue$SharedDeviceAllowlistActionSpec = Mt),
+      (l.SyncActionValue$ContactActionSpec = wt),
+      (l.SyncActionValue$StarActionSpec = At),
+      (l.SyncActionDataSpec = Ft),
+      (l.PatchDebugDataSpec = Ot));
   },
   98,
 );

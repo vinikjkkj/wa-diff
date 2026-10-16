@@ -44,36 +44,36 @@ __d(
     function N(e, t, n) {
       if ((n === void 0 && (n = !1), !(n || !u.has(e.styleId)))) {
         var r = e.getSubNode(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY),
-          a = U(r, "width"),
-          i = U(r, "height"),
-          l = U(r, "position_type"),
+          a = V(r, "width"),
+          i = V(r, "height"),
+          l = V(r, "position_type"),
           s = t[t.length - 2];
         if (
-          (a === void 0 && G(e) && !o("WebBloksUtils").cast(e).get(p)
-            ? (s != null && B(s, "width")
-                ? H(e, "grow", 1)
-                : H(e, "width", "100%"),
+          (a === void 0 && z(e) && !o("WebBloksUtils").cast(e).get(p)
+            ? (s != null && W(s, "width")
+                ? G(e, "grow", 1)
+                : G(e, "width", "100%"),
               A(t, t.length - 1, "width", "100%"))
             : e.styleId === o("WebBloksConstants").BK_SLIDER
               ? A(t, t.length - 1, "width", "100%")
               : typeof a == "string" &&
                 a.endsWith("%") &&
                 A(t, t.length - 1, "width", a),
-          !(a != null && U(r, "aspect_ratio")))
+          !(a != null && V(r, "aspect_ratio")))
         ) {
           if (
             i === void 0 &&
             e.styleId === o("WebBloksConstants").BK_COLLECTION &&
             !o("WebBloksUtils").cast(e).get(p)
           )
-            (s != null && B(s, "height")
-              ? H(e, "grow", 1)
-              : H(e, "height", "100%"),
+            (s != null && W(s, "height")
+              ? G(e, "grow", 1)
+              : G(e, "height", "100%"),
               A(t, t.length - 1, "height", "100%"));
           else if (typeof i == "string" && i.endsWith("%") && l !== "absolute")
-            if (q(s, "height") == null) {
+            if (U(s, "height") == null) {
               var m = M(t, "height");
-              m ? H(s, "height", "100%") : A(t, t.length - 1, "height", i);
+              m ? G(s, "height", "100%") : A(t, t.length - 1, "height", i);
             } else A(t, t.length - 1, "height", i);
         }
         (e.set(c, void 0), e.set(d, void 0));
@@ -82,8 +82,8 @@ __d(
     function M(e, t) {
       for (var n = e.length - 2; n >= 0; n--) {
         var r = e[n];
-        if (!W(e[n + 1], r) || !w(r)) return null;
-        if (q(r, t) != null) return r;
+        if (!q(e[n + 1], r) || !w(r)) return null;
+        if (U(r, t) != null) return r;
       }
     }
     function w(e) {
@@ -121,34 +121,35 @@ __d(
           (u === "column" && n === "width")
         );
       }
+      if (O(i, l)) return !0;
       if (
         !l ||
         s !== o("WebBloksConstants").BK_FLEXBOX ||
-        q(l, n) != null ||
-        q(l, "grow") === 0
+        U(l, n) != null ||
+        U(l, "grow") === 0
       )
-        return (H(i, n, r), !0);
+        return (G(i, n, r), !0);
       var c = o("WebBloksUtils").cast(l),
         d =
           ((a = c.get(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY)) == null
             ? void 0
             : a.length) === 1,
-        p = B(c, n);
+        p = W(c, n);
       if (d) {
         var _ = A(e, t - 1, n, r);
         return (
           _
-            ? (q(i, n) != null && H(i, n, void 0),
-              p && q(i, "grow") == null && H(i, "grow", 1))
-            : H(i, n, r),
+            ? (U(i, n) != null && G(i, n, void 0),
+              p && U(i, "grow") == null && G(i, "grow", 1))
+            : G(i, n, r),
           !0
         );
       }
       return p
-        ? (H(i, n, r), F(e, t - 1, n), !0)
-        : W(i, c)
+        ? (G(i, n, r), F(e, t - 1, n), !0)
+        : q(i, c)
           ? (F(e, t - 1, n), !1)
-          : (H(i, n, r), F(e, t - 1, n), !0);
+          : (G(i, n, r), F(e, t - 1, n), !0);
     }
     function F(e, t, n) {
       for (var r = t; r >= 0; r--) {
@@ -156,34 +157,48 @@ __d(
           i = a.styleId;
         if (
           i !== o("WebBloksConstants").BK_FLEXBOX ||
-          q(a, n) !== null ||
-          q(a, "grow") === 0 ||
+          U(a, n) !== null ||
+          U(a, "grow") === 0 ||
           a.getUntyped(n === "width" ? c : d)
         )
           break;
         a.set(n === "width" ? c : d, !0);
         var l = e[r - 1];
         if (l) {
-          if (B(o("WebBloksUtils").cast(l), n)) {
-            q(a, "grow") == null &&
-              (H(a, "grow", 1), H(a, "justify_content", "inherit"));
+          if (W(o("WebBloksUtils").cast(l), n)) {
+            U(a, "grow") == null &&
+              (G(a, "grow", 1), G(a, "justify_content", "inherit"));
             continue;
-          } else if (W(a, l)) continue;
+          } else if (q(a, l)) continue;
         }
-        H(a, n, "100%");
+        if (O(a, l)) break;
+        G(a, n, "100%");
       }
     }
-    function O(e) {
+    function O(e, t) {
+      var n = t == null ? void 0 : t.styleId;
+      if (
+        t == null ||
+        n !== o("WebBloksConstants").BK_COLLECTION ||
+        o("WebBloksCollectionHelpers").shouldUseWebBloksCollectionV2(
+          o("WebBloksUtils").cast(t),
+        )
+      )
+        return !1;
+      var r = e.getSubNode(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
+      return r != null && r.styleId !== o("WebBloksConstants").BK_FLEX;
+    }
+    function B(e) {
       var t = e.styleId;
       if (t !== o("WebBloksConstants").BK_FLEXBOX) return !1;
       var n = o("WebBloksUtils").cast(e);
       return n.get(f) === "column" || n.get(f) === "column_reverse";
     }
-    function B(e, t) {
-      var n = O(e);
+    function W(e, t) {
+      var n = B(e);
       return (n && t === "height") || (!n && t === "width");
     }
-    function W(e, t) {
+    function q(e, t) {
       var n,
         r,
         a,
@@ -209,18 +224,18 @@ __d(
           : "stretch") === "stretch"
       );
     }
-    function q(e, t) {
+    function U(e, t) {
       var n,
         r =
           e == null
             ? void 0
             : e.getSubNode(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
-      return (n = U(r, t)) != null ? n : null;
-    }
-    function U(e, t) {
-      if (e != null) return e.getUntyped(V(e, t));
+      return (n = V(r, t)) != null ? n : null;
     }
     function V(e, t) {
+      if (e != null) return e.getUntyped(H(e, t));
+    }
+    function H(e, t) {
       return e.styleId === S
         ? t === "width"
           ? E
@@ -253,10 +268,10 @@ __d(
                     ? h
                     : o("WebBloksConstants").YOGA_JUSTIFY_CONTENT_ATTRIBUTE_KEY;
     }
-    function H(e, t, n) {
+    function G(e, t, n) {
       var r = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
       if (r) {
-        var a = V(r, t),
+        var a = H(r, t),
           i = r.getUntyped(a);
         if (i !== n) {
           var l = r.makeCopy();
@@ -287,11 +302,11 @@ __d(
         );
       }
     }
-    function G(e) {
+    function z(e) {
       var t = e.styleId;
       return t === o("WebBloksConstants").BK_COLLECTION;
     }
-    function z(e, t, n, r) {
+    function j(e, t, n, r) {
       (n === void 0 && (n = []), r === void 0 && (r = !1), n.push(e));
       var a = e.styleId,
         i = t[a];
@@ -302,7 +317,7 @@ __d(
           for (var u of s) {
             var c = e.getSubNode(u);
             if (c != null) {
-              var d = z(c, t, n, r);
+              var d = j(c, t, n, r);
               e.set(u, d);
             }
           }
@@ -314,7 +329,7 @@ __d(
                 e.set(
                   m,
                   p.map(function (e) {
-                    return z(e, t, n, r);
+                    return j(e, t, n, r);
                   }),
                 );
             }
@@ -322,7 +337,7 @@ __d(
       }
       return (N(e, n, r), n.pop(), e);
     }
-    ((l.normaliseYogaDimensions = N), (l.normaliseBoundModel = z));
+    ((l.normaliseYogaDimensions = N), (l.normaliseBoundModel = j));
   },
   98,
 );

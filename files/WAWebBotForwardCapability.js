@@ -73,10 +73,13 @@ __d(
     }
     function p(e) {
       if (
-        !o("WAWebHatchGating").isHatchVideoUploadEnabled() &&
         e.some(function (e) {
-          return e.type === o("WAWebMsgType").MSG_TYPE.VIDEO;
-        })
+          return e.type === o("WAWebMsgType").MSG_TYPE.MUSIC;
+        }) ||
+        (!o("WAWebHatchGating").isHatchVideoUploadEnabled() &&
+          e.some(function (e) {
+            return e.type === o("WAWebMsgType").MSG_TYPE.VIDEO;
+          }))
       )
         return !1;
       var t = o("WAWebHatchGating").getHatchDocumentUploadSizeLimitBytes();

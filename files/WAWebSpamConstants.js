@@ -65,6 +65,7 @@ __d(
       c = new Set(
         [].concat(Array.from(u), [
           e.MSG_TYPE.UNKNOWN,
+          e.MSG_TYPE.MUSIC,
           e.MSG_TYPE.REVOKED,
           e.MSG_TYPE.CIPHERTEXT,
           e.MSG_TYPE.INTERACTIVE,

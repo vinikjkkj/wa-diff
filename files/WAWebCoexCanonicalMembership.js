@@ -62,7 +62,7 @@ __d(
         r = t ? m : d;
       return n.length < r.length || (n.length === r.length && n <= r);
     }
-    i.getCoexCanonicalMembership = p;
+    ((i.COEX_PRODUCT_SURFACES = e), (i.getCoexCanonicalMembership = p));
   },
   66,
 );

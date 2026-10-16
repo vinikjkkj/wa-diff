@@ -11,6 +11,7 @@ __d(
     "WAWebGetMessageCache",
     "WAWebOffdStorageUtils",
     "WAWebOnlineDanglingReceipts",
+    "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
     "WAWebSchemaDanglingReceipt",
     "asyncToGeneratorRuntime",
@@ -51,68 +52,72 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            (o("WAWebOnlineDanglingReceipts").hasOnlineDanglingReceipts() &&
-              o(
-                "WAWebPassiveModeManager",
-              ).PassiveTaskManager.registerPassiveTask(
-                "SendOnlineDanglingReceipts",
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  try {
-                    (o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[passive] start sending online dangling receipts",
+          o("WAWebOnlineDanglingReceipts").hasOnlineDanglingReceipts() &&
+            o("WAWebPassiveModeManager").PassiveTaskManager.registerPassiveTask(
+              "SendOnlineDanglingReceipts",
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                try {
+                  (o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[passive] start sending online dangling receipts",
+                      ])),
+                  ),
+                    yield o(
+                      "WAWebOnlineDanglingReceipts",
+                    ).sendAndClearOnlineDanglingReceipts(),
+                    o("WALogger").LOG(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[passive] sending online dangling receipts complete",
                         ])),
-                    ),
-                      yield o(
-                        "WAWebOnlineDanglingReceipts",
-                      ).sendAndClearOnlineDanglingReceipts(),
-                      o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[passive] sending online dangling receipts complete",
-                          ])),
-                      ));
-                  } catch (e) {
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "error while sending online dangling receipts, ",
-                            "",
-                          ])),
-                        e,
-                      )
-                      .verbose()
-                      .sendLogs("send-online-dangling-receipts-failed");
-                  }
-                }),
-              ),
-            !o("WAWebOffdStorageUtils").isStorageCreated())
-          ) {
-            o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[passive] offd storage not available, skipping passive tasks",
-                ])),
+                    ));
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "error while sending online dangling receipts, ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .verbose()
+                    .sendLogs("send-online-dangling-receipts-failed");
+                }
+              }),
             );
+          var t = o("WAWebOffdStorageUtils").isStorageCreated();
+          if (
+            (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+              passive_offd_ready: t,
+            }),
+            !t)
+          ) {
+            o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[passive] offd storage not available, skipping passive tasks",
+                  ])),
+              )
+              .sendLogs("passive-offd-storage-unavailable");
             return;
           }
-          var t = yield o("WAWebSchemaDanglingReceipt").getTable().all(),
-            a = t.length > 0,
-            i =
+          var a = yield o("WAWebSchemaDanglingReceipt").getTable().all(),
+            i = a.length > 0,
+            l =
               (yield o("WAWebGetMessageCache").getMessageCache().size()) > 0 ||
               (yield o("WAWebGetMessageCache")
                 .getMessageCache()
                 .checkpointQueueSize()) > 0;
-          (a || i) &&
+          (i || l) &&
             o("WAWebPassiveModeManager").PassiveTaskManager.registerPassiveTask(
               "SendDanglingReceipts",
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    if (a)
+                    if (i)
                       try {
                         (o("WALogger").LOG(
                           d ||
@@ -122,7 +127,7 @@ __d(
                         ),
                           yield o(
                             "WAWebClearDanglingReceipts",
-                          ).sendAndClearDanglingReceipts(t, e),
+                          ).sendAndClearDanglingReceipts(a, e),
                           o("WALogger").LOG(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -147,7 +152,7 @@ __d(
                           .verbose()
                           .sendLogs("send-and-clear-dangling-receipts-failed");
                       }
-                    i && (yield T());
+                    l && (yield T());
                   },
                 );
                 return function (t) {

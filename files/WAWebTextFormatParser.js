@@ -179,7 +179,11 @@ __d(
             ? [
                 [
                   r("WAWebPhoneNumberFormatMutator"),
-                  { phoneNumbers: r("WAWebHelpersFindPhoneNumbers")(t) },
+                  {
+                    phoneNumbers: o(
+                      "WAWebHelpersFindPhoneNumbers",
+                    ).findPhoneNumbers(t),
+                  },
                 ],
               ]
             : null,

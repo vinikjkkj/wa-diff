@@ -2,9 +2,11 @@ __d(
   "WAWebLazyPersistedQueue",
   [
     "JSResourceForInteraction",
+    "Promise",
     "QPLFlow",
     "WALogger",
     "WAWebBackendEventBus",
+    "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebJobsMigrationGating",
     "WAWebLazyLoadedRetriable",
     "WAWebPersistedQueueQpl",
@@ -14,61 +16,80 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("WAWebLazyLoadedRetriable")(function () {
+      s,
+      u = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")("WAWebPersistedQueues")
           .__setRef("WAWebLazyPersistedQueue")
           .load();
       }, "WAWebPersistedQueues"),
-      u = null;
-    function c(e) {
+      c = null;
+    function d(e) {
       return o("QPLFlow").QplSubspan.wrapInSubspan(
         e,
         "wait_ready",
         function () {
-          var t =
-            u != null
-              ? u
-              : o("QPLFlow")
-                  .QplSubspan.wrapInSubspan(e, "bundle_fetch", s)
-                  .then(
-                    (function () {
-                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (t) {
-                          return (
-                            yield o("QPLFlow").QplSubspan.wrapInSubspan(
-                              e,
-                              "db_open",
-                              function () {
-                                return t.ensurePersistedQueuesOpen();
-                              },
-                            ),
-                            t
-                          );
-                        },
-                      );
-                      return function (e) {
-                        return t.apply(this, arguments);
-                      };
-                    })(),
-                  );
-          return ((u = t), t);
+          var t = c != null ? c : p(e);
+          return ((c = t), t);
         },
       );
     }
-    function d() {
+    function m() {
+      return c != null ||
+        o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
+        ? (s || (s = n("Promise"))).resolve()
+        : o("WAWebEventsWaitForOfflineDeliveryEnd").waitForOfflineDeliveryEnd({
+            ignoreInit: !0,
+          });
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd ||
+            (yield o("QPLFlow").QplSubspan.wrapInSubspan(
+              e,
+              "wait_offline_delivery_end",
+              function () {
+                return o(
+                  "WAWebEventsWaitForOfflineDeliveryEnd",
+                ).waitForOfflineDeliveryEnd({ ignoreInit: !0 });
+              },
+            ));
+          var t = yield o("QPLFlow").QplSubspan.wrapInSubspan(
+            e,
+            "bundle_fetch",
+            u,
+          );
+          return (
+            yield o("QPLFlow").QplSubspan.wrapInSubspan(
+              e,
+              "db_open",
+              function () {
+                return t.ensurePersistedQueuesOpen();
+              },
+            ),
+            t
+          );
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f() {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
         if (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
-          m("immediate");
+          g("immediate");
           return;
         }
         o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
           function () {
-            return m("offline_delivery_end");
+            return g("offline_delivery_end");
           },
         );
       }
     }
-    function m(t) {
+    function g(t) {
       var n = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -81,7 +102,7 @@ __d(
       );
       o("QPLFlow")
         .endWith(n, function () {
-          return c(n);
+          return d(n);
         })
         .catch(function (t) {
           o("WALogger")
@@ -96,20 +117,20 @@ __d(
             .sendLogs("persisted-queues-preload-failed");
         });
     }
-    function p(e) {
+    function h(e) {
       return {
         ack: function (n, r) {
-          return c(n).then(function () {
+          return d(n).then(function () {
             return e.ack(r);
           });
         },
         add: function (n, r) {
-          return c(n).then(function () {
+          return d(n).then(function () {
             return e.add(r);
           });
         },
         read: function (n, r) {
-          return c(n).then(function () {
+          return d(n).then(function () {
             return e.read(r);
           });
         },
@@ -118,9 +139,10 @@ __d(
         },
       };
     }
-    ((l.whenPersistedQueuesReady = c),
-      (l.schedulePersistedQueuesPreload = d),
-      (l.lazyPersistedQueue = p));
+    ((l.whenPersistedQueuesReady = d),
+      (l.whenPersistedQueuesMayOpen = m),
+      (l.schedulePersistedQueuesPreload = f),
+      (l.lazyPersistedQueue = h));
   },
   98,
 );

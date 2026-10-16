@@ -10,6 +10,9 @@ __d(
       BUTTON_NFM: 4,
       PRODUCT_ITEM: 5,
       SHOP_STOREFRONT: 6,
+      TEXT: 7,
+      MEDIA_CAPTION: 8,
+      CAROUSEL_CARD: 9,
     });
     i.STRUCTURED_MESSAGE_CLASS = e;
   },

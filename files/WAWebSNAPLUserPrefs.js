@@ -34,20 +34,25 @@ __d(
         n = e.isMusic,
         r = e.msg,
         a = e.videoOrigin;
-      return a === o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL &&
-        (r == null ? void 0 : r.isNewsletterStatus) === !0
-        ? c(
-            n
-              ? o("WAWebUserPrefsKeys").UserPrefs
-                  .SNAPLNewsletterStatusNonUGCPersistentId
-              : o("WAWebUserPrefsKeys").UserPrefs
-                  .SNAPLNewsletterStatusUGCPersistentId,
-          )
-        : o("WAWebABProps").getABPropConfigValue(
-              "snapl_newsletter_logging_encrypted_rid_enabled",
-            ) === !0
-          ? u(a, n)
-          : d(t, a);
+      return n &&
+        (a === o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL ||
+          a === o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP ||
+          a === o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST)
+        ? c(o("WAWebUserPrefsKeys").UserPrefs.SNAPLChatsMusicPersistentId)
+        : a === o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL &&
+            (r == null ? void 0 : r.isNewsletterStatus) === !0
+          ? c(
+              n
+                ? o("WAWebUserPrefsKeys").UserPrefs
+                    .SNAPLNewsletterStatusNonUGCPersistentId
+                : o("WAWebUserPrefsKeys").UserPrefs
+                    .SNAPLNewsletterStatusUGCPersistentId,
+            )
+          : o("WAWebABProps").getABPropConfigValue(
+                "snapl_newsletter_logging_encrypted_rid_enabled",
+              ) === !0
+            ? u(a, n)
+            : d(t, a);
     }
     function u(e, t) {
       if (e === o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS && t)

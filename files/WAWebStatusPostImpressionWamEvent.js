@@ -95,6 +95,8 @@ __d(
               ],
               statusPosterHashId: [26, e.TYPES.STRING],
               statusPosterId: [40, e.TYPES.STRING],
+              statusSpeedUpCount: [58, e.TYPES.INTEGER],
+              statusSpeedUpTime: [59, e.TYPES.TIMER],
               statusViewEntrypoint: [
                 18,
                 o("WAWebWamEnumStatusRowSection").STATUS_ROW_SECTION,

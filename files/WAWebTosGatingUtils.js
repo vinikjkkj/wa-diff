@@ -19,15 +19,9 @@ __d(
             "tos_client_state_fetch_enabled",
           );
     }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "country_client_gating_enabled",
-      );
-    }
     ((l.tos3GatingEnabled = e),
       (l.tosFetchIteration = s),
-      (l.tosFetchEnabled = u),
-      (l.countryGatingEnabled = c));
+      (l.tosFetchEnabled = u));
   },
   98,
 );

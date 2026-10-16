@@ -16,6 +16,7 @@ __d(
       SERVER_ASSIGNED: 10,
       TO_YOU: 11,
       ONE_ON_ONE: 12,
+      BUSINESS_FOLDER: 13,
     });
     i.LIST_TYPE = e;
   },

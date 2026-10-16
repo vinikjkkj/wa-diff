@@ -24,25 +24,33 @@ __d(
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
           return e.isVcardOverMmsDocument
-            ? m(e)
+            ? p(e)
             : r("WAWebFormatMsgText")({ msg: e.unsafe() });
         case o("WAWebMsgType").MSG_TYPE.MULTI_VCARD:
+          return m(e);
+        case o("WAWebMsgType").MSG_TYPE.MUSIC:
           return d(e);
         case o("WAWebMsgType").MSG_TYPE.PRODUCT:
-          return p(e);
+          return _(e);
         case o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW:
         case o("WAWebMsgType").MSG_TYPE.INTERACTIVE:
           return e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
             e.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
-            ? _(e)
+            ? f(e)
             : r("WAWebFormatMsgText")({ msg: e.unsafe() });
         default:
           return r("WAWebFormatMsgText")({ msg: e.unsafe() });
       }
     }
     function d(e) {
+      var t, n;
+      return (t = (n = e.musicData) == null ? void 0 : n.title) != null
+        ? t
+        : r("WAWebFormatMsgText")({ msg: e.unsafe() });
+    }
+    function m(e) {
       var t = e.vcardList.length;
       return t > 0
         ? s._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
@@ -50,7 +58,7 @@ __d(
           ])
         : s._(/*BTDS*/ "No contacts");
     }
-    function m(e) {
+    function p(e) {
       var t;
       if (e.mediaData.parsedVcards) {
         var n = e.mediaData.parsedVcards;
@@ -73,7 +81,7 @@ __d(
         r("fbs")._(/*BTDS*/ "Document").toString()
       );
     }
-    function p(e) {
+    function _(e) {
       var t = e.currencyCode,
         n = e.description,
         r = e.priceAmount1000,
@@ -107,7 +115,7 @@ __d(
         .filter(Boolean)
         .join("\n");
     }
-    function _(e) {
+    function f(e) {
       var t = o("WAWebOrderDetails").getOrderInfo(e);
       if (t == null) return "";
       var n = t.buttonName;
@@ -162,19 +170,19 @@ __d(
               )
               .toString();
     }
-    function f(t) {
+    function g(t) {
       return t != null && e.includes(t) ? 58 : 79;
     }
-    function g(e) {
+    function h(e) {
       return o("WAWebMsgCollection").MsgCollection.byThreadId([e]).length;
     }
     ((l.QuotedType = u),
       (l.formatQuotedMsg = c),
-      (l.formatMultiVcardText = d),
-      (l.formatVcardOverMmsText = m),
-      (l.formatProductText = p),
-      (l.getImageSize = f),
-      (l.getMessagesCountByThreadId = g));
+      (l.formatMultiVcardText = m),
+      (l.formatVcardOverMmsText = p),
+      (l.formatProductText = _),
+      (l.getImageSize = g),
+      (l.getMessagesCountByThreadId = h));
   },
   226,
 );

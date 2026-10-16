@@ -51,33 +51,38 @@ __d(
     }
     function _() {
       return o("WAWebABProps").getABPropConfigValue(
-        "order_messages_ephemeral_exception_enabled",
+        "wa_smb_orders_deprecation_banners",
       );
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "row_buyer_order_revamp_m0_enabled",
+        "order_messages_ephemeral_exception_enabled",
       );
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "seller_orders_management_revamp",
+        "row_buyer_order_revamp_m0_enabled",
       );
     }
     function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "seller_orders_management_revamp",
+      );
+    }
+    function y() {
       return (
-        f() &&
+        g() &&
         o("WAWebABProps").getABPropConfigValue(
           "buyer_initiated_order_request_variant_enabled",
         )
       );
     }
-    function y() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "order_statuses_revamp_m1_enabled",
       );
     }
-    function C() {
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "payments_br_content_optimization_variant",
@@ -90,12 +95,13 @@ __d(
       (l.orderDetailsFromCatalogEnabled = d),
       (l.orderDetailsTotalMaxValue = m),
       (l.orderManagementEnabled = p),
-      (l.inOrderMessagesEphemeralExceptionEnabled = _),
-      (l.isBuyerOrderRevampEnabled = f),
-      (l.isSellerOrderRevampEnabled = g),
-      (l.isBuyerOrderRequestVariantEnabled = h),
-      (l.isOrderStatusM1Enabled = y),
-      (l.isOrderContentOptimizationEnabled = C));
+      (l.ordersDeprecationBannersEnabled = _),
+      (l.inOrderMessagesEphemeralExceptionEnabled = f),
+      (l.isBuyerOrderRevampEnabled = g),
+      (l.isSellerOrderRevampEnabled = h),
+      (l.isBuyerOrderRequestVariantEnabled = y),
+      (l.isOrderStatusM1Enabled = C),
+      (l.isOrderContentOptimizationEnabled = b));
   },
   98,
 );

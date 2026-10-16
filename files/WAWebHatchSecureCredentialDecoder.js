@@ -142,7 +142,8 @@ __d(
       (l.decodeHatchSecureCredentialDetails = c),
       (l.decodeHatchSecureCredentialCaptureId = d),
       (l.decodeHatchSecureCredentialCaptureContext = m),
-      (l.decodeHatchSecureCredentialAgentPermission = p));
+      (l.decodeHatchSecureCredentialAgentPermission = p),
+      (l.readHatchSecureCredentialCaptureLink = g));
   },
   98,
 );

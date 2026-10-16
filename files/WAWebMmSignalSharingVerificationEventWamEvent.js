@@ -59,6 +59,7 @@ __d(
                 8,
                 o("WAWebWamEnumSignalMessageType").SIGNAL_MESSAGE_TYPE,
               ],
+              signalNativeMessageType: [30, e.TYPES.STRING],
               signalOrigin: [9, o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN],
               signalSharingStatus: [
                 10,

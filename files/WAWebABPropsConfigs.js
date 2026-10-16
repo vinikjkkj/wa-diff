@@ -1828,8 +1828,6 @@ __d(
       keep_in_chat_undo_duration_limit: [1698, "int", 2592e3, 2592e3],
       kill_switch_ctwa_ml_entry_point_config: [6215, "bool", !0, !1],
       klipy_memes_enabled: [38720, "bool", !1, !1],
-      kmp_syncd_engine_crypto_enabled: [15909, "bool", !1, !1],
-      kmp_syncd_engine_outgoing_processor_enabled: [18234, "bool", !1, !1],
       ks_allow_av1_video_codec: [37900, "bool", !1, !0],
       ks_mp4_fragmented_streaming_enabled: [38920, "bool", !1, !1],
       ks_mp4_strict_validation_enabled: [38174, "bool", !1, !0],

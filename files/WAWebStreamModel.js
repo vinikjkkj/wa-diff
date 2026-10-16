@@ -290,7 +290,11 @@ __d(
           }),
           (a.updateWamLog = function () {
             var e = this.info === o("WAWebStreamTypes").StreamInfo.NORMAL;
-            (o("WAWebWamPageLoadReporter").streamInfoChange(this.info, 1, e),
+            (o("WAWebWamPageLoadReporter").streamInfoChange({
+              info: this.info,
+              infoNormal: e,
+              socketSequence: 1,
+            }),
               e && this.stopListening(this, "change:info", this.updateWamLog));
           }),
           (a.logModeChange = function () {

@@ -141,6 +141,7 @@ __d(
         MemberLabel: "memberLabel",
         MessageHistoryNotice: "messageHistoryNotice",
         MultiVcard: "multiVcard",
+        Music: "music",
         NativeFlow: "nativeFlow",
         NewsletterAdminInvite: "newsletterAdminInvite",
         NewsletterFollowerInvite: "newsletterFollowerInvite",

@@ -95,7 +95,12 @@ __d(
           s.on("remove", u),
           (m = !0),
           e.on("revoked", c),
-          w(l, a, i.toString(), p)
+          w({
+            hint: l,
+            nowSeconds: a,
+            ownerUserId: i.toString(),
+            targetCleanup: p,
+          })
         );
       } catch (e) {
         throw (g === l ? $(l) : p(), e);
@@ -146,17 +151,22 @@ __d(
             tooltipLastDismissedAtSeconds: G(e.tooltipLastDismissedAtSeconds),
           };
     }
-    function w(t, n, a, i) {
-      (i === void 0 && (i = null), A());
-      var l = R(),
-        s = V(
-          o("WAWebBizAiMessageEditEducationPolicy").withPostEditHintShown(l, n),
+    function w(t) {
+      var n = t.hint,
+        a = t.nowSeconds,
+        i = t.ownerUserId,
+        l = t.targetCleanup,
+        s = l === void 0 ? null : l;
+      A();
+      var u = R(),
+        c = V(
+          o("WAWebBizAiMessageEditEducationPolicy").withPostEditHintShown(u, a),
         );
       try {
-        F(t, a, i);
+        F(n, i, s);
       } catch (t) {
         try {
-          V(l);
+          V(u);
         } catch (t) {
           o("WALogger")
             .ERROR(
@@ -170,7 +180,7 @@ __d(
         }
         throw t;
       }
-      return s;
+      return c;
     }
     function A() {
       v || (o("WAWebCmd").Cmd.on("logout_from_bridge", x), (v = !0));

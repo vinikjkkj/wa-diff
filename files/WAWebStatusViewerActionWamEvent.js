@@ -37,6 +37,7 @@ __d(
                 o("WAWebWamEnumStatusCategory").STATUS_CATEGORY,
               ],
               statusId: [12, e.TYPES.STRING],
+              statusSpeedUpHoldTime: [16, e.TYPES.TIMER],
               statusViewerSessionId: [13, e.TYPES.INTEGER],
               urlStatusClicked: [
                 6,

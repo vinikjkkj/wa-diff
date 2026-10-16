@@ -12,15 +12,14 @@ __d(
     var e,
       s,
       u,
-      c = "mmg",
-      d = "navigation.items.snapshot",
-      m = "navigation.items.updated",
-      p = "navigation.items.removed";
-    function _(e, t, n) {
-      return e === d ? f(t, n) : e === m ? h(t, n) : e === p ? y(t, n) : null;
+      c = "navigation.items.snapshot",
+      d = "navigation.items.updated",
+      m = "navigation.items.removed";
+    function p(e, t, n) {
+      return e === c ? _(t, n) : e === d ? g(t, n) : e === m ? h(t, n) : null;
     }
-    function f(t, n) {
-      var r = g(t);
+    function _(t, n) {
+      var r = f(t);
       if (r == null) return null;
       var a = o("WAWebHatchJsonReaders").readArray(t, "items");
       return a == null
@@ -37,14 +36,14 @@ __d(
             kind: "snapshot_chunk",
             chunkNumber: r.chunkNumber,
             chunkCount: r.chunkCount,
-            spaces: C(a),
-            icons: b(t).icons,
+            spaces: y(a),
+            icons: C(t).icons,
             tsMs: n,
           };
     }
-    function g(e) {
-      var t = S(e, "chunk_number");
-      if (t !== S(e, "chunk_count"))
+    function f(e) {
+      var t = v(e, "chunk_number");
+      if (t !== v(e, "chunk_count"))
         return (
           o("WALogger")
             .WARN(
@@ -70,12 +69,12 @@ __d(
           null)
         : { chunkCount: r, chunkNumber: n };
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WAWebHatchSpaceRowDecoder").decodeHatchSpaceRow(
         o("WAWebHatchJsonReaders").readField(e, "item"),
       );
       if (n == null) return null;
-      var r = b(e),
+      var r = C(e),
         a = r.icons,
         i = r.invalidIconUrls;
       return {
@@ -86,14 +85,14 @@ __d(
         tsMs: t,
       };
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = o("WAWebHatchJsonReaders").readTrimmedString(e, "item_key");
       return o("WAWebHatchJsonReaders").readTrimmedString(e, "source") ===
         o("WAWebHatchSpaceRowDecoder").HATCH_SPACE_SOURCE && n !== ""
         ? { kind: "removed", itemKey: n, tsMs: t }
         : null;
     }
-    function C(e) {
+    function y(e) {
       var t = [];
       for (var n of e) {
         var r = o("WAWebHatchSpaceRowDecoder").decodeHatchSpaceRow(n);
@@ -101,12 +100,12 @@ __d(
       }
       return t;
     }
-    function b(e) {
+    function C(e) {
       var t = new Map(),
         n = new Set();
       for (var r of o("WAWebHatchSecureMediaDecoder").decodeSecureMediaMap(
         o("WAWebHatchJsonReaders").readField(e, "secure_media"),
-        v,
+        b,
       )) {
         var a = r[0],
           i = r[1];
@@ -114,23 +113,13 @@ __d(
       }
       return { icons: t, invalidIconUrls: n };
     }
-    function v(e) {
-      if (o("WAWebHatchJsonReaders").readString(e, "media_transport") !== c)
-        return null;
-      var t = o("WAWebHatchJsonReaders").readNonEmptyString(e, "direct_path"),
-        n = o("WAWebHatchJsonReaders").readNonEmptyString(e, "media_key_b64"),
-        r = o("WAWebHatchJsonReaders").readNonEmptyString(
-          e,
-          "file_enc_sha256_b64",
-        ),
-        a = o("WAWebHatchJsonReaders").readNonEmptyString(e, "file_sha256_b64");
-      return t == null || n == null || r == null || a == null
+    function b(e) {
+      var t = o("WAWebHatchSecureMediaDecoder").hasMmgTransport(e)
+        ? o("WAWebHatchSecureMediaDecoder").decodeMmgMediaKeys(e)
+        : null;
+      return t == null
         ? null
-        : {
-            directPath: t,
-            mediaKey: n,
-            encFilehash: r,
-            filehash: a,
+        : babelHelpers.extends({}, t, {
             mediaType: "image",
             mimeType: o("WAWebHatchJsonReaders").readString(e, "mime_type"),
             sidecarB64: o("WAWebHatchJsonReaders").readString(e, "sidecar_b64"),
@@ -139,15 +128,15 @@ __d(
               o("WAWebHatchJsonReaders").readString(e, "url"),
               "space icon",
             ),
-          };
+          });
     }
-    function S(e, t) {
+    function v(e, t) {
       return o("WAWebHatchJsonReaders").readField(e, t) !== void 0;
     }
-    ((l.HATCH_SPACES_SNAPSHOT_OP_KEY = d),
-      (l.HATCH_SPACES_UPDATED_OP_KEY = m),
-      (l.HATCH_SPACES_REMOVED_OP_KEY = p),
-      (l.decodeHatchSpacesEvent = _));
+    ((l.HATCH_SPACES_SNAPSHOT_OP_KEY = c),
+      (l.HATCH_SPACES_UPDATED_OP_KEY = d),
+      (l.HATCH_SPACES_REMOVED_OP_KEY = m),
+      (l.decodeHatchSpacesEvent = p));
   },
   98,
 );

@@ -15,6 +15,7 @@ __d(
     "WAWebHandlePlaceholderWam",
     "WAWebLinkify",
     "WAWebModelStorageUtils",
+    "WAWebMsgStoreExtensions",
     "WAWebNoop",
     "WAWebSchemaMessage",
     "WAWebSyncGatingUtils",
@@ -85,8 +86,7 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          return (
-            a === void 0 && (a = !1),
+          (a === void 0 && (a = !1),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -103,27 +103,29 @@ __d(
             o("WAWebCommonMsgUtils").logUndefinedMessage(e),
             yield o(
               "WAWebDbEncryptionKey",
-            ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-            (m || (m = n("Promise")))
-              .resolve(
-                o("WAWebDBStoreMessage").storeMessageInTransaction(e, t, a),
-              )
-              .then(function () {
-                y(e);
-              })
-              .catch(function (e) {
-                throw e instanceof r("WAWeb-dexie").BulkError ||
-                  e instanceof r("WAWeb-dexie").ConstraintError
-                  ? new g()
-                  : (o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "Error storing messages",
-                        ])),
-                    ),
-                    e);
-              })
-          );
+            ).DbEncKeyStore.waitForFinalDbMsgEncKey());
+          var i = a
+            ? e
+            : yield o("WAWebMsgStoreExtensions").prepareNewMsgsForStore(e);
+          return (m || (m = n("Promise")))
+            .resolve(
+              o("WAWebDBStoreMessage").storeMessageInTransaction(i, t, a),
+            )
+            .then(function () {
+              y(i);
+            })
+            .catch(function (e) {
+              throw e instanceof r("WAWeb-dexie").BulkError ||
+                e instanceof r("WAWeb-dexie").ConstraintError
+                ? new g()
+                : (o("WALogger").WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "Error storing messages",
+                      ])),
+                  ),
+                  e);
+            });
         })),
         b.apply(this, arguments)
       );

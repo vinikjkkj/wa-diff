@@ -15,16 +15,14 @@ __d(
         ? !1
         : t === ""
           ? !0
-          : !(
-              t.trim() === "" ||
-              t.length < e ||
-              t.length > l ||
-              !s.test(t) ||
-              u.test(t) ||
-              c.test(t)
-            );
+          : t.trim() === "" || t.length < e || t.length > l
+            ? !1
+            : !m(t);
     }
-    i.isMemberLabelStrValid = d;
+    function m(e) {
+      return !s.test(e) || u.test(e) || c.test(e);
+    }
+    ((i.isMemberLabelStrValid = d), (i.hasMemberLabelUnsupportedChar = m));
   },
   66,
 );

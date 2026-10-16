@@ -111,7 +111,9 @@ __d(
     }
     function Q(e, t) {
       return o("WAWebUA").UA.hasEmoji &&
-        o("WAWebVoipGatingUtils").isIncomingCallTabIndicatorEnabled()
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_calling_incoming_call_tab_indicator_enabled",
+        )
         ? o("WAWebVoipCallEmoji").getCallEmoji(t, !1) + " " + e
         : e;
     }

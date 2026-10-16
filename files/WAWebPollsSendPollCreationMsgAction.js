@@ -16,6 +16,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterSendMsgAction",
     "WAWebPollCreationUtils",
+    "WAWebPollNameHashSeed",
     "WAWebPollOptionHashUtils",
     "WAWebPollsActionsMetricUtils",
     "WAWebPollsLoggingIdUtils",
@@ -188,56 +189,59 @@ __d(
             S =
               (t = l == null ? void 0 : l.msgContextInfo(n.id)) != null
                 ? t
-                : {};
-          return babelHelpers.extends(
-            {
-              id: new (r("WAWebMsgKey"))({
+                : {},
+            R = babelHelpers.extends(
+              {
+                id: new (r("WAWebMsgKey"))({
+                  from: v,
+                  to: b,
+                  id: r("WAWebMsgKey").newId_DEPRECATED(),
+                  participant: o("WAWebChatGetters").getIsGroup(n)
+                    ? o("WAWebWidFactory").asUserWidOrThrow(v)
+                    : void 0,
+                  selfDir: "out",
+                }),
+                type: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
+                kind: o("WAWebMsgType").MsgKind.PollCreation,
+                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+                isSentCagPollCreation: o("WAWebFrontendChatGetters").getIsCAG(n)
+                  ? !0
+                  : void 0,
+                t: o("WATimeUtils").unixTime(),
                 from: v,
                 to: b,
-                id: r("WAWebMsgKey").newId_DEPRECATED(),
-                participant: o("WAWebChatGetters").getIsGroup(n)
-                  ? o("WAWebWidFactory").asUserWidOrThrow(v)
-                  : void 0,
-                selfDir: "out",
-              }),
-              type: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
-              kind: o("WAWebMsgType").MsgKind.PollCreation,
-              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              isSentCagPollCreation: o("WAWebFrontendChatGetters").getIsCAG(n)
-                ? !0
-                : void 0,
-              t: o("WATimeUtils").unixTime(),
-              from: v,
-              to: b,
-              isNewMsg: !0,
-              local: !0,
-              ack: o("WAWebAck").ACK.CLOCK,
-              pollName: f,
-              pollLoggingId: o(
-                "WAWebPollsLoggingIdUtils",
-              ).generatePollLoggingId(),
-              pollOptions: g,
-              messageSecret: C
-                ? void 0
-                : self.crypto.getRandomValues(new Uint8Array(32)),
-              isSpoiler:
-                p({ pollName: f, pollOptions: g }) &&
-                o("WAWebABProps").getABPropConfigValue(
-                  "is_spoiler_rich_format_sender_enabled",
-                ),
-              pollSelectableOptionsCount: h,
-              isWamoSub: a,
-              pollContentType: c,
-            },
-            S,
-            o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(n),
-            {
-              pollType: y,
-              correctOptionIndex: u,
-              pollEndTime: m,
-              pollHideVoterNames: _,
-            },
-          );
+                isNewMsg: !0,
+                local: !0,
+                ack: o("WAWebAck").ACK.CLOCK,
+                pollName: f,
+                pollLoggingId: o(
+                  "WAWebPollsLoggingIdUtils",
+                ).generatePollLoggingId(),
+                pollOptions: g,
+                messageSecret: C
+                  ? void 0
+                  : self.crypto.getRandomValues(new Uint8Array(32)),
+                isSpoiler:
+                  p({ pollName: f, pollOptions: g }) &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "is_spoiler_rich_format_sender_enabled",
+                  ),
+                pollSelectableOptionsCount: h,
+                isWamoSub: a,
+                pollContentType: c,
+              },
+              S,
+              o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(n),
+              {
+                pollType: y,
+                correctOptionIndex: u,
+                pollEndTime: m,
+                pollHideVoterNames: _,
+              },
+            );
+          return o(
+            "WAWebPollNameHashSeed",
+          ).maybeSeedInitialPollNameHashForOutgoing(R);
         })),
         h.apply(this, arguments)
       );

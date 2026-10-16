@@ -15,14 +15,16 @@ __d(
           ? { subtitle: m(), title: s._(/*BTDS*/ "Open in Adobe Acrobat") }
           : e === "edit_in_acrobat"
             ? { subtitle: m(), title: s._(/*BTDS*/ "Edit in Adobe Acrobat") }
-            : e === "control"
-              ? p()
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })()
+            : e === "edit_text_in_acrobat"
+              ? { subtitle: m(), title: s._(/*BTDS*/ "Edit text in Acrobat") }
+              : e === "control"
+                ? p()
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })()
       );
     }
     function m() {

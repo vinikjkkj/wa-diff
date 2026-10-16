@@ -8,6 +8,7 @@ __d(
     "WAWebDBMsgOpaqueDataKeys",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebMusicGatingUtils",
     "WAWebPollCreationUtils",
     "WAWebPollsDbUtils",
     "WAWebProtobufsMdStorageMsgRowOpaqueData.pb",
@@ -46,95 +47,97 @@ __d(
         s,
         u,
         d,
-        f = babelHelpers.extends({}, t);
-      (t.quotedMsg && (f.quotedMsg = babelHelpers.extends({}, t.quotedMsg)),
+        g = babelHelpers.extends({}, t);
+      (t.quotedMsg && (g.quotedMsg = babelHelpers.extends({}, t.quotedMsg)),
         (a = t.quotedMsg) != null &&
           a.paymentNoteMsg &&
-          (f.quotedMsg.paymentNoteMsg = babelHelpers.extends(
+          (g.quotedMsg.paymentNoteMsg = babelHelpers.extends(
             {},
             t.quotedMsg.paymentNoteMsg,
           )),
         t.paymentNoteMsg &&
-          (f.paymentNoteMsg = babelHelpers.extends({}, t.paymentNoteMsg)),
+          (g.paymentNoteMsg = babelHelpers.extends({}, t.paymentNoteMsg)),
         t.groupMentions &&
-          (f.groupMentions = t.groupMentions.map(function (e) {
+          (g.groupMentions = t.groupMentions.map(function (e) {
             return {
               groupSubject: e.groupSubject,
               groupJid: o("WAWebWidFactory").createWidFromWidLike(e.groupJid),
             };
           })),
-        (f.star = f.isStarred !== void 0),
-        (f.isMdHistoryMsg = f.rowId < e),
-        f.internalId != null &&
-          (((i = f.to) == null ? void 0 : i.server) === "newsletter" ||
-            ((l = f.from) != null && l.endsWith("@newsletter"))) &&
-          (f.serverId = o("WAWebDBMessageUtils").getInChatMsgId(f.internalId)),
-        r("isArrayNullOrEmpty")(f.internalThreadIDs) ||
-          (f.threadIds = f.internalThreadIDs.map(function (e) {
+        (g.star = g.isStarred !== void 0),
+        (g.isMdHistoryMsg = g.rowId < e),
+        g.internalId != null &&
+          (((i = g.to) == null ? void 0 : i.server) === "newsletter" ||
+            ((l = g.from) != null && l.endsWith("@newsletter"))) &&
+          (g.serverId = o("WAWebDBMessageUtils").getInChatMsgId(g.internalId)),
+        r("isArrayNullOrEmpty")(g.internalThreadIDs) ||
+          (g.threadIds = g.internalThreadIDs.map(function (e) {
             return o("WAWebDBMessageUtils").getThreadIdFromInternalThreadId(e);
           })),
-        delete f.internalId,
-        delete f.isStarred,
-        delete f.count,
-        delete f.hasLink,
-        delete f.isMediaMsg,
-        delete f.isDocMsg,
-        delete f.isCallLogMsg,
-        delete f.isCarouselMsg,
-        delete f.isEventMsg,
-        delete f.typeFlag,
-        delete f.pendingReadReceipt,
-        _(f),
-        r("gkx")("22769") && delete f.msgRowOpaqueData,
-        o("WAWebApiHydrateWidsUtil").hydrateWids(f),
+        delete g.internalId,
+        delete g.isStarred,
+        delete g.count,
+        delete g.hasLink,
+        delete g.isMediaMsg,
+        delete g.isDocMsg,
+        delete g.isCallLogMsg,
+        delete g.isCarouselMsg,
+        delete g.isEventMsg,
+        delete g.typeFlag,
+        delete g.pendingReadReceipt,
+        f(g),
+        r("gkx")("22769") && delete g.msgRowOpaqueData,
+        o("WAWebApiHydrateWidsUtil").hydrateWids(g),
         c.forEach(function (e) {
-          f[e] != null && (f[e] = r("WAWebMsgKey").from(f[e]));
+          g[e] != null && (g[e] = r("WAWebMsgKey").from(g[e]));
         }),
-        ((s = f.quotedMsg) == null ? void 0 : s.id) != null &&
-          (f.quotedMsg.id = r("WAWebMsgKey").from(f.quotedMsg.id)),
-        ((u = f.groupHistoryIndividualMessageInfo) == null
+        ((s = g.quotedMsg) == null ? void 0 : s.id) != null &&
+          (g.quotedMsg.id = r("WAWebMsgKey").from(g.quotedMsg.id)),
+        ((u = g.groupHistoryIndividualMessageInfo) == null
           ? void 0
           : u.bundleMessageKey) != null &&
-          (f.groupHistoryIndividualMessageInfo.bundleMessageKey = r(
+          (g.groupHistoryIndividualMessageInfo.bundleMessageKey = r(
             "WAWebMsgKey",
-          ).from(f.groupHistoryIndividualMessageInfo.bundleMessageKey)),
-        f.groupHistoryBundleMetadata != null &&
-          f.groupHistoryBundleMetadata.oldestMessageTimestampInWindow == null &&
-          f.groupHistoryBundleMetadata.oldestMessageTimestamp != null &&
-          ((f.groupHistoryBundleMetadata = babelHelpers.extends(
+          ).from(g.groupHistoryIndividualMessageInfo.bundleMessageKey)),
+        g.groupHistoryBundleMetadata != null &&
+          g.groupHistoryBundleMetadata.oldestMessageTimestampInWindow == null &&
+          g.groupHistoryBundleMetadata.oldestMessageTimestamp != null &&
+          ((g.groupHistoryBundleMetadata = babelHelpers.extends(
             {},
-            f.groupHistoryBundleMetadata,
+            g.groupHistoryBundleMetadata,
             {
               oldestMessageTimestampInWindow:
-                f.groupHistoryBundleMetadata.oldestMessageTimestamp,
+                g.groupHistoryBundleMetadata.oldestMessageTimestamp,
             },
           )),
-          delete f.groupHistoryBundleMetadata.oldestMessageTimestamp),
-        f.messageSecret != null &&
-          (f.messageSecret = new Uint8Array(f.messageSecret)),
-        f.botMessageSecret != null &&
-          (f.botMessageSecret = new Uint8Array(f.botMessageSecret)));
-      var g = m(f),
-        h = g[0],
-        y = g[1],
-        C = g[2];
-      ((f.futureproofType = h),
-        (f.futureproofSubtype = y),
-        (f.subtype = C != null ? C : void 0));
-      var b = p(f.type, f.subtype);
+          delete g.groupHistoryBundleMetadata.oldestMessageTimestamp),
+        g.messageSecret != null &&
+          (g.messageSecret = new Uint8Array(g.messageSecret)),
+        g.botMessageSecret != null &&
+          (g.botMessageSecret = new Uint8Array(g.botMessageSecret)));
+      var h = m(g),
+        y = h[0],
+        C = h[1],
+        b = h[2];
+      ((g.futureproofType = y),
+        (g.futureproofSubtype = C),
+        (g.subtype = b != null ? b : void 0));
+      var v = p(g.type, g.subtype);
       return (
-        b != null &&
-          ((f.type = b.type),
-          (f.kind = b.kind),
-          (f.subtype = b.subtype),
-          (f.futureproofType = b.futureproofType),
-          (f.futureproofSubtype = b.futureproofSubtype)),
-        (f.viewMode =
-          (d = f.viewMode) != null
+        v != null &&
+          ((g.type = v.type),
+          (g.kind = v.kind),
+          (g.subtype = v.subtype),
+          (g.futureproofType = v.futureproofType),
+          (g.futureproofSubtype = v.futureproofSubtype)),
+        _(g),
+        g.quotedMsg != null && _(g.quotedMsg),
+        (g.viewMode =
+          (d = g.viewMode) != null
             ? d
             : o("WAWebViewMode.flow").ViewModeType.VISIBLE),
-        f.carouselCardsParsed != null &&
-          (f.carouselCardsParsed = f.carouselCardsParsed.map(function (e) {
+        g.carouselCardsParsed != null &&
+          (g.carouselCardsParsed = g.carouselCardsParsed.map(function (e) {
             return babelHelpers.extends({}, e, {
               id:
                 e.id instanceof r("WAWebMsgKey")
@@ -146,8 +149,8 @@ __d(
                   : new (r("WAWebMsgKey"))(e.parentMsgId),
             });
           })),
-        n == null || n(f),
-        f
+        n == null || n(g),
+        g
       );
     }
     function m(e) {
@@ -200,6 +203,13 @@ __d(
         : null;
     }
     function _(e) {
+      e.type === o("WAWebMsgType").MSG_TYPE.MUSIC &&
+        !o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled() &&
+        ((e.type = o("WAWebMsgType").MSG_TYPE.UNKNOWN),
+        (e.kind = o("WAWebMsgType").MsgKind.Unknown),
+        (e.futureproofType = o("WAWebMsgType").MSG_TYPE.MUSIC));
+    }
+    function f(e) {
       var t = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb").MsgRowOpaqueDataSpec,
           e.msgRowOpaqueData,
@@ -251,7 +261,7 @@ __d(
           a.pollOptions,
         )));
     }
-    function f(e, t) {
+    function g(e, t) {
       var n,
         r,
         o = babelHelpers.extends({}, e);
@@ -286,11 +296,11 @@ __d(
         delete o.linkPreview,
         delete o.star,
         delete o.forwardedFromWeb,
-        g(o, t),
+        h(o, t),
         o
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n,
         r,
         a = { currentMsg: {}, quotedMsg: {} };
@@ -357,9 +367,9 @@ __d(
     }
     ((l.messageFromDbRow = d),
       (l.getGatedOffStatusMentionFutureproof = p),
-      (l.movFieldFromOpaqueDataBackToMsg = _),
-      (l.dbRowFromMessage = f),
-      (l.movEncFieldToOpaqueData = g));
+      (l.movFieldFromOpaqueDataBackToMsg = f),
+      (l.dbRowFromMessage = g),
+      (l.movEncFieldToOpaqueData = h));
   },
   98,
 );

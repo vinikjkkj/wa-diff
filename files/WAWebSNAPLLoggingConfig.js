@@ -4,6 +4,7 @@ __d(
     "MediaPlaybackLogFlusher",
     "WAWebCometVideoPlayerUtils",
     "WAWebMediaPlaybackLogFlusher",
+    "WAWebMsgType",
     "WAWebSNAPLUserPrefs",
     "WAWebVideoMetadataProvider",
   ],
@@ -25,7 +26,7 @@ __d(
       if (r != null) {
         var s = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId({
           forMediaId: r,
-          isMusic: n === !0,
+          isMusic: n === !0 || e.msg.type === o("WAWebMsgType").MSG_TYPE.MUSIC,
           msg: e.msg,
           videoOrigin: i,
         });

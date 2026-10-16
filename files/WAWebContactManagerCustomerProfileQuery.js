@@ -71,6 +71,7 @@ __d(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toProfileAcquisitionSourceId(l.acquisition_source),
             address: l.address,
+            aiSummary: l.ai_summary,
             birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
               l.dob,
             ),

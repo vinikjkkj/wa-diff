@@ -28,8 +28,9 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = {
+      s = ["msgKey"],
+      u,
+      c = {
         processMultipleMessages: function (t) {
           var e = t.chatId,
             n = t.chatMsgsCollection,
@@ -231,7 +232,7 @@ __d(
         hydrateReactionsForMessages: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.messageIds;
-            yield (s || (s = n("Promise"))).all(
+            yield (u || (u = n("Promise"))).all(
               t.map(function (e) {
                 return o("WAWebReactionsCollection").ReactionsCollection.find(
                   e,
@@ -266,6 +267,16 @@ __d(
             e,
             n,
           );
+        },
+        updateMusicMsgConsumption: function (t) {
+          var e = t.updates;
+          e.forEach(function (e) {
+            var t,
+              n = e.msgKey,
+              r = babelHelpers.objectWithoutPropertiesLoose(e, s);
+            (t = o("WAWebMsgCollection").MsgCollection.get(n)) == null ||
+              t.set(r);
+          });
         },
         deleteMessageFromCollectionForSync: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
@@ -316,7 +327,7 @@ __d(
           r != null && (r.rcat = n);
         },
       };
-    l.MsgBridgeApi = u;
+    l.MsgBridgeApi = c;
   },
   98,
 );

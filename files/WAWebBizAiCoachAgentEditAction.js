@@ -30,26 +30,37 @@ __d(
       }
       o.then(
         function (o) {
-          return m(o, e, t, n, r);
+          return m({
+            consumerWid: e,
+            editedText: n,
+            isWithinEditingWindow: r,
+            messageId: t,
+            module: o,
+          });
         },
         function (e) {
           p(e, r);
         },
       ).catch(h);
     }
-    function m(e, t, r, o, a) {
-      var i;
+    function m(e) {
+      var t = e.consumerWid,
+        r = e.editedText,
+        o = e.isWithinEditingWindow,
+        a = e.messageId,
+        i = e.module,
+        l;
       try {
-        i = e.coachAgentMessageEdit(t, r, o);
+        l = i.coachAgentMessageEdit(t, a, r);
       } catch (e) {
-        return (_(e, a), (u || (u = n("Promise"))).resolve());
+        return (_(e, o), (u || (u = n("Promise"))).resolve());
       }
-      return i.then(
+      return l.then(
         function (e) {
-          g(e, a);
+          g(e, o);
         },
         function (e) {
-          _(e, a);
+          _(e, o);
         },
       );
     }

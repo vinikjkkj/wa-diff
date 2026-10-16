@@ -18,11 +18,20 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        e.forEach(function (e) {
+          var t = r("WAWebGroupMetadataCollection").get(e);
+          t != null && t.participantQueryPromise == null && (t.stale = !0);
+        }),
+        m(e)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = new Map(),
             i = 0;
           if (
@@ -231,10 +240,11 @@ __d(
             return;
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.restoreGroupParticipantsForChats = d;
+    ((l.resyncGroupParticipantsForChats = d),
+      (l.restoreGroupParticipantsForChats = m));
   },
   98,
 );

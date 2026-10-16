@@ -7,12 +7,7 @@ __d(
         "web_date_marker_calendar_enabled",
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_calendar_message_density_enabled",
-      );
-    }
-    ((l.dateMarkerCalendarEnabled = e), (l.calendarMessageDensityEnabled = s));
+    l.dateMarkerCalendarEnabled = e;
   },
   98,
 );

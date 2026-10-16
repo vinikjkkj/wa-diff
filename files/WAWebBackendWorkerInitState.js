@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAResolvable",
+    "WAWebBackendEventBusWorkerCompatible",
     "WAWebBackendWorkerClient",
     "WAWebCallsOnlyGating",
     "WAWebGlobals",
@@ -24,7 +25,6 @@ __d(
         abProps: new (c = o("WAResolvable")).Resolvable(),
         dbInit: new c.Resolvable(),
         dbFinalKey: new c.Resolvable(),
-        eventBusSyncState: new c.Resolvable(),
         jidsReady: new c.Resolvable(),
       },
       p = !1,
@@ -61,19 +61,15 @@ __d(
     function h(e) {
       m.dbFinalKey.resolveWasCalled() || m.dbFinalKey.resolve(e);
     }
-    function y(e) {
-      m.eventBusSyncState.resolveWasCalled() || m.eventBusSyncState.resolve(e);
-    }
-    function C() {
+    function y() {
       m.jidsReady.resolveWasCalled() || m.jidsReady.resolve();
     }
-    function b() {
-      p || ((p = !0), self.setTimeout(v, d));
+    function C() {
+      p || ((p = !0), self.setTimeout(b, d));
     }
-    function v() {
+    function b() {
       var e = [];
       (m.dbInit.resolveWasCalled() || e.push("dbInit"),
-        m.eventBusSyncState.resolveWasCalled() || e.push("eventBusSyncState"),
         m.jidsReady.resolveWasCalled() || e.push("jidsReady"),
         e.length !== 0 &&
           o("WALogger")
@@ -89,25 +85,24 @@ __d(
             )
             .sendLogs("backend-worker-init-data-timeout"));
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield (u || (u = n("Promise"))).all([
               m.dbInit.promise,
-              m.eventBusSyncState.promise,
               m.jidsReady.promise,
             ]),
             r = t[0],
-            a = t[1],
-            i = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+            a = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
               o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME,
             ),
-            l = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+            i = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
               o("WAWebUserPrefsKeys").KEYS.LID,
-            );
+            ),
+            l = o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus();
           (e.fireAndForget("workerInit", "setup", {
             globals: {
               deviceJid: o("WAWebGlobals").getMyDeviceJid(),
@@ -115,8 +110,8 @@ __d(
                 o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
               enableImprovedBulkMerge:
                 o("WAWebGlobals").getEnableImprovedBulkMerge(),
-              lidDeviceJid: l != null ? String(l) : null,
-              displayName: i != null ? String(i) : null,
+              lidDeviceJid: i != null ? String(i) : null,
+              displayName: a != null ? String(a) : null,
               callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),
               jobsMigrationGates: o(
                 "WAWebJobsMigrationGating",
@@ -125,7 +120,11 @@ __d(
             dbInit: babelHelpers.extends({}, r, {
               salt: new Uint8Array(r.salt),
             }),
-            eventBusSyncState: a,
+            eventBusSyncState: {
+              isMainStreamReadyMd: l.isMainStreamReadyMd,
+              isOfflineDeliveryEnd: l.isOfflineDeliveryEnd,
+              socketState: l.socketState,
+            },
           }),
             m.abProps.promise.then(function (t) {
               e.fireAndForget("workerInit", "setAbProps", {
@@ -136,16 +135,15 @@ __d(
               e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
             }));
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.recordInitAbProps = f),
       (l.recordInitDbInit = g),
       (l.recordInitDbFinalKey = h),
-      (l.recordInitEventBusSyncState = y),
-      (l.resolveJidsReady = C),
-      (l.startWorkerInitDataTimeout = b),
-      (l.sendInitState = S));
+      (l.resolveJidsReady = y),
+      (l.startWorkerInitDataTimeout = C),
+      (l.sendInitState = v));
   },
   98,
 );

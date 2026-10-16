@@ -998,7 +998,6 @@ __d(
         GroupHistory: r("WAWebGroupHistoryDebug"),
         getJSUsageReport: r("WAWebJSUsageDebug").getJSUsageReport,
         getJSUsageReportJSON: r("WAWebJSUsageDebug").getJSUsageReportJSON,
-        KMP: { getDeviceJid: o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow },
         toggleVPVOverlay: o("WAWebDebugBizVPVOverlay").toggleVPVOverlay,
         injectRichResponseTestMessage: o("WAWebInteractiveBloksWidgetDebug")
           .injectRichResponseTestMessage,

@@ -29,6 +29,14 @@ __d(
           ).restoreGroupParticipantsForChats(e),
         );
       },
+      resyncGroupParticipantsForChats: function (t) {
+        var e = t.chatIds;
+        r("promiseDone")(
+          o(
+            "WAWebRestoreGroupParticipantsAction",
+          ).resyncGroupParticipantsForChats(e),
+        );
+      },
       expireGroupInviteV4: function (t) {
         var e,
           n = t.inviteMsgId;

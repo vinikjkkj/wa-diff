@@ -7,6 +7,7 @@ __d(
     "WAWebLocationQuotedMsgThumbnailIcon",
     "WAWebMediaMsgPreviewQuotedMsgThumbnailIcon.react",
     "WAWebMultiVcardQuotedMsgThumbnailIcon",
+    "WAWebMusicQuotedMsgThumbnailIcon",
     "WAWebNativeFlowQuotedMsgThumbnailIcon",
     "WAWebOrderQuotedMsgThumbnailIcon",
     "WAWebPaymentQuotedMsgThumbnailIcon",
@@ -148,7 +149,11 @@ __d(
           subtype: void 0,
           quotedMsgThumbnailIcon: r("WAWebMultiVcardQuotedMsgThumbnailIcon"),
         },
-        { type: "music", subtype: void 0, quotedMsgThumbnailIcon: null },
+        {
+          type: "music",
+          subtype: void 0,
+          quotedMsgThumbnailIcon: r("WAWebMusicQuotedMsgThumbnailIcon"),
+        },
         {
           type: "native_flow",
           subtype: void 0,

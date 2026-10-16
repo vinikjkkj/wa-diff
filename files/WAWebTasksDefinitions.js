@@ -14,11 +14,9 @@ __d(
     "WAWebApiParticipantStore",
     "WAWebApiTasksScheduledTime",
     "WAWebApiTextStatus",
-    "WAWebBizBroadcastAudienceRefreshJob",
     "WAWebBizBroadcastCampaignCleanup",
     "WAWebBotGating",
     "WAWebCTWAGatingUtils",
-    "WAWebCanonicalCredentialRecoveryJob",
     "WAWebCanonicalGating",
     "WAWebCleanUtmJob",
     "WAWebClearFalcoBufferJob",
@@ -100,10 +98,16 @@ __d(
       M,
       w,
       A,
-      F = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
+      F = r("requireDeferred")("WAWebBizBroadcastAudienceRefreshJob").__setRef(
         "WAWebTasksDefinitions",
       ),
-      O = [
+      O = r("requireDeferred")("WAWebCanonicalCredentialRecoveryJob").__setRef(
+        "WAWebTasksDefinitions",
+      ),
+      B = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
+        "WAWebTasksDefinitions",
+      ),
+      W = [
         (A = o("WAWebTasksTaskType")).TaskType.CANONICAL_ENT_TOKEN_REFRESH,
         A.TaskType.CLEAN_TC_TOKENS,
         A.TaskType.LOG_DAILY_STATS,
@@ -139,13 +143,13 @@ __d(
         A.TaskType.OPUS_MIGRATION,
         A.TaskType.FETCH_QUICK_PROMOTIONS,
       ],
-      B = [
+      q = [
         A.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
         A.TaskType.CLEANUP_STALE_CAMPAIGNS,
         A.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
       ],
-      W = [A.TaskType.LOG_DB_ROW_COUNTS, A.TaskType.MONITOR_DB_STORAGE];
-    function q(t) {
+      U = [A.TaskType.LOG_DB_ROW_COUNTS, A.TaskType.MONITOR_DB_STORAGE];
+    function V(t) {
       return t === o("WAWebTasksTaskType").TaskType.MONITOR_DB_STORAGE
         ? (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -940,7 +944,7 @@ __d(
                                                                     ).fetchQuickPromotions());
                                                                 else {
                                                                   var e =
-                                                                      yield F.load(),
+                                                                      yield B.load(),
                                                                     t =
                                                                       e.fetchConsumerQuickPromotions;
                                                                   (o(
@@ -1145,10 +1149,12 @@ __d(
                                                                               )
                                                                                 .DAY_SECONDS;
                                                                             var e =
-                                                                              yield o(
-                                                                                "WAWebCanonicalCredentialRecoveryJob",
-                                                                              ).maybeRecoverCanonicalCredentials();
-                                                                            return e;
+                                                                                yield O.load(),
+                                                                              t =
+                                                                                e.maybeRecoverCanonicalCredentials,
+                                                                              n =
+                                                                                yield t();
+                                                                            return n;
                                                                           },
                                                                         )
                                                                       : t ===
@@ -1448,9 +1454,11 @@ __d(
                                                                                                   )
                                                                                                     .HOUR_SECONDS;
                                                                                                 try {
-                                                                                                  yield o(
-                                                                                                    "WAWebBizBroadcastAudienceRefreshJob",
-                                                                                                  ).refreshTimeBasedAudiences();
+                                                                                                  var t =
+                                                                                                      yield F.load(),
+                                                                                                    n =
+                                                                                                      t.refreshTimeBasedAudiences;
+                                                                                                  yield n();
                                                                                                 } catch (e) {
                                                                                                   o(
                                                                                                     "WALogger",
@@ -1497,7 +1505,7 @@ __d(
                                                                                           );
                                                                                         })();
     }
-    function U() {
+    function H() {
       return {
         scheduledTimeResolver: {
           get: function (t) {
@@ -1514,8 +1522,8 @@ __d(
         },
       };
     }
-    function V(e) {
-      var t = q(e);
+    function G(e) {
+      var t = V(e);
       t != null &&
         (o("WALogger").LOG(
           M ||
@@ -1527,13 +1535,13 @@ __d(
         ),
         o("WATaskScheduler").registerTask(e, t));
     }
-    function H() {
-      (o("WATaskScheduler").startScheduler(U()),
-        O.forEach(V),
-        o("WAWebMobilePlatforms").isSMB() && B.forEach(V),
-        r("gkx")("26258") || W.forEach(V));
+    function z() {
+      (o("WATaskScheduler").startScheduler(H()),
+        W.forEach(G),
+        o("WAWebMobilePlatforms").isSMB() && q.forEach(G),
+        r("gkx")("26258") || U.forEach(G));
     }
-    l.registerTasks = H;
+    l.registerTasks = z;
   },
   98,
 );

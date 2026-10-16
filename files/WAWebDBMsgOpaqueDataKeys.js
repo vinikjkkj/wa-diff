@@ -48,6 +48,7 @@ __d(
         "sharableEventInviteCallLink",
         "mediaPngThumbnail",
         "qrUrl",
+        "musicData",
       ],
       l = ["targetMessageKey", "pollUpdateParentKey"],
       s = {

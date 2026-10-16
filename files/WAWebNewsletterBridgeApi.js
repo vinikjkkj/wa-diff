@@ -225,10 +225,11 @@ __d(
           o("WAWebUpdateUnreadChatAction").updateUnreadCountMD(n, 0, !1);
       },
       updatePrimaryNewsletterChatsMigration: function (t) {
-        var e = t.migration;
+        var e = t.hasFollowedChannels,
+          n = t.migration;
         o(
           "WAWebNewsletterChatsMigrationBanners",
-        ).applyPrimaryNewsletterChatsMigration(e);
+        ).applyPrimaryNewsletterChatsMigration(n, e);
       },
       subscribeToNewsletter: function (t) {
         var e = t.newsletter,

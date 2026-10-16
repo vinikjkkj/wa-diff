@@ -3,9 +3,9 @@ __d(
   [
     "WALogger",
     "WAPromiseQueue",
+    "WAWebABProps",
     "WAWebGetSyncKey",
     "WAWebSyncdCryptoUtils",
-    "WAWebSyncdGatingUtils",
     "WAWebSyncdKeyCallbacksApi",
     "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdMetrics",
@@ -58,9 +58,9 @@ __d(
                 ])),
               o("WAWebSyncdCryptoUtils").syncKeyIdToHex(m.keyId),
             ),
-            o(
-              "WAWebSyncdGatingUtils",
-            ).getEnableSyncdKeyPersistenceOnlyAfterServerAck()
+            o("WAWebABProps").getABPropConfigValue(
+              "wa_web_enable_syncd_key_persistence_only_after_server_ack",
+            )
               ? (yield o("WAWebSyncdKeyCallbacksApi").sendSyncdKeyRotation([m]),
                 o("WALogger").LOG(
                   s ||

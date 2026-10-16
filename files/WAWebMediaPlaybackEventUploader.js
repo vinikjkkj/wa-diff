@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAThrottle",
     "WAWebABProps",
+    "WAWebACSTokenConfig",
     "WAWebCRUDOperationsMediaPlaybackEvent",
     "WAWebNetworkStatus",
     "WAWebPromiseQueue",
@@ -34,11 +35,12 @@ __d(
                 var n = yield h(),
                   a = n.events,
                   i = n.ids,
-                  l = a.length;
-                if (l === 0) return { success: !0, leftover: 0 };
+                  l = n.project,
+                  s = a.length;
+                if (s === 0) return { success: !0, leftover: 0 };
                 try {
-                  var s = yield _(a);
-                  if (!s.ok) throw r("err")("upload failed");
+                  var u = yield _(a, l);
+                  if (!u.ok) throw r("err")("upload failed");
                 } catch (n) {
                   return (
                     o("WALogger").ERROR(
@@ -54,8 +56,8 @@ __d(
                   yield o("WAWebCRUDOperationsMediaPlaybackEvent").deleteEvents(
                     i,
                   ),
-                  t > l
-                    ? { success: !0, leftover: t - l }
+                  t > s
+                    ? { success: !0, leftover: t - s }
                     : { success: !0, leftover: 0 }
                 );
               }),
@@ -67,29 +69,29 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e) {
-      var t = new AbortController(),
-        a = t.signal;
+    function _(e, t) {
+      var a = new AbortController(),
+        i = a.signal;
       return o("WAExponentialBackoff").exponentialBackoff(
-        { retries: 3, signal: a, minTimeout: 1e3 },
+        { retries: 3, signal: i, minTimeout: 1e3 },
         (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, n) {
+          var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (n, a) {
               yield r("WAWebNetworkStatus").waitIfOffline();
-              var a = yield o(
+              var i = yield o(
                 "WAWebSNAPLUploadMusicConsumptionLogs",
-              ).uploadMusicConsumptionLogs(e);
-              if (a == null) throw r("err")("upload failed");
-              if (a.ok) return a;
-              if (f(a))
-                return t(
-                  r("err")("upload failed with status code: " + a.status),
+              ).uploadMusicConsumptionLogs(e, t);
+              if (i == null) throw r("err")("upload failed");
+              if (i.ok) return i;
+              if (f(i))
+                return n(
+                  r("err")("upload failed with status code: " + i.status),
                 );
               throw r("err")("upload failed");
             },
           );
-          return function (e, n) {
-            return t.apply(this, arguments);
+          return function (e, t) {
+            return a.apply(this, arguments);
           };
         })(),
       );
@@ -115,20 +117,36 @@ __d(
             t = yield o(
               "WAWebCRUDOperationsMediaPlaybackEvent",
             ).getOldestEvents(s),
-            n = new TextEncoder();
-          return t.reduce(
-            function (t, r) {
-              var o = n.encode(JSON.stringify(r.event)).length;
-              return (
-                e + o > g() ||
-                  ((e += o), t.events.push(r.event), t.ids.push(r.id)),
-                t
-              );
-            },
-            { events: [], ids: [] },
-          );
+            n = new TextEncoder(),
+            r = t[0] != null && C(t[0].event),
+            a = r
+              ? o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusicReporting
+              : o("WAWebACSTokenConfig").ACS_PROJECTS.WA_StatusMusicReporting,
+            i = t.reduce(
+              function (t, o) {
+                if (C(o.event) !== r) return t;
+                var a = n.encode(JSON.stringify(o.event)).length;
+                return (
+                  e + a > g() ||
+                    ((e += a), t.events.push(o.event), t.ids.push(o.id)),
+                  t
+                );
+              },
+              { events: [], ids: [] },
+            ),
+            l = i.events,
+            u = i.ids;
+          return { events: l, ids: u, project: a };
         })),
         y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      var t;
+      return (
+        ((t = e.required_metadata) == null
+          ? void 0
+          : t.current_watching_module) === "whatsapp_chats"
       );
     }
     ((l.MAX_BATCH_SIZE = s),

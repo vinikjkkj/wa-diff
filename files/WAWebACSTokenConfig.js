@@ -28,6 +28,22 @@ __d(
           return o("WATimeUtils").DAY_SECONDS;
         },
       },
+      WA_ChatsMusic: {
+        getMaxRedeemCount: function () {
+          return 50;
+        },
+        getMaxExpirySeconds: function () {
+          return o("WATimeUtils").DAY_SECONDS;
+        },
+      },
+      WA_ChatsMusicReporting: {
+        getMaxRedeemCount: function () {
+          return 50;
+        },
+        getMaxExpirySeconds: function () {
+          return o("WATimeUtils").DAY_SECONDS;
+        },
+      },
       WA_ChannelsForwardCounter: {
         getMaxRedeemCount: function () {
           return 64;

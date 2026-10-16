@@ -62,6 +62,7 @@ __d(
     "err",
     "getErrorSafe",
     "gkx",
+    "justknobx",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -118,8 +119,7 @@ __d(
         ),
         o("WAWebPageLoadLogging").startPageLoadQplMeasure("launchSocket"));
       var t = o("WAWebBridgeInitialization").makeBridge();
-      return (
-        o("WAWebBackendApi").setApi(t),
+      (o("WAWebBackendApi").setApi(t),
         h.load().then(function (e) {
           var n = e.setFrontendHandlers;
           return n(t);
@@ -135,226 +135,229 @@ __d(
           (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
             early_backend_worker: !0,
           }),
-          o("WAWebStartBackendWorker").startBackendWorker()),
-        o("WAWebDbRolloutUtil")
-          .loadSchemaVersions()
-          .then(function () {
-            return v();
-          })
-          .then(function () {
-            return o("WAWebCryptoEncKeyHelper").initEncSalt();
-          })
-          .then(function () {
-            return o("WAWebCryptoEncKeyHelper").initEncSaltForInvoker();
-          })
-          .then(function () {
-            return o("WAWebSignalStorage").initialize();
-          })
-          .then(function () {
-            return (g || (g = n("Promise"))).all([
-              o("WAWebModelStorage").initialize(),
-              e,
-            ]);
-          })
-          .then(function () {
-            if (!o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
-              return o("WAWebStatusStorage").initialize();
-          })
-          .then(function () {
-            return S();
-          })
-          .then(function () {
-            return (g || (g = n("Promise"))).all([
-              o("WAWebUserPrefsGeneral").getLogoutReason(),
-              o("WAWebWorkerStorage").initialize(),
-              o("WAWebUserPrefsGeneral").setAppVersionBase(
-                o("WAWebBuildConstants").VERSION_BASE,
+          o("WAWebStartBackendWorker").startBackendWorker()));
+      var a = r("justknobx")._("6500");
+      return o("WAWebDbRolloutUtil")
+        .loadSchemaVersions()
+        .then(function () {
+          return v();
+        })
+        .then(function () {
+          return a ? void 0 : S();
+        })
+        .then(function () {
+          return o("WAWebCryptoEncKeyHelper").initEncSalt();
+        })
+        .then(function () {
+          return o("WAWebCryptoEncKeyHelper").initEncSaltForInvoker();
+        })
+        .then(function () {
+          return o("WAWebSignalStorage").initialize();
+        })
+        .then(function () {
+          return (g || (g = n("Promise"))).all([
+            o("WAWebModelStorage").initialize(),
+            e,
+          ]);
+        })
+        .then(function () {
+          if (!o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
+            return o("WAWebStatusStorage").initialize();
+        })
+        .then(function () {
+          return a ? S() : void 0;
+        })
+        .then(function () {
+          return (g || (g = n("Promise"))).all([
+            o("WAWebUserPrefsGeneral").getLogoutReason(),
+            o("WAWebWorkerStorage").initialize(),
+            o("WAWebUserPrefsGeneral").setAppVersionBase(
+              o("WAWebBuildConstants").VERSION_BASE,
+            ),
+          ]);
+        })
+        .catch(function (e) {
+          o(
+            "WAWebBackendEventBus",
+          ).BackendEventBus.triggerStorageInitializationError(e);
+        })
+        .then(function (e) {
+          var t = e == null ? void 0 : e[0];
+          if (
+            (t &&
+              (o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
+              r("WAWebEnvironment").isWindows &&
+              o("WAWebCurrentUser").isEmployee()
+                ? o(
+                    "WAWebBackendEventBus",
+                  ).BackendEventBus.triggerUnexpectedLogoutModal(t.reason)
+                : o("WAWebSocketModel").Socket.logout(t.reason)),
+            r("WAWebBrokerGlobalAppState").isLogoutInProgress)
+          )
+            throw r("err")("aborting launchSocket due to logout");
+          return o("WAWebUserPrefsMultiDevice").isRegistered()
+            ? (o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[socket] launchSocket for login",
+                  ])),
               ),
-            ]);
-          })
-          .catch(function (e) {
-            o(
-              "WAWebBackendEventBus",
-            ).BackendEventBus.triggerStorageInitializationError(e);
-          })
-          .then(function (e) {
-            var t = e == null ? void 0 : e[0];
-            if (
-              (t &&
-                (o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-                r("WAWebEnvironment").isWindows &&
-                o("WAWebCurrentUser").isEmployee()
-                  ? o(
-                      "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerUnexpectedLogoutModal(t.reason)
-                  : o("WAWebSocketModel").Socket.logout(t.reason)),
-              r("WAWebBrokerGlobalAppState").isLogoutInProgress)
-            )
-              throw r("err")("aborting launchSocket due to logout");
-            return o("WAWebUserPrefsMultiDevice").isRegistered()
-              ? (o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket] launchSocket for login",
-                    ])),
-                ),
-                o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(),
-                o(
-                  "WAWebBackendEventBus",
-                ).BackendEventBus.triggerInitialLoadReady(),
-                o("WAWebWamMemoryStat").setCurrentMemoryScenario(
-                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
-                    .OFFLINE_RESUME,
-                ),
-                o("WAWebModelStorage")
-                  .initialize()
-                  .catch(function (e) {
-                    return o(
-                      "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerStorageInitializationError(e);
-                  })
-                  .then(function () {
-                    return (g || (g = n("Promise"))).all([
-                      o(
-                        "WAWebABPropsUpdateFromStorage",
-                      ).updateABPropsFromStorage(),
-                      o(
-                        "WAWebEventSamplingCache",
-                      ).updateEventSamplingFromStorage(),
-                    ]);
-                  })
-                  .then(function () {
-                    return o(
-                      "WAWebInitializeCryptoLibrary",
-                    ).initializeCryptoLibrary();
-                  })
-                  .then(function () {
-                    (o(
-                      "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerAbPropsLoaded(),
-                      L(),
-                      o("WAWebInitFromStorage")
-                        .restoreImportantMetaData()
-                        .catch(function (e) {
-                          o("WALogger")
-                            .ERROR(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[socket] restoreImportantMetaData failed",
-                                ])),
-                            )
-                            .catching(r("getErrorSafe")(e))
-                            .sendLogs("launch-socket-restore-metadata-failed");
-                        }));
-                  })
-                  .then(
-                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      var e = function () {
-                          return (
-                            o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                              "lidCacheWarmup",
-                            ),
-                            o("WAWebApiContact")
-                              .warmUpAllLidPnMappings()
-                              .then(function (e) {
-                                return o(
-                                  "WAWebPageLoadLogging",
-                                ).endPageLoadQplMeasure("lidCacheWarmup");
-                              })
-                          );
-                        },
-                        t = o("WAWebBlocklistMigration").applyBlocklistV2Rules()
-                          ? (g || (g = n("Promise"))).resolve()
-                          : o("WAWebBackendApi").frontendSendAndReceive(
-                              "restoreBlocklist",
-                            );
-                      yield (g || (g = n("Promise"))).all([
-                        o("WAWebBackendApi").frontendSendAndReceive(
-                          "restoreOptOutList",
-                          {},
-                        ),
-                        e(),
-                        t,
-                      ]);
-                    }),
-                  )
-                  .then(function () {
-                    (o("WAWebPushNotificationsOfflineBbApi").setStartCommsT(),
-                      o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                        "launchSocket",
-                      ),
-                      o("WAWebStartBackend")
-                        .startBackend()
-                        .finally(function () {
-                          if (
-                            !o(
-                              "WAWebLid1X1MigrationGating",
-                            ).Lid1X1MigrationUtils.isLidMigrated()
+              o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(),
+              o(
+                "WAWebBackendEventBus",
+              ).BackendEventBus.triggerInitialLoadReady(),
+              o("WAWebWamMemoryStat").setCurrentMemoryScenario(
+                o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
+                  .OFFLINE_RESUME,
+              ),
+              o("WAWebModelStorage")
+                .initialize()
+                .catch(function (e) {
+                  return o(
+                    "WAWebBackendEventBus",
+                  ).BackendEventBus.triggerStorageInitializationError(e);
+                })
+                .then(function () {
+                  return (g || (g = n("Promise"))).all([
+                    o(
+                      "WAWebABPropsUpdateFromStorage",
+                    ).updateABPropsFromStorage(),
+                    o(
+                      "WAWebEventSamplingCache",
+                    ).updateEventSamplingFromStorage(),
+                  ]);
+                })
+                .then(function () {
+                  return o(
+                    "WAWebInitializeCryptoLibrary",
+                  ).initializeCryptoLibrary();
+                })
+                .then(function () {
+                  (o(
+                    "WAWebBackendEventBus",
+                  ).BackendEventBus.triggerAbPropsLoaded(),
+                    L(),
+                    o("WAWebInitFromStorage")
+                      .restoreImportantMetaData()
+                      .catch(function (e) {
+                        o("WALogger")
+                          .ERROR(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                                "[socket] restoreImportantMetaData failed",
+                              ])),
                           )
-                            return (
-                              o(
-                                "WAWebCoreActionsODS",
-                              ).logPageLoadErrorForcedLogout(),
-                              o("WAWebSocketLogoutJob").socketLogout(
-                                o("WAWebLogoutReasonConstants").LogoutReason
-                                  .LidMigrationUnmigratedCompanion,
-                              )
-                            );
-                        })
-                        .catch(function (e) {
-                          o("WALogger")
-                            .ERROR(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[socket] startBackend failed",
-                                ])),
-                            )
-                            .catching(r("getErrorSafe")(e))
-                            .sendLogs("launch-socket-start-backend-failed");
-                        }));
-                  }))
-              : (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket] launchSocket for registration",
-                    ])),
-                ),
-                o("WAWebWamMemoryStat").setCurrentMemoryScenario(
-                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
-                    .INITIAL_PAIRING,
-                ),
-                o(
-                  "WAWebWamOfflineResumeReporter",
-                ).OfflineResumeReporter.setIsInitialSync(),
-                o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
-                  o(
-                    "WAWebWaitForInitialChatsSynced",
-                  ).initWaitForInitialChatsSynced(),
-                (g || (g = n("Promise")))
-                  .all([
-                    o("WAWebRegistration").refreshNoiseCredentials(),
-                    o("WAWebRegistration").refreshSignalCredentials(),
-                  ])
-                  .then(function () {
-                    (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("launch-socket-restore-metadata-failed");
+                      }));
+                })
+                .then(
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    var e = function () {
+                        return (
+                          o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                            "lidCacheWarmup",
+                          ),
+                          o("WAWebApiContact")
+                            .warmUpAllLidPnMappings()
+                            .then(function (e) {
+                              return o(
+                                "WAWebPageLoadLogging",
+                              ).endPageLoadQplMeasure("lidCacheWarmup");
+                            })
+                        );
+                      },
+                      t = o("WAWebBlocklistMigration").applyBlocklistV2Rules()
+                        ? (g || (g = n("Promise"))).resolve()
+                        : o("WAWebBackendApi").frontendSendAndReceive(
+                            "restoreBlocklist",
+                          );
+                    yield (g || (g = n("Promise"))).all([
+                      o("WAWebBackendApi").frontendSendAndReceive(
+                        "restoreOptOutList",
+                        {},
+                      ),
+                      e(),
+                      t,
+                    ]);
+                  }),
+                )
+                .then(function () {
+                  (o("WAWebPushNotificationsOfflineBbApi").setStartCommsT(),
+                    o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                       "launchSocket",
                     ),
-                      o("WAWebLaunchSocketUtils")
-                        .startCommsAndHandleRequests()
-                        .catch(function (e) {
-                          o("WALogger")
-                            .ERROR(
-                              p ||
-                                (p = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[socket] startCommsAndHandleRequests failed",
-                                ])),
+                    o("WAWebStartBackend")
+                      .startBackend()
+                      .finally(function () {
+                        if (
+                          !o(
+                            "WAWebLid1X1MigrationGating",
+                          ).Lid1X1MigrationUtils.isLidMigrated()
+                        )
+                          return (
+                            o(
+                              "WAWebCoreActionsODS",
+                            ).logPageLoadErrorForcedLogout(),
+                            o("WAWebSocketLogoutJob").socketLogout(
+                              o("WAWebLogoutReasonConstants").LogoutReason
+                                .LidMigrationUnmigratedCompanion,
                             )
-                            .catching(r("getErrorSafe")(e))
-                            .sendLogs("launch-socket-start-comms-failed");
-                        }));
-                  }));
-          })
-      );
+                          );
+                      })
+                      .catch(function (e) {
+                        o("WALogger")
+                          .ERROR(
+                            d ||
+                              (d = babelHelpers.taggedTemplateLiteralLoose([
+                                "[socket] startBackend failed",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("launch-socket-start-backend-failed");
+                      }));
+                }))
+            : (o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[socket] launchSocket for registration",
+                  ])),
+              ),
+              o("WAWebWamMemoryStat").setCurrentMemoryScenario(
+                o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
+                  .INITIAL_PAIRING,
+              ),
+              o(
+                "WAWebWamOfflineResumeReporter",
+              ).OfflineResumeReporter.setIsInitialSync(),
+              o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
+                o(
+                  "WAWebWaitForInitialChatsSynced",
+                ).initWaitForInitialChatsSynced(),
+              (g || (g = n("Promise")))
+                .all([
+                  o("WAWebRegistration").refreshNoiseCredentials(),
+                  o("WAWebRegistration").refreshSignalCredentials(),
+                ])
+                .then(function () {
+                  (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                    "launchSocket",
+                  ),
+                    o("WAWebLaunchSocketUtils")
+                      .startCommsAndHandleRequests()
+                      .catch(function (e) {
+                        o("WALogger")
+                          .ERROR(
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
+                                "[socket] startCommsAndHandleRequests failed",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("launch-socket-start-comms-failed");
+                      }));
+                }));
+        });
     }
     function b() {
       var e = o("WAWebPageLoadLogging").getPageLoadId();

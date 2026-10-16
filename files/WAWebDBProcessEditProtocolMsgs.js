@@ -29,6 +29,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
+    "WAWebMsgStoreExtensions",
     "WAWebMsgType",
     "WAWebMsmsgMsgSecretCache",
     "WAWebNoop",
@@ -185,7 +186,8 @@ __d(
                   return e.parentMsg;
                 }),
             ),
-            yield K(e)),
+            yield K(e),
+            yield o("WAWebMsgStoreExtensions").handleStoredMessageEdits(e)),
             t.length &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "updateEditedMessagesAction",
@@ -875,7 +877,9 @@ __d(
       );
     }
     function X(e) {
-      var t = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
+      var t = o("WAWebMsgStoreExtensions").omitColumnsPreservedAcrossEdits(
+          o("WAWebDBMessageSerialization").dbRowFromMessage(e),
+        ),
         n = e.rowId;
       return n == null ||
         !o(

@@ -65,8 +65,11 @@ __d(
       return null;
     }
     function L(t) {
-      for (var n; (e || (e = r("performanceNow")))() < t && (n = R()); )
+      for (; (e || (e = r("performanceNow")))() < t; ) {
+        var n = R();
+        if (n == null) break;
         n(new k(t));
+      }
     }
     function E(e) {
       var t = e,

@@ -388,6 +388,9 @@ __d(
           ]);
           break;
         }
+        case "music":
+          f = s._(/*BTDS*/ "Sent music");
+          break;
         case "album": {
           var te = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
             ne = r("WAWebAlbumsFormatAlbumMessageText")({

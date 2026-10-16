@@ -382,7 +382,13 @@ __d(
         (Z = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             try {
-              var l = yield ne(e, t, n, a, i);
+              var l = yield ne({
+                data: n,
+                key: t,
+                nonce: a,
+                privateKey: e,
+                tag: i,
+              });
               return JSON.parse(l);
             } catch (e) {
               throw (
@@ -414,7 +420,13 @@ __d(
             i = e.privateKey,
             l = e.tag;
           try {
-            return yield ne(i, n, t, a, l);
+            return yield ne({
+              data: t,
+              key: n,
+              nonce: a,
+              privateKey: i,
+              tag: l,
+            });
           } catch (e) {
             throw (
               o("WALogger")
@@ -432,26 +444,29 @@ __d(
         te.apply(this, arguments)
       );
     }
-    function ne(e, t, n, r, o) {
+    function ne(e) {
       return re.apply(this, arguments);
     }
     function re() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, o, a) {
-            var i = yield U(e, t),
-              l = yield oe(i),
-              s = yield O(l, n, o, a),
-              u = new TextDecoder("utf-8").decode(s),
-              c = JSON.parse(u),
-              d = c.data;
-            if (typeof d != "string")
-              throw r("err")(
-                "[WAFFLE] Decrypted RSA payload data is not a string",
-              );
-            return d;
-          },
-        )),
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.data,
+            n = e.key,
+            o = e.nonce,
+            a = e.privateKey,
+            i = e.tag,
+            l = yield U(a, n),
+            s = yield oe(l),
+            u = yield O(s, t, o, i),
+            c = new TextDecoder("utf-8").decode(u),
+            d = JSON.parse(c),
+            m = d.data;
+          if (typeof m != "string")
+            throw r("err")(
+              "[WAFFLE] Decrypted RSA payload data is not a string",
+            );
+          return m;
+        })),
         re.apply(this, arguments)
       );
     }

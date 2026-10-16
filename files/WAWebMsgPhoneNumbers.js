@@ -13,20 +13,20 @@ __d(
     function e(e) {
       var t = e.content,
         n = e.cachedValue,
-        a = e.currentIndex,
-        i = a === void 0 ? 0 : a,
-        l = e.endIndex,
-        s = l === void 0 ? 1 / 0 : l;
-      if (i >= s) return [n, s];
-      var u = o("WAUnicodeUtils").firstNCodepoints(t, s),
-        c = r("WAWebHelpersFindPhoneNumbers")(u);
-      if (o("WAUnicodeUtils").numCodepoints(t) > s && c.length > 0) {
-        var d = c[c.length - 1],
-          m = o("WAUnicodeUtils").numCodepoints(u.slice(0, d.index)),
-          p = m + o("WAUnicodeUtils").numCodepoints(d.phone);
-        p === s && (c = r("WAWebHelpersFindPhoneNumbers")(t));
+        r = e.currentIndex,
+        a = r === void 0 ? 0 : r,
+        i = e.endIndex,
+        l = i === void 0 ? 1 / 0 : i;
+      if (a >= l) return [n, l];
+      var s = o("WAUnicodeUtils").firstNCodepoints(t, l),
+        u = o("WAWebHelpersFindPhoneNumbers").findPhoneNumbers(s);
+      if (o("WAUnicodeUtils").numCodepoints(t) > l && u.length > 0) {
+        var c = u[u.length - 1],
+          d = o("WAUnicodeUtils").numCodepoints(s.slice(0, c.index)),
+          m = d + o("WAUnicodeUtils").numCodepoints(c.phone);
+        m === l && (u = o("WAWebHelpersFindPhoneNumbers").findPhoneNumbers(t));
       }
-      return [c, s];
+      return [u, l];
     }
     function s(t, n) {
       var r = e({ content: t, cachedValue: [], endIndex: n }),

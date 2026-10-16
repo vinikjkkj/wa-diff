@@ -128,7 +128,8 @@ __d(
     }
     ((l.COMPUTER_UPDATED = u),
       (l.decodeHatchBrowserTasks = c),
-      (l.decodeHatchComputerEvent = d));
+      (l.decodeHatchComputerEvent = d),
+      (l.decodeHatchBrowserTask = m));
   },
   98,
 );

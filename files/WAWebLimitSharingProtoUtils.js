@@ -749,7 +749,6 @@ __d(
       (l.parseAcp2SettingFromMessage = ne),
       (l.updateChatWithAcp2IfNewer = ie),
       (l.updateExistingAcp2SettingFromMessage = le),
-      (l.updateExistingAcp2SettingIfNewer = ce),
       (l.getPendingLimitSharingUpdate = de),
       (l.getPendingAcp2Update = me));
   },

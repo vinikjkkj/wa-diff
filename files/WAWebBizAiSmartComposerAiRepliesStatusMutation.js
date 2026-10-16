@@ -27,14 +27,18 @@ __d(
           : (e = n("WAWebBizAiSmartComposerAiRepliesStatusMutation.graphql")),
       f = { success: !1 },
       g = 15e3;
-    function h(e, t, r) {
-      var a, i;
+    function h(e) {
+      var t,
+        r,
+        a = e.status,
+        i = e.suggestedRepliesEnabled,
+        l = e.wid;
       if (!o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled())
         return (p || (p = n("Promise"))).resolve(f);
-      var l =
-          (a = o("WAWebLidMigrationUtils").toLid(e)) == null ? void 0 : a.user,
-        u = (i = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : i.user;
-      return l == null || u == null
+      var u =
+          (t = o("WAWebLidMigrationUtils").toLid(l)) == null ? void 0 : t.user,
+        c = (r = o("WAWebLidMigrationUtils").toPn(l)) == null ? void 0 : r.user;
+      return u == null || c == null
         ? (o("WALogger")
             .ERROR(
               s ||
@@ -44,7 +48,7 @@ __d(
             )
             .sendLogs("biz-ai-smart-composer-ai-replies-status-missing-id"),
           (p || (p = n("Promise"))).resolve(f))
-        : y(u, l, t, r);
+        : y(c, u, a, i);
     }
     function y(e, t, n, a) {
       return C().then(function (i) {

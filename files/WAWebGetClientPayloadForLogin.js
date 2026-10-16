@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebClientPayload",
+    "WAWebPageLoadLogging",
     "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
@@ -31,7 +32,10 @@ __d(
               .tags("launch-socket-chat"),
             (n.passive = yield o(
               "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
-            ).shouldConnectAsPassiveMode()));
+            ).shouldConnectAsPassiveMode()),
+            o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+              passive_login_flag: n.passive,
+            }));
           var a = self.performance.now(),
             i = yield o("WAWebClientPayload").getClientPayloadForLogin(n);
           return (

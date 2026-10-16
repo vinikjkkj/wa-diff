@@ -339,7 +339,19 @@ __d(
     ((F.doc =
       "Report the stored primary version that the Hatch min-primary-version gates read"),
       (F.paramsToExecute = []));
-    var O = { ai_hatch_integration_enabled: !0 };
+    var O = {
+      ai_hatch_integration_enabled: !0,
+      ai_hatch_ideas_enabled: !0,
+      ai_hatch_video_avatars_enabled: !0,
+      ai_hatch_theme_enabled: !0,
+      ai_hatch_response_ux_parity_enabled: !0,
+      ai_hatch_connectors_enabled: !0,
+      ai_hatch_secure_credentials_enabled: !0,
+      ai_hatch_browser_enabled: !0,
+      ai_hatch_space_enabled: !0,
+      ai_hatch_activity_enabled: !0,
+      ai_hatch_vm_capability_sync_enabled: !0,
+    };
     function B(e, t) {
       return W.apply(this, arguments);
     }

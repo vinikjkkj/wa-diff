@@ -21,9 +21,11 @@ __d(
             var e = o.fromMe,
               a = o.selectable,
               i = a === void 0 ? !1 : a,
-              l = n.phone;
+              l = n.canonicalPhone,
+              u = n.phone;
             return s.jsx(r("WAWebPhoneNumberMutatorComponent.react"), {
-              phoneNumber: l,
+              phoneNumber: u,
+              canonicalPhone: l,
               selectable: i,
               fromMe: e,
             });

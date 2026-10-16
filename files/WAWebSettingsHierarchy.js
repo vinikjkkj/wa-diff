@@ -7,6 +7,7 @@ __d(
     "WAWebBotBaseGating",
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatThemeGatingUtils",
+    "WAWebChatlistAppearanceSettingsGating",
     "WAWebCommonCTWADataSharing",
     "WAWebCurrentUser",
     "WAWebListsGatingUtils",
@@ -40,57 +41,63 @@ __d(
       b = g.VsrSettingsItem,
       v = g.WebcamSettingsItem,
       S = (c = n("cr:687")) != null ? c : {},
-      R = S.TaskbarNotificationSettingsItem;
-    function L(e) {
-      return (
-        e === void 0 && (e = !1),
+      R = S.TaskbarNotificationSettingsItem,
+      L = ["theme", "wallpaper", "chat_theme"],
+      E = [
+        "wallpaper",
+        "chat_theme",
+        "theme",
+        "chatlist-density",
+        "chatlist-show-parent-name",
+      ];
+    function k(e) {
+      e === void 0 && (e = !1);
+      var t = o("WAWebSettingGatingUtils").isAppearanceSettingsEnabled();
+      return [
+        {
+          business_tools: [
+            "business_tools_business_profile",
+            "business_tools_business_ai",
+            "business_tools_catalog",
+            "business_tools_orders",
+            "business_tools_advertise",
+            "business_tools_quick_replies",
+            "business_tools_labels",
+            "business_tools_help_center",
+          ],
+        },
+        { win_general_settings: ["system_tray_setting"] },
+        "profile",
+        { account: ["security", "request_account_info", "delete_account"] },
+        {
+          privacy: [
+            "wcs_last_seen",
+            "wcs_profile_photo",
+            "wcs_about_status",
+            "wcs_read_receipts",
+            "default_message_timer",
+            "privacy_groups",
+            "privacy_blocked",
+            "screen_lock",
+            "protect_ip_in_calls",
+            { calls: ["call-silencing", "license"] },
+          ],
+        },
+        "lists",
+        "agents",
+        {
+          chats: [].concat(t ? [] : L, [
+            "media_upload_quality",
+            "media_auto_download_quality",
+            "media_auto_download",
+            "spellcheck",
+            "emoji",
+            "enter",
+          ]),
+        },
+      ].concat(
+        t ? [{ appearance: E }] : [],
         [
-          {
-            business_tools: [
-              "business_tools_business_profile",
-              "business_tools_business_ai",
-              "business_tools_catalog",
-              "business_tools_orders",
-              "business_tools_advertise",
-              "business_tools_quick_replies",
-              "business_tools_labels",
-              "business_tools_help_center",
-            ],
-          },
-          { win_general_settings: ["system_tray_setting"] },
-          "profile",
-          { account: ["security", "request_account_info", "delete_account"] },
-          {
-            privacy: [
-              "wcs_last_seen",
-              "wcs_profile_photo",
-              "wcs_about_status",
-              "wcs_read_receipts",
-              "default_message_timer",
-              "privacy_groups",
-              "privacy_blocked",
-              "screen_lock",
-              "protect_ip_in_calls",
-              { calls: ["call-silencing", "license"] },
-            ],
-          },
-          "lists",
-          "agents",
-          {
-            chats: [
-              "theme",
-              "wallpaper",
-              "chat_theme",
-              "chatlist-density",
-              "chatlist-show-parent-name",
-              "media_upload_quality",
-              "media_auto_download_quality",
-              "media_auto_download",
-              "spellcheck",
-              "emoji",
-              "enter",
-            ],
-          },
           {
             device_settings: [
               "microphone_setting",
@@ -125,26 +132,25 @@ __d(
               "terms",
             ],
           },
-        ].concat(
-          e === !1 ? ["bugnub", "download_logs"] : [],
-          ["logout"],
-          e === !0 ? ["divider"] : [],
-          e === !0 ? ["bugnub", "download_logs"] : [],
-          [
-            {
-              developer: [
-                "developer_abprops",
-                "developer_group_abprops",
-                "developer_infra_settings",
-                "developer_www_settings",
-                "developer_labyrinth_debug",
-              ],
-            },
-          ],
-        )
+        ],
+        e === !1 ? ["bugnub", "download_logs"] : [],
+        ["logout"],
+        e === !0 ? ["divider"] : [],
+        e === !0 ? ["bugnub", "download_logs"] : [],
+        [
+          {
+            developer: [
+              "developer_abprops",
+              "developer_group_abprops",
+              "developer_infra_settings",
+              "developer_www_settings",
+              "developer_labyrinth_debug",
+            ],
+          },
+        ],
       );
     }
-    var E = {
+    var I = {
         step: o("WAWebSettingsConst").SettingsSteps.RequestAccountInfoSettings,
         id: "request_account_info",
         isAvailable: !0,
@@ -156,7 +162,7 @@ __d(
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
           .REQUEST_ACCOUNT_INFO,
       },
-      k = {
+      T = {
         step: o("WAWebSettingsConst").SettingsSteps.Security,
         id: "security",
         isAvailable: !0,
@@ -165,7 +171,7 @@ __d(
         testid: "li-security",
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE.SECURITY,
       },
-      I = {
+      D = {
         step: o("WAWebSettingsConst").SettingsSteps.DeleteAccount,
         id: "delete_account",
         isAvailable: !0,
@@ -174,7 +180,7 @@ __d(
         ).toLowerCase(),
         title: o("WAWebSettingsFBT").deleteAccountTitle,
       },
-      T = {
+      x = {
         step: o("WAWebSettingsConst").SettingsSteps.Wallpaper,
         id: "wallpaper",
         isAvailable: function () {
@@ -188,7 +194,7 @@ __d(
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
           .CHAT_WALLPAPER,
       },
-      D = {
+      $ = {
         step: o("WAWebSettingsConst").SettingsSteps.ChatTheme,
         id: "chat_theme",
         isAvailable: function () {
@@ -200,7 +206,7 @@ __d(
         title: o("WAWebSettingsFBT").chatThemeTitle,
         testid: "li-chat-theme",
       },
-      x = {
+      P = {
         step: o("WAWebSettingsConst").SettingsSteps.Theme,
         id: "theme",
         isAvailable: !0,
@@ -215,7 +221,7 @@ __d(
         testid: "li-theme",
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE.THEME,
       },
-      $ = {
+      N = {
         step: o("WAWebSettingsConst").SettingsSteps.MediaAutoDownload,
         id: "media_auto_download",
         isAvailable: !0,
@@ -227,7 +233,7 @@ __d(
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
           .MEDIA_AUTO_DOWNLOAD,
       },
-      P = {
+      M = {
         step: o("WAWebSettingsConst").SettingsSteps.MediaUploadQuality,
         id: "media_upload_quality",
         isAvailable: !0,
@@ -237,7 +243,7 @@ __d(
         title: o("WAWebSettingsFBT").mediaUploadQualityTitle,
         testid: "li-media-upload-quality",
       },
-      N = {
+      w = {
         step: o("WAWebSettingsConst").SettingsSteps.MediaAutoDownloadQuality,
         id: "media_auto_download_quality",
         isAvailable: o("WAWebMediaGatingUtils")
@@ -252,14 +258,15 @@ __d(
         title: o("WAWebSettingsFBT").mediaAutoDownloadQualityTitle,
         testid: "li-media-auto-download-quality",
       };
-    function M(e) {
+    function A(e) {
+      var t;
       e === void 0 && (e = !1);
-      var t = o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled(),
-        n = [
+      var n = o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled(),
+        a = [
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(o("WAWebSettingsFBT").businessToolsTitle()),
             title: o("WAWebSettingsFBT").businessToolsTitle,
             secondaryTitle: o("WAWebSettingsFBT").businessToolsSecondaryTitle,
@@ -270,7 +277,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_business_profile",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsBusinessProfileTitle(),
             ),
@@ -280,7 +287,7 @@ __d(
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_business_ai",
             isAvailable:
-              t &&
+              n &&
               o("WAWebChatAssignmentGatingUtils").isBizAIToolsSettingsEnabled(),
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsBusinessAITitle(),
@@ -292,7 +299,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_catalog",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsCatalogTitle(),
             ),
@@ -301,7 +308,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_orders",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsOrdersTitle(),
             ),
@@ -310,7 +317,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_advertise",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsAdvertiseTitle(),
             ),
@@ -319,7 +326,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_quick_replies",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsQuickRepliesTitle(),
             ),
@@ -328,7 +335,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_labels",
-            isAvailable: t && !o("WAWebListsGatingUtils").isListsM2Enabled(),
+            isAvailable: n && !o("WAWebListsGatingUtils").isListsM2Enabled(),
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsListsTitle(),
             ),
@@ -337,7 +344,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
             id: "business_tools_help_center",
-            isAvailable: t,
+            isAvailable: n,
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsHelpCenterTitle(),
             ),
@@ -588,16 +595,25 @@ __d(
             title: o("WAWebSettingsFBT").languageTitle,
             testid: "li-language",
           },
-          k,
-          x,
           T,
-          D,
+          o("WAWebSettingGatingUtils").isAppearanceSettingsEnabled()
+            ? babelHelpers.extends({}, P, {
+                step: o("WAWebSettingsConst").SettingsSteps.Appearance,
+                title: o("WAWebSettingsFBT").appThemeTitle,
+                searchCriteria: (
+                  String(o("WAWebSettingsFBT").appThemeTitle()) +
+                  " " +
+                  ((t = P.searchCriteria) != null ? t : "")
+                ).toLowerCase(),
+              })
+            : P,
+          x,
+          $,
           {
-            step: o("WAWebSettingsConst").SettingsSteps.ChatlistDensity,
+            step: o("WAWebSettingsConst").SettingsSteps.Appearance,
             id: "chatlist-density",
-            isAvailable: function () {
-              return r("gkx")("22829");
-            },
+            isAvailable: o("WAWebChatlistAppearanceSettingsGating")
+              .isChatlistAppearanceSettingsEnabled,
             title: o("WAWebSettingsFBT").chatlistDensityTitle,
             searchCriteria: [
               String(o("WAWebSettingsFBT").chatlistDensityTitle()),
@@ -609,19 +625,18 @@ __d(
               .toLowerCase(),
           },
           {
-            step: o("WAWebSettingsConst").SettingsSteps.Chats,
+            step: o("WAWebSettingsConst").SettingsSteps.Appearance,
             id: "chatlist-show-parent-name",
-            isAvailable: function () {
-              return r("gkx")("22829");
-            },
+            isAvailable: o("WAWebChatlistAppearanceSettingsGating")
+              .isChatlistAppearanceSettingsEnabled,
             title: o("WAWebSettingsFBT").chatlistShowParentNameTitle,
             searchCriteria: String(
               o("WAWebSettingsFBT").chatlistShowParentNameTitle(),
             ).toLowerCase(),
           },
-          P,
+          M,
+          w,
           N,
-          $,
           {
             step: o("WAWebSettingsConst").SettingsSteps.Chats,
             id: "spellcheck",
@@ -658,7 +673,7 @@ __d(
               .join(" ")
               .toLowerCase(),
           },
-          E,
+          I,
           {
             step: o("WAWebSettingsConst").SettingsSteps.KeyboardShortcuts,
             id: "keyboard_shortcuts",
@@ -910,6 +925,18 @@ __d(
                 testid: "li-chats",
               },
               {
+                step: o("WAWebSettingsConst").SettingsSteps.Appearance,
+                id: "appearance",
+                isAvailable: o("WAWebSettingGatingUtils")
+                  .isAppearanceSettingsEnabled,
+                searchCriteria: String(o("WAWebSettingsFBT").appearanceTitle()),
+                title: o("WAWebSettingsFBT").appearanceTitle,
+                secondaryTitle: o("WAWebSettingsFBT").appearanceSecondaryTitle,
+                wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
+                  .APPEARANCE,
+                testid: "li-appearance",
+              },
+              {
                 step: o("WAWebSettingsConst").SettingsSteps.Divider,
                 id: "divider",
                 isAvailable: !0,
@@ -928,24 +955,24 @@ __d(
             ],
           )
           .filter(Boolean),
-        a = n.reduce(function (e, t) {
+        i = a.reduce(function (e, t) {
           return (e.set(t.id, t), e);
         }, new Map()),
-        i = [];
-      function l(e, t) {
+        l = [];
+      function s(e, t) {
         for (var n of t)
           if (typeof n == "string") {
-            var r = a.get(n);
-            r != null && ((r.parentId = e), i.push(r));
+            var r = i.get(n);
+            r != null && ((r.parentId = e), l.push(r));
           } else
             for (var o of Object.getOwnPropertyNames(n)) {
-              var s = a.get(o);
-              (s != null && ((s.parentId = e), i.push(s)), l(o, n[o]));
+              var a = i.get(o);
+              (a != null && ((a.parentId = e), l.push(a)), s(o, n[o]));
             }
       }
-      return (l(null, L(e)), i);
+      return (s(null, k(e)), l);
     }
-    function w(e) {
+    function F(e) {
       var t = {};
       return e.map(function (e) {
         var n = babelHelpers.extends({}, e);
@@ -964,15 +991,15 @@ __d(
         );
       });
     }
-    ((l.RequestAccountInfoSettingsItem = E),
-      (l.SecuritySettingsItem = k),
-      (l.DeleteAccountSettingsItem = I),
-      (l.ThemeSettingsItem = x),
-      (l.MediaAutoDownloadSettingsItem = $),
-      (l.MediaUploadQualitySettingsItem = P),
-      (l.MediaAutoDownloadQualitySettingsItem = N),
-      (l.getSettingsSearchHierarchy = M),
-      (l.buildSearchableHierarchy = w));
+    ((l.RequestAccountInfoSettingsItem = I),
+      (l.SecuritySettingsItem = T),
+      (l.DeleteAccountSettingsItem = D),
+      (l.ThemeSettingsItem = P),
+      (l.MediaAutoDownloadSettingsItem = N),
+      (l.MediaUploadQualitySettingsItem = M),
+      (l.MediaAutoDownloadQualitySettingsItem = w),
+      (l.getSettingsSearchHierarchy = A),
+      (l.buildSearchableHierarchy = F));
   },
   98,
 );

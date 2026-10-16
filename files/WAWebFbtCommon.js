@@ -48,6 +48,30 @@ __d(
       Continue: function () {
         return s._(/*BTDS*/ "Continue");
       },
+      Save: function () {
+        return s._(/*BTDS*/ "Save");
+      },
+      Download: function () {
+        return s._(/*BTDS*/ "Download");
+      },
+      Remove: function () {
+        return s._(/*BTDS*/ "Remove");
+      },
+      Delete: function () {
+        return s._(/*BTDS*/ "Delete");
+      },
+      Edit: function () {
+        return s._(/*BTDS*/ "Edit");
+      },
+      "Not now": function () {
+        return s._(/*BTDS*/ "Not now");
+      },
+      "Close chat": function () {
+        return s._(/*BTDS*/ "Close chat");
+      },
+      Forward: function () {
+        return s._(/*BTDS*/ "Forward");
+      },
       Unblock: function () {
         return s._(/*BTDS*/ "Unblock");
       },

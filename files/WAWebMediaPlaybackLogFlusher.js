@@ -36,6 +36,9 @@ __d(
                 });
                 break;
               case o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS:
+              case o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL:
+              case o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP:
+              case o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST:
                 n.forEach(function (e) {
                   o(
                     "WAWebMediaPlaybackEventLogger",

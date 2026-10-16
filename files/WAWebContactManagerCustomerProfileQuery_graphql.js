@@ -87,6 +87,13 @@ __d(
               {
                 alias: null,
                 args: null,
+                kind: "ScalarField",
+                name: "ai_summary",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
                 concreteType: "XFBWACustomerFieldMetadata",
                 kind: "LinkedField",
                 name: "last_updates",

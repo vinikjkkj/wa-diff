@@ -3,21 +3,25 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWeb-dexie",
+    "WAWebABProps",
+    "WAWebBackendApi",
     "WAWebPostSenderKeyExpiredMetric",
     "WAWebSchemaParticipant",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumExpiryReason",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t, n) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           var a;
           try {
             a = yield o("WAWebSchemaParticipant")
@@ -39,7 +43,7 @@ __d(
               t
             );
           }
-          var i = yield _(
+          var i = yield f(
               a,
               "updateGroupParticipantsInTransaction",
               function () {
@@ -79,7 +83,7 @@ __d(
                     !1,
                   );
                 }),
-                y({ added: n, oldRecord: e, removed: r, rotateKey: a, wid: t }),
+                v({ added: n, oldRecord: e, removed: r, rotateKey: a, wid: t }),
                 babelHelpers.extends({}, e, { senderKey: i, rotateKey: a })
               );
             });
@@ -87,15 +91,15 @@ __d(
             .getParticipantTable()
             .bulkCreateOrReplace(l);
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t;
             try {
@@ -123,7 +127,7 @@ __d(
                 e
               );
             }
-            var n = yield _(
+            var n = yield f(
               t,
               "bulkUpdateGroupParticipantsInTransaction",
               function () {
@@ -184,7 +188,7 @@ __d(
                             !1,
                           );
                         }),
-                        y({
+                        v({
                           added: l,
                           oldRecord: e,
                           removed: s,
@@ -202,18 +206,20 @@ __d(
             }
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = e.filter(Boolean);
-          if (r.length === e.length) return r;
-          var a = yield g(r, n);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = e.filter(Boolean);
+          if (a.length === e.length) return a;
+          var i = yield h(a, n),
+            l = i.summary,
+            s = i.unreadableGroupIds;
           return (
             o("WALogger")
               .ERROR(
@@ -226,23 +232,30 @@ __d(
                     "",
                   ])),
                 t,
-                e.length - r.length,
+                e.length - a.length,
                 e.length,
-                a,
+                l,
               )
               .sendLogs("participant-query-null-record"),
-            r
+            s.length > 0 &&
+              o("WAWebABProps").getABPropConfigValue(
+                "web_resync_unreadable_participant_rows",
+              ) &&
+              r("WAWeb-dexie").ignoreTransaction(function () {
+                return C(s);
+              }),
+            a
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = new Set(
                 e.map(function (e) {
@@ -256,25 +269,61 @@ __d(
               i = yield o("WAWebSchemaParticipant")
                 .getParticipantTable()
                 .bulkGet(a),
-              l = i.filter(function (e) {
-                return e == null;
-              }).length;
-            return (
-              "primary keys: " +
-              r.length +
-              ", missing: " +
-              a.length +
-              ", unreadable by primary key: " +
-              l
-            );
+              l = a.filter(function (e, t) {
+                return i[t] == null;
+              });
+            return {
+              summary:
+                "primary keys: " +
+                r.length +
+                ", missing: " +
+                a.length +
+                ", unreadable by primary key: " +
+                l.length,
+              unreadableGroupIds: l,
+            };
           } catch (e) {
-            return "diagnostics failed: " + String(e);
+            return {
+              summary: "diagnostics failed: " + String(e),
+              unreadableGroupIds: [],
+            };
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            (yield o("WAWebSchemaParticipant")
+              .getParticipantTable()
+              .bulkRemove(e),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "resyncGroupParticipantsForChats",
+                { chatIds: e },
+              ));
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "removeAndResyncGroups: removing ",
+                    " unreadable participant records failed",
+                  ])),
+                e.length,
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("participant-unreadable-record-recovery-failed");
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
       var t = e.added,
         n = e.oldRecord,
         r = e.removed,
@@ -297,8 +346,8 @@ __d(
           }));
       }
     }
-    ((l.updateGroupParticipantsInTransaction = c),
-      (l.bulkUpdateGroupParticipantsInTransaction = m));
+    ((l.updateGroupParticipantsInTransaction = d),
+      (l.bulkUpdateGroupParticipantsInTransaction = p));
   },
   98,
 );

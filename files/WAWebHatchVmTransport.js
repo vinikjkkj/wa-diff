@@ -280,8 +280,14 @@ __d(
       SPACE_DELETE: function (n) {
         return "/spaces/v2/" + n + "?source=space";
       },
+      SPACE_EXPORT_HTML: function (n) {
+        return "/spaces/" + n + "/export.html";
+      },
       SPACE_IMAGE: E,
       SPACE_RENAME: "/api/spaces/rename",
+      SPACE_SHARE: function (n) {
+        return "/spaces/share/" + n;
+      },
       SPACES_CATALOG: "/spaces/v2",
       WORKSPACE_DELETE: "/fs/delete",
       WORKSPACE_LIBRARY: "/fs/library",

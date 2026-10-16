@@ -7,8 +7,8 @@ __d(
     "WAWebDialogEventLogger",
     "WAWebModalManager",
     "WAWebNotificationsModalVariant",
-    "WAWebNotificationsOptInModal.react",
     "WAWebNotificationsOptInModalController",
+    "WAWebNotificationsOptInModalLoadable",
     "WAWebUserPrefsNotifications",
     "WAWebWamEnumDialogNameType",
     "react",
@@ -45,27 +45,37 @@ __d(
                 );
               })();
       o("WAWebModalManager").ModalManager.open(
-        s.jsx(r("WAWebNotificationsOptInModal.react"), {
-          copy: t,
-          missedCount: n == null ? void 0 : n.missedCount,
-          onAllow: function () {
-            (r("WAWebDialogEventLogger")({ dialogName: a, source: u.OPTED_IN }),
-              n == null || n.onModalResolved == null || n.onModalResolved(),
-              o(
-                "WAWebNotificationsOptInModalController",
-              ).requestNotificationsPermission(e, {
-                showGuidePopup: o("WAWebABProps").getABPropConfigValue(
-                  "wa_web_browser_notifications_popup_guide",
-                ),
-                onPermissionResult: n == null ? void 0 : n.onPermissionResult,
-              }));
+        s.jsx(
+          o("WAWebNotificationsOptInModalLoadable")
+            .NotificationsOptInModalLoadable,
+          {
+            copy: t,
+            missedCount: n == null ? void 0 : n.missedCount,
+            onAllow: function () {
+              (r("WAWebDialogEventLogger")({
+                dialogName: a,
+                source: u.OPTED_IN,
+              }),
+                n == null || n.onModalResolved == null || n.onModalResolved(),
+                o(
+                  "WAWebNotificationsOptInModalController",
+                ).requestNotificationsPermission(e, {
+                  showGuidePopup: o("WAWebABProps").getABPropConfigValue(
+                    "wa_web_browser_notifications_popup_guide",
+                  ),
+                  onPermissionResult: n == null ? void 0 : n.onPermissionResult,
+                }));
+            },
+            onDismiss: function () {
+              (r("WAWebDialogEventLogger")({
+                dialogName: a,
+                source: u.DECLINED,
+              }),
+                n == null || n.onModalResolved == null || n.onModalResolved(),
+                c());
+            },
           },
-          onDismiss: function () {
-            (r("WAWebDialogEventLogger")({ dialogName: a, source: u.DECLINED }),
-              n == null || n.onModalResolved == null || n.onModalResolved(),
-              c());
-          },
-        }),
+        ),
       );
     }
     l.openNotificationsOptInModal = d;

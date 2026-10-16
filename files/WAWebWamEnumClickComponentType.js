@@ -1,0 +1,38 @@
+__d(
+  "WAWebWamEnumClickComponentType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      UNKNOWN: 0,
+      TEXT_WEB_URL: 1,
+      TEXT_MARKDOWN_LINK: 2,
+      TEXT_PHONE_NUMBER: 3,
+      TEXT_EMAIL: 4,
+      TEXT_ADDRESS: 5,
+      TEXT_DATE_TIME: 6,
+      TEXT_OTP_CODE: 7,
+      TEXT_PAYMENT_DETECTION: 8,
+      TEXT_PAYMENT_LINK: 9,
+      LINK_PREVIEW: 10,
+      LINK_PREVIEW_INLINE_VIDEO: 11,
+      CTWA_AD_HEADER: 12,
+      HEADER_MEDIA: 13,
+      HEADER_PRODUCT: 14,
+      HEADER_LINK: 15,
+      BODY_LINK: 16,
+      FOOTER_LINK: 17,
+      BUTTON: 18,
+      LIST_OPEN: 19,
+      LIST_ROW: 20,
+      PRODUCT_LIST_ITEM: 21,
+      CAROUSEL_CARD_MEDIA: 22,
+      CAROUSEL_CARD_BUTTON: 23,
+      PRODUCT_CARD: 24,
+      CATALOG_CARD: 25,
+      BUSINESS_PILL: 26,
+      BLOKS_WIDGET: 27,
+    });
+    i.CLICK_COMPONENT_TYPE = e;
+  },
+  66,
+);

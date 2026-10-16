@@ -348,32 +348,41 @@ __d(
                   "[socket] resumeNoiseHandshake failed: static ciphertext !null",
                 ])),
             ),
-            U(e, t, a, i, n)
+            U({
+              clientEphemeralKeyPair: i,
+              isRegistered: a,
+              serverHello: n,
+              socket: e,
+              socketOpenOptions: t,
+            })
           );
         });
       });
     }
-    function U(e, t, n, r, o) {
+    function U(e) {
       return V.apply(this, arguments);
     }
     function V() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = new (o("WANoiseHandshake").NoiseHandshake)(e);
-            return (
-              i.start(A, N),
-              i.authenticate(r.pubKey),
-              o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "[socket] doFallbackHandshake continuing with server hello",
-                  ])),
-              ),
-              H(i, a, r, n, t)
-            );
-          },
-        )),
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.clientEphemeralKeyPair,
+            n = e.isRegistered,
+            r = e.serverHello,
+            a = e.socket,
+            i = e.socketOpenOptions,
+            l = new (o("WANoiseHandshake").NoiseHandshake)(a);
+          return (
+            l.start(A, N),
+            l.authenticate(t.pubKey),
+            o("WALogger").LOG(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "[socket] doFallbackHandshake continuing with server hello",
+                ])),
+            ),
+            H(l, r, t, n, i)
+          );
+        })),
         V.apply(this, arguments)
       );
     }

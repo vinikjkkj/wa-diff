@@ -2,33 +2,37 @@ __d(
   "WAWebHatchFilesState",
   [
     "WALogger",
+    "WAWebHatchArtifactCapabilities",
     "WAWebHatchFileDecoder",
     "WAWebHatchJsonReaders",
+    "WAWebHatchSpaceRoute",
+    "WAWebHatchSpaceRowDecoder",
     "WAWebHatchSpacesDecoder",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = { files: null, pending: null },
+      u = { files: null, pending: null, spaceCapabilities: new Map() },
       c = "artifacts.snapshot",
-      d = "library";
-    function m(e, t, n) {
+      d = "library",
+      m = "space:";
+    function p(e, t, n) {
       return t === c
-        ? _(e, n)
+        ? f(e, n)
         : t === o("WAWebHatchSpacesDecoder").HATCH_SPACES_UPDATED_OP_KEY
-          ? y(e, n)
+          ? b(e, n)
           : t === o("WAWebHatchSpacesDecoder").HATCH_SPACES_REMOVED_OP_KEY
-            ? C(e, n)
+            ? R(e, n)
             : e;
     }
-    function p(e) {
+    function _(e) {
       return e.pending == null
         ? e
         : babelHelpers.extends({}, e, { pending: null });
     }
-    function _(t, n) {
-      var r = f(t.pending, n);
+    function f(t, n) {
+      var r = g(t.pending, n);
       if (r == null)
         return (
           o("WALogger")
@@ -39,7 +43,7 @@ __d(
                 ])),
             )
             .sendLogs("hatch-files-snapshot-dropped"),
-          p(t)
+          _(t)
         );
       if (r.chunks.length < r.chunkCount)
         return babelHelpers.extends({}, t, { pending: r });
@@ -54,12 +58,12 @@ __d(
                 ])),
             )
             .sendLogs("hatch-files-snapshot-dropped"),
-          p(t))
-        : { files: h(a), pending: null };
+          _(t))
+        : { files: y(a), pending: null, spaceCapabilities: C(a) };
     }
-    function f(e, t) {
-      var n = g(t, "chunk_number"),
-        r = g(t, "chunk_count"),
+    function g(e, t) {
+      var n = h(t, "chunk_number"),
+        r = h(t, "chunk_count"),
         a = o("WAWebHatchJsonReaders").readArray(t, "artifacts");
       if (n == null || r == null || a == null) return null;
       var i = n === 1 ? { chunkCount: r, chunks: [] } : e;
@@ -70,7 +74,7 @@ __d(
         ? { chunkCount: r, chunks: [].concat(i.chunks, [a]) }
         : null;
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, t);
       return n === void 0
         ? 1
@@ -78,33 +82,87 @@ __d(
           ? n
           : null;
     }
-    function h(e) {
+    function y(e) {
       var t = new Map();
       for (var n of e) {
         var r = o("WAWebHatchFileDecoder").decodeHatchFileNode(n);
         r != null && t.set(r.artifactRef, r);
       }
-      return v(Array.from(t.values()));
+      return D(Array.from(t.values()));
     }
-    function y(e, t) {
+    function C(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = o(
+          "WAWebHatchArtifactCapabilities",
+        ).decodeHatchSpaceCapabilities(n);
+        r != null && r.capabilities != null && t.set(r.slug, r.capabilities);
+      }
+      return t;
+    }
+    function b(e, t) {
+      var n = o("WAWebHatchJsonReaders").readObject(t, "artifact");
+      return S(v(e, n), n);
+    }
+    function v(e, t) {
+      var n = o("WAWebHatchArtifactCapabilities").decodeHatchSpaceCapabilities(
+        t,
+      );
+      return n == null ? e : k(e, n.slug, n.capabilities);
+    }
+    function S(e, t) {
       var n = e.files,
-        r = o("WAWebHatchJsonReaders").readObject(t, "artifact"),
-        a = o("WAWebHatchJsonReaders").readStringOrEmpty(r, "artifact_ref");
-      if (n == null || a === "") return e;
-      var i = n.filter(function (e) {
-          return e.artifactRef !== a;
+        r = o("WAWebHatchJsonReaders").readStringOrEmpty(t, "artifact_ref");
+      if (n == null || r === "") return e;
+      var a = n.filter(function (e) {
+          return e.artifactRef !== r;
         }),
-        l = o("WAWebHatchFileDecoder").decodeHatchFileNode(r);
-      return l != null
-        ? babelHelpers.extends({}, e, { files: v([].concat(i, [l])) })
-        : i.length === n.length
+        i = o("WAWebHatchFileDecoder").decodeHatchFileNode(t);
+      return i != null
+        ? babelHelpers.extends({}, e, { files: D([].concat(a, [i])) })
+        : a.length === n.length
           ? e
-          : babelHelpers.extends({}, e, { files: i });
+          : babelHelpers.extends({}, e, { files: a });
     }
-    function C(e, t) {
+    function R(e, t) {
+      return I(L(e, t), t);
+    }
+    function L(e, t) {
+      var n = E(t);
+      return n == null ? e : k(e, n, null);
+    }
+    function E(e) {
+      var t = o("WAWebHatchJsonReaders").readStringOrEmpty(e, "artifact_ref");
+      return t !== ""
+        ? t.startsWith(m)
+          ? o("WAWebHatchSpaceRoute").toHatchSpaceSlug(t.slice(m.length))
+          : null
+        : o("WAWebHatchJsonReaders").readTrimmedString(e, "source") ===
+            o("WAWebHatchSpaceRowDecoder").HATCH_SPACE_SOURCE
+          ? o("WAWebHatchSpaceRoute").toHatchSpaceSlug(
+              o("WAWebHatchJsonReaders").readTrimmedString(e, "item_key"),
+            )
+          : null;
+    }
+    function k(e, t, n) {
+      var r = e.spaceCapabilities.get(t);
+      if (
+        (r == null ? void 0 : r.canShare) ===
+          (n == null ? void 0 : n.canShare) &&
+        (r == null ? void 0 : r.canDownloadHtml) ===
+          (n == null ? void 0 : n.canDownloadHtml)
+      )
+        return e;
+      var o = new Map(e.spaceCapabilities);
+      return (
+        n == null ? o.delete(t) : o.set(t, n),
+        babelHelpers.extends({}, e, { spaceCapabilities: o })
+      );
+    }
+    function I(e, t) {
       var n = e.files;
       if (n == null) return e;
-      var r = b(n, t);
+      var r = T(n, t);
       return r == null
         ? e
         : babelHelpers.extends({}, e, {
@@ -113,7 +171,7 @@ __d(
             }),
           });
     }
-    function b(e, t) {
+    function T(e, t) {
       var n,
         r = o("WAWebHatchJsonReaders").readStringOrEmpty(t, "artifact_ref");
       if (r !== "")
@@ -130,17 +188,17 @@ __d(
         ? void 0
         : n.artifactRef;
     }
-    function v(e) {
+    function D(e) {
       return [].concat(e).sort(function (e, t) {
         return (
           Number(t.isPinned) - Number(e.isPinned) ||
-          S(e) - S(t) ||
-          R(t) - R(e) ||
-          L(e.artifactRef, t.artifactRef)
+          x(e) - x(t) ||
+          $(t) - $(e) ||
+          P(e.artifactRef, t.artifactRef)
         );
       });
     }
-    function S(e) {
+    function x(e) {
       var t;
       return e.isPinned
         ? (t = e.pinnedOrder) != null
@@ -148,7 +206,7 @@ __d(
           : Number.MAX_VALUE
         : 0;
     }
-    function R(e) {
+    function $(e) {
       var t;
       return e.isPinned
         ? 0
@@ -156,12 +214,12 @@ __d(
           ? t
           : -Number.MAX_VALUE;
     }
-    function L(e, t) {
+    function P(e, t) {
       return e === t ? 0 : e < t ? -1 : 1;
     }
     ((l.HATCH_FILES_INITIAL_STATE = u),
-      (l.applyHatchFilesEvent = m),
-      (l.dropHatchFilesPendingSnapshot = p));
+      (l.applyHatchFilesEvent = p),
+      (l.dropHatchFilesPendingSnapshot = _));
   },
   98,
 );

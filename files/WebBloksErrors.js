@@ -54,6 +54,14 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
       c = (function (e) {
+        function t(t) {
+          return (
+            e.call(this, "Payload verification failed: " + t, null) || this
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(e),
+      d = (function (e) {
         function t(t, n, r) {
           var o, a;
           return (
@@ -62,13 +70,13 @@ __d(
               n == null || (o = n.getSourceMapNode()) == null
                 ? void 0
                 : o.getBloksStackFrame()),
-            (a.stackFrame = d(a.stackFrame)),
+            (a.stackFrame = m(a.stackFrame)),
             a
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e);
-    function d(e) {
+    function m(e) {
       for (var t = e; t != null; ) {
         var n;
         if (t.offset === ((n = t.nextFrame) == null ? void 0 : n.offset)) {
@@ -78,7 +86,7 @@ __d(
       }
       return e;
     }
-    var m = (function (e) {
+    var p = (function (e) {
         function t(t, n, r) {
           return (
             e.call(
@@ -91,7 +99,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      p = (function (e) {
+      _ = (function (e) {
         function t(t, n) {
           return (
             e.call(
@@ -104,7 +112,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      _ = (function (e) {
+      f = (function (e) {
         function t(t, n) {
           return (
             e.call(
@@ -117,13 +125,13 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      f = (function (e) {
+      g = (function (e) {
         function t(t, n) {
           return e.call(this, "Unsupported feature: " + t, null, n) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      g = (function (e) {
+      h = (function (e) {
         function t(t, n) {
           return (
             e.call(
@@ -140,12 +148,13 @@ __d(
       (i.WebBloksComponentIdNotFoundError = l),
       (i.WebBloksNetworkError = s),
       (i.WebBloksComponentQueryParseError = u),
-      (i.WebBloksScriptError = c),
-      (i.WebBloksScriptParseError = m),
-      (i.WebBloksUnknownActionError = p),
-      (i.WebBloksUnknownComponentError = _),
-      (i.WebBloksUnsupportedFeatureError = f),
-      (i.WebBloksUnknownContainerConfigError = g));
+      (i.WebBloksPayloadVerificationError = c),
+      (i.WebBloksScriptError = d),
+      (i.WebBloksScriptParseError = p),
+      (i.WebBloksUnknownActionError = _),
+      (i.WebBloksUnknownComponentError = f),
+      (i.WebBloksUnsupportedFeatureError = g),
+      (i.WebBloksUnknownContainerConfigError = h));
   },
   66,
 );

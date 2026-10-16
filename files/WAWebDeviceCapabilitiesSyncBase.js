@@ -7,7 +7,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebMobilePlatforms",
-    "WAWebNewsletterChatsMigrationCapability",
+    "WAWebNewsletterChatsMigrationForwarder",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebProtobufsServerSync.pb",
@@ -113,37 +113,35 @@ __d(
         (i.applyMutations = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = this,
-              n = 0,
-              r = e.map(function (e) {
+              r = 0,
+              a = [],
+              i = e.map(function (e) {
                 if (e.operation === "set") {
-                  var r = t.getCapabilitiesFromValue(e.value);
-                  if (r != null) {
-                    var a = e.indexParts[m],
-                      i = a != null ? p(a) : null;
-                    if (i === d) {
-                      var l,
-                        s = o(
+                  var n = t.getCapabilitiesFromValue(e.value);
+                  if (n != null) {
+                    var i = e.indexParts[m],
+                      l = i != null ? p(i) : null;
+                    if (l === d) {
+                      var s,
+                        u = o(
                           "WAWebUserPrefsDeviceCapabilities",
-                        ).mapProtobufToAllDeviceCapabilities(r);
+                        ).mapProtobufToAllDeviceCapabilities(n);
                       (o(
                         "WAWebUserPrefsDeviceCapabilities",
-                      ).mergeDeviceCapabilitiesToStorage(s, "primary"),
-                        o("WAWebBackendApi").frontendFireAndForget(
-                          "updatePrimaryNewsletterChatsMigration",
-                          {
-                            migration: o(
-                              "WAWebNewsletterChatsMigrationCapability",
-                            ).getNewsletterChatsMigrationFromCapabilities(r),
-                          },
+                      ).mergeDeviceCapabilitiesToStorage(u, "primary"),
+                        a.push(
+                          o(
+                            "WAWebNewsletterChatsMigrationForwarder",
+                          ).forwardPrimaryNewsletterChatsMigration(n),
                         ),
-                        n++);
-                      var u =
-                        (l = s.aiThread) == null ? void 0 : l.supportLevel;
+                        r++);
+                      var c =
+                        (s = u.aiThread) == null ? void 0 : s.supportLevel;
                       if (
-                        ((u ===
+                        ((c ===
                           o("WAWebProtobufsDeviceCapabilities.pb")
                             .DeviceCapabilities$AiThread$SupportLevel.INFRA ||
-                          u ===
+                          c ===
                             o("WAWebProtobufsDeviceCapabilities.pb")
                               .DeviceCapabilities$AiThread$SupportLevel.FULL) &&
                           o("WAWebBackendApi").frontendFireAndForget(
@@ -152,18 +150,18 @@ __d(
                           ),
                         o("WAWebMobilePlatforms").isSMB())
                       ) {
-                        var c = r.businessBroadcast,
-                          _ =
-                            !!(c != null && c.companionSupportEnabled) &&
-                            !!(c != null && c.campaignSyncEnabled),
-                          f = o(
+                        var _ = n.businessBroadcast,
+                          f =
+                            !!(_ != null && _.companionSupportEnabled) &&
+                            !!(_ != null && _.campaignSyncEnabled),
+                          g = o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).getPrimarySupportsBusinessBroadcast();
-                        (_ !== f &&
+                        (f !== g &&
                           (o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
-                          ).saveBizBroadcastCapabilityToStorage(_),
-                          _ &&
+                          ).saveBizBroadcastCapabilityToStorage(f),
+                          f &&
                             o(
                               "WAWebWorkerSafeBackendApi",
                             ).workerSafeFireAndForget("loadQuickPromotions", {
@@ -172,7 +170,7 @@ __d(
                           o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).saveBizBroadcastProCapabilityToStorage(
-                            c == null ? void 0 : c.proCompanionSupportEnabled,
+                            _ == null ? void 0 : _.proCompanionSupportEnabled,
                           ),
                           o("WAWebBackendApi").frontendFireAndForget(
                             "refreshBizBroadcastProEligibility",
@@ -181,7 +179,7 @@ __d(
                           o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).saveBizBroadcastRecipientLimitToStorage(
-                            c == null ? void 0 : c.recipientLimit,
+                            _ == null ? void 0 : _.recipientLimit,
                           ));
                       }
                     }
@@ -192,16 +190,17 @@ __d(
                 };
               });
             return (
-              n > 0 &&
+              r > 0 &&
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[DeviceCapabilitiesSync] primary caps updated ",
                       "x",
                     ])),
-                  n,
+                  r,
                 ),
-              r
+              yield (c || (c = n("Promise"))).all(a),
+              i
             );
           });
           function t(t) {

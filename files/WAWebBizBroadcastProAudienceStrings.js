@@ -164,25 +164,19 @@ __d(
     }
     W.displayName = W.name + " [from " + i.id + "]";
     function q() {
-      return s._(
-        /*BTDS*/ "This audience and its thread will be permanently deleted and cannot be restored.",
-      );
+      return s._(/*BTDS*/ "Processing your audience\u2026");
     }
     q.displayName = q.name + " [from " + i.id + "]";
     function U() {
-      return s._(/*BTDS*/ "Processing your audience\u2026");
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
     }
     U.displayName = U.name + " [from " + i.id + "]";
     function V() {
-      return s._(/*BTDS*/ "We'll update you when it's complete.");
-    }
-    V.displayName = V.name + " [from " + i.id + "]";
-    function H() {
       return s._(
         /*BTDS*/ "Your edits are processing. We'll update you when they're complete.",
       );
     }
-    ((H.displayName = H.name + " [from " + i.id + "]"),
+    ((V.displayName = V.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -214,10 +208,9 @@ __d(
       (l.getLoadMorePaginationLabel = O),
       (l.getLoadingPaginationLabel = B),
       (l.getDeleteAudienceModalTitle = W),
-      (l.getDeleteAudienceModalBody = q),
-      (l.getAudienceProcessingTitle = U),
-      (l.getAudienceProcessingSubtitle = V),
-      (l.getAudienceEditsProcessingMessage = H));
+      (l.getAudienceProcessingTitle = q),
+      (l.getAudienceProcessingSubtitle = U),
+      (l.getAudienceEditsProcessingMessage = V));
   },
   226,
 );

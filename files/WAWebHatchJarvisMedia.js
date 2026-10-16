@@ -4,22 +4,21 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "jarvis-media://",
-      s = "mmg",
-      u = 1e3;
-    function c(t) {
+      s = 1e3;
+    function u(t) {
       if (t == null) return null;
       var n = t.encryptedMedia;
       return t.url.startsWith(e)
-        ? n == null || n.mediaTransport !== s
+        ? n == null
           ? null
           : {
               descriptor: {
                 directPath: n.directPath,
-                encFilehash: n.fileEncSha256B64,
-                filehash: n.fileSha256B64,
-                mediaKey: n.mediaKeyB64,
-                mediaKeyTimestamp: Math.floor(n.mediaKeyTimestampMs / u),
-                mediaType: m(n.mediaType, n.mimeType),
+                encFilehash: n.encFilehash,
+                filehash: n.filehash,
+                mediaKey: n.mediaKey,
+                mediaKeyTimestamp: Math.floor(n.mediaKeyTimestampMs / s),
+                mediaType: d(n.mediaType, n.mimeType),
                 mimetype: n.mimeType,
               },
               kind: "encrypted",
@@ -28,11 +27,11 @@ __d(
           ? { kind: "url", url: t.url }
           : null;
     }
-    function d(e) {
+    function c(e) {
       var t = e == null ? void 0 : e.thumbnailJpegB64;
       return t != null ? "data:image/jpeg;base64," + t : null;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n =
         e === "image" || e === "sticker" || e === "xma-image"
           ? "image"
@@ -53,7 +52,7 @@ __d(
               ? "audio"
               : "document";
     }
-    ((l.getHatchJarvisMediaSource = c), (l.getHatchJarvisThumbnailUrl = d));
+    ((l.getHatchJarvisMediaSource = u), (l.getHatchJarvisThumbnailUrl = c));
   },
   98,
 );

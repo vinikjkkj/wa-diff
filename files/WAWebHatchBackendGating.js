@@ -25,7 +25,11 @@ __d(
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && f({ abProp: "ai_hatch_browser_enabled" })
+        ) &&
+        f({
+          abProp: "ai_hatch_browser_enabled",
+          primaryFeature: "ai_hatch_browser_enabled",
+        })
       );
     }
     function d() {
@@ -33,7 +37,11 @@ __d(
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && f({ abProp: "ai_hatch_connectors_enabled" })
+        ) &&
+        f({
+          abProp: "ai_hatch_connectors_enabled",
+          primaryFeature: "ai_hatch_connectors_enabled",
+        })
       );
     }
     function m() {
@@ -41,7 +49,11 @@ __d(
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && f({ abProp: "ai_hatch_secure_credentials_enabled" })
+        ) &&
+        f({
+          abProp: "ai_hatch_secure_credentials_enabled",
+          primaryFeature: "ai_hatch_secure_credentials_enabled",
+        })
       );
     }
     function p() {
@@ -49,11 +61,18 @@ __d(
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && f({ abProp: "ai_hatch_space_enabled" })
+        ) &&
+        f({
+          abProp: "ai_hatch_space_enabled",
+          primaryFeature: "ai_hatch_space_enabled",
+        })
       );
     }
     function _() {
-      return f({ abProp: "ai_hatch_response_ux_parity_enabled" });
+      return f({
+        abProp: "ai_hatch_response_ux_parity_enabled",
+        primaryFeature: "ai_hatch_response_ux_parity_enabled",
+      });
     }
     function f(e) {
       var t = e.abProp,

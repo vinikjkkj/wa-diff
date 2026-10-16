@@ -39,10 +39,14 @@ __d(
       b = !1,
       v,
       S = !1;
-    function R(e, t, n, r) {
-      L(e);
-      var o = r != null ? r : Math.floor(self.performance.now());
-      ((m[e] = o), n && ((m.socketSequence = t), _()));
+    function R(e) {
+      var t = e.info,
+        n = e.infoNormal,
+        r = e.socketSequence,
+        o = e.timestamp;
+      L(t);
+      var a = o != null ? o : Math.floor(self.performance.now());
+      ((m[t] = a), n && ((m.socketSequence = r), _()));
     }
     function L(e) {
       e: {
@@ -280,15 +284,30 @@ __d(
           break e;
         }
         if (e === "ws_opening") {
-          R(o("WAWebStreamTypes").StreamInfo.OPENING, 1, !1, n);
+          R({
+            info: o("WAWebStreamTypes").StreamInfo.OPENING,
+            infoNormal: !1,
+            socketSequence: 1,
+            timestamp: n,
+          });
           break e;
         }
         if (e === "ws_pairing") {
-          R(o("WAWebStreamTypes").StreamInfo.PAIRING, 1, !1, n);
+          R({
+            info: o("WAWebStreamTypes").StreamInfo.PAIRING,
+            infoNormal: !1,
+            socketSequence: 1,
+            timestamp: n,
+          });
           break e;
         }
         if (e === "ws_normal") {
-          R(o("WAWebStreamTypes").StreamInfo.NORMAL, 1, !0, n);
+          R({
+            info: o("WAWebStreamTypes").StreamInfo.NORMAL,
+            infoNormal: !0,
+            socketSequence: 1,
+            timestamp: n,
+          });
           break e;
         }
         throw Error(

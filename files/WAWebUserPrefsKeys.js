@@ -30,6 +30,7 @@ __d(
         "SNAPLNewsLetterPersistentId",
         "SNAPLNewsletterStatusUGCPersistentId",
         "SNAPLNewsletterStatusNonUGCPersistentId",
+        "SNAPLChatsMusicPersistentId",
         "MusicEligibleCountries",
         "CartDbLidMigrationComplete",
         "WindowsNotificationBannerSetting",

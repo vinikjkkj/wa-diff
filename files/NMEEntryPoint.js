@@ -265,6 +265,7 @@ __d(
       FB_IMAGINE_QUOTA_LIMIT_UPSELL: "fb_imagine_quota_limit_upsell",
       FB_IMAGINE_VIDEO_QUOTA_TOAST: "fb_imagine_video_quota_toast",
       FB_IMAGINE_VIDEO_UPSELL_MESSAGE: "fb_imagine_video_upsell_message",
+      FB_LINK_IN_MEDIA_UPSELL_META_ONE: "fb_link_in_media_upsell_meta_one",
       FB_LITE_BOOKMARK: "fb_lite_bookmark",
       FB_LIVE_PRODUCER_LVA_ELIGIBILITY: "fb_live_producer_lva_eligibility",
       FB_LWI_AD_CENTER_TOOLS: "fb_lwi_ad_center_tools",
@@ -331,6 +332,8 @@ __d(
       FB_PRO_MODE_ONBOARDING_OPTIONAL_STEP_WITH_ACCOUNT_SELECTION:
         "fb_pro_mode_onboarding_optional_step_with_account_selection",
       FB_QUOTA_LIMIT_UPSELL: "fb_quota_limit_upsell",
+      FB_REELS_AQP_PRO_AC: "fb_reels_aqp_pro_ac",
+      FB_REELS_AQP_PRO_BIZ: "fb_reels_aqp_pro_biz",
       FB_REELS_REWATCH_INSIGHTS_TILE_UPSELL:
         "fb_reels_rewatch_insights_tile_upsell",
       FB_REELS_SELF_VIEW_FOLLOW_CTA_UPSELL:

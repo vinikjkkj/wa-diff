@@ -1,6 +1,6 @@
 __d(
   "WAWebNewsletterIncrementForwardCounterJob",
-  ["WAWebDefinePersistedJob", "WAWebScheduleNewsletterForwardCounter"],
+  ["WAWebDefinePersistedJob", "WAWebSendForwardCounterIncrement"],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebDefinePersistedJob")
       .defineWebPersistedJob()
@@ -8,7 +8,7 @@ __d(
         var t = e.newsletterId,
           n = e.retriesRemaining,
           r = e.serverId;
-        o("WAWebScheduleNewsletterForwardCounter").sendForwardCounterIncrement({
+        o("WAWebSendForwardCounterIncrement").sendForwardCounterIncrement({
           newsletterId: t,
           retriesRemaining: n,
           serverId: r,

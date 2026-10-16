@@ -34,6 +34,7 @@ __d(
     "WAWebFormatTemplateButtonReplyMsgText",
     "WAWebFormatVcardMsgText",
     "WAWebFormatVideoMsgText",
+    "WAWebMusicFormatMsgText",
     "WAWebPollsFormatPollAddOptionDecryptedMsgText",
     "WAWebPollsFormatPollMessageText",
     "WAWebSharableEventInviteFormatMessageText",
@@ -173,7 +174,11 @@ __d(
           subtype: void 0,
           formatMsgText: r("WAWebFormatMultiVcardMsgText"),
         },
-        { type: "music", subtype: void 0, formatMsgText: null },
+        {
+          type: "music",
+          subtype: void 0,
+          formatMsgText: r("WAWebMusicFormatMsgText"),
+        },
         {
           type: "native_flow",
           subtype: void 0,

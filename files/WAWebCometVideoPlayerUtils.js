@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebStatusLoggingUtils",
     "WAWebWamEnumMessageType",
@@ -26,6 +27,12 @@ __d(
               : "whatsapp_status_organic_videos";
         case o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL:
           return "whatsapp_channels";
+        case o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL:
+        case o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP:
+        case o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST:
+          return e.type === o("WAWebMsgType").MSG_TYPE.MUSIC
+            ? "whatsapp_chats"
+            : "";
         default:
           return "";
       }

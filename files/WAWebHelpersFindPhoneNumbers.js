@@ -9,8 +9,26 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
+    var e,
+      s,
+      u,
+      c,
+      d = /^[1-9]\d{1,14}$/;
+    function m(t) {
+      return (
+        d.test(t) ||
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "toE164PhoneNumber: input is not 2-15 digits with a non-zero country code",
+                ])),
+            )
+            .sendLogs("to-e164-phone-number-invalid-input"),
+        "+" + t.replace(/\D/g, "")
+      );
+    }
+    function p(e) {
       return {
         uniqueId: 0,
         text: e,
@@ -24,19 +42,19 @@ __d(
         parsedPhoneNumbers: null,
       };
     }
-    function d(e) {
+    function _(e) {
       e.phoneNumberStartsWithPlus = !0;
     }
-    function m(e) {
+    function f(e) {
       e.phoneNumberLastSignificantCodePoint = 46;
     }
-    function p(e) {
+    function g(e) {
       e.phoneNumberLastSignificantCodePoint = 45;
     }
-    function _(e) {
+    function h(e) {
       e.phoneNumberLastSignificantCodePoint = 32;
     }
-    function f(e, t) {
+    function y(e, t) {
       ((e.phoneNumber += String.fromCodePoint(t)),
         (e.phoneNumberLastSignificantCodePoint = t),
         e.phoneNumberCurrentlyMatchingLeadingZeroes &&
@@ -44,30 +62,30 @@ __d(
             ? e.phoneNumberLeadingZeroes++
             : (e.phoneNumberCurrentlyMatchingLeadingZeroes = !1)));
     }
-    function g(t, n) {
-      if (t.openings != null) {
+    function C(e, t) {
+      if (e.openings != null) {
         o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "Msg formatting: cannot open a style before closing it",
             ])),
         );
         return;
       }
-      ((t.openings = n),
-        (t.phoneNumber = ""),
-        (t.phoneNumberStartsWithPlus = !1),
-        (t.phoneNumberLastSignificantCodePoint = -1),
-        (t.phoneNumberParenthesesDepth = 0),
-        (t.phoneNumberLeadingZeroes = 0),
-        (t.phoneNumberCurrentlyMatchingLeadingZeroes = !0));
+      ((e.openings = t),
+        (e.phoneNumber = ""),
+        (e.phoneNumberStartsWithPlus = !1),
+        (e.phoneNumberLastSignificantCodePoint = -1),
+        (e.phoneNumberParenthesesDepth = 0),
+        (e.phoneNumberLeadingZeroes = 0),
+        (e.phoneNumberCurrentlyMatchingLeadingZeroes = !0));
     }
-    function h(e, t) {
+    function b(e, t) {
       var n = e.openings;
       if (n == null) {
         o("WALogger").ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "Msg formatting: cannot close a style before opening it",
             ])),
         );
@@ -76,15 +94,15 @@ __d(
       var r = 0;
       e.openings = null;
     }
-    function y(e, t) {
+    function v(e, t) {
       if (e.phoneNumberParenthesesDepth === 1) {
-        h(e, t);
+        b(e, t);
         return;
       }
       (e.phoneNumberParenthesesDepth++,
         (e.phoneNumberLastSignificantCodePoint = -1));
     }
-    var C = o("WAMemoizeCache").memoizeWithArgs(
+    var S = o("WAMemoizeCache").memoizeWithArgs(
       function (e) {
         return o("WAPhoneFindCC").findCC(e);
       },
@@ -92,20 +110,20 @@ __d(
         return e;
       },
     );
-    function b(e) {
+    function R(e) {
       return e != null && e.openings != null;
     }
-    function v(e, t) {
-      var n = S(e, t);
+    function L(e, t) {
+      var n = E(e, t);
       return n == null
         ? !1
-        : (h(e, t),
+        : (b(e, t),
           e.parsedPhoneNumbers
             ? e.parsedPhoneNumbers.push(n)
             : (e.parsedPhoneNumbers = [n]),
           !0);
     }
-    function S(e, t) {
+    function E(e, t) {
       if (e.openings != null) {
         if (
           e.phoneNumberParenthesesDepth === 1 ||
@@ -128,7 +146,7 @@ __d(
               ((c = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
                 ? void 0
                 : c.toString()) || "",
-            m = C(d);
+            m = S(d);
           if (((a = o("WAWebPhoneUtils").isPotentiallyValid(m, r)), a))
             i = "" + m + r;
           else {
@@ -159,58 +177,58 @@ __d(
         return null;
       }
     }
-    function R(e, t) {
-      v(e, t) || h(e, t);
+    function k(e, t) {
+      L(e, t) || b(e, t);
     }
-    function L(e, t) {
+    function I(e, t) {
       if (
         e.phoneNumberParenthesesDepth === 0 ||
         e.phoneNumberLastSignificantCodePoint < 48 ||
         e.phoneNumberLastSignificantCodePoint > 57
       ) {
-        h(e, t);
+        b(e, t);
         return;
       }
       (e.phoneNumberParenthesesDepth--,
         (e.phoneNumberLastSignificantCodePoint = -1));
     }
-    function E(e) {
+    function T(e) {
       return e > 65535 ? 2 : 1;
     }
-    function k(e) {
+    function D(e) {
       var t = null,
         n = 0;
       try {
         for (var a, i = e.length; n < i; ) {
           var l,
             s = (l = e.codePointAt(n)) != null ? l : NaN,
-            C = E(s);
-          if (b(t) && (s < 48 || s > 57)) {
+            u = T(s);
+          if (R(t) && (s < 48 || s > 57)) {
             if (s === 45)
               t.phoneNumberParenthesesDepth === 0
                 ? t.phoneNumberLastSignificantCodePoint === 45
-                  ? R(t, n)
+                  ? k(t, n)
                   : t.phoneNumber.length === 0
-                    ? h(t, n)
-                    : p(t)
-                : h(t, n);
+                    ? b(t, n)
+                    : g(t)
+                : b(t, n);
             else if (s === 46)
               t.phoneNumberParenthesesDepth === 0
                 ? t.phoneNumberLastSignificantCodePoint === 46
-                  ? R(t, n)
+                  ? k(t, n)
                   : t.phoneNumber.length === 0
-                    ? h(t, n)
-                    : m(t)
-                : h(t, n);
+                    ? b(t, n)
+                    : f(t)
+                : b(t, n);
             else if (s !== 40)
-              if (s === 41) L(t, n);
+              if (s === 41) I(t, n);
               else if (s === 32)
-                if (t.phoneNumberLastSignificantCodePoint === 32) h(t, n);
+                if (t.phoneNumberLastSignificantCodePoint === 32) b(t, n);
                 else {
-                  var S = v(t, n);
-                  S || _(t);
+                  var d = L(t, n);
+                  d || h(t);
                 }
-              else R(t, n);
+              else k(t, n);
           }
           switch (s) {
             case 48:
@@ -224,49 +242,56 @@ __d(
             case 56:
             case 57: {
               if (n !== 0) {
-                var k,
-                  I = (k = e.codePointAt(n - 1)) != null ? k : NaN;
-                if ((I >= 65 && I <= 90) || (I >= 97 && I <= 122)) break;
+                var S,
+                  E = (S = e.codePointAt(n - 1)) != null ? S : NaN;
+                if ((E >= 65 && E <= 90) || (E >= 97 && E <= 122)) break;
               }
-              (b(t) || (t || (t = c(e)), g(t, n)), f(t, s));
+              (R(t) || (t || (t = p(e)), C(t, n)), y(t, s));
               break;
             }
             case 43:
-              (t || (t = c(e)), g(t, n), d(t));
+              (t || (t = p(e)), C(t, n), _(t));
               break;
             case 40:
-              (b(t) || (t || (t = c(e)), g(t, n)), y(t, n));
+              (R(t) || (t || (t = p(e)), C(t, n)), v(t, n));
               break;
           }
-          n += C;
+          n += u;
         }
         return (
-          t && t.openings != null && R(t, e.length),
+          t && t.openings != null && k(t, e.length),
           (a = t) != null &&
           a.parsedPhoneNumbers &&
           t.parsedPhoneNumbers.length > 0
             ? t.parsedPhoneNumbers.reduce(function (e, t) {
-                return (e.push({ phone: t.matchedText, index: t.start }), e);
+                return (
+                  e.push({
+                    phone: t.matchedText,
+                    index: t.start,
+                    canonicalPhone: m(t.phoneNumber),
+                  }),
+                  e
+                );
               }, [])
             : []
         );
       } catch (e) {
-        var T = e instanceof Error ? e : r("err")(String(e));
+        var D = e instanceof Error ? e : r("err")(String(e));
         return (
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "findPhoneNumbers parse error",
                 ])),
             )
-            .catching(T)
+            .catching(D)
             .sendLogs("findPhoneNumbers-error"),
           []
         );
       }
     }
-    l.default = k;
+    ((l.toE164PhoneNumber = m), (l.findPhoneNumbers = D));
   },
   98,
 );

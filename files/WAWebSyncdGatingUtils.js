@@ -17,15 +17,9 @@ __d(
         "syncd_wait_for_key_timeout_days",
       );
     }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_enable_syncd_key_persistence_only_after_server_ack",
-      );
-    }
     ((l.getSyncdInlineMutationsMaxCount = e),
       (l.getSyncdPatchProtobufMaxSize = s),
-      (l.getSyncdWaitForKeyTimeoutDays = u),
-      (l.getEnableSyncdKeyPersistenceOnlyAfterServerAck = c));
+      (l.getSyncdWaitForKeyTimeoutDays = u));
   },
   98,
 );

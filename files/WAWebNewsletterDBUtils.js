@@ -56,19 +56,62 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u(e);
-          return !t;
+          var t = yield o("WAWebSchemaNewsletterMetadata")
+              .getNewsletterMetadataTable()
+              .bulkGet(Array.from(new Set(e))),
+            n = new Set();
+          return (
+            t.forEach(function (e) {
+              e != null &&
+                e.membershipType ===
+                  o("WAWebNewsletterDBConstants").NewsletterDBMembership
+                    .Guest &&
+                n.add(e.id);
+            }),
+            n
+          );
         })),
         m.apply(this, arguments)
       );
     }
-    var p = Number.MAX_SAFE_INTEGER - 1e4;
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield u(e);
+          return !t;
+        })),
+        _.apply(this, arguments)
+      );
     }
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebSchemaNewsletterMetadata")
+            .getNewsletterMetadataTable()
+            .all();
+          return e.some(function (e) {
+            var t = e.membershipType;
+            return (
+              t !== o("WAWebNewsletterDBConstants").NewsletterDBMembership.Guest
+            );
+          });
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    var h = Number.MAX_SAFE_INTEGER - 1e4;
+    function y(e, t, n) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 &&
             (n = o("WAWebDBMessageUtils").InternalIdPrefix.Default);
           var r = o("WAWebDBMessageUtils").craftInternalId({
@@ -84,15 +127,15 @@ __d(
             ? null
             : o("WAWebDBMessageSerialization").messageFromDbRow(i);
         })),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function h() {
+    function v() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 &&
             (n = o("WAWebDBMessageUtils").InternalIdPrefix.Default);
           var r = new Map(),
@@ -125,10 +168,10 @@ __d(
             r
           );
         })),
-        h.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function y(e, t) {
+    function S(e, t) {
       var n =
         t instanceof r("WAWebWid") ? t : o("WAWebWidFactory").createWid(t);
       return new (r("WAWebMsgKey"))({
@@ -137,17 +180,17 @@ __d(
         id: e.toString(10),
       });
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function b() {
+    function L() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 &&
             (t = o("WAWebDBMessageUtils").InternalIdPrefix.Default);
           var n = o("WAWebDBMessageUtils").craftInternalId({
               chatId: e.toJid(),
-              inChatMsgId: p,
+              inChatMsgId: h,
               internalIdPrefix: t,
             }),
             r = "" + t + o("WAWebDBMessageUtils").endOfChat(e),
@@ -159,19 +202,19 @@ __d(
                 limit: 1,
                 reverse: !0,
               });
-          if (a.length === 0 || a[0].internalId == null) return p;
+          if (a.length === 0 || a[0].internalId == null) return h;
           var i = o("WAWebDBMessageUtils").getInChatMsgId(a[0].internalId);
           return Math.min(i + 1, Number.MAX_SAFE_INTEGER);
         })),
-        b.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function S() {
+    function k() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .bulkGet(e.map(String)),
@@ -180,15 +223,15 @@ __d(
             });
           yield o("WAWebSchemaMessage").getMessageTable().bulkCreateOrMerge(n);
         })),
-        S.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function L() {
+    function T() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebDBMsgUtils").getMsgsByChatId(t),
             r = o("WATimeUtils").unixTime(),
             a = n
@@ -208,19 +251,21 @@ __d(
             return i == null || a == null ? !1 : r < a && e.equals(i);
           });
         })),
-        L.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
     ((l.doesNewsletterExistInStorage = e),
       (l.isPreviewNewsletter = u),
-      (l.isSubscribedNewsletter = d),
-      (l.TEMPORARY_SERVER_ID_LOWER_BOUND = p),
-      (l.getMessageByServerId = _),
-      (l.bulkGetMessagesByServerIds = g),
-      (l.craftNewsletterMsgKeyFromServerId = y),
-      (l.getTemporaryServerId = C),
-      (l.updateMsgViewReceipt = v),
-      (l.getUnexpiredNewsletterAdminInviteMessageRecordsFromChat = R));
+      (l.getGuestNewsletterJids = d),
+      (l.isSubscribedNewsletter = p),
+      (l.hasSubscribedNewsletterInStorage = f),
+      (l.TEMPORARY_SERVER_ID_LOWER_BOUND = h),
+      (l.getMessageByServerId = y),
+      (l.bulkGetMessagesByServerIds = b),
+      (l.craftNewsletterMsgKeyFromServerId = S),
+      (l.getTemporaryServerId = R),
+      (l.updateMsgViewReceipt = E),
+      (l.getUnexpiredNewsletterAdminInviteMessageRecordsFromChat = I));
   },
   98,
 );

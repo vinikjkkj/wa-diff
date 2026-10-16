@@ -1,11 +1,14 @@
 __d(
   "WAWebSettingGatingUtils",
-  ["WAWebMobilePlatforms"],
+  ["WAWebMobilePlatforms", "gkx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return !o("WAWebMobilePlatforms").isSMB();
     }
-    l.isMeTabEnabled = e;
+    function s() {
+      return r("gkx")("27551");
+    }
+    ((l.isMeTabEnabled = e), (l.isAppearanceSettingsEnabled = s));
   },
   98,
 );

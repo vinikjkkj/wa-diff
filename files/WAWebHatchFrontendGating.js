@@ -21,14 +21,18 @@ __d(
       });
     }
     function s() {
-      return E({ abProp: "ai_hatch_approval_notification_enabled" });
+      return k({ abProp: "ai_hatch_approval_notification_enabled" });
     }
     function u() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && E({ abProp: "ai_hatch_connectors_enabled" })
+        ) &&
+        k({
+          abProp: "ai_hatch_connectors_enabled",
+          primaryFeature: "ai_hatch_connectors_enabled",
+        })
       );
     }
     function c() {
@@ -47,13 +51,22 @@ __d(
       );
     }
     function m() {
-      return E({ abProp: "ai_hatch_response_ux_parity_enabled" });
+      return k({
+        abProp: "ai_hatch_response_ux_parity_enabled",
+        primaryFeature: "ai_hatch_response_ux_parity_enabled",
+      });
     }
     function p() {
-      return E({ abProp: "ai_hatch_vm_capability_sync_enabled" });
+      return k({
+        abProp: "ai_hatch_vm_capability_sync_enabled",
+        primaryFeature: "ai_hatch_vm_capability_sync_enabled",
+      });
     }
     function _() {
-      return E({ abProp: "ai_hatch_ideas_enabled" });
+      return k({
+        abProp: "ai_hatch_ideas_enabled",
+        primaryFeature: "ai_hatch_ideas_enabled",
+      });
     }
     function f(e) {
       return (
@@ -63,15 +76,20 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        E({ abProp: "ai_hatch_browser_enabled" })
+        k({
+          abProp: "ai_hatch_browser_enabled",
+          primaryFeature: "ai_hatch_browser_enabled",
+        })
       );
     }
-    function g(t) {
+    function g(e) {
       return (
-        t != null &&
-        o("WAWebBotUtils").isHatchBot(t) &&
-        e() &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_theme_enabled")
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
+        k({
+          abProp: "ai_hatch_theme_enabled",
+          primaryFeature: "ai_hatch_theme_enabled",
+        })
       );
     }
     function h(t) {
@@ -89,7 +107,11 @@ __d(
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && E({ abProp: "ai_hatch_secure_credentials_enabled" })
+        ) &&
+        k({
+          abProp: "ai_hatch_secure_credentials_enabled",
+          primaryFeature: "ai_hatch_secure_credentials_enabled",
+        })
       );
     }
     function C() {
@@ -97,11 +119,15 @@ __d(
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) && E({ abProp: "ai_hatch_space_enabled" })
+        ) &&
+        k({
+          abProp: "ai_hatch_space_enabled",
+          primaryFeature: "ai_hatch_space_enabled",
+        })
       );
     }
     function b() {
-      return E({ abProp: "ai_hatch_media_enabled" });
+      return k({ abProp: "ai_hatch_media_enabled" });
     }
     function v() {
       return (
@@ -113,9 +139,18 @@ __d(
       );
     }
     function S() {
-      return E({ abProp: "ai_hatch_activity_enabled" });
+      return k({
+        abProp: "ai_hatch_activity_enabled",
+        primaryFeature: "ai_hatch_activity_enabled",
+      });
     }
     function R() {
+      return k({
+        abProp: "ai_hatch_video_avatars_enabled",
+        primaryFeature: "ai_hatch_video_avatars_enabled",
+      });
+    }
+    function L() {
       return e()
         ? (function (e) {
             if (
@@ -150,11 +185,8 @@ __d(
           )
         : !1;
     }
-    function L(e) {
-      return e ||
-        !o("WAWebABProps").getABPropConfigValue(
-          "ai_hatch_video_avatars_enabled",
-        )
+    function E(e) {
+      return e || !R()
         ? "static"
         : (function (e) {
             return e === 1 ? "loop" : e === 2 ? "once" : "static";
@@ -164,7 +196,7 @@ __d(
             ),
           );
     }
-    function E(t) {
+    function k(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -189,8 +221,9 @@ __d(
       (l.isHatchMediaEnabled = b),
       (l.isHatchManageSubscriptionEnabled = v),
       (l.isHatchActivityEnabled = S),
-      (l.isMuseNavBarEntryPointSelected = R),
-      (l.getHatchNavBarAnimationMode = L));
+      (l.isHatchVideoAvatarsEnabled = R),
+      (l.isMuseNavBarEntryPointSelected = L),
+      (l.getHatchNavBarAnimationMode = E));
   },
   98,
 );

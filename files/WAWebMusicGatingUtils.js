@@ -21,14 +21,24 @@ __d(
         "channel_status_consumption_music_enabled",
       );
     }
-    var d = 6e4,
-      m = 600;
+    function d() {
+      return !1;
+    }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "music_on_chats_standalone_receiver_enabled",
+      );
+    }
+    var p = 6e4,
+      _ = 600;
     ((l.isStatusMusicReceiverEnabled = e),
       (l.isStatusMusicSaveToDiskEnabled = s),
       (l.isStatusMusicReceiverEnabledForNewsletter = u),
       (l.isNewsletterStatusMusicConsumptionEnabled = c),
-      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = d),
-      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = m));
+      (l.isMusicOnChatsForwardingEnabled = d),
+      (l.isMusicOnChatsReceiverEnabled = m),
+      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = p),
+      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = _));
   },
   98,
 );

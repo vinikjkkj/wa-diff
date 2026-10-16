@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "Promise",
+    "WAWebABProps",
     "WAWebBaseNotification",
     "WAWebCallNotificationActions",
     "WAWebCallRingtone",
@@ -486,7 +487,9 @@ __d(
     }
     function b(e, t) {
       return !o("WAWebUA").UA.hasEmoji ||
-        !o("WAWebVoipGatingUtils").areCallNotificationIconsEnabled()
+        !o("WAWebABProps").getABPropConfigValue(
+          "wa_web_calling_notification_icons_enabled",
+        )
         ? ""
         : o("WAWebVoipCallEmoji").getCallEmoji(e, t) + " ";
     }

@@ -85,7 +85,9 @@ __d(
               ? "open_in_acrobat"
               : e === 2
                 ? "edit_in_acrobat"
-                : "control";
+                : e === 3
+                  ? "edit_text_in_acrobat"
+                  : "control";
           })(
             o("WAWebABProps").getABPropConfigValue(
               "wa_webtp_skip_sharer_confirmation_variant",

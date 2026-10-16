@@ -3,11 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
-    "WAWebBackendApi",
     "WAWebBizBroadcastsDeviceCapability",
     "WAWebDeviceCapabilitiesSync",
     "WAWebDeviceCapabilitiesV2Sync",
-    "WAWebNewsletterChatsMigrationCapability",
+    "WAWebNewsletterChatsMigrationForwarder",
     "WAWebPrimaryDeviceCapabilities",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
@@ -93,14 +92,9 @@ __d(
           (o(
             "WAWebUserPrefsDeviceCapabilities",
           ).mergeDeviceCapabilitiesToStorage(t, "primary"),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updatePrimaryNewsletterChatsMigration",
-              {
-                migration: o(
-                  "WAWebNewsletterChatsMigrationCapability",
-                ).getNewsletterChatsMigrationFromCapabilities(e),
-              },
-            ));
+            yield o(
+              "WAWebNewsletterChatsMigrationForwarder",
+            ).forwardPrimaryNewsletterChatsMigration(e));
         })),
         p.apply(this, arguments)
       );

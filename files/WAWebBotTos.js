@@ -314,7 +314,7 @@ __d(
         return !0;
       var t = r("WAWebUserPrefsStore").getUser(s);
       if (typeof t != "number") return !1;
-      var n = o("WAWebBotGating").bizBotConsentDismissalCooldown();
+      var n = o("WAWebABProps").getABPropConfigValue("wabai_consent_cooldown");
       return n < 0 ? !0 : n === 0 ? !1 : o("WATimeUtils").unixTime() - t < n;
     }
     function Q() {

@@ -14,95 +14,100 @@ __d(
       var t = e.ackTime,
         r = e.excludeList,
         a = e.msgRecord,
-        i = e.resend,
-        l = o("WAWebJobsMigrationGating").isPersistedQueuesEnabled(),
-        s = o("QPLFlow").startQPLFlow(
-          o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
-          {
-            annotations: {
-              bool: { isPQ: l },
-              string: { operationType: "resendUserMsg" },
-            },
-            timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
-          },
-        );
-      return l
-        ? o("QPLFlow").endWith(
-            s,
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o(
-                "WAWebLazyPersistedQueue",
-              ).whenPersistedQueuesReady(s);
-              yield e.runUserMsgResendQueued({
-                ackTime: t,
-                excludeList: r,
-                msgRecord: a,
-                resend: i,
-              });
-            }),
-          )
-        : o("QPLFlow").endWith(
-            s,
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o("WAWebPersistedJobManagerWorkerCompatible")
-                .getJobManager()
-                .accessors.maybeCreateJob(
-                  o(
-                    "WAWebPersistedJobDefinitions",
-                  ).jobSerializers.resendUserMsg(a, r, t),
-                );
-              (yield i(),
-                yield o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .accessors.deletePersistedJob(e.id));
-            }),
-          );
+        i = e.resend;
+      if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled())
+        return u("resendUserMsg", function (e) {
+          return e.runUserMsgResendQueued({
+            ackTime: t,
+            excludeList: r,
+            msgRecord: a,
+            resend: i,
+          });
+        });
+      var l = d("resendUserMsg", !1);
+      return o("QPLFlow").endWith(
+        l,
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .accessors.maybeCreateJob(
+              o("WAWebPersistedJobDefinitions").jobSerializers.resendUserMsg(
+                a,
+                r,
+                t,
+              ),
+            );
+          (yield i(),
+            yield o("WAWebPersistedJobManagerWorkerCompatible")
+              .getJobManager()
+              .accessors.deletePersistedJob(e.id));
+        }),
+      );
     }
     function s(e, t) {
-      var r = o("WAWebJobsMigrationGating").isPersistedQueuesEnabled(),
-        a = o("QPLFlow").startQPLFlow(
-          o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
-          {
-            annotations: {
-              bool: { isPQ: r },
-              string: { operationType: "resendGroupMsg" },
-            },
-            timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
-          },
-        );
-      return r
-        ? o("QPLFlow").endWith(
-            a,
+      if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled())
+        return u("resendGroupMsg", function (n) {
+          return n.runGroupMsgResendQueued(e, t);
+        });
+      var r = d("resendGroupMsg", !1);
+      return o("QPLFlow").endWith(
+        r,
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var n = e.ackTime,
+            r = e.groupData,
+            a = e.isDirect,
+            i = e.msgRecord,
+            l = e.oldList,
+            s = e.phash,
+            u = e.serverAddressingMode,
+            c = yield o("WAWebPersistedJobManagerWorkerCompatible")
+              .getJobManager()
+              .accessors.maybeCreateJob(
+                o("WAWebPersistedJobDefinitions").jobSerializers.resendGroupMsg(
+                  i,
+                  r,
+                  a,
+                  l,
+                  s,
+                  n,
+                  u,
+                ),
+              );
+          (yield t(),
+            yield o("WAWebPersistedJobManagerWorkerCompatible")
+              .getJobManager()
+              .accessors.deletePersistedJob(c.id));
+        }),
+      );
+    }
+    function u(e, t) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield o("WAWebLazyPersistedQueue").whenPersistedQueuesMayOpen();
+          var r = d(e, !0);
+          yield o("QPLFlow").endWith(
+            r,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var n = yield o(
-                "WAWebLazyPersistedQueue",
-              ).whenPersistedQueuesReady(a);
-              yield n.runGroupMsgResendQueued(e, t);
-            }),
-          )
-        : o("QPLFlow").endWith(
-            a,
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var n = e.ackTime,
-                r = e.groupData,
-                a = e.isDirect,
-                i = e.msgRecord,
-                l = e.oldList,
-                s = e.phash,
-                u = e.serverAddressingMode,
-                c = yield o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .accessors.maybeCreateJob(
-                    o(
-                      "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.resendGroupMsg(i, r, a, l, s, n, u),
-                  );
-              (yield t(),
-                yield o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .accessors.deletePersistedJob(c.id));
+              return t(
+                yield o("WAWebLazyPersistedQueue").whenPersistedQueuesReady(r),
+              );
             }),
           );
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t) {
+      return o("QPLFlow").startQPLFlow(
+        o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
+        {
+          annotations: { bool: { isPQ: t }, string: { operationType: e } },
+          timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
+        },
+      );
     }
     ((l.runUserMsgResendRecorded = e), (l.runGroupMsgResendRecorded = s));
   },

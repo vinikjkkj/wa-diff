@@ -36,6 +36,7 @@ __d(
         "call_log",
         "revoked",
         "sticker",
+        "music",
         "payment",
         "poll_creation",
         "poll_result_snapshot",

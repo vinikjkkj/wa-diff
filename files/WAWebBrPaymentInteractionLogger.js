@@ -13,7 +13,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebOrderDetailsCloudApiSignalResolver",
-    "WAWebOrderDetailsCreationActionWamEventUtil",
+    "WAWebOrderDetailsCreationActionWamEventUtilP2MFlow",
     "WAWebOrderPaymentStatus",
     "WAWebP2XFunnelIdGenerator",
     "WAWebPsStructuredMessageInteractionWamEvent",
@@ -262,8 +262,9 @@ __d(
                   wa_pay_registered: !1,
                   is_template: !1,
                   is_cta_available: !0,
-                  p2m_flow: o("WAWebOrderDetailsCreationActionWamEventUtil")
-                    .P2MFlow.ORDER,
+                  p2m_flow: o(
+                    "WAWebOrderDetailsCreationActionWamEventUtilP2MFlow",
+                  ).P2MFlow.ORDER,
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
                   accepted_pay_methods: m,
@@ -295,8 +296,9 @@ __d(
                     .ORDER_DETAILS,
                   isCtaAvailable: !0,
                   paymentMethodChoice: i,
-                  p2mFlow: o("WAWebOrderDetailsCreationActionWamEventUtil")
-                    .P2MFlow.ORDER,
+                  p2mFlow: o(
+                    "WAWebOrderDetailsCreationActionWamEventUtilP2MFlow",
+                  ).P2MFlow.ORDER,
                   currency: "BRL",
                   isTemplate: !1,
                   acceptedPaymentMethod: c.map(function (e) {

@@ -9,75 +9,67 @@ __d(
     function u() {
       return s._(/*BTDS*/ "Download a CSV file with subscribed recipients.");
     }
-    function c() {
-      return s._(/*BTDS*/ "Customer base");
-    }
-    function d(e, t) {
+    function c(e, t) {
       return s._(/*BTDS*/ "{name} ({phone number})", [
         s._param("name", e),
         s._param("phone number", t),
       ]);
     }
-    function m(e) {
+    function d(e) {
       return s._(/*BTDS*/ '_j{"*":"{count}"}', [s._param("count", e, [0])]);
     }
-    function p(e, t) {
+    function m(e, t) {
       return s._(/*BTDS*/ '_j{"*":{"*":"{lower bound} - {upper bound}"}}', [
         s._param("lower bound", e, [0]),
         s._param("upper bound", t, [0]),
       ]);
     }
-    function _() {
+    function p() {
       return s._(
         /*BTDS*/ "There's nothing to download yet. Your customer base has no subscribed recipients.",
       );
     }
-    function f() {
+    function _() {
       return s._(
         /*BTDS*/ "Your last download is still being prepared. Try again once it's ready.",
       );
     }
-    function g(e) {
+    function f(e) {
       return s._(
         /*BTDS*/ '_j{"*":"Preparing your file \\u2022 {percentage}\\u0025"}',
         [s._param("percentage", e, [0])],
       );
     }
-    function h() {
+    function g() {
       return s._(/*BTDS*/ "Your file is ready");
     }
-    function y() {
+    function h() {
       return s._(
         /*BTDS*/ "Your file with subscribed recipients is ready to download.",
       );
     }
-    function C() {
+    function y() {
       return s._(/*BTDS*/ "Couldn't prepare your file");
+    }
+    function C() {
+      return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
     function b() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
-    function v() {
-      return s._(/*BTDS*/ "Download");
-    }
-    function S() {
-      return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
-    }
     ((l.getDownloadRecipientsModalTitle = e),
       (l.getDownloadRecipientsModalSubtitle = u),
-      (l.getCustomerBaseColumnHeader = c),
-      (l.getCustomerBaseLabel = d),
-      (l.getRecipientCountExactLabel = m),
-      (l.getRecipientCountRangeLabel = p),
-      (l.getNoSubscribedRecipientsLabel = _),
-      (l.getDownloadStillPreparingLabel = f),
-      (l.getPreparingFileLabel = g),
-      (l.getFileReadyLabel = h),
-      (l.getFileReadySublabel = y),
-      (l.getFileFailedLabel = C),
-      (l.getFileFailedSublabel = b),
-      (l.getDownloadActionLabel = v),
-      (l.getSaveFailedToastLabel = S));
+      (l.getCustomerBaseLabel = c),
+      (l.getRecipientCountExactLabel = d),
+      (l.getRecipientCountRangeLabel = m),
+      (l.getNoSubscribedRecipientsLabel = p),
+      (l.getDownloadStillPreparingLabel = _),
+      (l.getPreparingFileLabel = f),
+      (l.getFileReadyLabel = g),
+      (l.getFileReadySublabel = h),
+      (l.getFileFailedLabel = y),
+      (l.getFileFailedSublabel = C),
+      (l.getSaveFailedToastLabel = b));
   },
   226,
 );

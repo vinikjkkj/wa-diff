@@ -5,72 +5,84 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebMessageAssociationGatingUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebSpoilerGating",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = e.associatedChildMessage,
-        n = e.botForwardedMessage,
-        r = e.botGroupParticipantMessage,
-        a = e.botInvokeMessage,
-        i = e.documentWithCaptionMessage,
-        l = e.editedMessage,
-        s = e.ephemeralMessage,
-        u = e.groupMentionedMessage,
-        c = e.newsletterAdminProfileMessage,
-        d = e.newsletterScheduledMessage,
-        m = e.pollCreationMessageV4,
-        p = e.pollCreationOptionImageMessage,
-        _ = e.questionMessage,
-        f = e.questionReplyMessage,
-        g = e.viewOnceMessage,
-        h = e.viewOnceMessageV2,
-        y = e.viewOnceMessageV2Extension;
-      return r &&
+      var t,
+        n = e.associatedChildMessage,
+        r = e.botForwardedMessage,
+        a = e.botGroupParticipantMessage,
+        i = e.botInvokeMessage,
+        l = e.documentWithCaptionMessage,
+        s = e.editedMessage,
+        u = e.ephemeralMessage,
+        c = e.groupMentionedMessage,
+        d = e.newsletterAdminProfileMessage,
+        m = e.newsletterScheduledMessage,
+        p = e.pollCreationMessageV4,
+        _ = e.pollCreationOptionImageMessage,
+        f = e.questionMessage,
+        g = e.questionReplyMessage,
+        h = e.spoilerMessage,
+        y = e.viewOnceMessage,
+        C = e.viewOnceMessageV2,
+        b = e.viewOnceMessageV2Extension;
+      return a &&
         o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-        ? r
-        : u ||
-            i ||
-            g ||
-            h ||
-            y ||
-            s ||
+        ? a
+        : c ||
             l ||
-            a ||
-            m ||
+            y ||
+            C ||
+            b ||
+            u ||
+            s ||
+            i ||
             p ||
-            (t &&
+            _ ||
+            (n &&
             o(
               "WAWebMessageAssociationGatingUtils",
             ).isFutureproofAssociatedChildEnabled()
-              ? t
-              : _ ||
-                f ||
-                (n &&
-                o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
-                  ? n
-                  : c ||
-                    (d &&
-                    o(
-                      "WAWebNewsletterGatingUtils",
-                    ).isSchedulingUpdatesReceiverEnabled()
-                      ? d
-                      : null)));
+              ? n
+              : f ||
+                g ||
+                (h != null &&
+                ((t = h.message) == null ? void 0 : t.spoilerMessage) == null &&
+                o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+                  ? h
+                  : r &&
+                      o(
+                        "WAWebBotBaseGating",
+                      ).isRichResponseForwardReceivingEnabled()
+                    ? r
+                    : d ||
+                      (m &&
+                      o(
+                        "WAWebNewsletterGatingUtils",
+                      ).isSchedulingUpdatesReceiverEnabled()
+                        ? m
+                        : null)));
     }
     function s(e) {
-      var t = e.associatedChildMessage,
-        n = e.botForwardedMessage,
-        r = e.botGroupParticipantMessage,
-        a = e.spoilerMessage;
+      var t,
+        n = e.associatedChildMessage,
+        r = e.botForwardedMessage,
+        a = e.botGroupParticipantMessage,
+        i = e.spoilerMessage;
       return (
-        (r != null &&
+        (a != null &&
           !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()) ||
-        (t != null &&
+        (n != null &&
           !o(
             "WAWebMessageAssociationGatingUtils",
           ).isFutureproofAssociatedChildEnabled()) ||
-        a != null ||
-        (n != null &&
+        (i != null &&
+          (!o("WAWebSpoilerGating").isSpoilerReceiverEnabled() ||
+            ((t = i.message) == null ? void 0 : t.spoilerMessage) != null)) ||
+        (r != null &&
           !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled())
       );
     }

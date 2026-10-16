@@ -47,6 +47,7 @@ __d(
             (this.$7 = k),
             (this.$8 = new (o("WAPromiseQueue").PromiseQueue)()),
             (this.$9 = !1),
+            (this.$10 = 0),
             o(
               "WAWebBackendEventBus",
             ).BackendEventBus.onSocketStreamDisconnected(function () {
@@ -130,7 +131,20 @@ __d(
           }),
           (a.executePassiveTasks = function () {
             var e = this;
-            if (!this.shouldConnectAsPassiveMode()) {
+            if (
+              (this.$10++,
+              o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+                passive_execute_count: this.$10,
+                passive_task_count: this.$4.length,
+                passive_task_names:
+                  this.$4
+                    .map(function (e) {
+                      return e.name;
+                    })
+                    .join(",") || "none",
+              }),
+              !this.shouldConnectAsPassiveMode())
+            ) {
               this.$2.resolve();
               return;
             }
@@ -189,7 +203,7 @@ __d(
                             "PassiveModeManager: executePassiveTasks: complete all tasks",
                           ])),
                       ),
-                        e.$10());
+                        e.$11());
                     })
                     .catch(
                       o("WAAbortError").catchAbort(function () {
@@ -211,7 +225,7 @@ __d(
                           ])),
                         t,
                       ),
-                        e.$10());
+                        e.$11());
                     })
                     .finally(function () {
                       (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
@@ -239,7 +253,7 @@ __d(
                             ])),
                         )
                         .sendLogs("passive-timeout"),
-                        e.$10(),
+                        e.$11(),
                         e.resetState(),
                         t());
                     }, e.$7);
@@ -247,7 +261,7 @@ __d(
                 return L.race([a, i]);
               }));
           }),
-          (a.$10 = function () {
+          (a.$11 = function () {
             this.$9 ||
               (o("WALogger").LOG(
                 v ||

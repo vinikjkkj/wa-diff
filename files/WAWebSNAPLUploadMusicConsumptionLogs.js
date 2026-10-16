@@ -1,7 +1,6 @@
 __d(
   "WAWebSNAPLUploadMusicConsumptionLogs",
   [
-    "WAWebACSTokenConfig",
     "WAWebBuildConstants",
     "WAWebCreateFile",
     "WAWebMobilePlatforms",
@@ -15,24 +14,23 @@ __d(
       s = (656096963291760).toString(),
       u = (0x97e965c4439a).toString(),
       c = "WhatsAppMusicConsumptionReporting";
-    function d(e) {
+    function d(e, t) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var n = p(t),
-            a = new Headers();
-          a.append("X-FB-Friendly-Name", c);
-          var i = yield o("WAWebOHAIClient").fetchOHAI({
+          var a = p(t),
+            i = new Headers();
+          i.append("X-FB-Friendly-Name", c);
+          var l = yield o("WAWebOHAIClient").fetchOHAI({
             url: e,
-            project: o("WAWebACSTokenConfig").ACS_PROJECTS
-              .WA_StatusMusicReporting,
-            payload: n,
-            headers: a,
+            project: n,
+            payload: a,
+            headers: i,
           });
-          return i;
+          return l;
         })),
         m.apply(this, arguments)
       );

@@ -10,16 +10,17 @@ __d(
             t &&
               typeof t.hardwareConcurrency == "number" &&
               (n.num_cores = Math.floor(t.hardwareConcurrency));
-            var a = t;
-            (a && a.deviceMemory && (n.ram_gb = a.deviceMemory),
-              t &&
-                t.connection &&
-                (typeof t.connection.downlink == "number" &&
-                  (n.downlink_megabits = t.connection.downlink),
-                typeof t.connection.effectiveType == "string" &&
-                  (n.effective_connection_type = t.connection.effectiveType),
-                typeof t.connection.rtt == "number" &&
-                  (n.rtt_ms = t.connection.rtt)));
+            var a = t,
+              i = a == null ? void 0 : a.deviceMemory;
+            typeof i == "number" && i !== 0 && (n.ram_gb = i);
+            var l = t,
+              s = l == null ? void 0 : l.connection;
+            s != null &&
+              (typeof s.downlink == "number" &&
+                (n.downlink_megabits = s.downlink),
+              typeof s.effectiveType == "string" &&
+                (n.effective_connection_type = s.effectiveType),
+              typeof s.rtt == "number" && (n.rtt_ms = s.rtt));
           } catch (e) {
             if (r("getErrorSafe")(e).message !== "can't access dead object")
               throw r("getErrorSafe")(e);

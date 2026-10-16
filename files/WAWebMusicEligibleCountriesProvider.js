@@ -15,7 +15,10 @@ __d(
         "WAWebFetchMusicEligibleCountries",
       ).__setRef("WAWebMusicEligibleCountriesProvider");
     function u() {
-      if (!o("WAWebMusicGatingUtils").isStatusMusicReceiverEnabled())
+      if (
+        !o("WAWebMusicGatingUtils").isStatusMusicReceiverEnabled() &&
+        !o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled()
+      )
         return new Set();
       var t = o("WAWebMusicUserPrefs").getMusicEligibleCountries();
       return t != null

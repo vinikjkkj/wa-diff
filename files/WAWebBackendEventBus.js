@@ -5,7 +5,6 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBusTypes",
     "WAWebBackendWorkerClient",
-    "WAWebBackendWorkerInitState",
     "WAWebEventEmitter",
     "WAWebSocketConstants",
     "getErrorSafe",
@@ -266,11 +265,6 @@ __d(
                   });
               },
             ),
-            o("WAWebBackendWorkerInitState").recordInitEventBusSyncState({
-              isMainStreamReadyMd: e.isMainStreamReadyMd,
-              isOfflineDeliveryEnd: e.isOfflineDeliveryEnd,
-              socketState: e.socketState,
-            }),
             e
           );
         }

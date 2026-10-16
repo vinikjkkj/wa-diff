@@ -78,23 +78,7 @@ __d(
         toMinifiedSignature: {},
       };
     function d(e) {
-      var t = {};
-      for (var n of Object.entries(e)) {
-        var r = n[0],
-          o = n[1],
-          a = {};
-        for (var i of Object.entries(o.toCanonicalAttrs)) {
-          var l = i[0],
-            s = i[1];
-          a[String(s)] = l;
-        }
-        t[r] = {
-          styleId: o.styleId,
-          toCanonicalAttrs: o.toCanonicalAttrs,
-          toLogicalAttrs: a,
-        };
-      }
-      return t;
+      return e;
     }
     function m(e, t) {
       for (

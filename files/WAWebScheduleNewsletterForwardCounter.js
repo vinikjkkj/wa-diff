@@ -9,7 +9,7 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebRestOperations",
     "WAWebScheduledOperations",
-    "WAWebWorkerSafeBackendApi",
+    "WAWebSendForwardCounterIncrement",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -60,24 +60,19 @@ __d(
               o("WAWebScheduledOperations").ScheduledOperation
                 .INCREMENT_NEWSLETTER_FORWARD_COUNTER,
               function () {
-                return (_(a), (u || (u = n("Promise"))).resolve());
+                return (
+                  o(
+                    "WAWebSendForwardCounterIncrement",
+                  ).sendForwardCounterIncrement(a),
+                  (u || (u = n("Promise"))).resolve()
+                );
               },
             ));
         })),
         p.apply(this, arguments)
       );
     }
-    function _(e) {
-      var t = e.newsletterId,
-        n = e.retriesRemaining,
-        r = e.serverId;
-      o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-        "incrementForwardCounterAPI",
-        { newsletterId: t, retriesRemaining: n, serverId: r },
-      );
-    }
-    ((l.scheduleForwardCounterIncrement = d),
-      (l.sendForwardCounterIncrement = _));
+    l.scheduleForwardCounterIncrement = d;
   },
   98,
 );
