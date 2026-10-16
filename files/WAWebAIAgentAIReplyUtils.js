@@ -17,10 +17,11 @@ __d(
     var e,
       s,
       u,
-      c = u || (u = o("react")),
-      d = { skipSideEffects: !0 },
-      m = new WeakMap();
-    function p(e) {
+      c,
+      d = c || (c = o("react")),
+      m = { skipSideEffects: !0 },
+      p = new WeakMap();
+    function _(e) {
       return e ===
         o("WAWebProtobufsE2E.pb")
           .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
@@ -32,8 +33,8 @@ __d(
             .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
             .CONTROL_TAKEN;
     }
-    function _(e) {
-      var t = m.get(e);
+    function f(e) {
+      var t = p.get(e);
       return (
         t == null &&
           ((t = {
@@ -43,11 +44,11 @@ __d(
             inFlight: !1,
             pendingMutations: 0,
           }),
-          m.set(e, t)),
+          p.set(e, t)),
         t
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       return (
         (e.pendingMutations += 1),
         t().finally(function () {
@@ -55,13 +56,13 @@ __d(
         })
       );
     }
-    function g(e) {
-      var t = _(e),
+    function h(e) {
+      var t = f(e),
         r = e.isAiHandoff,
         a = e.aiHandoffStartedAt;
       return (
         t.inFlight
-          ? (t.desired = p(t.desired))
+          ? (t.desired = _(t.desired))
           : ((t.serverConfirmed = e.capiThreadControl),
             (t.desired = o("WAWebBizAiAgentStatusUtils").isChatAiEnabled(e)
               ? o("WAWebProtobufsE2E.pb")
@@ -70,12 +71,12 @@ __d(
               : o("WAWebProtobufsE2E.pb")
                   .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                   .CONTROL_TAKEN)),
-        o("WAWebBizAiCapiThreadControl").setCapiThreadControl(e, t.desired, d),
+        o("WAWebBizAiCapiThreadControl").setCapiThreadControl(e, t.desired, m),
         t.inFlight
-          ? (s || (s = n("Promise"))).resolve(!0)
+          ? (u || (u = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
-            f(t, function () {
-              return h({
+            g(t, function () {
+              return y({
                 chat: e,
                 previousAiHandoffStartedAt: a,
                 previousIsAiHandoff: r,
@@ -87,26 +88,26 @@ __d(
             }))
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.chat,
-            a = t.previousAiHandoffStartedAt,
-            i = t.previousIsAiHandoff,
-            l = t.previousUnreadCount,
-            s = t.state;
-          if (s.desired === s.serverConfirmed) return !0;
-          var u = s.desired,
-            m = !1,
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.previousAiHandoffStartedAt,
+            a = e.previousIsAiHandoff,
+            i = e.previousUnreadCount,
+            l = e.state;
+          if (l.desired === l.serverConfirmed) return !0;
+          var u = l.desired,
+            c = !1,
             p = null;
           try {
             var _ = yield o(
               "WAWebAiAgentAutoReplyControlMutation",
             ).changeAiReplyStatus(
-              n.id,
+              t.id,
               u ===
                 o("WAWebProtobufsE2E.pb")
                   .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
@@ -114,40 +115,41 @@ __d(
                 ? "ENABLED"
                 : "MUTED",
             );
-            ((m = _.isSuccess === !0),
+            ((c = _.isSuccess === !0),
               _.isSuccess === !0 && (p = _.updateTimestampMs));
-          } catch (t) {
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[Maiba] mutateAiReplyStatus failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .sendLogs("maiba-mutate-ai-reply-fail");
           }
-          return m
-            ? ((s.serverConfirmed = u),
-              p != null && (s.watermarkMs = Math.max(s.watermarkMs, p)),
-              h({
-                chat: n,
-                previousAiHandoffStartedAt: a,
-                previousIsAiHandoff: i,
-                previousUnreadCount: l,
-                state: s,
+          return c
+            ? ((l.serverConfirmed = u),
+              p != null && (l.watermarkMs = Math.max(l.watermarkMs, p)),
+              b(t),
+              y({
+                chat: t,
+                previousAiHandoffStartedAt: n,
+                previousIsAiHandoff: a,
+                previousUnreadCount: i,
+                state: l,
               }))
-            : ((s.desired = s.serverConfirmed),
-              (n.unreadCount = l),
-              (n.isAiHandoff = i),
-              (n.aiHandoffStartedAt = a),
+            : ((l.desired = l.serverConfirmed),
+              (t.unreadCount = i),
+              (t.isAiHandoff = a),
+              (t.aiHandoffStartedAt = n),
               o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
-                n,
-                s.serverConfirmed,
-                d,
+                t,
+                l.serverConfirmed,
+                m,
               ),
               o("WAWebModalManager").ModalManager.open(
-                c.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
+                d.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
                   isTurnOn:
                     u ===
                     o("WAWebProtobufsE2E.pb")
@@ -157,39 +159,54 @@ __d(
               ),
               !1);
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return f(_(e), t);
+    function b(t) {
+      o("WAWebBizAiCapiThreadControl")
+        .setAiLastHandoffActor(t, "BUSINESS")
+        .catch(function (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Maiba] recordBusinessToggle actor write failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("maiba-record-business-toggle-actor-fail");
+        });
     }
-    function b(e, t, n) {
-      var r = _(e);
+    function v(e, t) {
+      return g(f(e), t);
+    }
+    function S(e, t, n) {
+      var r = f(e);
       (n != null && (r.watermarkMs = Math.max(r.watermarkMs, n)),
         (r.serverConfirmed = t));
     }
-    function v(e) {
+    function R(e) {
       var t = e.chat,
         n = e.options,
         r = e.status,
         a = e.timestampMs,
-        i = _(t);
+        i = f(t);
       if (a != null) {
         if (a <= i.watermarkMs) return;
         i.watermarkMs = a;
       }
       if (!(i.pendingMutations > 0)) {
-        var l = R(t, r, n);
+        var l = E(t, r, n);
         if (
           ((i.serverConfirmed = r), (i.desired = r), t.capiThreadControl !== r)
         ) {
-          var s = L(t, n, l);
+          var s = k(t, n, l);
           s == null
             ? o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)
             : o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r, s);
           return;
         }
-        (E({
+        (I({
           chat: t,
           suggestedRepliesEnabled:
             n == null ? void 0 : n.suggestedRepliesEnabled,
@@ -198,7 +215,7 @@ __d(
             o("WAWebBizAiCapiThreadControl").setAiLastHandoffActor(t, l));
       }
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       return (
         e.capiThreadControl !== t ||
         (t ===
@@ -209,20 +226,20 @@ __d(
           (e.suggestedRepliesEnabled === !0) !== n)
       );
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       var r = n == null ? void 0 : n.lastHandoffActor;
       return r == null
         ? null
         : r.actor != null
           ? r.actor
-          : S(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
+          : L(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
             ? "UNKNOWN"
             : null;
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       var r =
           (t == null ? void 0 : t.suppressNotification) === !0
-            ? babelHelpers.extends({}, d)
+            ? babelHelpers.extends({}, m)
             : {},
         o = t == null ? void 0 : t.suggestedRepliesEnabled;
       return (
@@ -233,17 +250,17 @@ __d(
         Object.keys(r).length > 0 ? r : null
       );
     }
-    function E(e) {
+    function I(e) {
       var t = e.chat,
         n = e.suggestedRepliesEnabled;
       typeof n == "boolean" &&
         (t.suggestedRepliesEnabled === !0) !== n &&
         t.setSuggestedRepliesEnabled(n);
     }
-    ((l.mutateAiReplyStatus = g),
-      (l.trackAiReplyMutation = C),
-      (l.recordAiReplyServerConfirmation = b),
-      (l.applyServerEchoThreadControl = v));
+    ((l.mutateAiReplyStatus = h),
+      (l.trackAiReplyMutation = v),
+      (l.recordAiReplyServerConfirmation = S),
+      (l.applyServerEchoThreadControl = R));
   },
   98,
 );

@@ -138,21 +138,24 @@ __d(
           if (!f.test(r)) throw G("consent_auth_invalid_input");
           var a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (a == null) throw G("consent_auth_no_session");
+          var i = yield o(
+            "WAWebRequestHatchConnectors",
+          ).requestHatchWhatsAppSessionId();
           if (r === "meta_business") {
-            var i = yield a.connectorConnect(r, {
+            var l = yield a.connectorConnect(r, i, {
               timeoutMs: o("WAWebRequestHatchConnectors").CONNECTORS_TIMEOUT_MS,
             });
-            if (i.kind === "Ok" && z(i.value, r)) return;
+            if (l.kind === "Ok" && z(l.value, r)) return;
             if (
-              i.kind !== "Rejected" ||
-              i.statusCode == null ||
-              i.statusCode < 400 ||
-              i.statusCode >= 500
+              l.kind !== "Rejected" ||
+              l.statusCode == null ||
+              l.statusCode < 400 ||
+              l.statusCode >= 500
             )
               throw G("meta_business_connect_failed");
           }
           yield V(function () {
-            return a.consentAuthCallback(r, {
+            return a.consentAuthCallback(r, i, {
               timeoutMs: o("WAWebRequestHatchConnectors").CONNECTORS_TIMEOUT_MS,
             });
           }, "consent_auth_callback");

@@ -14,6 +14,7 @@ __d(
         isCompactLayout: !1,
         activeMicrophoneWarning: null,
         requestSecurityCodeVerification: void 0,
+        toggleMobileControls: null,
       });
     l.default = u;
   },

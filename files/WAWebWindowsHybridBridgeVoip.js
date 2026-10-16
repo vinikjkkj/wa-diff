@@ -863,6 +863,26 @@ __d(
                 },
               ));
           }),
+          (a.setIncomingOfferReceivedMs = function (t) {
+            var e = this;
+            (r("WAWebODS").incr(
+              "web.hybrid.bridge.voip.send.set_incoming_offer_received_ms",
+            ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voipSignaling",
+                  method: "setIncomingOfferReceivedMs",
+                  type: "async",
+                },
+                function () {
+                  var n;
+                  return (n = e.$2) == null ||
+                    n.setIncomingOfferReceivedMs == null
+                    ? void 0
+                    : n.setIncomingOfferReceivedMs(t);
+                },
+              ));
+          }),
           t
         );
       })();

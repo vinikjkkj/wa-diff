@@ -126,6 +126,7 @@ __d(
                           r("WAWebHatchNoiseVmTransport").create(
                             m.transport,
                             t.credentials.vmAuthToken,
+                            t.acceptLanguage,
                           ),
                         )),
                         (this.$5 = t.credentials.vmId),

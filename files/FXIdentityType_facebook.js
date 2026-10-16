@@ -17,6 +17,7 @@ __d(
         "GLAM_USER",
         "IG_PROFESSIONAL",
         "IG_USER",
+        "LANTERN_USER",
         "MESSENGER_KID",
         "META",
         "MP_USER",

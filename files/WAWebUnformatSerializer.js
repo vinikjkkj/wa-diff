@@ -6,21 +6,28 @@ __d(
       function t() {
         return e.apply(this, arguments) || this;
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      return (
+        babelHelpers.inheritsLoose(t, e),
+        (t.onDelimiter = function (t, n) {
+          return "";
+        }),
+        (t.onMutator = function (t, n, r, o, a) {
+          var e = a == null ? void 0 : a.spoilerReplacement;
+          if (t.maskOnUnformat === !0 && e != null) return e;
+          if (t.unformatDecorations != null) {
+            var i = t.unformatDecorations,
+              l = i.post,
+              u = i.pre;
+            return s([typeof u == "function" ? u(r) : u].concat(n, [l]));
+          }
+          return s(n);
+        }),
+        t
+      );
     })(r("WAWebFormatSerializer"));
-    ((e.onDelimiter = function () {}),
-      (e.onMutator = function (e, t, n) {
-        if (e.unformatDecorations != null) {
-          var r = e.unformatDecorations,
-            o = r.post,
-            a = r.pre;
-          return s([typeof a == "function" ? a(n) : a].concat(t, [o]));
-        }
-        return s(t);
-      }),
-      (e.onRoot = function (e) {
-        return s(e);
-      }),
+    ((e.onRoot = function (e) {
+      return s(e);
+    }),
       (e.onText = o("WAWebIdentityFunction").identityFunction));
     function s(e) {
       return e.filter(Boolean).join("");

@@ -44,6 +44,10 @@ __d(
         "aura_ig_contextual_direct_thread_story_peek_context_menu_upsell",
       AURA_IG_CONTEXTUAL_FEED_STORY_PEEK_CONTEXT_MENU_UPSELL:
         "aura_ig_contextual_feed_story_peek_context_menu_upsell",
+      AURA_IG_CONTEXTUAL_IGD_INBOX_CHAT_FONTS_UPSELL:
+        "aura_ig_contextual_igd_inbox_chat_fonts_upsell",
+      AURA_IG_CONTEXTUAL_IGD_INBOX_MESSAGE_PEEK_UPSELL:
+        "aura_ig_contextual_igd_inbox_message_peek_upsell",
       AURA_IG_CONTEXTUAL_PROFILE_PIN_LIMIT_INCREASE_CLIPS_TAB_CONTEXT_MENU_UPSELL:
         "aura_ig_contextual_profile_pin_limit_increase_clips_tab_context_menu_upsell",
       AURA_IG_CONTEXTUAL_PROFILE_PIN_LIMIT_INCREASE_POSTS_TAB_CONTEXT_MENU_UPSELL:
@@ -187,6 +191,12 @@ __d(
       EDITS_ASSISTANT_AI_TIMELINE_QUOTA_BANNER:
         "edits_assistant_ai_timeline_quota_banner",
       EDITS_CLIP_GEN_QUOTA_BANNER: "edits_clip_gen_quota_banner",
+      EDITS_CLOUD_PROJECT_UPDATE_FAILURE_NOT_ENOUGH_SPACE_DIALOG:
+        "edits_cloud_project_update_failure_not_enough_space_dialog",
+      EDITS_CLOUD_PROJECT_UPDATE_FAILURE_NOT_ENOUGH_SPACE_DROPDOWN:
+        "edits_cloud_project_update_failure_not_enough_space_dropdown",
+      EDITS_CLOUD_PROJECT_UPDATE_FAILURE_NOT_ENOUGH_SPACE_TOAST:
+        "edits_cloud_project_update_failure_not_enough_space_toast",
       EDITS_MAIN_SETTINGS: "edits_main_settings",
       EDITS_PLUS_DEACTIVATED_SUBSCRIPTION_NOTIF:
         "edits_plus_deactivated_subscription_notif",
@@ -262,6 +272,7 @@ __d(
         "fb_lwi_post_ad_creation_guidance_upsell",
       FB_LWI_VIEW_RESULTS_PAGE: "fb_lwi_view_results_page",
       FB_MENU_SUBSCRIPTIONS: "fb_menu_subscriptions",
+      FB_ML_AQP_META_ONE_CONSUMER: "fb_ml_aqp_meta_one_consumer",
       FB_ML_AQP_PRO_AC: "fb_ml_aqp_pro_ac",
       FB_ML_AQP_PRO_BIZ: "fb_ml_aqp_pro_biz",
       FB_MOBILE_ENHANCED_LINKS_BOTTOM_SHEET:
@@ -399,6 +410,10 @@ __d(
         "gai_meta_view_cs_wearable_quota_limit_toast",
       GAI_META_VIEW_CS_WEARABLE_SETTINGS_PAGE:
         "gai_meta_view_cs_wearable_settings_page",
+      GAI_META_VIEW_HC_WEARABLE_NUX_ONBOARDING_VALUE_PROP:
+        "gai_meta_view_hc_wearable_nux_onboarding_value_prop",
+      GAI_META_VIEW_HC_WEARABLE_UPSELL_SHEET:
+        "gai_meta_view_hc_wearable_upsell_sheet",
       GAI_META_VIEW_HEARING_BOOST_DEVICE_HOME_QP:
         "gai_meta_view_hearing_boost_device_home_qp",
       GAI_META_VIEW_HEARING_BOOST_FEATURE_PAGE:
@@ -440,7 +455,10 @@ __d(
       HATCH_CHAT: "hatch_chat",
       HATCH_CREDITS_SCREEN: "hatch_credits_screen",
       HATCH_DEEPLINK: "hatch_deeplink",
+      HATCH_MOBILE_MANAGE_SUBSCRIPTION_PRO_BIZ:
+        "hatch_mobile_manage_subscription_pro_biz",
       HATCH_STATUS: "hatch_status",
+      HATCH_WEB_SETTINGS_PRO_BIZ: "hatch_web_settings_pro_biz",
       HELP_CENTER: "help_center",
       HELP_CENTER_DISCO: "help_center_disco",
       HELP_CENTER_DISCO_META_ONE: "help_center_disco_meta_one",
@@ -515,6 +533,7 @@ __d(
       IG_DELEGATE_DOWNGRADE_MV_SPM_TIER_XGRADE_DELEGATE_DOWNGRADE_MEGAPHONE:
         "ig_delegate_downgrade_mv_spm_tier_xgrade_delegate_downgrade_megaphone",
       IG_DIRECT_IMAGINE_QUOTA_BANNER: "ig_direct_imagine_quota_banner",
+      IG_DIRECT_MUSIC_GEN_QUOTA_BANNER: "ig_direct_music_gen_quota_banner",
       IG_DIRECT_PHOTO_RESTYLE_QUOTA_BANNER:
         "ig_direct_photo_restyle_quota_banner",
       IG_DIRECT_PROMPT_IMAGE_GEN_QUOTA_BANNER:
@@ -549,6 +568,7 @@ __d(
         "ig_enhanced_profile_shareable_links_self_view_consumption_meta_subs_permanent_upsell",
       IG_FEED_FACE_SWAP_QUOTA_BANNER: "ig_feed_face_swap_quota_banner",
       IG_FEED_IMAGE_GEN_QUOTA_BANNER: "ig_feed_image_gen_quota_banner",
+      IG_FEED_QP_META_ONE_CONSUMER: "ig_feed_qp_meta_one_consumer",
       IG_FEED_QP_PRO_AC: "ig_feed_qp_pro_ac",
       IG_FEED_QP_PRO_BIZ: "ig_feed_qp_pro_biz",
       IG_FOR_PROFESSIONALS_PRO_SUBS_HUB: "ig_for_professionals_pro_subs_hub",
@@ -585,6 +605,8 @@ __d(
         "ig_links_in_reels_subscribe_to_mv_iab_upsell",
       IG_LINKS_PACKAGE_MV_NON_SUBSCRIBED_AF_UPSELL_NOTIFICATION:
         "ig_links_package_mv_non_subscribed_af_upsell_notification",
+      IG_LINK_PAGE_NONSUB_PRODASH_AYMT_UPSELL:
+        "ig_link_page_nonsub_prodash_aymt_upsell",
       IG_LITE_SLIDEOUT_MENU: "ig_lite_slideout_menu",
       IG_MOBILE_ENHANCED_LINKS_BOTTOM_SHEET:
         "ig_mobile_enhanced_links_bottom_sheet",
@@ -867,6 +889,7 @@ __d(
         "meta_one_ig_subscription_completion_notif",
       META_ONE_IG_SUBSCRIPTION_REVOCATION_NOTIF:
         "meta_one_ig_subscription_revocation_notif",
+      META_ONE_PBIS_APPEAL_NEEDED_ENTRY: "meta_one_pbis_appeal_needed_entry",
       META_ONE_PROFILE_VERIFICATION_FAILED_RETRY_ENTRY:
         "meta_one_profile_verification_failed_retry_entry",
       META_ONE_PROFILE_VERIFICATION_NEEDED_ENTRY:
@@ -1066,8 +1089,12 @@ __d(
         "mobile_mbs_post_ad_creation_guidance_upsell",
       MODEL_API_BILLING_ENTRYPOINT_VERCEL:
         "model_api_billing_entrypoint_vercel",
+      MODEL_API_MARKETING_SITE_VERCEL: "model_api_marketing_site_vercel",
+      MODEL_API_MODELS_CARD_VERCEL: "model_api_models_card_vercel",
       MODEL_API_ONBOARDING_BILLING_CHOICE_VERCEL:
         "model_api_onboarding_billing_choice_vercel",
+      MODEL_API_ONBOARDING_PAYMENT_VERCEL:
+        "model_api_onboarding_payment_vercel",
       MODEL_API_PERMANENT_ENTRYPOINT_VERCEL:
         "model_api_permanent_entrypoint_vercel",
       MODEL_API_UPSELL_BANNER_VERCEL: "model_api_upsell_banner_vercel",
@@ -1076,8 +1103,11 @@ __d(
       MP_UIM_BANNER: "mp_uim_banner",
       MP_UIM_BANNER_META_ONE: "mp_uim_banner_meta_one",
       MSGR_AI_THREAD_SETTINGS: "msgr_ai_thread_settings",
+      MSGR_APP_APPEARANCE_DIAMOND_UPSELL: "msgr_app_appearance_diamond_upsell",
       MSGR_APP_APPEARANCE_UPSELL: "msgr_app_appearance_upsell",
+      MSGR_CHAT_FONTS_PICKER_UPSELL: "msgr_chat_fonts_picker_upsell",
       MSGR_CHAT_FONTS_RECEIVER_UPSELL: "msgr_chat_fonts_receiver_upsell",
+      MSGR_CHAT_FONTS_TAB_UPSELL: "msgr_chat_fonts_tab_upsell",
       MSGR_CHAT_QUOTA_LIMIT_UPSELL: "msgr_chat_quota_limit_upsell",
       MSGR_CUSTOM_APP_THEME_UPSELL: "msgr_custom_app_theme_upsell",
       MSGR_DEAD_END_TOAST: "msgr_dead_end_toast",
@@ -1098,9 +1128,11 @@ __d(
       MSGR_THINK_HARD_QUOTA_TOAST: "msgr_think_hard_quota_toast",
       MSGR_WELCOME_TOAST: "msgr_welcome_toast",
       MSG_ACCOUNT_CENTER_SETTINGS: "msg_account_center_settings",
+      MSO_FB_BOOKMARK: "mso_fb_bookmark",
       MSO_IG_EDIT_PROFILE: "mso_ig_edit_profile",
       MSO_IG_POST_BOOST_UPSELL: "mso_ig_post_boost_upsell",
       MSO_IG_PRODASH_MEGAPHONE_QP: "mso_ig_prodash_megaphone_qp",
+      MUSE_CODE_ACCOUNTS_CENTER_DIRECT: "muse_code_accounts_center_direct",
       MUSE_CODE_ACCOUNTS_CENTER_HOME: "muse_code_accounts_center_home",
       MV4B_ADMIN_LIMIT_WARNING_EMAIL_1DAY:
         "aymt_mv4b_admin_limit_warning_email_1day",
@@ -1301,6 +1333,7 @@ __d(
       MV4B_MANAGEMENT_ASSET_UPGRADE_UPSELL:
         "mv4b_management_asset_upgrade_upsell",
       MV4B_MANAGEMENT_CANCEL_REENTER: "mv4b_management_cancel_reenter",
+      MV4B_MANAGEMENT_META_ONE_SWITCH: "mv4b_management_meta_one_switch",
       MV4B_MANAGEMENT_PAA_BP_CLAIM_UPSELL:
         "mv4b_management_paa_bp_claim_upsell",
       MV4B_MANAGEMENT_RENEW_REENTER: "mv4b_management_renew_reenter",
@@ -1481,6 +1514,7 @@ __d(
       MV4C_IG_ML_QP: "mv4c_ig_ml_qp",
       MV4C_IG_PROFILE_SOCIAL_CONTEXT_QP: "mv4c_ig_profile_social_context_qp",
       MV4C_JARVIS_ABANDONED_PAYMENT: "mv4c_jarvis_abandoned_payment",
+      MV4C_MANAGEMENT_META_ONE_SWITCH: "mv4c_management_meta_one_switch",
       MV4C_MOBILE_FB_PROMINENCE_UNITS: "mv4c_mobile_fb_prominence_units",
       MV4C_MOBILE_IG_PROMINENCE_UNITS: "mv4c_mobile_ig_prominence_units",
       MV4C_NME_LINKS_IN_POSTS_WARNING_EMAIL:
@@ -1969,6 +2003,7 @@ __d(
       WA_AYMT_NS1B: "wa_aymt_ns1b",
       WA_AYMT_S1A: "wa_aymt_s1a",
       WA_AYMT_S1B: "wa_aymt_s1b",
+      WA_CHURNED_USER_REMINDER_NOTIF: "wa_churned_user_reminder_notif",
       WA_EMAIL_EXISTING_BB: "wa_email_existing_bb",
       WA_EMAIL_NS1A: "wa_email_ns1a",
       WA_EMAIL_NS1B: "wa_email_ns1b",
@@ -1989,6 +2024,8 @@ __d(
       WA_SMB_GENERIC_CONTEXTUAL_UPSELL: "wa_smb_generic_contextual_upsell",
       WA_SMB_WEB_BUSINESS_TOOLS_DRAWER_META_ONE:
         "wa_smb_web_business_tools_drawer_meta_one",
+      WA_SMB_WEB_CM_UPSELL: "wa_smb_web_cm_upsell",
+      WA_SMB_WEB_META_ONE: "wa_smb_web_meta_one",
       WA_SMB_WEB_SETTINGS_META_ONE: "wa_smb_web_settings_meta_one",
       WA_SUBSCRIPTION_CANCELLATION_NOTIF: "wa_subscription_cancellation_notif",
       WA_SUBSCRIPTION_COMPLETION_NOTIF: "wa_subscription_completion_notif",

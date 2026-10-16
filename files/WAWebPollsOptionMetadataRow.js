@@ -36,17 +36,21 @@ __d(
         l = t.isCurrentLeader,
         s = t.isPollFromMe,
         u = t.links,
-        p = t.name,
-        g = t.trusted,
-        h = t.voteCount,
-        y = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
-        C = y.pollDetailsOptionTextSize,
-        b = o("WAWebFormatConfigurationConversation").Conversation({
+        p = t.messageHasSpoiler,
+        g = t.name,
+        h = t.spoilerRevealContext,
+        y = t.trusted,
+        C = t.voteCount,
+        b = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+        v = b.pollDetailsOptionTextSize,
+        S = o("WAWebFormatConfigurationConversation").Conversation({
           links: u != null ? u : [],
           phoneNumbers: [],
           selectable: !0,
-          trusted: g === !0,
+          trusted: y === !0,
           fromMe: s,
+          messageHasSpoiler: p,
+          spoilerRevealContext: h,
         });
       return c.jsxs(o("WAWebFlex.react").FlexRow, {
         align: "center",
@@ -69,10 +73,10 @@ __d(
             xstyle: d.marginInlineEnd6,
             children: [
               c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                text: p,
+                text: g,
                 selectable: !0,
-                formatters: b,
-                className: (e || (e = r("stylex")))(m.option, C),
+                formatters: S,
+                className: (e || (e = r("stylex")))(m.option, v),
               }),
               n != null &&
                 c.jsx(r("WAWebPollAddedByLabel"), { addOptionMsg: n }),
@@ -89,8 +93,8 @@ __d(
               {
                 children:
                   i == null
-                    ? c.jsx(_, { count: h, isCurrentLeader: l })
-                    : c.jsx(f, { count: h, isCorrectOption: i }),
+                    ? c.jsx(_, { count: C, isCurrentLeader: l })
+                    : c.jsx(f, { count: C, isCorrectOption: i }),
               },
             ),
           ),

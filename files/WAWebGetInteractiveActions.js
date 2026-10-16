@@ -22,6 +22,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetBrazilnteractiveActions",
     "WAWebGetInteractiveActionsFromButtons",
+    "WAWebGetInteractiveButtonActionValues",
     "WAWebGetInteractiveCtaActions",
     "WAWebGetMessageWithLinkAction",
     "WAWebGetQuickPayAction",
@@ -213,7 +214,11 @@ __d(
         "WAWebBrOptionsToPayActions",
       ).getPaymentRequestOptionsToPayActions(e, t)) != null
         ? n
-        : r("WAWebGetInteractiveActionsFromButtons")(e, t);
+        : r("WAWebGetInteractiveActionsFromButtons")(
+            e,
+            t.id,
+            r("WAWebGetInteractiveButtonActionValues")(t),
+          );
     }
     function f(e, t, n) {
       var r;

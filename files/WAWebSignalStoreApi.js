@@ -200,6 +200,7 @@ __d(
                     identityKey: e.identityKey,
                     rowId: e.rowId,
                     sentAddonRowId: e.sentAddonRowId,
+                    accountEncryptionState: e.accountEncryptionState,
                   }
                 : null;
             });
@@ -209,7 +210,11 @@ __d(
             return e.bulkGet(t).then(function (e) {
               return e.map(function (e) {
                 return e
-                  ? { identityKey: e.identityKey, rowId: e.rowId }
+                  ? {
+                      identityKey: e.identityKey,
+                      rowId: e.rowId,
+                      accountEncryptionState: e.accountEncryptionState,
+                    }
                   : null;
               });
             });

@@ -17,12 +17,24 @@ __d(
           .META_ONE_BUSINESS_ENTRY_POINT,
         referral: o("WAWebWamEnumWsuaReferral").WSUA_REFERRAL.BUSINESS_TOOLS,
         screen: o("WAWebWamEnumWsuaScreen").WSUA_SCREEN.BUSINESS_TOOLS,
+        screenElement: o("WAWebWamEnumWsuaScreenElement").WSUA_SCREEN_ELEMENT
+          .LIST_ITEM,
+      },
+      mba: {
+        actionTarget: o("WAWebWamEnumWsuaActionTarget").WSUA_ACTION_TARGET
+          .GET_META_ONE_BUSINESS,
+        referral: o("WAWebWamEnumWsuaReferral").WSUA_REFERRAL.BIZ_AI_HOME,
+        screen: o("WAWebWamEnumWsuaScreen").WSUA_SCREEN.BIZ_AI_HOME,
+        screenElement: o("WAWebWamEnumWsuaScreenElement").WSUA_SCREEN_ELEMENT
+          .BIZ_AI_META_ONE_ENTRYPOINT,
       },
       settings: {
         actionTarget: o("WAWebWamEnumWsuaActionTarget").WSUA_ACTION_TARGET
           .SUBSCRIPTIONS_ENTRY_POINT,
         referral: o("WAWebWamEnumWsuaReferral").WSUA_REFERRAL.SETTINGS,
         screen: o("WAWebWamEnumWsuaScreen").WSUA_SCREEN.SETTINGS,
+        screenElement: o("WAWebWamEnumWsuaScreenElement").WSUA_SCREEN_ELEMENT
+          .LIST_ITEM,
       },
     };
     function s(e, t) {
@@ -35,7 +47,8 @@ __d(
       var a = e[n],
         i = a.actionTarget,
         l = a.referral,
-        s = a.screen;
+        s = a.screen,
+        u = a.screenElement;
       new (o(
         "WAWebSubscriptionUserActionWamEvent",
       ).SubscriptionUserActionWamEvent)({
@@ -45,8 +58,7 @@ __d(
           .META_ONE_BUSINESS,
         wsuaReferral: l,
         wsuaScreen: s,
-        wsuaScreenElement: o("WAWebWamEnumWsuaScreenElement")
-          .WSUA_SCREEN_ELEMENT.LIST_ITEM,
+        wsuaScreenElement: u,
         wsuaSessionId: r,
       }).commit();
     }

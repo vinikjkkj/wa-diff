@@ -12,6 +12,7 @@ __d(
       M4A: ".m4a",
       MD: ".md",
       MP3: ".mp3",
+      MP4: ".mp4",
       OGG: ".ogg",
       PDF: ".pdf",
       PNG: ".png",

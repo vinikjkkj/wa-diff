@@ -46,7 +46,10 @@ __d(
           (n == null
             ? void 0
             : n.some(function (e) {
-                return o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e.id);
+                return (
+                  o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e.id) ||
+                  o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)
+                );
               })) === !0;
       return (
         r && o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()

@@ -425,6 +425,9 @@ __d(
           (n.getUploadEntry = function (t) {
             return (h(this), this.$3(t)[0]);
           }),
+          (n.getUploadEntryMatching = function (t, n) {
+            return (h(this), this.$3(t).find(n));
+          }),
           (n.getDownloadEntry = function (t) {
             return (
               h(this),

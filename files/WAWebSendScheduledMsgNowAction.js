@@ -71,7 +71,9 @@ __d(
             n,
           );
           try {
-            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(i, l);
+            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(i, l, {
+              skipRichTextFormatLogging: !0,
+            });
           } catch (e) {
             throw (
               o("WALogger")

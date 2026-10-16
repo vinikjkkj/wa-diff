@@ -2,6 +2,7 @@ __d(
   "AdsManagerConstURIUtils",
   [
     "AdsManagerReadRegions",
+    "ExecutionEnvironment",
     "XAdsCMAccountSettingsPageControllerRouteBuilder",
     "XAdsCMControllerRouteBuilder",
     "XAdsPEControllerRouteBuilder",
@@ -9,47 +10,53 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
+    var e;
+    function s(e, t, n) {
       var o = r("XAdsPEControllerRouteBuilder").buildUri(
         babelHelpers.extends({}, n, {
           nav_entry_point: t != null ? t : void 0,
           nav_source: e,
         }),
       );
-      return m(o);
+      return _(o);
     }
-    function s(e, t, n) {
+    function u(e, t, n) {
       var o = r("XAdsCMControllerRouteBuilder").buildUri(
         babelHelpers.extends({}, n, {
           nav_entry_point: t != null ? t : void 0,
           nav_source: e,
         }),
       );
-      return m(o);
+      return _(o);
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       var o = r("XAdsCMAccountSettingsPageControllerRouteBuilder").buildUri(
         babelHelpers.extends({}, n, {
           nav_entry_point: t != null ? t : void 0,
           nav_source: e,
         }),
       );
-      return m(o);
+      return _(o);
     }
-    function c(e) {
+    function d() {
+      return (e || (e = r("ExecutionEnvironment"))).canUseDOM
+        ? window.location.host.includes("adsmanager")
+        : !1;
+    }
+    function m(e) {
       return !!(
-        window.location.host.includes("adsmanager") &&
+        d() &&
         !r("AdsManagerReadRegions").excluded_endpoints.some(function (t) {
           return e.includes(t);
         }) &&
         r("gkx")("1221")
       );
     }
-    function d(e, t) {
+    function p(e, t) {
       return (
         t === void 0 && (t = !0),
         !!(
-          window.location.host.includes("adsmanager") &&
+          d() &&
           r("gkx")("13382") &&
           (r("AdsManagerReadRegions").excluded_endpoints.some(function (t) {
             return e.includes(t);
@@ -58,11 +65,11 @@ __d(
         )
       );
     }
-    function m(e) {
+    function _(e) {
       return (
-        c(e.toString())
+        m(e.toString())
           ? e.addQueryParam("ads_manager_read_regions", "true")
-          : d(e.toString())
+          : p(e.toString())
             ? e.addQueryParam("ads_manager_write_regions", "true")
             : (e.getQueryParam("ads_manager_read_regions") !== null ||
                 e.getQueryParam("ads_manager_write_regions") !== null) &&
@@ -71,11 +78,11 @@ __d(
         e
       );
     }
-    ((l.getAdsManagerURI = e),
-      (l.getXAdsCMControllerURI = s),
-      (l.getXAdsCMAccountSettingsPageURI = u),
-      (l.shouldRouteToAMReadRegions = c),
-      (l.shouldRouteToAMWriteRegions = d));
+    ((l.getAdsManagerURI = s),
+      (l.getXAdsCMControllerURI = u),
+      (l.getXAdsCMAccountSettingsPageURI = c),
+      (l.shouldRouteToAMReadRegions = m),
+      (l.shouldRouteToAMWriteRegions = p));
   },
   98,
 );

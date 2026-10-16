@@ -31,11 +31,13 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r, a;
+          var r,
+            a,
+            i = Date.now();
           o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
             o("WAWebVoipGatingUtils").isGroupCallMessage(e),
           );
-          var i = o("WAWebVoipIncomingCallQpl").startVoipIncomingCallQpl({
+          var l = o("WAWebVoipIncomingCallQpl").startVoipIncomingCallQpl({
             bool: {
               boot_deferred: o(
                 "WAWebVoipBootInitDecision",
@@ -47,13 +49,13 @@ __d(
             },
           });
           try {
-            var l = yield (c || (c = n("Promise"))).all([
+            var s = yield (c || (c = n("Promise"))).all([
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   var n;
                   (n = o(
                     "WAWebVoipIncomingCallQpl",
                   )).voipIncomingCallQplAddPoint(
-                    i,
+                    l,
                     n.VoipIncomingCallQplPoint.E2E_DECRYPT_START,
                   );
                   var r = yield o(
@@ -61,7 +63,7 @@ __d(
                   ).validateAndDecryptEnc(t, e);
                   return (
                     n.voipIncomingCallQplAddPoint(
-                      i,
+                      l,
                       n.VoipIncomingCallQplPoint.E2E_DECRYPT_END,
                     ),
                     r
@@ -72,7 +74,7 @@ __d(
                   (t = o(
                     "WAWebVoipIncomingCallQpl",
                   )).voipIncomingCallQplAddPoint(
-                    i,
+                    l,
                     t.VoipIncomingCallQplPoint.TC_TOKEN_START,
                   );
                   var n = yield o("WAWebVoipPeerTcToken").fetchPeerTcToken(
@@ -80,7 +82,7 @@ __d(
                   );
                   return (
                     t.voipIncomingCallQplAddPoint(
-                      i,
+                      l,
                       t.VoipIncomingCallQplPoint.TC_TOKEN_END,
                     ),
                     n
@@ -91,7 +93,7 @@ __d(
                   (e = o(
                     "WAWebVoipIncomingCallQpl",
                   )).voipIncomingCallQplAddPoint(
-                    i,
+                    l,
                     e.VoipIncomingCallQplPoint.STACK_RESOLVE_START,
                   );
                   var t = yield o(
@@ -99,23 +101,23 @@ __d(
                   ).getVoipStackInterface();
                   return (
                     e.voipIncomingCallQplAddPoint(
-                      i,
+                      l,
                       e.VoipIncomingCallQplPoint.STACK_RESOLVE_END,
                     ),
                     t
                   );
                 })(),
               ]),
-              s = l[0],
-              u = s.result,
-              d = s.retryCount,
-              m = l[1],
-              _ = l[2];
+              u = s[0],
+              d = u.result,
+              m = u.retryCount,
+              _ = s[1],
+              f = s[2];
             if (e.group_jid != null) {
-              var f;
+              var g;
               o("WAWebSchemaChat")
                 .getChatTable()
-                .get((f = e.group_jid) == null ? void 0 : f.toString())
+                .get((g = e.group_jid) == null ? void 0 : g.toString())
                 .then(
                   (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -132,8 +134,8 @@ __d(
                                 return e.toString();
                               })
                               .join(",");
-                          (_ == null ? void 0 : _.type) === "windows" &&
-                            (yield _.setChatNameAndIcon(i, t.name, ""));
+                          (f == null ? void 0 : f.type) === "windows" &&
+                            (yield f.setChatNameAndIcon(i, t.name, ""));
                         }
                       },
                     );
@@ -144,8 +146,8 @@ __d(
                 );
             }
             if (e.silence_reason === "vc_wave_all") {
-              var g,
-                h =
+              var h,
+                y =
                   e.group_jid != null
                     ? { isGroup: !0, groupJid: e.group_jid }
                     : { isGroup: !1 };
@@ -155,35 +157,36 @@ __d(
                   {
                     callCreatorWid: e.peer_jid,
                     offerTime: e.t,
-                    isVideo: (g = e.isVideoCall) != null ? g : !1,
+                    isVideo: (h = e.isVideoCall) != null ? h : !1,
                     silenceReason: e.silence_reason,
                     callId: e.call_id,
                     isOffline: e.is_offline,
                     callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
                       .Missed,
                   },
-                  h,
+                  y,
                 ),
               ),
                 o("WAWebVoipIncomingCallQpl").endVoipIncomingCallQplCancel(
-                  i,
+                  l,
                   "vc_wave_all",
                 ));
             }
             yield p({
               msg: e,
-              qplFlow: i,
-              result: u,
-              retryCount: d,
-              tcToken: m,
+              offerReceivedMs: i,
+              qplFlow: l,
+              result: d,
+              retryCount: m,
+              tcToken: _,
               voipNode: t,
-              voipStackInterface: _,
+              voipStackInterface: f,
             });
           } catch (e) {
             throw (
-              i.isActive() &&
+              l.isActive() &&
                 o("WAWebVoipIncomingCallQpl").endVoipIncomingCallQplFail(
-                  i,
+                  l,
                   "unexpected_error",
                 ),
               e
@@ -200,47 +203,49 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.msg,
-            a = t.qplFlow,
-            i = t.result,
-            l = t.retryCount,
-            u = t.tcToken,
-            c = t.voipNode,
-            d = t.voipStackInterface;
-          switch (i) {
+            a = t.offerReceivedMs,
+            i = t.qplFlow,
+            l = t.result,
+            u = t.retryCount,
+            c = t.tcToken,
+            d = t.voipNode,
+            m = t.voipStackInterface;
+          switch (l) {
             case o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS: {
-              var m,
-                p = yield o("WAWebVoipContactUtils").isCallerNotContact(
+              var p,
+                _ = yield o("WAWebVoipContactUtils").isCallerNotContact(
                   n.peer_jid,
                 );
               (o("WAWebVoipGatingUtils").markCurrentCallAsFna(
-                o("WAWebVoipGatingUtils").hasFnaRelay(c),
+                o("WAWebVoipGatingUtils").hasFnaRelay(d),
               ),
                 o("WAWebVoipIncomingCallQpl").voipIncomingCallQplAddPoint(
-                  a,
+                  i,
                   o("WAWebVoipIncomingCallQpl").VoipIncomingCallQplPoint
                     .NATIVE_PROCESS_START,
                 ),
-                yield d == null
+                yield m == null
                   ? void 0
-                  : d.handleIncomingSignalingOffer(
-                      c,
+                  : m.handleIncomingSignalingOffer(
+                      d,
                       n.peer_platform,
                       n.peer_app_version,
                       n.e,
                       n.t,
-                      (m = n.is_offline) != null ? m : !1,
-                      p,
+                      (p = n.is_offline) != null ? p : !1,
+                      _,
                       n.peer_jid.toString(),
-                      u,
+                      c,
+                      a,
                     ),
                 o("WAWebVoipIncomingCallQpl").voipIncomingCallQplAddPoint(
-                  a,
+                  i,
                   o("WAWebVoipIncomingCallQpl").VoipIncomingCallQplPoint
                     .NATIVE_PROCESS_END,
                 ),
-                a.isActive() &&
+                i.isActive() &&
                   o("WAWebVoipIncomingCallQpl").endVoipIncomingCallQplSuccess(
-                    a,
+                    i,
                   ));
               break;
             }
@@ -252,11 +257,11 @@ __d(
                   ])),
               );
               try {
-                yield f(n, l);
+                yield f(n, u);
               } finally {
-                a.isActive() &&
+                i.isActive() &&
                   o("WAWebVoipIncomingCallQpl").endVoipIncomingCallQplFail(
-                    a,
+                    i,
                     "enc_retry",
                   );
               }
@@ -269,16 +274,16 @@ __d(
                   ])),
               );
               try {
-                yield d == null
+                yield m == null
                   ? void 0
-                  : d.endCall(
+                  : m.endCall(
                       o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
                       !0,
                     );
               } finally {
-                a.isActive() &&
+                i.isActive() &&
                   o("WAWebVoipIncomingCallQpl").endVoipIncomingCallQplFail(
-                    a,
+                    i,
                     "parse_error",
                   );
               }

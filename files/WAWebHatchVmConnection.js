@@ -7,6 +7,7 @@ __d(
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchVmCredentials",
     "WAWebHatchVmSession",
+    "WAWebL10N",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -76,18 +77,21 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
+          var t = r("WAWebL10N").getFullLocale(),
+            n = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
+              acceptLanguage: t,
+              credentials: e,
+              trustedFingerprint: d.get(e.vmId),
+            });
+          if (n.kind !== "NeedsTrust")
+            return n.kind === "Ready" ? null : n.detail;
+          var a = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
+            acceptLanguage: t,
             credentials: e,
-            trustedFingerprint: d.get(e.vmId),
-          });
-          if (t.kind !== "NeedsTrust")
-            return t.kind === "Ready" ? null : t.detail;
-          var n = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
-            credentials: e,
-            trustedFingerprint: t.fingerprint,
+            trustedFingerprint: n.fingerprint,
           });
           return (
-            n.kind === "Ready" && d.set(e.vmId, t.fingerprint),
+            a.kind === "Ready" && d.set(e.vmId, n.fingerprint),
             (function (e) {
               if (
                 ((typeof e == "object" && e !== null) ||
@@ -114,7 +118,7 @@ __d(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                   e,
               );
-            })(n)
+            })(a)
           );
         })),
         E.apply(this, arguments)

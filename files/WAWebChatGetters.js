@@ -37,104 +37,105 @@ __d(
       $ = c("draftMessage"),
       P = c("capiThreadControl"),
       N = c("suggestedRepliesEnabled"),
-      M = c("bbProEntrypointEnabled", { default: !1 }),
-      w = c("tcToken"),
-      A = c("tcTokenTimestamp"),
-      F = c("previewT"),
-      O = u(
+      M = c("aiLastHandoffActor"),
+      w = c("bbProEntrypointEnabled", { default: !1 }),
+      A = c("tcToken"),
+      F = c("tcTokenTimestamp"),
+      O = c("previewT"),
+      B = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [_],
       ),
-      B = u(
+      W = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [_],
       ),
-      W = u(
+      q = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [_],
       ),
-      q = u(
+      U = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isMetaForBusiness(t);
         },
         [_],
       ),
-      U = u(
+      V = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [_],
       ),
-      V = u(
+      H = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [_],
       ),
-      H = u(
+      G = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [_],
       ),
-      G = u(
+      z = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [_],
       ),
-      z = u(
+      j = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isMetaAiBot(t);
         },
         [_],
       ),
-      j = u(
+      K = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBusinessAssistantBot(t);
         },
         [_],
       ),
-      K = u(
+      Q = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isHatchBot(t);
         },
         [_],
       ),
-      Q = u(
+      X = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBotChannelFBID(t);
         },
         [_],
       ),
-      X = u(
+      Y = u(
         function (e) {
           var t = e[0],
             n = e[1];
           return !t && !n;
         },
-        [V, B],
+        [H, W],
       ),
-      Y = u(o("WAWebBoolFunc").returnTrue, [V]),
-      J = u(
+      J = u(o("WAWebBoolFunc").returnTrue, [H]),
+      Z = u(
         function (e) {
           var t = e[0];
           return t !== 0;
@@ -163,25 +164,26 @@ __d(
       (l.getDraftMessage = $),
       (l.getCapiThreadControl = P),
       (l.getSuggestedRepliesEnabled = N),
-      (l.getBBProEntrypointEnabled = M),
-      (l.getTcToken = w),
-      (l.getTcTokenTimestamp = A),
-      (l.getPreviewT = F),
-      (l.getIsUser = O),
-      (l.getIsPSA = B),
-      (l.getIsIAS = W),
-      (l.getIsMetaForBusiness = q),
-      (l.getIsGroup = U),
-      (l.getIsBroadcast = V),
-      (l.getIsNewsletter = H),
-      (l.getIsBot = G),
-      (l.getIsMetaAiBot = z),
-      (l.getIsBusinessAssistantBot = j),
-      (l.getIsHatchBot = K),
-      (l.getIsBotChannel = Q),
-      (l.getIsEligibleForContactSync = X),
-      (l.getCanUnread = Y),
-      (l.getHasUnread = J));
+      (l.getAiLastHandoffActor = M),
+      (l.getBBProEntrypointEnabled = w),
+      (l.getTcToken = A),
+      (l.getTcTokenTimestamp = F),
+      (l.getPreviewT = O),
+      (l.getIsUser = B),
+      (l.getIsPSA = W),
+      (l.getIsIAS = q),
+      (l.getIsMetaForBusiness = U),
+      (l.getIsGroup = V),
+      (l.getIsBroadcast = H),
+      (l.getIsNewsletter = G),
+      (l.getIsBot = z),
+      (l.getIsMetaAiBot = j),
+      (l.getIsBusinessAssistantBot = K),
+      (l.getIsHatchBot = Q),
+      (l.getIsBotChannel = X),
+      (l.getIsEligibleForContactSync = Y),
+      (l.getCanUnread = J),
+      (l.getHasUnread = Z));
   },
   98,
 );

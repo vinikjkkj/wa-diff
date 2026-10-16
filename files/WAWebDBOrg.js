@@ -411,24 +411,10 @@ __d(
       );
     }
     function N(e, t) {
-      var n,
-        r,
-        a = {
-          orgId: e.orgId,
-          name: e.name,
-          viewerRole:
-            (n =
-              (r = e.viewerRole) != null
-                ? r
-                : t == null
-                  ? void 0
-                  : t.viewerRole) != null
-              ? n
-              : o("WAWebSchemaOrg").OrgMemberRole.Member,
-        };
-      (M(a, e), w(a, e, t));
-      var i = F(e, t);
-      return (i != null && (a.directoryIsComplete = i), a);
+      var n = { orgId: e.orgId, name: e.name };
+      (M(n, e), w(n, e, t));
+      var r = F(e, t);
+      return (r != null && (n.directoryIsComplete = r), n);
     }
     function M(e, t) {
       (t.description != null && (e.description = t.description),
@@ -438,7 +424,8 @@ __d(
         t.memberTagOptions != null && (e.memberTagOptions = t.memberTagOptions),
         t.iconHandle != null && (e.iconHandle = t.iconHandle),
         t.iconThumbUrl != null && (e.iconThumbUrl = t.iconThumbUrl),
-        t.iconFullUrl != null && (e.iconFullUrl = t.iconFullUrl));
+        t.iconFullUrl != null && (e.iconFullUrl = t.iconFullUrl),
+        t.viewerRole != null && (e.viewerRole = t.viewerRole));
     }
     function w(e, t, n) {
       var r = A(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);

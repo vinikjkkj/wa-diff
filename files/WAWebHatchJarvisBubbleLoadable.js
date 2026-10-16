@@ -36,7 +36,7 @@ __d(
         r = e.displayType,
         a = e.errorFallback,
         i = e.fallback,
-        l = e.msg,
+        l = e.msgKey,
         u;
       t[0] !== n || t[1] !== r || t[2] !== a || t[3] !== i || t[4] !== l
         ? ((u = s.jsx(_, {
@@ -44,7 +44,7 @@ __d(
             displayType: r,
             errorFallback: a,
             fallback: i,
-            msg: l,
+            msgKey: l,
           })),
           (t[0] = n),
           (t[1] = r),

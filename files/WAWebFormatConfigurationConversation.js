@@ -9,6 +9,7 @@ __d(
     "WAWebBulletedListItemFormatMutator",
     "WAWebCodeFormatMutator",
     "WAWebEmojiFormatMutator",
+    "WAWebFormatConfiguration",
     "WAWebGroupMentionFormatMutator",
     "WAWebHeadingFormatMutator",
     "WAWebHighlightFormatMutator",
@@ -33,98 +34,107 @@ __d(
         l = t.hasMentionAll,
         s = t.links,
         u = s === void 0 ? [] : s,
-        c = t.phoneNumbers,
-        d = c === void 0 ? [] : c,
-        m = t.selectable,
-        p = t.trusted,
-        _ = p === void 0 ? !1 : p,
-        f = t.fromMe,
-        g = f === void 0 ? !1 : f,
-        h = t.fromChatWid,
-        y = t.commands,
-        C = y === void 0 ? [] : y,
-        b = t.parseInlineCode,
-        v = b === void 0 ? !1 : b,
-        S = t.parseLists,
-        R = S === void 0 ? !1 : S,
-        L = t.parseQuotes,
-        E = L === void 0 ? !1 : L,
-        k = t.parseHeadings,
-        I = k === void 0 ? !1 : k,
-        T = t.onLinkClick,
-        D = T === void 0 ? r("WAWebNoop") : T,
-        x = t.terms,
-        $ = x === void 0 ? null : x,
-        P = t.boldXstyle,
-        N = t.codeXstyle,
-        M = t.linkXstyle,
-        w =
-          _ && d != null && d.length > 0
+        c = t.messageHasSpoiler,
+        d = t.phoneNumbers,
+        m = d === void 0 ? [] : d,
+        p = t.selectable,
+        _ = t.spoilerInteractive,
+        f = t.spoilerRevealContext,
+        g = t.trusted,
+        h = g === void 0 ? !1 : g,
+        y = t.fromMe,
+        C = y === void 0 ? !1 : y,
+        b = t.fromChatWid,
+        v = t.commands,
+        S = v === void 0 ? [] : v,
+        R = t.parseInlineCode,
+        L = R === void 0 ? !1 : R,
+        E = t.parseLists,
+        k = E === void 0 ? !1 : E,
+        I = t.parseQuotes,
+        T = I === void 0 ? !1 : I,
+        D = t.parseHeadings,
+        x = D === void 0 ? !1 : D,
+        $ = t.onLinkClick,
+        P = $ === void 0 ? r("WAWebNoop") : $,
+        N = t.terms,
+        M = N === void 0 ? null : N,
+        w = t.boldXstyle,
+        A = t.codeXstyle,
+        F = t.linkXstyle,
+        O =
+          h && m != null && m.length > 0
             ? [
                 [
                   r("WAWebPhoneNumberFormatMutator"),
-                  { phoneNumbers: d, selectable: m, fromMe: g },
+                  { phoneNumbers: m, selectable: p, fromMe: C },
                 ],
               ]
             : null,
-        A;
+        B;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
-          C &&
-          C.length > 0 &&
-          (A = [
+          S &&
+          S.length > 0 &&
+          (B = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
-              { commands: C, selectable: m },
+              { commands: S, selectable: p },
             ],
           ]),
         [
           [
             [
               o("WAWebCodeFormatMutator").Code,
-              { selectable: m, codeXstyle: N },
+              { selectable: p, codeXstyle: A },
             ],
           ],
-          v
+          L
             ? [
                 [
                   r("WAWebInlineCodeFormatMutator"),
-                  { selectable: m, codeXstyle: N },
+                  { selectable: p, codeXstyle: A },
                 ],
               ]
             : null,
-          R
+          k
             ? [
                 [
                   o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-                  { selectable: m },
+                  { selectable: p },
                 ],
               ]
             : null,
-          R
+          k
             ? [
                 [
                   o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-                  { selectable: m },
+                  { selectable: p },
                 ],
               ]
             : null,
-          R ? [[r("WAWebBulletedListFormatMutator"), { selectable: m }]] : null,
-          R
+          k ? [[r("WAWebBulletedListFormatMutator"), { selectable: p }]] : null,
+          k
             ? [
                 [
                   o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-                  { selectable: m },
+                  { selectable: p },
                 ],
               ]
             : null,
-          R ? [[r("WAWebNumberedListFormatMutator"), { selectable: m }]] : null,
-          _
+          k ? [[r("WAWebNumberedListFormatMutator"), { selectable: p }]] : null,
+          o("WAWebFormatConfiguration").spoilerMutatorEntry({
+            messageHasSpoiler: c,
+            selectable: p,
+            spoilerInteractive: _,
+            spoilerRevealContext: f,
+          }),
+          h
             ? [
                 [
                   r("WAWebLinkFormatMutator"),
-                  { links: u, selectable: m, onLinkClick: D, linkXstyle: M },
+                  { links: u, selectable: p, onLinkClick: P, linkXstyle: F },
                 ],
               ]
             : null,
@@ -132,49 +142,49 @@ __d(
             ? [
                 [
                   r("WAWebMentionFormatMutator"),
-                  { mentions: a, selectable: m, fromChatWid: h },
+                  { mentions: a, selectable: p, fromChatWid: b },
                 ],
               ]
             : null,
           [
             [
               r("WAWebMentionAllFormatMutator"),
-              { hasMentionAll: l, selectable: m },
+              { hasMentionAll: l, selectable: p },
             ],
           ],
-          I
-            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: m }]]
+          x
+            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: p }]]
             : null,
           i
             ? [
                 [
                   o("WAWebGroupMentionFormatMutator").GroupMention,
-                  { groupMentions: i, selectable: m, fromChatWid: h },
+                  { groupMentions: i, selectable: p, fromChatWid: b },
                 ],
               ]
             : null,
-          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(m) : null,
-          w,
+          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(p) : null,
+          O,
           [
-            [r("WAWebBoldFormatMutator"), { selectable: m, boldXstyle: P }],
-            [r("WAWebItalicFormatMutator"), { selectable: m }],
-            [r("WAWebStrikethroughFormatMutator"), { selectable: m }],
+            [r("WAWebBoldFormatMutator"), { selectable: p, boldXstyle: w }],
+            [r("WAWebItalicFormatMutator"), { selectable: p }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: p }],
           ],
-          [[r("WAWebEmojiFormatMutator"), { selectable: m }]],
-          E
+          [[r("WAWebEmojiFormatMutator"), { selectable: p }]],
+          T
             ? [
                 [
                   o("WAWebBlockQuoteFormatMutator").BlockQuote,
-                  { selectable: m },
+                  { selectable: p },
                 ],
               ]
             : null,
-          A,
-          $ != null
+          B,
+          M != null
             ? [
                 [
                   r("WAWebHighlightFormatMutator"),
-                  { terms: $, ignoreDiacritics: !0 },
+                  { terms: M, ignoreDiacritics: !0 },
                 ],
               ]
             : null,

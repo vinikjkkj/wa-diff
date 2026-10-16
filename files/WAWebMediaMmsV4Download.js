@@ -883,7 +883,7 @@ __d(
                             progressiveStage: null,
                           }),
                           P.notifyMsgsAsync(),
-                          P.delete(),
+                          P.delete("download_error"),
                           o(
                             "WAWebCryptoImageStreamer",
                           ).deleteFromInMemoryMediaBlobCache(Q, t),
@@ -910,7 +910,7 @@ __d(
                             progressiveStage: null,
                           }),
                           P.notifyMsgsAsync(),
-                          P.delete(),
+                          P.delete("download_error"),
                           o(
                             "WAWebCryptoImageStreamer",
                           ).deleteFromInMemoryMediaBlobCache(Q, t),

@@ -5,6 +5,7 @@ __d(
     "WASmaxMixins",
     "WASmaxOutPreKeysIdentityKeyMixin",
     "WASmaxOutPreKeysKeyTypeMixin",
+    "WASmaxOutPreKeysNonE2EEAttestationMixin",
     "WASmaxOutPreKeysPQLastResortKeyMixin",
     "WASmaxOutPreKeysPQPreKeyListMixin",
     "WASmaxOutPreKeysPreKeyListMixin",
@@ -18,48 +19,57 @@ __d(
       var t,
         n = e.pQPreKeyListMixinArgs,
         r = e.pQLastResortKeyMixinArgs,
-        a = e.hasKeyType,
+        a = e.keyTypeMixinArgs,
         i = e.verifiedNameMixinArgs,
-        l = e.requestPaddingMixinArgs,
-        s = (t = o("WASmaxMixins")).optionalMerge(
+        l = e.nonE2EEAttestationMixinArgs,
+        s = e.requestPaddingMixinArgs,
+        u = (t = o("WASmaxMixins")).optionalMerge(
           o("WASmaxOutPreKeysRequestPaddingMixin").mergeRequestPaddingMixin,
           t.optionalMerge(
-            o("WASmaxOutPreKeysVerifiedNameMixin").mergeVerifiedNameMixin,
+            o("WASmaxOutPreKeysNonE2EEAttestationMixin")
+              .mergeNonE2EEAttestationMixin,
             t.optionalMerge(
-              o("WASmaxOutPreKeysKeyTypeMixin").mergeKeyTypeMixin,
+              o("WASmaxOutPreKeysVerifiedNameMixin").mergeVerifiedNameMixin,
               t.optionalMerge(
-                o("WASmaxOutPreKeysPQLastResortKeyMixin")
-                  .mergePQLastResortKeyMixin,
+                o("WASmaxOutPreKeysKeyTypeMixin").mergeKeyTypeMixin,
                 t.optionalMerge(
-                  o("WASmaxOutPreKeysPQPreKeyListMixin").mergePQPreKeyListMixin,
-                  o("WASmaxOutPreKeysSignedPreKeyMixin").mergeSignedPreKeyMixin(
-                    o("WASmaxOutPreKeysPreKeyListMixin").mergePreKeyListMixin(
-                      o(
-                        "WASmaxOutPreKeysIdentityKeyMixin",
-                      ).mergeIdentityKeyMixin(
+                  o("WASmaxOutPreKeysPQLastResortKeyMixin")
+                    .mergePQLastResortKeyMixin,
+                  t.optionalMerge(
+                    o("WASmaxOutPreKeysPQPreKeyListMixin")
+                      .mergePQPreKeyListMixin,
+                    o(
+                      "WASmaxOutPreKeysSignedPreKeyMixin",
+                    ).mergeSignedPreKeyMixin(
+                      o("WASmaxOutPreKeysPreKeyListMixin").mergePreKeyListMixin(
                         o(
-                          "WASmaxOutPreKeysRegistrationIDMixin",
-                        ).mergeRegistrationIDMixin(
-                          o("WASmaxJsx").smax("iq", null),
+                          "WASmaxOutPreKeysIdentityKeyMixin",
+                        ).mergeIdentityKeyMixin(
+                          o(
+                            "WASmaxOutPreKeysRegistrationIDMixin",
+                          ).mergeRegistrationIDMixin(
+                            o("WASmaxJsx").smax("iq", null),
+                            e,
+                          ),
                           e,
                         ),
                         e,
                       ),
                       e,
                     ),
-                    e,
+                    n,
                   ),
-                  n,
+                  r,
                 ),
-                r,
+                a,
               ),
-              a,
+              i,
             ),
-            i,
+            l,
           ),
-          l,
+          s,
         );
-      return s;
+      return u;
     }
     function s(t, n) {
       var r = e(n);

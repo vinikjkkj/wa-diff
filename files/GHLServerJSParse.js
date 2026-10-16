@@ -22,11 +22,16 @@ __d(
       return o + t.slice(a);
     }
     function m(e) {
-      var t = /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:/.exec(e);
+      var t =
+        /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:\s*(?:\"(?:[^\"\\]|\\.)*\"|[[{]|true|false|null|-?[\d.eE+-]+)/.exec(
+          e,
+        );
       if (t != null) return t[0] + "/*x*/" + e.slice(t[0].length);
-      var n = /\S/.exec(e);
-      return n != null && (e[n.index] === "{" || e[n.index] === "[")
-        ? e.slice(0, n.index + 1) + "/*x*/" + e.slice(n.index + 1)
+      var n = /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:/.exec(e);
+      if (n != null) return n[0] + "/*x*/" + e.slice(n[0].length);
+      var r = /\S/.exec(e);
+      return r != null && (e[r.index] === "{" || e[r.index] === "[")
+        ? e.slice(0, r.index + 1) + "/*x*/" + e.slice(r.index + 1)
         : "/*x*/" + e;
     }
     function p(e) {
@@ -89,7 +94,7 @@ __d(
             } catch (e) {
               R = !1;
             }
-          R || (t = r("json5").fromBlock(m(p)));
+          R || (t = r("json5").fromSlice(m(p)));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
@@ -106,7 +111,7 @@ __d(
         t
       );
     }
-    l.unpackBootPayload = p;
+    l.openBootPayload = p;
   },
   98,
 );

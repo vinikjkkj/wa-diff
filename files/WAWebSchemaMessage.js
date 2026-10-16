@@ -379,6 +379,7 @@ __d(
           .version(n.messageAddProtocolMessageKeyIndex(), [
             s("protocolMessageKey"),
             a("acp2Setting"),
+            a("pollNameHashHistory"),
           ])
           .view(function (e) {
             return e;

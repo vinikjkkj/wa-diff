@@ -231,6 +231,12 @@ __d(
     function R() {
       return s._(/*BTDS*/ "Deselect");
     }
+    function L(e) {
+      return s._(/*BTDS*/ "{title}, {count}", [
+        s._param("title", g()),
+        s._param("count", h(e)),
+      ]);
+    }
     ((l.DISCONNECT_AI_FAQ_ARTICLE_ID = e),
       (l.getAudienceLabel = u),
       (l.getStatusSummary = c),
@@ -246,7 +252,8 @@ __d(
       (l.getExceptionsDeselectAllLabel = b),
       (l.getExceptionsSaveLabel = v),
       (l.getExceptionsSelectedChipLabel = S),
-      (l.getExceptionsDeselectLabel = R));
+      (l.getExceptionsDeselectLabel = R),
+      (l.getExceptionsRowAccessibilityLabel = L));
   },
   226,
 );

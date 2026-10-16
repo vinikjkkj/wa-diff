@@ -39,30 +39,31 @@ __d(
               })();
     }
     var y = (function () {
-      function t(e, t) {
+      function t(e, t, r) {
         ((this.$1 = null),
           (this.$2 = new (o("WAWebHatchNoiseFramer").FrameDecoder)()),
           (this.$3 = 1),
           (this.$4 = new Map()),
           (this.$5 = new Map()),
-          (this.$7 = !1),
-          (this.$8 = (u || (u = n("Promise"))).resolve()),
+          (this.$8 = !1),
+          (this.$9 = (u || (u = n("Promise"))).resolve()),
           (this.$1 = e),
-          (this.$6 = t));
+          (this.$6 = t),
+          (this.$7 = r));
       }
-      t.create = function (n, r) {
-        var e = new t(n, r);
+      t.create = function (n, r, o) {
+        var e = new t(n, r, o);
         return (
           n.attach({
             onClose: function () {
-              return e.$9("Noise channel closed");
+              return e.$10("Noise channel closed");
             },
             onFailure: function (n) {
-              return e.$9(n);
+              return e.$10(n);
             },
             onMessage: function (n) {
-              e.$10(n).catch(function () {
-                return e.$9("Noise response processing failed");
+              e.$11(n).catch(function () {
+                return e.$10("Noise response processing failed");
               });
             },
           }),
@@ -73,16 +74,16 @@ __d(
       return (
         (a.send = function (t) {
           var e = this;
-          if (this.$7)
+          if (this.$8)
             return (u || (u = n("Promise"))).resolve({
               detail: "Noise channel is unavailable",
               kind: "failure",
               reason: "NO_CHANNEL",
             });
-          var r = this.$11();
+          var r = this.$12();
           if (r == null)
             return (
-              this.$9("Noise stream ID space exhausted"),
+              this.$10("Noise stream ID space exhausted"),
               (u || (u = n("Promise"))).resolve({
                 detail: "Noise stream ID space exhausted",
                 kind: "failure",
@@ -100,7 +101,7 @@ __d(
                   kind: "failure",
                   reason: "TIMEOUT",
                 }),
-                a && e.$12(r, o, f, "timeout"));
+                a && e.$13(r, o, f, "timeout"));
             }, t.timeoutMs);
             (e.$4.set(r, {
               bodyParts: [],
@@ -111,8 +112,8 @@ __d(
               statusCode: null,
               timeout: a,
             }),
-              e.$13(r, t, o).catch(function () {
-                e.$14(r, {
+              e.$14(r, t, o).catch(function () {
+                e.$15(r, {
                   detail: "Noise request send failed",
                   kind: "failure",
                   reason: "TRANSPORT",
@@ -123,10 +124,10 @@ __d(
         (a.openStream = function (t, n) {
           var e,
             r = this;
-          if (this.$7) return null;
-          var a = this.$11();
+          if (this.$8) return null;
+          var a = this.$12();
           if (a == null)
-            return (this.$9("Noise stream ID space exhausted"), null);
+            return (this.$10("Noise stream ID space exhausted"), null);
           var i = h(t.service),
             l = {
               handlers: n,
@@ -138,7 +139,7 @@ __d(
             };
           return (
             this.$5.set(a, l),
-            this.$15(
+            this.$16(
               i,
               {
                 kind: "request",
@@ -146,7 +147,7 @@ __d(
                 value: {
                   body: (e = t.body) != null ? e : new Uint8Array(0),
                   endBody: l.isBodyEnded,
-                  headers: b(this.$6, t),
+                  headers: b(this.$6, this.$7, t),
                   path: o("WAWebHatchVmTransport").serializeJarvisPath(t.path),
                   verb: t.method,
                 },
@@ -155,14 +156,14 @@ __d(
                 return ((l.isWritten = r.$5.get(a) === l), l.isWritten);
               },
             ).catch(function () {
-              return r.$16(a, "Noise request send failed");
+              return r.$17(a, "Noise request send failed");
             }),
             {
               close: function () {
                 r.$5.get(a) === l &&
                   (r.$5.delete(a),
                   r
-                    .$15(
+                    .$16(
                       i,
                       {
                         kind: "reset",
@@ -174,16 +175,16 @@ __d(
                       },
                     )
                     .catch(function () {
-                      return r.$9("Noise reset send failed");
+                      return r.$10("Noise reset send failed");
                     }));
               },
               write: function (t) {
-                return r.$17(a, l, t);
+                return r.$18(a, l, t);
               },
             }
           );
         }),
-        (a.$17 = function (t, n, r) {
+        (a.$18 = function (t, n, r) {
           var e = this;
           if (
             this.$5.get(t) !== n ||
@@ -194,7 +195,7 @@ __d(
           var o = r.slice();
           return (
             (n.queuedBytes += o.length),
-            this.$15(
+            this.$16(
               n.service,
               {
                 kind: "bodyChunk",
@@ -209,16 +210,16 @@ __d(
                 n.queuedBytes -= o.length;
               },
               function () {
-                return e.$16(t, "Noise stream write failed");
+                return e.$17(t, "Noise stream write failed");
               },
             ),
             !0
           );
         }),
-        (a.$13 = function (t, n, r) {
+        (a.$14 = function (t, n, r) {
           var e,
             a = this;
-          return this.$15(
+          return this.$16(
             r,
             {
               kind: "request",
@@ -226,44 +227,44 @@ __d(
               value: {
                 body: (e = n.body) != null ? e : new Uint8Array(0),
                 endBody: !0,
-                headers: C(this.$6, n.method),
+                headers: C(this.$6, this.$7, n.method),
                 path: o("WAWebHatchVmTransport").serializeJarvisPath(n.path),
                 verb: n.method,
               },
             },
             function () {
-              return a.$18(t);
+              return a.$19(t);
             },
           );
         }),
-        (a.$18 = function (t) {
+        (a.$19 = function (t) {
           var e = this.$4.get(t);
           return e == null ? !1 : ((e.isWritten = !0), !0);
         }),
-        (a.$12 = function (t, n, r, a) {
+        (a.$13 = function (t, n, r, a) {
           var e = this;
-          this.$15(
+          this.$16(
             n,
             { kind: "reset", streamId: t, value: { code: r, reason: a } },
             o("WAWebBoolFunc").returnTrue,
           ).catch(function () {
-            return e.$9("Noise reset send failed");
+            return e.$10("Noise reset send failed");
           });
         }),
-        (a.$15 = function (t, n, o) {
+        (a.$16 = function (t, n, o) {
           var e = this,
-            a = this.$8.then(function () {
-              return e.$19(t, n, o);
+            a = this.$9.then(function () {
+              return e.$20(t, n, o);
             });
-          return ((this.$8 = a.then(r("WAWebNoop"), r("WAWebNoop"))), a);
+          return ((this.$9 = a.then(r("WAWebNoop"), r("WAWebNoop"))), a);
         }),
-        (a.$19 = (function () {
+        (a.$20 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, a) {
-              if (this.$7)
+              if (this.$8)
                 throw r("err")("WAWebHatchNoiseVmTransport: channel failed");
               if (a()) {
-                var i = this.$20(),
+                var i = this.$21(),
                   l = o("WAWebHatchNoiseFramer").encodeFrames(
                     o("WAWebHatchNoiseServiceCodec").encodeServiceRequest(
                       e,
@@ -276,13 +277,13 @@ __d(
                       return i.encryptCipher.encryptWithAd(c, e);
                     }),
                   );
-                  if (this.$7)
+                  if (this.$8)
                     throw r("err")(
                       "WAWebHatchNoiseVmTransport: channel failed",
                     );
                   for (var d of s) i.socket.send(d);
                 } catch (e) {
-                  throw (this.$9("Noise request send failed"), e);
+                  throw (this.$10("Noise request send failed"), e);
                 }
               }
             },
@@ -292,13 +293,13 @@ __d(
           }
           return t;
         })()),
-        (a.$10 = (function () {
+        (a.$11 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             if (!(e instanceof ArrayBuffer))
               throw r("err")(
                 "WAWebHatchNoiseVmTransport: expected binary data",
               );
-            var t = yield this.$20().decryptCipher.decryptWithAd(
+            var t = yield this.$21().decryptCipher.decryptWithAd(
                 c,
                 new Uint8Array(e),
               ),
@@ -324,7 +325,7 @@ __d(
                   ) {
                     var s = l.streamId,
                       u = l.value;
-                    this.$21(s, i, u);
+                    this.$22(s, i, u);
                     break e;
                   }
                   if (
@@ -337,10 +338,10 @@ __d(
                     var d = l.streamId,
                       m = l.value;
                     if (i.statusCode == null) {
-                      this.$22(d, i, "VM response body arrived before headers");
+                      this.$23(d, i, "VM response body arrived before headers");
                       return;
                     }
-                    this.$23(d, i, m.data, m.endBody);
+                    this.$24(d, i, m.data, m.endBody);
                     break e;
                   }
                   if (
@@ -352,7 +353,7 @@ __d(
                   ) {
                     var p = l.streamId,
                       _ = l.value;
-                    this.$16(p, _.reason);
+                    this.$17(p, _.reason);
                     break e;
                   }
                   throw Error(
@@ -376,16 +377,16 @@ __d(
                     var y = h.streamId,
                       C = h.value;
                     if (f.statusCode != null) {
-                      this.$24(
+                      this.$25(
                         y,
                         "VM sent a second response for one request",
                         g,
                       );
                       return;
                     }
-                    if (((f.statusCode = C.status), !this.$25(y, f, C.body)))
+                    if (((f.statusCode = C.status), !this.$26(y, f, C.body)))
                       return;
-                    C.endBody && this.$26(y, f);
+                    C.endBody && this.$27(y, f);
                     break e;
                   }
                   if (
@@ -398,11 +399,11 @@ __d(
                     var b = h.streamId,
                       v = h.value;
                     if (f.statusCode == null) {
-                      this.$24(b, "VM response body arrived before headers", g);
+                      this.$25(b, "VM response body arrived before headers", g);
                       return;
                     }
-                    if (!this.$25(b, f, v.data)) return;
-                    v.endBody && this.$26(b, f);
+                    if (!this.$26(b, f, v.data)) return;
+                    v.endBody && this.$27(b, f);
                     break e;
                   }
                   if (
@@ -414,7 +415,7 @@ __d(
                   ) {
                     var S = h.streamId,
                       R = h.value;
-                    this.$14(S, {
+                    this.$15(S, {
                       detail: R.reason,
                       kind: "failure",
                       reason: "TRANSPORT",
@@ -433,28 +434,28 @@ __d(
           }
           return t;
         })()),
-        (a.$21 = function (t, n, r) {
+        (a.$22 = function (t, n, r) {
           if (n.statusCode != null) {
-            this.$22(t, n, "VM sent a second response for one request");
+            this.$23(t, n, "VM sent a second response for one request");
             return;
           }
           ((n.statusCode = r.status),
-            this.$27(t, n, function () {
+            this.$28(t, n, function () {
               return n.handlers.onResponse(r.status);
-            }) && this.$23(t, n, r.body, r.endBody));
+            }) && this.$24(t, n, r.body, r.endBody));
         }),
-        (a.$23 = function (t, n, r, o) {
+        (a.$24 = function (t, n, r, o) {
           (r.length > 0 &&
             this.$5.get(t) === n &&
-            this.$27(t, n, function () {
+            this.$28(t, n, function () {
               return n.handlers.onData(r.slice());
             }),
             o &&
               this.$5.get(t) === n &&
-              (this.$16(t, null),
-              n.isBodyEnded || this.$12(t, n.service, _, "cancelled")));
+              (this.$17(t, null),
+              n.isBodyEnded || this.$13(t, n.service, _, "cancelled")));
         }),
-        (a.$27 = function (n, a, i) {
+        (a.$28 = function (n, a, i) {
           try {
             return (i(), !0);
           } catch (t) {
@@ -468,15 +469,15 @@ __d(
                 )
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("hatch-noise-stream-handler-failed"),
-              this.$22(n, a, "Stream handler failed"),
+              this.$23(n, a, "Stream handler failed"),
               !1
             );
           }
         }),
-        (a.$22 = function (t, n, r) {
-          (this.$16(t, r), this.$12(t, n.service, g, r));
+        (a.$23 = function (t, n, r) {
+          (this.$17(t, r), this.$13(t, n.service, g, r));
         }),
-        (a.$16 = function (t, n) {
+        (a.$17 = function (t, n) {
           var e = this.$5.get(t);
           if (e != null) {
             this.$5.delete(t);
@@ -495,15 +496,15 @@ __d(
             }
           }
         }),
-        (a.$25 = function (t, n, r) {
+        (a.$26 = function (t, n, r) {
           return r.length > d - n.bodySize
-            ? (this.$24(t, "VM response exceeds size limit", _), !1)
+            ? (this.$25(t, "VM response exceeds size limit", _), !1)
             : ((n.bodySize += r.length), n.bodyParts.push(r.slice()), !0);
         }),
-        (a.$26 = function (t, n) {
+        (a.$27 = function (t, n) {
           var e = n.statusCode;
           if (e == null) {
-            this.$14(t, {
+            this.$15(t, {
               detail: "VM response body arrived before headers",
               kind: "failure",
               reason: "TRANSPORT",
@@ -513,30 +514,30 @@ __d(
           var r = new Uint8Array(n.bodySize),
             o = 0;
           for (var a of n.bodyParts) (r.set(a, o), (o += a.length));
-          this.$14(t, { body: r, kind: "response", statusCode: e });
+          this.$15(t, { body: r, kind: "response", statusCode: e });
         }),
-        (a.$24 = function (t, n, r) {
+        (a.$25 = function (t, n, r) {
           var e,
             o = (e = this.$4.get(t)) == null ? void 0 : e.service;
-          (this.$14(t, { detail: n, kind: "failure", reason: "TRANSPORT" }),
-            o != null && this.$12(t, o, r, n));
+          (this.$15(t, { detail: n, kind: "failure", reason: "TRANSPORT" }),
+            o != null && this.$13(t, o, r, n));
         }),
-        (a.$14 = function (t, n) {
+        (a.$15 = function (t, n) {
           var e = this.$4.get(t);
           e != null &&
             (this.$4.delete(t), self.clearTimeout(e.timeout), e.resolve(n));
         }),
-        (a.$9 = function (t) {
-          if (!this.$7) {
-            this.$7 = !0;
-            var e = this.$20();
+        (a.$10 = function (t) {
+          if (!this.$8) {
+            this.$8 = !0;
+            var e = this.$21();
             e.close();
             for (var n of this.$4.keys())
-              this.$14(n, { detail: t, kind: "failure", reason: "TRANSPORT" });
-            for (var r of this.$5.keys()) this.$16(r, t);
+              this.$15(n, { detail: t, kind: "failure", reason: "TRANSPORT" });
+            for (var r of this.$5.keys()) this.$17(r, t);
           }
         }),
-        (a.$20 = function () {
+        (a.$21 = function () {
           var e = this.$1;
           if (e == null)
             throw r("err")(
@@ -544,7 +545,7 @@ __d(
             );
           return e;
         }),
-        (a.$11 = function () {
+        (a.$12 = function () {
           if (this.$3 > m) return null;
           var e = this.$3;
           return ((this.$3 += 1), e);
@@ -552,21 +553,23 @@ __d(
         t
       );
     })();
-    function C(e, t) {
-      var n = [v(e)];
+    function C(e, t, n) {
+      var r = [v(e)];
       return (
-        t !== "GET" &&
-          n.push({ key: "Content-Type", value: "application/json" }),
-        n
+        n !== "GET" &&
+          r.push({ key: "Content-Type", value: "application/json" }),
+        t != null && r.push({ key: "Accept-Language", value: t }),
+        r
       );
     }
-    function b(e, t) {
-      var n = [v(e)];
+    function b(e, t, n) {
+      var r = [v(e)];
       return (
-        t.body != null &&
-          n.push({ key: "Content-Type", value: "application/json" }),
-        t.accept != null && n.push({ key: "Accept", value: t.accept }),
-        n
+        n.body != null &&
+          r.push({ key: "Content-Type", value: "application/json" }),
+        n.accept != null && r.push({ key: "Accept", value: n.accept }),
+        t != null && r.push({ key: "Accept-Language", value: t }),
+        r
       );
     }
     function v(e) {

@@ -322,7 +322,11 @@ __d(
                       .CANCELLATION,
                   }
                 );
-              var i = n.entries.getUploadEntry(!0);
+              var i = o("WAWebMediaMmsV4Upload").getUploadEntryForMediaType(
+                n.entries,
+                !0,
+                "sticker",
+              );
               if (i instanceof o("WAWebMediaEntry").UnencryptedMediaEntry)
                 return (
                   h++,
@@ -345,6 +349,7 @@ __d(
                 fileOrigin: null,
                 mediaKeyInfo: s,
                 isViewOnce: !0,
+                uploadEntry: i,
               });
             });
           h > 0 &&

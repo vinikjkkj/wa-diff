@@ -21,6 +21,7 @@ __d(
     "WAWebMessagePosition",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebPttFindSequentialMsg",
     "WAWebPtvDownloadState.react",
     "WAWebSpinner.react",
@@ -198,7 +199,7 @@ __d(
         i = t.displayAuthor,
         l = t.displayType,
         u = t.mediaData,
-        d = t.msg,
+        d = t.msgKey,
         h = t.position,
         y = t.quotedMsg,
         C = o("WAWebABProps").getABPropConfigValue("ptv_max_duration_seconds"),
@@ -213,13 +214,14 @@ __d(
         x = T[0],
         M = T[1],
         w = _(null),
-        A = o("useWAWebMsgValues").useMsgValues(d.id, [
+        A = o("useWAWebMsgValues").useMsgValues(d, [
           (n = o("WAWebMsgGetters")).getId,
           n.getIsSentByMe,
           o("WAWebFrontendMsgGetters").getSenderObj,
           n.getHasReaction,
           n.getIsGroupHistoryMessageInOwnChat,
           o("WAWebFrontendMsgGetters").getIsTransparentMsg,
+          n.getIsNewsletterMsg,
         ]),
         F = A[0],
         O = A[1],
@@ -227,7 +229,7 @@ __d(
         W = A[3],
         q = A[4],
         U = A[5],
-        V = o("WAWebFrontendMsgGetters").getChat(d.unsafe()),
+        V = A[6],
         H = o("useWAWebMediaDataValues").useMediaDataValues(u, [
           (a = o("WAWebMediaDataGetters")).getMediaStage,
           a.getRenderableUrl,
@@ -242,19 +244,26 @@ __d(
         Q = H[4],
         X = S,
         Y = x != null ? Math.min(x, C) : null,
-        J = o("useWAWebSendViewCount").useSendViewCount(d.id, {
+        J = o("useWAWebSendViewCount").useSendViewCount(d, {
           mediaData: u,
           displayType: l,
         });
-      (o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(d.id),
+      (o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(d),
         p(
           function () {
-            o("WAWebDownloadVideoThumbnail").downloadVideoThumbnail({
-              msg: o("WAWebStateUtils").unproxy(d),
-              chat: V,
-            });
+            var e,
+              t =
+                (e = o("WAWebMsgCollection").MsgCollection.get(d)) == null
+                  ? void 0
+                  : e.safe();
+            t == null ||
+              t.type !== o("WAWebMsgType").MSG_TYPE.PTV ||
+              o("WAWebDownloadVideoThumbnail").downloadVideoThumbnail({
+                msg: o("WAWebStateUtils").unproxy(t),
+                chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
+              });
           },
-          [d, V],
+          [d],
         ));
       var Z = f(!1),
         ee = Z[0],
@@ -317,7 +326,7 @@ __d(
           o("WAWebCmd").Cmd,
           "sequential_ptv_playback",
           function (e) {
-            !b.current || !d.id.equals(e) || le(!0, "sequential-ptv-playback");
+            !b.current || !d.equals(e) || le(!0, "sequential-ptv-playback");
           },
         ));
       var ce = _(0),
@@ -329,7 +338,7 @@ __d(
               return;
             }
             (e.seek(0), e.play(), le(!1, "loop"));
-            var t = o("WAWebPttFindSequentialMsg").findSequentialPtv(d);
+            var t = o("WAWebPttFindSequentialMsg").findSequentialPtv(d, V);
             t && o("WAWebCmd").Cmd.playNextPtv(t.id);
           }
         },
@@ -360,12 +369,14 @@ __d(
             var e = ne.current;
             if (((ne.current = ee), ee && e === !1)) {
               var t = b.current;
-              (t &&
-                (t.seek(0),
-                t.play(),
-                o("WAWebMarkPlayedMsgAction").canMarkPlayed(d.unsafe()) &&
-                  o("WAWebMarkPlayedMsgAction").markPlayed(d.unsafe())),
-                (ce.current = 0));
+              if (t) {
+                (t.seek(0), t.play());
+                var n = o("WAWebMsgCollection").MsgCollection.get(d);
+                n != null &&
+                  o("WAWebMarkPlayedMsgAction").canMarkPlayed(n) &&
+                  o("WAWebMarkPlayedMsgAction").markPlayed(n);
+              }
+              ce.current = 0;
             }
           },
           [ee, d],
@@ -383,7 +394,7 @@ __d(
           isTransparent: U,
           displayType: l,
           xstyle: q && D.groupHistoryMessage,
-          children: c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: d.id }),
+          children: c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: d }),
         }),
         ve = c.jsx(c.Fragment, {
           children:
@@ -438,7 +449,7 @@ __d(
                 ),
                 {
                   children: c.jsx(r("WAWebMessageAuthor.react"), {
-                    msgKey: d.id,
+                    msgKey: d,
                     contact: B,
                     displayType: l,
                   }),
@@ -512,7 +523,9 @@ __d(
                       mediaStage: G,
                       isPlaying: he,
                       onDownloadClick: function () {
-                        d.forceDownloadMediaEvenIfExpensive();
+                        var e;
+                        (e = o("WAWebMsgCollection").MsgCollection.get(d)) ==
+                          null || e.forceDownloadMediaEvenIfExpensive();
                       },
                     }),
                     G === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&

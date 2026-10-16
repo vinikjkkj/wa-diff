@@ -1,29 +1,20 @@
 __d(
   "WAWebMediaGetDownloadOriginForMsg",
   [
-    "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
+    "WAWebMediaGetDownloadOriginFor",
     "WAWebMsgGetters",
-    "WAWebWamEnumDownloadOriginType",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (o("WAWebFrontendMsgGetters").getAsProduct(e))
-        return o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
-          .PRODUCT_CATALOG;
-      if (o("WAWebMsgGetters").getIsStatus(e))
-        return o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
-          .STATUS_USER;
-      if (o("WAWebMsgGetters").getIsGroupMsg(e)) {
-        var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
-        return t != null && o("WAWebFrontendChatGetters").getIsCAG(t)
-          ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.COMMUNITY
-          : o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.CHAT_GROUP;
-      }
-      return o("WAWebMsgGetters").getIsNewsletterMsg(e)
-        ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.CHANNEL
-        : o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
-            .CHAT_PERSONAL;
+      var t = o("WAWebMsgGetters").getIsGroupMsg(e);
+      return r("WAWebMediaGetDownloadOriginFor")({
+        chat: t ? o("WAWebFrontendMsgGetters").getMaybeChat(e) : null,
+        isGroupMsg: t,
+        isNewsletterMsg: o("WAWebMsgGetters").getIsNewsletterMsg(e),
+        isProduct: o("WAWebFrontendMsgGetters").getAsProduct(e) != null,
+        isStatus: o("WAWebMsgGetters").getIsStatus(e),
+      });
     }
     l.default = e;
   },

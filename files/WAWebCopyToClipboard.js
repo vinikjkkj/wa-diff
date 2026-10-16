@@ -88,35 +88,55 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (!m()) throw r("err")("Clipboard API not supported");
-          var a =
-              t.type === "image/png"
-                ? (s || (s = n("Promise"))).resolve(t)
-                : new (s || (s = n("Promise")))(function (e) {
-                    var n = new Image();
-                    ((n.onload = function () {
-                      var t = document.createElement("canvas"),
-                        r = t.getContext("2d");
-                      ((t.width = n.naturalWidth),
-                        (t.height = n.naturalHeight),
-                        r.drawImage(n, 0, 0),
-                        t.toBlob(e, "image/png", 1));
-                    }),
-                      (n.src = URL.createObjectURL(t)));
-                  }),
-            i = new window.ClipboardItem({ "image/png": a });
-          navigator.clipboard.write([i]).catch(function (t) {
-            return o("WALogger")
-              .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Write image to clipboard failed",
-                  ])),
-              )
-              .sendLogs(String(t));
-          });
+          var n = new window.ClipboardItem({ "image/png": h(t) });
+          try {
+            return (yield navigator.clipboard.write([n]), !0);
+          } catch (t) {
+            return (
+              o("WALogger")
+                .LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Write image to clipboard failed",
+                    ])),
+                )
+                .sendLogs(String(t)),
+              !1
+            );
+          }
         })),
         g.apply(this, arguments)
       );
+    }
+    function h(e) {
+      if (e.type === "image/png") return (s || (s = n("Promise"))).resolve(e);
+      var t = URL.createObjectURL(e);
+      return new (s || (s = n("Promise")))(function (e, n) {
+        var o = new Image();
+        ((o.onload = function () {
+          try {
+            var t = document.createElement("canvas");
+            ((t.width = o.naturalWidth),
+              (t.height = o.naturalHeight),
+              r("nullthrows")(t.getContext("2d")).drawImage(o, 0, 0),
+              t.toBlob(
+                function (t) {
+                  t == null ? n(r("err")("PNG conversion failed")) : e(t);
+                },
+                "image/png",
+                1,
+              ));
+          } catch (e) {
+            n(e);
+          }
+        }),
+          (o.onerror = function () {
+            return n(r("err")("Image decode failed"));
+          }),
+          (o.src = t));
+      }).finally(function () {
+        return URL.revokeObjectURL(t);
+      });
     }
     ((l.copyElementContentsToClipboard = u),
       (l.supportsCopyImageToClipboard = m),

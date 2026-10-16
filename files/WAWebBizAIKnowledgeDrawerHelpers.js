@@ -20,7 +20,23 @@ __d(
               : e;
           });
     }
-    function d(e) {
+    function d(e, t, n) {
+      var r = new Set();
+      for (var o of t)
+        o.source_type === "FILE_UPLOAD" && r.add(o.user_provided_file_name);
+      for (var a of n) r.add(a.name);
+      var i = [],
+        l = !1;
+      for (var s of e) {
+        if (r.has(s.name)) {
+          l = !0;
+          continue;
+        }
+        (r.add(s.name), i.push(s));
+      }
+      return { hasDuplicate: l, newFiles: i };
+    }
+    function m(e) {
       if (e == null) return null;
       switch (e) {
         case "DESCRIPTION":
@@ -52,7 +68,8 @@ __d(
     ((l.KnowledgeStep = e),
       (l.MAX_PREVIEW_ITEMS = u),
       (l.mergeOptimisticProductImages = c),
-      (l.getKnowledgeTypeLabel = d));
+      (l.partitionNewKnowledgeFiles = d),
+      (l.getKnowledgeTypeLabel = m));
   },
   226,
 );

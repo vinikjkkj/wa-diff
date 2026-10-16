@@ -32,7 +32,7 @@ __d(
     e.model = o("WAWebOrgModel").Org;
     var s = new e();
     function u(e) {
-      var t, n, r, o, a, i, l, s, u;
+      var t, n, r, o, a, i, l, s, u, c;
       return {
         description: (t = e.description) != null ? t : null,
         directoryIsComplete: (n = e.directoryIsComplete) != null ? n : null,
@@ -45,7 +45,7 @@ __d(
         memberCount: (s = e.memberCount) != null ? s : null,
         memberTagOptions: (u = e.memberTagOptions) != null ? u : null,
         name: e.name,
-        viewerRole: e.viewerRole,
+        viewerRole: (c = e.viewerRole) != null ? c : null,
       };
     }
     l.OrgCollection = s;

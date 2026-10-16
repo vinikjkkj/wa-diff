@@ -12,14 +12,20 @@ __d(
       for (var r of e) {
         var a = o("WAWebBizBroadcastsRecipientUtils").getContactByUserId(r);
         if (a != null) {
-          var i = o("WAWebLidMigrationUtils").toPn(a.id);
+          var i = u(a);
           i != null &&
-            n.push(babelHelpers.extends({}, s(a, t), { phone: i.user }));
+            n.push(babelHelpers.extends({}, c(a, t), { phone: i.user }));
         }
       }
       return n;
     }
-    function s(e, t) {
+    function s(e) {
+      return u(e) != null;
+    }
+    function u(e) {
+      return o("WAWebLidMigrationUtils").toPn(e.id);
+    }
+    function c(e, t) {
       if (t) return { first_name: null, last_name: null };
       var n = o("WAWebBizBroadcastsRecipientUtils").getSavedRecipientName(e);
       if (n == null) return { first_name: null, last_name: null };
@@ -28,7 +34,7 @@ __d(
         i = r.lastName;
       return { first_name: a, last_name: i === "" ? null : i };
     }
-    l.toAudienceRecipientsFromContactIds = e;
+    ((l.toAudienceRecipientsFromContactIds = e), (l.hasRecipientPhone = s));
   },
   98,
 );

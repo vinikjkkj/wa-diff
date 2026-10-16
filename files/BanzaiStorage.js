@@ -109,20 +109,20 @@ __d(
                   e.__meta.status !== (s || (s = r("BanzaiConsts"))).POST_SENT
                 );
               });
-            !t ||
-              i.length <= 0 ||
-              ((i = i.map(function (e) {
+            if (!(!t || i.length <= 0)) {
+              var l = i.map(function (e) {
                 return [e[0], e[1], e[2], e[3] || 0, e[4], e.__meta];
-              })),
-              a.splice(0, a.length),
-              (e || (e = r("WebStorage"))).setItemGuarded(
-                t,
-                c +
-                  o("WebSession").getId() +
-                  "." +
-                  (u || (u = r("performanceAbsoluteNow")))(),
-                n("cr:8958").stringify(i),
-              ));
+              });
+              (a.splice(0, a.length),
+                (e || (e = r("WebStorage"))).setItemGuarded(
+                  t,
+                  c +
+                    o("WebSession").getId() +
+                    "." +
+                    (u || (u = r("performanceAbsoluteNow")))(),
+                  n("cr:8958").stringify(l),
+                ));
+            }
           }
         },
       },

@@ -107,6 +107,14 @@ __d(
         }
       return !1;
     }
+    function v() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "poll_tc_receiving_enabled",
+      );
+    }
+    function S() {
+      return o("WAWebABProps").getABPropConfigValue("poll_tc_sending_enabled");
+    }
     ((l.getMaxPollNameLength = e),
       (l.MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES = s),
       (l.getMaxPollOptionLength = u),
@@ -120,7 +128,9 @@ __d(
       (l.isTappableLinksInPollOptionEnabled = h),
       (l.isPollEndTimeSendingEnabled = y),
       (l.isPollHideVotersSendingEnabled = C),
-      (l.isPollCreatorEditSendingEnabled = b));
+      (l.isPollCreatorEditSendingEnabled = b),
+      (l.isPollTCReceivingEnabled = v),
+      (l.isPollTCSendingEnabled = S));
   },
   98,
 );

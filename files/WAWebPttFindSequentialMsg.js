@@ -28,14 +28,13 @@ __d(
         ? a
         : null;
     }
-    function s(e) {
-      var t = e.id,
-        n = r("WAArrayFindNext")(
-          o("WAWebFrontendMsgGetters").getChat(e.unsafe()).msgs.toArray(),
-          function (e) {
-            return t.equals(e.id);
-          },
-        );
+    function s(e, t) {
+      var n = r("WAArrayFindNext")(
+        o("WAWebFrontendMsgGetters").getChatByMsgKey(e, t).msgs.toArray(),
+        function (t) {
+          return e.equals(t.id);
+        },
+      );
       return n ? o("WAWebFrontendMsgGetters").getAsPtv(n) : null;
     }
     ((l.findSequentialMsg = e), (l.findSequentialPtv = s));

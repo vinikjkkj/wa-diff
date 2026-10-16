@@ -48,7 +48,7 @@ __d(
         )));
     }
     function I() {
-      m && (r("clearTimeout")(m), (m = null));
+      m != null && m !== 0 && (r("clearTimeout")(m), (m = null));
     }
     function T(t, n) {
       ((_ = t), (f = _ * 1e3));

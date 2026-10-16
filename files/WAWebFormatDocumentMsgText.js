@@ -1,6 +1,6 @@
 __d(
   "WAWebFormatDocumentMsgText",
-  ["fbt", "WAWebFormatMsgTextUtils", "WAWebUnformatMsg", "fbs"],
+  ["fbt", "WAWebFormatMsgTextUtils", "fbs"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
@@ -16,9 +16,13 @@ __d(
               : null,
           i = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
         return i != null
-          ? n.unformat
-            ? r("WAWebUnformatMsg")(t, i)
-            : i
+          ? n.unformat !== !0
+            ? i
+            : o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
+                t,
+                i,
+                n,
+              )
           : [r("fbs")._(/*BTDS*/ "Document").toString(), a]
               .filter(Boolean)
               .join(" \u2022 ");
@@ -28,7 +32,8 @@ __d(
           t.mediaData.parsedVcards,
         );
       var l = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
-      if (l != null && l !== "" && t.isCaptionByUser) return l;
+      if (l != null && l !== "" && t.isCaptionByUser)
+        return o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(l, n);
       var u =
         t.pageCount > 0
           ? s

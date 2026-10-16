@@ -5,6 +5,7 @@ __d(
     "WAWebBotUtils",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebFormatMsgTextUtils",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
@@ -12,7 +13,6 @@ __d(
     "WAWebRichResponseMsgUtils",
     "WAWebRichResponseTableFragmentText.react",
     "WAWebRichResponseUnknownFragmentUtils",
-    "WAWebUnformatMsg",
     "WAWebUnifiedResponseUtils",
     "getPlainTextFromUnifiedResponse",
   ],
@@ -29,6 +29,7 @@ __d(
           t,
           r("getPlainTextFromUnifiedResponse")(a.unifiedResponse),
           n.formatAsLastMsg === !0,
+          n,
         );
       if (
         a == null ||
@@ -48,14 +49,22 @@ __d(
           .join("\n");
       return c.trim() === ""
         ? o("WAWebFormatUnknownMsg").formatUnknownMsgText(t)
-        : r("WAWebUnformatMsg")(t, c);
+        : o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
+            t,
+            c,
+            n,
+          );
     }
-    function u(e, t, n) {
-      var o = t.trim() === "" && n ? c(e) : null;
-      return o == null
-        ? r("WAWebUnformatMsg")(e, t)
+    function u(e, t, n, r) {
+      var a = t.trim() === "" && n ? c(e) : null;
+      return a == null
+        ? o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
+            e,
+            t,
+            r,
+          )
         : s._(/*BTDS*/ "A message from {agent name}", [
-            s._param("agent name", o),
+            s._param("agent name", a),
           ]);
     }
     function c(e) {

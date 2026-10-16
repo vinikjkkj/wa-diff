@@ -42,7 +42,10 @@ __d(
         : (p != null ||
             ((p = o("WAWebQplFlowWrapper").QPL.markerStart(m, {
               annotations: {
-                bool: { wa_web_media_wasm_worker_split: r("gkx")("24042") },
+                bool: {
+                  mh_default_async_await_wa: r("gkx")("8891"),
+                  wa_web_media_wasm_worker_split: r("gkx")("24042"),
+                },
                 string: {
                   logged_out_separation: o(
                     "WAWebLoggedOutSeparationGating",

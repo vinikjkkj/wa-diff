@@ -17,7 +17,10 @@ __d(
     ((e.nestable = o("WAWebBoolFunc").returnTrue),
       (e.format = !0),
       (e.fragment = !1),
+      (e.maskOnUnformat = !1),
+      (e.previewChildrenOnly = !1),
       (e.compatibility = !1),
+      (e.ellipsifiable = !1),
       (e.mutates = !1),
       (l.default = e));
   },

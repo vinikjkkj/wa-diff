@@ -1,17 +1,6 @@
 __d(
   "WASmaxInPreKeysFetchKeyBundlesUserSuccessMixin",
-  [
-    "WAResultOrError",
-    "WASmaxInPreKeysBotIdentityKeyAuthMixin",
-    "WASmaxInPreKeysDeviceIdentityMixin",
-    "WASmaxInPreKeysIdentityKeyMixin",
-    "WASmaxInPreKeysKeyTypeMixin",
-    "WASmaxInPreKeysPQKeyMixin",
-    "WASmaxInPreKeysPreKeyMixin",
-    "WASmaxInPreKeysRegistrationIDMixin",
-    "WASmaxInPreKeysSignedPreKeyMixin",
-    "WASmaxParseUtils",
-  ],
+  ["WAResultOrError", "WASmaxInPreKeysDeviceSuccessMixin", "WASmaxParseUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "user");
@@ -31,38 +20,12 @@ __d(
         "true",
       );
       if (!r.success) return r;
-      var a = o("WASmaxInPreKeysRegistrationIDMixin").parseRegistrationIDMixin(
-        e,
-      );
-      if (!a.success) return a;
-      var i = o("WASmaxInPreKeysKeyTypeMixin").parseKeyTypeMixin(e),
-        l = o("WASmaxInPreKeysIdentityKeyMixin").parseIdentityKeyMixin(e);
-      if (!l.success) return l;
-      var s = o(
-          "WASmaxInPreKeysBotIdentityKeyAuthMixin",
-        ).parseBotIdentityKeyAuthMixin(e),
-        u = o("WASmaxInPreKeysPreKeyMixin").parsePreKeyMixin(e),
-        c = o("WASmaxInPreKeysSignedPreKeyMixin").parseSignedPreKeyMixin(e);
-      if (!c.success) return c;
-      var d = o("WASmaxInPreKeysPQKeyMixin").parsePQKeyMixin(e),
-        m = o("WASmaxInPreKeysDeviceIdentityMixin").parseDeviceIdentityMixin(e);
-      return o("WAResultOrError").makeResult(
-        babelHelpers.extends(
-          { t: n.value, isCloudApi: r.value },
-          a.value,
-          { keyTypeMixin: i.success ? i.value : null },
-          l.value,
-          {
-            botIdentityKeyAuthMixin: s.success ? s.value : null,
-            preKeyMixin: u.success ? u.value : null,
-          },
-          c.value,
-          {
-            pQKeyMixin: d.success ? d.value : null,
-            deviceIdentityMixin: m.success ? m.value : null,
-          },
-        ),
-      );
+      var a = o("WASmaxInPreKeysDeviceSuccessMixin").parseDeviceSuccessMixin(e);
+      return a.success
+        ? o("WAResultOrError").makeResult(
+            babelHelpers.extends({ t: n.value, isCloudApi: r.value }, a.value),
+          )
+        : a;
     }
     l.parseFetchKeyBundlesUserSuccessMixin = e;
   },

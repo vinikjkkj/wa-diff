@@ -29,46 +29,20 @@ __d(
       u,
       c,
       d,
-      m,
-      p,
-      _,
-      f = _ || (_ = o("react")),
-      g = 500;
-    function h(e) {
-      var t;
-      return (t = e.entryTrust) != null ? t : "deep_link";
-    }
-    function y(t, n) {
-      var a =
-        n === "before_ask"
+      m = d || (d = o("react")),
+      p = 500;
+    function _(e, t) {
+      var n =
+        t === "before_ask"
           ? o("WAWebCoreActionsODS").logDeepLinkCallNotAllowed
           : o("WAWebCoreActionsODS").logDeepLinkCallRefusedAfterAsk;
       return r("WAWebCallCollection").activeCall != null
-        ? (a(),
-          o("WAWebVoipCallBlockedModals").showEndCurrentCallToast(),
-          o("WALogger")
-            .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: deep-link call refused \u2014 already in a call",
-                ])),
-            )
-            .sendLogs("deep-link-call-already-in-call"),
-          !1)
-        : C(t)
-          ? (a(),
-            o("WALogger")
-              .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: deep-link call refused \u2014 callee is blocked",
-                  ])),
-              )
-              .sendLogs("deep-link-call-blocked-callee"),
-            !1)
+        ? (n(), o("WAWebVoipCallBlockedModals").showEndCurrentCallToast(), !1)
+        : f(e)
+          ? (n(), !1)
           : !0;
     }
-    function C(e) {
+    function f(e) {
       if (o("WAWebBlocklistCollection").BlocklistCollection.get(e) != null)
         return !0;
       var t = o("WAWebLidMigrationUtils").toLid(e);
@@ -77,69 +51,61 @@ __d(
         o("WAWebBlocklistCollection").BlocklistCollection.get(t) != null
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function v() {
+    function h() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           o("WAWebCoreActionsODS").logDeepLinkCallConfirmShown();
           try {
-            var n = yield E(e),
-              a = yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
-                okInputGuardMs: g,
+            var a = yield v(t),
+              i = yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
+                okInputGuardMs: p,
                 onOkInputGuarded: o("WAWebCoreActionsODS")
                   .logDeepLinkCallConfirmGuardSwallowed,
                 okIcon: r(
-                  t
+                  n
                     ? "WDSIconIcVideocamFilled.react"
                     : "WDSIconIcCallFilled.react",
                 ),
-                okText: t
+                okText: n
                   ? s._(/*BTDS*/ "Video call")
                   : s._(/*BTDS*/ "Voice call"),
-                children: L(n),
-                title: R(n, t),
+                children: b(a),
+                title: C(a, n),
               });
             return (
-              a
+              i
                 ? o("WAWebCoreActionsODS").logDeepLinkCallConfirmAccepted()
-                : (o("WAWebCoreActionsODS").logDeepLinkCallConfirmDeclined(),
-                  o("WALogger")
-                    .LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: deep-link call declined at the confirmation",
-                        ])),
-                    )
-                    .sendLogs("deep-link-call-declined")),
-              a
+                : o("WAWebCoreActionsODS").logDeepLinkCallConfirmDeclined(),
+              i
             );
-          } catch (e) {
+          } catch (t) {
             return (
               o("WAWebCoreActionsODS").logDeepLinkCallConfirmDeclined(),
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: deep-link call confirmation did not resolve",
                     ])),
                 )
-                .catching(r("getErrorSafe")(e))
+                .catching(r("getErrorSafe")(t))
                 .sendLogs("deep-link-call-confirm-failed"),
               !1
             );
           }
         })),
-        v.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function S(e, t, r) {
+    function y(e, t, r) {
       return e === "user_gesture"
-        ? (p || (p = n("Promise"))).resolve(!0)
-        : b(t, r);
+        ? (c || (c = n("Promise"))).resolve(!0)
+        : g(t, r);
     }
-    function R(e, t) {
+    function C(e, t) {
       var n = e.title;
       return t
         ? s._(/*BTDS*/ "Start a WhatsApp video call with {name}?", [
@@ -149,11 +115,11 @@ __d(
             s._param("name", n),
           ]);
     }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L(e) {
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
       return e.name == null || e.number == null
         ? null
-        : f.jsx(r("WDSText.react"), {
+        : m.jsx(r("WDSText.react"), {
             type: "Body2",
             colorName: "contentDeemphasized",
             textAlign: "center",
@@ -161,27 +127,27 @@ __d(
             children: e.number,
           });
     }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
-      return k.apply(this, arguments);
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function k() {
+    function S() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = I(e);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = R(e);
           if (t == null)
             return {
               name: null,
               number: null,
               title: o("WAWebWidFormat").getUnknownUserOrNumber(),
             };
-          var n = yield T(e);
+          var n = yield L(e);
           return { name: n, number: t, title: n != null ? n : t };
         })),
-        k.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function I(e) {
+    function R(e) {
       if (e.isLid()) {
         var t = o("WAWebApiContact").getPnIfLidIsLatestMapping(
           o("WAWebWidFactory").asUserLidOrThrow(e),
@@ -192,36 +158,36 @@ __d(
         ? o("WAWebWidFormat").widToFormattedUser(e)
         : null;
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function D() {
+    function E() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.isLid()
               ? o("WAWebLidMigrationUtils").toPn(e)
               : o("WAWebLidMigrationUtils").toLid(e),
             r = t != null && !t.equals(e) ? [e, t] : [e],
-            a = yield (p || (p = n("Promise"))).all(r.map(x)),
+            a = yield (c || (c = n("Promise"))).all(r.map(k)),
             i = a.find(function (e) {
               return e != null;
             });
           return i != null &&
             !r.some(function (e) {
-              return P(e, i);
+              return T(e, i);
             })
             ? i
             : null;
         })),
-        D.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function $() {
+    function I() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebContactCollection").ContactCollection.get(e);
           if (t == null) return null;
           var n = o("WAWebContactGetters").getName(t);
@@ -237,8 +203,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: deep-link call could not read address-book membership",
                     ])),
                 )
@@ -248,17 +214,16 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function P(e, t) {
+    function T(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e);
       return n != null && t === o("WAWebContactGetters").getVerifiedName(n);
     }
-    ((l.entryTrustOf = h),
-      (l.canStartDeepLinkCall = y),
-      (l.confirmDeepLinkCall = b),
-      (l.hasOutgoingCallConsent = S));
+    ((l.canStartDeepLinkCall = _),
+      (l.confirmDeepLinkCall = g),
+      (l.hasOutgoingCallConsent = y));
   },
   226,
 );

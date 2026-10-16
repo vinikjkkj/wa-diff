@@ -14,11 +14,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t = /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:/.exec(e);
+      var t =
+        /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:\s*(?:\"(?:[^\"\\]|\\.)*\"|[[{]|true|false|null|-?[\d.eE+-]+)/.exec(
+          e,
+        );
       if (t != null) return t[0] + "/*x*/" + e.slice(t[0].length);
-      var n = /\S/.exec(e);
-      return n != null && (e[n.index] === "{" || e[n.index] === "[")
-        ? e.slice(0, n.index + 1) + "/*x*/" + e.slice(n.index + 1)
+      var n = /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:/.exec(e);
+      if (n != null) return n[0] + "/*x*/" + e.slice(n[0].length);
+      var r = /\S/.exec(e);
+      return r != null && (e[r.index] === "{" || e[r.index] === "[")
+        ? e.slice(0, r.index + 1) + "/*x*/" + e.slice(r.index + 1)
         : "/*x*/" + e;
     }
     function u(t) {
@@ -78,7 +83,7 @@ __d(
           }
         if (!d && n("cr:7329"))
           try {
-            ((c = n("cr:7329").fromBlock(s(t))), (d = !0));
+            ((c = n("cr:7329").fromSlice(s(t))), (d = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))

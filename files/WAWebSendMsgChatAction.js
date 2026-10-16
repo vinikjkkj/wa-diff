@@ -36,8 +36,10 @@ __d(
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
+    "WAWebRichTextFormatMessageSendLogger",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
+    "WAWebSendMsgResultAction",
     "WAWebStateUtils",
     "WAWebThreadMsgUtils",
     "WAWebThreadWriteThroughAction",
@@ -103,11 +105,12 @@ __d(
             ])),
           t.id.toLogString(),
         ));
-      var l = (_ || (_ = n("Promise"))).resolve(a).then(
+      var l,
+        f = (_ || (_ = n("Promise"))).resolve(a).then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var n, a, i, l, _, f;
+                var n, a, i, _, f, g;
                 (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -123,90 +126,92 @@ __d(
                   yield o(
                     "WAWebLidMigrationFrontendUtils",
                   ).validateMissingAccountLid(t, e, "addAndSendMsgToChat"));
-                var g = o(
+                var h = o(
                     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
                   ).getPrivacyModeFromModel(t.id),
-                  h = yield o(
+                  y = yield o(
                     "WAWebMaybeGetAppendedAiThreadAttributes",
                   ).maybeGetAppendedAiThreadAttributes(e),
-                  y = h[0],
-                  C = h[1];
+                  C = y[0],
+                  v = y[1];
                 o(
                   "WAWebBotFrontendLoggingUtils",
                 ).maybeLogFirstPromptSentInAiThread(
                   t,
-                  babelHelpers.extends({}, e, { threadIds: y }),
+                  babelHelpers.extends({}, e, { threadIds: C }),
                 );
-                var v =
+                var S =
                     (a = e.botModeSelection) != null
                       ? a
                       : o(
                           "WAWebMaybeGetBotModeSelection",
                         ).maybeGetBotModeSelection(t, e),
-                  S =
+                  R =
                     (i =
-                      (l = e.botModeOverride) != null
-                        ? l
+                      (_ = e.botModeOverride) != null
+                        ? _
                         : o(
                             "WAWebMaybeGetBotModeSelection",
                           ).maybeGetBotDynamicModeSelection(t, e)) != null
                       ? i
                       : void 0,
-                  R = o("WAWebBotLoggingUtils").maybeGetBotMetricsMetadata(e),
-                  L = babelHelpers.extends({}, e, {
+                  L = o("WAWebBotLoggingUtils").maybeGetBotMetricsMetadata(e),
+                  E = babelHelpers.extends({}, e, {
                     messageSecret: (yield b(t, e))
                       ? self.crypto.getRandomValues(new Uint8Array(32))
                       : e.messageSecret,
                     agentId: o("WAWebBizAgentAction").getAgentId(e),
                     threadIds:
-                      (_ = o(
+                      (f = o(
                         "WAWebMaybeGetAppendedViewRepliesThreadId",
                       ).maybeGetAppendedViewRepliesThreadId(
-                        babelHelpers.extends({}, e, { threadIds: y }),
+                        babelHelpers.extends({}, e, { threadIds: C }),
                       )) != null
-                        ? _
-                        : y,
-                    aiThreadInfo: C,
-                    botModeSelection: v,
-                    botModeOverride: S,
-                    botMetricsMetadata: R,
+                        ? f
+                        : C,
+                    aiThreadInfo: v,
+                    botModeSelection: S,
+                    botModeOverride: R,
+                    botMetricsMetadata: L,
                   });
-                g && (L.privacyModeWhenSent = g);
-                var E = yield o(
+                h && (E.privacyModeWhenSent = h);
+                var k = yield o(
                     "WAWebSendMsgChatActionUtils",
-                  ).maybeDisableEphemeralityForMsg(t, L),
-                  k = E.msgData,
-                  I = E.systemMsgs,
-                  T = new (o("WAWebMsgModel").Msg)(k),
-                  D = o("WAWebMsgCollection").MsgCollection.add(T)[0];
-                if (D) {
-                  var x,
-                    $,
-                    P = !!(
-                      (x = t.groupMetadata) != null && x.isLidAddressingMode
+                  ).maybeDisableEphemeralityForMsg(t, E),
+                  I = k.msgData,
+                  T = k.systemMsgs,
+                  D = new (o("WAWebMsgModel").Msg)(I),
+                  x = o("WAWebMsgCollection").MsgCollection.add(D)[0];
+                if (x) {
+                  var $, P;
+                  l = o(
+                    "WAWebRichTextFormatMessageSendLogger",
+                  ).maybeCreateRichTextFormatMessageSendCommit(x, t.id);
+                  var N = !!(
+                      ($ = t.groupMetadata) != null && $.isLidAddressingMode
                     ),
-                    N = o(
+                    M = o(
                       "WAWebMsgInfoUtils",
                     ).getGroupMessageSendReporterOptions(
                       t.id,
-                      o("WAWebWamMsgUtils").msgIsLid(D, t.id, P),
+                      o("WAWebWamMsgUtils").msgIsLid(x, t.id, N),
                     );
                   if (
-                    ((D.wamMessageSendReporter = new (o(
+                    ((x.wamMessageSendReporter = new (o(
                       "WAWebMessageSendReporter",
                     ).MessageSendReporter)(
-                      D,
-                      babelHelpers.extends({}, N, {
+                      x,
+                      babelHelpers.extends({}, M, {
                         frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                           .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
                       }),
                     )),
-                    (D.wamMessageSendPerfReporter = new (o(
+                    (x.wamMessageSendPerfReporter = new (o(
                       "WAWebMessageSendPerfReporter",
                     ).MessageSendPerfReporter)({
-                      chatWid: D.to,
-                      mediaType: o("WAWebWamMsgUtils").getWamMediaType(D),
-                      messageType: o("WAWebWamMsgUtils").getWamMessageType(D),
+                      chatWid: x.to,
+                      mediaType: o("WAWebWamMsgUtils").getWamMediaType(x),
+                      messageType: o("WAWebWamMsgUtils").getWamMessageType(x),
                     })),
                     o("WALogger").LOG(
                       u ||
@@ -216,8 +221,8 @@ __d(
                         ])),
                       t.id.toLogString(),
                     ),
-                    (f = yield r("WAWebEmptyChatSystemMsg")(D, t)),
-                    !f)
+                    (g = yield r("WAWebEmptyChatSystemMsg")(x, t)),
+                    !g)
                   ) {
                     o("WALogger").LOG(
                       c ||
@@ -225,44 +230,44 @@ __d(
                           "_addAndSendMsgToChat before ephemeral system messages",
                         ])),
                     );
-                    var M = o(
+                    var w = o(
                       "WAWebBizShowOrderEphemeralSystemAction",
-                    ).getMaybeSystemMsgForOrderEphemeralExemption(D, t);
-                    M && (f = [M]);
+                    ).getMaybeSystemMsgForOrderEphemeralExemption(x, t);
+                    w && (g = [w]);
                   }
-                  I && (f = [].concat(f != null ? f : [], I));
-                  var w = o(
+                  T && (g = [].concat(g != null ? g : [], T));
+                  var A = o(
                     "WAWebSendMsgChatActionUtils",
                   ).maybeGetOpusSystemMsg(t, "opus-send-msg-fail");
-                  (w && (f = [w].concat(f != null ? f : [])),
+                  (A && (g = [A].concat(g != null ? g : [])),
                     o("WALogger").LOG(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
                           "_addAndSendMsgToChat after system messages",
                         ])),
                     ));
-                  var A = f ? [].concat(f, [k]) : [k];
+                  var F = g ? [].concat(g, [I]) : [I];
                   return (
-                    ($ = D.wamMessageSendPerfReporter) == null ||
-                      $.startSavedStage(),
+                    (P = x.wamMessageSendPerfReporter) == null ||
+                      P.startSavedStage(),
                     o("WAWebDBProcessMessage")
-                      .storeMessages(A, t.id)
+                      .storeMessages(F, t.id)
                       .then(function () {
                         var e;
                         if (
-                          ((e = D.wamMessageSendPerfReporter) == null ||
+                          ((e = x.wamMessageSendPerfReporter) == null ||
                             e.postSavedStage(),
-                          o("WAWebThreadMsgUtils").isThreadMsg(k) &&
+                          o("WAWebThreadMsgUtils").isThreadMsg(I) &&
                             o(
                               "WAWebDBThreadMetadataBulkHelper",
-                            ).persistNewMessagesThreadMetadataInBulk([k]),
-                          D.type ===
+                            ).persistNewMessagesThreadMetadataInBulk([I]),
+                          x.type ===
                             o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE)
                         ) {
-                          var t = parseInt(D.inviteCodeExp, 10),
-                            n = D.from.isLid()
-                              ? o("WAWebLidMigrationUtils").toLid(D.to)
-                              : D.to;
+                          var t = parseInt(x.inviteCodeExp, 10),
+                            n = x.from.isLid()
+                              ? o("WAWebLidMigrationUtils").toLid(x.to)
+                              : x.to;
                           if (!n) {
                             var r = o(
                               "WAWebLid1X1MigrationGating",
@@ -292,18 +297,18 @@ __d(
                           return o("WAWebDBRevokeInviteV4")
                             .revokeGroupInviteV4({
                               expiration: t,
-                              from: D.from.toString(),
-                              groupId: D.inviteGrp,
+                              from: x.from.toString(),
+                              groupId: x.inviteGrp,
                               to: n.toString(),
                             })
                             .then(function () {
                               return o(
                                 "WAWebApiGroupInviteV4Store",
-                              ).persistGroupInviteV4Msg(D.id.toString(), {
-                                id: D.id.toString(),
-                                from: D.from.toString(),
+                              ).persistGroupInviteV4Msg(x.id.toString(), {
+                                id: x.id.toString(),
+                                from: x.from.toString(),
                                 to: n.toString(),
-                                groupId: D.inviteGrp,
+                                groupId: x.inviteGrp,
                                 expiration: t,
                                 expired: o("WATimeUtils").unixTime() >= t,
                               });
@@ -311,13 +316,13 @@ __d(
                         }
                       })
                       .then(function () {
-                        return D.waitForPrep().then(function () {
-                          return f ? { msg: D, systemMsgs: f } : { msg: D };
+                        return x.waitForPrep().then(function () {
+                          return g ? { msg: x, systemMsgs: g } : { msg: x };
                         });
                       })
                   );
                 }
-                throw new (o("WAWebMiscErrors").ModelCreateError)("Msg", L);
+                throw new (o("WAWebMiscErrors").ModelCreateError)("Msg", E);
               },
             );
             return function (t) {
@@ -325,9 +330,9 @@ __d(
             };
           })(),
         ),
-        f = S(
+        g = S(
           t,
-          l.then(function (e) {
+          f.then(function (e) {
             return (
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.SendMessage,
@@ -336,13 +341,20 @@ __d(
             );
           }),
         ),
-        g = i
-          ? f.then(i).then(function () {
-              return f;
+        h = i
+          ? g.then(i).then(function () {
+              return g;
             })
-          : f,
-        h = R(t, g);
-      return [f, h];
+          : g,
+        y = R(t, h).then(function (e) {
+          return (
+            e.messageSendResult ===
+              o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+              (l == null || l()),
+            e
+          );
+        });
+      return [g, y];
     }
     function b(e, t) {
       return v.apply(this, arguments);

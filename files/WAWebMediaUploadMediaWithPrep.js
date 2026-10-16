@@ -51,8 +51,10 @@ __d(
             h,
             y = (i = a.canEnableFastForward) != null ? i : !0;
           y === !0 &&
-            (h = f.entries.getUploadEntry(
+            (h = o("WAWebMediaMmsV4Upload").getUploadEntryForMediaType(
+              f.entries,
               a.isMediaCryptoExpectedForChat === !0,
+              g,
             ));
           var C =
               h instanceof o("WAWebMediaEntry").EncryptedMediaEntry
@@ -150,7 +152,10 @@ __d(
             O =
               a.isMediaCryptoExpectedForChat === !0
                 ? o("WAWebMediaMmsV4Upload").uploadMedia(
-                    babelHelpers.extends({}, F, { mediaKeyInfo: C }),
+                    babelHelpers.extends({}, F, {
+                      mediaKeyInfo: C,
+                      uploadEntry: h,
+                    }),
                   )
                 : o("WAWebMediaMmsV4Upload").uploadUnencryptedMedia(
                     babelHelpers.extends({}, F, {

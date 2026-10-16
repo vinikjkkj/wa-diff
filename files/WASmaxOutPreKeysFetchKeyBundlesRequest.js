@@ -10,10 +10,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.userJid,
-        n = e.hasUserReasonIdentity,
+        n = e.userReason,
         r = o("WASmaxJsx").smax("user", {
           jid: o("WAWap").JID(t),
-          reason: o("WASmaxAttrs").OPTIONAL_LITERAL("identity", n),
+          reason: o("WASmaxAttrs").OPTIONAL(o("WAWap").CUSTOM_STRING, n),
         });
       return r;
     }

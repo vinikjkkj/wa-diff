@@ -23,6 +23,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "cr:16885",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -377,7 +378,17 @@ __d(
               "updateContactAdvAccountType",
               T,
             );
-          o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(E);
+          (n("cr:16885") == null ||
+            n("cr:16885").observeAeaAdvStates(
+              t.flatMap(function (e) {
+                var t = e.update,
+                  n = e.wid;
+                return t.advAccountType == null
+                  ? []
+                  : [{ user: n, advAccountType: t.advAccountType }];
+              }),
+            ),
+            o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(E));
         })),
         v.apply(this, arguments)
       );

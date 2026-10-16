@@ -16,14 +16,16 @@ __d(
           babelHelpers.inheritsLoose(t, e),
           (t.jsx = function (t, n, o) {
             var e = n.contact,
-              a = o.lastMessage,
-              i = o.selectable,
-              l = o.theme;
+              a = n.groupMetadata,
+              i = o.lastMessage,
+              l = o.selectable,
+              u = o.theme;
             return s.jsx(r("WAWebTextMentionMutatorComponent.react"), {
               contact: e,
-              selectable: i,
-              theme: l,
-              lastMessage: a,
+              groupMetadata: a,
+              selectable: l,
+              theme: u,
+              lastMessage: i,
             });
           }),
           t

@@ -130,55 +130,59 @@ __d(
     }
     P.displayName = P.name + " [from " + i.id + "]";
     function N() {
-      return s._(/*BTDS*/ "Search name or number");
+      return s._(/*BTDS*/ "Select all");
     }
     N.displayName = N.name + " [from " + i.id + "]";
     function M() {
-      return s._(/*BTDS*/ "Search number");
+      return s._(/*BTDS*/ "Search name or number");
     }
     M.displayName = M.name + " [from " + i.id + "]";
     function w() {
+      return s._(/*BTDS*/ "Search number");
+    }
+    w.displayName = w.name + " [from " + i.id + "]";
+    function A() {
       return s._(/*BTDS*/ "Contact list");
     }
-    function A(e) {
+    function F(e) {
       return s._(/*BTDS*/ "Select recipient {recipient phone number}", [
         s._param("recipient phone number", e),
       ]);
     }
-    function F() {
+    function O() {
       return s._(/*BTDS*/ "Load more");
     }
-    F.displayName = F.name + " [from " + i.id + "]";
-    function O() {
+    O.displayName = O.name + " [from " + i.id + "]";
+    function B() {
       return s._(/*BTDS*/ "Loading\u2026");
     }
-    O.displayName = O.name + " [from " + i.id + "]";
-    function B(e) {
+    B.displayName = B.name + " [from " + i.id + "]";
+    function W(e) {
       return s._(/*BTDS*/ "Delete {audience name}?", [
         s._param("audience name", e),
       ]);
     }
-    B.displayName = B.name + " [from " + i.id + "]";
-    function W() {
+    W.displayName = W.name + " [from " + i.id + "]";
+    function q() {
       return s._(
         /*BTDS*/ "This audience and its thread will be permanently deleted and cannot be restored.",
       );
     }
-    W.displayName = W.name + " [from " + i.id + "]";
-    function q() {
-      return s._(/*BTDS*/ "Processing your audience\u2026");
-    }
     q.displayName = q.name + " [from " + i.id + "]";
     function U() {
-      return s._(/*BTDS*/ "We'll update you when it's complete.");
+      return s._(/*BTDS*/ "Processing your audience\u2026");
     }
     U.displayName = U.name + " [from " + i.id + "]";
     function V() {
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
+    }
+    V.displayName = V.name + " [from " + i.id + "]";
+    function H() {
       return s._(
         /*BTDS*/ "Your edits are processing. We'll update you when they're complete.",
       );
     }
-    ((V.displayName = V.name + " [from " + i.id + "]"),
+    ((H.displayName = H.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -202,17 +206,18 @@ __d(
       (l.getChooseRecipientsToAddHeader = x),
       (l.getChooseRecipientsToRemoveHeader = $),
       (l.getSelectedCountSubtitle = P),
-      (l.getSearchPlaceholder = N),
-      (l.getSearchByNumberPlaceholder = M),
-      (l.getContactListAriaLabel = w),
-      (l.getSelectRecipientAriaLabel = A),
-      (l.getLoadMorePaginationLabel = F),
-      (l.getLoadingPaginationLabel = O),
-      (l.getDeleteAudienceModalTitle = B),
-      (l.getDeleteAudienceModalBody = W),
-      (l.getAudienceProcessingTitle = q),
-      (l.getAudienceProcessingSubtitle = U),
-      (l.getAudienceEditsProcessingMessage = V));
+      (l.getSelectAllLabel = N),
+      (l.getSearchPlaceholder = M),
+      (l.getSearchByNumberPlaceholder = w),
+      (l.getContactListAriaLabel = A),
+      (l.getSelectRecipientAriaLabel = F),
+      (l.getLoadMorePaginationLabel = O),
+      (l.getLoadingPaginationLabel = B),
+      (l.getDeleteAudienceModalTitle = W),
+      (l.getDeleteAudienceModalBody = q),
+      (l.getAudienceProcessingTitle = U),
+      (l.getAudienceProcessingSubtitle = V),
+      (l.getAudienceEditsProcessingMessage = H));
   },
   226,
 );

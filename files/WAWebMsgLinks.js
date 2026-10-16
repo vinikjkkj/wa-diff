@@ -8,6 +8,9 @@ __d(
     "WAWebMsgType",
     "WAWebMuseGroupRichResponseLinks",
     "WAWebProtobufsE2E.pb",
+    "WAWebSpoilerFormatRegex",
+    "WAWebSpoilerGating",
+    "WAWebSpoilerNotificationMask",
     "WAWebStateUtils",
     "uniqueBy",
   ],
@@ -169,28 +172,88 @@ __d(
         i = a[0];
       return (i.length > 0 && n.setRawFooterLinks(i), i);
     }
-    function g(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
+    var g = new WeakMap();
+    function h(e) {
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = c(t),
+        r = v(t, n),
+        a = o("WAWebMsgGetters").getLinkPreview(t),
+        i = o("WAWebFrontendMsgGetters").getText(t);
+      if (
+        i == null ||
+        !o("WAWebMsgGetters").getIsSpoiler(t) ||
+        !o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(i) ||
+        !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+      )
+        return {
+          galleryLinks: r,
+          isLinkPreviewHidden: !1,
+          shouldRenderMessageBubble: a,
+          unfilteredGalleryLinks: r,
+        };
+      var l = C(t, i),
+        s = n.filter(function (e) {
+          return l.get(e.index) === e.href;
+        }),
+        u = o("WAWebMsgGetters").getMatchedText(t),
+        d = o("WAWebFrontendMsgGetters")
+          .getLinksInFullText(t)
+          .find(function (e) {
+            return (
+              i.slice(e.index, e.index + e.url.length) === u ||
+              e.url === u ||
+              e.href === u
+            );
+          }),
+        m = y(a, u, d, l),
+        p = v(t, s),
+        _ = r.length > 0 && p.length === 0;
       return {
-        galleryLinks: h(t),
-        shouldRenderMessageBubble: o("WAWebMsgGetters").getLinkPreview(t),
+        galleryLinks: p,
+        isLinkPreviewHidden: m,
+        shouldRenderMessageBubble: a || _,
+        unfilteredGalleryLinks: r,
       };
     }
-    function h(e) {
+    function y(e, t, n, r) {
+      return t === "" ? e : n == null || r.get(n.index) !== n.href;
+    }
+    function C(e, t) {
+      var n = o("WAWebMsgGetters").getSender(e),
+        r = g.get(e);
+      if (r != null && r.text === t && r.sender === n)
+        return r.visibleLinkHrefsByIndex;
+      var a = o("WAWebSpoilerNotificationMask").maskSpoilersPreservingLength(
+          t,
+          { parseBlockCode: !0, parseInlineCode: !0 },
+        ),
+        i = new Map(
+          o("WAWebLinkify")
+            .findLinks(a, !1, n)
+            .map(function (e) {
+              return [e.index, e.href];
+            }),
+        );
+      return (g.set(e, { sender: n, text: t, visibleLinkHrefsByIndex: i }), i);
+    }
+    function b(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      if (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
+      return v(t, c(t));
+    }
+    function v(e, t) {
+      if (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
         var n = o(
           "WAWebMuseGroupRichResponseLinks",
-        ).getMuseGroupRichResponseGalleryLinks(t);
+        ).getMuseGroupRichResponseGalleryLinks(e);
         if (n.length > 0) return n;
       }
-      return r("uniqueBy")(c(t), function (e) {
+      return r("uniqueBy")(t, function (e) {
         return e.href;
       }).filter(function (e) {
         return e.isHttp;
       });
     }
-    function y(e) {
+    function S(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return (
         c(t).length > 0 ||
@@ -200,11 +263,11 @@ __d(
           ).getMuseGroupRichResponseGalleryLinks(t).length > 0)
       );
     }
-    function C(e) {
+    function R(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return t.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE || y(t);
+      return t.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE || S(t);
     }
-    function b(e) {
+    function L(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return o("WAWebFrontendMsgGetters")
         .getLinksInFullText(t)
@@ -220,11 +283,11 @@ __d(
       (l.shouldDisplayHeaderLinks = m),
       (l.getHeaderLinks = _),
       (l.getFooterLinks = f),
-      (l.getLinkGalleryRenderState = g),
-      (l.getGalleryLinks = h),
-      (l.hasLinkGalleryLinks = y),
-      (l.shouldListLinkIndexMsg = C),
-      (l.getSuspiciousLinks = b));
+      (l.getLinkGalleryRenderState = h),
+      (l.getGalleryLinks = b),
+      (l.hasLinkGalleryLinks = S),
+      (l.shouldListLinkIndexMsg = R),
+      (l.getSuspiciousLinks = L));
   },
   98,
 );

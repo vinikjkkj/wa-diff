@@ -5,6 +5,7 @@ __d(
     "CacheStorage",
     "Event",
     "ExecutionEnvironment",
+    "FBLogger",
     "NetworkStatus",
     "StringTransformations",
     "UserActivity",
@@ -37,7 +38,13 @@ __d(
         t == null ||
         !t.keys ||
         h._getLocalStorageKeys().forEach(function (e) {
-          t.keys.includes(e) && (n.removeItem(e), "" + e);
+          t.keys.includes(e) &&
+            (n.removeItem(e),
+            r("FBLogger")("web_storage").warn(
+              'LocalStorage key "' +
+                e +
+                "\" was deleted. If you want to store data under this key, add it to WebStorageMonster's allowlist: https://fburl.com/WSMAllowList",
+            ));
         });
     }
     function f(t) {
@@ -46,7 +53,13 @@ __d(
         h._getLocalStorageKeys().forEach(function (e) {
           t.some(function (t) {
             return new RegExp(t).test(e);
-          }) || (n.removeItem(e), "" + e);
+          }) ||
+            (n.removeItem(e),
+            r("FBLogger")("web_storage").warn(
+              'LocalStorage key "' +
+                e +
+                "\" was deleted according to the WebStorageMonster's policy.",
+            ));
         });
     }
     function g(e, t) {

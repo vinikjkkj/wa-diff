@@ -33,10 +33,7 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.trim();
           if (
-            !(
-              o("WAWebOrgGatingUtils").isOrgHubEnabled() ||
-              o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled()
-            ) ||
+            !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled() ||
             n.replace(/\s/g, "").length < m
           )
             return _;

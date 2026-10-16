@@ -296,10 +296,11 @@ __d(
             }
             return n;
           }),
-          (a.delete = function () {
-            ((this.saveMedia = null),
+          (a.delete = function (t) {
+            (t === void 0 && (t = "media_object_delete"),
+              (this.saveMedia = null),
               o("WAWebMedia").cancelDownloadMedia(this),
-              o("WAWebMedia").cancelUploadMedia(this),
+              o("WAWebMedia").cancelUploadMedia(this, t),
               this.clearBlob());
           }),
           (a.runProcessIfNotRunBefore = function (t, r, o) {

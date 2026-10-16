@@ -34,7 +34,7 @@ __d(
           t
         );
       })(c);
-    ((d.format = !1), (l.default = d));
+    ((d.previewChildrenOnly = !0), (d.format = !1), (l.default = d));
   },
   98,
 );

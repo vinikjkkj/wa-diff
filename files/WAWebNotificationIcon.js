@@ -11,6 +11,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebPwaDocumentMetadataUtils",
     "WAWebUA",
+    "cr:16769",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,12 +22,15 @@ __d(
       d = "v4";
     function m(e) {
       var t = [];
-      (e > 0 && t.push("(" + r("WAWebL10N").n(e) + ")"),
-        o("WAWebMobilePlatforms").isSMB()
+      e > 0 && t.push("(" + r("WAWebL10N").n(e) + ")");
+      var a = n("cr:16769") == null ? void 0 : n("cr:16769").getTitle();
+      a != null
+        ? t.push(a.toString())
+        : o("WAWebMobilePlatforms").isSMB()
           ? t.push(r("WAWebFbtCommon")("WhatsApp Business").toString())
-          : t.push(r("WAWebFbtCommon")("WhatsApp").toString()));
-      var n = t.join(" ");
-      (o("WAWebCometRouterMetaManager").updateUnreadTitle(n),
+          : t.push(r("WAWebFbtCommon")("WhatsApp").toString());
+      var i = t.join(" ");
+      (o("WAWebCometRouterMetaManager").updateUnreadTitle(i),
         o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa() &&
           o("WAWebPwaDocumentMetadataUtils").setAppBadge(e),
         f(e));

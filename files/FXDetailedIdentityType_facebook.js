@@ -16,6 +16,7 @@ __d(
         "IG_BUSINESS",
         "IG_CREATOR",
         "IG_PERSONAL",
+        "LANTERN_USER",
         "MESSENGER_SPLIT",
         "META",
         "MP_USER",

@@ -3,7 +3,7 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebABProps").getABPropConfigValue("web_org_admin_ui_enabled");
+      return o("WAWebABProps").getABPropConfigValue("whatsapp_orgs_enabled");
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue("whatsapp_orgs_enabled");

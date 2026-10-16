@@ -1,44 +1,22 @@
 __d(
   "WAWebSubscriptionNotificationStore",
-  ["react"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
-    var e,
-      s = (e || (e = o("react"))).useSyncExternalStore,
-      u = null,
-      c = new Set();
-    function d(e) {
-      (u != null && (e.stanzaId === u.stanzaId || e.timestamp < u.timestamp)) ||
-        ((u = e),
-        c.forEach(function (e) {
-          return e();
-        }));
+    var e = null;
+    function l(t) {
+      (e != null && (t.stanzaId === e.stanzaId || t.timestamp < e.timestamp)) ||
+        (e = t);
     }
-    function m() {
-      u != null &&
-        ((u = null),
-        c.forEach(function (e) {
-          return e();
-        }));
+    function s() {
+      e = null;
     }
-    function p(e) {
-      return (
-        c.add(e),
-        function () {
-          c.delete(e);
-        }
-      );
+    function u() {
+      return e;
     }
-    function _() {
-      return u;
-    }
-    function f() {
-      return s(p, _);
-    }
-    ((l.updateSubscriptionNotification = d),
-      (l.clearSubscriptionNotification = m),
-      (l.getSubscriptionNotification = _),
-      (l.useWAWebSubscriptionNotification = f));
+    ((i.updateSubscriptionNotification = l),
+      (i.clearSubscriptionNotification = s),
+      (i.getSubscriptionNotification = u));
   },
-  98,
+  66,
 );

@@ -1,12 +1,16 @@
 __d(
   "WAWebFormatOrderMsgText",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebFormatMsgTextUtils"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.msg;
-      return t.message || "";
+      var t = e.msg,
+        n = e.options;
+      return o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(
+        t.message || "",
+        n,
+      );
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

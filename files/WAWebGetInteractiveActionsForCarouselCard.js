@@ -3,6 +3,7 @@ __d(
   [
     "WAWebCarouselMsgUtils",
     "WAWebGetInteractiveActionsFromButtons",
+    "WAWebGetInteractiveButtonActionValues",
     "WAWebGetInteractiveCtaActions",
     "WAWebInteractiveMessageCarouselLogEvents",
     "WAWebWamEnumPaidMessagingUserInteractionsActionTarget",
@@ -44,7 +45,11 @@ __d(
       }
       var f = u(d, t);
       return (
-        (l = r("WAWebGetInteractiveActionsFromButtons")(f, e)),
+        (l = r("WAWebGetInteractiveActionsFromButtons")(
+          f,
+          e.id,
+          r("WAWebGetInteractiveButtonActionValues")(e),
+        )),
         l.map(function (t, n) {
           var a = f[n],
             i = null;

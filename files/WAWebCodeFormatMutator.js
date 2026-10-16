@@ -1,12 +1,16 @@
 __d(
   "WAWebCodeFormatMutator",
-  ["WAWebCodeMutatorComponent.react", "WAWebCreateRegexMutator", "react"],
+  [
+    "WAWebCodeBlockFormatRegex",
+    "WAWebCodeMutatorComponent.react",
+    "WAWebCreateRegexMutator",
+    "react",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = /```([\s\S]*?\S[\s\S]*?)```/g,
-      c = r("WAWebCreateRegexMutator")(u, 1),
-      d = (function (e) {
+      u = r("WAWebCreateRegexMutator")(r("WAWebCodeBlockFormatRegex"), 1),
+      c = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -24,12 +28,12 @@ __d(
           }),
           t
         );
-      })(c);
-    d.format = !1;
-    function m(e) {
-      return e.replace(u, " ");
+      })(u);
+    ((c.previewChildrenOnly = !0), (c.format = !1));
+    function d(e) {
+      return e.replace(r("WAWebCodeBlockFormatRegex"), " ");
     }
-    ((l.Code = d), (l.removeCodeBlocks = m));
+    ((l.Code = c), (l.removeCodeBlocks = d));
   },
   98,
 );

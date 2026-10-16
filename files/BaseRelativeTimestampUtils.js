@@ -182,7 +182,14 @@ __d(
         o === void 0 && (o = "1 day"));
       var a = (t.valueOf() - e.valueOf()) / 1e3;
       if (a < b) return u(a, n);
-      var i = r === "roundDown" ? Math.floor : Math.ceil,
+      var i =
+          r === "roundDown"
+            ? function (e) {
+                return Math.floor(e);
+              }
+            : function (e) {
+                return Math.ceil(e);
+              },
         l = a / b,
         s = i(l);
       if (s < v) return d(s, n);

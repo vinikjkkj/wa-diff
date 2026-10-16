@@ -37,7 +37,7 @@ __d(
             var _ = e;
             if (_ instanceof o("WACustomError").TimeoutError)
               return (
-                o("WAWebMediaMmsV4Upload").cancelUploadMedia(p),
+                o("WAWebMediaMmsV4Upload").cancelUploadMedia(p, "thumbnail"),
                 {
                   kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
                     .TIMEOUT,
@@ -88,7 +88,10 @@ __d(
                     r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
                   )
                     return (
-                      o("WAWebMediaMmsV4Upload").cancelUploadMedia(p),
+                      o("WAWebMediaMmsV4Upload").cancelUploadMedia(
+                        p,
+                        "thumbnail",
+                      ),
                       {
                         kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
                           .CANCELLATION,

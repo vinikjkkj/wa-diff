@@ -12,7 +12,7 @@ __d(
           (n = n.headerImage) == null
             ? void 0
             : n.productId;
-      e.id === a && r != null && (r.productHeaderImageRejected = !0);
+      e === a && r != null && (r.productHeaderImageRejected = !0);
     }
     l.updateProductListHeaderImageRejected = e;
   },

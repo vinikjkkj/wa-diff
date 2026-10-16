@@ -2,14 +2,8 @@ __d(
   "WASmaxInPreKeysFetchMissingPreKeysUserSuccessMixin",
   [
     "WAResultOrError",
-    "WASmaxInPreKeysDeviceIdentityMixin",
+    "WASmaxInPreKeysDeviceSuccessOrFetchMissingPreKeysErrorMixinGroup",
     "WASmaxInPreKeysEnums",
-    "WASmaxInPreKeysIdentityKeyMixin",
-    "WASmaxInPreKeysKeyTypeMixin",
-    "WASmaxInPreKeysPQKeyMixin",
-    "WASmaxInPreKeysPreKeyMixin",
-    "WASmaxInPreKeysRegistrationIDMixin",
-    "WASmaxInPreKeysSignedPreKeyMixin",
     "WASmaxParseJid",
     "WASmaxParseUtils",
   ],
@@ -34,32 +28,17 @@ __d(
         "true",
       );
       if (!a.success) return a;
-      var i = o("WASmaxInPreKeysRegistrationIDMixin").parseRegistrationIDMixin(
-        e,
-      );
-      if (!i.success) return i;
-      var l = o("WASmaxInPreKeysKeyTypeMixin").parseKeyTypeMixin(e),
-        s = o("WASmaxInPreKeysIdentityKeyMixin").parseIdentityKeyMixin(e);
-      if (!s.success) return s;
-      var u = o("WASmaxInPreKeysPreKeyMixin").parsePreKeyMixin(e),
-        c = o("WASmaxInPreKeysSignedPreKeyMixin").parseSignedPreKeyMixin(e);
-      if (!c.success) return c;
-      var d = o("WASmaxInPreKeysPQKeyMixin").parsePQKeyMixin(e),
-        m = o("WASmaxInPreKeysDeviceIdentityMixin").parseDeviceIdentityMixin(e);
-      return o("WAResultOrError").makeResult(
-        babelHelpers.extends(
-          { id: n.value, t: r.value, isCloudApi: a.value },
-          i.value,
-          { keyTypeMixin: l.success ? l.value : null },
-          s.value,
-          { preKeyMixin: u.success ? u.value : null },
-          c.value,
-          {
-            pQKeyMixin: d.success ? d.value : null,
-            deviceIdentityMixin: m.success ? m.value : null,
-          },
-        ),
-      );
+      var i = o(
+        "WASmaxInPreKeysDeviceSuccessOrFetchMissingPreKeysErrorMixinGroup",
+      ).parseDeviceSuccessOrFetchMissingPreKeysErrorMixinGroup(e);
+      return i.success
+        ? o("WAResultOrError").makeResult({
+            id: n.value,
+            t: r.value,
+            isCloudApi: a.value,
+            deviceSuccessOrFetchMissingPreKeysErrorMixinGroup: i.value,
+          })
+        : i;
     }
     function s(t) {
       var n = o("WASmaxParseUtils").assertTag(t, "user");

@@ -624,6 +624,9 @@ __d(
     function Zn() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(206);
     }
+    function er() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(207);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -830,7 +833,8 @@ __d(
       (l.orgContactCreateTable = Xn),
       (l.coexV2BotSecretCreateTable = Yn),
       (l.contactManagerMetadataCreateTable = Jn),
-      (l.experienceIdCreateTable = Zn));
+      (l.experienceIdCreateTable = Zn),
+      (l.pollPendingUpdatesCreateTable = er));
   },
   98,
 );

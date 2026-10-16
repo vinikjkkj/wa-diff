@@ -116,6 +116,7 @@ __d(
                       identityKey: o.identityKey,
                       rowId: o.rowId,
                       sentAddonRowId: o.sentAddonRowId,
+                      accountEncryptionState: o.accountEncryptionState,
                     }));
             }),
             { update: t, remove: n }

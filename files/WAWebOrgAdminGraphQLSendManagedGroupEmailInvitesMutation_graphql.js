@@ -11,7 +11,14 @@ __d(
           kind: "LocalArgument",
           name: "rosterEntryIDs",
         },
-        r = [
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "status",
+          storageKey: null,
+        },
+        o = [
           {
             alias: null,
             args: [
@@ -28,18 +35,22 @@ __d(
             name: "xwa_org_managed_group_send_email_invites",
             plural: !1,
             selections: [
-              {
-                alias: null,
-                args: null,
-                kind: "ScalarField",
-                name: "status",
-                storageKey: null,
-              },
+              r,
               {
                 alias: null,
                 args: null,
                 kind: "ScalarField",
                 name: "error_reason",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "XWAEmailInviteResult",
+                kind: "LinkedField",
+                name: "results",
+                plural: !0,
+                selections: [r],
                 storageKey: null,
               },
             ],
@@ -52,7 +63,7 @@ __d(
           kind: "Fragment",
           metadata: null,
           name: "WAWebOrgAdminGraphQLSendManagedGroupEmailInvitesMutation",
-          selections: r,
+          selections: o,
           type: "Mutation",
           abstractKey: null,
         },
@@ -61,10 +72,10 @@ __d(
           argumentDefinitions: [t, e, n],
           kind: "Operation",
           name: "WAWebOrgAdminGraphQLSendManagedGroupEmailInvitesMutation",
-          selections: r,
+          selections: o,
         },
         params: {
-          id: "27918017164539633",
+          id: "38981821098132867",
           metadata: {},
           name: "WAWebOrgAdminGraphQLSendManagedGroupEmailInvitesMutation",
           operationKind: "mutation",

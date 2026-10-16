@@ -304,9 +304,8 @@ __d(
               (n === void 0 && (n = 0),
               r === void 0 && (r = 0),
               a === void 0 && (a = null),
-              i === void 0 && (i = {}),
               !(yield o("WAWebVoipOutgoingCallConsent").hasOutgoingCallConsent(
-                o("WAWebVoipOutgoingCallConsent").entryTrustOf(i),
+                i.entryTrust,
                 e,
                 t,
               )))
@@ -1100,7 +1099,6 @@ __d(
             if (
               (n === void 0 && (n = 0),
               a === void 0 && (a = 0),
-              i === void 0 && (i = {}),
               yield o(
                 "WAWebVoipCallBlockedModals",
               ).showCallBlockedModalIfNeeded())
@@ -1153,7 +1151,6 @@ __d(
             if (
               (n === void 0 && (n = 0),
               r === void 0 && (r = 0),
-              a === void 0 && (a = {}),
               yield o(
                 "WAWebVoipCallBlockedModals",
               ).showCallBlockedModalIfNeeded())

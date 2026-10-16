@@ -10,6 +10,7 @@ __d(
     "WAWebBrazilPaymentsGeoGating",
     "WAWebGetBrazilnteractiveActions",
     "WAWebGetInteractiveActionsFromButtons",
+    "WAWebGetInteractiveButtonActionValues",
     "filterNulls",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -110,7 +111,12 @@ __d(
     }
     function m(e, t) {
       var n = function (o) {
-          return r("WAWebGetInteractiveActionsFromButtons")([e], t, o).at(0);
+          return r("WAWebGetInteractiveActionsFromButtons")(
+            [e],
+            t.id,
+            r("WAWebGetInteractiveButtonActionValues")(t),
+            o,
+          ).at(0);
         },
         a = e.data.paymentRequestInfo;
       return a == null

@@ -16,6 +16,7 @@ __d(
     "WAWebPollBubbleSettingLabel",
     "WAWebPollCreationUtils",
     "WAWebPollEndTimeLabel",
+    "WAWebSpoilerRevealLogger",
     "WAWebTextSizeUtils",
     "WDSIconIcCheckCircleFilled.react",
     "WDSIconIcVisibilityOffFilled.react",
@@ -158,6 +159,9 @@ __d(
                   fromMe: i,
                   fromChatWid: l.remote,
                   messageHasSpoiler: S,
+                  spoilerRevealContext: o(
+                    "WAWebSpoilerRevealLogger",
+                  ).getSpoilerRevealContextFromValues(l.remote, i),
                 });
               return c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 text: s,

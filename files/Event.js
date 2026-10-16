@@ -61,19 +61,20 @@ __d(
       );
     })();
     function p(e) {
-      if (e instanceof m) return e;
+      var t = e;
+      if (t instanceof m) return t;
       if (
-        (e ||
+        (t ||
           (!window.addEventListener && document.createEventObject
-            ? (e = window.event ? document.createEventObject(window.event) : {})
-            : (e = {})),
-        !e._inherits_from_prototype)
+            ? (t = window.event ? document.createEventObject(window.event) : {})
+            : (t = {})),
+        !t._inherits_from_prototype)
       )
-        for (var t in Event.prototype)
+        for (var n in Event.prototype)
           try {
-            e[t] = Event.prototype[t];
+            t[n] = Event.prototype[n];
           } catch (e) {}
-      return e;
+      return t;
     }
     function _() {
       var e =
@@ -121,63 +122,67 @@ __d(
     );
     var C = {
       listen: function (n, o, a, i, l) {
+        var t = a;
+        typeof t == "function" &&
+          (t = r("TimeSlice").guard(
+            t,
+            r("dedupString")("Event.js " + o + " handler"),
+          ));
+        var s;
         if (
-          (typeof a == "function" &&
-            (a = r("TimeSlice").guard(
-              a,
-              r("dedupString")("Event.js " + o + " handler"),
-            )),
-          !l || typeof l == "boolean"
-            ? (l = { passive: !1 })
-            : (l = { passive: l.passive || !1 }),
+          (!l || typeof l == "boolean"
+            ? (s = { passive: !1 })
+            : (s = { passive: l.passive || !1 }),
           !(e || (e = r("ExecutionEnvironment"))).canUseDOM)
         )
-          return new D(n, a, null, o, i, null, l);
+          return new D(n, t, null, o, i, null, s);
+        var c = typeof n == "string" ? r("$")(n) : n,
+          d = i;
         if (
-          (typeof n == "string" && (n = r("$")(n)),
-          typeof i == "undefined" && (i = Event.Priority.NORMAL),
+          (typeof d == "undefined" && (d = Event.Priority.NORMAL),
           typeof o == "object")
         ) {
-          var t = {};
-          for (var s in o) t[s] = Event.listen(n, s, o[s], i, l);
-          return t;
+          var m = {};
+          for (var p in o) m[p] = Event.listen(c, p, o[p], d, s);
+          return m;
         }
-        if (o.match(/^on/i)) {
-          var c = new TypeError(
-            "Bad event name `" + o + "': use `click', not `onclick'.",
+        var _ = o;
+        if (_.match(/^on/i)) {
+          var f = new TypeError(
+            "Bad event name `" + _ + "': use `click', not `onclick'.",
           );
-          throw (c.stack, c);
+          throw (f.stack, f);
         }
-        if (!n) {
-          var d = r("fb-error").TAAL.blameToPreviousFrame(
+        if (!c) {
+          var g = r("fb-error").TAAL.blameToPreviousFrame(
             r("err")("Cannot listen to an undefined element."),
           );
           throw (
             r("FBLogger")("event")
-              .catching(d)
-              .mustfix("Tried to listen to element of type %s", o),
-            d
+              .catching(g)
+              .mustfix("Tried to listen to element of type %s", _),
+            g
           );
         }
-        if (n.nodeName == "LABEL" && o == "click") {
-          var m = n.getElementsByTagName("input");
-          n = m.length === 1 ? m[0] : n;
-        } else if (n === window && o === "scroll") {
-          var p = r("getDocumentScrollElement")();
-          p !== document.documentElement && p !== document.body && (n = p);
+        if (c.nodeName == "LABEL" && _ == "click") {
+          var h = c.getElementsByTagName("input");
+          c = h.length === 1 ? h[0] : c;
+        } else if (c === window && _ === "scroll") {
+          var y = r("getDocumentScrollElement")();
+          y !== document.documentElement && y !== document.body && (c = y);
         }
-        var _ = r("DataStore").get(n, u, {}),
-          f = S[o];
-        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), E(n, _, o, l));
-        var g = _[o];
-        i in g || (g[i] = []);
-        var h = g[i].length,
-          y = new D(n, a, _, o, i, h, l);
+        var C = r("DataStore").get(c, u, {}),
+          b = S[_];
+        (b && ((_ = b.base), b.wrap && (t = b.wrap(t))), E(c, C, _, s));
+        var v = C[_];
+        d in v || (v[d] = []);
+        var R = v[d].length,
+          k = new D(c, t, C, _, d, R, s);
         return (
-          (g[i][h] = y),
-          g.numHandlers++,
-          l.passive || (g.numNonPassiveHandlers++, L(n, _[o], o)),
-          y
+          (v[d][R] = k),
+          v.numHandlers++,
+          s.passive || (v.numNonPassiveHandlers++, L(c, C[_], _)),
+          k
         );
       },
       stop: function (t) {
@@ -195,8 +200,9 @@ __d(
         return (d(e.event), !1);
       },
       getKeyCode: function (t) {
-        if (((t = new (r("DOMEvent"))(t).event), !t)) return !1;
-        switch (t.keyCode) {
+        var e = new (r("DOMEvent"))(t).event;
+        if (!e) return !1;
+        switch (e.keyCode) {
           case 63232:
             return 38;
           case 63233:
@@ -214,8 +220,8 @@ __d(
           case 63277:
             return 34;
         }
-        if (t.shiftKey)
-          switch (t.keyCode) {
+        if (e.shiftKey)
+          switch (e.keyCode) {
             case 33:
             case 34:
             case 37:
@@ -224,7 +230,7 @@ __d(
             case 40:
               return null;
           }
-        return t.keyCode;
+        return e.keyCode;
       },
       getPriorities: function () {
         if (!b) {
@@ -238,12 +244,13 @@ __d(
       },
       fire: function (t, n, r) {
         var e = new m(t, n, r),
-          o;
+          o = t,
+          a;
         do {
-          var a = Event.__getHandler(t, n);
-          (a && (o = a(e)), (t = t.parentNode));
-        } while (t && o !== !1 && !e.cancelBubble);
-        return o !== !1;
+          var i = Event.__getHandler(o, n);
+          (i && (a = i(e)), (o = o.parentNode));
+        } while (o && a !== !1 && !e.cancelBubble);
+        return a !== !1;
       },
       __fire: function (t, n, r) {
         var e = Event.__getHandler(t, n);
@@ -254,11 +261,11 @@ __d(
         return e && e[n] ? e[n].domHandler : t["on" + n];
       },
       getPosition: function (t) {
-        t = new (r("DOMEvent"))(t).event;
-        var e = r("getDocumentScrollElement")(),
-          n = t.clientX + o("Scroll").getLeft(e),
-          a = t.clientY + o("Scroll").getTop(e);
-        return { x: n, y: a };
+        var e = new (r("DOMEvent"))(t).event,
+          n = r("getDocumentScrollElement")(),
+          a = e.clientX + o("Scroll").getLeft(n),
+          i = e.clientY + o("Scroll").getTop(n);
+        return { x: a, y: i };
       },
       setReleaseDomOnRemove: function (t) {
         c = t;
@@ -291,9 +298,8 @@ __d(
       r("UserAgent").isBrowser("Firefox < 52"))
     ) {
       var R = function (t, n) {
-        n = p(n);
-        for (var e = n.getTarget(); e; )
-          (Event.__fire(e, t, n), (e = e.parentNode));
+        for (var e = p(n), r = e.getTarget(); r; )
+          (Event.__fire(r, t, e), (r = r.parentNode));
       };
       (document.documentElement.addEventListener(
         "focus",

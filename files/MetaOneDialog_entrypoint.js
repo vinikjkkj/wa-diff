@@ -7,13 +7,19 @@ __d(
       getPreloadProps: function (t) {
         var e = t.businessID,
           r = t.entrypoint,
-          o = t.productType;
+          o = t.productType,
+          a = t.waWebDestination;
         return {
           queries: {
             metaOneDialogQueryReference: {
               options: { fetchPolicy: "network-only" },
               parameters: n("MetaOneDialogQuery$Parameters"),
-              variables: { business_id: e, entrypoint: r, product_type: o },
+              variables: {
+                business_id: e,
+                entrypoint: r,
+                product_type: o,
+                wa_web_destination: a != null ? a : null,
+              },
             },
           },
         };

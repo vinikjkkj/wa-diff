@@ -7,8 +7,10 @@ __d(
     "WAWebMsgDataFromModel",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebRichTextFormatMessageSendLogger",
     "WAWebSendAddonMsgChatAction",
     "WAWebSendCommentMessageActionUtils",
+    "WAWebSendMsgResultAction",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
@@ -33,22 +35,37 @@ __d(
               parentMsgKey: e.id,
               msgKey: i,
               text: t,
-            });
-          if (o("WAWebAddonSendMsgData").isOptimisticAddonSendSupported(l))
-            return o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(l);
-          var s = yield o(
-            "WAWebSendCommentMessageActionUtils",
-          ).createCommentMsgData(
-            yield o(
-              "WAWebSendCommentMessageActionUtils",
-            ).encryptExtendedTextComment(
-              o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
-              n,
-              t,
+            }),
+            s = o(
+              "WAWebRichTextFormatMessageSendLogger",
+            ).maybeCreateRichTextFormatMessageSendCommit(
+              { body: t, type: o("WAWebMsgType").MSG_TYPE.COMMENT },
+              a.id,
             ),
-            i,
+            u;
+          if (o("WAWebAddonSendMsgData").isOptimisticAddonSendSupported(l))
+            u = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(l);
+          else {
+            var c = yield o(
+              "WAWebSendCommentMessageActionUtils",
+            ).createCommentMsgData(
+              yield o(
+                "WAWebSendCommentMessageActionUtils",
+              ).encryptExtendedTextComment(
+                o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
+                n,
+                t,
+              ),
+              i,
+            );
+            u = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(c);
+          }
+          return (
+            u.messageSendResult ===
+              o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+              (s == null || s()),
+            u
           );
-          return o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(s);
         })),
         s.apply(this, arguments)
       );

@@ -18,6 +18,7 @@ __d(
           s("identityKey"),
           s("rowId"),
           s("sentAddonRowId"),
+          s("accountEncryptionState"),
         ])
         .view(function (e) {
           return {
@@ -25,6 +26,7 @@ __d(
             identityKey: e.identityKey,
             rowId: e.rowId,
             sentAddonRowId: e.sentAddonRowId,
+            accountEncryptionState: e.accountEncryptionState,
           };
         });
     }

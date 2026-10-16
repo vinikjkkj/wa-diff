@@ -21,17 +21,19 @@ __d(
           babelHelpers.inheritsLoose(t, e),
           (t.jsx = function (t, n, o) {
             var e = o.selectable,
-              a = o.spoilerInteractive;
+              a = o.spoilerInteractive,
+              i = o.spoilerRevealContext;
             return s.jsx(r("WAWebSpoilerMutatorComponent.react"), {
               selectable: e,
               interactive: a,
+              spoilerRevealContext: i,
               children: t,
             });
           }),
           t
         );
       })(u);
-    l.default = c;
+    ((c.maskOnUnformat = !0), (l.default = c));
   },
   98,
 );

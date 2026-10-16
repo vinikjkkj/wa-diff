@@ -16,9 +16,12 @@ __d(
     "WAWebNoop",
     "WAWebNumberedListFormatMutator",
     "WAWebNumberedListItemFormatMutator",
+    "WAWebPreviewFormatGating",
     "WAWebRawGroupMentionFormatMutator",
     "WAWebRawMentionMutator",
     "WAWebRawShortNameMentionFormatMutator",
+    "WAWebSpoilerFormatMutator",
+    "WAWebSpoilerGating",
     "WAWebStatusLinkFormatMutator",
     "WAWebStrikethroughFormatMutator",
     "WAWebTextMentionFormatMutator",
@@ -26,7 +29,40 @@ __d(
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = (function (e) {
+      function t() {
+        return e.apply(this, arguments) || this;
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(r("WAWebHighlightFormatMutator"));
+    e.compatibility = !0;
+    function s(e) {
+      var t = e.messageHasSpoiler,
+        n = e.selectable,
+        a = e.spoilerInteractive,
+        i = e.spoilerRevealContext;
+      return t !== !0 || !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+        ? null
+        : [
+            [
+              r("WAWebSpoilerFormatMutator"),
+              { selectable: n, spoilerInteractive: a, spoilerRevealContext: i },
+            ],
+          ];
+    }
+    function u(e) {
+      var t = e === void 0 ? {} : e,
+        n = t.parseBlockCode,
+        a = n === void 0 ? !1 : n,
+        i = t.parseInlineCode,
+        l = i === void 0 ? !1 : i;
+      return [].concat(
+        a ? [[[o("WAWebCodeFormatMutator").Code, {}]]] : [],
+        l ? [[[r("WAWebInlineCodeFormatMutator"), {}]]] : [],
+        [[[r("WAWebSpoilerFormatMutator"), {}]]],
+      );
+    }
+    function c(e) {
       var t = e === void 0 ? {} : e,
         n = t.emojiXstyle,
         o = t.selectable;
@@ -34,14 +70,14 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o, emojiXstyle: n }]],
       ];
     }
-    function s(e) {
+    function d(e) {
       var t = e === void 0 ? {} : e,
         n = t.selectable;
       return [
         [[r("WAWebEmojiFormatMutator"), { selectable: n, size: "large" }]],
       ];
     }
-    function u(e) {
+    function m(e) {
       var t = e === void 0 ? {} : e,
         n = t.dataTab,
         a = t.emojiXstyle,
@@ -69,7 +105,7 @@ __d(
         ],
       ];
     }
-    function c(e) {
+    function p(e) {
       var t = e === void 0 ? {} : e,
         n = t.links,
         a = t.linkXstyle,
@@ -90,7 +126,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
       ];
     }
-    function d(e) {
+    function _(e) {
       var t = e === void 0 ? {} : e,
         n = t.emojiXstyle,
         o = t.selectable;
@@ -98,35 +134,54 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o, emojiXstyle: n }]],
       ];
     }
-    function m(e) {
-      var t = e.boundary,
-        n = e.groupMentions,
-        a = e.mentions,
-        i = e.selectable,
-        l = e.terms;
-      return [
-        [[r("WAWebTextMentionFormatMutator"), { mentions: a, selectable: i }]],
+    function f(t) {
+      var n = t.boundary,
+        a = t.groupMentions,
+        i = t.groupMetadata,
+        l = t.mentions,
+        u = t.messageHasSpoiler,
+        c = t.previewRichFormat,
+        d = t.selectable,
+        m = t.terms,
+        p = s({ messageHasSpoiler: u, selectable: d }),
+        _ =
+          c === !0 &&
+          o("WAWebPreviewFormatGating").isPreviewRichFormatEnabled(),
+        f = _ ? e : r("WAWebHighlightFormatMutator");
+      return [].concat(
+        _
+          ? [
+              [[o("WAWebCodeFormatMutator").Code, { selectable: d }]],
+              [[r("WAWebInlineCodeFormatMutator"), { selectable: d }]],
+            ]
+          : [],
         [
           [
-            o("WAWebGroupMentionFormatMutator").GroupMention,
-            { groupMentions: n, selectable: i, clickable: !1 },
+            [
+              r("WAWebTextMentionFormatMutator"),
+              { groupMetadata: i, mentions: l, selectable: d },
+            ],
+          ],
+          [
+            [
+              o("WAWebGroupMentionFormatMutator").GroupMention,
+              { groupMentions: a, selectable: d, clickable: !1 },
+            ],
           ],
         ],
-        [
-          [r("WAWebBoldFormatMutator"), { selectable: i }],
-          [r("WAWebItalicFormatMutator"), { selectable: i }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: i }],
-        ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
+        p != null ? [p] : [],
         [
           [
-            r("WAWebHighlightFormatMutator"),
-            { terms: l, boundary: t, selectable: i, ignoreDiacritics: !0 },
+            [r("WAWebBoldFormatMutator"), { selectable: d }],
+            [r("WAWebItalicFormatMutator"), { selectable: d }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: d }],
           ],
+          [[r("WAWebEmojiFormatMutator"), { selectable: d }]],
+          [[f, { terms: m, boundary: n, selectable: d, ignoreDiacritics: !0 }]],
         ],
-      ];
+      );
     }
-    function p(e) {
+    function g(e) {
       var t = e.emojiXstyle,
         n = e.terms;
       return [
@@ -139,74 +194,99 @@ __d(
         ],
       ];
     }
-    function _(e) {
+    function h(e) {
       e === void 0 && (e = {});
       var t = e,
         n = t.groupMentions,
-        a = t.isDraftMessage,
-        i = t.mentions,
-        l = t.selectable;
-      return [
-        i
-          ? [
-              [
-                r("WAWebTextMentionFormatMutator"),
-                {
-                  mentions: i,
-                  selectable: l,
-                  lastMessage: !0,
-                  isDraftMessage: a,
-                },
-              ],
-            ]
-          : null,
-        n
-          ? [
-              [
-                o("WAWebGroupMentionFormatMutator").GroupMention,
-                {
-                  groupMentions: n,
-                  selectable: l,
-                  clickable: !1,
-                  lastMessage: !0,
-                  isDraftMessage: a,
-                },
-              ],
-            ]
-          : null,
-        [[r("WAWebEmojiFormatMutator"), { selectable: l }]],
-      ].filter(Boolean);
+        a = t.groupMetadata,
+        i = t.isDraftMessage,
+        l = t.mentions,
+        u = t.messageHasSpoiler,
+        c = t.selectable,
+        d = o("WAWebPreviewFormatGating").isPreviewRichFormatEnabled(),
+        m = [];
+      (d &&
+        (m.push([[o("WAWebCodeFormatMutator").Code, { selectable: c }]]),
+        m.push([[r("WAWebInlineCodeFormatMutator"), { selectable: c }]])),
+        l &&
+          m.push([
+            [
+              r("WAWebTextMentionFormatMutator"),
+              {
+                mentions: l,
+                selectable: c,
+                lastMessage: !0,
+                isDraftMessage: i,
+                groupMetadata: a,
+              },
+            ],
+          ]),
+        n &&
+          m.push([
+            [
+              o("WAWebGroupMentionFormatMutator").GroupMention,
+              {
+                groupMentions: n,
+                selectable: c,
+                clickable: !1,
+                lastMessage: !0,
+                isDraftMessage: i,
+              },
+            ],
+          ]));
+      var p = s({ messageHasSpoiler: u, selectable: c });
+      return (
+        p != null && m.push(p),
+        d &&
+          m.push([
+            [r("WAWebBoldFormatMutator"), { selectable: c }],
+            [r("WAWebItalicFormatMutator"), { selectable: c }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: c }],
+          ]),
+        m.push([[r("WAWebEmojiFormatMutator"), { selectable: c }]]),
+        m
+      );
     }
-    function f(e) {
-      var t = e.boundary,
-        n = e.groupMentions,
-        a = e.mentions,
-        i = e.selectable,
-        l = e.terms;
-      return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: i }]],
-        [[r("WAWebTextMentionFormatMutator"), { mentions: a, selectable: i }]],
+    function y(t) {
+      var n = t.boundary,
+        a = t.groupMentions,
+        i = t.groupMetadata,
+        l = t.mentions,
+        u = t.messageHasSpoiler,
+        c = t.selectable,
+        d = t.terms,
+        m = s({ messageHasSpoiler: u, selectable: c }),
+        p = o("WAWebPreviewFormatGating").isPreviewRichFormatEnabled(),
+        _ = p ? e : r("WAWebHighlightFormatMutator");
+      return [[[o("WAWebCodeFormatMutator").Code, { selectable: c }]]].concat(
+        p ? [[[r("WAWebInlineCodeFormatMutator"), { selectable: c }]]] : [],
         [
           [
-            o("WAWebGroupMentionFormatMutator").GroupMention,
-            { groupMentions: n, selectable: i, clickable: !1 },
+            [
+              r("WAWebTextMentionFormatMutator"),
+              { groupMetadata: i, mentions: l, selectable: c },
+            ],
+          ],
+          [
+            [
+              o("WAWebGroupMentionFormatMutator").GroupMention,
+              { groupMentions: a, selectable: c, clickable: !1 },
+            ],
           ],
         ],
-        [
-          [r("WAWebBoldFormatMutator"), { selectable: i }],
-          [r("WAWebItalicFormatMutator"), { selectable: i }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: i }],
-        ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
+        m != null ? [m] : [],
         [
           [
-            r("WAWebHighlightFormatMutator"),
-            { terms: l, boundary: t, selectable: i },
+            [r("WAWebBoldFormatMutator"), { selectable: c }],
+            [r("WAWebItalicFormatMutator"), { selectable: c }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: c }],
           ],
+          [[r("WAWebEmojiFormatMutator"), { selectable: c }]],
+          [[_, { terms: d, boundary: n, selectable: c }]],
         ],
-      ];
+      );
     }
-    function g(e) {
+    function C(e) {
       var t = e === void 0 ? {} : e,
         n = t.selectable;
       return [
@@ -219,7 +299,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: n }]],
       ];
     }
-    function h(e) {
+    function b(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -242,37 +322,45 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: a }]],
       ].filter(Boolean);
     }
-    function y(e) {
+    function v(e) {
       var t = e.groupMentions,
         n = e.mentions,
-        a = e.selectable;
+        a = e.messageHasSpoiler,
+        i = e.selectable,
+        l = e.spoilerRevealContext,
+        u = s({
+          messageHasSpoiler: a,
+          selectable: i,
+          spoilerInteractive: !0,
+          spoilerRevealContext: l,
+        });
       return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: a }]],
-        [[r("WAWebInlineCodeFormatMutator"), { selectable: a, quoted: !0 }]],
+        [[o("WAWebCodeFormatMutator").Code, { selectable: i }]],
+        [[r("WAWebInlineCodeFormatMutator"), { selectable: i, quoted: !0 }]],
         [
           [
             o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-            { selectable: a },
+            { selectable: i },
           ],
         ],
         [
           [
             o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-            { selectable: a },
+            { selectable: i },
           ],
         ],
-        [[r("WAWebBulletedListFormatMutator"), { selectable: a, quoted: !0 }]],
+        [[r("WAWebBulletedListFormatMutator"), { selectable: i, quoted: !0 }]],
         [
           [
             o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-            { selectable: a },
+            { selectable: i },
           ],
         ],
-        [[r("WAWebNumberedListFormatMutator"), { selectable: a, quoted: !0 }]],
+        [[r("WAWebNumberedListFormatMutator"), { selectable: i, quoted: !0 }]],
         [
           [
             r("WAWebTextMentionFormatMutator"),
-            { mentions: n, selectable: a, theme: { quoted: !0 } },
+            { mentions: n, selectable: i, theme: { quoted: !0 } },
           ],
         ],
         [
@@ -280,27 +368,30 @@ __d(
             o("WAWebGroupMentionFormatMutator").GroupMention,
             {
               groupMentions: t,
-              selectable: a,
+              selectable: i,
               theme: { quoted: !0 },
               clickable: !1,
             },
           ],
         ],
-        [
-          [r("WAWebBoldFormatMutator"), { selectable: a }],
-          [r("WAWebItalicFormatMutator"), { selectable: a }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: a }],
-        ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: a }]],
-        [
+      ]
+        .concat(u != null ? [u] : [], [
           [
-            o("WAWebBlockQuoteFormatMutator").BlockQuote,
-            { selectable: a, quoted: !0 },
+            [r("WAWebBoldFormatMutator"), { selectable: i }],
+            [r("WAWebItalicFormatMutator"), { selectable: i }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: i }],
           ],
-        ],
-      ].filter(Boolean);
+          [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
+          [
+            [
+              o("WAWebBlockQuoteFormatMutator").BlockQuote,
+              { selectable: i, quoted: !0 },
+            ],
+          ],
+        ])
+        .filter(Boolean);
     }
-    function C(e) {
+    function S(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -320,7 +411,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function b(e) {
+    function R(e) {
       var t = e.groupMentions,
         n = e.groupMetadata,
         a = e.mentions,
@@ -348,7 +439,7 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: i }]],
       ].filter(Boolean);
     }
-    function v(e) {
+    function L(e) {
       var t,
         a = e.links,
         i = !!e.expandedFormattingEnabled,
@@ -396,7 +487,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function S(e) {
+    function E(e) {
       var t,
         a = !!(e != null && e.expandedFormattingEnabled),
         i = !!((t = e == null ? void 0 : e.bulletPointsEnabled) != null
@@ -444,7 +535,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function R(e) {
+    function k(e) {
       var t = e === void 0 ? {} : e,
         n = t.links,
         o = t.selectable,
@@ -456,43 +547,45 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o }]],
       ].filter(Boolean);
     }
-    function L(e) {
+    function I(e) {
       e === void 0 && (e = {});
       var t = e,
         n = t.groupMentions,
         a = t.isDraftMessage,
         i = t.mentions,
-        l = t.selectable;
+        l = t.messageHasSpoiler,
+        u = t.selectable,
+        c = t.spoilerRevealContext;
       return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: l }]],
-        [[r("WAWebInlineCodeFormatMutator"), { selectable: l }]],
+        [[o("WAWebCodeFormatMutator").Code, { selectable: u }]],
+        [[r("WAWebInlineCodeFormatMutator"), { selectable: u }]],
         [
           [
             o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
         [
           [
             o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
-        [[r("WAWebBulletedListFormatMutator"), { selectable: l, inline: !0 }]],
+        [[r("WAWebBulletedListFormatMutator"), { selectable: u, inline: !0 }]],
         [
           [
             o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
-        [[r("WAWebNumberedListFormatMutator"), { selectable: l, inline: !0 }]],
+        [[r("WAWebNumberedListFormatMutator"), { selectable: u, inline: !0 }]],
         i
           ? [
               [
                 r("WAWebTextMentionFormatMutator"),
                 {
                   mentions: i,
-                  selectable: l,
+                  selectable: u,
                   lastMessage: !0,
                   isDraftMessage: a,
                 },
@@ -505,7 +598,7 @@ __d(
                 o("WAWebGroupMentionFormatMutator").GroupMention,
                 {
                   groupMentions: n,
-                  selectable: l,
+                  selectable: u,
                   clickable: !1,
                   lastMessage: !0,
                   isDraftMessage: a,
@@ -513,21 +606,27 @@ __d(
               ],
             ]
           : null,
+        s({
+          messageHasSpoiler: l,
+          selectable: u,
+          spoilerInteractive: !0,
+          spoilerRevealContext: c,
+        }),
         [
-          [r("WAWebBoldFormatMutator"), { selectable: l }],
-          [r("WAWebItalicFormatMutator"), { selectable: l }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: l }],
+          [r("WAWebBoldFormatMutator"), { selectable: u }],
+          [r("WAWebItalicFormatMutator"), { selectable: u }],
+          [r("WAWebStrikethroughFormatMutator"), { selectable: u }],
         ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: l }]],
+        [[r("WAWebEmojiFormatMutator"), { selectable: u }]],
         [
           [
             o("WAWebBlockQuoteFormatMutator").BlockQuote,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
       ].filter(Boolean);
     }
-    function E(e) {
+    function T(e) {
       var t = e.selectable,
         n = e.parseHeadings,
         a = n === void 0 ? !0 : n,
@@ -608,25 +707,27 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    ((l.EmojiOnly = e),
-      (l.LargeEmojiOnly = s),
-      (l.StatusText = u),
-      (l.StatusCaption = c),
-      (l.Compatibility = d),
-      (l.Search = m),
-      (l.SearchName = p),
-      (l.LastMessage = _),
-      (l.FTSMessage = f),
-      (l.QuickReply = g),
-      (l.Unformat = h),
-      (l.QuotedMention = y),
-      (l.FormattedNotification = C),
-      (l.FormattedGroupNotification = b),
-      (l.TrustedGroupDesc = v),
-      (l.UntrustedGroupDesc = S),
-      (l.HeaderAndFooter = R),
-      (l.InlineMessage = L),
-      (l.RichResponse = E));
+    ((l.spoilerMutatorEntry = s),
+      (l.NotificationSpoilerMask = u),
+      (l.EmojiOnly = c),
+      (l.LargeEmojiOnly = d),
+      (l.StatusText = m),
+      (l.StatusCaption = p),
+      (l.Compatibility = _),
+      (l.Search = f),
+      (l.SearchName = g),
+      (l.LastMessage = h),
+      (l.FTSMessage = y),
+      (l.QuickReply = C),
+      (l.Unformat = b),
+      (l.QuotedMention = v),
+      (l.FormattedNotification = S),
+      (l.FormattedGroupNotification = R),
+      (l.TrustedGroupDesc = L),
+      (l.UntrustedGroupDesc = E),
+      (l.HeaderAndFooter = k),
+      (l.InlineMessage = I),
+      (l.RichResponse = T));
   },
   98,
 );

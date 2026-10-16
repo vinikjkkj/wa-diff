@@ -1,18 +1,22 @@
 __d(
   "WAWebFormatLocationMsgText",
-  ["fbt", "WAWebFormatMsgTextUtils", "WAWebUnformatMsg"],
+  ["fbt", "WAWebFormatMsgTextUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
         n = e.options,
-        a = n.unformat,
-        i = a === void 0 ? !0 : a;
+        r = n.unformat,
+        a = r === void 0 ? !0 : r;
       if (t.isFromTemplate || t.isDynamicReplyButtonsMsg) {
-        var l = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
-        return l != null
-          ? i
-            ? r("WAWebUnformatMsg")(t, l)
-            : l
+        var i = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
+        return i != null
+          ? a
+            ? o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
+                t,
+                i,
+                n,
+              )
+            : i
           : t.loc || s._(/*BTDS*/ "Location");
       }
       return t.isLive

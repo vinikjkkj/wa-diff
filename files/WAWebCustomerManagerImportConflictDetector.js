@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAJids",
+    "WAWebContactImportFileProcessor",
     "WAWebCustomerManagerImportDateParsingUtils",
     "WAWebCustomerManagerImportEmailWarnings",
     "WAWebCustomerManagerImportTemplateUtils",
@@ -93,7 +94,7 @@ __d(
     }
     function m(e) {
       var t = new Map(),
-        n = e.phone.replace(/\D/g, "");
+        n = o("WAWebContactImportFileProcessor").normalizePhoneNumber(e.phone);
       if (n !== "") {
         var r = o("WAWebWidFactory").createUserWidOrThrow(
           o("WAJids").toPhoneUserJid(n),

@@ -4,17 +4,38 @@ __d(
     "fbt",
     "WAWebCurrencyUtils",
     "WAWebFormatPaymentMsg",
+    "WAWebSpoilerNotificationMask",
+    "WAWebUnformatMsg",
     "WAWebVcardGetNameFromParsed",
     "WAWebVcardUtils",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
+      var n = t.spoilerReplacement;
+      if (n == null) return e;
+      var r = o("WAWebSpoilerNotificationMask").maskSpoilersForPreview(e, n);
+      return (
+        t.onSpoilerReplacementHandled == null ||
+          t.onSpoilerReplacementHandled(),
+        r
+      );
+    }
+    function u(e, t, n) {
+      var o = r("WAWebUnformatMsg")(e, t, n.spoilerReplacement);
+      return (
+        n.spoilerReplacement != null &&
+          (n.onSpoilerReplacementHandled == null ||
+            n.onSpoilerReplacementHandled()),
+        o
+      );
+    }
+    function c(e, t) {
       if (e == null) return null;
       var n = t.isDynamicReplyButtonsMsg === !0;
       return t.footer != null && t.footer !== "" && n ? e + "\n" + t.footer : e;
     }
-    function u(e) {
+    function d(e) {
       switch (e.subtype) {
         case "ciphertext":
           return s._(
@@ -64,7 +85,7 @@ __d(
           );
       }
     }
-    function c(e) {
+    function m(e) {
       if (e.length > 1) {
         var t = r("compactMap")(e, function (e) {
           return o("WAWebVcardGetNameFromParsed").vcardGetNameFromParsed(e);
@@ -76,9 +97,11 @@ __d(
         s._(/*BTDS*/ "Contact")
       );
     }
-    ((l.maybeAddFooter = e),
-      (l.formatPayment = u),
-      (l.formatParsedVcardsDisplayText = c));
+    ((l.maskSpoilersWithOptions = e),
+      (l.unformatTextWithSpoilerReplacement = u),
+      (l.maybeAddFooter = c),
+      (l.formatPayment = d),
+      (l.formatParsedVcardsDisplayText = m));
   },
   226,
 );

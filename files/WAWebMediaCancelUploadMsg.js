@@ -3,12 +3,12 @@ __d(
   ["WALogger", "WAWebMediaMmsV4Upload"],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      o("WAWebMediaMmsV4Upload").cancelUploadMedia(e);
+    function s(e, t) {
+      o("WAWebMediaMmsV4Upload").cancelUploadMedia(e, t);
     }
     function u(t) {
       t.mediaObject
-        ? s(t.mediaObject)
+        ? s(t.mediaObject, "user")
         : o("WALogger")
             .ERROR(
               e ||

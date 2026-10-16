@@ -12,6 +12,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebProductFeature",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
@@ -54,6 +55,7 @@ __d(
     }
     function c() {
       return (
+        !o("WAWebProductFeature").isInternalProduct() &&
         R() &&
         o("WAWebABProps").getABPropConfigValue(
           "bonsai_chat_list_entry_point_enabled",
@@ -61,7 +63,7 @@ __d(
       );
     }
     function d() {
-      return R() && !c();
+      return !o("WAWebProductFeature").isInternalProduct() && R() && !c();
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue("wabai_consent_cooldown");
@@ -153,6 +155,7 @@ __d(
     }
     function L() {
       return (
+        !o("WAWebProductFeature").isInternalProduct() &&
         R() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_search_ask_button_web_enabled",

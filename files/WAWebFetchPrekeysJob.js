@@ -25,7 +25,7 @@ __d(
             userArgs: e.map(function (e) {
               return {
                 userJid: o("WAWebWidToJid").widToDeviceJid(e),
-                hasUserReasonIdentity: t,
+                userReason: t ? "identity" : null,
               };
             }),
             hasKeyPqsupportTrue:
@@ -99,11 +99,11 @@ __d(
                     kyberKey: y
                       ? {
                           id: o("WAParsableXmlNode").convertBytesToUint(
-                            y.pqkeyIdKeyIDMixin.elementValue,
+                            y.idKeyIDMixin.elementValue,
                             3,
                           ),
-                          publicKey: y.pqkeyValuePQKeyDataMixin.elementValue,
-                          signature: y.pqkeySignatureElementValue,
+                          publicKey: y.valuePQKeyDataMixin.elementValue,
+                          signature: y.signatureElementValue,
                         }
                       : null,
                     regId: o("WAParsableXmlNode").convertBytesToUint(b, 4),

@@ -16,16 +16,14 @@ __d(
         var n = t.prototype;
         return (
           (n.executeSignalCollection = function () {
-            var e;
-            if (
-              navigator.connection != null &&
-              navigator.connection.rtt != null
-            ) {
-              var t = navigator.connection.rtt;
+            var e,
+              t = navigator;
+            if (t.connection != null && t.connection.rtt != null) {
+              var n = t.connection.rtt;
               e = new (r("NumberSignalValueType"))(
                 Date.now(),
                 this.getContext(),
-                t,
+                n,
               );
             } else
               e = new (r("ErrorSignalValueType"))(

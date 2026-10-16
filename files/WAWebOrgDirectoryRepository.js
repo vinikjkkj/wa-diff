@@ -654,39 +654,29 @@ __d(
       return t != null && r("shallowArrayEqual")(t, e) ? t : e;
     }
     function le(e) {
-      var t,
-        n,
-        r = o("WAWebOrgCollection").OrgCollection.get(e.id),
-        a = {
+      var t = o("WAWebOrgCollection").OrgCollection.get(e.id),
+        n = {
           name: e.name,
           orgId: e.id,
-          viewerRole:
-            (t =
-              (n = o("WAWebSchemaOrg").OrgMemberRole.cast(e.viewerRole)) != null
-                ? n
-                : r == null
-                  ? void 0
-                  : r.viewerRole) != null
-              ? t
-              : o("WAWebSchemaOrg").OrgMemberRole.Member,
+          viewerRole: o("WAWebSchemaOrg").OrgMemberRole.cast(e.viewerRole),
         };
-      (e.description != null && (a.description = e.description),
-        se(a, e),
-        e.memberCount != null && (a.memberCount = e.memberCount),
+      (e.description != null && (n.description = e.description),
+        se(n, e),
+        e.memberCount != null && (n.memberCount = e.memberCount),
         e.memberTagOptions != null &&
-          (a.memberTagOptions = e.memberTagOptions));
-      var i = r == null ? void 0 : r.directoryIsComplete;
-      if (i != null) {
-        var l = r == null ? void 0 : r.memberCount,
-          s = a.memberCount != null && a.memberCount !== l,
-          u =
+          (n.memberTagOptions = e.memberTagOptions));
+      var r = t == null ? void 0 : t.directoryIsComplete;
+      if (r != null) {
+        var a = t == null ? void 0 : t.memberCount,
+          i = n.memberCount != null && n.memberCount !== a,
+          l =
             o("WAWebOrgDirectoryRepositoryState")
               .getOrgDirectoryRepositorySnapshot()
               .memberDirectoryEnabledByOrgID.get(e.id) !==
             e.isMemberDirectoryEnabled;
-        a.directoryIsComplete = s || u ? !1 : i;
+        n.directoryIsComplete = i || l ? !1 : r;
       }
-      return a;
+      return n;
     }
     function se(e, t) {
       (t.iconHandle != null && (e.iconHandle = t.iconHandle),

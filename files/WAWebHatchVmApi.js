@@ -178,23 +178,25 @@ __d(
             }),
           );
         }),
-        (r.consentAuthCallback = function (t, n) {
+        (r.consentAuthCallback = function (t, n, r) {
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONSENT_AUTH_CALLBACK,
-            babelHelpers.extends({}, n, {
+            babelHelpers.extends({}, r, {
               allowEmptySuccess: !0,
-              body: p({ provider: t }),
+              body: p(
+                n == null ? { provider: t } : { provider: t, session_id: n },
+              ),
               responseShape: "flat-or-envelope",
             }),
           );
         }),
-        (r.connectorConnect = function (t, n) {
+        (r.connectorConnect = function (t, n, r) {
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT(t),
-            babelHelpers.extends({}, n, {
-              body: p({}),
+            babelHelpers.extends({}, r, {
+              body: p(n == null ? {} : { session_id: n }),
               responseShape: "flat-or-envelope",
             }),
           );

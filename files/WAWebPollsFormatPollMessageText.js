@@ -1,6 +1,7 @@
 __d(
   "WAWebPollsFormatPollMessageText",
   [
+    "WAWebFormatMsgTextUtils",
     "WAWebFrontendMsgGetters",
     "WAWebGetSearchMatchFromMsg",
     "WAWebL10N",
@@ -17,12 +18,13 @@ __d(
           (t = a.searchQuery) != null ? t : [],
         );
       return l == null
-        ? i.pollName
+        ? o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(i.pollName, a)
         : l === i.pollName
-          ? l
-          : r("WAWebL10N").isRTL()
-            ? l + " \u25CB"
-            : "\u25CB " + l;
+          ? o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(l, a)
+          : o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(
+              r("WAWebL10N").isRTL() ? l + " \u25CB" : "\u25CB " + l,
+              a,
+            );
     }
     l.default = e;
   },

@@ -692,6 +692,137 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.EDIT,
             });
           }),
+          (n.viewTrialNux = function (t) {
+            this.$2({
+              extraAttributes: { accepted_ai_terms: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_nux",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.clickTrialNuxSlide = function (t, n, r) {
+            this.$2({
+              extraAttributes: { from_slide: t, to_slide: n },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_nux_" + r,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.editTrialNuxChatsConsent = function (t) {
+            this.$2({
+              extraAttributes: { shares_chats: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_nux_chats_consent",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.EDIT,
+            });
+          }),
+          (n.clickTrialNuxStart = function (t) {
+            var e, n;
+            this.$2({
+              extraAttributes: {
+                accepted_ai_terms: t.acceptedAiTerms,
+                chat_history: (e = t.chatHistory) != null ? e : "unknown",
+                shares_chats: (n = t.sharesChats) != null ? n : null,
+                slide: t.slide,
+              },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_nux_start_button",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.trialStartResult = function (t, n) {
+            this.$2({
+              extraAttributes: {
+                action_status: t,
+                error_name: n != null ? n : null,
+              },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_nux_start_button",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
+          (n.viewLockCard = function () {
+            this.$2({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "lock_card",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.clickLockCard = function (t) {
+            this.$2({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "lock_card_" + t,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.viewTrialBanner = function (t, n) {
+            this.$2({
+              extraAttributes: { days_left: n != null ? n : null, stage: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_banner",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.clickTrialBannerSubscribe = function (t, n) {
+            this.$2({
+              extraAttributes: { days_left: n != null ? n : null, stage: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_banner_subscribe",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.dismissTrialBanner = function (t, n) {
+            this.$2({
+              extraAttributes: { days_left: n != null ? n : null, stage: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_banner",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+            });
+          }),
+          (n.metaOneResult = function (t, n) {
+            this.$2({
+              extraAttributes: {
+                access_state: n != null ? n : null,
+                source: t,
+                unlocked: n == null ? null : n === "PAID_ACCESS",
+              },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "meta_one_result",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
+          (n.accessStateLoadFailed = function (t) {
+            this.$2({
+              extraAttributes: { action_status: "failure", error_name: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "access_state",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
           t
         );
       })(),

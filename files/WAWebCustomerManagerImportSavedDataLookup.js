@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
+    "WAWebContactImportFileProcessor",
     "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerImportLeadStageLookup",
     "WAWebDBCustomerDataDatabaseApi",
@@ -115,7 +116,9 @@ __d(
           try {
             var i = new Set();
             for (var l of t) {
-              var s = l.replace(/\D/g, "");
+              var s = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+                l,
+              );
               if (s !== "") {
                 var d = o("WAWebWidFactory").createUserWidOrThrow(
                   o("WAJids").toPhoneUserJid(s),

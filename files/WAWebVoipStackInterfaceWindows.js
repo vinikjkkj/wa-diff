@@ -303,21 +303,31 @@ __d(
             ? void 0
             : e.previewAndJoinCallLink(t, n, !0, a, i);
         },
-        handleIncomingSignalingOffer: function (t, n, a, i, l, s, u, c, d) {
+        handleIncomingSignalingOffer: function (t, n, a, i, l, s, u, c, d, m) {
           var e,
-            m,
-            p =
+            p,
+            _ =
               (e = o("WAWebAuraRingtonePlayback").getRingtoneId(
                 o("WAWebWidFactory").createWid(c),
               )) != null
                 ? e
-                : null;
-          return (m = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
-            r("WAWebWindowsHybridBridgeInitiator")
-              .WAWebVoipStackInterfaceWindows,
-          )) == null || (m = m.voip) == null
-            ? void 0
-            : m.handleIncomingSignalingOffer(t, n, a, i, l, s, u, c, d, p);
+                : null,
+            f =
+              (p = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebVoipStackInterfaceWindows,
+              )) == null
+                ? void 0
+                : p.voip;
+          return (
+            m != null &&
+              (f == null ||
+                f.setIncomingOfferReceivedMs == null ||
+                f.setIncomingOfferReceivedMs(m)),
+            f == null
+              ? void 0
+              : f.handleIncomingSignalingOffer(t, n, a, i, l, s, u, c, d, _)
+          );
         },
         handleIncomingSignalingMessage: function (t) {
           var e,

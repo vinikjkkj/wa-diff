@@ -28,6 +28,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPrivacyModeSystemMsg",
+    "WAWebProductFeature",
     "WAWebThreadMsgUtils",
     "WAWebWid",
     "justknobx",
@@ -240,15 +241,15 @@ __d(
             n = e[1],
             r = e[2],
             a = e[3];
-          return n
-            ? t.user === "chat" || r
+          return o("WAWebProductFeature").isInternalProduct() || !n
+            ? !1
+            : t.user === "chat" || r
               ? !0
               : o(
                     "WAWebBizBroadcastDeviceCapabilityCommon",
                   ).isBizBroadcastEnabledAndDeviceSupported()
                 ? a > 0
-                : !1
-            : !1;
+                : !1;
         },
         [s.getId, s.getIsBroadcast, s.getBBProEntrypointEnabled, F],
       ),

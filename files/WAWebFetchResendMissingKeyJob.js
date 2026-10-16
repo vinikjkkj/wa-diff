@@ -312,46 +312,62 @@ __d(
                     s = i.jid,
                     u = o("WAWebWidFactory").createWid(s);
                   l.forEach(function (e) {
-                    var n,
-                      r,
-                      a = e.preKeyMixin,
-                      i = e.pQKeyMixin;
+                    var a,
+                      i,
+                      l = e.deviceSuccessOrFetchMissingPreKeysErrorMixinGroup;
+                    if (l.name === "FetchMissingPreKeysDeviceError") {
+                      (n++,
+                        r.length < 3 &&
+                          r.push(
+                            s +
+                              ":" +
+                              e.id +
+                              ": " +
+                              l.value.errorCode +
+                              ":" +
+                              l.value.errorText,
+                          ));
+                      return;
+                    }
+                    var c = l.value,
+                      d = c.preKeyMixin,
+                      m = c.pQKeyMixin;
                     t.push({
-                      identity: e.elementValue,
+                      identity: c.elementValue,
                       deviceIdentity:
-                        (n =
-                          (r = e.deviceIdentityMixin) == null
+                        (a =
+                          (i = c.deviceIdentityMixin) == null
                             ? void 0
-                            : r.deviceIdentityElementValue) != null
-                          ? n
+                            : i.deviceIdentityElementValue) != null
+                          ? a
                           : null,
                       skey: {
                         id: o("WAParsableXmlNode").convertBytesToUint(
-                          e.skeyIdKeyIDMixin.elementValue,
+                          c.skeyIdKeyIDMixin.elementValue,
                           3,
                         ),
-                        pubkey: e.skeyValueKeyDataMixin.elementValue,
-                        signature: e.skeySignatureElementValue,
+                        pubkey: c.skeyValueKeyDataMixin.elementValue,
+                        signature: c.skeySignatureElementValue,
                       },
-                      key: a && {
+                      key: d && {
                         id: o("WAParsableXmlNode").convertBytesToUint(
-                          a.keyIdKeyIDMixin.elementValue,
+                          d.keyIdKeyIDMixin.elementValue,
                           3,
                         ),
-                        pubkey: a.keyValueKeyDataMixin.elementValue,
+                        pubkey: d.keyValueKeyDataMixin.elementValue,
                       },
-                      kyberKey: i
+                      kyberKey: m
                         ? {
                             id: o("WAParsableXmlNode").convertBytesToUint(
-                              i.pqkeyIdKeyIDMixin.elementValue,
+                              m.idKeyIDMixin.elementValue,
                               3,
                             ),
-                            publicKey: i.pqkeyValuePQKeyDataMixin.elementValue,
-                            signature: i.pqkeySignatureElementValue,
+                            publicKey: m.valuePQKeyDataMixin.elementValue,
+                            signature: m.signatureElementValue,
                           }
                         : null,
                       regId: o("WAParsableXmlNode").convertBytesToUint(
-                        e.registrationElementValue,
+                        c.registrationElementValue,
                         4,
                       ),
                       wid: o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
@@ -379,7 +395,7 @@ __d(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
                       "fetchResendMissingKeys failed for ",
-                      " users => ",
+                      " users/devices => ",
                       "",
                     ])),
                   n,

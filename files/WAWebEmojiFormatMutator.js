@@ -19,15 +19,17 @@ __d(
           babelHelpers.inheritsLoose(t, e),
           (t.jsx = function (t, n, o) {
             var e = n[0],
-              a = o.emojiXstyle,
-              i = o.selectable,
-              l = i === void 0 ? !1 : i,
-              u = o.size;
+              a = o.ellipsifiable,
+              i = o.emojiXstyle,
+              l = o.selectable,
+              u = l === void 0 ? !1 : l,
+              c = o.size;
             return s.jsx(r("WAWebEmojiMutatorComponent.react"), {
+              ellipsifiable: a,
               emoji: e,
-              size: u,
-              selectable: l,
-              xstyle: a,
+              size: c,
+              selectable: u,
+              xstyle: i,
             });
           }),
           (t.match = function (t, n, a) {
@@ -43,7 +45,7 @@ __d(
           t
         );
       })(r("WAWebFormatMutator"));
-    u.compatibility = !0;
+    ((u.ellipsifiable = !0), (u.compatibility = !0));
     function c(e, t) {
       return o("WAWebEmoji").EmojiUtil.getGlyphId(e[0]) ? e : null;
     }

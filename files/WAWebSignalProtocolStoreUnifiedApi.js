@@ -210,6 +210,41 @@ __d(
             }
             return t;
           })()),
+          (a.compareAndSetAccountEncryptionState = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, r) {
+                var o = yield this.$1.Mutex.identity.acquire();
+                try {
+                  var a;
+                  yield this.$3(e);
+                  var i = this.$1.IdentityStore.get(e);
+                  return i == null ||
+                    i.deleted !== void 0 ||
+                    i.identityKey !== t
+                    ? { applied: !1, changed: !1 }
+                    : i.accountEncryptionState === r
+                      ? { applied: !0, changed: !1 }
+                      : ((a = i.accountEncryptionState) != null ? a : null) !==
+                          (n != null ? n : null)
+                        ? { applied: !1, changed: !1 }
+                        : (this.$1.IdentityStore.set(
+                            e,
+                            babelHelpers.extends({}, i, {
+                              accountEncryptionState: r,
+                            }),
+                          ),
+                          this.$1.Dirty.identity.add(e),
+                          { applied: !0, changed: !0 });
+                } finally {
+                  o.release();
+                }
+              },
+            );
+            function t(t, n, r, o) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (a.getIdentityWithRowId = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

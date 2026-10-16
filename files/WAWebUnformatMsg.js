@@ -1,12 +1,15 @@
 __d(
   "WAWebUnformatMsg",
   [
+    "WAWebCodeFormatMutator",
     "WAWebCommonMsgUtils",
     "WAWebFormat",
     "WAWebFormatConfiguration",
     "WAWebFrontendMsgGetters",
+    "WAWebInlineCodeFormatMutator",
     "WAWebMiscGatingUtils",
     "WAWebMsgMentionMap",
+    "WAWebPreviewFormatGating",
     "WAWebUnformatSerializer",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,38 +20,62 @@ __d(
         e
       );
     }
-    function u(e, t) {
-      var n = t != null ? t : "";
+    function u(e, t, n) {
+      var r = t != null ? t : "";
       if (o("WAWebCommonMsgUtils").isRichResponseMsg(e.type)) {
         var a = o("WAWebFormatConfiguration").RichResponse({
           links: [],
           parseHeadlessHeadings: !0,
           parseHeadings: !1,
         });
-        return r("WAWebFormat")(n, a, r("WAWebUnformatSerializer"));
+        return c(r, a, n);
       }
       var i = o("WAWebMsgMentionMap").calculateMsgMentionMap(e),
         l = o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(e);
-      if (!i && !l) return c(n);
+      if (!i && !l) return c(r, s(), n);
       if (o("WAWebMiscGatingUtils").isDropLastNameEnabled()) {
-        var s = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
-        if (s) {
-          var u = o("WAWebFormatConfiguration").FormattedGroupNotification({
+        var u = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
+        if (u) {
+          var d = o("WAWebFormatConfiguration").FormattedGroupNotification({
             mentions: i,
             groupMentions: l,
-            groupMetadata: s,
+            groupMetadata: u,
           });
-          return r("WAWebFormat")(n, u, r("WAWebUnformatSerializer"));
+          return c(r, d, n);
         }
       }
-      var d = o("WAWebFormatConfiguration").FormattedNotification({
+      var m = o("WAWebFormatConfiguration").FormattedNotification({
         mentions: i,
         groupMentions: l,
       });
-      return r("WAWebFormat")(n, d, r("WAWebUnformatSerializer"));
+      return c(r, m, n);
     }
-    function c(e) {
-      return r("WAWebFormat")(e, s(), r("WAWebUnformatSerializer"));
+    function c(e, t, n) {
+      if (n == null)
+        return r("WAWebFormat")(e, t, r("WAWebUnformatSerializer"));
+      var a = o("WAWebPreviewFormatGating").isPreviewRichFormatEnabled(),
+        i = o("WAWebFormatConfiguration").NotificationSpoilerMask({
+          parseBlockCode: a,
+          parseInlineCode: a,
+        }),
+        l = [].concat(
+          i,
+          t.filter(function (e) {
+            return (
+              !a ||
+              e.every(function (e) {
+                var t = e[0];
+                return (
+                  t !== o("WAWebCodeFormatMutator").Code &&
+                  t !== r("WAWebInlineCodeFormatMutator")
+                );
+              })
+            );
+          }),
+        );
+      return r("WAWebFormat")(e, l, r("WAWebUnformatSerializer"), {
+        serializerOptions: { spoilerReplacement: n },
+      });
     }
     l.default = u;
   },

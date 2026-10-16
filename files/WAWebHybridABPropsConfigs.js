@@ -621,6 +621,7 @@ __d(
         !1,
         !0,
       ],
+      wa_web_drag_and_drop_capabilities: [39517, "int", 0, 3],
       wa_win_pdf_rendering_enabled: [29548, "bool", !1, !1],
       web_add_contact: [26892, "string", "", ""],
       web_ai_sticker_emission_enabled: [36294, "bool", !1, !0],

@@ -17,6 +17,14 @@ __d(
         cancel: function (n) {
           return t("cancelTrace", n);
         },
+        complete: function () {
+          var t = e;
+          if (((e = null), t != null)) {
+            var n;
+            (n = r("InteractionTracing").getPendingInteractionById(t)) ==
+              null || n.forceCompleteTrace();
+          }
+        },
         fail: function (n) {
           return t("failTrace", n);
         },
@@ -43,37 +51,57 @@ __d(
       d = e(),
       m = e(),
       p = e(),
-      _ = !1,
-      f = new Set(),
-      g = r("qpl")._(580714498, "3601");
-    function h(e, t) {
-      (e.addAnnotation("surface", t.surface),
-        e.addAnnotation("entrypoint", t.entrypoint),
-        t.productType != null && e.addAnnotation("product_type", t.productType),
-        t.businessID != null && e.addAnnotation("business_id", t.businessID));
-    }
+      _ = null,
+      f = !1,
+      g = new Set(),
+      h = r("qpl")._(580714498, "3601");
     function y(e) {
       var t = { entrypoint: e.entrypoint, surface: e.surface };
       return (
         e.productType != null && (t.product_type = e.productType),
+        e.subType != null && (t.sub_type = e.subType),
+        e.tierCategory != null && (t.tier_category = e.tierCategory),
         e.businessID != null && (t.business_id = e.businessID),
         t
       );
     }
-    var C = {
+    function C(e, t) {
+      var n = y(t);
+      for (var r of Object.keys(n)) {
+        var o = n[r];
+        o != null && e.addAnnotation(r, o);
+      }
+    }
+    var b = {
         __resetForTesting: function () {
           (u.reset(),
             m.reset(),
             c.reset(),
             d.reset(),
             p.reset(),
+            (_ = null),
             (s = null),
-            (_ = !1),
-            f.clear());
+            (f = !1),
+            g.clear());
         },
         annotateDialogOpen: function (t, n) {
           var e = m.getID();
           e != null && r("InteractionTracingMetrics").addAnnotation(e, t, n);
+        },
+        annotateJourneyTierCategory: function (t) {
+          var e = s;
+          (e != null && (s = babelHelpers.extends({}, e, { tierCategory: t })),
+            f &&
+              r("QPLUserFlow").addAnnotations(h, {
+                string: { tier_category: t },
+              }));
+        },
+        annotatePurchaseFunnel: function (t, n) {
+          var e;
+          f &&
+            r("QPLUserFlow").addAnnotations(h, {
+              string: ((e = {}), (e[t] = n), e),
+            });
         },
         cancelBillableAccountReady: function (t) {
           u.cancel(t);
@@ -88,22 +116,32 @@ __d(
           d.cancel(t);
         },
         cancelPurchaseFunnel: function (t) {
-          _ &&
-            ((_ = !1),
-            r("QPLUserFlow").endCancel(g, {
+          f &&
+            ((f = !1),
+            r("QPLUserFlow").endCancel(h, {
               annotations: { string: { cancel_reason: t } },
             }));
         },
         cancelStepTransition: function (t) {
           p.cancel(t);
         },
+        endPurchaseCompletion: function () {
+          var e = d.getID();
+          (e != null &&
+            r("InteractionTracingMetrics").addAnnotation(
+              e,
+              "completion_signal",
+              "payment_reported",
+            ),
+            d.complete());
+        },
         endPurchaseFunnelSpan: function (t) {
-          _ && r("QPLUserFlow").addPoint(g, t + "_end");
+          f && r("QPLUserFlow").addPoint(h, t + "_end");
         },
         endPurchaseFunnelSuccess: function (t) {
-          _ &&
-            ((_ = !1),
-            r("QPLUserFlow").endSuccess(g, {
+          f &&
+            ((f = !1),
+            r("QPLUserFlow").endSuccess(h, {
               annotations: { string: { end_destination: t } },
             }));
         },
@@ -116,7 +154,22 @@ __d(
         failOrderReady: function (t) {
           c.fail(t);
         },
-        failPurchaseCompletion: function (t) {
+        failPurchaseCompletion: function (t, n) {
+          var e = d.getID();
+          if (e != null) {
+            var o = n == null ? void 0 : n.errorCode;
+            o != null &&
+              o !== "" &&
+              r("InteractionTracingMetrics").addAnnotation(e, "error_code", o);
+            var a = n == null ? void 0 : n.errorOperation;
+            a != null &&
+              a !== "" &&
+              r("InteractionTracingMetrics").addAnnotation(
+                e,
+                "error_operation",
+                a,
+              );
+          }
           d.fail(t);
         },
         getPendingBillableAccountReadyID: function () {
@@ -134,14 +187,17 @@ __d(
         getPendingStepTransitionID: function () {
           return p.getID();
         },
+        getPendingStepTransitionIDFor: function (t) {
+          return _ === t ? p.getID() : null;
+        },
         markPurchaseFunnelError: function (t, n) {
-          _ && r("QPLUserFlow").markError(g, t, n != null ? { error: n } : {});
+          f && r("QPLUserFlow").markError(h, t, n != null ? { error: n } : {});
         },
         markPurchaseFunnelPoint: function (t) {
-          _ && r("QPLUserFlow").addPoint(g, t);
+          f && r("QPLUserFlow").addPoint(h, t);
         },
         markPurchaseFunnelPointOnce: function (t) {
-          !_ || f.has(t) || (f.add(t), r("QPLUserFlow").addPoint(g, t));
+          !f || g.has(t) || (g.add(t), r("QPLUserFlow").addPoint(h, t));
         },
         startBillableAccountReady: function () {
           var e = s;
@@ -154,7 +210,7 @@ __d(
                 traceType: "INTERACTION",
               },
               function (t) {
-                return h(t, e);
+                return C(t, e);
               },
             );
         },
@@ -167,12 +223,7 @@ __d(
               traceType: "INTERACTION",
             },
             function (e) {
-              (e.addAnnotation("surface", t.surface),
-                e.addAnnotation("entrypoint", t.entrypoint),
-                t.productType != null &&
-                  e.addAnnotation("product_type", t.productType),
-                t.businessID != null &&
-                  e.addAnnotation("business_id", t.businessID));
+              return C(e, t);
             },
           );
         },
@@ -187,7 +238,7 @@ __d(
                 traceType: "INTERACTION",
               },
               function (t) {
-                return h(t, e);
+                return C(t, e);
               },
             );
         },
@@ -202,25 +253,26 @@ __d(
                 traceType: "INTERACTION",
               },
               function (t) {
-                return h(t, e);
+                return C(t, e);
               },
             );
         },
         startPurchaseFunnel: function (t) {
-          (f.clear(),
+          (g.clear(),
             (s = t),
-            r("QPLUserFlow").start(g, {
+            r("QPLUserFlow").start(h, {
               annotations: { string: y(t) },
               cancelExisting: !0,
             }),
-            (_ = !0));
+            (f = !0));
         },
         startPurchaseFunnelSpan: function (t) {
-          _ && r("QPLUserFlow").addPoint(g, t + "_start");
+          f && r("QPLUserFlow").addPoint(h, t + "_start");
         },
         startStepTransition: function (t) {
           var e = s;
           e != null &&
+            ((_ = t),
             p.start(
               {
                 interactionClass: "responsive",
@@ -229,13 +281,13 @@ __d(
                 traceType: "INTERACTION",
               },
               function (n) {
-                (h(n, e), n.addAnnotation("step", t));
+                (C(n, e), n.addAnnotation("step", t));
               },
-            );
+            ));
         },
       },
-      b = C;
-    l.default = b;
+      v = b;
+    l.default = v;
   },
   98,
 );

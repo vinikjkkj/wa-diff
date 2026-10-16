@@ -233,6 +233,7 @@ __d(
             (e.pollEndTime = o("WAWebBaseModel").prop()),
             (e.pollHideVoterNames = o("WAWebBaseModel").prop()),
             (e.pollAllowAddOption = o("WAWebBaseModel").prop()),
+            (e.pollNameHashHistory = o("WAWebBaseModel").prop()),
             (e.isSentCagPollCreation = o("WAWebBaseModel").prop(!1)),
             (e.pollUpdateParentKey = o("WAWebBaseModel").prop()),
             (e.encPollVote = o("WAWebBaseModel").prop()),

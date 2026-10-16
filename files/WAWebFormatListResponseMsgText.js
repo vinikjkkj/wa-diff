@@ -1,18 +1,19 @@
 __d(
   "WAWebFormatListResponseMsgText",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebFormatMsgTextUtils"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
         n,
-        r = e.msg;
-      return (
-        (((t = r.listResponse) == null ? void 0 : t.title) || "") +
-        " " +
-        (((n = r.listResponse) == null ? void 0 : n.description) || "")
-      );
+        r = e.msg,
+        a = e.options,
+        i =
+          (((t = r.listResponse) == null ? void 0 : t.title) || "") +
+          " " +
+          (((n = r.listResponse) == null ? void 0 : n.description) || "");
+      return o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(i, a);
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

@@ -673,9 +673,17 @@ __d(
                 "xwa_org_managed_group_send_email_invites",
                 a == null ? void 0 : a.error_reason,
               );
-            $e(
-              "xwa_org_managed_group_send_email_invites",
-              "emails=" + n.length,
+            return (
+              $e(
+                "xwa_org_managed_group_send_email_invites",
+                "emails=" + n.length,
+              ),
+              n.filter(function (e, t) {
+                var n;
+                return (
+                  ((n = a.results[t]) == null ? void 0 : n.status) !== "SENT"
+                );
+              })
             );
           },
         )),

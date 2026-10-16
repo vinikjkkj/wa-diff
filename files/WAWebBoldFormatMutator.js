@@ -31,7 +31,7 @@ __d(
           t
         );
       })(c);
-    l.default = d;
+    ((d.previewChildrenOnly = !0), (l.default = d));
   },
   98,
 );

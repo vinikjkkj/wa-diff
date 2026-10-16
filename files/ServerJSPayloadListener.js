@@ -25,7 +25,7 @@ __d(
           var s = null;
           try {
             if (
-              ((s = o("GHLServerJSParse").unpackBootPayload(e.textContent)),
+              ((s = o("GHLServerJSParse").openBootPayload(e.textContent)),
               s == null)
             )
               throw r("err")(

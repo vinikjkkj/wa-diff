@@ -48,6 +48,7 @@ __d(
         case "mfs_totp":
         case "mwa_business":
         case "new_account":
+        case "passkey":
         case "two_fac_passkey_only":
         case "password_continue_only":
         case "password_redirect":
@@ -89,6 +90,7 @@ __d(
         case "mwa_business":
         case "new_account":
         case "no_challenge_available":
+        case "passkey":
         case "two_fac_passkey_only":
         case "password":
         case "password_continue_only":

@@ -14,6 +14,7 @@ __d(
     "WAWebPollsGatingUtils",
     "WAWebPollsOptionBar",
     "WAWebPollsPollVoteModel",
+    "WAWebSpoilerRevealLogger",
     "WAWebTextSizeUtils",
     "WAWebUnstyledButton.react",
     "react",
@@ -226,6 +227,9 @@ __d(
           trusted: m === !0,
           fromMe: _,
           messageHasSpoiler: f,
+          spoilerRevealContext: o(
+            "WAWebSpoilerRevealLogger",
+          ).getSpoilerRevealContextFromValues(i.remote, _),
         }),
         b = u.jsx(o("WAWebEmojiText.react").EmojiText, {
           text: l,

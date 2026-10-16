@@ -837,11 +837,8 @@ __d(
             return this.data;
           }),
           (a.setContextData = function (t, n, r) {
-            return (
-              (r = r === void 0 ? !0 : r),
-              r && (this.context["_log_" + t] = n),
-              this
-            );
+            var e = r === void 0 ? !0 : r;
+            return (e && (this.context["_log_" + t] = n), this);
           }),
           (a._setUserActionID = function () {
             this.userActionID = (o("SessionName").getName() || "-") + "/-";
@@ -1136,8 +1133,9 @@ __d(
             );
           }),
           (a.send = function (a) {
-            var n = this;
-            if (((a = a || !1), !this.uri))
+            var n = this,
+              i = a || !1;
+            if (!this.uri)
               return (
                 r("FBLogger")("asyncrequest").mustfix(
                   "Attempt to dispatch an AsyncRequest without an endpoint URI! This is all sorts of silly and impossible, so the request failed.",
@@ -1210,7 +1208,7 @@ __d(
                 request: this,
                 ts: (p || (p = r("performanceAbsoluteNow")))(),
               }));
-            var i, l;
+            var l, s;
             if (
               (this.method == "GET" &&
                 this.uri.addQueryData({
@@ -1227,11 +1225,11 @@ __d(
                     this.getReadOnly(),
                   ) && this.uri.addQueryData({ ads_manager_write_regions: !0 }),
               this.method == "GET" || this.rawData
-                ? ((i = this.uri.addQueryData(this.data).toString()),
-                  (l = this.rawData || ""))
+                ? ((l = this.uri.addQueryData(this.data).toString()),
+                  (s = this.rawData || ""))
                 : (this._allowCrossOrigin && this.uri.addQueryData({ __a: 1 }),
-                  (i = this.uri.toString()),
-                  (l = (e || (e = o("PHPQuerySerializer"))).serialize(
+                  (l = this.uri.toString()),
+                  (s = (e || (e = o("PHPQuerySerializer"))).serialize(
                     this.data,
                   ))),
               this.transport)
@@ -1244,23 +1242,23 @@ __d(
               );
             if (this.getOption("useFetchTransport"))
               try {
-                var s = new (r("FetchStreamTransport"))(this.uri);
-                return (this.$1(s), this._markRequestSent(), s.send(), !0);
+                var u = new (r("FetchStreamTransport"))(this.uri);
+                return (this.$1(u), this._markRequestSent(), u.send(), !0);
               } catch (e) {
                 this.setOption("useFetchTransport", !1);
               }
             this.flushedResponseHandler &&
               (this.flushedResponseTextParseIndex = 0);
-            var u;
+            var c;
             try {
-              u = o("ZeroRewrites").getTransportBuilderForURI(this.uri)();
+              c = o("ZeroRewrites").getTransportBuilderForURI(this.uri)();
             } catch (e) {
-              var c = r("FBLogger")("comet_infra").blameToPreviousFrame();
+              var d = r("FBLogger")("comet_infra").blameToPreviousFrame();
               throw e instanceof Error
-                ? c.catching(e).mustfixThrow(e.message)
-                : c.mustfixThrow("Error getting transport builder for URI");
+                ? d.catching(e).mustfixThrow(e.message)
+                : d.mustfixThrow("Error getting transport builder for URI");
             }
-            if (!u)
+            if (!c)
               return (
                 r("FBLogger")("asyncrequest").mustfix(
                   "Unable to build XMLHTTPRequest transport.",
@@ -1268,17 +1266,17 @@ __d(
                 !1
               );
             (this.schedule("AsyncRequest.send"),
-              (u.onreadystatechange = function () {
+              (c.onreadystatechange = function () {
                 var e = n.transport;
                 (e &&
                   e.readyState >= 2 &&
                   e.readyState <= 3 &&
                   n._handleFlushedResponse(),
-                  u.readyState === 4 && n.continuation.last(n._onStateChange));
+                  c.readyState === 4 && n.continuation.last(n._onStateChange));
               }),
               this.progressHandler &&
-                k(u) &&
-                (u.onprogress = function () {
+                k(c) &&
+                (c.onprogress = function () {
                   for (
                     var e = arguments.length, t = new Array(e), r = 0;
                     r < e;
@@ -1290,8 +1288,8 @@ __d(
                   });
                 }),
               this.uploadProgressHandler &&
-                I(u) &&
-                (u.upload.onprogress = function () {
+                I(c) &&
+                (c.upload.onprogress = function () {
                   for (
                     var e = arguments.length, t = new Array(e), r = 0;
                     r < e;
@@ -1303,15 +1301,15 @@ __d(
                       n.uploadProgressHandler.apply(n, t);
                   });
                 }),
-              a || (this.remainingRetries = this.getOption("retries")),
-              (this.transport = u));
+              i || (this.remainingRetries = this.getOption("retries")),
+              (this.transport = c));
             try {
-              u.open(this.method, i, this.getOption("asynchronous_DEPRECATED"));
+              c.open(this.method, l, this.getOption("asynchronous_DEPRECATED"));
             } catch (e) {
               return (
                 r("FBLogger")("asyncrequest")
                   .catching(r("getErrorSafe")(e))
-                  .mustfix("Exception when opening Async transport to %s.", i),
+                  .mustfix("Exception when opening Async transport to %s.", l),
                 !1
               );
             }
@@ -1320,7 +1318,7 @@ __d(
               !r("uriIsRelativePath")(this.uri) &&
               !this.getOption("useFetchTransport")
             ) {
-              if (!T(u))
+              if (!T(c))
                 return (
                   r("FBLogger")("asyncrequest").mustfix(
                     "Unable to send cross-origin request (to %s) because the client does not support the protocol.",
@@ -1328,31 +1326,31 @@ __d(
                   ),
                   !1
                 );
-              this._canSendCredentials() && (u.withCredentials = !0);
+              this._canSendCredentials() && (c.withCredentials = !0);
             }
             (this.method == "POST" &&
               !this.rawData &&
-              u.setRequestHeader(
+              c.setRequestHeader(
                 "Content-Type",
                 "application/x-www-form-urlencoded",
               ),
               this._isBackgroundRequest &&
-                u.setRequestHeader("X-FB-BACKGROUND-STATE", "1"));
-            var d = r("getAsyncHeaders")(this.uri);
+                c.setRequestHeader("X-FB-BACKGROUND-STATE", "1"));
+            var m = r("getAsyncHeaders")(this.uri);
             if (
-              (Object.keys(d).forEach(function (e) {
-                u && u.setRequestHeader(e, d[e]);
+              (Object.keys(m).forEach(function (e) {
+                c && c.setRequestHeader(e, m[e]);
               }),
               r("Arbiter").inform("AsyncRequest/will_send", { request: this }),
-              u)
+              c)
             )
-              for (var m in this.headers)
-                Object.prototype.hasOwnProperty.call(this.headers, m) &&
-                  u.setRequestHeader(m, this.headers[m]);
+              for (var g in this.headers)
+                Object.prototype.hasOwnProperty.call(this.headers, g) &&
+                  c.setRequestHeader(g, this.headers[g]);
             return (
               this._addStatusIndicator(),
               this._markRequestSent(),
-              u.send(l),
+              c.send(s),
               this.timeout !== null && this.resetTimeout(this.timeout),
               t._inflightCount++,
               !0
@@ -1411,40 +1409,41 @@ __d(
             });
           }),
           (t.bootstrap = function (n, a, i) {
-            var e = "GET",
-              l = !0,
-              s = {};
+            var e = n,
+              l = "GET",
+              s = !0,
+              u = {};
             (i || (a && a.rel == "async-post")) &&
-              ((e = "POST"),
-              (l = !1),
-              n &&
-                ((n = new (m || (m = r("URI")))(n)),
-                (s = n.getQueryData()),
-                n.setQueryData({})));
-            var u = o("Parent").byClass(a, "stat_elem") || a;
-            if (u && o("CSS").hasClass(u, "async_saving")) return !1;
-            var c = new t(n)
-              .setReadOnly(l)
-              .setMethod(e)
-              .setData(s)
+              ((l = "POST"),
+              (s = !1),
+              e &&
+                ((e = new (m || (m = r("URI")))(e)),
+                (u = e.getQueryData()),
+                e.setQueryData({})));
+            var c = o("Parent").byClass(a, "stat_elem") || a;
+            if (c && o("CSS").hasClass(c, "async_saving")) return !1;
+            var d = new t(e)
+              .setReadOnly(s)
+              .setMethod(l)
+              .setData(u)
               .setNectarModuleDataSafe(a)
               .setRelativeTo(a);
             if (
               (a &&
-                (c.setHandler(function (e) {
+                (d.setHandler(function (e) {
                   r("Event").fire(a, "success", { response: e });
                 }),
-                c.setErrorHandler(function (e) {
+                d.setErrorHandler(function (e) {
                   r("Event").fire(a, "error", { response: e }) !== !1 &&
                     r("AsyncResponse").defaultErrorHandler(e);
                 })),
-              u instanceof HTMLElement)
+              c instanceof HTMLElement)
             ) {
-              c.setStatusElement(u);
-              var d = u.getAttribute("data-status-class");
-              d && c.setStatusClass(d);
+              d.setStatusElement(c);
+              var p = c.getAttribute("data-status-class");
+              p && d.setStatusClass(p);
             }
-            return (c.send(), !1);
+            return (d.send(), !1);
           }),
           (t.bootstrap_UNSAFE_LET_ANYONE_IMPERSONATE_THE_USER_FOR_THESE_WRITES =
             function (n, r, o) {

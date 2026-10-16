@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebContactImportFileProcessor",
     "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerImportContactClassifier",
     "WAWebCustomerManagerImportErrorMessage",
@@ -31,7 +32,9 @@ __d(
           if (
             (t.forEach(function (e) {
               var t = e.lid,
-                s = e.phone.replace(/\D/g, "");
+                s = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+                  e.phone,
+                );
               if (t != null && s !== "") {
                 var p = o("WAJids").interpretAndValidateJid(
                     o("WAJids").toPhoneUserJid(s),

@@ -49,10 +49,10 @@ __d(
               }),
               this.triggerProductUpdate(),
               this.listenTo(this.productCollection, "remove", function (t) {
-                return e.triggerProductRemoved(t);
+                return e.$ProductMessageListImpl$p_1(t.id);
               }));
           }),
-          (a.triggerProductRemoved = function (t) {
+          (a.$ProductMessageListImpl$p_1 = function (t) {
             o(
               "WAWebBizProductMessageListAction",
             ).updateProductListHeaderImageRejected(t, this.id);
@@ -64,7 +64,7 @@ __d(
                 var n = e._getFetchStatus(t);
                 if (
                   (e.setProductLoadingStatus(t.id, n),
-                  t.status === "DELETED" && e.triggerProductRemoved(t),
+                  t.status === "DELETED" && e.$ProductMessageListImpl$p_1(t.id),
                   t.status !== "DELETED" && n !== "ERROR")
                 ) {
                   var r = o(
@@ -72,7 +72,7 @@ __d(
                   ).mapProductResponseToModel(t, e.catalogId);
                   (r.reviewStatus ===
                     o("WAWebProductCollection").PRODUCT_REVIEW_STATUS
-                      .REJECTED && e.triggerProductRemoved(r),
+                      .REJECTED && e.$ProductMessageListImpl$p_1(t.id),
                     e.productCollection.add(r, { merge: !0 }));
                 }
               }),

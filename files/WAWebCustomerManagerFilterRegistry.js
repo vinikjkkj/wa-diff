@@ -8,6 +8,7 @@ __d(
     "WAWebCustomerManagerDateRangeUtils",
     "WAWebCustomerManagerLastMessageRangeSecondsBounds",
     "WAWebCustomerManagerSearchUtils",
+    "WAWebCustomerProfileAcquisitionSource",
     "WAWebLabelCollection",
     "WAWebLeadListConstants",
     "WAWebListItemParentType",
@@ -49,15 +50,39 @@ __d(
         serverFilter: (e = o("WAWebNullFunc")).returnNull,
       },
       d = {
-        isClientActive: o("WAWebBoolFunc").returnFalse,
+        isClientActive: function (t) {
+          return (
+            t.acquisitionSource ===
+            o("WAWebCustomerProfileAcquisitionSource")
+              .PROFILE_ACQUISITION_SOURCE_UNKNOWN
+          );
+        },
         matcher: function () {
-          return o("WAWebBoolFunc").returnTrue;
+          return function (e) {
+            return (
+              e.acquisitionSource == null ||
+              e.acquisitionSource ===
+                o("WAWebCustomerProfileAcquisitionSource")
+                  .PROFILE_ACQUISITION_SOURCE_UNKNOWN
+            );
+          };
         },
         serverFilter: function (t) {
-          if (t.acquisitionSource == null) return null;
-          var e = o(
-            "WAWebCustomerManagerCustomerProfileDecoders",
-          ).toAcquisitionSourceFilterText(t.acquisitionSource);
+          var e = (function (e) {
+            if (
+              e == null ||
+              e ===
+                o("WAWebCustomerProfileAcquisitionSource")
+                  .PROFILE_ACQUISITION_SOURCE_UNKNOWN
+            )
+              return null;
+            {
+              var t = e;
+              return o(
+                "WAWebCustomerManagerCustomerProfileDecoders",
+              ).toAcquisitionSourceFilterText(t);
+            }
+          })(t.acquisitionSource);
           return e == null
             ? null
             : { fieldName: "acquisition_source", filterText: e };

@@ -19,6 +19,7 @@ __d(
     "WAWebPollsUseResults",
     "WAWebPollsUseStickySortedResults",
     "WAWebPollsUseVoteCount",
+    "WAWebSpoilerRevealLogger",
     "WAWebTextSizeUtils",
     "WDSBanner.react",
     "react",
@@ -151,6 +152,8 @@ __d(
           n.getPollType,
           n.getPollCorrectOptionIndex,
           n.getIsNewsletterMsg,
+          n.getIsSentByMe,
+          n.getIsSpoiler,
         ]),
         L = R[0],
         E = R[1],
@@ -160,21 +163,29 @@ __d(
         D = R[5],
         x = R[6],
         $ = R[7],
-        P = o("WAWebFrontendMsgGetters").getChatByMsgKey(l, $),
-        N = o("WAWebPollsUseStickySortedResults").useStickySortedResults(g),
-        M = r("useWAWebIsMsgTrusted")(l),
-        w = o("WAWebFormatConfigurationConversation").Conversation({
+        P = R[8],
+        N = R[9],
+        M = o("WAWebFrontendMsgGetters").getChatByMsgKey(l, $),
+        w = o("WAWebPollsUseStickySortedResults").useStickySortedResults(g),
+        A = r("useWAWebIsMsgTrusted")(l),
+        F = o("WAWebSpoilerRevealLogger").getSpoilerRevealContextFromValues(
+          l.remote,
+          P,
+        ),
+        O = o("WAWebFormatConfigurationConversation").Conversation({
           links: L == null ? [] : o("WAWebMsgLinks").getLinksFromText(L, T),
           phoneNumbers: [],
           selectable: !0,
-          trusted: M,
+          trusted: A,
           fromMe: E.fromMe,
+          messageHasSpoiler: N,
+          spoilerRevealContext: F,
         }),
-        A = m(function () {
+        B = m(function () {
           return new (r("WAWebFlatListController"))();
         }, []),
-        F = o("WAWebChatGetters").getIsGroup(P)
-          ? (t = P.groupMetadata) == null
+        W = o("WAWebChatGetters").getIsGroup(M)
+          ? (t = M.groupMetadata) == null
             ? void 0
             : t.participants.length
           : 0;
@@ -199,7 +210,7 @@ __d(
               focusBackOrCancel: !0,
             }),
             d.jsxs(r("WAWebDrawerBody.react"), {
-              flatListControllers: [A],
+              flatListControllers: [B],
               children: [
                 d.jsxs(r("WAWebDrawerSection.react"), {
                   theme: "no-padding",
@@ -221,17 +232,17 @@ __d(
                         d.jsx(o("WAWebEmojiText.react").EmojiText, {
                           text: L,
                           selectable: !0,
-                          formatters: w,
+                          formatters: O,
                           className: (u || (u = r("stylex")))(p.pollName, y),
                         }),
-                        F != null &&
-                          F > 1 &&
+                        W != null &&
+                          W > 1 &&
                           d.jsx("span", {
                             className: "x1nxh6w3 x1fc57z9 x1rg5ohu x1380le5",
                             children: s._(
                               /*BTDS*/ '_j{"*":"{vote_count} of {group_length} members voted","_1":"{vote_count} of 1 member voted"}',
                               [
-                                s._plural(F, "group_length"),
+                                s._plural(W, "group_length"),
                                 s._param("vote_count", S),
                               ],
                             ),
@@ -240,7 +251,7 @@ __d(
                     }),
                   ],
                 }),
-                N.map(function (e) {
+                w.map(function (e) {
                   var t = e[0],
                     n = e[1];
                   return d.jsx(
@@ -252,15 +263,17 @@ __d(
                       option: t,
                       result: n,
                       isPollFromMe: E.fromMe,
-                      links: M
+                      messageHasSpoiler: N,
+                      spoilerRevealContext: F,
+                      links: A
                         ? o("WAWebMsgLinks").getLinksFromText(t.name, T)
                         : null,
-                      trusted: M,
+                      trusted: A,
                       onViewAllVotes: function () {
                         f(t.localId);
                       },
                       onOpenContactInfo: _,
-                      flatListController: A,
+                      flatListController: B,
                       testid: "poll-details-option-" + t.localId,
                       isCorrectOption: o(
                         "WAWebPollOptionsRenderUtils",

@@ -9,7 +9,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.hasKeyType,
+      var t = e.keyTypeMixinArgs,
         n = o("WASmaxMixins").optionalMerge(
           o("WASmaxOutPreKeysKeyTypeMixin").mergeKeyTypeMixin,
           o("WASmaxOutPreKeysPQLastResortKeyMixin").mergePQLastResortKeyMixin(

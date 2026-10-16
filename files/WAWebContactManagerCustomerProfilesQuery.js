@@ -32,47 +32,53 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          return (t = yield f(e)) != null ? t : m;
+          return f(yield g(e), e.candidateLids != null);
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function f(e, t) {
+      if (e == null && t)
+        throw r("err")(
+          "[CustomerManager] fetchCustomerProfilePage: no scoped profile response",
+        );
+      return e != null ? e : m;
     }
-    function g() {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.candidateLids != null && e.candidateLids.length === 0) return m;
-          var t = yield R(e);
-          return t == null ? null : { cursor: t.cursor, records: v(t) };
+          var t = yield L(e);
+          return t == null ? null : { cursor: t.cursor, records: S(t) };
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return C(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+    function y(e) {
+      return b(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
         function (e) {
           return e.records;
         },
       );
     }
-    function y(e) {
-      return C(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+    function C(e) {
+      return b(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
         function (e) {
           return e.isComplete ? e.records : null;
         },
       );
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
+    function b(e, t, n, r) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield f(babelHelpers.extends({}, e, { cursor: t }));
+            var a = yield g(babelHelpers.extends({}, e, { cursor: t }));
             return a == null
               ? { isComplete: !1, records: r }
               : (r.push.apply(r, a.records),
@@ -90,13 +96,13 @@ __d(
                         )
                         .sendLogs("customer_manager_profiles_page_cap_hit"),
                       { isComplete: !1, records: r })
-                    : C(e, a.cursor, n + 1, r));
+                    : b(e, a.cursor, n + 1, r));
           },
         )),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S(e) {
       var t = [];
       for (var n of (r = e == null ? void 0 : e.profiles) != null ? r : []) {
         var r,
@@ -113,7 +119,7 @@ __d(
             ),
             birthdayIso: n.dob,
             chatJid: o("WAJids").toLidUserJid(a),
-            customFieldValues: S(n.custom_field_values),
+            customFieldValues: R(n.custom_field_values),
             email: n.email,
             lastOrder: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
@@ -134,7 +140,7 @@ __d(
       }
       return t;
     }
-    function S(e) {
+    function R(e) {
       var t = [];
       for (var n of e != null ? e : []) {
         var r,
@@ -168,12 +174,12 @@ __d(
       }
       return t;
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
@@ -207,7 +213,7 @@ __d(
             );
           } catch (e) {
             throw (
-              E(e, "read"),
+              k(e, "read"),
               o(
                 "WAWebCustomerManagerRequestErrors",
               ).asCustomerManagerRequestError(e)
@@ -215,10 +221,10 @@ __d(
           }
           return (t = a) == null ? void 0 : t.xfb_wa_customer_profiles;
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       o("WAWebGraphQLServerError").isRateLimitError(e) &&
         o("WAWebFBLogger")
           .WAWebFBLogger()
@@ -229,9 +235,9 @@ __d(
           );
     }
     ((l.fetchCustomerProfilePage = p),
-      (l.fetchCustomerProfileRecords = h),
-      (l.fetchCompleteCustomerProfileRecords = y),
-      (l.logIfRateLimited = E));
+      (l.fetchCustomerProfileRecords = y),
+      (l.fetchCompleteCustomerProfileRecords = C),
+      (l.logIfRateLimited = k));
   },
   98,
 );

@@ -14,6 +14,7 @@ __d(
     "useWAWebDebouncedCallback",
     "useWAWebForceUpdate",
     "useWAWebListener",
+    "useWAWebStableCallback",
     "useWAWebThrottledCallback",
     "useWAWebUnmountSignal",
   ],
@@ -100,24 +101,30 @@ __d(
           return function () {
             return e.apply(this, arguments);
           };
-        })();
-      (c(function () {
-        (T(I()), D());
-      }, []),
+        })(),
+        x = r("useWAWebStableCallback")(function () {
+          (T(I()), D());
+        });
+      (c(
+        function () {
+          x();
+        },
+        [x],
+      ),
         o("useWAWebListener").useListener(h.productCollection, "add", f));
-      var x = r("useWAWebThrottledCallback")(function (e) {
+      var $ = r("useWAWebThrottledCallback")(function (e) {
           C ||
             (e.scrollTop + o("WAWebFrontendConstants").SCROLL_FUDGE >
               e.scrollHeight - e.clientHeight &&
               D());
         }, m),
-        $ = function (t) {
-          t.currentTarget && x(t.currentTarget);
+        P = function (t) {
+          t.currentTarget && $(t.currentTarget);
         };
       return s.jsxs(r("WAWebFlatListContainer.react"), {
         className: t,
         flatListControllers: [a],
-        onScroll: $,
+        onScroll: P,
         children: [
           s.jsx(o("WAWebFlatList.react").FlatList, {
             flatListController: a,

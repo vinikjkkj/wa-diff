@@ -4,7 +4,7 @@ __d(
     "CometErrorOverlay",
     "CometReauthChallengeListener",
     "CometRelayEnvironmentProvider",
-    "CometThemeInfraBaseThemeGated.react",
+    "CometThemeInfraBaseTheme.react",
     "CometThemeInfraUtils",
     "CometTransientDialogProvider.react",
     "ExecutionEnvironment",
@@ -213,19 +213,13 @@ __d(
                   })));
             },
           },
-          h =
-            o(
-              "CometThemeInfraUtils",
-            ).enableCometThemeInfraThemeInXMDSComponents() === !0 &&
-            e != null &&
-            r("CometThemeInfraBaseThemeGated.react") != null;
+          h = (e == null ? void 0 : e.auto) != null;
         return h
           ? u.jsx(r("CometRelayEnvironmentProvider"), {
               children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
                 children:
-                  e &&
-                  r("CometThemeInfraBaseThemeGated.react") &&
-                  u.jsx(r("CometThemeInfraBaseThemeGated.react"), {
+                  e != null &&
+                  u.jsx(r("CometThemeInfraBaseTheme.react"), {
                     themes: e,
                     children: u.jsx(r("CometTransientDialogProvider.react"), {
                       children: n(g),
