@@ -1,62 +1,60 @@
 __d(
   "WAWebVoipResolutionCap",
-  ["WAWebABProps", "WAWebBrowserApi", "WAWebVoipDeviceClassUtils"],
+  [
+    "WAWebABProps",
+    "WAWebBrowserApi",
+    "WAWebVoipCaptureCap",
+    "WAWebVoipDeviceClassUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 6;
-    function s(t) {
-      var n,
+    function s() {
+      var t,
+        n,
         r,
         a,
-        i,
-        l = o("WAWebBrowserApi").getNumCpu(),
-        s = o("WAWebBrowserApi").getMemClass(),
-        u = s != null ? Math.round(s / 1e3) : null,
-        c = o("WAWebVoipDeviceClassUtils").computeDeviceClass(l, u),
-        d =
-          (n = o("WAWebABProps").getABPropConfigValue(
+        i = o("WAWebBrowserApi").getNumCpu(),
+        l = o("WAWebBrowserApi").getMemClass(),
+        s = l != null ? Math.round(l / 1e3) : null,
+        u = o("WAWebVoipDeviceClassUtils").computeDeviceClass(i, s),
+        c =
+          (t = o("WAWebABProps").getABPropConfigValue(
             "web_voip_video_low_cap_width",
           )) != null
-            ? n
+            ? t
             : 480,
-        m =
-          (r = o("WAWebABProps").getABPropConfigValue(
+        d =
+          (n = o("WAWebABProps").getABPropConfigValue(
             "web_voip_video_low_cap_height",
           )) != null
-            ? r
+            ? n
             : 270,
-        p =
-          (a = o("WAWebABProps").getABPropConfigValue(
+        m =
+          (r = o("WAWebABProps").getABPropConfigValue(
             "web_voip_video_mid_cap_width",
           )) != null
-            ? a
+            ? r
             : 640,
-        _ =
-          (i = o("WAWebABProps").getABPropConfigValue(
+        p =
+          (a = o("WAWebABProps").getABPropConfigValue(
             "web_voip_video_mid_cap_height",
           )) != null
-            ? i
+            ? a
             : 360;
-      if (c === o("WAWebVoipDeviceClassUtils").DEVICE_CLASS.LOW)
-        return {
-          width: Math.min(t.width, d),
-          height: Math.min(t.height, m),
-          maxFps: t.maxFps,
-        };
-      var f =
-        c != null
-          ? c === o("WAWebVoipDeviceClassUtils").DEVICE_CLASS.MOD_LOW ||
-            c === o("WAWebVoipDeviceClassUtils").DEVICE_CLASS.MID
-          : l != null && l > 0 && l < e;
-      return f
-        ? {
-            width: Math.min(t.width, p),
-            height: Math.min(t.height, _),
-            maxFps: t.maxFps,
-          }
-        : t;
+      if (u === o("WAWebVoipDeviceClassUtils").DEVICE_CLASS.LOW)
+        return { width: c, height: d };
+      var _ =
+        u != null
+          ? u === o("WAWebVoipDeviceClassUtils").DEVICE_CLASS.MOD_LOW ||
+            u === o("WAWebVoipDeviceClassUtils").DEVICE_CLASS.MID
+          : i != null && i > 0 && i < e;
+      return _ ? { width: m, height: p } : null;
     }
-    l.applyLowEndResolutionCap = s;
+    function u(e) {
+      return o("WAWebVoipCaptureCap").applyCaptureCap(e, s());
+    }
+    ((l.getLowEndCaptureCap = s), (l.applyLowEndResolutionCap = u));
   },
   98,
 );

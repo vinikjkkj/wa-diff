@@ -14,11 +14,14 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_MODAL,
       });
     }
-    function s(e, t, n) {
+    function s(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        bbTier: n,
+        bbTier: r,
         entryPoint: t,
+        extraAttributes: {
+          direction: n === "TURN_OFF" ? "turn_off" : "turn_on",
+        },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_QR,
       });

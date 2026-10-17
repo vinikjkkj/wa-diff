@@ -2,56 +2,81 @@ __d(
   "WAWebOrderExpansionAction",
   [
     "fbt",
+    "WALogger",
     "WAWebBizEntryPoint",
     "WAWebBizOrderUpdateStatusAction",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMsgGetters",
+    "WAWebMsgCollection",
+    "WAWebMsgType",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
     "WAWebOrdersExpansionUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e = function (t) {
+    var e,
+      u = function (t) {
         var e = t.interactiveType,
-          n = t.nativeFlowName;
+          n = t.isSentByMe,
+          o = t.nativeFlowName;
         return (
           e === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-          n === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-          o("WAWebMsgGetters").getIsSentByMe(t.unsafe())
+          o === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+          n
         );
       },
-      u = function (n, r) {
-        var t = !(
-          r === o("WAWebOrderStatus").OrderStatus.Canceled ||
-          r === o("WAWebOrderStatus").OrderStatus.Complete
+      c = function (t, n) {
+        var e = !(
+          n === o("WAWebOrderStatus").OrderStatus.Canceled ||
+          n === o("WAWebOrderStatus").OrderStatus.Complete
         );
-        return t && e(n);
+        return e && u(t);
       };
-    function c(e) {
-      var t = e.chat,
-        n = e.msg,
-        a = e.orderInfo,
-        i = e.orderStatus,
-        l = e.uimContext;
-      return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(t) ||
-        o("WAWebOrderStatus").isPaymentRequest(t, a) ||
-        o("WAWebOrderStatusButton").isInboxCreatedOrder(n) ||
-        i == null ||
-        !u(n, i)
+    function d(t) {
+      var n = t.chat,
+        a = t.msgKey,
+        i = t.orderInfo,
+        l = t.orderStatus,
+        u = t.uimContext,
+        d = t.values;
+      return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(n) ||
+        o("WAWebOrderStatus").isPaymentRequest(n, i) ||
+        o("WAWebOrderStatusButton").isInboxCreatedOrderFor({
+          interactivePayload: d.interactivePayload,
+          type: d.type,
+        }) ||
+        l == null ||
+        !c(d, l)
         ? null
         : {
             label: s._(/*BTDS*/ "Update status"),
             onClick: function () {
+              var t,
+                n =
+                  (t = o("WAWebMsgCollection").MsgCollection.get(a)) == null
+                    ? void 0
+                    : t.safe();
+              if (
+                n == null ||
+                n.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+              ) {
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[order-expansion] update status skipped, message left the collection",
+                    ])),
+                );
+                return;
+              }
               o("WAWebBizOrderUpdateStatusAction").openOrderStatusUpdateDrawer(
                 n,
-                l,
+                u,
                 r("WAWebBizEntryPoint").FROM_CHAT,
               );
             },
           };
     }
-    l.getOrderUpdateStatusAction = c;
+    l.getOrderUpdateStatusAction = d;
   },
   226,
 );

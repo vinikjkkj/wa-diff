@@ -3,59 +3,65 @@ __d(
   ["objectValues", "relay-runtime/util/withProvidedVariables"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      var n,
-        o,
-        a,
-        i,
-        l,
-        s,
-        u,
-        c,
-        d,
-        m = r("relay-runtime/util/withProvidedVariables")(
+    function e(e, t, n) {
+      var o, a, i, l, s, u, c, d, m, p, _, f;
+      n === void 0 && (n = !0);
+      var g = r("relay-runtime/util/withProvidedVariables")(
           e.variables,
           e.parameters.params.providedVariables,
           t,
         ),
-        p = e.parameters.params.id;
-      return {
-        actor_id:
-          (n =
-            (o = e.environmentProviderOptions) == null ? void 0 : o.actorID) !=
-          null
-            ? n
-            : null,
-        cache_id: p == null ? e.parameters.params.cacheID : void 0,
-        exclude_from_ssr:
-          (a =
-            (i = e.environmentProviderOptions) == null
-              ? void 0
-              : i.excludeFromSSR) != null
-            ? a
-            : !1,
-        graphql_env_override_ref:
-          (l =
-            (s = e.environmentProviderOptions) == null
-              ? void 0
-              : s.graphQLEnvOverrideRef) != null
-            ? l
-            : null,
-        id: p,
-        name: e.parameters.params.name,
-        num_connections_for_ssr:
-          (u =
-            (c = e.environmentProviderOptions) == null
-              ? void 0
-              : c.numConnectionsForSSR) != null
-            ? u
-            : null,
-        preloader_group:
-          (d = e.environmentProviderOptions) == null
+        h = e.parameters.params.id,
+        y =
+          n &&
+          ((o = e.options) == null ? void 0 : o.fetchPolicy) == null &&
+          ((a = e.options) == null ? void 0 : a.networkCacheConfig) == null &&
+          ((i = e.environmentProviderOptions) == null
             ? void 0
-            : d.preloaderGroup,
-        variables: m,
-      };
+            : i.graphQLEnvOverrideRef) == null;
+      return babelHelpers.extends(
+        {
+          actor_id:
+            (l =
+              (s = e.environmentProviderOptions) == null
+                ? void 0
+                : s.actorID) != null
+              ? l
+              : null,
+          cache_id: h == null ? e.parameters.params.cacheID : void 0,
+          exclude_from_ssr:
+            (u =
+              (c = e.environmentProviderOptions) == null
+                ? void 0
+                : c.excludeFromSSR) != null
+              ? u
+              : !1,
+          graphql_env_override_ref:
+            (d =
+              (m = e.environmentProviderOptions) == null
+                ? void 0
+                : m.graphQLEnvOverrideRef) != null
+              ? d
+              : null,
+          id: h,
+          name: e.parameters.params.name,
+          num_connections_for_ssr:
+            (p =
+              (_ = e.environmentProviderOptions) == null
+                ? void 0
+                : _.numConnectionsForSSR) != null
+              ? p
+              : null,
+        },
+        y ? { preload_on_query_ast_load: !0 } : {},
+        {
+          preloader_group:
+            (f = e.environmentProviderOptions) == null
+              ? void 0
+              : f.preloaderGroup,
+          variables: g,
+        },
+      );
     }
     function s(e, t) {
       var n = e.getPreloadProps(t),
@@ -188,7 +194,7 @@ __d(
             return e != null;
           })
           .map(function (n) {
-            return e(n, t);
+            return e(n, t, !1);
           });
       return { deferred: l, display: i };
     }

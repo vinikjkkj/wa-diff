@@ -107,7 +107,6 @@ __d(
           t != null &&
           p.indexOf(c) !== -1 &&
           o("GHLTypenameRestore").restoreTypenameValues(t, c, u),
-        t != null && o("GHLTypenameRestore").restoreAllTypenames(t, p),
         t
       );
     }

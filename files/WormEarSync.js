@@ -5,13 +5,13 @@ __d(
     "WABase64",
     "WABinary",
     "WACryptoHkdfSync",
+    "WACryptoPrimitives",
     "WACryptoSha256BuilderV2",
     "WATimeUtils",
     "WormCallbacks",
     "WormEar",
     "err",
     "getErrorSafe",
-    "tweetnacl",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,11 +24,11 @@ __d(
           var s;
           if (
             ((s = t.call(this, n, a, i, e, l) || this),
-            i.byteLength !== o("tweetnacl").secretbox.keyLength)
+            i.byteLength !== o("WACryptoPrimitives").secretbox.keyLength)
           )
             throw r("err")(
               "WormEarSync: master key must be " +
-                o("tweetnacl").secretbox.keyLength +
+                o("WACryptoPrimitives").secretbox.keyLength +
                 " bytes, got " +
                 i.byteLength +
                 "; db: " +
@@ -51,7 +51,7 @@ __d(
         return (
           (a.prepareNewKeyVersion = function () {
             var e,
-              t = (e = o("tweetnacl")).randomBytes(
+              t = (e = o("WACryptoPrimitives")).randomBytes(
                 o("WormEar").HKDF_SEED_LENGTH_IN_BYTES,
               ),
               n = e.randomBytes(o("WormEar").HKDF_SEED_LENGTH_IN_BYTES),
@@ -106,9 +106,9 @@ __d(
           }),
           (a.$WormEarSync$p_3 = function (t) {
             var e = new Uint8Array(t.salt),
-              n = o("tweetnacl").secretbox.open(
-                e.subarray(o("tweetnacl").secretbox.nonceLength),
-                e.subarray(0, o("tweetnacl").secretbox.nonceLength),
+              n = o("WACryptoPrimitives").secretbox.open(
+                e.subarray(o("WACryptoPrimitives").secretbox.nonceLength),
+                e.subarray(0, o("WACryptoPrimitives").secretbox.nonceLength),
                 this.$WormEarSync$p_1,
               );
             if (n == null)

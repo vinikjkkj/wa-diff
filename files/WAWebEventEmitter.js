@@ -86,7 +86,7 @@ __d(
               a = this.$2;
             if (!a) return this;
             var i = t == null ? void 0 : t.listenId,
-              l = i ? ((e = {}), (e[i] = t), e) : a,
+              l = i != null && i !== "" ? ((e = {}), (e[i] = t), e) : a,
               s = !n && !o;
             for (var u in l) {
               var c = l[u];
@@ -131,16 +131,17 @@ __d(
               : !1;
           }),
           (n.$7 = function (t) {
-            var e = this.$2 || (this.$2 = {}),
-              n = t.listenId || (t.listenId = "l" + ++s);
-            e[n] = t;
+            var e,
+              n = this.$2 || (this.$2 = {}),
+              r = (e = t.listenId) != null ? e : (t.listenId = "l" + ++s);
+            n[r] = t;
           }),
           (n.$4 = function (t) {
             var e = this.$1 || (this.$1 = {});
             return e[t] || (e[t] = []);
           }),
           (n.$5 = function (t) {
-            if (t) {
+            if (!(t == null || t === "")) {
               var e = this.$1;
               if (e) return e[t];
             }

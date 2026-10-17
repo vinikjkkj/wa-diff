@@ -272,6 +272,7 @@ __d(
       FB_LWI_POST_AD_CREATION_GUIDANCE_UPSELL:
         "fb_lwi_post_ad_creation_guidance_upsell",
       FB_LWI_VIEW_RESULTS_PAGE: "fb_lwi_view_results_page",
+      FB_MARKETPLACE_SELLER_QP_PRO_AC: "fb_marketplace_seller_qp_pro_ac",
       FB_MENU_SUBSCRIPTIONS: "fb_menu_subscriptions",
       FB_ML_AQP_META_ONE_CONSUMER: "fb_ml_aqp_meta_one_consumer",
       FB_ML_AQP_PRO_AC: "fb_ml_aqp_pro_ac",

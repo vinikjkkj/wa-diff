@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebApplyPollVoteTCValidation",
     "WAWebBackendApi",
     "WAWebDBMarkFutureproofMessagesReparsed",
     "WAWebDBPollsGetParentMessages",
@@ -31,22 +32,22 @@ __d(
               c = l[1];
             c.pollInvalidated === !0 && i.delete(u);
           }
-          for (var d of i.entries()) {
-            var m = d[0],
-              p = d[1],
-              _ = p.pollEndTime;
-            _ != null &&
-              m.t != null &&
-              m.t * 1e3 > _ &&
+          for (var m of i.entries()) {
+            var p = m[0],
+              _ = m[1],
+              f = _.pollEndTime;
+            f != null &&
+              p.t != null &&
+              p.t * 1e3 > f &&
               (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "poll-update-past-end-time/dropped",
                   ])),
               ),
-              i.delete(m));
+              i.delete(p));
           }
-          var f = yield (s || (s = n("Promise"))).all([
+          var g = yield (s || (s = n("Promise"))).all([
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 if (a.length !== 0) {
                   yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
@@ -65,52 +66,84 @@ __d(
               })(),
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 if (i.size !== 0) {
-                  var e = yield o("WAWebDBPollsUpsertVotes").upsertVotesDb(
-                    yield o("WAWebPollsExtractVotes").extractVotes(i),
-                  );
-                  yield o("WAWebBackendApi").frontendSendAndReceive(
-                    "upsertVotesModelCollection",
-                    { votes: e, votesToRemove: null, restoredFromDb: !1 },
-                  );
-                  var t = e.map(function (e) {
-                    return e.msgKey.toString();
-                  });
-                  yield o(
-                    "WAWebDBMarkFutureproofMessagesReparsed",
-                  ).markFutureproofMessagesReparsed(t);
-                  var n = new Map();
-                  for (var r of i.values())
-                    n.set(r.id.toString(), r.pollHideVoterNames);
-                  var a = yield o(
-                    "WAWebShouldUpdateLastAddOnPreview",
-                  ).filterChatsWithAddOnPreviewUpdates(
-                    e.map(function (e) {
-                      return o(
-                        "WAWebLastAddOnDBSerialization",
-                      ).lastAddOnPreviewCandidateFromVoteData(
-                        e,
-                        n.get(e.parentMsgKey.toString()),
-                      );
-                    }),
-                  );
-                  return (
-                    a.size > 0 &&
-                      (yield o(
-                        "WAWebDBUpdateLastAddOnPreviewChat",
-                      ).updateDatabaseForLastAddOnPreview(a),
-                      o("WAWebBackendApi").frontendFireAndForget(
-                        "updateChatLastAddOnPreview",
-                        { chatMap: a },
-                      )),
-                    e
-                  );
+                  var e = yield o("WAWebPollsExtractVotes").extractVotes(i),
+                    t = yield d(e, i);
+                  if (t.length !== 0) {
+                    var n = yield o("WAWebDBPollsUpsertVotes").upsertVotesDb(t);
+                    yield o("WAWebBackendApi").frontendSendAndReceive(
+                      "upsertVotesModelCollection",
+                      { votes: n, votesToRemove: null, restoredFromDb: !1 },
+                    );
+                    var r = n.map(function (e) {
+                      return e.msgKey.toString();
+                    });
+                    yield o(
+                      "WAWebDBMarkFutureproofMessagesReparsed",
+                    ).markFutureproofMessagesReparsed(r);
+                    var a = new Map();
+                    for (var l of i.values())
+                      a.set(l.id.toString(), l.pollHideVoterNames);
+                    var s = yield o(
+                      "WAWebShouldUpdateLastAddOnPreview",
+                    ).filterChatsWithAddOnPreviewUpdates(
+                      n.map(function (e) {
+                        return o(
+                          "WAWebLastAddOnDBSerialization",
+                        ).lastAddOnPreviewCandidateFromVoteData(
+                          e,
+                          a.get(e.parentMsgKey.toString()),
+                        );
+                      }),
+                    );
+                    return (
+                      s.size > 0 &&
+                        (yield o(
+                          "WAWebDBUpdateLastAddOnPreviewChat",
+                        ).updateDatabaseForLastAddOnPreview(s),
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "updateChatLastAddOnPreview",
+                          { chatMap: s },
+                        )),
+                      n
+                    );
+                  }
                 }
               })(),
             ]),
-            g = f[1];
-          return g != null ? g : [];
+            h = g[1];
+          return h != null ? h : [];
         })),
         c.apply(this, arguments)
+      );
+    }
+    function d(e, t) {
+      var n = new Map();
+      for (var r of t) {
+        var a = r[0],
+          i = r[1];
+        n.set(a.id.toString(), { pollUpdateMsg: a, parentMsg: i });
+      }
+      return o("WAWebApplyPollVoteTCValidation").applyPollVoteTCValidation(
+        e.map(function (e) {
+          var t,
+            r,
+            o = n.get(e.msgKey.toString());
+          return {
+            vote: e,
+            parentMsg: (t = o == null ? void 0 : o.parentMsg) != null ? t : {},
+            voteMetadata:
+              o == null ? void 0 : o.pollUpdateMsg.pollUpdateMessageMetadata,
+            parentMsgKey:
+              (r = o == null ? void 0 : o.parentMsg.id) != null
+                ? r
+                : e.parentMsgKey,
+            voteMsgKey: e.msgKey,
+            sender: e.sender,
+            senderTimestampMs: e.senderTimestampMs,
+            selectedOptionLocalIds: e.selectedOptionLocalIds,
+          };
+        }),
+        "live-vote",
       );
     }
     l.processPollUpdateMsgs = u;

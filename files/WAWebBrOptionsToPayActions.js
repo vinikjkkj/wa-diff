@@ -10,7 +10,6 @@ __d(
     "WAWebBrazilPaymentsGeoGating",
     "WAWebGetBrazilnteractiveActions",
     "WAWebGetInteractiveActionsFromButtons",
-    "WAWebGetInteractiveButtonActionValues",
     "filterNulls",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -26,23 +25,23 @@ __d(
       });
       return r == null ? null : [r.inline.action, c(r.sheet)];
     }
-    function u(e, t) {
+    function u(e, t, n) {
       if (
-        t.isFromTemplate !== !0 ||
+        n.isFromTemplate !== !0 ||
         !e.every(function (e) {
           return e.name === "payment_request";
         })
       )
         return null;
-      var n = o("WAWebBrOptionsToPayResolver").resolveOptionsToPay({
+      var a = o("WAWebBrOptionsToPayResolver").resolveOptionsToPay({
         candidates: r("filterNulls")(
           e.map(function (e) {
-            return m(e, t);
+            return m(e, t, n);
           }),
         ),
         isSettled: !1,
       });
-      return n == null ? null : [n.inline.action, c(n.sheet)];
+      return a == null ? null : [a.inline.action, c(a.sheet)];
     }
     function c(e) {
       return {
@@ -68,7 +67,7 @@ __d(
                 return o(
                   "WAWebGetBrazilnteractiveActions",
                 ).getCopyPixCodeInteractiveAction({
-                  msg: t,
+                  msgKey: t,
                   orderInfo: e,
                   surface: n,
                 });
@@ -84,7 +83,7 @@ __d(
                 return o(
                   "WAWebGetBrazilnteractiveActions",
                 ).getOpenPaymentLinkInteractiveAction({
-                  msg: t,
+                  msgKey: t,
                   orderInfo: e,
                   surface: n,
                 });
@@ -100,7 +99,7 @@ __d(
                 return o(
                   "WAWebGetBrazilnteractiveActions",
                 ).getCopyBoletoCodeInteractiveAction({
-                  msg: t,
+                  msgKey: t,
                   orderInfo: e,
                   surface: n,
                 });
@@ -109,49 +108,44 @@ __d(
           : null,
       ]);
     }
-    function m(e, t) {
-      var n = function (o) {
-          return r("WAWebGetInteractiveActionsFromButtons")(
-            [e],
-            t.id,
-            r("WAWebGetInteractiveButtonActionValues")(t),
-            o,
-          ).at(0);
+    function m(e, t, n) {
+      var a = function (a) {
+          return r("WAWebGetInteractiveActionsFromButtons")([e], t, n, a).at(0);
         },
-        a = e.data.paymentRequestInfo;
-      return a == null
+        i = e.data.paymentRequestInfo;
+      return i == null
         ? null
-        : a.paymentType ===
+        : i.paymentType ===
             o("WAWebBrPaymentRequest").PaymentRequestCtaType.PIX_DYNAMIC_CODE
           ? p(
               o("WAWebBrPaymentMethodKey").getPixMethodKeyForServerOrdering(
-                a.pixFlowType,
+                i.pixFlowType,
               ),
               "pix",
-              n,
+              a,
             )
-          : a.paymentType ===
+          : i.paymentType ===
               o("WAWebBrPaymentRequest").PaymentRequestCtaType.PAYMENT_LINK
             ? p(
                 o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.PAYMENT_LINK,
                 "payment_link",
-                n,
+                a,
               )
-            : a.paymentType ===
+            : i.paymentType ===
                 o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO
               ? p(
                   o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.BOLETO,
                   "boleto",
-                  n,
+                  a,
                 )
-              : a.paymentType ===
+              : i.paymentType ===
                   o("WAWebBrPaymentRequest").PaymentRequestCtaType
                     .OFFSITE_CARD_PAY
                 ? null
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        a.paymentType,
+                        i.paymentType,
                     );
                   })();
     }

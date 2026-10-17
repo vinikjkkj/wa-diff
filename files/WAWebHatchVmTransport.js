@@ -272,8 +272,6 @@ __d(
       },
       IDEA_CARD_ICON: M,
       IDEA_CARDS: "/api/idea-cards?iconPalette=color",
-      MESSENGER_PIN_STATUS: "/api/messenger_companion/pin-status",
-      MESSENGER_UNLOCK: "/api/messenger_companion/unlock",
       NAVIGATION_SUBSCRIBE: "/api/navigation/subscribe",
       OAUTH_CALLBACK: "/oauth/callback",
       SPACE_CVM: l,

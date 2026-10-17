@@ -9,6 +9,7 @@ __d(
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WAWebCTWADetectedOutcomeOnboardingStatusNotification",
+    "WAWebCoexStateSyncNotification",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -61,6 +62,9 @@ __d(
               o(
                 "WASmaxCoexistenceSyncNotificationRPC",
               ).receiveSyncNotificationRPC(t),
+              o(
+                "WAWebCoexStateSyncNotification",
+              ).handleCoexStateSyncNotification(),
               o(
                 "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
               ).makeGenericNotificationResponseAck(t)

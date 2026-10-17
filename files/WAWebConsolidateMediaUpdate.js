@@ -51,7 +51,8 @@ __d(
         if (Object.prototype.hasOwnProperty.call(r, "preview")) {
           var a = r.preview;
           (delete r.preview,
-            a &&
+            a != null &&
+              a !== "" &&
               p(a).then(function (e) {
                 t != null &&
                   t.mediaData &&

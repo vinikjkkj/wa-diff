@@ -575,35 +575,36 @@ __d(
           T(n, r)));
     }
     function T(t, n) {
-      var r = o(
+      var r = n.type,
+        a = o(
           "WAWebMmSignalSharingConversationCounters",
         ).getMmSignalSharingConversationCounters(t),
-        a = r.depth,
-        i = r.lastMessageFromMe,
-        l = r.repeat,
-        s =
-          i === !0
+        i = a.depth,
+        l = a.lastMessageFromMe,
+        s = a.repeat,
+        u =
+          l === !0
             ? o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.CUSTOMER
             : o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.BUSINESS;
       if (
         !(
-          s === o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.BUSINESS &&
-          a === 0
+          u === o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.BUSINESS &&
+          i === 0
         )
       ) {
-        var u = o("WAWebABProps").getABPropConfigValue(
+        var c = o("WAWebABProps").getABPropConfigValue(
           "mm_1pd_post_dc_depth_limit",
         );
-        if (!(u > 0 && a > u)) {
-          var c = {
-            mmConversationDepth: a,
-            mmConversationRepeat: l,
-            mmDirectionFrom: s,
+        if (!(c > 0 && i > c)) {
+          var d = {
+            mmConversationDepth: i,
+            mmConversationRepeat: s,
+            mmDirectionFrom: u,
           };
           (P({
             chat: t,
             mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.MESSAGE,
-            postDcParams: babelHelpers.extends({}, c, {
+            postDcParams: babelHelpers.extends({}, d, {
               mmConversionSchemaVersion: e,
             }),
           }),
@@ -612,10 +613,11 @@ __d(
             ).logMmSignalSharingVerificationEvent({
               chat: t,
               msg: n,
+              signalNativeMessageType: r,
               signal: {
                 mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
                   .MESSAGE,
-                postDcParams: c,
+                postDcParams: d,
                 sharingStatus: o(
                   "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
                 ).isMmSignalSharingUserDisclosedInCollectionWindow(

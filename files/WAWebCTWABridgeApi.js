@@ -13,10 +13,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("JSResourceForInteraction")(
+      s,
+      u = r("JSResourceForInteraction")(
+        "WAWebCoexStateSyncCoordinator",
+      ).__setRef("WAWebCTWABridgeApi"),
+      c = r("JSResourceForInteraction")(
         "WAWebDetectedOutcomeNotificationSignalAction",
       ).__setRef("WAWebCTWABridgeApi"),
-      u = {
+      d = {
         newCTWASuggestion: function (t) {
           var e = t.suggestion;
           return o("WAWebNewCTWASuggestionAction").newCTWASuggestion(e);
@@ -49,7 +53,7 @@ __d(
         emitDetectedOutcomeNotificationSignal: function (n) {
           var t = n.payloadJson,
             a = n.threadLid;
-          s.load()
+          c.load()
             .then(function (e) {
               return e.emitDetectedOutcomeNotificationSignal(a, t);
             })
@@ -65,6 +69,23 @@ __d(
                 .sendLogs("ctwa-detected-outcome-dispatch-failed");
             });
         },
+        coexStateSyncNotification: function () {
+          u.load()
+            .then(function (e) {
+              return e.requestCoexStateRefresh("sync_notification");
+            })
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ctwa] coex state sync dispatch failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("coex-state-sync-dispatch-failed");
+            });
+        },
         updateDataSharing3pdLidInCollection: o(
           "WAWebUpdateDataSharing3pdLidInCollectionAction",
         ).updateDataSharing3pdLidInCollection,
@@ -75,7 +96,7 @@ __d(
           "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
         ).maybeGeneratePerCustomerDataSharingSystemMessage,
       };
-    l.CTWABridgeApi = u;
+    l.CTWABridgeApi = d;
   },
   98,
 );

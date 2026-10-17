@@ -1,6 +1,8 @@
 __d(
   "LSRelayEnvironmentConfig",
   [
+    "LSRelayEntryPointQueryPreload",
+    "LSRelayEntryPointQueryPreloader",
     "ReactiveQueryExecutionNode_EXPERIMENTAL",
     "ReactiveQueryExecutionStore_EXPERIMENTAL",
     "nullthrows",
@@ -139,7 +141,22 @@ __d(
           return ((P = B), N);
         });
       }
-      return { execute: u, executeWithPreloadedSource: c };
+      var m = r("LSRelayEntryPointQueryPreloader")(u);
+      function p(e, t, n, r, o, a, i, l) {
+        return m.execute(e, t, n, r, o, a, i, l);
+      }
+      function _(e, t, n, r, o) {
+        return m.executeWithPreloadedSource(e, t, n, function () {
+          return c(e, t, n, r, o);
+        });
+      }
+      return {
+        UNSTABLE_preloadQueryOnQueryAstLoad: function (t, n) {
+          m.preloadQueryOnQueryAstLoad(t, n);
+        },
+        execute: p,
+        executeWithPreloadedSource: _,
+      };
     }
     var s = function (t) {
       var e, n;
@@ -158,7 +175,11 @@ __d(
         source: r,
       };
     };
-    ((l.injectLSRelayHandler = e), (l.normalizeResponse = s));
+    ((l.preloadQueryOnQueryAstLoad = o(
+      "LSRelayEntryPointQueryPreload",
+    ).preloadQueryOnQueryAstLoad),
+      (l.injectLSRelayHandler = e),
+      (l.normalizeResponse = s));
   },
   98,
 );

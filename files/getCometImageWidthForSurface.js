@@ -16,9 +16,8 @@ __d(
       return o("CometFeedAdImageWidths").COMET_FEED_CAROUSEL_CARD_SIZE;
     }
     function c(e) {
-      return o(
-        "CometFeedAdImageWidths",
-      ).getCometFeedProductExtensionsCardWidth();
+      return o("CometFeedAdImageWidths")
+        .COMET_FEED_PRODUCT_EXTENSIONS_CARD_SIZE;
     }
     function d(e) {
       return o("CometFeedAdImageWidths").COMET_FEED_AD_FOOTER_THUMBNAIL_SIZE;

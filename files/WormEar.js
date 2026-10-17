@@ -3,12 +3,12 @@ __d(
   [
     "FBLogger",
     "WABinary",
+    "WACryptoPrimitives",
     "WACryptoSha256HmacBuilder",
     "WormEncoding",
     "WormIDbGetMinMaxKeySelector",
     "err",
     "memoizeStringOnly",
-    "tweetnacl",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -96,10 +96,10 @@ __d(
           var e = this.$4.get(this.$5);
           if (e == null)
             throw new p("EAR.Encryption.Key does not exist for version");
-          var n = o("tweetnacl").randomBytes(
-              o("tweetnacl").secretbox.nonceLength,
+          var n = o("WACryptoPrimitives").randomBytes(
+              o("WACryptoPrimitives").secretbox.nonceLength,
             ),
-            r = o("tweetnacl").secretbox(t, n, new Uint8Array(e));
+            r = o("WACryptoPrimitives").secretbox(t, n, new Uint8Array(e));
           return o("WABinary")
             .Binary.build(this.$6, this.$5, n, r)
             .readBuffer();
@@ -119,9 +119,9 @@ __d(
               n,
               r,
             );
-          var l = t.slice(u, u + o("tweetnacl").secretbox.nonceLength),
-            s = t.slice(u + o("tweetnacl").secretbox.nonceLength),
-            c = o("tweetnacl").secretbox.open(
+          var l = t.slice(u, u + o("WACryptoPrimitives").secretbox.nonceLength),
+            s = t.slice(u + o("WACryptoPrimitives").secretbox.nonceLength),
+            c = o("WACryptoPrimitives").secretbox.open(
               new Uint8Array(s),
               new Uint8Array(l),
               new Uint8Array(i),

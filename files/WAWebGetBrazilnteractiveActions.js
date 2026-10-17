@@ -31,8 +31,9 @@ __d(
     var e,
       u,
       c,
-      d = c || (c = o("react"));
-    function m(e, t) {
+      d,
+      m = d || (d = o("react"));
+    function p(e, t) {
       return {
         label: s._(/*BTDS*/ "Copy Pix key"),
         onClick: function () {
@@ -40,14 +41,14 @@ __d(
             r = o("WAWebUserPrefsTypes").PixKeyType.cast(
               o("WAWebBrPaymentSettingsUtils").getFirstPixStaticKeyType(e),
             );
-          C({
+          v({
             code:
               n == null
                 ? null
                 : o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(n, r),
             failureMsg: s._(/*BTDS*/ "Couldn't copy Pix key"),
             onCopy: function () {
-              p(t);
+              _(t);
             },
             successMsg: s._(/*BTDS*/ "Pix key copied"),
           });
@@ -55,7 +56,7 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function p(t) {
+    function _(t) {
       var n,
         r =
           (n = o("WAWebMsgCollection").MsgCollection.get(t)) == null
@@ -85,8 +86,24 @@ __d(
         "WAWebBrPaymentInteractionLogger",
       ).logPaymentInfoOrderDetailsInteractiveActionForRecepient(r);
     }
-    function _(e) {
-      var t = e.msg,
+    function f(e) {
+      var t,
+        n =
+          (t = o("WAWebMsgCollection").MsgCollection.get(e)) == null
+            ? void 0
+            : t.safe();
+      return n != null && n.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? n
+        : (o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[br-payments] payment action log skipped, message left the collection",
+              ])),
+          ),
+          null);
+    }
+    function g(e) {
+      var t = e.msgKey,
         n = e.orderInfo,
         a = e.surface,
         i =
@@ -98,13 +115,15 @@ __d(
         onClick: function () {
           var e = o("WAWebBrPaymentSettingsUtils").getPaymentLinkUri(n);
           if (e == null) {
-            y(s._(/*BTDS*/ "Couldn't open payment link"));
+            b(s._(/*BTDS*/ "Couldn't open payment link"));
             return;
           }
-          (o("WAWebExternalLink.react").openExternalLink(e),
-            o("WAWebBrPaymentInteractionLogger")
+          o("WAWebExternalLink.react").openExternalLink(e);
+          var a = f(t);
+          a != null &&
+            (o("WAWebBrPaymentInteractionLogger")
               .logAPIMerchantPaymentMethodClickEvent({
-                msg: t,
+                msg: a,
                 orderAcceptedPaymentMethod: o("WAWebOrderPaymentStatus")
                   .OrderAcceptedPaymentMethods.PAYMENT_LINK,
                 orderInfo: n,
@@ -114,15 +133,15 @@ __d(
             o(
               "WAWebBrLastUsedPaymentMethodStoreLazy",
             ).recordLastUsedBrPaymentMethodLazy(
-              t,
+              a,
               o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.PAYMENT_LINK,
             ));
         },
         Icon: o("WAWebLaunchIcon.react").LaunchIcon,
       };
     }
-    function f(e) {
-      var t = e.msg,
+    function h(e) {
+      var t = e.msgKey,
         n = e.orderInfo,
         a = e.surface,
         i =
@@ -132,23 +151,25 @@ __d(
       return {
         label: s._(/*BTDS*/ "Copy boleto code"),
         onClick: function () {
-          C({
+          v({
             code: o("WAWebBrPaymentSettingsUtils").getBoletoCode(n),
             failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
             onCopy: function () {
-              (o("WAWebBrPaymentInteractionLogger")
-                .logAPIMerchantPaymentMethodClickEvent({
-                  msg: t,
-                  orderAcceptedPaymentMethod: o("WAWebOrderPaymentStatus")
-                    .OrderAcceptedPaymentMethods.BOLETO,
-                  orderInfo: n,
-                  surface: i,
-                })
-                .catch(r("WAWebNoop")),
+              var e = f(t);
+              e != null &&
+                (o("WAWebBrPaymentInteractionLogger")
+                  .logAPIMerchantPaymentMethodClickEvent({
+                    msg: e,
+                    orderAcceptedPaymentMethod: o("WAWebOrderPaymentStatus")
+                      .OrderAcceptedPaymentMethods.BOLETO,
+                    orderInfo: n,
+                    surface: i,
+                  })
+                  .catch(r("WAWebNoop")),
                 o(
                   "WAWebBrLastUsedPaymentMethodStoreLazy",
                 ).recordLastUsedBrPaymentMethodLazy(
-                  t,
+                  e,
                   o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.BOLETO,
                 ));
             },
@@ -158,7 +179,7 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function g(e, t) {
+    function y(e, t) {
       var n = o("WAWebBrPaymentSettingsUtils").getPixStaticCodeSetting(t);
       if (n == null) return null;
       var a =
@@ -181,13 +202,15 @@ __d(
       return {
         label: s._(/*BTDS*/ "Copy Pix code"),
         onClick: function () {
-          C({
+          v({
             code: c,
             failureMsg: m,
             onCopy: function () {
-              o(
-                "WAWebBrPaymentInteractionLogger",
-              ).logPaymentRequestInteractiveAction(e, t);
+              var n = f(e);
+              n != null &&
+                o(
+                  "WAWebBrPaymentInteractionLogger",
+                ).logPaymentRequestInteractiveAction(n, t);
             },
             successMsg: d,
           });
@@ -195,8 +218,8 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function h(e) {
-      var t = e.msg,
+    function C(e) {
+      var t = e.msgKey,
         n = e.orderInfo,
         a = e.surface,
         i =
@@ -207,26 +230,28 @@ __d(
         label: s._(/*BTDS*/ "Copy Pix code"),
         onClick: function () {
           var e = o("WAWebBrPaymentSettingsUtils").getDynamicPixCode(n);
-          C({
+          v({
             code:
               e == null
                 ? null
                 : o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(e),
             failureMsg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
             onCopy: function () {
-              (o("WAWebBrPaymentInteractionLogger")
-                .logAPIMerchantPaymentMethodClickEvent({
-                  msg: t,
-                  orderAcceptedPaymentMethod: o("WAWebOrderPaymentStatus")
-                    .OrderAcceptedPaymentMethods.PIX,
-                  orderInfo: n,
-                  surface: i,
-                })
-                .catch(r("WAWebNoop")),
+              var e = f(t);
+              e != null &&
+                (o("WAWebBrPaymentInteractionLogger")
+                  .logAPIMerchantPaymentMethodClickEvent({
+                    msg: e,
+                    orderAcceptedPaymentMethod: o("WAWebOrderPaymentStatus")
+                      .OrderAcceptedPaymentMethods.PIX,
+                    orderInfo: n,
+                    surface: i,
+                  })
+                  .catch(r("WAWebNoop")),
                 o(
                   "WAWebBrLastUsedPaymentMethodStoreLazy",
                 ).recordLastUsedBrPaymentMethodLazy(
-                  t,
+                  e,
                   o("WAWebBrPaymentMethodKey").getPixMethodKeyForServerOrdering(
                     o("WAWebBrPaymentMethodKey").getPixFlowType(
                       n.paymentSettings,
@@ -240,18 +265,18 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function y(e) {
+    function b(e) {
       o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, { msg: e }),
+        m.jsx(o("WAWebToast.react").Toast, { msg: e }),
       );
     }
-    function C(e) {
+    function v(e) {
       var t = e.code,
         n = e.failureMsg,
         r = e.onCopy,
         a = e.successMsg;
       if (t == null) {
-        y(n);
+        b(n);
         return;
       }
       o("WAWebCopyTextWithToast").copyTextWithToast({
@@ -261,7 +286,7 @@ __d(
         text: t,
       });
     }
-    function b(e) {
+    function S(e) {
       var t,
         n,
         r = o("WAWebOrderDetails").getOrderInfo(e);
@@ -280,7 +305,7 @@ __d(
           : !1;
       return a;
     }
-    function v(e) {
+    function R(e) {
       var t;
       if (
         e.nativeFlowName ===
@@ -307,20 +332,20 @@ __d(
       }
       return !1;
     }
-    function S(e) {
+    function L(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        v(e) &&
+        R(e) &&
         o("WAWebMsgGetters").getIsSentByMe(e.unsafe())
       );
     }
-    ((l.getPaymentInfoOrderDetailsInteractiveAction = m),
-      (l.getOpenPaymentLinkInteractiveAction = _),
-      (l.getCopyBoletoCodeInteractiveAction = f),
-      (l.getCopyPixStaticCodeInteractiveAction = g),
-      (l.getCopyPixCodeInteractiveAction = h),
-      (l.hasOrderOffsiteCardPay = b),
-      (l.shouldHideOffsiteCardPayConfirmation = S));
+    ((l.getPaymentInfoOrderDetailsInteractiveAction = p),
+      (l.getOpenPaymentLinkInteractiveAction = g),
+      (l.getCopyBoletoCodeInteractiveAction = h),
+      (l.getCopyPixStaticCodeInteractiveAction = y),
+      (l.getCopyPixCodeInteractiveAction = C),
+      (l.hasOrderOffsiteCardPay = S),
+      (l.shouldHideOffsiteCardPayConfirmation = L));
   },
   226,
 );

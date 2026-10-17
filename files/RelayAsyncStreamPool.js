@@ -159,6 +159,15 @@ __d(
           (n.has = function (t) {
             return this.$2.has(t);
           }),
+          (n.hasObservers = function (t) {
+            var e, n;
+            return (
+              ((e = (n = this.$2.get(t)) == null ? void 0 : n.observers.size) !=
+              null
+                ? e
+                : 0) !== 0
+            );
+          }),
           (n.subscribe = function (t, n) {
             var e = this.$3(t),
               r = this.$1++,

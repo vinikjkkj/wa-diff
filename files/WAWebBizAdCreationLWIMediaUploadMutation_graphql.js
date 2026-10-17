@@ -91,19 +91,9 @@ __d(
                   name: "uploaded_media_data",
                   plural: !0,
                   selections: [
-                    {
-                      kind: "RequiredField",
-                      field: i,
-                      action: "THROW",
-                      path: "wa_ad_creation_lwi_media_upload.uploaded_media_data.url",
-                    },
+                    { kind: "RequiredField", field: i, action: "THROW" },
                     l,
-                    {
-                      kind: "RequiredField",
-                      field: s,
-                      action: "THROW",
-                      path: "wa_ad_creation_lwi_media_upload.uploaded_media_data.type",
-                    },
+                    { kind: "RequiredField", field: s, action: "THROW" },
                     u,
                   ],
                   storageKey: null,

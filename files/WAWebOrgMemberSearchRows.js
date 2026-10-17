@@ -1,6 +1,7 @@
 __d(
   "WAWebOrgMemberSearchRows",
   [
+    "WAJids",
     "WALogger",
     "WAWebChatlistTypes",
     "WAWebContactCollection",
@@ -98,7 +99,7 @@ __d(
     }
     function f(t) {
       try {
-        return o("WAWebWidFactory").createUserLidOrThrow(t.lid, "lid");
+        return o("WAWebWidFactory").createUserLidOrThrow(t.lid);
       } catch (t) {
         return (
           o("WALogger")
@@ -119,10 +120,13 @@ __d(
         a,
         i,
         l,
-        s = o("WAWebOrgContactCollection").createOrgContactModelId(e, t.lid),
+        s = o("WAWebOrgContactCollection").createOrgContactModelId(
+          e,
+          o("WAJids").toLidUserJid(t.lid),
+        ),
         c = {
           id: s,
-          lid: t.lid,
+          lid: o("WAJids").toLidUserJid(t.lid),
           memberName: t.displayName,
           memberTag: (r = t.memberTag) != null ? r : "",
           orgId: e,

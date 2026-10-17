@@ -215,7 +215,6 @@ __d(
                         storageKey: null,
                       },
                       action: "THROW",
-                      path: "lwi.boosted_component.options",
                     },
                   ],
                   storageKey: null,

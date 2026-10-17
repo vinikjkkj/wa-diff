@@ -2,6 +2,7 @@ __d(
   "WAWebOrgMemberSearchModel",
   [
     "Promise",
+    "WAJids",
     "WALogger",
     "WAWebNetworkStatus",
     "WAWebOrgAdminGraphQL",
@@ -65,7 +66,7 @@ __d(
         return o("WAWebOrgContactCollection")
           .OrgContactCollection.getByOrgId(e.id)
           .filter(function (e) {
-            return e.lid !== "";
+            return o("WAJids").lidFromLidUserJid(e.lid) !== "";
           });
       });
       if (
@@ -166,7 +167,7 @@ __d(
       var t, n;
       return {
         displayName: e.memberName,
-        lid: e.lid,
+        lid: o("WAJids").lidFromLidUserJid(e.lid),
         memberTag: e.memberTag === "" ? null : e.memberTag,
         phoneNumber: (t = e.phoneNumber) != null ? t : null,
         role:

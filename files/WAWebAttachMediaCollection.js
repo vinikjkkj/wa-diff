@@ -330,14 +330,17 @@ __d(
               function* (t) {
                 var r = yield (e || (e = n("Promise"))).resolve(t);
                 return (
-                  r.filename || (r.filename = r.file.name),
-                  r.mimetype || (r.mimetype = r.file.type),
+                  (r.filename == null || r.filename === "") &&
+                    (r.filename = r.file.name),
+                  (r.mimetype == null || r.mimetype === "") &&
+                    (r.mimetype = r.file.type),
                   r.type ||
                     (r.type = o("WAWebFileUtils").typeFromMimetype(
                       r.file.type,
                     )),
                   !r.type &&
-                    r.mimetype &&
+                    r.mimetype != null &&
+                    r.mimetype !== "" &&
                     (r.type = o("WAWebFileUtils").typeFromMimetype(r.mimetype)),
                   r
                 );

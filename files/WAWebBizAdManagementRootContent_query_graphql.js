@@ -582,7 +582,6 @@ __d(
               storageKey: null,
             },
             action: "LOG",
-            path: "ctwa",
           },
         ],
         type: "Query",

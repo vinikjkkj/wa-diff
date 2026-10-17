@@ -17,7 +17,6 @@ __d(
     "WAWebOrderStatusButton",
     "WAWebPrimaryFeaturesGetters",
     "WAWebShowMessageActionFallbackErrorAction",
-    "WAWebStateUtils",
     "WDSDialogBridge",
     "react",
     "useWAWebConversationPanelCanCompose",
@@ -36,7 +35,7 @@ __d(
         i = e.msgKey,
         l = e.quotedMsg,
         u = r("useWAWebUIM")(),
-        m = o("useWAWebMsgValues").useMsgValues(i, [
+        d = o("useWAWebMsgValues").useMsgValues(i, [
           (t = o("WAWebMsgGetters")).getNativeFlowName,
           t.getGalaxyFlowDisabled,
           t.getInteractivePayload,
@@ -49,58 +48,79 @@ __d(
           t.getFooter,
           o("WAWebFrontendMsgGetters").getText,
           t.getIsNewsletterMsg,
-          o("WAWebFrontendMsgGetters").getSafeMsg,
+          t.getIsFromTemplate,
+          t.getIsSentByMe,
+          t.getSender,
+          t.getT,
+          t.getBizBotType,
         ]),
-        p = m[0],
-        _ = m[1],
-        f = m[2],
-        g = m[3],
-        h = m[4],
-        y = m[5],
-        C = m[6],
-        b = m[7],
-        v = m[8],
-        S = m[9],
-        R = m[10],
-        L = m[11],
-        E = m[12];
+        m = d[0],
+        p = d[1],
+        _ = d[2],
+        f = d[3],
+        g = d[4],
+        h = d[5],
+        y = d[6],
+        C = d[7],
+        b = d[8],
+        v = d[9],
+        S = d[10],
+        R = d[11],
+        L = d[12],
+        E = d[13],
+        k = d[14],
+        I = d[15],
+        T = d[16];
       o("useWAWebPrimaryFeaturesValues").usePrimaryFeaturesValues([
         o("WAWebPrimaryFeaturesGetters").getCustomPaymentMethodsSyncSupport,
       ]);
-      var k = o("WAWebFrontendMsgGetters").getChatByMsgKey(i, L),
-        I = r("useWAWebConversationPanelCanCompose")(k),
-        T = I[0],
-        D = T || o("WAWebChatGetters").getIsBroadcast(k),
-        x = o("WAWebOrderDetails").getOrderInfoFor({
-          interactivePayload: f,
-          interactiveType: y,
-          nativeFlowButtons: C,
-          nativeFlowName: p,
-          type: h,
+      var D = o("WAWebFrontendMsgGetters").getChatByMsgKey(i, R),
+        x = r("useWAWebConversationPanelCanCompose")(D),
+        $ = x[0],
+        P = $ || o("WAWebChatGetters").getIsBroadcast(D),
+        N = o("WAWebOrderDetails").getOrderInfoFor({
+          interactivePayload: _,
+          interactiveType: h,
+          nativeFlowButtons: y,
+          nativeFlowName: m,
+          type: g,
         }),
-        $ = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          k,
-          x == null ? void 0 : x.referenceId,
-          o("WAWebOrderStatus").isSimplifiedOrder(x),
+        M = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+          D,
+          N == null ? void 0 : N.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(N),
         ),
-        P = d(E),
-        N =
-          P == null
+        w =
+          g !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
             ? null
             : r("WAWebGetInteractiveActions")({
-                msg: o("WAWebStateUtils").unproxy(P),
+                canCompose: P,
+                msgKey: i,
+                orderPaymentStatus: M,
                 uimContext: u,
-                canCompose: D,
-                orderPaymentStatus: $,
+                values: {
+                  chat: D,
+                  galaxyFlowDisabled: p,
+                  interactivePayload: _,
+                  interactiveType: h,
+                  isFromTemplate: L,
+                  isOutgoingBizBot: i.fromMe && T != null,
+                  isSentByMe: E,
+                  nativeFlowName: m,
+                  sender: k,
+                  signupCtaTapped: f,
+                  t: I,
+                  type: g,
+                },
               }),
-        M =
-          N == null
+        A =
+          w == null
             ? void 0
-            : N.map(function (e) {
+            : w.map(function (e) {
                 var t =
                   e.nativeFlowName ===
                     r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW &&
-                  _ === !0;
+                  p === !0;
                 return {
                   testid: e.testid,
                   label: e.label,
@@ -109,38 +129,38 @@ __d(
                   Icon: e.Icon,
                 };
               }),
-        w = p === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS;
+        F = m === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS;
       return s.jsx(r("WAWebInteractiveBubble.react"), {
         msgKey: i,
         displayAuthor: n,
         displayType: a,
         displayFooter:
-          !w ||
+          !F ||
           o("WAWebOrderStatusButton").getOrderStatusButtonFor({
-            interactivePayload: f,
-            type: h,
+            interactivePayload: _,
+            type: g,
           }) != null,
         header: s.jsx(r("WAWebInteractiveHeader"), {
           msgKey: i,
           quotedMsg: l,
           displayType: a,
         }),
-        actions: M,
+        actions: A,
         hideMeta:
-          (p === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-            o("WAWebOrderStatus").isPaymentRequest(k, x)) ||
+          (m === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+            o("WAWebOrderStatus").isPaymentRequest(D, N)) ||
           r("WAWebIsBloksOnlyMessage")({
-            bloksWidget: b,
+            bloksWidget: C,
             footerText: o(
               "WAWebGetInteractiveFooterText",
             ).getInteractiveFooterTextFor({
-              footer: S,
-              interactivePayload: f,
-              nativeFlowName: p,
-              type: h,
+              footer: v,
+              interactivePayload: _,
+              nativeFlowName: m,
+              type: g,
             }),
-            interactiveHeader: v,
-            text: R,
+            interactiveHeader: b,
+            text: S,
           }),
       });
     }
@@ -159,9 +179,6 @@ __d(
           : function () {
               return r("WAWebShowMessageActionFallbackErrorAction")();
             };
-    }
-    function d(e) {
-      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ? e : null;
     }
     l.default = u;
   },

@@ -63,6 +63,7 @@ __d(
         CHECKOUT_FETCH: "checkout_fetch",
         CHOOSE_AUDIENCE_BUTTON: "choose_audience_button",
         CLOSE_BUTTON: "close_button",
+        CONNECT_BANNER: "connect_banner",
         CONTACT_CHECKBOX: "contact_checkbox",
         CONTACT_NAME: "contact_name",
         CONTINUE: "continue",

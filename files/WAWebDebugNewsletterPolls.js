@@ -132,7 +132,12 @@ __d(
           }
           var n = yield o(
             "WAWebNewsletterFetchPollVotersAction",
-          ).fetchPollVotersAction({ msg: t, pollVoteLocalId: e });
+          ).fetchPollVotersAction({
+            msgKey: t.id,
+            pollOptions: t.pollOptions,
+            pollVoteLocalId: e,
+            serverId: t.serverId,
+          });
         })),
         v.apply(this, arguments)
       );

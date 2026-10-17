@@ -201,23 +201,6 @@ __d(
             }),
           );
         }),
-        (r.messengerPinStatus = function (t) {
-          return this.request(
-            "GET",
-            o("WAWebHatchVmTransport").JarvisPaths.MESSENGER_PIN_STATUS,
-            babelHelpers.extends({}, t, { responseShape: "flat-or-envelope" }),
-          );
-        }),
-        (r.messengerUnlock = function (t, n) {
-          return this.request(
-            "POST",
-            o("WAWebHatchVmTransport").JarvisPaths.MESSENGER_UNLOCK,
-            babelHelpers.extends({}, n, {
-              body: p({ pin: t }),
-              responseShape: "flat-or-envelope",
-            }),
-          );
-        }),
         (r.connectorDisconnect = function (t, n) {
           return this.request(
             "POST",

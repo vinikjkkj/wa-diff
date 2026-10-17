@@ -1,6 +1,7 @@
 __d(
   "WAWebOrgMemberDisplayNameController",
   [
+    "WAJids",
     "WAWebOrgCollection",
     "WAWebOrgContactCollection",
     "WAWebOrgDirectoryRepositoryState",
@@ -9,7 +10,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n = o("WAWebOrgMembershipSelector").getPrimaryOrgContact(
-        o("WAWebOrgContactCollection").OrgContactCollection.getByLid(e),
+        o("WAWebOrgContactCollection").OrgContactCollection.getByLid(
+          o("WAJids").toLidUserJid(e),
+        ),
         o(
           "WAWebOrgDirectoryRepositoryState",
         ).getOrgDirectoryRepositorySnapshot().orderedOrgIDs,

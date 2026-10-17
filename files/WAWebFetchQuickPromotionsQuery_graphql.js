@@ -482,30 +482,10 @@ __d(
                       name: "edges",
                       plural: !0,
                       selections: [
-                        {
-                          kind: "RequiredField",
-                          field: o,
-                          action: "LOG",
-                          path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.client_ttl_seconds",
-                        },
-                        {
-                          kind: "RequiredField",
-                          field: a,
-                          action: "LOG",
-                          path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.priority",
-                        },
-                        {
-                          kind: "RequiredField",
-                          field: i,
-                          action: "LOG",
-                          path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.is_holdout",
-                        },
-                        {
-                          kind: "RequiredField",
-                          field: l,
-                          action: "LOG",
-                          path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.log_eligibility_waterfall",
-                        },
+                        { kind: "RequiredField", field: o, action: "LOG" },
+                        { kind: "RequiredField", field: a, action: "LOG" },
+                        { kind: "RequiredField", field: i, action: "LOG" },
+                        { kind: "RequiredField", field: l, action: "LOG" },
                         {
                           kind: "RequiredField",
                           field: {
@@ -520,19 +500,16 @@ __d(
                                 kind: "RequiredField",
                                 field: s,
                                 action: "LOG",
-                                path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.time_range.start",
                               },
                               {
                                 kind: "RequiredField",
                                 field: u,
                                 action: "LOG",
-                                path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.time_range.end",
                               },
                             ],
                             storageKey: null,
                           },
                           action: "LOG",
-                          path: "quick_promotion_batch_fetch_root.eligible_promotions.edges.time_range",
                         },
                         {
                           alias: null,

@@ -159,7 +159,7 @@ __d(
               var e = this.get(t);
               return e || this.add({ id: t }, n)[0];
             }
-            if (t.id) {
+            if (t.id != null && t.id !== "") {
               var o = n || {};
               return ((o.merge = !0), this.add(t, o)[0]);
             }

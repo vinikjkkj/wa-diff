@@ -14,15 +14,14 @@ __d(
     function m(e) {
       if (e) {
         var t = e.appScopedIdentity,
-          n = e.claim,
-          r = e.fbIdentity,
-          o = "";
-        if (r) {
-          var a = r.accountId,
-            i = r.actorId;
-          o = a + "^#" + i + "^#";
-        } else t !== void 0 && (o = "^#^#" + t);
-        return o + "^#" + n;
+          n = e.fbIdentity,
+          r = "";
+        if (n) {
+          var o = n.accountId,
+            a = n.actorId;
+          r = o + "^#" + a + "^#";
+        } else t !== void 0 && (r = "^#^#" + t);
+        return r + "^#" + e.claims.join("^#");
       }
       return "";
     }

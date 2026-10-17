@@ -566,7 +566,7 @@ __d(
             if (
               (me.deviceSent == null
                 ? (fe = !0)
-                : me.deviceSent.phash
+                : me.deviceSent.phash != null && me.deviceSent.phash !== ""
                   ? (fe = yield o("WAWebHandleMsgValidate").validateBclHash(
                       me.deviceSent.phash,
                       me.deviceSent.info,

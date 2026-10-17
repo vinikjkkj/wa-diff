@@ -164,8 +164,17 @@ __d(
           (t.dataSharingClicked = function (t) {
             o("WAWebBBHomeLogs").dataSharingClicked(this.$1, t);
           }),
-          (t.advancedToolsToggleClicked = function (t, n, r) {
-            o("WAWebBBHomeLogs").advancedToolsToggleClicked(this.$1, t, n, r);
+          (t.connectBannerViewed = function (t, n) {
+            o("WAWebBBHomeLogs").connectBannerViewed(this.$1, t, n);
+          }),
+          (t.advancedToolsToggleClicked = function (t, n, r, a) {
+            o("WAWebBBHomeLogs").advancedToolsToggleClicked(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+            );
           }),
           (t.homeAudiencesTabClicked = function (t) {
             o("WAWebBBHomeLogs").homeAudiencesTabClicked(this.$1, t);
@@ -1076,8 +1085,8 @@ __d(
               r,
             );
           }),
-          (t.tosNuxQrViewed = function (t, n) {
-            o("WAWebBBNuxLogs").tosNuxQrViewed(this.$1, t, n);
+          (t.tosNuxQrViewed = function (t, n, r) {
+            o("WAWebBBNuxLogs").tosNuxQrViewed(this.$1, t, n, r);
           }),
           (t.tosNuxAcceptClicked = function (t, n) {
             o("WAWebBBNuxLogs").tosNuxAcceptClicked({

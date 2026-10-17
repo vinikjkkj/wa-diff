@@ -1,6 +1,12 @@
 __d(
   "WAWebBizAiResponseSettingsV2Toasts",
-  ["fbt", "WAWebToast.react", "WAWebToastManager", "react"],
+  [
+    "fbt",
+    "WAWebNetworkStatus",
+    "WAWebToast.react",
+    "WAWebToastManager",
+    "react",
+  ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
@@ -13,10 +19,13 @@ __d(
     }
     function d() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Something went wrong"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: m() }),
       );
+    }
+    function m() {
+      return r("WAWebNetworkStatus").online
+        ? s._(/*BTDS*/ "Something went wrong")
+        : s._(/*BTDS*/ "Check your internet connection and try again");
     }
     ((l.showResponseSettingsSuccessToast = c),
       (l.showResponseSettingsErrorToast = d));

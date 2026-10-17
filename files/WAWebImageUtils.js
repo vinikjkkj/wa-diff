@@ -548,7 +548,7 @@ __d(
       (!e.blob &&
         r & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB &&
         (e.blob = o("WAWebCanvasUtils").canvasToBlob(t, i)),
-        !e.dataUrl &&
+        (e.dataUrl == null || e.dataUrl === "") &&
           r & o("WAWebMediaCacheModel").ImageOutputTypes.DATA_URL &&
           (e.dataUrl = (g || (g = n("Promise"))).resolve(t.toDataURL(i))),
         !e.canvas &&

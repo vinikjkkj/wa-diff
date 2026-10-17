@@ -126,7 +126,11 @@ __d(
     c.TYPE = o("WAWebMediaTypes").OUTWARD_TYPES;
     var d = c;
     function m(e) {
-      if (e.filename && e.type === c.TYPE.DOCUMENT) {
+      if (
+        e.filename != null &&
+        e.filename !== "" &&
+        e.type === c.TYPE.DOCUMENT
+      ) {
         var t = o("WAWebMediaCleanFileName").cleanFilename(e.filename);
         return babelHelpers.extends({}, e, { filename: t, caption: t });
       }

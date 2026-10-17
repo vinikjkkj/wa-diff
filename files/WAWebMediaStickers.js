@@ -145,7 +145,12 @@ __d(
           yield s
             .getPendingProcess("fromDisk")
             .then(function () {
-              if (!i.filehash || !i.mediaKey || !i.encFilehash)
+              if (
+                !i.filehash ||
+                !i.mediaKey ||
+                i.encFilehash == null ||
+                i.encFilehash === ""
+              )
                 return (
                   (c = !0),
                   o("WAWebDownloadManager").downloadManager.rmr({

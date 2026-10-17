@@ -1,6 +1,11 @@
 __d(
   "WAWebOrgContactCollection",
-  ["WAWebBaseCollection", "WAWebCollectionUtils", "WAWebOrgContactModel"],
+  [
+    "WAJids",
+    "WAWebBaseCollection",
+    "WAWebCollectionUtils",
+    "WAWebOrgContactModel",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -45,13 +50,13 @@ __d(
     e.model = o("WAWebOrgContactModel").OrgContact;
     var s = new e();
     function u(e, t) {
-      return e + "_" + t;
+      return e + "_" + o("WAJids").lidFromLidUserJid(t);
     }
     function c(e) {
       var t, n, r;
       return {
-        id: u(e.orgId, e.lid),
-        lid: e.lid,
+        id: u(e.orgId, o("WAJids").toLidUserJid(e.lid)),
+        lid: o("WAJids").toLidUserJid(e.lid),
         memberName: e.memberName,
         memberTag: e.memberTag,
         orgId: e.orgId,

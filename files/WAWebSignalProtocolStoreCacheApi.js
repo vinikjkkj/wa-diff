@@ -88,7 +88,7 @@ __d(
           return (
             this.Dirty.senderKey.forEach(function (n) {
               var o = e.SenderKeyStore.get(n);
-              if (o) {
+              if (o != null && o !== "") {
                 var a = n.split("::");
                 a.length === 2 &&
                   t.push({

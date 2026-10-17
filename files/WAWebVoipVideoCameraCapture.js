@@ -8,6 +8,7 @@ __d(
     "WAWebUA",
     "WAWebUserPrefsVoip",
     "WAWebVoipCameraFingerprintLogging",
+    "WAWebVoipCaptureCap",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipPthreadHardening",
     "WAWebVoipResolutionCap",
@@ -154,6 +155,7 @@ __d(
             (t = e.call.apply(e, [this].concat(r)) || this),
             (t.name = "camera"),
             (t.captureParams = null),
+            (t.$WAWebVoipVideoCameraCaptureImpl$p_1 = null),
             (t.currentDeviceId = null),
             (t.currentFacing = null),
             (t.__lastCapturedStream = null),
@@ -230,9 +232,10 @@ __d(
                     height: l,
                     maxFps: C,
                   })));
-                var E = null,
+                var E = r("nullthrows")(this.getOpenCaptureParams()),
                   k = null,
-                  I = (function () {
+                  I = null,
+                  T = (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
                         if (
@@ -244,7 +247,7 @@ __d(
                           ).frontendSendAndReceive("voipAcquireMediaStream", {
                             type: "camera",
                             selectedDeviceId: L,
-                            params: r("nullthrows")(t.captureParams),
+                            params: E,
                             isAVUpgrade: s,
                             targetWindow: v,
                             facingMode: i,
@@ -273,10 +276,10 @@ __d(
                               g = l.getSettings();
                             (g.deviceId != null &&
                               g.deviceId !== "" &&
-                              (E = g.deviceId),
+                              (k = g.deviceId),
                               (g.facingMode === "user" ||
                                 g.facingMode === "environment") &&
-                                (k = g.facingMode),
+                                (I = g.facingMode),
                               o("WALogger").LOG(
                                 m ||
                                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -358,13 +361,13 @@ __d(
                   (yield this.__startCapture(
                     babelHelpers.extends(
                       {
-                        getMediaStream: I,
+                        getMediaStream: T,
                         isStopped: function () {
                           return t.__stopBeganSince(R);
                         },
                         onVideoDataFnType: "onVideoDataFromJs",
                       },
-                      r("nullthrows")(this.captureParams),
+                      E,
                     ),
                   ),
                   this.__stopBeganSince(R))
@@ -377,17 +380,18 @@ __d(
                   );
                   return;
                 }
-                var T = this.__lastCapturedStream;
-                T != null &&
+                var D = this.__lastCapturedStream;
+                D != null &&
                   (o(
                     "WAWebVoipVideoRendererRegistry",
                   ).videoRendererRegistry.resetFirstFrameReceivedForSource(Le),
-                  this.__monitorFrameProduction(T));
-                var D = this.__updateDeviceFromAcquiredTrack(E, L);
+                  this.__monitorFrameProduction(D),
+                  be.trigger("cameraCaptureStarted"));
+                var x = this.__updateDeviceFromAcquiredTrack(k, L);
                 (o(
                   "WAWebVoipCameraFingerprintLogging",
                 ).retryCameraFingerprint(),
-                  this.__updateFacingFromAcquiredTrack(k, i, D),
+                  this.__updateFacingFromAcquiredTrack(I, i, x),
                   o("WAWebUA").UA.isFirefox &&
                     v != null &&
                     (be.trigger("deviceListRefreshRequested"),
@@ -662,6 +666,24 @@ __d(
             }
             return t;
           })()),
+          (a.setCaptureCap = function (t) {
+            var e = this.$WAWebVoipVideoCameraCaptureImpl$p_1;
+            this.$WAWebVoipVideoCameraCaptureImpl$p_1 = t;
+            var n = this.captureParams;
+            if (n == null) return null;
+            var r = o("WAWebVoipCaptureCap").applyCaptureCap(n, e),
+              a = o("WAWebVoipCaptureCap").applyCaptureCap(n, t);
+            return r.width === a.width && r.height === a.height ? null : a;
+          }),
+          (a.getOpenCaptureParams = function () {
+            var e = this.captureParams;
+            return e == null
+              ? null
+              : o("WAWebVoipCaptureCap").applyCaptureCap(
+                  e,
+                  this.$WAWebVoipVideoCameraCaptureImpl$p_1,
+                );
+          }),
           (a.getLastCapturedStream = function () {
             return this.__lastCapturedStream;
           }),

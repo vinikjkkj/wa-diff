@@ -57,7 +57,9 @@ __d(
             }
           }),
           (a.isLocaleSupported = function (t) {
-            return !!t && !!this.normalizeLocaleToWajsLocale(t);
+            return (
+              t != null && t !== "" && !!this.normalizeLocaleToWajsLocale(t)
+            );
           }),
           (a.$WAWebBaseL10n$p_2 = function (t) {
             var e = r("WAWebLocaleToTranslation")[t] || t;

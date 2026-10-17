@@ -20,64 +20,71 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      var t;
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : u({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowName: e.nativeFlowName,
+            t: e.t,
+            type: e.type,
+          });
+    }
+    function u(e) {
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowName,
+        i = e.t,
+        l = e.type;
       if (
-        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        e.nativeFlowName != null &&
+        l === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        n === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        a != null &&
         o(
           "WAWebBizTemplateAndInteractiveMessagesUtils",
-        ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(
-          e.nativeFlowName,
-        ) &&
-        ((t = e.interactivePayload) == null ? void 0 : t.buttons) != null
+        ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(a) &&
+        (t == null ? void 0 : t.buttons) != null
       ) {
-        var n,
-          a = [];
+        var u = [];
         if (
-          (e.interactivePayload.buttons.forEach(function (t, n) {
-            var r = u({
-              button: t,
-              index: n,
-              messageNativeFlowName: e.nativeFlowName,
-              timestamp: e.t,
+          (t.buttons.forEach(function (e, t) {
+            var n = c({
+              button: e,
+              index: t,
+              messageNativeFlowName: a,
+              timestamp: i,
             });
-            r != null && a.push(r);
+            n != null && u.push(n);
           }),
-          e.nativeFlowName ===
-            r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
-            ((n = e.interactivePayload) == null ? void 0 : n.buttons) != null &&
-            e.interactivePayload.buttons.length > 0)
+          a === r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
+            t.buttons.length > 0)
         ) {
-          var i,
-            l =
-              (i = e.interactivePayload.buttons[0]) == null
-                ? void 0
-                : i.buttonParamsJson,
-            c = o("WAWebInAppSignupConfirmation").parseInAppSignupWebsiteUrl(l);
-          c != null &&
-            a.push({
+          var d,
+            m = (d = t.buttons[0]) == null ? void 0 : d.buttonParamsJson,
+            p = o("WAWebInAppSignupConfirmation").parseInAppSignupWebsiteUrl(m);
+          p != null &&
+            u.push({
               name: "cta_url",
-              index: a.length,
+              index: u.length,
               data: {
                 label: s._(/*BTDS*/ "Visit website").toString(),
-                url: c,
-                merchantUrl: c,
+                url: p,
+                merchantUrl: p,
               },
             });
         }
-        if (a.length > 0) return a;
+        if (u.length > 0) return u;
       }
       return null;
     }
-    function u(e) {
+    function c(e) {
       var t,
         n,
         a,
         i = e.button,
         l = e.index,
         u = e.messageNativeFlowName,
-        m = e.timestamp,
+        c = e.timestamp,
         p = o(
           "WAWebBizTemplateAndInteractiveMessagesUtils",
         ).getNativeFlowNameByButtonName(i.name);
@@ -163,7 +170,7 @@ __d(
           return o("WAWebGetGalaxyFlowCtaButton").getGalaxyFlowCtaButton(
             _,
             l,
-            m,
+            c,
           );
         case r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS: {
           var y = o("WAWebOrderStatusButton").parseOrderStatusButton(i);
@@ -172,7 +179,7 @@ __d(
             : {
                 name: "order_status",
                 index: l,
-                data: { label: d(y).toString(), orderStatusButton: y },
+                data: { label: m(y).toString(), orderStatusButton: y },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER: {
@@ -222,7 +229,7 @@ __d(
             "WAWebInAppSignupPrompt",
           ).parseInAppSignupPromptButtonParams(_);
           if (R == null) break;
-          var L = c().toString();
+          var L = d().toString();
           return {
             name: "api_signup",
             index: l,
@@ -262,13 +269,13 @@ __d(
         }
       }
     }
-    function c() {
+    function d() {
       return o("WAWebSignupCTAExperiment").getSignupCTAExperiment() ===
         o("WAWebSignupCTAExperiment").SignupCTAExperiment.GetOffers
         ? s._(/*BTDS*/ "Get offers")
         : s._(/*BTDS*/ "Sign up");
     }
-    function d(e) {
+    function m(e) {
       return o("WAWebOrderStatus").shouldShowTrackingInfo(e)
         ? e.order.status === o("WAWebOrderStatus").OrderStatus.Complete ||
           e.order.status === o("WAWebOrderStatus").OrderStatus.Delivered
@@ -277,7 +284,8 @@ __d(
         : s._(/*BTDS*/ "View order");
     }
     ((l.getNativeFlowCtasFromInteractiveMsg = e),
-      (l.nativeFlowButtonToCtaButton = u));
+      (l.getNativeFlowCtasFor = u),
+      (l.nativeFlowButtonToCtaButton = c));
   },
   226,
 );

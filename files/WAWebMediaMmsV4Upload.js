@@ -429,7 +429,7 @@ __d(
                   )
                     if (o("WAWebMediaDataUtils").shouldUseMediaCache(S)) {
                       var L = v.filehash;
-                      if (L && v.mediaBlob) {
+                      if (L != null && L !== "" && v.mediaBlob) {
                         var T = yield o("WAWebMediaLoad").transcode(
                           v.mediaBlob.formData(),
                         );
@@ -771,7 +771,7 @@ __d(
     function V(e) {
       var t = e.mediaBlob;
       if (t) return t.formData();
-      if (e.filehash)
+      if (!(e.filehash == null || e.filehash === ""))
         return o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
           e.filehash,
         );

@@ -12,35 +12,50 @@ __d(
     var e = "offer_payment_account",
       s = "PIX",
       u = "wa_add_pix_key_saved";
-    function c(t) {
-      var n;
-      if (
-        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW
-      )
-        return null;
-      var a = (n = t.interactivePayload) == null ? void 0 : n.buttons;
-      if (a == null) return null;
-      for (var i of a)
-        if ((i == null ? void 0 : i.name) === e && i.buttonParamsJson != null)
-          return f(i.buttonParamsJson);
-      return null;
+    function c(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : d({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            type: e.type,
+          });
     }
     function d(t) {
-      if (t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE) return !1;
-      for (var n of (r =
-        (a = t.interactivePayload) == null ? void 0 : a.buttons) != null
-        ? r
-        : []) {
-        var r, a;
-        if ((n == null ? void 0 : n.name) === e && n.buttonParamsJson != null) {
-          var i;
-          return ((i = _(n.buttonParamsJson)) == null ? void 0 : i[u]) === !0;
+      var n = t.interactivePayload,
+        a = t.interactiveType,
+        i = t.type;
+      if (
+        i !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        a !== r("WAWebInteractiveMessageType").NATIVE_FLOW
+      )
+        return null;
+      var l = n == null ? void 0 : n.buttons;
+      if (l == null) return null;
+      for (var s of l)
+        if ((s == null ? void 0 : s.name) === e && s.buttonParamsJson != null)
+          return h(s.buttonParamsJson);
+      return null;
+    }
+    function m(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? !1
+        : p({ interactivePayload: e.interactivePayload, type: e.type });
+    }
+    function p(t) {
+      var n = t.interactivePayload,
+        r = t.type;
+      if (r !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE) return !1;
+      for (var a of (i = n == null ? void 0 : n.buttons) != null ? i : []) {
+        var i;
+        if ((a == null ? void 0 : a.name) === e && a.buttonParamsJson != null) {
+          var l;
+          return ((l = g(a.buttonParamsJson)) == null ? void 0 : l[u]) === !0;
         }
       }
       return !1;
     }
-    function m(t, n) {
+    function _(t, n) {
       var a,
         i = !1,
         l =
@@ -49,16 +64,16 @@ __d(
             : a.map(function (t) {
                 var a, l;
                 if (t.name !== e || t.buttonParamsJson == null) return t;
-                var s = _(t.buttonParamsJson),
-                  c = g(s == null ? void 0 : s.payment_account),
-                  d = c == null ? null : h(c, "identifier_value");
+                var s = g(t.buttonParamsJson),
+                  c = y(s == null ? void 0 : s.payment_account),
+                  d = c == null ? null : C(c, "identifier_value");
                 if (s == null || s[u] === !0 || d == null) return t;
                 var m = o("WAWebUserPrefsTypes").PixKeyType.cast(
-                  (a = h(r("nullthrows")(c), "identifier_type")) == null
+                  (a = C(r("nullthrows")(c), "identifier_type")) == null
                     ? void 0
                     : a.toUpperCase(),
                 );
-                return p(d, m) !== p(n, m)
+                return f(d, m) !== f(n, m)
                   ? t
                   : ((i = !0),
                     {
@@ -72,42 +87,42 @@ __d(
         ? babelHelpers.extends({}, t, { buttons: l })
         : null;
     }
-    function p(e, t) {
+    function f(e, t) {
       return t === o("WAWebUserPrefsTypes").PixKeyType.CPF ||
         t === o("WAWebUserPrefsTypes").PixKeyType.CNPJ ||
         t === o("WAWebUserPrefsTypes").PixKeyType.PHONE
         ? e.replace(/\D/g, "")
         : e.trim().toLowerCase();
     }
-    function _(e) {
+    function g(e) {
       try {
-        return g(JSON.parse(e));
+        return y(JSON.parse(e));
       } catch (e) {
         return null;
       }
     }
-    function f(e) {
+    function h(e) {
       var t, n;
       try {
         n = JSON.parse(e);
       } catch (e) {
         return null;
       }
-      var r = g((t = g(n)) == null ? void 0 : t.payment_account);
-      if (r == null || h(r, "account_type") !== s) return null;
-      var a = h(r, "identifier_type"),
+      var r = y((t = y(n)) == null ? void 0 : t.payment_account);
+      if (r == null || C(r, "account_type") !== s) return null;
+      var a = C(r, "identifier_type"),
         i =
           a == null
             ? null
             : o("WAWebUserPrefsTypes").PixKeyType.cast(a.toUpperCase()),
-        l = h(r, "identifier_value");
+        l = C(r, "identifier_value");
       if (
         i == null ||
         l == null ||
         !o("WAWebBrAddPixKeyDeepLinkPrefill").isAcceptablePixKeyValue(l, i)
       )
         return null;
-      var u = h(r, "holder_name"),
+      var u = C(r, "holder_name"),
         c =
           u != null &&
           o("WAWebBrAddPixKeyDeepLinkPrefill").isAcceptableCappedText(
@@ -118,17 +133,19 @@ __d(
             : null;
       return { holderName: c, keyType: i, keyValue: l };
     }
-    function g(e) {
+    function y(e) {
       return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
     }
-    function h(e, t) {
+    function C(e, t) {
       var n = e[t];
       return typeof n == "string" ? n : null;
     }
     ((l.OFFER_PAYMENT_ACCOUNT_BUTTON_NAME = e),
       (l.getAddPixKeyMessageOffer = c),
-      (l.isAddPixKeyMessageOfferSaved = d),
-      (l.withAddPixKeyOfferSaved = m));
+      (l.getAddPixKeyMessageOfferFor = d),
+      (l.isAddPixKeyMessageOfferSaved = m),
+      (l.isAddPixKeyMessageOfferSavedFor = p),
+      (l.withAddPixKeyOfferSaved = _));
   },
   98,
 );

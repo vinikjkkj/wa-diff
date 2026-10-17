@@ -424,12 +424,11 @@ __d(
       return n === !0 ? ce() : t ? ue() : r ? se() : le();
     }
     function me() {
-      return (
-        le() &&
-        o("WAWebABProps").getABPropConfigValue(
+      var e = le(),
+        t = o("WAWebABProps").getABPropConfigValue(
           "call_info_optimizations_1on1_context_menu",
-        )
-      );
+        );
+      return e && t;
     }
     function pe(e) {
       var t = e.isAdHocGroupCall,

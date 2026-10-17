@@ -7,6 +7,7 @@ __d(
       spaces: new Map(),
       icons: new Map(),
       rowTsMs: new Map(),
+      serverActionsTsMs: new Map(),
       iconTsMs: new Map(),
       pendingSnapshot: null,
       snapshotTsMs: 0,
@@ -20,22 +21,34 @@ __d(
           : c(e, t);
     }
     function u(e, t) {
-      var n = d(e, t);
+      var n,
+        r,
+        a = d(e, t);
       if (!o("WAWebHatchSpacesLedger").admitRow(e, t.space.itemKey, !1, t.tsMs))
-        return m(e, e.spaces, n);
-      var r = new Map(e.spaces);
+        return m(e, e.spaces, a);
+      var i = new Map(e.spaces);
       return (
-        r.set(t.space.itemKey, t.space),
+        i.set(
+          t.space.itemKey,
+          babelHelpers.extends({}, t.space, {
+            hasServerActions:
+              (n = t.space.hasServerActions) != null
+                ? n
+                : (r = e.spaces.get(t.space.itemKey)) == null
+                  ? void 0
+                  : r.hasServerActions,
+          }),
+        ),
         babelHelpers.extends({}, e, {
-          spaces: r,
+          spaces: i,
           icons: o("WAWebHatchSpacesLedger").referencedBy(
-            n.icons,
-            r,
+            a.icons,
+            i,
             e.pendingSnapshot,
           ),
           iconTsMs: o("WAWebHatchSpacesLedger").referencedBy(
-            n.iconTsMs,
-            r,
+            a.iconTsMs,
+            i,
             e.pendingSnapshot,
           ),
           rowTsMs: o("WAWebHatchSpacesLedger").recorded(
@@ -43,6 +56,14 @@ __d(
             o("WAWebHatchSpacesLedger").rowKey(t.space.itemKey, !1),
             t.tsMs,
           ),
+          serverActionsTsMs:
+            t.space.hasServerActions != null
+              ? o("WAWebHatchSpacesLedger").recorded(
+                  e.serverActionsTsMs,
+                  t.space.itemKey,
+                  t.tsMs,
+                )
+              : e.serverActionsTsMs,
         })
       );
     }

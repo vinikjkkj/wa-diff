@@ -62,10 +62,6 @@ __d(
           }),
         ],
         [
-          "messenger",
-          _("messenger", "facebook", { requiresAccountSelection: !0 }),
-        ],
-        [
           "meta_business",
           _("meta_business", "meta_business", { listsAccountsOnConsent: !0 }),
         ],

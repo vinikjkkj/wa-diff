@@ -10,6 +10,7 @@ __d(
     "WAWebAddonLogUtils",
     "WAWebAddonProcessMsgsUtils",
     "WAWebAddonSelectUtils",
+    "WAWebApplyPollVoteTCValidation",
     "WAWebBackendApi",
     "WAWebDBMarkFutureproofMessagesReparsed",
     "WAWebLastAddOnDBSerialization",
@@ -55,13 +56,14 @@ __d(
           toDualDecryptedMsgData: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                return e.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted
-                  ? e
-                  : o("WAWebPollsExtractVotes")
-                      .extractVote(e, t)
-                      .then(
-                        o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData,
-                      );
+                if (e.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted)
+                  return e;
+                var n = yield o("WAWebPollsExtractVotes").extractVote(e, t);
+                return babelHelpers.extends(
+                  {},
+                  o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData(n),
+                  { pollUpdateMessageMetadata: e.pollUpdateMessageMetadata },
+                );
               },
             );
             function t(t, n) {
@@ -98,15 +100,15 @@ __d(
               var a = r.parents,
                 i = [],
                 l = [];
-              for (var m of t)
-                if (m.addonEncrypted) {
-                  var p = a.getForAddon(m);
-                  if (p == null)
+              for (var p of t)
+                if (p.addonEncrypted) {
+                  var _ = a.getForAddon(p);
+                  if (_ == null)
                     throw new (o("WAWebAddonInfraError").AddonInfraError)(
                       o("WAWebAddonInfraError").AddonInfraErrorCode
                         .MissingParentMsg,
                     );
-                  (l.push(d.convert.toDualDecryptedMsgData(m, p)),
+                  (l.push(d.convert.toDualDecryptedMsgData(p, _)),
                     o("WALogger")
                       .LOG(
                         e ||
@@ -117,22 +119,22 @@ __d(
                       .sendLogs("unexpected encrypted poll vote", {
                         sampling: 0.01,
                       }));
-                } else i.push(m);
+                } else i.push(p);
               if (l.length !== 0) {
-                var _ = yield (c || (c = n("Promise"))).allSettled(l);
-                for (var f of _)
-                  f.status === "fulfilled" &&
-                  f.value.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted
-                    ? i.push(f.value)
+                var f = yield (c || (c = n("Promise"))).allSettled(l);
+                for (var g of f)
+                  g.status === "fulfilled" &&
+                  g.value.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted
+                    ? i.push(g.value)
                     : o("WALogger").LOG(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
                             "Cannot decrypt poll vote message: ",
                             "",
                           ])),
-                        f.reason,
+                        g.reason,
                       );
-                o("WAWebAddonLogUtils").hasSettledWithError(_) &&
+                o("WAWebAddonLogUtils").hasSettledWithError(f) &&
                   o("WALogger")
                     .ERROR(
                       u ||
@@ -143,7 +145,7 @@ __d(
                     .tags("messagings", "addons")
                     .sendLogs("poll-vote-decryption-error", { sampling: 0.01 });
               }
-              return i;
+              return m(i, a);
             },
           );
           function r(e, n) {
@@ -207,9 +209,38 @@ __d(
           }
           return t;
         })(),
-      }),
-      m = d;
-    l.default = m;
+      });
+    function m(e, t) {
+      return o("WAWebApplyPollVoteTCValidation").applyPollVoteTCValidation(
+        e.map(function (e) {
+          var n,
+            r = p(t, e),
+            a = o("WAWebPollsVoteDataUtils").pollVoteMsgDataToVoteData(e);
+          return {
+            vote: e,
+            parentMsg: r != null ? r : {},
+            voteMetadata: e.pollUpdateMessageMetadata,
+            parentMsgKey:
+              (n = r == null ? void 0 : r.id) != null ? n : a.parentMsgKey,
+            voteMsgKey: a.msgKey,
+            sender: a.sender,
+            senderTimestampMs: a.senderTimestampMs,
+            selectedOptionLocalIds: a.selectedOptionLocalIds,
+          };
+        }),
+        "live-vote",
+      );
+    }
+    function p(e, t) {
+      try {
+        return e.getForAddon(t);
+      } catch (e) {
+        if (e instanceof o("WAWebAddonInfraError").AddonInfraError) return null;
+        throw e;
+      }
+    }
+    var _ = d;
+    l.default = _;
   },
   98,
 );

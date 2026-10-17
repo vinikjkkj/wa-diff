@@ -827,10 +827,7 @@ __d(
             (this._elCanvas = document.createElement("canvas")),
             (this._elCanvas.width = t.width),
             (this._elCanvas.height = t.height),
-            this._elCanvas.setAttribute(
-              "aria-label",
-              "Scan this QR code to link a device!",
-            ),
+            this.updateAriaLabel(t.ariaLabel),
             this._elCanvas.setAttribute("role", "img"),
             e.appendChild(this._elCanvas),
             (this._el = e),
@@ -838,29 +835,35 @@ __d(
             (this._bIsPainted = !1),
             (this._bSupportDataURI = null));
         };
-      ((p.prototype.draw = function (e) {
-        var t = this._oContext,
-          n = this._htOption,
-          r = e.getModuleCount(),
-          o = n.width / r,
-          a = n.height / r,
-          i = Math.round(o),
-          l = Math.round(a);
-        this.clear();
-        for (var s = 0; s < r; s++)
-          for (var u = 0; u < r; u++) {
-            var c = e.isDark(s, u),
-              d = u * o,
-              m = s * a;
-            ((t.strokeStyle = c ? n.colorDark : n.colorLight),
-              (t.lineWidth = 1),
-              (t.fillStyle = c ? n.colorDark : n.colorLight),
-              t.fillRect(d, m, o, a),
-              t.strokeRect(Math.floor(d) + 0.5, Math.floor(m) + 0.5, i, l),
-              t.strokeRect(Math.ceil(d) - 0.5, Math.ceil(m) - 0.5, i, l));
-          }
-        this._bIsPainted = !0;
+      ((p.prototype.updateAriaLabel = function (e) {
+        this._elCanvas.setAttribute(
+          "aria-label",
+          e != null ? e : "Scan this QR code to link a device!",
+        );
       }),
+        (p.prototype.draw = function (e) {
+          var t = this._oContext,
+            n = this._htOption,
+            r = e.getModuleCount(),
+            o = n.width / r,
+            a = n.height / r,
+            i = Math.round(o),
+            l = Math.round(a);
+          this.clear();
+          for (var s = 0; s < r; s++)
+            for (var u = 0; u < r; u++) {
+              var c = e.isDark(s, u),
+                d = u * o,
+                m = s * a;
+              ((t.strokeStyle = c ? n.colorDark : n.colorLight),
+                (t.lineWidth = 1),
+                (t.fillStyle = c ? n.colorDark : n.colorLight),
+                t.fillRect(d, m, o, a),
+                t.strokeRect(Math.floor(d) + 0.5, Math.floor(m) + 0.5, i, l),
+                t.strokeRect(Math.ceil(d) - 0.5, Math.ceil(m) - 0.5, i, l));
+            }
+          this._bIsPainted = !0;
+        }),
         (p.prototype.isPainted = function () {
           return this._bIsPainted;
         }),
@@ -941,6 +944,9 @@ __d(
             this._oQRCode.make(),
             (this._el.title = e),
             this._oDrawing.draw(this._oQRCode));
+        }),
+        (e.prototype.updateAriaLabel = function (e) {
+          this._oDrawing.updateAriaLabel(e);
         }),
         (e.prototype.clear = function () {
           this._oDrawing.clear();

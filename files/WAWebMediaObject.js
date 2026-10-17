@@ -522,7 +522,10 @@ __d(
           ((e.size = t.size), (a = !0)));
       var c = t.loadedSize;
       (c != null && c !== e.loadedSize && ((e.loadedSize = c), (a = !0)),
-        t.filehash && !e.filehash && ((e.filehash = t.filehash), (a = !0)),
+        t.filehash != null &&
+          t.filehash !== "" &&
+          (e.filehash == null || e.filehash === "") &&
+          ((e.filehash = t.filehash), (a = !0)),
         t.parsedVcards &&
           t.parsedVcards !== e.parsedVcards &&
           ((e.parsedVcards = t.parsedVcards), (a = !0)),
@@ -721,10 +724,10 @@ __d(
       }
     }
     function I(e, t) {
-      if (t.filehash) {
-        if (e.id.fromMe && e.ack < o("WAWebAck").ACK.SENT)
-          return (
-            e.local ||
+      return t.filehash == null || t.filehash === ""
+        ? o("WAWebMediaTypes").MediaDataStage.PREPARING
+        : e.id.fromMe && e.ack < o("WAWebAck").ACK.SENT
+          ? (e.local ||
               o("WALogger")
                 .ERROR(
                   h ||
@@ -733,10 +736,8 @@ __d(
                     ])),
                 )
                 .sendLogs("media-fault: unsent media system message not local"),
-            D(t)
-          );
-      } else return o("WAWebMediaTypes").MediaDataStage.PREPARING;
-      return T(t);
+            D(t))
+          : T(t);
     }
     function T(e) {
       return e.downloadStage === o("WAWebMediaTypes").DownloadStage.INIT

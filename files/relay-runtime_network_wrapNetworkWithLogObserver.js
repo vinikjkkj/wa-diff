@@ -5,6 +5,8 @@ __d(
     "use strict";
     function e(e, t) {
       return {
+        UNSTABLE_preloadQueryOnQueryAstLoad:
+          t == null ? void 0 : t.UNSTABLE_preloadQueryOnQueryAstLoad,
         execute: function (o, a, i, l, s, u, c, d) {
           var r = n("relay-runtime/util/generateID")(),
             m = {

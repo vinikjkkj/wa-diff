@@ -200,7 +200,10 @@ __d(
               ((I = P.currentMsg) == null ? void 0 : I.body) != null &&
               P.currentMsg.body !== "" &&
               w.push(P.currentMsg.body),
-            d.has(t.type) && D.footer && w.push(D.footer));
+            d.has(t.type) &&
+              D.footer != null &&
+              D.footer !== "" &&
+              w.push(D.footer));
           var A = (T = D.bloksWidget) == null ? void 0 : T.fallback;
           if (
             (A != null && A !== "" && w.push(A),

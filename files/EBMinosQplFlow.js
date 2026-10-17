@@ -30,7 +30,7 @@ __d(
           timeoutInMs: r("justknobx")._("1405"),
         },
         l = o("WMIQplFlow").startQplFlow(n, i);
-      return _(l, a);
+      return f(l, a);
     }
     function u() {
       return s({
@@ -54,7 +54,14 @@ __d(
     function p() {
       return s({ event: r("qpl")._(521478162, "2763") });
     }
-    function _(e, t) {
+    function _(e) {
+      var t = e.path;
+      return s({
+        annotations: { string: { path: t } },
+        event: r("qpl")._(521481670, "1397"),
+      });
+    }
+    function f(e, t) {
       return {
         addAnnotations: function (n) {
           return e.addAnnotations(n);
@@ -88,7 +95,8 @@ __d(
       (l.startMinosVerifySingleEpochQpl = c),
       (l.startMinosCreateEpochParamsQpl = d),
       (l.startMinosMailboxKeyFetchQpl = m),
-      (l.startMandrakeMMKFetchQpl = p));
+      (l.startMandrakeMMKFetchQpl = p),
+      (l.startMandrakeMMKLifecycleQpl = _));
   },
   98,
 );

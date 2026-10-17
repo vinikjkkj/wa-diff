@@ -143,6 +143,7 @@ __d(
       (l.keyPairAsync = y),
       (l.signDetachedVerifyAsync = b),
       (l.hash = s.hash),
+      (l.randomBytes = s.randomBytes),
       (l.scalarMult = s.scalarMult),
       (l.secretbox = s.secretbox),
       (l.verify = s.verify));

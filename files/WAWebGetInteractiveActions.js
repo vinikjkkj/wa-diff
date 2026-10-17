@@ -2,6 +2,7 @@ __d(
   "WAWebGetInteractiveActions",
   [
     "fbt",
+    "WALogger",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizEntryPoint",
@@ -19,10 +20,8 @@ __d(
     "WAWebBrazilPaymentsGeoGating",
     "WAWebChatGroupUtils",
     "WAWebFbtAppName",
-    "WAWebFrontendMsgGetters",
     "WAWebGetBrazilnteractiveActions",
     "WAWebGetInteractiveActionsFromButtons",
-    "WAWebGetInteractiveButtonActionValues",
     "WAWebGetInteractiveCtaActions",
     "WAWebGetMessageWithLinkAction",
     "WAWebGetQuickPayAction",
@@ -30,7 +29,9 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebLimitSharingGatingUtils",
+    "WAWebMsgCollection",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebOrderDetails",
     "WAWebOrderExpansionAction",
     "WAWebOrderStatus",
@@ -44,130 +45,161 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react"));
-    function c(e) {
+      u,
+      c = ["interactivePayload", "interactiveType", "sender", "t", "type"],
+      d,
+      m = d || (d = o("react"));
+    function p(e) {
       var t = e.canCompose,
-        n = e.msg,
+        n = e.msgKey,
         a = e.orderPaymentStatus,
         i = a === void 0 ? null : a,
         l = e.uimContext,
-        s = n.interactivePayload,
-        u = n.interactiveType,
-        c = n.nativeFlowName;
-      if (!s) return null;
-      var m = [];
-      switch (u) {
+        s = e.values,
+        u = s.interactivePayload,
+        d = s.interactiveType,
+        m = s.sender,
+        p = s.t,
+        f = s.type,
+        C = babelHelpers.objectWithoutPropertiesLoose(s, c),
+        b = C.chat,
+        R = C.isSentByMe,
+        I = C.nativeFlowName;
+      if (!u) return null;
+      if (d == null) return [];
+      var T = {
+          interactivePayload: u,
+          interactiveType: d,
+          nativeFlowName: I,
+          type: f,
+        },
+        D = babelHelpers.extends({}, T, { nativeFlowButtons: null }),
+        x = [];
+      switch (d) {
         case r("WAWebInteractiveMessageType").SHOPS_STOREFRONT: {
-          m.push(r("WAWebGetShopStorefrontInteractiveAction")(s));
+          x.push(r("WAWebGetShopStorefrontInteractiveAction")(u));
           break;
         }
         case r("WAWebInteractiveMessageType").NATIVE_FLOW:
-          if (d(n, t)) {
+          if (_(n, s, t)) {
             if (
-              c === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
+              I === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
             ) {
-              var g = o("WAWebOrderDetails").getOrderInfo(n);
-              if (!g) return null;
-              m.push.apply(m, R(n, g));
+              var $ = o("WAWebOrderDetails").getOrderInfoFor(D);
+              if (!$) return null;
+              x.push.apply(x, k(n, s, $));
             } else if (
-              c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+              I === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
             ) {
-              var h = o("WAWebOrderDetails").getOrderInfo(n);
-              if (!h) return null;
-              var b = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
-                L = o("WAWebOrderStatus").findOrderStatus(b, h.referenceId),
-                E = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
+              var P = o("WAWebOrderDetails").getOrderInfoFor(D);
+              if (!P) return null;
+              var N = o("WAWebOrderStatus").findOrderStatus(b, P.referenceId),
+                M = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
                   chat: b,
-                  msg: n,
-                  orderInfo: h,
-                  orderStatus: L,
+                  msgKey: n,
+                  orderInfo: P,
+                  orderStatus: N,
                   uimContext: l,
+                  values: {
+                    interactivePayload: u,
+                    interactiveType: d,
+                    isSentByMe: R,
+                    nativeFlowName: I,
+                    type: f,
+                  },
                 });
-              E && m.push(E);
-              var k = L === o("WAWebOrderStatus").OrderStatus.Pending,
-                I = i == null;
-              if (v(b)) {
-                var T = I ? f(h, n, b) : [y(n, l, !0)];
-                T.length === 0 ? m.push(y(n, l, !k)) : m.push.apply(m, T);
-              } else if (o("WAWebOrderStatus").isPaymentRequest(b, h))
-                m.push.apply(m, S(n, h));
+              M && x.push(M);
+              var w = N === o("WAWebOrderStatus").OrderStatus.Pending,
+                A = i == null;
+              if (L(b)) {
+                var F = A ? y(P, n, b) : [v(n, s, l, !0)];
+                F.length === 0 ? x.push(v(n, s, l, !w)) : x.push.apply(x, F);
+              } else if (o("WAWebOrderStatus").isPaymentRequest(b, P))
+                x.push.apply(x, E(n, s, P));
               else {
-                var D = null;
+                var O = null;
                 (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(b) &&
-                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(h) &&
-                  (D = o(
+                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(P) &&
+                  (O = o(
                     "WAWebGetBrazilnteractiveActions",
-                  ).getCopyPixStaticCodeInteractiveAction(n, h)),
-                  m.push(D != null ? D : y(n, l, !k)));
+                  ).getCopyPixStaticCodeInteractiveAction(n, P)),
+                  x.push(O != null ? O : v(n, s, l, !w)));
               }
-              var x = C(b, n, h, k);
-              x && m.push(x);
+              var B = S(n, s, P, w);
+              B && x.push(B);
             } else if (
-              c ===
+              I ===
               r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK
             ) {
-              var $ = o(
+              var W = o(
                 "WAWebGetMessageWithLinkAction",
-              ).getOpenMessageWithLinkAction(n);
-              $ && m.push($);
+              ).getOpenMessageWithLinkActionFor(T);
+              W && x.push(W);
             } else if (
-              c ===
+              I ===
               r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT
             ) {
-              var P = p(n);
-              P && m.push(P);
+              var q = g(n, {
+                interactivePayload: u,
+                interactiveType: d,
+                type: f,
+              });
+              q && x.push(q);
             }
             if (
-              c != null &&
+              I != null &&
               o(
                 "WAWebBizTemplateAndInteractiveMessagesUtils",
-              ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(c)
+              ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(I)
             ) {
-              var N = o(
-                "WAWebGetInteractiveCtaActions",
-              ).getNativeFlowCtasFromInteractiveMsg(n);
-              N != null && m.push.apply(m, _(N, n));
+              var U = o("WAWebGetInteractiveCtaActions").getNativeFlowCtasFor({
+                interactivePayload: u,
+                interactiveType: d,
+                nativeFlowName: I,
+                t: p,
+                type: f,
+              });
+              U != null && x.push.apply(x, h(U, n, C));
             }
           }
           break;
         case r("WAWebInteractiveMessageType").CAROUSEL:
           break;
       }
-      return m;
+      return x;
     }
-    function d(e, t) {
-      return typeof t != "boolean"
+    function _(e, t, n) {
+      return typeof n != "boolean"
         ? !1
-        : t ||
-            e.nativeFlowName ===
+        : n ||
+            t.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
           ? !0
-          : m(e);
+          : f(e, t);
     }
-    function m(e) {
-      if (
-        !e.id.fromMe ||
-        e.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
-      )
-        return !1;
-      var t = o("WAWebFrontendMsgGetters").getMaybeChat(e.unsafe());
-      return (
-        t != null &&
-        o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-        o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(t) &&
-        !t.isSuspendedOrTerminated() &&
-        !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t) &&
-        o("WAWebChatGroupUtils").canSendIgnoringAiAgentBlock(t)
-      );
+    function f(e, t) {
+      var n = t.chat,
+        a = t.nativeFlowName;
+      return !e.fromMe ||
+        a !== r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
+        ? !1
+        : n != null &&
+            o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
+            o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(n) &&
+            !n.isSuspendedOrTerminated() &&
+            !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(n) &&
+            o("WAWebChatGroupUtils").canSendIgnoringAiAgentBlock(n);
     }
-    function p(e) {
-      if (e.id.fromMe || !o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled())
+    function g(t, n) {
+      if (t.fromMe || !o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled())
         return null;
-      var t = o("WAWebBrAddPixKeyMessageOffer").getAddPixKeyMessageOffer(e);
-      return t == null
+      var r = o("WAWebBrAddPixKeyMessageOffer").getAddPixKeyMessageOfferFor(n);
+      return r == null
         ? null
-        : o("WAWebBrAddPixKeyMessageOffer").isAddPixKeyMessageOfferSaved(e)
+        : o("WAWebBrAddPixKeyMessageOffer").isAddPixKeyMessageOfferSavedFor({
+              interactivePayload: n.interactivePayload,
+              type: n.type,
+            })
           ? {
               label: s._(/*BTDS*/ "View Pix key"),
               onClick: function () {
@@ -183,52 +215,59 @@ __d(
           : {
               label: s._(/*BTDS*/ "Add Pix key"),
               onClick: function () {
-                o(
-                  "WAWebBrAddPixKeyMessageGating",
-                ).isAddPixKeyMessageEnabled() &&
+                if (
+                  o("WAWebBrAddPixKeyMessageGating").isAddPixKeyMessageEnabled()
+                ) {
+                  var n = o("WAWebMsgCollection").MsgCollection.get(t);
+                  if (n == null) {
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[add-pix-key] offer click skipped, message left the collection",
+                        ])),
+                    );
+                    return;
+                  }
                   o(
                     "WAWebBrSavePartnerPixKeyFeature",
                   ).openAddPixKeyMessageScreen(
-                    t,
+                    r,
                     o(
                       "WAWebBrSenderPixKeyAttribution",
-                    ).resolveSenderPixKeyAttribution(e.senderObj),
+                    ).resolveSenderPixKeyAttribution(n.senderObj),
                     o(
                       "WAWebBrAddPixKeyPartnerDirectory",
                     ).addPixKeyPartnerCatalogIdForSender([
-                      o("WAWebMsgGetters").getSender(e.unsafe()),
+                      o("WAWebMsgGetters").getSender(n),
                     ]),
-                    function (t) {
+                    function (e) {
                       o(
                         "WAWebBrAddPixKeySavedMarker",
-                      ).markAddPixKeyMessageSaved(e.id, t);
+                      ).markAddPixKeyMessageSaved(t, e);
                     },
                   );
+                }
               },
               testid: "br_add_pix_key_message_action",
             };
     }
-    function _(e, t) {
-      var n;
-      return (n = o(
+    function h(e, t, n) {
+      var a;
+      return (a = o(
         "WAWebBrOptionsToPayActions",
-      ).getPaymentRequestOptionsToPayActions(e, t)) != null
-        ? n
-        : r("WAWebGetInteractiveActionsFromButtons")(
-            e,
-            t.id,
-            r("WAWebGetInteractiveButtonActionValues")(t),
-          );
+      ).getPaymentRequestOptionsToPayActions(e, t, n)) != null
+        ? a
+        : r("WAWebGetInteractiveActionsFromButtons")(e, t, n);
     }
-    function f(e, t, n) {
+    function y(e, t, n) {
       var r;
       return (r = o(
         "WAWebBrOptionsToPayActions",
       ).getOrderDetailsOptionsToPayActions(e, t, n)) != null
         ? r
-        : g(e, t, n);
+        : C(e, t, n);
     }
-    function g(e, t, n) {
+    function C(e, t, n) {
       var r = [],
         a = 2;
       return (
@@ -236,14 +275,14 @@ __d(
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
-            ).getCopyPixCodeInteractiveAction({ msg: t, orderInfo: e }),
+            ).getCopyPixCodeInteractiveAction({ msgKey: t, orderInfo: e }),
           ),
         o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(n) &&
           o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(e) &&
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
-            ).getOpenPaymentLinkInteractiveAction({ msg: t, orderInfo: e }),
+            ).getOpenPaymentLinkInteractiveAction({ msgKey: t, orderInfo: e }),
           ),
         r.length < a &&
           o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(n) &&
@@ -251,15 +290,15 @@ __d(
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
-            ).getCopyBoletoCodeInteractiveAction({ msg: t, orderInfo: e }),
+            ).getCopyBoletoCodeInteractiveAction({ msgKey: t, orderInfo: e }),
           ),
         r.length < a &&
           o("WAWebBrPaymentSettingsUtils").hasValidCard(e) &&
-          r.push(h()),
+          r.push(b()),
         r
       );
     }
-    function h() {
+    function b() {
       return {
         label: s._(/*BTDS*/ "Pay with card"),
         onClick: function () {
@@ -267,7 +306,7 @@ __d(
             title: s._(/*BTDS*/ "Charges can't be paid with cards on {=m1}", [
               s._implicitParam(
                 "=m1",
-                u.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
+                m.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
                   children: s._(/*BTDS*/ ""),
                 }),
               ),
@@ -279,61 +318,80 @@ __d(
         },
       };
     }
-    function y(e, t, n) {
-      var a = function () {
-        return o("WAWebMsgGetters").getIsSentByMe(e) || n
-          ? s._(/*BTDS*/ "View details")
-          : o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(
-                o("WAWebMsgGetters").getSender(e),
-              ) &&
-              o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(
-                o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-              )
-            ? s._(/*BTDS*/ "Review and pay")
-            : s._(/*BTDS*/ "View details");
-      };
+    function v(e, t, n, a) {
+      var i = t.isSentByMe,
+        l = t.sender,
+        c = function () {
+          return i || a
+            ? s._(/*BTDS*/ "View details")
+            : o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(l) &&
+                o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(
+                  o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                )
+              ? s._(/*BTDS*/ "Review and pay")
+              : s._(/*BTDS*/ "View details");
+        };
       return {
-        label: a(),
+        label: c(),
         onClick: function () {
-          o("WAWebMsgGetters").getIsSentByMe(e) ||
-          o(
-            "WAWebOrdersExpansionCountries",
-          ).getConsumerOrdersExpansionAllowedCountries()
-            ? o("WAWebBizOrderDetailAction").openOrderDetailDrawer(
-                e,
-                t,
-                r("WAWebBizEntryPoint").FROM_CHAT,
-              )
-            : r("WAWebShowMessageActionFallbackErrorAction")({
-                title: s._(/*BTDS*/ "Orders can't be viewed on {=m1}", [
-                  s._implicitParam(
-                    "=m1",
-                    u.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
-                      children: s._(/*BTDS*/ ""),
-                    }),
-                  ),
-                ]),
-                body: s._(
-                  /*BTDS*/ "Use WhatsApp on your phone to view this order.",
+          if (
+            i ||
+            o(
+              "WAWebOrdersExpansionCountries",
+            ).getConsumerOrdersExpansionAllowedCountries()
+          ) {
+            var t,
+              a =
+                (t = o("WAWebMsgCollection").MsgCollection.get(e)) == null
+                  ? void 0
+                  : t.safe();
+            if (
+              a == null ||
+              a.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+            ) {
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[interactive-actions] order details skipped, message left the collection",
+                  ])),
+              );
+              return;
+            }
+            o("WAWebBizOrderDetailAction").openOrderDetailDrawer(
+              a,
+              n,
+              r("WAWebBizEntryPoint").FROM_CHAT,
+            );
+          } else
+            r("WAWebShowMessageActionFallbackErrorAction")({
+              title: s._(/*BTDS*/ "Orders can't be viewed on {=m1}", [
+                s._implicitParam(
+                  "=m1",
+                  m.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
+                    children: s._(/*BTDS*/ ""),
+                  }),
                 ),
-              });
+              ]),
+              body: s._(
+                /*BTDS*/ "Use WhatsApp on your phone to view this order.",
+              ),
+            });
         },
       };
     }
-    function C(e, t, n, r) {
-      return o("WAWebMsgGetters").getIsSentByMe(t.unsafe()) ||
-        b(e, n, t.unsafe())
+    function S(e, t, n, r) {
+      return t.isSentByMe || R(e, t, n)
         ? null
         : o("WAWebGetQuickPayAction").getQuickPayAction(n.type, !r);
     }
-    function b(e, t, n) {
+    function R(e, t, n) {
       return (
-        !v(e) &&
-        o("WAWebOrderStatus").isPaymentRequest(e, t) &&
-        o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(n)
+        !L(t.chat) &&
+        o("WAWebOrderStatus").isPaymentRequest(t.chat, n) &&
+        I(e, t)
       );
     }
-    function v(e) {
+    function L(e) {
       var t;
       return (
         (e.contact.isEnterprise ||
@@ -341,35 +399,44 @@ __d(
         o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
       );
     }
-    function S(e, t) {
-      var n = o(
+    function E(e, t, n) {
+      var r = o(
         "WAWebGetBrazilnteractiveActions",
-      ).getCopyPixStaticCodeInteractiveAction(e, t);
-      return o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(
-        e.unsafe(),
-      )
+      ).getCopyPixStaticCodeInteractiveAction(e, n);
+      return I(e, t)
         ? o("WAWebPaymentDetailsBubbleActions").getPaymentDetailsBubbleActions(
-            { interactivePayload: e.interactivePayload, msgKey: e.id },
-            n,
+            { interactivePayload: t.interactivePayload, msgKey: e },
+            r,
           )
-        : o("WAWebMsgGetters").getIsSentByMe(e.unsafe()) || n == null
+        : t.isSentByMe || r == null
           ? []
-          : [n];
+          : [r];
     }
-    function R(e, t) {
-      var n = o(
+    function k(e, t, n) {
+      var r = o(
         "WAWebGetBrazilnteractiveActions",
-      ).getPaymentInfoOrderDetailsInteractiveAction(t, e.id);
-      return o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(
-        e.unsafe(),
-      )
+      ).getPaymentInfoOrderDetailsInteractiveAction(n, e);
+      return I(e, t)
         ? o("WAWebPaymentDetailsBubbleActions").getPaymentDetailsBubbleActions(
-            { interactivePayload: e.interactivePayload, msgKey: e.id },
-            n,
+            { interactivePayload: t.interactivePayload, msgKey: e },
+            r,
           )
-        : [n];
+        : [r];
     }
-    l.default = c;
+    function I(e, t) {
+      var n = t.interactivePayload,
+        r = t.interactiveType,
+        a = t.nativeFlowName,
+        i = t.type;
+      return o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledFor({
+        interactivePayload: n,
+        interactiveType: r,
+        msgKey: e,
+        nativeFlowName: a,
+        type: i,
+      });
+    }
+    l.default = p;
   },
   226,
 );

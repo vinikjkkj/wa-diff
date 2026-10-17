@@ -253,7 +253,7 @@ __d(
             ? n
               ? o("WABidi").bidiDir(n) === "rtl"
               : !1
-            : !!r && o("WABidi").bidiDir(r) === "rtl";
+            : r != null && r !== "" && o("WABidi").bidiDir(r) === "rtl";
         },
         [u.getType, u.getSubtype, C],
       ),

@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugOrgContacts",
   [
+    "WAJids",
     "WAWebApiContact",
     "WAWebContactCollection",
     "WAWebDrawerManager",
@@ -37,7 +38,7 @@ __d(
                 .map(function (e) {
                   return {
                     displayName: e.memberName,
-                    lid: e.lid,
+                    lid: o("WAJids").lidFromLidUserJid(e.lid),
                     memberTag: e.memberTag,
                     phoneNumber: e.phoneNumber,
                     role: e.role,
@@ -90,9 +91,10 @@ __d(
             );
           for (var l of i)
             if (
-              l.lid !== o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user
+              o("WAJids").lidFromLidUserJid(l.lid) !==
+              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user
             ) {
-              var s = o("WAWebWidFactory").createUserLidOrThrow(l.lid, "lid"),
+              var s = o("WAWebWidFactory").createUserLidOrThrow(l.lid),
                 c = o("WAWebApiContact").getPhoneNumber(s);
               if (c != null) {
                 var d = function* (t) {

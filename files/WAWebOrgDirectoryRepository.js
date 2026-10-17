@@ -2,6 +2,7 @@ __d(
   "WAWebOrgDirectoryRepository",
   [
     "Promise",
+    "WAJids",
     "WALogger",
     "WAWebDBOrg",
     "WAWebOrgAdminGraphQL",
@@ -192,7 +193,9 @@ __d(
     }
     function $(e, t) {
       (e.forEach(function (e, t) {
-        o("WAWebOrgContactCollection").OrgContactCollection.removeByLid(t);
+        o("WAWebOrgContactCollection").OrgContactCollection.removeByLid(
+          o("WAJids").toLidUserJid(t),
+        );
       }),
         o("WAWebOrgContactCollection").OrgContactCollection.addRows(t));
     }
@@ -264,8 +267,10 @@ __d(
                 O(e, i),
                 (c = o(
                   "WAWebOrgContactCollection",
-                ).OrgContactCollection.getByOrgIdAndLid(e, t)) == null ||
-                  c.set({ role: l }),
+                ).OrgContactCollection.getByOrgIdAndLid(
+                  e,
+                  o("WAJids").toLidUserJid(t),
+                )) == null || c.set({ role: l }),
                 o(
                   "WAWebOrgDirectoryRepositoryState",
                 ).updateOrgDirectoryRepositorySnapshot({
@@ -323,7 +328,10 @@ __d(
               ).invalidateResolvedOrgAffiliations([t]));
             var l = o(
               "WAWebOrgContactCollection",
-            ).OrgContactCollection.getByOrgIdAndLid(e, t);
+            ).OrgContactCollection.getByOrgIdAndLid(
+              e,
+              o("WAJids").toLidUserJid(t),
+            );
             (l != null &&
               o("WAWebOrgContactCollection").OrgContactCollection.remove(l),
               U(e, l != null, a),

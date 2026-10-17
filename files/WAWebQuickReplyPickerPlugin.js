@@ -257,7 +257,7 @@ __d(
           c = a.longitude;
         if (o("WATypeUtils").isNumber(s) && o("WATypeUtils").isNumber(c) && i) {
           var d = o("WAWebFrontendContactGetters").getDisplayName(i);
-          (a.address && (d += "\n" + a.address),
+          (a.address != null && a.address !== "" && (d += "\n" + a.address),
             r("WAWebSendLocationChatAction")({
               chat: t,
               lat: s,
@@ -267,7 +267,8 @@ __d(
             }),
             e.useOnce());
         } else
-          l &&
+          l != null &&
+            l !== "" &&
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([

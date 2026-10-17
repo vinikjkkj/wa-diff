@@ -1,10 +1,12 @@
 __d(
   "WAWebPollsCreatePollUpdateVoteMsg",
   [
+    "Promise",
     "WAWebAck",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
+    "WAWebPollVoteTCMetadata",
     "WAWebPollsProtobufConversion",
     "WAWebPollsVoteEncryption",
     "WAWebReferentialMsgKey",
@@ -13,63 +15,71 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
+    var e;
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = self.crypto.getRandomValues(new Uint8Array(12)),
-            i = yield o("WAWebPollsVoteEncryption").encryptVote({
-              encodedProtobuf: yield o(
-                "WAWebPollsProtobufConversion",
-              ).protobufFromVote(e, t.pollOptions),
-              isOneOnOne: o("WAWebMsgGetters").getRemote(t.unsafe()).isUser(),
-              iv: a,
-              messageSecret: r("nullthrows")(
-                t.messageSecret,
-                "Poll creation missing message secret",
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i,
+            l = self.crypto.getRandomValues(new Uint8Array(12)),
+            s = yield (e || (e = n("Promise"))).all([
+              o("WAWebPollsVoteEncryption").encryptVote({
+                encodedProtobuf: yield o(
+                  "WAWebPollsProtobufConversion",
+                ).protobufFromVote(t, a.pollOptions),
+                isOneOnOne: o("WAWebMsgGetters").getRemote(a.unsafe()).isUser(),
+                iv: l,
+                messageSecret: r("nullthrows")(
+                  a.messageSecret,
+                  "Poll creation missing message secret",
+                ),
+                pollCreationOriginalSender: r("nullthrows")(
+                  o("WAWebMsgGetters").getOriginalSender(a.unsafe()),
+                  "Poll creation missing original sender",
+                ),
+                stanzaId: a.id.id,
+                voteSender: t.sender,
+              }),
+              o("WAWebPollVoteTCMetadata").buildOutgoingPollVoteTCMetadata(
+                a.unsafe(),
               ),
-              pollCreationOriginalSender: r("nullthrows")(
-                o("WAWebMsgGetters").getOriginalSender(t.unsafe()),
-                "Poll creation missing original sender",
-              ),
-              stanzaId: t.id.id,
-              voteSender: e.sender,
-            }),
-            l = i.encPayload,
-            s = o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-              e.msgKey,
+            ]),
+            u = s[0].encPayload,
+            c = s[1],
+            d = o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
+              t.msgKey,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
             ),
-            u = s.author,
-            c = s.to;
+            m = d.author,
+            p = d.to;
           return {
-            id: e.msgKey,
+            id: t.msgKey,
             type: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             kind: o("WAWebMsgType").MsgKind.PollVoteEncrypted,
             subtype: "poll_vote",
             addonEncrypted: !0,
-            t: Math.floor(e.senderTimestampMs / 1e3),
-            from: e.sender,
-            to: c,
-            author: u,
+            t: Math.floor(t.senderTimestampMs / 1e3),
+            from: t.sender,
+            to: p,
+            author: m,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
             isNewMsg: !0,
             local: !0,
-            ack: (n = e.ack) != null ? n : o("WAWebAck").ACK.CLOCK,
+            ack: (i = t.ack) != null ? i : o("WAWebAck").ACK.CLOCK,
             pollUpdateParentKey: o(
               "WAWebReferentialMsgKey",
-            ).getReferentialMsgKey(t),
-            encPollVote: { encPayload: l, encIv: a.buffer },
-            senderTimestampMs: e.senderTimestampMs,
+            ).getReferentialMsgKey(a),
+            encPollVote: { encPayload: u, encIv: l.buffer },
+            senderTimestampMs: t.senderTimestampMs,
+            pollUpdateMessageMetadata: c != null ? c : void 0,
           };
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.createPollUpdateVoteMsg = e;
+    l.createPollUpdateVoteMsg = s;
   },
   98,
 );

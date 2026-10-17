@@ -6,15 +6,16 @@ __d(
     var e = "space";
     function s(t) {
       var n,
-        r = o("WAWebHatchJsonReaders").readTrimmedString(t, "item_key"),
-        a = o("WAWebHatchJsonReaders").readTrimmedString(t, "display_name");
+        r,
+        a = o("WAWebHatchJsonReaders").readTrimmedString(t, "item_key"),
+        i = o("WAWebHatchJsonReaders").readTrimmedString(t, "display_name");
       return o("WAWebHatchJsonReaders").readTrimmedString(t, "source") !== e ||
-        r === "" ||
-        a === ""
+        a === "" ||
+        i === ""
         ? null
         : {
-            itemKey: r,
-            displayName: a,
+            itemKey: a,
+            displayName: i,
             iconUrl: u(t),
             isFavorite:
               (n = o("WAWebHatchJsonReaders").readBool(t, "is_favorite")) !=
@@ -30,6 +31,13 @@ __d(
                 "share_url",
               ),
             ),
+            hasServerActions:
+              (r = o("WAWebHatchJsonReaders").readBool(
+                t,
+                "has_server_actions",
+              )) != null
+                ? r
+                : void 0,
           };
     }
     function u(e) {

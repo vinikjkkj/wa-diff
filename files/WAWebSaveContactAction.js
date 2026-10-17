@@ -354,22 +354,33 @@ __d(
         L.apply(this, arguments)
       );
     }
-    function E(e) {
+    function E(e, t) {
       return k.apply(this, arguments);
     }
     function k() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            (r("gkx")("26258") || (yield v()), !r("WAWebNetworkStatus").online)
+            (t === void 0 && (t = []),
+            r("gkx")("26258") || (yield v()),
+            !r("WAWebNetworkStatus").online)
           )
             throw new y();
-          if (e.length !== 0) {
-            var t = e.map(function (e) {
-                return { type: "add", phoneNumber: e.phoneNumber };
-              }),
-              n = o("WAWebContactSyncUtils").constructUsyncDeltaQuery(t),
-              a = o(
+          if (!(e.length === 0 && t.length === 0)) {
+            var n = [].concat(
+                e.map(function (e) {
+                  return { type: "add", phoneNumber: e.phoneNumber };
+                }),
+                t.map(function (e) {
+                  return {
+                    type: "add_username",
+                    lid: e.lid,
+                    username: e.username,
+                  };
+                }),
+              ),
+              a = o("WAWebContactSyncUtils").constructUsyncDeltaQuery(n),
+              i = o(
                 "WAWebContactSyncLogger",
               ).contactSyncLogger.createEventContext({
                 syncType: o("WAWebContactSyncLogger").getSyncTypeString(
@@ -378,35 +389,35 @@ __d(
                 ),
                 requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
                   .CONTACT_SAVE,
-                requestedCount: t.length,
-                protocols: n.protocols,
+                requestedCount: n.length,
+                protocols: a.protocols,
               }),
-              i = yield o(
+              l = yield o(
                 "WAWebContactSyncLogger",
               ).contactSyncLogger.executeWithLogging(
-                a,
+                i,
                 function () {
-                  return n.execute();
+                  return a.execute();
                 },
                 o("WAWebContactSyncErrorCodes").SAVE_CONTACT_BATCH,
               ),
-              l = i.error.all || i.error.contact;
-            if (l)
+              s = l.error.all || l.error.contact;
+            if (s)
               throw (
                 o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                  a,
-                  l.errorCode,
                   i,
+                  s.errorCode,
+                  l,
                   o("WAWebContactSyncErrorCodes").SAVE_CONTACT_BATCH,
                 ),
                 new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  l.errorCode,
-                  l.errorText,
+                  s.errorCode,
+                  s.errorText,
                 )
               );
-            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i);
+            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l);
             try {
-              yield o("WAWebContactSyncApi").handleLidSync(i);
+              yield o("WAWebContactSyncApi").handleLidSync(l);
             } catch (e) {
               throw (
                 o("WALogger")
@@ -423,7 +434,7 @@ __d(
               );
             }
             try {
-              yield o("WAWebHandleUsernameSync").handleUsernameSync(i);
+              yield o("WAWebHandleUsernameSync").handleUsernameSync(l);
             } catch (e) {
               throw (
                 o("WALogger")
@@ -440,9 +451,9 @@ __d(
               );
             }
             try {
-              i.list &&
+              l.list &&
                 (yield o("WAWebContactSyncApi").markContactsSyncCompleted(
-                  r("compactMap")(i.list, function (e) {
+                  r("compactMap")(l.list, function (e) {
                     return e.id instanceof r("WAWebWid") ? e.id : null;
                   }),
                 ));
@@ -463,19 +474,40 @@ __d(
                 e
               );
             }
-            var s = e.map(I);
-            yield C(
-              "companion-contact-client-error-save-batch-syncd-send-contact-update",
-              function () {
-                return o("WAWebContactEditSync").sendContactUpdateBatch(s);
-              },
-            );
+            if (e.length > 0) {
+              var u = e.map(T);
+              yield C(
+                "companion-contact-client-error-save-batch-syncd-send-contact-update",
+                function () {
+                  return o("WAWebContactEditSync").sendContactUpdateBatch(u);
+                },
+              );
+            }
+            t.length > 0 &&
+              (yield C(
+                "companion-contact-client-error-save-batch-syncd-send-username-contact-update",
+                function () {
+                  return o(
+                    "WAWebContactEditSync",
+                  ).sendUsernameContactUpdateBatch(t.map(I));
+                },
+              ));
           }
         })),
         k.apply(this, arguments)
       );
     }
-    function I(t) {
+    function I(e) {
+      var t = e.firstName.trim(),
+        n = e.lastName.trim();
+      return {
+        lid: e.lid,
+        fullName: t && n ? t + " " + n : t || n,
+        firstName: t,
+        username: o("WAWebUsernameTypes").asUsername(e.username),
+      };
+    }
+    function T(t) {
       var n = t.firstName.trim(),
         a = t.lastName.trim(),
         i = n && a ? n + " " + a : n || a,

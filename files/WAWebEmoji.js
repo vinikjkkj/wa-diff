@@ -492,7 +492,7 @@ __d(
           }),
           (n.getNormalizedOrTofu = function (n) {
             var t = this.normalizeEmojiFromString(n);
-            return t ? (r("justknobx")._("3178") ? t : n) : e;
+            return t == null || t === "" ? e : r("justknobx")._("3178") ? t : n;
           }),
           t
         );

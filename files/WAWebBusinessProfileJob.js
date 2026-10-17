@@ -64,7 +64,12 @@ __d(
         ),
         o("WAWap").wap(
           "business_hours",
-          { timezone: r ? o("WAWap").CUSTOM_STRING(r) : o("WAWap").DROP_ATTR },
+          {
+            timezone:
+              r != null && r !== ""
+                ? o("WAWap").CUSTOM_STRING(r)
+                : o("WAWap").DROP_ATTR,
+          },
           i,
         )
       );

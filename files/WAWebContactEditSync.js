@@ -77,7 +77,7 @@ __d(
         })
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(), _(e));
+            (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(), f(e));
           }),
         );
     }
@@ -120,48 +120,57 @@ __d(
           }),
         );
     }
-    function d(e, t, a, i) {
-      var l = r("WAWebLidContactSync").getLidContactSyncMutation({
-          contactId: e,
-          fullName: t,
-          firstName: a,
-          username: o("WAWebUsernameTypes").serializeUsername(i),
+    function d(e, t, n, r) {
+      return m([{ lid: e, fullName: t, firstName: n, username: r }]);
+    }
+    function m(e) {
+      var t = e.map(function (e) {
+          return r("WAWebLidContactSync").getLidContactSyncMutation({
+            contactId: e.lid,
+            fullName: e.fullName,
+            firstName: e.firstName,
+            username: o("WAWebUsernameTypes").serializeUsername(e.username),
+          });
         }),
-        s = {
-          id: e.toString(),
-          name: t,
-          shortName: a,
-          type: "in",
-          syncToAddressbook: !1,
-          isAddressBookContact: 0,
-          isContactSyncCompleted: 0,
-          username: i,
-          isUsernameContact: !0,
-        };
+        a = e.map(function (e) {
+          return {
+            id: e.lid.toString(),
+            name: e.fullName,
+            shortName: e.firstName,
+            type: "in",
+            syncToAddressbook: !1,
+            isAddressBookContact: 0,
+            isContactSyncCompleted: 0,
+            username: e.username,
+            isUsernameContact: !0,
+          };
+        });
       return o("WAWebSyncdCoreApi")
-        .lockForSync(["contact"], [l], function () {
-          return o("WAWebApiContact").createOrMergeAddressBookContacts([
-            babelHelpers.extends({}, s),
-          ]);
+        .lockForSync(["contact"], t, function () {
+          return o("WAWebApiContact").createOrMergeAddressBookContacts(
+            a.map(function (e) {
+              return babelHelpers.extends({}, e);
+            }),
+          );
         })
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             o("WAWebBackendApi").frontendFireAndForget(
               "bulkAddContactToCollection",
               {
-                contacts: [
-                  babelHelpers.extends({}, s, {
-                    id: e.toString(),
-                    isUsernameContact: !0,
-                    username: o("WAWebUsernameTypes").serializeUsername(i),
-                  }),
-                ],
+                contacts: a.map(function (e) {
+                  return babelHelpers.extends({}, e, {
+                    username: o("WAWebUsernameTypes").serializeUsername(
+                      e.username,
+                    ),
+                  });
+                }),
               },
             );
           }),
         );
     }
-    function m(e, t) {
+    function p(e, t) {
       var a = r("WAWebLidContactSync").getLidContactSyncMutation({
           contactId: e,
           isDelete: !0,
@@ -175,11 +184,11 @@ __d(
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(),
-              _(e, t));
+              f(e, t));
           }),
         );
     }
-    function p(t) {
+    function _(t) {
       var a = [],
         i = [];
       for (var l of t)
@@ -237,7 +246,7 @@ __d(
           }),
         );
     }
-    function _(e, t) {
+    function f(e, t) {
       o("WAWebBackendApi").frontendFireAndForget("bulkAddContactToCollection", {
         contacts: [
           {
@@ -258,8 +267,9 @@ __d(
       (l.sendContactDelete = u),
       (l.sendContactDeleteBatch = c),
       (l.sendUsernameContactUpdate = d),
-      (l.sendUsernameContactDelete = m),
-      (l.sendContactUpdateBatch = p));
+      (l.sendUsernameContactUpdateBatch = m),
+      (l.sendUsernameContactDelete = p),
+      (l.sendContactUpdateBatch = _));
   },
   98,
 );

@@ -327,13 +327,17 @@ __d(
             );
           }),
           (i.search = function (t, n, r, a, i) {
-            var e = this;
+            var e,
+              l = this;
             (n === void 0 && (n = 1), i === void 0 && (i = {}));
-            var l = t + "__" + (i.label || (i.kind && i.kind) || "");
+            var s =
+              t +
+              "__" +
+              ((e = i.label) != null ? e : i.kind != null ? i.kind : "");
             if (n === 1 && !a) {
-              var s = this.ftsCache[l];
-              if (s) return s;
-              var u = this._search({
+              var u = this.ftsCache[s];
+              if (u) return u;
+              var c = this._search({
                 count: r,
                 jid: a,
                 kind: i.kind,
@@ -341,14 +345,14 @@ __d(
                 page: n,
                 searchTerm: t,
               });
-              this.ftsCache[l] = u;
-              var c = function () {
-                e.ftsCache[l] = null;
+              this.ftsCache[s] = c;
+              var d = function () {
+                l.ftsCache[s] = null;
               };
               return (
-                self.setTimeout(c, o("WAWebFtsConstants").FTS_TTL),
-                u.catch(c),
-                u
+                self.setTimeout(d, o("WAWebFtsConstants").FTS_TTL),
+                c.catch(d),
+                c
               );
             }
             return this._search({

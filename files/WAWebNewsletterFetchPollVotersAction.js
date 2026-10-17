@@ -25,44 +25,44 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.msg,
-            a = t.pollVoteLocalId;
+          var n = t.msgKey,
+            a = t.pollOptions,
+            i = t.pollVoteLocalId,
+            l = t.serverId;
           try {
-            var i = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                n.id.remote,
+            var c = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+                n.remote,
                 "fetchPollVotersAction",
               ),
-              l = i.chat;
+              d = c.chat;
             if (
               !o(
                 "WAWebNewsletterExtendedGatingUtils",
-              ).isNewsletterPollsVotersEnabledForChat(l)
+              ).isNewsletterPollsVotersEnabledForChat(d)
             )
               return;
-            var c = o("WAWebNewsletterPollVotersCache").getPollVotersFromCache(
-                n.id,
-                a,
+            var p = o("WAWebNewsletterPollVotersCache").getPollVotersFromCache(
+                n,
+                i,
               ),
-              d = c[0],
-              p = c[1];
-            if (d != null) return d.votersMap;
-            var _ = n.pollOptions,
-              f = n.serverId;
-            if (f == null || _ == null) return;
+              _ = p[0],
+              f = p[1];
+            if (_ != null) return _.votersMap;
+            if (l == null || a == null) return;
             var g = yield o(
                 "WAWebPollsCreateOptionLocalIdMap",
-              ).createOptionLocalIdMap(_),
-              h = a != null ? g.getHashForLocalId(a) : null,
+              ).createOptionLocalIdMap(a),
+              h = i != null ? g.getHashForLocalId(i) : null,
               y = h != null ? o("WABase64").encodeB64(h) : null,
-              C = Math.max(_.length, 1),
-              b = a != null ? s : C * u,
+              C = Math.max(a.length, 1),
+              b = i != null ? s : C * u,
               v = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
-                n.id.remote.toString(),
+                n.remote.toString(),
               ),
               S = yield r("WAWebMexFetchNewsletterPollVotersJob")({
                 newsletterId: v,
                 limit: b,
-                serverId: f,
+                serverId: l,
                 voteHash: y,
               }),
               R = new Map();
@@ -71,7 +71,7 @@ __d(
                 k = L[1];
               R.set(g.getLocalIdForHexHash(E), m(k));
             }
-            return (p(R), R);
+            return (f(R), R);
           } catch (t) {
             return (
               o("WALogger").ERROR(
@@ -80,7 +80,7 @@ __d(
                     "[fetchPollVotersAction] poll voters fetch failed ",
                     "",
                   ])),
-                n.id.toString(),
+                n.toString(),
               ),
               null
             );

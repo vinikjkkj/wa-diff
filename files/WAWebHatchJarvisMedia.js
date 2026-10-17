@@ -5,33 +5,46 @@ __d(
     "use strict";
     var e = "jarvis-media://",
       s = 1e3;
-    function u(t) {
-      if (t == null) return null;
-      var n = t.encryptedMedia;
-      return t.url.startsWith(e)
-        ? n == null
+    function u(e) {
+      if (e == null) return null;
+      var t = e.encryptedMedia;
+      return d(e.url)
+        ? t == null
           ? null
           : {
               descriptor: {
-                directPath: n.directPath,
-                encFilehash: n.encFilehash,
-                filehash: n.filehash,
-                mediaKey: n.mediaKey,
-                mediaKeyTimestamp: Math.floor(n.mediaKeyTimestampMs / s),
-                mediaType: d(n.mediaType, n.mimeType),
-                mimetype: n.mimeType,
+                directPath: t.directPath,
+                encFilehash: t.encFilehash,
+                filehash: t.filehash,
+                mediaKey: t.mediaKey,
+                mediaKeyTimestamp: Math.floor(t.mediaKeyTimestampMs / s),
+                mediaType: p(t.mediaType, t.mimeType),
+                mimetype: t.mimeType,
               },
               kind: "encrypted",
             }
-        : o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(t.url)
-          ? { kind: "url", url: t.url }
+        : o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(e.url)
+          ? { kind: "url", url: e.url }
           : null;
     }
-    function c(e) {
+    function c(e, t) {
+      if (e == null) return null;
+      if (d(e)) {
+        var n = t.get(e);
+        return (n == null ? void 0 : n.url) === e ? u(n) : null;
+      }
+      return o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(e)
+        ? { kind: "url", url: e }
+        : null;
+    }
+    function d(t) {
+      return t.startsWith(e);
+    }
+    function m(e) {
       var t = e == null ? void 0 : e.thumbnailJpegB64;
       return t != null ? "data:image/jpeg;base64," + t : null;
     }
-    function d(e, t) {
+    function p(e, t) {
       var n =
         e === "image" || e === "sticker" || e === "xma-image"
           ? "image"
@@ -52,7 +65,10 @@ __d(
               ? "audio"
               : "document";
     }
-    ((l.getHatchJarvisMediaSource = u), (l.getHatchJarvisThumbnailUrl = c));
+    ((l.getHatchJarvisMediaSource = u),
+      (l.getHatchJarvisImageSource = c),
+      (l.isHatchJarvisMediaUrl = d),
+      (l.getHatchJarvisThumbnailUrl = m));
   },
   98,
 );

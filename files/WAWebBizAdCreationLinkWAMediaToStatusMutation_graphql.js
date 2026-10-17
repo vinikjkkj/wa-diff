@@ -43,18 +43,8 @@ __d(
                   name: "media_list",
                   plural: !0,
                   selections: [
-                    {
-                      kind: "RequiredField",
-                      field: r,
-                      action: "THROW",
-                      path: "xfb_ctwa_native_upload_ad_media.media_list.id",
-                    },
-                    {
-                      kind: "RequiredField",
-                      field: o,
-                      action: "THROW",
-                      path: "xfb_ctwa_native_upload_ad_media.media_list.type",
-                    },
+                    { kind: "RequiredField", field: r, action: "THROW" },
+                    { kind: "RequiredField", field: o, action: "THROW" },
                   ],
                   storageKey: null,
                 },

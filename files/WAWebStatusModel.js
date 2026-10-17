@@ -26,6 +26,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "gkx",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -213,7 +214,7 @@ __d(
               this.totalCount,
             ),
               t.prototype.delete.call(this),
-              this.expireTimer &&
+              r("isStringNullOrEmpty")(this.expireTimer) ||
                 r("WAWebAlarm").clearTimeout(this.expireTimer),
               this.expireTs != null && (this.expireTs = void 0),
               this.getCollection().remove(this.id),

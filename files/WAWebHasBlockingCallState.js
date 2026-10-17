@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebCallCollection",
+    "WAWebVoipPostCallSurveyVisibility",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,7 +32,7 @@ __d(
               ),
               n != null && (n.shouldShowPostCallSurvey = !1)),
             !1)
-          : !0;
+          : o("WAWebVoipPostCallSurveyVisibility").getIsPostCallSurveyVisible();
       }
       return !1;
     }

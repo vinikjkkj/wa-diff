@@ -3,6 +3,7 @@ __d(
   [
     "WAWebPollNameHashAppend",
     "WAWebPollNameHashSeed",
+    "WAWebResolvePendingPollUpdates",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,7 +16,10 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebPollNameHashAppend").appendPollNameHashesForEdits(e);
+          (yield o("WAWebPollNameHashAppend").appendPollNameHashesForEdits(e),
+            yield o(
+              "WAWebResolvePendingPollUpdates",
+            ).resolvePendingUpdatesForPollEdits(e));
         })),
         u.apply(this, arguments)
       );

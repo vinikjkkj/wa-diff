@@ -351,6 +351,9 @@ __d(
       ai_hatch_space_enabled: !0,
       ai_hatch_activity_enabled: !0,
       ai_hatch_vm_capability_sync_enabled: !0,
+      ai_meta_ai_muse_default_assistant_variant_1: !0,
+      ai_meta_ai_muse_default_assistant_variant_2: !0,
+      ai_meta_ai_muse_default_assistant_variant_3: !0,
     };
     function B(e, t) {
       return W.apply(this, arguments);

@@ -195,7 +195,7 @@ __d(
         if (e.kind === "generic_list") {
           var i = o("WAWebHatchJarvisWidgets").list(a);
           return i != null
-            ? w(i, e.id)
+            ? w(i, e.id, n)
             : I(
                 T(
                   o("WAWebHatchJsonReaders").readString(a, "title"),
@@ -316,7 +316,12 @@ __d(
         if (e.kind === "external_link") {
           var B = o("WAWebHatchJarvisWidgets").linkCard(a, t);
           return B != null
-            ? [{ item: { card: B, type: "link_card" }, type: "item" }]
+            ? [
+                {
+                  item: { card: B, fileMetadata: n, type: "link_card" },
+                  type: "item",
+                },
+              ]
             : [];
         }
         if (e.kind === "text_with_button") {
@@ -490,25 +495,26 @@ __d(
       var t;
       return (t = e.split("/").pop()) != null ? t : e;
     }
-    function w(e, t) {
-      var n = [],
-        r = e.rows.filter(function (e) {
-          var r = o("WAWebHatchJarvisWidgets").connectorCardForRow(e, t);
+    function w(e, t, n) {
+      var r = [],
+        a = e.rows.filter(function (e) {
+          var n = o("WAWebHatchJarvisWidgets").connectorCardForRow(e, t);
           return (
-            r != null && n.push({ primitive: r, type: "primitive" }),
-            r == null
+            n != null && r.push({ primitive: n, type: "primitive" }),
+            n == null
           );
         });
-      return n.length === 0
-        ? [{ item: { list: e, type: "list" }, type: "item" }]
+      return r.length === 0
+        ? [{ item: { fileMetadata: n, list: e, type: "list" }, type: "item" }]
         : [].concat(
             I(T(e.title, e.subtitle)),
-            n,
-            r.length > 0
+            r,
+            a.length > 0
               ? [
                   {
                     item: {
-                      list: { rows: r, subtitle: null, title: null },
+                      fileMetadata: n,
+                      list: { rows: a, subtitle: null, title: null },
                       type: "list",
                     },
                     type: "item",

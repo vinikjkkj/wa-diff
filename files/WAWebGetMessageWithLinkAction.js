@@ -9,28 +9,41 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : s({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          });
+    }
+    function s(e) {
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowName,
+        i = e.type;
       if (o("WAWebPaymentsGatingUtils").isMessageWithLinkNfmEnabled()) {
         if (
-          e.nativeFlowName !==
-            r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK ||
-          e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-          e.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-          e.interactivePayload == null
+          a !== r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK ||
+          i !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+          n !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+          t == null
         )
           return null;
-        var t = e.interactivePayload;
-        if (t != null && t.buttons && t.buttons.length > 0) {
-          var n = t.buttons[0],
-            a = n.buttonParamsJson,
-            i = n.name;
-          if (i === "open_webview" && a != null) {
-            var l = JSON.parse(a),
-              s = l.link,
-              u = l.title;
+        var l = t;
+        if (l != null && l.buttons && l.buttons.length > 0) {
+          var s = l.buttons[0],
+            u = s.buttonParamsJson,
+            c = s.name;
+          if (c === "open_webview" && u != null) {
+            var d = JSON.parse(u),
+              m = d.link,
+              p = d.title;
             return {
-              label: u,
+              label: p,
               onClick: function () {
-                return o("WAWebExternalLink.react").openExternalLink(s.url);
+                return o("WAWebExternalLink.react").openExternalLink(m.url);
               },
             };
           }
@@ -38,7 +51,8 @@ __d(
       }
       return null;
     }
-    l.getOpenMessageWithLinkAction = e;
+    ((l.getOpenMessageWithLinkAction = e),
+      (l.getOpenMessageWithLinkActionFor = s));
   },
   98,
 );

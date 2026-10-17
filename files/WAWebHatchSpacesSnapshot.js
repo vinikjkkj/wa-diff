@@ -36,25 +36,35 @@ __d(
     }
     function m(e, t) {
       var n = p(e.rowTsMs, t.tsMs),
-        r = p(e.iconTsMs, t.tsMs),
-        a = new Map(),
-        i = new Map();
-      for (var l of t.chunks.values()) {
-        for (var s of l.spaces) a.set(s.itemKey, s);
-        for (var u of l.icons) {
-          var c = u[0],
-            d = u[1];
-          i.set(c, d);
+        r = p(e.serverActionsTsMs, t.tsMs),
+        a = p(e.iconTsMs, t.tsMs),
+        i = new Map(),
+        l = new Map(),
+        s = new Map();
+      for (var u of t.chunks.values()) {
+        for (var c of u.spaces)
+          (i.set(c.itemKey, c), l.set(c.itemKey, c.hasServerActions));
+        for (var d of u.icons) {
+          var m = d[0],
+            f = d[1];
+          s.set(m, f);
         }
       }
-      for (var m of n.keys())
-        _(a, o("WAWebHatchSpacesLedger").itemKeyOf(m), e.spaces);
-      for (var f of r.keys()) _(i, f, e.icons);
+      for (var g of n.keys()) {
+        var h = o("WAWebHatchSpacesLedger").itemKeyOf(g);
+        _(i, h, e.spaces);
+        var y = i.get(h);
+        y != null &&
+          !r.has(h) &&
+          i.set(h, babelHelpers.extends({}, y, { hasServerActions: l.get(h) }));
+      }
+      for (var C of a.keys()) _(s, C, e.icons);
       return {
-        spaces: a,
-        icons: o("WAWebHatchSpacesLedger").referencedBy(i, a, null),
+        spaces: i,
+        icons: o("WAWebHatchSpacesLedger").referencedBy(s, i, null),
         rowTsMs: n,
-        iconTsMs: o("WAWebHatchSpacesLedger").referencedBy(r, a, null),
+        serverActionsTsMs: r,
+        iconTsMs: o("WAWebHatchSpacesLedger").referencedBy(a, i, null),
         pendingSnapshot: null,
         snapshotTsMs: t.tsMs !== 0 ? t.tsMs : e.snapshotTsMs,
         snapshotsApplied: e.snapshotsApplied + 1,

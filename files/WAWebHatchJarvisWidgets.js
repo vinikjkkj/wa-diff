@@ -2,6 +2,7 @@ __d(
   "WAWebHatchJarvisWidgets",
   [
     "WAWebHatchBrowserTask",
+    "WAWebHatchJarvisMedia",
     "WAWebHatchJsonReaders",
     "WAWebHatchSecureCredentialDecoder",
     "WAWebHatchUrl",
@@ -61,7 +62,7 @@ __d(
             action_url: e.linkUrl,
             card_id: (t != null ? t : "list") + "/" + n,
             connector_id: n,
-            image_url: e.imageUrl,
+            image_url: o("WAWebHatchUrl").toWebUrl(e.imageUrl),
             subtitle: e.body,
             title: e.title,
           };
@@ -97,10 +98,10 @@ __d(
         capture_kind: d != null ? "VERIFICATION_CODE" : "SIGN_IN",
         fields:
           d != null
-            ? [L("VERIFICATION_CODE", d, !0)]
+            ? [E("VERIFICATION_CODE", d, !0)]
             : [
-                L("USERNAME", (n = l("username_label")) != null ? n : "", !1),
-                L("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
+                E("USERNAME", (n = l("username_label")) != null ? n : "", !1),
+                E("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
               ],
         host: c.hostname,
         page_url: u,
@@ -172,7 +173,7 @@ __d(
               }
             : null,
         preview_available: a.previewAvailable === !0,
-        state: v(c, u),
+        state: S(c, u),
         status: c != null ? c : "",
         status_label: u,
         title:
@@ -250,14 +251,12 @@ __d(
             description: s(
               o("WAWebHatchJsonReaders").readString(e, "description"),
             ),
-            imageUrl: o("WAWebHatchUrl").toWebUrl(
-              o("WAWebHatchJsonReaders").readString(e, "image_url"),
-            ),
+            imageUrl: C(o("WAWebHatchJsonReaders").readString(e, "image_url")),
             siteName: s(o("WAWebHatchJsonReaders").readString(e, "site_name")),
             title:
               (n = s(o("WAWebHatchJsonReaders").readString(e, "title"))) != null
                 ? n
-                : R(t, r),
+                : L(t, r),
             url: r,
           };
     }
@@ -300,11 +299,9 @@ __d(
         body: s(o("WAWebHatchJsonReaders").readString(e, "subtitle")),
         flight:
           n === "flight"
-            ? C(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
+            ? b(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
             : null,
-        imageUrl: o("WAWebHatchUrl").toWebUrl(
-          o("WAWebHatchJsonReaders").readString(e, "image_url"),
-        ),
+        imageUrl: C(o("WAWebHatchJsonReaders").readString(e, "image_url")),
         linkUrl:
           n === "link"
             ? o("WAWebHatchUrl").toWebUrl(
@@ -316,6 +313,11 @@ __d(
       };
     }
     function C(e) {
+      return e != null && o("WAWebHatchJarvisMedia").isHatchJarvisMediaUrl(e)
+        ? e
+        : o("WAWebHatchUrl").toWebUrl(e);
+    }
+    function b(e) {
       if (e == null) return null;
       var t = o("WAWebHatchJsonReaders").readObject(e, "bags");
       return {
@@ -329,8 +331,8 @@ __d(
         detailsUrl: o("WAWebHatchUrl").toWebUrl(
           o("WAWebHatchJsonReaders").readString(e, "flight_link"),
         ),
-        isChangeable: b(o("WAWebHatchJsonReaders").readString(e, "changeable")),
-        isRefundable: b(o("WAWebHatchJsonReaders").readString(e, "refundable")),
+        isChangeable: v(o("WAWebHatchJsonReaders").readString(e, "changeable")),
+        isRefundable: v(o("WAWebHatchJsonReaders").readString(e, "refundable")),
         legs: o("WAWebHatchJsonReaders")
           .readObjects(e, "slices")
           .map(function (e) {
@@ -358,11 +360,11 @@ __d(
         price: s(o("WAWebHatchJsonReaders").readString(e, "price")),
       };
     }
-    function b(e) {
+    function v(e) {
       return e === "yes" ? !0 : e === "no" ? !1 : null;
     }
-    function v(e, t) {
-      var n = S(t);
+    function S(e, t) {
+      var n = R(t);
       return n === "starting"
         ? "STARTING"
         : (function (e) {
@@ -385,19 +387,19 @@ __d(
                               ? "NEEDS_USER"
                               : "STOPPED"
                             : "WORKING";
-          })(S(e));
+          })(R(e));
     }
-    function S(e) {
+    function R(e) {
       return (e != null ? e : "").toLowerCase().replace(/[- ]/g, "_");
     }
-    function R(e, t) {
+    function L(e, t) {
       var n = e.trim(),
         r = "](" + t + ")";
       if (!n.startsWith("[") || !n.endsWith(r)) return null;
       var o = n.slice(1, -r.length).trim();
       return o === "" || o === t || o.includes("](") ? null : o;
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       return {
         __typename: "GenAISecureCredentialField",
         is_secret: n,

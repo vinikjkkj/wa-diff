@@ -1,6 +1,6 @@
 __d(
   "MAWKeychainNaClCrypto",
-  ["MAWKeychainCrypto", "WABase64", "tweetnacl", "vulture"],
+  ["MAWKeychainCrypto", "WABase64", "WACryptoPrimitives", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -18,8 +18,10 @@ __d(
     function s(e, t, n) {
       r("vulture")("X1wZ98aPO9YEQT8P0wcOXAd3gcU=");
       var a = new Uint8Array(n),
-        i = o("tweetnacl").randomBytes(o("tweetnacl").secretbox.nonceLength),
-        l = o("tweetnacl").secretbox(t, i, new Uint8Array(e)),
+        i = o("WACryptoPrimitives").randomBytes(
+          o("WACryptoPrimitives").secretbox.nonceLength,
+        ),
+        l = o("WACryptoPrimitives").secretbox(t, i, new Uint8Array(e)),
         s = new Uint8Array(a.length + i.length + l.length);
       return (
         s.set(a),
@@ -35,9 +37,9 @@ __d(
     }
     function c(t, n, r, a, i) {
       var l = n.slice(0, i),
-        s = n.slice(i, i + o("tweetnacl").secretbox.nonceLength),
-        u = n.slice(i + o("tweetnacl").secretbox.nonceLength),
-        c = o("tweetnacl").secretbox.open(
+        s = n.slice(i, i + o("WACryptoPrimitives").secretbox.nonceLength),
+        u = n.slice(i + o("WACryptoPrimitives").secretbox.nonceLength),
+        c = o("WACryptoPrimitives").secretbox.open(
           new Uint8Array(u),
           new Uint8Array(s),
           new Uint8Array(t),

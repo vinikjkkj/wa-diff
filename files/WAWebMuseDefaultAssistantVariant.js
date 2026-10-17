@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WAWebCmd",
     "WAWebMuseDefaultAssistantVariantSource",
+    "WAWebPrimaryFeaturesModel",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,9 +32,14 @@ __d(
       return (
         s.add(t),
         o("WAWebCmd").Cmd.on("on_ab_props_update_from_bridge", t),
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.on("change:features", t),
         function () {
           (s.delete(t),
-            o("WAWebCmd").Cmd.off("on_ab_props_update_from_bridge", t));
+            o("WAWebCmd").Cmd.off("on_ab_props_update_from_bridge", t),
+            o("WAWebPrimaryFeaturesModel").PrimaryFeatures.off(
+              "change:features",
+              t,
+            ));
         }
       );
     }

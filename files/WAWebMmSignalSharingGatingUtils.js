@@ -11,47 +11,54 @@ __d(
     "use strict";
     var e, s, u;
     function c() {
+      return d()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "mm_signal_sharing_post_dc_message_type_enabled",
+          )
+        : !1;
+    }
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "mm_data_sharing_disclosure_enabled",
       );
     }
-    function d() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "cap_context_info_max_array_length",
       );
     }
-    function m() {
-      return c()
+    function p() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "data_sharing_transparency_indicator_duration",
           )
         : 0;
     }
-    function p() {
-      return c()
+    function _() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue("ctwa_tos_filtering_enabled")
         : !1;
     }
-    function _() {
-      return c()
+    function f() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "disclosure_for_the_marketing_message_body_links_enabled",
           )
         : !1;
     }
-    function f() {
-      return c()
+    function g() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "optimized_delivery_signal_collection_enabled",
           )
         : !1;
     }
-    function g() {
+    function h() {
       var t = {
         store_consented_token_enabled: !1,
         store_non_consented_token_enabled: !1,
       };
-      if (!c()) return t;
+      if (!d()) return t;
       try {
         return JSON.parse(
           o("WAWebABProps").getABPropConfigValue(
@@ -77,14 +84,14 @@ __d(
         );
       }
     }
-    function h() {
-      return c()
+    function y() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "optimized_delivery_multiple_collection_windows_enabled",
           )
         : !1;
     }
-    function y() {
+    function C() {
       var e = 168,
         t = Object.keys(o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE).map(
           function (e) {
@@ -97,7 +104,7 @@ __d(
           consented_types_allowlist: t,
           non_consented_types_allowlist: t,
         };
-      if (!c()) return n;
+      if (!d()) return n;
       try {
         return JSON.parse(
           o("WAWebABProps").getABPropConfigValue(
@@ -118,23 +125,23 @@ __d(
         );
       }
     }
-    function C() {
-      return c()
+    function b() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_signal_sharing_verification_system_lid_enabled",
           )
         : !1;
     }
-    function b(e) {
+    function v(e) {
       return e == null || !r("WAWebWid").isRegularUserNoImply(e)
         ? !1
-        : c() && f();
+        : d() && g();
     }
-    function v() {
+    function S() {
       var e = Object.values(
         o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT,
       ).map(Number);
-      if (!c()) return e;
+      if (!d()) return e;
       try {
         return o("WAWebABProps")
           .getABPropConfigValue(
@@ -159,9 +166,9 @@ __d(
         );
       }
     }
-    function S() {
+    function R() {
       var e = 0xefe90a1c4672;
-      if (!L()) return e;
+      if (!E()) return e;
       var t = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "mm_disclosure_learn_more_article_id",
@@ -170,82 +177,83 @@ __d(
       );
       return Number.isNaN(t) ? e : t;
     }
-    function R() {
-      return c()
+    function L() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_signal_sharing_verification_new_signal_type_origin",
           )
         : !1;
     }
-    function L() {
-      return c()
+    function E() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue("cci_compliance_mm")
         : !1;
     }
-    function E() {
-      return c()
+    function k() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_data_sharing_disclosure_enabled_additional_transparency_large_screens",
           )
         : !1;
     }
-    function k() {
-      return c()
+    function I() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_optimized_delivery_replacing_shimmed_links_enabled",
           )
         : !1;
     }
-    function I() {
-      return c()
+    function T() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_optimized_delivery_app_cta_enabled",
           )
         : !1;
     }
-    function T() {
-      return c()
+    function D() {
+      return d()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_1pd_post_dc_new_schema_enabled",
           )
         : !1;
     }
-    function D() {
-      return c()
+    function x() {
+      return d()
         ? !o("WAWebABProps").getABPropConfigValue(
             "mm_1pd_post_dc_old_schema_disabled",
           )
         : !1;
     }
-    function x(e, t) {
-      var n = y(),
+    function $(e, t) {
+      var n = C(),
         r = n.consented_types_allowlist,
         o = n.non_consented_types_allowlist;
       return t ? r.includes(e) : o.includes(e);
     }
-    ((l.isMmSignalSharingDisclosureEnabled = c),
-      (l.isMmSignalSharingContextInfoMaxArrayLengthCapEnabled = d),
-      (l.getMmSignalSharingCollectionWindow = m),
-      (l.getMmSignalSharingTosFiltering = p),
-      (l.isMmSignalSharingDisclosureForMarketingMessageBodyLinksEnabled = _),
-      (l.getMmSignalSharingOptimizedDeliverySignalCollectionEnabled = f),
-      (l.getMmSignalSharingOptimizedDeliveryTokensStorageConfig = g),
+    ((l.isNativeMessageTypeEnabled = c),
+      (l.isMmSignalSharingDisclosureEnabled = d),
+      (l.isMmSignalSharingContextInfoMaxArrayLengthCapEnabled = m),
+      (l.getMmSignalSharingCollectionWindow = p),
+      (l.getMmSignalSharingTosFiltering = _),
+      (l.isMmSignalSharingDisclosureForMarketingMessageBodyLinksEnabled = f),
+      (l.getMmSignalSharingOptimizedDeliverySignalCollectionEnabled = g),
+      (l.getMmSignalSharingOptimizedDeliveryTokensStorageConfig = h),
       (l.isMmSignalSharingOptimizedDeliveryMultipleCollectionWindowsEnabled =
-        h),
-      (l.getMmSignalSharingOptimizedDeliverySignalCollectionConfig = y),
-      (l.getMmSignalSharingVerificationSystemLidEnabled = C),
-      (l.isMmSignalSharingCollectionEnabled = b),
-      (l.getMmSignalSharingBlockAndReportEntryPointsAllowlist = v),
-      (l.getMmDisclosureLearnMoreArticleId = S),
-      (l.isMmSignalSharingVerificationNewSignalTypeOriginEnabled = R),
-      (l.isCCIComplianceEnabled = L),
+        y),
+      (l.getMmSignalSharingOptimizedDeliverySignalCollectionConfig = C),
+      (l.getMmSignalSharingVerificationSystemLidEnabled = b),
+      (l.isMmSignalSharingCollectionEnabled = v),
+      (l.getMmSignalSharingBlockAndReportEntryPointsAllowlist = S),
+      (l.getMmDisclosureLearnMoreArticleId = R),
+      (l.isMmSignalSharingVerificationNewSignalTypeOriginEnabled = L),
+      (l.isCCIComplianceEnabled = E),
       (l.isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens =
-        E),
-      (l.isMmSignalSharingReplacingShimmedLinksEnabled = k),
-      (l.isMmSignalSharingAppCtaEnabled = I),
-      (l.isMmSignalSharingPostDcNewSchemaEnabled = T),
-      (l.isMmSignalSharingPostDcOldSchemaEnabled = D),
-      (l.isSignalTypeAllowlisted = x));
+        k),
+      (l.isMmSignalSharingReplacingShimmedLinksEnabled = I),
+      (l.isMmSignalSharingAppCtaEnabled = T),
+      (l.isMmSignalSharingPostDcNewSchemaEnabled = D),
+      (l.isMmSignalSharingPostDcOldSchemaEnabled = x),
+      (l.isSignalTypeAllowlisted = $));
   },
   98,
 );

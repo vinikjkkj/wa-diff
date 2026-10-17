@@ -1066,6 +1066,31 @@ __d(
               (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
               (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
             break;
+          case u.BIZ_AI_REPLIES_MUTED_IRRELEVANT_HISTORICAL_CHAT:
+            ((t.subtype = "biz_ai_replies_muted_irrelevant_historical_chat"),
+              (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+              (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
+            break;
+          case u.CHAT_WITH_BUSINESS_IN_DIRECTORY:
+            ((t.subtype = "chat_with_business_in_directory"),
+              (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+              (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
+            break;
+          case u.META_AI_THREAD_CREATED:
+            ((t.subtype = "meta_ai_thread_created"),
+              (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+              (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
+            break;
+          case u.META_AI_CONNECTOR_LINKED:
+            ((t.subtype = "meta_ai_connector_linked"),
+              (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+              (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
+            break;
+          case u.SPLIT_PAYMENT_MARKED_AS_PAID:
+            ((t.subtype = "split_payment_marked_as_paid"),
+              (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+              (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
+            break;
           case u.GROUP_OPEN_BOT_ADDED:
             if (
               o(

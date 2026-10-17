@@ -25,50 +25,60 @@ __d(
         (m[e][t] = n));
     }
     function f(e, t) {
+      Object.prototype.hasOwnProperty.call(m, e) &&
+        (delete m[e][t], Object.keys(m[e]).length === 0 && delete m[e]);
+    }
+    function g(e, t) {
       if (Object.prototype.hasOwnProperty.call(u, e)) {
         if (Object.prototype.hasOwnProperty.call(u[e], t)) {
           var n = u[e][t].id;
-          (n != null && s.clear(n), delete u[e][t]);
+          if (n != null) {
+            if (s.hasObservers(n)) {
+              f(e, t);
+              return;
+            }
+            s.clear(n);
+          }
+          delete u[e][t];
         }
         Object.keys(u[e]).length === 0 && delete u[e];
       }
       (Object.prototype.hasOwnProperty.call(d, e) &&
         (delete d[e][t], Object.keys(d[e]).length === 0 && delete d[e]),
-        Object.prototype.hasOwnProperty.call(m, e) &&
-          (delete m[e][t], Object.keys(m[e]).length === 0 && delete m[e]));
-    }
-    function g(e, t) {
-      var n = p(e, t);
-      n != null && (r("clearImmediate")(n), f(e, t));
+        f(e, t));
     }
     function h(e, t) {
+      var n = p(e, t);
+      n != null && (r("clearImmediate")(n), g(e, t));
+    }
+    function y(e, t) {
       p(e, t) ||
         _(
           e,
           t,
           r("setImmediateAcrossTransitions")(function () {
-            f(e, t);
+            g(e, t);
           }),
         );
     }
-    function y(e, t) {
+    function C(e, t) {
       var n, r;
       return (n = (r = u[e]) == null || (r = r[t]) == null ? void 0 : r.id) !=
         null
         ? n
         : null;
     }
-    function C(e, t, n, r, o) {
+    function b(e, t, n, r, o) {
       (Object.prototype.hasOwnProperty.call(u, e) || (u[e] = {}),
         Object.prototype.hasOwnProperty.call(d, e) || (d[e] = {}),
         (d[e][t] = !1),
         (u[e][t] = { id: n, variables: o, actorID: r }));
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       var o = r("stableStringifyPrefetchedRelayVariablesWithActor")(e, n);
-      h(t, o);
+      y(t, o);
     }
-    function v(e, t) {
+    function S(e, t) {
       if (
         !r("WebDriverConfig").isJestE2ETestRun ||
         e == null ||
@@ -79,10 +89,10 @@ __d(
       var n = c[e];
       return Object.prototype.hasOwnProperty.call(u, n) ? n : t;
     }
-    function S(t, n, o, a, i, l) {
+    function R(t, n, o, a, i, l) {
       l === void 0 && (l = !1);
       var c = r("stableStringifyPrefetchedRelayVariablesWithActor")(t, o),
-        m = y(n, c);
+        m = C(n, c);
       if (m != null) return (l || (d[n][c] = !0), s.subscribe(m, a));
       if (
         u[n] &&
@@ -92,7 +102,7 @@ __d(
       ) {
         var p = Object.keys(u[n]),
           _ = u[n][p[0]],
-          f = k(_, t, o);
+          f = I(_, t, o);
         r("FBLogger")("RelayQueryPreloader")
           .addMetadata("RELAY_PRELOADER", "QUERY_ID", n)
           .addMetadata(
@@ -135,7 +145,7 @@ __d(
         };
       return (a.start(h), g || a.complete(), h);
     }
-    function R(e, t) {
+    function L(e, t) {
       var n = null,
         o = 0,
         a = null;
@@ -155,14 +165,14 @@ __d(
       var l = n == null || a !== !1;
       l && s.complete(e, o + 1);
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       (n === void 0 && (n = 0),
         n === 0 ? s.forceError(e, t) : s.error(e, t, n));
     }
-    function E(e, t, n, o, a) {
+    function k(e, t, n, o, a) {
       var i = r("stableStringifyPrefetchedRelayVariablesWithActor")(o, n);
-      g(t, i);
-      var l = y(t, i);
+      h(t, i);
+      var l = C(t, i);
       (l != null &&
         (r("FBLogger")("RelayQueryPreloader")
           .addMetadata("RELAY_PRELOADER", "QUERY_ID", t)
@@ -172,11 +182,11 @@ __d(
             r("stableStringifyPrefetchedRelayVariablesWithActor")(o, n),
           ),
         s.forceComplete(l),
-        f(t, i)),
-        C(t, i, e, o, n),
+        g(t, i)),
+        b(t, i, e, o, n),
         r("WebDriverConfig").isJestE2ETestRun && a != null && (c[a] = t));
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       if (e == null) return "";
       var r = e.actorID,
         o = e.variables,
@@ -195,12 +205,12 @@ __d(
       }
       return a.toString();
     }
-    ((l.clear = b),
-      (l.transformQueryIDForE2ETest = v),
-      (l.subscribe = S),
-      (l.next = R),
-      (l.error = L),
-      (l.registerPreloader = E));
+    ((l.clear = v),
+      (l.transformQueryIDForE2ETest = S),
+      (l.subscribe = R),
+      (l.next = L),
+      (l.error = E),
+      (l.registerPreloader = k));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "HeroHoldBoundary.react",
     "HeroHoldLoggingBoundary.react",
     "HeroHoldLoggingBoundaryContext",
+    "HeroHoldLoggingBoundaryRegistry",
     "HeroHoldTrigger.react",
     "HeroInteractionContext",
     "HeroInteractionContextPassthrough.react",
@@ -20,6 +21,9 @@ __d(
       (l.HeroHoldBoundary = r("HeroHoldBoundary.react")),
       (l.HeroHoldLoggingBoundary = r("HeroHoldLoggingBoundary.react")),
       (l.HeroHoldLoggingBoundaryContext = r("HeroHoldLoggingBoundaryContext")),
+      (l.HeroHoldLoggingBoundaryRegistry = o(
+        "HeroHoldLoggingBoundaryRegistry",
+      )),
       (l.HeroHoldTrigger = r("HeroHoldTrigger.react")),
       (l.HeroInteractionContext = o("HeroInteractionContext")),
       (l.HeroInteractionContextPassthrough = r(

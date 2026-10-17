@@ -1,6 +1,13 @@
 __d(
   "ServerJSPayloadListener",
-  ["FBLogger", "GHLServerJSParse", "ServerJS", "err", "getErrorSafe"],
+  [
+    "FBLogger",
+    "GHLServerJSParse",
+    "GHLTypenameRestore",
+    "ServerJS",
+    "err",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -31,7 +38,8 @@ __d(
               throw r("err")(
                 "ServerJS payload marked with data-sjs was parsed as null",
               );
-            new (r("ServerJS"))().handle(s);
+            (o("GHLTypenameRestore").restoreAllTypenames(s, e.textContent),
+              new (r("ServerJS"))().handle(s));
           } catch (e) {
             r("FBLogger")("serverjs_listener")
               .catching(r("getErrorSafe")(e))

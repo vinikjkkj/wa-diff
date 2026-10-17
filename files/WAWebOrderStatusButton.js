@@ -13,7 +13,7 @@ __d(
         r = e.type;
       return r !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
         ? null
-        : c(n == null || (t = n.buttons) == null ? void 0 : t[0]);
+        : d(n == null || (t = n.buttons) == null ? void 0 : t[0]);
     }
     function u(t) {
       var n;
@@ -24,6 +24,14 @@ __d(
       );
     }
     function c(e) {
+      var t;
+      return (
+        ((t = s(e)) == null || (t = t.order) == null
+          ? void 0
+          : t.order_creator_surface) === "biz_inbox"
+      );
+    }
+    function d(e) {
       if ((e == null ? void 0 : e.name) !== "order_status") return null;
       var t = e == null ? void 0 : e.buttonParamsJson;
       if (t == null) return null;
@@ -37,7 +45,8 @@ __d(
     ((l.getOrderStatusButton = e),
       (l.getOrderStatusButtonFor = s),
       (l.isInboxCreatedOrder = u),
-      (l.parseOrderStatusButton = c));
+      (l.isInboxCreatedOrderFor = c),
+      (l.parseOrderStatusButton = d));
   },
   98,
 );

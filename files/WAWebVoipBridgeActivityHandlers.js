@@ -4,6 +4,7 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipAnrTracker",
     "WAWebVoipCrashContext",
+    "WAWebVoipIncomingOfferToLayoutStore",
     "WAWebVoipOutgoingSetupLatencyStore",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,6 +52,11 @@ __d(
         return o(
           "WAWebVoipOutgoingSetupLatencyStore",
         ).consumeOutgoingCallSetupActiveMsForCall(e);
+      },
+      consumeIncomingCallWindowShownMs: function () {
+        return o(
+          "WAWebVoipIncomingOfferToLayoutStore",
+        ).consumeIncomingCallWindowShownMs();
       },
     };
     l.VoipBridgeActivityHandlers = e;

@@ -20,6 +20,7 @@ __d(
     "WAWebVoipDeferredBootStaleCalls",
     "WAWebVoipGatingUtils",
     "WAWebVoipHandleIncomingSignalingMessage",
+    "WAWebVoipIncomingOfferReceivedWallClockStore",
     "WAWebVoipIncomingOfferRoute",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipLidUtils",
@@ -768,9 +769,12 @@ __d(
             o("WAWebVoipCallStateUtils").isCallTerminal(
               o("WAWebVoipLocalCallStateStore").getLocalCallState(),
             ) &&
-            o("WAWebVoipCalleeOfferToRingStore").recordCalleeOfferReceived(
+            (o("WAWebVoipCalleeOfferToRingStore").recordCalleeOfferReceived(
               i.call_id,
-            );
+            ),
+            o(
+              "WAWebVoipIncomingOfferReceivedWallClockStore",
+            ).recordIncomingOfferReceivedWallClock(i.call_id));
           try {
             (s != null &&
               (a.isLid() &&

@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
-      if (!t || !o("WATypeUtils").isString(t))
+      if (t == null || t === "" || !o("WATypeUtils").isString(t))
         throw r("err")("MsgKey fromString error: str is null or not a string");
       var n = t.split("_"),
         a = void 0;

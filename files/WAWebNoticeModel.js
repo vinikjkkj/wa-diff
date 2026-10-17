@@ -171,7 +171,7 @@ __d(
           }),
           (i.extractUserNoticeContent = function (t) {
             var e = t.policyVersion;
-            if (!e)
+            if (e == null || e === "")
               throw r("err")("Missing field policyVersion in notice content.");
             o("WALogger").LOG(
               s ||
@@ -244,7 +244,7 @@ __d(
                 try {
                   var t = yield this.attemptFirstFetchAndRetriesAfter(e);
                   try {
-                    var n = t && JSON.parse(t);
+                    var n = t != null && t !== "" ? JSON.parse(t) : null;
                     n && this.extractUserNoticeContent(n);
                   } catch (e) {
                     var a = new (o(
@@ -308,7 +308,7 @@ __d(
                     t == null ? void 0 : t.icon.dark,
                   ],
                   l = i.map(function (e) {
-                    return e
+                    return e != null && e !== ""
                       ? a.attemptFirstFetchAndRetriesAfter(e)
                       : (_ || (_ = n("Promise"))).resolve(null);
                   });

@@ -1,34 +1,35 @@
 __d(
   "ServerJSPayloadListener_NEW",
-  ["FBLogger", "ServerJS", "err", "getErrorSafe"],
+  ["FBLogger", "GHLTypenameRestore", "ServerJS", "err", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       var n;
       if (e instanceof HTMLScriptElement) {
-        var o = e.dataset.contentLen;
-        if (!(e.dataset.processed || e.textContent.length.toString() !== o)) {
+        var a = e.dataset.contentLen;
+        if (!(e.dataset.processed || e.textContent.length.toString() !== a)) {
           e.dataset.processed = "1";
-          var a = (n = e.nonce) != null ? n : e.getAttribute("nonce");
-          if (a !== t) {
-            var i;
+          var i = (n = e.nonce) != null ? n : e.getAttribute("nonce");
+          if (i !== t) {
+            var l;
             if (
               (r("FBLogger")("serverjs_listener").warn(
                 "ServerJS payload nonce validation failed: %s v/s %s",
-                a,
+                i,
                 t,
               ),
-              ((i = window.Env) == null ? void 0 : i.sjsNonceEnforce) === !0)
+              ((l = window.Env) == null ? void 0 : l.sjsNonceEnforce) === !0)
             )
               return;
           }
-          var l = null;
+          var s = null;
           try {
-            if (((l = JSON.parse(e.textContent)), l == null))
+            if (((s = JSON.parse(e.textContent)), s == null))
               throw r("err")(
                 "ServerJS payload marked with data-sjs was parsed as null",
               );
-            new (r("ServerJS"))().handle(l);
+            (o("GHLTypenameRestore").restoreAllTypenames(s, e.textContent),
+              new (r("ServerJS"))().handle(s));
           } catch (e) {
             r("FBLogger")("serverjs_listener")
               .catching(r("getErrorSafe")(e))

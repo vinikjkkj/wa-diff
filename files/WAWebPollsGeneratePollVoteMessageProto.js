@@ -10,6 +10,7 @@ __d(
           ),
           vote: t.encPollVote,
           senderTimestampMs: t.senderTimestampMs,
+          metadata: t.pollUpdateMessageMetadata,
         };
       return { pollUpdateMessage: n };
     }

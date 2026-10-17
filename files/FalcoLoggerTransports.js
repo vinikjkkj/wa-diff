@@ -268,8 +268,8 @@ __d(
       );
     }
     function se(e) {
-      var t = e == null ? void 0 : e.claim,
-        n = t != null ? [t] : [],
+      var t,
+        n = (t = e == null ? void 0 : e.claims) != null ? t : [],
         r = e == null ? void 0 : e.appScopedIdentity;
       if (r !== void 0)
         return { appScopedIdentity: { uid: r, identifier: r, claims: n } };
@@ -564,17 +564,17 @@ __d(
     function be(e) {
       if (e === "") return null;
       if (I.has(e)) return I.get(e);
-      var t = { claim: "" },
+      var t = { claims: [] },
         n = e.split("^#");
       if (n.length >= 4) {
         var r = n[0],
           o = n[1],
           a = n[2],
-          i = n[3];
+          i = babelHelpers.arrayLikeToArray(n).slice(3);
         (a !== ""
-          ? (t = { appScopedIdentity: a, claim: i })
+          ? (t = { appScopedIdentity: a, claims: i })
           : r !== "" &&
-            (t = { fbIdentity: { accountId: r, actorId: o }, claim: i }),
+            (t = { fbIdentity: { accountId: r, actorId: o }, claims: i }),
           I.set(e, t));
       }
       return t;

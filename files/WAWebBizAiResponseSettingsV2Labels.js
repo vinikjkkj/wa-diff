@@ -228,8 +228,8 @@ __d(
     function S(e) {
       return s._(/*BTDS*/ "{name} is selected", [s._param("name", e)]);
     }
-    function R() {
-      return s._(/*BTDS*/ "Deselect");
+    function R(e) {
+      return s._(/*BTDS*/ "Deselect {name}", [s._param("name", e)]);
     }
     function L(e) {
       return s._(/*BTDS*/ "{title}, {count}", [

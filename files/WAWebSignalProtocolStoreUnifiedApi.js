@@ -91,22 +91,23 @@ __d(
           (a.$3 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t;
+                var t, n;
                 if (e == null)
                   throw r("err")(
                     "Tried to get identity key for undefined/null key",
                   );
                 if (!this.$1.IdentityStore.has(e)) {
-                  var n = yield o(
+                  var a = yield o(
                     "WAWebSignalStoreApi",
                   ).waSignalStore.getIdentityKeyWithRowId(e);
-                  this.$1.IdentityStore.set(e, n);
+                  this.$1.IdentityStore.set(e, a);
                 }
-                return (
-                  ((t = this.$1.IdentityStore.get(e)) == null
+                return (t =
+                  (n = this.$1.IdentityStore.get(e)) == null
                     ? void 0
-                    : t.identityKey) || void 0
-                );
+                    : n.identityKey) != null
+                  ? t
+                  : void 0;
               },
             );
             function t(t) {

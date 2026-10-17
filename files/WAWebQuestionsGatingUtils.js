@@ -43,7 +43,7 @@ __d(
     function h(e, t, n) {
       var r = e === o("WAWebQuestions.flow").QuestionType.Question ? s : u;
       return o("WAWebABProps")
-        .getABPropConfigValue(T(e, t, n))
+        .getABPropConfigValue(D(e, t, n))
         .split(",")
         .map(function (e) {
           return Number.parseInt(e.trim(), 10);
@@ -64,64 +64,72 @@ __d(
       ).intersection(c);
     }
     function C(e) {
-      return o("WAWebMsgGetters").getIsNewsletterMsg(e)
-        ? d.has(e.type)
+      return b({
+        isNewsletterMsg: o("WAWebMsgGetters").getIsNewsletterMsg(e),
+        type: e.type,
+      });
+    }
+    function b(e) {
+      var t = e.isNewsletterMsg,
+        n = e.type;
+      return t
+        ? d.has(n)
           ? o("WAWebABProps").getABPropConfigValue(
               "channels_question_follower_m2_enabled",
             )
           : !0
         : !1;
     }
-    function b(e) {
+    function v(e) {
       return (
         C(e) &&
         g(o("WAWebQuestions.flow").QuestionType.Reply, m.Receive, e.type)
       );
     }
-    function v(e) {
+    function S(e) {
       return g(o("WAWebQuestions.flow").QuestionType.Reply, m.Send, e);
     }
-    function S() {
+    function R() {
       return h(
         o("WAWebQuestions.flow").QuestionType.Reply,
         m.Send,
         p.M1,
       ).intersection(c);
     }
-    function R() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_question_response_rate_limit_max_count_in_client_ui",
       );
     }
-    function L(e) {
+    function E(e) {
       return e === o("WAWebQuestions.flow").QuestionType.Question
         ? y()
         : e === o("WAWebQuestions.flow").QuestionType.Reply
-          ? S()
+          ? R()
           : new Set();
     }
-    function E() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_question_fetch_responses_page_size",
-      );
-    }
-    function k(e) {
-      return (
-        C(e) &&
-        g(o("WAWebQuestions.flow").QuestionType.Question, m.Forward, e.type)
       );
     }
     function I(e) {
       return (
         C(e) &&
+        g(o("WAWebQuestions.flow").QuestionType.Question, m.Forward, e.type)
+      );
+    }
+    function T(e) {
+      return (
+        C(e) &&
         g(o("WAWebQuestions.flow").QuestionType.Reply, m.Forward, e.type)
       );
     }
-    function T(e, t, n) {
+    function D(e, t, n) {
       return n === p.M1
-        ? D(e, t)
+        ? x(e, t)
         : n === p.M2
-          ? x(e, t)
+          ? $(e, t)
           : (function () {
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -129,7 +137,7 @@ __d(
               );
             })();
     }
-    function D(e, t) {
+    function x(e, t) {
       return e === o("WAWebQuestions.flow").QuestionType.Question
         ? t === m.Send
           ? "channels_question_sender_message_types_m1_enabled"
@@ -156,7 +164,7 @@ __d(
                   );
                 })();
     }
-    function x(e, t) {
+    function $(e, t) {
       return e === o("WAWebQuestions.flow").QuestionType.Question
         ? t === m.Send
           ? "channels_question_sender_message_types_m2_enabled"
@@ -187,14 +195,15 @@ __d(
       (l.isQuestionReceiverEnabledForMsg = f),
       (l.getEnabledQuestionAttachmentTypes = y),
       (l.isQuestionsFeatureEnabledForFollowers = C),
-      (l.isQuestionReplyReceiverEnabledForMsg = b),
-      (l.isQuestionReplySenderEnabledForMsgType = v),
-      (l.getEnabledQuestionReplyAttachmentTypes = S),
-      (l.getResponsesRateLimitMaxCount = R),
-      (l.getEnabledAttachmentTypesForQuestionType = L),
-      (l.getQuestionResponsesPageSize = E),
-      (l.isQuestionForwardingEnabledForMsg = k),
-      (l.isQuestionReplyForwardingEnabledForMsg = I));
+      (l.isQuestionsFeatureEnabledForFollowersFor = b),
+      (l.isQuestionReplyReceiverEnabledForMsg = v),
+      (l.isQuestionReplySenderEnabledForMsgType = S),
+      (l.getEnabledQuestionReplyAttachmentTypes = R),
+      (l.getResponsesRateLimitMaxCount = L),
+      (l.getEnabledAttachmentTypesForQuestionType = E),
+      (l.getQuestionResponsesPageSize = k),
+      (l.isQuestionForwardingEnabledForMsg = I),
+      (l.isQuestionReplyForwardingEnabledForMsg = T));
   },
   98,
 );

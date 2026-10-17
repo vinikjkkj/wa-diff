@@ -106,20 +106,22 @@ __d(
     })(o("WAWebBaseModel").BaseModel);
     u.Proxy = "conn";
     function c(e) {
+      var t, n, r, a, i;
       e === void 0 && (e = {});
-      var t = e,
-        n = t.mcc,
-        r = t.mnc;
-      (n && typeof n == "string" && (n = parseInt(n, 10)),
-        r && typeof r == "string" && (r = parseInt(r, 10)),
+      var l = e,
+        s = l.mcc,
+        u = l.mnc;
+      (typeof s == "string" && s !== "" && (s = parseInt(s, 10)),
+        typeof u == "string" && u !== "" && (u = parseInt(u, 10)),
         o("WAWebWamGlobals").Global.set({
-          mcc: n != null ? n : null,
-          mnc: r != null ? r : null,
-          webcPhoneDeviceManufacturer: e.device_manufacturer || null,
-          webcPhoneDeviceModel: e.device_model || null,
-          webcPhoneOsBuildNumber: e.os_build_number || null,
-          webcPhoneOsVersion: e.os_version || null,
-          webcPhoneAppVersion: e.wa_version || null,
+          mcc: s != null ? s : null,
+          mnc: u != null ? u : null,
+          webcPhoneDeviceManufacturer:
+            (t = e.device_manufacturer) != null ? t : null,
+          webcPhoneDeviceModel: (n = e.device_model) != null ? n : null,
+          webcPhoneOsBuildNumber: (r = e.os_build_number) != null ? r : null,
+          webcPhoneOsVersion: (a = e.os_version) != null ? a : null,
+          webcPhoneAppVersion: (i = e.wa_version) != null ? i : null,
         }));
     }
     var d = o("WAWebBaseModel").defineModel(u),
