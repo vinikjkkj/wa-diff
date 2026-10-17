@@ -13,22 +13,31 @@ __d(
       u = "identity.updated",
       c = "notification";
     function d(e) {
-      return e === s || e === c;
+      return e === s || e === u || e === c;
     }
     function m(t) {
       var n = t.opKey,
         r = t.payload;
       return n === e
-        ? { kind: "agent_status", status: f(r) }
+        ? { kind: "agent_status", status: g(r) }
         : n === s
-          ? p(r)
+          ? _(r)
           : n === u
-            ? { kind: "identity", identity: g(r) }
+            ? p(r)
             : n === c
-              ? _(r)
+              ? f(r)
               : { kind: "unknown" };
     }
     function p(e) {
+      var t = h(e);
+      return (t.name != null &&
+        !o("WAWebHatchJsonReaders").isBlankText(t.name)) ||
+        t.secureImage != null ||
+        t.secureVideoVariants != null
+        ? { kind: "identity", identity: t }
+        : { kind: "unknown" };
+    }
+    function _(e) {
       var t = o(
         "WAWebHatchApprovalRecordDecoder",
       ).decodeHatchApprovalRecordEvent(e);
@@ -36,7 +45,7 @@ __d(
         ? { kind: "approval_record", event: t }
         : { kind: "unknown" };
     }
-    function _(e) {
+    function f(e) {
       var t = o(
         "WAWebHatchChannelNotificationDecoder",
       ).decodeHatchChannelNotification(e);
@@ -44,7 +53,7 @@ __d(
         ? { kind: "channel_notification", notification: t }
         : { kind: "unknown" };
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebHatchJsonReaders").readString(e, "activity_emoji");
       return babelHelpers.extends(
         {
@@ -62,7 +71,7 @@ __d(
         },
       );
     }
-    function g(e) {
+    function h(e) {
       var t = o("WAWebHatchJsonReaders").readField(e, "avatar");
       return {
         name: o("WAWebHatchJsonReaders").readString(e, "name"),
@@ -70,12 +79,12 @@ __d(
           t,
           "secure_image",
         ),
-        secureVideoVariants: h(
+        secureVideoVariants: y(
           o("WAWebHatchJsonReaders").readField(t, "secure_video_variants"),
         ),
       };
     }
-    function h(e) {
+    function y(e) {
       if (!Array.isArray(e)) return null;
       var t = {},
         n = !1;

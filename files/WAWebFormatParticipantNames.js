@@ -210,44 +210,56 @@ __d(
         n = t === void 0 ? !0 : t,
         r = e.jid,
         o = e.subtype,
-        a = e.tabIndex;
-      if (!r.isUser()) return L(r, n ? d(r, o) : null, a);
-      var i = n ? d(r, o) : null;
-      return L(r, i, a);
+        a = e.tabIndex,
+        i = e.unknownUserLogContext;
+      if (!r.isUser()) return L(r, n ? d(r, o) : null, a, i);
+      var l = n ? d(r, o) : null;
+      return L(r, l, a, i);
     }
-    function L(e, t, n) {
+    function L(e, t, n, a) {
       if (o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)) {
-        var a = o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName();
+        var i = o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName();
         return t
           ? u.jsx(r("WAWebClickableLink.react"), {
               onClick: t,
               xstyle: c.linkColor,
-              children: u.jsx(o("WAWebEmojiText.react").EmojiText, { text: a }),
+              children: u.jsx(o("WAWebEmojiText.react").EmojiText, { text: i }),
             })
-          : u.jsx(o("WAWebEmojiText.react").EmojiText, { text: a });
+          : u.jsx(o("WAWebEmojiText.react").EmojiText, { text: i });
       }
-      var i = o("WAWebContactCollection").ContactCollection.gadd(e, {
+      var l = o("WAWebContactCollection").ContactCollection.gadd(e, {
         silent: !0,
       });
       return u.jsx(o("WAWebName.react").Name, {
-        contact: i,
+        contact: l,
         showNotifyName: !0,
         elevatedPushNamesEnabled: !0,
         onClick: t,
         tabIndex: n,
+        unknownUserLogContext: a,
       });
     }
     L.displayName = L.name + " [from " + i.id + "]";
-    function E(e, t, n, o) {
+    function E(e, t, n, o, a) {
       if (
         (t === void 0 && (t = !0), n === void 0 && (n = !1), !Array.isArray(e))
       )
-        return R({ clickable: t, jid: e, tabIndex: o });
-      var a = e.map(function (e) {
-        return R({ clickable: t, jid: e, tabIndex: o });
+        return R({
+          clickable: t,
+          jid: e,
+          tabIndex: o,
+          unknownUserLogContext: a,
+        });
+      var i = e.map(function (e) {
+        return R({
+          clickable: t,
+          jid: e,
+          tabIndex: o,
+          unknownUserLogContext: a,
+        });
       });
       return r("WAWebFbtIntlList")(
-        a,
+        i,
         n
           ? r("WAWebFbtIntlList").CONJUNCTIONS.NONE
           : r("WAWebFbtIntlList").CONJUNCTIONS.AND,

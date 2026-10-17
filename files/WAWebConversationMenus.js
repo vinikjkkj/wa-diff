@@ -37,6 +37,7 @@ __d(
     "WAWebReachoutTimelockUtils",
     "WAWebSpamConstants",
     "WAWebStateUtils",
+    "WAWebWamEnumAddMembersEntrypointType",
     "WAWebWamEnumEphemeralSettingEntryPointType",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WAWebWamEnumMuteEntryPoint",
@@ -161,6 +162,9 @@ __d(
                   groupMetadata: t,
                   chat: o("WAWebStateUtils").unproxy(i),
                   communityName: n,
+                  entryPoint: o("WAWebWamEnumAddMembersEntrypointType")
+                    .ADD_MEMBERS_ENTRYPOINT_TYPE
+                    .GROUP_CONVERSATION_OVERFLOW_MENU,
                 },
               );
             }

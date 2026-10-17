@@ -10,43 +10,49 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 691200;
+      s = "~";
     function u(e) {
+      var t = e.chatIds,
+        n = e.sinceTs;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "queryFrequentlyContactedMsgCount",
           function (e) {
-            return c(e.chatIds);
+            return c(e.chatIds, e.sinceTs);
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
         )
-        .waitUntilCompleted({ chatIds: e });
+        .waitUntilCompleted({ chatIds: t, sinceTs: n });
     }
-    function c(e) {
+    function c(e, t) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = Math.floor(Date.now() / 1e3),
-            a = r - s,
-            i = o("WAWebSchemaMessage").getMessageTable(),
-            l = yield (e || (e = n("Promise"))).all(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a = o("WAWebSchemaMessage").getMessageTable(),
+            i = yield (e || (e = n("Promise"))).all(
               t.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
                       var t = o(
                           "WAWebDBMessageRangeIndex",
-                        ).craftMessageRangeIndex(e, !1, !1, a),
-                        n = o(
-                          "WAWebDBMessageRangeIndex",
                         ).craftMessageRangeIndex(e, !1, !1, r),
-                        l = yield i.betweenCount(["messageRangeIndex"], t, n, {
+                        n =
+                          "" +
+                          o("WAWebDBMessageRangeIndex").craftMessageRangeIndex(
+                            e,
+                            !1,
+                            !1,
+                            null,
+                          ) +
+                          s,
+                        i = yield a.betweenCount(["messageRangeIndex"], t, n, {
                           lowerInclusive: !0,
                           upperInclusive: !0,
                         });
-                      return { chatId: e, count: l };
+                      return { chatId: e, count: i };
                     },
                   );
                   return function (t) {
@@ -55,13 +61,13 @@ __d(
                 })(),
               ),
             ),
-            u = new Map();
-          for (var c of l) {
-            var d = c.chatId,
-              m = c.count;
-            m > 0 && u.set(d, m);
+            l = new Map();
+          for (var u of i) {
+            var c = u.chatId,
+              d = u.count;
+            d > 0 && l.set(c, d);
           }
-          return u;
+          return l;
         })),
         d.apply(this, arguments)
       );

@@ -8,7 +8,7 @@ __d(
     "WAWebMessageSpacerText.react",
     "WAWebMessageTextBubble.react",
     "WAWebMsgGetters",
-    "WAWebRecalledIcon.react",
+    "WDSIconIcBlock.react",
     "react",
     "react-compiler-runtime",
     "useWAWebEventTargetValue",
@@ -85,7 +85,11 @@ __d(
       t[9] === Symbol.for("react.memo_cache_sentinel")
         ? ((v = s.jsx(r("WAWebFlexItem.react"), {
             xstyle: u.icon,
-            children: s.jsx(o("WAWebRecalledIcon.react").RecalledIcon, {}),
+            children: s.jsx(r("WDSIconIcBlock.react"), {
+              height: 22,
+              testid: "recalled",
+              width: 22,
+            }),
           })),
           (t[9] = v))
         : (v = t[9]);

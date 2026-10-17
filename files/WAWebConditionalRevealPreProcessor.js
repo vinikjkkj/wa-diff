@@ -18,6 +18,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "getErrorSafe",
@@ -459,7 +460,7 @@ __d(
             s = e.senderJid,
             u = e.stanzaScheduledMsgMeta;
           try {
-            var c = o("WAJids").validateChatJid(i);
+            var c = H(i);
             if (c != null) {
               var d = yield O(
                   t,
@@ -504,7 +505,18 @@ __d(
         V.apply(this, arguments)
       );
     }
-    function H(e, t) {
+    function H(e) {
+      var t = o("WAJids").validateChatJid(e);
+      if (t != null) return t;
+      try {
+        return o("WAWebWidToJid").widToChatJid(
+          o("WAWebWidFactory").createWid(e),
+        );
+      } catch (e) {
+        return null;
+      }
+    }
+    function G(e, t) {
       if (t == null) return e;
       var n = e.map(function (e) {
         return babelHelpers.extends({}, e, { viewMode: t });
@@ -525,7 +537,7 @@ __d(
     }
     ((l.preProcessConditionalRevealMessage = O),
       (l.maybePreProcessConditionalRevealForReceive = U),
-      (l.applyScheduledMsgViewMode = H));
+      (l.applyScheduledMsgViewMode = G));
   },
   98,
 );

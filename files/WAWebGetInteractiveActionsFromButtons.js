@@ -31,7 +31,6 @@ __d(
     "WAWebGetGalaxyFlowsActionFromButton",
     "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebLaunchIcon.react",
     "WAWebMAIBAPrimaryRedirectPopup.react",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMmSignalSharingLoggingEvents",
@@ -243,7 +242,7 @@ __d(
                       });
                   }
                 },
-                Icon: o("WAWebLaunchIcon.react").LaunchIcon,
+                Icon: r("WDSIconIcOpenInNew.react"),
                 testid: "cta-url-button",
               }
             : {
@@ -269,7 +268,7 @@ __d(
                       },
                     }));
                 },
-                Icon: o("WAWebLaunchIcon.react").LaunchIcon,
+                Icon: r("WDSIconIcOpenInNew.react"),
                 testid: "cta-url-button",
               };
       }
@@ -298,10 +297,10 @@ __d(
       ) {
         var n;
         try {
-          var r,
-            a,
-            i = JSON.parse((r = e.data.buttonParamsJson) != null ? r : "{}");
-          n = (a = i.url) != null ? a : e.data.url;
+          var a,
+            i,
+            l = JSON.parse((a = e.data.buttonParamsJson) != null ? a : "{}");
+          n = (i = l.url) != null ? i : e.data.url;
         } catch (t) {
           (o("WALogger").WARN(
             u ||
@@ -341,7 +340,7 @@ __d(
                   },
                 });
             },
-            Icon: o("WAWebLaunchIcon.react").LaunchIcon,
+            Icon: r("WDSIconIcOpenInNew.react"),
             testid: "cta-app-button",
           };
       }
@@ -1035,7 +1034,7 @@ __d(
                         .CLOUD_API_SIGNAL_CTA_ACTION.OPEN_PAYMENT_LINK,
                     ));
                 },
-                Icon: o("WAWebLaunchIcon.react").LaunchIcon,
+                Icon: r("WDSIconIcOpenInNew.react"),
               };
         }
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.OFFSITE_CARD_PAY:

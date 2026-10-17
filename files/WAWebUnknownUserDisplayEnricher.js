@@ -77,7 +77,15 @@ __d(
         "chat_list",
         "chat_header",
         "group_member_list",
-        "group_message",
+        "group_message_quoted",
+        "group_message_cag_masked",
+        "group_message_cag_masked_bare",
+        "group_message_cag_masked_noparent",
+        "group_message_cag",
+        "group_message_community_sub",
+        "group_message_group",
+        "group_system_message",
+        "group_mention",
       ]);
     function c(e, t) {
       var n = o("WATimeUtils").unixTimeMs();

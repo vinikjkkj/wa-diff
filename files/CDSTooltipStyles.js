@@ -13,6 +13,8 @@ __d(
         paddingInlineEnd: "x1klb5xx",
         paddingLeft: null,
         paddingRight: null,
+        transitionDuration: "x1fmoal0",
+        transitionTimingFunction: "xcvd6qb",
         $$css: !0,
       },
     };

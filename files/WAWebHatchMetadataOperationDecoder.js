@@ -33,7 +33,7 @@ __d(
     function u(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readField(e, "type");
       if (r === "req") return c(e, n);
-      if (r === "res") return d(e, n);
+      if (r === "res") return p(e, n);
       var a = o("WAWebHatchJsonReaders").readField(e, "payload");
       if (!o("WAWebHatchJsonReaders").isObject(a))
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
@@ -47,15 +47,15 @@ __d(
       var l = o("WAWebHatchJsonReaders").readField(a, "payload"),
         s = o("WAWebHatchJsonReaders").readString(l, "session_id"),
         u = o("WAWebHatchJsonReaders").readNumber(a, "ts_ms"),
-        m = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
-        p = o("WAWebHatchJsonReaders").readNumber(a, "seq"),
+        d = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
+        m = o("WAWebHatchJsonReaders").readNumber(a, "seq"),
         _ = "SET";
       return {
         type: "event",
         requestId: n,
         event: {
-          seq: p,
-          timestamp: m,
+          seq: m,
+          timestamp: d,
           index: i,
           opKey: i,
           operation: _,
@@ -94,26 +94,26 @@ __d(
         if (r === "hitl.approval.decide") {
           var u = o("WAWebHatchJsonReaders").readField(n, "params"),
             c = o("WAWebHatchJsonReaders").readString(u, "approval_id"),
-            d = o("WAWebHatchJsonReaders").readString(u, "decision");
-          if (c == null || c === "" || d == null || d === "")
+            m = o("WAWebHatchJsonReaders").readString(u, "decision");
+          if (c == null || c === "" || m == null || m === "")
             throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
               o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
             );
-          var m = o("WAWebHatchJsonReaders").readString(u, "always_scope");
+          var p = o("WAWebHatchJsonReaders").readString(u, "always_scope");
           return {
             type: "req",
             requestId: t,
             request: babelHelpers.extends(
-              { method: "hitl.approval.decide", approvalId: c, decision: d },
-              m != null && m !== "" ? { alwaysScope: m } : null,
+              { method: "hitl.approval.decide", approvalId: c, decision: m },
+              p != null && p !== "" ? { alwaysScope: p } : null,
             ),
           };
         }
         if (r === "hitl.payment.select") {
-          var p = o("WAWebHatchJsonReaders").readField(n, "params"),
-            _ = o("WAWebHatchJsonReaders").readString(p, "approval_id"),
-            f = o("WAWebHatchJsonReaders").readString(p, "payment_id");
-          if (_ == null || _ === "" || f == null || f === "")
+          var _ = o("WAWebHatchJsonReaders").readField(n, "params"),
+            f = o("WAWebHatchJsonReaders").readString(_, "approval_id"),
+            g = o("WAWebHatchJsonReaders").readString(_, "payment_id");
+          if (f == null || f === "" || g == null || g === "")
             throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
               o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
             );
@@ -122,17 +122,66 @@ __d(
             requestId: t,
             request: {
               method: "hitl.payment.select",
-              approvalId: _,
-              paymentId: f,
+              approvalId: f,
+              paymentId: g,
             },
           };
         }
+        if (r === "ideas.execute")
+          return {
+            type: "req",
+            requestId: t,
+            request: d(o("WAWebHatchJsonReaders").readField(n, "params")),
+          };
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
         );
       }
     }
-    function d(e, t) {
+    function d(e) {
+      var t = o("WAWebHatchJsonReaders").readString(e, "ideaCardId");
+      if (t == null || t === "")
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      var n = o("WAWebHatchJsonReaders").readString(e, "locale"),
+        r = n != null ? { locale: n } : null;
+      e: {
+        var a = o("WAWebHatchJsonReaders").readString(e, "mode");
+        if (a === "full")
+          return babelHelpers.extends(
+            { method: "ideas.execute", ideaCardId: t, mode: "full" },
+            r,
+          );
+        if (a === "selectedItems")
+          return babelHelpers.extends(
+            {
+              method: "ideas.execute",
+              ideaCardId: t,
+              mode: "selectedItems",
+              itemIds: m(o("WAWebHatchJsonReaders").readField(e, "itemIds")),
+            },
+            r,
+          );
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      }
+    }
+    function m(e) {
+      if (!Array.isArray(e) || e.length === 0)
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      return e.map(function (e) {
+        if (typeof e != "string" || e === "")
+          throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+            o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+          );
+        return e;
+      });
+    }
+    function p(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, "payload"),
         r = o("WAWebHatchJsonReaders").readString(n, "method");
       if (r == null || r.length === 0)

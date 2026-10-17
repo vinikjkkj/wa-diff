@@ -10,7 +10,7 @@ __d(
     "WAWebGdprRequestAccountInfoSettingsFooterNotice",
     "WAWebGdprRequestOverrideModal.react",
     "WAWebModalManager",
-    "WAWebSettingsDocumentIcon.react",
+    "WDSIconIcDescriptionFilled.react",
     "react",
     "react-compiler-runtime",
     "useWAWebGdprRequest",
@@ -75,10 +75,11 @@ __d(
       t[9] !== l ? ((S = p(l)), (t[9] = l), (t[10] = S)) : (S = t[10]);
       var R;
       t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = u.jsx(
-            o("WAWebSettingsDocumentIcon.react").SettingsDocumentIcon,
-            {},
-          )),
+        ? ((R = u.jsx(r("WDSIconIcDescriptionFilled.react"), {
+            height: 24,
+            testid: "settings-document",
+            width: 24,
+          })),
           (t[11] = R))
         : (R = t[11]);
       var L;

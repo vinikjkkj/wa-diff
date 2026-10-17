@@ -48,6 +48,38 @@ __d(
               params: { approval_id: o, payment_id: a },
             };
           }
+          if (
+            ((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.method === "ideas.execute" &&
+            "ideaCardId" in e &&
+            e.mode === "full"
+          ) {
+            var i = e.ideaCardId;
+            return {
+              method: "ideas.execute",
+              params: babelHelpers.extends(
+                { ideaCardId: i, mode: "full" },
+                t.locale != null ? { locale: t.locale } : null,
+              ),
+            };
+          }
+          if (
+            ((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.method === "ideas.execute" &&
+            "ideaCardId" in e &&
+            e.mode === "selectedItems" &&
+            "itemIds" in e
+          ) {
+            var l = e.ideaCardId,
+              s = e.itemIds;
+            return {
+              method: "ideas.execute",
+              params: babelHelpers.extends(
+                { ideaCardId: l, mode: "selectedItems", itemIds: s },
+                t.locale != null ? { locale: t.locale } : null,
+              ),
+            };
+          }
           throw Error(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
               e,

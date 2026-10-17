@@ -13,7 +13,6 @@ __d(
     "WAWebCopyTextWithToast",
     "WAWebExternalLink.react",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebLaunchIcon.react",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -25,6 +24,7 @@ __d(
     "WAWebToastManager",
     "WAWebUserPrefsTypes",
     "WDSIconIcContentCopy.react",
+    "WDSIconIcOpenInNew.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -137,7 +137,7 @@ __d(
               o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.PAYMENT_LINK,
             ));
         },
-        Icon: o("WAWebLaunchIcon.react").LaunchIcon,
+        Icon: r("WDSIconIcOpenInNew.react"),
       };
     }
     function h(e) {
