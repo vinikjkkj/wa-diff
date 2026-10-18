@@ -20,6 +20,7 @@ __d(
     "WAWebBackendWorkerInitState",
     "WAWebBackgroundSyncReporter",
     "WAWebBootstrapBizBroadcastCampaigns",
+    "WAWebBootstrapOrgsWhenEnabled",
     "WAWebBootstrapPremiumMessages",
     "WAWebBuildConstants",
     "WAWebCallsOnlyGating",
@@ -82,7 +83,6 @@ __d(
     "WAWebOfflineResumeMsgProcessReporter",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebOfflineResumeUtils",
-    "WAWebOrgGatingUtils",
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
     "WAWebPersistedJobManager",
@@ -363,12 +363,7 @@ __d(
             yield H(),
             F(),
             o("WAWebABPropsWamGlobals").setAbPropDependingGlobalWamAttributes(),
-            !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() &&
-              o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled() &&
-              o("WAWebBackendApi").frontendFireAndForget(
-                "bootstrapOrgDirectory",
-                {},
-              ),
+            o("WAWebBootstrapOrgsWhenEnabled").bootstrapOrgsWhenEnabled(),
             o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled() &&
               (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                 o("WAWebUserPrefsKeys").KEYS.LANG_FROM_USER,

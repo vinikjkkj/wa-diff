@@ -1,41 +1,19 @@
 __d(
   "WAWebOrgMemberSearchRows",
   [
-    "WAJids",
     "WALogger",
     "WAWebChatlistTypes",
     "WAWebContactCollection",
     "WAWebNonContactPushNameSearchModel",
-    "WAWebOrgContactCollection",
-    "WAWebOrgContactModel",
     "WAWebOrgMemberSearchErrorRowLayout",
     "WAWebOrgMemberSearchLoadingRowLayout",
-    "WAWebSchemaOrg",
-    "WAWebUsernameTypes",
     "WAWebWidFactory",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = Object.freeze([]),
-      u = new Map();
-    function c(e) {
-      if (e.length === 0) return ((u = new Map()), s);
-      var t = new Map(),
-        n = e.map(function (e) {
-          return {
-            failure: e.failure,
-            loading: e.loading,
-            members: e.members.map(function (n) {
-              return g(e.orgId, n, t);
-            }),
-            orgId: e.orgId,
-            orgName: e.orgName,
-          };
-        });
-      return ((u = t), n);
-    }
-    function d(e, t, n) {
+      s = Object.freeze([]);
+    function u(e, t, n) {
       if (e.length === 0) return s;
       var r = new Set();
       for (var a of t) {
@@ -50,7 +28,7 @@ __d(
         .map(function (e) {
           return babelHelpers.extends({}, e, {
             members: e.members.filter(function (e) {
-              var t = _(e);
+              var t = m(e);
               return (
                 t.length === 0 ||
                 !t.some(function (e) {
@@ -65,20 +43,20 @@ __d(
         });
       return u.length === 0 ? s : u;
     }
-    function m(e) {
-      var t = f(e);
+    function c(e) {
+      var t = p(e);
       return t == null
         ? null
         : o("WAWebContactCollection").ContactCollection.gadd(t);
     }
-    function p(e, t) {
+    function d(e, t) {
       if (e.length === 0 || t.length === 0) return e;
       var n = new Set(
         t
           .flatMap(function (e) {
             return e.members;
           })
-          .flatMap(_),
+          .flatMap(m),
       );
       return n.size === 0
         ? e
@@ -88,8 +66,8 @@ __d(
             );
           });
     }
-    function _(e) {
-      var t = f(e);
+    function m(e) {
+      var t = p(e);
       return t == null
         ? []
         : [
@@ -97,9 +75,9 @@ __d(
             t.toString(),
           ];
     }
-    function f(t) {
+    function p(t) {
       try {
-        return o("WAWebWidFactory").createUserLidOrThrow(t.lid);
+        return o("WAWebWidFactory").createUserLidOrThrow(t.id, "lid");
       } catch (t) {
         return (
           o("WALogger")
@@ -115,37 +93,7 @@ __d(
         );
       }
     }
-    function g(e, t, n) {
-      var r,
-        a,
-        i,
-        l,
-        s = o("WAWebOrgContactCollection").createOrgContactModelId(
-          e,
-          o("WAJids").toLidUserJid(t.lid),
-        ),
-        c = {
-          id: s,
-          lid: o("WAJids").toLidUserJid(t.lid),
-          memberName: t.displayName,
-          memberTag: (r = t.memberTag) != null ? r : "",
-          orgId: e,
-          phoneNumber: (a = t.phoneNumber) != null ? a : null,
-          role:
-            (i = o("WAWebSchemaOrg").OrgMemberRole.cast(t.role)) != null
-              ? i
-              : null,
-          username:
-            (l = o("WAWebUsernameTypes").asMaybeUsername(t.username)) != null
-              ? l
-              : null,
-        },
-        d = u.get(s);
-      d == null || d.set(c);
-      var m = d != null ? d : new (o("WAWebOrgContactModel").OrgContact)(c);
-      return (n.set(s, m), m);
-    }
-    function h(e) {
+    function _(e) {
       if (e.loading)
         return {
           height: o("WAWebOrgMemberSearchLoadingRowLayout")
@@ -168,11 +116,11 @@ __d(
           };
     }
     ((l.EMPTY_ORG_RENDER_SECTIONS = s),
-      (l.toOrgMemberRenderSections = c),
-      (l.dedupeOrgMemberSections = d),
-      (l.toOrgMemberContact = m),
-      (l.withoutOrgMembers = p),
-      (l.toOrgMemberStatusRow = h));
+      (l.dedupeOrgMemberSections = u),
+      (l.toOrgMemberContact = c),
+      (l.withoutOrgMembers = d),
+      (l.toOrgMemberLid = p),
+      (l.toOrgMemberStatusRow = _));
   },
   98,
 );

@@ -12,6 +12,7 @@ __d(
     "WAWebDirtyBitsConsts",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebFetchAndUpdateBlocklistJob",
+    "WAWebHandleOrgsDirtyBit",
     "WAWebMdAppStateDirtyBitsWamEvent",
     "WAWebNewsletterGatingUtils",
     "WAWebOfflineDeviceCache",
@@ -244,6 +245,8 @@ __d(
                   o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.syncd_app_state
                 )
                   return _();
+                r === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.orgs &&
+                  o("WAWebHandleOrgsDirtyBit").handleOrgsDirtyBit();
               }),
             ),
             o("WAWebClearDirtyBitsJob").clearDirtyBits(m)

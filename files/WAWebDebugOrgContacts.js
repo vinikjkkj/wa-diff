@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugOrgContacts",
   [
-    "WAJids",
     "WAWebApiContact",
     "WAWebContactCollection",
     "WAWebDrawerManager",
@@ -9,7 +8,8 @@ __d(
     "WAWebOrgAdminFlowLoadable",
     "WAWebOrgCollection",
     "WAWebOrgContactCollection",
-    "WAWebOrgDirectoryRepository",
+    "WAWebOrgFetchDirectoryAction",
+    "WAWebOrgRefreshListAction",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -31,17 +31,25 @@ __d(
             n = new Set(t.populated),
             a = o("WAWebOrgAdminDirectoryAdapters").toOrgAdminDirectoryMembers(
               o("WAWebOrgContactCollection")
-                .OrgContactCollection.getByOrgId(t.orgID)
+                .OrgContactCollection.getOrgContactsForOrg(t.orgID)
                 .filter(function (e) {
-                  return n.has(e.lid);
+                  return n.has(e.id);
                 })
                 .map(function (e) {
+                  var n, r, o;
                   return {
                     displayName: e.memberName,
-                    lid: o("WAJids").lidFromLidUserJid(e.lid),
-                    memberTag: e.memberTag,
+                    lid: e.id,
+                    memberTag:
+                      (n =
+                        (r = e.orgMetadata[t.orgID]) == null
+                          ? void 0
+                          : r.memberTag) != null
+                        ? n
+                        : "",
                     phoneNumber: e.phoneNumber,
-                    role: e.role,
+                    role:
+                      (o = e.orgMetadata[t.orgID]) == null ? void 0 : o.role,
                     username: e.username,
                   };
                 }),
@@ -82,51 +90,46 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield f(e),
-            n = yield o("WAWebOrgDirectoryRepository").ensureFullRoster(t);
+            n = yield o("WAWebOrgFetchDirectoryAction").fetchOrgDirectory(t, {
+              createModels: !0,
+            });
           if (n.status === "failed") throw n.error;
           _();
           var a = [],
-            i = o("WAWebOrgContactCollection").OrgContactCollection.getByOrgId(
-              t,
-            );
-          for (var l of i)
-            if (
-              o("WAJids").lidFromLidUserJid(l.lid) !==
-              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user
-            ) {
-              var s = o("WAWebWidFactory").createUserLidOrThrow(l.lid),
-                c = o("WAWebApiContact").getPhoneNumber(s);
-              if (c != null) {
-                var d = function* (t) {
-                  var e = t.phoneNumber,
-                    n = t.username;
-                  (u.push(function () {
-                    t.set({ phoneNumber: e, username: n });
-                  }),
-                    t.set({ phoneNumber: c.user, username: null }));
-                };
-                for (var m of o(
-                  "WAWebOrgContactCollection",
-                ).OrgContactCollection.getByLid(l.lid))
-                  yield* d(m);
-                var p = function* () {
-                  var e = o("WAWebContactCollection").ContactCollection.get(g),
-                    t =
-                      e != null
-                        ? e
-                        : o("WAWebContactCollection").ContactCollection.gadd(g),
-                    n = { username: t.username };
-                  (u.push(function () {
-                    e == null
-                      ? o("WAWebContactCollection").ContactCollection.remove(t)
-                      : t.set(n);
-                  }),
-                    t.set({ username: null }));
-                };
-                for (var g of [s, c]) yield* p();
-                a.push(l.lid);
-              }
-            }
+            i = o(
+              "WAWebOrgContactCollection",
+            ).OrgContactCollection.getOrgContactsForOrg(t),
+            l = function* (t) {
+              if (t.id === o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user)
+                return 0;
+              var e = o("WAWebWidFactory").createUserLidOrThrow(t.id, "lid"),
+                n = o("WAWebApiContact").getPhoneNumber(e);
+              if (n == null) return 0;
+              var r = t.phoneNumber,
+                i = t.username;
+              (u.push(function () {
+                t.set({ phoneNumber: r, username: i });
+              }),
+                t.set({ phoneNumber: n.user, username: null }));
+              var l = function* () {
+                var e = o("WAWebContactCollection").ContactCollection.get(s),
+                  t =
+                    e != null
+                      ? e
+                      : o("WAWebContactCollection").ContactCollection.gadd(s),
+                  n = { username: t.username };
+                (u.push(function () {
+                  e == null
+                    ? o("WAWebContactCollection").ContactCollection.remove(t)
+                    : t.set(n);
+                }),
+                  t.set({ username: null }));
+              };
+              for (var s of [e, n]) yield* l();
+              a.push(t.id);
+            },
+            s;
+          for (var c of i) s = yield* l(c);
           return {
             orgID: t,
             orgName: r("nullthrows")(
@@ -156,24 +159,19 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebOrgDirectoryRepository").getOrgDirectoryRepositorySnapshot()
-            .orderedOrgIDs == null &&
-            (yield o("WAWebOrgDirectoryRepository").refreshOrganizations());
-          var t = o(
-            "WAWebOrgDirectoryRepository",
-          ).getOrgDirectoryRepositorySnapshot();
-          if (t.orderedOrgIDs == null) {
-            var n;
-            throw (n = t.organizationsError) != null
-              ? n
-              : r("err")("Unable to load organizations.");
-          }
-          var a = e != null ? e : t.orderedOrgIDs[0];
-          if (a == null)
+          var t = yield o("WAWebOrgRefreshListAction").refreshOrgList({
+            bypassCooldown: !0,
+          });
+          if (t.status === "failed") throw t.error;
+          var n =
+            e != null
+              ? e
+              : o("WAWebOrgCollection").OrgCollection.getViewerPrimaryOrgId();
+          if (n == null)
             throw r("err")(
               "No organizations are available for debug contacts.",
             );
-          return a;
+          return n;
         })),
         g.apply(this, arguments)
       );

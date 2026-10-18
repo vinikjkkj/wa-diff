@@ -128,6 +128,7 @@ __d(
             t = e == null ? void 0 : e.xwa_org_list;
           if (t == null) throw Me(null);
           var n = t.orgs.flatMap(Fe);
+          if (n.length !== t.orgs.length) throw Ne("xwa_org_list", Te);
           return ($e("xwa_org_list", "orgs=" + n.length), n);
         })),
         K.apply(this, arguments)
@@ -438,26 +439,26 @@ __d(
     function me() {
       return (
         (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
+          var n, r, a;
           if (t != null && t > G)
             return { memberCount: t, status: "roster_too_large" };
-          var r = yield o("WAWebRelayClient").fetchQuery(
+          var i = yield o("WAWebRelayClient").fetchQuery(
               A,
               { first: G, orgID: e },
               babelHelpers.extends({}, H, { fetchPolicy: "network-only" }),
             ),
-            a = r == null ? void 0 : r.xwa_org_get;
-          if (a == null || a.status !== "SUCCESS")
-            throw Me(a == null ? void 0 : a.error_reason);
-          var i = (n = a.org_info) == null ? void 0 : n.members;
-          if (i == null) throw Me(De);
-          var l = i.page_info;
-          if (l == null || l.has_next_page == null) throw Ne("xwa_org_get", Te);
-          var s = i.count;
-          if (s == null || (l.has_next_page && s <= G))
+            l = i == null ? void 0 : i.xwa_org_get;
+          if (l == null || l.status !== "SUCCESS")
+            throw Me(l == null ? void 0 : l.error_reason);
+          var s = (n = l.org_info) == null ? void 0 : n.members;
+          if (s == null) throw Me(De);
+          var u = s.page_info;
+          if (u == null || u.has_next_page == null) throw Ne("xwa_org_get", Te);
+          var c = s.count;
+          if (c == null || (u.has_next_page && c <= G))
             throw Ne("xwa_org_get", Te);
-          if (s > G) return { memberCount: s, status: "roster_too_large" };
-          var u = i.nodes.flatMap(function (e) {
+          if (c > G) return { memberCount: c, status: "roster_too_large" };
+          var d = s.nodes.flatMap(function (e) {
               return ze(
                 e.lid,
                 e.display_name,
@@ -467,14 +468,25 @@ __d(
                 e.phone_number,
               );
             }),
-            c = new Set(
-              u.map(function (e) {
+            m = new Set(
+              d.map(function (e) {
                 return e.lid;
               }),
             ).size;
-          if (u.length !== i.nodes.length || c !== u.length || u.length !== s)
+          if (d.length !== s.nodes.length || m !== d.length || d.length !== c)
             throw Ne("xwa_org_get", Te);
-          return { memberCount: s, members: u, status: "success" };
+          return {
+            memberCount: c,
+            memberUpdatedTsUsec:
+              (r =
+                (a = l.org_info) == null
+                  ? void 0
+                  : a.org_member_updated_ts_usec) != null
+                ? r
+                : null,
+            members: d,
+            status: "success",
+          };
         })),
         me.apply(this, arguments)
       );

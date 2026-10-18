@@ -15,7 +15,7 @@ __d(
           : [
               {
                 itemKey: "org-members-header-" + e.orgId,
-                status: { kind: "header", orgName: e.orgName },
+                status: { kind: "header" },
                 type: o("WAWebMultiSelectChatListTypes").Row
                   .ROW_ORG_MEMBERS_STATUS,
               },
@@ -49,13 +49,13 @@ __d(
               },
             ]
           : e.members.flatMap(function (e) {
-              var n = o("WAWebOrgMemberSearchRows").toOrgMemberContact(e);
+              var n = o("WAWebOrgMemberSearchRows").toOrgMemberLid(e);
               return n != null && t(n)
                 ? [
                     {
-                      data: n,
-                      itemKey: "org-member-" + e.id,
-                      member: e,
+                      data: e,
+                      itemKey: "org-member-" + r + "-" + e.id,
+                      lid: n,
                       type: o("WAWebMultiSelectChatListTypes").Row
                         .ROW_ORG_MEMBER,
                     },

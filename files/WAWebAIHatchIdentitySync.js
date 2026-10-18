@@ -60,7 +60,7 @@ __d(
               );
             })
             .then(function (e) {
-              e != null && d === s && (y(l), h(t, e));
+              e != null && d === s && (C(l), h(t, e));
             })
             .catch(function (t) {
               o("WALogger")
@@ -82,45 +82,59 @@ __d(
       t !== "" && t !== e.get("name") && e.set({ name: t });
     }
     function h(e, t) {
-      var n,
-        r =
-          (n = o(
-            "WAWebProfilePicThumbCollection",
-          ).ProfilePicThumbCollection.get(e)) == null
-            ? void 0
-            : n.get("eurl");
-      t !== r &&
+      y(
+        o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(e),
+        t,
+      ) ||
         o("WAWebProfilePicThumbCollection")
           .ProfilePicThumbCollection.gadd(e)
           .set({
             eurl: t,
             previewEurl: t,
+            raw: void 0,
+            previewDirectPath: null,
+            fullDirectPath: null,
+            filehash: null,
             tag: "hat",
             stale: !1,
+            eurlStale: !1,
             timestamp: Date.now(),
           });
     }
-    function y(e) {
+    function y(e, t) {
+      return (
+        e != null &&
+        e.eurl === t &&
+        e.previewEurl === t &&
+        e.raw == null &&
+        e.previewDirectPath == null &&
+        e.fullDirectPath == null &&
+        e.filehash == null &&
+        !e.stale &&
+        !e.eurlStale
+      );
+    }
+    function C(e) {
       c !== e &&
-        (C(),
+        (b(),
         o(
           "WAWebMediaInMemoryBlobCache",
         ).InMemoryMediaBlobCache.increaseUsageCount(e),
         (c = e));
     }
-    function C() {
+    function b() {
       c != null &&
         (o(
           "WAWebMediaInMemoryBlobCache",
         ).InMemoryMediaBlobCache.decreaseUsageCount(c),
         (c = null));
     }
-    function b() {
+    function v() {
       var e;
       ((s = !1), (e = d) == null || e.abort(), (d = null), (c = null));
     }
     ((l.syncHatchContactIdentity = p),
-      (l.__resetHatchIdentitySyncForTesting = b));
+      (l.__resetHatchIdentitySyncForTesting = v));
   },
   98,
 );

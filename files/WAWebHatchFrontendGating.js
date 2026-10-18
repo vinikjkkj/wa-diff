@@ -2,13 +2,13 @@ __d(
   "WAWebHatchFrontendGating",
   [
     "WAWebABProps",
-    "WAWebAIHatchIdentityStore",
     "WAWebBotBaseGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchMinPrimaryVersions",
     "WAWebMuseDefaultAssistantVariant",
+    "WAWebMuseDefaultAssistantVariantSource",
     "WAWebPrimaryFeaturesModel",
     "WAWebPrimaryVersionGating",
     "asyncToGeneratorRuntime",
@@ -173,39 +173,22 @@ __d(
       });
     }
     function k() {
-      return e()
-        ? (function (e) {
-            if (
-              e ===
-              o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
-                .MuseAfterLinking
-            )
-              return r("WAWebHatchLinkedStatusManager").isLinked();
-            if (
-              e ===
-              o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
-                .MuseAlways
-            )
-              return (
-                o("WAWebAIHatchIdentityStore").getHatchInitialIdentity()
-                  .name !== ""
-              );
-            if (
-              e ===
-              o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
-                .MetaAI
-            )
-              return !1;
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e,
-            );
-          })(
-            o(
-              "WAWebMuseDefaultAssistantVariant",
-            ).getMuseDefaultAssistantVariant(),
-          )
-        : !1;
+      var e = o(
+        "WAWebMuseDefaultAssistantVariant",
+      ).MuseDefaultAssistantVariant.cast(
+        o(
+          "WAWebMuseDefaultAssistantVariantSource",
+        ).readMuseDefaultAssistantVariantSource(),
+      );
+      return e !==
+        o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+          .MuseAfterLinking &&
+        e !==
+          o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+            .MuseAlways
+        ? !1
+        : r("WAWebHatchLinkedStatusManager").isLinked() &&
+            o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
     function I(e) {
       return e || !E()

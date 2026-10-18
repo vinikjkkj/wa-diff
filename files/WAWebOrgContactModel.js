@@ -9,13 +9,13 @@ __d(
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.id = o("WAWebBaseModel").prop()),
-          (t.orgId = o("WAWebBaseModel").prop()),
-          (t.lid = o("WAWebBaseModel").prop()),
           (t.memberName = o("WAWebBaseModel").prop()),
-          (t.memberTag = o("WAWebBaseModel").prop()),
-          (t.role = o("WAWebBaseModel").prop()),
           (t.username = o("WAWebBaseModel").prop()),
           (t.phoneNumber = o("WAWebBaseModel").prop()),
+          (t.orgIds = o("WAWebBaseModel").prop()),
+          (t.orgMetadata = o("WAWebBaseModel").prop()),
+          (t.primaryOrgId = o("WAWebBaseModel").prop()),
+          (t.primaryOrgMemberTag = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

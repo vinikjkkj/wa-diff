@@ -45,6 +45,7 @@ __d(
       PURGE_QPL_STORAGE: "purgeQplStorage",
       OPUS_MIGRATION: "opusMigration",
       REFRESH_AUDIENCE_EXPRESSIONS: "refreshAudienceExpressions",
+      SYNC_ORGS: "syncOrgs",
     });
     i.TaskType = e;
   },

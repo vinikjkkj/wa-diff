@@ -7,6 +7,7 @@ __d(
         account_sync: "account_sync",
         syncd_app_state: "syncd_app_state",
         newsletter_metadata: "newsletter_metadata",
+        orgs: "orgs",
       },
       l = {
         devices: "devices",

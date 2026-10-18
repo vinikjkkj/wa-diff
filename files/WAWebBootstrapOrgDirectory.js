@@ -1,48 +1,32 @@
 __d(
   "WAWebBootstrapOrgDirectory",
-  ["WAWebOrgDirectoryRepository", "asyncToGeneratorRuntime"],
+  [
+    "WAWebOrgCollection",
+    "WAWebOrgFetchDirectoryAction",
+    "WAWebOrgRefreshListAction",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e = null;
+    function e() {
+      return s.apply(this, arguments);
+    }
     function s() {
       return (
-        e != null ||
-          (e = c().finally(function () {
-            e = null;
-          })),
-        e
-      );
-    }
-    function u() {
-      e = null;
-    }
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          yield o("WAWebOrgDirectoryRepository").restoreCachedOrganizations();
-          var t =
-            (e = o(
-              "WAWebOrgDirectoryRepository",
-            ).getOrgDirectoryRepositorySnapshot().organizations[0]) == null
-              ? void 0
-              : e.id;
-          yield o("WAWebOrgDirectoryRepository").refreshOrganizations();
-          var n = o(
-              "WAWebOrgDirectoryRepository",
-            ).getOrgDirectoryRepositorySnapshot().orderedOrgIDs,
-            r = n == null ? t : n[0];
-          r != null &&
-            (yield o("WAWebOrgDirectoryRepository").restoreCachedOrgDirectory(
-              r,
-            ));
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield o("WAWebOrgRefreshListAction").restoreCachedOrgList(),
+            yield o("WAWebOrgRefreshListAction").refreshOrgList({
+              bypassCooldown: !1,
+            }));
+          var e = o("WAWebOrgCollection").OrgCollection.getViewerPrimaryOrgId();
+          e != null &&
+            (yield o("WAWebOrgFetchDirectoryAction").fetchOrgDirectory(e, {
+              createModels: !0,
+            }));
         })),
-        d.apply(this, arguments)
+        s.apply(this, arguments)
       );
     }
-    ((l.bootstrapOrgDirectory = s), (l.resetOrgDirectoryBootstrap = u));
+    l.bootstrapOrgs = e;
   },
   98,
 );

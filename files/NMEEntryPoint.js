@@ -239,6 +239,18 @@ __d(
         "fb_bookmark_subscription_section_meta_one_consumer",
       FB_BOOKMARK_SUBSCRIPTION_SECTION_META_ONE_PRO:
         "fb_bookmark_subscription_section_meta_one_pro",
+      FB_COMPETITIVE_INSIGHTS_CUSTOMIZE_LIST_ACCOUNTS_UPSELL:
+        "fb_competitive_insights_customize_list_accounts_upsell",
+      FB_COMPETITIVE_INSIGHTS_LUMEN_UPSELL:
+        "fb_competitive_insights_lumen_upsell",
+      FB_COMPETITIVE_INSIGHTS_PAGE_DETAILS_METRICS_UPSELL:
+        "fb_competitive_insights_page_details_metrics_upsell",
+      FB_COMPETITIVE_INSIGHTS_POST_DETAILS_METRICS_UPSELL:
+        "fb_competitive_insights_post_details_metrics_upsell",
+      FB_COMPETITIVE_INSIGHTS_PRO_DASH_PERMANENT_UPSELL:
+        "fb_competitive_insights_pro_dash_permanent_upsell",
+      FB_COMPETITIVE_INSIGHTS_PRO_DASH_TIP_T2_UPSELL:
+        "fb_competitive_insights_pro_dash_tip_t2_upsell",
       FB_CREATOR_HUB: "fb_creator_hub",
       FB_DEAD_END_TOAST: "fb_dead_end_toast",
       FB_EDIT_PROFILE: "fb_edit_profile",
@@ -265,6 +277,8 @@ __d(
       FB_IMAGINE_QUOTA_LIMIT_UPSELL: "fb_imagine_quota_limit_upsell",
       FB_IMAGINE_VIDEO_QUOTA_TOAST: "fb_imagine_video_quota_toast",
       FB_IMAGINE_VIDEO_UPSELL_MESSAGE: "fb_imagine_video_upsell_message",
+      FB_LINK_IN_MEDIA_COMMENTS_UPSELL_META_ONE:
+        "fb_link_in_media_comments_upsell_meta_one",
       FB_LINK_IN_MEDIA_UPSELL_META_ONE: "fb_link_in_media_upsell_meta_one",
       FB_LITE_BOOKMARK: "fb_lite_bookmark",
       FB_LIVE_PRODUCER_LVA_ELIGIBILITY: "fb_live_producer_lva_eligibility",
@@ -874,6 +888,7 @@ __d(
       META_ONE_BIZ_AI_BIZ_CLAW_UPSELL: "meta_one_biz_ai_biz_claw_upsell",
       META_ONE_BIZ_AI_MBS_UPSELL: "meta_one_biz_ai_mbs_upsell",
       META_ONE_BIZ_AI_MESSENGER_UPSELL: "meta_one_biz_ai_messenger_upsell",
+      META_ONE_BIZ_AI_QUOTA_EMAIL: "meta_one_biz_ai_quota_email",
       META_ONE_BIZ_AI_WA_WEB_AI_HOME_UPSELL:
         "meta_one_biz_ai_wa_web_ai_home_upsell",
       META_ONE_CONSUMER_MARKETING_SITE_V1:

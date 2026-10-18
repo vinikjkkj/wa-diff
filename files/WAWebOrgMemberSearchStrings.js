@@ -19,10 +19,8 @@ __d(
               );
             })();
     }
-    function c(e) {
-      return s._(/*BTDS*/ "Other {organization name} members", [
-        s._param("organization name", e),
-      ]);
+    function c() {
+      return s._(/*BTDS*/ "Other org members");
     }
     ((l.ORG_MEMBER_SEARCH_DEBOUNCE_MS = e),
       (l.getOrgMemberSearchErrorText = u),

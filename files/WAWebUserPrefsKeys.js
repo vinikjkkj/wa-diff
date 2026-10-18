@@ -299,6 +299,7 @@ __d(
               "WAWebCachedMetaAiNullStatePrompts",
             WINDOWS_PENDING_CLIENT_KEY_SETUP:
               "WAWebWindowsPendingClientKeySetup",
+            WA_WEB_ORG_LIST_FETCHED_TS: "WAWebOrgListFetchedTs",
           },
           o("WAWebUserPrefsLoginKeys").WAWebUserPrefsLoginKeys,
         ),

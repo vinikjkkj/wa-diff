@@ -9,7 +9,10 @@ __d(
         t === o("WAWebSchemaOrg").OrgMemberRole.Admin
       );
     }
-    l.canViewerAdministerOrg = e;
+    function s(t) {
+      return t != null && (t.isMemberDirectoryEnabled === !0 || e(t));
+    }
+    ((l.canViewerAdministerOrg = e), (l.canReadOrgDirectory = s));
   },
   98,
 );

@@ -23,6 +23,13 @@ __d(
         },
         a = {
           alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "org_member_updated_ts_usec",
+          storageKey: null,
+        },
+        i = {
+          alias: null,
           args: [{ kind: "Variable", name: "first", variableName: "first" }],
           concreteType: "XWAOrgMembersConnection",
           kind: "LinkedField",
@@ -134,7 +141,7 @@ __d(
                   kind: "LinkedField",
                   name: "org_info",
                   plural: !1,
-                  selections: [a],
+                  selections: [a, i],
                   storageKey: null,
                 },
               ],
@@ -169,6 +176,7 @@ __d(
                   plural: !1,
                   selections: [
                     a,
+                    i,
                     {
                       alias: null,
                       args: null,
@@ -185,7 +193,7 @@ __d(
           ],
         },
         params: {
-          id: "28428616673445598",
+          id: "28707165072226731",
           metadata: {},
           name: "WAWebOrgAdminGraphQLDirectoryPageQuery",
           operationKind: "query",

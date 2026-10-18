@@ -34,6 +34,7 @@ __d(
           n("directoryIsComplete"),
           n("orgUpdatedTsUsec"),
           n("memberUpdatedTsUsec"),
+          n("memberListTsUsec"),
         ])
         .view(function (e) {
           return e;

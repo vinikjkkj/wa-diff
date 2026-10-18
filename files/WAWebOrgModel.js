@@ -20,6 +20,7 @@ __d(
           (t.managedGroups = o("WAWebBaseModel").prop()),
           (t.managedChannels = o("WAWebBaseModel").prop()),
           (t.directoryIsComplete = o("WAWebBaseModel").prop()),
+          (t.isMemberDirectoryEnabled = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

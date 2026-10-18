@@ -9,9 +9,9 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
+    "WAWebOrgContactCollection",
     "WAWebOrgGatingUtils",
     "WAWebOrgMemberDisplayName",
-    "WAWebOrgMemberDisplayNameController",
     "WAWebOrgMemberLidEligibility",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
@@ -22,23 +22,24 @@ __d(
       s,
       u = !1,
       c = !1;
-    function d(e, t) {
-      var n,
-        r =
-          (n =
+    function d(e, t, n) {
+      var r;
+      n === void 0 && (n = h);
+      var o =
+          (r =
             t == null
               ? void 0
               : t.participants.map(function (e) {
                   var t = e.contact;
                   return t;
                 })) != null
-            ? n
+            ? r
             : [],
-        o = (e || "").toLowerCase(),
-        a = r.filter(function (e) {
-          return p(o, e);
+        a = (e || "").toLowerCase(),
+        i = o.filter(function (e) {
+          return p(a, e, n);
         });
-      return a;
+      return i;
     }
     function m(t, n) {
       if (n.parentGroup == null)
@@ -91,25 +92,26 @@ __d(
           });
       return d;
     }
-    function p(e, t) {
-      if (o("WAWebContactGetters").getIsMe(t)) return !1;
-      var n = [
+    function p(e, t, n) {
+      if ((n === void 0 && (n = h), o("WAWebContactGetters").getIsMe(t)))
+        return !1;
+      var a = [
           o("WAWebFrontendContactGetters").getSearchName(t) ||
             o("WAWebFrontendContactGetters").getFormattedName(t),
         ],
-        a = o("WAWebContactGetters").getNotifyName(t);
+        i = o("WAWebContactGetters").getNotifyName(t);
       !o("WAWebFrontendContactGetters").getIsMyContact(t) &&
-        !r("isStringNullOrEmpty")(a) &&
-        n.push(a.toLowerCase());
-      var i = h(t);
-      i != null && n.push(i.toLowerCase());
-      var l = o("WAWebUsernameTypes").serializeMaybeUsername(
+        !r("isStringNullOrEmpty")(i) &&
+        a.push(i.toLowerCase());
+      var l = n(t);
+      l != null && a.push(l.toLowerCase());
+      var s = o("WAWebUsernameTypes").serializeMaybeUsername(
           o("WAWebFrontendContactGetters").getUsername(t),
         ),
-        s = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
+        u = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
       return (
-        !r("isStringNullOrEmpty")(l) && s && n.push(l.toLowerCase()),
-        n.some(function (t) {
+        !r("isStringNullOrEmpty")(s) && u && a.push(s.toLowerCase()),
+        a.some(function (t) {
           return _(e, t);
         })
       );
@@ -159,20 +161,17 @@ __d(
         : o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(e.id);
       if (t == null || !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled())
         return null;
-      var n = o("WAWebOrgMemberDisplayNameController").getOrgMemberName(
-        t.user,
-        0,
-      );
-      return n == null
-        ? null
-        : o("WAWebOrgMemberDisplayName").resolveWAWebOrgMemberDisplayName({
-            isBusiness: o("WAWebContactGetters").getIsBusiness(e),
-            memberName: n,
-            pushName: o("WAWebContactGetters").getPushname(e),
-            savedName: o("WAWebContactGetters").getName(e),
-            verifiedLevel: o("WAWebContactGetters").getVerifiedLevel(e),
-            verifiedName: o("WAWebContactGetters").getVerifiedName(e),
-          });
+      var n = o("WAWebOrgContactCollection").OrgContactCollection.get(t.user);
+      if ((n == null ? void 0 : n.primaryOrgId) == null) return null;
+      var r = n.memberName;
+      return o("WAWebOrgMemberDisplayName").resolveWAWebOrgMemberDisplayName({
+        isBusiness: o("WAWebContactGetters").getIsBusiness(e),
+        memberName: r,
+        pushName: o("WAWebContactGetters").getPushname(e),
+        savedName: o("WAWebContactGetters").getName(e),
+        verifiedLevel: o("WAWebContactGetters").getVerifiedLevel(e),
+        verifiedName: o("WAWebContactGetters").getVerifiedName(e),
+      });
     }
     ((l.getUserResults = d),
       (l.getSubgroupResults = m),

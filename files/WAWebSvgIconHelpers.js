@@ -8,7 +8,7 @@ __d(
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["height", "iconXstyle", "name", "viewBox", "width"],
+    var e = ["height", "iconXstyle", "innerStyles", "name", "viewBox", "width"],
       s,
       u,
       c = u || (u = o("react"));
@@ -31,21 +31,22 @@ __d(
     function m(t, n, r, o, a) {
       var i = t.height,
         l = t.iconXstyle,
-        s = t.name,
-        u = t.viewBox,
-        c = t.width,
-        m = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        p = d(i, c, u, r, o, a),
-        _ = p.height,
-        f = p.viewBox,
-        g = p.width;
+        s = t.innerStyles,
+        u = t.name,
+        c = t.viewBox,
+        m = t.width,
+        p = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        _ = d(i, m, c, r, o, a),
+        f = _.height,
+        g = _.viewBox,
+        h = _.width;
       return {
-        height: _,
-        iconName: s != null ? s : n,
+        height: f,
+        iconName: u != null ? u : n,
         iconXstyle: l,
-        otherProps: m,
-        viewBox: f,
-        width: g,
+        otherProps: p,
+        viewBox: g,
+        width: h,
       };
     }
     function p(e, t, n, a, i, l) {
