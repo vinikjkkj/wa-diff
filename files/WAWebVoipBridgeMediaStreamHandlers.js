@@ -20,34 +20,31 @@ __d(
         voipAcquireMediaStream: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n;
-            if (
-              t.type === "camera" &&
+            return t.type === "camera" &&
               !o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
-            )
-              return (
-                o("WALogger").LOG(
+              ? (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV] local video is blocked, skipping camera acquisition",
                     ])),
                 ),
-                null
-              );
-            var a =
-              (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.id;
-            return t.type === "camera" &&
-              a != null &&
-              o("WAWebVoipJoinWithoutCamera").consumeJoinWithoutCamera(a)
-              ? (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV] the call joins with its camera off, skipping camera acquisition",
-                    ])),
-                ),
                 null)
-              : o(
-                  "WAWebVoipBridgeMediaStreamHelpers",
-                ).voipAcquireMediaStreamImpl(t);
+              : t.type === "camera" &&
+                  o("WAWebVoipJoinWithoutCamera").consumeJoinWithoutCamera(
+                    (n = r("WAWebCallCollection").activeCall) == null
+                      ? void 0
+                      : n.id,
+                  )
+                ? (o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV] the call joins with its camera off, skipping camera acquisition",
+                      ])),
+                  ),
+                  null)
+                : o(
+                    "WAWebVoipBridgeMediaStreamHelpers",
+                  ).voipAcquireMediaStreamImpl(t);
           });
           function a(e) {
             return t.apply(this, arguments);

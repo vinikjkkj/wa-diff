@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCallCollection",
     "WAWebMediaPermissionsUtils",
+    "WAWebVoipBlockedMicrophoneJoinState",
     "WAWebVoipCallStateUtils",
     "WAWebVoipMicrophoneToggleRequest",
     "WAWebVoipRecoverMicrophoneLoadable",
@@ -129,6 +130,9 @@ __d(
             })
           )
             return "cancelled";
+          o(
+            "WAWebVoipBlockedMicrophoneJoinState",
+          ).forgetBlockedMicrophoneMuteAndJoin(t.activeCall.id);
           var u = yield l.setCallMute(t.newMuteState);
           return u !== 0
             ? (o("WALogger").WARN(

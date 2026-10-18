@@ -3,6 +3,9 @@ __d(
   ["WAWebCommunityAnnouncementGroupUtils", "WAWebSchemaGroupMetadata"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return s(e);
+    }
+    function s(e) {
       var t, n, r, a;
       if (e == null) return !1;
       var i = e.getParentGroupChat();
@@ -25,7 +28,8 @@ __d(
             : !1;
       return u && !c && !d;
     }
-    l.isSubgroupInviteLinkRestrictedByParentCommunity = e;
+    ((l.isSubgroupInviteLinkRestrictedByParentCommunity = e),
+      (l.isSubgroupAddRestrictedByParentCommunity = s));
   },
   98,
 );

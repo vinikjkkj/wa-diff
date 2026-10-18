@@ -5,6 +5,7 @@ __d(
     "FBLogger",
     "JSResource",
     "VultureJSGating",
+    "VultureJSPageLifecycle",
     "VultureJSServerHits",
     "asyncToGeneratorRuntime",
     "clearTimeout",
@@ -52,6 +53,14 @@ __d(
         }
     }
     function v() {
+      if (c != null)
+        for (; f.length > 0; ) {
+          var e = f.pop();
+          e != null && h(e);
+        }
+    }
+    o("VultureJSPageLifecycle").onPageHide(v);
+    function S() {
       r("JSResource")("VultureJSSampleRatesLoader")
         .__setRef("vulture")
         .load()
@@ -79,7 +88,7 @@ __d(
         })
         .finally(C);
     }
-    function S() {
+    function R() {
       m ||
         ((m = !0),
         (e || (e = r("ExecutionEnvironment"))).canUseDOM
@@ -89,16 +98,16 @@ __d(
                   "Timed out attemping to fetch VultureJS sample rates",
                 ));
             }, g)),
-            r("setTimeout")(v, u))
-          : v());
+            r("setTimeout")(S, u))
+          : S());
     }
-    function R(e) {
+    function L(e) {
       if (o("VultureJSGating").isLoggingEnabled()) {
         if (o("VultureJSServerHits").collectServerHit(e)) return;
-        d && c != null ? h(e) : (y(e), S());
+        d && c != null ? h(e) : (y(e), R());
       }
     }
-    l.default = R;
+    l.default = L;
   },
   98,
 );

@@ -7,6 +7,7 @@ __d(
     "WAWebLoadable",
     "WAWebVoipActivityTracker",
     "WAWebVoipCallLinkLoadingPreview.react",
+    "WAWebVoipHiddenPrewarmIdleWork",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipOutgoingLoadingPreview.react",
     "asyncToGeneratorRuntime",
@@ -31,11 +32,16 @@ __d(
       );
     function c() {
       typeof window.requestIdleCallback == "function" &&
-        window.requestIdleCallback(function () {
-          r("JSResourceForInteraction")("WAWebVoipUi.react")
-            .__setRef("WAWebVoipUiLoadable")
-            .load();
-        });
+        (o("WAWebVoipHiddenPrewarmIdleWork").requestHiddenPrewarmIdleWork(
+          "ui_bundle",
+          d,
+        ) ||
+          window.requestIdleCallback(d));
+    }
+    function d() {
+      r("JSResourceForInteraction")("WAWebVoipUi.react")
+        .__setRef("WAWebVoipUiLoadable")
+        .load();
     }
     o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
       ? c()
@@ -43,7 +49,7 @@ __d(
           "voipInitSuccess",
           c,
         );
-    var d = r("WAWebLoadable")({
+    var m = r("WAWebLoadable")({
       loader: u,
       loading: function (t) {
         var e = r("WAWebCallCollection").pendingCallLink;
@@ -60,7 +66,7 @@ __d(
           : s.jsx(s.Fragment, {});
       },
     });
-    ((l.requireBundle = u), (l.WAWebVoipUiLoadable = d));
+    ((l.requireBundle = u), (l.WAWebVoipUiLoadable = m));
   },
   98,
 );

@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipQplHelpers",
-  ["$InternalEnum", "WAWebBrowserApi", "WAWebQplFlow", "qpl"],
+  [
+    "$InternalEnum",
+    "WAWebBrowserApi",
+    "WAWebPageVisibilityRecency",
+    "WAWebQplFlow",
+    "qpl",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -27,19 +33,25 @@ __d(
         VOIP_STACK_INIT_START: "voip_stack_init_start",
         VOIP_STACK_INIT_END: "voip_stack_init_end",
       }),
-      d = null,
+      d = new WeakMap(),
       m = null,
       p = null,
-      _ = null;
-    function f(e) {
+      _ = null,
+      f = null,
+      g = null,
+      h = null;
+    function y(e) {
       var t = o("WAWebQplFlow").startQplFlow(u, {
         timeoutInMs: 12e4,
         annotations: e,
       });
-      ((d = t),
-        m != null && t.addAnnotations({ int: { pthread_hardening_level: m } }),
-        p != null && t.addAnnotations(k(p)),
-        _ != null && t.addAnnotations(_));
+      ((m = t),
+        (p = null),
+        f != null && t.addAnnotations({ int: { pthread_hardening_level: f } }),
+        _ != null &&
+          t.addAnnotations({ int: { wasm_idle_warm_state_code: F(_) } }),
+        g != null && t.addAnnotations(N(g)),
+        h != null && t.addAnnotations(h));
       var n = window.performance;
       return (
         n != null &&
@@ -47,11 +59,11 @@ __d(
         t
       );
     }
-    function g(e) {
+    function C(e) {
       var t,
         n = e.bootDecision,
         r = e.isRetry;
-      (t = d) == null ||
+      (t = m) == null ||
         t.addAnnotations({
           bool: {
             init_focused: document.hasFocus(),
@@ -59,14 +71,14 @@ __d(
             is_retry: r,
           },
           int: {
-            boot_decision_code: h(n),
+            boot_decision_code: b(n),
             cpu_cores: o("WAWebBrowserApi").getNumCpu(),
             device_memory_mb: o("WAWebBrowserApi").getMemClass(),
           },
           string: { boot_decision: n != null ? n : "unknown" },
         });
     }
-    function h(e) {
+    function b(e) {
       return e === "eager"
         ? 1
         : e === "deferred"
@@ -82,12 +94,50 @@ __d(
                   );
                 })();
     }
-    function y(e) {
+    function v(e) {
+      var t = m;
+      if (t != null) {
+        p = e.atMs;
+        var n = self.performance.now();
+        t.addAnnotations({
+          int: {
+            trigger_hidden_for_ms: Math.round(e.hiddenForMs),
+            trigger_ms_since_visible: Math.round(e.msSinceVisible),
+            trigger_to_init_ms: Math.round(n - e.atMs),
+            trigger_visibility_code: L(e.visibility),
+          },
+        });
+        var r = d.get(e);
+        r != null &&
+          t.addAnnotations({ int: { early_start_ms: Math.round(n - r) } });
+      }
+    }
+    function S(e) {
+      d.set(e, self.performance.now());
+    }
+    function R() {
+      return p;
+    }
+    function L(e) {
+      return e === "hidden"
+        ? 1
+        : e === "visible_unfocused"
+          ? 2
+          : e === "visible_focused"
+            ? 3
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
+    }
+    function E(e) {
       var t,
         n = e.endedHidden,
         r = e.startedHidden,
         o = e.waitMs;
-      (t = d) == null ||
+      (t = m) == null ||
         t.addAnnotations({
           bool: {
             retry_idle_wait_ended_hidden: n,
@@ -96,45 +146,45 @@ __d(
           int: { retry_idle_wait_ms: o },
         });
     }
-    function C(e, t) {
+    function k(e, t) {
       var n;
-      (n = d) == null || n.addPoint(e, t);
+      (n = m) == null || n.addPoint(e, t);
     }
-    function b(e) {
-      var t = d;
+    function I(e) {
+      var t = m;
       return function () {
-        t != null && t === d && t.addPoint(e);
+        t != null && t === m && t.addPoint(e);
       };
     }
-    function v(e) {
+    function T(e) {
       var t;
-      (t = d) == null ||
+      (t = m) == null ||
         t.addAnnotations({ bool: { using_dedicated_worker: e } });
     }
-    function S(e) {
+    function D(e) {
       var t;
-      (t = d) == null ||
+      (t = m) == null ||
         t.addAnnotations({ bool: { pre_init_worker_bootstrap: e } });
     }
-    function R(e, t, n) {
+    function x(e, t, n) {
       var r;
-      (r = d) == null ||
+      (r = m) == null ||
         r.addAnnotations({
           int: { pthread_pool_size: e },
           bool: { is_webkit: n, is_dynamic_pool: t },
         });
     }
-    function L(e) {
+    function $(e) {
       var t;
-      ((m = e),
-        (t = d) == null ||
+      ((f = e),
+        (t = m) == null ||
           t.addAnnotations({ int: { pthread_hardening_level: e } }));
     }
-    function E(e) {
+    function P(e) {
       var t;
-      ((p = e), (t = d) == null || t.addAnnotations(k(e)));
+      ((g = e), (t = m) == null || t.addAnnotations(N(e)));
     }
-    function k(e) {
+    function N(e) {
       return {
         bool: {
           content_addressed_wasm: e.isContentAddressed,
@@ -143,7 +193,51 @@ __d(
         },
       };
     }
-    function I(e) {
+    function M(e) {
+      var t;
+      (t = m) == null ||
+        t.addAnnotations({ int: { wasm_prefetch_state_code: w(e) } });
+    }
+    function w(e) {
+      return e === "unknown"
+        ? 0
+        : e === "none"
+          ? 1
+          : e === "complete_before_trigger"
+            ? 2
+            : e === "in_flight_at_trigger"
+              ? 3
+              : e === "started_after_trigger"
+                ? 4
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
+    }
+    function A(e) {
+      _ = e;
+    }
+    function F(e) {
+      return e === "scheduled"
+        ? 1
+        : e === "skipped"
+          ? 2
+          : e === "fetching"
+            ? 3
+            : e === "complete"
+              ? 4
+              : e === "failed"
+                ? 5
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
+    }
+    function O(e) {
       var t,
         n = {
           int: {
@@ -154,101 +248,120 @@ __d(
             worker_glue_skewed_workers: e.skewedWorkers,
           },
         };
-      ((_ = n), (t = d) == null || t.addAnnotations(n));
+      ((h = n), (t = m) == null || t.addAnnotations(n));
     }
-    function T(e) {
+    function B(e) {
       var t;
-      ((t = d) == null || t.endSuccess(e), (d = null));
+      (q(), (t = m) == null || t.endSuccess(e), (m = null), (p = null));
     }
-    function D(e, t) {
+    function W(e, t) {
       var n;
-      ((n = d) == null || n.endFail(e, t), (d = null));
+      (q(), (n = m) == null || n.endFail(e, t), (m = null), (p = null));
     }
-    var x = s._(891426543, "3400"),
-      $ = 12e4,
-      P = e({
+    function q() {
+      try {
+        var e;
+        (e = m) == null ||
+          e.addAnnotations({
+            int: {
+              init_end_visibility_code: L(
+                o("WAWebPageVisibilityRecency").snapshotPageVisibility()
+                  .visibility,
+              ),
+            },
+          });
+      } catch (e) {}
+    }
+    var U = s._(891426543, "3400"),
+      V = 12e4,
+      H = e({
         CALL_ENDING_HANDLER_START: "call_ending_handler_start",
         CALL_ENDING_HANDLER_END: "call_ending_handler_end",
         CLEANUP_START: "cleanup_start",
         CLEANUP_END: "cleanup_end",
       }),
-      N = null;
-    function M() {
-      N = o("WAWebQplFlow").startQplFlow(x, { timeoutInMs: $ });
+      G = null;
+    function z() {
+      G = o("WAWebQplFlow").startQplFlow(U, { timeoutInMs: V });
     }
-    function w(e) {
+    function j(e) {
       var t;
-      (t = N) == null || t.addPoint(e);
+      (t = G) == null || t.addPoint(e);
     }
-    function A() {
+    function K() {
       var e;
-      ((e = N) == null || e.endSuccess(), (N = null));
+      ((e = G) == null || e.endSuccess(), (G = null));
     }
-    var F = s._(891426840, "3404"),
-      O = 14400 * 1e3,
-      B = e({ PIP_OPENED: "pip_opened", POPOUT_OPENED: "popout_opened" }),
-      W = null;
-    function q(e) {
-      W = o("WAWebQplFlow").startQplFlow(F, { timeoutInMs: O, annotations: e });
+    var Q = s._(891426840, "3404"),
+      X = 14400 * 1e3,
+      Y = e({ PIP_OPENED: "pip_opened", POPOUT_OPENED: "popout_opened" }),
+      J = null;
+    function Z(e) {
+      J = o("WAWebQplFlow").startQplFlow(Q, { timeoutInMs: X, annotations: e });
     }
-    function U(e) {
+    function ee(e) {
       var t;
-      (t = W) == null || t.addPoint(e);
+      (t = J) == null || t.addPoint(e);
     }
-    function V() {
+    function te() {
       var e;
-      ((e = W) == null || e.endSuccess(), (W = null));
+      ((e = J) == null || e.endSuccess(), (J = null));
     }
-    var H = s._(891424539, "3405"),
-      G = 12e4,
-      z = e({
+    var ne = s._(891424539, "3405"),
+      re = 12e4,
+      oe = e({
         POOL_GROWTH_START: "pool_growth_start",
         POOL_GROWTH_END: "pool_growth_end",
         EMERGENCY_ALLOC: "emergency_alloc",
         POOL_SHRINK: "pool_shrink",
       });
-    function j(e) {
-      return o("WAWebQplFlow").startQplFlow(H, {
-        timeoutInMs: G,
+    function ae(e) {
+      return o("WAWebQplFlow").startQplFlow(ne, {
+        timeoutInMs: re,
         annotations: e,
       });
     }
-    function K(e, t) {
+    function ie(e, t) {
       e.addPoint(t);
     }
-    function Q(e) {
+    function le(e) {
       e.endSuccess();
     }
-    function X(e, t) {
+    function se(e, t) {
       e.endFail(t);
     }
     ((l.VoipInitQplPoint = c),
-      (l.startVoipInitQpl = f),
-      (l.voipInitQplAnnotateStart = g),
-      (l.voipInitQplAnnotateRetryIdleWait = y),
-      (l.voipInitQplAddPoint = C),
-      (l.bindVoipInitQplPointToActiveFlow = b),
-      (l.voipInitQplAnnotateExecutionMode = v),
-      (l.voipInitQplAnnotateWorkerBootstrapMode = S),
-      (l.voipInitQplAnnotateThreadPool = R),
-      (l.voipInitQplAnnotatePthreadHardening = L),
-      (l.voipInitQplAnnotateWasmLoad = E),
-      (l.voipInitQplAnnotateWorkerGlueSkew = I),
-      (l.endVoipInitQplSuccess = T),
-      (l.endVoipInitQplFail = D),
-      (l.VoipEndCallQplPoint = P),
-      (l.startVoipEndCallQpl = M),
-      (l.voipEndCallQplAddPoint = w),
-      (l.endVoipEndCallQplSuccess = A),
-      (l.VoipUiLifecycleQplPoint = B),
-      (l.startVoipUiLifecycleQpl = q),
-      (l.voipUiLifecycleQplAddPoint = U),
-      (l.endVoipUiLifecycleQplSuccess = V),
-      (l.VoipWorkerSetupQplPoint = z),
-      (l.startVoipWorkerSetupQpl = j),
-      (l.voipWorkerSetupQplAddPoint = K),
-      (l.endVoipWorkerSetupQplSuccess = Q),
-      (l.endVoipWorkerSetupQplFail = X));
+      (l.startVoipInitQpl = y),
+      (l.voipInitQplAnnotateStart = C),
+      (l.voipInitQplAnnotateTrigger = v),
+      (l.voipInitQplRecordEarlyStart = S),
+      (l.getVoipInitQplTriggeredAtMs = R),
+      (l.voipInitQplAnnotateRetryIdleWait = E),
+      (l.voipInitQplAddPoint = k),
+      (l.bindVoipInitQplPointToActiveFlow = I),
+      (l.voipInitQplAnnotateExecutionMode = T),
+      (l.voipInitQplAnnotateWorkerBootstrapMode = D),
+      (l.voipInitQplAnnotateThreadPool = x),
+      (l.voipInitQplAnnotatePthreadHardening = $),
+      (l.voipInitQplAnnotateWasmLoad = P),
+      (l.voipInitQplAnnotateWasmPrefetch = M),
+      (l.voipInitQplRecordWasmIdleWarmState = A),
+      (l.voipInitQplAnnotateWorkerGlueSkew = O),
+      (l.endVoipInitQplSuccess = B),
+      (l.endVoipInitQplFail = W),
+      (l.VoipEndCallQplPoint = H),
+      (l.startVoipEndCallQpl = z),
+      (l.voipEndCallQplAddPoint = j),
+      (l.endVoipEndCallQplSuccess = K),
+      (l.VoipUiLifecycleQplPoint = Y),
+      (l.startVoipUiLifecycleQpl = Z),
+      (l.voipUiLifecycleQplAddPoint = ee),
+      (l.endVoipUiLifecycleQplSuccess = te),
+      (l.VoipWorkerSetupQplPoint = oe),
+      (l.startVoipWorkerSetupQpl = ae),
+      (l.voipWorkerSetupQplAddPoint = ie),
+      (l.endVoipWorkerSetupQplSuccess = le),
+      (l.endVoipWorkerSetupQplFail = se));
   },
   98,
 );

@@ -111,7 +111,10 @@ __d(
             s = yield o("WAWebX509Utils").validateCertificates([a, i], [l]);
           if (!s.result)
             throw r("err")(
-              "[WAFFLE] Certificate chain signature validation failed",
+              "[WAFFLE] Certificate chain validation failed (" +
+                s.resultCode +
+                "): " +
+                s.resultMessage,
             );
           return i;
         })),

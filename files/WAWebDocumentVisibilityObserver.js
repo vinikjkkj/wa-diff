@@ -8,7 +8,8 @@ __d(
           ((this.$1 = !document.hidden),
             (this.$2 = !document.hidden),
             (this.$3 = document.hidden ? null : 0),
-            (this.$4 = []));
+            (this.$4 = null),
+            (this.$5 = []));
         }
         var n = t.prototype;
         return (
@@ -18,14 +19,17 @@ __d(
           (n.isWindowInFocus = function () {
             return this.$2;
           }),
+          (n.getReturnedFromHiddenTime = function () {
+            return this.$4;
+          }),
           (n.getDocumentVisibilityDuration = function (t) {
             var e = t.end,
               n = t.start,
               r = 0,
               o = window.performance.now();
             this.$3 != null &&
-              (this.$4.push({ start: this.$3, end: o }), (this.$3 = o));
-            for (var a of this.$4)
+              (this.$5.push({ start: this.$3, end: o }), (this.$3 = o));
+            for (var a of this.$5)
               if (!(a.end < n || a.start > e)) {
                 if (a.start <= n && a.end <= e) {
                   r += a.end - n;
@@ -52,11 +56,11 @@ __d(
                 o !== t.$1 &&
                   ((t.$1 = o),
                   o
-                    ? (t.$3 = r.timeStamp)
+                    ? ((t.$3 = r.timeStamp), (t.$4 = r.timeStamp))
                     : t.$3 != null &&
-                      (t.$4.push({ start: t.$3, end: r.timeStamp }),
+                      (t.$5.push({ start: t.$3, end: r.timeStamp }),
                       (t.$3 = null)),
-                  (t.$4 = t.$4.filter(function (t) {
+                  (t.$5 = t.$5.filter(function (t) {
                     return t.end >= r.timeStamp - e;
                   })));
               },

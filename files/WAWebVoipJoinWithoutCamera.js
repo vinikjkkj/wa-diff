@@ -3,23 +3,42 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = null;
-    function l(t) {
-      e = t;
-    }
+    var e = null,
+      l = null;
     function s(t) {
-      return t !== e ? !1 : ((e = null), !0);
+      e = { callId: t, isStart: !1 };
     }
-    function u(t) {
-      e === t && (e = null);
+    function u(t, n) {
+      var r;
+      ((l = n ? t : null),
+        n
+          ? (e = { callId: t, isStart: !0 })
+          : ((r = e) == null ? void 0 : r.isStart) === !0 && (e = null));
     }
-    function c() {
-      e = null;
+    function c(t) {
+      var n = e;
+      return n == null || (t != null ? t !== n.callId : !n.isStart)
+        ? !1
+        : ((e = null), !0);
     }
-    ((i.markJoinWithoutCamera = l),
-      (i.consumeJoinWithoutCamera = s),
-      (i.clearJoinWithoutCamera = u),
-      (i.resetJoinWithoutCameraForTesting = c));
+    function d(e) {
+      return e != null && e === l;
+    }
+    function m(t) {
+      (e != null && (e.callId === t || e.isStart) && (e = null), p(t));
+    }
+    function p(e) {
+      l === e && (l = null);
+    }
+    function _() {
+      ((e = null), (l = null));
+    }
+    ((i.markJoinWithoutCamera = s),
+      (i.setStartWithoutCamera = u),
+      (i.consumeJoinWithoutCamera = c),
+      (i.isCallStartedWithoutCamera = d),
+      (i.clearJoinWithoutCamera = m),
+      (i.resetJoinWithoutCameraForTesting = _));
   },
   66,
 );

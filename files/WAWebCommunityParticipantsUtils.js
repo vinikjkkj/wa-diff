@@ -98,34 +98,8 @@ __d(
       var g = [];
       return (l && g.push(l), s && g.push(s), (g = g.concat(u, d, f)), g);
     }
-    function u(e, t) {
-      if (e == null) return { membersInCAG: [], membersNotInCAG: t };
-      var n = [];
-      t == null ||
-        t.forEach(function (t) {
-          var r = t.id;
-          if (r.isUser()) {
-            var o = e.isParticipantWidOrAlternateWidValid(r, function (e) {
-              return e != null;
-            });
-            o || n.push(t);
-          }
-        });
-      var r,
-        a = (e != null ? e : [])
-          .map(function (e) {
-            return e.contact;
-          })
-          .filter(function (e) {
-            var t = o("WAWebUserPrefsMeUser").isMeAccount(e.id);
-            return (t && (r = e), !t);
-          }),
-        i = r ? [r].concat(a) : a;
-      return { membersInCAG: i, membersNotInCAG: n };
-    }
     ((l.getMembersMyselfSharesSubgroupsWith = e),
-      (l.mergeAndSortCommunityParticipants = s),
-      (l.splitCommunityParticipants = u));
+      (l.mergeAndSortCommunityParticipants = s));
   },
   98,
 );

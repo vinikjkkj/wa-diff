@@ -11,6 +11,7 @@ __d(
     "WAWebGroupApiConst",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
+    "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
     "WAWebGroupsQueryApi",
@@ -326,89 +327,90 @@ __d(
         s,
         u,
         c,
-        d = t.child("group"),
-        m = t.hasAttr("type") && t.attrString("type") === "new",
-        p = b(
+        d,
+        m = t.child("group"),
+        p = t.hasAttr("type") && t.attrString("type") === "new",
+        _ = b(
           e,
-          d,
+          m,
           o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.CREATE,
         ),
-        _ = y(d),
-        f = C(d, m),
-        g = o("WAWebGroupsQueryApi").extractLinkedParent(d),
-        h = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-        v = {
-          subject: d.attrString("subject"),
-          restrict: d.hasChild("locked"),
-          announce: d.hasChild("announcement"),
-          noFrequentlyForwarded: d.hasChild("no_frequently_forwarded"),
-          ephemeralDuration: f ? f.ephemeralDuration : void 0,
+        f = y(m),
+        g = C(m, p),
+        h = o("WAWebGroupsQueryApi").extractLinkedParent(m),
+        v = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
+        S = {
+          subject: m.attrString("subject"),
+          restrict: m.hasChild("locked"),
+          announce: m.hasChild("announcement"),
+          noFrequentlyForwarded: m.hasChild("no_frequently_forwarded"),
+          ephemeralDuration: g ? g.ephemeralDuration : void 0,
           disappearingModeTrigger:
-            f && f.disappearingModeTrigger != null
-              ? f.disappearingModeTrigger
+            g && g.disappearingModeTrigger != null
+              ? g.disappearingModeTrigger
               : void 0,
-          disappearingModeInitiatedByMe: f
-            ? f.disappearingModeInitiatedByMe
+          disappearingModeInitiatedByMe: g
+            ? g.disappearingModeInitiatedByMe
             : void 0,
-          owner: d.hasAttr("creator")
-            ? o("WAWebJidToWid").userJidToUserWid(d.attrUserJid("creator"))
+          owner: m.hasAttr("creator")
+            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("creator"))
             : void 0,
-          creatorPn: d.hasAttr("creator_pn")
-            ? o("WAWebJidToWid").userJidToUserWid(d.attrUserJid("creator_pn"))
+          creatorPn: m.hasAttr("creator_pn")
+            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("creator_pn"))
             : null,
           creatorCountryCode:
-            h && d.hasAttr("creator_country_code")
+            v && m.hasAttr("creator_country_code")
               ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                  d.attrString("creator_country_code"),
+                  m.attrString("creator_country_code"),
                 )
               : null,
           creatorUsername:
-            h && d.hasAttr("creator_username")
-              ? d.attrString("creator_username")
+            v && m.hasAttr("creator_username")
+              ? m.attrString("creator_username")
               : null,
-          creation: d.attrTime("creation"),
-          participants: p,
-          desc: _ ? _.content : void 0,
-          descId: _ ? _.id : void 0,
-          subjectOwner: d.hasAttr("s_o")
-            ? o("WAWebJidToWid").userJidToUserWid(d.attrUserJid("s_o"))
+          creation: m.attrTime("creation"),
+          participants: _,
+          desc: f ? f.content : void 0,
+          descId: f ? f.id : void 0,
+          subjectOwner: m.hasAttr("s_o")
+            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("s_o"))
             : void 0,
-          subjectOwnerPn: d.hasAttr("s_o_pn")
-            ? o("WAWebJidToWid").userJidToUserWid(d.attrUserJid("s_o_pn"))
+          subjectOwnerPn: m.hasAttr("s_o_pn")
+            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("s_o_pn"))
             : void 0,
-          subjectOwnerUsername: h ? d.maybeAttrString("s_o_username") : void 0,
-          subjectTime: (r = d.maybeAttrTime("s_t")) != null ? r : void 0,
-          support: d.hasChild("support"),
-          isParentGroup: d.hasChild("parent"),
+          subjectOwnerUsername: v ? m.maybeAttrString("s_o_username") : void 0,
+          subjectTime: (r = m.maybeAttrTime("s_t")) != null ? r : void 0,
+          support: m.hasChild("support"),
+          isParentGroup: m.hasChild("parent"),
           isParentGroupClosed:
-            ((a = d.maybeChild("parent")) == null
+            ((a = m.maybeChild("parent")) == null
               ? void 0
               : a.maybeAttrString("default_membership_approval_mode")) ===
             "request_required",
-          parentGroup: g ? g.parentGroup : void 0,
-          defaultSubgroup: d.hasChild("default_sub_group"),
-          generalSubgroup: d.hasChild("general_chat"),
-          size: (i = d.maybeAttrInt("size")) != null ? i : void 0,
+          parentGroup: h ? h.parentGroup : void 0,
+          defaultSubgroup: m.hasChild("default_sub_group"),
+          generalSubgroup: m.hasChild("general_chat"),
+          size: (i = m.maybeAttrInt("size")) != null ? i : void 0,
           membershipApprovalMode:
-            (d == null ||
-            (l = d.maybeChild("membership_approval_mode")) == null ||
+            (m == null ||
+            (l = m.maybeChild("membership_approval_mode")) == null ||
             (l = l.maybeChild("group_join")) == null
               ? void 0
               : l.maybeAttrString("state")) === "on",
           allowNonAdminSubGroupCreation:
-            d == null
+            m == null
               ? void 0
-              : d.hasChild("allow_non_admin_sub_group_creation"),
+              : m.hasChild("allow_non_admin_sub_group_creation"),
           generalChatAutoAddDisabled:
             (s = t.hasChild("auto_add_disabled")) != null ? s : void 0,
-          hiddenSubgroup: d == null ? void 0 : d.hasChild("hidden_group"),
+          hiddenSubgroup: m == null ? void 0 : m.hasChild("hidden_group"),
           groupSafetyCheck:
-            d == null ? void 0 : d.hasChild("group_safety_check"),
+            m == null ? void 0 : m.hasChild("group_safety_check"),
           groupAdder: n || void 0,
-          hasCapi: d == null ? void 0 : d.hasChild("capi"),
+          hasCapi: m == null ? void 0 : m.hasChild("capi"),
           limitSharingEnabled: o("WAWebLimitSharingGatingUtils").isOpusEnabled()
             ? !1
-            : d.hasChild("limit_sharing_enabled"),
+            : m.hasChild("limit_sharing_enabled"),
           memberLinkMode: (function (e) {
             if (
               e === o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
@@ -418,14 +420,21 @@ __d(
             if (e === o("WAWebGroupMemberLinkMode").MemberLinkMode.ADMIN_LINK)
               return o("WAWebGroupMemberLinkMode").MemberLinkMode.ADMIN_LINK;
           })(
-            (u = d.maybeChild("member_link_mode")) == null
+            (u = m.maybeChild("member_link_mode")) == null
               ? void 0
               : u.contentString(),
           ),
           memberAddMode: o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
-            (c = d.maybeChild("member_add_mode")) == null
+            (c = m.maybeChild("member_add_mode")) == null
               ? void 0
               : c.contentString(),
+          ),
+          memberShareGroupHistoryMode: o(
+            "WAWebGroupHistoryShareMode",
+          ).MemberShareGroupHistoryMode.cast(
+            (d = m.maybeChild("member_share_group_history_mode")) == null
+              ? void 0
+              : d.contentString(),
           ),
         };
       return {
@@ -439,8 +448,8 @@ __d(
               t.attrGroupJid("context_group_jid"),
             )
           : null,
-        groupInfo: v,
-        isNewGroup: m,
+        groupInfo: S,
+        isNewGroup: p,
       };
     }
     var $ = new (r("WADeprecatedWapParser"))(

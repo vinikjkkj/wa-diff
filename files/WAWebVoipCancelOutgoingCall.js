@@ -20,7 +20,8 @@ __d(
         ),
         r("WAWebCallCollection").setPendingOutgoingCall(null),
         r("WAWebPipController").closePiP(),
-        o("WAWebVoipActivityTracker").clearAllActivityTracking(),
+        r("WAWebCallCollection").activeCall == null &&
+          o("WAWebVoipActivityTracker").clearAllActivityTracking(),
         t.abortController.abort());
     }
     l.cancelPendingOutgoingCall = s;

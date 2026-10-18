@@ -70,6 +70,9 @@ __d(
         markVoipWasmArtifactUnavailable: function () {
           o("WAWebVoipInitReloadRecovery").markVoipWasmArtifactUnavailable();
         },
+        markVoipChunkUnavailable: function () {
+          o("WAWebVoipInitReloadRecovery").markVoipChunkUnavailable();
+        },
         setRelayAllCallsToUserPrefs: function (t) {
           var e = t.disallowAllP2p;
           return o("WAWebVoipRelayAllCallsAction").setRelayAllCallsToUserPrefs(

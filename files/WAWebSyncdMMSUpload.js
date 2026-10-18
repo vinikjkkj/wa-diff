@@ -98,7 +98,6 @@ __d(
       return e.byteLength > t;
     }
     ((l.uploadPatch = d),
-      (l.buildExternalBlobReference = p),
       (l.exceedInlineMutationCount = g),
       (l.exceedPatchProtobufSize = h));
   },

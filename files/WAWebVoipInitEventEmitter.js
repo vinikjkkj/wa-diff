@@ -15,7 +15,9 @@ __d(
             (t.$VoipInitEventEmitterImpl$p_4 = !1),
             (t.$VoipInitEventEmitterImpl$p_5 = !1),
             (t.$VoipInitEventEmitterImpl$p_6 = null),
-            (t.$VoipInitEventEmitterImpl$p_7 = null),
+            (t.$VoipInitEventEmitterImpl$p_7 = !1),
+            (t.$VoipInitEventEmitterImpl$p_8 = null),
+            (t.$VoipInitEventEmitterImpl$p_9 = null),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -43,7 +45,16 @@ __d(
             ((this.$VoipInitEventEmitterImpl$p_3 = !1),
               (this.$VoipInitEventEmitterImpl$p_4 = !1));
           }),
+          (n.getVoipInitTrigger = function () {
+            return this.$VoipInitEventEmitterImpl$p_6;
+          }),
+          (n.markVoipInitTrigger = function (t) {
+            this.$VoipInitEventEmitterImpl$p_6 = t;
+          }),
           (n.getVoipInitFailureClass = function () {
+            return this.$VoipInitEventEmitterImpl$p_9;
+          }),
+          (n.getWasVoipInitedByHiddenPrewarm = function () {
             return this.$VoipInitEventEmitterImpl$p_7;
           }),
           (n.getIsVoipStackUnresponsive = function () {
@@ -56,25 +67,34 @@ __d(
             this.$VoipInitEventEmitterImpl$p_5 = !1;
           }),
           (n.getVoipWebStackCreatedAtMs = function () {
-            return this.$VoipInitEventEmitterImpl$p_6;
+            return this.$VoipInitEventEmitterImpl$p_8;
           }),
           (n.markVoipWebStackCreated = function (t) {
             var e;
-            (e = this.$VoipInitEventEmitterImpl$p_6) != null ||
-              (this.$VoipInitEventEmitterImpl$p_6 = t);
+            (e = this.$VoipInitEventEmitterImpl$p_8) != null ||
+              (this.$VoipInitEventEmitterImpl$p_8 = t);
           }),
-          (n.triggerVoipInitSuccess = function () {
-            ((this.$VoipInitEventEmitterImpl$p_1 = !0),
+          (n.triggerVoipInitSuccess = function (t) {
+            (t === void 0 && (t = !1),
+              (this.$VoipInitEventEmitterImpl$p_1 = !0),
               (this.$VoipInitEventEmitterImpl$p_2 = !1),
-              (this.$VoipInitEventEmitterImpl$p_7 = null),
+              (this.$VoipInitEventEmitterImpl$p_9 = null),
+              (this.$VoipInitEventEmitterImpl$p_7 = t),
               this.trigger("voipInitSuccess"));
           }),
           (n.triggerVoipInitFailure = function (t) {
             (t === void 0 && (t = null),
               (this.$VoipInitEventEmitterImpl$p_1 = !1),
               (this.$VoipInitEventEmitterImpl$p_2 = !0),
-              (this.$VoipInitEventEmitterImpl$p_7 = t),
+              (this.$VoipInitEventEmitterImpl$p_9 = t),
+              (this.$VoipInitEventEmitterImpl$p_7 = !1),
               this.trigger("voipInitFailure"));
+          }),
+          (n.markVoipInitUntried = function () {
+            ((this.$VoipInitEventEmitterImpl$p_1 = !1),
+              (this.$VoipInitEventEmitterImpl$p_2 = !1),
+              (this.$VoipInitEventEmitterImpl$p_9 = null),
+              (this.$VoipInitEventEmitterImpl$p_7 = !1));
           }),
           t
         );

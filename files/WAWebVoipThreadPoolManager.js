@@ -7,6 +7,7 @@ __d(
     "WAPromiseTimeout",
     "WAWebCoreActionsODS",
     "WAWebPonyfillsIdleCallback",
+    "WAWebVoipHiddenPrewarmIdleWork",
     "WAWebVoipPthreadGlueFailureTracker",
     "WAWebVoipPthreadHardening",
     "WAWebVoipPthreadWorkerFields",
@@ -156,12 +157,7 @@ __d(
                     ? window.setTimeout(function () {
                         return e.ensurePoolCapacity();
                       }, 0)
-                    : p <= V &&
-                      o("WAWebPonyfillsIdleCallback").requestIdleCallback(
-                        function () {
-                          return t.ensurePoolCapacity();
-                        },
-                      ),
+                    : p <= V && e.$16(),
                   m
                 );
               }),
@@ -214,9 +210,19 @@ __d(
                   e,
                   r,
                 ),
-                  this.$16(r));
+                  this.$17(r));
               }
             }
+          }),
+          (a.$16 = function () {
+            var e = this,
+              t = function () {
+                return e.ensurePoolCapacity();
+              };
+            o("WAWebVoipHiddenPrewarmIdleWork").requestHiddenPrewarmIdleWork(
+              "pool_growth",
+              t,
+            ) || o("WAWebPonyfillsIdleCallback").requestIdleCallback(t);
           }),
           (a.warmPool = function (t) {
             if (this.$2) {
@@ -236,7 +242,7 @@ __d(
                   n,
                   r,
                 ),
-                this.$16(r));
+                this.$17(r));
             }
           }),
           (a.logPoolStats = function () {
@@ -258,7 +264,7 @@ __d(
           (a.onCallStateChanged = function (t) {
             var e = this;
             this.$2 &&
-              (this.$17(),
+              (this.$18(),
               t === o("WAWebVoipWaCallEnums").CallState.None &&
                 (o("WALogger").LOG(
                   _ ||
@@ -269,10 +275,10 @@ __d(
                   z,
                 ),
                 (this.$6 = window.setTimeout(function () {
-                  (e.$18(), (e.$6 = null));
+                  (e.$19(), (e.$6 = null));
                 }, z))));
           }),
-          (a.$17 = function () {
+          (a.$18 = function () {
             this.$6 != null &&
               (window.clearTimeout(this.$6),
               (this.$6 = null),
@@ -283,7 +289,7 @@ __d(
                   ])),
               ));
           }),
-          (a.$18 = function () {
+          (a.$19 = function () {
             var e = this.$5,
               t = this.$1.PThread.unusedWorkers,
               n = this.getRunningWorkerCount(),
@@ -351,7 +357,7 @@ __d(
             ),
               o("WAWebVoipQplHelpers").endVoipWorkerSetupQplSuccess(l));
           }),
-          (a.$16 = function (t) {
+          (a.$17 = function (t) {
             var e = this;
             if (!(t <= 0)) {
               if (this.$3) {
@@ -469,7 +475,7 @@ __d(
                 h = [],
                 y = d.map(function (t, n) {
                   var r = Date.now(),
-                    o = a ? e.$19(i, t) : e.$13(i, t);
+                    o = a ? e.$20(i, t) : e.$13(i, t);
                   return o.then(function () {
                     var e = Date.now() - r;
                     h.length < 3 &&
@@ -576,7 +582,7 @@ __d(
                 });
             }
           }),
-          (a.$19 = function (t, n) {
+          (a.$20 = function (t, n) {
             var e = this,
               r = this.$13(t, n),
               a = o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(n);
@@ -595,10 +601,10 @@ __d(
                 { workerID: a },
               )
               .catch(function (r) {
-                throw (e.$20(t, n, r), e.$21(t, n), r);
+                throw (e.$21(t, n, r), e.$22(t, n), r);
               });
           }),
-          (a.$20 = function (t, n, r) {
+          (a.$21 = function (t, n, r) {
             var e = r instanceof o("WACustomError").TimeoutError;
             e &&
               o(
@@ -607,7 +613,7 @@ __d(
             var a = String(
               o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(n),
             );
-            if (!this.$22(t, n)) {
+            if (!this.$23(t, n)) {
               o("WALogger").LOG(
                 x ||
                   (x = babelHelpers.taggedTemplateLiteralLoose([
@@ -622,7 +628,7 @@ __d(
             }
             if (
               r instanceof o("WACustomError").TimeoutError &&
-              (this.$23(n, r), !this.$22(t, n))
+              (this.$24(n, r), !this.$23(t, n))
             ) {
               o("WALogger").LOG(
                 $ ||
@@ -634,7 +640,7 @@ __d(
               );
               return;
             }
-            (this.$24(t, n),
+            (this.$25(t, n),
               o("WALogger").LOG(
                 P ||
                   (P = babelHelpers.taggedTemplateLiteralLoose([
@@ -648,14 +654,14 @@ __d(
                 String(r),
               ));
           }),
-          (a.$22 = function (t, n) {
+          (a.$23 = function (t, n) {
             return (
               t.unusedWorkers.includes(n) &&
               !o("WAWebVoipPthreadWorkerFields").isPthreadWorkerLoaded(n) &&
               !o("WAWebVoipPthreadWorkerFields").isPthreadWorkerBound(n)
             );
           }),
-          (a.$21 = function (t, n) {
+          (a.$22 = function (t, n) {
             !t.unusedWorkers.includes(n) &&
               !o("WAWebVoipPthreadWorkerFields").isPthreadWorkerLoaded(n) &&
               !o("WAWebVoipPthreadWorkerFields").isPthreadWorkerBound(n) &&
@@ -670,9 +676,9 @@ __d(
           (a.$15 = function (t) {
             !o("WAWebVoipPthreadHardening").isVoipPoolHardeningEnabled() ||
               U(t.unusedWorkers) ||
-              this.$25(t);
+              this.$26(t);
           }),
-          (a.$25 = function (t) {
+          (a.$26 = function (t) {
             var e = t.unusedWorkers.at(-1);
             if (
               !(
@@ -701,10 +707,10 @@ __d(
                 );
                 return;
               }
-              this.$26(t);
+              this.$27(t);
             }
           }),
-          (a.$26 = function (t) {
+          (a.$27 = function (t) {
             try {
               (t.allocateUnusedWorker(), this.$9++);
               var e = t.unusedWorkers[t.unusedWorkers.length - 1];
@@ -769,7 +775,7 @@ __d(
                   ));
               }, j);
           }),
-          (a.$23 = function (t, n) {
+          (a.$24 = function (t, n) {
             if (Reflect.get(this.$1, "pinWorkerGlue") === !0)
               try {
                 o(
@@ -811,7 +817,7 @@ __d(
               },
             });
           }),
-          (a.$24 = function (t, n) {
+          (a.$25 = function (t, n) {
             var e = t.unusedWorkers.indexOf(n);
             e >= 0 && t.unusedWorkers.splice(e, 1);
             try {

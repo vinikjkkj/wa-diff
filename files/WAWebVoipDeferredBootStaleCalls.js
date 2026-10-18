@@ -24,11 +24,13 @@ __d(
       s,
       u,
       c,
-      d = 100,
-      m = 1e3,
+      d,
+      m = 100,
       p = 1e3,
-      _ = 0,
-      f = new Set([
+      _ = 1e3,
+      f = 0,
+      g = 9e4,
+      h = new Set([
         "accept",
         "connect_stat",
         "flowcontrol",
@@ -45,30 +47,30 @@ __d(
         "transport",
         "video",
       ]),
-      g = new Set(["accepted_elsewhere", "screened_elsewhere"]),
-      h = new Set(),
-      y = new Set(),
-      C = new Map(),
-      b = new Set();
-    function v(e, t, n) {
-      var r = L(e, t);
-      return (r === "follow_up" && D(e, t, n), r);
+      y = new Set(["accepted_elsewhere", "screened_elsewhere"]),
+      C = new Set(),
+      b = new Set(),
+      v = new Map(),
+      S = new Set();
+    function R(e, t, n) {
+      var r = k(e, t);
+      return (r === "follow_up" && N(e, t, n), r);
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       try {
         e: {
           if (e === "offer") {
-            P(t.call_id, n) ||
-              (N(t),
+            A(t.call_id, n) ||
+              (F(t),
               o(
                 "WAWebVoipStaleOfferMissedCallFieldstats",
               ).logStaleOfferMissedCallFieldstats(t, n, function () {
-                return C.get(t.call_id);
+                return v.get(t.call_id);
               }));
             break e;
           }
           if (e === "follow_up") {
-            M(t);
+            O(t);
             break e;
           }
           throw Error(
@@ -77,17 +79,17 @@ __d(
           );
         }
       } catch (e) {
-        A(e);
+        W(e);
       }
     }
-    function R() {
-      (h.clear(), y.clear(), C.clear(), b.clear());
+    function E() {
+      (C.clear(), b.clear(), v.clear(), S.clear());
     }
-    function L(t, n) {
+    function k(t, n) {
       try {
         var a =
-          t.type === o("WAWebVoipSignalingEnums").TYPE.OFFER ? E(t) : T(t, n);
-        return (a != null && O(a, t), a);
+          t.type === o("WAWebVoipSignalingEnums").TYPE.OFFER ? I(t) : P(t, n);
+        return (a != null && U(a, t), a);
       } catch (t) {
         return (
           o("WALogger")
@@ -102,46 +104,60 @@ __d(
         );
       }
     }
-    function E(e) {
+    function I(e) {
       var t = e.call_id;
-      return y.has(t) || !k(e)
-        ? (h.delete(t), x(y, t, d), null)
-        : (x(h, t, d), "offer");
+      return b.has(t) || !T(e)
+        ? (C.delete(t), M(b, t, m), null)
+        : (M(C, t, m), "offer");
     }
-    function k(e) {
+    function T(e) {
       return o(
         "WAWebVoipInitEventEmitter",
-      ).VoipInitEventEmitter.getIsVoipInited() ||
-        !o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled()
-        ? !1
-        : o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, I) ===
-            "stale";
+      ).VoipInitEventEmitter.getIsVoipInited()
+        ? D() &&
+            o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, $) ===
+              "stale"
+        : o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled() &&
+            o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, x) ===
+              "stale";
     }
-    function I() {
+    function D() {
+      return (
+        o(
+          "WAWebVoipInitEventEmitter",
+        ).VoipInitEventEmitter.getWasVoipInitedByHiddenPrewarm() &&
+        o("WAWebVoipBootInitDecision").isDeferredVoipBootHiddenPrewarmEnabled()
+      );
+    }
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_voip_incoming_offer_init_freshness_ms",
       );
     }
-    function T(e, t) {
-      return h.has(e.call_id) &&
-        f.has(t) &&
+    function $() {
+      var e = x();
+      return e > 0 ? Math.max(e, g) : e;
+    }
+    function P(e, t) {
+      return C.has(e.call_id) &&
+        h.has(t) &&
         e.peer_jid.isUser() &&
         !o("WAWebVoipGatingUtils").isGroupCallMessage(e)
         ? "follow_up"
         : null;
     }
-    function D(e, t, n) {
+    function N(e, t, n) {
       try {
         var a,
           i = e.call_id,
-          l = (a = C.get(i)) != null ? a : {},
+          l = (a = v.get(i)) != null ? a : {},
           u = o("WAWebVoipStaleOfferMissedCallFieldstats").applyFollowUpStanza(
             l,
             t,
             e,
             n,
           );
-        u !== l && (C.set(i, u), $(C, m));
+        u !== l && (v.set(i, u), w(v, p));
       } catch (e) {
         o("WALogger")
           .WARN(
@@ -153,16 +169,16 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function x(e, t, n) {
-      (e.delete(t), e.add(t), $(e, n));
+    function M(e, t, n) {
+      (e.delete(t), e.add(t), w(e, n));
     }
-    function $(e, t) {
+    function w(e, t) {
       if (e.size > t) {
         var n = e.keys().next().value;
         n != null && e.delete(n);
       }
     }
-    function P(e, t) {
+    function A(e, t) {
       var n = t.maybeChild("enc");
       if (n == null || !n.hasContent()) return !1;
       var a = n.contentBytes();
@@ -173,24 +189,24 @@ __d(
           a.length +
           ":" +
           r("WACyrb53Hash")(o("WABase64").encodeB64(a)),
-        l = b.has(i);
-      return (x(b, i, p), l);
+        l = S.has(i);
+      return (M(S, i, _), l);
     }
-    function N(e) {
+    function F(e) {
       o("WAWebCoreActionsODS").logCallIncomingMissed();
       var t = Date.now();
-      w(function () {
+      B(function () {
         o("WAWebBackendApi").frontendFireAndForget(
           "generateCallLogFromEventCallMissed",
-          { callMissedData: F(e, Date.now() - t) },
+          { callMissedData: q(e, Date.now() - t) },
         );
       });
     }
-    function M(e) {
+    function O(e) {
       var t;
       e.type !== o("WAWebVoipSignalingEnums").TYPE.TERMINATE ||
-        !g.has((t = e.terminate_reason) != null ? t : "") ||
-        w(function () {
+        !y.has((t = e.terminate_reason) != null ? t : "") ||
+        B(function () {
           o("WAWebBackendApi").frontendFireAndForget(
             "generateCallLogFromEventUpdate1to1",
             {
@@ -204,13 +220,13 @@ __d(
           );
         });
     }
-    function w(e) {
+    function B(e) {
       o("WAWebDbEncryptionKey")
         .DbEncKeyStore.waitForFinalDbMsgEncKey()
         .then(e)
-        .catch(A);
+        .catch(W);
     }
-    function A(e) {
+    function W(e) {
       o("WALogger")
         .ERROR(
           u ||
@@ -225,7 +241,7 @@ __d(
           sampling: 0.01,
         });
     }
-    function F(e, t) {
+    function q(e, t) {
       return {
         CallId: e.call_id,
         PeerUserJid: o("WAWebWidFactory").asUserWidOrThrow(e.peer_jid),
@@ -234,15 +250,38 @@ __d(
         GroupInfo: null,
         CallParticipantInfos: [],
         TimeElapsedSinceCallOffer: e.e + t,
-        SilenceReason: _,
+        SilenceReason: f,
         CallTermReason: o(
           "WAWebVoipStaleOfferMissedCallFieldstats",
-        ).getStaleOfferCallTermReason(e, C.get(e.call_id)),
+        ).getStaleOfferCallTermReason(e, v.get(e.call_id)),
       };
     }
-    function O(e, t) {
+    function U(e, t) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
+          var n = String(t.is_call_ended === !0);
+          if (
+            o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getIsVoipInited()
+          ) {
+            (V(e),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [deferred-boot] stale call stanza with init stanza=",
+                    " type=",
+                    " call_ended=",
+                    " queued_ms=",
+                    "",
+                  ])),
+                e,
+                t.type,
+                n,
+                t.e,
+              ));
+            return;
+          }
           e: {
             if (e === "offer") {
               o("WAWebCoreActionsODS").logCallIncomingDeferredBootStaleOffer();
@@ -260,8 +299,8 @@ __d(
             );
           }
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [deferred-boot] stale call stanza without init stanza=",
                 " type=",
                 " call_ended=",
@@ -270,15 +309,33 @@ __d(
               ])),
             e,
             t.type,
-            String(t.is_call_ended === !0),
+            n,
             t.e,
           );
         },
       );
     }
-    ((l.claimStaleCallStanza = v),
-      (l.writeStaleCallLog = S),
-      (l.resetStaleCallsForTesting = R));
+    function V(e) {
+      e: {
+        if (e === "offer") {
+          o(
+            "WAWebCoreActionsODS",
+          ).logCallIncomingDeferredBootStaleOfferAfterHiddenPrewarm();
+          break e;
+        }
+        if (e === "follow_up") {
+          o("WAWebCoreActionsODS").logCallIncomingDeferredBootStaleFollowUp();
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    ((l.claimStaleCallStanza = R),
+      (l.writeStaleCallLog = L),
+      (l.resetStaleCallsForTesting = E));
   },
   98,
 );

@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebAuraGating",
     "WAWebBizAiAgentGating",
@@ -35,6 +34,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGroupHistoryUtils",
+    "WAWebHatchFrontendGating",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebIsAiRichResponseForwardable",
@@ -983,9 +983,7 @@ __d(
               o("WAWebBotUtils").isHatchBot(
                 o("WAWebFrontendMsgGetters").getCurrentChat(t).id,
               ) &&
-              o("WAWebABProps").getABPropConfigValue(
-                "ai_hatch_revoke_enabled",
-              ));
+              o("WAWebHatchFrontendGating").isHatchRevokeEnabled());
     }
     function ue(e) {
       var t, n;

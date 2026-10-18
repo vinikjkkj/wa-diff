@@ -14,7 +14,7 @@ __d(
     function s(e, t) {
       return e == null || !o("WAWebBotUtils").isHatchBot(e)
         ? null
-        : o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+        : o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
           ? t
             ? o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleDark
             : o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleLight
@@ -23,17 +23,17 @@ __d(
             : null;
     }
     function u(e, t) {
-      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
         ? { isMinimalMode: !1, isVibrant: !1 }
         : t;
     }
     function c(t, n) {
-      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(t)
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(t)
         ? babelHelpers.extends({}, n, e)
         : n;
     }
     function d(e, t) {
-      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
         ? t
           ? o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperDark
           : o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperLight
