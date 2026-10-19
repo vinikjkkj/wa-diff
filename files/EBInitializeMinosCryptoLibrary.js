@@ -7,7 +7,6 @@ __d(
     "EBMinosLoadMessageEncryptionKey",
     "EBMinosLogger",
     "EBMinosSaveNewMessageEncryptionKey",
-    "EBRegisterMinosMessageEncryptionKey",
     "FBLogger",
     "asyncToGeneratorRuntime",
   ],
@@ -34,9 +33,6 @@ __d(
                 loadSelfMinosEpochForDecryption: o(
                   "EBLoadSelfMinosEpochForDecryption",
                 ).loadSelfMinosEpochForDecryption,
-                registerMinosMessageEncryptionKey: o(
-                  "EBRegisterMinosMessageEncryptionKey",
-                ).registerMinosMessageEncryptionKey,
                 saveNewMessageEncryptionKey: o(
                   "EBMinosSaveNewMessageEncryptionKey",
                 ).saveNewMessageEncryptionKey,

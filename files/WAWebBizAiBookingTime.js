@@ -14,24 +14,27 @@ __d(
       g = babelHelpers.extends({}, f, { timeZoneName: "short" }),
       h = { day: "2-digit", month: "2-digit", year: "numeric" },
       y = new WeakMap();
-    function C(e, t, n) {
-      var o,
-        a,
-        i = v(e);
-      if (i == null) return null;
-      var l = v(t),
-        s = r("WAWebL10N").getFullLocale(),
-        u = S(n),
-        c = E(i, u);
-      if (c == null) return null;
-      var d = k(i, s, m, u),
-        p = R(u),
-        _ = p ? g : f,
-        h = (o = k(i, s, _, u)) != null ? o : p ? k(i, s, f, u) : null,
-        y = (a = I(i, l, s, _, u)) != null ? a : p ? I(i, l, s, f, u) : null;
-      return h == null
+    function C(e) {
+      var t,
+        n,
+        o = e.endDateTime,
+        a = e.startDateTime,
+        i = e.timezoneId,
+        l = v(a);
+      if (l == null) return null;
+      var s = v(o),
+        u = r("WAWebL10N").getFullLocale(),
+        c = S(i),
+        d = E(l, c);
+      if (d == null) return null;
+      var p = k(l, u, m, c),
+        _ = R(c),
+        h = _ ? g : f,
+        y = (t = k(l, u, h, c)) != null ? t : _ ? k(l, u, f, c) : null,
+        C = (n = I(l, s, u, h, c)) != null ? n : _ ? I(l, s, u, f, c) : null;
+      return y == null
         ? null
-        : { date: d, dateKey: D(c), startTime: h, timeRange: y };
+        : { date: p, dateKey: D(d), startTime: y, timeRange: C };
     }
     function b(e) {
       var t = x(e),

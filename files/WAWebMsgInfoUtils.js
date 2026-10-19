@@ -8,7 +8,7 @@ __d(
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebMsgGetters",
-    "WAWebMsgModelUtils",
+    "WAWebMsgMayFail",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -29,7 +29,7 @@ __d(
         : !!(
             o("WAWebMsgGetters").getIsSentByMe(e) &&
             !o("WAWebFrontendMsgGetters").getAsRevoked(e) &&
-            !o("WAWebMsgModelUtils").msgMayFail(e) &&
+            !o("WAWebMsgMayFail").msgMayFail(e) &&
             (!e.isMdHistoryMsg ||
               (o("WAWebAgentModelUtils").canUserSeeMessageAttribution() &&
                 e.agentId != null))

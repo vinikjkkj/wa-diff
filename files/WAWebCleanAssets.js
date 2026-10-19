@@ -1,46 +1,46 @@
 __d(
   "WAWebCleanAssets",
   [
+    "Promise",
     "WAStorageEstimator",
     "WAWebAssetLoaderDpiChangeDispatch",
-    "WAWebFeatureDetectionDetectWebpSupport",
     "WAWebFeatureDetectionSwSupport",
+    "WAWebLoadAssetUrl",
     "WAWebNoop",
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebWebcStorageStatWamEvent",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = { DEFAULT: "default", WEBP: "webp" };
+    var e;
     function s(t) {
       if (r("WAWebFeatureDetectionSwSupport").supported) {
-        var n = t.estimateStorage === !0,
-          a = navigator.serviceWorker;
-        o("WAWebFeatureDetectionDetectWebpSupport")
-          .detectWebpSupport()
-          .then(function (n) {
-            var o = t.keep
+        var a = t.estimateStorage === !0,
+          i = navigator.serviceWorker;
+        (e || (e = n("Promise")))
+          .all(
+            t.keep
               .flatMap(function (e) {
                 return [
                   e[r("WAWebAssetLoaderDpiChangeDispatch").RES.LOW],
                   e[r("WAWebAssetLoaderDpiChangeDispatch").RES.HIGH],
                 ];
               })
-              .map(function (t) {
-                var r,
-                  o = t[e.WEBP],
-                  a = n && o != null && o !== "" ? e.WEBP : e.DEFAULT,
-                  i = (r = t[a]) == null ? void 0 : r.split("/");
-                return i != null ? i[i.length - 1] : null;
-              });
-            a != null &&
-              a.controller &&
+              .map(o("WAWebLoadAssetUrl").getSupportedFormatUrl),
+          )
+          .then(function (e) {
+            var t = e.map(function (e) {
+              var t = e == null ? void 0 : e.split("/");
+              return t != null ? t[t.length - 1] : null;
+            });
+            i != null &&
+              i.controller &&
               r("WAWebSWBus")
-                .request(a.controller, r("WAWebSWBusActions").CLEAN_ASSETS, o)
+                .request(i.controller, r("WAWebSWBusActions").CLEAN_ASSETS, t)
                 .catch(r("WAWebNoop"));
           })
           .then(function () {
-            return n ? o("WAStorageEstimator").estimateStorage() : null;
+            return a ? o("WAStorageEstimator").estimateStorage() : null;
           })
           .then(function (e) {
             if (e != null && e.success) {

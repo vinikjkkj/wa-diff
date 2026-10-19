@@ -6,6 +6,7 @@ __d(
     "WAWebEmojiConst",
     "WAWebMobilePlatforms",
     "distinctArray",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -13,36 +14,23 @@ __d(
         function (t, n) {
           for (
             var a = new Map(),
-              i = u(t),
+              i = c(t),
               l = n[i],
               s = l.SELECTOR,
-              c = Math.ceil(
+              d = Math.ceil(
                 (e || (e = r("distinctArray")))(l.UNICODE_TO_EMOJI).length /
                   o("WAWebEmojiConst").BUCKET_SIZE,
               ),
-              d = 0;
-            d < c;
-            d += 1
+              m = 0;
+            m < d;
+            m += 1
           ) {
-            var m,
-              p = "emoji-" + s + "-b" + d,
-              _ = 40;
+            var p = "emoji-" + s + "-b" + m;
             a.set(p, {
               id: p,
-              selectors: [".emoji." + s + ".b" + d, ".emojik." + s + ".b" + d],
-              low: {
-                webp: (m = o("WAWebEmoji")).EmojiUtil.getSpritesPath(
-                  i,
-                  d,
-                  _,
-                  "webp",
-                ),
-                default: m.EmojiUtil.getSpritesPath(i, d, 40, "png"),
-              },
-              high: {
-                default: m.EmojiUtil.getSpritesPath(i, d, 64, "png"),
-                webp: m.EmojiUtil.getSpritesPath(i, d, 64, "webp"),
-              },
+              selectors: [".emoji." + s + ".b" + m, ".emojik." + s + ".b" + m],
+              low: u(i, m, 40),
+              high: u(i, m, 64),
             });
           }
           return a;
@@ -51,7 +39,18 @@ __d(
           return e;
         },
       );
-    function u(e) {
+    function u(e, t, n) {
+      var a = {
+        default: o("WAWebEmoji").EmojiUtil.getSpritesPath(e, t, n, "png"),
+        webp: o("WAWebEmoji").EmojiUtil.getSpritesPath(e, t, n, "webp"),
+      };
+      return (
+        r("gkx")("13883") &&
+          (a.avif = o("WAWebEmoji").EmojiUtil.getSpritesPath(e, t, n, "avif")),
+        a
+      );
+    }
+    function c(e) {
       switch (e) {
         case o("WAWebMobilePlatforms").PLATFORMS.IPHONE:
         case o("WAWebMobilePlatforms").PLATFORMS.SMBI:
@@ -61,12 +60,14 @@ __d(
           return o("WAWebEmojiConst").EMOJI_TYPE.WHATSAPP;
       }
     }
-    function c(e) {
+    function d(e) {
       return function (t) {
         return s(t, e);
       };
     }
-    ((l.getEmojiTypeFromPlatform = u), (l.emojiAssetMapCreator = c));
+    ((l.getEmojiSpriteFiles = u),
+      (l.getEmojiTypeFromPlatform = c),
+      (l.emojiAssetMapCreator = d));
   },
   98,
 );

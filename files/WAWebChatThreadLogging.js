@@ -147,14 +147,20 @@ __d(
       (l < 0 && (l += o("WATimeUtils").DAY_SECONDS),
         self.setTimeout(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = "wait-msg-key";
             try {
-              var t;
+              var n;
               (yield o(
                 "WAWebDbEncryptionKey",
               ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-                yield (t = R()) == null
+                (t = "upload"),
+                yield (n = R()) == null
                   ? void 0
-                  : t.eventUploader.uploadEvents());
+                  : n.eventUploader.uploadEvents({
+                      onStage: function (n) {
+                        t = n;
+                      },
+                    }));
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -164,6 +170,10 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
+                .tags(
+                  "ctl_stage:" + t,
+                  "ctl_msg_key:" + (P() ? "loaded" : "missing"),
+                )
                 .sendLogs("ctl-scheduled-upload-failed");
             } finally {
               $(e);
@@ -173,14 +183,26 @@ __d(
         ));
     }
     function P() {
-      if (!r("gkx")("26258")) return R();
+      try {
+        return (
+          o("WAWebDbEncryptionKey").DbEncKeyStore.getDbMsgEncKeys({
+            tableName: "ctl",
+          }),
+          !0
+        );
+      } catch (e) {
+        return !1;
+      }
     }
     function N() {
-      return M.apply(this, arguments);
+      if (!r("gkx")("26258")) return R();
     }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield R(),
             t = yield e == null ? void 0 : e.metadataStore.getSecret();
           return t == null
@@ -195,16 +217,16 @@ __d(
               null)
             : t;
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield N();
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield M();
           if (n == null) {
             o("WALogger").WARN(
               g ||
@@ -219,16 +241,16 @@ __d(
           );
           return o("WAWebChatThreadLoggingUtils").generateThreadID(n, e, r);
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield M();
           return t == null
             ? (o("WALogger")
                 .WARN(
@@ -241,16 +263,16 @@ __d(
               null)
             : o("WAWebChatThreadLoggingUtils").generateThreadIDHMAC(t, e);
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B(e) {
-      return W.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function W() {
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield M();
           return t == null
             ? (o("WALogger")
                 .WARN(
@@ -265,16 +287,16 @@ __d(
                 "WAWebChatThreadLoggingUtils",
               ).generateCtwa3pdAggregatedThreadIDHMAC(t, e);
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function U(e) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield M();
           return t == null
             ? (o("WALogger").WARN(
                 C ||
@@ -285,15 +307,15 @@ __d(
               null)
             : o("WAWebChatThreadLoggingUtils").generateMessageIDHMAC(t, e);
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function H(e) {
+      return G.apply(this, arguments);
     }
-    function H() {
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o("WAWebUserPrefsMeUser")
                 .getMePnUserOrThrow_DO_NOT_USE()
@@ -317,7 +339,7 @@ __d(
             );
           }
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
     ((l.setChatThreadLoggingState = L),
@@ -326,12 +348,12 @@ __d(
       (l.handleActivitiesForChatThreadLogging = T),
       (l.uploadChatThreadLoggingEvents = D),
       (l.initUploadTimer = $),
-      (l.getChatThreadLoggingStateDebug = P),
-      (l.getChatThreadID = w),
-      (l.getChatThreadIDHMAC = F),
-      (l.getCtwa3pdAggregatedThreadIDHMAC = B),
-      (l.getMessageIDHMAC = q),
-      (l.getThreadIDHMAC = V));
+      (l.getChatThreadLoggingStateDebug = N),
+      (l.getChatThreadID = A),
+      (l.getChatThreadIDHMAC = O),
+      (l.getCtwa3pdAggregatedThreadIDHMAC = W),
+      (l.getMessageIDHMAC = U),
+      (l.getThreadIDHMAC = H));
   },
   98,
 );

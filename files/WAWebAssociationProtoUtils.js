@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebAssociationProcessor",
-    "WAWebDualUploadsAssociationTypes",
     "WAWebE2EProtoUtils",
     "WAWebLidMigrationUtils",
     "WAWebMessageAssociation.flow",
@@ -16,7 +15,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "err",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,19 +33,12 @@ __d(
       var t = o("WAWebMessageAssociation.flow").MessageAssociationType.cast(
         o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType.getName(e),
       );
-      if (
-        t ===
-          o("WAWebMessageAssociation.flow").MessageAssociationType
-            .AV1_VIDEO_DUAL_UPLOAD ||
+      return t ===
+        o("WAWebMessageAssociation.flow").MessageAssociationType
+          .AV1_VIDEO_DUAL_UPLOAD ||
         t ===
           o("WAWebMessageAssociation.flow").MessageAssociationType
             .STREAMED_HD_VIDEO_DUAL_UPLOAD
-      )
-        return o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN;
-      var n = r("justknobx")._("4912");
-      return t != null &&
-        o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(t) &&
-        !n
         ? o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
         : t != null
           ? t

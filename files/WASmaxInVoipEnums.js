@@ -7,28 +7,18 @@ __d(
       u = { audio: "audio", video: "video" },
       c = { link_edit: "link_edit", preview: "preview" },
       d = {
-        validators: [
-          (e = o("WAJids")).validateCallJid,
-          e.validateDeviceJid,
-          e.validateDomainJid,
-          e.validateUserJid,
-        ],
-        typeName: "CallJid|DeviceJid|DomainJid|UserJid",
-      },
-      m = {
-        validators: [e.validateCallJid, e.validateDomainJid],
+        validators: [(e = o("WAJids")).validateCallJid, e.validateDomainJid],
         typeName: "CallJid|DomainJid",
       },
-      p = {
+      m = {
         validators: [e.validateDeviceJid, e.validateUserJid],
         typeName: "DeviceJid|UserJid",
       };
     ((l.ENUM_0_1 = s),
       (l.ENUM_AUDIO_VIDEO = u),
       (l.ENUM_LINKEDIT_PREVIEW = c),
-      (l.CALLJID_DEVICEJID_DOMAINJID_USERJID = d),
-      (l.CALLJID_DOMAINJID = m),
-      (l.DEVICEJID_USERJID = p));
+      (l.CALLJID_DOMAINJID = d),
+      (l.DEVICEJID_USERJID = m));
   },
   98,
 );

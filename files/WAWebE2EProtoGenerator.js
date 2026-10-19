@@ -533,7 +533,12 @@ __d(
       );
     }
     function k(e) {
-      return { lottieStickerMessage: { message: e } };
+      var t, n;
+      return ((t = e.stickerMessage) == null ? void 0 : t.audioMessage) != null
+        ? { audioStickerMessage: { message: e } }
+        : ((n = e.stickerMessage) == null ? void 0 : n.isLottie) === !0
+          ? { lottieStickerMessage: { message: e } }
+          : e;
     }
     function I(e) {
       return { groupMentionedMessage: { message: e } };
@@ -573,50 +578,46 @@ __d(
         i,
         l,
         s,
-        u,
-        c =
+        u =
           e.messageContextInfo != null
             ? babelHelpers.extends({}, e, { messageContextInfo: void 0 })
             : e;
       if (
-        ((n == null ? void 0 : n.isQuestion) === !0 && (c = D(c)),
-        n != null && n.questionReplyQuotedMessage && (c = x(c)),
+        ((n == null ? void 0 : n.isQuestion) === !0 && (u = D(u)),
+        n != null && n.questionReplyQuotedMessage && (u = x(u)),
         t.associationType != null &&
           (t.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
-            ? (c = P(c))
+            ? (u = P(u))
             : o("WAWebAssociationProtoUtils").shouldWrapAssociatedChildForType(
                 t.associationType,
               ) &&
               o("WAWebABProps").getABPropConfigValue(
                 "wa_web_wrap_associated_child_message_enabled",
               ) &&
-              (c = $(c))),
-        t.isViewOnce && (c = L(c, t)),
+              (u = $(u))),
+        t.isViewOnce && (u = L(u, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
-          (c = o(
+          (u = o(
             "WAWebButtonsMessageProtoUtils",
-          ).createDynamicReplyButtonsMessage(c, t, n)),
+          ).createDynamicReplyButtonsMessage(u, t, n)),
         t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
-          (a = c.documentMessage) != null &&
+          (a = u.documentMessage) != null &&
           a.caption &&
-          (c = E(c)),
-        t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
-          (i = c.stickerMessage) != null &&
-          i.isLottie &&
-          (c = k(c)),
-        n != null && (l = n.groupMentions) != null && l.length && (c = I(c)),
-        !((s = t.invokedBotWid) != null && s.isFbidBot()) &&
-          (((u = t.invokedBotWid) != null && u.isPnBot()) ||
+          (u = E(u)),
+        t.type === o("WAWebMsgType").MSG_TYPE.STICKER && (u = k(u)),
+        n != null && (i = n.groupMentions) != null && i.length && (u = I(u)),
+        !((l = t.invokedBotWid) != null && l.isFbidBot()) &&
+          (((s = t.invokedBotWid) != null && s.isPnBot()) ||
             t.subtype === "bot_request_welcome") &&
           o("WAWebBotBaseGating").isBotEnabled())
       ) {
-        var d;
-        c.messageContextInfo = babelHelpers.extends({}, c.messageContextInfo, {
+        var c;
+        u.messageContextInfo = babelHelpers.extends({}, u.messageContextInfo, {
           messageSecret: t.messageSecret,
           botMetadata: babelHelpers.extends(
             {},
-            ((d = e.messageContextInfo) == null ? void 0 : d.botMetadata) || {},
+            ((c = e.messageContextInfo) == null ? void 0 : c.botMetadata) || {},
             t.botTargetSenderJid instanceof r("WAWebWid")
               ? { invokerJid: t.botTargetSenderJid.toJid() }
               : {},
@@ -626,20 +627,20 @@ __d(
       return (
         t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           t.isForwarded === !0 &&
-          (c = T(c)),
+          (u = T(u)),
         (n == null ? void 0 : n.isSpoiler) === !0 &&
-          (c = o(
+          (u = o(
             "WAWebSpoilerFutureproofProtoUtils",
-          ).createSpoilerFutureproofMessage(c, n)),
+          ).createSpoilerFutureproofMessage(u, n)),
         e.messageContextInfo != null &&
-          (c = babelHelpers.extends({}, c, {
+          (u = babelHelpers.extends({}, u, {
             messageContextInfo: babelHelpers.extends(
               {},
               e.messageContextInfo,
-              c.messageContextInfo,
+              u.messageContextInfo,
             ),
           })),
-        c
+        u
       );
     }
     function M(e) {
@@ -650,6 +651,7 @@ __d(
         (e.ptvMessage = void 0),
         (e.stickerMessage = void 0),
         (e.lottieStickerMessage = void 0),
+        (e.audioStickerMessage = void 0),
         (e.stickerPackMessage = void 0),
         (e.albumMessage = void 0));
     }
@@ -664,6 +666,7 @@ __d(
             e.ptvMessage ||
             e.stickerMessage ||
             e.lottieStickerMessage ||
+            e.audioStickerMessage ||
             e.stickerPackMessage ||
             e.albumMessage
           );

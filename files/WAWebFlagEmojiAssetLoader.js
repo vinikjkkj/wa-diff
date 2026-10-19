@@ -1,6 +1,6 @@
 __d(
   "WAWebFlagEmojiAssetLoader",
-  ["WAMemoizeCache", "WAWebEmoji", "WAWebEmojiAssetLoader", "WAWebEmojiConst"],
+  ["WAMemoizeCache", "WAWebEmojiAssetLoader", "WAWebEmojiConst"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n,
@@ -34,25 +34,12 @@ __d(
           s = n.selector,
           u = e(l, i);
         for (var c of u) {
-          var d,
-            m = "emoji-" + s + "-b" + c,
-            p = 40;
-          r.set(m, {
-            id: m,
+          var d = "emoji-" + s + "-b" + c;
+          r.set(d, {
+            id: d,
             selectors: [".emoji." + s + ".b" + c, ".emojik." + s + ".b" + c],
-            low: {
-              webp: (d = o("WAWebEmoji")).EmojiUtil.getSpritesPath(
-                a,
-                c,
-                p,
-                "webp",
-              ),
-              default: d.EmojiUtil.getSpritesPath(a, c, 40, "png"),
-            },
-            high: {
-              default: d.EmojiUtil.getSpritesPath(a, c, 64, "png"),
-              webp: d.EmojiUtil.getSpritesPath(a, c, 64, "webp"),
-            },
+            low: o("WAWebEmojiAssetLoader").getEmojiSpriteFiles(a, c, 40),
+            high: o("WAWebEmojiAssetLoader").getEmojiSpriteFiles(a, c, 64),
           });
         }
         return r;

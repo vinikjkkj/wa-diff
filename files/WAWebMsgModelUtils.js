@@ -455,28 +455,23 @@ __d(
     }
     function F(e) {
       return (
-        o("WAWebMsgGetters").getIsSentByMe(e) && e.ack < o("WAWebAck").ACK.SENT
-      );
-    }
-    function O(e) {
-      return (
         e.isFromTemplate ||
         (!o("WAWebFrontendMsgGetters").getHasTemplateButtons(e) &&
           e.type !== o("WAWebMsgType").MSG_TYPE.TEMPLATE_BUTTON_REPLY)
       );
     }
-    function B(e) {
+    function O(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e).msgs.last();
       return e.id.equals(t == null ? void 0 : t.id);
     }
-    function W(e) {
+    function B(e) {
       var t = 5,
         n =
           o("WAWebMsgGetters").getNumTimesForwarded(e) +
           (o("WAWebMsgGetters").getShouldDisplayAsForwarded(e) ? 1 : 0);
       return n >= t ? o("WAWebMsgGetters").FREQUENTLY_FORWARDED_SENTINEL : n;
     }
-    function q(e) {
+    function W(e) {
       var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
       return t == null
         ? null
@@ -484,7 +479,7 @@ __d(
           ? 0
           : t - o("WATimeUtils").unixTime();
     }
-    function U(e, t) {
+    function q(e, t) {
       var n = t.duringDetach,
         r = e.parentMsgKey;
       if (r) {
@@ -505,7 +500,7 @@ __d(
           );
       }
     }
-    function V(e, t) {
+    function U(e, t) {
       var n;
       t === void 0 && (t = {});
       var a = t,
@@ -581,13 +576,12 @@ __d(
       (l.isAnimatedEmoji = N),
       (l.getValidatedSender = w),
       (l.getQuotedParticipantForContextInfo = A),
-      (l.msgMayFail = F),
-      (l.interactiveButtonsReleased = O),
-      (l.isLastMsg = B),
-      (l.getMsgForwardingScoreWhenForwarded = W),
-      (l.getMsgTimeUntilExpiration = q),
-      (l.hideParentMessageInChat = U),
-      (l.getMsgDisplayName = V));
+      (l.interactiveButtonsReleased = F),
+      (l.isLastMsg = O),
+      (l.getMsgForwardingScoreWhenForwarded = B),
+      (l.getMsgTimeUntilExpiration = W),
+      (l.hideParentMessageInChat = q),
+      (l.getMsgDisplayName = U));
   },
   226,
 );

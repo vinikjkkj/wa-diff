@@ -77,9 +77,6 @@ __d(
           )
         : !1;
     }
-    function v() {
-      o("WAWebABProps").getABPropConfigValue("wa_web_pre_chat_device_id_test");
-    }
     ((l.cagReactionsSend = e),
       (l.getGroupSizeLimit = s),
       (l.isRecentStickersMDEnabled = u),
@@ -93,8 +90,7 @@ __d(
       (l.isGroupSuspendV2Enabled = h),
       (l.isBlueEnabled = y),
       (l.isBlueEducationEnabled = C),
-      (l.isBlueLockingEnabled = b),
-      (l.checkDeviceIdTestAbProp = v));
+      (l.isBlueLockingEnabled = b));
   },
   98,
 );

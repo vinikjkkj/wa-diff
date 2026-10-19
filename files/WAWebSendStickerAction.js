@@ -12,6 +12,7 @@ __d(
     "WAWebModalManager",
     "WAWebRecentStickerCollection",
     "WAWebSendMsgResultAction",
+    "WAWebSoundStickerUtils",
     "WAWebStateUtils",
     "WAWebStickerPremiumStatus",
     "WAWebStickerSendWamEvent",
@@ -111,7 +112,14 @@ __d(
             u = babelHelpers.objectWithoutPropertiesLoose(a, e),
             c = yield o("WAWebMedia")
               .prepSticker(n)
-              .sendToChat({ chat: t, options: u }),
+              .sendToChat({
+                chat: t,
+                options: babelHelpers.extends({}, u, {
+                  stickerAudio: o(
+                    "WAWebSoundStickerUtils",
+                  ).getSendableStickerAudio(n.stickerAudio, t.id),
+                }),
+              }),
             d = {
               stickerSendOrigin: s,
               stickerIsAi: !!n.mediaData.isAiSticker,

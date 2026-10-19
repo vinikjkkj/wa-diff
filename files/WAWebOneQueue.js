@@ -111,15 +111,15 @@ __d(
     function y() {
       if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
         var t = m(),
-          r =
+          r = c,
+          a = function () {
+            return t.handleOfflineEndStanza(r);
+          },
+          i =
             d.size === 0
-              ? t.handleOfflineEndStanza()
-              : (s || (s = n("Promise")))
-                  .allSettled(Array.from(d))
-                  .then(function () {
-                    return t.handleOfflineEndStanza();
-                  });
-        r.catch(function (t) {
+              ? a()
+              : (s || (s = n("Promise"))).allSettled(Array.from(d)).then(a);
+        i.catch(function (t) {
           o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([

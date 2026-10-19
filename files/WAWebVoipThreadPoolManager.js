@@ -155,7 +155,7 @@ __d(
                 return (
                   p <= 1
                     ? window.setTimeout(function () {
-                        return e.ensurePoolCapacity();
+                        e.ensurePoolCapacity();
                       }, 0)
                     : p <= V && e.$16(),
                   m
@@ -194,13 +194,14 @@ __d(
             return this.$2;
           }),
           (a.ensurePoolCapacity = function () {
-            if (this.$2) {
-              var e = this.getAvailableWorkerCount(),
-                t = this.getRunningWorkerCount(),
-                n = e + t;
-              if (e <= V && n < G) {
-                var r = Math.min(H, G - n);
-                (o("WALogger").LOG(
+            if (!this.$2) return (W || (W = n("Promise"))).resolve();
+            var e = this.getAvailableWorkerCount(),
+              t = this.getRunningWorkerCount(),
+              r = e + t;
+            if (e <= V && r < G) {
+              var a = Math.min(H, G - r);
+              return (
+                o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] low capacity avail=",
@@ -208,16 +209,17 @@ __d(
                       "",
                     ])),
                   e,
-                  r,
+                  a,
                 ),
-                  this.$17(r));
-              }
+                this.$17(a)
+              );
             }
+            return (W || (W = n("Promise"))).resolve();
           }),
           (a.$16 = function () {
             var e = this,
               t = function () {
-                return e.ensurePoolCapacity();
+                e.ensurePoolCapacity();
               };
             o("WAWebVoipHiddenPrewarmIdleWork").requestHiddenPrewarmIdleWork(
               "pool_growth",
@@ -359,8 +361,9 @@ __d(
           }),
           (a.$17 = function (t) {
             var e = this;
-            if (!(t <= 0)) {
-              if (this.$3) {
+            if (t <= 0) return (W || (W = n("Promise"))).resolve();
+            if (this.$3)
+              return (
                 o("WALogger").LOG(
                   b ||
                     (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -368,18 +371,17 @@ __d(
                       " (busy)",
                     ])),
                   t,
-                );
-                return;
-              }
-              var a = o(
-                "WAWebVoipPthreadHardening",
-              ).isVoipPoolHardeningEnabled();
-              if (
-                a &&
-                o(
-                  "WAWebVoipPthreadGlueFailureTracker",
-                ).hasTerminalPthreadGlueFailure()
-              ) {
+                ),
+                (W || (W = n("Promise"))).resolve()
+              );
+            var a = o("WAWebVoipPthreadHardening").isVoipPoolHardeningEnabled();
+            if (
+              a &&
+              o(
+                "WAWebVoipPthreadGlueFailureTracker",
+              ).hasTerminalPthreadGlueFailure()
+            )
+              return (
                 o("WALogger").LOG(
                   v ||
                     (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -387,200 +389,201 @@ __d(
                       " (glue build mismatch latched)",
                     ])),
                   t,
-                );
-                return;
-              }
-              var i = this.$1.PThread;
-              if (!i) {
+                ),
+                (W || (W = n("Promise"))).resolve()
+              );
+            var i = this.$1.PThread;
+            if (!i)
+              return (
                 o("WALogger").ERROR(
                   S ||
                     (S = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] PThread unavailable, can't grow",
                     ])),
+                ),
+                (W || (W = n("Promise"))).resolve()
+              );
+            this.$3 = !0;
+            var l = this.$12();
+            o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
+              l,
+              o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
+                .POOL_GROWTH_START,
+            );
+            var s = i.unusedWorkers.length,
+              u = i.runningWorkers.length,
+              c = Date.now();
+            o("WALogger").LOG(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ThreadPoolManager] grow +",
+                  " avail=",
+                  " run=",
+                  " total=",
+                  "",
+                ])),
+              t,
+              s,
+              u,
+              s + u,
+            );
+            var d = [];
+            try {
+              for (var m = 0; m < t; m++)
+                (i.allocateUnusedWorker(),
+                  this.$9++,
+                  d.push(i.unusedWorkers[i.unusedWorkers.length - 1]));
+            } catch (e) {
+              if (
+                (o("WALogger").LOG(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ThreadPoolManager] alloc fail ",
+                      "/",
+                      ": ",
+                      "",
+                    ])),
+                  d.length,
+                  t,
+                  String(e),
+                ),
+                d.length === 0)
+              )
+                return (
+                  (this.$3 = !1),
+                  o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                    l,
+                    "alloc_failed",
+                  ),
+                  (W || (W = n("Promise"))).resolve()
                 );
-                return;
-              }
-              this.$3 = !0;
-              var l = this.$12();
-              o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
-                l,
-                o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
-                  .POOL_GROWTH_START,
-              );
-              var s = i.unusedWorkers.length,
-                u = i.runningWorkers.length,
-                c = Date.now();
-              o("WALogger").LOG(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ThreadPoolManager] grow +",
-                    " avail=",
-                    " run=",
-                    " total=",
-                    "",
-                  ])),
-                t,
-                s,
-                u,
-                s + u,
-              );
-              var d = [];
-              try {
-                for (var m = 0; m < t; m++)
-                  (i.allocateUnusedWorker(),
-                    this.$9++,
-                    d.push(i.unusedWorkers[i.unusedWorkers.length - 1]));
-              } catch (e) {
-                if (
-                  (o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ThreadPoolManager] alloc fail ",
-                        "/",
-                        ": ",
+            }
+            var p = Date.now() - c,
+              _ = i.unusedWorkers.length,
+              f = i.runningWorkers.length;
+            o("WALogger").LOG(
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ThreadPoolManager] alloc done ",
+                  "ms +",
+                  " avail=",
+                  " run=",
+                  "",
+                ])),
+              p.toFixed(2),
+              d.length,
+              _,
+              f,
+            );
+            var g = Date.now(),
+              h = [],
+              y = d.map(function (t, n) {
+                var r = Date.now(),
+                  o = a ? e.$20(i, t) : e.$13(i, t);
+                return o.then(function () {
+                  var e = Date.now() - r;
+                  h.length < 3 &&
+                    h.push("Worker " + n + ": " + e.toFixed(2) + "ms");
+                });
+              }),
+              C = a
+                ? (W || (W = n("Promise"))).allSettled(y).then(function (e) {
+                    return e.filter(function (e) {
+                      return e.status === "rejected";
+                    }).length;
+                  })
+                : (W || (W = n("Promise"))).all(y).then(function () {
+                    return 0;
+                  });
+            return C.then(function (e) {
+              var t = Date.now() - g,
+                n = Date.now() - c,
+                r = i.unusedWorkers.length,
+                a = i.runningWorkers.length;
+              if (
+                (h.length > 0 &&
+                  o("WALogger").LOG(
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                        "[ThreadPoolManager] WASM load ",
+                        "w: ",
                         "",
                       ])),
                     d.length,
-                    t,
+                    h.join(", "),
+                  ),
+                o("WALogger").LOG(
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ThreadPoolManager] grow done avail=",
+                      " run=",
+                      " failed=",
+                      " wasmT=",
+                      "ms totalT=",
+                      "ms",
+                    ])),
+                  r,
+                  a,
+                  e,
+                  t.toFixed(2),
+                  n.toFixed(2),
+                ),
+                o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
+                  l,
+                  o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
+                    .POOL_GROWTH_END,
+                ),
+                e === y.length)
+              ) {
+                o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                  l,
+                  "wasm_load_failed",
+                );
+                return;
+              }
+              if (e > 0) {
+                o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                  l,
+                  "wasm_load_partial",
+                );
+                return;
+              }
+              o("WAWebVoipQplHelpers").endVoipWorkerSetupQplSuccess(l);
+            })
+              .catch(function (e) {
+                if (!a) {
+                  (o("WALogger").LOG(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: ThreadPoolManager: Pool growth error: ",
+                        "",
+                      ])),
                     String(e),
                   ),
-                  d.length === 0)
-                ) {
-                  ((this.$3 = !1),
                     o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
                       l,
-                      "alloc_failed",
+                      "wasm_load_failed",
                     ));
                   return;
                 }
-              }
-              var p = Date.now() - c,
-                _ = i.unusedWorkers.length,
-                f = i.runningWorkers.length;
-              o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ThreadPoolManager] alloc done ",
-                    "ms +",
-                    " avail=",
-                    " run=",
-                    "",
-                  ])),
-                p.toFixed(2),
-                d.length,
-                _,
-                f,
-              );
-              var g = Date.now(),
-                h = [],
-                y = d.map(function (t, n) {
-                  var r = Date.now(),
-                    o = a ? e.$20(i, t) : e.$13(i, t);
-                  return o.then(function () {
-                    var e = Date.now() - r;
-                    h.length < 3 &&
-                      h.push("Worker " + n + ": " + e.toFixed(2) + "ms");
-                  });
-                }),
-                C = a
-                  ? (W || (W = n("Promise"))).allSettled(y).then(function (e) {
-                      return e.filter(function (e) {
-                        return e.status === "rejected";
-                      }).length;
-                    })
-                  : (W || (W = n("Promise"))).all(y).then(function () {
-                      return 0;
-                    });
-              C.then(function (e) {
-                var t = Date.now() - g,
-                  n = Date.now() - c,
-                  r = i.unusedWorkers.length,
-                  a = i.runningWorkers.length;
-                if (
-                  (h.length > 0 &&
-                    o("WALogger").LOG(
-                      k ||
-                        (k = babelHelpers.taggedTemplateLiteralLoose([
-                          "[ThreadPoolManager] WASM load ",
-                          "w: ",
-                          "",
-                        ])),
-                      d.length,
-                      h.join(", "),
-                    ),
-                  o("WALogger").LOG(
-                    I ||
-                      (I = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ThreadPoolManager] grow done avail=",
-                        " run=",
-                        " failed=",
-                        " wasmT=",
-                        "ms totalT=",
-                        "ms",
+                (o("WALogger")
+                  .ERROR(
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                        "[ThreadPoolManager] grow bookkeeping failed",
                       ])),
-                    r,
-                    a,
-                    e,
-                    t.toFixed(2),
-                    n.toFixed(2),
-                  ),
-                  o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
-                    l,
-                    o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
-                      .POOL_GROWTH_END,
-                  ),
-                  e === y.length)
-                ) {
-                  o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
-                    l,
-                    "wasm_load_failed",
-                  );
-                  return;
-                }
-                if (e > 0) {
-                  o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
-                    l,
-                    "wasm_load_partial",
-                  );
-                  return;
-                }
-                o("WAWebVoipQplHelpers").endVoipWorkerSetupQplSuccess(l);
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("voip-thread-pool-grow-bookkeeping"),
+                  l.isActive() &&
+                    o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                      l,
+                      "grow_bookkeeping_error",
+                    ));
               })
-                .catch(function (e) {
-                  if (!a) {
-                    (o("WALogger").LOG(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: ThreadPoolManager: Pool growth error: ",
-                          "",
-                        ])),
-                      String(e),
-                    ),
-                      o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
-                        l,
-                        "wasm_load_failed",
-                      ));
-                    return;
-                  }
-                  (o("WALogger")
-                    .ERROR(
-                      D ||
-                        (D = babelHelpers.taggedTemplateLiteralLoose([
-                          "[ThreadPoolManager] grow bookkeeping failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("voip-thread-pool-grow-bookkeeping"),
-                    l.isActive() &&
-                      o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
-                        l,
-                        "grow_bookkeeping_error",
-                      ));
-                })
-                .finally(function () {
-                  e.$3 = !1;
-                });
-            }
+              .finally(function () {
+                e.$3 = !1;
+              });
           }),
           (a.$20 = function (t, n) {
             var e = this,

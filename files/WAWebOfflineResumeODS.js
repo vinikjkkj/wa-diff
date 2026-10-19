@@ -3,6 +3,38 @@ __d(
   ["WAWebODS"],
   function (t, n, r, o, a, i, l) {
     var e = {
+      appReload: function (t) {
+        e: {
+          if (t === "open_tab_limit") {
+            r("WAWebODS").incr("web.app.reload.open_tab_limit");
+            break e;
+          }
+          if (t === "open_tab_limit_blocking") {
+            r("WAWebODS").incr("web.app.reload.open_tab_limit_blocking");
+            break e;
+          }
+          if (t === "open_tab_limit_nonblocking") {
+            r("WAWebODS").incr("web.app.reload.open_tab_limit_nonblocking");
+            break e;
+          }
+          if (t === "stanzas_after_complete_blocking") {
+            r("WAWebODS").incr(
+              "web.app.reload.stanzas_after_complete_blocking",
+            );
+            break e;
+          }
+          if (t === "stanzas_after_complete_nonblocking") {
+            r("WAWebODS").incr(
+              "web.app.reload.stanzas_after_complete_nonblocking",
+            );
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              t,
+          );
+        }
+      },
       awaitUnflushedMsgWrite: function (t) {
         e: {
           if (t === "legacy") {

@@ -133,7 +133,10 @@ __d(
                     t.message,
                     t.receipt,
                   ),
-                  o("WAWebOfflineResumeUtils").refreshWindow()),
+                  o("WAWebOfflineResumeUtils").refreshWindow(
+                    "open_tab_limit_nonblocking",
+                    { msg: t.message, receipt: t.receipt },
+                  )),
                 o("WAWebJSHaltDetector").jsHaltDetector.restartDetection(),
                 this.$14(
                   o("WAWebOfflineResumeConst").ResumeStatus
@@ -319,7 +322,9 @@ __d(
                           ])),
                         n.$8,
                       ),
-                      o("WAWebOfflineResumeUtils").refreshWindow());
+                      o("WAWebOfflineResumeUtils").refreshWindow(
+                        "stanzas_after_complete_nonblocking",
+                      ));
                   }, o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_CHECK_TIMEOUT_MS),
                   this.$14(o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE),
                   this.$17()

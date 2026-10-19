@@ -7,22 +7,24 @@ __d(
     "WAWebODS",
     "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = n("$InternalEnum")({
+      d,
+      m = n("$InternalEnum")({
         Normal: "normal",
         MinimizedToTray: "minimizedToTray",
       }),
-      m = function (a, i) {
+      p = function (a, i) {
         var t = this;
         ((this.$4 = new (r("WAWebEventEmitter"))()),
           (this.$5 = function (n) {
             var r = n.toString(),
-              a = d.cast(r);
+              a = m.cast(r);
             (a != null
               ? o("WALogger").LOG(
                   e ||
@@ -30,7 +32,7 @@ __d(
                       "WindowsHybridBridgeNativeAppState:appStateChanged: ",
                       "",
                     ])),
-                  d.getName(a),
+                  m.getName(a),
                 )
               : o("WALogger").ERROR(
                   s ||
@@ -50,7 +52,7 @@ __d(
             return t.$4;
           }),
           (this.isMinimizedToTray = function () {
-            return t.getAppState() === d.MinimizedToTray;
+            return t.getAppState() === m.MinimizedToTray;
           }),
           (this.takeAppLaunchTimeStamp = function () {
             return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -129,7 +131,7 @@ __d(
                 },
               ),
               n = e.toString(),
-              a = d.cast(n);
+              a = m.cast(n);
             return (
               a != null
                 ? o("WALogger").LOG(
@@ -138,7 +140,7 @@ __d(
                         "WindowsHybridBridgeNativeAppState:getAppStateAsync: ",
                         "",
                       ])),
-                    d.getName(a),
+                    m.getName(a),
                   )
                 : o("WALogger").ERROR(
                     c ||
@@ -169,12 +171,43 @@ __d(
                   },
                 ));
           }),
+          (this.updateServerTime = function (e) {
+            var n = t.$1.updateServerTimeAsync;
+            n != null &&
+              (r("WAWebODS").incr(
+                "web.hybrid.bridge.native_app_state.send.update_server_time",
+              ),
+              o("WAWebWindowsHybridBridgeTrace")
+                .traceBridgeCall(
+                  {
+                    bridge: "nativeAppStateBridge",
+                    method: "updateServerTimeAsync",
+                    type: "async",
+                  },
+                  function () {
+                    return n.call(t.$1, e);
+                  },
+                )
+                .then(void 0, function (e) {
+                  (r("WAWebODS").incr(
+                    "web.hybrid.bridge.native_app_state.send.update_server_time.fail",
+                  ),
+                    o("WALogger")
+                      .WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "WindowsHybridBridgeNativeAppState:updateServerTime failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e)));
+                }));
+          }),
           (this.$1 = a),
           (this.$2 = i),
           this.$1.addEventListener("appStateChangedEvent", this.$5),
           this.$1.subscribe(null));
       };
-    l.WindowsHybridBridgeNativeAppState = m;
+    l.WindowsHybridBridgeNativeAppState = p;
   },
   98,
 );

@@ -95,10 +95,10 @@ __d(
             a,
             i,
             l = o("WAWebSchemaJobs").getTable(),
-            s = JSON.stringify([
+            s = C(
               t.type,
               (r = t.uniqKey) != null ? r : o("WARandomHex").randomHex(32),
-            ]),
+            ),
             u = {
               type: t.type,
               uniqKey: s,
@@ -141,13 +141,33 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h() {
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebSchemaJobs")
+            .getTable()
+            .equals(["uniqKey"], C(e, t));
+          return n.some(function (e) {
+            return e.step !== o("WAPersistedJobManager").FINISHED_JOB;
+          });
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return JSON.stringify([e, t]);
+    }
+    function b() {
       if (s == null) throw r("err")("jobs manager has not been initialized");
       return s;
     }
     ((l.startWebPersistedJobManager = u),
       (l.maybeCreateJob = f),
-      (l.getJobManager = h));
+      (l.hasUnfinishedJob = h),
+      (l.getJobManager = b));
   },
   98,
 );

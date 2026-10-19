@@ -15,9 +15,10 @@ __d(
         return o("WAGlobals")
           .getWaOneQueue()
           .handleStanza(function (r) {
+            var a = r.cryptoManager;
             return o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
               t,
-              e(t, n, r),
+              e(t, n, a),
             );
           }, r);
       };

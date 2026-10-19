@@ -1043,7 +1043,11 @@ __d(
               );
             }
             (n === "connected" &&
-              (o("WAWebVoipRelayConnectQpl").endVoipRelayConnectQplSuccess(
+              (o("WAWebVoipSctpDiagnostics").logSelectedCandidatePair({
+                connectionId: t,
+                peerConnection: e,
+              }),
+              o("WAWebVoipRelayConnectQpl").endVoipRelayConnectQplSuccess(
                 a.isWebTransportWarmStandby !== !0,
               ),
               a.isEarlyPacketRelayReconnect === !0 &&

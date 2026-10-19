@@ -53,26 +53,28 @@ __d(
       f,
       g,
       h,
-      y = new WeakMap();
-    function C(e, t) {
+      y,
+      C,
+      b = new WeakMap();
+    function v(e, t) {
       e.getUploadPromises().forEach(function (e) {
         if (e != null) {
-          var n = y.get(e);
-          n != null && (y.delete(e), n(t));
+          var n = b.get(e);
+          n != null && (b.delete(e), n(t));
         }
       });
     }
-    var b = {
+    var S = {
       SUCCESS: "success",
       CANCELLATION: "cancellation",
       ERROR: "error",
       TIMEOUT: "timeout",
     };
-    function v(e, t) {
-      var n = S(e);
-      return n != null && n === S(t);
+    function R(e, t) {
+      var n = L(e);
+      return n != null && n === L(t);
     }
-    function S(t) {
+    function L(t) {
       try {
         return o("WAWebCryptoMediaTypeInfo").getMediaTypeInfo(t);
       } catch (n) {
@@ -92,17 +94,17 @@ __d(
         );
       }
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       var r = e.getUploadEntry(t);
       if (!(r instanceof o("WAWebMediaEntry").EncryptedMediaEntry)) return r;
-      var a = S(n);
-      if (a == null || S(r.type) === a) return r;
+      var a = L(n);
+      if (a == null || L(r.type) === a) return r;
       var i = e.getUploadEntryMatching(t, function (e) {
         return (
           e instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
-          L(e) &&
+          k(e) &&
           e.validateForDownloads() &&
-          S(e.type) === a
+          L(e.type) === a
         );
       });
       return i == null ||
@@ -112,7 +114,7 @@ __d(
         ? r
         : i;
     }
-    function L(e) {
+    function k(e) {
       return (
         e.directPath != null &&
         o("WATimeUtils").happenedWithin(
@@ -121,12 +123,12 @@ __d(
         )
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function k() {
+    function T() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a = e.blob,
@@ -153,7 +155,7 @@ __d(
             h != null &&
             h.canReuseMediaKey() &&
             l &&
-            (v(h.type, _) ||
+            (R(h.type, _) ||
               !o("WAWebABProps").getABPropConfigValue(
                 "wa_web_media_fast_forward_same_key_type_enabled",
               ))
@@ -202,12 +204,12 @@ __d(
                 debugHint: "upload",
               })
             );
-          var S = function () {
+          var v = function () {
               p.consolidate({
                 uploadStage: o("WAWebMediaTypes").UploadStage.FINALIZING,
               });
             },
-            R = o("WAThrottle").throttle(function (e, t) {
+            S = o("WAThrottle").throttle(function (e, t) {
               var n = e.loaded + t;
               Number.isFinite(n) && p.consolidate({ loadedSize: n });
             }, o("WAWebMmsConst").FILE_PROGRESS_THROTTLE_WAIT_MS),
@@ -223,8 +225,8 @@ __d(
               forwardedFromWeb: c,
               uploadOrigin: y,
               fileOrigin: u,
-              onProgress: R,
-              onFinalize: S,
+              onProgress: S,
+              onFinalize: v,
               isViewOnce: d,
               isHdPhoto:
                 _ === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE &&
@@ -253,15 +255,15 @@ __d(
             debugHint: "upload",
           });
         })),
-        k.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.blob,
             n = e.calculateToken,
             a = e.fileOrigin,
@@ -299,16 +301,16 @@ __d(
             fbid: _.fbid,
           });
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function D(e) {
-      return $(e, E);
+    function $(e) {
+      return N(e, I);
     }
-    function x(e) {
-      return $(e, I);
+    function P(e) {
+      return N(e, D);
     }
-    function $(e, t) {
+    function N(e, t) {
       var a = e.calculateToken,
         i = e.canEnableFastForward,
         l = i === void 0 ? !0 : i,
@@ -316,30 +318,30 @@ __d(
         _ = e.fileOrigin,
         f = e.forwardedFromWeb,
         g = e.isViewOnce,
-        C = e.mediaKeyInfo,
-        v = e.mediaObject,
-        S = e.mediaType,
-        L = e.mimetype,
-        E = e.uploadEntry,
+        h = e.mediaKeyInfo,
+        y = e.mediaObject,
+        v = e.mediaType,
+        R = e.mimetype,
+        L = e.uploadEntry,
         k = e.uploadOrigin,
-        I = C,
-        T = v.getUploadPromise(S);
+        I = h,
+        T = y.getUploadPromise(v);
       if (T) return T;
       var D = new AbortController(),
         x = D.signal,
         $ = null,
-        P = (h || (h = n("Promise")))
+        P = (C || (C = n("Promise")))
           .resolve()
           .then(function () {
-            v.consolidate({
+            y.consolidate({
               uploadStage: o("WAWebMediaTypes").UploadStage.UPLOADING,
             });
           })
           .then(function () {
-            return M({
-              mediaObject: v,
-              mimetype: L,
-              mediaType: S,
+            return A({
+              mediaObject: y,
+              mimetype: R,
+              mediaType: v,
               abortSignal: x,
               uploadOrigin: k,
             });
@@ -348,19 +350,19 @@ __d(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  var n = yield A(v.filehash, S, e),
+                  var n = yield O(y.filehash, v, e),
                     i;
                   if (
                     (l &&
                       (i =
-                        E !== void 0
-                          ? E
-                          : R(
-                              v.entries,
+                        L !== void 0
+                          ? L
+                          : E(
+                              y.entries,
                               o(
                                 "WAWebMediaCryptoEligibilityUtils",
-                              ).isMediaCryptoExpectedForMediaType(S),
-                              S,
+                              ).isMediaCryptoExpectedForMediaType(v),
+                              v,
                             )),
                     i instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
                       I &&
@@ -376,14 +378,14 @@ __d(
                             "mediaKey mismatch, type: ",
                             "",
                           ])),
-                        S,
+                        v,
                       )
-                      .sendLogs("media-keys-not-the-same-" + S);
-                    var h = !v.entries.entries.some(function (e) {
+                      .sendLogs("media-keys-not-the-same-" + v);
+                    var h = !y.entries.entries.some(function (e) {
                         return e.getMediaKey() === m.key;
                       }),
-                      y = (c = i.mediaKey) == null ? void 0 : c.length,
-                      C = (d = m.key) == null ? void 0 : d.length;
+                      C = (c = i.mediaKey) == null ? void 0 : c.length,
+                      b = (d = m.key) == null ? void 0 : d.length;
                     if (
                       (o("WALogger").LOG(
                         u ||
@@ -394,10 +396,10 @@ __d(
                             "",
                           ])),
                         h,
-                        y,
                         C,
+                        b,
                       ),
-                      S === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER)
+                      v === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER)
                     )
                       I = null;
                     else
@@ -405,14 +407,14 @@ __d(
                         "uploadEntry.mediaKey and mediaKeyInfo.mediaKey should be the same",
                       );
                   }
-                  var b = yield t({
+                  var S = yield t({
                     blob: e,
                     plaintext: n,
                     canEnableFastForward: l,
                     forwardedFromWeb: f,
                     mediaKeyInfo: I,
-                    mediaObject: v,
-                    mediaType: S,
+                    mediaObject: y,
+                    mediaType: v,
                     signal: x,
                     uploadEntry: i,
                     uploadOrigin: k,
@@ -421,31 +423,31 @@ __d(
                     earlyUpload: p,
                     calculateToken: a,
                   });
-                  if (!b) throw r("err")("could not create media entry");
+                  if (!S) throw r("err")("could not create media entry");
                   if (
-                    (S === o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT ||
-                      S === o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO) &&
+                    (v === o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT ||
+                      v === o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO) &&
                     !o("WAWebMediaDataUtils").canPlayOgg()
                   )
-                    if (o("WAWebMediaDataUtils").shouldUseMediaCache(S)) {
-                      var L = v.filehash;
-                      if (L != null && L !== "" && v.mediaBlob) {
+                    if (o("WAWebMediaDataUtils").shouldUseMediaCache(v)) {
+                      var R = y.filehash;
+                      if (R != null && R !== "" && y.mediaBlob) {
                         var T = yield o("WAWebMediaLoad").transcode(
-                          v.mediaBlob.formData(),
+                          y.mediaBlob.formData(),
                         );
                         o(
                           "WAWebMediaInMemoryBlobCache",
-                        ).InMemoryMediaBlobCache.put(L, T);
+                        ).InMemoryMediaBlobCache.put(R, T);
                       }
                     } else
-                      v.mediaBlob &&
+                      y.mediaBlob &&
                         (yield o(
                           "WAWebMediaDataUtils",
-                        ).attachBlobAndGatherAndSetMetadata(v, v.mediaBlob));
+                        ).attachBlobAndGatherAndSetMetadata(y, y.mediaBlob));
                   return (
-                    yield O(v.filehash, S, n != null ? n : e),
-                    n != null && (yield W(v, n)),
-                    b
+                    yield W(y.filehash, v, n != null ? n : e),
+                    n != null && (yield U(y, n)),
+                    S
                   );
                 },
               );
@@ -457,7 +459,7 @@ __d(
           .then(function (e) {
             if (x.aborted) throw new (o("WAAbortError").AbortError)();
             return (
-              v.consolidate({
+              y.consolidate({
                 uploadStage: o("WAWebMediaTypes").UploadStage.UPLOADED,
               }),
               o("WALogger").LOG(
@@ -466,7 +468,7 @@ __d(
                     "MediaAlgo.uploadMedia: success",
                   ])),
               ),
-              { kind: b.SUCCESS, mediaEntry: e }
+              { kind: S.SUCCESS, mediaEntry: e }
             );
           })
           .catch(function (e) {
@@ -479,7 +481,7 @@ __d(
                         "MediaAlgo.uploadMedia: canceled",
                       ])),
                   ),
-                  N(S, $))
+                  w(v, $))
                 : o("WALogger")
                     .WARN(
                       m ||
@@ -492,18 +494,18 @@ __d(
             );
           })
           .finally(function () {
-            v.clearUploadPromise(S, P);
+            y.clearUploadPromise(v, P);
           })
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebMediaLoadErrors").FileNotReadableError,
               function () {
                 return (
-                  v.consolidate({
+                  y.consolidate({
                     uploadStage:
                       o("WAWebMediaTypes").UploadStage.ERROR_FILE_NOT_READABLE,
                   }),
-                  { kind: b.ERROR }
+                  { kind: S.ERROR }
                 );
               },
             ),
@@ -513,10 +515,10 @@ __d(
               o("WAWebDownloadManagerErrors").MediaNotOnPhone,
               function () {
                 return (
-                  v.consolidate({
+                  y.consolidate({
                     uploadStage: o("WAWebMediaTypes").UploadStage.ERROR_MISSING,
                   }),
-                  { kind: b.ERROR }
+                  { kind: S.ERROR }
                 );
               },
             ),
@@ -526,11 +528,11 @@ __d(
               o("WAWebMmsClientErrors").MediaTooLargeError,
               function () {
                 return (
-                  v.consolidate({
+                  y.consolidate({
                     uploadStage:
                       o("WAWebMediaTypes").UploadStage.ERROR_TOO_LARGE,
                   }),
-                  { kind: b.ERROR }
+                  { kind: S.ERROR }
                 );
               },
             ),
@@ -540,11 +542,11 @@ __d(
               o("WAWebMmsClientErrors").MMSForbiddenError,
               function () {
                 return (
-                  v.consolidate({
+                  y.consolidate({
                     uploadStage:
                       o("WAWebMediaTypes").UploadStage.ERROR_FORBIDDEN,
                   }),
-                  { kind: b.ERROR }
+                  { kind: S.ERROR }
                 );
               },
             ),
@@ -554,41 +556,41 @@ __d(
               o("WAWebMmsClientErrors").MMSThrottleError,
               function () {
                 return (
-                  v.consolidate({
+                  y.consolidate({
                     uploadStage:
                       o("WAWebMediaTypes").UploadStage.ERROR_THROTTLED,
                   }),
-                  { kind: b.ERROR }
+                  { kind: S.ERROR }
                 );
               },
             ),
           )
           .catch(function (e) {
             return (
-              v.consolidate({
+              y.consolidate({
                 uploadStage: o("WAWebMediaTypes").UploadStage.NEED_UPLOAD,
               }),
               r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
-                ? { kind: b.CANCELLATION }
-                : { kind: b.ERROR }
+                ? { kind: S.CANCELLATION }
+                : { kind: S.ERROR }
             );
           });
       return (
-        y.set(P, function (e) {
+        b.set(P, function (e) {
           (($ = e), D.abort());
         }),
-        v.setUploadPromise(P, S),
+        y.setUploadPromise(P, v),
         P
       );
     }
-    var P = {
+    var M = {
       user: "media-upload-cancel-origin-user",
       media_object_delete: "media-upload-cancel-origin-media_object_delete",
       download_error: "media-upload-cancel-origin-download_error",
       thumbnail: "media-upload-cancel-origin-thumbnail",
       unknown: "media-upload-cancel-origin-unknown",
     };
-    function N(e, t) {
+    function w(e, t) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "web_media_fast_forward_match_key_type_entry_enabled",
@@ -606,15 +608,15 @@ __d(
             n,
             e,
           )
-          .sendLogs(P[n], { sampling: 0.1 });
+          .sendLogs(M[n], { sampling: 0.1 });
       }
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.abortSignal,
             a = e.chatWid,
@@ -622,7 +624,7 @@ __d(
             l = e.mediaType,
             s = e.mimetype,
             u = e.uploadOrigin,
-            c = V(i);
+            c = G(i);
           if (c) return c;
           var d = (t = i.filehash) != null ? t : "none",
             m = i.entries.entries.length;
@@ -661,21 +663,21 @@ __d(
               o("WAWebMediaTypes").DownloadStage.ERROR_MISSING)
           )
             throw new (o("WAWebDownloadManagerErrors").MediaNotOnPhone)();
-          var p = V(i);
+          var p = G(i);
           if (p) return p;
           throw r("err")("can't upload media w/out mediaBlob after download");
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e, t, n) {
-      return F.apply(this, arguments);
+    function O(e, t, n) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
-            !U(e, t) ||
+            !H(e, t) ||
             n.size >
               r("WAWebMediaStoreLruImpl").SINGLE_ITEM_SIZE_LIMIT_IN_BYTES ||
             o("WAWebUploadManagerBase").shouldStreamEncrypt(t, n)
@@ -687,51 +689,75 @@ __d(
             return null;
           }
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e, t, n) {
-      return B.apply(this, arguments);
+    function W(e, t, n) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = n instanceof ArrayBuffer ? n.byteLength : n.size;
           if (
             !(
               e == null ||
-              !U(e, t) ||
+              !H(e, t) ||
               a > r("WAWebMediaStoreLruImpl").SINGLE_ITEM_SIZE_LIMIT_IN_BYTES
             )
-          )
+          ) {
+            var i;
             try {
-              yield o("WAWebMediaStore").LruMediaStore.put(
-                e,
+              i =
                 n instanceof ArrayBuffer
                   ? n
-                  : yield o("WAWebFileUtils").blobToArrayBuffer(n),
-              );
+                  : yield o("WAWebFileUtils").blobToArrayBuffer(n);
             } catch (e) {
               o("WALogger")
-                .WARN(
+                .LOG(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[media-upload] sent media no longer readable to file for reuse",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e));
+              return;
+            }
+            try {
+              yield o("WAWebMediaStore").LruMediaStore.put(e, i);
+            } catch (e) {
+              if (e instanceof DOMException) {
+                o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[media-upload] browser refused to file the sent media for reuse: ",
+                      "",
+                    ])),
+                  e.name,
+                );
+                return;
+              }
+              o("WALogger")
+                .WARN(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[media-upload] could not file the sent media for reuse",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("upload-lru-store-write-failed");
             }
+          }
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    function U(e, t) {
+      return V.apply(this, arguments);
     }
-    function q() {
+    function V() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = e.mediaBlob;
             if (n == null || !(n.forceToBlob() instanceof File)) return;
@@ -750,25 +776,25 @@ __d(
           } catch (e) {
             o("WALogger")
               .WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[media-upload] could not keep the sent media in memory",
                   ])),
               )
               .catching(r("getErrorSafe")(e));
           }
         })),
-        q.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function U(e, t) {
+    function H(e, t) {
       return e == null
         ? !1
         : (o("WAWebMediaDataUtils").shouldUseLruMediaStore(t) &&
             r("justknobx")._("2918")) ||
             r("WAWebEnvironment").isWindows;
     }
-    function V(e) {
+    function G(e) {
       var t = e.mediaBlob;
       if (t) return t.formData();
       if (!(e.filehash == null || e.filehash === ""))
@@ -776,13 +802,13 @@ __d(
           e.filehash,
         );
     }
-    ((l.cancelUploadMedia = C),
-      (l.UploadMediaResultKind = b),
-      (l.getUploadEntryForMediaType = R),
-      (l.uploadMedia = D),
-      (l.uploadUnencryptedMedia = x),
-      (l.getOrDownloadBlob = M),
-      (l.getBlobFromMediaObject = V));
+    ((l.cancelUploadMedia = v),
+      (l.UploadMediaResultKind = S),
+      (l.getUploadEntryForMediaType = E),
+      (l.uploadMedia = $),
+      (l.uploadUnencryptedMedia = P),
+      (l.getOrDownloadBlob = A),
+      (l.getBlobFromMediaObject = G));
   },
   98,
 );

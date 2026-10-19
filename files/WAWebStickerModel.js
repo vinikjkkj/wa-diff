@@ -50,6 +50,7 @@ __d(
             (e.isPlaceholder = o("WAWebBaseModel").prop()),
             (e.isCreateButton = o("WAWebBaseModel").prop()),
             (e.isAvatar = o("WAWebBaseModel").prop()),
+            (e.stickerAudio = o("WAWebBaseModel").prop()),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -118,6 +119,7 @@ __d(
               isAvatar: this.isAvatar,
               type: o("WAWebMediaTypes").OUTWARD_TYPES.STICKER,
               weight: this.weight,
+              stickerAudio: this.stickerAudio,
             };
           }),
           (a.delete = function () {

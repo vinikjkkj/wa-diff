@@ -360,6 +360,12 @@ __d(
               /@all\b/g.test(_) &&
               (le |= r("WAWebNonJidMentionType").MENTION_ALL),
             le > 0 && (U.nonJidMentions = le),
+            a.hatchRequest != null &&
+              (U.hatchMetadataSync = {
+                type: "req",
+                requestId: U.id.id,
+                request: a.hatchRequest,
+              }),
             U
           );
         })),

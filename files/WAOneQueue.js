@@ -29,9 +29,10 @@ __d(
       h,
       y,
       C,
-      b = 6e4,
-      v = o("WATagsLogger").TAGS(["OneQueue"]),
-      S = (function () {
+      b,
+      v = 6e4,
+      S = o("WATagsLogger").TAGS(["OneQueue"]),
+      R = (function () {
         function t(t) {
           var n = this,
             r = t.castAcks,
@@ -80,7 +81,7 @@ __d(
                   { name: "flush_by_timer" },
                 )
                 .promise.catch(function (t) {
-                  v.ERROR(
+                  S.ERROR(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "Error while processing flush_by_timer: ",
@@ -98,7 +99,7 @@ __d(
               n = t.name,
               r = t.priority;
             return (
-              v.LOG(
+              S.LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Enqueuing ",
@@ -145,39 +146,47 @@ __d(
               (this.$4 = o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME),
               this.$1.publish({ type: "offline-start", offlineStats: t }),
               (this.$9 = t.count),
-              this.$5.onOrAfter(b),
+              this.$5.onOrAfter(v),
               this.$6.offlineStart());
           }),
-          (a.handleOfflineEndStanza = function () {
+          (a.handleOfflineEndStanza = function (t) {
             var e = this;
             return this.$19({
               fn: function () {
-                var t;
-                return (
-                  e.$5.cancel(),
-                  e.$6.clear(),
-                  e.$10 !==
-                  ((t = o("WAComms").getComms()) == null ? void 0 : t.socketId)
-                    ? (v.LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "Offline queue end received while the connection gets dropped",
-                          ])),
-                      ),
-                      e.$18("endOfOQ"))
-                    : (v.LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "Offline queue end",
-                          ])),
-                      ),
-                      e.$18("endOfOQ").then(function () {
-                        ((e.$4 = o("WAOfflineUtils").ServerRPCMode.ONLINE),
-                          e.$21(),
-                          e.$13.resolve(),
-                          e.$1.publish({ type: "offline-end" }));
-                      }))
-                );
+                var n;
+                return t != null && t !== e.$10
+                  ? (S.LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Offline queue end of a replaced connection",
+                        ])),
+                    ),
+                    e.$18("endOfOQ"))
+                  : (e.$5.cancel(),
+                    e.$6.clear(),
+                    e.$10 !==
+                    ((n = o("WAComms").getComms()) == null
+                      ? void 0
+                      : n.socketId)
+                      ? (S.LOG(
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                              "Offline queue end received while the connection gets dropped",
+                            ])),
+                        ),
+                        e.$18("endOfOQ"))
+                      : (S.LOG(
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                              "Offline queue end",
+                            ])),
+                        ),
+                        e.$18("endOfOQ").then(function () {
+                          ((e.$4 = o("WAOfflineUtils").ServerRPCMode.ONLINE),
+                            e.$21(),
+                            e.$13.resolve(),
+                            e.$1.publish({ type: "offline-end" }));
+                        })));
               },
               name: "offline_end",
               priority: this.$15,
@@ -194,9 +203,9 @@ __d(
               try {
                 yield this.$16.clear();
               } catch (e) {
-                v.ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                S.ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "Error while clearing the dangling queue: ",
                       "",
                     ])),
@@ -220,9 +229,9 @@ __d(
           (a.connectionDropped = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this;
-              (v.WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+              (S.WARN(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "Drop offline queue as per loosing connection",
                   ])),
               ),
@@ -251,7 +260,7 @@ __d(
               }),
               this.$6.stanzaReceived(t),
               this.$5.cancel(),
-              this.$5.onOrAfter(b));
+              this.$5.onOrAfter(v));
           }),
           (a.$20 = function (t, r, o) {
             var e,
@@ -261,28 +270,28 @@ __d(
               s = r.tag;
             return (
               this.$22(i, l),
-              v.LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+              S.LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "Processing stanza with tag ",
                     "",
                   ])),
                 s,
               ),
               (this.$7[s] = ((e = this.$7[s]) != null ? e : 0) + 1),
-              (C || (C = n("Promise")))
+              (b || (b = n("Promise")))
                 .resolve(t(this.$11))
                 .then(function (e) {
                   return (
-                    v.LOG(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    S.LOG(
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
                           "Processing stanza with tag ",
                           " is done",
                         ])),
                       s,
                     ),
-                    R(e)
+                    L(e)
                       ? a.$2.push({ response: e, socketId: o })
                       : a.$2.push({ response: e, socketId: o }),
                     e
@@ -297,14 +306,14 @@ __d(
             return this.$4 === o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME
               ? this.$6.shouldFlash()
                 ? this.$18()
-                : (C || (C = n("Promise"))).resolve()
+                : (b || (b = n("Promise"))).resolve()
               : this.$18();
           }),
           (a.$18 = function (t) {
             var e = this;
-            v.LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+            S.LOG(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "Flushing protocol queue",
                 ])),
             );
@@ -320,16 +329,16 @@ __d(
                 .reduce(
                   function (n, r) {
                     return n.then(function () {
-                      return r.flush(e.$11, v, e.$4, t);
+                      return r.flush(e.$11, S, e.$4, t);
                     });
                   },
-                  (C || (C = n("Promise"))).resolve(),
+                  (b || (b = n("Promise"))).resolve(),
                 )
                 .then(function () {
                   return (
-                    v.LOG(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                    S.LOG(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
                           "Acking",
                         ])),
                     ),
@@ -348,9 +357,9 @@ __d(
           (a.$24 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = [].concat(this.$3, this.$2);
-              (v.LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+              (S.LOG(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "Cast stanzas ",
                     "",
                   ])),
@@ -363,9 +372,9 @@ __d(
               } catch (e) {
                 var t = r("getErrorSafe")(e);
                 throw (
-                  v.ERROR(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                  S.ERROR(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
                         "Error while casting ack: ",
                         "",
                       ])),
@@ -374,7 +383,7 @@ __d(
                   t
                 );
               }
-              return (C || (C = n("Promise"))).resolve();
+              return (b || (b = n("Promise"))).resolve();
             });
             function t() {
               return e.apply(this, arguments);
@@ -431,10 +440,10 @@ __d(
           t
         );
       })();
-    function R(e) {
+    function L(e) {
       return !(e === "NO_ACK" || e === "CLOSE_SOCKET");
     }
-    l.WAOneQueue = S;
+    l.WAOneQueue = R;
   },
   98,
 );

@@ -11,6 +11,7 @@ __d(
     "WAWebMsgType",
     "WAWebStickerPngThumbnailValidation",
     "WAWebStickerPremiumStatus",
+    "WAWebStickersParseStickerAudio",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -74,6 +75,11 @@ __d(
             emojis:
               (a = m.emojis) == null ? void 0 : a.split(" ").filter(Boolean),
             mediaPngThumbnail: u(m.pngThumbnail),
+            stickerAudio: r("WAWebStickersParseStickerAudio")({
+              audioMessage: m.audioMessage,
+              baseMessage: i,
+              msgContext: s,
+            }),
           });
         return (
           o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(C, m),

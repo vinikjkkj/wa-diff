@@ -20,26 +20,27 @@ __d(
       b = c("followerActivityMuteExpiration"),
       v = c("inviteCode"),
       S = c("membershipType"),
-      R = c("name"),
-      L = c("pinnedMessages"),
-      E = c("privacy"),
-      k = c("reactionCodesSetting"),
-      I = c("size"),
-      T = c("statusMetadata"),
-      D = c("suspended"),
-      x = c("terminated"),
-      $ = c("verified"),
-      P = c("wamoSubPlanId"),
-      N = c("wamoSubStatus"),
-      M = u(
+      R = c("subscribers"),
+      L = c("name"),
+      E = c("pinnedMessages"),
+      k = c("privacy"),
+      I = c("reactionCodesSetting"),
+      T = c("size"),
+      D = c("statusMetadata"),
+      x = c("suspended"),
+      $ = c("terminated"),
+      P = c("verified"),
+      N = c("wamoSubPlanId"),
+      M = c("wamoSubStatus"),
+      w = u(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [D, x],
+        [x, $],
       ),
-      w = u(
+      A = u(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -56,7 +57,7 @@ __d(
         },
         [_, S],
       ),
-      A = u(
+      F = u(
         function (e) {
           var t = e[0];
           return (
@@ -71,7 +72,7 @@ __d(
         },
         [S],
       ),
-      F = u(
+      O = u(
         function (e) {
           var t = e[0];
           return (
@@ -90,21 +91,22 @@ __d(
       (l.getFollowerActivityMuteExpiration = b),
       (l.getInviteCode = v),
       (l.getMembershipType = S),
-      (l.getName = R),
-      (l.getPinnedMessages = L),
-      (l.getPrivacy = E),
-      (l.getReactionCodesSetting = k),
-      (l.getSize = I),
-      (l.getStatusMetadata = T),
-      (l.getSuspended = D),
-      (l.getTerminated = x),
-      (l.getVerified = $),
-      (l.getWamoSubPlanId = P),
-      (l.getWamoSubStatus = N),
-      (l.getIsSuspendedOrTerminated = M),
-      (l.getCanBeMuted = w),
-      (l.getIsSubscribedOrOwned = A),
-      (l.getIsPreview = F));
+      (l.getSubscribers = R),
+      (l.getName = L),
+      (l.getPinnedMessages = E),
+      (l.getPrivacy = k),
+      (l.getReactionCodesSetting = I),
+      (l.getSize = T),
+      (l.getStatusMetadata = D),
+      (l.getSuspended = x),
+      (l.getTerminated = $),
+      (l.getVerified = P),
+      (l.getWamoSubPlanId = N),
+      (l.getWamoSubStatus = M),
+      (l.getIsSuspendedOrTerminated = w),
+      (l.getCanBeMuted = A),
+      (l.getIsSubscribedOrOwned = F),
+      (l.getIsPreview = O));
   },
   98,
 );

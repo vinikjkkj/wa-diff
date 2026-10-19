@@ -6,6 +6,7 @@ __d(
     "WACrossWorkerPortal",
     "WAErrors",
     "WALogger",
+    "WATimeUtils",
     "WATransferableResult",
     "WAWap",
     "WAWebABPropsCache",
@@ -415,6 +416,15 @@ __d(
                     "WAWebIdentityChangeApiWorkerCompatible",
                   ).clearDeviceRecordForIdentityChange(t)
                 );
+              },
+            },
+          },
+          {
+            namespace: "mainthread_clockSkew",
+            handlers: {
+              setClockSkew: function (t) {
+                var e = t.newClockSkew;
+                o("WATimeUtils").setClockSkew(e);
               },
             },
           },

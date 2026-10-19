@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebE2EProtoUtils",
     "WAWebMsgType",
+    "WAWebSoundStickerGating",
     "WAWebStickerMimeUtils",
     "WAWebWid",
     "err",
@@ -17,7 +18,8 @@ __d(
       var n,
         a = t.contextInfo,
         i = t.json,
-        l = t.mediaMetadata;
+        l = t.mediaMetadata,
+        u = t.msgContext;
       if (
         (l != null || s(0, 66810),
         l.mimetype != null &&
@@ -36,7 +38,7 @@ __d(
           ),
           r("err")("invalid sticker mimetype")
         );
-      var u = {
+      var d = {
         url: l.url,
         mimetype: l.mimetype,
         directPath: l.directPath,
@@ -65,15 +67,40 @@ __d(
         stickerSentTs: i.stickerSentTs,
         emojis: (n = i.emojis) == null ? void 0 : n.join(" "),
         contextInfo: a,
+        audioMessage: c(i.stickerAudio, u),
       };
       return (
         o("WAWebE2EProtoUtils").validateOutgoingRequiredMediaProperties(
           o("WAWebMsgType").MSG_TYPE.STICKER,
-          u,
+          d,
           r("WAWebWid").isNewsletter(i.to),
         ),
-        { stickerMessage: u }
+        { stickerMessage: d }
       );
+    }
+    function c(e, t) {
+      var n, r;
+      if (
+        !(
+          e == null ||
+          t === "quoted" ||
+          !o("WAWebSoundStickerGating").isSoundStickerCreationEnabled()
+        )
+      )
+        return {
+          url: d(e.deprecatedMms3Url),
+          directPath: d(e.directPath),
+          mediaKey: o("WAWebE2EProtoUtils").encodeBytes(e.mediaKey),
+          mediaKeyTimestamp: (n = e.mediaKeyTimestamp) != null ? n : void 0,
+          fileSha256: o("WAWebE2EProtoUtils").encodeBytes(e.filehash),
+          fileEncSha256: o("WAWebE2EProtoUtils").encodeBytes(e.encFilehash),
+          fileLength: e.size > 0 ? e.size : void 0,
+          seconds: (r = e.duration) != null ? r : void 0,
+          mimetype: d(e.mimetype),
+        };
+    }
+    function d(e) {
+      return e != null && e !== "" ? e : void 0;
     }
     l.default = u;
   },

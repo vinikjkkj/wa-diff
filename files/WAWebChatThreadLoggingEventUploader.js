@@ -68,6 +68,7 @@ __d(
                     );
                   this.secret = m;
                 }
+                t == null || t.onStage == null || t.onStage("read-events");
                 var _ = yield this.eventStore.getBeforeInclusive(d),
                   f = !0;
                 try {
@@ -85,6 +86,7 @@ __d(
                     (f = !1));
                 }
                 if (i && f) {
+                  t == null || t.onStage == null || t.onStage("purge");
                   var g = yield this.eventStore.deleteBeforeInclusive(d);
                   g !== _.length &&
                     o("WALogger").ERROR(
@@ -99,6 +101,7 @@ __d(
                     );
                 }
                 return (
+                  t == null || t.onStage == null || t.onStage("save-progress"),
                   yield this.metadataStore.setLastUploadedStartTs(d),
                   _.length
                 );

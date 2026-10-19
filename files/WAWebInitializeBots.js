@@ -1,10 +1,12 @@
 __d(
   "WAWebInitializeBots",
   [
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBotBaseGating",
+    "WAWebBotCanonicalRetry",
     "WAWebPersistBotProfiles",
     "WAWebRequestBotProfiles",
     "WAWebRestoreBotProfilesFromDb",
@@ -25,24 +27,26 @@ __d(
       _,
       f,
       g,
-      h = r("requireDeferred")("WAWebRequestBotList").__setRef(
+      h,
+      y,
+      C = r("requireDeferred")("WAWebRequestBotList").__setRef(
         "WAWebInitializeBots",
       ),
-      y = 2e3;
-    function C() {
+      b = 2e3;
+    function v() {
       return o("WAWebUserPrefsBot").getBotListLastRequestedTimestamp();
     }
-    var b = null;
-    function v(e) {
-      (b != null && self.clearTimeout(b),
-        (b = self.setTimeout(function () {
-          ((b = null), L());
+    var S = null;
+    function R(e) {
+      (S != null && self.clearTimeout(S),
+        (S = self.setTimeout(function () {
+          ((S = null), k());
         }, e * 1e3)));
     }
-    function S(t) {
+    function L(t) {
       var n = t.didFetchFromServer,
         r = t.durationMs;
-      r <= y ||
+      r <= b ||
         o("WALogger")
           .WARN(
             e ||
@@ -56,42 +60,63 @@ __d(
           )
           .sendLogs("bot-initialize-slow", { sampling: 0.01 });
     }
-    var R = null;
-    function L() {
+    var E = null;
+    function k() {
+      if (E != null) return E;
+      var e = !1;
       return (
-        R != null ||
-          (R = E().finally(function () {
-            R = null;
+        (E = T()
+          .then(function (t) {
+            e = t;
+          })
+          .finally(function () {
+            ((E = null), e && o("WAWebBotCanonicalRetry").armCanonicalRetry(I));
           })),
-        R
+        E
       );
     }
-    function E() {
-      return k.apply(this, arguments);
+    function I() {
+      var e = E != null ? E : (y || (y = n("Promise"))).resolve();
+      e.then(k, k).catch(function (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[bot] canonical retry bot sync failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("bot-canonical-retry-sync-failed", { sampling: 0.01 });
+      });
     }
-    function k() {
+    function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebRuntimeEnvironmentUtils").isWorker()) {
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[bot] skipping bot initialization in worker",
-                ])),
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (o("WAWebRuntimeEnvironmentUtils").isWorker())
+            return (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot] skipping bot initialization in worker",
+                  ])),
+              ),
+              !1
             );
-            return;
-          }
-          if (!o("WAWebBotBaseGating").isBotEnabled()) {
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[bot] not initializing bots due to feature being disabled",
-                ])),
+          if (!o("WAWebBotBaseGating").isBotEnabled())
+            return (
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot] not initializing bots due to feature being disabled",
+                  ])),
+              ),
+              !1
             );
-            return;
-          }
           var e = self.performance.now(),
-            t = C(),
+            t = v(),
             n = o("WATimeUtils").unixTime(),
             a = o("WAWebABProps").getABPropConfigValue(
               "bonsai_update_interval",
@@ -99,8 +124,8 @@ __d(
             i,
             l = !1;
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[bot] restoring bots from DB",
               ])),
           );
@@ -109,58 +134,61 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[bot] restoreBotProfilesFromDb error",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("bot-restore-bot-profiles-error");
           }
-          (t + a < n
-            ? ((l = !0),
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bot] requesting bots from server",
-                  ])),
-              ),
-              yield I(),
-              (i = a))
-            : (i = t + a - n),
-            S({
+          return (
+            t + a < n
+              ? ((l = !0),
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bot] requesting bots from server",
+                    ])),
+                ),
+                yield x(),
+                (i = a))
+              : (i = t + a - n),
+            L({
               didFetchFromServer: l,
               durationMs: self.performance.now() - e,
             }),
-            v(i),
+            R(i),
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[bot] initializing bots complete, next fetch at ",
                   "",
                 ])),
               n + i,
-            ));
+            ),
+            l
+          );
         })),
-        k.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
+    function x() {
+      return $.apply(this, arguments);
     }
-    function T() {
+    function $() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           try {
-            var t = yield h.load(),
+            var t = yield C.load(),
               n = t.requestBotList;
             e = yield n();
           } catch (e) {
             o("WALogger")
               .ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[bot] requestBotList error",
                   ])),
               )
@@ -173,14 +201,13 @@ __d(
             a = yield o("WAWebRequestBotProfiles").requestBotProfiles(e);
           } catch (e) {
             o("WALogger")
-              .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bot] requestBotProfiles error",
+              .LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot] requestBotProfiles rejected",
                   ])),
               )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("bot-request-bot-profiles-error");
+              .catching(r("getErrorSafe")(e));
             return;
           }
           try {
@@ -188,8 +215,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[bot] persistBotProfiles error",
                   ])),
               )
@@ -197,17 +224,17 @@ __d(
               .sendLogs("bot-persist-bot-profiles-error");
             return;
           }
-          D();
+          P();
         })),
-        T.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function D() {
+    function P() {
       o("WAWebUserPrefsBot").setBotListLastRequestedTimestamp(
         o("WATimeUtils").unixTime(),
       );
     }
-    ((l.initializeBots = L), (l.getBotProfilesFromServer = I));
+    ((l.initializeBots = k), (l.getBotProfilesFromServer = x));
   },
   98,
 );

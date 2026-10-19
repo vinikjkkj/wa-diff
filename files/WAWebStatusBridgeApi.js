@@ -56,10 +56,11 @@ __d(
       handleReadStatus: function (t) {
         var e = t.msgKeys;
         for (var n of e) {
-          var r = n.participant,
+          var r = s(n),
             a = r && o("WAWebStatusCollection").StatusCollection.get(r);
           if (a) {
-            if (o("WAWebContactGetters").getIsMe(a.contact)) continue;
+            var i = o("WAWebContactGetters").getIsMe(a.contact) && !n.fromMe;
+            if (i) continue;
             a.handleReadStatus(n);
           }
         }
@@ -75,6 +76,11 @@ __d(
         o("WAWebCmd").Cmd.updateStatusPrivacySettingsFromBridge(t);
       },
     };
+    function s(e) {
+      var t = e.participant,
+        n = e.remote;
+      return n.isStatus() ? t : n.isGroup() || n.isNewsletter() ? n : null;
+    }
     l.StatusBridgeApi = e;
   },
   98,

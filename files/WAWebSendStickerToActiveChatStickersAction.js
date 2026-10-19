@@ -3,20 +3,15 @@ __d(
   [
     "WALogger",
     "WAWebApiPrepareCtwaContextSend",
-    "WAWebChatCollection",
-    "WAWebNewsletterCollection",
+    "WAWebGetActiveStickerChat",
     "WAWebSendStickerAction",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(t, n, a) {
-      var i,
-        l =
-          (i = r("WAWebNewsletterCollection").getActive()) != null
-            ? i
-            : o("WAWebChatCollection").ChatCollection.getActive();
-      if (l == null) {
+      var i = r("WAWebGetActiveStickerChat")();
+      if (i == null) {
         o("WALogger").ERROR(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -25,21 +20,21 @@ __d(
         );
         return;
       }
-      var u = l.getComposeContents(),
-        c = {
+      var l = i.getComposeContents(),
+        u = {
           stickerSendOrigin: n,
-          quotedMsg: l.composeQuotedMsg,
+          quotedMsg: i.composeQuotedMsg,
           ctwaContext: o(
             "WAWebApiPrepareCtwaContextSend",
           ).prepareCtwaContextSend(
-            u == null ? void 0 : u.ctwaContextLinkData,
-            u == null ? void 0 : u.ctwaContext,
+            l == null ? void 0 : l.ctwaContextLinkData,
+            l == null ? void 0 : l.ctwaContext,
           ),
         };
-      (a === !0 && (c.isWamoSub = !0),
-        (l.composeQuotedMsg = null),
+      (a === !0 && (u.isWamoSub = !0),
+        (i.composeQuotedMsg = null),
         o("WAWebSendStickerAction")
-          .sendStickerToChat(l, t, c)
+          .sendStickerToChat(i, t, u)
           .catch(function (e) {
             return o("WALogger")
               .ERROR(

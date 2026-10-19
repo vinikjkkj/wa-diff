@@ -129,7 +129,10 @@ __d(
                     t.message,
                     t.receipt,
                   ),
-                  o("WAWebOfflineResumeUtils").refreshWindow()),
+                  o("WAWebOfflineResumeUtils").refreshWindow(
+                    "open_tab_limit_blocking",
+                    { msg: t.message, receipt: t.receipt },
+                  )),
                 o("WAWebJSHaltDetector").jsHaltDetector.restartDetection(),
                 this.$11(
                   o("WAWebOfflineResumeConst").ResumeStatus
@@ -320,7 +323,9 @@ __d(
                           ])),
                         n.$6,
                       ),
-                      o("WAWebOfflineResumeUtils").refreshWindow());
+                      o("WAWebOfflineResumeUtils").refreshWindow(
+                        "stanzas_after_complete_blocking",
+                      ));
                   }, o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_CHECK_TIMEOUT_MS),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "triggerOfflineProgressUpdateFromBridge",

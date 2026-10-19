@@ -1,9 +1,12 @@
 __d(
   "WAService",
   [
+    "MsgrSchedulerQPL",
     "PersistedQueueApi",
+    "TaskSchedulerPriority",
     "WAAbPropsInit",
     "WABaseGlobals",
+    "WACastStanzas",
     "WAComms",
     "WACommsInit",
     "WACryptoLibraryConfig",
@@ -18,6 +21,7 @@ __d(
     "WAOfflineUtils",
     "WAOneQueue",
     "WAProtocolQueue",
+    "WAPullMode",
     "WATagsLogger",
     "WATimeUtils",
     "WAWaitForComms",
@@ -53,7 +57,10 @@ __d(
           var p = o("WACryptoManagerUtils").createCryptoManager(d.regInfo),
             _ = o("WAProtocolQueue").protocolQueue(),
             f = new (o("WAOneQueue").WAOneQueue)({
-              cryptoManager: p.manager,
+              castAcks: o("WACastStanzas").castStanzasToServer,
+              context: { cryptoManager: p.manager },
+              danglingQueue: { clear: o("WADanglingQueue").danglingQueueClear },
+              enqueuePriority: o("TaskSchedulerPriority").BLOCKING_PRIORITY,
               flushables: [
                 o("WADeviceNotificationFlushable").deviceNotificationFlushable,
                 o("WAMPSFlushable").mpsFlushable,
@@ -61,6 +68,12 @@ __d(
                 o("WACryptoManager").cryptoManagerFlushable(p.manager),
               ],
               mode: o("WAOfflineUtils").ServerRPCMode.INIT,
+              promotionTimeoutMs: 200,
+              pullMode: new (o("WAPullMode").PullMode)(),
+              schedulerLifecycleListener: o(
+                "MsgrSchedulerQPL",
+              ).makeMsgrSchedulerQPLListener({ defaultSamplingRate: 8e3 }),
+              schedulerName: "wa",
             });
           (o("WADanglingQueue").initDanglingQueue(
             o("PersistedQueueApi").persistedQueueApi(),

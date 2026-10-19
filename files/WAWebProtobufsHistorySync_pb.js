@@ -21,6 +21,7 @@ __d(
         PUSH_NAME: 4,
         NON_BLOCKING_DATA: 5,
         ON_DEMAND: 6,
+        RECENT_CONVERSATIONS_ON_DEMAND: 9,
       }),
       d = s({
         NO_APPEAL: 0,

@@ -14,6 +14,8 @@ __d(
     "WAWebPollsVotesSchema",
     "WAWebProtobufMsgKeyUtils",
     "WAWebProtobufsWeb.pb",
+    "WAWebSoundStickerGating",
+    "WAWebSoundStickerUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -211,8 +213,9 @@ __d(
             l = e.msgData,
             s = e.pinInChat,
             u = e.pollVotes,
-            c = e.reactions,
-            p = l.id.toString(),
+            c = e.reactions;
+          if (S(l)) return null;
+          var p = l.id.toString(),
             f = yield y(u.get(p), l),
             g = s.get(p);
           return o(
@@ -227,6 +230,15 @@ __d(
           });
         })),
         v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      var t = e.stickerAudio;
+      return (
+        t != null &&
+        o("WAWebSoundStickerUtils").isSoundStickerMsg(e) &&
+        (!o("WAWebSoundStickerUtils").isCompleteStickerAudio(t) ||
+          !o("WAWebSoundStickerGating").isSoundStickerCreationEnabled())
       );
     }
     ((l.getAddonsDBRowFromParentMsgs = u), (l.serializeSingleMessage = b));

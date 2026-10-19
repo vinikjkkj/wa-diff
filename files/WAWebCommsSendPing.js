@@ -8,6 +8,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "asyncToGeneratorRuntime",
+    "cr:2960",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -90,7 +91,8 @@ __d(
       );
     }
     function g(e) {
-      o("WATimeUtils").setClockSkew(e);
+      (o("WATimeUtils").setClockSkew(e),
+        n("cr:2960") == null || n("cr:2960").reportServerTimeFromPing(e));
     }
     ((l.blockSendPing = _), (l.updateClockSkew = g));
   },

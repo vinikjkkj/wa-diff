@@ -2,13 +2,17 @@ __d(
   "MAWMpsBridgeHandlers",
   [
     "Base64Utils",
+    "FBLogger",
     "IgnitionE2EEMpsCompareChecker",
     "MAWExternalId",
     "MAWJids",
+    "MAWP2pPaymentCardSaveLogger",
+    "MAWP2pPaymentMessage",
     "MAWProtobufDeserializers",
     "MpsTypes",
     "WAArmadilloMiTransportAdminMessage.pb",
     "WABuildMpsPayload",
+    "WAGlobals",
     "WAJids",
     "WAResultOrError",
     "WAStanzaUtils",
@@ -397,6 +401,55 @@ __d(
           return t.apply(this, arguments);
         }
         return r;
+      })(),
+      mpsHandleP2pPaymentFromMI: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("MAWP2pPaymentCardSaveLogger").startP2pPaymentCardSaveLog(
+              e.initiatingUserWalletType,
+            ),
+            n = o("MAWP2pPaymentMessage").buildP2pPaymentMessage(
+              e,
+              o("WAJids").extractUserId(o("WAGlobals").getMyUserJid()),
+            );
+          if (n == null)
+            return (
+              r("FBLogger")("p2p_payment", "web_payment_card").mustfix(
+                "Dropped a payment card that could not be built: wallet %s, type %s, has offline threading id %s",
+                e.initiatingUserWalletType,
+                e.transactionType,
+                String(e.offlineThreadingId !== ""),
+              ),
+              t.fail("build_failed"),
+              o("WAResultOrError").makeResult()
+            );
+          var a = yield o("WebMps")
+              .mps()
+              .saveNewMessages(
+                [
+                  {
+                    directive: null,
+                    insertionSource: o("MpsTypes").InsertionSource.Receive,
+                    isAlreadyUploadedToEB: !0,
+                    message: n,
+                  },
+                ],
+                { source: "handle_p2p_payment_from_mi" },
+              ),
+            i = a.get(n.messageId);
+          return (
+            i != null
+              ? (r("FBLogger")("p2p_payment", "web_payment_card")
+                  .catching(i)
+                  .mustfix("Failed to save a payment card"),
+                t.fail("save_failed"))
+              : t.success(),
+            o("WAResultOrError").makeResult()
+          );
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
       })(),
       mpsHandleUnencryptedAdminMessageFromMI: (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {

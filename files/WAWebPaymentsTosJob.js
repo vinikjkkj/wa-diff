@@ -25,7 +25,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r = {
             acceptPayTosVersion: n != null ? n : 1,
-            setPaymentsTOSv3BRConsumerOrSetPaymentsTOSv3UPIConsumerPaymentsTOSv3MixinGroupArgs:
+            setPaymentsTOSv3BRConsumerOrSetPaymentsTOSv3UPIConsumerOrSetPaymentsTOSv3USConsumerPaymentsTOSv3MixinGroupArgs:
               {
                 setPaymentsTOSv3BRConsumerPaymentsTOSv3: {
                   additionalNoticeArgs: [{ additionalNoticeNotice: t }],

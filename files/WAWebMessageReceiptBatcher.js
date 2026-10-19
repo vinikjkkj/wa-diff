@@ -477,17 +477,11 @@ __d(
             return r("WAWebMsgKey").from(e);
           });
           if (e.remote.isStatus()) {
-            var n = t.map(o("WAWebLidStatusMigrationKeyUtils").matKeyConvert);
-            return (
-              o("WAWebBackendApi").frontendFireAndForget("handleReadStatus", {
-                msgKeys: n,
-              }),
-              o("WAWebBackendApi").frontendSendAndReceive("updateMsgPeerAcks", {
-                msgKeys: n,
-                ack: o("WAWebAck").ACK.READ,
-                t: e.ts,
-              })
+            yield o("WAWebHandleMsgReceiptCommon").markStatusesReadFromPeer(
+              t.map(o("WAWebLidStatusMigrationKeyUtils").matKeyConvert),
+              e.ts,
             );
+            return;
           }
           if (
             (e.remote.isUser() ||

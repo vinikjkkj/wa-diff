@@ -5,7 +5,9 @@ __d(
     "WAArrayUtils",
     "WAComms",
     "WADanglingQueue",
+    "WAGlobals",
     "WALogger",
+    "WAOfflineUtils",
     "WAPassiveMode",
     "WASendAggregatedDeliveryReceiptProtocol",
     "WAStanzaUtils",
@@ -77,7 +79,7 @@ __d(
               "Failed to cast stanzas: ",
               "",
             ])),
-          e,
+          String(e),
         );
       } finally {
         n.store &&
@@ -90,7 +92,7 @@ __d(
                     "Dangling Queue: ",
                     "",
                   ])),
-                e,
+                String(e),
               );
             });
       }
@@ -221,7 +223,23 @@ __d(
         b.apply(this, arguments)
       );
     }
-    ((l.castStanzasByCategories = m), (l.castDanglingStanzas = C));
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield m(e, {
+            send: !0,
+            store:
+              o("WAGlobals").getConfig().waDanglingQueue() &&
+              t === o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME,
+          });
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    ((l.castDanglingStanzas = C), (l.castStanzasToServer = v));
   },
   98,
 );

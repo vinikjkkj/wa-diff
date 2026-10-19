@@ -148,6 +148,7 @@ __d(
                     deprecatedMms3Url: t.deprecatedMms3Url,
                     isAvatar: t.isAvatar,
                     type: "sticker",
+                    stickerAudio: t.stickerAudio,
                   },
                 };
               });
@@ -202,17 +203,19 @@ __d(
               n = t.id,
               r = t.mediaData,
               a = t.mediaKey,
-              i = t.stickerSentTs;
+              i = t.stickerAudio,
+              l = t.stickerSentTs;
             this.addNewSticker(
               new (o("WAWebStickerModel").StickerModel)(
                 babelHelpers.extends({}, r, {
                   mediaKey: a,
                   encFilehash: e,
                   id: r.filehash,
+                  stickerAudio: i,
                 }),
               ),
               n.toString(),
-              i,
+              l,
             );
           }),
           (i.addNewSticker = function (t, n, r) {
@@ -263,14 +266,21 @@ __d(
                 l = [];
               (a.forEach(function (t) {
                 var r = t[0],
-                  o = t[1],
-                  a = t[2],
-                  s = e.get(r.id);
-                if (s) (s.timestamp <= o && (s.timestamp = o), l.push(s));
+                  a = t[1],
+                  s = t[2],
+                  u = e.get(r.id);
+                if (u)
+                  (u.timestamp <= a && (u.timestamp = a),
+                    r.stickerAudio != null &&
+                      (o("WAWebStickerGetters").clearStickerGetterCacheFor(
+                        u.sticker,
+                      ),
+                      (u.sticker.stickerAudio = r.stickerAudio)),
+                    l.push(u));
                 else {
-                  var u = e._dbDataToModel({
+                  var c = e._dbDataToModel({
                     id: r.id,
-                    timestamp: o,
+                    timestamp: a,
                     sticker: {
                       id: r.id,
                       index: r.index,
@@ -286,12 +296,13 @@ __d(
                       deprecatedMms3Url: r.deprecatedMms3Url,
                       isAvatar: r.isAvatar,
                       type: "sticker",
+                      stickerAudio: r.stickerAudio,
                     },
-                    msgId: a,
+                    msgId: s,
                     weight: r.weight != null ? Number(r.weight.toFixed(2)) : 1,
                     isNewSticker: n,
                   });
-                  (i.push(u), l.push(u));
+                  (i.push(c), l.push(c));
                 }
               }),
                 l.length > 0 &&
@@ -352,14 +363,20 @@ __d(
               this._addSaveTask());
           }),
           (i.updateRecentStickerWithNewSticker = function (t, n) {
-            var e = this.get(t);
-            e != null &&
-              (o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker),
-              (e.sticker = new (o("WAWebStickerModel").StickerModel)(
-                n.toDbData(),
-              )),
-              this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
-              this._addSaveTask());
+            var e,
+              r = this.get(t);
+            if (r != null) {
+              var a = r.sticker.stickerAudio,
+                i = n.toDbData();
+              (o("WAWebStickerGetters").clearStickerGetterCacheFor(r.sticker),
+                (r.sticker = new (o("WAWebStickerModel").StickerModel)(
+                  babelHelpers.extends({}, i, {
+                    stickerAudio: (e = i.stickerAudio) != null ? e : a,
+                  }),
+                )),
+                this.set([r], { remove: !1, add: !1, silent: !0, sort: !1 }),
+                this._addSaveTask());
+            }
           }),
           (i.associateStickerWithMsg = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

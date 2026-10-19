@@ -22,7 +22,7 @@ __d(
           r = t.from,
           a = t.offline,
           i = t.receipts;
-        if (((e.messageType = s(r)), a != null)) {
+        if (((e.messageType = u(r)), a != null)) {
           var l = parseInt(a, 10);
           Number.isNaN(l) || (e.receiptStanzaOfflineCount = l);
         }
@@ -36,7 +36,24 @@ __d(
           e.commit());
       };
     }
-    function s(e) {
+    function s() {
+      var e = new (o(
+        "WAWebReceiptStanzaReceiveWamEvent",
+      ).ReceiptStanzaReceiveWamEvent)({
+        receiptStanzaStage: o("WAWebWamEnumReceiptStanzaStage")
+          .RECEIPT_STANZA_STAGE.OVERALL,
+        receiptStanzaTotalCount: 1,
+      });
+      return function (t) {
+        var n = t.from,
+          r = t.type;
+        ((e.messageType = u(n)),
+          (e.receiptStanzaType = r),
+          e.markReceiptStanzaDuration(),
+          e.commit());
+      };
+    }
+    function u(e) {
       return r("WAWebWid").isStatus(e)
         ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS
         : r("WAWebWid").isGroup(e)
@@ -47,7 +64,8 @@ __d(
               ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL
               : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL;
     }
-    l.createReceiptStanzaReceiveMetric = e;
+    ((l.createReceiptStanzaReceiveMetric = e),
+      (l.createRetryReceiptStanzaReceiveMetric = s));
   },
   98,
 );

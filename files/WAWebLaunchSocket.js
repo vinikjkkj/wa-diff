@@ -143,10 +143,10 @@ __d(
           return v();
         })
         .then(function () {
-          return a ? void 0 : S();
+          return o("WAWebCryptoEncKeyHelper").initEncSalt();
         })
         .then(function () {
-          return o("WAWebCryptoEncKeyHelper").initEncSalt();
+          return a ? void 0 : S();
         })
         .then(function () {
           return o("WAWebCryptoEncKeyHelper").initEncSaltForInvoker();

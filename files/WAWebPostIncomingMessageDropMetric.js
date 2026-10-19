@@ -237,14 +237,7 @@ __d(
         stanza: e,
       });
     }
-    function _(e) {
-      u({
-        messageDropReason: o("WAWebWamEnumMessageDropReasonType")
-          .MESSAGE_DROP_REASON_TYPE.INVALID_HOSTED_COMPANION_STANZA,
-        stanza: e,
-      });
-    }
-    function f(e, t) {
+    function _(e, t) {
       var n;
       u({
         messageDropReason:
@@ -257,7 +250,7 @@ __d(
         stanza: e,
       });
     }
-    function g(t, n) {
+    function f(t, n) {
       var r = t.enc,
         a = t.error,
         i = t.msgInfo,
@@ -310,36 +303,36 @@ __d(
       }
       s.commit();
     }
-    function h(e) {
-      g(
+    function g(e) {
+      f(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .RECEIVED_WITH_OLD_COUNTER,
       );
     }
-    function y(e) {
-      g(
+    function h(e) {
+      f(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .DUPLICATE_MESSAGE,
       );
     }
-    function C(e) {
-      g(
+    function y(e) {
+      f(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .INVALID_PROTOBUF,
       );
     }
-    function b(e) {
-      g(
+    function C(e) {
+      f(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .INVALID_STANZA,
       );
     }
-    function v(e) {
-      g(
+    function b(e) {
+      f(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE.EXPIRED,
       );
@@ -348,13 +341,12 @@ __d(
       (l.postIncomingMessageDropUnknownMessageType = d),
       (l.postIncomingMessageDropInternalError = m),
       (l.postIncomingMessageDropDBOperationFailed = p),
-      (l.postIncomingMessageDropInvalidHostedCompanionStanza = _),
-      (l.postIncomingMessageDropForCoexV2RelayOrHostedCompanion = f),
-      (l.postIncomingMessageDropOldCounter = h),
-      (l.postIncomingMessageDropDuplicateMessage = y),
-      (l.postIncomingMessageDropInvalidProtobuf = C),
-      (l.postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo = b),
-      (l.postIncomingMessageDropExpired = v));
+      (l.postIncomingMessageDropForCoexV2RelayOrHostedCompanion = _),
+      (l.postIncomingMessageDropOldCounter = g),
+      (l.postIncomingMessageDropDuplicateMessage = h),
+      (l.postIncomingMessageDropInvalidProtobuf = y),
+      (l.postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo = C),
+      (l.postIncomingMessageDropExpired = b));
   },
   98,
 );

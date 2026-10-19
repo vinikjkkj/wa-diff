@@ -8,6 +8,7 @@ __d(
     "ReQLBounds",
     "ReQLGlobalQueryContext",
     "ReStoreKeyComparer",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -812,23 +813,26 @@ __d(
         n
       );
     }
-    function I(e, t, n, r, a) {
+    function I(e, t, n, a, i) {
       if (
-        a == null ||
-        a.length > e.keyFields.length ||
-        a.some(function (t) {
+        i == null ||
+        i.length > e.keyFields.length ||
+        i.some(function (t) {
           return e.keyFields.indexOf(t) === -1;
         })
       )
-        return e.entries(t, n, r);
-      var i = e.keys(t, n, r);
+        return e.entries(t, n, a);
+      var l = e.keys(t, n, a);
       return {
         next: function (n) {
-          return (u || (u = o("PromiseOrValue"))).map(i.next(n), function (t) {
-            return t.done
-              ? { done: !0 }
-              : { done: !1, value: [t.value, k(t.value, e.keyFields)] };
-          });
+          return (
+            r("vulture")("LxB7Tspid-6gVjj6nZ9ock4SJqU="),
+            (u || (u = o("PromiseOrValue"))).map(l.next(n), function (t) {
+              return t.done
+                ? { done: !0 }
+                : { done: !1, value: [t.value, k(t.value, e.keyFields)] };
+            })
+          );
         },
       };
     }

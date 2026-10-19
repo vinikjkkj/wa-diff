@@ -3,6 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = {
+        appReload: function () {},
         awaitUnflushedMsgWrite: function () {},
         msgRoutedToOnlineQueue: function () {},
         oneQueueFlushFailed: function () {},
@@ -24,11 +25,15 @@ __d(
     function m() {
       l.oneQueueFlushFailed();
     }
+    function p(e) {
+      l.appReload(e);
+    }
     ((i.setOfflineResumeCounters = s),
       (i.maybeLogOfflineMsgRoutedToOnlineQueue = u),
       (i.maybeLogAwaitUnflushedMsgWrite = c),
       (i.logOneQueueTimeout = d),
-      (i.logOneQueueFlushFailed = m));
+      (i.logOneQueueFlushFailed = m),
+      (i.logAppReload = p));
   },
   66,
 );

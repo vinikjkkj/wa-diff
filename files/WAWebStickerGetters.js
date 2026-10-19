@@ -23,7 +23,8 @@ __d(
       y = u("isCreateButton"),
       C = u("isPlaceholder"),
       b = u("mimetype"),
-      v = _("mediaData");
+      v = u("stickerAudio"),
+      S = _("mediaData");
     ((l.getStickerUnsafe = d),
       (l.clearStickerGetterCacheFor = f),
       (l.getId = g),
@@ -31,7 +32,8 @@ __d(
       (l.getIsCreateButton = y),
       (l.getIsPlaceholder = C),
       (l.getMimetype = b),
-      (l.getMediaData = v));
+      (l.getStickerAudio = v),
+      (l.getMediaData = S));
   },
   98,
 );

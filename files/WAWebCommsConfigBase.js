@@ -30,7 +30,8 @@ __d(
     }
     function c(t) {
       return function (a) {
-        var i = a || { passive: !1, pull: !1 };
+        var i,
+          l = a || { passive: !1, pull: !1 };
         return {
           maxRetries: Number.MAX_SAFE_INTEGER,
           openChatSocket: function (n, a) {
@@ -38,12 +39,12 @@ __d(
               o("WAWebABProps").getABPropConfigValue(
                 "web_comms_socket_reconnect_enabled",
               )
-                ? (i.signal = r("nullthrows")(a))
-                : (i.signal = new AbortController().signal),
+                ? (l.signal = r("nullthrows")(a))
+                : (l.signal = new AbortController().signal),
               o("WAWebOpenChatSocket")
-                .openChatSocket(i, t.isRegistered())
+                .openChatSocket(l, t.isRegistered())
                 .then(function (e) {
-                  return (n(), (i.passive = !1), e);
+                  return (n(), (l.passive = !1), e);
                 })
             );
           },
@@ -125,9 +126,10 @@ __d(
                 n("cr:7907").sendNewStanzaToDevTool(t, !1);
             },
             onSendIq: o("WAWebStanzaValidation").validateSentStanza,
-            onClockSkewUpdate: function (t) {
-              o("WAWebCommsSendPing").updateClockSkew(t);
-            },
+            onClockSkewUpdate:
+              (i = t.onClockSkewUpdate) != null
+                ? i
+                : o("WAWebCommsSendPing").updateClockSkew,
           },
           isPauseEnabled: r("WAWebEnvironment").isWindows,
         };

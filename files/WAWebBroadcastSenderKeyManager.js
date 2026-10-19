@@ -7,17 +7,16 @@ __d(
     "WAWebBroadcastKeyDistribution",
     "WAWebModelStorageUtils",
     "WAWebSchemaBroadcastMetadata",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function f() {
+    function p() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r = yield o("WAWebSchemaBroadcastMetadata")
@@ -31,44 +30,44 @@ __d(
             ),
           };
         })),
-        f.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function h() {
+    function f() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          (r === void 0 && (r = []),
-            !(!t && r.length === 0) &&
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          (a === void 0 && (a = []),
+            !(!r && a.length === 0) &&
               (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:senderkey] updateBroadcastSenderKeyState: broadcastListId=",
                     ", isRotation=",
                     ", devices=",
                     "",
                   ])),
-                e,
-                String(t),
-                r.length,
+                t,
+                String(r),
+                a.length,
               ),
               yield o("WAWebModelStorageUtils")
                 .getStorage()
                 .lock(
                   ["broadcast-metadata"],
                   (function () {
-                    var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (n) {
-                        var a,
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var n,
                           i,
                           l,
-                          s = n[0],
-                          c = yield s.get(e);
-                        if (!(t && c != null && c.senderKeyRotate)) {
+                          u = e[0],
+                          c = yield u.get(t);
+                        if (!(r && c != null && c.senderKeyRotate)) {
                           var d;
-                          if (t) d = [];
+                          if (r) d = [];
                           else {
                             var m,
                               p =
@@ -82,17 +81,17 @@ __d(
                                         ? m
                                         : [],
                                     );
-                            (r.forEach(function (e) {
+                            (a.forEach(function (e) {
                               return p.add(e.toString());
                             }),
                               (d = Array.from(p)));
                           }
-                          (yield s.createOrReplace({
-                            id: e,
+                          (yield u.createOrReplace({
+                            id: t,
                             audienceExpression:
-                              (a = c == null ? void 0 : c.audienceExpression) !=
+                              (n = c == null ? void 0 : c.audienceExpression) !=
                               null
-                                ? a
+                                ? n
                                 : o("WAWebAudienceExpressionTypes")
                                     .DEFAULT_AUDIENCE_EXPRESSION,
                             customAudienceFbid:
@@ -106,134 +105,50 @@ __d(
                                 ? l
                                 : [],
                             senderKeyDevices: d,
-                            senderKeyRotate: t,
+                            senderKeyRotate: r,
                           }),
                             o("WALogger").LOG(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
+                              s ||
+                                (s = babelHelpers.taggedTemplateLiteralLoose([
                                   "[broadcast:senderkey] updateBroadcastSenderKeyState: ",
                                   "",
                                 ])),
-                              t
+                              r
                                 ? "marked for rotation"
                                 : "updated " +
-                                    r.length +
+                                    a.length +
                                     " devices, total=" +
                                     d.length,
                             ));
                         }
                       },
                     );
-                    return function (e) {
-                      return a.apply(this, arguments);
+                    return function (t) {
+                      return e.apply(this, arguments);
                     };
                   })(),
                 )));
         })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield _(t, !1, e);
+        })),
         h.apply(this, arguments)
       );
     }
-    function y(t, n) {
-      try {
-        var r = o("WAWebWidFactory").createWid(t);
-        return r.isSameAccountAndAddressingMode(n);
-      } catch (n) {
-        return (
-          o("WALogger")
-            .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:senderkey] Failed to parse device WID: ",
-                  "",
-                ])),
-              t,
-            )
-            .verbose(),
-          !1
-        );
-      }
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidFactory").asUserWidOrThrow(e);
-          yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["broadcast-metadata"],
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = e[0],
-                      r = yield n.all(),
-                      a = r.filter(function (e) {
-                        var n;
-                        if (e.senderKeyRotate) return !1;
-                        var r = (n = e.senderKeyDevices) != null ? n : [];
-                        return r.some(function (e) {
-                          return y(e, t);
-                        });
-                      });
-                    a.length !== 0 &&
-                      (o("WALogger").LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[broadcast:senderkey] markBroadcastSenderKeyRotateForUser: marking ",
-                            " broadcast lists for rotation due to identity change of ",
-                            "",
-                          ])),
-                        a.length,
-                        t.toString(),
-                      ),
-                      yield n.bulkCreateOrReplace(
-                        a.map(function (e) {
-                          var t;
-                          return {
-                            id: e.id,
-                            audienceExpression:
-                              (t = e.audienceExpression) != null
-                                ? t
-                                : o("WAWebAudienceExpressionTypes")
-                                    .DEFAULT_AUDIENCE_EXPRESSION,
-                            customAudienceFbid: e.customAudienceFbid,
-                            recipients: e.recipients,
-                            labels: e.labels,
-                            senderKeyDevices: [],
-                            senderKeyRotate: !0,
-                          };
-                        }),
-                      ));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield g(t, !1, e);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = e.toString();
           yield o("WAWebModelStorageUtils")
             .getStorage()
@@ -251,8 +166,8 @@ __d(
                           : [];
                     s.includes(r) &&
                       (o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "[broadcast:senderkey] Removing device from sender key tracking (retry received), deviceType=",
                             "",
                           ])),
@@ -273,19 +188,19 @@ __d(
               })(),
             );
         })),
-        L.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function E(e, t, n, r) {
-      return k.apply(this, arguments);
+    function b(e, t, n, r) {
+      return v.apply(this, arguments);
     }
-    function k() {
+    function v() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:senderkey] getBroadcastSkDistribList: broadcastListId=",
                   ", recipients=",
                   ", devices=",
@@ -296,7 +211,7 @@ __d(
               e.length,
             );
             var a = [].concat(t, [r]),
-              i = yield _(n);
+              i = yield m(n);
             if (i.rotateKey || i.senderKey.size === 0)
               return o("WAWebBroadcastKeyDistribution").handleFullDistribution(
                 e,
@@ -308,8 +223,8 @@ __d(
               ).handlePartialDistribution(e, a, i),
               s = l.participantList,
               u = l.senderKeyHitCount,
-              c = l.skDistribList,
-              d = o(
+              p = l.skDistribList,
+              f = o(
                 "WAWebBroadcastKeyDistribution",
               ).checkAndHandleSecurityRotation({
                 allDeviceList: e,
@@ -317,33 +232,32 @@ __d(
                 senderKeyHitCount: u,
                 storedKeyCount: i.senderKey.size,
               });
-            return d != null
-              ? (yield g(n, !0), d)
+            return f != null
+              ? (yield _(n, !0), f)
               : (o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:senderkey] getBroadcastSkDistribList: distributing to ",
                       " devices, ",
                       " already have keys",
                     ])),
-                  c.length,
+                  p.length,
                   s.length,
                 ),
                 {
                   rotateKey: i.rotateKey,
-                  skDistribList: c,
+                  skDistribList: p,
                   participantList: s,
                 });
           },
         )),
-        k.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.getBroadcastSenderKeyMap = _),
-      (l.markBroadcastHasSenderKey = v),
-      (l.markBroadcastSenderKeyRotateForUser = C),
-      (l.markForgetBroadcastSenderKey = R),
-      (l.getBroadcastSkDistribList = E));
+    ((l.getBroadcastSenderKeyMap = m),
+      (l.markBroadcastHasSenderKey = g),
+      (l.markForgetBroadcastSenderKey = y),
+      (l.getBroadcastSkDistribList = b));
   },
   98,
 );

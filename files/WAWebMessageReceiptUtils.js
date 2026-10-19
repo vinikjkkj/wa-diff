@@ -1,18 +1,41 @@
 __d(
   "WAWebMessageReceiptUtils",
   [
+    "WAWebAck",
     "WAWebLidMigrationUtils",
+    "WAWebMsgKey",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return s.apply(this, arguments);
+      return e.isGroupStatus === !0;
     }
-    function s() {
+    function s(e) {
+      return e.isNewsletterStatus === !0;
+    }
+    function u(t) {
+      return e(t) || s(t);
+    }
+    function c(e) {
+      return e
+        .filter(function (e) {
+          return e.ack < o("WAWebAck").ACK.READ;
+        })
+        .map(function (e) {
+          return r("WAWebMsgKey").fromString(e.id);
+        })
+        .filter(function (e) {
+          return !e.fromMe;
+        });
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("compactMap")(e, function (e) {
               return o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
             }),
@@ -33,10 +56,12 @@ __d(
             return t && a.has(t.toString()) ? t : e;
           });
         })),
-        s.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.fixStatusReceiptKeys = e;
+    ((l.isGroupOrChannelStatusRow = u),
+      (l.getUnreadStatusKeysFromOthers = c),
+      (l.fixStatusReceiptKeys = d));
   },
   98,
 );

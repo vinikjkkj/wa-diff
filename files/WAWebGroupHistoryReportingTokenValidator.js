@@ -133,7 +133,7 @@ __d(
                 o("WAWebWamEnumReportingTokenValidationFailureReason")
                   .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
                   .GROUP_HISTORY_MESSAGE_MISSING_FROM_PUBLIC_STANZA,
-                o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion(),
+                null,
               )
             );
           var l =
@@ -147,12 +147,7 @@ __d(
             s = yield v(t, n, a, l, i);
           if (!C(s == null ? void 0 : s.match)) {
             var u = L(e, t, i, n);
-            if (u != null)
-              return {
-                row: R(e, n, a, u.tokenlessEntry),
-                failureReason: null,
-                reportingTokenVersion: u.version,
-              };
+            if (u != null) return { row: R(e, n, a, u), failureReason: null };
           }
           if (s == null)
             return (
@@ -181,7 +176,7 @@ __d(
             h = f.isValid,
             y = f.receivedInfo;
           return y == null
-            ? { row: null, failureReason: g, reportingTokenVersion: l }
+            ? { row: null, failureReason: g }
             : (g != null &&
                 (o("WALogger")
                   .ERROR(
@@ -202,11 +197,7 @@ __d(
                   isPartOfGroupHistory: !0,
                   groupHistoryBundleMessageId: n.bundleMsgStanzaId,
                 })),
-              {
-                row: R(e, n, a, y, h, _),
-                failureReason: g,
-                reportingTokenVersion: l,
-              });
+              { row: R(e, n, a, y, h, _), failureReason: g });
         })),
         y.apply(this, arguments)
       );
@@ -229,7 +220,7 @@ __d(
           isPartOfGroupHistory: !0,
           groupHistoryBundleMessageId: t.bundleMsgStanzaId,
         }),
-        { row: null, failureReason: n, reportingTokenVersion: r }
+        { row: null, failureReason: n }
       );
     }
     function v(e, t, n, r, o) {
@@ -345,7 +336,7 @@ __d(
             isPartOfGroupHistory: !0,
             groupHistoryBundleMessageId: a.bundleMsgStanzaId,
           }),
-          { tokenlessEntry: i, version: l });
+          i);
     }
     function E(e) {
       var t;

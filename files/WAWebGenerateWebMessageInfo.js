@@ -14,11 +14,11 @@ __d(
         a,
         i,
         l,
-        u,
         c,
-        d = babelHelpers.extends({}, t),
-        m = e.type,
-        p = s(m)
+        d,
+        m = babelHelpers.extends({}, t),
+        p = e.type,
+        _ = u(p)
           ? {
               url: e.deprecatedMms3Url,
               directPath: e.directPath,
@@ -26,12 +26,12 @@ __d(
               mediaKey: e.mediaKey,
               mediaKeyTimestamp: e.mediaKeyTimestamp,
               filehash: (n = e.filehash) != null ? n : "",
-              type: m,
+              type: p,
               mimetype: (a = e.mimetype) != null ? a : "",
               filename: (i = e.filename) != null ? i : "",
               duration: (l = e.duration) != null ? l : "",
-              width: (u = e.width) != null ? u : 0,
-              height: (c = e.height) != null ? c : 0,
+              width: (c = e.width) != null ? c : 0,
+              height: (d = e.height) != null ? d : 0,
               firstFrameLength: e.firstFrameLength,
               isAnimated: e.isAnimated,
               isLottie: e.isLottie,
@@ -48,10 +48,10 @@ __d(
               dashManifestUrl: e.dashManifestUrl,
             }
           : void 0,
-        _ = o("WAWebE2EProtoGenerator").createProtobuf(e, p);
+        f = s(o("WAWebE2EProtoGenerator").createProtobuf(e, _));
       if (e.latestEditMsgKey != null && e.latestEditSenderTimestampMs != null) {
-        var f,
-          g = {
+        var g,
+          h = {
             mentionedJid: [],
             groupMentions: [],
             statusAttributions: [],
@@ -59,13 +59,13 @@ __d(
           };
         (e.mentionedJidList &&
           e.mentionedJidList.length > 0 &&
-          (g.mentionedJid = r("WAWebCompactMapString")(
+          (h.mentionedJid = r("WAWebCompactMapString")(
             e.mentionedJidList,
             o("WAWebE2EProtoUtils").encodeJid,
           )),
           e.groupMentions &&
             e.groupMentions.length > 0 &&
-            (g.groupMentions = e.groupMentions.map(function (e) {
+            (h.groupMentions = e.groupMentions.map(function (e) {
               var t, n;
               return {
                 groupSubject: (t = e.groupSubject) != null ? t : "",
@@ -75,51 +75,64 @@ __d(
                     : "",
               };
             })));
-        var h = g.mentionedJid.length > 0 || g.groupMentions.length > 0,
-          y = r("WAWebGenerateProtocolMessageEditProto")({
+        var y = h.mentionedJid.length > 0 || h.groupMentions.length > 0,
+          C = r("WAWebGenerateProtocolMessageEditProto")({
             json: babelHelpers.extends({}, e, {
               protocolMessageKey: e.id,
               editMsgType: e.type,
             }),
-            contextInfo: h ? g : null,
+            contextInfo: y ? h : null,
           }),
-          C = (f = _.messageContextInfo) == null ? void 0 : f.messageSecret,
-          b =
-            C != null
-              ? babelHelpers.extends({}, _, {
+          b = (g = f.messageContextInfo) == null ? void 0 : g.messageSecret,
+          v =
+            b != null
+              ? babelHelpers.extends({}, f, {
                   messageContextInfo: babelHelpers.extends(
                     {},
-                    _.messageContextInfo,
+                    f.messageContextInfo,
                     { messageSecret: void 0 },
                   ),
                 })
-              : _;
-        d.message = babelHelpers.extends(
+              : f;
+        m.message = babelHelpers.extends(
           {
             editedMessage: {
-              message: babelHelpers.extends({}, y, {
-                protocolMessage: babelHelpers.extends({}, y.protocolMessage, {
-                  editedMessage: b,
+              message: babelHelpers.extends({}, C, {
+                protocolMessage: babelHelpers.extends({}, C.protocolMessage, {
+                  editedMessage: v,
                 }),
               }),
             },
           },
-          C != null ? { messageContextInfo: { messageSecret: C } } : void 0,
+          b != null ? { messageContextInfo: { messageSecret: b } } : void 0,
         );
-      } else d.message = _;
+      } else m.message = f;
       return (
-        d.message != null &&
+        m.message != null &&
           o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret({
             context: o("WAWebMessageSecretLocationUtils")
               .MessageSecretCheckContext.Sender,
-            proto: d.message,
+            proto: m.message,
             ruleId: o("WAWebMessageSecretLocationUtils")
               .MESSAGE_SECRET_RULE_ID_GROUP_HISTORY,
           }),
-        d
+        m
       );
     }
     function s(e) {
+      var t,
+        n,
+        r = (t = e.audioStickerMessage) == null ? void 0 : t.message;
+      if (r == null) return e;
+      var o =
+        ((n = r.stickerMessage) == null ? void 0 : n.isLottie) === !0
+          ? { lottieStickerMessage: { message: r } }
+          : r;
+      return babelHelpers.extends({}, o, {
+        messageContextInfo: e.messageContextInfo,
+      });
+    }
+    function u(e) {
       return (
         e === "video" ||
         e === "sticker" ||

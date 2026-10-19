@@ -7,12 +7,12 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebBackendApi",
-    "WAWebBroadcastSenderKeyManager",
     "WAWebCommsWapMd",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
     "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebJidToWid",
     "WAWebManageE2ESessionsJob",
+    "WAWebMarkBroadcastSenderKeyRotateForUser",
     "WAWebMessageQueue",
     "WAWebMessageQueueTimeout",
     "WAWebOfflineHandler",
@@ -153,7 +153,7 @@ __d(
                   ).sendTcTokenWhenDeviceIdentityChange(n),
                   o("WAWebUserPrefsStatus").markStatusSenderKeyRotate([h]),
                   o(
-                    "WAWebBroadcastSenderKeyManager",
+                    "WAWebMarkBroadcastSenderKeyRotateForUser",
                   ).markBroadcastSenderKeyRotateForUser(h),
                   C ||
                     o("WAWebManageE2ESessionsJob")

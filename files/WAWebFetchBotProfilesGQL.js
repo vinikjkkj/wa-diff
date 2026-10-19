@@ -1,6 +1,7 @@
 __d(
   "WAWebFetchBotProfilesGQL",
   [
+    "WAWebCanonicalUtils",
     "WAWebFetchBotProfilesGQLQuery.graphql",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
@@ -41,7 +42,11 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return { type: "success", value: [] };
-          yield r("WAWebNetworkStatus").waitIfOffline();
+          if (
+            (yield r("WAWebNetworkStatus").waitIfOffline(),
+            !o("WAWebCanonicalUtils").isCanonicalPresent())
+          )
+            return { type: "canonical-unavailable" };
           try {
             var t,
               n = yield o("WAWebRelayClient").fetchQuery(

@@ -3,8 +3,7 @@ __d(
   [
     "WALogger",
     "WASmaxBizThreadDataNotifyRPC",
-    "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
-    "WASmaxOutNotificationFallbackGenericNotificationResponseBadStanza",
+    "WASmaxNotificationFallbackGenericNotificationRPC",
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WAWebBackendApi",
@@ -33,7 +32,7 @@ __d(
         var i = o("WASmaxParseUtils").attrString(a, "notif_sub_type");
         if (i.success && i.value !== "detected_outcome")
           return o(
-            "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
+            "WASmaxNotificationFallbackGenericNotificationRPC",
           ).makeGenericNotificationResponseAck(t);
       }
       try {
@@ -63,7 +62,7 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("biz-thread-data-parse-failed", { sampling: u }),
             o(
-              "WASmaxOutNotificationFallbackGenericNotificationResponseBadStanza",
+              "WASmaxNotificationFallbackGenericNotificationRPC",
             ).makeGenericNotificationResponseBadStanza(
               {
                 ackError: o("WAWebCreateNackFromStanza").NackReason
@@ -75,7 +74,7 @@ __d(
         throw e;
       }
       return o(
-        "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
+        "WASmaxNotificationFallbackGenericNotificationRPC",
       ).makeGenericNotificationResponseAck(t);
     }
     l.handleBizThreadDataNotification = c;

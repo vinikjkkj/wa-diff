@@ -6,10 +6,7 @@ __d(
     var e = function (t) {
       return Date.now() - t > o("WATimeUtils").DAY_MILLISECONDS * 30;
     };
-    function s(e) {
-      return JSON.stringify([e.author, e.chat, e.externalId]);
-    }
-    ((l.timestampOlderThan30Days = e), (l.convertWAMsgIdToStringId = s));
+    l.timestampOlderThan30Days = e;
   },
   98,
 );

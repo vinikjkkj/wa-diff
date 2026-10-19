@@ -63,9 +63,8 @@ __d(
             this.$2 = t;
           }),
           (a.upload = function (t, n) {
-            var e = this;
-            n = n || 0;
-            var a = babelHelpers.extends({}, this.$2),
+            var e = this,
+              a = babelHelpers.extends({}, this.$2),
               i = null;
             if (this.$22(t)) {
               if (

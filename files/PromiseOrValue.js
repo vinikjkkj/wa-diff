@@ -5,21 +5,21 @@ __d(
     "use strict";
     var e;
     function s(t, n) {
-      return (e || (e = r("isPromise")))(t) && (e || (e = r("isPromise")))(n)
-        ? t.then(function (e) {
-            return n.then(function (t) {
-              return [e, t];
-            });
-          })
-        : (e || (e = r("isPromise")))(t)
+      return (e || (e = r("isPromise")))(t)
+        ? (e || (e = r("isPromise")))(n)
           ? t.then(function (e) {
+              return n.then(function (t) {
+                return [e, t];
+              });
+            })
+          : t.then(function (e) {
               return [e, n];
             })
-          : (e || (e = r("isPromise")))(n)
-            ? n.then(function (e) {
-                return [t, e];
-              })
-            : [t, n];
+        : (e || (e = r("isPromise")))(n)
+          ? n.then(function (e) {
+              return [t, e];
+            })
+          : [t, n];
     }
     function u(t) {
       var n = t.find(e || (e = r("isPromise")));

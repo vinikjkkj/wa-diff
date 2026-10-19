@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBizBroadcastDeviceRemovalCleanup",
+    "WAWebOffdStorageUtils",
     "WAWebSchemaPendingDeviceSync",
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebWidFactory",
@@ -10,13 +11,22 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
-    }
+    var e, s;
     function u() {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!o("WAWebOffdStorageUtils").isStorageCreated()) {
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "doPendingDeviceSync skipped: offline storage not created",
+                ])),
+            );
+            return;
+          }
           try {
             var t = yield o("WAWebSchemaPendingDeviceSync").getTable().all();
             (yield o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
@@ -36,23 +46,23 @@ __d(
               yield o(
                 "WAWebBizBroadcastDeviceRemovalCleanup",
               ).cleanupCampaignsWithInvalidDevices());
-          } catch (t) {
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "doPendingDeviceSync failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .verbose()
               .sendLogs("pending-device-sync-failed");
           }
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function c(e) {
+    function d(e) {
       return o("WAWebSchemaPendingDeviceSync")
         .getTable()
         .bulkCreateOrMerge(
@@ -61,7 +71,7 @@ __d(
           }),
         );
     }
-    ((l.doPendingDeviceSync = s), (l.addUserToPendingDeviceSync = c));
+    ((l.doPendingDeviceSync = u), (l.addUserToPendingDeviceSync = d));
   },
   98,
 );

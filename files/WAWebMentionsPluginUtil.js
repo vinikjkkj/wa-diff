@@ -86,7 +86,7 @@ __d(
           .sort(function (e, t) {
             return e.subject.localeCompare(
               t.subject,
-              r("WAWebL10N").getNormalizedLocale(),
+              r("WAWebL10N").getFullLocale(),
               { ignorePunctuation: !0 },
             );
           });

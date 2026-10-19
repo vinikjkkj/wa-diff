@@ -8,6 +8,7 @@ __d(
     "WAWebHistorySyncLidChatGating",
     "WAWebL10N",
     "WAWebLid1X1MigrationGating",
+    "WAWebReloadReason",
     "WAWebTasksDailyStatsTask",
     "WAWebUA",
     "WAWebUserPrefsGeneral",
@@ -88,30 +89,36 @@ __d(
             (i.isHistoryLidSession = o(
               "WAWebHistorySyncLidChatGating",
             ).isForcedHistoryLidChat()));
-          var u = yield o("WAWebTasksDailyStatsTask").getLidMigrationStatus();
+          var u = o("WAWebReloadReason").getLastReload();
+          u != null &&
+            ((i.lastReloadReason = u.reason),
+            (i.lastReloadAgeS = u.ageS),
+            u.msg != null && (i.lastReloadMsgCount = u.msg),
+            u.receipt != null && (i.lastReloadReceiptCount = u.receipt));
+          var d = yield o("WAWebTasksDailyStatsTask").getLidMigrationStatus();
           if (
-            (u.completedMigrations != null &&
-              (i.lidCompletedMigrations = u.completedMigrations),
+            (d.completedMigrations != null &&
+              (i.lidCompletedMigrations = d.completedMigrations),
             e)
           ) {
-            var d = e.addLanguageFields,
-              m = e.addUserAgentDetails,
-              p = e.convertFields,
-              _ = e.entityId,
-              f = e.supportTag,
-              g = e.user_review_score;
+            var m = e.addLanguageFields,
+              p = e.addUserAgentDetails,
+              _ = e.convertFields,
+              f = e.entityId,
+              g = e.supportTag,
+              h = e.user_review_score;
             if (
-              (f != null && (i.context = f),
-              _ != null && (i.entityId = _),
-              g != null && (i.user_review_score = g),
-              m === !0 && (i.userAgent = o("WAWebUA").UA.parser.getUA()),
-              d === !0 &&
+              (g != null && (i.context = g),
+              f != null && (i.entityId = f),
+              h != null && (i.user_review_score = h),
+              p === !0 && (i.userAgent = o("WAWebUA").UA.parser.getUA()),
+              m === !0 &&
                 ((i.lc = r("WAWebL10N").getRegion()),
                 (i.lg = r("WAWebL10N").getLanguage())),
-              p === !0)
+              _ === !0)
             ) {
-              var h = c(i);
-              return h;
+              var y = c(i);
+              return y;
             }
           }
           return i;

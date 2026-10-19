@@ -160,6 +160,9 @@ __d(
               }
               case "native_contact_restore":
                 return u;
+              case "event_metadata":
+              case "orgs":
+                return u;
               default: {
                 var M, w;
                 return (M =

@@ -167,7 +167,7 @@ __d(
           return o("WAWebBackendJobs.flow").EncMediaType.Sticker;
         if (e.stickerPackMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.StickerPack;
-        if (e.lottieStickerMessage)
+        if (e.lottieStickerMessage || e.audioStickerMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Sticker;
         if (e.locationMessage)
           return e.locationMessage.isLive === !0

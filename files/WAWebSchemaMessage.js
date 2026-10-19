@@ -86,6 +86,7 @@ __d(
             a("isAnimated"),
             a("isAiSticker"),
             a("isLottie"),
+            a("stickerAudio"),
             a("stickerPremiumStatus"),
             a("thumbnail"),
             a("richPreviewType"),

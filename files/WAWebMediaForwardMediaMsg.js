@@ -17,6 +17,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
+    "WAWebSoundStickerUtils",
     "WAWebStickerSendWamEvent",
     "WAWebWamEnumStickerSendOriginType",
     "WAWebWamEnumWebcRmrReasonCode",
@@ -218,6 +219,10 @@ __d(
               productMsgOptions: Q,
               isAvatar: (_ = w.isAvatar) != null ? _ : !1,
               isAiSticker: w.isAiSticker === !0 ? !0 : void 0,
+              stickerAudio: o("WAWebSoundStickerUtils").getSendableStickerAudio(
+                w.stickerAudio,
+                P.id,
+              ),
               forwardedNewsletterMessageInfo: o(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).getNewsletterContextForForwardedMsg(w),

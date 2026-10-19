@@ -71,7 +71,11 @@ __d(
               (o("WAWebCommonMsgUtils").isQuarantinedMsg(C.type) &&
                 !o("WAWebCommonMsgUtils").isQuarantinedMsg(d.type)) ||
               (o("WAWebCommonMsgUtils").isRichResponseMsg(C.type) &&
-                o("WAWebCommonMsgUtils").isSomewhatParsedRichResponseMsg(d))
+                o("WAWebCommonMsgUtils").isSomewhatParsedRichResponseMsg(d)) ||
+              o("WAWebCommonMsgUtils").isPlaceholderSubtypeUpgrade(
+                d.subtype,
+                C.subtype,
+              )
                 ? (f.update = !0)
                 : C.fromQuotedMsg
                   ? o("WAWebMsgCollection").MsgCollection.remove(C)

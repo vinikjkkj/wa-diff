@@ -282,41 +282,7 @@ __d(
       }
       return u ? s._(/*BTDS*/ "An admin must approve your request.") : null;
     }
-    function h(e) {
-      var t = e.adminRequestRequired,
-        n = t === void 0 ? !1 : t,
-        a = e.error,
-        i = e.groupType,
-        l = e.inGroup,
-        u = e.isHiddenSubgroup,
-        c = u === void 0 ? !1 : u,
-        d = e.isSentByMe,
-        m = d === void 0 ? !1 : d,
-        p = e.membershipApprovalMode,
-        _ = p === void 0 ? !1 : p,
-        f = e.requestSent,
-        g = f === void 0 ? !1 : f;
-      if (a instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-        if (a.status === 426) return s._(/*BTDS*/ "Update");
-        if (a.status === 406) return r("WAWebFbtCommon")("OK");
-      }
-      return m
-        ? s._(/*BTDS*/ "Revoke invite")
-        : l
-          ? i === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(/*BTDS*/ "View community")
-            : s._(/*BTDS*/ "View group")
-          : i === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(/*BTDS*/ "Join community")
-            : c
-              ? s._(/*BTDS*/ "Message group owner")
-              : _ || (i === o("WAWebGroupType").GroupType.LINKED_SUBGROUP && n)
-                ? g
-                  ? s._(/*BTDS*/ "Cancel request")
-                  : s._(/*BTDS*/ "Request to join")
-                : s._(/*BTDS*/ "Join group");
-    }
-    function y(e, t) {
+    function h(e, t) {
       return (
         t === void 0 && (t = !1),
         t
@@ -326,12 +292,12 @@ __d(
             : r("WAWebFbtCommon")("Cancel")
       );
     }
-    function C(e, t) {
+    function y(e, t) {
       return Number(t.isAdmin) - Number(e.isAdmin);
     }
-    var b = 2,
-      v = 5;
-    function S(e, t) {
+    var C = 2,
+      b = 5;
+    function v(e, t) {
       var n = [],
         r = [];
       (e.map(function (e) {
@@ -341,14 +307,14 @@ __d(
           ? n.push(e)
           : r.push(e);
       }),
-        n.sort(C),
-        (r = r.slice(0, b)));
+        n.sort(y),
+        (r = r.slice(0, C)));
       var a = n.concat(r);
-      a = a.slice(0, v);
+      a = a.slice(0, b);
       var i = Math.max(0, (t != null ? t : e.length) - a.length);
       return { sortedContacts: a, hiddenPileCount: i };
     }
-    function R() {
+    function S() {
       return r("WAWebNetworkStatus").online
         ? !0
         : (o("WAWebToastManager").ToastManager.open(
@@ -365,10 +331,9 @@ __d(
       (l.getGroupInviteRevokeErrorStr = p),
       (l.getGroupInviteSubtitle = f),
       (l.getFinePrint = g),
-      (l.getGroupInviteActionText = h),
-      (l.getDismissText = y),
-      (l.sortFacePileContacts = S),
-      (l.shouldSendInviteRequest = R));
+      (l.getDismissText = h),
+      (l.sortFacePileContacts = v),
+      (l.shouldSendInviteRequest = S));
   },
   226,
 );

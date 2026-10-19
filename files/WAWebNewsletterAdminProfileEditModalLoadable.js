@@ -31,8 +31,9 @@ __d(
             error: !!t.error,
           });
         },
-      });
-    l.NewsletterAdminProfileEditModalLoadable = c;
+      }),
+      d = c;
+    l.default = d;
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebMessageAssociationGatingUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebSoundStickerGating",
     "WAWebSpoilerGating",
   ],
   function (t, n, r, o, a, i, l) {
@@ -12,77 +13,86 @@ __d(
     function e(e) {
       var t,
         n = e.associatedChildMessage,
-        r = e.botForwardedMessage,
-        a = e.botGroupParticipantMessage,
-        i = e.botInvokeMessage,
-        l = e.documentWithCaptionMessage,
-        s = e.editedMessage,
-        u = e.ephemeralMessage,
-        c = e.groupMentionedMessage,
-        d = e.newsletterAdminProfileMessage,
-        m = e.newsletterScheduledMessage,
-        p = e.pollCreationMessageV4,
-        _ = e.pollCreationOptionImageMessage,
-        f = e.questionMessage,
-        g = e.questionReplyMessage,
-        h = e.spoilerMessage,
-        y = e.viewOnceMessage,
-        C = e.viewOnceMessageV2,
-        b = e.viewOnceMessageV2Extension;
-      return a &&
+        r = e.audioStickerMessage,
+        a = e.botForwardedMessage,
+        i = e.botGroupParticipantMessage,
+        l = e.botInvokeMessage,
+        s = e.documentWithCaptionMessage,
+        u = e.editedMessage,
+        c = e.ephemeralMessage,
+        d = e.groupMentionedMessage,
+        m = e.newsletterAdminProfileMessage,
+        p = e.newsletterScheduledMessage,
+        _ = e.pollCreationMessageV4,
+        f = e.pollCreationOptionImageMessage,
+        g = e.questionMessage,
+        h = e.questionReplyMessage,
+        y = e.spoilerMessage,
+        C = e.viewOnceMessage,
+        b = e.viewOnceMessageV2,
+        v = e.viewOnceMessageV2Extension;
+      return i &&
         o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-        ? a
-        : c ||
-            l ||
-            y ||
+        ? i
+        : d ||
+            s ||
             C ||
             b ||
+            v ||
+            c ||
             u ||
-            s ||
-            i ||
-            p ||
+            l ||
             _ ||
+            f ||
             (n &&
             o(
               "WAWebMessageAssociationGatingUtils",
             ).isFutureproofAssociatedChildEnabled()
               ? n
-              : f ||
-                g ||
-                (h != null &&
-                ((t = h.message) == null ? void 0 : t.spoilerMessage) == null &&
+              : g ||
+                h ||
+                (y != null &&
+                ((t = y.message) == null ? void 0 : t.spoilerMessage) == null &&
                 o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
-                  ? h
-                  : r &&
+                  ? y
+                  : a &&
                       o(
                         "WAWebBotBaseGating",
                       ).isRichResponseForwardReceivingEnabled()
-                    ? r
-                    : d ||
-                      (m &&
+                    ? a
+                    : m ||
+                      (p &&
                       o(
                         "WAWebNewsletterGatingUtils",
                       ).isSchedulingUpdatesReceiverEnabled()
-                        ? m
-                        : null)));
+                        ? p
+                        : r &&
+                            o(
+                              "WAWebSoundStickerGating",
+                            ).isSoundStickerConsumptionEnabled()
+                          ? r
+                          : null)));
     }
     function s(e) {
       var t,
         n = e.associatedChildMessage,
-        r = e.botForwardedMessage,
-        a = e.botGroupParticipantMessage,
-        i = e.spoilerMessage;
+        r = e.audioStickerMessage,
+        a = e.botForwardedMessage,
+        i = e.botGroupParticipantMessage,
+        l = e.spoilerMessage;
       return (
-        (a != null &&
+        (i != null &&
           !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()) ||
         (n != null &&
           !o(
             "WAWebMessageAssociationGatingUtils",
           ).isFutureproofAssociatedChildEnabled()) ||
-        (i != null &&
+        (l != null &&
           (!o("WAWebSpoilerGating").isSpoilerReceiverEnabled() ||
-            ((t = i.message) == null ? void 0 : t.spoilerMessage) != null)) ||
+            ((t = l.message) == null ? void 0 : t.spoilerMessage) != null)) ||
         (r != null &&
+          !o("WAWebSoundStickerGating").isSoundStickerConsumptionEnabled()) ||
+        (a != null &&
           !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled())
       );
     }

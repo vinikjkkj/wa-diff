@@ -90,18 +90,17 @@ __d(
           if (
             ((typeof l == "object" && l !== null) || typeof l == "function") &&
             l.type === "memberAddMode" &&
-            "memberAddMode" in l &&
-            "participant" in l &&
-            "groupJid" in l
+            "memberAddMode" in l
           ) {
             var s = l.memberAddMode,
-              p = l.participant,
-              _ = l.groupJid;
-            p != null &&
+              p = l,
+              _ = p.groupJid,
+              f = p.participant;
+            f != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupMemberAddType(
                   _,
-                  p,
+                  f,
                   s === "admin_add"
                     ? o("WAArmadilloMiTransportAdminMessage.pb")
                         .MiTransportAdminMessage$GroupMembershipAddModeChanged$Mode
@@ -120,22 +119,20 @@ __d(
           if (
             ((typeof l == "object" && l !== null) || typeof l == "function") &&
             l.type === "subject" &&
-            "subject" in l &&
-            "ts" in l &&
-            "participant" in l &&
-            "groupJid" in l
+            "subject" in l
           ) {
-            var f = l.subject,
-              g = l.ts,
-              h = l.participant,
-              y = l.groupJid;
-            f != null &&
+            var g = l.subject,
+              h = l,
+              y = h.groupJid,
+              C = h.participant,
+              b = h.ts;
+            g != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupNameChangedMsg(
                   y,
-                  h,
-                  f,
+                  C,
                   g,
+                  b,
                   i,
                 ),
                 function () {},
@@ -153,19 +150,18 @@ __d(
           if (
             ((typeof l == "object" && l !== null) || typeof l == "function") &&
             l.type === "promote" &&
-            "participants" in l &&
-            "participant" in l &&
-            "groupJid" in l
+            "participants" in l
           ) {
-            var C = l.participants,
-              b = l.participant,
-              v = l.groupJid;
-            b != null &&
+            var v = l.participants,
+              S = l,
+              R = S.groupJid,
+              L = S.participant;
+            L != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupAdminChangedMsg(
-                  v,
-                  b,
-                  C.map(function (e) {
+                  R,
+                  L,
+                  v.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -181,19 +177,18 @@ __d(
           if (
             ((typeof l == "object" && l !== null) || typeof l == "function") &&
             l.type === "demote" &&
-            "participants" in l &&
-            "participant" in l &&
-            "groupJid" in l
+            "participants" in l
           ) {
-            var S = l.participants,
-              R = l.participant,
-              L = l.groupJid;
-            R != null &&
+            var E = l.participants,
+              k = l,
+              I = k.groupJid,
+              T = k.participant;
+            T != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupAdminChangedMsg(
-                  L,
-                  R,
-                  S.map(function (e) {
+                  I,
+                  T,
+                  E.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -209,19 +204,18 @@ __d(
           if (
             ((typeof l == "object" && l !== null) || typeof l == "function") &&
             l.type === "remove" &&
-            "participants" in l &&
-            "participant" in l &&
-            "groupJid" in l
+            "participants" in l
           ) {
-            var E = l.participants,
-              k = l.participant,
-              I = l.groupJid;
-            k != null &&
+            var D = l.participants,
+              x = l,
+              $ = x.groupJid,
+              P = x.participant;
+            P != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
-                  I,
-                  k,
-                  E.map(function (e) {
+                  $,
+                  P,
+                  D.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -238,19 +232,18 @@ __d(
           if (
             ((typeof l == "object" && l !== null) || typeof l == "function") &&
             l.type === "add" &&
-            "participants" in l &&
-            "participant" in l &&
-            "groupJid" in l
+            "participants" in l
           ) {
-            var T = l.participants,
-              D = l.participant,
-              x = l.groupJid;
-            D != null &&
+            var N = l.participants,
+              M = l,
+              w = M.groupJid,
+              A = M.participant;
+            A != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
-                  x,
-                  D,
-                  T.map(function (e) {
+                  w,
+                  A,
+                  N.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")

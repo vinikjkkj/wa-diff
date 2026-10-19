@@ -63,7 +63,7 @@ __d(
         r = n.currentMsg,
         a = n.quotedMsg;
       (r && _(e, r),
-        e.quotedMsg && a && _(e.quotedMsg, r),
+        e.quotedMsg && a && _(e.quotedMsg, a),
         (e.encryptedData = null));
     }
     function m(e) {

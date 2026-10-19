@@ -432,6 +432,7 @@ __d(
           "latestEditSenderTimestampMs",
           "invokedBotWid",
           "botMessageSecret",
+          "hatchMetadataSync",
           "botEditType",
           "botFeedbackKind",
           "botFeedbackText",

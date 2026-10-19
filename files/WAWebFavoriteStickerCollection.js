@@ -135,6 +135,7 @@ __d(
                   encFilehash: t.encFilehash,
                   deprecatedMms3Url: t.deprecatedMms3Url,
                   type: "sticker",
+                  stickerAudio: t.stickerAudio,
                 },
                 stickerHashWithoutMeta: e.stickerHashWithoutMeta,
                 isFavorite: e.isFavorite,
@@ -332,14 +333,20 @@ __d(
           this._hasInitializedFromCache = !0;
         }),
         (i.updateFavoriteStickerWithNewSticker = function (t, n) {
-          var e = this.get(t);
-          e != null &&
-            (o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker),
-            (e.sticker = new (o("WAWebStickerModel").StickerModel)(
-              n.toDbData(),
-            )),
-            this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
-            this._addSaveTask());
+          var e,
+            r = this.get(t);
+          if (r != null) {
+            var a = r.sticker.stickerAudio,
+              i = n.toDbData();
+            (o("WAWebStickerGetters").clearStickerGetterCacheFor(r.sticker),
+              (r.sticker = new (o("WAWebStickerModel").StickerModel)(
+                babelHelpers.extends({}, i, {
+                  stickerAudio: (e = i.stickerAudio) != null ? e : a,
+                }),
+              )),
+              this.set([r], { remove: !1, add: !1, silent: !0, sort: !1 }),
+              this._addSaveTask());
+          }
         }),
         (i.getSuggestionsFromEmoji = function (t) {
           var e;

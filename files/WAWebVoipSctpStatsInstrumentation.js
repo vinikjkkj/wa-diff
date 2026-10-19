@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebNoop",
+    "WAWebVoipSctpDiagnostics",
     "WAWebVoipStatsTracker",
     "asyncToGeneratorRuntime",
   ],
@@ -97,31 +98,27 @@ __d(
                     var n = e.connectionId,
                       r = e.peerConnection;
                     try {
-                      var a = yield r.getStats();
-                      a.forEach(function (e) {
-                        if (e.type === "candidate-pair" && e.nominated === !0) {
-                          var n = e,
-                            r = n.currentRoundTripTime;
-                          if (r != null && t != null && t.isActive()) {
-                            var o,
-                              i,
-                              l = n.remoteCandidateId,
-                              s = l != null ? a.get(l) : null,
-                              u =
-                                (o = s == null ? void 0 : s.address) != null
-                                  ? o
-                                  : "",
-                              c =
-                                (i = s == null ? void 0 : s.port) != null
-                                  ? i
-                                  : 0;
-                            if (u !== "" && c > 0) {
-                              var d = Math.round(r * 1e3);
-                              t.updateIceRtt(d, u, c);
-                            }
-                          }
+                      var a = yield r.getStats(),
+                        i = o(
+                          "WAWebVoipSctpDiagnostics",
+                        ).findSelectedCandidatePair(a);
+                      if (i == null) return;
+                      var l = i.currentRoundTripTime;
+                      if (l != null && t != null && t.isActive()) {
+                        var s,
+                          u,
+                          c = i.remoteCandidateId,
+                          d = c != null ? a.get(c) : null,
+                          m =
+                            (s = d == null ? void 0 : d.address) != null
+                              ? s
+                              : "",
+                          _ = (u = d == null ? void 0 : d.port) != null ? u : 0;
+                        if (m !== "" && _ > 0) {
+                          var f = Math.round(l * 1e3);
+                          t.updateIceRtt(f, m, _);
                         }
-                      });
+                      }
                     } catch (e) {
                       o("WALogger").WARN(
                         p ||
@@ -172,23 +169,27 @@ __d(
                     var t = e.connectionId,
                       n = e.peerConnection;
                     try {
-                      var o = null,
-                        a = "N/A",
-                        i = 0;
-                      ((yield n.getStats()).forEach(function (e) {
-                        if (e.type === "candidate-pair" && e.nominated === !0) {
+                      var a,
+                        i = yield n.getStats(),
+                        l = o(
+                          "WAWebVoipSctpDiagnostics",
+                        ).findSelectedCandidatePair(i),
+                        s = "N/A";
+                      (i.forEach(function (e) {
+                        if (e.type === "transport") {
                           var t;
-                          ((o =
-                            typeof e.currentRoundTripTime == "number"
-                              ? e.currentRoundTripTime
-                              : null),
-                            (i = (t = e.bytesSent) != null ? t : 0));
-                        } else if (e.type === "transport") {
-                          var n;
-                          a = String((n = e.dtlsState) != null ? n : "N/A");
+                          s = String((t = e.dtlsState) != null ? t : "N/A");
                         }
                       }),
-                        r.push({ id: t, rtt: o, dtls: a, sent: i }));
+                        r.push({
+                          id: t,
+                          rtt: l == null ? void 0 : l.currentRoundTripTime,
+                          dtls: s,
+                          sent:
+                            (a = l == null ? void 0 : l.bytesSent) != null
+                              ? a
+                              : 0,
+                        }));
                     } catch (e) {}
                   },
                 );

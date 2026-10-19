@@ -103,7 +103,11 @@ __d(
                   t ===
                     o("WAWebProtobufsE2E.pb")
                       .Message$PeerDataOperationRequestType
-                      .CONTACT_REFRESH_REQUEST
+                      .CONTACT_REFRESH_REQUEST ||
+                  t ===
+                    o("WAWebProtobufsE2E.pb")
+                      .Message$PeerDataOperationRequestType
+                      .RECENT_CONVERSATIONS_ON_DEMAND_REQUEST
                 ? null
                 : (function () {
                     throw Error(

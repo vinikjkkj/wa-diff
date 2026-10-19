@@ -281,6 +281,7 @@ __d(
                     isAvatar: e.isAvatar,
                     type: o("WAWebMediaTypes").OUTWARD_TYPES.STICKER,
                     index: 0,
+                    stickerAudio: e.stickerAudio,
                   }),
                   timestamp: (r = e.stickerSentTs) != null ? r : 0,
                   msgId: s,

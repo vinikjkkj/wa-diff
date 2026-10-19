@@ -50,16 +50,17 @@ __d(
       y,
       C,
       b,
-      v = 3e3;
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+      v,
+      S = 3e3;
+    function R(e, t, n) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = r != null ? r : {},
             i = a.skipStoringMessage,
-            l = yield L(e, t);
+            l = yield E(e, t);
           if (l == null) {
             o("WALogger").WARN(
               c ||
@@ -69,7 +70,7 @@ __d(
             );
             return;
           }
-          var s = yield k(l, r);
+          var s = yield I(l, r);
           if (s == null || s.length === 0) {
             o("WALogger").WARN(
               d ||
@@ -79,14 +80,14 @@ __d(
             );
             return;
           }
-          var u = A(e),
-            p = F(e);
-          yield (b || (b = n("Promise"))).all(
+          var u = F(e),
+            p = O(e);
+          yield (v || (v = n("Promise"))).all(
             s.map(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
-                    (M(e, t),
+                    (w(e, t),
                       o(
                         "WAWebNonMessageDataRequestLoggingUtils",
                       ).logNonMessagePeerDataRequest(e, t),
@@ -129,15 +130,15 @@ __d(
             _,
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -164,28 +165,28 @@ __d(
               break;
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .UPLOAD_STICKER: {
-              var r = T(t);
+              var r = D(t);
               if (r == null) return null;
               n.requestStickerReupload = r;
               break;
             }
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .GENERATE_LINK_PREVIEW: {
-              var a = D(t);
+              var a = x(t);
               if (a == null) return null;
               n.requestUrlPreview = a;
               break;
             }
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .HISTORY_SYNC_ON_DEMAND: {
-              var i = yield $(t);
+              var i = yield P(t);
               if (i == null) return null;
               n.historySyncOnDemandRequest = i;
               break;
             }
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .PLACEHOLDER_MESSAGE_RESEND: {
-              var l = N(t);
+              var l = M(t);
               if (l == null) return null;
               n.placeholderMessageResendRequest = l;
               break;
@@ -229,7 +230,7 @@ __d(
                   ),
                   null
                 );
-              var s = x(t);
+              var s = $(t);
               if (s == null) return null;
               n.syncdCollectionFatalRecoveryRequest = s;
               break;
@@ -240,6 +241,16 @@ __d(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
                     "history sync chunk retry is not supported in web",
+                  ])),
+              );
+              break;
+            }
+            case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+              .RECENT_CONVERSATIONS_ON_DEMAND_REQUEST: {
+              o("WALogger").WARN(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "recent conversations on demand request is not supported in web",
                   ])),
               );
               break;
@@ -270,15 +281,15 @@ __d(
           }
           return n;
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = t != null ? t : {},
             i = a.fanout,
             l = a.msgId;
@@ -286,7 +297,7 @@ __d(
             var s = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
               u = { wids: [s] },
               c = yield o("WAWebDBDeviceListFanout").getFanOutList(u),
-              d = yield (b || (b = n("Promise"))).all(
+              d = yield (v || (v = n("Promise"))).all(
                 c.map(function (e) {
                   return r("WAWebMsgKey").newId();
                 }),
@@ -318,10 +329,10 @@ __d(
             },
           ];
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e) {
+    function D(e) {
       var t,
         n = e.fileSha256Arr,
         r =
@@ -334,7 +345,7 @@ __d(
             ? void 0
             : t.map(function (e) {
                 return (
-                  w({
+                  A({
                     inFlightRequests: o(
                       "WAWebNonMessageDataRequestMediaHandlingUtils",
                     ).inFlightStickerRequests,
@@ -347,7 +358,7 @@ __d(
               });
       return (r == null ? void 0 : r.length) === 0 ? null : r;
     }
-    function D(e) {
+    function x(e) {
       var t = e.urls;
       return t == null
         ? void 0
@@ -355,18 +366,18 @@ __d(
             return { url: t, includeHqThumbnail: e.includeHqThumbnail };
           });
     }
-    function x(e) {
+    function $(e) {
       return {
         collectionName: r("nullthrows")(e.collectionName),
         timestamp: e.timestamp,
       };
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled())
             return null;
           if (
@@ -375,8 +386,8 @@ __d(
           )
             return (
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[rdu] history sync on demand disabled: too many failures",
                   ])),
               ),
@@ -398,8 +409,8 @@ __d(
           )
             return (
               o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[rdu] drop history sync on demand request as it's in flight",
                   ])),
               ),
@@ -421,10 +432,10 @@ __d(
             supportInlineResponse: !0,
           };
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(t) {
+    function M(t) {
       var n = t.msgKeys;
       return n == null || n.length === 0
         ? null
@@ -446,7 +457,7 @@ __d(
               ).inFlightPlaceholderResendRequests.has(e.id);
             })
             .map(function (e) {
-              w({
+              A({
                 inFlightRequests: o(
                   "WAWebNonMessageDataRequestPlaceholderMessageResendUtils",
                 ).inFlightPlaceholderResendRequests,
@@ -474,7 +485,7 @@ __d(
               };
             }));
     }
-    function M(e, t) {
+    function w(e, t) {
       switch (e) {
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .UPLOAD_STICKER: {
@@ -542,7 +553,7 @@ __d(
                     t.id.id,
                   ));
               };
-            w({
+            A({
               inFlightRequests: o(
                 "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
               ).inFlightHistorySyncOnDemandRequests,
@@ -577,11 +588,11 @@ __d(
           break;
       }
     }
-    function w(e) {
+    function A(e) {
       var t = e.inFlightRequests,
         n = e.key,
         a = e.requestTimeoutMs,
-        i = a === void 0 ? v : a,
+        i = a === void 0 ? S : a,
         l = e.requestType,
         s = e.timeoutHandling;
       new (o("WAShiftTimer").ShiftTimer)(function () {
@@ -602,7 +613,7 @@ __d(
         }
       }).onOrAfter(i);
     }
-    function A(e) {
+    function F(e) {
       switch (e) {
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .GENERATE_LINK_PREVIEW:
@@ -628,7 +639,7 @@ __d(
           return null;
       }
     }
-    function F(e) {
+    function O(e) {
       if (
         !r("justknobx")._("4199") &&
         e ===
@@ -638,7 +649,7 @@ __d(
         return o("WAWebSendMsgCreateDeviceStanza").PrivacySensitiveType
           .OnDemand;
     }
-    l.sendPeerDataOperationRequest = S;
+    l.sendPeerDataOperationRequest = R;
   },
   98,
 );

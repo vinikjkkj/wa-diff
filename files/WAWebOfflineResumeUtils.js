@@ -23,6 +23,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebPruneExpiredMessagesWithAddOns",
     "WAWebPushNotificationsOfflineBbApi",
+    "WAWebReloadReason",
     "WAWebSocketLogoutJob",
     "WAWebWamOfflineResumeReporter",
     "WAWebWorkerSafeBackendApi",
@@ -135,15 +136,18 @@ __d(
           ),
           (C || (C = n("Promise"))).resolve());
     }
-    function k() {
-      var e;
+    function k(e, t) {
+      var n;
       (o("WALogger").LOG(
         m ||
           (m = babelHelpers.taggedTemplateLiteralLoose([
-            "[reload] refreshWindow",
+            "[reload] refreshWindow: ",
+            "",
           ])),
+        e,
       ),
-        (e = window.location) == null || e.reload());
+        o("WAWebReloadReason").recordReloadReason(e, t),
+        (n = window.location) == null || n.reload());
     }
     function I(e, t) {
       return (

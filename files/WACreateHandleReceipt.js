@@ -196,82 +196,83 @@ __d(
             o("WAResultOrError").makeResult(i()),
           );
         }
-        if (r.attrs.category === "peer_appdata") return g(r, a);
-        var l = o("WASmaxReceiptDeliverRPC").receiveDeliverRPC(r),
-          m = l.makeDeliverResponseSuccess,
-          p = l.parsedRequest,
-          C = p.offlineMixin,
-          b = p.receiptStyles,
-          v = p.t,
-          S = o("WATimeUtils").castToUnixTime(v),
-          R = C == null ? void 0 : C.offline;
-        switch (b.name) {
+        var l = r.attrs.category;
+        if (l === "peer_appdata") return g(r, a);
+        var m = o("WASmaxReceiptDeliverRPC").receiveDeliverRPC(r),
+          p = m.makeDeliverResponseSuccess,
+          C = m.parsedRequest,
+          b = C.offlineMixin,
+          v = C.receiptStyles,
+          S = C.t,
+          R = o("WATimeUtils").castToUnixTime(S),
+          L = b == null ? void 0 : b.offline;
+        switch (v.name) {
           case "DeliverMessageAggregatedStyle": {
-            var L = b.value,
-              E = L.from,
-              k = L.id,
-              I = L.messageAggregatedStyleReceiptType,
-              T = L.participantsUser,
-              D = L.recipientMixin,
-              x = o("WAJids").validateGroupJid(E);
-            if (x == null) {
+            var E = v.value,
+              k = E.from,
+              I = E.id,
+              T = E.messageAggregatedStyleReceiptType,
+              D = E.participantsUser,
+              x = E.recipientMixin,
+              $ = o("WAJids").validateGroupJid(k);
+            if ($ == null) {
               d.ERROR(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "",
                     " server aggregated receipt is not supported",
                   ])),
-                E,
+                k,
               );
               break;
             }
             return f({
               aggregate: {
                 aggregatedType: "server",
-                stanzaId: k,
-                receiptSenders: T.map(function (e) {
+                stanzaId: I,
+                receiptSenders: D.map(function (e) {
                   var t = e.jid,
                     n = e.t;
                   return { device: t, ts: o("WATimeUtils").castToUnixTime(n) };
                 }),
               },
-              from: x,
-              receiptType: I,
-              makeAck: m,
-              offline: R,
-              serverTs: S,
-              recipient: D == null ? void 0 : D.recipient,
+              from: $,
+              receiptType: T,
+              makeAck: p,
+              offline: L,
+              serverTs: R,
+              recipient: x == null ? void 0 : x.recipient,
               socketId: a,
             });
           }
           case "DeliverSenderAggregatedStyleSenderType": {
-            var $ = b.value,
-              P = $.id,
-              N =
-                $.individualWithRecipientOrGroupOrDeliverStatusOrBroadcastMixinGroup,
-              M = $.listItem,
-              w = $.type,
-              A = { value: { type: w }, name: "SenderType" },
-              F = [P].concat(
-                M.map(function (e) {
+            var P = v.value,
+              N = P.id,
+              M =
+                P.individualWithRecipientOrGroupOrDeliverStatusOrBroadcastMixinGroup,
+              w = P.listItem,
+              A = P.type,
+              F = { value: { type: A }, name: "SenderType" },
+              O = [N].concat(
+                w.map(function (e) {
                   return e.id;
                 }),
               );
-            switch (N.name) {
+            switch (M.name) {
               case "Group":
                 return f({
                   aggregate: {
                     aggregatedType: "sender",
-                    stanzaIds: F,
+                    stanzaIds: O,
                     receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
-                      N.value.participant,
+                      M.value.participant,
                     ),
                   },
-                  from: N.value.from,
-                  receiptType: A,
-                  makeAck: m,
-                  offline: R,
-                  serverTs: S,
+                  from: M.value.from,
+                  receiptType: F,
+                  makeAck: p,
+                  offline: L,
+                  serverTs: R,
                   recipient: null,
                   socketId: a,
                 });
@@ -283,14 +284,14 @@ __d(
                 return _({
                   aggregate: {
                     aggregatedType: "sender",
-                    receiptSender: N.value.from,
-                    stanzaIds: F,
+                    receiptSender: M.value.from,
+                    stanzaIds: O,
                   },
-                  receiptType: A,
-                  makeAck: m,
-                  offline: R,
-                  serverTs: S,
-                  recipient: N.value.recipient,
+                  receiptType: F,
+                  makeAck: p,
+                  offline: L,
+                  serverTs: R,
+                  recipient: M.value.recipient,
                   socketId: a,
                 });
             }
@@ -298,47 +299,47 @@ __d(
           }
           case "DeliverSenderAggregatedStyle":
             return y({
-              aggregateReceiptMixin: b.value,
-              makeAck: m,
-              serverTs: S,
-              offline: R,
+              aggregateReceiptMixin: v.value,
+              makeAck: p,
+              serverTs: R,
+              offline: L,
               socketId: a,
             });
           case "DeliverSingleStyleWithRecipient": {
-            var O = b.value,
-              B = O.id,
-              W =
-                O.individualWithRecipientOrGroupOrDeliverStatusOrBroadcastMixinGroup,
-              q = O.senderTypeOrRetryMixinGroup;
-            switch (W.name) {
+            var B = v.value,
+              W = B.id,
+              q =
+                B.individualWithRecipientOrGroupOrDeliverStatusOrBroadcastMixinGroup,
+              U = B.senderTypeOrRetryMixinGroup;
+            switch (q.name) {
               case "IndividualWithRecipient":
                 return _({
                   aggregate: {
                     aggregatedType: "none",
-                    receiptSender: W.value.from,
-                    stanzaId: B,
+                    receiptSender: q.value.from,
+                    stanzaId: W,
                   },
-                  receiptType: q,
-                  makeAck: m,
-                  offline: R,
-                  serverTs: S,
-                  recipient: W.value.recipient,
+                  receiptType: U,
+                  makeAck: p,
+                  offline: L,
+                  serverTs: R,
+                  recipient: q.value.recipient,
                   socketId: a,
                 });
               case "Group":
                 return f({
-                  from: W.value.from,
+                  from: q.value.from,
                   aggregate: {
                     aggregatedType: "none",
-                    stanzaId: B,
+                    stanzaId: W,
                     receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
-                      W.value.participant,
+                      q.value.participant,
                     ),
                   },
-                  receiptType: q,
-                  makeAck: m,
-                  offline: R,
-                  serverTs: S,
+                  receiptType: U,
+                  makeAck: p,
+                  offline: L,
+                  serverTs: R,
                   recipient: null,
                   socketId: a,
                 });
@@ -347,21 +348,21 @@ __d(
               case "Broadcast":
                 break;
               default:
-                W.name;
+                q.name;
             }
             break;
           }
           case "DeliverSingleStyle":
             return h({
-              singleReceiptMixin: b.value,
-              makeAck: m,
-              serverTs: S,
-              offline: R,
+              singleReceiptMixin: v.value,
+              makeAck: p,
+              serverTs: R,
+              offline: L,
               socketId: a,
             });
         }
         return (c || (c = n("Promise"))).resolve(
-          o("WAResultOrError").makeResult(m()),
+          o("WAResultOrError").makeResult(p()),
         );
       };
     }

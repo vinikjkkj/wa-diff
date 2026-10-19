@@ -1,6 +1,6 @@
 __d(
   "MAWVaultMaterials",
-  ["FBLogger", "WAArrayBufferUtils", "randomInt", "tweetnacl"],
+  ["FBLogger", "WAArrayBufferUtils", "WACryptoPrimitives", "randomInt"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null,
@@ -55,7 +55,7 @@ __d(
     }
     function b() {
       return {
-        encryptionKey: o("tweetnacl").randomBytes(32).buffer,
+        encryptionKey: o("WACryptoPrimitives").randomBytes(32).buffer,
         prefixAndSuffix: g(),
       };
     }

@@ -1,16 +1,65 @@
 __d(
   "WASmaxOfflinePreviewRPC",
-  ["WASmaxInOfflinePreviewRequest", "WASmaxParsingFailure", "WASmaxRpcUtils"],
+  [
+    "WAResultOrError",
+    "WASmaxParseJid",
+    "WASmaxParseUtils",
+    "WASmaxParsingFailure",
+    "WASmaxRpcUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("WASmaxInOfflinePreviewRequest").parsePreviewRequest(e);
+      var t = s(e);
       if (!t.success)
         throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
           o("WASmaxRpcUtils").errorMessageRpcParsing("Preview", { Request: t }),
         );
       return { parsedRequest: t.value };
     }
-    l.receivePreviewRPC = e;
+    function s(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "ib");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "offline_preview");
+      if (!n.success) return n;
+      var r = o("WASmaxParseJid").literalJid(
+        o("WASmaxParseJid").attrDomainJid,
+        e,
+        "from",
+        "s.whatsapp.net",
+      );
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").attrIntRange(n.value, "count", 0, void 0);
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").attrIntRange(n.value, "message", 0, void 0);
+      if (!i.success) return i;
+      var l = o("WASmaxParseUtils").attrIntRange(n.value, "receipt", 0, void 0);
+      if (!l.success) return l;
+      var s = o("WASmaxParseUtils").attrIntRange(
+        n.value,
+        "notification",
+        0,
+        void 0,
+      );
+      if (!s.success) return s;
+      var u = o("WASmaxParseUtils").attrIntRange(n.value, "appdata", 0, void 0);
+      if (!u.success) return u;
+      var c = o("WASmaxParseUtils").attrIntRange(n.value, "call", 0, void 0);
+      if (!c.success) return c;
+      var d = o("WASmaxParseUtils").attrIntRange(n.value, "status", 0, void 0);
+      return d.success
+        ? o("WAResultOrError").makeResult({
+            from: r.value,
+            offlinePreviewCount: a.value,
+            offlinePreviewMessage: i.value,
+            offlinePreviewReceipt: l.value,
+            offlinePreviewNotification: s.value,
+            offlinePreviewAppdata: u.value,
+            offlinePreviewCall: c.value,
+            offlinePreviewStatus: d.value,
+          })
+        : d;
+    }
+    ((l.receivePreviewRPC = e), (l.parsePreviewRequest = s));
   },
   98,
 );

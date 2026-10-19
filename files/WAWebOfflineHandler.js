@@ -105,7 +105,10 @@ __d(
                         ])),
                       t.message,
                     ),
-                    o("WAWebOfflineResumeUtils").refreshWindow())
+                    o("WAWebOfflineResumeUtils").refreshWindow(
+                      "open_tab_limit",
+                      { msg: t.message },
+                    ))
                 : !this.$2 &&
                   !this.isResumeFromRestartComplete() &&
                   D(t.message) &&

@@ -5,7 +5,7 @@ __d(
     "BrandedContentSponsorRelationship",
     "CallToActionTypes",
     "ClientIDs",
-    "ExpirationType",
+    "ExpirationTypeUtils.facebook",
     "GraphQLVideoPublisherInputDataHandlerBase",
     "VideoAssetMatureContentRating",
     "VideoCommentatingPermission",
@@ -179,13 +179,9 @@ __d(
               future_date: this.postData.future_date,
               future_time: this.postData.future_time,
               expiring: this.postData.expiring,
-              expire_type:
-                this.postData.expire_type != null
-                  ? o("enumUtils").enumValueToKeyEnforcing(
-                      this.postData.expire_type,
-                      r("ExpirationType"),
-                    )
-                  : null,
+              expire_type: o("ExpirationTypeUtils.facebook").fromJSEnum(
+                this.postData.expire_type,
+              ),
               expire_time: this.postData.expire_time,
               backdated_date: this.postData.backdated_date,
               hide_from_newsfeed: this.postData.hide_from_newsfeed,

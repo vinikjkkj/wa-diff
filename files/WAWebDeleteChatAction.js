@@ -13,6 +13,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
     "WAWebMaybeClearChatAiThreads",
+    "WAWebMetaAiThreadChatServerDelete",
     "WAWebNoop",
     "WAWebStateUtils",
     "WAWebToastManager",
@@ -102,15 +103,18 @@ __d(
         });
       var a = t.getLastMsgKeyForAction(),
         i = a ? t.msgs.get(a) : void 0,
-        l = (t.promises.sendDelete = o(
+        l = o("WAWebMetaAiThreadChatServerDelete").getMetaAiThreadServerDelete(
+          t.id,
+        ),
+        u = (t.promises.sendDelete = o(
           "WAWebChatDeleteBridge",
         ).sendConversationDelete({
           id: t.id,
           tcToken: t.tcToken,
           tcTokenTimestamp: t.tcTokenTimestamp,
         })),
-        u = o("WAWebFrontendChatGetters").getKind(t),
-        m = l
+        m = o("WAWebFrontendChatGetters").getKind(t),
+        p = u
           .then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -120,19 +124,19 @@ __d(
                       (o(
                         "WAWebLabelCollection",
                       ).LabelCollection.removeAllLabelsMD(t),
-                      u === o("WAWebChatFlowTypes").ChatKindType.Chat &&
+                      m === o("WAWebChatFlowTypes").ChatKindType.Chat &&
                         (yield g(t.id)),
-                      u != null)
+                      m != null)
                     )
                       switch (
-                        (d.includes(u) &&
+                        (d.includes(m) &&
                           (yield o(
                             "WAWebBizChatAssignmentAction",
                           ).removeChatAssignmentsForChat(t.id)),
                         o(
                           "WAWebMaybeClearChatAiThreads",
                         ).maybeClearAiThreadsForChat(t),
-                        u)
+                        m)
                       ) {
                         case o("WAWebChatFlowTypes").ChatKindType.Community:
                           return new (o("WAWebActionToast.react").ActionType)(
@@ -153,8 +157,8 @@ __d(
                         case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
                           return;
                       }
-                  } else if (e.status >= 400 && u != null)
-                    switch (u) {
+                  } else if (e.status >= 400 && m != null)
+                    switch (m) {
                       case o("WAWebChatFlowTypes").ChatKindType.Community:
                         return new (o("WAWebActionToast.react").ActionType)(
                           s._(/*BTDS*/ "Couldn't delete community."),
@@ -189,8 +193,8 @@ __d(
                 ])),
             );
             var a = "";
-            if (u != null)
-              switch (u) {
+            if (m != null)
+              switch (m) {
                 case o("WAWebChatFlowTypes").ChatKindType.Community:
                   a = s._(/*BTDS*/ "Couldn't delete community.");
                   break;
@@ -218,24 +222,39 @@ __d(
         r &&
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebActionToast.react").ActionToast, {
-              initialAction: f(u),
-              pendingAction: m,
+              initialAction: f(m),
+              pendingAction: p,
             }),
           ),
-        l
-          .then(function (e) {
-            if (e.status !== 200) return !1;
-            var n = t.getLastMsgKeyForAction();
-            return (
-              (a && a.equals(n)) || a === n ? t.delete() : C(t, i),
-              o("WAWebFrontendChatGetters").getKind(t) ===
-                o("WAWebChatFlowTypes").ChatKindType.Community &&
-                o("WAWebContactCollection").ContactCollection.remove(
-                  t.id.toString(),
-                ),
-              !0
-            );
-          })
+        u
+          .then(
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  if (e.status !== 200) return !1;
+                  var n = t.getLastMsgKeyForAction(),
+                    r = (a && a.equals(n)) || a === n;
+                  return (
+                    r ? t.delete() : C(t, i),
+                    o("WAWebFrontendChatGetters").getKind(t) ===
+                      o("WAWebChatFlowTypes").ChatKindType.Community &&
+                      o("WAWebContactCollection").ContactCollection.remove(
+                        t.id.toString(),
+                      ),
+                    r &&
+                      l != null &&
+                      (yield o(
+                        "WAWebMetaAiThreadChatServerDelete",
+                      ).completeMetaAiThreadServerDelete(t.id, l)),
+                    !0
+                  );
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          )
           .finally(function () {
             t.promises.sendDelete = null;
           })

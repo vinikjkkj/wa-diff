@@ -22,75 +22,75 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            !(
-              !o("WAWebBotGating").isBotOrphanMsgEnabled() &&
-              !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-            )
-          )
-            try {
-              var a = _(t);
-              if (a.size === 0) return;
-              var i = yield o(
-                  "WAWebDBGetByParentMsgKey",
-                ).bulkGetMessageOrphansByParentMsgKey(
-                  Array.from(a.values(), function (e) {
-                    var t = e.key;
-                    return t;
-                  }),
-                ),
-                l = new Set();
-              for (var c of i) {
-                var d = a.get(c.parentMsgKey);
-                c.type ===
-                  o("WAWebMessageAddOnType").MessageAddOnType.BotMsmsg &&
-                  d != null &&
-                  l.add(d.msg);
-              }
-              var p = yield m(Array.from(l)),
-                f = yield (u || (u = n("Promise"))).allSettled(
-                  p.map(function (e) {
-                    return o(
-                      "WAWebDBProcessOrphansForNewMsg",
-                    ).processOrphansForNewMsg(e);
-                  }),
-                );
-              for (var g of f)
-                g.status === "rejected" &&
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "drainBotOrphansForHistoryMsgs: draining the bot orphans of a target failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(g.reason))
-                    .tags("messaging")
-                    .sendLogs("bot-orphan-history-drain-failed");
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "drainBotOrphansForHistoryMsgs: draining bot orphans failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .tags("messaging")
-                .sendLogs("bot-orphan-history-drain-failed", {
-                  sampling: 0.01,
-                });
+          try {
+            var a = f(t);
+            if (a.size === 0) return;
+            var i = yield o(
+                "WAWebDBGetByParentMsgKey",
+              ).bulkGetMessageOrphansByParentMsgKey(
+                Array.from(a.values(), function (e) {
+                  var t = e.key;
+                  return t;
+                }),
+              ),
+              l = new Set();
+            for (var c of i) {
+              var d = a.get(c.parentMsgKey);
+              c.type === o("WAWebMessageAddOnType").MessageAddOnType.BotMsmsg &&
+                d != null &&
+                l.add(d.msg);
             }
+            if (l.size === 0 || !m(l)) return;
+            var _ = yield p(Array.from(l)),
+              g = yield (u || (u = n("Promise"))).allSettled(
+                _.map(function (e) {
+                  return o(
+                    "WAWebDBProcessOrphansForNewMsg",
+                  ).processOrphansForNewMsg(e);
+                }),
+              );
+            for (var h of g)
+              h.status === "rejected" &&
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "drainBotOrphansForHistoryMsgs: draining the bot orphans of a target failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(h.reason))
+                  .tags("messaging")
+                  .sendLogs("bot-orphan-history-drain-failed");
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "drainBotOrphansForHistoryMsgs: draining bot orphans failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .tags("messaging")
+              .sendLogs("bot-orphan-history-drain-failed", { sampling: 0.01 });
+          }
         })),
         d.apply(this, arguments)
       );
     }
     function m(e) {
-      return p.apply(this, arguments);
+      return o("WAWebBotGating").isBotOrphanMsgEnabled()
+        ? !0
+        : Array.from(e).some(function (e) {
+            return e.id.remote.isGroup();
+          }) &&
+            o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
     }
-    function p() {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
           var t = yield o("WAWebSchemaMessage")
             .getMessageTable()
@@ -108,10 +108,10 @@ __d(
             );
           });
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e) {
       var t = new Map();
       for (var n of e)
         if (n.messageSecret != null)

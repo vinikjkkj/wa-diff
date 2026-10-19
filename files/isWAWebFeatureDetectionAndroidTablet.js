@@ -11,7 +11,7 @@ __d(
     "use strict";
     var e = /^Linux armv8[l1]$/,
       s = "android",
-      u = 3,
+      u = 5,
       c =
         /^Mozilla\/5\.0 \(X11; Linux x86_64\) AppleWebKit\/537\.36 \(KHTML, like Gecko\) Chrome\/\d+(?:\.\d+){3} Safari\/537\.36$/,
       d = /\(X11; Linux x86_64[;)]/,
@@ -21,7 +21,7 @@ __d(
       f = [_, 720, 840],
       g = "tablet",
       h =
-        /^(?:pixel tablet|sm-(?:t|x)\d+[a-z]*|lenovo tb[-_a-z0-9]*|23043rp34g|opd\d+|pa2473|(?:nokia|hmd) t\d+|moto tab\b.*|8491x|zte k\d+|asus_p\w+|b\d+-a\d+|sgp\d+|(?:lg-)?v(?:4|5|7|9)\d{2}|(?:lm-)?t\d{3})$/i,
+        /^(?:pixel tablet|(?:samsung )?sm-[ptx]\d+[a-z]*|(?:lenovo )?tb[-_a-z0-9]*|(?:lenovo )?yt\d?-[a-z0-9]+|\d{4}[0-9a-z]rp[0-9a-z]{3}|21051182[cg]|22081283[cg]|opd\d+[a-z]*|rmp\d{4}|(?:agm|bky|btkr?|cga|eln|hey|ndl|rod|rol|txz|yag|yle)\d*-[a-z]\d{2}[a-z]*|infinix x11\d{2}[a-z]*|tecno t1[01]\d{2}|itel p100\d{2}[a-z]?|pa2473|(?:nokia|hmd) t\d+|moto tab\b.*|8491x|zte k\d+|asus_p\w+|b\d+-a\d+|sgp\d+|(?:lg-)?v(?:4|5|7|9)\d{2}|(?:lm-)?t\d{3}|.*googlebook.*)$/i,
       y = new Set([
         "automotive",
         "desktop",
@@ -34,9 +34,11 @@ __d(
       ]),
       C = new Set(["", "k", "mobile", "tablet"]),
       b =
-        /\b(?:aft[a-z0-9]*|bntv[a-z0-9]*|kf[a-z0-9]{2,}|mibox[0-9]*|sd4930ur|shield|(?:agm|ags|bah|btv|cmr|dby|eln|hey|jdn|kob|mrx|wgr)[a-z0-9]*[-_][a-z0-9]+)\b/i,
-      v = new Set(["amazon", "barnes & noble", "honor", "huawei"]),
-      S = [
+        /\b(?:aft[a-z0-9]*|bntv[a-z0-9]*|kf[a-z0-9]{2,}|mibox[0-9]*|sd4930ur|shield|(?:ags|bah|btv|cmr|dby|jdn|kob|mrx|wgr)[a-z0-9]*[-_][a-z0-9]+)\b/i,
+      v =
+        /^(?:(?:ws)?t9[5-8]2(?:_[a-z0-9]+)?|c[a-z]?-(?:a1516|t9[5-8]2)-.+|mtk?[59]\d{3}|sbid-.+|ifp\d{4}(?:-.+)?|teachmint.*|lt-ir[a-z0-9]+|logic_lt_[a-z0-9]+|maxhub.*|[a-z]{1,2}\d{2}[a-z]{2}-cs\d{4}[a-z]?-.+|hidb.*|.*a311d2.*|taishan|(?:.*[^a-z])?(?:tv|display|projector)(?:[^a-z].*)?)$/i,
+      S = new Set(["amazon", "barnes & noble", "honor", "huawei"]),
+      R = [
         "huawei",
         "honor",
         "hmscore",
@@ -57,20 +59,20 @@ __d(
         "picobrowser",
         "; wv)",
       ],
-      R,
       L,
-      E = null,
-      k = !1;
-    function I(e, t, n, r, o) {
-      return T(e, t, n, r, o) != null;
+      E,
+      k = null,
+      I = !1;
+    function T(e, t, n, r, o) {
+      return D(e, t, n, r, o) != null;
     }
-    function T(e, t, n, r, a) {
+    function D(e, t, n, r, a) {
       var i = o("WAWebUA").parseUA(e),
-        l = i.os === s && ue(i.osVersion),
-        u = Z(e, n, r, a);
+        l = i.os === s && ce(i.osVersion),
+        u = ee(e, n, r, a);
       if (!l && !u) return null;
       var c = i.parser.getDevice();
-      return H(
+      return G(
         c.type,
         i.isOculusBrowser,
         i.parser.getUA(),
@@ -83,29 +85,29 @@ __d(
         u,
       );
     }
-    function D() {
-      return x() != null;
-    }
     function x() {
-      var e;
-      return T(
-        o("WAWebUA").UA.parser.getUA(),
-        L,
-        (e = self.navigator.userAgentData) == null ? void 0 : e.mobile,
-        R,
-        J(),
-      );
+      return $() != null;
     }
     function $() {
-      return P(o("WAWebUA").UA.parser.getUA(), J());
+      var e;
+      return D(
+        o("WAWebUA").UA.parser.getUA(),
+        E,
+        (e = self.navigator.userAgentData) == null ? void 0 : e.mobile,
+        L,
+        Z(),
+      );
     }
-    function P(e, t) {
-      return o("WAWebUA").parseUA(e).os === s || ne(e, t);
+    function P() {
+      return N(o("WAWebUA").UA.parser.getUA(), Z());
     }
-    function N() {
-      return M(self.screen);
+    function N(e, t) {
+      return o("WAWebUA").parseUA(e).os === s || re(e, t);
     }
-    function M(e) {
+    function M() {
+      return w(self.screen);
+    }
+    function w(e) {
       var t = e == null ? NaN : Math.min(e.height, e.width);
       return Number.isNaN(t) || t <= 0
         ? null
@@ -113,10 +115,10 @@ __d(
             return t >= e;
           }).length;
     }
-    function w() {
+    function A() {
       var e, t, n, r;
       if (
-        k ||
+        I ||
         ((e = self.navigator.userAgentData) == null ? void 0 : e.mobile) === !0
       )
         return !1;
@@ -125,10 +127,10 @@ __d(
           ((t = self.navigator.userAgentData) == null
             ? void 0
             : t.getHighEntropyValues) != null,
-        l = o("WAWebUA").UA.os === s && ue(o("WAWebUA").UA.osVersion),
-        u = J(),
+        l = o("WAWebUA").UA.os === s && ce(o("WAWebUA").UA.osVersion),
+        u = Z(),
         c = l
-          ? ae(
+          ? ie(
               a.type,
               o("WAWebUA").UA.parser.getUA(),
               a.model,
@@ -136,49 +138,49 @@ __d(
               void 0,
             )
           : ((r = self.navigator.userAgentData) == null ? void 0 : r.mobile) ===
-              !1 && ee(o("WAWebUA").UA.parser.getUA(), u);
+              !1 && te(o("WAWebUA").UA.parser.getUA(), u);
       return (
         i &&
         c &&
         !o("WAWebUA").UA.isOculusBrowser &&
-        !de(o("WAWebUA").UA.parser.getUA(), a.vendor, a.model)
+        !me(o("WAWebUA").UA.parser.getUA(), a.vendor, a.model)
       );
-    }
-    function A() {
-      return F.apply(this, arguments);
     }
     function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (yield O()) != null;
-        })),
-        F.apply(this, arguments)
-      );
+      return O.apply(this, arguments);
     }
     function O() {
-      return B.apply(this, arguments);
-    }
-    function B() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (w()) {
-            var e = self.navigator.userAgentData;
-            if (e == null) return null;
-            var t = yield W(e);
-            if (t == null) return null;
-            ((R = t.formFactors), (L = t.model), (k = !0));
-          }
-          return x();
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (yield B()) != null;
         })),
-        B.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function B() {
+      return W.apply(this, arguments);
     }
-    function q() {
+    function W() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (A()) {
+            var e = self.navigator.userAgentData;
+            if (e == null) return null;
+            var t = yield q(e);
+            if (t == null) return null;
+            ((L = t.formFactors), (E = t.model), (I = !0));
+          }
+          return $();
+        })),
+        W.apply(this, arguments)
+      );
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WATimeUtils").unixTimeMs();
           if (e.getHighEntropyValues == null) return null;
           try {
@@ -186,10 +188,10 @@ __d(
               e.getHighEntropyValues(["formFactors", "model"]),
               m,
             );
-            return (V("resolved", t), n);
+            return (H("resolved", t), n);
           } catch (e) {
             throw (
-              V(
+              H(
                 e instanceof o("WACustomError").TimeoutError
                   ? "timed_out"
                   : "failed",
@@ -199,48 +201,48 @@ __d(
             );
           }
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U() {
-      return E;
+    function V() {
+      return k;
     }
-    function V(e, t) {
-      E = {
+    function H(e, t) {
+      k = {
         durationMs: Math.max(0, o("WATimeUtils").unixTimeMs() - t),
         outcome: e,
       };
     }
-    function H(e, t, n, r, o, a, i, l, s, c) {
-      var d = oe(o, a),
-        m = G(o, a, d),
-        p = z(e, n, m, i, l, c),
-        _ = le(l),
-        f = j(_, c, s),
-        g = Q(c, d, i, _, s, f);
+    function G(e, t, n, r, o, a, i, l, s, c) {
+      var d = ae(o, a),
+        m = z(o, a, d),
+        p = j(e, n, m, i, l, c),
+        _ = se(l),
+        f = K(_, c, s),
+        g = X(c, d, i, _, s, f);
       if (p == null || t) return null;
-      var h = Y(p, g);
-      return !f || !K(_, d, m) || !X(h, d) || de(n, r, m)
+      var h = J(p, g);
+      return !f || !Q(_, d, m) || !Y(h, d) || me(n, r, m)
         ? null
         : { detectionSource: h, detectorVersion: u, modelSource: d };
     }
-    function G(e, t, n) {
+    function z(e, t, n) {
       return n === "user_agent" ? e : t == null ? void 0 : t.trim();
     }
-    function z(e, t, n, r, o, a) {
-      return a ? "desktop_mode_signals" : ie(e, t, n, r, o);
-    }
-    function j(e, t, n) {
-      if (e !== "desktop") return !0;
-      var r = t ? "Linux" : "Android";
-      return (n == null ? void 0 : n.clientHintPlatform) === r && te(n);
+    function j(e, t, n, r, o, a) {
+      return a ? "desktop_mode_signals" : le(e, t, n, r, o);
     }
     function K(e, t, n) {
+      if (e !== "desktop") return !0;
+      var r = t ? "Linux" : "Android";
+      return (n == null ? void 0 : n.clientHintPlatform) === r && ne(n);
+    }
+    function Q(e, t, n) {
       return e !== "desktop" || t === "unavailable"
         ? !0
         : n != null && h.test(n);
     }
-    function Q(e, t, n, r, o, a) {
+    function X(e, t, n, r, o, a) {
       return (
         !e &&
         t === "unavailable" &&
@@ -250,17 +252,17 @@ __d(
         a
       );
     }
-    function X(e, t) {
+    function Y(e, t) {
       return (
         t !== "unavailable" ||
         e === "desktop_mode_signals" ||
         e === "screen_size"
       );
     }
-    function Y(e, t) {
+    function J(e, t) {
       return t ? "screen_size" : e;
     }
-    function J() {
+    function Z() {
       var e;
       return {
         clientHintPlatform:
@@ -270,27 +272,27 @@ __d(
         screenSize: self.screen,
       };
     }
-    function Z(e, t, n, r) {
-      return t === !1 && le(n) === "desktop" && ee(e, r);
+    function ee(e, t, n, r) {
+      return t === !1 && se(n) === "desktop" && te(e, r);
     }
-    function ee(e, t) {
+    function te(e, t) {
       return (
         c.test(e) &&
         (t == null ? void 0 : t.clientHintPlatform) === "Linux" &&
-        te(t)
+        ne(t)
       );
     }
-    function te(t) {
+    function ne(t) {
       var n, r;
       return (
         e.test(
           (n = t == null ? void 0 : t.navigatorPlatform) != null ? n : "",
         ) &&
         ((r = t == null ? void 0 : t.maxTouchPoints) != null ? r : 0) > 0 &&
-        re(t == null ? void 0 : t.screenSize)
+        oe(t == null ? void 0 : t.screenSize)
       );
     }
-    function ne(t, n) {
+    function re(t, n) {
       var r, o;
       return (
         d.test(t) &&
@@ -300,20 +302,20 @@ __d(
         ((o = n == null ? void 0 : n.maxTouchPoints) != null ? o : 0) > 0
       );
     }
-    function re(e) {
+    function oe(e) {
       return e != null && Math.min(e.height, e.width) >= _;
     }
-    function oe(e, t) {
-      return ce(e) ? "user_agent" : ce(t) ? "ua_ch" : "unavailable";
-    }
-    function ae(e, t, n, r, o) {
-      return ie(e, t, n, r, o) != null;
+    function ae(e, t) {
+      return de(e) ? "user_agent" : de(t) ? "ua_ch" : "unavailable";
     }
     function ie(e, t, n, r, o) {
+      return le(e, t, n, r, o) != null;
+    }
+    function le(e, t, n, r, o) {
       if (r === !0 || /\bmobile\b/i.test(t)) return null;
-      var a = le(o);
+      var a = se(o);
       return a !== "unavailable"
-        ? se(a, r)
+        ? ue(a, r)
         : r === !1
           ? "ua_ch_mobile_false"
           : e === g
@@ -322,7 +324,7 @@ __d(
               ? "known_model_pattern"
               : null;
     }
-    function le(e) {
+    function se(e) {
       if (e == null || e.length === 0) return "unavailable";
       var t = new Set(
         e.map(function (e) {
@@ -342,43 +344,43 @@ __d(
               ? "desktop"
               : "non_handheld";
     }
-    function se(e, t) {
+    function ue(e, t) {
       return e === "tablet"
         ? "ua_ch_form_factor"
         : e === "desktop" && t === !1
           ? "ua_ch_mobile_false"
           : null;
     }
-    function ue(e) {
+    function ce(e) {
       return parseInt(e, 10) >= p;
     }
-    function ce(e) {
+    function de(e) {
       var t = e == null ? void 0 : e.trim().toLowerCase();
       return t != null && !C.has(t);
     }
-    function de(e, t, n) {
+    function me(e, t, n) {
       var r,
         o = e.toLowerCase(),
         a = (r = t == null ? void 0 : t.toLowerCase()) != null ? r : "",
-        i = S.some(function (e) {
+        i = R.some(function (e) {
           return o.includes(e);
         });
-      return v.has(a) || i || (n != null && b.test(n));
+      return S.has(a) || i || (n != null && (b.test(n) || v.test(n)));
     }
     ((l.ANDROID_TABLET_DETECTOR_VERSION = u),
-      (l.isWAWebFeatureDetectionAndroidTabletUserAgent = I),
-      (l.getWAWebFeatureDetectionAndroidTabletInfoUserAgent = T),
-      (l.isWAWebFeatureDetectionAndroidTablet = D),
-      (l.getWAWebFeatureDetectionAndroidTabletInfo = x),
-      (l.isWAWebFeatureDetectionAndroidOS = $),
-      (l.isWAWebFeatureDetectionAndroidOSUserAgent = P),
-      (l.getWAWebFeatureDetectionAndroidTabletScreenClass = N),
-      (l.getWAWebFeatureDetectionAndroidTabletScreenClassForSize = M),
-      (l.isWAWebFeatureDetectionAndroidTabletClientHintResolutionRequired = w),
-      (l.isWAWebFeatureDetectionAndroidTabletWithClientHints = A),
-      (l.getWAWebFeatureDetectionAndroidTabletInfoWithClientHints = O),
-      (l.getWAWebAndroidClientHintValues = W),
-      (l.getWAWebFeatureDetectionAndroidTabletClientHintResult = U));
+      (l.isWAWebFeatureDetectionAndroidTabletUserAgent = T),
+      (l.getWAWebFeatureDetectionAndroidTabletInfoUserAgent = D),
+      (l.isWAWebFeatureDetectionAndroidTablet = x),
+      (l.getWAWebFeatureDetectionAndroidTabletInfo = $),
+      (l.isWAWebFeatureDetectionAndroidOS = P),
+      (l.isWAWebFeatureDetectionAndroidOSUserAgent = N),
+      (l.getWAWebFeatureDetectionAndroidTabletScreenClass = M),
+      (l.getWAWebFeatureDetectionAndroidTabletScreenClassForSize = w),
+      (l.isWAWebFeatureDetectionAndroidTabletClientHintResolutionRequired = A),
+      (l.isWAWebFeatureDetectionAndroidTabletWithClientHints = F),
+      (l.getWAWebFeatureDetectionAndroidTabletInfoWithClientHints = B),
+      (l.getWAWebAndroidClientHintValues = q),
+      (l.getWAWebFeatureDetectionAndroidTabletClientHintResult = V));
   },
   98,
 );

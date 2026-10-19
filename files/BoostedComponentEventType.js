@@ -1816,6 +1816,8 @@ __d(
       LOCAL_ADS_ADDRESS_ENTRY: "local_ads_address_entry",
       LOCAL_ADS_LOCATION_ROW_REMOVED: "local_ads_location_row_removed",
       LOCAL_ADS_LOCATIONS_SAVED: "local_ads_locations_saved",
+      LOCAL_ADS_CREATIVE_NORMALIZATION_APPLIED:
+        "local_ads_creative_normalization_applied",
       IG_PLACEMENT_REMOVED_STORY_INVALID: "ig_placement_removed_story_invalid",
       IG_PLACEMENT_RECOVERED_BY_AD_ACCOUNT:
         "ig_placement_recovered_by_ad_account",

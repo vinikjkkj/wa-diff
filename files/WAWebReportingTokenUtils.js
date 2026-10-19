@@ -711,9 +711,9 @@ __d(
     }
     function j(e) {
       return K(e)
-        ? o("WAWebABProps").getABPropConfigValue(
-            "ft_validation_failure_drop_placeholder",
-          )
+        ? o(
+            "WAWebMessagingGatingUtils",
+          ).isReportingTokenValidationFailureDebugPlaceholderEnabled()
         : !1;
     }
     function K(e) {

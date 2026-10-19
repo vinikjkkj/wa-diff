@@ -45,21 +45,16 @@ __d(
       );
     }
     function h() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "username_global_search_enabled",
-      );
-    }
-    function y() {
       return !o("WAWebABProps").getABPropConfigValue(
         "username_search_without_atsign_enabled",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "unknown_user_recovery_enabled",
       );
@@ -73,10 +68,9 @@ __d(
       (l.shouldDefaultToV4NumericCode = _),
       (l.lidGroupMigrationNonMemberIQEnabled = f),
       (l.usernameContactUiVcardEnabled = g),
-      (l.usernameGlobalSearchEnabled = h),
-      (l.usernameSearchRequiresAtSign = y),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = C),
-      (l.unknownUserRecoveryEnabled = b));
+      (l.usernameSearchRequiresAtSign = h),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = y),
+      (l.unknownUserRecoveryEnabled = C));
   },
   98,
 );

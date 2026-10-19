@@ -8,6 +8,7 @@ __d(
     "WAWebJobImpressionOnQuickPromotion",
     "WAWebJobPrimaryActionClickInQuickPromotion",
     "WAWebJobUserExposureToQuickPromotion",
+    "WAWebMetaAiThreadServerDeleteJob",
     "WAWebNewsletterIncrementForwardCounterJob",
     "WAWebQueryAndUpdateGroupsMetadataByJidsJob",
     "WAWebQueryGetPublicKeyJob",
@@ -121,6 +122,11 @@ __d(
           return (e || (e = n("Promise"))).resolve(
             o("WAWebNewsletterIncrementForwardCounterJob")
               .incrementNewsletterForwardCounterJob,
+          );
+        },
+        metaAiThreadServerDelete: function () {
+          return (e || (e = n("Promise"))).resolve(
+            o("WAWebMetaAiThreadServerDeleteJob").metaAiThreadServerDeleteJob,
           );
         },
       },

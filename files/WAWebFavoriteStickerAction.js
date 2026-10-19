@@ -8,6 +8,7 @@ __d(
     "WAWebFavoriteStickerJob",
     "WAWebMiscGatingUtils",
     "WAWebMsgType",
+    "WAWebSoundStickerUtils",
     "WAWebStickerAddToFavoriteWamEvent",
     "WAWebStickerModel",
     "WAWebStickerPremiumStatus",
@@ -17,7 +18,10 @@ __d(
     function _(t) {
       var n = t
         .filter(function (e) {
-          return e.type === o("WAWebMsgType").MSG_TYPE.STICKER;
+          return (
+            e.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
+            o("WAWebSoundStickerUtils").canFavoriteStickerMsg(e)
+          );
         })
         .filter(function (e) {
           var t;
@@ -40,6 +44,7 @@ __d(
             directPath: e.directPath,
             mediaKey: e.mediaKey,
             mediaKeyTimestamp: e.mediaKeyTimestamp,
+            stickerAudio: e.stickerAudio,
           });
         });
         for (var i of n) y(i);
@@ -102,6 +107,7 @@ __d(
                     directPath: e.directPath,
                     mediaKey: e.mediaKey,
                     mediaKeyTimestamp: e.mediaKeyTimestamp,
+                    stickerAudio: e.stickerAudio,
                   }),
                 ],
                 o("WATimeUtils").unixTimeMs(),

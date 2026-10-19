@@ -37,10 +37,15 @@ __d(
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "visible_message_drop_placeholder_enabled_internal_only",
+        "ft_validation_failure_drop_placeholder",
       );
     }
     function g() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "visible_message_drop_placeholder_enabled_internal_only",
+      );
+    }
+    function h() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_biz_simple_signal_enabled",
@@ -55,8 +60,9 @@ __d(
       (l.isReportingTagSyncingEnabled = m),
       (l.getSenderReportingTokenVersion = p),
       (l.isWebReportingTokenDelayProcessingEnabled = _),
-      (l.isMessageDropPlaceholderEnabled = f),
-      (l.isSimpleSignalEnabled = g));
+      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = f),
+      (l.isMessageDropPlaceholderEnabled = g),
+      (l.isSimpleSignalEnabled = h));
   },
   98,
 );

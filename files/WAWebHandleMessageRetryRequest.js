@@ -4,7 +4,9 @@ __d(
     "Promise",
     "WALogger",
     "WAWap",
+    "WAWebABProps",
     "WAWebCommsWapMd",
+    "WAWebCreateReceiptStanzaReceiveMetric",
     "WAWebHandleRetryRequest",
     "WAWebRetryRequestParser",
     "asyncToGeneratorRuntime",
@@ -18,8 +20,11 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = r("WAWebRetryRequestParser").parse(t);
-          if (a.error)
+          var a = o(
+              "WAWebCreateReceiptStanzaReceiveMetric",
+            ).createRetryReceiptStanzaReceiveMetric(),
+            i = r("WAWebRetryRequestParser").parse(t);
+          if (i.error)
             return (
               o("WALogger").ERROR(
                 e ||
@@ -27,15 +32,16 @@ __d(
                     "Parsing Error: ",
                     "",
                   ])),
-                a.error.toString(),
+                i.error.toString(),
               ),
-              (u || (u = n("Promise"))).reject(a.error)
+              (u || (u = n("Promise"))).reject(i.error)
             );
-          var i = a.success,
-            l = i.from,
-            c = i.participant,
-            d = i.stanzaId;
-          if (d == null)
+          var l = i.success,
+            c = l.from,
+            d = l.participant,
+            m = l.stanzaId,
+            p = l.type;
+          if (m == null)
             return (
               o("WALogger").WARN(
                 s ||
@@ -49,16 +55,23 @@ __d(
                 ),
               )
             );
-          var m = o("WAWap").wap("ack", {
-            id: o("WAWap").CUSTOM_STRING(d),
-            to: o("WAWebCommsWapMd").JID(l),
-            participant: c
-              ? o("WAWebCommsWapMd").DEVICE_JID(c)
+          var _ = o("WAWap").wap("ack", {
+            id: o("WAWap").CUSTOM_STRING(m),
+            to: o("WAWebCommsWapMd").JID(c),
+            participant: d
+              ? o("WAWebCommsWapMd").DEVICE_JID(d)
               : o("WAWap").DROP_ATTR,
             class: "receipt",
             type: "retry",
           });
-          return (yield o("WAWebHandleRetryRequest").handleRetryRequest(i), m);
+          try {
+            yield o("WAWebHandleRetryRequest").handleRetryRequest(l);
+          } finally {
+            o("WAWebABProps").getABPropConfigValue(
+              "web_retry_receipt_logging_enabled",
+            ) && a({ from: c, type: p });
+          }
+          return _;
         })),
         d.apply(this, arguments)
       );

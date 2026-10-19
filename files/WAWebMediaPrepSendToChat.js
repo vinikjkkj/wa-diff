@@ -197,6 +197,7 @@ __d(
               aiThreadInfo: v.aiThreadInfo,
               isAvatar: v.isAvatar,
               isAiSticker: v.isAiSticker,
+              stickerAudio: v.stickerAudio,
               viewMode: v.viewMode,
               parentMsgKey: v.parentMsgKey,
               associationType: v.associationType,

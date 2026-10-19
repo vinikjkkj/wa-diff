@@ -10,7 +10,6 @@ __d(
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastCampaignMsgKeyUtils",
     "WAWebBizBroadcastContextualEntrypointUtils",
-    "WAWebBizBroadcastInsightsStorageUtils",
     "WAWebBizBroadcastMediaProcessor",
     "WAWebBizBroadcastRateUtils",
     "WAWebBizBroadcastsCreationStrings",
@@ -21,6 +20,7 @@ __d(
     "WAWebChatGroupUtils",
     "WAWebDBMessageSerialization",
     "WAWebFileUtils",
+    "WAWebGetAllInsightsMap",
     "WAWebImageUtils",
     "WAWebLidMigrationUtils",
     "WAWebMediaConstants",
@@ -691,7 +691,7 @@ __d(
           );
           var e = yield (f || (f = n("Promise"))).all([
               o("WAWebBizBroadcastCampaignAPI").getAllBizBroadcastCampaigns(),
-              o("WAWebBizBroadcastInsightsStorageUtils")
+              o("WAWebGetAllInsightsMap")
                 .getAllInsightsMap()
                 .catch(function (e) {
                   return (

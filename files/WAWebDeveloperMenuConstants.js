@@ -19,6 +19,7 @@ __d(
       "MetaConfig",
       "WasaHatchDebug",
       "QuickPromotionsManager",
+      "MetaAiThreads",
     ]);
     i.DeveloperMenu = e;
   },

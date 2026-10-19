@@ -26,6 +26,7 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebEncryptMsgProtobuf",
     "WAWebHandleMsgCommon",
+    "WAWebHatchMetadataBotCopy",
     "WAWebICDCMetaApi",
     "WAWebLid1X1MigrationGating",
     "WAWebManageE2ESessionsJob",
@@ -171,11 +172,8 @@ __d(
                   e.subtype,
                 ) &&
                   (F = yield o(
-                    "WAWebWasaHatchOutboundWrapper",
-                  ).wrapHatchOutboundMessage({
-                    currentStanzaId: e.id.id,
-                    innerMessage: F,
-                  })));
+                    "WAWebHatchMetadataBotCopy",
+                  ).genHatchOutboundCopy({ msg: e, innerMessage: F })));
               var O = o(
                   "WAWebCoexV2RelayEligibility",
                 ).shouldUseCoexV2StatelessSession(m, w),
@@ -282,11 +280,8 @@ __d(
                         )
                           try {
                             b = yield o(
-                              "WAWebWasaHatchOutboundWrapper",
-                            ).wrapHatchOutboundMessage({
-                              currentStanzaId: e.id.id,
-                              innerMessage: b,
-                            });
+                              "WAWebHatchMetadataBotCopy",
+                            ).genHatchOutboundCopy({ msg: e, innerMessage: b });
                           } catch (e) {
                             throw e instanceof
                               o("WAWebWasaHatchOutboundWrapper")

@@ -132,9 +132,13 @@ __d(
                           .BUSINESS_BROADCAST_INSIGHTS_REFRESH
                     ? -1
                     : e ===
-                        o("WAWebProtobufsE2E.pb")
-                          .Message$PeerDataOperationRequestType
-                          .CONTACT_REFRESH_REQUEST
+                          o("WAWebProtobufsE2E.pb")
+                            .Message$PeerDataOperationRequestType
+                            .CONTACT_REFRESH_REQUEST ||
+                        e ===
+                          o("WAWebProtobufsE2E.pb")
+                            .Message$PeerDataOperationRequestType
+                            .RECENT_CONVERSATIONS_ON_DEMAND_REQUEST
                       ? 1
                       : (function () {
                           throw Error(
@@ -186,6 +190,11 @@ __d(
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .HISTORY_SYNC_CHUNK_RETRY:
           throw r("err")("history sync chunk retry is not supported in web");
+        case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+          .RECENT_CONVERSATIONS_ON_DEMAND_REQUEST:
+          throw r("err")(
+            "recent conversations on demand request is not supported in web",
+          );
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .GALAXY_FLOW_ACTION:
           return o("WAWebWamEnumPeerDataRequestType").PEER_DATA_REQUEST_TYPE

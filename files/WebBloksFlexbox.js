@@ -93,27 +93,31 @@ __d(
           Y && !J,
           J,
         ),
-        re = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
-        oe = o("WebBloksComponentContext").useWebBloksContext(),
-        ae = oe.bloksContext,
-        ie = oe.executeOnNextTickCatch,
-        le = oe.renderChildren;
+        re = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        oe = re.isRtl,
+        ae = re.gkx.getGK("wbloks_logical_edge_priority"),
+        ie = o("WebBloksComponentContext").useWebBloksContext(),
+        le = ie.bloksContext,
+        se = ie.executeOnNextTickCatch,
+        ue = ie.renderChildren;
       d(
         function () {
-          W != null && ie(c, W, [c, ae]);
+          W != null && se(c, W, [c, le]);
         },
         [W],
       );
-      var se = $ == null ? void 0 : $.get(D),
-        ue = c.get(I),
-        ce = c.get(S),
-        de = c.get(L),
-        me = c.get(E),
-        pe = c.get(k),
-        _e = c.get(R),
-        fe = re ? _e : pe,
-        ge = re ? pe : _e,
-        he = babelHelpers.extends({ pointerEvents: "none" }, H, M(N), K, {
+      var ce = $ == null ? void 0 : $.get(D),
+        de = c.get(I),
+        me = c.get(S),
+        pe = c.get(L),
+        _e = c.get(E),
+        fe = c.get(k),
+        ge = c.get(R),
+        he = oe ? ge : fe,
+        ye = oe ? fe : ge,
+        Ce = ae ? (he != null ? he : pe) : pe != null ? pe : he,
+        be = ae ? (ye != null ? ye : _e) : _e != null ? _e : ye,
+        ve = babelHelpers.extends({ pointerEvents: "none" }, H, M(N), K, {
           alignContent: o("WebBloksUtils").toHyphen(w),
           alignItems: o("WebBloksUtils").toHyphen(A),
           flexDirection: o("WebBloksUtils").toHyphen(F),
@@ -122,17 +126,13 @@ __d(
             B != null ? B : H.justifyContent,
           ),
           paddingTop:
-            (n = o("WebBloksUtils").toPx(ue)) != null ? n : H.paddingTop,
+            (n = o("WebBloksUtils").toPx(de)) != null ? n : H.paddingTop,
           paddingBottom:
-            (a = o("WebBloksUtils").toPx(ce)) != null ? a : H.paddingBottom,
+            (a = o("WebBloksUtils").toPx(me)) != null ? a : H.paddingBottom,
           paddingLeft:
-            (i = o("WebBloksUtils").toPx(de != null ? de : fe)) != null
-              ? i
-              : H.paddingLeft,
+            (i = o("WebBloksUtils").toPx(Ce)) != null ? i : H.paddingLeft,
           paddingRight:
-            (l = o("WebBloksUtils").toPx(me != null ? me : ge)) != null
-              ? l
-              : H.paddingRight,
+            (l = o("WebBloksUtils").toPx(be)) != null ? l : H.paddingRight,
         });
       return G(
         Y
@@ -143,12 +143,12 @@ __d(
                 z,
                 {
                   className: o("WebBloksStyle").WebBloksStyles.container,
-                  style: he,
+                  style: ve,
                 },
                 ne,
                 te,
                 {
-                  children: [le(x), se ? u.jsx(P, { drawable: se }) : null, Q],
+                  children: [ue(x), ce ? u.jsx(P, { drawable: ce }) : null, Q],
                 },
               ),
             )
@@ -159,11 +159,11 @@ __d(
                 z,
                 {
                   className: o("WebBloksStyle").WebBloksStyles.container,
-                  style: he,
+                  style: ve,
                 },
                 ne,
                 {
-                  children: [le(x), se ? u.jsx(P, { drawable: se }) : null, Q],
+                  children: [ue(x), ce ? u.jsx(P, { drawable: ce }) : null, Q],
                 },
               ),
             ),

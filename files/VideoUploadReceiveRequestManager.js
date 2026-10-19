@@ -1018,7 +1018,8 @@ __d(
               (e = this.$VideoUploadReceiveRequestManager$p_37) == null ||
                 (e = e.getRetryState()) == null ||
                 e.resetDelay(),
-              this.$VideoUploadReceiveRequestManager$p_45 &&
+              this.$VideoUploadReceiveRequestManager$p_45 != null &&
+                this.$VideoUploadReceiveRequestManager$p_45 !== 0 &&
                 this.$VideoUploadReceiveRequestManager$p_52(d.BACK_ONLINE));
           }),
           (a.$VideoUploadReceiveRequestManager$p_50 = function () {

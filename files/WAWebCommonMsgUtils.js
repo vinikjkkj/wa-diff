@@ -1,6 +1,12 @@
 __d(
   "WAWebCommonMsgUtils",
-  ["$InternalEnum", "WALogger", "WAWebMsgType", "WAWebRichResponse.flow"],
+  [
+    "$InternalEnum",
+    "WALogger",
+    "WAWebCommonMsgSubtypeTypes",
+    "WAWebMsgType",
+    "WAWebRichResponse.flow",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = n("$InternalEnum")({
@@ -40,30 +46,37 @@ __d(
         e === o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER
       );
     }
-    function d(e) {
-      return e === o("WAWebMsgType").MSG_TYPE.QUARANTINED;
+    function d(e, t) {
+      return (
+        t === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Fanout &&
+        e ===
+          o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ViewOnceUnavailableFanout
+      );
     }
     function m(e) {
-      return e === o("WAWebMsgType").MSG_TYPE.UNKNOWN;
+      return e === o("WAWebMsgType").MSG_TYPE.QUARANTINED;
     }
     function p(e) {
-      return e === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE;
+      return e === o("WAWebMsgType").MSG_TYPE.UNKNOWN;
     }
     function _(e) {
-      return f(e.type, e.richResponse);
+      return e === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE;
     }
-    function f(e, t) {
-      if (!p(e)) return !1;
+    function f(e) {
+      return g(e.type, e.richResponse);
+    }
+    function g(e, t) {
+      if (!_(e)) return !1;
       var n = t == null ? void 0 : t.parseState;
       return (
         n === o("WAWebRichResponse.flow").RichResponseParseState.Partial ||
         n === o("WAWebRichResponse.flow").RichResponseParseState.Parsed
       );
     }
-    function g(e) {
+    function h(e) {
       return e === o("WAWebMsgType").MSG_TYPE.CALL_LOG;
     }
-    function h(t) {
+    function y(t) {
       var n = [],
         r = 0;
       (t.forEach(function (e) {
@@ -86,13 +99,14 @@ __d(
     ((l.EventType = s),
       (l.isNotificationType = u),
       (l.isPlaceholderMsg = c),
-      (l.isQuarantinedMsg = d),
-      (l.isFutureproofMsg = m),
-      (l.isRichResponseMsg = p),
-      (l.isSomewhatParsedRichResponseMsg = _),
-      (l.isSomewhatParsedRichResponse = f),
-      (l.isCallLogMsg = g),
-      (l.logUndefinedMessage = h));
+      (l.isPlaceholderSubtypeUpgrade = d),
+      (l.isQuarantinedMsg = m),
+      (l.isFutureproofMsg = p),
+      (l.isRichResponseMsg = _),
+      (l.isSomewhatParsedRichResponseMsg = f),
+      (l.isSomewhatParsedRichResponse = g),
+      (l.isCallLogMsg = h),
+      (l.logUndefinedMessage = y));
   },
   98,
 );

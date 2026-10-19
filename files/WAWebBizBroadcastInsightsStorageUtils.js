@@ -7,13 +7,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           try {
             var i,
               l,
@@ -56,15 +56,15 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             (yield o("WAWebSchemaBusinessBroadcastInsights")
               .getBusinessBroadcastInsightsTable()
@@ -93,15 +93,15 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             return yield o("WAWebSchemaBusinessBroadcastInsights")
               .getBusinessBroadcastInsightsTable()
@@ -122,45 +122,12 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o("WAWebSchemaBusinessBroadcastInsights")
-              .getBusinessBroadcastInsightsTable()
-              .all();
-            return new Map(
-              e.map(function (e) {
-                return [e.campaignId, e];
-              }),
-            );
-          } catch (e) {
-            throw (
-              o("WALogger").ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:insights-storage] Failed to get all insights: ",
-                    "",
-                  ])),
-                r("getErrorSafe")(e),
-              ),
-              e
-            );
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    ((l.upsertInsightsStorage = p),
-      (l.removeInsightsStorage = f),
-      (l.getInsightsForCampaign = h),
-      (l.getAllInsightsMap = C));
+    ((l.upsertInsightsStorage = m),
+      (l.removeInsightsStorage = _),
+      (l.getInsightsForCampaign = g));
   },
   98,
 );

@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebBizBroadcastCampaignAPI",
-    "WAWebBizBroadcastInsightsStorageUtils",
+    "WAWebGetAllInsightsMap",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -70,9 +70,7 @@ __d(
               ])),
           );
           try {
-            var e = yield o(
-                "WAWebBizBroadcastInsightsStorageUtils",
-              ).getAllInsightsMap(),
+            var e = yield o("WAWebGetAllInsightsMap").getAllInsightsMap(),
               t = Array.from(e.values());
             (o("WAWebBackendApi").frontendFireAndForget(
               "loadedBizBroadcastCampaignInsights",

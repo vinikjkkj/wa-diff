@@ -459,6 +459,7 @@ __d(
                     R.push(e));
                 } else r.push(I(e, f, x));
                 o("WAWebCommonMsgUtils").isPlaceholderMsg(x.type) &&
+                  !o("WAWebCommonMsgUtils").isPlaceholderMsg(e.type) &&
                   v.set(k, f);
               } else if (
                 x &&
@@ -676,7 +677,11 @@ __d(
           !o("WAWebCommonMsgUtils").isFutureproofMsg(e.type) &&
           !T(e)) ||
         (o("WAWebCommonMsgUtils").isRichResponseMsg(t.type) &&
-          o("WAWebCommonMsgUtils").isSomewhatParsedRichResponseMsg(e))
+          o("WAWebCommonMsgUtils").isSomewhatParsedRichResponseMsg(e)) ||
+        o("WAWebCommonMsgUtils").isPlaceholderSubtypeUpgrade(
+          e.subtype,
+          t.subtype,
+        )
       );
     }
     ((l.storeMsgs = C), (l.processOfflineRevokes = L), (l.classifyMsgs = E));

@@ -34,7 +34,7 @@ __d(
         r = n.filter(function (e) {
           return t.has(e);
         });
-      return r.length === n.length
+      return r.length === n.length || r.includes(e.id + ":full")
         ? { mode: "full" }
         : r.length === 0
           ? null

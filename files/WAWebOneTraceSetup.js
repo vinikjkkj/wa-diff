@@ -19,6 +19,27 @@ __d(
       if (!e) {
         var t;
         ((e = !0),
+          r("one-trace").subscribe("trace-start", function (e) {
+            o("OneTraceQPLLogger").initQPL(u(e), e);
+          }),
+          r("one-trace").subscribe("trace-end", function (e) {
+            (r("one-trace").addAnnotations(e.annotations, {
+              string: {
+                subplatform: r("WAWebEnvironment").isWindows ? "hybrid" : "web",
+                environment: r("WAWebEnvironment").getEnvironment(),
+                encrypted_rid:
+                  o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb
+                    .loadedUserPrefs != null
+                    ? o("WAWebEncryptedRid").getEncryptedRid()
+                    : "",
+                logged_out_separation: o(
+                  "WAWebLoggedOutSeparationGating",
+                ).getLoggedOutSeparationExperiment(),
+              },
+              bool: { is_compiler_enabled: r("gkx")("7685") },
+            }),
+              o("OneTraceQPLLogger").logQPL(u(e), e));
+          }),
           r("one-trace").setup({
             Image: { enableTracking: !1 },
             Longtask: { enableTracking: !1 },
@@ -44,27 +65,6 @@ __d(
             Responsiveness: { enableTracking: t("18542") },
             Scroll: { enableTracking: t("18842") },
             Typing: { enableTracking: t("19206") },
-          }),
-          r("one-trace").subscribe("trace-start", function (e) {
-            o("OneTraceQPLLogger").initQPL(u(e), e);
-          }),
-          r("one-trace").subscribe("trace-end", function (e) {
-            (r("one-trace").addAnnotations(e.annotations, {
-              string: {
-                subplatform: r("WAWebEnvironment").isWindows ? "hybrid" : "web",
-                environment: r("WAWebEnvironment").getEnvironment(),
-                encrypted_rid:
-                  o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb
-                    .loadedUserPrefs != null
-                    ? o("WAWebEncryptedRid").getEncryptedRid()
-                    : "",
-                logged_out_separation: o(
-                  "WAWebLoggedOutSeparationGating",
-                ).getLoggedOutSeparationExperiment(),
-              },
-              bool: { is_compiler_enabled: r("gkx")("7685") },
-            }),
-              o("OneTraceQPLLogger").logQPL(u(e), e));
           }));
       }
     }
@@ -86,7 +86,7 @@ __d(
         case "TYPING":
           return r("qpl")._(802948194, "3732");
         case "RESPONSIVENESS":
-          return null;
+          return r("qpl")._(802960199, "1272");
         case "INP":
           return r("qpl")._(802947073, "3733");
       }

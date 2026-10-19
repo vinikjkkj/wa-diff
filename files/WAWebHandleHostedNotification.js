@@ -5,7 +5,7 @@ __d(
     "WASmaxCoexistenceOffboardingNotificationRPC",
     "WASmaxCoexistenceOnboardingStatusNotificationRPC",
     "WASmaxCoexistenceSyncNotificationRPC",
-    "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
+    "WASmaxNotificationFallbackGenericNotificationRPC",
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WAWebCTWADetectedOutcomeOnboardingStatusNotification",
@@ -66,7 +66,7 @@ __d(
                 "WAWebCoexStateSyncNotification",
               ).handleCoexStateSyncNotification(),
               o(
-                "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
+                "WASmaxNotificationFallbackGenericNotificationRPC",
               ).makeGenericNotificationResponseAck(t)
             );
           throw (

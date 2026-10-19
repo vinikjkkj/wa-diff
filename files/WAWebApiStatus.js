@@ -21,7 +21,6 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "countWhere",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -37,14 +36,13 @@ __d(
                   var n = t.flat(1),
                     a = [],
                     i = [],
-                    l = r("justknobx")._("4912"),
-                    u = 0,
-                    c = 0;
+                    l = 0,
+                    u = 0;
                   (n.forEach(function (e) {
                     e.author
                       ? e.viewMode ===
-                          o("WAWebViewMode.flow").ViewModeType.HIDDEN && l
-                        ? c++
+                        o("WAWebViewMode.flow").ViewModeType.HIDDEN
+                        ? u++
                         : o("WATimeUtils").happenedWithin(
                               o("WATimeUtils").castToUnixTime(e.t),
                               o("WATimeUtils").DAY_SECONDS,
@@ -56,30 +54,30 @@ __d(
                               ),
                             )
                           : a.push(e.id)
-                      : u++;
+                      : l++;
                   }),
-                    u > 0 &&
+                    l > 0 &&
                       o("WALogger").WARN(
                         e ||
                           (e = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " status messages have null author",
                           ])),
-                        u,
+                        l,
                       ),
-                    c > 0 &&
+                    u > 0 &&
                       o("WALogger").WARN(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " status messages have hidden viewMode",
                           ])),
-                        c,
+                        u,
                       ),
                     yield o("WAWebSchemaMessage")
                       .getMessageTable()
                       .bulkRemove(a));
-                  var d = i.map(function (e) {
+                  var c = i.map(function (e) {
                       return babelHelpers.extends({}, e, {
                         id: new (r("WAWebMsgKey"))({
                           id: e.id.id,
@@ -103,7 +101,7 @@ __d(
                               ),
                       });
                     }),
-                    m = o("WAArrayUtils").groupBy(d, function (e) {
+                    d = o("WAArrayUtils").groupBy(c, function (e) {
                       var t, n;
                       return e.from.isStatus() && e.author != null
                         ? e.author.toString()
@@ -114,25 +112,25 @@ __d(
                           ? t
                           : e.from.toString();
                     }),
-                    p = [];
-                  for (var _ of m) {
-                    var f = _[0],
-                      g = _[1],
-                      h = r("countWhere")(g, function (e) {
+                    m = [];
+                  for (var p of d) {
+                    var _ = p[0],
+                      f = p[1],
+                      g = r("countWhere")(f, function (e) {
                         return (
                           e.ack !== void 0 && e.ack < o("WAWebAck").ACK.READ
                         );
                       }),
-                      y = g[g.length - 1].t;
-                    p.push({
-                      id: o("WAWebWidFactory").createWid(f),
-                      unreadCount: h,
-                      totalCount: g.length,
-                      t: y,
-                      statusMsgs: g,
+                      h = f[f.length - 1].t;
+                    m.push({
+                      id: o("WAWebWidFactory").createWid(_),
+                      unreadCount: g,
+                      totalCount: f.length,
+                      t: h,
+                      statusMsgs: f,
                     });
                   }
-                  return p;
+                  return m;
                 },
               );
               return function (e) {

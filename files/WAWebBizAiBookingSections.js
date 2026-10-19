@@ -17,11 +17,11 @@ __d(
       for (var r of t) {
         var a,
           i = r.booking,
-          l = o("WAWebBizAiBookingTime").getBookingTimePresentation(
-            i.startDateTime,
-            i.endDateTime,
-            i.timezoneId,
-          ),
+          l = o("WAWebBizAiBookingTime").getBookingTimePresentation({
+            endDateTime: i.endDateTime,
+            startDateTime: i.startDateTime,
+            timezoneId: i.timezoneId,
+          }),
           c =
             (a = l == null ? void 0 : l.dateKey) != null
               ? a
