@@ -145,7 +145,7 @@ __d(
         var s = { expiryTime: e + o, posts: [t] };
         return (
           g.set(a, s),
-          h ||
+          (h == null || h === 0) &&
             (h = r("setTimeout")(
               E._expiredBatchMap,
               (c || (c = r("BanzaiConsts"))).BATCH_TIMEOUT,

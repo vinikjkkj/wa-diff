@@ -118,15 +118,16 @@ __d(
             .filter(function (e) {
               return !a.has(e.id);
             });
-        i.length > 0 &&
-          (o("WAWebOrgCollection").OrgCollection.remove(i),
-          S(
-            new Set(
-              i.map(function (e) {
-                return e.id;
-              }),
-            ),
-          ));
+        if (i.length > 0) {
+          o("WAWebOrgCollection").OrgCollection.remove(i);
+          var l = i.map(function (e) {
+            return e.id;
+          });
+          o("WAWebOrgContactCollection").OrgContactCollection.notifyApplied(
+            l,
+            S(new Set(l)),
+          );
+        }
       }
       (o("WAWebOrgCollection").OrgCollection.addRows(n), E(r, L()) || R());
     }
@@ -225,21 +226,28 @@ __d(
       });
     }
     function S(e) {
-      var t = L();
-      o("WAWebOrgContactCollection")
-        .OrgContactCollection.getModelsArray()
-        .forEach(function (n) {
-          Object.keys(n.orgMetadata).some(function (t) {
-            return e.has(t);
-          }) &&
-            o("WAWebOrgContactCollection").OrgContactCollection.applyAttrs(
-              o("WAWebOrgContactProjection").withoutOrgMemberships(
-                o("WAWebOrgContactCollection").toOrgContactAttrs(n),
-                e,
-                t,
-              ),
-            );
-        });
+      var t = L(),
+        n = o("WAWebOrgContactCollection")
+          .OrgContactCollection.getModelsArray()
+          .filter(function (t) {
+            return Object.keys(t.orgMetadata).some(function (t) {
+              return e.has(t);
+            });
+          });
+      return (
+        n.forEach(function (n) {
+          return o("WAWebOrgContactCollection").OrgContactCollection.applyAttrs(
+            o("WAWebOrgContactProjection").withoutOrgMemberships(
+              o("WAWebOrgContactCollection").toOrgContactAttrs(n),
+              e,
+              t,
+            ),
+          );
+        }),
+        n.map(function (e) {
+          return e.id;
+        })
+      );
     }
     function R() {
       var e = L();

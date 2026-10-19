@@ -1,6 +1,6 @@
 __d(
   "WAWebPQGatingUtils",
-  ["WAWebABProps"],
+  ["WAWebABProps", "WAWebSessionScope"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
@@ -23,11 +23,17 @@ __d(
       );
     }
     function d() {
+      return c()
+        ? o("WAWebSessionScope").SessionScope.PQ
+        : o("WAWebSessionScope").SessionScope.DEFAULT;
+    }
+    function m() {
       return !1;
     }
     ((l.isPqKeysUploadEnabled = u),
       (l.isPq1on1MessageEnabled = c),
-      (l.isPqKeyRollbackEnabled = d));
+      (l.getOneToOneChatSessionScope = d),
+      (l.isPqKeyRollbackEnabled = m));
   },
   98,
 );

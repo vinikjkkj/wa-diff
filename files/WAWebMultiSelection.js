@@ -71,7 +71,8 @@ __d(
             ) {
               var e = Math.min(Math.max(t, -1), this.list.length - 1),
                 o = e > -1 ? this.list[e] : void 0;
-              o &&
+              o == null ||
+                !o ||
                 (this.selected[e] !== n &&
                   ((this.selected[e] = n), this.trigger(this.getter(o), n, r)),
                 this.isUnreadChat(o) && this.trigger("unread_chat", n ? 1 : -1),

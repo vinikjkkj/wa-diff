@@ -19,6 +19,7 @@ __d(
     "WAWebGroupType",
     "WAWebInviteV4QueryGroupAction",
     "WAWebMiscGatingUtils",
+    "WAWebOrgMemberContactName",
     "WAWebPastParticipantCollection",
     "WAWebSchemaGroupMetadata",
     "WAWebSubgroupSuggestionCollection",
@@ -329,6 +330,21 @@ __d(
               );
             });
           }),
+          (i.$GroupMetadata$p_8 = function () {
+            return (
+              o("WAWebOrgMemberContactName").getKnownOrgMember(this.owner) !=
+                null ||
+              o("WAWebOrgMemberContactName").getKnownOrgMember(
+                this.groupAdder,
+              ) != null ||
+              this.participants.some(function (e) {
+                return (
+                  e.isAdmin &&
+                  o("WAWebOrgMemberContactName").getKnownOrgMember(e.id) != null
+                );
+              })
+            );
+          }),
           (i.isTrusted = function () {
             if (this.stale) return this.trusted;
             if (this.support) return (this.trusted = !0);
@@ -354,9 +370,8 @@ __d(
               )
                 return (this.trusted = !0);
             }
-            return this.$GroupMetadata$p_7()
-              ? (this.trusted = !0)
-              : (this.trusted = !1);
+            return (this.trusted =
+              this.$GroupMetadata$p_7() || this.$GroupMetadata$p_8());
           }),
           (i.hasJoined = function () {
             var e = this.id,

@@ -803,7 +803,8 @@ __d(
                 case o("WAWebBotTypes").BotMsgEditType.LAST:
                 case o("WAWebBotTypes").BotMsgEditType.FULL:
                   ((this.activeBotMsgStreamingInProgress = !1),
-                    this.botEditTimeoutID &&
+                    this.botEditTimeoutID != null &&
+                      this.botEditTimeoutID !== 0 &&
                       self.clearTimeout(this.botEditTimeoutID),
                     n === o("WAWebBotTypes").BotMsgEditType.LAST &&
                       this.$MsgImpl$p_21());
@@ -1183,7 +1184,9 @@ __d(
           }),
           (i.delete = function (n) {
             (t.prototype.delete.call(this),
-              this.botEditTimeoutID && self.clearTimeout(this.botEditTimeoutID),
+              this.botEditTimeoutID != null &&
+                this.botEditTimeoutID !== 0 &&
+                self.clearTimeout(this.botEditTimeoutID),
               o("WAWebStarredMsgCollection").AllStarredMsgsCollection.remove(
                 this,
               ),

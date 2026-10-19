@@ -5,44 +5,45 @@ __d(
     var e;
     function s(t, r) {
       var a,
-        i = t.target.files || ((a = t.dataTransfer) == null ? void 0 : a.files),
-        l = i ? Array.from(i) : [];
+        i = t.target.files,
+        l = i || ((a = t.dataTransfer) == null ? void 0 : a.files),
+        s = l ? Array.from(l) : [];
       if (r != null && r !== "") {
-        var s = typeof r == "string" ? [r] : r,
-          u = s.map(function (e) {
+        var u = typeof r == "string" ? [r] : r,
+          c = u.map(function (e) {
             return new RegExp(e);
           });
-        l = l.filter(function (e) {
-          return u.some(function (t) {
+        s = s.filter(function (e) {
+          return c.some(function (t) {
             return e.type.match(t);
           });
         });
       }
-      if (l.length) return (e || (e = n("Promise"))).resolve(l);
-      var c = t.dataTransfer;
-      if (c && c.getData("text/uri-list"))
+      if (s.length) return (e || (e = n("Promise"))).resolve(s);
+      var d = t.dataTransfer;
+      if (d && d.getData("text/uri-list"))
         return o("WAWebImageUtils")
-          .urlToFile(c.getData("text/uri-list"))
+          .urlToFile(d.getData("text/uri-list"))
           .then(function (e) {
             return [o("WAWebCreateFile").createFile([e], "", { type: e.type })];
           });
-      if (c && c.getData("text/html")) {
-        var d = new DOMParser(),
-          m = d.parseFromString(c.getData("text/html"), "text/html");
+      if (d && d.getData("text/html")) {
+        var m = new DOMParser(),
+          p = m.parseFromString(d.getData("text/html"), "text/html");
         if (
-          m.createNodeIterator(m.childNodes[0], NodeFilter.SHOW_TEXT).nextNode()
+          p.createNodeIterator(p.childNodes[0], NodeFilter.SHOW_TEXT).nextNode()
         ) {
-          if (c.getData("text/plain"))
+          if (d.getData("text/plain"))
             return (e || (e = n("Promise"))).reject(
               new (o("WAWebMediaLoadErrors").MediaDragDropError)(
                 "dropped html has text nodes",
               ),
             );
         } else {
-          var p = m.getElementsByTagName("img");
-          if (p.length)
+          var _ = p.getElementsByTagName("img");
+          if (_.length)
             return o("WAWebImageUtils")
-              .urlToFile(p[0].src)
+              .urlToFile(_[0].src)
               .then(function (e) {
                 return [
                   o("WAWebCreateFile").createFile([e], "", { type: e.type }),

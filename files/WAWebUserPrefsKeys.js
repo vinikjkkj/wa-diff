@@ -413,6 +413,10 @@ __d(
         OPUS_MIGRATION_COMPLETE: "WAOpusMigrationComplete",
         SIGNAL_SESSION_CLEANUP_COMPLETE: "WASignalSessionCleanupComplete",
         BR_PAYMENT_STATE_PENDING_UPDATES: "WABrazilPaymentStatePendingUpdates",
+        AEA_CONSUMER_BACKFILL_COMPLETED_VERSION:
+          "WAAeaConsumerBackfillCompletedVersion",
+        AEA_CONSUMER_BACKFILL_SCHEDULED_VERSION:
+          "WAAeaConsumerBackfillScheduledVersion",
       }),
       _ = Object.freeze({
         USER_PRIVACY_SETTINGS: "user-privacy-settings",

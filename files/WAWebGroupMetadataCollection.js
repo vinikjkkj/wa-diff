@@ -4,11 +4,13 @@ __d(
     "Promise",
     "WALogger",
     "WAWebChatCollection",
+    "WAWebCmd",
     "WAWebFindGroupMetadataAction",
     "WAWebFrontendGroupMetadataGetters",
     "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataModel",
     "WAWebIsCagGroupCache",
+    "WAWebOrgContactCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebStaleBaseCollection",
     "WAWebUpdateSubgroupsCommunityAction",
@@ -88,12 +90,26 @@ __d(
               "change:defaultSubgroup",
               a._handleDefaultSubgroupChange,
             ),
+            o("WAWebOrgContactCollection").OrgContactCollection.on(
+              o("WAWebOrgContactCollection").ORG_CONTACTS_APPLIED,
+              function () {
+                return a.$GroupMetadataCollection$p_1();
+              },
+            ),
+            o("WAWebCmd").Cmd.on("on_ab_props_update_from_bridge", function () {
+              return a.$GroupMetadataCollection$p_1();
+            }),
             a
           );
         }
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.$GroupMetadataCollection$p_1 = function () {
+            this.forEach(function (e) {
+              return e.isTrusted();
+            });
+          }),
           (i._handleGroupAdd = function (t) {
             if (
               (t.defaultSubgroup === !0 && r("WAWebIsCagGroupCache").add(t.id),

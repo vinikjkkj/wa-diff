@@ -285,6 +285,18 @@ __d(
             }
             return t;
           })()),
+          (a.getAllIdentityRows = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return (
+                yield this.flushBufferToDiskIfNotMemOnlyMode(),
+                o("WAWebSignalStoreApi").waSignalStore.getAllIdentityRows()
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (a.$6 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

@@ -1,20 +1,20 @@
 __d(
   "WAWebVoipMicrophoneHealthPresence",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebBoolFunc", "WAWebVoipGatingUtils"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Set(),
-      l = new Set(),
+    var e = new Map(),
       s = new Set(),
-      u = new Set();
-    function c(e) {
+      u = new Set(),
+      c = new Set();
+    function d(e) {
       return e.isDocPip
         ? "doc_pip"
         : e.isContextInPopoutWindow && e.windowEl !== window
           ? "popout_window"
           : "main_window";
     }
-    function d(e) {
+    function m(e) {
       var t = e.isCallActiveInPopoutWindow,
         n = e.isDocPipOpen,
         r = e.placement;
@@ -24,46 +24,66 @@ __d(
           ? r === "popout_window"
           : r === "main_window";
     }
-    function m(t, n) {
-      n ? e.add(t) : e.delete(t);
+    function p(t, n, r) {
+      (r === void 0 && (r = o("WAWebBoolFunc").returnFalse),
+        n ? e.set(t, r) : e.delete(t));
     }
-    function p() {
-      return e.size > 0;
+    function _() {
+      return Array.from(e.values()).some(function (e) {
+        return e();
+      });
     }
-    function _(e, t) {
-      var n = s.size > 0;
-      if ((t ? s.add(e) : s.delete(e), !n && s.size > 0)) for (var r of u) r();
+    function f(e, t) {
+      var n = u.size > 0;
+      if ((t ? u.add(e) : u.delete(e), !n && u.size > 0)) for (var r of c) r();
     }
-    function f() {
-      return s.size > 0;
+    function g() {
+      return u.size > 0 && y().isExperienceEnabled;
     }
-    function g(e) {
+    function h(e) {
+      var t = y(),
+        n = t.isCompactAffordanceEnabled,
+        r = t.isExperienceEnabled;
+      return r && (!e || n);
+    }
+    function y() {
+      return {
+        isCompactAffordanceEnabled: o(
+          "WAWebVoipGatingUtils",
+        ).isMicrophoneHealthCompactAffordanceEnabled(),
+        isExperienceEnabled: o(
+          "WAWebVoipGatingUtils",
+        ).isMicrophoneHealthExperienceEnabled(),
+      };
+    }
+    function C(e) {
       return (
-        u.add(e),
+        c.add(e),
         function () {
-          u.delete(e);
+          c.delete(e);
         }
       );
     }
-    function h(e, t) {
-      t ? l.add(e) : l.delete(e);
+    function b(e, t) {
+      t ? s.add(e) : s.delete(e);
     }
-    function y() {
-      return l.size > 0;
+    function v() {
+      return s.size > 0;
     }
-    function C() {
-      (e.clear(), l.clear(), s.clear(), u.clear());
+    function S() {
+      (e.clear(), s.clear(), u.clear(), c.clear());
     }
-    ((i.getCallSurfacePlacement = c),
-      (i.isMicrophoneObserverOwner = d),
-      (i.reportMicrophoneHealthArmed = m),
-      (i.isMicrophoneHealthArmed = p),
-      (i.reportMicrophoneHealthExperienceMounted = _),
-      (i.isMicrophoneHealthExperienceMounted = f),
-      (i.subscribeToMicrophoneHealthExperienceMount = g),
-      (i.reportMicrophoneUnavailableBannerVisible = h),
-      (i.isMicrophoneUnavailableBannerVisible = y),
-      (i.resetMicrophoneHealthPresenceForTesting = C));
+    ((l.getCallSurfacePlacement = d),
+      (l.isMicrophoneObserverOwner = m),
+      (l.reportMicrophoneHealthArmed = p),
+      (l.canMicrophoneHealthWarn = _),
+      (l.reportMicrophoneHealthExperienceMounted = f),
+      (l.canRecoverMicrophone = g),
+      (l.canShowMicrophoneWarning = h),
+      (l.subscribeToMicrophoneHealthExperienceMount = C),
+      (l.reportMicrophoneUnavailableBannerVisible = b),
+      (l.isMicrophoneUnavailableBannerVisible = v),
+      (l.resetMicrophoneHealthPresenceForTesting = S));
   },
-  66,
+  98,
 );

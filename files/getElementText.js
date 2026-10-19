@@ -10,7 +10,9 @@ __d(
           var n = document.createElement("div");
           e = n.textContent != null ? "textContent" : "innerText";
         }
-        return e === "textContent" ? t.textContent || "" : t.innerText || "";
+        if (e === "textContent") return t.textContent || "";
+        var o = t.innerText;
+        return typeof o == "string" ? o : "";
       } else return "";
     }
     l.default = s;

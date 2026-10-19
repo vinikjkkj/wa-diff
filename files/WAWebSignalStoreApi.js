@@ -219,6 +219,9 @@ __d(
               });
             });
           }),
+          (a.getAllIdentityRows = function () {
+            return o("WAWebSignalStorage").getIdentityTable().all();
+          }),
           (a.bulkPutIdentityKeyWithRowId = function (t) {
             var e = o("WAWebSignalStorage").getIdentityTable();
             return e.bulkCreateOrReplace(t);

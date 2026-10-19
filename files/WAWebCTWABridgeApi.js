@@ -14,13 +14,17 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = r("JSResourceForInteraction")(
+      u,
+      c = r("JSResourceForInteraction")(
         "WAWebCoexStateSyncCoordinator",
       ).__setRef("WAWebCTWABridgeApi"),
-      c = r("JSResourceForInteraction")(
+      d = r("JSResourceForInteraction")("WAWebCoexStateStaleRepair").__setRef(
+        "WAWebCTWABridgeApi",
+      ),
+      m = r("JSResourceForInteraction")(
         "WAWebDetectedOutcomeNotificationSignalAction",
       ).__setRef("WAWebCTWABridgeApi"),
-      d = {
+      p = {
         newCTWASuggestion: function (t) {
           var e = t.suggestion;
           return o("WAWebNewCTWASuggestionAction").newCTWASuggestion(e);
@@ -53,7 +57,7 @@ __d(
         emitDetectedOutcomeNotificationSignal: function (n) {
           var t = n.payloadJson,
             a = n.threadLid;
-          c.load()
+          m.load()
             .then(function (e) {
               return e.emitDetectedOutcomeNotificationSignal(a, t);
             })
@@ -70,7 +74,7 @@ __d(
             });
         },
         coexStateSyncNotification: function () {
-          u.load()
+          c.load()
             .then(function (e) {
               return e.requestCoexStateRefresh("sync_notification");
             })
@@ -86,6 +90,23 @@ __d(
                 .sendLogs("coex-state-sync-dispatch-failed");
             });
         },
+        coexStateSyncStartup: function () {
+          d.load()
+            .then(function (e) {
+              return e.startCoexStateRepair();
+            })
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ctwa] coex state sync startup failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("coex-state-sync-startup-dispatch-failed");
+            });
+        },
         updateDataSharing3pdLidInCollection: o(
           "WAWebUpdateDataSharing3pdLidInCollectionAction",
         ).updateDataSharing3pdLidInCollection,
@@ -96,7 +117,7 @@ __d(
           "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
         ).maybeGeneratePerCustomerDataSharingSystemMessage,
       };
-    l.CTWABridgeApi = d;
+    l.CTWABridgeApi = p;
   },
   98,
 );

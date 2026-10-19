@@ -26,9 +26,18 @@ __d(
         ) === !0
       );
     }
+    function d() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_smb_ae_onboarding_enabled",
+        ) === !0
+      );
+    }
     ((l.isAECompanionOnboardingEnabled = s),
       (l.getAECompatibilityBits = u),
-      (l.isCoexStateSyncEnabled = c));
+      (l.isCoexStateSyncEnabled = c),
+      (l.isAEOnboardingEnabled = d));
   },
   98,
 );

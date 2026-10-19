@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebVoipGatingUtils",
     "WAWebVoipMicrophoneHealthPresence",
     "WAWebVoipMicrophoneInputState",
     "react",
@@ -19,40 +18,36 @@ __d(
       m = d || (d = o("react")),
       p = "microphone-silence-toast";
     function _() {
+      o("WAWebToastManager").ToastManager.close(p);
+      var t = o("WAWebVoipMicrophoneInputState").getMicrophoneInputStatus();
       if (
-        (o("WAWebToastManager").ToastManager.close(p),
-        o("WAWebVoipGatingUtils").isMicrophoneHealthExperienceEnabled())
+        t === "active" &&
+        o("WAWebVoipMicrophoneHealthPresence").canMicrophoneHealthWarn()
       ) {
-        var t = o("WAWebVoipMicrophoneInputState").getMicrophoneInputStatus();
-        if (
-          t === "active" &&
-          o("WAWebVoipMicrophoneHealthPresence").isMicrophoneHealthArmed()
-        ) {
-          (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: Routing native microphone silence to the mic health experience",
-              ])),
-          ),
-            o("WAWebVoipMicrophoneInputState").dispatchMicrophoneInputEvent({
-              type: "native-silence",
-            }));
-          return;
-        }
-        if (
-          t === "unavailable" &&
-          o(
-            "WAWebVoipMicrophoneHealthPresence",
-          ).isMicrophoneUnavailableBannerVisible()
-        ) {
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: Native microphone silence while unavailable; banner already shown",
-              ])),
-          );
-          return;
-        }
+        (o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: Routing native microphone silence to the mic health experience",
+            ])),
+        ),
+          o("WAWebVoipMicrophoneInputState").dispatchMicrophoneInputEvent({
+            type: "native-silence",
+          }));
+        return;
+      }
+      if (
+        t === "unavailable" &&
+        o(
+          "WAWebVoipMicrophoneHealthPresence",
+        ).isMicrophoneUnavailableBannerVisible()
+      ) {
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: Native microphone silence while unavailable; banner already shown",
+            ])),
+        );
+        return;
       }
       (o("WALogger").LOG(
         c ||

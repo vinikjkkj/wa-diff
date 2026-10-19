@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebNoop",
     "WAWebOrgAdminGraphQL",
     "WAWebOrgBridgeApi",
@@ -19,7 +20,7 @@ __d(
       u,
       c,
       d = { error: null, liveOrgIds: null, status: "idle" },
-      m = 1440 * 60 * 1e3,
+      m = 1e3,
       p = d,
       _ = null,
       f = null,
@@ -201,7 +202,14 @@ __d(
       var e = o("WAWebUserPrefsOrgs").getOrgListFetchedTs();
       if (e == null) return !1;
       var t = Date.now() - e;
-      return t >= 0 && t < m;
+      return (
+        t >= 0 &&
+        t <
+          o("WAWebABProps").getABPropConfigValue(
+            "whatsapp_orgs_fetch_cooldown_secs",
+          ) *
+            m
+      );
     }
     function N(e) {
       ((p = babelHelpers.extends({}, p, e)),

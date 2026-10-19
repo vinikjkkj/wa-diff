@@ -5,6 +5,7 @@ __d(
     var e = Object.freeze({
       NORMAL: "normal",
       PAID_CHECKPOINTED: "paid_checkpointed",
+      BUSINESS_ACCOUNT_LINK: "business_account_link",
     });
     i.default = e;
   },

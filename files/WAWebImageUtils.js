@@ -365,8 +365,14 @@ __d(
                   var n = e.buffer,
                     i = e.image,
                     l = document.createElement("canvas"),
-                    s = i.naturalWidth || i.width,
-                    u = i.naturalHeight || i.height,
+                    s =
+                      i instanceof HTMLImageElement && i.naturalWidth !== 0
+                        ? i.naturalWidth
+                        : i.width,
+                    u =
+                      i instanceof HTMLImageElement && i.naturalHeight !== 0
+                        ? i.naturalHeight
+                        : i.height,
                     c = Math.max(s, u),
                     d = l.getContext("2d"),
                     m = {},

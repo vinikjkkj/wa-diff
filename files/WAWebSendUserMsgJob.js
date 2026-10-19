@@ -22,6 +22,7 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "cr:10198",
+    "cr:627",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -84,10 +85,17 @@ __d(
                 h.isBot() &&
                 (v === "sender_revoke" || v === "admin_revoke") &&
                 (E = [].concat(E, [h]));
-          o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(E) &&
-            o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
-              senderOrRecipientAccountTypeHosted: !0,
-            });
+          (n("cr:627") != null &&
+            (E = yield n("cr:627").reconcileAeaBeforeEncryption({
+              recipient: S,
+              fanoutDevices: E,
+              message: i,
+              msgRecord: l,
+            })),
+            o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(E) &&
+              o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
+                senderOrRecipientAccountTypeHosted: !0,
+              }));
           var T = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
             chatId: r,
             deviceWids: E,

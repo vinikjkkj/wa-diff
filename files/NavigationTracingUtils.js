@@ -81,18 +81,19 @@ __d(
             "navFetchStart",
             "NavigationTiming",
             u.fetchStart,
-          ),
-        u != null &&
-          u.fetchStart &&
-          u != null &&
-          u.workerStart &&
-          o(
-            "interaction-tracing-metrics",
-          ).InteractionTracingMetricsCore.addAnnotationInt(
-            t,
-            "workerProcessingTime",
-            u.fetchStart - u.workerStart,
-          ),
+          ));
+      var d = u != null ? u : {},
+        m = d.fetchStart,
+        p = d.workerStart;
+      (m &&
+        p &&
+        o(
+          "interaction-tracing-metrics",
+        ).InteractionTracingMetricsCore.addAnnotationInt(
+          t,
+          "workerProcessingTime",
+          m - p,
+        ),
         o(
           "interaction-tracing-metrics",
         ).InteractionTracingMetricsCore.addAnnotationInt(
