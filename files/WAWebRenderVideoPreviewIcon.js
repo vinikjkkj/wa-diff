@@ -1,9 +1,9 @@
 __d(
   "WAWebRenderVideoPreviewIcon",
   [
-    "WAWebGifRefreshedIcon.react",
     "WAWebMsgGetters",
     "WAWebViewOnceState",
+    "WDSIconIcGifBox.react",
     "WDSIconIcVideocam.react",
     "WDSIconWdsIcEphemeral.react",
     "WDSIconWdsIcViewOnce.react",
@@ -58,8 +58,9 @@ __d(
         var m;
         return (
           t[4] === Symbol.for("react.memo_cache_sentinel")
-            ? ((m = s.jsx(o("WAWebGifRefreshedIcon.react").GifRefreshedIcon, {
-                name: "gif-preview-icon",
+            ? ((m = s.jsx(r("WDSIconIcGifBox.react"), {
+                height: 20,
+                testid: "gif-preview-icon",
               })),
               (t[4] = m))
             : (m = t[4]),

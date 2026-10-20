@@ -13,6 +13,7 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebMediaThumbnail.react",
     "WAWebMessageDeeperContainer.react",
+    "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebStateUtils",
@@ -61,35 +62,39 @@ __d(
           o("WAWebFrontendMsgGetters").getStickers,
           o("WAWebMsgGetters").getDescription,
           o("WAWebMsgGetters").getFilename,
-          o("WAWebFrontendMsgGetters").getSafeMsg,
         ]),
         i = a[0],
         l = a[1],
         u = a[2],
         _ = a[3],
-        g = a[4],
-        h = (t = l == null ? void 0 : l.length) != null ? t : 0;
-      function y() {
+        g = (t = l == null ? void 0 : l.length) != null ? t : 0;
+      function h() {
         return u != null && u !== ""
           ? u
-          : h >= 1
+          : g >= 1
             ? s._(
                 /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
-                [s._plural(h, "stickerCount")],
+                [s._plural(g, "stickerCount")],
               )
             : "";
       }
       d(function () {
-        g.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK &&
-          (r("isStringNullOrEmpty")(g.thumbnailDirectPath)
-            ? f(g)
+        var e,
+          t =
+            (e = o("WAWebMsgCollection").MsgCollection.get(n)) == null
+              ? void 0
+              : e.safe();
+        t == null ||
+          t.type !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
+          (r("isStringNullOrEmpty")(t.thumbnailDirectPath)
+            ? f(t)
             : r("WAWebMediaDownloadMmsThumbnail")({
-                msg: o("WAWebStateUtils").unproxy(g),
-                chat: o("WAWebFrontendMsgGetters").getChat(g.unsafe()),
+                msg: o("WAWebStateUtils").unproxy(t),
+                chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
                 isPreload: !1,
               }));
       }, []);
-      var C = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
+      var y = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
       return c.jsx(r("WAWebMessageDeeperContainer.react"), {
         xstyle: p.deepContainer,
         outgoingMsg: i,
@@ -137,7 +142,7 @@ __d(
                     isCompose: !1,
                     isStatus: !1,
                     title: _,
-                    titleDir: C,
+                    titleDir: y,
                     titleDirMismatch: !1,
                   }),
                 }),
@@ -149,7 +154,7 @@ __d(
                     isHighQualityLayout: !1,
                     isStatus: !1,
                     useTextLimit: !1,
-                    children: y(),
+                    children: h(),
                   }),
                 }),
               ],

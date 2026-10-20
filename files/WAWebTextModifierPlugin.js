@@ -35,7 +35,7 @@ __d(
           o("WAWebClipboardPlugin").PASTE_TEXT_COMMAND,
           function (e) {
             if (!a || u.current) return !1;
-            var t = f(e);
+            var t = g(e);
             if (t === e) return !1;
             u.current = !0;
             try {
@@ -74,7 +74,7 @@ __d(
         var t = e.getPreviousSibling(),
           n = t == null ? void 0 : t.getBulletNode();
         if (!(!t || !n))
-          if (b(t)) t.remove();
+          if (v(t)) t.remove();
           else {
             var r = n.getTextContent();
             o("WAWebLexicalUtils").$insertText(r + " ");
@@ -87,7 +87,7 @@ __d(
         var t = e.getPreviousSibling(),
           n = t == null ? void 0 : t.getNumberNode();
         if (!(!t || !n))
-          if (b(t)) t.remove();
+          if (v(t)) t.remove();
           else {
             var r = parseInt(n.getTextContent(), 10) + 1;
             r <= 99 && o("WAWebLexicalUtils").$insertText(r + ". ");
@@ -100,23 +100,31 @@ __d(
       if (!e || !t) return !1;
       var n = t.getTextContent();
       return t.getQuoteLineNode() == null ||
-        o("WAWebQuoteLineUtils").isInsideCodeBlock(p(t) + "\n" + n)
+        o("WAWebQuoteLineUtils").isInsideCodeBlock(_(t) + "\n" + n)
         ? !1
         : (n === o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX &&
-          e.getTextContentSize() === 0
+          e.getTextContentSize() === 0 &&
+          !p(e)
             ? t.remove()
             : (o("WAWebLexicalUtils").$insertText(
                 o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX,
               ),
-              _()),
+              f()),
           !0);
     }
     function p(e) {
+      var t;
+      return (
+        ((t = e.getNextSibling()) == null ? void 0 : t.getQuoteLineNode()) !=
+        null
+      );
+    }
+    function _(e) {
       for (var t = [], n = e.getPreviousSibling(); n != null; )
         (t.push(n.getTextContent()), (n = n.getPreviousSibling()));
       return t.reverse().join("\n");
     }
-    function _() {
+    function f() {
       var e = o("Lexical").$getSelection();
       if (!(!o("Lexical").$isRangeSelection(e) || !e.isCollapsed()))
         for (
@@ -130,21 +138,21 @@ __d(
           ((t = t.getNextSibling()), (n = 0));
         }
     }
-    function f(e) {
-      var t = g();
+    function g(e) {
+      var t = h();
       if (t == null) return e;
       var n = t.lineBeforeCursor,
         r = t.selection,
         a = t.textAfter,
         i = e.slice(o("WAWebQuoteLineUtils").firstLineWhitespaceLength(e, n));
       return o("WAWebQuoteLineUtils").quotesTextAfter(i, a)
-        ? (y(r),
+        ? (C(r),
           "" +
             o("WAWebQuoteLineUtils").prefixPastedLines(i) +
             o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX)
         : o("WAWebQuoteLineUtils").prefixPastedLines(i);
     }
-    function g() {
+    function h() {
       var e = o("WAWebLexicalUtils").$getRangeSelection(),
         t = o("WAWebLexicalUtils").$getSelectionParagraph();
       if (e == null || t == null) return null;
@@ -156,22 +164,22 @@ __d(
         !o("WAWebQuoteLineUtils").isQuoteLine(t.getTextContent())
       )
         return null;
-      var i = C(r),
+      var i = b(r),
         l = t.getTextContent().slice(0, i);
       return i < o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX.length ||
-        o("WAWebQuoteLineUtils").isInsideCodeBlock(p(t) + "\n" + l)
+        o("WAWebQuoteLineUtils").isInsideCodeBlock(_(t) + "\n" + l)
         ? null
-        : { lineBeforeCursor: l, selection: e, textAfter: h(a) };
+        : { lineBeforeCursor: l, selection: e, textAfter: y(a) };
     }
-    function h(e) {
+    function y(e) {
       var t;
       if (e.type !== "text") return "";
       var n = e.getNode().getTopLevelElement();
-      return (t = n == null ? void 0 : n.getTextContent().slice(C(e))) != null
+      return (t = n == null ? void 0 : n.getTextContent().slice(b(e))) != null
         ? t
         : "";
     }
-    function y(e) {
+    function C(e) {
       var t = e.isBackward() ? e.anchor : e.focus;
       if (t.type === "text") {
         for (
@@ -186,7 +194,7 @@ __d(
         t.set(n.getKey(), r, "text");
       }
     }
-    function C(e) {
+    function b(e) {
       for (
         var t = e.offset, n = e.getNode().getPreviousSibling();
         n != null;
@@ -195,7 +203,7 @@ __d(
         t += n.getTextContentSize();
       return t;
     }
-    function b(e) {
+    function v(e) {
       var t = o("WAWebLexicalUtils").assertTextNode(
         e.getBulletNode() || e.getNumberNode(),
       );

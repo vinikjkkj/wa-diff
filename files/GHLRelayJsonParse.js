@@ -15,7 +15,7 @@ __d(
     var e;
     function s(e) {
       var t =
-        /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:\s*(?:\"(?:[^\"\\]|\\.)*\"|[[{]|true|false|null|-?[\d.eE+-]+)/.exec(
+        /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:\s*(?:\"(?:[^\"\\]|\\.)*\"|[[{]|true|false|null|-?[\d.eE+-]+)\s*(?:\"(?:[^\"\\]|\\.)*\"\s*:|[,[{\]}])/.exec(
           e,
         );
       if (t != null) return t[0] + "/*x*/" + e.slice(t[0].length);
@@ -83,7 +83,7 @@ __d(
           }
         if (!d && n("cr:7329"))
           try {
-            ((c = n("cr:7329").fromSlice(s(t))), (d = !0));
+            ((c = n("cr:7329").fromPiece(s(t))), (d = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))

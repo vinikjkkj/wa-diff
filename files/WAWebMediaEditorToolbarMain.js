@@ -42,11 +42,14 @@ __d(
       m = c.useState,
       p = {
         hdIcon: { opacity: "xyd83as", $$css: !0 },
-        paddingAll8: {
-          paddingTop: "x16ovd2e",
-          paddingInlineEnd: "x1nzty39",
-          paddingBottom: "x12xbjc7",
-          paddingInlineStart: "x12w63v0",
+        shapeIconSlot: {
+          boxSizing: "x1afcbsf",
+          height: "xnnlda6",
+          paddingTop: "x1tiyuxx",
+          paddingInlineEnd: "x1uc92m",
+          paddingBottom: "x1nbhmlj",
+          paddingInlineStart: "x181vq82",
+          width: "x15yg21f",
           $$css: !0,
         },
       };
@@ -273,7 +276,8 @@ __d(
                         return pe(e);
                       },
                       children: u.jsx(o("WAWebFlex.react").FlexRow, {
-                        xstyle: p.paddingAll8,
+                        xstyle: p.shapeIconSlot,
+                        align: "center",
                         justify: "center",
                         children: o(
                           "WAWebMediaEditorUtilsShapesGetIconForShape",

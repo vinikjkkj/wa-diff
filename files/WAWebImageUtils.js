@@ -283,21 +283,23 @@ __d(
             s = e.sWidth,
             u = e.sX,
             c = e.sY,
-            d =
+            d = e.transparency,
+            m = d === void 0 ? !1 : d,
+            p =
               l instanceof HTMLCanvasElement
                 ? l
                 : yield o("WAWebMediaLoad").loadImage(l),
-            m = document.createElement("canvas"),
-            p = m.getContext("2d");
+            _ = document.createElement("canvas"),
+            f = _.getContext("2d");
           n == null || t == null
-            ? ((m.height = i), (m.width = s), p.drawImage(d, u, c, s, i))
-            : ((m.height = t),
-              (m.width = n),
-              p.drawImage(d, u, c, s, i, 0, 0, n, t));
-          var _ = {};
-          A(_, m, a);
-          var f = yield o("WAPromiseProps").promiseProps(_);
-          return { images: f, width: s, height: i };
+            ? ((_.height = i), (_.width = s), f.drawImage(p, u, c, s, i))
+            : ((_.height = t),
+              (_.width = n),
+              f.drawImage(p, u, c, s, i, 0, 0, n, t));
+          var g = {};
+          A(g, _, a, m);
+          var h = yield o("WAPromiseProps").promiseProps(g);
+          return { images: h, width: s, height: i };
         })),
         E.apply(this, arguments)
       );

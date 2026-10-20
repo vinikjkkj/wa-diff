@@ -9,12 +9,12 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
-    "WAWebSignalStoreApi",
     "WAWebVoipBootInitDecision",
     "WAWebVoipContactUtils",
     "WAWebVoipGatingUtils",
     "WAWebVoipIncomingCallQpl",
     "WAWebVoipPeerTcToken",
+    "WAWebVoipRejectCallWithReasonEnc",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipValidateAndDecryptEnc",
@@ -301,38 +301,17 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a;
+          var n;
           t === void 0 && (t = 0);
-          var i = yield (c || (c = n("Promise"))).all([
-              o("WAWebSignalStoreApi").waSignalStore.getRegistrationInfo(),
-              o("WAWebVoipStackInterface").getVoipStackInterface(),
-            ]),
-            l = i[0],
-            s = i[1];
-          if (!l) throw r("err")("No registration info found");
-          var d = l.registrationId,
-            m = t + 1,
-            p = (a = e.isGroupCall_DEPRECATED) != null ? a : !1;
-          yield s == null
-            ? void 0
-            : s.rejectCallWithoutCallContext(
-                e.call_id,
-                p,
-                e.peer_jid.toString({ legacy: !0, formatIncludeDevice: !0 }),
-                e.call_creator.toString({
-                  legacy: !0,
-                  formatIncludeDevice: !0,
-                }),
-                p
-                  ? o("WAWebVoipSignalingEnums").ENC_RETRY_RECEIPT_ATTRS
-                      .GROUP_CALL
-                  : o("WAWebVoipSignalingEnums").ENC_RETRY_RECEIPT_ATTRS
-                      .SINGLE_PARTICIPANT,
-                m,
-                d,
-              );
-          var _ = 5;
-          m === _ &&
+          var r = yield o(
+              "WAWebVoipRejectCallWithReasonEnc",
+            ).rejectCallWithReasonEnc(
+              e,
+              t,
+              (n = e.isGroupCall_DEPRECATED) != null ? n : !1,
+            ),
+            a = 5;
+          r === a &&
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([

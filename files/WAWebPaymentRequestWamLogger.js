@@ -159,8 +159,7 @@ __d(
             bizPlatform: u,
             messageClass: o("WAWebWamEnumStructuredMessageClass")
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-            messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
-              .INTERACTIVE_NFM,
+            messageMediaType: V(r),
             messageClassAttributes: JSON.stringify(d),
           }).commit();
         })),
@@ -240,31 +239,34 @@ __d(
               p2m_flow: i ? f : g,
               is_template: i,
               payment_method_choice: l,
-            };
+            },
+            c = H(e, {
+              attributes: u,
+              normalizedPaymentMethod: l,
+              psFunnelId: s,
+              surface: n,
+            });
           (new (o(
             "WAWebPsStructuredMessageInteractionWamEvent",
           ).PsStructuredMessageInteractionWamEvent)(
-            babelHelpers.extends(
-              {},
-              H(e, {
-                attributes: u,
-                normalizedPaymentMethod: l,
-                psFunnelId: s,
-                surface: n,
-              }),
-              {
-                messageClass: o("WAWebWamEnumStructuredMessageClass")
-                  .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-                messageMediaType: V(i),
-                businessOwnerJid:
-                  (r = e.senderObj) == null || (r = r.id) == null
-                    ? void 0
-                    : r.user,
-                templateId: (a = e.templateId) != null ? a : void 0,
-              },
-            ),
+            babelHelpers.extends({}, c, {
+              messageClass: o("WAWebWamEnumStructuredMessageClass")
+                .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+              messageMediaType: V(i),
+              businessOwnerJid:
+                (r = e.senderObj) == null || (r = r.id) == null
+                  ? void 0
+                  : r.user,
+              templateId: (a = e.templateId) != null ? a : void 0,
+            }),
           ).commit(),
-            yield j(u, i, s != null ? s : ""));
+            yield j(
+              u,
+              i,
+              s != null ? s : "",
+              c.messageInteraction,
+              c.bizPlatform,
+            ));
         })),
         W.apply(this, arguments)
       );
@@ -348,30 +350,40 @@ __d(
         ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT
         : o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI;
     }
-    function j(e, t, n) {
+    function j(e, t, n, r, o) {
       return K.apply(this, arguments);
     }
     function K() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield P(n, y);
-          new (o(
-            "WAWebStructuredMessageBuyerInteractionWamEvent",
-          ).StructuredMessageBuyerInteractionWamEvent)({
-            messageInteraction: o("WAWebWamEnumInteractionType")
-              .INTERACTION_TYPE.USER_START,
-            messageClass: o("WAWebWamEnumStructuredMessageClass")
-              .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-            messageMediaType: V(t),
-            messageClassAttributes: JSON.stringify(
-              babelHelpers.extends({}, e, { order_funnel_id: r }),
-            ),
-          }).commit();
-        })),
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            var i = yield P(n, y);
+            new (o(
+              "WAWebStructuredMessageBuyerInteractionWamEvent",
+            ).StructuredMessageBuyerInteractionWamEvent)({
+              bizPlatform: a,
+              messageInteraction: r,
+              messageClass: o("WAWebWamEnumStructuredMessageClass")
+                .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+              messageMediaType: V(t),
+              messageClassAttributes: JSON.stringify(
+                babelHelpers.extends({}, e, { order_funnel_id: i }),
+              ),
+            }).commit();
+          },
+        )),
         K.apply(this, arguments)
       );
     }
-    ((l.isPaymentRequestMsg = T),
+    ((l.PIX_NORMALIZED = m),
+      (l.RECEIVER_EVENT_LOG_KEY = h),
+      (l.BUYER_HMAC_DATA = y),
+      (l.LOGGING_CURRENCY = L),
+      (l.isPaymentRequestMsg = T),
+      (l.getPaymentMethodsFromMsg = D),
+      (l.getChatTypeFromMsg = x),
+      (l.getBusinessOwnerJid = $),
+      (l.genFunnelId = P),
       (l.logPaymentRequestReceivedWAMEvent = A),
       (l.logPaymentRequestInteractionWAMEvent = O));
   },

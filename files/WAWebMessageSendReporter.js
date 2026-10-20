@@ -282,6 +282,13 @@ __d(
           (n.setIsPq = function (t) {
             t === !0 && (this.$2.isPq = !0);
           }),
+          (n.setCoexV2SendMode = function (t) {
+            this.$2.encryptionType = t
+              ? o("WAWebWamEnumEncryptionTypeCode").ENCRYPTION_TYPE_CODE
+                  .SELF_COEX_V2
+              : o("WAWebWamEnumEncryptionTypeCode").ENCRYPTION_TYPE_CODE
+                  .COEX_V2;
+          }),
           (n.setSessionScope = function (t) {
             var e = o("WAWebSessionScopeWamUtils").sessionScopeToWamType(t);
             e != null && (this.$2.sessionScope = e);

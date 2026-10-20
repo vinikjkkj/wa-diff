@@ -18,6 +18,7 @@ __d(
     "WAWebDropdownItemSeparator.react",
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+    "WAWebMetaAiChatActionLogger",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WDSIconIcCancel.react",
     "WDSIconIcDoNotDisturbOn.react",
@@ -55,11 +56,13 @@ __d(
       var t = e.assignChat,
         a = e.cellRef,
         i = e.chat,
-        l = e.multiSelection,
-        d = e.onStartMultiSelect,
-        m = e.searchQuery,
-        p = e.selectableState,
-        _ = [
+        l = e.chatListIndex,
+        d = e.multiSelection,
+        m = e.onStartMultiSelect,
+        p = e.searchQuery,
+        _ = e.selectableState,
+        f = o("WAWebMetaAiChatActionLogger").getMetaAiChatListRow(p, l),
+        g = [
           u.jsx(
             r("WAWebChatContextMenuItemAddContact.react"),
             { chat: i },
@@ -67,20 +70,20 @@ __d(
           ),
           u.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chat: i },
+            { chat: i, metaAiChatListRow: f },
             "Archive",
           ),
           u.jsx(r("WAWebChatContextMenuItemLock.react"), { chat: i }, "Lock"),
           u.jsx(r("WAWebChatContextMenuItemMute.react"), { chat: i }, "Mute"),
           u.jsx(
             r("WAWebChatContextMenuItemPin.react"),
-            { chat: i, cellRef: a },
+            { chat: i, cellRef: a, metaAiChatListRow: f },
             "Pin",
           ),
         ];
       if (
         (o("WAWebChatAssignmentUtils").canAssignChats() &&
-          _.push(
+          g.push(
             u.jsx(r("WDSMenuItem.react"), {
               Icon: r("WDSIconWdsIcTransferOwnership.react"),
               title: s._(/*BTDS*/ "Assign chat"),
@@ -88,31 +91,31 @@ __d(
               testid: "mi-assign-chat",
             }),
           ),
-        _.push(
+        g.push(
           u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), { chat: i }),
         ),
         o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
       ) {
-        var f, g;
+        var h, y;
         (i.isFavorite
-          ? ((g = o(
+          ? ((y = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Remove from favourites")
               : s._(/*BTDS*/ "Remove from Favorites")),
-            (f = c))
-          : ((g = o(
+            (h = c))
+          : ((y = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Add to favourites")
               : s._(/*BTDS*/ "Add to Favorites")),
-            (f = r("WDSIconIcFavorite.react"))),
-          _.push(
+            (h = r("WDSIconIcFavorite.react"))),
+          g.push(
             u.jsx(
               r("WDSMenuItem.react"),
               {
-                Icon: f,
-                title: g,
+                Icon: h,
+                title: y,
                 onPress: function () {
                   return o("WAWebCmd").Cmd.favoriteChat(
                     i,
@@ -131,7 +134,7 @@ __d(
         (n("cr:23046") == null
           ? void 0
           : n("cr:23046").isWindowsHybridEnabled()) === !0 &&
-        _.push(
+        g.push(
           u.jsx(
             r("WDSMenuItem.react"),
             {
@@ -145,35 +148,35 @@ __d(
             "close-chat",
           ),
         );
-      var h = function () {
+      var C = function () {
         o("WAWebChatContextMenuItemEditLabel.react").handleLabelMenuItemClick({
           chat: i,
-          multiSelection: l,
-          onStartMultiSelect: d,
-          searchQuery: m,
-          selectableState: p,
+          multiSelection: d,
+          onStartMultiSelect: m,
+          searchQuery: p,
+          selectableState: _,
         });
       };
-      (_.push(
+      (g.push(
         u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
           chat: i,
           displayContext: "chat-list",
-          onSMBLabelMenuItemClick: h,
+          onSMBLabelMenuItemClick: C,
         }),
       ),
-        _.push(u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
+        g.push(u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
         i.id.isBot() ||
-          _.push(u.jsx(r("WAWebChatContextMenuItemBlock.react"), { chat: i })));
-      var y = s._(/*BTDS*/ "Clear chat");
+          g.push(u.jsx(r("WAWebChatContextMenuItemBlock.react"), { chat: i })));
+      var b = s._(/*BTDS*/ "Clear chat");
       return (
-        _.push(
+        g.push(
           u.jsx(
             r("WDSMenuItem.react"),
             {
               Icon: r("WDSIconIcDoNotDisturbOn.react"),
-              title: y,
+              title: b,
               onPress: function () {
-                return o("WAWebCmd").Cmd.clearChat(i);
+                return o("WAWebCmd").Cmd.clearChat(i, void 0, f);
               },
               testid: "mi-clear",
               destructive: !0,
@@ -181,20 +184,20 @@ __d(
             "clear",
           ),
         ),
-        _.push(
+        g.push(
           u.jsx(
             r("WAWebChatContextMenuItemDelete.react"),
-            { chat: i },
+            { chat: i, metaAiChatListRow: f },
             "Delete",
           ),
         ),
-        _.push.apply(
-          _,
+        g.push.apply(
+          g,
           o("WAWebChatCellDebugMenuItems.react").getWAWebChatCellDebugMenuItems(
             i,
           ),
         ),
-        _
+        g
       );
     }
     l.getChatContextMenuItems = d;

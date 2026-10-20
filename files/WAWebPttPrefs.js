@@ -107,6 +107,12 @@ __d(
             (t == null || this.outOfChatPlayerMessage === t) &&
               (this.outOfChatPlayerMessage = null);
           }),
+          (a.clearOutOfChatMessageForKey = function (t) {
+            var e;
+            ((e = this.outOfChatPlayerMessage) == null
+              ? void 0
+              : e.id.equals(t)) === !0 && (this.outOfChatPlayerMessage = null);
+          }),
           n
         );
       })(o("WAWebBaseModel").BaseModel);

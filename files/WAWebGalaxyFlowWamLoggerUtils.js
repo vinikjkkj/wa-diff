@@ -232,30 +232,33 @@ __d(
         ),
       }).commit();
     }
-    function v(e, t, n) {
-      var r;
+    function v(e) {
+      var t,
+        n = e.chat,
+        r = e.flowData,
+        a = e.msg;
       new (o(
         "WAWebExtensionScreenProgressWamEvent",
       ).ExtensionScreenProgressWamEvent)({
-        bizPlatform: h(t),
-        businessOwnerJid: (r = g(n)) != null ? r : "",
-        extensionCategory: JSON.stringify(e == null ? void 0 : e.categories),
-        extensionRestoredFromCache: e == null ? void 0 : e.isRestoredFromCache,
-        extensionScreenLength: e == null ? void 0 : e.screenLength,
-        extensionStatus: e == null ? void 0 : e.mode,
-        extensionsFlowId: e == null ? void 0 : e.flowId,
+        bizPlatform: h(n),
+        businessOwnerJid: (t = g(a)) != null ? t : "",
+        extensionCategory: JSON.stringify(r == null ? void 0 : r.categories),
+        extensionRestoredFromCache: r == null ? void 0 : r.isRestoredFromCache,
+        extensionScreenLength: r == null ? void 0 : r.screenLength,
+        extensionStatus: r == null ? void 0 : r.mode,
+        extensionsFlowId: r == null ? void 0 : r.flowId,
         extensionsMessageId:
-          n.galaxyFlowWAMMessageId != null ? n.galaxyFlowWAMMessageId : "",
-        extensionsSessionId: e == null ? void 0 : e.flowWAMSessionId,
+          a.galaxyFlowWAMMessageId != null ? a.galaxyFlowWAMMessageId : "",
+        extensionsSessionId: r == null ? void 0 : r.flowWAMSessionId,
         flowEntryPoint: o("WAWebWamEnumFlowEntryPoint").FLOW_ENTRY_POINT
           .MESSAGE_CTA,
         flowStatusExit: "user_interrupted",
-        hsmTag: n.hsmTag != null ? n.hsmTag : "",
-        isTemplate: n.templateId != null,
-        screenProgress: e.screenProgress,
-        sequenceNumber: e.sequenceNumber,
-        layoutType: e.layoutType,
-        isSuccessScreen: e.isSuccess === !0,
+        hsmTag: a.hsmTag != null ? a.hsmTag : "",
+        isTemplate: a.templateId != null,
+        screenProgress: r.screenProgress,
+        sequenceNumber: r.sequenceNumber,
+        layoutType: r.layoutType,
+        isSuccessScreen: r.isSuccess === !0,
       }).commit();
     }
     function S(e) {

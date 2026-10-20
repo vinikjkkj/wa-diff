@@ -56,6 +56,7 @@ __d(
     "WAWebVoipBackendLoadable",
     "WAWebVoipBundlePreloader",
     "WAWebVoipCallButtonsLoadable",
+    "WAWebVoipDevicePermissionDialogLoader.react",
     "WAWebVoipGatingUtils",
     "WAWebVoipUiDocPipLoadable",
     "WAWebVoipUiLoadable",
@@ -166,6 +167,9 @@ __d(
                     o("WAWebVoipUiLoadable").requireBundle(),
                     o("WAWebVoipUiDocPipLoadable").requireBundle(),
                     o("WAWebVoipUiPopoutWindowLoadable").requireBundle(),
+                    o(
+                      "WAWebVoipDevicePermissionDialogLoader.react",
+                    ).prefetchDevicePermissionDialogAtBoot(),
                   ]
                 : [],
             );

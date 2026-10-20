@@ -84,7 +84,7 @@ __d(
             return t;
           })(require("LexicalSelection").createRectsFromDOMRange(i, s));
         var p, h;
-        f.isConnected || ((h = f), (p = c).insertBefore(h, p.firstChild));
+        f.parentNode !== c && ((h = f), (p = c).insertBefore(h, p.firstChild));
         var $ = !1;
         for (var _e2 = 0; _e2 < g.length; _e2++) {
           var _n2 = g[_e2],

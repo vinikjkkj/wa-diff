@@ -91,7 +91,7 @@ __d(
                                       remove: null,
                                     }
                                   );
-                                var m = yield r.$LabelSublistSync$p_1(s);
+                                var m = yield r.resolveChatJid(s);
                                 return m == null
                                   ? {
                                       result: r.malformedActionIndex(),
@@ -114,7 +114,7 @@ __d(
                               } else if (t.operation === "remove") {
                                 var p = Number(l);
                                 if (l && s && !Number.isNaN(p)) {
-                                  var _ = yield r.$LabelSublistSync$p_1(s);
+                                  var _ = yield r.resolveChatJid(s);
                                   if (_ != null)
                                     return {
                                       result: {
@@ -252,7 +252,7 @@ __d(
             }
             return r;
           })()),
-          (i.$LabelSublistSync$p_1 = (function () {
+          (i.resolveChatJid = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 if (!r("WAWebWid").isWid(e)) return null;

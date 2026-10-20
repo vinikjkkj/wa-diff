@@ -32,7 +32,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
     function p(e, t) {
-      return h(e, t) != null;
+      return L(e, t) != null;
     }
     function _(e) {
       return o("WAWap").wap("ack", {
@@ -50,66 +50,127 @@ __d(
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield b(e, function () {
+              return h(e, t);
+            }),
+            r = n.written;
+          return (yield r, _(e));
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o(
             "WAWebLidMappingUsernameLearnUtils",
           ).processParsedGroupNotificationForLidMappingAndUsernames({
-            notification: t,
-            flushImmediately: !r,
+            notification: e,
+            flushImmediately: !t,
           }),
             yield (m || (m = n("Promise"))).all(
-              t.actions.map(
+              e.actions.map(
                 (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      e.actionType ===
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (t) {
+                      t.actionType ===
                         o("WAWebHandleGroupNotificationConst")
                           .GROUP_NOTIFICATION_TAG.REMOVE &&
                         (yield o(
                           "WAWebMemberLabelGroupRemoveHandler",
                         ).handleMemberLabelUpdatesOnGroupParticipantRemoval(
-                          t,
                           e,
+                          t,
                         ));
                     },
                   );
-                  return function (t) {
-                    return e.apply(this, arguments);
+                  return function (e) {
+                    return t.apply(this, arguments);
                   };
                 })(),
               ),
             ));
-          var a = h(t, r);
-          if (a == null)
-            return (
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+          var r = L(e, t);
+          return r == null
+            ? (o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "no handler for group notification ",
                     "",
                   ])),
-                t.chatId.toLogString(),
+                e.chatId.toLogString(),
               ),
-              _(t)
-            );
-          var i = yield o(
+              { written: (m || (m = n("Promise"))).resolve() })
+            : S(e, r);
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    var C = new Map();
+    function b(e, t) {
+      var r;
+      if (
+        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
+        !e.actions.some(v)
+      )
+        return t();
+      var a = e.chatId.toString(),
+        i = (
+          (r = C.get(a)) != null ? r : (m || (m = n("Promise"))).resolve()
+        ).then(t),
+        l = i.then(
+          function () {},
+          function () {},
+        );
+      return (
+        C.set(a, l),
+        l.then(function () {
+          C.get(a) === l && C.delete(a);
+        }),
+        i
+      );
+    }
+    function v(e) {
+      return (
+        (e.actionType ===
+          o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.ADD ||
+          e.actionType ===
+            o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+              .REMOVE) &&
+        e.participants.some(function (e) {
+          var t = e.id;
+          return o("WAWebBotUtils").isWidGroupAgentFbidWid(t);
+        })
+      );
+    }
+    function S(e, t) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield o(
               "WAWebGroupAgentDeletedChat",
-            ).isAgentChangeInDeletedGroupChatForActions(t.chatId, t.actions),
-            l = null;
+            ).isAgentChangeInDeletedGroupChatForActions(e.chatId, e.actions),
+            a = null;
           try {
-            l = i
+            a = r
               ? null
               : yield o(
                   "WAWebBotGroupBackendUtils",
                 ).genE2EENoticeMsgAfterLastAgentRemoved({
-                  meta: t,
-                  actions: t.actions,
+                  meta: e,
+                  actions: e.actions,
                 });
           } catch (e) {
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[system msg][v2] end-to-end encryption notice generation failed with ",
                     "",
                   ])),
@@ -117,18 +178,17 @@ __d(
               )
               .sendLogs("group-notification-v2-e2ee-notice-generation-error");
           }
-          return (
-            yield m.all([
-              a.writeSystemMessages(l, i),
-              a.writeGroupInfoUpdates(),
+          var i = yield (m || (m = n("Promise"))).all([
+              t.writeSystemMessages(a, r),
+              t.writeGroupInfoUpdates(),
             ]),
-            _(t)
-          );
+            l = i[0];
+          return l;
         })),
-        g.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function L(e, t) {
       var r = [],
         a = !1;
       for (var i of e.actions) {
@@ -145,19 +205,20 @@ __d(
                     return e.writeSystemMessages(i);
                   }),
                 ),
-                s =
-                  a && o != null
-                    ? y(e, t, o)
-                    : (m || (m = n("Promise"))).resolve();
-              yield m.all(
-                [].concat(
-                  l.map(function (e) {
-                    var t = e.written;
-                    return t;
-                  }),
-                  [s],
-                ),
-              );
+                s = a && o != null ? yield E(e, t, o) : null;
+              return {
+                written: m
+                  .all(
+                    [].concat(
+                      l.map(function (e) {
+                        var t = e.written;
+                        return t;
+                      }),
+                      [s == null ? void 0 : s.written],
+                    ),
+                  )
+                  .then(function () {}),
+              };
             },
           );
           function i(e, t) {
@@ -226,8 +287,8 @@ __d(
               writeSystemMessages: (function () {
                 var i = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (n) {
-                    var i = yield b(e, r, n),
-                      l = yield k({
+                    var i = yield T(e, r, n),
+                      l = yield M({
                         chatId: e.chatId,
                         shouldProcessOffline: t,
                         shouldSkip: function () {
@@ -255,53 +316,48 @@ __d(
             };
       }
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    function C() {
+    function k() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           try {
-            var a = yield k({
+            var o = yield M({
                 chatId: e.chatId,
                 shouldProcessOffline: t,
-                shouldSkip: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      return !1;
-                    },
-                  );
-                  function t() {
-                    return e.apply(this, arguments);
-                  }
-                  return t;
-                })(),
+                shouldSkip: function () {
+                  return (m || (m = n("Promise"))).resolve(!1);
+                },
                 systemMessages: [r],
               }),
-              i = a.written;
-            yield i;
+              a = o.written;
+            return { written: a.catch(I) };
           } catch (e) {
-            o("WALogger")
-              .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[system msg][v2] end-to-end encryption notice write failed with ",
-                    "",
-                  ])),
-                e,
-              )
-              .sendLogs("group-notification-v2-e2ee-notice-write-error");
+            return (I(e), { written: (m || (m = n("Promise"))).resolve() });
           }
         })),
-        C.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    function I(t) {
+      o("WALogger")
+        .LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[system msg][v2] end-to-end encryption notice write failed with ",
+              "",
+            ])),
+          t,
+        )
+        .sendLogs("group-notification-v2-e2ee-notice-write-error");
     }
-    function v() {
+    function T(e, t, n) {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = [];
           if (
             (t.actionType ===
@@ -337,7 +393,7 @@ __d(
                   ])),
                 i.length,
               ),
-              (r = yield S(e, t, n ? [] : i)),
+              (r = yield x(e, t, n ? [] : i)),
               o(
                 "WAWebBotGroupGatingUtils",
               ).isOpenGroupBotParticipantAddEnabled() ||
@@ -373,7 +429,7 @@ __d(
                 t.actionType ===
                 o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
                   .REMOVE
-                  ? yield L(e, t)
+                  ? yield P(e, t)
                   : [
                       yield o("WAWebGroupSystemMsg").genGroupNotificationMsg({
                         meta: e,
@@ -403,15 +459,15 @@ __d(
           }
           return r.filter(Boolean);
         })),
-        v.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+    function x(e, t, n) {
+      return $.apply(this, arguments);
     }
-    function R() {
+    function $() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (n.length === 0) return [];
           var r = yield o(
               "WAWebGroupAgentPrivacyNotice",
@@ -445,15 +501,15 @@ __d(
             a,
           );
         })),
-        R.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function E() {
+    function N() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o(
             "WAWebGroupAgentRemovalSystemMsgs",
           ).genGroupAgentRemovalMsgs({ meta: e, action: t, dbIsStale: !0 });
@@ -469,10 +525,10 @@ __d(
                 ],
           );
         })),
-        E.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function k(e) {
+    function M(e) {
       var t = e.chatId,
         r = e.shouldProcessOffline,
         a = e.shouldSkip,

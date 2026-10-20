@@ -3,12 +3,17 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebCustomerProfileChangeNotifier",
     "WAWebLeadSublistChangeNotifier",
+    "WAWebWidFactory",
+    "WAWebWidToJid",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = {
+      s,
+      u,
+      c = {
         syncLeadSublist: function () {
           o("WAWebLeadSublistChangeNotifier").notifyLeadSublistChanged();
         },
@@ -38,8 +43,59 @@ __d(
                 .sendLogs("lead-removed-clear-stage-load-failed");
             });
         },
+        serverLeadStageApplied: function (t) {
+          var e = t.profileChatJid;
+          (o("WAWebLeadSublistChangeNotifier").notifyLeadSublistChanged(),
+            o(
+              "WAWebCustomerProfileChangeNotifier",
+            ).notifyCustomerProfileChanged(
+              o("WAWebWidToJid").widToChatJid(
+                o("WAWebWidFactory").createWid(e),
+              ),
+            ));
+        },
+        startServerLeadStageRepull: function () {
+          return r("JSResourceForInteraction")("WAWebServerLeadStageRepull")
+            .__setRef("WAWebLeadSublistBridgeApi")
+            .load()
+            .then(function (e) {
+              var t = e.startServerLeadStageRepull;
+              return t();
+            })
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[customer_manager] loading the lead stage re-pull failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("lead-stage-repull-load-failed");
+            });
+        },
+        repullServerLeadStages: function () {
+          return r("JSResourceForInteraction")("WAWebServerLeadStageRepull")
+            .__setRef("WAWebLeadSublistBridgeApi")
+            .load()
+            .then(function (e) {
+              var t = e.repullServerLeadStages;
+              return t();
+            })
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[customer_manager] loading the lead stage bulk re-pull failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("lead-stage-bulk-repull-load-failed");
+            });
+        },
       };
-    l.LeadSublistBridgeApi = s;
+    l.LeadSublistBridgeApi = c;
   },
   98,
 );

@@ -336,7 +336,8 @@ __d(
           this.$OzMpdUpdater$p_20 = null;
         }),
         (n.destroy = function () {
-          (this.$OzMpdUpdater$p_4 &&
+          (this.$OzMpdUpdater$p_4 != null &&
+            this.$OzMpdUpdater$p_4 !== 0 &&
             r("oz-player/shims/ozClearTimeout")(this.$OzMpdUpdater$p_4),
             this.$OzMpdUpdater$p_10.release());
         }),

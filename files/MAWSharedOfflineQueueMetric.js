@@ -2,7 +2,7 @@ __d(
   "MAWSharedOfflineQueueMetric",
   [
     "MAWInteractionTracing",
-    "MAWMICInteractionTraceKey",
+    "MAWMICInteractionTraceId",
     "MWFBLogger",
     "MawMpsCop",
     "QPLFlow",
@@ -98,7 +98,11 @@ __d(
                     )));
                   var i = n.offlineStats;
                   (r("MAWInteractionTracing").startTrace(
-                    o("MAWMICInteractionTraceKey").getMICInteractionTraceKey(),
+                    o("MAWMICInteractionTraceId").getMICInteractionTraceIdMap(
+                      function (e) {
+                        return { group: "offline-drain-queue", id: e };
+                      },
+                    ),
                     m(t.$1),
                     { annotations: { expectedCount: i.count } },
                   ),
@@ -162,9 +166,11 @@ __d(
                     t.$8,
                   ),
                     r("MAWInteractionTracing").finishTrace(
-                      o(
-                        "MAWMICInteractionTraceKey",
-                      ).getMICInteractionTraceKey(),
+                      o("MAWMICInteractionTraceId").getMICInteractionTraceIdMap(
+                        function (e) {
+                          return { group: "offline-drain-queue", id: e };
+                        },
+                      ),
                       m(t.$1),
                       {
                         annotations: { error: "connection-lost" },
@@ -201,7 +207,11 @@ __d(
                 var n;
                 if (
                   (r("MAWInteractionTracing").finishTrace(
-                    o("MAWMICInteractionTraceKey").getMICInteractionTraceKey(),
+                    o("MAWMICInteractionTraceId").getMICInteractionTraceIdMap(
+                      function (e) {
+                        return { group: "offline-drain-queue", id: e };
+                      },
+                    ),
                     m(this.$1),
                     { isError: !t.success },
                   ),

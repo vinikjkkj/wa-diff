@@ -208,6 +208,7 @@ __d(
       early_bot_connect_event_bitmap: [14200, "int", 0, 0],
       educational_dialogs_button_enabled: [14676, "bool", !1, !1],
       enable_1on1_call_transfer_entry_point: [36841, "bool", !1, !1],
+      enable_1on1_call_transfer_switchable: [39975, "bool", !1, !1],
       enable_3p_contacts_share_hybrid: [20849, "bool", !1, !0],
       enable_audio_device_async_start: [13231, "bool", !1, !1],
       enable_auto_add_call_link_creator: [15184, "bool", !1, !1],

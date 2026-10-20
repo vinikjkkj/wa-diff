@@ -2,6 +2,7 @@ __d(
   "WAWebMusicMsgPlayerStore",
   [
     "fbt",
+    "WAWebBoolFunc",
     "WAWebEventEmitter",
     "WAWebMsgCollection",
     "WAWebMsgType",
@@ -117,9 +118,7 @@ __d(
                   .refreshMusicChatsConsumptionLoadable([t.id.toString()], {
                     force: !0,
                   })
-                  .catch(function () {
-                    return !1;
-                  })
+                  .catch(o("WAWebBoolFunc").returnFalse)
                   .then(function (r) {
                     r ||
                       (t.off("change:musicData", n),

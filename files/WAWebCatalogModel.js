@@ -91,7 +91,9 @@ __d(
         (a.editProduct = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t,
-              n = yield o("WAWebBizProductCatalogAction").editProduct(e);
+              n = yield o("WAWebBizProductCatalogAction").editProduct({
+                product: e,
+              });
             this.maybeUpdateLastUsedCountryCode(
               (t = e.complianceInfo) == null ? void 0 : t.countryCodeOrigin,
             );

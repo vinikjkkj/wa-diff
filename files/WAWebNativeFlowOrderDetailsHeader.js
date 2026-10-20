@@ -6,10 +6,10 @@ __d(
     "WAWebOrderGatingUtils",
     "WAWebOrderPaymentStatus",
     "WAWebTextLineClamp.react",
-    "WAWebText_DONOTUSE.react",
     "WDSIconIcCheckCircleFilled.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -30,12 +30,7 @@ __d(
         },
         bubbleIn: { backgroundColor: "x1bu39yj", $$css: !0 },
         bubbleOut: { backgroundColor: "x1bu39yj", $$css: !0 },
-        orderId: {
-          textTransform: "xtvhhri",
-          letterSpacing: "xkffqfj",
-          lineHeight: "x1dbl2gt",
-          $$css: !0,
-        },
+        orderId: { textTransform: "xtvhhri", $$css: !0 },
         orderInfoWrapper: { width: "xh8yej3", $$css: !0 },
         hr: {
           width: "xh8yej3",
@@ -103,12 +98,15 @@ __d(
         : (R = n[4]);
       var L;
       n[5] !== R
-        ? ((L = c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-            color: "secondary",
-            weight: "medium",
-            xstyle: m.orderId,
-            size: "10",
-            children: R,
+        ? ((L = c.jsx("div", {
+            "data-testid": "native-flow-order-id",
+            children: c.jsx(r("WDSText.react"), {
+              type: "Body3Emphasized",
+              colorName: "contentDeemphasized",
+              testid: "native-flow-order-id-text",
+              xstyle: m.orderId,
+              children: R,
+            }),
           })),
           (n[5] = R),
           (n[6] = L))
@@ -117,21 +115,23 @@ __d(
       n[7] !== f
         ? ((E =
             f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
-            c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-              testid: "order-header-payment-status-paid",
-              color: "secondary",
-              weight: "medium",
-              size: "10",
-              xstyle: m.orderId,
-              children: [
-                c.jsx(r("WDSIconIcCheckCircleFilled.react"), {
-                  width: 12,
-                  displayInline: !0,
-                  colorName: "accent",
-                  xstyle: m.icon,
-                }),
-                s._(/*BTDS*/ "Paid"),
-              ],
+            c.jsx("div", {
+              "data-testid": "order-header-payment-status-paid",
+              children: c.jsxs(r("WDSText.react"), {
+                type: "Body3Emphasized",
+                colorName: "contentDeemphasized",
+                testid: "native-flow-order-paid-text",
+                xstyle: m.orderId,
+                children: [
+                  c.jsx(r("WDSIconIcCheckCircleFilled.react"), {
+                    width: 12,
+                    displayInline: !0,
+                    colorName: "accent",
+                    xstyle: m.icon,
+                  }),
+                  s._(/*BTDS*/ "Paid"),
+                ],
+              }),
             })),
           (n[7] = f),
           (n[8] = E))
@@ -187,9 +187,15 @@ __d(
                           maxLines: 1,
                           children: y,
                         }),
-                        c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-                          color: "secondary",
-                          children: _(u, h),
+                        c.jsx("p", {
+                          "data-testid":
+                            "native-flow-order-item-quantity-paragraph",
+                          children: c.jsx(r("WDSText.react"), {
+                            type: "Body2",
+                            colorName: "contentDeemphasized",
+                            testid: "native-flow-order-item-quantity",
+                            children: _(u, h),
+                          }),
                         }),
                       ],
                     }),
@@ -225,9 +231,14 @@ __d(
                   align: "center",
                   testid: "order-header-pay-with-row",
                   children: [
-                    c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-                      size: "14",
-                      children: s._(/*BTDS*/ "Pay with"),
+                    c.jsx("p", {
+                      "data-testid": "native-flow-order-pay-with-paragraph",
+                      children: c.jsx(r("WDSText.react"), {
+                        type: "Body2",
+                        colorName: "contentDefault",
+                        testid: "native-flow-order-pay-with",
+                        children: s._(/*BTDS*/ "Pay with"),
+                      }),
                     }),
                     c.jsx(o("WAWebFlex.react").FlexRow, {
                       xstyle: m.icon,
@@ -257,9 +268,14 @@ __d(
         : (x = n[21]);
       var $;
       n[22] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-            size: "15",
-            children: s._(/*BTDS*/ "Total"),
+        ? (($ = c.jsx("p", {
+            "data-testid": "native-flow-order-total-label-paragraph",
+            children: c.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDefault",
+              testid: "native-flow-order-total-label",
+              children: s._(/*BTDS*/ "Total"),
+            }),
           })),
           (n[22] = $))
         : ($ = n[22]);
@@ -270,10 +286,14 @@ __d(
             justify: "all",
             children: [
               $,
-              c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-                size: "15",
-                weight: "medium",
-                children: a,
+              c.jsx("p", {
+                "data-testid": "native-flow-order-total-value-paragraph",
+                children: c.jsx(r("WDSText.react"), {
+                  type: "Body1Emphasized",
+                  colorName: "contentDefault",
+                  testid: "native-flow-order-total-value",
+                  children: a,
+                }),
               }),
             ],
           })),

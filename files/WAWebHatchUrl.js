@@ -1,34 +1,41 @@
 __d(
   "WAWebHatchUrl",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebABProps"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = /^https:\/\/[^/\\\s?#]/i,
-      l = /^https?:\/\/[^/\\\s?#]/i,
-      s = /[\s\\]/,
-      u = "agent.meta.ai",
-      c = /^\/connectors\/connect\/([A-Za-z0-9_-]+)\/?$/;
-    function d(t) {
-      return _(t, e);
+      s = /^https?:\/\/[^/\\\s?#]/i,
+      u = /[\s\\]/,
+      c = "agent.meta.ai",
+      d = /^\/connectors\/connect\/([A-Za-z0-9_-]+)\/?$/;
+    function m() {
+      return p(
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_hatch_companion_onboarding_url",
+        ),
+      );
     }
-    function m(e) {
-      return _(e, l);
+    function p(t) {
+      return g(t, e);
     }
-    function p(e) {
+    function _(e) {
+      return g(e, s);
+    }
+    function f(e) {
       var t,
         n,
-        r = d(e);
+        r = p(e);
       if (r == null) return null;
       var o = new URL(r),
         a = o.host,
         i = o.pathname;
-      return a === u && (t = (n = c.exec(i)) == null ? void 0 : n[1]) != null
+      return a === c && (t = (n = d.exec(i)) == null ? void 0 : n[1]) != null
         ? t
         : null;
     }
-    function _(e, t) {
+    function g(e, t) {
       var n = e == null ? void 0 : e.trim();
-      if (n == null || !t.test(n) || s.test(n)) return null;
+      if (n == null || !t.test(n) || u.test(n)) return null;
       var r;
       try {
         r = new URL(n);
@@ -39,9 +46,10 @@ __d(
         ? n
         : null;
     }
-    ((i.toHttpsUrl = d),
-      (i.toWebUrl = m),
-      (i.getHatchConnectLinkConnectorId = p));
+    ((l.getHatchJoinUrl = m),
+      (l.toHttpsUrl = p),
+      (l.toWebUrl = _),
+      (l.getHatchConnectLinkConnectorId = f));
   },
-  66,
+  98,
 );

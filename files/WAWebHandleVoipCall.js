@@ -12,6 +12,7 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebEnvironment",
     "WAWebHandleVoipOfferNotice",
+    "WAWebHandleVoipTransfer",
     "WAWebJidToWid",
     "WAWebPageVisibilityRecency",
     "WAWebVoipBackendLoadable",
@@ -752,16 +753,16 @@ __d(
       return (
         (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.canUseVoipStack,
-            a = e.from,
-            i = e.message,
-            l = e.node,
-            s = e.payloadTag,
-            u = e.stanzaId,
-            c = e.voipNode;
-          if (Z(i.type)) return ne(i, a, u, c, t);
-          switch (i.type) {
-            case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:
-              return r("WAWebEnvironment").isWindows &&
+            n = e.from,
+            a = e.message,
+            i = e.node,
+            l = e.payloadTag,
+            s = e.stanzaId,
+            u = e.voipNode;
+          return Z(a.type)
+            ? ne(a, n, s, u, t)
+            : a.type === o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE
+              ? r("WAWebEnvironment").isWindows &&
                 !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
                 ? (o("WALogger").ERROR(
                     T ||
@@ -769,16 +770,14 @@ __d(
                         "handleVoipIncomingSignalingMessage: offer notice unsupported on win",
                       ])),
                   ),
-                  (P || (P = n("Promise"))).resolve("NO_ACK"))
-                : r("WAWebHandleVoipOfferNotice")(l);
-            default:
-              return (
-                yield o(
-                  "WAWebVoipHandleIncomingSignalingMessage",
-                ).handleVoipIncomingSignalingMessage(i, c, t),
-                pe({ ackString: s, from: a, stanzaId: u })
-              );
-          }
+                  "NO_ACK")
+                : r("WAWebHandleVoipOfferNotice")(i)
+              : (l === "transfer" && t
+                  ? yield o("WAWebHandleVoipTransfer").handleVoipTransfer(a, u)
+                  : yield o(
+                      "WAWebVoipHandleIncomingSignalingMessage",
+                    ).handleVoipIncomingSignalingMessage(a, u, t),
+                pe({ ackString: l, from: n, stanzaId: s }));
         })),
         ae.apply(this, arguments)
       );

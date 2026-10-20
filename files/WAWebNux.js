@@ -29,6 +29,9 @@ __d(
       SMB_LISTS_INTRO: "smb_lists_intro",
       WEB_UI_REFRESH: "web_ui_refresh",
       DO_AUTOMATIC_LABEL: "do_automatic_label",
+      AE_ONBOARDING: "ae_onboarding",
+      AE_ONBOARDING_LISTS_HOME: "ae_onboarding_lists_home",
+      AE_ONBOARDING_NOT_NOW: "ae_onboarding_not_now",
       META_AI_CTA_BANNER: "meta_ai_cta_banner",
       FEEDBACK_INTRO: "feedback_intro",
       NEWSLETTER_QUESTIONS_RESPONSE_PRIVACY_BANNER:
@@ -156,6 +159,9 @@ __d(
           SMB_LISTS_INTRO: "smb_lists_intro",
           WEB_UI_REFRESH: "web_ui_refresh",
           DO_AUTOMATIC_LABEL: "do_automatic_label",
+          AE_ONBOARDING: "ae_onboarding",
+          AE_ONBOARDING_LISTS_HOME: "ae_onboarding_lists_home",
+          AE_ONBOARDING_NOT_NOW: "ae_onboarding_not_now",
           META_AI_CTA_BANNER: "meta_ai_cta_banner",
           NEWSLETTER_QUESTIONS_RESPONSE_PRIVACY_BANNER:
             "newsletter_questions_response_privacy_banner",

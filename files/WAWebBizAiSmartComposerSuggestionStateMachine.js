@@ -53,7 +53,8 @@ __d(
           var m = t.stanzaId,
             p = t.code,
             _ = t.trigger;
-          if (e.status === "loading" && e.stanzaId === m) return d(m, p, _);
+          if (e.status === "loading" && e.stanzaId === m)
+            return d({ code: p, stanzaId: m, trigger: _ });
         }
         return ((typeof t == "object" && t !== null) ||
           typeof t == "function") &&
@@ -86,15 +87,18 @@ __d(
             isFromCache: r,
           };
     }
-    function d(e, t, n) {
-      return (function (r) {
-        if (r === "quota_handoff") return { status: "quota_handoff" };
-        if (r === "retryable_error")
-          return { status: "error", stanzaId: e, code: t, trigger: n };
-        if (r === "silent_fallback") return { status: "hidden" };
+    function d(e) {
+      var t = e.code,
+        n = e.stanzaId,
+        r = e.trigger;
+      return (function (e) {
+        if (e === "quota_handoff") return { status: "quota_handoff" };
+        if (e === "retryable_error")
+          return { status: "error", stanzaId: n, code: t, trigger: r };
+        if (e === "silent_fallback") return { status: "hidden" };
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            r,
+            e,
         );
       })(
         o("WAWebBizAiSmartComposerErrorMapping").mapSuggestedReplyErrorToState(

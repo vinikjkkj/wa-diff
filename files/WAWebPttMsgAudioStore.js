@@ -3,6 +3,8 @@ __d(
   [
     "invariant",
     "WAWebMediaInMemoryBlobCache",
+    "WAWebMsgCollection",
+    "WAWebMsgType",
     "WAWebPttAudioChannels",
     "WAWebPttAudioManager",
     "WAWebPttAudioPlaybackController",
@@ -45,6 +47,20 @@ __d(
               }
             },
           };
+        }),
+        (t.acquireAudioForKey = function (t) {
+          var e,
+            n =
+              (e = o("WAWebMsgCollection").MsgCollection.get(t)) == null
+                ? void 0
+                : e.safe();
+          return (
+            (n != null &&
+              (n.type === o("WAWebMsgType").MSG_TYPE.PTT ||
+                n.type === o("WAWebMsgType").MSG_TYPE.AUDIO)) ||
+              s(0, 185653),
+            this.acquireAudio(n)
+          );
         }),
         (t.acquireAudio = function (t) {
           var e = c(t),

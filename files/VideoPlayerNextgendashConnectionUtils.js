@@ -7,63 +7,72 @@ __d(
     function s(t, r, a, i, l, s, u, c, d) {
       var m = [],
         p = !1,
-        _ = null,
-        f = [],
-        g = [],
-        h = 0,
-        y = 0,
-        C = 0,
+        _ = !1,
+        f = null;
+      function g(e) {
+        var t = typeof e == "function" ? e() : e;
+        return ((f = t), t);
+      }
+      function h() {
+        var e = f;
+        return e == null ? null : g(e);
+      }
+      var y = [],
+        C = [],
         b = 0,
         v = 0,
-        S = {
+        S = 0,
+        R = 0,
+        L = 0,
+        E = {
           clock: t.host.clock(),
-          disconnectedReason: _,
+          disconnectedReason: null,
           displayInstanceKey: a,
           displayName: r,
           fullyConnected: p,
-          inboundEventsReceivedCount: y,
-          inboundMessagesReceivedCount: h,
+          inboundEventsReceivedCount: v,
+          inboundMessagesReceivedCount: b,
           inboundMessagesReceivedPerMs: 0,
-          inboundQueueLength: f.length,
-          outboundEventsQueuedCount: C,
-          outboundEventsSentCount: b,
-          outboundMessagesSentCount: v,
+          inboundQueueLength: y.length,
+          outboundEventsQueuedCount: S,
+          outboundEventsSentCount: R,
+          outboundMessagesSentCount: L,
           outboundMessagesSentPerMs: 0,
-          outboundQueueLength: g.length,
+          outboundQueueLength: C.length,
         };
-      function R() {
+      function k() {
         var e = {
             clock: t.host.clock(),
-            disconnectedReason: _,
+            disconnectedReason: h(),
             displayInstanceKey: a,
             displayName: r,
             fullyConnected: p,
-            inboundEventsReceivedCount: y,
-            inboundMessagesReceivedCount: h,
+            inboundEventsReceivedCount: v,
+            inboundMessagesReceivedCount: b,
             inboundMessagesReceivedPerMs: 0,
-            inboundQueueLength: f.length,
-            outboundEventsQueuedCount: C,
-            outboundEventsSentCount: b,
-            outboundMessagesSentCount: v,
+            inboundQueueLength: y.length,
+            outboundEventsQueuedCount: S,
+            outboundEventsSentCount: R,
+            outboundMessagesSentCount: L,
             outboundMessagesSentPerMs: 0,
-            outboundQueueLength: g.length,
+            outboundQueueLength: C.length,
           },
-          n = Math.max(1, e.clock.perfMs - S.clock.perfMs);
+          n = Math.max(1, e.clock.perfMs - E.clock.perfMs);
         return (
           (e.outboundMessagesSentPerMs = e.outboundMessagesSentCount / n),
           (e.inboundMessagesReceivedPerMs = e.inboundMessagesReceivedCount / n),
           e
         );
       }
-      var L = function () {
-          for (var e; _ == null && ((e = f.shift()), e != null); )
-            (e.type === "__exception" && T(e.exception), l(e));
+      var I = function () {
+          for (var e; !_ && ((e = y.shift()), e != null); )
+            (e.type === "__exception" && $(e.exception), l(e));
         },
-        E = t.host.timers.throttle(L, 0, { leading: !0, trailing: !0 }),
-        k = function () {
-          if (!(!p || g.length <= 0)) {
+        T = t.host.timers.throttle(I, 0, { leading: !0, trailing: !0 }),
+        D = function () {
+          if (!(!p || C.length <= 0)) {
             if (i.hasErrored()) {
-              x(
+              N(
                 o("nextgendasherr").nextgendasherr(
                   t,
                   r + "/FlushToErroredPort",
@@ -71,76 +80,79 @@ __d(
               );
               return;
             }
-            var e = g.length,
-              n = u(g),
+            var e = C.length,
+              n = u(C),
               a = n.message,
               l = n.transferList;
-            ((g.length = 0), i.postMessage(a, l), (v += 1), (b += e));
+            ((C.length = 0), i.postMessage(a, l), (L += 1), (R += e));
           }
         },
-        I = t.host.timers.throttle(k, 0, { leading: !0, trailing: !0 }),
-        T = function (n) {
-          (k(), (_ = n), (p = !1));
+        x = t.host.timers.throttle(D, 0, { leading: !0, trailing: !0 }),
+        $ = function (n) {
+          (D(), (_ = !0), (f = n), (p = !1));
           var e = m.slice();
-          ((m.length = 0),
+          if (
+            ((m.length = 0),
             e.forEach(function (e) {
               return e();
             }),
-            (g.length > 0 || f.length > 0) &&
-              t.logging.log(t, {
-                error: n,
-                format:
-                  "[" +
-                  r +
-                  "][%s] disconnected (" +
-                  n.name +
-                  "); dropped outbound: %s %s; dropped inbound: %s %s; stats=%s",
-                params: [
-                  a,
-                  g.length,
-                  g.map(s).join(","),
-                  f.length,
-                  f
-                    .map(function (e) {
-                      return e.type;
-                    })
-                    .join(","),
-                  JSON.stringify(R()),
-                ],
-                type: "generic_error_as_warning",
-              }),
-            (g.length = 0),
-            (f.length = 0));
+            C.length > 0 || y.length > 0)
+          ) {
+            var o = g(n);
+            t.logging.log(t, {
+              error: o,
+              format:
+                "[" +
+                r +
+                "][%s] disconnected (" +
+                o.name +
+                "); dropped outbound: %s %s; dropped inbound: %s %s; stats=%s",
+              params: [
+                a,
+                C.length,
+                C.map(s).join(","),
+                y.length,
+                y
+                  .map(function (e) {
+                    return e.type;
+                  })
+                  .join(","),
+                JSON.stringify(k()),
+              ],
+              type: "generic_error_as_warning",
+            });
+          }
+          ((C.length = 0), (y.length = 0));
         };
-      function D(e) {
-        if (_ == null) {
+      function P(e) {
+        if (!_) {
           if (e.canSendOnlyLatestOfTypeIfThrottled === !0)
-            for (var t = 0; t < g.length; ++t)
-              s(g[t]) === s(e) && (g.splice(t, 1), (C -= 1), --t);
-          (g.push(e), (C += 1), I());
+            for (var t = 0; t < C.length; ++t)
+              s(C[t]) === s(e) && (C.splice(t, 1), (S -= 1), --t);
+          (C.push(e), (S += 1), x());
         }
       }
-      function x(e) {
-        (f.push({ exception: e, type: "__exception" }), L());
+      function N(e) {
+        (y.push({ exception: e, type: "__exception" }), I());
       }
       try {
         i.hasErrored()
-          ? x(
+          ? N(
               o("nextgendasherr").nextgendasherr(
                 t,
                 r + "/CreateQueuesOnErroredPort",
               ),
             )
           : t.config.isInWorkerType === "RealWorkerV2"
-            ? ((p = !0), k())
+            ? ((p = !0), D())
             : i.fullyConnected
                 .then(function () {
-                  _ == null && ((p = !0), k());
+                  _ || ((p = !0), D());
                 })
                 .catch(function (e) {
-                  _ == null &&
+                  _ ||
                     ((p = !1),
-                    x(
+                    N(
                       o("nextgendasherr").nextgendasherrFromCause(
                         t,
                         e,
@@ -148,8 +160,8 @@ __d(
                       ),
                     ));
                 });
-        var $ = i.onError.add(function (e) {
-          x(
+        var M = i.onError.add(function (e) {
+          N(
             o("nextgendasherr").nextgendasherrFromCause(
               t,
               e,
@@ -158,20 +170,20 @@ __d(
           );
         });
         (m.push(function () {
-          i.onError.remove($);
+          i.onError.remove(M);
         }),
           c(m, function (e) {
-            ((h += 1),
-              (y += e.events.length),
+            ((b += 1),
+              (v += e.events.length),
               e.events.forEach(function (e) {
-                f.push(e);
+                y.push(e);
               }),
-              E());
+              T());
           }),
           d(m));
       } catch (a) {
         (e || (e = n("Promise"))).reject(a).catch(function () {
-          x(
+          N(
             o("nextgendasherr").nextgendasherrFromCause(
               t,
               a,
@@ -180,7 +192,7 @@ __d(
           );
         });
       }
-      return { disconnect: T, getStats: R, send: D };
+      return { disconnect: $, getStats: k, send: P };
     }
     l.createInboundOutboundQueues = s;
   },

@@ -501,64 +501,74 @@ __d(
       }
     }
     function U(e, t) {
-      var n;
+      return (
+        t === void 0 && (t = {}),
+        V(
+          {
+            chat: o("WAWebFrontendMsgGetters").getMaybeChat(e),
+            isPSA: o("WAWebMsgGetters").getIsPSA(e),
+            notifyName: e.notifyName,
+            sender: o("WAWebMsgGetters").getSender(e),
+            senderObj: e.senderObj,
+          },
+          t,
+        )
+      );
+    }
+    function V(e, t) {
+      var n = e.chat,
+        a = e.isPSA,
+        i = e.notifyName,
+        l = e.sender,
+        s = e.senderObj;
       t === void 0 && (t = {});
-      var a = t,
-        i = a.newPushNameFormatting,
-        l = i === void 0 ? !1 : i,
-        s = a.showShortName,
-        u = s === void 0 ? !1 : s,
-        c = a.showVerifiedName,
+      var u = t,
+        c = u.newPushNameFormatting,
         d = c === void 0 ? !1 : c,
-        m = a.withPushName,
+        m = u.showShortName,
         p = m === void 0 ? !1 : m,
-        _ = a.withPushNameOnly,
-        f = _ === void 0 ? !1 : _;
-      if (!o("WAWebMsgGetters").getSender(e)) return "";
-      if (
-        o("WAWebUserPrefsMeUser").isMeAccount(o("WAWebMsgGetters").getSender(e))
-      )
+        _ = u.showVerifiedName,
+        f = _ === void 0 ? !1 : _,
+        g = u.withPushName,
+        h = g === void 0 ? !1 : g,
+        y = u.withPushNameOnly,
+        C = y === void 0 ? !1 : y;
+      if (!l) return "";
+      if (o("WAWebUserPrefsMeUser").isMeAccount(l))
         return r("fbs")._(/*BTDS*/ "You").toString();
-      if (o("WAWebMsgGetters").getIsPSA(e))
+      if (a)
         return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
           ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
           : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
-      if (e.senderObj == null) return "";
-      var g = e.senderObj,
-        h = u ? g.shortName : void 0;
-      if (r("isStringNullOrEmpty")(h)) {
-        if (g.name) return g.name;
-      } else return h;
+      if (s == null) return "";
+      var b = s,
+        v = p ? b.shortName : void 0;
+      if (r("isStringNullOrEmpty")(v)) {
+        if (b.name) return b.name;
+      } else return v;
       if (
-        d &&
-        g.verifiedLevel ===
+        f &&
+        b.verifiedLevel ===
           o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
-        g.verifiedName
+        b.verifiedName
       )
-        return g.verifiedName;
+        return b.verifiedName;
       if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-        var y = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(g);
-        if (y != null) return y.displayName;
+        var S = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(b);
+        if (S != null) return S.displayName;
       }
-      var C = l
-          ? o("WAWebChatContactUtils")
-              .getFormattedNotifyName(e.notifyName)
-              .toString()
-          : "~" + e.notifyName,
-        b = p && e.notifyName ? C : "";
-      if (f && b) return b;
-      var v =
-        (n = o("WAWebMsgGetters").getSender(e)) != null && n.isLid()
-          ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(g)
-          : o("WAWebWidFormat").widToFormattedUser(
-              o("WAWebMsgGetters").getSender(e),
-            );
+      var R = d
+          ? o("WAWebChatContactUtils").getFormattedNotifyName(i).toString()
+          : "~" + (i != null ? i : ""),
+        L = h && !r("isStringNullOrEmpty")(i) ? R : "";
+      if (C && L) return L;
+      var E = l.isLid()
+        ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(b)
+        : o("WAWebWidFormat").widToFormattedUser(l);
       return (
-        o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
-          o("WAWebFrontendMsgGetters").getChat(e),
-          g,
-        ) && (v = o("WAWebFrontendContactGetters").getMaskedPhoneLid(g)),
-        "" + v + (b ? " " : "") + b
+        o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(n, b) &&
+          (E = o("WAWebFrontendContactGetters").getMaskedPhoneLid(b)),
+        "" + E + (L ? " " : "") + L
       );
     }
     ((l.typeIsMms = g),
@@ -581,7 +591,8 @@ __d(
       (l.getMsgForwardingScoreWhenForwarded = B),
       (l.getMsgTimeUntilExpiration = W),
       (l.hideParentMessageInChat = q),
-      (l.getMsgDisplayName = U));
+      (l.getMsgDisplayName = U),
+      (l.getMsgDisplayNameFor = V));
   },
   226,
 );

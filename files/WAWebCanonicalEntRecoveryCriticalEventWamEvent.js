@@ -8,6 +8,7 @@ __d(
           CanonicalEntRecoveryCriticalEvent: [
             7442,
             {
+              canonicalEntAuthVersion: [10, e.TYPES.INTEGER],
               canonicalEntRecoveryCriticalEventMetadata: [1, e.TYPES.STRING],
               canonicalEntRecoveryCriticalEventName: [2, e.TYPES.STRING],
               canonicalEntRegistrationTraceId: [3, e.TYPES.STRING],

@@ -93,16 +93,17 @@ __d(
               n,
             );
           }),
-          (i.deleteOrExitChatFromEntryPoint = function (t, n, r) {
+          (i.deleteOrExitChatFromEntryPoint = function (t, n, r, a) {
             this.trigger(
               "delete_or_exit_chat_from_entrypoint",
               o("WAWebStateUtils").unproxy(t),
               n,
               r,
+              a,
             );
           }),
-          (i.clearChat = function (t, n) {
-            this.trigger("clear_chat", o("WAWebStateUtils").unproxy(t), n);
+          (i.clearChat = function (t, n, r) {
+            this.trigger("clear_chat", o("WAWebStateUtils").unproxy(t), n, r);
           }),
           (i.clearSelectedChats = function (t, n) {
             this.trigger(

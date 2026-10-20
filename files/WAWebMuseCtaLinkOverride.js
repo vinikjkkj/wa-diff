@@ -1,10 +1,9 @@
 __d(
   "WAWebMuseCtaLinkOverride",
-  ["justknobx"],
+  ["WAWebHatchUrl", "justknobx"],
   function (t, n, r, o, a, i, l) {
-    var e = "6760173601",
-      s = "https://muse.ai/join";
-    function u(t) {
+    var e = "6760173601";
+    function s(t) {
       try {
         var n = new URL(t);
         return (
@@ -16,7 +15,7 @@ __d(
         return !1;
       }
     }
-    function c(e) {
+    function u(e) {
       try {
         var t = new URL(e);
         if (
@@ -31,17 +30,18 @@ __d(
         return !1;
       }
     }
+    function c(e) {
+      return s(e) || u(e);
+    }
     function d(e) {
-      return u(e) || c(e) ? s : null;
+      var t;
+      return e == null || !c(e) || r("justknobx")._("5912")
+        ? e
+        : (t = o("WAWebHatchUrl").getHatchJoinUrl()) != null
+          ? t
+          : e;
     }
-    function m(e) {
-      if (e != null) {
-        var t = d(e);
-        if (t != null && !r("justknobx")._("5912")) return t;
-      }
-      return e;
-    }
-    l.overrideCtaUrlIfNeeded = m;
+    l.overrideCtaUrlIfNeeded = d;
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBulkChatAction",
     "WAWebDeleteChatAction",
+    "WAWebMetaAiChatActionLogger",
     "WAWebNoop",
     "WAWebWamChatActionEventsLogger",
     "WAWebWamEnumChatActionEntryPoint",
@@ -21,18 +22,27 @@ __d(
       return o("WAWebBulkChatAction").runBulkChatAction(e, {
         operation: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = o("WAWebDeleteChatAction").sendDeleteWithStatus(e, !1);
-            e.addPendingAction(t.then(r("WAWebNoop")));
-            var n = yield t;
-            return (
-              n &&
-                o("WAWebWamChatActionEventsLogger").logChatActionEvent({
-                  chatActionEntryPoint: i,
-                  chatActionType: o("WAWebWamEnumChatActionType")
-                    .CHAT_ACTION_TYPE.DELETE,
-                }),
-              n
-            );
+            var t = o(
+                "WAWebMetaAiChatActionLogger",
+              ).captureMetaAiChatActionFields(e.id),
+              n = o("WAWebDeleteChatAction").sendDeleteWithStatus(e, !1);
+            e.addPendingAction(n.then(r("WAWebNoop")));
+            var a = yield n;
+            if (a) {
+              var l = yield t.resolve();
+              l != null &&
+                o("WAWebWamChatActionEventsLogger").logChatActionEvent(
+                  babelHelpers.extends(
+                    {
+                      chatActionEntryPoint: i,
+                      chatActionType: o("WAWebWamEnumChatActionType")
+                        .CHAT_ACTION_TYPE.DELETE,
+                    },
+                    l,
+                  ),
+                );
+            }
+            return a;
           });
           function t(t) {
             return e.apply(this, arguments);

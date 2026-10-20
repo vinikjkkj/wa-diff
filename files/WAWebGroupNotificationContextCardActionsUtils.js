@@ -15,22 +15,31 @@ __d(
         return t.indexOf(e) - t.indexOf(n);
       });
     }
-    function c(t) {
-      var n = {};
-      for (var r of e) n[r] = t[r].available;
-      var o = u(e, l, n),
-        a = o.map(function (e) {
+    function c(t, n) {
+      var r;
+      if ((n == null ? void 0 : n.available) === !0)
+        r = [t.addMembers, t.inviteViaLink, n].filter(function (e) {
+          return e.available;
+        });
+      else {
+        var o = {};
+        for (var a of e) o[a] = t[a].available;
+        r = u(e, l, o).map(function (e) {
           return t[e];
-        }),
-        i = a[0],
-        s = a[1],
-        c = o.some(function (e) {
-          return t[e].useVerticalLayout === !0;
+        });
+      }
+      var i = r,
+        s = i[0],
+        c = i[1],
+        d = i[2],
+        m = r.some(function (e) {
+          return e.useVerticalLayout === !0;
         });
       return {
-        firstConfig: i != null ? i : null,
-        secondConfig: s != null ? s : null,
-        useVerticalLayout: c,
+        firstConfig: s != null ? s : null,
+        secondConfig: c != null ? c : null,
+        thirdConfig: d != null ? d : null,
+        useVerticalLayout: m,
       };
     }
     ((i.getButtonConfig = u), (i.getGroupNotificationButtonConfig = c));

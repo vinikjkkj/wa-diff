@@ -12,6 +12,7 @@ __d(
           CanonicalEntRecoveryCompanion: [
             7434,
             {
+              canonicalEntAuthVersion: [14, e.TYPES.INTEGER],
               canonicalEntEventCompanionMarker: [
                 1,
                 o("WAWebWamEnumCanonicalEntEventMarker")

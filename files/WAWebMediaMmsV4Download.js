@@ -668,15 +668,13 @@ __d(
                         function* (e) {
                           if (
                             oe == null ||
-                            !a ||
-                            T === !0 ||
-                            !o(
-                              "WAWebMediaCryptoEligibilityUtils",
-                            ).isRmrSupportedForMediaType(N) ||
-                            !ee(e) ||
-                            !o("WAWebABProps").getABPropConfigValue(
-                              "wa_web_media_download_rmr_on_hash_mismatch_enabled",
-                            )
+                            !ee({
+                              downloadEvenIfExpensive: a,
+                              error: e,
+                              isFinalRmrRetry: T,
+                              mediaType: N,
+                              mode: A,
+                            })
                           )
                             throw e;
                           return (
@@ -1310,6 +1308,23 @@ __d(
       );
     }
     function ee(e) {
+      var t = e.downloadEvenIfExpensive,
+        n = e.error,
+        r = e.isFinalRmrRetry,
+        a = e.mediaType,
+        i = e.mode;
+      return (
+        t &&
+        i === "manual" &&
+        r !== !0 &&
+        o("WAWebMediaCryptoEligibilityUtils").isRmrSupportedForMediaType(a) &&
+        te(n) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_media_download_rmr_on_hash_mismatch_enabled",
+        )
+      );
+    }
+    function te(e) {
       return e instanceof
         o("WAWebHttpErrors").MmsDownloadFilehashMismatchError ||
         e instanceof o("WAWebMediaFileErrors").MediaHashMismatch

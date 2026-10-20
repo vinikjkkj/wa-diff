@@ -63,7 +63,22 @@ __d(
         },
         actions: { options: { minWidth: 100 }, type: "fill" },
       };
-    ((i.SELECT_COLUMN_WIDTH_PX = e), (i.customerManagerColumnWidths = l));
+    function s(e) {
+      return e.reduce(function (e, t) {
+        var n, r;
+        return (
+          e +
+          (t.type === "pixel"
+            ? t.px
+            : (n = (r = t.options) == null ? void 0 : r.minWidth) != null
+              ? n
+              : 0)
+        );
+      }, 0);
+    }
+    ((i.SELECT_COLUMN_WIDTH_PX = e),
+      (i.customerManagerColumnWidths = l),
+      (i.getCustomerManagerTableMinWidth = s));
   },
   66,
 );

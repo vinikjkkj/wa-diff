@@ -7,20 +7,28 @@ __d(
     "WAWebWamEnumOrderDetailsCreationAction",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, a, i, l, s, u) {
-      var c = o(
-        "WAWebOrderDetailsCreationActionWamEventUtilCreateSendOrderDetailsExtraAttributes",
-      ).createSendOrderDetailsExtraAttributes(e, n, a, u);
+    function e(e) {
+      var t = e.acceptedPayMethods,
+        n = e.chat,
+        a = e.entryPoint,
+        i = e.flatAmounts,
+        l = e.hasAddedPrice,
+        s = e.hasCatalog,
+        u = e.orderCurrency,
+        c = e.orderItems,
+        d = o(
+          "WAWebOrderDetailsCreationActionWamEventUtilCreateSendOrderDetailsExtraAttributes",
+        ).createSendOrderDetailsExtraAttributes(n, c, i, u);
       return new (o(
         "WAWebOrderDetailsActionsSmbWamEvent",
       ).OrderDetailsActionsSmbWamEvent)({
-        acceptedPayMethods: JSON.stringify(s),
+        acceptedPayMethods: JSON.stringify(t),
         actionCategory: r("WAWebOrderDetailsActionCategory")
           .ORDER_DETAILS_CREATION,
-        extraAttributes: JSON.stringify(c),
+        extraAttributes: JSON.stringify(d),
         hasAddedPrice: l,
-        hasCatalog: i,
-        orderDetailEntryPoint: t,
+        hasCatalog: s,
+        orderDetailEntryPoint: a,
         orderDetailsCreationAction: o("WAWebWamEnumOrderDetailsCreationAction")
           .ORDER_DETAILS_CREATION_ACTION.SEND_ORDER_DETAILS,
       });

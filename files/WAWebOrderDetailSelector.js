@@ -5,9 +5,10 @@ __d(
     "WAWebChipButton.react",
     "WAWebDropdownItem.react",
     "WAWebL10N",
-    "WAWebText_DONOTUSE.react",
     "WAWebUimUie.react",
     "WAWebUimUieMenu.react",
+    "WDSColorStyles.stylex",
+    "WDSFontTokenStyles",
     "WDSPaddings.stylex",
     "react",
     "stylex",
@@ -79,10 +80,19 @@ __d(
                     "aria-label": i,
                     children:
                       n === C
-                        ? u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                            weight: "bold",
-                            children: i,
-                          })
+                        ? u.jsx(
+                            "span",
+                            babelHelpers.extends(
+                              { "data-testid": "order-detail-selected-option" },
+                              (e || (e = r("stylex"))).props(
+                                o("WDSFontTokenStyles").WDSFontTokenStyles
+                                  .Body2Emphasized,
+                                o("WDSColorStyles.stylex").WDSColorStyles
+                                  .contentDefault,
+                              ),
+                              { children: i },
+                            ),
+                          )
                         : i,
                   },
                 ),

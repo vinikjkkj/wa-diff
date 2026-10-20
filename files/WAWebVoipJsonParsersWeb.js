@@ -653,6 +653,21 @@ __d(
             isFirstWave: e.is_first_wave,
           };
         },
+        parseSwitchEntryPointChangedData: function (t) {
+          var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (e == null)
+            throw r("err")("Invalid switch entry point changed data");
+          return {
+            rootCallId: e.root_call_id,
+            rootCallCreatorJid: e.root_call_creator.raw_jid,
+            peerActiveDeviceJid: e.peer_active_device.raw_jid,
+            peerWid: o("WAWebWidFactory").asUserWidOrThrow(
+              p(e.peer_active_device),
+            ),
+            isVideoCall: e.is_video_call,
+            enabled: e.enabled,
+          };
+        },
       },
       m = d;
     function p(e) {

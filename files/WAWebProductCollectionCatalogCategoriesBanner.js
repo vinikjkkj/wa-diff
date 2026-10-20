@@ -5,7 +5,7 @@ __d(
     "WAWebBizProductCatalogBridge",
     "WAWebCatalogCollection",
     "WAWebCatalogGetters",
-    "WAWebText_DONOTUSE.react",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
     "useWAWebCatalogValues",
@@ -13,40 +13,22 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = e.useEffect,
-      d = {
-        banner: {
-          backgroundColor: "x1280gxy",
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          borderBottomWidth: "xso031l",
-          borderBottomStyle: "x1q0q8m5",
-          borderBottomColor: "x120ee7l",
-          $$css: !0,
-        },
-        paddingAll16: {
-          paddingTop: "x1p57kb1",
-          paddingInlineEnd: "xvtqlqk",
-          paddingBottom: "xvpt6g3",
-          paddingInlineStart: "xdx6fka",
-          $$css: !0,
-        },
-      };
-    function m(e) {
+      c = e.useEffect;
+    function d(e) {
       var t = o("react-compiler-runtime").c(7),
         n = e.catalogId,
-        r;
+        a;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [o("WAWebCatalogGetters").getHasCatalogCategories]), (t[0] = r))
-        : (r = t[0]);
-      var a = o("useWAWebCatalogValues").useCatalogValues(n, r),
-        i = a[0],
-        l,
+        ? ((a = [o("WAWebCatalogGetters").getHasCatalogCategories]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebCatalogValues").useCatalogValues(n, a),
+        l = i[0],
+        d,
         m;
       if (
-        (t[1] !== n || t[2] !== i
-          ? ((l = function () {
-              i == null &&
+        (t[1] !== n || t[2] !== l
+          ? ((d = function () {
+              l == null &&
                 o("WAWebBizProductCatalogBridge")
                   .queryCatalogHasCategories(n)
                   .then(function (e) {
@@ -56,37 +38,50 @@ __d(
                     )) == null || t.set({ hasCatalogCategories: e });
                   });
             }),
-            (m = [i, n]),
+            (m = [l, n]),
             (t[1] = n),
-            (t[2] = i),
-            (t[3] = l),
+            (t[2] = l),
+            (t[3] = d),
             (t[4] = m))
-          : ((l = t[3]), (m = t[4])),
-        c(l, m),
-        i === !1 || i == null)
+          : ((d = t[3]), (m = t[4])),
+        c(d, m),
+        l === !1 || l == null)
       )
         return null;
       var p;
       t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = [d.banner, d.paddingAll16]), (t[5] = p))
+        ? ((p = {
+            className:
+              "x1280gxy x78zum5 x6s0dn4 xso031l x1q0q8m5 x120ee7l x1p57kb1 xvtqlqk xvpt6g3 xdx6fka",
+          }),
+          (t[5] = p))
         : (p = t[5]);
       var _;
       return (
         t[6] === Symbol.for("react.memo_cache_sentinel")
-          ? ((_ = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-              xstyle: p,
-              size: "13",
-              color: "dark",
-              children: s._(
-                /*BTDS*/ "Use WhatsApp on your phone to browse product categories.",
+          ? ((_ = u.jsx(
+              "div",
+              babelHelpers.extends(
+                { "data-testid": "catalog-categories-banner" },
+                p,
+                {
+                  children: u.jsx(r("WDSText.react"), {
+                    type: "Body3",
+                    colorName: "contentDefault",
+                    testid: "catalog-categories-banner-description",
+                    children: s._(
+                      /*BTDS*/ "Use WhatsApp on your phone to browse product categories.",
+                    ),
+                  }),
+                },
               ),
-            })),
+            )),
             (t[6] = _))
           : (_ = t[6]),
         _
       );
     }
-    l.default = m;
+    l.default = d;
   },
   226,
 );

@@ -3,9 +3,9 @@ __d(
   [
     "fbt",
     "WAWebFlex.react",
-    "WAWebMediaEditorRotateLeftIcon.react",
-    "WAWebMediaEditorRotateRightIcon.react",
     "WAWebMediaEditorToolbarButton.react",
+    "WDSIconIcRotate90DegreesCcw.react",
+    "WDSIconIcRotate90DegreesCw.react",
     "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
@@ -17,105 +17,104 @@ __d(
     function d(e) {
       var t = o("react-compiler-runtime").c(19),
         n = e.canReset,
-        r = e.onReset,
-        a = e.onRotateCanvas,
-        i,
+        a = e.onReset,
+        i = e.onRotateCanvas,
         l,
-        d;
+        d,
+        m;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [
+        ? ((l = [
             o("WDSMargins.stylex").wdsMargins.marginVer0,
             o("WDSMargins.stylex").wdsMargins.marginStart8,
             c.marginInlineEnd13,
           ]),
-          (l = u.jsx(
-            o("WAWebMediaEditorRotateLeftIcon.react").MediaEditorRotateLeftIcon,
-            { displayInline: !0 },
-          )),
-          (d = s._(/*BTDS*/ "Rotate left")),
-          (t[0] = i),
-          (t[1] = l),
-          (t[2] = d))
-        : ((i = t[0]), (l = t[1]), (d = t[2]));
-      var m;
-      t[3] !== a
-        ? ((m = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
-            xstyle: i,
-            icon: l,
-            title: d,
+          (d = u.jsx(r("WDSIconIcRotate90DegreesCcw.react"), {
+            displayInline: !0,
+            testid: "media-editor-rotate-left",
+          })),
+          (m = s._(/*BTDS*/ "Rotate left")),
+          (t[0] = l),
+          (t[1] = d),
+          (t[2] = m))
+        : ((l = t[0]), (d = t[1]), (m = t[2]));
+      var p;
+      t[3] !== i
+        ? ((p = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
+            xstyle: l,
+            icon: d,
+            title: m,
             onClick: function () {
-              return a(-90);
+              return i(-90);
             },
           })),
-          (t[3] = a),
-          (t[4] = m))
-        : (m = t[4]);
-      var p, _, f;
+          (t[3] = i),
+          (t[4] = p))
+        : (p = t[4]);
+      var _, f, g;
       t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = [
+        ? ((_ = [
             o("WDSMargins.stylex").wdsMargins.marginVer0,
             o("WDSMargins.stylex").wdsMargins.marginHor8,
           ]),
-          (_ = u.jsx(
-            o("WAWebMediaEditorRotateRightIcon.react")
-              .MediaEditorRotateRightIcon,
-            { displayInline: !0 },
-          )),
-          (f = s._(/*BTDS*/ "Rotate right")),
-          (t[5] = p),
-          (t[6] = _),
-          (t[7] = f))
-        : ((p = t[5]), (_ = t[6]), (f = t[7]));
-      var g;
-      t[8] !== a
-        ? ((g = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
-            xstyle: p,
-            icon: _,
-            title: f,
+          (f = u.jsx(r("WDSIconIcRotate90DegreesCw.react"), {
+            displayInline: !0,
+            testid: "media-editor-rotate-right",
+          })),
+          (g = s._(/*BTDS*/ "Rotate right")),
+          (t[5] = _),
+          (t[6] = f),
+          (t[7] = g))
+        : ((_ = t[5]), (f = t[6]), (g = t[7]));
+      var h;
+      t[8] !== i
+        ? ((h = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
+            xstyle: _,
+            icon: f,
+            title: g,
             onClick: function () {
-              return a(90);
+              return i(90);
             },
           })),
-          (t[8] = a),
-          (t[9] = g))
-        : (g = t[9]);
-      var h;
+          (t[8] = i),
+          (t[9] = h))
+        : (h = t[9]);
+      var y;
       t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = [
+        ? ((y = [
             o("WDSMargins.stylex").wdsMargins.marginVer0,
             o("WDSMargins.stylex").wdsMargins.marginHor8,
           ]),
-          (t[10] = h))
-        : (h = t[10]);
-      var y = !n,
-        C;
+          (t[10] = y))
+        : (y = t[10]);
+      var C = !n,
+        b;
       t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = s._(/*BTDS*/ "Reset")), (t[11] = C))
-        : (C = t[11]);
-      var b;
-      t[12] !== r || t[13] !== y
-        ? ((b = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
-            xstyle: h,
-            onClick: r,
-            disabled: y,
-            children: C,
-          })),
-          (t[12] = r),
-          (t[13] = y),
-          (t[14] = b))
-        : (b = t[14]);
+        ? ((b = s._(/*BTDS*/ "Reset")), (t[11] = b))
+        : (b = t[11]);
       var v;
+      t[12] !== a || t[13] !== C
+        ? ((v = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
+            xstyle: y,
+            onClick: a,
+            disabled: C,
+            children: b,
+          })),
+          (t[12] = a),
+          (t[13] = C),
+          (t[14] = v))
+        : (v = t[14]);
+      var S;
       return (
-        t[15] !== b || t[16] !== m || t[17] !== g
-          ? ((v = u.jsxs(o("WAWebFlex.react").FlexRow, {
-              children: [m, g, b],
+        t[15] !== v || t[16] !== p || t[17] !== h
+          ? ((S = u.jsxs(o("WAWebFlex.react").FlexRow, {
+              children: [p, h, v],
             })),
-            (t[15] = b),
-            (t[16] = m),
-            (t[17] = g),
-            (t[18] = v))
-          : (v = t[18]),
-        v
+            (t[15] = v),
+            (t[16] = p),
+            (t[17] = h),
+            (t[18] = S))
+          : (S = t[18]),
+        S
       );
     }
     l.default = d;

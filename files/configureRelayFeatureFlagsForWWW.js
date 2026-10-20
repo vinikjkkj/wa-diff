@@ -5,9 +5,11 @@ __d(
     "use strict";
     function e() {
       var e, t;
-      (((t = o("relay-runtime")).RelayFeatureFlags.ENABLE_RELAY_RESOLVERS = !0),
-        (t.RelayFeatureFlags.ENABLE_FRIENDLY_QUERY_NAME_GQL_URL = (e =
-          r("gkx"))("21089")),
+      (((t =
+        o(
+          "relay-runtime",
+        )).RelayFeatureFlags.ENABLE_FRIENDLY_QUERY_NAME_GQL_URL = (e =
+        r("gkx"))("21089")),
         (t.RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY = !0),
         (t.RelayFeatureFlags.ENABLE_CONTAINERS_SUBSCRIBE_ON_COMMIT = !0),
         (t.RelayFeatureFlags.STRING_INTERN_LEVEL = 2),

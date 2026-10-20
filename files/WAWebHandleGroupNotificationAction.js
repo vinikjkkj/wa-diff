@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebApiParticipantStore",
     "WAWebBackendApi",
+    "WAWebBackendEventBus",
     "WAWebBotGroupBackendUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
@@ -859,14 +860,24 @@ __d(
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t) {
-            yield o("WAWebGetMessageCache")
-              .getMessageCache()
-              .addMessages(
-                e.map(function (e) {
-                  return { msg: e };
-                }),
-                !1,
-              );
+            (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
+              o(
+                "WAWebBotGroupGatingUtils",
+              ).isStandardBotProfileGroupEnabled() &&
+              e.forEach(function (e) {
+                o("WAWebBackendApi").frontendFireAndForget("updateMessageUI", {
+                  chatId: e.id.remote,
+                  msg: e,
+                });
+              }),
+              yield o("WAWebGetMessageCache")
+                .getMessageCache()
+                .addMessages(
+                  e.map(function (e) {
+                    return { msg: e };
+                  }),
+                  !1,
+                ));
             return;
           }
           yield (C || (C = n("Promise"))).all(

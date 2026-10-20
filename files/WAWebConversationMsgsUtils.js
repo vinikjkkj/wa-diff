@@ -15,6 +15,7 @@ __d(
     "WAWebThreadMsgUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -148,6 +149,12 @@ __d(
       return t.msgs === e.msgCollection;
     }
     function g(e) {
+      return (
+        o("WAWebMsgGetters").getIsSentByMe(e) &&
+        (o("WAWebMsgGetters").getLocal(e) || !r("justknobx")._("6643"))
+      );
+    }
+    function h(e) {
       var t =
         o("WAWebContactGetters").getIsUser(e) ||
         o("WAWebContactGetters").getIsGroup(e) ||
@@ -160,7 +167,7 @@ __d(
             ) === !0
         : !1;
     }
-    function h(e) {
+    function y(e) {
       var t = e.msg,
         n = e.msgCollection,
         r = e.threadId;
@@ -181,8 +188,9 @@ __d(
       (l.getInitialCursorAndFocusContext = p),
       (l.getUnreadFocusCtx = _),
       (l.isMostRecentCMC = f),
-      (l.isSimplifiedChatConversationMenuEnabled = g),
-      (l.isMsgVisibleInConversation = h));
+      (l.shouldJumpToBottomForNewOwnMsg = g),
+      (l.isSimplifiedChatConversationMenuEnabled = h),
+      (l.isMsgVisibleInConversation = y));
   },
   98,
 );

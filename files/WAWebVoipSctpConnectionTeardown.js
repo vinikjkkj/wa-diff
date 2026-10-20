@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipSctpConnectionTeardown",
-  ["WAWebNoop"],
+  ["WAWebNoop", "WAWebVoipSctpDataChannelThreadManager"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -20,6 +20,14 @@ __d(
       n != null && (e(n), n.close(), (t.channel = null));
     }
     function c(e) {
+      var t;
+      e.channelTransferred &&
+        ((t = o(
+          "WAWebVoipSctpDataChannelThreadManager",
+        ).getDataChannelThread()) == null || t.closeChannel(e.id),
+        (e.channelTransferred = !1));
+    }
+    function d(e) {
       (e.connectionTimeout != null &&
         (window.clearTimeout(e.connectionTimeout),
         (e.connectionTimeout = null)),
@@ -29,7 +37,8 @@ __d(
     }
     ((l.detachPeerConnectionHandlers = s),
       (l.closeConnectionDataChannel = u),
-      (l.clearConnectionTimers = c));
+      (l.closeWorkerDataChannel = c),
+      (l.clearConnectionTimers = d));
   },
   98,
 );

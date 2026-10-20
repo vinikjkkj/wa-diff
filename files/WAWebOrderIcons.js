@@ -75,6 +75,7 @@ __d(
                     o("WDSMargins.stylex").wdsMargins.marginAuto,
                   ],
                   height: 18,
+                  width: 18,
                 }),
               }),
             )),

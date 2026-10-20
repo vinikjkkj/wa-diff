@@ -164,7 +164,7 @@ __d(
       var t = e.match(/\.(\w+)(\?|$)/);
       return t && t.length > 1 ? t[1] : "";
     }
-    var E = { loamQuillet: "feedImage", tallowSpinnaker: "feedImage" };
+    var E = { tallowSpinnaker: "feedImage", gneissBrattice: "feedImage" };
     function k(e) {
       var t,
         n = e.getAttribute("data-imgperflogname");

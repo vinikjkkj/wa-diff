@@ -6,8 +6,6 @@ __d(
     "WALogger",
     "WASmaxInBizSettingsEnums",
     "WAWebABProps",
-    "WAWebBusinessDataSharingIllustrationDarkIcon.react",
-    "WAWebBusinessDataSharingIllustrationLightIcon.react",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
     "WAWebCommonCTWADataSharing",
@@ -23,8 +21,6 @@ __d(
     "WAWebSMBDataSharingSettingAction",
     "WAWebSmbDataSharingConsentScreenWamEvent",
     "WAWebSpinner.react",
-    "WAWebText_DONOTUSE.react",
-    "WAWebThemeContext",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebTosUrl",
@@ -55,9 +51,7 @@ __d(
       h = _.useState,
       y = {
         illustration: { width: "xh8yej3", $$css: !0 },
-        title: { lineHeight: "x1u7k74", $$css: !0 },
         centered_text: { textAlign: "x2b8uid", $$css: !0 },
-        paragraph: { lineHeight: "x1pujyh6", $$css: !0 },
         iconDescription: { maxWidth: "x1i5r0r9", $$css: !0 },
         iconColor: { color: "xhslqc4", $$css: !0 },
         iconColorNew: { color: "xhslqc4", $$css: !0 },
@@ -142,7 +136,7 @@ __d(
       },
       E = function (t, n, r) {
         var e =
-            t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true
+            t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
               ? o("WAWebWamEnumSmbDataSharingConsentScreenType")
                   .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
                   .SMB_DATA_SHARING_CONSENT_SCREEN_AGREE
@@ -150,7 +144,7 @@ __d(
                   .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
                   .SMB_DATA_SHARING_CONSENT_SCREEN_DISAGREE,
           a =
-            t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true &&
+            t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
             o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
               ? o("WAWebCTWADataSharingModel").EPD_DISCLOSURE_VERSION
               : void 0;
@@ -208,46 +202,30 @@ __d(
       );
     }
     function x(e) {
-      var t = o("react-compiler-runtime").c(44),
+      var t = o("react-compiler-runtime").c(40),
         n = e.isEpd,
         a = e.useNewLayout,
-        i = o("WAWebThemeContext").useIsDarkTheme();
-      i
-        ? p.jsx(
-            o("WAWebBusinessDataSharingIllustrationDarkIcon.react")
-              .BusinessDataSharingIllustrationDarkIcon,
-            {},
-          )
-        : p.jsx(
-            o("WAWebBusinessDataSharingIllustrationLightIcon.react")
-              .BusinessDataSharingIllustrationLightIcon,
-            {},
-          );
-      var l, u;
-      (t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = p.jsx(r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"), {
-            testid: "wds-smb-picto-arrows-transfer",
-          })),
-          (t[0] = u))
-        : (u = t[0]),
-        (l = u));
-      var c;
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [y.paddingTop24, y.paddingBottom24, y.illustration]),
+          (t[0] = i))
+        : (i = t[0]);
+      var l;
       t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = p.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: [y.paddingTop24, y.paddingBottom24, y.illustration],
+        ? ((l = p.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: i,
             justify: "center",
-            children: l,
+            children: p.jsx(
+              r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"),
+              { testid: "wds-smb-picto-arrows-transfer" },
+            ),
           })),
-          (t[1] = c))
-        : (c = t[1]);
-      var d = a && y.centered_text,
-        m;
-      t[2] !== d
-        ? ((m = [y.marginBottom12, y.title, d]), (t[2] = d), (t[3] = m))
-        : (m = t[3]);
-      var _;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = o("WAWebABProps").getABPropConfigValue(
+          (t[1] = l))
+        : (l = t[1]);
+      var u = a ? "center" : void 0,
+        c;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = o("WAWebABProps").getABPropConfigValue(
             "ctwa_3pd_data_sharing_title_change",
           )
             ? s._(
@@ -256,113 +234,112 @@ __d(
             : s._(
                 /*BTDS*/ "Share customer-related activities to help improve your ads",
               )),
-          (t[4] = _))
-        : (_ = t[4]);
-      var f;
-      t[5] !== m
-        ? ((f = p.jsx(o("WAWebFlex.react").FlexRow, {
-            children: p.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-              size: "20",
-              color: "dark",
-              weight: "medium",
-              xstyle: m,
-              children: _,
+          (t[2] = c))
+        : (c = t[2]);
+      var d;
+      t[3] !== u
+        ? ((d = p.jsx(o("WAWebFlex.react").FlexRow, {
+            children: p.jsx(r("WDSText.react"), {
+              type: "Headline2",
+              colorName: "contentDefault",
+              testid: "ctwa-data-sharing-opt-in-title",
+              textAlign: u,
+              xstyle: y.marginBottom12,
+              children: c,
             }),
           })),
-          (t[5] = m),
-          (t[6] = f))
+          (t[3] = u),
+          (t[4] = d))
+        : (d = t[4]);
+      var m = a ? "contentDeemphasized" : "contentDefault",
+        _ = a ? "center" : void 0,
+        f;
+      t[5] !== n
+        ? ((f = p.jsx($, { isEpd: n })), (t[5] = n), (t[6] = f))
         : (f = t[6]);
-      var g = a ? "secondary" : "dark",
-        h = a && y.centered_text,
-        C;
-      t[7] !== h
-        ? ((C = [y.paragraph, h]), (t[7] = h), (t[8] = C))
-        : (C = t[8]);
-      var b;
-      t[9] !== n
-        ? ((b = p.jsx($, { isEpd: n })), (t[9] = n), (t[10] = b))
-        : (b = t[10]);
-      var v;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = p.jsx(o("WAWebExternalLink.react").ExternalLink, {
+      var g;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = p.jsx(o("WAWebExternalLink.react").ExternalLink, {
             href: o("WAWebTosUrl").getBizDataSharingHcaUrl(),
             children: s._(/*BTDS*/ "Learn more"),
           })),
-          (t[11] = v))
-        : (v = t[11]);
-      var S;
-      t[12] !== b || t[13] !== g || t[14] !== C
-        ? ((S = p.jsx(o("WAWebFlex.react").FlexColumn, {
+          (t[7] = g))
+        : (g = t[7]);
+      var h;
+      t[8] !== m || t[9] !== _ || t[10] !== f
+        ? ((h = p.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: y.marginBottom12,
-            children: p.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-              size: "16",
-              color: g,
-              weight: "normal",
-              xstyle: C,
-              children: [b, " ", v],
+            children: p.jsxs(r("WDSText.react"), {
+              type: "Body1",
+              colorName: m,
+              testid: "ctwa-data-sharing-opt-in-description",
+              textAlign: _,
+              children: [f, " ", g],
             }),
           })),
-          (t[12] = b),
-          (t[13] = g),
-          (t[14] = C),
-          (t[15] = S))
-        : (S = t[15]);
-      var R = a ? y.iconColorNew : y.iconColor,
-        L;
-      t[16] !== R
-        ? ((L = p.jsx(r("WDSIconIcVisibilityOff.react"), {
+          (t[8] = m),
+          (t[9] = _),
+          (t[10] = f),
+          (t[11] = h))
+        : (h = t[11]);
+      var C = a ? y.iconColorNew : y.iconColor,
+        b;
+      t[12] !== C
+        ? ((b = p.jsx(r("WDSIconIcVisibilityOff.react"), {
             height: 22,
             width: 22,
-            xstyle: R,
+            xstyle: C,
           })),
-          (t[16] = R),
-          (t[17] = L))
-        : (L = t[17]);
-      var E;
-      t[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = [y.marginStart24, y.paragraph, y.iconDescription]), (t[18] = E))
-        : (E = t[18]);
-      var k;
-      t[19] !== a
-        ? ((k = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-            size: "16",
-            color: "dark",
-            xstyle: E,
+          (t[12] = C),
+          (t[13] = b))
+        : (b = t[13]);
+      var v;
+      t[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = [y.marginStart24, y.iconDescription]), (t[14] = v))
+        : (v = t[14]);
+      var S;
+      t[15] !== a
+        ? ((S = p.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDefault",
+            testid: "ctwa-data-sharing-opt-in-content-exclusion",
+            xstyle: v,
             children: a
               ? s._(/*BTDS*/ "Message and call content is not shared.")
               : s._(/*BTDS*/ "Message and call content is not shared"),
           })),
-          (t[19] = a),
-          (t[20] = k))
-        : (k = t[20]);
-      var I;
-      t[21] !== L || t[22] !== k
-        ? ((I = p.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[15] = a),
+          (t[16] = S))
+        : (S = t[16]);
+      var R;
+      t[17] !== b || t[18] !== S
+        ? ((R = p.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: y.marginBottom12,
-            children: [L, k],
+            children: [b, S],
           })),
-          (t[21] = L),
-          (t[22] = k),
-          (t[23] = I))
-        : (I = t[23]);
-      var T = a ? y.iconColorNew : y.iconColor,
-        D;
-      t[24] !== T
-        ? ((D = p.jsx(r("WDSIconIcSettings.react"), { xstyle: T })),
-          (t[24] = T),
-          (t[25] = D))
-        : (D = t[25]);
-      var x;
-      t[26] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = [y.marginStart24, y.paragraph, y.iconDescription]), (t[26] = x))
-        : (x = t[26]);
-      var P;
-      t[27] !== a
-        ? ((P = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-            size: "16",
-            color: "dark",
-            xstyle: x,
+          (t[17] = b),
+          (t[18] = S),
+          (t[19] = R))
+        : (R = t[19]);
+      var L = a ? y.iconColorNew : y.iconColor,
+        E;
+      t[20] !== L
+        ? ((E = p.jsx(r("WDSIconIcSettings.react"), { xstyle: L })),
+          (t[20] = L),
+          (t[21] = E))
+        : (E = t[21]);
+      var k;
+      t[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = [y.marginStart24, y.iconDescription]), (t[22] = k))
+        : (k = t[22]);
+      var I;
+      t[23] !== a
+        ? ((I = p.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDefault",
+            testid: "ctwa-data-sharing-opt-in-settings-guidance",
+            xstyle: k,
             children: s._(
               /*BTDS*/ "You can always change this in the {settingsType}",
               [
@@ -373,23 +350,23 @@ __d(
               ],
             ),
           })),
-          (t[27] = a),
-          (t[28] = P))
-        : (P = t[28]);
-      var N;
-      t[29] !== D || t[30] !== P
-        ? ((N = p.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[23] = a),
+          (t[24] = I))
+        : (I = t[24]);
+      var T;
+      t[25] !== E || t[26] !== I
+        ? ((T = p.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: y.marginBottom12,
-            children: [D, P],
+            children: [E, I],
           })),
-          (t[29] = D),
-          (t[30] = P),
-          (t[31] = N))
-        : (N = t[31]);
-      var M;
-      t[32] !== a
-        ? ((M =
+          (t[25] = E),
+          (t[26] = I),
+          (t[27] = T))
+        : (T = t[27]);
+      var D;
+      t[28] !== a
+        ? ((D =
             a &&
             p.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
@@ -398,23 +375,24 @@ __d(
                 p.jsx(r("WDSIconIcAccountCircle.react"), {
                   xstyle: y.iconColorNew,
                 }),
-                p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                  size: "16",
-                  color: "dark",
-                  xstyle: [y.marginStart24, y.paragraph, y.iconDescription],
+                p.jsx(r("WDSText.react"), {
+                  type: "Body1",
+                  colorName: "contentDefault",
+                  testid: "ctwa-data-sharing-opt-in-individual-guidance",
+                  xstyle: [y.marginStart24, y.iconDescription],
                   children: s._(
                     /*BTDS*/ "You can change this for individual customers in their contact info.",
                   ),
                 }),
               ],
             })),
-          (t[32] = a),
-          (t[33] = M))
-        : (M = t[33]);
-      var w = a && y.centered_text,
-        A;
-      t[34] === Symbol.for("react.memo_cache_sentinel")
-        ? ((A = s._(
+          (t[28] = a),
+          (t[29] = D))
+        : (D = t[29]);
+      var x = a && y.centered_text,
+        P;
+      t[30] === Symbol.for("react.memo_cache_sentinel")
+        ? ((P = s._(
             /*BTDS*/ "Per Meta's {=m1}, you must comply with all applicable laws. This includes informing your customers and having permission to share data with Meta.",
             [
               s._implicitParam(
@@ -426,41 +404,41 @@ __d(
               ),
             ],
           )),
-          (t[34] = A))
-        : (A = t[34]);
-      var F;
-      t[35] !== w
-        ? ((F = p.jsx(o("WAWebFlex.react").FlexRow, {
+          (t[30] = P))
+        : (P = t[30]);
+      var N;
+      t[31] !== x
+        ? ((N = p.jsx(o("WAWebFlex.react").FlexRow, {
             children: p.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDeemphasized",
-              xstyle: w,
-              children: A,
+              xstyle: x,
+              children: P,
             }),
           })),
-          (t[35] = w),
-          (t[36] = F))
-        : (F = t[36]);
-      var O;
+          (t[31] = x),
+          (t[32] = N))
+        : (N = t[32]);
+      var M;
       return (
-        t[37] !== S ||
-        t[38] !== I ||
-        t[39] !== N ||
-        t[40] !== M ||
-        t[41] !== F ||
-        t[42] !== f
-          ? ((O = p.jsxs(o("WAWebFlex.react").FlexColumn, {
-              children: [c, f, S, I, N, M, F],
+        t[33] !== h ||
+        t[34] !== R ||
+        t[35] !== T ||
+        t[36] !== D ||
+        t[37] !== N ||
+        t[38] !== d
+          ? ((M = p.jsxs(o("WAWebFlex.react").FlexColumn, {
+              children: [l, d, h, R, T, D, N],
             })),
-            (t[37] = S),
-            (t[38] = I),
-            (t[39] = N),
-            (t[40] = M),
-            (t[41] = F),
-            (t[42] = f),
-            (t[43] = O))
-          : (O = t[43]),
-        O
+            (t[33] = h),
+            (t[34] = R),
+            (t[35] = T),
+            (t[36] = D),
+            (t[37] = N),
+            (t[38] = d),
+            (t[39] = M))
+          : (M = t[39]),
+        M
       );
     }
     function $(e) {
@@ -632,7 +610,8 @@ __d(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                     if (
                       t ===
-                        o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true &&
+                        o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE
+                          .true &&
                       i != null &&
                       i.length > 0
                     ) {
@@ -665,7 +644,8 @@ __d(
                         R());
                     } else
                       t ===
-                        o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false &&
+                        o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE
+                          .false &&
                         (!e &&
                           o(
                             "WAWebCTWAGatingUtils",
@@ -690,7 +670,7 @@ __d(
         w;
       t[9] !== $
         ? ((w = function () {
-            return $(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true);
+            return $(o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true);
           }),
           (t[9] = $),
           (t[10] = w))
@@ -699,7 +679,9 @@ __d(
         W;
       t[11] !== $
         ? ((W = function () {
-            return $(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false);
+            return $(
+              o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false,
+            );
           }),
           (t[11] = $),
           (t[12] = W))

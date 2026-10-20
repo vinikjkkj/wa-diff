@@ -12,7 +12,7 @@ __d(
     var e = new Map([
         [2, null],
         [15, null],
-        [35, new Set([1, 2, 3, 4, 6, 18])],
+        [35, new Set([1, 2, 3, 4, 6, 7, 18])],
       ]),
       s = new Map([
         [o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3, e],

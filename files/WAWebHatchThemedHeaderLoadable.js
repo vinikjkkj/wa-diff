@@ -11,26 +11,34 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = 164,
-      c = { blockSize: { height: "xa0zjtf", $$css: !0 } };
-    function d(e) {
+      c = 130,
+      d = 16,
+      m = 12,
+      p = { blockSize: { height: "xa0zjtf", $$css: !0 } };
+    function _(e) {
       return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e) ? u : 0;
     }
-    var m = r("WAWebLazyLoadedRetriable")(function () {
+    function f(e) {
+      var t = e ? d : 0;
+      return c + t + m;
+    }
+    var g = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")("WAWebHatchThemedHeader.react")
           .__setRef("WAWebHatchThemedHeaderLoadable")
           .load();
       }, "WAWebHatchThemedHeaderLoadable"),
-      p = r("WAWebLoadable")({
-        loader: m,
+      h = r("WAWebLoadable")({
+        loader: g,
         loading: function (t) {
           if (t.error != null) throw t.error;
           return s.jsx(s.Fragment, {});
         },
         renderLoadingImmediately: !0,
       });
-    ((l.hatchThemedHeaderSize = c),
-      (l.getHatchThemedHeaderInset = d),
-      (l.WAWebHatchThemedHeaderLoadable = p));
+    ((l.hatchThemedHeaderSize = p),
+      (l.getHatchThemedHeaderInset = _),
+      (l.getHatchThemedStickyDateTop = f),
+      (l.WAWebHatchThemedHeaderLoadable = h));
   },
   98,
 );

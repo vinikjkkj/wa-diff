@@ -42,7 +42,7 @@ __d(
         (l != null &&
           (m = babelHelpers.extends({}, m, {
             graphiql_sandbox: l.replace(
-              /^not-www\.([\w-]+(?:\.[\w-]+)*)\.internalfb\.com$/,
+              /^(?:not-www\.|www\.)?([\w-]+(?:\.[\w-]+)*)\.internalfb\.com$/,
               "www.$1.facebook.com",
             ),
           })),

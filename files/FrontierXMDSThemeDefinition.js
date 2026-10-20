@@ -369,8 +369,9 @@ __d(
       Ka,
       Qa,
       Xa,
-      Ya = "@media (prefers-color-scheme: dark)",
-      Ja = {
+      Ya,
+      Ja = "@media (prefers-color-scheme: dark)",
+      Za = {
         frontierButtonFocusOutlineWidth: "2px",
         frontierButtonHeightLarge: "44px",
         frontierButtonHeightMedium: "36px",
@@ -433,7 +434,7 @@ __d(
         frontierTabsItemHeight: "28px",
         frontierTextbadgeHeight: "20px",
       },
-      Za = {
+      ei = {
         frontierAlertBannerMobileBorderBottom: "1px",
         frontierAlertBannerMobileBorderLeft: "0px",
         frontierAlertBannerMobileBorderRight: "0px",
@@ -442,7 +443,10 @@ __d(
         frontierAlertBannerWebBorder: "1px",
         frontierAlertBannerWebCornerRadius: "16px",
         frontierButtonBorderRadius: "9999px",
+        frontierCardBorder: "0px",
         frontierCardMobileCornerRadius: "16px",
+        frontierCardShadow:
+          "0px 2px 8px 0 rgba(10, 19, 23, 0.04), 0px 2px 16px 0 rgba(10, 19, 23, 0.04)",
         frontierCardWebCornerRadius: "32px",
         frontierCheckboxBoxBorder: "2px",
         frontierCheckboxBoxRadius: "4px",
@@ -500,1829 +504,1834 @@ __d(
         frontierTokenizerTokenCornerRadius: "8px",
         frontierTooltipCornerRadius: "8px",
       },
-      ei = {
+      ti = {
         "--surface-background":
-          ((e = {}), (e[Ya] = "#000000"), (e.default = "#ffffff"), e),
-        "--wash": ((s = {}), (s[Ya] = "#000000"), (s.default = "#ffffff"), s),
+          ((e = {}), (e[Ja] = "#000000"), (e.default = "#ffffff"), e),
+        "--wash": ((s = {}), (s[Ja] = "#000000"), (s.default = "#ffffff"), s),
         frontierAlertBannerColorBackground:
           ((u = {}),
-          (u[Ya] = "rgba(21, 33, 39, 1)"),
+          (u[Ja] = "rgba(21, 33, 39, 1)"),
           (u.default = "rgba(255, 255, 255, 1)"),
           u),
         frontierAlertBannerColorBorder:
           ((c = {}),
-          (c[Ya] = "rgba(61, 79, 92, 1)"),
+          (c[Ja] = "rgba(61, 79, 92, 1)"),
           (c.default = "rgba(221, 226, 232, 1)"),
           c),
         frontierAlertBannerColorDescription:
           ((d = {}),
-          (d[Ya] = "rgba(241, 244, 247, 1)"),
+          (d[Ja] = "rgba(241, 244, 247, 1)"),
           (d.default = "rgba(10, 19, 23, 1)"),
           d),
         frontierAlertBannerColorDismissible:
           ((m = {}),
-          (m[Ya] = "rgba(241, 244, 247, 1)"),
+          (m[Ja] = "rgba(241, 244, 247, 1)"),
           (m.default = "rgba(10, 19, 23, 1)"),
           m),
         frontierAlertBannerColorIcon:
           ((p = {}),
-          (p[Ya] = "rgba(241, 244, 247, 1)"),
+          (p[Ja] = "rgba(241, 244, 247, 1)"),
           (p.default = "rgba(10, 19, 23, 1)"),
           p),
         frontierAlertBannerColorTitle:
           ((_ = {}),
-          (_[Ya] = "rgba(241, 244, 247, 1)"),
+          (_[Ja] = "rgba(241, 244, 247, 1)"),
           (_.default = "rgba(10, 19, 23, 1)"),
           _),
         frontierButtonApplePayBackgroundColor:
           ((f = {}),
-          (f[Ya] = "rgba(255, 255, 255, 1)"),
+          (f[Ja] = "rgba(255, 255, 255, 1)"),
           (f.default = "rgba(0, 0, 0, 1)"),
           f),
         frontierButtonApplePayBorderColor:
           ((g = {}),
-          (g[Ya] = "rgba(255, 255, 255, 1)"),
+          (g[Ja] = "rgba(255, 255, 255, 1)"),
           (g.default = "rgba(0, 0, 0, 1)"),
           g),
         frontierButtonApplePayIconColor:
           ((h = {}),
-          (h[Ya] = "rgba(0, 0, 0, 1)"),
+          (h[Ja] = "rgba(0, 0, 0, 1)"),
           (h.default = "rgba(255, 255, 255, 1)"),
           h),
         frontierButtonApplePayTextColor:
           ((y = {}),
-          (y[Ya] = "rgba(0, 0, 0, 1)"),
+          (y[Ja] = "rgba(0, 0, 0, 1)"),
           (y.default = "rgba(255, 255, 255, 1)"),
           y),
         frontierButtonFocusOutlineColor:
           ((C = {}),
-          (C[Ya] = "rgba(75, 169, 254, 1)"),
+          (C[Ja] = "rgba(75, 169, 254, 1)"),
           (C.default = "rgba(4, 87, 203, 1)"),
           C),
         frontierButtonPrimaryBackgroundColor:
           ((b = {}),
-          (b[Ya] = "rgba(0, 100, 224, 1)"),
+          (b[Ja] = "rgba(0, 100, 224, 1)"),
           (b.default = "rgba(0, 100, 224, 1)"),
           b),
         frontierButtonPrimaryBorderColor:
           ((v = {}),
-          (v[Ya] = "rgba(0, 100, 224, 1)"),
+          (v[Ja] = "rgba(0, 100, 224, 1)"),
           (v.default = "rgba(0, 100, 224, 1)"),
           v),
         frontierButtonPrimaryDestructiveBackgroundColor:
           ((S = {}),
-          (S[Ya] = "rgba(211, 17, 48, 1)"),
+          (S[Ja] = "rgba(211, 17, 48, 1)"),
           (S.default = "rgba(211, 17, 48, 1)"),
           S),
         frontierButtonPrimaryDestructiveBorderColor:
           ((R = {}),
-          (R[Ya] = "rgba(211, 17, 48, 1)"),
+          (R[Ja] = "rgba(211, 17, 48, 1)"),
           (R.default = "rgba(211, 17, 48, 1)"),
           R),
         frontierButtonPrimaryDestructiveIconColor:
           ((L = {}),
-          (L[Ya] = "rgba(241, 244, 247, 1)"),
+          (L[Ja] = "rgba(241, 244, 247, 1)"),
           (L.default = "rgba(241, 244, 247, 1)"),
           L),
         frontierButtonPrimaryDestructiveTextColor:
           ((E = {}),
-          (E[Ya] = "rgba(241, 244, 247, 1)"),
+          (E[Ja] = "rgba(241, 244, 247, 1)"),
           (E.default = "rgba(241, 244, 247, 1)"),
           E),
         frontierButtonPrimaryDisabledBackgroundColor:
           ((k = {}),
-          (k[Ya] = "rgba(13, 60, 113, 1)"),
+          (k[Ja] = "rgba(13, 60, 113, 1)"),
           (k.default = "rgba(153, 193, 243, 1)"),
           k),
         frontierButtonPrimaryDisabledBorderColor:
           ((I = {}),
-          (I[Ya] = "rgba(13, 60, 113, 1)"),
+          (I[Ja] = "rgba(13, 60, 113, 1)"),
           (I.default = "rgba(153, 193, 243, 1)"),
           I),
         frontierButtonPrimaryDisabledIconColor:
           ((T = {}),
-          (T[Ya] = "rgba(241, 244, 247, 1)"),
+          (T[Ja] = "rgba(241, 244, 247, 1)"),
           (T.default = "rgba(241, 244, 247, 1)"),
           T),
         frontierButtonPrimaryDisabledTextColor:
           ((D = {}),
-          (D[Ya] = "rgba(241, 244, 247, 1)"),
+          (D[Ja] = "rgba(241, 244, 247, 1)"),
           (D.default = "rgba(241, 244, 247, 1)"),
           D),
         frontierButtonPrimaryHoverBackgroundColor:
           ((x = {}),
-          (x[Ya] = "rgba(0, 100, 224, 1)"),
+          (x[Ja] = "rgba(0, 100, 224, 1)"),
           (x.default = "rgba(1, 113, 227, 1)"),
           x),
         frontierButtonPrimaryHoverBorderColor:
           (($ = {}),
-          ($[Ya] = "rgba(0, 0, 0, 0)"),
+          ($[Ja] = "rgba(0, 0, 0, 0)"),
           ($.default = "rgba(0, 0, 0, 0)"),
           $),
         frontierButtonPrimaryHoverIconColor:
           ((P = {}),
-          (P[Ya] = "rgba(255, 255, 255, 1)"),
+          (P[Ja] = "rgba(255, 255, 255, 1)"),
           (P.default = "rgba(255, 255, 255, 1)"),
           P),
         frontierButtonPrimaryHoverTextColor:
           ((N = {}),
-          (N[Ya] = "rgba(255, 255, 255, 1)"),
+          (N[Ja] = "rgba(255, 255, 255, 1)"),
           (N.default = "rgba(255, 255, 255, 1)"),
           N),
         frontierButtonPrimaryIconColor:
           ((M = {}),
-          (M[Ya] = "rgba(241, 244, 247, 1)"),
+          (M[Ja] = "rgba(241, 244, 247, 1)"),
           (M.default = "rgba(241, 244, 247, 1)"),
           M),
         frontierButtonPrimaryPressedBackgroundColor:
           ((w = {}),
-          (w[Ya] = "rgba(5, 83, 178, 1)"),
+          (w[Ja] = "rgba(5, 83, 178, 1)"),
           (w.default = "rgba(64, 139, 232, 1)"),
           w),
         frontierButtonPrimaryPressedBorderColor:
           ((A = {}),
-          (A[Ya] = "rgba(5, 83, 178, 1)"),
+          (A[Ja] = "rgba(5, 83, 178, 1)"),
           (A.default = "rgba(64, 139, 232, 1)"),
           A),
         frontierButtonPrimaryPressedIconColor:
           ((F = {}),
-          (F[Ya] = "rgba(241, 244, 247, 1)"),
+          (F[Ja] = "rgba(241, 244, 247, 1)"),
           (F.default = "rgba(241, 244, 247, 1)"),
           F),
         frontierButtonPrimaryPressedTextColor:
           ((O = {}),
-          (O[Ya] = "rgba(241, 244, 247, 1)"),
+          (O[Ja] = "rgba(241, 244, 247, 1)"),
           (O.default = "rgba(241, 244, 247, 1)"),
           O),
         frontierButtonPrimaryTextColor:
           ((B = {}),
-          (B[Ya] = "rgba(241, 244, 247, 1)"),
+          (B[Ja] = "rgba(241, 244, 247, 1)"),
           (B.default = "rgba(241, 244, 247, 1)"),
           B),
         frontierButtonSecondaryBackgroundColor:
           ((W = {}),
-          (W[Ya] = "rgba(21, 33, 39, 0)"),
+          (W[Ja] = "rgba(21, 33, 39, 0)"),
           (W.default = "rgba(255, 255, 255, 0)"),
           W),
         frontierButtonSecondaryBorderColor:
           ((q = {}),
-          (q[Ya] = "rgba(68, 86, 100, 1)"),
+          (q[Ja] = "rgba(68, 86, 100, 1)"),
           (q.default = "rgba(204, 211, 219, 1)"),
           q),
         frontierButtonSecondaryDestructiveBackgroundColor:
           ((U = {}),
-          (U[Ya] = "rgba(21, 33, 39, 0.2)"),
+          (U[Ja] = "rgba(21, 33, 39, 0.2)"),
           (U.default = "rgba(255, 255, 255, 0.2)"),
           U),
         frontierButtonSecondaryDestructiveBorderColor:
           ((V = {}),
-          (V[Ya] = "rgba(211, 17, 48, 1)"),
+          (V[Ja] = "rgba(211, 17, 48, 1)"),
           (V.default = "rgba(211, 17, 48, 1)"),
           V),
         frontierButtonSecondaryDestructiveIconColor:
           ((H = {}),
-          (H[Ya] = "rgba(211, 17, 48, 1)"),
+          (H[Ja] = "rgba(211, 17, 48, 1)"),
           (H.default = "rgba(211, 17, 48, 1)"),
           H),
         frontierButtonSecondaryDestructiveTextColor:
           ((G = {}),
-          (G[Ya] = "rgba(211, 17, 48, 1)"),
+          (G[Ja] = "rgba(211, 17, 48, 1)"),
           (G.default = "rgba(211, 17, 48, 1)"),
           G),
         frontierButtonSecondaryDisabledBackgroundColor:
           ((z = {}),
-          (z[Ya] = "rgba(21, 33, 39, 0)"),
+          (z[Ja] = "rgba(21, 33, 39, 0)"),
           (z.default = "rgba(255, 255, 255, 0)"),
           z),
         frontierButtonSecondaryDisabledBorderColor:
           ((j = {}),
-          (j[Ya] = "rgba(68, 86, 100, 0.4)"),
+          (j[Ja] = "rgba(68, 86, 100, 0.4)"),
           (j.default = "rgba(204, 211, 219, 0.4)"),
           j),
         frontierButtonSecondaryDisabledIconColor:
           ((K = {}),
-          (K[Ya] = "rgba(241, 244, 247, 0.4)"),
+          (K[Ja] = "rgba(241, 244, 247, 0.4)"),
           (K.default = "rgba(10, 19, 23, 0.4)"),
           K),
         frontierButtonSecondaryDisabledTextColor:
           ((Q = {}),
-          (Q[Ya] = "rgba(241, 244, 247, 0.4)"),
+          (Q[Ja] = "rgba(241, 244, 247, 0.4)"),
           (Q.default = "rgba(10, 19, 23, 0.4)"),
           Q),
         frontierButtonSecondaryHoverBackgroundColor:
           ((X = {}),
-          (X[Ya] = "rgba(0, 0, 0, 0)"),
+          (X[Ja] = "rgba(0, 0, 0, 0)"),
           (X.default = "rgba(0, 0, 0, 0)"),
           X),
         frontierButtonSecondaryHoverBorderColor:
           ((Y = {}),
-          (Y[Ya] = "rgba(115, 190, 250, 1)"),
+          (Y[Ja] = "rgba(115, 190, 250, 1)"),
           (Y.default = "rgba(1, 113, 227, 1)"),
           Y),
         frontierButtonSecondaryHoverIconColor:
           ((J = {}),
-          (J[Ya] = "rgba(115, 190, 250, 1)"),
+          (J[Ja] = "rgba(115, 190, 250, 1)"),
           (J.default = "rgba(1, 113, 227, 1)"),
           J),
         frontierButtonSecondaryHoverTextColor:
           ((Z = {}),
-          (Z[Ya] = "rgba(115, 190, 250, 1)"),
+          (Z[Ja] = "rgba(115, 190, 250, 1)"),
           (Z.default = "rgba(1, 113, 227, 1)"),
           Z),
         frontierButtonSecondaryIconColor:
           ((ee = {}),
-          (ee[Ya] = "rgba(241, 244, 247, 1)"),
+          (ee[Ja] = "rgba(241, 244, 247, 1)"),
           (ee.default = "rgba(10, 19, 23, 1)"),
           ee),
         frontierButtonSecondaryPressedBackgroundColor:
           ((te = {}),
-          (te[Ya] = "rgba(21, 33, 39, 0)"),
+          (te[Ja] = "rgba(21, 33, 39, 0)"),
           (te.default = "rgba(255, 255, 255, 0)"),
           te),
         frontierButtonSecondaryPressedBorderColor:
           ((ne = {}),
-          (ne[Ya] = "rgba(68, 86, 100, 0.75)"),
+          (ne[Ja] = "rgba(68, 86, 100, 0.75)"),
           (ne.default = "rgba(204, 211, 219, 0.75)"),
           ne),
         frontierButtonSecondaryPressedIconColor:
           ((re = {}),
-          (re[Ya] = "rgba(241, 244, 247, 0.75)"),
+          (re[Ja] = "rgba(241, 244, 247, 0.75)"),
           (re.default = "rgba(10, 19, 23, 0.75)"),
           re),
         frontierButtonSecondaryPressedTextColor:
           ((oe = {}),
-          (oe[Ya] = "rgba(241, 244, 247, 0.75)"),
+          (oe[Ja] = "rgba(241, 244, 247, 0.75)"),
           (oe.default = "rgba(10, 19, 23, 0.75)"),
           oe),
         frontierButtonSecondaryTextColor:
           ((ae = {}),
-          (ae[Ya] = "rgba(241, 244, 247, 1)"),
+          (ae[Ja] = "rgba(241, 244, 247, 1)"),
           (ae.default = "rgba(10, 19, 23, 1)"),
           ae),
         frontierButtonTertiaryBackgroundColor:
           ((ie = {}),
-          (ie[Ya] = "rgba(21, 33, 39, 0)"),
+          (ie[Ja] = "rgba(21, 33, 39, 0)"),
           (ie.default = "rgba(255, 255, 255, 0)"),
           ie),
         frontierButtonTertiaryBorderColor:
           ((le = {}),
-          (le[Ya] = "rgba(21, 33, 39, 0)"),
+          (le[Ja] = "rgba(21, 33, 39, 0)"),
           (le.default = "rgba(255, 255, 255, 0)"),
           le),
         frontierButtonTertiaryDestructiveBackgroundColor:
           ((se = {}),
-          (se[Ya] = "rgba(0, 0, 0, 0)"),
+          (se[Ja] = "rgba(0, 0, 0, 0)"),
           (se.default = "rgba(255, 255, 255, 0)"),
           se),
         frontierButtonTertiaryDestructiveBorderColor:
           ((ue = {}),
-          (ue[Ya] = "rgba(0, 0, 0, 0)"),
+          (ue[Ja] = "rgba(0, 0, 0, 0)"),
           (ue.default = "rgba(255, 255, 255, 0)"),
           ue),
         frontierButtonTertiaryDestructiveIconColor:
           ((ce = {}),
-          (ce[Ya] = "rgba(211, 17, 48, 1)"),
+          (ce[Ja] = "rgba(211, 17, 48, 1)"),
           (ce.default = "rgba(211, 17, 48, 1)"),
           ce),
         frontierButtonTertiaryDestructiveTextColor:
           ((de = {}),
-          (de[Ya] = "rgba(211, 17, 48, 1)"),
+          (de[Ja] = "rgba(211, 17, 48, 1)"),
           (de.default = "rgba(211, 17, 48, 1)"),
           de),
         frontierButtonTertiaryDisabledBackgroundColor:
           ((me = {}),
-          (me[Ya] = "rgba(21, 33, 39, 0.2)"),
+          (me[Ja] = "rgba(21, 33, 39, 0.2)"),
           (me.default = "rgba(255, 255, 255, 0.2)"),
           me),
         frontierButtonTertiaryDisabledBorderColor:
           ((pe = {}),
-          (pe[Ya] = "rgba(21, 33, 39, 0.2)"),
+          (pe[Ja] = "rgba(21, 33, 39, 0.2)"),
           (pe.default = "rgba(255, 255, 255, 0.2)"),
           pe),
         frontierButtonTertiaryDisabledIconColor:
           ((_e = {}),
-          (_e[Ya] = "rgba(241, 244, 247, 0.4)"),
+          (_e[Ja] = "rgba(241, 244, 247, 0.4)"),
           (_e.default = "rgba(10, 19, 23, 0.4)"),
           _e),
         frontierButtonTertiaryDisabledTextColor:
           ((fe = {}),
-          (fe[Ya] = "rgba(241, 244, 247, 0.4)"),
+          (fe[Ja] = "rgba(241, 244, 247, 0.4)"),
           (fe.default = "rgba(10, 19, 23, 0.4)"),
           fe),
         frontierButtonTertiaryHoverBackgroundColor:
           ((ge = {}),
-          (ge[Ya] = "rgba(0, 0, 0, 0)"),
+          (ge[Ja] = "rgba(0, 0, 0, 0)"),
           (ge.default = "rgba(0, 0, 0, 0)"),
           ge),
         frontierButtonTertiaryHoverBorderColor:
           ((he = {}),
-          (he[Ya] = "rgba(0, 0, 0, 0)"),
+          (he[Ja] = "rgba(0, 0, 0, 0)"),
           (he.default = "rgba(0, 0, 0, 0)"),
           he),
         frontierButtonTertiaryHoverIconColor:
           ((ye = {}),
-          (ye[Ya] = "rgba(115, 190, 250, 1)"),
+          (ye[Ja] = "rgba(115, 190, 250, 1)"),
           (ye.default = "rgba(1, 113, 227, 1)"),
           ye),
         frontierButtonTertiaryHoverTextColor:
           ((Ce = {}),
-          (Ce[Ya] = "rgba(115, 190, 250, 1)"),
+          (Ce[Ja] = "rgba(115, 190, 250, 1)"),
           (Ce.default = "rgba(1, 113, 227, 1)"),
           Ce),
         frontierButtonTertiaryIconColor:
           ((be = {}),
-          (be[Ya] = "rgba(241, 244, 247, 1)"),
+          (be[Ja] = "rgba(241, 244, 247, 1)"),
           (be.default = "rgba(10, 19, 23, 1)"),
           be),
         frontierButtonTertiaryPressedBackgroundColor:
           ((ve = {}),
-          (ve[Ya] = "rgba(21, 33, 39, 0.2)"),
+          (ve[Ja] = "rgba(21, 33, 39, 0.2)"),
           (ve.default = "rgba(255, 255, 255, 0.2)"),
           ve),
         frontierButtonTertiaryPressedBorderColor:
           ((Se = {}),
-          (Se[Ya] = "rgba(21, 33, 39, 0.2)"),
+          (Se[Ja] = "rgba(21, 33, 39, 0.2)"),
           (Se.default = "rgba(255, 255, 255, 0.2)"),
           Se),
         frontierButtonTertiaryPressedIconColor:
           ((Re = {}),
-          (Re[Ya] = "rgba(241, 244, 247, 0.75)"),
+          (Re[Ja] = "rgba(241, 244, 247, 0.75)"),
           (Re.default = "rgba(10, 19, 23, 0.75)"),
           Re),
         frontierButtonTertiaryPressedTextColor:
           ((Le = {}),
-          (Le[Ya] = "rgba(241, 244, 247, 0.75)"),
+          (Le[Ja] = "rgba(241, 244, 247, 0.75)"),
           (Le.default = "rgba(10, 19, 23, 0.75)"),
           Le),
         frontierButtonTertiaryTextColor:
           ((Ee = {}),
-          (Ee[Ya] = "rgba(241, 244, 247, 1)"),
+          (Ee[Ja] = "rgba(241, 244, 247, 1)"),
           (Ee.default = "rgba(10, 19, 23, 1)"),
           Ee),
-        frontierCheckboxColorSelectedBackground:
+        frontierCardColorBorder:
           ((ke = {}),
-          (ke[Ya] = "rgba(0, 130, 251, 1)"),
-          (ke.default = "rgba(0, 100, 224, 1)"),
+          (ke[Ja] = "rgba(0, 0, 0, 0)"),
+          (ke.default = "rgba(0, 0, 0, 0)"),
           ke),
-        frontierCheckboxColorSelectedBorder:
+        frontierCheckboxColorSelectedBackground:
           ((Ie = {}),
-          (Ie[Ya] = "rgba(0, 130, 251, 0)"),
-          (Ie.default = "rgba(0, 100, 224, 0)"),
+          (Ie[Ja] = "rgba(0, 130, 251, 1)"),
+          (Ie.default = "rgba(0, 100, 224, 1)"),
           Ie),
-        frontierCheckboxColorSelectedCheck:
+        frontierCheckboxColorSelectedBorder:
           ((Te = {}),
-          (Te[Ya] = "rgba(10, 19, 23, 1)"),
-          (Te.default = "rgba(241, 244, 247, 1)"),
+          (Te[Ja] = "rgba(0, 130, 251, 0)"),
+          (Te.default = "rgba(0, 100, 224, 0)"),
           Te),
-        frontierCheckboxColorSelectedDisabledBackground:
+        frontierCheckboxColorSelectedCheck:
           ((De = {}),
-          (De[Ya] = "rgba(0, 130, 251, 0.4)"),
-          (De.default = "rgba(0, 100, 224, 0.4)"),
+          (De[Ja] = "rgba(10, 19, 23, 1)"),
+          (De.default = "rgba(241, 244, 247, 1)"),
           De),
-        frontierCheckboxColorSelectedDisabledBorder:
+        frontierCheckboxColorSelectedDisabledBackground:
           ((xe = {}),
-          (xe[Ya] = "rgba(0, 130, 251, 0)"),
-          (xe.default = "rgba(0, 130, 251, 0)"),
+          (xe[Ja] = "rgba(0, 130, 251, 0.4)"),
+          (xe.default = "rgba(0, 100, 224, 0.4)"),
           xe),
-        frontierCheckboxColorSelectedDisabledCheck:
+        frontierCheckboxColorSelectedDisabledBorder:
           (($e = {}),
-          ($e[Ya] = "rgba(10, 19, 23, 1)"),
-          ($e.default = "rgba(241, 244, 247, 1)"),
+          ($e[Ja] = "rgba(0, 130, 251, 0)"),
+          ($e.default = "rgba(0, 130, 251, 0)"),
           $e),
-        frontierCheckboxColorUnselectedBackground:
+        frontierCheckboxColorSelectedDisabledCheck:
           ((Pe = {}),
-          (Pe[Ya] = "rgba(0, 0, 0, 0)"),
-          (Pe.default = "rgba(255, 255, 255, 0)"),
+          (Pe[Ja] = "rgba(10, 19, 23, 1)"),
+          (Pe.default = "rgba(241, 244, 247, 1)"),
           Pe),
-        frontierCheckboxColorUnselectedBorder:
+        frontierCheckboxColorUnselectedBackground:
           ((Ne = {}),
-          (Ne[Ya] = "rgba(116, 134, 149, 1)"),
-          (Ne.default = "rgba(132, 148, 163, 1)"),
+          (Ne[Ja] = "rgba(0, 0, 0, 0)"),
+          (Ne.default = "rgba(255, 255, 255, 0)"),
           Ne),
-        frontierCheckboxColorUnselectedDisabledBackground:
+        frontierCheckboxColorUnselectedBorder:
           ((Me = {}),
-          (Me[Ya] = "rgba(0, 0, 0, 0)"),
-          (Me.default = "rgba(255, 255, 255, 0)"),
+          (Me[Ja] = "rgba(116, 134, 149, 1)"),
+          (Me.default = "rgba(132, 148, 163, 1)"),
           Me),
-        frontierCheckboxColorUnselectedDisabledBorder:
+        frontierCheckboxColorUnselectedDisabledBackground:
           ((we = {}),
-          (we[Ya] = "rgba(116, 134, 149, 0.5)"),
-          (we.default = "rgba(132, 148, 163, 0.5)"),
+          (we[Ja] = "rgba(0, 0, 0, 0)"),
+          (we.default = "rgba(255, 255, 255, 0)"),
           we),
-        frontierChipColorDefaultBackground:
+        frontierCheckboxColorUnselectedDisabledBorder:
           ((Ae = {}),
-          (Ae[Ya] = "rgba(21, 33, 39, 1)"),
-          (Ae.default = "rgba(255, 255, 255, 1)"),
+          (Ae[Ja] = "rgba(116, 134, 149, 0.5)"),
+          (Ae.default = "rgba(132, 148, 163, 0.5)"),
           Ae),
-        frontierChipColorDefaultBorder:
+        frontierChipColorDefaultBackground:
           ((Fe = {}),
-          (Fe[Ya] = "rgba(68, 86, 100, 1)"),
-          (Fe.default = "rgba(204, 211, 219, 1)"),
+          (Fe[Ja] = "rgba(21, 33, 39, 1)"),
+          (Fe.default = "rgba(255, 255, 255, 1)"),
           Fe),
-        frontierChipColorDefaultIcon:
+        frontierChipColorDefaultBorder:
           ((Oe = {}),
-          (Oe[Ya] = "rgba(241, 244, 247, 1)"),
-          (Oe.default = "rgba(10, 19, 23, 1)"),
+          (Oe[Ja] = "rgba(68, 86, 100, 1)"),
+          (Oe.default = "rgba(204, 211, 219, 1)"),
           Oe),
-        frontierChipColorDefaultText:
+        frontierChipColorDefaultIcon:
           ((Be = {}),
-          (Be[Ya] = "rgba(241, 244, 247, 1)"),
+          (Be[Ja] = "rgba(241, 244, 247, 1)"),
           (Be.default = "rgba(10, 19, 23, 1)"),
           Be),
-        frontierChipColorDisabledBackground:
+        frontierChipColorDefaultText:
           ((We = {}),
-          (We[Ya] = "rgba(21, 33, 39, 1)"),
-          (We.default = "rgba(255, 255, 255, 1)"),
+          (We[Ja] = "rgba(241, 244, 247, 1)"),
+          (We.default = "rgba(10, 19, 23, 1)"),
           We),
-        frontierChipColorDisabledBorder:
+        frontierChipColorDisabledBackground:
           ((qe = {}),
-          (qe[Ya] = "rgba(68, 86, 100, 1)"),
-          (qe.default = "rgba(204, 211, 219, 1)"),
+          (qe[Ja] = "rgba(21, 33, 39, 1)"),
+          (qe.default = "rgba(255, 255, 255, 1)"),
           qe),
-        frontierChipColorDisabledIcon:
+        frontierChipColorDisabledBorder:
           ((Ue = {}),
-          (Ue[Ya] = "rgba(241, 244, 247, 1)"),
-          (Ue.default = "rgba(10, 19, 23, 1)"),
+          (Ue[Ja] = "rgba(68, 86, 100, 1)"),
+          (Ue.default = "rgba(204, 211, 219, 1)"),
           Ue),
-        frontierChipColorDisabledText:
+        frontierChipColorDisabledIcon:
           ((Ve = {}),
-          (Ve[Ya] = "rgba(241, 244, 247, 1)"),
+          (Ve[Ja] = "rgba(241, 244, 247, 1)"),
           (Ve.default = "rgba(10, 19, 23, 1)"),
           Ve),
-        frontierChipColorPressedBackground:
+        frontierChipColorDisabledText:
           ((He = {}),
-          (He[Ya] = "rgba(21, 33, 39, 1)"),
-          (He.default = "rgba(255, 255, 255, 1)"),
+          (He[Ja] = "rgba(241, 244, 247, 1)"),
+          (He.default = "rgba(10, 19, 23, 1)"),
           He),
-        frontierChipColorPressedBorder:
+        frontierChipColorPressedBackground:
           ((Ge = {}),
-          (Ge[Ya] = "rgba(68, 86, 100, 1)"),
-          (Ge.default = "rgba(204, 211, 219, 1)"),
+          (Ge[Ja] = "rgba(21, 33, 39, 1)"),
+          (Ge.default = "rgba(255, 255, 255, 1)"),
           Ge),
-        frontierChipColorPressedIcon:
+        frontierChipColorPressedBorder:
           ((ze = {}),
-          (ze[Ya] = "rgba(241, 244, 247, 1)"),
-          (ze.default = "rgba(10, 19, 23, 1)"),
+          (ze[Ja] = "rgba(68, 86, 100, 1)"),
+          (ze.default = "rgba(204, 211, 219, 1)"),
           ze),
-        frontierChipColorPressedText:
+        frontierChipColorPressedIcon:
           ((je = {}),
-          (je[Ya] = "rgba(241, 244, 247, 1)"),
+          (je[Ja] = "rgba(241, 244, 247, 1)"),
           (je.default = "rgba(10, 19, 23, 1)"),
           je),
-        frontierChipColorSelectedBackground:
+        frontierChipColorPressedText:
           ((Ke = {}),
-          (Ke[Ya] = "rgba(241, 244, 247, 1)"),
+          (Ke[Ja] = "rgba(241, 244, 247, 1)"),
           (Ke.default = "rgba(10, 19, 23, 1)"),
           Ke),
-        frontierChipColorSelectedBorder:
+        frontierChipColorSelectedBackground:
           ((Qe = {}),
-          (Qe[Ya] = "rgba(68, 86, 100, 1)"),
-          (Qe.default = "rgba(204, 211, 219, 1)"),
+          (Qe[Ja] = "rgba(241, 244, 247, 1)"),
+          (Qe.default = "rgba(10, 19, 23, 1)"),
           Qe),
-        frontierChipColorSelectedIcon:
+        frontierChipColorSelectedBorder:
           ((Xe = {}),
-          (Xe[Ya] = "rgba(10, 19, 23, 1)"),
-          (Xe.default = "rgba(241, 244, 247, 1)"),
+          (Xe[Ja] = "rgba(68, 86, 100, 1)"),
+          (Xe.default = "rgba(204, 211, 219, 1)"),
           Xe),
-        frontierChipColorSelectedText:
+        frontierChipColorSelectedIcon:
           ((Ye = {}),
-          (Ye[Ya] = "rgba(10, 19, 23, 1)"),
+          (Ye[Ja] = "rgba(10, 19, 23, 1)"),
           (Ye.default = "rgba(241, 244, 247, 1)"),
           Ye),
-        frontierColorBackgroundAccent:
+        frontierChipColorSelectedText:
           ((Je = {}),
-          (Je[Ya] = "rgba(255, 255, 255, 1)"),
-          (Je.default = "rgba(10, 19, 23, 1)"),
+          (Je[Ja] = "rgba(10, 19, 23, 1)"),
+          (Je.default = "rgba(241, 244, 247, 1)"),
           Je),
-        frontierColorBackgroundAccentDeemphasized:
+        frontierColorBackgroundAccent:
           ((Ze = {}),
-          (Ze[Ya] = "rgba(241, 244, 247, 0.4)"),
-          (Ze.default = "rgba(10, 19, 23, 0.5)"),
+          (Ze[Ja] = "rgba(255, 255, 255, 1)"),
+          (Ze.default = "rgba(10, 19, 23, 1)"),
           Ze),
-        frontierColorBackgroundBrand:
+        frontierColorBackgroundAccentDeemphasized:
           ((et = {}),
-          (et[Ya] = "rgba(0, 100, 224, 1)"),
-          (et.default = "rgba(0, 100, 224, 1)"),
+          (et[Ja] = "rgba(241, 244, 247, 0.4)"),
+          (et.default = "rgba(10, 19, 23, 0.5)"),
           et),
-        frontierColorBackgroundDeemphasized:
+        frontierColorBackgroundBrand:
           ((tt = {}),
-          (tt[Ya] = "rgba(43, 61, 70, 1)"),
-          (tt.default = "rgba(230, 235, 239, 1)"),
+          (tt[Ja] = "rgba(0, 100, 224, 1)"),
+          (tt.default = "rgba(0, 100, 224, 1)"),
           tt),
-        frontierColorBackgroundDisabled:
+        frontierColorBackgroundDeemphasized:
           ((nt = {}),
-          (nt[Ya] = "rgba(10, 19, 23, 1)"),
-          (nt.default = "rgba(241, 244, 247, 1)"),
+          (nt[Ja] = "rgba(43, 61, 70, 1)"),
+          (nt.default = "rgba(230, 235, 239, 1)"),
           nt),
-        frontierColorBackgroundEmphasized:
+        frontierColorBackgroundDisabled:
           ((rt = {}),
-          (rt[Ya] = "rgba(10, 19, 23, 1)"),
-          (rt.default = "rgba(255, 255, 255, 1)"),
+          (rt[Ja] = "rgba(10, 19, 23, 1)"),
+          (rt.default = "rgba(241, 244, 247, 1)"),
           rt),
-        frontierColorBackgroundSurface:
+        frontierColorBackgroundEmphasized:
           ((ot = {}),
-          (ot[Ya] = "rgba(21, 33, 39, 1)"),
+          (ot[Ja] = "rgba(10, 19, 23, 1)"),
           (ot.default = "rgba(255, 255, 255, 1)"),
           ot),
-        frontierColorBackgroundSurface2:
+        frontierColorBackgroundSurface:
           ((at = {}),
-          (at[Ya] = "rgba(21, 33, 39, 1)"),
+          (at[Ja] = "rgba(21, 33, 39, 1)"),
           (at.default = "rgba(255, 255, 255, 1)"),
           at),
-        frontierColorBackgroundSurface3:
+        frontierColorBackgroundSurface2:
           ((it = {}),
-          (it[Ya] = "rgba(21, 33, 39, 1)"),
+          (it[Ja] = "rgba(21, 33, 39, 1)"),
           (it.default = "rgba(255, 255, 255, 1)"),
           it),
-        frontierColorBackgroundSurfaceInverted:
+        frontierColorBackgroundSurface3:
           ((lt = {}),
-          (lt[Ya] = "rgba(255, 255, 255, 1)"),
-          (lt.default = "rgba(21, 33, 39, 1)"),
+          (lt[Ja] = "rgba(21, 33, 39, 1)"),
+          (lt.default = "rgba(255, 255, 255, 1)"),
           lt),
-        frontierColorBackgroundSurfaceInverted2:
+        frontierColorBackgroundSurfaceInverted:
           ((st = {}),
-          (st[Ya] = "rgba(255, 255, 255, 1)"),
+          (st[Ja] = "rgba(255, 255, 255, 1)"),
           (st.default = "rgba(21, 33, 39, 1)"),
           st),
-        frontierColorBackgroundTransparent:
+        frontierColorBackgroundSurfaceInverted2:
           ((ut = {}),
-          (ut[Ya] = "rgba(21, 33, 39, 0)"),
-          (ut.default = "rgba(255, 255, 255, 0)"),
+          (ut[Ja] = "rgba(255, 255, 255, 1)"),
+          (ut.default = "rgba(21, 33, 39, 1)"),
           ut),
-        frontierColorBackgroundTransparent2:
+        frontierColorBackgroundTransparent:
           ((ct = {}),
-          (ct[Ya] = "rgba(21, 33, 39, 0)"),
+          (ct[Ja] = "rgba(21, 33, 39, 0)"),
           (ct.default = "rgba(255, 255, 255, 0)"),
           ct),
-        frontierColorBackgroundTransparent3:
+        frontierColorBackgroundTransparent2:
           ((dt = {}),
-          (dt[Ya] = "rgba(21, 33, 39, 0)"),
+          (dt[Ja] = "rgba(21, 33, 39, 0)"),
           (dt.default = "rgba(255, 255, 255, 0)"),
           dt),
-        frontierColorBackgroundTransparentInverted:
+        frontierColorBackgroundTransparent3:
           ((mt = {}),
-          (mt[Ya] = "rgba(255, 255, 255, 0)"),
-          (mt.default = "rgba(21, 33, 39, 0)"),
+          (mt[Ja] = "rgba(21, 33, 39, 0)"),
+          (mt.default = "rgba(255, 255, 255, 0)"),
           mt),
-        frontierColorBackgroundTransparentInverted2:
+        frontierColorBackgroundTransparentInverted:
           ((pt = {}),
-          (pt[Ya] = "rgba(255, 255, 255, 0)"),
+          (pt[Ja] = "rgba(255, 255, 255, 0)"),
           (pt.default = "rgba(21, 33, 39, 0)"),
           pt),
-        frontierColorBackgroundTransparentInverted3:
+        frontierColorBackgroundTransparentInverted2:
           ((_t = {}),
-          (_t[Ya] = "rgba(255, 255, 255, 0)"),
+          (_t[Ja] = "rgba(255, 255, 255, 0)"),
           (_t.default = "rgba(21, 33, 39, 0)"),
           _t),
-        frontierColorStatusCritical:
+        frontierColorBackgroundTransparentInverted3:
           ((ft = {}),
-          (ft[Ya] = "rgba(157, 5, 25, 1)"),
-          (ft.default = "rgba(157, 5, 25, 1)"),
+          (ft[Ja] = "rgba(255, 255, 255, 0)"),
+          (ft.default = "rgba(21, 33, 39, 0)"),
           ft),
-        frontierColorStatusCriticalDeemphasized:
+        frontierColorStatusCritical:
           ((gt = {}),
-          (gt[Ya] = "rgba(90, 1, 7, 1)"),
-          (gt.default = "rgba(254, 228, 230, 1)"),
+          (gt[Ja] = "rgba(157, 5, 25, 1)"),
+          (gt.default = "rgba(157, 5, 25, 1)"),
           gt),
-        frontierColorStatusInformational:
+        frontierColorStatusCriticalDeemphasized:
           ((ht = {}),
-          (ht[Ya] = "rgba(38, 148, 254, 1)"),
-          (ht.default = "rgba(38, 148, 254, 1)"),
+          (ht[Ja] = "rgba(90, 1, 7, 1)"),
+          (ht.default = "rgba(254, 228, 230, 1)"),
           ht),
-        frontierColorStatusInformationalDeemphasized:
+        frontierColorStatusInformational:
           ((yt = {}),
-          (yt[Ya] = "rgba(0, 30, 117, 1)"),
-          (yt.default = "rgba(219, 236, 255, 1)"),
+          (yt[Ja] = "rgba(38, 148, 254, 1)"),
+          (yt.default = "rgba(38, 148, 254, 1)"),
           yt),
-        frontierColorStatusNegative:
+        frontierColorStatusInformationalDeemphasized:
           ((Ct = {}),
-          (Ct[Ya] = "rgba(251, 125, 135, 1)"),
-          (Ct.default = "rgba(211, 17, 48, 1)"),
+          (Ct[Ja] = "rgba(0, 30, 117, 1)"),
+          (Ct.default = "rgba(219, 236, 255, 1)"),
           Ct),
-        frontierColorStatusNegativeDeemphasized:
+        frontierColorStatusNegative:
           ((bt = {}),
-          (bt[Ya] = "rgba(90, 1, 7, 1)"),
-          (bt.default = "rgba(254, 228, 230, 1)"),
+          (bt[Ja] = "rgba(251, 125, 135, 1)"),
+          (bt.default = "rgba(211, 17, 48, 1)"),
           bt),
-        frontierColorStatusPositive:
+        frontierColorStatusNegativeDeemphasized:
           ((vt = {}),
-          (vt[Ya] = "rgba(60, 188, 34, 1)"),
-          (vt.default = "rgba(20, 123, 41, 1)"),
+          (vt[Ja] = "rgba(90, 1, 7, 1)"),
+          (vt.default = "rgba(254, 228, 230, 1)"),
           vt),
-        frontierColorStatusPositiveDeemphasized:
+        frontierColorStatusPositive:
           ((St = {}),
-          (St[Ya] = "rgba(5, 48, 24, 1)"),
-          (St.default = "rgba(196, 248, 185, 1)"),
+          (St[Ja] = "rgba(60, 188, 34, 1)"),
+          (St.default = "rgba(20, 123, 41, 1)"),
           St),
-        frontierColorStatusWarning:
+        frontierColorStatusPositiveDeemphasized:
           ((Rt = {}),
-          (Rt[Ya] = "rgba(214, 152, 4, 1)"),
-          (Rt.default = "rgba(150, 94, 3, 1)"),
+          (Rt[Ja] = "rgba(5, 48, 24, 1)"),
+          (Rt.default = "rgba(196, 248, 185, 1)"),
           Rt),
-        frontierColorStatusWarningDeemphasized:
+        frontierColorStatusWarning:
           ((Lt = {}),
-          (Lt[Ya] = "rgba(69, 30, 3, 1)"),
-          (Lt.default = "rgba(252, 236, 133, 1)"),
+          (Lt[Ja] = "rgba(214, 152, 4, 1)"),
+          (Lt.default = "rgba(150, 94, 3, 1)"),
           Lt),
-        frontierDialogColorBackground:
+        frontierColorStatusWarningDeemphasized:
           ((Et = {}),
-          (Et[Ya] = "rgba(21, 33, 39, 1)"),
-          (Et.default = "rgba(255, 255, 255, 1)"),
+          (Et[Ja] = "rgba(69, 30, 3, 1)"),
+          (Et.default = "rgba(252, 236, 133, 1)"),
           Et),
-        frontierDividerColorBackgroundDefault:
+        frontierDialogColorBackground:
           ((kt = {}),
-          (kt[Ya] = "rgba(61, 79, 92, 1)"),
-          (kt.default = "rgba(221, 226, 232, 1)"),
+          (kt[Ja] = "rgba(21, 33, 39, 1)"),
+          (kt.default = "rgba(255, 255, 255, 1)"),
           kt),
-        frontierIconColorBrand:
+        frontierDividerColorBackgroundDefault:
           ((It = {}),
-          (It[Ya] = "rgba(0, 100, 224, 1)"),
-          (It.default = "rgba(0, 100, 224, 1)"),
+          (It[Ja] = "rgba(61, 79, 92, 1)"),
+          (It.default = "rgba(221, 226, 232, 1)"),
           It),
-        frontierIconColorDisabled:
+        frontierIconColorBrand:
           ((Tt = {}),
-          (Tt[Ya] = "rgba(93, 108, 123, 1)"),
-          (Tt.default = "rgba(150, 166, 180, 1)"),
+          (Tt[Ja] = "rgba(0, 100, 224, 1)"),
+          (Tt.default = "rgba(0, 100, 224, 1)"),
           Tt),
-        frontierIconColorInverted:
+        frontierIconColorDisabled:
           ((Dt = {}),
-          (Dt[Ya] = "rgba(10, 19, 23, 1)"),
-          (Dt.default = "rgba(241, 244, 247, 1)"),
+          (Dt[Ja] = "rgba(93, 108, 123, 1)"),
+          (Dt.default = "rgba(150, 166, 180, 1)"),
           Dt),
-        frontierIconColorLink:
+        frontierIconColorInverted:
           ((xt = {}),
-          (xt[Ya] = "rgba(0, 130, 251, 1)"),
-          (xt.default = "rgba(0, 100, 224, 1)"),
+          (xt[Ja] = "rgba(10, 19, 23, 1)"),
+          (xt.default = "rgba(241, 244, 247, 1)"),
           xt),
-        frontierIconColorNegative:
+        frontierIconColorLink:
           (($t = {}),
-          ($t[Ya] = "rgba(251, 125, 135, 1)"),
-          ($t.default = "rgba(211, 17, 48, 1)"),
+          ($t[Ja] = "rgba(0, 130, 251, 1)"),
+          ($t.default = "rgba(0, 100, 224, 1)"),
           $t),
-        frontierIconColorPlaceholder:
+        frontierIconColorNegative:
           ((Pt = {}),
-          (Pt[Ya] = "rgba(150, 166, 180, 1)"),
-          (Pt.default = "rgba(93, 108, 123, 1)"),
+          (Pt[Ja] = "rgba(251, 125, 135, 1)"),
+          (Pt.default = "rgba(211, 17, 48, 1)"),
           Pt),
-        frontierIconColorPositive:
+        frontierIconColorPlaceholder:
           ((Nt = {}),
-          (Nt[Ya] = "rgba(60, 188, 34, 1)"),
-          (Nt.default = "rgba(20, 123, 41, 1)"),
+          (Nt[Ja] = "rgba(150, 166, 180, 1)"),
+          (Nt.default = "rgba(93, 108, 123, 1)"),
           Nt),
-        frontierIconColorPrimary:
+        frontierIconColorPositive:
           ((Mt = {}),
-          (Mt[Ya] = "rgba(241, 244, 247, 1)"),
-          (Mt.default = "rgba(10, 19, 23, 1)"),
+          (Mt[Ja] = "rgba(60, 188, 34, 1)"),
+          (Mt.default = "rgba(20, 123, 41, 1)"),
           Mt),
-        frontierIconColorPrimaryOnMedia:
+        frontierIconColorPrimary:
           ((wt = {}),
-          (wt[Ya] = "rgba(255, 255, 255, 1)"),
-          (wt.default = "rgba(255, 255, 255, 1)"),
+          (wt[Ja] = "rgba(241, 244, 247, 1)"),
+          (wt.default = "rgba(10, 19, 23, 1)"),
           wt),
-        frontierIconColorSecondary:
+        frontierIconColorPrimaryOnMedia:
           ((At = {}),
-          (At[Ya] = "rgba(150, 166, 180, 1)"),
-          (At.default = "rgba(93, 108, 123, 1)"),
+          (At[Ja] = "rgba(255, 255, 255, 1)"),
+          (At.default = "rgba(255, 255, 255, 1)"),
           At),
-        frontierIconColorWarning:
+        frontierIconColorSecondary:
           ((Ft = {}),
-          (Ft[Ya] = "rgba(214, 152, 4, 1)"),
-          (Ft.default = "rgba(150, 94, 3, 1)"),
+          (Ft[Ja] = "rgba(150, 166, 180, 1)"),
+          (Ft.default = "rgba(93, 108, 123, 1)"),
           Ft),
-        frontierListcellColorOverlayHover:
+        frontierIconColorWarning:
           ((Ot = {}),
-          (Ot[Ya] = "var(--hover-overlay)"),
-          (Ot.default = "var(--hover-overlay)"),
+          (Ot[Ja] = "rgba(214, 152, 4, 1)"),
+          (Ot.default = "rgba(150, 94, 3, 1)"),
           Ot),
-        frontierListcellColorOverlayPressed:
+        frontierListcellColorOverlayHover:
           ((Bt = {}),
-          (Bt[Ya] = "var(--press-overlay)"),
-          (Bt.default = "var(--press-overlay)"),
+          (Bt[Ja] = "var(--hover-overlay)"),
+          (Bt.default = "var(--hover-overlay)"),
           Bt),
-        frontierListColorBackground:
+        frontierListcellColorOverlayPressed:
           ((Wt = {}),
-          (Wt[Ya] = "rgba(21, 33, 39, 1)"),
-          (Wt.default = "rgba(255, 255, 255, 1)"),
+          (Wt[Ja] = "var(--press-overlay)"),
+          (Wt.default = "var(--press-overlay)"),
           Wt),
-        frontierListColorBorder:
+        frontierListColorBackground:
           ((qt = {}),
-          (qt[Ya] = "rgba(61, 79, 92, 1)"),
-          (qt.default = "rgba(221, 226, 232, 1)"),
+          (qt[Ja] = "rgba(21, 33, 39, 1)"),
+          (qt.default = "rgba(255, 255, 255, 1)"),
           qt),
-        frontierMenuColorBackground:
+        frontierListColorBorder:
           ((Ut = {}),
-          (Ut[Ya] = "rgba(21, 33, 39, 1)"),
-          (Ut.default = "rgba(255, 255, 255, 1)"),
+          (Ut[Ja] = "rgba(61, 79, 92, 1)"),
+          (Ut.default = "rgba(221, 226, 232, 1)"),
           Ut),
-        frontierMenuColorBorder:
+        frontierMenuColorBackground:
           ((Vt = {}),
-          (Vt[Ya] = "rgba(61, 79, 92, 1)"),
-          (Vt.default = "rgba(221, 226, 232, 1)"),
+          (Vt[Ja] = "rgba(21, 33, 39, 1)"),
+          (Vt.default = "rgba(255, 255, 255, 1)"),
           Vt),
-        frontierPillColorBackgroundCritical:
+        frontierMenuColorBorder:
           ((Ht = {}),
-          (Ht[Ya] = "rgba(157, 5, 25, 1)"),
-          (Ht.default = "rgba(157, 5, 25, 1)"),
+          (Ht[Ja] = "rgba(61, 79, 92, 1)"),
+          (Ht.default = "rgba(221, 226, 232, 1)"),
           Ht),
-        frontierPillColorBackgroundCriticalDeemphasized:
+        frontierPillColorBackgroundCritical:
           ((Gt = {}),
-          (Gt[Ya] = "rgba(90, 1, 7, 1)"),
-          (Gt.default = "rgba(254, 228, 230, 1)"),
+          (Gt[Ja] = "rgba(157, 5, 25, 1)"),
+          (Gt.default = "rgba(157, 5, 25, 1)"),
           Gt),
-        frontierPillColorBackgroundDeemphasized:
+        frontierPillColorBackgroundCriticalDeemphasized:
           ((zt = {}),
-          (zt[Ya] = "rgba(43, 61, 70, 1)"),
-          (zt.default = "rgba(230, 235, 239, 1)"),
+          (zt[Ja] = "rgba(90, 1, 7, 1)"),
+          (zt.default = "rgba(254, 228, 230, 1)"),
           zt),
-        frontierPillColorBackgroundInformational:
+        frontierPillColorBackgroundDeemphasized:
           ((jt = {}),
-          (jt[Ya] = "rgba(38, 148, 254, 1)"),
-          (jt.default = "rgba(38, 148, 254, 1)"),
+          (jt[Ja] = "rgba(43, 61, 70, 1)"),
+          (jt.default = "rgba(230, 235, 239, 1)"),
           jt),
-        frontierPillColorBackgroundInformationalDeemphasized:
+        frontierPillColorBackgroundInformational:
           ((Kt = {}),
-          (Kt[Ya] = "rgba(0, 30, 117, 1)"),
-          (Kt.default = "rgba(219, 236, 255, 1)"),
+          (Kt[Ja] = "rgba(38, 148, 254, 1)"),
+          (Kt.default = "rgba(38, 148, 254, 1)"),
           Kt),
-        frontierPillColorBackgroundPositive:
+        frontierPillColorBackgroundInformationalDeemphasized:
           ((Qt = {}),
-          (Qt[Ya] = "rgba(60, 188, 34, 1)"),
-          (Qt.default = "rgba(20, 123, 41, 1)"),
+          (Qt[Ja] = "rgba(0, 30, 117, 1)"),
+          (Qt.default = "rgba(219, 236, 255, 1)"),
           Qt),
-        frontierPillColorBackgroundPositiveDeemphasized:
+        frontierPillColorBackgroundPositive:
           ((Xt = {}),
-          (Xt[Ya] = "rgba(5, 48, 24, 1)"),
-          (Xt.default = "rgba(196, 248, 185, 1)"),
+          (Xt[Ja] = "rgba(60, 188, 34, 1)"),
+          (Xt.default = "rgba(20, 123, 41, 1)"),
           Xt),
-        frontierPillColorBackgroundWarning:
+        frontierPillColorBackgroundPositiveDeemphasized:
           ((Yt = {}),
-          (Yt[Ya] = "rgba(214, 152, 4, 1)"),
-          (Yt.default = "rgba(150, 94, 3, 1)"),
+          (Yt[Ja] = "rgba(5, 48, 24, 1)"),
+          (Yt.default = "rgba(196, 248, 185, 1)"),
           Yt),
-        frontierPillColorBackgroundWarningDeemphasized:
+        frontierPillColorBackgroundWarning:
           ((Jt = {}),
-          (Jt[Ya] = "rgba(69, 30, 3, 1)"),
-          (Jt.default = "rgba(252, 236, 133, 1)"),
+          (Jt[Ja] = "rgba(214, 152, 4, 1)"),
+          (Jt.default = "rgba(150, 94, 3, 1)"),
           Jt),
-        frontierProgressBarColorBrand:
+        frontierPillColorBackgroundWarningDeemphasized:
           ((Zt = {}),
-          (Zt[Ya] = "rgba(0, 100, 224, 1)"),
-          (Zt.default = "rgba(0, 100, 224, 1)"),
+          (Zt[Ja] = "rgba(69, 30, 3, 1)"),
+          (Zt.default = "rgba(252, 236, 133, 1)"),
           Zt),
-        frontierProgressBarColorDisabled:
+        frontierProgressBarColorBrand:
           ((en = {}),
-          (en[Ya] = "rgba(93, 108, 123, 1)"),
-          (en.default = "rgba(150, 166, 180, 1)"),
+          (en[Ja] = "rgba(0, 100, 224, 1)"),
+          (en.default = "rgba(0, 100, 224, 1)"),
           en),
-        frontierProgressBarColorNegative:
+        frontierProgressBarColorDisabled:
           ((tn = {}),
-          (tn[Ya] = "rgba(251, 125, 135, 1)"),
-          (tn.default = "rgba(211, 17, 48, 1)"),
+          (tn[Ja] = "rgba(93, 108, 123, 1)"),
+          (tn.default = "rgba(150, 166, 180, 1)"),
           tn),
-        frontierProgressBarColorPositive:
+        frontierProgressBarColorNegative:
           ((nn = {}),
-          (nn[Ya] = "rgba(60, 188, 34, 1)"),
-          (nn.default = "rgba(20, 123, 41, 1)"),
+          (nn[Ja] = "rgba(251, 125, 135, 1)"),
+          (nn.default = "rgba(211, 17, 48, 1)"),
           nn),
-        frontierProgressBarColorPrimary:
+        frontierProgressBarColorPositive:
           ((rn = {}),
-          (rn[Ya] = "rgba(241, 244, 247, 1)"),
-          (rn.default = "rgba(10, 19, 23, 1)"),
+          (rn[Ja] = "rgba(60, 188, 34, 1)"),
+          (rn.default = "rgba(20, 123, 41, 1)"),
           rn),
-        frontierProgressBarColorPrimaryOnMedia:
+        frontierProgressBarColorPrimary:
           ((on = {}),
-          (on[Ya] = "rgba(255, 255, 255, 1)"),
-          (on.default = "rgba(255, 255, 255, 1)"),
+          (on[Ja] = "rgba(241, 244, 247, 1)"),
+          (on.default = "rgba(10, 19, 23, 1)"),
           on),
-        frontierProgressBarColorSecondary:
+        frontierProgressBarColorPrimaryOnMedia:
           ((an = {}),
-          (an[Ya] = "rgba(150, 166, 180, 1)"),
-          (an.default = "rgba(93, 108, 123, 1)"),
+          (an[Ja] = "rgba(255, 255, 255, 1)"),
+          (an.default = "rgba(255, 255, 255, 1)"),
           an),
-        frontierProgressBarColorTrack:
+        frontierProgressBarColorSecondary:
           ((ln = {}),
-          (ln[Ya] = "rgba(43, 61, 70, 1)"),
-          (ln.default = "rgba(230, 235, 239, 1)"),
+          (ln[Ja] = "rgba(150, 166, 180, 1)"),
+          (ln.default = "rgba(93, 108, 123, 1)"),
           ln),
-        frontierProgressBarColorWarning:
+        frontierProgressBarColorTrack:
           ((sn = {}),
-          (sn[Ya] = "rgba(214, 152, 4, 1)"),
-          (sn.default = "rgba(150, 94, 3, 1)"),
+          (sn[Ja] = "rgba(43, 61, 70, 1)"),
+          (sn.default = "rgba(230, 235, 239, 1)"),
           sn),
-        frontierProgressRingColorBrand:
+        frontierProgressBarColorWarning:
           ((un = {}),
-          (un[Ya] = "rgba(0, 100, 224, 1)"),
-          (un.default = "rgba(0, 100, 224, 1)"),
+          (un[Ja] = "rgba(214, 152, 4, 1)"),
+          (un.default = "rgba(150, 94, 3, 1)"),
           un),
-        frontierProgressRingColorDisabled:
+        frontierProgressRingColorBrand:
           ((cn = {}),
-          (cn[Ya] = "rgba(93, 108, 123, 1)"),
-          (cn.default = "rgba(150, 166, 180, 1)"),
+          (cn[Ja] = "rgba(0, 100, 224, 1)"),
+          (cn.default = "rgba(0, 100, 224, 1)"),
           cn),
-        frontierProgressRingColorNegative:
+        frontierProgressRingColorDisabled:
           ((dn = {}),
-          (dn[Ya] = "rgba(251, 125, 135, 1)"),
-          (dn.default = "rgba(211, 17, 48, 1)"),
+          (dn[Ja] = "rgba(93, 108, 123, 1)"),
+          (dn.default = "rgba(150, 166, 180, 1)"),
           dn),
-        frontierProgressRingColorPositive:
+        frontierProgressRingColorNegative:
           ((mn = {}),
-          (mn[Ya] = "rgba(60, 188, 34, 1)"),
-          (mn.default = "rgba(20, 123, 41, 1)"),
+          (mn[Ja] = "rgba(251, 125, 135, 1)"),
+          (mn.default = "rgba(211, 17, 48, 1)"),
           mn),
-        frontierProgressRingColorPrimary:
+        frontierProgressRingColorPositive:
           ((pn = {}),
-          (pn[Ya] = "rgba(241, 244, 247, 1)"),
-          (pn.default = "rgba(10, 19, 23, 1)"),
+          (pn[Ja] = "rgba(60, 188, 34, 1)"),
+          (pn.default = "rgba(20, 123, 41, 1)"),
           pn),
-        frontierProgressRingColorPrimaryOnMedia:
+        frontierProgressRingColorPrimary:
           ((_n = {}),
-          (_n[Ya] = "rgba(255, 255, 255, 1)"),
-          (_n.default = "rgba(255, 255, 255, 1)"),
+          (_n[Ja] = "rgba(241, 244, 247, 1)"),
+          (_n.default = "rgba(10, 19, 23, 1)"),
           _n),
-        frontierProgressRingColorSecondary:
+        frontierProgressRingColorPrimaryOnMedia:
           ((fn = {}),
-          (fn[Ya] = "rgba(150, 166, 180, 1)"),
-          (fn.default = "rgba(93, 108, 123, 1)"),
+          (fn[Ja] = "rgba(255, 255, 255, 1)"),
+          (fn.default = "rgba(255, 255, 255, 1)"),
           fn),
-        frontierProgressRingColorTrack:
+        frontierProgressRingColorSecondary:
           ((gn = {}),
-          (gn[Ya] = "rgba(43, 61, 70, 1)"),
-          (gn.default = "rgba(230, 235, 239, 1)"),
+          (gn[Ja] = "rgba(150, 166, 180, 1)"),
+          (gn.default = "rgba(93, 108, 123, 1)"),
           gn),
-        frontierProgressRingColorWarning:
+        frontierProgressRingColorTrack:
           ((hn = {}),
-          (hn[Ya] = "rgba(214, 152, 4, 1)"),
-          (hn.default = "rgba(150, 94, 3, 1)"),
+          (hn[Ja] = "rgba(43, 61, 70, 1)"),
+          (hn.default = "rgba(230, 235, 239, 1)"),
           hn),
-        frontierRadioColorSelectedBackground:
+        frontierProgressRingColorWarning:
           ((yn = {}),
-          (yn[Ya] = "rgba(0, 0, 0, 0)"),
-          (yn.default = "rgba(255, 255, 255, 0)"),
+          (yn[Ja] = "rgba(214, 152, 4, 1)"),
+          (yn.default = "rgba(150, 94, 3, 1)"),
           yn),
-        frontierRadioColorSelectedBorder:
+        frontierRadioColorSelectedBackground:
           ((Cn = {}),
-          (Cn[Ya] = "rgba(0, 130, 251, 1)"),
-          (Cn.default = "rgba(0, 130, 251, 1)"),
+          (Cn[Ja] = "rgba(0, 0, 0, 0)"),
+          (Cn.default = "rgba(255, 255, 255, 0)"),
           Cn),
-        frontierRadioColorSelectedCheck:
+        frontierRadioColorSelectedBorder:
           ((bn = {}),
-          (bn[Ya] = "rgba(0, 130, 251, 1)"),
+          (bn[Ja] = "rgba(0, 130, 251, 1)"),
           (bn.default = "rgba(0, 130, 251, 1)"),
           bn),
-        frontierRadioColorSelectedDisabledBackground:
+        frontierRadioColorSelectedCheck:
           ((vn = {}),
-          (vn[Ya] = "rgba(0, 0, 0, 0)"),
-          (vn.default = "rgba(255, 255, 255, 0)"),
+          (vn[Ja] = "rgba(0, 130, 251, 1)"),
+          (vn.default = "rgba(0, 130, 251, 1)"),
           vn),
-        frontierRadioColorSelectedDisabledBorder:
+        frontierRadioColorSelectedDisabledBackground:
           ((Sn = {}),
-          (Sn[Ya] = "rgba(0, 130, 251, 0.4)"),
-          (Sn.default = "rgba(0, 130, 251, 0.4)"),
+          (Sn[Ja] = "rgba(0, 0, 0, 0)"),
+          (Sn.default = "rgba(255, 255, 255, 0)"),
           Sn),
-        frontierRadioColorSelectedDisabledCheck:
+        frontierRadioColorSelectedDisabledBorder:
           ((Rn = {}),
-          (Rn[Ya] = "rgba(0, 130, 251, 0.4)"),
+          (Rn[Ja] = "rgba(0, 130, 251, 0.4)"),
           (Rn.default = "rgba(0, 130, 251, 0.4)"),
           Rn),
-        frontierRadioColorUnselectedBackground:
+        frontierRadioColorSelectedDisabledCheck:
           ((Ln = {}),
-          (Ln[Ya] = "rgba(0, 0, 0, 0)"),
-          (Ln.default = "rgba(255, 255, 255, 0)"),
+          (Ln[Ja] = "rgba(0, 130, 251, 0.4)"),
+          (Ln.default = "rgba(0, 130, 251, 0.4)"),
           Ln),
-        frontierRadioColorUnselectedBorder:
+        frontierRadioColorUnselectedBackground:
           ((En = {}),
-          (En[Ya] = "rgba(116, 134, 149, 1)"),
-          (En.default = "rgba(132, 148, 163, 1)"),
+          (En[Ja] = "rgba(0, 0, 0, 0)"),
+          (En.default = "rgba(255, 255, 255, 0)"),
           En),
-        frontierRadioColorUnselectedDisabledBackground:
+        frontierRadioColorUnselectedBorder:
           ((kn = {}),
-          (kn[Ya] = "rgba(0, 0, 0, 0)"),
-          (kn.default = "rgba(255, 255, 255, 0)"),
+          (kn[Ja] = "rgba(116, 134, 149, 1)"),
+          (kn.default = "rgba(132, 148, 163, 1)"),
           kn),
-        frontierRadioColorUnselectedDisabledBorder:
+        frontierRadioColorUnselectedDisabledBackground:
           ((In = {}),
-          (In[Ya] = "rgba(116, 134, 149, 1)"),
-          (In.default = "rgba(132, 148, 163, 0.4)"),
+          (In[Ja] = "rgba(0, 0, 0, 0)"),
+          (In.default = "rgba(255, 255, 255, 0)"),
           In),
-        frontierSearchfieldColorBackground:
+        frontierRadioColorUnselectedDisabledBorder:
           ((Tn = {}),
-          (Tn[Ya] = "rgba(28, 43, 51, 1)"),
-          (Tn.default = "rgba(241, 244, 247, 1)"),
+          (Tn[Ja] = "rgba(116, 134, 149, 1)"),
+          (Tn.default = "rgba(132, 148, 163, 0.4)"),
           Tn),
-        frontierSearchfieldColorBorder:
+        frontierSearchfieldColorBackground:
           ((Dn = {}),
-          (Dn[Ya] = "rgba(28, 43, 51, 1)"),
+          (Dn[Ja] = "rgba(28, 43, 51, 1)"),
           (Dn.default = "rgba(241, 244, 247, 1)"),
           Dn),
-        frontierSearchfieldColorDefaultIconLeft:
+        frontierSearchfieldColorBorder:
           ((xn = {}),
-          (xn[Ya] = "rgba(150, 166, 180, 1)"),
-          (xn.default = "rgba(93, 108, 123, 1)"),
+          (xn[Ja] = "rgba(28, 43, 51, 1)"),
+          (xn.default = "rgba(241, 244, 247, 1)"),
           xn),
-        frontierSearchfieldColorDefaultIconRight:
+        frontierSearchfieldColorDefaultIconLeft:
           (($n = {}),
-          ($n[Ya] = "rgba(150, 166, 180, 1)"),
+          ($n[Ja] = "rgba(150, 166, 180, 1)"),
           ($n.default = "rgba(93, 108, 123, 1)"),
           $n),
-        frontierSearchfieldColorDefaultPlaceholder:
+        frontierSearchfieldColorDefaultIconRight:
           ((Pn = {}),
-          (Pn[Ya] = "rgba(150, 166, 180, 1)"),
+          (Pn[Ja] = "rgba(150, 166, 180, 1)"),
           (Pn.default = "rgba(93, 108, 123, 1)"),
           Pn),
-        frontierSearchfieldColorDisabledIconLeft:
+        frontierSearchfieldColorDefaultPlaceholder:
           ((Nn = {}),
-          (Nn[Ya] = "rgba(150, 166, 180, 1)"),
+          (Nn[Ja] = "rgba(150, 166, 180, 1)"),
           (Nn.default = "rgba(93, 108, 123, 1)"),
           Nn),
-        frontierSearchfieldColorDisabledIconRight:
+        frontierSearchfieldColorDisabledIconLeft:
           ((Mn = {}),
-          (Mn[Ya] = "rgba(150, 166, 180, 1)"),
+          (Mn[Ja] = "rgba(150, 166, 180, 1)"),
           (Mn.default = "rgba(93, 108, 123, 1)"),
           Mn),
-        frontierSearchfieldColorDisabledText:
+        frontierSearchfieldColorDisabledIconRight:
           ((wn = {}),
-          (wn[Ya] = "rgba(150, 166, 180, 1)"),
+          (wn[Ja] = "rgba(150, 166, 180, 1)"),
           (wn.default = "rgba(93, 108, 123, 1)"),
           wn),
-        frontierSearchfieldColorFocusIconLeft:
+        frontierSearchfieldColorDisabledText:
           ((An = {}),
-          (An[Ya] = "rgba(150, 166, 180, 1)"),
+          (An[Ja] = "rgba(150, 166, 180, 1)"),
           (An.default = "rgba(93, 108, 123, 1)"),
           An),
-        frontierSearchfieldColorFocusIconRight:
+        frontierSearchfieldColorFocusIconLeft:
           ((Fn = {}),
-          (Fn[Ya] = "rgba(150, 166, 180, 1)"),
+          (Fn[Ja] = "rgba(150, 166, 180, 1)"),
           (Fn.default = "rgba(93, 108, 123, 1)"),
           Fn),
-        frontierSearchfieldColorFocusPlaceholder:
+        frontierSearchfieldColorFocusIconRight:
           ((On = {}),
-          (On[Ya] = "rgba(150, 166, 180, 1)"),
+          (On[Ja] = "rgba(150, 166, 180, 1)"),
           (On.default = "rgba(93, 108, 123, 1)"),
           On),
-        frontierSearchfieldColorFocusText:
+        frontierSearchfieldColorFocusPlaceholder:
           ((Bn = {}),
-          (Bn[Ya] = "rgba(241, 244, 247, 1)"),
-          (Bn.default = "rgba(10, 19, 23, 1)"),
+          (Bn[Ja] = "rgba(150, 166, 180, 1)"),
+          (Bn.default = "rgba(93, 108, 123, 1)"),
           Bn),
-        frontierSearchfieldColorResultIconLeft:
+        frontierSearchfieldColorFocusText:
           ((Wn = {}),
-          (Wn[Ya] = "rgba(150, 166, 180, 1)"),
-          (Wn.default = "rgba(93, 108, 123, 1)"),
+          (Wn[Ja] = "rgba(241, 244, 247, 1)"),
+          (Wn.default = "rgba(10, 19, 23, 1)"),
           Wn),
-        frontierSearchfieldColorResultIconRight:
+        frontierSearchfieldColorResultIconLeft:
           ((qn = {}),
-          (qn[Ya] = "rgba(150, 166, 180, 1)"),
+          (qn[Ja] = "rgba(150, 166, 180, 1)"),
           (qn.default = "rgba(93, 108, 123, 1)"),
           qn),
-        frontierSearchfieldColorResultText:
+        frontierSearchfieldColorResultIconRight:
           ((Un = {}),
-          (Un[Ya] = "rgba(241, 244, 247, 1)"),
-          (Un.default = "rgba(10, 19, 23, 1)"),
+          (Un[Ja] = "rgba(150, 166, 180, 1)"),
+          (Un.default = "rgba(93, 108, 123, 1)"),
           Un),
-        frontierSearchfieldColorTypingIconLeft:
+        frontierSearchfieldColorResultText:
           ((Vn = {}),
-          (Vn[Ya] = "rgba(150, 166, 180, 1)"),
-          (Vn.default = "rgba(93, 108, 123, 1)"),
+          (Vn[Ja] = "rgba(241, 244, 247, 1)"),
+          (Vn.default = "rgba(10, 19, 23, 1)"),
           Vn),
-        frontierSearchfieldColorTypingIconRight:
+        frontierSearchfieldColorTypingIconLeft:
           ((Hn = {}),
-          (Hn[Ya] = "rgba(150, 166, 180, 1)"),
+          (Hn[Ja] = "rgba(150, 166, 180, 1)"),
           (Hn.default = "rgba(93, 108, 123, 1)"),
           Hn),
-        frontierSearchfieldColorTypingText:
+        frontierSearchfieldColorTypingIconRight:
           ((Gn = {}),
-          (Gn[Ya] = "rgba(241, 244, 247, 1)"),
-          (Gn.default = "rgba(10, 19, 23, 1)"),
+          (Gn[Ja] = "rgba(150, 166, 180, 1)"),
+          (Gn.default = "rgba(93, 108, 123, 1)"),
           Gn),
-        frontierSelectinputColorEmptyBackground:
+        frontierSearchfieldColorTypingText:
           ((zn = {}),
-          (zn[Ya] = "rgba(21, 33, 39, 1)"),
-          (zn.default = "rgba(255, 255, 255, 1)"),
+          (zn[Ja] = "rgba(241, 244, 247, 1)"),
+          (zn.default = "rgba(10, 19, 23, 1)"),
           zn),
-        frontierSelectinputColorEmptyBorder:
+        frontierSelectinputColorEmptyBackground:
           ((jn = {}),
-          (jn[Ya] = "rgba(61, 79, 92, 1)"),
-          (jn.default = "rgba(221, 226, 232, 1)"),
+          (jn[Ja] = "rgba(21, 33, 39, 1)"),
+          (jn.default = "rgba(255, 255, 255, 1)"),
           jn),
-        frontierSelectinputColorEmptyHelper:
+        frontierSelectinputColorEmptyBorder:
           ((Kn = {}),
-          (Kn[Ya] = "rgba(93, 108, 123, 1)"),
-          (Kn.default = "rgba(93, 108, 123, 1)"),
+          (Kn[Ja] = "rgba(61, 79, 92, 1)"),
+          (Kn.default = "rgba(221, 226, 232, 1)"),
           Kn),
-        frontierSelectinputColorEmptyInput:
+        frontierSelectinputColorEmptyHelper:
           ((Qn = {}),
-          (Qn[Ya] = "rgba(241, 244, 247, 1)"),
-          (Qn.default = "rgba(10, 19, 23, 1)"),
+          (Qn[Ja] = "rgba(93, 108, 123, 1)"),
+          (Qn.default = "rgba(93, 108, 123, 1)"),
           Qn),
-        frontierSelectinputColorEmptyLabel:
+        frontierSelectinputColorEmptyInput:
           ((Xn = {}),
-          (Xn[Ya] = "rgba(150, 166, 180, 1)"),
-          (Xn.default = "rgba(93, 108, 123, 1)"),
+          (Xn[Ja] = "rgba(241, 244, 247, 1)"),
+          (Xn.default = "rgba(10, 19, 23, 1)"),
           Xn),
-        frontierSelectinputColorEmptyValidationBackground:
+        frontierSelectinputColorEmptyLabel:
           ((Yn = {}),
-          (Yn[Ya] = "rgba(21, 33, 39, 1)"),
-          (Yn.default = "rgba(255, 255, 255, 1)"),
+          (Yn[Ja] = "rgba(150, 166, 180, 1)"),
+          (Yn.default = "rgba(93, 108, 123, 1)"),
           Yn),
-        frontierSelectinputColorEmptyValidationBorder:
+        frontierSelectinputColorEmptyValidationBackground:
           ((Jn = {}),
-          (Jn[Ya] = "rgba(251, 125, 135, 1)"),
-          (Jn.default = "rgba(211, 17, 48, 1)"),
+          (Jn[Ja] = "rgba(21, 33, 39, 1)"),
+          (Jn.default = "rgba(255, 255, 255, 1)"),
           Jn),
-        frontierSelectinputColorEmptyValidationHelper:
+        frontierSelectinputColorEmptyValidationBorder:
           ((Zn = {}),
-          (Zn[Ya] = "rgba(251, 125, 135, 1)"),
+          (Zn[Ja] = "rgba(251, 125, 135, 1)"),
           (Zn.default = "rgba(211, 17, 48, 1)"),
           Zn),
-        frontierSelectinputColorEmptyValidationIconRight:
+        frontierSelectinputColorEmptyValidationHelper:
           ((er = {}),
-          (er[Ya] = "rgba(251, 125, 135, 1)"),
+          (er[Ja] = "rgba(251, 125, 135, 1)"),
           (er.default = "rgba(211, 17, 48, 1)"),
           er),
-        frontierSelectinputColorEmptyValidationInput:
+        frontierSelectinputColorEmptyValidationIconRight:
           ((tr = {}),
-          (tr[Ya] = "rgba(241, 244, 247, 1)"),
-          (tr.default = "rgba(10, 19, 23, 1)"),
+          (tr[Ja] = "rgba(251, 125, 135, 1)"),
+          (tr.default = "rgba(211, 17, 48, 1)"),
           tr),
-        frontierSelectinputColorEmptyValidationLabel:
+        frontierSelectinputColorEmptyValidationInput:
           ((nr = {}),
-          (nr[Ya] = "rgba(251, 125, 135, 1)"),
-          (nr.default = "rgba(211, 17, 48, 1)"),
+          (nr[Ja] = "rgba(241, 244, 247, 1)"),
+          (nr.default = "rgba(10, 19, 23, 1)"),
           nr),
-        frontierSelectinputColorFilledBackground:
+        frontierSelectinputColorEmptyValidationLabel:
           ((rr = {}),
-          (rr[Ya] = "rgba(21, 33, 39, 1)"),
-          (rr.default = "rgba(255, 255, 255, 1)"),
+          (rr[Ja] = "rgba(251, 125, 135, 1)"),
+          (rr.default = "rgba(211, 17, 48, 1)"),
           rr),
-        frontierSelectinputColorFilledBorder:
+        frontierSelectinputColorFilledBackground:
           ((or = {}),
-          (or[Ya] = "rgba(61, 79, 92, 1)"),
-          (or.default = "rgba(221, 226, 232, 1)"),
+          (or[Ja] = "rgba(21, 33, 39, 1)"),
+          (or.default = "rgba(255, 255, 255, 1)"),
           or),
-        frontierSelectinputColorFilledDisabledBackground:
+        frontierSelectinputColorFilledBorder:
           ((ar = {}),
-          (ar[Ya] = "rgba(10, 19, 23, 1)"),
-          (ar.default = "rgba(241, 244, 247, 1)"),
+          (ar[Ja] = "rgba(61, 79, 92, 1)"),
+          (ar.default = "rgba(221, 226, 232, 1)"),
           ar),
-        frontierSelectinputColorFilledDisabledBorder:
+        frontierSelectinputColorFilledDisabledBackground:
           ((ir = {}),
-          (ir[Ya] = "rgba(61, 79, 92, 1)"),
-          (ir.default = "rgba(221, 226, 232, 1)"),
+          (ir[Ja] = "rgba(10, 19, 23, 1)"),
+          (ir.default = "rgba(241, 244, 247, 1)"),
           ir),
-        frontierSelectinputColorFilledDisabledHelper:
+        frontierSelectinputColorFilledDisabledBorder:
           ((lr = {}),
-          (lr[Ya] = "rgba(93, 108, 123, 1)"),
-          (lr.default = "rgba(93, 108, 123, 1)"),
+          (lr[Ja] = "rgba(61, 79, 92, 1)"),
+          (lr.default = "rgba(221, 226, 232, 1)"),
           lr),
-        frontierSelectinputColorFilledDisabledInput:
+        frontierSelectinputColorFilledDisabledHelper:
           ((sr = {}),
-          (sr[Ya] = "rgba(150, 166, 180, 1)"),
+          (sr[Ja] = "rgba(93, 108, 123, 1)"),
           (sr.default = "rgba(93, 108, 123, 1)"),
           sr),
-        frontierSelectinputColorFilledDisabledLabel:
+        frontierSelectinputColorFilledDisabledInput:
           ((ur = {}),
-          (ur[Ya] = "rgba(150, 166, 180, 1)"),
+          (ur[Ja] = "rgba(150, 166, 180, 1)"),
           (ur.default = "rgba(93, 108, 123, 1)"),
           ur),
-        frontierSelectinputColorFilledHelper:
+        frontierSelectinputColorFilledDisabledLabel:
           ((cr = {}),
-          (cr[Ya] = "rgba(93, 108, 123, 1)"),
+          (cr[Ja] = "rgba(150, 166, 180, 1)"),
           (cr.default = "rgba(93, 108, 123, 1)"),
           cr),
-        frontierSelectinputColorFilledInput:
+        frontierSelectinputColorFilledHelper:
           ((dr = {}),
-          (dr[Ya] = "rgba(241, 244, 247, 1)"),
-          (dr.default = "rgba(10, 19, 23, 1)"),
+          (dr[Ja] = "rgba(93, 108, 123, 1)"),
+          (dr.default = "rgba(93, 108, 123, 1)"),
           dr),
-        frontierSelectinputColorFilledLabel:
+        frontierSelectinputColorFilledInput:
           ((mr = {}),
-          (mr[Ya] = "rgba(150, 166, 180, 1)"),
-          (mr.default = "rgba(93, 108, 123, 1)"),
+          (mr[Ja] = "rgba(241, 244, 247, 1)"),
+          (mr.default = "rgba(10, 19, 23, 1)"),
           mr),
-        frontierSelectinputColorFocusedBackground:
+        frontierSelectinputColorFilledLabel:
           ((pr = {}),
-          (pr[Ya] = "rgba(21, 33, 39, 1)"),
-          (pr.default = "rgba(255, 255, 255, 1)"),
+          (pr[Ja] = "rgba(150, 166, 180, 1)"),
+          (pr.default = "rgba(93, 108, 123, 1)"),
           pr),
-        frontierSelectinputColorFocusedBorder:
+        frontierSelectinputColorFocusedBackground:
           ((_r = {}),
-          (_r[Ya] = "rgba(150, 166, 180, 1)"),
-          (_r.default = "rgba(93, 108, 123, 1)"),
+          (_r[Ja] = "rgba(21, 33, 39, 1)"),
+          (_r.default = "rgba(255, 255, 255, 1)"),
           _r),
-        frontierSelectinputColorFocusedHelper:
+        frontierSelectinputColorFocusedBorder:
           ((fr = {}),
-          (fr[Ya] = "rgba(93, 108, 123, 1)"),
+          (fr[Ja] = "rgba(150, 166, 180, 1)"),
           (fr.default = "rgba(93, 108, 123, 1)"),
           fr),
-        frontierSelectinputColorFocusedIconRight:
+        frontierSelectinputColorFocusedHelper:
           ((gr = {}),
-          (gr[Ya] = "rgba(150, 166, 180, 1)"),
+          (gr[Ja] = "rgba(93, 108, 123, 1)"),
           (gr.default = "rgba(93, 108, 123, 1)"),
           gr),
-        frontierSelectinputColorFocusedInput:
+        frontierSelectinputColorFocusedIconRight:
           ((hr = {}),
-          (hr[Ya] = "rgba(241, 244, 247, 1)"),
-          (hr.default = "rgba(10, 19, 23, 1)"),
+          (hr[Ja] = "rgba(150, 166, 180, 1)"),
+          (hr.default = "rgba(93, 108, 123, 1)"),
           hr),
-        frontierSelectinputColorFocusedLabel:
+        frontierSelectinputColorFocusedInput:
           ((yr = {}),
-          (yr[Ya] = "rgba(150, 166, 180, 1)"),
-          (yr.default = "rgba(93, 108, 123, 1)"),
+          (yr[Ja] = "rgba(241, 244, 247, 1)"),
+          (yr.default = "rgba(10, 19, 23, 1)"),
           yr),
-        frontierSelectinputColorSuccessBackground:
+        frontierSelectinputColorFocusedLabel:
           ((Cr = {}),
-          (Cr[Ya] = "rgba(21, 33, 39, 1)"),
-          (Cr.default = "rgba(255, 255, 255, 1)"),
+          (Cr[Ja] = "rgba(150, 166, 180, 1)"),
+          (Cr.default = "rgba(93, 108, 123, 1)"),
           Cr),
-        frontierSelectinputColorSuccessBorder:
+        frontierSelectinputColorSuccessBackground:
           ((br = {}),
-          (br[Ya] = "rgba(61, 79, 92, 1)"),
-          (br.default = "rgba(221, 226, 232, 1)"),
+          (br[Ja] = "rgba(21, 33, 39, 1)"),
+          (br.default = "rgba(255, 255, 255, 1)"),
           br),
-        frontierSelectinputColorSuccessFocusedBackground:
+        frontierSelectinputColorSuccessBorder:
           ((vr = {}),
-          (vr[Ya] = "rgba(21, 33, 39, 1)"),
-          (vr.default = "rgba(255, 255, 255, 1)"),
+          (vr[Ja] = "rgba(61, 79, 92, 1)"),
+          (vr.default = "rgba(221, 226, 232, 1)"),
           vr),
-        frontierSelectinputColorSuccessFocusedBorder:
+        frontierSelectinputColorSuccessFocusedBackground:
           ((Sr = {}),
-          (Sr[Ya] = "rgba(61, 79, 92, 1)"),
-          (Sr.default = "rgba(93, 108, 123, 1)"),
+          (Sr[Ja] = "rgba(21, 33, 39, 1)"),
+          (Sr.default = "rgba(255, 255, 255, 1)"),
           Sr),
-        frontierSelectinputColorSuccessFocusedHelper:
+        frontierSelectinputColorSuccessFocusedBorder:
           ((Rr = {}),
-          (Rr[Ya] = "rgba(93, 108, 123, 1)"),
+          (Rr[Ja] = "rgba(61, 79, 92, 1)"),
           (Rr.default = "rgba(93, 108, 123, 1)"),
           Rr),
-        frontierSelectinputColorSuccessFocusedIconRight:
+        frontierSelectinputColorSuccessFocusedHelper:
           ((Lr = {}),
-          (Lr[Ya] = "rgba(20, 123, 41, 1)"),
-          (Lr.default = "rgba(20, 123, 41, 1)"),
+          (Lr[Ja] = "rgba(93, 108, 123, 1)"),
+          (Lr.default = "rgba(93, 108, 123, 1)"),
           Lr),
-        frontierSelectinputColorSuccessFocusedInput:
+        frontierSelectinputColorSuccessFocusedIconRight:
           ((Er = {}),
-          (Er[Ya] = "rgba(241, 244, 247, 1)"),
-          (Er.default = "rgba(10, 19, 23, 1)"),
+          (Er[Ja] = "rgba(20, 123, 41, 1)"),
+          (Er.default = "rgba(20, 123, 41, 1)"),
           Er),
-        frontierSelectinputColorSuccessFocusedLabel:
+        frontierSelectinputColorSuccessFocusedInput:
           ((kr = {}),
-          (kr[Ya] = "rgba(150, 166, 180, 1)"),
-          (kr.default = "rgba(93, 108, 123, 1)"),
+          (kr[Ja] = "rgba(241, 244, 247, 1)"),
+          (kr.default = "rgba(10, 19, 23, 1)"),
           kr),
-        frontierSelectinputColorSuccessHelper:
+        frontierSelectinputColorSuccessFocusedLabel:
           ((Ir = {}),
-          (Ir[Ya] = "rgba(93, 108, 123, 1)"),
+          (Ir[Ja] = "rgba(150, 166, 180, 1)"),
           (Ir.default = "rgba(93, 108, 123, 1)"),
           Ir),
-        frontierSelectinputColorSuccessIconRight:
+        frontierSelectinputColorSuccessHelper:
           ((Tr = {}),
-          (Tr[Ya] = "rgba(20, 123, 41, 1)"),
-          (Tr.default = "rgba(20, 123, 41, 1)"),
+          (Tr[Ja] = "rgba(93, 108, 123, 1)"),
+          (Tr.default = "rgba(93, 108, 123, 1)"),
           Tr),
-        frontierSelectinputColorSuccessInput:
+        frontierSelectinputColorSuccessIconRight:
           ((Dr = {}),
-          (Dr[Ya] = "rgba(241, 244, 247, 1)"),
-          (Dr.default = "rgba(10, 19, 23, 1)"),
+          (Dr[Ja] = "rgba(20, 123, 41, 1)"),
+          (Dr.default = "rgba(20, 123, 41, 1)"),
           Dr),
-        frontierSelectinputColorSuccessLabel:
+        frontierSelectinputColorSuccessInput:
           ((xr = {}),
-          (xr[Ya] = "rgba(150, 166, 180, 1)"),
-          (xr.default = "rgba(93, 108, 123, 1)"),
+          (xr[Ja] = "rgba(241, 244, 247, 1)"),
+          (xr.default = "rgba(10, 19, 23, 1)"),
           xr),
-        frontierSelectinputColorValidationBackground:
+        frontierSelectinputColorSuccessLabel:
           (($r = {}),
-          ($r[Ya] = "rgba(21, 33, 39, 1)"),
-          ($r.default = "rgba(255, 255, 255, 1)"),
+          ($r[Ja] = "rgba(150, 166, 180, 1)"),
+          ($r.default = "rgba(93, 108, 123, 1)"),
           $r),
-        frontierSelectinputColorValidationBorder:
+        frontierSelectinputColorValidationBackground:
           ((Pr = {}),
-          (Pr[Ya] = "rgba(251, 125, 135, 1)"),
-          (Pr.default = "rgba(211, 17, 48, 1)"),
+          (Pr[Ja] = "rgba(21, 33, 39, 1)"),
+          (Pr.default = "rgba(255, 255, 255, 1)"),
           Pr),
-        frontierSelectinputColorValidationHelper:
+        frontierSelectinputColorValidationBorder:
           ((Nr = {}),
-          (Nr[Ya] = "rgba(251, 125, 135, 1)"),
+          (Nr[Ja] = "rgba(251, 125, 135, 1)"),
           (Nr.default = "rgba(211, 17, 48, 1)"),
           Nr),
-        frontierSelectinputColorValidationIconRight:
+        frontierSelectinputColorValidationHelper:
           ((Mr = {}),
-          (Mr[Ya] = "rgba(251, 125, 135, 1)"),
+          (Mr[Ja] = "rgba(251, 125, 135, 1)"),
           (Mr.default = "rgba(211, 17, 48, 1)"),
           Mr),
-        frontierSelectinputColorValidationInput:
+        frontierSelectinputColorValidationIconRight:
           ((wr = {}),
-          (wr[Ya] = "rgba(241, 244, 247, 1)"),
-          (wr.default = "rgba(10, 19, 23, 1)"),
+          (wr[Ja] = "rgba(251, 125, 135, 1)"),
+          (wr.default = "rgba(211, 17, 48, 1)"),
           wr),
-        frontierSelectinputColorValidationLabel:
+        frontierSelectinputColorValidationInput:
           ((Ar = {}),
-          (Ar[Ya] = "rgba(251, 125, 135, 1)"),
-          (Ar.default = "rgba(211, 17, 48, 1)"),
+          (Ar[Ja] = "rgba(241, 244, 247, 1)"),
+          (Ar.default = "rgba(10, 19, 23, 1)"),
           Ar),
+        frontierSelectinputColorValidationLabel:
+          ((Fr = {}),
+          (Fr[Ja] = "rgba(251, 125, 135, 1)"),
+          (Fr.default = "rgba(211, 17, 48, 1)"),
+          Fr),
         frontierShimmer:
-          ((Fr = {}), (Fr[Ya] = "#dbdbdb"), (Fr.default = "#262626"), Fr),
+          ((Or = {}), (Or[Ja] = "#dbdbdb"), (Or.default = "#262626"), Or),
         frontierSpinnerColorBrand:
-          ((Or = {}),
-          (Or[Ya] = "rgba(0, 100, 224, 1)"),
-          (Or.default = "rgba(0, 100, 224, 1)"),
-          Or),
-        frontierSpinnerColorInverse:
           ((Br = {}),
-          (Br[Ya] = "rgba(10, 19, 23, 1)"),
-          (Br.default = "rgba(241, 244, 247, 1)"),
+          (Br[Ja] = "rgba(0, 100, 224, 1)"),
+          (Br.default = "rgba(0, 100, 224, 1)"),
           Br),
-        frontierSpinnerColorPrimary:
+        frontierSpinnerColorInverse:
           ((Wr = {}),
-          (Wr[Ya] = "rgba(241, 244, 247, 1)"),
-          (Wr.default = "rgba(10, 19, 23, 1)"),
+          (Wr[Ja] = "rgba(10, 19, 23, 1)"),
+          (Wr.default = "rgba(241, 244, 247, 1)"),
           Wr),
-        frontierSpinnerColorPrimaryOnMedia:
+        frontierSpinnerColorPrimary:
           ((qr = {}),
-          (qr[Ya] = "rgba(255, 255, 255, 1)"),
-          (qr.default = "rgba(255, 255, 255, 1)"),
+          (qr[Ja] = "rgba(241, 244, 247, 1)"),
+          (qr.default = "rgba(10, 19, 23, 1)"),
           qr),
-        frontierSpinnerColorSecondary:
+        frontierSpinnerColorPrimaryOnMedia:
           ((Ur = {}),
-          (Ur[Ya] = "rgba(150, 166, 180, 1)"),
-          (Ur.default = "rgba(93, 108, 123, 1)"),
+          (Ur[Ja] = "rgba(255, 255, 255, 1)"),
+          (Ur.default = "rgba(255, 255, 255, 1)"),
           Ur),
-        frontierStepperColorBrand:
+        frontierSpinnerColorSecondary:
           ((Vr = {}),
-          (Vr[Ya] = "rgba(0, 100, 224, 1)"),
-          (Vr.default = "rgba(0, 100, 224, 1)"),
+          (Vr[Ja] = "rgba(150, 166, 180, 1)"),
+          (Vr.default = "rgba(93, 108, 123, 1)"),
           Vr),
-        frontierStepperColorDisabled:
+        frontierStepperColorBrand:
           ((Hr = {}),
-          (Hr[Ya] = "rgba(93, 108, 123, 1)"),
-          (Hr.default = "rgba(150, 166, 180, 1)"),
+          (Hr[Ja] = "rgba(0, 100, 224, 1)"),
+          (Hr.default = "rgba(0, 100, 224, 1)"),
           Hr),
-        frontierStepperColorNegative:
+        frontierStepperColorDisabled:
           ((Gr = {}),
-          (Gr[Ya] = "rgba(251, 125, 135, 1)"),
-          (Gr.default = "rgba(211, 17, 48, 1)"),
+          (Gr[Ja] = "rgba(93, 108, 123, 1)"),
+          (Gr.default = "rgba(150, 166, 180, 1)"),
           Gr),
-        frontierStepperColorPositive:
+        frontierStepperColorNegative:
           ((zr = {}),
-          (zr[Ya] = "rgba(60, 188, 34, 1)"),
-          (zr.default = "rgba(20, 123, 41, 1)"),
+          (zr[Ja] = "rgba(251, 125, 135, 1)"),
+          (zr.default = "rgba(211, 17, 48, 1)"),
           zr),
-        frontierStepperColorPrimary:
+        frontierStepperColorPositive:
           ((jr = {}),
-          (jr[Ya] = "rgba(241, 244, 247, 1)"),
-          (jr.default = "rgba(10, 19, 23, 1)"),
+          (jr[Ja] = "rgba(60, 188, 34, 1)"),
+          (jr.default = "rgba(20, 123, 41, 1)"),
           jr),
-        frontierStepperColorPrimaryOnMedia:
+        frontierStepperColorPrimary:
           ((Kr = {}),
-          (Kr[Ya] = "rgba(255, 255, 255, 1)"),
-          (Kr.default = "rgba(255, 255, 255, 1)"),
+          (Kr[Ja] = "rgba(241, 244, 247, 1)"),
+          (Kr.default = "rgba(10, 19, 23, 1)"),
           Kr),
-        frontierStepperColorSecondary:
+        frontierStepperColorPrimaryOnMedia:
           ((Qr = {}),
-          (Qr[Ya] = "rgba(150, 166, 180, 1)"),
-          (Qr.default = "rgba(93, 108, 123, 1)"),
+          (Qr[Ja] = "rgba(255, 255, 255, 1)"),
+          (Qr.default = "rgba(255, 255, 255, 1)"),
           Qr),
-        frontierStepperColorWarning:
+        frontierStepperColorSecondary:
           ((Xr = {}),
-          (Xr[Ya] = "rgba(214, 152, 4, 1)"),
-          (Xr.default = "rgba(150, 94, 3, 1)"),
+          (Xr[Ja] = "rgba(150, 166, 180, 1)"),
+          (Xr.default = "rgba(93, 108, 123, 1)"),
           Xr),
-        frontierSwitchColorHandleSelectedBackground:
+        frontierStepperColorWarning:
           ((Yr = {}),
-          (Yr[Ya] = "rgba(255, 255, 255, 1)"),
-          (Yr.default = "rgba(255, 255, 255, 1)"),
+          (Yr[Ja] = "rgba(214, 152, 4, 1)"),
+          (Yr.default = "rgba(150, 94, 3, 1)"),
           Yr),
-        frontierSwitchColorHandleSelectedBorder:
+        frontierSwitchColorHandleSelectedBackground:
           ((Jr = {}),
-          (Jr[Ya] = "rgba(255, 255, 255, 1)"),
+          (Jr[Ja] = "rgba(255, 255, 255, 1)"),
           (Jr.default = "rgba(255, 255, 255, 1)"),
           Jr),
-        frontierSwitchColorHandleSelectedDisabledBackground:
+        frontierSwitchColorHandleSelectedBorder:
           ((Zr = {}),
-          (Zr[Ya] = "rgba(255, 255, 255, 1)"),
+          (Zr[Ja] = "rgba(255, 255, 255, 1)"),
           (Zr.default = "rgba(255, 255, 255, 1)"),
           Zr),
-        frontierSwitchColorHandleSelectedDisabledBorder:
+        frontierSwitchColorHandleSelectedDisabledBackground:
           ((eo = {}),
-          (eo[Ya] = "rgba(255, 255, 255, 1)"),
+          (eo[Ja] = "rgba(255, 255, 255, 1)"),
           (eo.default = "rgba(255, 255, 255, 1)"),
           eo),
-        frontierSwitchColorHandleUnselectedBackground:
+        frontierSwitchColorHandleSelectedDisabledBorder:
           ((to = {}),
-          (to[Ya] = "rgba(255, 255, 255, 1)"),
+          (to[Ja] = "rgba(255, 255, 255, 1)"),
           (to.default = "rgba(255, 255, 255, 1)"),
           to),
-        frontierSwitchColorHandleUnselectedBorder:
+        frontierSwitchColorHandleUnselectedBackground:
           ((no = {}),
-          (no[Ya] = "rgba(255, 255, 255, 1)"),
+          (no[Ja] = "rgba(255, 255, 255, 1)"),
           (no.default = "rgba(255, 255, 255, 1)"),
           no),
-        frontierSwitchColorHandleUnselectedDisabledBackground:
+        frontierSwitchColorHandleUnselectedBorder:
           ((ro = {}),
-          (ro[Ya] = "rgba(255, 255, 255, 1)"),
+          (ro[Ja] = "rgba(255, 255, 255, 1)"),
           (ro.default = "rgba(255, 255, 255, 1)"),
           ro),
-        frontierSwitchColorHandleUnselectedDisabledBorder:
+        frontierSwitchColorHandleUnselectedDisabledBackground:
           ((oo = {}),
-          (oo[Ya] = "rgba(255, 255, 255, 1)"),
+          (oo[Ja] = "rgba(255, 255, 255, 1)"),
           (oo.default = "rgba(255, 255, 255, 1)"),
           oo),
-        frontierSwitchColorTrackerSelectedBackground:
+        frontierSwitchColorHandleUnselectedDisabledBorder:
           ((ao = {}),
-          (ao[Ya] = "rgba(0, 130, 251, 1)"),
-          (ao.default = "rgba(0, 100, 224, 1)"),
+          (ao[Ja] = "rgba(255, 255, 255, 1)"),
+          (ao.default = "rgba(255, 255, 255, 1)"),
           ao),
-        frontierSwitchColorTrackerSelectedBorder:
+        frontierSwitchColorTrackerSelectedBackground:
           ((io = {}),
-          (io[Ya] = "rgba(0, 130, 251, 1)"),
+          (io[Ja] = "rgba(0, 130, 251, 1)"),
           (io.default = "rgba(0, 100, 224, 1)"),
           io),
-        frontierSwitchColorTrackerSelectedDisabledBackground:
+        frontierSwitchColorTrackerSelectedBorder:
           ((lo = {}),
-          (lo[Ya] = "rgba(0, 130, 251, 1)"),
+          (lo[Ja] = "rgba(0, 130, 251, 1)"),
           (lo.default = "rgba(0, 100, 224, 1)"),
           lo),
-        frontierSwitchColorTrackerSelectedDisabledBorder:
+        frontierSwitchColorTrackerSelectedDisabledBackground:
           ((so = {}),
-          (so[Ya] = "rgba(0, 130, 251, 1)"),
+          (so[Ja] = "rgba(0, 130, 251, 1)"),
           (so.default = "rgba(0, 100, 224, 1)"),
           so),
-        frontierSwitchColorTrackerUnselectedBackground:
+        frontierSwitchColorTrackerSelectedDisabledBorder:
           ((uo = {}),
-          (uo[Ya] = "rgba(93, 108, 123, 1)"),
-          (uo.default = "rgba(132, 148, 163, 1)"),
+          (uo[Ja] = "rgba(0, 130, 251, 1)"),
+          (uo.default = "rgba(0, 100, 224, 1)"),
           uo),
-        frontierSwitchColorTrackerUnselectedBorder:
+        frontierSwitchColorTrackerUnselectedBackground:
           ((co = {}),
-          (co[Ya] = "rgba(93, 108, 123, 1)"),
+          (co[Ja] = "rgba(93, 108, 123, 1)"),
           (co.default = "rgba(132, 148, 163, 1)"),
           co),
-        frontierSwitchColorTrackerUnselectedDisabledBackground:
+        frontierSwitchColorTrackerUnselectedBorder:
           ((mo = {}),
-          (mo[Ya] = "rgba(93, 108, 123, 1)"),
+          (mo[Ja] = "rgba(93, 108, 123, 1)"),
           (mo.default = "rgba(132, 148, 163, 1)"),
           mo),
-        frontierSwitchColorTrackerUnselectedDisabledBorder:
+        frontierSwitchColorTrackerUnselectedDisabledBackground:
           ((po = {}),
-          (po[Ya] = "rgba(93, 108, 123, 1)"),
+          (po[Ja] = "rgba(93, 108, 123, 1)"),
           (po.default = "rgba(132, 148, 163, 1)"),
           po),
-        frontierTableColorBackground:
+        frontierSwitchColorTrackerUnselectedDisabledBorder:
           ((_o = {}),
-          (_o[Ya] = "rgba(52, 72, 84, 1)"),
-          (_o.default = "rgba(255, 255, 255, 1)"),
+          (_o[Ja] = "rgba(93, 108, 123, 1)"),
+          (_o.default = "rgba(132, 148, 163, 1)"),
           _o),
-        frontierTableColorBorder:
+        frontierTableColorBackground:
           ((fo = {}),
-          (fo[Ya] = "rgba(70, 90, 105, 1)"),
-          (fo.default = "rgba(222, 227, 233, 1)"),
+          (fo[Ja] = "rgba(52, 72, 84, 1)"),
+          (fo.default = "rgba(255, 255, 255, 1)"),
           fo),
-        frontierTableColorHeaderBackground:
+        frontierTableColorBorder:
           ((go = {}),
-          (go[Ya] = "rgba(28, 43, 51, 1)"),
-          (go.default = "rgba(241, 244, 247, 1)"),
+          (go[Ja] = "rgba(70, 90, 105, 1)"),
+          (go.default = "rgba(222, 227, 233, 1)"),
           go),
-        frontierTableColorHeaderBorder:
+        frontierTableColorHeaderBackground:
           ((ho = {}),
-          (ho[Ya] = "rgba(70, 90, 105, 1)"),
-          (ho.default = "rgba(222, 227, 233, 1)"),
+          (ho[Ja] = "rgba(28, 43, 51, 1)"),
+          (ho.default = "rgba(241, 244, 247, 1)"),
           ho),
-        frontierTableColorRowHover:
+        frontierTableColorHeaderBorder:
           ((yo = {}),
-          (yo[Ya] = "rgba(255, 255, 255, 0.1)"),
-          (yo.default = "rgba(0, 0, 0, 0.05)"),
+          (yo[Ja] = "rgba(70, 90, 105, 1)"),
+          (yo.default = "rgba(222, 227, 233, 1)"),
           yo),
-        frontierTableColorRowSelected:
+        frontierTableColorRowHover:
           ((Co = {}),
-          (Co[Ya] = "rgba(24, 119, 242, 0.31)"),
-          (Co.default = "rgba(231, 243, 255, 1)"),
+          (Co[Ja] = "rgba(255, 255, 255, 0.1)"),
+          (Co.default = "rgba(0, 0, 0, 0.05)"),
           Co),
-        frontierTableColorSortIcon:
+        frontierTableColorRowSelected:
           ((bo = {}),
-          (bo[Ya] = "rgba(222, 227, 233, 1)"),
-          (bo.default = "rgba(99, 120, 138, 1)"),
+          (bo[Ja] = "rgba(24, 119, 242, 0.31)"),
+          (bo.default = "rgba(231, 243, 255, 1)"),
           bo),
-        frontierTableColorSortIconActive:
+        frontierTableColorSortIcon:
           ((vo = {}),
-          (vo[Ya] = "rgba(203, 210, 217, 1)"),
-          (vo.default = "rgba(28, 43, 51, 1)"),
+          (vo[Ja] = "rgba(222, 227, 233, 1)"),
+          (vo.default = "rgba(99, 120, 138, 1)"),
           vo),
-        frontierTableColorTextHeader:
+        frontierTableColorSortIconActive:
           ((So = {}),
-          (So[Ya] = "rgba(255, 255, 255, 1)"),
+          (So[Ja] = "rgba(203, 210, 217, 1)"),
           (So.default = "rgba(28, 43, 51, 1)"),
           So),
-        frontierTableColorTextPrimary:
+        frontierTableColorTextHeader:
           ((Ro = {}),
-          (Ro[Ya] = "rgba(255, 255, 255, 1)"),
+          (Ro[Ja] = "rgba(255, 255, 255, 1)"),
           (Ro.default = "rgba(28, 43, 51, 1)"),
           Ro),
-        frontierTabsColorBorder:
+        frontierTableColorTextPrimary:
           ((Lo = {}),
-          (Lo[Ya] = "rgba(255, 255, 255, 0)"),
-          (Lo.default = "rgba(255, 255, 255, 0)"),
+          (Lo[Ja] = "rgba(255, 255, 255, 1)"),
+          (Lo.default = "rgba(28, 43, 51, 1)"),
           Lo),
-        frontierTabsColorItemSelectedBackground:
+        frontierTabsColorBorder:
           ((Eo = {}),
-          (Eo[Ya] = "rgba(255, 255, 255, 0)"),
+          (Eo[Ja] = "rgba(255, 255, 255, 0)"),
           (Eo.default = "rgba(255, 255, 255, 0)"),
           Eo),
-        frontierTabsColorItemSelectedBorder:
+        frontierTabsColorItemSelectedBackground:
           ((ko = {}),
-          (ko[Ya] = "rgba(241, 244, 247, 1)"),
-          (ko.default = "rgba(10, 19, 23, 1)"),
+          (ko[Ja] = "rgba(255, 255, 255, 0)"),
+          (ko.default = "rgba(255, 255, 255, 0)"),
           ko),
-        frontierTabsColorItemSelectedText:
+        frontierTabsColorItemSelectedBorder:
           ((Io = {}),
-          (Io[Ya] = "rgba(241, 244, 247, 1)"),
+          (Io[Ja] = "rgba(241, 244, 247, 1)"),
           (Io.default = "rgba(10, 19, 23, 1)"),
           Io),
-        frontierTabsColorItemUnselectedText:
+        frontierTabsColorItemSelectedText:
           ((To = {}),
-          (To[Ya] = "rgba(150, 166, 180, 1)"),
-          (To.default = "rgba(93, 108, 123, 1)"),
+          (To[Ja] = "rgba(241, 244, 247, 1)"),
+          (To.default = "rgba(10, 19, 23, 1)"),
           To),
-        frontierTextbadgeColorBackgroundCritical:
+        frontierTabsColorItemUnselectedText:
           ((Do = {}),
-          (Do[Ya] = "rgba(157, 5, 25, 1)"),
-          (Do.default = "rgba(157, 5, 25, 1)"),
+          (Do[Ja] = "rgba(150, 166, 180, 1)"),
+          (Do.default = "rgba(93, 108, 123, 1)"),
           Do),
-        frontierTextbadgeColorBackgroundCriticalDeemphasized:
+        frontierTextbadgeColorBackgroundCritical:
           ((xo = {}),
-          (xo[Ya] = "rgba(90, 1, 7, 1)"),
-          (xo.default = "rgba(254, 228, 230, 1)"),
+          (xo[Ja] = "rgba(157, 5, 25, 1)"),
+          (xo.default = "rgba(157, 5, 25, 1)"),
           xo),
-        frontierTextbadgeColorBackgroundDeemphasized:
+        frontierTextbadgeColorBackgroundCriticalDeemphasized:
           (($o = {}),
-          ($o[Ya] = "rgba(43, 61, 70, 1)"),
-          ($o.default = "rgba(230, 235, 239, 1)"),
+          ($o[Ja] = "rgba(90, 1, 7, 1)"),
+          ($o.default = "rgba(254, 228, 230, 1)"),
           $o),
-        frontierTextbadgeColorBackgroundInformational:
+        frontierTextbadgeColorBackgroundDeemphasized:
           ((Po = {}),
-          (Po[Ya] = "rgba(38, 148, 254, 1)"),
-          (Po.default = "rgba(38, 148, 254, 1)"),
+          (Po[Ja] = "rgba(43, 61, 70, 1)"),
+          (Po.default = "rgba(230, 235, 239, 1)"),
           Po),
-        frontierTextbadgeColorBackgroundInformationalDeemphasized:
+        frontierTextbadgeColorBackgroundInformational:
           ((No = {}),
-          (No[Ya] = "rgba(0, 30, 117, 1)"),
-          (No.default = "rgba(219, 236, 255, 1)"),
+          (No[Ja] = "rgba(38, 148, 254, 1)"),
+          (No.default = "rgba(38, 148, 254, 1)"),
           No),
-        frontierTextbadgeColorBackgroundPositive:
+        frontierTextbadgeColorBackgroundInformationalDeemphasized:
           ((Mo = {}),
-          (Mo[Ya] = "rgba(60, 188, 34, 1)"),
-          (Mo.default = "rgba(20, 123, 41, 1)"),
+          (Mo[Ja] = "rgba(0, 30, 117, 1)"),
+          (Mo.default = "rgba(219, 236, 255, 1)"),
           Mo),
-        frontierTextbadgeColorBackgroundPositiveDeemphasized:
+        frontierTextbadgeColorBackgroundPositive:
           ((wo = {}),
-          (wo[Ya] = "rgba(5, 48, 24, 1)"),
-          (wo.default = "rgba(196, 248, 185, 1)"),
+          (wo[Ja] = "rgba(60, 188, 34, 1)"),
+          (wo.default = "rgba(20, 123, 41, 1)"),
           wo),
-        frontierTextbadgeColorBackgroundWarning:
+        frontierTextbadgeColorBackgroundPositiveDeemphasized:
           ((Ao = {}),
-          (Ao[Ya] = "rgba(214, 152, 4, 1)"),
-          (Ao.default = "rgba(150, 94, 3, 1)"),
+          (Ao[Ja] = "rgba(5, 48, 24, 1)"),
+          (Ao.default = "rgba(196, 248, 185, 1)"),
           Ao),
-        frontierTextbadgeColorBackgroundWarningDeemphasized:
+        frontierTextbadgeColorBackgroundWarning:
           ((Fo = {}),
-          (Fo[Ya] = "rgba(69, 30, 3, 1)"),
-          (Fo.default = "rgba(252, 236, 133, 1)"),
+          (Fo[Ja] = "rgba(214, 152, 4, 1)"),
+          (Fo.default = "rgba(150, 94, 3, 1)"),
           Fo),
-        frontierTextColorBrand:
+        frontierTextbadgeColorBackgroundWarningDeemphasized:
           ((Oo = {}),
-          (Oo[Ya] = "rgba(0, 100, 224, 1)"),
-          (Oo.default = "rgba(0, 100, 224, 1)"),
+          (Oo[Ja] = "rgba(69, 30, 3, 1)"),
+          (Oo.default = "rgba(252, 236, 133, 1)"),
           Oo),
-        frontierTextColorDisabled:
+        frontierTextColorBrand:
           ((Bo = {}),
-          (Bo[Ya] = "rgba(93, 108, 123, 1)"),
-          (Bo.default = "rgba(150, 166, 180, 1)"),
+          (Bo[Ja] = "rgba(0, 100, 224, 1)"),
+          (Bo.default = "rgba(0, 100, 224, 1)"),
           Bo),
-        frontierTextColorInverted:
+        frontierTextColorDisabled:
           ((Wo = {}),
-          (Wo[Ya] = "rgba(10, 19, 23, 1)"),
-          (Wo.default = "rgba(241, 244, 247, 1)"),
+          (Wo[Ja] = "rgba(93, 108, 123, 1)"),
+          (Wo.default = "rgba(150, 166, 180, 1)"),
           Wo),
-        frontierTextColorLink:
+        frontierTextColorInverted:
           ((qo = {}),
-          (qo[Ya] = "rgba(0, 130, 251, 1)"),
-          (qo.default = "rgba(0, 100, 224, 1)"),
+          (qo[Ja] = "rgba(10, 19, 23, 1)"),
+          (qo.default = "rgba(241, 244, 247, 1)"),
           qo),
-        frontierTextColorNegative:
+        frontierTextColorLink:
           ((Uo = {}),
-          (Uo[Ya] = "rgba(251, 125, 135, 1)"),
-          (Uo.default = "rgba(211, 17, 48, 1)"),
+          (Uo[Ja] = "rgba(0, 130, 251, 1)"),
+          (Uo.default = "rgba(0, 100, 224, 1)"),
           Uo),
-        frontierTextColorPlaceholder:
+        frontierTextColorNegative:
           ((Vo = {}),
-          (Vo[Ya] = "rgba(150, 166, 180, 1)"),
-          (Vo.default = "rgba(93, 108, 123, 1)"),
+          (Vo[Ja] = "rgba(251, 125, 135, 1)"),
+          (Vo.default = "rgba(211, 17, 48, 1)"),
           Vo),
-        frontierTextColorPositive:
+        frontierTextColorPlaceholder:
           ((Ho = {}),
-          (Ho[Ya] = "rgba(60, 188, 34, 1)"),
-          (Ho.default = "rgba(20, 123, 41, 1)"),
+          (Ho[Ja] = "rgba(150, 166, 180, 1)"),
+          (Ho.default = "rgba(93, 108, 123, 1)"),
           Ho),
-        frontierTextColorPrimary:
+        frontierTextColorPositive:
           ((Go = {}),
-          (Go[Ya] = "rgba(241, 244, 247, 1)"),
-          (Go.default = "rgba(10, 19, 23, 1)"),
+          (Go[Ja] = "rgba(60, 188, 34, 1)"),
+          (Go.default = "rgba(20, 123, 41, 1)"),
           Go),
-        frontierTextColorPrimaryOnMedia:
+        frontierTextColorPrimary:
           ((zo = {}),
-          (zo[Ya] = "rgba(255, 255, 255, 1)"),
-          (zo.default = "rgba(255, 255, 255, 1)"),
+          (zo[Ja] = "rgba(241, 244, 247, 1)"),
+          (zo.default = "rgba(10, 19, 23, 1)"),
           zo),
-        frontierTextColorSecondary:
+        frontierTextColorPrimaryOnMedia:
           ((jo = {}),
-          (jo[Ya] = "rgba(150, 166, 180, 1)"),
-          (jo.default = "rgba(93, 108, 123, 1)"),
+          (jo[Ja] = "rgba(255, 255, 255, 1)"),
+          (jo.default = "rgba(255, 255, 255, 1)"),
           jo),
-        frontierTextColorWarning:
+        frontierTextColorSecondary:
           ((Ko = {}),
-          (Ko[Ya] = "rgba(214, 152, 4, 1)"),
-          (Ko.default = "rgba(150, 94, 3, 1)"),
+          (Ko[Ja] = "rgba(150, 166, 180, 1)"),
+          (Ko.default = "rgba(93, 108, 123, 1)"),
           Ko),
-        frontierTextinputColorEmptyBackground:
+        frontierTextColorWarning:
           ((Qo = {}),
-          (Qo[Ya] = "rgba(21, 33, 39, 1)"),
-          (Qo.default = "rgba(255, 255, 255, 1)"),
+          (Qo[Ja] = "rgba(214, 152, 4, 1)"),
+          (Qo.default = "rgba(150, 94, 3, 1)"),
           Qo),
-        frontierTextinputColorEmptyBorder:
+        frontierTextinputColorEmptyBackground:
           ((Xo = {}),
-          (Xo[Ya] = "rgba(61, 79, 92, 1)"),
-          (Xo.default = "rgba(221, 226, 232, 1)"),
+          (Xo[Ja] = "rgba(21, 33, 39, 1)"),
+          (Xo.default = "rgba(255, 255, 255, 1)"),
           Xo),
-        frontierTextinputColorEmptyHelper:
+        frontierTextinputColorEmptyBorder:
           ((Yo = {}),
-          (Yo[Ya] = "rgba(93, 108, 123, 1)"),
-          (Yo.default = "rgba(93, 108, 123, 1)"),
+          (Yo[Ja] = "rgba(61, 79, 92, 1)"),
+          (Yo.default = "rgba(221, 226, 232, 1)"),
           Yo),
-        frontierTextinputColorEmptyInput:
+        frontierTextinputColorEmptyHelper:
           ((Jo = {}),
-          (Jo[Ya] = "rgba(241, 244, 247, 1)"),
-          (Jo.default = "rgba(10, 19, 23, 1)"),
+          (Jo[Ja] = "rgba(93, 108, 123, 1)"),
+          (Jo.default = "rgba(93, 108, 123, 1)"),
           Jo),
-        frontierTextinputColorEmptyLabel:
+        frontierTextinputColorEmptyInput:
           ((Zo = {}),
-          (Zo[Ya] = "rgba(150, 166, 180, 1)"),
-          (Zo.default = "rgba(93, 108, 123, 1)"),
+          (Zo[Ja] = "rgba(241, 244, 247, 1)"),
+          (Zo.default = "rgba(10, 19, 23, 1)"),
           Zo),
-        frontierTextinputColorEmptyValidationBackground:
+        frontierTextinputColorEmptyLabel:
           ((ea = {}),
-          (ea[Ya] = "rgba(21, 33, 39, 1)"),
-          (ea.default = "rgba(255, 255, 255, 1)"),
+          (ea[Ja] = "rgba(150, 166, 180, 1)"),
+          (ea.default = "rgba(93, 108, 123, 1)"),
           ea),
-        frontierTextinputColorEmptyValidationBorder:
+        frontierTextinputColorEmptyValidationBackground:
           ((ta = {}),
-          (ta[Ya] = "rgba(251, 125, 135, 1)"),
-          (ta.default = "rgba(211, 17, 48, 1)"),
+          (ta[Ja] = "rgba(21, 33, 39, 1)"),
+          (ta.default = "rgba(255, 255, 255, 1)"),
           ta),
-        frontierTextinputColorEmptyValidationHelper:
+        frontierTextinputColorEmptyValidationBorder:
           ((na = {}),
-          (na[Ya] = "rgba(251, 125, 135, 1)"),
+          (na[Ja] = "rgba(251, 125, 135, 1)"),
           (na.default = "rgba(211, 17, 48, 1)"),
           na),
-        frontierTextinputColorEmptyValidationIconRight:
+        frontierTextinputColorEmptyValidationHelper:
           ((ra = {}),
-          (ra[Ya] = "rgba(251, 125, 135, 1)"),
+          (ra[Ja] = "rgba(251, 125, 135, 1)"),
           (ra.default = "rgba(211, 17, 48, 1)"),
           ra),
-        frontierTextinputColorEmptyValidationInput:
+        frontierTextinputColorEmptyValidationIconRight:
           ((oa = {}),
-          (oa[Ya] = "rgba(241, 244, 247, 1)"),
-          (oa.default = "rgba(10, 19, 23, 1)"),
+          (oa[Ja] = "rgba(251, 125, 135, 1)"),
+          (oa.default = "rgba(211, 17, 48, 1)"),
           oa),
-        frontierTextinputColorEmptyValidationLabel:
+        frontierTextinputColorEmptyValidationInput:
           ((aa = {}),
-          (aa[Ya] = "rgba(251, 125, 135, 1)"),
-          (aa.default = "rgba(211, 17, 48, 1)"),
+          (aa[Ja] = "rgba(241, 244, 247, 1)"),
+          (aa.default = "rgba(10, 19, 23, 1)"),
           aa),
-        frontierTextinputColorFilledBackground:
+        frontierTextinputColorEmptyValidationLabel:
           ((ia = {}),
-          (ia[Ya] = "rgba(21, 33, 39, 1)"),
-          (ia.default = "rgba(255, 255, 255, 1)"),
+          (ia[Ja] = "rgba(251, 125, 135, 1)"),
+          (ia.default = "rgba(211, 17, 48, 1)"),
           ia),
-        frontierTextinputColorFilledBorder:
+        frontierTextinputColorFilledBackground:
           ((la = {}),
-          (la[Ya] = "rgba(61, 79, 92, 1)"),
-          (la.default = "rgba(221, 226, 232, 1)"),
+          (la[Ja] = "rgba(21, 33, 39, 1)"),
+          (la.default = "rgba(255, 255, 255, 1)"),
           la),
-        frontierTextinputColorFilledDisabledBackground:
+        frontierTextinputColorFilledBorder:
           ((sa = {}),
-          (sa[Ya] = "rgba(10, 19, 23, 1)"),
-          (sa.default = "rgba(241, 244, 247, 1)"),
+          (sa[Ja] = "rgba(61, 79, 92, 1)"),
+          (sa.default = "rgba(221, 226, 232, 1)"),
           sa),
-        frontierTextinputColorFilledDisabledBorder:
+        frontierTextinputColorFilledDisabledBackground:
           ((ua = {}),
-          (ua[Ya] = "rgba(61, 79, 92, 1)"),
-          (ua.default = "rgba(221, 226, 232, 1)"),
+          (ua[Ja] = "rgba(10, 19, 23, 1)"),
+          (ua.default = "rgba(241, 244, 247, 1)"),
           ua),
-        frontierTextinputColorFilledDisabledHelper:
+        frontierTextinputColorFilledDisabledBorder:
           ((ca = {}),
-          (ca[Ya] = "rgba(93, 108, 123, 1)"),
-          (ca.default = "rgba(93, 108, 123, 1)"),
+          (ca[Ja] = "rgba(61, 79, 92, 1)"),
+          (ca.default = "rgba(221, 226, 232, 1)"),
           ca),
-        frontierTextinputColorFilledDisabledInput:
+        frontierTextinputColorFilledDisabledHelper:
           ((da = {}),
-          (da[Ya] = "rgba(150, 166, 180, 1)"),
+          (da[Ja] = "rgba(93, 108, 123, 1)"),
           (da.default = "rgba(93, 108, 123, 1)"),
           da),
-        frontierTextinputColorFilledDisabledLabel:
+        frontierTextinputColorFilledDisabledInput:
           ((ma = {}),
-          (ma[Ya] = "rgba(150, 166, 180, 1)"),
+          (ma[Ja] = "rgba(150, 166, 180, 1)"),
           (ma.default = "rgba(93, 108, 123, 1)"),
           ma),
-        frontierTextinputColorFilledHelper:
+        frontierTextinputColorFilledDisabledLabel:
           ((pa = {}),
-          (pa[Ya] = "rgba(93, 108, 123, 1)"),
+          (pa[Ja] = "rgba(150, 166, 180, 1)"),
           (pa.default = "rgba(93, 108, 123, 1)"),
           pa),
-        frontierTextinputColorFilledInput:
+        frontierTextinputColorFilledHelper:
           ((_a = {}),
-          (_a[Ya] = "rgba(241, 244, 247, 1)"),
-          (_a.default = "rgba(10, 19, 23, 1)"),
+          (_a[Ja] = "rgba(93, 108, 123, 1)"),
+          (_a.default = "rgba(93, 108, 123, 1)"),
           _a),
-        frontierTextinputColorFilledLabel:
+        frontierTextinputColorFilledInput:
           ((fa = {}),
-          (fa[Ya] = "rgba(150, 166, 180, 1)"),
-          (fa.default = "rgba(93, 108, 123, 1)"),
+          (fa[Ja] = "rgba(241, 244, 247, 1)"),
+          (fa.default = "rgba(10, 19, 23, 1)"),
           fa),
-        frontierTextinputColorFocusedBackground:
+        frontierTextinputColorFilledLabel:
           ((ga = {}),
-          (ga[Ya] = "rgba(21, 33, 39, 1)"),
-          (ga.default = "rgba(255, 255, 255, 1)"),
+          (ga[Ja] = "rgba(150, 166, 180, 1)"),
+          (ga.default = "rgba(93, 108, 123, 1)"),
           ga),
-        frontierTextinputColorFocusedBorder:
+        frontierTextinputColorFocusedBackground:
           ((ha = {}),
-          (ha[Ya] = "rgba(150, 166, 180, 1)"),
-          (ha.default = "rgba(93, 108, 123, 1)"),
+          (ha[Ja] = "rgba(21, 33, 39, 1)"),
+          (ha.default = "rgba(255, 255, 255, 1)"),
           ha),
-        frontierTextinputColorFocusedHelper:
+        frontierTextinputColorFocusedBorder:
           ((ya = {}),
-          (ya[Ya] = "rgba(93, 108, 123, 1)"),
+          (ya[Ja] = "rgba(150, 166, 180, 1)"),
           (ya.default = "rgba(93, 108, 123, 1)"),
           ya),
-        frontierTextinputColorFocusedIconRight:
+        frontierTextinputColorFocusedHelper:
           ((Ca = {}),
-          (Ca[Ya] = "rgba(150, 166, 180, 1)"),
+          (Ca[Ja] = "rgba(93, 108, 123, 1)"),
           (Ca.default = "rgba(93, 108, 123, 1)"),
           Ca),
-        frontierTextinputColorFocusedInput:
+        frontierTextinputColorFocusedIconRight:
           ((ba = {}),
-          (ba[Ya] = "rgba(241, 244, 247, 1)"),
-          (ba.default = "rgba(10, 19, 23, 1)"),
+          (ba[Ja] = "rgba(150, 166, 180, 1)"),
+          (ba.default = "rgba(93, 108, 123, 1)"),
           ba),
-        frontierTextinputColorFocusedLabel:
+        frontierTextinputColorFocusedInput:
           ((va = {}),
-          (va[Ya] = "rgba(150, 166, 180, 1)"),
-          (va.default = "rgba(93, 108, 123, 1)"),
+          (va[Ja] = "rgba(241, 244, 247, 1)"),
+          (va.default = "rgba(10, 19, 23, 1)"),
           va),
-        frontierTextinputColorOutsideLabel:
+        frontierTextinputColorFocusedLabel:
           ((Sa = {}),
-          (Sa[Ya] = "rgba(241, 244, 247, 1)"),
-          (Sa.default = "rgba(10, 19, 23, 1)"),
+          (Sa[Ja] = "rgba(150, 166, 180, 1)"),
+          (Sa.default = "rgba(93, 108, 123, 1)"),
           Sa),
-        frontierTextinputColorSuccessBackground:
+        frontierTextinputColorOutsideLabel:
           ((Ra = {}),
-          (Ra[Ya] = "rgba(21, 33, 39, 1)"),
-          (Ra.default = "rgba(255, 255, 255, 1)"),
+          (Ra[Ja] = "rgba(241, 244, 247, 1)"),
+          (Ra.default = "rgba(10, 19, 23, 1)"),
           Ra),
-        frontierTextinputColorSuccessBorder:
+        frontierTextinputColorSuccessBackground:
           ((La = {}),
-          (La[Ya] = "rgba(61, 79, 92, 1)"),
-          (La.default = "rgba(221, 226, 232, 1)"),
+          (La[Ja] = "rgba(21, 33, 39, 1)"),
+          (La.default = "rgba(255, 255, 255, 1)"),
           La),
-        frontierTextinputColorSuccessFocusedBackground:
+        frontierTextinputColorSuccessBorder:
           ((Ea = {}),
-          (Ea[Ya] = "rgba(21, 33, 39, 1)"),
-          (Ea.default = "rgba(255, 255, 255, 1)"),
+          (Ea[Ja] = "rgba(61, 79, 92, 1)"),
+          (Ea.default = "rgba(221, 226, 232, 1)"),
           Ea),
-        frontierTextinputColorSuccessFocusedBorder:
+        frontierTextinputColorSuccessFocusedBackground:
           ((ka = {}),
-          (ka[Ya] = "rgba(61, 79, 92, 1)"),
-          (ka.default = "rgba(93, 108, 123, 1)"),
+          (ka[Ja] = "rgba(21, 33, 39, 1)"),
+          (ka.default = "rgba(255, 255, 255, 1)"),
           ka),
-        frontierTextinputColorSuccessFocusedHelper:
+        frontierTextinputColorSuccessFocusedBorder:
           ((Ia = {}),
-          (Ia[Ya] = "rgba(93, 108, 123, 1)"),
+          (Ia[Ja] = "rgba(61, 79, 92, 1)"),
           (Ia.default = "rgba(93, 108, 123, 1)"),
           Ia),
-        frontierTextinputColorSuccessFocusedIconRight:
+        frontierTextinputColorSuccessFocusedHelper:
           ((Ta = {}),
-          (Ta[Ya] = "rgba(20, 123, 41, 1)"),
-          (Ta.default = "rgba(20, 123, 41, 1)"),
+          (Ta[Ja] = "rgba(93, 108, 123, 1)"),
+          (Ta.default = "rgba(93, 108, 123, 1)"),
           Ta),
-        frontierTextinputColorSuccessFocusedInput:
+        frontierTextinputColorSuccessFocusedIconRight:
           ((Da = {}),
-          (Da[Ya] = "rgba(241, 244, 247, 1)"),
-          (Da.default = "rgba(10, 19, 23, 1)"),
+          (Da[Ja] = "rgba(20, 123, 41, 1)"),
+          (Da.default = "rgba(20, 123, 41, 1)"),
           Da),
-        frontierTextinputColorSuccessFocusedLabel:
+        frontierTextinputColorSuccessFocusedInput:
           ((xa = {}),
-          (xa[Ya] = "rgba(150, 166, 180, 1)"),
-          (xa.default = "rgba(93, 108, 123, 1)"),
+          (xa[Ja] = "rgba(241, 244, 247, 1)"),
+          (xa.default = "rgba(10, 19, 23, 1)"),
           xa),
-        frontierTextinputColorSuccessHelper:
+        frontierTextinputColorSuccessFocusedLabel:
           (($a = {}),
-          ($a[Ya] = "rgba(93, 108, 123, 1)"),
+          ($a[Ja] = "rgba(150, 166, 180, 1)"),
           ($a.default = "rgba(93, 108, 123, 1)"),
           $a),
-        frontierTextinputColorSuccessIconRight:
+        frontierTextinputColorSuccessHelper:
           ((Pa = {}),
-          (Pa[Ya] = "rgba(20, 123, 41, 1)"),
-          (Pa.default = "rgba(20, 123, 41, 1)"),
+          (Pa[Ja] = "rgba(93, 108, 123, 1)"),
+          (Pa.default = "rgba(93, 108, 123, 1)"),
           Pa),
-        frontierTextinputColorSuccessInput:
+        frontierTextinputColorSuccessIconRight:
           ((Na = {}),
-          (Na[Ya] = "rgba(241, 244, 247, 1)"),
-          (Na.default = "rgba(10, 19, 23, 1)"),
+          (Na[Ja] = "rgba(20, 123, 41, 1)"),
+          (Na.default = "rgba(20, 123, 41, 1)"),
           Na),
-        frontierTextinputColorSuccessLabel:
+        frontierTextinputColorSuccessInput:
           ((Ma = {}),
-          (Ma[Ya] = "rgba(150, 166, 180, 1)"),
-          (Ma.default = "rgba(93, 108, 123, 1)"),
+          (Ma[Ja] = "rgba(241, 244, 247, 1)"),
+          (Ma.default = "rgba(10, 19, 23, 1)"),
           Ma),
-        frontierTextinputColorValidationBackground:
+        frontierTextinputColorSuccessLabel:
           ((wa = {}),
-          (wa[Ya] = "rgba(21, 33, 39, 1)"),
-          (wa.default = "rgba(255, 255, 255, 1)"),
+          (wa[Ja] = "rgba(150, 166, 180, 1)"),
+          (wa.default = "rgba(93, 108, 123, 1)"),
           wa),
-        frontierTextinputColorValidationBorder:
+        frontierTextinputColorValidationBackground:
           ((Aa = {}),
-          (Aa[Ya] = "rgba(251, 125, 135, 1)"),
-          (Aa.default = "rgba(211, 17, 48, 1)"),
+          (Aa[Ja] = "rgba(21, 33, 39, 1)"),
+          (Aa.default = "rgba(255, 255, 255, 1)"),
           Aa),
-        frontierTextinputColorValidationHelper:
+        frontierTextinputColorValidationBorder:
           ((Fa = {}),
-          (Fa[Ya] = "rgba(251, 125, 135, 1)"),
+          (Fa[Ja] = "rgba(251, 125, 135, 1)"),
           (Fa.default = "rgba(211, 17, 48, 1)"),
           Fa),
-        frontierTextinputColorValidationIconRight:
+        frontierTextinputColorValidationHelper:
           ((Oa = {}),
-          (Oa[Ya] = "rgba(251, 125, 135, 1)"),
+          (Oa[Ja] = "rgba(251, 125, 135, 1)"),
           (Oa.default = "rgba(211, 17, 48, 1)"),
           Oa),
-        frontierTextinputColorValidationInput:
+        frontierTextinputColorValidationIconRight:
           ((Ba = {}),
-          (Ba[Ya] = "rgba(241, 244, 247, 1)"),
-          (Ba.default = "rgba(10, 19, 23, 1)"),
+          (Ba[Ja] = "rgba(251, 125, 135, 1)"),
+          (Ba.default = "rgba(211, 17, 48, 1)"),
           Ba),
-        frontierTextinputColorValidationLabel:
+        frontierTextinputColorValidationInput:
           ((Wa = {}),
-          (Wa[Ya] = "rgba(251, 125, 135, 1)"),
-          (Wa.default = "rgba(211, 17, 48, 1)"),
+          (Wa[Ja] = "rgba(241, 244, 247, 1)"),
+          (Wa.default = "rgba(10, 19, 23, 1)"),
           Wa),
-        frontierTokenizerTokenColorDefaultBackground:
+        frontierTextinputColorValidationLabel:
           ((qa = {}),
-          (qa[Ya] = "rgba(21, 33, 39, 1)"),
-          (qa.default = "rgba(255, 255, 255, 1)"),
+          (qa[Ja] = "rgba(251, 125, 135, 1)"),
+          (qa.default = "rgba(211, 17, 48, 1)"),
           qa),
-        frontierTokenizerTokenColorDefaultBorder:
+        frontierTokenizerTokenColorDefaultBackground:
           ((Ua = {}),
-          (Ua[Ya] = "rgba(68, 86, 100, 1)"),
-          (Ua.default = "rgba(204, 211, 219, 1)"),
+          (Ua[Ja] = "rgba(21, 33, 39, 1)"),
+          (Ua.default = "rgba(255, 255, 255, 1)"),
           Ua),
-        frontierTokenizerTokenColorDefaultIcon:
+        frontierTokenizerTokenColorDefaultBorder:
           ((Va = {}),
-          (Va[Ya] = "rgba(241, 244, 247, 1)"),
-          (Va.default = "rgba(10, 19, 23, 1)"),
+          (Va[Ja] = "rgba(68, 86, 100, 1)"),
+          (Va.default = "rgba(204, 211, 219, 1)"),
           Va),
-        frontierTokenizerTokenColorDefaultText:
+        frontierTokenizerTokenColorDefaultIcon:
           ((Ha = {}),
-          (Ha[Ya] = "rgba(241, 244, 247, 1)"),
+          (Ha[Ja] = "rgba(241, 244, 247, 1)"),
           (Ha.default = "rgba(10, 19, 23, 1)"),
           Ha),
-        frontierTokenizerTokenColorDisabledBackground:
+        frontierTokenizerTokenColorDefaultText:
           ((Ga = {}),
-          (Ga[Ya] = "rgba(21, 33, 39, 0)"),
-          (Ga.default = "rgba(255, 255, 255, 0)"),
+          (Ga[Ja] = "rgba(241, 244, 247, 1)"),
+          (Ga.default = "rgba(10, 19, 23, 1)"),
           Ga),
-        frontierTokenizerTokenColorDisabledBorder:
+        frontierTokenizerTokenColorDisabledBackground:
           ((za = {}),
-          (za[Ya] = "rgba(68, 86, 100, 0.4)"),
-          (za.default = "rgba(204, 211, 219, 0.4)"),
+          (za[Ja] = "rgba(21, 33, 39, 0)"),
+          (za.default = "rgba(255, 255, 255, 0)"),
           za),
-        frontierTokenizerTokenColorDisabledIcon:
+        frontierTokenizerTokenColorDisabledBorder:
           ((ja = {}),
-          (ja[Ya] = "rgba(241, 244, 247, 0.4)"),
-          (ja.default = "rgba(10, 19, 23, 0.4)"),
+          (ja[Ja] = "rgba(68, 86, 100, 0.4)"),
+          (ja.default = "rgba(204, 211, 219, 0.4)"),
           ja),
-        frontierTokenizerTokenColorDisabledText:
+        frontierTokenizerTokenColorDisabledIcon:
           ((Ka = {}),
-          (Ka[Ya] = "rgba(241, 244, 247, 0.4)"),
+          (Ka[Ja] = "rgba(241, 244, 247, 0.4)"),
           (Ka.default = "rgba(10, 19, 23, 0.4)"),
           Ka),
-        frontierTooltipColorBackground:
+        frontierTokenizerTokenColorDisabledText:
           ((Qa = {}),
-          (Qa[Ya] = "rgba(255, 255, 255, 1)"),
-          (Qa.default = "rgba(21, 33, 39, 1)"),
+          (Qa[Ja] = "rgba(241, 244, 247, 0.4)"),
+          (Qa.default = "rgba(10, 19, 23, 0.4)"),
           Qa),
-        frontierTooltipColorText:
+        frontierTooltipColorBackground:
           ((Xa = {}),
-          (Xa[Ya] = "rgba(10, 19, 23, 1)"),
-          (Xa.default = "rgba(241, 244, 247, 1)"),
+          (Xa[Ja] = "rgba(255, 255, 255, 1)"),
+          (Xa.default = "rgba(21, 33, 39, 1)"),
           Xa),
+        frontierTooltipColorText:
+          ((Ya = {}),
+          (Ya[Ja] = "rgba(10, 19, 23, 1)"),
+          (Ya.default = "rgba(241, 244, 247, 1)"),
+          Ya),
       },
-      ti = {
+      ni = {
         frontierChipDefaultAppearanceOpacity: 1,
         frontierChipDisabledAppearanceOpacity: 0.5,
         frontierChipPressedAppearanceOpacity: 0.75,
@@ -2336,7 +2345,7 @@ __d(
         frontierSwitchTrackerUnselectedDisabledOpacity: 0.4,
         frontierSwitchTrackerUnselectedOpacity: 1,
       },
-      ni = {
+      ri = {
         frontierAlertBannerGapTextWrapperInner: "12px",
         frontierAlertBannerGapTextWrapperTop: "6px",
         frontierAlertBannerGapWrapper: "12px",
@@ -2438,7 +2447,7 @@ __d(
         frontierTooltipPaddingHorizontal: "12px",
         frontierTooltipPaddingVertical: "12px",
       },
-      ri = {
+      oi = {
         frontierButtonTextLabelLargeFontFamily: "Optimistic",
         frontierButtonTextLabelLargeFontSize: "15px",
         frontierButtonTextLabelLargeFontWeight: "500",
@@ -2574,7 +2583,7 @@ __d(
         frontierTextTitleMediumLineHeight: "32px",
         frontierTextTitleMediumStretch: "normal",
       },
-      oi = {
+      ai = {
         frontierButtonTextLabelLargeFontFamily: "Optimistic VF App Lite",
         frontierButtonTextLabelLargeFontSize: "15px",
         frontierButtonTextLabelLargeFontWeight: "500",
@@ -2710,7 +2719,7 @@ __d(
         frontierTextTitleMediumLineHeight: "32px",
         frontierTextTitleMediumStretch: "normal",
       },
-      ai = {
+      ii = {
         frontierButtonTextLabelLargeFontFamily: "Optimistic VF App Lite 500",
         frontierButtonTextLabelLargeFontSize: "15px",
         frontierButtonTextLabelLargeFontWeight: "normal",
@@ -2847,54 +2856,50 @@ __d(
         frontierTextTitleMediumLineHeight: "32px",
         frontierTextTitleMediumStretch: "normal",
       },
-      ii = babelHelpers.extends({}, Ja, ei, Za, ni, ti, ri),
-      li = babelHelpers.extends(
-        {},
-        Ja,
-        Object.fromEntries(
-          Object.entries(ei).map(function (e) {
-            var t;
-            return [e[0], (t = ei[e[0]].default) != null ? t : ei[e[0]]];
-          }),
-        ),
-        Za,
-        ni,
-        ti,
-        ri,
-      ),
+      li = babelHelpers.extends({}, Za, ti, ei, ri, ni, oi),
       si = babelHelpers.extends(
         {},
-        Ja,
+        Za,
         Object.fromEntries(
-          Object.entries(ei).map(function (e) {
+          Object.entries(ti).map(function (e) {
             var t;
-            return [e[0], (t = ei[e[0]][Ya]) != null ? t : ei[e[0]]];
+            return [e[0], (t = ti[e[0]].default) != null ? t : ti[e[0]]];
           }),
         ),
-        Za,
-        ni,
-        ti,
+        ei,
         ri,
+        ni,
+        oi,
       ),
-      ui = babelHelpers.extends({}, ii, ai),
-      ci = babelHelpers.extends({}, li, ai),
-      di = babelHelpers.extends({}, si, ai),
-      mi = babelHelpers.extends({}, ii, oi),
-      pi = babelHelpers.extends({}, li, oi),
-      _i = babelHelpers.extends({}, si, oi),
-      fi = { x1w2u7rz: "x1scrbzv x1w2u7rz", $$css: !0 },
-      gi = { x1w2u7rz: "x1prgg2j x1w2u7rz", $$css: !0 },
-      hi = { x1w2u7rz: "xajpgpa x1w2u7rz", $$css: !0 },
-      yi = { x1w2u7rz: "x3348qa x1w2u7rz", $$css: !0 },
-      Ci = { x1w2u7rz: "xxp6h3j x1w2u7rz", $$css: !0 },
-      bi = { x1w2u7rz: "xxdwpex x1w2u7rz", $$css: !0 },
-      vi = { x1w2u7rz: "x1172yqn x1w2u7rz", $$css: !0 },
-      Si = { x1w2u7rz: "x1g9w3r2 x1w2u7rz", $$css: !0 },
-      Ri = { x1w2u7rz: "x1d36zt9 x1w2u7rz", $$css: !0 },
-      Li =
-        o("FrontierThemeInfraPlatformUtils").getPlatform() === "android"
-          ? fi
-          : yi,
+      ui = babelHelpers.extends(
+        {},
+        Za,
+        Object.fromEntries(
+          Object.entries(ti).map(function (e) {
+            var t;
+            return [e[0], (t = ti[e[0]][Ja]) != null ? t : ti[e[0]]];
+          }),
+        ),
+        ei,
+        ri,
+        ni,
+        oi,
+      ),
+      ci = babelHelpers.extends({}, li, ii),
+      di = babelHelpers.extends({}, si, ii),
+      mi = babelHelpers.extends({}, ui, ii),
+      pi = babelHelpers.extends({}, li, ai),
+      _i = babelHelpers.extends({}, si, ai),
+      fi = babelHelpers.extends({}, ui, ai),
+      gi = { x1w2u7rz: "x1pzqad8 x1w2u7rz", $$css: !0 },
+      hi = { x1w2u7rz: "x11kxssd x1w2u7rz", $$css: !0 },
+      yi = { x1w2u7rz: "x9mkl9e x1w2u7rz", $$css: !0 },
+      Ci = { x1w2u7rz: "xgwbnws x1w2u7rz", $$css: !0 },
+      bi = { x1w2u7rz: "xqdqpxx x1w2u7rz", $$css: !0 },
+      vi = { x1w2u7rz: "x9x9w9u x1w2u7rz", $$css: !0 },
+      Si = { x1w2u7rz: "xmkdttx x1w2u7rz", $$css: !0 },
+      Ri = { x1w2u7rz: "x8tla8y x1w2u7rz", $$css: !0 },
+      Li = { x1w2u7rz: "x73u26q x1w2u7rz", $$css: !0 },
       Ei =
         o("FrontierThemeInfraPlatformUtils").getPlatform() === "android"
           ? gi
@@ -2903,40 +2908,44 @@ __d(
         o("FrontierThemeInfraPlatformUtils").getPlatform() === "android"
           ? hi
           : bi,
-      Ii = o("FrontierThemeInfraPlatformUtils").isWeb() ? vi : Li,
+      Ii =
+        o("FrontierThemeInfraPlatformUtils").getPlatform() === "android"
+          ? yi
+          : vi,
       Ti = o("FrontierThemeInfraPlatformUtils").isWeb() ? Si : Ei,
       Di = o("FrontierThemeInfraPlatformUtils").isWeb() ? Ri : ki,
-      xi = {
-        auto: babelHelpers.extends({}, ti, Ja, ni, ei),
+      xi = o("FrontierThemeInfraPlatformUtils").isWeb() ? Li : Ii,
+      $i = {
+        auto: babelHelpers.extends({}, ni, Za, ri, ti),
         dark: babelHelpers.extends(
           {},
           Object.fromEntries(
-            Object.entries(ei).map(function (e) {
+            Object.entries(ti).map(function (e) {
               var t;
-              return [e[0], (t = ei[e[0]][Ya]) != null ? t : ei[e[0]]];
+              return [e[0], (t = ti[e[0]][Ja]) != null ? t : ti[e[0]]];
             }),
           ),
-          ti,
-          Ja,
           ni,
+          Za,
+          ri,
         ),
         light: babelHelpers.extends(
           {},
           Object.fromEntries(
-            Object.entries(ei).map(function (e) {
+            Object.entries(ti).map(function (e) {
               var t;
-              return [e[0], (t = ei[e[0]].default) != null ? t : ei[e[0]]];
+              return [e[0], (t = ti[e[0]].default) != null ? t : ti[e[0]]];
             }),
           ),
-          ti,
-          Ja,
           ni,
+          Za,
+          ri,
         ),
       };
-    ((l.FrontierXMDSAutoTheme = Ii),
-      (l.FrontierXMDSLightTheme = Ti),
-      (l.FrontierXMDSDarkTheme = Di),
-      (l.FrontierXMDSThemeNativeVarContextValues = xi));
+    ((l.FrontierXMDSAutoTheme = Ti),
+      (l.FrontierXMDSLightTheme = Di),
+      (l.FrontierXMDSDarkTheme = xi),
+      (l.FrontierXMDSThemeNativeVarContextValues = $i));
   },
   98,
 );

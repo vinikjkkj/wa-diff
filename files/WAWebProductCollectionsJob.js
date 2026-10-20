@@ -17,44 +17,47 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a;
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.catalogSessionId,
+            a = e.name,
+            i = e.productIds;
           if (
             o(
               "WAWebBizCatalogGatingUtils",
             ).commerceFeaturesDisabledBySanctions()
           )
             throw new (o("WAWebBackendErrors").E451)();
-          var i = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-            l = yield o(
+          var l = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            s = yield o(
               "WAWebBizCatalogManagementCreateCollection",
             ).createCollection({
               collection: {
-                name: e,
-                product_ids: t,
+                name: a,
+                product_ids: i,
                 biz_jid:
-                  (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                    i,
+                  (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    l,
                   )) != null
-                    ? a
-                    : i.toJid(),
+                    ? t
+                    : l.toJid(),
                 catalog_session_id: n,
               },
             });
-          if (l.type === "success") return l.collectionResult;
+          if (s.type === "success") return s.collectionResult;
           throw (
-            l.type === "graphql-error" &&
+            s.type === "graphql-error" &&
               o(
                 "WAWebMaybeThrowCatalogErrors",
-              ).maybeThrowLocalErrorForCatalogQuery(l.error),
+              ).maybeThrowLocalErrorForCatalogQuery(s.error),
             r("err")(
               "createCollection: error handling flow not implemented for " +
-                JSON.stringify(l),
+                JSON.stringify(s),
             )
           );
         })),

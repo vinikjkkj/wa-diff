@@ -13,7 +13,7 @@ __d(
     "WAWebOrderGatingUtils",
     "WAWebOrderIcons",
     "WAWebOrderItemGetters",
-    "WAWebText_DONOTUSE.react",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -265,7 +265,10 @@ __d(
       return u.jsx(
         o("WAWebFlex.react").FlexRow,
         {
-          children: u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+          children: u.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            testid: "order-detail-variant-property",
             children: s._(/*BTDS*/ "{propertyName}: {propertyValue}", [
               s._param("propertyName", t),
               s._param("propertyValue", n),

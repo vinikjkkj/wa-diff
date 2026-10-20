@@ -3,8 +3,6 @@ __d(
   [
     "fbt",
     "Promise",
-    "WAWebBusinessDataSharingIllustrationDarkIcon.react",
-    "WAWebBusinessDataSharingIllustrationLightIcon.react",
     "WAWebCTWAGatingUtils",
     "WAWebConfirmPopup.react",
     "WAWebCtwaPerCustomerDataSharingSync",
@@ -15,8 +13,6 @@ __d(
     "WAWebModalManager",
     "WAWebPerCustomerDataSharingControlLogging",
     "WAWebSpinner.react",
-    "WAWebText_DONOTUSE.react",
-    "WAWebThemeContext",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebTosUrl",
@@ -26,6 +22,7 @@ __d(
     "WDSIconIcSettings.react",
     "WDSIconIcVisibilityOff.react",
     "WDSIllustrationWdsSmbPictoArrowsTransfer.react",
+    "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -70,9 +67,6 @@ __d(
     }
     var h = {
         illustration: { width: "xh8yej3", $$css: !0 },
-        title: { lineHeight: "x1u7k74", $$css: !0 },
-        centered_text: { textAlign: "x2b8uid", $$css: !0 },
-        paragraph: { lineHeight: "x1pujyh6", $$css: !0 },
         iconDescription: { maxWidth: "x1i5r0r9", $$css: !0 },
         iconColor: { color: "xhslqc4", $$css: !0 },
         spinnerWrapper: { height: "x1lgcfn3", $$css: !0 },
@@ -93,70 +87,58 @@ __d(
       };
     function C() {
       var e = o("react-compiler-runtime").c(11),
-        t = o("WAWebThemeContext").useIsDarkTheme();
-      t
-        ? c.jsx(
-            o("WAWebBusinessDataSharingIllustrationDarkIcon.react")
-              .BusinessDataSharingIllustrationDarkIcon,
-            {},
-          )
-        : c.jsx(
-            o("WAWebBusinessDataSharingIllustrationLightIcon.react")
-              .BusinessDataSharingIllustrationLightIcon,
-            {},
-          );
-      var n, a;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = c.jsx(r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"), {
-            testid: "wds-smb-picto-arrows-transfer",
-          })),
-          (e[0] = a))
-        : (a = e[0]),
-        (n = a));
-      var i;
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = [h.paddingTop24, h.paddingBottom24, h.illustration]),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
       e[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = c.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: [h.paddingTop24, h.paddingBottom24, h.illustration],
+        ? ((n = c.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: t,
             justify: "center",
-            children: n,
+            children: c.jsx(
+              r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"),
+              { testid: "wds-smb-picto-arrows-transfer" },
+            ),
           })),
-          (e[1] = i))
-        : (i = e[1]);
-      var l;
+          (e[1] = n))
+        : (n = e[1]);
+      var a;
       e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = c.jsx(o("WAWebFlex.react").FlexRow, {
-            children: c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-              size: "20",
-              color: "dark",
-              weight: "medium",
-              xstyle: [h.marginBottom12, h.title, h.centered_text],
+        ? ((a = c.jsx(o("WAWebFlex.react").FlexRow, {
+            children: c.jsx(r("WDSText.react"), {
+              type: "Headline2",
+              colorName: "contentDefault",
+              testid: "ctwa-per-customer-sharing-opt-in-title",
+              textAlign: "center",
+              xstyle: h.marginBottom12,
               children: s._(/*BTDS*/ "Start sharing data for this customer?"),
             }),
           })),
-          (e[2] = l))
-        : (l = e[2]);
-      var u;
+          (e[2] = a))
+        : (a = e[2]);
+      var i;
       e[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
+        ? ((i = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
             ? s._(
                 /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience and improve Meta ads.",
               )
             : s._(
                 /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience on Facebook and Instagram and improve Meta ads.",
               )),
-          (e[3] = u))
-        : (u = e[3]);
-      var d;
+          (e[3] = i))
+        : (i = e[3]);
+      var l;
       e[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = c.jsx(o("WAWebFlex.react").FlexColumn, {
+        ? ((l = c.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: h.marginBottom12,
-            children: c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-              size: "16",
-              color: "secondary",
-              weight: "normal",
-              xstyle: h.paragraph,
+            children: c.jsxs(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDeemphasized",
+              testid: "ctwa-per-customer-sharing-opt-in-description",
               children: [
-                u,
+                i,
                 " ",
                 c.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebTosUrl").getBizDataSharingHcaUrl(),
@@ -165,86 +147,90 @@ __d(
               ],
             }),
           })),
-          (e[4] = d))
-        : (d = e[4]);
-      var m;
+          (e[4] = l))
+        : (l = e[4]);
+      var u;
       e[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = c.jsx(r("WDSIconIcVisibilityOff.react"), {
+        ? ((u = c.jsx(r("WDSIconIcVisibilityOff.react"), {
             height: 22,
             width: 22,
             xstyle: h.iconColor,
           })),
-          (e[5] = m))
-        : (m = e[5]);
-      var p;
+          (e[5] = u))
+        : (u = e[5]);
+      var d;
       e[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = c.jsxs(o("WAWebFlex.react").FlexRow, {
+        ? ((d = c.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: h.marginBottom12,
             children: [
-              m,
-              c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                size: "16",
-                color: "dark",
-                xstyle: [h.marginStart24, h.paragraph, h.iconDescription],
+              u,
+              c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDefault",
+                testid: "ctwa-per-customer-sharing-opt-in-content-exclusion",
+                xstyle: [h.marginStart24, h.iconDescription],
                 children: s._(
                   /*BTDS*/ "Message and call content is not shared.",
                 ),
               }),
             ],
           })),
-          (e[6] = p))
-        : (p = e[6]);
-      var _;
+          (e[6] = d))
+        : (d = e[6]);
+      var m;
       e[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = c.jsx(r("WDSIconIcSettings.react"), { xstyle: h.iconColor })),
-          (e[7] = _))
-        : (_ = e[7]);
-      var f;
+        ? ((m = c.jsx(r("WDSIconIcSettings.react"), { xstyle: h.iconColor })),
+          (e[7] = m))
+        : (m = e[7]);
+      var p;
       e[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = c.jsxs(o("WAWebFlex.react").FlexRow, {
+        ? ((p = c.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: h.marginBottom12,
             children: [
-              _,
-              c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                size: "16",
-                color: "dark",
-                xstyle: [h.marginStart24, h.paragraph, h.iconDescription],
+              m,
+              c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDefault",
+                testid: "ctwa-per-customer-sharing-opt-in-settings-guidance",
+                xstyle: [h.marginStart24, h.iconDescription],
                 children: s._(
                   /*BTDS*/ "You can always change this in the Data Sharing Settings.",
                 ),
               }),
             ],
           })),
-          (e[8] = f))
-        : (f = e[8]);
-      var g;
+          (e[8] = p))
+        : (p = e[8]);
+      var _;
       e[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = c.jsx(r("WDSIconIcAccountCircle.react"), {
+        ? ((_ = c.jsx(r("WDSIconIcAccountCircle.react"), {
             xstyle: h.iconColor,
           })),
-          (e[9] = g))
-        : (g = e[9]);
-      var y;
+          (e[9] = _))
+        : (_ = e[9]);
+      var f;
       return (
         e[10] === Symbol.for("react.memo_cache_sentinel")
-          ? ((y = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+          ? ((f = c.jsxs(o("WAWebFlex.react").FlexColumn, {
               children: [
-                i,
+                n,
+                a,
                 l,
                 d,
                 p,
-                f,
                 c.jsxs(o("WAWebFlex.react").FlexRow, {
                   align: "center",
                   xstyle: h.marginBottom12,
                   children: [
-                    g,
-                    c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                      size: "16",
-                      color: "dark",
-                      xstyle: [h.marginStart24, h.paragraph, h.iconDescription],
+                    _,
+                    c.jsx(r("WDSText.react"), {
+                      type: "Body1",
+                      colorName: "contentDefault",
+                      testid:
+                        "ctwa-per-customer-sharing-opt-in-individual-guidance",
+                      xstyle: [h.marginStart24, h.iconDescription],
                       children: s._(
                         /*BTDS*/ "You can change this for individual customers in their contact info.",
                       ),
@@ -253,9 +239,9 @@ __d(
                 }),
               ],
             })),
-            (e[10] = y))
-          : (y = e[10]),
-        y
+            (e[10] = f))
+          : (f = e[10]),
+        f
       );
     }
     var b = function () {

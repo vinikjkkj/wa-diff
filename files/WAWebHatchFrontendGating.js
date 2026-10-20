@@ -21,7 +21,7 @@ __d(
       });
     }
     function s() {
-      return T({ abProp: "ai_hatch_approval_notification_enabled" });
+      return I({ abProp: "ai_hatch_approval_notification_enabled" });
     }
     function u() {
       return (
@@ -29,7 +29,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        T({
+        I({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
@@ -51,19 +51,19 @@ __d(
       );
     }
     function m() {
-      return T({
+      return I({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
     }
     function p() {
-      return T({
+      return I({
         abProp: "ai_hatch_vm_capability_sync_enabled",
         primaryFeature: "ai_hatch_vm_capability_sync_enabled",
       });
     }
     function _() {
-      return T({
+      return I({
         abProp: "ai_hatch_ideas_enabled",
         primaryFeature: "ai_hatch_ideas_enabled",
       });
@@ -76,7 +76,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        T({
+        I({
           abProp: "ai_hatch_browser_enabled",
           primaryFeature: "ai_hatch_browser_enabled",
         })
@@ -86,7 +86,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        T({
+        I({
           abProp: "ai_hatch_theme_enabled",
           primaryFeature: "ai_hatch_theme_enabled",
         })
@@ -96,19 +96,21 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        T({
-          abProp: "ai_hatch_theme_colors_enabled",
-          primaryFeature: "ai_hatch_theme_colors_enabled",
+        I({
+          abProp: "ai_hatch_avatar_working_video_enabled",
+          primaryFeature: "ai_hatch_avatar_working_video_enabled",
         })
       );
     }
-    function y(e) {
+    function y() {
       return (
-        e != null &&
-        o("WAWebBotUtils").isHatchBot(e) &&
-        T({
-          abProp: "ai_hatch_avatar_working_video_enabled",
-          primaryFeature: "ai_hatch_avatar_working_video_enabled",
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
+        I({
+          abProp: "ai_hatch_secure_credentials_enabled",
+          primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
       );
     }
@@ -118,37 +120,25 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        T({
-          abProp: "ai_hatch_secure_credentials_enabled",
-          primaryFeature: "ai_hatch_secure_credentials_enabled",
-        })
-      );
-    }
-    function b() {
-      return (
-        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
-          o("WAWebHatchMinPrimaryVersions")
-            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) &&
-        T({
+        I({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
-    function v() {
-      return T({
+    function b() {
+      return I({
         abProp: "ai_hatch_media_enabled",
         primaryFeature: "ai_hatch_media_enabled",
       });
     }
-    function S() {
-      return T({
+    function v() {
+      return I({
         abProp: "ai_hatch_revoke_enabled",
         primaryFeature: "ai_hatch_revoke_enabled",
       });
     }
-    function R() {
+    function S() {
       return (
         e() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
@@ -160,19 +150,19 @@ __d(
         )
       );
     }
-    function L() {
-      return T({
+    function R() {
+      return I({
         abProp: "ai_hatch_activity_enabled",
         primaryFeature: "ai_hatch_activity_enabled",
       });
     }
-    function E() {
-      return T({
+    function L() {
+      return I({
         abProp: "ai_hatch_video_avatars_enabled",
         primaryFeature: "ai_hatch_video_avatars_enabled",
       });
     }
-    function k() {
+    function E() {
       var e = o(
         "WAWebMuseDefaultAssistantVariant",
       ).MuseDefaultAssistantVariant.cast(
@@ -190,8 +180,8 @@ __d(
         : r("WAWebHatchLinkedStatusManager").isLinked() &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
-    function I(e) {
-      return e || !E()
+    function k(e) {
+      return e || !L()
         ? "static"
         : (function (e) {
             return e === 1 ? "loop" : e === 2 ? "once" : "static";
@@ -201,7 +191,7 @@ __d(
             ),
           );
     }
-    function T(t) {
+    function I(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -220,17 +210,16 @@ __d(
       (l.isHatchIdeasEnabled = _),
       (l.isHatchBrowserEnabled = f),
       (l.isHatchThemeEnabled = g),
-      (l.isHatchThemeColorsEnabled = h),
-      (l.isHatchAvatarWorkingVideoEnabled = y),
-      (l.isHatchSecureCredentialsEnabled = C),
-      (l.isHatchSpaceEnabled = b),
-      (l.isHatchMediaEnabled = v),
-      (l.isHatchRevokeEnabled = S),
-      (l.isHatchManageSubscriptionEnabled = R),
-      (l.isHatchActivityEnabled = L),
-      (l.isHatchVideoAvatarsEnabled = E),
-      (l.isMuseNavBarEntryPointSelected = k),
-      (l.getHatchNavBarAnimationMode = I));
+      (l.isHatchAvatarWorkingVideoEnabled = h),
+      (l.isHatchSecureCredentialsEnabled = y),
+      (l.isHatchSpaceEnabled = C),
+      (l.isHatchMediaEnabled = b),
+      (l.isHatchRevokeEnabled = v),
+      (l.isHatchManageSubscriptionEnabled = S),
+      (l.isHatchActivityEnabled = R),
+      (l.isHatchVideoAvatarsEnabled = L),
+      (l.isMuseNavBarEntryPointSelected = E),
+      (l.getHatchNavBarAnimationMode = k));
   },
   98,
 );

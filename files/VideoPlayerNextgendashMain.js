@@ -1183,53 +1183,61 @@ __d(
           case "__disposed__":
             switch (Q.type) {
               case "__enter": {
-                var xt,
-                  $t = Q.prevState;
+                var xt = Q.prevState;
                 m(
                   K,
                   "terminal",
-                  $t.liveManifestRefreshTimerHandle,
-                  $t.liveNoProgressWatchdogTimerHandle,
+                  xt.liveManifestRefreshTimerHandle,
+                  xt.liveNoProgressWatchdogTimerHandle,
                 );
-                var Pt =
+                var $t =
                     "VideoPlayerNextgendashMainWith" +
-                    $t.workerType +
+                    xt.workerType +
                     "/Disposed[" +
                     Z.reason +
                     "@" +
-                    $t.state +
+                    xt.state +
                     "]",
-                  Nt =
+                  Pt =
                     "Disposed: " +
                     Z.reason +
                     "@" +
-                    $t.state +
+                    xt.state +
                     "; playerStateFromWorker=%s",
-                  Mt = [
-                    (xt = JSON.stringify($t.playerStateFromWorker)) != null
-                      ? xt
-                      : "undefined",
-                  ],
-                  wt =
+                  Nt = function () {
+                    var e;
+                    return (e = JSON.stringify(xt.playerStateFromWorker)) !=
+                      null
+                      ? e
+                      : "undefined";
+                  },
+                  Mt =
                     Z.exception != null
-                      ? o("nextgendasherr").nextgendasherrFromCause.apply(
-                          void 0,
-                          [K, Z.exception, Pt, Nt].concat(Mt),
+                      ? o("nextgendasherr").nextgendasherrFromCause(
+                          K,
+                          Z.exception,
+                          $t,
+                          Pt,
+                          Nt(),
                         )
                       : null;
-                ($t.workerConnection != null &&
+                (xt.workerConnection != null &&
                   oe(
-                    $t.workerConnection,
-                    wt != null
-                      ? wt
-                      : o("nextgendasherr").nextgendasherr.apply(
-                          void 0,
-                          [K, Pt, Nt].concat(Mt),
-                        ),
+                    xt.workerConnection,
+                    Mt != null
+                      ? Mt
+                      : function () {
+                          return o("nextgendasherr").nextgendasherr(
+                            K,
+                            $t,
+                            Pt,
+                            Nt(),
+                          );
+                        },
                   ),
-                  $t.scrollPositionSubscription != null &&
-                    $t.scrollPositionSubscription.remove(),
-                  wt != null && i(wt));
+                  xt.scrollPositionSubscription != null &&
+                    xt.scrollPositionSubscription.remove(),
+                  Mt != null && i(Mt));
                 return;
               }
               default:

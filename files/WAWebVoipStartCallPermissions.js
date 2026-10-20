@@ -28,9 +28,7 @@ __d(
         o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
       ),
       g = {
-        closeModal: function () {
-          return o("WAWebModalManager").ModalManager.close();
-        },
+        closeModal: o("WAWebModalManager").closeModalManager,
         openModal: function (t, n) {
           return o("WAWebModalManager").ModalManager.open(t, n);
         },

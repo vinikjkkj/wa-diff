@@ -1,6 +1,6 @@
 __d(
   "WAWebRenderNewsletterInvitePreviewIcon",
-  ["WAWebNewsletterSystemMessageIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcSensors.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -9,11 +9,12 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(
-              o("WAWebNewsletterSystemMessageIcon.react")
-                .NewsletterSystemMessageIcon,
-              { width: 21, height: 21, "aria-hidden": !0 },
-            )),
+          ? ((n = s.jsx(r("WDSIconIcSensors.react"), {
+              "aria-hidden": !0,
+              height: 21,
+              testid: "newsletter-system-message",
+              width: 21,
+            })),
             (t[0] = n))
           : (n = t[0]),
         n

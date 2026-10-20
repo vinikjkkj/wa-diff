@@ -6,6 +6,7 @@ __d(
     "WAWebWindowsNativeBridgeParseCallStateChangedData",
     "WAWebWindowsNativeBridgeParseGroupInfoChangedData",
     "WAWebWindowsNativeBridgeParseRejectedDecryptionFailureData",
+    "WAWebWindowsNativeBridgeParseSwitchEntryPointChangedData",
     "WAWebWindowsNativeBridgeParseSyncDeviceData",
     "WAWebWindowsNativeBridgeParseUpdate1to1CallLogData",
     "WAWebWindowsNativeBridgeParseUpdateJoinableCallLogData",
@@ -35,6 +36,9 @@ __d(
         parseGroupInfoChangedData: o(
           "WAWebWindowsNativeBridgeParseGroupInfoChangedData",
         ).parseWindowsGroupInfoChangedData,
+        parseSwitchEntryPointChangedData: o(
+          "WAWebWindowsNativeBridgeParseSwitchEntryPointChangedData",
+        ).parseWindowsSwitchEntryPointChangedData,
         parseRelayListUpdateData: function (t) {
           throw r("err")(
             "Relay list updates are not supported on Windows platform",

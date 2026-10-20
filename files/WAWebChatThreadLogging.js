@@ -7,6 +7,7 @@ __d(
     "WAWebChatThreadLoggingUtils",
     "WAWebDbEncryptionKey",
     "WAWebUserPrefsMeUser",
+    "WAWebUserThreadIdHmac",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
@@ -321,10 +322,7 @@ __d(
                 .getMePnUserOrThrow_DO_NOT_USE()
                 .toJid(),
               n = e.key.id;
-            return o("WAWebChatThreadLoggingUtils").generateUserThreadIDHMAC(
-              t,
-              n,
-            );
+            return o("WAWebUserThreadIdHmac").generateUserThreadIDHMAC(t, n);
           } catch (e) {
             return (
               o("WALogger").WARN(

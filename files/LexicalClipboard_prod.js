@@ -452,16 +452,28 @@ __d(
         if (null === r) return null;
         if (require("Lexical").$isTextNode(r))
           return require("Lexical").$getTextPointCaret(r, "next", o.offset);
-        if (require("Lexical").$isElementNode(r))
-          return require("Lexical").$getChildCaretAtIndex(r, o.offset, "next");
         var i = r.getParent();
-        return null === i
-          ? null
-          : require("Lexical").$getChildCaretAtIndex(
-              i,
-              r.getIndexWithinParent() + 1,
-              "next",
-            );
+        if (require("Lexical").$isElementNode(r)) {
+          var _t5 = n.getElementByKey(r.getKey());
+          if (null === _t5) return null;
+          var _l3 = require("Lexical").$getDOMSlot(r, _t5, n);
+          return o.node === _l3.element || i
+            ? require("Lexical").$getChildCaretAtIndex.apply(
+                require("Lexical"),
+                Array.from(
+                  _l3.resolveChildIndex(r, _t5, o.node, o.offset),
+                ).concat(["next"]),
+              )
+            : null;
+        }
+        return (
+          i &&
+          require("Lexical").$getChildCaretAtIndex(
+            i,
+            r.getIndexWithinParent() + 1,
+            "next",
+          )
+        );
       })(t, n);
       if (null === c) return !1;
       var a = i.editorKey === n.getKey(),
@@ -506,8 +518,8 @@ __d(
         ),
         !a)
       ) {
-        var _t5 = n.getRootElement(),
-          _o7 = _t5 ? _t5.ownerDocument : null,
+        var _t6 = n.getRootElement(),
+          _o7 = _t6 ? _t6.ownerDocument : null,
           _r5 = _o7
             ? (function (t, n) {
                 for (var _o8 of require("Lexical").findAllLexicalElementsDeep(
@@ -550,13 +562,13 @@ __d(
             if (_r6)
               if (require("Lexical").$isTextPointCaret(_r6)) _o9 = _r6.origin;
               else {
-                var _t6 = require("Lexical").$getCaretRange(
+                var _t7 = require("Lexical").$getCaretRange(
                   _r6,
                   require("Lexical")
                     .$getChildCaret(require("Lexical").$getRoot(), "next")
                     .getFlipped(),
                 );
-                for (var _n6 of _t6) {
+                for (var _n6 of _t7) {
                   if (require("Lexical").$isTextNode(_n6.origin)) {
                     _o9 = _n6.origin;
                     break;
@@ -659,12 +671,12 @@ __d(
             _n0,
             t.getRootElement(),
           ),
-          _l3 = _i6.anchorNode,
+          _l4 = _i6.anchorNode,
           _s2 = _i6.focusNode;
         if (
-          null !== _l3 &&
+          null !== _l4 &&
           null !== _s2 &&
-          !require("Lexical").isSelectionWithinEditor(t, _l3, _s2)
+          !require("Lexical").isSelectionWithinEditor(t, _l4, _s2)
         )
           return !1;
         o = w(_r8);
@@ -748,11 +760,11 @@ __d(
         if (n.$exportMimeType) {
           var _e1 = babelHelpers["extends"]({}, t.$exportMimeType);
           for (var _ref8 of Object.entries(n.$exportMimeType)) {
-            var _t7 = _ref8[0];
+            var _t8 = _ref8[0];
             var _o13 = _ref8[1];
             if (_o13) {
-              var _n12 = _e1[_t7];
-              _e1[_t7] = _n12
+              var _n12 = _e1[_t8];
+              _e1[_t8] = _n12
                 ? [].concat(Array.from(_n12), Array.from(_o13))
                 : _o13;
             }

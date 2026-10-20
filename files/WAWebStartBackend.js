@@ -34,6 +34,7 @@ __d(
     "WAWebCommsWorkerProxy",
     "WAWebCrashlog",
     "WAWebCryptoEncKeyHelper",
+    "WAWebCustomerManagerGating",
     "WAWebDBAfterReadSendingRollbackMigration",
     "WAWebDBCreateLidPnMappings",
     "WAWebDBFavoriteDatabaseMigrationToLid",
@@ -536,7 +537,13 @@ __d(
               "handleDeferredMessages",
               {},
             ),
-            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() || (yield B()),
+            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
+              (yield B(),
+              o("WAWebCustomerManagerGating").customerManagerEnabled() &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "startServerLeadStageRepull",
+                  {},
+                )),
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializePME",
               {},

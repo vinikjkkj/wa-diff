@@ -16,10 +16,43 @@ __d(
     function u(e, t) {
       return (
         t === void 0 && (t = e.getBoundingClientRect()),
-        c(e) ? "distorted" : d(e, t)
+        m(e) ? "distorted" : d(p(e, t))
       );
     }
-    function c(e) {
+    function c(e, t) {
+      t === void 0 && (t = e.getBoundingClientRect());
+      var n = new Map();
+      for (var r of p(e, t))
+        if (r.closest(l) != null) {
+          var o,
+            a = _(r, e);
+          n.set(a, ((o = n.get(a)) != null ? o : 0) + 1);
+        }
+      if (n.size === 0) return null;
+      var i = C(t).length;
+      return Array.from(n)
+        .sort(function (e, t) {
+          var n = e[1],
+            r = t[1];
+          return r - n;
+        })
+        .map(function (e) {
+          var t = e[0],
+            n = e[1];
+          return t + " points=" + n + "/" + i;
+        })
+        .join("; ");
+    }
+    function d(e) {
+      return e.some(function (e) {
+        return e.closest(l) == null;
+      })
+        ? "occluded"
+        : e.length > 0
+          ? "app_layer"
+          : null;
+    }
+    function m(e) {
       var t = e.ownerDocument.defaultView;
       if (t == null) return !1;
       for (
@@ -29,9 +62,9 @@ __d(
               s.some(function (t) {
                 var n = t[0],
                   r = t[1];
-                return !f(e.getPropertyValue(n), r);
+                return !v(e.getPropertyValue(n), r);
               }) ||
-              !g(e.getPropertyValue("transform"))
+              !S(e.getPropertyValue("transform"))
             )
               return { v: !0 };
           },
@@ -43,35 +76,75 @@ __d(
         if (((r = n()), r)) return r.v;
       return !1;
     }
-    function d(t, n) {
+    function p(t, n) {
       var r,
         o = t.ownerDocument;
-      if (n.width <= 2 * e || n.height <= 2 * e) return null;
+      if (n.width <= 2 * e || n.height <= 2 * e) return [];
       var a = o.createElement("style");
       ((a.textContent = "* { pointer-events: auto !important; }"),
         (r = o.head) == null || r.appendChild(a));
       try {
-        var i = !1;
-        for (var s of p(n)) {
-          var u = s[0],
-            c = s[1],
-            d = m(t, o.elementsFromPoint(u, c));
-          if (d != null && d.closest(l) == null) return "occluded";
-          i || (i = d != null);
-        }
-        return i ? "app_layer" : null;
+        return C(n).flatMap(function (e) {
+          var n = e[0],
+            r = e[1],
+            a = y(t, o.elementsFromPoint(n, r));
+          return a == null ? [] : [a];
+        });
       } finally {
         a.remove();
       }
     }
-    function m(e, t) {
+    function _(e, t) {
+      var n,
+        r = e.ownerDocument.defaultView;
+      return [
+        "testid=" + g(f(e, "data-testid")),
+        "role=" + f(e, "role"),
+        "tag=" + e.tagName.toLowerCase(),
+        "z=" + h(e, t),
+        "pointer=" +
+          ((n =
+            r == null
+              ? void 0
+              : r.getComputedStyle(e).getPropertyValue("pointer-events")) !=
+          null
+            ? n
+            : ""),
+      ].join(" ");
+    }
+    function f(e, t) {
+      var n, r;
+      return (n =
+        (r = e.closest("[" + t + "]")) == null ? void 0 : r.getAttribute(t)) !=
+        null
+        ? n
+        : "none";
+    }
+    function g(e) {
+      return e.replace(/[0-9a-z]*\d[0-9a-z]*/gi, "#");
+    }
+    function h(e, t) {
+      for (
+        var n = e.ownerDocument.defaultView, r = "auto", o = e;
+        o != null && !o.contains(t);
+        o = o.parentElement
+      ) {
+        var a =
+          n == null
+            ? void 0
+            : n.getComputedStyle(o).getPropertyValue("z-index");
+        a != null && a !== "" && a !== "auto" && (r = a);
+      }
+      return r;
+    }
+    function y(e, t) {
       for (var n of t) {
         if (n === e || e.contains(n)) return null;
-        if (!_(n)) return n;
+        if (!b(n)) return n;
       }
       return null;
     }
-    function p(t) {
+    function C(t) {
       var n = [t.left + e, t.left + t.width / 2, t.right - e],
         r = [t.top + e, t.top + t.height / 2, t.bottom - e];
       return n.flatMap(function (e) {
@@ -80,7 +153,7 @@ __d(
         });
       });
     }
-    function _(e) {
+    function b(e) {
       for (
         var t = e.ownerDocument.defaultView, n = e;
         n != null;
@@ -94,10 +167,10 @@ __d(
           return !0;
       return !1;
     }
-    function f(e, t) {
+    function v(e, t) {
       return e === "" || e === t;
     }
-    function g(e) {
+    function S(e) {
       if (e === "" || e === "none") return !0;
       var t = /^matrix\(([^)]*)\)$/.exec(e);
       if (t == null) return !1;
@@ -108,7 +181,7 @@ __d(
         i = n[3];
       return o === 0 && a === 0 && r === i && r >= 1;
     }
-    i.findPermissionButtonCover = u;
+    ((i.findPermissionButtonCover = u), (i.describeAppLayerCover = c));
   },
   66,
 );

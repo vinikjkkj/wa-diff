@@ -1666,6 +1666,7 @@ __d(
       INSTANT_ADS_PRODUCT_CARD_HOVER: "instant_ads_product_card_hover",
       INSTANT_ADS_PREGENERATE_INTENTION_WITH_PERSONAS:
         "instant_ads_pregenerate_intention_with_personas",
+      INSTANT_ADS_PREGENERATE_REQUESTED: "instant_ads_pregenerate_requested",
       INSTANT_ADS_PREGENERATE_FUNNEL_OUTCOME:
         "instant_ads_pregenerate_funnel_outcome",
       INSTANT_ADS_CREATIVES_GENERATING: "instant_ads_creatives_generating",

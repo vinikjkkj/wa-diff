@@ -16,6 +16,7 @@ __d(
         function t(t, n) {
           var a = this;
           ((this.setIncomingOfferReceivedMs = null),
+            (this.transferCallStart = null),
             (this.handleVoipReady = function () {
               var e;
               (o("WAWebBackendApi").frontendFireAndForget(

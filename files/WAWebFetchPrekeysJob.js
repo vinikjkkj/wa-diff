@@ -32,7 +32,7 @@ __d(
             userArgs: t.map(function (e) {
               return {
                 userJid: o("WAWebWidToJid").widToDeviceJid(e),
-                userReason: a ? "identity" : null,
+                userReason: a ? "identity" : void 0,
               };
             }),
             hasKeyPqsupportTrue:

@@ -10,9 +10,9 @@ __d(
     "WAWebModalManager",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebText.react",
-    "WAWebText_DONOTUSE.react",
     "WDSIconIcDelete.react",
     "WDSIconIcDownload.react",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
     "useWAWebGdprDelete",
@@ -88,7 +88,10 @@ __d(
         : (I = t[7]);
       var T;
       t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+        ? ((T = u.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDefault",
+            testid: "gdpr-available-download-label",
             children: s._(/*BTDS*/ "Download report"),
           })),
           (t[8] = T))
@@ -183,7 +186,10 @@ __d(
         : (A = t[27]);
       var F;
       t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+        ? ((F = u.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDefault",
+            testid: "gdpr-available-delete-label",
             children: s._(/*BTDS*/ "Delete and request new report"),
           })),
           (t[28] = F))
@@ -209,9 +215,10 @@ __d(
       var B;
       t[32] !== S
         ? ((B = o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
-            ? u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-                color: "secondary",
-                size: "16",
+            ? u.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDeemphasized",
+                testid: "gdpr-available-expiration",
                 xstyle: [d.availability, c.marginTop18],
                 children: S,
               })

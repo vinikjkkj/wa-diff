@@ -9,7 +9,6 @@ __d(
     "WAWebGroupHistoryPostJoinSubtype",
     "WAWebGroupType",
     "WAWebMsgType",
-    "WAWebText_DONOTUSE.react",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "react",
@@ -80,9 +79,8 @@ __d(
       }
       return g == null
         ? null
-        : u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-            weight: "medium",
-            size: "inherit",
+        : u.jsx("span", {
+            "data-testid": "system-notification-cta-text",
             children: g,
           });
     }

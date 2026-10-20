@@ -11,6 +11,7 @@ __d(
     "WAWebApiBulkGetChats",
     "WAWebApiVerifiedBusinessName",
     "WAWebBackendApi",
+    "WAWebBizAiPaymentRequestWamLogger",
     "WAWebBoolFunc",
     "WAWebChatThreadLogging",
     "WAWebChatThreadLoggingUtils",
@@ -412,53 +413,80 @@ __d(
               i != null && t.set(i.toJid(), i);
             }
           var l = yield (p || (p = n("Promise"))).all(
-            Array.from(
-              t,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e[0],
-                      n = e[1],
-                      a = yield o("WAWebApiVerifiedBusinessName")
-                        .getVerifiedBusinessNameRecordLidAware(n)
-                        .catch(function (e) {
-                          return (
-                            o("WALogger")
-                              .WARN(
-                                m ||
-                                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[WAM:PAYMENT_REQUEST] sender business lookup failed",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e))
-                              .sendLogs(
-                                "payment-request-sender-business-lookup-failed",
-                              ),
-                            null
-                          );
-                        });
-                    if (a == null) return null;
-                    var i = {
-                      isApi: a.isApi,
-                      storedPrivacyMode:
-                        a.privacyMode != null
-                          ? o(
-                              "WAWebApiVerifiedBusinessName",
-                            ).convertPrivacyModeFromStorageType(a.privacyMode)
-                          : null,
-                    };
-                    return [t, i];
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+              Array.from(
+                t,
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0],
+                        n = e[1],
+                        a = yield o("WAWebApiVerifiedBusinessName")
+                          .getVerifiedBusinessNameRecordLidAware(n)
+                          .catch(function (e) {
+                            return (
+                              o("WALogger")
+                                .WARN(
+                                  m ||
+                                    (m =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "[WAM:PAYMENT_REQUEST] sender business lookup failed",
+                                      ])),
+                                )
+                                .catching(r("getErrorSafe")(e))
+                                .sendLogs(
+                                  "payment-request-sender-business-lookup-failed",
+                                ),
+                              null
+                            );
+                          });
+                      if (a == null) return null;
+                      var i = {
+                        isApi: a.isApi,
+                        isSmb: a.isSmb,
+                        storedPrivacyMode:
+                          a.privacyMode != null
+                            ? o(
+                                "WAWebApiVerifiedBusinessName",
+                              ).convertPrivacyModeFromStorageType(a.privacyMode)
+                            : null,
+                      };
+                      return [t, i];
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
             ),
-          );
-          yield o(
-            "WAWebPaymentRequestWamLogger",
-          ).logPaymentRequestReceivedWAMEvent(e, new Map(l.filter(Boolean)));
+            s = new Map(l.filter(Boolean)),
+            u = [],
+            c = [];
+          for (var d of e) {
+            var _;
+            if (o("WAWebPaymentRequestWamLogger").isPaymentRequestMsg(d)) {
+              var f =
+                  (_ = o("WAWebMsgGetters").getSender(d)) == null
+                    ? void 0
+                    : _.toJid(),
+                g = f != null ? s.get(f) : null;
+              o("WAWebBizAiPaymentRequestWamLogger").isBizAiPixPaymentRequest(
+                d,
+                g,
+              )
+                ? u.push(d)
+                : c.push(d);
+            }
+          }
+          yield p.all([
+            o(
+              "WAWebBizAiPaymentRequestWamLogger",
+            ).logBizAiPaymentRequestReceivedWAMEvent(u),
+            o("WAWebPaymentRequestWamLogger").logPaymentRequestReceivedWAMEvent(
+              c,
+              s,
+            ),
+          ]);
         })),
         D.apply(this, arguments)
       );

@@ -341,7 +341,7 @@ __d(
       );
     }
     function S(e) {
-      var t = o("react-compiler-runtime").c(92),
+      var t = o("react-compiler-runtime").c(97),
         n = e.associatedMessages,
         a = e.displayAuthor,
         i = e.displayType,
@@ -374,7 +374,10 @@ __d(
           N.getCtwaContext,
           N.getIsDynamicReplyButtonsMsg,
           o("WAWebFrontendMsgGetters").getSenderObj,
-          o("WAWebFrontendMsgGetters").getSafeMsg,
+          N.getSender,
+          N.getIsPSA,
+          N.getNotifyName,
+          N.getIsNewsletterMsg,
         ]),
           (t[0] = P));
       } else P = t[0];
@@ -389,32 +392,35 @@ __d(
         U = M[7],
         V = M[8],
         H = M[9],
-        G;
+        G = M[10],
+        z = M[11],
+        j = M[12],
+        K;
       t[1] !== W
-        ? ((G =
+        ? ((K =
             W === o("WAWebPollCreationUtils").PollType.QUIZ
               ? s._(/*BTDS*/ "View responses")
               : s._(/*BTDS*/ "View votes")),
           (t[1] = W),
-          (t[2] = G))
-        : (G = t[2]);
-      var z = G,
-        j;
+          (t[2] = K))
+        : (K = t[2]);
+      var Q = K,
+        X;
       t[3] !== f
-        ? ((j = f.values().every(R)), (t[3] = f), (t[4] = j))
-        : (j = t[4]);
-      var K = j,
-        Q;
-      t[5] !== w ? ((Q = w.slice(0, y)), (t[5] = w), (t[6] = Q)) : (Q = t[6]);
-      var X = Q,
-        Y;
+        ? ((X = f.values().every(R)), (t[3] = f), (t[4] = X))
+        : (X = t[4]);
+      var Y = X,
+        J;
+      t[5] !== w ? ((J = w.slice(0, y)), (t[5] = w), (t[6] = J)) : (J = t[6]);
+      var Z = J,
+        ee;
       t[7] !== f
-        ? ((Y = o("WAWebPollsUseResults").getOptionWithCount(f)),
+        ? ((ee = o("WAWebPollsUseResults").getOptionWithCount(f)),
           (t[7] = f),
-          (t[8] = Y))
-        : (Y = t[8]);
-      var J = Y,
-        Z;
+          (t[8] = ee))
+        : (ee = t[8]);
+      var te = ee,
+        ne;
       t[9] !== n ||
       t[10] !== B ||
       t[11] !== l ||
@@ -422,7 +428,7 @@ __d(
       t[13] !== _ ||
       t[14] !== L ||
       t[15] !== x
-        ? ((Z = {
+        ? ((ne = {
             trusted: x,
             isPollEnded: l,
             isPollInvalid: u,
@@ -438,18 +444,18 @@ __d(
           (t[13] = _),
           (t[14] = L),
           (t[15] = x),
-          (t[16] = Z))
-        : (Z = t[16]);
-      var ee = Z,
-        te;
+          (t[16] = ne))
+        : (ne = t[16]);
+      var re = ne,
+        oe;
       t[17] !== F ||
       t[18] !== c ||
-      t[19] !== X ||
-      t[20] !== ee ||
+      t[19] !== Z ||
+      t[20] !== re ||
       t[21] !== g ||
       t[22] !== b ||
       t[23] !== E
-        ? ((te = function () {
+        ? ((oe = function () {
             var e,
               t,
               n = D(c);
@@ -471,11 +477,11 @@ __d(
                           : "",
                       isSentByMe: F,
                       selectableOptionsCount: E,
-                      pollName: X,
+                      pollName: Z,
                       pollEndTime: g,
                       pollHideVoterNames: b,
                     },
-                    ee,
+                    re,
                   ),
                 ),
                 { transition: "slide-left" },
@@ -483,103 +489,117 @@ __d(
           }),
           (t[17] = F),
           (t[18] = c),
-          (t[19] = X),
-          (t[20] = ee),
+          (t[19] = Z),
+          (t[20] = re),
           (t[21] = g),
           (t[22] = b),
           (t[23] = E),
-          (t[24] = te))
-        : (te = t[24]);
-      var ne = te,
-        re;
-      t[25] !== l ||
-      t[26] !== F ||
-      t[27] !== X ||
-      t[28] !== J ||
-      t[29] !== g ||
-      t[30] !== b ||
-      t[31] !== H ||
-      t[32] !== A
-        ? ((re = T({
-            authorDisplayName: o("WAWebMsgModelUtils").getMsgDisplayName(
-              H.unsafe(),
-            ),
-            commaSeparatedOptionsAndResults: J,
+          (t[24] = oe))
+        : (oe = t[24]);
+      var ae = oe,
+        ie;
+      t[25] !== j ||
+      t[26] !== G ||
+      t[27] !== l ||
+      t[28] !== F ||
+      t[29] !== c ||
+      t[30] !== Z ||
+      t[31] !== z ||
+      t[32] !== te ||
+      t[33] !== g ||
+      t[34] !== b ||
+      t[35] !== H ||
+      t[36] !== V ||
+      t[37] !== A
+        ? ((ie = T({
+            authorDisplayName: o("WAWebMsgModelUtils").getMsgDisplayNameFor({
+              chat: o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(c, j),
+              isPSA: G,
+              notifyName: z,
+              sender: H,
+              senderObj: V,
+            }),
+            commaSeparatedOptionsAndResults: te,
             isPollEnded: l,
             isSentByMe: F,
             pollEndTime: g,
             pollHideVoterNames: b,
-            pollName: X,
+            pollName: Z,
             t: A,
           })),
-          (t[25] = l),
-          (t[26] = F),
-          (t[27] = X),
-          (t[28] = J),
-          (t[29] = g),
-          (t[30] = b),
-          (t[31] = H),
-          (t[32] = A),
-          (t[33] = re))
-        : (re = t[33]);
-      var oe;
-      t[34] !== q || t[35] !== i || t[36] !== c
-        ? ((oe =
+          (t[25] = j),
+          (t[26] = G),
+          (t[27] = l),
+          (t[28] = F),
+          (t[29] = c),
+          (t[30] = Z),
+          (t[31] = z),
+          (t[32] = te),
+          (t[33] = g),
+          (t[34] = b),
+          (t[35] = H),
+          (t[36] = V),
+          (t[37] = A),
+          (t[38] = ie))
+        : (ie = t[38]);
+      var le;
+      t[39] !== q || t[40] !== i || t[41] !== c
+        ? ((le =
             !q &&
             p.jsx(o("WAWebBizSuspiciousLabel.react").SuspiciousLabel, {
               msgKey: c,
               displayType: i,
             })),
-          (t[34] = q),
-          (t[35] = i),
-          (t[36] = c),
-          (t[37] = oe))
-        : (oe = t[37]);
-      var ae;
-      t[38] !== l ||
-      t[39] !== F ||
-      t[40] !== c ||
-      t[41] !== X ||
-      t[42] !== g ||
-      t[43] !== b ||
-      t[44] !== v ||
-      t[45] !== x
-        ? ((ae = p.jsx(r("WAWebPollMessageHeader"), {
+          (t[39] = q),
+          (t[40] = i),
+          (t[41] = c),
+          (t[42] = le))
+        : (le = t[42]);
+      var se;
+      t[43] !== l ||
+      t[44] !== F ||
+      t[45] !== c ||
+      t[46] !== Z ||
+      t[47] !== g ||
+      t[48] !== b ||
+      t[49] !== v ||
+      t[50] !== x
+        ? ((se = p.jsx(r("WAWebPollMessageHeader"), {
             isPollEnded: l,
             pollSelectableOptionsCount: v,
             pollEndTime: g,
             pollHideVoterNames: b,
-            name: X,
+            name: Z,
             msgKey: c,
             isSentByMe: F,
             trusted: x,
           })),
-          (t[38] = l),
-          (t[39] = F),
-          (t[40] = c),
-          (t[41] = X),
-          (t[42] = g),
-          (t[43] = b),
-          (t[44] = v),
-          (t[45] = x),
-          (t[46] = ae))
-        : (ae = t[46]);
-      var ie;
-      t[47] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ie = (d || (d = r("stylex"))).props(
+          (t[43] = l),
+          (t[44] = F),
+          (t[45] = c),
+          (t[46] = Z),
+          (t[47] = g),
+          (t[48] = b),
+          (t[49] = v),
+          (t[50] = x),
+          (t[51] = se))
+        : (se = t[51]);
+      var ue;
+      t[52] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ue = (d || (d = r("stylex"))).props(
             o("WDSPaddings.stylex").wdsPaddings.padding4,
           )),
-          (t[47] = ie))
-        : (ie = t[47]);
-      var le;
-      t[48] !== ne ||
-      t[49] !== c ||
-      t[50] !== m ||
-      t[51] !== ee ||
-      t[52] !== f ||
-      t[53] !== E ||
-      t[54] !== $
-        ? ((le = p.jsx(
+          (t[52] = ue))
+        : (ue = t[52]);
+      var ce;
+      t[53] !== ae ||
+      t[54] !== c ||
+      t[55] !== m ||
+      t[56] !== re ||
+      t[57] !== f ||
+      t[58] !== E ||
+      t[59] !== $
+        ? ((ce = p.jsx(
             r("WAWebPollsOptions"),
             babelHelpers.extends(
               {
@@ -588,24 +608,24 @@ __d(
                 checkedOptionLocalIds: $,
                 onOptionToggle: m,
                 selectableOptionsCount: E,
-                onPhotoThumbClick: ne,
+                onPhotoThumbClick: ae,
                 view: "message",
               },
-              ee,
+              re,
             ),
           )),
-          (t[48] = ne),
-          (t[49] = c),
-          (t[50] = m),
-          (t[51] = ee),
-          (t[52] = f),
-          (t[53] = E),
-          (t[54] = $),
-          (t[55] = le))
-        : (le = t[55]);
-      var se;
-      t[56] !== u || t[57] !== F
-        ? ((se =
+          (t[53] = ae),
+          (t[54] = c),
+          (t[55] = m),
+          (t[56] = re),
+          (t[57] = f),
+          (t[58] = E),
+          (t[59] = $),
+          (t[60] = ce))
+        : (ce = t[60]);
+      var de;
+      t[61] !== u || t[62] !== F
+        ? ((de =
             u &&
             p.jsxs(o("WAWebFlex.react").FlexRow, {
               xstyle: [
@@ -640,13 +660,13 @@ __d(
                 ),
               ],
             })),
-          (t[56] = u),
-          (t[57] = F),
-          (t[58] = se))
-        : (se = t[58]);
-      var ue;
-      t[59] !== O || t[60] !== W
-        ? ((ue =
+          (t[61] = u),
+          (t[62] = F),
+          (t[63] = de))
+        : (de = t[63]);
+      var me;
+      t[64] !== O || t[65] !== W
+        ? ((me =
             O != null &&
             p.jsx(o("WAWebFlex.react").FlexRow, {
               xstyle: [
@@ -662,38 +682,38 @@ __d(
                     : s._(/*BTDS*/ "See the latest votes in the channel."),
               }),
             })),
-          (t[59] = O),
-          (t[60] = W),
-          (t[61] = ue))
-        : (ue = t[61]);
-      var ce;
-      t[62] !== n || t[63] !== c
-        ? ((ce = p.jsx(o("WAWebFlex.react").FlexRow, {
+          (t[64] = O),
+          (t[65] = W),
+          (t[66] = me))
+        : (me = t[66]);
+      var pe;
+      t[67] !== n || t[68] !== c
+        ? ((pe = p.jsx(o("WAWebFlex.react").FlexRow, {
             justify: "end",
             children: p.jsx(o("WAWebMessageMeta.react").Meta, {
               msgKey: c,
               associatedMessages: n,
             }),
           })),
-          (t[62] = n),
-          (t[63] = c),
-          (t[64] = ce))
-        : (ce = t[64]);
-      var de;
-      t[65] !== le || t[66] !== se || t[67] !== ue || t[68] !== ce
-        ? ((de = p.jsxs(
+          (t[67] = n),
+          (t[68] = c),
+          (t[69] = pe))
+        : (pe = t[69]);
+      var _e;
+      t[70] !== ce || t[71] !== de || t[72] !== me || t[73] !== pe
+        ? ((_e = p.jsxs(
             "div",
-            babelHelpers.extends({}, ie, { children: [le, se, ue, ce] }),
+            babelHelpers.extends({}, ue, { children: [ce, de, me, pe] }),
           )),
-          (t[65] = le),
-          (t[66] = se),
-          (t[67] = ue),
-          (t[68] = ce),
-          (t[69] = de))
-        : (de = t[69]);
-      var me;
-      t[70] !== K || t[71] !== F || t[72] !== _ || t[73] !== k || t[74] !== z
-        ? ((me =
+          (t[70] = ce),
+          (t[71] = de),
+          (t[72] = me),
+          (t[73] = pe),
+          (t[74] = _e))
+        : (_e = t[74]);
+      var fe;
+      t[75] !== Y || t[76] !== F || t[77] !== _ || t[78] !== k || t[79] !== Q
+        ? ((fe =
             k &&
             p.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
               theme: F
@@ -703,73 +723,73 @@ __d(
                     .POLL_RECEIVER,
               items: [
                 {
-                  label: z,
-                  title: z,
+                  label: Q,
+                  title: Q,
                   onClick: _,
-                  disabled: K,
+                  disabled: Y,
                   testid: "poll-view-votes",
                 },
               ],
             })),
-          (t[70] = K),
-          (t[71] = F),
-          (t[72] = _),
-          (t[73] = k),
-          (t[74] = z),
-          (t[75] = me))
-        : (me = t[75]);
-      var pe;
-      t[76] !== c ||
-      t[77] !== S ||
-      t[78] !== V ||
-      t[79] !== ae ||
-      t[80] !== de ||
-      t[81] !== me ||
-      t[82] !== oe
-        ? ((pe = p.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
+          (t[75] = Y),
+          (t[76] = F),
+          (t[77] = _),
+          (t[78] = k),
+          (t[79] = Q),
+          (t[80] = fe))
+        : (fe = t[80]);
+      var ge;
+      t[81] !== c ||
+      t[82] !== S ||
+      t[83] !== V ||
+      t[84] !== se ||
+      t[85] !== _e ||
+      t[86] !== fe ||
+      t[87] !== le
+        ? ((ge = p.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
             contact: V,
             msgKey: c,
-            children: [oe, S, ae, de, me],
+            children: [le, S, se, _e, fe],
           })),
-          (t[76] = c),
-          (t[77] = S),
-          (t[78] = V),
-          (t[79] = ae),
-          (t[80] = de),
-          (t[81] = me),
-          (t[82] = oe),
-          (t[83] = pe))
-        : (pe = t[83]);
-      var _e;
+          (t[81] = c),
+          (t[82] = S),
+          (t[83] = V),
+          (t[84] = se),
+          (t[85] = _e),
+          (t[86] = fe),
+          (t[87] = le),
+          (t[88] = ge))
+        : (ge = t[88]);
+      var he;
       return (
-        t[84] !== a ||
-        t[85] !== i ||
-        t[86] !== U ||
-        t[87] !== c ||
-        t[88] !== pe ||
-        t[89] !== re ||
-        t[90] !== I
-          ? ((_e = p.jsx(r("WAWebMessageTextBubble.react"), {
+        t[89] !== a ||
+        t[90] !== i ||
+        t[91] !== U ||
+        t[92] !== c ||
+        t[93] !== ge ||
+        t[94] !== ie ||
+        t[95] !== I
+          ? ((he = p.jsx(r("WAWebMessageTextBubble.react"), {
               msgKey: c,
               displayType: i,
               displayAuthor: a,
               authorRole: "button",
               hideMeta: !0,
-              ariaLabel: re,
+              ariaLabel: ie,
               useFixedWidth: U,
               testid: I,
-              children: pe,
+              children: ge,
             })),
-            (t[84] = a),
-            (t[85] = i),
-            (t[86] = U),
-            (t[87] = c),
-            (t[88] = pe),
-            (t[89] = re),
-            (t[90] = I),
-            (t[91] = _e))
-          : (_e = t[91]),
-        _e
+            (t[89] = a),
+            (t[90] = i),
+            (t[91] = U),
+            (t[92] = c),
+            (t[93] = ge),
+            (t[94] = ie),
+            (t[95] = I),
+            (t[96] = he))
+          : (he = t[96]),
+        he
       );
     }
     function R(e) {

@@ -17,6 +17,7 @@ __d(
           ((this.reportWebAnr = null),
             (this.handleOngoingCallInfo = null),
             (this.setIncomingOfferReceivedMs = null),
+            (this.transferCallStart = null),
             (this.handleVoipReady = function () {
               var e;
               (o("WAWebBackendApi").frontendFireAndForget(

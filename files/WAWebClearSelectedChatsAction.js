@@ -5,6 +5,7 @@ __d(
     "WAWebBulkChatAction",
     "WAWebChatGetters",
     "WAWebClearChatUtils",
+    "WAWebMetaAiChatActionLogger",
     "WAWebWamChatActionEventsLogger",
     "WAWebWamChatPSALogger",
     "WAWebWamEnumChatActionEntryPoint",
@@ -37,16 +38,25 @@ __d(
               operation: (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    var t = o("WAWebClearChatUtils").initClearChat(e, r),
-                      n = o("WAWebClearChatUtils").finalizeClearChat(e, t);
+                    var t = o(
+                        "WAWebMetaAiChatActionLogger",
+                      ).captureMetaAiChatActionFields(e.id),
+                      n = o("WAWebClearChatUtils").initClearChat(e, r),
+                      a = o("WAWebClearChatUtils").finalizeClearChat(e, n);
+                    (e.addPendingAction(a), yield a);
+                    var l = yield t.resolve();
                     return (
-                      e.addPendingAction(n),
-                      yield n,
-                      o("WAWebWamChatActionEventsLogger").logChatActionEvent({
-                        chatActionEntryPoint: i,
-                        chatActionType: o("WAWebWamEnumChatActionType")
-                          .CHAT_ACTION_TYPE.CLEAR,
-                      }),
+                      l != null &&
+                        o("WAWebWamChatActionEventsLogger").logChatActionEvent(
+                          babelHelpers.extends(
+                            {
+                              chatActionEntryPoint: i,
+                              chatActionType: o("WAWebWamEnumChatActionType")
+                                .CHAT_ACTION_TYPE.CLEAR,
+                            },
+                            l,
+                          ),
+                        ),
                       !0
                     );
                   },

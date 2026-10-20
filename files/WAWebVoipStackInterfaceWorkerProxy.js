@@ -1196,6 +1196,17 @@ __d(
             }
             return t;
           })(),
+          transferCallStart: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return Number(yield Ee("transferCallStart", e));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
           rejectCallWithoutCallContext: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, o, a, i) {

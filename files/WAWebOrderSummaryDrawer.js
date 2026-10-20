@@ -30,12 +30,12 @@ __d(
     "WAWebOrdersExpansionUtils",
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXOrderAction",
-    "WAWebText_DONOTUSE.react",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -154,9 +154,10 @@ __d(
         : (v = n[4]);
       var S;
       n[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-            color: "secondary",
-            size: "16",
+        ? ((S = c.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDeemphasized",
+            testid: "order-values-subtotal-label",
             children: s._(/*BTDS*/ "Subtotal"),
           })),
           (n[5] = S))
@@ -175,9 +176,10 @@ __d(
             testid: "order-details-subtotal-row",
             children: [
               S,
-              c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                color: "secondary",
-                size: "16",
+              c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDeemphasized",
+                testid: "order-values-subtotal-value",
                 children: R,
               }),
             ],
@@ -204,14 +206,16 @@ __d(
                     justify: "all",
                     testid: "order-details-discount-row",
                     children: [
-                      c.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
-                        color: "secondary",
-                        size: "16",
+                      c.jsxs(r("WDSText.react"), {
+                        type: "Body1",
+                        colorName: "contentDeemphasized",
+                        testid: "order-values-discount-label",
                         children: [s._(/*BTDS*/ "Discount"), " ", y],
                       }),
-                      c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                        color: "secondary",
-                        size: "16",
+                      c.jsx(r("WDSText.react"), {
+                        type: "Body1",
+                        colorName: "contentDeemphasized",
+                        testid: "order-values-discount-value",
                         children: o("WAWebFormatUprAmount").formatUprAmount1000(
                           u,
                           -d,
@@ -224,14 +228,16 @@ __d(
                     justify: "all",
                     testid: "order-details-shipping-row",
                     children: [
-                      c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                        color: "secondary",
-                        size: "16",
+                      c.jsx(r("WDSText.react"), {
+                        type: "Body1",
+                        colorName: "contentDeemphasized",
+                        testid: "order-values-shipping-label",
                         children: s._(/*BTDS*/ "Shipping"),
                       }),
-                      c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                        color: "secondary",
-                        size: "16",
+                      c.jsx(r("WDSText.react"), {
+                        type: "Body1",
+                        colorName: "contentDeemphasized",
+                        testid: "order-values-shipping-value",
                         children: o("WAWebFormatUprAmount").formatUprAmount1000(
                           u,
                           p,
@@ -244,14 +250,16 @@ __d(
                     justify: "all",
                     testid: "order-details-tax-row",
                     children: [
-                      c.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
-                        color: "secondary",
-                        size: "16",
+                      c.jsxs(r("WDSText.react"), {
+                        type: "Body1",
+                        colorName: "contentDeemphasized",
+                        testid: "order-values-tax-label",
                         children: [s._(/*BTDS*/ "Tax"), " ", b],
                       }),
-                      c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-                        color: "secondary",
-                        size: "16",
+                      c.jsx(r("WDSText.react"), {
+                        type: "Body1",
+                        colorName: "contentDeemphasized",
+                        testid: "order-values-tax-value",
                         children: o("WAWebFormatUprAmount").formatUprAmount1000(
                           u,
                           g,

@@ -109,12 +109,13 @@ __d(
         width: i,
       });
     }
-    function _(e, t, n) {
-      return (
-        t === void 0 && (t = 100),
-        n === void 0 && (n = 100),
-        o("WAWebBizProductCatalogBridge").editProduct(e, t, n)
-      );
+    function _(e) {
+      var t = e.height,
+        n = t === void 0 ? 100 : t,
+        r = e.product,
+        a = e.width,
+        i = a === void 0 ? 100 : a;
+      return o("WAWebBizProductCatalogBridge").editProduct(r, i, n);
     }
     function f(e) {
       return o("WAWebBizProductCatalogBridge").deleteProducts(e);

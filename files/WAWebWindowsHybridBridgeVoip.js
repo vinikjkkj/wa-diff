@@ -883,6 +883,29 @@ __d(
                 },
               ));
           }),
+          (a.transferCallStart = function (t) {
+            var e = this,
+              n = t.callId,
+              a = t.hasVideo,
+              i = t.peerActiveDevice,
+              l = t.rootCallCreator,
+              s = t.rootCallId;
+            return (
+              r("WAWebODS").incr(
+                "web.hybrid.bridge.voip.send.transfer_call_start",
+              ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voip",
+                  method: "transferCallStartAsync",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.transferCallStartAsync(s, l, i, n, a);
+                },
+              )
+            );
+          }),
           t
         );
       })();

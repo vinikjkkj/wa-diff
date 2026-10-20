@@ -68,10 +68,13 @@ __d(
       d,
       m,
       p,
-      _ = r("requireDeferred")("WAWebHandleBizThreadDataNotification").__setRef(
+      _ = r("requireDeferred")(
+        "WAWebHandleBizThreadDataBulkNotification",
+      ).__setRef("WAWebCommsHandleLoggedInStanza"),
+      f = r("requireDeferred")("WAWebHandleBizThreadDataNotification").__setRef(
         "WAWebCommsHandleLoggedInStanza",
       ),
-      f = o("WACreateHandleChatState").createHandleChatState({
+      g = o("WACreateHandleChatState").createHandleChatState({
         groupMessage: {
           handleGroupChatState: o("WAWebHandleChatState").handleGroupChatState,
         },
@@ -80,12 +83,12 @@ __d(
             .handleIndividualChatState,
         },
       });
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.attrs;
           switch (e.tag) {
             case "receipt":
@@ -174,8 +177,8 @@ __d(
                   case "encrypt": {
                     var p = e.content;
                     if (!Array.isArray(p) || !p.length) break;
-                    var g = p[0].tag;
-                    switch (g) {
+                    var h = p[0].tag;
+                    switch (h) {
                       case "count":
                       case "pq_count":
                         return yield r("WAWebHandlePreKeyLow")(e, t);
@@ -205,14 +208,14 @@ __d(
                       n.from != null &&
                       n.from.toString() === o("WAJids").PSA_JID
                     ) {
-                      var h = e.content;
-                      if (!Array.isArray(h) || !h.length) break;
-                      var b = h[0].tag;
-                      return b === "surfaces"
+                      var y = e.content;
+                      if (!Array.isArray(y) || !y.length) break;
+                      var v = y[0].tag;
+                      return v === "surfaces"
                         ? yield o(
                             "WAWebHandleQPSurfacesNotification",
                           ).handleQPSurfacesNotification(e)
-                        : b === "reset_smb_last_qp_prefetch_timestamp"
+                        : v === "reset_smb_last_qp_prefetch_timestamp"
                           ? o(
                               "WAWebHandleQPPrefetchTimestampNotification",
                             ).handleQPPrefetchTimestampNotification(e)
@@ -253,9 +256,17 @@ __d(
                     ).handleHostedNotification(e);
                 }
                 if (n.type != null && String(n.type) === "biz_thread_data") {
-                  var v = yield _.load(),
-                    S = v.handleBizThreadDataNotification;
-                  return S(e);
+                  var S = yield f.load(),
+                    R = S.handleBizThreadDataNotification;
+                  return R(e);
+                }
+                if (
+                  n.type != null &&
+                  String(n.type) === "biz_thread_data_bulk"
+                ) {
+                  var L = yield _.load(),
+                    E = L.handleBizThreadDataBulkNotification;
+                  return E(e);
                 }
                 if (
                   n.type != null &&
@@ -270,11 +281,11 @@ __d(
                   ).handleShortcakeLinkingNotification(e);
               } catch (t) {
                 if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
-                  var R, L;
+                  var k, I;
                   o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e);
-                  var E =
-                    (R = (L = n.type) == null ? void 0 : L.toString()) != null
-                      ? R
+                  var T =
+                    (k = (I = n.type) == null ? void 0 : I.toString()) != null
+                      ? k
                       : "[empty]";
                   return (
                     o("WALogger")
@@ -285,10 +296,10 @@ __d(
                             " stanza: ",
                             "",
                           ])),
-                        E,
+                        T,
                         t,
                       )
-                      .sendLogs("failed-to-parse-notification-stanza-" + E, {
+                      .sendLogs("failed-to-parse-notification-stanza-" + T, {
                         sampling: 0.01,
                       }),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
@@ -299,24 +310,24 @@ __d(
                 }
                 return t instanceof
                   o("WAWebHandleMexNotification").MissingMEXNotificationHandler
-                  ? y(e)
+                  ? C(e)
                   : o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,
                       o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
                     );
               }
-              return y(e);
+              return C(e);
             case "chatstate": {
-              var k = C(e);
-              if (k != null) return k;
-              var I = o(
+              var D = b(e);
+              if (D != null) return D;
+              var x = o(
                 "WAWebHandleCoexV2ChatState",
               ).maybeHandleCoexV2ChatStateStanza(e);
-              return I != null
-                ? I
+              return x != null
+                ? x
                 : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
                     e,
-                    f(e),
+                    g(e),
                   );
             }
             case "presence":
@@ -359,10 +370,10 @@ __d(
             )
           );
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(t) {
+    function C(t) {
       return (
         o("WALogger").DEV_XMPP(
           e ||
@@ -378,19 +389,19 @@ __d(
         )
       );
     }
-    function C(e) {
+    function b(e) {
       var t,
-        n = S((t = e.attrs.from) == null ? void 0 : t.toString());
+        n = R((t = e.attrs.from) == null ? void 0 : t.toString());
       if (n == null) return null;
       var r = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
-      return r == null ? null : b(e, r);
+      return r == null ? null : v(e, r);
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = o(
                 "WASmaxChatstateServerNotificationRPC",
@@ -421,14 +432,14 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       var t = o("WAWebDecodeJid").decodeJid(e);
       return t instanceof r("WAWebWid") ? t : null;
     }
-    l.handleLoggedInStanza = g;
+    l.handleLoggedInStanza = h;
   },
   98,
 );

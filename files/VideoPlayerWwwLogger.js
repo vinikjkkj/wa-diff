@@ -48,7 +48,7 @@ __d(
         event_name: e.eventType,
         event_seq_num: e.logData.event_seq_num,
         external_log_id: e.logData.external_log_id,
-        external_log_type: e.logData.external_log_id,
+        external_log_type: e.logData.external_log_type,
         fb_manifest_identifier: e.logData.fb_manifest_identifier,
         feed_aggregation_type: e.logData.feed_aggregation_type,
         feed_position: e.logData.feed_position,

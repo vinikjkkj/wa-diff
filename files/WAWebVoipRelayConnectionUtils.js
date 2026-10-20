@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipRelayConnectionUtils",
-  ["$InternalEnum", "WALogger", "WAWebUA", "asyncToGeneratorRuntime"],
+  [
+    "$InternalEnum",
+    "WALogger",
+    "WAWebUA",
+    "WAWebVoipSctpConnectionManagerConstants",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -191,57 +197,69 @@ __d(
     }
     function P(e) {
       var t = e.customSdp,
-        n = e.ip,
-        r = e.port,
-        o =
-          "a=candidate:2 1 udp 2122262783 " +
-          n +
-          " " +
-          r +
-          " typ host generation 0 network-cost 5",
-        a = [o, "a=end-of-candidates"].join("\r\n"),
-        i = D(t);
-      return ((i += a + "\r\n"), i);
+        n = e.iceTcpMode,
+        r = e.relayConnectionInfo,
+        o = [N(r, n), "a=end-of-candidates"].join("\r\n"),
+        a = D(t);
+      return ((a += o + "\r\n"), a);
     }
     function N(e, t) {
-      var n,
-        r = t.enableEdgerayDtlsActiveMode
+      var n = e.iceTcpPort,
+        r = e.ip,
+        a = e.port;
+      return t ===
+        o("WAWebVoipSctpConnectionManagerConstants").RelayIceTcpMode.TcpOnly &&
+        n != null
+        ? "a=candidate:3 1 tcp 1518283007 " +
+            r +
+            " " +
+            n +
+            " typ host tcptype passive generation 0 network-cost 5"
+        : "a=candidate:2 1 udp 2122262783 " +
+            r +
+            " " +
+            a +
+            " typ host generation 0 network-cost 5";
+    }
+    function M(e, t, n) {
+      var r,
+        o = t.enableEdgerayDtlsActiveMode
           ? "a=setup:active"
           : "a=setup:passive",
-        o = e.replace(/a=setup:actpass/g, r),
-        a = (n = t.authToken) != null ? n : t.token;
+        a = e.replace(/a=setup:actpass/g, o),
+        i = (r = t.authToken) != null ? r : t.token;
       return (
-        (o = I(o, a, t.key)),
-        (o = T(
-          o,
+        (a = I(a, i, t.key)),
+        (a = T(
+          a,
           "sha-256",
           "F9:CA:0C:98:A3:CC:71:D6:42:CE:5A:E2:53:D2:15:20:D3:1B:BA:D8:57:A4:F0:AF:BE:0B:FB:F3:6B:0C:A0:68",
         )),
-        (o = o.replace(/a=ice-options:[^\r\n]+\r\n/g, "")),
-        (o = o.replace(
+        (a = a.replace(/a=ice-options:[^\r\n]+\r\n/g, "")),
+        (a = a.replace(
           /a=max-message-size:[^\r\n]+/g,
           "a=max-message-size:1500",
         )),
-        (o = P({ customSdp: o, ip: t.ip, port: t.port.toString() })),
-        o
+        (a = P({ customSdp: a, iceTcpMode: n, relayConnectionInfo: t })),
+        a
       );
     }
-    var M = n("$InternalEnum").Mirrored([
+    var w = n("$InternalEnum").Mirrored([
       "STUN_ALLOC",
       "STUN_BIND",
       "STUN_UNKNOWN",
       "NonSTUN",
     ]);
-    function w(e) {
-      if (e.byteLength < 2) return M.NonSTUN;
+    function A(e) {
+      if (e.byteLength < 2) return w.NonSTUN;
       var t = new Uint8Array(e),
         n = t[0],
         r = t[1];
       if ((n & 192) === 0) {
         var o = ((n & 63) << 8) | r;
-        return o === 1 ? M.STUN_BIND : o === 3 ? M.STUN_ALLOC : M.STUN_UNKNOWN;
+        return o === 1 ? w.STUN_BIND : o === 3 ? w.STUN_ALLOC : w.STUN_UNKNOWN;
       }
-      return M.NonSTUN;
+      return w.NonSTUN;
     }
     ((l.CONNECTION_TIMEOUT_MS = c),
       (l.ConnectionState = m),
@@ -261,9 +279,9 @@ __d(
       (l.replaceDtlsFingerprint = T),
       (l.removeIceCandidates = D),
       (l.dataToArrayBuffer = x),
-      (l.createAnswerSdp = N),
-      (l.PacketType = M),
-      (l.inspectPacketType = w));
+      (l.createAnswerSdp = M),
+      (l.PacketType = w),
+      (l.inspectPacketType = A));
   },
   98,
 );

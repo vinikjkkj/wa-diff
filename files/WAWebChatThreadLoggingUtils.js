@@ -87,32 +87,7 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield R(e),
-            r = u(t);
-          return c(n, r);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = u(e);
-          return self.crypto.subtle.digest("SHA-256", t);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
+    function v(e) {
       return o("WATimeUtils")
         .toDate(
           o("WATimeUtils").castToUnixTime(
@@ -123,10 +98,10 @@ __d(
         .split("T")[0]
         .replace(/-/g, "/");
     }
-    function k(e) {
-      return E(e).replace(/\//g, "-");
+    function S(e) {
+      return v(e).replace(/\//g, "-");
     }
-    function I(e) {
+    function R(e) {
       var t = o("WATimeUtils").toDate(
           o("WATimeUtils").castToUnixTime(
             e - 8 * o("WATimeUtils").HOUR_SECONDS,
@@ -136,18 +111,18 @@ __d(
         r = String(t.getUTCMonth() + 1).padStart(2, "0");
       return n + "/" + r;
     }
-    function T(e, t) {
+    function L(e, t) {
       var n = t % o("WATimeUtils").DAY_SECONDS,
         r = t - n;
       return n >= e ? r + e : r - o("WATimeUtils").DAY_SECONDS + e;
     }
-    function D(e, t, n) {
-      return T(e, t) > n;
+    function E(e, t, n) {
+      return L(e, t) > n;
     }
-    function x(e) {
+    function k(e) {
       return e.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT;
     }
-    function $(e) {
+    function I(e) {
       var t,
         n = new Set([
           o("WAWebMsgType").MSG_TYPE.PRODUCT,
@@ -157,7 +132,7 @@ __d(
       return (
         n.has(e.type) ||
         n.has((t = e.quotedMsg) == null ? void 0 : t.type) ||
-        !!(e.matchedText != null && e.matchedText !== "" && P(e.matchedText)) ||
+        !!(e.matchedText != null && e.matchedText !== "" && T(e.matchedText)) ||
         (e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW &&
           (e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
@@ -165,13 +140,13 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS))
       );
     }
-    function P(e) {
+    function T(e) {
       return (
         o("WAWebApiParse").matchCatalogUrl(e) ||
         o("WAWebApiParse").matchProductUrl(e)
       );
     }
-    function N(e) {
+    function D(e) {
       if (e == null) return null;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeTrigger
@@ -188,7 +163,7 @@ __d(
           return null;
       }
     }
-    function M(e) {
+    function x(e) {
       if (e == null) return null;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeTrigger
@@ -205,7 +180,7 @@ __d(
           return null;
       }
     }
-    function w(e) {
+    function $(e) {
       return e == null
         ? null
         : e
@@ -214,41 +189,41 @@ __d(
           : o("WAWebWamEnumEphemeralityInitiatorType")
               .EPHEMERALITY_INITIATOR_TYPE.INITIATED_BY_OTHER;
     }
-    function A() {
-      return F.apply(this, arguments);
+    function P() {
+      return N.apply(this, arguments);
     }
-    function F() {
+    function N() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return o("WAWebUsernameTypes").isPresentUsername(
             t == null ? void 0 : t.username,
           );
         })),
-        F.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function O() {
-      return B.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function B() {
+    function w() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return (t == null ? void 0 : t.usernameKey) != null;
         })),
-        B.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function q() {
+    function F() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return V(t)
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return B(t)
             ? null
             : o("WAWebModelStorageUtils")
                 .getStorage()
@@ -275,14 +250,14 @@ __d(
                           t,
                         ),
                         null)
-                      : U(l, a);
+                      : O(l, a);
                   }),
                 );
         })),
-        q.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function U(e, t) {
+    function O(e, t) {
       if (e == null)
         return o("WAWebWamEnumOppositeVisibleIdentificationType")
           .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER;
@@ -307,7 +282,7 @@ __d(
         n
       );
     }
-    function V(e) {
+    function B(e) {
       return !e.isUser() || e.isPSA() || e.isBot();
     }
     ((l.generateThreadID = m),
@@ -315,21 +290,20 @@ __d(
       (l.CTWA_3PD_AGGREGATED_THREAD_ID_HMAC_SALT = g),
       (l.generateCtwa3pdAggregatedThreadIDHMAC = h),
       (l.generateMessageIDHMAC = C),
-      (l.generateUserThreadIDHMAC = v),
-      (l.getThreadDs = E),
-      (l.getThreadDsForDb = k),
-      (l.getThreadMonthDs = I),
-      (l.computeStartTs = T),
-      (l.shouldUpdateChatEvent = D),
-      (l.shouldIncrementMsgSendAndReceive = x),
-      (l.isCommerceMessage = $),
-      (l.getWamDisappearingModeTrigger = N),
-      (l.getWamDisappearingModeTriggerGroups = M),
-      (l.getWamDisappearingModeInitiatedByMe = w),
-      (l.getMeHasUsername = A),
-      (l.getMeHasUsernamePin = O),
-      (l.getOppositeVisibleIdentification = W),
-      (l.getOppositeVisibleIdentificationType = U));
+      (l.getThreadDs = v),
+      (l.getThreadDsForDb = S),
+      (l.getThreadMonthDs = R),
+      (l.computeStartTs = L),
+      (l.shouldUpdateChatEvent = E),
+      (l.shouldIncrementMsgSendAndReceive = k),
+      (l.isCommerceMessage = I),
+      (l.getWamDisappearingModeTrigger = D),
+      (l.getWamDisappearingModeTriggerGroups = x),
+      (l.getWamDisappearingModeInitiatedByMe = $),
+      (l.getMeHasUsername = P),
+      (l.getMeHasUsernamePin = M),
+      (l.getOppositeVisibleIdentification = A),
+      (l.getOppositeVisibleIdentificationType = O));
   },
   98,
 );

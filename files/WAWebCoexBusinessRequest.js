@@ -3,24 +3,27 @@ __d(
   [
     "WALogger",
     "WAWebFetchWithAdAccountToken",
+    "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a,
-            i =
-              (a = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-                ? void 0
-                : a.user;
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a;
+          if (!o("WAWebMobilePlatforms").isSMB())
+            return { type: "failed", reason: "not_business_account" };
+          var i =
+            (a = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+              ? void 0
+              : a.user;
           if (i == null) return { type: "failed", reason: "no_phone_number" };
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
@@ -33,11 +36,19 @@ __d(
           } catch (t) {
             return t instanceof
               o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
-              ? { type: "failed", reason: "token_unavailable" }
+              ? (o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "sendCoexBusinessRequest: token unavailable, ",
+                      "",
+                    ])),
+                  t.tokenResult.type,
+                ),
+                { type: "failed", reason: "token_unavailable" })
               : (o("WALogger")
                   .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "sendCoexBusinessRequest: request failed",
                       ])),
                   )
@@ -46,10 +57,10 @@ __d(
                 { type: "failed", reason: "request_failed" });
           }
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.sendCoexBusinessRequest = s;
+    l.sendCoexBusinessRequest = u;
   },
   98,
 );

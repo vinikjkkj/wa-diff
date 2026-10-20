@@ -45,6 +45,7 @@ __d(
     "WAWebMMUserControlsLogger",
     "WAWebMarketingMessagesUserFeedbackGatingUtils",
     "WAWebMessageAssociationUIUtils",
+    "WAWebMetaAiChatActionLogger",
     "WAWebMiscErrors",
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebModalManager",
@@ -69,6 +70,7 @@ __d(
     "WAWebUpdateUnreadChatAction",
     "WAWebUserPrefsGeneral",
     "WAWebWamChatPSALogger",
+    "WAWebWamEnumChatActionType",
     "WAWebWamEnumMmUserControlsAction",
     "WAWebWamEnumMmUserControlsEntryPoint",
     "WAWebWamEnumMuteEntryPoint",
@@ -398,14 +400,22 @@ __d(
       var X = Q,
         Y;
       a[14] !== d
-        ? ((Y = function (t, n) {
+        ? ((Y = function (t, n, a, i) {
             var e = function (r) {
+              var e;
               if (
-                ((t.pendingAction = t.pendingAction + 1),
+                ((e = o(
+                  "WAWebMetaAiChatActionLogger",
+                ).startMetaAiChatListAction(
+                  t.id,
+                  o("WAWebWamEnumChatActionType").CHAT_ACTION_TYPE.DELETE,
+                  i,
+                )) == null || e.commit(),
+                (t.pendingAction = t.pendingAction + 1),
                 o("WAWebChatGetters").getIsPSA(t) && n !== 0)
               ) {
-                var e = t.msgs.last();
-                o("WAWebWamChatPSALogger").logChatPSARemove(e, 6, n);
+                var a = t.msgs.last();
+                o("WAWebWamChatPSALogger").logChatPSARemove(a, 6, n);
               }
               r.finally(function () {
                 t.pendingAction = t.pendingAction - 1;
@@ -443,13 +453,27 @@ __d(
         ne = M,
         re;
       a[18] !== d
-        ? ((re = function (t) {
+        ? ((re = function (t, n, a) {
+            var e = function () {
+              var e;
+              (e = o("WAWebMetaAiChatActionLogger").startMetaAiChatListAction(
+                t.id,
+                o("WAWebWamEnumChatActionType").CHAT_ACTION_TYPE.CLEAR,
+                a,
+              )) == null || e.commit();
+            };
             o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
               ? o("WDSDialogBridge").openWDSDialog(
-                  m.jsx(r("WAWebClearChatDialogV2.react"), { chat: t }),
+                  m.jsx(r("WAWebClearChatDialogV2.react"), {
+                    chat: t,
+                    onClearConfirmed: e,
+                  }),
                 )
               : o("WAWebModalManager").ModalManager.open(
-                  m.jsx(r("WAWebClearChatPopup.react"), { chat: t }),
+                  m.jsx(r("WAWebClearChatPopup.react"), {
+                    chat: t,
+                    onClearConfirmed: e,
+                  }),
                   { transition: "modal", uim: d },
                 );
           }),

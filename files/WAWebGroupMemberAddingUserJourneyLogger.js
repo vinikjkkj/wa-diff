@@ -10,7 +10,6 @@ __d(
     "WAWebWamEnumGroupMemberAddingActionType",
     "WAWebWamEnumGroupMemberAddingMemberType",
     "WAWebWamEnumTsSurface",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -110,25 +109,24 @@ __d(
         }),
         (t.$5 = function (t) {
           var e;
-          r("gkx")("24148") &&
-            new (o(
-              "WAWebGroupMemberAddingUserJourneyWamEvent",
-            ).GroupMemberAddingUserJourneyWamEvent)(
-              babelHelpers.extends({}, t, {
-                groupAddMemberEntryPoint: this.$2,
-                isAdmin: this.$3,
-                uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
-                  .GROUP_MEMBER_ADD_EXISTING_GROUP,
-                unifiedSessionId:
-                  (e = o(
-                    "WAWebUnifiedSession",
-                  ).UnifiedSessionManager.getSessionId()) != null
-                    ? e
-                    : void 0,
-                userJourneyEventMs: o("WATimeUtils").unixTimeMs(),
-                userJourneyFunnelId: this.$1,
-              }),
-            ).commit();
+          new (o(
+            "WAWebGroupMemberAddingUserJourneyWamEvent",
+          ).GroupMemberAddingUserJourneyWamEvent)(
+            babelHelpers.extends({}, t, {
+              groupAddMemberEntryPoint: this.$2,
+              isAdmin: this.$3,
+              uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                .GROUP_MEMBER_ADD_EXISTING_GROUP,
+              unifiedSessionId:
+                (e = o(
+                  "WAWebUnifiedSession",
+                ).UnifiedSessionManager.getSessionId()) != null
+                  ? e
+                  : void 0,
+              userJourneyEventMs: o("WATimeUtils").unixTimeMs(),
+              userJourneyFunnelId: this.$1,
+            }),
+          ).commit();
         }),
         e
       );

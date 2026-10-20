@@ -319,13 +319,13 @@ __d(
                 );
               }))
           : (l = o("WAWebProductCollectionsJob")
-              .createCollection(
-                n,
-                r.map(function (e) {
+              .createCollection({
+                catalogSessionId: i.session.toString(),
+                name: n,
+                productIds: r.map(function (e) {
                   return e.id.toString();
                 }),
-                i.session.toString(),
-              )
+              })
               .then(function (t) {
                 return (
                   o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_end"),

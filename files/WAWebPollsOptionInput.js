@@ -12,7 +12,7 @@ __d(
     "WAWebRichTextField.react",
     "WAWebSpoilerGating",
     "WAWebUnstyledButton.react",
-    "WAWebXAltIcon.react",
+    "WDSIconIcClose.react",
     "WDSIconIcImage.react",
     "react",
     "react-compiler-runtime",
@@ -39,6 +39,11 @@ __d(
           $$css: !0,
         },
         deleteBtn: {
+          alignItems: "x6s0dn4",
+          display: "x78zum5",
+          justifyContent: "xl56j7k",
+          minHeight: "xjwf9q1",
+          minWidth: "xnei2rj",
           position: "x10l6tqk",
           insetInlineEnd: "x185fuhz",
           left: null,
@@ -268,8 +273,11 @@ __d(
               onClick: i,
               role: "button",
               xstyle: d.deleteBtn,
-              children: u.jsx(o("WAWebXAltIcon.react").XAltIcon, {
+              children: u.jsx(r("WDSIconIcClose.react"), {
+                width: 19,
+                height: 19,
                 xstyle: d.deleteIcon,
+                testid: "poll-option-remove-photo",
               }),
             })),
           (t[0] = n == null ? void 0 : n.preview),

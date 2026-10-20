@@ -11,26 +11,26 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return e.length === 0 ? [] : _(e);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return e.length === 0 ? [] : f(e);
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = h(e);
-          if (t.length === 0) return g();
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = y(e);
+          if (t.length === 0) return h(e.length);
           var a = t.map(function (e) {
               return e.fbid;
             }),
@@ -41,8 +41,8 @@ __d(
             throw (
               o("WALogger")
                 .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[requestBotProfiles] GQL fetch threw",
                     ])),
                 )
@@ -54,12 +54,12 @@ __d(
           if (i.type === "canonical-unavailable")
             return (
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[requestBotProfiles] canonical session unavailable",
                   ])),
               ),
-              (d || (d = n("Promise"))).reject(
+              (m || (m = n("Promise"))).reject(
                 r("err")("canonical session unavailable"),
               )
             );
@@ -67,8 +67,8 @@ __d(
             throw (
               o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[requestBotProfiles] GQL fetch failed",
                     ])),
                 )
@@ -77,38 +77,45 @@ __d(
                 ? i.error
                 : r("err")("bot profile GQL fetch failed")
             );
-          var l = y(t, i.value);
-          return l.length === 0 ? g() : l;
+          var l = C(t, i.value);
+          return l.length === 0 ? h(e.length) : l;
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g() {
+    function h(t) {
       return (
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[requestBotProfiles] no profile for any requested bot",
-              ])),
-          )
-          .sendLogs("bot-profile-no-status-data"),
-        (d || (d = n("Promise"))).reject(
+        t === 1
+          ? o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[requestBotProfiles] no profile for the requested bot",
+                ])),
+            )
+          : o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[requestBotProfiles] no profile for any requested bot",
+                  ])),
+              )
+              .sendLogs("bot-profile-no-status-data"),
+        (m || (m = n("Promise"))).reject(
           r("err")("no status data returned for user"),
         )
       );
     }
-    function h(e) {
+    function y(e) {
       var t = [];
       for (var n of e) {
-        var r = v(n.id, n.personaId);
+        var r = S(n.id, n.personaId);
         r != null &&
           r !== "" &&
           t.push({ fbid: r, id: n.id, isDefault: n.isDefault });
       }
       return t;
     }
-    function y(e, t) {
+    function C(e, t) {
       var n = new Map(
           t.map(function (e) {
             return [e.personaId, e];
@@ -118,11 +125,11 @@ __d(
       for (var o of e) {
         var a = n.get(o.fbid);
         a != null &&
-          r.push(C({ gqlProfile: a, isDefault: o.isDefault, wid: o.id }));
+          r.push(b({ gqlProfile: a, isDefault: o.isDefault, wid: o.id }));
       }
       return r;
     }
-    function C(e) {
+    function b(e) {
       var t = e.gqlProfile,
         n = e.isDefault,
         r = e.wid;
@@ -143,10 +150,10 @@ __d(
         creatorName: t.creatorName,
         creatorProfileUrl: t.creatorProfileUrl,
         lastUpdateTs: Date.now(),
-        posingAsProfessional: b(t.posingAsProfessional),
+        posingAsProfessional: v(t.posingAsProfessional),
       };
     }
-    function b(e) {
+    function v(e) {
       return e == null
         ? null
         : (function (e) {
@@ -160,7 +167,7 @@ __d(
             }
           })(e.toLowerCase());
     }
-    function v(e, t) {
+    function S(e, t) {
       if (t != null && t !== "") {
         var n = t.indexOf("$"),
           r = n === -1 ? t : t.substring(0, n);
@@ -168,7 +175,7 @@ __d(
       }
       return e.isFbidBot() ? e.user : null;
     }
-    l.requestBotProfiles = m;
+    l.requestBotProfiles = p;
   },
   98,
 );

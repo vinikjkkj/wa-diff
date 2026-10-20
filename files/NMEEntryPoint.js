@@ -279,6 +279,8 @@ __d(
       FB_IMAGINE_VIDEO_UPSELL_MESSAGE: "fb_imagine_video_upsell_message",
       FB_LINK_IN_MEDIA_COMMENTS_UPSELL_META_ONE:
         "fb_link_in_media_comments_upsell_meta_one",
+      FB_LINK_IN_MEDIA_COMMENT_UPSELL_META_ONE:
+        "fb_link_in_media_comment_upsell_meta_one",
       FB_LINK_IN_MEDIA_UPSELL_META_ONE: "fb_link_in_media_upsell_meta_one",
       FB_LITE_BOOKMARK: "fb_lite_bookmark",
       FB_LIVE_PRODUCER_LVA_ELIGIBILITY: "fb_live_producer_lva_eligibility",
@@ -1123,6 +1125,8 @@ __d(
       MP_UIM_BANNER_META_ONE: "mp_uim_banner_meta_one",
       MSGR_AI_THREAD_SETTINGS: "msgr_ai_thread_settings",
       MSGR_APP_APPEARANCE_DIAMOND_UPSELL: "msgr_app_appearance_diamond_upsell",
+      MSGR_APP_APPEARANCE_EXPLORE_BENEFITS_UPSELL:
+        "msgr_app_appearance_explore_benefits_upsell",
       MSGR_APP_APPEARANCE_UPSELL: "msgr_app_appearance_upsell",
       MSGR_CHAT_FONTS_PICKER_UPSELL: "msgr_chat_fonts_picker_upsell",
       MSGR_CHAT_FONTS_RECEIVER_UPSELL: "msgr_chat_fonts_receiver_upsell",

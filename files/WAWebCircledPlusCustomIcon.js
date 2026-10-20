@@ -1,6 +1,6 @@
 __d(
   "WAWebCircledPlusCustomIcon",
-  ["WAWebPlusIcon.react", "react", "react-compiler-runtime", "stylex"],
+  ["WDSIconIcAdd.react", "react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["wrapperStyles"],
@@ -47,10 +47,7 @@ __d(
         : (l = n[4]);
       var u;
       n[5] !== a
-        ? ((u = c.jsx(
-            o("WAWebPlusIcon.react").PlusIcon,
-            babelHelpers.extends({}, a),
-          )),
+        ? ((u = c.jsx(r("WDSIconIcAdd.react"), babelHelpers.extends({}, a))),
           (n[5] = a),
           (n[6] = u))
         : (u = n[6]);

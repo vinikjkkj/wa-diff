@@ -667,6 +667,28 @@ __d(
           }
           return t;
         })(),
+        transferCallStart: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.callId,
+              n = e.hasVideo,
+              r = e.peerActiveDevice,
+              a = e.rootCallCreator,
+              i = e.rootCallId,
+              s = yield l;
+            try {
+              return s.transferCallStart(i, a, r, t, n);
+            } catch (e) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(s, e),
+                e
+              );
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         rejectCallWithoutCallContext: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, o, a, i) {

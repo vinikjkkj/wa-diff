@@ -2,8 +2,6 @@ __d(
   "WAWebSmbPerCustomerDataSharingOptOutModal",
   [
     "fbt",
-    "WAWebBusinessDataSharingIllustrationDarkIcon.react",
-    "WAWebBusinessDataSharingIllustrationLightIcon.react",
     "WAWebCTWAGatingUtils",
     "WAWebConfirmPopup.react",
     "WAWebCtwaPerCustomerDataSharingSync",
@@ -13,14 +11,13 @@ __d(
     "WAWebModalManager",
     "WAWebPerCustomerDataSharingControlLogging",
     "WAWebSpinner.react",
-    "WAWebText_DONOTUSE.react",
-    "WAWebThemeContext",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebTosUrl",
     "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
     "WAWebWidFactory",
     "WDSIllustrationWdsSmbPictoArrowsTransfer.react",
+    "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -74,9 +71,6 @@ __d(
       },
       h = {
         illustration: { width: "xh8yej3", $$css: !0 },
-        title: { lineHeight: "x1u7k74", $$css: !0 },
-        centered_text: { textAlign: "x2b8uid", $$css: !0 },
-        paragraph: { lineHeight: "x1pujyh6", $$css: !0 },
         spinnerWrapper: { height: "x1lgcfn3", $$css: !0 },
         marginBottom12: { marginBottom: "xcytdqz", $$css: !0 },
         paddingTop24: { paddingTop: "xl7twdi", $$css: !0 },
@@ -84,75 +78,63 @@ __d(
       };
     function y() {
       var e = o("react-compiler-runtime").c(5),
-        t = o("WAWebThemeContext").useIsDarkTheme();
-      t
-        ? u.jsx(
-            o("WAWebBusinessDataSharingIllustrationDarkIcon.react")
-              .BusinessDataSharingIllustrationDarkIcon,
-            {},
-          )
-        : u.jsx(
-            o("WAWebBusinessDataSharingIllustrationLightIcon.react")
-              .BusinessDataSharingIllustrationLightIcon,
-            {},
-          );
-      var n, a;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = u.jsx(r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"), {
-            testid: "wds-smb-picto-arrows-transfer",
-          })),
-          (e[0] = a))
-        : (a = e[0]),
-        (n = a));
-      var i;
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = [h.paddingTop24, h.paddingBottom24, h.illustration]),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
       e[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = u.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: [h.paddingTop24, h.paddingBottom24, h.illustration],
+        ? ((n = u.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: t,
             justify: "center",
-            children: n,
+            children: u.jsx(
+              r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"),
+              { testid: "wds-smb-picto-arrows-transfer" },
+            ),
           })),
-          (e[1] = i))
-        : (i = e[1]);
-      var l;
+          (e[1] = n))
+        : (n = e[1]);
+      var a;
       e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = u.jsx(o("WAWebFlex.react").FlexRow, {
-            children: u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-              size: "20",
-              color: "dark",
-              weight: "medium",
-              xstyle: [h.marginBottom12, h.title, h.centered_text],
+        ? ((a = u.jsx(o("WAWebFlex.react").FlexRow, {
+            children: u.jsx(r("WDSText.react"), {
+              type: "Headline2",
+              colorName: "contentDefault",
+              testid: "ctwa-per-customer-sharing-opt-out-title",
+              textAlign: "center",
+              xstyle: h.marginBottom12,
               children: s._(/*BTDS*/ "Stop sharing data for this customer?"),
             }),
           })),
-          (e[2] = l))
-        : (l = e[2]);
-      var c;
+          (e[2] = a))
+        : (a = e[2]);
+      var i;
       e[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
+        ? ((i = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
             ? s._(
                 /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience and improve Meta ads.",
               )
             : s._(
                 /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience on Facebook and Instagram and improve Meta ads.",
               )),
-          (e[3] = c))
-        : (c = e[3]);
-      var d;
+          (e[3] = i))
+        : (i = e[3]);
+      var l;
       return (
         e[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+          ? ((l = u.jsxs(o("WAWebFlex.react").FlexColumn, {
               children: [
-                i,
-                l,
+                n,
+                a,
                 u.jsx(o("WAWebFlex.react").FlexColumn, {
                   xstyle: h.marginBottom12,
-                  children: u.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-                    size: "16",
-                    color: "secondary",
-                    weight: "normal",
-                    xstyle: h.paragraph,
+                  children: u.jsxs(r("WDSText.react"), {
+                    type: "Body1",
+                    colorName: "contentDeemphasized",
+                    testid: "ctwa-per-customer-sharing-opt-out-description",
                     children: [
-                      c,
+                      i,
                       " ",
                       u.jsx(o("WAWebExternalLink.react").ExternalLink, {
                         href: o("WAWebTosUrl").getBizDataSharingHcaUrl(),
@@ -163,9 +145,9 @@ __d(
                 }),
               ],
             })),
-            (e[4] = d))
-          : (d = e[4]),
-        d
+            (e[4] = l))
+          : (l = e[4]),
+        l
       );
     }
     var C = function () {

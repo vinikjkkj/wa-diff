@@ -20,30 +20,31 @@ __d(
     var e,
       s,
       u,
-      c = "idle",
-      d = null,
-      m = 0;
-    function p() {
-      return _.apply(this, arguments);
-    }
+      c = /^edgeray-[a-z0-9]+-\d+\.wt\.whatsapp\.com$/i,
+      d = "idle",
+      m = null,
+      p = 0;
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (c === "promoted" || c === "closed") return !1;
-          var e = m;
-          c === "idle" &&
-            ((c = "preconnecting"),
-            (e = ++m),
-            (d = o(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (d === "promoted" || d === "closed") return !1;
+          var e = p;
+          d === "idle" &&
+            ((d = "preconnecting"),
+            (e = ++p),
+            (m = o(
               "WAWebVoipSctpDataChannelThreadManager",
             ).stopDataChannelWorker()));
-          var t = d;
+          var t = m;
           if (t != null) {
             try {
               yield t;
             } catch (n) {
               return (
-                d === t && e === m && h(),
+                m === t && e === p && y(),
                 o("WALogger")
                   .ERROR(
                     u ||
@@ -56,54 +57,72 @@ __d(
                 !1
               );
             }
-            d === t && (d = null);
+            m === t && (m = null);
           }
-          return c === "preconnecting" && e === m;
+          return d === "preconnecting" && e === p;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f() {
-      return c === "preconnecting" || c === "promoted";
-    }
     function g() {
-      ((c = "closed"), (d = null));
+      return d === "preconnecting" || d === "promoted";
     }
     function h() {
-      ((c = "idle"), (d = null));
+      ((d = "closed"), (m = null));
     }
-    function y(e) {
-      g();
+    function y() {
+      ((d = "idle"), (m = null));
+    }
+    function C(e) {
+      h();
       for (var t of o("WAWebVoipSctpConnectionState").sctpConnections) {
         var n = t[0],
           r = t[1];
         r.isWebTransportWarmStandby === !0 && e(n);
       }
     }
-    function C(e) {
-      (y(e), h());
-    }
     function b(e) {
-      var t = o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort();
-      return o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(e, {
-        portOverride: function (n) {
-          return t
-            ? n
-            : o("WAWebVoipSctpConnectionManagerConstants").SctpConnectionConfig
-                .TRUE_WEB_CLIENT_RELAY_PORT;
-        },
-      });
+      (C(e), y());
     }
-    function v(e, t) {
-      var n = b(e);
+    function v(e) {
+      var t = o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
+        n = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(e, {
+          portOverride: function (n) {
+            return t
+              ? n
+              : o("WAWebVoipSctpConnectionManagerConstants")
+                  .SctpConnectionConfig.TRUE_WEB_CLIENT_RELAY_PORT;
+          },
+        });
+      if (!t) return n;
+      for (var r of n.values())
+        S(r) &&
+          (r.iceTcpPort = o(
+            "WAWebVoipSctpConnectionManagerConstants",
+          ).SctpConnectionConfig.WEB_PLATFORM_TCP_VIP_PORT);
+      return n;
+    }
+    function S(e) {
+      var t = e.clusterDomain,
+        n = e.originalPort;
+      return (
+        n ===
+          o("WAWebVoipSctpConnectionManagerConstants").SctpConnectionConfig
+            .FAUX_WEB_CLIENT_RELAY_PORT &&
+        t != null &&
+        c.test(t)
+      );
+    }
+    function R(e, t) {
+      var n = v(e);
       for (var r of o("WAWebVoipSctpConnectionState").sctpConnections) {
         var a = r[0],
           i = r[1];
         i.isWebTransportWarmStandby === !0 && !n.has(a) && t(a);
       }
-      return R();
+      return E();
     }
-    function S(e) {
+    function L(e) {
       var t = 0;
       for (var n of o("WAWebVoipSctpConnectionState").sctpConnections.values())
         n.isWebTransportWarmStandby === !0 &&
@@ -114,15 +133,15 @@ __d(
           t++;
       return Math.max(0, e - t);
     }
-    function R() {
+    function E() {
       var e = !1;
       for (var t of o("WAWebVoipSctpConnectionState").sctpConnections.values())
         if (t.isWebTransportWarmStandby === !0) {
           e = !0;
           break;
         }
-      if (!e) return (c !== "promoted" && h(), !1);
-      ((c = "promoted"), (d = null));
+      if (!e) return (d !== "promoted" && y(), !1);
+      ((d = "promoted"), (m = null));
       var n = !1,
         r = !1;
       for (var a of o("WAWebVoipSctpConnectionState").sctpConnections) {
@@ -135,7 +154,7 @@ __d(
           ).recordSctpFallbackFamilyAttempt(s.relayIp),
           (s.isWebTransportWarmStandby = !1),
           ((i = s.peerConnection) == null ? void 0 : i.connectionState) ===
-            "connected" && ((r = !0), L(s)),
+            "connected" && ((r = !0), k(s)),
           s.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
             ((r = !0),
             o(
@@ -150,14 +169,14 @@ __d(
         r
       );
     }
-    function L(t) {
+    function k(t) {
       var n = t.id,
         a = t.relayIp,
         i = t.relayPort;
       a === "" ||
         t.isEarlyPacketRelayReconnect === !0 ||
         t.isWebTransportWarmStandby === !0 ||
-        !E() ||
+        !I() ||
         o("WAWebVoipStackInterface")
           .getVoipStackInterface()
           .then(function (e) {
@@ -178,7 +197,7 @@ __d(
               .sendLogs("voip_sctp_mark_relay_connected_failed");
           });
     }
-    function E() {
+    function I() {
       try {
         return r("justknobx")._("3110");
       } catch (e) {
@@ -195,17 +214,17 @@ __d(
         );
       }
     }
-    ((l.prepareWebTransportSctpWarmStandby = p),
-      (l.shouldUseMainThreadForWebTransportSctp = f),
-      (l.closeWebTransportSctpWarmStandby = g),
-      (l.resetWebTransportSctpWarmStandby = h),
-      (l.cleanupWebTransportSctpWarmStandby = y),
-      (l.resetWebTransportSctpWarmStandbyAtCallBoundary = C),
-      (l.getWebTransportSctpWarmStandbyRelayState = b),
-      (l.activateWebTransportSctpWarmStandbyForRelayList = v),
-      (l.getWebTransportSctpWarmStandbyConnectionSlots = S),
-      (l.activateWebTransportSctpWarmStandby = R),
-      (l.notifyNativeRelayConnected = L));
+    ((l.prepareWebTransportSctpWarmStandby = _),
+      (l.shouldUseMainThreadForWebTransportSctp = g),
+      (l.closeWebTransportSctpWarmStandby = h),
+      (l.resetWebTransportSctpWarmStandby = y),
+      (l.cleanupWebTransportSctpWarmStandby = C),
+      (l.resetWebTransportSctpWarmStandbyAtCallBoundary = b),
+      (l.getWebTransportSctpWarmStandbyRelayState = v),
+      (l.activateWebTransportSctpWarmStandbyForRelayList = R),
+      (l.getWebTransportSctpWarmStandbyConnectionSlots = L),
+      (l.activateWebTransportSctpWarmStandby = E),
+      (l.notifyNativeRelayConnected = k));
   },
   98,
 );

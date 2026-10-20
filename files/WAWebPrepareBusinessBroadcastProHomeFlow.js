@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebBizBroadcastProAudienceQueryLoader",
     "WAWebBizBroadcastProAudienceTableQuery",
-    "WAWebBizBroadcastProCampaignInvalidationEmitter",
     "WAWebBizBroadcastProCampaignQueryLoader",
     "WAWebBizBroadcastProCampaignStatusRefreshQuery",
     "WAWebBizBroadcastProCampaignTableQuery",
@@ -307,9 +306,8 @@ __d(
         : (T = a[4]);
       var D = r("useWAWebStableCallback")(T);
       o("useWAWebListener").useListener(
-        o("WAWebBizBroadcastProCampaignInvalidationEmitter")
-          .bbProCampaignInvalidationEmitter,
-        "invalidate",
+        o("WAWebCmd").Cmd,
+        "biz_broadcast_pro_campaign_invalidated",
         D,
       );
       var M;

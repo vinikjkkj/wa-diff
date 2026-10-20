@@ -23,7 +23,7 @@ __d(
     }
     function m(e) {
       var t =
-        /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:\s*(?:\"(?:[^\"\\]|\\.)*\"|[[{]|true|false|null|-?[\d.eE+-]+)/.exec(
+        /^\s*\[?\s*\{\s*\"(?:[^\"\\]|\\.)*\"\s*:\s*(?:\"(?:[^\"\\]|\\.)*\"|[[{]|true|false|null|-?[\d.eE+-]+)\s*(?:\"(?:[^\"\\]|\\.)*\"\s*:|[,[{\]}])/.exec(
           e,
         );
       if (t != null) return t[0] + "/*x*/" + e.slice(t[0].length);
@@ -94,7 +94,7 @@ __d(
             } catch (e) {
               R = !1;
             }
-          R || (t = r("json5").fromSlice(m(p)));
+          R || (t = r("json5").fromPiece(m(p)));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
@@ -110,7 +110,7 @@ __d(
         t
       );
     }
-    l.openBootPayload = p;
+    l.loadBootPayload = p;
   },
   98,
 );

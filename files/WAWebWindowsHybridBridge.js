@@ -4,7 +4,6 @@ __d(
     "WAWebBuildConstants",
     "WAWebWindowsHybridAppActivationBridge",
     "WAWebWindowsHybridBridgeAbProps",
-    "WAWebWindowsHybridBridgeAdv",
     "WAWebWindowsHybridBridgeBrowserExtensions",
     "WAWebWindowsHybridBridgeConnection",
     "WAWebWindowsHybridBridgeContacts",
@@ -157,13 +156,10 @@ __d(
             "WAWebWindowsHybridBridgeSeamlessMigration",
           ).WindowsHybridBridgeSeamlessMigration)(L));
         var E = e.hostObjects.MediaTranscodingBridge;
-        (E &&
+        E &&
           (this.mediaTranscodeBridge = new (o(
             "WAWebWindowsHybridBridgeMediaTranscoder",
-          ).WindowsHybridBridgeMediaTranscoder)(e, E)),
-          (this.adv = new (o(
-            "WAWebWindowsHybridBridgeAdv",
-          ).WindowsHybridBridgeAdv)(e.hostObjects.AdvBridge)));
+          ).WindowsHybridBridgeMediaTranscoder)(e, E));
         var k = e.hostObjects.RingtoneBridge;
         k != null &&
           (this.ringtoneBridge = new (o(
