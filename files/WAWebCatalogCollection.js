@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendErrors",
-    "WAWebBizCatalogGatingUtils",
     "WAWebBizProductCatalogAction",
     "WAWebBizProductCatalogBridge",
     "WAWebCatalogGetters",
@@ -201,32 +200,28 @@ __d(
                     d,
                     "datasource_catalog_start",
                   );
-                var p, _, f;
                 try {
-                  o(
-                    "WAWebBizCatalogGatingUtils",
-                  ).isCatalogVariantsViewingEnabled() &&
-                    ((p = o(
+                  var p = o(
                       "WAWebCatalogVariantHelper",
-                    ).FULL_VARIANT_INFO_FIELDS),
-                    (_ = o(
+                    ).FULL_VARIANT_INFO_FIELDS,
+                    _ = o(
                       "WAWebCatalogVariantHelper",
-                    ).VARIANT_THUMBNAIL_IMAGE_SIZE),
-                    (f = o(
+                    ).VARIANT_THUMBNAIL_IMAGE_SIZE,
+                    f = o(
                       "WAWebCatalogVariantHelper",
-                    ).VARIANT_THUMBNAIL_IMAGE_SIZE));
-                  var g = yield o("WAWebBizProductCatalogAction").queryCatalog(
-                    s,
-                    a,
-                    10,
-                    void 0,
-                    void 0,
-                    c,
-                    i,
-                    p,
-                    _,
-                    f,
-                  );
+                    ).VARIANT_THUMBNAIL_IMAGE_SIZE,
+                    g = yield o("WAWebBizProductCatalogAction").queryCatalog(
+                      s,
+                      a,
+                      10,
+                      void 0,
+                      void 0,
+                      c,
+                      i,
+                      p,
+                      _,
+                      f,
+                    );
                   if (
                     (d &&
                       o("WAWebQplFlowWrapper").QPL.markerPoint(
@@ -256,9 +251,6 @@ __d(
                       C.catalogId != null &&
                       g.catalog_id != null &&
                       C.catalogId !== g.catalog_id &&
-                      o(
-                        "WAWebBizCatalogGatingUtils",
-                      ).isCatalogVariantsViewingEnabled() &&
                       this.remove(s),
                     {
                       id: s,
@@ -313,11 +305,7 @@ __d(
                       t.statusCode === 404)
                   ) {
                     var v = this.get(s);
-                    v != null &&
-                      o(
-                        "WAWebBizCatalogGatingUtils",
-                      ).isCatalogVariantsViewingEnabled() &&
-                      this.remove(s);
+                    v != null && this.remove(s);
                   }
                   var S = { type: "error" };
                   return (

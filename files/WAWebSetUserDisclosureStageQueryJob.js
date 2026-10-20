@@ -3,10 +3,7 @@ __d(
   [
     "Promise",
     "WAComms",
-    "WASmaxInUserNoticeSetResultResponseClientError",
-    "WASmaxInUserNoticeSetResultResponseServerError",
-    "WASmaxInUserNoticeSetResultResponseSuccess",
-    "WASmaxOutUserNoticeSetResultRequest",
+    "WASmaxUserNoticeSetResultRPC",
     "WATimeUtils",
     "WAWebBackendErrors",
     "WAWebTos",
@@ -28,12 +25,10 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a = { trackableId: t, trackableResult: r },
-            i = yield o(
-              "WASmaxOutUserNoticeSetResultRequest",
-            ).makeSetResultRequest(a),
+            i = yield o("WASmaxUserNoticeSetResultRPC").makeSetResultRequest(a),
             l = yield o("WAComms").sendSmaxStanza(i),
             u = yield o(
-              "WASmaxInUserNoticeSetResultResponseSuccess",
+              "WASmaxUserNoticeSetResultRPC",
             ).parseSetResultResponseSuccess(l, i);
           if (u.success) {
             var c = o("WATimeUtils").unixTime(),
@@ -44,10 +39,11 @@ __d(
             );
           }
           var m = yield o(
-            "WASmaxInUserNoticeSetResultResponseClientError",
+            "WASmaxUserNoticeSetResultRPC",
           ).parseSetResultResponseClientError(l, i);
           if (m.success) {
-            var p = m.value.errorIQErrorBadRequestMixin,
+            var p =
+                m.value.errorIQErrorBadRequestOrRateOverlimitMixinGroup.value,
               _ = p.code,
               f = p.text;
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
@@ -56,7 +52,7 @@ __d(
             );
           }
           var g = yield o(
-            "WASmaxInUserNoticeSetResultResponseServerError",
+            "WASmaxUserNoticeSetResultRPC",
           ).parseSetResultResponseServerError(l, i);
           if (g.success) {
             var h = g.value.errorIQErrorInternalServerErrorMixin,

@@ -17,7 +17,16 @@ __d(
         ) === e
       );
     }
-    ((l.isNativeSmsFallbackAvailable = s), (l.isOutContactInviteEnabled = u));
+    function c() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "invite_deactivated_user_web",
+        ) === !0
+      );
+    }
+    ((l.isNativeSmsFallbackAvailable = s),
+      (l.isOutContactInviteEnabled = u),
+      (l.isInviteDeactivatedUserWebEnabled = c));
   },
   98,
 );

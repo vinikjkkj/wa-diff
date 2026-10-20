@@ -6,6 +6,8 @@ __d(
     "WATimeUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactSystemMsg",
+    "WAWebHandleMsgCommon",
+    "WAWebHandleMsgError",
     "WAWebHandleSingleMsg",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
@@ -51,8 +53,19 @@ __d(
         isRevealPending: !1,
         revealKeyId: null,
         viewMode: null,
-      };
-    function D(e) {
+      },
+      D = new Set([
+        o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text,
+        o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.media,
+      ]);
+    function x(e) {
+      if (e != null && !D.has(e))
+        throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
+          o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
+            .INVALID_SCHEDULED_MESSAGE_STANZA,
+        );
+    }
+    function $(e) {
       var t = e.bareMsgId,
         n = e.chatId,
         r = e.senderJid,
@@ -69,12 +82,12 @@ __d(
             )
             .toString();
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.encIv,
             a = e.encPayload,
@@ -87,7 +100,7 @@ __d(
                 "[scheduled_msg] inline reveal key present in stanza meta, persisting encrypted payload",
               ])),
           );
-          var u = D({ bareMsgId: i, chatId: t, senderJid: null });
+          var u = $({ bareMsgId: i, chatId: t, senderJid: null });
           try {
             var _ = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
               msgId: u,
@@ -107,7 +120,7 @@ __d(
                       "[scheduled_msg] stored phone-scheduled message in scheduled list",
                     ])),
                 ),
-                yield P(t))
+                yield M(t))
               : o("WALogger").WARN(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -136,15 +149,15 @@ __d(
             viewMode: o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
           };
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o("WAWebWidFactory").createWid(e),
               n = o("WAWebContactSystemMsg").genNotificationMsg(t, {
@@ -177,15 +190,15 @@ __d(
               .sendLogs("scheduled-msg-sysbubble-fail");
           }
         })),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
-      return w.apply(this, arguments);
+    function A(e, t, n) {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = null;
           try {
             ((a = yield o(
@@ -254,15 +267,15 @@ __d(
             );
           }
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.encIv,
             a = e.encPayload,
@@ -272,7 +285,7 @@ __d(
             u = e.revealKeyId,
             c = e.senderJid,
             d = e.stanzaScheduledMsgMeta,
-            m = D({ bareMsgId: i, chatId: t, senderJid: c });
+            m = $({ bareMsgId: i, chatId: t, senderJid: c });
           try {
             return (
               yield o("WAWebScheduledMsgRevealKeyStore").storeRevealKey({
@@ -322,17 +335,17 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e, t, n, r, o, a, i) {
-      return B.apply(this, arguments);
+    function W(e, t, n, r, o, a, i) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i, l) {
-            if (!q()) return T;
+            if (!V()) return T;
             o("WALogger").LOG(
               R ||
                 (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -354,7 +367,7 @@ __d(
             );
             var m = a != null && a.revealKeyId === d ? a : null;
             if (m != null) {
-              var p = yield x({
+              var p = yield P({
                 stanzaScheduledMsgMeta: m,
                 encIv: u,
                 encPayload: c,
@@ -364,10 +377,10 @@ __d(
               });
               if (p != null) return p;
             }
-            var _ = yield M(c, u, d);
+            var _ = yield A(c, u, d);
             if (_ != null)
               return {
-                decryptedProto: W(_.proto, l),
+                decryptedProto: U(_.proto, l),
                 decryptedProtoBytes: _.protoBytes,
                 isRevealPending: !1,
                 revealKeyId: d,
@@ -379,7 +392,7 @@ __d(
                   "[scheduled_msg] storing as reveal-pending",
                 ])),
             );
-            var f = yield A({
+            var f = yield O({
               chatId: n,
               encIv: u,
               encPayload: c,
@@ -402,10 +415,10 @@ __d(
               : T;
           },
         )),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e, t) {
+    function U(e, t) {
       var n;
       return t == null ||
         ((n = e.messageContextInfo) == null ? void 0 : n.messageSecret) != null
@@ -418,7 +431,7 @@ __d(
             ),
           });
     }
-    function q() {
+    function V() {
       try {
         return o(
           "WAWebScheduledMessagesGatingUtils",
@@ -446,12 +459,12 @@ __d(
         );
       }
     }
-    function U(e) {
-      return V.apply(this, arguments);
+    function H(e) {
+      return G.apply(this, arguments);
     }
-    function V() {
+    function G() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.conditionalRevealMessage,
             n = e.msgId,
             a = e.outerMessageContextInfo,
@@ -460,9 +473,9 @@ __d(
             s = e.senderJid,
             u = e.stanzaScheduledMsgMeta;
           try {
-            var c = H(i);
+            var c = z(i);
             if (c != null) {
-              var d = yield O(
+              var d = yield W(
                   t,
                   n,
                   c,
@@ -502,10 +515,10 @@ __d(
             scheduledMsgViewMode: null,
           };
         })),
-        V.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function H(e) {
+    function z(e) {
       var t = o("WAJids").validateChatJid(e);
       if (t != null) return t;
       try {
@@ -516,7 +529,7 @@ __d(
         return null;
       }
     }
-    function G(e, t) {
+    function j(e, t) {
       if (t == null) return e;
       var n = e.map(function (e) {
         return babelHelpers.extends({}, e, { viewMode: t });
@@ -535,9 +548,10 @@ __d(
         n
       );
     }
-    ((l.preProcessConditionalRevealMessage = O),
-      (l.maybePreProcessConditionalRevealForReceive = U),
-      (l.applyScheduledMsgViewMode = G));
+    ((l.assertScheduledMsgStanzaType = x),
+      (l.preProcessConditionalRevealMessage = W),
+      (l.maybePreProcessConditionalRevealForReceive = H),
+      (l.applyScheduledMsgViewMode = j));
   },
   98,
 );

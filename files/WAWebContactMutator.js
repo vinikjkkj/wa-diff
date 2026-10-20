@@ -73,7 +73,7 @@ __d(
     }
     function g(e) {
       var t = e.lidPhoneNumberMappings;
-      t.forEach(function (e) {
+      (t.forEach(function (e) {
         var t = e.lid,
           n = e.phoneNumber,
           r = o("WAWebContactCollection").ContactCollection.get(
@@ -91,7 +91,10 @@ __d(
           a != null && o("WAWebContactBlocklistUtils").updateContactBlocked(a),
           r == null || r.updateContactOptedOutOfMarketingMessages(),
           a == null || a.updateContactOptedOutOfMarketingMessages());
-      });
+      }),
+        o("WAWebContactCollection").ContactCollection.trigger(
+          "lid-pn-mapping-updated",
+        ));
     }
     function h(e) {
       var t = e.lidContactDataMappings;

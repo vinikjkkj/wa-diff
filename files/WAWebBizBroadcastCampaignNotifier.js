@@ -5,6 +5,7 @@ __d(
     "WAWebBizBroadcastCampaignStorageUtils",
     "WAWebBroadcastConsts",
     "WAWebCmd",
+    "WAWebRemoveCampaignWithSync",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,9 +34,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (yield o(
-            "WAWebBizBroadcastCampaignStorageUtils",
-          ).removeCampaignWithSync(e, t),
+          (yield o("WAWebRemoveCampaignWithSync").removeCampaignWithSync(e, t),
             r("WAWebBizBroadcastCampaignCollection").remove(e),
             o("WAWebCmd").Cmd.trigger(
               o("WAWebBroadcastConsts").BIZ_BROADCAST_CAMPAIGN_UPDATED_EVENT,

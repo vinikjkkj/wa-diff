@@ -119,11 +119,16 @@ __d(
           var h = [],
             y = [],
             C = g.map(function (e) {
-              var t = e.jid,
-                n;
-              if (t == null) {
-                var a = e.contactListIds;
-                if (a == null || a.name !== "PnJid")
+              var t,
+                n = e.jid,
+                a;
+              if (n == null) {
+                var i,
+                  l =
+                    (i = e.privacyContactListIdentifierMixin) == null
+                      ? void 0
+                      : i.contactListIds;
+                if (l == null || l.name !== "PnJid")
                   throw (
                     o("WALogger").ERROR(
                       d ||
@@ -133,29 +138,32 @@ __d(
                     ),
                     r("err")("GetContactBlacklist lid request invalid response")
                   );
-                var i = o("WAWebJidToWid").userJidToUserWid(a.value.pnJid),
-                  l = o("WAWebLidMigrationUtils").toUserLid(i);
-                if (l == null) return i;
-                n = o("WAWebLidMigrationUtils").toUserLidOrThrow(l);
+                var s = o("WAWebJidToWid").userJidToUserWid(l.value.pnJid),
+                  u = o("WAWebLidMigrationUtils").toUserLid(s);
+                if (u == null) return s;
+                a = o("WAWebLidMigrationUtils").toUserLidOrThrow(u);
               } else {
-                var s = o("WAWebJidToWid").userJidToUserWid(t);
-                n = o("WAWebLidMigrationUtils").toUserLidOrThrow(s);
+                var c = o("WAWebJidToWid").userJidToUserWid(n);
+                a = o("WAWebLidMigrationUtils").toUserLidOrThrow(c);
               }
-              var u = e.contactListIds;
-              if ((u == null ? void 0 : u.name) === "Username")
+              var _ =
+                (t = e.privacyContactListIdentifierMixin) == null
+                  ? void 0
+                  : t.contactListIds;
+              if ((_ == null ? void 0 : _.name) === "Username")
                 h.push({
-                  userId: n,
+                  userId: a,
                   username: o("WAWebUsernameTypes").asUsername(
-                    u.value.username,
+                    _.value.username,
                   ),
                 });
-              else if ((u == null ? void 0 : u.name) === "PnJid")
+              else if ((_ == null ? void 0 : _.name) === "PnJid")
                 y.push({
-                  lid: n,
-                  pn: o("WAWebJidToWid").userJidToUserWid(u.value.pnJid),
+                  lid: a,
+                  pn: o("WAWebJidToWid").userJidToUserWid(_.value.pnJid),
                 });
               else if (
-                (u == null ? void 0 : u.name) === "EmptyContactListIdentifier"
+                (_ == null ? void 0 : _.name) === "EmptyContactListIdentifier"
               )
                 o("WALogger").LOG(
                   m ||
@@ -171,11 +179,11 @@ __d(
                         "response contactListIds name is unexpected ",
                         "",
                       ])),
-                    u == null ? void 0 : u.name,
+                    _ == null ? void 0 : _.name,
                   ),
                   r("err")("GetContactBlacklist lid request invalid response")
                 );
-              return n;
+              return a;
             });
           (yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
             mappings: y,

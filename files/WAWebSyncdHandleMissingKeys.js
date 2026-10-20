@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebGetMissingKey",
     "WAWebGetSyncKey",
     "WAWebOfflineHandler",
@@ -78,12 +77,9 @@ __d(
           if (
             (t.forEach(function (e) {
               var t = [e.keyId.id];
-              (o("WAWebABProps").getABPropConfigValue(
-                "web_request_missing_keys_for_removes",
-              ) &&
-                e.mutations.forEach(function (e) {
-                  t.push(e.record.keyId.id);
-                }),
+              (e.mutations.forEach(function (e) {
+                t.push(e.record.keyId.id);
+              }),
                 t.forEach(function (t) {
                   if (o("WAWebSyncdCryptoUtils").syncKeyIdsEqual(t, f)) {
                     var l;

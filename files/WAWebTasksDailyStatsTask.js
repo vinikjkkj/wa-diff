@@ -1073,23 +1073,13 @@ __d(
     function H() {
       return (
         (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebABProps").getABPropConfigValue(
-              "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
-            )
-              ? r("WAWebLidAwareContactsDB")
-                  .equalsPrimaryKeys(["isAddressBookContact"], 1)
-                  .then(function (e) {
-                    return r("countWhere")(e, function (e) {
-                      return !r("WAWebWid").isStringLid(e);
-                    });
-                  })
-              : r("WAWebLidAwareContactsDB")
-                  .equals(["isAddressBookContact"], 1)
-                  .then(function (e) {
-                    return r("countWhere")(e, function (e) {
-                      return !r("WAWebWid").isStringLid(e.id);
-                    });
-                  }),
+          var e = r("WAWebLidAwareContactsDB")
+              .equals(["isAddressBookContact"], 1)
+              .then(function (e) {
+                return r("countWhere")(e, function (e) {
+                  return !r("WAWebWid").isStringLid(e.id);
+                });
+              }),
             t = o("WAStorageEstimator").estimateStorage(),
             a = o("WAWebMediaStore").LruMediaStore.count(),
             i = r("WAWebLidAwareContactsDB").count(),
@@ -1277,41 +1267,20 @@ __d(
           var e = new Set(),
             t = 0,
             n = new Set(),
-            a = 0;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
-            )
-          )
-            o("WAWebContactCollection").ContactCollection.forEach(function (r) {
-              if (r.id.isLid()) {
-                var i = r.id.toString(),
-                  l = o("WAWebWidFactory").asUserLidOrThrow(r.id),
-                  s = o("WAWebApiContact").getLatestLid(l);
-                (s != null && !l.equals(s) && e.add(i),
-                  r.isUsernameContact === !0 && !e.has(i) && t++);
-                var u = r.phoneNumber;
-                (u != null &&
-                  o("WAWebUsernameTypes").isPresentUsername(r.username) &&
-                  n.add(u.toString()),
-                  r.isContactSyncCompleted === 0 && a++);
-              }
+            a = 0,
+            i = yield r("WAWebLidAwareContactsDB").all(),
+            l = i.filter(function (e) {
+              return r("WAWebWid").isStringLid(e.id);
             });
-          else {
-            var i = yield r("WAWebLidAwareContactsDB").all(),
-              l = i.filter(function (e) {
-                return r("WAWebWid").isStringLid(e.id);
-              });
-            for (var s of l) {
-              var u = o("WAWebWidFactory").createUserLidOrThrow(s.id),
-                c = o("WAWebApiContact").getLatestLid(u);
-              (c != null && !u.equals(c) && e.add(s.id),
-                s.isUsernameContact === !0 && !e.has(s.id) && t++,
-                !r("isStringNullOrEmpty")(s.phoneNumber) &&
-                  o("WAWebUsernameTypes").isPresentUsername(s.username) &&
-                  n.add(r("nullthrows")(s.phoneNumber)),
-                s.isContactSyncCompleted === 0 && a++);
-            }
+          for (var s of l) {
+            var u = o("WAWebWidFactory").createUserLidOrThrow(s.id),
+              c = o("WAWebApiContact").getLatestLid(u);
+            (c != null && !u.equals(c) && e.add(s.id),
+              s.isUsernameContact === !0 && !e.has(s.id) && t++,
+              !r("isStringNullOrEmpty")(s.phoneNumber) &&
+                o("WAWebUsernameTypes").isPresentUsername(s.username) &&
+                n.add(r("nullthrows")(s.phoneNumber)),
+              s.isContactSyncCompleted === 0 && a++);
           }
           return {
             usernameOnlyContactsSize: t,

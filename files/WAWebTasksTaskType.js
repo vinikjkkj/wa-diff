@@ -18,6 +18,7 @@ __d(
       REPORT_SYNCD_KEY_STATS: "reportSyncdKeyStats",
       SYNCD_SYNC_ALL_COLLECTIONS: "syncdSyncAllCollections",
       CLEAN_ORPHAN_ADD_ONS: "cleanOrphanAddOns",
+      CLEAN_POLL_PENDING_UPDATES: "cleanPollPendingUpdates",
       CLEAN_PAST_PARTICIPANTS: "cleanPastParticipants",
       CLEAN_EXPIRED_UTM: "cleanExpiredUtm",
       SEND_NON_MESSAGE_DATA_REQUEST: "sendNonMessageDataRequest",

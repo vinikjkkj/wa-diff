@@ -2,7 +2,6 @@ __d(
   "WAWebContactModel",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBaseModel",
     "WAWebBizBotProfileUtils",
@@ -163,14 +162,11 @@ __d(
                     "change:pushname",
                     this.$Contact$p_2,
                   ),
-                o("WAWebABProps").getABPropConfigValue(
-                  "web_contact_collection_locale_listener",
-                ) ||
-                  this.listenTo(
-                    r("WAWebL10N"),
-                    "locale_change",
-                    this.$Contact$p_3,
-                  ),
+                this.listenTo(
+                  r("WAWebL10N"),
+                  "locale_change",
+                  this.$Contact$p_3,
+                ),
                 this.id.isUser() &&
                   (o("WAWebContactBlocklistUtils").updateContactBlocked(this),
                   this.updateContactOptedOutOfMarketingMessages()),

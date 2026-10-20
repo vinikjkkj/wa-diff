@@ -12,13 +12,18 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebPollsParseWebMsgInfoPollUpdates")
-            .parseWebMsgInfoPollUpdates(e)
-            .then(function (e) {
-              return e.map(
-                o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData,
-              );
-            });
+          var t = yield o(
+            "WAWebPollsParseWebMsgInfoPollUpdates",
+          ).parseWebMsgInfoPollUpdates(e);
+          return t.map(function (e) {
+            var t = e.pollUpdateMessageMetadata,
+              n = e.voteData;
+            return babelHelpers.extends(
+              {},
+              o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData(n),
+              { pollUpdateMessageMetadata: t },
+            );
+          });
         })),
         s.apply(this, arguments)
       );

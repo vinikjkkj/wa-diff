@@ -692,45 +692,6 @@ __d(
                   return (
                     (h = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
-                        for (
-                          var t = Array.from(e.keys()),
-                            n = 200,
-                            r = function* () {
-                              var r = t.slice(a, a + n),
-                                i = yield o(
-                                  "WAWebDexieCastTypes",
-                                ).dexieCastToPromise(_.table.bulkGet(r)),
-                                l = [];
-                              (i.forEach(function (t, n) {
-                                if (t != null) {
-                                  var o = r[n],
-                                    a = e.get(o);
-                                  a != null &&
-                                    (Object.assign(t, a),
-                                    l.push(t),
-                                    e.delete(o));
-                                }
-                              }),
-                                l.length > 0 && (yield _.table.bulkPut(l)));
-                            },
-                            a = 0;
-                          a < t.length;
-                          a += n
-                        )
-                          yield* r();
-                        return Array.from(e.values());
-                      },
-                    )),
-                    h.apply(this, arguments)
-                  );
-                }
-                function y(e) {
-                  return C.apply(this, arguments);
-                }
-                function C() {
-                  return (
-                    (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
                         var t = _.table
                           .where(":id")
                           .anyOf(Array.from(e.keys()));
@@ -741,38 +702,39 @@ __d(
                         return n;
                       },
                     )),
-                    C.apply(this, arguments)
+                    h.apply(this, arguments)
                   );
                 }
                 return o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     this.db.transaction("rw", this.table, function () {
-                      d.transaction = Math.round(self.performance.now() - c);
-                      var t = o("WAWebGlobals").getEnableImprovedBulkMerge()
-                        ? g(m)
-                        : y(m);
-                      return t.then(function (t) {
-                        if (
-                          ((d.modified = Math.round(
-                            self.performance.now() - c,
-                          )),
-                          t.length === 0 || !a)
-                        ) {
-                          t.length > 0 &&
-                            o("WALogger").LOG(
-                              e ||
-                                (e = babelHelpers.taggedTemplateLiteralLoose([
-                                  "bulkMaybeCreateOrMerge: skipped adding ",
-                                  " records for table ",
-                                  "",
-                                ])),
-                              t.length,
-                              l.table.name,
-                            );
-                          return;
-                        }
-                        return l.table.bulkPut(t);
-                      });
+                      return (
+                        (d.transaction = Math.round(
+                          self.performance.now() - c,
+                        )),
+                        g(m).then(function (t) {
+                          if (
+                            ((d.modified = Math.round(
+                              self.performance.now() - c,
+                            )),
+                            t.length === 0 || !a)
+                          ) {
+                            t.length > 0 &&
+                              o("WALogger").LOG(
+                                e ||
+                                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                                    "bulkMaybeCreateOrMerge: skipped adding ",
+                                    " records for table ",
+                                    "",
+                                  ])),
+                                t.length,
+                                l.table.name,
+                              );
+                            return;
+                          }
+                          return l.table.bulkPut(t);
+                        })
+                      );
                     }),
                   )
                   .catch(function (e) {

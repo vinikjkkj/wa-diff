@@ -19,7 +19,6 @@ __d(
               dedupKey: [15, e.TYPES.INTEGER],
               isOriginalAuthor: [12, e.TYPES.BOOLEAN],
               isStarredPost: [8, e.TYPES.BOOLEAN],
-              isVpvImpression: [7, e.TYPES.BOOLEAN],
               postId: [4, e.TYPES.STRING],
               traceIdInt: [11, e.TYPES.INTEGER],
               unifiedSessionId: [6, e.TYPES.STRING],

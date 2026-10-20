@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebE2EProtoParserApi",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebMessageHistoryValidation",
     "WAWebMessageHistoryValidationError",
@@ -39,22 +38,9 @@ __d(
         m =
           d === !0 || i.id.fromMe === !0
             ? o("WAWebViewMode.flow").ViewModeType.VISIBLE
-            : o("WAWebViewMode.flow").ViewModeType.HIDDEN;
-      if (!o("WAWebGroupHistoryGating").isGroupHistoryReceiverEnabled()) {
-        var p;
-        return {
-          msgData: babelHelpers.extends({}, i, {
-            type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-            kind: o("WAWebMsgType").MsgKind.Unknown,
-            viewMode: m,
-            futureproofType: o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE,
-            futureproofSubtype: "message_history_bundle",
-          }),
-          contextInfo: (p = s.contextInfo) != null ? p : null,
-        };
-      }
-      var _ = u(s),
-        f = babelHelpers.extends({}, i, {
+            : o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+        p = u(s),
+        _ = babelHelpers.extends({}, i, {
           type: o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE,
           kind: "messageHistoryBundle",
           subtype: "message_history_bundle",
@@ -75,13 +61,13 @@ __d(
                     : [],
               })
             : null,
-          directPath: _ == null ? void 0 : _.directPath,
-          encFilehash: _ == null ? void 0 : _.encFilehash,
-          filehash: _ == null ? void 0 : _.filehash,
-          mediaKey: _ == null ? void 0 : _.mediaKey,
+          directPath: p == null ? void 0 : p.directPath,
+          encFilehash: p == null ? void 0 : p.encFilehash,
+          filehash: p == null ? void 0 : p.filehash,
+          mediaKey: p == null ? void 0 : p.mediaKey,
         });
       return {
-        msgData: f,
+        msgData: _,
         contextInfo: (a = s.contextInfo) != null ? a : null,
       };
     }

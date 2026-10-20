@@ -71,6 +71,14 @@ __d(
       "Resets the channel status first-time education (intro popup + add-to-status tooltip) so both show again."),
       (d.paramsToExecute = []));
     function m() {
+      o("WAWebUserPrefsNuxPreferences").removeNUX(
+        o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX.STATUS_RESHARE_INTRO,
+      );
+    }
+    ((m.doc =
+      "Resets the status reshare intro popup so it shows again on the next contact status reshare."),
+      (m.paramsToExecute = []));
+    function p() {
       var e = Object.keys(o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX);
       (e.forEach(function (e) {
         o("WAWebNuxCoolOff").resetNuxCoolOff(
@@ -82,38 +90,39 @@ __d(
           "WAWebDataSharingOptInCoolOffModel",
         ).DataSharingOptInCoolOffModel.resetCoolOffStartTimestamp());
     }
-    ((m.doc =
+    ((p.doc =
       "Clear all data in local storage on NUX that acts based on cool-offs."),
-      (m.paramsToExecute = []));
-    function p(e) {
+      (p.paramsToExecute = []));
+    function _(e) {
       return r("WAWebNuxSync").acknowledgeNux(e).then(r("WAWebNoop"));
     }
-    function _(e) {
+    function f(e) {
       return r("WAWebNuxSync").unAcknowledgeNux(e).then(r("WAWebNoop"));
     }
-    function f(e) {
+    function g(e) {
       return o("WAWebUserPrefsNuxPreferences").shouldShowNUX(e);
     }
-    function g() {
+    function h() {
       return o("WAWebNux").NuxSyncKey;
     }
-    ((g.doc = "return NuxSyncKey enum"), (g.paramsToExecute = []));
-    var h = {
-      acknowledgeNux: p,
-      unAcknowledgeNux: _,
+    ((h.doc = "return NuxSyncKey enum"), (h.paramsToExecute = []));
+    var y = {
+      acknowledgeNux: _,
+      unAcknowledgeNux: f,
       dismissAllNux: s,
       dismissNux: o("WAWebNuxAction").dismissNux,
       getNuxSyncList: o("WAWebUserPrefsNuxPreferences").getNuxSyncList,
       nuxExistsInNuxSync: o("WAWebUserPrefsNuxPreferences").nuxExistsInNuxSync,
-      resetAllNuxCoolOff: m,
+      resetAllNuxCoolOff: p,
       resetAllNux: e,
       resetBizAiMessageEditEducationNux: c,
       resetChatAssignmentNux: u,
       resetNewsletterStatusEducationNux: d,
-      shouldShowNux: f,
-      getNuxSyncKey: g,
+      resetStatusReshareIntroNux: m,
+      shouldShowNux: g,
+      getNuxSyncKey: h,
     };
-    l.default = h;
+    l.default = y;
   },
   98,
 );

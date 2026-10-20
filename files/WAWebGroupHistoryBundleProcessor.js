@@ -32,6 +32,7 @@ __d(
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessagingGatingUtils",
     "WAWebMsgEphemerality",
+    "WAWebMsgHistorySyncExtensions",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
     "WAWebParseWebMessageInfoApi",
@@ -598,10 +599,12 @@ __d(
         }
       }
       var L = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(
-        babelHelpers.extends({}, t, {
-          is1PBizBotMessage: void 0,
-          botMessageInvokerJid: void 0,
-        }),
+        o("WAWebMsgHistorySyncExtensions").omitPrimaryOnlyHistorySyncFields(
+          babelHelpers.extends({}, t, {
+            is1PBizBotMessage: void 0,
+            botMessageInvokerJid: void 0,
+          }),
+        ),
       );
       if (!L) return null;
       var E = n.author;

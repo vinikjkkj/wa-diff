@@ -17,7 +17,6 @@ __d(
     "WAWebWidFromSignalAddress",
     "asyncToGeneratorRuntime",
     "err",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -716,24 +715,13 @@ __d(
             return t;
           })()),
           (a.$15 = function (t, o) {
-            if (t == null)
-              return (C || (C = n("Promise"))).reject(
-                r("err")("Tried to put session without identifier"),
-              );
-            if (!r("gkx")("26258"))
-              if (Array.isArray(o == null ? void 0 : o.sessions))
-                var e = o.sessions[o.sessions.length - 1];
-              else
-                var a,
-                  i =
-                    o == null || (a = o.senderKeyStates) == null
-                      ? void 0
-                      : a[0];
-            return (
-              this.$1.SenderKeyStore.set(t, o),
-              this.$1.Dirty.senderKey.add(t),
-              (C || (C = n("Promise"))).resolve()
-            );
+            return t == null
+              ? (C || (C = n("Promise"))).reject(
+                  r("err")("Tried to put session without identifier"),
+                )
+              : (this.$1.SenderKeyStore.set(t, o),
+                this.$1.Dirty.senderKey.add(t),
+                (C || (C = n("Promise"))).resolve());
           }),
           (a.storeSenderKey = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -799,29 +787,6 @@ __d(
           (a.generateSnapshot = function () {
             if (this.$2 === b.Memory) return this.$1.generateCacheUpdate();
           }),
-          (a.generateSnapshotThrottled = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.$2 === b.Memory) {
-                var e = [
-                  yield this.$1.Mutex.identity.acquire(),
-                  yield this.$1.Mutex.session.acquire(),
-                  yield this.$1.Mutex.senderKey.acquire(),
-                  yield this.$1.Mutex.preKey.acquire(),
-                ];
-                try {
-                  return yield this.$1.generateCacheUpdateThrottled();
-                } finally {
-                  e.forEach(function (e) {
-                    return e.release();
-                  });
-                }
-              }
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           (a.deleteAllCache = function () {
             (o("WALogger")
               .LOG(

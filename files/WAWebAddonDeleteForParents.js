@@ -12,6 +12,7 @@ __d(
     "WAWebDeleteLastAddOnsPreview",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebPollPendingUpdatesCleanup",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -42,7 +43,12 @@ __d(
           ) || i.push(h({ chatId: r, parentMsgKeys: a })),
             o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
               o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
-            ) || i.push(C({ chatId: r, parentMsgKeys: a })));
+            ) || i.push(C({ chatId: r, parentMsgKeys: a })),
+            i.push(
+              o(
+                "WAWebPollPendingUpdatesCleanup",
+              ).deletePollPendingUpdatesForParents(a),
+            ));
           var l = yield (_ || (_ = n("Promise"))).allSettled(i);
           o("WALogger").LOG(
             s ||

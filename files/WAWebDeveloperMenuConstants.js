@@ -10,7 +10,7 @@ __d(
       "HatchComputer",
       "HatchBrowserViewer",
       "HatchPayloads",
-      "HatchMuseAuth",
+      "HatchAuth",
       "LabyrinthDebug",
       "NuxManager",
       "VoipUiDebug",

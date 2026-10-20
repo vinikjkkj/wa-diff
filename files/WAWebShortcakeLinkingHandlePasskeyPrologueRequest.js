@@ -4,7 +4,7 @@ __d(
     "WABase64",
     "WALogger",
     "WASmaxMdPasskeyPrologueRequestNotificationRPC",
-    "WASmaxOutMessageFallbackDeliverResponseBadStanza",
+    "WASmaxMessageFallbackDeliverRPC",
     "WASmaxParsingFailure",
     "WAWebAdvSignatureApi",
     "WAWebBackendApi",
@@ -109,7 +109,7 @@ __d(
                   .tags("wa-ice", "wa_app_compromise", "shortcake")
                   .sendLogs("shortcake-passkey-prologue-request-parse-failed"),
                 o(
-                  "WASmaxOutMessageFallbackDeliverResponseBadStanza",
+                  "WASmaxMessageFallbackDeliverRPC",
                 ).makeDeliverResponseBadStanza(
                   {
                     ackError: o("WAWebCreateNackFromStanza").NackReason

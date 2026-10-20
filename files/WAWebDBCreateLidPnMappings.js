@@ -5,15 +5,12 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebContactsDbLidMigrationUtils",
     "WAWebDBContactRemoveSoftDeletedUsernames",
     "WAWebDynamicThrottlingManager",
-    "WAWebEnvironment",
     "WAWebIdentityChangeApiWorkerCompatible",
-    "WAWebRunInBatches",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebUsernameGatingUtils",
     "WAWebWidDevTools",
@@ -49,32 +46,14 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.flushImmediately,
             n = e.identityChangeHandlingEnabled,
-            a = e.learningSource,
-            i = e.mappings;
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_web_history_sync_dynamic_throttling",
-          )
-            ? yield v({
-                mappings: i,
-                flushImmediately: t,
-                identityChangeHandlingEnabled: n,
-                learningSource: a,
-              })
-            : r("WAWebEnvironment").isWindows
-              ? yield o("WAWebRunInBatches").runInBatches(i, function (e) {
-                  return L({
-                    mappings: e,
-                    flushImmediately: t,
-                    identityChangeHandlingEnabled: n,
-                    learningSource: a,
-                  });
-                })
-              : yield L({
-                  mappings: i,
-                  flushImmediately: t,
-                  identityChangeHandlingEnabled: n,
-                  learningSource: a,
-                });
+            r = e.learningSource,
+            o = e.mappings;
+          yield v({
+            mappings: o,
+            flushImmediately: t,
+            identityChangeHandlingEnabled: n,
+            learningSource: r,
+          });
         })),
         b.apply(this, arguments)
       );

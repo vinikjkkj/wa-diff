@@ -13,49 +13,43 @@ __d(
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "render_updated_disclosure",
-      );
-    }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
         "limit_sharing_protocol_message_receiver_enabled",
       );
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue("acp2_enabled");
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue("acp2_futureproof_enabled");
     }
-    function p() {
+    function m() {
       return (
-        d() &&
+        c() &&
         o("WAWebABProps").getABPropConfigValue("acp2_group_chats_enabled")
       );
     }
+    function p(e) {
+      return _(e.id);
+    }
     function _(e) {
-      return f(e.id);
+      return e.isGroup() ? m() : c();
     }
     function f(e) {
-      return e.isGroup() ? p() : d();
+      return g(e, e.acp2Setting);
     }
-    function g(e) {
-      return h(e, e.acp2Setting);
-    }
-    function h(e, t) {
-      return (t == null ? void 0 : t.enabled) === !0 && _(e);
+    function g(e, t) {
+      return (t == null ? void 0 : t.enabled) === !0 && p(e);
     }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),
-      (l.isRenderUpdatedDisclosureGatingEnabled = u),
-      (l.isLimitSharingReceiverGatingEnabledForChat = c),
-      (l.isAcp2Enabled = d),
-      (l.isAcp2FutureproofEnabled = m),
-      (l.isAcp2GroupEnabled = p),
-      (l.isAcp2EnabledForChat = _),
-      (l.isAcp2EnabledForWid = f),
-      (l.isChatAcp2Restricted = g),
-      (l.isAcp2RestrictedSetting = h));
+      (l.isLimitSharingReceiverGatingEnabledForChat = u),
+      (l.isAcp2Enabled = c),
+      (l.isAcp2FutureproofEnabled = d),
+      (l.isAcp2GroupEnabled = m),
+      (l.isAcp2EnabledForChat = p),
+      (l.isAcp2EnabledForWid = _),
+      (l.isChatAcp2Restricted = f),
+      (l.isAcp2RestrictedSetting = g));
   },
   98,
 );

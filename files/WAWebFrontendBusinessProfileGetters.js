@@ -18,11 +18,10 @@ __d(
       m = c("googlePlace"),
       p = c("stale"),
       _ = u(
-        function (e) {
-          var t = e[0];
+        function () {
           return o(
             "WAWebProductCatalogMetaLinkingGatingUtils",
-          ).shouldDisableCatalogDueToMetaLinkingForProfileOptions(t);
+          ).shouldDisableCatalogDueToMetaLinkingForProfileOptions();
         },
         [o("WAWebBusinessProfileGetters").getProfileOptions],
       );

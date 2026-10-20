@@ -29,7 +29,7 @@ __d(
             (this.$9 = 0),
             (this.$1 = e),
             (this.canvas = e),
-            (this.$2 = e.getContext("2d")),
+            (this.$2 = v(e)),
             (this.$3 = o(
               "WAWebVoipVideoRendererInterface",
             ).onRenderCallbackNoop),
@@ -201,11 +201,11 @@ __d(
       h = (function () {
         function e(e) {
           ((this.$1 = e),
-            (this.$2 = e.getContext("2d")),
+            (this.$2 = v(e)),
             o("WAWebRuntimeEnvironmentUtils").isWorker()
               ? (this.$3 = new OffscreenCanvas(e.width, e.height))
               : (this.$3 = document.createElement("canvas")),
-            (this.$4 = this.$3.getContext("2d")),
+            (this.$4 = v(this.$3)),
             (this.$5 = o(
               "WAWebVoipVideoRendererInterface",
             ).onRenderCallbackNoop),
@@ -396,6 +396,11 @@ __d(
             (o[c + 3] = 255));
         }
       return o;
+    }
+    function v(e) {
+      var t = e.getContext("2d");
+      if (t == null) throw r("err")("Failed to create context for canvas");
+      return t;
     }
     ((l.WAWebVoipVideoFrameRenderer = g), (l.WAWebVoipVideoRasterRenderer = h));
   },

@@ -5,15 +5,16 @@ __d(
     "WALogger",
     "WALongInt",
     "WAWebBackendApi",
-    "WAWebBizBroadcastCampaignStorageUtils",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBusinessBroadcastsGatingUtils",
     "WAWebProtobufsServerSync.pb",
+    "WAWebRemoveCampaignStorage",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
+    "WAWebUpsertCampaignStorage",
     "WAWebUserPrefsHistorySync",
     "asyncToGeneratorRuntime",
   ],
@@ -127,7 +128,7 @@ __d(
                                       ).malformedActionValue(r.collectionName)
                                     );
                                   yield o(
-                                    "WAWebBizBroadcastCampaignStorageUtils",
+                                    "WAWebUpsertCampaignStorage",
                                   ).upsertCampaignStorage(n, u, s);
                                   var R = u.broadcastJid;
                                   return (
@@ -161,7 +162,7 @@ __d(
                                     (L == null ? void 0 : L.broadcastJid) !=
                                       null && f.add(L.broadcastJid),
                                     yield o(
-                                      "WAWebBizBroadcastCampaignStorageUtils",
+                                      "WAWebRemoveCampaignStorage",
                                     ).removeCampaignStorage(n),
                                     y.push(n),
                                     {

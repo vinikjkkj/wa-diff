@@ -65,7 +65,6 @@ __d(
     "WAWebGroupSafetyCheckUtils",
     "WAWebHandleNewMsgAction",
     "WAWebKeepInChatMsgUtils",
-    "WAWebKeptMsgCollection",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingModelUtils",
@@ -1564,19 +1563,6 @@ __d(
             return this.groupMetadata
               ? this.groupMetadata.participants.iAmAdmin()
               : !1;
-          }),
-          (i.getKeptMsgs = function () {
-            var e = this.keptMsgs;
-            return (
-              e ||
-                ((this.keptMsgs = e = new (r("WAWebKeptMsgCollection"))()),
-                this.keptMsgs.add(
-                  this.msgs.filter(function (e) {
-                    return o("WAWebMsgGetters").getIsKept(e);
-                  }),
-                )),
-              e
-            );
           }),
           (i.hasKeptMsgs = function () {
             return this.msgs.some(function (e) {

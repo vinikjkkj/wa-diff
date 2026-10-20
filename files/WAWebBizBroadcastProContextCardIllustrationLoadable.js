@@ -12,15 +12,13 @@ __d(
       s = e || (e = o("react")),
       u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-              "WAWebWdsIllClipMessagesIcon.react",
-            )
-              .__setRef("WAWebBizBroadcastProContextCardIllustrationLoadable")
-              .load(),
-            t = e.WdsIllClipMessagesIcon;
-          return t;
+          return r("JSResourceForInteraction")(
+            "WDSIllustrationWdsIllClipMessages.react",
+          )
+            .__setRef("WAWebBizBroadcastProContextCardIllustrationLoadable")
+            .load();
         }),
-        "WAWebWdsIllClipMessagesIcon",
+        "WDSIllustrationWdsIllClipMessages",
       ),
       c = r("WAWebLoadable")({
         loader: u,

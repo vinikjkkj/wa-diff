@@ -123,6 +123,7 @@ __d(
         INVALID_NEWSLETTER_EDIT_STANZA: "newsletter_edit_stanza_invalid",
         INVALID_POLL_EDIT_STANZA: "poll_edit_message_stanza_invalid",
         INVALID_MEMBER_TAG_STANZA: "member_tag_message_stanza_invalid",
+        INVALID_SCHEDULED_MESSAGE_STANZA: "scheduled_message_stanza_invalid",
       }),
       h = (function (e) {
         function t(t) {

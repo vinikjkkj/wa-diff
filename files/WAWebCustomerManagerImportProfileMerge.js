@@ -21,14 +21,9 @@ __d(
               throw r("err")(
                 "[CustomerManager] imported customer profile disappeared",
               );
-            var l = n.updatedFields;
-            if (l == null)
-              throw r("err")(
-                "[CustomerManager] imported customer field provenance unavailable",
-              );
-            var u = c(t, n, l, a);
+            var l = d(t, n, a);
             if (
-              Object.values(u).every(function (e) {
+              Object.values(l).every(function (e) {
                 return e == null;
               })
             )
@@ -36,14 +31,14 @@ __d(
             if (
               yield o(
                 "WAWebContactManagerCustomerProfileUpsertMutation",
-              ).updateCustomerProfileIfUnchanged(t.chatJid, u, n.etag)
+              ).updateCustomerProfileIfUnchanged(t.chatJid, l, n.etag)
             ) {
-              var d;
+              var u;
               return (
                 o(
                   "WAWebCustomerProfileChangeNotifier",
                 ).notifyCustomerProfileChanged(t.chatJid),
-                (d = u.leadStage) != null ? d : n.leadStage
+                (u = l.leadStage) != null ? u : n.leadStage
               );
             }
             if (i >= e)
@@ -63,38 +58,66 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n, r) {
-      var a = o(
-        "WAWebCustomerManagerCreateCustomerRecord",
-      ).buildCustomerProfileFields(e, t);
-      function i(e, t, r) {
+    function c(e, t, n) {
+      return Object.values(
+        m(
+          o(
+            "WAWebCustomerManagerCreateCustomerRecord",
+          ).buildCustomerProfileFields(e, null),
+          t,
+          [],
+          n,
+        ),
+      ).some(function (e) {
+        return e != null;
+      });
+    }
+    function d(e, t, n) {
+      var a = t.updatedFields;
+      if (a == null)
+        throw r("err")(
+          "[CustomerManager] imported customer field provenance unavailable",
+        );
+      return m(
+        o(
+          "WAWebCustomerManagerCreateCustomerRecord",
+        ).buildCustomerProfileFields(e, t),
+        t,
+        a,
+        n,
+      );
+    }
+    function m(e, t, n, r) {
+      function o(e, t, r) {
         return t && !n.includes(e) && r != null ? r : void 0;
       }
       return {
-        acquisitionSource: i(
+        acquisitionSource: o(
           "acquisition_source",
           t.acquisitionSource == null,
-          a.acquisitionSource,
+          e.acquisitionSource,
         ),
-        address: i("address", d(t.address), m(a.address)),
-        birthday: i("dob", t.birthdayIso == null, a.birthday),
-        email: i("email", d(t.email), m(a.email)),
-        lastOrder: i("last_order_date", t.lastOrder == null, a.lastOrder),
-        leadStage: i(
+        address: o("address", p(t.address), _(e.address)),
+        birthday: o("dob", t.birthdayIso == null, e.birthday),
+        email: o("email", p(t.email), _(e.email)),
+        lastOrder: o("last_order_date", t.lastOrder == null, e.lastOrder),
+        leadStage: o(
           "lead_stage",
           r.canBackfillLeadStage && t.leadStage == null,
           r.leadStageToBackfill,
         ),
-        name: i("name", d(t.name), r.profileName || void 0),
+        name: o("name", p(t.name), r.profileName || void 0),
       };
     }
-    function d(e) {
+    function p(e) {
       return e == null || e.trim() === "";
     }
-    function m(e) {
-      return d(e) ? void 0 : e;
+    function _(e) {
+      return p(e) ? void 0 : e;
     }
-    l.fillMissingImportedProfileFields = s;
+    ((l.fillMissingImportedProfileFields = s),
+      (l.hasPotentialImportedProfileFields = c),
+      (l.getMissingImportedProfileFields = d));
   },
   98,
 );

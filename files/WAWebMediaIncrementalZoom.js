@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "$InternalEnum",
-    "WAWebABProps",
     "WAWebIncrementalZoomUtils",
     "WAWebMediaDataGetters",
     "WAWebMsgGetters",
@@ -169,7 +168,7 @@ __d(
       return { scale: d, centerX: _, centerY: f, zoomLevel: m };
     };
     function O(e) {
-      var t = o("react-compiler-runtime").c(19),
+      var t = o("react-compiler-runtime").c(17),
         n = h(0),
         r = y(!1),
         a = r[0],
@@ -193,83 +192,73 @@ __d(
           b,
         ),
         S = v[0],
-        R;
-      t[1] !== S
-        ? ((R =
-            S === "image" &&
-            o("WAWebABProps").getABPropConfigValue(
-              "hybrid_incremental_zooming_simple_enabled",
-            )),
-          (t[1] = S),
-          (t[2] = R))
-        : (R = t[2]);
-      var L = R,
-        E;
-      t[3] !== e.activeMsg
-        ? ((E = o("WAWebMsgGetters").getId(e.activeMsg).toString()),
-          (t[3] = e.activeMsg),
-          (t[4] = E))
-        : (E = t[4]);
-      var k, I, T, D;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = function () {
+        R = S === "image",
+        L;
+      t[1] !== e.activeMsg
+        ? ((L = o("WAWebMsgGetters").getId(e.activeMsg).toString()),
+          (t[1] = e.activeMsg),
+          (t[2] = L))
+        : (L = t[2]);
+      var E, k, I, T;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = function () {
             return n.current;
           }),
-          (I = function (t) {
+          (k = function (t) {
             n.current = t;
           }),
-          (T = function () {
+          (I = function () {
             return C.current;
           }),
-          (D = function (t) {
+          (T = function (t) {
             C.current = t;
           }),
-          (t[5] = k),
-          (t[6] = I),
-          (t[7] = T),
-          (t[8] = D))
-        : ((k = t[5]), (I = t[6]), (T = t[7]), (D = t[8]));
-      var x;
-      t[9] !== s ||
-      t[10] !== m ||
-      t[11] !== f ||
-      t[12] !== L ||
-      t[13] !== a ||
-      t[14] !== E
-        ? ((x = {
-            msgId: E,
+          (t[3] = E),
+          (t[4] = k),
+          (t[5] = I),
+          (t[6] = T))
+        : ((E = t[3]), (k = t[4]), (I = t[5]), (T = t[6]));
+      var D;
+      t[7] !== s ||
+      t[8] !== m ||
+      t[9] !== f ||
+      t[10] !== R ||
+      t[11] !== a ||
+      t[12] !== L
+        ? ((D = {
+            msgId: L,
             isZoomedIn: a,
             setIsZoomedIn: i,
-            isEnabled: L,
+            isEnabled: R,
             currentImageScale: s,
             setCurrentImageScale: u,
             currentZoomLevel: m,
             setCurrentZoomLevel: p,
             hasOverflownThumbnailSection: f,
             setHasOverflownThumbnailSection: g,
-            getCaptionHeight: k,
-            setCaptionHeight: I,
-            getHandler: T,
-            setHandler: D,
+            getCaptionHeight: E,
+            setCaptionHeight: k,
+            getHandler: I,
+            setHandler: T,
           }),
-          (t[9] = s),
-          (t[10] = m),
-          (t[11] = f),
+          (t[7] = s),
+          (t[8] = m),
+          (t[9] = f),
+          (t[10] = R),
+          (t[11] = a),
           (t[12] = L),
-          (t[13] = a),
-          (t[14] = E),
-          (t[15] = x))
-        : (x = t[15]);
-      var $ = x,
-        P;
+          (t[13] = D))
+        : (D = t[13]);
+      var x = D,
+        $;
       return (
-        t[16] !== e.children || t[17] !== $
-          ? ((P = c.jsx(B.Provider, { value: $, children: e.children })),
-            (t[16] = e.children),
-            (t[17] = $),
-            (t[18] = P))
-          : (P = t[18]),
-        P
+        t[14] !== e.children || t[15] !== x
+          ? (($ = c.jsx(B.Provider, { value: x, children: e.children })),
+            (t[14] = e.children),
+            (t[15] = x),
+            (t[16] = $))
+          : ($ = t[16]),
+        $
       );
     }
     var B = c.createContext({

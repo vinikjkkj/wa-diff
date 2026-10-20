@@ -15,7 +15,6 @@ __d(
     "WAWebGroupAgentDeletedChat",
     "WAWebGroupAgentPrivacyNotice",
     "WAWebGroupAgentRemovalSystemMsgs",
-    "WAWebGroupGatingUtils",
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupLinkJoinUtils",
     "WAWebGroupQueryJob",
@@ -467,12 +466,7 @@ __d(
                         actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
                       });
                   }
-                  if (
-                    t.reason === o("WAWebGroupType").ADD_REASON.INVITE &&
-                    o(
-                      "WAWebGroupGatingUtils",
-                    ).isAnyoneCanLinkToGroupsM2Enabled()
-                  ) {
+                  if (t.reason === o("WAWebGroupType").ADD_REASON.INVITE) {
                     var z = yield o(
                       "WAWebApiParticipantStore",
                     ).isCurrentUserGroupAdmin(s.chatId.toString());

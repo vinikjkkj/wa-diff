@@ -3,31 +3,34 @@ __d(
   [
     "WABase64",
     "WACryptoHmac",
+    "WALogger",
     "WATimeUtils",
     "WAWebMsgGetters",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new TextEncoder();
-    function s(t) {
-      return e.encode(t).buffer;
-    }
+    var e,
+      s = new TextEncoder();
     function u(e) {
-      return c.apply(this, arguments);
+      return s.encode(e).buffer;
     }
-    function c() {
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
             a = e.id.id,
             i = (t = e.id.remote) == null ? void 0 : t.toString({ legacy: !0 }),
-            l = yield S();
+            l = yield E();
           if (!l || !i) return a;
-          var u = e.id.fromMe ? 1 : 0,
+          var s = e.id.fromMe ? 1 : 0,
             c = e.id.fromMe
               ? "0"
               : (n =
@@ -36,30 +39,54 @@ __d(
                       : r.toString({ legacy: !0 })) != null
                 ? n
                 : "0",
-            d = s([i, a, u, c].join("_")),
+            d = u([i, a, s, c].join("_")),
             m = yield o("WACryptoHmac").hmacSha256(l, d);
           return o("WABase64").encodeB64(m);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebMsgGetters").getIsGroupStatus(e) ? y(e, t) : p(e, t);
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          try {
+            return yield c(t);
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[StatusLogging] could not hash the status id",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs(n);
+            return;
+          }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o("WAWebMsgGetters").getIsGroupStatus(e) ? v(e, t) : g(e, t);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             !o(
               "WAWebStatusGatingUtils",
@@ -69,30 +96,12 @@ __d(
           if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
             var n,
               r = (n = e.id.remote) == null ? void 0 : n.toJid();
-            return r == null ? null : b(r, t);
+            return r == null ? null : R(r, t);
           }
-          return e.author ? b(e.author.toJid(), t) : null;
+          return e.author ? R(e.author.toJid(), t) : null;
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
-    }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o(
-            "WAWebStatusGatingUtils",
-          ).isStatusViewerSidePosterIdentifiersEnabled()
-            ? b(e.toJid(), t)
-            : null;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return e != null && e.isNewsletter() ? e.user : void 0;
     }
     function y(e, t) {
       return C.apply(this, arguments);
@@ -100,6 +109,24 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o(
+            "WAWebStatusGatingUtils",
+          ).isStatusViewerSidePosterIdentifiersEnabled()
+            ? R(e.toJid(), t)
+            : null;
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return e != null && e.isNewsletter() ? e.user : void 0;
+    }
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.id.remote;
           return !o(
             "WAWebStatusGatingUtils",
@@ -107,28 +134,28 @@ __d(
             !o("WAWebMsgGetters").getIsGroupStatus(e) ||
             n == null
             ? null
-            : b(n.toJid(), t);
+            : R(n.toJid(), t);
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
-            r = yield S();
+            r = yield E();
           if (n === -1 || !r) return null;
-          var a = R(t, n),
-            i = yield o("WACryptoHmac").hmacSha256(r, s(e + a));
+          var a = k(t, n),
+            i = yield o("WACryptoHmac").hmacSha256(r, u(e + a));
           return o("WABase64").encodeB64(i);
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S() {
+    function E() {
       var e = o("WAWebUserPrefsMultiDevice")
         .getChatThreadLoggingSecretB64()
         .then(function (e) {
@@ -136,10 +163,10 @@ __d(
         });
       return e;
     }
-    function R(e, t) {
-      return t === 0 ? "" : L(e, t);
+    function k(e, t) {
+      return t === 0 ? "" : I(e, t);
     }
-    function L(e, t) {
+    function I(e, t) {
       var n = new Date(e.getTime() - 28800),
         r = n.getUTCFullYear(),
         a = (n.getUTCMonth() + 1).toString().padStart(2, "0"),
@@ -158,12 +185,13 @@ __d(
               ? r + "/" + a
               : r + "/" + a + "/" + s;
     }
-    ((l.statusIdForLogging = u),
-      (l.statusPosterHashIdForLogging = d),
-      (l.statusPosterIdForLogging = p),
-      (l.channelStatusPosterHashId = f),
-      (l.channelStatusCid = h),
-      (l.statusGroupIdForLogging = y));
+    ((l.statusIdForLogging = c),
+      (l.statusIdForLoggingOrUndefined = m),
+      (l.statusPosterHashIdForLogging = _),
+      (l.statusPosterIdForLogging = g),
+      (l.channelStatusPosterHashId = y),
+      (l.channelStatusCid = b),
+      (l.statusGroupIdForLogging = v));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
         DEFAULT: "wa.web",
         NAVIGATION_CHATS: "wa.web.navigation.chats",
         NAVIGATION_CONTACTS: "wa.web.navigation.contacts",
+        NAVIGATION_CONTACTS_AND_GROUPS: "wa.web.navigation.contacts_and_groups",
         NAVIGATION_NEWSLETTERS: "wa.web.navigation.newsletters",
         NAVIGATION_PROFILE: "wa.web.navigation.profile",
         NAVIGATION_SETTINGS: "wa.web.navigation.settings",

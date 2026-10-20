@@ -86,67 +86,76 @@ __d(
       return s._(/*BTDS*/ "Couldn't remove the receipt. Try again.");
     }
     function I() {
-      return s._(/*BTDS*/ "Payment receipt");
+      return s._(/*BTDS*/ "Share");
     }
     function T() {
+      return s._(/*BTDS*/ "Couldn't share the payment details. Try again.");
+    }
+    function D() {
+      return s._(/*BTDS*/ "Couldn't download the payment details. Try again.");
+    }
+    function x() {
+      return s._(/*BTDS*/ "Payment receipt");
+    }
+    function $() {
       return s._(/*BTDS*/ "Couldn't load this receipt. Try again.");
     }
-    function D(e) {
+    function P(e) {
       return s._(/*BTDS*/ "Added by you on {date}", [s._param("date", e)]);
     }
-    function x(e, t) {
+    function N(e, t) {
       return s._(/*BTDS*/ "Added by {name} on {date}", [
         s._param("name", e),
         s._param("date", t),
       ]);
     }
-    function $() {
+    function M() {
       return s._(/*BTDS*/ "Only you can confirm payment.");
     }
-    function P(e) {
+    function w(e) {
       return s._(/*BTDS*/ "Only {name} can confirm payment.", [
         s._param("name", e),
       ]);
     }
-    function N() {
+    function A() {
       return s._(/*BTDS*/ "Delete this receipt?");
     }
-    function M() {
+    function F() {
       return s._(
         /*BTDS*/ "This removes it from these payment details for both of you. You can add another one.",
       );
     }
-    function w() {
+    function O() {
       return s._(/*BTDS*/ "Delete");
     }
-    function A() {
+    function B() {
       return s._(/*BTDS*/ "Delete receipt");
     }
-    function F() {
+    function W() {
       return s._(/*BTDS*/ "Sent from");
     }
-    function O() {
+    function q() {
       return s._(/*BTDS*/ "Paid to");
     }
-    function B() {
+    function U() {
       return s._(/*BTDS*/ "You");
     }
-    function W() {
+    function V() {
       return s._(/*BTDS*/ "Recipient details");
     }
-    function q() {
+    function H() {
       return s._(/*BTDS*/ "Recipient");
     }
-    function U() {
+    function G() {
       return s._(/*BTDS*/ "Pix key");
     }
-    function V(e) {
+    function z(e) {
       return s._(/*BTDS*/ "{name} added a receipt.", [s._param("name", e)]);
     }
-    function H() {
+    function j() {
       return s._(/*BTDS*/ "A receipt was added.");
     }
-    function G() {
+    function K() {
       return s._(/*BTDS*/ "View details");
     }
     ((l.getPaymentDetailsTitle = e),
@@ -168,25 +177,28 @@ __d(
       (l.getAddReceiptFailedToast = L),
       (l.getMarkAsPaidFailedToast = E),
       (l.getDeleteReceiptFailedToast = k),
-      (l.getReceiptTitle = I),
-      (l.getReceiptLoadFailedText = T),
-      (l.getReceiptAddedByYou = D),
-      (l.getReceiptAddedBy = x),
-      (l.getOnlyYouCanConfirm = $),
-      (l.getOnlyNameCanConfirm = P),
-      (l.getDeleteReceiptDialogTitle = N),
-      (l.getDeleteReceiptDialogBody = M),
-      (l.getDeleteReceiptLabel = w),
-      (l.getDeleteReceiptA11yLabel = A),
-      (l.getSentFromLabel = F),
-      (l.getPaidToLabel = O),
-      (l.getYouLabel = B),
-      (l.getRecipientDetailsTitle = W),
-      (l.getRecipientLabel = q),
-      (l.getPixKeyLabel = U),
-      (l.getReceiptAddedNotice = V),
-      (l.getPlainReceiptAddedNotice = H),
-      (l.getViewDetailsLabel = G));
+      (l.getShareLabel = I),
+      (l.getSharePaymentDetailsFailedToast = T),
+      (l.getDownloadPaymentDetailsFailedToast = D),
+      (l.getReceiptTitle = x),
+      (l.getReceiptLoadFailedText = $),
+      (l.getReceiptAddedByYou = P),
+      (l.getReceiptAddedBy = N),
+      (l.getOnlyYouCanConfirm = M),
+      (l.getOnlyNameCanConfirm = w),
+      (l.getDeleteReceiptDialogTitle = A),
+      (l.getDeleteReceiptDialogBody = F),
+      (l.getDeleteReceiptLabel = O),
+      (l.getDeleteReceiptA11yLabel = B),
+      (l.getSentFromLabel = W),
+      (l.getPaidToLabel = q),
+      (l.getYouLabel = U),
+      (l.getRecipientDetailsTitle = V),
+      (l.getRecipientLabel = H),
+      (l.getPixKeyLabel = G),
+      (l.getReceiptAddedNotice = z),
+      (l.getPlainReceiptAddedNotice = j),
+      (l.getViewDetailsLabel = K));
   },
   226,
 );

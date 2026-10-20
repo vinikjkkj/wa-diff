@@ -45,17 +45,6 @@ __d(
           ? t
           : !1;
     }
-    function y(t) {
-      e != null && (s().enableImprovedBulkMerge = t);
-    }
-    function C() {
-      var t;
-      return e == null
-        ? !1
-        : (t = s().enableImprovedBulkMerge) != null
-          ? t
-          : !1;
-    }
     ((l.areGlobalsReady = u),
       (l.setGlobals = c),
       (l.getMyDeviceJid = d),
@@ -64,9 +53,7 @@ __d(
       (l.getMyDisplayName = _),
       (l.setMyDisplayName = f),
       (l.setAllowHistorySyncPutAllowDuplicate = g),
-      (l.getAllowHistorySyncPutAllowDuplicate = h),
-      (l.setEnableImprovedBulkMerge = y),
-      (l.getEnableImprovedBulkMerge = C));
+      (l.getAllowHistorySyncPutAllowDuplicate = h));
   },
   98,
 );

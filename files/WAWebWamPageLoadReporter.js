@@ -36,30 +36,33 @@ __d(
           ((g = !0), e());
         });
       }),
-      b = !1,
-      v,
-      S = !1;
-    function R(e) {
+      b = u.all([y, C]);
+    function v(e) {
+      b.then(e);
+    }
+    var S = !1,
+      R,
+      L = !1;
+    function E(e) {
       var t = e.info,
         n = e.infoNormal,
         r = e.socketSequence,
-        o = e.timestamp;
-      L(t);
-      var a = o != null ? o : Math.floor(self.performance.now());
-      ((m[t] = a), n && ((m.socketSequence = r), _()));
+        o = e.timestamp,
+        a = o != null ? o : Math.floor(self.performance.now());
+      (k(t, a), (m[t] = a), n && ((m.socketSequence = r), _()));
     }
-    function L(e) {
+    function k(e, t) {
       e: {
         if (e === o("WAWebStreamTypes").StreamInfo.OPENING) {
-          o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_opening");
+          o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_opening", t);
           break e;
         }
         if (e === o("WAWebStreamTypes").StreamInfo.PAIRING) {
-          o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_pairing");
+          o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_pairing", t);
           break e;
         }
         if (e === o("WAWebStreamTypes").StreamInfo.NORMAL) {
-          o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_normal");
+          o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_normal", t);
           break e;
         }
         if (
@@ -75,37 +78,41 @@ __d(
         );
       }
     }
-    function E(e) {
-      (o("WAWebPageLoadLogging").addPageLoadQplPoint(
-        "webc_initial_panel_mount_t",
-      ),
-        (d = e));
+    function I(e) {
+      ($("webc_initial_panel_mount_t", e), (d = e));
     }
-    function k(e) {
+    function T(e) {
       c != null && c.set({ webcInitialPanel: e });
     }
-    function I() {
+    function D() {
       p();
     }
     (window.document &&
-      ((v = !document.hidden),
-      document.addEventListener("visibilitychange", D)),
-      u.all([y, C]).then(function () {
-        (x(),
+      ((R = !document.hidden),
+      document.addEventListener("visibilitychange", P)),
+      b.then(function () {
+        (N(),
           r("WAWebWamResourceLoadReporter")(),
-          b || ((b = !0), o("WAWebWam").Wam.resumeJobs()));
+          S || ((S = !0), o("WAWebWam").Wam.resumeJobs()));
       }));
-    function T(e) {
+    function x(e) {
       return !self.performance ||
         !self.performance.timing ||
         !self.performance.timing.navigationStart
         ? null
         : e - self.performance.timing.navigationStart;
     }
-    function D() {
-      c && document.hidden && (v = !1);
+    function $(e, t) {
+      var n;
+      o("WAWebPageLoadLogging").addPageLoadQplPoint(
+        e,
+        (n = x(t)) != null ? n : void 0,
+      );
     }
-    function x() {
+    function P() {
+      c && document.hidden && (R = !1);
+    }
+    function N() {
       var t;
       if (
         !(
@@ -135,12 +142,12 @@ __d(
               "MetricReporter:logPageLoad delayed",
             ])),
         ),
-          self.setTimeout(x, 1e4));
+          self.setTimeout(N, 1e4));
         return;
       }
       function p(e) {
         var t = a[e];
-        return t && T(t);
+        return t && x(t);
       }
       (r.set({
         webcPageLoadT: u,
@@ -177,15 +184,15 @@ __d(
           (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 && d == null
             ? null
             : d - l,
-        webcLoadInForeground: v,
+        webcLoadInForeground: R,
         webcPageLoadId: o("WAWebPageLoadLogging").getPageLoadId(),
       }),
-        $(r),
-        S ? r.commitAndWaitForFlush(!0) : r.commit(),
-        window.document && document.removeEventListener("visibilitychange", D),
+        M(r),
+        L ? r.commitAndWaitForFlush(!0) : r.commit(),
+        window.document && document.removeEventListener("visibilitychange", P),
         (c = null));
     }
-    function $(e) {
+    function M(e) {
       var t;
       ((t = o("WAWebPageLoadLogging")).addPageLoadValidationData(
         "webc_ws_opening",
@@ -206,7 +213,7 @@ __d(
         }),
         t.setWamCompleteForValidation());
     }
-    var P = (function () {
+    var w = (function () {
       function e(e) {
         ((this.$4 = !1),
           (this.$3 = e.label),
@@ -220,13 +227,13 @@ __d(
           ((this.$4 = !0),
             c != null &&
               c.set(
-                ((e = {}), (e[this.$1] = T(t != null ? t : Date.now())), e),
+                ((e = {}), (e[this.$1] = x(t != null ? t : Date.now())), e),
               ));
         }),
         (t.end = function (t) {
           var e;
           c != null &&
-            c.set(((e = {}), (e[this.$2] = T(t != null ? t : Date.now())), e));
+            c.set(((e = {}), (e[this.$2] = x(t != null ? t : Date.now())), e));
         }),
         (t.hasStarted = function () {
           return this.$4;
@@ -234,57 +241,56 @@ __d(
         e
       );
     })();
-    function N(e, t) {
-      if (!U.hasStarted() && M(e)) {
+    function A(e, t) {
+      var n;
+      if (!G.hasStarted() && F(e)) {
+        T(e);
+        var r =
+          (n = t == null ? void 0 : t.mountEpochMs) != null ? n : Date.now();
         if (
-          (k(e),
-          U.start(t == null ? void 0 : t.mountEpochMs),
-          o("WAWebPageLoadLogging").addPageLoadQplPoint(
-            "webc_initial_panel_mount_start_t",
-          ),
+          (G.start(r),
+          $("webc_initial_panel_mount_start_t", r),
           (t == null ? void 0 : t.renderEpochMs) != null)
         ) {
-          (U.end(t.renderEpochMs),
-            o("WAWebPageLoadLogging").addPageLoadQplPoint(
-              "webc_initial_panel_render_t",
-            ),
-            F("initialPanelRenderTRecorded"));
+          var o = t.renderEpochMs;
+          (G.end(o),
+            $("webc_initial_panel_render_t", o),
+            W("initialPanelRenderTRecorded"));
           return;
         }
         window.requestAnimationFrame(function () {
-          (U.end(),
-            o("WAWebPageLoadLogging").addPageLoadQplPoint(
-              "webc_initial_panel_render_t",
-            ),
-            F("initialPanelRenderTRecorded"));
+          var e = Date.now();
+          (G.end(e),
+            $("webc_initial_panel_render_t", e),
+            W("initialPanelRenderTRecorded"));
         });
       }
     }
-    function M(e) {
+    function F(e) {
       return e !== o("WAWebAppScreenTypes").AppScreen.SYNCING;
     }
-    var w = !1,
-      A = !1;
-    function F(e) {
-      (e === "initialPanelMountTRecorded" && (w = !0),
-        e === "initialPanelRenderTRecorded" && (A = !0),
-        w && A && I());
+    var O = !1,
+      B = !1;
+    function W(e) {
+      (e === "initialPanelMountTRecorded" && (O = !0),
+        e === "initialPanelRenderTRecorded" && (B = !0),
+        O && B && D());
     }
-    var O = r("once")(function (e) {
-      (E(e != null ? e : Date.now()), F("initialPanelMountTRecorded"));
+    var q = r("once")(function (e) {
+      (I(e != null ? e : Date.now()), W("initialPanelMountTRecorded"));
     });
-    function B(e, t) {
-      S = !0;
+    function U(e, t) {
+      L = !0;
       var n = typeof t == "number" ? t : void 0,
         r = t != null && typeof t != "number" ? t : void 0;
       e: {
         if (e === "qr_mount") {
-          (N(o("WAWebAppScreenTypes").AppScreen.QR, r),
-            O(r == null ? void 0 : r.mountEpochMs));
+          (A(o("WAWebAppScreenTypes").AppScreen.QR, r),
+            q(r == null ? void 0 : r.mountEpochMs));
           break e;
         }
         if (e === "ws_opening") {
-          R({
+          E({
             info: o("WAWebStreamTypes").StreamInfo.OPENING,
             infoNormal: !1,
             socketSequence: 1,
@@ -293,7 +299,7 @@ __d(
           break e;
         }
         if (e === "ws_pairing") {
-          R({
+          E({
             info: o("WAWebStreamTypes").StreamInfo.PAIRING,
             infoNormal: !1,
             socketSequence: 1,
@@ -302,7 +308,7 @@ __d(
           break e;
         }
         if (e === "ws_normal") {
-          R({
+          E({
             info: o("WAWebStreamTypes").StreamInfo.NORMAL,
             infoNormal: !0,
             socketSequence: 1,
@@ -316,29 +322,30 @@ __d(
         );
       }
     }
-    var W = new P({
+    var V = new w({
         label: "PageLoad.webcExe",
         startProperty: "webcExeStart",
         endProperty: "webcExeDone",
       }),
-      q = new P({
+      H = new w({
         label: "PageLoad.webcMainScript",
         startProperty: "webcMainScriptStart",
         endProperty: "webcMainScriptEnd",
       }),
-      U = new P({
+      G = new w({
         label: "PageLoad.webcInitialPanelRender",
         startProperty: "webcInitialPanelMountStartT",
         endProperty: "webcInitialPanelRenderT",
       });
     ((l.getWamPageLoadTimingCompletion = h),
-      (l.streamInfoChange = R),
-      (l.logWamPageLoad = x),
-      (l.maybeLogInitialScreenRenderStart = N),
-      (l.logFirstRenderMountTimeOnce = O),
-      (l.reportLoggedOutPageLoadStage = B),
-      (l.exeTimer = W),
-      (l.mainScriptTimer = q));
+      (l.onWamPageLoadTimingComplete = v),
+      (l.streamInfoChange = E),
+      (l.logWamPageLoad = N),
+      (l.maybeLogInitialScreenRenderStart = A),
+      (l.logFirstRenderMountTimeOnce = q),
+      (l.reportLoggedOutPageLoadStage = U),
+      (l.exeTimer = V),
+      (l.mainScriptTimer = H));
   },
   98,
 );

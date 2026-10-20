@@ -55,6 +55,9 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return n("cr:36997").kaleidoscopeClassifyInWorker(
             babelHelpers.extends({}, e, {
+              strictJpegScanValidationEnabled: o(
+                "WAWebABProps",
+              ).getABPropConfigValue("ks_jpeg_scan_strict_validation_enabled"),
               strictOggOpusValidationEnabled: o(
                 "WAWebABProps",
               ).getABPropConfigValue("ks_ogg_opus_strict_validation_enabled"),

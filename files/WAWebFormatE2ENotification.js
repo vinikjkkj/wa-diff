@@ -10,7 +10,6 @@ __d(
     "WAWebFormatE2ENotificationForDeviceChange",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebLimitSharingGatingUtils",
     "WAWebMsgGetters",
     "WAWebSupportChatStrings",
     "WAWebSystemMessageGatingUtils",
@@ -111,31 +110,17 @@ __d(
               ? {
                   text: o("WAWebSupportChatStrings").SupportChatSystemMessage(),
                 }
-              : o(
-                    "WAWebLimitSharingGatingUtils",
-                  ).isRenderUpdatedDisclosureGatingEnabled()
-                ? {
-                    text: n
-                      ? s._(
-                          /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them",
-                        )
-                      : s._(
-                          /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
-                        ),
-                    enumType: o("WAWebWamEnumSystemMessageTypeType")
-                      .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
-                  }
-                : {
-                    text: n
-                      ? s._(
-                          /*BTDS*/ "Messages are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them",
-                        )
-                      : s._(
-                          /*BTDS*/ "Messages are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Click to learn more",
-                        ),
-                    enumType: o("WAWebWamEnumSystemMessageTypeType")
-                      .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
-                  }
+              : {
+                  text: n
+                    ? s._(
+                        /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them",
+                      )
+                    : s._(
+                        /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
+                      ),
+                  enumType: o("WAWebWamEnumSystemMessageTypeType")
+                    .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
+                }
             : o("WAWebMsgGetters").getIsCAPISupport(t.unsafe()) ||
                 c.isSupportAgentBot()
               ? {
@@ -154,85 +139,42 @@ __d(
                       .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_BROADCAST_LIST,
                   }
                 : o("WAWebUserPrefsMeUser").isMeAccount(c)
-                  ? o(
-                      "WAWebLimitSharingGatingUtils",
-                    ).isRenderUpdatedDisclosureGatingEnabled()
-                    ? {
-                        text: n
-                          ? s._(
-                              /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one else, not even WhatsApp, can read, listen to, or share them",
-                            )
-                          : s._(
-                              /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one else, not even WhatsApp, can read, listen to, or share them. Click to learn more",
-                            ),
-                        enumType: o("WAWebWamEnumSystemMessageTypeType")
-                          .SYSTEM_MESSAGE_TYPE_TYPE
-                          .E2E_ENCRYPTED_MESSAGE_YOURSELF,
-                      }
-                    : {
-                        text: n
-                          ? s._(
-                              /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them",
-                            )
-                          : s._(
-                              /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Click to learn more",
-                            ),
-                        enumType: o("WAWebWamEnumSystemMessageTypeType")
-                          .SYSTEM_MESSAGE_TYPE_TYPE
-                          .E2E_ENCRYPTED_MESSAGE_YOURSELF,
-                      }
-                  : o(
-                        "WAWebLimitSharingGatingUtils",
-                      ).isRenderUpdatedDisclosureGatingEnabled()
-                    ? {
-                        text: n
-                          ? s._(
-                              /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them",
-                            )
-                          : s._(
-                              /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
-                            ),
-                        enumType: o("WAWebWamEnumSystemMessageTypeType")
-                          .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
-                      }
-                    : {
-                        text: n
-                          ? s._(
-                              /*BTDS*/ "Messages are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them",
-                            )
-                          : s._(
-                              /*BTDS*/ "Messages are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Click to learn more",
-                            ),
-                        enumType: o("WAWebWamEnumSystemMessageTypeType")
-                          .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
-                      };
+                  ? {
+                      text: n
+                        ? s._(
+                            /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one else, not even WhatsApp, can read, listen to, or share them",
+                          )
+                        : s._(
+                            /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one else, not even WhatsApp, can read, listen to, or share them. Click to learn more",
+                          ),
+                      enumType: o("WAWebWamEnumSystemMessageTypeType")
+                        .SYSTEM_MESSAGE_TYPE_TYPE
+                        .E2E_ENCRYPTED_MESSAGE_YOURSELF,
+                    }
+                  : {
+                      text: n
+                        ? s._(
+                            /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them",
+                          )
+                        : s._(
+                            /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
+                          ),
+                      enumType: o("WAWebWamEnumSystemMessageTypeType")
+                        .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
+                    };
         }
         case "encrypt_now":
-          return o(
-            "WAWebLimitSharingGatingUtils",
-          ).isRenderUpdatedDisclosureGatingEnabled()
-            ? {
-                text: n
-                  ? s._(
-                      /*BTDS*/ "Messages and calls are now end-to-end encrypted. Only people in this chat can read, listen to, or share them",
-                    )
-                  : s._(
-                      /*BTDS*/ "Messages and calls are now end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
-                    ),
-                enumType: o("WAWebWamEnumSystemMessageTypeType")
-                  .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
-              }
-            : {
-                text: n
-                  ? s._(
-                      /*BTDS*/ "Messages and calls are now end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them",
-                    )
-                  : s._(
-                      /*BTDS*/ "Messages and calls are now end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Click to learn more",
-                    ),
-                enumType: o("WAWebWamEnumSystemMessageTypeType")
-                  .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
-              };
+          return {
+            text: n
+              ? s._(
+                  /*BTDS*/ "Messages and calls are now end-to-end encrypted. Only people in this chat can read, listen to, or share them",
+                )
+              : s._(
+                  /*BTDS*/ "Messages and calls are now end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
+                ),
+            enumType: o("WAWebWamEnumSystemMessageTypeType")
+              .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
+          };
         case "e2e_identity_unavailable":
           return {
             text: s._(

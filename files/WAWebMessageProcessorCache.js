@@ -320,34 +320,25 @@ __d(
                           )
                           .sendLogs("message-cache-missing-doneFn");
                       },
-                C =
-                  !this.$7 &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "web_anr_throttle_signal_snapshot_enabled",
-                  ),
-                b = C
-                  ? o("WAWebSignalProtocolStore")
-                      .getSignalProtocolStore()
-                      .generateSnapshotThrottled()
-                  : o("WAWebSignalProtocolStore")
-                      .getSignalProtocolStore()
-                      .generateSnapshot(),
-                v = k(a);
+                C = o("WAWebSignalProtocolStore")
+                  .getSignalProtocolStore()
+                  .generateSnapshot(),
+                b = k(a);
               (this.$3.enqueue(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   try {
                     (o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
-                      v.all,
+                      b.all,
                       "storage_commit_start",
                     ),
                       yield (y || (y = n("Promise"))).all([
-                        r.$10(a, v.all),
+                        r.$10(a, b.all),
                         o(
                           "WAWebDBCreateLidPnMappings",
                         ).flushLidPnMappingsToDb(),
                       ]),
                       o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
-                        v.all,
+                        b.all,
                         "storage_commit_end",
                       ),
                       o("WALogger").LOG(
@@ -359,84 +350,87 @@ __d(
                           ])),
                         l,
                         s,
-                      ));
-                    var e = yield b;
-                    e != null &&
-                      (o(
-                        "WAWebMessageReceiveFlow",
-                      ).markMessageReceiveCheckpoint(
-                        v.all,
-                        "checkpoint_signal_write_start",
                       ),
-                      yield o("WAWebSignalStorageUtils")
-                        .getStorage()
-                        .lock(
-                          [
-                            "session-store",
-                            "identity-store",
-                            "prekey-store",
-                            "senderkey-store",
-                          ],
-                          n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* () {
-                              yield (y || (y = n("Promise"))).all([
-                                o(
-                                  "WAWebSignalStoreApi",
-                                ).waSignalStore.bulkPutSession(e.sessionUpdate),
-                                o(
-                                  "WAWebSignalStoreApi",
-                                ).waSignalStore.bulkPutIdentityKeyWithRowId(
-                                  e.identityUpdate,
-                                ),
-                                o(
-                                  "WAWebSignalStoreApi",
-                                ).waSignalStore.bulkPutSenderKey(
-                                  e.senderKeyUpdate,
-                                ),
-                                o(
-                                  "WAWebSignalStoreApi",
-                                ).waSignalStore.bulkRemovePreKey(
-                                  e.preKeyRemove,
-                                ),
-                                o(
-                                  "WAWebSignalStoreApi",
-                                ).waSignalStore.bulkRemoveSession(
-                                  e.sessionRemove,
-                                ),
-                                o(
-                                  "WAWebSignalStoreApi",
-                                ).waSignalStore.bulkRemoveIdentity(
-                                  e.identityRemove,
-                                ),
-                              ]);
-                            },
-                          ),
+                      C != null &&
+                        (o(
+                          "WAWebMessageReceiveFlow",
+                        ).markMessageReceiveCheckpoint(
+                          b.all,
+                          "checkpoint_signal_write_start",
                         ),
-                      o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
-                        v.all,
-                        "checkpoint_signal_write_end",
-                      ),
-                      o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "[message-cache] createSnapshot ",
-                            "-",
-                            ": signal stores updated",
-                          ])),
-                        l,
-                        s,
-                      ));
-                    var t = yield o(
+                        yield o("WAWebSignalStorageUtils")
+                          .getStorage()
+                          .lock(
+                            [
+                              "session-store",
+                              "identity-store",
+                              "prekey-store",
+                              "senderkey-store",
+                            ],
+                            n("asyncToGeneratorRuntime").asyncToGenerator(
+                              function* () {
+                                yield (y || (y = n("Promise"))).all([
+                                  o(
+                                    "WAWebSignalStoreApi",
+                                  ).waSignalStore.bulkPutSession(
+                                    C.sessionUpdate,
+                                  ),
+                                  o(
+                                    "WAWebSignalStoreApi",
+                                  ).waSignalStore.bulkPutIdentityKeyWithRowId(
+                                    C.identityUpdate,
+                                  ),
+                                  o(
+                                    "WAWebSignalStoreApi",
+                                  ).waSignalStore.bulkPutSenderKey(
+                                    C.senderKeyUpdate,
+                                  ),
+                                  o(
+                                    "WAWebSignalStoreApi",
+                                  ).waSignalStore.bulkRemovePreKey(
+                                    C.preKeyRemove,
+                                  ),
+                                  o(
+                                    "WAWebSignalStoreApi",
+                                  ).waSignalStore.bulkRemoveSession(
+                                    C.sessionRemove,
+                                  ),
+                                  o(
+                                    "WAWebSignalStoreApi",
+                                  ).waSignalStore.bulkRemoveIdentity(
+                                    C.identityRemove,
+                                  ),
+                                ]);
+                              },
+                            ),
+                          ),
+                        o(
+                          "WAWebMessageReceiveFlow",
+                        ).markMessageReceiveCheckpoint(
+                          b.all,
+                          "checkpoint_signal_write_end",
+                        ),
+                        o("WALogger").LOG(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "[message-cache] createSnapshot ",
+                              "-",
+                              ": signal stores updated",
+                            ])),
+                          l,
+                          s,
+                        )));
+                    var e = yield o(
                       "WAWebSendOfflineDeliveryReceiptJob",
                     ).sendAggregateOfflineReceipts(a);
-                    (o("WAWebMessageReceiveFlow").endMessageReceiveWithNack(t),
+                    (o("WAWebMessageReceiveFlow").endMessageReceiveWithNack(e),
                       o(
                         "WAWebMessageReceiveFlow",
                       ).endMessageReceiveWithAggregatedReceipt(
-                        v.aggregatedReceipts.filter(function (e) {
-                          return !t.includes(e);
+                        b.aggregatedReceipts.filter(function (t) {
+                          return !e.includes(t);
                         }),
-                        { batchSize: a.length, signalDirtyCount: I(e) },
+                        { batchSize: a.length, signalDirtyCount: I(C) },
                       ),
                       o("WALogger").LOG(
                         _ ||
@@ -473,7 +467,7 @@ __d(
                       e,
                     ),
                       o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(
-                        v.all,
+                        b.all,
                       ),
                       u(e));
                     return;

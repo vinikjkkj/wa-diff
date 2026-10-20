@@ -7,22 +7,27 @@ __d(
     "WAWebStatusPosterActionsWamEvent",
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusContentSource",
+    "WAWebWamEnumStatusCreationEntryPoint",
     "WAWebWamEnumStatusEventType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "status_poster_side_gating_enabled",
+    function e(e) {
+      return (
+        d(e) ||
+        o("WAWebABProps").getABPropConfigValue(
+          "status_poster_side_gating_enabled",
+        )
       );
     }
     var s = (function () {
-      function t(e, t) {
+      function t(e, t, n) {
         ((this.sessionId =
           e != null
             ? e
             : o("WAWebLogStatusPosterActions").createStatusPostingSessionId()),
-          (this.newsletterWid = t));
+          (this.newsletterWid = t),
+          (this.entryPoint = n));
       }
       var n = t.prototype;
       return (
@@ -30,48 +35,49 @@ __d(
           this.newsletterWid = t;
         }),
         (n.logEvent = function (n) {
-          if (e()) {
-            var t = n.canSaveAsDraft,
-              r = n.editable,
-              a = n.externalInteractables,
-              i = n.externalPackageName,
-              l = n.hasDraftAvailable,
-              s = n.retryCount,
-              u = n.shareType,
-              c = n.statusAudienceSize,
-              d = n.statusContentSource,
-              m = n.statusContentType,
-              p = n.statusCreationEntryPoint,
-              _ = n.statusEventType,
-              f = n.statusId,
-              g = n.statusPostFailureReason,
-              h = this.newsletterWid,
-              y = new (o(
+          var t,
+            r = (t = n.statusCreationEntryPoint) != null ? t : this.entryPoint;
+          if (e(r)) {
+            var a = n.canSaveAsDraft,
+              i = n.editable,
+              l = n.externalInteractables,
+              s = n.externalPackageName,
+              u = n.hasDraftAvailable,
+              c = n.retryCount,
+              d = n.shareType,
+              m = n.statusAudienceSize,
+              p = n.statusContentSource,
+              _ = n.statusContentType,
+              f = n.statusEventType,
+              g = n.statusId,
+              h = n.statusPostFailureReason,
+              y = this.newsletterWid,
+              C = new (o(
                 "WAWebStatusPosterActionsWamEvent",
               ).StatusPosterActionsWamEvent)({
-                statusEventType: _,
-                statusCreationEntryPoint: p,
-                statusContentType: m,
-                statusContentSource: d,
-                statusId: f,
-                statusPostFailureReason: g,
-                retryCount: s,
-                hasDraftAvailable: l,
-                canSaveAsDraft: t,
-                statusAudienceSize: c,
-                externalPackageName: i,
-                shareType: u,
-                editable: r,
-                externalInteractables: a,
+                statusEventType: f,
+                statusCreationEntryPoint: r,
+                statusContentType: _,
+                statusContentSource: p,
+                statusId: g,
+                statusPostFailureReason: h,
+                retryCount: c,
+                hasDraftAvailable: u,
+                canSaveAsDraft: a,
+                statusAudienceSize: m,
+                externalPackageName: s,
+                shareType: d,
+                editable: i,
+                externalInteractables: l,
                 statusPostingSessionId: this.sessionId,
-                cid: o("WAWebStatusLoggingUtils").channelStatusCid(h),
+                cid: o("WAWebStatusLoggingUtils").channelStatusCid(y),
                 statusCategory:
-                  h != null
+                  y != null
                     ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
                         .CHANNEL_STATUS
                     : void 0,
               });
-            y.commit();
+            C.commit();
           }
         }),
         (n.logStatusTextScreenImp = function () {
@@ -106,18 +112,21 @@ __d(
             statusContentSource: t,
           });
         }),
-        (n.logStatusReadyScreenImp = function (t) {
+        (n.logStatusReadyScreenImp = function (t, n) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .STATUS_READY_SCREEN_IMP,
             statusContentType: t,
+            statusCreationEntryPoint: n,
+            statusContentSource: c(n),
           });
         }),
-        (n.logPostSendTap = function (t) {
+        (n.logPostSendTap = function (t, n) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .POST_SEND_TAP,
             statusContentType: t,
+            statusCreationEntryPoint: n,
           });
         }),
         (n.logComposerXoutTapped = function () {
@@ -196,7 +205,7 @@ __d(
       );
     })();
     function u(t, n, r) {
-      e() &&
+      e(t) &&
         new (o("WAWebStatusPosterActionsWamEvent").StatusPosterActionsWamEvent)(
           {
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
@@ -210,6 +219,18 @@ __d(
                 : void 0,
           },
         ).commit();
+    }
+    function c(e) {
+      return d(e)
+        ? o("WAWebWamEnumStatusContentSource").STATUS_CONTENT_SOURCE.RESHARE
+        : void 0;
+    }
+    function d(e) {
+      return (
+        e ===
+        o("WAWebWamEnumStatusCreationEntryPoint").STATUS_CREATION_ENTRY_POINT
+          .STATUS_POST_RESHARE
+      );
     }
     ((l.StatusPosterActionsLogger = s), (l.logStatusEntrypointTap = u));
   },

@@ -1,12 +1,12 @@
 __d(
   "WAWebMobilePlatformPersistence",
   [
-    "WAWebCastToLegacyEnum",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "asyncToGeneratorRuntime",
     "cr:16728",
+    "objectValues",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -14,9 +14,10 @@ __d(
         t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
           o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.MOBILE_PLATFORM,
         );
-      return (e = r("WAWebCastToLegacyEnum")(
-        t,
-        o("WAWebMobilePlatforms").PLATFORMS,
+      return (e = r("objectValues")(o("WAWebMobilePlatforms").PLATFORMS).find(
+        function (e) {
+          return e === t;
+        },
       )) != null
         ? e
         : n("cr:16728") == null

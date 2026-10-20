@@ -156,14 +156,11 @@ __d(
                 : t.conditionalRevealMessage,
             w = (a = $.conditionalRevealMessage) != null ? a : M;
           if (w != null) {
-            var A,
-              O,
-              q,
-              U,
-              V,
-              H,
-              G,
-              K =
+            var A, O, q, U, V, H, G;
+            o(
+              "WAWebConditionalRevealPreProcessor",
+            ).assertScheduledMsgStanzaType(_ == null ? void 0 : _.type);
+            var K =
                 $.conditionalRevealMessage == null && M != null
                   ? (A =
                       (O =

@@ -4044,7 +4044,7 @@ __d(
       var c = l,
         a = c.nodeValue;
       if (a !== r)
-        if (o || u) {
+        if (o || u || m) {
           var _ref30 = (function (t, e) {
               var n = t.length,
                 o = e.length;
@@ -4058,7 +4058,7 @@ __d(
             _t77 = _ref30[0],
             _e69 = _ref30[1],
             _n48 = _ref30[2];
-          (0 !== _e69 && c.deleteData(_t77, _e69), c.insertData(_t77, _n48));
+          c.replaceData(_t77, _e69, _n48);
         } else c.nodeValue = r;
     }
     function lr(t, e, n, o, r, i) {

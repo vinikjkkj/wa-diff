@@ -18,7 +18,6 @@ __d(
     "WAWebGroupAgentConflictAddResult",
     "WAWebGroupCreateJob",
     "WAWebGroupCreateWamEvent",
-    "WAWebGroupGatingUtils",
     "WAWebGroupIncompatibleDeviceAddResult",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupMutationParticipantUtils",
@@ -487,13 +486,9 @@ __d(
                                   "WAWebComposeBoxActions",
                                 ).ComposeBoxActions.focus(n);
                             }),
-                            (f === "" ||
-                              o(
-                                "WAWebGroupGatingUtils",
-                              ).isAnyoneCanLinkToGroupsM2Enabled()) &&
-                              o("WAWebGroupQueryBridge")
-                                .sendQueryGroup(e.gid)
-                                .finally(r("WAWebNoop")));
+                            o("WAWebGroupQueryBridge")
+                              .sendQueryGroup(e.gid)
+                              .finally(r("WAWebNoop")));
                         }),
                     _ != null && m != null)
                   ) {

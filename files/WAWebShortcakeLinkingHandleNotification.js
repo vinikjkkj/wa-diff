@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WASmaxMdSetPrimaryEphemeralIdentityNotificationRPC",
-    "WASmaxOutMessageFallbackDeliverResponseBadStanza",
+    "WASmaxMessageFallbackDeliverRPC",
     "WAWebCreateNackFromStanza",
     "WAWebNoop",
     "WAWebShortcakeLinkingApi",
@@ -18,7 +18,7 @@ __d(
       var n = t.content;
       if (!Array.isArray(n) || n.length === 0)
         return o(
-          "WASmaxOutMessageFallbackDeliverResponseBadStanza",
+          "WASmaxMessageFallbackDeliverRPC",
         ).makeDeliverResponseBadStanza(
           { ackError: o("WAWebCreateNackFromStanza").NackReason.ParsingError },
           t,
@@ -34,9 +34,7 @@ __d(
               ])),
             r,
           ),
-          o(
-            "WASmaxOutMessageFallbackDeliverResponseBadStanza",
-          ).makeDeliverResponseBadStanza(
+          o("WASmaxMessageFallbackDeliverRPC").makeDeliverResponseBadStanza(
             {
               ackError: o("WAWebCreateNackFromStanza").NackReason.ParsingError,
             },
@@ -57,9 +55,7 @@ __d(
                 "Shortcake: parse PrimaryEphemeralIdentity failed",
               ])),
           ),
-          o(
-            "WASmaxOutMessageFallbackDeliverResponseBadStanza",
-          ).makeDeliverResponseBadStanza(
+          o("WASmaxMessageFallbackDeliverRPC").makeDeliverResponseBadStanza(
             {
               ackError: o("WAWebCreateNackFromStanza").NackReason.ParsingError,
             },

@@ -108,8 +108,6 @@ __d(
               deviceJid: o("WAWebGlobals").getMyDeviceJid(),
               allowHistorySyncPutAllowDuplicate:
                 o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
-              enableImprovedBulkMerge:
-                o("WAWebGlobals").getEnableImprovedBulkMerge(),
               lidDeviceJid: i != null ? String(i) : null,
               displayName: a != null ? String(a) : null,
               callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),

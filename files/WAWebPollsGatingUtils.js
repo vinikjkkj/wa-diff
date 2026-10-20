@@ -115,6 +115,14 @@ __d(
     function S() {
       return o("WAWebABProps").getABPropConfigValue("poll_tc_sending_enabled");
     }
+    function R() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "poll_tc_cleanup_cron_enabled",
+      );
+    }
+    function L() {
+      return o("WAWebABProps").getABPropConfigValue("poll_cleanup_days");
+    }
     ((l.getMaxPollNameLength = e),
       (l.MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES = s),
       (l.getMaxPollOptionLength = u),
@@ -130,7 +138,9 @@ __d(
       (l.isPollHideVotersSendingEnabled = C),
       (l.isPollCreatorEditSendingEnabled = b),
       (l.isPollTCReceivingEnabled = v),
-      (l.isPollTCSendingEnabled = S));
+      (l.isPollTCSendingEnabled = S),
+      (l.isPollTCCleanupEnabled = R),
+      (l.getPollPendingUpdatesDaysValid = L));
   },
   98,
 );

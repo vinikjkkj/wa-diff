@@ -14,6 +14,7 @@ __d(
     "WAWebGroupHistoryProtoUtils",
     "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
     "WAWebMessagingGatingUtils",
+    "WAWebMsgHistorySyncExtensions",
     "WAWebMsgType",
     "WAWebParseLimitSharingHistorySyncProto",
     "WAWebParseWebMessageInfoUtils",
@@ -64,80 +65,85 @@ __d(
         R = t.reactions.some(function (e) {
           return e.text != null;
         });
-        var L = {
-          id: S,
-          from: C,
-          to: y,
-          participant: S.participant,
-          type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          kind: o("WAWebMsgType").MsgKind.Unknown,
-          t: (a = t.messageTimestamp) != null ? a : 0,
-          ack: t.status - 1,
-          author: v,
-          invis: !!t.ignore,
-          star: !!t.starred,
-          broadcast: f.fromMe === !0 && t.broadcast,
-          notifyName: t.pushName || "",
-          encFilehash: t.mediaCiphertextSha256
-            ? o("WABase64").encodeB64(t.mediaCiphertextSha256)
-            : void 0,
-          shareDuration: t.duration,
-          labels: t.labels,
-          ephemeralStartTimestamp: t.ephemeralStartTimestamp,
-          expiredTimestamp: o("WAWebAfterReadUtils").isAfterReadEnabled()
-            ? t.ephemeralExpirationTimestamp
-            : null,
-          ephemeralOutOfSync: t.ephemeralOutOfSync,
-          bizPrivacyStatus: t.bizPrivacyStatus,
-          verifiedBizName: t.verifiedBizName,
-          reactions: t.reactions,
-          hasReaction: R,
-          agentId: t.agentId,
-          revokeTimestamp: t.revokeMessageTimestamp,
-          kicKey: void 0,
-          kicState: void 0,
-          pollInvalidated:
-            ((i = t.pollAdditionalMetadata) == null
-              ? void 0
-              : i.pollInvalidated) === !0,
-          eventInvalidated:
-            ((l = t.eventAdditionalMetadata) == null ? void 0 : l.isStale) ===
-            !0,
-          replyCount: (u = t.commentMetadata) == null ? void 0 : u.replyCount,
-          originalSelfAuthor: o("WAWebDecodeJid").decodeJidAndValidate(
-            t.originalSelfAuthorUserJidString,
-            "originalSelfAuthorUserJidString",
-          ),
-          kicTimestampMs: void 0,
-          pinInChat: t.pinInChat,
-          pmCampaignId:
-            (c = t.premiumMessageInfo) == null ? void 0 : c.serverCampaignId,
-          galaxyFlowDisabled:
-            t.interactiveMessageAdditionalMetadata != null
-              ? t.interactiveMessageAdditionalMetadata.isGalaxyFlowCompleted ===
-                !0
+        var L = babelHelpers.extends(
+          {
+            id: S,
+            from: C,
+            to: y,
+            participant: S.participant,
+            type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            kind: o("WAWebMsgType").MsgKind.Unknown,
+            t: (a = t.messageTimestamp) != null ? a : 0,
+            ack: t.status - 1,
+            author: v,
+            invis: !!t.ignore,
+            star: !!t.starred,
+            broadcast: f.fromMe === !0 && t.broadcast,
+            notifyName: t.pushName || "",
+            encFilehash: t.mediaCiphertextSha256
+              ? o("WABase64").encodeB64(t.mediaCiphertextSha256)
               : void 0,
-          bizSource:
-            ((d = t.premiumMessageInfo) == null
-              ? void 0
-              : d.serverCampaignId) != null
-              ? "smb_promo"
-              : void 0,
-          bizBotType:
-            t.is1PBizBotMessage === !0
-              ? o("WAWebBotTypes").BizBotType.BIZ_1P
+            shareDuration: t.duration,
+            labels: t.labels,
+            ephemeralStartTimestamp: t.ephemeralStartTimestamp,
+            expiredTimestamp: o("WAWebAfterReadUtils").isAfterReadEnabled()
+              ? t.ephemeralExpirationTimestamp
               : null,
-          botTargetSenderJid:
-            t.botMessageInvokerJid != null
-              ? o("WAWebDecodeJid").decodeJidAndValidate(
-                  t.botMessageInvokerJid,
-                  "botMessageInvokerJid",
-                )
-              : null,
-          groupHistoryBundleInfo: t.groupHistoryBundleInfo,
-          hsmTag: (_ = t.hsmTag) != null ? _ : void 0,
-        };
+            ephemeralOutOfSync: t.ephemeralOutOfSync,
+            bizPrivacyStatus: t.bizPrivacyStatus,
+            verifiedBizName: t.verifiedBizName,
+            reactions: t.reactions,
+            hasReaction: R,
+            agentId: t.agentId,
+            revokeTimestamp: t.revokeMessageTimestamp,
+            kicKey: void 0,
+            kicState: void 0,
+            pollInvalidated:
+              ((i = t.pollAdditionalMetadata) == null
+                ? void 0
+                : i.pollInvalidated) === !0,
+          },
+          o("WAWebMsgHistorySyncExtensions").parseHistorySyncMsgExtensions(t),
+          {
+            eventInvalidated:
+              ((l = t.eventAdditionalMetadata) == null ? void 0 : l.isStale) ===
+              !0,
+            replyCount: (u = t.commentMetadata) == null ? void 0 : u.replyCount,
+            originalSelfAuthor: o("WAWebDecodeJid").decodeJidAndValidate(
+              t.originalSelfAuthorUserJidString,
+              "originalSelfAuthorUserJidString",
+            ),
+            kicTimestampMs: void 0,
+            pinInChat: t.pinInChat,
+            pmCampaignId:
+              (c = t.premiumMessageInfo) == null ? void 0 : c.serverCampaignId,
+            galaxyFlowDisabled:
+              t.interactiveMessageAdditionalMetadata != null
+                ? t.interactiveMessageAdditionalMetadata
+                    .isGalaxyFlowCompleted === !0
+                : void 0,
+            bizSource:
+              ((d = t.premiumMessageInfo) == null
+                ? void 0
+                : d.serverCampaignId) != null
+                ? "smb_promo"
+                : void 0,
+            bizBotType:
+              t.is1PBizBotMessage === !0
+                ? o("WAWebBotTypes").BizBotType.BIZ_1P
+                : null,
+            botTargetSenderJid:
+              t.botMessageInvokerJid != null
+                ? o("WAWebDecodeJid").decodeJidAndValidate(
+                    t.botMessageInvokerJid,
+                    "botMessageInvokerJid",
+                  )
+                : null,
+            groupHistoryBundleInfo: t.groupHistoryBundleInfo,
+            hsmTag: (_ = t.hsmTag) != null ? _ : void 0,
+          },
+        );
         if (
           (r("WAWebWid").isCAPISupportAccount(S.remote) &&
             (t.isSupportAiMessage != null &&

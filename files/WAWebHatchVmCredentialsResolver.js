@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebHatchMuseAuthCredentials",
+    "WAWebHatchAuthCredentials",
     "WAWebHatchVmFetcher",
     "asyncToGeneratorRuntime",
   ],
@@ -40,8 +40,7 @@ __d(
             (this.$9 =
               (a = e.readPastedAbraToken) != null
                 ? a
-                : o("WAWebHatchMuseAuthCredentials")
-                    .readHatchMuseAuthAbraToken),
+                : o("WAWebHatchAuthCredentials").readHatchAuthAbraToken),
             (this.$10 =
               (i = e.sleep) != null
                 ? i

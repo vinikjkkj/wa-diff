@@ -231,12 +231,7 @@ __d(
               if (
                 (r("WAWebLidAwareContactsDB").setUpdateListener(
                   function (t, n) {
-                    (o("WAWebABProps").getABPropConfigValue(
-                      "web_anr_skip_unused_contacts_db_updates_enabled",
-                    ) &&
-                      n != null &&
-                      !g(n)) ||
-                      e.$9(t);
+                    (n != null && !g(n)) || e.$9(t);
                   },
                 ),
                 yield r("WAWebEventsWaitForMainStreamReadyMd")(),

@@ -1,59 +1,59 @@
 __d(
   "WAWebSpoilerParticlesAnimation",
-  [],
-  function (t, n, r, o, a, i) {
+  ["nullthrows"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 0.55,
-      l = 1.3,
-      s = 2,
-      u = 6,
-      c = 0.18,
-      d = 1,
-      m = 2,
-      p = 0.25,
+      s = 1.3,
+      u = 2,
+      c = 6,
+      d = 0.18,
+      m = 1,
+      p = 2,
       _ = 0.25,
-      f = 0.5,
-      g = 0.7,
-      h = 0.4,
-      y = 0.03,
-      C = 3,
-      b = 0.5,
-      v = 800,
-      S = 5,
-      R = 20,
-      L = 1.05,
-      E = 1.5,
-      k = Math.PI * 2,
-      I = 1e3,
-      T = 0.5 * p,
+      f = 0.25,
+      g = 0.5,
+      h = 0.7,
+      y = 0.4,
+      C = 0.03,
+      b = 3,
+      v = 0.5,
+      S = 800,
+      R = 5,
+      L = 20,
+      E = 1.05,
+      k = 1.5,
+      I = Math.PI * 2,
+      T = 1e3,
       D = 0.5 * _,
-      x = 0.5 * R,
-      $ = 1 / 30,
-      P = "#000",
-      N = 0,
-      M = 1,
-      w = 2,
-      A = 3,
-      F = 4,
-      O = 5,
-      B = 6,
-      W = 7,
-      q = (function () {
+      x = 0.5 * f,
+      $ = 0.5 * L,
+      P = 1 / 30,
+      N = "#000",
+      M = 0,
+      w = 1,
+      A = 2,
+      F = 3,
+      O = 4,
+      B = 5,
+      W = 6,
+      q = 7,
+      U = (function () {
         function t(e, t) {
           var n = this;
           ((this.$25 = function (e) {
-            var t = n.$12 === 0 ? 0 : Math.min((e - n.$12) / I, 0.05);
+            var t = n.$12 === 0 ? 0 : Math.min((e - n.$12) / T, 0.05);
             (n.$11
               ? (n.$14 = window.requestAnimationFrame(n.$25))
               : (n.$14 = null),
-              !(n.$12 !== 0 && t < $) &&
+              !(n.$12 !== 0 && t < P) &&
                 ((n.$12 = e),
                 (n.$13 += t),
                 n.$24(),
                 n.isDismissed() && n.pause()));
           }),
             (this.$1 = e),
-            (this.$2 = e.getContext("2d")),
+            (this.$2 = r("nullthrows")(e.getContext("2d"))),
             (this.$3 = t),
             (this.$4 = new Float32Array(0)),
             (this.$5 = 0),
@@ -66,7 +66,7 @@ __d(
             (this.$12 = 0),
             (this.$13 = 0),
             (this.$14 = null),
-            (this.$15 = P),
+            (this.$15 = N),
             (this.$16 = NaN),
             (this.$17 = 0),
             (this.$18 = 0),
@@ -100,7 +100,7 @@ __d(
               ((this.$16 = this.$13), (this.$17 = t), (this.$18 = n));
           }),
           (n.isDismissed = function () {
-            return Number.isNaN(this.$16) ? !1 : this.$13 - this.$16 >= E;
+            return Number.isNaN(this.$16) ? !1 : this.$13 - this.$16 >= k;
           }),
           (n.$22 = function (t) {
             var e = window.devicePixelRatio || 1,
@@ -116,17 +116,17 @@ __d(
               (this.$6 = new Float32Array(o)));
             for (var a = 0, i = 0, l = 0; l < o; l++) {
               var s = this.$3[l],
-                u = s.x + d,
-                c = s.y + m,
-                p = s.x + s.width - d,
-                _ = s.y + s.height - m;
-              if (!(p <= u || _ <= c)) {
+                u = s.x + m,
+                c = s.y + p,
+                d = s.x + s.width - m,
+                _ = s.y + s.height - p;
+              if (!(d <= u || _ <= c)) {
                 var f = i * 4;
                 ((this.$4[f] = u),
                   (this.$4[f + 1] = c),
-                  (this.$4[f + 2] = p),
+                  (this.$4[f + 2] = d),
                   (this.$4[f + 3] = _),
-                  (a += (p - u) * (_ - c)),
+                  (a += (d - u) * (_ - c)),
                   (this.$6[i] = a),
                   i++);
               }
@@ -143,11 +143,11 @@ __d(
               ((this.$9 = new Float32Array(0)), (this.$10 = 0));
               return;
             }
-            var e = Math.ceil(this.$7 * c);
-            ((this.$9 = new Float32Array(e * W)), (this.$10 = e));
+            var e = Math.ceil(this.$7 * d);
+            ((this.$9 = new Float32Array(e * q)), (this.$10 = e));
             for (var t = 0; t < e; t++) {
-              var n = U() * C;
-              this.$26(t * W, -n);
+              var n = V() * b;
+              this.$26(t * q, -n);
             }
           }),
           (n.$26 = function (n, r) {
@@ -156,27 +156,27 @@ __d(
                 o = this.$4,
                 a = this.$6,
                 i = this.$5,
-                c = U() * this.$7,
+                l = V() * this.$7,
                 d = 0;
-              d < i - 1 && !(c <= a[d]);
+              d < i - 1 && !(l <= a[d]);
               d++
             );
             var m = d * 4,
               p = o[m],
               _ = o[m + 1],
-              h = o[m + 2],
+              f = o[m + 2],
               y = o[m + 3],
-              C = U() * k,
-              b = s + U() * (u - s),
-              v = e + U() * (l - e),
-              S = V(f + (U() - 0.5) * g, 0, 1);
-            ((t[n + N] = p + U() * (h - p)),
-              (t[n + M] = _ + U() * (y - _)),
-              (t[n + w] = Math.cos(C) * b),
-              (t[n + A] = Math.sin(C) * b),
-              (t[n + F] = v),
-              (t[n + O] = S),
-              (t[n + B] = r));
+              C = V() * I,
+              b = u + V() * (c - u),
+              v = e + V() * (s - e),
+              S = H(g + (V() - 0.5) * h, 0, 1);
+            ((t[n + M] = p + V() * (f - p)),
+              (t[n + w] = _ + V() * (y - _)),
+              (t[n + A] = Math.cos(C) * b),
+              (t[n + F] = Math.sin(C) * b),
+              (t[n + O] = v),
+              (t[n + B] = S),
+              (t[n + W] = r));
           }),
           (n.$24 = function () {
             var e = this.$2,
@@ -185,46 +185,46 @@ __d(
               r = this.$13,
               o = !Number.isNaN(this.$16),
               a = o ? r - this.$16 : 0,
-              i = a * v,
+              i = a * S,
               l = i * i;
             (e.clearRect(0, 0, this.$1.width, this.$1.height),
               e.save(),
               this.$8 != null && e.clip(this.$8),
               (e.fillStyle = this.$15));
             for (var s = 0; s < n; s++) {
-              var u = s * W,
-                c = t[u + B],
+              var u = s * q,
+                c = t[u + W],
                 d = r - c,
-                m = t[u + O],
-                p = m - h * d,
-                _ = 1 - y * d,
-                f = d >= C || p <= 0 || _ <= 0;
+                m = t[u + B],
+                p = m - y * d,
+                _ = 1 - C * d,
+                f = d >= b || p <= 0 || _ <= 0;
               if (f) {
                 if (o) continue;
                 this.$26(u, r);
                 continue;
               }
-              var g = t[u + N],
-                S = t[u + M],
-                R = t[u + w],
-                L = t[u + A],
+              var g = t[u + M],
+                h = t[u + w],
+                R = t[u + A],
+                L = t[u + F],
                 E = d * d,
-                I = g + R * d + T * E,
-                x = S + L * d + D * E,
+                k = g + R * d + D * E,
+                T = h + L * d + x * E,
                 $ = p;
               if (o)
-                this.$27(I, x, p, l, i) &&
-                  ((I = this.$19), (x = this.$20), ($ = this.$21));
-              else if (!this.$28(I, x) && U() < b) {
+                this.$27(k, T, p, l, i) &&
+                  ((k = this.$19), (T = this.$20), ($ = this.$21));
+              else if (!this.$28(k, T) && V() < v) {
                 this.$26(u, r);
                 continue;
               }
-              var P = t[u + F] * _;
+              var P = t[u + O] * _;
               P <= 0.05 ||
                 $ <= 0 ||
                 ((e.globalAlpha = $),
                 e.beginPath(),
-                e.arc(I, x, P, 0, k),
+                e.arc(k, T, P, 0, I),
                 e.fill());
             }
             ((e.globalAlpha = 1), e.restore());
@@ -235,16 +235,16 @@ __d(
               l = e * e + i * i;
             if (l > o) return !1;
             var s = Math.sqrt(l),
-              u = (a - s) / v,
+              u = (a - s) / S,
               c,
               d;
             if (s > 0.01) ((c = e / s), (d = i / s));
             else {
-              var m = U() * k;
+              var m = V() * I;
               ((c = Math.cos(m)), (d = Math.sin(m)));
             }
-            var p = S * u + x * u * u,
-              _ = Math.max(0, 1 - u / L);
+            var p = R * u + $ * u * u,
+              _ = Math.max(0, 1 - u / E);
             return (
               (this.$19 = t + c * p),
               (this.$20 = n + d * p),
@@ -263,13 +263,13 @@ __d(
           t
         );
       })();
-    function U() {
+    function V() {
       return Math.random();
     }
-    function V(e, t, n) {
+    function H(e, t, n) {
       return e < t ? t : e > n ? n : e;
     }
-    i.default = q;
+    l.default = U;
   },
-  66,
+  98,
 );

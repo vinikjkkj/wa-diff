@@ -27,8 +27,8 @@ __d(
     function d(t) {
       return e.endPageLoadQplMeasure(t);
     }
-    function m(t) {
-      return e.addPageLoadQplPoint(t);
+    function m(t, n) {
+      return e.addPageLoadQplPoint(t, n);
     }
     function p(t) {
       return e.addPageLoadQplAnnotation(t);

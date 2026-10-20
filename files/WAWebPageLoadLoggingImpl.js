@@ -166,9 +166,9 @@ __d(
       }
       (C(), b(t + "_end"), E.delete(t));
     }
-    function T(e) {
-      var t = Math.floor(self.performance.now());
-      (A(e, { qpl: t }), C(), b(e, { timestamp: t }));
+    function T(e, t) {
+      var n = t != null ? t : Math.floor(self.performance.now());
+      (A(e, { qpl: n }), C(), b(e, { timestamp: n }));
     }
     function D(e) {
       f = babelHelpers.extends({}, f, e);

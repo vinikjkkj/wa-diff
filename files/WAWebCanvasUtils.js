@@ -8,11 +8,13 @@ __d(
     "WAWebImageGeometry",
     "WAWebMediaOpaqueData",
     "asyncToGeneratorRuntime",
+    "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t = e.getContext("2d"),
+      var t = r("nullthrows")(e.getContext("2d")),
         n = t.getImageData(0, 0, e.width, e.height);
       return r("WAWebEncodeRgbaToWebp")({
         height: e.height,
@@ -21,21 +23,29 @@ __d(
         width: e.width,
       });
     }
-    function u(t, r) {
+    function u(t, a) {
       if (
-        (r === void 0 && (r = "image/jpeg"),
+        (a === void 0 && (a = "image/jpeg"),
         Object.hasOwn(HTMLCanvasElement.prototype, "toBlob"))
       ) {
-        var a =
-          r === "image/jpeg"
+        var i =
+          a === "image/jpeg"
             ? o("WAWebABProps").getABPropConfigValue("web_jpeg_quality") / 100
             : void 0;
-        return new (e || (e = n("Promise")))(function (e) {
-          t.toBlob(e, r, a);
+        return new (e || (e = n("Promise")))(function (e, n) {
+          t.toBlob(
+            function (t) {
+              t == null
+                ? n(r("err")("canvas.toBlob produced no " + a + " blob"))
+                : e(t);
+            },
+            a,
+            i,
+          );
         });
       }
       return (e || (e = n("Promise"))).resolve(
-        o("WAWebDataUrlToBlob").dataURLtoBlob(t.toDataURL(r)),
+        o("WAWebDataUrlToBlob").dataURLtoBlob(t.toDataURL(a)),
       );
     }
     function c(e, t, n) {
@@ -72,7 +82,7 @@ __d(
             var _ = Math.floor(e.width * c),
               f = Math.floor(e.height * c);
             d = g(_, f);
-            var h = d.getContext("2d");
+            var h = r("nullthrows")(d.getContext("2d"));
             (h.drawImage(e, 0, 0, _, f), (m = yield u(d, l)), (c *= 0.5));
           }
           return {
@@ -86,26 +96,26 @@ __d(
       );
     }
     function p(e) {
-      var t = e.getContext("2d"),
+      var t = r("nullthrows")(e.getContext("2d")),
         n = e.width,
-        r = e.height,
-        o = t.getImageData(0, 0, n, r),
-        a = Math.max(n, r);
-      ((e.width = a), (e.height = a));
-      var i = (a - n) / 2,
-        l = (a - r) / 2;
-      (t.clearRect(0, 0, n, r), t.putImageData(o, i, l, 0, 0, n, r));
+        o = e.height,
+        a = t.getImageData(0, 0, n, o),
+        i = Math.max(n, o);
+      ((e.width = i), (e.height = i));
+      var l = (i - n) / 2,
+        s = (i - o) / 2;
+      (t.clearRect(0, 0, n, o), t.putImageData(a, l, s, 0, 0, n, o));
     }
     function _(e, t) {
-      var n = e.getContext("2d"),
-        r = h(e),
-        a = o("WAWebImageGeometry").aspectRatioScaled(e.width / e.height, t),
-        i = a.height,
-        l = a.width;
-      ((e.width = l), (e.height = i), n.drawImage(r, 0, 0, l, i));
+      var n = r("nullthrows")(e.getContext("2d")),
+        a = h(e),
+        i = o("WAWebImageGeometry").aspectRatioScaled(e.width / e.height, t),
+        l = i.height,
+        s = i.width;
+      ((e.width = s), (e.height = l), n.drawImage(a, 0, 0, s, l));
     }
     function f(e) {
-      var t = e.getContext("2d");
+      var t = r("nullthrows")(e.getContext("2d"));
       ((t.fillStyle = "rgb(247,247,247)"), t.fillRect(0, 0, e.width, e.height));
     }
     function g(e, t) {
@@ -114,72 +124,72 @@ __d(
     }
     function h(e) {
       var t = g(e.width, e.height),
-        n = t.getContext("2d");
+        n = r("nullthrows")(t.getContext("2d"));
       return (n.drawImage(e, 0, 0), t);
     }
     function y(e) {
-      var t = e.getContext("2d"),
+      var t = r("nullthrows")(e.getContext("2d")),
         n = t.getImageData(0, 0, e.width, e.height),
-        r = n.data.length / 4,
-        o;
-      for (o = 0; o < r; o++) {
-        var a = n.data[4 * o + 3];
-        if (a !== 0) return !1;
+        o = n.data.length / 4,
+        a;
+      for (a = 0; a < o; a++) {
+        var i = n.data[4 * a + 3];
+        if (i !== 0) return !1;
       }
       return !0;
     }
     function C(e) {
-      var t = e.getContext("2d"),
+      var t = r("nullthrows")(e.getContext("2d")),
         n = t.getImageData(0, 0, e.width, e.height),
-        r = n.data.length / 4,
-        o = 1 / 0,
+        o = n.data.length / 4,
         a = 1 / 0,
-        i = 0,
+        i = 1 / 0,
         l = 0,
-        s;
-      for (s = 0; s < r; s++) {
-        var u = n.data[4 * s + 3];
-        if (u !== 0) {
-          var c = s % e.width,
-            d = Math.floor(s / e.width);
-          (c < o && (o = c),
-            c > i && (i = c),
-            d < a && (a = d),
-            d > l && (l = d));
+        s = 0,
+        u;
+      for (u = 0; u < o; u++) {
+        var c = n.data[4 * u + 3];
+        if (c !== 0) {
+          var d = u % e.width,
+            m = Math.floor(u / e.width);
+          (d < a && (a = d),
+            d > l && (l = d),
+            m < i && (i = m),
+            m > s && (s = m));
         }
       }
-      return { left: o, top: a, right: i, bottom: l };
+      return { left: a, top: i, right: l, bottom: s };
     }
     function b(e) {
       if (!y(e)) {
         var t = C(e),
           n = t.bottom,
-          r = t.left,
-          o = t.right,
-          a = t.top,
-          i = n - a,
-          l = o - r,
-          s = e.getContext("2d"),
-          u = s.getImageData(r, a, l, i),
-          c = g(l, i),
-          d = c.getContext("2d");
-        return (d.putImageData(u, 0, 0), c);
+          o = t.left,
+          a = t.right,
+          i = t.top,
+          l = n - i,
+          s = a - o,
+          u = r("nullthrows")(e.getContext("2d")),
+          c = u.getImageData(o, i, s, l),
+          d = g(s, l),
+          m = r("nullthrows")(d.getContext("2d"));
+        return (m.putImageData(c, 0, 0), d);
       }
     }
     function v(e, t, n) {
       n === void 0 && (n = "white");
-      var r = document.createElement("canvas"),
-        o = r.getContext("2d"),
-        a = document.createElement("canvas"),
-        i = a.getContext("2d"),
-        l = t * 2;
-      ((r.width = a.width = e.width + l * 2),
-        (r.height = a.height = e.height + l * 2),
-        o.drawImage(e, l, l),
-        (i.shadowColor = n),
-        (i.shadowBlur = 1));
-      for (var s = 0; s < l; s++) (i.drawImage(r, 0, 0), o.drawImage(a, 0, 0));
-      return ((i.shadowColor = "rgba(0,0,0,0)"), i.drawImage(e, l, l), a);
+      var o = document.createElement("canvas"),
+        a = r("nullthrows")(o.getContext("2d")),
+        i = document.createElement("canvas"),
+        l = r("nullthrows")(i.getContext("2d")),
+        s = t * 2;
+      ((o.width = i.width = e.width + s * 2),
+        (o.height = i.height = e.height + s * 2),
+        a.drawImage(e, s, s),
+        (l.shadowColor = n),
+        (l.shadowBlur = 1));
+      for (var u = 0; u < s; u++) (l.drawImage(o, 0, 0), a.drawImage(i, 0, 0));
+      return ((l.shadowColor = "rgba(0,0,0,0)"), l.drawImage(e, s, s), i);
     }
     ((l.canvasToWebp = s),
       (l.canvasToBlob = u),

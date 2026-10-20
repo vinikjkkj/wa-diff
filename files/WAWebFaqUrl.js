@@ -446,6 +446,9 @@ __d(
       return u(0x548d90f8cf00c);
     }
     function Wt() {
+      return u(0x4715d69dd539d);
+    }
+    function qt() {
       return u(0x59132db60167f);
     }
     ((l.FAQ_BASE_URL = e),
@@ -589,7 +592,8 @@ __d(
       (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Ft),
       (l.getCloseFriendLearnMoreUrl = Ot),
       (l.getNewsletterStatusIntroFaqUrl = Bt),
-      (l.getPasskeySecurityCheckFaqUrl = Wt));
+      (l.getStatusReshareFaqUrl = Wt),
+      (l.getPasskeySecurityCheckFaqUrl = qt));
   },
   98,
 );

@@ -386,22 +386,24 @@ __d(
               n = t.mediaType,
               r = t.rawMimeType,
               a = t.requestId,
-              i = t.strictMp4ValidationEnabled,
-              l = t.strictOggOpusValidationEnabled,
-              s = yield o(
+              i = t.strictJpegScanValidationEnabled,
+              l = t.strictMp4ValidationEnabled,
+              s = t.strictOggOpusValidationEnabled,
+              u = yield o(
                 "WAKaleidoscopeClassify",
               ).kaleidoscopeClassifyByMediaType(e, n, r, {
-                strictOggOpusValidationEnabled: l,
-                strictMp4ValidationEnabled: i,
+                strictJpegScanValidationEnabled: i,
+                strictOggOpusValidationEnabled: s,
+                strictMp4ValidationEnabled: l,
               });
             return p({
-              output: s.success
+              output: u.success
                 ? o("WAResultOrError").makeResult({
-                    mimetype: s.value.mimetype,
-                    extension: s.value.extension,
-                    score: s.value.score,
+                    mimetype: u.value.mimetype,
+                    extension: u.value.extension,
+                    score: u.value.score,
                   })
-                : s,
+                : u,
               input: e,
               requestId: a,
             });

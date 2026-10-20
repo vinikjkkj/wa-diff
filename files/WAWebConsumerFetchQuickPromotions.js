@@ -497,6 +497,7 @@ __d(
                                 qpConfigTemplateName: "whatsapp_banner",
                                 qpConfigTriggersTrigger: [],
                                 secondaryAction: void 0,
+                                qpConfigExposureStrategy: void 0,
                               };
                             a.promotions.push(ie);
                           }

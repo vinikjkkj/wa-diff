@@ -16,13 +16,15 @@ __d(
         "ai_hatch_browser_enabled",
         "ai_hatch_response_ux_parity_enabled",
       ],
-      u = [
+      u = ["ai_hatch_approval_notification_enabled"],
+      c = [
         {
           capability: (e = o("WAWebProtobufsAICommon.pb"))
             .BotCapabilityMetadata$BotCapabilityType
             .HATCH_NOTIFICATION_METADATA_EVENT_ENABLED,
           label: "approval notifications",
           prop: "ai_hatch_approval_notification_enabled",
+          primaryFeature: "ai_hatch_approval_notification_enabled",
           offVerdict: null,
         },
         {
@@ -31,6 +33,7 @@ __d(
               .HATCH_CONNECTOR_ACTION_CARD_ENABLED,
           label: "connector card",
           prop: "ai_hatch_connectors_enabled",
+          primaryFeature: null,
           offVerdict: {
             code: "connector_cards_off",
             text: "Connector cards are off",
@@ -42,6 +45,7 @@ __d(
               .HATCH_SECURE_CREDENTIAL_CARD_ENABLED,
           label: "credential card",
           prop: "ai_hatch_secure_credentials_enabled",
+          primaryFeature: null,
           offVerdict: {
             code: "credential_cards_off",
             text: "Credential cards are off",
@@ -53,6 +57,7 @@ __d(
               .HATCH_BROWSER_TASK_CARD_ENABLED,
           label: "browser task card",
           prop: "ai_hatch_browser_enabled",
+          primaryFeature: null,
           offVerdict: {
             code: "browser_task_cards_off",
             text: "Browser task cards are off",
@@ -64,10 +69,11 @@ __d(
               .AI_MUSE_JARVIS_SCHEMA_ENABLED,
           label: "Muse Jarvis schema",
           prop: "ai_hatch_response_ux_parity_enabled",
+          primaryFeature: null,
           offVerdict: null,
         },
       ],
-      c = [
+      d = [
         {
           capability:
             e.BotCapabilityMetadata$BotCapabilityType
@@ -75,16 +81,16 @@ __d(
           label: "Space card",
         },
       ],
-      d =
+      m =
         "WA Web never declares 79: type Space prompts on your phone; a Web message turns Space cards off until your phone sends its next Muse message.",
-      m = {
+      p = {
         url_override: "URL override",
         local_override: "local override",
         server: "server",
         default: "default",
       },
-      p = [y, C, b, v, S];
-    function _(e) {
+      _ = [C, b, v, S, R];
+    function f(e) {
       var t;
       return {
         appVersion: o("WAWebBuildConstants").VERSION_STR,
@@ -92,6 +98,13 @@ __d(
         hatchPrimaryFeature: o("WAWebPrimaryFeaturesModel").PrimaryFeatures
           .aiHatchIntegrationEnabled,
         linkedStatus: e,
+        primaryFeatures: {
+          ai_hatch_approval_notification_enabled: o(
+            "WAWebPrimaryFeaturesModel",
+          ).PrimaryFeatures.hasFeature(
+            "ai_hatch_approval_notification_enabled",
+          ),
+        },
         props: {
           ai_hatch_integration_enabled: t.peekABPropConfigValue(
             "ai_hatch_integration_enabled",
@@ -114,12 +127,13 @@ __d(
         },
       };
     }
-    function f(e) {
-      return R(e)
-        ? u
+    function g(e) {
+      return L(e)
+        ? c
             .filter(function (t) {
-              var n = t.prop;
-              return L(e.props[n]);
+              var n = t.primaryFeature,
+                r = t.prop;
+              return E(e.props[r]) && k(e, n);
             })
             .map(function (e) {
               var t = e.capability;
@@ -127,8 +141,8 @@ __d(
             })
         : [];
     }
-    function g(e) {
-      for (var t of p) {
+    function h(e) {
+      for (var t of _) {
         var n = t(e);
         if (n != null) return n;
       }
@@ -137,46 +151,54 @@ __d(
         text: "No blocker found on this browser. Your next Muse message from here asks for connector, credential and browser task cards. Space cards only come from prompts typed on your phone.",
       };
     }
-    function h(e) {
-      var t = g(e),
-        n = f(e);
+    function y(e) {
+      var t = h(e),
+        n = g(e);
       return [
         "Muse readiness on WhatsApp Web",
         "Verdict: " + t.text,
         "",
         "App version: " + e.appVersion,
-        "Muse link: " + I(e.linkedStatus),
+        "Muse link: " + D(e.linkedStatus),
         "",
         "Hatch gates (value, source):",
         "  primary feature ai_hatch_integration_enabled (sent by your phone): " +
-          x(e.hatchPrimaryFeature),
+          P(e.hatchPrimaryFeature),
       ]
         .concat(
+          u.map(function (t) {
+            return (
+              "  primary feature " +
+              t +
+              " (sent by your phone): " +
+              P(e.primaryFeatures[t])
+            );
+          }),
           s.map(function (t) {
-            return "  " + t + ": " + D(e.props[t]);
+            return "  " + t + ": " + $(e.props[t]);
           }),
           [
             "",
             "Card capabilities your next Muse message from this browser declares:",
           ],
-          u.map(function (t) {
-            return E(e, n, t);
+          c.map(function (t) {
+            return I(e, n, t);
           }),
-          c.map(function (e) {
+          d.map(function (e) {
             var t = e.capability,
               n = e.label;
             return "  " + t + " " + n + ": no (WA Web never declares it)";
           }),
           [
-            d,
+            m,
             "",
             "Copyable summary (no phone number, JID or ids):",
-            JSON.stringify(P(e, t, n)),
+            JSON.stringify(M(e, t, n)),
           ],
         )
         .join("\n");
     }
-    function y(e) {
+    function C(e) {
       return e.abPropsReady
         ? null
         : {
@@ -184,7 +206,7 @@ __d(
             text: "WhatsApp Web has not loaded its ABProps yet, so the ABProp values below fall back to defaults (URL overrides still apply). Wait for your chats to load, then run Debug.hatchReadiness() again.",
           };
     }
-    function C(e) {
+    function b(e) {
       return e.hatchPrimaryFeature
         ? null
         : {
@@ -192,19 +214,19 @@ __d(
             text: "The primary feature ai_hatch_integration_enabled is off on this browser, so WA Web treats Muse as off. Either your phone doesn't share Muse with linked devices, or a primary_features_disabled URL parameter turned it off.",
           };
     }
-    function b(e) {
+    function v(e) {
       var t = e.props.ai_hatch_integration_enabled;
-      return L(t)
+      return E(t)
         ? null
         : {
             code: "integration_off",
             text:
               "Muse is off on this browser: ai_hatch_integration_enabled = " +
-              D(t) +
+              $(t) +
               ".",
           };
     }
-    function v(e) {
+    function S(e) {
       var t = e.linkedStatus,
         n = t.isLinked,
         r = t.isUnlinked,
@@ -226,70 +248,76 @@ __d(
                 text: "The Muse link status has not loaded yet. Open the Muse chat, then run Debug.hatchReadiness() again.",
               };
     }
-    function S(e) {
-      for (var t of u) {
+    function R(e) {
+      for (var t of c) {
         var n = t.offVerdict,
           r = t.prop,
           o = e.props[r];
-        if (n != null && !L(o))
+        if (n != null && !E(o))
           return {
             code: n.code,
-            text: n.text + " on this browser: " + r + " = " + D(o) + ".",
+            text: n.text + " on this browser: " + r + " = " + $(o) + ".",
           };
       }
       return null;
     }
-    function R(e) {
-      return e.hatchPrimaryFeature && L(e.props.ai_hatch_integration_enabled);
-    }
     function L(e) {
+      return e.hatchPrimaryFeature && E(e.props.ai_hatch_integration_enabled);
+    }
+    function E(e) {
       return e.value === !0;
     }
-    function E(e, t, n) {
+    function k(e, t) {
+      return t == null || e.primaryFeatures[t];
+    }
+    function I(e, t, n) {
       var r = n.capability,
         o = n.label,
-        a = n.prop,
-        i = t.includes(r);
-      return "  " + r + " " + o + ": " + x(i) + " (" + k(e, a) + ")";
+        a = n.primaryFeature,
+        i = n.prop,
+        l = t.includes(r);
+      return "  " + r + " " + o + ": " + P(l) + " (" + T(e, i, a) + ")";
     }
-    function k(e, t) {
+    function T(e, t, n) {
       return e.hatchPrimaryFeature
-        ? L(e.props.ai_hatch_integration_enabled)
-          ? L(e.props[t])
-            ? t + " is on"
-            : t + " is off"
+        ? E(e.props.ai_hatch_integration_enabled)
+          ? n != null && !k(e, n)
+            ? "primary feature " + n + " is off"
+            : E(e.props[t])
+              ? t + " is on"
+              : t + " is off"
           : "ai_hatch_integration_enabled is off"
         : "primary feature ai_hatch_integration_enabled is off";
     }
-    function I(e) {
+    function D(e) {
       var t,
         n = e.status;
       return (
-        T(e) +
+        x(e) +
         " (last fetch: " +
         e.linkedStatusState +
         "; channel: " +
-        $(n == null ? void 0 : n.hasChannel) +
+        N(n == null ? void 0 : n.hasChannel) +
         "; paired: " +
-        $(n == null ? void 0 : n.isPaired) +
+        N(n == null ? void 0 : n.isPaired) +
         "; status: " +
         ((t = n == null ? void 0 : n.status) != null ? t : "n/a") +
         ")"
       );
     }
-    function T(e) {
+    function x(e) {
       return e.isLinked ? "linked" : e.isUnlinked ? "not linked" : "unknown";
     }
-    function D(e) {
-      return String(e.value) + " (" + m[e.source] + ")";
+    function $(e) {
+      return String(e.value) + " (" + p[e.source] + ")";
     }
-    function x(e) {
+    function P(e) {
       return e ? "yes" : "no";
     }
-    function $(e) {
-      return e == null ? "n/a" : x(e);
+    function N(e) {
+      return e == null ? "n/a" : P(e);
     }
-    function P(e, t, n) {
+    function M(e, t, n) {
       var r,
         o,
         a,
@@ -301,24 +329,25 @@ __d(
         abprops_ready: e.abPropsReady,
         hatch_primary_feature: e.hatchPrimaryFeature,
         link: {
-          confirmed: T(e.linkedStatus),
+          confirmed: x(e.linkedStatus),
           last_fetch: e.linkedStatus.linkedStatusState,
           has_channel:
             (r = i == null ? void 0 : i.hasChannel) != null ? r : null,
           is_paired: (o = i == null ? void 0 : i.isPaired) != null ? o : null,
           status: (a = i == null ? void 0 : i.status) != null ? a : null,
         },
+        primary_features: e.primaryFeatures,
         props: e.props,
         declares: n.map(function (e) {
           return e;
         }),
       };
     }
-    ((l.WEB_SPACE_CARD_NOTE = d),
-      (l.collectHatchReadinessInputs = _),
-      (l.getHatchDeclaredCapabilities = f),
-      (l.getHatchReadinessVerdict = g),
-      (l.formatHatchReadinessReport = h));
+    ((l.WEB_SPACE_CARD_NOTE = m),
+      (l.collectHatchReadinessInputs = f),
+      (l.getHatchDeclaredCapabilities = g),
+      (l.getHatchReadinessVerdict = h),
+      (l.formatHatchReadinessReport = y));
   },
   98,
 );

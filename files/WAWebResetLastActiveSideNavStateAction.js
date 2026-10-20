@@ -89,6 +89,7 @@ __d(
           case o("WAWebNavBarTypes").NavBarItems.CustomerManager:
           case o("WAWebNavBarTypes").NavBarItems.OrgAdmin:
           case o("WAWebNavBarTypes").NavBarItems.GroupAdmin:
+          case o("WAWebNavBarTypes").NavBarItems.ContactsAndGroups:
             break;
         }
     }

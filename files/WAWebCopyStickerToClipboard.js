@@ -9,6 +9,7 @@ __d(
     "WAWebStructuredClone",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -67,18 +68,18 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield c(),
-            a = document.createElement("canvas"),
-            i = a.getContext("2d");
+            a = document.createElement("canvas");
           ((a.width = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_WIDTH),
             (a.height = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_HEIGHT));
           try {
-            var l = t.loadAnimation({
-              renderer: "canvas",
-              animationData: r("WAWebStructuredClone")(e),
-              loop: !1,
-              autoplay: !1,
-              rendererSettings: { context: i },
-            });
+            var i = r("nullthrows")(a.getContext("2d")),
+              l = t.loadAnimation({
+                renderer: "canvas",
+                animationData: r("WAWebStructuredClone")(e),
+                loop: !1,
+                autoplay: !1,
+                rendererSettings: { context: i },
+              });
             return new (u || (u = n("Promise")))(function (e) {
               l.addEventListener("DOMLoaded", function () {
                 return e(a);

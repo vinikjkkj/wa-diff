@@ -1,11 +1,6 @@
 __d(
   "WAWebCatalogVariantHelper",
-  [
-    "fbt",
-    "$InternalEnum",
-    "WAWebBizCatalogGatingUtils",
-    "WAWebLinkedCatalogHelper",
-  ],
+  ["fbt", "$InternalEnum", "WAWebLinkedCatalogHelper"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = 100,
@@ -19,12 +14,7 @@ __d(
             ? void 0
             : n.description) == null &&
           t.variantInfo.variant_properties == null;
-      return !!(
-        !r &&
-        e &&
-        o("WAWebLinkedCatalogHelper").isLinkedCatalog(e.id) &&
-        o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled()
-      );
+      return !!(!r && e && o("WAWebLinkedCatalogHelper").isLinkedCatalog(e.id));
     }
     var d = n("$InternalEnum")({
       COLOR: "color",

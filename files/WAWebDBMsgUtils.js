@@ -2,7 +2,6 @@ __d(
   "WAWebDBMsgUtils",
   [
     "$InternalEnum",
-    "WAWebABProps",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
     "WAWebLid1X1MigrationGating",
@@ -94,17 +93,6 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebABProps").getABPropConfigValue("web_get_msg_exist_optmise")
-          ) {
-            var t = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .anyOfPrimaryKeys(["id"], e),
-              n = new Set(t);
-            return e.map(function (e) {
-              return n.has(e);
-            });
-          }
           return o("WAWebSchemaMessage")
             .getMessageTable()
             .bulkGet(e, !1)

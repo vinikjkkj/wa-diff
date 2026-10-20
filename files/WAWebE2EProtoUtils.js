@@ -155,6 +155,7 @@ __d(
                     d.newsletterFollowerInviteMessageV2 ||
                     d.messageHistoryNotice ||
                     d.albumMessage ||
+                    d.statusNotificationMessage ||
                     d.richResponseMessage
                   ? o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text
                   : d.pollResultSnapshotMessage || d.pollResultSnapshotMessageV3
@@ -216,7 +217,8 @@ __d(
           null &&
           y.has(i.secretEncryptedMessage.secretEncType)) ||
         i.messageHistoryNotice ||
-        i.conditionalRevealMessage
+        i.conditionalRevealMessage ||
+        i.statusNotificationMessage
       )
         return o("WAWebBackendJobs.flow").DecryptFailType.Hide;
       var l = i.protocolMessage;

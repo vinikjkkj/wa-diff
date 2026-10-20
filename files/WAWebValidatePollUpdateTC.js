@@ -1,13 +1,12 @@
 __d(
   "WAWebValidatePollUpdateTC",
-  ["WACryptoUtils", "WAWebPollNameHashHistoryUtils", "WAWebPollsGatingUtils"],
+  ["WACryptoUtils", "WAWebPollNameHashHistoryUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
         n = e.parentMsg,
         r = e.voteMetadata;
       if (
-        !o("WAWebPollsGatingUtils").isPollTCReceivingEnabled() ||
         !o("WAWebPollNameHashHistoryUtils").hasPollNameHashHistory(n) ||
         r == null
       )

@@ -1,16 +1,12 @@
 __d(
   "WAWebHandleAdvDeviceNotificationUtils",
   [
-    "NativeSchedulerTickStrategy",
-    "TaskScheduler",
     "WALogger",
     "WAWebAdvKeyIndexSignatureVerify",
-    "WAWebBackendWorkerClient",
     "WAWebCryptoCurve25519",
     "WAWebProtobufsAdv.pb",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
@@ -56,45 +52,7 @@ __d(
             accountType: i,
           };
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-            n = [],
-            r = function (t) {
-              n.push({
-                localPrimaryIdentity: t.localPrimaryIdentity,
-                signedKeyIndexBytes: t.signedKeyIndexBytes.slice().buffer,
-              });
-            },
-            a = o("TaskScheduler").taskScheduler(
-              "device-sync",
-              { concurrency: 1 },
-              o(
-                "NativeSchedulerTickStrategy",
-              ).makeNativeSchedulerTickStrategy(),
-            );
-          for (var i of e) (r(i), yield a.yield());
-          var l = n.flatMap(function (e) {
-            return [e.localPrimaryIdentity, e.signedKeyIndexBytes];
-          });
-          return t.sendAndReceive(
-            "deviceSync",
-            "decodeSignedKeyIndexBytesBatch",
-            { items: n },
-            !1,
-            void 0,
-            void 0,
-            l,
-          );
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(t, n) {
+    function p(t, n) {
       var r;
       try {
         r = o("decodeProtobuf").decodeProtobuf(
@@ -197,9 +155,7 @@ __d(
         identityUpdatePromise: h,
       };
     }
-    ((l.decodeSignedKeyIndexBytes = m),
-      (l.decodeSignedKeyIndexBytesBatchInWorker = p),
-      (l.verifySKeyIndexWithAccSigKey = f));
+    ((l.decodeSignedKeyIndexBytes = m), (l.verifySKeyIndexWithAccSigKey = p));
   },
   98,
 );

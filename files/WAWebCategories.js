@@ -65,7 +65,7 @@ __d(
         y = _(!1),
         b = y[0],
         v = y[1],
-        S = _(!1),
+        S = _(!0),
         L = S[0],
         E = S[1],
         k = _([]),
@@ -129,37 +129,36 @@ __d(
           e && w(e);
         },
         O = function (t) {
-          (E(!0),
-            u(
-              t ||
-                o("WAWebBusinessCategoriesResultModel")
-                  .BUSINESS_CATEGORY_EMPTY_STR_ID,
-            )
-              .then(function (e) {
-                var n = e.categories;
-                (t !== "" &&
-                  (n = n.filter(function (e) {
-                    return !e.not_a_biz;
-                  })),
-                  E(!1),
-                  T(n),
-                  $(e.notABizId),
-                  o("WAWebUtilsLogQplEvents").qplAnnotateProfileCatsView(
-                    n.length,
-                  ),
-                  o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(2));
-              })
-              .catch(function () {
-                (o("WAWebToastManager").ToastManager.open(
-                  c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Something went wrong."),
-                  }),
+          u(
+            t ||
+              o("WAWebBusinessCategoriesResultModel")
+                .BUSINESS_CATEGORY_EMPTY_STR_ID,
+          )
+            .then(function (e) {
+              var n = e.categories;
+              (t !== "" &&
+                (n = n.filter(function (e) {
+                  return !e.not_a_biz;
+                })),
+                E(!1),
+                T(n),
+                $(e.notABizId),
+                o("WAWebUtilsLogQplEvents").qplAnnotateProfileCatsView(
+                  n.length,
                 ),
-                  E(!1),
-                  T([]),
-                  $(""),
-                  o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(3));
-              }));
+                o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(2));
+            })
+            .catch(function () {
+              (o("WAWebToastManager").ToastManager.open(
+                c.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(/*BTDS*/ "Something went wrong."),
+                }),
+              ),
+                E(!1),
+                T([]),
+                $(""),
+                o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(3));
+            });
         };
       m(function () {
         O("");
@@ -167,7 +166,9 @@ __d(
       var B = function (t) {
         !L &&
           !b &&
-          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"), O(t));
+          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"),
+          E(!0),
+          O(t));
       };
       return c.jsxs(r("WAWebSavePopup.react"), {
         title: s._(/*BTDS*/ "Choose up to 3 categories"),

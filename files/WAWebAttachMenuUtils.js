@@ -22,10 +22,7 @@ __d(
         !c() ||
         o(
           "WAWebBizCatalogGatingUtils",
-        ).blockCatalogCreationECommerceComplianceIndia(t) ||
-        o(
-          "WAWebProductCatalogMetaLinkingGatingUtils",
-        ).shouldDisableCatalogDueToMetaLinkingForSelf()
+        ).blockCatalogCreationECommerceComplianceIndia(t)
       );
     }
     function s() {

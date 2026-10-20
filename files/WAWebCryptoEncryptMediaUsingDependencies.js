@@ -7,7 +7,6 @@ __d(
     "WALogger",
     "WAPromiseProps",
     "WATypedArraysConcat",
-    "WAWebABProps",
     "WAWebCommonTaskScheduler",
     "WAWebCryptoCalculateFirstFrameSidecar",
     "WAWebCryptoCalculateStreamingSidecar",
@@ -81,9 +80,7 @@ __d(
                     encKey: u,
                     plaintext: e,
                     optionalIv: p,
-                    delayInBetween: o("WAWebABProps").getABPropConfigValue(
-                      "web_anr_media_chunk_enc_delay_enabled",
-                    ),
+                    delayInBetween: !0,
                     yieldFn: function () {
                       return r("WAWebCommonTaskScheduler").yield();
                     },

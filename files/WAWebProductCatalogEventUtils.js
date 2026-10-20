@@ -1,7 +1,6 @@
 __d(
   "WAWebProductCatalogEventUtils",
   [
-    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogViewWamEvent",
     "WAWebCatalogBizWamEvent",
     "WAWebUserPrefsMeUser",
@@ -43,7 +42,7 @@ __d(
         ).commit();
         return;
       }
-      if (l && o("WAWebBizCatalogGatingUtils").isPSForCatalogViewEnabled()) {
+      if (l) {
         new (o("WAWebBizCatalogViewWamEvent").BizCatalogViewWamEvent)(
           babelHelpers.extends(
             { catalogViewAction: l, bizPlatform: r, catalogOwnerJid: i },

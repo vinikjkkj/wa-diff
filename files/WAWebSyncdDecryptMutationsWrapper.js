@@ -4,10 +4,8 @@ __d(
     "Promise",
     "WALogger",
     "WATextEncoding",
-    "WAWebABProps",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdCryptoUtils",
-    "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdEncryptionManager",
     "WAWebSyncdError",
     "WAWebSyncdKeyCache",
@@ -20,10 +18,9 @@ __d(
       s,
       u,
       c,
-      d,
-      m = o("WATextEncoding").newTextDecoder();
-    function p(e, t) {
-      return f(
+      d = o("WATextEncoding").newTextDecoder();
+    function m(e, t) {
+      return _(
         t.records.map(function (e) {
           return {
             record: e,
@@ -34,19 +31,19 @@ __d(
         e,
       );
     }
+    function p(e, t) {
+      return _(t.mutations, e);
+    }
     function _(e, t) {
-      return f(t.mutations, e);
+      return f.apply(this, arguments);
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          return (d || (d = n("Promise")))
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          return (c || (c = n("Promise")))
             .all(
               t.map(function (e) {
-                return y(r, e.operation, e.record);
+                return h(r, e.operation, e.record);
               }),
             )
             .catch(function (n) {
@@ -59,7 +56,7 @@ __d(
                           .SyncdMutation$SyncdOperation.SET
                       );
                     })
-                    .map(h),
+                    .map(g),
                   i = t
                     .filter(function (e) {
                       return (
@@ -68,7 +65,7 @@ __d(
                           .SyncdMutation$SyncdOperation.REMOVE
                       );
                     })
-                    .map(h);
+                    .map(g);
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -85,10 +82,10 @@ __d(
               throw n;
             });
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e) {
+    function g(e) {
       var t = o("WAWebSyncdCryptoUtils")
           .arrayBufferToHexPadded(e.record.index.blob)
           .slice(-16),
@@ -97,12 +94,12 @@ __d(
         );
       return "[keyId: " + n + ", mac: " + t + "]";
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = n.keyId.id,
             a = yield o("WAWebSyncdKeyCache").getKeyData(r);
           if (!a) {
@@ -114,87 +111,57 @@ __d(
               var i = o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
                 o("WAWebSyncdKeyTypes").fromSyncKeyId(r),
               );
-              if (
-                o("WAWebABProps").getABPropConfigValue(
-                  "web_request_missing_keys_for_removes",
-                )
-              )
-                throw (
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: no key data for remove mutation with key id ",
-                        "",
-                      ])),
-                    i,
-                  ),
-                  new (o("WAWebSyncdError").SyncdMissingKeyError)()
-                );
-              var l = o("WAWebSyncdCryptoUtils")
-                .arrayBufferToHexPadded(n.index.blob)
-                .slice(-16);
-              throw (
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd] no key for REMOVE keyId=",
-                      " mac=",
-                      "",
-                    ])),
-                  i,
-                  l,
-                ),
-                yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                  e,
-                  "exception: no key data for remove mutations",
-                ),
-                new (o("WAWebSyncdError").SyncdFatalError)(
-                  "no key data for remove mutations",
-                )
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: no key data for remove mutation with key id ",
+                    "",
+                  ])),
+                i,
               );
             }
             throw new (o("WAWebSyncdError").SyncdMissingKeyError)();
           }
           try {
-            var d = yield o(
+            var l = yield o(
                 "WAWebSyncdEncryptionManager",
               ).WASyncdEncryptionManager.decryptMutation(e, r, a, t, n),
-              p = d.index,
-              _ = d.indexMac,
-              f = d.plaintext,
-              g = d.valueMac,
-              h = d.version;
+              c = l.index,
+              m = l.indexMac,
+              p = l.plaintext,
+              _ = l.valueMac,
+              f = l.version;
             return {
-              index: m.decode(p),
-              version: h,
+              index: d.decode(c),
+              version: f,
               keyId: r,
               operation: t,
-              indexMac: _,
-              valueMac: g,
+              indexMac: m,
+              valueMac: _,
               collection: e,
-              binarySyncData: f,
+              binarySyncData: p,
             };
           } catch (e) {
-            var y = e instanceof Error ? e.message : String(e);
+            var g = e instanceof Error ? e.message : String(e);
             throw (
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "syncd: decryption failed: ",
                       "",
                     ])),
-                  y,
+                  g,
                 )
                 .sendLogs("syncd: decryption failed"),
               e
             );
           }
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.tryDecryptSnapshot = p), (l.tryDecryptPatch = _));
+    ((l.tryDecryptSnapshot = m), (l.tryDecryptPatch = p));
   },
   98,
 );

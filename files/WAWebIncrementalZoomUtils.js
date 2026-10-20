@@ -1,7 +1,6 @@
 __d(
   "WAWebIncrementalZoomUtils",
   [
-    "WAWebABProps",
     "WAWebEnvironment",
     "WAWebMediaIncrementalZoom",
     "WAWebUA",
@@ -89,42 +88,34 @@ __d(
         d(m, p));
     }
     function g(e, t) {
-      var r = o("react-compiler-runtime").c(14),
+      var r = o("react-compiler-runtime").c(13),
         a;
-      r[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = o("WAWebABProps").getABPropConfigValue(
-            "hybrid_incremental_zooming_simple_enabled",
-          )),
-          (r[0] = a))
-        : (a = r[0]);
-      var i = a,
-        l;
-      r[1] !== e
-        ? ((l = function () {
+      r[0] !== e
+        ? ((a = function () {
             return e == null ? void 0 : e.current;
           }),
-          (r[1] = e),
-          (r[2] = l))
-        : (l = r[2]);
-      var s = l,
-        u;
-      r[3] !== s
-        ? ((u = function (t) {
+          (r[0] = e),
+          (r[1] = a))
+        : (a = r[1]);
+      var i = a,
+        l;
+      r[2] !== i
+        ? ((l = function (t) {
             var e = t.key,
-              n = s();
+              n = i();
             !h(t) ||
               !o("WAWebMediaIncrementalZoom").ZOOM_KEYS.includes(e) ||
               !n ||
               t.preventDefault();
           }),
-          (r[3] = s),
-          (r[4] = u))
-        : (u = r[4]);
-      var c = u,
-        m;
-      r[5] !== t || r[6] !== s
-        ? ((m = function (n) {
-            var e = s(),
+          (r[2] = i),
+          (r[3] = l))
+        : (l = r[3]);
+      var s = l,
+        u;
+      r[4] !== t || r[5] !== i
+        ? ((u = function (n) {
+            var e = i(),
               r = n.target,
               o = t == null ? void 0 : t.current;
             !e ||
@@ -135,50 +126,48 @@ __d(
                 (o == null ? void 0 : o.contains(r)) === !0) ||
               n.preventDefault();
           }),
-          (r[5] = t),
-          (r[6] = s),
-          (r[7] = m))
-        : (m = r[7]);
-      var p = m,
-        _,
-        f;
-      (r[8] !== p
+          (r[4] = t),
+          (r[5] = i),
+          (r[6] = u))
+        : (u = r[6]);
+      var c = u,
+        m,
+        p;
+      (r[7] !== c
+        ? ((m = function () {
+            return (
+              document.addEventListener("wheel", c, { passive: !1 }),
+              function () {
+                document.removeEventListener("wheel", c);
+              }
+            );
+          }),
+          (p = [c]),
+          (r[7] = c),
+          (r[8] = m),
+          (r[9] = p))
+        : ((m = r[8]), (p = r[9])),
+        d(m, p));
+      var _, f;
+      (r[10] !== s
         ? ((_ = function () {
-            if (i)
-              return (
-                document.addEventListener("wheel", p, { passive: !1 }),
-                function () {
-                  document.removeEventListener("wheel", p);
-                }
-              );
+            return (
+              n("cr:13920") == null ||
+                n("cr:13920").setIsHybridAppZoomingEnabled(!1),
+              document.addEventListener("keydown", s),
+              function () {
+                (document.removeEventListener("keydown", s),
+                  n("cr:13920") == null ||
+                    n("cr:13920").setIsHybridAppZoomingEnabled(!0));
+              }
+            );
           }),
-          (f = [i, p]),
-          (r[8] = p),
-          (r[9] = _),
-          (r[10] = f))
-        : ((_ = r[9]), (f = r[10])),
+          (f = [s]),
+          (r[10] = s),
+          (r[11] = _),
+          (r[12] = f))
+        : ((_ = r[11]), (f = r[12])),
         d(_, f));
-      var g, y;
-      (r[11] !== c
-        ? ((g = function () {
-            if (i)
-              return (
-                n("cr:13920") == null ||
-                  n("cr:13920").setIsHybridAppZoomingEnabled(!1),
-                document.addEventListener("keydown", c),
-                function () {
-                  (document.removeEventListener("keydown", c),
-                    n("cr:13920") == null ||
-                      n("cr:13920").setIsHybridAppZoomingEnabled(!0));
-                }
-              );
-          }),
-          (y = [i, c]),
-          (r[11] = c),
-          (r[12] = g),
-          (r[13] = y))
-        : ((g = r[12]), (y = r[13])),
-        d(g, y));
     }
     function h(e) {
       return o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC

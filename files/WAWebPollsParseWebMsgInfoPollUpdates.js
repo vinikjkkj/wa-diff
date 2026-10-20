@@ -5,6 +5,7 @@ __d(
     "WALongInt",
     "WAWebAddOnParseWebMsgInfo",
     "WAWebMsgType",
+    "WAWebPollVoteTCMetadata",
     "WAWebPollsCreateOptionLocalIdMap",
     "WAWebPollsProtobufConversion",
     "WAWebProtobufsWeb.pb",
@@ -27,12 +28,17 @@ __d(
               );
             })
             .map(function (e) {
-              var t;
+              var t, n;
               return {
                 senderTimestampMs: e.senderTimestampMs,
                 serverTimestampMs: e.serverTimestampMs,
                 pollUpdateMessageKey: e.messageAddOnKey,
                 vote: (t = e.legacyMessage) == null ? void 0 : t.pollVote,
+                metadata:
+                  (n = e.messageAddOn) == null ||
+                  (n = n.pollUpdateMessage) == null
+                    ? void 0
+                    : n.metadata,
               };
             });
     }
@@ -66,24 +72,30 @@ __d(
                     o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({ key: a }),
                   ),
                   u = s.msgKey,
-                  d = s.sender;
-                return o("WAWebPollsProtobufConversion").voteFromProtobuf({
-                  voteProtobuf: i,
-                  pollVoteMsgKey: u,
-                  parentMsgKey: l.id,
-                  sender: d,
-                  senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                    n(t.senderTimestampMs),
-                  ),
-                  t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
-                    t.serverTimestampMs,
-                  ),
-                  optionLocalIdMap: c,
-                  ack: null,
-                  read: t.unread !== !0,
-                });
+                  d = s.sender,
+                  m = o("WAWebPollsProtobufConversion").voteFromProtobuf({
+                    voteProtobuf: i,
+                    pollVoteMsgKey: u,
+                    parentMsgKey: l.id,
+                    sender: d,
+                    senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
+                      n(t.senderTimestampMs),
+                    ),
+                    t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
+                      t.serverTimestampMs,
+                    ),
+                    optionLocalIdMap: c,
+                    ack: null,
+                    read: t.unread !== !0,
+                  });
+                return {
+                  voteData: m,
+                  pollUpdateMessageMetadata: o(
+                    "WAWebPollVoteTCMetadata",
+                  ).pollVoteTCMetadataFromProto(t.metadata),
+                };
               } catch (t) {
-                var m = r("getErrorSafe")(t);
+                var p = r("getErrorSafe")(t);
                 return (
                   o("WALogger")
                     .ERROR(
@@ -92,7 +104,7 @@ __d(
                           "[history sync] Failed to parse pollUpdate with error ",
                           "",
                         ])),
-                      m,
+                      p,
                     )
                     .sendLogs("parseWebMsgInfoPollUpdates-vote-parse-error"),
                   null

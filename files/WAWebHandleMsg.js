@@ -568,6 +568,11 @@ __d(
                 O,
                 o("WAWebHandleMsgProcess").processDecryptedMessageProto,
                 j,
+                {
+                  awaitMessageWrites:
+                    o("WAWebMessageQueueImpl").getMessageQueueImpl() ===
+                    "one_queue",
+                },
               );
               if (
                 Q.result ===

@@ -10,6 +10,7 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebTPThumbnailUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -44,45 +45,44 @@ __d(
             }),
             i = a.numPages,
             l = a.thumbnail,
-            u = new Uint8Array(l.buffer, l.byteOffset, l.byteLength),
-            c = new Blob([u], { type: "image/jpeg" }),
-            d = URL.createObjectURL(c),
-            m = yield s(d),
-            p = document.createElement("canvas");
-          ((p.width = m.naturalWidth), (p.height = m.naturalHeight));
-          var _ = p.getContext("2d");
-          _.drawImage(m, 0, 0);
-          var f = yield (n = o("WAWebImageUtils")).rotateAndResize(
-              p,
+            u = new Blob([l.slice()], { type: "image/jpeg" }),
+            c = URL.createObjectURL(u),
+            d = yield s(c),
+            m = document.createElement("canvas");
+          ((m.width = d.naturalWidth), (m.height = d.naturalHeight));
+          var p = r("nullthrows")(m.getContext("2d"));
+          p.drawImage(d, 0, 0);
+          var _ = yield (n = o("WAWebImageUtils")).rotateAndResize(
+              m,
               o("WAWebMediaConstants").DOC_THUMB_MAX_EDGE,
               n.DATA_URL | n.CANVAS | n.BLOB,
             ),
-            g = f.height,
-            h = f.images,
-            y = f.width;
-          ((p.width = 0), (p.height = 0));
-          var C = h.blob,
-            b = h.canvas,
-            v = h.dataUrl;
-          if (b == null || C == null || v == null)
+            f = _.height,
+            g = _.images,
+            h = _.width;
+          ((m.width = 0), (m.height = 0));
+          var y = g.blob,
+            C = g.canvas,
+            b = g.dataUrl;
+          if (C == null || y == null || b == null)
             throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
-          var S = yield o("WAWebCanvasUtils").generateMicroThumb(
-              b,
+          var v = yield o("WAWebCanvasUtils").generateMicroThumb(
+              C,
               o("WAWebABProps").getABPropConfigValue(
                 "web_pdf_thumbnail_size_in_bytes",
               ),
               { mimetype: "image/jpeg", maxAttempts: 10 },
             ),
-            R = yield r("WAWebMediaOpaqueData").createFromData(C, "image/jpeg");
+            S = yield r("WAWebMediaOpaqueData").createFromData(y, "image/jpeg");
           return {
-            url: d,
-            thumbUrl: v,
-            width: y,
-            height: g,
-            fullPreviewData: R,
-            fullPreviewSize: { width: y, height: g },
+            url: c,
+            thumbUrl: b,
+            width: h,
+            height: f,
+            fullPreviewData: S,
+            fullPreviewSize: { width: h, height: f },
             pdfPages: i,
-            microThumbnail: S,
+            microThumbnail: v,
           };
         })),
         c.apply(this, arguments)

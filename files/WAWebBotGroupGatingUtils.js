@@ -116,14 +116,6 @@ __d(
         ? b()
         : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function R() {
-      return (
-        b() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_group_send_mentioned_pushname_enabled",
-        )
-      );
-    }
     ((l.BotGroupContext = e),
       (l.isStandardBotProfileGroupEnabled = s),
       (l.isMuseGroupAgentRenderingEnabled = u),
@@ -139,8 +131,7 @@ __d(
       (l.isGroupBotMessage = C),
       (l.isOpenGroupBotSendEnabled = b),
       (l.getSendGroupBotParticipant = v),
-      (l.isGroupRevokeAgentTarget = S),
-      (l.isGroupBotSendMentionedPushnameEnabled = R));
+      (l.isGroupRevokeAgentTarget = S));
   },
   98,
 );

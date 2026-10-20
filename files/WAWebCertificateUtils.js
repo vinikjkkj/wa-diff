@@ -2,46 +2,45 @@ __d(
   "WAWebCertificateUtils",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WAHex",
     "WALogger",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d = r("requireDeferred")("asn1js-2.1.1").__setRef(
-        "WAWebCertificateUtils",
-      );
-    function m() {
+    var e, s, u;
+    function c() {
       return r("JSResourceForInteraction")("pkijs")
         .__setRef("WAWebCertificateUtils")
         .load();
     }
-    function p() {
-      return new (c || (c = n("Promise")))(function (e) {
-        d.onReady(function (t) {
-          e(t().fromBER);
-        });
-      });
+    function d() {
+      return m.apply(this, arguments);
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function m() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")("asn1js-2.1.1")
+            .__setRef("WAWebCertificateUtils")
+            .load();
+          return e().fromBER;
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = g(t),
-              a = yield p(),
+            var n = f(t),
+              a = yield d(),
               i = a(n.buffer),
               l = i.offset,
-              c = i.result;
-            if (l === -1 || (c.error != null && c.error !== ""))
+              m = i.result;
+            if (l === -1 || (m.error != null && m.error !== ""))
               return (
                 o("WALogger")
                   .WARN(
@@ -53,10 +52,10 @@ __d(
                   .sendLogs("certificate-utils-crl-der-parse-error"),
                 null
               );
-            var d = yield m(),
-              _ = d.CertificateRevocationList,
-              f = new _({ schema: c }),
-              h = f.revokedCertificates;
+            var p = yield c(),
+              _ = p.CertificateRevocationList,
+              g = new _({ schema: m }),
+              h = g.revokedCertificates;
             if (h == null || h.length === 0) return [];
             var y = [];
             for (var C of h) {
@@ -95,10 +94,10 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e) {
+    function f(e) {
       var t = e;
       if (
         (e.startsWith("-----BEGIN") || (t = atob(e)),
@@ -122,10 +121,10 @@ __d(
         i[l] = t.charCodeAt(l);
       return i;
     }
-    ((l.getPkiJs = m),
-      (l.getAsn1FromBER = p),
-      (l.parseCrlSerialNumbers = _),
-      (l.decodePemOrBase64ToDer = g));
+    ((l.getPkiJs = c),
+      (l.getAsn1FromBER = d),
+      (l.parseCrlSerialNumbers = p),
+      (l.decodePemOrBase64ToDer = f));
   },
   98,
 );

@@ -14,7 +14,6 @@ __d(
     "WAWebMediaEditorLayersText",
     "WAWebMediaEditorUtilsShapes",
     "WAWebMediaEditorUtilsShapesGetIconForShape",
-    "WAWebMediaGatingUtils",
     "WAWebMenuBar.react",
     "WAWebModalManager",
     "WAWebStickerPanel.react",
@@ -347,7 +346,7 @@ __d(
         : (ye = t[56]);
       var Ce = ye,
         be;
-      if (o("WAWebMediaGatingUtils").isSendHQPhotoEnabled() && M)
+      if (M)
         if (n) {
           var ve;
           t[57] !== P

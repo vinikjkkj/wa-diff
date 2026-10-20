@@ -457,58 +457,60 @@ __d(
             n = e.input,
             r = e.mediaType,
             a = e.rawMimeType,
-            i = e.strictMp4ValidationEnabled,
-            l = e.strictOggOpusValidationEnabled,
-            s = U();
+            i = e.strictJpegScanValidationEnabled,
+            l = e.strictMp4ValidationEnabled,
+            s = e.strictOggOpusValidationEnabled,
+            u = U();
           N().INFO(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classify in worker, requestId: ",
                 "",
               ])),
-            s,
+            u,
           );
-          var u = yield W(t);
-          if (!u.success)
+          var c = yield W(t);
+          if (!c.success)
             return {
               transferredBuffer: n,
-              result: o("WAResultOrError").makeError({ errorName: u.error }),
+              result: o("WAResultOrError").makeError({ errorName: c.error }),
             };
-          var c = u.value,
-            d = c.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
-              return e.requestId === s;
+          var d = c.value,
+            m = d.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
+              return e.requestId === u;
             });
-          (c.postMessage(
+          (d.postMessage(
             {
               mediaType: r,
               rawMimeType: a,
-              strictOggOpusValidationEnabled: l,
-              strictMp4ValidationEnabled: i,
+              strictJpegScanValidationEnabled: i,
+              strictOggOpusValidationEnabled: s,
+              strictMp4ValidationEnabled: l,
               input: n,
-              requestId: s,
+              requestId: u,
               type: "kaleidoscopeClassifyRequest",
             },
             [n],
           ),
             t.addPoint("sent_request_to_media_worker_start"));
-          var m = yield d,
-            p = m.output,
-            _ = m.transferredBuffer;
-          return p.success
+          var p = yield m,
+            _ = p.output,
+            f = p.transferredBuffer;
+          return _.success
             ? (N().INFO(
                 I ||
                   (I = babelHelpers.taggedTemplateLiteralLoose([
                     "received output from worker, requestId: ",
                     "",
                   ])),
-                s,
+                u,
               ),
               t == null || t.addPoint("sent_request_to_media_worker_end"),
-              { transferredBuffer: _, result: p })
+              { transferredBuffer: f, result: _ })
             : (t.addPoint("sent_request_to_media_worker_fail"),
               {
-                transferredBuffer: _,
-                result: o("WAResultOrError").makeError({ errorName: p.error }),
+                transferredBuffer: f,
+                result: o("WAResultOrError").makeError({ errorName: _.error }),
               });
         })),
         J.apply(this, arguments)

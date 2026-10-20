@@ -48,6 +48,9 @@ __d(
               ? !1
               : o("WAWebNotificationHelpers").shouldPlaySoundGranular();
           }),
+          (a.playsSoundBeforeBanner = function () {
+            return !1;
+          }),
           (a.shouldMute = function (t) {
             return null;
           }),
@@ -175,16 +178,24 @@ __d(
                     throw new (o("WAAbortError").AbortError)(
                       "Notification mute/squelched " + t,
                     );
-                var a;
+                var a =
+                  !t &&
+                  this.playsSoundBeforeBanner() &&
+                  (yield this.shouldPlaySound());
+                a && this.playSound();
+                var i;
                 return (
                   (yield this.shouldShowBanner()) &&
                     ((r("WAWebEnvironment").isWindows || !n) &&
                       (yield this.beforeBannerShown(),
-                      (a = yield this.showBanner(n)),
-                      this.afterBannerShown(a)),
+                      (i = yield this.showBanner(n)),
+                      this.afterBannerShown(i)),
                     yield this.performLogging(n)),
-                  !t && (yield this.shouldPlaySound()) && this.playSound(),
-                  a
+                  !t &&
+                    !a &&
+                    (yield this.shouldPlaySound()) &&
+                    this.playSound(),
+                  i
                 );
               },
             );

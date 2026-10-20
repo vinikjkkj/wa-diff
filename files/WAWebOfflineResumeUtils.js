@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WAPromiseLoop",
-    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
@@ -225,32 +224,20 @@ __d(
                   "[offline-resume] restoreDataFromStorage.",
                 ])),
             ));
-          var t = o("WAWebABProps").getABPropConfigValue(
-              "web_anr_async_contacts_restore_from_db_enabled",
-            ),
-            r = o("WAWebWorkerSafeBackendApi")
+          var t = o("WAWebWorkerSafeBackendApi")
               .workerSafeSendAndReceive("restoreProfilePictures")
               .catch(function (e) {
                 I("profile-pictures", e);
-              });
-          if (t)
-            (yield (C || (C = n("Promise"))).all([T(e), r]),
-              yield o("WAWebWorkerSafeBackendApi")
-                .workerSafeSendAndReceive("restoreGroupsAndContacts")
-                .catch(function (e) {
-                  I("groups-and-contacts", e);
-                }));
-          else {
-            var a = o("WAWebWorkerSafeBackendApi")
+              }),
+            r = o("WAWebWorkerSafeBackendApi")
               .workerSafeSendAndReceive("restoreGroupsAndContacts")
               .catch(function (e) {
                 I("groups-and-contacts", e);
               });
-            yield (C || (C = n("Promise"))).all([T(e), a, r]);
-          }
-          o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-            "restoreDataFromStorage",
-          );
+          (yield (C || (C = n("Promise"))).all([T(e), r, t]),
+            o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+              "restoreDataFromStorage",
+            ));
         })),
         $.apply(this, arguments)
       );

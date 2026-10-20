@@ -30,11 +30,15 @@ __d(
         t === o("WAWebPaymentDetailsModels").PaymentDetailsPov.PAYER && !e(n)
       );
     }
+    function m(t) {
+      return e(t);
+    }
     ((l.isTerminalPaymentStatus = e),
       (l.canMarkAsPaid = s),
       (l.canAttachReceipt = u),
       (l.canDeleteReceipt = c),
-      (l.showsCopyCta = d));
+      (l.showsCopyCta = d),
+      (l.showsDownloadAndShare = m));
   },
   98,
 );

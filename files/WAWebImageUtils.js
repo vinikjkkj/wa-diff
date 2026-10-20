@@ -25,6 +25,7 @@ __d(
     "err",
     "getErrorSafe",
     "justknobx",
+    "nullthrows",
     "once",
   ],
   function (t, n, r, o, a, i, l) {
@@ -53,19 +54,19 @@ __d(
     var y = function (t) {
       var e = t.fullHeight,
         n = t.fullWidth,
-        r = t.maxDimension,
-        a = t.video,
-        i = document.createElement("canvas"),
-        l = o("WAWebImageGeometry").boundHeightWidth(e, n, r),
-        s = l.height,
-        u = l.width;
-      ((i.width = u), (i.height = s));
-      var c = i.getContext("2d");
-      c.drawImage(a, 0, 0, u, s);
-      var d = c.getImageData(0, 0, u, s),
-        m = i.toDataURL("image/jpeg"),
-        p = { url: m, width: u, height: s, fullWidth: n, fullHeight: e };
-      return { thumb: p, imageData: d };
+        a = t.maxDimension,
+        i = t.video,
+        l = document.createElement("canvas"),
+        s = o("WAWebImageGeometry").boundHeightWidth(e, n, a),
+        u = s.height,
+        c = s.width;
+      ((l.width = c), (l.height = u));
+      var d = r("nullthrows")(l.getContext("2d"));
+      d.drawImage(i, 0, 0, c, u);
+      var m = d.getImageData(0, 0, c, u),
+        p = l.toDataURL("image/jpeg"),
+        _ = { url: p, width: c, height: u, fullWidth: n, fullHeight: e };
+      return { thumb: _, imageData: m };
     };
     function C(e) {
       return b.apply(this, arguments);
@@ -273,33 +274,33 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.dHeight,
             n = e.dWidth,
-            r = e.outputType,
-            a =
-              r === void 0
+            a = e.outputType,
+            i =
+              a === void 0
                 ? o("WAWebMediaCacheModel").ImageOutputTypes.DATA_URL
-                : r,
-            i = e.sHeight,
-            l = e.src,
-            s = e.sWidth,
-            u = e.sX,
-            c = e.sY,
-            d = e.transparency,
-            m = d === void 0 ? !1 : d,
-            p =
-              l instanceof HTMLCanvasElement
-                ? l
-                : yield o("WAWebMediaLoad").loadImage(l),
-            _ = document.createElement("canvas"),
-            f = _.getContext("2d");
+                : a,
+            l = e.sHeight,
+            s = e.src,
+            u = e.sWidth,
+            c = e.sX,
+            d = e.sY,
+            m = e.transparency,
+            p = m === void 0 ? !1 : m,
+            _ =
+              s instanceof HTMLCanvasElement
+                ? s
+                : yield o("WAWebMediaLoad").loadImage(s),
+            f = document.createElement("canvas"),
+            g = r("nullthrows")(f.getContext("2d"));
           n == null || t == null
-            ? ((_.height = i), (_.width = s), f.drawImage(p, u, c, s, i))
-            : ((_.height = t),
-              (_.width = n),
-              f.drawImage(p, u, c, s, i, 0, 0, n, t));
-          var g = {};
-          A(g, _, a, m);
-          var h = yield o("WAPromiseProps").promiseProps(g);
-          return { images: h, width: s, height: i };
+            ? ((f.height = l), (f.width = u), g.drawImage(_, c, d, u, l))
+            : ((f.height = t),
+              (f.width = n),
+              g.drawImage(_, c, d, u, l, 0, 0, n, t));
+          var h = {};
+          A(h, f, i, p);
+          var y = yield o("WAPromiseProps").promiseProps(h);
+          return { images: y, width: u, height: l };
         })),
         E.apply(this, arguments)
       );
@@ -376,46 +377,47 @@ __d(
                         ? i.naturalHeight
                         : i.height,
                     c = Math.max(s, u),
-                    d = l.getContext("2d"),
-                    m = {},
-                    f = o("WAWebImageGeometry").boundHeightWidth(u, s, t),
+                    d = {},
+                    m = o("WAWebImageGeometry").boundHeightWidth(u, s, t),
+                    f,
                     g,
-                    y,
-                    b = a & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB;
-                  if (n && b && s === f.width && u === f.height)
+                    y = a & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB;
+                  if (n && y && s === m.width && u === m.height)
                     try {
-                      var v = o("WAWebMediaJpeg").cleanJPEG(n);
-                      ((m.blob = v), (b = !1), (g = s), (y = u));
+                      var b = o("WAWebMediaJpeg").cleanJPEG(n);
+                      ((d.blob = b), (y = !1), (f = s), (g = u));
                     } catch (e) {
-                      var S = r("getErrorSafe")(e);
+                      var v = r("getErrorSafe")(e);
                       o("WALogger").LOG(
                         p ||
                           (p = babelHelpers.taggedTemplateLiteralLoose([
                             "Could not parse JPEG: ",
                             "",
                           ])),
-                        S.message,
+                        v.message,
                       );
                     }
-                  return (
-                    (b ||
-                      a & ~o("WAWebMediaCacheModel").ImageOutputTypes.BLOB) &&
-                      ((l.width = f.width),
-                      (l.height = f.height),
-                      C || o("WAWebCanvasUtils").fillBackgroundWithGray(l),
-                      d.drawImage(i, 0, 0, l.width, l.height),
-                      _ && (o("WAWebCanvasUtils").square(l), (m.blob = void 0)),
+                  if (
+                    y ||
+                    a & ~o("WAWebMediaCacheModel").ImageOutputTypes.BLOB
+                  ) {
+                    ((l.width = m.width),
+                      (l.height = m.height),
+                      C || o("WAWebCanvasUtils").fillBackgroundWithGray(l));
+                    var S = r("nullthrows")(l.getContext("2d"));
+                    (S.drawImage(i, 0, 0, l.width, l.height),
+                      _ && (o("WAWebCanvasUtils").square(l), (d.blob = void 0)),
                       c < h &&
-                        (o("WAWebCanvasUtils").scale(l, h), (m.blob = void 0)),
-                      (g = l.width),
-                      (y = l.height),
-                      A(m, l, a, C)),
-                    o("WAPromiseProps")
-                      .promiseProps(m)
-                      .then(function (e) {
-                        return { width: g, height: y, images: e };
-                      })
-                  );
+                        (o("WAWebCanvasUtils").scale(l, h), (d.blob = void 0)),
+                      (f = l.width),
+                      (g = l.height),
+                      A(d, l, a, C));
+                  }
+                  return o("WAPromiseProps")
+                    .promiseProps(d)
+                    .then(function (e) {
+                      return { width: f, height: g, images: e };
+                    });
                 })
                 .finally(r("WAWebNoop")),
               E = yield L;
@@ -479,7 +481,7 @@ __d(
             window.URL.revokeObjectURL(t);
             var a = o("WAWebStickerConstants").STICKER_DIMENSION,
               i = o("WAWebCanvasUtils").createCanvas(a, a),
-              l = i.getContext("2d"),
+              l = r("nullthrows")(i.getContext("2d")),
               s = o("WAWebImageGeometry").aspectRatioScaled(
                 n.width / n.height,
                 a,
@@ -525,10 +527,10 @@ __d(
             var t = yield o("WAWebMediaLoad").loadImage(e),
               n = document.createElement("canvas");
             ((n.width = t.naturalWidth), (n.height = t.naturalHeight));
-            var r = n.getContext("2d");
+            var a = r("nullthrows")(n.getContext("2d"));
             return (
               o("WAWebCanvasUtils").fillBackgroundWithGray(n),
-              r.drawImage(t, 0, 0),
+              a.drawImage(t, 0, 0),
               o("WAWebCanvasUtils").canvasToBlob(n)
             );
           } catch (t) {
@@ -571,8 +573,8 @@ __d(
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebMediaLoad").loadImage(e),
             n = o("WAWebCanvasUtils").createCanvas(t.width, t.height),
-            r = n.getContext("2d");
-          return (r.drawImage(t, 0, 0), n);
+            a = r("nullthrows")(n.getContext("2d"));
+          return (a.drawImage(t, 0, 0), n);
         })),
         O.apply(this, arguments)
       );

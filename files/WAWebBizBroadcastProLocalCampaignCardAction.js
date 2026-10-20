@@ -79,7 +79,13 @@ __d(
                 .sendLogs("bb-pro-local-card-message-data-empty");
               return;
             }
-            var d = yield f(n, c, r, l, u);
+            var d = yield f({
+              broadcastJid: n,
+              campaignId: r,
+              campaignMessageData: c,
+              messageId: l,
+              timestampSeconds: u,
+            });
             if (d != null) {
               var m = !1;
               try {
@@ -103,36 +109,39 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n, r, o) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            if (t.attachmentData == null) {
-              var l = yield v(e, t);
-              return C(l.msgData, n, a, i);
-            }
-            try {
-              var s = yield v(e, t);
-              return yield h(s, n, a, i);
-            } catch (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bb-pro-local-card] failed to process campaign media",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("bb-pro-local-campaign-media-processing-failed"),
-                null
-              );
-            }
-          },
-        )),
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.broadcastJid,
+            n = e.campaignId,
+            a = e.campaignMessageData,
+            i = e.messageId,
+            l = e.timestampSeconds;
+          if (a.attachmentData == null) {
+            var s = yield v(t, a);
+            return C(s.msgData, n, i, l);
+          }
+          try {
+            var c = yield v(t, a);
+            return yield h(c, n, i, l);
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bb-pro-local-card] failed to process campaign media",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("bb-pro-local-campaign-media-processing-failed"),
+              null
+            );
+          }
+        })),
         g.apply(this, arguments)
       );
     }

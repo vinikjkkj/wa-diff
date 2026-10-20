@@ -5,6 +5,7 @@ __d(
     "WAWebBizAIQueryError.react",
     "WAWebBizAIRelayBoundary.react",
     "WAWebErrorBoundary.react",
+    "WAWebKeyboardHotKeys.react",
     "WAWebModal.react",
     "WAWebModalManager",
     "react",
@@ -13,14 +14,29 @@ __d(
     var e,
       s,
       u = s || (s = o("react"));
-    function c(e, t) {
+    function c(e, t, n) {
+      var a = u.jsx(o("WAWebModal.react").Modal, {
+        ariaLabel: t,
+        autoHeight: !0,
+        onOverlayClick: n,
+        type: o("WAWebModal.react").ModalTheme.Auto,
+        children: u.jsx(r("WAWebBizAIRelayBoundary.react"), { children: e }),
+      });
+      if (n == null) {
+        o("WAWebModalManager").ModalManager.open(a);
+        return;
+      }
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebModal.react").Modal, {
-          ariaLabel: t,
-          autoHeight: !0,
-          type: o("WAWebModal.react").ModalTheme.Auto,
-          children: u.jsx(r("WAWebBizAIRelayBoundary.react"), { children: e }),
+        u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+          "data-testid": "biz-ai-modal-dismissal-keys",
+          handlers: {
+            esc: function (t) {
+              (t.stopPropagation(), n());
+            },
+          },
+          children: a,
         }),
+        { blockClose: !0 },
       );
     }
     function d(e, t) {

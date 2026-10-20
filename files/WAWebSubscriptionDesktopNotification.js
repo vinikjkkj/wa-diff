@@ -47,7 +47,7 @@ __d(
           }),
           (i.getIcon = function () {
             return (e || (e = n("Promise"))).resolve(
-              o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON,
+              o("WAWebNotificationIconUtils").WHATSAPP_BUSINESS_DEFAULT_ICON,
             );
           }),
           (i.shouldPlaySound = function () {

@@ -4,14 +4,12 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebBaseCollection",
     "WAWebContactCollectionUtils",
     "WAWebContactComparator",
     "WAWebContactModel",
     "WAWebContactSearchGatingUtils",
     "WAWebDebounce",
-    "WAWebL10N",
     "WAWebSlicedMatcher",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -42,15 +40,6 @@ __d(
                   })
                 : (c || (c = n("Promise"))).resolve({ id: t });
             }),
-            o("WAWebABProps").getABPropConfigValue(
-              "web_contact_collection_locale_listener",
-            ) &&
-              e.listenTo(r("WAWebL10N"), "locale_change", function () {
-                var t = r("WAWebL10N").getLocale();
-                e.forEach(function (e) {
-                  e.locale = t;
-                });
-              }),
             e.listenTo(
               o("WAWebSocketModel").Socket,
               "change:stream",

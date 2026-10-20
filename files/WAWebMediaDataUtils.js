@@ -925,49 +925,49 @@ __d(
     }
     function H(e, t) {
       return new (p || (p = n("Promise")))(function (n) {
-        var r = new Image();
-        (r.setAttribute("crossorigin", "anonymous"),
-          (r.onload = function () {
+        var o = new Image();
+        (o.setAttribute("crossorigin", "anonymous"),
+          (o.onload = function () {
             var e = t.map(function (e) {
               var t = e.height,
                 n = e.imageFormat,
-                o = e.imageFormatOptions,
-                a = e.keepAspectRatio,
-                i = e.minHeight,
-                l = e.minWidth,
-                s = e.width;
-              if ((l != null && r.width < l) || (i != null && r.height < i))
+                a = e.imageFormatOptions,
+                i = e.keepAspectRatio,
+                l = e.minHeight,
+                s = e.minWidth,
+                u = e.width;
+              if ((s != null && o.width < s) || (l != null && o.height < l))
                 return null;
-              var u = document.createElement("canvas"),
-                c = u.getContext("2d"),
-                d = 0,
+              var c = document.createElement("canvas"),
+                d = r("nullthrows")(c.getContext("2d")),
                 m = 0,
-                p,
-                _;
-              if (r.height > r.width) {
-                var f = r.height / r.width;
-                ((p = s), (_ = f * s), (m = -(_ - t) / 2));
+                p = 0,
+                _,
+                f;
+              if (o.height > o.width) {
+                var g = o.height / o.width;
+                ((_ = u), (f = g * u), (p = -(f - t) / 2));
               } else {
-                var g = r.width / r.height;
-                ((_ = t), (p = g * t), (d = -(p - s) / 2));
+                var h = o.width / o.height;
+                ((f = t), (_ = h * t), (m = -(_ - u) / 2));
               }
               return (
-                a === !0
-                  ? ((u.width = p), (u.height = _))
-                  : ((u.width = s), (u.height = t)),
-                c.drawImage(r, d, m, p, _),
+                i === !0
+                  ? ((c.width = _), (c.height = f))
+                  : ((c.width = u), (c.height = t)),
+                d.drawImage(o, m, p, _, f),
                 {
-                  dataUrl: u
-                    .toDataURL(n, o)
+                  dataUrl: c
+                    .toDataURL(n, a)
                     .replace("data:image/jpeg;base64,", ""),
-                  width: u.width,
-                  height: u.height,
+                  width: c.width,
+                  height: c.height,
                 }
               );
             });
             n(e);
           }),
-          (r.src = e));
+          (o.src = e));
       });
     }
     function G(e) {

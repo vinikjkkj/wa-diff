@@ -8,9 +8,7 @@ __d(
     "WAWebE2EInfoModal.react",
     "WAWebE2EInfoModalV2.react",
     "WAWebFaqUrl",
-    "WAWebGroupMetadataCollection",
     "WAWebL10N",
-    "WAWebLimitSharingGatingUtils",
     "WAWebMiscGatingUtils",
     "WAWebModalManager",
     "WAWebPrivacyModeSystemMsg",
@@ -75,32 +73,13 @@ __d(
       );
     }
     function _(e) {
-      if (
-        e == null ||
+      return e == null ||
         o("WAWebChatGroupUtils").isSupportGroup(e) ||
         r("WAWebABPropsSupportGroup")(e.id.user)
-      )
-        return !1;
-      if (
-        o(
-          "WAWebLimitSharingGatingUtils",
-        ).isRenderUpdatedDisclosureGatingEnabled()
-      )
-        return o("WAWebChatGetters").getIsUser(e)
+        ? !1
+        : o("WAWebChatGetters").getIsUser(e)
           ? !e.contact.isEnterprise
           : o("WAWebChatGetters").getIsGroup(e);
-      if (o("WAWebChatGetters").getIsUser(e))
-        return !e.contact.isBusiness && !e.contact.isEnterprise;
-      if (o("WAWebChatGetters").getIsGroup(e)) {
-        var t = r("WAWebGroupMetadataCollection").get(e.id);
-        if (t) {
-          var n = t.participants.toArray();
-          return !n.some(function (e) {
-            return e.contact.isBusiness;
-          });
-        }
-      }
-      return !1;
     }
     function f(e) {
       return e == null ||

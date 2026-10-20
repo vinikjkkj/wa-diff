@@ -30,6 +30,7 @@ __d(
               "document",
               "application/pdf",
               {
+                strictJpegScanValidationEnabled: !1,
                 strictOggOpusValidationEnabled: !1,
                 strictMp4ValidationEnabled: !1,
               },

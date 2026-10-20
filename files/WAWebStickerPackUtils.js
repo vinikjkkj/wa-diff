@@ -14,6 +14,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "fflate",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -208,50 +209,50 @@ __d(
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.count,
             n = e.imageL,
-            r = n === void 0 ? o("WAWebStickerPackConstants").IMAGE_LENGTH : n,
-            a = e.imageW,
-            i = a === void 0 ? o("WAWebStickerPackConstants").IMAGE_WIDTH : a,
-            l = e.thumbL,
-            s =
-              l === void 0
+            a = n === void 0 ? o("WAWebStickerPackConstants").IMAGE_LENGTH : n,
+            i = e.imageW,
+            l = i === void 0 ? o("WAWebStickerPackConstants").IMAGE_WIDTH : i,
+            s = e.thumbL,
+            u =
+              s === void 0
                 ? o("WAWebStickerPackConstants").THUMBNAIL_LENGTH
-                : l,
-            u = e.thumbW,
-            c =
-              u === void 0 ? o("WAWebStickerPackConstants").THUMBNAIL_WIDTH : u,
-            d = o("WAWebCanvasUtils").createCanvas(s, c),
-            m = d.getContext("2d");
-          ((m.fillStyle = "#FFFFFF"), m.fillRect(0, 0, s, c));
-          var p = o(
+                : s,
+            c = e.thumbW,
+            d =
+              c === void 0 ? o("WAWebStickerPackConstants").THUMBNAIL_WIDTH : c,
+            m = o("WAWebCanvasUtils").createCanvas(u, d),
+            p = r("nullthrows")(m.getContext("2d"));
+          ((p.fillStyle = "#FFFFFF"), p.fillRect(0, 0, u, d));
+          var f = o(
               "WAWebRecentStickerCollectionMd",
             ).RecentStickerCollectionMd.map(function (e) {
               return e.sticker;
             }),
-            f = Math.min(p.length, t != null ? t : 4),
-            g = o("WAWebStickerPackConstants").PADDING,
-            h = o("WAWebStickerPackConstants").PADDING;
-          switch (f) {
+            g = Math.min(f.length, t != null ? t : 4),
+            h = o("WAWebStickerPackConstants").PADDING,
+            y = o("WAWebStickerPackConstants").PADDING;
+          switch (g) {
             case 1:
-              ((g = s / 2 - r / 2), (h = c / 2 - i / 2));
+              ((h = u / 2 - a / 2), (y = d / 2 - l / 2));
               break;
             case 2:
-              h = c / 2 - i / 2;
+              y = d / 2 - l / 2;
               break;
           }
           return (
             yield _({
-              context: m,
+              context: p,
               gap: o("WAWebStickerPackConstants").PADDING,
-              imageL: r,
-              imageW: i,
-              recentStickers: p,
-              stickerCount: f,
-              thumbL: s,
-              thumbW: c,
-              x: g,
-              y: h,
+              imageL: a,
+              imageW: l,
+              recentStickers: f,
+              stickerCount: g,
+              thumbL: u,
+              thumbW: d,
+              x: h,
+              y: y,
             }),
-            d
+            m
           );
         })),
         y.apply(this, arguments)
@@ -262,31 +263,31 @@ __d(
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          r === void 0 &&
-            (r = o("WAWebStickerPackConstants").STICKER_GRID_COUNT);
-          var a = o("WAWebCanvasUtils").createCanvas(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          a === void 0 &&
+            (a = o("WAWebStickerPackConstants").STICKER_GRID_COUNT);
+          var i = o("WAWebCanvasUtils").createCanvas(
               o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
               o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
             ),
-            i = a.getContext("2d"),
-            l = t.slice(0, r);
-          if (l.length < r) {
-            var s = yield v(l[0]);
+            l = r("nullthrows")(i.getContext("2d")),
+            s = t.slice(0, a);
+          if (s.length < a) {
+            var u = yield v(s[0]);
             return (
-              s != null &&
-                i.drawImage(
-                  s,
+              u != null &&
+                l.drawImage(
+                  u,
                   0,
                   0,
                   o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
                   o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
                 ),
-              a
+              i
             );
           }
-          var u = yield (e || (e = n("Promise"))).all(
-            l.map(
+          var c = yield (e || (e = n("Promise"))).all(
+            s.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, t) {
@@ -300,31 +301,31 @@ __d(
               })(),
             ),
           );
-          for (var c of u)
-            if (c != null) {
-              var d = c.image,
-                m = c.index,
-                p = m % 2,
-                _ = Math.floor(m / 2),
-                f =
-                  o("WAWebStickerPackConstants").PADDING +
-                  p *
-                    (o("WAWebStickerPackConstants").IMAGE_LENGTH +
-                      o("WAWebStickerPackConstants").GRID_GAP),
+          for (var d of c)
+            if (d != null) {
+              var m = d.image,
+                p = d.index,
+                _ = p % 2,
+                f = Math.floor(p / 2),
                 g =
                   o("WAWebStickerPackConstants").PADDING +
                   _ *
+                    (o("WAWebStickerPackConstants").IMAGE_LENGTH +
+                      o("WAWebStickerPackConstants").GRID_GAP),
+                h =
+                  o("WAWebStickerPackConstants").PADDING +
+                  f *
                     (o("WAWebStickerPackConstants").IMAGE_WIDTH +
                       o("WAWebStickerPackConstants").GRID_GAP);
-              i.drawImage(
-                d,
-                f,
+              l.drawImage(
+                m,
                 g,
+                h,
                 o("WAWebStickerPackConstants").IMAGE_LENGTH,
                 o("WAWebStickerPackConstants").IMAGE_WIDTH,
               );
             }
-          return a;
+          return i;
         })),
         b.apply(this, arguments)
       );

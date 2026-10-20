@@ -37,6 +37,7 @@ __d(
         read: (r = e.read) != null ? r : !1,
         lastSuccessfulSelectedOptionLocalIds:
           e.lastSuccessfulSelectedOptionLocalIds,
+        unresolvedOptionHashes: e.unresolvedOptionHashes,
       };
     }
     function s(e) {
@@ -53,6 +54,7 @@ __d(
         read: o("WAWebUserPrefsMeUser").isMeAccount(e.from) || e.read,
         lastSuccessfulSelectedOptionLocalIds:
           e.lastSuccessfulSelectedOptionLocalIds,
+        unresolvedOptionHashes: e.unresolvedOptionHashes,
       };
     }
     ((l.voteDataToPollVoteMsgData = e), (l.pollVoteMsgDataToVoteData = s));

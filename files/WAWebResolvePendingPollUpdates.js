@@ -15,7 +15,6 @@ __d(
     "WAWebPollNameHashHistoryUtils",
     "WAWebPollNameHashMismatchLogger",
     "WAWebPollNameHashUtils",
-    "WAWebPollsGatingUtils",
     "WAWebPollsVoteDataUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -30,10 +29,8 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebPollsGatingUtils").isPollTCReceivingEnabled()) {
-            var t = e.map(m).filter(Boolean);
-            yield (u || (u = n("Promise"))).all(t.map(p));
-          }
+          var t = e.map(m).filter(Boolean);
+          yield (u || (u = n("Promise"))).all(t.map(p));
         })),
         d.apply(this, arguments)
       );

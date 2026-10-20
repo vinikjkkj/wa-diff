@@ -3,10 +3,7 @@ __d(
   [
     "Promise",
     "WAComms",
-    "WASmaxInUserNoticeSetResponseClientError",
-    "WASmaxInUserNoticeSetResponseServerError",
-    "WASmaxInUserNoticeSetResponseSuccess",
-    "WASmaxOutUserNoticeSetRequest",
+    "WASmaxUserNoticeSetRPC",
     "WATimeUtils",
     "WAWebBackendErrors",
     "WAWebTos",
@@ -29,11 +26,9 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a = { stageMixinArgs: { noticeId: t, noticeStage: r } },
-            i = o("WASmaxOutUserNoticeSetRequest").makeSetRequest(a),
+            i = o("WASmaxUserNoticeSetRPC").makeSetRequest(a),
             l = yield o("WAComms").sendSmaxStanza(i),
-            u = yield o(
-              "WASmaxInUserNoticeSetResponseSuccess",
-            ).parseSetResponseSuccess(l, i);
+            u = yield o("WASmaxUserNoticeSetRPC").parseSetResponseSuccess(l, i);
           if (u.success) {
             var c = o("WATimeUtils").unixTime(),
               d = s[r];
@@ -42,9 +37,10 @@ __d(
               (e || (e = n("Promise"))).resolve(!0)
             );
           }
-          var m = yield o(
-            "WASmaxInUserNoticeSetResponseClientError",
-          ).parseSetResponseClientError(l, i);
+          var m = yield o("WASmaxUserNoticeSetRPC").parseSetResponseClientError(
+            l,
+            i,
+          );
           if (m.success) {
             var p = m.value.errorIQErrorBadRequestMixin,
               _ = p.code,
@@ -54,11 +50,14 @@ __d(
               f,
             );
           }
-          var g = yield o(
-            "WASmaxInUserNoticeSetResponseServerError",
-          ).parseSetResponseServerError(l, i);
+          var g = yield o("WASmaxUserNoticeSetRPC").parseSetResponseServerError(
+            l,
+            i,
+          );
           if (g.success) {
-            var h = g.value.errorIQErrorInternalServerErrorMixin,
+            var h =
+                g.value.errorIQErrorInternalServerErrorOrRateOverlimitMixinGroup
+                  .value,
               y = h.code,
               C = h.text;
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(

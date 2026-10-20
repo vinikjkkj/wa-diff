@@ -10,7 +10,6 @@ __d(
             this,
             new Map([
               ["frl_xmds_3_gradient_animation_opt_out", r("gkx")("8611")],
-              ["wbloks_logical_edge_priority", r("gkx")("27549")],
             ]),
           ) || this
         );

@@ -99,6 +99,10 @@ __d(
         WDSButton: {
           "::after_content": "x1s928wv",
           "::after_position": "x1j6awrg",
+          "::after_top": "x1m1drc7",
+          "::after_insetInlineStart": "x1iygr5g",
+          "::after_left": null,
+          "::after_right": null,
           "::after_width": "x4eaejv",
           "::after_height": "x1wsn0xg",
           "::after_zIndex": "x1r0yslu",

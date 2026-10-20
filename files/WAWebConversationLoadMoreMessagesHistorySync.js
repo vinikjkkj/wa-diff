@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WAWebAlertSyncPausedIcon.react",
     "WAWebChatConstants",
     "WAWebClock",
     "WAWebConfirmPopup.react",
@@ -20,6 +19,7 @@ __d(
     "WAWebSpinner.react",
     "WAWebSyncGatingUtils",
     "WAWebUserPrefsHistorySync",
+    "WDSIconIcErrorFilled.react",
     "WDSIconIcSync.react",
     "WDSText.react",
     "react",
@@ -221,9 +221,11 @@ __d(
               "WAWebHistorySyncUIText",
             ).SYNC_IN_PROGRESS_CONTEXTUAL_SYSTEM_MESSAGE_TEXT()),
           (k = _
-            ? m.jsx(o("WAWebAlertSyncPausedIcon.react").AlertSyncPausedIcon, {
-                width: 14,
-                height: 14,
+            ? m.jsx(r("WDSIconIcErrorFilled.react"), {
+                width: 16,
+                height: 16,
+                colorName: "secondaryWarning",
+                testid: "alert-sync-paused",
               })
             : m.jsx(r("WDSIconIcSync.react"), {
                 height: 24,
@@ -273,10 +275,12 @@ __d(
                   : ((E = s._(
                       /*BTDS*/ "Couldn't get older messages. Open WhatsApp on your phone and click here to try again.",
                     )),
-                    (k = m.jsx(
-                      o("WAWebAlertSyncPausedIcon.react").AlertSyncPausedIcon,
-                      { width: 14, height: 14 },
-                    ))),
+                    (k = m.jsx(r("WDSIconIcErrorFilled.react"), {
+                      width: 16,
+                      height: 16,
+                      colorName: "secondaryWarning",
+                      testid: "alert-sync-paused",
+                    }))),
                 (I = function () {
                   (v(!0),
                     L(null),

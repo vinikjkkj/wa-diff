@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WALogger",
     "WAUpperFirst",
-    "WAWebBizCatalogGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileModel",
     "WAWebBusinessProfileSMBUserJourneyLogger",
@@ -98,14 +97,11 @@ __d(
             ? void 0
             : e.commerce_experience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes.CATALOG ||
-          ((t == null || (n = t.profile_options) == null
+          (t == null || (n = t.profile_options) == null
             ? void 0
             : n.commerce_experience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes
-              .META_CATALOG &&
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).isCatalogVariantsViewingEnabled()) ||
+              .META_CATALOG ||
           (t == null ? void 0 : t.catalog_status) === c
         );
       };
@@ -115,12 +111,9 @@ __d(
         return (
           ((t = e.profileOptions) == null ? void 0 : t.commerceExperience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes.CATALOG ||
-          (((n = e.profileOptions) == null ? void 0 : n.commerceExperience) ===
+          ((n = e.profileOptions) == null ? void 0 : n.commerceExperience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes
-              .META_CATALOG &&
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).isCatalogVariantsViewingEnabled()) ||
+              .META_CATALOG ||
           e.catalogStatus === c
         );
       }

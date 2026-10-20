@@ -85,7 +85,7 @@ __d(
     ]);
     function y(e) {
       if (e == null) return null;
-      var t = C(e);
+      var t = b(e);
       return t == null
         ? (o("WALogger")
             .WARN(
@@ -99,6 +99,10 @@ __d(
         : { encMediatype: t };
     }
     function C(e) {
+      var t = y(e);
+      return t != null ? { encMediaType: t } : null;
+    }
+    function b(e) {
       return e === o("WAWebBackendJobs.flow").EncMediaType.Image
         ? "image"
         : e === o("WAWebBackendJobs.flow").EncMediaType.Video
@@ -201,7 +205,7 @@ __d(
                                                   );
                                                 })();
     }
-    function b(e, t) {
+    function v(e, t) {
       var n = o("WAWebSendMsgCommonApi").getEditAttrValue(e, t);
       return n == null
         ? null
@@ -219,7 +223,7 @@ __d(
                 .sendLogs("status-publish-unmodelled-edit-attr"),
               null);
     }
-    function v(e) {
+    function S(e) {
       return e ===
         o("WAWebUserPrefsStatusType").StatusPrivacySettingType.AllowList
         ? "allowlist"
@@ -234,17 +238,17 @@ __d(
                 );
               })();
     }
-    function S(e) {
-      return { metaStatusSetting: v(e) };
-    }
     function R(e) {
+      return { metaStatusSetting: S(e) };
+    }
+    function L(e) {
       var t = e.ciphertextVersion,
         n = e.encMediaType,
         r = e.hideDecryptFail,
         a = e.participants,
         i = e.senderKeyDistributions,
         l = _(t),
-        s = y(n),
+        s = C(n),
         u = i.map(function (e) {
           var t = e.ciphertext,
             n = e.isPqSession,
@@ -257,7 +261,7 @@ __d(
                 encTypeIndividualMixinArgs: {
                   encType: p(i),
                   encElementValue: new Uint8Array(t),
-                  encMediaTypeMixinArgs: s,
+                  encMediaTypeOrListMixinGroupArgs: s,
                   encStateOrSessionTypeMixinGroupArgs: n
                     ? { isEncSessionType: !0 }
                     : null,
@@ -315,7 +319,7 @@ __d(
         u.length > 0 ? { toArgs: u } : null
       );
     }
-    function L(e) {
+    function E(e) {
       return e != null
         ? {
             clientReportingTokenMixinArgs: {
@@ -324,7 +328,7 @@ __d(
           }
         : null;
     }
-    function E(e) {
+    function k(e) {
       var t = e.ciphertextVersion,
         n = e.clientReportingToken,
         r = e.editOrRevoke,
@@ -333,38 +337,39 @@ __d(
         i = e.senderKeyCiphertext,
         l = e.senderKeyDistributions,
         s = e.statusSetting;
-      return babelHelpers.extends({}, T(e), {
-        statusEncSettingMixinArgs: s != null ? S(s) : null,
+      return babelHelpers.extends({}, D(e), {
+        statusEncSettingMixinArgs: s != null ? R(s) : null,
         statusBroadcastPublishTypeMixinsArgs: {
           statusBroadcastRegular: {
             encArgs: [
               {
-                encElementValue: i,
                 encMediaTypeMixinArgs: y(o),
                 encVersionArgs: _(t),
+                encTypeEncTypeSenderKeyOrEncTypeOneTimeSenderKeySenderKeyMixinGroupArgs:
+                  { encTypeSenderKey: { encElementValue: i } },
               },
             ],
-            statusEncFanoutMixinArgs: R({
+            statusEncFanoutMixinArgs: L({
               ciphertextVersion: t,
               encMediaType: null,
               hideDecryptFail: !1,
               participants: a,
               senderKeyDistributions: l,
             }),
-            statusReportingMixinArgs: L(n),
+            statusReportingMixinArgs: E(n),
             statusEditOrRevokeMixinGroupArgs: r,
           },
         },
       });
     }
-    function k(e) {
+    function I(e) {
       var t = e.ciphertextVersion,
         n = e.clientReportingToken,
         o = e.deviceEncs,
         a = e.editOrRevoke,
         i = e.encMediaType,
         l = e.hideDecryptFail,
-        s = R({
+        s = L({
           ciphertextVersion: t,
           encMediaType: i,
           hideDecryptFail: l,
@@ -375,7 +380,7 @@ __d(
         throw r("err")(
           "toStatusDirectPublishArgs: directed status has no recipients",
         );
-      return babelHelpers.extends({}, T(e), {
+      return babelHelpers.extends({}, D(e), {
         statusBroadcastPublishTypeMixinsArgs: {
           statusBroadcastDirected: {
             statusEncFanoutSenderKeyEmptyOrRetryOrFanoutMixinGroupArgs: {
@@ -384,13 +389,13 @@ __d(
                 encVersionArgs: _(t),
               }),
             },
-            statusReportingMixinArgs: L(n),
+            statusReportingMixinArgs: E(n),
             statusEditOrRevokeMixinGroupArgs: a,
           },
         },
       });
     }
-    function I(e) {
+    function T(e) {
       var t = e.ciphertextVersion,
         n = e.clientReportingToken,
         r = e.editOrRevoke,
@@ -402,7 +407,7 @@ __d(
         c = s.isPqSession,
         d = s.participant,
         m = s.type;
-      return babelHelpers.extends({}, T(e), {
+      return babelHelpers.extends({}, D(e), {
         statusBroadcastPublishTypeMixinsArgs: {
           statusBroadcastDirected: {
             statusDirectedRetryParticipantMixinArgs: {
@@ -413,7 +418,7 @@ __d(
                 encTypeIndividualMixinArgs: {
                   encType: p(m),
                   encElementValue: new Uint8Array(u),
-                  encMediaTypeMixinArgs: y(a),
+                  encMediaTypeOrListMixinGroupArgs: C(a),
                   encStateOrSessionTypeMixinGroupArgs: c
                     ? { isEncSessionType: !0 }
                     : null,
@@ -423,13 +428,13 @@ __d(
                 encVersionArgs: _(t),
               },
             },
-            statusReportingMixinArgs: L(n),
+            statusReportingMixinArgs: E(n),
             statusEditOrRevokeMixinGroupArgs: r,
           },
         },
       });
     }
-    function T(e) {
+    function D(e) {
       var t,
         n = e.deviceIdentity,
         r = e.msgType,
@@ -448,13 +453,13 @@ __d(
       (l.toEncVersionArgs = _),
       (l.toStatusContentTypeArgs = g),
       (l.toStatusEncMediaTypeArgs = y),
-      (l.toStatusEditOrRevokeArgs = b),
-      (l.toStatusSettingMetaAttribute = v),
-      (l.toStatusSettingArgs = S),
-      (l.toStatusFanoutArgs = R),
-      (l.toStatusBroadcastPublishArgs = E),
-      (l.toStatusDirectPublishArgs = k),
-      (l.toStatusRetryPublishArgs = I));
+      (l.toStatusEditOrRevokeArgs = v),
+      (l.toStatusSettingMetaAttribute = S),
+      (l.toStatusSettingArgs = R),
+      (l.toStatusFanoutArgs = L),
+      (l.toStatusBroadcastPublishArgs = k),
+      (l.toStatusDirectPublishArgs = I),
+      (l.toStatusRetryPublishArgs = T));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaEditorUtilsTextInCanvas",
-  ["WAWebEmoji", "WAWebMediaEditorEnumsFonts"],
+  ["WAWebEmoji", "WAWebMediaEditorEnumsFonts", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
@@ -45,16 +45,16 @@ __d(
       return i;
     }
     function u(e, t, n) {
-      var r = c(),
-        a = r.getContext("2d");
-      a.font =
+      var a = c(),
+        i = r("nullthrows")(a.getContext("2d"));
+      i.font =
         n + "px " + o("WAWebMediaEditorEnumsFonts").getFontStyle(t).fontFamily;
-      var i = 0;
-      for (var l of e.split(o("WAWebEmoji").EmojiUtil.emojiRegex()))
-        o("WAWebEmoji").EmojiUtil.isEmoji(l)
-          ? (i += n)
-          : (i += a.measureText(l).width);
-      return i;
+      var l = 0;
+      for (var s of e.split(o("WAWebEmoji").EmojiUtil.emojiRegex()))
+        o("WAWebEmoji").EmojiUtil.isEmoji(s)
+          ? (l += n)
+          : (l += i.measureText(s).width);
+      return l;
     }
     function c() {
       return (
@@ -71,36 +71,36 @@ __d(
           t +
           "px " +
           o("WAWebMediaEditorEnumsFonts").getFontStyle(e).fontFamily,
-        r = d.get(n);
-      if (r != null) return r;
-      var a = "ABCDEF",
-        i = Math.round(u(a, e, t)),
-        l = t,
-        s = c(),
-        m = s.getContext("2d");
-      ((m.textBaseline = "middle"),
-        (m.font = n),
-        (m.fillStyle = "red"),
-        m.fillText(a, 0, l / 2));
+        a = d.get(n);
+      if (a != null) return a;
+      var i = "ABCDEF",
+        l = Math.round(u(i, e, t)),
+        s = t,
+        m = c(),
+        p = r("nullthrows")(m.getContext("2d"));
+      ((p.textBaseline = "middle"),
+        (p.font = n),
+        (p.fillStyle = "red"),
+        p.fillText(i, 0, s / 2));
       for (
-        var p = m.getImageData(0, 0, i, l).data,
-          _ = 1 / 0,
+        var _ = p.getImageData(0, 0, l, s).data,
           f = 1 / 0,
           g = 1 / 0,
-          h = 0;
-        h < i;
-        h++
+          h = 1 / 0,
+          y = 0;
+        y < l;
+        y++
       )
-        for (var y = 0; y < l; y++) {
-          var C = (y * i + h) * 4;
-          p[C + 3] > 0 &&
-            ((f = Math.min(f, y)),
-            (_ = Math.min(_, h)),
-            (g = Math.min(g, l - y)));
+        for (var C = 0; C < s; C++) {
+          var b = (C * l + y) * 4;
+          _[b + 3] > 0 &&
+            ((g = Math.min(g, C)),
+            (f = Math.min(f, y)),
+            (h = Math.min(h, s - C)));
         }
-      m.clearRect(0, 0, i, l);
-      var b = { top: f, left: _, bottom: g };
-      return (d.set(m.font, b), b);
+      p.clearRect(0, 0, l, s);
+      var v = { top: g, left: f, bottom: h };
+      return (d.set(p.font, v), v);
     }
     ((l.getLines = s), (l.getTextBounds = m));
   },

@@ -288,9 +288,7 @@ __d(
                   (t.length === 0 &&
                     ((r = i == null ? void 0 : i.length) != null ? r : 0) ===
                       0) ||
-                  !o(
-                    "WAWebBotGroupGatingUtils",
-                  ).isGroupBotSendMentionedPushnameEnabled()
+                  !o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled()
                 )
               ) {
                 var l = E(t, L(i));

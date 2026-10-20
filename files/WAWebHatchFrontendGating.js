@@ -21,7 +21,10 @@ __d(
       });
     }
     function s() {
-      return I({ abProp: "ai_hatch_approval_notification_enabled" });
+      return I({
+        abProp: "ai_hatch_approval_notification_enabled",
+        primaryFeature: "ai_hatch_approval_notification_enabled",
+      });
     }
     function u() {
       return (

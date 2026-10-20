@@ -151,7 +151,7 @@ __d(
     function w(e, t) {
       var n = [],
         r = v(e),
-        a = A(e, t, n),
+        a = F(e, t, n),
         i = new Map(),
         l = [];
       a.forEach(function (e) {
@@ -173,48 +173,52 @@ __d(
           n = e.phoneResult,
           a = e.row,
           i = void 0,
-          l = void 0;
+          l = void 0,
+          s = !1;
         if (r === "single") {
-          var s = S(a, _),
-            u = o("WAWebContactImportValidationUtils").sanitizeName(s),
-            c = "";
-          (u.status ===
+          var u = S(a, _),
+            c = o("WAWebContactImportValidationUtils").sanitizeName(u),
+            d = "";
+          (c.status ===
           o("WAWebContactImportValidationUtils").ValidationStatus.VALID
-            ? (c = u.value != null ? u.value : "")
-            : (c = n.value != null ? n.value : ""),
-            (i = c !== "" ? c : void 0));
+            ? (d = c.value != null ? c.value : "")
+            : ((d = n.value != null ? n.value : ""), (s = !0)),
+            (i = d !== "" ? d : void 0));
         } else {
-          var d = S(a, f),
-            m = S(a, y),
-            p = "",
+          var m = S(a, f),
+            p = S(a, y),
             g = "",
-            h = null,
-            C = null;
-          (d != null &&
-            ((h = o("WAWebContactImportValidationUtils").sanitizeName(d)),
-            h.status ===
+            h = "",
+            C = null,
+            b = null;
+          (m != null &&
+            ((C = o("WAWebContactImportValidationUtils").sanitizeName(m)),
+            C.status ===
               o("WAWebContactImportValidationUtils").ValidationStatus.VALID &&
-              (p = h.value != null ? h.value : "")),
-            m != null &&
-              ((C = o("WAWebContactImportValidationUtils").sanitizeName(m)),
-              C.status ===
+              (g = C.value != null ? C.value : "")),
+            p != null &&
+              ((b = o("WAWebContactImportValidationUtils").sanitizeName(p)),
+              b.status ===
                 o("WAWebContactImportValidationUtils").ValidationStatus.VALID &&
-                (g = C.value != null ? C.value : "")),
-            p !== "" || g !== ""
-              ? ((i = p !== "" ? p : void 0), (l = g !== "" ? g : void 0))
-              : (i = n.value != null ? n.value : void 0));
+                (h = b.value != null ? b.value : "")),
+            g !== "" || h !== ""
+              ? ((i = g !== "" ? g : void 0), (l = h !== "" ? h : void 0))
+              : ((i = n.value != null ? n.value : void 0), (s = !0)));
         }
-        var b = I(a),
-          v = { phone: n.value != null ? n.value : "", rowIndex: t, rawRow: b };
+        var v = I(a),
+          R = { phone: n.value != null ? n.value : "", rowIndex: t, rawRow: v };
         return (
-          i != null && (v.firstName = i),
-          l != null && (v.lastName = l),
-          v
+          i != null && (R.firstName = i),
+          l != null && (R.lastName = l),
+          A(R, s)
         );
       });
       return { errors: n, validContacts: s };
     }
-    function A(e, t, n) {
+    function A(e, t) {
+      return t ? babelHelpers.extends({}, e, { isNamePhoneFallback: !0 }) : e;
+    }
+    function F(e, t, n) {
       var r = [];
       return (
         e.forEach(function (e, a) {

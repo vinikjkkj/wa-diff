@@ -3,10 +3,7 @@ __d(
   ["WAWebABProps", "WAWebGroupABProps", "WAWebWidToJid", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      return o("WAWebABProps").getABPropConfigValue("group_history_receive");
-    }
-    function s(e) {
+    function e(e) {
       return o("WAWebABProps").getABPropConfigValue("group_history_send")
         ? !0
         : e != null
@@ -16,7 +13,7 @@ __d(
             )
           : !1;
     }
-    function u(e) {
+    function s(e) {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_settings_toggle_ui",
       )
@@ -28,7 +25,7 @@ __d(
             )
           : !1;
     }
-    function c(e) {
+    function u(e) {
       if (o("WAWebABProps").getABPropConfigValue("rt_ghs_sender_enabled"))
         return !0;
       if (e != null)
@@ -42,10 +39,10 @@ __d(
         }
       return !1;
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue("rt_ghs_receiver_enabled");
     }
-    function m(e) {
+    function d(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "group_history_out_of_window_pin_sender",
@@ -63,7 +60,7 @@ __d(
         }
       return !1;
     }
-    function p(e) {
+    function m(e) {
       if (
         o("WAWebABProps").getABPropConfigValue("group_history_send_after_join")
       )
@@ -79,12 +76,12 @@ __d(
         }
       return !1;
     }
-    var _ = 1209600;
-    function f(e) {
+    var p = 1209600;
+    function _(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "group_history_messages_time_limit_secs",
       );
-      if (t !== _ || e == null) return t;
+      if (t !== p || e == null) return t;
       try {
         return o("WAWebGroupABProps").getGroupABPropConfigValue(
           o("WAWebWidToJid").widToGroupJid(e),
@@ -94,61 +91,60 @@ __d(
         return t;
       }
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
     }
-    function h(e) {
-      return p(e) || g();
+    function g(e) {
+      return m(e) || f();
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_after_join_prerequisites",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_after_join_sender_prerequisites",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_once_default_on",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_default_on",
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_sender_speed_bump_dialog_display_times",
       );
     }
-    function R() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_per_group_toggle_md_sync",
       );
     }
-    function L() {
+    function R() {
       return r("justknobx")._("5870");
     }
-    ((l.isGroupHistoryReceiverEnabled = e),
-      (l.isGroupHistorySenderEnabled = s),
-      (l.isGroupHistorySettingsToggleUIEnabled = u),
-      (l.isGroupHistorySenderReportingTokenEnabled = c),
-      (l.isGroupHistoryReceiverReportingTokenEnabled = d),
-      (l.isOutOfWindowPinSenderEnabled = m),
-      (l.isGroupHistoryPostJoinSenderEnabled = p),
-      (l.getGroupHistoryMessagesTimeLimitSecs = f),
-      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = h),
-      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = y),
-      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = C),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = b),
-      (l.isGroupHistorySendDefaultOnEnabled = v),
-      (l.getGroupHistorySpeedBumpDialogDisplayTimes = S),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = R),
-      (l.shouldSkipUnsupportedMessagesFromBundle = L));
+    ((l.isGroupHistorySenderEnabled = e),
+      (l.isGroupHistorySettingsToggleUIEnabled = s),
+      (l.isGroupHistorySenderReportingTokenEnabled = u),
+      (l.isGroupHistoryReceiverReportingTokenEnabled = c),
+      (l.isOutOfWindowPinSenderEnabled = d),
+      (l.isGroupHistoryPostJoinSenderEnabled = m),
+      (l.getGroupHistoryMessagesTimeLimitSecs = _),
+      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = g),
+      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = h),
+      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = y),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = C),
+      (l.isGroupHistorySendDefaultOnEnabled = b),
+      (l.getGroupHistorySpeedBumpDialogDisplayTimes = v),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = S),
+      (l.shouldSkipUnsupportedMessagesFromBundle = R));
   },
   98,
 );

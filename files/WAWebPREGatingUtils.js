@@ -8,16 +8,12 @@ __d(
         "wa_media_image_upload_cache",
       );
     }
-    function s(e) {
-      var t = o("WAWebABProps").getABPropConfigValue(
-        "web_anr_file_size_threshold_to_use_worker_mb",
-      );
-      if (t === 0) return !1;
-      var n = t * 1024 * 1024;
-      return e >= n;
+    var s = 10 * 1024 * 1024;
+    function u(e) {
+      return e >= s;
     }
     ((l.isPREMediaUploadCacheEnabled = e),
-      (l.shouldUseWorkerForFileSizeBytes = s));
+      (l.shouldUseWorkerForFileSizeBytes = u));
   },
   98,
 );

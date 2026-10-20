@@ -8,7 +8,6 @@ __d(
     "WAWebMsgType",
     "WAWebPollNameHashHistoryUtils",
     "WAWebPollNameHashUtils",
-    "WAWebPollsGatingUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
@@ -20,32 +19,31 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebPollsGatingUtils").isPollTCReceivingEnabled())
-            try {
-              var a = yield (u || (u = n("Promise"))).allSettled(t.map(_));
-              o("WAWebAddonLogUtils").hasSettledWithError(a) &&
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[polls/tc] failed to build poll name hash entries",
-                      ])),
-                  )
-                  .sendLogs("poll-name-hash-append-failed");
-              var i = r("compactMap")(a, function (e) {
-                return e.status === "fulfilled" ? e.value : null;
-              });
-              i.length > 0 && (yield m(g(i)));
-            } catch (e) {
+          try {
+            var a = yield (u || (u = n("Promise"))).allSettled(t.map(_));
+            o("WAWebAddonLogUtils").hasSettledWithError(a) &&
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[polls/tc] failed to append poll name hashes",
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[polls/tc] failed to build poll name hash entries",
                     ])),
                 )
                 .sendLogs("poll-name-hash-append-failed");
-            }
+            var i = r("compactMap")(a, function (e) {
+              return e.status === "fulfilled" ? e.value : null;
+            });
+            i.length > 0 && (yield m(g(i)));
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[polls/tc] failed to append poll name hashes",
+                  ])),
+              )
+              .sendLogs("poll-name-hash-append-failed");
+          }
         })),
         d.apply(this, arguments)
       );

@@ -8,7 +8,9 @@ __d(
     "WAWebHatchIdeaExecutePayload",
     "WAWebHatchIdeasIconAccount",
     "WAWebHatchLinkedStatusManager",
+    "WAWebHatchLogging",
     "WAWebL10N",
+    "WAWebSendMsgResultAction",
     "WAWebSendTextMsgChatAction",
     "asyncToGeneratorRuntime",
   ],
@@ -54,10 +56,16 @@ __d(
               );
               return;
             }
-            return o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+            var d = yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
               c,
               _(n.title),
               { hatchRequest: i },
+            );
+            return (
+              (d == null ? void 0 : d.messageSendResult) ===
+                o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+                o("WAWebHatchLogging").logHatchIdeaAction("prompt_sent"),
+              d
             );
           }
         })),

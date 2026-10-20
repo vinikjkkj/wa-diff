@@ -25,6 +25,7 @@ __d(
       CustomerManager: "contactManager",
       OrgAdmin: "orgAdmin",
       GroupAdmin: "groupAdmin",
+      ContactsAndGroups: "contactsAndGroups",
     });
     i.NavBarItems = e;
   },

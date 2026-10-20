@@ -3,7 +3,6 @@ __d(
   [
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
@@ -60,7 +59,6 @@ __d(
     }
     function f(e) {
       return (
-        o("WAWebGroupHistoryGating").isGroupHistoryReceiverEnabled() &&
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e) != null &&
         !o("WAWebMsgGetters").getIsEditedAfterReceivedAsHistory(e)
       );

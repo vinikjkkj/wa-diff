@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebBizCatalogGatingUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebCatalogCollection",
@@ -77,9 +76,6 @@ __d(
                 if (p !== i) {
                   var _ = o("WAWebCatalogCollection").CatalogCollection.get(r);
                   _ &&
-                    o(
-                      "WAWebBizCatalogGatingUtils",
-                    ).isCatalogVariantsViewingEnabled() &&
                     o("WAWebCatalogCollection").CatalogCollection.remove(_.id);
                 }
               }

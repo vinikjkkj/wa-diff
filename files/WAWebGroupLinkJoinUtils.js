@@ -5,7 +5,6 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebDBGroupsGroupMetadata",
-    "WAWebGroupGatingUtils",
     "WAWebGroupSystemMsg",
     "WAWebGroupType",
     "WAWebSchemaGroupMemberChanges",
@@ -118,8 +117,6 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (!o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsM2Enabled())
-            return [];
           var r = [];
           try {
             var a = yield p(e, t, n);

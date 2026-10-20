@@ -27,6 +27,8 @@ __d(
       LIST_MUTE_DIALOG: 22,
       LIST_SCHEDULE: 23,
       SCHEDULE_TIME_EDITOR: 24,
+      GROUP_INFO: 25,
+      GROUP_SYSTEM_MESSAGE: 26,
     });
     i.WPBUJ_SURFACE = e;
   },

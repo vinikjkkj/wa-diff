@@ -11,6 +11,7 @@ __d(
     "WAWebWebpToAnimationFrames",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -35,7 +36,7 @@ __d(
             s = e.fullHeight,
             u = document.createElement("canvas");
           ((u.width = l), (u.height = s));
-          var c = u.getContext("2d"),
+          var c = r("nullthrows")(u.getContext("2d")),
             d = c.createImageData(l, s);
           return (d.data.set(new Uint8Array(t)), c.putImageData(d, 0, 0), u);
         })),

@@ -4,7 +4,7 @@ __d(
     "WACryptoUtils",
     "WASmaxMdPrimaryHelloNotifyCompanionRPC",
     "WASmaxMdRefreshCodeNotifyCompanionRPC",
-    "WASmaxOutMessageFallbackDeliverResponseBadStanza",
+    "WASmaxMessageFallbackDeliverRPC",
     "WAWebAltDeviceLinkingApi",
     "WAWebAltDeviceLinkingQpl",
     "WAWebBackendApi",
@@ -19,16 +19,17 @@ __d(
       var t = e.content;
       if (!Array.isArray(t) || !t.length)
         return o(
-          "WASmaxOutMessageFallbackDeliverResponseBadStanza",
+          "WASmaxMessageFallbackDeliverRPC",
         ).makeDeliverResponseBadStanza({ ackError: 487 }, e);
       var n = t[0].attrs;
       return n.stage === "primary_hello"
         ? c(e)
         : n.stage === "refresh_code"
           ? d(e)
-          : o(
-              "WASmaxOutMessageFallbackDeliverResponseBadStanza",
-            ).makeDeliverResponseBadStanza({ ackError: 487 }, e);
+          : o("WASmaxMessageFallbackDeliverRPC").makeDeliverResponseBadStanza(
+              { ackError: 487 },
+              e,
+            );
     }
     function c(t) {
       var n = o(

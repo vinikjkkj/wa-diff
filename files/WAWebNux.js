@@ -65,6 +65,9 @@ __d(
       CALLS_TAB_NOTIFICATIONS_OFF_BANNER: "calls_tab_notifications_off_banner",
       TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
       CALLS_TAB_PERMISSIONS_OFF_BANNER: "calls_tab_permissions_off_banner",
+      CONTACTS_AND_GROUPS_RESTRICTED_CHATS_BANNER:
+        "contacts_and_groups_restricted_chats_banner",
+      STATUS_RESHARE_INTRO: "status_reshare_intro",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -189,6 +192,7 @@ __d(
             "business_ai_message_editing_discovery_tooltip",
           BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
           TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
+          STATUS_RESHARE_INTRO: "status_reshare_intro",
         },
       },
       g = {
