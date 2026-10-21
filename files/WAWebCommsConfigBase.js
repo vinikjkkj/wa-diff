@@ -29,9 +29,12 @@ __d(
       };
     }
     function c(t) {
-      return function (a) {
-        var i,
-          l = a || { passive: !1, pull: !1 };
+      var a = o(
+        "WAWebOfflineResumePreAckHandler",
+      ).createParseAndSerializeOfflinePreAck(t.isRegistered);
+      return function (i) {
+        var l,
+          c = i || { passive: !1, pull: !1 };
         return {
           maxRetries: Number.MAX_SAFE_INTEGER,
           openChatSocket: function (n, a) {
@@ -39,12 +42,12 @@ __d(
               o("WAWebABProps").getABPropConfigValue(
                 "web_comms_socket_reconnect_enabled",
               )
-                ? (l.signal = r("nullthrows")(a))
-                : (l.signal = new AbortController().signal),
+                ? (c.signal = r("nullthrows")(a))
+                : (c.signal = new AbortController().signal),
               o("WAWebOpenChatSocket")
-                .openChatSocket(l, t.isRegistered())
+                .openChatSocket(c, t.isRegistered())
                 .then(function (e) {
-                  return (n(), (l.passive = !1), e);
+                  return (n(), (c.passive = !1), e);
                 })
             );
           },
@@ -87,14 +90,12 @@ __d(
             },
             onConnectionChange: r("WAWebNoop"),
             onOptimisticConnectionChange: r("WAWebNoop"),
-            onBeforeCastStanzaForE2E: function (t, n) {
+            onBeforeCastStanza: function (t, n) {
               t.tag === "ack" &&
                 !(n != null && n.preAck) &&
                 !o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus()
                   .isOfflineDeliveryEnd &&
-                o(
-                  "WAWebOfflineResumePreAckHandler",
-                ).parseAndSerializeOfflinePreAck(t);
+                a(t);
             },
             onCastStanza: function (a) {
               (r("gkx")("26259") &&
@@ -127,8 +128,8 @@ __d(
             },
             onSendIq: o("WAWebStanzaValidation").validateSentStanza,
             onClockSkewUpdate:
-              (i = t.onClockSkewUpdate) != null
-                ? i
+              (l = t.onClockSkewUpdate) != null
+                ? l
                 : o("WAWebCommsSendPing").updateClockSkew,
           },
           isPauseEnabled: r("WAWebEnvironment").isWindows,

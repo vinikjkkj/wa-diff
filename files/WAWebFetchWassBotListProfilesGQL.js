@@ -44,6 +44,9 @@ __d(
                   creatorLid: o("WAWebWassBotProfileMapper").emptyToNull(
                     n.creator_lid,
                   ),
+                  generatedEmoji: o("WAWebWassBotProfileMapper").emptyToNull(
+                    n.generated_emoji,
+                  ),
                   hcaEntrypointId: o("WAWebWassBotProfileMapper").emptyToNull(
                     n.hca_entrypoint_id,
                   ),

@@ -559,6 +559,7 @@ __d(
             (e.isOverwrittenByRevoke = o("WAWebBaseModel").session(!1)),
             (e.bizContentPlaceholderType = o("WAWebBaseModel").prop(null)),
             (e.hostedBizEncStateMismatch = o("WAWebBaseModel").prop(!1)),
+            (e.aeaAutoUpgrade = o("WAWebBaseModel").prop(!1)),
             (e.senderOrRecipientAccountTypeHosted =
               o("WAWebBaseModel").prop(!1)),
             (e.placeholderCreatedWhenAccountIsHosted =

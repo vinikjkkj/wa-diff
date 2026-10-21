@@ -417,6 +417,7 @@ __d(
           "WAAeaConsumerBackfillCompletedVersion",
         AEA_CONSUMER_BACKFILL_SCHEDULED_VERSION:
           "WAAeaConsumerBackfillScheduledVersion",
+        AEA_CONSUMER_BACKFILL_RUN_HISTORY: "WAAeaConsumerBackfillRunHistory",
       }),
       _ = Object.freeze({
         USER_PRIVACY_SETTINGS: "user-privacy-settings",

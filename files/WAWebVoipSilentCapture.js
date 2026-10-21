@@ -46,7 +46,7 @@ __d(
             t = e[0],
             r = e[1];
           return {
-            missingReason: O() ? "hand-off" : k(t, r),
+            missingReason: F() ? "hand-off" : k(t, r),
             selectedDeviceId: r,
           };
         })),
@@ -175,17 +175,14 @@ __d(
       };
       e.then(r, r);
     }
-    function M() {
-      S = null;
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function w(e) {
-      return A.apply(this, arguments);
-    }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e != null) return !0;
-          if (O())
+          if (F())
             return (
               o("WALogger").LOG(
                 _ ||
@@ -210,10 +207,10 @@ __d(
               !1)
             : !0;
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    var F = (function () {
+    var A = (function () {
       function e(e) {
         ((this.$2 = null), (this.$1 = e));
       }
@@ -262,7 +259,7 @@ __d(
         e
       );
     })();
-    function O() {
+    function F() {
       var e;
       return ((e = S) == null ? void 0 : e.isCallCurrent()) === !0;
     }
@@ -275,9 +272,8 @@ __d(
       (l.markGrantedMicrophoneStream = $),
       (l.isLiveOnGrantedMicrophone = P),
       (l.holdSilenceSwitchesUntil = N),
-      (l.releaseSilenceSwitchHoldForTesting = M),
-      (l.isMicrophoneSwitchAllowedWhileSilent = w),
-      (l.AudioAfterSilenceWatch = F));
+      (l.isMicrophoneSwitchAllowedWhileSilent = M),
+      (l.AudioAfterSilenceWatch = A));
   },
   98,
 );

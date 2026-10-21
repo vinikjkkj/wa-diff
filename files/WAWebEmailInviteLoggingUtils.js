@@ -9,8 +9,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = {
+      s = {
         invalid_batch: (e = o(
           "WAWebWamEnumWebcEmailInviteServerSendResultType",
         )).WEBC_EMAIL_INVITE_SERVER_SEND_RESULT_TYPE.INVALID_BATCH,
@@ -22,82 +21,79 @@ __d(
         uncertain: e.WEBC_EMAIL_INVITE_SERVER_SEND_RESULT_TYPE.UNCERTAIN,
         unavailable: e.WEBC_EMAIL_INVITE_SERVER_SEND_RESULT_TYPE.UNAVAILABLE,
       },
-      c = {
-        context_card_email: (s = o("WAWebWamEnumWebcEmailInviteEntryPointType"))
-          .WEBC_EMAIL_INVITE_ENTRY_POINT_TYPE.CONTEXT_CARD_EMAIL,
-        group_info_email: s.WEBC_EMAIL_INVITE_ENTRY_POINT_TYPE.GROUP_INFO_EMAIL,
-        intro_panel_email:
-          s.WEBC_EMAIL_INVITE_ENTRY_POINT_TYPE.INTRO_PANEL_EMAIL,
-        invite_link_email:
-          s.WEBC_EMAIL_INVITE_ENTRY_POINT_TYPE.INVITE_LINK_EMAIL,
+      u = {
+        group_info_email: o("WAWebWamEnumWebcEmailInviteEntryPointType")
+          .WEBC_EMAIL_INVITE_ENTRY_POINT_TYPE.GROUP_INFO_EMAIL,
+        intro_panel_email: o("WAWebWamEnumWebcEmailInviteEntryPointType")
+          .WEBC_EMAIL_INVITE_ENTRY_POINT_TYPE.INTRO_PANEL_EMAIL,
       };
-    function d(e) {
-      h(
+    function c(e) {
+      g(
         o("WAWebWamEnumWebcEmailInviteActionType").WEBC_EMAIL_INVITE_ACTION_TYPE
           .ENTRY_POINT_CLICK,
         e.origin,
       );
     }
-    function m(e) {
-      h(
+    function d(e) {
+      g(
         o("WAWebWamEnumWebcEmailInviteActionType").WEBC_EMAIL_INVITE_ACTION_TYPE
           .EMAIL_TYPING_START,
         e.origin,
       );
     }
-    function p(e) {
-      h(
+    function m(e) {
+      g(
         o("WAWebWamEnumWebcEmailInviteActionType").WEBC_EMAIL_INVITE_ACTION_TYPE
           .GMAIL_CLICK,
         e.origin,
         e.numRecipients,
       );
     }
-    function _(e) {
-      h(
+    function p(e) {
+      g(
         o("WAWebWamEnumWebcEmailInviteActionType").WEBC_EMAIL_INVITE_ACTION_TYPE
           .MAILTO_CLICK,
         e.origin,
         e.numRecipients,
       );
     }
-    function f(e) {
-      h(
+    function _(e) {
+      g(
         o("WAWebWamEnumWebcEmailInviteActionType").WEBC_EMAIL_INVITE_ACTION_TYPE
           .SERVER_SEND_START,
         e.origin,
         e.numRecipients,
       );
     }
-    function g(e) {
+    function f(e) {
       new (o(
         "WAWebCompanionEmailInviteActionWamEvent",
       ).CompanionEmailInviteActionWamEvent)({
         webcEmailInviteAction: o("WAWebWamEnumWebcEmailInviteActionType")
           .WEBC_EMAIL_INVITE_ACTION_TYPE.SERVER_SEND_RESULT,
         webcEmailInviteCount: e.numRecipients,
-        webcEmailInviteEntryPoint: c[e.origin],
+        webcEmailInviteEntryPoint: u[e.origin],
         webcEmailInviteFailedCount: e.failedCount,
         webcEmailInviteSentCount: e.sentCount,
-        webcEmailInviteServerSendResult: u[e.result],
+        webcEmailInviteServerSendResult: s[e.result],
       }).commit();
     }
-    function h(e, t, n) {
+    function g(e, t, n) {
       new (o(
         "WAWebCompanionEmailInviteActionWamEvent",
       ).CompanionEmailInviteActionWamEvent)(
         babelHelpers.extends(
-          { webcEmailInviteAction: e, webcEmailInviteEntryPoint: c[t] },
+          { webcEmailInviteAction: e, webcEmailInviteEntryPoint: u[t] },
           n != null ? { webcEmailInviteCount: n } : {},
         ),
       ).commit();
     }
-    ((l.logEmailInviteEntryPointClick = d),
-      (l.logEmailInviteAddressEntry = m),
-      (l.logEmailInviteGmailClick = p),
-      (l.logEmailInviteMailtoClick = _),
-      (l.logEmailInviteServerSendStart = f),
-      (l.logEmailInviteServerSendResult = g));
+    ((l.logEmailInviteEntryPointClick = c),
+      (l.logEmailInviteAddressEntry = d),
+      (l.logEmailInviteGmailClick = m),
+      (l.logEmailInviteMailtoClick = p),
+      (l.logEmailInviteServerSendStart = _),
+      (l.logEmailInviteServerSendResult = f));
   },
   98,
 );

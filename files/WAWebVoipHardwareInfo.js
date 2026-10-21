@@ -92,17 +92,9 @@ __d(
     function h() {
       return u;
     }
-    function y() {
-      ((u = {}), (c = null));
-    }
-    function C() {
-      return c;
-    }
     ((l.normalizeGpuVendor = p),
       (l.ensureHardwareInfoDetected = g),
-      (l.getCachedHardwareInfo = h),
-      (l.resetHardwareInfoForTest = y),
-      (l.getDetectionPromiseForTest = C));
+      (l.getCachedHardwareInfo = h));
   },
   98,
 );

@@ -10,7 +10,8 @@ __d(
         "px), (max-height: " +
         e +
         "px) and (pointer: coarse)";
-    i.MOBILE_CALL_LAYOUT_MEDIA_QUERY = l;
+    ((i.MOBILE_CALL_LAYOUT_MAX_WIDTH = e),
+      (i.MOBILE_CALL_LAYOUT_MEDIA_QUERY = l));
   },
   66,
 );

@@ -83,6 +83,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "countWhere",
+    "cr:17587",
     "cr:7293",
     "getErrorSafe",
     "gkx",
@@ -103,11 +104,12 @@ __d(
       g,
       h,
       y,
-      C = (e = n("cr:7293")) != null ? e : {},
-      b = C.getNotificationToneGroupSetting,
-      v = C.getNotificationToneSetting,
-      S = C.getNotificationToneStatusSetting;
-    function R(e) {
+      C,
+      b = (e = n("cr:7293")) != null ? e : {},
+      v = b.getNotificationToneGroupSetting,
+      S = b.getNotificationToneSetting,
+      R = b.getNotificationToneStatusSetting;
+    function L(e) {
       if (
         e.goldenBoxContactNarrativeAppearCount > 0 ||
         e.goldenBoxContactDialogAppearCount > 0 ||
@@ -223,7 +225,7 @@ __d(
         l.commit();
       }
     }
-    function L() {
+    function E() {
       var e = !o("WAWebMuteCollection").MuteCollection.globalReactionsMute(),
         t = !!o("WAWebUserPrefsNotifications").getIgnoreNondirectGroupMsg(),
         n = o("WAWebABProps").getABPropConfigValue(
@@ -236,8 +238,8 @@ __d(
         var a = void 0,
           i = void 0,
           l = void 0;
-        (v && b && S
-          ? ((a = v()), (i = b()), (l = S()))
+        (S && v && R
+          ? ((a = S()), (i = v()), (l = R()))
           : (o("WAWebMuteCollection").MuteCollection.getGlobalSoundsEnabled() &&
               (a = o("WAWebWamEnumNotificationSoundTone")
                 .NOTIFICATION_SOUND_TONE.DEFAULT),
@@ -300,46 +302,46 @@ __d(
         });
       r.commit();
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o(
             "WAWebABPropsGlobals",
           ).logClientExposurePulseEventFromDailyStatsTask(),
             o(
               "WAWebGroupABPropsGlobals",
             ).logGroupExposurePulseEventFromDailyStatsTask());
-          var e = yield (y || (y = n("Promise"))).all([
-              I(),
-              O(),
-              V(),
-              G(),
-              j(),
-              Z(),
-              Y(),
+          var e = yield (C || (C = n("Promise"))).all([
+              T(),
+              B(),
+              H(),
+              z(),
+              K(),
+              ee(),
+              J(),
             ]),
             t = e[0],
             a = e[1],
             i = e[2],
             l = e[3],
-            u = e[4],
-            c = e[5],
-            d = e[6],
-            m = z(),
-            p = babelHelpers.extends({}, t, a, i, m, u, c, d, {
+            c = e[4],
+            d = e[5],
+            m = e[6],
+            p = j(),
+            _ = babelHelpers.extends({}, t, a, i, p, c, d, m, {
               isCanonicalEntPresent: o(
                 "WAWebCanonicalUtils",
               ).isCanonicalPresent(),
             }),
-            _ = new (o("WAWebDailyWamEvent").DailyWamEvent)();
-          (_.set(p), _.commit(), L());
+            f = new (o("WAWebDailyWamEvent").DailyWamEvent)();
+          (f.set(_), f.commit(), E());
           try {
-            var f = yield D({ includeGroupComposition: !0 });
+            var g = yield x({ includeGroupComposition: !0 });
             new (o("WAWebLidMigrationDailyWamEvent").LidMigrationDailyWamEvent)(
-              f,
+              g,
             ).commit();
           } catch (e) {
             o("WALogger")
@@ -353,69 +355,83 @@ __d(
               .sendLogs("lid-migration-daily-dropped");
           }
           o("WAWebTasksExperienceIdDailyReport").reportExperienceIdDailyStats();
-          var g = new (o(
+          var h = new (o(
             "WAWebWebcFtsStorageWamEvent",
           ).WebcFtsStorageWamEvent)();
-          (g.set({ ftsTotalSize: l }), g.commit());
-          var h = new (o(
+          (h.set({ ftsTotalSize: l }), h.commit());
+          var y = new (o(
             "WAWebScreenLockSettingsDataWamEvent",
           ).ScreenLockSettingsDataWamEvent)();
-          (h.set(Q()), h.commit());
-          var C = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
-            b = new (o(
+          (y.set(X()), y.commit());
+          try {
+            n("cr:17587") == null ||
+              n("cr:17587").reportAeaConsumerBackfillStatus();
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "logDailyStats: failed to report the AEA backfill status",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("aea-backfill-status-report-fail");
+          }
+          var b = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
+            v = new (o(
               "WAWebWebcStorageStatWamEvent",
             ).WebcStorageStatWamEvent)();
-          (b.set({
+          (v.set({
             webcStorageQuota: i.storageTotalSize,
             webcStorageUsage: i.storageUsed,
             webcAgeOfStorage:
-              C != null
-                ? o("WATimeUtils").unixTimeWithoutClockSkewCorrection() - C
+              b != null
+                ? o("WATimeUtils").unixTimeWithoutClockSkewCorrection() - b
                 : -1,
             webcPackingEnabled: !1,
           }),
-            b.commit());
-          var v = yield o(
+            v.commit());
+          var S = yield o(
             "WAWebUserPrefsGeneral",
           ).getOfflineNotificationEngagement();
-          if (v) {
-            var S, E;
+          if (S) {
+            var R, k;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
               isWebBackgroundSyncNotif: !0,
-              totalNotifShown: (S = v.totalNotifShown) != null ? S : 0,
-              totalNotifTapToOpen: (E = v.totalNotifTapToOpen) != null ? E : 0,
+              totalNotifShown: (R = S.totalNotifShown) != null ? R : 0,
+              totalNotifTapToOpen: (k = S.totalNotifTapToOpen) != null ? k : 0,
             }).commit(),
               o(
                 "WAWebUserPrefsGeneral",
               ).clearOfflineNotificationContentEngagement());
           }
-          var k = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
-          if (k) {
-            var T, x, $, P;
+          var I = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
+          if (I) {
+            var D, $, P, N;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
               totalNotifRtcVoipAccept:
-                (T = k.totalNotifRtcVoipAccept) != null ? T : 0,
+                (D = I.totalNotifRtcVoipAccept) != null ? D : 0,
               totalNotifRtcVoipDecline:
-                (x = k.totalNotifRtcVoipDecline) != null ? x : 0,
-              totalNotifShown: ($ = k.totalNotifShown) != null ? $ : 0,
-              totalNotifTapToOpen: (P = k.totalNotifTapToOpen) != null ? P : 0,
+                ($ = I.totalNotifRtcVoipDecline) != null ? $ : 0,
+              totalNotifShown: (P = I.totalNotifShown) != null ? P : 0,
+              totalNotifTapToOpen: (N = I.totalNotifTapToOpen) != null ? N : 0,
             }).commit(),
               o("WAWebUserPrefsGeneral").clearNotificationContentEngagement());
           }
           o("WAWebWamPrivateStatsUtils").logDailyPrivateStatsTestEvents();
-          var N = o("WAWebDailyAggregatedStatsCollection")
+          var M = o("WAWebDailyAggregatedStatsCollection")
             .DailyAggregatedStatsCollection.toArray()
             .filter(function (e) {
               return e.shouldBeSubmitted();
             });
           (o(
             "WAWebDailyAggregatedStatsCollection",
-          ).DailyAggregatedStatsCollection.remove(N),
-            N.forEach(function (e) {
+          ).DailyAggregatedStatsCollection.remove(M),
+            M.forEach(function (e) {
               var t = new (o("WAWebPttDailyWamEvent").PttDailyWamEvent)({
                 pttCancelBroadcast: e.pttCancelBroadcast,
                 pttCancelGroup: e.pttCancelGroup,
@@ -455,7 +471,7 @@ __d(
                 pttPausedRecordNewsletter: e.pttPausedRecordNewsletter,
               });
               (t.commit(),
-                R(e),
+                L(e),
                 new (o(
                   "WAWebCommunityTabActionWamEvent",
                 ).CommunityTabActionWamEvent)({
@@ -545,15 +561,15 @@ __d(
               "WAWebWebDynamicSamplingTestEventWithSamplingWamEvent",
             ).WebDynamicSamplingTestEventWithSamplingWamEvent)().commit());
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
-    }
     function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDeviceInfo",
             void 0,
@@ -566,22 +582,22 @@ __d(
             simMnc: parseInt(e.mnc, 10),
           };
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
             i,
             l = e === void 0 ? {} : e,
             s = l.includeGroupComposition,
-            g = s === void 0 ? !1 : s,
+            u = s === void 0 ? !1 : s,
             h = [];
           (h.push("con"),
             h.push("id"),
@@ -659,16 +675,16 @@ __d(
                 );
               };
               (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "getLidMigrationStatus: PN chat without mapping: ",
                     "",
                   ])),
                 v.slice(0, 5).map(E).join(","),
               ),
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "getLidMigrationStatus: chats without account_lid: ",
                       "",
                     ])),
@@ -692,8 +708,8 @@ __d(
                 y &&
                   (I > 0 || k > 0) &&
                   (o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[getLidMigrationStatus] PNH->unmigrated miss=",
                         " known=",
                         "",
@@ -709,8 +725,8 @@ __d(
             }
           } catch (e) {
             o("WALogger").ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "getLidMigrationStatus: ",
                   "",
                 ])),
@@ -732,16 +748,16 @@ __d(
             for (var $ of b) $.isLidAddressingMode === !0 ? x++ : D++;
             o("WAWebCurrentUser").isEmployee() &&
               (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "getLidMigrationStatus: numberOfPnGroups: ",
                     "",
                   ])),
                 D,
               ),
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "getLidMigrationStatus: numberOfLidGroups: ",
                     "",
                   ])),
@@ -749,8 +765,8 @@ __d(
               ));
           } catch (e) {
             o("WALogger").ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "getLidMigrationStatus: error counting groups: ",
                   "",
                 ])),
@@ -758,13 +774,13 @@ __d(
             );
           }
           var P =
-              g &&
+              u &&
               o("WAWebABProps").getABPropConfigValue(
                 "lid_migration_daily_group_composition_enabled",
               )
-                ? yield N(b)
+                ? yield M(b)
                 : null,
-            M = babelHelpers.extends(
+            N = babelHelpers.extends(
               {
                 completedMigrations: h.join(","),
                 numberOfPnChatsWithoutMapping:
@@ -785,31 +801,31 @@ __d(
             );
           return (
             P != null &&
-              ((M.numberOfPnOnlyGroups = P.numberOfPnOnlyGroups),
-              (M.numberOfLidOnlyGroups = P.numberOfLidOnlyGroups),
-              (M.numberOfMixedPnLidGroups = P.numberOfMixedPnLidGroups),
-              (M.numberOfCagGroups = P.numberOfCagGroups),
-              (M.numberOfCagLidGroups = P.numberOfCagLidGroups),
-              (M.numberOfPnOnlyGroupsNotMember =
+              ((N.numberOfPnOnlyGroups = P.numberOfPnOnlyGroups),
+              (N.numberOfLidOnlyGroups = P.numberOfLidOnlyGroups),
+              (N.numberOfMixedPnLidGroups = P.numberOfMixedPnLidGroups),
+              (N.numberOfCagGroups = P.numberOfCagGroups),
+              (N.numberOfCagLidGroups = P.numberOfCagLidGroups),
+              (N.numberOfPnOnlyGroupsNotMember =
                 P.numberOfPnOnlyGroupsNotMember),
-              (M.numberOfPnOnlyGroupsNotMemberAllMapped =
+              (N.numberOfPnOnlyGroupsNotMemberAllMapped =
                 P.numberOfPnOnlyGroupsNotMemberAllMapped),
-              (M.numberOfPnOnlyGroupsNotMemberUnmappedContacts =
+              (N.numberOfPnOnlyGroupsNotMemberUnmappedContacts =
                 P.numberOfPnOnlyGroupsNotMemberUnmappedContacts),
-              (M.numberOfPnOnlyGroupsNotMemberUnmappedOutContacts =
+              (N.numberOfPnOnlyGroupsNotMemberUnmappedOutContacts =
                 P.numberOfPnOnlyGroupsNotMemberUnmappedOutContacts)),
-            M
+            N
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $() {
-      return P.apply(this, arguments);
-    }
     function P() {
+      return N.apply(this, arguments);
+    }
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new Set(),
             t = yield o("WAWebDBOutContactDatabaseApi").getAllOutContacts();
           for (var n of t)
@@ -818,15 +834,15 @@ __d(
             } catch (e) {}
           return e;
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = {
               numberOfPnOnlyGroups: 0,
               numberOfLidOnlyGroups: 0,
@@ -844,13 +860,13 @@ __d(
             .forEach(function (e) {
               n.set(e.groupId, e.participants);
             });
-          var r = yield $(),
+          var r = yield P(),
             a = 0;
           for (var i of e)
             try {
               var l,
                 s = (l = n.get(i.id)) != null ? l : [];
-              A(t, i.defaultSubgroup === !0, w(s), r);
+              F(t, i.defaultSubgroup === !0, A(s), r);
             } catch (e) {
               a++;
             }
@@ -858,8 +874,8 @@ __d(
             a > 0 &&
               o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "getGroupParticipantComposition: skipped ",
                       " group(s)",
                     ])),
@@ -869,10 +885,10 @@ __d(
             t
           );
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
+    function A(e) {
       var t = !1,
         n = !1,
         r = !1,
@@ -893,7 +909,7 @@ __d(
         unmappedPnWids: a,
       };
     }
-    function A(e, t, n, r) {
+    function F(e, t, n, r) {
       var o = n.hasLidParticipant,
         a = n.hasPnParticipant,
         i = n.isCurrentUserMember;
@@ -909,9 +925,9 @@ __d(
         e.numberOfLidOnlyGroups++;
         return;
       }
-      a && (e.numberOfPnOnlyGroups++, i || F(e, n, r));
+      a && (e.numberOfPnOnlyGroups++, i || O(e, n, r));
     }
-    function F(e, t, n) {
+    function O(e, t, n) {
       e.numberOfPnOnlyGroupsNotMember++;
       var r = t.unmappedPnWids;
       r.length === 0
@@ -922,41 +938,41 @@ __d(
           ? e.numberOfPnOnlyGroupsNotMemberUnmappedOutContacts++
           : e.numberOfPnOnlyGroupsNotMemberUnmappedContacts++;
     }
-    function O() {
-      return B.apply(this, arguments);
-    }
     function B() {
+      return W.apply(this, arguments);
+    }
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, n, r;
           o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "getPrivacySettings",
               ])),
           );
           var a = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
             i = { receiptsEnabled: a.readReceipts !== "none" },
             l = yield o("WAWebApiPrivacyDisallowedList").queryDisallowedLists();
-          ((i.privacySettingsAbout = W(a.about)),
+          ((i.privacySettingsAbout = q(a.about)),
             (i.privacySettingsAboutExceptNum =
               a.about === "contact_blacklist"
-                ? q((e = l.about) == null ? void 0 : e.disallowedList.length)
+                ? U((e = l.about) == null ? void 0 : e.disallowedList.length)
                 : null),
-            (i.privacySettingsGroups = W(a.groupAdd)),
+            (i.privacySettingsGroups = q(a.groupAdd)),
             (i.privacySettingsGroupsExceptNum =
               a.groupAdd === "contact_blacklist"
-                ? q((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
+                ? U((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
                 : null),
-            (i.privacySettingsLastSeen = W(a.lastSeen)),
+            (i.privacySettingsLastSeen = q(a.lastSeen)),
             (i.privacySettingsLastSeenExceptNum =
               a.lastSeen === "contact_blacklist"
-                ? q((n = l.last) == null ? void 0 : n.disallowedList.length)
+                ? U((n = l.last) == null ? void 0 : n.disallowedList.length)
                 : null),
-            (i.privacySettingsProfilePhoto = W(a.profilePicture)),
+            (i.privacySettingsProfilePhoto = q(a.profilePicture)),
             (i.privacySettingsProfilePhotoExceptNum =
               a.profilePicture === "contact_blacklist"
-                ? q((r = l.profile) == null ? void 0 : r.disallowedList.length)
+                ? U((r = l.profile) == null ? void 0 : r.disallowedList.length)
                 : null));
           var s = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
             o("WAWebContactCollection").ContactCollection.getMeContact(),
@@ -969,7 +985,7 @@ __d(
           ((i.defaultAfterReadEnabled = u),
             (i.defaultAfterReadDuration = u ? s : void 0),
             u && (i.defaultDisappearingDuration = 0),
-            (i.defenseMode = U(a.defenseMode)),
+            (i.defenseMode = V(a.defenseMode)),
             (i.isDefaultDisappearingMessagingUser =
               i.defaultDisappearingDuration !== 0));
           var c = yield o(
@@ -985,10 +1001,10 @@ __d(
             i
           );
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
+    function q(e) {
       return e == null
         ? null
         : e === "all"
@@ -1010,7 +1026,7 @@ __d(
                     );
                   })();
     }
-    function q(e) {
+    function U(e) {
       return e == null
         ? null
         : e === 0
@@ -1058,7 +1074,7 @@ __d(
                                       "WAWebWamEnumPrivacySettingsContactsBuckets",
                                     ).PRIVACY_SETTINGS_CONTACTS_BUCKETS.B100;
     }
-    function U(e) {
+    function V(e) {
       if (e == null) return -1;
       switch (e) {
         case "off":
@@ -1067,12 +1083,12 @@ __d(
           return 1;
       }
     }
-    function V() {
-      return H.apply(this, arguments);
-    }
     function H() {
+      return G.apply(this, arguments);
+    }
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("WAWebLidAwareContactsDB")
               .equals(["isAddressBookContact"], 1)
               .then(function (e) {
@@ -1087,7 +1103,7 @@ __d(
               o("WAWebContactCollection").ContactCollection,
               {},
             ).length,
-            s = yield (y || (y = n("Promise"))).all([t, e, a, i]),
+            s = yield (C || (C = n("Promise"))).all([t, e, a, i]),
             u = s[0],
             c = s[1],
             d = s[2],
@@ -1098,26 +1114,26 @@ __d(
           if (u.success) {
             var g = u.value,
               h = g.quota,
-              C = g.usage;
-            ((p = h - C), (_ = h), (f = C));
+              y = g.usage;
+            ((p = h - y), (_ = h), (f = y));
           }
           return {
-            addressbookWhatsappSize: X(c, 10),
-            storageAvailSize: X(p, 100),
-            storageTotalSize: X(_, 100),
-            storageUsed: X(f, 100),
+            addressbookWhatsappSize: Y(c, 10),
+            storageAvailSize: Y(p, 100),
+            storageTotalSize: Y(_, 100),
+            storageUsed: Y(f, 100),
             mediaFolderFileCount: d,
-            webcContactsTableSize: X(m, 10),
+            webcContactsTableSize: Y(m, 10),
             webcFilteredContactsSize: l,
           };
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function G() {
+    function z() {
       return o("WAWebEstimateFtsStorageApi").getEstimatedFTSDbSize();
     }
-    function z() {
+    function j() {
       var e = o("WAWebWamEnumNotificationSettingType").NOTIFICATION_SETTING_TYPE
         .UNKNOWN;
       if (window.Notification != null)
@@ -1143,12 +1159,12 @@ __d(
         { osNotificationSetting: e, isContactSyncToOsDefaultOn: t }
       );
     }
-    function j() {
-      return K.apply(this, arguments);
-    }
     function K() {
+      return Q.apply(this, arguments);
+    }
+    function Q() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = [],
             t = [],
             n = window.navigator.mediaCapabilities;
@@ -1220,26 +1236,26 @@ __d(
             supportedDecoders: t.join(","),
           };
         })),
-        K.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function Q() {
+    function X() {
       return {
         screenAutoLockDuration: o(
           "WAWebUserPrefsScreenLock",
         ).getScreenLockDurationForLogging(),
       };
     }
-    function X(e, t) {
+    function Y(e, t) {
       return r("gkx")("26258") ? Math.round(e / t) * t : e;
     }
-    function Y() {
-      return J.apply(this, arguments);
-    }
     function J() {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (y || (y = n("Promise"))).all([
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (C || (C = n("Promise"))).all([
               o("WAWebChatThreadLoggingUtils").getMeHasUsername(),
               o("WAWebChatThreadLoggingUtils").getMeHasUsernamePin(),
             ]),
@@ -1255,15 +1271,15 @@ __d(
             { hasUsername: t, hasUsernamePin: r, usernameState: i }
           );
         })),
-        J.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function Z() {
-      return ee.apply(this, arguments);
-    }
     function ee() {
+      return te.apply(this, arguments);
+    }
+    function te() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new Set(),
             t = 0,
             n = new Set(),
@@ -1289,13 +1305,13 @@ __d(
             contactsRequiringSyncBeforeDisplaySize: a,
           };
         })),
-        ee.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    ((l.logDailyStats = E),
-      (l.getLidMigrationStatus = D),
-      (l.classifyGroupParticipants = w),
-      (l.tallyNonMemberPnOnlyGroup = F));
+    ((l.logDailyStats = k),
+      (l.getLidMigrationStatus = x),
+      (l.classifyGroupParticipants = A),
+      (l.tallyNonMemberPnOnlyGroup = O));
   },
   98,
 );

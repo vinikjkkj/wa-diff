@@ -68,6 +68,7 @@ __d(
               isSuggestedPrompt: [21, e.TYPES.BOOLEAN],
               maxIndex: [9, e.TYPES.INTEGER],
               metaAiConversationThreadId: [16, e.TYPES.STRING],
+              proactiveMessageCampaignId: [30, e.TYPES.STRING],
               selectedImageIndex: [10, e.TYPES.INTEGER],
               suggestedPromptIndex: [22, e.TYPES.INTEGER],
               suggestionCount: [23, e.TYPES.INTEGER],

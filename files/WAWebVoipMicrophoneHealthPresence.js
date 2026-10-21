@@ -70,9 +70,6 @@ __d(
     function v() {
       return s.size > 0;
     }
-    function S() {
-      (e.clear(), s.clear(), u.clear(), c.clear());
-    }
     ((l.getCallSurfacePlacement = d),
       (l.isMicrophoneObserverOwner = m),
       (l.reportMicrophoneHealthArmed = p),
@@ -82,8 +79,7 @@ __d(
       (l.canShowMicrophoneWarning = h),
       (l.subscribeToMicrophoneHealthExperienceMount = C),
       (l.reportMicrophoneUnavailableBannerVisible = b),
-      (l.isMicrophoneUnavailableBannerVisible = v),
-      (l.resetMicrophoneHealthPresenceForTesting = S));
+      (l.isMicrophoneUnavailableBannerVisible = v));
   },
   98,
 );

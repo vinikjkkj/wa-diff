@@ -7,6 +7,7 @@ __d(
     "WAWebAlarm",
     "WAWebCallCollection",
     "WAWebMiscBrowserUtils",
+    "WAWebStartupResourcesPrefetchBeforeUpdatePrompt",
     "WAWebStreamModel",
     "WAWebSwUpdater",
     "WAWebUpdaterBaseUpdater",
@@ -17,6 +18,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:12474",
     "cr:6022",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -44,8 +46,15 @@ __d(
               ));
           }),
           (i.showSoftUpdateBanner = function () {
-            ((o("WAWebStreamModel").Stream.needsUpdate = !0),
-              (o("WAWebStreamModel").Stream.isHardRefresh = !1));
+            if (!r("gkx")("27709")) {
+              C();
+              return;
+            }
+            o("WAWebStartupResourcesPrefetchBeforeUpdatePrompt")
+              .prefetchStartupResourcesBeforeUpdatePrompt()
+              .then(function () {
+                o("WAWebStreamModel").Stream.isHardRefresh || C();
+              });
           }),
           (i.update = function (a) {
             var t = this,
@@ -245,6 +254,10 @@ __d(
         );
       })(o("WAWebUpdaterBaseUpdater").UpdaterBase),
       y = new h();
+    function C() {
+      ((o("WAWebStreamModel").Stream.needsUpdate = !0),
+        (o("WAWebStreamModel").Stream.isHardRefresh = !1));
+    }
     ((l.UpdaterImpl = h), (l.Updater = y));
   },
   98,

@@ -47,14 +47,10 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f() {
-      m = null;
-    }
     ((l.FeaturePkiRootCertificatePem = u),
       (l.FeaturePkiRootCertificateVersion = c),
       (l.FeaturePkiRootCommonName = d),
-      (l.loadFeaturePkiRootCertificate = p),
-      (l.clearCachedFeaturePkiRootCertificateForTesting = f));
+      (l.loadFeaturePkiRootCertificate = p));
   },
   98,
 );

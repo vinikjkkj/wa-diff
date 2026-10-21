@@ -31,14 +31,10 @@ __d(
     function p() {
       u = null;
     }
-    function _() {
-      return u;
-    }
     ((l.generateNewCallId = c),
       (l.generateAndStoreNewCallId = d),
       (l.consumeOrGenerateCallId = m),
-      (l.resetPendingCallId = p),
-      (l.getPendingCallIdForTest = _));
+      (l.resetPendingCallId = p));
   },
   98,
 );

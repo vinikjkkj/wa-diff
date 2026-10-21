@@ -42,6 +42,7 @@ __d(
       ai_hatch_custom_connectors_enabled: [38808, "bool", !1, !1],
       ai_hatch_first_party_connectors_enabled: [38142, "bool", !1, !0],
       ai_hatch_gzip_encoding_enabled: [37777, "bool", !1, !0],
+      ai_hatch_in_app_additional_tokens_enabled: [40145, "bool", !1, !0],
       ai_hatch_in_app_subscriptions_enabled: [39115, "bool", !1, !0],
       ai_hatch_integration_bot_profile: [26190, "string", "", ""],
       ai_hatch_integration_enabled: [26189, "bool", !1, !1],

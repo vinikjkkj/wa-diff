@@ -29,7 +29,7 @@ __d(
       f = !1;
     function g(e, t) {
       return (
-        y(),
+        h(),
         new (u || (u = n("Promise")))(function (n, r) {
           var o = self.performance.now(),
             a = !1,
@@ -42,53 +42,50 @@ __d(
             return i ? !1 : ((i = !0), self.clearTimeout(l), _.delete(u), !0);
           }
           function u() {
-            var e = a ? b(t) : null;
-            e == null || !s() || (R(e, o), r(new m()));
+            var e = a ? C(t) : null;
+            e == null || !s() || (S(e, o), r(new m()));
           }
           e.then(
             function (e) {
               s() && n(e);
             },
             function (e) {
-              s() && (L(e, o), r(new m()));
+              s() && (R(e, o), r(new m()));
             },
           );
         })
       );
     }
     function h() {
-      (p.clear(), _.clear(), (f = !1));
+      f || ((f = !0), o("BootloaderEvents").onBootloadError(y));
     }
-    function y() {
-      f || ((f = !0), o("BootloaderEvents").onBootloadError(C));
-    }
-    function C(e) {
+    function y(e) {
       var t = e.bootloaderData,
         n = e.erroredResources,
         r = n.values().next().value;
       if (r != null) {
-        var o = v(r);
+        var o = b(r);
         for (var a of t.components) p.has(a) || p.set(a, o);
         _.forEach(function (e) {
           return e();
         });
       }
     }
-    function b(e) {
+    function C(e) {
       for (var t of e) {
         var n = p.get(t);
         if (n != null) return { moduleId: t, resource: n };
       }
       return null;
     }
-    function v(e) {
+    function b(e) {
       var t = e.split(/[?#]/)[0];
       return t.slice(t.lastIndexOf("/") + 1).slice(0, d);
     }
-    function S(e) {
+    function v(e) {
       return Math.round(self.performance.now() - e);
     }
-    function R(t, n) {
+    function S(t, n) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           o("WALogger")
@@ -102,14 +99,14 @@ __d(
                 ])),
               t.moduleId,
               t.resource,
-              S(n),
+              v(n),
             )
             .tags("non-sad")
             .sendLogs("voip-deferred-boot-chunk-load-failed");
         },
       );
     }
-    function L(e, t) {
+    function R(e, t) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           o("WALogger")
@@ -119,7 +116,7 @@ __d(
                   "voip: [deferred-boot] chunk_load_failed source=load_rejected waited_ms=",
                   "",
                 ])),
-              S(t),
+              v(t),
             )
             .catching(r("getErrorSafe")(e))
             .tags("non-sad")
@@ -127,9 +124,7 @@ __d(
         },
       );
     }
-    ((l.VoipChunkLoadError = m),
-      (l.failFastOnVoipChunkLoadError = g),
-      (l.resetVoipChunkLoadFailFastForTesting = h));
+    ((l.VoipChunkLoadError = m), (l.failFastOnVoipChunkLoadError = g));
   },
   98,
 );

@@ -7,6 +7,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgType",
     "WAWebMusicChatsConsumptionRefresherLoadable",
+    "WAWebMusicPlaybackUtils",
     "WAWebNetworkStatus",
     "WAWebPttAudioChannels",
     "WAWebToast.react",
@@ -58,46 +59,48 @@ __d(
           }),
           (n.play = function (t) {
             var e = this,
-              n,
-              a = this.$MusicMsgPlayerStore$p_1.status;
-            if (
-              !(
-                this.$MusicMsgPlayerStore$p_1.msg === t &&
-                (a === "loading" || a === "playing")
-              )
-            ) {
-              if (!r("WAWebNetworkStatus").online) {
-                f(
-                  s._(
-                    /*BTDS*/ "You're offline. Check your connection to play this song.",
+              n;
+            if (g(t)) {
+              var a = this.$MusicMsgPlayerStore$p_1.status;
+              if (
+                !(
+                  this.$MusicMsgPlayerStore$p_1.msg === t &&
+                  (a === "loading" || a === "playing")
+                )
+              ) {
+                if (!r("WAWebNetworkStatus").online) {
+                  f(
+                    s._(
+                      /*BTDS*/ "You're offline. Check your connection to play this song.",
+                    ),
+                  );
+                  return;
+                }
+                (this.$MusicMsgPlayerStore$p_1.msg != null &&
+                  this.$MusicMsgPlayerStore$p_1.msg !== t &&
+                  this.stop(),
+                  this.$MusicMsgPlayerStore$p_6(),
+                  (this.$MusicMsgPlayerStore$p_3 = o(
+                    "WAWebPttAudioChannels",
+                  ).MainAudioChannel.claim(this, function () {
+                    return e.pause();
+                  })),
+                  o("WAWebMsgCollection").MsgCollection.on(
+                    "remove",
+                    this.$MusicMsgPlayerStore$p_7,
                   ),
-                );
-                return;
+                  t.on("change:type", this.$MusicMsgPlayerStore$p_8));
+                var i =
+                  (n = this.$MusicMsgPlayerStore$p_2.get(t)) != null ? n : 0;
+                this.$MusicMsgPlayerStore$p_9({
+                  msg: t,
+                  playId: this.$MusicMsgPlayerStore$p_1.playId + 1,
+                  positionMs: i,
+                  resumePositionMs: i,
+                  status: "loading",
+                  volume: 1,
+                });
               }
-              (this.$MusicMsgPlayerStore$p_1.msg != null &&
-                this.$MusicMsgPlayerStore$p_1.msg !== t &&
-                this.stop(),
-                this.$MusicMsgPlayerStore$p_6(),
-                (this.$MusicMsgPlayerStore$p_3 = o(
-                  "WAWebPttAudioChannels",
-                ).MainAudioChannel.claim(this, function () {
-                  return e.pause();
-                })),
-                o("WAWebMsgCollection").MsgCollection.on(
-                  "remove",
-                  this.$MusicMsgPlayerStore$p_7,
-                ),
-                t.on("change:type", this.$MusicMsgPlayerStore$p_8));
-              var i =
-                (n = this.$MusicMsgPlayerStore$p_2.get(t)) != null ? n : 0;
-              this.$MusicMsgPlayerStore$p_9({
-                msg: t,
-                playId: this.$MusicMsgPlayerStore$p_1.playId + 1,
-                positionMs: i,
-                resumePositionMs: i,
-                status: "loading",
-                volume: 1,
-              });
             }
           }),
           (n.onError = function (t) {
@@ -223,8 +226,15 @@ __d(
         u.jsx(o("WAWebToast.react").Toast, { msg: e }),
       );
     }
-    var g = new p();
-    l.MusicMsgPlayer = g;
+    function g(e) {
+      var t = e.musicData;
+      return (
+        t != null &&
+        o("WAWebMusicPlaybackUtils").getMusicMessageUnplayableReason(t) == null
+      );
+    }
+    var h = new p();
+    l.MusicMsgPlayer = h;
   },
   226,
 );

@@ -13,17 +13,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c() {
-      o("WAWebSignupGreetingActionShared").signupCardInjectedChats.clear();
-    }
-    function d(e) {
+    function c(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
         e.subtype === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup &&
         e.signupCtaTapped !== !0
       );
     }
-    function m(e) {
+    function d(e) {
       var t = e.id.toString(),
         n = null,
         r = o("WAWebSignupGreetingActionShared").inFlightDeepLinks.get(t);
@@ -48,10 +45,10 @@ __d(
           chatTimestamp: e.t,
         }));
     }
-    function p(t) {
+    function m(t) {
       var n = t.msgs.last();
       if (
-        !(n == null || !d(n)) &&
+        !(n == null || !c(n)) &&
         !(
           !o("WAWebSignupGating").isSignupAGMEnabled() ||
           !o("WAWebSignupGating").isSignupAGMCleanupEnabled()
@@ -59,7 +56,7 @@ __d(
         !(t.draftMessage != null && t.draftMessage.text !== "")
       ) {
         var r = t.msgs.getModelsArray(),
-          a = r.filter(d);
+          a = r.filter(c);
         if (o("WAWebSignupGreetingActionShared").isChatSafeToDelete(t, a))
           (o("WALogger").LOG(
             e ||
@@ -98,9 +95,7 @@ __d(
         );
       }
     }
-    ((l.resetSignupCardInjectedChats = c),
-      (l.cancelInFlightSignups = m),
-      (l.maybeCleanupSignupAGM = p));
+    ((l.cancelInFlightSignups = d), (l.maybeCleanupSignupAGM = m));
   },
   98,
 );

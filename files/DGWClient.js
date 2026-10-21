@@ -1,6 +1,7 @@
 __d(
   "DGWClient",
   [
+    "Cookie",
     "CurrentUser",
     "DGWAuth",
     "DGWEnvUtil",
@@ -8,12 +9,21 @@ __d(
     "ExecutionEnvironment",
     "RawDGWClient",
     "err",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = null;
     function u() {
+      return (
+        r("CurrentUser").isLoggedInNow() ||
+        (r("Cookie").get("i_user") === "" &&
+          r("Cookie").get("c_user") === r("CurrentUser").getID() &&
+          r("gkx")("27735"))
+      );
+    }
+    function c() {
       if (!r("DGWEnvUtil").isDGWEnvCompatible())
         throw r("err")("unsupported_environment_retry_with_mqtt");
       if (s == null) {
@@ -35,14 +45,12 @@ __d(
             ? function () {
                 return r("CurrentUser").isLoggedIn();
               }
-            : function () {
-                return r("CurrentUser").isLoggedInNow();
-              },
+            : u,
         });
       }
       return s;
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

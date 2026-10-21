@@ -37,6 +37,7 @@ __d(
         enableBindSubtreeReuse: !1,
         enableNoOpVariableWriteFilter: !1,
         cssOnlyAspectRatio: !1,
+        enableFBLOXVideoDiagnostics: !1,
         enableBindInstrumentation: !1,
         enableDeterministicTextSize: !1,
         appLoader: null,
@@ -187,7 +188,8 @@ __d(
         x,
         $,
         P,
-        N;
+        N,
+        M;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -242,41 +244,45 @@ __d(
                 : e.enableNoOpVariableWriteFilter,
             cssOnlyAspectRatio:
               (h = t.cssOnlyAspectRatio) != null ? h : e.cssOnlyAspectRatio,
-            enableDeterministicTextSize:
-              (y = t.enableDeterministicTextSize) != null
+            enableFBLOXVideoDiagnostics:
+              (y = t.enableFBLOXVideoDiagnostics) != null
                 ? y
+                : e.enableFBLOXVideoDiagnostics,
+            enableDeterministicTextSize:
+              (C = t.enableDeterministicTextSize) != null
+                ? C
                 : e.enableDeterministicTextSize,
             enableBindInstrumentation:
-              (C = t.enableBindInstrumentation) != null
-                ? C
+              (b = t.enableBindInstrumentation) != null
+                ? b
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (b = t.loadingFallback) != null ? b : e.loadingFallback,
+              (v = t.loadingFallback) != null ? v : e.loadingFallback,
             dataModulesStore: g(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (v = t.navigationTrackingUtils) != null
-                ? v
+              (S = t.navigationTrackingUtils) != null
+                ? S
                 : e.navigationTrackingUtils,
-            logger: (S = t.logger) != null ? S : e.logger,
+            logger: (R = t.logger) != null ? R : e.logger,
             disableErrorBoundary:
-              (R = t.disableErrorBoundary) != null ? R : e.disableErrorBoundary,
-            AssetRenderer: (L = t.AssetRenderer) != null ? L : e.AssetRenderer,
-            staticAssets: (E = t.staticAssets) != null ? E : e.staticAssets,
+              (L = t.disableErrorBoundary) != null ? L : e.disableErrorBoundary,
+            AssetRenderer: (E = t.AssetRenderer) != null ? E : e.AssetRenderer,
+            staticAssets: (k = t.staticAssets) != null ? k : e.staticAssets,
             globalStateStore:
-              (k = t.globalStateStore) != null ? k : e.globalStateStore,
+              (I = t.globalStateStore) != null ? I : e.globalStateStore,
             fontFamilyMappings:
-              (I = t.fontFamilyMappings) != null ? I : e.fontFamilyMappings,
-            timeoutIDS: (T = t.timeoutIDS) != null ? T : e.timeoutIDS,
+              (T = t.fontFamilyMappings) != null ? T : e.fontFamilyMappings,
+            timeoutIDS: (D = t.timeoutIDS) != null ? D : e.timeoutIDS,
             screenQueryTemplate:
-              (D = t.screenQueryTemplate) != null ? D : e.screenQueryTemplate,
+              (x = t.screenQueryTemplate) != null ? x : e.screenQueryTemplate,
             accessibilityModule:
-              (x = t.accessibilityModule) != null ? x : e.accessibilityModule,
-            gkx: ($ = t.gkx) != null ? $ : e.gkx,
+              ($ = t.accessibilityModule) != null ? $ : e.accessibilityModule,
+            gkx: (P = t.gkx) != null ? P : e.gkx,
             controllerNavigationLogger:
-              (P = t.controllerNavigationLogger) != null
-                ? P
+              (N = t.controllerNavigationLogger) != null
+                ? N
                 : e.controllerNavigationLogger,
-            versioningID: (N = t.versioningID) != null ? N : e.versioningID,
+            versioningID: (M = t.versioningID) != null ? M : e.versioningID,
           }
         : e;
     }

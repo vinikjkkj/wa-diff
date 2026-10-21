@@ -39,6 +39,7 @@ __d(
             (e.isDeprecated = o("WAWebBaseModel").prop()),
             (e.creatorLid = o("WAWebBaseModel").prop()),
             (e.hcaEntrypointId = o("WAWebBaseModel").prop()),
+            (e.generatedEmoji = o("WAWebBaseModel").prop()),
             (e.groupTosRequirements = o("WAWebBaseModel").prop()),
             (e.isDeleted = o("WAWebBaseModel").prop()),
             (e.fetchPauseUntilMs = o("WAWebBaseModel").prop()),

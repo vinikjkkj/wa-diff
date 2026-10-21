@@ -37,9 +37,6 @@ __d(
           (n.clearAgentStatus = function () {
             (this.$7(), (this.$1 = null), this.$6(null));
           }),
-          (n.__resetForTesting = function () {
-            (this.$7(), (this.$1 = null), (this.$2 = []));
-          }),
           (n.getDisplayText = function (t) {
             var e = t.activityEmoji,
               n = t.activityText;

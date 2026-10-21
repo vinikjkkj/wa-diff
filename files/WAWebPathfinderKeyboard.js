@@ -46,18 +46,13 @@ __d(
     var p = null,
       _ = null,
       f = null;
-    function g() {
-      ((p = null),
-        (_ = null),
-        f != null && (window.clearTimeout(f), (f = null)));
-    }
-    function h(e) {
+    function g(e) {
       var t;
       return e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement
         ? e.value === ""
         : ((t = e.textContent) != null ? t : "") === "";
     }
-    function y(e) {
+    function h(e) {
       var t = e.target;
       !(t instanceof HTMLElement) ||
         !s(t) ||
@@ -67,7 +62,7 @@ __d(
           f = null;
           var e = _;
           if (((_ = null), e != null)) {
-            var t = h(e);
+            var t = g(e);
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "CONTENT_CHANGED",
               context: JSON.stringify({ is_empty: String(t) }),
@@ -77,7 +72,7 @@ __d(
           }
         }, u)));
     }
-    function C(e) {
+    function y(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
@@ -92,7 +87,7 @@ __d(
           }));
       }
     }
-    function b(e) {
+    function C(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
@@ -110,10 +105,7 @@ __d(
           }));
       }
     }
-    ((l.resetKeyboardStateForTesting = g),
-      (l.handleInput = y),
-      (l.handleFocusIn = C),
-      (l.handleFocusOut = b));
+    ((l.handleInput = h), (l.handleFocusIn = y), (l.handleFocusOut = C));
   },
   98,
 );

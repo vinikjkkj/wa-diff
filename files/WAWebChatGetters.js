@@ -23,119 +23,120 @@ __d(
       h = c("archive"),
       y = c("isReadOnly"),
       C = c("isLocked"),
-      b = c("muteExpiration", { default: 0 }),
-      v = c("isAutoMuted", { default: !1 }),
-      S = c("name"),
-      R = c("pin"),
-      L = c("labels"),
-      E = c("endOfHistoryTransferType"),
-      k = c("pendingInitialLoading", { default: !1 }),
-      I = c("changeNumberOldJid"),
-      T = c("changeNumberNewJid"),
-      D = c("chatlistPreview"),
-      x = c("lastReactionPreview"),
-      $ = c("draftMessage"),
-      P = c("capiThreadControl"),
-      N = c("suggestedRepliesEnabled"),
-      M = c("aiLastHandoffActor"),
-      w = c("bbProEntrypointEnabled", { default: !1 }),
-      A = c("tcToken"),
-      F = c("tcTokenTimestamp"),
-      O = c("previewT"),
-      B = u(
+      b = c("aeaThreadState"),
+      v = c("muteExpiration", { default: 0 }),
+      S = c("isAutoMuted", { default: !1 }),
+      R = c("name"),
+      L = c("pin"),
+      E = c("labels"),
+      k = c("endOfHistoryTransferType"),
+      I = c("pendingInitialLoading", { default: !1 }),
+      T = c("changeNumberOldJid"),
+      D = c("changeNumberNewJid"),
+      x = c("chatlistPreview"),
+      $ = c("lastReactionPreview"),
+      P = c("draftMessage"),
+      N = c("capiThreadControl"),
+      M = c("suggestedRepliesEnabled"),
+      w = c("aiLastHandoffActor"),
+      A = c("bbProEntrypointEnabled", { default: !1 }),
+      F = c("tcToken"),
+      O = c("tcTokenTimestamp"),
+      B = c("previewT"),
+      W = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [_],
       ),
-      W = u(
+      q = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [_],
       ),
-      q = u(
+      U = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [_],
       ),
-      U = u(
+      V = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isMetaForBusiness(t);
         },
         [_],
       ),
-      V = u(
+      H = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [_],
       ),
-      H = u(
+      G = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [_],
       ),
-      G = u(
+      z = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [_],
       ),
-      z = u(
+      j = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [_],
       ),
-      j = u(
+      K = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isMetaAiBot(t);
         },
         [_],
       ),
-      K = u(
+      Q = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBusinessAssistantBot(t);
         },
         [_],
       ),
-      Q = u(
+      X = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isHatchBot(t);
         },
         [_],
       ),
-      X = u(
+      Y = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBotChannelFBID(t);
         },
         [_],
       ),
-      Y = u(
+      J = u(
         function (e) {
           var t = e[0],
             n = e[1];
           return !t && !n;
         },
-        [H, W],
+        [G, q],
       ),
-      J = u(o("WAWebBoolFunc").returnTrue, [H]),
-      Z = u(
+      Z = u(o("WAWebBoolFunc").returnTrue, [G]),
+      ee = u(
         function (e) {
           var t = e[0];
           return t !== 0;
@@ -150,40 +151,41 @@ __d(
       (l.getArchive = h),
       (l.getIsReadOnly = y),
       (l.getIsLocked = C),
-      (l.getMuteExpiration = b),
-      (l.getIsAutoMuted = v),
-      (l.getName = S),
-      (l.getPin = R),
-      (l.getLabels = L),
-      (l.getEndOfHistoryTransferType = E),
-      (l.getPendingInitialLoading = k),
-      (l.getChangeNumberOldJid = I),
-      (l.getChangeNumberNewJid = T),
-      (l.getChatlistPreview = D),
-      (l.getLastReactionPreview = x),
-      (l.getDraftMessage = $),
-      (l.getCapiThreadControl = P),
-      (l.getSuggestedRepliesEnabled = N),
-      (l.getAiLastHandoffActor = M),
-      (l.getBBProEntrypointEnabled = w),
-      (l.getTcToken = A),
-      (l.getTcTokenTimestamp = F),
-      (l.getPreviewT = O),
-      (l.getIsUser = B),
-      (l.getIsPSA = W),
-      (l.getIsIAS = q),
-      (l.getIsMetaForBusiness = U),
-      (l.getIsGroup = V),
-      (l.getIsBroadcast = H),
-      (l.getIsNewsletter = G),
-      (l.getIsBot = z),
-      (l.getIsMetaAiBot = j),
-      (l.getIsBusinessAssistantBot = K),
-      (l.getIsHatchBot = Q),
-      (l.getIsBotChannel = X),
-      (l.getIsEligibleForContactSync = Y),
-      (l.getCanUnread = J),
-      (l.getHasUnread = Z));
+      (l.getAeaThreadState = b),
+      (l.getMuteExpiration = v),
+      (l.getIsAutoMuted = S),
+      (l.getName = R),
+      (l.getPin = L),
+      (l.getLabels = E),
+      (l.getEndOfHistoryTransferType = k),
+      (l.getPendingInitialLoading = I),
+      (l.getChangeNumberOldJid = T),
+      (l.getChangeNumberNewJid = D),
+      (l.getChatlistPreview = x),
+      (l.getLastReactionPreview = $),
+      (l.getDraftMessage = P),
+      (l.getCapiThreadControl = N),
+      (l.getSuggestedRepliesEnabled = M),
+      (l.getAiLastHandoffActor = w),
+      (l.getBBProEntrypointEnabled = A),
+      (l.getTcToken = F),
+      (l.getTcTokenTimestamp = O),
+      (l.getPreviewT = B),
+      (l.getIsUser = W),
+      (l.getIsPSA = q),
+      (l.getIsIAS = U),
+      (l.getIsMetaForBusiness = V),
+      (l.getIsGroup = H),
+      (l.getIsBroadcast = G),
+      (l.getIsNewsletter = z),
+      (l.getIsBot = j),
+      (l.getIsMetaAiBot = K),
+      (l.getIsBusinessAssistantBot = Q),
+      (l.getIsHatchBot = X),
+      (l.getIsBotChannel = Y),
+      (l.getIsEligibleForContactSync = J),
+      (l.getCanUnread = Z),
+      (l.getHasUnread = ee));
   },
   98,
 );

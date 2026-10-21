@@ -136,6 +136,7 @@ __d(
           var n = o("WAWebWidFactory").createWid(e.botFbid + "@bot");
           yield o("WAWebPersistBotProfiles").mergeBotSupportFields(n, {
             creatorLid: e.creatorLid,
+            generatedEmoji: e.generatedEmoji,
             hcaEntrypointId: e.hcaEntrypointId,
             name: e.name,
             product: e.product,

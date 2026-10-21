@@ -42,9 +42,6 @@ __d(
         }
         var n = t.prototype;
         return (
-          (n.resetForTesting = function () {
-            ((this.$1 = null), (this.$2 = []), (this.$3 = !1));
-          }),
           (n.$4 = function () {
             try {
               var t =
@@ -191,14 +188,11 @@ __d(
       g.addEntry(e);
     }
     function y() {
-      g.resetForTesting();
-    }
-    function C() {
       var e = o("react-compiler-runtime").c(2),
         t = m(g.subscribe, g.getSnapshot),
-        n = S,
-        r = v,
-        a = b,
+        n = v,
+        r = b,
+        a = C,
         i;
       return (
         e[0] !== t
@@ -214,18 +208,16 @@ __d(
         i
       );
     }
-    function b() {
+    function C() {
       g.clearAll();
     }
-    function v(e) {
+    function b(e) {
       g.removeEntry(e);
     }
-    function S(e) {
+    function v(e) {
       g.addEntry(e);
     }
-    ((l.addChatToRecentSearches = h),
-      (l.resetStoreForTesting = y),
-      (l.useRecentlySearchedChats = C));
+    ((l.addChatToRecentSearches = h), (l.useRecentlySearchedChats = y));
   },
   98,
 );

@@ -23,6 +23,7 @@ __d(
             type: "exists",
             value: {
               creatorLid: u(t.creator_lid),
+              generatedEmoji: u(t.generated_emoji),
               hcaEntrypointId: u(t.hca_entrypoint_id),
               groupTosRequirements:
                 t.tos == null ? null : (n = t.tos.group) != null ? n : [],

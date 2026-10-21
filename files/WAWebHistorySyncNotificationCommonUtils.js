@@ -62,20 +62,14 @@ __d(
         u = e.totalMissingMapping,
         c = null;
       try {
-        if (
-          (l != null &&
-            (c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(l, i)),
-          o(
-            "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-          ).isRoutedBrazilPaymentStateUpdateMsg(c))
-        )
-          return null;
-        R({
-          allLidMapping: t,
-          message: l,
-          parsedMsg: c,
-          totalMissingMapping: u,
-        });
+        (l != null &&
+          (c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(l, i)),
+          R({
+            allLidMapping: t,
+            message: l,
+            parsedMsg: c,
+            totalMissingMapping: u,
+          }));
       } catch (e) {
         var d = r("getErrorSafe")(e);
         (o("WALogger")
@@ -127,7 +121,15 @@ __d(
             (c = o(
               "WAWebHistorySyncMsgKeyOverrideUtils",
             ).maybeOverrideMsgKeyRemoteWithChatId(c, s, !0)),
-        c
+        c != null &&
+        o(
+          "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+        ).isRoutedBrazilPaymentStateUpdateMsg(c)
+          ? (o(
+              "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+            ).keepAndApplyBrazilPaymentStateUpdate(c, !1),
+            null)
+          : c
       );
     }
     function E(e) {

@@ -212,7 +212,7 @@ __d(
                     return i.handleRpc(e);
                   }),
                   (this.backend = i),
-                  this.comms.setOnBeforeCastStanzaForE2E(function (e) {
+                  this.comms.setOnBeforeCastStanza(function (e) {
                     try {
                       var n = o("WAWap").encodeStanza(e);
                       return (l.match(n), []);
@@ -250,8 +250,7 @@ __d(
                 .getSmaxLogEmitter(this.wasmModule)
                 .unsubscribe(e),
               (this.loggerId = null)),
-              this.comms != null &&
-                this.comms.setOnBeforeCastStanzaForE2E(void 0));
+              this.comms != null && this.comms.setOnBeforeCastStanza(void 0));
           }),
           t
         );

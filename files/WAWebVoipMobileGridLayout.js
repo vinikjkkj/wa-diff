@@ -16,13 +16,16 @@ __d(
           ? { cols: 1, rows: 2 }
           : { cols: e, rows: Math.ceil(t / e) };
     }
-    function p(e, t) {
+    function p(e, t, n) {
+      return e ? (n && !t ? "paged" : "scroll") : "none";
+    }
+    function _(e, t) {
       if ((t === void 0 && (t = 0), e <= l - t))
         return { fixedCount: Math.max(e, 0), scrollCount: 0 };
       var n = s - t;
       return { fixedCount: n, scrollCount: e - n };
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       return e <= 0 || t <= 0
         ? 0
         : t === u
@@ -33,8 +36,9 @@ __d(
       (i.MOBILE_SCROLL_VISIBLE_RATIO = c),
       (i.MOBILE_SCROLL_PEEK_FRACTION = d),
       (i.mobileGridShape = m),
-      (i.splitMobileGridParticipants = p),
-      (i.calculateMobileScrollTileWidth = _));
+      (i.getMobileGridMode = p),
+      (i.splitMobileGridParticipants = _),
+      (i.calculateMobileScrollTileWidth = f));
   },
   66,
 );

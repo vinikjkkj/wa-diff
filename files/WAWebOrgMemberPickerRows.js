@@ -1,15 +1,60 @@
 __d(
   "WAWebOrgMemberPickerRows",
   [
+    "WAWebBoolFunc",
+    "WAWebLidMigrationUtils",
     "WAWebMultiSelectChatListTypes",
+    "WAWebNetworkStatus",
     "WAWebOrgMemberSearchErrorRowLayout",
     "WAWebOrgMemberSearchLoadingRowLayout",
     "WAWebOrgMemberSearchRows",
+    "WAWebOrgTimelock",
+    "WAWebReachoutTimelockUtils",
+    "WAWebUsernameTypes",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    function e(e) {
+      var t = e.members,
+        n = e.status;
+      return n === "hidden"
+        ? []
+        : c(
+            [
+              {
+                failure: n === "error" ? m() : null,
+                loading: n === "loading",
+                members: t,
+                orgId: "primary",
+                orgName: "",
+              },
+            ],
+            o("WAWebBoolFunc").returnTrue,
+          );
+    }
+    function s(e) {
+      var t = e[0],
+        n = t == null ? null : o("WAWebOrgMemberSearchRows").toOrgMemberLid(t);
+      return t == null ||
+        n == null ||
+        (o("WAWebReachoutTimelockUtils").isUserReachoutTimelockedAndVisible() &&
+          !o("WAWebOrgTimelock").canMessageOrgMemberWhileTimelocked(n))
+        ? null
+        : { lid: n, member: t };
+    }
+    function u(e, t) {
+      var n = t.wid == null ? null : o("WAWebLidMigrationUtils").toLid(t.wid),
+        r = t.username;
+      return e.some(function (e) {
+        return (
+          e.id === (n == null ? void 0 : n.user) ||
+          (r != null &&
+            o("WAWebUsernameTypes").serializeMaybeUsername(e.username) === r)
+        );
+      });
+    }
+    function c(e, t) {
       return e.flatMap(function (e) {
-        var n = s(e, t);
+        var n = d(e, t);
         return n.length === 0
           ? []
           : [
@@ -22,7 +67,7 @@ __d(
             ].concat(n);
       });
     }
-    function s(e, t) {
+    function d(e, t) {
       var n = e.failure,
         r = e.orgId;
       return e.loading
@@ -63,7 +108,13 @@ __d(
                 : [];
             });
     }
-    l.toOrgMemberPickerRows = e;
+    function m() {
+      return r("WAWebNetworkStatus").online ? "unavailable" : "offline";
+    }
+    ((l.toPrimaryOrgMemberPickerRows = e),
+      (l.getOrgMemberToOpenOnEnter = s),
+      (l.isListedOrgMember = u),
+      (l.toOrgMemberPickerRows = c));
   },
   98,
 );

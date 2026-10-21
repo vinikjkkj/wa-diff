@@ -11,7 +11,7 @@ __d(
         r = Number((n = t.settingTimestamp) != null ? n : 0);
       if (!(r <= 0)) {
         var o = Date.now();
-        (s.size >= l && m(o),
+        (s.size >= l && d(o),
           s.set(e, {
             enabled: t.enabled,
             fromMe: t.fromMe,
@@ -31,19 +31,14 @@ __d(
         o.settingTimestamp === Number((r = n.settingTimestamp) != null ? r : 0);
       return (a && s.delete(t), a);
     }
-    function d() {
-      s.clear();
-    }
-    function m(t) {
+    function d(t) {
       for (var n of s) {
         var r = n[0],
           o = n[1];
         t - o.receivedAt > e && s.delete(r);
       }
     }
-    ((i.recordAcp2ProtocolMessage = u),
-      (i.consumePairedRedundantAcp1 = c),
-      (i.clearAcp2ProtocolRecordsForTests = d));
+    ((i.recordAcp2ProtocolMessage = u), (i.consumePairedRedundantAcp1 = c));
   },
   66,
 );

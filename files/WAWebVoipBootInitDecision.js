@@ -12,8 +12,8 @@ __d(
     function u() {
       if (!o("WAWebABPropsCache").isABPropConfigsReady())
         return ((e = null), (s = !1), null);
-      if (e != null) return (s && !f() && (e = "eager"), e);
-      var t = _();
+      if (e != null) return (s && !_() && (e = "eager"), e);
+      var t = p();
       return (t !== "skip" && (e = t), t);
     }
     function c() {
@@ -39,17 +39,14 @@ __d(
       );
     }
     function p() {
-      ((e = null), (s = !1));
-    }
-    function _() {
       return o("WAWebVoipGatingUtils").isVoipDownloadEnabled()
         ? r("WAWebEnvironment").isWindows ||
           o("WAWebVoipGatingUtils").isGuestViewer()
           ? "eager"
-          : ((s = !0), f() ? "deferred" : "eager")
+          : ((s = !0), _() ? "deferred" : "eager")
         : "skip";
     }
-    function f() {
+    function _() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_deferred_boot_init",
@@ -59,8 +56,7 @@ __d(
     ((l.getVoipBootInitDecision = u),
       (l.isDeferredVoipBootInitEnabled = c),
       (l.isDeferredVoipBootEarlyModulePrefetchEnabled = d),
-      (l.isDeferredVoipBootHiddenPrewarmEnabled = m),
-      (l.resetVoipBootInitDecisionForTesting = p));
+      (l.isDeferredVoipBootHiddenPrewarmEnabled = m));
   },
   98,
 );

@@ -33,7 +33,7 @@ __d(
             throw new (o("WebBloksErrors").WebBloksError)(
               "number format error: empty string",
             );
-          var t = r || 10;
+          var t = r != null && r ? r : 10;
           if (t < 2 || 36 < t)
             throw new (o("WebBloksErrors").WebBloksError)(
               "radix out of range: " + t,
@@ -67,7 +67,7 @@ __d(
           return this.$2 * e.$5 + this.getLowBitsUnsigned();
         }),
         (t.toString = function (n) {
-          var t = n || 10;
+          var t = n != null && n ? n : 10;
           if (t < 2 || 36 < t)
             throw new (o("WebBloksErrors").WebBloksError)(
               "radix out of range: " + t,

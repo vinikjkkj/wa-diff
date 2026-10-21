@@ -79,15 +79,6 @@ __d(
           }
           return a;
         })()),
-        (a.overrideNonceForTesting = function (t) {
-          var e = this;
-          return this.$9(function () {
-            throw r("err")(
-              "WAWebHatchNoiseCipherState: test nonce override requires a development build",
-            );
-            var n, o;
-          });
-        }),
         (a.destroy = function () {
           var e = this;
           this.$9(function () {

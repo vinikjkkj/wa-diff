@@ -10,6 +10,7 @@ __d(
       "Main",
       "AppDetail",
       "ConnectorParameters",
+      "ConnectorNux",
     ]);
     function s(e) {
       var t, n, r, a, i;
@@ -46,7 +47,48 @@ __d(
         ? null
         : s;
     }
-    ((l.IntegrationHubStep = e), (l.getIntegrationHubConnectAction = s));
+    function u(e, t) {
+      var n,
+        r = (function (e) {
+          if (e === "GOOGLE") return "GOOGLE_CALENDAR";
+          if (e === "APPLE") return "APPLE_CALENDAR";
+          if (e === "OUTLOOK") return "MICROSOFT_OUTLOOK";
+          if (e === "OUTLOOK_NATIVE") return "MICROSOFT_OUTLOOK_NATIVE";
+          if (e === "GOHIGHLEVEL") return "GO_HIGH_LEVEL";
+          if (e === "SIMPLYBOOK_ME") return "SIMPLYBOOKME";
+          if (e === "IN_HOUSE") return null;
+          {
+            var t = e;
+            return t;
+          }
+        })(t);
+      if (r == null) return null;
+      var o = e.filter(function (e) {
+          return (
+            e.apixfnPlugin === r &&
+            e.productCategories.includes("APPOINTMENTS") &&
+            e.connectionStatus !== "DISABLED" &&
+            s(
+              babelHelpers.extends({}, e, { connectionStatus: "AUTH_ERROR" }),
+            ) != null
+          );
+        }),
+        a =
+          (n = o.find(function (e) {
+            return e.connectionStatus === "AUTH_ERROR";
+          })) != null
+            ? n
+            : o[0];
+      return a == null
+        ? null
+        : babelHelpers.extends({}, a, {
+            connectionStatus: "AUTH_ERROR",
+            isConnected: !1,
+          });
+    }
+    ((l.IntegrationHubStep = e),
+      (l.getIntegrationHubConnectAction = s),
+      (l.findCalendarReconnectPlugin = u));
   },
   98,
 );

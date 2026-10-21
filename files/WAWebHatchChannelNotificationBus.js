@@ -38,9 +38,6 @@ __d(
                   .sendLogs("hatch-notification-listener-error");
               }
           }),
-          (n.__resetForTesting = function () {
-            this.$1 = [];
-          }),
           t
         );
       })(),

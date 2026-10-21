@@ -19,7 +19,10 @@ __d(
         ? s
         : e;
     }
-    function p(t, n, r) {
+    function p(t, n) {
+      return n ? e : t;
+    }
+    function _(t, n, r) {
       return t <= e
         ? e
         : n <= 0
@@ -37,7 +40,8 @@ __d(
       (l.GRID_3X3_MIN_CONTAINER_WIDTH = u),
       (l.GRID_3X3_RESTORE_CONTAINER_WIDTH = c),
       (l.getGridParticipantsPerPage = m),
-      (l.getResponsiveGridPageSize = p));
+      (l.getGridMaxPerPage = p),
+      (l.getResponsiveGridPageSize = _));
   },
   98,
 );

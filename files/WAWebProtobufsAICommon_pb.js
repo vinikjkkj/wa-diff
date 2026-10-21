@@ -569,7 +569,10 @@ __d(
         origins: [1, e.FLAGS.REPEATED | e.TYPES.MESSAGE, Te],
       }),
       (Te.name = "BotMessageOrigin"),
-      (Te.internalSpec = { type: [1, e.TYPES.ENUM, P] }),
+      (Te.internalSpec = {
+        type: [1, e.TYPES.ENUM, P],
+        proactiveMessageCampaignId: [2, e.TYPES.STRING],
+      }),
       (De.name = "BotUnifiedResponseMutation"),
       (De.internalSpec = {
         sbsMetadata: [1, e.TYPES.MESSAGE, $e],

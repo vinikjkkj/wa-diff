@@ -12,6 +12,8 @@ __d(
       AR_GLASS: 6,
       WEARABLES_WHATSAPI: 7,
       AUTOMOTIVE: 8,
+      SMART_DISPLAY: 9,
+      SMART_SPEAKER: 10,
       UNDEFINED: 100,
     });
     i.DEVICE_CLASSIFICATION = e;

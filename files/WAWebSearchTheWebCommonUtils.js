@@ -12,13 +12,13 @@ __d(
     "WAWebModalManager",
     "WAWebNetworkStatus",
     "WAWebSTWGatingUtils",
-    "WAWebSearchTextIcon.react",
     "WAWebSearchTheWebEventLogger",
     "WAWebSpinner.react",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumStwFormat",
     "WAWebWamEnumStwInteraction",
+    "WDSIconIcArticle.react",
     "WDSIconIcGoogleLensIcon.react",
     "WDSIconIcInfo.react",
     "WDSText.react",
@@ -117,9 +117,10 @@ __d(
     function R(e) {
       switch (e) {
         case m.TEXT:
-          return u.jsx(o("WAWebSearchTextIcon.react").SearchTextIcon, {
+          return u.jsx(r("WDSIconIcArticle.react"), {
             height: p,
             width: _,
+            testid: "search-text",
           });
         case m.IMAGE:
           return u.jsx(r("WDSIconIcGoogleLensIcon.react"), {

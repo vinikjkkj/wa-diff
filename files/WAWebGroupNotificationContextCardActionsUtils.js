@@ -38,18 +38,30 @@ __d(
         var l;
         a[i] = ((l = o[i]) == null ? void 0 : l.available) === !0;
       }
-      var m = d(e, s, a, (n == null ? void 0 : n.available) === !0 ? c : u),
-        p = r("compactMap")(m, function (e) {
+      var m = (n == null ? void 0 : n.available) === !0,
+        p = d(e, m ? s : e, a, m ? c : u),
+        _ = r("compactMap")(p, function (e) {
           return o[e];
         }),
-        _ = p[0],
-        f = p[1],
-        g = p[2];
+        f = _.find(function (e) {
+          return e.isPreferredPrimary === !0;
+        }),
+        g =
+          f == null
+            ? _
+            : [f].concat(
+                _.filter(function (e) {
+                  return e !== f;
+                }),
+              ),
+        h = g[0],
+        y = g[1],
+        C = g[2];
       return {
-        firstConfig: _ != null ? _ : null,
-        secondConfig: f != null ? f : null,
-        thirdConfig: g != null ? g : null,
-        useVerticalLayout: p.some(function (e) {
+        firstConfig: h != null ? h : null,
+        secondConfig: y != null ? y : null,
+        thirdConfig: C != null ? C : null,
+        useVerticalLayout: g.some(function (e) {
           return e.useVerticalLayout === !0;
         }),
       };

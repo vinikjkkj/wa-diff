@@ -36,19 +36,11 @@ __d(
     function g() {
       p = null;
     }
-    function h() {
-      (s.clear(), (p = null));
-    }
-    function y() {
-      return s.size;
-    }
     ((l.getOrCreateCallRandomId = u),
       (l.getCallRandomIdForCall = c),
       (l.setCurrentCallRandomId = _),
       (l.getCurrentCallRandomId = f),
-      (l.clearCurrentCallRandomId = g),
-      (l.resetCallRandomIds = h),
-      (l.getRetainedCallCountForTest = y));
+      (l.clearCurrentCallRandomId = g));
   },
   98,
 );

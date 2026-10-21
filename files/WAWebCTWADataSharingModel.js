@@ -22,20 +22,16 @@ __d(
       g = function (t) {
         d.off("update", t);
       },
-      h = function () {
-        ((u = null), (c = null));
-      },
-      y = {
+      h = {
         subscribeForUpdates: f,
         unsubscribeFromUpdates: g,
         setValue: m,
         getValue: p,
         getVersion: _,
-        resetForTests: h,
       };
     ((l.BASE_DISCLOSURE_VERSION = e),
       (l.EPD_DISCLOSURE_VERSION = s),
-      (l.CTWADataSharingModel = y));
+      (l.CTWADataSharingModel = h));
   },
   98,
 );

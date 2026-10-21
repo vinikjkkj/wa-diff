@@ -10,6 +10,7 @@ __d(
     "WATransferableResult",
     "WAWap",
     "WAWebABPropsCache",
+    "WAWebABPropsJestE2EReadLog",
     "WAWebApiHydrateWidsUtil",
     "WAWebAppTracker",
     "WAWebBackendApi",
@@ -112,6 +113,12 @@ __d(
               recordExposure: function (t) {
                 var e = t.configCode;
                 o("WAWebABPropsCache").saveExposure(e);
+              },
+              recordJestE2ERead: function (t) {
+                var e = t.line;
+                o("WAWebABPropsJestE2EReadLog").recordABPropReadLineForJestE2E(
+                  e,
+                );
               },
             },
           },

@@ -26,7 +26,7 @@ __d(
         return (s || (s = n("Promise"))).resolve();
       var e = u;
       if (e != null) return e;
-      var t = m();
+      var t = d();
       return (
         (u = t),
         t.catch(function () {
@@ -36,15 +36,12 @@ __d(
       );
     }
     function d() {
-      u = null;
+      return m.apply(this, arguments);
     }
     function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield _();
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield p();
           if (e != null) {
             var t,
               n = o(
@@ -97,10 +94,10 @@ __d(
             {},
           );
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function _() {
+    function p() {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewChatMessageCapping",
@@ -127,7 +124,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    ((l.fetchOrUpdateCapStatus = c), (l.resetCapStatusFetchForTesting = d));
+    l.fetchOrUpdateCapStatus = c;
   },
   98,
 );

@@ -15,10 +15,10 @@ __d(
       return l === e;
     }
     function p(e) {
-      ((s = e), (u = null), (c = null), R());
+      ((s = e), (u = null), (c = null), S());
     }
     function _(e) {
-      s === e && ((s = null), R());
+      s === e && ((s = null), S());
     }
     function f(e) {
       (l === e && (l = null), _(e));
@@ -36,7 +36,7 @@ __d(
       return s === e && c === e;
     }
     function b(e) {
-      return s !== e ? !1 : ((s = null), l === e && (l = null), R(), !0);
+      return s !== e ? !1 : ((s = null), l === e && (l = null), S(), !0);
     }
     function v(t) {
       return (
@@ -47,9 +47,6 @@ __d(
       );
     }
     function S() {
-      (e.clear(), (l = null), (s = null), (u = null), (c = null));
-    }
-    function R() {
       for (var t of e) t();
     }
     ((i.recordBlockedMicrophoneMute = d),
@@ -62,8 +59,7 @@ __d(
       (i.markBlockedMicrophoneAutoUnmuteStarted = y),
       (i.isBlockedMicrophoneAutoUnmuting = C),
       (i.takeBlockedMicrophoneJoin = b),
-      (i.subscribeToBlockedMicrophoneJoin = v),
-      (i.resetBlockedMicrophoneJoinForTesting = S));
+      (i.subscribeToBlockedMicrophoneJoin = v));
   },
   66,
 );

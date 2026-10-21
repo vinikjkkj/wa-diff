@@ -25,14 +25,10 @@ __d(
     function m() {
       for (var t of e) t();
     }
-    function p() {
-      (e.clear(), (l = null));
-    }
     ((i.reportMicrophoneRefused = s),
       (i.clearMicrophoneRefused = u),
       (i.getMicrophoneRefusedCallId = c),
-      (i.subscribeToMicrophoneRefused = d),
-      (i.resetMicrophoneRefusedForTesting = p));
+      (i.subscribeToMicrophoneRefused = d));
   },
   66,
 );

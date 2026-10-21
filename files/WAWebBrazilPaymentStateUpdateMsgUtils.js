@@ -13,7 +13,7 @@ __d(
       return s.size === 0
         ? e
         : e.map(function (e) {
-            return e.type === o("WAWebMsgType").MSG_TYPE.IMAGE && p(e.id)
+            return e.type === o("WAWebMsgType").MSG_TYPE.IMAGE && m(e.id)
               ? babelHelpers.extends({}, e, {
                   viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
                 })
@@ -22,20 +22,17 @@ __d(
     }
     function c(t, n, o) {
       var a = new (r("WAWebMsgKey"))({ fromMe: n, remote: t, id: o });
-      s.set(a.toString(), _(a));
+      s.set(a.toString(), p(a));
       for (var i of s.keys()) {
         if (s.size <= e) return;
         s.delete(i);
       }
     }
     function d(e, t, n) {
-      p(new (r("WAWebMsgKey"))({ fromMe: t, remote: e, id: n }));
+      m(new (r("WAWebMsgKey"))({ fromMe: t, remote: e, id: n }));
     }
-    function m() {
-      s.clear();
-    }
-    function p(e) {
-      var t = new Set(_(e));
+    function m(e) {
+      var t = new Set(p(e));
       for (var n of s) {
         var r = n[0],
           o = n[1];
@@ -48,15 +45,14 @@ __d(
       }
       return !1;
     }
-    function _(e) {
+    function p(e) {
       var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
       return t == null ? [e.toString()] : [e.toString(), t.toString()];
     }
     ((l.MAX_AWAITED_RECEIPTS = e),
       (l.hideAwaitedBrazilPaymentReceipts = u),
       (l.awaitBrazilPaymentReceipt = c),
-      (l.stopAwaitingBrazilPaymentReceipt = d),
-      (l.resetAwaitedBrazilPaymentReceiptsForTesting = m));
+      (l.stopAwaitingBrazilPaymentReceipt = d));
   },
   98,
 );

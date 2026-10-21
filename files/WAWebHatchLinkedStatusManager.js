@@ -124,16 +124,6 @@ __d(
                   t.$9 && ((t.$9 = !1), t.fetchAndUpdateStatus()));
               }));
           }),
-          (a.__resetForTesting = function () {
-            ((this.$1 = null),
-              (this.$2 = "not_loaded"),
-              (this.$3 = null),
-              (this.$4 = []),
-              (this.$5 = null),
-              this.$10(),
-              r("WAWebLocalStorage") == null ||
-                r("WAWebLocalStorage").removeItem(p));
-          }),
           (a.$11 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this.$7;

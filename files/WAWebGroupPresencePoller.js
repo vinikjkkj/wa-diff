@@ -62,14 +62,10 @@ __d(
       for (var t of u.values()) t();
       u.clear();
     }
-    function g(e) {
-      return s.has(e);
-    }
     ((l.LARGE_GROUP_POLL_INTERVAL_MS = e),
       (l.startLargeGroupPresencePoll = p),
       (l.stopLargeGroupPresencePoll = _),
-      (l.stopAllLargeGroupPresencePolls = f),
-      (l.hasActivePollForTesting = g));
+      (l.stopAllLargeGroupPresencePolls = f));
   },
   98,
 );

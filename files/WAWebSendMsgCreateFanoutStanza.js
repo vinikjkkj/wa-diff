@@ -890,7 +890,12 @@ __d(
           }
           var Ie = yield o(
               "WAWebReportingTokenUtils",
-            ).genReportingTokenBodyForStanza(x, R, P.toString()),
+            ).genReportingTokenBodyForStanza(
+              x,
+              R,
+              P.toString(),
+              E.isResendingMsg === !0 ? "resend" : "send",
+            ),
             Te = (s = yield D(Z)) != null ? s : yield A(Z, g),
             De;
           v != null &&

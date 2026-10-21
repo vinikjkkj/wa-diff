@@ -38,9 +38,9 @@ __d(
       f = null;
     function g(e, t) {
       ((f = babelHelpers.extends({}, t, { call: e, joinedAt: Date.now() })),
-        r("WAWebCallCollection").off(c, b),
-        r("WAWebCallCollection").on(c, b),
-        b());
+        r("WAWebCallCollection").off(c, C),
+        r("WAWebCallCollection").on(c, C),
+        C());
     }
     function h(e) {
       var t;
@@ -67,17 +67,14 @@ __d(
         );
     }
     function C() {
-      (r("WAWebCallCollection").off(c, b), (f = null));
-    }
-    function b() {
       var e = f;
       if (!(e == null || r("WAWebCallCollection").activeCall === e.call)) {
-        (r("WAWebCallCollection").off(c, b), (f = null), S(e));
-        var t = v(e);
-        t != null && R(e.call.isGroup, t);
+        (r("WAWebCallCollection").off(c, C), (f = null), v(e));
+        var t = b(e);
+        t != null && S(e.call.isGroup, t);
       }
     }
-    function v(e) {
+    function b(e) {
       var t = e.call,
         n = e.joinedAt;
       return t.getState() ===
@@ -89,7 +86,7 @@ __d(
             : null
           : p;
     }
-    function S(e) {
+    function v(e) {
       var t = e.call;
       o("WALogger").LOG(
         s ||
@@ -116,14 +113,14 @@ __d(
         t.id,
       );
     }
-    function R(e, t) {
+    function S(e, t) {
       if (
         o(
           "WAWebVoipInvestigationLogUploadGating",
         ).isInvestigationLogUploadEnabled()
       ) {
         var n = e ? t.groupUpload : t.oneToOneUpload,
-          r = L(n);
+          r = R(n);
         self.setTimeout(function () {
           o("WALogger")
             .LOG(
@@ -142,13 +139,12 @@ __d(
         }, m);
       }
     }
-    function L(e) {
+    function R(e) {
       return r("gkx")("26258") ? e.reason : e.reason + "-testing";
     }
     ((l.recordRecoveryJoin = g),
       (l.getRecoveryJoin = h),
-      (l.logEndAfterRecoveryJoin = y),
-      (l.resetRecoveryJoinForTesting = C));
+      (l.logEndAfterRecoveryJoin = y));
   },
   98,
 );

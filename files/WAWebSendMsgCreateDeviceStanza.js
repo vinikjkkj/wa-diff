@@ -430,6 +430,7 @@ __d(
                 ? yield o("WAWebReportingTokenUtils").genReportingTokenBody(
                     f.data,
                     _,
+                    v.type === c.Retry ? "retry" : "send",
                   )
                 : null,
             le = o(

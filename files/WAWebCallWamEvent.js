@@ -20,6 +20,8 @@ __d(
     "WAWebWamEnumCallSide",
     "WAWebWamEnumCallTermReason",
     "WAWebWamEnumCallTestInteger",
+    "WAWebWamEnumCallTransferResult",
+    "WAWebWamEnumCallTransferRole",
     "WAWebWamEnumCallTransportType",
     "WAWebWamEnumCallTrigger",
     "WAWebWamEnumCallVideoState",
@@ -555,6 +557,7 @@ __d(
               callMinimizedDurationT: [1913, e.TYPES.TIMER],
               callNcTestId: [1568, e.TYPES.STRING],
               callNcTestName: [1569, e.TYPES.STRING],
+              callNcWamReason: [3252, e.TYPES.STRING],
               callNetwork: [
                 76,
                 o("WAWebWamEnumCallNetworkMedium").CALL_NETWORK_MEDIUM,
@@ -685,6 +688,18 @@ __d(
               ],
               callTestLong: [1327, e.TYPES.INTEGER],
               callTestString: [1328, e.TYPES.STRING],
+              callTransferAckT: [3246, e.TYPES.TIMER],
+              callTransferDeliverDroppedCount: [3247, e.TYPES.INTEGER],
+              callTransferHandoverT: [3248, e.TYPES.TIMER],
+              callTransferResult: [
+                3249,
+                o("WAWebWamEnumCallTransferResult").CALL_TRANSFER_RESULT,
+              ],
+              callTransferRole: [
+                3250,
+                o("WAWebWamEnumCallTransferRole").CALL_TRANSFER_ROLE,
+              ],
+              callTransferSwitchable: [3251, e.TYPES.BOOLEAN],
               callTransitionCount: [78, e.TYPES.INTEGER],
               callTransport: [
                 72,
@@ -3164,6 +3179,7 @@ __d(
               weakNetConditionByBadCallMl: [2321, e.TYPES.INTEGER],
               weakNetConditionByJitter: [2061, e.TYPES.INTEGER],
               weakNetConditionByLossPeriod: [2062, e.TYPES.INTEGER],
+              weakNetConditionByMlModel: [3245, e.TYPES.INTEGER],
               weakNetConditionByPlr: [2063, e.TYPES.INTEGER],
               weakNoneNetConditionDetected: [2064, e.TYPES.INTEGER],
               weakWifiNetConditionDetected: [430, e.TYPES.INTEGER],

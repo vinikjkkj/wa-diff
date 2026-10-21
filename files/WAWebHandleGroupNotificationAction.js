@@ -155,7 +155,20 @@ __d(
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield $(e),
+            n = t.written;
+          yield n;
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.isOffline,
             a = r === void 0 ? !1 : r,
             i = t.meta,
@@ -187,7 +200,7 @@ __d(
           var c = [],
             d = yield (C || (C = n("Promise"))).all(
               i.actions.map(function (e) {
-                return N({
+                return w({
                   action: e,
                   agentChangeInDeletedChat: l,
                   isOffline: a,
@@ -198,41 +211,42 @@ __d(
             ),
             m =
               d.includes(!0) && u != null
-                ? $(u, a)
-                : (C || (C = n("Promise"))).resolve();
-          yield C.all(
-            [].concat(
-              c.map(function (e) {
-                return e.catch(function (e) {
-                  o("WALogger")
-                    .LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "handleGroupNotification: offline removal row write failed with ",
-                          "",
-                        ])),
-                      e,
-                    )
-                    .sendLogs(
-                      "group-notification-offline-removal-rows-write-error",
-                    );
-                });
-              }),
-              [m],
-            ),
-          );
+                ? N(u, a)
+                : (C || (C = n("Promise"))).resolve(),
+            p = C.all(
+              [].concat(
+                c.map(function (e) {
+                  return e.catch(function (e) {
+                    o("WALogger")
+                      .LOG(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleGroupNotification: offline removal row write failed with ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .sendLogs(
+                        "group-notification-offline-removal-rows-write-error",
+                      );
+                  });
+                }),
+                [m],
+              ),
+            ).then(function () {});
+          return (a || (yield p), { written: p });
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function N(e, t) {
+      return M.apply(this, arguments);
     }
-    function P() {
+    function M() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            yield B([e], t);
+            yield q([e], t);
           } catch (e) {
             o("WALogger")
               .LOG(
@@ -246,15 +260,15 @@ __d(
               .sendLogs("group-notification-e2ee-notice-write-error");
           }
         })),
-        P.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function M() {
+    function A() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             a = e.agentChangeInDeletedChat,
             i = e.isOffline,
@@ -360,13 +374,13 @@ __d(
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
                   });
               }
-              var A = yield o("WAWebGroupSystemMsg").genMsgsForGroupCreation(
+              var w = yield o("WAWebGroupSystemMsg").genMsgsForGroupCreation(
                   s,
                   I,
                   x,
                   D,
                 ),
-                O = $
+                A = $
                   ? yield o(
                       "WAWebGroupAgentAddSystemMsgs",
                     ).genGroupCreateAgentAddMsgs({
@@ -379,24 +393,24 @@ __d(
               v.push.apply(
                 v,
                 (x
-                  ? [].concat(A.filter(Boolean), N)
-                  : [].concat(N, A.filter(Boolean))
-                ).concat(O),
+                  ? [].concat(w.filter(Boolean), N)
+                  : [].concat(N, w.filter(Boolean))
+                ).concat(A),
               );
             } else if (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD) {
               if (!r("gkx")("26258")) {
-                var W,
-                  q =
-                    (W =
+                var O,
+                  W =
+                    (O =
                       n("cr:4533") == null
                         ? void 0
                         : n("cr:4533").getDebugIgnoreParticipantAdd()) != null
-                      ? W
+                      ? O
                       : 0;
-                if (q > 0)
+                if (W > 0)
                   return (
                     n("cr:4533") == null ||
-                      n("cr:4533").setDebugIgnoreParticipantAdd(q - 1),
+                      n("cr:4533").setDebugIgnoreParticipantAdd(W - 1),
                     !1
                   );
               }
@@ -440,7 +454,7 @@ __d(
                     ),
                     v.push.apply(
                       v,
-                      yield w({
+                      yield F({
                         action: t,
                         meta: s,
                         newParticipants: U,
@@ -610,7 +624,7 @@ __d(
                           ),
                           v.push.apply(
                             v,
-                            yield F({
+                            yield B({
                               action: babelHelpers.extends({}, t, {
                                 participants: te,
                               }),
@@ -738,7 +752,7 @@ __d(
                 }
             }
             var se = C ? [] : v.filter(Boolean),
-              ue = B(se, l);
+              ue = q(se, l);
             return (
               l && u != null ? u.push(ue) : yield ue,
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE &&
@@ -758,15 +772,15 @@ __d(
             );
           }
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             n = e.meta,
             r = e.newParticipants,
@@ -813,15 +827,15 @@ __d(
             s,
           );
         })),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function O() {
+    function W() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             n = e.dbIsStale,
             r = e.isAdmin,
@@ -844,15 +858,15 @@ __d(
                 }),
               ];
         })),
-        O.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function W() {
+    function U() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t) {
             (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
               o(
@@ -884,12 +898,13 @@ __d(
             }),
           );
         })),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
     ((l.handleActions = D),
-      (l.handleAction = N),
-      (l.writeSystemNotifications = B));
+      (l.handleActionsUntilQueued = $),
+      (l.handleAction = w),
+      (l.writeSystemNotifications = q));
   },
   98,
 );

@@ -22,7 +22,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!g(t)) return t;
+          if (!f(t)) return t;
           d ||
             ((d = !0),
             o(
@@ -31,7 +31,7 @@ __d(
           var n = t.botSignatureVerificationMetadata,
             r = t.forwardedAiBotMessageInfo;
           if (r == null || n == null) return t;
-          var a = h(t);
+          var a = g(t);
           if (a == null)
             return (
               o("WALogger")
@@ -91,10 +91,7 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f() {
-      d = !1;
-    }
-    function g(e) {
+    function f(e) {
       return !(
         e.isForwarded !== !0 ||
         e.forwardedAiBotMessageInfo == null ||
@@ -102,7 +99,7 @@ __d(
         !o("WAWebBotSignatureVerificationGating").isForwardVerificationEnabled()
       );
     }
-    function h(e) {
+    function g(e) {
       var t = e.unifiedResponseRawData;
       return t instanceof Uint8Array
         ? t
@@ -111,8 +108,7 @@ __d(
           : null;
     }
     ((l.verifyForwardedBotMessage = p),
-      (l.resetCrlRefreshStateForTesting = f),
-      (l.shouldVerifyForwardedBotMessage = g));
+      (l.shouldVerifyForwardedBotMessage = f));
   },
   98,
 );

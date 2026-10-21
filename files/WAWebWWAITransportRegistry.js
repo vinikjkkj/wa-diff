@@ -12,13 +12,9 @@ __d(
     function u() {
       return e != null && e.isAvailable();
     }
-    function c() {
-      e = null;
-    }
     ((i.registerTransport = l),
       (i.getTransport = s),
-      (i.isTransportAvailable = u),
-      (i.resetForTesting = c));
+      (i.isTransportAvailable = u));
   },
   66,
 );

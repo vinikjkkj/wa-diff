@@ -36,6 +36,7 @@ __d(
           n("isDeleted"),
           n("fetchPauseUntilMs"),
           n("lastFetchedTimeMs"),
+          n("generatedEmoji"),
         ])
         .view(function (e) {
           return e;

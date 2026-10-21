@@ -16,11 +16,7 @@ __d(
               "auto_dismiss",
             ));
     }
-    function u() {
-      e = !1;
-    }
-    ((l.logCallsTabPermissionsOffBannerEligibility = s),
-      (l.resetCallsTabPermissionsOffBannerStateForTesting = u));
+    l.logCallsTabPermissionsOffBannerEligibility = s;
   },
   98,
 );

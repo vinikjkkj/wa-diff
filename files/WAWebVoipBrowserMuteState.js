@@ -31,15 +31,11 @@ __d(
     function _() {
       return u;
     }
-    function f() {
-      (e.clear(), (l = !1), (s = null), (u = !1));
-    }
     ((i.reportBrowserMuteSuspected = c),
       (i.subscribeToBrowserMuteSuspected = d),
       (i.claimBrowserMuteToast = m),
       (i.recordPlaybackBrowserMuted = p),
-      (i.wasLastPlaybackBrowserMuted = _),
-      (i.resetBrowserMuteStateForTesting = f));
+      (i.wasLastPlaybackBrowserMuted = _));
   },
   66,
 );

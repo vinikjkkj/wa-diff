@@ -22,10 +22,10 @@ __d(
     function v() {
       var t = y != null ? y : new Audio();
       S();
-      var n = x(t);
+      var n = D(t);
       n != null &&
         ((C = n),
-        w(n).catch(function (t) {
+        M(n).catch(function (t) {
           o("WALogger")
             .WARN(
               e ||
@@ -37,7 +37,7 @@ __d(
         }));
     }
     function S() {
-      ((y = null), M());
+      ((y = null), N());
     }
     function R(e, t) {
       var n = C,
@@ -59,7 +59,7 @@ __d(
             ),
             null)
           : ((n[e] = null),
-            F(n),
+            A(n),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -76,7 +76,7 @@ __d(
       return e == null || t == null
         ? null
         : ((e.playbackElement = null),
-          F(e),
+          A(e),
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -118,27 +118,24 @@ __d(
     function T() {
       var e = C;
       e != null &&
-        (self.clearTimeout(e.releaseTimeoutId), (e.releaseTimeoutId = N()));
+        (self.clearTimeout(e.releaseTimeoutId), (e.releaseTimeoutId = P()));
     }
-    function D() {
-      S();
-    }
-    function x(e) {
+    function D(e) {
       var t = null;
       try {
         return (
-          (t = $()),
+          (t = x()),
           {
             capture: t,
             isStarted: !1,
-            playback: $(),
+            playback: x(),
             playbackElement: e,
-            releaseTimeoutId: N(),
+            releaseTimeoutId: P(),
           }
         );
       } catch (e) {
         return (
-          P(t),
+          $(t),
           o("WALogger")
             .WARN(
               m ||
@@ -151,10 +148,10 @@ __d(
         );
       }
     }
-    function $() {
+    function x() {
       return new AudioContext({ sampleRate: g, latencyHint: "interactive" });
     }
-    function P(e) {
+    function $(e) {
       e == null ||
         e.close().catch(function (e) {
           o("WALogger")
@@ -167,23 +164,23 @@ __d(
             .catching(r("getErrorSafe")(e));
         });
     }
-    function N() {
-      return self.setTimeout(M, h);
+    function P() {
+      return self.setTimeout(N, h);
     }
-    function M() {
+    function N() {
       var e = C;
       e != null &&
         ((C = null),
         self.clearTimeout(e.releaseTimeoutId),
-        P(e.capture),
-        P(e.playback));
+        $(e.capture),
+        $(e.playback));
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.capture,
             r = e.playback;
           (yield (f || (f = n("Promise"))).all([
@@ -198,10 +195,10 @@ __d(
                 ])),
             ));
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(e) {
+    function A(e) {
       e.capture == null &&
         e.playback == null &&
         e.playbackElement == null &&
@@ -215,8 +212,7 @@ __d(
       (l.createCallPlaybackElement = E),
       (l.canStartCallAudio = k),
       (l.startCallAudioInClick = I),
-      (l.holdUnlockedCallAudio = T),
-      (l.resetUnlockedCallAudioForTesting = D));
+      (l.holdUnlockedCallAudio = T));
   },
   98,
 );

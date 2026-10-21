@@ -27,7 +27,7 @@ __d(
         return (e || (e = n("Promise"))).resolve([]);
       var a = d.get(r);
       if (a != null) return a;
-      var i = _(t, o("WAWebDBMessageUtils").endOfChat(t), 0, [])
+      var i = p(t, o("WAWebDBMessageUtils").endOfChat(t), 0, [])
         .then(function (e) {
           return (c.add(r), e);
         })
@@ -36,15 +36,12 @@ __d(
         });
       return (d.set(r, i), i);
     }
-    function p() {
-      (c.clear(), d.clear());
+    function p(e, t, n, r) {
+      return _.apply(this, arguments);
     }
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i,
               l = yield o("WAWebSchemaMessage")
@@ -62,7 +59,7 @@ __d(
                 ),
               c = [];
             for (var d of l) {
-              var m = g(d, e.toString());
+              var m = f(d, e.toString());
               m != null &&
                 d.rowId != null &&
                 (c.push({ id: d.id, hasLink: d.rowId }), a.push(m));
@@ -71,17 +68,17 @@ __d(
               (yield o("WAWebSchemaMessage")
                 .getMessageTable()
                 .bulkMergeOnly(c));
-            var p = n + l.length,
-              f = (i = l[l.length - 1]) == null ? void 0 : i.internalId;
-            return l.length < s || p >= u || f == null
+            var _ = n + l.length,
+              g = (i = l[l.length - 1]) == null ? void 0 : i.internalId;
+            return l.length < s || _ >= u || g == null
               ? a
-              : (yield r("WAWebCommonTaskScheduler").yield(), _(e, f, p, a));
+              : (yield r("WAWebCommonTaskScheduler").yield(), p(e, g, _, a));
           },
         )),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function f(e, t) {
       if (
         e.hasLink != null ||
         e.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE
@@ -95,8 +92,7 @@ __d(
         : null;
     }
     ((l.LINK_BACKFILL_BATCH_SIZE = s),
-      (l.backfillGroupAgentRichResponseLinkIndex = m),
-      (l.resetGroupAgentRichResponseLinkBackfillForTests = p));
+      (l.backfillGroupAgentRichResponseLinkIndex = m));
   },
   98,
 );

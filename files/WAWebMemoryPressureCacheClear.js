@@ -26,15 +26,15 @@ __d(
       y = null,
       C = null;
     function b(t) {
-      T(t);
-      var n = S(t);
+      I(t);
+      var n = v(t);
       if (n != null) {
         var r = []
           .concat(
             o("WAWebMemoryPressureCacheRegistry").getMemoryPressureCaches(),
             [f],
           )
-          .map(D);
+          .map(T);
         (n === "heap_ratio" ? g++ : h++,
           (y = Date.now()),
           (C = t.usedJsHeapSizeMb),
@@ -48,52 +48,49 @@ __d(
                 "MB",
               ])),
             n,
-            x(r),
+            D(r),
             t.usedJsHeapSizeMb,
             t.jsHeapSizeLimitMb,
           ));
       }
     }
-    function v() {
-      ((g = 0), (h = 0), (y = null), (C = null));
+    function v(e) {
+      return k() ? (S(e) ? "heap_ratio" : R(e) ? "heap_over_mb" : null) : null;
     }
     function S(e) {
-      return I() ? (R(e) ? "heap_ratio" : L(e) ? "heap_over_mb" : null) : null;
-    }
-    function R(e) {
       return (
         g < m &&
-        !E(d) &&
-        k(e) &&
+        !L(d) &&
+        E(e) &&
         o("WAWebABProps").getABPropConfigValue(
           "web_getters_clear_caches_on_memory_pressure",
         )
       );
     }
-    function L(e) {
+    function R(e) {
       var t = e.usedJsHeapSizeMb;
-      if (h >= _ || E(p)) return !1;
+      if (h >= _ || L(p)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "web_getters_clear_caches_on_memory_over_mb",
       );
       return n > 0 && t > n;
     }
-    function E(e) {
+    function L(e) {
       var t = y;
       return t != null && Date.now() - t < e;
     }
-    function k(e) {
+    function E(e) {
       var t = e.jsHeapSizeLimitMb,
         n = e.usedJsHeapSizeMb;
       return t > 0 && n / t >= c;
     }
-    function I() {
+    function k() {
       return (
         document.visibilityState === "hidden" ||
         o("WAWebUiIdleEventBus").UiIdleEventBus.uiBusy === 0
       );
     }
-    function T(e) {
+    function I(e) {
       var t = e.usedJsHeapSizeMb;
       C != null &&
         (o("WALogger").LOG(
@@ -108,7 +105,7 @@ __d(
         ),
         (C = null));
     }
-    function D(e) {
+    function T(e) {
       var t = e.name,
         n = e.release,
         r = e.unit;
@@ -130,7 +127,7 @@ __d(
         );
       }
     }
-    function x(e) {
+    function D(e) {
       return e
         .map(function (e) {
           var t = e.name,
@@ -140,8 +137,7 @@ __d(
         })
         .join(", ");
     }
-    ((l.maybeClearCachesForMemoryPressure = b),
-      (l.resetMemoryPressureStateForTesting = v));
+    l.maybeClearCachesForMemoryPressure = b;
   },
   98,
 );

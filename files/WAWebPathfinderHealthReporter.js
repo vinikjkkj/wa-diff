@@ -33,9 +33,9 @@ __d(
         var r = g[n];
         (r !== 0 && f.includes(n) && (t = !0), e.push(n + ": " + String(r)));
       }
-      if (!t) return (R(), !1);
+      if (!t) return (S(), !1);
       var o = e.join(", ");
-      return (R(), b(o), !0);
+      return (S(), b(o), !0);
     }
     function b(t) {
       try {
@@ -59,12 +59,9 @@ __d(
       }
     }
     function v() {
-      R();
+      S();
     }
     function S() {
-      R();
-    }
-    function R() {
       for (var e of _) g[e] = 0;
     }
     ((l.COUNTER_CAP_DROPS = s),
@@ -75,8 +72,7 @@ __d(
       (l.COUNTER_UNRESOLVABLE_CUSTOM_EVENT_DROPS = p),
       (l.recordPathfinderHealthCounter = y),
       (l.drainPathfinderHealthCounters = C),
-      (l.discardPathfinderHealthCounters = v),
-      (l.resetPathfinderHealthCountersForTesting = S));
+      (l.discardPathfinderHealthCounters = v));
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WAWebApiContact",
+    "WAWebFbtCommon",
     "WAWebInitialsFromNameUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
@@ -68,7 +69,7 @@ __d(
       return e === "CREATOR"
         ? s._(/*BTDS*/ "Owner")
         : e === "ADMIN"
-          ? s._(/*BTDS*/ "Admin")
+          ? r("WAWebFbtCommon")("Admin")
           : s._(/*BTDS*/ "Member");
     }
     function y(t) {

@@ -29,12 +29,7 @@ __d(
         }
       );
     }
-    function c() {
-      for (var t of e.values()) t.timer != null && window.clearTimeout(t.timer);
-      e.clear();
-    }
-    ((l.subscribeToConnectingToast = u),
-      (l.resetConnectingToastStateForTesting = c));
+    l.subscribeToConnectingToast = u;
   },
   98,
 );

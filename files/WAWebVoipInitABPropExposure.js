@@ -22,11 +22,7 @@ __d(
         o("WAWebVoipGatingUtils").isWebTransportEnabled(),
         (s = !0));
     }
-    function c() {
-      s = !1;
-    }
-    ((l.logVoipInitABPropExposures = u),
-      (l.resetVoipInitABPropExposuresForTesting = c));
+    l.logVoipInitABPropExposures = u;
   },
   98,
 );

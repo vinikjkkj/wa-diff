@@ -16,11 +16,7 @@ __d(
               "auto_dismiss",
             ));
     }
-    function u() {
-      e = !1;
-    }
-    ((l.logCallsTabNotificationsOffBannerEligibility = s),
-      (l.resetCallsTabNotificationsOffBannerStateForTesting = u));
+    l.logCallsTabNotificationsOffBannerEligibility = s;
   },
   98,
 );

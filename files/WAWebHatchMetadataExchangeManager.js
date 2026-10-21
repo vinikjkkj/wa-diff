@@ -38,10 +38,6 @@ __d(
                   : { outcome: "decode_failed" },
               );
           }),
-          (r.__resetForTesting = function () {
-            for (var e of this.$2.values()) window.clearTimeout(e);
-            ((this.$1 = new Map()), (this.$2 = new Map()));
-          }),
           (r.$3 = function (t, n) {
             var e = this.$2.get(t);
             e != null && (window.clearTimeout(e), this.$2.delete(t));

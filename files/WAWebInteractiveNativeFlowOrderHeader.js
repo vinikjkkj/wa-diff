@@ -26,11 +26,11 @@ __d(
     "WAWebPaymentDetailsBubbleHeaderLoadable",
     "WAWebPaymentDetailsGating",
     "WAWebPaymentDetailsPixCodeBubbleHeader.react",
-    "WAWebPaymentLogoPixIcon.react",
     "WAWebPaymentVisaLogoIcon.react",
     "WAWebPaymentsGatingUtils",
     "WAWebSimplifiedPaymentHeader.react",
     "WAWebThemeContext",
+    "WDSIconWdsSmbPaymentsPixFilled.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMediaDataValues",
@@ -61,6 +61,15 @@ __d(
           verticalAlign: "xxymvpz",
           width: "x1xp8n7a",
           height: "xlup9mm",
+          $$css: !0,
+        },
+        pixLogo: {
+          backgroundColor: "xv9nkwm",
+          borderTopColor: "x1v8p93f",
+          borderInlineEndColor: "x1o3jo1z",
+          borderBottomColor: "x16stqrj",
+          borderInlineStartColor: "xv5lvn5",
+          color: "x17t9dm2",
           $$css: !0,
         },
         iconDarkBackground: { backgroundColor: "xb1i3fl", $$css: !0 },
@@ -289,29 +298,30 @@ __d(
         return [];
       var n = [];
       if (e.contact.isEnterprise) {
-        var r = o("WAWebThemeContext").isDarkTheme(),
-          a = [
+        var a = o("WAWebThemeContext").isDarkTheme(),
+          i = [
             u.paywithIcon,
             u.paddingAll4,
             u.marginStart4,
-            r && u.iconDarkBackground,
+            a && u.iconDarkBackground,
           ];
         (o("WAWebBrPaymentSettingsUtils").hasValidDynamicPix(t) &&
           n.push(
-            s.jsx(o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon, {
-              iconXstyle: a,
+            s.jsx(r("WDSIconWdsSmbPaymentsPixFilled.react"), {
+              iconXstyle: [i, u.pixLogo],
+              testid: "payment-logo-pix",
             }),
           ),
           o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(e) &&
             o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(t) &&
             n.push(
               s.jsx(o("WAWebPaymentVisaLogoIcon.react").PaymentVisaLogoIcon, {
-                iconXstyle: a,
+                iconXstyle: i,
               }),
             ) &&
             n.push(
               s.jsx(o("WAWebMastercardLogoIcon.react").MastercardLogoIcon, {
-                iconXstyle: a,
+                iconXstyle: i,
               }),
             ),
           o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(e) &&
@@ -319,11 +329,11 @@ __d(
             n.push(
               s.jsx(
                 o("WAWebPaymentBoletoLogoIcon.react").PaymentBoletoLogoIcon,
-                { iconXstyle: a },
+                { iconXstyle: i },
               ),
             ));
       } else {
-        var i = [
+        var l = [
           u.paywithIcon,
           u.paddingAll4,
           u.marginStart4,
@@ -332,8 +342,9 @@ __d(
         o("WAWebOrderStatus").isSimplifiedOrder(t) &&
           o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(t) &&
           n.push(
-            s.jsx(o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon, {
-              iconXstyle: i,
+            s.jsx(r("WDSIconWdsSmbPaymentsPixFilled.react"), {
+              iconXstyle: [l, u.pixLogo],
+              testid: "payment-logo-pix",
             }),
           );
       }

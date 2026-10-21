@@ -272,15 +272,6 @@ __d(
             JSON.stringify(r),
           );
         }),
-        (n.__isOpenForTest = function (t, n) {
-          var e;
-          return (
-            ((e = this.$6.get(y(t, n))) == null ? void 0 : e.isOpen) === !0
-          );
-        }),
-        (n.__forceTickForTest = function () {
-          this.$8();
-        }),
         t
       );
     })();

@@ -81,6 +81,7 @@ __d(
                 ? null
                 : {
                     creator_lid: g.creator_lid,
+                    generated_emoji: g.generated_emoji,
                     hca_entrypoint_id: g.hca_entrypoint_id,
                     is_deprecated: g.is_deprecated,
                     name: g.name,

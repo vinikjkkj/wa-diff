@@ -27,6 +27,7 @@ __d(
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsGeneral",
+    "WAWebUserPrefsLabelAssociationsLidMigration",
     "WAWebWamLabelSyncTrackingReporter",
     "WAWebWid",
     "WAWebWidFactory",
@@ -321,20 +322,22 @@ __d(
                                     var w = yield o("WAWebSchemaChat")
                                       .getChatTable()
                                       .get(I, !1);
-                                    w &&
+                                    if (w) {
+                                      var A;
                                       (a.set(
                                         I,
                                         o(
-                                          "WAWebLid1X1MigrationGating",
-                                        ).Lid1X1MigrationUtils.isLidMigrated() &&
-                                          w.accountLid != null
-                                          ? w.accountLid
+                                          "WAWebUserPrefsLabelAssociationsLidMigration",
+                                        ).isLabelAssociationsMigrationComplete() &&
+                                          (A = w.accountLid) != null
+                                          ? A
                                           : I,
                                       ),
-                                      (M = !0));
+                                        (M = !0));
+                                    }
                                   }
                                   i.push(T);
-                                  var A = {
+                                  var F = {
                                     parentId: I,
                                     labels: [g],
                                     parentType:
@@ -345,14 +348,14 @@ __d(
                                             .LabelItemParentType.Contact,
                                   };
                                   if (
-                                    (m.push(A),
+                                    (m.push(F),
                                     D != null &&
                                       o(
                                         "WAWebUserPrefsGeneral",
                                       ).getDetectedOutcomeOnboardingStatus() &&
                                       N)
                                   ) {
-                                    var F = o(
+                                    var O = o(
                                       "WAWebContactSystemMsg",
                                     ).genNotificationMsg(L, {
                                       type: "notification_template",
@@ -366,7 +369,7 @@ __d(
                                       "WAWebHandleSingleMsgWorkerCompatible",
                                     ).handleSingleMsg({
                                       chatId: L,
-                                      newMsg: F,
+                                      newMsg: O,
                                       handleSingleMsgOrigin:
                                         "detectedOutcomeNotification",
                                       preserveOrder: !1,
@@ -377,7 +380,7 @@ __d(
                                       ($ = a.get(I)) != null ? $ : I,
                                     chatExists: M,
                                     isDetectedOutcome: N,
-                                    labelCollectionAddition: A,
+                                    labelCollectionAddition: F,
                                     labelId: g,
                                     modelMetaData: R,
                                     predefinedId: D,

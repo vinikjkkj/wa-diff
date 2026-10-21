@@ -49,26 +49,23 @@ __d(
         },
       };
     function u(e, t) {
-      var n = f();
-      g(n + ":" + e) && h("VIEW", n, t);
+      var n = _();
+      f(n + ":" + e) && g("VIEW", n, t);
     }
     function c(e) {
-      h("CLICK", f(), e);
+      g("CLICK", _(), e);
     }
-    function d() {
-      (p.clear(), (_ = null));
-    }
-    var m = 500,
-      p = new Set(),
-      _ = null;
-    function f() {
+    var d = 500,
+      m = new Set(),
+      p = null;
+    function _() {
       var t = o("WAWebBotJourneyLogger").BotJourneyLogger.getDestinationId();
       if (t != null) return t;
-      var n = _;
+      var n = p;
       return (
         n == null &&
           ((n = r("WAWebPonyfillsCryptoRandomUUID")()),
-          (_ = n),
+          (p = n),
           o("WALogger")
             .WARN(
               e ||
@@ -82,15 +79,15 @@ __d(
         n
       );
     }
-    function g(e) {
-      if (p.has(e)) return !1;
-      if (p.size >= m) {
-        var t = p.values().next().value;
-        t != null && p.delete(t);
+    function f(e) {
+      if (m.has(e)) return !1;
+      if (m.size >= d) {
+        var t = m.values().next().value;
+        t != null && m.delete(t);
       }
-      return (p.add(e), !0);
+      return (m.add(e), !0);
     }
-    function h(e, t, n) {
+    function g(e, t, n) {
       var r;
       if (o("WAWebBotBaseGating").isAiSubscriptionMeteringEnabled()) {
         var a = n != null ? s[n.toUpperCase()] : null,
@@ -127,9 +124,7 @@ __d(
           }).commit());
       }
     }
-    ((l.logQuotaUpsellView = u),
-      (l.logQuotaUpsellCtaClick = c),
-      (l.resetLoggedViewKeysForTests = d));
+    ((l.logQuotaUpsellView = u), (l.logQuotaUpsellCtaClick = c));
   },
   98,
 );

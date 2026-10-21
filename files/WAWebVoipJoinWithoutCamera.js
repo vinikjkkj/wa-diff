@@ -30,15 +30,11 @@ __d(
     function p(e) {
       l === e && (l = null);
     }
-    function _() {
-      ((e = null), (l = null));
-    }
     ((i.markJoinWithoutCamera = s),
       (i.setStartWithoutCamera = u),
       (i.consumeJoinWithoutCamera = c),
       (i.isCallStartedWithoutCamera = d),
-      (i.clearJoinWithoutCamera = m),
-      (i.resetJoinWithoutCameraForTesting = _));
+      (i.clearJoinWithoutCamera = m));
   },
   66,
 );

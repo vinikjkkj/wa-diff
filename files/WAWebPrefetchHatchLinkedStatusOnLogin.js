@@ -17,11 +17,7 @@ __d(
         ),
         r("WAWebHatchLinkedStatusManager").fetchAndUpdateStatus());
     }
-    function c() {
-      s = !1;
-    }
-    ((l.maybePrefetchHatchLinkedStatusOnLogin = u),
-      (l.__resetHatchLinkedStatusPrefetchForTesting = c));
+    l.maybePrefetchHatchLinkedStatusOnLogin = u;
   },
   98,
 );

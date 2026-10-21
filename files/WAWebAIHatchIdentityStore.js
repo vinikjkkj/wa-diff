@@ -164,18 +164,11 @@ __d(
         profileThumb: o("WAWebHatchGating").getHatchBotProfileThumb(),
       };
     }
-    function T() {
-      ((m = null), (p = new Set()));
-      try {
-        r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(c);
-      } catch (e) {}
-    }
     ((l.subscribeToIdentityChanges = _),
       (l.validateWhatsAppNetUrl = g),
       (l.applyHatchIdentity = E),
       (l.getCachedHatchIdentity = k),
-      (l.getHatchInitialIdentity = I),
-      (l.__resetCacheForTesting = T));
+      (l.getHatchInitialIdentity = I));
   },
   98,
 );

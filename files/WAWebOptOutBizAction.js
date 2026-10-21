@@ -91,27 +91,24 @@ __d(
                   ),
                   e.listMatched === "true")
                 ) {
+                  var t = e.listItem;
                   if (
-                    e.listItemBizOptOutResponseMixin.bizOptOutIds.name ===
+                    (t == null ? void 0 : t.bizOptOutIds.name) ===
                     "BizOptOutJid"
                   ) {
-                    var t =
-                        e.listItemBizOptOutResponseMixin.bizOptOutIds.value
-                          .bizOptOutJid,
-                      r = e.listItemBizOptOutResponseMixin.action;
+                    var r = t.bizOptOutIds.value.bizOptOutJid,
+                      a = t.action;
                     yield g(
-                      o("WAWebJidToWid").userJidToUserWid(t),
-                      r === "block",
+                      o("WAWebJidToWid").userJidToUserWid(r),
+                      a === "block",
                     );
                   } else if (
-                    e.listItemBizOptOutResponseMixin.bizOptOutIds.name ===
+                    (t == null ? void 0 : t.bizOptOutIds.name) ===
                     "BizOptOutBrandID"
                   ) {
-                    var a =
-                        e.listItemBizOptOutResponseMixin.bizOptOutIds.value
-                          .bizOptOutBrandId,
-                      i = e.listItemBizOptOutResponseMixin.action;
-                    yield m([a], i === "block");
+                    var i = t.bizOptOutIds.value.bizOptOutBrandId,
+                      l = t.action;
+                    yield m([i], l === "block");
                   }
                 } else {
                   (yield o("WAWebUpdateOptOutListDbJob").clearOptOutListDbJob(),
@@ -129,7 +126,7 @@ __d(
                         };
                       })(),
                     ));
-                  var l = [];
+                  var s = [];
                   (e.listItem &&
                     Array.isArray(e.listItem) &&
                     e.listItem.forEach(
@@ -149,7 +146,7 @@ __d(
                             ) {
                               var r = e.action;
                               r === "block" &&
-                                l.push(e.bizOptOutIds.value.bizOptOutBrandId);
+                                s.push(e.bizOptOutIds.value.bizOptOutBrandId);
                             }
                           },
                         );
@@ -158,7 +155,7 @@ __d(
                         };
                       })(),
                     ),
-                    yield m(l, !0));
+                    yield m(s, !0));
                 }
               },
             );

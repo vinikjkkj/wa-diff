@@ -85,36 +85,39 @@ __d(
             );
           }
           var l = t.messageContextInfo;
-          return (
-            l &&
-              ((a = e.chat.isUser()
-                ? yield o("WAWebIcdcHandlerApi").handleHostedIcdcMetadataInline(
-                    e.chat,
-                    e.author,
-                    l,
+          if (l) {
+            a = e.chat.isUser()
+              ? yield o("WAWebIcdcHandlerApi").handleHostedIcdcMetadataInline(
+                  e.chat,
+                  e.author,
+                  l,
+                )
+              : null;
+            var c =
+              n("cr:402") == null
+                ? void 0
+                : n("cr:402").monitorAeaMessageGossip(e, l);
+            if (c != null) {
+              var d = c.catch(function (e) {
+                o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[aea] failed to monitor message gossip",
+                      ])),
                   )
-                : null),
-              n("cr:402") == null ||
-                n("cr:402")
-                  .monitorAeaMessageGossip(e, l)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[aea] failed to monitor message gossip",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("aea-message-gossip-fail");
-                  }),
-              o("WAWebIcdcHandlerApi").handleICDCData(
-                e.author,
-                e.chat.isUser() ? e.chat : null,
-                l,
-              )),
-            a
-          );
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("aea-message-gossip-fail");
+              });
+              e.offline != null && (yield d);
+            }
+            o("WAWebIcdcHandlerApi").handleICDCData(
+              e.author,
+              e.chat.isUser() ? e.chat : null,
+              l,
+            );
+          }
+          return a;
         })),
         p.apply(this, arguments)
       );

@@ -19,7 +19,7 @@ __d(
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
-          "android_inbox_mentions_replies_filter",
+          "web_inbox_mentions_replies_filter",
         )
       );
     }

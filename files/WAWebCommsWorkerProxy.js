@@ -29,9 +29,9 @@ __d(
                 "WAWebCommsWorkerProxy.handleStanza is not supported",
               );
             }),
-            (this.setOnBeforeCastStanzaForE2E = function () {
+            (this.setOnBeforeCastStanza = function () {
               throw r("err")(
-                "WAWebCommsWorkerProxy.setOnBeforeCastStanzaForE2E is not supported",
+                "WAWebCommsWorkerProxy.setOnBeforeCastStanza is not supported",
               );
             }),
             (this.getAndIncrementNextOrderedId = function () {

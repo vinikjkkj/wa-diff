@@ -202,6 +202,14 @@ __d(
             n = o("WAWebMsgCollection").MsgCollection.get(e);
           n != null && (n.hostedBizEncStateMismatch = !0);
         },
+        updateMsgModelAeaAutomaticUpdate: function (t) {
+          var e = t.aeaAutoUpgrade,
+            n = t.hostedBizEncStateMismatch,
+            r = t.msgId,
+            a = o("WAWebMsgCollection").MsgCollection.get(r);
+          a != null &&
+            ((a.hostedBizEncStateMismatch = n), (a.aeaAutoUpgrade = e));
+        },
         updateViewModeForMsgs: function (t) {
           var e = t.msgIdsViewModeMap;
           e.forEach(function (e, t) {

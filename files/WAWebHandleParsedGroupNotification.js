@@ -26,37 +26,41 @@ __d(
               chatWid: e.chatId,
               isOffline: t,
               msgCategory: null,
-              action: (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    return (
-                      yield o(
-                        "WAWebHandleGroupNotificationAction",
-                      ).handleActions({ isOffline: t, meta: e }),
-                      o("WAWap").wap("ack", {
-                        to: o("WAWebCommsWapMd").GROUP_JID(e.chatId),
-                        id: o("WAWap").CUSTOM_STRING(e.externalId),
-                        class: "notification",
-                        type: "w:gp2",
-                        participant: e.author
-                          ? o("WAWebCommsWapMd").USER_JID(e.author)
-                          : o("WAWap").DROP_ATTR,
-                      })
-                    );
-                  },
-                );
-                function a() {
-                  return r.apply(this, arguments);
-                }
-                return a;
-              })(),
+              action: function () {
+                return o(
+                  "WAWebHandleGroupNotificationAction",
+                ).handleActionsUntilQueued({ isOffline: t, meta: e });
+              },
             })
             .catch(function (e) {
               return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
                 e,
                 "group_notification",
               );
-            });
+            })
+            .then(
+              (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (t) {
+                    return t == null
+                      ? null
+                      : (yield t.written,
+                        o("WAWap").wap("ack", {
+                          to: o("WAWebCommsWapMd").GROUP_JID(e.chatId),
+                          id: o("WAWap").CUSTOM_STRING(e.externalId),
+                          class: "notification",
+                          type: "w:gp2",
+                          participant: e.author
+                            ? o("WAWebCommsWapMd").USER_JID(e.author)
+                            : o("WAWap").DROP_ATTR,
+                        }));
+                  },
+                );
+                return function (e) {
+                  return t.apply(this, arguments);
+                };
+              })(),
+            );
     }
     l.handleParsedGroupNotification = e;
   },

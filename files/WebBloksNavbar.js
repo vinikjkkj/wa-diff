@@ -350,7 +350,7 @@ __d(
       }
     }
     function O(e, t) {
-      if (!t) return null;
+      if (t == null || t === "") return null;
       switch (t) {
         case "nav-app-messenger":
           return e.getAsset("appMessenger");

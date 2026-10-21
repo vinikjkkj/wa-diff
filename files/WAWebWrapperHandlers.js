@@ -2,9 +2,11 @@ __d(
   "WAWebWrapperHandlers",
   [
     "fbt",
+    "WAWebAeaAccountState",
     "WAWebAfterReadUtils",
     "WAWebBizCoexStringUtils",
     "WAWebBizPrivacyUtils",
+    "WAWebChatGetters",
     "WAWebCmd",
     "WAWebConfirmPopup.react",
     "WAWebEphemeralFbtKic",
@@ -15,6 +17,8 @@ __d(
     "WAWebMarketingMessagesUserControlsPopupLoadable",
     "WAWebModalManager",
     "WAWebOpenChatWithContactAction",
+    "WAWebPrivacyModeSystemMsg",
+    "WAWebProtobufsWeb.pb",
     "WAWebStateUtils",
     "WAWebWamEnumMmUserControlsEntryPoint",
     "WAWebWebSearchPopup.react",
@@ -106,31 +110,56 @@ __d(
         c = function () {
           var t,
             n,
-            r =
-              ((t = o("WAWebFrontendMsgGetters").getChat(e)) == null ||
-              (t = t.contact) == null
+            r,
+            a = o("WAWebFrontendMsgGetters").getChat(e),
+            i =
+              (a == null || (t = a.contact) == null
                 ? void 0
-                : t.isOrHasBeenHosted) === !0;
-          !r ||
+                : t.isOrHasBeenHosted) === !0,
+            l =
+              a != null &&
+              o("WAWebAeaAccountState").isAeaNonE2eeThreadState(
+                o("WAWebChatGetters").getAeaThreadState(a),
+              );
+          if (
             !(
-              e != null &&
-              (n = e.id) != null &&
-              (n = n.remote) != null &&
-              n.isUser()
-            ) ||
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                tsNavigationData: {
-                  surface: "unknown",
-                  viewName: "biz-enc-state-mismatch",
-                },
-                onOK: o("WAWebModalManager").closeModalManager,
-                children: o(
-                  "WAWebBizCoexStringUtils",
-                ).bizEncStateMismatchString(),
-              }),
-              { transition: "modal-flow" },
-            );
+              (!i && !l && !e.id.fromMe) ||
+              !(
+                e != null &&
+                (n = e.id) != null &&
+                (n = n.remote) != null &&
+                n.isUser()
+              )
+            )
+          ) {
+            var s = o("WAWebBizCoexStringUtils").bizEncStateMismatchString();
+            (e.aeaAutoUpgrade === !0
+              ? (s = o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
+                  o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus
+                    .E2EE,
+                ))
+              : e.id.fromMe &&
+                o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
+                  (r = o("WAWebFrontendMsgGetters").getChat(e)) == null ||
+                    (r = r.contact) == null
+                    ? void 0
+                    : r.privacyMode,
+                ) === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP &&
+                (s = o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
+                  o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.BSP,
+                )),
+              o("WAWebModalManager").ModalManager.open(
+                u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                  tsNavigationData: {
+                    surface: "unknown",
+                    viewName: "biz-enc-state-mismatch",
+                  },
+                  onOK: o("WAWebModalManager").closeModalManager,
+                  children: s,
+                }),
+                { transition: "modal-flow" },
+              ));
+          }
         },
         d = function () {
           var e = o(

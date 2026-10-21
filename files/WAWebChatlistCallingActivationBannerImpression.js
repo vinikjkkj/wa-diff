@@ -18,11 +18,7 @@ __d(
             .WEB_CALLING_ACTIVATION_BANNER,
         }).commit());
     }
-    function u() {
-      e = !1;
-    }
-    ((l.logChatlistCallingActivationBannerShownOnce = s),
-      (l.resetChatlistCallingActivationBannerImpressionForTests = u));
+    l.logChatlistCallingActivationBannerShownOnce = s;
   },
   98,
 );

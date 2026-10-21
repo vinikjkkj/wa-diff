@@ -7,7 +7,6 @@ __d(
     "WAWebChatContextMenuItemPin.react",
     "WAWebChatEntryPoint",
     "WAWebCmd",
-    "WAWebModalManager",
     "WAWebMuteMenuItem.react",
     "WAWebNewsletterChatListUtils",
     "WAWebNewsletterExtendedGatingUtils",
@@ -18,6 +17,7 @@ __d(
     "WAWebUnfollowNewsletterConfirmationModal.react",
     "WAWebWamEnumChannelEventSurface",
     "WAWebWamEnumTsSurface",
+    "WDSDialogBridge",
     "WDSIconIcCode.react",
     "WDSIconIcDelete.react",
     "WDSIconIcInfo.react",
@@ -304,7 +304,7 @@ __d(
       t[0] !== a
         ? ((i = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              o("WAWebModalManager").ModalManager.open(
+              o("WDSDialogBridge").openWDSDialog(
                 u.jsx(
                   o("WAWebUnfollowNewsletterConfirmationModal.react")
                     .UnfollowNewsletterConfirmationModal,

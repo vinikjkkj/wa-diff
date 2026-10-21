@@ -47,6 +47,7 @@ __d(
         issueTime: [3, e.TYPES.UINT64],
         hostStorage: [4, e.TYPES.ENUM, c],
         accountType: [5, e.TYPES.ENUM, u],
+        whatsappAcctEmail: [6, e.TYPES.STRING],
       }),
       (C.name = "BizIdentityInfo"),
       (C.internalSpec = {

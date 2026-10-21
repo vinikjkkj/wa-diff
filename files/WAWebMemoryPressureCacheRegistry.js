@@ -9,12 +9,7 @@ __d(
     function s() {
       return Array.from(e.values());
     }
-    function u() {
-      e.clear();
-    }
-    ((i.registerMemoryPressureCache = l),
-      (i.getMemoryPressureCaches = s),
-      (i.resetMemoryPressureCachesForTesting = u));
+    ((i.registerMemoryPressureCache = l), (i.getMemoryPressureCaches = s));
   },
   66,
 );

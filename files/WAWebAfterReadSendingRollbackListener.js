@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebBackendEventBus",
-    "WAWebBackendEventBusTypes",
     "WAWebDBAfterReadSendingRollbackMigration",
     "WAWebUserPrefsAfterReadSendingRollbackMigration",
     "asyncToGeneratorRuntime",
@@ -60,16 +59,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p() {
-      u != null &&
-        (o("WAWebBackendEventBus").BackendEventBus.removeListener(
-          o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
-          u,
-        ),
-        (u = null));
-    }
-    ((l.registerAfterReadSendingRollbackListener = c),
-      (l.resetListenerForTesting = p));
+    l.registerAfterReadSendingRollbackListener = c;
   },
   98,
 );

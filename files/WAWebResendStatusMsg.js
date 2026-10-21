@@ -68,6 +68,7 @@ __d(
             S = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
               r.data,
               n,
+              "retry",
             ),
             R = o("WAWap").wap(
               "message",
@@ -165,7 +166,7 @@ __d(
               ciphertextVersion: o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION,
               clientReportingToken: yield o(
                 "WAWebReportingTokenUtils",
-              ).genClientReportingTokenMixinArgs(a.data, n),
+              ).genClientReportingTokenMixinArgs(a.data, n, "retry"),
               deviceIdentity:
                 f === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
                   ? yield o("WAWebAdvSignatureApi").getADVEncodedIdentity()

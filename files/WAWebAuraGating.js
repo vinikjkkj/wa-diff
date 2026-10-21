@@ -23,9 +23,6 @@ __d(
               "WAWebAuraBenefitFeatureFlagProvider",
             ).AuraBenefitFeatureFlagProvider)(t);
           }),
-          (t.__resetForTesting = function () {
-            this.$2 = null;
-          }),
           (t.$3 = function () {
             return o("WAWebMobilePlatforms").isSMB()
               ? !0

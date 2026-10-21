@@ -1,7 +1,6 @@
 __d(
   "WAWebBlockContactUtils",
   [
-    "fbt",
     "WAWebABProps",
     "WAWebBlockBusinessDialogV2.react",
     "WAWebBlockBusinessPopup.react",
@@ -11,10 +10,7 @@ __d(
     "WAWebBlocklistUtils",
     "WAWebChatCollection",
     "WAWebChatGetters",
-    "WAWebConfirmPopup.react",
-    "WAWebFbtCommon",
     "WAWebModalManager",
-    "WAWebName.react",
     "WAWebNoop",
     "WAWebPsaBlockContactPopup.react",
     "WAWebSendSpamChatAction",
@@ -25,10 +21,10 @@ __d(
     "WDSDialogBridge",
     "react",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react"));
-    function c(e, t) {
+      s = e || (e = o("react"));
+    function u(e, t) {
       var n = e.contact,
         a = o("WAWebBlocklistUtils").getSpamFlowFromBlockEntryPoint(t),
         i = function () {
@@ -65,18 +61,18 @@ __d(
               .catch(r("WAWebNoop")),
             o("WAWebModalManager").ModalManager.close());
         },
-        s =
+        u =
           o("WAWebABProps").getABPropConfigValue("wds_web_dialog") &&
           !o("WAWebChatGetters").getIsPSA(e),
         c;
-      (s && e.contact.isBusiness
-        ? (c = u.jsx(r("WAWebBlockBusinessDialogV2.react"), {
+      (u && e.contact.isBusiness
+        ? (c = s.jsx(r("WAWebBlockBusinessDialogV2.react"), {
             chat: e,
             blockEntryPoint: t,
             withReport: !0,
           }))
-        : s
-          ? (c = u.jsx(r("WAWebBlockContactDialogV2.react"), {
+        : u
+          ? (c = s.jsx(r("WAWebBlockContactDialogV2.react"), {
               contact: e.contact,
               isReportPreChecked: o(
                 "WAWebBlocklistUtils",
@@ -86,17 +82,17 @@ __d(
               onReportSpamBlock: l,
             }))
           : o("WAWebChatGetters").getIsPSA(e)
-            ? (c = u.jsx(r("WAWebPsaBlockContactPopup.react"), {
+            ? (c = s.jsx(r("WAWebPsaBlockContactPopup.react"), {
                 onCancel: o("WAWebModalManager").closeModalManager,
                 onBlock: i,
               }))
             : e.contact.isBusiness
-              ? (c = u.jsx(r("WAWebBlockBusinessPopup.react"), {
+              ? (c = s.jsx(r("WAWebBlockBusinessPopup.react"), {
                   chat: e,
                   blockEntryPoint: t,
                   withReport: !0,
                 }))
-              : (c = u.jsx(r("WAWebBlockContactPopup.react"), {
+              : (c = s.jsx(r("WAWebBlockContactPopup.react"), {
                   contact: e.contact,
                   isReportPreChecked: o(
                     "WAWebBlocklistUtils",
@@ -105,11 +101,11 @@ __d(
                   onBlock: i,
                   onReportSpamBlock: l,
                 })),
-        s
+        u
           ? o("WDSDialogBridge").openWDSDialog(c)
           : o("WAWebModalManager").ModalManager.open(c));
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = function () {
         var n = o("WAWebChatCollection").ChatCollection.get(e.id);
         if (n != null && o("WAWebChatGetters").getIsPSA(n)) {
@@ -122,28 +118,14 @@ __d(
         (o("WAWebBlockContactAction").unblockContact(e, t),
           o("WAWebModalManager").ModalManager.close());
       };
-      if (o("WAWebABProps").getABPropConfigValue("wds_web_dialog")) {
-        o("WDSDialogBridge").openWDSDialog(
-          u.jsx(r("WAWebUnblockContactDialogV2.react"), {
-            contact: e,
-            onUnblock: n,
-          }),
-        );
-        return;
-      }
-      var a = u.jsx(o("WAWebName.react").Name, { contact: e });
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          okText: r("WAWebFbtCommon")("Unblock"),
-          onOK: n,
-          onCancel: o("WAWebModalManager").closeModalManager,
-          title: s._(/*BTDS*/ "Unblock {contact_name}?", [
-            s._param("contact_name", a),
-          ]),
+      o("WDSDialogBridge").openWDSDialog(
+        s.jsx(r("WAWebUnblockContactDialogV2.react"), {
+          contact: e,
+          onUnblock: n,
         }),
       );
     }
-    ((l.handleBlock = c), (l.handleUnblock = d));
+    ((l.handleBlock = u), (l.handleUnblock = c));
   },
-  226,
+  98,
 );

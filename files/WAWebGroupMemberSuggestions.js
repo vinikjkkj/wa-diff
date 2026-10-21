@@ -16,7 +16,7 @@ __d(
     var e,
       s,
       u = { contacts: [], frequentContacts: [], recentContacts: [] },
-      c = 8,
+      c = 5,
       d = 5,
       m = 20,
       p = 72 * o("WATimeUtils").HOUR_SECONDS,

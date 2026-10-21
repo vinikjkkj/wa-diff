@@ -163,13 +163,15 @@ __d(
       return e instanceof o("WAWapJid").WapJid ? e.toString() : e;
     }
     function Z(e) {
-      var t = e.content;
+      var t = e.content,
+        n;
       return (
         Array.isArray(t)
-          ? (t = t.map(Z))
-          : typeof t == "string" &&
-            (t = o("WABinary").Binary.build(t).readByteArrayView()),
-        new Q(e.tag, e.attrs || G, t)
+          ? (n = t.map(Z))
+          : typeof t == "string"
+            ? (n = o("WABinary").Binary.build(t).readByteArrayView())
+            : (n = t),
+        new Q(e.tag, e.attrs || G, n)
       );
     }
     function ee(e) {

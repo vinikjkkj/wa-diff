@@ -1,8 +1,6 @@
 __d(
   "WAWebPttOocPlayer",
   [
-    "WAWebAudioFileIcon.react",
-    "WAWebAudioStatusIcon.react",
     "WAWebChatEntryPoint",
     "WAWebChatGetters",
     "WAWebChatMessageSearch",
@@ -15,6 +13,8 @@ __d(
     "WAWebMsgGetters",
     "WAWebName.react",
     "WAWebNewsletterName.react",
+    "WAWebPttAudioFilePlaceholder.react",
+    "WAWebPttAudioStatusBadge.react",
     "WAWebPttCalculateAudioProgress",
     "WAWebPttCloseButton.react",
     "WAWebPttDailyUtils",
@@ -68,6 +68,12 @@ __d(
       },
       v = {
         outOfChatBg: { fill: "xhzorvt", $$css: !0 },
+        outOfChatAudioBadge: {
+          backgroundColor: "xnj6ddq",
+          height: "xd7y6wv",
+          width: "x23j0i4",
+          $$css: !0,
+        },
         outOfChatIcon: { color: "xll8lwp", $$css: !0 },
         forwardedBg: { fill: "xzp0ayt", $$css: !0 },
         forwardedIcon: { color: "x17t9dm2", $$css: !0 },
@@ -512,21 +518,17 @@ __d(
     function k(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.msg,
-        r;
+        a;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [
+        ? ((a = [
             o("WAWebFrontendMsgGetters").getMsgSenderId,
             o("WAWebFrontendMsgGetters").getAsPttLike,
           ]),
-          (t[0] = r))
-        : (r = t[0]);
-      var a = o("useWAWebMsgValues").useMsgValues(n.id, r),
-        i = a[0],
-        l = a[1],
-        u =
-          n.type === "ptt" || l
-            ? o("WAWebPttStatusIconStyleable.react").PttStatusIconStyleable
-            : o("WAWebAudioStatusIcon.react").AudioStatusIcon,
+          (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebMsgValues").useMsgValues(n.id, a),
+        l = i[0],
+        u = i[1],
         c;
       t[1] === Symbol.for("react.memo_cache_sentinel")
         ? ((c = {
@@ -536,12 +538,12 @@ __d(
           (t[1] = c))
         : (c = t[1]);
       var d;
-      t[2] !== i
+      t[2] !== l
         ? ((d = s.jsx(o("WAWebDetailImage.react").DetailImage, {
-            id: i,
+            id: l,
             size: y,
           })),
-          (t[2] = i),
+          (t[2] = l),
           (t[3] = d))
         : (d = t[3]);
       var m;
@@ -553,33 +555,47 @@ __d(
           (t[4] = m))
         : (m = t[4]);
       var p;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = { background: v.outOfChatBg, primary: v.outOfChatIcon }),
-          (t[5] = p))
-        : (p = t[5]);
-      var _;
-      t[6] !== u
-        ? ((_ = s.jsx(
+      t[5] !== u || t[6] !== n.type
+        ? ((p = s.jsx(
             "span",
             babelHelpers.extends({}, m, {
-              children: s.jsx(u, { width: h, height: h, innerStyles: p }),
+              children:
+                n.type === "ptt" || u
+                  ? s.jsx(
+                      o("WAWebPttStatusIconStyleable.react")
+                        .PttStatusIconStyleable,
+                      {
+                        width: h,
+                        height: h,
+                        innerStyles: {
+                          background: v.outOfChatBg,
+                          primary: v.outOfChatIcon,
+                        },
+                      },
+                    )
+                  : s.jsx(r("WAWebPttAudioStatusBadge.react"), {
+                      iconSize: 20,
+                      iconXstyle: v.outOfChatIcon,
+                      xstyle: v.outOfChatAudioBadge,
+                    }),
             }),
           )),
-          (t[6] = u),
-          (t[7] = _))
-        : (_ = t[7]);
-      var f;
+          (t[5] = u),
+          (t[6] = n.type),
+          (t[7] = p))
+        : (p = t[7]);
+      var _;
       return (
-        t[8] !== d || t[9] !== _
-          ? ((f = s.jsxs(
+        t[8] !== d || t[9] !== p
+          ? ((_ = s.jsxs(
               "div",
-              babelHelpers.extends({}, c, { children: [d, _] }),
+              babelHelpers.extends({}, c, { children: [d, p] }),
             )),
             (t[8] = d),
-            (t[9] = _),
-            (t[10] = f))
-          : (f = t[10]),
-        f
+            (t[9] = p),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
       );
     }
     function I() {
@@ -604,9 +620,8 @@ __d(
       return s.jsx("div", {
         className:
           "x14iifvp x100vrsf x1vqgdyp x1fns5xo x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6 xvs2etk xg3wpu6 x1jwbhkm xgg4q86 x6ikm8r x10wlt62",
-        children: s.jsx(o("WAWebAudioFileIcon.react").AudioFileIcon, {
-          width: y,
-          height: y,
+        children: s.jsx(r("WAWebPttAudioFilePlaceholder.react"), {
+          iconSize: 20,
         }),
       });
     }

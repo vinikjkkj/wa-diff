@@ -96,10 +96,7 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C() {
-      ((d = null), (m = null));
-    }
-    ((l.getPixBankByRefId = h), (l.resetPixBankCatalogForTesting = C));
+    l.getPixBankByRefId = h;
   },
   98,
 );

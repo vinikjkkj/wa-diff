@@ -45,23 +45,12 @@ __d(
             ])),
         ));
     }
-    function y() {
-      var e;
-      (s.clear(),
-        u.clear(),
-        (c = 0),
-        (e = o("WAWebAppTracker")).AppTracker.stop(
-          e.AppTrackerType.VoipPreCall,
-        ),
-        e.AppTracker.stop(e.AppTrackerType.VoipPostCall));
-    }
     ((l.reconcileVoipPhases = m),
       (l.notePreCallStart = p),
       (l.notePreCallEnd = _),
       (l.beginPostCallWork = f),
       (l.endPostCallWork = g),
-      (l.startVoipPhaseObserver = h),
-      (l.resetVoipPhasesForTest = y));
+      (l.startVoipPhaseObserver = h));
   },
   98,
 );

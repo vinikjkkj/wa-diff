@@ -11,12 +11,8 @@ __d(
       var n = l;
       return ((l = null), n != null && t - n <= e);
     }
-    function c() {
-      l = null;
-    }
     ((i.markCallMissedWhileHidden = s),
-      (i.consumeRecentMissedCallWhileHidden = u),
-      (i.resetForTesting = c));
+      (i.consumeRecentMissedCallWhileHidden = u));
   },
   66,
 );

@@ -399,9 +399,7 @@ __d(
         });
       return o("WACryptoPrimitives").verify(e, u);
     }
-    var ae = V,
-      ie = H;
-    function le() {
+    function ae() {
       return {
         blind: function (t) {
           var e = ne(),
@@ -435,9 +433,7 @@ __d(
         },
       };
     }
-    ((l.hashToCurve_TEST_ONLY = ae),
-      (l.pointScalarMult_TEST_ONLY = ie),
-      (l.createWAWebTheiaVoprfJsEd25519Module = le));
+    l.createWAWebTheiaVoprfJsEd25519Module = ae;
   },
   98,
 );

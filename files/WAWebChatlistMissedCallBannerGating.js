@@ -33,7 +33,7 @@ __d(
       _ = new Set(),
       f = new Map();
     function g() {
-      var e = E().find(function (e) {
+      var e = L().find(function (e) {
         var t = e.msg;
         return !p.has(t.id.toString());
       });
@@ -53,7 +53,7 @@ __d(
         i;
       e[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((i = function () {
-            (L(), a(g()));
+            (R(), a(g()));
           }),
           (e[0] = i))
         : (i = e[0]);
@@ -122,7 +122,7 @@ __d(
       );
     }
     function y() {
-      L();
+      R();
     }
     function C(e) {
       return p.has(e);
@@ -141,12 +141,9 @@ __d(
         f.set(t, { chat: e.chat, msg: e.msg }));
     }
     function R() {
-      (p.clear(), _.clear(), f.clear());
-    }
-    function L() {
       if (f.size !== 0) {
         var e = new Set(
-          E().map(function (e) {
+          L().map(function (e) {
             var t = e.msg;
             return t.id.toString();
           }),
@@ -158,20 +155,20 @@ __d(
           e.has(r) ||
             (f.delete(r),
             o("WAWebCoreActionsODS").logChatlistMissedCallBanner(
-              ((n = D(a)) == null ? void 0 : n.id.toString()) === r
+              ((n = T(a)) == null ? void 0 : n.id.toString()) === r
                 ? "auto_dismiss"
                 : "superseded",
             ));
         }
       }
     }
-    function E() {
+    function L() {
       var e = o("WATimeUtils").unixTime() - m,
         t = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
         n = [];
       return (
         o("WAWebChatCollection").ChatCollection.forEach(function (r) {
-          var o = k(r, e, t);
+          var o = E(r, e, t);
           o != null && n.push({ chat: r, msg: o });
         }),
         n.sort(function (e, t) {
@@ -181,26 +178,26 @@ __d(
         })
       );
     }
-    function k(e, t, n) {
-      if (!I(e) || e.isLocked) return null;
-      var r = D(e);
+    function E(e, t, n) {
+      if (!k(e) || e.isLocked) return null;
+      var r = T(e);
       return r == null ||
         o("WAWebMsgGetters").getT(r) <= t ||
         (n != null && o("WAWebMsgGetters").getT(r) <= n) ||
-        !T(r) ||
+        !I(r) ||
         !o("WAWebFrontendContactGetters").getIsMyContact(e.contact) ||
         !o("WAWebShouldShowCallButtons").shouldShowCallButtons(e)
         ? null
         : r;
     }
-    function I(e) {
+    function k(e) {
       return (
         !o("WAWebChatGetters").getIsGroup(e) &&
         !o("WAWebChatGetters").getIsNewsletter(e) &&
         !o("WAWebChatGetters").getIsBroadcast(e)
       );
     }
-    function T(e) {
+    function I(e) {
       return (
         o("WAWebMissedCallCountUtils").isInboundMissedCall(e) &&
         !o("WAWebMsgGetters").getIsAdHocGroupCall(e) &&
@@ -208,7 +205,7 @@ __d(
         o("WAWebVoipCallsTabCallInfoUtils").getShouldShowInCallsTabCallLog(e)
       );
     }
-    function D(e) {
+    function T(e) {
       var t = null;
       for (var n of (r = (a = e.msgs) == null ? void 0 : a.getModelsArray()) !=
       null
@@ -228,8 +225,7 @@ __d(
       (l.isMissedCallBannerHandled = C),
       (l.markMissedCallBannerHandled = b),
       (l.unmarkMissedCallBannerHandled = v),
-      (l.trackMissedCallBannerShown = S),
-      (l.resetMissedCallBannerStateForTesting = R));
+      (l.trackMissedCallBannerShown = S));
   },
   98,
 );

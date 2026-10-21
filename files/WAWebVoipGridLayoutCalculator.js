@@ -4,9 +4,12 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = 1.3333333333333333,
-      l = 4,
-      s = 8;
-    function u(t) {
+      l = 9 / 16,
+      s = 16 / 9,
+      u = 4,
+      c = 4,
+      d = 8;
+    function m(t) {
       var n = t.columns,
         r = t.containerHeight,
         o = t.containerWidth,
@@ -18,7 +21,7 @@ __d(
         c = Math.min(s, l / e);
       return { cellWidth: u, cellHeight: c };
     }
-    function c(e, t, n, r) {
+    function p(e, t, n, r) {
       if (n <= 0 || e <= 0 || t <= 0)
         return { cellWidth: 0, cellHeight: 0, columns: 0, rows: 0 };
       for (
@@ -30,36 +33,54 @@ __d(
         l++
       ) {
         var s = Math.ceil(n / l),
-          c = u({
+          u = m({
             columns: s,
             containerHeight: t,
             containerWidth: e,
             rows: l,
             spacing: r,
           }),
-          d = c.cellHeight,
-          m = c.cellWidth,
-          p = o - m * d * n;
+          c = u.cellHeight,
+          d = u.cellWidth,
+          p = o - d * c * n;
         p < a &&
-          ((a = p), (i = { cellWidth: m, cellHeight: d, columns: s, rows: l }));
+          ((a = p), (i = { cellWidth: d, cellHeight: c, columns: s, rows: l }));
       }
       return i;
     }
-    function d(e) {
+    function _(e) {
       return e <= 2 ? 1 : e <= 8 ? 2 : 3;
     }
-    function m(e, t, n, r, o) {
-      if (n <= 0 || e <= 0 || t <= 0)
+    function f(e, t, n, r, o, a) {
+      if ((a === void 0 && (a = "fill"), n <= 0 || e <= 0 || t <= 0))
         return { cellWidth: 0, cellHeight: 0, columns: 0, rows: 0 };
-      var a = d(n),
-        i = Math.ceil(n / a),
-        l = o ? i : a,
-        s = o ? a : i,
-        u = Math.max(0, (e - (l - 1) * r) / l),
-        c = Math.max(0, (t - (s - 1) * r) / s);
-      return { cellWidth: u, cellHeight: c, columns: l, rows: s };
+      var i = g(n, a),
+        l = h(n, o, i),
+        s = l.columns,
+        u = l.rows,
+        c = Math.max(0, (e - (s - 1) * r) / s),
+        d = Math.max(0, (t - (u - 1) * r) / u);
+      return i === "fill"
+        ? { cellWidth: c, cellHeight: d, columns: s, rows: u }
+        : babelHelpers.extends({}, y(c, d), { columns: s, rows: u });
     }
-    function p(e) {
+    function g(e, t) {
+      return e >= 3 && e <= 4 ? t : "fill";
+    }
+    function h(e, t, n) {
+      if (n === "clampedRow") return { columns: u, rows: 1 };
+      var r = _(e),
+        o = Math.ceil(e / r);
+      return { columns: t ? o : r, rows: t ? r : o };
+    }
+    function y(e, t) {
+      return e < t * l
+        ? { cellWidth: e, cellHeight: e / l }
+        : e > t * s
+          ? { cellWidth: t * s, cellHeight: t }
+          : { cellWidth: e, cellHeight: t };
+    }
+    function C(e) {
       return e <= 0
         ? { cols: 1, rows: 1 }
         : e <= 2
@@ -72,29 +93,29 @@ __d(
                 ? { cols: 3, rows: 3 }
                 : { cols: 4, rows: Math.ceil(e / 4) };
     }
-    function _(e, t) {
-      var n = p(e),
-        r = p(t);
+    function b(e, t) {
+      var n = C(e),
+        r = C(t);
       return n.cols !== r.cols || n.rows !== r.rows;
     }
-    function f(t, n) {
+    function v(t, n) {
       if (t <= 0 || n <= 0) return 0;
-      var r = p(n),
+      var r = C(n),
         o = r.cols,
         a = r.rows,
-        i = t - 2 * s - (o - 1) * l;
+        i = t - 2 * d - (o - 1) * c;
       if (i <= 0) return 0;
-      var u = i / o,
-        c = u / e;
-      return a * c + (a - 1) * l + s;
+      var l = i / o,
+        s = l / e;
+      return a * s + (a - 1) * c + d;
     }
-    ((i.GRID_GAP_PX = l),
-      (i.GRID_PADDING_SINGLE_PX = s),
-      (i.calculateOptimalGridLayout = c),
-      (i.calculateNativeGridLayout = m),
-      (i.canonicalGridShape = p),
-      (i.hasCanonicalGridShapeChanged = _),
-      (i.calculateGroupVideoGridContentHeight = f));
+    ((i.GRID_GAP_PX = c),
+      (i.GRID_PADDING_SINGLE_PX = d),
+      (i.calculateOptimalGridLayout = p),
+      (i.calculateNativeGridLayout = f),
+      (i.canonicalGridShape = C),
+      (i.hasCanonicalGridShapeChanged = b),
+      (i.calculateGroupVideoGridContentHeight = v));
   },
   66,
 );

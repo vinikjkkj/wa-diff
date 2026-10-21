@@ -75,11 +75,7 @@ __d(
             }
           }));
     }
-    function d() {
-      u = null;
-    }
-    ((l.showBlockedCameraDialog = c),
-      (l.resetBlockedCameraDialogForTesting = d));
+    l.showBlockedCameraDialog = c;
   },
   98,
 );

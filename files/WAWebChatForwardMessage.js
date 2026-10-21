@@ -423,6 +423,8 @@ __d(
           "replyButtons",
           "isMdHistoryMsg",
           "bizPrivacyStatus",
+          "hostedBizEncStateMismatch",
+          "aeaAutoUpgrade",
           "kicState",
           "kicKey",
           "kicTimestampMs",

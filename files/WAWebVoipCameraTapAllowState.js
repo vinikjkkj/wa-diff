@@ -13,13 +13,9 @@ __d(
     function u(t) {
       return t != null && e === t;
     }
-    function c() {
-      e = null;
-    }
     ((i.beginCameraTapAllow = l),
       (i.endCameraTapAllow = s),
-      (i.isCameraTapAllowPending = u),
-      (i.resetCameraTapAllowForTesting = c));
+      (i.isCameraTapAllowPending = u));
   },
   66,
 );

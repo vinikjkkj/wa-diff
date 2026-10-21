@@ -190,6 +190,7 @@ __d(
               $ = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
                 a.data,
                 h,
+                "retry",
               );
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()

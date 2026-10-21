@@ -15,18 +15,15 @@ __d(
     var e,
       s,
       u = !1,
-      c = !1;
-    function d() {
-      ((u = !1), (c = !1));
+      c = !1,
+      d = 50,
+      m = 100;
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    var m = 50,
-      p = 100;
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (u) return !0;
           if (
             !o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled() ||
@@ -43,7 +40,7 @@ __d(
                     ])),
                 ));
               var r = function () {
-                ((c = !1), _(t, n));
+                ((c = !1), p(t, n));
               };
               o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
                 r,
@@ -53,15 +50,15 @@ __d(
           }
           var a = n.source,
             i = n.appStartLimit,
-            l = i === void 0 ? p : i,
-            d = n.inChatLimit,
-            f = d === void 0 ? m : d,
+            l = i === void 0 ? m : i,
+            _ = n.inChatLimit,
+            g = _ === void 0 ? d : _,
             h = n.force,
             y = h === void 0 ? !1 : h,
             C = !1;
           if (y) C = !0;
           else {
-            var b = yield g(t, f, l);
+            var b = yield f(t, g, l);
             C = b.some(function (e) {
               return (
                 e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
@@ -89,15 +86,15 @@ __d(
               : !1
           );
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e) {
             var r = e.msgs.last();
             return o("WAWebMsgQueryUtils").getAllDocsMsgs({
@@ -108,11 +105,10 @@ __d(
           }
           return o("WAWebMsgQueryUtils").getAllDocsMsgs({ count: n });
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.__resetPreloadingStateForTests = d),
-      (l.maybePreloadWebTPIframeForPDFs = _));
+    l.maybePreloadWebTPIframeForPDFs = p;
   },
   98,
 );

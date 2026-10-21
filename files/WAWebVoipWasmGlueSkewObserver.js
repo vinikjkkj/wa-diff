@@ -139,19 +139,7 @@ __d(
         ? Math.round(e)
         : 0;
     }
-    function I() {
-      ((d = !1),
-        (m = !1),
-        (p = !1),
-        (_ = !1),
-        (f = 0),
-        (g = 0),
-        (h = 0),
-        (y = 0),
-        (C = 0));
-    }
-    ((l.recordWasmGlueBuildSkewObserved = b),
-      (l.resetWasmGlueBuildSkewObserverForTests = I));
+    l.recordWasmGlueBuildSkewObserved = b;
   },
   98,
 );

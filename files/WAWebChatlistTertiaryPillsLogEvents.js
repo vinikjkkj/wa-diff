@@ -55,14 +55,10 @@ __d(
           userActionTarget: t,
         }));
     }
-    function p() {
-      (u.clear(), c.clear());
-    }
     ((l.TertiaryPillsChipKind = e),
       (l.TertiaryPillsMismatchReason = s),
       (l.logTertiaryPillsRowImpression = d),
-      (l.logTertiaryPillsRowMismatch = m),
-      (l.resetTertiaryPillsDedupForTests = p));
+      (l.logTertiaryPillsRowMismatch = m));
   },
   98,
 );

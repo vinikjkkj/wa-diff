@@ -160,6 +160,7 @@ __d(
             (e.disappearingModeInitiator = o("WAWebBaseModel").prop()),
             (e.disappearingModeTrigger = o("WAWebBaseModel").prop()),
             (e.disappearingModeInitiatedByMe = o("WAWebBaseModel").prop()),
+            (e.aeaThreadState = o("WAWebBaseModel").prop()),
             (e.createdLocally = o("WAWebBaseModel").prop()),
             (e.chatViewMode = o("WAWebBaseModel").prop(
               o("WAWebChatViewMode.flow").ChatViewModeType.VISIBLE,

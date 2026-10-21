@@ -85,8 +85,6 @@ __d(
           zIndex: "x1vjfegm",
           $$css: !0,
         },
-        communitySquircle: { color: "x17k9de1", $$css: !0 },
-        newsletterAvatar: { color: "x17k9de1", $$css: !0 },
         dimmed: { opacity: "x1xccycs", $$css: !0 },
         hidden: { display: "x1s85apg", $$css: !0 },
         bottomEndFloater: {
@@ -188,7 +186,6 @@ __d(
           $$css: !0,
         },
         hiddenSubgroupIcon: { color: "xhslqc4", $$css: !0 },
-        backgroundFill: { fill: "x1flh12g", $$css: !0 },
         primaryFill: { fill: "xvt3oi1", color: "xhslqc4", $$css: !0 },
         svgSize: { width: "xh8yej3", height: "x5yr21d", $$css: !0 },
         separator: {

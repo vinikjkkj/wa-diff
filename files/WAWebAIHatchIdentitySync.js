@@ -129,12 +129,7 @@ __d(
         ).InMemoryMediaBlobCache.decreaseUsageCount(c),
         (c = null));
     }
-    function v() {
-      var e;
-      ((s = !1), (e = d) == null || e.abort(), (d = null), (c = null));
-    }
-    ((l.syncHatchContactIdentity = p),
-      (l.__resetHatchIdentitySyncForTesting = v));
+    l.syncHatchContactIdentity = p;
   },
   98,
 );

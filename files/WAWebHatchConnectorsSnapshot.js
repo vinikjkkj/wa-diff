@@ -39,9 +39,6 @@ __d(
               }
             );
           }),
-          (t.__resetForTesting = function () {
-            ((this.$1 = null), (this.$2 = null), (this.$3 = []));
-          }),
           e
         );
       })(),

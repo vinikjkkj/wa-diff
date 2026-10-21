@@ -240,6 +240,7 @@ __d(
             a("hostedBizEncStateMismatch"),
             a("placeholderCreatedWhenAccountIsHosted"),
             a("senderOrRecipientAccountTypeHosted"),
+            a("aeaAutoUpgrade"),
             a("eventInvalidated"),
             a("replyCount"),
             a("associationType"),

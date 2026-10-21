@@ -15,76 +15,90 @@ __d(
         ? n.scrollLeft + (i.left - a.left) + o
         : n.scrollTop + (i.top - a.top) + o;
     }
-    function u(t, r, o, a, i, l) {
-      d(r);
+    function u(e, t) {
+      return self.setTimeout(t, e + c);
+    }
+    var c = 100;
+    function d(t, r, o, a, i, l) {
+      p(r);
       var s = o === "x" ? r.scrollLeft : r.scrollTop,
-        u = a - s;
-      return i <= 0 || u === 0
-        ? (m(r, o, a), (e || (e = n("Promise"))).resolve())
+        c = a - s;
+      return i <= 0 || c === 0
+        ? (f(r, o, a), (e || (e = n("Promise"))).resolve())
         : new (e || (e = n("Promise")))(function (e) {
             var n = null,
-              a = !1,
-              c = function () {
-                ((a = !0), _(t, c), _(r, c), e());
+              d = !1,
+              m = function () {
+                ((d = !0), self.clearTimeout(p), h(t, m), h(r, m), e());
               };
-            (p(t, c), r !== t && p(r, c));
-            var d = function (f) {
-              if (!a) {
-                n = n != null ? n : f;
-                var p = Math.min((f - n) / i, 1);
-                (m(r, o, s + u * l(p)),
-                  p < 1
-                    ? window.requestAnimationFrame(d)
-                    : (_(t, c), _(r, c), e()));
-              }
-            };
-            window.requestAnimationFrame(d);
+            (g(t, m), r !== t && g(r, m));
+            var p = u(i, function () {
+                (f(r, o, a), m());
+              }),
+              y = function (t) {
+                if (!d) {
+                  n = n != null ? n : t;
+                  var e = Math.min((t - n) / i, 1);
+                  (f(r, o, s + c * l(e)), e < 1 ? _(r, y) : m());
+                }
+              };
+            _(r, y);
           });
     }
-    function c(t, r, o, a) {
+    function m(t, r, o, a) {
       return r <= 0 && o <= 0
         ? (a(), (e || (e = n("Promise"))).resolve())
         : new (e || (e = n("Promise")))(function (e) {
             var n = null,
               i = !1,
               l = function () {
-                ((i = !0), _(t, l), e());
+                ((i = !0), self.clearTimeout(s), h(t, l), e());
               };
-            p(t, l);
-            var s = function (c) {
-              if (!i) {
-                n = n != null ? n : c;
-                var u = c - n - o;
-                (u >= 0 && a(),
-                  u < r ? window.requestAnimationFrame(s) : (_(t, l), e()));
-              }
-            };
-            window.requestAnimationFrame(s);
+            g(t, l);
+            var s = u(o + r, function () {
+                (a(), l());
+              }),
+              c = function (s) {
+                if (!i) {
+                  n = n != null ? n : s;
+                  var e = s - n - o;
+                  (e >= 0 && a(), e < r ? _(t, c) : l());
+                }
+              };
+            _(t, c);
           });
     }
-    function d(e) {
+    function p(e) {
       var t = l.get(e);
       t != null &&
         Array.from(t).forEach(function (e) {
           return e();
         });
     }
-    function m(e, t, n) {
+    function _(e, t) {
+      var n;
+      ((n = e.ownerDocument.defaultView) != null
+        ? n
+        : window
+      ).requestAnimationFrame(t);
+    }
+    function f(e, t, n) {
       t === "x" ? (e.scrollLeft = n) : (e.scrollTop = n);
     }
-    function p(e, t) {
+    function g(e, t) {
       var n,
         r = (n = l.get(e)) != null ? n : new Set();
       (r.add(t), l.set(e, r));
     }
-    function _(e, t) {
+    function h(e, t) {
       var n = l.get(e);
       n != null && (n.delete(t), n.size === 0 && l.delete(e));
     }
     ((i.computeScrollTarget = s),
-      (i.tweenScroll = u),
-      (i.runProgressTween = c),
-      (i.cancelScrollTweens = d));
+      (i.settleWhenOverdue = u),
+      (i.tweenScroll = d),
+      (i.runProgressTween = m),
+      (i.cancelScrollTweens = p));
   },
   66,
 );

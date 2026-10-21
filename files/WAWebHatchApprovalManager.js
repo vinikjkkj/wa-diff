@@ -68,12 +68,6 @@ __d(
               }
             };
           }),
-          (t.__resetForTesting = function () {
-            ((this.$1 = new Map()),
-              (this.$2 = []),
-              (this.$3 = new Set()),
-              (this.$4 = []));
-          }),
           (t.$5 = function () {
             this.$2 = Array.from(this.$1.values());
             for (var e of [].concat(this.$4)) e();

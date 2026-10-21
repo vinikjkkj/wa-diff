@@ -43,10 +43,12 @@ __d(
           }),
           (o.$6 = function () {
             if (this.$3.length !== 0) {
-              var e = this.$3.shift(),
-                t = e[0],
-                n = e[1];
-              this.$4(t, n);
+              var e = this.$3.shift();
+              if (e != null) {
+                var t = e[0],
+                  n = e[1];
+                this.$4(t, n);
+              }
             }
           }),
           t

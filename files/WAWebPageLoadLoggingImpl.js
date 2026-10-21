@@ -45,6 +45,7 @@ __d(
                 bool: {
                   mh_default_async_await_wa: r("gkx")("8891"),
                   wa_web_media_wasm_worker_split: r("gkx")("24042"),
+                  wa_web_prefetch_startup_resources: r("gkx")("27710"),
                 },
                 string: {
                   logged_out_separation: o(
@@ -324,17 +325,6 @@ __d(
       return null;
     }
     function H() {
-      (h != null && (self.clearTimeout(h), (h = null)),
-        q != null && (self.clearTimeout(q), (q = null)),
-        (p = null),
-        (_ = !1),
-        (f = { socket_error_count: 0 }),
-        E.clear(),
-        (w.wamComplete = !1),
-        (w.qplComplete = !1),
-        w.timestamps.clear());
-    }
-    function G() {
       o("WAWebPageLoadLogging").setImpl({
         endPageLoadQpl: S,
         endPageLoadQplMeasure: I,
@@ -348,7 +338,7 @@ __d(
         PAGE_LOAD_ID: g,
       });
     }
-    ((l.resetPageLoadLoggingForTests = H), (l.setPageLoadLoggingImpl = G));
+    l.setPageLoadLoggingImpl = H;
   },
   98,
 );

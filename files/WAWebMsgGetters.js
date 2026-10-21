@@ -1402,21 +1402,22 @@ __d(
       xo = _("size", { default: 0 }),
       $o = _("mediaPngThumbnail"),
       Po = _("hostedBizEncStateMismatch"),
-      No = p(
+      No = _("aeaAutoUpgrade"),
+      Mo = p(
         function (e) {
           var t = e[0];
           return t === "bot_unavailable_fanout";
         },
         [S],
       ),
-      Mo = p(
+      wo = p(
         function (e) {
           var t = e[0];
           return t === "view_once_unavailable_fanout";
         },
         [S],
       ),
-      wo = p(
+      Ao = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1429,7 +1430,7 @@ __d(
         },
         [L, ae],
       ),
-      Ao = p(
+      Fo = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1442,99 +1443,99 @@ __d(
         },
         [A, w],
       ),
-      Fo = p(
+      Oo = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return !n && t === o("WAWebBotTypes").BizBotType.BIZ_1P;
         },
-        [Le, Ao],
+        [Le, Fo],
       ),
-      Oo = p(
+      Bo = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return !t.fromMe && n;
         },
-        [L, Fo],
+        [L, Oo],
       ),
-      Bo = p(
+      Wo = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return !r && !t.fromMe && n === o("WAWebBotTypes").BizBotType.BIZ_3P;
         },
-        [L, Le, Ao],
+        [L, Le, Fo],
       ),
-      Wo = _("botPluginSearchProvider"),
-      qo = _("botPluginSearchUrl"),
-      Uo = _("botResponseTargetId"),
-      Vo = _("botPluginSearchQuery"),
-      Ho = _("botPluginType"),
-      Go = _("botMessageDisclaimerText"),
-      zo = _("richResponse"),
-      jo = _("unifiedResponse"),
-      Ko = _("unifiedResponseMutationMediaList"),
-      Qo = p(
+      qo = _("botPluginSearchProvider"),
+      Uo = _("botPluginSearchUrl"),
+      Vo = _("botResponseTargetId"),
+      Ho = _("botPluginSearchQuery"),
+      Go = _("botPluginType"),
+      zo = _("botMessageDisclaimerText"),
+      jo = _("richResponse"),
+      Ko = _("unifiedResponse"),
+      Qo = _("unifiedResponseMutationMediaList"),
+      Xo = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t != null && n != null && r != null;
         },
-        [Wo, qo, Vo],
-      ),
-      Xo = p(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return !n && (t == null ? void 0 : t.isBot()) === !0;
-        },
-        [lt, Ao],
+        [qo, Uo, Ho],
       ),
       Yo = p(
         function (e) {
           var t = e[0],
             n = e[1];
-          return !!(t && o("WAWebUserPrefsMeUser").isMeAccount(n));
+          return !n && (t == null ? void 0 : t.isBot()) === !0;
         },
-        [Xo, Ee],
+        [lt, Fo],
       ),
       Jo = p(
         function (e) {
           var t = e[0],
             n = e[1];
-          return n && !t.remote.isBot();
+          return !!(t && o("WAWebUserPrefsMeUser").isMeAccount(n));
         },
-        [L, Xo],
+        [Yo, Ee],
       ),
       Zo = p(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return n && !t.remote.isBot();
+        },
+        [L, Yo],
+      ),
+      ea = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t || n || r;
         },
-        [Xo, Oo, Bo],
+        [Yo, Bo, Wo],
       ),
-      ea = p(
+      ta = p(
         function (e) {
           var t = e[0];
           return !t.fromMe && t.remote.isAiHub();
         },
         [L],
       ),
-      ta = p(
+      na = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t || n || r;
         },
-        [Xo, Bo, ea],
+        [Yo, Wo, ta],
       ),
-      na = p(
+      ra = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1551,9 +1552,9 @@ __d(
             )
           );
         },
-        [pn, xt, ta, Fo, Te],
+        [pn, xt, na, Oo, Te],
       ),
-      ra = p(
+      oa = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1563,31 +1564,31 @@ __d(
         },
         [v, S],
       ),
-      oa = _("hsmTag"),
-      aa = p(
+      aa = _("hsmTag"),
+      ia = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.AUTHENTICATION;
         },
-        [oa],
+        [aa],
       ),
-      ia = p(
+      la = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.MARKETING;
         },
-        [oa],
+        [aa],
       ),
-      la = _("botRespOrInvocationRevokeBotWid"),
-      sa = p(
+      sa = _("botRespOrInvocationRevokeBotWid"),
+      ua = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return !!(t != null && t.isBot() && n);
         },
-        [la, cr],
+        [sa, cr],
       ),
-      ua = p(
+      ca = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1601,30 +1602,30 @@ __d(
                   .REELS)
           );
         },
-        [Ho, Xo],
+        [Go, Yo],
       ),
-      ca = _("botPluginMaybeParent"),
-      da = _("botReelPluginThumbnailCdnUrl"),
-      ma = p(
+      da = _("botPluginMaybeParent"),
+      ma = _("botReelPluginThumbnailCdnUrl"),
+      pa = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebMsgType").MSG_TYPE.BIZ_CONTENT_PLACEHOLDER;
         },
         [v],
       ),
-      pa = _("statusMentioned"),
-      _a = _("isWamoSub"),
-      fa = _("hasPaidPartnershipLabel"),
-      ga = _("aiProvenance"),
-      ha = p(
+      _a = _("statusMentioned"),
+      fa = _("isWamoSub"),
+      ga = _("hasPaidPartnershipLabel"),
+      ha = _("aiProvenance"),
+      ya = p(
         function (e) {
           var t = e[0];
           return o("WAWebMsgAIProvenance").hasAIProvenanceSignal(t);
         },
-        [ga],
+        [ha],
       ),
-      ya = _("isVideoCall"),
-      Ca = p(
+      Ca = _("isVideoCall"),
+      ba = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1634,9 +1635,9 @@ __d(
             (n === "miss_video" || n === "miss_group_video" || r === !0)
           );
         },
-        [v, S, ya],
+        [v, S, Ca],
       ),
-      ba = p(
+      va = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1644,9 +1645,9 @@ __d(
         },
         [v, L],
       ),
-      va = _("callOutcome"),
-      Sa = _("callSilenceReason"),
-      Ra = p(
+      Sa = _("callOutcome"),
+      Ra = _("callSilenceReason"),
+      La = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1656,9 +1657,9 @@ __d(
             (n === "silence" || r != null)
           );
         },
-        [v, S, Sa],
+        [v, S, Ra],
       ),
-      La = p(
+      Ea = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1675,10 +1676,10 @@ __d(
               !y.includes(r))
           );
         },
-        [v, S, va, lt],
+        [v, S, Sa, lt],
       ),
-      Ea = _("callDuration"),
-      ka = p(
+      ka = _("callDuration"),
+      Ia = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1696,12 +1697,12 @@ __d(
             r > 0
           );
         },
-        [v, N, Ea],
+        [v, N, ka],
       ),
-      Ia = _("bytesSent"),
-      Ta = _("bytesReceived"),
-      Da = _("callParticipants"),
-      xa = p(
+      Ta = _("bytesSent"),
+      Da = _("bytesReceived"),
+      xa = _("callParticipants"),
+      $a = p(
         function (e) {
           var t = e[0];
           if (t == null) return t;
@@ -1719,12 +1720,12 @@ __d(
             return r.has(t) ? !1 : (r.add(t), !0);
           });
         },
-        [Da],
+        [xa],
       ),
-      $a = _("isCallLink"),
-      Pa = _("callLinkToken"),
-      Na = _("selfOtherDeviceConnected"),
-      Ma = p(
+      Pa = _("isCallLink"),
+      Na = _("callLinkToken"),
+      Ma = _("selfOtherDeviceConnected"),
+      wa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1738,52 +1739,52 @@ __d(
                 }) > 1))
           );
         },
-        [tt, xa, Pa],
+        [tt, $a, Na],
       ),
-      wa = p(
+      Aa = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [tt, Ma],
+        [tt, wa],
       ),
-      Aa = _("finalCallOutcome"),
-      Fa = _("groupHistoryBundleMessageKey"),
-      Oa = _("groupHistoryBundleMetadata"),
-      Ba = _("groupHistoryIndividualMessageInfo"),
-      Wa = p(
+      Fa = _("finalCallOutcome"),
+      Oa = _("groupHistoryBundleMessageKey"),
+      Ba = _("groupHistoryBundleMetadata"),
+      Wa = _("groupHistoryIndividualMessageInfo"),
+      qa = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [Ba, Fa],
-      ),
-      qa = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
-        },
-        [Ba],
+        [Wa, Oa],
       ),
       Ua = p(
         function (e) {
           var t = e[0];
-          return t == null ? void 0 : t.bundleSender;
+          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
         },
-        [Ba],
+        [Wa],
       ),
       Va = p(
+        function (e) {
+          var t = e[0];
+          return t == null ? void 0 : t.bundleSender;
+        },
+        [Wa],
+      ),
+      Ha = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t != null && r("WAWebWid").equals(t.remote, n);
         },
-        [Wa, P],
+        [qa, P],
       );
-    function Ha(e) {
+    function Ga(e) {
       var t =
         v(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(I(e));
@@ -2060,65 +2061,66 @@ __d(
       (l.getSize = xo),
       (l.getMediaPngThumbnail = $o),
       (l.getHostedBizEncStateMismatch = Po),
-      (l.getIsBotFutureproofPlaceholder = No),
-      (l.getIsViewOncePlaceholder = Mo),
-      (l.getIsBotQuery = wo),
-      (l.getIsCoexV2Relay = Ao),
-      (l.getIsBizBot1pMessage = Fo),
-      (l.getIsBizBot1pResponse = Oo),
-      (l.getBotPluginSearchProvider = Wo),
-      (l.getBotPluginSearchUrl = qo),
-      (l.getBotResponseTargetId = Uo),
-      (l.getBotPluginSearchQuery = Vo),
-      (l.getBotPluginType = Ho),
-      (l.getBotMessageDisclaimerText = Go),
-      (l.getRichResponse = zo),
-      (l.getUnifiedResponse = jo),
-      (l.getUnifiedResponseMutationMediaList = Ko),
-      (l.getIsBotSearchResponse = Qo),
-      (l.getIsMetaBotResponse = Xo),
-      (l.isMetaBotResponseToMyInvoke = Yo),
-      (l.getIsMetaBotInvokeResponse = Jo),
-      (l.getIsBotResponse = Zo),
-      (l.getShouldShowEditedIndicator = na),
-      (l.getIsBotFeedbackMessage = ra),
-      (l.getHsmTag = oa),
-      (l.getIsAuthenticationMessage = aa),
-      (l.getIsMarketingTemplateTag = ia),
-      (l.getIsRevokeForMsgFromOrDeliveredToBot = sa),
-      (l.getIsBotPluginCarouselMsg = ua),
-      (l.getBotPluginMaybeParent = ca),
-      (l.getBotReelPluginThumbnailCdnUrl = da),
-      (l.getIsBizContentPlaceholder = ma),
-      (l.getStatusMentioned = pa),
-      (l.getIsWamoSub = _a),
-      (l.getHasPaidPartnershipLabel = fa),
-      (l.getAiProvenance = ga),
-      (l.getIsAiContent = ha),
-      (l.getIsVideoCall = Ca),
-      (l.getCallId = ba),
-      (l.getCallOutcome = va),
-      (l.getCallSilenceReason = Sa),
-      (l.getIsCallSilenced = Ra),
-      (l.getIsMissedCall = La),
-      (l.getCallDuration = Ea),
-      (l.getIsVisibleCallLog = ka),
-      (l.getBytesSent = Ia),
-      (l.getBytesReceived = Ta),
-      (l.getCallParticipants = xa),
-      (l.getIsCallLink = $a),
-      (l.getCallLinkToken = Pa),
-      (l.getSelfOtherDeviceConnected = Na),
-      (l.getIsAdHocGroupCall = Ma),
-      (l.getIsGroupCall = wa),
-      (l.getFinalCallOutcome = Aa),
-      (l.getGroupHistoryBundleMetadata = Oa),
-      (l.getGroupHistoryIndividualMessageInfo = Ba),
-      (l.getGroupHistoryBundleMessageKey = Wa),
-      (l.getIsEditedAfterReceivedAsHistory = qa),
-      (l.getGroupHistoryBundleSender = Ua),
-      (l.getIsGroupHistoryMessageInOwnChat = Va),
-      (l.isRealMessage = Ha));
+      (l.getAeaAutoUpgrade = No),
+      (l.getIsBotFutureproofPlaceholder = Mo),
+      (l.getIsViewOncePlaceholder = wo),
+      (l.getIsBotQuery = Ao),
+      (l.getIsCoexV2Relay = Fo),
+      (l.getIsBizBot1pMessage = Oo),
+      (l.getIsBizBot1pResponse = Bo),
+      (l.getBotPluginSearchProvider = qo),
+      (l.getBotPluginSearchUrl = Uo),
+      (l.getBotResponseTargetId = Vo),
+      (l.getBotPluginSearchQuery = Ho),
+      (l.getBotPluginType = Go),
+      (l.getBotMessageDisclaimerText = zo),
+      (l.getRichResponse = jo),
+      (l.getUnifiedResponse = Ko),
+      (l.getUnifiedResponseMutationMediaList = Qo),
+      (l.getIsBotSearchResponse = Xo),
+      (l.getIsMetaBotResponse = Yo),
+      (l.isMetaBotResponseToMyInvoke = Jo),
+      (l.getIsMetaBotInvokeResponse = Zo),
+      (l.getIsBotResponse = ea),
+      (l.getShouldShowEditedIndicator = ra),
+      (l.getIsBotFeedbackMessage = oa),
+      (l.getHsmTag = aa),
+      (l.getIsAuthenticationMessage = ia),
+      (l.getIsMarketingTemplateTag = la),
+      (l.getIsRevokeForMsgFromOrDeliveredToBot = ua),
+      (l.getIsBotPluginCarouselMsg = ca),
+      (l.getBotPluginMaybeParent = da),
+      (l.getBotReelPluginThumbnailCdnUrl = ma),
+      (l.getIsBizContentPlaceholder = pa),
+      (l.getStatusMentioned = _a),
+      (l.getIsWamoSub = fa),
+      (l.getHasPaidPartnershipLabel = ga),
+      (l.getAiProvenance = ha),
+      (l.getIsAiContent = ya),
+      (l.getIsVideoCall = ba),
+      (l.getCallId = va),
+      (l.getCallOutcome = Sa),
+      (l.getCallSilenceReason = Ra),
+      (l.getIsCallSilenced = La),
+      (l.getIsMissedCall = Ea),
+      (l.getCallDuration = ka),
+      (l.getIsVisibleCallLog = Ia),
+      (l.getBytesSent = Ta),
+      (l.getBytesReceived = Da),
+      (l.getCallParticipants = $a),
+      (l.getIsCallLink = Pa),
+      (l.getCallLinkToken = Na),
+      (l.getSelfOtherDeviceConnected = Ma),
+      (l.getIsAdHocGroupCall = wa),
+      (l.getIsGroupCall = Aa),
+      (l.getFinalCallOutcome = Fa),
+      (l.getGroupHistoryBundleMetadata = Ba),
+      (l.getGroupHistoryIndividualMessageInfo = Wa),
+      (l.getGroupHistoryBundleMessageKey = qa),
+      (l.getIsEditedAfterReceivedAsHistory = Ua),
+      (l.getGroupHistoryBundleSender = Va),
+      (l.getIsGroupHistoryMessageInOwnChat = Ha),
+      (l.isRealMessage = Ga));
   },
   98,
 );

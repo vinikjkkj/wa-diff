@@ -87,8 +87,8 @@ __d(
             (this.socketId = j),
             (this.socket = null),
             (this.softCloseSocket = null),
-            (this.setOnBeforeCastStanzaForE2E = function (e) {
-              l.config.handlers.onBeforeCastStanzaForE2E = e;
+            (this.setOnBeforeCastStanza = function (e) {
+              l.config.handlers.onBeforeCastStanza = e;
             }),
             (this.getAndIncrementNextOrderedId = function () {
               return l.$2++;
@@ -585,8 +585,7 @@ __d(
               var a,
                 i,
                 l =
-                  (a = (i = this.config.handlers).onBeforeCastStanzaForE2E) ==
-                  null
+                  (a = (i = this.config.handlers).onBeforeCastStanza) == null
                     ? void 0
                     : a.call(i, t, r);
               if (l != null)
@@ -596,11 +595,11 @@ __d(
                       (k = babelHelpers.taggedTemplateLiteralLoose(
                         [
                           "Dropping stanza since onBeforeCastStanza matched:\n",
-                          ". We return mock response directly.",
+                          ".",
                         ],
                         [
                           "Dropping stanza since onBeforeCastStanza matched:\\n",
-                          ". We return mock response directly.",
+                          ".",
                         ],
                       )),
                     t,
@@ -608,15 +607,15 @@ __d(
                   o("WALogger").DEV_XMPP(
                     I ||
                       (I = babelHelpers.taggedTemplateLiteralLoose(
-                        ["--- Receive (via SMAX+E2E) ---\n", ""],
-                        ["--- Receive (via SMAX+E2E) ---\\n", ""],
+                        ["--- Receive (via onBeforeCastStanza) ---\n", ""],
+                        ["--- Receive (via onBeforeCastStanza) ---\\n", ""],
                       )),
                     l,
                   ),
                   o("WALogger").ERROR(
                     T ||
                       (T = babelHelpers.taggedTemplateLiteralLoose([
-                        "Dropping stanza since onBeforeCastStanza matched. We return mock response directly.",
+                        "Dropping stanza since onBeforeCastStanza matched.",
                       ])),
                   ),
                   Array.isArray(l)

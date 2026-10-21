@@ -78,6 +78,7 @@ __d(
               yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
                 creatorLid: m.creatorLid,
                 fetchPauseUntilMs: null,
+                generatedEmoji: m.generatedEmoji,
                 hcaEntrypointId: m.hcaEntrypointId,
                 groupTosRequirements: m.groupTosRequirements,
                 name: m.name,

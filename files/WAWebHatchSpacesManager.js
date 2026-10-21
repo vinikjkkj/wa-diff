@@ -42,13 +42,6 @@ __d(
               }
             };
           }),
-          (t.__resetForTesting = function () {
-            ((this.$1 = o("WAWebHatchSpacesState").EMPTY_HATCH_SPACES_STATE),
-              (this.$2 = o("WAWebHatchSpacesCatalog").hatchSpacesCatalog(
-                o("WAWebHatchSpacesState").EMPTY_HATCH_SPACES_STATE,
-              )),
-              (this.$3 = []));
-          }),
           (t.$4 = function (t) {
             ((this.$1 = t),
               (this.$2 = o("WAWebHatchSpacesCatalog").hatchSpacesCatalog(t)));

@@ -2,6 +2,7 @@ __d(
   "WAWebOrgMemberSearchRows",
   [
     "WALogger",
+    "WAWebApiContact",
     "WAWebChatlistTypes",
     "WAWebContactCollection",
     "WAWebNonContactPushNameSearchModel",
@@ -12,9 +13,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = Object.freeze([]);
-    function u(e, t, n) {
-      if (e.length === 0) return s;
+      s,
+      u = Object.freeze([]);
+    function c(e, t, n) {
+      if (e.length === 0) return u;
       var r = new Set();
       for (var a of t) {
         r.add(o("WAWebNonContactPushNameSearchModel").canonicalDedupeId(a.id));
@@ -24,11 +26,11 @@ __d(
       for (var l of n)
         r.add(o("WAWebNonContactPushNameSearchModel").canonicalDedupeId(l.id));
       if (r.size === 0) return e;
-      var u = e
+      var s = e
         .map(function (e) {
           return babelHelpers.extends({}, e, {
             members: e.members.filter(function (e) {
-              var t = m(e);
+              var t = f(e);
               return (
                 t.length === 0 ||
                 !t.some(function (e) {
@@ -41,22 +43,58 @@ __d(
         .filter(function (e) {
           return e.failure != null || e.loading || e.members.length > 0;
         });
-      return u.length === 0 ? s : u;
+      return s.length === 0 ? u : s;
     }
-    function c(e) {
-      var t = p(e);
-      return t == null
-        ? null
-        : o("WAWebContactCollection").ContactCollection.gadd(t);
+    function d(e) {
+      var t = g(e);
+      return t == null ? null : m(t, e);
     }
-    function d(e, t) {
+    function m(e, t) {
+      var n,
+        r = o("WAWebContactCollection").ContactCollection.get(e);
+      return r != null
+        ? r
+        : o("WAWebContactCollection").ContactCollection.gadd({
+            id: e,
+            phoneNumber:
+              (n = o("WAWebApiContact").getPnIfLidIsLatestMapping(e)) != null
+                ? n
+                : p(e, t.phoneNumber),
+            username: t.username,
+          });
+    }
+    function p(t, n) {
+      var a,
+        i = (a = n == null ? void 0 : n.replace(/\D/g, "")) != null ? a : "";
+      if (i === "") return null;
+      var l;
+      try {
+        l = o("WAWebWidFactory").createUserWidOrThrow(i + "@c.us");
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-search] unparseable directory phone number",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("org-member-bad-phone-number"),
+          null
+        );
+      }
+      var s = o("WAWebApiContact").getCurrentLid(l);
+      return s == null || s.equals(t) ? l : null;
+    }
+    function _(e, t) {
       if (e.length === 0 || t.length === 0) return e;
       var n = new Set(
         t
           .flatMap(function (e) {
             return e.members;
           })
-          .flatMap(m),
+          .flatMap(f),
       );
       return n.size === 0
         ? e
@@ -66,8 +104,8 @@ __d(
             );
           });
     }
-    function m(e) {
-      var t = p(e);
+    function f(e) {
+      var t = g(e);
       return t == null
         ? []
         : [
@@ -75,25 +113,25 @@ __d(
             t.toString(),
           ];
     }
-    function p(t) {
+    function g(e) {
       try {
-        return o("WAWebWidFactory").createUserLidOrThrow(t.id, "lid");
-      } catch (t) {
+        return o("WAWebWidFactory").createUserLidOrThrow(e.id, "lid");
+      } catch (e) {
         return (
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[org-search] unparseable member lid",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
+            .catching(r("getErrorSafe")(e))
             .sendLogs("org-member-search-bad-lid"),
           null
         );
       }
     }
-    function _(e) {
+    function h(e) {
       if (e.loading)
         return {
           height: o("WAWebOrgMemberSearchLoadingRowLayout")
@@ -115,12 +153,13 @@ __d(
               .ROW_ORG_MEMBERS_ERROR,
           };
     }
-    ((l.EMPTY_ORG_RENDER_SECTIONS = s),
-      (l.dedupeOrgMemberSections = u),
-      (l.toOrgMemberContact = c),
-      (l.withoutOrgMembers = d),
-      (l.toOrgMemberLid = p),
-      (l.toOrgMemberStatusRow = _));
+    ((l.EMPTY_ORG_RENDER_SECTIONS = u),
+      (l.dedupeOrgMemberSections = c),
+      (l.toOrgMemberContact = d),
+      (l.getOrgMemberContact = m),
+      (l.withoutOrgMembers = _),
+      (l.toOrgMemberLid = g),
+      (l.toOrgMemberStatusRow = h));
   },
   98,
 );

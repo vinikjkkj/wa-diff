@@ -53,15 +53,15 @@ __d(
       v = new Map(),
       S = new Set();
     function R(e, t, n) {
-      var r = k(e, t);
-      return (r === "follow_up" && N(e, t, n), r);
+      var r = E(e, t);
+      return (r === "follow_up" && P(e, t, n), r);
     }
     function L(e, t, n) {
       try {
         e: {
           if (e === "offer") {
-            A(t.call_id, n) ||
-              (F(t),
+            w(t.call_id, n) ||
+              (A(t),
               o(
                 "WAWebVoipStaleOfferMissedCallFieldstats",
               ).logStaleOfferMissedCallFieldstats(t, n, function () {
@@ -70,7 +70,7 @@ __d(
             break e;
           }
           if (e === "follow_up") {
-            O(t);
+            F(t);
             break e;
           }
           throw Error(
@@ -79,17 +79,14 @@ __d(
           );
         }
       } catch (e) {
-        W(e);
+        B(e);
       }
     }
-    function E() {
-      (C.clear(), b.clear(), v.clear(), S.clear());
-    }
-    function k(t, n) {
+    function E(t, n) {
       try {
         var a =
-          t.type === o("WAWebVoipSignalingEnums").TYPE.OFFER ? I(t) : P(t, n);
-        return (a != null && U(a, t), a);
+          t.type === o("WAWebVoipSignalingEnums").TYPE.OFFER ? k(t) : $(t, n);
+        return (a != null && q(a, t), a);
       } catch (t) {
         return (
           o("WALogger")
@@ -104,24 +101,24 @@ __d(
         );
       }
     }
-    function I(e) {
+    function k(e) {
       var t = e.call_id;
-      return b.has(t) || !T(e)
-        ? (C.delete(t), M(b, t, m), null)
-        : (M(C, t, m), "offer");
+      return b.has(t) || !I(e)
+        ? (C.delete(t), N(b, t, m), null)
+        : (N(C, t, m), "offer");
     }
-    function T(e) {
+    function I(e) {
       return o(
         "WAWebVoipInitEventEmitter",
       ).VoipInitEventEmitter.getIsVoipInited()
-        ? D() &&
-            o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, $) ===
+        ? T() &&
+            o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, x) ===
               "stale"
         : o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled() &&
-            o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, x) ===
+            o("WAWebVoipIncomingOfferRoute").getIncomingOfferRoute(e, D) ===
               "stale";
     }
-    function D() {
+    function T() {
       return (
         o(
           "WAWebVoipInitEventEmitter",
@@ -129,16 +126,16 @@ __d(
         o("WAWebVoipBootInitDecision").isDeferredVoipBootHiddenPrewarmEnabled()
       );
     }
-    function x() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_voip_incoming_offer_init_freshness_ms",
       );
     }
-    function $() {
-      var e = x();
+    function x() {
+      var e = D();
       return e > 0 ? Math.max(e, g) : e;
     }
-    function P(e, t) {
+    function $(e, t) {
       return C.has(e.call_id) &&
         h.has(t) &&
         e.peer_jid.isUser() &&
@@ -146,7 +143,7 @@ __d(
         ? "follow_up"
         : null;
     }
-    function N(e, t, n) {
+    function P(e, t, n) {
       try {
         var a,
           i = e.call_id,
@@ -157,7 +154,7 @@ __d(
             e,
             n,
           );
-        u !== l && (v.set(i, u), w(v, p));
+        u !== l && (v.set(i, u), M(v, p));
       } catch (e) {
         o("WALogger")
           .WARN(
@@ -169,16 +166,16 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function M(e, t, n) {
-      (e.delete(t), e.add(t), w(e, n));
+    function N(e, t, n) {
+      (e.delete(t), e.add(t), M(e, n));
     }
-    function w(e, t) {
+    function M(e, t) {
       if (e.size > t) {
         var n = e.keys().next().value;
         n != null && e.delete(n);
       }
     }
-    function A(e, t) {
+    function w(e, t) {
       var n = t.maybeChild("enc");
       if (n == null || !n.hasContent()) return !1;
       var a = n.contentBytes();
@@ -190,23 +187,23 @@ __d(
           ":" +
           r("WACyrb53Hash")(o("WABase64").encodeB64(a)),
         l = S.has(i);
-      return (M(S, i, _), l);
+      return (N(S, i, _), l);
     }
-    function F(e) {
+    function A(e) {
       o("WAWebCoreActionsODS").logCallIncomingMissed();
       var t = Date.now();
-      B(function () {
+      O(function () {
         o("WAWebBackendApi").frontendFireAndForget(
           "generateCallLogFromEventCallMissed",
-          { callMissedData: q(e, Date.now() - t) },
+          { callMissedData: W(e, Date.now() - t) },
         );
       });
     }
-    function O(e) {
+    function F(e) {
       var t;
       e.type !== o("WAWebVoipSignalingEnums").TYPE.TERMINATE ||
         !y.has((t = e.terminate_reason) != null ? t : "") ||
-        B(function () {
+        O(function () {
           o("WAWebBackendApi").frontendFireAndForget(
             "generateCallLogFromEventUpdate1to1",
             {
@@ -220,13 +217,13 @@ __d(
           );
         });
     }
-    function B(e) {
+    function O(e) {
       o("WAWebDbEncryptionKey")
         .DbEncKeyStore.waitForFinalDbMsgEncKey()
         .then(e)
-        .catch(W);
+        .catch(B);
     }
-    function W(e) {
+    function B(e) {
       o("WALogger")
         .ERROR(
           u ||
@@ -241,7 +238,7 @@ __d(
           sampling: 0.01,
         });
     }
-    function q(e, t) {
+    function W(e, t) {
       return {
         CallId: e.call_id,
         PeerUserJid: o("WAWebWidFactory").asUserWidOrThrow(e.peer_jid),
@@ -256,7 +253,7 @@ __d(
         ).getStaleOfferCallTermReason(e, v.get(e.call_id)),
       };
     }
-    function U(e, t) {
+    function q(e, t) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           var n = String(t.is_call_ended === !0);
@@ -265,7 +262,7 @@ __d(
               "WAWebVoipInitEventEmitter",
             ).VoipInitEventEmitter.getIsVoipInited()
           ) {
-            (V(e),
+            (U(e),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -315,7 +312,7 @@ __d(
         },
       );
     }
-    function V(e) {
+    function U(e) {
       e: {
         if (e === "offer") {
           o(
@@ -333,9 +330,7 @@ __d(
         );
       }
     }
-    ((l.claimStaleCallStanza = R),
-      (l.writeStaleCallLog = L),
-      (l.resetStaleCallsForTesting = E));
+    ((l.claimStaleCallStanza = R), (l.writeStaleCallLog = L));
   },
   98,
 );

@@ -268,15 +268,23 @@ __d(
       return (
         E(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_admin_profiles_settings_enabled",
+          "channels_admin_profiles_update_enabled",
         )
       );
     }
     function x(e) {
       return (
+        E(e) &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_settings_enabled",
+        )
+      );
+    }
+    function $(e) {
+      return (
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_banner_enabled",
-        ) && D(e)
+        ) && x(e)
       );
     }
     ((l.isNewsletterEnabledOnPrimary = e),
@@ -299,8 +307,9 @@ __d(
       (l.isNewsletterAdminProfilesSenderEnabled = k),
       (l.isNewsletterAdminProfilesListEnabled = I),
       (l.isNewsletterAdminProfilesUpdateEnabled = T),
-      (l.isNewsletterAdminProfilesSettingEnabled = D),
-      (l.isNewsletterAdminProfilesUpsellBannerEnabled = x));
+      (l.isNewsletterAdminProfilesUpdatePropsEnabled = D),
+      (l.isNewsletterAdminProfilesSettingEnabled = x),
+      (l.isNewsletterAdminProfilesUpsellBannerEnabled = $));
   },
   98,
 );

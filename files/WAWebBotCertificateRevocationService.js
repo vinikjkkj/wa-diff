@@ -136,23 +136,11 @@ __d(
           b();
         }, n));
     }
-    function E() {
-      ((_.revokedSerialNumbers = new Set()),
-        (_.lastFetchTime = null),
-        (_.nextUpdateTime = null),
-        _.refreshTimerId != null &&
-          (self.clearInterval(_.refreshTimerId), (_.refreshTimerId = null)),
-        _.abortController != null &&
-          (_.abortController.abort(), (_.abortController = null)),
-        _.preFetchTimerId != null &&
-          (self.clearTimeout(_.preFetchTimerId), (_.preFetchTimerId = null)));
-    }
     ((l.checkCertificateRevocationStatus = f),
       (l.isCertificateRevoked = g),
       (l.isCrlFresh = h),
       (l.startPeriodicCrlRefresh = y),
-      (l.updateCrlData = C),
-      (l.resetCrlStateForTesting = E));
+      (l.updateCrlData = C));
   },
   98,
 );

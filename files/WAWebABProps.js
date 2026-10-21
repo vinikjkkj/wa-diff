@@ -1,6 +1,6 @@
 __d(
   "WAWebABProps",
-  ["WALogger", "WAWebABPropsConfigs", "gkx"],
+  ["WALogger", "WAWebABPropsConfigs", "WAWebABPropsJestE2EReadLog", "gkx"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -28,8 +28,9 @@ __d(
         "wa_web_pre_chat_device_id_test",
         "falco_md_id_fix_web_enabled",
       ],
-      c = null;
-    function d(t) {
+      c = null,
+      d = null;
+    function m(t) {
       var n,
         a = o("WAWebABPropsConfigs").ABPropConfigs[t];
       a == null &&
@@ -58,17 +59,26 @@ __d(
                 ])),
               t,
             ),
+          _(t, i, p),
           p
         );
-      var _ = (n = c(t)) != null ? n : p;
-      return _;
+      var f = (n = c(t)) != null ? n : p;
+      return (_(t, i, f), f);
     }
-    function m(e) {
-      c = e;
+    function p(e, t) {
+      ((c = e), (d = t));
+    }
+    function _(e, t, n) {
+      o("WAWebABPropsJestE2EReadLog").isABPropReadLogEnabledForJestE2E() &&
+        o("WAWebABPropsJestE2EReadLog").logABPropReadForJestE2E(
+          t,
+          n,
+          d == null ? void 0 : d(e),
+        );
     }
     ((l.usedBeforeInitializationConfigs = u),
-      (l.getABPropConfigValue = d),
-      (l.setGetABPropConfigValueImpl = m));
+      (l.getABPropConfigValue = m),
+      (l.setGetABPropConfigValueImpl = p));
   },
   98,
 );

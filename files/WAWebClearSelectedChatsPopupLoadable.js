@@ -5,6 +5,7 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingConfirmPopup.react",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -26,7 +27,10 @@ __d(
         loader: u,
         loading: function (t) {
           return t.error
-            ? s.jsx(r("WAWebLoadingConfirmPopup.react"), { error: !0 })
+            ? s.jsx(r("WAWebLoadingConfirmPopup.react"), {
+                error: !0,
+                onCancel: o("WDSDialogBridge").closeWDSDialog,
+              })
             : s.jsx(s.Fragment, {});
         },
       });

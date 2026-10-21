@@ -69,6 +69,13 @@ __d(
               name: "creator_lid",
               storageKey: null,
             },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "generated_emoji",
+              storageKey: null,
+            },
           ],
           storageKey: null,
         },
@@ -91,7 +98,7 @@ __d(
           selections: e,
         },
         params: {
-          id: "28390809103933079",
+          id: "39261984743449137",
           metadata: {},
           name: "WAWebFetchWassBotListProfilesGQLQuery",
           operationKind: "query",

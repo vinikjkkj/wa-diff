@@ -11,14 +11,7 @@ __d(
         "WAWebFeaturePkiRootCertificate",
       ).loadFeaturePkiRootCertificate();
     }
-    function u() {
-      o(
-        "WAWebFeaturePkiRootCertificate",
-      ).clearCachedFeaturePkiRootCertificateForTesting();
-    }
-    ((l.getRootCertificateVersion = e),
-      (l.loadRootCertificate = s),
-      (l.clearCachedRootCertificateForTesting = u));
+    ((l.getRootCertificateVersion = e), (l.loadRootCertificate = s));
   },
   98,
 );

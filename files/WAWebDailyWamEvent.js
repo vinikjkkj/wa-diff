@@ -110,6 +110,7 @@ __d(
               hasUsername: [187, e.TYPES.BOOLEAN],
               hasUsernamePin: [222, e.TYPES.BOOLEAN],
               inNetworkContactsSize: [190, e.TYPES.INTEGER],
+              inNetworkUniqueLidContactsSize: [264, e.TYPES.INTEGER],
               installedAnimatedStickerPackCount: [116, e.TYPES.INTEGER],
               installedAnimatedThirdPartyStickerPackCount: [
                 137,

@@ -79,12 +79,6 @@ __d(
             (this.$4 = null),
             (this.$5 = null));
         }),
-        (t.getSurfaceSessionIdForTest = function () {
-          return this.$1;
-        }),
-        (t.getFunnelIdForTest = function () {
-          return this.$2;
-        }),
         e
       );
     })();

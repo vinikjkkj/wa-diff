@@ -7,7 +7,6 @@ __d(
     "WAWap",
     "WAWebCommsWapMd",
     "WAWebSchemaDanglingReceipt",
-    "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -16,45 +15,78 @@ __d(
       s,
       u = o("WAWap").S_WHATSAPP_NET.toString(),
       c = o("WAWap").G_US.toString();
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+    function d(t) {
+      var r = o("WABatcher").batch(
+        { delayMs: 3e3, maxSize: 400 },
+        (function () {
+          var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
+            try {
+              t() &&
+                (yield o("WAWebSchemaDanglingReceipt")
+                  .getTable()
+                  .create({ receipts: [], acks: n }));
+            } catch (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "persistPreAcksBatched: failed for ",
+                      " pre-acks: ",
+                      ", stack: ",
+                      "",
+                    ])),
+                  n.length,
+                  t,
+                  t instanceof Error ? t.stack : "",
+                )
+                .sendLogs("persist-pre-acks-batched-failed", {
+                  sampling: 0.01,
+                });
+            }
+            return [];
+          });
+          return function (e) {
+            return r.apply(this, arguments);
+          };
+        })(),
+      );
+      return (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r,
             o,
-            a = e.attrs.class.toString();
-          if (!(a !== "notification" && a !== "receipt")) {
-            var i = e.attrs.id.toString(),
-              l = e.tag,
-              s = e.attrs.to.toString(),
-              u = (t = e.attrs.participant) == null ? void 0 : t.toString(),
-              c = (n = e.attrs.type) == null ? void 0 : n.toString(),
-              d =
-                (r = e.attrs) != null && r.error
+            a,
+            i = e.attrs.class.toString();
+          if (!(i !== "notification" && i !== "receipt")) {
+            var l = e.attrs.id.toString(),
+              s = e.tag,
+              u = e.attrs.to.toString(),
+              c = (t = e.attrs.participant) == null ? void 0 : t.toString(),
+              d = (n = e.attrs.type) == null ? void 0 : n.toString(),
+              m =
+                (o = e.attrs) != null && o.error
                   ? parseInt(
-                      (o = e.attrs) == null ? void 0 : o.error.toString(),
+                      (a = e.attrs) == null ? void 0 : a.error.toString(),
                       10,
                     )
                   : void 0;
-            g({
-              ackClass: a,
-              ackId: i,
-              to: s,
-              tag: l,
-              participant: u,
-              type: c,
-              error: d,
+            r({
+              ackClass: i,
+              ackId: l,
+              to: u,
+              tag: s,
+              participant: c,
+              type: d,
+              error: m,
             });
           }
-        })),
-        m.apply(this, arguments)
-      );
+        });
+        return function (t) {
+          return e.apply(this, arguments);
+        };
+      })();
     }
-    function p(e) {
+    function m(e) {
       switch (e) {
         case c:
           return o("WAWap").G_US;
@@ -66,12 +98,12 @@ __d(
           );
       }
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             e.type != null
               ? o("WAWap").CUSTOM_STRING(e.type)
@@ -80,7 +112,7 @@ __d(
             var n = o("WAWap").wap("ack", {
               id: o("WAWap").CUSTOM_STRING(e.ackId),
               class: o("WAWap").CUSTOM_STRING(e.ackClass),
-              to: p(e.to),
+              to: m(e.to),
               type: t,
               participant:
                 e.participant != null
@@ -111,46 +143,10 @@ __d(
               .sendLogs("offline-pre-ack");
           }
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    var g = (function () {
-      return o("WABatcher").batch(
-        { delayMs: 3e3, maxSize: 400 },
-        (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            try {
-              o("WAWebUserPrefsMultiDevice").isRegistered() &&
-                (yield o("WAWebSchemaDanglingReceipt")
-                  .getTable()
-                  .create({ receipts: [], acks: t }));
-            } catch (n) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "persistPreAcksBatched: failed for ",
-                      " pre-acks: ",
-                      ", stack: ",
-                      "",
-                    ])),
-                  t.length,
-                  n,
-                  n instanceof Error ? n.stack : "",
-                )
-                .sendLogs("persist-pre-acks-batched-failed", {
-                  sampling: 0.01,
-                });
-            }
-            return [];
-          });
-          return function (e) {
-            return t.apply(this, arguments);
-          };
-        })(),
-      );
-    })();
-    ((l.parseAndSerializeOfflinePreAck = d), (l.sendOfflinePreAck = _));
+    ((l.createParseAndSerializeOfflinePreAck = d), (l.sendOfflinePreAck = p));
   },
   98,
 );

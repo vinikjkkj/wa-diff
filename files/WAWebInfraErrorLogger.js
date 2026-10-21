@@ -61,9 +61,14 @@ __d(
             return String(t).includes(n);
           });
     }
-    function f() {
+    var f = !1;
+    function g() {
+      f = !1;
+    }
+    function h() {
       var t = r("justknobx")._("860");
-      if (t !== 0) {
+      if (t !== 0 && !f) {
+        f = !0;
         var n = o("WALoggerUtils").dynamicLoggingSampling(t / 100);
         (s || (s = r("ErrorPubSub"))).addListener(function (t, a) {
           var i;
@@ -110,7 +115,8 @@ __d(
         });
       }
     }
-    l.addListenerToErrorPubSub = f;
+    ((l.resetErrorPubSubRegistrationForTests = g),
+      (l.addListenerToErrorPubSub = h));
   },
   98,
 );

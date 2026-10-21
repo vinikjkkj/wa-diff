@@ -20,14 +20,10 @@ __d(
     function c() {
       return s() >= 2;
     }
-    function d() {
-      e = null;
-    }
     ((i.latchVoipPthreadHardeningLevel = l),
       (i.getVoipPthreadHardeningLevel = s),
       (i.isVoipPoolHardeningEnabled = u),
-      (i.isVoipWorkerLifecycleHardeningEnabled = c),
-      (i.resetVoipPthreadHardeningLevelForTesting = d));
+      (i.isVoipWorkerLifecycleHardeningEnabled = c));
   },
   66,
 );

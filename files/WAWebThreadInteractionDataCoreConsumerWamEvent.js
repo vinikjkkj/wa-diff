@@ -164,6 +164,8 @@ __d(
               messagesReceivedWithEnabledReadReceipt: [133, e.TYPES.INTEGER],
               messagesSent: [66, e.TYPES.INTEGER],
               messagesUnread: [68, e.TYPES.INTEGER],
+              mutedUnreadMsgCount: [203, e.TYPES.INTEGER],
+              mutedUnreadThreadCount: [204, e.TYPES.INTEGER],
               oppositePartyHasProfilePhoto: [146, e.TYPES.BOOLEAN],
               oppositePartyLimitSharingOption: [125, e.TYPES.BOOLEAN],
               oppositeVisibleIdentification: [
@@ -207,6 +209,8 @@ __d(
               tombstoneAiFutureproofedMessagesReceived: [130, e.TYPES.INTEGER],
               tombstoneEphemeralMessagesReceived: [128, e.TYPES.INTEGER],
               tombstoneViewOnceMessagesReceived: [129, e.TYPES.INTEGER],
+              totalUnreadMsgCount: [205, e.TYPES.INTEGER],
+              totalUnreadThreadCount: [206, e.TYPES.INTEGER],
               typeOfGroup: [
                 108,
                 o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM,
