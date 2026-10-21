@@ -10,7 +10,7 @@ __d(
       c = "biz_broadcast_campaign_updated",
       d = "https://www.facebook.com/legal/business-broadcasts",
       m = "https://www.facebook.com/privacy/policy",
-      p = "https://www.facebook.com/business/help/687938765816627",
+      p = "https://business.facebook.com/business/help/687938765816627",
       _ = "https://whatsappbusiness.com/policy/",
       f = "Campaign message unavailable on this device",
       g =

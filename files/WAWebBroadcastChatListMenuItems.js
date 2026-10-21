@@ -90,13 +90,17 @@ __d(
           ),
           s.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chat: n },
+            { chatId: n.id },
             "Archive",
           ),
-          s.jsx(r("WAWebChatContextMenuItemMute.react"), { chat: n }, "Mute"),
+          s.jsx(
+            r("WAWebChatContextMenuItemMute.react"),
+            { chatId: n.id },
+            "Mute",
+          ),
           s.jsx(
             r("WAWebChatContextMenuItemPin.react"),
-            { chat: n, cellRef: t },
+            { chatId: n.id, cellRef: t },
             "Pin",
           ),
         ],
@@ -132,7 +136,7 @@ __d(
         p.push(
           s.jsx(
             r("WAWebChatContextMenuItemMarkUnread.react"),
-            { chat: n },
+            { chatId: n.id },
             "MarkUnread",
           ),
         ),

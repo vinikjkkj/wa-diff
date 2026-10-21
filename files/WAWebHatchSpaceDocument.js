@@ -25,11 +25,36 @@ __d(
         '<meta http-equiv="x-dns-prefetch-control" content="off">',
         "<script>" + l + "<\/script>",
         "<script>" + s + "<\/script>",
-      ].join("");
-    function c(e) {
-      return "" + u + e;
+      ].join(""),
+      c = "\uFEFF",
+      d = "	\n\f\r ",
+      m = "<!--",
+      p = [">", "->"];
+    function _(e) {
+      var t = e.startsWith(c) ? e.slice(c.length) : e,
+        n = f(t);
+      return "" + t.slice(0, n) + u + t.slice(n);
     }
-    i.buildHatchSpaceDocument = c;
+    function f(e) {
+      for (var t = 0; ; ) {
+        for (; t < e.length && d.includes(e[t]); ) t++;
+        if (!e.startsWith(m, t)) break;
+        if (((t = g(e, t + m.length)), t < 0)) return 0;
+      }
+      var n = new RegExp("<!doctype", "iy");
+      if (((n.lastIndex = t), !n.test(e))) return 0;
+      var r = e.indexOf(">", n.lastIndex);
+      return r < 0 ? 0 : r + 1;
+    }
+    function g(e, t) {
+      var n = p.find(function (n) {
+        return e.startsWith(n, t);
+      });
+      if (n != null) return t + n.length;
+      var r = /--!?>/g;
+      return ((r.lastIndex = t), r.exec(e) == null ? -1 : r.lastIndex);
+    }
+    i.buildHatchSpaceDocument = _;
   },
   66,
 );

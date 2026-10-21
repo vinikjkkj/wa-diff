@@ -148,9 +148,9 @@ __d(
       return o("WAWebQuoteLineUtils").quotesTextAfter(i, a)
         ? (C(r),
           "" +
-            o("WAWebQuoteLineUtils").prefixPastedLines(i) +
+            o("WAWebQuoteLineUtils").prefixPastedLines(i, n) +
             o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX)
-        : o("WAWebQuoteLineUtils").prefixPastedLines(i);
+        : o("WAWebQuoteLineUtils").prefixPastedLines(i, n);
     }
     function h() {
       var e = o("WAWebLexicalUtils").$getRangeSelection(),

@@ -461,6 +461,29 @@ __d(
               )
               .catch(
                 o("WAFilteredCatch").filteredCatch(
+                  o("WAWebHandleMsgError").AeaSendBlockedError,
+                  function () {
+                    var e;
+                    return (
+                      (e = a.sendReporter) == null ||
+                        e.postFailure({
+                          result: o("WAWebWamEnumMessageSendResultType")
+                            .MESSAGE_SEND_RESULT_TYPE
+                            .AEA_SEND_RECONCILATION_FAILURE,
+                          isTerminal: !0,
+                          qplFailReason: "aea_send_reconciliation_failure",
+                        }),
+                      (a.sendReporter = null),
+                      {
+                        messageSendResult: o("WAWebSendMsgResultAction")
+                          .SendMsgResult.ERROR_UNKNOWN,
+                      }
+                    );
+                  },
+                ),
+              )
+              .catch(
+                o("WAFilteredCatch").filteredCatch(
                   o("WAWebHandleMsgError").MessageSentAckError,
                   function (e) {
                     var t;
@@ -593,41 +616,45 @@ __d(
               .tags("messaging");
             var a = { isSendFailure: !0 };
             throw (
-              t instanceof o("WAWebHandleMsgError").MessageSentAckError &&
-                ((a = babelHelpers.extends({}, a, {
-                  ack: o("WAWebAck").ACK.FAILED,
-                })),
-                t.ackErrorCode ===
-                  o("WAWebHandleMsgError").MessageSentAckErrorCode
-                    .NewChatMessagesCapped &&
+              t instanceof o("WAWebHandleMsgError").AeaSendBlockedError
+                ? (a = babelHelpers.extends({}, a, {
+                    ack: o("WAWebAck").ACK.FAILED,
+                  }))
+                : t instanceof o("WAWebHandleMsgError").MessageSentAckError &&
                   ((a = babelHelpers.extends({}, a, {
-                    errorCode:
-                      o("WAWebErrorType").SendFailureErrorCode
-                        .UserReachedMaxMonthlyLimitForNewMessages,
+                    ack: o("WAWebAck").ACK.FAILED,
                   })),
-                  o(
-                    "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
-                  ).isIndividualNewChatMessageCappingEnabled() &&
-                    (yield o(
-                      "WAWebIndividualNewChatMessageCappingLimitUtils",
-                    ).resetCappingStatus(
-                      o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType
-                        .CAPPED,
-                    ),
-                    o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
-                    new (o(
-                      "WAWebMessageCappingWamEvent",
-                    ).MessageCappingWamEvent)({
-                      messageCappingActionType: o(
-                        "WAWebWamEnumMessageCappingActionType",
-                      ).MESSAGE_CAPPING_ACTION_TYPE.API,
-                      userActionTarget: "nack_received",
-                      extraAttributes: JSON.stringify(
-                        o(
-                          "WAWebIndividualNewChatMessageCappingLimitUtils",
-                        ).getCappingData() || {},
+                  t.ackErrorCode ===
+                    o("WAWebHandleMsgError").MessageSentAckErrorCode
+                      .NewChatMessagesCapped &&
+                    ((a = babelHelpers.extends({}, a, {
+                      errorCode:
+                        o("WAWebErrorType").SendFailureErrorCode
+                          .UserReachedMaxMonthlyLimitForNewMessages,
+                    })),
+                    o(
+                      "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
+                    ).isIndividualNewChatMessageCappingEnabled() &&
+                      (yield o(
+                        "WAWebIndividualNewChatMessageCappingLimitUtils",
+                      ).resetCappingStatus(
+                        o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType
+                          .CAPPED,
                       ),
-                    }).commit()))),
+                      o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
+                      new (o(
+                        "WAWebMessageCappingWamEvent",
+                      ).MessageCappingWamEvent)({
+                        messageCappingActionType: o(
+                          "WAWebWamEnumMessageCappingActionType",
+                        ).MESSAGE_CAPPING_ACTION_TYPE.API,
+                        userActionTarget: "nack_received",
+                        extraAttributes: JSON.stringify(
+                          o(
+                            "WAWebIndividualNewChatMessageCappingLimitUtils",
+                          ).getCappingData() || {},
+                        ),
+                      }).commit()))),
               o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, a),
               e.set(a),
               o(

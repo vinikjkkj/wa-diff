@@ -609,6 +609,10 @@ __d(
             var O, B, W;
             (O = S.sendPerfReporter) == null || O.startPrekeysFetchStage();
             var q = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                aeaOptions:
+                  E.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT
+                    ? { isSendTimeFetch: !0 }
+                    : void 0,
                 identityChanged: !1,
                 sessionScope:
                   E.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&

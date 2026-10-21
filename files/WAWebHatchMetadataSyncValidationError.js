@@ -9,6 +9,7 @@ __d(
         UNHANDLED_CONTROL: "hatch_metadata_unhandled_control",
         DECODE_FAILURE: "hatch_metadata_decode_failure",
         UNEXPECTED_DECODE_FAILURE: "hatch_metadata_unexpected_decode_failure",
+        IGNORED_IDEAS_RECORD: "hatch_metadata_ignored_ideas_record",
       }),
       s = (function (e) {
         function t() {

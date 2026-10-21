@@ -12,6 +12,7 @@ __d(
         type: o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION,
         viewMode: o("WAWebViewMode.flow").ViewModeType.POLL_ADD_OPTION,
+        groupHistoryViewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
       }),
       s = e;
     l.default = s;

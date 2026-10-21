@@ -1,6 +1,7 @@
 __d(
   "WAWebHatchVmSession",
   [
+    "WALogger",
     "WAWebHatchNoiseBytes",
     "WAWebHatchNoiseChannel",
     "WAWebHatchNoiseVmTransport",
@@ -9,13 +10,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e;
+    function s(e) {
       var t = e.trim().replace(/:/g, "");
       return /^[0-9a-fA-F]{64}$/.test(t)
         ? o("WAWebHatchNoiseBytes").hexToBytes(t)
         : null;
     }
-    function s(e) {
+    function u(e) {
       return (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length !== 32) return !1;
@@ -29,7 +31,7 @@ __d(
         };
       })();
     }
-    function u(e) {
+    function c(e) {
       return (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length !== 32) return !1;
@@ -43,7 +45,7 @@ __d(
         };
       })();
     }
-    var c = (function () {
+    var d = (function () {
         function t(e) {
           (e === void 0 &&
             (e = function (t) {
@@ -74,75 +76,95 @@ __d(
               (this.$5 = null));
           }),
           (a.connect = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
                 this.disconnect();
                 var n = this.$3,
-                  a = t.trustedFingerprint,
+                  a = e.trustedFingerprint,
                   i = null,
                   l;
                 if (a == null)
-                  l = u(function (e) {
+                  l = c(function (e) {
                     i = e;
                   });
                 else {
-                  var c = e(a);
-                  if (c == null)
+                  var d = s(a);
+                  if (d == null)
                     return {
                       detail: "Trusted peer fingerprint is invalid",
                       kind: "Failure",
                     };
-                  l = s(c);
+                  l = u(d);
                 }
-                var d = this.$4(l),
-                  m;
+                var m = this.$4(l),
+                  p;
                 try {
-                  m = yield d.connect({
-                    abraToken: t.credentials.vmAuthToken,
-                    notaryToken: t.credentials.notaryToken,
-                    vmId: t.credentials.vmId,
+                  p = yield m.connect({
+                    abraToken: e.credentials.vmAuthToken,
+                    notaryToken: e.credentials.notaryToken,
+                    vmId: e.credentials.vmId,
                   });
                 } catch (e) {
-                  throw (d.close(), e);
+                  throw (m.close(), e);
                 }
+                if (n !== this.$3)
+                  return (
+                    m.close(),
+                    { detail: "Connection was superseded", kind: "Failure" }
+                  );
+                if (a == null)
+                  return (
+                    m.close(),
+                    i != null
+                      ? { fingerprint: i, kind: "NeedsTrust" }
+                      : {
+                          detail:
+                            p.status === "failed"
+                              ? p.detail
+                              : "Noise peer fingerprint was not presented",
+                          kind: "Failure",
+                        }
+                  );
+                if (p.status === "failed")
+                  return (m.close(), { detail: p.detail, kind: "Failure" });
+                var _ = r("WAWebHatchNoiseVmTransport").create(
+                  p.transport,
+                  e.credentials.vmAuthToken,
+                  e.acceptLanguage,
+                  function () {
+                    return t.$6(n);
+                  },
+                );
                 return n !== this.$3
-                  ? (d.close(),
-                    { detail: "Connection was superseded", kind: "Failure" })
-                  : a == null
-                    ? (d.close(),
-                      i != null
-                        ? { fingerprint: i, kind: "NeedsTrust" }
-                        : {
-                            detail:
-                              m.status === "failed"
-                                ? m.detail
-                                : "Noise peer fingerprint was not presented",
-                            kind: "Failure",
-                          })
-                    : m.status === "failed"
-                      ? (d.close(), { detail: m.detail, kind: "Failure" })
-                      : ((this.$2 = d),
-                        (this.$1 = new (o("WAWebHatchVmApi").WAWebHatchVmApi)(
-                          r("WAWebHatchNoiseVmTransport").create(
-                            m.transport,
-                            t.credentials.vmAuthToken,
-                            t.acceptLanguage,
-                          ),
-                        )),
-                        (this.$5 = t.credentials.vmId),
-                        { kind: "Ready", vmId: t.credentials.vmId });
+                  ? (m.close(),
+                    { detail: "Noise channel failed", kind: "Failure" })
+                  : ((this.$2 = m),
+                    (this.$1 = new (o("WAWebHatchVmApi").WAWebHatchVmApi)(_)),
+                    (this.$5 = e.credentials.vmId),
+                    { kind: "Ready", vmId: e.credentials.vmId });
               },
             );
-            function a(e) {
-              return t.apply(this, arguments);
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return a;
+            return t;
           })()),
+          (a.$6 = function (n) {
+            n === this.$3 &&
+              (this.disconnect(),
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-vm: channel failed, session reset",
+                  ])),
+              ));
+          }),
           t
         );
       })(),
-      d = new c();
-    ((l.WAWebHatchVmSession = c), (l.waWebHatchVmSession = d));
+      m = new d();
+    ((l.WAWebHatchVmSession = d), (l.waWebHatchVmSession = m));
   },
   98,
 );

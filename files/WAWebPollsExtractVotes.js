@@ -7,6 +7,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPollsCreateOptionLocalIdMap",
+    "WAWebPollsGatingUtils",
     "WAWebPollsProtobufConversion",
     "WAWebPollsValidationError",
     "WAWebPollsVoteEncryption",
@@ -99,8 +100,15 @@ __d(
               voteSender: u,
               isOneOnOne: o("WAWebMsgGetters").getRemote(t).isUser(),
             }),
-            d = c.selectedOptions.length;
-          if (d > l.length || (i !== 0 && d > i))
+            d = o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled(),
+            m = c.selectedOptions.length;
+          if (
+            m >
+              (d
+                ? o("WAWebPollsGatingUtils").getMaxPollOptionCount()
+                : l.length) ||
+            (i !== 0 && m > i)
+          )
             throw new (o("WAWebPollsValidationError").PollVoteValidationError)(
               o("WAWebPollsValidationError").PollVoteValidationErrorCode
                 .INVALID_OPTIONS_COUNT,
@@ -114,10 +122,10 @@ __d(
               o("WAWebPollsValidationError").PollVoteValidationErrorCode
                 .INVALID_OPTION,
             );
-          var m = yield o(
+          var p = yield o(
             "WAWebPollsCreateOptionLocalIdMap",
           ).createOptionLocalIdMap(l);
-          if (!m.includesHashes(c.selectedOptions))
+          if (!d && !p.includesHashes(c.selectedOptions))
             throw new (o("WAWebPollsValidationError").PollVoteValidationError)(
               o("WAWebPollsValidationError").PollVoteValidationErrorCode
                 .OPTION_NOT_FOUND,
@@ -129,9 +137,10 @@ __d(
             sender: u,
             senderTimestampMs: e.senderTimestampMs,
             t: r("nullthrows")(e.t),
-            optionLocalIdMap: m,
+            optionLocalIdMap: p,
             ack: e.ack,
             read: o("WAWebUserPrefsMeUser").isMeAccount(u),
+            allowUnresolvedOptions: d,
           });
         })),
         p.apply(this, arguments)

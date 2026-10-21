@@ -83,6 +83,7 @@ __d(
         mediaPngThumbnail: [61, e.TYPES.STRING],
         qrUrl: [62, e.TYPES.STRING],
         musicData: [63, e.TYPES.MESSAGE, p],
+        pollAddedOptionName: [64, e.TYPES.STRING],
       }),
       (p.name = "MsgOpaqueData$MusicData"),
       (p.internalSpec = {

@@ -2,6 +2,7 @@ __d(
   "WAWebPollAddOptionAddonMessageProcessor",
   [
     "WAWebAddonCreateMsgProcessor",
+    "WAWebApplyPollAddOptionTCValidation",
     "WAWebPollAddOptionFromHistorySyncMsg",
     "WAWebPollsGatingUtils",
     "WAWebProcessEncryptedPollAddOptionMsgs",
@@ -29,11 +30,15 @@ __d(
               var n = t.parents,
                 r = yield o(
                   "WAWebProcessEncryptedPollAddOptionMsgs",
-                ).processEncryptedPollAddOptionMsgs(e, n);
+                ).processEncryptedPollAddOptionMsgs(e, n),
+                a = yield o(
+                  "WAWebApplyPollAddOptionTCValidation",
+                ).applyPollAddOptionTCValidation(r, "live-add-option"),
+                i = a.accepted;
               return (
                 yield o(
                   "WAWebStorePollAddOptionDecryptedMsgs",
-                ).storePollAddOptionDecryptedMsgs(r),
+                ).storePollAddOptionDecryptedMsgs(i),
                 []
               );
             },

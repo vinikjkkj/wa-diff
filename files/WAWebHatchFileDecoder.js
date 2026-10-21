@@ -84,7 +84,7 @@ __d(
       var n = o("WAWebHatchJsonReaders").readNumber(e, t);
       return n != null && Number.isFinite(n) ? n : null;
     }
-    l.decodeHatchFileNode = d;
+    ((l.decodeHatchFileNode = d), (l.lastSegment = g));
   },
   98,
 );

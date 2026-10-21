@@ -2,12 +2,12 @@ __d(
   "WAWebHatchLibraryStripItems",
   [],
   function (t, n, r, o, a, i) {
-    function e(e, t, n) {
-      var r = [].concat(
+    function e(e, t, n, r) {
+      var o = [].concat(
         e.map(function (e) {
-          return { item: { kind: "media", msg: e }, timeMs: e.t * 1e3 };
+          return { item: { kind: "media", msg: e }, timeMs: t(e) };
         }),
-        t.map(function (e) {
+        n.map(function (e) {
           var t;
           return {
             item: { kind: "space", space: e },
@@ -15,9 +15,9 @@ __d(
           };
         }),
       );
-      return r
+      return o
         .sort(l)
-        .slice(0, n)
+        .slice(0, r)
         .map(function (e) {
           var t = e.item;
           return t;

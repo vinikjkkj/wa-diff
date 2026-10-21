@@ -50,7 +50,10 @@ __d(
         e.status === t.status
       );
     }
-    function b(e, t) {
+    function b(e) {
+      return Math.floor(Math.min(Math.max(e, 0), s - 1));
+    }
+    function v(e, t) {
       var n,
         r,
         o =
@@ -69,7 +72,8 @@ __d(
       (l.putSubscriberDownload = f),
       (l.patchSubscriberDownload = g),
       (l.removeSubscriberDownload = h),
-      (l.clampProgress = b));
+      (l.getPreparingPercentage = b),
+      (l.clampProgress = v));
   },
   98,
 );

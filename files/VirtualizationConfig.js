@@ -29,11 +29,8 @@ __d(
     function f() {
       return r("justknobx")._("5895");
     }
-    function g() {
-      return r("justknobx")._("6042");
-    }
-    var h = 0,
-      y = !1;
+    var g = 0,
+      h = !1;
     ((l.DEFAULT_INIT_RENDER_CONFIG = e),
       (l.VERTICAL_HIDEABLE_MARGIN = s),
       (l.isVirtualizationEnabledInJK = u),
@@ -43,9 +40,8 @@ __d(
       (l.getScrollDirectionDiscount = p),
       (l.getTopBottomMarginLowerBoundScreenHeightRatio = _),
       (l.getMarginObservationSampleCap = f),
-      (l.isNonInteractiveClickPinExclusionEnabled = g),
-      (l.HORIZONTAL_HIDEABLE_MARGIN = h),
-      (l.IS_INTERSECTION_MARGIN_SUPPORTED = y));
+      (l.HORIZONTAL_HIDEABLE_MARGIN = g),
+      (l.IS_INTERSECTION_MARGIN_SUPPORTED = h));
   },
   98,
 );

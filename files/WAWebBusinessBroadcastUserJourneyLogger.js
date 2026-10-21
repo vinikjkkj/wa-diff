@@ -431,7 +431,7 @@ __d(
               a,
             );
           }),
-          (t.proSendResult = function (t, n, r, a, i, l) {
+          (t.proSendResult = function (t, n, r, a, i, l, s, u) {
             o("WAWebBBBroadcastCreationLogs").proSendResult(
               this.$1,
               t,
@@ -440,6 +440,8 @@ __d(
               a,
               i,
               l,
+              s,
+              u,
             );
           }),
           (t.sendBroadcastResult = function (

@@ -102,6 +102,17 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
       f = (function (e) {
+        function t() {
+          var t;
+          return (
+            (t = e.call(this, "AEA enforcement blocked the send") || this),
+            (t.name = "AeaSendBlockedError"),
+            t
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(s.CustomError),
+      g = (function (e) {
         function t(t) {
           var n;
           return (
@@ -112,7 +123,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      g = n("$InternalEnum")({
+      h = n("$InternalEnum")({
         INVALID_POLL_UPDATE_STANZA: "poll_update_message_stanza_invalid",
         INVALID_REACTION_STANZA: "reaction_message_stanza_invalid",
         INVALID_PIN_IN_CHAT_STANZA: "pin_in_chat_message_stanza_invalid",
@@ -125,7 +136,7 @@ __d(
         INVALID_MEMBER_TAG_STANZA: "member_tag_message_stanza_invalid",
         INVALID_SCHEDULED_MESSAGE_STANZA: "scheduled_message_stanza_invalid",
       }),
-      h = (function (e) {
+      y = (function (e) {
         function t(t) {
           var n;
           return (
@@ -142,7 +153,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(m),
-      y = (function (e) {
+      C = (function (e) {
         function t(t) {
           var n;
           return (
@@ -164,10 +175,11 @@ __d(
       (l.MessageValidationError = m),
       (l.MessageSentAckErrorCode = p),
       (l.MessageSentAckError = _),
-      (l.BizNodeValidationError = f),
-      (l.MessageProtobufMismatchErrorCode = g),
-      (l.MessageProtobufMismatchError = h),
-      (l.MessageProtobufInvalidMessageTypes = y));
+      (l.AeaSendBlockedError = f),
+      (l.BizNodeValidationError = g),
+      (l.MessageProtobufMismatchErrorCode = h),
+      (l.MessageProtobufMismatchError = y),
+      (l.MessageProtobufInvalidMessageTypes = C));
   },
   98,
 );

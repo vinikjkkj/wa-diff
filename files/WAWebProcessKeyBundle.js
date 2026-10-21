@@ -19,8 +19,9 @@ __d(
       c,
       d,
       m,
-      p;
-    function _(e) {
+      p,
+      _;
+    function f(e) {
       var t = 0,
         n = [],
         a = [];
@@ -33,12 +34,12 @@ __d(
         throw r("err")("establishE2ESession: no keys in the response");
       return { primaryBundle: n, companionBundle: a, depletedPrekeyCount: t };
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = e.map(function (e) {
               return o("WAWebSignalCommonUtils")
@@ -67,31 +68,31 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = 0,
-            i = !1,
-            l = _(t),
-            s = l.companionBundle,
-            u = l.depletedPrekeyCount,
-            d = l.primaryBundle;
-          yield f([].concat(d, s));
-          var m = yield C(d),
-            g = function (l, s) {
-              var t = l.aeaEvidence,
-                u = babelHelpers.objectWithoutPropertiesLoose(l, e);
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          var i = 0,
+            l = !1,
+            s = f(t),
+            u = s.companionBundle,
+            m = s.depletedPrekeyCount,
+            p = s.primaryBundle;
+          yield g([].concat(p, u));
+          var h = yield b(p),
+            y = function (s, u) {
+              var t = s.aeaEvidence,
+                d = babelHelpers.objectWithoutPropertiesLoose(s, e);
               return o("WAWebSignal")
-                .Session.createSignalSession(u, r)
+                .Session.createSignalSession(d, r)
                 .then(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    (a++, (yield v(s)) && (i = !0));
+                    (i++, (yield S(u, a)) && (l = !0));
                   }),
                 )
                 .catch(function (e) {
@@ -103,40 +104,54 @@ __d(
                           " with error ",
                           "",
                         ])),
-                      l.wid,
+                      s.wid,
                       String(e),
                     )
                     .sendLogs("createSignalSession-fail");
                 });
             };
           return (
-            yield (p || (p = n("Promise"))).all(
-              d.map(function (e, t) {
-                return g(e, m[t]);
+            yield (_ || (_ = n("Promise"))).all(
+              p.map(function (e, t) {
+                var r = h[t];
+                return (n("cr:510") == null
+                  ? void 0
+                  : n("cr:510").isAeaKeyResponseRejected(r)) === !0
+                  ? (o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[aea] rejected key response for ",
+                          "",
+                        ])),
+                      e.wid.toLogString(),
+                    ),
+                    (l = !0),
+                    null)
+                  : y(e, r);
               }),
             ),
-            yield p.all(
-              s.map(function (e) {
-                return g(e, null);
+            yield _.all(
+              u.map(function (e) {
+                return y(e, null);
               }),
             ),
             {
-              depletedPrekeyCount: u,
-              processedPrekeyCount: a,
-              hasResolvedAeaPrimary: i,
+              depletedPrekeyCount: m,
+              processedPrekeyCount: i,
+              hasResolvedAeaPrimary: l,
             }
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (p || (p = n("Promise"))).all(
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (_ || (_ = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -148,8 +163,8 @@ __d(
                       return (
                         o("WALogger")
                           .WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
+                            m ||
+                              (m = babelHelpers.taggedTemplateLiteralLoose([
                                 "[aea] failed to evaluate key response",
                               ])),
                           )
@@ -167,24 +182,24 @@ __d(
             ),
           );
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e == null || n("cr:510") == null) return !1;
           try {
-            return yield n("cr:510").commitAeaKeyResponse(e);
+            return yield n("cr:510").commitAeaKeyResponse(e, t);
           } catch (e) {
             return (
               o("WALogger")
                 .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[aea] failed to store key response result",
                     ])),
                 )
@@ -194,12 +209,12 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.processKeyBundles = h),
-      (l.prepareAeaKeyResponses = C),
-      (l.commitAeaKeyResponse = v));
+    ((l.processKeyBundles = y),
+      (l.prepareAeaKeyResponses = b),
+      (l.commitAeaKeyResponse = S));
   },
   98,
 );

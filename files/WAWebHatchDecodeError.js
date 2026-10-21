@@ -9,6 +9,7 @@ __d(
         INVALID_PAYLOAD: "hatch_metadata_invalid_payload",
         INVALID_OP_KEY: "hatch_metadata_invalid_op_key",
         INVALID_STATUS: "hatch_metadata_invalid_status",
+        IGNORED_IDEAS_RECORD: "hatch_metadata_ignored_ideas_record",
       }),
       l = (function (e) {
         function t(t) {

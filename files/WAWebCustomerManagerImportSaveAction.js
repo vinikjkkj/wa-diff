@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAPromiseQueue",
     "WAWebApiContact",
     "WAWebContactImportFileProcessor",
     "WAWebContactManagerCustomerProfileQuery",
@@ -15,6 +16,8 @@ __d(
     "WAWebCustomerManagerImportPhoneIdentity",
     "WAWebCustomerManagerImportPhoneRowMerge",
     "WAWebCustomerManagerImportProfileMerge",
+    "WAWebCustomerManagerImportProgress",
+    "WAWebCustomerManagerImportRateLimiter",
     "WAWebCustomerManagerImportRecordInput",
     "WAWebJidToWid",
     "WAWebSaveContactAction",
@@ -37,25 +40,47 @@ __d(
       g,
       h,
       y = 10,
-      C = 50;
-    function b(e) {
-      return v.apply(this, arguments);
+      C = 50,
+      b = 60,
+      v = R(b);
+    function S(e, t) {
+      return v(e, t);
     }
-    function v() {
+    function R(e, t) {
+      t === void 0 && (t = {});
+      var n = new (o("WAPromiseQueue").PromiseQueue)(),
+        r = o("WAWebCustomerManagerImportRateLimiter").createImportRateLimiter(
+          e,
+          t,
+        );
+      return function (e, a) {
+        var i = o(
+          "WAWebCustomerManagerImportProgress",
+        ).createImportProgressReporter(e.length, r, a, t.now);
+        return n.enqueue(function () {
+          return L(e, r, i);
+        });
+      };
+    }
+    function L(e, t, n) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          a.beginChecking();
+          var i = o(
               "WAWebCustomerManagerImportPhoneRowMerge",
             ).mergeImportedPhoneRows(e),
-            n = t.contacts,
-            a = t.sourceRowCounts,
-            i,
-            l;
+            l = i.contacts,
+            s = i.sourceRowCounts,
+            u,
+            m;
           try {
-            ((i = S(n)),
-              (l = yield k(i)),
-              (i = i.filter(function (e) {
-                return l.has(e);
+            ((u = k(l)),
+              (m = yield x(u)),
+              (u = u.filter(function (e) {
+                return m.has(e);
               })));
           } catch (t) {
             return (
@@ -68,6 +93,7 @@ __d(
                 )
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("cm-import-save-preflight-failed"),
+              a.stopBeforeSave(),
               {
                 failureCount: e.length,
                 preflightFailed: !0,
@@ -76,30 +102,52 @@ __d(
               }
             );
           }
-          var s = A(i, l),
-            u = s.batchable,
-            m = s.individual,
-            p = yield N(u, C, function (e) {
-              return de(e, F);
-            }),
-            _ = yield w(m, y, function (e) {
-              return R(e, l.get(e));
-            }),
-            f = P(
-              m,
-              _,
-              l,
-              a,
-              P(
-                u.map(function (e) {
+          a.ready(u.length, he(u, s));
+          var p = W(u, m),
+            _ = p.batchable,
+            f = p.individual,
+            g = yield F(_, t.batchSize(C), function (e) {
+              return o("WAWebCustomerManagerImportProgress").runImportBatch(
+                e.map(function (e) {
                   var t = e.contact;
                   return t;
                 }),
-                p,
-                l,
+                s,
                 a,
+                function () {
+                  return fe(e, q);
+                },
+              );
+            }),
+            b = yield F(f, t.batchSize(y), function (e) {
+              return o("WAWebCustomerManagerImportProgress").runImportBatch(
+                e,
+                s,
+                a,
+                function () {
+                  return (h || (h = n("Promise"))).allSettled(
+                    e.map(function (e) {
+                      return I(e, m.get(e));
+                    }),
+                  );
+                },
+              );
+            }),
+            v = A(
+              f,
+              b,
+              m,
+              s,
+              A(
+                _.map(function (e) {
+                  var t = e.contact;
+                  return t;
+                }),
+                g,
+                m,
+                s,
                 {
-                  failureCount: e.length - pe(i, a),
+                  failureCount: e.length - he(u, s),
                   savedContacts: [],
                   successCount: 0,
                 },
@@ -114,21 +162,21 @@ __d(
                     " ok, ",
                     " failed",
                   ])),
-                f.successCount,
-                f.failureCount,
+                v.successCount,
+                v.failureCount,
               )
               .sendLogs("cm-import-save-complete"),
-            babelHelpers.extends({}, f, {
-              savedContacts: [].concat(f.savedContacts).sort(function (e, t) {
+            babelHelpers.extends({}, v, {
+              savedContacts: [].concat(v.savedContacts).sort(function (e, t) {
                 return e.rowIndex - t.rowIndex;
               }),
             })
           );
         })),
-        v.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function S(t) {
+    function k(t) {
       var n = new Map(),
         r = 0;
       return (
@@ -178,22 +226,22 @@ __d(
         })
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function L() {
+    function T() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = E(e, t),
-            r = yield de([n], q),
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = D(e, t),
+            r = yield fe([n], G),
             o = r[0];
           if (o.status === "rejected") throw o.reason;
           return o.value;
         })),
-        L.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function E(e, t) {
+    function D(e, t) {
       var n,
         r,
         a,
@@ -221,18 +269,18 @@ __d(
           (l = t == null ? void 0 : t.wasNewProfile) != null ? l : !0,
       };
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function I() {
+    function $() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield x(e);
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield M(e);
           if (t == null)
             throw r("err")(
               "Imported customer profile existence lookup unavailable",
             );
-          var a = yield N(
+          var a = yield F(
               e,
               C,
               (function () {
@@ -262,7 +310,7 @@ __d(
                             function* (e) {
                               var t = e.lid;
                               return t != null
-                                ? T(o("WAWebJidToWid").lidUserJidToUserLid(t))
+                                ? P(o("WAWebJidToWid").lidUserJidToUserLid(t))
                                 : { savedContactName: null, wasNewContact: !1 };
                             },
                           );
@@ -309,15 +357,15 @@ __d(
             i
           );
         })),
-        I.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function D() {
+    function N() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a = yield o("WAWebApiContact").getContactRecord(e);
@@ -333,15 +381,15 @@ __d(
               }
             : { savedContactName: null, wasNewContact: !0 };
         })),
-        D.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function $() {
+    function w() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
             e.flatMap(function (e) {
               var t = e.lid;
@@ -375,10 +423,10 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function P(e, t, n, a, i) {
+    function A(e, t, n, a, i) {
       var l = [],
         s = i.failureCount,
         c = i.successCount;
@@ -423,12 +471,12 @@ __d(
         }
       );
     }
-    function N(e, t, n, r, o) {
-      return M.apply(this, arguments);
+    function F(e, t, n, r, o) {
+      return O.apply(this, arguments);
     }
-    function M() {
+    function O() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, o) {
             if (
               (r === void 0 && (r = 0), o === void 0 && (o = []), r >= e.length)
@@ -436,18 +484,18 @@ __d(
               return o;
             var a = e.slice(r, r + t),
               i = yield n(a);
-            return N(e, t, n, r + t, [].concat(o, i));
+            return F(e, t, n, r + t, [].concat(o, i));
           },
         )),
-        M.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function w(e, t, r) {
-      return N(e, t, function (e) {
+    function B(e, t, r) {
+      return F(e, t, function (e) {
         return (h || (h = n("Promise"))).allSettled(e.map(r));
       });
     }
-    function A(e, t) {
+    function W(e, t) {
       var n = [],
         r = [];
       return (
@@ -462,7 +510,7 @@ __d(
             return;
           }
           try {
-            n.push(E(e, t.get(e)));
+            n.push(D(e, t.get(e)));
           } catch (t) {
             r.push(e);
           }
@@ -470,15 +518,15 @@ __d(
         { batchable: n, individual: r }
       );
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function q(e, t, n) {
+      return U.apply(this, arguments);
     }
-    function O() {
+    function U() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          r === void 0 && (r = B);
-          var o = yield H(e),
-            a = yield w(
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          r === void 0 && (r = V);
+          var o = yield K(e),
+            a = yield B(
               e.map(function (e, t) {
                 return t;
               }),
@@ -486,7 +534,7 @@ __d(
               (function () {
                 var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (n) {
-                    if (!(yield U(e[n], t))) return !1;
+                    if (!(yield z(e[n], t))) return !1;
                     var r = o[n];
                     if (r.status === "rejected") throw r.reason;
                     return !0;
@@ -511,15 +559,15 @@ __d(
                 : { status: "fulfilled", value: void 0 };
           });
         })),
-        O.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function W() {
+    function H() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.length === 0) return [];
           try {
             yield o("WAWebSaveContactAction").saveContactBatchAction(
@@ -548,7 +596,7 @@ __d(
               )
               .catching(r("getErrorSafe")(a))
               .sendLogs("cm-import-save-batch-fallback");
-            var n = yield q(e, t);
+            var n = yield G(e, t);
             return n.map(function (n, o) {
               return n.status === "fulfilled" && t.has(e[o].contact)
                 ? {
@@ -560,23 +608,23 @@ __d(
                 : n;
             });
           }
-          return H(e);
+          return K(e);
         })),
-        W.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function q(e, t) {
-      return F(
+    function G(e, t) {
+      return q(
         e,
         t,
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield se(
+            var t = yield me(
               e,
               o("WAWebCustomerManagerCreateCustomerRecord").saveCustomerContact,
             );
-            return ue(t, function (t) {
-              return H(
+            return pe(t, function (t) {
+              return K(
                 t.map(function (t) {
                   return e[t];
                 }),
@@ -589,27 +637,27 @@ __d(
         })(),
       );
     }
-    function U(e, t) {
-      return V.apply(this, arguments);
+    function z(e, t) {
+      return j.apply(this, arguments);
     }
-    function V() {
+    function j() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!e.wasNewContact) return !1;
-          var n = yield T(e.input.profileWid);
+          var n = yield P(e.input.profileWid);
           return n.wasNewContact
             ? !0
-            : (t.set(e.contact, z(e, n.savedContactName)), !1);
+            : (t.set(e.contact, X(e, n.savedContactName)), !1);
         })),
-        V.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function G() {
+    function Q() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
                 "WAWebCustomerManagerImportPhoneIdentity",
@@ -674,28 +722,28 @@ __d(
             );
           }
         })),
-        G.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function z(e, t) {
+    function X(e, t) {
       return babelHelpers.extends({}, e, {
         profileName: t != null ? t : e.profileName,
         savedContactName: t,
         wasNewContact: !1,
       });
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    function Y(e) {
+      return J.apply(this, arguments);
     }
-    function K() {
+    function J() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
           try {
             var t = yield o(
               "WAWebCustomerDataFieldSaver",
             ).createCustomersIfAbsent(e, { skipLeadArtifacts: !0 });
-            return t.map(Q);
+            return t.map(Z);
           } catch (t) {
             return (
               o("WALogger")
@@ -718,10 +766,10 @@ __d(
             );
           }
         })),
-        K.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    function Q(e) {
+    function Z(e) {
       return e === "unresolved"
         ? {
             status: "rejected",
@@ -731,12 +779,12 @@ __d(
           }
         : { status: "fulfilled", value: e };
     }
-    function X(e, t) {
-      return Y.apply(this, arguments);
+    function ee(e, t) {
+      return te.apply(this, arguments);
     }
-    function Y() {
+    function te() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a =
@@ -764,15 +812,15 @@ __d(
             "existing"
           );
         })),
-        Y.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function J(e, t) {
-      return Z.apply(this, arguments);
+    function ne(e, t) {
+      return re.apply(this, arguments);
     }
-    function Z() {
+    function re() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.input.leadStage;
           if (
             n != null &&
@@ -793,15 +841,15 @@ __d(
             ).reconcileImportedLeadArtifacts(e.input.chatJid, i.leadStage, a);
           }
         })),
-        Z.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function ee(e, t) {
-      return te.apply(this, arguments);
+    function oe(e, t) {
+      return ae.apply(this, arguments);
     }
-    function te() {
+    function ae() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = e.map(function (e, t) {
               return t;
             }),
@@ -814,7 +862,7 @@ __d(
             s = a.filter(function (e) {
               return i[e] != null;
             }),
-            u = yield ne(e, l, t),
+            u = yield ie(e, l, t),
             c = l.filter(function (e) {
               var t = u.get(e);
               return (
@@ -823,14 +871,14 @@ __d(
               );
             }),
             d = [].concat(s, c),
-            m = yield w(
+            m = yield B(
               d,
               y,
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
                     var n;
-                    return X(
+                    return ee(
                       e[t],
                       (n = i[t]) != null
                         ? n
@@ -860,20 +908,20 @@ __d(
             })
           );
         })),
-        te.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function ne(e, t, n) {
-      return re.apply(this, arguments);
+    function ie(e, t, n) {
+      return le.apply(this, arguments);
     }
-    function re() {
+    function le() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
-            var r = yield w(t, y, function (t) {
-                return ae(e[t], n[t]);
+            var r = yield B(t, y, function (t) {
+                return ue(e[t], n[t]);
               }),
-              o = yield j(
+              o = yield Y(
                 r.flatMap(function (e) {
                   return e.status === "fulfilled" ? [e.value] : [];
                 }),
@@ -889,11 +937,11 @@ __d(
             );
           },
         )),
-        re.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function oe(e) {
-      return w(
+    function se(e) {
+      return B(
         e,
         y,
         (function () {
@@ -915,12 +963,12 @@ __d(
         })(),
       );
     }
-    function ae(e, t) {
-      return ie.apply(this, arguments);
+    function ue(e, t) {
+      return ce.apply(this, arguments);
     }
-    function ie() {
+    function ce() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
               e.input.leadStage != null
                 ? yield o(
@@ -949,16 +997,16 @@ __d(
             leadStage: r,
           };
         })),
-        ie.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function le(e) {
+    function de(e) {
       return e.flatMap(function (e, t) {
         return e.status === "fulfilled" ? [t] : [];
       });
     }
-    function se(e, t) {
-      return w(
+    function me(e, t) {
+      return B(
         e,
         y,
         (function () {
@@ -971,13 +1019,13 @@ __d(
         })(),
       );
     }
-    function ue(e, t) {
-      return ce.apply(this, arguments);
+    function pe(e, t) {
+      return _e.apply(this, arguments);
     }
-    function ce() {
+    function _e() {
       return (
-        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = le(e),
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = de(e),
             r = yield t(n),
             o = [].concat(e);
           return (
@@ -988,23 +1036,23 @@ __d(
             o
           );
         })),
-        ce.apply(this, arguments)
+        _e.apply(this, arguments)
       );
     }
-    function de(e, t) {
-      return me.apply(this, arguments);
+    function fe(e, t) {
+      return ge.apply(this, arguments);
     }
-    function me() {
+    function ge() {
       return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield oe(e),
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield se(e),
             a = r.map(function (e) {
               return e.status === "fulfilled"
                 ? { status: "fulfilled", value: "written" }
                 : e;
             }),
             i = new Map();
-          a = yield ue(a, function (n) {
+          a = yield pe(a, function (n) {
             return t(
               n.map(function (t) {
                 return e[t];
@@ -1016,16 +1064,16 @@ __d(
             var t;
             return (t = i.get(e.contact)) != null ? t : e;
           });
-          a = yield ue(a, function (e) {
-            return se(
+          a = yield pe(a, function (e) {
+            return me(
               e.map(function (e) {
                 return l[e];
               }),
               o("WAWebCustomerManagerCreateCustomerRecord").createCustomerChat,
             );
           });
-          var s = le(a),
-            u = yield ee(
+          var s = de(a),
+            u = yield oe(
               s.map(function (e) {
                 return l[e];
               }),
@@ -1037,8 +1085,8 @@ __d(
             s.forEach(function (e, t) {
               a[e] = u[t];
             }),
-            (a = yield ue(a, function (e) {
-              return w(
+            (a = yield pe(a, function (e) {
+              return B(
                 e,
                 y,
                 (function () {
@@ -1046,7 +1094,7 @@ __d(
                     function* (e) {
                       var t = a[e],
                         n = t.status === "fulfilled" && t.value === "written";
-                      return J(l[e], n);
+                      return ne(l[e], n);
                     },
                   );
                   return function (t) {
@@ -1055,8 +1103,8 @@ __d(
                 })(),
               );
             })),
-            (a = yield ue(a, function (e) {
-              return se(
+            (a = yield pe(a, function (e) {
+              return me(
                 e.map(function (e) {
                   return l[e];
                 }),
@@ -1077,16 +1125,16 @@ __d(
             })
           );
         })),
-        me.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    function pe(e, t) {
+    function he(e, t) {
       return e.reduce(function (e, n) {
         var r;
         return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
       }, 0);
     }
-    l.saveImportedContacts = b;
+    ((l.saveImportedContacts = S), (l.createCustomerManagerImporter = R));
   },
   98,
 );

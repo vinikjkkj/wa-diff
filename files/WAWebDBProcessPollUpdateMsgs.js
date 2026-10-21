@@ -127,20 +127,24 @@ __d(
         e.map(function (e) {
           var t,
             r,
-            o = n.get(e.msgKey.toString());
+            o,
+            a = n.get(e.msgKey.toString());
           return {
             vote: e,
-            parentMsg: (t = o == null ? void 0 : o.parentMsg) != null ? t : {},
+            parentMsg: (t = a == null ? void 0 : a.parentMsg) != null ? t : {},
             voteMetadata:
-              o == null ? void 0 : o.pollUpdateMsg.pollUpdateMessageMetadata,
+              a == null ? void 0 : a.pollUpdateMsg.pollUpdateMessageMetadata,
             parentMsgKey:
-              (r = o == null ? void 0 : o.parentMsg.id) != null
+              (r = a == null ? void 0 : a.parentMsg.id) != null
                 ? r
                 : e.parentMsgKey,
             voteMsgKey: e.msgKey,
             sender: e.sender,
             senderTimestampMs: e.senderTimestampMs,
+            t: e.t,
             selectedOptionLocalIds: e.selectedOptionLocalIds,
+            unresolvedOptionHashes:
+              (o = e.unresolvedOptionHashes) != null ? o : [],
           };
         }),
         "live-vote",

@@ -14,6 +14,7 @@ __d(
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
     "WAWebVoipCallEnterPipModeCountStore",
+    "WAWebVoipCallStartUnifiedSessionStore",
     "WAWebVoipCallStateUtils",
     "WAWebVoipCalleeOfferToRingStore",
     "WAWebVoipCameraFingerprintLogging",
@@ -1067,6 +1068,13 @@ __d(
             o(
               "WAWebVoipAppInBgWhenCallStartsStore",
             ).maybeRecordAppInBgWhenCallStarts(u, l),
+            o(
+              "WAWebVoipCallStartUnifiedSessionStore",
+            ).maybeRecordCallStartUnifiedSessionId(
+              u,
+              l,
+              typeof s.callId == "string" ? s.callId : null,
+            ),
             o("WAWebVoipCallStateUtils").isCallTerminal(l)
               ? ((be = null), Le())
               : ve(typeof s.callId == "string" ? s.callId : null),

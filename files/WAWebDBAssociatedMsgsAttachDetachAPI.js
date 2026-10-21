@@ -6,7 +6,9 @@ __d(
     "WAWebAssociationProcessor",
     "WAWebAssociationProcessorConstants",
     "WAWebBackendApi",
+    "WAWebCreateAssociationProcessor",
     "WAWebDBGetAssociatedMsgsByParentMsgKey",
+    "WAWebMsgStoreExtensions",
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -46,7 +48,11 @@ __d(
             o("WAWebBackendApi").frontendFireAndForget(
               "updateViewModeForMsgs",
               { msgIdsViewModeMap: i },
-            ));
+            ),
+            t.length > 0 &&
+              (yield o("WAWebMsgStoreExtensions").handleAttachedAssociatedMsgs(
+                t,
+              )));
         })),
         c.apply(this, arguments)
       );
@@ -98,7 +104,9 @@ __d(
               viewMode:
                 t === s.Detach
                   ? o("WAWebViewMode.flow").ViewModeType.VISIBLE
-                  : n.viewMode,
+                  : o(
+                      "WAWebCreateAssociationProcessor",
+                    ).getAssociatedMsgViewMode(n, e),
             });
       });
     }

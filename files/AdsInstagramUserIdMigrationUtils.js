@@ -21,9 +21,14 @@ __d(
       return e;
     }
     function g(e, t) {
+      return t == null || t === "" || !r("gkx")("9636")
+        ? { instagramAccountID: e }
+        : { instagramAccountID: e, instagramUserID: t };
+    }
+    function h(e, t) {
       return r("gkx")("15865") ? t : e;
     }
-    var h = {
+    var y = {
       creative: {
         instagram_user_id: {
           get: function (t) {
@@ -66,8 +71,9 @@ __d(
       (l.convertIGIDV2FromStringToStrongType = p),
       (l.convertIGIDV2FromStrongTypeToString = _),
       (l.convertIGIDV1OrIGIDV2ToFBID = f),
-      (l.getInstagramActorIdOrUserId = g),
-      (l.IGIDV2MigrationAccessors = h));
+      (l.getInstagramAccountActionPayload = g),
+      (l.getInstagramActorIdOrUserId = h),
+      (l.IGIDV2MigrationAccessors = y));
   },
   98,
 );

@@ -205,71 +205,69 @@ __d(
           }
         }),
         l &&
-          e.onBeforeComplete(function (n) {
-            if (n) {
-              var r = n.markerPoints.get("visuallyComplete"),
-                a = o("WebAPIs").derefOnlyAttachedElement(
-                  r == null ? void 0 : r.element,
+          e.onBeforeComplete(function (e) {
+            if (e) {
+              var n = e.markerPoints.get("visuallyComplete"),
+                r = o("WebAPIs").derefOnlyAttachedElement(
+                  n == null ? void 0 : n.element,
                 );
-              if (r && a) {
-                var i = l(a, "HeroPlaceholder", "placeholderUUID"),
-                  s = e.config.logHeroHoldTrigger
-                    ? l(a, "HeroHoldBoundary", "placeholderUUID").concat(
-                        l(a, "HeroHoldLoggingBoundary", "placeholderUUID"),
-                      )
-                    : [],
-                  u = new Map();
-                (i.forEach(function (e) {
-                  e != null && u.set(e, !1);
+              if (n && r) {
+                var a = l(r, "HeroPlaceholder", "placeholderUUID"),
+                  i = l(r, "HeroHoldBoundary", "placeholderUUID").concat(
+                    l(r, "HeroHoldLoggingBoundary", "placeholderUUID"),
+                  ),
+                  s = new Map();
+                (a.forEach(function (e) {
+                  e != null && s.set(e, !1);
                 }),
-                  s.forEach(function (e) {
-                    e != null && u.set(e, !0);
+                  i.forEach(function (e) {
+                    e != null && s.set(e, !0);
                   }));
-                var c = [],
-                  d = new Set(),
-                  m = new Set();
-                (u.forEach(function (e, n) {
-                  var a = [n],
+                var u = [],
+                  c = new Set(),
+                  d = new Set();
+                (s.forEach(function (e, r) {
+                  var a = [r],
                     i = "";
                   if (e) {
                     ((a = o("hero-tracing-placeholder")
-                      .HeroHoldLoggingBoundaryRegistry.getHoldIDs(n)
+                      .HeroHoldLoggingBoundaryRegistry.getHoldIDs(r)
                       .filter(function (e) {
-                        return !m.has(e);
+                        return !d.has(e);
                       })),
                       a.forEach(function (e) {
-                        return m.add(e);
+                        return d.add(e);
                       }));
                     var l = o(
                       "hero-tracing-placeholder",
-                    ).HeroHoldLoggingBoundaryRegistry.getBoundaryName(n);
+                    ).HeroHoldLoggingBoundaryRegistry.getBoundaryName(r);
                     i = l != null ? "@" + l : "";
                   }
-                  a.forEach(function (n) {
+                  a.forEach(function (r) {
                     var o;
-                    (o = t.placeholderMap[n]) == null ||
+                    (o = t.placeholderMap[r]) == null ||
                       o.forEach(function (t) {
                         if (
-                          t.startTime <= r.timestamp &&
+                          t.startTime <= n.timestamp &&
                           t.description != null
                         ) {
                           var o;
-                          (c.push({
+                          (u.push({
                             description: e
                               ? "HeroHold(" + t.description + i + ")"
                               : t.description,
                             endTime: (o = t.endTime) != null ? o : 1 / 0,
                           }),
-                            d.add(n));
+                            c.add(r));
                         }
                       });
                   });
                 }),
-                  f(t.subSpans, d, r.timestamp));
-                var p = _(c);
-                if (p.length > 0) {
-                  var g = r.data || {};
-                  ((g.vcBlockingPlaceholders = p), (r.data = g));
+                  f(t.subSpans, c, n.timestamp));
+                var m = _(u);
+                if (m.length > 0) {
+                  var p = n.data || {};
+                  ((p.vcBlockingPlaceholders = m), (n.data = p));
                 }
               }
             }

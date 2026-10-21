@@ -7,6 +7,7 @@ __d(
       "ShouldShowMetaVerifiedEntryPoint",
       "NextFetchSubscriptionEntryPointsTime",
       "MetaVerifiedEntryPointRedirectionUri",
+      "MetaOneEntryPointEligibility",
     ]);
     function s() {
       return g(e.NextSubscriptionQuery);
@@ -16,12 +17,20 @@ __d(
     }
     function c() {
       var t = r("WAWebUserPrefsStore").getUser(
-        e.ShouldShowMetaVerifiedEntryPoint,
-      );
-      return t == null ? null : t === !0;
+          e.ShouldShowMetaVerifiedEntryPoint,
+        ),
+        n = r("WAWebUserPrefsStore").getUser(e.MetaOneEntryPointEligibility);
+      return { metaVerified: t === !0, metaOne: n == null ? null : n === !0 };
     }
     function d(t) {
-      r("WAWebUserPrefsStore").setUser(e.ShouldShowMetaVerifiedEntryPoint, t);
+      (r("WAWebUserPrefsStore").setUser(
+        e.ShouldShowMetaVerifiedEntryPoint,
+        t.metaVerified,
+      ),
+        r("WAWebUserPrefsStore").setUser(
+          e.MetaOneEntryPointEligibility,
+          t.metaOne,
+        ));
     }
     function m() {
       return g(e.NextFetchSubscriptionEntryPointsTime);
@@ -50,8 +59,8 @@ __d(
     }
     ((l.getNextSubscriptionQuery = s),
       (l.setNextSubscriptionQuery = u),
-      (l.getShouldShowMetaVerifiedEntryPoint = c),
-      (l.setShouldShowMetaVerifiedEntryPoint = d),
+      (l.getSubscriptionsEntryPointEligibility = c),
+      (l.setSubscriptionsEntryPointEligibility = d),
       (l.getNextFetchSubscriptionEntryPointsTime = m),
       (l.setNextFetchSubscriptionEntryPointsTime = p),
       (l.getMetaVerifiedEntryPointRedirectionUri = _),

@@ -1458,8 +1458,11 @@ __d(
                   v,
                   o("WAWebSyncdConst").SyncDataType.Snapshot,
                 ));
-              var E = d && y != null ? y : t.version.version,
-                k = yield Xe(
+              var E = d && y != null ? y : t.version.version;
+              o(
+                "WAWebSyncdCriticalBootstrapProcessingApi",
+              ).recordCriticalCollectionMutations(e, v.length);
+              var k = yield Xe(
                   e,
                   v,
                   o("WAWebSyncdConst").SyncDataType.Snapshot,
@@ -1966,8 +1969,11 @@ __d(
               (L.wirePatchMac = t.patchMac));
             var E = yield S(e, t);
             (o(
-              "WAWebSyncdMetricCriticalBootstrapStage",
-            ).reportSyncdDecryptedMutations(E),
+              "WAWebSyncdCriticalBootstrapProcessingApi",
+            ).recordCriticalCollectionMutations(e, E.length),
+              o(
+                "WAWebSyncdMetricCriticalBootstrapStage",
+              ).reportSyncdDecryptedMutations(E),
               (L.mutations = E),
               E.forEach(function (n) {
                 var r = o("WAWebSyncdActionUtils").getMutationNameFromIndex(

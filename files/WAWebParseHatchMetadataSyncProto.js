@@ -65,46 +65,57 @@ __d(
           n,
         );
       } catch (t) {
-        throw t instanceof o("WAWebHatchDecodeError").HatchDecodeError
-          ? (o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "hatch-metadata: decode failed (",
-                    ")",
-                  ])),
-                String(t.reason),
-              )
-              .sendLogs("hatch-metadata-decode-error"),
-            r("WAWebHatchMetadataExchangeManager").failRequest(
-              a == null ? void 0 : a.requestId,
-              "decode_failed",
-            ),
-            new (o(
+        throw t instanceof o("WAWebHatchDecodeError").HatchDecodeError &&
+          t.reason ===
+            o("WAWebHatchDecodeError").HatchDecodeReason.IGNORED_IDEAS_RECORD
+          ? new (o(
               "WAWebHatchMetadataSyncValidationError",
             ).HatchMetadataSyncValidationError)(
               o("WAWebHatchMetadataSyncValidationError")
-                .HatchMetadataSyncValidationCode.DECODE_FAILURE,
+                .HatchMetadataSyncValidationCode.IGNORED_IDEAS_RECORD,
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-                .INVALID_MESSAGE,
-            ))
-          : (o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "hatch-metadata: unexpected decode failure",
-                  ])),
-              )
-              .catching(t instanceof Error ? t : r("err")(String(t)))
-              .sendLogs("hatch-metadata-decode-unexpected-error"),
-            new (o(
-              "WAWebHatchMetadataSyncValidationError",
-            ).HatchMetadataSyncValidationError)(
-              o("WAWebHatchMetadataSyncValidationError")
-                .HatchMetadataSyncValidationCode.UNEXPECTED_DECODE_FAILURE,
-              o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-                .INVALID_MESSAGE,
-            ));
+                .UNSUPPORTED_MESSAGE_TYPE,
+            )
+          : t instanceof o("WAWebHatchDecodeError").HatchDecodeError
+            ? (o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-metadata: decode failed (",
+                      ")",
+                    ])),
+                  String(t.reason),
+                )
+                .sendLogs("hatch-metadata-decode-error"),
+              r("WAWebHatchMetadataExchangeManager").failRequest(
+                a == null ? void 0 : a.requestId,
+                "decode_failed",
+              ),
+              new (o(
+                "WAWebHatchMetadataSyncValidationError",
+              ).HatchMetadataSyncValidationError)(
+                o("WAWebHatchMetadataSyncValidationError")
+                  .HatchMetadataSyncValidationCode.DECODE_FAILURE,
+                o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+                  .INVALID_MESSAGE,
+              ))
+            : (o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-metadata: unexpected decode failure",
+                    ])),
+                )
+                .catching(t instanceof Error ? t : r("err")(String(t)))
+                .sendLogs("hatch-metadata-decode-unexpected-error"),
+              new (o(
+                "WAWebHatchMetadataSyncValidationError",
+              ).HatchMetadataSyncValidationError)(
+                o("WAWebHatchMetadataSyncValidationError")
+                  .HatchMetadataSyncValidationCode.UNEXPECTED_DECODE_FAILURE,
+                o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+                  .INVALID_MESSAGE,
+              ));
       }
       if (l == null)
         throw new (o(

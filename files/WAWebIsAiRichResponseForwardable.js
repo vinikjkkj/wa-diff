@@ -5,6 +5,7 @@ __d(
     "WAWebBotUnifiedResponseGating",
     "WAWebBotUtils",
     "WAWebFrontendMsgGetters",
+    "WAWebHatchJarvisPayload",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
   ],
@@ -18,16 +19,14 @@ __d(
         !o(
           "WAWebBotUnifiedResponseGating",
         ).isAiRichResponseForwardingSenderEnabled(e.t) ||
-        o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
-          t.unifiedResponse,
-        ) ||
+        s(t.unifiedResponse) ||
         o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(
           t.unifiedResponse,
         ) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasConnectorActionCard(
           t.unifiedResponse,
         ) ||
-        s(e, t.unifiedResponse) ||
+        u(e, t.unifiedResponse) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasSpaceCard(
           t.unifiedResponse,
         )
@@ -35,18 +34,25 @@ __d(
         return !1;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) return !0;
       var n = t.richResponse.fragments;
-      return n.length === 0
-        ? !1
-        : n.every(function (e) {
-            return (
-              e.type ===
-                o("WAWebRichResponse.flow").RichResponseFragmentType.Text ||
-              e.type ===
-                o("WAWebRichResponse.flow").RichResponseFragmentType.Table
-            );
-          });
+      return (
+        n.length > 0 &&
+        n.every(function (e) {
+          return (
+            e.type ===
+              o("WAWebRichResponse.flow").RichResponseFragmentType.Text ||
+            e.type ===
+              o("WAWebRichResponse.flow").RichResponseFragmentType.Table
+          );
+        })
+      );
     }
-    function s(e, t) {
+    function s(e) {
+      return (
+        o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(e) ||
+        o("WAWebHatchJarvisPayload").hatchJarvisPayloadMayCarryMedia(e)
+      );
+    }
+    function u(e, t) {
       return (
         o(
           "WAWebUnifiedResponseUtils",

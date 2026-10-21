@@ -57,7 +57,8 @@ __d(
         i = e.isAppInBgWhenCallStarts,
         l = e.jsonDataStr,
         u = e.lobbyEntryPoint,
-        c = {
+        c = e.unifiedSessionIdAtCallStart,
+        d = {
           calleeOfferToRingT: t,
           callEnterPipModeCount: n,
           callFromUi: r,
@@ -66,8 +67,9 @@ __d(
           isAppInBgWhenCallStarts: i,
           jsonDataStr: l,
           lobbyEntryPoint: u,
+          unifiedSessionIdAtCallStart: c,
         };
-      return ((s = c), c);
+      return ((s = d), d);
     }
     function p() {
       return s;

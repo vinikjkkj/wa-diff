@@ -6,24 +6,27 @@ __d(
     "WAWebBackendApi",
     "WAWebCastToPollCreationMsg",
     "WAWebDBMessageSerialization",
+    "WAWebLoadPendingPollVoteResolver",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
     "WAWebPollsGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length !== 0) {
-            var a = p(t),
+            var a = h(t),
               i = Array.from(a.keys()),
-              l = [];
+              l = [],
+              u = [];
             (yield o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
@@ -32,12 +35,12 @@ __d(
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
                       var n = t[0],
-                        u = yield n.bulkGet(i),
-                        c = [];
+                        c = yield n.bulkGet(i),
+                        d = [];
                       (i.forEach(function (t, n) {
-                        var i = u[n],
-                          d = a.get(t);
-                        if (i == null || d == null) {
+                        var i = c[n],
+                          m = a.get(t);
+                        if (i == null || m == null) {
                           i == null &&
                             o("WALogger")
                               .ERROR(
@@ -51,11 +54,11 @@ __d(
                               .sendLogs("poll_add_option_parent_not_found");
                           return;
                         }
-                        var m = o(
+                        var p = o(
                           "WAWebDBMessageSerialization",
                         ).messageFromDbRow(i);
                         if (
-                          m.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION
+                          p.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION
                         ) {
                           o("WALogger")
                             .ERROR(
@@ -67,15 +70,24 @@ __d(
                             .sendLogs("poll_add_option_parent_not_poll");
                           return;
                         }
-                        var p = r("WAWebCastToPollCreationMsg")(m),
-                          f = _(p, d);
-                        f != null &&
-                          (c.push(f),
-                          l.push({ msg: f, chatId: p.id.remote.toString() }));
+                        var _ = r("WAWebCastToPollCreationMsg")(p),
+                          f = y(_, m);
+                        (u.push(
+                          g(
+                            f != null ? r("WAWebCastToPollCreationMsg")(f) : _,
+                            m,
+                          ),
+                        ),
+                          f != null &&
+                            (d.push(f),
+                            l.push({
+                              msg: f,
+                              chatId: _.id.remote.toString(),
+                            })));
                       }),
-                        c.length > 0 &&
+                        d.length > 0 &&
                           (yield n.bulkCreateOrMerge(
-                            c.map(function (e) {
+                            d.map(function (e) {
                               return o(
                                 "WAWebDBMessageSerialization",
                               ).dbRowFromMessage(e);
@@ -88,13 +100,71 @@ __d(
                   };
                 })(),
               ),
-              yield f(l));
+              yield C(l),
+              yield _(u));
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.filter(function (e) {
+            var t = e.addedOptions,
+              n = e.droppedOptions;
+            return t.length > 0 || n.length > 0;
+          });
+          if (t.length !== 0)
+            try {
+              var a = yield r("WAWebLoadPendingPollVoteResolver")(),
+                i = a.resolvePendingVotesForAddedOptions;
+              yield (d || (d = n("Promise"))).all(
+                t.map(function (e) {
+                  return i(e);
+                }),
+              );
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[polls] failed to load the parked poll vote resolver",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("poll-add-option-resolve-votes-load-failed");
+            }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      var n,
+        r,
+        o = new Set(
+          ((n = e.pollOptions) != null ? n : []).map(function (e) {
+            return e.addOptionMsgKey;
+          }),
+        ),
+        a = new Set(
+          ((r = e.pollOptions) != null ? r : []).map(function (e) {
+            return e.name;
+          }),
+        ),
+        i = [],
+        l = [];
+      for (var s of t) {
+        var u = s.decryptedAddOption,
+          c = { name: u.pollAddedOption.name, t: u.t };
+        o.has(u.id.toString()) ? i.push(c) : a.has(c.name) || l.push(c);
+      }
+      return { parentMsg: e, addedOptions: i, droppedOptions: l };
+    }
+    function h(e) {
       var t = new Map();
       for (var n of e) {
         var r = n.parentMsg.id.toString(),
@@ -103,7 +173,7 @@ __d(
       }
       return t;
     }
-    function _(e, t) {
+    function y(e, t) {
       var n = e.pollOptions ? [].concat(e.pollOptions) : [],
         r = n.length,
         a = new Set(
@@ -130,12 +200,12 @@ __d(
         ? null
         : babelHelpers.extends({}, e, { pollOptions: n });
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function g() {
+    function b() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t = new Map();
             for (var r of e) {
@@ -144,7 +214,7 @@ __d(
                 l = t.get(a);
               l != null ? l.push(i) : t.set(a, [i]);
             }
-            var s = yield (c || (c = n("Promise"))).allSettled(
+            var s = yield (d || (d = n("Promise"))).allSettled(
               Array.from(
                 t,
                 (function () {
@@ -170,24 +240,24 @@ __d(
                 })(),
               ),
             );
-            for (var d of s)
-              d.status === "rejected" &&
+            for (var u of s)
+              u.status === "rejected" &&
                 o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "applyPollAddOptionsToParent: frontend notification failed",
                       ])),
                   )
                   .sendLogs("poll_add_option_notify_failed");
           }
         })),
-        g.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.applyPollAddOptionsToParent = d),
-      (l.groupResultsByParent = p),
-      (l.mergeAddOptionsIntoParent = _));
+    ((l.applyPollAddOptionsToParent = m),
+      (l.groupResultsByParent = h),
+      (l.mergeAddOptionsIntoParent = y));
   },
   98,
 );

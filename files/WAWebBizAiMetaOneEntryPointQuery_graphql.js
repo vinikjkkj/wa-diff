@@ -70,49 +70,6 @@ __d(
           plural: !1,
           selections: [r],
           storageKey: null,
-        },
-        a = {
-          alias: null,
-          args: [
-            {
-              kind: "Literal",
-              name: "subscription_types",
-              value: ["META_ONE"],
-            },
-          ],
-          concreteType: "XWASubscriptionEntryPointsResponse",
-          kind: "LinkedField",
-          name: "xwa_subscription_entrypoints",
-          plural: !1,
-          selections: [
-            {
-              alias: null,
-              args: null,
-              concreteType: "XWASubscriptionEntryPoints",
-              kind: "LinkedField",
-              name: "subscription_entrypoints",
-              plural: !0,
-              selections: [
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "subscription_type",
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "web_entry_point_eligibility",
-                  storageKey: null,
-                },
-              ],
-              storageKey: null,
-            },
-          ],
-          storageKey:
-            'xwa_subscription_entrypoints(subscription_types:["META_ONE"])',
         };
       return {
         fragment: {
@@ -143,7 +100,6 @@ __d(
               ],
               storageKey: null,
             },
-            a,
           ],
           type: "Query",
           abstractKey: null,
@@ -176,7 +132,6 @@ __d(
               ],
               storageKey: null,
             },
-            a,
           ],
         },
         params: {

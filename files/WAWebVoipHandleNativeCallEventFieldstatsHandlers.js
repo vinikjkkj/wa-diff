@@ -19,6 +19,7 @@ __d(
     "WAWebVoipCallEnterPipModeCountStore",
     "WAWebVoipCallFromUiStore",
     "WAWebVoipCallRatingStore",
+    "WAWebVoipCallStartUnifiedSessionStore",
     "WAWebVoipCalleeOfferToRingStore",
     "WAWebVoipCrashRecovery",
     "WAWebVoipDeviceClassUtils",
@@ -299,6 +300,9 @@ __d(
               lobbyEntryPoint: o(
                 "WAWebVoipLobbyEntryPointStore",
               ).getCurrentLobbyEntryPoint(),
+              unifiedSessionIdAtCallStart: o(
+                "WAWebVoipCallStartUnifiedSessionStore",
+              ).getCurrentCallStartUnifiedSessionId(),
             });
           ((Z = r), n != null && X.set(r, n), xe(r));
           var a = ae(e);
@@ -330,6 +334,11 @@ __d(
                 "WAWebVoipCallEnterPipModeCountStore",
               ).resetCallEnterPipModeCount(),
               o("WAWebVoipCalleeOfferToRingStore").resetCalleeOfferToRing(),
+              o(
+                "WAWebVoipCallStartUnifiedSessionStore",
+              ).releaseCurrentCallStartUnifiedSessionId(
+                r.unifiedSessionIdAtCallStart,
+              ),
               o("WAWebCoreActionsODS").logCallFieldstatsFinalReceived(),
               a || Ie(r),
               l.eventType ===
@@ -375,9 +384,9 @@ __d(
               de(d, r.callFromUi),
               me(d, r.isAppInBgWhenCallStarts),
               he(d, r.callEnterPipModeCount));
-            var _ = yield o("WAWebBackendApi").frontendSendAndReceive(
-              "getUnifiedSessionId",
-            );
+            var _ = yield o(
+              "WAWebVoipCallStartUnifiedSessionStore",
+            ).resolveCallUnifiedSessionId(r.unifiedSessionIdAtCallStart);
             _ != null && (d.unifiedSessionId = _);
           }
           var f =
@@ -883,9 +892,9 @@ __d(
               l.eventType ===
               o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
             ) {
-              var B = yield o("WAWebBackendApi").frontendSendAndReceive(
-                "getUnifiedSessionId",
-              );
+              var B = yield o(
+                "WAWebVoipCallStartUnifiedSessionStore",
+              ).resolveCallUnifiedSessionId(e.unifiedSessionIdAtCallStart);
               B != null && (c.unifiedSessionId = B);
               var W = e.incomingCallUiAction;
               (W != null &&

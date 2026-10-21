@@ -10,6 +10,7 @@ __d(
     "WAWebNewsletterDirectoryCategoryUtils",
     "WAWebNewsletterMetadataGetters",
     "WAWebStateUtils",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({ Disabled: 0, NeedsUpgrade: 1, Enabled: 2 }),
@@ -538,7 +539,7 @@ __d(
       );
     }
     function Xe() {
-      return !1;
+      return r("gkx")("13983") && r("gkx")("20694");
     }
     function Ye() {
       return (

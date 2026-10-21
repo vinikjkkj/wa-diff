@@ -46,6 +46,7 @@ __d(
     "WAWebUserPrefsNotifications",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWamEnumDsmError",
+    "WAWebWamEnumE2eFailureReason",
     "WAWebWasaRootSecretWriter",
     "WAWebWid",
     "WAWebWidFactory",
@@ -54,6 +55,7 @@ __d(
     "cr:10197",
     "cr:37440",
     "cr:37441",
+    "cr:402",
     "decodeProtobuf",
     "isStringNullOrEmpty",
     "justknobx",
@@ -140,15 +142,29 @@ __d(
               o("WAWebProtobufsE2E.pb").MessageSpec,
               x,
             );
-          (o(
-            "WAWebVerifyProtobufMsgObjectKeys",
-          ).verifyProtobufMessageObjectKeys($),
+          if (
+            (o(
+              "WAWebVerifyProtobufMsgObjectKeys",
+            ).verifyProtobufMessageObjectKeys($),
             o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret({
               context: o("WAWebMessageSecretLocationUtils")
                 .MessageSecretCheckContext.Receiver,
               proto: $,
               stanzaId: c.externalId,
-            }));
+            }),
+            !h &&
+              (n("cr:402") == null
+                ? void 0
+                : n("cr:402").shouldDropAeaWassMessage(
+                    c,
+                    $.messageContextInfo,
+                  )) === !0)
+          )
+            throw new (o("WAWebHandleMsgError").MessageValidationError)(
+              "CoEx relay message without a valid attestation",
+              o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+                .WASS_INVALID_ATTESTATION,
+            );
           var P = null,
             M =
               (t = $.deviceSentMessage) == null || (t = t.message) == null

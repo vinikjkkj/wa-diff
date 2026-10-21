@@ -1,6 +1,6 @@
 __d(
   "WAWebBizBroadcastProSubscriberDownloadStrings",
-  ["fbt"],
+  ["fbt", "WAWebBizBroadcastProDownloadPreparingFileLabel"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
@@ -34,42 +34,38 @@ __d(
         /*BTDS*/ "Your last download is still being prepared. Try again once it's ready.",
       );
     }
-    function f(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"Preparing your file \\u2022 {percentage}\\u0025"}',
-        [s._param("percentage", e, [0])],
-      );
-    }
-    function g() {
+    function f() {
       return s._(/*BTDS*/ "Your file is ready");
     }
-    function h() {
+    function g() {
       return s._(
         /*BTDS*/ "Your file with subscribed recipients is ready to download.",
       );
     }
-    function y() {
+    function h() {
       return s._(/*BTDS*/ "Couldn't prepare your file");
+    }
+    function y() {
+      return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
     function C() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
-    function b() {
-      return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
-    }
-    ((l.getDownloadRecipientsModalTitle = e),
+    ((l.getPreparingFileLabel = r(
+      "WAWebBizBroadcastProDownloadPreparingFileLabel",
+    )),
+      (l.getDownloadRecipientsModalTitle = e),
       (l.getDownloadRecipientsModalSubtitle = u),
       (l.getCustomerBaseLabel = c),
       (l.getRecipientCountExactLabel = d),
       (l.getRecipientCountRangeLabel = m),
       (l.getNoSubscribedRecipientsLabel = p),
       (l.getDownloadStillPreparingLabel = _),
-      (l.getPreparingFileLabel = f),
-      (l.getFileReadyLabel = g),
-      (l.getFileReadySublabel = h),
-      (l.getFileFailedLabel = y),
-      (l.getFileFailedSublabel = C),
-      (l.getSaveFailedToastLabel = b));
+      (l.getFileReadyLabel = f),
+      (l.getFileReadySublabel = g),
+      (l.getFileFailedLabel = h),
+      (l.getFileFailedSublabel = y),
+      (l.getSaveFailedToastLabel = C));
   },
   226,
 );

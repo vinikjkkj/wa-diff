@@ -34,7 +34,7 @@ __d(
     "WAWebSpoilerGating",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebWdsIcSendFilledIcon.react",
+    "WDSIconIcSendFilled.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "WDSText.react",
@@ -626,10 +626,12 @@ __d(
                     label: s._(/*BTDS*/ "Send"),
                     testid: "poll-send-button",
                     children: [
-                      c.jsx(
-                        o("WAWebWdsIcSendFilledIcon.react").WdsIcSendFilledIcon,
-                        { width: 28, directional: !0 },
-                      ),
+                      c.jsx(r("WDSIconIcSendFilled.react"), {
+                        testid: "wds-ic-send-filled",
+                        width: 28,
+                        height: 28,
+                        directional: !0,
+                      }),
                       " ",
                     ],
                   }),

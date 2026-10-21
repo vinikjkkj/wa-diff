@@ -11,41 +11,49 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["msgKey"];
     function s(e) {
-      return u({
-        interactivePayload: e.interactivePayload,
-        interactiveType: e.interactiveType,
-        msgKey: e.id,
-        nativeFlowName: e.nativeFlowName,
-        type: e.type,
-      });
+      return u(babelHelpers.extends({}, _(e), { msgKey: e.id }));
     }
     function u(t) {
       var n = t.msgKey,
-        r = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        a = n.remote;
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return (
-        a.isUser() &&
-        !a.isBot() &&
-        (!o("WAWebMobilePlatforms").isSMB() || n.fromMe) &&
-        o("WAWebBrazilPaymentState").isReceiptAndStateStamped(m(r)) &&
+        d(n, r) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
       );
     }
     function c(e) {
       return (
+        d(e.id, _(e)) &&
+        o("WAWebPaymentsGatingUtils").isBrazilPaymentStateSyncAvailable()
+      );
+    }
+    function d(e, t) {
+      var n = e.remote;
+      return (
+        n.isUser() &&
+        !n.isBot() &&
+        (!o("WAWebMobilePlatforms").isSMB() || e.fromMe) &&
+        o("WAWebBrazilPaymentState").isReceiptAndStateStamped(f(t))
+      );
+    }
+    function m(e) {
+      return (
         (!o("WAWebMobilePlatforms").isSMB() || e) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
       );
     }
-    function d(e) {
-      return m({
+    function p(e) {
+      return f(_(e));
+    }
+    function _(e) {
+      return {
         interactivePayload: e.interactivePayload,
         interactiveType: e.interactiveType,
         nativeFlowName: e.nativeFlowName,
         type: e.type,
-      });
+      };
     }
-    function m(e) {
+    function f(e) {
       var t = e.interactivePayload,
         n = e.interactiveType,
         a = e.nativeFlowName,
@@ -57,9 +65,9 @@ __d(
       )
         return null;
       var l = t;
-      return p(a, l) ? l : null;
+      return g(a, l) ? l : null;
     }
-    function p(e, t) {
+    function g(e, t) {
       return (
         e === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
         (e === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
@@ -68,8 +76,9 @@ __d(
     }
     ((l.isPaymentDetailsEnabledForMsg = s),
       (l.isPaymentDetailsEnabledFor = u),
-      (l.isPaymentDetailsEnabledForReceiptNotice = c),
-      (l.getPaymentRequestPayload = d));
+      (l.isPaymentStateSyncEnabledForMsg = c),
+      (l.isPaymentDetailsEnabledForReceiptNotice = m),
+      (l.getPaymentRequestPayload = p));
   },
   98,
 );

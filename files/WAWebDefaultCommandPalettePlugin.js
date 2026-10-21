@@ -11,7 +11,6 @@ __d(
     "WAWebContact.MenuItem",
     "WAWebContactSearchGatingUtils",
     "WAWebContactSearchModel",
-    "WAWebDefaultUserIcon.react",
     "WAWebFlex.react",
     "WAWebFrontendChatGetters",
     "WAWebHeaderInfoPanelActions",
@@ -30,6 +29,7 @@ __d(
     "WDSIconIcSettingsFilled.react",
     "WDSIconWdsIcAi.react",
     "WDSIconWdsIcChat.react",
+    "WDSProfilePhoto.react",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
@@ -313,9 +313,13 @@ __d(
                 title: o(
                   "WAWebNonContactPushNameSearchModel",
                 ).getNonContactPushNameHeader(),
-                icon: u.jsx(o("WAWebDefaultUserIcon.react").DefaultUserIcon, {
-                  width: 24,
-                  height: 24,
+                icon: u.jsx(r("WDSProfilePhoto.react"), {
+                  type: "person",
+                  name: "",
+                  size: "xxSmall",
+                  color: "gray",
+                  testid: "default-user",
+                  isDecorative: !0,
                 }),
               })),
               (t[28] = R))

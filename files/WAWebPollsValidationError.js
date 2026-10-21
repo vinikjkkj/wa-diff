@@ -149,6 +149,7 @@ __d(
         INVALID_OPTION: "poll_add_option_invalid_option",
         DUPLICATE_OPTIONS: "poll_add_option_duplicate_options",
         PARENT_KEY_MISMATCH: "poll_add_option_parent_key_mismatch",
+        STANZA_INVALID: "poll_add_option_stanza_invalid",
       }),
       b = (function (e) {
         function t() {

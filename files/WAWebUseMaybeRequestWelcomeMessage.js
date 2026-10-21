@@ -1,12 +1,14 @@
 __d(
   "WAWebUseMaybeRequestWelcomeMessage",
   [
+    "WALogger",
     "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotTos",
     "WAWebBotTypes",
     "WAWebBusinessProfileGetters",
     "WAWebFrontendChatGetters",
+    "WAWebGetMaybeChatById",
     "WAWebSendBotRequestWelcomeAction",
     "WAWebTos",
     "WAWebUseBusinessProfile.react",
@@ -19,83 +21,97 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (e || (e = o("react"))).useEffect;
-    function u(e) {
-      var t,
-        n = o("react-compiler-runtime").c(14),
-        a;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebFrontendChatGetters").getHasRequestedWelcomeMsg]),
-          (n[0] = a))
-        : (a = n[0]);
-      var i = o("useWAWebChatValues").useChatValues(e.id, a),
-        l = i[0],
-        u =
+      s,
+      u = (s || (s = o("react"))).useEffect;
+    function c(t) {
+      var n,
+        a = o("react-compiler-runtime").c(14),
+        i;
+      a[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [o("WAWebFrontendChatGetters").getHasRequestedWelcomeMsg]),
+          (a[0] = i))
+        : (i = a[0]);
+      var l = o("useWAWebChatValues").useChatValues(t, i),
+        s = l[0],
+        c =
           o("WAWebBotBaseGating").isBizBot1pEnabled() ||
           o("WAWebBotGating").isBizBot3pAvailable()
-            ? e.id
+            ? t
             : null;
-      o("WAWebUseBusinessProfile.react").useBusinessProfile(u);
-      var c =
-          (t = o(
+      o("WAWebUseBusinessProfile.react").useBusinessProfile(c);
+      var d =
+          (n = o(
             "useWAWebBusinessProfileValues",
-          ).useOptionalBusinessProfileValues(u, [
+          ).useOptionalBusinessProfileValues(c, [
             o("WAWebBusinessProfileGetters").getWelcomeMsgProtocolMode,
             o("WAWebBusinessProfileGetters").getIsBizBot1p,
           ])) != null
-            ? t
+            ? n
             : [null, null],
-        d = c[0],
-        m = c[1],
-        p = m === !0,
-        _;
-      n[1] !== l
-        ? ((_ = function (t, n, r) {
-            var e =
-              r != null &&
-              r !== o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE;
-            ((o("WAWebBotBaseGating").isBizBot1pEnabled() && n) ||
-              (o("WAWebBotGating").isBizBot3pAvailable() && e)) &&
+        m = d[0],
+        p = d[1],
+        _ = p === !0,
+        f;
+      a[1] !== s
+        ? ((f = function (n, r, a) {
+            var t =
+              a != null &&
+              a !== o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE;
+            if (
+              ((o("WAWebBotBaseGating").isBizBot1pEnabled() && r) ||
+                (o("WAWebBotGating").isBizBot3pAvailable() && t)) &&
               o("WAWebBotTos").hasAcceptedBizBotTos() &&
-              !l &&
-              o("WAWebSendBotRequestWelcomeAction").sendBotRequestWelcome(t);
+              !s
+            ) {
+              var i = o("WAWebGetMaybeChatById").getMaybeChatById(n);
+              if (i == null) {
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bot-welcome] welcome request skipped, chat left the collection",
+                    ])),
+                );
+                return;
+              }
+              o("WAWebSendBotRequestWelcomeAction").sendBotRequestWelcome(i);
+            }
           }),
-          (n[1] = l),
-          (n[2] = _))
-        : (_ = n[2]);
-      var f = r("useWAWebStableCallback")(_),
-        g;
-      (n[3] !== e || n[4] !== p || n[5] !== f || n[6] !== d
-        ? ((g = function () {
-            f(e, p, d);
+          (a[1] = s),
+          (a[2] = f))
+        : (f = a[2]);
+      var g = r("useWAWebStableCallback")(f),
+        h;
+      (a[3] !== t || a[4] !== _ || a[5] !== g || a[6] !== m
+        ? ((h = function () {
+            g(t, _, m);
           }),
-          (n[3] = e),
-          (n[4] = p),
-          (n[5] = f),
-          (n[6] = d),
-          (n[7] = g))
-        : (g = n[7]),
+          (a[3] = t),
+          (a[4] = _),
+          (a[5] = g),
+          (a[6] = m),
+          (a[7] = h))
+        : (h = a[7]),
         o("useWAWebListener").useListener(
           o("WAWebTos").TosManager,
           "change",
-          g,
+          h,
         ));
-      var h, y;
-      (n[8] !== e || n[9] !== p || n[10] !== f || n[11] !== d
-        ? ((h = function () {
-            f(e, p, d);
+      var y, C;
+      (a[8] !== t || a[9] !== _ || a[10] !== g || a[11] !== m
+        ? ((y = function () {
+            g(t, _, m);
           }),
-          (y = [e, p, d, f]),
-          (n[8] = e),
-          (n[9] = p),
-          (n[10] = f),
-          (n[11] = d),
-          (n[12] = h),
-          (n[13] = y))
-        : ((h = n[12]), (y = n[13])),
-        s(h, y));
+          (C = [t, _, m, g]),
+          (a[8] = t),
+          (a[9] = _),
+          (a[10] = g),
+          (a[11] = m),
+          (a[12] = y),
+          (a[13] = C))
+        : ((y = a[12]), (C = a[13])),
+        u(y, C));
     }
-    l.useMaybeRequestWelcomeMessage = u;
+    l.useMaybeRequestWelcomeMessage = c;
   },
   98,
 );

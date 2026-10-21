@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBizCtwaAGMUtils",
     "WAWebBizFormatInteractiveMsg",
+    "WAWebBookingConfirmationGating",
     "WAWebFormatBroadcastNotification",
     "WAWebFormatE2ENotification",
     "WAWebFormatEphemeralSetting",
@@ -16,6 +17,7 @@ __d(
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
     "WAWebGalaxyFlowResponseUtils",
+    "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMessagePluginFormatMsgText",
     "WAWebMessagePluginFutureproofMsgText",
     "WAWebMsgType",
@@ -139,10 +141,17 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
           return o("WAWebFormatOversizedMsg").formatOversizedMsgText();
         case o("WAWebMsgType").MSG_TYPE.INTERACTIVE: {
-          var N = m,
-            M = o("WAWebBizFormatInteractiveMsg").formatInteractive(N, {
-              formatAsSearchResult: b,
-            });
+          var N = m;
+          if (
+            N.nativeFlowName ===
+              r("WAWebInteractiveMessagesNativeFlowName")
+                .BOOKING_CONFIRMATION &&
+            !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
+          )
+            return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
+          var M = o("WAWebBizFormatInteractiveMsg").formatInteractive(N, {
+            formatAsSearchResult: b,
+          });
           return v == null ? M : d(M.toString(), v);
         }
         case o("WAWebMsgType").MSG_TYPE.UNKNOWN:

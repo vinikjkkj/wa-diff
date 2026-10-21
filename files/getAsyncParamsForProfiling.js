@@ -47,7 +47,14 @@ __d(
         l = ((t = {}), (t[e] = i), t);
       return (
         n.forEach(function (e, t) {
-          t.endsWith("_sample") && (l[t] = e);
+          if (t.endsWith("_sample")) {
+            l[t] = e;
+            var r = t.slice(0, -7);
+            ["_sample_options", "_tag"].forEach(function (e) {
+              var t = n.get(r + e);
+              t != null && (l[r + e] = t);
+            });
+          }
         }),
         l
       );

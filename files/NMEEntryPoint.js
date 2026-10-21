@@ -277,6 +277,8 @@ __d(
       FB_IMAGINE_QUOTA_LIMIT_UPSELL: "fb_imagine_quota_limit_upsell",
       FB_IMAGINE_VIDEO_QUOTA_TOAST: "fb_imagine_video_quota_toast",
       FB_IMAGINE_VIDEO_UPSELL_MESSAGE: "fb_imagine_video_upsell_message",
+      FB_LINK_IN_MEDIA_COMET_UPSELL_META_ONE:
+        "fb_link_in_media_comet_upsell_meta_one",
       FB_LINK_IN_MEDIA_COMMENTS_UPSELL_META_ONE:
         "fb_link_in_media_comments_upsell_meta_one",
       FB_LINK_IN_MEDIA_COMMENT_UPSELL_META_ONE:
@@ -396,6 +398,7 @@ __d(
       FB_WELCOME_TOAST: "fb_welcome_toast",
       GAI_ABANDONED_PAYMENT_NOTIF: "gai_abandoned_payment_notif",
       GAI_BASEL_APP_SETTINGS: "gai_basel_app_settings",
+      GAI_BENEFIT_UPDATE_NOTIF: "gai_benefit_update_notif",
       GAI_FB_IMAGINE_QUOTA_LIMIT_UPSELL: "gai_fb_imagine_quota_limit_upsell",
       GAI_FB_SUBSCRIPTION_COMPLETE: "gai_fb_subscription_complete",
       GAI_HATCH_APP_SETTINGS: "gai_hatch_app_settings",
@@ -426,10 +429,18 @@ __d(
         "gai_meta_view_cs_wearable_high_quota_use",
       GAI_META_VIEW_CS_WEARABLE_LOW_QUOTA_USE:
         "gai_meta_view_cs_wearable_low_quota_use",
+      GAI_META_VIEW_CS_WEARABLE_ONBOARDING:
+        "gai_meta_view_cs_wearable_onboarding",
       GAI_META_VIEW_CS_WEARABLE_QUOTA_LIMIT_TOAST:
         "gai_meta_view_cs_wearable_quota_limit_toast",
       GAI_META_VIEW_CS_WEARABLE_SETTINGS_PAGE:
         "gai_meta_view_cs_wearable_settings_page",
+      GAI_META_VIEW_CS_WEARABLE_SETTINGS_SHARED_STORAGE:
+        "gai_meta_view_cs_wearable_settings_shared_storage",
+      GAI_META_VIEW_CS_WEARABLE_SETTINGS_UPGRADE:
+        "gai_meta_view_cs_wearable_settings_upgrade",
+      GAI_META_VIEW_CS_WEARABLE_UPGRADE_BANNER:
+        "gai_meta_view_cs_wearable_upgrade_banner",
       GAI_META_VIEW_HC_WEARABLE_NUX_ONBOARDING_VALUE_PROP:
         "gai_meta_view_hc_wearable_nux_onboarding_value_prop",
       GAI_META_VIEW_HC_WEARABLE_UPSELL_SHEET:
@@ -888,6 +899,10 @@ __d(
       META_ONE_APP_PLUS_MARKETING_SITE_V1:
         "meta_one_app_plus_marketing_site_v1",
       META_ONE_BIZ_AI_BIZ_CLAW_UPSELL: "meta_one_biz_ai_biz_claw_upsell",
+      META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE:
+        "meta_one_biz_ai_mbs_aihome_quota_lifecycle",
+      META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE:
+        "meta_one_biz_ai_mbs_inbox_quota_lifecycle",
       META_ONE_BIZ_AI_MBS_UPSELL: "meta_one_biz_ai_mbs_upsell",
       META_ONE_BIZ_AI_MESSENGER_UPSELL: "meta_one_biz_ai_messenger_upsell",
       META_ONE_BIZ_AI_QUOTA_EMAIL: "meta_one_biz_ai_quota_email",
@@ -910,6 +925,8 @@ __d(
         "meta_one_ig_subscription_completion_notif",
       META_ONE_IG_SUBSCRIPTION_REVOCATION_NOTIF:
         "meta_one_ig_subscription_revocation_notif",
+      META_ONE_MBS_HOME_AUTO_INVITE_UPSELL:
+        "meta_one_mbs_home_auto_invite_upsell",
       META_ONE_PBIS_APPEAL_NEEDED_ENTRY: "meta_one_pbis_appeal_needed_entry",
       META_ONE_PROFILE_VERIFICATION_FAILED_RETRY_ENTRY:
         "meta_one_profile_verification_failed_retry_entry",
@@ -1558,6 +1575,7 @@ __d(
       MV_FB_PRODASH_TIP_WITH_ACCOUNT_SELECTION:
         "mv_fb_prodash_tip_with_account_selection",
       MV_IG_PRODASH_TIP: "mv_ig_prodash_tip",
+      MV_MIGRATION_COMPLETE_META_ONE: "mv_migration_complete_meta_one",
       NME_ABANDONED_SUBSCRIPTION_FLOW_BEFORE_PAYMENT:
         "nme_abandoned_subscription_flow_before_payment",
       NME_ACCOUNT_CENTER_4C_4B_QUESTIONNAIRE:
@@ -2007,6 +2025,7 @@ __d(
       SETTINGS_SEARCH: "settings_search",
       SOCIAL_POST: "social_post",
       SUBS_WA_UNKNOWN: "subs_wa_unknown",
+      TELCO_ACTIVATION_LINK: "telco_activation_link",
       TESTING_EP_FOR_EP_EXPERIENCE_FRAMEWORK:
         "testing_ep_for_ep_experience_framework",
       TESTING_EP_FOR_EP_EXPERIENCE_FRAMEWORK_V2:

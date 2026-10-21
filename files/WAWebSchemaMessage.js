@@ -382,6 +382,7 @@ __d(
             s("protocolMessageKey"),
             a("acp2Setting"),
             a("pollNameHashHistory"),
+            a("pollUpdateMessageMetadata"),
           ])
           .view(function (e) {
             return e;

@@ -368,13 +368,13 @@ __d(
             (a[29] = G))
           : ((H = a[28]), (G = a[29]));
         var z;
-        (a[30] !== i || a[31] !== y || a[32] !== H || a[33] !== G
+        (a[30] !== i.id || a[31] !== y || a[32] !== H || a[33] !== G
           ? ((z = u.jsx(
               r("WAWebMuteMenuItem.react"),
-              { onMute: H, onMuteWithDuration: G, chat: i, isMuted: y },
+              { onMute: H, onMuteWithDuration: G, chatId: i.id, isMuted: y },
               "mute",
             )),
-            (a[30] = i),
+            (a[30] = i.id),
             (a[31] = y),
             (a[32] = H),
             (a[33] = G),
@@ -411,13 +411,13 @@ __d(
       }
       var X;
       if (
-        (a[38] !== i
+        (a[38] !== i.id
           ? ((X = u.jsx(
               r("WAWebChatContextMenuItemLock.react"),
-              { chat: i },
+              { chatId: i.id },
               "Lock",
             )),
-            (a[38] = i),
+            (a[38] = i.id),
             (a[39] = X))
           : (X = a[39]),
         v.push(X),

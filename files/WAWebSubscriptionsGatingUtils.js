@@ -22,30 +22,33 @@ __d(
       );
     }
     function u() {
+      return s() && o("WAWebMetaOneGating").isMetaOneRolloutEnabled();
+    }
+    function c() {
       return (
-        c() ||
+        d() ||
         e() ||
         (o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebMetaOneGating").isMetaOneRolloutEnabled()) ||
         s()
       );
     }
-    function c() {
+    function d() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue("premium_blue_enabled")
         : !1;
     }
-    function d() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_meta_verified_context_card",
       );
     }
-    function m() {
+    function p() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
         "profile_edit_for_mv_users_enabled",
       );
     }
-    function p() {
+    function _() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -58,11 +61,12 @@ __d(
     }
     ((l.billingEnabled = e),
       (l.customerManagerSubscriptionGatingEnabled = s),
-      (l.subscriptionFetchEnabled = u),
-      (l.isMetaVerifiedEnabled = c),
-      (l.isMetaVerifiedContextCardEnabled = d),
-      (l.isMetaVerifiedLockedProfileEditingV1Enabled = m),
-      (l.isMetaOneSubscriptionNotificationsEnabled = p));
+      (l.customerManagerMetaOneUpsellEnabled = u),
+      (l.subscriptionFetchEnabled = c),
+      (l.isMetaVerifiedEnabled = d),
+      (l.isMetaVerifiedContextCardEnabled = m),
+      (l.isMetaVerifiedLockedProfileEditingV1Enabled = p),
+      (l.isMetaOneSubscriptionNotificationsEnabled = _));
   },
   98,
 );

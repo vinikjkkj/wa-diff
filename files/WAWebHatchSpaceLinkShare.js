@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebEnvironment",
     "WAWebHatchJsonReaders",
+    "WAWebHatchLogging",
     "WAWebHatchPublishedSpaceDialog.react",
     "WAWebHatchShareStatusDecoder",
     "WAWebHatchSpacePublishFlow",
@@ -29,51 +30,59 @@ __d(
       c,
       d = c || (c = o("react")),
       m = 3e4;
-    function p(e, t, n) {
+    function p(e, t, n, r) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield I(e);
-          return r === "unpublished"
-            ? f(e, t, n)
-            : r == null
-              ? !1
-              : h(e, t, r, !1, n);
-        })),
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var o = yield I(e);
+            return o === "unpublished"
+              ? f(e, t, n, r)
+              : o == null
+                ? !1
+                : h(e, t, o, !1, n, r);
+          },
+        )),
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
+    function f(e, t, n, r) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o(
-            "WAWebHatchSpacePublishFlow",
-          ).publishHatchSpaceWithConsent(e, t, n);
-          return r === !1 || r == null
-            ? r
-            : h(e, t, { isDeploying: !0, url: r }, !0, n);
-        })),
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield o(
+              "WAWebHatchSpacePublishFlow",
+            ).publishHatchSpaceWithConsent(e, t, n, r);
+            return a === !1 || a == null
+              ? a
+              : h(e, t, { isDeploying: !0, url: a }, !0, n, r);
+          },
+        )),
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r, o) {
+    function h(e, t, n, r, o, a) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            var a = n.isDeploying,
-              i = n.url;
-            if (o.aborted) return null;
-            C(i, a);
-            var l = yield S(i, r, o);
-            return l === "unpublish" ? b(e, t, i, o) : !0;
+          function* (e, t, n, r, a, i) {
+            var l = n.isDeploying,
+              s = n.url;
+            if (i.aborted) return null;
+            (C(s, l),
+              o("WAWebHatchLogging").logHatchArtifact(
+                "artifact_share_sheet_impression",
+                a,
+              ));
+            var u = yield S(s, r, a, i);
+            return u === "unpublish" ? b(e, t, s, a, i) : !0;
           },
         )),
         y.apply(this, arguments)
@@ -97,40 +106,58 @@ __d(
             });
       }
     }
-    function b(e, t, n, r) {
+    function b(e, t, n, r, o) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o,
-              a = (yield L(e)) ? "unpublished" : yield I(e);
-            if (r.aborted) return null;
-            if (a === "unpublished") return k(t);
-            var i = (o = a == null ? void 0 : a.url) != null ? o : n,
-              l = yield S(i, !1, r);
-            return l === "unpublish" ? b(e, t, i, r) : !1;
+          function* (e, t, n, r, a) {
+            var i,
+              l = (yield L(e)) ? "unpublished" : yield I(e);
+            if (l === "unpublished")
+              return (
+                o("WAWebHatchLogging").logHatchArtifact(
+                  "artifact_share_sheet_unpublish",
+                  r,
+                ),
+                a.aborted ? null : k(t)
+              );
+            if (a.aborted) return null;
+            var s = (i = l == null ? void 0 : l.url) != null ? i : n,
+              u = yield S(s, !1, r, a);
+            return u === "unpublish" ? b(e, t, s, r, a) : !1;
           },
         )),
         v.apply(this, arguments)
       );
     }
-    function S(e, t, n) {
+    function S(e, t, n, r) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n.addEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
-          try {
-            return yield o(
-              "WAWebHatchPublishedSpaceDialog.react",
-            ).showHatchPublishedSpaceDialog(e, D, t);
-          } finally {
-            n.removeEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
-          }
-        })),
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            r.addEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
+            try {
+              return yield o(
+                "WAWebHatchPublishedSpaceDialog.react",
+              ).showHatchPublishedSpaceDialog(
+                e,
+                function (e) {
+                  return D(e, n);
+                },
+                t,
+              );
+            } finally {
+              r.removeEventListener(
+                "abort",
+                o("WDSDialogBridge").closeWDSDialog,
+              );
+            }
+          },
+        )),
         R.apply(this, arguments)
       );
     }
@@ -211,14 +238,25 @@ __d(
         T.apply(this, arguments)
       );
     }
-    function D(e) {
-      o("WAWebModalManager").ModalManager.open(
-        d.jsx(r("WAWebSendTextFlow.react"), {
-          alwaysShowComposeModal: !0,
-          openChatAfterSingleSend: !0,
-          text: e,
-        }),
-      );
+    function D(e, t) {
+      (o("WAWebHatchLogging").logHatchArtifact("artifact_share_sheet_tap", t),
+        o("WAWebModalManager").ModalManager.open(
+          d.jsx(r("WAWebSendTextFlow.react"), {
+            alwaysShowComposeModal: !0,
+            onSent: function () {
+              return o("WAWebHatchLogging").logHatchArtifact(
+                "artifact_shared",
+                t,
+              );
+            },
+            openChatAfterSingleSend: !0,
+            text: e,
+          }),
+        ),
+        o("WAWebHatchLogging").logHatchArtifact(
+          "artifact_forward_sheet_impression",
+          t,
+        ));
     }
     function x(e) {
       var t;

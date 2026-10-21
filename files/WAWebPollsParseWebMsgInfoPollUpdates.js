@@ -7,6 +7,7 @@ __d(
     "WAWebMsgType",
     "WAWebPollVoteTCMetadata",
     "WAWebPollsCreateOptionLocalIdMap",
+    "WAWebPollsGatingUtils",
     "WAWebPollsProtobufConversion",
     "WAWebProtobufsWeb.pb",
     "asyncToGeneratorRuntime",
@@ -87,6 +88,9 @@ __d(
                     optionLocalIdMap: c,
                     ack: null,
                     read: t.unread !== !0,
+                    allowUnresolvedOptions: o(
+                      "WAWebPollsGatingUtils",
+                    ).isPollAddOptionReceivingEnabled(),
                   });
                 return {
                   voteData: m,

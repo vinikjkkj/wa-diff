@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAResolvable",
+    "WAWebAeaRollout",
     "WAWebAppTracker",
     "WAWebBackendErrors",
     "WAWebEventsWaitForOfflineDeliveryEnd",
@@ -26,7 +27,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.filter(E),
+          var t = e.filter(k),
             r = yield (h || (h = n("Promise"))).all([
               o("WAWebSignal").Session.hasSignalSessions(
                 e,
@@ -60,12 +61,13 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.identityChanged,
-            a = r === void 0 ? !1 : r,
-            i = t.options,
-            l = t.sessionScope,
-            y = t.wids;
-          ((i == null ? void 0 : i.skipOfflineDeliveryWait) !== !0 &&
+          var r = t.aeaOptions,
+            a = t.identityChanged,
+            i = a === void 0 ? !1 : a,
+            l = t.options,
+            y = t.sessionScope,
+            C = t.wids;
+          ((l == null ? void 0 : l.skipOfflineDeliveryWait) !== !0 &&
             (yield o(
               "WAWebEventsWaitForOfflineDeliveryEnd",
             ).waitForOfflineDeliveryEnd()),
@@ -79,17 +81,15 @@ __d(
                   " wids: ",
                   "",
                 ])),
-              y.length,
-              y
-                .map(function (e) {
-                  return e.toString();
-                })
-                .join(),
+              C.length,
+              C.map(function (e) {
+                return e.toString();
+              }).join(),
             ));
           try {
             yield o(
               "WAWebManagePhoneNumberMappingJob",
-            ).ensurePhoneNumberToLidMapping(y);
+            ).ensurePhoneNumberToLidMapping(C);
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -99,32 +99,37 @@ __d(
                     " wids: ensurePhoneNumberToLidMapping failed: ",
                     "",
                   ])),
-                y.length,
+                C.length,
                 e,
               )
               .sendLogs("ensureE2ESessions", { sampling: 0.01 });
           }
-          var C = new (o("WAResolvable").Resolvable)(),
-            R = [],
+          var R = new (o("WAResolvable").Resolvable)(),
             L = [],
             E = [],
-            I = 0,
-            D = 0,
+            k = [],
+            T = 0,
             x = 0,
-            $ = [],
-            P = [];
+            $ = 0,
+            P = [],
+            N = [];
           try {
             if (
-              (y.forEach(function (e) {
+              (C.forEach(function (e) {
+                var t;
                 if (!e.isUserNotPSA()) {
-                  I++;
+                  T++;
                   return;
                 }
-                var t = o("WAWebSignalCommonUtils").createSignalAddress(e, l),
-                  n = v.get(t);
-                n ? R.push(n) : (E.push(e), L.push(t), v.set(t, C.promise));
+                var n = o("WAWebSignalCommonUtils").createSignalAddress(e, y),
+                  a =
+                    (r == null ? void 0 : r.isSendTimeFetch) === !0 &&
+                    o("WAWebAeaRollout").isAeaEnforcementEnabled(),
+                  i = a ? n + ":send" : n,
+                  l = (t = v.get(n)) != null ? t : v.get(i);
+                l ? L.push(l) : (k.push(e), E.push(i), v.set(i, R.promise));
               }),
-              I > 0 &&
+              T > 0 &&
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -132,20 +137,20 @@ __d(
                       " wids: ",
                       " skipped (non-user)",
                     ])),
-                  y.length,
-                  I,
+                  C.length,
+                  T,
                 ),
-              E.length > 0)
+              k.length > 0)
             ) {
-              var N = [];
+              var M = [];
               if (
                 (yield o("WAWebRunInBatches").runInBatches(
-                  E,
+                  k,
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
-                        var t = yield k(e, l);
-                        N.push.apply(N, t);
+                        var t = yield I(e, y);
+                        M.push.apply(M, t);
                       },
                     );
                     return function (t) {
@@ -154,10 +159,10 @@ __d(
                   })(),
                   { batchSize: S.SESSION_CHECK },
                 ),
-                E.forEach(function (e, t) {
-                  N[t] || P.push(e);
+                k.forEach(function (e, t) {
+                  M[t] || N.push(e);
                 }),
-                P.length > 0)
+                N.length > 0)
               ) {
                 o("WALogger").LOG(
                   c ||
@@ -166,12 +171,12 @@ __d(
                       " wids: fetch prekeys for ",
                       " wids",
                     ])),
-                  y.length,
-                  P.length,
+                  C.length,
+                  N.length,
                 );
-                var M = yield o("WAWebFetchPrekeysJob").fetchPrekeys(P, a),
-                  w = M.errors,
-                  A = M.prekeyBundles;
+                var w = yield o("WAWebFetchPrekeysJob").fetchPrekeys(N, i),
+                  A = w.errors,
+                  F = w.prekeyBundles;
                 o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -181,14 +186,14 @@ __d(
                       ", err ",
                       "",
                     ])),
-                  y.length,
-                  P.length,
+                  C.length,
+                  N.length,
+                  F.length,
                   A.length,
-                  w.length,
                 );
-                var F = yield T(A, l);
+                var O = yield D(F, y, r);
                 if (
-                  ((x += F.depletedPrekeyCount),
+                  (($ += O.depletedPrekeyCount),
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -197,22 +202,22 @@ __d(
                         "/",
                         " E2E sessions +",
                       ])),
-                    y.length,
-                    F.processedPrekeyCount,
-                    y.length,
+                    C.length,
+                    O.processedPrekeyCount,
+                    C.length,
                   ),
-                  w.length > 0)
+                  A.length > 0)
                 )
-                  throw w[0];
-                D = P.length;
+                  throw A[0];
+                x = N.length;
               }
             }
-            C.resolve();
+            R.resolve();
           } catch (e) {
             if (
               e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
               e.statusCode === b &&
-              P.every(function (e) {
+              N.every(function (e) {
                 return (
                   e.device != null && e.device !== o("WAJids").DEFAULT_DEVICE_ID
                 );
@@ -225,13 +230,13 @@ __d(
                     " wids: failed with 406 error code for companion devices: ",
                     "",
                   ])),
-                y.length,
-                P.map(function (e) {
+                C.length,
+                N.map(function (e) {
                   return e.toString();
                 }).join(),
               ),
-                ($ = P),
-                C.resolve());
+                (P = N),
+                R.resolve());
             else
               throw (
                 o("WALogger").WARN(
@@ -241,23 +246,23 @@ __d(
                       " wids: request failed: ",
                       "",
                     ])),
-                  y.length,
+                  C.length,
                   e,
                 ),
-                C.resolve(e),
+                R.resolve(e),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.PreKeyProcessing,
                 ),
                 e
               );
           } finally {
-            L.forEach(function (e) {
+            E.forEach(function (e) {
               v.delete(e);
             });
           }
           try {
-            var O = (yield (h || (h = n("Promise"))).all(R)).find(Boolean);
-            if (O) throw O;
+            var B = (yield (h || (h = n("Promise"))).all(L)).find(Boolean);
+            if (B) throw B;
           } catch (e) {
             throw (
               o("WALogger").WARN(
@@ -267,7 +272,7 @@ __d(
                     " wids: deduped requests failed: ",
                     "",
                   ])),
-                y.length,
+                C.length,
                 e,
               ),
               o("WAWebAppTracker").AppTracker.stop(
@@ -290,18 +295,25 @@ __d(
                   " req, ",
                   " deduped",
                 ])),
-              y.length,
-              E.length - D,
-              D,
-              R.length,
+              C.length,
+              k.length - x,
+              x,
+              L.length,
             ),
-            { missedPrekeyCount: D, depletedPrekeyCount: x, deletedDevices: $ }
+            { missedPrekeyCount: x, depletedPrekeyCount: $, deletedDevices: P }
           );
         })),
         L.apply(this, arguments)
       );
     }
-    function E(e) {
+    function E(e, t) {
+      return t !== o("WAWebSessionScope").SessionScope.PQ
+        ? t
+        : e.kyberKey != null && k(e.wid)
+          ? o("WAWebSessionScope").SessionScope.PQ
+          : o("WAWebSessionScope").SessionScope.DEFAULT;
+    }
+    function k(e) {
       return (
         o("WAWebSignalCommonUtils").createSignalAddress(
           e,
@@ -313,12 +325,12 @@ __d(
         )
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t !== o("WAWebSessionScope").SessionScope.PQ)
             return o("WAWebSignal").Session.hasSignalSessions(e, t);
           var n = yield y(e),
@@ -329,37 +341,34 @@ __d(
             return i.has(e);
           });
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = 0,
-            r = 0;
-          for (var a of e) {
-            var i,
-              l,
-              s = t;
-            t === o("WAWebSessionScope").SessionScope.PQ &&
-              (s =
-                a.kyberKey != null && E(a.wid)
-                  ? o("WAWebSessionScope").SessionScope.PQ
-                  : o("WAWebSessionScope").SessionScope.DEFAULT);
-            var u = yield o("WAWebProcessKeyBundle").processKeyBundles([a], s);
-            ((n += (i = u.depletedPrekeyCount) != null ? i : 0),
-              (r += (l = u.processedPrekeyCount) != null ? l : 0),
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = 0,
+            a = 0;
+          for (var i of e) {
+            var l,
+              s,
+              u = E(i, t),
+              c = yield o("WAWebProcessKeyBundle").processKeyBundles([i], u, n);
+            ((r += (l = c.depletedPrekeyCount) != null ? l : 0),
+              (a += (s = c.processedPrekeyCount) != null ? s : 0),
               yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           }
-          return { depletedPrekeyCount: n, processedPrekeyCount: r };
+          return { depletedPrekeyCount: r, processedPrekeyCount: a };
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.getSignalSessionWids = y), (l.ensureE2ESessions = R));
+    ((l.getSignalSessionWids = y),
+      (l.ensureE2ESessions = R),
+      (l.getPrekeyBundleSessionScope = E));
   },
   98,
 );

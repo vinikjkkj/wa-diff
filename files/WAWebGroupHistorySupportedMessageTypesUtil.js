@@ -20,6 +20,7 @@ __d(
         e === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE ||
         e === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
         e === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ||
+        e === o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED ||
         e === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ||
         e === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE ||
         e === o("WAWebMsgType").MSG_TYPE.ALBUM

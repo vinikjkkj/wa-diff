@@ -13,6 +13,7 @@ __d(
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBStoreEncryptedMsgs",
     "WAWebMsgGetters",
+    "WAWebMsgStoreExtensions",
     "WAWebMsgType",
     "WAWebProcessMessageAssociationMessages",
     "WAWebProtobufsHistorySync.pb",
@@ -238,7 +239,8 @@ __d(
                 quarantineTableEntries: I,
                 unreadMentionsToAdd: k,
               }),
-              yield v(u));
+              yield v(u),
+              yield o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(c));
           },
         )),
         y.apply(this, arguments)

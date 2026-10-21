@@ -230,7 +230,11 @@ __d(
           )),
           (e.pollVotesSnapshot = o("WAWebPollsDbUtils").expandPollVotesSnapshot(
             n.pollVotesSnapshot,
-          )),
+          )));
+        var i = o("WAWebPollsDbUtils").expandPollAddedOption(
+          n.pollAddedOptionName,
+        );
+        (i != null && (e.pollAddedOption = i),
           n.correctOptionIndex != null &&
             (e.correctOptionIndex = n.correctOptionIndex),
           (e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
@@ -241,10 +245,10 @@ __d(
             (e.pollType = o("WAWebPollCreationUtils").getPollTypeFromDBValue(
               n.pollType,
             ))));
-        var i = n.originalSelfAuthor;
-        (i != null &&
-          r("WAWebWid").isWid(i) &&
-          (e.originalSelfAuthor = o("WAWebWidFactory").createWid(i)),
+        var l = n.originalSelfAuthor;
+        (l != null &&
+          r("WAWebWid").isWid(l) &&
+          (e.originalSelfAuthor = o("WAWebWidFactory").createWid(l)),
           n.plainProtobufBytes != null &&
             (e.plainProtobufBytes = new Uint8Array(n.plainProtobufBytes)));
       }
@@ -303,67 +307,71 @@ __d(
     function h(e, t) {
       var n,
         r,
-        a = { currentMsg: {}, quotedMsg: {} };
+        a,
+        i = { currentMsg: {}, quotedMsg: {} };
       if ((n = e.paymentNoteMsg) != null && n.body) {
-        var i;
-        ((a.currentMsg.paymentNoteMsgBody = e.paymentNoteMsg.body),
-          (i = e.paymentNoteMsg) == null || delete i.body);
+        var l;
+        ((i.currentMsg.paymentNoteMsgBody = e.paymentNoteMsg.body),
+          (l = e.paymentNoteMsg) == null || delete l.body);
       }
       ((r = e.quotedMsg) != null &&
         (r = r.paymentNoteMsg) != null &&
         r.body &&
-        ((a.quotedMsg.paymentNoteMsgBody = e.quotedMsg.paymentNoteMsg.body),
+        ((i.quotedMsg.paymentNoteMsgBody = e.quotedMsg.paymentNoteMsg.body),
         delete e.quotedMsg.paymentNoteMsg.body),
         e.correctOptionIndex != null &&
-          ((a.currentMsg.correctOptionIndex = e.correctOptionIndex),
+          ((i.currentMsg.correctOptionIndex = e.correctOptionIndex),
           delete e.correctOptionIndex),
         o("WAWebDBMsgOpaqueDataKeys").MSG_OPAQUE_DATA_KEYS.forEach(
           function (t) {
-            ((a.currentMsg[o("WAWebDBMsgOpaqueDataKeys").getKey(e.type, t)] =
+            ((i.currentMsg[o("WAWebDBMsgOpaqueDataKeys").getKey(e.type, t)] =
               e[t]),
               delete e[t]);
           },
         ),
         e.originalSelfAuthor &&
-          ((a.currentMsg.originalSelfAuthor = o("WAJids").extractUserJid(
+          ((i.currentMsg.originalSelfAuthor = o("WAJids").extractUserJid(
             o("WAWebWidToJid").widToDeviceJid(e.originalSelfAuthor),
           )),
           delete e.originalSelfAuthor),
-        (a.currentMsg.pollContentType = o(
+        (i.currentMsg.pollContentType = o(
           "WAWebPollCreationUtils",
         ).getPollContentTypeAsDBValue(e.pollContentType)),
         delete e.pollContentType,
-        (a.currentMsg.pollType = o(
+        (i.currentMsg.pollType = o(
           "WAWebPollCreationUtils",
         ).getPollTypeAsDBValue(e.pollType)),
         delete e.pollType,
-        (a.currentMsg.pollOptions = o("WAWebPollsDbUtils").compressPollOptions(
+        (i.currentMsg.pollOptions = o("WAWebPollsDbUtils").compressPollOptions(
           e.pollOptions,
         )),
         delete e.pollOptions,
-        (a.currentMsg.pollVotesSnapshot = o(
+        (i.currentMsg.pollVotesSnapshot = o(
           "WAWebPollsDbUtils",
         ).compressPollVotesSnapshot(e.pollVotesSnapshot)),
         delete e.pollVotesSnapshot,
+        (i.currentMsg.pollAddedOptionName =
+          (a = e.pollAddedOption) == null ? void 0 : a.name),
+        delete e.pollAddedOption,
         e.quotedMsg &&
           (o("WAWebDBMsgOpaqueDataKeys").MSG_OPAQUE_DATA_KEYS.forEach(
             function (t) {
-              ((a.quotedMsg[t] = e.quotedMsg[t]), delete e.quotedMsg[t]);
+              ((i.quotedMsg[t] = e.quotedMsg[t]), delete e.quotedMsg[t]);
             },
           ),
-          (a.quotedMsg.pollOptions = o("WAWebPollsDbUtils").compressPollOptions(
+          (i.quotedMsg.pollOptions = o("WAWebPollsDbUtils").compressPollOptions(
             e.quotedMsg.pollOptions,
           )),
           delete e.quotedMsg.pollOptions),
         (t == null ? void 0 : t.storeReportingInfo) === !0 &&
           e.plainProtobufBytes != null &&
-          (a.currentMsg.plainProtobufBytes = e.plainProtobufBytes),
+          (i.currentMsg.plainProtobufBytes = e.plainProtobufBytes),
         delete e.plainProtobufBytes);
-      var l = o("encodeProtobuf").encodeProtobuf(
+      var s = o("encodeProtobuf").encodeProtobuf(
         o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb").MsgRowOpaqueDataSpec,
-        a,
+        i,
       );
-      e.msgRowOpaqueData = l.readBuffer();
+      e.msgRowOpaqueData = s.readBuffer();
     }
     ((l.messageFromDbRow = d),
       (l.getGatedOffStatusMentionFutureproof = p),

@@ -31,7 +31,7 @@ __d(
                   ])),
               ),
               { paymentMsg: null, isPending: r.every(d) })
-            : o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(a)
+            : o("WAWebPaymentDetailsGating").isPaymentStateSyncEnabledForMsg(a)
               ? { paymentMsg: a, isPending: !1 }
               : (o("WALogger").WARN(
                   s ||

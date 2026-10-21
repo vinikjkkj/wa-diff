@@ -6,6 +6,7 @@ __d(
     "WAWebMediaUrlAllowlist",
     "WAWebPonyfillsFetch",
     "WAWebVideoDashManifestErrors",
+    "WAWebVideoDashManifestODS",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -28,6 +29,9 @@ __d(
             n = e.url;
           if (!o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(n))
             throw (
+              o("WAWebVideoDashManifestODS").bumpDashManifestFailure(
+                "URL_NOT_ALLOWED",
+              ),
               o("WALogger")
                 .WARN(
                   s ||
@@ -44,9 +48,15 @@ __d(
             i = self.setTimeout(function () {
               return a.abort();
             }, t);
+          o("WAWebVideoDashManifestODS").bumpDashManifestAttempt();
           try {
             var l = yield r("WAWebPonyfillsFetch")(n, { signal: a.signal });
-            return (C(l.status), b(yield l.text()));
+            C(l.status);
+            var u = b(yield l.text());
+            return (
+              o("WAWebVideoDashManifestODS").bumpDashManifestResult(u.kind),
+              u
+            );
           } catch (e) {
             throw y(h(e));
           } finally {
@@ -64,6 +74,7 @@ __d(
           : new (o("WAWebVideoDashManifestErrors").DashManifestNetworkError)();
     }
     function y(t) {
+      o("WAWebVideoDashManifestODS").bumpDashManifestFailure(t.reason);
       var n =
         t instanceof o("WAWebVideoDashManifestErrors").DashManifestHttpError
           ? t.reason + " " + t.status

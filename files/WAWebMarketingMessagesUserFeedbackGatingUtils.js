@@ -48,9 +48,15 @@ __d(
       });
     }
     function f(e) {
-      return g(e) && c();
+      var t = e.contactId,
+        n = e.isFromMe,
+        r = e.isMarketingMessage;
+      return !n && r && !_(t);
     }
     function g(e) {
+      return h(e) && c();
+    }
+    function h(e) {
       return (
         (e.isMarketingMessageThread || e.isEverOptedOutOfMarketingMessages) &&
         u() &&
@@ -65,8 +71,9 @@ __d(
       (l.isSimplifiedManageMessagesLoggingSymmetryEnabled = m),
       (l.getMMUserControlsExceptionNumberPrefixes = p),
       (l.isMMUserControlsExceptionNumberPrefixMatch = _),
-      (l.shouldShowUnifiedMMControls = f),
-      (l.isMMUserControlsEligible = g));
+      (l.isMMMessageLevelFeedbackEligible = f),
+      (l.shouldShowUnifiedMMControls = g),
+      (l.isMMUserControlsEligible = h));
   },
   98,
 );

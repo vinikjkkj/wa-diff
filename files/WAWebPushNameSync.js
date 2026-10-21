@@ -52,15 +52,27 @@ __d(
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "push name sync: start",
-                    ])),
-                );
-                var a = 0,
-                  i = 0,
-                  l = yield (C || (C = n("Promise"))).all(
+                var a =
+                  r("WAWebSyncBootstrap").isSyncDCriticalDataSyncInProcess();
+                (a &&
+                  (r("WAWebSyncBootstrap").recordPushNameMutationTrace ==
+                    null ||
+                    r("WAWebSyncBootstrap").recordPushNameMutationTrace(
+                      0,
+                      0,
+                      t.length,
+                      0,
+                      0,
+                    )),
+                  o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "push name sync: start",
+                      ])),
+                  ));
+                var i = 0,
+                  l = 0,
+                  b = yield (C || (C = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -74,14 +86,14 @@ __d(
                             try {
                               if (e.operation === "set") {
                                 var t,
-                                  l = e.value,
+                                  a = e.value,
                                   g =
-                                    (t = l.pushNameSetting) == null
+                                    (t = a.pushNameSetting) == null
                                       ? void 0
                                       : t.name;
                                 return (
                                   (g == null || g === "") &&
-                                    (a++,
+                                    (i++,
                                     yield o(
                                       "WAWebSyncdCriticalBootstrapProcessingApi",
                                     ).logCriticalBootstrapStageIfNecessary(
@@ -165,7 +177,7 @@ __d(
                                         "push name sync: unsupported",
                                       ])),
                                 ),
-                                i++,
+                                l++,
                                 (C || (C = n("Promise"))).resolve({
                                   actionState:
                                     o("WAWebSyncdConst").SyncActionState
@@ -217,37 +229,47 @@ __d(
                       })(),
                     ),
                   );
-                (a > 0 &&
+                (i > 0 &&
                   o("WALogger").WARN(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
                         "push name sync: ",
                         " empty pushnames",
                       ])),
-                    a,
+                    i,
                   ),
-                  i > 0 &&
+                  l > 0 &&
                     o("WALogger").WARN(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([
                           "push name sync: ",
                           " operations not supported",
                         ])),
-                      i,
+                      l,
                     ));
-                var b = l.filter(function (e) {
+                var v = b.filter(function (e) {
                     return (
                       e.actionState ===
                       o("WAWebSyncdConst").SyncActionState.Success
                     );
                   }).length,
-                  v = l.filter(function (e) {
+                  S = b.filter(function (e) {
                     return (
                       e.actionState ===
                       o("WAWebSyncdConst").SyncActionState.Failed
                     );
                   }).length;
                 return (
+                  a &&
+                    (r("WAWebSyncBootstrap").recordPushNameMutationTrace ==
+                      null ||
+                      r("WAWebSyncBootstrap").recordPushNameMutationTrace(
+                        0,
+                        0,
+                        0,
+                        v,
+                        S,
+                      )),
                   o("WALogger").LOG(
                     y ||
                       (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -259,12 +281,12 @@ __d(
                         "",
                       ])),
                     t.length,
-                    b,
                     v,
+                    S,
+                    l,
                     i,
-                    a,
                   ),
-                  l
+                  b
                 );
               },
             );

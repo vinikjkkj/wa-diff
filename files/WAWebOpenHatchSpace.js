@@ -14,8 +14,8 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e, t) {
-      (t === void 0 && (t = o("WAWebDrawerManager").closeDrawerRight),
+    function c(e, t, n) {
+      (n === void 0 && (n = o("WAWebDrawerManager").closeDrawerRight),
         e.kind === "url"
           ? o("WAWebExternalLink.react").openExternalLink(e.url, {
               noApiCmdHandling: !0,
@@ -27,7 +27,8 @@ __d(
                   o("WAWebHatchSpaceViewerDrawerLoadable")
                     .WAWebHatchSpaceViewerDrawerLoadable,
                   {
-                    onBack: t,
+                    entryPoint: t,
+                    onBack: n,
                     onClose: o("WAWebDrawerManager").closeDrawerRight,
                     slug: e.slug,
                     title: e.title,

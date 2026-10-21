@@ -16,28 +16,27 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !e.some(function (e) {
-              return e.pollUpdateMessageMetadata != null;
-            })
-          )
-            return e;
-          var n = yield u(e, t);
+          if (!e.some(u)) return e;
+          var n = yield c(e, t);
           return o("WAWebApplyPollVoteTCValidation").applyPollVoteTCValidation(
             e.map(function (e) {
               var t,
-                r = d(n, e),
-                a = o("WAWebPollsVoteDataUtils").pollVoteMsgDataToVoteData(e);
+                r,
+                a = m(n, e),
+                i = o("WAWebPollsVoteDataUtils").pollVoteMsgDataToVoteData(e);
               return {
                 vote: e,
-                parentMsg: r != null ? r : {},
+                parentMsg: a != null ? a : {},
                 voteMetadata: e.pollUpdateMessageMetadata,
                 parentMsgKey:
-                  (t = r == null ? void 0 : r.id) != null ? t : a.parentMsgKey,
-                voteMsgKey: a.msgKey,
-                sender: a.sender,
-                senderTimestampMs: a.senderTimestampMs,
-                selectedOptionLocalIds: a.selectedOptionLocalIds,
+                  (t = a == null ? void 0 : a.id) != null ? t : i.parentMsgKey,
+                voteMsgKey: i.msgKey,
+                sender: i.sender,
+                senderTimestampMs: i.senderTimestampMs,
+                t: i.t,
+                selectedOptionLocalIds: i.selectedOptionLocalIds,
+                unresolvedOptionHashes:
+                  (r = i.unresolvedOptionHashes) != null ? r : [],
               };
             }),
             t.processMode ===
@@ -49,12 +48,22 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    function u(e) {
+      var t, n;
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        e.pollUpdateMessageMetadata != null ||
+        ((t = (n = e.unresolvedOptionHashes) == null ? void 0 : n.length) !=
+        null
+          ? t
+          : 0) > 0
+      );
+    }
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.parents,
             r = t.processMode;
           if (r !== o("WAWebAddonConstants").AddonProcessMode.HistorySync)
@@ -66,10 +75,10 @@ __d(
             i = a[0];
           return o("WAWebAddonSelectUtils").createAddonParentSelector(i);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       try {
         return e.getForAddon(t);
       } catch (e) {
@@ -77,7 +86,7 @@ __d(
         throw e;
       }
     }
-    ((l.validateAddonPollVotes = e), (l.getPollVoteParentsForProcessMode = u));
+    ((l.validateAddonPollVotes = e), (l.getPollVoteParentsForProcessMode = c));
   },
   98,
 );

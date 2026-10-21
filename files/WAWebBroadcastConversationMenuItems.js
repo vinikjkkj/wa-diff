@@ -57,7 +57,7 @@ __d(
                 .CONVERSATION_SCREEN,
             );
           },
-          chat: e,
+          chatId: e.id,
           isMuted: !!e.mute.expiration,
         },
         "mute",

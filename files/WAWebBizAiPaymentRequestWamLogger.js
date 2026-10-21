@@ -22,7 +22,7 @@ __d(
       s,
       u,
       c,
-      d = "payment_request";
+      d = "payment_request_biz_ai_cta";
     function m(e, t) {
       return k(e, e) && I(t);
     }
@@ -204,7 +204,6 @@ __d(
     function L(e, t) {
       return {
         p2m_flow: d,
-        is_biz_ai_checkout: !0,
         accepted_payment_method: JSON.stringify(
           o("WAWebPaymentRequestWamLogger").getPaymentMethodsFromMsg(e),
         ),

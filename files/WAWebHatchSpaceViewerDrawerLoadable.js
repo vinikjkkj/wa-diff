@@ -2,8 +2,8 @@ __d(
   "WAWebHatchSpaceViewerDrawerLoadable",
   [
     "JSResourceForInteraction",
+    "WAWebHatchLoadingDrawer.react",
     "WAWebLazyLoadedRetriable",
-    "WAWebLoadingDrawer.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
@@ -25,7 +25,9 @@ __d(
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {
-          return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
+          return s.jsx(r("WAWebHatchLoadingDrawer.react"), {
+            error: !!t.error,
+          });
         },
       });
     l.WAWebHatchSpaceViewerDrawerLoadable = c;

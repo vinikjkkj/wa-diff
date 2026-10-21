@@ -123,6 +123,7 @@ __d(
         PRIVACY_SCREEN_UPSELL_BANNER: "privacy_screen_upsell_banner",
         WEB_CALLING_ACTIVATION_BANNER: "web_calling_activation_banner",
         TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
+        CUSTOMER_MANAGER_EDUCATION_BANNER: "customer_manager_education_banner",
       }),
       f = {
         COOL_OFF_NUX: {
@@ -135,6 +136,8 @@ __d(
           MESSAGE_LABEL_DEPRECATION_MIGRATED_CHAT_LIST:
             "message_label_deprecation_migrated_chat_list",
           WHATS_NEW: "whats_new",
+          CUSTOMER_MANAGER_EDUCATION_BANNER:
+            "customer_manager_education_banner",
         },
         VIEW_COUNT_NUX: {
           SAFARI_LIMITED_SUPPORT: "safari_limited_support",
@@ -203,6 +206,8 @@ __d(
         MESSAGE_LABEL_DEPRECATION_MIGRATED_CHAT_LIST:
           "message_label_deprecation_migrated_chat_list_key",
         WHATS_NEW: "whats_new_cool_off_key",
+        CUSTOMER_MANAGER_EDUCATION_BANNER:
+          "customer_manager_education_banner_cool_off_key",
       };
     function h(e) {
       return e + "_cool_off";

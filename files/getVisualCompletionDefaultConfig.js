@@ -47,7 +47,6 @@ __d(
           return r("justknobx")._("3483");
         },
         logVCReactStack: r("gkx")("20982"),
-        logHeroHoldTrigger: r("gkx")("23923"),
         logLCPReactStack: r("gkx")("6775"),
         enable_background_loading_state_polling: r("gkx")("766"),
       };

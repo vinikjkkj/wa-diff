@@ -113,67 +113,102 @@ __d(
       ie,
       le,
       se,
-      ue = r("requireDeferred")("WAWebBootstrapNewsletter").__setRef(
+      ue,
+      ce = r("requireDeferred")("WAWebBootstrapNewsletter").__setRef(
         "WAWebSyncBootstrap",
       ),
-      ce = r("qpl")._(891423540, "2533"),
-      de =
+      de = r("qpl")._(891423540, "2533"),
+      me =
         n("cr:17219") == null
           ? void 0
           : n("cr:17219").getWindowsBridge(
               r("WAWebWindowsHybridBridgeInitiator").WAWebSyncBootstrap,
             ),
-      me = 40,
-      pe = 20,
-      _e = 180,
-      fe = n("$InternalEnum").Mirrored([
+      pe = 40,
+      _e = 20,
+      fe = 180,
+      ge = n("$InternalEnum").Mirrored([
         "NotStarted",
         "InProcess",
         "Completed",
       ]),
-      ge = { initialChatHistory: !1, readReceipts: !1, syncdCritical: !1 },
-      he = { initialChatHistoryTotalMsg: -1, initialChatHistoryTotalChats: -1 },
-      ye = 20,
-      Ce = (function () {
+      he = { initialChatHistory: !1, readReceipts: !1, syncdCritical: !1 },
+      ye = { initialChatHistoryTotalMsg: -1, initialChatHistoryTotalChats: -1 },
+      Ce = 20,
+      be = (function () {
         function t() {
           ((this.$1 = {}),
-            (this.$2 = he),
+            (this.$2 = ye),
             (this.$6 = !1),
             (this.$7 = null),
-            (this.$8 = null),
+            (this.$8 = ve()),
             (this.$9 = null),
-            (this.$10 = !1),
+            (this.$10 = null),
+            (this.$11 = !1),
             this.initState());
         }
         var a = t.prototype;
         return (
           (a.initState = function () {
-            ((this.$1 = babelHelpers.extends({}, ge)),
-              (this.$2 = babelHelpers.extends({}, he)),
-              (this.$3 = fe.NotStarted),
-              (this.$4 = fe.NotStarted),
-              (this.$5 = fe.NotStarted));
+            ((this.$1 = babelHelpers.extends({}, he)),
+              (this.$2 = babelHelpers.extends({}, ye)),
+              (this.$3 = ge.NotStarted),
+              (this.$4 = ge.NotStarted),
+              (this.$5 = ge.NotStarted),
+              this.resetPushNameMutationTrace());
           }),
-          (a.$11 = function () {
+          (a.resetPushNameMutationTrace = function () {
+            this.$8 = ve();
+          }),
+          (a.recordPushNameMutationTrace = function (t, n, r, o, a) {
+            var e = this.$8;
+            ((e.criticalBlockMutations += t),
+              (e.criticalUnblockLowMutations += n),
+              (e.handlerStarted += r),
+              (e.handlerSuccess += o),
+              (e.handlerFailed += a));
+          }),
+          (a.logPushNameMutationTrace = function (n) {
+            var t = this.$8;
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bootstrap][syncd] critical collection trace: check=",
+                  ", criticalBlockMutations=",
+                  ", criticalUnblockLowMutations=",
+                  ", pushNameHandlerStarted=",
+                  ", pushNameHandlerSuccess=",
+                  ", pushNameHandlerFailed=",
+                  "",
+                ])),
+              n,
+              t.criticalBlockMutations,
+              t.criticalUnblockLowMutations,
+              t.handlerStarted,
+              t.handlerSuccess,
+              t.handlerFailed,
+            );
+          }),
+          (a.$12 = function () {
             for (var e in this.$1) if (!this.$1[e]) return !1;
             return !0;
           }),
-          (a.$12 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
+          (a.$13 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
                 (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[bootstrap][history sync] completed sync for ",
                       "",
                     ])),
-                  t,
+                  e,
                 ),
-                  (this.$1[t] = !0),
-                  this.$11() &&
+                  (this.$1[e] = !0),
+                  this.$12() &&
                     (o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[bootstrap][history sync] critical sync done",
                         ])),
                     ),
@@ -193,18 +228,18 @@ __d(
                     this.syncNonCriticalData()));
               },
             );
-            function a(e) {
-              return t.apply(this, arguments);
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return a;
+            return t;
           })()),
-          (a.$13 = (function () {
+          (a.$14 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 (o("WALogger")
                   .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "start contact sync for ",
                         " chunks of contacts during the initial sync",
                       ])),
@@ -219,7 +254,7 @@ __d(
                     )));
                 for (var n = 0; n < t.length; n++) {
                   var r = Array.from(t[n]);
-                  (yield o("WAPromiseDelays").delayMs(pe * 1e3),
+                  (yield o("WAPromiseDelays").delayMs(_e * 1e3),
                     yield o("WAWebSyncContactJob").syncContactListJob(
                       r,
                       !0,
@@ -228,8 +263,8 @@ __d(
                 }
                 o("WALogger")
                   .LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "initial contact sync completes",
                       ])),
                   )
@@ -241,23 +276,23 @@ __d(
             }
             return t;
           })()),
-          (a.$14 = function (t) {
+          (a.$15 = function (t) {
             if (t == null)
               return (
                 o("WALogger")
                   .LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "syncMostRecentDevices has no contact to sync during bootstrap",
                       ])),
                   )
                   .tags("contact-sync"),
-                (se || (se = n("Promise"))).resolve()
+                (ue || (ue = n("Promise"))).resolve()
               );
             o("WALogger")
               .LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "sync ",
                     " contacts for device info during the initial sync",
                   ])),
@@ -270,8 +305,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "Sync device failed",
                       ])),
                   )
@@ -281,7 +316,7 @@ __d(
           }),
           (a.setReadReceiptsSynced = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield this.$12("readReceipts");
+              yield this.$13("readReceipts");
             });
             function t() {
               return e.apply(this, arguments);
@@ -290,15 +325,15 @@ __d(
           })()),
           (a.setInitialChatHistorySynced = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield this.$12("initialChatHistory"),
+              (yield this.$13("initialChatHistory"),
                 o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] initial chat history synced.",
                     ])),
                 ),
                 o("WAWebSyncdGetChat").logLidPnChatDistribution({}),
-                be.continueProgressiveHistorySyncProcessingV2(
+                Se.continueProgressiveHistorySyncProcessingV2(
                   o("WAWebHistorySyncNotificationUtils")
                     .HistorySyncScheduleSource.InitialSyncComplete,
                 ));
@@ -310,8 +345,8 @@ __d(
           })()),
           (a.setSyncDCriticalSynced = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              ((this.$3 = fe.Completed),
-                !this.$1.syncdCritical && (yield this.$12("syncdCritical")));
+              ((this.$3 = ge.Completed),
+                !this.$1.syncdCritical && (yield this.$13("syncdCritical")));
             });
             function t() {
               return e.apply(this, arguments);
@@ -321,18 +356,18 @@ __d(
           (a.syncNonCriticalData = function () {
             var e = this,
               t = [];
-            ((this.$5 = fe.InProcess),
+            ((this.$5 = ge.InProcess),
               o("WAWebQueryAndUpdateGroupMetadataJob")
                 .queryAndUpdateAllGroupMetadata({ isHistorySyncInProgress: !0 })
                 .then(function () {
                   ((t = o(
                     "WAWebNonAddressBookContactsJob",
                   ).getAllContactsFromChatCollectionIntoChunks()),
-                    e.$14(t[0]).catch(function (e) {
+                    e.$15(t[0]).catch(function (e) {
                       o("WALogger")
                         .ERROR(
-                          f ||
-                            (f = babelHelpers.taggedTemplateLiteralLoose([
+                          g ||
+                            (g = babelHelpers.taggedTemplateLiteralLoose([
                               "[bootstrap] initial device list sync failed",
                             ])),
                         )
@@ -346,8 +381,8 @@ __d(
                       .catch(function (e) {
                         o("WALogger")
                           .ERROR(
-                            g ||
-                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                            h ||
+                              (h = babelHelpers.taggedTemplateLiteralLoose([
                                 "[bootstrap] non-address book contacts sync failed",
                               ])),
                           )
@@ -360,19 +395,19 @@ __d(
                 })
                 .then(function () {
                   self.setTimeout(function () {
-                    e.$13(t[0], t.slice(1, t.length));
-                  }, me * 1e3);
+                    e.$14(t[0], t.slice(1, t.length));
+                  }, pe * 1e3);
                 })
                 .finally(function () {
-                  e.$5 = fe.Completed;
+                  e.$5 = ge.Completed;
                 }),
               o("WAWebHandleAccountSyncNotification")
                 .getAndUpdateStatus()
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose([
                           "[bootstrap] status sync failed",
                         ])),
                     )
@@ -386,8 +421,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
                           "[bootstrap] profile picture sync failed",
                         ])),
                     )
@@ -402,14 +437,14 @@ __d(
               o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "updateOptOutList",
               ),
-              ue.load().then(function (e) {
+              ce.load().then(function (e) {
                 var t = e.bootstrapNewsletterBackend;
                 return t();
               }),
               o(
                 "WAWebFetchOwnUsernameOnPairing",
               ).initOwnUsernameFetchOnPairing(),
-              (this.$4 = fe.InProcess),
+              (this.$4 = ge.InProcess),
               o("WAWebSyncd")
                 .markCollectionsForSync([
                   o("WAWebSyncdConst").CollectionName.Regular,
@@ -418,14 +453,14 @@ __d(
                 ])
                 .then(function () {
                   var t;
-                  ((e.$4 = fe.Completed),
-                    de == null || (t = de.contacts) == null || t.initialize());
+                  ((e.$4 = ge.Completed),
+                    me == null || (t = me.contacts) == null || t.initialize());
                 })
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      C ||
-                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
                           "[bootstrap] mark collection for sync failed",
                         ])),
                     )
@@ -442,34 +477,35 @@ __d(
             };
           }),
           (a.isSyncDCriticalDataSyncInProcess = function () {
-            return this.$3 === fe.InProcess;
+            return this.$3 === ge.InProcess;
           }),
           (a.isSyncDBootstrapInProcess = function () {
-            return this.$3 === fe.InProcess || this.$4 === fe.InProcess;
+            return this.$3 === ge.InProcess || this.$4 === ge.InProcess;
           }),
           (a.isSyncDBootstrapGroupMetadataQueryInProcess = function () {
-            return this.$5 === fe.InProcess;
+            return this.$5 === ge.InProcess;
           }),
-          (a.$15 = function () {
+          (a.$16 = function () {
             var e = this;
             this.$7 == null &&
               (o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "[bootstrap][history sync] setting critical data syncd timeout (",
                     ")",
                   ])),
-                _e,
+                fe,
               ),
               (this.$7 = self.setTimeout(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  var t = yield e.$16("timeout");
+                  e.logPushNameMutationTrace("timeout");
+                  var t = yield e.$17("timeout");
                   if (!t) {
                     try {
                       var n = yield e.getCriticalSyncDebugSummary();
                       (o("WALogger").LOG(
-                        v ||
-                          (v = babelHelpers.taggedTemplateLiteralLoose(
+                        S ||
+                          (S = babelHelpers.taggedTemplateLiteralLoose(
                             [
                               "[bootstrap][syncd] syncDCriticalDataState: ",
                               "\nsyncDNonCriticalDataState: ",
@@ -489,8 +525,8 @@ __d(
                       ),
                         o("WALogger")
                           .ERROR(
-                            S ||
-                              (S = babelHelpers.taggedTemplateLiteralLoose([
+                            R ||
+                              (R = babelHelpers.taggedTemplateLiteralLoose([
                                 "[bootstrap][syncd] syncd critical data timeout exceeded, logging out.",
                               ])),
                           )
@@ -522,8 +558,8 @@ __d(
                     try {
                       var a = yield e.getCriticalSyncDebugSummary();
                       (o("WALogger").LOG(
-                        R ||
-                          (R = babelHelpers.taggedTemplateLiteralLoose([
+                        L ||
+                          (L = babelHelpers.taggedTemplateLiteralLoose([
                             "[bootstrap][history-sync] history sync debug summary: ",
                             "",
                           ])),
@@ -531,8 +567,8 @@ __d(
                       ),
                         o("WALogger")
                           .ERROR(
-                            L ||
-                              (L = babelHelpers.taggedTemplateLiteralLoose([
+                            E ||
+                              (E = babelHelpers.taggedTemplateLiteralLoose([
                                 "[bootstrap][history-sync] history sync critical data timeout exceeded, logging out.",
                               ])),
                           )
@@ -555,16 +591,16 @@ __d(
                       ));
                   }
                   o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
                         "[bootstrap][history sync] all critical data synced within timeout period",
                       ])),
                   );
                 }),
-                _e * 1e3,
+                fe * 1e3,
               )));
           }),
-          (a.$16 = (function () {
+          (a.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = yield o("WAWebSyncdDb").getSyncActionsRows(
@@ -586,8 +622,8 @@ __d(
                   a = n > 0;
                 return (
                   o("WALogger").LOG(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
                         "[bootstrap][syncd] push name persistence check: source=",
                         ", complete=",
                         ", actionRows=",
@@ -613,8 +649,8 @@ __d(
           (a.setSyncDCriticalDataSyncCompleted = function () {
             this.$7 != null &&
               (o("WALogger").LOG(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "[bootstrap][syncd] critical data completion WAM: session ID lookup start",
                   ])),
               ),
@@ -622,8 +658,8 @@ __d(
                 .MdSyncFieldStatsMeta.getMdSessionId()
                 .then(function (e) {
                   (o("WALogger").LOG(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
                         "[bootstrap][syncd] critical data completion WAM: session ID lookup end",
                       ])),
                   ),
@@ -639,8 +675,8 @@ __d(
                       mdTimestamp: o("WATimeUtils").unixTimeMs(),
                     }).commit(),
                     o("WALogger").LOG(
-                      D ||
-                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
                           "[bootstrap][syncd] critical data completion WAM: commit scheduled",
                         ])),
                     ));
@@ -648,8 +684,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .WARN(
-                      x ||
-                        (x = babelHelpers.taggedTemplateLiteralLoose([
+                      $ ||
+                        ($ = babelHelpers.taggedTemplateLiteralLoose([
                           "[bootstrap][syncd] critical data completion WAM: commit failed",
                         ])),
                     )
@@ -702,20 +738,21 @@ __d(
           (a.syncCriticalData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this;
-              (r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
-                o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
-                  .INITIAL_PAIRING,
-              ),
+              (this.resetPushNameMutationTrace(),
+                r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
+                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
+                    .INITIAL_PAIRING,
+                ),
                 o("WALogger").LOG(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
+                  P ||
+                    (P = babelHelpers.taggedTemplateLiteralLoose([
                       "[bootstrap][history sync] need to sync critical data: true",
                     ])),
                 ));
               var t = yield this.getCriticalSyncDebugSummary();
               (o("WALogger").LOG(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
                     "[bootstrap][history sync] ",
                     "",
                   ])),
@@ -723,8 +760,8 @@ __d(
               ),
                 o("WALogger")
                   .LOG(
-                    N ||
-                      (N = babelHelpers.taggedTemplateLiteralLoose([
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
                         "[bootstrap] syncing my device list",
                       ])),
                   )
@@ -732,7 +769,7 @@ __d(
               var a = o(
                   "WAWebSyncDeviceAdvDeviceListJob",
                 ).syncMyDeviceListJob(),
-                i = new (se || (se = n("Promise")))(function (t, n) {
+                i = new (ue || (ue = n("Promise")))(function (t, n) {
                   o("WAWebAccountSyncJob")
                     .updatePrivacySettings()
                     .then(function () {
@@ -744,8 +781,8 @@ __d(
                   var t = r("getErrorSafe")(e);
                   (o("WALogger")
                     .ERROR(
-                      M ||
-                        (M = babelHelpers.taggedTemplateLiteralLoose([
+                      w ||
+                        (w = babelHelpers.taggedTemplateLiteralLoose([
                           "failed to sync privacy settings",
                         ])),
                     )
@@ -763,7 +800,7 @@ __d(
                         .AccountSyncError,
                     ));
                 });
-              (this.$15(), (this.$3 = fe.InProcess));
+              (this.$16(), (this.$3 = ge.InProcess));
               var l = a
                   .then(function () {
                     return o("WAWebSyncd").markCollectionsForSync([
@@ -775,8 +812,8 @@ __d(
                     n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                       if (
                         (o("WALogger").LOG(
-                          w ||
-                            (w = babelHelpers.taggedTemplateLiteralLoose([
+                          A ||
+                            (A = babelHelpers.taggedTemplateLiteralLoose([
                               "[bootstrap][syncd] critical collection processing completed: state=",
                               ", syncdCritical=",
                               "",
@@ -784,9 +821,10 @@ __d(
                           e.$3,
                           e.$1.syncdCritical,
                         ),
+                        e.logPushNameMutationTrace("post_collection"),
                         !e.$1.syncdCritical)
                       ) {
-                        var t = yield e.$16("post_collection");
+                        var t = yield e.$17("post_collection");
                         t &&
                           (yield e.setSyncDCriticalSynced(),
                           e.setSyncDCriticalDataSyncCompleted());
@@ -803,8 +841,8 @@ __d(
                   var t = r("getErrorSafe")(e);
                   o("WALogger")
                     .ERROR(
-                      A ||
-                        (A = babelHelpers.taggedTemplateLiteralLoose([
+                      F ||
+                        (F = babelHelpers.taggedTemplateLiteralLoose([
                           "failed to sync default disappearing mode",
                         ])),
                     )
@@ -814,22 +852,22 @@ __d(
                       "failed initial sync of default disappearing mode",
                     );
                 });
-              yield se.all([i, l, u]);
+              yield ue.all([i, l, u]);
             });
             function t() {
               return e.apply(this, arguments);
             }
             return t;
           })()),
-          (a.$17 = (function () {
+          (a.$18 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (
                 !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd
               ) {
                 o("WALogger")
                   .LOG(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync][continueProgressiveHistorySyncProcessingV2] Skip processLoop, until main is loaded",
                       ])),
                   )
@@ -842,23 +880,23 @@ __d(
               if (!e) {
                 o("WALogger")
                   .LOG(
-                    O ||
-                      (O = babelHelpers.taggedTemplateLiteralLoose([
+                    B ||
+                      (B = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync][continueProgressiveHistorySyncProcessingV2] no chunk found",
                       ])),
                   )
                   .tags("history-sync");
                 return;
               }
-              var t = o("QPLFlow").startQPLFlow(ce, {
+              var t = o("QPLFlow").startQPLFlow(de, {
                 annotations: { int: { syncType: e.syncType } },
                 timeoutInMs: 12e4,
               });
               try {
                 if (
                   (o("WALogger").LOG(
-                    B ||
-                      (B = babelHelpers.taggedTemplateLiteralLoose([
+                    W ||
+                      (W = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync][continueProgressiveHistorySyncProcessingV2] processLoop picked up chunk",
                       ])),
                   ),
@@ -873,11 +911,11 @@ __d(
                     ? (o("WAWebApiHistorySyncNotification")
                         .recentSyncChunkHandlingTriedCount[n]++,
                       o("WAWebApiHistorySyncNotification")
-                        .recentSyncChunkHandlingTriedCount[n] > ye &&
+                        .recentSyncChunkHandlingTriedCount[n] > Ce &&
                         o("WALogger")
                           .ERROR(
-                            W ||
-                              (W = babelHelpers.taggedTemplateLiteralLoose([
+                            q ||
+                              (q = babelHelpers.taggedTemplateLiteralLoose([
                                 "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync chunk handling retry limit reached",
                               ])),
                           )
@@ -912,11 +950,11 @@ __d(
             }
             return t;
           })()),
-          (a.$18 = (function () {
+          (a.$19 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               o("WALogger").LOG(
-                q ||
-                  (q = babelHelpers.taggedTemplateLiteralLoose([
+                U ||
+                  (U = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync][continueProgressiveHistorySyncProcessingV2] job starts",
                   ])),
               );
@@ -924,21 +962,21 @@ __d(
                 (yield o(
                   "WAWebDbEncryptionKey",
                 ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-                  yield this.$17());
+                  yield this.$18());
               } catch (t) {
                 var e = r("getErrorSafe")(t);
                 o("WALogger")
                   .ERROR(
-                    U ||
-                      (U = babelHelpers.taggedTemplateLiteralLoose([
+                    V ||
+                      (V = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync][continueProgressiveHistorySyncProcessingV2] _progressiveHistorySyncRun failed",
                       ])),
                   )
                   .catching(e);
               }
               o("WALogger").LOG(
-                V ||
-                  (V = babelHelpers.taggedTemplateLiteralLoose([
+                H ||
+                  (H = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync][continueProgressiveHistorySyncProcessingV2] finish main flow",
                   ])),
               );
@@ -948,8 +986,8 @@ __d(
               if ((t == null ? void 0 : t.recentCompleted) === !0) {
                 var n = !0;
                 o("WALogger").LOG(
-                  H ||
-                    (H = babelHelpers.taggedTemplateLiteralLoose([
+                  G ||
+                    (G = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync finishes, check remaining on demand sync notifications",
                     ])),
                 );
@@ -972,8 +1010,8 @@ __d(
                           .HistorySyncScheduleSource.LastProcessedNotification,
                       ))
                     : o("WALogger").LOG(
-                        G ||
-                          (G = babelHelpers.taggedTemplateLiteralLoose([
+                        z ||
+                          (z = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no on demand notifications",
                           ])),
                       ),
@@ -982,8 +1020,8 @@ __d(
                   ))
                 ) {
                   o("WALogger").LOG(
-                    z ||
-                      (z = babelHelpers.taggedTemplateLiteralLoose([
+                    j ||
+                      (j = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync finishes, check remaining full sync notifications",
                       ])),
                   );
@@ -1005,8 +1043,8 @@ __d(
                           .HistorySyncScheduleSource.LastProcessedNotification,
                       ))
                     : o("WALogger").LOG(
-                        j ||
-                          (j = babelHelpers.taggedTemplateLiteralLoose([
+                        K ||
+                          (K = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no on full sync notifications",
                           ])),
                       );
@@ -1018,8 +1056,8 @@ __d(
                 return;
               }
               o("WALogger").LOG(
-                K ||
-                  (K = babelHelpers.taggedTemplateLiteralLoose([
+                Q ||
+                  (Q = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync is incompleted, check remaining recent sync notifications",
                   ])),
               );
@@ -1028,8 +1066,8 @@ __d(
               ).getUnprocessedRecentSyncNotifications();
               if (l.length === 0) {
                 o("WALogger").LOG(
-                  Q ||
-                    (Q = babelHelpers.taggedTemplateLiteralLoose([
+                  X ||
+                    (X = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no recent notifications",
                     ])),
                 );
@@ -1038,8 +1076,8 @@ __d(
               var s = l[0].chunkOrder;
               if (s == null) {
                 o("WALogger").LOG(
-                  X ||
-                    (X = babelHelpers.taggedTemplateLiteralLoose([
+                  Y ||
+                    (Y = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as first recent notification doesn't have chunk order",
                     ])),
                 );
@@ -1050,8 +1088,8 @@ __d(
               ).getLastHistoryRecentSyncedChunk();
               if (
                 (o("WALogger").LOG(
-                  Y ||
-                    (Y = babelHelpers.taggedTemplateLiteralLoose([
+                  J ||
+                    (J = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] next unprocessed recent notification has chunk order: ",
                       ", last chunk order: ",
                       "",
@@ -1062,23 +1100,23 @@ __d(
                 u != null && u.chunkOrder + 1 !== s && s !== 1)
               ) {
                 o("WALogger").LOG(
-                  J ||
-                    (J = babelHelpers.taggedTemplateLiteralLoose([
+                  Z ||
+                    (Z = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no recent notifications with correct chunk order",
                     ])),
                 );
                 return;
               }
               if (
-                (u == null ? void 0 : u.chunkOrder) === this.$8 &&
-                s === this.$9
+                (u == null ? void 0 : u.chunkOrder) === this.$9 &&
+                s === this.$10
               ) {
-                (this.$10 ||
-                  ((this.$10 = !0),
+                (this.$11 ||
+                  ((this.$11 = !0),
                   o("WALogger")
                     .ERROR(
-                      Z ||
-                        (Z = babelHelpers.taggedTemplateLiteralLoose([
+                      ee ||
+                        (ee = babelHelpers.taggedTemplateLiteralLoose([
                           "[history sync] loop detected, unexpected last chunk order",
                         ])),
                     )
@@ -1089,14 +1127,14 @@ __d(
                 return;
               }
               if (
-                ((this.$8 = u == null ? void 0 : u.chunkOrder),
-                (this.$9 = s),
+                ((this.$9 = u == null ? void 0 : u.chunkOrder),
+                (this.$10 = s),
                 o("WAWebApiHistorySyncNotification")
-                  .recentSyncChunkHandlingTriedCount[l[0].msgKey] > ye)
+                  .recentSyncChunkHandlingTriedCount[l[0].msgKey] > Ce)
               ) {
                 o("WALogger").LOG(
-                  ee ||
-                    (ee = babelHelpers.taggedTemplateLiteralLoose([
+                  te ||
+                    (te = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as recent notification with order ",
                       " fails too many times",
                     ])),
@@ -1105,8 +1143,8 @@ __d(
                 return;
               }
               (o("WALogger").LOG(
-                te ||
-                  (te = babelHelpers.taggedTemplateLiteralLoose([
+                ne ||
+                  (ne = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync][continueProgressiveHistorySyncProcessingV2] init next run",
                   ])),
               ),
@@ -1127,12 +1165,12 @@ __d(
                 if (!this.$6 && this.$1.initialChatHistory !== !0)
                   return (
                     o("WALogger").LOG(
-                      ne ||
-                        (ne = babelHelpers.taggedTemplateLiteralLoose([
+                      re ||
+                        (re = babelHelpers.taggedTemplateLiteralLoose([
                           "[history sync][continueProgressiveHistorySyncProcessingV2] Skip job scheduling as initial chat sync is incomplete",
                         ])),
                     ),
-                    (se || (se = n("Promise"))).resolve()
+                    (ue || (ue = n("Promise"))).resolve()
                   );
                 if (
                   e ===
@@ -1145,12 +1183,12 @@ __d(
                   if ((a == null ? void 0 : a.recentCompleted) === !0)
                     return (
                       o("WALogger").LOG(
-                        re ||
-                          (re = babelHelpers.taggedTemplateLiteralLoose([
+                        oe ||
+                          (oe = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync][continueProgressiveHistorySyncProcessingV2] Skip job scheduling as recent sync is complete when starting backend",
                           ])),
                       ),
-                      (se || (se = n("Promise"))).resolve()
+                      (ue || (ue = n("Promise"))).resolve()
                     );
                 }
                 return o("WAWebOrchestratorNonPersistedJob")
@@ -1161,14 +1199,14 @@ __d(
                         function* (n) {
                           return (
                             o("WALogger").LOG(
-                              oe ||
-                                (oe = babelHelpers.taggedTemplateLiteralLoose([
+                              ae ||
+                                (ae = babelHelpers.taggedTemplateLiteralLoose([
                                   "[history sync][continueProgressiveHistorySyncProcessingV2] job is scheduled, source: ",
                                   "",
                                 ])),
                               e,
                             ),
-                            t.$18()
+                            t.$19()
                           );
                         },
                       );
@@ -1187,8 +1225,8 @@ __d(
                     var t = r("getErrorSafe")(e);
                     o("WALogger")
                       .ERROR(
-                        ae ||
-                          (ae = babelHelpers.taggedTemplateLiteralLoose([
+                        ie ||
+                          (ie = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync][continueProgressiveHistorySyncProcessingV2] error while running job",
                           ])),
                       )
@@ -1213,36 +1251,29 @@ __d(
           }),
           t
         );
-      })(),
-      be = new Ce();
+      })();
+    function ve() {
+      return {
+        criticalBlockMutations: 0,
+        criticalUnblockLowMutations: 0,
+        handlerStarted: 0,
+        handlerSuccess: 0,
+        handlerFailed: 0,
+      };
+    }
+    var Se = new be();
     (o("WAWebBackendEventBus").BackendEventBus.onInitialChatHistorySynced(
       n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         (o("WAWebAppTracker").AppTracker.stop(
           o("WAWebAppTracker").AppTrackerType.CriticalSync,
         ),
-          yield be.setInitialChatHistorySynced());
+          yield Se.setInitialChatHistorySynced());
       }),
     ),
       o("WAWebBackendEventBus").BackendEventBus.onLogout(function () {
-        be.initState();
+        Se.initState();
       }),
       o("WAWebBackendEventBus").BackendEventBus.onRecentChatHistorySynced(
-        function () {
-          var e = o("WAWebJobOrchestrator").getInstance();
-          (o("WALogger").LOG(
-            ie ||
-              (ie = babelHelpers.taggedTemplateLiteralLoose([
-                "[history sync][continueProgressiveHistorySyncProcessingV2] clearing bucket queue for type ",
-                "",
-              ])),
-            o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
-          ),
-            e.clearQueueByPriority(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
-            ));
-        },
-      ),
-      o("WAWebBackendEventBus").BackendEventBus.onFullChatHistorySynced(
         function () {
           var e = o("WAWebJobOrchestrator").getInstance();
           (o("WALogger").LOG(
@@ -1257,9 +1288,25 @@ __d(
               o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
             ));
         },
+      ),
+      o("WAWebBackendEventBus").BackendEventBus.onFullChatHistorySynced(
+        function () {
+          var e = o("WAWebJobOrchestrator").getInstance();
+          (o("WALogger").LOG(
+            se ||
+              (se = babelHelpers.taggedTemplateLiteralLoose([
+                "[history sync][continueProgressiveHistorySyncProcessingV2] clearing bucket queue for type ",
+                "",
+              ])),
+            o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+          ),
+            e.clearQueueByPriority(
+              o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+            ));
+        },
       ));
-    var ve = be;
-    l.default = ve;
+    var Re = Se;
+    l.default = Re;
   },
   98,
 );

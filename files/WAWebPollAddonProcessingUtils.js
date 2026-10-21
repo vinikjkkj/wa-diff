@@ -46,14 +46,17 @@ __d(
       );
     }
     function m(e, t, n) {
-      if (e != null && t != null && t * s > e) throw n();
+      if (p(e, t)) throw n();
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function p(e, t) {
+      return e != null && t != null && t * s > e;
     }
-    function _() {
+    function _(e, t, n) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = { type: e, encryptedAddOn: t },
             a = yield o("WAWebAddonEncryption").decryptAddOn(r, n);
           return {
@@ -64,13 +67,14 @@ __d(
             ),
           };
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
     ((l.buildAddonParentMap = u),
       (l.settleAddonResults = c),
       (l.assertPollNotPastEndTime = m),
-      (l.decryptPollAddonPayload = p));
+      (l.isPastPollEndTime = p),
+      (l.decryptPollAddonPayload = _));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebRenderInteractivePreviewIcon",
   [
+    "WAWebBookingConfirmationGating",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
@@ -66,12 +67,20 @@ __d(
                   : c ===
                       r("WAWebInteractiveMessagesNativeFlowName")
                         .BOOKING_CONFIRMATION
-                    ? s.jsx(r("WDSIconIcEventFilled.react"), {
-                        iconXstyle: [u.container, u.marginTop2],
-                        width: 14,
-                        height: 14,
-                        testid: "booking-confirmation-preview-icon",
-                      })
+                    ? o(
+                        "WAWebBookingConfirmationGating",
+                      ).isBookingConfirmationEnabled()
+                      ? s.jsx(r("WDSIconIcEventFilled.react"), {
+                          iconXstyle: [u.container, u.marginTop2],
+                          width: 14,
+                          height: 14,
+                          testid: "booking-confirmation-preview-icon",
+                        })
+                      : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                          width: 20,
+                          height: 20,
+                          testid: "message-fail",
+                        })
                     : c ===
                         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
                       ? null

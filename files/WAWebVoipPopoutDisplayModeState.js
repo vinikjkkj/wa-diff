@@ -1,22 +1,25 @@
 __d(
   "WAWebVoipPopoutDisplayModeState",
-  ["WALogger", "WAWebEventEmitter"],
+  ["SecurePostMessage", "WALogger", "WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = "VoipWindowModeChanged",
       u = "compact",
-      c = new (r("WAWebEventEmitter"))(),
-      d = "normal";
-    function m() {
-      return d;
+      c = "VoipCompactContentShape",
+      d = new (r("WAWebEventEmitter"))(),
+      m = new (r("WAWebEventEmitter"))(),
+      p = "normal",
+      _ = null;
+    function f() {
+      return p;
     }
-    function p() {
-      return d === "compact";
+    function g() {
+      return p === "compact";
     }
-    function _(t) {
-      d !== t &&
-        ((d = t),
+    function h(t) {
+      p !== t &&
+        ((p = t),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -25,12 +28,33 @@ __d(
             ])),
           t,
         ),
-        c.trigger("change", t));
+        d.trigger("change", t));
     }
-    function f() {
-      _("normal");
+    function y() {
+      h("normal");
     }
-    function g(e) {
+    function C() {
+      return _;
+    }
+    function b(e) {
+      _ !== e && ((_ = e), m.trigger("change", e));
+    }
+    function v(e, t) {
+      return e
+        ? t != null && t < 1
+          ? "video-portrait"
+          : "video-landscape"
+        : "audio";
+    }
+    function S(e, t) {
+      e != null &&
+        r("SecurePostMessage").sendMessageToSpecificOrigin(
+          e,
+          { messageType: c, shape: t },
+          window.location.origin,
+        );
+    }
+    function R(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.waVoipWindowMode;
       return typeof t == "string"
@@ -43,12 +67,17 @@ __d(
             : "normal"
           : null;
     }
-    ((l.WAWebVoipPopoutDisplayModeEmitter = c),
-      (l.getVoipPopoutDisplayMode = m),
-      (l.getIsVoipPopoutCompact = p),
-      (l.setVoipPopoutDisplayMode = _),
-      (l.resetVoipPopoutDisplayMode = f),
-      (l.parseNativeWindowModeMessage = g));
+    ((l.WAWebVoipPopoutDisplayModeEmitter = d),
+      (l.WAWebVoipPeerVideoAspectRatioEmitter = m),
+      (l.getVoipPopoutDisplayMode = f),
+      (l.getIsVoipPopoutCompact = g),
+      (l.setVoipPopoutDisplayMode = h),
+      (l.resetVoipPopoutDisplayMode = y),
+      (l.getPeerVideoAspectRatio = C),
+      (l.setPeerVideoAspectRatio = b),
+      (l.getVoipCompactContentShape = v),
+      (l.postVoipCompactContentShape = S),
+      (l.parseNativeWindowModeMessage = R));
   },
   98,
 );

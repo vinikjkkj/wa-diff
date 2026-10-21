@@ -106,7 +106,7 @@ __d(
         k = g[9],
         I = g[10],
         T = o("WAWebFrontendMsgGetters").getChatByMsgKey(p, I),
-        D = r("useWAWebIsBizBroadcastProChat")(T),
+        D = r("useWAWebIsBizBroadcastProChat")(T.id),
         x = r("useWAWebConversationPanelCanCompose")(T),
         $ = x[0],
         P = r("useWAWebIsMsgTrusted")(p),

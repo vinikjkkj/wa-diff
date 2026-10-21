@@ -4,6 +4,7 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
+    "WAWebPollVoteTCMetadata",
     "WAWebPollsGatingUtils",
     "WAWebPollsValidationError",
     "WAWebProcessBaseMsgInfo",
@@ -19,36 +20,17 @@ __d(
           "[Poll][AddOption] Missing pollAddOptionMessage",
         ),
         l = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-        s = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
+        u = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
           i.pollCreationMessageKey,
           l,
         );
-      if (s == null || !s.equals(n.id) || !s.equals(t.parentMsgKey))
+      if (u == null || !u.equals(n.id) || !u.equals(t.parentMsgKey))
         throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
           o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
             .PARENT_KEY_MISMATCH,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var u = i.addOption;
-      if (u == null)
-        throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
-          o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
-            .MISSING_POLL_OPTION,
-          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
-        );
-      var c = u.optionName;
-      if (
-        c == null ||
-        c.length === 0 ||
-        c.length >
-          o("WAWebPollsGatingUtils")
-            .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES
-      )
-        throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
-          o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
-            .INVALID_OPTION,
-          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
-        );
+      var c = s(i.addOption);
       return babelHelpers.extends(
         {},
         o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
@@ -69,10 +51,38 @@ __d(
           null && {
           messageSecret: new Uint8Array(e.messageContextInfo.messageSecret),
         },
-        { pollAddedOption: { name: c, localId: -1 } },
+        {
+          pollAddedOption: { name: c, localId: -1 },
+          pollUpdateMessageMetadata: o(
+            "WAWebPollVoteTCMetadata",
+          ).pollVoteTCMetadataFromProto(i.metadata),
+        },
       );
     }
-    l.protobufToPollAddOptionDecryptedMsgData = e;
+    function s(e) {
+      if (e == null)
+        throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
+          o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
+            .MISSING_POLL_OPTION,
+          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
+        );
+      var t = e.optionName;
+      if (
+        t == null ||
+        t.length === 0 ||
+        t.length >
+          o("WAWebPollsGatingUtils")
+            .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES
+      )
+        throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
+          o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
+            .INVALID_OPTION,
+          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
+        );
+      return t;
+    }
+    ((l.protobufToPollAddOptionDecryptedMsgData = e),
+      (l.getValidatedPollAddOptionName = s));
   },
   98,
 );

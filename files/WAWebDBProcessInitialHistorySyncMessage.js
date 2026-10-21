@@ -21,6 +21,7 @@ __d(
     "WAWebGroupUnreadMessageType",
     "WAWebLinkify",
     "WAWebMsgGetters",
+    "WAWebMsgStoreExtensions",
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebQuarantineDataStore",
@@ -343,16 +344,17 @@ __d(
               throw e;
             })
             .then(function () {
-              (o("WALogger")
-                .LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][initial bootstrap] storage completed, ",
-                      "",
-                    ])),
-                  a,
-                )
-                .tags("history-sync"),
+              return (
+                o("WALogger")
+                  .LOG(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync][initial bootstrap] storage completed, ",
+                        "",
+                      ])),
+                    a,
+                  )
+                  .tags("history-sync"),
                 r("WAWeb-dexie").ignoreTransaction(function () {
                   o("WAWebSchemaFtsIndexingQueue")
                     .getFtsIndexingQueueTable()
@@ -366,7 +368,13 @@ __d(
                         .ftsClient.index()
                         .catch(r("WAWebNoop"));
                     });
-                }));
+                }),
+                o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(
+                  Object.keys(t).flatMap(function (e) {
+                    return t[e].msgs;
+                  }),
+                )
+              );
             })
             .catch(function (e) {
               o("WALogger").WARN(

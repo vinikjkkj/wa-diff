@@ -28,7 +28,8 @@ __d(
         r = e.inviteCodeError,
         a = e.isServerSentInvite,
         i = a === void 0 ? !1 : a,
-        l = e.validInviteCode;
+        l = e.sessionId,
+        s = e.validInviteCode;
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
@@ -43,16 +44,19 @@ __d(
                   .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
             companionInviteOrigin: n,
             companionInviteSessionId:
-              (t = o(
-                "WAWebOutContactInviteJourney",
-              ).getOutContactInviteSessionId()) != null
+              (t =
+                l != null
+                  ? l
+                  : o(
+                      "WAWebOutContactInviteJourney",
+                    ).getOutContactInviteSessionId()) != null
                 ? t
                 : o(
                     "WAWebOutContactInviteJourney",
                   ).createCompanionInviteSessionId(),
             companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
               .COMPANION_INVITE_ACTION_TYPE.INVITE_SEND,
-            companionValidInviteCode: l,
+            companionValidInviteCode: s,
           },
           r != null ? { companionInviteCodeError: r } : {},
         ),
@@ -62,7 +66,11 @@ __d(
       var t = e.entryPoint,
         n = e.isServerSentInvite,
         r = n === void 0 ? !1 : n,
-        a = o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
+        a = e.sessionId,
+        i =
+          a != null
+            ? a
+            : o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
@@ -79,7 +87,7 @@ __d(
             companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
               .COMPANION_INVITE_ACTION_TYPE.INVITE_INTENT,
           },
-          a != null ? { companionInviteSessionId: a } : {},
+          i != null ? { companionInviteSessionId: i } : {},
         ),
       ).commit();
     }

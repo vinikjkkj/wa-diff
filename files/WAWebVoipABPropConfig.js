@@ -175,6 +175,11 @@ __d(
           type: "bool",
         },
         {
+          abProp: "enable_1on1_call_transfer_switchable",
+          wasmKey: "enable_1on1_call_transfer_switchable",
+          type: "bool",
+        },
+        {
           abProp: "web_voip_ml_disable_threadpool",
           wasmKey: "web_voip_ml_disable_threadpool",
           type: "bool",

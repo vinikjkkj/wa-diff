@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebHatchConfirmPublishDialog.react",
+    "WAWebHatchLogging",
     "WAWebHatchSpacePublish",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -14,57 +15,82 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react")),
-      c = 24e4;
-    function d(e, t, n) {
-      return m(e, t, null, n);
-    }
+      c = 24e4,
+      d = {
+        disclosure: {
+          confirmed: "artifact_publish_consent_tap",
+          declined: "artifact_publish_consent_cancel",
+          shown: "artifact_publish_consent_impression",
+        },
+        plain: {
+          confirmed: "artifact_publish_tap",
+          declined: null,
+          shown: "artifact_publish_sheet_impression",
+        },
+      };
     function m(e, t, n, r) {
-      return p.apply(this, arguments);
+      return p(e, t, n, null, r);
     }
-    function p() {
+    function p(e, t, n, r, o) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (!(yield _(t, n, r))) return null;
-            var o = yield g(e, n, r);
-            return o == null
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, o) {
+            if (!(yield f(t, r, n, o))) return null;
+            var a = yield h(e, r, o);
+            return a == null
               ? null
-              : o.kind === "needs_confirmation"
-                ? m(e, t, o.token, r)
-                : o.kind === "published"
-                  ? o.url
+              : a.kind === "needs_confirmation"
+                ? p(e, t, n, a.token, o)
+                : a.kind === "published"
+                  ? a.url
                   : !1;
           },
         )),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t, n, r) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (n.aborted) return !1;
-          n.addEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
-          try {
-            var r = yield o(
-              "WAWebHatchConfirmPublishDialog.react",
-            ).confirmHatchSpacePublish(e, t == null ? "plain" : "disclosure");
-            return r && !n.aborted;
-          } finally {
-            n.removeEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
-          }
-        })),
-        f.apply(this, arguments)
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            if (r.aborted) return !1;
+            var a = t == null ? "plain" : "disclosure",
+              i = d[a];
+            (o("WAWebHatchLogging").logHatchArtifact(i.shown, n),
+              r.addEventListener("abort", o("WDSDialogBridge").closeWDSDialog));
+            try {
+              var l = yield o(
+                "WAWebHatchConfirmPublishDialog.react",
+              ).confirmHatchSpacePublish(e, a);
+              if (r.aborted) return !1;
+              var s = l ? i.confirmed : i.declined;
+              return (
+                s != null && o("WAWebHatchLogging").logHatchArtifact(s, n),
+                l
+              );
+            } finally {
+              r.removeEventListener(
+                "abort",
+                o("WDSDialogBridge").closeWDSDialog,
+              );
+            }
+          },
+        )),
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = o("WAWebToast.react").genId("hatch-space-publishing");
           o("WAWebToastManager").ToastManager.open(
             u.jsx(o("WAWebToast.react").Toast, {
@@ -79,10 +105,10 @@ __d(
             o("WAWebToastManager").ToastManager.close(r);
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.publishHatchSpaceWithConsent = d;
+    l.publishHatchSpaceWithConsent = m;
   },
   226,
 );

@@ -62,6 +62,7 @@ __d(
         "HistorySyncInProgress",
         "PrivacyScreenCustomize",
         "PrivacyScreenBlurPreset",
+        "PrivacyCalls",
       ]),
       l = 30 * 1e3;
     ((i.SettingsSteps = e), (i.WAIT_FOR_PRIVACY_LIST_SYNC_TIMEOUT_MS = l));

@@ -86,7 +86,7 @@ __d(
         var y = c.jsx(
           r("WAWebAddGroupParticipantGroupHistoryContextProvider.react"),
           {
-            chat: n,
+            chatId: n.id,
             enterFlowTimestamp: f,
             messageCountPromise: g,
             children: c.jsx(r("WAWebAddGroupParticipantFlow.react"), {

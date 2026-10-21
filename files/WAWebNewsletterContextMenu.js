@@ -54,7 +54,7 @@ __d(
         R.push(
           u.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chat: b },
+            { chatId: b.id },
             "Archive",
           ),
         ),
@@ -96,13 +96,13 @@ __d(
         n = e.chat,
         a;
       return (
-        t[0] !== n
+        t[0] !== n.id
           ? ((a = u.jsx(
               r("WAWebChatContextMenuItemPin.react"),
-              { chat: n },
+              { chatId: n.id },
               "pin",
             )),
-            (t[0] = n),
+            (t[0] = n.id),
             (t[1] = a))
           : (a = t[1]),
         a
@@ -159,7 +159,7 @@ __d(
     function _(e) {
       var t = o("react-compiler-runtime").c(7),
         n = e.chat,
-        a = o("useWAWebNewsletterMuteState").useNewsletterMuteState(n),
+        a = o("useWAWebNewsletterMuteState").useNewsletterMuteState(n.id),
         i = a.isMuted,
         l = a.toggleMuteState,
         c;
@@ -183,13 +183,13 @@ __d(
       var d = c,
         m;
       return (
-        t[3] !== n || t[4] !== d || t[5] !== i
+        t[3] !== n.id || t[4] !== d || t[5] !== i
           ? ((m = u.jsx(
               r("WAWebMuteMenuItem.react"),
-              { onMute: d, isMuted: i, chat: n },
+              { onMute: d, isMuted: i, chatId: n.id },
               "mute",
             )),
-            (t[3] = n),
+            (t[3] = n.id),
             (t[4] = d),
             (t[5] = i),
             (t[6] = m))
@@ -202,11 +202,11 @@ __d(
         n = e.chat,
         a;
       return (
-        t[0] !== n
+        t[0] !== n.id
           ? ((a = u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), {
-              chat: n,
+              chatId: n.id,
             })),
-            (t[0] = n),
+            (t[0] = n.id),
             (t[1] = a))
           : (a = t[1]),
         a

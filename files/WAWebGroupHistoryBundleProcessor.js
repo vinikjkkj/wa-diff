@@ -11,6 +11,7 @@ __d(
     "WAWebAddonProcessMsgs",
     "WAWebAddonProcessMsgsUtils",
     "WAWebApiFilterAndReplaceMessages",
+    "WAWebAssociationProcessor",
     "WAWebBackendApi",
     "WAWebCreateNackFromStanza",
     "WAWebDBEncryptMultipleMsgs",
@@ -29,12 +30,15 @@ __d(
     "WAWebGroupHistorySupportedMessageTypesUtil",
     "WAWebHandleOrphansForNewMsg",
     "WAWebLidMigrationUtils",
+    "WAWebMessageAssociation.flow",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessagingGatingUtils",
     "WAWebMsgEphemerality",
     "WAWebMsgHistorySyncExtensions",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
+    "WAWebMsgStoreExtensions",
+    "WAWebMsgType",
     "WAWebParseWebMessageInfoApi",
     "WAWebProcessBaseMsgInfo",
     "WAWebProtobufMsgKeyUtils",
@@ -71,13 +75,26 @@ __d(
       R,
       L,
       E,
-      k = 3;
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+      k = 3,
+      I = new Map([
+        [
+          o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
+            .POLL_ADD_OPTION,
+          function (e) {
+            var t;
+            return (
+              ((t = e.message) == null ? void 0 : t.pollAddOptionMessage) !=
+              null
+            );
+          },
+        ],
+      ]);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = 0,
             l = 0;
           try {
@@ -159,8 +176,9 @@ __d(
               );
             }
             var L = o("WAWebProcessBaseMsgInfo").msgToBaseMsgInfo(v),
-              k = yield (E || (E = n("Promise"))).all([
-                D({
+              k = A(y),
+              I = yield (E || (E = n("Promise"))).all([
+                x({
                   baseMessage: L,
                   bundleMessageKey: e.id,
                   bundleProtoMessages: y.messages,
@@ -168,7 +186,7 @@ __d(
                   validationCtx: S,
                 }),
                 l > 0
-                  ? D({
+                  ? x({
                       baseMessage: L,
                       bundleMessageKey: e.id,
                       bundleProtoMessages: y.outOfWindowPinnedMessages,
@@ -181,19 +199,36 @@ __d(
                       addonPromises: [],
                       reportingInfoRows: [],
                     },
+                k.length > 0
+                  ? x({
+                      baseMessage: L,
+                      bundleMessageKey: e.id,
+                      bundleProtoMessages: k,
+                      chatId: a,
+                      validationCtx: null,
+                    })
+                  : {
+                      parsedMessages: [],
+                      addonPromises: [],
+                      reportingInfoRows: [],
+                    },
               ]),
-              I = k[0],
-              T = I.addonPromises,
-              x = I.parsedMessages,
-              $ = I.reportingInfoRows,
-              P = k[1],
-              N = P.addonPromises,
-              M = P.parsedMessages,
-              w = P.reportingInfoRows,
-              A = [].concat(x, M),
-              F = [].concat(T, N),
-              O = [].concat($, w);
-            if (A.length === 0) {
+              T = I[0],
+              D = T.addonPromises,
+              $ = T.parsedMessages,
+              P = T.reportingInfoRows,
+              N = I[1],
+              w = N.addonPromises,
+              F = N.parsedMessages,
+              O = N.reportingInfoRows,
+              B = I[2],
+              W = B.addonPromises,
+              q = B.parsedMessages,
+              U = B.reportingInfoRows,
+              V = [].concat($, F, q),
+              H = [].concat(D, w, W),
+              G = [].concat(P, O, U);
+            if (V.length === 0) {
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -209,22 +244,30 @@ __d(
                   " msgs (",
                   " OOW pins), injecting",
                 ])),
-              A.length,
-              M.length,
+              V.length,
+              F.length,
             );
-            var B = yield q(A),
-              W = yield V(B, a),
-              U = yield G(F, L),
-              H =
-                W.length < y.messages.length + l
+            var j = yield z(V),
+              Q = new Set(
+                q.map(function (e) {
+                  return e.id.toString();
+                }),
+              ),
+              Y = M(yield K(j, a), Q),
+              Z = yield X(H, L),
+              ee =
+                Y.filter(function (e) {
+                  return !Q.has(e.id.toString());
+                }).length <
+                y.messages.length + l
                   ? o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED_PARTIAL
                   : o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED;
-            if ((yield j(W, a, e.id, H), O.length > 0))
+            if ((yield J(Y, a, e.id, ee), G.length > 0))
               try {
-                var z = new Set(
-                    W.flatMap(function (e) {
+                var te = new Set(
+                    Y.flatMap(function (e) {
                       var t = [e.id.toString()];
                       return (
                         e.protocolMessageKey != null &&
@@ -233,13 +276,13 @@ __d(
                       );
                     }),
                   ),
-                  K = O.filter(function (e) {
-                    return z.has(e.msgKey);
+                  ne = G.filter(function (e) {
+                    return te.has(e.msgKey);
                   });
-                K.length > 0 &&
+                ne.length > 0 &&
                   (yield o(
                     "WAWebDBReportingTokenUtils",
-                  ).handleAddReportingInfos(K));
+                  ).handleAddReportingInfos(ne));
               } catch (e) {
                 o("WALogger").WARN(
                   d ||
@@ -250,32 +293,33 @@ __d(
                   r("WAWebSerializeError")(e),
                 );
               }
-            (W.length > 0 &&
-              (yield o("WAWebBackendApi").frontendSendAndReceive(
-                "hydrateReactionsForMessages",
-                {
-                  messageIds: W.map(function (e) {
-                    return e.id.toString();
+            (yield o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(Y),
+              Y.length > 0 &&
+                (yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "hydrateReactionsForMessages",
+                  {
+                    messageIds: Y.map(function (e) {
+                      return e.id.toString();
+                    }),
+                  },
+                ),
+                yield (E || (E = n("Promise"))).all(
+                  Y.map(function (e) {
+                    return o(
+                      "WAWebHandleOrphansForNewMsg",
+                    ).handleOrphansForNewMsg(e);
                   }),
-                },
-              ),
-              yield (E || (E = n("Promise"))).all(
-                W.map(function (e) {
-                  return o(
-                    "WAWebHandleOrphansForNewMsg",
-                  ).handleOrphansForNewMsg(e);
-                }),
-              )),
-              U.length > 0 &&
+                )),
+              Z.length > 0 &&
                 (yield o("WAWebAddonProcessMsgs").processMsgsAndGetOrphans(
-                  U,
+                  Z,
                   null,
                   o("WAWebAddonConstants").AddonProcessMode
                     .ProcessGroupHistoryBundle,
                 )),
               yield o(
                 "WAWebUpdateMessageHistoryBundleState",
-              ).updateGroupHistoryBundleState(e.id, H));
+              ).updateGroupHistoryBundleState(e.id, ee));
           } catch (t) {
             if (
               (o("WAWebBackendApi").frontendFireAndForget(
@@ -321,15 +365,15 @@ __d(
                     .sendLogs("group-history-bundle-processing-failed"));
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = e.baseMessage,
               a = e.bundleMessageKey,
@@ -357,41 +401,41 @@ __d(
           ) {
             var x = i[D];
             try {
-              if (T && M(x)) {
-                var F, O;
-                w(
+              if (T && B(x)) {
+                var $, N;
+                W(
                   k,
-                  (F = (O = x.key) == null ? void 0 : O.id) != null
-                    ? F
+                  ($ = (N = x.key) == null ? void 0 : N.id) != null
+                    ? $
                     : "unknown",
                 );
                 continue;
               }
-              var q = $(x, t, a, T);
-              if (q == null) continue;
-              if (T && !N(q)) {
-                w(L, q.id);
+              var M = P(x, t, a, T);
+              if (M == null) continue;
+              if (T && !O(M)) {
+                W(L, M.id);
                 continue;
               }
-              if (!P(q, l)) {
-                w(v, q.id);
+              if (!F(M, l)) {
+                W(v, M.id);
                 continue;
               }
-              if (B(q, b)) {
-                w(S, q.id);
+              if (H(M, b)) {
+                W(S, M.id);
                 continue;
               }
-              if (!u && W(q, b)) {
-                w(R, q.id);
+              if (!u && G(M, b)) {
+                W(R, M.id);
                 continue;
               }
               (c != null &&
-                I.push(A({ index: D, parsedMsg: q, validationCtx: c })),
-                d.push(q),
+                I.push(q({ index: D, parsedMsg: M, validationCtx: c })),
+                d.push(M),
                 m.push(
                   o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
                     webMsgInfo: x,
-                    parsedWebMsgInfo: q,
+                    parsedWebMsgInfo: M,
                     isFromCag: !1,
                   }),
                 ));
@@ -408,8 +452,8 @@ __d(
               );
             }
           }
-          for (var U of yield (E || (E = n("Promise"))).all(I))
-            U != null && p.push(U);
+          for (var w of yield (E || (E = n("Promise"))).all(I))
+            w != null && p.push(w);
           return (
             L.count > 0 &&
               o("WALogger").WARN(
@@ -473,10 +517,10 @@ __d(
             { parsedMessages: d, addonPromises: m, reportingInfoRows: p }
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(t, n, r, a) {
+    function P(t, n, r, a) {
       var i,
         l,
         s,
@@ -622,6 +666,7 @@ __d(
                 ? o("WAWebAck").ACK.RECEIVED
                 : o("WAWebAck").ACK.READ,
             hsmTag: a ? void 0 : L.hsmTag,
+            viewMode: N(L),
             groupHistoryIndividualMessageInfo: {
               bundleMessageKey: r,
               bundleSender: E,
@@ -629,29 +674,76 @@ __d(
             },
           });
     }
-    function P(e, t) {
+    function N(e) {
+      var t, n;
+      return o("WAWebMessageAssociation.flow").isAssociatedMsg(e) &&
+        (t =
+          (n = o(
+            "WAWebAssociationProcessor",
+          ).getAssociationProcessorByAssociationType(e.associationType)) == null
+            ? void 0
+            : n.groupHistoryViewMode) != null
+        ? t
+        : e.viewMode;
+    }
+    function M(e, t) {
+      var n = new Set(
+        e
+          .filter(function (e) {
+            return !w(e, t);
+          })
+          .map(function (e) {
+            return e.id.toString();
+          }),
+      );
+      return e.filter(function (e) {
+        return (
+          !w(e, t) ||
+          (t.has(e.id.toString()) &&
+            e.parentMsgKey != null &&
+            n.has(e.parentMsgKey.toString()))
+        );
+      });
+    }
+    function w(e, t) {
+      return (
+        t.has(e.id.toString()) ||
+        e.type === o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED
+      );
+    }
+    function A(e) {
+      var t;
+      return ((t = e.uncountedAssociatedMessageLists) != null ? t : []).flatMap(
+        function (e) {
+          var t,
+            n = e.associationType != null ? I.get(e.associationType) : null;
+          return n != null ? ((t = e.messages) != null ? t : []).filter(n) : [];
+        },
+      );
+    }
+    function F(e, t) {
       return e.id.remote.toString() === t.toString();
     }
-    function N(e) {
+    function O(e) {
       return r("WAWebGroupHistorySupportedMessageTypesUtil")(e.type)
         ? e.isFromTemplate !== !0 && e.isDynamicReplyButtonsMsg !== !0
         : !1;
     }
-    function M(e) {
+    function B(e) {
       var t;
       return (
         ((t = e.message) == null ? void 0 : t.conditionalRevealMessage) != null
       );
     }
-    function w(e, t) {
+    function W(e, t) {
       (e.count++, e.ids.length < k && e.ids.push(t.toString()));
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function F() {
+    function U() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.index,
             n = e.parsedMsg,
             a = e.validationCtx,
@@ -663,7 +755,7 @@ __d(
               ).validateAndBuildReportingInfoRow(n, i, a),
               s = l.failureReason,
               u = l.row;
-            if (s != null && O(s)) {
+            if (s != null && V(s)) {
               var c = o("WAWebReportingTokenUtils").genDebugMsgInfo(n);
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
@@ -697,10 +789,10 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function O(e) {
+    function V(e) {
       return (
         e !==
           o("WAWebWamEnumReportingTokenValidationFailureReason")
@@ -714,7 +806,7 @@ __d(
         ).isReportingTokenValidationFailureDebugPlaceholderEnabled()
       );
     }
-    function B(e, t) {
+    function H(e, t) {
       var n,
         r = e.ephemeralDuration;
       if (r == null || r === 0) return !1;
@@ -722,7 +814,7 @@ __d(
         i = a + r;
       return !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState) && i <= t;
     }
-    function W(e, t) {
+    function G(e, t) {
       var n,
         r = (n = e.t) != null ? n : 0;
       if (r === 0) return !1;
@@ -731,12 +823,12 @@ __d(
       );
       return r + 2 * a < t;
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function U() {
+    function j() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = e.map(function (e) {
                 return e.id.toString();
@@ -763,15 +855,15 @@ __d(
             return !n[t];
           });
         })),
-        U.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function V(e, t) {
-      return H.apply(this, arguments);
+    function K(e, t) {
+      return Q.apply(this, arguments);
     }
-    function H() {
+    function Q() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
           if (n == null) return e;
           var r = n.ephemeralDuration;
@@ -784,15 +876,15 @@ __d(
               : e;
           });
         })),
-        H.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function G(e, t) {
-      return z.apply(this, arguments);
+    function X(e, t) {
+      return Y.apply(this, arguments);
     }
-    function z() {
+    function Y() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r,
             a = yield (E || (E = n("Promise"))).all(e),
             i = (r = []).concat.apply(r, a);
@@ -811,15 +903,15 @@ __d(
             return babelHelpers.extends({}, e, r, { id: n });
           });
         })),
-        z.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function j(e, t, n, r) {
-      return K.apply(this, arguments);
+    function J(e, t, n, r) {
+      return Z.apply(this, arguments);
     }
-    function K() {
+    function Z() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i = null;
             try {
@@ -841,7 +933,7 @@ __d(
                   "WAWebApiFilterAndReplaceMessages",
                 ).filterAndReplaceMessages(e),
                 f = _.newMsgs,
-                g = Q(f, p == null ? void 0 : p.t),
+                g = ee(f, p == null ? void 0 : p.t),
                 h = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
                   g,
                   !1,
@@ -897,7 +989,7 @@ __d(
                         .MessageHistoryBundleProcessState.INJECTED_PARTIAL,
                   },
                 ),
-                yield X(g, t, i));
+                yield te(g, t, i));
             } catch (e) {
               if (e instanceof r("WAWeb-dexie").BulkError) {
                 var y = i != null ? i.anchorInChatMsgId - 1 : null,
@@ -978,41 +1070,43 @@ __d(
             }
           },
         )),
-        K.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function Q(e, t) {
+    function ee(e, t) {
       var n = t != null ? t : 0;
       return e.filter(function (e) {
         var t;
         return ((t = e.t) != null ? t : 0) > n;
       });
     }
-    function X(e, t, n) {
-      return Y.apply(this, arguments);
+    function te(e, t, n) {
+      return ne.apply(this, arguments);
     }
-    function Y() {
+    function ne() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i =
-              n != null && (a = n.anchorMessage) != null && a.id
-                ? r("WAWebMsgKey").fromString(n.anchorMessage.id)
-                : null;
-          yield o("WAWebBackendApi").frontendSendAndReceive(
-            "processMultipleMessages",
-            {
-              chatId: t,
-              msgObjs: e.reverse(),
-              meta: { add: "before", isHistory: !0, anchorMsgKey: i },
-              processMessagesOrigin: "messageHistoryBundleProcess",
-            },
-          );
-        })),
-        Y.apply(this, arguments)
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            var a,
+              i =
+                n != null && (a = n.anchorMessage) != null && a.id
+                  ? r("WAWebMsgKey").fromString(n.anchorMessage.id)
+                  : null;
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "processMultipleMessages",
+              {
+                chatId: t,
+                msgObjs: e.reverse(),
+                meta: { add: "before", isHistory: !0, anchorMsgKey: i },
+                processMessagesOrigin: "messageHistoryBundleProcess",
+              },
+            );
+          },
+        )),
+        ne.apply(this, arguments)
       );
     }
-    l.processMessageHistoryBundle = I;
+    l.processMessageHistoryBundle = T;
   },
   98,
 );

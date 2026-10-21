@@ -2,7 +2,6 @@ __d(
   "WAWebVideoDashManifestCache",
   [
     "Promise",
-    "WATimeUtils",
     "WAWebVideoDashManifestErrors",
     "WAWebVideoDashManifestFetcher",
     "asyncToGeneratorRuntime",
@@ -10,9 +9,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = 10,
-      u = 3,
-      c = 500,
-      d = 300,
+      u = 5e3,
+      c = 3,
+      d = 500,
       m = new Map(),
       p = new Map();
     function _(t) {
@@ -29,13 +28,14 @@ __d(
       var l = g({ attempt: 1, timeoutMs: r, url: o }).then(
         function (e) {
           return (
-            m.delete(o),
-            e.kind === "OK" && b({ manifestXml: e.manifestXml, url: o }),
+            m.get(o) === l &&
+              (m.delete(o),
+              e.kind === "OK" && S({ manifestXml: e.manifestXml, url: o })),
             e
           );
         },
         function (e) {
-          throw (m.delete(o), e);
+          throw (m.get(o) === l && m.delete(o), e);
         },
       );
       return (m.set(o, l), l);
@@ -63,9 +63,9 @@ __d(
               "WAWebVideoDashManifestFetcher",
             ).fetchVideoDashManifest({ timeoutMs: n, url: r });
           } catch (e) {
-            if (t >= u || !f(e)) throw e;
+            if (t >= c || !f(e)) throw e;
             return (
-              yield y(c * Math.pow(2, t - 1)),
+              yield y(d * Math.pow(2, t - 1)),
               g({ attempt: t + 1, timeoutMs: n, url: r })
             );
           }
@@ -79,24 +79,29 @@ __d(
       });
     }
     function C(e) {
-      var t = p.get(e);
-      return t == null || t.expiresAtSeconds <= o("WATimeUtils").unixTime()
-        ? null
-        : t.manifestXml;
+      var t;
+      return (t = p.get(e)) != null ? t : null;
     }
     function b(e) {
+      p.delete(e);
+    }
+    function v() {
+      (p.clear(), m.clear());
+    }
+    function S(e) {
       var t = e.manifestXml,
         n = e.url;
       if ((p.delete(n), p.size >= s)) {
         var r = p.keys().next().value;
         r != null && p.delete(r);
       }
-      p.set(n, {
-        expiresAtSeconds: o("WATimeUtils").unixTime() + d,
-        manifestXml: t,
-      });
+      p.set(n, t);
     }
-    ((l.loadVideoDashManifest = _), (l.peekVideoDashManifest = C));
+    ((l.MANIFEST_FETCH_TIMEOUT_MS = u),
+      (l.loadVideoDashManifest = _),
+      (l.peekVideoDashManifest = C),
+      (l.invalidateVideoDashManifest = b),
+      (l.clearVideoDashManifestCache = v));
   },
   98,
 );

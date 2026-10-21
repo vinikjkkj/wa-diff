@@ -83,7 +83,8 @@ __d(
                                         ? r(
                                             "WAWebInteractiveMessagesNativeFlowName",
                                           ).PAYMENT_REMINDER
-                                        : e === "booking_confirmation"
+                                        : e === "booking_confirmation" ||
+                                            e === "booking_status"
                                           ? r(
                                               "WAWebInteractiveMessagesNativeFlowName",
                                             ).BOOKING_CONFIRMATION

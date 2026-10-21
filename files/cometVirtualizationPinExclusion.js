@@ -1,12 +1,6 @@
 __d(
   "cometVirtualizationPinExclusion",
-  [
-    "FocusManager",
-    "VirtualizationConfig",
-    "WeakRefApiUtils",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["FocusManager", "WeakRefApiUtils", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -98,7 +92,6 @@ __d(
     }
     function L(e, t, n) {
       if (
-        !o("VirtualizationConfig").isNonInteractiveClickPinExclusionEnabled() ||
         e !== "click" ||
         !(t instanceof Element) ||
         !(n instanceof Element) ||

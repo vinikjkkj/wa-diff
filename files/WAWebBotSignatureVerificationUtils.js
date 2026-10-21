@@ -317,7 +317,7 @@ __d(
             }
             var C = S({ botFbid: t, messageDigest: n, version: h }),
               b = new Uint8Array(i),
-              v = R(b, C, c);
+              v = R({ payload: C, publicKey: c, signature: b });
             return (
               o("WAWebBotCertificateValidationLogger").logCertificateValidation(
                 {
@@ -353,9 +353,12 @@ __d(
         l
       );
     }
-    function R(t, n, a) {
+    function R(t) {
+      var n = t.payload,
+        a = t.publicKey,
+        i = t.signature;
       try {
-        return o("WACryptoPrimitives").signDetachedVerify(n, t, a);
+        return o("WACryptoPrimitives").signDetachedVerify(n, i, a);
       } catch (t) {
         return (
           o("WALogger")

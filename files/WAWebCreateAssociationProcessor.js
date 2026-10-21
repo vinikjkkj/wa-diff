@@ -8,7 +8,15 @@ __d(
           .AssociationProcessorType.WithDetachedMessages,
       });
     }
-    l.createAssociationMsgProcessorWithDetachedMessages = e;
+    function s(e, t) {
+      var n;
+      return t.groupHistoryIndividualMessageInfo != null &&
+        (n = e.groupHistoryViewMode) != null
+        ? n
+        : e.viewMode;
+    }
+    ((l.createAssociationMsgProcessorWithDetachedMessages = e),
+      (l.getAssociatedMsgViewMode = s));
   },
   98,
 );

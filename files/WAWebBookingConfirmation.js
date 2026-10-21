@@ -1,6 +1,7 @@
 __d(
   "WAWebBookingConfirmation",
   [
+    "WAWebBookingConfirmationGating",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
@@ -107,24 +108,29 @@ __d(
           r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
         s !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
         i !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !(a != null && a.buttons)
+        !(a != null && a.buttons) ||
+        !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
       )
         return null;
       var u = (n = a.buttons[0]) == null ? void 0 : n.buttonParamsJson;
       return u == null ? null : e(u);
     }
-    function c(t) {
+    var c = "booking_status";
+    function d(t) {
+      var n = t == null ? void 0 : t.name;
       if (
-        (t == null ? void 0 : t.name) !==
-        r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
+        (n !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION &&
+          n !== c) ||
+        !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
       )
         return null;
-      var n = t.buttonParamsJson;
-      return n == null ? null : e(n);
+      var a = t.buttonParamsJson;
+      return a == null ? null : e(a);
     }
     ((l.getBookingConfirmationInfo = s),
       (l.getBookingConfirmationInfoFor = u),
-      (l.parseBookingConfirmationButton = c));
+      (l.parseBookingConfirmationButton = d));
   },
   98,
 );

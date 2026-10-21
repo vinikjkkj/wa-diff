@@ -1,41 +1,48 @@
 __d(
   "WAWebResolvePendingPollUpdates",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WACryptoUtils",
     "WALogger",
-    "WAWebAddonGatingUtils",
-    "WAWebAddonProcessMsgs",
-    "WAWebBackendApi",
-    "WAWebDBPollsPendingUpdatesStore",
-    "WAWebDBPollsUpsertVotes",
-    "WAWebLidMigrationUtils",
-    "WAWebMsgKey",
+    "WAWebAddonQueryUtils",
+    "WAWebLazyLoadedRetriable",
     "WAWebMsgType",
+    "WAWebPendingPollVoteResolution",
     "WAWebPollNameHashHistoryUtils",
     "WAWebPollNameHashMismatchLogger",
     "WAWebPollNameHashUtils",
-    "WAWebPollsVoteDataUtils",
-    "WAWebUserPrefsMeUser",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return r("JSResourceForInteraction")(
+            "WAWebResolveParkedPollAddOptions",
+          )
+            .__setRef("WAWebResolvePendingPollUpdates")
+            .load();
+        }),
+        "WAWebResolveParkedPollAddOptions",
+      );
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function d() {
+    function p() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(m).filter(Boolean);
-          yield (u || (u = n("Promise"))).all(t.map(p));
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(_).filter(Boolean);
+          yield (c || (c = n("Promise"))).all(t.map(f));
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(e) {
+    function _(e) {
       var t = e.parentMsg,
         n = e.protocolMsg,
         r = n.pollName,
@@ -50,14 +57,14 @@ __d(
         ? null
         : { parentMsgKey: t.id, editStanzaId: a, pollName: r };
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            yield f(e);
+            yield h(e);
           } catch (t) {
             o("WALogger")
               .ERROR(
@@ -72,29 +79,6 @@ __d(
               .sendLogs("poll-tc-resolve-failed");
           }
         })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.editStanzaId,
-            n = e.parentMsgKey,
-            r = e.pollName,
-            a = yield o("WAWebPollNameHashUtils").tryComputePollNameHash(r);
-          if (a != null) {
-            var i = yield C(n, t),
-              l = [];
-            for (var s of i) {
-              var u = v(s, a, n);
-              u != null && l.push(u);
-            }
-            l.length > 0 && (yield h(l));
-          }
-        })),
         g.apply(this, arguments)
       );
     }
@@ -104,22 +88,39 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
-              o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
-            )
-          ) {
-            yield o("WAWebAddonProcessMsgs").processMsgsAndGetOrphans(
-              e.map(o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData),
-              null,
+          var t = e.editStanzaId,
+            n = e.parentMsgKey,
+            r = e.pollName,
+            a = yield o("WAWebPollNameHashUtils").tryComputePollNameHash(r);
+          if (a != null) {
+            var i = yield o(
+                "WAWebPendingPollVoteResolution",
+              ).drainAcrossAddressingModes(n, "edit", t),
+              l = i.filter(function (e) {
+                return v(e, a);
+              });
+            yield C(
+              l.filter(function (e) {
+                return e.payloadType === "add-option";
+              }),
+              n,
             );
-            return;
+            var s = [],
+              u = [];
+            for (var c of l)
+              if (c.payloadType !== "add-option") {
+                if (
+                  o("WAWebPendingPollVoteResolution").hasUnresolvedOptions(c)
+                ) {
+                  u.push(c);
+                  continue;
+                }
+                var d = L(c, n);
+                d != null && s.push(d);
+              }
+            (s.push.apply(s, yield S(u, n)),
+              yield o("WAWebPendingPollVoteResolution").attachResolvedVotes(s));
           }
-          var t = yield o("WAWebDBPollsUpsertVotes").upsertVotesDb(e);
-          yield o("WAWebBackendApi").frontendSendAndReceive(
-            "upsertVotesModelCollection",
-            { votes: t, votesToRemove: null, restoredFromDb: !1 },
-          );
         })),
         y.apply(this, arguments)
       );
@@ -130,34 +131,62 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = [e, o("WAWebLidMigrationUtils").getAlternateMsgKey(e)].filter(
-              Boolean,
-            ),
-            a = yield (u || (u = n("Promise"))).all(
-              r.map(function (e) {
-                return o("WAWebDBPollsPendingUpdatesStore").drainForDependency({
-                  parentMsgKey: e.toString(),
-                  dependencyType: "edit",
-                  dependencyId: t,
-                });
-              }),
-            );
-          return a.flat();
+          if (e.length !== 0)
+            try {
+              var n = yield d(),
+                a = n.resolveParkedPollAddOptions;
+              yield a(e, t);
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[polls/tc] failed to apply parked poll add-options",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("poll-tc-resolve-add-options-failed");
+            }
         })),
         b.apply(this, arguments)
       );
     }
-    function v(t, n, r) {
+    function v(e, t) {
+      return o("WACryptoUtils").uint8ArraysEqual(
+        new Uint8Array(e.pollNameHash),
+        t,
+      )
+        ? !0
+        : (o("WAWebPollNameHashMismatchLogger").logPollNameHashMismatch(
+            e.payloadType === "add-option"
+              ? "pending-resolution-add-option"
+              : "pending-resolution-vote",
+          ),
+          !1);
+    }
+    function S(e, t) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (e.length === 0) return [];
+          var r = (yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([
+            t,
+          ])).get(t.toString());
+          return o("WAWebPendingPollVoteResolution").settleParkedVotes(
+            e,
+            t,
+            (n = r == null ? void 0 : r.pollOptions) != null ? n : [],
+          );
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(t, n) {
       try {
-        return o("WACryptoUtils").uint8ArraysEqual(
-          new Uint8Array(t.pollNameHash),
-          n,
-        )
-          ? S(t, r)
-          : (o("WAWebPollNameHashMismatchLogger").logPollNameHashMismatch(
-              "pending-resolution-vote",
-            ),
-            null);
+        return o("WAWebPendingPollVoteResolution").voteFromPendingRow(t, n);
       } catch (t) {
         return (
           o("WALogger")
@@ -172,30 +201,7 @@ __d(
         );
       }
     }
-    function S(e, t) {
-      e: {
-        if (e.payloadType === "vote") {
-          var n = o("WAWebWidFactory").createUserWidOrThrow(e.sender);
-          return {
-            msgKey: r("WAWebMsgKey").fromString(e.msgKey),
-            parentMsgKey: t,
-            selectedOptionLocalIds: Array.from(
-              new Uint8Array(e.selectedOptionLocalIds),
-            ),
-            senderTimestampMs: e.senderTimestampMs,
-            t: void 0,
-            sender: n,
-            ack: void 0,
-            read: o("WAWebUserPrefsMeUser").isMeAccount(n),
-          };
-        }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            e.payloadType,
-        );
-      }
-    }
-    l.resolvePendingUpdatesForPollEdits = c;
+    l.resolvePendingUpdatesForPollEdits = m;
   },
   98,
 );

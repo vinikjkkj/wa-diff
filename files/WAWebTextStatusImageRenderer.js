@@ -37,16 +37,17 @@ __d(
           ? { fontSize: 36, lineHeight: 1.3 }
           : { fontSize: 16, lineHeight: 1.5 };
     }
-    var m = 9 / 16;
-    function p() {
+    var m = 9 / 16,
+      p = 520;
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "rasterize_text_status_pixel_width",
       );
     }
-    function _() {
-      return Math.round(p() / m);
+    function f() {
+      return Math.round(_() / m);
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       for (var r = [], o = "", a = Array.from(t), i = 0; i < a.length; i++) {
         var l = a[i],
           s = o + l;
@@ -54,7 +55,7 @@ __d(
       }
       return (o && r.push(o), r);
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       var r = t.split(/\s+/),
         o = [],
         a = "";
@@ -62,7 +63,7 @@ __d(
         if (e.measureText(i).width > n) {
           var l;
           a !== "" && (o.push(a), (a = ""));
-          for (var s = f(e, i, n), u = 0; u < s.length - 1; u++) o.push(s[u]);
+          for (var s = g(e, i, n), u = 0; u < s.length - 1; u++) o.push(s[u]);
           a = (l = s[s.length - 1]) != null ? l : "";
         } else {
           var c = a ? a + " " + i : i,
@@ -71,66 +72,69 @@ __d(
         }
       return (a && o.push(a), o);
     }
-    function h(e) {
+    function y(e) {
       var t,
         n,
         a,
-        i = p(),
-        l = _(),
+        i = _(),
+        l = f(),
         s = document.createElement("canvas");
       ((s.width = i), (s.height = l));
       var u = s.getContext("2d");
       if (u == null) throw r("err")("Failed to get 2D canvas context");
-      var m = o("WAWebMsgGetters").getStatusCanvasColor(e);
-      (m != null ? (u.fillStyle = m) : (u.fillStyle = "#128C7E"),
+      var g = o("WAWebMsgGetters").getStatusCanvasColor(e);
+      (g != null ? (u.fillStyle = g) : (u.fillStyle = "#128C7E"),
         u.fillRect(0, 0, i, l));
-      var f = (t = e.body) != null ? t : "";
-      if (f === "") return s;
-      var h = f.length,
-        y = d(h),
-        C =
+      var y = (t = e.body) != null ? t : "";
+      if (y === "") return s;
+      var C = p / m,
+        b = i / p;
+      u.scale(b, b);
+      var v = y.length,
+        S = d(v),
+        R =
           (n = e.font) != null
             ? n
             : o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
                 .SYSTEM,
-        b =
-          (a = c.get(C)) != null
+        L =
+          (a = c.get(R)) != null
             ? a
             : c.get(
                 o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
                   .SYSTEM,
               );
-      ((u.font = y.fontSize + "px " + String(b)),
+      ((u.font = S.fontSize + "px " + String(L)),
         (u.fillStyle = "#FFFFFF"),
         (u.textAlign = "center"),
         (u.textBaseline = "middle"));
-      var v = 20,
-        S = 100,
-        R = i - v * 2,
-        L = l - S * 2,
-        E = g(u, f, R),
-        k = y.fontSize * y.lineHeight,
-        I = E.length * k,
-        T = (l - I) / 2 + k / 2;
-      if (I > L) {
-        var D = L / I,
-          x = Math.floor(y.fontSize * D);
-        u.font = x + "px " + String(b);
-        var $ = g(u, f, R),
-          P = x * y.lineHeight,
-          N = $.length * P;
-        T = (l - N) / 2 + P / 2;
-        for (var M = 0; M < $.length; M++) u.fillText($[M], i / 2, T + M * P);
+      var E = 20,
+        k = 100,
+        I = p - E * 2,
+        T = C - k * 2,
+        D = h(u, y, I),
+        x = S.fontSize * S.lineHeight,
+        $ = D.length * x,
+        P = (C - $) / 2 + x / 2;
+      if ($ > T) {
+        var N = T / $,
+          M = Math.floor(S.fontSize * N);
+        u.font = M + "px " + String(L);
+        var w = h(u, y, I),
+          A = M * S.lineHeight,
+          F = w.length * A;
+        P = (C - F) / 2 + A / 2;
+        for (var O = 0; O < w.length; O++) u.fillText(w[O], p / 2, P + O * A);
       } else
-        for (var w = 0; w < E.length; w++) u.fillText(E[w], i / 2, T + w * k);
+        for (var B = 0; B < D.length; B++) u.fillText(D[B], p / 2, P + B * x);
       return s;
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           o("WALogger").LOG(
             e ||
@@ -157,7 +161,7 @@ __d(
               )
               .catching(e instanceof Error ? e : r("err")(String(e)));
           }
-          var i = h(t),
+          var i = y(t),
             l = yield o("WAWebCanvasUtils").canvasToBlob(i, "image/jpeg");
           return (
             o("WALogger").LOG(
@@ -171,16 +175,16 @@ __d(
             l
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
+    function v(e) {
       return e.type === "chat" && e.mediaData == null;
     }
-    ((l.breakLongWordInTextStatusImage = f),
-      (l.wrapTextInTextStatusImage = g),
-      (l.renderTextStatusToBlob = y),
-      (l.isTextStatusMessage = b));
+    ((l.breakLongWordInTextStatusImage = g),
+      (l.wrapTextInTextStatusImage = h),
+      (l.renderTextStatusToBlob = C),
+      (l.isTextStatusMessage = v));
   },
   98,
 );

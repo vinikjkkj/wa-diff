@@ -64,6 +64,9 @@ __d(
           });
     }
     function d(e) {
+      return e != null ? { name: e, localId: -1 } : null;
+    }
+    function m(e) {
       var t,
         n = (t = e == null ? void 0 : e.pollVotes) != null ? t : [],
         o =
@@ -85,7 +88,8 @@ __d(
     ((l.compressPollOptions = e),
       (l.compressPollVotesSnapshot = u),
       (l.expandPollOptions = c),
-      (l.expandPollVotesSnapshot = d));
+      (l.expandPollAddedOption = d),
+      (l.expandPollVotesSnapshot = m));
   },
   98,
 );

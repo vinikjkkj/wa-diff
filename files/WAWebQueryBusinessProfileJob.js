@@ -9,6 +9,7 @@ __d(
     "WAWebCommsWapMd",
     "WAWebJidToWid",
     "asyncToGeneratorRuntime",
+    "cr:17537",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))(
@@ -19,14 +20,17 @@ __d(
           n = [];
         return (
           t.forEachChildWithTag("profile", function (e) {
-            var t = o("WAWebJidToWid").jidWithTypeToWid(
-                e.attrJidWithType("jid"),
-              ),
-              a = e.attrString("tag"),
-              i = r("WAWebCommonParsersParseBusinessProfile")(e);
-            Object.keys(i).length
-              ? n.push({ wid: t, tag: a, profile: i })
-              : n.push({ wid: t, tag: a });
+            var t,
+              a = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("jid")),
+              i = e.attrString("tag"),
+              l =
+                (t = e.maybeChild("aea_account_type")) == null
+                  ? void 0
+                  : t.maybeAttrString("value"),
+              s = r("WAWebCommonParsersParseBusinessProfile")(e);
+            Object.keys(s).length
+              ? n.push({ wid: a, tag: i, profile: s, aeaAccountType: l })
+              : n.push({ wid: a, tag: i, aeaAccountType: l });
           }),
           n
         );
@@ -37,19 +41,19 @@ __d(
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r,
-            a = (r = o("WAWap")).wap(
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a,
+            i = (a = o("WAWap")).wap(
               "iq",
               {
-                to: r.S_WHATSAPP_NET,
+                to: a.S_WHATSAPP_NET,
                 xmlns: "w:biz",
-                id: r.generateId(),
+                id: a.generateId(),
                 type: "get",
               },
-              r.wap(
+              a.wap(
                 "business_profile",
-                { v: r.INT(n) },
+                { v: a.INT(r) },
                 t.map(function (e) {
                   return o("WAWap").wap("profile", {
                     jid: o("WAWebCommsWapMd").USER_JID(e.wid),
@@ -61,10 +65,15 @@ __d(
                 }),
               ),
             ),
-            i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, e);
-          if (i.success) return i.result;
+            l = yield o("WADeprecatedSendIq").deprecatedSendIq(i, e);
+          if (l.success)
+            return (
+              n("cr:17537") == null ||
+                n("cr:17537").observeAeaBusinessAccountTypes(l.result),
+              l.result
+            );
           throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            i.errorCode,
+            l.errorCode,
           );
         })),
         u.apply(this, arguments)

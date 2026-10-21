@@ -23,10 +23,10 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = yield o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
-              function (n) {
-                return o("WAPromiseTimeout").promiseTimeout(
-                  o("WAWebRelayClient").commitMutation(
+            a = yield o("WAPromiseTimeout").promiseTimeout(
+              o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
+                function (n) {
+                  return o("WAWebRelayClient").commitMutation(
                     s,
                     { business_id: t, subscriber_pool_id: e },
                     {
@@ -37,11 +37,11 @@ __d(
                       },
                       environmentType: "facebook",
                     },
-                  ),
-                  u,
-                  "BB Pro start subscriber download timed out",
-                );
-              },
+                  );
+                },
+              ),
+              u,
+              "BB Pro start subscriber download timed out",
             ),
             i =
               a == null

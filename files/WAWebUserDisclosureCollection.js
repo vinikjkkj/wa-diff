@@ -10,50 +10,67 @@ __d(
     var e = 864e5,
       s = (function (t) {
         function a() {
-          for (var a, i = arguments.length, l = new Array(i), s = 0; s < i; s++)
-            l[s] = arguments[s];
+          for (var r, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+            i[l] = arguments[l];
           return (
-            (a = t.call.apply(t, [this].concat(l)) || this),
-            (a.findImpl = (function () {
+            (r = t.call.apply(t, [this].concat(i)) || this),
+            (r.findImpl = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
                   var n,
-                    i = a.get(t);
+                    a = r.get(t);
                   if (
-                    i != null &&
-                    i.privacyDisclosureModal != null &&
-                    i.endDate != null &&
-                    ((n = i.endDate) == null ? void 0 : n.getTime()) >
+                    a != null &&
+                    a.privacyDisclosureModal != null &&
+                    a.endDate != null &&
+                    ((n = a.endDate) == null ? void 0 : n.getTime()) >
                       Date.now() &&
-                    Date.now() - i.lastUpdated.getTime() < e
+                    Date.now() - a.lastUpdated.getTime() < e
                   )
-                    return i;
-                  var l = yield o(
+                    return a;
+                  var i = yield o(
                     "WAWebGetUserDisclosuresContentsAction",
                   ).getDisclosuresContentAction(parseInt(t, 10));
-                  if (l != null) {
-                    var s = new (r("WAWebUserDisclosureModel"))({
-                      id: l.disclosureId,
-                      policyVersion: l.policyVersion,
-                      privacyDisclosureModal: l.privacyDisclosureModal,
-                      endDate: l.endDate,
-                      lastUpdated: new Date(),
-                    });
-                    return (a.gadd(s, { merge: !0 }), s);
-                  }
+                  if (i != null)
+                    return r.gadd(
+                      {
+                        id: t,
+                        policyVersion: i.policyVersion,
+                        privacyDisclosureModal: i.privacyDisclosureModal,
+                        endDate: i.endDate,
+                        lastUpdated: new Date(),
+                      },
+                      { merge: !0 },
+                    );
                 },
               );
               return function (e) {
                 return t.apply(this, arguments);
               };
             })()),
-            babelHelpers.assertThisInitialized(a) ||
-              babelHelpers.assertThisInitialized(a)
+            babelHelpers.assertThisInitialized(r) ||
+              babelHelpers.assertThisInitialized(r)
           );
         }
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.find = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, n) {
+                var r,
+                  o = this.get(e);
+                if (o == null || o.privacyDisclosureModal != null)
+                  return t.prototype.find.call(this, e, n);
+                var a = yield this.update(e, n);
+                return (r = Array.isArray(a) ? a[0] : a) != null ? r : o;
+              },
+            );
+            function r(t, n) {
+              return e.apply(this, arguments);
+            }
+            return r;
+          })()),
           (i.updateNoticeStage = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

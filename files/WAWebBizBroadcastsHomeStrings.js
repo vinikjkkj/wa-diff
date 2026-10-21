@@ -686,40 +686,27 @@ __d(
     }
     Ut.displayName = Ut.name + " [from " + i.id + "]";
     function Vt() {
-      return s._(/*BTDS*/ "Send high-quality messages");
+      return s._(/*BTDS*/ "Send high quality messages");
     }
     Vt.displayName = Vt.name + " [from " + i.id + "]";
-    function Ht(e, t, n, a) {
-      if ((a === void 0 && (a = !1), a)) {
-        var i;
-        return (
-          (i = s._plural(n, "days")),
-          s._(
-            /*BTDS*/ '_j{"*":"{sent} of {target} sent in the last {days} days. {=m6}","_1":"{sent} of {target} sent in the last day. {=m6}"}',
-            [
-              i,
-              s._param("sent", e),
-              s._param("target", t),
-              s._implicitParam(
-                "=m6",
-                u.jsx(r("WDSTextualLink.react"), {
-                  href: o("WAWebBroadcastConsts").HIGH_QUALITY_MESSAGES_DOC_URL,
-                  children: s._(
-                    /*BTDS*/ '_j{"*":"What are high quality messages?"}',
-                    [i],
-                  ),
-                }),
-              ),
-            ],
-          )
-        );
-      }
+    function Ht(e, t, n) {
       return s._(
         /*BTDS*/ '_j{"*":"{sent} of {target} sent in the last {days} days.","_1":"{sent} of {target} sent in the last day."}',
         [s._plural(n, "days"), s._param("sent", e), s._param("target", t)],
       );
     }
-    ((Ht.displayName = Ht.name + " [from " + i.id + "]"),
+    Ht.displayName = Ht.name + " [from " + i.id + "]";
+    function Gt() {
+      return s._(/*BTDS*/ "What are high quality messages?");
+    }
+    Gt.displayName = Gt.name + " [from " + i.id + "]";
+    function zt() {
+      return u.jsx(r("WDSTextualLink.react"), {
+        href: o("WAWebBroadcastConsts").HIGH_QUALITY_MESSAGES_DOC_URL,
+        children: Gt(),
+      });
+    }
+    ((zt.displayName = zt.name + " [from " + i.id + "]"),
       (l.getBroadcastColumnHeader = c),
       (l.getAudienceColumnHeader = d),
       (l.getStatusColumnHeader = m),
@@ -862,7 +849,9 @@ __d(
       (l.getConnectBroadcastsOnPhoneTitle = qt),
       (l.getAdvancedToolsTurnOnOnPhoneSubtitle = Ut),
       (l.getSendHighQualityMessagesLabel = Vt),
-      (l.getSendHighQualityMessagesProgressSublabel = Ht));
+      (l.getSendHighQualityMessagesProgressSublabel = Ht),
+      (l.getSendHighQualityMessagesHelpLabel = Gt),
+      (l.getSendHighQualityMessagesHelpLink = zt));
   },
   226,
 );

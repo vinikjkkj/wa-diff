@@ -18,6 +18,7 @@ __d(
       SURFACE_JANKY_FRAME_COUNT: "surface_janky_frame_count",
       SURFACE_TOTAL_FRAME_COUNT: "surface_total_frame_count",
       TASOS_SCONE_METADATA: "tasos_scone_metadata",
+      ENCODING_PLAYBACK_COST: "encoding_playback_cost",
       LIVE_LATENCY_FRAMES: "live_latency_frames",
       DROPPED_FRAME_BUCKETIZED: "dropped_frame_bucketized",
       RENDERER_TYPE: "renderer_type",

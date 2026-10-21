@@ -34,10 +34,19 @@ __d(
         ) === !0
       );
     }
+    function m() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_smb_ae_onboarding_nux_auto_trigger_on_list_home",
+        ) === !0
+      );
+    }
     ((l.isAECompanionOnboardingEnabled = s),
       (l.getAECompatibilityBits = u),
       (l.isCoexStateSyncEnabled = c),
-      (l.isAEOnboardingEnabled = d));
+      (l.isAEOnboardingEnabled = d),
+      (l.isListsHomeOnboardingNuxAutoTriggerEnabled = m));
   },
   98,
 );

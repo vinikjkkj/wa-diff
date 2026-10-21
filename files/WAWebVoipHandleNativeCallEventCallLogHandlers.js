@@ -12,6 +12,7 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebHandleRetryRequest",
     "WAWebSyncdCoreApi",
+    "WAWebVoipCallStartUnifiedSessionStore",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipQplHelpers",
     "WAWebVoipStackInterface",
@@ -276,8 +277,12 @@ __d(
                   }
                 }),
               ),
-              i = yield o("WAWebBackendApi").frontendSendAndReceive(
-                "getUnifiedSessionId",
+              i = yield o(
+                "WAWebVoipCallStartUnifiedSessionStore",
+              ).resolveCallUnifiedSessionId(
+                o(
+                  "WAWebVoipCallStartUnifiedSessionStore",
+                ).getCallStartUnifiedSessionIdForCall(e.CallId),
               ),
               l = new (o("WAWebCallWamEvent").CallWamEvent)(a);
             (i != null && l.set({ unifiedSessionId: i }),

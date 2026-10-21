@@ -5,7 +5,7 @@ __d(
     "WAWebRichTextField.react",
     "WAWebRound.react",
     "WAWebVelocityTransitionGroup",
-    "WAWebWdsIcSendFilledIcon.react",
+    "WDSIconIcSendFilled.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "react",
@@ -109,8 +109,10 @@ __d(
         : (C = n[12]);
       var b;
       n[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = u.jsx(o("WAWebWdsIcSendFilledIcon.react").WdsIcSendFilledIcon, {
+        ? ((b = u.jsx(r("WDSIconIcSendFilled.react"), {
+            testid: "wds-ic-send-filled",
             width: 18,
+            height: 18,
             directional: !0,
           })),
           (n[13] = b))

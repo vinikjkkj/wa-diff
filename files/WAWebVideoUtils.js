@@ -10,12 +10,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      var n = t.mediaBlob,
-        a = !!n,
-        i = s(e);
-      if ((a || !i) && n instanceof r("WAWebMediaOpaqueData")) return n.url();
-      if (i)
+    function e(e, t, n) {
+      var a = !!t;
+      if ((a || !n) && t instanceof r("WAWebMediaOpaqueData")) return t.url();
+      if (n)
         return (
           o("WAWebPipVideoStreaming").VIDEO_STREAM_URL +
           "?key=" +
@@ -23,13 +21,22 @@ __d(
         );
     }
     function s(e) {
-      return u(e, r("WAWebFeatureDetectionSwSupport").getStreamingSupported());
+      var t, n;
+      return (t =
+        (n = e.mediaObject) == null
+          ? void 0
+          : n.getDownloadPromises().some(Boolean)) != null
+        ? t
+        : !1;
     }
-    function u(e, t) {
+    function u(e) {
+      return c(e, r("WAWebFeatureDetectionSwSupport").getStreamingSupported());
+    }
+    function c(e, t) {
       var n = e.mediaData;
-      return n != null && n.isStreamable(t) && c(e);
+      return n != null && n.isStreamable(t) && d(e);
     }
-    function c(e) {
+    function d(e) {
       var t = o("WAWebMsgGetters").getSender(e),
         n = t != null && o("WAWebBotUtils").isAnyMetaAiBot(t);
       return (
@@ -38,9 +45,10 @@ __d(
       );
     }
     ((l.getVideoUrl = e),
-      (l.isMsgStreamable = s),
-      (l.isMsgStreamableWithSupport = u),
-      (l.canMsgStream = c));
+      (l.isDownloadRunning = s),
+      (l.isMsgStreamable = u),
+      (l.isMsgStreamableWithSupport = c),
+      (l.canMsgStream = d));
   },
   98,
 );

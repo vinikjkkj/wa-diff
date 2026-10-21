@@ -67,13 +67,15 @@ __d(
           : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function m(e, t, n, r, a, i, l) {
+    function m(e, t, n, r, a, i, l, s, u) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
         extraAttributes: {
           attachment_type: i != null ? i : void 0,
+          error_codes: u,
           error_type: l,
+          failure_stage: s,
           recipient_count: n != null ? n : void 0,
           save_result: a,
           scheduled: r,

@@ -14,19 +14,26 @@ __d(
       u,
       c,
       d = /^[1-9]\d{1,14}$/;
-    function m(t) {
-      return (
-        d.test(t) ||
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "toE164PhoneNumber: input is not 2-15 digits with a non-zero country code",
-                ])),
-            )
-            .sendLogs("to-e164-phone-number-invalid-input"),
-        "+" + t.replace(/\D/g, "")
-      );
+    function m(t, n) {
+      if (!d.test(t)) {
+        var r = t.replace(/\D/g, "").length,
+          a = t.startsWith("0");
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "toE164PhoneNumber: input is not 2-15 digits with a non-zero country code (source: ",
+                ", digitCount: ",
+                ", startsWithZero: ",
+                ")",
+              ])),
+            n,
+            r,
+            a,
+          )
+          .sendLogs("to-e164-phone-number-invalid-input");
+      }
+      return "+" + t.replace(/\D/g, "");
     }
     function p(e) {
       return {
@@ -135,43 +142,46 @@ __d(
         if (r.length === 0) return null;
         var a = !1,
           i = r,
-          l = e.phoneNumberStartsWithPlus || e.phoneNumberLeadingZeroes >= 2;
-        if (l) {
-          var s = o("WAPhoneFindCC").findCC(r),
-            u = r.slice(s.length);
-          a = o("WAWebPhoneUtils").isPotentiallyValidInternational(s, u);
+          l = "explicit-country-code",
+          s = e.phoneNumberStartsWithPlus || e.phoneNumberLeadingZeroes >= 2;
+        if (s) {
+          var u = o("WAPhoneFindCC").findCC(r),
+            c = r.slice(u.length);
+          a = o("WAWebPhoneUtils").isPotentiallyValidInternational(u, c);
         } else {
-          var c,
-            d =
-              ((c = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+          var d,
+            m =
+              ((d = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
                 ? void 0
-                : c.toString()) || "",
-            m = S(d);
-          if (((a = o("WAWebPhoneUtils").isPotentiallyValid(m, r)), a))
-            i = "" + m + r;
+                : d.toString()) || "",
+            p = S(m);
+          if (((a = o("WAWebPhoneUtils").isPotentiallyValid(p, r)), a))
+            ((i = "" + p + r), (l = "user-country-code-prepended"));
           else {
-            var p = o("WAPhoneFindCC").findCC(r);
-            if (p === m) {
-              var _ = r.slice(p.length);
-              a = o("WAWebPhoneUtils").isPotentiallyValid(p, _);
+            var _ = o("WAPhoneFindCC").findCC(r);
+            if (_ === p) {
+              var f = r.slice(_.length);
+              ((a = o("WAWebPhoneUtils").isPotentiallyValid(_, f)),
+                (l = "starts-with-user-country-code"));
             }
           }
         }
         if (a) {
-          var f = e.openings;
-          if (f == null) return null;
-          var g =
+          var g = e.openings;
+          if (g == null) return null;
+          var h =
               e.phoneNumberLastSignificantCodePoint === 45 ||
               e.phoneNumberLastSignificantCodePoint === 46
                 ? t - 1
                 : t,
-            h = e.text.slice(f, g);
+            y = e.text.slice(g, h);
           return {
-            start: f,
-            end: g,
+            start: g,
+            end: h,
             id: "phone" + ++e.uniqueId,
             phoneNumber: i,
-            matchedText: h,
+            phoneNumberSource: l,
+            matchedText: y,
           };
         }
         return null;
@@ -268,7 +278,7 @@ __d(
                   e.push({
                     phone: t.matchedText,
                     index: t.start,
-                    canonicalPhone: m(t.phoneNumber),
+                    canonicalPhone: m(t.phoneNumber, t.phoneNumberSource),
                   }),
                   e
                 );

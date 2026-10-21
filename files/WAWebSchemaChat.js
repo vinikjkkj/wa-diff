@@ -78,6 +78,9 @@ __d(
               r("suggestedRepliesEnabled"),
               r("aiHandoffStartedAt"),
               r("aiLastHandoffActor"),
+              r("aeaThreadState"),
+              r("aeaCooldownStartedAtMs"),
+              r("aeaCooldownIdentityKey"),
             ])
             .version(n.chatAddDisappearingModeInitiator(), [
               r("disappearingModeInitiator"),

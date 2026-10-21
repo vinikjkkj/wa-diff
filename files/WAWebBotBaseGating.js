@@ -135,7 +135,17 @@ __d(
         "ai_rich_response_forward_sending_enabled",
       );
     }
-    function N(e) {
+    function N() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_rich_response_jarvis_forward_sending_enabled",
+      );
+    }
+    function M() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_rich_response_jarvis_forward_receiving_enabled",
+      );
+    }
+    function w(e) {
       return o("WAWebBotUtils").isMetaAiBot(e.from) && r("justknobx")._("5352");
     }
     ((l.setBonsaiUserLanguage = c),
@@ -158,7 +168,9 @@ __d(
       (l.isRichResponseForwardReceivingEnabled = x),
       (l.isRichResponseForwardMediaReceivingEnabled = $),
       (l.isRichResponseForwardSendingEnabled = P),
-      (l.isLoadingMediaMessagesEnabled = N));
+      (l.isRichResponseJarvisForwardSendingEnabled = N),
+      (l.isRichResponseJarvisForwardReceivingEnabled = M),
+      (l.isLoadingMediaMessagesEnabled = w));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchJarvisReplyGate",
-  ["WAWebBotUtils", "WAWebHatchFrontendGating"],
+  ["WAWebBotBaseGating", "WAWebBotUtils", "WAWebHatchFrontendGating"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -8,13 +8,15 @@ __d(
         n = e.isForwarded,
         r = e.isFromMe,
         a = e.unifiedResponse;
-      return (
-        (a == null ? void 0 : a.passthrough_payload) != null &&
-        !r &&
-        !n &&
-        o("WAWebBotUtils").isHatchBot(t) &&
-        o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled()
-      );
+      return (a == null ? void 0 : a.passthrough_payload) == null
+        ? !1
+        : n
+          ? o(
+              "WAWebBotBaseGating",
+            ).isRichResponseJarvisForwardReceivingEnabled()
+          : !r &&
+            o("WAWebBotUtils").isHatchBot(t) &&
+            o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled();
     }
     l.shouldDrawHatchJarvisReply = e;
   },

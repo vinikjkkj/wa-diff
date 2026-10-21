@@ -4,6 +4,8 @@ __d(
     "AnalyticsCoreData",
     "Banzai",
     "ExecutionEnvironment",
+    "FBLogger",
+    "FalcoBeaconTransport",
     "FalcoUtils",
     "ODS",
     "PersistedQueue",
@@ -59,106 +61,107 @@ __d(
       T = new Set(),
       D = o("FalcoUtils").getTaggedBitmap(38),
       x = [],
-      $ = 0,
-      P = void 0,
-      N = !1,
+      $ = null,
+      P = 0,
+      N = void 0,
       M = !1,
       w = !1,
-      A = !0,
-      F = !1,
+      A = !1,
+      F = !0,
       O = !1,
       B = !1,
-      W = void 0,
-      q = 0,
-      U = Date.now() - L,
-      V = 1,
-      H = C > h ? C : h,
-      G = C;
-    ye();
-    for (var z of (j = (m || (m = r("AnalyticsCoreData")))
+      W = !1,
+      q = void 0,
+      U = 0,
+      V = Date.now() - L,
+      H = 1,
+      G = C > h ? C : h,
+      z = C;
+    Se();
+    for (var j of (K = (m || (m = r("AnalyticsCoreData")))
       .stateful_events_list_for_br) != null
-      ? j
+      ? K
       : []) {
-      var j;
-      T.add(z);
+      var K;
+      T.add(j);
     }
-    function K() {
+    function Q() {
       return (
         (m || (m = r("AnalyticsCoreData"))).enable_bladerunner &&
         !(_ || (_ = r("ExecutionEnvironment"))).isInWorker &&
         (_ || (_ = r("ExecutionEnvironment"))).canUseDOM
       );
     }
-    function Q() {
-      return b && !B;
-    }
     function X() {
-      (clearTimeout(W), (W = void 0));
+      return b && !W;
     }
     function Y() {
-      S.start(function (e) {
-        return e(me);
-      });
+      (clearTimeout(q), (q = void 0));
     }
     function J() {
-      ((W = void 0),
-        !(O || B) &&
-          ((B = !0),
+      S.start(function (e) {
+        return e(ge);
+      });
+    }
+    function Z() {
+      ((q = void 0),
+        !(B || W) &&
+          ((W = !0),
           o("FalcoUtils").bumpODSMetrics(
             "",
             "streaming.non_critical_failure.init_timeout",
             1,
           ),
-          Y()));
-    }
-    function Z() {
-      (_ || (_ = r("ExecutionEnvironment"))).canUseDOM &&
-        b &&
-        (clearTimeout(W), (W = setTimeout(J, C)));
+          J()));
     }
     function ee() {
-      (X(), (B = !0), Y());
+      (_ || (_ = r("ExecutionEnvironment"))).canUseDOM &&
+        b &&
+        (clearTimeout(q), (q = setTimeout(Z, C)));
     }
-    function te(e, t) {
+    function te() {
+      (Y(), (W = !0), J());
+    }
+    function ne(e, t) {
       e.identity ||
         (t
           ? (e.identity = t)
           : (e.identity = (m || (m = r("AnalyticsCoreData"))).identity));
     }
-    function ne(e, t) {
+    function re(e, t) {
       o("FalcoUtils").bumpODSMetrics(
         t.item.name,
         "event.info.streaming.batched",
         1,
       );
       var n = t.item.extra.length;
-      ($ + n > g && (clearTimeout(P), re()), x.push([e, t]), ($ += n));
+      (P + n > g && (clearTimeout(N), oe()), x.push([e, t]), (P += n));
     }
-    function re() {
-      ((P = void 0), (N = !1));
+    function oe() {
+      ((N = void 0), (M = !1));
       var e = x;
       if (
-        (ce(
+        (_e(
           "event.info.streaming.batch_processing",
           e.map(function (e) {
             return e[1].item;
           }),
         ),
-        !O && !Q())
+        !B && !X())
       )
-        oe(e, "event.non_critical_failure.streaming_init_not_complete");
+        ae(e, "event.non_critical_failure.streaming_init_not_complete");
       else {
-        var t = !O;
+        var t = !B;
         (t &&
-          ce(
+          _e(
             "event.info.streaming.queued_until_init_complete",
             e.map(function (e) {
               return e[1].item;
             }),
           ),
           S.enqueue(function (n) {
-            if (t && n === me) {
-              oe(e, "event.non_critical_failure.streaming_init_failed");
+            if (t && n === ge) {
+              ae(e, "event.non_critical_failure.streaming_init_failed");
               return;
             }
             n.log(
@@ -167,17 +170,17 @@ __d(
               }),
               function (t) {
                 if (!t) {
-                  oe(e, "event.info.banzai_fallback");
+                  ae(e, "event.info.banzai_fallback");
                   return;
                 }
-                ae(e, t, "event.info.streaming.enqueued");
+                ie(e, t, "event.info.streaming.enqueued");
               },
             );
           }));
       }
-      ((x = []), ($ = 0));
+      ((x = []), (P = 0));
     }
-    function oe(e, t) {
+    function ae(e, t) {
       var n = function () {
         var e,
           n = a[0],
@@ -189,30 +192,102 @@ __d(
             (l.identity = (m || (m = r("AnalyticsCoreData"))).identity),
           (e = l.logCritical) != null && e)
         )
-          me.logCritical([l], function (e) {
+          ge.logCritical([l], function (e) {
             return n.markItem(i, e);
           });
         else {
           var s;
           (s = l.logImmediate) != null && s
-            ? me.logImmediately([l], function (e) {
+            ? ge.logImmediately([l], function (e) {
                 return n.markItem(i, e);
               })
-            : me.log([l], function (e) {
+            : ge.log([l], function (e) {
                 return n.markItem(i, e);
               });
         }
       };
       for (var a of e) n();
     }
-    function ae(e, t, n) {
+    function ie(e, t, n) {
       for (var r of e) {
         var a = r[0],
           i = r[1];
         (o("FalcoUtils").bumpODSMetrics(i.item.name, n, 1), a.markItem(i, t));
       }
     }
-    function ie(e) {
+    function le(e) {
+      var t;
+      return (
+        ((t = (m || (m = r("AnalyticsCoreData"))).enable_falco_beacon) != null
+          ? t
+          : !1) &&
+        (_ || (_ = r("ExecutionEnvironment"))).canUseDOM &&
+        !(_ || (_ = r("ExecutionEnvironment"))).isInWorker &&
+        e.privacyContext == null
+      );
+    }
+    function se(e, t) {
+      var n,
+        o = e.map(function (e) {
+          var t = e[0],
+            n = e[1];
+          return n.item;
+        });
+      switch (t.kind) {
+        case "rejected":
+          (_e("event.non_critical_failure.beacon.rejected", o),
+            r("FBLogger")("falco", "beacon_rejected").warn(
+              "Falco beacon upload rejected with HTTP %s; %s events dropped",
+              t.status,
+              o.length,
+            ));
+          break;
+        case "invalid":
+          (_e("event.non_critical_failure.beacon.invalid_identity", o),
+            r("FBLogger")("falco", "beacon_invalid_identity").warn(
+              'Falco event "%s" has a malformed identity; dropped',
+              (n = o[0]) == null ? void 0 : n.name,
+            ));
+          break;
+        case "unsent":
+          for (var a of e) {
+            var i = a[0],
+              l = a[1];
+            i.isActive()
+              ? (_e("event.info.beacon.assumed", [l.item]),
+                _e("event.uploaded", [l.item]),
+                i.markItem(l, !0))
+              : (_e("event.info.beacon.unsent_kept", [l.item]),
+                i.markItem(l, !1));
+          }
+          return;
+        default:
+          (_e("event.info.beacon." + t.kind, o), _e("event.uploaded", o));
+      }
+      for (var s of e) {
+        var u = s[0],
+          c = s[1];
+        u.markItem(c, !0);
+      }
+    }
+    function ue() {
+      if ($ == null) {
+        var e = o("FalcoBeaconTransport").createFalcoBeaconTransport({
+          getEvent: function (t) {
+            var e = t[0],
+              n = t[1];
+            return n.item;
+          },
+          onSettled: se,
+          normalDelayMs: h,
+          immediateDelayMs: y,
+        });
+        (r("PersistedQueue").eventEmitter.addListener("inactive", e.onUnload),
+          ($ = e));
+      }
+      return $;
+    }
+    function ce(e) {
       return {
         events: e.map(function (e) {
           return {
@@ -223,7 +298,7 @@ __d(
             tag: 0,
             tags: e.tags,
             shouldAddState: e.shouldAddState,
-            identity: se(e.identity),
+            identity: me(e.identity),
             expTags: e.exptTags,
             sessionID: e.sessionId,
             deviceID: e.deviceId,
@@ -231,7 +306,7 @@ __d(
         }),
       };
     }
-    function le(e) {
+    function de(e) {
       var t,
         n,
         o,
@@ -263,18 +338,18 @@ __d(
           ? o
           : 0) > 0 &&
           (i.ambientState = (m || (m = r("AnalyticsCoreData"))).state_for_br),
-        (i.identity = se(m.identity)),
+        (i.identity = me(m.identity)),
         Object.freeze(i)
       );
     }
-    function se(e) {
+    function me(e) {
       var t,
         n = (t = e == null ? void 0 : e.claims) != null ? t : [],
         r = e == null ? void 0 : e.appScopedIdentity;
       if (r !== void 0)
         return { appScopedIdentity: { uid: r, identifier: r, claims: n } };
       var o = e == null ? void 0 : e.fbIdentity;
-      return o !== void 0
+      return o !== void 0 && String(o.accountId) !== "0"
         ? {
             facebookIdentity: {
               actorId: o.actorId,
@@ -284,96 +359,95 @@ __d(
           }
         : null;
     }
-    function ue(e, t) {
+    function pe(e, t) {
       for (var n of e) {
-        var a,
-          i,
-          l,
-          s =
-            ((l = {}),
-            (l.e = n.extra),
-            (l.r = n.policy.r),
-            (l.d =
-              (a = n.deviceId) != null
-                ? a
+        var o,
+          a,
+          i =
+            ((a = {}),
+            (a.e = n.extra),
+            (a.r = n.policy.r),
+            (a.d =
+              (o = n.deviceId) != null
+                ? o
                 : (m || (m = r("AnalyticsCoreData"))).device_id),
-            (l.s = (i = n.sessionId) != null ? i : o("WebSession").getId()),
-            (l.t = n.time),
-            (l.a = n.appVersion),
-            l);
-        (n.privacyContext && (s.p = n.privacyContext),
-          n.tags != null && (s.b = n.tags));
-        var u = n.identity;
-        u && (s.id = u);
-        var c = (m || (m = r("AnalyticsCoreData"))).consent_state;
-        (c != null && (s.cs = c), r("Banzai").post(v + n.name, s, t));
+            (a.s = n.sessionId),
+            (a.t = n.time),
+            (a.a = n.appVersion),
+            a);
+        (n.privacyContext && (i.p = n.privacyContext),
+          n.tags != null && (i.b = n.tags));
+        var l = n.identity;
+        l && (i.id = l);
+        var s = (m || (m = r("AnalyticsCoreData"))).consent_state;
+        (s != null && (i.cs = s), r("Banzai").post(v + n.name, i, t));
       }
-      ce("event.uploaded", e);
+      _e("event.uploaded", e);
     }
-    function ce(e, t) {
+    function _e(e, t) {
       for (var n of t)
         n.name !== k && o("FalcoUtils").bumpODSMetrics(n.name, e, 1);
     }
-    function de(e, t) {
+    function fe(e, t) {
       var n =
         "falco.fabric.www." + (m || (m = r("AnalyticsCoreData"))).push_phase;
       (d || (d = o("ODS"))).bumpEntityKey(1344, n, e, t);
     }
-    var me = {
+    var ge = {
       log: function (t, n) {
-        (ce("event.info.banzai.log.upload_processing", t),
-          ue(t, r("Banzai").BASIC),
+        (_e("event.info.banzai.log.upload_processing", t),
+          pe(t, r("Banzai").BASIC),
           n(!0));
       },
       logImmediately: function (t, n) {
-        (ce("event.info.banzai.log_immediately.upload_processing", t),
-          ue(t, r("Banzai").VITAL),
+        (_e("event.info.banzai.log_immediately.upload_processing", t),
+          pe(t, r("Banzai").VITAL),
           n(!0));
       },
       logCritical: function (t, n) {
-        (ce("event.info.banzai.log_critical.upload_processing", t),
-          ue(t, { signal: !0, retry: !0 }),
+        (_e("event.info.banzai.log_critical.upload_processing", t),
+          pe(t, { signal: !0, retry: !0 }),
           n(!0));
       },
     };
-    function pe(e) {
-      ye();
-      var t = _e(e, "banzai_data_loss", "log"),
-        n = _e(e, "banzai_data_loss", "logImmediately"),
-        o = _e(e, "banzai_data_loss", "logCritical"),
-        a = _e(e, "bladerunner_data_loss", ""),
-        i = _e(e, "bladerunner_data_loss", "logCritical");
-      if ((de("js.br_data_loss.posted." + e, 1), O && A))
+    function he(e) {
+      Se();
+      var t = ye(e, "banzai_data_loss", "log"),
+        n = ye(e, "banzai_data_loss", "logImmediately"),
+        o = ye(e, "banzai_data_loss", "logCritical"),
+        a = ye(e, "bladerunner_data_loss", ""),
+        i = ye(e, "bladerunner_data_loss", "logCritical");
+      if ((fe("js.br_data_loss.posted." + e, 1), B && F))
         try {
           S.enqueue(function (t) {
             return t.log([a], function (t) {
               if (!t) {
-                (de("js.br.transport_failure." + e, 1),
-                  me.logCritical([i], function (t) {
-                    de("js.br.failure_fallback_success_callback." + e, 1);
+                (fe("js.br.transport_failure." + e, 1),
+                  ge.logCritical([i], function (t) {
+                    fe("js.br.failure_fallback_success_callback." + e, 1);
                   }));
                 return;
               }
-              de("js.br.success_callback." + e, 1);
+              fe("js.br.success_callback." + e, 1);
             });
           });
         } catch (t) {
-          (de("js.br.error_enqueueing." + e, 1),
-            me.logCritical([i], function (t) {
-              de("js.br.enqueuing_fallback_success_callback." + e, 1);
+          (fe("js.br.error_enqueueing." + e, 1),
+            ge.logCritical([i], function (t) {
+              fe("js.br.enqueuing_fallback_success_callback." + e, 1);
             }));
         }
       else
-        (A || de("js.br.failed." + e, 1),
-          O || de("js.br.init_not_complete." + e, 1),
-          me.logCritical([i], function (t) {
-            de("js.br.init_fallback_success_callback." + e, 1);
+        (F || fe("js.br.failed." + e, 1),
+          B || fe("js.br.init_not_complete." + e, 1),
+          ge.logCritical([i], function (t) {
+            fe("js.br.init_fallback_success_callback." + e, 1);
           }));
-      (ue([t], r("Banzai").BASIC),
-        ue([n], r("Banzai").VITAL),
-        ue([o], { signal: !0, retry: !0 }));
+      (pe([t], r("Banzai").BASIC),
+        pe([n], r("Banzai").VITAL),
+        pe([o], { signal: !0, retry: !0 }));
     }
-    function _e(e, t, n) {
+    function ye(e, t, n) {
       return {
         name: t,
         time: (p || (p = r("performanceAbsoluteNow")))(),
@@ -385,38 +459,39 @@ __d(
           logging_flow_flag: "original_flow",
         }),
         appVersion: (m || (m = r("AnalyticsCoreData"))).app_version,
+        sessionId: o("WebSession").getId(),
       };
     }
-    function fe() {
-      U + R < Date.now() && (pe(V), (U = Date.now()), V++);
+    function Ce() {
+      V + R < Date.now() && (he(H), (V = Date.now()), H++);
     }
-    function ge() {
+    function be() {
       window.setTimeout(function () {
-        (fe(), V <= 40 && ge());
+        (Ce(), H <= 40 && be());
       }, L);
     }
-    function he(e) {
+    function ve(e) {
       S.start(function (t) {
         var n = {
           log: function (n, o) {
-            ce("event.info.streaming.queue_processing", n);
-            var t = JSON.stringify(ie(n));
+            _e("event.info.streaming.queue_processing", n);
+            var t = JSON.stringify(ce(n));
             e
               ? (m || (m = r("AnalyticsCoreData"))).enable_ack
                 ? r("promiseDone")(
                     e.amendWithAck(t),
                     function (e) {
                       (e
-                        ? (ce("event.streamed.with_ack", n),
-                          ce("event.uploaded", n))
-                        : ce(
+                        ? (_e("event.streamed.with_ack", n),
+                          _e("event.uploaded", n))
+                        : _e(
                             "event.non_critical_failure.streaming.ack_failed",
                             n,
                           ),
                         o(e));
                     },
                     function () {
-                      (ce(
+                      (_e(
                         "event.non_critical_failure.streaming.ack_rejected",
                         n,
                       ),
@@ -424,9 +499,9 @@ __d(
                     },
                   )
                 : (e.amendWithoutAck(t),
-                  ce("event.streamed.without_ack", n),
-                  ce("event.uploaded", n))
-              : (ce(
+                  _e("event.streamed.without_ack", n),
+                  _e("event.uploaded", n))
+              : (_e(
                   "event.non_critical_error.streaming.stream_not_available",
                   n,
                 ),
@@ -442,48 +517,48 @@ __d(
         t(n);
       });
     }
-    function ye() {
-      M ||
-        ((O = !1),
-        K() &&
+    function Se() {
+      w ||
+        ((B = !1),
+        Q() &&
           (f.onReady(function (e) {
             if (!e) {
-              ((A = !1), (F = !0), ee());
+              ((F = !1), (O = !0), te());
               return;
             }
             var t = e,
               n,
               a = !1,
               i = !1,
-              l = q,
+              l = U,
               s = function () {
                 !a ||
                   !i ||
-                  O ||
-                  l !== q ||
-                  (X(),
+                  B ||
+                  l !== U ||
+                  (Y(),
                   o("FalcoUtils").bumpODSMetrics(
                     "",
                     "streaming.info.init_accepted",
                     1,
                   ),
-                  he(n),
-                  (O = !0),
-                  (B = !1),
-                  (H = h),
-                  (G = y));
+                  ve(n),
+                  (B = !0),
+                  (W = !1),
+                  (G = h),
+                  (z = y));
               },
               u = {
                 onTermination: function (t) {
                   t.message === "Stream closed"
-                    ? (X(), S.stop(!0), (O = !1), (M = !1))
+                    ? (Y(), S.stop(!0), (B = !1), (w = !1))
                     : (o("FalcoUtils").bumpODSMetrics(
                         "",
                         "streaming.non_critical_failure.rejected",
                         1,
                       ),
-                      (A = !1),
-                      ee());
+                      (F = !1),
+                      te());
                 },
                 onFlowStatus: function (t) {
                   b &&
@@ -500,7 +575,7 @@ __d(
               t
                 .requestStream(
                   { method: "Falco" },
-                  JSON.stringify(le(o("WebSession").getId())),
+                  JSON.stringify(de(o("WebSession").getId())),
                   u,
                   { requestId: "" },
                 )
@@ -509,7 +584,7 @@ __d(
                     ((a = !0), s());
                     return;
                   }
-                  (X(), he(n), (O = !0), (B = !1), (H = h), (G = y));
+                  (Y(), ve(n), (B = !0), (W = !1), (G = h), (z = y));
                 })
                 .catch(function (e) {
                   (o("FalcoUtils").bumpODSMetrics(
@@ -518,20 +593,20 @@ __d(
                     1,
                   ),
                     S.stop(!0),
-                    (M = !1),
-                    (A = !1),
-                    ee());
+                    (w = !1),
+                    (F = !1),
+                    te());
                 }),
             );
           }),
-          (M = !0),
-          q++,
-          Z()));
+          (w = !0),
+          U++,
+          ee()));
     }
-    function Ce(e) {
+    function Re(e) {
       var t,
         n = e.name;
-      if (!K() || !A) return !1;
+      if (!Q() || !F) return !1;
       if (
         T.has(n) ||
         (e.policy.s !== 1 &&
@@ -561,7 +636,7 @@ __d(
       }
       return !1;
     }
-    function be(e) {
+    function Le(e) {
       if (e === "") return null;
       if (I.has(e)) return I.get(e);
       var t = { claims: [] },
@@ -570,110 +645,137 @@ __d(
         var r = n[0],
           o = n[1],
           a = n[2],
-          i = babelHelpers.arrayLikeToArray(n).slice(3);
+          i = babelHelpers.arrayLikeToArray(n).slice(3),
+          l = i.filter(function (e) {
+            return e !== "";
+          });
         (a !== ""
-          ? (t = { appScopedIdentity: a, claims: i })
+          ? (t = { appScopedIdentity: a, claims: l })
           : r !== "" &&
-            (t = { fbIdentity: { accountId: r, actorId: o }, claims: i }),
+            (t = { fbIdentity: { accountId: r, actorId: o }, claims: l }),
           I.set(e, t));
       }
       return t;
     }
-    function ve() {
-      if (w) return;
-      ((w = !0),
+    function Ee() {
+      if (A) return;
+      ((A = !0),
         r("PersistedQueue").setHandler("falco_queue_log", function (t) {
           for (
-            var n, a = t.getQueueNameSuffix(), i = be(a);
+            var n, a = t.getQueueNameSuffix(), i = Le(a);
             (n = t.dequeueItem());
           )
             (function (n) {
-              Ce(n.item)
+              Re(n.item)
                 ? (o("FalcoUtils").bumpODSMetrics(
                     n.item.name,
                     "event.info.upload_method.streaming.log",
                     1,
                   ),
-                  ye(),
-                  P == null && (P = setTimeout(re, H)),
+                  Se(),
+                  N == null && (N = setTimeout(oe, G)),
                   i && !e(a) && (n.item.identity = i),
-                  ne(t, n))
-                : (i
-                    ? (n.item.identity = i)
-                    : (n.item.identity = (
-                        m || (m = r("AnalyticsCoreData"))
-                      ).identity),
-                  me.log([n.item], function (e) {
-                    return t.markItem(n, e);
-                  }));
+                  re(t, n))
+                : le(n.item)
+                  ? (o("FalcoUtils").bumpODSMetrics(
+                      n.item.name,
+                      "event.info.upload_method.beacon.log",
+                      1,
+                    ),
+                    i
+                      ? (n.item.identity = i)
+                      : (n.item.identity = (
+                          m || (m = r("AnalyticsCoreData"))
+                        ).identity),
+                    ue().log([t, n]))
+                  : (i
+                      ? (n.item.identity = i)
+                      : (n.item.identity = (
+                          m || (m = r("AnalyticsCoreData"))
+                        ).identity),
+                    ge.log([n.item], function (e) {
+                      return t.markItem(n, e);
+                    }));
             })(n);
         }),
         r("PersistedQueue").setHandler("falco_queue_immediately", function (t) {
           for (
-            var n, a = t.getQueueNameSuffix(), i = be(a);
+            var n, a = t.getQueueNameSuffix(), i = Le(a);
             (n = t.dequeueItem());
           )
             (function (n) {
-              Ce(n.item)
+              Re(n.item)
                 ? (o("FalcoUtils").bumpODSMetrics(
                     n.item.name,
                     "event.info.upload_method.streaming.log_immediately",
                     1,
                   ),
-                  ye(),
-                  (P == null || !N) &&
-                    (clearTimeout(P), (P = setTimeout(re, G)), (N = !0)),
+                  Se(),
+                  (N == null || !M) &&
+                    (clearTimeout(N), (N = setTimeout(oe, z)), (M = !0)),
                   (n.item.logImmediate = !0),
                   i && !e(a) && (n.item.identity = i),
-                  ne(t, n),
+                  re(t, n),
                   r("PersistedQueue").isPersistenceAllowed() ||
                     (o("FalcoUtils").bumpODSMetrics(
                       n.item.name,
                       "event.info.streaming_no_persistence.log_immediately",
                       1,
                     ),
-                    re()))
-                : (o("FalcoUtils").bumpODSMetrics(
-                    n.item.name,
-                    "event.info.upload_method.banzai.log_immediately",
-                    1,
-                  ),
-                  i
-                    ? (n.item.identity = i)
-                    : (n.item.identity = (
-                        m || (m = r("AnalyticsCoreData"))
-                      ).identity),
-                  me.logImmediately([n.item], function (e) {
-                    return t.markItem(n, e);
-                  }));
+                    oe()))
+                : le(n.item)
+                  ? (o("FalcoUtils").bumpODSMetrics(
+                      n.item.name,
+                      "event.info.upload_method.beacon.log_immediately",
+                      1,
+                    ),
+                    i
+                      ? (n.item.identity = i)
+                      : (n.item.identity = (
+                          m || (m = r("AnalyticsCoreData"))
+                        ).identity),
+                    ue().logImmediately([t, n]))
+                  : (o("FalcoUtils").bumpODSMetrics(
+                      n.item.name,
+                      "event.info.upload_method.banzai.log_immediately",
+                      1,
+                    ),
+                    i
+                      ? (n.item.identity = i)
+                      : (n.item.identity = (
+                          m || (m = r("AnalyticsCoreData"))
+                        ).identity),
+                    ge.logImmediately([n.item], function (e) {
+                      return t.markItem(n, e);
+                    }));
             })(n);
         }),
         r("PersistedQueue").setHandler("falco_queue_critical", function (t) {
           for (
-            var n, a = t.getQueueNameSuffix(), i = be(a);
+            var n, a = t.getQueueNameSuffix(), i = Le(a);
             (n = t.dequeueItem());
           )
             (function (n) {
               var l = n.item;
-              if (Ce(l))
+              if (Re(l))
                 if (
                   (o("FalcoUtils").bumpODSMetrics(
                     n.item.name,
                     "event.info.upload_method.streaming.log_critical",
                     1,
                   ),
-                  ye(),
+                  Se(),
                   (l.logCritical = !0),
                   i && !e(a) && (l.identity = i),
-                  !O && !Q())
+                  !B && !X())
                 )
-                  (te(l, i),
-                    oe(
+                  (ne(l, i),
+                    ae(
                       [[t, n]],
                       "event.non_critical_failure.streaming_init_not_complete.log_critical",
                     ));
                 else {
-                  var s = !O;
+                  var s = !B;
                   (s &&
                     o("FalcoUtils").bumpODSMetrics(
                       l.name,
@@ -681,9 +783,9 @@ __d(
                       1,
                     ),
                     S.enqueue(function (e) {
-                      if (s && e === me) {
-                        (te(l, i),
-                          oe(
+                      if (s && e === ge) {
+                        (ne(l, i),
+                          ae(
                             [[t, n]],
                             "event.non_critical_failure.streaming_init_failed.log_critical",
                           ));
@@ -691,33 +793,47 @@ __d(
                       }
                       e.logCritical([l], function (e) {
                         if (!e) {
-                          (te(l, i),
-                            oe(
+                          (ne(l, i),
+                            ae(
                               [[t, n]],
                               "event.info.banzai_fallback.log_critical",
                             ));
                           return;
                         }
-                        ae([[t, n]], e, "event.uploaded");
+                        ie([[t, n]], e, "event.uploaded");
                       });
                     }));
                 }
               else
-                (i
-                  ? (l.identity = i)
-                  : (l.identity = (m || (m = r("AnalyticsCoreData"))).identity),
-                  o("FalcoUtils").bumpODSMetrics(
-                    n.item.name,
-                    "event.info.upload_method.banzai.log_critical",
-                    1,
-                  ),
-                  me.logCritical([l], function (e) {
-                    return t.markItem(n, e);
-                  }));
+                le(l)
+                  ? (o("FalcoUtils").bumpODSMetrics(
+                      l.name,
+                      "event.info.upload_method.beacon.log_critical",
+                      1,
+                    ),
+                    i
+                      ? (l.identity = i)
+                      : (l.identity = (
+                          m || (m = r("AnalyticsCoreData"))
+                        ).identity),
+                    ue().logCritical([t, n]))
+                  : (i
+                      ? (l.identity = i)
+                      : (l.identity = (
+                          m || (m = r("AnalyticsCoreData"))
+                        ).identity),
+                    o("FalcoUtils").bumpODSMetrics(
+                      n.item.name,
+                      "event.info.upload_method.banzai.log_critical",
+                      1,
+                    ),
+                    ge.logCritical([l], function (e) {
+                      return t.markItem(n, e);
+                    }));
             })(n);
         }),
         (m || (m = r("AnalyticsCoreData"))).enable_dataloss_timer &&
-          (ye(), fe(), ge()));
+          (Se(), Ce(), be()));
       function e(e) {
         try {
           var t = o("FalcoUtils").identityToString(
@@ -737,7 +853,7 @@ __d(
         }
       }
     }
-    l.attach = ve;
+    l.attach = Ee;
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "FBLogger",
     "JSResource",
     "VultureJSGating",
+    "VultureJSHTTPTransport",
     "VultureJSPageLifecycle",
     "VultureJSServerHits",
     "asyncToGeneratorRuntime",
@@ -53,11 +54,21 @@ __d(
         }
     }
     function v() {
-      if (c != null)
-        for (; f.length > 0; ) {
-          var e = f.pop();
-          e != null && h(e);
-        }
+      if (c == null) {
+        if (f.length === 0) return;
+        var e = o("VultureJSHTTPTransport").sendVultureJSHits(f);
+        (r("FBLogger")("vulture_js", "pagehide_before_bump_loaded").warn(
+          "Page hid with %s queued hits before bumpVultureJSHash loaded. Sent over HTTP: %s",
+          f.length,
+          e,
+        ),
+          e && (f.length = 0));
+        return;
+      }
+      for (; f.length > 0; ) {
+        var t = f.pop();
+        t != null && h(t);
+      }
     }
     o("VultureJSPageLifecycle").onPageHide(v);
     function S() {
