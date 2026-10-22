@@ -7,7 +7,6 @@ __d(
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebDBLabelSublistDatabaseApi",
-    "WAWebLid1X1MigrationGating",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaLabelSublist",
     "WAWebSyncdAction",
@@ -261,12 +260,7 @@ __d(
                     yield o("WAWebSyncdGetChat").resolveChatForMutationIndex(t);
                 if (n.success === !0)
                   t = o("WAWebWidFactory").createWid(n.chat.id);
-                else if (
-                  o(
-                    "WAWebLid1X1MigrationGating",
-                  ).Lid1X1MigrationUtils.isLidMigrated() &&
-                  t.isLid()
-                ) {
+                else if (t.isLid()) {
                   var a = o("WAWebApiContact").getPhoneNumber(t);
                   a != null && (t = a);
                 }

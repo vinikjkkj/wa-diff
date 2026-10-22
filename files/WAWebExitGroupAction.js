@@ -28,25 +28,45 @@ __d(
       d,
       m = d || (d = o("react"));
     function p(e) {
-      return _(o("WAWebStateUtils").unproxy(e));
+      return f(o("WAWebStateUtils").unproxy(e), !0).catch(
+        o("WAFilteredCatch").filteredCatch(
+          o("WAWebBackendErrors").ServerStatusCodeError,
+          o("WAWebBoolFunc").returnFalse,
+        ),
+      );
     }
-    function _(t) {
-      var r = t.promises;
-      if (!o("WAWebChatGetters").getIsGroup(t))
+    function _(e) {
+      return f(o("WAWebStateUtils").unproxy(e), !1);
+    }
+    function f(e, t) {
+      var r = e.promises;
+      if (!o("WAWebChatGetters").getIsGroup(e))
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       if (r.sendExit) return r.sendExit;
       var a = (r.sendExit = o("WAWebGroupExitJob")
-          .leaveGroup(t.id)
-          .then(function (e) {
-            if (e.code !== 200)
-              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(e.code);
-          })),
-        i = new (o("WAWebActionToast.react").ActionType)(
+        .leaveGroup(e.id)
+        .then(function (e) {
+          if (e.code !== 200)
+            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(e.code);
+        }));
+      return (
+        t && g(e, a),
+        a
+          .then(function () {
+            return h(e);
+          })
+          .finally(function () {
+            r.sendExit = null;
+          })
+      );
+    }
+    function g(t, n) {
+      var r = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Exiting group"),
         ),
-        l = a
+        a = n
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Exited group"),
@@ -76,35 +96,20 @@ __d(
                 {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return _(t);
+                    return p(t);
                   },
                 },
               )
             );
           });
-      return (
-        o("WAWebToastManager").ToastManager.open(
-          m.jsx(o("WAWebActionToast.react").ActionToast, {
-            initialAction: i,
-            pendingAction: l,
-          }),
-        ),
-        a
-          .then(function () {
-            return f(t);
-          })
-          .finally(function () {
-            r.sendExit = null;
-          })
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              o("WAWebBoolFunc").returnFalse,
-            ),
-          )
+      o("WAWebToastManager").ToastManager.open(
+        m.jsx(o("WAWebActionToast.react").ActionToast, {
+          initialAction: r,
+          pendingAction: a,
+        }),
       );
     }
-    function f(e) {
+    function h(e) {
       var t;
       if (!o("WAWebChatGetters").getIsGroup(e))
         return (c || (c = n("Promise"))).resolve(!0);
@@ -146,7 +151,7 @@ __d(
           );
         });
     }
-    l.sendExitGroup = p;
+    ((l.sendExitGroup = p), (l.sendExitGroupWithoutToast = _));
   },
   226,
 );

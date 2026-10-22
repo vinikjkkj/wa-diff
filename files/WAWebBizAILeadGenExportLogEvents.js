@@ -9,10 +9,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    function e(e, t) {
+      t === void 0 && (t = "request_failed");
+      var n =
+        e === "failure" ? { action_status: e, error: t } : { action_status: e };
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HUB_CHAT,
-        extraAttributes: { action_status: e },
+        extraAttributes: n,
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         stickyEntryPoint: !1,

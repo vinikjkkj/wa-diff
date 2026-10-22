@@ -14,7 +14,6 @@ __d(
     "WAWebDBCreateLidPnMappings",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidAwareContactsDB",
     "WAWebMessageProcessUtils",
     "WAWebMsgKey",
@@ -198,10 +197,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            t &&
-            o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-          ) {
+          if (t) {
             var n = yield o(
               "WAWebMessageProcessUtils",
             ).selectChatForOneOnOneMessage({ lid: t });

@@ -22,6 +22,17 @@ __d(
       MUTE: 16,
       SCREEN_SHARE: 17,
       UNKNOWN: 18,
+      REMINDER: 19,
+      RECONFIGURE_BOT: 20,
+      READY: 21,
+      RELAY_INFO_UPDATE: 22,
+      RAISE_HAND: 23,
+      SCREEN: 24,
+      USER_ACTION: 25,
+      WAITING_ROOM_UPDATE: 26,
+      SWITCHABLE: 27,
+      TRANSFER: 28,
+      ABPROP_BUCKET: 29,
     });
     i.CALL_STANZA_TYPE = e;
   },

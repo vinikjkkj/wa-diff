@@ -5,7 +5,6 @@ __d(
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebBackendEventBus",
     "WAWebEventsWaitForOfflineDeliveryEnd",
-    "WAWebLid1X1MigrationGating",
     "WAWebMsgKey",
     "WAWebSchemaChat",
     "WAWebSyncdFatal",
@@ -75,12 +74,6 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-          )
-            return [];
           for (
             var t = e
                 .map(function (e) {

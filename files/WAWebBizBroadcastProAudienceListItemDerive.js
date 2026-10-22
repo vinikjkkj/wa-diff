@@ -8,16 +8,14 @@ __d(
       var n = [];
       for (var r of t) {
         var o;
-        if (!(r == null || r.id == null)) {
-          var a = r.operation_status_code === e;
+        r == null ||
+          r.id == null ||
           n.push({
             audienceSize: r.subscriber_size,
             id: r.id,
-            isIngesting: a,
-            isRecipientCountPending: a,
+            isRecipientCountPending: r.operation_status_code === e,
             name: (o = r.name) != null ? o : "",
           });
-        }
       }
       return n;
     }

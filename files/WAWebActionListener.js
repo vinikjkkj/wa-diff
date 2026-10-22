@@ -1036,7 +1036,7 @@ __d(
     function P(e, t) {
       ((e.pendingAction = e.pendingAction + 1),
         o("WAWebUpdateUnreadChatAction")
-          .markUnread(e, t)
+          .markUnread(e, { unread: t })
           .finally(function () {
             e.pendingAction = e.pendingAction - 1;
           }));

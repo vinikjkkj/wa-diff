@@ -3,18 +3,14 @@ __d(
   [
     "WALogger",
     "WAWebApiChatCommon",
-    "WAWebLid1X1MigrationGating",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(t, n) {
-      return !o(
-        "WAWebLid1X1MigrationGating",
-      ).Lid1X1MigrationUtils.isLidMigrated() || !t.isRegularUserPn()
-        ? !1
-        : t.getDeviceId() !== 0
+      return t.isRegularUserPn()
+        ? t.getDeviceId() !== 0
           ? (o("WALogger")
               .ERROR(
                 e ||
@@ -28,7 +24,8 @@ __d(
               )
               .sendLogs("pnless-device-wid"),
             !1)
-          : !0;
+          : !0
+        : !1;
     }
     function d(e) {
       return m.apply(this, arguments);

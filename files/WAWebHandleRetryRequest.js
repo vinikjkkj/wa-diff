@@ -9,7 +9,6 @@ __d(
     "WAWebApiContact",
     "WAWebApiDeviceList",
     "WAWebHandleRetryRequestNonMigratedLog",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebMaibaWASSMigration",
     "WAWebManageE2ESessionsJob",
@@ -42,14 +41,14 @@ __d(
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L, E;
-    function k(e) {
-      return I.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L;
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function I() {
+    function k() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N(e);
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield P(e);
           if (t.error) {
             o("WALogger")
               .WARN(
@@ -87,7 +86,7 @@ __d(
                   function* () {
                     try {
                       var t = p.isStatus() || i.isStatus(),
-                        s = T(e, t)
+                        s = I(e, t)
                           ? yield o(
                               "WAWebProcessRetryKeyBundle",
                             ).loadGroupSentMessage(i, e.originalMsgId)
@@ -115,13 +114,13 @@ __d(
                         i.toLogString(),
                         b,
                       );
-                      var S = yield $(i, e, b);
+                      var S = yield x(i, e, b);
                       if (S == null) return;
                       var R = S.identity,
                         L = S.isLidBot,
                         E = S.originalMsgId,
                         k = S.previousIdentityKey,
-                        I = S.requester;
+                        D = S.requester;
                       if (
                         (r("gkx")("26258") ||
                           n("cr:10198") == null ||
@@ -131,16 +130,16 @@ __d(
                             "originalMsgId:" +
                               E +
                               " - requester:" +
-                              I.toString(),
+                              D.toString(),
                           ),
                         h === "enc_rekey_retry")
                       ) {
-                        var x = yield o(
+                        var $ = yield o(
                           "WAWebVoipStackInterface",
                         ).getVoipStackInterface();
-                        yield x == null
+                        yield $ == null
                           ? void 0
-                          : x.resendEncRekeyRetry(
+                          : $.resendEncRekeyRetry(
                               l.toString({ legacy: !0 }),
                               g,
                             );
@@ -152,7 +151,7 @@ __d(
                             identity: R,
                             loadedSentMessage: s != null ? s : void 0,
                             originalMsgId: E,
-                            requester: I,
+                            requester: D,
                             retryCount: g,
                             sessionScope: v,
                           }),
@@ -161,7 +160,7 @@ __d(
                               ? o("WAWebApiContact").getAlternateDeviceWid(
                                   o(
                                     "WAWebWidFactory",
-                                  ).createDeviceWidFromWidOrThrow(I),
+                                  ).createDeviceWidFromWidOrThrow(D),
                                 )
                               : null;
                         if (
@@ -193,7 +192,7 @@ __d(
                             k == null ||
                             k !== (R == null ? void 0 : R.identityKey) ||
                             P.isIdentityChangedSinceSend;
-                        if (yield D(i, I, w, F)) return;
+                        if (yield T(i, D, w, F)) return;
                         var O = {
                           to: p,
                           participant: _,
@@ -233,10 +232,10 @@ __d(
               );
             });
         })),
-        I.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function T(e, t) {
+    function I(e, t) {
       var n = e.retryCount,
         r = e.type;
       return (
@@ -246,12 +245,12 @@ __d(
         r !== "voip_1x1_retry"
       );
     }
-    function D(e, t, n, r) {
-      return x.apply(this, arguments);
+    function T(e, t, n, r) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             if (
               n("cr:627") == null ||
@@ -301,15 +300,15 @@ __d(
             }
           },
         )),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $(e, t, n) {
-      return P.apply(this, arguments);
+    function x(e, t, n) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = t.from,
             i = t.isLid,
             l = i === void 0 ? !1 : i,
@@ -425,19 +424,19 @@ __d(
             );
           }
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
-            i = F(e);
+            i = A(e);
           if (
             (o("WALogger").LOG(
               C ||
@@ -475,91 +474,73 @@ __d(
             ).resolveMaibaAiHubFbidToLidOrChatId(i)),
             i.isUser())
           ) {
+            var l;
             o("WALogger").LOG(
               v ||
                 (v = babelHelpers.taggedTemplateLiteralLoose([
                   "getActualChatInfo: this is a user chat",
                 ])),
             );
-            var l =
-              !o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated() && i.isLid();
-            if (
-              o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated() ||
-              l
-            ) {
-              var s;
-              o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "getActualChatInfo: in migrated/pre-migrated flow",
-                  ])),
-              );
-              var u = new (r("WAWebMsgKey"))({
-                  fromMe: !0,
-                  remote: i,
-                  id: e.originalMsgId,
-                }),
-                c = [
-                  u,
-                  o("WAWebLidMigrationUtils").getAlternateMsgKey(u),
-                ].filter(Boolean),
-                d;
-              if (e.type === "retry") {
-                var m = yield w(c, e.originalMsgId);
-                if (m == null)
-                  return (
-                    o("WALogger").LOG(
-                      R ||
-                        (R = babelHelpers.taggedTemplateLiteralLoose([
-                          "getActualChatInfo: could not find messages",
-                        ])),
-                    ),
-                    {
-                      error: o(
-                        "WAWebHandleRetryRequestNonMigratedLog",
-                      ).selectRetryErrorType(e),
-                    }
-                  );
-                d = m;
-              } else (e.type, (d = e.from));
-              var p;
-              if (e.from.isBot()) p = e.from;
-              else {
-                var _ = o("WAWebWidFactory").asUserWidOrThrow(e.from);
-                p = d.isLid()
-                  ? o("WAWebLidMigrationUtils").toLid(_)
-                  : o("WAWebLidMigrationUtils").toPn(_);
-              }
-              if (p == null) return { error: "empty_from_user" };
-              var f = o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                  p.user,
-                  p.server,
-                  (s = e.from.device) != null ? s : 0,
-                ),
-                g = yield o("WAWebSchemaChat").getChatTable().get(d.toString()),
-                h = g == null ? void 0 : g.lidOriginType,
-                y =
-                  (g == null ? void 0 : g.accountLid) != null
-                    ? o("WAWebWidFactory").createWidFromWidLike(g.accountLid)
-                    : void 0;
-              return { chat: d, from: f, lidOrigin: h, accountLid: y };
+            var s = new (r("WAWebMsgKey"))({
+                fromMe: !0,
+                remote: i,
+                id: e.originalMsgId,
+              }),
+              u = [s, o("WAWebLidMigrationUtils").getAlternateMsgKey(s)].filter(
+                Boolean,
+              ),
+              c;
+            if (e.type === "retry") {
+              var d = yield M(u, e.originalMsgId);
+              if (d == null)
+                return (
+                  o("WALogger").LOG(
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                        "getActualChatInfo: could not find messages",
+                      ])),
+                  ),
+                  {
+                    error: o(
+                      "WAWebHandleRetryRequestNonMigratedLog",
+                    ).selectRetryErrorType(e),
+                  }
+                );
+              c = d;
+            } else (e.type, (c = e.from));
+            var m;
+            if (e.from.isBot()) m = e.from;
+            else {
+              var p = o("WAWebWidFactory").asUserWidOrThrow(e.from);
+              m = c.isLid()
+                ? o("WAWebLidMigrationUtils").toLid(p)
+                : o("WAWebLidMigrationUtils").toPn(p);
             }
+            if (m == null) return { error: "empty_from_user" };
+            var _ = o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
+                m.user,
+                m.server,
+                (l = e.from.device) != null ? l : 0,
+              ),
+              f = yield o("WAWebSchemaChat").getChatTable().get(c.toString()),
+              g = f == null ? void 0 : f.lidOriginType,
+              h =
+                (f == null ? void 0 : f.accountLid) != null
+                  ? o("WAWebWidFactory").createWidFromWidLike(f.accountLid)
+                  : void 0;
+            return { chat: c, from: _, lidOrigin: g, accountLid: h };
           }
           return { chat: i, from: e.from };
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r,
             a = (yield o("WAWebSchemaMessage")
               .getMessageTable()
@@ -572,25 +553,25 @@ __d(
           if (
             (a.length > 1 &&
               o("WALogger").WARN(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "getActualChatInfo: multiple messages found",
                   ])),
               ),
             a.length > 0)
           )
             return o("WAWebWidFactory").createWidFromWidLike(a[0].to);
-          var i = yield (E || (E = n("Promise"))).all(
+          var i = yield (L || (L = n("Promise"))).all(
             e.map(function (e) {
               return o("WAWebAddonRetryRequestUtils").getSentAddonMsgRecord(e);
             }),
           );
           return (r = i.find(Boolean)) == null ? void 0 : r.msgData.id.remote;
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(t) {
+    function A(t) {
       var n = t.from,
         r = t.recipient;
       if (n.isBot() && r != null) return r;
@@ -623,7 +604,7 @@ __d(
       }
       return n;
     }
-    ((l.handleRetryRequest = k), (l.getTargetChat = F));
+    ((l.handleRetryRequest = E), (l.getTargetChat = A));
   },
   98,
 );

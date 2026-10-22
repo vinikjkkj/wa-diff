@@ -38,11 +38,18 @@ __d(
       _,
       f,
       g = f || (f = o("react"));
-    function h(e, t, n) {
-      return (
-        n === void 0 && (n = !0),
-        E({ allowAction: n, chat: o("WAWebStateUtils").unproxy(e), unread: t })
-      );
+    function h(e, t) {
+      var n = t.allowAction,
+        r = n === void 0 ? !0 : n,
+        a = t.showToast,
+        i = a === void 0 ? !0 : a,
+        l = t.unread;
+      return E({
+        allowAction: r,
+        chat: o("WAWebStateUtils").unproxy(e),
+        showToast: i,
+        unread: l,
+      });
     }
     function y() {
       var e = null,
@@ -139,25 +146,27 @@ __d(
     function E(t) {
       var a = t.allowAction,
         i = t.chat,
-        l = t.toastId,
-        u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
-        c = t.unread;
-      c ? i.active && (i.markedUnread = !0) : (i.markedUnread = !1);
-      var d = i.promises;
-      if (d.markUnread) return d.markUnread;
-      var m = (d.markUnread = c
+        l = t.showToast,
+        u = l === void 0 ? !0 : l,
+        c = t.toastId,
+        d = c === void 0 ? o("WAWebActionToast.react").genId() : c,
+        m = t.unread;
+      m ? i.active && (i.markedUnread = !0) : (i.markedUnread = !1);
+      var p = i.promises;
+      if (p.markUnread) return p.markUnread;
+      var f = (p.markUnread = m
           ? T(i)
           : (_ || (_ = n("Promise"))).all([I({ chat: i }), W({ chat: i })])),
-        p = c
+        h = m
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Marking as unread"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Marking as read"),
             ),
-        f = m
+        y = f
           .then(function () {
-            var e = c
+            var e = m
               ? s._(/*BTDS*/ "Marked as unread")
               : s._(/*BTDS*/ "Marked as read");
             return a
@@ -167,8 +176,8 @@ __d(
                     return E({
                       allowAction: a,
                       chat: i,
-                      toastId: u,
-                      unread: !c,
+                      toastId: d,
+                      unread: !m,
                     });
                   },
                 })
@@ -179,7 +188,7 @@ __d(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400)
-                  return c
+                  return m
                     ? new (o("WAWebActionToast.react").ActionType)(
                         s._(/*BTDS*/ "Couldn't mark chat as unread."),
                       )
@@ -191,7 +200,7 @@ __d(
             ),
           )
           .catch(function () {
-            var e = c
+            var e = m
               ? s._(/*BTDS*/ "Couldn't mark chat as unread.")
               : s._(/*BTDS*/ "Couldn't mark chat as read.");
             return a
@@ -201,40 +210,45 @@ __d(
                     return E({
                       allowAction: a,
                       chat: i,
-                      toastId: u,
-                      unread: c,
+                      toastId: d,
+                      unread: m,
                     });
                   },
                 })
               : new (o("WAWebActionToast.react").ActionType)(e);
           });
       return (
-        o("WAWebToastManager").ToastManager.open(
-          g.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: u,
-            initialAction: p,
-            pendingAction: f,
-          }),
-        ),
-        m
+        u &&
+          o("WAWebToastManager").ToastManager.open(
+            g.jsx(o("WAWebActionToast.react").ActionToast, {
+              id: d,
+              initialAction: h,
+              pendingAction: y,
+            }),
+          ),
+        f
           .then(r("WAWebNoop"))
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (t) {
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "markUnread: got status ",
-                      "",
-                    ])),
-                  t.status,
-                );
+                if (
+                  (o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "markUnread: got status ",
+                        "",
+                      ])),
+                    t.status,
+                  ),
+                  !u)
+                )
+                  throw t;
               },
             ),
           )
           .finally(function () {
-            d.markUnread = null;
+            p.markUnread = null;
           })
       );
     }

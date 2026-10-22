@@ -45,6 +45,7 @@ __d(
               displayType: n,
               msgKey: i,
               hideMeta: !0,
+              hideTemplateFooter: !0,
               trusted: m,
               isMsgVisible: a,
               ref: _,

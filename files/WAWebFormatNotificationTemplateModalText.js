@@ -2,7 +2,6 @@ __d(
   "WAWebFormatNotificationTemplateModalText",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebABPropsInternalNumber",
     "WAWebDisplayedNameIsBizName",
     "WAWebFrontendMsgGetters",
@@ -376,41 +375,26 @@ __d(
         ),
         n = s._(
           /*BTDS*/ "Chats between only you and this business are managed by a secure service from Meta.",
-        ),
-        r = o("WAWebABProps").getABPropConfigValue("coex_calling_enabled");
-      return r
-        ? u.jsxs(u.Fragment, {
-            children: [
-              t,
-              u.jsx("br", {}),
-              u.jsx("br", {}),
-              n,
-              e
-                ? null
-                : u.jsxs(u.Fragment, {
-                    children: [
-                      u.jsx("br", {}),
-                      u.jsx("br", {}),
-                      s._(
-                        /*BTDS*/ "For group chats and status updates, this business is using the WhatsApp Business app. These communications remain end-to-end encrypted.",
-                      ),
-                    ],
-                  }),
-            ],
-          })
-        : u.jsxs(u.Fragment, {
-            children: [
-              t,
-              u.jsx("br", {}),
-              u.jsx("br", {}),
-              n,
-              u.jsx("br", {}),
-              u.jsx("br", {}),
-              s._(
-                /*BTDS*/ "For group chats, calls, and status updates, this business is using the WhatsApp Business app. These communications remain end-to-end encrypted.",
-              ),
-            ],
-          });
+        );
+      return u.jsxs(u.Fragment, {
+        children: [
+          t,
+          u.jsx("br", {}),
+          u.jsx("br", {}),
+          n,
+          e
+            ? null
+            : u.jsxs(u.Fragment, {
+                children: [
+                  u.jsx("br", {}),
+                  u.jsx("br", {}),
+                  s._(
+                    /*BTDS*/ "For group chats and status updates, this business is using the WhatsApp Business app. These communications remain end-to-end encrypted.",
+                  ),
+                ],
+              }),
+        ],
+      });
     }
     function f() {
       return u.jsxs(u.Fragment, {
@@ -423,7 +407,6 @@ __d(
       });
     }
     function g() {
-      var e = o("WAWebABProps").getABPropConfigValue("coex_calling_enabled");
       return u.jsxs(u.Fragment, {
         children: [
           s._(
@@ -431,22 +414,14 @@ __d(
           ),
           u.jsx("br", {}),
           u.jsx("br", {}),
-          e
-            ? s._(
-                /*BTDS*/ "Your business uses a secure service from Meta to manage messages and calls in this and other 1-1 chats.",
-              )
-            : s._(
-                /*BTDS*/ "Chats between only your business and one other person are managed by a secure service from Meta.",
-              ),
+          s._(
+            /*BTDS*/ "Your business uses a secure service from Meta to manage messages and calls in this and other 1-1 chats.",
+          ),
           u.jsx("br", {}),
           u.jsx("br", {}),
-          e
-            ? s._(
-                /*BTDS*/ "For group chats and status updates, your business is using the WhatsApp Business app. These communications remain end-to-end encrypted.",
-              )
-            : s._(
-                /*BTDS*/ "For group chats, calls, and status updates, your business is using the WhatsApp Business app. These communications remain end-to-end encrypted.",
-              ),
+          s._(
+            /*BTDS*/ "For group chats and status updates, your business is using the WhatsApp Business app. These communications remain end-to-end encrypted.",
+          ),
         ],
       });
     }

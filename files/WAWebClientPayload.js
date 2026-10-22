@@ -12,7 +12,6 @@ __d(
     "WAWebClientPayloadReleaseChannel",
     "WAWebCompanionPlatformType",
     "WAWebEnvironment",
-    "WAWebLid1X1MigrationGating",
     "WAWebProtobufsCompanionReg.pb",
     "WAWebProtobufsWa6.pb",
     "WAWebSyncdMdSyncFieldstatMeta",
@@ -52,9 +51,7 @@ __d(
                 device: t.device != null ? t.device : 0,
                 lc: o("WAWebUserPrefsGeneral").getLoginCounter(),
                 connectAttemptCount: p,
-                lidDbMigrated: o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated(),
+                lidDbMigrated: !0,
                 pushName: n != null && n !== "" ? n : void 0,
               },
               m,

@@ -1,7 +1,6 @@
 __d(
   "WAWebQuickReplyGatingUtils",
   [
-    "WAWebABProps",
     "WAWebBizBotProfileUtils",
     "WAWebChatGetters",
     "WAWebMobilePlatforms",
@@ -23,15 +22,7 @@ __d(
         !t.id.isAiHub()
       );
     }
-    function u(e) {
-      return (
-        s(e) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_web_show_quick_reply_option_in_composer",
-        )
-      );
-    }
-    function c() {
+    function u() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeatures").primaryFeatureEnabled(
@@ -41,8 +32,7 @@ __d(
     }
     ((l.canSendQuickReply = e),
       (l.canSendQuickReplyInChat = s),
-      (l.isQuickReplyComposerEntryPointEnabled = u),
-      (l.quickRepliesManagementEnabled = c));
+      (l.quickRepliesManagementEnabled = u));
   },
   98,
 );

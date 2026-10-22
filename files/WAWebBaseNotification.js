@@ -27,6 +27,7 @@ __d(
         function t() {
           var t = this;
           ((this.creationAt = Date.now()),
+            (this.isBannerSuppressed = !1),
             (this.$1 = null),
             (this.$2 = r("WAWebPonyfillsCryptoRandomUUID")()),
             (this.closeBanner = function () {
@@ -160,42 +161,43 @@ __d(
           (a.triggerNotification = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = yield this.shouldMute(e);
-                (t || (t = yield this.shouldSquelch()),
-                  t &&
+                var t = this.isBannerSuppressed,
+                  n = yield this.shouldMute(e);
+                (n || (n = yield this.shouldSquelch()),
+                  n &&
                     o("WALogger").LOG(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
                           "WABaseNotification:triggerNotification muteReason ",
                           "",
                         ])),
-                      t,
+                      n,
                     ));
-                var n = !1;
-                if (t)
-                  if (this.shouldSuppressBanner(t)) n = !0;
+                var a = t;
+                if (n)
+                  if (this.shouldSuppressBanner(n)) a = !0;
                   else
                     throw new (o("WAAbortError").AbortError)(
-                      "Notification mute/squelched " + t,
+                      "Notification mute/squelched " + n,
                     );
-                var a =
-                  !t &&
+                var i =
+                  !n &&
                   this.playsSoundBeforeBanner() &&
                   (yield this.shouldPlaySound());
-                a && this.playSound();
-                var i;
+                i && this.playSound();
+                var l;
                 return (
                   (yield this.shouldShowBanner()) &&
-                    ((r("WAWebEnvironment").isWindows || !n) &&
+                    ((r("WAWebEnvironment").isWindows || !a) &&
                       (yield this.beforeBannerShown(),
-                      (i = yield this.showBanner(n)),
-                      this.afterBannerShown(i)),
-                    yield this.performLogging(n)),
-                  !t &&
-                    !a &&
+                      (l = yield this.showBanner(a)),
+                      this.afterBannerShown(l)),
+                    yield this.performLogging(a)),
+                  !n &&
+                    !i &&
                     (yield this.shouldPlaySound()) &&
                     this.playSound(),
-                  i
+                  l
                 );
               },
             );

@@ -4,7 +4,6 @@ __d(
     "$InternalEnum",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
-    "WAWebLid1X1MigrationGating",
     "WAWebMsgKey",
     "WAWebProtobufMsgKeyUtils",
     "WAWebSchemaMessage",
@@ -58,10 +57,7 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t.length === 0) return t;
           var n = t;
-          o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.isLidMigrated() &&
-            r("WAWebWid").isUser(e) &&
+          r("WAWebWid").isUser(e) &&
             !r("WAWebWid").isStringLid(e) &&
             (n = t.map(function (t) {
               var n = t.key,

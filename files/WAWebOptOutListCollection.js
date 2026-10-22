@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAWebBaseCollection",
     "WAWebContactCollection",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebOptOutListModel",
     "WAWebUpdateOptOutListDbJob",
@@ -13,14 +12,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = function (t) {
-        return o(
-          "WAWebLid1X1MigrationGating",
-        ).Lid1X1MigrationUtils.isLidMigrated()
-          ? o("WAWebLidMigrationUtils").toLid(t)
-          : null;
-      },
-      u = (function (t) {
+      s = (function (t) {
         function a() {
           var r;
           return (
@@ -35,12 +27,14 @@ __d(
                     (yield o(
                       "WAWebUpdateOptOutListDbJob",
                     ).updateOptOutListDbJob(i, r),
-                      c.add({ id: i }));
+                      u.add({ id: i }));
                     return;
                   }
-                  var l = [o("WAWebLidMigrationUtils").toPn(i), s(i), i].filter(
-                    Boolean,
-                  );
+                  var l = [
+                    o("WAWebLidMigrationUtils").toPn(i),
+                    o("WAWebLidMigrationUtils").toLid(i),
+                    i,
+                  ].filter(Boolean);
                   yield (e || (e = n("Promise"))).all(
                     l.map(
                       (function () {
@@ -49,7 +43,7 @@ __d(
                             (yield o(
                               "WAWebUpdateOptOutListDbJob",
                             ).updateOptOutListDbJob(e, r),
-                              c.remove(e));
+                              u.remove(e));
                           },
                         );
                         return function (t) {
@@ -78,7 +72,10 @@ __d(
         return (
           (i.$OptOutListCollectionImpl$p_1 = function (t, n) {
             var e = o("WAWebWidFactory").asUserWidOrThrow(t);
-            for (var r of [o("WAWebLidMigrationUtils").toPn(e), s(e)])
+            for (var r of [
+              o("WAWebLidMigrationUtils").toPn(e),
+              o("WAWebLidMigrationUtils").toLid(e),
+            ])
               if (r) {
                 var a = o("WAWebContactCollection").ContactCollection.get(r);
                 a &&
@@ -106,9 +103,9 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    u.model = r("WAWebOptOutListModel");
-    var c = new u();
-    l.OptOutListCollection = c;
+    s.model = r("WAWebOptOutListModel");
+    var u = new s();
+    l.OptOutListCollection = u;
   },
   98,
 );

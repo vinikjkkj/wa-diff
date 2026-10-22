@@ -6,6 +6,7 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
     "WAWebScheduleIncrementNewsletterForwardCounterAction",
+    "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
   ],
@@ -62,6 +63,11 @@ __d(
             ).scheduleIncrementForwardCounter(d, m);
           }
         } else {
+          if (
+            e.id.remote.isStatus() &&
+            o("WAWebStatusGatingUtils").isStatusReshareViewerFlowEnabled()
+          )
+            return;
           var p = o("WAWebFrontendMsgGetters").getChat(e);
           if (o("WAWebChatGetters").getIsNewsletter(p)) {
             var _,

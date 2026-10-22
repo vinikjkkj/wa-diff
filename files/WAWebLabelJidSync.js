@@ -13,7 +13,6 @@ __d(
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDetectedOutcomeLabelConstants",
     "WAWebHandleSingleMsgWorkerCompatible",
-    "WAWebLid1X1MigrationGating",
     "WAWebListItemParentType",
     "WAWebMobilePlatforms",
     "WAWebMsgType",
@@ -327,13 +326,7 @@ __d(
                                     ).resolveChatForMutationIndex(E);
                                 if (k.success === !0)
                                   E = o("WAWebWidFactory").createWid(k.chat.id);
-                                else if (
-                                  (k.success,
-                                  o(
-                                    "WAWebLid1X1MigrationGating",
-                                  ).Lid1X1MigrationUtils.isLidMigrated() &&
-                                    E.isLid())
-                                ) {
+                                else if ((k.success, E.isLid())) {
                                   var I =
                                     o("WAWebApiContact").getPhoneNumber(E);
                                   I != null && (E = I);

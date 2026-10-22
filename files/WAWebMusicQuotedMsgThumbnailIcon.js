@@ -1,6 +1,11 @@
 __d(
   "WAWebMusicQuotedMsgThumbnailIcon",
-  ["WDSIconIcMusicNote.react", "react", "react-compiler-runtime"],
+  [
+    "WAWebMusicPlaybackUtils",
+    "WDSIconIcMusicNote.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -8,15 +13,20 @@ __d(
       c = 24,
       d = { fallbackIcon: { color: "xhslqc4", $$css: !0 } };
     function m(e) {
-      var t,
-        n = o("react-compiler-runtime").c(2),
-        r = e.msg,
-        a = (t = r.musicData) == null ? void 0 : t.artworkUri,
+      var t = o("react-compiler-runtime").c(2),
+        n = e.msg,
+        r = n.musicData,
+        a =
+          r != null &&
+          o("WAWebMusicPlaybackUtils").getMusicMessageUnplayableReason(r) ==
+            null
+            ? r.artworkUri
+            : null,
         i;
       return (
-        n[0] !== a
-          ? ((i = s.jsx(p, { artworkUri: a }, a)), (n[0] = a), (n[1] = i))
-          : (i = n[1]),
+        t[0] !== a
+          ? ((i = s.jsx(p, { artworkUri: a }, a)), (t[0] = a), (t[1] = i))
+          : (i = t[1]),
         i
       );
     }

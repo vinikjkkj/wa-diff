@@ -125,9 +125,6 @@ __d(
     function R() {
       return r("justknobx")._("2610");
     }
-    function L() {
-      r("WAWebUserPrefsStore").setUser(e, null, { shouldWriteToIdb: !1 });
-    }
     ((l.readCache = f),
       (l.writeCacheSuccess = g),
       (l.writeCacheFailure = h),
@@ -135,8 +132,7 @@ __d(
       (l.isInFailureBackoff = C),
       (l.getEligibilityRefreshIntervalMs = b),
       (l.getEligibilityFailureBackoffMs = v),
-      (l.isEligibilityCachingEnabled = R),
-      (l.clearCache = L));
+      (l.isEligibilityCachingEnabled = R));
   },
   98,
 );

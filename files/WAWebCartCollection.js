@@ -5,7 +5,6 @@ __d(
     "WAWebBaseCachePolicy",
     "WAWebBaseCollection",
     "WAWebCartModel",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsCartLidMigration",
     "WAWebUserPrefsKeys",
@@ -59,9 +58,6 @@ __d(
           }),
           (a.findCart = function (t) {
             if (
-              o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated() &&
               o("WAWebUserPrefsCartLidMigration").isCartLidMigrationComplete()
             ) {
               var e = o("WAWebLidMigrationUtils").toUserLid(

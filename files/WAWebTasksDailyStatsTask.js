@@ -603,9 +603,7 @@ __d(
             h.push("id"),
             h.push("ss"),
             h.push("sk"),
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() && h.push("ch_jid"),
+            h.push("ch_jid"),
             h.push("st_lid"),
             o(
               "WAWebUserPrefsFavoritesLidMigration",
@@ -785,13 +783,8 @@ __d(
                 completedMigrations: h.join(","),
                 numberOfPnChatsWithoutMapping:
                   (t = (n = v) == null ? void 0 : n.length) != null ? t : -1,
-                numberOfUserChatsWithoutAccountLid: o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated()
-                  ? (a = (i = S) == null ? void 0 : i.length) != null
-                    ? a
-                    : -1
-                  : void 0,
+                numberOfUserChatsWithoutAccountLid:
+                  (a = (i = S) == null ? void 0 : i.length) != null ? a : -1,
                 lidMigrationSource: T,
                 numberOfPnGroups: D,
                 numberOfLidGroups: x,

@@ -1,15 +1,11 @@
 __d(
   "WAWebHistorySyncMsgKeyOverrideUtils",
-  ["WALogger", "WAWebLid1X1MigrationGating", "WAWebMsgKey"],
+  ["WALogger", "WAWebMsgKey"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, n, a) {
       var i = t.id;
-      if (
-        !o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() ||
-        i.remote.equals(n)
-      )
-        return t;
+      if (i.remote.equals(n)) return t;
       if (a) {
         var l, s, u;
         o("WALogger")

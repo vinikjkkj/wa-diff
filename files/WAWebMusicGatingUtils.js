@@ -29,16 +29,22 @@ __d(
         "music_on_chats_standalone_receiver_enabled",
       );
     }
-    var p = 6e4,
-      _ = 600;
+    function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "music_on_chats_geogating_enabled",
+      );
+    }
+    var _ = 6e4,
+      f = 600;
     ((l.isStatusMusicReceiverEnabled = e),
       (l.isStatusMusicSaveToDiskEnabled = s),
       (l.isStatusMusicReceiverEnabledForNewsletter = u),
       (l.isNewsletterStatusMusicConsumptionEnabled = c),
       (l.isMusicOnChatsForwardingEnabled = d),
       (l.isMusicOnChatsReceiverEnabled = m),
-      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = p),
-      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = _));
+      (l.isMusicOnChatsGeogatingEnabled = p),
+      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = _),
+      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = f));
   },
   98,
 );

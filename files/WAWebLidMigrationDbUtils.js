@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebGetChatRecordByAccountLid",
-    "WAWebLid1X1MigrationGating",
     "WAWebSchemaChat",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -96,18 +95,12 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.isLidMigrated();
-          if (t) {
-            var n = yield o(
-                "WAWebGetChatRecordByAccountLid",
-              ).getChatRecordByAccountLid(e),
-              r = n[0],
-              a = r == null ? void 0 : r.id;
-            return a ? o("WAWebWidFactory").createUserWidOrThrow(a) : void 0;
-          }
-          return o("WAWebApiContact").getPhoneNumber(e);
+          var t = yield o(
+              "WAWebGetChatRecordByAccountLid",
+            ).getChatRecordByAccountLid(e),
+            n = t[0],
+            r = n == null ? void 0 : n.id;
+          if (r) return o("WAWebWidFactory").createUserWidOrThrow(r);
         })),
         p.apply(this, arguments)
       );

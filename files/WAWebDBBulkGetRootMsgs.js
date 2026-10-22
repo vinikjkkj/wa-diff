@@ -2,7 +2,6 @@ __d(
   "WAWebDBBulkGetRootMsgs",
   [
     "WALogger",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebLidStatusMigrationKeyUtils",
     "WAWebMsgKey",
@@ -13,103 +12,24 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e;
-          o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-            ? (t = yield h(e))
-            : (t = e.map(function (e) {
-                return o("WAWebLidStatusMigrationKeyUtils")
-                  .matKeyConvert(r("WAWebMsgKey").fromString(e))
-                  .toString();
-              }));
-          var n = yield f(t);
-          return (
-            n.some(function (e) {
-              return e == null;
-            }) &&
-              !o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated() &&
-              (yield p(t, n)),
-            n
-          );
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return m(yield _(e));
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          for (
-            var n = e.map(function (e) {
-                return r("WAWebMsgKey").fromString(e);
-              }),
-              a = [],
-              i = 0;
-            i < t.length;
-            i++
-          )
-            t[i] == null &&
-              n[i].remote.isLid() &&
-              a.push({ key: n[i], idxInOriginalMsgKeys: i });
-          if (a.length !== 0) {
-            var l = C(
-                a.map(function (e) {
-                  return e.key;
-                }),
-              ),
-              s = (yield f(l.map(String))).filter(Boolean),
-              u = [];
-            if (
-              (s.forEach(function (e, n) {
-                if (e != null) {
-                  var o = e.id,
-                    i = r("nullthrows")(a[n]).idxInOriginalMsgKeys;
-                  if (i == null) {
-                    u.length < 3 && u.push(o == null ? "null" : o);
-                    return;
-                  }
-                  t[i] = e;
-                }
-              }),
-              u.length > 0)
-            ) {
-              var d = e.length;
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[fillMissingLidMessages] ",
-                      " no idx, ids=",
-                      " keys=",
-                      "",
-                    ])),
-                  u.length,
-                  u,
-                  d,
-                )
-                .sendLogs("fillMissingLidMessages-no-original-idx");
-            }
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = yield o("WAWebSchemaMessage")
                 .getMessageTable()
@@ -132,25 +52,19 @@ __d(
             }
           return t;
         })),
-        g.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function y() {
+    function f() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-          )
-            return e;
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return r("WAWebMsgKey").fromString(e);
             }),
-            n = b(
+            n = g(
               t.map(function (e) {
                 return e.remote;
               }),
@@ -171,19 +85,12 @@ __d(
                 ];
               }),
             );
-          return v(t, i).map(String);
+          return h(t, i).map(String);
         })),
-        y.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function C(e) {
-      var t = e.reduce(function (e, t) {
-        var n = o("WAWebLidMigrationUtils").toPn(t.remote);
-        return n == null ? e : e.set(t.remote, n);
-      }, new Map());
-      return v(e, t);
-    }
-    function b(t) {
+    function g(t) {
       var n = t
         .filter(function (e) {
           return e.isRegularUser();
@@ -204,7 +111,7 @@ __d(
         new Set(n.filter(Boolean))
       );
     }
-    function v(e, t) {
+    function h(e, t) {
       var n = [],
         a = [],
         i = e.map(function (e) {
@@ -245,9 +152,7 @@ __d(
         i
       );
     }
-    ((l.bulkGetRootMsgs = d),
-      (l.fixMsgKeysWithChatId = h),
-      (l.fixMsgKeysWithPnMapping = C));
+    ((l.bulkGetRootMsgs = c), (l.fixMsgKeysWithChatId = _));
   },
   98,
 );

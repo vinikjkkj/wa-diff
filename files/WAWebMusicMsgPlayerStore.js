@@ -7,6 +7,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgType",
     "WAWebMusicChatsConsumptionRefresherLoadable",
+    "WAWebMusicPlaybackLogger",
     "WAWebMusicPlaybackUtils",
     "WAWebNetworkStatus",
     "WAWebPttAudioChannels",
@@ -134,7 +135,8 @@ __d(
             this.$MusicMsgPlayerStore$p_1.msg === t &&
               this.$MusicMsgPlayerStore$p_1.status === "loading" &&
               (this.$MusicMsgPlayerStore$p_5.delete(t),
-              this.$MusicMsgPlayerStore$p_9({ status: "playing" }));
+              this.$MusicMsgPlayerStore$p_9({ status: "playing" }),
+              o("WAWebMusicPlaybackLogger").logMusicPlayback(t));
           }),
           (n.onProgress = function (t, n, r) {
             if (

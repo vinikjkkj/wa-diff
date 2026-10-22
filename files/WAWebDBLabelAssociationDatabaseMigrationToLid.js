@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
-    "WAWebLid1X1MigrationGating",
     "WAWebModelStorageUtils",
     "WAWebSchemaLabelAssociation",
     "WAWebUserPrefsLabelAssociationsLidMigration",
@@ -13,13 +12,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C;
-    function b() {
-      return v.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y;
+    function C() {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o(
               "WAWebUserPrefsLabelAssociationsLidMigration",
@@ -31,23 +30,6 @@ __d(
                   "[labelAssocMigration] already complete",
                 ])),
             );
-            return;
-          }
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-          ) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[labelAssocMigration] 1-1 threads not migrated to lid",
-                  ])),
-              )
-              .sendLogs(
-                "migrateLabelAssociationsDatabaseToLid-1-1-not-migrated",
-              );
             return;
           }
           var t = !1;
@@ -64,24 +46,24 @@ __d(
                       l = a;
                     try {
                       o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "[labelAssocMigration] start",
                           ])),
                       );
-                      var s = yield i.all(),
+                      var y = yield i.all(),
                         C = [],
                         b = new Set();
                       if (
                         (o("WALogger").LOG(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
                               "[labelAssocMigration] loaded ",
                               " assocs",
                             ])),
-                          s.length,
+                          y.length,
                         ),
-                        s.forEach(function (e) {
+                        y.forEach(function (e) {
                           var t = e.associationId,
                             n = e.type;
                           if (
@@ -102,8 +84,8 @@ __d(
                         C.length === 0)
                       ) {
                         (o("WALogger").LOG(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "[labelAssocMigration] no assocs to migrate",
                             ])),
                         ),
@@ -111,8 +93,8 @@ __d(
                         return;
                       }
                       o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
                             "[labelAssocMigration] found ",
                             " assocs to migrate",
                           ])),
@@ -164,16 +146,16 @@ __d(
                           ));
                       }),
                         o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "[labelAssocMigration] chatRows not found: ",
                               "",
                             ])),
                           R,
                         ),
                         o("WALogger").LOG(
-                          _ ||
-                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
                               "[labelAssocMigration] deduped: ",
                               "",
                             ])),
@@ -182,8 +164,8 @@ __d(
                         L > 0 &&
                           o("WALogger")
                             .ERROR(
-                              f ||
-                                (f = babelHelpers.taggedTemplateLiteralLoose([
+                              _ ||
+                                (_ = babelHelpers.taggedTemplateLiteralLoose([
                                   "[labelAssocMigration] accountLids not found: ",
                                   "",
                                 ])),
@@ -197,27 +179,27 @@ __d(
                       var T = yield i.count();
                       if (
                         (o("WALogger").LOG(
-                          g ||
-                            (g = babelHelpers.taggedTemplateLiteralLoose([
+                          f ||
+                            (f = babelHelpers.taggedTemplateLiteralLoose([
                               "[labelAssocMigration] assocs after: ",
                               "",
                             ])),
                           T,
                         ),
-                        T !== s.length - E)
+                        T !== y.length - E)
                       )
                         throw (
                           o("WALogger")
                             .ERROR(
-                              h ||
-                                (h = babelHelpers.taggedTemplateLiteralLoose([
+                              g ||
+                                (g = babelHelpers.taggedTemplateLiteralLoose([
                                   "[labelAssocMigration] count mismatch: ",
                                   " != ",
                                   " - ",
                                   "",
                                 ])),
                               T,
-                              s.length,
+                              y.length,
                               E,
                             )
                             .sendLogs(
@@ -232,8 +214,8 @@ __d(
                       throw (
                         o("WALogger")
                           .ERROR(
-                            y ||
-                              (y = babelHelpers.taggedTemplateLiteralLoose([
+                            h ||
+                              (h = babelHelpers.taggedTemplateLiteralLoose([
                                 "[labelAssocMigration] error: ",
                                 "",
                               ])),
@@ -254,8 +236,8 @@ __d(
             ),
             t &&
               (o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[labelAssocMigration] complete +",
                   ])),
               ),
@@ -263,10 +245,10 @@ __d(
                 "WAWebUserPrefsLabelAssociationsLidMigration",
               ).setLabelAssociationsMigrationAsComplete()));
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.migrateLabelAssociationsDatabaseToLid = b;
+    l.migrateLabelAssociationsDatabaseToLid = C;
   },
   98,
 );

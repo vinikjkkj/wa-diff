@@ -10,7 +10,6 @@ __d(
     "WAWebArchiveChatSync",
     "WAWebChatGetExistingBridge",
     "WAWebChatPinBridge",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebProtobufSyncAction.pb",
@@ -52,29 +51,25 @@ __d(
     }
     var p = n("$InternalEnum").Mirrored(["Chat", "Newsletter"]);
     function _(e) {
-      var t = o(
-          "WAWebLid1X1MigrationGating",
-        ).Lid1X1MigrationUtils.isLidMigrated(),
-        n = new Map(),
-        r = [];
-      for (var a of e) {
-        var i,
-          l = a.chatId,
-          s = a.timestamp,
-          u =
-            t && l.isRegularUserPn()
-              ? ((i = o("WAWebLidMigrationUtils").toLid(l)) != null
-                  ? i
-                  : l
-                ).toString()
-              : l.toString(),
-          c = n.get(u);
-        if (c == null) {
-          var d = { chatId: l, timestamp: s };
-          (n.set(u, d), r.push(d));
-        } else s > c.timestamp && (c.timestamp = s);
+      var t = new Map(),
+        n = [];
+      for (var r of e) {
+        var a,
+          i = r.chatId,
+          l = r.timestamp,
+          s = i.isRegularUserPn()
+            ? ((a = o("WAWebLidMigrationUtils").toLid(i)) != null
+                ? a
+                : i
+              ).toString()
+            : i.toString(),
+          u = t.get(s);
+        if (u == null) {
+          var c = { chatId: i, timestamp: l };
+          (t.set(s, c), n.push(c));
+        } else l > u.timestamp && (u.timestamp = l);
       }
-      return r;
+      return n;
     }
     var f = (function (t) {
         function a() {

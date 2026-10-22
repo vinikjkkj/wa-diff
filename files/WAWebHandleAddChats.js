@@ -12,7 +12,6 @@ __d(
     "WAWebConnModel",
     "WAWebCoreActionsODS",
     "WAWebDBChatValidation",
-    "WAWebLid1X1MigrationGating",
     "WAWebLogoutReasonConstants",
     "WAWebMobilePlatforms",
     "WAWebSchemaChat",
@@ -32,9 +31,8 @@ __d(
       s,
       u,
       c,
-      d,
-      m;
-    function p(e) {
+      d;
+    function m(e) {
       return {
         ephemeralSettingTimestamp: o("WALongInt").maybeNumberOrThrowIfTooLarge(
           e.ephemeralSettingTimestamp,
@@ -47,43 +45,20 @@ __d(
         ),
       };
     }
-    function _(e) {
-      if (o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated())
-        try {
-          var t = e.filter(function (e) {
-            return e.id.isRegularUser() && e.accountLid == null;
-          });
-          t.length > 0 &&
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "handleAddChats: no account_lid for ",
-                    " chats. first: ",
-                    "",
-                  ])),
-                t.length,
-                t[0].id.toLogString(),
-              )
-              .sendLogs("add-chats-no-account-lid")
-              .tags("missing-lid");
-        } catch (e) {}
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    function _() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "handleAddChats: ",
                 " chats",
               ])),
             t.length,
-          ),
-            _(t));
+          );
           try {
             yield o("WAWebSchemaChat")
               .getChatTable()
@@ -102,7 +77,7 @@ __d(
                         muteExpiration: 0,
                         isAutoMuted: !1,
                       },
-                      p(l),
+                      m(l),
                       { endOfHistoryTransferType: t.endOfHistoryTransferType },
                     );
                   return (
@@ -118,7 +93,7 @@ __d(
                 }),
               );
           } catch (e) {
-            yield h(r("getErrorSafe")(e), t);
+            yield f(r("getErrorSafe")(e), t);
           }
           (yield o("WAWebBackendApi").frontendSendAndReceive(
             "chatCollectionAdd",
@@ -132,7 +107,7 @@ __d(
                     accountLid: (t = e.accountLid) != null ? t : void 0,
                     historyChatId: (n = e.historyChatId) != null ? n : void 0,
                   },
-                  p(e),
+                  m(e),
                   {
                     endOfHistoryTransferType: o(
                       "WAWebChatConstants",
@@ -177,27 +152,23 @@ __d(
               },
             ));
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function y() {
+    function g() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return (
-            yield C(t),
+            yield h(t),
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "handleAddChats: bulkCreateOrMerge failed: is lid migrated: ",
-                    "",
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleAddChats: bulkCreateOrMerge failed",
                   ])),
-                o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated(),
               )
               .catching(e)
               .sendLogs("fail-to-add-chats-history-sync", {
@@ -211,15 +182,15 @@ __d(
             )
           );
         })),
-        y.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function b() {
+    function y() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaChat").getChatTable().all(),
             r = t.map(function (e) {
               return e.id;
@@ -238,22 +209,22 @@ __d(
                   return t.accountLid === e.toString();
                 });
                 if (!n) return 0;
-                i.push(v(n.id));
+                i.push(C(n.id));
               }
             },
             s;
           for (var u of e) s = yield* l();
-          yield (m || (m = n("Promise"))).all(i);
+          yield (d || (d = n("Promise"))).all(i);
         })),
-        b.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .between(["internalId"], e + "_", e + "_z", {
@@ -270,8 +241,8 @@ __d(
               })
               .join(",");
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "messages pre-existing before history for chat ",
                 ": [",
                 "]",
@@ -280,10 +251,10 @@ __d(
             n,
           );
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.default = f;
+    l.default = p;
   },
   98,
 );

@@ -7,7 +7,6 @@ __d(
     "WAWebBackendEventBus",
     "WAWebDebounce",
     "WAWebEventsWaitForOfflineDeliveryEnd",
-    "WAWebLid1X1MigrationGating",
     "WAWebModelStorageUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaChat",
@@ -129,34 +128,32 @@ __d(
       );
     }
     function C(e, t, r) {
-      var a = [].concat(e, _);
-      o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        a.push("chat", "sync-actions");
-      var i = o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(
-          a,
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var a = yield b(t);
-                return (p || (p = n("Promise"))).all([
-                  o("WAWebSyncdDb").appendPendingMutationsRows(t.concat(a)),
-                  r(e),
-                ]);
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        )
-        .then(function () {
-          var e = t.map(function (e) {
-            return e.collection;
+      var a = [].concat(e, _, ["chat", "sync-actions"]),
+        i = o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            a,
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var a = yield b(t);
+                  return (p || (p = n("Promise"))).all([
+                    o("WAWebSyncdDb").appendPendingMutationsRows(t.concat(a)),
+                    r(e),
+                  ]);
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          )
+          .then(function () {
+            var e = t.map(function (e) {
+              return e.collection;
+            });
+            o("WAWebSyncd").markCollectionsForSync(e);
           });
-          o("WAWebSyncd").markCollectionsForSync(e);
-        });
       return (p || (p = n("Promise"))).resolve(i);
     }
     function b(e) {
@@ -165,15 +162,6 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() ||
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isSyncdSessionMigrated()
-          )
-            return [];
           var t = 0,
             a = 0,
             i = (yield (p || (p = n("Promise"))).all(

@@ -5,7 +5,6 @@ __d(
     "WAWebBuildType",
     "WAWebConnModel",
     "WAWebEnvironment",
-    "WAWebLid1X1MigrationGating",
     "WAWebMobilePlatforms",
     "WAWebUA",
     "WAWebUserPrefsGeneral",
@@ -101,32 +100,28 @@ __d(
           case o("WAWebUA").BROWSER_TYPE.OPERA:
             l = "Opera";
         }
-      var s = o(
-          "WAWebLid1X1MigrationGating",
-        ).Lid1X1MigrationUtils.isLidMigrated(),
-        c = [
-          "Description: " + e + "\n",
-          "Link to crash logs",
-          a != null
-            ? "https://www.internalfb.com/intern/bunny/?q=waflb+" + a
-            : "https://www.internalfb.com/whatsapp/reliability/lookup_logs?search_query",
-          "time of log: " + new Date().toString() + "\n",
-          "Primary Platform: " + i,
-        ];
+      var s = [
+        "Description: " + e + "\n",
+        "Link to crash logs",
+        a != null
+          ? "https://www.internalfb.com/intern/bunny/?q=waflb+" + a
+          : "https://www.internalfb.com/whatsapp/reliability/lookup_logs?search_query",
+        "time of log: " + new Date().toString() + "\n",
+        "Primary Platform: " + i,
+      ];
       return (
-        l !== "" && c.push("Browser: " + l),
-        t != null && c.push("Error string:", "" + t),
+        l !== "" && s.push("Browser: " + l),
+        t != null && s.push("Error string:", "" + t),
         u &&
-          (c.push(
+          (s.push(
             "Windows Hybrid native version: " +
               o("WAWebBuildConstants").VERSION_STR,
           ),
-          c.push(
+          s.push(
             "Windows Hybrid native build type: " +
               o("WAWebBuildType").BuildType.getName(u()),
           )),
-        c.push("\nIs LID Migrated: " + (s ? "Yes" : "No")),
-        c.join("\n")
+        s.join("\n")
       );
     }
     ((l.createBugnubTaskUrl = c), (l.enrichBugReportDescription = m));

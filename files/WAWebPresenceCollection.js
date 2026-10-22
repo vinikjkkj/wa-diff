@@ -7,7 +7,6 @@ __d(
     "WAWebContactPresenceBridge",
     "WAWebGroupPresencePoller",
     "WAWebGroupPresenceUtils",
-    "WAWebLid1X1MigrationGating",
     "WAWebPresenceGetters",
     "WAWebPresenceModel",
     "WAWebStaleBaseCollection",
@@ -65,19 +64,16 @@ __d(
                   return;
                 }
                 if (!t.isLid()) {
-                  o(
-                    "WAWebLid1X1MigrationGating",
-                  ).Lid1X1MigrationUtils.isLidMigrated() &&
-                    o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "presence key for 1:1 is not a LID: ",
-                            "",
-                          ])),
-                        t.toLogString(),
-                      )
-                      .sendLogs("presence-key-not-lid");
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "presence key for 1:1 is not a LID: ",
+                          "",
+                        ])),
+                      t.toLogString(),
+                    )
+                    .sendLogs("presence-key-not-lid");
                   return;
                 }
                 yield o("WAWebContactPresenceBridge").subscribeUserPresence(t);

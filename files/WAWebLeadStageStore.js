@@ -23,16 +23,16 @@ __d(
       p = new Set();
     function _(e) {
       var t;
-      return (t = b(u, e)) != null ? t : b(s, e);
+      return (t = C(u, e)) != null ? t : C(s, e);
     }
     function f(e) {
-      return b(u, e);
+      return C(u, e);
     }
     function g(e, t) {
-      u.get(e) !== t && (u.set(e, t), v());
+      u.get(e) !== t && (u.set(e, t), b());
     }
     function h(e) {
-      u.delete(e) && v();
+      u.delete(e) && b();
     }
     function y(e) {
       return (
@@ -40,33 +40,24 @@ __d(
         d == null &&
           (d = o(
             "WAWebLeadSublistChangeNotifier",
-          ).subscribeToLeadSublistChanges(T)),
-        R(),
+          ).subscribeToLeadSublistChanges(I)),
+        S(),
         function () {
           (p.delete(e),
             p.size === 0 && (d == null || d(), (d = null), (c = null)));
         }
       );
     }
-    function C() {
-      ((s = new Map()),
-        u.clear(),
-        (c = null),
-        m++,
-        d == null || d(),
-        (d = null),
-        p.clear());
-    }
-    function b(e, t) {
+    function C(e, t) {
       var n = e.get(t);
       if (n != null) return n;
-      var r = S(t);
+      var r = v(t);
       return r != null ? e.get(r) : null;
     }
-    function v() {
+    function b() {
       for (var e of p) e();
     }
-    function S(e) {
+    function v(e) {
       var t;
       if (!r("WAWebWid").isWid(e)) return null;
       var n = o("WAWebWidFactory").createWid(e);
@@ -78,19 +69,19 @@ __d(
           : t.toString()
         : null;
     }
+    function S() {
+      return (c == null && (c = R()), c);
+    }
     function R() {
-      return (c == null && (c = L()), c);
+      return L.apply(this, arguments);
     }
     function L() {
-      return E.apply(this, arguments);
-    }
-    function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = ++m,
             n = null;
           try {
-            n = I(
+            n = k(
               yield o("WAWebDBLabelSublistDatabaseApi").getAllLabelSublist(),
             );
           } catch (t) {
@@ -109,20 +100,20 @@ __d(
               c = null;
               return;
             }
-            ((s = n), k(), v());
+            ((s = n), E(), b());
           }
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function k() {
+    function E() {
       for (var e of u) {
         var t = e[0],
           n = e[1];
-        b(s, t) === n && u.delete(t);
+        C(s, t) === n && u.delete(t);
       }
     }
-    function I(e) {
+    function k(e) {
       var t = new Map();
       for (var n of e)
         if (
@@ -133,15 +124,14 @@ __d(
         }
       return t;
     }
-    function T() {
-      c = L();
+    function I() {
+      c = R();
     }
     ((l.getLeadStageFromStore = _),
       (l.getPendingLeadStage = f),
       (l.publishPendingLeadStage = g),
       (l.clearPendingLeadStage = h),
-      (l.subscribeToLeadStageStore = y),
-      (l.resetLeadStageStore = C));
+      (l.subscribeToLeadStageStore = y));
   },
   98,
 );

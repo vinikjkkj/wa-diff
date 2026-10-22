@@ -1,20 +1,23 @@
 __d(
   "WAWebVoipActionWriteCallLogSync",
   [
+    "Promise",
     "WALogger",
     "WALongInt",
     "WAPromiseEach",
     "WAResolvable",
     "WATimeUtils",
+    "WAWebApiChatCommon",
     "WAWebCallLogUtils",
     "WAWebCallsOnlyGating",
-    "WAWebChatCollection",
     "WAWebCmd",
+    "WAWebDBMsgUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
@@ -35,10 +38,12 @@ __d(
       p,
       _,
       f,
-      g = [],
-      h = null;
-    function y() {
-      if (h != null)
+      g,
+      h,
+      y = [],
+      C = null;
+    function b() {
+      if (C != null)
         return (
           o("WALogger").LOG(
             e ||
@@ -46,7 +51,7 @@ __d(
                 "generateCallLogFromCallSyncRecord: listener already registered",
               ])),
           ),
-          h.promise
+          C.promise
         );
       (o("WALogger").LOG(
         s ||
@@ -54,8 +59,8 @@ __d(
             "generateCallLogFromCallSyncRecord: setting up listener",
           ])),
       ),
-        (h = new (o("WAResolvable").Resolvable)()));
-      var t = h;
+        (C = new (o("WAResolvable").Resolvable)()));
+      var t = C;
       return (
         o("WAWebCmd").Cmd.on(
           "on_initial_chat_synced_from_bridge",
@@ -66,10 +71,10 @@ __d(
                   "generateCallLogFromCallSyncRecord: listener called, pending=",
                   "",
                 ])),
-              g.length,
+              y.length,
             ),
-              yield o("WAPromiseEach").promiseEach(g, function (e, n) {
-                return v(e).then(function () {
+              yield o("WAPromiseEach").promiseEach(y, function (e, n) {
+                return R(e).then(function () {
                   (o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -79,8 +84,8 @@ __d(
                     e.fromHistorySync,
                   ),
                     t.resolve(),
-                    (g = []),
-                    (h = null));
+                    (y = []),
+                    (C = null));
                 });
               }));
           }),
@@ -88,12 +93,12 @@ __d(
         t.promise
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete() ||
             o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled()
@@ -106,7 +111,7 @@ __d(
                 ])),
               e.fromHistorySync,
             ),
-              yield v(e));
+              yield R(e));
           else
             return (
               o("WALogger").LOG(
@@ -117,19 +122,19 @@ __d(
                   ])),
                 e.fromHistorySync,
               ),
-              g.push(e),
-              y()
+              y.push(e),
+              b()
             );
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.callLogRecord,
             a = e.fromHistorySync,
@@ -192,52 +197,46 @@ __d(
               return;
             }
             var L = S,
-              E = L.callCreatorUserWid,
-              k = L.chatId,
-              I = L.fromMe,
-              T = L.msgKeyId,
-              D = L.participant,
-              x = L.viewMode,
-              $ = o("WATimeUtils").castToUnixTime(
+              k = L.callCreatorUserWid,
+              I = L.chatId,
+              T = L.fromMe,
+              D = L.msgKeyId,
+              x = L.participant,
+              $ = L.viewMode,
+              P = o("WATimeUtils").castToUnixTime(
                 (t = o("WALongInt").maybeNumber(b)) != null
                   ? t
                   : o("WATimeUtils").unixTime(),
               ),
-              P = !1;
-            if (
-              !i &&
-              !o("WATimeUtils").happenedWithin(
-                $,
-                o("WATimeUtils").MINUTE_SECONDS,
-              )
-            ) {
-              var N,
-                M =
-                  (N = o("WAWebChatCollection").ChatCollection.get(k)) == null
-                    ? void 0
-                    : N.t;
-              P = M != null && M >= $;
-            }
-            var w =
-              x === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
-              x ===
-                o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL;
+              N = new (r("WAWebMsgKey"))({
+                remote: I,
+                participant: x,
+                fromMe: T,
+                id: D,
+              }),
+              M =
+                !i &&
+                !o("WATimeUtils").happenedWithin(
+                  P,
+                  o("WATimeUtils").MINUTE_SECONDS,
+                ) &&
+                (yield E(I, N, P)),
+              w =
+                $ === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
+                $ ===
+                  o("WAWebViewMode.flow").ViewModeType
+                    .CALL_LOG_AD_HOC_GROUP_CALL;
             try {
               var A,
                 F = {
-                  id: new (r("WAWebMsgKey"))({
-                    remote: k,
-                    participant: D,
-                    fromMe: I,
-                    id: T,
-                  }),
+                  id: N,
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
                   viewMode:
-                    !w && (P || i || v)
+                    !w && (M || i || v)
                       ? o("WAWebViewMode.flow").ViewModeType
                           .HISTORY_SYNCED_CALL_LOG
-                      : x,
+                      : $,
                   callOutcome: o(
                     "WAWebCallLogUtils",
                   ).getCallOutcomeFromCallResultSyncProto(
@@ -278,15 +277,15 @@ __d(
                                 .Invalid,
                       };
                     }),
-                  from: E,
-                  t: $,
-                  to: k,
+                  from: k,
+                  t: P,
+                  to: I,
                   isCallLink: v,
                   callLinkToken: c != null ? c : void 0,
                 };
               yield o(
                 "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(k, F, !1);
+              ).writeVoipCallLogMessageImpl(I, F, !1);
             } catch (e) {
               i
                 ? o("WALogger")
@@ -312,10 +311,48 @@ __d(
             }
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    l.generateCallLogFromCallSyncRecord = C;
+    function E(e, t, n) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          try {
+            var i = yield (h || (h = n("Promise"))).all([
+                o("WAWebApiChatCommon").getChatRecord(e),
+                o("WAWebDBMsgUtils").getMsgByMsgKey(t),
+              ]),
+              l = i[0],
+              s = i[1];
+            if (
+              o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
+                s == null ? void 0 : s.viewMode,
+              )
+            )
+              return !1;
+            var u = l == null ? void 0 : l.t;
+            return u != null && u >= a;
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "generateCallLogFromCallSyncRecord: stored chat lookup failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e)),
+              !1
+            );
+          }
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    l.generateCallLogFromCallSyncRecord = v;
   },
   98,
 );

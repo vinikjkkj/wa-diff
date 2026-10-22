@@ -374,9 +374,7 @@ __d(
                 migrationStage: o("WAWebWamEnumMigrationStageEnum")
                   .MIGRATION_STAGE_ENUM.COMPANION_MIGRATED_ON_NEW_PAIRING,
                 webClientDidPairingStanzaIndicated1x1MigrationThisSession: !0,
-                isLocally1x1MigratedFromDb: o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated(),
+                isLocally1x1MigratedFromDb: !0,
               }).commit()),
             o("WALogger").LOG(
               c ||

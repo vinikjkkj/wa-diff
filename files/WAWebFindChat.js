@@ -3,11 +3,9 @@ __d(
   [
     "WAAbortError",
     "WALogger",
-    "WAWebApiContact",
     "WAWebBotUtils",
     "WAWebChatFindBridge",
     "WAWebCheckChatExistsOrCreate",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebMaibaWASSMigration",
     "WAWebMessageProcessUtils",
@@ -18,26 +16,26 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e, t) {
-      return f.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function f() {
+    function m() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return t != null
             ? t(e)
             : o("WAWebChatFindBridge").findLocal(e.toString());
         })),
-        f.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function h() {
+    function _() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = e.equals(o("WAWebBotUtils").META_BOT_FBID_WID)
               ? o("WAWebBotUtils").META_BOT_PN_WID
               : o("WAWebMaibaWASSMigration").resolveMaibaAiHubFbidToLidOrChatId(
@@ -46,28 +44,28 @@ __d(
             i = n != null ? n : {},
             l = i.getExistingChat;
           if (!r("WAWebWid").isUser(a))
-            return y(a, t, n).then(function (e) {
+            return f(a, t, n).then(function (e) {
               var t = e.chat;
               return t;
             });
-          var s = yield _(a, l);
+          var s = yield d(a, l);
           return (
             s ||
-            y(a, t, n).then(function (e) {
+            f(a, t, n).then(function (e) {
               var t = e.chat;
               return t;
             })
           );
         })),
-        h.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function C() {
+    function g() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i = t.equals(o("WAWebBotUtils").META_BOT_FBID_WID)
               ? o("WAWebBotUtils").META_BOT_PN_WID
               : o("WAWebMaibaWASSMigration").resolveMaibaAiHubFbidToLidOrChatId(
@@ -75,83 +73,43 @@ __d(
                 ),
             l = { chatId: i };
           if (i.isRegularUser()) {
-            if (
-              o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated()
-            ) {
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[findOrCreateLatestChat] migration rules chat=",
-                    " origin=",
-                    "",
-                  ])),
-                l.chatId.toLogString(),
-                n,
-              );
-              var f = o("WAWebLidMigrationUtils").toUserLid(i);
-              (f == null &&
-                (o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[findOrCreateLatestChat] id->lid failed ",
-                        "",
-                      ])),
-                    n,
-                  )
-                  .sendLogs("findOrCreateLatestChat_lid_not_found", {
-                    sampling: 0.01,
-                  }),
-                yield o("WAWebSyncContactJob").syncContactListJob(
-                  [i],
-                  !0,
-                  "query",
-                ),
-                (f = o("WAWebLidMigrationUtils").toUserLidOrThrow(i))),
-                (l = yield o(
-                  "WAWebMessageProcessUtils",
-                ).selectChatForOneOnOneMessage({ lid: f })));
-            } else if (i.isLid()) {
-              var g = yield _(l.chatId, a == null ? void 0 : a.getExistingChat);
-              if (g == null) {
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[findOrCreateLatestChat] pre-migration chat=",
-                      " origin=",
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[findOrCreateLatestChat] migration rules chat=",
+                  " origin=",
+                  "",
+                ])),
+              l.chatId.toLogString(),
+              n,
+            );
+            var m = o("WAWebLidMigrationUtils").toUserLid(i);
+            (m == null &&
+              (o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[findOrCreateLatestChat] id->lid failed ",
                       "",
                     ])),
-                  l.chatId.toLogString(),
                   n,
-                );
-                var h = o("WAWebApiContact").getPhoneNumber(i);
-                if (h == null)
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[findOrCreateLatestChat] phone not found for lid ",
-                            "",
-                          ])),
-                        n,
-                      )
-                      .sendLogs(
-                        "findOrCreateLatestChat: could not find phone number for lid while enforcing pre-migration rules",
-                      ),
-                    r("err")(
-                      "findOrCreateLatestChat: could not find phone number for lid while enforcing pre-migration rules",
-                    )
-                  );
-                l = { chatId: h };
-              }
-            }
+                )
+                .sendLogs("findOrCreateLatestChat_lid_not_found", {
+                  sampling: 0.01,
+                }),
+              yield o("WAWebSyncContactJob").syncContactListJob(
+                [i],
+                !0,
+                "query",
+              ),
+              (m = o("WAWebLidMigrationUtils").toUserLidOrThrow(i))),
+              (l = yield o(
+                "WAWebMessageProcessUtils",
+              ).selectChatForOneOnOneMessage({ lid: m })));
           }
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[findOrCreateLatestChat] selected chat=",
                 " origin=",
                 "",
@@ -159,69 +117,56 @@ __d(
             l.chatId.toLogString(),
             n,
           );
-          var y = a != null ? a : {},
-            C = y.forceUsync,
-            b = y.getExistingChat,
-            v = y.isGroupJoin,
-            S = y.nextPrivacyMode,
-            R = y.signal;
-          if (R != null && R.aborted)
+          var p = a != null ? a : {},
+            _ = p.forceUsync,
+            f = p.getExistingChat,
+            g = p.isGroupJoin,
+            h = p.nextPrivacyMode,
+            y = p.signal;
+          if (y != null && y.aborted)
             throw new (o("WAAbortError").AbortError)();
-          var L = yield _(l.chatId, b);
-          if (L) return { chat: L, created: !1 };
-          var E = { createdLocally: !0 };
-          v === !0 && (E.notSpam = !0);
-          var k = l.chatId;
-          k.isLid() &&
-            ((E.lidOriginType = o("WAWebUsernameTypes").LidOriginType.GENERAL),
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() ||
-              o("WALogger")
-                .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "findOrCreateLatestChat will create Lid chat for origin ",
-                      "",
-                    ])),
-                  n,
-                )
-                .sendLogs("findOrCreateLatestChat will create Lid chat"));
-          var I = yield o(
+          var C = yield d(l.chatId, f);
+          if (C) return { chat: C, created: !1 };
+          var b = { createdLocally: !0 };
+          g === !0 && (b.notSpam = !0);
+          var v = l.chatId;
+          v.isLid() &&
+            (b.lidOriginType = o("WAWebUsernameTypes").LidOriginType.GENERAL);
+          var S = yield o(
               "WAWebCheckChatExistsOrCreate",
             ).checkChatExistsOrCreate({
               destinationChat: l,
               msgMeta: null,
               chatOriginType: n,
-              initialProps: E,
-              options: { forceUsync: C, nextPrivacyMode: S },
+              initialProps: b,
+              options: { forceUsync: _, nextPrivacyMode: h },
             }),
-            T = yield _(l.chatId, b);
-          if (T == null) {
-            var D, x;
+            R = yield d(l.chatId, f);
+          if (R == null) {
+            var L, E;
             throw (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "findOrCreateLatestChat: new chat not found ",
                       "",
                     ])),
-                  (D = l.chatId) == null ? void 0 : D.toLogString(),
+                  (L = l.chatId) == null ? void 0 : L.toLogString(),
                 )
                 .sendLogs("findOrCreateLatestChat-new-chat-not-found"),
               r("err")(
                 "findChat: new chat not found " +
-                  ((x = l.chatId) == null ? void 0 : x.toLogString()),
+                  ((E = l.chatId) == null ? void 0 : E.toLogString()),
               )
             );
           }
-          return { chat: T, created: !I };
+          return { chat: R, created: !S };
         })),
-        C.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.findExistingChat = g), (l.findOrCreateLatestChat = y));
+    ((l.findExistingChat = p), (l.findOrCreateLatestChat = f));
   },
   98,
 );

@@ -21,7 +21,6 @@ __d(
     "WAWebGroupMsgSendUtils",
     "WAWebHandleMsgCommon",
     "WAWebICDCMetaApi",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebManageE2ESessionsJob",
     "WAWebMessagingGatingUtils",
@@ -433,35 +432,31 @@ __d(
                     v.type === c.Retry ? "retry" : "send",
                   )
                 : null,
-            le = o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated(),
+            le,
             se,
-            ue,
-            ce;
+            ue;
           if (
-            le &&
             o("WAWebUserPrefsMeUser").isMeAccount(re) &&
             R != null &&
             R.isRegularUser()
           )
             if (R.isLid()) {
               if (
-                ((se = o("WAWebApiContact").getPhoneNumber(R)),
+                ((le = o("WAWebApiContact").getPhoneNumber(R)),
                 o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
               ) {
-                var de = yield o("WAWebApiContact").getContactRecord(R);
-                (de == null ? void 0 : de.username) != null &&
-                  (ce = de.username);
+                var ce = yield o("WAWebApiContact").getContactRecord(R);
+                (ce == null ? void 0 : ce.username) != null &&
+                  (ue = ce.username);
               }
             } else {
-              var me;
-              ((ue =
-                (me = h.peerRecipientLid) != null
-                  ? me
+              var de;
+              ((se =
+                (de = h.peerRecipientLid) != null
+                  ? de
                   : o("WAWebLidMigrationUtils").toLid(R)),
-                ue != null &&
-                  !ue.isLid() &&
+                se != null &&
+                  !se.isLid() &&
                   o("WALogger")
                     .ERROR(
                       e ||
@@ -469,7 +464,7 @@ __d(
                           "createDeviceMsgStanza: peerRecipientLid is not a LID: ",
                           "",
                         ])),
-                      ue.toLogString(),
+                      se.toLogString(),
                     )
                     .sendLogs("peer-recipient-lid-not-lid-device"));
             }
@@ -487,16 +482,16 @@ __d(
                   ? o("WAWebCommsWapMd").USER_JID(R)
                   : o("WAWap").DROP_ATTR,
               type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(_),
-              peer_recipient_pn: se
+              peer_recipient_pn: le
+                ? o("WAWebCommsWapMd").USER_JID(le)
+                : o("WAWap").DROP_ATTR,
+              peer_recipient_lid: se
                 ? o("WAWebCommsWapMd").USER_JID(se)
                 : o("WAWap").DROP_ATTR,
-              peer_recipient_lid: ue
-                ? o("WAWebCommsWapMd").USER_JID(ue)
-                : o("WAWap").DROP_ATTR,
               peer_recipient_username:
-                ce !== void 0
+                ue !== void 0
                   ? o("WAWap").CUSTOM_STRING(
-                      o("WAWebUsernameTypes").serializeUsername(ce),
+                      o("WAWebUsernameTypes").serializeUsername(ue),
                     )
                   : o("WAWap").DROP_ATTR,
               edit: o("WAWebSendMsgCommonApi").editAttribute(_, y.subtype),

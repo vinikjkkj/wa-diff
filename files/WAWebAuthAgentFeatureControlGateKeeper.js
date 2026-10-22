@@ -1,10 +1,6 @@
 __d(
   "WAWebAuthAgentFeatureControlGateKeeper",
-  [
-    "WAWebBizCoexGatingUtils",
-    "WAWebFeatureControlCache",
-    "WAWebFeatureControlPolicy",
-  ],
+  ["WAWebFeatureControlCache", "WAWebFeatureControlPolicy"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = !1;
@@ -34,15 +30,13 @@ __d(
       }
     }
     function u(t) {
-      var n = o("WAWebBizCoexGatingUtils").authAgentFeatureControlEnabled(),
-        r = o("WAWebFeatureControlCache").getUserIsAA(),
-        a = n && r;
-      if (!a) return (e || (e = !0), "ENABLED");
-      var i = o("WAWebFeatureControlCache").getPolicy(),
-        l = i != null ? i : o("WAWebFeatureControlPolicy").PILOT_DEFAULT;
+      var n = o("WAWebFeatureControlCache").getUserIsAA();
+      if (!n) return (e || (e = !0), "ENABLED");
+      var r = o("WAWebFeatureControlCache").getPolicy(),
+        a = r != null ? r : o("WAWebFeatureControlPolicy").PILOT_DEFAULT;
       return (
-        s(l, i != null ? "cached" : "pilot_default"),
-        o("WAWebFeatureControlPolicy").featureState(l, t)
+        s(a, r != null ? "cached" : "pilot_default"),
+        o("WAWebFeatureControlPolicy").featureState(a, t)
       );
     }
     function c(e) {

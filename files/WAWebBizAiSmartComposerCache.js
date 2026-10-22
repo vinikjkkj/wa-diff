@@ -6,7 +6,7 @@ __d(
       s = 20,
       u = new (o("WALRUMap").LRUMap)({ max: s });
     function c(t, n) {
-      var r = p(t, n),
+      var r = m(t, n),
         o = u.get(r);
       return o == null
         ? null
@@ -18,19 +18,15 @@ __d(
       o(
         "WAWebBizAiSmartComposerSuggestionStateMachine",
       ).getSuggestionInsertText(n) !== "" &&
-        u.set(p(e, t), { suggestion: n, timestampMs: Date.now() });
+        u.set(m(e, t), { suggestion: n, timestampMs: Date.now() });
     }
-    function m() {
-      u.clear();
-    }
-    function p(e, t) {
+    function m(e, t) {
       return e.toString() + ":" + t;
     }
     ((l.CACHE_TTL_MS = e),
       (l.MAX_CACHE_ENTRIES = s),
       (l.getCachedSuggestion = c),
-      (l.cacheSuggestion = d),
-      (l.clearSuggestionCache = m));
+      (l.cacheSuggestion = d));
   },
   98,
 );

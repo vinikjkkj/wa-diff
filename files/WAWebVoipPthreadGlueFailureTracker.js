@@ -325,9 +325,6 @@ __d(
               ));
           });
     }
-    function V() {
-      ((C = null), b.clear(), (v = null), (S = !1), R.clear(), L.clear());
-    }
     ((l.recordPthreadGlueFailure = I),
       (l.getLatchedPthreadGlueFailure = N),
       (l.attachPthreadGlueFailureModule = M),
@@ -335,8 +332,7 @@ __d(
       (l.isPinnedWorkerGlueUnpinnedForPage = A),
       (l.hasPinnedGlueFailedForWorker = O),
       (l.hasTerminalPthreadGlueFailure = q),
-      (l.failFastOnPthreadGlueFailure = U),
-      (l.resetPthreadGlueFailureTracker = V));
+      (l.failFastOnPthreadGlueFailure = U));
   },
   98,
 );

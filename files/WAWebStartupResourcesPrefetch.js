@@ -32,7 +32,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          if (!navigator.onLine) return null;
+          if (!navigator.onLine || k()) return null;
           try {
             var i = yield g(t, a),
               l = i.noCorsUrls,
@@ -190,6 +190,10 @@ __d(
         })),
         E.apply(this, arguments)
       );
+    }
+    function k() {
+      var e = Reflect.get(navigator, "connection");
+      return typeof e == "object" && (e == null ? void 0 : e.saveData) === !0;
     }
     l.prefetchStartupResources = p;
   },

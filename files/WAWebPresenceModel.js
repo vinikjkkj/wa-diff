@@ -23,7 +23,6 @@ __d(
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupPresenceUtils",
     "WAWebGroupType",
-    "WAWebLid1X1MigrationGating",
     "WAWebOrgGatingUtils",
     "WAWebOrgMemberLidEligibility",
     "WAWebPresenceCollection",
@@ -538,12 +537,6 @@ __d(
         }),
         (a.$PresenceImpl$p_7 = function () {
           if (o("WAWebPresenceGetters").getIsGroup(this))
-            return o("WAWebChatCollection").ChatCollection.get(this.id);
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-          )
             return o("WAWebChatCollection").ChatCollection.get(this.id);
           var e = this.id;
           return e.isLid()

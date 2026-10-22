@@ -13,13 +13,11 @@ __d(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
             "[lid-migration] emp=",
-            " migrated=",
             " src=",
             " histSync=",
             "",
           ])),
         o("WAWebCurrentUser").isEmployee(),
-        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated(),
         o(
           "WAWebLid1X1MigrationGating",
         ).Lid1X1MigrationUtils.lidMigrationSource(),

@@ -211,16 +211,8 @@ __d(
                     o(
                       "WAWebWamOfflineResumeReporter",
                     ).OfflineResumeReporter.logOfflineCount(t))
-                  : r("gkx")("26258")
-                    ? o("WALogger").LOG(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][non-blocking] Reject multiple offline preview ib during offline resume, delay ",
-                            ".",
-                          ])),
-                        n,
-                      )
-                    : o("WALogger")
+                  : r("gkx")("9092")
+                    ? o("WALogger")
                         .ERROR(
                           _ ||
                             (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -229,7 +221,15 @@ __d(
                             ])),
                           n,
                         )
-                        .sendLogs("offline-multiple-preview");
+                        .sendLogs("offline-multiple-preview")
+                    : o("WALogger").LOG(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                            "[offline-resume][non-blocking] Reject multiple offline preview ib during offline resume, delay ",
+                            ".",
+                          ])),
+                        n,
+                      );
               }
               this.$16();
             }

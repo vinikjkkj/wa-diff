@@ -6,7 +6,6 @@ __d(
     "WAWebBackendApi",
     "WAWebContactSystemMsg",
     "WAWebHandleSingleMsgWorkerCompatible",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidAwareContactsDB",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
@@ -19,8 +18,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L, E;
-    function k(e) {
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L;
+    function E(e) {
       return o("WAWebContactSystemMsg").genNotificationMsg(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -28,12 +27,12 @@ __d(
         templateParams: [],
       });
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = yield t.allPrimaryKeys();
           o("WALogger").LOG(
             e ||
@@ -61,15 +60,15 @@ __d(
             );
           });
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D() {
-      return x.apply(this, arguments);
+    function T() {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o(
             "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
           ).getPhoneNumberHidingThreadPromotionMigrationState();
@@ -80,23 +79,6 @@ __d(
                   "migratePhoneNumberHidingThreadsToGeneralLid: migration already complete",
                 ])),
             );
-            return;
-          }
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-          ) {
-            o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "migratePhoneNumberHidingThreadsToGeneralLid: 1-1 threads are not migrated to lid",
-                  ])),
-              )
-              .sendLogs(
-                "migratePhoneNumberHidingThreadsToGeneralLid-1-1-not-migrated",
-              );
             return;
           }
           e !== "migration_started" &&
@@ -121,16 +103,16 @@ __d(
                         s = n;
                       try {
                         o("WALogger").LOG(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "migratePhoneNumberHidingThreadsToGeneralLid: start migration",
                             ])),
                         );
-                        var u = yield I(s);
+                        var u = yield k(s);
                         if (u.length === 0) {
                           (o("WALogger").LOG(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                            d ||
+                              (d = babelHelpers.taggedTemplateLiteralLoose([
                                 "migratePhoneNumberHidingThreadsToGeneralLid: no chats found with CTWA lidOriginType",
                               ])),
                           ),
@@ -138,35 +120,35 @@ __d(
                           return;
                         }
                         o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "migratePhoneNumberHidingThreadsToGeneralLid: found ",
                               " chats to migrate from CTWA to GENERAL",
                             ])),
                           u.length,
                         );
-                        var c = u.map(function (e) {
+                        var h = u.map(function (e) {
                           return {
                             id: e.id,
                             lidOriginType:
                               o("WAWebUsernameTypes").LidOriginType.GENERAL,
                           };
                         });
-                        (yield s.bulkMergeOnly(c),
+                        (yield s.bulkMergeOnly(h),
                           o("WALogger").LOG(
-                            _ ||
-                              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
                                 "migratePhoneNumberHidingThreadsToGeneralLid: successfully updated ",
                                 " chats from CTWA to GENERAL",
                               ])),
-                            c.length,
+                            h.length,
                           ),
                           (a = u.map(function (e) {
                             return e.id;
                           })),
                           o("WALogger").LOG(
-                            f ||
-                              (f = babelHelpers.taggedTemplateLiteralLoose([
+                            _ ||
+                              (_ = babelHelpers.taggedTemplateLiteralLoose([
                                 "migratePhoneNumberHidingThreadsToGeneralLid: checking shareOwnPn status for ",
                                 " affected chats",
                               ])),
@@ -178,8 +160,8 @@ __d(
                           return (n == null ? void 0 : n.shareOwnPn) !== !0;
                         })),
                           o("WALogger").LOG(
-                            g ||
-                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                            f ||
+                              (f = babelHelpers.taggedTemplateLiteralLoose([
                                 "migratePhoneNumberHidingThreadsToGeneralLid: filtered to ",
                                 " chats where shareOwnPn is not true",
                               ])),
@@ -190,8 +172,8 @@ __d(
                         throw (
                           o("WALogger")
                             .ERROR(
-                              h ||
-                                (h = babelHelpers.taggedTemplateLiteralLoose([
+                              g ||
+                                (g = babelHelpers.taggedTemplateLiteralLoose([
                                   "migratePhoneNumberHidingThreadsToGeneralLid: migration error",
                                 ])),
                             )
@@ -213,8 +195,8 @@ __d(
           ) {
             if (a.length > 0) {
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "migratePhoneNumberHidingThreadsToGeneralLid: propagating lid origin type changes to frontend for ",
                     " chats",
                   ])),
@@ -231,16 +213,16 @@ __d(
                 { updates: l },
               ),
                 o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "migratePhoneNumberHidingThreadsToGeneralLid: frontend propagation complete",
                     ])),
                 ));
             }
             if (i.length > 0) {
               o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "migratePhoneNumberHidingThreadsToGeneralLid: generating system messages for ",
                     " chats where shareOwnPn is not true",
                   ])),
@@ -252,7 +234,7 @@ __d(
                     function* (e) {
                       try {
                         var t = o("WAWebWidFactory").createWid(e),
-                          n = k(t);
+                          n = E(t);
                         yield o(
                           "WAWebHandleSingleMsgWorkerCompatible",
                         ).handleSingleMsg({
@@ -264,8 +246,8 @@ __d(
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
-                            v ||
-                              (v = babelHelpers.taggedTemplateLiteralLoose([
+                            b ||
+                              (b = babelHelpers.taggedTemplateLiteralLoose([
                                 "migratePhoneNumberHidingThreadsToGeneralLid: failed to generate system message for chat ",
                                 "",
                               ])),
@@ -283,19 +265,19 @@ __d(
                   };
                 })(),
               );
-              (yield (E || (E = n("Promise"))).all(s),
+              (yield (L || (L = n("Promise"))).all(s),
                 o("WALogger").LOG(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
                       "migratePhoneNumberHidingThreadsToGeneralLid: system message generation complete",
                     ])),
                 ));
             }
-            var T = yield I(o("WAWebSchemaChat").getChatTable());
-            T.length === 0
+            var I = yield k(o("WAWebSchemaChat").getChatTable());
+            I.length === 0
               ? (o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "migratePhoneNumberHidingThreadsToGeneralLid: migration complete, success",
                     ])),
                 ),
@@ -303,17 +285,17 @@ __d(
                   "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
                 ).setPhoneNumberHidingThreadPromotionMigrationState("migrated"))
               : o("WALogger").WARN(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
                       "migratePhoneNumberHidingThreadsToGeneralLid: migration complete, but some chats still need to be updated",
                     ])),
                 );
           }
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    l.migratePhoneNumberHidingThreadsToGeneralLid = D;
+    l.migratePhoneNumberHidingThreadsToGeneralLid = T;
   },
   98,
 );

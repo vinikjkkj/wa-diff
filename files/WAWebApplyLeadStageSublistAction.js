@@ -20,76 +20,78 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e, t, n, r) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            var l;
-            if (!(a != null && n === a)) {
-              var u = o("WAWebLabelCollection").LabelCollection.findFirst(
-                function (e) {
-                  return (
-                    e.predefinedId ===
-                    o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
-                  );
-                },
-              );
-              if (u == null) {
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[customer_manager] preset Lead list not found; skipping sub-list write",
-                    ])),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            a = t.chatJid,
+            i = t.newStage,
+            l = t.options,
+            u = t.prevStage;
+          if (!(u != null && i === u)) {
+            var c = o("WAWebLabelCollection").LabelCollection.findFirst(
+              function (e) {
+                return (
+                  e.predefinedId ===
+                  o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
                 );
-                return;
-              }
-              var c =
-                (l = o("WAWebChatCollection").ChatCollection.get(t)) != null
-                  ? l
-                  : yield o("WAWebFindChatAction")
-                      .findOrCreateLatestChat(
-                        o("WAWebWidFactory").createWid(t),
-                        "contactManager",
-                      )
-                      .then(function (e) {
-                        return e.chat;
-                      })
-                      .catch(function (e) {
-                        return (
-                          o("WALogger").WARN(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "[customer_manager] failed to find/create chat: ",
-                                "",
-                              ])),
-                            String(e),
-                          ),
-                          null
-                        );
-                      });
-              c != null &&
-                (h(c, u) ||
-                  (o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                    [{ id: u.id, type: "add" }],
-                    [c],
-                    { suppressSuccessToast: !0 },
-                  ),
-                  (i == null ? void 0 : i.logLeadSignal) === !0 &&
-                    o("WAWebListsActions").logCtwaSignalsForChats(
-                      [c],
-                      Number(u.id),
-                    )),
-                yield r("WAWebLabelSublistSync").sendLabelSublistUpdate(
-                  o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
-                  t,
-                  n,
-                ));
+              },
+            );
+            if (c == null) {
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[customer_manager] preset Lead list not found; skipping sub-list write",
+                  ])),
+              );
+              return;
             }
-          },
-        )),
+            var d =
+              (n = o("WAWebChatCollection").ChatCollection.get(a)) != null
+                ? n
+                : yield o("WAWebFindChatAction")
+                    .findOrCreateLatestChat(
+                      o("WAWebWidFactory").createWid(a),
+                      "contactManager",
+                    )
+                    .then(function (e) {
+                      return e.chat;
+                    })
+                    .catch(function (e) {
+                      return (
+                        o("WALogger").WARN(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[customer_manager] failed to find/create chat: ",
+                              "",
+                            ])),
+                          String(e),
+                        ),
+                        null
+                      );
+                    });
+            d != null &&
+              (h(d, c) ||
+                (o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
+                  [{ id: c.id, type: "add" }],
+                  [d],
+                  { suppressSuccessToast: !0 },
+                ),
+                (l == null ? void 0 : l.logLeadSignal) === !0 &&
+                  o("WAWebListsActions").logCtwaSignalsForChats(
+                    [d],
+                    Number(c.id),
+                  )),
+              yield r("WAWebLabelSublistSync").sendLabelSublistUpdate(
+                o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
+                a,
+                i,
+              ));
+          }
+        })),
         c.apply(this, arguments)
       );
     }
@@ -104,12 +106,12 @@ __d(
             return a == null
               ? p(e, t, n)
               : o("WAWebLeadSublistGating").isChatEligibleForLeadSublist(a)
-                ? (yield u(
-                    o("WAJids").unsafeCoerceToChatJid(a.id.toString()),
-                    t,
-                    n,
-                    r,
-                  ),
+                ? (yield u({
+                    chatJid: o("WAJids").unsafeCoerceToChatJid(a.id.toString()),
+                    newStage: t,
+                    options: r,
+                    prevStage: n,
+                  }),
                   !0)
                 : !1;
           },

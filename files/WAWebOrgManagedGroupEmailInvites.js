@@ -16,19 +16,41 @@ __d(
     var e,
       s,
       u,
-      c = 50;
-    function d(e) {
+      c = 50,
+      d = 1;
+    function m(e) {
+      return e.filter(function (e) {
+        return (
+          !o(
+            "WAWebOrgAdminGroupParticipantsAction",
+          ).canAddOrgGroupCandidateDirectly(e) &&
+          o(
+            "WAWebOrgAdminGroupCandidate",
+          ).getOrgAdminGroupCandidateEmailInviteID(e) != null
+        );
+      });
+    }
+    function p(e) {
+      return (
+        d +
+        e.filter(
+          o("WAWebOrgAdminGroupParticipantsAction")
+            .canAddOrgGroupCandidateDirectly,
+        ).length
+      );
+    }
+    function _(e) {
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).getOrgAdminGroupCandidateEmailInviteID(e);
       return t == null ? [] : [t];
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function p() {
+    function g() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (a.length === 0) return [];
           try {
             yield o("WAWebMexFetchGroupInviteCodeJob").fetchMexGroupInviteCode(
@@ -54,38 +76,38 @@ __d(
               a
             );
           }
-          return yield y(t, n, a, 0);
+          return yield v(t, n, a, 0);
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function f() {
+    function y() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = new Set(yield m(e, t, n.flatMap(d)));
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = new Set(yield f(e, t, n.flatMap(_)));
           return (
             o(
               "WAWebOrgManagedGroupsRepository",
             ).recordOrgManagedGroupEmailInvites(e, t, n, r),
             n.filter(function (e) {
-              return d(e).some(function (e) {
+              return _(e).some(function (e) {
                 return r.has(e);
               });
             })
           );
         })),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function h() {
+    function b() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
               "WAWebMexFetchGroupInviteCodeJob",
@@ -115,15 +137,15 @@ __d(
             );
           }
         })),
-        h.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function y(e, t, n, r) {
-      return C.apply(this, arguments);
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (r >= n.length) return [];
             var a = n.slice(r, r + c),
@@ -142,16 +164,18 @@ __d(
                 )
                 .sendLogs("org-admin-create-group-email-invites-failed");
             }
-            return i.concat(yield y(e, t, n, r + c));
+            return i.concat(yield v(e, t, n, r + c));
           },
         )),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.getEmailInviteRosterEntryIDs = d),
-      (l.sendEmailInvites = m),
-      (l.resendEmailInvites = _),
-      (l.copyOrgManagedGroupInviteLink = g));
+    ((l.getOrgAdminGroupEmailInvitees = m),
+      (l.getOrgAdminGroupMemberCountAtEmailInvite = p),
+      (l.getEmailInviteRosterEntryIDs = _),
+      (l.sendEmailInvites = f),
+      (l.resendEmailInvites = h),
+      (l.copyOrgManagedGroupInviteLink = C));
   },
   98,
 );

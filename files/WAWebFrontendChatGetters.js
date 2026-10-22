@@ -230,10 +230,11 @@ __d(
           var t,
             n = e[0],
             r = e[1],
-            o = n == null || (t = n.text) == null ? void 0 : t.trim();
-          return !!((o != null && o !== "") || r);
+            o = e[2],
+            a = n == null || (t = n.text) == null ? void 0 : t.trim();
+          return a != null && a !== "" ? !0 : r != null || o != null;
         },
-        [s.getDraftMessage, V],
+        [s.getDraftMessage, V, se],
       ),
       Ce = d(
         function (e) {

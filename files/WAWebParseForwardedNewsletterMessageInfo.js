@@ -8,8 +8,9 @@ __d(
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e,
+      s = 256;
+    function u(e) {
       var t = e.newsletterJid,
         n = e.newsletterName,
         r = e.profileName,
@@ -18,12 +19,19 @@ __d(
       return {
         newsletterId:
           i != null ? o("WAWebWidFactory").asNewsletterWidOrThrow(i) : void 0,
-        newsletterName: n,
+        newsletterName: c(n),
         serverMessageId: a,
-        profileName: r,
+        profileName: c(r),
       };
     }
-    function u(t) {
+    function c(e) {
+      return e != null
+        ? Array.from(e.slice(0, s * 2))
+            .slice(0, s)
+            .join("")
+        : void 0;
+    }
+    function d(t) {
       var n,
         r = t == null || (n = t.newsletter) == null ? void 0 : n.contentType;
       if (r == null) {
@@ -53,8 +61,8 @@ __d(
           : o("WAWebChatEntryPoint").ChatEntryPoint.NewsletterLinkCard
         : o("WAWebChatEntryPoint").ChatEntryPoint.NewsletterPostLinkCard;
     }
-    ((l.parseForwardedNewsletterMessageInfo = s),
-      (l.getChatEntryPointFromNewsletterLinkAnnotation = u));
+    ((l.parseForwardedNewsletterMessageInfo = u),
+      (l.getChatEntryPointFromNewsletterLinkAnnotation = d));
   },
   98,
 );

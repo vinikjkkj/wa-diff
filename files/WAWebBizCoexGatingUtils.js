@@ -32,11 +32,6 @@ __d(
       );
     }
     function _() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_auth_agents_feature_control_enabled",
-      );
-    }
-    function f() {
       return (
         (u == null ? void 0 : u()) === !0 &&
         !o(
@@ -46,18 +41,11 @@ __d(
         p()
       );
     }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_auth_agents_feature_control_enabled",
-      );
-    }
     ((l.smbHostedPrimaryPairingAllowed = c),
       (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = d),
       (l.agentOffboardingEnabled = m),
       (l.agentSmbOffboardingEnabled = p),
-      (l.agentBizProfileFeatureControlEnabled = _),
-      (l.isCallingDisabledOnAuthAgentSoftOffboarded = f),
-      (l.authAgentFeatureControlEnabled = g));
+      (l.isCallingDisabledOnAuthAgentSoftOffboarded = _));
   },
   98,
 );

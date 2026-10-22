@@ -3,7 +3,6 @@ __d(
   [
     "MerlinImpressionManager",
     "Promise",
-    "WAWebABProps",
     "WAWebBizVpvPairFields",
     "WAWebChannelDiscoveryVisibilityTrackingWamEvent",
     "WAWebChannelMessageVisibilityTrackingWamEvent",
@@ -250,13 +249,8 @@ __d(
         T = l.readReceiptsEnabled,
         D = l.serverTimestamp,
         x = l.submessageFieldJsonArray,
-        $ = l.urlUniqueCountInt;
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "biz_vpv_impression_logging_enabled",
-        ) === !0
-      ) {
-        var P = function (r) {
+        $ = l.urlUniqueCountInt,
+        P = function (r) {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t,
               a = Date.now(),
@@ -310,8 +304,7 @@ __d(
               A.commit());
           })();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, P);
-      }
+      o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, P);
     }
     function g(e) {
       var t = e.isGif,

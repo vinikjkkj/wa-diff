@@ -8,7 +8,6 @@ __d(
     "WAWebBrazilPixKeyFormattingUtils",
     "WAWebCurrencyUtils",
     "WAWebGetInteractiveFooterText",
-    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebOrderDetails",
@@ -71,7 +70,6 @@ __d(
       if (e == null) return "";
       if (
         o("WAWebBloksWidgetPayload").isA2UIBloksWidget(e) &&
-        o("WAWebHsmGatingUtils").isBloksWidgetEnabled() &&
         o("WAWebABProps").getABPropConfigValue("im_a2ui_reply_quote_enabled")
       ) {
         var n = o("WAWebBloksWidgetPayload").readA2UITitle(e.data);

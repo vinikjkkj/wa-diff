@@ -8,11 +8,9 @@ __d(
     "WAWebAssociationProcessorConstants",
     "WAWebCurrentUser",
     "WAWebDBProcessMessage",
-    "WAWebLid1X1MigrationGating",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebProtobufsServerSync.pb",
-    "WAWebSchemaChat",
     "WAWebStarredMsgCollection",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
@@ -34,8 +32,7 @@ __d(
       m,
       p,
       _,
-      f,
-      g = (function (t) {
+      f = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -78,11 +75,11 @@ __d(
                         "syncd: start apply star message",
                       ])),
                   );
-                var g = yield o(
+                var f = yield o(
                     "WAWebSyncdResolveMessages",
                   ).resolveMessagesForMutations(t),
-                  h = g.incomingRemoteToLocalChatId,
-                  y = g.messagesInDB;
+                  g = f.incomingRemoteToLocalChatId,
+                  h = f.messagesInDB;
                 o("WAWebCurrentUser").isEmployee() &&
                   o("WALogger").LOG(
                     s ||
@@ -90,12 +87,11 @@ __d(
                         "syncd: after gather cache for star message",
                       ])),
                   );
-                var C = 0,
+                var y = 0,
+                  C = [],
                   b = 0,
-                  v = [],
-                  S = 0,
-                  R = 0,
-                  L = yield (f || (f = n("Promise"))).all(
+                  v = 0,
+                  S = yield (_ || (_ = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -115,10 +111,10 @@ __d(
                                     (t = s.starAction) == null
                                       ? void 0
                                       : t.starred,
-                                  _ = h.get(u);
+                                  _ = g.get(u);
                                 if (p == null)
                                   return (
-                                    C++,
+                                    y++,
                                     o(
                                       "WAWebSyncdIndexUtils",
                                     ).malformedActionValue(a.collectionName)
@@ -127,17 +123,7 @@ __d(
                                   "WAWebSyncdIndexUtils",
                                 ).syncKeyToMsgKey(u, c, d, m);
                                 if (f == null) return a.malformedActionIndex();
-                                if (_ == null) {
-                                  if (
-                                    !o(
-                                      "WAWebLid1X1MigrationGating",
-                                    ).Lid1X1MigrationUtils.isLidMigrated()
-                                  ) {
-                                    var g = yield o("WAWebSchemaChat")
-                                      .getChatTable()
-                                      .get(f.remote.toString());
-                                    g != null && b++;
-                                  }
+                                if (_ == null)
                                   return {
                                     actionState:
                                       o("WAWebSyncdConst").SyncActionState
@@ -148,8 +134,7 @@ __d(
                                         o("WAWebSyncdConst").SyncModelType.Msg,
                                     },
                                   };
-                                }
-                                var L = r("nullthrows")(
+                                var S = r("nullthrows")(
                                     o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
                                       _,
                                       c,
@@ -157,14 +142,14 @@ __d(
                                       m,
                                     ),
                                   ),
-                                  E = y.find(function (e) {
+                                  R = h.find(function (e) {
                                     return e.startsWith(
                                       o(
                                         "WAWebSyncdIndexUtils",
-                                      ).msgKeyToDbIdWithoutFromMeParticipant(L),
+                                      ).msgKeyToDbIdWithoutFromMeParticipant(S),
                                     );
                                   });
-                                if (E == null)
+                                if (R == null)
                                   return {
                                     actionState:
                                       o("WAWebSyncdConst").SyncActionState
@@ -175,32 +160,32 @@ __d(
                                         o("WAWebSyncdConst").SyncModelType.Msg,
                                     },
                                   };
-                                p ? i.push(E.toString()) : l.push(E.toString());
-                                var k =
-                                  o("WAWebMsgCollection").MsgCollection.get(E);
-                                if (k) {
-                                  var I = k.associationType;
-                                  if (I != null) {
-                                    var T = o(
+                                p ? i.push(R.toString()) : l.push(R.toString());
+                                var L =
+                                  o("WAWebMsgCollection").MsgCollection.get(R);
+                                if (L) {
+                                  var E = L.associationType;
+                                  if (E != null) {
+                                    var k = o(
                                       "WAWebAssociationProcessor",
                                     ).getAssociationProcessorByAssociationType(
-                                      I,
+                                      E,
                                     );
-                                    (T == null ? void 0 : T.processorType) ===
+                                    (k == null ? void 0 : k.processorType) ===
                                       o("WAWebAssociationProcessorConstants")
                                         .AssociationProcessorType
                                         .WithDetachedMessages &&
-                                      k.detachAssociatedMsg();
+                                      L.detachAssociatedMsg();
                                   }
-                                  ((k.star = p),
-                                    k.star
+                                  ((L.star = p),
+                                    L.star
                                       ? o(
                                           "WAWebStarredMsgCollection",
-                                        ).addStarredMsgs([k])
+                                        ).addStarredMsgs([L])
                                       : o(
                                           "WAWebStarredMsgCollection",
-                                        ).removeStarredMsgs([k]));
-                                } else (S++, v.length < 3 && v.push(L));
+                                        ).removeStarredMsgs([L]));
+                                } else (b++, C.length < 3 && C.push(S));
                                 return {
                                   actionState:
                                     o("WAWebSyncdConst").SyncActionState
@@ -208,7 +193,7 @@ __d(
                                 };
                               }
                               return (
-                                R++,
+                                v++,
                                 {
                                   actionState:
                                     o("WAWebSyncdConst").SyncActionState
@@ -230,67 +215,54 @@ __d(
                     ),
                   );
                 return (
-                  C > 0 &&
+                  y > 0 &&
                     o("WALogger").WARN(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
                           "star message sync: ",
                           " malformed mutations",
                         ])),
-                      C,
+                      y,
                     ),
                   b > 0 &&
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "star message sync: found chat via fallback ",
-                            " times",
-                          ])),
-                        b,
-                      )
-                      .sendLogs("star-message-sync-found-chat-via-fallback", {
-                        sampling: 0.01,
-                      }),
-                  S > 0 &&
                     o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "[star_msg_sync] ",
                           " msgs in db not in collection => ",
                           "",
                         ])),
-                      S,
-                      v,
+                      b,
+                      C,
                     ),
-                  R > 0 &&
+                  v > 0 &&
                     o("WALogger").WARN(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "star message sync: ",
                           " operations not supported",
                         ])),
-                      R,
+                      v,
                     ),
                   o("WAWebCurrentUser").isEmployee() &&
                     o("WALogger").LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "syncd: before persist stars",
                         ])),
                     ),
-                  yield f.all([
+                  yield _.all([
                     o("WAWebDBProcessMessage").starMessages(i),
                     o("WAWebDBProcessMessage").unstarMessages(l),
                   ]),
                   o("WAWebCurrentUser").isEmployee() &&
                     o("WALogger").LOG(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "syncd: after persist stars",
                         ])),
                     ),
-                  L
+                  S
                 );
               },
             );
@@ -302,7 +274,7 @@ __d(
           (i.getStarMessageMutations = function (t, a) {
             var e = this,
               i = o("WATimeUtils").unixTimeMs();
-            return (f || (f = n("Promise"))).all(
+            return (_ || (_ = n("Promise"))).all(
               t.map(
                 (function () {
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -346,8 +318,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").MessageSyncdActionBase),
-      h = new g();
-    l.default = h;
+      g = new f();
+    l.default = g;
   },
   98,
 );

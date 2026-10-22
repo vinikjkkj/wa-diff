@@ -27,12 +27,7 @@ __d(
       var t = s();
       ((t[e] = Math.floor(Date.now() / 1e3)), u(t));
     }
-    function m() {
-      r("WAWebUserPrefsStore").setUser(e, "{}");
-    }
-    ((l.isProductOnCooldown = c),
-      (l.startProductCooldown = d),
-      (l.clearAllCooldowns = m));
+    ((l.isProductOnCooldown = c), (l.startProductCooldown = d));
   },
   98,
 );

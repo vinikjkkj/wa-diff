@@ -10,6 +10,8 @@ __d(
       FAIL_TO_UPLOAD: 5,
       FAIL_TO_SEND_RESPONSE: 6,
       REQUEST_TOO_OLD: 7,
+      RATE_LIMITED: 8,
+      DUPLICATE_REQUEST: 9,
     });
     i.PEER_DATA_RESPONSE_RESULT_TYPE = e;
   },

@@ -61,14 +61,10 @@ __d(
           String(e),
         ));
     }
-    function h() {
-      ((c = null), (d = !1), (m = !1));
-    }
     ((l.updateGenAIEligibility = p),
       (l.isGenAIEligible = _),
       (l.hasLoadedEligibility = f),
-      (l.debugSetGenAIEligible = g),
-      (l.resetGenAIEligibility = h));
+      (l.debugSetGenAIEligible = g));
   },
   98,
 );

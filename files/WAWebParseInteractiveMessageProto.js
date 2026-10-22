@@ -5,7 +5,6 @@ __d(
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
     "WAWebHandleMsgError",
-    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessageCarouselConstants",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInteractiveMessageType",
@@ -59,9 +58,7 @@ __d(
         )
           return p(i, f);
         var v = m(f),
-          S =
-            (v == null ? void 0 : v.type) === e &&
-            o("WAWebHsmGatingUtils").isBloksWidgetEnabled(),
+          S = (v == null ? void 0 : v.type) === e,
           R = null,
           L = f.carouselMessage;
         if (

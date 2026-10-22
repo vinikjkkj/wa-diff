@@ -417,6 +417,8 @@ __d(
       CHOOSE_PHOTO_BUTTON: 412,
       OUTSIDE_TAP: 413,
       SWIPE_DOWN: 414,
+      SEND_AGAIN: 415,
+      SET_UP_WA_PAYMENTS: 416,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

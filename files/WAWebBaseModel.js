@@ -107,9 +107,6 @@ __d(
           (i.hasObservers = function () {
             return this._uiObservers > 0;
           }),
-          (i.getObservers_TEST_ONLY = function () {
-            return null;
-          }),
           (i.addChild = function (t, n) {
             var e = {};
             ((e[t] = n),

@@ -5,7 +5,6 @@ __d(
     "WAWebABProps",
     "WAWebDBMessageSerialization",
     "WAWebFrontendMsgGetters",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
     "WAWebMsgGetters",
@@ -134,11 +133,8 @@ __d(
     function h(e, t) {
       var n = t.from.user;
       if (n != null) {
-        var r = o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.isLidMigrated(),
-          a = r ? o("WAWebLidMigrationUtils").toLid(t.from) : t.from;
-        e.businessLidOrJid = a ? a.toString() : n;
+        var r = o("WAWebLidMigrationUtils").toLid(t.from);
+        e.businessLidOrJid = r ? r.toString() : n;
       }
     }
     function y(e) {

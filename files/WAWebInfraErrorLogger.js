@@ -63,9 +63,6 @@ __d(
     }
     var f = !1;
     function g() {
-      f = !1;
-    }
-    function h() {
       var t = r("justknobx")._("860");
       if (t !== 0 && !f) {
         f = !0;
@@ -115,8 +112,7 @@ __d(
         });
       }
     }
-    ((l.resetErrorPubSubRegistrationForTests = g),
-      (l.addListenerToErrorPubSub = h));
+    l.addListenerToErrorPubSub = g;
   },
   98,
 );

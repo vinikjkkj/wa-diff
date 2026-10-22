@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
-    "WAWebLid1X1MigrationGating",
     "WAWebModelStorageUtils",
     "WAWebUserPrefsFavoritesLidMigration",
     "WAWebWidFactory",
@@ -12,13 +11,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L;
-    function E() {
-      return k.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R;
+    function L() {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o(
               "WAWebUserPrefsFavoritesLidMigration",
@@ -30,21 +29,6 @@ __d(
                   "migrateFavoritesDatabaseToLid: migration already complete",
                 ])),
             );
-            return;
-          }
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-          ) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "migrateFavoritesDatabaseToLid: 1-1 not migrated to lid",
-                  ])),
-              )
-              .sendLogs("migrateFavoritesDatabaseToLid-1-1-not-migrated");
             return;
           }
           var t = !1;
@@ -61,24 +45,24 @@ __d(
                       l = a;
                     try {
                       o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "migrateFavoritesDatabaseToLid: start migration",
                           ])),
                       );
-                      var s = yield i.all(),
+                      var R = yield i.all(),
                         L = [],
                         E = new Set();
                       if (
                         (o("WALogger").LOG(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: loaded ",
                               " favorites",
                             ])),
-                          s.length,
+                          R.length,
                         ),
-                        s.forEach(function (e) {
+                        R.forEach(function (e) {
                           var t = e.id,
                             n = o("WAWebWidFactory").createWid(t);
                           if (n.isRegularUser()) {
@@ -92,8 +76,8 @@ __d(
                         L.length === 0)
                       ) {
                         (o("WALogger").LOG(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: no favorites to migrate",
                             ])),
                         ),
@@ -101,8 +85,8 @@ __d(
                         return;
                       }
                       o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
                             "migrateFavoritesDatabaseToLid: found ",
                             " favorites to migrate",
                           ])),
@@ -143,16 +127,16 @@ __d(
                           P.push(babelHelpers.extends({}, e, { id: n })));
                       }),
                         o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: not found chat rows: ",
                               "",
                             ])),
                           T,
                         ),
                         o("WALogger").LOG(
-                          _ ||
-                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: deduped favourites: ",
                               "",
                             ])),
@@ -161,8 +145,8 @@ __d(
                         D > 0 &&
                           o("WALogger")
                             .ERROR(
-                              f ||
-                                (f = babelHelpers.taggedTemplateLiteralLoose([
+                              _ ||
+                                (_ = babelHelpers.taggedTemplateLiteralLoose([
                                   "migrateFavoritesDatabaseToLid: not found account lids: ",
                                   "",
                                 ])),
@@ -183,8 +167,8 @@ __d(
                         });
                         o("WALogger")
                           .ERROR(
-                            g ||
-                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                            f ||
+                              (f = babelHelpers.taggedTemplateLiteralLoose([
                                 "migrateFavoritesDatabaseToLid: unexpected existing favs=",
                                 " inLidSet=",
                                 "",
@@ -205,8 +189,8 @@ __d(
                         });
                       } else
                         o("WALogger").LOG(
-                          h ||
-                            (h = babelHelpers.taggedTemplateLiteralLoose([
+                          g ||
+                            (g = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: no unexpected existing favs",
                             ])),
                         );
@@ -218,8 +202,8 @@ __d(
                       (A.size !== P.length
                         ? (o("WALogger")
                             .ERROR(
-                              y ||
-                                (y = babelHelpers.taggedTemplateLiteralLoose([
+                              h ||
+                                (h = babelHelpers.taggedTemplateLiteralLoose([
                                   "migrateFavoritesDatabaseToLid: duplicate favs=",
                                   "",
                                 ])),
@@ -230,14 +214,14 @@ __d(
                             ),
                           (P = Array.from(A.values())))
                         : o("WALogger").LOG(
-                            C ||
-                              (C = babelHelpers.taggedTemplateLiteralLoose([
+                            y ||
+                              (y = babelHelpers.taggedTemplateLiteralLoose([
                                 "migrateFavoritesDatabaseToLid: no duplicate favs",
                               ])),
                           ),
                         o("WALogger").LOG(
-                          b ||
-                            (b = babelHelpers.taggedTemplateLiteralLoose([
+                          C ||
+                            (C = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: adding ",
                               " favorites",
                             ])),
@@ -247,27 +231,27 @@ __d(
                       var F = yield i.count();
                       if (
                         (o("WALogger").LOG(
-                          v ||
-                            (v = babelHelpers.taggedTemplateLiteralLoose([
+                          b ||
+                            (b = babelHelpers.taggedTemplateLiteralLoose([
                               "migrateFavoritesDatabaseToLid: all favorites after migration: ",
                               "",
                             ])),
                           F,
                         ),
-                        F !== s.length - x)
+                        F !== R.length - x)
                       )
                         throw (
                           o("WALogger")
                             .ERROR(
-                              S ||
-                                (S = babelHelpers.taggedTemplateLiteralLoose([
+                              v ||
+                                (v = babelHelpers.taggedTemplateLiteralLoose([
                                   "migrateFavoritesDatabaseToLid: count mismatch after=",
                                   " all=",
                                   " deduped=",
                                   "",
                                 ])),
                               F,
-                              s.length,
+                              R.length,
                               x,
                             )
                             .sendLogs(
@@ -283,8 +267,8 @@ __d(
                       throw (
                         o("WALogger")
                           .ERROR(
-                            R ||
-                              (R = babelHelpers.taggedTemplateLiteralLoose([
+                            S ||
+                              (S = babelHelpers.taggedTemplateLiteralLoose([
                                 "migrateFavoritesDatabaseToLid: migration error",
                               ])),
                           )
@@ -302,8 +286,8 @@ __d(
             ),
             t &&
               (o("WALogger").LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "migrateFavoritesDatabaseToLid: migration complete, success",
                   ])),
               ),
@@ -311,10 +295,10 @@ __d(
                 "WAWebUserPrefsFavoritesLidMigration",
               ).setFavoritesMigrationAsComplete()));
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    l.migrateFavoritesDatabaseToLid = E;
+    l.migrateFavoritesDatabaseToLid = L;
   },
   98,
 );

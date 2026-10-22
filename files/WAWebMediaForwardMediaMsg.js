@@ -18,6 +18,7 @@ __d(
     "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebSoundStickerUtils",
+    "WAWebStatusGatingUtils",
     "WAWebStickerSendWamEvent",
     "WAWebWamEnumStickerSendOriginType",
     "WAWebWamEnumWebcRmrReasonCode",
@@ -187,10 +188,15 @@ __d(
           var J = o("WAWebMediaFastForwardUtils").canEnableFastForward(
               P.contact,
             ),
-            Z = o("WAWebMediaFastForwardUtils").canEnableFastForward(
-              o("WAWebFrontendMsgGetters").getChat(w).contact,
-            ),
-            ee = {
+            Z =
+              w.id.remote.isStatus() &&
+              o("WAWebStatusGatingUtils").isStatusReshareViewerFlowEnabled(),
+            ee =
+              !Z &&
+              o("WAWebMediaFastForwardUtils").canEnableFastForward(
+                o("WAWebFrontendMsgGetters").getChat(w).contact,
+              ),
+            te = {
               parentMsgKey: $ == null ? void 0 : $.parentMsgKey,
               associationType: $ == null ? void 0 : $.associationType,
               viewMode: $ == null ? void 0 : $.viewMode,
@@ -198,7 +204,7 @@ __d(
               aiThreadInfo: D,
               threadId: B,
               forwardedFromWeb: !0,
-              canEnableFastForward: J && Z,
+              canEnableFastForward: J && ee,
               caption: Y,
               type: w.type,
               mentionedJidList: w.mentionedJidList,
@@ -263,7 +269,7 @@ __d(
                   : void 0,
               nativeFlowName: (T = w.nativeFlowName) != null ? T : void 0,
             },
-            te = yield new (r("WAWebMediaPrep"))(
+            ne = yield new (r("WAWebMediaPrep"))(
               r("nullthrows")(q.type),
               (d || (d = n("Promise"))).resolve(q),
             ).sendToChat({
@@ -271,7 +277,7 @@ __d(
               options: o(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).maybeStripNewsletterForwardMetadata({
-                forwardable: ee,
+                forwardable: te,
                 destination: P.id,
                 source: w.id.remote,
                 isOriginalMsgForwarded: w.isForwarded,
@@ -280,36 +286,36 @@ __d(
               }),
             });
           if (q.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER) {
-            var ne,
-              re,
+            var re,
               oe,
               ae,
               ie,
               le,
-              se = {
+              se,
+              ue = {
                 stickerSendOrigin: o("WAWebWamEnumStickerSendOriginType")
                   .STICKER_SEND_ORIGIN_TYPE.FORWARD,
                 stickerIsAi:
                   w.isAiSticker === !0 ||
-                  ((ne = w.mediaData) == null ? void 0 : ne.isAiSticker) === !0,
+                  ((re = w.mediaData) == null ? void 0 : re.isAiSticker) === !0,
                 stickerIsAnimated: !!(
-                  (re = w.mediaData) != null && re.isAnimated
+                  (oe = w.mediaData) != null && oe.isAnimated
                 ),
                 stickerIsFirstParty: !!(
-                  (oe = w.mediaData) != null && oe.isFirstParty
+                  (ae = w.mediaData) != null && ae.isFirstParty
                 ),
                 stickerIsFromStickerMaker: !!(
-                  (ae = w.mediaData) != null && ae.isFromStickerMaker
+                  (ie = w.mediaData) != null && ie.isFromStickerMaker
                 ),
-                stickerIsLottie: !!((ie = w.mediaData) != null && ie.isLottie),
+                stickerIsLottie: !!((le = w.mediaData) != null && le.isLottie),
               },
-              ue = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(se),
-              ce = o("WAWebWebpMetadata").getStickerMakerSourceType(
-                (le = w.mediaData) == null ? void 0 : le.stickerMakerSourceType,
+              ce = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(ue),
+              de = o("WAWebWebpMetadata").getStickerMakerSourceType(
+                (se = w.mediaData) == null ? void 0 : se.stickerMakerSourceType,
               );
-            (ce != null && (ue.stickerMakerSourceType = ce), ue.commit());
+            (de != null && (ce.stickerMakerSourceType = de), ce.commit());
           }
-          return te;
+          return ne;
         })),
         _.apply(this, arguments)
       );

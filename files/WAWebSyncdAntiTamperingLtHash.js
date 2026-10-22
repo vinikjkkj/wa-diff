@@ -235,17 +235,12 @@ __d(
     function g() {
       return o(
         "WAWebLid1X1MigrationGating",
-      ).Lid1X1MigrationUtils.isLidMigrated()
-        ? o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.lidMigrationSource() ===
-          o("WAWebUserPrefsTypes").LidMigrationSource.PEER
-          ? o("WAWebWamEnumLidMigrationStageEnum").LID_MIGRATION_STAGE_ENUM
-              .PEER_MIGRATED
-          : o("WAWebWamEnumLidMigrationStageEnum").LID_MIGRATION_STAGE_ENUM
-              .HISTORY_MIGRATED
+      ).Lid1X1MigrationUtils.lidMigrationSource() ===
+        o("WAWebUserPrefsTypes").LidMigrationSource.PEER
+        ? o("WAWebWamEnumLidMigrationStageEnum").LID_MIGRATION_STAGE_ENUM
+            .PEER_MIGRATED
         : o("WAWebWamEnumLidMigrationStageEnum").LID_MIGRATION_STAGE_ENUM
-            .NOT_MIGRATED;
+            .HISTORY_MIGRATED;
     }
     function h() {
       return y.apply(this, arguments);

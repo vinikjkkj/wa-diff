@@ -123,7 +123,7 @@ __d(
             if (!(o >= e.length)) {
               var i = yield (d || (d = n("Promise"))).all(
                 e.slice(o, o + m).map(function (e) {
-                  return C(e, t, r);
+                  return C({ contact: e, lookup: t, savedNames: r });
                 }),
               );
               (a.push.apply(a, i), yield h(e, t, r, o + m, a));
@@ -133,30 +133,33 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = e.lid;
-          if (a == null) return { kind: "valid", contact: e };
-          if (!t.complete)
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.contact,
+            n = e.lookup,
+            a = e.savedNames,
+            i = t.lid;
+          if (i == null) return { kind: "valid", contact: t };
+          if (!n.complete)
             return {
               kind: "error",
               error: R(
-                e,
+                t,
                 o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
                   .CUSTOMER_DATA_LOOKUP_FAILED,
               ),
             };
-          var i = t.leadStagesByLid.get(a);
-          if (i == null)
+          var l = n.leadStagesByLid.get(i);
+          if (l == null)
             return {
               kind: "error",
               error: R(
-                e,
+                t,
                 o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
                   .CUSTOMER_DATA_LOOKUP_FAILED,
@@ -164,61 +167,61 @@ __d(
               diagnostic: { reason: "missing-lead-stage-result" },
             };
           try {
-            var l = t.profiles.get(a),
-              s = yield o(
+            var s = n.profiles.get(i),
+              u = yield o(
                 "WAWebCustomerManagerImportConflictDetector",
-              ).readImportedCustomerMergeState(e, a, {
-                complete: t.complete,
-                legacy: t.legacyByLid.get(a),
-                localLeadStage: i,
-                profile: l,
-                savedNames: n,
+              ).readImportedCustomerMergeState(t, i, {
+                complete: n.complete,
+                legacy: n.legacyByLid.get(i),
+                localLeadStage: l,
+                profile: s,
+                savedNames: a,
               }),
-              u = s.conflictingFields,
-              c = s.hasMissingNote,
-              d =
-                l != null && u.length === 0
-                  ? yield v(e, l, t.legacyByLid.get(a), i.stage, n.get(a), c)
-                  : { conflictingFields: u, hasMissingData: l == null };
-            return d.conflictingFields.length === 0 && d.hasMissingData
-              ? { kind: "valid", contact: e }
+              c = u.conflictingFields,
+              d = u.hasMissingNote,
+              m =
+                s != null && c.length === 0
+                  ? yield v(t, s, n.legacyByLid.get(i), l.stage, a.get(i), d)
+                  : { conflictingFields: c, hasMissingData: s == null };
+            return m.conflictingFields.length === 0 && m.hasMissingData
+              ? { kind: "valid", contact: t }
               : {
                   kind: "error",
                   error: R(
-                    e,
-                    d.conflictingFields.length > 0
+                    t,
+                    m.conflictingFields.length > 0
                       ? o("WAWebCustomerManagerImportErrorMessage")
                           .CustomerManagerImportConflictError.MERGE_CONFLICT
                       : o("WAWebContactImportTypedError").ExistingContactError
                           .ALREADY_EXISTS,
-                    d.conflictingFields,
+                    m.conflictingFields,
                   ),
                 };
-          } catch (t) {
-            return t instanceof
+          } catch (e) {
+            return e instanceof
               o("WAWebCustomerManagerImportConflictDetector")
                 .CustomerManagerImportPhoneDataOwnershipError
               ? {
                   kind: "error",
                   error: R(
-                    e,
+                    t,
                     o("WAWebCustomerManagerImportErrorMessage")
                       .CustomerManagerImportConflictError
                       .PHONE_DATA_OWNER_UNVERIFIED,
                   ),
-                  diagnostic: { reason: t.reason },
+                  diagnostic: { reason: e.reason },
                 }
               : {
                   kind: "error",
                   error: R(
-                    e,
+                    t,
                     o("WAWebCustomerManagerImportErrorMessage")
                       .CustomerManagerImportConflictError
                       .CUSTOMER_DATA_LOOKUP_FAILED,
                   ),
                   diagnostic: {
                     reason: "saved-data-lookup-failed",
-                    error: r("getErrorSafe")(t),
+                    error: r("getErrorSafe")(e),
                   },
                 };
           }

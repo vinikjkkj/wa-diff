@@ -1,11 +1,6 @@
 __d(
   "WAWebHistorySyncLidChatGating",
-  [
-    "WALogger",
-    "WAWebLid1X1MigrationGating",
-    "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebUserPrefsIndexedDBStorage", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = "WAForceHistoryLidChat";
@@ -29,10 +24,7 @@ __d(
               .sendLogs("persist-force-history-lid-chat-called-twice");
             return;
           }
-          var t = o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.isLidMigrated();
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, t);
+          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, !0);
         })),
         d.apply(this, arguments)
       );

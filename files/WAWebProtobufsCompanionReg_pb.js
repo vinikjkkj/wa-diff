@@ -82,7 +82,7 @@ __d(
         supportInlineContacts: [24, e.TYPES.BOOL],
         supportNewsletter: [25, e.TYPES.BOOL],
         supportUniversalReachChat: [26, e.TYPES.BOOL],
-        supportOmittedConversationIndex: [27, e.TYPES.BOOL],
+        supportOmittedConversationMetadata: [28, e.TYPES.BOOL],
       }),
       (d.name = "DeviceProps$AppVersion"),
       (d.internalSpec = {

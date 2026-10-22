@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebApiGroupInviteV4Store",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -26,25 +25,20 @@ __d(
       );
     }
     function p(t) {
-      var n = o(
-          "WAWebLid1X1MigrationGating",
-        ).Lid1X1MigrationUtils.isLidMigrated(),
-        r = n ? o("WAWebLidMigrationUtils").toLid(t.from) : t.from,
-        a = n ? o("WAWebLidMigrationUtils").toLid(t.to) : t.to;
-      if (!r || !a) {
-        var i = o("WAWebUserPrefsMeUser").isMeAccount(t.author),
-          l = t.author != null;
+      var n = o("WAWebLidMigrationUtils").toLid(t.from),
+        r = o("WAWebLidMigrationUtils").toLid(t.to);
+      if (!n || !r) {
+        var a = o("WAWebUserPrefsMeUser").isMeAccount(t.author),
+          i = t.author != null;
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[group-invites] lidMigrated=",
-              " validAuthor=",
+              "[group-invites] validAuthor=",
               " isPeer=",
               "",
             ])),
-          n,
-          l,
           i,
+          a,
         ),
           o("WALogger").ERROR(
             s ||
@@ -53,23 +47,23 @@ __d(
                 " ",
                 "",
               ])),
-            r ? "" : "msg.from &",
-            a ? "" : "msg.to",
+            n ? "" : "msg.from &",
+            r ? "" : "msg.to",
           ));
-        var d =
+        var l =
           "[group-invites] failed to get lid mapping for *incoming* group invite";
         o("WALogger")
           .ERROR(
             u || (u = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-            d,
+            l,
           )
-          .sendLogs(d);
+          .sendLogs(l);
       }
-      var m = o("WAWebLidMigrationUtils").getAddressingModeString(
-          r == null ? void 0 : r.isLid(),
+      var d = o("WAWebLidMigrationUtils").getAddressingModeString(
+          n == null ? void 0 : n.isLid(),
         ),
-        p = o("WAWebLidMigrationUtils").getAddressingModeString(
-          a == null ? void 0 : a.isLid(),
+        m = o("WAWebLidMigrationUtils").getAddressingModeString(
+          r == null ? void 0 : r.isLid(),
         );
       return (
         o("WALogger").LOG(
@@ -79,13 +73,13 @@ __d(
               " to=",
               "",
             ])),
+          d,
           m,
-          p,
         ),
         {
           id: t.id.toString(),
-          from: r == null ? void 0 : r.toString(),
-          to: a == null ? void 0 : a.toString(),
+          from: n == null ? void 0 : n.toString(),
+          to: r == null ? void 0 : r.toString(),
           groupId: t.inviteGrp,
           expiration: parseInt(t.inviteCodeExp, 10),
           expired: o("WATimeUtils").unixTime() >= parseInt(t.inviteCodeExp, 10),

@@ -20,7 +20,7 @@ __d(
       return e.slice(0, t ? 0 : c);
     }
     function p(e) {
-      var t = y(e);
+      var t = h(e);
       return t != null
         ? t.formatted
         : e.username == null || e.username === ""
@@ -40,22 +40,19 @@ __d(
             .toLocaleLowerCase();
         if (a.includes(t) || i.includes(t)) return !0;
       }
-      var l = C(t);
+      var l = y(t);
       return l === "" ||
         !/^[\t-\r \(\)\+\x2D\.0-9\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]+$/.test(
           t,
         )
         ? !1
-        : [(n = y(e)) == null ? void 0 : n.user, e.phoneNumber].some(
+        : [(n = h(e)) == null ? void 0 : n.user, e.phoneNumber].some(
             function (e) {
-              return e != null && C(e).includes(l);
+              return e != null && y(e).includes(l);
             },
           );
     }
-    function f(e, t) {
-      return e ? !0 : t > 0 ? "indeterminate" : !1;
-    }
-    function g(e) {
+    function f(e) {
       var t = o("WAWebInitialsFromNameUtils").getInitialsFromNames({
           name: e,
           pushname: null,
@@ -65,14 +62,14 @@ __d(
         r = t.secondInitial;
       return "" + (n != null ? n : "") + (r != null ? r : "");
     }
-    function h(e) {
+    function g(e) {
       return e === "CREATOR"
         ? s._(/*BTDS*/ "Owner")
         : e === "ADMIN"
           ? r("WAWebFbtCommon")("Admin")
           : s._(/*BTDS*/ "Member");
     }
-    function y(t) {
+    function h(t) {
       if (d.has(t)) return d.get(t);
       try {
         var n = o("WAWebApiContact").getPnIfLidIsLatestMapping(
@@ -100,17 +97,16 @@ __d(
         );
       }
     }
-    function C(e) {
+    function y(e) {
       return e.replace(/\D/g, "");
     }
     ((l.ORG_ADMIN_MEMBER_PAGE_SIZE = u),
       (l.getOrgAdminDirectoryMemberTagsForDisplay = m),
       (l.getOrgAdminDirectoryMemberIdentityLabel = p),
       (l.orgAdminDirectoryMemberMatchesQuery = _),
-      (l.getOrgAdminDirectoryMemberSelectionState = f),
-      (l.getOrgAdminDirectoryMemberInitials = g),
-      (l.getOrgAdminDirectoryMemberRoleLabel = h),
-      (l.normalizeOrgAdminPhoneSearchValue = C));
+      (l.getOrgAdminDirectoryMemberInitials = f),
+      (l.getOrgAdminDirectoryMemberRoleLabel = g),
+      (l.normalizeOrgAdminPhoneSearchValue = y));
   },
   226,
 );

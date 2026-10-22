@@ -17,13 +17,9 @@ __d(
     function u() {
       return r("gkx")("26256") || !r("gkx")("18518")
         ? e.NONE
-        : r("gkx")("26258")
-          ? r("gkx")("19648")
-            ? e.TEST
-            : e.CONTROL
-          : r("gkx")("7634")
-            ? e.DEV
-            : e.NONE;
+        : r("gkx")("19648")
+          ? e.TEST
+          : e.CONTROL;
     }
     function c() {
       return s() === e.TEST || s() === e.DEV;

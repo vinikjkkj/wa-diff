@@ -12,7 +12,6 @@ __d(
     "WAWebContactExternalUserState",
     "WAWebEnvironment",
     "WAWebIdentityApiUtils",
-    "WAWebLid1X1MigrationGating",
     "WAWebManageE2ESessionsJob",
     "WAWebProtobufsFingerprintV3.pb",
     "WAWebSendMsgDatabaseJob",
@@ -229,10 +228,7 @@ __d(
             i = t.jid,
             l = t.lid,
             m = t.shareOwnPn;
-          o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.isLidMigrated() &&
-            !l &&
+          l ||
             o("WALogger")
               .ERROR(
                 e ||

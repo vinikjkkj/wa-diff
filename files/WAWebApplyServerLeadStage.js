@@ -43,7 +43,15 @@ __d(
           var i = yield c();
           if (i == null) return "no_lead_list";
           var l = yield m(a, n, i);
-          return l == null ? "unchanged" : (yield _(a, e, i, l), "applied");
+          return l == null
+            ? "unchanged"
+            : (yield _({
+                chatJid: a,
+                manualLabelId: i,
+                threadLid: e,
+                write: l,
+              }),
+              "applied");
         })),
         s.apply(this, arguments)
       );
@@ -143,39 +151,40 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n, r) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (r.addedMembership) {
-              var a =
-                (yield o("WAWebSchemaChat").getChatTable().get(e, !1)) != null;
-              o("WAWebBackendApi").frontendFireAndForget(
-                "applyLabelAssociationChanges",
-                {
-                  removals: [],
-                  additions: [
-                    {
-                      parentId: e,
-                      labels: [n],
-                      parentType: a
-                        ? o("WAWebListItemParentType").LabelItemParentType.Chat
-                        : o("WAWebListItemParentType").LabelItemParentType
-                            .Contact,
-                    },
-                  ],
-                },
-              );
-            }
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatJid,
+            n = e.manualLabelId,
+            r = e.threadLid,
+            a = e.write;
+          if (a.addedMembership) {
+            var i =
+              (yield o("WAWebSchemaChat").getChatTable().get(t, !1)) != null;
             o("WAWebBackendApi").frontendFireAndForget(
-              "serverLeadStageApplied",
-              { profileChatJid: t },
+              "applyLabelAssociationChanges",
+              {
+                removals: [],
+                additions: [
+                  {
+                    parentId: t,
+                    labels: [n],
+                    parentType: i
+                      ? o("WAWebListItemParentType").LabelItemParentType.Chat
+                      : o("WAWebListItemParentType").LabelItemParentType
+                          .Contact,
+                  },
+                ],
+              },
             );
-          },
-        )),
+          }
+          o("WAWebBackendApi").frontendFireAndForget("serverLeadStageApplied", {
+            profileChatJid: r,
+          });
+        })),
         f.apply(this, arguments)
       );
     }

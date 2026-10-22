@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebCurrentUser",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
@@ -49,9 +48,7 @@ __d(
                     "Lid mapping is missing for chat creation",
                   ])),
               )),
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() && a.accountLid == null)
+            a.accountLid == null)
           ) {
             o("WAWebLidMigrationLogging").logLidMetadata();
             var t = o("WAWebWidFactory").createWid(a.id);

@@ -21,6 +21,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
+    "WAWebMusicGatingUtils",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
     "WAWebOrderStatus",
@@ -819,7 +820,9 @@ __d(
             : t === o("WAWebMsgType").MSG_TYPE.CHAT
               ? !c && a && !s
               : t === o("WAWebMsgType").MSG_TYPE.MUSIC
-                ? !c && !s
+                ? !c &&
+                  !s &&
+                  o("WAWebMusicGatingUtils").isMusicOnChatsGeogatingEnabled()
                 : t === o("WAWebMsgType").MSG_TYPE.PTV
                   ? u == null && !s
                   : !1;

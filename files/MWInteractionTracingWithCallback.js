@@ -13,11 +13,18 @@ __d(
           function* (t, n, o, a) {
             var i = (e || (e = r("performanceNow")))();
             try {
-              var l = yield o();
+              var l,
+                u = yield o();
               return (
                 a({
                   annotations: d(
-                    { success: !0 },
+                    {
+                      group:
+                        (l = n == null ? void 0 : n.group) != null
+                          ? l
+                          : "<uncategorized>",
+                      success: !0,
+                    },
                     n == null ? void 0 : n.annotations,
                   ),
                   endTime: (e || (e = r("performanceNow")))(),
@@ -27,13 +34,21 @@ __d(
                   startTime: i,
                   timeOrigin: (s || (s = r("performance"))).timeOrigin,
                 }),
-                l
+                u
               );
             } catch (o) {
+              var c;
               throw (
                 a({
                   annotations: d(
-                    { error: r("getErrorSafe")(o).message, success: !1 },
+                    {
+                      error: r("getErrorSafe")(o).message,
+                      group:
+                        (c = n == null ? void 0 : n.group) != null
+                          ? c
+                          : "<uncategorized>",
+                      success: !1,
+                    },
                     n == null ? void 0 : n.annotations,
                   ),
                   endTime: (e || (e = r("performanceNow")))(),

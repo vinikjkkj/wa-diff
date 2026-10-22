@@ -6,20 +6,11 @@ __d(
     function l() {
       return e;
     }
-    function s() {
-      e.clear();
+    var s = new Map();
+    function u() {
+      return s;
     }
-    var u = new Map();
-    function c() {
-      return u;
-    }
-    function d() {
-      u.clear();
-    }
-    ((i.getPreviewCache = l),
-      (i.clearPreviewCache = s),
-      (i.getNewsletterPreviewCache = c),
-      (i.clearNewsletterPreviewCache = d));
+    ((i.getPreviewCache = l), (i.getNewsletterPreviewCache = u));
   },
   66,
 );

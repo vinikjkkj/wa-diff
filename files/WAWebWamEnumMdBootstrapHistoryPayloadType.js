@@ -10,6 +10,7 @@ __d(
       STATUS_V3: 5,
       NON_BLOCKING_DATA: 6,
       ON_DEMAND: 7,
+      RECENT_CONVERSATIONS_ON_DEMAND: 8,
     });
     i.MD_BOOTSTRAP_HISTORY_PAYLOAD_TYPE = e;
   },

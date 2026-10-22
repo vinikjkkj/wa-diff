@@ -22,7 +22,6 @@ __d(
     "WAWebBizFrontendGatingUtils",
     "WAWebBizNativeAdsEntryPointUtils",
     "WAWebBotGenTypingIndicatorMsg",
-    "WAWebBotProfileAction",
     "WAWebBotUtils",
     "WAWebBrAddPixKeyDeepLinkGating",
     "WAWebBrSavePartnerPixKeyFeature",
@@ -1177,9 +1176,6 @@ __d(
           var He = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                o("WAWebBotProfileAction").queryBotProfile(
-                  o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-                );
                 var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                     "hatchDeeplink",

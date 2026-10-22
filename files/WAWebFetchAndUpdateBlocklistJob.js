@@ -3,18 +3,14 @@ __d(
   [
     "WAArrayUtils",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebApiBlocklist",
     "WAWebBackendApi",
     "WAWebBlocklistMigration",
     "WAWebCriticalEventWamEvent",
     "WAWebDBCreateLidPnMappings",
     "WAWebGetBlocklistJob",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidAwareContactsDB",
-    "WAWebLogoutReasonConstants",
     "WAWebSetUsernameJob",
-    "WAWebSocketLogoutJob",
     "WAWebUpdateLidMetadataJob",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsMultiDevice",
@@ -25,13 +21,13 @@ __d(
     "partitionArray",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e) {
-      return g.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function g() {
+    function _() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -48,7 +44,7 @@ __d(
           var n = yield o("WAWebGetBlocklistJob").getBlocklist();
           if (n.errorCode != null) return n;
           if (n.type === "mismatch") {
-            n.dirty && (yield L("LidBlocklistForceMigratedDirty"));
+            n.dirty && (yield S("LidBlocklistForceMigratedDirty"));
             var a = o("WAWebBlocklistMigration").isBlocklistMigrated(),
               i = n.list;
             (o("WALogger").LOG(
@@ -69,7 +65,7 @@ __d(
               i.addressingMode === "pn")
             ) {
               a &&
-                (yield L("LidBlocklistUnexpectedPnBlocklist"),
+                (yield S("LidBlocklistUnexpectedPnBlocklist"),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -90,19 +86,15 @@ __d(
               yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(m);
             } else
               (i.addressingMode,
-                o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated()
-                  ? a ||
-                    (o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[blocklist] received a lid-based blocklist, marking the device as migrated",
-                        ])),
-                    ),
-                    o("WAWebBlocklistMigration").setBlocklistMigrated())
-                  : yield E(),
-                yield h(i.items));
+                a ||
+                  (o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[blocklist] received a lid-based blocklist, marking the device as migrated",
+                      ])),
+                  ),
+                  o("WAWebBlocklistMigration").setBlocklistMigrated()),
+                yield f(i.items));
           } else
             o("WALogger").LOG(
               d ||
@@ -111,6 +103,22 @@ __d(
                 ])),
             );
           return n;
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = [],
+            n = [];
+          for (var r of e)
+            (r.pn != null && t.push(r),
+              (r.username != null || r.displayName != null) && n.push(r));
+          (yield h(t), yield C(n));
         })),
         g.apply(this, arguments)
       );
@@ -121,22 +129,6 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [],
-            n = [];
-          for (var r of e)
-            (r.pn != null && t.push(r),
-              (r.username != null || r.displayName != null) && n.push(r));
-          (yield C(t), yield v(n));
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAArrayUtils").groupBy(e, function (e) {
               return e.pn.toString();
             }),
@@ -154,7 +146,7 @@ __d(
                   return r("WAWebWid").compare(e.lid, t.lid);
                 })
                 .reverse();
-            (n.push.apply(n, R(d)), u.length > 1 && i++, a.push.apply(a, R(u)));
+            (n.push.apply(n, v(d)), u.length > 1 && i++, a.push.apply(a, v(u)));
           }
           (i > 0 &&
             o("WALogger")
@@ -181,15 +173,15 @@ __d(
             }),
             yield o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb());
         })),
-        b.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = [],
               n = [],
@@ -220,61 +212,22 @@ __d(
           (yield o("WAWebSetUsernameJob").setUsernamesJob(t),
             yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(n));
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function R(e) {
+    function v(e) {
       return e.map(function (e) {
         return { lid: e.lid, pn: e.pn };
       });
     }
-    function L(e) {
+    function S(e) {
       var t = new (o("WAWebCriticalEventWamEvent").CriticalEventWamEvent)({
         name: e,
         debug: "{fetch}",
       });
       return t.commitAndWaitForFlush();
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.hasStateDiscrepancy()
-          )
-            return yield o("WAWebSocketLogoutJob").socketLogout(
-              o("WAWebLogoutReasonConstants").LogoutReason
-                .LidMigrationStateDiscrepancy,
-            );
-          (o("WALogger")
-            .ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[blocklist] received a lid-based blocklist on an unmigrated device, will send critical event and log out",
-                ])),
-            )
-            .sendLogs("LidBlocklistUnmigratedChatDb"),
-            yield L("LidBlocklistUnmigratedChatDb"),
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[blocklist] critical event committed",
-                ])),
-            ),
-            yield o("WAPromiseDelays").delayMs(5e3),
-            yield o("WAWebSocketLogoutJob").socketLogout(
-              o("WAWebLogoutReasonConstants").LogoutReason
-                .LidBlocklistChatDbUnmigrated,
-            ));
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    ((l.fetchAndUpdateBlocklist = f), (l.learnIdentifiers = h));
+    ((l.fetchAndUpdateBlocklist = p), (l.learnIdentifiers = f));
   },
   98,
 );

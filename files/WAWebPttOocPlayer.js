@@ -22,12 +22,13 @@ __d(
     "WAWebPttPlayPauseButton.react",
     "WAWebPttPrefs",
     "WAWebPttPrefsGetters",
-    "WAWebPttStatusIconStyleable.react",
     "WAWebPttUseMsgAudioPlaybackController",
     "WAWebTabOrder",
     "WAWebThemeContext",
     "WAWebUnstyledButton.react",
     "WAWebVelocityTransitionGroup",
+    "WDSIconIcHeadphonesFilled.react",
+    "WDSIconIcKeyboardVoiceFilled.react",
     "nullthrows",
     "react",
     "react-compiler-runtime",
@@ -67,7 +68,6 @@ __d(
         senderName: { color: "xmzmlnv", fontSize: "x1jchvi3", $$css: !0 },
       },
       v = {
-        outOfChatBg: { fill: "xhzorvt", $$css: !0 },
         outOfChatAudioBadge: {
           backgroundColor: "xnj6ddq",
           height: "xd7y6wv",
@@ -75,7 +75,6 @@ __d(
           $$css: !0,
         },
         outOfChatIcon: { color: "xll8lwp", $$css: !0 },
-        forwardedBg: { fill: "xzp0ayt", $$css: !0 },
         forwardedIcon: { color: "x17t9dm2", $$css: !0 },
       };
     function S() {
@@ -561,21 +560,18 @@ __d(
             babelHelpers.extends({}, m, {
               children:
                 n.type === "ptt" || u
-                  ? s.jsx(
-                      o("WAWebPttStatusIconStyleable.react")
-                        .PttStatusIconStyleable,
-                      {
-                        width: h,
-                        height: h,
-                        innerStyles: {
-                          background: v.outOfChatBg,
-                          primary: v.outOfChatIcon,
-                        },
-                      },
-                    )
-                  : s.jsx(r("WAWebPttAudioStatusBadge.react"), {
+                  ? s.jsx(r("WAWebPttAudioStatusBadge.react"), {
+                      Icon: r("WDSIconIcKeyboardVoiceFilled.react"),
                       iconSize: 20,
                       iconXstyle: v.outOfChatIcon,
+                      testid: "ptt-status",
+                      xstyle: v.outOfChatAudioBadge,
+                    })
+                  : s.jsx(r("WAWebPttAudioStatusBadge.react"), {
+                      Icon: r("WDSIconIcHeadphonesFilled.react"),
+                      iconSize: 20,
+                      iconXstyle: v.outOfChatIcon,
+                      testid: "audio-status",
                       xstyle: v.outOfChatAudioBadge,
                     }),
             }),
@@ -602,17 +598,12 @@ __d(
       return s.jsx("div", {
         className:
           "x14iifvp x100vrsf x1vqgdyp x1fns5xo x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6 xvs2etk xg3wpu6 x1jwbhkm xgg4q86 x6ikm8r x10wlt62 x1aqdfop",
-        children: s.jsx(
-          o("WAWebPttStatusIconStyleable.react").PttStatusIconStyleable,
-          {
-            width: 20,
-            height: 20,
-            innerStyles: {
-              background: v.forwardedBg,
-              primary: v.forwardedIcon,
-            },
-          },
-        ),
+        children: s.jsx(r("WDSIconIcKeyboardVoiceFilled.react"), {
+          height: 20,
+          iconXstyle: v.forwardedIcon,
+          testid: "ptt-status",
+          width: 20,
+        }),
       });
     }
     I.displayName = I.name + " [from " + i.id + "]";

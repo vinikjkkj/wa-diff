@@ -25,14 +25,10 @@ __d(
     function m(t) {
       e.delete(t);
     }
-    function p() {
-      e.clear();
-    }
     ((l.isOfflineCallLogOrderingEnabled = u),
       (l.markPlaceholderPending = c),
       (l.isPlaceholderPending = d),
-      (l.markPlaceholderResolved = m),
-      (l.clearAllPendingPlaceholders = p));
+      (l.markPlaceholderResolved = m));
   },
   98,
 );

@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = new Map();
     function s(t, n) {
-      var r = m(t, n),
+      var r = d(t, n),
         a = e.get(r);
       if (a == null) return null;
       var i = (o("WATimeUtils").unixTime() - a.timestamp) * 1e3;
@@ -14,7 +14,7 @@ __d(
     }
     function u(t, n, r) {
       if (r.length !== 0) {
-        var a = m(t, n);
+        var a = d(t, n);
         if (
           (e.delete(a), e.size >= o("WAWebWWAIConstants").MAX_CACHE_ENTRIES)
         ) {
@@ -30,18 +30,14 @@ __d(
       }
     }
     function c() {
-      e.clear();
-    }
-    function d() {
       return e.size;
     }
-    function m(e, t) {
+    function d(e, t) {
       return t + ":" + e;
     }
     ((l.getCachedSuggestions = s),
       (l.cacheSuggestions = u),
-      (l.clearCache = c),
-      (l.getCacheSize = d));
+      (l.getCacheSize = c));
   },
   98,
 );

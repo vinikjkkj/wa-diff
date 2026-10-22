@@ -5,7 +5,8 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebPttAudioStatusBadge.react",
-    "WAWebPttStatusIconStyleable.react",
+    "WDSIconIcHeadphonesFilled.react",
+    "WDSIconIcKeyboardVoiceFilled.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
@@ -14,8 +15,6 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = {
-        bgIncoming: { fill: "x1yd6tts", $$css: !0 },
-        bgOutgoing: { fill: "xnbcrc8", $$css: !0 },
         audioBadge: { height: "x1qx5ct2", width: "xw4jnvo", $$css: !0 },
         audioBadgeIncoming: { backgroundColor: "x1ew7x2d", $$css: !0 },
         audioBadgeOutgoing: { backgroundColor: "x1g5lz36", $$css: !0 },
@@ -24,7 +23,7 @@ __d(
         iconGreen: { color: "x1x3uvgb", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(12),
+      var t = o("react-compiler-runtime").c(13),
         n = e.msgKey,
         a;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -42,12 +41,12 @@ __d(
         m = i[2],
         p = i[3],
         _ = l === o("WAWebAck").ACK.PLAYED,
-        f = c ? u.bgOutgoing : u.bgIncoming,
-        g;
+        f;
       t[1] !== c || t[2] !== _
-        ? ((g = d(_, c)), (t[1] = c), (t[2] = _), (t[3] = g))
-        : (g = t[3]);
-      var h = g,
+        ? ((f = d(_, c)), (t[1] = c), (t[2] = _), (t[3] = f))
+        : (f = t[3]);
+      var g = f,
+        h = p === "ptt" || m,
         y,
         C;
       t[4] === Symbol.for("react.memo_cache_sentinel")
@@ -56,42 +55,44 @@ __d(
           (t[4] = y),
           (t[5] = C))
         : ((y = t[4]), (C = t[5]));
-      var b;
+      var b = r(
+          h
+            ? "WDSIconIcKeyboardVoiceFilled.react"
+            : "WDSIconIcHeadphonesFilled.react",
+        ),
+        v = h ? "ptt-status" : "audio-status",
+        S = c ? u.audioBadgeOutgoing : u.audioBadgeIncoming,
+        R;
+      t[6] !== S
+        ? ((R = [u.audioBadge, S]), (t[6] = S), (t[7] = R))
+        : (R = t[7]);
+      var L;
       return (
-        t[6] !== m || t[7] !== f || t[8] !== c || t[9] !== h || t[10] !== p
-          ? ((b = s.jsx(
+        t[8] !== g || t[9] !== b || t[10] !== v || t[11] !== R
+          ? ((L = s.jsx(
               "div",
               babelHelpers.extends({}, y, {
                 children: s.jsx(
                   "div",
                   babelHelpers.extends({}, C, {
-                    children:
-                      p === "ptt" || m
-                        ? s.jsx(
-                            o("WAWebPttStatusIconStyleable.react")
-                              .PttStatusIconStyleable,
-                            { innerStyles: { background: f, primary: h } },
-                          )
-                        : s.jsx(r("WAWebPttAudioStatusBadge.react"), {
-                            iconSize: 16,
-                            iconXstyle: h,
-                            xstyle: [
-                              u.audioBadge,
-                              c ? u.audioBadgeOutgoing : u.audioBadgeIncoming,
-                            ],
-                          }),
+                    children: s.jsx(r("WAWebPttAudioStatusBadge.react"), {
+                      Icon: b,
+                      iconSize: 16,
+                      iconXstyle: g,
+                      testid: v,
+                      xstyle: R,
+                    }),
                   }),
                 ),
               }),
             )),
-            (t[6] = m),
-            (t[7] = f),
-            (t[8] = c),
-            (t[9] = h),
-            (t[10] = p),
-            (t[11] = b))
-          : (b = t[11]),
-        b
+            (t[8] = g),
+            (t[9] = b),
+            (t[10] = v),
+            (t[11] = R),
+            (t[12] = L))
+          : (L = t[12]),
+        L
       );
     }
     function d(e, t) {

@@ -8,7 +8,6 @@ __d(
     "WAWebChangeGroupPresenceHandlerAction",
     "WAWebChangePresenceHandlerAction",
     "WAWebJidToWid",
-    "WAWebLid1X1MigrationGating",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -44,12 +43,6 @@ __d(
             }
             i.name;
             var l = o("WAWebJidToWid").lidUserJidToUserLid(i.value.from);
-            if (
-              !o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated()
-            )
-              return;
             if (!l.isLid()) {
               o("WALogger").ERROR(
                 e ||

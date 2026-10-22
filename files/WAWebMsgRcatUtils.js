@@ -8,7 +8,6 @@ __d(
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebFrontendMsgGetters",
-    "WAWebLid1X1MigrationGating",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
@@ -30,23 +29,16 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.nonce != null) return e.nonce;
           var t = o("WAWebMsgGetters").getSender(e),
-            n = o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (t == null || n == null) return null;
+            n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+          if (t == null) return null;
           var r = e.messageSecret,
             a = e.rcat;
           if (a == null || r == null) return null;
-          var i =
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() && !t.isLid()
-              ? o("WAWebApiContact").getCurrentLid(
-                  o("WAWebWidFactory").asUserWidOrThrow(t),
-                )
-              : t;
+          var i = t.isLid()
+            ? t
+            : o("WAWebApiContact").getCurrentLid(
+                o("WAWebWidFactory").asUserWidOrThrow(t),
+              );
           if (i == null) return null;
           var l = yield _({
             fromJid: o("WAWebWidToJid").widToUserJid(i),

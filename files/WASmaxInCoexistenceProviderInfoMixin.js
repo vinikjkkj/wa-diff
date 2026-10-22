@@ -21,7 +21,7 @@ __d(
     function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "id");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").contentInt(e);
+      var n = o("WASmaxParseUtils").contentBytes(e);
       return n.success
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;

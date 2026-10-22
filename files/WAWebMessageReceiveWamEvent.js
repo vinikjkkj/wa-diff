@@ -143,6 +143,7 @@ __d(
                 63,
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
+              sourceExperienceIds: [70, e.TYPES.STRING],
               stanzaProcessCount: [48, e.TYPES.INTEGER],
               stickerHasSound: [69, e.TYPES.BOOLEAN],
               stickerIsAi: [29, e.TYPES.BOOLEAN],

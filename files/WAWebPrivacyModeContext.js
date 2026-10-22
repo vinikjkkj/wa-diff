@@ -33,7 +33,7 @@ __d(
     function y(e) {
       var t = o("react-compiler-runtime").c(13),
         n = e.children,
-        r = f(o("WAWebUserPrefsPrivacyMode").isPrivacyScreenEnabled),
+        r = f(!1),
         a = r[0],
         i = r[1],
         l = f(b),

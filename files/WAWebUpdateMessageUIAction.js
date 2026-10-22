@@ -119,26 +119,8 @@ __d(
                 return;
               }
               var b = r("getErrorSafe")(t);
-              r("gkx")("26258")
+              r("gkx")("9092")
                 ? o("WALogger")
-                    .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "Msg: ",
-                          " chat: ",
-                          " Error: ",
-                          ", message: ",
-                          ", stack: ",
-                          "",
-                        ])),
-                      String(d.id),
-                      String(n),
-                      b.name,
-                      b.message,
-                      b.stack,
-                    )
-                    .tags("messaging")
-                : o("WALogger")
                     .WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -158,7 +140,25 @@ __d(
                     .tags("messaging")
                     .sendLogs(
                       "msg_handler for MD: error storing/processing single message",
-                    );
+                    )
+                : o("WALogger")
+                    .WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Msg: ",
+                          " chat: ",
+                          " Error: ",
+                          ", message: ",
+                          ", stack: ",
+                          "",
+                        ])),
+                      String(d.id),
+                      String(n),
+                      b.name,
+                      b.message,
+                      b.stack,
+                    )
+                    .tags("messaging");
             }
           }
         })),

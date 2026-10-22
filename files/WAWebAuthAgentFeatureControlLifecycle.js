@@ -29,109 +29,106 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          if (o("WAWebBizCoexGatingUtils").authAgentFeatureControlEnabled()) {
-            var t;
-            try {
-              t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
-            } catch (e) {
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[AAFC] getMeUser() failed at stream-ready",
-                  ])),
-              );
-              return;
-            }
-            var n;
-            try {
-              n = yield o(
-                "WAWebBusinessProfileCollection",
-              ).BusinessProfileCollection.find(t);
-            } catch (e) {
-              var a = e instanceof Error ? e.message : String(e);
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[AAFC] BusinessProfileCollection.find err ",
-                    "",
-                  ])),
-                a,
-              );
-              return;
-            }
-            if (((e = n) == null ? void 0 : e.isAuthorizedAgent) === !0) {
-              if (o("WAWebBizCoexGatingUtils").agentSmbOffboardingEnabled())
-                if (
-                  o(
-                    "WAWebUserPrefsMultiDevice",
-                  ).getIsHostedMeAccountFromLocalStorage()
-                )
-                  try {
+          var e, t;
+          try {
+            t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+          } catch (e) {
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[AAFC] getMeUser() failed at stream-ready",
+                ])),
+            );
+            return;
+          }
+          var n;
+          try {
+            n = yield o(
+              "WAWebBusinessProfileCollection",
+            ).BusinessProfileCollection.find(t);
+          } catch (e) {
+            var a = e instanceof Error ? e.message : String(e);
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[AAFC] BusinessProfileCollection.find err ",
+                  "",
+                ])),
+              a,
+            );
+            return;
+          }
+          if (((e = n) == null ? void 0 : e.isAuthorizedAgent) === !0) {
+            if (o("WAWebBizCoexGatingUtils").agentSmbOffboardingEnabled())
+              if (
+                o(
+                  "WAWebUserPrefsMultiDevice",
+                ).getIsHostedMeAccountFromLocalStorage()
+              )
+                try {
+                  yield o(
+                    "WAWebAgentTransitionUtils",
+                  ).clearMeSmbOffboardingState();
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[AAFC] clear stale SMB offboarding state failed at startup",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("aa-smb-offboarding-clear-startup-fail");
+                }
+              else
+                try {
+                  var i;
+                  (yield o(
+                    "WAWebAgentTransitionUtils",
+                  ).storeMeSmbParentCompanyName(
+                    (i = n.parentCompanyName) != null ? i : "",
+                  ),
                     yield o(
                       "WAWebAgentTransitionUtils",
-                    ).clearMeSmbOffboardingState();
-                  } catch (e) {
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[AAFC] clear stale SMB offboarding state failed at startup",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("aa-smb-offboarding-clear-startup-fail");
-                  }
-                else
-                  try {
-                    var i;
-                    (yield o(
-                      "WAWebAgentTransitionUtils",
-                    ).storeMeSmbParentCompanyName(
-                      (i = n.parentCompanyName) != null ? i : "",
-                    ),
-                      yield o(
-                        "WAWebAgentTransitionUtils",
-                      ).storeMeSmbOffboardingState());
-                  } catch (e) {
-                    o("WALogger")
-                      .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[AAFC] failed to store SMB offboarding state at startup",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("aa-smb-offboarding-store-startup-fail");
-                  }
-              yield o("WAWebFeatureControlCache").markUserAsAA();
-              var l = o("WAWebFeatureControlCache").getPolicyLastFetchedAt();
-              if (
-                !(
-                  l != null &&
-                  o("WATimeUtils").unixTimeMs() - l <
-                    o("WATimeUtils").WEEK_MILLISECONDS
-                )
-              ) {
-                var p = yield o(
-                  "WAWebAuthAgentFeaturePolicyQuery",
-                ).fetchAndCacheAuthAgentFeaturePolicy();
-                switch (p.type) {
-                  case "success":
-                    break;
-                  case "not_authorized_agent":
-                    break;
-                  case "error":
-                    o("WALogger").WARN(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[AAFC] policy fetch failed (",
-                          ")",
+                    ).storeMeSmbOffboardingState());
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[AAFC] failed to store SMB offboarding state at startup",
                         ])),
-                      p.error.message,
-                    );
-                    break;
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("aa-smb-offboarding-store-startup-fail");
                 }
+            yield o("WAWebFeatureControlCache").markUserAsAA();
+            var l = o("WAWebFeatureControlCache").getPolicyLastFetchedAt();
+            if (
+              !(
+                l != null &&
+                o("WATimeUtils").unixTimeMs() - l <
+                  o("WATimeUtils").WEEK_MILLISECONDS
+              )
+            ) {
+              var p = yield o(
+                "WAWebAuthAgentFeaturePolicyQuery",
+              ).fetchAndCacheAuthAgentFeaturePolicy();
+              switch (p.type) {
+                case "success":
+                  break;
+                case "not_authorized_agent":
+                  break;
+                case "error":
+                  o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[AAFC] policy fetch failed (",
+                        ")",
+                      ])),
+                    p.error.message,
+                  );
+                  break;
               }
             }
           }

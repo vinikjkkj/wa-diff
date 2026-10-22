@@ -27,8 +27,6 @@ __d(
     "WAWebInitializeCryptoLibrary",
     "WAWebInvocationInterface",
     "WAWebLaunchSocketUtils",
-    "WAWebLid1X1MigrationGating",
-    "WAWebLogoutReasonConstants",
     "WAWebLongTaskAccumulator",
     "WAWebMessageDeliveryCounters",
     "WAWebMessageDeliveryODS",
@@ -44,7 +42,6 @@ __d(
     "WAWebRegistration",
     "WAWebSchemaVersions",
     "WAWebSignalStorage",
-    "WAWebSocketLogoutJob",
     "WAWebSocketModel",
     "WAWebStartBackend",
     "WAWebStartBackendWorker",
@@ -289,22 +286,6 @@ __d(
                     ),
                     o("WAWebStartBackend")
                       .startBackend()
-                      .finally(function () {
-                        if (
-                          !o(
-                            "WAWebLid1X1MigrationGating",
-                          ).Lid1X1MigrationUtils.isLidMigrated()
-                        )
-                          return (
-                            o(
-                              "WAWebCoreActionsODS",
-                            ).logPageLoadErrorForcedLogout(),
-                            o("WAWebSocketLogoutJob").socketLogout(
-                              o("WAWebLogoutReasonConstants").LogoutReason
-                                .LidMigrationUnmigratedCompanion,
-                            )
-                          );
-                      })
                       .catch(function (e) {
                         o("WALogger")
                           .ERROR(

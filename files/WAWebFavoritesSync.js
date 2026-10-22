@@ -6,7 +6,6 @@ __d(
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebDBFavoriteDatabaseApi",
-    "WAWebLid1X1MigrationGating",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
@@ -119,12 +118,7 @@ __d(
                                 );
                               t.success;
                               var n = o("WAWebWidFactory").createWid(e.id);
-                              if (
-                                o(
-                                  "WAWebLid1X1MigrationGating",
-                                ).Lid1X1MigrationUtils.isLidMigrated() &&
-                                n.isLid()
-                              ) {
+                              if (n.isLid()) {
                                 var r = o("WAWebApiContact").getPhoneNumber(n);
                                 if (r != null)
                                   return {

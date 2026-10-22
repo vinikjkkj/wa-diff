@@ -34,8 +34,6 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNoop",
-    "WAWebPrivacyModeGating",
-    "WAWebPrivacyModeToast",
     "WAWebProfilePicThumbCollection",
     "WAWebScreenLockDrawerLoadable",
     "WAWebSendLogsPopupLoadable",
@@ -46,7 +44,6 @@ __d(
     "WAWebThemeContext",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
-    "WAWebUserPrefsPrivacyMode",
     "WAWebUserPrefsScreenLock",
     "WAWebVoipCallStateUtils",
     "WAWebVoipCallsTabPanelManager",
@@ -130,7 +127,7 @@ __d(
         case o("WAWebActions").Action.ZOOM_RESET:
           return ee();
         case o("WAWebActions").Action.TOGGLE_PRIVACY_MODE:
-          return se;
+          return r("WAWebNoop");
         case o("WAWebActions").Action.INCREASE_PTT_SPEED:
         case o("WAWebActions").Action.DECREASE_PTT_SPEED:
         case o("WAWebActions").Action.TOGGLE_BOLD:
@@ -672,15 +669,6 @@ __d(
             ? void 0
             : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0);
         })());
-    }
-    function se() {
-      if (o("WAWebPrivacyModeGating").isPrivacyScreenEnabled()) {
-        var e = o("WAWebUserPrefsPrivacyMode").isPrivacyScreenEnabled();
-        (o("WAWebCmd").Cmd.trigger("toggle_privacy_mode"),
-          o("WAWebPrivacyModeToast").showPrivacyModeToast(!e, function () {
-            o("WAWebCmd").Cmd.trigger("toggle_privacy_mode");
-          }));
-      }
     }
     l.default = h;
   },

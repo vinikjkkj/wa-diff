@@ -113,8 +113,9 @@ __d(
       g,
       h,
       y,
-      C = 1e3,
-      b = (function (t) {
+      C,
+      b = 1e3,
+      v = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -579,13 +580,7 @@ __d(
               (this.viewRepliesThreads = new (o(
                 "WAWebViewRepliesCollection",
               ).ViewRepliesCollection)(this.id)),
-              this.id.isFbidBot() &&
-                (o("WAWebBotProfileCollection").BotProfileCollection.get(
-                  this.id,
-                ) ||
-                  o("WAWebBotProfileCollection").BotProfileCollection.find(
-                    this.id,
-                  )),
+              E(this.id) && k(this.id),
               o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
                 (this.listenTo(
                   this,
@@ -841,7 +836,7 @@ __d(
                 this.$ChatImpl$p_41(),
                 o(
                   "WAWebMemoryPressureCacheRegistry",
-                ).registerMemoryPressureCache(E),
+                ).registerMemoryPressureCache(D),
                 this.$ChatImpl$p_42());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
@@ -897,7 +892,7 @@ __d(
           }),
           (i.trimMessagesForMemoryPressure = function () {
             var e = this.msgs;
-            if (e.length <= 1 || this.active || L(e)) return 0;
+            if (e.length <= 1 || this.active || T(e)) return 0;
             var t = o("WAWebFrontendChatGetters").getPreviewMessage(this),
               n = t != null ? e.indexOf(t) : -1,
               r = n >= 0 ? n : e.length - 1;
@@ -1292,7 +1287,7 @@ __d(
                             var a = n && t.active;
                             a &&
                               ((e.isFadingOut = !0),
-                              yield o("WAPromiseDelays").delayMs(C));
+                              yield o("WAPromiseDelays").delayMs(b));
                             try {
                               yield o(
                                 "WAWebDBEphemeralMessage",
@@ -1422,7 +1417,7 @@ __d(
               this.colorSchemeId != null ||
               this.stockWallpaperImageId != null;
             if (!o("WAWebChatThemeGatingUtils").isChatThemesEnabled() || !e)
-              return (y || (y = n("Promise"))).resolve();
+              return (C || (C = n("Promise"))).resolve();
             var t = this.chatThemeValue,
               r = this.wallpaperValue;
             return (
@@ -1628,15 +1623,15 @@ __d(
           a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((b.Proxy = "chat"), (b.idClass = r("WAWebWid")));
-    var v = o("WAWebBaseModel").defineModel(b);
-    function S() {
+    ((v.Proxy = "chat"), (v.idClass = r("WAWebWid")));
+    var S = o("WAWebBaseModel").defineModel(v);
+    function R() {
       var e = 0;
       for (var t of o("WAWebChatCollection").ChatCollection.getModelsArray())
-        e += R(t);
+        e += L(t);
       return e;
     }
-    function R(e) {
+    function L(e) {
       try {
         return e.trimMessagesForMemoryPressure();
       } catch (e) {
@@ -1654,14 +1649,44 @@ __d(
         );
       }
     }
-    function L(e) {
+    function E(e) {
+      return (
+        e.isFbidBot() &&
+        !o("WAWebBotProfileCollection").BotProfileCollection.get(e) &&
+        !o("WAWebBotUtils").isHatchBot(e) &&
+        !e.isSupportAgentBot()
+      );
+    }
+    function k(e) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            yield o("WAWebBotProfileCollection").BotProfileCollection.find(e);
+          } catch (e) {
+            o("WALogger").WARN(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "ChatModel: BotProfileCollection.find failed ",
+                  "",
+                ])),
+              String(e),
+            );
+          }
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e) {
       var t = e.msgLoadState;
       return (
         t.isLoadingEarlierMsgs || t.isLoadingRecentMsgs || t.isLoadingAroundMsgs
       );
     }
-    var E = { name: "inactive_chat_msgs", unit: "messages", release: S };
-    l.Chat = v;
+    var D = { name: "inactive_chat_msgs", unit: "messages", release: R };
+    l.Chat = S;
   },
   226,
 );

@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumNetworkStackType",
     "WAWebWamEnumPairedMediaType",
+    "WAWebWamEnumPlatformType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -136,6 +137,7 @@ __d(
                 o("WAWebWamEnumPairedMediaType").PAIRED_MEDIA_TYPE,
               ],
               prefetchOrder: [66, e.TYPES.INTEGER],
+              senderPlatform: [76, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
               sleepModeAffected: [51, e.TYPES.BOOLEAN],
               statusId: [67, e.TYPES.STRING],
               streamingUsedNonStreamingFallback: [70, e.TYPES.BOOLEAN],

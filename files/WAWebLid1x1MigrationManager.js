@@ -1,11 +1,6 @@
 __d(
   "WAWebLid1x1MigrationManager",
-  [
-    "Promise",
-    "WALogger",
-    "WAWebLid1X1MigrationGating",
-    "asyncToGeneratorRuntime",
-  ],
+  ["Promise", "WALogger", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -39,16 +34,12 @@ __d(
                 );
                 return;
               }
-              var e = o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated();
               try {
-                e &&
-                  (yield (d || (d = n("Promise"))).all(
-                    this.$1.map(function (e) {
-                      return e();
-                    }),
-                  ),
+                (yield (d || (d = n("Promise"))).all(
+                  this.$1.map(function (e) {
+                    return e();
+                  }),
+                ),
                   o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([

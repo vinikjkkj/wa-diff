@@ -5,7 +5,6 @@ __d(
     "WAWebApiContact",
     "WAWebContactExternalUserState",
     "WAWebFindChat",
-    "WAWebLid1X1MigrationGating",
     "WAWebMsgKey",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUserPrefsMeUser",
@@ -117,24 +116,18 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callDestinationWid,
             n = e.groupJid,
-            r = t,
-            a =
-              !r.isLid() &&
-              o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated(),
-            i = !n && (r.isLid() || a);
-          if (i) {
+            r = t;
+          if (!n) {
             o("WAWebRuntimeEnvironmentUtils").isWorker() ||
               (yield o(
                 "WAWebWaitForInitialChatsSynced",
               ).waitForInitialChatsSynced());
-            var l = yield o("WAWebFindChat").findOrCreateLatestChat(
+            var a = yield o("WAWebFindChat").findOrCreateLatestChat(
                 t,
                 "voipCallLog",
               ),
-              s = l.chat;
-            r = o("WAWebWidFactory").asUserWidOrThrow(s.id);
+              i = a.chat;
+            r = o("WAWebWidFactory").asUserWidOrThrow(i.id);
           }
           return r;
         })),

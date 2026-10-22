@@ -166,14 +166,14 @@ __d(
                 )
                 .catching(r("getErrorSafe")(n))
                 .sendLogs("cm-import-pn-customer-data-lookup-failed"),
-              g(
-                e,
-                t,
-                null,
-                o("WAWebCustomerManagerImportErrorMessage")
+              g({
+                aliasesByContact: t,
+                contacts: e,
+                errorType: o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
                   .CUSTOMER_DATA_LOOKUP_FAILED,
-              )
+                populatedAliases: null,
+              })
             );
           }
           if (l.length !== i.length)
@@ -188,26 +188,26 @@ __d(
                   a,
                 )
                 .sendLogs("cm-import-pn-customer-data-lookup-incomplete"),
-              g(
-                e,
-                t,
-                null,
-                o("WAWebCustomerManagerImportErrorMessage")
+              g({
+                aliasesByContact: t,
+                contacts: e,
+                errorType: o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
                   .CUSTOMER_DATA_LOOKUP_FAILED,
-              )
+                populatedAliases: null,
+              })
             );
           var s = new Set();
           l.forEach(function (e, t) {
             e != null && s.add(i[t]);
           });
-          var m = g(
-            e,
-            t,
-            s,
-            o("WAWebCustomerManagerImportErrorMessage")
+          var m = g({
+            aliasesByContact: t,
+            contacts: e,
+            errorType: o("WAWebCustomerManagerImportErrorMessage")
               .CustomerManagerImportConflictError.PHONE_DATA_OWNER_UNVERIFIED,
-          );
+            populatedAliases: s,
+          });
           return (
             m.errorList.length > 0 &&
               o("WALogger")
@@ -226,21 +226,25 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e, t, n, r) {
-      var o = [],
-        a = [];
+    function g(e) {
+      var t = e.aliasesByContact,
+        n = e.contacts,
+        r = e.errorType,
+        o = e.populatedAliases,
+        a = [],
+        i = [];
       return (
-        e.forEach(function (e) {
-          var i = t.get(e);
-          i != null &&
-          (n == null ||
-            i.some(function (e) {
-              return n.has(e);
+        n.forEach(function (e) {
+          var n = t.get(e);
+          n != null &&
+          (o == null ||
+            n.some(function (e) {
+              return o.has(e);
             }))
-            ? o.push(h(e, r))
-            : a.push(e);
+            ? a.push(h(e, r))
+            : i.push(e);
         }),
-        { errorList: o, validContacts: a }
+        { errorList: a, validContacts: i }
       );
     }
     function h(e, t) {

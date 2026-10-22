@@ -22,6 +22,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "stylex",
+    "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -54,172 +55,337 @@ __d(
       y = 48,
       C = { surface: "smb-business-profile-edit-categories" };
     function b(e) {
-      var t = e.afterSave,
-        a = e.initialCategories,
-        i = e.onCancel,
-        l = e.saveBusinessProfile,
-        u = e.searchCategories,
-        d = _(a),
-        p = d[0],
-        g = d[1],
-        y = _(!1),
-        b = y[0],
-        v = y[1],
-        S = _(!0),
-        L = S[0],
-        E = S[1],
-        k = _([]),
+      var t = o("react-compiler-runtime").c(61),
+        a = e.afterSave,
+        i = e.initialCategories,
+        l = e.onCancel,
+        u = e.saveBusinessProfile,
+        d = e.searchCategories,
+        p = _(i),
+        g = p[0],
+        y = p[1],
+        b = _(!1),
+        R = b[0],
+        L = b[1],
+        k = _(!0),
         I = k[0],
         T = k[1],
-        D = _(""),
-        x = D[0],
-        $ = D[1],
-        P = function () {
-          o("WAWebToastManager").ToastManager.open(
-            c.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(
-                /*BTDS*/ 'You cannot select categories when you have selected "Not a business"',
-              ),
-            }),
-          );
-        },
-        N = function (t) {
-          for (var e = 0; e < p.length; e++) if (p[e].id === t) return !0;
-          return !1;
-        },
-        M = function (t) {
-          return (
-            t.not_a_biz !== !0 &&
-            !N(t.id) &&
-            p.length >= o("WAWebBusinessProfileModel").MAX_BUSINESS_CATEGORIES
-          );
-        },
-        w = function (t) {
-          var e = p.find(function (e) {
-              return e.id === x;
-            }),
-            n = p;
-          (p.length > 0 &&
-            (t.not_a_biz === !0 && !e
-              ? ((n = []), P())
-              : t.not_a_biz !== !0 &&
-                e &&
-                ((n = p.filter(function (t) {
-                  return t.id !== e.id;
-                })),
-                P())),
-            N(t.id)
-              ? g(
-                  n.filter(function (e) {
-                    return e.id !== t.id;
-                  }),
-                )
-              : g([].concat(n, [t])));
-        },
-        A = function (t) {
-          var e = p.filter(function (e) {
-            return e.id === t;
-          })[0];
-          e && w(e);
-        },
-        F = function (t) {
-          var e = I.filter(function (e) {
-            return e.id === t;
-          })[0];
-          e && w(e);
-        },
-        O = function (t) {
-          u(
-            t ||
-              o("WAWebBusinessCategoriesResultModel")
-                .BUSINESS_CATEGORY_EMPTY_STR_ID,
-          )
-            .then(function (e) {
-              var n = e.categories;
-              (t !== "" &&
-                (n = n.filter(function (e) {
-                  return !e.not_a_biz;
-                })),
-                E(!1),
-                T(n),
-                $(e.notABizId),
-                o("WAWebUtilsLogQplEvents").qplAnnotateProfileCatsView(
-                  n.length,
-                ),
-                o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(2));
-            })
-            .catch(function () {
-              (o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Something went wrong."),
-                }),
-              ),
-                E(!1),
-                T([]),
-                $(""),
-                o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(3));
-            });
-        };
-      m(function () {
-        O("");
-      }, []);
-      var B = function (t) {
-        !L &&
-          !b &&
-          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"),
-          E(!0),
-          O(t));
-      };
-      return c.jsxs(r("WAWebSavePopup.react"), {
-        title: s._(/*BTDS*/ "Choose up to 3 categories"),
-        modalConfig: {
-          type: o("WAWebModal.react").ModalTheme.BusinessCategories,
-        },
-        isValid: p.length > 0,
-        doSave: n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WAWebUtilsLogQplEvents").qplStartProfileSave("categories"),
-            yield l({ categories: p }));
-        }),
-        afterSave: function () {
-          (v(!0), t());
-        },
-        onCancel: function () {
-          (v(!0), i());
-        },
-        tsNavigationData: C,
-        children: [
-          c.jsx("div", {
-            className: "xhjsbib xvue9z",
-            children: c.jsx(o("WAWebChatListSearch.react").ListSearch, {
-              onSearch: B,
-              placeholder: s._(/*BTDS*/ "Search categories"),
-            }),
+        D;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = []), (t[0] = D))
+        : (D = t[0]);
+      var x = _(D),
+        $ = x[0],
+        P = x[1],
+        N = _(""),
+        M = N[0],
+        w = N[1],
+        A = S,
+        F;
+      t[1] !== g
+        ? ((F = function (t) {
+            for (var e = 0; e < g.length; e++) if (g[e].id === t) return !0;
+            return !1;
           }),
-          c.jsxs(o("WAWebFlex.react").FlexColumn, {
-            xstyle: [h.editMain, f.padding6],
-            children: [
-              c.jsx("div", {
-                className: "x1iyjqo2 x1odjw0f xvue9z",
-                children: c.jsx(R, {
-                  isLoading: L,
-                  results: I,
-                  isSelected: N,
-                  isDisabled: M,
-                  toggleResultById: F,
-                }),
+          (t[1] = g),
+          (t[2] = F))
+        : (F = t[2]);
+      var O = F,
+        B;
+      t[3] !== O || t[4] !== g.length
+        ? ((B = function (t) {
+            return (
+              t.not_a_biz !== !0 &&
+              !O(t.id) &&
+              g.length >= o("WAWebBusinessProfileModel").MAX_BUSINESS_CATEGORIES
+            );
+          }),
+          (t[3] = O),
+          (t[4] = g.length),
+          (t[5] = B))
+        : (B = t[5]);
+      var W = B,
+        q;
+      t[6] !== O || t[7] !== M || t[8] !== g
+        ? ((q = function (t) {
+            var e = g.find(function (e) {
+                return e.id === M;
               }),
-              p &&
-                c.jsx(r("WAWebChipSelectorFooter.react"), {
-                  categories: p,
-                  onRemoveItem: A,
-                }),
-            ],
+              n = g;
+            (g.length > 0 &&
+              (t.not_a_biz === !0 && !e
+                ? ((n = []), A())
+                : t.not_a_biz !== !0 &&
+                  e &&
+                  ((n = g.filter(function (t) {
+                    return t.id !== e.id;
+                  })),
+                  A())),
+              O(t.id)
+                ? y(
+                    n.filter(function (e) {
+                      return e.id !== t.id;
+                    }),
+                  )
+                : y([].concat(n, [t])));
           }),
-        ],
-      });
+          (t[6] = O),
+          (t[7] = M),
+          (t[8] = g),
+          (t[9] = q))
+        : (q = t[9]);
+      var U = q,
+        V;
+      t[10] !== g || t[11] !== U
+        ? ((V = function (t) {
+            var e = g.filter(function (e) {
+              return e.id === t;
+            })[0];
+            e && U(e);
+          }),
+          (t[10] = g),
+          (t[11] = U),
+          (t[12] = V))
+        : (V = t[12]);
+      var H = V,
+        G;
+      t[13] !== $ || t[14] !== U
+        ? ((G = function (t) {
+            var e = $.filter(function (e) {
+              return e.id === t;
+            })[0];
+            e && U(e);
+          }),
+          (t[13] = $),
+          (t[14] = U),
+          (t[15] = G))
+        : (G = t[15]);
+      var z = G,
+        j;
+      t[16] !== d
+        ? ((j = function (t) {
+            d(
+              t ||
+                o("WAWebBusinessCategoriesResultModel")
+                  .BUSINESS_CATEGORY_EMPTY_STR_ID,
+            )
+              .then(function (e) {
+                var n = e.categories;
+                (t !== "" && (n = n.filter(v)),
+                  T(!1),
+                  P(n),
+                  w(e.notABizId),
+                  o("WAWebUtilsLogQplEvents").qplAnnotateProfileCatsView(
+                    n.length,
+                  ),
+                  o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(2));
+              })
+              .catch(function () {
+                (o("WAWebToastManager").ToastManager.open(
+                  c.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(/*BTDS*/ "Something went wrong."),
+                  }),
+                ),
+                  T(!1),
+                  P([]),
+                  w(""),
+                  o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(3));
+              });
+          }),
+          (t[16] = d),
+          (t[17] = j))
+        : (j = t[17]);
+      var K = j,
+        Q;
+      t[18] !== K
+        ? ((Q = function () {
+            K("");
+          }),
+          (t[18] = K),
+          (t[19] = Q))
+        : (Q = t[19]);
+      var X = r("useWAWebStableCallback")(Q),
+        Y,
+        J;
+      (t[20] !== X
+        ? ((J = function () {
+            X();
+          }),
+          (Y = [X]),
+          (t[20] = X),
+          (t[21] = Y),
+          (t[22] = J))
+        : ((Y = t[21]), (J = t[22])),
+        m(J, Y));
+      var Z;
+      t[23] !== K || t[24] !== I || t[25] !== R
+        ? ((Z = function (t) {
+            !I &&
+              !R &&
+              (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"),
+              T(!0),
+              K(t));
+          }),
+          (t[23] = K),
+          (t[24] = I),
+          (t[25] = R),
+          (t[26] = Z))
+        : (Z = t[26]);
+      var ee = Z,
+        te,
+        ne;
+      t[27] === Symbol.for("react.memo_cache_sentinel")
+        ? ((te = s._(/*BTDS*/ "Choose up to 3 categories")),
+          (ne = { type: o("WAWebModal.react").ModalTheme.BusinessCategories }),
+          (t[27] = te),
+          (t[28] = ne))
+        : ((te = t[27]), (ne = t[28]));
+      var re = g.length > 0,
+        oe;
+      t[29] !== u || t[30] !== g
+        ? ((oe = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (o("WAWebUtilsLogQplEvents").qplStartProfileSave("categories"),
+                yield u({ categories: g }));
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[29] = u),
+          (t[30] = g),
+          (t[31] = oe))
+        : (oe = t[31]);
+      var ae;
+      t[32] !== a
+        ? ((ae = function () {
+            (L(!0), a());
+          }),
+          (t[32] = a),
+          (t[33] = ae))
+        : (ae = t[33]);
+      var ie;
+      t[34] !== l
+        ? ((ie = function () {
+            (L(!0), l());
+          }),
+          (t[34] = l),
+          (t[35] = ie))
+        : (ie = t[35]);
+      var le;
+      t[36] === Symbol.for("react.memo_cache_sentinel")
+        ? ((le = { className: "xhjsbib xvue9z" }), (t[36] = le))
+        : (le = t[36]);
+      var se;
+      t[37] === Symbol.for("react.memo_cache_sentinel")
+        ? ((se = s._(/*BTDS*/ "Search categories")), (t[37] = se))
+        : (se = t[37]);
+      var ue;
+      t[38] !== ee
+        ? ((ue = c.jsx(
+            "div",
+            babelHelpers.extends({}, le, {
+              children: c.jsx(o("WAWebChatListSearch.react").ListSearch, {
+                onSearch: ee,
+                placeholder: se,
+              }),
+            }),
+          )),
+          (t[38] = ee),
+          (t[39] = ue))
+        : (ue = t[39]);
+      var ce, de;
+      t[40] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ce = [h.editMain, f.padding6]),
+          (de = { className: "x1iyjqo2 x1odjw0f xvue9z" }),
+          (t[40] = ce),
+          (t[41] = de))
+        : ((ce = t[40]), (de = t[41]));
+      var me;
+      t[42] !== W || t[43] !== I || t[44] !== O || t[45] !== $ || t[46] !== z
+        ? ((me = c.jsx(
+            "div",
+            babelHelpers.extends({}, de, {
+              children: c.jsx(E, {
+                isLoading: I,
+                results: $,
+                isSelected: O,
+                isDisabled: W,
+                toggleResultById: z,
+              }),
+            }),
+          )),
+          (t[42] = W),
+          (t[43] = I),
+          (t[44] = O),
+          (t[45] = $),
+          (t[46] = z),
+          (t[47] = me))
+        : (me = t[47]);
+      var pe;
+      t[48] !== H || t[49] !== g
+        ? ((pe =
+            g &&
+            c.jsx(r("WAWebChipSelectorFooter.react"), {
+              categories: g,
+              onRemoveItem: H,
+            })),
+          (t[48] = H),
+          (t[49] = g),
+          (t[50] = pe))
+        : (pe = t[50]);
+      var _e;
+      t[51] !== me || t[52] !== pe
+        ? ((_e = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: ce,
+            children: [me, pe],
+          })),
+          (t[51] = me),
+          (t[52] = pe),
+          (t[53] = _e))
+        : (_e = t[53]);
+      var fe;
+      return (
+        t[54] !== re ||
+        t[55] !== oe ||
+        t[56] !== ae ||
+        t[57] !== ie ||
+        t[58] !== ue ||
+        t[59] !== _e
+          ? ((fe = c.jsxs(r("WAWebSavePopup.react"), {
+              title: te,
+              modalConfig: ne,
+              isValid: re,
+              doSave: oe,
+              afterSave: ae,
+              onCancel: ie,
+              tsNavigationData: C,
+              children: [ue, _e],
+            })),
+            (t[54] = re),
+            (t[55] = oe),
+            (t[56] = ae),
+            (t[57] = ie),
+            (t[58] = ue),
+            (t[59] = _e),
+            (t[60] = fe))
+          : (fe = t[60]),
+        fe
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v(t) {
+    function v(e) {
+      return !e.not_a_biz;
+    }
+    function S() {
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(
+            /*BTDS*/ 'You cannot select categories when you have selected "Not a business"',
+          ),
+        }),
+      );
+    }
+    function R(t) {
       var n = o("react-compiler-runtime").c(20),
         a = t.category,
         i = t.toggleResultById,
@@ -310,7 +476,7 @@ __d(
         y
       );
     }
-    function S(t) {
+    function L(t) {
       var n = o("react-compiler-runtime").c(4),
         a = t.label,
         i,
@@ -343,7 +509,7 @@ __d(
         s
       );
     }
-    function R(e) {
+    function E(e) {
       var t = o("react-compiler-runtime").c(16),
         n = e.isDisabled,
         a = e.isLoading,
@@ -381,7 +547,7 @@ __d(
         var _;
         return (
           t[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((_ = c.jsx(S, { label: s._(/*BTDS*/ "No categories found") })),
+            ? ((_ = c.jsx(L, { label: s._(/*BTDS*/ "No categories found") })),
               (t[2] = _))
             : (_ = t[2]),
           _
@@ -414,32 +580,32 @@ __d(
       t[10] === Symbol.for("react.memo_cache_sentinel")
         ? ((b = [m]), (t[10] = b))
         : (b = t[10]);
-      var R;
+      var v;
       t[11] !== u
-        ? ((R = function (t) {
-            return c.jsx(v, { category: t, toggleResultById: u });
+        ? ((v = function (t) {
+            return c.jsx(R, { category: t, toggleResultById: u });
           }),
           (t[11] = u),
-          (t[12] = R))
-        : (R = t[12]);
-      var L;
+          (t[12] = v))
+        : (v = t[12]);
+      var S;
       return (
-        t[13] !== C || t[14] !== R
-          ? ((L = c.jsx(r("WAWebFlatListContainer.react"), {
+        t[13] !== C || t[14] !== v
+          ? ((S = c.jsx(r("WAWebFlatListContainer.react"), {
               flatListControllers: b,
               children: c.jsx(o("WAWebFlatList.react").FlatList, {
                 data: C,
                 flatListController: m,
                 direction: "vertical",
-                renderItem: R,
+                renderItem: v,
                 defaultItemHeight: y,
               }),
             })),
             (t[13] = C),
-            (t[14] = R),
-            (t[15] = L))
-          : (L = t[15]),
-        L
+            (t[14] = v),
+            (t[15] = S))
+          : (S = t[15]),
+        S
       );
     }
     l.default = b;

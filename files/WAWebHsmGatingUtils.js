@@ -7,10 +7,7 @@ __d(
         "wa_web_buttons_response_prop_removal_killswitch",
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
-    }
-    ((l.shouldUseLegacyButtonsResponse = e), (l.isBloksWidgetEnabled = s));
+    l.shouldUseLegacyButtonsResponse = e;
   },
   98,
 );

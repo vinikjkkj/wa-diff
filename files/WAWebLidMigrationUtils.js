@@ -1,13 +1,6 @@
 __d(
   "WAWebLidMigrationUtils",
-  [
-    "WALogger",
-    "WAWebApiContact",
-    "WAWebLid1X1MigrationGating",
-    "WAWebMsgKey",
-    "WAWebWidFactory",
-    "err",
-  ],
+  ["WALogger", "WAWebApiContact", "WAWebMsgKey", "WAWebWidFactory", "err"],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d(t) {
@@ -54,10 +47,7 @@ __d(
       );
     }
     function p(e) {
-      return (
-        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        e.isRegularUser()
-      );
+      return e.isRegularUser();
     }
     function _(e) {
       var t = o("WAWebWidFactory").asUserWidOrThrow(e);

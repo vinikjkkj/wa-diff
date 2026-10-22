@@ -2,7 +2,6 @@ __d(
   "WAWebCartDbLidMigration",
   [
     "WALogger",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebUserPrefsCartLidMigration",
@@ -18,14 +17,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            !(
-              !o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated() ||
-              o("WAWebUserPrefsCartLidMigration").isCartLidMigrationComplete()
-            )
-          )
+          if (!o("WAWebUserPrefsCartLidMigration").isCartLidMigrationComplete())
             try {
               yield o("WAWebModelStorageUtils")
                 .getStorage()

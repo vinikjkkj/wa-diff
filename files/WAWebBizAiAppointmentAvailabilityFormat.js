@@ -64,22 +64,26 @@ __d(
             s._param("time zone abbreviation", t),
           ]);
     }
-    function g(e, t) {
-      if (e == null || e === "") return "";
+    var g = new Map();
+    function h(e, t, n) {
+      if ((n === void 0 && (n = new Date()), e == null || e === "")) return "";
       try {
-        var n,
-          r =
-            (n = new Intl.DateTimeFormat(t, {
-              timeZone: e,
-              timeZoneName: "short",
-            })
-              .formatToParts(new Date())
-              .find(function (e) {
-                return e.type === "timeZoneName";
-              })) == null
-              ? void 0
-              : n.value;
-        return r != null ? r : e;
+        var r,
+          o = t + " " + e,
+          a = g.get(o);
+        a == null &&
+          ((a = new Intl.DateTimeFormat(t, {
+            timeZone: e,
+            timeZoneName: "short",
+          })),
+          g.set(o, a));
+        var i =
+          (r = a.formatToParts(n).find(function (e) {
+            return e.type === "timeZoneName";
+          })) == null
+            ? void 0
+            : r.value;
+        return i != null ? i : e;
       } catch (t) {
         return e;
       }
@@ -87,7 +91,7 @@ __d(
     ((l.DAYS_IN_WEEK = c),
       (l.getAvailabilityForDay = d),
       (l.formatAvailability = m),
-      (l.getTimeZoneAbbreviation = g));
+      (l.getTimeZoneAbbreviation = h));
   },
   226,
 );

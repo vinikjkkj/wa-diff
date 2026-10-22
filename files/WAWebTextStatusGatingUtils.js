@@ -16,13 +16,8 @@ __d(
       );
     }
     function u() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_evolve_about_send_enabled",
-        ) &&
-        o("WAWebPrimaryFeatures").primaryFeatureEnabled(
-          "text_status_creation_support",
-        )
+      return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
+        "text_status_creation_support",
       );
     }
     ((l.receiveTextStatusEnabled = e),

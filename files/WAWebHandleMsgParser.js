@@ -20,8 +20,6 @@ __d(
     "WAWebHandlePaymentAmountUtils",
     "WAWebIdentityFunction",
     "WAWebJidToWid",
-    "WAWebLid1X1MigrationGating",
-    "WAWebLidMigrationUtils",
     "WAWebMaibaWASSMigration",
     "WAWebMessagingGatingUtils",
     "WAWebPaymentNotificationParser",
@@ -128,18 +126,7 @@ __d(
             o("WAWebCreateNackFromStanza").NackReason
               .InvalidHostedCompanionStanza,
         );
-      var a = o("WAWebWidFactory").asUserWidOrThrow(t),
-        i = o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-          ? a
-          : o("WAWebLidMigrationUtils").toPn(a);
-      if (i == null)
-        throw new (o("WAParsableWapNode").XmppParsingFailure)(
-          "incomingMsgParser",
-          "" +
-            o("WAWebCreateNackFromStanza").NackReason
-              .InvalidHostedCompanionStanza,
-        );
-      return { chat: i, metaFrom: e };
+      return { chat: o("WAWebWidFactory").asUserWidOrThrow(t), metaFrom: e };
     }
     function S(t) {
       var n,
@@ -301,15 +288,7 @@ __d(
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
           f,
-          {
-            chat: o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()
-              ? N
-              : o("WAWebLidMigrationUtils").toPnOrThrow(N),
-            author: g,
-            botParticipant: g,
-          },
+          { chat: N, author: g, botParticipant: g },
         );
       } else if (g.isUser()) {
         var M = g;

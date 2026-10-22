@@ -7,7 +7,6 @@ __d(
     "WAWebEnvironment",
     "WAWebHistorySyncLidChatGating",
     "WAWebL10N",
-    "WAWebLid1X1MigrationGating",
     "WAWebReloadReason",
     "WAWebTasksDailyStatsTask",
     "WAWebUA",
@@ -45,7 +44,6 @@ __d(
       ["mdEnabled", "md-enabled"],
       ["hasMdCompanion", "has-md-companion"],
       ["entityId", "entity id"],
-      ["isLidMigrated", "is_lid_migrated"],
       ["isHistoryLidSession", "is_history_lid_session"],
       ["lidCompletedMigrations", "lid_completed_migrations"],
     ]);
@@ -83,9 +81,6 @@ __d(
           ((i.debugIsExternalBeta = yield o(
             "WAWebUserPrefsGeneral",
           ).getWhatsAppWebExternalBetaJoinedIdb()),
-            (i.isLidMigrated = o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated()),
             (i.isHistoryLidSession = o(
               "WAWebHistorySyncLidChatGating",
             ).isForcedHistoryLidChat()));

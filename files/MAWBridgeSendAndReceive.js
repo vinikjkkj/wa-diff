@@ -13,7 +13,7 @@ __d(
       var i = o("MAWBridgeLoggingUtils").getBridgeEventInstanceKey(t),
         l = (a == null ? void 0 : a.isLoggingDisabled) !== !0;
       return r("MWInteractionTracing").trace(
-        l ? (a == null ? void 0 : a.mwTraceId) : void 0,
+        l ? (a == null ? void 0 : a.mwTraceKey) : void 0,
         "mawBridge.sendAndReceive",
         { annotations: { backend: e, eventKey: i, route: t } },
         function () {

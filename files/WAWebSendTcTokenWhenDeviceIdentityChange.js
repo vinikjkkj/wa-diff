@@ -4,9 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebApiChatCommon",
     "WAWebGetChatRecordByAccountLid",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebSetPrivacyTokensJob",
     "WAWebTrustedContactsUtils",
@@ -20,17 +18,15 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
+          var n,
+            r = o("WAWebLidMigrationUtils").toUserLid(t);
           if (
-            o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-          ) {
-            var r = o("WAWebLidMigrationUtils").toUserLid(t);
-            r != null &&
+            (r != null &&
               (n = (yield o(
                 "WAWebGetChatRecordByAccountLid",
-              ).getChatRecordByAccountLid(r))[0]);
-          } else n = yield o("WAWebApiChatCommon").getChatRecord(t);
-          if (n != null) {
+              ).getChatRecordByAccountLid(r))[0]),
+            n != null)
+          ) {
             var a = n.tcTokenSenderTimestamp;
             if (
               a != null &&

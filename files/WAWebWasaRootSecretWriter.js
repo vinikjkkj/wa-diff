@@ -26,26 +26,12 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e) {
+    function f(e, t) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
-          (t != null &&
-            (yield o("WAWebWasaRootSecretDb").removeWasaRootSecretForId(e, t)),
-            yield o("WAWebWasaUserPrefs").clearWasaActiveTargetId(e.user));
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -57,7 +43,7 @@ __d(
             n,
           );
           try {
-            var a = yield R(t, n);
+            var a = yield v(t, n);
             return a == null
               ? !1
               : (yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(
@@ -93,17 +79,17 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function b() {
+    function y() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = yield v(e),
+            var t = yield C(e),
               n = t.secret,
               a = t.stanzaId;
             return a == null || n == null
@@ -117,16 +103,16 @@ __d(
             };
           }
         })),
-        b.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield E(e);
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield R(e);
           if (t == null) return { reason: "no-stored-action", stanzaId: null };
           var n = null,
             r = -1;
@@ -157,16 +143,16 @@ __d(
               }
             : { reason: "recovered", secret: n.secret, stanzaId: n.stanzaId };
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function L() {
+    function S() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield E(e);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield R(e);
           if (n == null)
             return (
               o("WALogger")
@@ -216,15 +202,15 @@ __d(
               null)
             : { stanzaId: a, secret: new Uint8Array(i) };
         })),
-        L.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function k() {
+    function L() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r =
@@ -246,13 +232,12 @@ __d(
               ? t
               : [];
         })),
-        k.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
     ((l.applyWasaRootSecretForId = p),
-      (l.clearWasaRootSecret = f),
-      (l.maybeRecoverWasaRootSecretFromStore = h),
-      (l.maybeRecoverWasaActiveTargetFromStore = C));
+      (l.maybeRecoverWasaRootSecretFromStore = f),
+      (l.maybeRecoverWasaActiveTargetFromStore = h));
   },
   98,
 );

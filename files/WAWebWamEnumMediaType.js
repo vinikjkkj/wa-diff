@@ -87,6 +87,8 @@ __d(
       TEE_TOOL_RESPONSE: 82,
       SOUND_STICKER: 83,
       CHAT_THEME_SETTING: 84,
+      REQUEST_LOCATION: 85,
+      REQUEST_LOCATION_UPDATE: 86,
     });
     i.MEDIA_TYPE = e;
   },

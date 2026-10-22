@@ -14,9 +14,6 @@ __d(
         function t() {}
         var r = t.prototype;
         return (
-          (r.isLidMigrated = function (t) {
-            return (t === void 0 && (t = !1), !0);
-          }),
           (r.setIsLidMigrated = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, r, a) {
@@ -57,17 +54,6 @@ __d(
             }
             return r;
           })()),
-          (r.hasStateDiscrepancy = function () {
-            return (
-              !c.isLidMigrated() &&
-              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-                "WAIsAccountLidFieldMigrated",
-              ) === !0
-            );
-          }),
-          (r.isSyncdSessionMigrated = function () {
-            return !1;
-          }),
           (r.lidMigrationSource = function () {
             return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               "WALidOneOnOneMigrationSource",
@@ -77,9 +63,6 @@ __d(
             return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               "WAIsPureLidSyncDSession",
             );
-          }),
-          (r.shouldCreatePnChat = function () {
-            return !1;
           }),
           t
         );

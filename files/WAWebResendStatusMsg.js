@@ -17,6 +17,7 @@ __d(
     "WAWebReportingTokenUtils",
     "WAWebSendMsgCommonApi",
     "WAWebSessionScope",
+    "WAWebSignal",
     "WAWebSignalProtocolStore",
     "WAWebStatusPublishRequestArgs",
     "WAWebUserPrefsMeUser",
@@ -24,6 +25,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -33,13 +35,14 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.msgProtobuf,
-            r = t.msgRecord,
-            a = t.participant,
-            i = t.sessionScope,
-            l = t.to,
-            u = C(a);
-          u == null &&
+          var n = t.deviceMsgType,
+            a = t.msgProtobuf,
+            i = t.msgRecord,
+            l = t.participant,
+            u = t.sessionScope,
+            c = t.to,
+            d = C(l);
+          d == null &&
             o("WALogger")
               .WARN(
                 e ||
@@ -48,50 +51,142 @@ __d(
                   ])),
               )
               .sendLogs("status-retry-participant-without-lid-legacy");
-          var c = yield h(t, u != null ? u : a),
-            d = c.authorId,
-            m = c.participantList,
-            p = c.skDistribList,
-            _ = r.data.id,
-            f = yield o("WAWebEncryptAndSendStatusMsg").genMessageBody({
-              authorId: d,
-              msgProtobuf: n,
-              participantList: m,
-              sessionScope: i,
-              skDistribList: p,
-              to: l,
-            }),
-            g = f[0],
-            y = f[1],
-            b = f[2],
-            v = f[3],
-            S = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
-              r.data,
-              n,
+          var m = d != null ? d : l,
+            p = yield h(t, m),
+            _ = p.authorId,
+            f = p.participantList,
+            g = p.skDistribList,
+            y = i.data.id;
+          if (!r("justknobx")._("6798")) {
+            var b = yield o("WAWebEncryptAndSendStatusMsg").genMessageBody({
+                authorId: _,
+                msgProtobuf: a,
+                participantList: f,
+                sessionScope: u,
+                skDistribList: g,
+                to: c,
+              }),
+              v = b[0],
+              S = b[1],
+              R = b[2],
+              L = b[3],
+              E = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+                i.data,
+                a,
+              ),
+              k = o("WAWap").wap(
+                "message",
+                {
+                  id: o("WAWap").CUSTOM_STRING(y.id),
+                  to: o("WAWebCommsWapMd").CHAT_JID(c),
+                  type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(a),
+                  edit: o("WAWebSendMsgCommonApi").editAttribute(
+                    a,
+                    i.data.subtype,
+                  ),
+                },
+                v,
+                S,
+                R,
+                o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
+                  sessionScope: L
+                    ? u
+                    : o("WAWebSessionScope").SessionScope.DEFAULT,
+                }),
+                E,
+              ),
+              I = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(k);
+            return (
+              yield o("WAWebSignalProtocolStore")
+                .getSignalProtocolStore()
+                .flushBufferToDiskIfNotMemOnlyMode(),
+              { stanza: k, stanzaClass: I }
+            );
+          }
+          var T = babelHelpers.extends({}, a);
+          g.length > 0 &&
+            (T.senderKeyDistributionMessage = {
+              groupId: c.toString({ legacy: !0 }),
+              axolotlSenderKeyDistributionMessage: yield o(
+                "WAWebSignal",
+              ).Session.getGroupSenderKeyInfo(c, _),
+            });
+          var D = o("WAWebUserPrefsMeUser").isMeAccount(m)
+            ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(T, c)
+            : T;
+          yield o("WAWebICDCMetaApi").populateICDCMeta(
+            o("WAWebWidFactory").asUserWidOrThrow(m),
+            D,
+          );
+          var x = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+              m,
+              n.retryCount,
+              D,
+              i.data,
+              o("WAWebBackendJobsCommon").getMetricEditTypeFromMsg(a, i.data),
+              u,
+            ),
+            $ = x.ciphertext,
+            P = x.type,
+            N =
+              P === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                ? o("WAWap").wap(
+                    "device-identity",
+                    null,
+                    yield o("WAWebAdvSignatureApi").getADVEncodedIdentity(),
+                  )
+                : null,
+            M = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+              i.data,
+              a,
               "retry",
             ),
-            R = o("WAWap").wap(
+            w = o("WAWap").wap(
               "message",
               {
-                id: o("WAWap").CUSTOM_STRING(_.id),
-                to: o("WAWebCommsWapMd").CHAT_JID(l),
-                type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(n),
+                id: o("WAWap").CUSTOM_STRING(y.id),
+                to: o("WAWebCommsWapMd").CHAT_JID(c),
+                participant: o("WAWebCommsWapMd").DEVICE_JID(m),
+                type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(a),
                 edit: o("WAWebSendMsgCommonApi").editAttribute(
-                  n,
-                  r.data.subtype,
+                  a,
+                  i.data.subtype,
                 ),
               },
-              g,
-              y,
-              b,
+              o("WAWap").wap(
+                "enc",
+                {
+                  v: o("WAWap").CUSTOM_STRING(
+                    o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
+                  ),
+                  type: o("WAWap").CUSTOM_STRING(P),
+                  count:
+                    n.retryCount > 0
+                      ? o("WAWap").INT(n.retryCount)
+                      : o("WAWap").DROP_ATTR,
+                  session_type: o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(
+                    $,
+                  )
+                    ? o("WAWap").CUSTOM_STRING("pq")
+                    : o("WAWap").DROP_ATTR,
+                  mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(
+                    o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(a),
+                  ),
+                  "decrypt-fail": o(
+                    "WAWebBackendJobsCommon",
+                  ).encodeMaybeDecryptFail(
+                    o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(a),
+                  ),
+                },
+                $,
+              ),
+              N,
               o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
-                sessionScope: v
-                  ? i
-                  : o("WAWebSessionScope").SessionScope.DEFAULT,
+                sessionScope: u,
               }),
-              S,
+              M,
             ),
-            L = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(R);
+            A = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(w);
           return (
             o("WALogger")
               .LOG(
@@ -100,13 +195,13 @@ __d(
                     "createStatusDeviceMsgStanza: built retry stanza for msgId ",
                     "",
                   ])),
-                _.id,
+                y.id,
               )
               .tags("messaging"),
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            { stanza: R, stanzaClass: L }
+            { stanza: w, stanzaClass: A }
           );
         })),
         _.apply(this, arguments)

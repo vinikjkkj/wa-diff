@@ -8,7 +8,6 @@ __d(
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebHistorySyncLidChatGating",
-    "WAWebLid1X1MigrationGating",
     "WAWebSchemaChat",
     "WAWebSyncdConst",
     "WAWebWid",
@@ -123,12 +122,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() &&
-            e.isLid()
-          ) {
+          if (e.isLid()) {
             var t,
               n = yield o("WAWebSchemaChat")
                 .getChatTable()
@@ -258,13 +252,7 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() ||
-            e.isLid()
-          )
-            return e.toJid();
+          if (e.isLid()) return e.toJid();
           var t = yield o("WAWebSchemaChat")
             .getChatTable()
             .get(e.toString(), !1);

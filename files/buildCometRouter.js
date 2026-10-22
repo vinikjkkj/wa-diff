@@ -920,24 +920,25 @@ __d(
         );
       }
       function Re(e, t, n) {
-        if (le == null) {
+        var o = le;
+        if (o == null) {
           r("FBLogger")("comet_infra").warn(
             "No onBeforeUnload Listener but ran onBeforeUnload hooks",
           );
           return;
         }
         se = !0;
-        var o = !1,
-          a = function (t) {
+        var a = !1,
+          i = function (t) {
             return function () {
-              (t(), (o = !0), (se = !1));
+              (t(), (a = !0), (se = !1));
             };
           },
-          i = a(t),
-          l = a(n),
-          u = function (t, n) {
+          l = i(t),
+          u = i(n),
+          c = function (t, n) {
             return function () {
-              if ((t(i, l), !o))
+              if ((t(l, u), !a))
                 throw (
                   n(),
                   r("FBLogger")("comet_infra").mustfixThrow(
@@ -946,23 +947,23 @@ __d(
                 );
             };
           },
-          c = e.bodyText,
-          d = e.onClose,
-          m = e.primaryAction,
-          p = e.primaryButtonLabel,
-          _ = e.secondaryAction,
-          f = e.secondaryButtonLabel,
-          g = e.title,
-          h = e.warnMessage,
-          y = _ != null ? u(_, t) : i;
-        return le(
-          p != null ? p : s._(/*BTDS*/ "Leave Page"),
-          m != null ? u(m, n) : l,
-          f != null ? f : s._(/*BTDS*/ "Stay on Page"),
-          y,
-          g != null ? g : s._(/*BTDS*/ "Leave page?"),
-          c != null ? c : h,
-          d != null ? u(d, t) : y,
+          d = e.bodyText,
+          m = e.onClose,
+          p = e.primaryAction,
+          _ = e.primaryButtonLabel,
+          f = e.secondaryAction,
+          g = e.secondaryButtonLabel,
+          h = e.title,
+          y = e.warnMessage,
+          C = f != null ? c(f, t) : l;
+        return o(
+          _ != null ? _ : s._(/*BTDS*/ "Leave Page"),
+          p != null ? c(p, n) : u,
+          g != null ? g : s._(/*BTDS*/ "Stay on Page"),
+          C,
+          h != null ? h : s._(/*BTDS*/ "Leave page?"),
+          d != null ? d : y,
+          m != null ? c(m, t) : C,
         );
       }
       function Le(e) {

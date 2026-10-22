@@ -11,7 +11,6 @@ __d(
     "WAWebCommsWapMd",
     "WAWebCurrentUser",
     "WAWebDBDeviceListFanout",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -469,17 +468,13 @@ __d(
               var t = e.remote.isRegularUser()
                   ? o("WAWebLidMigrationUtils").toUserLid(e.remote)
                   : null,
-                n =
-                  e.remote.isRegularUser() &&
-                  o(
-                    "WAWebLid1X1MigrationGating",
-                  ).Lid1X1MigrationUtils.isLidMigrated()
-                    ? new (r("WAWebMsgKey"))({
-                        id: e.id,
-                        fromMe: e.fromMe,
-                        remote: t != null ? t : e.remote,
-                      })
-                    : e;
+                n = e.remote.isRegularUser()
+                  ? new (r("WAWebMsgKey"))({
+                      id: e.id,
+                      fromMe: e.fromMe,
+                      remote: t != null ? t : e.remote,
+                    })
+                  : e;
               return {
                 messageKey: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(n),
               };

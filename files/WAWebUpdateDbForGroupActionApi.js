@@ -27,7 +27,6 @@ __d(
     "WAWebGroupType",
     "WAWebGroupsParticipantsApi",
     "WAWebHandlePushnameUpdate",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebNux",
     "WAWebQueryAndUpdateSubgroupSuggestionsJob",
@@ -485,26 +484,21 @@ __d(
                       ? void 0
                       : ie.toString();
                 if (r("isStringNullOrEmpty")(ce)) {
-                  var de = o(
-                    "WAWebLid1X1MigrationGating",
-                  ).Lid1X1MigrationUtils.isLidMigrated();
                   o("WALogger").LOG(
                     y ||
                       (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "[group-invites] isLidMigrated=",
-                        ", revoke from other user",
+                        "[group-invites] revoke from other user",
                       ])),
-                    de,
                   );
-                  var me =
+                  var de =
                     "[group-invites] failed to get lid mapping for *incoming* group invite *revoke*";
                   o("WALogger")
                     .ERROR(
                       C ||
                         (C = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                      me,
+                      de,
                     )
-                    .sendLogs(me);
+                    .sendLogs(de);
                 }
                 ((oe = [
                   {
@@ -616,21 +610,21 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND: {
-              var pe = !!a.value;
+              var me = !!a.value;
               B.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   babelHelpers.extends(
-                    { suspended: pe },
-                    pe ? { suspendAppealApprovedSeen: !1 } : null,
+                    { suspended: me },
+                    me ? { suspendAppealApprovedSeen: !1 } : null,
                   ),
                   i,
                 ),
               );
-              var _e = yield o(
+              var pe = yield o(
                 "WAWebUpdateDbForCommunityAction",
-              ).maybeUpdateCommunitySuspendedStatus(l, pe, i);
-              B.push.apply(B, _e);
+              ).maybeUpdateCommunitySuspendedStatus(l, me, i);
+              B.push.apply(B, pe);
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL: {
@@ -665,23 +659,23 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL: {
-              var fe =
+              var _e =
                   o("WAWebAfterReadUtils").isAfterReadEnabled() &&
                   o("WAWebAfterReadUtils").isAfterReadDuration(a.duration),
-                ge = fe
+                fe = _e
                   ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
                   : a.duration,
-                he = fe ? a.duration : null,
-                ye = o("WAWebEphemeralityUtils").getDisappearingModeTrigger(
+                ge = _e ? a.duration : null,
+                he = o("WAWebEphemeralityUtils").getDisappearingModeTrigger(
                   a.trigger,
                 );
               B.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   {
-                    ephemeralDuration: ge,
-                    afterReadDuration: he,
-                    disappearingModeTrigger: ye != null ? ye : void 0,
+                    ephemeralDuration: fe,
+                    afterReadDuration: ge,
+                    disappearingModeTrigger: he != null ? he : void 0,
                     disappearingModeInitiatedByMe: a.initiatedByMe,
                   },
                   i,
@@ -698,17 +692,17 @@ __d(
                 a.reason ===
                 o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
               ) {
-                var Ce = yield o(
+                var ye = yield o(
                   "WAWebUpdateDbForCommunityAction",
                 ).databaseUpdatesForIntegrityDeactivateCommunity(l, i);
-                B.push.apply(B, Ce);
+                B.push.apply(B, ye);
               } else if (
                 a.reason === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT
               ) {
-                var be = yield o(
+                var Ce = yield o(
                   "WAWebUpdateDbForCommunityAction",
                 ).databaseUpdatesForDeactivateCommunity(l, i);
-                B.push.apply(B, be);
+                B.push.apply(B, Ce);
               } else
                 B.push(
                   o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
@@ -741,11 +735,11 @@ __d(
                 );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_LINK: {
-              var ve = a.groupDatas[0].id;
+              var be = a.groupDatas[0].id;
               B.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
-                  { parentGroup: ve.toString() },
+                  { parentGroup: be.toString() },
                   i,
                 ),
               );
@@ -866,10 +860,10 @@ __d(
                     }),
                   ),
                 );
-                var Se = o(
+                var ve = o(
                   "WAWebNux",
                 ).getMembershipApprovalRequestsBannerNuxKey(l.toString());
-                A(Se);
+                A(ve);
               }
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.REVOKED_MEMBERSHIP_REQUESTS:
@@ -891,7 +885,7 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS
               .CREATED_SUBGROUP_SUGGESTION: {
-              var Re;
+              var Se;
               B.push(
                 o("WAWebApiSubgroupSuggestionStore").addSubgroupSuggestions(l, [
                   {
@@ -901,16 +895,16 @@ __d(
                     desc: a.description,
                     owner: a.owner,
                     t: a.t,
-                    isExistingGroup: (Re = a.isExistingGroup) != null ? Re : !1,
+                    isExistingGroup: (Se = a.isExistingGroup) != null ? Se : !1,
                     participantCount: a.participantCount,
                     hiddenSubgroup: a.hiddenSubgroup,
                   },
                 ]),
               );
-              var Le = o("WAWebNux").getSubgroupSuggestionsBannerNuxKey(
+              var Re = o("WAWebNux").getSubgroupSuggestionsBannerNuxKey(
                 l.toString(),
               );
-              A(Le);
+              A(Re);
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS

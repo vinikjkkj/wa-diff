@@ -4,7 +4,6 @@ __d(
     "WAMd5",
     "WATypeUtils",
     "WAWebApiContact",
-    "WAWebLid1X1MigrationGating",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
   ],
@@ -39,12 +38,7 @@ __d(
           (n.shouldShowIcon = function (n) {
             var t = this,
               r = [n];
-            if (
-              o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated() &&
-              n.isUser()
-            ) {
+            if (n.isUser()) {
               var a = o("WAWebApiContact").getAlternateUserWid(n);
               a != null && r.push(a);
             }

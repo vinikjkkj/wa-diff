@@ -73,9 +73,6 @@ __d(
                       .LidMigrationPeerMappingsNotReceived ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
-                      .LidMigrationStateDiscrepancy ||
-                  e ===
-                    o("WAWebLogoutReasonConstants").LogoutReason
                       .LidMigrationPeerMappingsMalformed ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
@@ -91,13 +88,7 @@ __d(
                       .LidBlocklistPnWhenMigrated ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
-                      .LidBlocklistChatDbUnmigrated ||
-                  e ===
-                    o("WAWebLogoutReasonConstants").LogoutReason
                       .LidMigrationUnmigratedPrimary ||
-                  e ===
-                    o("WAWebLogoutReasonConstants").LogoutReason
-                      .LidMigrationUnmigratedCompanion ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
                       .CacheStorageOpenFailed

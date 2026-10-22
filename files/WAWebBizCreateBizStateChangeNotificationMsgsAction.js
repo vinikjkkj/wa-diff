@@ -6,7 +6,6 @@ __d(
     "WAWebChatCollection",
     "WAWebContactSystemMsg",
     "WAWebHandleSingleMsgWorkerCompatible",
-    "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebPrivacyModeSystemMsg",
     "WAWebUserPrefsNotifications",
@@ -23,11 +22,7 @@ __d(
         f = p(r),
         g = o("WAWebLidMigrationUtils").toLid(c),
         h;
-      if (
-        l &&
-        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        g != null
-      ) {
+      if (l && g != null) {
         if (
           ((h = o("WAWebChatCollection").ChatCollection.getChatByAccountLid(g)),
           h == null)

@@ -1,43 +1,17 @@
 __d(
   "WAWebHandleChatState",
-  [
-    "WAWebApiContact",
-    "WAWebBackendApi",
-    "WAWebJidToWid",
-    "WAWebLid1X1MigrationGating",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebBackendApi", "WAWebJidToWid", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.jid,
             n = e.status,
-            r = o("WAWebJidToWid").userJidToUserWid(t),
-            a;
-          if (
-            o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-          )
-            a = r;
-          else if (
-            ((a = r),
-            r.isLid() &&
-              !o(
-                "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated())
-          ) {
-            var i = yield o("WAWebApiContact").getPhoneNumber(r);
-            i &&
-              o("WAWebBackendApi").frontendFireAndForget(
-                "changePresenceHandler",
-                { id: i.toString(), type: n },
-              );
-          }
+            r = o("WAWebJidToWid").userJidToUserWid(t);
           return (
-            a &&
-              o("WAWebBackendApi").frontendFireAndForget(
-                "changePresenceHandler",
-                { id: a.toString(), type: n },
-              ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "changePresenceHandler",
+              { id: r.toString(), type: n },
+            ),
             "NO_ACK"
           );
         });

@@ -26,9 +26,8 @@ __d(
       f = "in-app-signup-info",
       g = null,
       h = new Map(),
-      y = new Map(),
-      C = 0;
-    function b() {
+      y = new Map();
+    function C() {
       return o("WAWebSchemaInAppSignupInfo").canUseInAppSignupInfoTable()
         ? (g == null &&
             (g = o("WAWebSchemaInAppSignupInfo")
@@ -38,7 +37,7 @@ __d(
                 (o("WAWebInAppSignupInfoCache").primeInAppSignupInfoCache(e),
                   e.some(function (e) {
                     return e.pendingConfirmationSignupId != null;
-                  }) && P("deferExpiredPendingConfirmations"));
+                  }) && x("deferExpiredPendingConfirmations"));
               })
               .catch(function (t) {
                 ((g = null),
@@ -55,19 +54,12 @@ __d(
           g)
         : (_ || (_ = n("Promise"))).resolve();
     }
+    function b(e, t) {
+      return v.apply(this, arguments);
+    }
     function v() {
-      ((g = null),
-        h.clear(),
-        y.clear(),
-        C++,
-        o("WAWebInAppSignupInfoCache").clearInAppSignupInfoCache());
-    }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (
               !o("WAWebABProps").getABPropConfigValue(
@@ -76,7 +68,7 @@ __d(
               !o("WAWebSchemaInAppSignupInfo").canUseInAppSignupInfoTable()
             )
               return "unavailable";
-            yield b();
+            yield C();
             var n = o("WAWebSchemaInAppSignupInfo").getInAppSignupInfoTable();
             return (
               yield n.createOrMerge(e, babelHelpers.extends({}, t, { id: e })),
@@ -103,6 +95,32 @@ __d(
             );
           }
         })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e, t) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "inapp_signup_m1_logging_enabled",
+            )
+          ) {
+            yield C();
+            var r = o("WAWebInAppSignupInfoCache").getInAppSignupInfo(e);
+            (r == null ? void 0 : r.iasOptinDs) == null &&
+              (yield b(e, {
+                isIasSubscriber: !0,
+                iasOptinDs: V(),
+                iasEntryPoint:
+                  (n = r == null ? void 0 : r.iasEntryPoint) != null ? n : t,
+              }));
+          }
+        })),
         R.apply(this, arguments)
       );
     }
@@ -113,75 +131,48 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "inapp_signup_m1_logging_enabled",
-            )
-          ) {
-            yield b();
-            var r = o("WAWebInAppSignupInfoCache").getInAppSignupInfo(e);
-            (r == null ? void 0 : r.iasOptinDs) == null &&
-              (yield S(e, {
-                isIasSubscriber: !0,
-                iasOptinDs: G(),
-                iasEntryPoint:
-                  (n = r == null ? void 0 : r.iasEntryPoint) != null ? n : t,
-              }));
-          }
+          o("WAWebABProps").getABPropConfigValue(
+            "inapp_signup_m1_logging_enabled",
+          ) &&
+            (yield C(),
+            ((n = o("WAWebInAppSignupInfoCache").getInAppSignupInfo(e)) == null
+              ? void 0
+              : n.iasOptinDs) == null && (yield b(e, { iasEntryPoint: t })));
         })),
         E.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    var k = 6e4,
+      I = 2e3;
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          o("WAWebABProps").getABPropConfigValue(
-            "inapp_signup_m1_logging_enabled",
-          ) &&
-            (yield b(),
-            ((n = o("WAWebInAppSignupInfoCache").getInAppSignupInfo(e)) == null
-              ? void 0
-              : n.iasOptinDs) == null && (yield S(e, { iasEntryPoint: t })));
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    var T = 6e4,
-      D = 2e3;
-    function x(e, t) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WATimeUtils").unixTimeMs(),
-            r = n + T,
-            a = yield S(e, {
+            r = n + k,
+            a = yield b(e, {
               pendingConfirmationSignupId: t,
               pendingConfirmationDeadlineMs: r,
             });
-          return a !== "written" ? a : (O(t, r, n), "written");
+          return a !== "written" ? a : (A(t, r, n), "written");
         })),
-        $.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function P(e) {
+    function x(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "inapp_signup_m1_logging_enabled",
         )
-      ) {
-        var t = C;
+      )
         try {
           r("JSResourceForInteraction")("WAWebPendingConfirmationSweep")
             .__setRef("WAWebInAppSignupInfoStore")
             .load()
-            .then(function (n) {
-              if (t === C) return n[e]();
+            .then(function (t) {
+              return t[e]();
             })
             .catch(function (t) {
               return o("WALogger")
@@ -209,14 +200,13 @@ __d(
             .catching(r("getErrorSafe")(t))
             .sendLogs("signup-pending-confirmation-sweep-failed");
         }
-      }
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function M() {
+    function P() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var a;
             if (
@@ -226,7 +216,7 @@ __d(
               !o("WAWebSchemaInAppSignupInfo").canUseInAppSignupInfoTable()
             )
               return "unavailable";
-            yield b();
+            yield C();
             var i = o("WATimeUtils").unixTimeMs(),
               l = i + t,
               s = yield o("WAWebModelStorageUtils")
@@ -277,7 +267,7 @@ __d(
                   { pendingConfirmationDeadlineMs: u },
                 ),
               ),
-              O(e, u, i),
+              A(e, u, i),
               s.wrote ? "written" : "unchanged"
             );
           } catch (e) {
@@ -295,56 +285,69 @@ __d(
             );
           }
         })),
-        M.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    var w = 3,
-      A = 6e4;
-    function F(e) {
+    var N = 3,
+      M = 6e4;
+    function w(e) {
       var t,
         n = (t = y.get(e)) != null ? t : 0;
-      if (!(n >= w)) {
+      if (!(n >= N)) {
         var r = o("WATimeUtils").unixTimeMs(),
-          a = O(e, r + A, r);
+          a = A(e, r + M, r);
         a && y.set(e, n + 1);
       }
     }
-    function O(e, t, n) {
+    function A(e, t, n) {
       var a = h.get(e);
-      if (a != null && a >= t) return !1;
-      h.set(e, t);
-      var i = C;
-      return (
-        o("WAPromiseDelays")
-          .delayMs(t - n + D)
-          .then(function () {
-            i === C &&
+      return a != null && a >= t
+        ? !1
+        : (h.set(e, t),
+          o("WAPromiseDelays")
+            .delayMs(t - n + I)
+            .then(function () {
               (h.get(e) === t && h.delete(e),
-              P("sweepExpiredPendingConfirmations"));
-          })
-          .catch(function (t) {
-            return o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[signup:confirmation] sweep timer failed signupId=",
-                    "",
-                  ])),
-                e,
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("signup-pending-confirmation-sweep-failed");
-          }),
-        !0
+                x("sweepExpiredPendingConfirmations"));
+            })
+            .catch(function (t) {
+              return o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[signup:confirmation] sweep timer failed signupId=",
+                      "",
+                    ])),
+                  e,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("signup-pending-confirmation-sweep-failed");
+            }),
+          !0);
+    }
+    function F(e) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return q(e, o("WAWebBoolFunc").returnTrue);
+        })),
+        O.apply(this, arguments)
       );
     }
-    function B(e) {
+    function B(e, t) {
       return W.apply(this, arguments);
     }
     function W() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return V(e, o("WAWebBoolFunc").returnTrue);
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return q(e, function (e) {
+            return (
+              e.pendingConfirmationDeadlineMs != null &&
+              e.pendingConfirmationDeadlineMs <= t
+            );
+          });
         })),
         W.apply(this, arguments)
       );
@@ -355,22 +358,6 @@ __d(
     function U() {
       return (
         (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return V(e, function (e) {
-            return (
-              e.pendingConfirmationDeadlineMs != null &&
-              e.pendingConfirmationDeadlineMs <= t
-            );
-          });
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V(e, t) {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (
               !o("WAWebABProps").getABPropConfigValue(
@@ -379,7 +366,7 @@ __d(
               !o("WAWebSchemaInAppSignupInfo").canUseInAppSignupInfoTable()
             )
               return "unavailable";
-            yield b();
+            yield C();
             var a = yield o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
@@ -413,7 +400,7 @@ __d(
             if (!a.cleared) {
               var i = a.row.pendingConfirmationDeadlineMs;
               return (
-                i != null && O(e, i, o("WATimeUtils").unixTimeMs()),
+                i != null && A(e, i, o("WATimeUtils").unixTimeMs()),
                 "not_expired"
               );
             }
@@ -450,10 +437,10 @@ __d(
             );
           }
         })),
-        H.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function G() {
+    function V() {
       return new Intl.DateTimeFormat("en-CA", {
         timeZone: "America/Los_Angeles",
         year: "numeric",
@@ -463,16 +450,15 @@ __d(
         .format(o("WATimeUtils").unixTimeMs())
         .replace(/-/g, "/");
     }
-    ((l.ensureInAppSignupInfoHydrated = b),
-      (l.clearInAppSignupInfo = v),
-      (l.saveOptinDate = L),
-      (l.saveEntryPoint = k),
-      (l.startPendingConfirmationTimer = x),
-      (l.restartPendingConfirmationTimer = N),
-      (l.schedulePendingConfirmationRetry = F),
-      (l.schedulePendingConfirmationSweep = O),
-      (l.stopPendingConfirmationTimer = B),
-      (l.stopExpiredPendingConfirmationTimer = q));
+    ((l.ensureInAppSignupInfoHydrated = C),
+      (l.saveOptinDate = S),
+      (l.saveEntryPoint = L),
+      (l.startPendingConfirmationTimer = T),
+      (l.restartPendingConfirmationTimer = $),
+      (l.schedulePendingConfirmationRetry = w),
+      (l.schedulePendingConfirmationSweep = A),
+      (l.stopPendingConfirmationTimer = F),
+      (l.stopExpiredPendingConfirmationTimer = B));
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebCoexCallingFirstTimeAlertUtils",
   [
-    "WAWebABProps",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
@@ -25,12 +24,10 @@ __d(
       );
     }
     function m() {
-      var e = o("WAWebABProps").getABPropConfigValue("coex_calling_enabled");
-      if (!e) return !1;
-      var t = o(
+      var e = o(
         "WAWebUserPrefsMultiDevice",
       ).getIsHostedMeAccountFromLocalStorage();
-      return t ? !u() : !1;
+      return e ? !u() : !1;
     }
     function p(e) {
       var t,
@@ -62,8 +59,7 @@ __d(
       );
     }
     function g(e, t) {
-      var n = o("WAWebABProps").getABPropConfigValue("coex_calling_enabled");
-      return !n || !t ? !1 : !p(e);
+      return t ? !p(e) : !1;
     }
     ((l.markCoexCallingSMBFirstTimeAlertShown = c),
       (l.shouldShowCoexCallingSMBFirstTimeAlert = m),

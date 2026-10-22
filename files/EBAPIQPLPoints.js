@@ -158,6 +158,8 @@ __d(
         INITIALIZE_BACKUP_FAIL_WASM_NOT_SUPPORTED:
           "initialize_backup_fail_wasm_not_supported",
         INITIALIZE_BACKUP_RUNNING: "initialize_backup_running",
+        INITIALIZE_BACKUP_SKIPPED_BACKUP_EXISTS:
+          "initialize_backup_skipped_backup_exists",
         INITIALIZE_BACKUP_SPROC_END: "initialize_backup_sproc_end",
         INITIALIZE_BACKUP_SPROC_FAIL: "initialize_backup_sproc_fail",
         INITIALIZE_BACKUP_SPROC_START: "initialize_backup_sproc_start",

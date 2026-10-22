@@ -121,17 +121,13 @@ __d(
     function C() {
       return m.promise;
     }
-    function b() {
-      p = null;
-    }
     ((l.DatabaseNames = d),
       (l.convertDBName = _),
       (l.getLoaderType = f),
       (l.hasSchemaVersions = g),
       (l.getSchemaVersions = h),
       (l.setSchemaVersions = y),
-      (l.waitUntilSchemaVersionsReady = C),
-      (l.clearSchemaVersions = b));
+      (l.waitUntilSchemaVersionsReady = C));
   },
   98,
 );

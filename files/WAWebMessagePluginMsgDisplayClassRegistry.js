@@ -10,6 +10,7 @@ __d(
     "WAWebMessageChatMsgDisplayClass",
     "WAWebMessageProductMsgDisplayClass",
     "WAWebMultiVcardMsgDisplayClass",
+    "WAWebMusicMsgDisplayClass",
     "WAWebPollMsgDisplayClass",
     "WAWebPttMsgDisplayClass",
     "WAWebPtvMsgDisplayClass",
@@ -141,7 +142,7 @@ __d(
         {
           type: "music",
           subtype: void 0,
-          msgDisplayClass: r("WAWebStickerMsgDisplayClass"),
+          msgDisplayClass: r("WAWebMusicMsgDisplayClass"),
         },
         { type: "native_flow", subtype: void 0, msgDisplayClass: null },
         {

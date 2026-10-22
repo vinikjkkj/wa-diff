@@ -6,12 +6,10 @@ __d(
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebCurrentUser",
-    "WAWebLid1X1MigrationGating",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
-    "WAWebSchemaChat",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
@@ -30,8 +28,7 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function (t) {
+      m = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -75,15 +72,14 @@ __d(
                     "WAWebSyncdResolveMessages",
                   ).resolveMessagesForMutations(t),
                   l = i.incomingRemoteToLocalChatId,
-                  p = i.messagesInDB,
+                  m = i.messagesInDB,
+                  p = 0,
                   _ = 0,
-                  f = 0,
+                  f = [],
                   g = 0,
                   h = [],
                   y = 0,
-                  C = [],
-                  b = 0,
-                  v = yield (m || (m = n("Promise"))).all(
+                  C = yield (d || (d = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -99,70 +95,59 @@ __d(
                                   d = t[5];
                                 if (!i || !s || !u || !c || !d)
                                   return a.malformedActionIndex();
-                                var m = n.interactiveMessageAction;
-                                if (m == null)
+                                var C = n.interactiveMessageAction;
+                                if (C == null)
                                   return (
-                                    _++,
+                                    p++,
                                     o(
                                       "WAWebSyncdIndexUtils",
                                     ).malformedActionValue(a.collectionName)
                                   );
-                                var v = l.get(i),
-                                  S = o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
+                                var b = l.get(i),
+                                  v = o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
                                     i,
                                     s,
                                     u,
                                     c,
                                   );
-                                if (S == null) return a.malformedActionIndex();
-                                if (v == null) {
-                                  if (
-                                    !o(
-                                      "WAWebLid1X1MigrationGating",
-                                    ).Lid1X1MigrationUtils.isLidMigrated()
-                                  ) {
-                                    var R = yield o("WAWebSchemaChat")
-                                      .getChatTable()
-                                      .get(S.remote.toString());
-                                    R != null && f++;
-                                  }
+                                if (v == null) return a.malformedActionIndex();
+                                if (b == null)
                                   return {
                                     actionState:
                                       o("WAWebSyncdConst").SyncActionState
                                         .Orphan,
                                     orphanModel: {
-                                      modelId: S.toString(),
+                                      modelId: v.toString(),
                                       modelType:
                                         o("WAWebSyncdConst").SyncModelType.Msg,
                                     },
                                   };
-                                }
-                                var L = r("nullthrows")(
+                                var S = r("nullthrows")(
                                     o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
-                                      v,
+                                      b,
                                       s,
                                       u,
                                       c,
                                     ),
                                   ),
-                                  E = p.find(function (e) {
+                                  R = m.find(function (e) {
                                     return e.startsWith(
                                       o(
                                         "WAWebSyncdIndexUtils",
-                                      ).msgKeyToDbIdWithoutFromMeParticipant(L),
+                                      ).msgKeyToDbIdWithoutFromMeParticipant(S),
                                     );
                                   }),
-                                  k = m.agmId;
+                                  L = C.agmId;
                                 if (
-                                  (k != null &&
-                                    v != null &&
+                                  (L != null &&
+                                    b != null &&
                                     o("WAWebBackendApi").frontendFireAndForget(
                                       "addGalaxyDisableCTAByAgmId",
-                                      { agmId: k, chatId: v },
+                                      { agmId: L, chatId: b },
                                     ),
-                                  E == null)
+                                  R == null)
                                 )
-                                  return k != null && v != null
+                                  return L != null && b != null
                                     ? {
                                         actionState:
                                           o("WAWebSyncdConst").SyncActionState
@@ -173,32 +158,32 @@ __d(
                                           o("WAWebSyncdConst").SyncActionState
                                             .Orphan,
                                         orphanModel: {
-                                          modelId: S.toString(),
+                                          modelId: v.toString(),
                                           modelType:
                                             o("WAWebSyncdConst").SyncModelType
                                               .Msg,
                                         },
                                       };
-                                var I =
-                                  o("WAWebMsgCollection").MsgCollection.get(E);
-                                return I &&
-                                  m.type ===
+                                var E =
+                                  o("WAWebMsgCollection").MsgCollection.get(R);
+                                return E &&
+                                  C.type ===
                                     o("WAWebProtobufSyncAction.pb")
                                       .SyncActionValue$InteractiveMessageAction$InteractiveMessageActionMode
                                       .DISABLE_CTA
                                   ? (o("WAWebBackendApi").frontendFireAndForget(
                                       "addGalaxyDisableCTAMessageId",
-                                      { messageId: I.id.toString() },
+                                      { messageId: E.id.toString() },
                                     ),
-                                    g++,
-                                    h.length < 3 && h.push(L.toString()),
+                                    _++,
+                                    f.length < 3 && f.push(S.toString()),
                                     {
                                       actionState:
                                         o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     })
-                                  : (y++,
-                                    C.length < 3 && C.push(L.toString()),
+                                  : (g++,
+                                    h.length < 3 && h.push(S.toString()),
                                     {
                                       actionState:
                                         o("WAWebSyncdConst").SyncActionState
@@ -206,7 +191,7 @@ __d(
                                     });
                               }
                               return (
-                                b++,
+                                y++,
                                 {
                                   actionState:
                                     o("WAWebSyncdConst").SyncActionState
@@ -228,45 +213,36 @@ __d(
                     ),
                   );
                 return (
-                  _ > 0 &&
+                  p > 0 &&
                     o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
                           "interactive message sync: ",
                           " malformed mutations",
                         ])),
-                      _,
+                      p,
                     ),
-                  f > 0 &&
-                    o("WALogger").ERROR(
+                  g > 0 &&
+                    o("WALogger").WARN(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd] interactive msg sync: ",
-                          " chats via fallback",
+                          "[star_msg_sync] ",
+                          " msgs in storage not collection => ",
+                          "",
                         ])),
-                      f,
+                      g,
+                      h,
                     ),
                   y > 0 &&
                     o("WALogger").WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[star_msg_sync] ",
-                          " msgs in storage not collection => ",
-                          "",
-                        ])),
-                      y,
-                      C,
-                    ),
-                  b > 0 &&
-                    o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "interactive message sync: ",
                           " operations not supported",
                         ])),
-                      b,
+                      y,
                     ),
-                  v
+                  C
                 );
               },
             );
@@ -333,7 +309,7 @@ __d(
                   msgKey: e,
                 });
                 yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
-                  return (m || (m = n("Promise"))).resolve();
+                  return (d || (d = n("Promise"))).resolve();
                 });
               },
             );
@@ -345,8 +321,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").MessageSyncdActionBase),
-      _ = new p();
-    l.default = _;
+      p = new m();
+    l.default = p;
   },
   98,
 );

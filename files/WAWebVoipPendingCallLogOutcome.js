@@ -62,15 +62,11 @@ __d(
         pendingOutcome: l,
       };
     }
-    function _() {
-      s.clear();
-    }
     ((l.rememberPendingCallLogOutcome = u),
       (l.getPendingCallLogOutcome = c),
       (l.mergePendingCallLogOutcome = d),
       (l.clearPendingCallLogOutcome = m),
-      (l.prepareCallLogOutcomeUpdate = p),
-      (l.clearAllPendingCallLogOutcomes = _));
+      (l.prepareCallLogOutcomeUpdate = p));
   },
   98,
 );

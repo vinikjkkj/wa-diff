@@ -6,7 +6,6 @@ __d(
     "WATimeUtils",
     "WAWebCallCollection",
     "WAWebDownloadLogFile",
-    "WAWebLid1X1MigrationGating",
     "WAWebLoggerImpl",
     "WAWebPrimaryVersion",
     "WAWebToast.react",
@@ -43,12 +42,6 @@ __d(
                   var u = "Primary app version: " + s;
                   l.unshift(u);
                 }
-                l.unshift(
-                  "Lid migrated: " +
-                    o("WAWebLid1X1MigrationGating")
-                      .Lid1X1MigrationUtils.isLidMigrated()
-                      .toString(),
-                );
                 var c =
                     "Web log for device : " +
                     ((t =

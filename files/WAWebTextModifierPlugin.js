@@ -20,14 +20,22 @@ __d(
         a = r === void 0 ? !1 : r,
         i = o("LexicalComposerContext").useLexicalComposerContext(),
         l = i[0];
-      o("useWAWebLexicalEvent").useLexicalCommandListener(
+      (o("useWAWebLexicalEvent").useLexicalCommandListener(
         l,
         o("WAWebMultilinePlugin").NEW_PARAGRAPH_COMMAND,
         function () {
           return ((a && m()) || (t && c(), n && d()), !1);
         },
         o("Lexical").COMMAND_PRIORITY_NORMAL,
-      );
+      ),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(
+          l,
+          o("Lexical").KEY_BACKSPACE_COMMAND,
+          function (e) {
+            return !a || !p() ? !1 : (e.preventDefault(), !0);
+          },
+          o("Lexical").COMMAND_PRIORITY_HIGH,
+        ));
       var u = s(!1);
       return (
         o("useWAWebLexicalEvent").useLexicalCommandListener(
@@ -103,8 +111,7 @@ __d(
         o("WAWebQuoteLineUtils").isInsideCodeBlock(_(t) + "\n" + n)
         ? !1
         : (n === o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX &&
-          e.getTextContentSize() === 0 &&
-          !p(e)
+          e.getTextContentSize() === 0
             ? t.remove()
             : (o("WAWebLexicalUtils").$insertText(
                 o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX,
@@ -112,12 +119,22 @@ __d(
               f()),
           !0);
     }
-    function p(e) {
-      var t;
-      return (
-        ((t = e.getNextSibling()) == null ? void 0 : t.getQuoteLineNode()) !=
-        null
-      );
+    function p() {
+      var e = o("WAWebLexicalUtils").$getTextAnchor(),
+        t = e == null ? void 0 : e.node.getParent(),
+        n = t == null ? void 0 : t.getQuoteLineNode();
+      if (
+        e == null ||
+        t == null ||
+        n == null ||
+        !n.is(e.node.getPreviousSibling()) ||
+        e.point.offset !== o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX.length - 1
+      )
+        return !1;
+      n.remove();
+      var r = e.node.splitText(1),
+        a = r[0];
+      return (a.remove(), t.selectStart(), !0);
     }
     function _(e) {
       for (var t = [], n = e.getPreviousSibling(); n != null; )
