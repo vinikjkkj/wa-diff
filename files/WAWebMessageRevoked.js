@@ -1,6 +1,7 @@
 __d(
   "WAWebMessageRevoked",
   [
+    "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFlex.react",
     "WAWebFlexItem.react",
@@ -11,6 +12,7 @@ __d(
     "WDSIconIcBlock.react",
     "react",
     "react-compiler-runtime",
+    "useWAWebChatOrgMemberNames",
     "useWAWebEventTargetValue",
     "useWAWebMsgValues",
   ],
@@ -29,7 +31,7 @@ __d(
         text: { marginTop: "xr9ek0c", marginBottom: "xjpr12u", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(18),
+      var t = o("react-compiler-runtime").c(21),
         n = e.displayAuthor,
         a = e.displayType,
         i = e.msgKey,
@@ -52,13 +54,26 @@ __d(
         f = d[3],
         g = d[4],
         h;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = ["add", "remove", "change:name"]), (t[1] = h))
-        : (h = t[1]);
-      var y, C;
-      t[2] !== p || t[3] !== _ || t[4] !== f || t[5] !== g || t[6] !== m
-        ? ((y = function () {
+      t[1] !== i.remote
+        ? ((h = o("WAWebChatCollection").ChatCollection.get(i.remote)),
+          (t[1] = i.remote),
+          (t[2] = h))
+        : (h = t[2]);
+      var y = r("useWAWebChatOrgMemberNames")(h),
+        C;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = ["add", "remove", "change:name"]), (t[3] = C))
+        : (C = t[3]);
+      var b, v;
+      t[4] !== y ||
+      t[5] !== p ||
+      t[6] !== _ ||
+      t[7] !== f ||
+      t[8] !== g ||
+      t[9] !== m
+        ? ((b = function () {
             return o("WAWebFormatRevokedMsg").formatRevokedMsgFor({
+              getOrgName: y,
               isNewsletterMsg: p,
               isRevokedByMe: _,
               isSentByMe: f,
@@ -66,24 +81,25 @@ __d(
               subtype: m,
             });
           }),
-          (C = [p, _, f, g, m]),
-          (t[2] = p),
-          (t[3] = _),
-          (t[4] = f),
-          (t[5] = g),
-          (t[6] = m),
-          (t[7] = y),
-          (t[8] = C))
-        : ((y = t[7]), (C = t[8]));
-      var b = r("useWAWebEventTargetValue")(
+          (v = [y, p, _, f, g, m]),
+          (t[4] = y),
+          (t[5] = p),
+          (t[6] = _),
+          (t[7] = f),
+          (t[8] = g),
+          (t[9] = m),
+          (t[10] = b),
+          (t[11] = v))
+        : ((b = t[10]), (v = t[11]));
+      var S = r("useWAWebEventTargetValue")(
           o("WAWebContactCollection").ContactCollection,
-          h,
-          y,
           C,
+          b,
+          v,
         ),
-        v;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = s.jsx(r("WAWebFlexItem.react"), {
+        R;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = s.jsx(r("WAWebFlexItem.react"), {
             xstyle: u.icon,
             children: s.jsx(r("WDSIconIcBlock.react"), {
               height: 22,
@@ -91,43 +107,43 @@ __d(
               width: 22,
             }),
           })),
-          (t[9] = v))
-        : (v = t[9]);
-      var S;
-      t[10] !== i || t[11] !== b
-        ? ((S = s.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[12] = R))
+        : (R = t[12]);
+      var L;
+      t[13] !== i || t[14] !== S
+        ? ((L = s.jsxs(o("WAWebFlex.react").FlexRow, {
             children: [
-              v,
+              R,
               s.jsx(r("WAWebFlexItem.react"), {
                 xstyle: u.text,
                 children: s.jsx(r("WAWebMessageSpacerText.react"), {
                   msgKey: i,
                   theme: "placeholder",
-                  children: b,
+                  children: S,
                 }),
               }),
             ],
           })),
-          (t[10] = i),
-          (t[11] = b),
-          (t[12] = S))
-        : (S = t[12]);
-      var R;
+          (t[13] = i),
+          (t[14] = S),
+          (t[15] = L))
+        : (L = t[15]);
+      var E;
       return (
-        t[13] !== n || t[14] !== a || t[15] !== i || t[16] !== S
-          ? ((R = s.jsx(r("WAWebMessageTextBubble.react"), {
+        t[16] !== n || t[17] !== a || t[18] !== i || t[19] !== L
+          ? ((E = s.jsx(r("WAWebMessageTextBubble.react"), {
               msgKey: i,
               displayType: a,
               displayAuthor: n,
-              children: S,
+              children: L,
             })),
-            (t[13] = n),
-            (t[14] = a),
-            (t[15] = i),
-            (t[16] = S),
-            (t[17] = R))
-          : (R = t[17]),
-        R
+            (t[16] = n),
+            (t[17] = a),
+            (t[18] = i),
+            (t[19] = L),
+            (t[20] = E))
+          : (E = t[20]),
+        E
       );
     }
     l.default = c;

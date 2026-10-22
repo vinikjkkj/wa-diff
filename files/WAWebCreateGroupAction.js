@@ -75,12 +75,12 @@ __d(
     }
     var v = 8,
       S = {
-        announce: !1,
-        memberAddMode: !1,
-        memberLinkMode: null,
-        memberShareGroupHistoryMode: !1,
+        announce: !0,
+        memberAddMode: !0,
+        memberLinkMode: !0,
+        memberShareGroupHistoryMode: !0,
         membershipApprovalMode: !1,
-        restrict: !1,
+        restrict: !0,
       };
     function R(e, t, n, r, o) {
       return L.apply(this, arguments);
@@ -105,21 +105,17 @@ __d(
                   "[org-admin][group] create started",
                 ])),
             );
-            var h = babelHelpers.extends(
-                {
-                  title: e,
-                  thumb: null,
-                  full: null,
-                  restrict: a.restrict,
-                  announce: a.announce,
-                  membershipApprovalMode: a.membershipApprovalMode,
-                  memberAddMode: a.memberAddMode,
-                  memberShareGroupHistoryMode: a.memberShareGroupHistoryMode,
-                },
-                a.memberLinkMode == null
-                  ? {}
-                  : { memberLinkMode: a.memberLinkMode },
-              ),
+            var h = {
+                title: e,
+                thumb: null,
+                full: null,
+                restrict: a.restrict,
+                announce: a.announce,
+                membershipApprovalMode: a.membershipApprovalMode,
+                memberAddMode: a.memberAddMode,
+                memberShareGroupHistoryMode: a.memberShareGroupHistoryMode,
+                memberLinkMode: a.memberLinkMode,
+              },
               y,
               C;
             try {

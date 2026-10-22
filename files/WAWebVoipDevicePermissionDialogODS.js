@@ -133,9 +133,34 @@ __d(
         );
       }
     }
+    function p(e) {
+      e: {
+        if (e === "hidden") {
+          r("WAWebODS").incr("web.call.permission_button.refused_hidden");
+          break e;
+        }
+        if (e === "just_visible") {
+          r("WAWebODS").incr("web.call.permission_button.refused_just_visible");
+          break e;
+        }
+        if (e === "visible") {
+          r("WAWebODS").incr("web.call.permission_button.refused_visible");
+          break e;
+        }
+        if (e === "unknown") {
+          r("WAWebODS").incr("web.call.permission_button.refused_unknown");
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
     ((l.logCallPermissionDialog = e),
       (l.logCallPermissionDialogLoadFailed = d),
-      (l.logCallPermissionButton = m));
+      (l.logCallPermissionButton = m),
+      (l.logCallPermissionButtonRefusedVisibility = p));
   },
   98,
 );

@@ -11,8 +11,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(e) {
+    var e, s, u;
+    function c(e) {
       var t =
         e != null
           ? o("WAWebBotLoggingUtils").getBotMetricsEntryPointFromBotEntryPoint(
@@ -23,7 +23,7 @@ __d(
         ? o("WAWebBotLoggingUtils").getBotOriginFromBotMetricsEntryPoint(t)
         : void 0;
     }
-    var c = (function () {
+    var d = (function () {
         function t() {
           this.$1 = null;
         }
@@ -60,13 +60,13 @@ __d(
               i = n.additionalCategory,
               l = n.aiSessionId,
               s = n.conversationStarterIndex,
-              c = n.conversationStarterName,
+              u = n.conversationStarterName,
               d = n.entryPoint,
               m = n.eventTsMs,
               p = n.originEntryPoint,
               _ = n.uiSurface,
               f = (t = d != null ? d : this.$1) != null ? t : void 0,
-              g = u(p !== void 0 ? p : f),
+              g = c(p !== void 0 ? p : f),
               h = new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
                 appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
                 actionType: a,
@@ -77,7 +77,7 @@ __d(
                 aiSessionId: l,
                 eventTsMs: m,
                 additionalCategory: i,
-                conversationStarterName: c,
+                conversationStarterName: u,
                 conversationStarterIndex: s,
               }),
               y = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(f),
@@ -110,7 +110,7 @@ __d(
                 actionType: o("WAWebWamEnumChatFilterActionTypes")
                   .CHAT_FILTER_ACTION_TYPES.AI_FAB_CLICK,
                 botEntryPoint: r,
-                rawBotEntryPoint: (n = u(r)) != null ? n : void 0,
+                rawBotEntryPoint: (n = c(r)) != null ? n : void 0,
                 isMetaAiAssistant: e,
                 eventTsMs: Date.now(),
               }).commit();
@@ -124,6 +124,33 @@ __d(
                       ])),
                   )
                   .sendLogs("bot-journey-fab-click-log-failed");
+              } catch (e) {}
+            }
+          }),
+          (n.logFabImpression = function (t) {
+            var e = t.isMetaAiAssistant;
+            try {
+              var n,
+                r = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
+              new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
+                appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
+                actionType: o("WAWebWamEnumChatFilterActionTypes")
+                  .CHAT_FILTER_ACTION_TYPES.AI_FAB_IMPRESSION,
+                botEntryPoint: r,
+                rawBotEntryPoint: (n = c(r)) != null ? n : void 0,
+                isMetaAiAssistant: e,
+                eventTsMs: Date.now(),
+              }).commit();
+            } catch (e) {
+              try {
+                o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[BotJourneyLogger] FAB impression log failed",
+                      ])),
+                  )
+                  .sendLogs("bot-journey-fab-impression-log-failed");
               } catch (e) {}
             }
           }),
@@ -204,8 +231,8 @@ __d(
           t
         );
       })(),
-      d = new c();
-    l.BotJourneyLogger = d;
+      m = new d();
+    l.BotJourneyLogger = m;
   },
   98,
 );

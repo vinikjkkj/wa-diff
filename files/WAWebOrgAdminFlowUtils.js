@@ -15,19 +15,19 @@ __d(
       return e && t
         ? s
             ._(
-              /*BTDS*/ "Could not load Org admin. This organization is unavailable, or you do not have admin access to it.",
+              /*BTDS*/ "Could not load Admin hub. This organization is unavailable, or you do not have admin access to it.",
             )
             .toString()
         : e
           ? s
               ._(
-                /*BTDS*/ "Could not load managed groups. The member directory is still available.",
+                /*BTDS*/ "Could not load managed groups. People in this organization are still available.",
               )
               .toString()
           : t
             ? s
                 ._(
-                  /*BTDS*/ "Could not load the member directory. Managed groups are still available.",
+                  /*BTDS*/ "Could not load people in this organization. Managed groups are still available.",
                 )
                 .toString()
             : n
@@ -91,29 +91,29 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = yield o("WAWebOrgAdminGraphQL").loadOrgAdminDirectoryPage(
-                e,
-                null,
-              ),
-              n = t.members;
-            return { isTruncated: !1, members: n, status: "loaded" };
-          } catch (e) {
-            return e instanceof
-              o("WAWebOrgAdminGraphQL").OrgAdminRosterTooLargeError
+            var t = yield o("WAWebOrgAdminGraphQL").loadOrgAdminDirectory(
+              e,
+              null,
+            );
+            return t.status === "roster_too_large"
               ? babelHelpers.extends({}, c, {
                   isTruncated: !0,
                   status: "loaded",
                 })
-              : (o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[org-admin] private member directory request failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("org-admin-load-private-directory-failed"),
-                babelHelpers.extends({}, c, { status: "failed" }));
+              : { isTruncated: !1, members: t.members, status: "loaded" };
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[org-admin] private member directory request failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("org-admin-load-private-directory-failed"),
+              babelHelpers.extends({}, c, { status: "failed" })
+            );
           }
         })),
         g.apply(this, arguments)
@@ -185,38 +185,6 @@ __d(
         return e.localeCompare(t);
       });
     }
-    function E(e) {
-      return e === "overview" || e === "settings"
-        ? "home"
-        : e === "members"
-          ? "people"
-          : e === "group_chats"
-            ? "groups"
-            : e === "channels"
-              ? "channels"
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
-    }
-    function k(e) {
-      return e === "home"
-        ? "overview"
-        : e === "people"
-          ? "members"
-          : e === "groups"
-            ? "group_chats"
-            : e === "channels"
-              ? "channels"
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
-    }
     ((l.EMPTY_PRIVATE_DIRECTORY = c),
       (l.getHomeLoadErrorMessage = d),
       (l.getOrganizationStatusMessage = m),
@@ -229,9 +197,7 @@ __d(
       (l.getRosterUploadStatus = v),
       (l.withRosterMemberCount = S),
       (l.getManagedMemberCount = R),
-      (l.getRosterMemberTags = L),
-      (l.getPageForTab = E),
-      (l.getTabForPage = k));
+      (l.getRosterMemberTags = L));
   },
   226,
 );

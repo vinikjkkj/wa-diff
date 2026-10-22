@@ -1,28 +1,19 @@
 __d(
   "WAWebAEOnboardedState",
   [
-    "WAWebAECompanionGating",
+    "WAWebAEOnboarded",
     "WAWebCmd",
-    "WAWebCoexCanonicalMembership",
     "WAWebCoexProductStateStore",
     "WAWebMobilePlatforms",
-    "WAWebUserPrefsGeneral",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useSyncExternalStore;
     function u() {
-      if (!o("WAWebMobilePlatforms").isSMB()) return !1;
-      var e = o("WAWebCoexProductStateStore").getCoexProductState();
-      return e != null && o("WAWebAECompanionGating").isCoexStateSyncEnabled()
-        ? e.surfaces.includes(o("WAWebCoexCanonicalMembership").AE_SURFACE)
-        : o("WAWebUserPrefsGeneral").getDetectedOutcomeOnboardingStatus();
+      return s(c, o("WAWebAEOnboarded").isAEOnboarded);
     }
-    function c() {
-      return s(d, u);
-    }
-    function d(e) {
+    function c(e) {
       var t = function () {
         o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebCoexProductStateStore").getCoexProductState() != null &&
@@ -39,7 +30,7 @@ __d(
         }
       );
     }
-    ((l.isAEOnboarded = u), (l.useIsAEOnboarded = c));
+    l.useIsAEOnboarded = u;
   },
   98,
 );

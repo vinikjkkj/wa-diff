@@ -7,6 +7,7 @@ __d(
     "WAWebAuraBenefitTypes",
     "WAWebMobilePlatforms",
     "WAWebStickerPremiumStatus",
+    "WAWebSubscriptionsGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -24,12 +25,13 @@ __d(
             ).AuraBenefitFeatureFlagProvider)(t);
           }),
           (t.$3 = function () {
-            return o("WAWebMobilePlatforms").isSMB()
+            return o("WAWebMobilePlatforms").isSMB() &&
+              !o("WAWebSubscriptionsGatingUtils").smbAuraBenefitsEnabled()
               ? !0
               : o("WAWebABProps").getABPropConfigValue("aura_kill_switch");
           }),
           (t.$4 = function () {
-            return this.$3()
+            return o("WAWebMobilePlatforms").isSMB() || this.$3()
               ? !1
               : o("WAWebABProps").getABPropConfigValue("aura_enabled");
           }),

@@ -182,7 +182,11 @@ __d(
         o(
           "WAWebCoreActionsODS",
         ).logCallVoipInitWasmArtifactWorkerGluePrefetchAttempt(),
-        fetch(e, { credentials: "same-origin", mode: "no-cors" })
+        fetch(e, {
+          credentials: "same-origin",
+          mode: "no-cors",
+          priority: "low",
+        })
           .then(function (e) {
             return e.arrayBuffer();
           })

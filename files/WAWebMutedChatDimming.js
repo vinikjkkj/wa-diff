@@ -3,10 +3,11 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.isMuted,
-        n = e.isNewsletter,
-        r = e.unreadCount;
-      return !t || n || r === 0
+      var t = e.hasUnreadMention,
+        n = e.isMuted,
+        r = e.isNewsletter,
+        a = e.unreadCount;
+      return !n || r || a === 0 || t
         ? !1
         : o("WAWebABProps").getABPropConfigValue("inbox_dim_muted_chats");
     }

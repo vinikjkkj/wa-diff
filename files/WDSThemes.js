@@ -195,8 +195,10 @@ __d(
       wn,
       An,
       Fn,
-      On = "@media (prefers-color-scheme: dark)",
-      Bn = {
+      On,
+      Bn,
+      Wn = "@media (prefers-color-scheme: dark)",
+      qn = {
         blackAlpha05: "rgba(0, 0, 0, 0.05)",
         blackAlpha10: "rgba(0, 0, 0, 0.1)",
         blackAlpha20: "rgba(0, 0, 0, 0.2)",
@@ -655,7 +657,7 @@ __d(
         yellow900: "#251E16",
         yellow950: "#1C1711",
       },
-      Wn = {
+      Un = {
         black: "0, 0, 0",
         brown100: "244, 222, 209",
         brown1000: "9, 7, 6",
@@ -1080,812 +1082,822 @@ __d(
         yellow900: "37, 30, 22",
         yellow950: "28, 23, 17",
       },
-      qn = {
-        spacingQuarter: ((e = {}), (e[On] = "2px"), (e.default = "2px"), e),
-        spacingHalf: ((s = {}), (s[On] = "4px"), (s.default = "4px"), s),
-        spacingSingle: ((u = {}), (u[On] = "8px"), (u.default = "8px"), u),
-        spacingSinglePlus:
-          ((c = {}), (c[On] = "12px"), (c.default = "12px"), c),
-        spacingDouble: ((d = {}), (d[On] = "16px"), (d.default = "16px"), d),
-        spacingDoublePlus:
-          ((m = {}), (m[On] = "20px"), (m.default = "20px"), m),
-        spacingTriple: ((p = {}), (p[On] = "24px"), (p.default = "24px"), p),
-        spacingTriplePlus:
-          ((_ = {}), (_[On] = "28px"), (_.default = "28px"), _),
-        spacingQuad: ((f = {}), (f[On] = "32px"), (f.default = "32px"), f),
-        spacingQuint: ((g = {}), (g[On] = "40px"), (g.default = "40px"), g),
-      },
-      Un = {
-        borderRadiusCircle:
-          ((h = {}), (h[On] = "9999px"), (h.default = "9999px"), h),
-        borderRadiusTriplePlus:
-          ((y = {}), (y[On] = "28px"), (y.default = "28px"), y),
-        borderRadiusTriple:
-          ((C = {}), (C[On] = "24px"), (C.default = "24px"), C),
-        borderRadiusDouble:
-          ((b = {}), (b[On] = "16px"), (b.default = "16px"), b),
-        borderRadiusSinglePlus:
-          ((v = {}), (v[On] = "12px"), (v.default = "12px"), v),
-        borderRadiusSingle: ((S = {}), (S[On] = "8px"), (S.default = "8px"), S),
-        borderRadiusHalfPlus:
-          ((R = {}), (R[On] = "6px"), (R.default = "6px"), R),
-        borderRadiusHalf: ((L = {}), (L[On] = "4px"), (L.default = "4px"), L),
-        borderRadiusNone: ((E = {}), (E[On] = "0px"), (E.default = "0px"), E),
-      },
       Vn = {
+        spacingQuarter: ((e = {}), (e[Wn] = "2px"), (e.default = "2px"), e),
+        spacingHalf: ((s = {}), (s[Wn] = "4px"), (s.default = "4px"), s),
+        spacingSingle: ((u = {}), (u[Wn] = "8px"), (u.default = "8px"), u),
+        spacingSinglePlus:
+          ((c = {}), (c[Wn] = "12px"), (c.default = "12px"), c),
+        spacingDouble: ((d = {}), (d[Wn] = "16px"), (d.default = "16px"), d),
+        spacingDoublePlus:
+          ((m = {}), (m[Wn] = "20px"), (m.default = "20px"), m),
+        spacingTriple: ((p = {}), (p[Wn] = "24px"), (p.default = "24px"), p),
+        spacingTriplePlus:
+          ((_ = {}), (_[Wn] = "28px"), (_.default = "28px"), _),
+        spacingQuad: ((f = {}), (f[Wn] = "32px"), (f.default = "32px"), f),
+        spacingQuint: ((g = {}), (g[Wn] = "40px"), (g.default = "40px"), g),
+      },
+      Hn = {
+        borderRadiusCircle:
+          ((h = {}), (h[Wn] = "9999px"), (h.default = "9999px"), h),
+        borderRadiusTriplePlus:
+          ((y = {}), (y[Wn] = "28px"), (y.default = "28px"), y),
+        borderRadiusTriple:
+          ((C = {}), (C[Wn] = "24px"), (C.default = "24px"), C),
+        borderRadiusDouble:
+          ((b = {}), (b[Wn] = "16px"), (b.default = "16px"), b),
+        borderRadiusSinglePlus:
+          ((v = {}), (v[Wn] = "12px"), (v.default = "12px"), v),
+        borderRadiusSingle: ((S = {}), (S[Wn] = "8px"), (S.default = "8px"), S),
+        borderRadiusHalfPlus:
+          ((R = {}), (R[Wn] = "6px"), (R.default = "6px"), R),
+        borderRadiusHalf: ((L = {}), (L[Wn] = "4px"), (L.default = "4px"), L),
+        borderRadiusNone: ((E = {}), (E[Wn] = "0px"), (E.default = "0px"), E),
+      },
+      Gn = {
         popoverShadow:
           ((k = {}),
-          (k[On] = "0 12px 16px -4px rgb(10 10 10 / 0.1)"),
+          (k[Wn] = "0 12px 16px -4px rgb(10 10 10 / 0.1)"),
           (k.default = "0 12px 16px -4px rgb(10 10 10 / 0.1)"),
           k),
       },
-      Hn = babelHelpers.extends({}, qn, Un, Vn, {
+      zn = babelHelpers.extends({}, Vn, Hn, Gn, {
         "--WDS-accent":
-          ((I = {}), (I[On] = Bn.green450), (I.default = Bn.green500), I),
+          ((I = {}), (I[Wn] = qn.green450), (I.default = qn.green500), I),
         "--WDS-accent-deemphasized":
-          ((T = {}), (T[On] = Bn.green800), (T.default = Bn.green100), T),
+          ((T = {}), (T[Wn] = qn.green800), (T.default = qn.green100), T),
         "--WDS-accent-deemphasized-RGB":
-          ((D = {}), (D[On] = Wn.green800), (D.default = Wn.green100), D),
+          ((D = {}), (D[Wn] = Un.green800), (D.default = Un.green100), D),
         "--WDS-accent-emphasized":
-          ((x = {}), (x[On] = Bn.green100), (x.default = Bn.green700), x),
+          ((x = {}), (x[Wn] = qn.green100), (x.default = qn.green700), x),
         "--WDS-accent-emphasized-RGB":
-          (($ = {}), ($[On] = Wn.green100), ($.default = Wn.green700), $),
+          (($ = {}), ($[Wn] = Un.green100), ($.default = Un.green700), $),
         "--WDS-accent-RGB":
-          ((P = {}), (P[On] = Wn.green450), (P.default = Wn.green500), P),
+          ((P = {}), (P[Wn] = Un.green450), (P.default = Un.green500), P),
         "--WDS-background-dimmer":
           ((N = {}),
-          (N[On] = "rgb(0, 0, 0, 0.32)"),
+          (N[Wn] = "rgb(0, 0, 0, 0.32)"),
           (N.default = "rgb(0, 0, 0, 0.32)"),
           N),
         "--WDS-background-dimmer-RGB":
-          ((M = {}), (M[On] = Bn.green450), (M.default = Bn.green500), M),
+          ((M = {}), (M[Wn] = qn.green450), (M.default = qn.green500), M),
         "--WDS-background-elevated-wash-inset":
           ((w = {}),
-          (w[On] = Bn.neutralGray850),
-          (w.default = Bn.warmGray75),
+          (w[Wn] = qn.neutralGray850),
+          (w.default = qn.warmGray75),
           w),
         "--WDS-background-elevated-wash-inset-RGB":
           ((A = {}),
-          (A[On] = Wn.neutralGray850),
-          (A.default = Wn.warmGray75),
+          (A[Wn] = Un.neutralGray850),
+          (A.default = Un.warmGray75),
           A),
         "--WDS-background-elevated-wash-plain":
           ((F = {}),
-          (F[On] = Bn.neutralGray850),
-          (F.default = Bn.whiteOpaque),
+          (F[Wn] = qn.neutralGray850),
+          (F.default = qn.whiteOpaque),
           F),
         "--WDS-background-elevated-wash-plain-RGB":
-          ((O = {}), (O[On] = Wn.neutralGray850), (O.default = Wn.white), O),
+          ((O = {}), (O[Wn] = Un.neutralGray850), (O.default = Un.white), O),
         "--WDS-background-wash-inset":
           ((B = {}),
-          (B[On] = Bn.neutralGray900),
-          (B.default = Bn.warmGray75),
+          (B[Wn] = qn.neutralGray900),
+          (B.default = qn.warmGray75),
           B),
         "--WDS-background-wash-inset-RGB":
           ((W = {}),
-          (W[On] = Wn.neutralGray900),
-          (W.default = Wn.warmGray75),
+          (W[Wn] = Un.neutralGray900),
+          (W.default = Un.warmGray75),
           W),
         "--WDS-background-wash-plain":
           ((q = {}),
-          (q[On] = Bn.neutralGray900),
-          (q.default = Bn.whiteOpaque),
+          (q[Wn] = qn.neutralGray900),
+          (q.default = qn.whiteOpaque),
           q),
         "--WDS-background-wash-plain-RGB":
-          ((U = {}), (U[On] = Wn.neutralGray900), (U.default = Wn.white), U),
+          ((U = {}), (U[Wn] = Un.neutralGray900), (U.default = Un.white), U),
         "--WDS-components-active-list-row":
           ((V = {}),
-          (V[On] = Bn.whiteAlpha10),
-          (V.default = Bn.warmGray300Alpha15),
+          (V[Wn] = qn.whiteAlpha10),
+          (V.default = qn.warmGray300Alpha15),
           V),
         "--WDS-components-active-list-row-RGB":
-          ((H = {}), (H[On] = Wn.white), (H.default = Wn.warmGray300), H),
+          ((H = {}), (H[Wn] = Un.white), (H.default = Un.warmGray300), H),
+        "--WDS-components-badge-muted":
+          ((G = {}),
+          (G[Wn] = qn.whiteAlpha10),
+          (G.default = qn.blackAlpha05),
+          G),
+        "--WDS-components-badge-muted-dot":
+          ((z = {}),
+          (z[Wn] = qn.whiteAlpha10),
+          (z.default = qn.blackAlpha10),
+          z),
         "--WDS-components-filter-surface-selected":
-          ((G = {}), (G[On] = Bn.green800), (G.default = Bn.green100), G),
+          ((j = {}), (j[Wn] = qn.green800), (j.default = qn.green100), j),
         "--WDS-components-filter-surface-selected-RGB":
-          ((z = {}), (z[On] = Wn.green800), (z.default = Wn.green100), z),
+          ((K = {}), (K[Wn] = Un.green800), (K.default = Un.green100), K),
         "--WDS-components-outline-profile-photo":
-          ((j = {}),
-          (j[On] = Bn.whiteAlpha10),
-          (j.default = Bn.blackAlpha10),
-          j),
+          ((Q = {}),
+          (Q[Wn] = qn.whiteAlpha10),
+          (Q.default = qn.blackAlpha10),
+          Q),
         "--WDS-components-outline-profile-photo-RGB":
-          ((K = {}), (K[On] = Wn.white), (K.default = Wn.black), K),
+          ((X = {}), (X[Wn] = Un.white), (X.default = Un.black), X),
         "--WDS-components-profile-photo-content-brown":
-          ((Q = {}), (Q[On] = Bn.brown300), (Q.default = Bn.brown600), Q),
+          ((Y = {}), (Y[Wn] = qn.brown300), (Y.default = qn.brown600), Y),
         "--WDS-components-profile-photo-content-brown-RGB":
-          ((X = {}), (X[On] = Wn.brown300), (X.default = Wn.brown600), X),
+          ((J = {}), (J[Wn] = Un.brown300), (J.default = Un.brown600), J),
         "--WDS-components-profile-photo-content-cobalt":
-          ((Y = {}), (Y[On] = Bn.cobalt300), (Y.default = Bn.cobalt500), Y),
+          ((Z = {}), (Z[Wn] = qn.cobalt300), (Z.default = qn.cobalt500), Z),
         "--WDS-components-profile-photo-content-cobalt-RGB":
-          ((J = {}), (J[On] = Wn.cobalt300), (J.default = Wn.cobalt500), J),
+          ((ee = {}), (ee[Wn] = Un.cobalt300), (ee.default = Un.cobalt500), ee),
         "--WDS-components-profile-photo-content-green":
-          ((Z = {}), (Z[On] = Bn.green400), (Z.default = Bn.green600), Z),
+          ((te = {}), (te[Wn] = qn.green400), (te.default = qn.green600), te),
         "--WDS-components-profile-photo-content-green-RGB":
-          ((ee = {}), (ee[On] = Wn.green400), (ee.default = Wn.green600), ee),
+          ((ne = {}), (ne[Wn] = Un.green400), (ne.default = Un.green600), ne),
         "--WDS-components-profile-photo-content-gray":
-          ((te = {}),
-          (te[On] = Bn.neutralGray300),
-          (te.default = Bn.neutralGray500),
-          te),
+          ((re = {}),
+          (re[Wn] = qn.neutralGray300),
+          (re.default = qn.neutralGray500),
+          re),
         "--WDS-components-profile-photo-content-gray-RGB":
-          ((ne = {}),
-          (ne[On] = Wn.neutralGray300),
-          (ne.default = Wn.neutralGray500),
-          ne),
+          ((oe = {}),
+          (oe[Wn] = Un.neutralGray300),
+          (oe.default = Un.neutralGray500),
+          oe),
         "--WDS-components-profile-photo-content-purple":
-          ((re = {}), (re[On] = Bn.purple300), (re.default = Bn.purple500), re),
+          ((ae = {}), (ae[Wn] = qn.purple300), (ae.default = qn.purple500), ae),
         "--WDS-components-profile-photo-content-purple-RGB":
-          ((oe = {}), (oe[On] = Wn.purple300), (oe.default = Wn.purple500), oe),
+          ((ie = {}), (ie[Wn] = Un.purple300), (ie.default = Un.purple500), ie),
         "--WDS-components-profile-photo-content-orange":
-          ((ae = {}), (ae[On] = Bn.orange300), (ae.default = Bn.orange500), ae),
+          ((le = {}), (le[Wn] = qn.orange300), (le.default = qn.orange500), le),
         "--WDS-components-profile-photo-content-orange-RGB":
-          ((ie = {}), (ie[On] = Wn.orange300), (ie.default = Wn.orange500), ie),
+          ((se = {}), (se[Wn] = Un.orange300), (se.default = Un.orange500), se),
         "--WDS-components-profile-photo-content-pink":
-          ((le = {}), (le[On] = Bn.pink300), (le.default = Bn.pink500), le),
+          ((ue = {}), (ue[Wn] = qn.pink300), (ue.default = qn.pink500), ue),
         "--WDS-components-profile-photo-content-pink-RGB":
-          ((se = {}), (se[On] = Wn.pink300), (se.default = Wn.pink500), se),
+          ((ce = {}), (ce[Wn] = Un.pink300), (ce.default = Un.pink500), ce),
         "--WDS-components-profile-photo-content-red":
-          ((ue = {}), (ue[On] = Bn.red300), (ue.default = Bn.red500), ue),
+          ((de = {}), (de[Wn] = qn.red300), (de.default = qn.red500), de),
         "--WDS-components-profile-photo-content-red-RGB":
-          ((ce = {}), (ce[On] = Wn.red300), (ce.default = Wn.red500), ce),
+          ((me = {}), (me[Wn] = Un.red300), (me.default = Un.red500), me),
         "--WDS-components-profile-photo-content-sky-blue":
-          ((de = {}),
-          (de[On] = Bn.skyBlue300),
-          (de.default = Bn.skyBlue500),
-          de),
+          ((pe = {}),
+          (pe[Wn] = qn.skyBlue300),
+          (pe.default = qn.skyBlue500),
+          pe),
         "--WDS-components-profile-photo-content-sky-blue-RGB":
-          ((me = {}),
-          (me[On] = Wn.skyBlue300),
-          (me.default = Wn.skyBlue500),
-          me),
+          ((_e = {}),
+          (_e[Wn] = Un.skyBlue300),
+          (_e.default = Un.skyBlue500),
+          _e),
         "--WDS-components-profile-photo-content-teal":
-          ((pe = {}), (pe[On] = Bn.teal300), (pe.default = Bn.teal500), pe),
+          ((fe = {}), (fe[Wn] = qn.teal300), (fe.default = qn.teal500), fe),
         "--WDS-components-profile-photo-content-teal-RGB":
-          ((_e = {}), (_e[On] = Wn.teal300), (_e.default = Wn.teal500), _e),
+          ((ge = {}), (ge[Wn] = Un.teal300), (ge.default = Un.teal500), ge),
         "--WDS-components-profile-photo-content-yellow":
-          ((fe = {}), (fe[On] = Bn.yellow300), (fe.default = Bn.yellow600), fe),
+          ((he = {}), (he[Wn] = qn.yellow300), (he.default = qn.yellow600), he),
         "--WDS-components-profile-photo-content-yellow-RGB":
-          ((ge = {}), (ge[On] = Wn.yellow300), (ge.default = Wn.yellow600), ge),
+          ((ye = {}), (ye[Wn] = Un.yellow300), (ye.default = Un.yellow600), ye),
         "--WDS-components-profile-photo-surface-brown":
-          ((he = {}), (he[On] = Bn.brown800), (he.default = Bn.brown100), he),
+          ((Ce = {}), (Ce[Wn] = qn.brown800), (Ce.default = qn.brown100), Ce),
         "--WDS-components-profile-photo-surface-brown-RGB":
-          ((ye = {}), (ye[On] = Wn.brown800), (ye.default = Wn.brown100), ye),
+          ((be = {}), (be[Wn] = Un.brown800), (be.default = Un.brown100), be),
         "--WDS-components-profile-photo-surface-cobalt":
-          ((Ce = {}), (Ce[On] = Bn.cobalt800), (Ce.default = Bn.cobalt100), Ce),
+          ((ve = {}), (ve[Wn] = qn.cobalt800), (ve.default = qn.cobalt100), ve),
         "--WDS-components-profile-photo-surface-cobalt-RGB":
-          ((be = {}), (be[On] = Wn.cobalt800), (be.default = Wn.cobalt100), be),
+          ((Se = {}), (Se[Wn] = Un.cobalt800), (Se.default = Un.cobalt100), Se),
         "--WDS-components-profile-photo-surface-green":
-          ((ve = {}), (ve[On] = Bn.green800), (ve.default = Bn.green100), ve),
+          ((Re = {}), (Re[Wn] = qn.green800), (Re.default = qn.green100), Re),
         "--WDS-components-profile-photo-surface-green-RGB":
-          ((Se = {}), (Se[On] = Wn.green800), (Se.default = Wn.green100), Se),
+          ((Le = {}), (Le[Wn] = Un.green800), (Le.default = Un.green100), Le),
         "--WDS-components-profile-photo-surface-gray":
-          ((Re = {}),
-          (Re[On] = Bn.neutralGray800),
-          (Re.default = Bn.neutralGray100),
-          Re),
+          ((Ee = {}),
+          (Ee[Wn] = qn.neutralGray800),
+          (Ee.default = qn.neutralGray100),
+          Ee),
         "--WDS-components-profile-photo-surface-gray-RGB":
-          ((Le = {}),
-          (Le[On] = Wn.neutralGray800),
-          (Le.default = Wn.neutralGray100),
-          Le),
+          ((ke = {}),
+          (ke[Wn] = Un.neutralGray800),
+          (ke.default = Un.neutralGray100),
+          ke),
         "--WDS-components-profile-photo-surface-purple":
-          ((Ee = {}), (Ee[On] = Bn.purple800), (Ee.default = Bn.purple100), Ee),
+          ((Ie = {}), (Ie[Wn] = qn.purple800), (Ie.default = qn.purple100), Ie),
         "--WDS-components-profile-photo-surface-purple-RGB":
-          ((ke = {}), (ke[On] = Wn.purple800), (ke.default = Wn.purple100), ke),
+          ((Te = {}), (Te[Wn] = Un.purple800), (Te.default = Un.purple100), Te),
         "--WDS-components-profile-photo-surface-orange":
-          ((Ie = {}), (Ie[On] = Bn.orange800), (Ie.default = Bn.orange100), Ie),
+          ((De = {}), (De[Wn] = qn.orange800), (De.default = qn.orange100), De),
         "--WDS-components-profile-photo-surface-orange-RGB":
-          ((Te = {}), (Te[On] = Wn.orange800), (Te.default = Wn.orange100), Te),
+          ((xe = {}), (xe[Wn] = Un.orange800), (xe.default = Un.orange100), xe),
         "--WDS-components-profile-photo-surface-pink":
-          ((De = {}), (De[On] = Bn.pink800), (De.default = Bn.pink100), De),
+          (($e = {}), ($e[Wn] = qn.pink800), ($e.default = qn.pink100), $e),
         "--WDS-components-profile-photo-surface-pink-RGB":
-          ((xe = {}), (xe[On] = Wn.pink800), (xe.default = Wn.pink100), xe),
+          ((Pe = {}), (Pe[Wn] = Un.pink800), (Pe.default = Un.pink100), Pe),
         "--WDS-components-profile-photo-surface-red":
-          (($e = {}), ($e[On] = Bn.red800), ($e.default = Bn.red100), $e),
+          ((Ne = {}), (Ne[Wn] = qn.red800), (Ne.default = qn.red100), Ne),
         "--WDS-components-profile-photo-surface-red-RGB":
-          ((Pe = {}), (Pe[On] = Wn.red800), (Pe.default = Wn.red100), Pe),
+          ((Me = {}), (Me[Wn] = Un.red800), (Me.default = Un.red100), Me),
         "--WDS-components-profile-photo-surface-sky-blue":
-          ((Ne = {}),
-          (Ne[On] = Bn.skyBlue800),
-          (Ne.default = Bn.skyBlue100),
-          Ne),
+          ((we = {}),
+          (we[Wn] = qn.skyBlue800),
+          (we.default = qn.skyBlue100),
+          we),
         "--WDS-components-profile-photo-surface-sky-blue-RGB":
-          ((Me = {}),
-          (Me[On] = Wn.skyBlue800),
-          (Me.default = Wn.skyBlue100),
-          Me),
+          ((Ae = {}),
+          (Ae[Wn] = Un.skyBlue800),
+          (Ae.default = Un.skyBlue100),
+          Ae),
         "--WDS-components-profile-photo-surface-teal":
-          ((we = {}), (we[On] = Bn.teal800), (we.default = Bn.teal100), we),
+          ((Fe = {}), (Fe[Wn] = qn.teal800), (Fe.default = qn.teal100), Fe),
         "--WDS-components-profile-photo-surface-teal-RGB":
-          ((Ae = {}), (Ae[On] = Wn.teal800), (Ae.default = Wn.teal100), Ae),
+          ((Oe = {}), (Oe[Wn] = Un.teal800), (Oe.default = Un.teal100), Oe),
         "--WDS-components-profile-photo-surface-yellow":
-          ((Fe = {}), (Fe[On] = Bn.yellow800), (Fe.default = Bn.yellow100), Fe),
+          ((Be = {}), (Be[Wn] = qn.yellow800), (Be.default = qn.yellow100), Be),
         "--WDS-components-profile-photo-surface-yellow-RGB":
-          ((Oe = {}), (Oe[On] = Wn.yellow800), (Oe.default = Wn.yellow100), Oe),
+          ((We = {}), (We[Wn] = Un.yellow800), (We.default = Un.yellow100), We),
         "--WDS-components-profile-photo-status-ring-close-friends":
-          ((Be = {}), (Be[On] = Bn.plum400), (Be.default = Bn.plum400), Be),
+          ((qe = {}), (qe[Wn] = qn.plum400), (qe.default = qn.plum400), qe),
         "--WDS-components-platform-gesture-bar":
-          ((We = {}),
-          (We[On] = Bn.whiteAlpha60),
-          (We.default = Bn.blackAlpha50),
-          We),
-        "--WDS-components-platform-gesture-bar-RGB":
-          ((qe = {}), (qe[On] = Wn.white), (qe.default = Wn.black), qe),
-        "--WDS-components-platform-status-bar":
           ((Ue = {}),
-          (Ue[On] = Bn.whiteOpaque),
-          (Ue.default = Bn.blackAlpha80),
+          (Ue[Wn] = qn.whiteAlpha60),
+          (Ue.default = qn.blackAlpha50),
           Ue),
-        "--WDS-components-platform-status-bar-RGB":
-          ((Ve = {}), (Ve[On] = Wn.white), (Ve.default = Wn.black), Ve),
-        "--WDS-components-surface-nav-bar":
+        "--WDS-components-platform-gesture-bar-RGB":
+          ((Ve = {}), (Ve[Wn] = Un.white), (Ve.default = Un.black), Ve),
+        "--WDS-components-platform-status-bar":
           ((He = {}),
-          (He[On] = Bn.neutralGray850),
-          (He.default = Bn.warmGray75),
+          (He[Wn] = qn.whiteOpaque),
+          (He.default = qn.blackAlpha80),
           He),
-        "--WDS-components-surface-nav-bar-RGB":
-          ((Ge = {}),
-          (Ge[On] = Wn.neutralGray850),
-          (Ge.default = Wn.warmGray75),
-          Ge),
-        "--WDS-content-action-default":
+        "--WDS-components-platform-status-bar-RGB":
+          ((Ge = {}), (Ge[Wn] = Un.white), (Ge.default = Un.black), Ge),
+        "--WDS-components-surface-nav-bar":
           ((ze = {}),
-          (ze[On] = Bn.neutralGray50),
-          (ze.default = Bn.neutralGray1000),
+          (ze[Wn] = qn.neutralGray850),
+          (ze.default = qn.warmGray75),
           ze),
-        "--WDS-content-action-default-RGB":
+        "--WDS-components-surface-nav-bar-RGB":
           ((je = {}),
-          (je[On] = Wn.neutralGray50),
-          (je.default = Wn.neutralGray1000),
+          (je[Wn] = Un.neutralGray850),
+          (je.default = Un.warmGray75),
           je),
+        "--WDS-content-action-default":
+          ((Ke = {}),
+          (Ke[Wn] = qn.neutralGray50),
+          (Ke.default = qn.neutralGray1000),
+          Ke),
+        "--WDS-content-action-default-RGB":
+          ((Qe = {}),
+          (Qe[Wn] = Un.neutralGray50),
+          (Qe.default = Un.neutralGray1000),
+          Qe),
         "--WDS-content-action-emphasized":
-          ((Ke = {}), (Ke[On] = Bn.green450), (Ke.default = Bn.green600), Ke),
+          ((Xe = {}), (Xe[Wn] = qn.green450), (Xe.default = qn.green600), Xe),
         "--WDS-content-action-emphasized-RGB":
-          ((Qe = {}), (Qe[On] = Wn.green450), (Qe.default = Wn.green600), Qe),
+          ((Ye = {}), (Ye[Wn] = Un.green450), (Ye.default = Un.green600), Ye),
         "--WDS-content-deemphasized":
-          ((Xe = {}),
-          (Xe[On] = Bn.whiteAlpha60),
-          (Xe.default = Bn.blackAlpha60),
-          Xe),
-        "--WDS-content-deemphasized-RGB":
-          ((Ye = {}), (Ye[On] = Wn.white), (Ye.default = Wn.black), Ye),
-        "--WDS-content-default":
           ((Je = {}),
-          (Je[On] = Bn.neutralGray50),
-          (Je.default = Bn.neutralGray1000),
+          (Je[Wn] = qn.whiteAlpha60),
+          (Je.default = qn.blackAlpha60),
           Je),
-        "--WDS-content-default-RGB":
-          ((Ze = {}),
-          (Ze[On] = Wn.neutralGray50),
-          (Ze.default = Wn.neutralGray1000),
-          Ze),
-        "--WDS-content-disabled":
+        "--WDS-content-deemphasized-RGB":
+          ((Ze = {}), (Ze[Wn] = Un.white), (Ze.default = Un.black), Ze),
+        "--WDS-content-default":
           ((et = {}),
-          (et[On] = Bn.neutralGray700),
-          (et.default = Bn.neutralGray300),
+          (et[Wn] = qn.neutralGray50),
+          (et.default = qn.neutralGray1000),
           et),
-        "--WDS-content-disabled-RGB":
+        "--WDS-content-default-RGB":
           ((tt = {}),
-          (tt[On] = Wn.neutralGray700),
-          (tt.default = Wn.neutralGray300),
+          (tt[Wn] = Un.neutralGray50),
+          (tt.default = Un.neutralGray1000),
           tt),
+        "--WDS-content-disabled":
+          ((nt = {}),
+          (nt[Wn] = qn.neutralGray700),
+          (nt.default = qn.neutralGray300),
+          nt),
+        "--WDS-content-disabled-RGB":
+          ((rt = {}),
+          (rt[Wn] = Un.neutralGray700),
+          (rt.default = Un.neutralGray300),
+          rt),
         "--WDS-content-external-link":
-          ((nt = {}), (nt[On] = Bn.green450), (nt.default = Bn.green600), nt),
+          ((ot = {}), (ot[Wn] = qn.green450), (ot.default = qn.green600), ot),
         "--WDS-content-external-link-RGB":
-          ((rt = {}), (rt[On] = Wn.green450), (rt.default = Wn.green600), rt),
+          ((at = {}), (at[Wn] = Un.green450), (at.default = Un.green600), at),
         "--WDS-content-inverse":
-          ((ot = {}),
-          (ot[On] = Bn.neutralGray1000),
-          (ot.default = Bn.whiteOpaque),
-          ot),
-        "--WDS-content-inverse-RGB":
-          ((at = {}),
-          (at[On] = Wn.neutralGray1000),
-          (at.default = Wn.white),
-          at),
-        "--WDS-content-on-accent":
           ((it = {}),
-          (it[On] = Bn.neutralGray1000),
-          (it.default = Bn.whiteOpaque),
+          (it[Wn] = qn.neutralGray1000),
+          (it.default = qn.whiteOpaque),
           it),
-        "--WDS-content-on-accent-RGB":
+        "--WDS-content-inverse-RGB":
           ((lt = {}),
-          (lt[On] = Wn.neutralGray1000),
-          (lt.default = Wn.white),
+          (lt[Wn] = Un.neutralGray1000),
+          (lt.default = Un.white),
           lt),
-        "--WDS-content-read":
+        "--WDS-content-on-accent":
           ((st = {}),
-          (st[On] = Bn.skyBlue300),
-          (st.default = Bn.cobalt400),
+          (st[Wn] = qn.neutralGray1000),
+          (st.default = qn.whiteOpaque),
           st),
-        "--WDS-content-read-RGB":
+        "--WDS-content-on-accent-RGB":
           ((ut = {}),
-          (ut[On] = Wn.skyBlue300),
-          (ut.default = Wn.cobalt400),
+          (ut[Wn] = Un.neutralGray1000),
+          (ut.default = Un.white),
           ut),
-        "--WDS-lines-divider":
+        "--WDS-content-read":
           ((ct = {}),
-          (ct[On] = Bn.whiteAlpha10),
-          (ct.default = Bn.blackAlpha10),
+          (ct[Wn] = qn.skyBlue300),
+          (ct.default = qn.cobalt400),
           ct),
-        "--WDS-lines-divider-RGB":
-          ((dt = {}), (dt[On] = Wn.white), (dt.default = Wn.black), dt),
-        "--WDS-lines-outline-deemphasized":
+        "--WDS-content-read-RGB":
+          ((dt = {}),
+          (dt[Wn] = Un.skyBlue300),
+          (dt.default = Un.cobalt400),
+          dt),
+        "--WDS-lines-divider":
           ((mt = {}),
-          (mt[On] = Bn.whiteAlpha10),
-          (mt.default = Bn.blackAlpha20),
+          (mt[Wn] = qn.whiteAlpha10),
+          (mt.default = qn.blackAlpha10),
           mt),
-        "--WDS-lines-outline-deemphasized-RGB":
-          ((pt = {}), (pt[On] = Wn.white), (pt.default = Wn.black), pt),
-        "--WDS-lines-outline-default":
+        "--WDS-lines-divider-RGB":
+          ((pt = {}), (pt[Wn] = Un.white), (pt.default = Un.black), pt),
+        "--WDS-lines-outline-deemphasized":
           ((_t = {}),
-          (_t[On] = Bn.neutralGray500),
-          (_t.default = Bn.neutralGray400),
+          (_t[Wn] = qn.whiteAlpha10),
+          (_t.default = qn.blackAlpha20),
           _t),
+        "--WDS-lines-outline-deemphasized-RGB":
+          ((ft = {}), (ft[Wn] = Un.white), (ft.default = Un.black), ft),
+        "--WDS-lines-outline-default":
+          ((gt = {}),
+          (gt[Wn] = qn.neutralGray500),
+          (gt.default = qn.neutralGray400),
+          gt),
         "--WDS-lines-outline-default-RGB":
-          ((ft = {}),
-          (ft[On] = Wn.neutralGray500),
-          (ft.default = Wn.neutralGray400),
-          ft),
+          ((ht = {}),
+          (ht[Wn] = Un.neutralGray500),
+          (ht.default = Un.neutralGray400),
+          ht),
         "--WDS-persistent-activity-indicator":
-          ((gt = {}), (gt[On] = Bn.green400), (gt.default = Bn.green400), gt),
+          ((yt = {}), (yt[Wn] = qn.green400), (yt.default = qn.green400), yt),
         "--WDS-persistent-activity-indicator-RGB":
-          ((ht = {}), (ht[On] = Wn.green400), (ht.default = Wn.green400), ht),
+          ((Ct = {}), (Ct[Wn] = Un.green400), (Ct.default = Un.green400), Ct),
         "--WDS-persistent-always-black":
-          ((yt = {}),
-          (yt[On] = Bn.neutralGray1000),
-          (yt.default = Bn.neutralGray1000),
-          yt),
+          ((bt = {}),
+          (bt[Wn] = qn.neutralGray1000),
+          (bt.default = qn.neutralGray1000),
+          bt),
         "--WDS-persistent-always-black-RGB":
-          ((Ct = {}),
-          (Ct[On] = Wn.neutralGray1000),
-          (Ct.default = Wn.neutralGray1000),
-          Ct),
+          ((vt = {}),
+          (vt[Wn] = Un.neutralGray1000),
+          (vt.default = Un.neutralGray1000),
+          vt),
         "--WDS-persistent-always-branded":
-          ((bt = {}), (bt[On] = Bn.green450), (bt.default = Bn.green500), bt),
+          ((St = {}), (St[Wn] = qn.green450), (St.default = qn.green500), St),
         "--WDS-persistent-always-branded-RGB":
-          ((vt = {}), (vt[On] = Wn.green450), (vt.default = Wn.green500), vt),
+          ((Rt = {}), (Rt[Wn] = Un.green450), (Rt.default = Un.green500), Rt),
         "--WDS-persistent-always-white":
-          ((St = {}),
-          (St[On] = Bn.whiteOpaque),
-          (St.default = Bn.whiteOpaque),
-          St),
+          ((Lt = {}),
+          (Lt[Wn] = qn.whiteOpaque),
+          (Lt.default = qn.whiteOpaque),
+          Lt),
         "--WDS-persistent-always-white-RGB":
-          ((Rt = {}), (Rt[On] = Wn.white), (Rt.default = Wn.white), Rt),
+          ((Et = {}), (Et[Wn] = Un.white), (Et.default = Un.white), Et),
         "--WDS-persistent-verified":
-          ((Lt = {}), (Lt[On] = "#0085F4"), (Lt.default = "#0085F4"), Lt),
+          ((kt = {}), (kt[Wn] = "#0085F4"), (kt.default = "#0085F4"), kt),
         "--WDS-persistent-verified-RGB":
-          ((Et = {}),
-          (Et[On] = "0, 133, 244"),
-          (Et.default = "0, 133, 244"),
-          Et),
+          ((It = {}),
+          (It[Wn] = "0, 133, 244"),
+          (It.default = "0, 133, 244"),
+          It),
         "--WDS-secondary-negative":
-          ((kt = {}), (kt[On] = Bn.red300), (kt.default = Bn.red400), kt),
+          ((Tt = {}), (Tt[Wn] = qn.red300), (Tt.default = qn.red400), Tt),
         "--WDS-secondary-negative-deemphasized":
-          ((It = {}), (It[On] = Bn.red800), (It.default = Bn.red75), It),
+          ((Dt = {}), (Dt[Wn] = qn.red800), (Dt.default = qn.red75), Dt),
         "--WDS-secondary-negative-deemphasized-RGB":
-          ((Tt = {}), (Tt[On] = Wn.red800), (Tt.default = Wn.red75), Tt),
+          ((xt = {}), (xt[Wn] = Un.red800), (xt.default = Un.red75), xt),
         "--WDS-secondary-negative-emphasized":
-          ((Dt = {}), (Dt[On] = Bn.red200), (Dt.default = Bn.red500), Dt),
+          (($t = {}), ($t[Wn] = qn.red200), ($t.default = qn.red500), $t),
         "--WDS-secondary-negative-emphasized-RGB":
-          ((xt = {}), (xt[On] = Wn.red200), (xt.default = Wn.red500), xt),
+          ((Pt = {}), (Pt[Wn] = Un.red200), (Pt.default = Un.red500), Pt),
         "--WDS-secondary-negative-RGB":
-          (($t = {}), ($t[On] = Wn.red300), ($t.default = Wn.red400), $t),
+          ((Nt = {}), (Nt[Wn] = Un.red300), (Nt.default = Un.red400), Nt),
         "--WDS-secondary-positive":
-          ((Pt = {}), (Pt[On] = Bn.green300), (Pt.default = Bn.green500), Pt),
+          ((Mt = {}), (Mt[Wn] = qn.green300), (Mt.default = qn.green500), Mt),
         "--WDS-secondary-positive-deemphasized":
-          ((Nt = {}), (Nt[On] = Bn.green800), (Nt.default = Bn.green75), Nt),
+          ((wt = {}), (wt[Wn] = qn.green800), (wt.default = qn.green75), wt),
         "--WDS-secondary-positive-deemphasized-RGB":
-          ((Mt = {}), (Mt[On] = Wn.green800), (Mt.default = Wn.green75), Mt),
+          ((At = {}), (At[Wn] = Un.green800), (At.default = Un.green75), At),
         "--WDS-secondary-positive-RGB":
-          ((wt = {}), (wt[On] = Wn.green300), (wt.default = Wn.green500), wt),
+          ((Ft = {}), (Ft[Wn] = Un.green300), (Ft.default = Un.green500), Ft),
         "--WDS-secondary-warning":
-          ((At = {}), (At[On] = Bn.yellow300), (At.default = Bn.yellow400), At),
+          ((Ot = {}), (Ot[Wn] = qn.yellow300), (Ot.default = qn.yellow400), Ot),
         "--WDS-secondary-warning-deemphasized":
-          ((Ft = {}), (Ft[On] = Bn.yellow800), (Ft.default = Bn.yellow75), Ft),
+          ((Bt = {}), (Bt[Wn] = qn.yellow800), (Bt.default = qn.yellow75), Bt),
         "--WDS-secondary-warning-deemphasized-RGB":
-          ((Ot = {}), (Ot[On] = Wn.yellow800), (Ot.default = Wn.yellow75), Ot),
+          ((Wt = {}), (Wt[Wn] = Un.yellow800), (Wt.default = Un.yellow75), Wt),
         "--WDS-secondary-warning-RGB":
-          ((Bt = {}), (Bt[On] = Wn.yellow300), (Bt.default = Wn.yellow400), Bt),
+          ((qt = {}), (qt[Wn] = Un.yellow300), (qt.default = Un.yellow400), qt),
         "--WDS-surface-default":
-          ((Wt = {}),
-          (Wt[On] = Bn.neutralGray900),
-          (Wt.default = Bn.whiteOpaque),
-          Wt),
-        "--WDS-surface-default-RGB":
-          ((qt = {}),
-          (qt[On] = Wn.neutralGray900),
-          (qt.default = Wn.white),
-          qt),
-        "--WDS-surface-elevated-default":
           ((Ut = {}),
-          (Ut[On] = Bn.neutralGray850),
-          (Ut.default = Bn.whiteOpaque),
+          (Ut[Wn] = qn.neutralGray900),
+          (Ut.default = qn.whiteOpaque),
           Ut),
-        "--WDS-surface-elevated-default-RGB":
+        "--WDS-surface-default-RGB":
           ((Vt = {}),
-          (Vt[On] = Wn.neutralGray850),
-          (Vt.default = Wn.white),
+          (Vt[Wn] = Un.neutralGray900),
+          (Vt.default = Un.white),
           Vt),
-        "--WDS-surface-elevated-emphasized":
+        "--WDS-surface-elevated-default":
           ((Ht = {}),
-          (Ht[On] = Bn.neutralGray800),
-          (Ht.default = Bn.warmGray75),
+          (Ht[Wn] = qn.neutralGray850),
+          (Ht.default = qn.whiteOpaque),
           Ht),
-        "--WDS-surface-elevated-emphasized-RGB":
+        "--WDS-surface-elevated-default-RGB":
           ((Gt = {}),
-          (Gt[On] = Wn.neutralGray800),
-          (Gt.default = Wn.warmGray75),
+          (Gt[Wn] = Un.neutralGray850),
+          (Gt.default = Un.white),
           Gt),
-        "--WDS-surface-emphasized":
+        "--WDS-surface-elevated-emphasized":
           ((zt = {}),
-          (zt[On] = Bn.neutralGray850),
-          (zt.default = Bn.warmGray75),
+          (zt[Wn] = qn.neutralGray800),
+          (zt.default = qn.warmGray75),
           zt),
-        "--WDS-surface-emphasized-RGB":
+        "--WDS-surface-elevated-emphasized-RGB":
           ((jt = {}),
-          (jt[On] = Wn.neutralGray850),
-          (jt.default = Wn.warmGray75),
+          (jt[Wn] = Un.neutralGray800),
+          (jt.default = Un.warmGray75),
           jt),
-        "--WDS-surface-highlight":
+        "--WDS-surface-emphasized":
           ((Kt = {}),
-          (Kt[On] = Bn.whiteAlpha10),
-          (Kt.default = Bn.warmGray300Alpha15),
+          (Kt[Wn] = qn.neutralGray850),
+          (Kt.default = qn.warmGray75),
           Kt),
-        "--WDS-surface-highlight-RGB":
-          ((Qt = {}), (Qt[On] = Wn.white), (Qt.default = Wn.warmGray300), Qt),
-        "--WDS-surface-inverse":
+        "--WDS-surface-emphasized-RGB":
+          ((Qt = {}),
+          (Qt[Wn] = Un.neutralGray850),
+          (Qt.default = Un.warmGray75),
+          Qt),
+        "--WDS-surface-highlight":
           ((Xt = {}),
-          (Xt[On] = Bn.neutralGray100),
-          (Xt.default = Bn.neutralGray800),
+          (Xt[Wn] = qn.whiteAlpha10),
+          (Xt.default = qn.warmGray300Alpha15),
           Xt),
-        "--WDS-surface-inverse-RGB":
-          ((Yt = {}),
-          (Yt[On] = Wn.neutralGray100),
-          (Yt.default = Wn.neutralGray800),
-          Yt),
-        "--WDS-surface-pressed":
+        "--WDS-surface-highlight-RGB":
+          ((Yt = {}), (Yt[Wn] = Un.white), (Yt.default = Un.warmGray300), Yt),
+        "--WDS-surface-inverse":
           ((Jt = {}),
-          (Jt[On] = Bn.whiteAlpha20),
-          (Jt.default = Bn.blackAlpha20),
+          (Jt[Wn] = qn.neutralGray100),
+          (Jt.default = qn.neutralGray800),
           Jt),
-        "--WDS-surface-pressed-RGB":
-          ((Zt = {}), (Zt[On] = Wn.white), (Zt.default = Wn.black), Zt),
-        "--WDS-systems-bubble-content-business":
+        "--WDS-surface-inverse-RGB":
+          ((Zt = {}),
+          (Zt[Wn] = Un.neutralGray100),
+          (Zt.default = Un.neutralGray800),
+          Zt),
+        "--WDS-surface-pressed":
           ((en = {}),
-          (en[On] = Bn.emerald400),
-          (en.default = Bn.blackAlpha60),
+          (en[Wn] = qn.whiteAlpha20),
+          (en.default = qn.blackAlpha20),
           en),
-        "--WDS-systems-bubble-content-business-RGB":
-          ((tn = {}), (tn[On] = Wn.emerald400), (tn.default = Wn.black), tn),
-        "--WDS-systems-bubble-content-deemphasized":
+        "--WDS-surface-pressed-RGB":
+          ((tn = {}), (tn[Wn] = Un.white), (tn.default = Un.black), tn),
+        "--WDS-systems-bubble-content-business":
           ((nn = {}),
-          (nn[On] = Bn.whiteAlpha60),
-          (nn.default = Bn.blackAlpha60),
+          (nn[Wn] = qn.emerald400),
+          (nn.default = qn.blackAlpha60),
           nn),
-        "--WDS-systems-bubble-content-deemphasized-RGB":
-          ((rn = {}), (rn[On] = Wn.white), (rn.default = Wn.black), rn),
-        "--WDS-systems-bubble-content-e2e":
+        "--WDS-systems-bubble-content-business-RGB":
+          ((rn = {}), (rn[Wn] = Un.emerald400), (rn.default = Un.black), rn),
+        "--WDS-systems-bubble-content-deemphasized":
           ((on = {}),
-          (on[On] = Bn.yellow300),
-          (on.default = Bn.blackAlpha60),
+          (on[Wn] = qn.whiteAlpha60),
+          (on.default = qn.blackAlpha60),
           on),
-        "--WDS-systems-bubble-content-e2e-RGB":
-          ((an = {}), (an[On] = Wn.yellow300), (an.default = Wn.black), an),
-        "--WDS-systems-bubble-surface-business":
+        "--WDS-systems-bubble-content-deemphasized-RGB":
+          ((an = {}), (an[Wn] = Un.white), (an.default = Un.black), an),
+        "--WDS-systems-bubble-content-e2e":
           ((ln = {}),
-          (ln[On] = Bn.neutralGray850),
-          (ln.default = Bn.emerald100),
+          (ln[Wn] = qn.yellow300),
+          (ln.default = qn.blackAlpha60),
           ln),
-        "--WDS-systems-bubble-surface-business-RGB":
-          ((sn = {}),
-          (sn[On] = Wn.neutralGray850),
-          (sn.default = Wn.emerald100),
-          sn),
-        "--WDS-systems-bubble-surface-e2e":
+        "--WDS-systems-bubble-content-e2e-RGB":
+          ((sn = {}), (sn[Wn] = Un.yellow300), (sn.default = Un.black), sn),
+        "--WDS-systems-bubble-surface-business":
           ((un = {}),
-          (un[On] = Bn.neutralGray850),
-          (un.default = Bn.yellow100),
+          (un[Wn] = qn.neutralGray850),
+          (un.default = qn.emerald100),
           un),
-        "--WDS-systems-bubble-surface-e2e-RGB":
+        "--WDS-systems-bubble-surface-business-RGB":
           ((cn = {}),
-          (cn[On] = Wn.neutralGray850),
-          (cn.default = Wn.yellow100),
+          (cn[Wn] = Un.neutralGray850),
+          (cn.default = Un.emerald100),
           cn),
-        "--WDS-systems-bubble-surface-incoming":
+        "--WDS-systems-bubble-surface-e2e":
           ((dn = {}),
-          (dn[On] = Bn.neutralGray800),
-          (dn.default = Bn.whiteOpaque),
+          (dn[Wn] = qn.neutralGray850),
+          (dn.default = qn.yellow100),
           dn),
-        "--WDS-systems-bubble-surface-incoming-RGB":
+        "--WDS-systems-bubble-surface-e2e-RGB":
           ((mn = {}),
-          (mn[On] = Wn.neutralGray800),
-          (mn.default = Wn.white),
+          (mn[Wn] = Un.neutralGray850),
+          (mn.default = Un.yellow100),
           mn),
+        "--WDS-systems-bubble-surface-incoming":
+          ((pn = {}),
+          (pn[Wn] = qn.neutralGray800),
+          (pn.default = qn.whiteOpaque),
+          pn),
+        "--WDS-systems-bubble-surface-incoming-RGB":
+          ((_n = {}),
+          (_n[Wn] = Un.neutralGray800),
+          (_n.default = Un.white),
+          _n),
         "--WDS-systems-bubble-surface-outgoing":
-          ((pn = {}), (pn[On] = Bn.green750), (pn.default = Bn.green100), pn),
+          ((fn = {}), (fn[Wn] = qn.green750), (fn.default = qn.green100), fn),
         "--WDS-systems-bubble-surface-outgoing-RGB":
-          ((_n = {}), (_n[On] = Wn.green750), (_n.default = Wn.green100), _n),
+          ((gn = {}), (gn[Wn] = Un.green750), (gn.default = Un.green100), gn),
         "--WDS-systems-bubble-surface-overlay":
-          ((fn = {}),
-          (fn[On] = Bn.blackAlpha20),
-          (fn.default = Bn.warmGray300Alpha15),
-          fn),
-        "--WDS-systems-bubble-surface-overlay-RGB":
-          ((gn = {}), (gn[On] = Wn.black), (gn.default = Wn.warmGray300), gn),
-        "--WDS-systems-bubble-surface-system":
           ((hn = {}),
-          (hn[On] = Bn.neutralGray850),
-          (hn.default = Bn.whiteAlpha90),
+          (hn[Wn] = qn.blackAlpha20),
+          (hn.default = qn.warmGray300Alpha15),
           hn),
-        "--WDS-systems-bubble-surface-system-RGB":
-          ((yn = {}),
-          (yn[On] = Wn.neutralGray850),
-          (yn.default = Wn.white),
-          yn),
-        "--WDS-systems-chat-background-wallpaper":
+        "--WDS-systems-bubble-surface-overlay-RGB":
+          ((yn = {}), (yn[Wn] = Un.black), (yn.default = Un.warmGray300), yn),
+        "--WDS-systems-bubble-surface-system":
           ((Cn = {}),
-          (Cn[On] = Bn.neutralGray900),
-          (Cn.default = Bn.cream75),
+          (Cn[Wn] = qn.neutralGray850),
+          (Cn.default = qn.whiteAlpha90),
           Cn),
-        "--WDS-systems-chat-background-wallpaper-RGB":
+        "--WDS-systems-bubble-surface-system-RGB":
           ((bn = {}),
-          (bn[On] = Wn.neutralGray900),
-          (bn.default = Wn.cream75),
+          (bn[Wn] = Un.neutralGray850),
+          (bn.default = Un.white),
           bn),
-        "--WDS-systems-chat-foreground-wallpaper":
+        "--WDS-systems-chat-background-wallpaper":
           ((vn = {}),
-          (vn[On] = Bn.whiteAlpha10),
-          (vn.default = Bn.cream150),
+          (vn[Wn] = qn.neutralGray900),
+          (vn.default = qn.cream75),
           vn),
-        "--WDS-systems-chat-foreground-wallpaper-RGB":
-          ((Sn = {}), (Sn[On] = Wn.white), (Sn.default = Wn.cream150), Sn),
-        "--WDS-systems-chat-surface-composer":
+        "--WDS-systems-chat-background-wallpaper-RGB":
+          ((Sn = {}),
+          (Sn[Wn] = Un.neutralGray900),
+          (Sn.default = Un.cream75),
+          Sn),
+        "--WDS-systems-chat-foreground-wallpaper":
           ((Rn = {}),
-          (Rn[On] = Bn.neutralGray800),
-          (Rn.default = Bn.whiteOpaque),
+          (Rn[Wn] = qn.whiteAlpha10),
+          (Rn.default = qn.cream150),
           Rn),
-        "--WDS-systems-chat-surface-composer-RGB":
-          ((Ln = {}),
-          (Ln[On] = Wn.neutralGray800),
-          (Ln.default = Wn.white),
-          Ln),
-        "--WDS-systems-chat-surface-tray":
+        "--WDS-systems-chat-foreground-wallpaper-RGB":
+          ((Ln = {}), (Ln[Wn] = Un.white), (Ln.default = Un.cream150), Ln),
+        "--WDS-systems-chat-surface-composer":
           ((En = {}),
-          (En[On] = Bn.neutralGray900),
-          (En.default = Bn.warmGray75),
+          (En[Wn] = qn.neutralGray800),
+          (En.default = qn.whiteOpaque),
           En),
-        "--WDS-systems-chat-surface-tray-RGB":
+        "--WDS-systems-chat-surface-composer-RGB":
           ((kn = {}),
-          (kn[On] = Wn.neutralGray900),
-          (kn.default = Wn.warmGray75),
+          (kn[Wn] = Un.neutralGray800),
+          (kn.default = Un.white),
           kn),
-        "--WDS-systems-status-seen":
+        "--WDS-systems-chat-surface-tray":
           ((In = {}),
-          (In[On] = Bn.neutralGray500),
-          (In.default = Bn.warmGray300),
+          (In[Wn] = qn.neutralGray900),
+          (In.default = qn.warmGray75),
           In),
-        "--WDS-systems-status-seen-RGB":
+        "--WDS-systems-chat-surface-tray-RGB":
           ((Tn = {}),
-          (Tn[On] = Wn.neutralGray500),
-          (Tn.default = Wn.warmGray300),
+          (Tn[Wn] = Un.neutralGray900),
+          (Tn.default = Un.warmGray75),
           Tn),
-        "--WDS-systems-attachment-drawing":
-          ((Dn = {}), (Dn[On] = Bn.sunset300), (Dn.default = Bn.sunset300), Dn),
-      }),
-      Gn = Object.fromEntries(
-        Object.entries(Hn).map(function (e) {
-          var t;
-          return [e[0], (t = e[1].default) != null ? t : e[1]];
-        }),
-      ),
-      zn = Object.fromEntries(
-        Object.entries(Hn).map(function (e) {
-          var t;
-          return [e[0], (t = e[1][On]) != null ? t : e[1]];
-        }),
-      ),
-      jn = babelHelpers.extends({}, Hn, {
-        "--WDS-accent":
+        "--WDS-systems-status-seen":
+          ((Dn = {}),
+          (Dn[Wn] = qn.neutralGray500),
+          (Dn.default = qn.warmGray300),
+          Dn),
+        "--WDS-systems-status-seen-RGB":
           ((xn = {}),
-          (xn[On] = Bn.neutralGray50),
-          (xn.default = Bn.warmGray900),
+          (xn[Wn] = Un.neutralGray500),
+          (xn.default = Un.warmGray300),
           xn),
-        "--WDS-accent-deemphasized":
-          (($n = {}),
-          ($n[On] = Bn.neutralGray800),
-          ($n.default = Bn.warmGray100),
-          $n),
-        "--WDS-accent-deemphasized-RGB":
-          ((Pn = {}),
-          (Pn[On] = Wn.neutralGray800),
-          (Pn.default = Wn.warmGray100),
-          Pn),
-        "--WDS-accent-emphasized":
-          ((Nn = {}),
-          (Nn[On] = Bn.neutralGray75),
-          (Nn.default = Bn.warmGray800),
-          Nn),
-        "--WDS-accent-emphasized-RGB":
-          ((Mn = {}),
-          (Mn[On] = Wn.neutralGray75),
-          (Mn.default = Wn.warmGray800),
-          Mn),
-        "--WDS-accent-RGB":
-          ((wn = {}),
-          (wn[On] = Wn.neutralGray50),
-          (wn.default = Wn.warmGray900),
-          wn),
-        "--WDS-components-filter-surface-selected":
-          ((An = {}),
-          (An[On] = Bn.neutralGray700),
-          (An.default = Bn.warmGray200),
-          An),
-        "--WDS-components-filter-surface-selected-RGB":
-          ((Fn = {}),
-          (Fn[On] = Wn.neutralGray700),
-          (Fn.default = Wn.warmGray200),
-          Fn),
+        "--WDS-systems-attachment-drawing":
+          (($n = {}), ($n[Wn] = qn.sunset300), ($n.default = qn.sunset300), $n),
       }),
-      Kn = Object.fromEntries(
-        Object.entries(jn).map(function (e) {
+      jn = Object.fromEntries(
+        Object.entries(zn).map(function (e) {
           var t;
           return [e[0], (t = e[1].default) != null ? t : e[1]];
         }),
       ),
-      Qn = Object.fromEntries(
-        Object.entries(jn).map(function (e) {
+      Kn = Object.fromEntries(
+        Object.entries(zn).map(function (e) {
           var t;
-          return [e[0], (t = e[1][On]) != null ? t : e[1]];
+          return [e[0], (t = e[1][Wn]) != null ? t : e[1]];
         }),
       ),
-      Xn = babelHelpers.extends({}, Gn, {
-        "--WDS-content-default": Bn.neutralGray1000,
-        "--WDS-content-default-RGB": Wn.neutralGray1000,
-        "--WDS-content-deemphasized": Bn.neutralGray550,
-        "--WDS-content-deemphasized-RGB": Wn.neutralGray550,
-        "--WDS-content-disabled": Bn.neutralGray300,
-        "--WDS-content-disabled-RGB": Wn.neutralGray300,
-        "--WDS-content-external-link": Bn.green600,
-        "--WDS-content-external-link-RGB": Wn.green600,
-        "--WDS-background-wash-inset": Bn.neutralGray75,
-        "--WDS-background-wash-inset-RGB": Wn.neutralGray75,
-        "--WDS-background-elevated-wash-inset": Bn.neutralGray75,
-        "--WDS-background-elevated-wash-inset-RGB": Wn.neutralGray75,
-        "--WDS-background-dimmer": Bn.blackAlpha30,
-        "--WDS-surface-emphasized": Bn.neutralGray75,
-        "--WDS-surface-emphasized-RGB": Wn.neutralGray75,
-        "--WDS-surface-elevated-emphasized": Bn.neutralGray75,
-        "--WDS-surface-elevated-emphasized-RGB": Wn.neutralGray75,
+      Qn = babelHelpers.extends({}, zn, {
+        "--WDS-accent":
+          ((Pn = {}),
+          (Pn[Wn] = qn.neutralGray50),
+          (Pn.default = qn.warmGray900),
+          Pn),
+        "--WDS-accent-deemphasized":
+          ((Nn = {}),
+          (Nn[Wn] = qn.neutralGray800),
+          (Nn.default = qn.warmGray100),
+          Nn),
+        "--WDS-accent-deemphasized-RGB":
+          ((Mn = {}),
+          (Mn[Wn] = Un.neutralGray800),
+          (Mn.default = Un.warmGray100),
+          Mn),
+        "--WDS-accent-emphasized":
+          ((wn = {}),
+          (wn[Wn] = qn.neutralGray75),
+          (wn.default = qn.warmGray800),
+          wn),
+        "--WDS-accent-emphasized-RGB":
+          ((An = {}),
+          (An[Wn] = Un.neutralGray75),
+          (An.default = Un.warmGray800),
+          An),
+        "--WDS-accent-RGB":
+          ((Fn = {}),
+          (Fn[Wn] = Un.neutralGray50),
+          (Fn.default = Un.warmGray900),
+          Fn),
+        "--WDS-components-filter-surface-selected":
+          ((On = {}),
+          (On[Wn] = qn.neutralGray700),
+          (On.default = qn.warmGray200),
+          On),
+        "--WDS-components-filter-surface-selected-RGB":
+          ((Bn = {}),
+          (Bn[Wn] = Un.neutralGray700),
+          (Bn.default = Un.warmGray200),
+          Bn),
+      }),
+      Xn = Object.fromEntries(
+        Object.entries(Qn).map(function (e) {
+          var t;
+          return [e[0], (t = e[1].default) != null ? t : e[1]];
+        }),
+      ),
+      Yn = Object.fromEntries(
+        Object.entries(Qn).map(function (e) {
+          var t;
+          return [e[0], (t = e[1][Wn]) != null ? t : e[1]];
+        }),
+      ),
+      Jn = babelHelpers.extends({}, jn, {
+        "--WDS-content-default": qn.neutralGray1000,
+        "--WDS-content-default-RGB": Un.neutralGray1000,
+        "--WDS-content-deemphasized": qn.neutralGray550,
+        "--WDS-content-deemphasized-RGB": Un.neutralGray550,
+        "--WDS-content-disabled": qn.neutralGray300,
+        "--WDS-content-disabled-RGB": Un.neutralGray300,
+        "--WDS-content-external-link": qn.green600,
+        "--WDS-content-external-link-RGB": Un.green600,
+        "--WDS-background-wash-inset": qn.neutralGray75,
+        "--WDS-background-wash-inset-RGB": Un.neutralGray75,
+        "--WDS-background-elevated-wash-inset": qn.neutralGray75,
+        "--WDS-background-elevated-wash-inset-RGB": Un.neutralGray75,
+        "--WDS-background-dimmer": qn.blackAlpha30,
+        "--WDS-surface-emphasized": qn.neutralGray75,
+        "--WDS-surface-emphasized-RGB": Un.neutralGray75,
+        "--WDS-surface-elevated-emphasized": qn.neutralGray75,
+        "--WDS-surface-elevated-emphasized-RGB": Un.neutralGray75,
         "--WDS-surface-inverse": "#1F1F1F",
         "--WDS-surface-inverse-RGB": "31, 31, 31",
-        "--WDS-surface-pressed": Bn.blackAlpha20,
-        "--WDS-surface-pressed-RGB": Wn.black,
-        "--WDS-lines-divider": Bn.blackAlpha20,
-        "--WDS-lines-divider-RGB": Wn.black,
-        "--WDS-lines-outline-default": Bn.neutralGray400,
-        "--WDS-lines-outline-default-RGB": Wn.neutralGray400,
-        "--WDS-lines-outline-deemphasized": Bn.blackAlpha20,
-        "--WDS-lines-outline-deemphasized-RGB": Wn.black,
-        "--WDS-persistent-always-black": Bn.neutralGray1000,
-        "--WDS-persistent-always-black-RGB": Wn.neutralGray1000,
+        "--WDS-surface-pressed": qn.blackAlpha20,
+        "--WDS-surface-pressed-RGB": Un.black,
+        "--WDS-lines-divider": qn.blackAlpha20,
+        "--WDS-lines-divider-RGB": Un.black,
+        "--WDS-lines-outline-default": qn.neutralGray400,
+        "--WDS-lines-outline-default-RGB": Un.neutralGray400,
+        "--WDS-lines-outline-deemphasized": qn.blackAlpha20,
+        "--WDS-lines-outline-deemphasized-RGB": Un.black,
+        "--WDS-persistent-always-black": qn.neutralGray1000,
+        "--WDS-persistent-always-black-RGB": Un.neutralGray1000,
       }),
-      Yn = babelHelpers.extends({}, zn, {
-        "--WDS-content-default": Bn.neutralGray50,
-        "--WDS-content-default-RGB": Wn.neutralGray50,
-        "--WDS-content-deemphasized": Bn.neutralGray400,
-        "--WDS-content-deemphasized-RGB": Wn.neutralGray400,
-        "--WDS-content-disabled": Bn.neutralGray700,
-        "--WDS-content-disabled-RGB": Wn.neutralGray700,
-        "--WDS-content-external-link": Bn.green450,
-        "--WDS-content-external-link-RGB": Wn.green450,
-        "--WDS-background-wash-plain": Bn.neutralGray1000,
-        "--WDS-background-wash-plain-RGB": Wn.neutralGray1000,
-        "--WDS-background-wash-inset": Bn.neutralGray1000,
-        "--WDS-background-wash-inset-RGB": Wn.neutralGray1000,
-        "--WDS-background-elevated-wash-plain": Bn.neutralGray900,
-        "--WDS-background-elevated-wash-plain-RGB": Wn.neutralGray900,
-        "--WDS-background-elevated-wash-inset": Bn.neutralGray900,
-        "--WDS-background-elevated-wash-inset-RGB": Wn.neutralGray900,
-        "--WDS-background-dimmer": Bn.blackAlpha40,
-        "--WDS-surface-default": Bn.neutralGray900,
-        "--WDS-surface-default-RGB": Wn.neutralGray900,
-        "--WDS-surface-emphasized": Bn.neutralGray800,
-        "--WDS-surface-emphasized-RGB": Wn.neutralGray800,
-        "--WDS-surface-elevated-default": Bn.neutralGray800,
-        "--WDS-surface-elevated-default-RGB": Wn.neutralGray800,
-        "--WDS-surface-elevated-emphasized": Bn.neutralGray700,
-        "--WDS-surface-elevated-emphasized-RGB": Wn.neutralGray700,
+      Zn = babelHelpers.extends({}, Kn, {
+        "--WDS-content-default": qn.neutralGray50,
+        "--WDS-content-default-RGB": Un.neutralGray50,
+        "--WDS-content-deemphasized": qn.neutralGray400,
+        "--WDS-content-deemphasized-RGB": Un.neutralGray400,
+        "--WDS-content-disabled": qn.neutralGray700,
+        "--WDS-content-disabled-RGB": Un.neutralGray700,
+        "--WDS-content-external-link": qn.green450,
+        "--WDS-content-external-link-RGB": Un.green450,
+        "--WDS-background-wash-plain": qn.neutralGray1000,
+        "--WDS-background-wash-plain-RGB": Un.neutralGray1000,
+        "--WDS-background-wash-inset": qn.neutralGray1000,
+        "--WDS-background-wash-inset-RGB": Un.neutralGray1000,
+        "--WDS-background-elevated-wash-plain": qn.neutralGray900,
+        "--WDS-background-elevated-wash-plain-RGB": Un.neutralGray900,
+        "--WDS-background-elevated-wash-inset": qn.neutralGray900,
+        "--WDS-background-elevated-wash-inset-RGB": Un.neutralGray900,
+        "--WDS-background-dimmer": qn.blackAlpha40,
+        "--WDS-surface-default": qn.neutralGray900,
+        "--WDS-surface-default-RGB": Un.neutralGray900,
+        "--WDS-surface-emphasized": qn.neutralGray800,
+        "--WDS-surface-emphasized-RGB": Un.neutralGray800,
+        "--WDS-surface-elevated-default": qn.neutralGray800,
+        "--WDS-surface-elevated-default-RGB": Un.neutralGray800,
+        "--WDS-surface-elevated-emphasized": qn.neutralGray700,
+        "--WDS-surface-elevated-emphasized-RGB": Un.neutralGray700,
         "--WDS-surface-inverse": "#F4F4F4",
         "--WDS-surface-inverse-RGB": "244, 244, 244",
-        "--WDS-surface-pressed": Bn.whiteAlpha20,
-        "--WDS-persistent-always-black": Bn.neutralGray1000,
-        "--WDS-persistent-always-black-RGB": Wn.neutralGray1000,
+        "--WDS-surface-pressed": qn.whiteAlpha20,
+        "--WDS-persistent-always-black": qn.neutralGray1000,
+        "--WDS-persistent-always-black-RGB": Un.neutralGray1000,
       }),
-      Jn = babelHelpers.extends({}, Gn, {
-        "--WDS-content-action-default": Bn.coolGray1000,
-        "--WDS-content-action-default-RGB": Wn.coolGray1000,
-        "--WDS-content-default": Bn.coolGray1000,
-        "--WDS-content-default-RGB": Wn.coolGray1000,
-        "--WDS-content-deemphasized": Bn.coolGray600,
-        "--WDS-content-deemphasized-RGB": Wn.coolGray600,
-        "--WDS-content-disabled": Bn.coolGray300,
-        "--WDS-content-disabled-RGB": Wn.coolGray300,
-        "--WDS-content-external-link": Bn.cobalt500,
-        "--WDS-content-external-link-RGB": Wn.cobalt500,
-        "--WDS-surface-inverse": Bn.coolGray800,
-        "--WDS-surface-inverse-RGB": Wn.coolGray800,
-        "--WDS-surface-pressed": Bn.coolGrayAlpha20,
-        "--WDS-surface-pressed-RGB": Wn.coolGrayBase,
-        "--WDS-lines-divider": Bn.coolGrayAlpha10,
-        "--WDS-lines-divider-RGB": Wn.coolGrayBase,
-        "--WDS-lines-outline-default": Bn.coolGray400,
-        "--WDS-lines-outline-default-RGB": Wn.coolGray400,
-        "--WDS-lines-outline-deemphasized": Bn.coolGrayAlpha20,
-        "--WDS-lines-outline-deemphasized-RGB": Wn.coolGrayBase,
-        "--WDS-persistent-always-black": Bn.coolGray1000,
-        "--WDS-persistent-always-black-RGB": Wn.coolGray1000,
+      er = babelHelpers.extends({}, jn, {
+        "--WDS-content-action-default": qn.coolGray1000,
+        "--WDS-content-action-default-RGB": Un.coolGray1000,
+        "--WDS-content-default": qn.coolGray1000,
+        "--WDS-content-default-RGB": Un.coolGray1000,
+        "--WDS-content-deemphasized": qn.coolGray600,
+        "--WDS-content-deemphasized-RGB": Un.coolGray600,
+        "--WDS-content-disabled": qn.coolGray300,
+        "--WDS-content-disabled-RGB": Un.coolGray300,
+        "--WDS-content-external-link": qn.cobalt500,
+        "--WDS-content-external-link-RGB": Un.cobalt500,
+        "--WDS-surface-inverse": qn.coolGray800,
+        "--WDS-surface-inverse-RGB": Un.coolGray800,
+        "--WDS-surface-pressed": qn.coolGrayAlpha20,
+        "--WDS-surface-pressed-RGB": Un.coolGrayBase,
+        "--WDS-lines-divider": qn.coolGrayAlpha10,
+        "--WDS-lines-divider-RGB": Un.coolGrayBase,
+        "--WDS-lines-outline-default": qn.coolGray400,
+        "--WDS-lines-outline-default-RGB": Un.coolGray400,
+        "--WDS-lines-outline-deemphasized": qn.coolGrayAlpha20,
+        "--WDS-lines-outline-deemphasized-RGB": Un.coolGrayBase,
+        "--WDS-persistent-always-black": qn.coolGray1000,
+        "--WDS-persistent-always-black-RGB": Un.coolGray1000,
       }),
-      Zn = babelHelpers.extends({}, zn, {
-        "--WDS-content-action-default": Bn.coolGray50,
-        "--WDS-content-action-default-RGB": Wn.coolGray50,
-        "--WDS-content-default": Bn.coolGray50,
-        "--WDS-content-default-RGB": Wn.coolGray50,
-        "--WDS-content-deemphasized": Bn.coolGray400,
-        "--WDS-content-deemphasized-RGB": Wn.coolGray400,
-        "--WDS-content-disabled": Bn.coolGray700,
-        "--WDS-content-disabled-RGB": Wn.coolGray700,
-        "--WDS-content-external-link": Bn.skyBlue300,
-        "--WDS-content-external-link-RGB": Wn.skyBlue300,
-        "--WDS-content-inverse": Bn.coolGray1000,
-        "--WDS-content-inverse-RGB": Wn.coolGray1000,
-        "--WDS-content-on-accent": Bn.coolGray1000,
-        "--WDS-content-on-accent-RGB": Wn.coolGray1000,
-        "--WDS-background-wash-plain": Bn.coolGray1000,
-        "--WDS-background-wash-plain-RGB": Wn.coolGray1000,
-        "--WDS-background-wash-inset": Bn.coolGray1000,
-        "--WDS-background-wash-inset-RGB": Wn.coolGray1000,
-        "--WDS-background-elevated-wash-plain": Bn.coolGray900,
-        "--WDS-background-elevated-wash-plain-RGB": Wn.coolGray900,
-        "--WDS-background-elevated-wash-inset": Bn.coolGray900,
-        "--WDS-background-elevated-wash-inset-RGB": Wn.coolGray900,
-        "--WDS-surface-default": Bn.coolGray1000,
-        "--WDS-surface-default-RGB": Wn.coolGray1000,
-        "--WDS-surface-emphasized": Bn.coolGray900,
-        "--WDS-surface-emphasized-RGB": Wn.coolGray900,
-        "--WDS-surface-elevated-default": Bn.coolGray900,
-        "--WDS-surface-elevated-default-RGB": Wn.coolGray900,
-        "--WDS-surface-elevated-emphasized": Bn.coolGray800,
-        "--WDS-surface-elevated-emphasized-RGB": Wn.coolGray800,
-        "--WDS-surface-inverse": Bn.coolGray100,
-        "--WDS-surface-inverse-RGB": Wn.coolGray100,
-        "--WDS-surface-pressed": Bn.whiteAlpha20,
-        "--WDS-lines-outline-default": Bn.coolGray500,
-        "--WDS-lines-outline-default-RGB": Wn.coolGray500,
-        "--WDS-persistent-always-black": Bn.coolGray1000,
-        "--WDS-persistent-always-black-RGB": Wn.coolGray1000,
+      tr = babelHelpers.extends({}, Kn, {
+        "--WDS-content-action-default": qn.coolGray50,
+        "--WDS-content-action-default-RGB": Un.coolGray50,
+        "--WDS-content-default": qn.coolGray50,
+        "--WDS-content-default-RGB": Un.coolGray50,
+        "--WDS-content-deemphasized": qn.coolGray400,
+        "--WDS-content-deemphasized-RGB": Un.coolGray400,
+        "--WDS-content-disabled": qn.coolGray700,
+        "--WDS-content-disabled-RGB": Un.coolGray700,
+        "--WDS-content-external-link": qn.skyBlue300,
+        "--WDS-content-external-link-RGB": Un.skyBlue300,
+        "--WDS-content-inverse": qn.coolGray1000,
+        "--WDS-content-inverse-RGB": Un.coolGray1000,
+        "--WDS-content-on-accent": qn.coolGray1000,
+        "--WDS-content-on-accent-RGB": Un.coolGray1000,
+        "--WDS-background-wash-plain": qn.coolGray1000,
+        "--WDS-background-wash-plain-RGB": Un.coolGray1000,
+        "--WDS-background-wash-inset": qn.coolGray1000,
+        "--WDS-background-wash-inset-RGB": Un.coolGray1000,
+        "--WDS-background-elevated-wash-plain": qn.coolGray900,
+        "--WDS-background-elevated-wash-plain-RGB": Un.coolGray900,
+        "--WDS-background-elevated-wash-inset": qn.coolGray900,
+        "--WDS-background-elevated-wash-inset-RGB": Un.coolGray900,
+        "--WDS-surface-default": qn.coolGray1000,
+        "--WDS-surface-default-RGB": Un.coolGray1000,
+        "--WDS-surface-emphasized": qn.coolGray900,
+        "--WDS-surface-emphasized-RGB": Un.coolGray900,
+        "--WDS-surface-elevated-default": qn.coolGray900,
+        "--WDS-surface-elevated-default-RGB": Un.coolGray900,
+        "--WDS-surface-elevated-emphasized": qn.coolGray800,
+        "--WDS-surface-elevated-emphasized-RGB": Un.coolGray800,
+        "--WDS-surface-inverse": qn.coolGray100,
+        "--WDS-surface-inverse-RGB": Un.coolGray100,
+        "--WDS-surface-pressed": qn.whiteAlpha20,
+        "--WDS-lines-outline-default": qn.coolGray500,
+        "--WDS-lines-outline-default-RGB": Un.coolGray500,
+        "--WDS-persistent-always-black": qn.coolGray1000,
+        "--WDS-persistent-always-black-RGB": Un.coolGray1000,
       }),
-      er = { xoeyzqq: "xfmqtgv xoeyzqq", $$css: !0 },
-      tr = { xoeyzqq: "xodxds6 xoeyzqq", $$css: !0 },
-      nr = { xoeyzqq: "x1umy8rd xoeyzqq", $$css: !0 },
-      rr = { xoeyzqq: "x1tkf7af xoeyzqq", $$css: !0 },
-      or = { xoeyzqq: "x1aj9qoi xoeyzqq", $$css: !0 },
-      ar = { xoeyzqq: "x4skxjj xoeyzqq", $$css: !0 },
-      ir = { xoeyzqq: "xm7eazi xoeyzqq", $$css: !0 },
-      lr = { xoeyzqq: "xhtg2ui xoeyzqq", $$css: !0 },
-      sr = { xoeyzqq: "xuxuz6f xoeyzqq", $$css: !0 },
-      ur = { xoeyzqq: "x1w9d4se xoeyzqq", $$css: !0 };
-    ((l.WDSSystemTheme = er),
-      (l.WDSLightTheme = tr),
-      (l.WDSDarkTheme = nr),
-      (l.WDSSMBSystemTheme = rr),
-      (l.WDSSMBLightTheme = or),
-      (l.WDSSMBDarkTheme = ar),
-      (l.WDSLightThemeIOS = ir),
-      (l.WDSDarkThemeIOS = lr),
-      (l.WDSLightThemeAndroid = sr),
-      (l.WDSDarkThemeAndroid = ur));
+      nr = { xoeyzqq: "x1yxlj09 xoeyzqq", $$css: !0 },
+      rr = { xoeyzqq: "x15xz1xp xoeyzqq", $$css: !0 },
+      or = { xoeyzqq: "xq05bh1 xoeyzqq", $$css: !0 },
+      ar = { xoeyzqq: "x1dx89h7 xoeyzqq", $$css: !0 },
+      ir = { xoeyzqq: "x1d8tuuk xoeyzqq", $$css: !0 },
+      lr = { xoeyzqq: "x1i218jw xoeyzqq", $$css: !0 },
+      sr = { xoeyzqq: "xd075p6 xoeyzqq", $$css: !0 },
+      ur = { xoeyzqq: "x1mikxdh xoeyzqq", $$css: !0 },
+      cr = { xoeyzqq: "xml0c52 xoeyzqq", $$css: !0 },
+      dr = { xoeyzqq: "x1cxpbrq xoeyzqq", $$css: !0 };
+    ((l.WDSSystemTheme = nr),
+      (l.WDSLightTheme = rr),
+      (l.WDSDarkTheme = or),
+      (l.WDSSMBSystemTheme = ar),
+      (l.WDSSMBLightTheme = ir),
+      (l.WDSSMBDarkTheme = lr),
+      (l.WDSLightThemeIOS = sr),
+      (l.WDSDarkThemeIOS = ur),
+      (l.WDSLightThemeAndroid = cr),
+      (l.WDSDarkThemeAndroid = dr));
   },
   98,
 );

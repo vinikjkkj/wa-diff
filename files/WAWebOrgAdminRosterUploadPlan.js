@@ -36,70 +36,65 @@ __d(
         r = e.getMemberTag,
         o = e.roster,
         a = e.table,
-        i = L(o),
+        i = E(o),
         l = new Set(),
-        s = new Set(),
-        u = t.includes("member_tag"),
-        c = a.rows.map(function (e) {
-          var o = b(e, t, n.get(e.rowNumber), r),
-            a = y(o),
-            c = E(i, o.email, o.phone),
-            d = k(o.email, o.phone),
-            m =
-              d.some(function (e) {
-                return l.has(e);
-              }) ||
-              (c != null && s.has(c));
+        s = t.includes("member_tag"),
+        u = a.rows.map(function (e) {
+          var o,
+            a = n.get(e.rowNumber),
+            u = v(e, t, a, r),
+            c = C(u),
+            d = u.email == null ? null : k(u.email),
+            m = d == null ? null : (o = i.get(d)) != null ? o : null,
+            p = d != null && l.has(d);
           return (
-            a.length === 0 &&
-              !m &&
-              (d.forEach(function (e) {
-                return l.add(e);
-              }),
-              c != null && s.add(c)),
-            h({
-              cells: o,
-              index: i,
-              match: c,
-              missing: a,
-              repeated: m,
+            c.length === 0 && d != null && !p && l.add(d),
+            y({
+              cells: u,
+              fixed: a != null,
+              match: m,
+              missing: c,
+              repeated: p,
               row: e,
-              tagColumnMapped: u,
+              tagColumnMapped: s,
             })
           );
         });
       return {
-        added: c.filter(function (e) {
+        added: u.filter(function (e) {
           return e.status === "added";
         }),
-        incomplete: c.filter(function (e) {
+        incomplete: u.filter(function (e) {
           return e.status === "incomplete";
         }),
-        repeated: c.filter(function (e) {
+        repeated: u.filter(function (e) {
           return e.status === "repeated";
         }),
-        rows: c,
-        unchanged: c.filter(function (e) {
+        rows: u,
+        unchanged: u.filter(function (e) {
           return e.status === "unchanged";
         }),
-        unnamed: c.filter(function (e) {
+        unnamed: u.filter(function (e) {
           return e.status === "unnamed";
         }),
-        updated: c.filter(function (e) {
+        updated: u.filter(function (e) {
           return e.status === "updated";
         }),
       };
     }
-    function f(e, t) {
-      var n = new Map();
-      for (var r of [].concat(e.updated, e.unchanged))
-        r.match != null && n.set(r.match.id, r);
+    function f(e, t, n) {
+      var r = new Map();
+      for (var o of [].concat(e.updated, e.unchanged))
+        o.match != null && r.set(o.match.id, o);
+      var a = new Set(n);
       return [].concat(
-        t.map(function (e) {
-          var t = n.get(e.id);
-          return t == null
-            ? { entry: $(e), rowNumber: null }
-            : { entry: t.entry, rowNumber: t.rowNumber };
+        t.flatMap(function (e) {
+          var t = r.get(e.id);
+          return t != null
+            ? [{ entry: t.entry, rowNumber: t.rowNumber }]
+            : a.has(e)
+              ? []
+              : [{ entry: x(e), rowNumber: null }];
         }),
         e.added.map(function (e) {
           var t = e.entry,
@@ -108,10 +103,32 @@ __d(
         }),
       );
     }
-    function g(t) {
+    function g(e, t) {
+      var n = new Set(
+          e.rows.flatMap(function (e) {
+            var t = e.match;
+            return t == null ? [] : [t.id];
+          }),
+        ),
+        r =
+          n.size === 0
+            ? []
+            : t.filter(function (e) {
+                return !n.has(e.id);
+              });
+      return {
+        joined: r.filter(function (e) {
+          return e.memberLID != null;
+        }),
+        removed: r.filter(function (e) {
+          return e.memberLID == null;
+        }),
+      };
+    }
+    function h(t) {
       return e.filter(function (e) {
         return e === "name"
-          ? t.name != null && !T(t.name.trim())
+          ? t.name != null && !I(t.name.trim())
           : e === "email"
             ? t.email != null &&
               !o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
@@ -130,34 +147,35 @@ __d(
                 })();
       });
     }
-    function h(e) {
+    function y(e) {
       var t = e.cells,
-        n = e.index,
+        n = e.fixed,
         r = e.match,
         o = e.missing,
         a = e.repeated,
         i = e.row,
         l = e.tagColumnMapped,
-        s = r == null ? x(t) : v(r, t, n, l),
-        u = r == null ? [] : S(r, s);
+        s = r == null ? D(t) : S(r, t, l),
+        u = r == null ? [] : R(r, s);
       return {
         cells: i.cells,
         changes: u,
         emailText: t.emailText,
         entry: s,
+        fixed: n,
         match: r,
         memberTag: t.memberTag,
         missing: o,
         name: t.name,
         phoneText: t.phoneText,
         rowNumber: i.rowNumber,
-        status: C(o, a, r, u),
+        status: b(o, a, r, u),
       };
     }
-    function y(t) {
+    function C(t) {
       return e.filter(function (e) {
         return e === "name"
-          ? !T(t.name)
+          ? !I(t.name)
           : e === "email"
             ? t.email == null
             : e === "phone"
@@ -170,7 +188,7 @@ __d(
                 })();
       });
     }
-    function C(e, t, n, r) {
+    function b(e, t, n, r) {
       return e.includes("email") || e.includes("phone")
         ? "incomplete"
         : e.includes("name")
@@ -183,7 +201,7 @@ __d(
                 ? "updated"
                 : "unchanged";
     }
-    function b(e, t, n, r) {
+    function v(e, t, n, r) {
       var a,
         i,
         l,
@@ -215,17 +233,16 @@ __d(
         phoneText: c,
       };
     }
-    function v(e, t, n, r) {
-      var o = t.email == null ? null : n.byEmail.get(I(t.email)),
-        a = t.phone == null ? null : n.byPhone.get(t.phone);
+    function S(e, t, n) {
+      var r;
       return {
-        emailAddress: t.email == null || o != null ? e.emailAddress : t.email,
-        memberTag: r ? t.memberTag : e.memberTag,
+        emailAddress: e.emailAddress,
+        memberTag: n ? t.memberTag : e.memberTag,
         name: t.name,
-        phoneNumber: t.phone == null || a != null ? e.phoneNumber : t.phone,
+        phoneNumber: (r = t.phone) != null ? r : e.phoneNumber,
       };
     }
-    function S(e, t) {
+    function R(e, t) {
       var n,
         r,
         a = [];
@@ -233,8 +250,7 @@ __d(
         t.name !== e.name && a.push("name"),
         ((n = t.memberTag) != null ? n : null) !==
           ((r = e.memberTag) != null ? r : null) && a.push("member_tag"),
-        R(t.emailAddress, e.emailAddress, I) || a.push("email"),
-        R(
+        L(
           t.phoneNumber,
           e.phoneNumber,
           o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber,
@@ -242,49 +258,25 @@ __d(
         a
       );
     }
-    function R(e, t, n) {
+    function L(e, t, n) {
       return (e == null ? null : n(e)) === (t == null ? null : n(t));
     }
-    function L(e) {
-      var t = new Map(),
-        n = new Map();
-      for (var r of e) {
-        var a = r.emailAddress;
-        a != null && !t.has(I(a)) && t.set(I(a), r);
-        var i = o(
-          "WAWebOrgAdminGroupCandidate",
-        ).normalizeOrgAdminRosterPhoneNumber(r.phoneNumber);
-        i != null && !n.has(i) && n.set(i, r);
+    function E(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = n.emailAddress;
+        r != null && !t.has(k(r)) && t.set(k(r), n);
       }
-      return { byEmail: t, byPhone: n };
+      return t;
     }
-    function E(e, t, n) {
-      var r, o;
-      return (r =
-        (o = t == null ? null : e.byEmail.get(I(t))) != null
-          ? o
-          : n == null
-            ? null
-            : e.byPhone.get(n)) != null
-        ? r
-        : null;
-    }
-    function k(e, t) {
-      var n = [];
-      return (
-        e != null && n.push("email:" + I(e)),
-        t != null && n.push("phone:" + t),
-        n
-      );
-    }
-    function I(e) {
+    function k(e) {
       return e.trim().toLowerCase();
     }
-    function T(e) {
+    function I(e) {
       var t = e.normalize("NFC");
-      return t !== "" && D(t) <= s && !c.test(t.replace(u, ""));
+      return t !== "" && T(t) <= s && !c.test(t.replace(u, ""));
     }
-    function D(e) {
+    function T(e) {
       var t = 0;
       for (var n of Array.from(e)) {
         var r,
@@ -299,7 +291,7 @@ __d(
       }
       return t;
     }
-    function x(e) {
+    function D(e) {
       return {
         emailAddress: e.email,
         memberTag: e.memberTag,
@@ -307,7 +299,7 @@ __d(
         phoneNumber: e.phone,
       };
     }
-    function $(e) {
+    function x(e) {
       return {
         emailAddress: e.emailAddress,
         memberTag: e.memberTag,
@@ -320,7 +312,8 @@ __d(
       (l.getOrgAdminRosterUploadMissingFields = p),
       (l.buildOrgAdminRosterUploadPlan = _),
       (l.getOrgAdminRosterUploadReplacement = f),
-      (l.getOrgAdminRosterUploadFixErrors = g));
+      (l.getOrgAdminRosterUploadPeopleNotInFile = g),
+      (l.getOrgAdminRosterUploadFixErrors = h));
   },
   98,
 );

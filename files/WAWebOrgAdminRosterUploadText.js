@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebOrgAdminGroupCandidate",
     "WAWebOrgAdminMemberTagOptions",
+    "WAWebOrgAdminRosterCSVParser",
     "WAWebOrgAdminRosterUploadRequest",
     "WAWebPhoneUtils",
     "intlNumUtils",
@@ -21,64 +22,68 @@ __d(
               ])
               .toString()
           : null,
-        e.emailText === "" ? s._(/*BTDS*/ "no email").toString() : e.emailText,
-        e.phoneText === ""
-          ? s._(/*BTDS*/ "no phone").toString()
-          : p(e.phoneText),
+        e.emailText,
+        _(e.phoneText),
         e.memberTag,
       ]
         .filter(Boolean)
         .join(" \xB7 ");
     }
     function u(e) {
-      var t = e.unnamed.length + e.repeated.length;
       return [
-        e.incomplete.length > 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"{number} rows missing an email or phone won\'t be added","_1":"1 row missing an email or phone won\'t be added"}',
-              [s._plural(e.incomplete.length, "number")],
-            )
-          : null,
-        t > 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"{number} rows will be left out","_1":"1 row will be left out"}',
-              [s._plural(t, "number")],
-            )
-          : null,
-        e.incomplete.length + t === 0
-          ? s._(/*BTDS*/ "Every row is ready")
-          : null,
-        e.added.length > 0
-          ? s._(/*BTDS*/ '_j{"*":"{number} new","_1":"1 new"}', [
-              s._plural(e.added.length, "number"),
+        e.added > 0
+          ? s._(/*BTDS*/ '_j{"*":"Adding {number of new people}"}', [
+              s._param("number of new people", e.added, [0]),
             ])
           : null,
-        e.updated.length > 0
-          ? s._(/*BTDS*/ '_j{"*":"{number} updated","_1":"1 updated"}', [
-              s._plural(e.updated.length, "number"),
+        e.removed > 0
+          ? s._(/*BTDS*/ '_j{"*":"Removing {number of people removed}"}', [
+              s._param("number of people removed", e.removed, [0]),
             ])
+          : null,
+        e.updated > 0
+          ? s._(/*BTDS*/ '_j{"*":"Updating {number of people updated}"}', [
+              s._param("number of people updated", e.updated, [0]),
+            ])
+          : null,
+        e.notImported > 0
+          ? s._(
+              /*BTDS*/ '_j{"*":"{number} rows not imported","_1":"1 row not imported"}',
+              [s._plural(e.notImported, "number")],
+            )
           : null,
       ]
         .filter(Boolean)
         .map(function (e) {
           return e.toString();
         })
-        .join(" \xB7 ");
+        .join(" \u2022 ");
     }
     function c(e) {
-      return e > 0
-        ? s
-            ._(
-              /*BTDS*/ '_j{"*":"{number} organization invites go out","_1":"1 organization invite goes out"}',
-              [s._plural(e, "number")],
-            )
-            .toString()
-        : s._(/*BTDS*/ "No invites go out").toString();
+      return e.removed + e.updated > 0
+        ? u(e)
+        : e.added > 0
+          ? null
+          : s._(/*BTDS*/ "Nothing new in this file").toString();
     }
-    function d(e) {
+    function d(e, t) {
+      return e === 0
+        ? null
+        : t > 0
+          ? s
+              ._(
+                /*BTDS*/ '_j{"*":"Confirm to send {number} invites.","_1":"Confirm to send 1 invite."}',
+                [s._plural(t, "number")],
+              )
+              .toString()
+          : s
+              ._(/*BTDS*/ "Confirming will not send anything to members.")
+              .toString();
+    }
+    function m(e) {
       return e.blocker === "roster_unavailable"
         ? s._(
-            /*BTDS*/ "This organization's people didn't load, so it can't take an upload right now. Close Upload CSV and try again.",
+            /*BTDS*/ "This organization's people didn't load, so it can't take an upload right now. Close Add people and try again.",
           )
         : e.blocker === "roster_truncated"
           ? s._(
@@ -86,9 +91,10 @@ __d(
               [
                 s._param(
                   "maximum people",
-                  r("intlNumUtils").formatNumber(
-                    o("WAWebOrgAdminRosterUploadRequest")
-                      .MAX_ORG_ADMIN_ROSTER_REPLACE_ENTRIES,
+                  r("intlNumUtils").formatNumberWithThousandDelimiters(
+                    o("WAWebOrgAdminRosterCSVParser")
+                      .MAX_ORG_ADMIN_ROSTER_DISPLAY_ROWS,
+                    0,
                   ),
                 ),
               ],
@@ -99,14 +105,18 @@ __d(
                 [
                   s._param(
                     "maximum people",
-                    r("intlNumUtils").formatNumber(
+                    r("intlNumUtils").formatNumberWithThousandDelimiters(
                       o("WAWebOrgAdminRosterUploadRequest")
                         .MAX_ORG_ADMIN_ROSTER_REPLACE_ENTRIES,
+                      0,
                     ),
                   ),
                   s._param(
                     "number of people",
-                    r("intlNumUtils").formatNumber(e.request.entries.length),
+                    r("intlNumUtils").formatNumberWithThousandDelimiters(
+                      e.rosterCount,
+                      0,
+                    ),
                   ),
                 ],
               )
@@ -136,29 +146,28 @@ __d(
                     );
                   })();
     }
-    function m(e, t, n) {
+    function p(e, t) {
       return [
-        e.added.length > 0
+        e.added > 0
           ? s._(
               /*BTDS*/ '_j{"*":"{number} people added","_1":"1 person added"}',
-              [s._plural(e.added.length, "number")],
+              [s._plural(e.added, "number")],
             )
           : null,
-        e.updated.length > 0
+        e.updated > 0
           ? s._(/*BTDS*/ '_j{"*":"{number} updated","_1":"1 updated"}', [
-              s._plural(e.updated.length, "number"),
+              s._plural(e.updated, "number"),
+            ])
+          : null,
+        e.removed > 0
+          ? s._(/*BTDS*/ '_j{"*":"{number of people removed} removed"}', [
+              s._param("number of people removed", e.removed, [0]),
             ])
           : null,
         t > 0
           ? s._(
-              /*BTDS*/ '_j{"*":"{number} invites sent","_1":"1 invite sent"}',
+              /*BTDS*/ '_j{"*":"{number} invites didn\'t go out; resend from People","_1":"1 invite didn\'t go out; resend from People"}',
               [s._plural(t, "number")],
-            )
-          : null,
-        n > 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"{number} invites didn\'t go out; resend from Invite members","_1":"1 invite didn\'t go out; resend from Invite members"}',
-              [s._plural(n, "number")],
             )
           : null,
       ]
@@ -168,18 +177,19 @@ __d(
         })
         .join(" \xB7 ");
     }
-    function p(e) {
+    function _(e) {
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).normalizeOrgAdminRosterPhoneNumber(e);
       return t == null ? e : o("WAWebPhoneUtils").formatPhone(t);
     }
     ((l.getOrgAdminRosterUploadRowDetail = e),
-      (l.getOrgAdminRosterUploadReviewFootnote = u),
-      (l.getOrgAdminRosterUploadInviteFootnote = c),
-      (l.getOrgAdminRosterUploadBlockerMessage = d),
-      (l.getOrgAdminRosterUploadSuccessMessage = m),
-      (l.formatOrgAdminRosterUploadPhone = p));
+      (l.getOrgAdminRosterUploadSummary = u),
+      (l.getOrgAdminRosterUploadReviewFootnote = c),
+      (l.getOrgAdminRosterUploadInviteFootnote = d),
+      (l.getOrgAdminRosterUploadBlockerMessage = m),
+      (l.getOrgAdminRosterUploadSuccessMessage = p),
+      (l.formatOrgAdminRosterUploadPhone = _));
   },
   226,
 );

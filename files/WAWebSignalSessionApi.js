@@ -2,7 +2,6 @@ __d(
   "WAWebSignalSessionApi",
   [
     "Promise",
-    "WABinary",
     "WAJids",
     "WALogger",
     "WAWebAdvSignatureApi",
@@ -89,7 +88,7 @@ __d(
           var p, _, f;
           try {
             p = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-              new (o("WABinary").Binary)(t.identity).readBuffer(),
+              t.identity.slice().buffer,
             );
           } catch (e) {
             throw (
@@ -108,7 +107,7 @@ __d(
           }
           try {
             _ = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-              new (o("WABinary").Binary)(t.skey.pubkey).readBuffer(),
+              t.skey.pubkey.slice().buffer,
             );
           } catch (e) {
             throw (
@@ -128,7 +127,7 @@ __d(
           if (t.key)
             try {
               f = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-                new (o("WABinary").Binary)(t.key.pubkey).readBuffer(),
+                t.key.pubkey.slice().buffer,
               );
             } catch (e) {
               o("WALogger")
@@ -148,9 +147,7 @@ __d(
             signedPreKey: {
               keyId: t.skey.id,
               publicKey: _,
-              signature: new (o("WABinary").Binary)(
-                t.skey.signature,
-              ).readBuffer(),
+              signature: t.skey.signature.slice().buffer,
             },
           };
           t.key && f && (g.preKey = { keyId: t.key.id, publicKey: f });

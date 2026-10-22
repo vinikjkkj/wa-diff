@@ -108,7 +108,7 @@ __d(
                       o("WAWebViewMode.flow").ViewModeType
                         .CALL_LOG_AD_HOC_GROUP_CALL
                       ? o("WAWebCommonMsgUtils").EventType.IGNORE
-                      : d(e))
+                      : m(e))
                 : e.broadcast === !0
                   ? r("WAWebWid").isBroadcast(e.id.remote)
                     ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
@@ -144,30 +144,41 @@ __d(
                                   ).isSilentProtocolMsg(e))) ||
                               t === o("WAWebMsgType").MSG_TYPE.REACTION
                             ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-                            : (a = m(e)),
+                            : (a = p(e)),
         a
       );
     }
     function d(e) {
+      return (
+        e.type === o("WAWebMsgType").MSG_TYPE.GP2 &&
+        e.id.remote.isGroup() &&
+        c(e) !== o("WAWebCommonMsgUtils").EventType.IGNORE &&
+        o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+          o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+          e.viewMode,
+        )
+      );
+    }
+    function m(e) {
       return o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
         e.viewMode,
       )
         ? o("WAWebCommonMsgUtils").EventType.AMBIENT
         : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
     }
-    function m(e) {
+    function p(e) {
       return o(
         "WAWebBrazilPaymentStateUpdatePayload",
       ).isBrazilPaymentStateUpdateMsg(e) && r("justknobx")._("6395")
         ? o("WAWebCommonMsgUtils").EventType.IGNORE
         : o("WAWebCommonMsgUtils").EventType.DEFAULT;
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i = t.id,
             l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
@@ -244,10 +255,12 @@ __d(
             }
           );
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.eventTypeFromMsgType = c), (l.genOutgoingMsgData = p));
+    ((l.eventTypeFromMsgType = c),
+      (l.isChatOrderingGroupEvent = d),
+      (l.genOutgoingMsgData = _));
   },
   98,
 );

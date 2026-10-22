@@ -397,8 +397,12 @@ __d(
           (t.addCTAButtonClicked = function (t) {
             o("WAWebBBBroadcastCreationLogs").addCTAButtonClicked(this.$1, t);
           }),
-          (t.createBroadcastViewed = function (t) {
-            o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
+          (t.createBroadcastViewed = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(
+              this.$1,
+              t,
+              n,
+            );
           }),
           (t.proMaxBidValidated = function (t, n, r) {
             o("WAWebBBBroadcastCreationLogs").proMaxBidValidated(
@@ -422,16 +426,17 @@ __d(
               n,
             );
           }),
-          (t.proSendClicked = function (t, n, r, a) {
+          (t.proSendClicked = function (t, n, r, a, i) {
             o("WAWebBBBroadcastCreationLogs").proSendClicked(
               this.$1,
               t,
               n,
               r,
               a,
+              i,
             );
           }),
-          (t.proSendResult = function (t, n, r, a, i, l, s, u) {
+          (t.proSendResult = function (t, n, r, a, i, l, s, u, c) {
             o("WAWebBBBroadcastCreationLogs").proSendResult(
               this.$1,
               t,
@@ -442,6 +447,7 @@ __d(
               l,
               s,
               u,
+              c,
             );
           }),
           (t.sendBroadcastResult = function (

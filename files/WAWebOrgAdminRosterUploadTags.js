@@ -8,8 +8,9 @@ __d(
       u = 2,
       c = 5,
       d = 2,
-      m = 100;
-    function p(e, t) {
+      m = 100,
+      p = /north|south|east|west|central|mid/g;
+    function _(e, t) {
       var n = new Map();
       for (var r of t) {
         var a = o("WAWebOrgAdminMemberTagOptions").getCanonicalMemberTagOption(
@@ -37,11 +38,11 @@ __d(
       for (var p of i) {
         var _ = p[0],
           f = p[1];
-        n.has(_) || n.set(_, y(f));
+        n.has(_) || n.set(_, C(f));
       }
       return n;
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r,
         a = o("WAWebOrgAdminMemberTagOptions").normalizeMemberTagOption(e);
       if (a === "") return null;
@@ -60,17 +61,17 @@ __d(
         if (s == null) break;
         i = s;
       }
-      return C(i) ? i : null;
+      return b(i) ? i : null;
     }
-    function f(e) {
+    function g(e) {
       var t = new Set();
       for (var n of e) {
         var r = o("WAWebOrgAdminMemberTagOptions").normalizeMemberTagOption(n);
-        r !== "" && !C(r) && t.add(r);
+        r !== "" && !b(r) && t.add(r);
       }
       return Array.from(t);
     }
-    function g(e) {
+    function h(e) {
       var t = new Map();
       for (var n of e)
         if (n != null) {
@@ -85,7 +86,7 @@ __d(
         return t.count - e.count || e.value.localeCompare(t.value);
       });
     }
-    function h(e, t) {
+    function y(e, t) {
       if (e.length > m) return [];
       var n = new Map(
           e.map(function (e) {
@@ -110,15 +111,15 @@ __d(
               Array.from(t.keys()),
             ),
           ),
-          b,
+          v,
         );
       return e.flatMap(function (e) {
         var n = e.count,
           a = e.value,
-          i = b(a),
+          i = v(a),
           l = o
             .filter(function (e) {
-              return v(i, e) && !(t.has(a) && t.has(e.value));
+              return S(i, e) && !(t.has(a) && t.has(e.value));
             })
             .map(function (e) {
               return e.value;
@@ -131,7 +132,7 @@ __d(
         return s ? [{ count: n, from: a, to: l }] : [];
       });
     }
-    function y(e) {
+    function C(e) {
       var t = "",
         n = 0;
       for (var r of e) {
@@ -141,32 +142,46 @@ __d(
       }
       return t;
     }
-    function C(e) {
+    function b(e) {
       return (
         !o("WAWebOrgAdminMemberTagOptions").hasBlockedMemberTagCharacters(e) &&
         !o("WAWebOrgAdminMemberTagOptions").isMemberTagOptionTooLong(e)
       );
     }
-    function b(e) {
+    function v(e) {
       return { letters: e.toLowerCase().replace(s, ""), value: e };
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = e.letters,
         r = t.letters;
       if (n === "" || r === "" || e.value === t.value) return !1;
       if (n === r) return !0;
-      if (S(e) && S(t)) return !1;
+      if (R(e, t)) return !1;
       var o = n.length <= r.length ? [n, r] : [r, n],
         a = o[0],
         i = o[1];
       return a.length >= u && i.startsWith(a)
         ? !0
-        : a.length >= c && R(n, r) <= d;
-    }
-    function S(t) {
-      return e.test(t.value.replace(s, ""));
+        : a.length >= c && k(n, r) <= d;
     }
     function R(e, t) {
+      return (E(e) && E(t)) || L(e.letters, t.letters);
+    }
+    function L(e, t) {
+      var n = new Set(e.match(p)),
+        r = new Set(t.match(p));
+      return (
+        (n.size !== r.size ||
+          Array.from(n).some(function (e) {
+            return !r.has(e);
+          })) &&
+        k(e, t) > 1
+      );
+    }
+    function E(t) {
+      return e.test(t.value.replace(s, ""));
+    }
+    function k(e, t) {
       for (
         var n = Array.from({ length: t.length + 1 }, function (e, t) {
             return t;
@@ -185,11 +200,11 @@ __d(
       }
       return n[t.length];
     }
-    ((l.getOrgAdminRosterUploadTagSpellings = p),
-      (l.getOrgAdminRosterUploadMemberTag = _),
-      (l.getOrgAdminRosterUploadUnusableTags = f),
-      (l.countOrgAdminRosterUploadTags = g),
-      (l.getOrgAdminRosterUploadLookAlikes = h));
+    ((l.getOrgAdminRosterUploadTagSpellings = _),
+      (l.getOrgAdminRosterUploadMemberTag = f),
+      (l.getOrgAdminRosterUploadUnusableTags = g),
+      (l.countOrgAdminRosterUploadTags = h),
+      (l.getOrgAdminRosterUploadLookAlikes = y));
   },
   98,
 );

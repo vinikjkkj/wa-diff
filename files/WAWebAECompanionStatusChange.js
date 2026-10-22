@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAECompanionEligibilityReaders",
+    "WAWebAECompanionJourneyLogging",
     "WAWebAECompanionOffboardMutation",
     "WAWebAECompanionOnboardMutation",
     "WAWebAECompanionResultToast.react",
@@ -11,6 +12,7 @@ __d(
     "WAWebCoexStateSyncCoordinator",
     "WAWebEventEmitter",
     "WAWebMobilePlatforms",
+    "WAWebWamEnumAutomaticEventsTargetComponentEnum",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -37,12 +39,12 @@ __d(
         }
       );
     }
-    function b(e) {
+    function b(e, t) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!(!o("WAWebMobilePlatforms").isSMB() || g != null)) {
             if (!S(e)) {
               (o("WALogger").LOG(
@@ -56,9 +58,32 @@ __d(
                 T() !== e && I(e, !1));
               return;
             }
-            N({ type: "inFlight", turnOn: e });
-            var t = yield R(e);
-            (yield E(), t ? D(e) : M(), I(e, t));
+            (N({ type: "inFlight", turnOn: e }),
+              o("WAWebAECompanionJourneyLogging").logAECompanionJourneyApi(
+                t,
+                e
+                  ? o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                      .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
+                      .AE_ONBOARDING_START
+                  : o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                      .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
+                      .AE_OFFBOARDING_START,
+              ));
+            var n = yield R(e);
+            o("WAWebAECompanionJourneyLogging").logAECompanionJourneyApi(
+              t,
+              e
+                ? o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                    .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM.AE_ONBOARDING_FINISH
+                : o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                    .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
+                    .AE_OFFBOARDING_FINISH,
+              n.type === "success"
+                ? { result: "success" }
+                : { result: "fail", error: n.reason },
+            );
+            var r = n.type === "success";
+            (yield E(), r ? D(e) : M(), I(e, r));
           }
         })),
         v.apply(this, arguments)
@@ -99,9 +124,10 @@ __d(
                       String(e),
                     )
                     .sendLogs("ae-companion-status-change-not-sent"),
-                !1)
-              : (t.value ||
-                  o("WALogger").LOG(
+                { type: "failed", reason: t.reason })
+              : t.value
+                ? { type: "success" }
+                : (o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
                         "changeAECompanionStatus: not applied, turnOn=",
@@ -109,7 +135,7 @@ __d(
                       ])),
                     String(e),
                   ),
-                t.value);
+                  { type: "failed", reason: "not_applied" });
           } catch (t) {
             return (
               o("WALogger")
@@ -123,7 +149,7 @@ __d(
                 )
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("ae-companion-status-change-failed"),
-              !1
+              { type: "failed", reason: "threw" }
             );
           }
         })),

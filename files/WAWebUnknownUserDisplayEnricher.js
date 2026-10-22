@@ -81,11 +81,14 @@ __d(
         "group_message_cag_masked",
         "group_message_cag_masked_bare",
         "group_message_cag_masked_noparent",
+        "group_message_cag_masked_nochat",
+        "group_message_cag_masked_noadmin",
         "group_message_cag",
         "group_message_community_sub",
         "group_message_group",
         "group_system_message",
         "group_mention",
+        "group_mention_nonmember",
       ]);
     function c(e, t) {
       var n = o("WATimeUtils").unixTimeMs();

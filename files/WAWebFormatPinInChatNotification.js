@@ -2,14 +2,11 @@ __d(
   "WAWebFormatPinInChatNotification",
   [
     "fbt",
-    "WAWebChatCommunityUtils",
-    "WAWebChatContactUtils",
     "WAWebCommonMsgTemplateParamsUtils",
     "WAWebContactCollection",
-    "WAWebContactGetters",
-    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
+    "WAWebSystemMsgContactName",
     "WAWebUserPrefsMeUser",
     "nullthrows",
   ],
@@ -32,28 +29,13 @@ __d(
         ),
         i = o("WAWebUserPrefsMeUser").isMeAccount(a);
       if (i) return s._(/*BTDS*/ "You pinned a message");
-      var l = o("WAWebContactCollection").ContactCollection.gadd(a),
-        u = o("WAWebContactGetters").getNotifyName(l),
-        c;
-      return (
-        o("WAWebFrontendContactGetters").getIsMyContact(l)
-          ? (c = o("WAWebFrontendContactGetters").getFormattedName(l))
-          : u != null
-            ? (c = o("WAWebChatContactUtils").getFormattedNotifyName(
-                o("WAWebContactGetters").getNotifyName(l),
-              ))
-            : (c = o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
-                o("WAWebFrontendMsgGetters").getChat(e),
-                l,
-              )
-                ? o("WAWebFrontendContactGetters").getMaskedPhoneLid(l)
-                : o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(
-                    l,
-                  )),
-        s._(/*BTDS*/ "{contact-name} pinned a message", [
-          s._param("contact-name", c),
-        ])
+      var l = o("WAWebSystemMsgContactName").getSystemMsgContactName(
+        o("WAWebFrontendMsgGetters").getChat(e),
+        o("WAWebContactCollection").ContactCollection.gadd(a),
       );
+      return s._(/*BTDS*/ "{contact-name} pinned a message", [
+        s._param("contact-name", l),
+      ]);
     }
     l.formatPinInChatNotification = e;
   },

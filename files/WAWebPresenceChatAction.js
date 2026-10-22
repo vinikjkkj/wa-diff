@@ -13,6 +13,7 @@ __d(
     "WAWebContactPresenceBridge",
     "WAWebLidMigrationUtils",
     "WAWebStateUtils",
+    "cr:17638",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,10 +23,13 @@ __d(
       c,
       d,
       m,
-      p = 2500,
-      _ = 1e4,
-      f = new WeakMap();
-    function g(e, t) {
+      p,
+      _ = (e = n("cr:17638")) != null ? e : {},
+      f = _.isWindowsBackgroundRun,
+      g = 2500,
+      h = 1e4,
+      y = new WeakMap();
+    function C(e, t) {
       if (
         !(
           o("WAWebChatGetters").getIsNewsletter(e) ||
@@ -34,10 +38,10 @@ __d(
         )
       ) {
         var n = o("WAWebStateUtils").unproxy(e);
-        return E(n, h(n, t));
+        return T(n, b(n, t));
       }
     }
-    function h(e, t) {
+    function b(e, t) {
       var n,
         r,
         a = (n = e.groupMetadata) == null ? void 0 : n.participants;
@@ -58,14 +62,14 @@ __d(
             a.get(e) != null
           );
         }),
-        l = (r = i.find(C)) != null ? r : y(i);
+        l = (r = i.find(S)) != null ? r : v(i);
       return l == null
         ? null
         : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
           ? l
           : null;
     }
-    function y(e) {
+    function v(e) {
       var t = e[0];
       return t == null ||
         e.some(function (e) {
@@ -74,7 +78,7 @@ __d(
         ? null
         : t;
     }
-    function C(e) {
+    function S(e) {
       var t;
       return (
         o("WAWebBotProduct").botProductFromServerValue(
@@ -85,41 +89,43 @@ __d(
         ) === o("WAWebBotProduct").BotProduct.MUSE
       );
     }
-    function b(e) {
-      if (!(o("WAWebChatGetters").getIsNewsletter(e) || e.id.isBot()))
-        return k(o("WAWebStateUtils").unproxy(e));
-    }
-    function v(e) {
+    function R(e) {
       if (!(o("WAWebChatGetters").getIsNewsletter(e) || e.id.isBot()))
         return D(o("WAWebStateUtils").unproxy(e));
     }
-    function S() {
-      o("WAWebContactPresenceBridge").setPresenceAvailable();
+    function L(e) {
+      if (!(o("WAWebChatGetters").getIsNewsletter(e) || e.id.isBot()))
+        return P(o("WAWebStateUtils").unproxy(e));
     }
-    function R() {
-      o("WAWebContactPresenceBridge").setPresenceUnavailable();
+    function E() {
+      (f == null ? void 0 : f()) !== !0 &&
+        o("WAWebContactPresenceBridge").setPresenceAvailable();
     }
-    function L(t) {
-      if (!o("WAWebLidMigrationUtils").shouldHaveAccountLid(t.id)) return t.id;
-      if (t.accountLid == null) {
-        var n =
+    function k() {
+      (f == null ? void 0 : f()) !== !0 &&
+        o("WAWebContactPresenceBridge").setPresenceUnavailable();
+    }
+    function I(e) {
+      if (!o("WAWebLidMigrationUtils").shouldHaveAccountLid(e.id)) return e.id;
+      if (e.accountLid == null) {
+        var t =
           "[presence] getChatIdentifier: lid-migrated client does not have an accountLid!";
         throw (
           o("WALogger")
             .ERROR(
-              e || (e = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-              n,
+              s || (s = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+              t,
             )
             .sendLogs("lid-migrated-client-with-null-account-lid"),
-          r("err")(n)
+          r("err")(t)
         );
       }
-      return t.accountLid;
+      return e.accountLid;
     }
-    function E(e, t) {
-      var n = !I(f.get(e), t);
-      if ((T(e, t), !e.typing || n)) {
-        var r = L(e);
+    function T(e, t) {
+      var n = !x(y.get(e), t);
+      if (($(e, t), !e.typing || n)) {
+        var r = I(e);
         o("WAWebChatStateBridge")
           .sendChatStateComposing(r, t)
           .catch(
@@ -128,8 +134,8 @@ __d(
               function (e) {
                 e.status >= 400 &&
                   o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "models:chat send presence composing error ",
                         "",
                       ])),
@@ -141,17 +147,17 @@ __d(
       }
       (e.typing ||
         (e.presenceResendTimerId = self.setTimeout(function () {
-          return x(e);
-        }, _)),
+          return N(e);
+        }, h)),
         (e.typing = !0),
         e.pausedTimerId && self.clearTimeout(e.pausedTimerId),
         (e.pausedTimerId = self.setTimeout(function () {
-          return k(e);
-        }, p)));
+          return D(e);
+        }, g)));
     }
-    function k(e) {
+    function D(e) {
       if (e.typing || e.recording) {
-        var t = L(e);
+        var t = I(e);
         o("WAWebChatStateBridge")
           .sendChatStatePaused(t)
           .catch(
@@ -160,8 +166,8 @@ __d(
               function (e) {
                 e.status >= 400 &&
                   o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "models:chat send presence paused error ",
                         "",
                       ])),
@@ -177,48 +183,18 @@ __d(
         e.pausedTimerId &&
           (self.clearTimeout(e.pausedTimerId), e.unset("pausedTimerId")),
         (e.typing = e.recording = !1),
-        f.delete(e));
+        y.delete(e));
     }
-    function I(e, t) {
+    function x(e, t) {
       return e == null || t == null ? e == null && t == null : e.equals(t);
     }
-    function T(e, t) {
-      t == null ? f.delete(e) : f.set(e, t);
+    function $(e, t) {
+      t == null ? y.delete(e) : y.set(e, t);
     }
-    function D(e) {
+    function P(e) {
       if (!e.recording) {
-        var t = L(e);
+        var t = I(e);
         (o("WAWebChatStateBridge")
-          .sendChatStateRecording(t)
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                e.status >= 400 &&
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat send presence recording error ",
-                        "",
-                      ])),
-                    t.toLogString(),
-                  );
-              },
-            ),
-          ),
-          (e.presenceResendTimerId = self.setTimeout(function () {
-            return x(e);
-          }, _)));
-      }
-      (e.pausedTimerId &&
-        (self.clearTimeout(e.pausedTimerId), e.unset("pausedTimerId")),
-        (e.recording = !0),
-        (e.typing = !1));
-    }
-    function x(e) {
-      var t = L(e);
-      if (e.recording)
-        o("WAWebChatStateBridge")
           .sendChatStateRecording(t)
           .catch(
             o("WAFilteredCatch").filteredCatch(
@@ -228,6 +204,36 @@ __d(
                   o("WALogger").WARN(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "models:chat send presence recording error ",
+                        "",
+                      ])),
+                    t.toLogString(),
+                  );
+              },
+            ),
+          ),
+          (e.presenceResendTimerId = self.setTimeout(function () {
+            return N(e);
+          }, h)));
+      }
+      (e.pausedTimerId &&
+        (self.clearTimeout(e.pausedTimerId), e.unset("pausedTimerId")),
+        (e.recording = !0),
+        (e.typing = !1));
+    }
+    function N(e) {
+      var t = I(e);
+      if (e.recording)
+        o("WAWebChatStateBridge")
+          .sendChatStateRecording(t)
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebBackendErrors").ServerStatusCodeError,
+              function (e) {
+                e.status >= 400 &&
+                  o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "models:chat send presence resend recording error ",
                         "",
                       ])),
@@ -238,15 +244,15 @@ __d(
           );
       else if (e.typing)
         o("WAWebChatStateBridge")
-          .sendChatStateComposing(t, f.get(e))
+          .sendChatStateComposing(t, y.get(e))
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 e.status >= 400 &&
                   o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "models:chat send presence resend composing error ",
                         "",
                       ])),
@@ -260,32 +266,32 @@ __d(
         return;
       }
       e.presenceResendTimerId = self.setTimeout(function () {
-        return x(e);
-      }, _);
+        return N(e);
+      }, h);
     }
-    function $(e) {
+    function M(e) {
       e.presence.isOnline
-        ? x(e)
+        ? N(e)
         : e.presenceResendTimerId &&
           (self.clearTimeout(e.presenceResendTimerId),
           e.unset("presenceResendTimerId"));
     }
-    function P(e) {
+    function w(e) {
       (e.presenceResendTimerId &&
         (self.clearTimeout(e.presenceResendTimerId),
         e.unset("presenceResendTimerId")),
         e.pausedTimerId &&
           (self.clearTimeout(e.pausedTimerId), e.unset("pausedTimerId")),
-        f.delete(o("WAWebStateUtils").unproxy(e)),
+        y.delete(o("WAWebStateUtils").unproxy(e)),
         (e.typing = !1));
     }
-    ((l.markComposing = g),
-      (l.markPaused = b),
-      (l.markRecording = v),
-      (l.sendPresenceAvailable = S),
-      (l.sendPresenceUnavailable = R),
-      (l.presenceOnlineChanged = $),
-      (l.clearPresence = P));
+    ((l.markComposing = C),
+      (l.markPaused = R),
+      (l.markRecording = L),
+      (l.sendPresenceAvailable = E),
+      (l.sendPresenceUnavailable = k),
+      (l.presenceOnlineChanged = M),
+      (l.clearPresence = w));
   },
   98,
 );

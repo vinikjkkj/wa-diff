@@ -30,6 +30,7 @@ __d(
     "WAWebMsgType",
     "WAWebNetworkStatus",
     "WAWebOpusUtils",
+    "WAWebOrgMemberContactName",
     "WAWebProtobufsProtocol.pb",
     "WAWebSendMsgChatAction",
     "WAWebSetPropertyGroupAction",
@@ -117,20 +118,25 @@ __d(
           a = (r = e.limitSharing) == null ? void 0 : r.initiatedBy;
         if (a) {
           var i,
-            l = o("WAWebWidFactory").createUserWidOrThrow(a.user, a.server),
-            s = o("WAWebContactCollection").ContactCollection.get(l),
-            u = s
-              ? o("WAWebFrontendContactGetters").getFormattedName(s)
-              : o("WAWebWidFormat").widToFormattedUser(l),
-            c = o("WAWebUserPrefsMeUser").isMeAccount(l);
-          return ((i = e.limitSharing) == null ? void 0 : i.sharingLimited) ===
+            l,
+            s = o("WAWebWidFactory").createUserWidOrThrow(a.user, a.server),
+            u = o("WAWebContactCollection").ContactCollection.get(s),
+            c = u
+              ? (i = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+                  u,
+                )) != null
+                ? i
+                : o("WAWebFrontendContactGetters").getFormattedName(u)
+              : o("WAWebWidFormat").widToFormattedUser(s),
+            d = o("WAWebUserPrefsMeUser").isMeAccount(s);
+          return ((l = e.limitSharing) == null ? void 0 : l.sharingLimited) ===
             !0
-            ? c
+            ? d
               ? n.byMeOn()
-              : n.byOtherUserOn(u)
-            : c
+              : n.byOtherUserOn(c)
+            : d
               ? n.byMeOff()
-              : n.byOtherUserOff(u);
+              : n.byOtherUserOff(c);
         }
       }
       return ((t = e.limitSharing) == null ? void 0 : t.sharingLimited) === !0
@@ -506,19 +512,24 @@ __d(
         var s = (a = e.acp2Setting) == null ? void 0 : a.initiatedBy;
         if (s) {
           var u,
-            c = o("WAWebWidFactory").createUserWidOrThrow(s.user, s.server),
-            d = o("WAWebContactCollection").ContactCollection.get(c),
-            m = d
-              ? o("WAWebFrontendContactGetters").getFormattedName(d)
-              : o("WAWebWidFormat").widToFormattedUser(c),
-            p = o("WAWebUserPrefsMeUser").isMeAccount(c);
-          return ((u = e.acp2Setting) == null ? void 0 : u.enabled) === !0
-            ? p
+            c,
+            d = o("WAWebWidFactory").createUserWidOrThrow(s.user, s.server),
+            m = o("WAWebContactCollection").ContactCollection.get(d),
+            p = m
+              ? (u = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+                  m,
+                )) != null
+                ? u
+                : o("WAWebFrontendContactGetters").getFormattedName(m)
+              : o("WAWebWidFormat").widToFormattedUser(d),
+            _ = o("WAWebUserPrefsMeUser").isMeAccount(d);
+          return ((c = e.acp2Setting) == null ? void 0 : c.enabled) === !0
+            ? _
               ? n.byMeOn()
-              : n.byOtherUserOn(m)
-            : p
+              : n.byOtherUserOn(p)
+            : _
               ? n.byMeOff()
-              : n.byOtherUserOff(m);
+              : n.byOtherUserOff(p);
         }
       }
       return ((t = e.acp2Setting) == null ? void 0 : t.enabled) === !0

@@ -165,17 +165,30 @@ __d(
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_PIN_EXCLUSION_ENABLED;
     }
-    var Q = D(K),
-      X =
-        (_ = r("qex")._("302")) != null
-          ? _
-          : o("VirtualizationExperimentConfig")
-              .DEFAULT_PERSISTED_MARGIN_ENABLED;
-    function Y(e) {
+    var Q = D(K);
+    function X() {
+      var e;
+      return (e = r("qex")._("2825")) != null
+        ? e
+        : o("VirtualizationExperimentConfig")
+            .DEFAULT_MEDIA_CONTROL_PIN_EXCLUSION;
+    }
+    function Y() {
+      var e;
+      return (e = r("qex")._("48")) != null
+        ? e
+        : o("VirtualizationExperimentConfig")
+            .DEFAULT_RESUME_FEED_VIDEO_PLAYHEAD;
+    }
+    var J =
+      (_ = r("qex")._("302")) != null
+        ? _
+        : o("VirtualizationExperimentConfig").DEFAULT_PERSISTED_MARGIN_ENABLED;
+    function Z(e) {
       var t;
       if (T.has(e))
-        return X != null
-          ? X
+        return J != null
+          ? J
           : o("VirtualizationExperimentConfig")
               .DEFAULT_PERSISTED_MARGIN_ENABLED;
       var n = I(e);
@@ -183,50 +196,50 @@ __d(
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_PERSISTED_MARGIN_ENABLED;
     }
-    var J = D(Y),
-      Z =
+    var ee = D(Z),
+      te =
         (f = r("qex")._("4590")) != null
           ? f
           : o("VirtualizationExperimentConfig").DEFAULT_SHARED_MARGIN_ENABLED;
-    function ee(e) {
+    function ne(e) {
       var t;
-      if (T.has(e)) return Z;
+      if (T.has(e)) return te;
       var n = I(e);
       return (t = n == null ? void 0 : n.shared_margin_enabled) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_SHARED_MARGIN_ENABLED;
     }
-    var te = D(ee),
-      ne = r("qex")._("989");
-    function re() {
-      return ne == null || !Number.isInteger(ne) || ne < 1
+    var re = D(ne),
+      oe = r("qex")._("989");
+    function ae() {
+      return oe == null || !Number.isInteger(oe) || oe < 1
         ? o("VirtualizationExperimentConfig").DEFAULT_EMA_WEIGHT_CAP
-        : ne;
+        : oe;
     }
-    var oe = (g = r("qex")._("339")) != null ? g : "default",
-      ae = oe === "disable" ? !0 : oe === "enable" ? !1 : null;
-    function ie(e) {
+    var ie = (g = r("qex")._("339")) != null ? g : "default",
+      le = ie === "disable" ? !0 : ie === "enable" ? !1 : null;
+    function se(e) {
       var t;
       if (T.has(e))
-        return ae != null
-          ? ae
+        return le != null
+          ? le
           : o("VirtualizationExperimentConfig").DEFAULT_DISABLE_HIDING;
       var n = I(e);
       return (t = n == null ? void 0 : n.hiding_disabled) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_DISABLE_HIDING;
     }
-    var le = D(ie),
-      se =
+    var ue = D(se),
+      ce =
         (h = r("qex")._("885")) != null
           ? h
           : o("VirtualizationExperimentConfig")
               .DEFAULT_PIN_CHILDREN_WITH_PLAYER;
-    function ue(e) {
+    function de(e) {
       var t;
       if (T.has(e))
-        return se != null
-          ? se
+        return ce != null
+          ? ce
           : o("VirtualizationExperimentConfig")
               .DEFAULT_PIN_CHILDREN_WITH_PLAYER;
       var n = I(e);
@@ -234,11 +247,11 @@ __d(
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_PIN_CHILDREN_WITH_PLAYER;
     }
-    var ce = D(ue);
-    function de() {
+    var me = D(de);
+    function pe() {
       return r("gkx")("5800");
     }
-    function me(e) {
+    function _e(e) {
       var t = new Map();
       return (
         e.split(",").forEach(function (e) {
@@ -258,12 +271,12 @@ __d(
         t
       );
     }
-    var pe = me((y = r("qex")._("1851")) != null ? y : "");
-    function _e(e) {
+    var fe = _e((y = r("qex")._("1851")) != null ? y : "");
+    function ge(e) {
       var t;
-      if (pe.has(e)) {
+      if (fe.has(e)) {
         var n;
-        return (n = pe.get(e)) != null
+        return (n = fe.get(e)) != null
           ? n
           : o("VirtualizationExperimentConfig").DEFAULT_VIRTUALIZATION_STRATEGY;
       }
@@ -272,44 +285,44 @@ __d(
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_VIRTUALIZATION_STRATEGY;
     }
-    var fe =
+    var he =
       (C = r("qex")._("1271")) != null
         ? C
         : o("VirtualizationExperimentConfig")
             .DEFAULT_SKIP_SCROLL_ANCHORING_CHECK;
-    function ge(e) {
+    function ye(e) {
       return T.has(e)
-        ? fe != null
-          ? fe
+        ? he != null
+          ? he
           : o("VirtualizationExperimentConfig")
               .DEFAULT_SKIP_SCROLL_ANCHORING_CHECK
         : (R && E) || L;
     }
-    var he = D(ge),
-      ye = D(_e),
-      Ce = function (t) {
+    var Ce = D(ye),
+      be = D(ge),
+      ve = function (t) {
         var e = I(t);
         return (e == null ? void 0 : e.is_at_bottom_scroll_up) === !0 ||
           o("VirtualizationExperimentConfig").infiniteScrollUpSurfaces.has(t)
           ? !0
           : o("VirtualizationExperimentConfig").DEFAULT_AT_BOTTOM_SCROLL_UP;
       },
-      be =
+      Se =
         (b = r("qex")._("5027")) != null
           ? b
           : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
-    function ve(e) {
+    function Re(e) {
       var t;
       if (T.has(e))
-        return be != null
-          ? be
+        return Se != null
+          ? Se
           : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
       var n = I(e);
       return (t = n == null ? void 0 : n.text_searchable) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
     }
-    var Se = D(ve);
+    var Le = D(Re);
     ((l.isSurfaceEnabled = $),
       (l.getTopBottomMargin = w),
       (l.getReadAheadMarginMax = F),
@@ -317,16 +330,18 @@ __d(
       (l.getActivityModeOn = V),
       (l.getPinChildrenOnInteration = z),
       (l.getPinExclusionEnabled = Q),
-      (l.getPersistedMarginEnabled = J),
-      (l.getSharedMarginEnabled = te),
-      (l.getEmaWeightCap = re),
-      (l.isHidingDisabled = le),
-      (l.getPinChildrenWithPlayer = ce),
-      (l.isPinVideoPostsWithPlayerEnabled = de),
-      (l.getSkipScrollAnchoringCheck = he),
-      (l.getVirtualizationStrategy = ye),
-      (l.getIsInfiniteScrollUp = Ce),
-      (l.getTextSearchable = Se));
+      (l.isMediaControlPinExclusionEnabled = X),
+      (l.isResumeFeedVideoPlayheadEnabled = Y),
+      (l.getPersistedMarginEnabled = ee),
+      (l.getSharedMarginEnabled = re),
+      (l.getEmaWeightCap = ae),
+      (l.isHidingDisabled = ue),
+      (l.getPinChildrenWithPlayer = me),
+      (l.isPinVideoPostsWithPlayerEnabled = pe),
+      (l.getSkipScrollAnchoringCheck = Ce),
+      (l.getVirtualizationStrategy = be),
+      (l.getIsInfiniteScrollUp = ve),
+      (l.getTextSearchable = Le));
   },
   98,
 );

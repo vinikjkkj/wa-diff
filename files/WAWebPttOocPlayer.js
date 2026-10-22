@@ -388,13 +388,13 @@ __d(
           (h = y));
       } else if (o("WAWebChatGetters").getIsNewsletter(a)) {
         var C;
-        (t[5] !== a || t[6] !== g
+        (t[5] !== a.id || t[6] !== g
           ? ((C = s.jsx(o("WAWebNewsletterName.react").NewsletterName, {
-              chat: a,
+              chatId: a.id,
               elevatedPushNamesEnabled: g,
               xstyle: b.senderName,
             })),
-            (t[5] = a),
+            (t[5] = a.id),
             (t[6] = g),
             (t[7] = C))
           : (C = t[7]),

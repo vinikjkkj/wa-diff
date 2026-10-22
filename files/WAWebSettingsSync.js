@@ -83,7 +83,7 @@ __d(
                             actionState:
                               o("WAWebSyncdConst").SyncActionState.Skipped,
                           }
-                        : t.$SettingsSync$p_1(e);
+                        : t.$SettingsSync$p_1(n);
                   }),
                   m = yield (g || (g = n("Promise"))).all(d);
                 return (r.push.apply(r, m), r);
@@ -98,7 +98,8 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n = t.indexParts,
-                  a = t.value;
+                  a = t.timestamp,
+                  i = t.value;
                 if (!n || n.length !== 4)
                   return (
                     o("WALogger").WARN(
@@ -114,33 +115,33 @@ __d(
                         o("WAWebSyncdConst").SyncActionState.Malformed,
                     }
                   );
-                var i = n[0],
-                  l = n[1],
-                  p = n[2],
-                  _ = n[3],
-                  f = o(
+                var l = n[0],
+                  p = n[1],
+                  _ = n[2],
+                  f = n[3],
+                  g = o(
                     "WAWebProtobufSyncAction.pb",
                   ).SyncActionValue$SettingsSyncAction$SettingPlatform.cast(
-                    Number(l),
+                    Number(p),
                   ),
-                  g =
-                    f ===
+                  h =
+                    g ===
                       o("WAWebProtobufSyncAction.pb")
                         .SyncActionValue$SettingsSyncAction$SettingPlatform
                         .WEB ||
                     (r("WAWebEnvironment").isWindows &&
-                      f ===
+                      g ===
                         o("WAWebProtobufSyncAction.pb")
                           .SyncActionValue$SettingsSyncAction$SettingPlatform
                           .HYBRID);
-                if (!g)
+                if (!h)
                   return {
                     actionState: o("WAWebSyncdConst").SyncActionState.Skipped,
                   };
-                var h = o(
+                var y = o(
                   "WAWebProtobufSyncAction.pb",
-                ).SyncActionValue$SettingsSyncAction$SettingKey.cast(Number(p));
-                if (h == null)
+                ).SyncActionValue$SettingsSyncAction$SettingKey.cast(Number(_));
+                if (y == null)
                   return (
                     o("WALogger").WARN(
                       s ||
@@ -148,15 +149,15 @@ __d(
                           "[settings-sync] Invalid setting key: ",
                           "",
                         ])),
-                      p,
+                      _,
                     ),
                     {
                       actionState:
                         o("WAWebSyncdConst").SyncActionState.Malformed,
                     }
                   );
-                var y = o("WAWebSettingsSyncConst").SETTING_KEY_TO_FIELD[h];
-                if (!y)
+                var C = o("WAWebSettingsSyncConst").SETTING_KEY_TO_FIELD[y];
+                if (!C)
                   return (
                     o("WALogger").WARN(
                       u ||
@@ -164,15 +165,15 @@ __d(
                           "[settings-sync] Unknown setting key: ",
                           "",
                         ])),
-                      h,
+                      y,
                     ),
                     {
                       actionState:
                         o("WAWebSyncdConst").SyncActionState.Malformed,
                     }
                   );
-                var C = a == null ? void 0 : a.settingsSyncAction;
-                if (!C)
+                var b = i == null ? void 0 : i.settingsSyncAction;
+                if (!b)
                   return (
                     o("WALogger").WARN(
                       c ||
@@ -185,8 +186,8 @@ __d(
                         o("WAWebSyncdConst").SyncActionState.Malformed,
                     }
                   );
-                var b = C[y];
-                if (b === void 0)
+                var v = b[C];
+                if (v === void 0)
                   return (
                     o("WALogger").WARN(
                       d ||
@@ -194,7 +195,7 @@ __d(
                           "[settings-sync] Field ",
                           " not found in settingsSyncAction",
                         ])),
-                      y,
+                      C,
                     ),
                     {
                       actionState:
@@ -203,9 +204,10 @@ __d(
                   );
                 try {
                   yield o("WAWebSettingsSyncHelpers").applySettingUpdate(
-                    y,
-                    b,
-                    _,
+                    C,
+                    v,
+                    f,
+                    a,
                   );
                 } catch (e) {
                   return (

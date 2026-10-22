@@ -23,7 +23,7 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["newsletterChatsMigration"],
+    var e = ["bizAiWebOnboarding", "newsletterChatsMigration"],
       s,
       u,
       c,
@@ -225,11 +225,12 @@ __d(
         }),
         (i.sendMutation = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var r = t.newsletterChatsMigration,
-              a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-              i = this.getMutation(o("WATimeUtils").unixTimeMs(), a),
-              l = yield this.capabilitiesHaveChanged(i);
-            if (!l.hasChanged) {
+            var r = t.bizAiWebOnboarding,
+              a = t.newsletterChatsMigration,
+              i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+              l = this.getMutation(o("WATimeUtils").unixTimeMs(), i),
+              s = yield this.capabilitiesHaveChanged(l);
+            if (!s.hasChanged) {
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -238,7 +239,7 @@ __d(
               );
               return;
             }
-            yield o("WAWebSyncdCoreApi").lockForSync([], [i], function () {
+            yield o("WAWebSyncdCoreApi").lockForSync([], [l], function () {
               return (c || (c = n("Promise"))).resolve();
             });
           });

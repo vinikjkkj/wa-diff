@@ -6,8 +6,11 @@ __d(
     var e = 50,
       s = [],
       u = [],
-      c = null;
-    function d() {
+      c = null,
+      d = 5e3,
+      m = [],
+      p = -1 / 0;
+    function _() {
       (s.length > 0 &&
         s.forEach(function (e) {
           return e();
@@ -19,46 +22,75 @@ __d(
           (u = [])),
         (c = null));
     }
-    function m() {
+    function f() {
       (r("clearTimeout")(c),
         (c = r("setTimeout")(function () {
-          d();
+          _();
         }, e)));
     }
-    var p = !1;
-    function _() {
+    function g(e) {
+      (r("clearTimeout")(e.timerID),
+        r("clearTimeout")(e.expireTimerID),
+        r("removeFromArray")(m, e));
+    }
+    function h(e) {
+      (r("clearTimeout")(e.timerID),
+        (e.timerID = r("setTimeout")(function () {
+          (g(e), e.callback());
+        }, e.restMs)));
+    }
+    function y() {
+      ((p = Date.now()), f(), m.forEach(h));
+    }
+    var C = !1;
+    function b() {
       return (
-        p || (window.addEventListener("mousemove", m), (p = !0)),
+        C || (window.addEventListener("mousemove", y), (C = !0)),
         function () {
-          window.removeEventListener("mousemove", m);
+          window.removeEventListener("mousemove", y);
         }
       );
     }
-    function f(e) {
+    function v(e) {
       return (
-        p || _(),
+        C || b(),
         s.push(e),
         function () {
           r("removeFromArray")(s, e);
         }
       );
     }
-    function g(e) {
+    function S(e) {
       return (
-        p || _(),
+        C || b(),
         u.push(e),
         function () {
           r("removeFromArray")(u, e);
         }
       );
     }
-    var h = {
-        addOnMouseStopCallback: f,
-        addOnMouseStopCallbackOnce: g,
-        init: _,
+    function R(t, n) {
+      C || b();
+      var o = { callback: t, expireTimerID: null, restMs: n, timerID: null };
+      return (
+        (o.expireTimerID = r("setTimeout")(function () {
+          return g(o);
+        }, d)),
+        m.push(o),
+        Date.now() - p <= e && h(o),
+        function () {
+          return g(o);
+        }
+      );
+    }
+    var L = {
+        addOnMouseRestCallbackOnce: R,
+        addOnMouseStopCallback: v,
+        addOnMouseStopCallbackOnce: S,
+        init: b,
       },
-      y = h;
-    l.default = y;
+      E = L;
+    l.default = E;
   },
   98,
 );

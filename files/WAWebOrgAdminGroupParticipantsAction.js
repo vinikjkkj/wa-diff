@@ -8,20 +8,12 @@ __d(
     "WAWebGroupQueryJob",
     "WAWebMiscErrors",
     "WAWebMiscGatingUtils",
-    "WAWebModalManager",
-    "WAWebOrgAdminGroupCandidate",
-    "WAWebOutContactInviteAction",
-    "WAWebOutContactInviteGating",
-    "WAWebOutContactSmsInviteConfirmModal.react",
     "WAWebSchemaGroupMetadata",
     "WAWebSendForNeededAddRequest",
     "WAWebUsernameTypes",
-    "WAWebWamEnumCompanionInviteOriginType",
     "WAWebWidFactory",
-    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,57 +26,133 @@ __d(
       _,
       f,
       g,
-      h,
-      y,
-      C = y || (y = o("react")),
-      b = 207;
-    function v() {
+      h = 207;
+    function y() {
       return Math.max(0, o("WAWebMiscGatingUtils").getGroupSizeLimit() - 1);
     }
-    function S(e, t, n) {
-      var r, o;
-      n === void 0 && (n = 0);
-      var a = Math.min(e, (r = t.duplicateMemberCount) != null ? r : 0),
-        i = Math.max(0, e - a);
-      if (t.status !== b)
+    function C(e, t) {
+      var n,
+        r,
+        o = Math.min(e, (n = t.duplicateMemberCount) != null ? n : 0),
+        a = Math.max(0, e - o);
+      if (t.status !== h)
         return {
           addedMemberCount: 0,
-          failedMemberCount: i,
+          failedMemberCount: a,
           invitedMemberCount: 0,
         };
-      var l = (o = t.invitedOutContacts) != null ? o : [],
-        s = t.participants.filter(function (e) {
+      var i = (r = t.invitedOutContacts) != null ? r : [],
+        l = t.participants.filter(function (e) {
           return e.code === "200";
         }).length,
-        u = l.filter(function (e) {
+        s = i.filter(function (e) {
           return e.code !== "200";
         }).length,
-        c = Math.min(n, u),
-        d =
+        u =
           t.participants.filter(function (e) {
             return e.code === "403";
           }).length +
-          l.filter(function (e) {
+          i.filter(function (e) {
             return e.code === "200";
-          }).length +
-          c,
-        m = t.participants.length + l.length,
-        p = Math.max(0, i - t.skippedMemberCount),
-        _ =
+          }).length,
+        c = t.participants.length + i.length,
+        d = Math.max(0, a - t.skippedMemberCount),
+        m =
           t.skippedMemberCount +
           t.participants.filter(function (e) {
             return e.code !== "200" && e.code !== "403";
           }).length +
-          (u - c) +
-          Math.max(0, p - m),
-        f = Math.min(i, Math.max(_, m > p ? 1 : 0)),
-        g = i - f,
-        h = Math.min(s, g);
+          s +
+          Math.max(0, d - c),
+        p = Math.min(a, Math.max(m, c > d ? 1 : 0)),
+        _ = a - p,
+        f = Math.min(l, _);
       return {
-        addedMemberCount: h,
-        failedMemberCount: f,
-        invitedMemberCount: Math.min(d, g - h),
+        addedMemberCount: f,
+        failedMemberCount: p,
+        invitedMemberCount: Math.min(u, _ - f),
       };
+    }
+    function b(e) {
+      if (e.source === "directory") return !0;
+      var t = e.rosterEntry.memberLID;
+      if (t == null) return !1;
+      try {
+        return (
+          o("WAWebApiContact").getPnIfLidIsLatestMapping(
+            o("WAWebWidFactory").createUserLidOrThrow(t, "lid"),
+          ) != null
+        );
+      } catch (e) {
+        return !1;
+      }
+    }
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield x(e),
+            r = n.groupWid,
+            a = n.isLidAddressingMode,
+            i = n.requestNeededAdds,
+            l = E(t, function (e) {
+              return (function (e) {
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  e.source === "directory" &&
+                  "directoryMember" in e
+                ) {
+                  var t = e.directoryMember;
+                  return w(t, a);
+                }
+                if (
+                  ((typeof e == "object" && e !== null) ||
+                    typeof e == "function") &&
+                  ((typeof e.rosterEntry == "object" &&
+                    e.rosterEntry !== null) ||
+                    typeof e.rosterEntry == "function") &&
+                  "memberLID" in e.rosterEntry
+                ) {
+                  var n = e.rosterEntry.memberLID;
+                  if (n != null) return w({ lid: n, username: null }, a);
+                }
+                return null;
+              })(e);
+            }),
+            u = l.duplicateMemberCount,
+            c = l.participants,
+            d = l.skippedMemberCount;
+          d > 0 &&
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "addOrgGroupCandidatesToGroup: skipped ",
+                    " of ",
+                    " entries without a usable group identity",
+                  ])),
+                d,
+                t.length,
+              )
+              .sendLogs("org-admin-group-candidates-skipped");
+          var m =
+            c.length === 0
+              ? { status: h, participants: [] }
+              : yield o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
+                  r,
+                  c,
+                );
+          return babelHelpers.extends({}, m, {
+            duplicateMemberCount: u,
+            runParticipantFollowUp: P(m, i),
+            skippedMemberCount: d,
+          });
+        })),
+        S.apply(this, arguments)
+      );
     }
     function R(e, t) {
       return L.apply(this, arguments);
@@ -92,85 +160,21 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield P(e),
+          var n = yield x(e),
             r = n.groupWid,
             a = n.isLidAddressingMode,
             i = n.requestNeededAdds,
-            l = I(t, function (e) {
-              var t;
-              if (e.source === "directory") t = B(e.directoryMember, a);
-              else {
-                var n = o(
-                  "WAWebOrgAdminGroupCandidate",
-                ).normalizeOrgAdminRosterPhoneNumber(e.rosterEntry.phoneNumber);
-                t = n == null ? null : W(n, a);
-              }
-              return t;
+            l = E(t, function (e) {
+              return A(e, a);
             }),
             s = l.duplicateMemberCount,
-            c = l.includedEntries,
-            d = l.participants,
-            m = l.skippedMemberCount;
-          m > 0 &&
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "addOrgGroupCandidatesToGroup: skipped ",
-                    " of ",
-                    " entries without a usable group identity",
-                  ])),
-                m,
-                t.length,
-              )
-              .sendLogs("org-admin-group-candidates-skipped");
-          var p =
-              d.length === 0
-                ? { status: b, participants: [] }
-                : yield o(
-                    "WAWebGroupModifyParticipantsJob",
-                  ).addGroupParticipants(r, d),
-            _ = p.status === b ? w(c, p) : [],
-            f = M(
-              r,
-              p,
-              i,
-              _,
-              o("WAWebWamEnumCompanionInviteOriginType")
-                .COMPANION_INVITE_ORIGIN_TYPE
-                .GROUPS_CREATE_PARTICIPANT_SELECTOR,
-            );
-          return babelHelpers.extends({}, p, {
-            duplicateMemberCount: s,
-            runParticipantFollowUp: f,
-            skippedMemberCount: m,
-            smsInviteCandidateCount: _.length,
-          });
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield P(e),
-            r = n.groupWid,
-            a = n.isLidAddressingMode,
-            i = n.requestNeededAdds,
-            l = I(t, function (e) {
-              return W(e, a);
-            }),
-            s = l.duplicateMemberCount,
-            u = l.participants,
+            c = l.participants,
             d = l.skippedMemberCount;
           d > 0 &&
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "addPhoneNumbersToOrgGroup: skipped ",
                     " of ",
                     " phone numbers without a usable local identity",
@@ -180,70 +184,61 @@ __d(
               )
               .sendLogs("org-admin-phone-numbers-skipped");
           var m =
-            u.length === 0
-              ? { status: b, participants: [] }
+            c.length === 0
+              ? { status: h, participants: [] }
               : yield o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
                   r,
-                  u,
+                  c,
                 );
           return babelHelpers.extends({}, m, {
             duplicateMemberCount: s,
-            runParticipantFollowUp: M(
-              r,
-              m,
-              i,
-              [],
-              o("WAWebWamEnumCompanionInviteOriginType")
-                .COMPANION_INVITE_ORIGIN_TYPE.GROUPS_ADD_PARTICIPANT_SELECTOR,
-            ),
+            runParticipantFollowUp: P(m, i),
             skippedMemberCount: d,
           });
         })),
-        k.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function I(e, t) {
+    function E(e, t) {
       var n = [],
-        r = [],
-        o = new Set(),
+        r = new Set(),
+        o = 0,
         a = 0,
         i = 0,
-        l = 0,
-        s = v();
-      for (var u of e) {
-        if (r.length >= s) {
-          i += e.length - l;
+        l = y();
+      for (var s of e) {
+        if (n.length >= l) {
+          a += e.length - i;
           break;
         }
-        l++;
-        var c = t(u);
-        if (c == null) i++;
+        i++;
+        var u = t(s);
+        if (u == null) a++;
         else {
-          var d =
-            c.lid != null
-              ? "lid:" + c.lid.toString()
-              : "phone:" + c.phoneNumber.toString();
-          if (o.has(d)) {
-            a++;
+          var c =
+            u.lid != null
+              ? "lid:" + u.lid.toString()
+              : "phone:" + u.phoneNumber.toString();
+          if (r.has(c)) {
+            o++;
             continue;
           }
-          (o.add(d), n.push(u), r.push(c));
+          (r.add(c), n.push(u));
         }
       }
       return {
-        duplicateMemberCount: a,
-        includedEntries: n,
-        participants: r,
-        skippedMemberCount: i,
+        duplicateMemberCount: o,
+        participants: n,
+        skippedMemberCount: a,
       };
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function D() {
+    function I() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield P(e),
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield x(e),
             r = n.groupWid,
             a = n.isLidAddressingMode,
             i = t.lid;
@@ -251,8 +246,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "removeOrgGroupParticipantFromGroup: participant has no lid",
                     ])),
                 )
@@ -265,8 +260,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "removeOrgGroupParticipantFromGroup: participant has no usable phone number",
                     ])),
                 )
@@ -276,38 +271,38 @@ __d(
           var u = yield o(
               "WAWebGroupModifyParticipantsJob",
             ).removeGroupParticipants(r, [s]),
-            c = u.participants.find(function (e) {
+            p = u.participants.find(function (e) {
               return e.code !== "200";
             });
-          if (u.status !== b || c != null) {
+          if (u.status !== h || p != null) {
             var _;
             throw (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "removeOrgGroupParticipantFromGroup: GroupD rejected participant removal with status ",
                       " and code ",
                       "",
                     ])),
                   u.status,
-                  (_ = c == null ? void 0 : c.code) != null ? _ : "missing",
+                  (_ = p == null ? void 0 : p.code) != null ? _ : "missing",
                 )
                 .sendLogs("org-admin-remove-participant-failed"),
               new (o("WAWebMiscErrors").ActionError)()
             );
           }
         })),
-        D.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function $() {
+    function D() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield P(e),
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield x(e),
             a = r.groupWid,
             i = r.isLidAddressingMode,
             l = t.lid;
@@ -315,8 +310,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "setOrgGroupParticipantAdmin: participant has no lid",
                     ])),
                 )
@@ -334,13 +329,13 @@ __d(
             c = u.participants.find(function (e) {
               return e.code !== "200";
             });
-          if (u.status !== b || c != null) {
+          if (u.status !== h || c != null) {
             var d;
             throw (
               o("WALogger")
                 .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "setOrgGroupParticipantAdmin: GroupD rejected the admin change with status ",
                       " and code ",
                       "",
@@ -353,16 +348,16 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function N() {
+    function $() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = O(e),
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = M(e),
             n = o("WAWebSchemaGroupMetadata").getGroupMetadataTable(),
             a = yield n.get(t.toString());
           if (a == null) {
@@ -374,8 +369,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "getLocalGroupContext: group metadata refresh failed",
                     ])),
                 )
@@ -388,8 +383,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "getLocalGroupContext: missing group metadata",
                     ])),
                 )
@@ -405,123 +400,54 @@ __d(
           return {
             groupWid: t,
             isLidAddressingMode: s === !0,
-            requestNeededAdds: function (n, r) {
+            requestNeededAdds: function (n) {
               return o("WAWebSendForNeededAddRequest").sendForNeededAddRequest({
                 groupAddResponse: { gid: t, participants: n.participants },
                 groupDesc: l,
-                onFinish: r,
                 subject: u,
               });
             },
           };
         })),
-        N.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function M(e, t, n, r, o) {
-      if (t.status !== b) return null;
-      var a = t.participants.some(function (e) {
+    function P(e, t) {
+      if (e.status !== h) return null;
+      var n = e.participants.some(function (e) {
         return e.code === "403";
       });
-      if (!a && r.length === 0) return null;
-      var i = !1;
+      if (!n) return null;
+      var r = !1;
       return function () {
-        if (!i) {
-          i = !0;
-          var l = function () {
-            return A(e, r, o);
-          };
-          a ? n(t, l) : l();
-        }
+        r || ((r = !0), t(e));
       };
     }
-    function w(t, n) {
-      var r;
-      if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
-        return [];
-      var a = new Set(
-        ((r = n.invitedOutContacts) != null ? r : [])
-          .filter(function (e) {
-            return e.code === "403";
-          })
-          .map(function (e) {
-            return e.phoneNumberWid.toString();
-          }),
-      );
-      if (a.size === 0) return [];
-      var i = new Map();
-      for (var l of t) {
-        var s =
-          l.source === "roster"
-            ? o(
-                "WAWebOrgAdminGroupCandidate",
-              ).normalizeOrgAdminRosterPhoneNumber(l.rosterEntry.phoneNumber)
-            : null;
-        if (s != null)
-          try {
-            var u = o("WAWebWidFactory").createUserWidOrThrow(s).toString();
-            a.has(u) &&
-              !i.has(u) &&
-              i.set(u, { name: l.displayName, phoneNumber: s });
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "getRosterSmsInviteCandidates: ignored an invalid out-contact identity",
-                  ])),
-              )
-              .sendLogs("org-admin-roster-sms-invite-invalid-identity");
-          }
-      }
-      return Array.from(i.values());
-    }
-    function A(e, t, n) {
-      t.length !== 0 &&
-        o("WAWebModalManager").ModalManager.openSupportModal(
-          C.jsx(r("WAWebOutContactSmsInviteConfirmModal.react"), {
-            names: t.map(function (e) {
-              return e.name;
-            }),
-            onConfirm: function () {
-              (o("WAWebOutContactInviteAction").sendMultiGroupInvite(
-                t.map(function (e) {
-                  return e.phoneNumber;
-                }),
-                o("WAWebWidToJid").widToGroupJid(e),
-                n,
-              ),
-                o("WAWebModalManager").closeSupportOrModal());
-            },
-            onCancel: o("WAWebModalManager").closeSupportOrModal,
-          }),
-        );
-    }
-    function F(e) {
+    function N(e) {
       return e.includes("@") ? e : e + "@g.us";
     }
-    function O(e) {
-      var t = F(e);
+    function M(t) {
+      var n = N(t);
       try {
         return o("WAWebWidFactory").asGroupWidOrThrow(
-          o("WAWebWidFactory").createWid(t),
+          o("WAWebWidFactory").createWid(n),
         );
-      } catch (e) {
+      } catch (t) {
         throw (
           o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "getOrgAdminGroupWid: invalid group identifier",
                 ])),
             )
-            .catching(r("getErrorSafe")(e))
+            .catching(r("getErrorSafe")(t))
             .sendLogs("org-admin-group-participants-invalid-gid"),
           new (o("WAWebMiscErrors").ActionError)()
         );
       }
     }
-    function B(e, t) {
+    function w(e, t) {
       try {
         var n = o("WAWebWidFactory").createUserLidOrThrow(e.lid, "lid");
         return o(
@@ -542,7 +468,7 @@ __d(
         return null;
       }
     }
-    function W(e, t) {
+    function A(e, t) {
       try {
         var n = o("WAWebWidFactory").createUserWidOrThrow(e),
           r = o("WAWebApiContact").getCurrentLid(n);
@@ -562,13 +488,14 @@ __d(
         return null;
       }
     }
-    ((l.getMaxOrgAdminParticipantsPerRequest = v),
-      (l.getOrgAdminGroupParticipantOutcomeCounts = S),
-      (l.addOrgGroupCandidatesToGroup = R),
-      (l.addPhoneNumbersToOrgGroup = E),
-      (l.removeOrgGroupParticipantFromGroup = T),
-      (l.setOrgGroupParticipantAdmin = x),
-      (l.getOrgAdminGroupJid = F));
+    ((l.getMaxOrgAdminParticipantsPerRequest = y),
+      (l.getOrgAdminGroupParticipantOutcomeCounts = C),
+      (l.canAddOrgGroupCandidateDirectly = b),
+      (l.addOrgGroupCandidatesToGroup = v),
+      (l.addPhoneNumbersToOrgGroup = R),
+      (l.removeOrgGroupParticipantFromGroup = k),
+      (l.setOrgGroupParticipantAdmin = T),
+      (l.getOrgAdminGroupJid = N));
   },
   98,
 );

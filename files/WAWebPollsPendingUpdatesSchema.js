@@ -55,7 +55,14 @@ __d(
         .getStorage()
         .table("poll-pending-updates");
     }
-    ((l.addTable = e), (l.getTable = s));
+    function u() {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .doesLocalSchemaIncludeVersion(
+          o("WAWebModelStorageVersions").pollPendingUpdatesCreateTable(),
+        );
+    }
+    ((l.addTable = e), (l.getTable = s), (l.canUsePollPendingUpdatesTable = u));
   },
   98,
 );

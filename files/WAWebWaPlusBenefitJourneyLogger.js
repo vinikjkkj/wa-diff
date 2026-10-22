@@ -2,6 +2,7 @@ __d(
   "WAWebWaPlusBenefitJourneyLogger",
   [
     "WAWebAuraGating",
+    "WAWebMobilePlatforms",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebWaPlusBenefitUserJourneyWamEvent",
     "WAWebWamEnumWpbujAction",
@@ -72,8 +73,10 @@ __d(
                   : o("WAWebWamEnumWpbujOutcomeName").WPBUJ_OUTCOME_NAME.FAILED,
                 wpbujSessionId: this.$4,
                 wpbujSurface: (e = n.surfaceOverride) != null ? e : this.$2,
-                wsuaProductType: o("WAWebWamEnumWsuaProductType")
-                  .WSUA_PRODUCT_TYPE.WA_PLUS,
+                wsuaProductType: o("WAWebMobilePlatforms").isSMB()
+                  ? o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE
+                      .META_ONE_BUSINESS
+                  : o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE.WA_PLUS,
               };
             (this.$3 != null && (r.wpbujSource = this.$3),
               n.actionTarget != null && (r.wpbujActionTarget = n.actionTarget),

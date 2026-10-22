@@ -12,7 +12,7 @@ __d(
             ((t = r.toString()), /-?\d+/.test(t) || l(0, 11839, r));
             break;
           case "Float":
-            ((t = parseFloat(r, 10)), !isNaN(t) || l(0, 11840, r));
+            ((t = parseFloat(r)), !isNaN(t) || l(0, 11840, r));
             break;
           case "FBID":
             t = r.toString();

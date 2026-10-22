@@ -3,6 +3,7 @@ __d(
   [
     "CSRFGuard",
     "CometAsyncFetchError",
+    "CometPreloaderInit",
     "CometRouterConfig",
     "Env",
     "FBLogger",
@@ -10,7 +11,6 @@ __d(
     "JSScheduler",
     "PHPQuerySerializer",
     "Promise",
-    "RelayAPIConfig",
     "RelayPrefetchedStreamCache",
     "XHRRequest",
     "asyncToGeneratorRuntime",
@@ -356,15 +356,7 @@ __d(
         ),
         e.preloaders && e.preloaders.length)
       )
-        for (var n of e.preloaders) {
-          var a;
-          o("RelayPrefetchedStreamCache").registerPreloader(
-            n.preloaderID,
-            n.queryID,
-            n.variables,
-            (a = n.actorID) != null ? a : r("RelayAPIConfig").actorID,
-          );
-        }
+        for (var n of e.preloaders) o("CometPreloaderInit").initPreloader(n);
       v(e);
     }
     ((l.disableBulkRouteFetch = y),

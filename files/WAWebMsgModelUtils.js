@@ -33,6 +33,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
+    "WAWebOrgMemberContactName",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
@@ -553,22 +554,24 @@ __d(
         b.verifiedName
       )
         return b.verifiedName;
+      var S = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(b);
+      if (S != null) return S;
       if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-        var S = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(b);
-        if (S != null) return S.displayName;
+        var R = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(b);
+        if (R != null) return R.displayName;
       }
-      var R = d
+      var L = d
           ? o("WAWebChatContactUtils").getFormattedNotifyName(i).toString()
           : "~" + (i != null ? i : ""),
-        L = h && !r("isStringNullOrEmpty")(i) ? R : "";
-      if (C && L) return L;
-      var E = l.isLid()
+        E = h && !r("isStringNullOrEmpty")(i) ? L : "";
+      if (C && E) return E;
+      var k = l.isLid()
         ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(b)
         : o("WAWebWidFormat").widToFormattedUser(l);
       return (
         o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(n, b) &&
-          (E = o("WAWebFrontendContactGetters").getMaskedPhoneLid(b)),
-        "" + E + (L ? " " : "") + L
+          (k = o("WAWebFrontendContactGetters").getMaskedPhoneLid(b)),
+        "" + k + (E ? " " : "") + E
       );
     }
     ((l.typeIsMms = g),

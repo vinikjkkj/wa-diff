@@ -5,6 +5,7 @@ __d(
     "WAWebApiContact",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebOrgMemberContactName",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -17,15 +18,20 @@ __d(
       return o("WAWebApiContact").getPhoneNumber(n) != null;
     }
     function u(t) {
-      var n = o("WAWebContactCollection").ContactCollection.gadd(t.from),
-        r = o("WAWebFrontendContactGetters").getFormattedName(n);
+      var n,
+        r = o("WAWebContactCollection").ContactCollection.gadd(t.from),
+        a =
+          (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(r)) !=
+          null
+            ? n
+            : o("WAWebFrontendContactGetters").getFormattedName(r);
       return e(t)
         ? s._(
             /*BTDS*/ "{contactName} changed their phone number to a new number",
-            [s._param("contactName", r)],
+            [s._param("contactName", a)],
           )
         : s._(/*BTDS*/ "{contactName} updated their contact info", [
-            s._param("contactName", r),
+            s._param("contactName", a),
           ]);
     }
     function c(t) {

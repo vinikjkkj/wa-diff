@@ -17,30 +17,34 @@ __d(
       ]),
       d = 3,
       m = null;
-    function p(e) {
+    function p(e, t) {
       return (
         m == null &&
-          (m = _(e).finally(function () {
+          (m = _(e, t).finally(function () {
             m = null;
           })),
         m
       );
     }
-    function _(e) {
+    function _(e, t) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (!navigator.onLine) return null;
           try {
-            var a = yield g(t),
-              i = a.noCorsUrls,
-              l = a.rev,
-              c = a.urls,
-              d = yield b(c);
+            var i = yield g(t, a),
+              l = i.noCorsUrls,
+              c = i.rev,
+              d = i.urls,
+              m = yield b(d, a);
             return (
-              yield (u || (u = n("Promise"))).all(i.map(L)),
+              yield (u || (u = n("Promise"))).all(
+                l.map(function (e) {
+                  return L(e, a);
+                }),
+              ),
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -50,12 +54,12 @@ __d(
                     " bytes), ",
                     " without CORS",
                   ])),
-                l,
-                c.length,
-                d,
-                i.length,
+                c,
+                d.length,
+                m,
+                l.length,
               ),
-              l
+              c
             );
           } catch (e) {
             return (
@@ -74,22 +78,25 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new URL("/static_resources.json", self.location.origin);
-          e != null && t.searchParams.set("rev", String(e));
-          var n = new URLSearchParams(self.location.search);
-          for (var o of c) {
-            var a = n.get(o);
-            a != null && t.searchParams.set(o, a);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new URL("/static_resources.json", self.location.origin);
+          e != null && n.searchParams.set("rev", String(e));
+          var o = new URLSearchParams(self.location.search);
+          for (var a of c) {
+            var i = o.get(a);
+            i != null && n.searchParams.set(a, i);
           }
-          var i = yield self.fetch(t.toString(), { cache: "no-store" });
-          if (!i.ok) throw r("err")("startup resources: HTTP " + i.status);
-          return y(yield i.json());
+          var l = yield self.fetch(n.toString(), {
+            cache: "no-store",
+            signal: t,
+          });
+          if (!l.ok) throw r("err")("startup resources: HTTP " + l.status);
+          return y(yield l.json());
         })),
         h.apply(this, arguments)
       );
@@ -115,65 +122,70 @@ __d(
       }
       return t;
     }
-    function b(e) {
+    function b(e, t) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = 0,
-            r = 0,
-            o = !1,
-            a = (function () {
-              var i = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = 0,
+            o = 0,
+            a = !1,
+            i = (function () {
+              var l = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
-                  if (!(o || t >= e.length)) {
-                    var n = e[t++];
+                  if (!(a || r >= e.length)) {
+                    var n = e[r++];
                     try {
-                      r += yield S(n);
+                      o += yield S(n, t);
                     } catch (e) {
-                      throw ((o = !0), e);
+                      throw ((a = !0), e);
                     }
-                    yield a();
+                    yield i();
                   }
                 },
               );
               return function () {
-                return i.apply(this, arguments);
+                return l.apply(this, arguments);
               };
             })(),
-            i = Math.min(d, e.length);
+            l = Math.min(d, e.length);
           return (
-            yield (u || (u = n("Promise"))).all(Array.from({ length: i }, a)),
-            r
+            yield (u || (u = n("Promise"))).all(Array.from({ length: l }, i)),
+            o
           );
         })),
         v.apply(this, arguments)
       );
     }
-    function S(e) {
+    function S(e, t) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield self.fetch(e, { mode: "cors", priority: "low" });
-          if (!t.ok) throw r("err")(e + ": HTTP " + t.status);
-          return (yield t.arrayBuffer()).byteLength;
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield self.fetch(e, {
+            mode: "cors",
+            priority: "low",
+            signal: t,
+          });
+          if (!n.ok) throw r("err")(e + ": HTTP " + n.status);
+          return (yield n.arrayBuffer()).byteLength;
         })),
         R.apply(this, arguments)
       );
     }
-    function L(e) {
+    function L(e, t) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield self.fetch(e, {
             mode: "no-cors",
             credentials: "include",
             priority: "low",
+            signal: t,
           });
         })),
         E.apply(this, arguments)

@@ -7,11 +7,12 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
-    "WAWebPollAddOptionContributor",
+    "WAWebSystemMsgContactName",
     "WAWebUserPrefsMeUser",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
+    "useWAWebChatOrgMemberNames",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -61,47 +62,55 @@ __d(
       );
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(7),
+      var t = o("react-compiler-runtime").c(8),
         n = e.chat,
-        r = e.contact,
-        a;
+        a = e.contact,
+        i;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
+        ? ((i = [
             o("WAWebFrontendContactGetters").getFormattedName,
             o("WAWebFrontendContactGetters").getIsMyContact,
             o("WAWebContactGetters").getNotifyName,
           ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebContactValues").useContactValues(r.id, a),
-        l = i[0],
-        c = i[1],
-        d = i[2],
-        p;
+          (t[0] = i))
+        : (i = t[0]);
+      var l = o("useWAWebContactValues").useContactValues(a.id, i),
+        c = l[0],
+        d = l[1],
+        p = l[2],
+        _ = r("useWAWebChatOrgMemberNames")(n),
+        f;
       return (
-        t[1] !== n || t[2] !== r || t[3] !== l || t[4] !== c || t[5] !== d
-          ? ((p = u.jsx(m, {
+        t[1] !== n ||
+        t[2] !== a ||
+        t[3] !== c ||
+        t[4] !== _ ||
+        t[5] !== d ||
+        t[6] !== p
+          ? ((f = u.jsx(m, {
               label: s._(/*BTDS*/ "Added by {contributor-name}", [
                 s._param(
                   "contributor-name",
-                  o("WAWebPollAddOptionContributor").resolveContributorName({
+                  o("WAWebSystemMsgContactName").resolveSystemMsgContactName({
                     chat: n,
-                    contact: r,
-                    formattedName: l,
-                    isMyContact: c,
-                    notifyName: d,
+                    contact: a,
+                    formattedName: c,
+                    isMyContact: d,
+                    notifyName: p,
+                    orgMemberName: _(a),
                   }),
                 ),
               ]),
             })),
             (t[1] = n),
-            (t[2] = r),
-            (t[3] = l),
-            (t[4] = c),
+            (t[2] = a),
+            (t[3] = c),
+            (t[4] = _),
             (t[5] = d),
-            (t[6] = p))
-          : (p = t[6]),
-        p
+            (t[6] = p),
+            (t[7] = f))
+          : (f = t[7]),
+        f
       );
     }
     function m(e) {

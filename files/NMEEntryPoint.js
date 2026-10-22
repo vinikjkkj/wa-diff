@@ -761,6 +761,8 @@ __d(
       IG_PRO_ONBOARDING_CHECKLIST_STEP: "ig_pro_onboarding_checklist_step",
       IG_PRO_ONBOARDING_CHECKLIST_STEP_PRO_SUB:
         "ig_pro_onboarding_checklist_step_pro_sub",
+      IG_REELS_NETEGO_PRO_AC: "ig_reels_netego_pro_ac",
+      IG_REELS_NETEGO_PRO_BIZ: "ig_reels_netego_pro_biz",
       IG_REEL_INSIGHTS_BANNER_UPSELL: "nme_ig_reel_insights_banner_upsell",
       IG_REEL_INSIGHTS_UPSELL: "ig_reel_insights_upsell",
       IG_REEL_INSIGHTS_UPSELL_V2_MODEL: "ig_reel_insights_upsell_v2_model",
@@ -2072,6 +2074,8 @@ __d(
       WA_SUBSCRIPTION_CANCELLATION_NOTIF: "wa_subscription_cancellation_notif",
       WA_SUBSCRIPTION_COMPLETION_NOTIF: "wa_subscription_completion_notif",
       WA_SUBSCRIPTION_EXPIRATION_NOTIF: "wa_subscription_expiration_notif",
+      WA_SUBSCRIPTION_EXPIRATION_REMINDER:
+        "wa_subscription_expiration_reminder",
       WA_SUBSCRIPTION_RENEWAL_NOTIF: "wa_subscription_renewal_notif",
       WA_SUBSCRIPTION_VERIFICATION_ELIGIBLE_ALERT:
         "wa_subscription_verification_eligible_alert",

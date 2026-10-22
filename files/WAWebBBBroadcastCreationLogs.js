@@ -3,10 +3,11 @@ __d(
   ["WAWebBBLoggerTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
+    function e(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
+        extraAttributes: n,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.PAGE,
       });
@@ -52,26 +53,26 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function d(e, t, n, r, a) {
+    function d(e, t, n, r, a, i) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
-        extraAttributes: {
+        extraAttributes: babelHelpers.extends({}, i, {
           attachment_type: a != null ? a : void 0,
           recipient_count: n != null ? n : void 0,
           scheduled: r,
-        },
+        }),
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget: r
           ? o("WAWebBBLoggerTypes").UserActionTarget.SCHEDULE_BROADCAST_BUTTON
           : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function m(e, t, n, r, a, i, l, s, u) {
+    function m(e, t, n, r, a, i, l, s, u, c) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
-        extraAttributes: {
+        extraAttributes: babelHelpers.extends({}, c, {
           attachment_type: i != null ? i : void 0,
           error_codes: u,
           error_type: l,
@@ -79,7 +80,7 @@ __d(
           recipient_count: n != null ? n : void 0,
           save_result: a,
           scheduled: r,
-        },
+        }),
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget: r
           ? o("WAWebBBLoggerTypes").UserActionTarget.SCHEDULE_BROADCAST_BUTTON

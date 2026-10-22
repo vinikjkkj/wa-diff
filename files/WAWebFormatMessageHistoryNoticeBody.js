@@ -9,15 +9,18 @@ __d(
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
     "WAWebL10N",
+    "WAWebOrgMemberContactName",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    function e(e) {
+    function e(e, t) {
       if (o("WAWebFrontendContactGetters").getIsMyContact(e))
         return o("WAWebFrontendContactGetters").getFormattedName(e);
-      var t = o("WAWebContactGetters").getNotifyName(e);
-      return t != null
-        ? o("WAWebChatContactUtils").getFormattedNotifyName(t).toString()
+      var n = t(e);
+      if (n != null) return n;
+      var r = o("WAWebContactGetters").getNotifyName(e);
+      return r != null
+        ? o("WAWebChatContactUtils").getFormattedNotifyName(r).toString()
         : o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(e);
     }
     function u(e) {
@@ -27,33 +30,38 @@ __d(
       var n,
         a,
         i = t.author,
-        l = t.metadata,
-        s = l == null ? void 0 : l.oldestMessageTimestampInWindow;
-      if (l == null || s == null || i == null) return d();
-      var u = Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
+        l = t.getOrgName,
+        s =
+          l === void 0
+            ? o("WAWebOrgMemberContactName").getOrgMemberDisplayName
+            : l,
+        u = t.metadata,
+        c = u == null ? void 0 : u.oldestMessageTimestampInWindow;
+      if (u == null || c == null || i == null) return d();
+      var h = Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
           month: "short",
           day: "numeric",
           year: "numeric",
           hour: "numeric",
           minute: "2-digit",
-        }).format(Number(o("WALongInt").longIntToDecimalString(s)) * 1e3),
-        c = (n = l.historyReceivers) != null ? n : [],
-        h = c.map(function (t) {
+        }).format(Number(o("WALongInt").longIntToDecimalString(c)) * 1e3),
+        y = (n = u.historyReceivers) != null ? n : [],
+        C = y.map(function (t) {
           var n = o("WAWebContactCollection").ContactCollection.get(t);
-          return n ? e(n) : t.toString();
+          return n ? e(n, s) : t.toString();
         }),
-        y = o("WAWebContactCollection").ContactCollection.get(i),
-        C = y ? e(y) : i.toString(),
-        b = h[0] || "",
-        v = (a = l.nonHistoryReceivers) != null ? a : [],
-        S = g(v);
-      return c.length === 1
-        ? S != null
-          ? _(C, b, u, S)
-          : m(C, b, u)
-        : S != null
-          ? f(C, b, c.length - 1, u, S)
-          : p(C, b, c.length - 1, u);
+        b = o("WAWebContactCollection").ContactCollection.get(i),
+        v = b ? e(b, s) : i.toString(),
+        S = C[0] || "",
+        R = (a = u.nonHistoryReceivers) != null ? a : [],
+        L = g(R, s);
+      return y.length === 1
+        ? L != null
+          ? _(v, S, h, L)
+          : m(v, S, h)
+        : L != null
+          ? f(v, S, y.length - 1, h, L)
+          : p(v, S, y.length - 1, h);
     }
     function d() {
       return s._(/*BTDS*/ "Message history was sent");
@@ -102,11 +110,11 @@ __d(
         ],
       );
     }
-    function g(t) {
+    function g(t, n) {
       if (t.length === 0) return null;
-      var n = t[0],
-        r = o("WAWebContactCollection").ContactCollection.get(n);
-      return r ? e(r) : n.toString();
+      var r = t[0],
+        a = o("WAWebContactCollection").ContactCollection.get(r);
+      return a ? e(a, n) : r.toString();
     }
     ((l.formatMessageHistoryNoticeBody = u),
       (l.formatMessageHistoryNoticeBodyFor = c));

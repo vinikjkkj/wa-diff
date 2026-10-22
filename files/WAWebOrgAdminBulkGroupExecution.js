@@ -8,6 +8,7 @@ __d(
         addedMemberCount: 0,
         completedGroupCount: 0,
         createdGroupCount: 0,
+        emailInviteSentCount: 0,
         failedGroupCount: 0,
         failedMemberCount: 0,
         groupResults: [],
@@ -121,20 +122,26 @@ __d(
                 typeof t == "function") &&
               t.status === "success" &&
               "addedMemberCount" in t &&
+              "emailInviteNotSentMembers" in t &&
+              "emailInviteSentCount" in t &&
               "failedMemberCount" in t &&
               "invitedMemberCount" in t &&
               "runParticipantFollowUp" in t
             ) {
               var n = t.addedMemberCount,
-                r = t.failedMemberCount,
-                o = t.invitedMemberCount,
-                a = t.runParticipantFollowUp;
+                r = t.emailInviteNotSentMembers,
+                o = t.emailInviteSentCount,
+                a = t.failedMemberCount,
+                i = t.invitedMemberCount,
+                l = t.runParticipantFollowUp;
               return h({
                 addedMemberCount: n,
-                failedMemberCount: r,
+                emailInviteNotSentCount: r.length,
+                emailInviteSentCount: o,
+                failedMemberCount: a,
                 group: e,
-                invitedMemberCount: o,
-                runParticipantFollowUp: a,
+                invitedMemberCount: i,
+                runParticipantFollowUp: l,
               });
             }
             throw Error(
@@ -148,23 +155,29 @@ __d(
     }
     function h(e) {
       var t = e.addedMemberCount,
-        n = e.failedMemberCount,
-        r = e.group,
-        o = e.invitedMemberCount,
-        a = e.runParticipantFollowUp;
+        n = e.emailInviteNotSentCount,
+        r = e.emailInviteSentCount,
+        o = e.failedMemberCount,
+        a = e.group,
+        i = e.invitedMemberCount,
+        l = e.runParticipantFollowUp;
       return {
         addedMemberCount: t,
-        failedMemberCount: n,
-        invitedMemberCount: o,
-        memberTag: r.memberTag,
-        name: r.name,
-        runParticipantFollowUp: a,
+        emailInviteNotSentCount: n,
+        emailInviteSentCount: r,
+        failedMemberCount: o,
+        invitedMemberCount: i,
+        memberTag: a.memberTag,
+        name: a.name,
+        runParticipantFollowUp: l,
         status: "success",
       };
     }
     function y(e) {
       return {
         addedMemberCount: 0,
+        emailInviteNotSentCount: 0,
+        emailInviteSentCount: 0,
         failedMemberCount: e.members.length,
         invitedMemberCount: 0,
         memberTag: e.memberTag,
@@ -176,6 +189,8 @@ __d(
     function C(e, t) {
       return {
         addedMemberCount: 0,
+        emailInviteNotSentCount: 0,
+        emailInviteSentCount: 0,
         failedMemberCount: e.members.length,
         invitedMemberCount: 0,
         memberTag: e.memberTag,
@@ -192,6 +207,7 @@ __d(
             e.completedGroupCount + (n.status === "not_attempted" ? 0 : 1),
           createdGroupCount:
             e.createdGroupCount + (n.status === "success" ? 1 : 0),
+          emailInviteSentCount: e.emailInviteSentCount + n.emailInviteSentCount,
           failedGroupCount:
             e.failedGroupCount + (n.status === "success" ? 0 : 1),
           failedMemberCount: e.failedMemberCount + n.failedMemberCount,

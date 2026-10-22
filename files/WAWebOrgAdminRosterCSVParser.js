@@ -16,7 +16,7 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
       s = 5e3,
-      u = 1e3,
+      u = 5e3,
       c = 25 * 1024 * 1024,
       d = s * 2 + 2,
       m = /^\'(?=\s*[=+\-@\t\r])/,

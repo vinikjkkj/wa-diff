@@ -2,42 +2,49 @@ __d(
   "WAWebOrgAdminGroupMembers",
   [
     "fbt",
+    "WAWebFbtCommon",
     "WAWebL10NAccentFold",
     "WAWebPhoneNumberSearch",
     "WAWebPhoneUtils",
     "WAWebUsernameTypes",
   ],
   function (t, n, r, o, a, i, l, s) {
-    function e(e, t) {
+    function e(e) {
+      var t = e.participants;
+      return (
+        t != null && e.rosterPartial !== !0 && t.length >= e.participantCount
+      );
+    }
+    function u(e, t) {
       return e
         .map(function (e, n) {
-          return f(e, n, t);
+          return g(e, n, t);
         })
         .sort(function (e, t) {
-          return u(e, t, c);
+          return c(e, t, d);
         });
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       var r = n(e) - n(t);
       return r !== 0 ? r : e.label.toString().localeCompare(t.label.toString());
     }
-    function c(e) {
+    function d(e) {
       return e.isViewer ? 0 : e.isAdmin ? 1 : 2;
     }
-    function d(e, t) {
+    function m(e, t) {
       var n = o("WAWebL10NAccentFold").accentFold(t.trim()),
         r = o("WAWebPhoneNumberSearch").numberSearch(n);
       return e
         .filter(function (e) {
-          return m(e, n, r);
+          return p(e, n, r);
         })
         .sort(function (e, t) {
-          return u(e, t, _);
+          return c(e, t, f);
         });
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       var r, o;
-      if (p(e).includes(t)) return !0;
+      if (_(e).includes(t)) return !0;
       var a =
         (r = (o = e.phoneNumber) == null ? void 0 : o.replace(/\D/g, "")) !=
         null
@@ -45,7 +52,7 @@ __d(
           : "";
       return n != null && n !== "" && a.includes(n);
     }
-    function p(e) {
+    function _(e) {
       var t,
         n,
         r = e.isViewer ? e.label.toString() : "";
@@ -57,33 +64,33 @@ __d(
           ((n = e.memberTag) != null ? n : ""),
       );
     }
-    function _(e) {
+    function f(e) {
       return e.isViewer ? 0 : 1;
     }
-    function f(e, t, n) {
-      var r,
-        o = e.lid,
-        a = o == null ? null : n.directoryMemberByLID.get(o),
-        i = o == null ? null : n.identityByLID.get(o),
-        l = o != null && o === n.viewerLID,
-        u = g(a, i, n.usernamesEnabled);
+    function g(e, t, n) {
+      var o,
+        a = e.lid,
+        i = a == null ? null : n.directoryMemberByLID.get(a),
+        l = a == null ? null : n.identityByLID.get(a),
+        s = a != null && a === n.viewerLID,
+        u = h(i, l, n.usernamesEnabled);
       return {
         isAdmin: e.role === "ADMIN" || e.role === "SUPERADMIN",
-        isViewer: l,
-        key: (o != null ? o : "") + ":" + t.toString(),
-        label: l ? s._(/*BTDS*/ "You") : h(o, u, n.identitiesLoading),
-        memberTag: a == null ? void 0 : a.memberTag,
+        isViewer: s,
+        key: (a != null ? a : "") + ":" + t.toString(),
+        label: s ? r("WAWebFbtCommon")("You") : y(a, u, n.identitiesLoading),
+        memberTag: i == null ? void 0 : i.memberTag,
         name: u,
         participant: e,
         phoneNumber:
-          (r = i == null ? void 0 : i.phoneNumber) != null
-            ? r
-            : a == null
+          (o = l == null ? void 0 : l.phoneNumber) != null
+            ? o
+            : i == null
               ? void 0
-              : a.phoneNumber,
+              : i.phoneNumber,
       };
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       var r,
         a = e == null ? void 0 : e.displayName;
       if (a != null && a !== "") return a;
@@ -102,7 +109,7 @@ __d(
           ? null
           : o("WAWebPhoneUtils").formatPhone(t.phoneNumber);
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       return e == null
         ? s._(/*BTDS*/ "Unknown member")
         : t != null
@@ -111,7 +118,9 @@ __d(
             ? s._(/*BTDS*/ "Loading member\u2026")
             : s._(/*BTDS*/ "Unknown member");
     }
-    ((l.getOrgAdminGroupMembers = e), (l.searchOrgAdminGroupMembers = d));
+    ((l.isOrgAdminGroupMemberListComplete = e),
+      (l.getOrgAdminGroupMembers = u),
+      (l.searchOrgAdminGroupMembers = m));
   },
   226,
 );

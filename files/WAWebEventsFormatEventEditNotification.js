@@ -2,15 +2,12 @@ __d(
   "WAWebEventsFormatEventEditNotification",
   [
     "fbt",
-    "WAWebChatCommunityUtils",
-    "WAWebChatContactUtils",
     "WAWebContactCollection",
-    "WAWebContactGetters",
-    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebSystemMsgContactName",
     "WAWebUserPrefsMeUser",
     "nullthrows",
   ],
@@ -34,41 +31,28 @@ __d(
           : s._(/*BTDS*/ "{event-name} was updated", [
               s._param("event-name", t.eventName),
             ]);
-      var i = o("WAWebContactCollection").ContactCollection.gadd(a),
-        l = o("WAWebContactGetters").getNotifyName(i),
-        u;
-      o("WAWebFrontendContactGetters").getIsMyContact(i)
-        ? (u = o("WAWebFrontendContactGetters").getFormattedName(i))
-        : l != null
-          ? (u = o("WAWebChatContactUtils").getFormattedNotifyName(
-              o("WAWebContactGetters").getNotifyName(i),
-            ))
-          : (u = o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
-              o("WAWebFrontendMsgGetters").getChat(e),
-              i,
-            )
-              ? o("WAWebFrontendContactGetters").getMaskedPhoneLid(i)
-              : o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(
-                  i,
-                ));
-      var c = o("WAWebUserPrefsMeUser").isMeAccount(a),
-        d = t.eventName;
+      var i = o("WAWebSystemMsgContactName").getSystemMsgContactName(
+          o("WAWebFrontendMsgGetters").getChat(e),
+          o("WAWebContactCollection").ContactCollection.gadd(a),
+        ),
+        l = o("WAWebUserPrefsMeUser").isMeAccount(a),
+        u = t.eventName;
       return t.isEventCanceled
-        ? c
+        ? l
           ? s._(/*BTDS*/ "You canceled {event-name}", [
-              s._param("event-name", d),
+              s._param("event-name", u),
             ])
           : s._(/*BTDS*/ "{contact-name} canceled {event-name}", [
-              s._param("contact-name", u),
-              s._param("event-name", d),
+              s._param("contact-name", i),
+              s._param("event-name", u),
             ])
-        : c
+        : l
           ? s._(/*BTDS*/ "You updated {event-name}", [
-              s._param("event-name", d),
+              s._param("event-name", u),
             ])
           : s._(/*BTDS*/ "{contact-name} updated {event-name}", [
-              s._param("contact-name", u),
-              s._param("event-name", d),
+              s._param("contact-name", i),
+              s._param("event-name", u),
             ]);
     }
     l.formatEventEditNotification = e;

@@ -4,8 +4,9 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = 5,
-      l = "#app",
-      s = [
+      l = 1e3,
+      s = "#app",
+      u = [
         ["backdrop-filter", "none"],
         ["filter", "none"],
         ["mix-blend-mode", "normal"],
@@ -13,23 +14,23 @@ __d(
         ["rotate", "none"],
         ["scale", "none"],
       ];
-    function u(e, t) {
+    function c(e, t) {
       return (
         t === void 0 && (t = e.getBoundingClientRect()),
-        m(e) ? "distorted" : d(p(e, t))
+        _(e) ? "distorted" : p(f(e, t))
       );
     }
-    function c(e, t) {
+    function d(e, t) {
       t === void 0 && (t = e.getBoundingClientRect());
       var n = new Map();
-      for (var r of p(e, t))
-        if (r.closest(l) != null) {
+      for (var r of f(e, t))
+        if (r.closest(s) != null) {
           var o,
-            a = _(r, e);
+            a = g(r, e);
           n.set(a, ((o = n.get(a)) != null ? o : 0) + 1);
         }
       if (n.size === 0) return null;
-      var i = C(t).length;
+      var i = v(t).length;
       return Array.from(n)
         .sort(function (e, t) {
           var n = e[1],
@@ -43,28 +44,45 @@ __d(
         })
         .join("; ");
     }
-    function d(e) {
+    function m(e) {
+      var t = null,
+        n = !1,
+        r = Date.now(),
+        o = R(e, function (e) {
+          e !== t && ((n = t === !1), (t = e), (r = Date.now()));
+        });
+      return {
+        read: function () {
+          var e = Date.now() - r;
+          return { msSinceChange: e, visibility: L(t, n, e) };
+        },
+        stop: function () {
+          return o == null ? void 0 : o.disconnect();
+        },
+      };
+    }
+    function p(e) {
       return e.some(function (e) {
-        return e.closest(l) == null;
+        return e.closest(s) == null;
       })
         ? "occluded"
         : e.length > 0
           ? "app_layer"
           : null;
     }
-    function m(e) {
+    function _(e) {
       var t = e.ownerDocument.defaultView;
       if (t == null) return !1;
       for (
         var n = function () {
             var e = t.getComputedStyle(o);
             if (
-              s.some(function (t) {
+              u.some(function (t) {
                 var n = t[0],
                   r = t[1];
-                return !v(e.getPropertyValue(n), r);
+                return !E(e.getPropertyValue(n), r);
               }) ||
-              !S(e.getPropertyValue("transform"))
+              !k(e.getPropertyValue("transform"))
             )
               return { v: !0 };
           },
@@ -76,7 +94,7 @@ __d(
         if (((r = n()), r)) return r.v;
       return !1;
     }
-    function p(t, n) {
+    function f(t, n) {
       var r,
         o = t.ownerDocument;
       if (n.width <= 2 * e || n.height <= 2 * e) return [];
@@ -84,24 +102,24 @@ __d(
       ((a.textContent = "* { pointer-events: auto !important; }"),
         (r = o.head) == null || r.appendChild(a));
       try {
-        return C(n).flatMap(function (e) {
+        return v(n).flatMap(function (e) {
           var n = e[0],
             r = e[1],
-            a = y(t, o.elementsFromPoint(n, r));
+            a = b(t, o.elementsFromPoint(n, r));
           return a == null ? [] : [a];
         });
       } finally {
         a.remove();
       }
     }
-    function _(e, t) {
+    function g(e, t) {
       var n,
         r = e.ownerDocument.defaultView;
       return [
-        "testid=" + g(f(e, "data-testid")),
-        "role=" + f(e, "role"),
+        "testid=" + y(h(e, "data-testid")),
+        "role=" + h(e, "role"),
         "tag=" + e.tagName.toLowerCase(),
-        "z=" + h(e, t),
+        "z=" + C(e, t),
         "pointer=" +
           ((n =
             r == null
@@ -112,7 +130,7 @@ __d(
             : ""),
       ].join(" ");
     }
-    function f(e, t) {
+    function h(e, t) {
       var n, r;
       return (n =
         (r = e.closest("[" + t + "]")) == null ? void 0 : r.getAttribute(t)) !=
@@ -120,10 +138,10 @@ __d(
         ? n
         : "none";
     }
-    function g(e) {
+    function y(e) {
       return e.replace(/[0-9a-z]*\d[0-9a-z]*/gi, "#");
     }
-    function h(e, t) {
+    function C(e, t) {
       for (
         var n = e.ownerDocument.defaultView, r = "auto", o = e;
         o != null && !o.contains(t);
@@ -137,14 +155,14 @@ __d(
       }
       return r;
     }
-    function y(e, t) {
+    function b(e, t) {
       for (var n of t) {
-        if (n === e || e.contains(n)) return null;
-        if (!b(n)) return n;
+        if (n.contains(e) || e.contains(n)) return null;
+        if (!S(n)) return n;
       }
       return null;
     }
-    function C(t) {
+    function v(t) {
       var n = [t.left + e, t.left + t.width / 2, t.right - e],
         r = [t.top + e, t.top + t.height / 2, t.bottom - e];
       return n.flatMap(function (e) {
@@ -153,7 +171,7 @@ __d(
         });
       });
     }
-    function b(e) {
+    function S(e) {
       for (
         var t = e.ownerDocument.defaultView, n = e;
         n != null;
@@ -167,10 +185,42 @@ __d(
           return !0;
       return !1;
     }
-    function v(e, t) {
+    function R(e, t) {
+      var n,
+        r =
+          (n = e.ownerDocument.defaultView) == null
+            ? void 0
+            : n.IntersectionObserver;
+      if (typeof r != "function") return null;
+      var o = new r(
+        function (e) {
+          var n = e[e.length - 1];
+          n != null && t(Reflect.get(n, "isVisible") === !0);
+        },
+        { delay: 100, threshold: 1, trackVisibility: !0 },
+      );
+      return (o.observe(e), o);
+    }
+    function L(e, t, n) {
+      return e == null
+        ? "unknown"
+        : e === !1
+          ? "hidden"
+          : e === !0
+            ? t && n < l
+              ? "just_visible"
+              : "visible"
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
+    }
+    function E(e, t) {
       return e === "" || e === t;
     }
-    function S(e) {
+    function k(e) {
       if (e === "" || e === "none") return !0;
       var t = /^matrix\(([^)]*)\)$/.exec(e);
       if (t == null) return !1;
@@ -181,7 +231,9 @@ __d(
         i = n[3];
       return o === 0 && a === 0 && r === i && r >= 1;
     }
-    ((i.findPermissionButtonCover = u), (i.describeAppLayerCover = c));
+    ((i.findPermissionButtonCover = c),
+      (i.describeAppLayerCover = d),
+      (i.watchPermissionButtonVisibility = m));
   },
   66,
 );

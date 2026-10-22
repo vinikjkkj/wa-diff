@@ -6,6 +6,7 @@ __d(
     "WAWebApiContact",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
     "WAWebOrgAdminDirectoryMemberDisplay",
+    "WAWebOrgMemberDisplayName",
     "WAWebPhoneUtils",
     "WAWebWidFactory",
   ],
@@ -29,6 +30,17 @@ __d(
       };
     }
     function c(e) {
+      return e.source === "directory"
+        ? o("WAWebOrgMemberDisplayName").getOrgMemberNameWithUsernameFallback(
+            e.displayName,
+            e.directoryMember.username,
+            e.directoryMember.phoneNumber == null
+              ? null
+              : o("WAWebPhoneUtils").formatPhone(e.directoryMember.phoneNumber),
+          )
+        : e.displayName;
+    }
+    function d(e) {
       if (e.source === "directory")
         return o(
           "WAWebOrgAdminDirectoryMemberDisplay",
@@ -36,7 +48,7 @@ __d(
       var t = e.rosterEntry,
         n = t.emailAddress,
         r = t.phoneNumber,
-        a = g(r);
+        a = C(r);
       return n != null && n !== ""
         ? a == null
           ? n
@@ -45,7 +57,7 @@ __d(
           ? null
           : o("WAWebPhoneUtils").formatPhone(a);
     }
-    function d(e) {
+    function m(e) {
       return e.memberTag != null && e.memberTag !== ""
         ? e.memberTag
         : e.source === "directory"
@@ -54,10 +66,22 @@ __d(
             ).getOrgAdminDirectoryMemberRoleLabel(e.directoryMember.role)
           : s._(/*BTDS*/ "Uploaded");
     }
-    function m(e) {
+    function p(e) {
       return e.source === "directory" ? e.directoryMember.lid : null;
     }
-    function p(e, t) {
+    function _(e) {
+      return e.source === "directory"
+        ? e.directoryMember.lid
+        : e.rosterEntry.memberLID;
+    }
+    function f(e) {
+      if (e.source !== "roster") return null;
+      var t = e.rosterEntry,
+        n = t.emailAddress,
+        r = t.id;
+      return n == null || n === "" ? null : r;
+    }
+    function g(e, t) {
       if (e.source === "directory")
         return o(
           "WAWebOrgAdminDirectoryMemberDisplay",
@@ -75,7 +99,7 @@ __d(
       var r = o(
           "WAWebOrgAdminDirectoryMemberDisplay",
         ).normalizeOrgAdminPhoneSearchValue(t),
-        a = g(n.phoneNumber);
+        a = C(n.phoneNumber);
       return (
         a != null &&
         r !== "" &&
@@ -85,11 +109,12 @@ __d(
         a.includes(r)
       );
     }
-    function _(e) {
-      return e.source === "directory" || g(e.rosterEntry.phoneNumber) != null;
+    function h(e) {
+      return _(e) != null || f(e) != null;
     }
-    function f(e, t, n) {
-      var r = g(e.phoneNumber);
+    function y(e, t, n) {
+      if (e.memberLID != null) return e.memberLID === t;
+      var r = C(e.phoneNumber);
       if (r == null) return !1;
       if (r === n) return !0;
       try {
@@ -105,7 +130,7 @@ __d(
         return !1;
       }
     }
-    function g(e) {
+    function C(e) {
       if (e == null) return null;
       var t = e
         .trim()
@@ -123,13 +148,16 @@ __d(
     }
     ((l.directoryMemberToGroupCandidate = e),
       (l.rosterEntryToGroupCandidate = u),
-      (l.getOrgAdminGroupCandidateIdentityLabel = c),
-      (l.getOrgAdminGroupCandidateLabel = d),
-      (l.getOrgAdminGroupCandidateProfileLID = m),
-      (l.orgAdminGroupCandidateMatchesQuery = p),
-      (l.canAddOrgAdminGroupCandidate = _),
-      (l.isCurrentUserOrgAdminRosterEntry = f),
-      (l.normalizeOrgAdminRosterPhoneNumber = g));
+      (l.getOrgAdminGroupCandidateDisplayName = c),
+      (l.getOrgAdminGroupCandidateIdentityLabel = d),
+      (l.getOrgAdminGroupCandidateLabel = m),
+      (l.getOrgAdminGroupCandidateProfileLID = p),
+      (l.getOrgAdminGroupCandidateLID = _),
+      (l.getOrgAdminGroupCandidateEmailInviteID = f),
+      (l.orgAdminGroupCandidateMatchesQuery = g),
+      (l.canAddOrgAdminGroupCandidate = h),
+      (l.isCurrentUserOrgAdminRosterEntry = y),
+      (l.normalizeOrgAdminRosterPhoneNumber = C));
   },
   226,
 );

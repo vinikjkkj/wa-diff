@@ -30,15 +30,20 @@ __d(
       );
     }
     function c() {
-      p(o("WAWebNux").NUX.AE_ONBOARDING);
+      return o("WAWebUserPrefsNuxPreferences").shouldShowNUX(
+        o("WAWebNux").NUX.AE_ONBOARDING,
+      );
     }
     function d() {
-      p(o("WAWebNux").NUX.AE_ONBOARDING_LISTS_HOME);
+      _(o("WAWebNux").NUX.AE_ONBOARDING);
     }
     function m() {
-      p(o("WAWebNux").NUX.AE_ONBOARDING_NOT_NOW);
+      _(o("WAWebNux").NUX.AE_ONBOARDING_LISTS_HOME);
     }
-    function p(t) {
+    function p() {
+      _(o("WAWebNux").NUX.AE_ONBOARDING_NOT_NOW);
+    }
+    function _(t) {
       o("WAWebNuxAction")
         .viewNux(t)
         .catch(function (n) {
@@ -56,9 +61,10 @@ __d(
         });
     }
     ((l.shouldAutoShowOnboardingNuxOnListsHome = u),
-      (l.recordOnboardingNuxShown = c),
-      (l.recordOnboardingNuxShownOnListsHome = d),
-      (l.recordOnboardingNuxOptedOut = m));
+      (l.shouldShowOnboardingNuxFromListFilter = c),
+      (l.recordOnboardingNuxShown = d),
+      (l.recordOnboardingNuxShownOnListsHome = m),
+      (l.recordOnboardingNuxOptedOut = p));
   },
   98,
 );

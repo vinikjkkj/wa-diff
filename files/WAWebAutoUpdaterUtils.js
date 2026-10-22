@@ -22,34 +22,27 @@ __d(
       _ = null,
       f = 60 * 1e3;
     function g() {
-      (p &&
-        (document.removeEventListener("visibilitychange", S),
-        r("WAWebCallCollection").off("change:activeCall", S)),
-        (p = !1),
-        _ != null && (window.clearTimeout(_), (_ = null)));
-    }
-    function h() {
       _ != null && (window.clearTimeout(_), (_ = null));
     }
-    function y() {
-      return C.apply(this, arguments);
+    function h() {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             yield r("WAWebNetworkStatus").checkOnline(),
             !navigator.onLine || !r("WAWebNetworkStatus").online
           );
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b() {
-      (h(),
+    function C() {
+      (g(),
         (_ = window.setTimeout(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (((_ = null), yield y())) {
+            if (((_ = null), yield h())) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -64,8 +57,8 @@ __d(
                   "[Auto-refresh] Updater: Updating dev-web.",
                 ])),
             ),
-              document.removeEventListener("visibilitychange", S),
-              r("WAWebCallCollection").off("change:activeCall", S),
+              document.removeEventListener("visibilitychange", v),
+              r("WAWebCallCollection").off("change:activeCall", v),
               (p = !1),
               o("WAWebUpdater")
                 .Updater.update({ belowHard: 0, belowSoft: !1 })
@@ -85,29 +78,29 @@ __d(
           f,
         )));
     }
-    function v() {
+    function b() {
       return r("WAWebCallCollection").activeCall != null;
     }
-    function S() {
-      return R.apply(this, arguments);
+    function v() {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             document.hidden &&
             !o("WAWebMsgCollection").MsgCollection.hasUnsentMessages() &&
-            !L() &&
-            !v()
+            !R() &&
+            !b()
           ) {
-            if (yield y()) {
+            if (yield h()) {
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[Auto-refresh] skip: offline",
                   ])),
               ),
-                h());
+                g());
               return;
             }
             (o("WALogger").LOG(
@@ -116,11 +109,11 @@ __d(
                   "[Auto-refresh] conditions met, starting 1min timer",
                 ])),
             ),
-              b());
+              C());
           } else {
             var e = o("WAWebMsgCollection").MsgCollection.hasUnsentMessages(),
-              t = L(),
-              n = v();
+              t = R(),
+              n = b();
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -135,32 +128,32 @@ __d(
               t,
               n,
             ),
-              h());
+              g());
           }
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L() {
+    function R() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       return e != null && o("WAWebFrontendChatGetters").getHasDraftMessage(e);
     }
-    function E() {
-      return k.apply(this, arguments);
+    function L() {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (p ||
-            (document.addEventListener("visibilitychange", S),
-            r("WAWebCallCollection").on("change:activeCall", S),
+            (document.addEventListener("visibilitychange", v),
+            r("WAWebCallCollection").on("change:activeCall", v),
             (p = !0)),
-            yield S());
+            yield v());
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    ((l.__resetListenerForTesting = g), (l.autoRefreshWhenHidden = E));
+    l.autoRefreshWhenHidden = L;
   },
   98,
 );

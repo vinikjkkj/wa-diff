@@ -68,29 +68,30 @@ __d(
             )
               a[i] = n.charCodeAt(i);
             var l = new DecompressionStream("deflate"),
-              u = new Blob([a]).stream().pipeThrough(l),
-              m = yield new Response(u).blob(),
-              p = yield m.text(),
-              _ = JSON.parse(p);
+              u = new Blob([a]).stream(),
+              m = u.pipeThrough(l),
+              p = yield new Response(m).blob(),
+              _ = yield p.text(),
+              f = JSON.parse(_);
             if (
-              _ != null &&
-              typeof _ == "object" &&
-              "type" in _ &&
-              _.type === "work_contact_sync_data" &&
-              "payload" in _ &&
-              Array.isArray(_.payload)
+              f != null &&
+              typeof f == "object" &&
+              "type" in f &&
+              f.type === "work_contact_sync_data" &&
+              "payload" in f &&
+              Array.isArray(f.payload)
             ) {
-              var f = r("compactMap")(_.payload, c);
+              var g = r("compactMap")(f.payload, c);
               (o("WAWebModalManager").ModalManager.open(
                 s.jsx(r("WAWebWorkContactSyncModal.react"), {
-                  workContacts: f,
+                  workContacts: g,
                   onClose: o("WAWebModalManager").closeModalManager,
                 }),
               ),
                 d(t));
             }
           } catch (e) {
-            var g;
+            var h;
             o("WAWebModalManager").ModalManager.open(
               s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 tsNavigationData: {
@@ -103,16 +104,16 @@ __d(
                 children: s.jsxs("div", {
                   style: {
                     minWidth: "450px",
-                    paddingTop: (g = o("WDSVars.stylex")).WDSVars
+                    paddingTop: (h = o("WDSVars.stylex")).WDSVars
                       .spacingDoublePlus,
-                    paddingInline: g.WDSVars.spacingDoublePlus,
-                    paddingBottom: g.WDSVars.spacingDoublePlus,
+                    paddingInline: h.WDSVars.spacingDoublePlus,
+                    paddingBottom: h.WDSVars.spacingDoublePlus,
                   },
                   children: [
                     s.jsx("h1", {
                       style: {
                         fontSize: "18px",
-                        marginBottom: g.WDSVars.spacingSinglePlus,
+                        marginBottom: h.WDSVars.spacingSinglePlus,
                       },
                       children: "Work Contact Sync Error",
                     }),

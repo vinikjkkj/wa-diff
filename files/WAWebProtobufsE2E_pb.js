@@ -283,7 +283,7 @@ __d(
         CROSS_APP_SOURCE_FACEBOOK: 2,
       }),
       be = d({ EXPLICIT: 0, AUTO: 1 }),
-      ve = d({ UNKNOWN: 0, CLOSE_FRIENDS: 1, CUSTOM_LIST: 2, NETWORK: 3 }),
+      ve = d({ UNKNOWN: 0, CLOSE_FRIENDS: 1, CUSTOM_LIST: 2, ORG: 3 }),
       Se = d({
         UNKNOWN: 0,
         CHAT: 1,
@@ -2391,7 +2391,7 @@ __d(
         audienceType: [1, e.TYPES.ENUM, ve],
         listName: [2, e.TYPES.STRING],
         listEmoji: [3, e.TYPES.STRING],
-        networkId: [4, e.TYPES.STRING],
+        orgId: [4, e.TYPES.STRING],
       }),
       (yo.name = "ContextInfo$PartiallySelectedContent"),
       (yo.internalSpec = { text: [1, e.TYPES.STRING] }),

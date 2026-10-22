@@ -6,10 +6,9 @@ __d(
       l = 320,
       s = 20,
       u = 1e3,
-      c = new Set(["fb.com", "meta.com"]),
-      d =
+      c =
         /^[\w!#\$%&\'\*\+\/\=\?\^`\{\|\}~\-]+(?:\.[\w!#\$%&\'\*\+\/\=\?\^`\{\|\}~\-]+)*@(?:[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?$/i;
-    function m(t) {
+    function d(t) {
       var n = t
         .split(/[\s,;]+/)
         .map(function (e) {
@@ -27,7 +26,7 @@ __d(
         i = [],
         l = 0;
       for (var c of o) {
-        var d = f(c);
+        var d = p(c);
         d == null
           ? a.push(c)
           : ((l += 1), i.length < s && i.push({ email: c, reason: d }));
@@ -42,23 +41,16 @@ __d(
             invalidEmails: i,
           };
     }
+    function m(e) {
+      return c.test(e) && e.length <= l;
+    }
     function p(e) {
-      return f(e) == null;
-    }
-    function _(e) {
-      return d.test(e) && e.length <= l;
-    }
-    function f(e) {
-      if (!d.test(e)) return "invalid_format";
-      if (e.length > l) return "too_long";
-      var t = e.slice(e.lastIndexOf("@") + 1).toLowerCase();
-      return c.has(t) ? null : "not_meta_employee";
+      return c.test(e) ? (e.length > l ? "too_long" : null) : "invalid_format";
     }
     ((i.MAX_ORG_INVITE_EMAILS = e),
       (i.MAX_ORG_INVITE_EMAIL_LENGTH = l),
-      (i.parseInviteEmails = m),
-      (i.isValidInviteEmail = p),
-      (i.isWellFormedOrgEmail = _));
+      (i.parseInviteEmails = d),
+      (i.isWellFormedOrgEmail = m));
   },
   66,
 );

@@ -381,7 +381,8 @@ __d(
                         i,
                         t.byteLength,
                       );
-                    (a.GROWABLE_HEAP_U8().set(t, n),
+                    n !== 0 &&
+                      (a.GROWABLE_HEAP_U8().set(t, n),
                       a.handleOnMessageFromHeap(n, t.byteLength, R, E));
                   },
                 ));

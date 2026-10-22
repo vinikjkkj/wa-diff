@@ -5086,7 +5086,10 @@ __d(
               hasMadeInitialDecision: !1,
               lastEvaluationReason: null,
             })),
-              (P = g.prefetchStartedAt),
+              (P =
+                e.config.mediaSinkType === "WEBCODECS"
+                  ? a
+                  : g.prefetchStartedAt),
               (X = J),
               (x = J),
               (D = "prefetch"));

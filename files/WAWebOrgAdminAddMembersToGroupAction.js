@@ -10,7 +10,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = ["runParticipantFollowUp", "smsInviteCandidateCount"];
+      s = ["runParticipantFollowUp"];
     function u(e, t, n) {
       return c.apply(this, arguments);
     }
@@ -25,14 +25,12 @@ __d(
                     return e.lid;
                   }),
             ),
-            c = i
-              .filter(function (e) {
-                return !u.has(e.lid);
-              })
-              .map(
-                o("WAWebOrgAdminGroupCandidate")
-                  .directoryMemberToGroupCandidate,
-              ),
+            c = i.filter(function (e) {
+              var t = o(
+                "WAWebOrgAdminGroupCandidate",
+              ).getOrgAdminGroupCandidateLID(e);
+              return t == null || !u.has(t);
+            }),
             d = i.length - c.length;
           if (c.length === 0)
             return {
@@ -63,13 +61,12 @@ __d(
                 })(),
               ),
               p = m.runParticipantFollowUp,
-              _ = m.smsInviteCandidateCount,
-              f = babelHelpers.objectWithoutPropertiesLoose(m, s);
+              _ = babelHelpers.objectWithoutPropertiesLoose(m, s);
             return babelHelpers.extends(
               {},
               o(
                 "WAWebOrgAdminGroupParticipantsAction",
-              ).getOrgAdminGroupParticipantOutcomeCounts(c.length, f, _),
+              ).getOrgAdminGroupParticipantOutcomeCounts(c.length, _),
               { alreadyMemberCount: d, runParticipantFollowUp: p },
             );
           } catch (t) {

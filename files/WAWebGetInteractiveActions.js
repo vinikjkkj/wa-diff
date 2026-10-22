@@ -181,7 +181,9 @@ __d(
       var n = t.chat,
         a = t.nativeFlowName;
       return !e.fromMe ||
-        a !== r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
+        (a !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION &&
+          a !== r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW)
         ? !1
         : n != null &&
             o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&

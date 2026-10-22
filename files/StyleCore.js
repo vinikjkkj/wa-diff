@@ -111,18 +111,18 @@ __d(
           return _.getFloat(t, "opacity") || 1;
         },
         isFixed: function (t) {
-          for (; r("containsNode")(document.body, t); ) {
-            if (_.get(t, "position") === "fixed") return !0;
-            t = t.parentNode;
+          for (var e = t; r("containsNode")(document.body, e); ) {
+            if (_.get(e, "position") === "fixed") return !0;
+            e = e.parentNode;
           }
           return !1;
         },
         getScrollParent: function (n) {
           if (!n) return null;
-          for (; n && n !== document.body; ) {
-            if (e(n, "overflow") || e(n, "overflowY") || e(n, "overflowX"))
-              return n;
-            n = n.parentNode;
+          for (var t = n; t && t !== document.body; ) {
+            if (e(t, "overflow") || e(t, "overflowY") || e(t, "overflowX"))
+              return t;
+            t = t.parentNode;
           }
           return window;
         },

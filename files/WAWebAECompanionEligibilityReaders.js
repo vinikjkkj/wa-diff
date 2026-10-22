@@ -3,19 +3,40 @@ __d(
   [
     "WAWebAECompanionEligibility",
     "WAWebAECompanionGating",
+    "WAWebAECompanionNuxEligibility",
     "WAWebCoexProductStateStore",
+    "WAWebCommonCTWADataSharing",
     "WAWebMobilePlatforms",
     "WAWebPrimaryFeaturesModel",
     "WAWebUserPrefsGeneral",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebAECompanionEligibility").getAEOnboardingRouteResult(u);
+      return o("WAWebAECompanionEligibility").getAEOnboardingRouteResult(d);
     }
     function s() {
-      return o("WAWebAECompanionEligibility").isAEOffboardingAvailable(u);
+      return o("WAWebAECompanionEligibility").isAEOffboardingAvailable(d);
     }
-    var u = {
+    function u() {
+      return (
+        o(
+          "WAWebAECompanionNuxEligibility",
+        ).shouldAutoShowOnboardingNuxOnListsHome() &&
+        e() === "presented" &&
+        !o(
+          "WAWebCommonCTWADataSharing",
+        ).shouldShowListsManagementDataSharingDialog() &&
+        o("WAWebAECompanionGating").isListsHomeOnboardingNuxAutoTriggerEnabled()
+      );
+    }
+    function c() {
+      return (
+        o(
+          "WAWebAECompanionNuxEligibility",
+        ).shouldShowOnboardingNuxFromListFilter() && e() === "presented"
+      );
+    }
+    var d = {
       isBusinessAccount: o("WAWebMobilePlatforms").isSMB,
       hasCtwaContext: function () {
         return (
@@ -38,7 +59,9 @@ __d(
         .isAECompanionOnboardingEnabled,
     };
     ((l.getAECompanionOnboardingRouteResult = e),
-      (l.isAECompanionOffboardingAvailable = s));
+      (l.isAECompanionOffboardingAvailable = s),
+      (l.shouldAutoShowAECompanionOnboardingNuxOnListsHome = u),
+      (l.shouldShowAECompanionOnboardingNuxFromListFilter = c));
   },
   98,
 );

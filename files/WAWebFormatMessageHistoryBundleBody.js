@@ -8,6 +8,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebL10N",
+    "WAWebOrgMemberContactName",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -20,16 +21,23 @@ __d(
         a,
         i,
         l = e.author,
-        s = e.metadata,
+        s = e.getOrgName,
         u =
+          s === void 0
+            ? o("WAWebOrgMemberContactName").getOrgMemberDisplayName
+            : s,
+        R = e.metadata,
+        L = function (t) {
+          var e;
+          return (e = u(t)) != null
+            ? e
+            : o("WAWebFrontendContactGetters").getDisplayName(t);
+        },
+        E =
           l != null
             ? o("WAWebContactCollection").ContactCollection.get(l)
             : null,
-        R = u
-          ? o("WAWebFrontendContactGetters").getDisplayName(u)
-          : (n = l == null ? void 0 : l.toString()) != null
-            ? n
-            : "";
+        k = E ? L(E) : (n = l == null ? void 0 : l.toString()) != null ? n : "";
       if (
         t ===
           o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
@@ -38,13 +46,13 @@ __d(
           o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
             .FAILED_NO_RETRY
       )
-        return d(R);
+        return d(k);
       if (
         t ===
         o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
           .DEDUPED
       )
-        return m(R);
+        return m(k);
       if (
         t ===
           o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
@@ -53,39 +61,37 @@ __d(
           o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
             .PROCESSING
       )
-        return p(R);
-      var L = s == null ? void 0 : s.oldestMessageTimestampInWindow;
-      if (s == null || L == null) return c();
-      var E = Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
+        return p(k);
+      var I = R == null ? void 0 : R.oldestMessageTimestampInWindow;
+      if (R == null || I == null) return c();
+      var T = Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
           month: "short",
           day: "numeric",
           year: "numeric",
           hour: "numeric",
           minute: "2-digit",
-        }).format(Number(o("WALongInt").longIntToDecimalString(L)) * 1e3),
-        k = (a = s.historyReceivers) != null ? a : [],
-        I = k.map(function (e) {
+        }).format(Number(o("WALongInt").longIntToDecimalString(I)) * 1e3),
+        D = (a = R.historyReceivers) != null ? a : [],
+        x = D.map(function (e) {
           var t = o("WAWebContactCollection").ContactCollection.get(e);
-          return t
-            ? o("WAWebFrontendContactGetters").getDisplayName(t)
-            : e.toString();
+          return t ? L(t) : e.toString();
         }),
-        T = I[0] || "",
-        D = (i = s.nonHistoryReceivers) != null ? i : [],
-        x = S(D);
+        $ = x[0] || "",
+        P = (i = R.nonHistoryReceivers) != null ? i : [],
+        N = S(P, L);
       if (l != null && o("WAWebUserPrefsMeUser").isMeAccount(l)) {
-        if (k.length === 1) return x != null ? C(T, E, x) : _(T, E);
-        if (k.length === 2) {
-          var $ = I[1] || "";
-          return x != null ? b(T, $, E, x) : f(T, $, E);
+        if (D.length === 1) return N != null ? C($, T, N) : _($, T);
+        if (D.length === 2) {
+          var M = x[1] || "";
+          return N != null ? b($, M, T, N) : f($, M, T);
         }
-        return x != null ? v(T, k.length - 1, E, x) : g(T, k.length - 1, E);
+        return N != null ? v($, D.length - 1, T, N) : g($, D.length - 1, T);
       }
       return t ===
         o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
           .INJECTED_PARTIAL
-        ? h(R, E)
-        : y(R, E);
+        ? h(k, T)
+        : y(k, T);
     }
     function c() {
       return s._(/*BTDS*/ "Message history was sent");
@@ -181,13 +187,11 @@ __d(
         ],
       );
     }
-    function S(e) {
+    function S(e, t) {
       if (e.length === 0) return null;
-      var t = e[0],
-        n = o("WAWebContactCollection").ContactCollection.get(t);
-      return n
-        ? o("WAWebFrontendContactGetters").getDisplayName(n)
-        : t.toString();
+      var n = e[0],
+        r = o("WAWebContactCollection").ContactCollection.get(n);
+      return r ? t(r) : n.toString();
     }
     ((l.formatMessageHistoryBundleBody = e),
       (l.formatMessageHistoryBundleBodyFor = u));

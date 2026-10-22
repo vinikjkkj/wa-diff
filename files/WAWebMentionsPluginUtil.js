@@ -9,10 +9,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
-    "WAWebOrgContactCollection",
-    "WAWebOrgGatingUtils",
-    "WAWebOrgMemberDisplayName",
-    "WAWebOrgMemberLidEligibility",
+    "WAWebOrgMemberContactName",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "isStringNullOrEmpty",
@@ -24,8 +21,9 @@ __d(
       c = !1;
     function d(e, t, n) {
       var r;
-      n === void 0 && (n = h);
-      var o =
+      n === void 0 &&
+        (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName);
+      var a =
           (r =
             t == null
               ? void 0
@@ -35,11 +33,11 @@ __d(
                 })) != null
             ? r
             : [],
-        a = (e || "").toLowerCase(),
-        i = o.filter(function (e) {
-          return p(a, e, n);
+        i = (e || "").toLowerCase(),
+        l = a.filter(function (e) {
+          return p(i, e, n);
         });
-      return i;
+      return l;
     }
     function m(t, n) {
       if (n.parentGroup == null)
@@ -93,7 +91,11 @@ __d(
       return d;
     }
     function p(e, t, n) {
-      if ((n === void 0 && (n = h), o("WAWebContactGetters").getIsMe(t)))
+      if (
+        (n === void 0 &&
+          (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName),
+        o("WAWebContactGetters").getIsMe(t))
+      )
         return !1;
       var a = [
           o("WAWebFrontendContactGetters").getSearchName(t) ||
@@ -155,29 +157,10 @@ __d(
         return p(n, e);
       });
     }
-    function h(e) {
-      var t = o("WAWebContactGetters").getIsMe(e)
-        ? null
-        : o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(e.id);
-      if (t == null || !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled())
-        return null;
-      var n = o("WAWebOrgContactCollection").OrgContactCollection.get(t.user);
-      if ((n == null ? void 0 : n.primaryOrgId) == null) return null;
-      var r = n.memberName;
-      return o("WAWebOrgMemberDisplayName").resolveWAWebOrgMemberDisplayName({
-        isBusiness: o("WAWebContactGetters").getIsBusiness(e),
-        memberName: r,
-        pushName: o("WAWebContactGetters").getPushname(e),
-        savedName: o("WAWebContactGetters").getName(e),
-        verifiedLevel: o("WAWebContactGetters").getVerifiedLevel(e),
-        verifiedName: o("WAWebContactGetters").getVerifiedName(e),
-      });
-    }
     ((l.getUserResults = d),
       (l.getSubgroupResults = m),
       (l.getNonParticipantCandidates = f),
-      (l.filterContactsByQuery = g),
-      (l.getMentionOrgMemberDisplayName = h));
+      (l.filterContactsByQuery = g));
   },
   98,
 );

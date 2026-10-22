@@ -19,6 +19,7 @@ __d(
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupQueryJob",
     "WAWebGroupSystemMsg",
+    "WAWebHandleGroupNotificationAction",
     "WAWebHandleGroupNotificationConst",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidMappingUsernameLearnUtils",
@@ -28,6 +29,7 @@ __d(
     "WAWebShouldTriggerQueryGroupInfo",
     "WAWebUpdateDbForGroupActionApi",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -530,40 +532,40 @@ __d(
     }
     function M(e) {
       var t = e.chatId,
-        r = e.shouldProcessOffline,
-        a = e.shouldSkip,
-        i = e.systemMessages,
-        l = function () {},
+        a = e.shouldProcessOffline,
+        i = e.shouldSkip,
+        l = e.systemMessages,
         s = function () {},
-        u = new (m || (m = n("Promise")))(function (e, t) {
-          ((l = e), (s = t));
+        u = function () {},
+        c = new (m || (m = n("Promise")))(function (e, t) {
+          ((s = e), (u = t));
         });
       return (
         o("WAWebMessageQueue")
           .onMessageQueue({
             chatWid: t,
-            isOffline: r,
+            isOffline: a,
             msgCategory: null,
             action: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
                   var e;
                   try {
-                    if (yield a()) {
-                      l({
+                    if (yield i()) {
+                      s({
                         inserted: !1,
                         written: (m || (m = n("Promise"))).resolve(),
                       });
                       return;
                     }
-                    e = c(i);
+                    e = d(l);
                   } catch (e) {
-                    s(e);
+                    u(e);
                     return;
                   }
                   return (
-                    l({ inserted: i.length > 0, written: e }),
-                    r ? (m || (m = n("Promise"))).resolve() : e
+                    s({ inserted: l.length > 0, written: e }),
+                    a ? (m || (m = n("Promise"))).resolve() : e
                   );
                 },
               );
@@ -579,12 +581,12 @@ __d(
               "group_notification_v2",
             );
           }),
-        u
+        c
       );
-      function c(e) {
+      function d(e) {
         return e.length === 0
           ? (m || (m = n("Promise"))).resolve()
-          : r
+          : a
             ? (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
                 e.forEach(function (e) {
                   o("WAWebBackendApi").frontendFireAndForget(
@@ -600,19 +602,23 @@ __d(
                   }),
                   !1,
                 ))
-            : (m || (m = n("Promise")))
-                .all(
-                  e.map(function (e) {
-                    return o(
-                      "WAWebHandleSingleMsgWorkerCompatible",
-                    ).handleSingleMsg({
-                      chatId: e.from,
-                      newMsg: e,
-                      handleSingleMsgOrigin: "handleGroupNotificationV2",
-                    });
-                  }),
-                )
-                .then(function () {});
+            : r("justknobx")._("6733")
+              ? o(
+                  "WAWebHandleGroupNotificationAction",
+                ).writeOnlineSystemNotifications(e)
+              : (m || (m = n("Promise")))
+                  .all(
+                    e.map(function (e) {
+                      return o(
+                        "WAWebHandleSingleMsgWorkerCompatible",
+                      ).handleSingleMsg({
+                        chatId: e.from,
+                        newMsg: e,
+                        handleSingleMsgOrigin: "handleGroupNotificationV2",
+                      });
+                    }),
+                  )
+                  .then(function () {});
       }
     }
     ((l.isGroupNotificationOptimizationEligible = p),

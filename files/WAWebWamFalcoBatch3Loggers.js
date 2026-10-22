@@ -29,7 +29,17 @@ __d(
     "unsafeCast",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t, n) {
+      var o = function () {
+        return r("unsafeCast")(t);
+      };
+      if (n) {
+        e.logCritical(o);
+        return;
+      }
+      e.log(o);
+    }
+    function s(e) {
       switch (e) {
         case 1126:
         case 2906:
@@ -61,190 +71,66 @@ __d(
           return !1;
       }
     }
-    function s(e, t) {
-      switch (e) {
+    function u(t, n, o) {
+      switch (t) {
         case 1126:
-          return (
-            r("WamGifSearchCancelledFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamGifSearchCancelledFalcoEvent"), n, o), !0);
         case 2906:
-          return (
-            r("WamLwiEntryPointImpressionFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamLwiEntryPointImpressionFalcoEvent"), n, o), !0);
         case 2938:
-          return (
-            r("WamPttDailyFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamPttDailyFalcoEvent"), n, o), !0);
         case 3016:
-          return (
-            r("WamMdSyncdDogfoodingFeatureUsageFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamMdSyncdDogfoodingFeatureUsageFalcoEvent"), n, o), !0);
         case 3038:
-          return (
-            r("WamAdvExpectedTsUnavailableFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamAdvExpectedTsUnavailableFalcoEvent"), n, o), !0);
         case 3484:
-          return (
-            r("WamKeepInChatNotifFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamKeepInChatNotifFalcoEvent"), n, o), !0);
         case 3486:
-          return (
-            r("WamKeepInChatNuxFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamKeepInChatNuxFalcoEvent"), n, o), !0);
         case 3522:
-          return (
-            r("WamPrivacyHighlightDailyFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamPrivacyHighlightDailyFalcoEvent"), n, o), !0);
         case 3696:
-          return (
-            r("WamCommunityFeatureUsageFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamCommunityFeatureUsageFalcoEvent"), n, o), !0);
         case 3780:
-          return (
-            r("WamUiMessageYourselfActionFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamUiMessageYourselfActionFalcoEvent"), n, o), !0);
         case 3782:
-          return (
-            r("WamMexEventFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamMexEventFalcoEvent"), n, o), !0);
         case 3892:
-          return (
-            r("WamEphemeralOutOfSyncInfoFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamEphemeralOutOfSyncInfoFalcoEvent"), n, o), !0);
         case 4274:
-          return (
-            r("WamMediaEngagementSentDailyFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamMediaEngagementSentDailyFalcoEvent"), n, o), !0);
         case 4420:
-          return (
-            r("WamReportToAdminEventsFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamReportToAdminEventsFalcoEvent"), n, o), !0);
         case 5024:
-          return (
-            r("WamStickerErrorFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamStickerErrorFalcoEvent"), n, o), !0);
         case 5286:
-          return (
-            r("WamChatThreadWallpaperFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamChatThreadWallpaperFalcoEvent"), n, o), !0);
         case 5602:
-          return (
-            r("WamWaFsSingleEmojiMessageDailyFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamWaFsSingleEmojiMessageDailyFalcoEvent"), n, o), !0);
         case 6412:
           return (
-            r("WamThreadInteractionDataNotificationFalcoEvent").log(
-              function () {
-                return r("unsafeCast")(t);
-              },
-            ),
+            e(r("WamThreadInteractionDataNotificationFalcoEvent"), n, o),
             !0
           );
         case 6470:
-          return (
-            r("WamSmbDataSharingConsentStateFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamSmbDataSharingConsentStateFalcoEvent"), n, o), !0);
         case 6640:
-          return (
-            r("WamWefrGroupClientExposureFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamWefrGroupClientExposureFalcoEvent"), n, o), !0);
         case 6816:
-          return (
-            r("WamAboutConsumptionDailyFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamAboutConsumptionDailyFalcoEvent"), n, o), !0);
         case 7074:
-          return (
-            r("WamWaffleLinkedProfilesCacheFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamWaffleLinkedProfilesCacheFalcoEvent"), n, o), !0);
         case 7202:
-          return (
-            r("WamChannelsInterestPickerFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamChannelsInterestPickerFalcoEvent"), n, o), !0);
         case 7806:
-          return (
-            r("WamHatchUserJourneyFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamHatchUserJourneyFalcoEvent"), n, o), !0);
         case 8164:
-          return (
-            r("WamAccountEncryptionAttestationFalcoEvent").log(function () {
-              return r("unsafeCast")(t);
-            }),
-            !0
-          );
+          return (e(r("WamAccountEncryptionAttestationFalcoEvent"), n, o), !0);
         default:
           return !1;
       }
     }
-    ((l.hasLogger = e), (l.log = s));
+    ((l.hasLogger = s), (l.log = u));
   },
   98,
 );

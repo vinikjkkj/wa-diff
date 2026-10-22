@@ -37,55 +37,47 @@ __d(
               ));
             return;
           }
-          new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)({
+          (new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)({
             supportAiEventType: o("WAWebWamEnumSupportAiEventType")
               .SUPPORT_AI_EVENT_TYPE.SUBMIT_MESSAGE_FEEDBACK,
-          }).commit();
-          var a = o("WAWebSupportMessageFeedbackSubmitMutation")
-            .submitSupportMessageFeedbackGraphQL({
+          }).commit(),
+            o("WAWebModalManager").ModalManager.close());
+          var a = !1;
+          try {
+            var i = yield o(
+              "WAWebSupportMessageFeedbackSubmitMutation",
+            ).submitSupportMessageFeedbackGraphQL({
               message_id: o("WAStanzaUtils").toStanzaId(t.id),
               feedback_types: n.map(
                 o("WAWebSupportMessageFeedbackSubmitMutation")
                   .feedbackKindForGraphQL,
               ),
-            })
-            .then(function (e) {
-              return e.success === !0;
             });
-          (a
-            .then(function (e) {
-              new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)(
-                {
-                  supportAiEventType: e
-                    ? o("WAWebWamEnumSupportAiEventType").SUPPORT_AI_EVENT_TYPE
-                        .SUBMIT_MESSAGE_FEEDBACK_SUCCEEDED
-                    : o("WAWebWamEnumSupportAiEventType").SUPPORT_AI_EVENT_TYPE
-                        .SUBMIT_MESSAGE_FEEDBACK_FAILED,
-                },
-              ).commit();
-            })
-            .catch(function (t) {
-              (o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "SAGA feedback submission failed: ",
-                      "",
-                    ])),
-                  t,
-                )
-                .sendLogs("saga-feedback-fail"),
-                new (o(
-                  "WAWebSupportAiSessionWamEvent",
-                ).SupportAiSessionWamEvent)({
-                  supportAiEventType: o("WAWebWamEnumSupportAiEventType")
-                    .SUPPORT_AI_EVENT_TYPE.SUBMIT_MESSAGE_FEEDBACK_FAILED,
-                }).commit());
-            }),
-            o("WAWebModalManager").ModalManager.close(),
+            a = i.success === !0;
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "SAGA feedback submission failed: ",
+                    "",
+                  ])),
+                t,
+              )
+              .sendLogs("saga-feedback-fail");
+          }
+          (new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)({
+            supportAiEventType: a
+              ? o("WAWebWamEnumSupportAiEventType").SUPPORT_AI_EVENT_TYPE
+                  .SUBMIT_MESSAGE_FEEDBACK_SUCCEEDED
+              : o("WAWebWamEnumSupportAiEventType").SUPPORT_AI_EVENT_TYPE
+                  .SUBMIT_MESSAGE_FEEDBACK_FAILED,
+          }).commit(),
             o("WAWebToastManager").ToastManager.open(
               c.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(/*BTDS*/ "Feedback submitted"),
+                msg: a
+                  ? s._(/*BTDS*/ "Feedback submitted")
+                  : s._(/*BTDS*/ "Couldn't submit feedback."),
               }),
               o("WAWebToastManager").ToastPosition.CENTER,
             ));

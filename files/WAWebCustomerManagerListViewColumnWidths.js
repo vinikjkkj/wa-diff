@@ -61,7 +61,7 @@ __d(
           type: "proportional",
           value: 25,
         },
-        actions: { options: { minWidth: 100 }, type: "fill" },
+        actions: { options: { minWidth: 160 }, type: "fill" },
       };
     function s(e) {
       return e.reduce(function (e, t) {

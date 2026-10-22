@@ -4,23 +4,25 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = babelHelpers.extends({}, r("StyleCore"), {
         get: function (t, n) {
+          var e = t;
           return (
-            typeof t == "string" &&
+            typeof e == "string" &&
               (r("FBLogger")("Style").mustfix(
                 "Style.get: Support for node IDs is deprecated.",
               ),
-              (t = r("$")(t))),
-            r("StyleCore").get(t, n)
+              (e = r("$")(e))),
+            r("StyleCore").get(e, n)
           );
         },
         getFloat: function (t, n) {
+          var e = t;
           return (
-            typeof t == "string" &&
+            typeof e == "string" &&
               (r("FBLogger")("Style").mustfix(
                 "Style.getFloat: Support for node IDs is deprecated.",
               ),
-              (t = r("$")(t))),
-            r("StyleCore").getFloat(t, n)
+              (e = r("$")(e))),
+            r("StyleCore").getFloat(e, n)
           );
         },
       }),

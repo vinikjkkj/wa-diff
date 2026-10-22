@@ -30,6 +30,7 @@ __d(
       "HatchConnectors",
       "HatchIdeas",
       "HatchSecureCredentials",
+      "HatchSubscription",
       "HatchWallet",
       "Kept",
       "ScheduledMessages",

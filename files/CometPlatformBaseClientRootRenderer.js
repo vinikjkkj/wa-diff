@@ -8,6 +8,7 @@ __d(
     "CometVisualCompletion",
     "ExecutionEnvironment",
     "cr:5473",
+    "createCometRelayBaseEntryPointEnvironmentProvider",
     "justknobx",
     "react",
   ],
@@ -36,26 +37,31 @@ __d(
         f = i.disableVisualCompletion,
         g = i.initClientAndServer,
         h = i.initDarkMode,
-        y = i.removeSplashScreen,
-        C = i.strictModeEnabled,
-        b = C === void 0 ? !0 : C;
+        y = i.relayEnvironmentFactory,
+        C = i.removeSplashScreen,
+        b = i.strictModeEnabled,
+        v = b === void 0 ? !0 : b;
       (d(p),
         (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
           o("CometOrigin").setCometOrigin(window.location.origin),
         h != null && h(),
-        o("CometPreloaderInit").initPreloaders(l),
+        o("CometPreloaderInit").initPreloaders(l, y != null),
         g && g(),
-        s());
-      var v = a();
+        s(),
+        y != null &&
+          o("CometPreloaderInit").initPreloadQueryExecutions(
+            r("createCometRelayBaseEntryPointEnvironmentProvider")(y),
+          ));
+      var S = a();
       (p.addMarkerPoint("reactStart", "AppTiming"),
         p.addMetadata("reactVersion", u.version),
         _ && _(p),
         o("CometClientRootRendererSSRUtils").initReactRenderWithSSR({
           CometVisualCompletion: f === !0 ? void 0 : r("CometVisualCompletion"),
-          removeSplashScreen: y,
-          rootComponent: u.jsx(v, {}),
+          removeSplashScreen: C,
+          rootComponent: u.jsx(S, {}),
           rootElementID: c,
-          rootOptions: { unstable_strictMode: b },
+          rootOptions: { unstable_strictMode: v },
           ssrEnabled: m,
           traceAPI: p,
         }));

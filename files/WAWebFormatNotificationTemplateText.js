@@ -13,10 +13,10 @@ __d(
     "WAWebBotTypes",
     "WAWebBotUtils",
     "WAWebCTWAGatingUtils",
+    "WAWebChangeNumberName",
     "WAWebChatAssignmentUtils",
     "WAWebClock",
     "WAWebCommonMsgTemplateParamsUtils",
-    "WAWebContactCollection",
     "WAWebCurrencyUtils",
     "WAWebDisplayedNameIsBizName",
     "WAWebFbtAppName",
@@ -24,7 +24,6 @@ __d(
     "WAWebFormatChangeUsernameTemplateText",
     "WAWebFormatEphemeralSetting",
     "WAWebFormatParticipantNames",
-    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetBusinessNameFromMsg",
     "WAWebGroupAgentPrivacyNoticeKind",
@@ -991,8 +990,9 @@ __d(
         ),
         a = n[0],
         i = n.length === 4 ? n[2] : null,
-        l = o("WAWebFrontendContactGetters").getFormattedName(
-          o("WAWebContactCollection").ContactCollection.gadd(a),
+        l = o("WAWebChangeNumberName").getChangeNumberName(
+          o("WAWebFrontendMsgGetters").getChat(e),
+          a,
         ),
         u = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, a),
         c = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, i);

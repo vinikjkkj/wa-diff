@@ -460,6 +460,7 @@ __d(
         }),
         appVersion: (m || (m = r("AnalyticsCoreData"))).app_version,
         sessionId: o("WebSession").getId(),
+        identity: m.identity,
       };
     }
     function Ce() {

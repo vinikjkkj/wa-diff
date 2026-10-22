@@ -477,6 +477,8 @@ __d(
       EDIT_WELCOME_MESSAGE_GREETING: "edit_welcome_message_greeting",
       EDIT_WELCOME_MESSAGE_ICEBREAKER: "edit_welcome_message_icebreaker",
       EDIT_WELCOME_MESSAGE_RESPONSE: "edit_welcome_message_response",
+      MANDATORY_ICEBREAKER_DEFAULTS_ADDED:
+        "mandatory_icebreaker_defaults_added",
       CLICK_WELCOME_MESSAGE_TEMPLATES_CREATE_BUTTON:
         "click_welcome_message_templates_create_button",
       CLICK_WELCOME_MESSAGE_TEMPLATES_DUPLICATE_BUTTON:

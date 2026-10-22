@@ -21,20 +21,22 @@ __d(
         n,
         r = e.interactionType,
         a = e.msg,
-        i = e.rawUrl;
-      if (c(i) && o("WAWebMsgGetters").getIsNewsletterMsg(a)) {
-        var l = a.serverId;
+        i = e.placement,
+        l = e.rawUrl;
+      if (c(l) && o("WAWebMsgGetters").getIsNewsletterMsg(a)) {
+        var s = a.serverId;
         if (
-          l != null &&
+          s != null &&
           o("WAWebABProps").getABPropConfigValue(
             "channel_post_interaction_logging_enabled",
           )
         ) {
-          var s = o("WAWebFrontendMsgGetters").getChat(a).id;
+          var u = o("WAWebFrontendMsgGetters").getChat(a).id;
           new (o(
             "WAWebChannelPostInteractionWamEvent",
           ).ChannelPostInteractionWamEvent)({
             channelPostInteractionType: r,
+            channelPostLinkPlacement: i,
             channelUserType:
               (t = o(
                 "WAWebNewsletterLoggingUtils",
@@ -45,8 +47,8 @@ __d(
               )) != null
                 ? t
                 : o("WAWebWamEnumChannelUserType").CHANNEL_USER_TYPE.GUEST,
-            cid: s.user,
-            postId: l.toString(),
+            cid: u.user,
+            postId: s.toString(),
           }).commit();
         }
       }

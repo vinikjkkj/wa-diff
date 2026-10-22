@@ -87,6 +87,10 @@ __d(
             OUTGOING_MESSAGE_SOUND: "WAOutgoingMessageSound",
             GLOBAL_MUTE_NOTIFICATIONS: "WAGlobalNotifications",
             GLOBAL_MUTE_CALL_NOTIFICATIONS: "WAGlobalCallNotifications",
+            GLOBAL_CALL_NOTIFICATIONS_MUTE_EXPIRATION:
+              "WAGlobalCallNotificationsMuteExpiration",
+            GLOBAL_CALL_NOTIFICATIONS_MUTED_AT:
+              "WAGlobalCallNotificationsMutedAt",
             GLOBAL_MUTE_IN_APP_NOTIFICATIONS: "WAGlobalInAppNotifications",
             GLOBAL_MUTE_PREVIEWS: "WAGlobalPreviews",
             GLOBAL_OFFLINE_NOTIFICATIONS_ENABLED:

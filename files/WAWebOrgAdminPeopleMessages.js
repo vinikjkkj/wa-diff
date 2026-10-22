@@ -28,7 +28,47 @@ __d(
             success: !1,
           };
     }
-    function u(e, t, n) {
+    function u(e, t, n, r) {
+      var o,
+        a = n - r;
+      if (r === 0) return c(e, t, a);
+      if (
+        a === ((o = t == null ? void 0 : t.alreadyMemberCount) != null ? o : 0)
+      )
+        return {
+          message: s._(
+            /*BTDS*/ '_j{"*":"{number of invites sent} invites sent to {group name}","_1":"1 invite sent to {group name}"}',
+            [s._plural(r, "number of invites sent"), s._param("group name", e)],
+          ),
+          success: !0,
+        };
+      if (t != null && t.failedMemberCount === 0 && t.invitedMemberCount === 0)
+        return {
+          message: s._(
+            /*BTDS*/ '_j{"*":{"*":"Added {number of people added} people to {group name}. {number of invites sent} invites sent.","_1":"Added {number of people added} people to {group name}. 1 invite sent."},"_1":{"*":"Added 1 person to {group name}. {number of invites sent} invites sent.","_1":"Added 1 person to {group name}. 1 invite sent."}}',
+            [
+              s._plural(t.addedMemberCount, "number of people added"),
+              s._plural(r, "number of invites sent"),
+              s._param("group name", e),
+            ],
+          ),
+          success: !0,
+        };
+      var i = c(e, t, a),
+        l = i.message,
+        u = i.success;
+      return {
+        message: s._(
+          /*BTDS*/ '_j{"*":"{what happened to the other ticked people} {number of invites sent} invites sent.","_1":"{what happened to the other ticked people} 1 invite sent."}',
+          [
+            s._plural(r, "number of invites sent"),
+            s._param("what happened to the other ticked people", l),
+          ],
+        ),
+        success: u,
+      };
+    }
+    function c(e, t, n) {
       var o,
         a =
           n - ((o = t == null ? void 0 : t.alreadyMemberCount) != null ? o : 0);
@@ -55,9 +95,9 @@ __d(
               ),
               success: !1,
             }
-          : { message: c(e, t, a), success: !0 };
+          : { message: d(e, t, a), success: !0 };
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       return n === 0
         ? s._(/*BTDS*/ "Already in {group name}", [s._param("group name", e)])
         : t.invitedMemberCount === 0
@@ -92,7 +132,8 @@ __d(
               );
     }
     ((l.getOrgAdminRemovedMembersMessage = e),
-      (l.getOrgAdminAddMembersToGroupMessage = u));
+      (l.getOrgAdminAddPeopleToGroupMessage = u),
+      (l.getOrgAdminAddMembersToGroupMessage = c));
   },
   226,
 );

@@ -19,7 +19,8 @@ __d(
         r,
         a,
         i,
-        l = babelHelpers.extends(
+        l,
+        s = babelHelpers.extends(
           {
             chatLockSupportLevel:
               t.chatLockSupportLevel != null
@@ -38,15 +39,20 @@ __d(
             : n.handoffRemovalTimingEnabled) === !0
             ? { bizAiSettingsSync: { handoffRemovalTimingEnabled: !0 } }
             : null,
+          {
+            bizAiWebOnboarding: c(
+              (r = t.bizAiWebOnboarding) == null ? void 0 : r.version,
+            ),
+          },
         ),
-        s = t.newsletterChatsMigration;
-      return s == null
-        ? l
-        : babelHelpers.extends({}, l, {
+        u = t.newsletterChatsMigration;
+      return u == null
+        ? s
+        : babelHelpers.extends({}, s, {
             newsletterChatsMigration: {
-              countdownEndsAt: (r = s.countdownEndsAt) != null ? r : null,
-              effectiveMigrated: (a = s.effectiveMigrated) != null ? a : null,
-              rolledBack: (i = s.rolledBack) != null ? i : null,
+              countdownEndsAt: (a = u.countdownEndsAt) != null ? a : null,
+              effectiveMigrated: (i = u.effectiveMigrated) != null ? i : null,
+              rolledBack: (l = u.rolledBack) != null ? l : null,
             },
           });
     }
@@ -87,16 +93,29 @@ __d(
           t.bizAiSettingsSync != null &&
           typeof t.bizAiSettingsSync.handoffRemovalTimingEnabled == "boolean" &&
           t.bizAiSettingsSync.handoffRemovalTimingEnabled,
-        s = c(t),
+        s = d(t),
         u = babelHelpers.extends(
           { chatLockSupportLevel: a, aiThread: { supportLevel: i } },
           l ? { bizAiSettingsSync: { handoffRemovalTimingEnabled: !0 } } : null,
+          {
+            bizAiWebOnboarding: c(
+              typeof t == "object" &&
+                t != null &&
+                typeof t.bizAiWebOnboarding == "object" &&
+                t.bizAiWebOnboarding != null
+                ? t.bizAiWebOnboarding.version
+                : null,
+            ),
+          },
         );
       return s != null
         ? babelHelpers.extends({}, u, { newsletterChatsMigration: s })
         : u;
     }
     function c(e) {
+      return typeof e == "number" && e >= 1 ? { version: e } : void 0;
+    }
+    function d(e) {
       var t =
         typeof e == "object" && e != null ? e.newsletterChatsMigration : null;
       return typeof t != "object" || t == null
@@ -111,7 +130,7 @@ __d(
             rolledBack: typeof t.rolledBack == "boolean" ? t.rolledBack : null,
           };
     }
-    function d(e) {
+    function m(e) {
       switch (e) {
         case "self":
           return o("WAWebUserPrefsKeys").UserPrefs.DeviceCapabilities;
@@ -119,16 +138,16 @@ __d(
           return o("WAWebUserPrefsKeys").UserPrefs.PrimaryDeviceCapabilities;
       }
     }
-    function m(e, t) {
+    function p(e, t) {
       var n = s(e);
-      r("WAWebUserPrefsStore").setUser(d(t), n, { shouldWriteToIdb: !1 });
-    }
-    function p(e) {
-      var t = r("WAWebUserPrefsStore").getUser(d(e));
-      return u(t);
+      r("WAWebUserPrefsStore").setUser(m(t), n, { shouldWriteToIdb: !1 });
     }
     function _(e) {
-      var t, n, r;
+      var t = r("WAWebUserPrefsStore").getUser(m(e));
+      return u(t);
+    }
+    function f(e) {
+      var t, n, r, a;
       return {
         chatLockSupportLevel:
           (t = e.chatLockSupportLevel) != null
@@ -143,19 +162,22 @@ __d(
                   .DeviceCapabilities$AiThread$SupportLevel.NONE,
         },
         bizAiSettingsSync: e.bizAiSettingsSync,
+        bizAiWebOnboarding: c(
+          (a = e.bizAiWebOnboarding) == null ? void 0 : a.version,
+        ),
       };
     }
-    function f(e, t) {
-      var n = p(t),
+    function g(e, t) {
+      var n = _(t),
         r = babelHelpers.extends({}, n, e);
-      return (m(r, t), r);
+      return (p(r, t), r);
     }
-    function g() {
-      return p("primary");
+    function h() {
+      return _("primary");
     }
-    ((l.mapProtobufToAllDeviceCapabilities = _),
-      (l.mergeDeviceCapabilitiesToStorage = f),
-      (l.getPrimaryDeviceCapabilitiesFromLocalStorage = g));
+    ((l.mapProtobufToAllDeviceCapabilities = f),
+      (l.mergeDeviceCapabilitiesToStorage = g),
+      (l.getPrimaryDeviceCapabilitiesFromLocalStorage = h));
   },
   98,
 );

@@ -131,6 +131,7 @@ __d(
         trackScrollPosition: !1,
         useExponentialBackoffRetryStrategy: !1,
         useSimpleBandwidthEstimate: !1,
+        webCodecsVideoInWorker: !1,
       };
     }
     i.createDefaultConfig = e;

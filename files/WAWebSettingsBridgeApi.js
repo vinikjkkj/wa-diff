@@ -74,54 +74,55 @@ __d(
         applyAppSetting: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.field,
-              n = e.value;
+              n = e.timestamp,
+              a = e.value;
             switch (t) {
               case "startAtLogin": {
                 if (w != null) {
-                  var a;
-                  (a = w(
+                  var i;
+                  (i = w(
                     r("WAWebWindowsHybridBridgeInitiator")
                       .WAWebSettingsBridgeApi,
                   )) == null ||
-                    (a = a.systemIntegrationsBridge) == null ||
-                    a.updateStartupTask(!!n);
+                    (i = i.systemIntegrationsBridge) == null ||
+                    i.updateStartupTask(!!a);
                 }
                 return;
               }
               case "minimizeToTray":
-                N != null && (N == null || N(!!n));
+                N != null && (N == null || N(!!a));
                 return;
               case "language":
-                typeof n == "string" &&
-                  n.length > 0 &&
+                typeof a == "string" &&
+                  a.length > 0 &&
                   r("WAWebSettingsSyncEventEmitter").trigger(
                     "applyLanguage",
-                    n,
+                    a,
                   );
                 return;
               case "replaceTextWithEmoji": {
-                var i = r("WAWebChatPreferenceCollection").getDefault();
-                i.set("transformTextEmoji", !!n);
+                var l = r("WAWebChatPreferenceCollection").getDefault();
+                l.set("transformTextEmoji", !!a);
                 return;
               }
               case "isSpellCheckEnabled": {
-                var l = r("WAWebChatPreferenceCollection").getDefault();
-                l.set("spellcheck", !!n);
+                var s = r("WAWebChatPreferenceCollection").getDefault();
+                s.set("spellcheck", !!a);
                 return;
               }
               case "isEnterToSendEnabled": {
-                var s = r("WAWebChatPreferenceCollection").getDefault();
-                s.set("enterIsSend", !!n);
+                var u = r("WAWebChatPreferenceCollection").getDefault();
+                u.set("enterIsSend", !!a);
                 return;
               }
               case "bannerNotificationDisplayMode": {
-                var u = o(
+                var c = o(
                   "WAWebProtobufSyncAction.pb",
                 ).SyncActionValue$SettingsSyncAction$DisplayMode.cast(
-                  Number(n),
+                  Number(a),
                 );
-                if (u == null || R == null) return;
-                switch (u) {
+                if (c == null || R == null) return;
+                switch (c) {
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode.NEVER:
                     I == null || I(R == null ? void 0 : R.Never);
@@ -141,13 +142,13 @@ __d(
                 return;
               }
               case "unreadCounterBadgeDisplayMode": {
-                var c = o(
+                var d = o(
                   "WAWebProtobufSyncAction.pb",
                 ).SyncActionValue$SettingsSyncAction$DisplayMode.cast(
-                  Number(n),
+                  Number(a),
                 );
-                if (c == null || E == null) return;
-                switch (c) {
+                if (d == null || E == null) return;
+                switch (d) {
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode.NEVER:
                     $ == null || $(E == null ? void 0 : E.Never);
@@ -168,110 +169,110 @@ __d(
               }
               case "isMessagesNotificationEnabled":
                 o("WAWebMuteCollection").MuteCollection.setGlobalNotifications(
-                  !!n,
+                  !!a,
                 );
                 return;
               case "isCallsNotificationEnabled":
                 o(
                   "WAWebMuteCollection",
-                ).MuteCollection.setGlobalCallNotifications(!!n);
+                ).MuteCollection.setGlobalCallNotificationsFromSync(!!a, n);
                 return;
               case "isReactionsNotificationEnabled": {
-                var d = !!n;
+                var m = !!a;
                 o(
                   "WAWebMuteCollection",
-                ).MuteCollection.setGlobalNotificationReactionsEnabled(d);
+                ).MuteCollection.setGlobalNotificationReactionsEnabled(m);
                 return;
               }
               case "isStatusReactionsNotificationEnabled": {
-                var m = !!n;
-                (x == null || x(m),
+                var p = !!a;
+                (x == null || x(p),
                   o(
                     "WAWebMuteCollection",
                   ).MuteCollection.setGlobalStatusNotificationReactionsEnabled(
-                    m,
+                    p,
                   ));
                 return;
               }
               case "isTextPreviewForNotificationEnabled":
-                o("WAWebMuteCollection").MuteCollection.setGlobalPreviews(!!n);
+                o("WAWebMuteCollection").MuteCollection.setGlobalPreviews(!!a);
                 return;
               case "isGroupMessageNotificationEnabled":
                 o(
                   "WAWebMuteCollection",
-                ).MuteCollection.setGlobalGroupNotificationsEnabled(!!n);
+                ).MuteCollection.setGlobalGroupNotificationsEnabled(!!a);
                 return;
               case "isGroupReactionsNotificationEnabled":
                 o(
                   "WAWebMuteCollection",
                 ).MuteCollection.setGlobalGroupNotificationReactionsEnabled(
-                  !!n,
+                  !!a,
                 );
                 return;
               case "isStatusNotificationEnabled":
                 o(
                   "WAWebMuteCollection",
-                ).MuteCollection.setGlobalStatusNotificationsEnabled(!!n);
+                ).MuteCollection.setGlobalStatusNotificationsEnabled(!!a);
                 return;
               case "statusNotificationToneId": {
-                var p;
+                var h;
                 if (v == null) return;
-                var h =
-                  (p = v == null ? void 0 : v.cast(Number(n))) != null
-                    ? p
+                var y =
+                  (h = v == null ? void 0 : v.cast(Number(a))) != null
+                    ? h
                     : v == null
                       ? void 0
                       : v.Default;
-                (F == null || F(h),
+                (F == null || F(y),
                   o(
                     "WAWebMuteCollection",
-                  ).MuteCollection.setGlobalStatusSoundsEnabled(h !== v.None));
+                  ).MuteCollection.setGlobalStatusSoundsEnabled(y !== v.None));
                 return;
               }
               case "shouldPlaySoundForCallNotification":
                 o("WAWebMuteCollection").MuteCollection.setGlobalCallRingtone(
-                  !!n,
+                  !!a,
                 );
                 return;
               case "defaultNotificationToneId": {
-                var y;
+                var C;
                 if (v == null) return;
-                var C =
-                  (y = v == null ? void 0 : v.cast(Number(n))) != null
-                    ? y
+                var b =
+                  (C = v == null ? void 0 : v.cast(Number(a))) != null
+                    ? C
                     : v == null
                       ? void 0
                       : v.Default;
-                D == null || D(C);
+                D == null || D(b);
                 return;
               }
               case "groupDefaultNotificationToneId": {
-                var b;
+                var S;
                 if (v == null) return;
-                var S =
-                  (b = v == null ? void 0 : v.cast(Number(n))) != null
-                    ? b
+                var L =
+                  (S = v == null ? void 0 : v.cast(Number(a))) != null
+                    ? S
                     : v == null
                       ? void 0
                       : v.Default;
-                T == null || T(S);
+                T == null || T(L);
                 return;
               }
               case "appTheme":
-                typeof n == "number" &&
-                  r("WAWebSettingsSyncEventEmitter").trigger("applyTheme", n);
+                typeof a == "number" &&
+                  r("WAWebSettingsSyncEventEmitter").trigger("applyTheme", a);
                 return;
               case "wallpaperId":
-                typeof n == "number" &&
+                typeof a == "number" &&
                   o("WAWebSettingsBridgeThemeDebouncer").enqueueThemeSync(
                     { kind: "default" },
-                    { field: "wallpaperSolid", wallpaperId: n },
+                    { field: "wallpaperSolid", wallpaperId: a },
                   );
                 return;
               case "isDoodleWallpaperEnabled":
                 o("WAWebSettingsBridgeThemeDebouncer").enqueueThemeSync(
                   { kind: "default" },
-                  { field: "doodle", value: !!n },
+                  { field: "doodle", value: !!a },
                 );
                 return;
               case "chatThemeId":
@@ -280,8 +281,8 @@ __d(
                   {
                     field: "chatThemeId",
                     normalizedId:
-                      typeof n == "string"
-                        ? r("WAWebNormalizeThemeId")(n)
+                      typeof a == "string"
+                        ? r("WAWebNormalizeThemeId")(a)
                         : null,
                   },
                 );
@@ -292,8 +293,8 @@ __d(
                   {
                     field: "colorSchemeId",
                     normalizedId:
-                      typeof n == "string"
-                        ? r("WAWebNormalizeThemeId")(n)
+                      typeof a == "string"
+                        ? r("WAWebNormalizeThemeId")(a)
                         : null,
                   },
                 );
@@ -301,41 +302,41 @@ __d(
               case "stockWallpaperImageId":
                 o("WAWebSettingsBridgeThemeDebouncer").enqueueThemeSync(
                   { kind: "default" },
-                  { field: "wallpaperStock", rawValue: n },
+                  { field: "wallpaperStock", rawValue: a },
                 );
                 return;
               case "fontSize": {
-                typeof n == "number" &&
-                  r("WAWebSettingsSyncEventEmitter").trigger("applyZoom", n);
+                typeof a == "number" &&
+                  r("WAWebSettingsSyncEventEmitter").trigger("applyZoom", a);
                 return;
               }
               case "mediaUploadQuality": {
-                var L = o(
+                var k = o(
                   "WAWebProtobufSyncAction.pb",
                 ).SyncActionValue$SettingsSyncAction$MediaQualitySetting.cast(
-                  Number(n),
+                  Number(a),
                 );
-                if (L == null) {
+                if (k == null) {
                   o("WALogger").LOG(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[settings-sync] Invalid media upload quality setting: ",
                         "",
                       ])),
-                    n,
+                    a,
                   );
                   return;
                 }
-                var k = r("WAWebChatPreferenceCollection").getDefault();
-                switch (L) {
+                var P = r("WAWebChatPreferenceCollection").getDefault();
+                switch (k) {
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$MediaQualitySetting.HD:
-                    k.set("hdMediaEnabled", 1);
+                    P.set("hdMediaEnabled", 1);
                     break;
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$MediaQualitySetting
                     .STANDARD:
-                    k.set("hdMediaEnabled", 0);
+                    P.set("hdMediaEnabled", 0);
                     break;
                   default:
                     o("WALogger").LOG(
@@ -344,23 +345,23 @@ __d(
                           "[settings-sync] Invalid media upload quality setting: ",
                           "",
                         ])),
-                      n,
+                      a,
                     );
                     return;
                 }
                 return;
               }
               case "isPhotosAutodownloadEnabled":
-                o("WAWebUserPrefsGeneral").setAutoDownloadPhotos(!!n);
+                o("WAWebUserPrefsGeneral").setAutoDownloadPhotos(!!a);
                 return;
               case "isAudiosAutodownloadEnabled":
-                o("WAWebUserPrefsGeneral").setAutoDownloadAudio(!!n);
+                o("WAWebUserPrefsGeneral").setAutoDownloadAudio(!!a);
                 return;
               case "isVideosAutodownloadEnabled":
-                o("WAWebUserPrefsGeneral").setAutoDownloadVideos(!!n);
+                o("WAWebUserPrefsGeneral").setAutoDownloadVideos(!!a);
                 return;
               case "isDocumentsAutodownloadEnabled":
-                o("WAWebUserPrefsGeneral").setAutoDownloadDocuments(!!n);
+                o("WAWebUserPrefsGeneral").setAutoDownloadDocuments(!!a);
                 return;
               case "disableLinkPreviews":
                 return;
@@ -368,7 +369,7 @@ __d(
                 r("WAWebSettingsModel").archive = babelHelpers.extends(
                   {},
                   o("WAWebSettingsGetters").getArchive(r("WAWebSettingsModel")),
-                  n,
+                  a,
                 );
                 return;
               }

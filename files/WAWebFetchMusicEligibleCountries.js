@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = "8360352280687329",
+      s = "39306698325641522",
       u = "https://acs.whatsapp.com/graphql";
     function c() {
       return d.apply(this, arguments);

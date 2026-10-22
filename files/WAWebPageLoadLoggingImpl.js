@@ -46,6 +46,7 @@ __d(
                   mh_default_async_await_wa: r("gkx")("8891"),
                   wa_web_media_wasm_worker_split: r("gkx")("24042"),
                   wa_web_prefetch_startup_resources: r("gkx")("27710"),
+                  wa_web_sw_prefetch_startup_resources: r("gkx")("27785"),
                 },
                 string: {
                   logged_out_separation: o(

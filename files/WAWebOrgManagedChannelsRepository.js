@@ -11,11 +11,12 @@ __d(
       s = [],
       u = new Set(),
       c = new Map(),
-      d = k();
-    function m() {
-      return d;
+      d = new Set(),
+      m = D();
+    function p() {
+      return m;
     }
-    function p(e) {
+    function _(e) {
       return (
         u.add(e),
         function () {
@@ -23,12 +24,12 @@ __d(
         }
       );
     }
-    function _(e) {
+    function f(e) {
       var t,
         n = (t = c.get(e)) == null ? void 0 : t.pendingRead;
       if (n != null) return n;
-      var r = y(e, function () {
-          return b(e);
+      var r = b(e, function () {
+          return S(e);
         }),
         o = c.get(e);
       return (
@@ -36,34 +37,39 @@ __d(
         r
       );
     }
-    function f(e, t) {
-      return y(
+    function g(e, t) {
+      return b(
         e,
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var n = yield t();
           if (n.status !== "success") return n;
-          yield b(e);
-          var r = R(e).channels.find(function (e) {
+          yield S(e);
+          var r = k(e).channels.find(function (e) {
             return e.id === n.channel.id;
           });
-          return (r == null && h(e, n.channel), n);
+          return (r == null && C(e, n.channel), n);
         }),
         !0,
       );
     }
-    function g() {
-      ((c = new Map()), (d = k()), E());
-    }
     function h(e, t) {
-      var n = R(e),
+      d.add(t);
+      var n = k(e);
+      I(e, babelHelpers.extends({}, n, { channels: E(n.channels) }));
+    }
+    function y() {
+      ((c = new Map()), (d = new Set()), (m = D()), T());
+    }
+    function C(e, t) {
+      var n = k(e),
         r = [t].concat(
           n.channels.filter(function (e) {
             return e.id !== t.id;
           }),
         );
-      L(e, babelHelpers.extends({}, n, { channels: r }));
+      I(e, babelHelpers.extends({}, n, { channels: r }));
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       var r;
       n === void 0 && (n = !1);
       var o = c.get(e),
@@ -89,16 +95,16 @@ __d(
         }),
         a.then(
           function () {
-            return C(e, a);
+            return v(e, a);
           },
           function () {
-            return C(e, a);
+            return v(e, a);
           },
         ),
         a
       );
     }
-    function C(e, t) {
+    function v(e, t) {
       var n = c.get(e);
       if (n != null) {
         var r = n.pendingRead === t ? null : n.pendingRead;
@@ -108,26 +114,26 @@ __d(
             c.set(e, babelHelpers.extends({}, n, { pendingRead: r }));
       }
     }
-    function b(e) {
-      var t = R(e);
+    function S(e) {
+      var t = k(e);
       return (
-        L(e, {
+        I(e, {
           channels: t.channels,
           error: null,
           status: t.channels.length === 0 ? "loading" : "refreshing",
         }),
-        v(e)
+        R(e)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = yield o("WAWebOrgAdminGraphQL").loadOrgAdminChannels(t);
-            L(t, { channels: n, error: null, status: "ready" });
+            I(t, { channels: E(n), error: null, status: "ready" });
           } catch (n) {
             o("WALogger")
               .ERROR(
@@ -140,42 +146,48 @@ __d(
               )
               .catching(r("getErrorSafe")(n))
               .sendLogs("org-admin-managed-channels-load-failed");
-            var a = R(t);
-            L(t, {
+            var a = k(t);
+            I(t, {
               channels: a.channels,
               error: r("getErrorSafe")(n),
               status: "error",
             });
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e) {
+    function E(e) {
+      return e.filter(function (e) {
+        return !d.has(e.id);
+      });
+    }
+    function k(e) {
       var t;
-      return (t = d.listStateByOrgID.get(e)) != null
+      return (t = m.listStateByOrgID.get(e)) != null
         ? t
         : { channels: s, error: null, status: "idle" };
     }
-    function L(e, t) {
-      var n = new Map(d.listStateByOrgID);
+    function I(e, t) {
+      var n = new Map(m.listStateByOrgID);
       (n.set(e, t),
-        (d = babelHelpers.extends({}, d, { listStateByOrgID: n })),
-        E());
+        (m = babelHelpers.extends({}, m, { listStateByOrgID: n })),
+        T());
     }
-    function E() {
+    function T() {
       u.forEach(function (e) {
         return e();
       });
     }
-    function k() {
+    function D() {
       return { listStateByOrgID: new Map() };
     }
-    ((l.getOrgManagedChannelsRepositorySnapshot = m),
-      (l.subscribeToOrgManagedChannelsRepository = p),
-      (l.refreshOrgManagedChannels = _),
-      (l.runOrgManagedChannelCreation = f),
-      (l.resetOrgManagedChannelsRepository = g));
+    ((l.getOrgManagedChannelsRepositorySnapshot = p),
+      (l.subscribeToOrgManagedChannelsRepository = _),
+      (l.refreshOrgManagedChannels = f),
+      (l.runOrgManagedChannelCreation = g),
+      (l.removeOrgManagedChannel = h),
+      (l.resetOrgManagedChannelsRepository = y));
   },
   98,
 );

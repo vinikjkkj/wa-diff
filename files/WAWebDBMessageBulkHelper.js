@@ -22,6 +22,7 @@ __d(
     "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
+    "WAWebMsgDataUtils",
     "WAWebMsgGetters",
     "WAWebMsgStoreExtensions",
     "WAWebNewsletterDBUtils",
@@ -393,140 +394,156 @@ __d(
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
             n = new Set(),
-            a = new Map(),
-            i = !1;
+            a = new Set(),
+            i = new Map(),
+            l = !1;
           e.forEach(function (e) {
-            var r = e.id,
-              l = r.remote.toString();
+            var s = e.id,
+              u = s.remote.toString();
             if (
-              r.remote.isRegularUser() &&
+              s.remote.isRegularUser() &&
               o(
                 "WAWebBizBroadcastProHiddenChatClassifier",
               ).isBizBroadcastProHiddenChatsEnabled()
             ) {
-              i = !0;
-              var s = a.get(l);
-              s == null ? a.set(l, [e]) : s.push(e);
+              l = !0;
+              var c = i.get(u);
+              c == null ? i.set(u, [e]) : c.push(e);
             }
-            var u = t.get(l) || {
+            var d = t.get(u) || {
                 unread: 0,
                 t: 0,
                 unreadMentionsOfMe: [],
                 broadcast: e.broadcast === !0,
               },
-              c = o("WAWebMsgGetters").getIsUnreadType(e),
-              d = c || N(e);
-            if (!o("WAWebMsgGetters").getIsStatus(e) && d) {
+              m = o("WAWebMsgGetters").getIsUnreadType(e),
+              p = m || N(e),
+              _ =
+                p ||
+                (r("justknobx")._("6733") &&
+                  o("WAWebMsgDataUtils").isChatOrderingGroupEvent(e));
+            if (!o("WAWebMsgGetters").getIsStatus(e) && _) {
               if (
-                c &&
-                !r.fromMe &&
-                e.read !== !0 &&
-                ((u.unread += 1), o("WAWebMsgGetters").getIsImportantMessage(e))
+                (p && n.add(u),
+                m &&
+                  !s.fromMe &&
+                  e.read !== !0 &&
+                  ((d.unread += 1),
+                  o("WAWebMsgGetters").getIsImportantMessage(e)))
               ) {
-                var m = { id: e.id.toString(), timestamp: e.t };
-                u.unreadMentionsOfMe
-                  ? u.unreadMentionsOfMe.push(m)
-                  : (u.unreadMentionsOfMe = [m]);
+                var f = { id: e.id.toString(), timestamp: e.t };
+                d.unreadMentionsOfMe
+                  ? d.unreadMentionsOfMe.push(f)
+                  : (d.unreadMentionsOfMe = [f]);
               }
-              (e.t != null && e.t > 0 && n.add(e.id.toString()),
-                e.t != null && e.t > u.t && (u.t = Math.max(e.t, u.t)),
-                t.set(l, u));
+              (e.t != null && e.t > 0 && a.add(e.id.toString()),
+                e.t != null && e.t > d.t && (d.t = Math.max(e.t, d.t)),
+                t.set(u, d));
             }
-            var p = o(
+            var g = o(
                 "WAWebDBMessageUtils",
               ).isCoexCallingPermissionsRequestMessage(e),
-              _ =
-                !p &&
+              h =
+                !g &&
                 o(
                   "WAWebDBMessageUtils",
                 ).isCoexCallingPermissionsResponseMessage(e);
-            (p || _) &&
+            (g || h) &&
               o("WAWebVoipGatingUtils").isCoexCallingPermissionsEnabled() &&
-              (p
-                ? (u.capiCallingPermissionType = o(
+              (n.add(u),
+              g
+                ? (d.capiCallingPermissionType = o(
                     "WAWebDBCAPIPermissions",
                   ).CloudAPICallingPermissionType.PENDING)
-                : _ &&
-                  (u.capiCallingPermissionType = o(
+                : h &&
+                  (d.capiCallingPermissionType = o(
                     "WAWebDBMessageUtils",
                   ).getSelectedCallingPermissions(e)),
-              t.set(l, u));
+              t.set(u, d));
           });
-          var l = Array.from(t.keys()),
-            s = Array.from(a.keys()).filter(function (e) {
+          var s = Array.from(t.keys()),
+            u = Array.from(i.keys()).filter(function (e) {
               return !t.has(e);
             }),
-            u = yield o("WAWebSchemaChat").getChatTable().bulkGet(l.concat(s)),
-            c = u.slice(0, l.length),
-            d = r("justknobx")._("310"),
-            m = [],
-            p = [],
-            _ = !1,
-            f = c.map(function (e, n) {
-              var r,
-                a,
+            c = yield o("WAWebSchemaChat").getChatTable().bulkGet(s.concat(u)),
+            d = [],
+            m = [];
+          s.forEach(function (e, t) {
+            (c[t] != null || n.has(e)) && (d.push(e), m.push(c[t]));
+          });
+          var p = r("justknobx")._("310"),
+            _ = [],
+            f = [],
+            g = !1,
+            h = m.map(function (e, r) {
+              var a,
                 i,
-                s = l[n],
+                l,
+                s = d[r],
                 u = t.get(s),
                 c = (u == null ? void 0 : u.unread) || 0,
-                f = Math.max(0, e ? e.unreadCount : 0),
-                g = (u == null ? void 0 : u.t) || void 0;
-              e && e.t != null && (g == null || e.t > g) && (g = e.t);
-              var h = [],
-                y =
-                  (r = e == null ? void 0 : e.archiveAtMentionViewedInDrawer) !=
-                  null
-                    ? r
-                    : !1,
+                m = Math.max(0, e ? e.unreadCount : 0),
+                h = (u == null ? void 0 : u.t) || void 0;
+              if (
+                (e && e.t != null && (h == null || e.t > h) && (h = e.t),
+                e != null && !n.has(s))
+              )
+                return { id: s, t: h };
+              var y = [],
                 C =
-                  (a = u == null ? void 0 : u.unreadMentionsOfMe) != null
+                  (a = e == null ? void 0 : e.archiveAtMentionViewedInDrawer) !=
+                  null
                     ? a
-                    : [],
+                    : !1,
                 b =
-                  (i = e == null ? void 0 : e.unreadMentionsOfMe) != null
+                  (i = u == null ? void 0 : u.unreadMentionsOfMe) != null
                     ? i
+                    : [],
+                v =
+                  (l = e == null ? void 0 : e.unreadMentionsOfMe) != null
+                    ? l
                     : [];
-              (C.length > 0 && (y = !1), (h = C.concat(b)));
-              var v = {
+              (b.length > 0 && (C = !1), (y = b.concat(v)));
+              var S = {
                 id: s,
-                unreadCount: f + c,
-                t: g,
-                unreadMentionsOfMe: h,
-                archiveAtMentionViewedInDrawer: y,
+                unreadCount: m + c,
+                t: h,
+                unreadMentionsOfMe: y,
+                archiveAtMentionViewedInDrawer: C,
               };
-              d &&
+              p &&
                 e == null &&
                 (u == null ? void 0 : u.broadcast) === !0 &&
-                (v.createdLocally = !0);
-              var S = o("WAWebWidFactory").createWid(s),
-                R = u == null ? void 0 : u.capiCallingPermissionType;
+                (S.createdLocally = !0);
+              var R = o("WAWebWidFactory").createWid(s),
+                L = u == null ? void 0 : u.capiCallingPermissionType;
               return (
-                R != null &&
-                  ((v.capiCallingPermissionType = R),
-                  m.push({ chatId: S, capiCallingPermissionType: R })),
-                o("WAWebLidMigrationUtils").shouldHaveAccountLid(S) &&
+                L != null &&
+                  ((S.capiCallingPermissionType = L),
+                  _.push({ chatId: R, capiCallingPermissionType: L })),
+                o("WAWebLidMigrationUtils").shouldHaveAccountLid(R) &&
                   (e == null
-                    ? ((v.accountLid = o("WAWebLidMigrationUtils")
-                        .toUserLidOrThrow(S)
+                    ? ((S.accountLid = o("WAWebLidMigrationUtils")
+                        .toUserLidOrThrow(R)
                         .toString()),
-                      S.isLid() &&
-                        (o("WAWebApiContact").getPhoneNumber(S) != null ||
+                      R.isLid() &&
+                        (o("WAWebApiContact").getPhoneNumber(R) != null ||
                         o(
                           "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
                         ).hasPhoneNumberHidingThreadPromotionMigrationStarted()
-                          ? (v.lidOriginType =
+                          ? (S.lidOriginType =
                               o("WAWebUsernameTypes").LidOriginType.GENERAL)
-                          : (v.lidOriginType =
+                          : (S.lidOriginType =
                               o("WAWebUsernameTypes").LidOriginType.PNH_CTWA)))
                     : e.accountLid == null &&
-                      (_ ||
+                      (g ||
                         (o("WAWebLidMigrationLogging").logLidMetadata(),
-                        (_ = !0)),
-                      p.length < 3 && p.push(S.toLogString()))),
-                v
+                        (g = !0)),
+                      f.length < 3 && f.push(R.toLogString()))),
+                S
               );
             });
-          (p.length > 0 &&
+          (f.length > 0 &&
             o("WALogger")
               .ERROR(
                 y ||
@@ -535,8 +552,8 @@ __d(
                     " chats from DB have no account_lid => ",
                     "",
                   ])),
-                p.length,
-                p,
+                f.length,
+                f,
               )
               .sendLogs("chat-in-db-has-no-account-lid")
               .tags("missing-lid"),
@@ -546,25 +563,25 @@ __d(
                   "[offline-resume][msg-cache]: storing chat updates for ",
                   " chats",
                 ])),
-              f.length,
+              h.length,
             ));
-          var g = c.some(function (e) {
+          var v = m.some(function (e) {
             return e == null;
           });
-          if (g) {
-            var h = new Set(
-                c.map(function (e) {
+          if (v) {
+            var S = new Set(
+                m.map(function (e) {
                   return e == null ? void 0 : e.id;
                 }),
               ),
-              v = r("countWhere")(l, function (e) {
-                return r("WAWebWid").isRegularUserNoImply(e) && !h.has(e);
+              R = r("countWhere")(d, function (e) {
+                return r("WAWebWid").isRegularUserNoImply(e) && !S.has(e);
               });
-            v > 0 &&
+            R > 0 &&
               (new (o("WAWebWebcChatCreateWamEvent").WebcChatCreateWamEvent)({
                 creationMethod: o("WAWebWamEnumWebcChatCreateCreationMethod")
                   .WEBC_CHAT_CREATE_CREATION_METHOD.MISSING_WHEN_SAVING_MESSAGE,
-                noCreated: v,
+                noCreated: R,
               }).commit(),
               o("WALogger")
                 .ERROR(
@@ -573,7 +590,7 @@ __d(
                       "[offline-resume][msg-cache]: missing chats when saving message: ",
                       "",
                     ])),
-                  v,
+                  R,
                 )
                 .sendLogs("missing-chats-when-saving-message", {
                   sampling: r("gkx")("26258")
@@ -581,18 +598,18 @@ __d(
                     : 1,
                 }));
           }
-          if (!i) return { chatUpdates: f, capiCallingPermissionUpdates: m };
-          var S = f.map(function (e, t) {
-            return P(c[t], e, a, n);
+          if (!l) return { chatUpdates: h, capiCallingPermissionUpdates: _ };
+          var L = h.map(function (e, t) {
+            return P(m[t], e, i, a);
           });
           return (
-            s.forEach(function (e, t) {
-              var r = u[l.length + t];
-              (r == null ? void 0 : r.chatViewMode) ===
+            u.forEach(function (e, t) {
+              var n = c[s.length + t];
+              (n == null ? void 0 : n.chatViewMode) ===
                 o("WAWebChatViewMode.flow").ChatViewModeType
-                  .ONLY_MARKETING_FROM_SELF && S.push(P(r, { id: e }, a, n));
+                  .ONLY_MARKETING_FROM_SELF && L.push(P(n, { id: e }, i, a));
             }),
-            { chatUpdates: S, capiCallingPermissionUpdates: m }
+            { chatUpdates: L, capiCallingPermissionUpdates: _ }
           );
         })),
         $.apply(this, arguments)

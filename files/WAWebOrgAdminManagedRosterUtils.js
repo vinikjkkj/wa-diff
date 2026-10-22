@@ -8,15 +8,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r, o) {
       if (!e || (r === "" && o == null)) return t;
-      var a = _(n);
+      var a = h(n);
       return t.filter(function (e) {
         var t;
-        return f(e, (t = a.get(e.lid)) != null ? t : [], r, o);
+        return y(e, (t = a.get(e.lid)) != null ? t : [], r, o);
       });
     }
     function s(e, t, n, r, o, a) {
       if (!t || (o === "" && a == null)) return [];
-      var i = _(n),
+      var i = h(n),
         l = new Set(
           e.map(function (e) {
             return e.lid;
@@ -26,7 +26,7 @@ __d(
         var t;
         if (l.has(e.lid)) return !1;
         var n = (t = i.get(e.lid)) != null ? t : [];
-        return f(e, n, o, a);
+        return y(e, n, o, a);
       });
     }
     function u(e, t, n, r, o) {
@@ -40,38 +40,74 @@ __d(
         return (
           (e.memberLID == null || !a.has(e.memberLID)) &&
           (o == null || e.memberTag === o) &&
-          g(e, r)
+          C(e, r)
         );
       });
     }
-    function c(t, n, r, o, a, i) {
+    function c(e, t) {
+      return t === "all" || t === "member"
+        ? !0
+        : t === "not_joined"
+          ? !1
+          : t === "owner" || t === "admin"
+            ? d(e.role) === t
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t,
+                );
+              })();
+    }
+    function d(e) {
+      return e === "CREATOR" ? "owner" : e === "ADMIN" ? "admin" : "member";
+    }
+    function m(e) {
+      return e === "all" || e === "not_joined";
+    }
+    function p(t, n, r, o, a, i) {
       (o === void 0 && (o = ""),
         a === void 0 && (a = null),
         i === void 0 && (i = "all"));
       var l = function (a) {
-          return i === "not_joined" ? 0 : e(!0, t, n, o, a).length;
+          return e(!0, t, n, o, a).filter(function (e) {
+            return c(e, i);
+          }).length;
         },
         s = function (r) {
-          return i === "member" ? 0 : u(!0, n, t, o, r).length;
+          return m(i) ? u(!0, n, t, o, r).length : 0;
         },
-        c = new Map();
-      for (var d of r) c.set(d, l(d) + s(d));
+        d = new Map();
+      for (var p of r) d.set(p, l(p) + s(p));
+      var _ = e(!0, t, n, o, a),
+        f = u(!0, n, t, o, a).length,
+        g = function (t) {
+          return _.filter(function (e) {
+            return c(e, t);
+          }).length;
+        };
       return {
-        memberCount: e(!0, t, n, o, a).length,
-        memberTagCounts: c,
-        notJoinedCount: u(!0, n, t, o, a).length,
+        memberCount: _.length,
+        memberTagCounts: d,
+        notJoinedCount: f,
+        statusCounts: {
+          admin: g("admin"),
+          all: _.length + f,
+          member: g("member"),
+          not_joined: f,
+          owner: g("owner"),
+        },
       };
     }
-    function d(e) {
+    function _(e) {
       return e.flatMap(function (e) {
         var t = e.emailAddress;
         return t != null &&
-          o("WAWebOrgAdminInviteMembersUtils").isValidInviteEmail(t)
+          o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(t)
           ? [t]
           : [];
       });
     }
-    function m(e) {
+    function f(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -79,7 +115,7 @@ __d(
           t.set(n.memberLID, n.emailAddress);
       return t;
     }
-    function p(e) {
+    function g(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -87,7 +123,7 @@ __d(
           t.set(n.memberLID, n.phoneNumber);
       return t;
     }
-    function _(e) {
+    function h(e) {
       var t = new Map();
       for (var n of e) {
         var r,
@@ -99,7 +135,7 @@ __d(
       }
       return t;
     }
-    function f(e, t, n, r) {
+    function y(e, t, n, r) {
       var a,
         i =
           o(
@@ -109,7 +145,7 @@ __d(
             ? void 0
             : a.toLocaleLowerCase().includes(n)) === !0 ||
           t.some(function (e) {
-            return g(e, n);
+            return C(e, n);
           }),
         l =
           r == null ||
@@ -119,7 +155,7 @@ __d(
           });
       return i && l;
     }
-    function g(e, t) {
+    function C(e, t) {
       return t === ""
         ? !0
         : [
@@ -139,10 +175,13 @@ __d(
     ((l.getWAWebOrgAdminManagedFilteredMembers = e),
       (l.getWAWebOrgAdminManagedSearchFallbackMembers = s),
       (l.getWAWebOrgAdminRosterOnlyEntries = u),
-      (l.getWAWebOrgAdminPeopleCounts = c),
-      (l.getWAWebOrgAdminRosterInviteEmails = d),
-      (l.getWAWebOrgAdminRosterEmailsByMemberLID = m),
-      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = p));
+      (l.orgAdminMemberMatchesStatus = c),
+      (l.getOrgAdminMemberStatus = d),
+      (l.orgAdminRosterOnlyEntriesMatchStatus = m),
+      (l.getWAWebOrgAdminPeopleCounts = p),
+      (l.getWAWebOrgAdminRosterInviteEmails = _),
+      (l.getWAWebOrgAdminRosterEmailsByMemberLID = f),
+      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = g));
   },
   98,
 );

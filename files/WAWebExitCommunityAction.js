@@ -11,7 +11,6 @@ __d(
     "WAWebGroupExitJob",
     "WAWebMiscErrors",
     "WAWebModalManager",
-    "WAWebName.react",
     "WAWebStateUtils",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -55,15 +54,13 @@ __d(
             i = new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Exiting community"),
             ),
-            l = a
+            l = t.formattedTitle,
+            c = a
               .then(function (e) {
                 var n =
-                    t.formattedTitle != null
+                    l != null && l !== ""
                       ? s._(/*BTDS*/ 'You left the community "{community}"', [
-                          s._param(
-                            "community",
-                            d.jsx(o("WAWebName.react").Name, { chat: t }),
-                          ),
+                          s._param("community", l),
                         ])
                       : s._(/*BTDS*/ "You left the community"),
                   r = function () {
@@ -116,7 +113,7 @@ __d(
           (o("WAWebToastManager").ToastManager.open(
             d.jsx(o("WAWebActionToast.react").ActionToast, {
               initialAction: i,
-              pendingAction: l,
+              pendingAction: c,
             }),
           ),
             yield a);

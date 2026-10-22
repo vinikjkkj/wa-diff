@@ -537,10 +537,11 @@ __d(
               : t.consecutiveNudges,
         G = 200,
         z =
-          D ||
-          (T &&
-            ((l == null ? void 0 : l.seeking) === !0 ||
-              (l == null ? void 0 : l.buffered.length) === 0))
+          e.config.mediaSinkType !== "WEBCODECS" &&
+          (D ||
+            (T &&
+              ((l == null ? void 0 : l.seeking) === !0 ||
+                (l == null ? void 0 : l.buffered.length) === 0)))
             ? e.host.timers.setTimeout(n, G)
             : null,
         j = (h = x != null ? x : S) != null ? h : null,

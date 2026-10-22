@@ -2,56 +2,130 @@ __d(
   "WAWebOrgAdminRosterUploadRequest",
   ["WAWebOrgAdminMemberTagOptions", "WAWebOrgAdminRosterUploadPlan"],
   function (t, n, r, o, a, i, l) {
-    var e = 1e3;
-    function s(e) {
-      var t = e.memberDirectoryEnabled,
-        n = e.memberTagOptions,
-        r = e.plan,
-        a = e.roster,
-        i = e.rosterStatus,
-        l = o(
-          "WAWebOrgAdminRosterUploadPlan",
-        ).getOrgAdminRosterUploadReplacement(r, a),
-        s = new Set(n),
-        c = [].concat(r.added, r.updated),
-        d = Array.from(
+    var e = 5e3,
+      s = 1e3,
+      u = { joined: [], removed: [] },
+      c = { people: new Set(), rows: new Set() };
+    function d(e) {
+      var t = e.holds,
+        n = e.memberDirectoryEnabled,
+        r = e.memberTagOptions,
+        a = e.mode,
+        i = e.plan,
+        l = e.roster,
+        s = e.rosterStatus,
+        c = a === "replace",
+        d = c
+          ? o(
+              "WAWebOrgAdminRosterUploadPlan",
+            ).getOrgAdminRosterUploadPeopleNotInFile(i, l)
+          : u,
+        m = i.added.filter(function (e) {
+          var n = e.rowNumber;
+          return !t.rows.has(n);
+        }),
+        p = i.updated.filter(function (e) {
+          var n = e.rowNumber;
+          return !t.rows.has(n);
+        }),
+        f = d.removed.filter(function (e) {
+          var n = e.id;
+          return !t.people.has(n);
+        }),
+        g = [].concat(m, p),
+        h = c
+          ? o(
+              "WAWebOrgAdminRosterUploadPlan",
+            ).getOrgAdminRosterUploadReplacement(
+              babelHelpers.extends({}, i, { added: m, updated: p }),
+              l,
+              f,
+            )
+          : g.map(function (e) {
+              var t = e.entry,
+                n = e.rowNumber;
+              return { entry: t, rowNumber: n };
+            }),
+        y = l.length - f.length + m.length,
+        C = new Set(r),
+        b = Array.from(
           new Set(
-            c.flatMap(function (e) {
+            g.flatMap(function (e) {
               var t = e.entry.memberTag;
-              return t == null || s.has(t) ? [] : [t];
+              return t == null || C.has(t) ? [] : [t];
             }),
           ),
         ),
-        m = t && d.length > 0;
+        v = n && b.length > 0;
       return {
-        blocker: u({
-          entryCount: l.length,
-          memberTagCount: n.length + d.length,
-          rosterStatus: i,
-          savesMemberTags: m,
+        blocker: _({
+          entryCount: y,
+          memberTagCount: r.length + b.length,
+          rosterStatus: s,
+          savesMemberTags: v,
         }),
-        newMemberTags: d,
-        plan: r,
+        counts: {
+          added: m.length,
+          notImported:
+            i.incomplete.length + i.unnamed.length + i.repeated.length,
+          removed: f.length,
+          updated: p.length,
+        },
+        newMemberTags: b,
+        notInFile: d,
+        plan: i,
         request: {
-          entries: l.map(function (e) {
+          entries: h.map(function (e) {
             var t = e.entry;
             return t;
           }),
-          inviteEmails: r.added.flatMap(function (e) {
-            var t = e.entry.emailAddress;
-            return t == null ? [] : [t];
-          }),
-          memberTagOptions: n,
-          newMemberTagOptions: m ? d : [],
-          roster: a,
+          inviteEmails: n
+            ? m.flatMap(function (e) {
+                var t = e.entry.emailAddress;
+                return t == null ? [] : [t];
+              })
+            : [],
+          memberTagOptions: r,
+          mode: a,
+          newMemberTagOptions: v ? b : [],
+          roster: l,
         },
-        rowNumbers: l.map(function (e) {
+        rosterCount: y,
+        rowNumbers: h.map(function (e) {
           var t = e.rowNumber;
           return t;
         }),
       };
     }
-    function u(t) {
+    function m(e, t) {
+      return (function (t) {
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.kind === "person" &&
+          "id" in t
+        ) {
+          var n = t.id;
+          return babelHelpers.extends({}, e, { people: p(e.people, n) });
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.kind === "row" &&
+          "rowNumber" in t
+        ) {
+          var r = t.rowNumber;
+          return babelHelpers.extends({}, e, { rows: p(e.rows, r) });
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            t,
+        );
+      })(t);
+    }
+    function p(e, t) {
+      var n = new Set(e);
+      return (n.delete(t) || n.add(t), n);
+    }
+    function _(t) {
       var n = t.entryCount,
         r = t.memberTagCount,
         a = t.rosterStatus,
@@ -67,7 +141,10 @@ __d(
             : null;
     }
     ((l.MAX_ORG_ADMIN_ROSTER_REPLACE_ENTRIES = e),
-      (l.getOrgAdminRosterUploadDraft = s));
+      (l.MAX_ORG_ADMIN_ROSTER_APPEND_ENTRIES = s),
+      (l.NO_ORG_ADMIN_ROSTER_UPLOAD_HOLDS = c),
+      (l.getOrgAdminRosterUploadDraft = d),
+      (l.toggleOrgAdminRosterUploadHold = m));
   },
   98,
 );

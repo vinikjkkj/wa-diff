@@ -5,6 +5,7 @@ __d(
     "WAWebBizAiLargeScreensGateModel",
     "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
     "WAWebBizAiWebEditingCoachingGateModel",
+    "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
     "WAWebBizAiWebSmartComposerAiListsGateModel",
     "justknobx",
   ],
@@ -143,6 +144,13 @@ __d(
     }
     function $() {
       return (
+        o(
+          "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
+        ).getPrimarySupportsBizAiWebOnboarding() && P()
+      );
+    }
+    function P() {
+      return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_onboarding_notification_dispatch_enabled",
         ) === !0
@@ -172,7 +180,8 @@ __d(
       (l.isIntegrationHubEnabled = T),
       (l.isAppointmentsEnabled = D),
       (l.getResponseSettingsV2TriState = x),
-      (l.isWebOnboardingNotificationDispatchEnabled = $));
+      (l.isWebOnboardingSendToPhoneEnabled = $),
+      (l.isWebOnboardingNotificationDispatchEnabled = P));
   },
   98,
 );
