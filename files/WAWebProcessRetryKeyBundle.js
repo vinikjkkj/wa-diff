@@ -207,7 +207,7 @@ __d(
               return {
                 msgRecord: f,
                 retryContext: { hasAdditionalRetryTargets: b },
-                isIdentityChangedSinceSend: g == null || p < g,
+                isIdentityChangedSinceSend: y == null && (g == null || p < g),
               };
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult
               .INELIGIBLE_ALREADY_DELIVERED:

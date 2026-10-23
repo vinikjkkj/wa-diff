@@ -6,7 +6,6 @@ __d(
     "WormPromise",
     "WormStoreFunctions",
     "err",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -145,20 +144,19 @@ __d(
                 }));
             });
           }),
-          (a.bulkAdd = function (a) {
+          (a.bulkAdd = function (r) {
             var t = this;
             return (e || (e = n("Promise"))).all(
-              a.map(function (e) {
-                return new (o("WormPromise").WormPromise)(function (n, o) {
-                  r("vulture")("fDJE5mNVBBRUyfqpuOLT7YArkRA=");
-                  var a = t.$1.add(t.$3.maybeEncrypt(e, t.$2, t.$4.eventFlow));
-                  ((a.onsuccess = function () {
+              r.map(function (e) {
+                return new (o("WormPromise").WormPromise)(function (n, r) {
+                  var o = t.$1.add(t.$3.maybeEncrypt(e, t.$2, t.$4.eventFlow));
+                  ((o.onsuccess = function () {
                     t.$5.autoIncrement === !0
-                      ? n(a.result)
+                      ? n(o.result)
                       : n(e[t.$5.primaryKey]);
                   }),
-                    (a.onerror = function () {
-                      return o(a.error);
+                    (o.onerror = function () {
+                      return r(o.error);
                     }));
                 });
               }),

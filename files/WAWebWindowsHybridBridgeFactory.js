@@ -36,7 +36,7 @@ __d(
       var t;
       if (!r("WAWebEnvironment").isWindows) return !1;
       if (((t = window.chrome) == null ? void 0 : t.webview) == null) {
-        if (r("gkx")("26258") || _) throw r("err")(e);
+        if (!r("gkx")("16539") || _) throw r("err")(e);
         return !1;
       }
       return !0;

@@ -38,12 +38,12 @@ __d(
             l = t.msgRecord,
             p = t.scheduledMsgMetadata,
             _ = l.data,
-            h = _.botRespOrInvocationRevokeBotWid,
-            y = _.id,
-            C = _.invokedBotWid,
-            b = _.protocolMessageKey,
-            v = _.subtype,
-            S = _.to;
+            y = _.botRespOrInvocationRevokeBotWid,
+            C = _.id,
+            b = _.invokedBotWid,
+            v = _.protocolMessageKey,
+            S = _.subtype,
+            R = _.to;
           o("WALogger")
             .LOG(
               e ||
@@ -51,63 +51,67 @@ __d(
                   "encryptAndSendUserMsg: sending ",
                   "",
                 ])),
-              y,
+              C,
             )
             .tags("messaging");
-          var R = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            L = { wids: [S, R] };
-          S != null &&
-            S.isUser() &&
-            (L.chatWidSetToIncludeHostedInFanoutOneToOneChatOnly = S);
-          var E = yield o("WAWebDBDeviceListFanout").getFanOutList(L);
+          var L = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            E = { wids: [R, L] };
+          R != null &&
+            R.isUser() &&
+            (E.chatWidSetToIncludeHostedInFanoutOneToOneChatOnly = R);
+          var k = yield o("WAWebDBDeviceListFanout").getFanOutList(E);
           if (o("WAWebBotBaseGating").isBotEnabled())
             if (
               o("WAWebMsgGetters").getIsBotFeedbackMessage(l.data) &&
-              b != null
+              v != null
             ) {
-              var k;
-              (!S.isBot() && b.participant != null
-                ? (k = b.participant)
+              var I;
+              (!R.isBot() && v.participant != null
+                ? (I = v.participant)
                 : l.data.bizBotType != null
-                  ? (k = S)
-                  : (k = b.remote),
-                (E = [
+                  ? (I = R)
+                  : (I = v.remote),
+                (k = [
                   o(
                     "WAWebSimpleSignalPNToFBIDMigration",
-                  ).maybeReplaceDeprecatedBotPnWithFbid(k),
+                  ).maybeReplaceDeprecatedBotPnWithFbid(I),
                 ]));
-            } else if (C && C != null && C.isBot()) {
-              var I = C;
-              E = [].concat(E, [I]);
+            } else if (b && b != null && b.isBot()) {
+              var T = b;
+              k = [].concat(k, [T]);
             } else
-              h &&
-                h != null &&
-                h.isBot() &&
-                (v === "sender_revoke" || v === "admin_revoke") &&
-                (E = [].concat(E, [h]));
-          (n("cr:627") != null &&
-            (E = yield n("cr:627").reconcileAeaBeforeEncryption({
-              recipient: S,
-              fanoutDevices: E,
-              message: i,
-              msgRecord: l,
-            })),
-            o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(E) &&
-              o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
-                senderOrRecipientAccountTypeHosted: !0,
-              }));
-          var T = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
+              y &&
+                y != null &&
+                y.isBot() &&
+                (S === "sender_revoke" || S === "admin_revoke") &&
+                (k = [].concat(k, [y]));
+          var D =
+            n("cr:627") != null
+              ? yield n("cr:627").captureAeaSendBaseline({
+                  recipient: R,
+                  fanoutDevices: k,
+                  message: i,
+                  msgRecord: l,
+                })
+              : null;
+          (D == null ? void 0 : D.isEnforced) !== !0 &&
+            o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
+            o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
+              senderOrRecipientAccountTypeHosted: !0,
+            });
+          var x = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
             chatId: r,
-            deviceWids: E,
+            deviceWids: k,
             metricReporter: a,
             msgProtobuf: i,
             msgRecord: l,
             option: { fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT },
             scheduledMsgMetadata: p,
+            aeaBaseline: D,
           });
-          f(S, T);
-          var D = T.phash;
-          if (D != null) {
+          f(R, x);
+          var $ = x.phash;
+          if ($ != null) {
             o("WALogger")
               .LOG(
                 s ||
@@ -115,12 +119,12 @@ __d(
                     "encryptAndSendUserMsg: phash mismatch, got server phash ",
                     "",
                   ])),
-                D,
+                $,
               )
               .tags("messaging");
-            var x = o("WATimeUtils").unixTime();
+            var P = o("WATimeUtils").unixTime();
             (o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric({
-              chatWid: S,
+              chatWid: R,
               msgProtobuf: i,
               msgRecord: l,
             }),
@@ -131,9 +135,9 @@ __d(
               (m || (m = n("Promise")))
                 .resolve()
                 .then(function () {
-                  if (!S.isLid())
+                  if (!R.isLid())
                     return o("WAWebFetchResendMissingKeyJob")
-                      .fetchResendMissingKeys([S, R])
+                      .fetchResendMissingKeys([R, L])
                       .catch(function () {
                         o("WALogger")
                           .WARN(
@@ -147,22 +151,24 @@ __d(
                 })
                 .then(function () {
                   return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-                    [S, R],
+                    [R, L],
                     "message",
-                    D,
+                    $,
                   );
                 })
-                .then(function () {
-                  return g({
-                    ackTime: x,
-                    chatId: r,
-                    excludeList: E,
-                    metricReporter: a,
-                    msgProtobuf: i,
-                    msgRecord: l,
-                    scheduledMsgMetadata: p,
-                  });
-                })
+                .then(
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    return h({
+                      ackTime: P,
+                      chatId: r,
+                      excludeList: g(k, D),
+                      metricReporter: a,
+                      msgProtobuf: i,
+                      msgRecord: l,
+                      scheduledMsgMetadata: p,
+                    });
+                  }),
+                )
                 .catch(function (e) {
                   (o("WALogger")
                     .WARN(
@@ -189,7 +195,7 @@ __d(
                       .sendLogs("message-resend-failed", { sampling: 0.01 }));
                 }));
           }
-          return T;
+          return x;
         })),
         _.apply(this, arguments)
       );
@@ -205,12 +211,23 @@ __d(
           );
       }
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function g(e, t) {
+      var r, o;
+      return (t == null ? void 0 : t.isEnforced) !== !0 || n("cr:627") == null
+        ? e
+        : (r =
+              (o = n("cr:627").getAeaDecidedSend(t)) == null
+                ? void 0
+                : o.devices) != null
+          ? r
+          : e;
     }
-    function h() {
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ackTime,
             n = e.chatId,
             r = e.excludeList,
@@ -235,7 +252,7 @@ __d(
             },
           });
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
     ((l.encryptAndSendUserMsg = p), (l.maybeRefreshLid = f));

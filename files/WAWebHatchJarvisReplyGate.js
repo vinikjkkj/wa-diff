@@ -1,24 +1,45 @@
 __d(
   "WAWebHatchJarvisReplyGate",
-  ["WAWebBotBaseGating", "WAWebBotUtils", "WAWebHatchFrontendGating"],
+  [
+    "WAWebBotBaseGating",
+    "WAWebBotUtils",
+    "WAWebHatchFrontendGating",
+    "WAWebHatchJsonReaders",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t = e.chatId,
-        n = e.isForwarded,
-        r = e.isFromMe,
-        a = e.unifiedResponse;
-      return (a == null ? void 0 : a.passthrough_payload) == null
-        ? !1
-        : n
-          ? o(
-              "WAWebBotBaseGating",
-            ).isRichResponseJarvisForwardReceivingEnabled()
-          : !r &&
-            o("WAWebBotUtils").isHatchBot(t) &&
-            o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled();
+    var e = "XMSGGenAIJarvisPayload";
+    function s(e) {
+      return e.isForwarded || e.hasForwardedAttribution
+        ? u(e)
+          ? "forwarded"
+          : "none"
+        : c(e)
+          ? "reply"
+          : "none";
     }
-    l.shouldDrawHatchJarvisReply = e;
+    function u(t) {
+      var n = t.unifiedResponse;
+      return (
+        o("WAWebHatchJsonReaders").readString(
+          n == null ? void 0 : n.passthrough_payload,
+          "__typename",
+        ) === e &&
+        o("WAWebBotBaseGating").isRichResponseJarvisForwardReceivingEnabled()
+      );
+    }
+    function c(e) {
+      var t = e.chatId,
+        n = e.isFromMe,
+        r = e.unifiedResponse;
+      return (
+        (r == null ? void 0 : r.passthrough_payload) != null &&
+        !n &&
+        o("WAWebBotUtils").isHatchBot(t) &&
+        o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled()
+      );
+    }
+    l.getHatchJarvisDrawMode = s;
   },
   98,
 );

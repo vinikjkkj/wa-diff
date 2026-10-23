@@ -129,6 +129,8 @@ __d(
         name: [1, e.TYPES.STRING],
         hash: [2, e.TYPES.STRING],
         addOptionMsgKey: [3, e.TYPES.STRING],
+        localId: [4, e.TYPES.UINT32],
+        addOptionMsgT: [5, e.TYPES.UINT32],
       }),
       (l.MsgOpaqueData$PollType = s),
       (l.MsgOpaqueData$PollContentType = u),

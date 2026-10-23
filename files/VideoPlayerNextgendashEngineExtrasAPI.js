@@ -237,6 +237,12 @@ __d(
           getVideoProjectionType: function () {
             return null;
           },
+          getVideoRepresentationAtMediaTime: function (t) {
+            var e = o(
+              "VideoPlayerNextgendashMain",
+            ).getVideoRepresentationAtMediaTime(a, t);
+            return e == null ? null : s(e);
+          },
           getVideoRepresentations: function () {
             return null;
           },

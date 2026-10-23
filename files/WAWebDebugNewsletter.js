@@ -58,6 +58,7 @@ __d(
     "err",
     "nullthrows",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -74,18 +75,19 @@ __d(
         return Math.round(Date.now() / 1e3);
       };
     function m(e, t) {
-      var n,
-        r = (n = o("WAWap")).makeWapNode(
-          "notification",
-          {
-            from: n.JID(o("WAJids").toNewsletterJid(e)),
-            type: "newsletter",
-            id: n.INT(d()),
-            t: n.INT(d()),
-          },
-          t,
-        );
-      c(r);
+      var n;
+      r("vulture")("oxiPEvFncdcucmTRDaHG2kFJVXU=");
+      var a = (n = o("WAWap")).makeWapNode(
+        "notification",
+        {
+          from: n.JID(o("WAJids").toNewsletterJid(e)),
+          type: "newsletter",
+          id: n.INT(d()),
+          t: n.INT(d()),
+        },
+        t,
+      );
+      c(a);
     }
     function p() {
       return _.apply(this, arguments);
@@ -93,56 +95,65 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o(
-            "WAWebQueryAndUpdateAllNewslettersMetadataAction",
-          ).queryAndUpdateAllNewsletterMetadataAction(
-            o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
-              .Debug,
-          );
+          (r("vulture")("jXREDXiSPUfgS8AbFeKMlC8bUoo="),
+            yield o(
+              "WAWebQueryAndUpdateAllNewslettersMetadataAction",
+            ).queryAndUpdateAllNewsletterMetadataAction(
+              o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
+                .Debug,
+            ));
         })),
         _.apply(this, arguments)
       );
     }
     function f() {
-      return { id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString() };
+      return (
+        r("vulture")("kGH1sG_nwpAtGt_M4t6HyMDqGgU="),
+        { id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString() }
+      );
     }
     var g = {
       enableNewsletter: function () {
         var e;
-        o("WAWebPrimaryFeatures")
-          .setPrimaryFeatures(
-            Array.from(
-              new Set(
-                [].concat(
-                  (e = o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-                    .features) != null
-                    ? e
-                    : [],
-                  ["newsletter"],
+        (r("vulture")("Zl_tGNhlbr63pX0aQAp_8G4CU-s="),
+          o("WAWebPrimaryFeatures")
+            .setPrimaryFeatures(
+              Array.from(
+                new Set(
+                  [].concat(
+                    (e = o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+                      .features) != null
+                      ? e
+                      : [],
+                    ["newsletter"],
+                  ),
                 ),
               ),
-            ),
-          )
-          .then(function () {
-            r("WAWebDebugABProps").overrideABProp("channels_enabled", 2);
-          });
+            )
+            .then(function () {
+              (r("vulture")("ZxVFuLPAE1djEUQ_iW8cnCGS8RE="),
+                r("WAWebDebugABProps").overrideABProp("channels_enabled", 2));
+            }));
       },
       deleteAllNewsletters: function () {
-        (r("WAWebNewsletterMetadataCollection").delete(),
+        (r("vulture")("pCjkHA4-mBgbTAN_58ARnUXw0xI="),
+          r("WAWebNewsletterMetadataCollection").delete(),
           o(
             "WAWebProfilePicThumbCollection",
           ).ProfilePicThumbCollection.delete(),
           r("WAWebNewsletterCollection").delete());
       },
       createNewsletter: function (t) {
-        o("WAWebNewsletterCreateJob").createNewsletter({
-          name: t,
-          description: null,
-          picture: null,
-        });
+        (r("vulture")("AL0JaN3sfZZupBeZTIoT2Tg80M0="),
+          o("WAWebNewsletterCreateJob").createNewsletter({
+            name: t,
+            description: null,
+            picture: null,
+          }));
       },
       createAndOpenNewsletter: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("W37Kz0rIy-kuQOXX6F6U2UsqBsY=");
           var t = yield o("WAWebNewsletterCreateAction").createNewsletterAction(
             e,
           );
@@ -155,6 +166,7 @@ __d(
       })(),
       inviteUserToAdminChannel: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("VIo16TExC4GDZLNxl-AkOK43fqA=");
           var n = o(
               "WAWebContactCollection",
             ).ContactCollection.getModelsArray(),
@@ -182,6 +194,7 @@ __d(
         return t;
       })(),
       mockNewsletterCollection: function (t) {
+        r("vulture")("qVAsh3H8dz1iOMdWcllvJbkVPbA=");
         var e = o("WAWebWidFactory").createWid("123@newsletter"),
           n = "NY Times",
           a = Date.now() / 1e3,
@@ -233,6 +246,7 @@ __d(
       },
       sendMuteNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
+          r("vulture")("qoaMhmchLdJvZrxXwz5mQ-Bt1b0="),
           m(
             t,
             o("WAWap").makeWapNode(
@@ -244,6 +258,7 @@ __d(
       },
       sendUnmuteNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
+          r("vulture")("fcY-jQdhpWfcjFIqrWqi4skzqec="),
           m(
             t,
             o("WAWap").makeWapNode(
@@ -255,6 +270,7 @@ __d(
       },
       sendJoinNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
+          r("vulture")("Hwo9vTm7vnQnp13CDuKSna4soxE="),
           m(
             t,
             o("WAWap").makeWapNode(
@@ -272,10 +288,12 @@ __d(
       },
       sendLeaveNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
+          r("vulture")("Ka9tWhoLJECaxY401x3YHPIrubY="),
           m(t, o("WAWap").makeWapNode("leave", null)));
       },
       sendMessageToNewsletter: function (t) {
-        t === void 0 && (t = "123@newsletter");
+        (t === void 0 && (t = "123@newsletter"),
+          r("vulture")("qUkb668XyTukSKZX1jqTMHkR4Q0="));
         var e = new Uint8Array([
             50, 24, 10, 22, 84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 116,
             101, 115, 116, 32, 109, 101, 115, 115, 97, 103, 101,
@@ -295,6 +313,7 @@ __d(
       },
       loadNewsletterPreviewChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("Xeh3TwjzxYUEg8Z6fEzB69C-9HY=");
           var t = yield o(
             "WAWebLoadNewsletterPreviewChatAction",
           ).loadNewsletterPreviewChat(e);
@@ -311,6 +330,7 @@ __d(
       })(),
       getNewsletterDirectoryList: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("7uIKKAbP8uaTq29GbxG2KSHOhGw=");
           var t = yield o(
               "WAWebNewsletterDirectorySearchAction",
             ).getNewsletterDirectoryListAction(
@@ -326,6 +346,7 @@ __d(
       })(),
       getNewsletterDirectorySearchResults: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("DNTm0jrqMWgKwr_pDG3WTWxgRCg=");
           var t = yield o(
               "WAWebNewsletterDirectorySearchAction",
             ).getNewsletterDirectorySearchResultsAction(
@@ -341,9 +362,12 @@ __d(
       })(),
       getNewsletterDirectoryCategoriesPreview: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o(
-            "WAWebNewsletterDirectorySearchAction",
-          ).getNewsletterDirectoryCategoriesPreviewAction(e);
+          return (
+            r("vulture")("irLniV8Bg1_Zt1YTd5m0Ld5qAaw="),
+            o(
+              "WAWebNewsletterDirectorySearchAction",
+            ).getNewsletterDirectoryCategoriesPreviewAction(e)
+          );
         });
         function t(t) {
           return e.apply(this, arguments);
@@ -352,6 +376,7 @@ __d(
       })(),
       getRecommendedNewsletters: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("UF6EvWTfEMxGb7pXQjl0a3RFvnY=");
           var e = yield o(
             "WAWebNewsletterGetRecommendedNewslettersAction",
           ).getRecommendedNewslettersAction();
@@ -364,15 +389,19 @@ __d(
       })(),
       refreshAllNewsletters: p,
       getUserNotices: function () {
-        return o("WAWebGetUserDisclosuresAction").getUserDisclosuresAction();
+        return (
+          r("vulture")("B_rV6kCpyR16PMa7bP5wsx3mpXk="),
+          o("WAWebGetUserDisclosuresAction").getUserDisclosuresAction()
+        );
       },
       openChannelAt: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield o("WAWebNewsletterOpenAtAction").openNewsletterAt({
-            newsletterJid: e,
-            serverId: t,
-            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
-          });
+          (r("vulture")("OMK_9FbYp1upSMdqlQhNIdlLLBQ="),
+            yield o("WAWebNewsletterOpenAtAction").openNewsletterAt({
+              newsletterJid: e,
+              serverId: t,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
+            }));
         });
         function t(t, n) {
           return e.apply(this, arguments);
@@ -381,6 +410,7 @@ __d(
       })(),
       mexFetchSubscriberList: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("LjnjNh47xpKpXspFhvsAJLzvtAA=");
           var n = yield o(
             "WAWebMexFetchNewsletterFollowersJob",
           ).mexFetchNewsletterFollowers(e, t);
@@ -392,6 +422,7 @@ __d(
       })(),
       mexFetchNewsletterReactionSenderList: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("Lsr41e495mdoD09sxBQqCDpVRcQ=");
           var n = yield o(
             "WAWebMexFetchNewsletterMessageReactionSenderListJob",
           ).mexFetchNewsletterMessageReactionSenderList(e, t);
@@ -403,6 +434,7 @@ __d(
       })(),
       mexFetchNewsletterIsDomainPreviewable: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("0ugf21Dn_dLST4o-csJ2XFMO9OQ=");
           var t = yield o(
             "WAWebMexFetchNewsletterIsDomainPreviewableJob",
           ).mexFetchNewsletterIsDomainPreviewable(e);
@@ -414,6 +446,7 @@ __d(
       })(),
       mexFetchNewsletterPendingInvites: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("IlAL7p3vq9cf0nfLZtQRDDdaAiY=");
           var t = yield o(
             "WAWebMexFetchNewsletterPendingInvitesJob",
           ).mexFetchNewsletterPendingInvites(e);
@@ -425,7 +458,8 @@ __d(
       })(),
       deletePreviewNewsletters: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebNewsletterCleanupTasks").deletePreviewNewsletters();
+          (r("vulture")("ULdvvD6GOh-L3VA6phuSSDEI0u0="),
+            yield o("WAWebNewsletterCleanupTasks").deletePreviewNewsletters());
         });
         function t() {
           return e.apply(this, arguments);
@@ -434,6 +468,7 @@ __d(
       })(),
       sendNewsletterAdminInviteMessage: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("egtjCnCfXAWYMKIjP-sDdHczAe4=");
           var t = o("WAWebDebugUtils").getSelectedChat(),
             n = o("WAWebDecodeJid").strictDecodeJid(e);
           if (t == null || n == null)
@@ -454,6 +489,7 @@ __d(
       })(),
       sendNewsletterFollowerInviteMessage: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("9to7V2njUyHWfgq7v3gwUmy2DWI=");
           var n = o("WAWebDebugUtils").getSelectedChat(),
             a = o("WAWebDecodeJid").strictDecodeJid(e);
           if (n == null || a == null)
@@ -473,6 +509,7 @@ __d(
       })(),
       showDemoteNotif: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("tO3wzanE9Fn2NwlkGJrhbtiDyr4=");
           var e = o("WAWebContactCollection").ContactCollection.at(
             Math.floor(
               Math.random() *
@@ -500,6 +537,7 @@ __d(
       })(),
       showPromoteNotif: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("FiURiIB2RjEyPpwzzaR8f_NyXY4=");
           var e = o("WAWebContactCollection").ContactCollection.at(
             Math.floor(
               Math.random() *
@@ -527,9 +565,10 @@ __d(
       })(),
       getNewsletterReports: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o(
-            "WAWebNewsletterGetReportsAction",
-          ).getNewsletterReportsAction();
+          (r("vulture")("Mde0UtbKMElf_UV4a07Be8T-RH0="),
+            yield o(
+              "WAWebNewsletterGetReportsAction",
+            ).getNewsletterReportsAction());
         });
         function t() {
           return e.apply(this, arguments);
@@ -538,6 +577,7 @@ __d(
       })(),
       changeNewsletterOwner: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("7hNZ7UiwHwzun-f5pSNGHR4t4bA=");
           var n = o("WAWebContactCollection").ContactCollection.get(t),
             a = r("WAWebNewsletterCollection").get(e);
           n == null ||
@@ -553,33 +593,37 @@ __d(
       })(),
       subscribeToTestNewsletters: (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          (yield (e || (e = n("Promise"))).all(
-            t.map(function (e) {
-              var t = o("WAWebDecodeJid").strictDecodeJid(e);
-              if (t != null)
-                return o(
-                  "WAWebNewsletterSubscribeAction",
-                ).subscribeToNewsletterWidAction(
-                  o("WAWebWidFactory").asNewsletterWidOrThrow(t),
-                );
-            }),
-          ),
+          (r("vulture")("8UXdPX-jzC_AujOw3G6xZcrzYGY="),
+            yield (e || (e = n("Promise"))).all(
+              t.map(function (e) {
+                r("vulture")("RQb6a6Y5s6GtaAxy1F_qnEfd6XI=");
+                var t = o("WAWebDecodeJid").strictDecodeJid(e);
+                if (t != null)
+                  return o(
+                    "WAWebNewsletterSubscribeAction",
+                  ).subscribeToNewsletterWidAction(
+                    o("WAWebWidFactory").asNewsletterWidOrThrow(t),
+                  );
+              }),
+            ),
             yield p());
         });
-        function r(e) {
+        function a(e) {
           return t.apply(this, arguments);
         }
-        return r;
+        return a;
       })(),
       resetNewsletterTos: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("IEAJatWt6QH-Rghwqv4wCDbJyg4=");
           var e = [
             o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
             o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
             o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
           ];
           e.forEach(function (e) {
-            (o("WAWebTos").TosManager.resetState(e),
+            (r("vulture")("3lnQlAh-k6nD5Pj6iVk6wZIdfUA="),
+              o("WAWebTos").TosManager.resetState(e),
               o(
                 "WAWebUserDisclosureCollection",
               ).UserDisclosureCollection.remove(e));
@@ -592,6 +636,7 @@ __d(
       })(),
       getNewsletterMessages: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("b5_0hN7xvVXtjbpIBG9QJfcZ1xA=");
           try {
             var n = yield o(
               "WASmaxNewslettersGetNewsletterMessagesRPC",
@@ -616,15 +661,16 @@ __d(
       getNewsletterQuestionResponses: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
+            r("vulture")("Nn4nHFEYQo-GvZ26nFpcYWxrUso=");
             try {
-              var r = yield o(
+              var a = yield o(
                 "WASmaxNewslettersGetNewsletterResponsesRPC",
               ).sendGetNewsletterResponsesRPC({
                 iqTo: e,
                 questionResponsesServerId: t,
                 questionResponsesCount: n,
               });
-              return r;
+              return a;
             } catch (e) {
               throw e;
             }
@@ -640,7 +686,8 @@ __d(
           function* (e, t, n, a, i) {
             (e === void 0 && (e = "MESSAGE_REACTIONS"),
               t === void 0 && (t = 100),
-              n === void 0 && (n = "\u2764\uFE0F"));
+              n === void 0 && (n = "\u2764\uFE0F"),
+              r("vulture")("6L4RfYXfWrGsUSPbHOKoT50UsHQ="));
             var l = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
               Number(i),
               a,
@@ -665,8 +712,9 @@ __d(
         return t;
       })(),
       getLastChannelMessageServerId: function () {
-        var e,
-          t = o("WAWebDebugUtils").getSelectedChat();
+        var e;
+        r("vulture")("v_tV2ahR5hgdlPTRZ-aUH0kOgzg=");
+        var t = o("WAWebDebugUtils").getSelectedChat();
         if (t == null)
           throw r("err")("getLastChannelMessageServerId: no selected chat");
         var n = (e = t.msgs.last()) == null ? void 0 : e.serverId;
@@ -677,8 +725,9 @@ __d(
         return n;
       },
       getLastChannelMessageId: function () {
-        var e,
-          t = o("WAWebDebugUtils").getSelectedChat();
+        var e;
+        r("vulture")("nDtihl4DCXRhwSDWbG8GsS5ZyFA=");
+        var t = o("WAWebDebugUtils").getSelectedChat();
         if (t == null)
           throw r("err")("getLastChannelMessageId: no selected chat");
         var n = (e = t.msgs.last()) == null ? void 0 : e.id.id;
@@ -687,8 +736,9 @@ __d(
         return n;
       },
       getLastChannelMessageT: function () {
-        var e,
-          t = o("WAWebDebugUtils").getSelectedChat();
+        var e;
+        r("vulture")("C5-j7FaDhYMxhRV-lSk8FF1ZD4U=");
+        var t = o("WAWebDebugUtils").getSelectedChat();
         if (t == null)
           throw r("err")("getLastChannelMessageT: no selected chat");
         var n = (e = t.msgs.last()) == null ? void 0 : e.t;
@@ -698,6 +748,7 @@ __d(
       },
       addProfilePictureDeletionAlertForSelectedChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("dwD0Dgh9S3zpLVvxLOJIHJBBLVw=");
           var e = o("WAWebDebugUtils").getSelectedChat();
           if (e == null)
             throw r("err")(
@@ -716,6 +767,7 @@ __d(
       })(),
       setNewsletterSubscriberCountForSelectedChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("_271Q5ekMKAgj5UX3QOy2RM0FRI=");
           var t = o("WAWebDebugUtils").getSelectedChat();
           if (t == null)
             throw r("err")(
@@ -734,17 +786,18 @@ __d(
         return t;
       })(),
       openNewsletterStatusTextComposer: function () {
-        o("WAWebModalManager").ModalManager.openMedia(
-          u.createElement(r("WAWebCreateTextStatusFlow.react"), {
-            entryPoint: o("WAWebLogStatusPosterActions")
-              .STATUS_CREATION_ENTRY_POINT.CHANNEL_THREAD_SCREEN,
-            isNewsletterStatus: !0,
-            statusPostingSessionId: o(
-              "WAWebLogStatusPosterActions",
-            ).createStatusPostingSessionId(),
-          }),
-          { transition: "status-modal" },
-        );
+        (r("vulture")("Eq2J2I-RaMghHnKCGt_vPuZpQjQ="),
+          o("WAWebModalManager").ModalManager.openMedia(
+            u.createElement(r("WAWebCreateTextStatusFlow.react"), {
+              entryPoint: o("WAWebLogStatusPosterActions")
+                .STATUS_CREATION_ENTRY_POINT.CHANNEL_THREAD_SCREEN,
+              isNewsletterStatus: !0,
+              statusPostingSessionId: o(
+                "WAWebLogStatusPosterActions",
+              ).createStatusPostingSessionId(),
+            }),
+            { transition: "status-modal" },
+          ));
       },
     };
     l.default = g;

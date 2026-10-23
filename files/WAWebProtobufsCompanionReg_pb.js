@@ -129,6 +129,7 @@ __d(
         isHsThumbnailSyncEnabled: [4, e.TYPES.BOOL],
         subscriptionSyncPayload: [5, e.TYPES.BYTES],
         isBotJidDbMigrated: [6, e.TYPES.BOOL],
+        companionAddPeerPayload: [7, e.TYPES.BYTES],
       }),
       (l.DeviceProps$PlatformType = s),
       (l.DevicePropsSpec = u),

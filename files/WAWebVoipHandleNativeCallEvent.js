@@ -33,6 +33,7 @@ __d(
     "WAWebVoipIncomingCallUiActionStore",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipLocalCallStateStore",
+    "WAWebVoipOwnDeviceJids",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
     "WAWebVoipQplHelpers",
@@ -1064,7 +1065,10 @@ __d(
             ).resetAppInBgWhenCallStarts(),
             o(
               "WAWebVoipCallEnterPipModeCountStore",
-            ).resetCallEnterPipModeCount()),
+            ).resetCallEnterPipModeCount(),
+            o(
+              "WAWebVoipOwnDeviceJids",
+            ).refreshOwnOtherDeviceJidsForCallTransfer(a)),
             o(
               "WAWebVoipAppInBgWhenCallStartsStore",
             ).maybeRecordAppInBgWhenCallStarts(u, l),
@@ -1081,6 +1085,7 @@ __d(
             !o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
               o("WAWebVoipCallStateUtils").isCallTerminal(l) &&
               (o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
+              o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
               o(
                 "WAWebVoipSctpConnectionManager",
               ).reportSctpFallbackFamilyOutcome(),

@@ -8,9 +8,11 @@ __d(
     "WAWebUserPrefsMeUser",
     "err",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      r("vulture")("xeH-QZWTsGxUVfg6jNW6JrllUVg=");
       var t = { keyWithoutHash: e, keyInLocalStorage: e, value: null },
         n = r("WAWebUserPrefsLocalStorage").getItemFromLocalStorage(e);
       if (n != null) return ((t.value = n), t);
@@ -25,6 +27,7 @@ __d(
       );
     }
     function s() {
+      r("vulture")("0oMDNoJpZDsYQwwD2l1iMIX8W98=");
       var t = babelHelpers.extends(
           {},
           o("WAWebUserPrefsKeys").KEYS,
@@ -45,17 +48,20 @@ __d(
     s.doc =
       "Retrieve all of the key value pairs in localStorage with their keys before hashing and the key that is currently stored.";
     function u(t) {
+      r("vulture")("CVEWDYLYFYQcYWDes0oiAvRCMOw=");
       var n = e(t);
       return n.value == null ? null : n;
     }
     u.doc =
       "Retrieve an item from localStorage and get the current stored key if it was hashed.";
     function c(e, t) {
-      r("WAWebUserPrefsLocalStorage").setItemToLocalStorage(e, t);
+      (r("vulture")("QX0jjrGXUJzmVOipq7OW7H8wP8o="),
+        r("WAWebUserPrefsLocalStorage").setItemToLocalStorage(e, t));
     }
     c.doc = "Set an item in localStorage.";
     function d(e) {
-      r("WAWebLocalStorage") && r("WAWebLocalStorage").removeItem(e);
+      (r("vulture")("rKqOUZYyoWSiRWXwsZKbSN-HaR0="),
+        r("WAWebLocalStorage") && r("WAWebLocalStorage").removeItem(e));
     }
     d.doc = "Remove an item entry from localStorage";
     var m = {

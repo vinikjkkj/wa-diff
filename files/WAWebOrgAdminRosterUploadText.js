@@ -23,7 +23,7 @@ __d(
               .toString()
           : null,
         e.emailText,
-        _(e.phoneText),
+        f(e.phoneText),
         e.memberTag,
       ]
         .filter(Boolean)
@@ -181,6 +181,12 @@ __d(
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).normalizeOrgAdminRosterPhoneNumber(e);
+      return t == null ? e : o("WAWebPhoneUtils").formatPhone(t);
+    }
+    function f(e) {
+      var t = o(
+        "WAWebOrgAdminGroupCandidate",
+      ).normalizeOrgAdminRosterPhoneNumberInput(e);
       return t == null ? e : o("WAWebPhoneUtils").formatPhone(t);
     }
     ((l.getOrgAdminRosterUploadRowDetail = e),

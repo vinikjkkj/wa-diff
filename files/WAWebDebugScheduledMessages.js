@@ -7,6 +7,7 @@ __d(
     "WAWebSendScheduledMsgAction",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -15,11 +16,12 @@ __d(
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = o("WAWebChatCollection").ChatCollection.get(
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          r("vulture")("BiNJQrDCN70QS_QZJmaXVDFuSnA=");
+          var i = o("WAWebChatCollection").ChatCollection.get(
             o("WAWebWidFactory").createWid(t),
           );
-          if (a == null) {
+          if (i == null) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -30,12 +32,12 @@ __d(
             );
             return;
           }
-          for (var i = 0; i < n; i++) {
-            var l = o("WATimeUtils").futureUnixTime(r + i);
+          for (var l = 0; l < n; l++) {
+            var s = o("WATimeUtils").futureUnixTime(a + l);
             yield o("WAWebSendScheduledMsgAction").sendScheduledTextMsgToChat({
-              chat: a,
-              scheduledTimestampS: l,
-              text: "Debug-" + (i + 1),
+              chat: i,
+              scheduledTimestampS: s,
+              text: "Debug-" + (l + 1),
             });
           }
         })),

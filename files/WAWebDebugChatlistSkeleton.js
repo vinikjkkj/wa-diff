@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugChatlistSkeleton",
-  ["Promise", "WALogger", "WAWebCmd", "cr:11133"],
+  ["Promise", "WALogger", "WAWebCmd", "cr:11133", "vulture"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -10,10 +10,13 @@ __d(
       m = null,
       p = null;
     function _() {
-      return m;
+      return (r("vulture")("7QLzw8r9PoGzU3TKJ-P7JtjSE7I="), m);
     }
     function f() {
-      if ((n("cr:11133") == null ? void 0 : n("cr:11133")()) !== !0) {
+      if (
+        (r("vulture")("hgmMmtD4kn-u8jJzI1PlfRCCAlc="),
+        (n("cr:11133") == null ? void 0 : n("cr:11133")()) !== !0)
+      ) {
         o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -33,6 +36,7 @@ __d(
       "Render the chatlist skeleton until hideChatlistSkeleton is called"),
       (f.paramsToExecute = []));
     function g() {
+      r("vulture")("NXup_jHNP8vBs2r6za02uQnpXjw=");
       var e = p;
       ((m = null),
         (p = null),

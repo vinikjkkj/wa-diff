@@ -8,6 +8,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebSendCommentMessageAction",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -17,32 +18,33 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = 1);
-          var r = [],
-            a;
+          (t === void 0 && (t = 1),
+            r("vulture")("LyjxMRCvXLz_HIbCTVJj7HtDiXU="));
+          var a = [],
+            i;
           if (typeof e == "string") {
-            var i = yield o("WAWebMsgCollection").MsgCollection.getMessagesById(
+            var l = yield o("WAWebMsgCollection").MsgCollection.getMessagesById(
                 [e],
               ),
-              l = i.messages;
-            a = l[0];
-          } else a = e;
-          for (var s = 0; s < t; s++)
-            r.push(
+              s = l.messages;
+            i = s[0];
+          } else i = e;
+          for (var m = 0; m < t; m++)
+            a.push(
               o("WAWebSendCommentMessageAction").sendCommentMessage(
-                a,
-                "This is comment message number" + s.toString(),
+                i,
+                "This is comment message number" + m.toString(),
               ),
             );
           try {
-            var m = yield (d || (d = n("Promise"))).all(r);
+            var p = yield (d || (d = n("Promise"))).all(a);
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "sendNCommentDebugMsg: log ",
                   "",
                 ])),
-              String(m),
+              String(p),
             );
           } catch (e) {
             o("WALogger").WARN(
@@ -60,31 +62,34 @@ __d(
     }
     m.doc = "Send N Comment Messages";
     function _(t) {
-      o("WAWebAddonDBTable")
-        .addonInternalDBTable.bulkUpsert(
-          o("WAWebAddonConstants").AddonTableMode.Comment,
-          t,
-        )
-        .then(function () {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "createOrUpdateCommentsStorage: ",
-                "",
-              ])),
-            String(t),
-          );
-        })
-        .catch(function (e) {
-          o("WALogger").WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "createOrUpdateCommentsStorage: error ",
-                "",
-              ])),
-            e,
-          );
-        });
+      (r("vulture")("nUeUNPzNA8zQcSWgKxJKscaiI1I="),
+        o("WAWebAddonDBTable")
+          .addonInternalDBTable.bulkUpsert(
+            o("WAWebAddonConstants").AddonTableMode.Comment,
+            t,
+          )
+          .then(function () {
+            (r("vulture")("Cnvyk6RqgkWH73fgsIk6Bi9DKLY="),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "createOrUpdateCommentsStorage: ",
+                    "",
+                  ])),
+                String(t),
+              ));
+          })
+          .catch(function (e) {
+            (r("vulture")("DD1U0zGG6k9i951w9dCiaaIfejY="),
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "createOrUpdateCommentsStorage: error ",
+                    "",
+                  ])),
+                e,
+              ));
+          }));
     }
     _.doc = "Store in database comments, use msg key from param if available";
     var f = { sendCommentDebugMsg: m, createOrUpdateCommentsStorageDebug: _ };

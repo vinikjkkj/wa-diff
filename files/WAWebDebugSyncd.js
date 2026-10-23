@@ -28,6 +28,7 @@ __d(
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -37,13 +38,14 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("OKDKSMF959IZ4CYv61iNWFVE5GM=");
           var n,
-            r = yield o("WAWebSchemaSyncActions").getSyncActionsTable().get(t);
+            a = yield o("WAWebSchemaSyncActions").getSyncActionsTable().get(t);
           return (
-            r &&
+            a &&
               (n = o("decodeProtobuf").decodeProtobuf(
                 o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                r.binarySyncData,
+                a.binarySyncData,
               ).value),
             o("WALogger").LOG(
               e ||
@@ -61,15 +63,19 @@ __d(
     }
     p.doc = "Decode binary sync action value from sync-actions table";
     function f(e) {
-      o("WAWebSyncdFatal").handleFatalError(e);
+      (r("vulture")("5QiVlFh4bvA7WAQmKoEg0-J4C24="),
+        o("WAWebSyncdFatal").handleFatalError(e));
     }
     f.doc = "enter syncd fatal state";
     function g(e) {
-      return o("WAWebApiActiveMessageRanges").getActiveMessageRanges(e);
+      return (
+        r("vulture")("CyswN3gj-1HBDphD4EAb-dvGnmk="),
+        o("WAWebApiActiveMessageRanges").getActiveMessageRanges(e)
+      );
     }
     g.doc = "get all active message ranges for a chat";
     function h() {
-      return o("WAWebSyncdDb");
+      return (r("vulture")("kttebtEMf-Tl8JLFMms0RLVizvI="), o("WAWebSyncdDb"));
     }
     h.doc = "SyncDB internal API";
     function y(e) {
@@ -78,7 +84,8 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = 10);
+          (e === void 0 && (e = 10),
+            r("vulture")("wf6vGdNwVUx4WaPx8uPBpCogsO8="));
           var t = yield (m || (m = n("Promise"))).all(
               Array(e)
                 .fill(null)
@@ -96,6 +103,7 @@ __d(
               t,
               !0,
             )).map(function (e) {
+              r("vulture")("NnIPNw9NxyLHa0vo9h34xGgVLGM=");
               var t = o(
                 "WAWebSyncdCollectionHandlerTypesConverter",
               ).syncActionToSyncData(e.binarySyncAction);
@@ -137,7 +145,8 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = 10);
+          (e === void 0 && (e = 10),
+            r("vulture")("Ah0RpAdje7VUsgWyra-Zt4vFX9E="));
           var t = Array.from(Array(e).keys(), function () {
               return {
                 id: new (r("WAWebMsgKey"))({
@@ -152,6 +161,7 @@ __d(
               t,
               !0,
             )).map(function (e) {
+              r("vulture")("ouOLNysuo9VZZ1N1bm6lv6F1JcI=");
               var t = o("decodeProtobuf").decodeProtobuf(
                   o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
                   e.binarySyncAction,
@@ -195,7 +205,10 @@ __d(
     b.doc =
       "generate orphan mutations for delete message for me with random message keys";
     function S() {
-      return o("WAWebSyncdWamUtils").getKeyStats();
+      return (
+        r("vulture")("8WsqHlPLTIUFhgDJj_mhHqlKSJQ="),
+        o("WAWebSyncdWamUtils").getKeyStats()
+      );
     }
     S.doc = "SyncD key statistics";
     function R() {
@@ -204,8 +217,9 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = yield p('["primary_version","current"]');
+          var e;
+          r("vulture")("zZjd4jtnN5KxZJu5IoOPEdgrFt0=");
+          var t = yield p('["primary_version","current"]');
           return t == null || (e = t.primaryVersionAction) == null
             ? void 0
             : e.version;
@@ -215,15 +229,24 @@ __d(
     }
     R.doc = "getPrimaryVersion";
     function E() {
-      return o("WAWebPrimaryVersion").getPrimaryCurrentVersion();
+      return (
+        r("vulture")("AX7-sYOs0pZH5P_zZa0gceF-lOM="),
+        o("WAWebPrimaryVersion").getPrimaryCurrentVersion()
+      );
     }
     E.doc = "current primary app version";
     function k() {
-      return o("WAWebPrimaryVersion").getPrimarySessionStartVersion();
+      return (
+        r("vulture")("5D4JuWb-GybUYOhHv5QHXGU_y9w="),
+        o("WAWebPrimaryVersion").getPrimarySessionStartVersion()
+      );
     }
     k.doc = "primary app version at the time of syncd session start";
     function I() {
-      return r("WAWebSentinel")();
+      return (
+        r("vulture")("It9Sc515Sf7ORGDmMfZ4IWlrwj0="),
+        r("WAWebSentinel")()
+      );
     }
     function T() {
       return D.apply(this, arguments);
@@ -231,6 +254,7 @@ __d(
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("Ou62mX8YKqZDjvqTUTd-nsOPFuo=");
           var e = o("WAWebSchemaSyncActions").getSyncActionsTable(),
             t = yield e.all(),
             n = t.filter(function (e) {
@@ -249,7 +273,7 @@ __d(
             );
             return;
           }
-          var r = n.reduce(function (e, t) {
+          var a = n.reduce(function (e, t) {
             return t.timestamp > e.timestamp ? t : e;
           });
           o("WALogger").LOG(
@@ -258,33 +282,33 @@ __d(
                 "Found last stored SyncD mutation in regular collection: ",
                 "",
               ])),
-            r.index,
+            a.index,
           );
-          var a = o("WATimeUtils").unixTimeMs(),
-            i = { timestamp: a },
-            l = {
+          var i = o("WATimeUtils").unixTimeMs(),
+            l = { timestamp: i },
+            m = {
               collection: o("WAWebSyncdConst").CollectionName.Regular,
-              index: r.index,
+              index: a.index,
               binarySyncAction: o("encodeProtobuf")
                 .encodeProtobuf(
                   o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                  i,
+                  l,
                 )
                 .readBuffer(),
-              version: r.version,
+              version: a.version,
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.REMOVE,
-              timestamp: a,
-              action: r.action,
+              timestamp: i,
+              action: a.action,
             };
-          (yield o("WAWebSyncdDb").appendPendingMutationsRows([l]),
+          (yield o("WAWebSyncdDb").appendPendingMutationsRows([m]),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "Created REMOVE mutation for: ",
                   "",
                 ])),
-              r.index,
+              a.index,
             ),
             yield o("WAWebSyncd").markCollectionsForSync([
               o("WAWebSyncdConst").CollectionName.Regular,
@@ -302,29 +326,37 @@ __d(
     T.doc =
       "Issues a REMOVE mutation for the last stored SyncD mutation in regular collection";
     function x() {
-      o("WAWebKeyManagementHandleKeyShareApi").setAppStateSyncKeyShareHandler(
-        function (e) {
-          return function () {
+      (r("vulture")("4C0LJCqlK6_Mh1Yit8_OIgxHoTM="),
+        o("WAWebKeyManagementHandleKeyShareApi").setAppStateSyncKeyShareHandler(
+          function (e) {
             return (
-              o(
-                "WAWebKeyManagementHandleKeyShareApi",
-              ).setAppStateSyncKeyShareHandler(function (t) {
-                return e;
-              }),
-              (m || (m = n("Promise"))).resolve()
+              r("vulture")("dVFJiHKgzgixhOK02GYjBQHVso0="),
+              function () {
+                return (
+                  r("vulture")("5rVCChJ6eJgNF65MgynxfDQf33g="),
+                  o(
+                    "WAWebKeyManagementHandleKeyShareApi",
+                  ).setAppStateSyncKeyShareHandler(function (t) {
+                    return e;
+                  }),
+                  (m || (m = n("Promise"))).resolve()
+                );
+              }
             );
-          };
-        },
-      );
+          },
+        ));
     }
     function $(e) {
-      return o("WAWebSendNonMessageDataRequest").sendPeerDataOperationRequest(
-        o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-          .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY,
-        {
-          collectionName: e != null ? e : "regular_low",
-          timestamp: o("WATimeUtils").unixTime(),
-        },
+      return (
+        r("vulture")("ja4uV4saOhjbe7trd3RbAmuzKIA="),
+        o("WAWebSendNonMessageDataRequest").sendPeerDataOperationRequest(
+          o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+            .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY,
+          {
+            collectionName: e != null ? e : "regular_low",
+            timestamp: o("WATimeUtils").unixTime(),
+          },
+        )
       );
     }
     $.doc = "requestSyncdSnapshotRecovery";

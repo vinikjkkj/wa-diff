@@ -16,6 +16,7 @@ __d(
     "WAWebMsgDataUtils",
     "WAWebMsgType",
     "WAWebNoop",
+    "WAWebPaymentDetailsLogger",
     "WAWebPaymentDetailsModels",
     "WAWebPaymentDetailsStatusPolicy",
     "WAWebPrepRawMedia",
@@ -68,7 +69,17 @@ __d(
               ).buildMarkAsPaidUpdateParams(e.id.id, t),
             ),
           );
-          return (a || (yield K(e, H(r.previous, t))), a);
+          return (
+            a
+              ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange(
+                  e,
+                  o("WAWebPaymentDetailsLogger").PaymentStateChange.STATUS,
+                  o("WAWebPaymentDetailsModels").PaymentDetailsStatus
+                    .MARKED_AS_PAID,
+                )
+              : yield K(e, H(r.previous, t)),
+            a
+          );
         })),
         I.apply(this, arguments)
       );
@@ -105,7 +116,19 @@ __d(
               ).buildReceiptRemovalParams(e.id.id, t),
             ),
           );
-          return (a || (yield K(e, G(r.previous, t))), a);
+          return (
+            a
+              ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange(
+                  e,
+                  o("WAWebPaymentDetailsLogger").PaymentStateChange
+                    .RECEIPT_REMOVED,
+                  o("WAWebBrazilPaymentState").getPaymentDetailsStatus(
+                    r.previous,
+                  ),
+                )
+              : yield K(e, G(r.previous, t)),
+            a
+          );
         })),
         D.apply(this, arguments)
       );

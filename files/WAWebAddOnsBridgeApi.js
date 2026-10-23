@@ -6,6 +6,7 @@ __d(
     "WAWebMarkAddOnsAsReadAction",
     "WAWebPinMessageAction",
     "WAWebPollsPollVoteCollection",
+    "WAWebPollsRemoveVoteOptionsAction",
     "WAWebPollsUpsertVotesModelCollectionMsgAction",
     "WAWebReactionsMsgAction",
     "WAWebUpsertEventResponsesModelCollectionAction",
@@ -25,6 +26,11 @@ __d(
         o(
           "WAWebPollsUpsertVotesModelCollectionMsgAction",
         ).upsertVotesModelCollection(n, r, e);
+      },
+      removePollVoteOptions: function (t) {
+        var e = t.optionLocalIds,
+          n = t.parentMsgKey;
+        o("WAWebPollsRemoveVoteOptionsAction").removeOptionsFromPollVotes(n, e);
       },
       markAddOnsAsReadUi: function (t) {
         var e = t.updatedMsgKeys;

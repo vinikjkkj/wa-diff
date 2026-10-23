@@ -2,6 +2,7 @@ __d(
   "WAWebAssociationProcessor",
   [
     "WAWebAlbumAssociationProcessor",
+    "WAWebAssociationProcessorConstants",
     "WAWebBotPluginAssociationProcessor",
     "WAWebDualUploadsAssociationProcessor",
     "WAWebMediaPollAssociationProcessor",
@@ -39,8 +40,21 @@ __d(
         ? n
         : null;
     }
+    function c(e) {
+      if (e == null) return !1;
+      var t = u(e);
+      return (
+        t != null &&
+        t.processorType ===
+          o("WAWebAssociationProcessorConstants").AssociationProcessorType
+            .WithDetachedMessages &&
+        t.childRevokePolicy ===
+          o("WAWebAssociationProcessorConstants").ChildRevokePolicy.DeleteChild
+      );
+    }
     ((l.getAssociationProcessor = s),
-      (l.getAssociationProcessorByAssociationType = u));
+      (l.getAssociationProcessorByAssociationType = u),
+      (l.isChildDeletedOnParentRevoke = c));
   },
   98,
 );

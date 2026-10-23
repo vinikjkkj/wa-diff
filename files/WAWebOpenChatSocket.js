@@ -26,7 +26,7 @@ __d(
     "WAWebWamEnumWebcSocketConnectReasonType",
     "WAWebWebcSocketConnectWamEvent",
     "asyncToGeneratorRuntime",
-    "cr:4533",
+    "cr:17674",
     "decodeProtobuf",
     "encodeProtobuf",
     "err",

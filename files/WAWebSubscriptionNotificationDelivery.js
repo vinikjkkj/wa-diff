@@ -1,9 +1,14 @@
 __d(
   "WAWebSubscriptionNotificationDelivery",
-  ["WALogger", "WAWebBackendApi", "WAWebSubscriptionsGatingUtils"],
+  [
+    "WALogger",
+    "WAWebBackendApi",
+    "WAWebSubscriptionsGatingUtils",
+    "WAWebUserPrefsSubscription",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
+    var e, s, u;
+    function c(t) {
       if (
         !o(
           "WAWebSubscriptionsGatingUtils",
@@ -21,9 +26,25 @@ __d(
         );
         return;
       }
+      if (
+        o("WAWebUserPrefsSubscription").getSubscriptionsEntryPointEligibility()
+          .metaOne !== !0
+      ) {
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[sub-notif] dropped: not eligible for Meta One on web, id=",
+              ", type=",
+              "",
+            ])),
+          t.stanzaId,
+          t.notificationType,
+        );
+        return;
+      }
       (o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
             "[sub-notif] delivered, id=",
             ", type=",
             "",
@@ -36,7 +57,7 @@ __d(
           t,
         ));
     }
-    l.deliverSubscriptionNotification = u;
+    l.deliverSubscriptionNotification = c;
   },
   98,
 );

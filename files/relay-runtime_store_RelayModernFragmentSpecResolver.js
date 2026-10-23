@@ -5,7 +5,6 @@ __d(
     "areEqual",
     "relay-runtime/store/RelayModernOperationDescriptor",
     "relay-runtime/store/RelayModernSelector",
-    "relay-runtime/util/RelayFeatureFlags",
     "relay-runtime/util/getPendingOperationsForFragment",
     "relay-runtime/util/handlePotentialSnapshotErrors",
     "relay-runtime/util/isScalarAndEqual",
@@ -69,11 +68,8 @@ __d(
             }
             return this.$4;
           }),
-          (t.setCallback = function (t, r) {
-            ((this.$1 = r),
-              n("relay-runtime/util/RelayFeatureFlags")
-                .ENABLE_CONTAINERS_SUBSCRIBE_ON_COMMIT === !0 &&
-                this.setProps(t));
+          (t.setCallback = function (t, n) {
+            ((this.$1 = n), this.setProps(t));
           }),
           (t.setProps = function (t) {
             this.$6 = {};
@@ -120,26 +116,23 @@ __d(
         );
       })(),
       _ = (function () {
-        function t(e, t, r, o, a) {
-          var i = this;
+        function t(e, t, n, r, o) {
+          var a = this;
           this.$9 = function (e) {
-            ((i.$2 = e.data),
-              (i.$4 = e.isMissingData),
-              (i.$5 = e.fieldErrors),
-              i.$1());
+            ((a.$2 = e.data),
+              (a.$4 = e.isMissingData),
+              (a.$5 = e.fieldErrors),
+              a.$1());
           };
-          var l = e.lookup(r);
-          ((this.$1 = a),
-            (this.$2 = l.data),
-            (this.$4 = l.isMissingData),
-            (this.$5 = l.fieldErrors),
+          var i = e.lookup(n);
+          ((this.$1 = o),
+            (this.$2 = i.data),
+            (this.$4 = i.isMissingData),
+            (this.$5 = i.fieldErrors),
             (this.$3 = e),
             (this.$6 = t),
-            (this.$7 = r),
-            n("relay-runtime/util/RelayFeatureFlags")
-              .ENABLE_CONTAINERS_SUBSCRIBE_ON_COMMIT === !0
-              ? o && (this.$8 = e.subscribe(l, this.$9))
-              : (this.$8 = e.subscribe(l, this.$9)));
+            (this.$7 = n),
+            r && (this.$8 = e.subscribe(i, this.$9)));
         }
         var r = t.prototype;
         return (

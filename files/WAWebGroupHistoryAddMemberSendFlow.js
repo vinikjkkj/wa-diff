@@ -9,7 +9,6 @@ __d(
     "WAWebFlex.react",
     "WAWebFrontendContactGetters",
     "WAWebGetGroupHistoryBundleMessagesCount",
-    "WAWebGroupHistoryAddMemberEntryPoint",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinConfirmPopup.react",
     "WAWebGroupHistoryPostJoinEligibility",
@@ -38,24 +37,24 @@ __d(
       f = {
         titleHeader: { rowGap: "x8a3fw1", alignItems: "x1qjc9v5", $$css: !0 },
       };
-    function g(e, t, n) {
+    function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i = t.groupMetadata;
-          if (i != null) {
-            var l = o("WAWebWidFactory").asGroupWidOrThrow(i.id);
-            if (y(i, l, n, a)) {
-              var s = o("WATimeUtils").unixTime(),
-                u;
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = t.groupMetadata;
+          if (a != null) {
+            var i = o("WAWebWidFactory").asGroupWidOrThrow(a.id);
+            if (y(a, i, n)) {
+              var l = o("WATimeUtils").unixTime(),
+                s;
               try {
-                u = yield o(
+                s = yield o(
                   "WAWebGetGroupHistoryBundleMessagesCount",
                 ).getGroupHistoryBundleMessageCount({
-                  groupWid: l,
-                  targetStartMessageTime: s,
+                  groupWid: i,
+                  targetStartMessageTime: l,
                 });
               } catch (t) {
                 o("WALogger")
@@ -69,14 +68,14 @@ __d(
                   .sendLogs("group-history-add-member-probe-failed");
                 return;
               }
-              u !== 0 && b(l, n, s);
+              s !== 0 && C(i, n, l);
             }
           }
         })),
         h.apply(this, arguments)
       );
     }
-    function y(e, t, n, r) {
+    function y(e, t, n) {
       return (
         o(
           "WAWebGroupHistoryPostJoinEligibility",
@@ -95,30 +94,12 @@ __d(
           },
         ) &&
         o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(t) &&
-        C(r)
+        o("WAWebABProps").getABPropConfigValue(
+          "group_history_send_adding_from_contact_message",
+        )
       );
     }
-    function C(e) {
-      return e ===
-        o("WAWebGroupHistoryAddMemberEntryPoint")
-          .AddMemberGroupHistoryEntryPoint.Mention
-        ? o("WAWebABProps").getABPropConfigValue(
-            "group_history_send_adding_from_mention",
-          )
-        : e ===
-            o("WAWebGroupHistoryAddMemberEntryPoint")
-              .AddMemberGroupHistoryEntryPoint.ContactCard
-          ? o("WAWebABProps").getABPropConfigValue(
-              "group_history_send_adding_from_contact_message",
-            )
-          : (function () {
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  e,
-              );
-            })();
-    }
-    function b(e, t, a) {
+    function C(e, t, a) {
       var i = o("WAWebFrontendContactGetters").getFormattedShortName(t);
       o("WAWebModalManager").ModalManager.openSupportModal(
         p.jsx(r("WAWebGroupHistoryPostJoinConfirmPopup.react"), {
@@ -143,7 +124,7 @@ __d(
           onCancel: o("WAWebModalManager").closeModalManager,
           onConfirm: n("asyncToGeneratorRuntime").asyncToGenerator(
             function* () {
-              (o("WAWebModalManager").closeModalManager(), yield v(e, t, a));
+              (o("WAWebModalManager").closeModalManager(), yield b(e, t, a));
             },
           ),
           children: s._(
@@ -153,19 +134,19 @@ __d(
         }),
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([
               t.id,
             ]),
             i = a.historyReceivers,
             l = a.nonHistoryReceivers;
           if (i.length === 0) {
-            R(t);
+            S(t);
             return;
           }
           try {
@@ -188,7 +169,7 @@ __d(
                     ])),
                 )
                 .sendLogs("group-history-add-member-send-not-acked"),
-                R(t));
+                S(t));
               return;
             }
             (o(
@@ -228,13 +209,13 @@ __d(
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("group-history-add-member-send-failed"),
-              R(t));
+              S(t));
           }
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R(e) {
+    function S(e) {
       o("WAWebToastManager").ToastManager.open(
         p.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Couldn't send message history to {contactName}", [

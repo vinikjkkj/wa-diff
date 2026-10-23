@@ -11,6 +11,7 @@ __d(
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,13 +21,14 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("xuKE0QbrcxD9lk9oSBSEDLeBJjI=");
           var n = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .all({ returnKeyType: "primary_key" }),
-            r = n.find(function (e) {
+            a = n.find(function (e) {
               return e.match(t);
             });
-          return r == null
+          return a == null
             ? (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -36,7 +38,7 @@ __d(
                 t,
               ),
               null)
-            : c(r);
+            : c(a);
         })),
         u.apply(this, arguments)
       );
@@ -48,11 +50,12 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("mHPX1ti1Hb1fPFDIqLMZ5HBtJC8=");
           var t = typeof e == "string" ? e : e.toString(),
             n = yield o("WAWebSchemaMessage").getMessageTable().get(t);
           if (n) {
-            var r = o("WAWebDBMessageSerialization").messageFromDbRow(n);
-            return { msgRow: n, msgData: r };
+            var a = o("WAWebDBMessageSerialization").messageFromDbRow(n);
+            return { msgRow: n, msgData: a };
           }
           return null;
         })),
@@ -66,6 +69,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("-omp1OzPs-9n9VBY9CHpijnOUFM=");
           var t = typeof e == "string" ? e : e.toString(),
             n = yield o("WAWebSchemaChat").getChatTable().get(t);
           return n;
@@ -75,11 +79,13 @@ __d(
     }
     m.doc = "get chat row from DB";
     var _ = function (t) {
-      o("WAWebProfiler").logDBStatsDev(t);
+      (r("vulture")("s6DN0MUQWASICCWMkvRQqeKVwMA="),
+        o("WAWebProfiler").logDBStatsDev(t));
     };
     _.doc = "Prints DB stats for a table in the dev console";
     var f = function () {
-      o("WAWebDBStats").dbStats.resetStatsLog();
+      (r("vulture")("iGXFgeWRUrQLhvqjqq3dvrZMSbA="),
+        o("WAWebDBStats").dbStats.resetStatsLog());
     };
     f.doc = "Resets DB stats in the dev console";
     var g = {

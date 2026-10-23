@@ -106,8 +106,7 @@ __d(
             orderPreferences: o(
               "WAWebCustomerOrderPreferences",
             ).toOrderPreferences(l.order_preferences),
-            updatedFields:
-              l.last_updates != null && m.length === c.length ? m : void 0,
+            updatedFields: m.length === c.length ? m : void 0,
           };
         })),
         c.apply(this, arguments)

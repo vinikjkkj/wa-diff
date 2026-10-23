@@ -8,6 +8,7 @@ __d(
     "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
+    "WAWebVoipIdleColdPathPreload",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipQplHelpers",
     "WAWebVoipWasmArtifactGating",
@@ -117,6 +118,9 @@ __d(
                     l,
                   ));
               },
+            ),
+            o("WAWebVoipIdleColdPathPreload").preloadVoipColdPathAfterIdleWarm(
+              t,
             ));
         })),
         b.apply(this, arguments)

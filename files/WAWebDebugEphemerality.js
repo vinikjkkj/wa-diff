@@ -19,6 +19,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -29,6 +30,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
+            r("vulture")("EkqlDVfmMJIiP91elkBCODUyNZA=");
             var l = o("WAWebEphemeralityTypes").DisappearingModeInitiator.cast(
                 a,
               ),
@@ -60,8 +62,9 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = o("WAWebWidFactory").createUserWidOrThrow(e),
+          var n;
+          r("vulture")("77AFAtim88Ie31oScn1o7cSI_WY=");
+          var a = o("WAWebWidFactory").createUserWidOrThrow(e),
             i = yield o("WAWebApiContact").getContactRecord(a);
           if (i == null)
             throw r("err")("Couldn't find contact for number " + e);
@@ -86,6 +89,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("W2lJnXpkBCsEJ011Lh6WjtdnwsA=");
           var n = yield o(
               "WAWebMsgCollection",
             ).MsgCollection.hydrateOrGetMessages([e]),
@@ -105,6 +109,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("wkotZBsl40rBy6H--MEt7BLTdig=");
           var t = o("WAWebChatCollection")
             .ChatCollection.getModelsArray()
             .filter(function (e) {

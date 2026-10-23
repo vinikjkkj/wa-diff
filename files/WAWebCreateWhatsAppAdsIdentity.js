@@ -23,10 +23,12 @@ __d(
                 ? e
                 : (e = n("WAWebCreateWhatsAppAdsIdentityMutation.graphql")),
             u = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
-            c = yield o("WAWebRelayClient").commitMutation(
+            c = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
+            d = yield o("WAWebRelayClient").commitMutation(
               s,
               {
                 code: { sensitive_string_value: a },
+                lid: c == null ? void 0 : c.user,
                 phone_number: {
                   sensitive_string_value:
                     (i = u == null ? void 0 : u.user) != null ? i : "",
@@ -35,7 +37,7 @@ __d(
               { accessToken: t.token, environmentType: "facebook" },
             );
           return r("nullthrows")(
-            c == null || (l = c.create_or_update_whatsapp_ads_identity) == null
+            d == null || (l = d.create_or_update_whatsapp_ads_identity) == null
               ? void 0
               : l.id,
           );

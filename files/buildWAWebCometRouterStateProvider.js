@@ -37,7 +37,11 @@ __d(
         n,
         a = babelHelpers.extends({}, e, {
           cometRouterConstantsOverride: babelHelpers.extends(
-            { NAVIGATION_COUNT_THRESHOLD: d, RELOAD_RESOURCE_THRESHOLD: p() },
+            {
+              NAVIGATION_COUNT_THRESHOLD: d,
+              REFRESH_ON_CLIENT_CONSISTENCY: !1,
+              RELOAD_RESOURCE_THRESHOLD: p(),
+            },
             e.cometRouterConstantsOverride,
           ),
           persistentParameters: [].concat(

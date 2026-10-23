@@ -11,7 +11,9 @@ __d(
     "WAWebMuseDefaultAssistantVariantSource",
     "WAWebPrimaryFeaturesModel",
     "WAWebPrimaryVersionGating",
+    "WAWebTPPdfViewerGatingUtils",
     "asyncToGeneratorRuntime",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -21,127 +23,146 @@ __d(
       });
     }
     function s() {
-      return I({
+      return (
+        o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabledForMimeType(
+          "application/pdf",
+        ) && r("gkx")("5244")
+      );
+    }
+    function u() {
+      return $({
         abProp: "ai_hatch_approval_notification_enabled",
         primaryFeature: "ai_hatch_approval_notification_enabled",
       });
     }
-    function u() {
+    function c() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        I({
+        $({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
       );
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
     function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!u()) return !1;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!c()) return !1;
           var e = yield r(
             "WAWebHatchLinkedStatusManager",
           ).fetchConfirmedLinkedStatusStateIfUnknown();
           return e === "linked";
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m() {
-      return I({
+    function p() {
+      return $({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
     }
-    function p() {
-      return I({
+    function _() {
+      return $({
         abProp: "ai_hatch_vm_capability_sync_enabled",
         primaryFeature: "ai_hatch_vm_capability_sync_enabled",
       });
     }
-    function _() {
-      return I({
+    function f() {
+      return $({
         abProp: "ai_hatch_ideas_enabled",
         primaryFeature: "ai_hatch_ideas_enabled",
       });
     }
-    function f(e) {
-      return (
-        e != null &&
-        o("WAWebBotUtils").isHatchBot(e) &&
-        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
-          o("WAWebHatchMinPrimaryVersions")
-            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
-        ) &&
-        I({
-          abProp: "ai_hatch_browser_enabled",
-          primaryFeature: "ai_hatch_browser_enabled",
-        })
-      );
-    }
-    function g(e) {
-      return (
-        e != null &&
-        o("WAWebBotUtils").isHatchBot(e) &&
-        I({
-          abProp: "ai_hatch_theme_enabled",
-          primaryFeature: "ai_hatch_theme_enabled",
-        })
-      );
+    function g() {
+      return $({
+        abProp: "ai_hatch_identity_enabled",
+        primaryFeature: "ai_hatch_identity_enabled",
+      });
     }
     function h(e) {
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        I({
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
+        $({
+          abProp: "ai_hatch_browser_enabled",
+          primaryFeature: "ai_hatch_browser_enabled",
+        })
+      );
+    }
+    function y(e) {
+      return (
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
+        $({
+          abProp: "ai_hatch_theme_enabled",
+          primaryFeature: "ai_hatch_theme_enabled",
+        })
+      );
+    }
+    function C(e) {
+      return (
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
+        $({
           abProp: "ai_hatch_avatar_working_video_enabled",
           primaryFeature: "ai_hatch_avatar_working_video_enabled",
         })
       );
     }
-    function y() {
+    function b() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        I({
+        $({
           abProp: "ai_hatch_secure_credentials_enabled",
           primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
       );
     }
-    function C() {
+    function v() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        I({
+        $({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
-    function b() {
-      return I({
+    function S() {
+      return $({
         abProp: "ai_hatch_media_enabled",
         primaryFeature: "ai_hatch_media_enabled",
       });
     }
-    function v() {
-      return I({
+    function R() {
+      return $({
         abProp: "ai_hatch_revoke_enabled",
         primaryFeature: "ai_hatch_revoke_enabled",
       });
     }
-    function S() {
+    function L() {
+      return $({
+        abProp: "ai_hatch_data_controls_enabled",
+        primaryFeature: "ai_hatch_data_controls_enabled",
+      });
+    }
+    function E() {
       return (
         e() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
@@ -153,19 +174,25 @@ __d(
         )
       );
     }
-    function R() {
-      return I({
+    function k() {
+      return $({
+        abProp: "ai_hatch_scheduled_tasks_enabled",
+        primaryFeature: "ai_hatch_scheduled_tasks_enabled",
+      });
+    }
+    function I() {
+      return $({
         abProp: "ai_hatch_activity_enabled",
         primaryFeature: "ai_hatch_activity_enabled",
       });
     }
-    function L() {
-      return I({
+    function T() {
+      return $({
         abProp: "ai_hatch_video_avatars_enabled",
         primaryFeature: "ai_hatch_video_avatars_enabled",
       });
     }
-    function E() {
+    function D() {
       var e = o(
         "WAWebMuseDefaultAssistantVariant",
       ).MuseDefaultAssistantVariant.cast(
@@ -183,8 +210,8 @@ __d(
         : r("WAWebHatchLinkedStatusManager").isLinked() &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
-    function k(e) {
-      return e || !L()
+    function x(e) {
+      return e || !T()
         ? "static"
         : (function (e) {
             return e === 1 ? "loop" : e === 2 ? "once" : "static";
@@ -194,7 +221,7 @@ __d(
             ),
           );
     }
-    function I(t) {
+    function $(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -205,24 +232,28 @@ __d(
       );
     }
     ((l.isHatchIntegrationEnabled = e),
-      (l.isHatchApprovalNotificationEnabled = s),
-      (l.isHatchConnectorsEnabled = u),
-      (l.isHatchConnectorsEnabledForLoad = c),
-      (l.isHatchJarvisRendererEnabled = m),
-      (l.isHatchVmCapabilitySyncEnabled = p),
-      (l.isHatchIdeasEnabled = _),
-      (l.isHatchBrowserEnabled = f),
-      (l.isHatchThemeEnabled = g),
-      (l.isHatchAvatarWorkingVideoEnabled = h),
-      (l.isHatchSecureCredentialsEnabled = y),
-      (l.isHatchSpaceEnabled = C),
-      (l.isHatchMediaEnabled = b),
-      (l.isHatchRevokeEnabled = v),
-      (l.isHatchManageSubscriptionEnabled = S),
-      (l.isHatchActivityEnabled = R),
-      (l.isHatchVideoAvatarsEnabled = L),
-      (l.isMuseNavBarEntryPointSelected = E),
-      (l.getHatchNavBarAnimationMode = k));
+      (l.isHatchPdfViewerEnabled = s),
+      (l.isHatchApprovalNotificationEnabled = u),
+      (l.isHatchConnectorsEnabled = c),
+      (l.isHatchConnectorsEnabledForLoad = d),
+      (l.isHatchJarvisRendererEnabled = p),
+      (l.isHatchVmCapabilitySyncEnabled = _),
+      (l.isHatchIdeasEnabled = f),
+      (l.isHatchIdentityEnabled = g),
+      (l.isHatchBrowserEnabled = h),
+      (l.isHatchThemeEnabled = y),
+      (l.isHatchAvatarWorkingVideoEnabled = C),
+      (l.isHatchSecureCredentialsEnabled = b),
+      (l.isHatchSpaceEnabled = v),
+      (l.isHatchMediaEnabled = S),
+      (l.isHatchRevokeEnabled = R),
+      (l.isHatchDataControlsEnabled = L),
+      (l.isHatchManageSubscriptionEnabled = E),
+      (l.isHatchScheduledTasksEnabled = k),
+      (l.isHatchActivityEnabled = I),
+      (l.isHatchVideoAvatarsEnabled = T),
+      (l.isMuseNavBarEntryPointSelected = D),
+      (l.getHatchNavBarAnimationMode = x));
   },
   98,
 );

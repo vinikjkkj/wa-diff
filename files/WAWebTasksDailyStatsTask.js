@@ -1085,7 +1085,7 @@ __d(
           var e = r("WAWebLidAwareContactsDB")
               .equals(["isAddressBookContact"], 1)
               .then(function (e) {
-                return r("countWhere")(e, function (e) {
+                return e.filter(function (e) {
                   return !r("WAWebWid").isStringLid(e.id);
                 });
               }),
@@ -1111,7 +1111,13 @@ __d(
             ((p = h - y), (_ = h), (f = y));
           }
           return {
-            addressbookWhatsappSize: Y(c, 10),
+            addressbookWhatsappSize: Y(c.length, 10),
+            totalCountInNetworkUniquePhoneNumber: r("countWhere")(
+              c,
+              function (e) {
+                return e.isUsernameContact !== !0;
+              },
+            ),
             storageAvailSize: Y(p, 100),
             storageTotalSize: Y(_, 100),
             storageUsed: Y(f, 100),

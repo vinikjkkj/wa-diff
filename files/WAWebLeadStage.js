@@ -18,10 +18,29 @@ __d(
                 ? e.LOST
                 : null;
     }
+    function c(t) {
+      return t === e.LEAD
+        ? "LEAD"
+        : t === e.INTAKE
+          ? "INTAKE"
+          : t === e.QUALIFIED
+            ? "QUALIFIED"
+            : t === e.CONVERTED
+              ? "CONVERTED"
+              : t === e.LOST
+                ? "LOST"
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        t,
+                    );
+                  })();
+    }
     ((i.LeadStage = e),
       (i.LEAD_SUBSTAGE_ORDER = l),
       (i.ALL_LEAD_STAGES = s),
-      (i.getLeadStageFromNumber = u));
+      (i.getLeadStageFromNumber = u),
+      (i.getLeadStageCanonicalName = c));
   },
   66,
 );

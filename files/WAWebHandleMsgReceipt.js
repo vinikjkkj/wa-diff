@@ -71,7 +71,7 @@ __d(
                       "",
                     ])),
                   i,
-                  r("gkx")("26258") ? "..." : c,
+                  r("gkx")("9092") ? c : "...",
                 ),
                   yield v(a));
               } catch (e) {
@@ -85,8 +85,8 @@ __d(
                         "",
                       ])),
                     i,
-                    r("gkx")("26258") ? "..." : c,
-                    r("gkx")("26258") ? "..." : e,
+                    r("gkx")("9092") ? c : "...",
+                    r("gkx")("9092") ? e : "...",
                   )
                   .tags("messaging");
               }
@@ -109,7 +109,7 @@ __d(
                   ])),
                 a.receipts.length,
                 i,
-                r("gkx")("26258") ? "..." : a.externalId,
+                r("gkx")("9092") ? a.externalId : "...",
               ),
                 yield S(a));
             } catch (e) {}
@@ -129,7 +129,7 @@ __d(
                     "",
                   ])),
                 a.receipts.length,
-                r("gkx")("26258") ? "..." : a.externalId,
+                r("gkx")("9092") ? a.externalId : "...",
               ),
                 yield R(a));
             } catch (e) {

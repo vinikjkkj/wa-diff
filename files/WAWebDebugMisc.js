@@ -26,14 +26,19 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:10197",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
     function m(e) {
-      return Math.floor(Math.random() * e);
+      return (
+        r("vulture")("xmzgonrhiyEeyjIYzNksSuR0Dgs="),
+        Math.floor(Math.random() * e)
+      );
     }
     ((m.doc = "Gimme a random numbuh"), (m.paramsToExecute = [100]));
     function p() {
+      r("vulture")("C4xEXcwgZFBCXzVYmniPbUdvFoU=");
       var e = !o("WAWebClientFeatureFlags").isFeatureEnabled("debug_commands");
       e === !0
         ? o("WAWebClientFeatureFlags").debugEnableFeatureFlag("debug_commands")
@@ -44,44 +49,56 @@ __d(
     ((p.doc = "Toggle debug commands in compose box"),
       (p.paramsToExecute = []));
     function _() {
-      o("WAWebRecentEmojiCollection").RecentEmojiCollection.reset();
+      (r("vulture")("0uHHzgcw7meN4AupKa8tp4_k4oY="),
+        o("WAWebRecentEmojiCollection").RecentEmojiCollection.reset());
     }
     ((_.doc = "Resets the recent emojis for the current session"),
       (_.paramsToExecute = []));
     function f() {
-      o("WAWebEmojiVariantCollection").EmojiVariantCollection.reset();
+      (r("vulture")("hG1rMmFULhriukby9-sbn61m7JU="),
+        o("WAWebEmojiVariantCollection").EmojiVariantCollection.reset());
     }
     ((f.doc = "Resets the currently selected emoji skin tones"),
       (f.paramsToExecute = []));
     function g() {
-      return o("WAWebDebugUtils").getSelectedChat().id.toString();
+      return (
+        r("vulture")("7Gh9JZLNiA-nIqKsGv8fjqyhQc0="),
+        o("WAWebDebugUtils").getSelectedChat().id.toString()
+      );
     }
     ((g.doc = "Copies the current chat's ID to the clipboard"),
       (g.paramsToExecute = []),
       (g.displayName = "chat.id"));
     function h() {
-      return o("WAWebBuildConstants").VERSION_STR;
+      return (
+        r("vulture")("c9eRvxvQZhWBkXhAMbjLcQIRMeI="),
+        o("WAWebBuildConstants").VERSION_STR
+      );
     }
     ((h.doc = "Copies the current app's version to the clipboard"),
       (h.paramsToExecute = []),
       (h.displayName = "VERSION"));
     function y() {
-      o("WAWebExternalLink.react").openExternalLink(
-        "https://fburl.com/wa-wc-qa",
-      );
+      (r("vulture")("W6YKEH9aQ-iCLM-wuK2AErkkLck="),
+        o("WAWebExternalLink.react").openExternalLink(
+          "https://fburl.com/wa-wc-qa",
+        ));
     }
     ((y.doc = "Opens Intern Q&A to ask a question"),
       (y.paramsToExecute = []),
       (y.displayName = "\u2753Intern Q&A"));
     function C() {
-      return (d || (d = n("Promise")))
-        .all(
-          o("WAWebChatCollection").ChatCollection.map(function (e) {
-            if (o("WAWebChatGetters").getHasUnread(e))
-              return o("WAWebUpdateUnreadChatAction").markSeen(e);
-          }),
-        )
-        .then(r("WAWebNoop"));
+      return (
+        r("vulture")("V8G6Bcve5XCFZvGCbjH3YQM1hF0="),
+        (d || (d = n("Promise")))
+          .all(
+            o("WAWebChatCollection").ChatCollection.map(function (e) {
+              if (o("WAWebChatGetters").getHasUnread(e))
+                return o("WAWebUpdateUnreadChatAction").markSeen(e);
+            }),
+          )
+          .then(r("WAWebNoop"))
+      );
     }
     ((C.doc = "Mark all chats as read"), (C.paramsToExecute = []));
     function b() {
@@ -90,6 +107,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("zsKXRZ2DFHx8mjF_hpQEim7JQxo=");
           var e = yield r("JSResourceForInteraction")(
               "WAWebShowroomModal.react",
             )
@@ -103,10 +121,11 @@ __d(
     }
     b.doc = "Open UI Showroom";
     function S() {
-      (r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").KEYS.LAST_STATUS_USAGE,
-        Date.now() - 15 * o("WATimeUtils").DAY_MILLISECONDS,
-      ),
+      (r("vulture")("K3XJ79IcxNmwFYqqCi6DNjbunJA="),
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebUserPrefsKeys").KEYS.LAST_STATUS_USAGE,
+          Date.now() - 15 * o("WATimeUtils").DAY_MILLISECONDS,
+        ),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -117,10 +136,11 @@ __d(
     S.doc =
       "Set the last usage of Status to 15 days in the past, so the user is considered inactive.";
     function R() {
-      (r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").KEYS.LAST_STATUS_USAGE,
-        Date.now(),
-      ),
+      (r("vulture")("0_P5FiM83B-gK3kE821RLWsNkes="),
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebUserPrefsKeys").KEYS.LAST_STATUS_USAGE,
+          Date.now(),
+        ),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -136,6 +156,7 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("RmGyhNuxui6150_SdesD9fB10Fk=");
           var e = yield o("WAWebSchemaChat").getChatTable().all();
           if (!(!e || e.length === 0)) {
             var t = e.map(function (e) {
@@ -149,14 +170,18 @@ __d(
     }
     L.doc = "Deletes all received tokens";
     function k(e) {
-      return n("cr:10197") == null
-        ? void 0
-        : n("cr:10197").getMessageByMsgId(e);
+      return (
+        r("vulture")("wvhs1CO0gy-upWT8lAZAr0m4eG0="),
+        n("cr:10197") == null ? void 0 : n("cr:10197").getMessageByMsgId(e)
+      );
     }
     function I(e) {
-      return n("cr:10197") == null
-        ? void 0
-        : n("cr:10197").getMessagesByParentMsgId(e);
+      return (
+        r("vulture")("u_wGOkT_u_fMUkSsOlgLtcaQr44="),
+        n("cr:10197") == null
+          ? void 0
+          : n("cr:10197").getMessagesByParentMsgId(e)
+      );
     }
     function T() {
       return D.apply(this, arguments);
@@ -164,6 +189,7 @@ __d(
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("5gljrgENEIdXz0LtyYssfXyB1sE=");
           var e = yield o("WAWebSchemaChat").getChatTable().all();
           if (!(!e || e.length === 0)) {
             var t = e.map(function (e) {
@@ -182,22 +208,23 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("t-Hg1lOSy5ra8K7c1ztEQc7ktLM=");
           var n = t,
-            r = o("WAWebWidFactory").createWid(e + "@lid");
+            a = o("WAWebWidFactory").createWid(e + "@lid");
           yield o("WAWebSetUsernameJob").setUsernamesJob([
             {
-              userId: o("WAWebWidFactory").asUserWidOrThrow(r),
+              userId: o("WAWebWidFactory").asUserWidOrThrow(a),
               username: o("WAWebUsernameTypes").asUsername(n),
             },
           ]);
-          var a = o("WAWebChatCollection").ChatCollection.get(r);
-          if (a) {
-            var i = new Error("Existing chat found");
-            throw (i.stack, i);
+          var i = o("WAWebChatCollection").ChatCollection.get(a);
+          if (i) {
+            var l = new Error("Existing chat found");
+            throw (l.stack, l);
           }
-          var l = o("WAWebChatCollection").ChatCollection.gadd(r);
+          var s = o("WAWebChatCollection").ChatCollection.gadd(a);
           o("WAWebSendTextMsgChatAction")
-            .sendTextMsgToChat(l, "Helloworld")
+            .sendTextMsgToChat(s, "Helloworld")
             .then(function () {
               o("WALogger").LOG(
                 u ||
@@ -211,7 +238,7 @@ __d(
               );
             })
             .then(function () {
-              var e = r.toString();
+              var e = a.toString();
               return o("WAWebSchemaChat")
                 .getChatTable()
                 .createOrReplace({
@@ -247,6 +274,7 @@ __d(
     }
     x.doc = "Start a username chat";
     function P() {
+      r("vulture")("5O3l7GH2M_sTN1WTCtoyXnFLQz0=");
       var e = o("WAWebChatCollection").ChatCollection.filter(function (e) {
           return o("WAWebChatGetters").getHasUnread(e);
         }),

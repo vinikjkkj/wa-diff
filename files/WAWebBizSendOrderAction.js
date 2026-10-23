@@ -1,6 +1,7 @@
 __d(
   "WAWebBizSendOrderAction",
   [
+    "JSResourceForInteraction",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
@@ -10,6 +11,7 @@ __d(
     "WAWebCatalogCollection",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebLazyLoadedRetriable",
     "WAWebLidAwareContactsDB",
     "WAWebMediaOpaqueData",
     "WAWebMsgKey",
@@ -32,8 +34,8 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
+    var e, s, u, c;
+    function d(e, t) {
       var n, a;
       if (t == null) return "";
       var i = o("WAWebCatalogCollection").CatalogCollection.get(
@@ -49,21 +51,21 @@ __d(
         ? a
         : "";
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.buttonName,
-            a = t.buttonParamsJson,
-            i = t.caption,
-            l = t.chat,
-            u = t.contextInfo,
-            c = t.errorMessage,
-            d = t.nativeFlowName,
-            m = t.nfmInteractiveMsg,
-            p = t.thumbnail,
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.buttonName,
+            n = e.buttonParamsJson,
+            a = e.caption,
+            i = e.chat,
+            l = e.contextInfo,
+            c = e.errorMessage,
+            d = e.nativeFlowName,
+            m = e.nfmInteractiveMsg,
+            p = e.thumbnail,
             _ = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             f = p
               ? {
@@ -81,7 +83,7 @@ __d(
                 from: _,
                 id: new (r("WAWebMsgKey"))({
                   from: _,
-                  to: l.id,
+                  to: i.id,
                   id: yield r("WAWebMsgKey").newId(),
                   participant: void 0,
                   selfDir: "out",
@@ -89,41 +91,41 @@ __d(
                 local: !0,
                 isNewMsg: !0,
                 t: o("WATimeUtils").unixTime(),
-                to: l.id,
-                caption: i,
+                to: i.id,
+                caption: a,
                 nativeFlowName: d,
                 interactiveHeader: f,
                 interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
                 nativeFlowInteractiveMsg: m,
                 interactivePayload: {
-                  buttons: [{ name: n, buttonParamsJson: a }],
+                  buttons: [{ name: t, buttonParamsJson: n }],
                   messageVersion: 1,
                 },
               },
-              u,
+              l,
             );
-          if (o("WAWebUserPrefsMeUser").isMeAccount(l.id))
+          if (o("WAWebUserPrefsMeUser").isMeAccount(i.id))
             try {
-              yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, g)[0];
+              yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(i, g)[0];
               return;
-            } catch (t) {
+            } catch (e) {
               throw (
                 o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       ": ",
                       "",
                     ])),
                   c,
-                  t,
+                  e,
                 ),
-                t
+                e
               );
             }
           try {
             var h = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
-              l,
+              i,
               g,
             )[1];
             if (
@@ -135,8 +137,8 @@ __d(
           } catch (e) {
             throw (
               o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
                 c,
                 e,
               ),
@@ -144,27 +146,31 @@ __d(
             );
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t, n, r) {
-      return _.apply(this, arguments);
+    function _(e, t, n, r) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i,
               l =
                 o("WAWebPaymentsGatingUtils").isReceiptAndStateP2mEligibleChat(
                   e,
                 ) &&
-                (yield v(e)) &&
+                (yield L(e)) &&
                 o(
                   "WAWebPaymentsGatingUtils",
                 ).isPixCodeReceiptAndStateP2mEnabled(),
-              s = o("WAWebOrderCollection").OrderCollection.addOrder(),
-              u = {
+              s =
+                o(
+                  "WAWebPaymentsGatingUtils",
+                ).isPixCodeReceiptAndStateAssignedOnSend(e) || l,
+              u = o("WAWebOrderCollection").OrderCollection.addOrder(),
+              c = {
                 reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
                 type: "physical-goods",
                 payment_configuration: "merchant_categorization_code",
@@ -186,36 +192,32 @@ __d(
                 ],
                 currency: "BRL",
                 total_amount: { value: n, offset: a },
-                order_request_id: s.id,
-                br_receipt_and_state_enabled:
-                  o(
-                    "WAWebPaymentsGatingUtils",
-                  ).isPixCodeReceiptAndStateAssignedOnSend(e) || l
-                    ? !0
-                    : void 0,
+                order_request_id: u.id,
+                br_receipt_and_state_enabled: s ? !0 : void 0,
               };
-            yield d({
+            (yield m({
               caption: null,
               chat: e,
               nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
                 .ORDER_DETAILS,
-              buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(u),
+              buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(c),
               errorMessage: "Pix payment request send to chat failure",
               thumbnail: "",
               buttonName: "review_and_pay",
               nfmInteractiveMsg: !0,
-            });
+            }),
+              s && R(!0));
           },
         )),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t, n, r, o) {
-      return g.apply(this, arguments);
+    function g(e, t, n, r, o) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             if (t.length === 0)
               throw r("err")(
@@ -233,7 +235,7 @@ __d(
                 }),
                 { order_request_id: l.id },
               );
-            yield d({
+            yield m({
               caption: null,
               chat: e,
               nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
@@ -246,31 +248,31 @@ __d(
             });
           },
         )),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t === void 0 && (t = null),
-            yield C(e, t),
+            yield b(e, t),
             o(
               "WAWebBizFrontendGatingUtils",
             ).isCustomPaymentMethodsSyncEnabled() &&
               o("WAWebPaymentsPixBannerUtils").shouldDismissTryItPixKeyPromo());
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           t === void 0 && (t = null);
           var a = o("WAWebOrderCollection").OrderCollection.addOrder(),
@@ -280,9 +282,13 @@ __d(
               o("WAWebPaymentsGatingUtils").isReceiptAndStateP2mEligibleChat(
                 e,
               ) &&
-              (yield v(e)) &&
+              (yield L(e)) &&
               o("WAWebPaymentsGatingUtils").isPixKeyReceiptAndStateP2mEnabled(),
-            s = babelHelpers.extends(
+            s =
+              o(
+                "WAWebPaymentsGatingUtils",
+              ).isPixKeyReceiptAndStateAssignedOnSend(e) || l,
+            u = babelHelpers.extends(
               {
                 reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
                 type: "physical-goods",
@@ -339,36 +345,54 @@ __d(
                 },
               },
               t != null && { referral: t },
-              {
-                br_receipt_and_state_enabled:
-                  o(
-                    "WAWebPaymentsGatingUtils",
-                  ).isPixKeyReceiptAndStateAssignedOnSend(e) || l
-                    ? !0
-                    : void 0,
-              },
+              { br_receipt_and_state_enabled: s ? !0 : void 0 },
             );
-          yield d({
+          (yield m({
             caption: null,
             chat: e,
             nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
               .PAYMENT_INFO,
-            buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(s),
+            buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(u),
             errorMessage: "Pix Order message send to chat failure",
             thumbnail: "",
             buttonName: "payment_info",
             nfmInteractiveMsg: !0,
-          });
+          }),
+            s && R(!1));
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    var S = r("WAWebLazyLoadedRetriable")(function () {
+      return r("JSResourceForInteraction")("WAWebPaymentDetailsLogger")
+        .__setRef("WAWebBizSendOrderAction")
+        .load();
+    }, "WAWebPaymentDetailsLogger");
+    function R(t) {
+      S()
+        .then(function (e) {
+          var n = e.PaymentFlow,
+            r = e.logLocalPaymentRequestCreated;
+          return r(t ? n.PIX_CODE : n.PIX_KEY);
+        })
+        .catch(function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[br-payment-state] could not log a created payment request",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("br-payment-request-created-logging-failed");
+        });
     }
-    function S() {
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.contact.isContactSyncCompleted === 1)
             return !e.contact.isBusiness;
           try {
@@ -383,8 +407,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[br-payment-state] could not read the contact sync state",
                     ])),
                 )
@@ -394,15 +418,15 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function L() {
+    function I() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.discount,
@@ -410,10 +434,10 @@ __d(
             l = e.order,
             s = e.orderNote,
             u = e.shipping,
-            m = e.tax,
+            c = e.tax,
             p = e.total,
             _ = (t = l.orderItemCollection.head()) == null ? void 0 : t.id,
-            f = c(l.sellerJid, _),
+            f = d(l.sellerJid, _),
             g = l.orderItemCollection.map(function (e) {
               var t;
               return {
@@ -442,7 +466,7 @@ __d(
                 status: o("WAWebOrderStatus").getDefaultOrderStatus(),
                 items: g,
                 subtotal: { value: Number(l.subtotal), offset: i },
-                tax: m == null ? void 0 : { value: m, offset: i },
+                tax: c == null ? void 0 : { value: c, offset: i },
                 shipping: u == null ? void 0 : { value: u, offset: i },
                 discount: a == null ? void 0 : { value: a, offset: i },
               },
@@ -504,7 +528,7 @@ __d(
               });
             }
           }
-          yield d({
+          yield m({
             caption: s,
             chat: n,
             nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
@@ -516,15 +540,15 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        L.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function k() {
+    function D() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.offset,
             a = e.orderInfo,
@@ -532,15 +556,15 @@ __d(
             l = e.orderStatus,
             s = e.paymentMethod,
             u = e.paymentStatus,
-            m = e.sellerJid,
+            c = e.sellerJid,
             p = a.items,
             _ = a.referenceId,
             f = p[0].id,
-            g = c(m, f),
-            h = I(a, l, _, n, u, s),
+            g = d(c, f),
+            h = x(a, l, _, n, u, s),
             y = o("WAWebOrderStatus").findOrderDetailsMessage(t, _),
             C = y == null ? void 0 : y.msgContextInfo(t.id);
-          yield d({
+          yield m({
             caption: i,
             chat: t,
             nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
@@ -555,10 +579,10 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        k.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function I(e, t, n, r, a, i) {
+    function x(e, t, n, r, a, i) {
       var l = e.items.map(function (e) {
           var t;
           return {
@@ -592,12 +616,12 @@ __d(
         s
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function D() {
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.offset,
@@ -605,15 +629,15 @@ __d(
             l = e.orderNote,
             s = e.orderStatus,
             u = e.paymentMethod,
-            m = e.paymentStatus,
+            c = e.paymentStatus,
             p = e.sellerJid,
             _ = i.referenceId,
             f = (t = i.items.at(0)) == null ? void 0 : t.id,
-            g = c(p, f),
-            h = I(i, s, _, a, m, u),
+            g = d(p, f),
+            h = x(i, s, _, a, c, u),
             y = o("WAWebOrderStatus").findOrderDetailsMessage(n, _),
             C = y == null ? void 0 : y.msgContextInfo(n.id);
-          yield d({
+          yield m({
             caption: l,
             chat: n,
             nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
@@ -628,15 +652,15 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function $() {
+    function M() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.offset,
@@ -644,14 +668,14 @@ __d(
             l = e.orderStatus,
             s = e.paymentMethod,
             u = e.paymentStatus,
-            m = e.sellerJid,
+            c = e.sellerJid,
             p = i.referenceId,
             _ = (t = i.items.at(0)) == null ? void 0 : t.id,
-            f = c(m, _),
-            g = I(i, l, p, a, u, s),
+            f = d(c, _),
+            g = x(i, l, p, a, u, s),
             h = o("WAWebOrderStatus").findOrderDetailsMessage(n, p),
             y = h == null ? void 0 : h.msgContextInfo(n.id);
-          yield d({
+          yield m({
             chat: n,
             caption: null,
             nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
@@ -666,17 +690,17 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        $.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    ((l.sendPixPaymentRequestMessage = p),
-      (l.sendUprPaymentRequestMessage = f),
-      (l.sendPixQuickReplyMessageAndDismissTryItPixKeyPromoBanner = h),
-      (l.sendPixKeyPaymentInfoMessage = C),
-      (l.sendOrderDetailsMessageAsMerchant = R),
-      (l.sendOrderStatusMessageAsMerchant = E),
-      (l.sendOrderPaymentStatusMessageAsMerchant = T),
-      (l.sendOrderPaymentMethodUpdate = x));
+    ((l.sendPixPaymentRequestMessage = _),
+      (l.sendUprPaymentRequestMessage = g),
+      (l.sendPixQuickReplyMessageAndDismissTryItPixKeyPromoBanner = y),
+      (l.sendPixKeyPaymentInfoMessage = b),
+      (l.sendOrderDetailsMessageAsMerchant = k),
+      (l.sendOrderStatusMessageAsMerchant = T),
+      (l.sendOrderPaymentStatusMessageAsMerchant = $),
+      (l.sendOrderPaymentMethodUpdate = N));
   },
   98,
 );

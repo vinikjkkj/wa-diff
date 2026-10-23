@@ -13,6 +13,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -22,6 +23,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          r("vulture")("yir-qDsmy0eP1mWwiGfnpiEVb68=");
           var i = window.chat;
           if (!i) {
             o("WALogger").WARN(
@@ -97,18 +99,21 @@ __d(
     c.doc =
       "Receive a multi-step form message with custom title, body, and a2ui params JSON in the active chat";
     function m(e, t) {
-      return JSON.stringify({
-        version: o("WAWebMultiStepFormButton").A2UI_FORM_VERSION,
-        payload: {
-          type: o("WAWebMultiStepFormButton").A2UI_FORM_PAYLOAD_TYPE,
-          data: {
-            root: "form",
-            components: [{ id: "form", component: "form", children: e }].concat(
-              t,
-            ),
+      return (
+        r("vulture")("c8xnS0TKo0oasAksMGrmS9Gyq10="),
+        JSON.stringify({
+          version: o("WAWebMultiStepFormButton").A2UI_FORM_VERSION,
+          payload: {
+            type: o("WAWebMultiStepFormButton").A2UI_FORM_PAYLOAD_TYPE,
+            data: {
+              root: "form",
+              components: [
+                { id: "form", component: "form", children: e },
+              ].concat(t),
+            },
           },
-        },
-      });
+        })
+      );
     }
     function p() {
       return _.apply(this, arguments);
@@ -116,6 +121,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("hX_l5uOjzVlxyjOFtfHgCPZi5KY=");
           var e = m(
             ["party_type", "guest_count", "priorities"],
             [
@@ -178,6 +184,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("_lNrn5JKrmpfNXiz9R34pDZPQb8=");
           var e = m(
             ["rating", "improvements"],
             [
@@ -227,6 +234,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("-hC06-vJ3EkuNsYBjM52hh5Qm8I=");
           var e = m(
             ["preference"],
             [

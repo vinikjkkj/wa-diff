@@ -1,6 +1,7 @@
 __d(
   "WAWebAssociatedMessagesRevokeUtils",
   [
+    "WAWebAssociationProcessor",
     "WAWebDBAssociatedMsgsAttachDetachAPI",
     "WAWebMsgCollection",
     "asyncToGeneratorRuntime",
@@ -14,7 +15,13 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield u([e]);
-          return n.map(t);
+          return n
+            .filter(function (e) {
+              return !o(
+                "WAWebAssociationProcessor",
+              ).isChildDeletedOnParentRevoke(e.associationType);
+            })
+            .map(t);
         })),
         s.apply(this, arguments)
       );

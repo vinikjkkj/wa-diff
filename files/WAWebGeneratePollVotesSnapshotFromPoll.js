@@ -36,10 +36,13 @@ __d(
     }
     function c(e, t) {
       var n = t === o("WAWebPollCreationUtils").PollType.QUIZ,
-        r = Array.from(e.entries()).map(function (e) {
-          var t = e[0],
-            r = e[1];
-          return { option: t, optionVoteCount: n ? 0 : r.count };
+        r = Array.from(e.entries()).map(function (e, t) {
+          var r = e[0],
+            o = e[1];
+          return {
+            option: babelHelpers.extends({}, r, { localId: t }),
+            optionVoteCount: n ? 0 : o.count,
+          };
         });
       return { pollVotes: r };
     }

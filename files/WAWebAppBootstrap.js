@@ -12,6 +12,7 @@ __d(
     "WAWebCacheStoreGatingUtil",
     "WAWebClientFeatureFlags",
     "WAWebConfigureWindowEvents",
+    "WAWebCrashAnnotations",
     "WAWebDebugSetup",
     "WAWebDeleteGuestSessionOnWebLoad",
     "WAWebDesktopUpsellUtils",
@@ -48,7 +49,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:13019",
     "cr:17219",
-    "cr:2015",
+    "cr:17677",
     "cr:34988",
     "cr:5203",
     "cr:6448",
@@ -99,6 +100,7 @@ __d(
             o(
               "WAWebSyncdUploadFatalErrorMetric",
             ).initialiseFatalErrorMetricUploading(),
+            o("WAWebCrashAnnotations").initRecentLoadCrashAnnotation(),
             yield o(
               "WAWebDeleteGuestSessionOnWebLoad",
             ).maybeDeleteGuestSessionOnWebLoad(),
@@ -162,7 +164,7 @@ __d(
               "WAWebFrontendL10nHelpers",
             ).mungeWAWebLocaleOverrideFromUrlIfNecessary(),
             o("WAWebWamPageLoadReporter").exeTimer.end(),
-            r("gkx")("26258") || o("WAWap").enableXMLFormat(),
+            r("gkx")("16539") && o("WAWap").enableXMLFormat(),
             o(
               "WAWebDesktopUpsellUtils",
             ).isWebUserOnSupportedWindowsOSForUWPAsync());
@@ -185,7 +187,7 @@ __d(
             o(
               "WAWebPrefetchHatchDetailsOnLogin",
             ).initHatchDetailsPrefetchOnLogin(),
-            n("cr:2015") == null || n("cr:2015").init(),
+            n("cr:17677") == null || n("cr:17677").init(),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([

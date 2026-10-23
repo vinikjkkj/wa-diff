@@ -1,6 +1,6 @@
 __d(
   "WAWebGenerateHatchMetadataSyncProto",
-  ["WAWebGenerateHatchProtocolMessage", "cr:7454", "err"],
+  ["WAWebGenerateHatchProtocolMessage", "cr:17681", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -22,8 +22,8 @@ __d(
             : t.data;
       return (
         s != null &&
-          (n("cr:7454") == null ||
-            n("cr:7454").recordOutbound(i.request, i.requestId, s)),
+          (n("cr:17681") == null ||
+            n("cr:17681").recordOutbound(i.request, i.requestId, s)),
         l
       );
     }

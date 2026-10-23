@@ -46,19 +46,28 @@ __d(
                 ),
                 l = function (t) {
                   return i.has(t.decryptedAddOption.id.toString());
-                };
-              yield (s || (s = n("Promise"))).all([
-                o(
-                  "WAWebApplyPollAddOptionToParent",
-                ).applyPollAddOptionsToParent(a.filter(l)),
-                o(
-                  "WAWebStorePollAddOptionDecryptedMsgs",
-                ).storePollAddOptionDecryptedMsgs(
-                  a.filter(function (e) {
-                    return !l(e);
-                  }),
-                ),
-              ]);
+                },
+                u = yield (s || (s = n("Promise"))).all([
+                  o(
+                    "WAWebApplyPollAddOptionToParent",
+                  ).applyPollAddOptionsToParent(a.filter(l)),
+                  o(
+                    "WAWebStorePollAddOptionDecryptedMsgs",
+                  ).storePollAddOptionDecryptedMsgs(
+                    a.filter(function (e) {
+                      return !l(e);
+                    }),
+                  ),
+                ]),
+                c = u[0];
+              yield o(
+                "WAWebApplyPollAddOptionToParent",
+              ).removePollAddOptionMsgs(
+                c.map(function (e) {
+                  var t = e.decryptedAddOption;
+                  return t.id.toString();
+                }),
+              );
             }
           }
         })),

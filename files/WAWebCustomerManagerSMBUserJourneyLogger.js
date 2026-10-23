@@ -13,7 +13,6 @@ __d(
         ADD_CUSTOMER_BUTTON: "add_customer_button",
         CANCEL_BUTTON: "cancel_button",
         CLOSE_BUTTON: "close_button",
-        COLUMN_SELECTOR_BUTTON: "column_selector_button",
         EMPTY_STATE_ADD_CUSTOMER: "empty_state_add_customer",
         IMPORT_BUTTON: "import_button",
         IMPORT_DELETE_ALL_ERRORS_BUTTON: "import_delete_all_errors_button",

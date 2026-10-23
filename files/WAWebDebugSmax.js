@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugSmax",
-  ["JSResourceForInteraction", "WAComms", "asyncToGeneratorRuntime"],
+  ["JSResourceForInteraction", "WAComms", "asyncToGeneratorRuntime", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -9,8 +9,9 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.mockFilePath,
+          var t;
+          r("vulture")("Aqh2JCiORSjecuV7cWz7upUIiaY=");
+          var n = e.mockFilePath,
             o = e.mockName,
             a = e.response,
             i = e.variables,
@@ -34,6 +35,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("SBHnKY5SrMyTkdpt07DysJerC6A=");
           var e = yield r("JSResourceForInteraction")(
             "WAWebCommsE2ESmaxMockInjector",
           )
@@ -51,6 +53,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("vre7-iQyYAZc7iSfQ_-kF0-sWm8=");
           var t = yield r("JSResourceForInteraction")(
             "WAWebCommsE2ESmaxMockInjector",
           )

@@ -5,14 +5,16 @@ __d(
     "use strict";
     var e = (function () {
       var e = { defaultValue: null, kind: "LocalArgument", name: "code" },
-        t = { defaultValue: null, kind: "LocalArgument", name: "phone_number" },
-        r = [
+        t = { defaultValue: null, kind: "LocalArgument", name: "lid" },
+        r = { defaultValue: null, kind: "LocalArgument", name: "phone_number" },
+        o = [
           {
             alias: null,
             args: [
               {
                 fields: [
                   { kind: "Variable", name: "code", variableName: "code" },
+                  { kind: "Variable", name: "lid", variableName: "lid" },
                   {
                     kind: "Variable",
                     name: "phone_number",
@@ -41,20 +43,20 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t],
+          argumentDefinitions: [e, t, r],
           kind: "Fragment",
           metadata: null,
           name: "WAWebCreateWhatsAppAdsIdentityMutation",
-          selections: r,
+          selections: o,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, e],
+          argumentDefinitions: [r, e, t],
           kind: "Operation",
           name: "WAWebCreateWhatsAppAdsIdentityMutation",
-          selections: r,
+          selections: o,
         },
         params: {
           id: n(

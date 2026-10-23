@@ -9,6 +9,7 @@ __d(
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaLabel",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -18,7 +19,8 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebLabelSync").applyMutations(e);
+          (r("vulture")("1Ioar3vQ1qkZbYJX4IyVrpSj1g8="),
+            yield r("WAWebLabelSync").applyMutations(e));
         })),
         c.apply(this, arguments)
       );
@@ -26,9 +28,10 @@ __d(
     u.doc =
       "Apply lists mutations to the DB. This is used for testing purposes only.";
     function d(t) {
-      var n,
-        r = (n = window.chat) != null ? n : t;
-      if (r == null) {
+      var n;
+      r("vulture")("VyECohy32pa63r84_A2_HkmUy8E=");
+      var a = (n = window.chat) != null ? n : t;
+      if (a == null) {
         o("WALogger").ERROR(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -37,18 +40,21 @@ __d(
         );
         return;
       }
-      var a = r.labels || [];
-      if (a.length !== 0) {
-        var i = a.map(function (e) {
+      var i = a.labels || [];
+      if (i.length !== 0) {
+        var l = i.map(function (e) {
           return { type: "remove", id: e };
         });
-        o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(i, [r]);
+        o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(l, [a]);
       }
     }
     d.doc =
       "Unassign all lists from a provided chat or currently open chat. This is used for testing purposes only.";
     function m(e) {
-      if (e == null || e.length === 0) {
+      if (
+        (r("vulture")("tEYJWyF_bnJbwzkAwlgUooYZUlA="),
+        e == null || e.length === 0)
+      ) {
         o("WALogger").ERROR(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -59,32 +65,34 @@ __d(
       }
       var t = Array.isArray(e) ? e : [e],
         n = new Set(t),
-        r = t.map(function (e) {
+        a = t.map(function (e) {
           return { type: "remove", id: String(e) };
         }),
-        a = [];
+        i = [];
       (o("WAWebChatCollection").ChatCollection.forEach(function (e) {
         if (e.labels != null && e.labels.length > 0) {
           var t = e.labels.some(function (e) {
             return n.has(e);
           });
-          t && a.push(e);
+          t && i.push(e);
         }
       }),
-        a.length !== 0 &&
-          o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(r, a));
+        i.length !== 0 &&
+          o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(a, i));
     }
     m.doc =
       "Unassign a list from all chats. This is used for testing purposes only.";
     function p() {
-      o("WAWebChatCollection").ChatCollection.forEach(function (e) {
-        e.labels == null || e.labels.length === 0 || d(e);
-      });
+      (r("vulture")("_fEycbXmQ7ZoS10CWYmFu1dgbIQ="),
+        o("WAWebChatCollection").ChatCollection.forEach(function (e) {
+          e.labels == null || e.labels.length === 0 || d(e);
+        }));
     }
     p.doc =
       "Clear all custom lists from all chats. This is used for testing purposes only.";
     function _() {
-      (p(),
+      (r("vulture")("_X3iRlF3OScY9tWgHzIenkGFz_8="),
+        p(),
         o("WAWebLabelCollection").LabelCollection.forEach(function (e) {
           e.type === o("WAWebSchemaLabel").ListType.CUSTOM &&
             o("WAWebBizLabelEditingAction").labelDeleteAction({
@@ -159,7 +167,10 @@ __d(
       "\uD83C\uDFBB",
     ];
     function g() {
-      return f[Math.floor(Math.random() * f.length)];
+      return (
+        r("vulture")("8K9l5iBHe-O6-NQciyvzBsolj_Q="),
+        f[Math.floor(Math.random() * f.length)]
+      );
     }
     function h(e) {
       return y.apply(this, arguments);
@@ -167,47 +178,48 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("ZJMthr-noHrFDv-hBfIl01IB5lY=");
           var t = e != null ? e : {},
             n = t.allCapitalSingleLetter,
-            r = n === void 0 ? !1 : n,
-            a = t.allEmoji,
-            i = a === void 0 ? !1 : a,
-            l = t.allNumbers,
-            s = l === void 0 ? !1 : l,
-            u = t.allSmallSingleLetter,
-            c = u === void 0 ? !1 : u,
-            d = t.count,
-            m = d === void 0 ? 18 : d;
-          if (i)
+            a = n === void 0 ? !1 : n,
+            i = t.allEmoji,
+            l = i === void 0 ? !1 : i,
+            s = t.allNumbers,
+            u = s === void 0 ? !1 : s,
+            c = t.allSmallSingleLetter,
+            d = c === void 0 ? !1 : c,
+            m = t.count,
+            p = m === void 0 ? 18 : m;
+          if (l)
             for (
-              var p = [].concat(f).sort(function () {
+              var _ = [].concat(f).sort(function () {
                   return Math.random() - 0.5;
                 }),
-                _ = 0;
-              _ < m;
-              _++
+                h = 0;
+              h < p;
+              h++
             ) {
-              var h = p[_ % p.length];
-              yield o("WAWebBizLabelEditingAction").labelAddAction(h, _ % 20);
+              var y = _[h % _.length];
+              yield o("WAWebBizLabelEditingAction").labelAddAction(y, h % 20);
             }
-          else if (s)
-            for (var y = 0; y < m; y++)
+          else if (u)
+            for (var C = 0; C < p; C++)
               yield o("WAWebBizLabelEditingAction").labelAddAction(
-                String(y % 10),
-                y % 20,
+                String(C % 10),
+                C % 20,
               );
-          else if (c)
-            for (var C = 0; C < m; C++) {
-              var b = String.fromCharCode(97 + (C % 26));
-              yield o("WAWebBizLabelEditingAction").labelAddAction(b, C % 20);
+          else if (d)
+            for (var b = 0; b < p; b++) {
+              var v = String.fromCharCode(97 + (b % 26));
+              yield o("WAWebBizLabelEditingAction").labelAddAction(v, b % 20);
             }
-          else if (r)
-            for (var v = 0; v < m; v++) {
-              var S = String.fromCharCode(65 + (v % 26));
-              yield o("WAWebBizLabelEditingAction").labelAddAction(S, v % 20);
+          else if (a)
+            for (var S = 0; S < p; S++) {
+              var R = String.fromCharCode(65 + (S % 26));
+              yield o("WAWebBizLabelEditingAction").labelAddAction(R, S % 20);
             }
           else
-            for (var R = 0; R < m; R++)
+            for (var L = 0; L < p; L++)
               yield (function (e) {
                 if (e === 0)
                   return o("WAWebBizLabelEditingAction").labelAddAction("5", 0);
@@ -234,7 +246,7 @@ __d(
                     t % 20,
                   );
                 }
-              })(R);
+              })(L);
         })),
         y.apply(this, arguments)
       );
@@ -243,8 +255,9 @@ __d(
       'Creates multiple custom labels with various naming patterns. Options: count (default 18), allEmoji, allNumbers, allSmallSingleLetter, allCapitalSingleLetter. Default mixed mode: one digit, one small letter, one capital, one emoji, one long word, one long sentence, rest are "List X".';
     function C() {
       if (
+        (r("vulture")("ID7y1owBdjqQtE53KWCKOp2UR2o="),
         o("WAWebLabelCollection").LabelCollection.length !== 0 &&
-        o("WAWebChatCollection").ChatCollection.length !== 0
+          o("WAWebChatCollection").ChatCollection.length !== 0)
       ) {
         var e = o("WAWebLabelCollection").LabelCollection.map(function (e) {
             return {
@@ -261,8 +274,9 @@ __d(
       "Assign all existing lists to all chats. This is used for testing purposes only.";
     function b(e) {
       if (
+        (r("vulture")("0qX_gaHmZMEFj9vWBczh95LFLgk="),
         o("WAWebLabelCollection").LabelCollection.length !== 0 &&
-        o("WAWebChatCollection").ChatCollection.length !== 0
+          o("WAWebChatCollection").ChatCollection.length !== 0)
       ) {
         var t = o("WAWebLabelCollection").LabelCollection.toArray(),
           n = 0;
@@ -301,6 +315,7 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("-nJlo7VrTRwpasvpulApOWA2h8E=");
           var t = e != null ? e : {},
             n = t.isActive,
             a = n === void 0 ? !0 : n,
@@ -334,6 +349,7 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("EUxOWP9ExkK7EPXJ4q7MoNR7Bws=");
           var e = Math.floor(Date.now() / 1e3),
             t = {
               operation: "set",

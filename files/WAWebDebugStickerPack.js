@@ -13,6 +13,7 @@ __d(
     "WAWebStickerPackConstants",
     "WAWebStickerPackUtils",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -22,6 +23,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("opxt5BS4vtTgqZltT0MUatnxhW0=");
           var e = o(
               "WAWebRecentStickerCollectionMd",
             ).RecentStickerCollectionMd.map(function (e) {
@@ -46,6 +48,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("BlHea8JP_mSidtyw5EWfRJ6AU2s=");
           var e = yield o("WAWebStickerPackUtils").compressedRecentStickers(
             o("WAWebStickerPackConstants").MAX_RECENT_STICKERS,
           );
@@ -64,6 +67,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("lBAxNicRvWwI4_VG9SsQv9mMj0M=");
           var e = yield o("WAWebStickerPackUtils").generateStickerPackThumbnail(
               {},
             ),
@@ -83,6 +87,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("A9PwZMJ_hD-YQK3rfdNcrbn0alo=");
           var n = yield o("WAWebStickerPackUtils").compressedRecentStickers(
               o("WAWebStickerPackConstants").MAX_RECENT_STICKERS,
             ),

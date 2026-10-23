@@ -5,6 +5,7 @@ __d(
     "WAWebMexUsync",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -14,6 +15,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("vTi1jSAjDrbXEnHS79wZM33Uatc=");
           var n =
             t == null
               ? {
@@ -34,7 +36,7 @@ __d(
                 "[DEBUG][MEX] executing MexUsync query",
               ])),
           );
-          var r = yield o("WAWebMexUsync").mexUsyncQuery(n);
+          var a = yield o("WAWebMexUsync").mexUsyncQuery(n);
           return (
             o("WALogger").LOG(
               s ||
@@ -42,7 +44,7 @@ __d(
                   "[DEBUG][MEX] MexUsync query result",
                 ])),
             ),
-            r
+            a
           );
         })),
         c.apply(this, arguments)

@@ -12,6 +12,7 @@ __d(
     "WAWebThreadId",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,6 +27,7 @@ __d(
         openChatWithThread: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
+              r("vulture")("MOykL3yJNGgQ6YwRV9rPsEsbZNc=");
               var n = o("WAWebWidFactory").createWid(e),
                 a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
                   n,
@@ -48,6 +50,7 @@ __d(
         })(),
         openMetaAiChatThread: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            r("vulture")("7gEyNr6fUyeLd2hGXHQvXMaqm18=");
             var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
                 o("WAWebBotUtils").META_BOT_PN_WID,
                 "debugCreateChat",
@@ -68,14 +71,15 @@ __d(
         })(),
         deleteAiThreads: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debug][deleteThreads] Starting deletion of ",
-                  " threads",
-                ])),
-              t.length,
-            );
+            (r("vulture")("JXgeNquKBTXOn7XYSEomnaN3Tpg="),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[debug][deleteThreads] Starting deletion of ",
+                    " threads",
+                  ])),
+                t.length,
+              ));
             var n = o("WAWebChatCollection").ChatCollection.get(
               o("WAWebBotUtils").META_BOT_PN_WID,
             );
@@ -112,16 +116,17 @@ __d(
         renameAiThread: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[debug][renameAiThread] Renaming thread ",
-                    ' to "',
-                    '"',
-                  ])),
-                e,
-                t,
-              );
+              (r("vulture")("79dKkVLaHqRW7nnoSNQNNc2pGgU="),
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[debug][renameAiThread] Renaming thread ",
+                      ' to "',
+                      '"',
+                    ])),
+                  e,
+                  t,
+                ));
               var n = o("WAWebChatCollection").ChatCollection.get(
                 o("WAWebBotUtils").META_BOT_PN_WID,
               );
@@ -136,8 +141,8 @@ __d(
                 );
                 return;
               }
-              var r = n.aiThreads.get(e);
-              if (!r) {
+              var a = n.aiThreads.get(e);
+              if (!a) {
                 o("WALogger").LOG(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -149,7 +154,7 @@ __d(
                 return;
               }
               (yield o("WAWebRenameAiThreadAction").renameAiThreadAction(
-                r,
+                a,
                 t,
                 n.id,
               ),

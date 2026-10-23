@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -21,6 +22,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("FHYQpGtjA7yXL99Me8ZpULXYmUA=");
           var n = window.chat;
           if (!n) {
             o("WALogger").WARN(
@@ -105,7 +107,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield c();
+          (r("vulture")("SdgEsZSaKFLHES2FZkkzzU1rJuQ="), yield c());
         })),
         p.apply(this, arguments)
       );
@@ -118,7 +120,8 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield c("10345ERPCYOP22");
+          (r("vulture")("19EENus7xWKjaYx7OcWdCnub4Fs="),
+            yield c("10345ERPCYOP22"));
         })),
         f.apply(this, arguments)
       );

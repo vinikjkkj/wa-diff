@@ -3,12 +3,11 @@ __d(
   [
     "fbt",
     "WAWebContactImportTemplateParsingUtils",
+    "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerManagerImportMappingUtils",
     "WAWebCustomerManagerImportTemplateUtils",
-    "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebCustomerProfileBirthday",
     "WAWebLeadStage",
-    "WAWebLeadStageNames",
     "err",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -26,20 +25,15 @@ __d(
     }
     function d(e) {
       var t = o("WAWebLeadStage").getLeadStageFromNumber(e);
-      return t == null
-        ? ""
-        : o("WAWebLeadStageNames").getLeadStageName(t).toString();
+      return t == null ? "" : o("WAWebLeadStage").getLeadStageCanonicalName(t);
     }
     function m(e) {
-      var t, n;
+      var t;
       return e == null
         ? ""
-        : (t =
-              (n = o(
-                "WAWebCustomerProfileAcquisitionSourceNames",
-              ).getProfileAcquisitionSourceLabel(e)) == null
-                ? void 0
-                : n.toString()) != null
+        : (t = o(
+              "WAWebCustomerManagerCustomerProfileDecoders",
+            ).toAcquisitionSourceFilterText(e)) != null
           ? t
           : "";
     }

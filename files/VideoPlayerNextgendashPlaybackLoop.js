@@ -2210,23 +2210,31 @@ __d(
           }),
           Pe = [],
           Ne = !1,
-          Me = !1;
+          Me = !1,
+          we = !1;
         if (
-          (xe.streams.forEach(function (e) {
-            (e.type !== "video" && e.type !== "audio") ||
-              ((e.appendState.currSourceBufferOperation != null ||
-                e.appendState.pendingAppendOperations.length !== 0 ||
-                e.appendState.pendingRemoveOperations.length !== 0) &&
+          (xe.streams.forEach(function (t) {
+            (t.type !== "video" && t.type !== "audio") ||
+              ((t.appendState.currSourceBufferOperation != null ||
+                t.appendState.pendingAppendOperations.length !== 0 ||
+                t.appendState.pendingRemoveOperations.length !== 0) &&
                 (Ne = !0),
-              e.streamFatalError != null && (Me = !0));
+              t.streamFatalError != null && (Me = !0),
+              e.config.skipEndOfStreamWhileBlockedTargetAwaitsReselection &&
+                t.targetRepresentationId == null &&
+                t.targetRepresentationReason ===
+                  "null_blocked_representation" &&
+                t.sourceBufferState != null &&
+                (we = !0));
           }),
-          Ne || Me || xe.recoveringFromMediaError != null)
+          Ne || Me || we || xe.recoveringFromMediaError != null)
         )
           Pe.push(
             "endOfStream skipped: " +
               [
                 Ne ? "current or pending operation" : null,
                 Me ? "pending stream fatal error(s)" : null,
+                we ? "target representation reset after block" : null,
                 xe.recoveringFromMediaError != null
                   ? "recovering from MediaError " +
                     xe.recoveringFromMediaError.name
@@ -2256,7 +2264,7 @@ __d(
             );
           }
         Pe.length === 0 && Pe.push("endOfStream: checked, unknown result");
-        var we = babelHelpers.extends({}, xe, {
+        var Oe = babelHelpers.extends({}, xe, {
           debugPlaybackLoopRecentChanges: Le(
             xe.debugPlaybackLoopRecentChanges,
             Pe,
@@ -2267,7 +2275,7 @@ __d(
             u({
               exception: o("nextgendasherr").nextgendasherrFromMultipleCauses(
                 e,
-                we.streams
+                Oe.streams
                   .map(function (e) {
                     return e.streamFatalError != null
                       ? [e.type, e.streamFatalError]
@@ -2277,12 +2285,12 @@ __d(
                 "VideoPlayerNextgendashPlaybackLoopStreamFatalErrors",
                 "%s",
                 "debugPlaybackLoopRecentChanges:\n " +
-                  we.debugPlaybackLoopRecentChanges
+                  Oe.debugPlaybackLoopRecentChanges
                     .concat(
-                      we.recoveringFromMediaErrorAttempt > 0
+                      Oe.recoveringFromMediaErrorAttempt > 0
                         ? [
                             "recoveringFromMediaErrorAttempt:" +
-                              we.recoveringFromMediaErrorAttempt,
+                              Oe.recoveringFromMediaErrorAttempt,
                           ]
                         : [],
                     )
@@ -2290,27 +2298,27 @@ __d(
               ),
               type: "__exception",
             }),
-            we
+            Oe
           );
-        if (we.streams !== t.streams) {
-          var Oe;
-          return (Oe = pe(
+        if (Oe.streams !== t.streams) {
+          var Be;
+          return (Be = pe(
             e,
             r,
             "streamsChanged:(" + g.join(",") + ")",
             0,
-            we,
+            Oe,
             a + 1,
           )) != null
-            ? Oe
-            : we;
+            ? Be
+            : Oe;
         } else {
-          var Be;
+          var We;
           return e.config.disablePlaybackLoopSchedulingOnTimer
-            ? we
-            : (Be = pe(e, r, "!streamsChanged", 10 * ce, we, a + 1)) != null
-              ? Be
-              : we;
+            ? Oe
+            : (We = pe(e, r, "!streamsChanged", 10 * ce, Oe, a + 1)) != null
+              ? We
+              : Oe;
         }
       }
     }
@@ -4047,14 +4055,18 @@ __d(
       for (var r = null, a = 0; a < t.length; ++a) {
         var i = t[a];
         if (i.dataKeyToResponseByteRange.has(n)) {
-          var l = new Set(i.activeDemands);
-          (l.add(n),
-            (r = r != null ? r : [].concat(t)),
-            (r[a] = babelHelpers.extends({}, i, {
-              activeDemands: o(
+          var l = i.activeDemands;
+          if (!e.config.reduceStateMachineEventOverhead || !l.has(n)) {
+            var s = new Set(i.activeDemands);
+            (s.add(n),
+              (l = o(
                 "VideoPlayerNextgendashStateMachine",
-              ).skipAutoDisposeInsideThisObject(l),
-              demandedAtClock: e.host.clock(),
+              ).skipAutoDisposeInsideThisObject(s)));
+          }
+          ((r = r != null ? r : [].concat(t)),
+            (r[a] = babelHelpers.extends({}, i, {
+              activeDemands: l,
+              demandedAtClock: e.host.clock(e),
             })));
         }
       }

@@ -258,12 +258,20 @@ __d(
                   loggingMetaData: n,
                   state: r,
                 });
+        if (u != null) {
+          var c =
+            e.getEncodingCostMetadata == null
+              ? void 0
+              : e.getEncodingCostMetadata();
+          c != null &&
+            (u = babelHelpers.extends({}, u, { encoding_playback_cost: c }));
+        }
         if (Object.keys(u != null ? u : {}).length > 0) {
           a && (u = babelHelpers.extends({}, u, a));
-          var c = babelHelpers.extends({}, S(r, "tags_changed"), {
+          var d = babelHelpers.extends({}, S(r, "tags_changed"), {
             tag_metadata: u,
           });
-          b({ event: c, state: r });
+          b({ event: d, state: r });
         }
         return t;
       }
@@ -604,6 +612,12 @@ __d(
         return t;
       }
       return {
+        checkpointEncodingCost: function (n) {
+          if (e.getEncodingCostMetadata != null && (k(n), l.length > 0)) {
+            var t = l;
+            ((l = []), C({ events: t, state: n }));
+          }
+        },
         consumeLoggerEvents: function () {
           return a.length > 0 ? a.splice(0) : [];
         },

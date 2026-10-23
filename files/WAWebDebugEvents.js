@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "err",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -18,8 +19,9 @@ __d(
         n = e.description,
         a = e.location,
         i = e.name,
-        l = e.startTime,
-        s = o("WAWebChatCollection").ChatCollection.getActive();
+        l = e.startTime;
+      r("vulture")("Vi3-nfR297DGeU4zsTGBLGpucpo=");
+      var s = o("WAWebChatCollection").ChatCollection.getActive();
       if (s == null)
         throw r("err")(
           "[Debug][Send-Event-Message] You must open a chat first",
@@ -51,8 +53,9 @@ __d(
         d = e.callType,
         m = d === void 0 ? "voice" : d,
         p = e.isEventCanceled,
-        _ = p === void 0 ? !1 : p,
-        f = o("WAWebChatCollection").ChatCollection.getActive();
+        _ = p === void 0 ? !1 : p;
+      r("vulture")("1nwkJOpvZMbDMN20a1AioCYBBeQ=");
+      var f = o("WAWebChatCollection").ChatCollection.getActive();
       if (f == null)
         throw r("err")(
           "[Debug][Edit-Event-Message] You must open a chat first",

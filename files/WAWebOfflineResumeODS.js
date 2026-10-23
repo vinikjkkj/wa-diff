@@ -74,6 +74,26 @@ __d(
       oneQueueFlushFailed: function () {
         r("WAWebODS").incr("web.message_queue.one_queue_flush_failed");
       },
+      oneQueueOfflineEndNotResolved: function (t) {
+        e: {
+          if (t === "replaced") {
+            r("WAWebODS").incr(
+              "web.offline_resume.one_queue.offline_end_replaced",
+            );
+            break e;
+          }
+          if (t === "dropped") {
+            r("WAWebODS").incr(
+              "web.offline_resume.one_queue.offline_end_dropped",
+            );
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              t,
+          );
+        }
+      },
       oneQueueTimeout: function () {
         r("WAWebODS").incr("web.message_queue.one_queue_timeout");
       },

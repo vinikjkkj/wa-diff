@@ -33,7 +33,7 @@ __d(
       p,
       _,
       f = 6e4,
-      g = 4e3,
+      g = 2e3,
       h = 6e4;
     function y(t) {
       var n = b();

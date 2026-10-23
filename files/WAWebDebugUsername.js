@@ -5,6 +5,7 @@ __d(
     "WAWebMexSetUsernameJob",
     "WAWebMexUsernameAvailability",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -13,6 +14,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("AxsWtMyvYNwEQx88sMMnsmesHZg=");
           var e = yield o("WAWebMexGetUsernameJob").mexGetUsernameQueryJob();
           return e;
         })),
@@ -27,6 +29,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("_QXznNN3DNoGECf3RhYM74d-AKs=");
           var t = "debug",
             n = yield o(
               "WAWebMexUsernameAvailability",
@@ -46,15 +49,16 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.reserved,
             n = e.sessionId,
-            r = e.source,
-            a = e.username,
-            i = yield o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
-              input: a,
-              reserved: t,
-              source: r,
-              session_id: n,
-            });
-          return i;
+            a = e.source,
+            i = e.username;
+          r("vulture")("hdO39F9GgrONCIoufldf4lcvH9w=");
+          var l = yield o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
+            input: i,
+            reserved: t,
+            source: a,
+            session_id: n,
+          });
+          return l;
         })),
         m.apply(this, arguments)
       );
@@ -67,6 +71,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("MJ9QoqLtfWG96xpGaIA6cPcMpiY=");
           var n = yield o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
             input: e,
             reserved: !0,

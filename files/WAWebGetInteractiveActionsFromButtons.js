@@ -14,6 +14,8 @@ __d(
     "WAWebBizOpenBookingConfirmationDrawer.react",
     "WAWebBizOpenOrderStatusDrawer.react",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
+    "WAWebBookingConfirmationLoggingConstants",
+    "WAWebBookingConfirmationLoggingLazy",
     "WAWebBrLastUsedPaymentMethodStoreLazy",
     "WAWebBrPaymentMethodKey",
     "WAWebBrPaymentMethodSurface",
@@ -902,11 +904,20 @@ __d(
         : {
             label: a,
             onClick: function () {
-              var e = h(t);
+              var e = o("WAWebMsgCollection").MsgCollection.get(t),
+                n = h(t);
               e != null &&
+                n != null &&
+                (o(
+                  "WAWebBookingConfirmationLoggingLazy",
+                ).logBookingStatusInteraction(
+                  o("WAWebBookingConfirmationLoggingConstants")
+                    .BOOKING_STATUS_ACTION.MESSAGE_CTA_VIEW_DETAILS_CLICK,
+                  e,
+                ),
                 o(
                   "WAWebBizOpenBookingConfirmationDrawer.react",
-                ).openBookingConfirmationDrawer(r, e);
+                ).openBookingConfirmationDrawer(r, n));
             },
             testid: "booking-confirmation-view-details-button",
           };

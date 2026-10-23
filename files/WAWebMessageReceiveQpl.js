@@ -28,16 +28,16 @@ __d(
       h = null,
       y = {
         start: C,
-        addPoint: b,
-        annotate: v,
-        addCheckpointPoint: S,
-        settleQueue: L,
-        endWithReceipt: E,
-        endWithFailure: k,
-        addToOfflineResumeTotals: I,
-        recordOfflineAck: T,
-        resetOfflineResumeTotals: D,
-        takeOfflineResumeTotals: x,
+        addPoint: v,
+        annotate: S,
+        addCheckpointPoint: R,
+        settleQueue: E,
+        endWithReceipt: k,
+        endWithFailure: I,
+        addToOfflineResumeTotals: T,
+        recordOfflineAck: D,
+        resetOfflineResumeTotals: x,
+        takeOfflineResumeTotals: $,
       };
     function C(t) {
       var n = t.chatType,
@@ -46,10 +46,10 @@ __d(
         i = t.queueImpl,
         l = t.stanzaId,
         u = t.stanzaType;
-      (M(l, "superseded"), w(), r && (P("rx_stanza_count", 1), $(i)));
+      (w(l, "superseded"), A(), r && (N("rx_stanza_count", 1), P(i)));
       var c = o("QPLFlow").startQPLFlow(e, {
         annotations: {
-          bool: { is_offline: r },
+          bool: { is_hidden_at_start: b(), is_offline: r },
           int: { queue_depth_offline: a.offline, queue_depth_online: a.online },
           string: { chat_type: n, message_queue_impl: i, stanza_type: u },
         },
@@ -63,17 +63,20 @@ __d(
           storageCommitted: !1,
         }));
     }
-    function b(e, t) {
+    function b() {
+      return globalThis.document != null ? globalThis.document.hidden : null;
+    }
+    function v(e, t) {
       var n = m.get(e);
       n != null &&
         (n.flow.addPoint(t), t === "handler_end" && (n.handlerEnded = !0));
     }
-    function v(e, t) {
+    function S(e, t) {
       var n;
       (n = m.get(e)) == null || n.flow.addAnnotations(t);
     }
-    function S(e, t) {
-      (R(e, t),
+    function R(e, t) {
+      (L(e, t),
         e.forEach(function (e) {
           var n = m.get(e);
           n != null &&
@@ -81,52 +84,52 @@ __d(
             t === "storage_commit_end" && (n.storageCommitted = !0));
         }));
     }
-    function R(e, t) {
+    function L(e, t) {
       var n = self.performance.now();
-      t === "storage_commit_start" && P("rx_checkpoint_count", 1);
+      t === "storage_commit_start" && N("rx_checkpoint_count", 1);
       var r = d[t];
       if (r == null) {
         _.set(e, n);
         return;
       }
       var o = _.get(e);
-      o != null && P(r, n - o);
+      o != null && N(r, n - o);
     }
-    function L(e, t) {
+    function E(e, t) {
       var n = m.get(e);
       n != null &&
         (n.flow.addPoint("queue_settled"),
         n.handlerEnded ||
           n.flow.addAnnotations({ bool: { queue_timed_out: !0 } }),
-        t && k(e, "nack"));
+        t && I(e, "nack"));
     }
-    function E(e, t) {
-      var n = A(e);
+    function k(e, t) {
+      var n = F(e);
       n != null &&
         (n.flow.addPoint("receipt_sent"),
         n.flow.addAnnotations({
           bool: { storage_committed_before_receipt: n.storageCommitted },
         }),
-        N(n),
+        M(n),
         n.flow.endSuccess(t));
     }
-    function k(e, t) {
-      var n = A(e);
-      n != null && (N(n), n.flow.endFail(t));
+    function I(e, t) {
+      var n = F(e);
+      n != null && (M(n), n.flow.endFail(t));
     }
-    function I(e) {
+    function T(e) {
       o("WAWebMessageReceiveFlow").OFFLINE_RESUME_TOTAL_KEYS.forEach(
         function (t) {
           var n = e[t];
-          n != null && P(t, n);
+          n != null && N(t, n);
         },
       );
     }
-    function T() {
+    function D() {
       var e = self.performance.now();
       (f != null || (f = e), (g = e));
     }
-    function D() {
+    function x() {
       (c.forEach(function (e) {
         return p.set(e, 0);
       }),
@@ -134,7 +137,7 @@ __d(
         (g = null),
         (h = null));
     }
-    function x(e) {
+    function $(e) {
       var t = {};
       p.forEach(function (e, n) {
         t[n] = Math.round(e);
@@ -147,37 +150,37 @@ __d(
         (t.rx_last_ack_offset_ms = Math.round(r - e)));
       var o = h;
       return (
-        D(),
+        x(),
         o == null
           ? { int: t }
           : { int: t, string: { rx_message_queue_impl: o } }
       );
     }
-    function $(e) {
+    function P(e) {
       h = h == null || h === e ? e : "mixed";
     }
-    function P(e, t) {
+    function N(e, t) {
       var n;
       p.set(e, ((n = p.get(e)) != null ? n : 0) + t);
     }
-    function N(e) {
+    function M(e) {
       var t = o("WAWebLongTaskAccumulator").getLongTaskAnnotationsSince(
         e.longTasksAtStart,
       );
       t != null && e.flow.addAnnotations(t);
     }
-    function M(e, t) {
+    function w(e, t) {
       var n;
-      (n = A(e)) == null ||
+      (n = F(e)) == null ||
         n.flow.endCancel(4, { string: { cancel_reason: t } });
     }
-    function w() {
+    function A() {
       if (!(m.size < u)) {
         var e = m.keys().next().value;
-        e != null && (M(e, "evicted"), P("rx_evicted_flow_count", 1));
+        e != null && (w(e, "evicted"), N("rx_evicted_flow_count", 1));
       }
     }
-    function A(e) {
+    function F(e) {
       var t = m.get(e);
       return (m.delete(e), t);
     }

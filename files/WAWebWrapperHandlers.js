@@ -23,22 +23,25 @@ __d(
     "WAWebWamEnumMmUserControlsEntryPoint",
     "WAWebWebSearchPopup.react",
     "WAWebWrapperOrderEphemeralExemption",
+    "WDSMargins.stylex",
     "react",
+    "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react"));
-    function c(e) {
-      var t = function () {
-          o("WAWebCmd").Cmd.msgInfoDrawer(o("WAWebStateUtils").unproxy(e));
+      u,
+      c = u || (u = o("react"));
+    function d(t) {
+      var n = function () {
+          o("WAWebCmd").Cmd.msgInfoDrawer(o("WAWebStateUtils").unproxy(t));
         },
-        n = function (n) {
-          var t = e.author,
+        a = function (n) {
+          var e = t.author,
             r = o(
               "WAWebGroupAgentOneToOneContact",
             ).getGroupAgentAwareOneToOneContact(
-              t,
-              o("WAWebFrontendMsgGetters").getChat(e),
+              e,
+              o("WAWebFrontendMsgGetters").getChat(t),
               "handle_open_contact_chat",
             );
           r != null &&
@@ -48,17 +51,17 @@ __d(
               targetId: r,
             });
         },
-        a = function () {
+        i = function () {
           o("WAWebModalManager").ModalManager.open(
-            u.jsx(r("WAWebWebSearchPopup.react"), { message: e }),
+            c.jsx(r("WAWebWebSearchPopup.react"), { message: t }),
             { transition: "modal-flow" },
           );
         },
-        i = function () {
-          var t,
+        l = function () {
+          var e,
             n,
-            r = (t = e.afterReadDuration) != null ? t : 0,
-            a = (n = e.ephemeralDuration) != null ? n : 0,
+            r = (e = t.afterReadDuration) != null ? e : 0,
+            a = (n = t.ephemeralDuration) != null ? n : 0,
             i,
             l;
           (o("WAWebAfterReadUtils").isAfterReadEnabled() && r > 0
@@ -80,7 +83,7 @@ __d(
                   /*BTDS*/ "The sender may be using an older version of WhatsApp.",
                 ))),
             o("WAWebModalManager").ModalManager.open(
-              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 tsNavigationData: {
                   surface: "unknown",
                   viewName: "ephemeral-msg-info",
@@ -92,76 +95,76 @@ __d(
               { transition: "modal-flow" },
             ));
         },
-        l = function () {
-          var t = e.bizPrivacyStatus;
-          t != null &&
+        u = function () {
+          var e = t.bizPrivacyStatus;
+          e != null &&
             o("WAWebModalManager").ModalManager.open(
-              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 tsNavigationData: {
                   surface: "unknown",
                   viewName: "biz-privacy-info",
                 },
                 onOK: o("WAWebModalManager").closeModalManager,
-                children: o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(t),
+                children: o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(e),
               }),
               { transition: "modal-flow" },
             );
         },
-        c = function () {
-          var t,
-            n,
-            r,
-            a = o("WAWebFrontendMsgGetters").getChat(e),
-            i =
-              (a == null || (t = a.contact) == null
-                ? void 0
-                : t.isOrHasBeenHosted) === !0,
-            l =
-              a != null &&
-              o("WAWebAeaAccountState").isAeaNonE2eeThreadState(
-                o("WAWebChatGetters").getAeaThreadState(a),
-              );
-          if (
-            !(
-              (!i && !l && !e.id.fromMe) ||
-              !(
-                e != null &&
-                (n = e.id) != null &&
-                (n = n.remote) != null &&
-                n.isUser()
-              )
-            )
-          ) {
-            var s = o("WAWebBizCoexStringUtils").bizEncStateMismatchString();
-            (e.aeaAutoUpgrade === !0
-              ? (s = o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
-                  o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus
-                    .E2EE,
-                ))
-              : e.id.fromMe &&
-                o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
-                  (r = o("WAWebFrontendMsgGetters").getChat(e)) == null ||
-                    (r = r.contact) == null
-                    ? void 0
-                    : r.privacyMode,
-                ) === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP &&
-                (s = o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
-                  o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.BSP,
-                )),
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  tsNavigationData: {
-                    surface: "unknown",
-                    viewName: "biz-enc-state-mismatch",
-                  },
-                  onOK: o("WAWebModalManager").closeModalManager,
-                  children: s,
-                }),
-                { transition: "modal-flow" },
-              ));
-          }
-        },
         d = function () {
+          var e = m(t);
+          e != null &&
+            o("WAWebModalManager").ModalManager.open(
+              c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "biz-enc-state-mismatch",
+                },
+                onOK: o("WAWebModalManager").closeModalManager,
+                children: e,
+              }),
+              { transition: "modal-flow" },
+            );
+        },
+        p = function () {
+          var n = m(t);
+          o("WAWebModalManager").ModalManager.open(
+            c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: {
+                surface: "unknown",
+                viewName: "order-ephemeral-exemption",
+              },
+              cancelText: o(
+                "WAWebWrapperOrderEphemeralExemption",
+              ).getLearnMorerderEphemeralExemptionButtonString(),
+              onCancel: function () {
+                o("WAWebExternalLink.react").openExternalLink(
+                  o("WAWebFaqUrl").getEphemeralFaqUrl(),
+                );
+              },
+              onOK: o("WAWebModalManager").closeModalManager,
+              children: [
+                n != null ? c.jsx("p", { children: n }) : null,
+                c.jsx(
+                  "p",
+                  babelHelpers.extends(
+                    {},
+                    (e || (e = r("stylex"))).props(
+                      n != null &&
+                        o("WDSMargins.stylex").wdsMargins.marginTop12,
+                    ),
+                    {
+                      children: o(
+                        "WAWebWrapperOrderEphemeralExemption",
+                      ).getOrderEphemeralExemptionInfoString(),
+                    },
+                  ),
+                ),
+              ],
+            }),
+            { transition: "modal-flow" },
+          );
+        },
+        _ = function () {
           var e = o(
               "WAWebWrapperOrderEphemeralExemption",
             ).getOrderEphemeralExemptionInfoString(),
@@ -169,7 +172,7 @@ __d(
               "WAWebWrapperOrderEphemeralExemption",
             ).getLearnMorerderEphemeralExemptionButtonString();
           o("WAWebModalManager").ModalManager.open(
-            u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+            c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               tsNavigationData: {
                 surface: "unknown",
                 viewName: "order-ephemeral-exemption",
@@ -186,32 +189,68 @@ __d(
             { transition: "modal-flow" },
           );
         },
-        m = function () {
+        f = function () {
           o("WAWebModalManager").ModalManager.open(
-            u.jsx(
+            c.jsx(
               o("WAWebMarketingMessagesUserControlsPopupLoadable")
                 .WAWebMarketingMessagesUserControlsPopupLoadable,
               {
                 logEntryPoint: o("WAWebWamEnumMmUserControlsEntryPoint")
                   .MM_USER_CONTROLS_ENTRY_POINT.MESSAGE_BUBBLE,
-                msg: e,
+                msg: t,
               },
             ),
             { transition: "modal-flow" },
           );
         };
       return {
-        handleMsgInfoClick: t,
-        handleOpenContactChat: n,
-        handleOpenWebSearchFlow: a,
-        handleOpenEphemeralInfoPopup: i,
-        handleOpenBizPrivacyInfoPopup: l,
-        handleOpenEphemeralExemptionInfoPopup: d,
-        handleOpenBizEncStateMismatchInfoPopup: c,
-        handleOpenMarketingMessagesFeedbackPopup: m,
+        handleMsgInfoClick: n,
+        handleOpenContactChat: a,
+        handleOpenWebSearchFlow: i,
+        handleOpenEphemeralInfoPopup: l,
+        handleOpenBizPrivacyInfoPopup: u,
+        handleOpenEphemeralExemptionInfoPopup: _,
+        handleOpenBizEncStateMismatchInfoPopup: d,
+        handleOpenEncryptionAndEphemeralExemptionInfoPopup: p,
+        handleOpenMarketingMessagesFeedbackPopup: f,
       };
     }
-    l.getHandlers = c;
+    function m(e) {
+      var t,
+        n,
+        r,
+        a = o("WAWebFrontendMsgGetters").getChat(e),
+        i =
+          (a == null || (t = a.contact) == null
+            ? void 0
+            : t.isOrHasBeenHosted) === !0,
+        l =
+          a != null &&
+          o("WAWebAeaAccountState").isAeaNonE2eeThreadState(
+            o("WAWebChatGetters").getAeaThreadState(a),
+          );
+      return (!i && !l && !e.id.fromMe) ||
+        !(
+          e != null &&
+          (n = e.id) != null &&
+          (n = n.remote) != null &&
+          n.isUser()
+        )
+        ? null
+        : e.aeaAutoUpgrade === !0
+          ? o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
+              o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.E2EE,
+            )
+          : e.id.fromMe &&
+              o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
+                a == null || (r = a.contact) == null ? void 0 : r.privacyMode,
+              ) === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP
+            ? o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
+                o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.BSP,
+              )
+            : o("WAWebBizCoexStringUtils").bizEncStateMismatchString();
+    }
+    l.getHandlers = d;
   },
   226,
 );

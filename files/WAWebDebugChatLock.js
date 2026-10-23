@@ -5,14 +5,18 @@ __d(
     "WAWebChatLockSettings",
     "WAWebProtobufsUserPassword.pb",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return btoa(
-        Array.from(new Uint8Array(e), function (e) {
-          return String.fromCodePoint(e);
-        }).join(""),
+      return (
+        r("vulture")("a4uM17AzLclQEz0YOgoay7ZJgtM="),
+        btoa(
+          Array.from(new Uint8Array(e), function (e) {
+            return String.fromCodePoint(e);
+          }).join(""),
+        )
       );
     }
     function s(e, t) {
@@ -21,23 +25,24 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = yield o("WAWebChatLockCrypto")._deriveBitsFromSecretCode(
+          r("vulture")("RGhCXrlhwJfUxmrNlypswJY1sQI=");
+          var a = yield o("WAWebChatLockCrypto")._deriveBitsFromSecretCode(
               t,
               n,
             ),
-            a;
-          if (r != null)
+            i;
+          if (a != null)
             switch (n.encoding) {
               case o("WAWebProtobufsUserPassword.pb").UserPassword$Encoding
                 .UTF8:
-                a = e(r);
+                i = e(a);
                 break;
               case o("WAWebProtobufsUserPassword.pb").UserPassword$Encoding
                 .UTF8_BROKEN:
-                a = e(r);
+                i = e(a);
                 break;
             }
-          return { derived: r, base64: a };
+          return { derived: a, base64: i };
         })),
         u.apply(this, arguments)
       );

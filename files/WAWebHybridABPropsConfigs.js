@@ -305,8 +305,8 @@ __d(
       group_history_messages_time_limit_receiver_enforcement_secs: [
         21313,
         "int",
-        1209600,
-        1209600,
+        3888e3,
+        3888e3,
       ],
       group_history_new_user_threshold_receiver_enforcement_secs: [
         30345,

@@ -1,9 +1,11 @@
 __d(
   "WAWebMessageReceiveFlow",
-  ["WAWebNullFunc", "asyncToGeneratorRuntime"],
+  ["WAComms", "WAWebNullFunc", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = [
         "rx_queue_wait_ms",
+        "rx_gate_wait_ms",
+        "rx_tick_wait_ms",
         "rx_decrypt_ms",
         "rx_process_ms",
         "rx_decrypted_enc_count",
@@ -30,7 +32,7 @@ __d(
     function d(e, t, n) {
       var r = e.isOffline,
         o = e.stanzaId;
-      return (u.start(e), v(o, t(b(o, r, n))));
+      return (u.start(e), R(o, t(b(o, r, n))));
     }
     function m() {
       u.resetOfflineResumeTotals();
@@ -151,43 +153,77 @@ __d(
       };
     }
     function b(e, t, r) {
-      var o = self.performance.now();
-      return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        (u.addPoint(e, "queue_wait_end"),
-          t &&
-            u.addToOfflineResumeTotals({
-              rx_queue_wait_ms: self.performance.now() - o,
-            }));
-        try {
-          var n = yield r();
-          return (u.addPoint(e, "handler_end"), n);
-        } catch (t) {
-          throw (
-            u.addPoint(e, "handler_end"),
-            u.endWithFailure(e, "handler_error"),
-            t
-          );
-        }
-      });
+      var a,
+        i = self.performance.now(),
+        l = (a = o("WAComms").getComms()) == null ? void 0 : a.socketId;
+      return (function () {
+        var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
+          var a;
+          (u.addPoint(e, "queue_wait_end"),
+            u.annotate(
+              e,
+              v(
+                ((a = o("WAComms").getComms()) == null
+                  ? void 0
+                  : a.socketId) !== l,
+                n,
+              ),
+            ),
+            t && u.addToOfflineResumeTotals(S(self.performance.now() - i, n)));
+          try {
+            var s = yield r();
+            return (u.addPoint(e, "handler_end"), s);
+          } catch (t) {
+            throw (
+              u.addPoint(e, "handler_end"),
+              u.endWithFailure(e, "handler_error"),
+              t
+            );
+          }
+        });
+        return function (e) {
+          return a.apply(this, arguments);
+        };
+      })();
     }
     function v(e, t) {
-      return S.apply(this, arguments);
+      return t == null
+        ? { bool: { socket_changed_while_queued: e } }
+        : {
+            bool: { socket_changed_while_queued: e },
+            int: {
+              gate_wait_ms: Math.round(t.gateWaitMs),
+              tick_wait_ms: Math.round(t.tickWaitMs),
+            },
+          };
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield t;
-          return (u.settleQueue(e, n != null), n);
-        })),
-        S.apply(this, arguments)
-      );
+    function S(e, t) {
+      return t == null
+        ? { rx_queue_wait_ms: e }
+        : {
+            rx_gate_wait_ms: t.gateWaitMs,
+            rx_queue_wait_ms: e,
+            rx_tick_wait_ms: t.tickWaitMs,
+          };
     }
-    function R(e, t, n) {
+    function R(e, t) {
       return L.apply(this, arguments);
     }
     function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield t;
+          return (u.settleQueue(e, n != null), n);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t, n) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             yield t;
           } catch (t) {
@@ -197,7 +233,7 @@ __d(
             string: { decrypt_result: n, receipt_path: "immediate" },
           });
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
     ((l.OFFLINE_RESUME_TOTAL_KEYS = e),
@@ -211,7 +247,7 @@ __d(
       (l.endMessageReceiveWithNack = h),
       (l.failMessageReceiveCheckpoint = y),
       (l.startMessageReceiveDecryptTimer = C),
-      (l.trackMessageReceiveReceipt = R));
+      (l.trackMessageReceiveReceipt = E));
   },
   98,
 );

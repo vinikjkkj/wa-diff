@@ -28,6 +28,7 @@ __d(
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -93,6 +94,7 @@ __d(
       ],
       C = 20;
     function b(e) {
+      r("vulture")("wlq-zwElmIwiAD9YMcv4TZNeQmQ=");
       var t = y[e % y.length],
         n = e + 1;
       return {
@@ -112,12 +114,16 @@ __d(
       };
     }
     function v() {
-      return r("WAWebHatchPayloadDebugStore").getRecords();
+      return (
+        r("vulture")("MWJEMl4OYzvNLyAtiZD_VTkzbYI="),
+        r("WAWebHatchPayloadDebugStore").getRecords()
+      );
     }
     v.doc =
       "List the Hatch AIMetadataOperation payloads captured this session (inbound events/responses, outbound reqs) with their raw envelope, decoded form, and timestamps";
     function S() {
-      r("WAWebHatchPayloadDebugStore").clear();
+      (r("vulture")("jqvyLtSwU24JepcnNM987KnS-Ac="),
+        r("WAWebHatchPayloadDebugStore").clear());
     }
     S.doc = "Clear the captured Hatch AIMetadataOperation payload list";
     var R = [
@@ -126,37 +132,40 @@ __d(
       { kind: "deny", labelText: "Deny", alwaysScope: "" },
     ];
     function L() {
-      o("WDSDialogBridge").openWDSDialog(
-        g.jsx(r("WAWebHatchApprovalDialog.react"), {
-          decisionOptions: R,
-          description: "Create an email draft to xyz@meta.com",
-          isConnector: !0,
-          onDecide: function (n) {
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debugHatch] Hatch approval option selected: ",
-                  "",
-                ])),
-              n.kind,
-            ),
-              o("WDSDialogBridge").closeWDSDialog());
-          },
-          onDismiss: o("WDSDialogBridge").closeWDSDialog,
-          summary: g.jsx("span", {
-            children: "Hatch wants to draft an email in Gmail",
+      (r("vulture")("m7UsmatbglVakxVfJ8-k1GyY_4s="),
+        o("WDSDialogBridge").openWDSDialog(
+          g.jsx(r("WAWebHatchApprovalDialog.react"), {
+            decisionOptions: R,
+            description: "Create an email draft to xyz@meta.com",
+            isConnector: !0,
+            onDecide: function (n) {
+              (r("vulture")("bYxMm1k7jUB__1BNNnDCU5wbveA="),
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[debugHatch] Hatch approval option selected: ",
+                      "",
+                    ])),
+                  n.kind,
+                ),
+                o("WDSDialogBridge").closeWDSDialog());
+            },
+            onDismiss: o("WDSDialogBridge").closeWDSDialog,
+            summary: g.jsx("span", {
+              children: "Hatch wants to draft an email in Gmail",
+            }),
           }),
-        }),
-      );
+        ));
     }
     ((L.doc = "Opens the Hatch approval options dialog"),
       (L.paramsToExecute = []));
     function E(e) {
-      e === void 0 && (e = 3);
+      (e === void 0 && (e = 3), r("vulture")("IBxTcDCDXbpdYM_QQNXWUQws1Zo="));
       var t = Math.max(1, Math.min(e, C));
       return Array.from({ length: t }, function (e, t) {
+        r("vulture")("_GtiTIikZI9O83uy7DgmchMXSNM=");
         var n = b(t),
-          r = {
+          a = {
             type: "event",
             requestId: null,
             event: {
@@ -195,7 +204,7 @@ __d(
           };
         return (
           o("WAWebHandleHatchMetadataSync").handleHatchMetadataSync(
-            r,
+            a,
             "debug-" + n.approvalId,
           ),
           n.approvalId
@@ -206,45 +215,62 @@ __d(
       "Inject N (1-20, default 3) synthetic HITL approvals as pending requests \u2014 pass a count to test the single-approval path, the multi-approval review dialog, and its scrolling with a long list"),
       (E.paramsToExecute = [3]));
     function k(e) {
-      return o("WAWebHatchApprovalDebug").debugInjectHatchApprovalRequest(e);
+      return (
+        r("vulture")("5ORDg_05NFrejpN0hf_D5QcD4Mk="),
+        o("WAWebHatchApprovalDebug").debugInjectHatchApprovalRequest(e)
+      );
     }
     k.doc =
       "Inject a synthetic Hatch HITL approval request through the real decode -> store -> UI pipeline (open a Hatch chat to see the composer swap to the approval bar). Returns the approvalId.";
     function I(e) {
-      return o("WAWebHatchApprovalDebug").debugInjectHatchCheckout(e);
+      return (
+        r("vulture")("_B2U79t1elZcCY5OZdW5h7puTBE="),
+        o("WAWebHatchApprovalDebug").debugInjectHatchCheckout(e)
+      );
     }
     I.doc =
       "Inject a synthetic checkout approval: hatchInjectCheckout({kind, cards, items, funding}). kind: 'browser' (default) or 'shopify'. cards (default 2): 0 for no wallet and no funding card, 1 for the read-only payment details, 2+ for the wallet picker, 4+ to split it into two wallets; 10+ to push it past the height it scrolls at; max 24. items (default 3): Shopify cart size, ignored for a browser checkout; 20+ to scroll the cart, max 60. funding: 'offered' (default) funds the order with the first offered card, 'unmatched' funds it with one the wallet does not contain, so the picker opens with nothing ticked. Returns the approvalId for hatchResolveApproval.";
     function T(e) {
-      return o("WAWebHatchApprovalDebug").debugInjectHatchNotification(e);
+      return (
+        r("vulture")("WZzMFhNyIFgn9XdRAZUZJ1bl_oU="),
+        o("WAWebHatchApprovalDebug").debugInjectHatchNotification(e)
+      );
     }
     T.doc =
       "Inject a synthetic Hatch channel notification through the real decode -> bus -> banner pipeline: hatchInjectNotification({subjectId, deduplicationKey, title, body, notificationType, expiresAtMs, withApproval}). Every field is optional; both ids default to a fresh value per call, so repeated calls do not read as repeats of each other. Pass a deduplicationKey you have already used to see a repeat suppressed, or reuse a subjectId under a fresh key to see one approval re-raised. withApproval also injects a matching pending approval, so the banner has a card to open. Nothing appears if the banner is suppressed \u2014 the usual reasons are the Hatch chat being on screen, muted, archived or absent, notifications being off for it, and ai_hatch_approval_notification_enabled being off; `hatch-approval-notif:` console lines say which. notificationType other than 'approval_request' exercises the drop path; expiresAtMs: 1 exercises the expired path. Returns the subjectId.";
     function D() {
-      return o("WAWebHatchSpacesDebug").debugInjectHatchSpaces();
+      return (
+        r("vulture")("KGTZL7_YPz4COByCyQeBvhUryAw="),
+        o("WAWebHatchSpacesDebug").debugInjectHatchSpaces()
+      );
     }
     ((D.doc =
       "Inject a synthetic Hatch Spaces snapshot through the real decode -> reduce -> manager pipeline. The Library that shows it needs ai_hatch_space_enabled (on dev-web, ?ai_hatch_space_enabled=true). The rows cover a favorite, a Space published on muse.ai, one built but never published, one that needs attention, one still building, and two never opened, so the catalog exercises every state and the full display order. One row declares an icon whose descriptor is synthetic, so it decodes but never downloads. A real snapshot replaces the injected catalog. Read the result with Debug.hatchSpaces(); call Debug.hatchInjectSpaces() again to replace the catalog. Returns the number of rows sent."),
       (D.paramsToExecute = []));
     function x() {
-      o("WAWebHatchSpacesDebug").debugClearHatchSpaces();
+      (r("vulture")("nBQ5SwFxY0Qs8tZdinzEMIpdnwE="),
+        o("WAWebHatchSpacesDebug").debugClearHatchSpaces());
     }
     ((x.doc =
       "Reset the Hatch Spaces catalog to its state before any snapshot"),
       (x.paramsToExecute = []));
     function $() {
-      return r("WAWebHatchSpacesManager").getCatalog();
+      return (
+        r("vulture")("lcvMeAG9CCArUpl9gSzrkC7GGFM="),
+        r("WAWebHatchSpacesManager").getCatalog()
+      );
     }
     (($.doc =
       "Report the Hatch Spaces catalog the client holds, in display order, with the icon descriptors each row can look itself up in"),
       ($.paramsToExecute = []));
     function P(e) {
-      o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
+      (r("vulture")("m2OPMU8aplfWhVKrxBV5-NQCdVE="),
+        o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e));
     }
     P.doc =
       "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
     function N(e) {
-      e === void 0 && (e = !0);
+      (e === void 0 && (e = !0), r("vulture")("waL_S9CJn9jVoH7Zxp7pvOYpFpc="));
       var t = e
         ? {
             hasChannel: !0,
@@ -273,7 +299,8 @@ __d(
       "hatchSetLinked registers a debug fetcher for later linked-status requests.\nhatchSetLinked(true) returns an ACTIVE paired status.\nhatchSetLinked(false) returns a status with hasChannel and isPaired set to false.\nThe debug fetcher updates the composer and disconnect button after the request resolves.\nA 515 or 516 stream-error reconnect replaces the debug fetcher with the server fetcher.\nRegistering the debug fetcher during an active request invalidates that response and starts a replacement request.\nCalling hatchSetLinked again replaces the debug fetcher with the new return value.\nThe resolved linked or unlinked state is also stored for the connectors load check, so it outlives a reload until a later confirmed fetch replaces it, such as another hatchSetLinked call.\nhatchLinkedStatus still reports this session's state only."),
       (N.paramsToExecute = [!0]));
     function M(e) {
-      e === void 0 && (e = "ios");
+      (e === void 0 && (e = "ios"),
+        r("vulture")("nDj6ZijYJdwVvf2U3Kiijasdozw="));
       var t = o("WAWebDebugUtils").getSelectedChat(),
         n =
           e === "ios"
@@ -337,10 +364,11 @@ __d(
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 &&
+          (e === void 0 &&
             (e = o(
               "WAWebHatchMinPrimaryVersions",
-            ).HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION);
+            ).HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION),
+            r("vulture")("3UqZCxLVFzNUdi9R1eAB0VJF4i8="));
           var t =
             e != null
               ? e
@@ -373,7 +401,10 @@ __d(
           .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
       ]));
     function F() {
-      return o("WAWebPrimaryVersion").getStoredPrimaryCurrentVersion();
+      return (
+        r("vulture")("f0-7_HNyVvdpHy7eLns_q3cO2CQ="),
+        o("WAWebPrimaryVersion").getStoredPrimaryCurrentVersion()
+      );
     }
     ((F.doc =
       "Report the stored primary version that the Hatch min-primary-version gates read"),
@@ -395,6 +426,9 @@ __d(
       ai_hatch_manage_subscription_enabled: !0,
       ai_hatch_avatar_working_video_enabled: !0,
       ai_hatch_approval_notification_enabled: !0,
+      ai_hatch_identity_enabled: !0,
+      ai_hatch_data_controls_enabled: !0,
+      ai_hatch_scheduled_tasks_enabled: !0,
       ai_meta_ai_muse_default_assistant_variant_1: !0,
       ai_meta_ai_muse_default_assistant_variant_2: !0,
       ai_meta_ai_muse_default_assistant_variant_3: !0,
@@ -406,21 +440,22 @@ __d(
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          t === void 0 && (t = !0);
-          var r = e == null || e === "all" ? Object.keys(O) : [e],
-            a = new Set(
+          (t === void 0 && (t = !0),
+            r("vulture")("hgA_uhNK_Zt4I9ulb8TWA08T94w="));
+          var a = e == null || e === "all" ? Object.keys(O) : [e],
+            i = new Set(
               (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
                 o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
               )) != null
                 ? n
                 : [],
             );
-          for (var i of r) t ? a.add(i) : a.delete(i);
-          yield o("WAWebPrimaryFeatures").setPrimaryFeatures(Array.from(a));
-          var l = r.filter(function (e) {
+          for (var l of a) t ? i.add(l) : i.delete(l);
+          yield o("WAWebPrimaryFeatures").setPrimaryFeatures(Array.from(i));
+          var s = a.filter(function (e) {
             return o("WAWebPrimaryFeatures").primaryFeatureEnabled(e) !== t;
           });
-          l.length > 0 &&
+          s.length > 0 &&
             o("WALogger").WARN(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -428,10 +463,10 @@ __d(
                   " kept ",
                   " by the primary_features_enabled / primary_features_disabled URL params",
                 ])),
-              l.join(", "),
+              s.join(", "),
               t ? "off" : "on",
             );
-          var s = Object.keys(O).filter(function (e) {
+          var u = Object.keys(O).filter(function (e) {
             return o("WAWebPrimaryFeatures").primaryFeatureEnabled(e);
           });
           return (
@@ -441,9 +476,9 @@ __d(
                   "[debugHatch] Hatch primary features on: ",
                   "",
                 ])),
-              s.join(", "),
+              u.join(", "),
             ),
-            s
+            u
           );
         })),
         W.apply(this, arguments)
@@ -453,26 +488,33 @@ __d(
       "hatchSetPrimaryFeature turns a Hatch primary feature on or off in the stored primary feature list, as if the primary had advertised it.\nhatchSetPrimaryFeature('ai_hatch_integration_enabled', false) turns one off; pass null or 'all' as the feature to set every Hatch primary feature at once.\nOnly the Hatch features change: the rest of the list stays as the primary sent it, so the primary_features_enabled / primary_features_disabled URL params are not saved into it. Those params still win over this command, which warns when they do.\nThe list persists across reloads until the primary's next feature sync overwrites it. Reload to re-render surfaces that already read the gates.\nReturns the Hatch primary features now in effect."),
       (B.paramsToExecute = ["all", !0]));
     function q() {
-      return Object.keys(O).filter(function (e) {
-        return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(e);
-      });
+      return (
+        r("vulture")("lzsj6Pisurtc24JYt5hzFK7_6tg="),
+        Object.keys(O).filter(function (e) {
+          return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(e);
+        })
+      );
     }
     ((q.doc =
       "Report which Hatch primary features are in effect, including URL param overrides"),
       (q.paramsToExecute = []));
     function U() {
       var e;
-      return {
-        isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
-        isUnlinked: e.isUnlinked(),
-        linkedStatusState: e.getLinkedStatusState(),
-        status: e.getLinkedStatus(),
-      };
+      return (
+        r("vulture")("UCWY-_zkVJMKGYnnpmIh5kcCQAQ="),
+        {
+          isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
+          isUnlinked: e.isUnlinked(),
+          linkedStatusState: e.getLinkedStatusState(),
+          status: e.getLinkedStatus(),
+        }
+      );
     }
     ((U.doc =
       "Report the latest Hatch linked-status fetch result and the last confirmed status."),
       (U.paramsToExecute = []));
     function V() {
+      r("vulture")("51nQQa3hGNvY-WEGwPWdrQAVt6U=");
       var e = o("WAWebHatchReadinessDebug").formatHatchReadinessReport(
         o("WAWebHatchReadinessDebug").collectHatchReadinessInputs(U()),
       );

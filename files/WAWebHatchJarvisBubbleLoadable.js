@@ -31,37 +31,45 @@ __d(
         renderLoadingImmediately: !0,
       });
     function f(e) {
-      var t = o("react-compiler-runtime").c(9),
+      var t = o("react-compiler-runtime").c(10),
         n = e.displayAuthor,
         r = e.displayType,
         a = e.errorFallback,
         i = e.fallback,
-        l = e.msgKey,
-        u;
-      t[0] !== n || t[1] !== r || t[2] !== a || t[3] !== i || t[4] !== l
-        ? ((u = s.jsx(_, {
+        l = e.isForwardedCopy,
+        u = e.msgKey,
+        c;
+      t[0] !== n ||
+      t[1] !== r ||
+      t[2] !== a ||
+      t[3] !== i ||
+      t[4] !== l ||
+      t[5] !== u
+        ? ((c = s.jsx(_, {
             displayAuthor: n,
             displayType: r,
             errorFallback: a,
             fallback: i,
-            msgKey: l,
+            isForwardedCopy: l,
+            msgKey: u,
           })),
           (t[0] = n),
           (t[1] = r),
           (t[2] = a),
           (t[3] = i),
           (t[4] = l),
-          (t[5] = u))
-        : (u = t[5]);
-      var c;
+          (t[5] = u),
+          (t[6] = c))
+        : (c = t[6]);
+      var d;
       return (
-        t[6] !== i || t[7] !== u
-          ? ((c = s.jsx(m.Provider, { value: i, children: u })),
-            (t[6] = i),
-            (t[7] = u),
-            (t[8] = c))
-          : (c = t[8]),
-        c
+        t[7] !== i || t[8] !== c
+          ? ((d = s.jsx(m.Provider, { value: i, children: c })),
+            (t[7] = i),
+            (t[8] = c),
+            (t[9] = d))
+          : (d = t[9]),
+        d
       );
     }
     function g() {

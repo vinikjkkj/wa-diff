@@ -52,7 +52,12 @@ __d(
       var n = t.trim().toLowerCase();
       if (n === "") return null;
       for (var r of o("WAWebLeadStage").ALL_LEAD_STAGES)
-        if (e(r).toString().toLowerCase() === n) return r;
+        if (
+          o("WAWebLeadStage").getLeadStageCanonicalName(r).toLowerCase() === n
+        )
+          return r;
+      for (var a of o("WAWebLeadStage").ALL_LEAD_STAGES)
+        if (e(a).toString().toLowerCase() === n) return a;
       return n === g || n === h().toString().toLowerCase()
         ? o("WAWebLeadStage").LeadStage.LEAD
         : null;

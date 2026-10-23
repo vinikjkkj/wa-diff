@@ -17,6 +17,9 @@ __d(
         platform: r("requireDeferred")("WAWebFalcoCanonicalPlatform").__setRef(
           "WamExperienceIdDailyFalcoEvent",
         ),
+        device_classification: r("requireDeferred")(
+          "WAWebFalcoCanonicalDeviceClassification",
+        ).__setRef("WamExperienceIdDailyFalcoEvent"),
       };
     function c() {
       return (e || (e = n("Promise")))

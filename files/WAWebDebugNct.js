@@ -5,6 +5,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -13,6 +14,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("09vSyOxaHdnaSHcGbQUbpvQAKns=");
           var e = yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.NCT_SALT,
           );
@@ -38,6 +40,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("NtTvfxFdar5YB2uwmX8NYrwXzvs=");
           var e = o("WAWebABProps").getABPropConfigValue(
               "wa_nct_token_syncd_enabled",
             ),
@@ -64,6 +67,7 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
+            r("vulture")("c3VZqUoghltI8OmfbAFXaYAliUs="),
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
               o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.NCT_SALT,
             ),

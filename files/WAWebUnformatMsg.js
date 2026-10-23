@@ -11,6 +11,7 @@ __d(
     "WAWebMsgMentionMap",
     "WAWebPreviewFormatGating",
     "WAWebUnformatSerializer",
+    "isArrayNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -21,34 +22,37 @@ __d(
       );
     }
     function u(e, t, n) {
-      var r = t != null ? t : "";
+      var a = t != null ? t : "";
       if (o("WAWebCommonMsgUtils").isRichResponseMsg(e.type)) {
-        var a = o("WAWebFormatConfiguration").RichResponse({
+        var i = o("WAWebFormatConfiguration").RichResponse({
           links: [],
           parseHeadlessHeadings: !0,
           parseHeadings: !1,
         });
-        return c(r, a, n);
+        return c(a, i, n);
       }
-      var i = o("WAWebMsgMentionMap").calculateMsgMentionMap(e),
-        l = o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(e);
-      if (!i && !l) return c(r, s(), n);
+      var l = o("WAWebMsgMentionMap").calculateKnownMsgMentions(e, a),
+        u = l.mentions,
+        d = l.text,
+        m = o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(e);
+      if (r("isArrayNullOrEmpty")(e.mentionedJidList) && !m)
+        return c(d, s(), n);
       if (o("WAWebMiscGatingUtils").isDropLastNameEnabled()) {
-        var u = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
-        if (u) {
-          var d = o("WAWebFormatConfiguration").FormattedGroupNotification({
-            mentions: i,
-            groupMentions: l,
-            groupMetadata: u,
+        var p = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
+        if (p) {
+          var _ = o("WAWebFormatConfiguration").FormattedGroupNotification({
+            mentions: u,
+            groupMentions: m,
+            groupMetadata: p,
           });
-          return c(r, d, n);
+          return c(d, _, n);
         }
       }
-      var m = o("WAWebFormatConfiguration").FormattedNotification({
-        mentions: i,
-        groupMentions: l,
+      var f = o("WAWebFormatConfiguration").FormattedNotification({
+        mentions: u,
+        groupMentions: m,
       });
-      return c(r, m, n);
+      return c(d, f, n);
     }
     function c(e, t, n) {
       if (n == null)

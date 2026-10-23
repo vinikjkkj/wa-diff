@@ -111,10 +111,16 @@ __d(
                 "WAWebApplyPollAddOptionTCValidation",
               ).applyPollAddOptionTCValidation(n, "history-sync-add-option"),
               i = a.accepted,
-              l = a.mismatched;
-            (yield o(
-              "WAWebApplyPollAddOptionToParent",
-            ).applyPollAddOptionsToParent(i),
+              l = a.mismatched,
+              u = yield o(
+                "WAWebApplyPollAddOptionToParent",
+              ).applyPollAddOptionsToParent(i);
+            (yield o("WAWebApplyPollAddOptionToParent").removePollAddOptionMsgs(
+              u.map(function (e) {
+                var t = e.decryptedAddOption;
+                return t.id.toString();
+              }),
+            ),
               yield o("WAWebDBMessageDelete").removeMessagesFromHistory(
                 [].concat(r, l).map(function (e) {
                   return e.decryptedAddOption.id.toString();

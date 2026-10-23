@@ -11,7 +11,7 @@ __d(
     c.displayName = c.name + " [from " + i.id + "]";
     function d() {
       return s._(
-        /*BTDS*/ "All customers subscribed to marketing messages in this list have chosen to receive them from my business, and all data in this list complies with {=m1} .",
+        /*BTDS*/ "I confirm I have marketing consent from all recipients in this list and it complies with {=m1} .",
         [
           s._implicitParam(
             "=m1",
@@ -41,7 +41,7 @@ __d(
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g() {
-      return s._(/*BTDS*/ "Remove");
+      return s._(/*BTDS*/ "Remove recipients");
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
@@ -149,34 +149,40 @@ __d(
         s._param("recipient phone number", e),
       ]);
     }
-    function O() {
+    function O(e) {
+      return s._(
+        /*BTDS*/ "Keep recipient {recipient phone number} in this audience",
+        [s._param("recipient phone number", e)],
+      );
+    }
+    function B() {
       return s._(/*BTDS*/ "Load more");
     }
-    O.displayName = O.name + " [from " + i.id + "]";
-    function B() {
+    B.displayName = B.name + " [from " + i.id + "]";
+    function W() {
       return s._(/*BTDS*/ "Loading\u2026");
     }
-    B.displayName = B.name + " [from " + i.id + "]";
-    function W(e) {
+    W.displayName = W.name + " [from " + i.id + "]";
+    function q(e) {
       return s._(/*BTDS*/ "Delete {audience name}?", [
         s._param("audience name", e),
       ]);
     }
-    W.displayName = W.name + " [from " + i.id + "]";
-    function q() {
-      return s._(/*BTDS*/ "Processing your audience\u2026");
-    }
     q.displayName = q.name + " [from " + i.id + "]";
     function U() {
-      return s._(/*BTDS*/ "We'll update you when it's complete.");
+      return s._(/*BTDS*/ "Processing your audience\u2026");
     }
     U.displayName = U.name + " [from " + i.id + "]";
     function V() {
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
+    }
+    V.displayName = V.name + " [from " + i.id + "]";
+    function H() {
       return s._(
         /*BTDS*/ "Your edits are processing. We'll update you when they're complete.",
       );
     }
-    ((V.displayName = V.name + " [from " + i.id + "]"),
+    ((H.displayName = H.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -205,12 +211,13 @@ __d(
       (l.getSearchByNumberPlaceholder = w),
       (l.getContactListAriaLabel = A),
       (l.getSelectRecipientAriaLabel = F),
-      (l.getLoadMorePaginationLabel = O),
-      (l.getLoadingPaginationLabel = B),
-      (l.getDeleteAudienceModalTitle = W),
-      (l.getAudienceProcessingTitle = q),
-      (l.getAudienceProcessingSubtitle = U),
-      (l.getAudienceEditsProcessingMessage = V));
+      (l.getKeepRecipientAriaLabel = O),
+      (l.getLoadMorePaginationLabel = B),
+      (l.getLoadingPaginationLabel = W),
+      (l.getDeleteAudienceModalTitle = q),
+      (l.getAudienceProcessingTitle = U),
+      (l.getAudienceProcessingSubtitle = V),
+      (l.getAudienceEditsProcessingMessage = H));
   },
   226,
 );

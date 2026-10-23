@@ -11,6 +11,7 @@ __d(
     "WAWebSendMsgMultiModalLoadable",
     "WAWebWidFactory",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,6 +19,7 @@ __d(
       u,
       c = u || (u = o("react"));
     function d(t, n) {
+      r("vulture")("RwtlZGDWnBeG6RJRqzGM2GFFZG0=");
       var a = o("WAWebApiParse").parseAPICmd(t);
       if (a.resultType === o("WAWebApi").APICmd.INVALID) {
         o("WALogger").LOG(
@@ -43,22 +45,23 @@ __d(
     d.doc =
       "Manually execute an API command like Group Invite or CTWA (Click to WhatsApp)";
     function m(e, t) {
-      e == null
-        ? o("WAWebModalManager").ModalManager.open(
-            c.jsx(
-              o("WAWebSendMsgMultiModalLoadable").SendMsgMultiModalLoadable,
-              { msgText: t, urlText: !0 },
-            ),
-            { transition: "modal-flow" },
-          )
-        : o("WAWebModalManager").ModalManager.open(
-            c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
-              target: { wid: o("WAWebWidFactory").createUserWidOrThrow(e) },
-              msgText: t,
-              onSuccess: r("WAWebNoop"),
-            }),
-            { transition: "modal-flow" },
-          );
+      (r("vulture")("MHbWTBEUZZbqbjcdtAcABprnQgA="),
+        e == null
+          ? o("WAWebModalManager").ModalManager.open(
+              c.jsx(
+                o("WAWebSendMsgMultiModalLoadable").SendMsgMultiModalLoadable,
+                { msgText: t, urlText: !0 },
+              ),
+              { transition: "modal-flow" },
+            )
+          : o("WAWebModalManager").ModalManager.open(
+              c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+                target: { wid: o("WAWebWidFactory").createUserWidOrThrow(e) },
+                msgText: t,
+                onSuccess: r("WAWebNoop"),
+              }),
+              { transition: "modal-flow" },
+            ));
     }
     m.doc =
       "Trigger the API link opening flow (e.g. api.whatsapp.com/send?phone=1234567890&text=Hello)";

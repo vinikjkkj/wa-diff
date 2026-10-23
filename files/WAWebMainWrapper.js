@@ -11,6 +11,9 @@ __d(
     "WAWebExecApiCmd",
     "WAWebFeatureDetectionSwSupport",
     "WAWebKaleidoscopeWasmFeatureSupport",
+    "WAWebLogBusinessAccountForCrash",
+    "WAWebLogCollectionSizesForCrash",
+    "WAWebLogConnectionStateForCrash",
     "WAWebLogPifeExposure",
     "WAWebMain.react",
     "WAWebMediaWorkerProxy",
@@ -92,6 +95,9 @@ __d(
       }
       (c(),
         o("WAWebCrashAnnotations").initCrashAnnotations(),
+        o("WAWebLogCollectionSizesForCrash").initCollectionSizesCrashLogging(),
+        o("WAWebLogConnectionStateForCrash").initConnectionStateCrashLogging(),
+        o("WAWebLogBusinessAccountForCrash").initBusinessAccountCrashLogging(),
         r("WAWebLogPifeExposure")(),
         o("WAWebPathfinderCrashLog").initPathfinderCrashLog());
       var a = n("WAWebMain.react");

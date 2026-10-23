@@ -236,23 +236,23 @@ __d(
           return o("WAWebWamEnumBackendStoreType").BACKEND_STORE_TYPE.MANIFOLD;
       }
       return (
-        r("gkx")("26258")
+        r("gkx")("9092")
           ? o("WALogger")
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Unrecognized direct path type",
+                    "Unrecognized direct path type: ",
+                    "",
                   ])),
+                t,
               )
               .sendLogs("unrecognized-direct-path-type")
           : o("WALogger")
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Unrecognized direct path type: ",
-                    "",
+                    "Unrecognized direct path type",
                   ])),
-                t,
               )
               .sendLogs("unrecognized-direct-path-type"),
         null

@@ -8,27 +8,35 @@ __d(
     "cr:17219",
     "cr:19951",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u() {
-      n("cr:17074") &&
-        o("WAWebModalManager").ModalManager.open(
-          s.jsx(n("cr:17074"), { onOkOrDismiss: function () {} }),
-        );
+      (r("vulture")("DC4wW-GTW-C7hotBuF83aZ0aoi0="),
+        n("cr:17074") &&
+          o("WAWebModalManager").ModalManager.open(
+            s.jsx(n("cr:17074"), {
+              onOkOrDismiss: function () {
+                r("vulture")("DYkERDCmJ_ghn6r6jDagWpOjFjY=");
+              },
+            }),
+          ));
     }
     ((u.doc =
       "Shows a NUX (New User Experience) dialog for Hybrid App. This is useful for testing NUXes by l10n team and QA."),
       (u.paramsToExecute = []));
     function c() {
-      n("cr:17194") &&
-        o("WAWebModalManager").ModalManager.open(s.jsx(n("cr:17194"), {}));
+      (r("vulture")("rr8GOz1N8eGMTV-Zso8fIJjax8Y="),
+        n("cr:17194") &&
+          o("WAWebModalManager").ModalManager.open(s.jsx(n("cr:17194"), {})));
     }
     ((c.doc =
       "Shows the Rate App Prompt dialog for Windows Hybrid App. This is useful for testing by l10n team and QA."),
       (c.paramsToExecute = []));
     function d() {
+      r("vulture")("n4FDtXHBTa0fQmSQDSKtxgaTKbg=");
       var e =
         n("cr:17219") == null
           ? void 0

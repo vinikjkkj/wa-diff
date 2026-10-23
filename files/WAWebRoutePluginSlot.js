@@ -1,6 +1,6 @@
 __d(
   "WAWebRoutePluginSlot",
-  ["WAWebNoop", "WAWebNullFunc", "cr:7455", "react", "react-compiler-runtime"],
+  ["WAWebNoop", "WAWebNullFunc", "cr:17673", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -55,11 +55,11 @@ __d(
         u;
       (a[0] !== i || a[1] !== r
         ? ((s = function () {
-            if (n("cr:7455") != null) {
+            if (n("cr:17673") != null) {
               var t = l.current;
               (t != null &&
                 t !== r &&
-                n("cr:7455").DEV(
+                n("cr:17673").DEV(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
                       "useRegisterRoutePluginSlotValue: registered value reference changed between renders for the same slot. The value MUST be a stable reference (module-level export or useCallback) \u2014 see WAWebRoutePluginSlot JSDoc. Unstable references thrash the slot and re-run the layout effect on every render.",

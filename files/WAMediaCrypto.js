@@ -98,14 +98,17 @@ __d(
     }
     var C = 16,
       b = 16,
-      v = 10,
-      S = 64 * 1024;
-    function R(e, t, n, r, o) {
-      return L.apply(this, arguments);
+      v = 10;
+    function S(e) {
+      return e.byteLength % C === v;
     }
-    function L() {
+    var R = 64 * 1024;
+    function L(e, t, n, r, o) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a, i) {
             var l = new (o("WABinary").Binary)();
             (l.ensureCapacity(b + a.byteLength + C + v), l.writeByteArray(t));
@@ -117,11 +120,11 @@ __d(
                   t,
                 ),
                 c = 0,
-                d = c + S;
+                d = c + R;
               d < a.byteLength;
             ) {
               var m = a.slice(c, d);
-              (yield s.append(new Uint8Array(m)), (c = d), (d += S));
+              (yield s.append(new Uint8Array(m)), (c = d), (d += R));
             }
             var p = yield a.slice(c);
             yield s.finalize(new Uint8Array(p));
@@ -133,7 +136,7 @@ __d(
             l.writeByteArray(new Uint8Array(g, 0, v));
             var h = l.readByteArrayView(),
               y = h.subarray(b),
-              R = yield (u || (u = n("Promise"))).all([
+              S = yield (u || (u = n("Promise"))).all([
                 o("WACryptoDependencies")
                   .getCrypto()
                   .subtle.digest("SHA-256", y),
@@ -141,8 +144,8 @@ __d(
                   ? o("WAMediaCryptoSidecar").calculateStreamingSidecar(f, h)
                   : void 0,
               ]),
-              L = R[0],
-              E = R[1];
+              L = S[0],
+              E = S[1];
             return {
               ciphertext: y,
               ciphertextHash: L,
@@ -152,28 +155,28 @@ __d(
             };
           },
         )),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield o("WACryptoHmac").encodeKeySha256(e),
             a = o("WABinary").Binary.build(t, n).readByteArrayView();
           return o("WACryptoHmac").sign(r, a);
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e, t, n, r, o) {
-      return T.apply(this, arguments);
+    function T(e, t, n, r, o) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             if (!(10 <= a.length && a.length <= 32))
               throw new d("Bad hmac size " + a.length);
@@ -184,7 +187,7 @@ __d(
                   return new Uint8Array(e);
                 }),
               s = l.slice(0, a.length);
-            if (!N(s, a)) throw new d("hmacAndDecrypt hmac mismatch");
+            if (!M(s, a)) throw new d("hmacAndDecrypt hmac mismatch");
             var u = yield o("WACryptoAesCbc").aesCbcDecrypt(e, t, n),
               c = yield o("WACryptoDependencies")
                 .getCrypto()
@@ -195,10 +198,10 @@ __d(
             };
           },
         )),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t, n, r, a) {
+    function x(e, t, n, r, a) {
       if (!(10 <= a.length && a.length <= 32))
         throw new d("Bad hmac size " + a.length);
       var i = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [t, n]);
@@ -216,10 +219,10 @@ __d(
           return e === !0 ? n.subarray(0, -10) : n;
         })
         .then(function (n) {
-          return x(e, t, n);
+          return $(e, t, n);
         });
     }
-    function x(e, t, n) {
+    function $(e, t, n) {
       var r = n.subarray(-C);
       return o("WACryptoAesCbc")
         .aesCbcEncrypt(e, m, r)
@@ -239,12 +242,12 @@ __d(
           return { plaintext: e, nextIv: r };
         });
     }
-    function $(e, t, n, r, o, a) {
-      return P.apply(this, arguments);
+    function P(e, t, n, r, o, a) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i, l, u) {
             l > u.scanLengths.length &&
               c.ERROR(
@@ -274,7 +277,7 @@ __d(
               var C = u.alignedScanLengths[y],
                 b = f + C,
                 v = a.subarray(f, b),
-                S = yield D(t, g, v, i, p[y]),
+                S = yield x(t, g, v, i, p[y]),
                 R = S.nextIv,
                 L = S.plaintext;
               (m.write(L), (f += C), (g = R), (h += u.scanLengths[y]));
@@ -287,10 +290,10 @@ __d(
             };
           },
         )),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t) {
+    function M(e, t) {
       if (e.length !== t.length) return !1;
       for (var n = 1, r = e.length, o = 0; o < r; o++)
         n &= e[o] === t[o] ? 1 : 0;
@@ -305,11 +308,12 @@ __d(
       (l.CBC_BLOCK_SIZE = C),
       (l.IV_LENGTH = b),
       (l.HMAC_LENGTH = v),
-      (l.encryptAndHmac = R),
-      (l.hmacCiphertext = E),
-      (l.hmacAndDecrypt = I),
-      (l.hmacAndDecryptPartial = D),
-      (l.decryptPartialChunks = $));
+      (l.isFullCiphertext = S),
+      (l.encryptAndHmac = L),
+      (l.hmacCiphertext = k),
+      (l.hmacAndDecrypt = T),
+      (l.hmacAndDecryptPartial = x),
+      (l.decryptPartialChunks = P));
   },
   98,
 );

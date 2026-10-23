@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugL10N",
-  ["WAWebL10N", "WAWebL10NConstants", "asyncToGeneratorRuntime"],
+  ["WAWebL10N", "WAWebL10NConstants", "asyncToGeneratorRuntime", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       return s.apply(this, arguments);
@@ -10,6 +10,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           (t === void 0 && (t = o("WAWebL10NConstants").L10N_PRIORITY.DEBUG),
             n === void 0 && (n = !0),
+            r("vulture")("XASQJJy3DsGH-vfZJmnU1Eec6GM="),
             yield r("WAWebL10N").setLocale(e, t, n));
         })),
         s.apply(this, arguments)
@@ -18,6 +19,7 @@ __d(
     e.doc =
       "Sets the locale for debug, saved, or phone priority. Defaults to debug priority.";
     function u(e) {
+      r("vulture")("zSNL1g5nFyu60GDNj4P2onXyK2A=");
       var t =
           r("WAWebL10N").getLocale() === "fb_AR" ||
           r("WAWebL10N").getLocale() === "ar-XB",

@@ -1,46 +1,47 @@
 __d(
   "relayFBGetDataID",
-  ["relay-runtime"],
-  function (t, n, r, o, a, i) {
+  ["relay-runtime", "relayFBGetDataIDGating"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("relay-runtime").VIEWER_ID,
-      l = n("relay-runtime").VIEWER_TYPE;
-    function s(t, n) {
-      if (n === l) return e;
+    function e(e, t) {
+      if (t === o("relay-runtime").VIEWER_TYPE)
+        return o("relay-runtime").VIEWER_ID;
       if (
-        n === "MessagingParticipant" ||
-        n === "BlockedUser" ||
-        n === "SRTUser" ||
-        n === "MessengerViewerFBGroupChat" ||
-        n === "MessengerGlobalFBGroupChat" ||
-        n === "XOCFBHorizonEventView" ||
-        n === "XOCHorizonWorldsFBSocialVRCustomWorldView" ||
-        n === "XFBHorizonWorldDestination" ||
-        n === "XOCFBSocialVRCustomWorldAccountLinkView" ||
-        n === "XOCHorizonWorldsFBTogetherAppUserView" ||
-        n === "XFBServiceLabExperimentV2" ||
-        n === "XFBServiceLabTrialV2" ||
-        n === "ShortFormVideoSoundtrackInfo" ||
-        n === "XFBFBShortsLocationAttribution" ||
-        n === "XFBVideoDeliveryResponse" ||
-        n === "GemstoneViewerWrapper" ||
-        n === "XFBIBAdObjectSpec" ||
-        n === "DiscoverUnitFeedItem" ||
-        n === "MeasurementSevReview" ||
-        n === "MeasurementSevReviewEvaluation" ||
-        n === "XFBWearablesOrchestratorPod" ||
-        n === "XFBWearablesOrchestratorDeliverable" ||
-        n === "ArtemisTaskAnalysisFeedback"
+        t === "MessagingParticipant" ||
+        t === "BlockedUser" ||
+        t === "SRTUser" ||
+        t === "MessengerViewerFBGroupChat" ||
+        t === "MessengerGlobalFBGroupChat" ||
+        t === "XOCFBHorizonEventView" ||
+        t === "XOCHorizonWorldsFBSocialVRCustomWorldView" ||
+        t === "XFBHorizonWorldDestination" ||
+        t === "XOCFBSocialVRCustomWorldAccountLinkView" ||
+        t === "XOCHorizonWorldsFBTogetherAppUserView" ||
+        t === "XFBServiceLabExperimentV2" ||
+        t === "XFBServiceLabTrialV2" ||
+        t === "ShortFormVideoSoundtrackInfo" ||
+        t === "XFBFBShortsLocationAttribution" ||
+        t === "XFBVideoDeliveryResponse" ||
+        t === "GemstoneViewerWrapper" ||
+        t === "XFBIBAdObjectSpec" ||
+        t === "DiscoverUnitFeedItem" ||
+        t === "MeasurementSevReview" ||
+        t === "MeasurementSevReviewEvaluation" ||
+        t === "XFBWearablesOrchestratorPod" ||
+        t === "XFBWearablesOrchestratorDeliverable" ||
+        t === "ArtemisTaskAnalysisFeedback" ||
+        (t === "XFBPAYIGUserExportForCAM" &&
+          o("relayFBGetDataIDGating").shouldNamespaceIGUserExportForCAM())
       )
-        return t.id == null ? null : n + ":" + String(t.id);
-      if (n === "XFBABTestLaunchProposalReviewChecklistGuidelineResult") {
-        var r = t.entry_key,
-          o = r == null ? t.id : r;
-        return o == null ? null : n + ":" + String(o);
+        return e.id == null ? null : t + ":" + String(e.id);
+      if (t === "XFBABTestLaunchProposalReviewChecklistGuidelineResult") {
+        var n = e.entry_key,
+          r = n == null ? e.id : n;
+        return r == null ? null : t + ":" + String(r);
       }
-      return t.id;
+      return e.id;
     }
-    a.exports = s;
+    l.default = e;
   },
-  null,
+  98,
 );

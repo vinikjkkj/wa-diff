@@ -913,15 +913,17 @@ __d(
                   ])),
               ),
               globalThis.navigator.locks != null &&
-                globalThis.navigator.locks.request(
-                  C + "-kill-switch-lock",
-                  { signal: w.signal },
-                  function () {
-                    (o("WAWebCommsWorkerReady").setCommsWorkerReady(!1),
-                      D(T, "backend worker stopped"),
-                      i < $ && N({ retryStart: i + 1 }));
-                  },
-                ));
+                globalThis.navigator.locks
+                  .request(
+                    C + "-kill-switch-lock",
+                    { signal: w.signal },
+                    function () {
+                      (o("WAWebCommsWorkerReady").setCommsWorkerReady(!1),
+                        D(T, "backend worker stopped"),
+                        i < $ && N({ retryStart: i + 1 }));
+                    },
+                  )
+                  .catch(r("WAWebNoop")));
           } catch (t) {
             var M;
             globalThis.navigator.locks != null &&

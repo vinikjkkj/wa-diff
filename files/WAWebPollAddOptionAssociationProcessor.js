@@ -1,6 +1,7 @@
 __d(
   "WAWebPollAddOptionAssociationProcessor",
   [
+    "WAWebAssociationProcessorConstants",
     "WAWebCreateAssociationProcessor",
     "WAWebMessageAssociation.flow",
     "WAWebViewMode.flow",
@@ -13,6 +14,8 @@ __d(
           .POLL_ADD_OPTION,
         viewMode: o("WAWebViewMode.flow").ViewModeType.POLL_ADD_OPTION,
         groupHistoryViewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+        childRevokePolicy: o("WAWebAssociationProcessorConstants")
+          .ChildRevokePolicy.DeleteChild,
       }),
       s = e;
     l.default = s;

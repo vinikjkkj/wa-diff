@@ -10,51 +10,57 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n,
+    var e = ["screenedElsewhere"];
+    function s(t) {
+      var n,
         a,
-        i = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(e);
-      if (i == null) throw r("err")("Invalid call ending data");
-      return babelHelpers.extends({}, i, {
-        peerJid: o("WAWebWidFactory").createWid(i.peerJid),
-        fromMe: i.fromMe,
-        groupJid: i.groupJid
-          ? o("WAWebWidFactory").createWid(i.groupJid)
+        i,
+        l = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+      if (l == null) throw r("err")("Invalid call ending data");
+      var s = l.screenedElsewhere,
+        u = babelHelpers.objectWithoutPropertiesLoose(l, e);
+      return babelHelpers.extends({}, u, {
+        peerJid: o("WAWebWidFactory").createWid(l.peerJid),
+        fromMe: l.fromMe,
+        groupJid: l.groupJid
+          ? o("WAWebWidFactory").createWid(l.groupJid)
           : null,
-        callId: i.callId,
-        callLinkToken: i.callLinkToken,
-        isCallLink: i.isCallLink,
-        scheduledId: i.scheduledId,
-        startTime: o("WATimeUtils").castToUnixTime(i.startTime),
+        callId: l.callId,
+        callLinkToken: l.callLinkToken,
+        isCallLink: l.isCallLink,
+        scheduledId: l.scheduledId,
+        startTime: o("WATimeUtils").castToUnixTime(l.startTime),
         connectTime:
-          i.connectTime != null ? Math.floor(i.connectTime / 1e3) : null,
-        endTime: o("WATimeUtils").castToUnixTime(i.endTime),
-        result: o("WAWebVoipWaCallEnums").convertCallResultToCallLogResult(
-          i.result,
-        ),
-        videoCall: i.videoCall,
-        participantEntries: i.participantEntries.map(function (e) {
+          l.connectTime != null ? Math.floor(l.connectTime / 1e3) : null,
+        endTime: o("WATimeUtils").castToUnixTime(l.endTime),
+        result:
+          s === !0
+            ? o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
+            : o("WAWebVoipWaCallEnums").convertCallResultToCallLogResult(
+                l.result,
+              ),
+        videoCall: l.videoCall,
+        participantEntries: l.participantEntries.map(function (e) {
           return {
             jid: o("WAWebWidFactory").createWid(e.jid),
             result: e.result,
           };
         }),
-        callCreatorJid: r("isStringNullOrEmpty")(i.callCreatorJid)
+        callCreatorJid: r("isStringNullOrEmpty")(l.callCreatorJid)
           ? null
-          : o("WAWebWidFactory").createWid(i.callCreatorJid),
-        initialPeerJid: r("isStringNullOrEmpty")(i.initialPeerJid)
+          : o("WAWebWidFactory").createWid(l.callCreatorJid),
+        initialPeerJid: r("isStringNullOrEmpty")(l.initialPeerJid)
           ? null
-          : o("WAWebWidFactory").createWid(i.initialPeerJid),
-        timeSeriesPath: i.timeSeriesPath,
+          : o("WAWebWidFactory").createWid(l.initialPeerJid),
+        timeSeriesPath: l.timeSeriesPath,
         userRatingInterval: -1,
         terminatedByDeviceSwitch:
-          (t = i.terminatedByDeviceSwitch) != null ? t : !1,
-        bytesSent: (n = i.bytesSent) != null ? n : void 0,
-        bytesReceived: (a = i.bytesReceived) != null ? a : void 0,
+          (n = l.terminatedByDeviceSwitch) != null ? n : !1,
+        bytesSent: (a = l.bytesSent) != null ? a : void 0,
+        bytesReceived: (i = l.bytesReceived) != null ? i : void 0,
       });
     }
-    l.parseWindowsCallEndingData = e;
+    l.parseWindowsCallEndingData = s;
   },
   98,
 );

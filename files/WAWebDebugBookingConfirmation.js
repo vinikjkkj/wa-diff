@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -33,8 +34,9 @@ __d(
             c = t.location,
             d = t.phoneNumber,
             m = t.startDatetime,
-            p = t.title,
-            _ = window.chat;
+            p = t.title;
+          r("vulture")("O4-9v577Jy6HXkItwSKDcwDZG78=");
+          var _ = window.chat;
           if (!_) {
             o("WALogger").WARN(
               e ||
@@ -124,6 +126,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("VKmUuoRI5poKqpfPkxTat2I_h7Y=");
           var e = new Date(Date.now() + c),
             t = e.toISOString(),
             n = new Date(e.getTime() + d).toISOString();
@@ -151,6 +154,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("XBy6KiOaIEdnw0yGU_PUgkou0m8=");
           var e = new Date(Date.now() + c),
             t = e.toISOString(),
             n = new Date(e.getTime() + m).toISOString();
@@ -178,6 +182,7 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("4-Ap7WKWLFnhp37HUslB_pLW-6c=");
           var e = new Date(Date.now() + c),
             t = e.toISOString();
           yield p({

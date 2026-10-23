@@ -8,6 +8,7 @@ __d(
         "MuteChatForOneWeek",
         "MuteChat",
         "DisableNotifications",
+        "OpenNotificationSettings",
       ]),
       l = e;
     i.default = l;

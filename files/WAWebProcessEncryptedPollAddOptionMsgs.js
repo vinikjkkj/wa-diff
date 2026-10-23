@@ -145,13 +145,11 @@ __d(
                 .INVALID_MESSAGE,
             );
           if (t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
-            var c,
-              d,
-              m = r("WAWebWid").equals.apply(
-                r("WAWebWid"),
-                o("WAWebLidMigrationUtils").toCommonAddressingMode(s, u),
-              );
-            if (!m && t.pollAllowAddOption !== !0)
+            var c = r("WAWebWid").equals.apply(
+              r("WAWebWid"),
+              o("WAWebLidMigrationUtils").toCommonAddressingMode(s, u),
+            );
+            if (!c && t.pollAllowAddOption !== !0)
               throw new (o(
                 "WAWebPollsValidationError",
               ).PollAddOptionValidationError)(
@@ -160,11 +158,9 @@ __d(
                 o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                   .INVALID_MESSAGE,
               );
-            var p =
-              (c = (d = t.pollOptions) == null ? void 0 : d.length) != null
-                ? c
-                : 0;
-            if (p >= o("WAWebPollsGatingUtils").getMaxPollOptionCount())
+            if (
+              p(t).length >= o("WAWebPollsGatingUtils").getMaxPollOptionCount()
+            )
               throw new (o(
                 "WAWebPollsValidationError",
               ).PollAddOptionValidationError)(
@@ -188,7 +184,7 @@ __d(
               },
             );
           }
-          var _ = yield o(
+          var d = yield o(
               "WAWebPollAddonProcessingUtils",
             ).decryptPollAddonPayload(
               o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
@@ -201,29 +197,26 @@ __d(
                 stanzaId: t.id.id,
               },
             ),
-            f = _.arrayBuffer,
-            g = _.protobuf,
-            h = o(
+            m = d.arrayBuffer,
+            _ = d.protobuf,
+            f = o(
               "WAWebPollAddOptionDecryptedMsgDataConversion",
             ).protobufToPollAddOptionDecryptedMsgData(
               (n = o(
                 "WAWebVerifyProtobufMsgObjectKeys",
-              ).getUnwrappedProtobufMessage(g)) != null
+              ).getUnwrappedProtobufMessage(_)) != null
                 ? n
-                : g,
+                : _,
               e,
               t,
             );
-          if (
-            t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
-            t.pollOptions
-          ) {
-            var y = new Set(
-              t.pollOptions.map(function (e) {
+          if (t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
+            var g = new Set(
+              p(t).map(function (e) {
                 return e.name;
               }),
             );
-            if (y.has(h.pollAddedOption.name))
+            if (g.has(f.pollAddedOption.name))
               throw new (o(
                 "WAWebPollsValidationError",
               ).PollAddOptionValidationError)(
@@ -238,17 +231,23 @@ __d(
               "WAWebHandleMsgValidate",
             ).validateAndProcessReportingTokenInfo({
               renderableMsgs: [
-                babelHelpers.extends({}, h, {
-                  plainProtobufBytes: new Uint8Array(f),
+                babelHelpers.extends({}, f, {
+                  plainProtobufBytes: new Uint8Array(m),
                 }),
               ],
               forceDualEncryptedValidation: !0,
             }),
-            { parentMsg: t, decryptedAddOption: h }
+            { parentMsg: t, decryptedAddOption: f }
           );
         })),
         m.apply(this, arguments)
       );
+    }
+    function p(e) {
+      var t;
+      return ((t = e.pollOptions) != null ? t : []).filter(function (e) {
+        return e.addOptionMsgKey == null;
+      });
     }
     l.processEncryptedPollAddOptionMsgs = u;
   },

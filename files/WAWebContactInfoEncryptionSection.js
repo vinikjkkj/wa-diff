@@ -71,70 +71,61 @@ __d(
       var y = h,
         C;
       if (a[3] !== y || a[4] !== i || a[5] !== _ || a[6] !== p) {
-        var b = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(p),
-          v =
-            y === o("WAWebAeaAccountState").AeaAccountState.E2EE &&
-            (_ === !0 ||
-              b === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB) &&
-            o(
-              "WAWebUserPrefsMultiDevice",
-            ).getIsHostedMeAccountFromLocalStorage() !== !0;
-        ((C = v
-          ? null
-          : d(
-              y === o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
-                b === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE
-                ? o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB
-                : b,
-              i,
-              _ === !0 ||
-                y === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE,
-            )),
+        var b = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(p);
+        ((C = d(
+          y === o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
+            b === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE
+            ? o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB
+            : b,
+          i,
+          _ === !0 ||
+            y === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE,
+        )),
           (a[3] = y),
           (a[4] = i),
           (a[5] = _),
           (a[6] = p),
           (a[7] = C));
       } else C = a[7];
-      var S = C;
-      if (S) {
-        var R;
+      var v = C;
+      if (v) {
+        var S;
         return (
-          a[8] !== S.header || a[9] !== S.onClick || a[10] !== S.text
-            ? ((R = u.jsx(r("WAWebSecurityDrawerSection.react"), {
-                header: S.header,
-                text: S.text,
-                onClick: S.onClick,
+          a[8] !== v.header || a[9] !== v.onClick || a[10] !== v.text
+            ? ((S = u.jsx(r("WAWebSecurityDrawerSection.react"), {
+                header: v.header,
+                text: v.text,
+                onClick: v.onClick,
               })),
-              (a[8] = S.header),
-              (a[9] = S.onClick),
-              (a[10] = S.text),
-              (a[11] = R))
-            : (R = a[11]),
-          R
+              (a[8] = v.header),
+              (a[9] = v.onClick),
+              (a[10] = v.text),
+              (a[11] = S))
+            : (S = a[11]),
+          S
         );
       }
-      var L, E;
+      var R, L;
       a[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = s._(
+        ? ((R = s._(
             /*BTDS*/ "Messages are end-to-end encrypted. Click to verify.",
           )),
-          (E = { type: "encryption" }),
-          (a[12] = L),
-          (a[13] = E))
-        : ((L = a[12]), (E = a[13]));
-      var k;
+          (L = { type: "encryption" }),
+          (a[12] = R),
+          (a[13] = L))
+        : ((R = a[12]), (L = a[13]));
+      var E;
       return (
         a[14] !== l
-          ? ((k = u.jsx(r("WAWebSecurityDrawerSection.react"), {
+          ? ((E = u.jsx(r("WAWebSecurityDrawerSection.react"), {
               onClick: l,
-              text: L,
-              header: E,
+              text: R,
+              header: L,
             })),
             (a[14] = l),
-            (a[15] = k))
-          : (k = a[15]),
-        k
+            (a[15] = E))
+          : (E = a[15]),
+        E
       );
     }
     function d(e, t, n) {

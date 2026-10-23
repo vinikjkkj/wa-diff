@@ -73,7 +73,7 @@ __d(
                   ])),
               )
               .sendLogs("mex-text-status-side-sub-hash-not-found", {
-                sampling: 0.1,
+                sampling: 0.01,
               });
             return;
           }

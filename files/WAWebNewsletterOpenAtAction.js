@@ -55,7 +55,7 @@ __d(
                     s.jsx(
                       o("WAWebNewsletterErrorPopups.react")
                         .NewsletterMessageNotFoundPopup,
-                      { chat: u },
+                      { chatId: u.id },
                     ),
                   )
                 : i(),

@@ -32,13 +32,18 @@ __d(
           return Math.random();
         };
       return babelHelpers.extends({}, r("VideoPlayerNextgendashMSEMediaSink"), {
-        clock: function () {
-          return o(
-            "VideoPlayerNextgendashStateMachine",
-          ).skipAutoDisposeInsideThisObject({
+        clock: function (t) {
+          var e = {
             perfMs: (u || (u = r("performanceNow")))(),
             unixMs: Date.now(),
-          });
+          };
+          return (t == null
+            ? void 0
+            : t.config.reduceStateMachineEventOverhead) === !0
+            ? e
+            : o(
+                "VideoPlayerNextgendashStateMachine",
+              ).skipAutoDisposeInsideThisObject(e);
         },
         clockPerfOriginMs: t.clockPerfOriginMs,
         fetch:

@@ -20,24 +20,32 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.id.fromMe,
-            a = m(t);
-          if (a == null) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[music-playback-logger] missing-author-lid",
-                  ])),
-              )
-              .sendLogs("music-playback-missing-author-lid");
-            return;
+          var n,
+            a = (n = t.musicData) == null ? void 0 : n.musicContentMediaId;
+          if (a != null) {
+            var i = t.id.fromMe,
+              l = m(t);
+            if (l == null) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[music-playback-logger] missing-author-lid",
+                    ])),
+                )
+                .sendLogs("music-playback-missing-author-lid");
+              return;
+            }
+            var s = yield _(l, a);
+            s != null &&
+              r("WamMusicPlaybackFalcoEvent").log(function () {
+                return {
+                  content_id_hash: s,
+                  music_product: u,
+                  is_self_play: i,
+                };
+              });
           }
-          var i = yield _(a, t.id.id);
-          i != null &&
-            r("WamMusicPlaybackFalcoEvent").log(function () {
-              return { content_id_hash: i, music_product: u, is_self_play: n };
-            });
         })),
         d.apply(this, arguments)
       );

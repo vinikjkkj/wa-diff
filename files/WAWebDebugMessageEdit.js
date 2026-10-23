@@ -27,6 +27,7 @@ __d(
     "err",
     "nullthrows",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,19 +35,22 @@ __d(
       u = s || (s = o("react")),
       c = [10, 20, 15, 5];
     function d(e) {
-      o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: e }),
-      );
+      (r("vulture")("m34PCDJbPPWmD8QE-PChbfISZ-I="),
+        o("WAWebToastManager").ToastManager.open(
+          u.jsx(o("WAWebToast.react").Toast, { msg: e }),
+        ));
     }
     function m() {
+      r("vulture")("9aJQ6-stn-CV9Q7nnSJa6CRtpFw=");
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (!e) throw r("err")("You must open a chat first.");
       return e;
     }
     function p() {
-      o("WAWebUserPrefsDebugMsgEdit").setMessageEditRestriction(
-        !o("WAWebUserPrefsDebugMsgEdit").messageEditRestrictionEnabled(),
-      );
+      (r("vulture")("cmWwp_civzPZF2xcJPaQ5pJlYCE="),
+        o("WAWebUserPrefsDebugMsgEdit").setMessageEditRestriction(
+          !o("WAWebUserPrefsDebugMsgEdit").messageEditRestrictionEnabled(),
+        ));
     }
     ((p.doc =
       "Allowed editing messages sent by others or exceed 15m editing window."),
@@ -57,6 +61,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("dEL7mQUzyIZPx5innMnbvgp0mBo=");
           var e =
               "On the receiver client, if you see this message, it has *successfully* processed the orphan message edit.",
             t =
@@ -88,6 +93,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("zgifIQf2OSVM74O303AggKmT0mg=");
           var e =
               "If you see this message, it has *successfully* processed the out of order edits",
             t =
@@ -138,9 +144,9 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t,
-            n = m();
+          var e, t;
+          r("vulture")("Srp4BIreuX66U0LJrJibVlaHKzo=");
+          var n = m();
           d("Sending test messages.");
           var a = (t = r("nullthrows"))(
               yield (e = o("WAWebSendTextMsgChatAction")).createTextMsgData(
@@ -179,6 +185,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("GKvzAUmfq0_hK3MXL1FLWDbjrGE=");
           var e = m(),
             t = r("nullthrows")(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(
@@ -213,7 +220,10 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.type !== o("WAWebMsgType").MSG_TYPE.CHAT) {
+          if (
+            (r("vulture")("Mz5E51FgLyfzUM4A0UDEFG2nwgc="),
+            e.type !== o("WAWebMsgType").MSG_TYPE.CHAT)
+          ) {
             d("Message must be a text message");
             return;
           }
@@ -239,7 +249,8 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          n === void 0 && (n = "orphan edit test");
+          (n === void 0 && (n = "orphan edit test"),
+            r("vulture")("-RVjNOmfzTW2ZvNaxwjcUJVSPNY="));
           var a = o("WAWebDebugUtils").getSelectedChat(),
             i = a.id,
             l = Array.from(

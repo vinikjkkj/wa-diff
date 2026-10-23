@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugOutContacts",
-  ["WAWebOutContactCollection", "WAWebOutContactModel"],
+  ["WAWebOutContactCollection", "WAWebOutContactModel", "vulture"],
   function (t, n, r, o, a, i, l) {
     var e = [
         "Alice",
@@ -67,7 +67,7 @@ __d(
         "Adams",
       ];
     function u(t) {
-      t === void 0 && (t = 30);
+      (t === void 0 && (t = 30), r("vulture")("UmCB9zW7q6xFSLpzz6_rqwIr3T0="));
       for (var n = [], a = 0; a < t; a++) {
         var i = e[a % e.length],
           l = s[a % s.length],

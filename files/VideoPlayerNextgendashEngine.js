@@ -211,6 +211,7 @@ __d(
         enableQuotaExceededRecovery: r("gkx")("17813"),
         enableQuotaExceededRecoveryForCompositeErrors: r("gkx")("15535"),
         enableSkipRecoveryOnDeliberateDetach: r("gkx")("26845"),
+        enableSmartPlayerStaticCapabilityFiltering: r("gkx")("2081"),
         enableSplitAbrEvalSwitchIntervals: r("gkx")("18082"),
         enableStableAbrEvaluationCooldown: r("gkx")("12312"),
         enableStreamReaderFailureRecovery: r("gkx")("12428"),
@@ -288,12 +289,14 @@ __d(
           ? 1080
           : e.prefetchResolutionThreshold,
         qplEnabled: r("gkx")("19263"),
+        reduceStateMachineEventOverhead: r("gkx")("2977"),
         reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("18169"),
         resetTargetRepresentationWhenItGetsBlocked: r("gkx")("18461"),
         retryShorterForUnrecoverableHTTP: r("gkx")("18768"),
         segmentStallRecoveryEnabled: r("gkx")("19141"),
         sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime:
           r("gkx")("19380"),
+        skipEndOfStreamWhileBlockedTargetAwaitsReselection: r("gkx")("27821"),
         skipPlayheadRestoreOnMediaElementChange: r("gkx")("17440"),
         trackScrollPosition: r("gkx")("20629"),
         useExponentialBackoffRetryStrategy: r("gkx")("19401"),

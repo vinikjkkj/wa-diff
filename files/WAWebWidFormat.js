@@ -37,15 +37,15 @@ __d(
     function p(e) {
       return e instanceof r("WAWebWid")
         ? e.isLid()
-          ? r("gkx")("26258")
-            ? m()
-            : e.toString()
+          ? r("gkx")("9092")
+            ? e.toString()
+            : m()
           : u(e.user)
         : o("WATypeUtils").isString(e)
           ? e.endsWith(o("WAJids").LID_DOMAIN)
-            ? r("gkx")("26258")
-              ? m()
-              : e
+            ? r("gkx")("9092")
+              ? e
+              : m()
             : u(e.split("@")[0])
           : "";
     }

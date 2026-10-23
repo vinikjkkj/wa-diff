@@ -136,10 +136,10 @@ __d(
               this
             );
           }),
-          (t.withBusinessProtocol = function () {
+          (t.withBusinessProtocol = function (t) {
             return (
               this.protocols.push(
-                new (o("WAWebUsyncBusiness").USyncBusinessProtocol)(),
+                new (o("WAWebUsyncBusiness").USyncBusinessProtocol)(t),
               ),
               this
             );

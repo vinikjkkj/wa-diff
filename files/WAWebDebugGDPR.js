@@ -8,6 +8,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "useWAWebGdprStatus",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -16,6 +17,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("s1jGzlcj-SCWUSo4iVDbrLlfgFI=");
           var t = o("WAWebGdprConstants").ReportType.cast(e);
           if (t == null) throw r("err")("reportType string must be passed");
           var n = o("WAWebGdprHookUtils").getGdprIq(

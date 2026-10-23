@@ -22,6 +22,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -31,7 +32,8 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = !0);
+          (e === void 0 && (e = !0),
+            r("vulture")("uPYjjTvF4zMCgjs0_e_woqAXZNw="));
           var t = yield o("WAWebAbPropsSyncJob").syncABProps({
             shouldSendHash: e,
           });
@@ -45,34 +47,41 @@ __d(
     }
     p.doc = "Sync AB Props";
     function f(e) {
-      return o("WAWebABProps").getABPropConfigValue(e);
+      return (
+        r("vulture")("H4WjeUkV5blMPZGwmwMNk8rQ_BE="),
+        o("WAWebABProps").getABPropConfigValue(e)
+      );
     }
     f.doc = "get an ABProp config value from cache";
     function g(e, t) {
+      r("vulture")("hfKLkFw0neIDid2f0bskAgADjPQ=");
       var n = o("WAWebWidFactory").createWid(e),
-        r = o("WAWebWidToJid").widToGroupJid(n);
-      return o("WAWebGroupABProps").getGroupABPropConfigValue(r, t);
+        a = o("WAWebWidToJid").widToGroupJid(n);
+      return o("WAWebGroupABProps").getGroupABPropConfigValue(a, t);
     }
     g.doc =
       'get a group ABProp config value from cache for a given group JID (e.g., "120363023305337144@g.us")';
     function h(t) {
-      return o("WAWebApiAbPropConfig")
-        .getConfigValue(t)
-        .then(function (n) {
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  'ABProp "',
-                  '" config value: [',
-                  "]",
-                ])),
-              t,
-              String(n),
-            ),
-            n
-          );
-        });
+      return (
+        r("vulture")("wTxJHu1SmfIjj6AgOxfvxNrmDZU="),
+        o("WAWebApiAbPropConfig")
+          .getConfigValue(t)
+          .then(function (n) {
+            return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    'ABProp "',
+                    '" config value: [',
+                    "]",
+                  ])),
+                t,
+                String(n),
+              ),
+              n
+            );
+          })
+      );
     }
     h.doc = "get an ABProp config value";
     function y(e, t) {
@@ -81,14 +90,15 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("GM-y2F7xPHXtpSxilJu4vojWecw=");
           var n = o("WAWebABPropsConfigs").ABPropConfigs[e][0],
-            r = yield h(e),
-            a = { configCode: String(n), configValue: String(r) };
-          t != null && (a.overriddenConfigValue = String(t));
-          var i = t != null ? t : r;
+            a = yield h(e),
+            i = { configCode: String(n), configValue: String(a) };
+          t != null && (i.overriddenConfigValue = String(t));
+          var l = t != null ? t : a;
           return o("WAWebSchemaAbPropConfig")
             .getAbpropConfigsTable()
-            .createOrReplace(a)
+            .createOrReplace(i)
             .then(function () {
               o("WALogger").LOG(
                 s ||
@@ -100,7 +110,7 @@ __d(
                   ])),
                 e,
                 String(n),
-                String(i),
+                String(l),
               );
               var r = {
                 service_improvement_opt_out_flag: o(
@@ -146,7 +156,11 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (yield y(e, t), t);
+          return (
+            r("vulture")("jwWLncNghqUG2htVLB_GdnB3uPk="),
+            yield y(e, t),
+            t
+          );
         })),
         v.apply(this, arguments)
       );
@@ -158,35 +172,46 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield y(e, void 0);
+          (r("vulture")("wsgVvISsbpTzItVjkqgbMrqcxFk="), yield y(e, void 0));
         })),
         R.apply(this, arguments)
       );
     }
     S.doc = "reset an ABProp to its original value";
     function L() {
-      return o("WAWebABPropsCache").getAllABPropConfigs();
+      return (
+        r("vulture")("qeOCw-VGLLa3GCtM6Yf3fn11rMY="),
+        o("WAWebABPropsCache").getAllABPropConfigs()
+      );
     }
     L.doc = "list all ABProps";
     function E() {
-      return o("WAWebApiAbPropConfig").getABPropConfigs();
+      return (
+        r("vulture")("gLSUDnKVKLhcWtm5tiQ3tgyECV4="),
+        o("WAWebApiAbPropConfig").getABPropConfigs()
+      );
     }
     E.doc = "list all ABProps";
     function k(e) {
       return (
         e === void 0 && (e = !0),
+        r("vulture")("ul4kuxGaqR0uJ3bV69nQatjY6NU="),
         o("WAWebHybridABProps").getAllHybridAbProps(e)
       );
     }
     k.doc = "list all hybrid ABProps";
     function I() {
-      return o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(
-        o("WAWebABPropsGlobals").exposureKeys,
+      return (
+        r("vulture")("kLg3UojybI9WF0RqkAJnuegY2X4="),
+        o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(
+          o("WAWebABPropsGlobals").exposureKeys,
+        )
       );
     }
     I.doc = "get global expo key";
     function T(e) {
-      (o("WAWebABPropsGlobals").exposureKeys.clear(),
+      (r("vulture")("e5FmhJSpudJN50zGiosICrPv2dg="),
+        o("WAWebABPropsGlobals").exposureKeys.clear(),
         e.split(",").forEach(function (e) {
           return o("WAWebABPropsGlobals").exposureKeys.add(e);
         }),
@@ -199,37 +224,36 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a,
-            i,
-            l = o("WAWebWidFactory").createWid(e),
-            s = o("WAWebWidToJid").widToGroupJid(l),
-            c = o("WAWebGroupABPropsConfigs").ABPropConfigs[t][0],
-            d = yield o("WAWebSchemaGroupAbPropConfig")
+          var a, i, l;
+          r("vulture")("NCo7ldpW2-M9PrS19KwxxMGWNhM=");
+          var s = o("WAWebWidFactory").createWid(e),
+            c = o("WAWebWidToJid").widToGroupJid(s),
+            d = o("WAWebGroupABPropsConfigs").ABPropConfigs[t][0],
+            m = yield o("WAWebSchemaGroupAbPropConfig")
               .getGroupAbpropConfigsTable()
-              .equals(["groupJid", "configCode"], [s, String(c)]),
-            m = d[0],
-            p = {
-              groupJid: s,
-              configCode: String(c),
+              .equals(["groupJid", "configCode"], [c, String(d)]),
+            p = m[0],
+            _ = {
+              groupJid: c,
+              configCode: String(d),
               configValue:
-                (r = m == null ? void 0 : m.configValue) != null ? r : null,
+                (a = p == null ? void 0 : p.configValue) != null ? a : null,
               configExpoKey:
-                (a = m == null ? void 0 : m.configExpoKey) != null ? a : null,
+                (i = p == null ? void 0 : p.configExpoKey) != null ? i : null,
               hasAccessed:
-                (i = m == null ? void 0 : m.hasAccessed) != null ? i : !1,
+                (l = p == null ? void 0 : p.hasAccessed) != null ? l : !1,
               overriddenConfigValue: String(n),
             };
           yield o("WAWebSchemaGroupAbPropConfig")
             .getGroupAbpropConfigsTable()
-            .createOrReplace(p);
-          var _ = yield o("WAWebSchemaGroupAbPropConfig")
+            .createOrReplace(_);
+          var f = yield o("WAWebSchemaGroupAbPropConfig")
             .getGroupAbpropConfigsTable()
-            .equals(["groupJid"], [s]);
+            .equals(["groupJid"], [c]);
           return (
             o(
               "WAWebGroupABPropsUpdateFromStorage",
-            ).updateSingleGroupABPropsCache(s, _),
+            ).updateSingleGroupABPropsCache(c, f),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -256,31 +280,32 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("BrbxOdU40vcVY5ADvIiLh9pCH9U=");
           var n = o("WAWebWidFactory").createWid(e),
-            r = o("WAWebWidToJid").widToGroupJid(n),
-            a = o("WAWebGroupABPropsConfigs").ABPropConfigs[t][0],
-            i = yield o("WAWebSchemaGroupAbPropConfig")
+            a = o("WAWebWidToJid").widToGroupJid(n),
+            i = o("WAWebGroupABPropsConfigs").ABPropConfigs[t][0],
+            l = yield o("WAWebSchemaGroupAbPropConfig")
               .getGroupAbpropConfigsTable()
-              .equals(["groupJid", "configCode"], [r, String(a)]),
-            l = i[0];
-          if (l != null) {
-            var s = {
-              groupJid: r,
-              configCode: String(a),
-              configValue: l.configValue,
-              configExpoKey: l.configExpoKey,
-              hasAccessed: l.hasAccessed,
+              .equals(["groupJid", "configCode"], [a, String(i)]),
+            s = l[0];
+          if (s != null) {
+            var u = {
+              groupJid: a,
+              configCode: String(i),
+              configValue: s.configValue,
+              configExpoKey: s.configExpoKey,
+              hasAccessed: s.hasAccessed,
               overriddenConfigValue: null,
             };
             yield o("WAWebSchemaGroupAbPropConfig")
               .getGroupAbpropConfigsTable()
-              .createOrReplace(s);
-            var u = yield o("WAWebSchemaGroupAbPropConfig")
+              .createOrReplace(u);
+            var d = yield o("WAWebSchemaGroupAbPropConfig")
               .getGroupAbpropConfigsTable()
-              .equals(["groupJid"], [r]);
+              .equals(["groupJid"], [a]);
             o(
               "WAWebGroupABPropsUpdateFromStorage",
-            ).updateSingleGroupABPropsCache(r, u);
+            ).updateSingleGroupABPropsCache(a, d);
           }
           o("WALogger").LOG(
             c ||
@@ -303,6 +328,7 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("BnyoEPwJYeIDuZ2in56Dj4DjRyw=");
           var t = o("WAWebWidFactory").createWid(e),
             n = o("WAWebWidToJid").widToGroupJid(t);
           (o("WALogger").LOG(

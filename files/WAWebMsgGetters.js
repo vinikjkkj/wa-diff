@@ -1725,7 +1725,8 @@ __d(
       Pa = _("isCallLink"),
       Na = _("callLinkToken"),
       Ma = _("selfOtherDeviceConnected"),
-      wa = p(
+      wa = _("screenedElsewhere"),
+      Aa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1741,50 +1742,50 @@ __d(
         },
         [tt, $a, Na],
       ),
-      Aa = p(
+      Fa = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [tt, wa],
+        [tt, Aa],
       ),
-      Fa = _("finalCallOutcome"),
-      Oa = _("groupHistoryBundleMessageKey"),
-      Ba = _("groupHistoryBundleMetadata"),
-      Wa = _("groupHistoryIndividualMessageInfo"),
-      qa = p(
+      Oa = _("finalCallOutcome"),
+      Ba = _("groupHistoryBundleMessageKey"),
+      Wa = _("groupHistoryBundleMetadata"),
+      qa = _("groupHistoryIndividualMessageInfo"),
+      Ua = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [Wa, Oa],
-      ),
-      Ua = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
-        },
-        [Wa],
+        [qa, Ba],
       ),
       Va = p(
         function (e) {
           var t = e[0];
-          return t == null ? void 0 : t.bundleSender;
+          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
         },
-        [Wa],
+        [qa],
       ),
       Ha = p(
+        function (e) {
+          var t = e[0];
+          return t == null ? void 0 : t.bundleSender;
+        },
+        [qa],
+      ),
+      Ga = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t != null && r("WAWebWid").equals(t.remote, n);
         },
-        [qa, P],
+        [Ua, P],
       );
-    function Ga(e) {
+    function za(e) {
       var t =
         v(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(I(e));
@@ -2111,16 +2112,17 @@ __d(
       (l.getIsCallLink = Pa),
       (l.getCallLinkToken = Na),
       (l.getSelfOtherDeviceConnected = Ma),
-      (l.getIsAdHocGroupCall = wa),
-      (l.getIsGroupCall = Aa),
-      (l.getFinalCallOutcome = Fa),
-      (l.getGroupHistoryBundleMetadata = Ba),
-      (l.getGroupHistoryIndividualMessageInfo = Wa),
-      (l.getGroupHistoryBundleMessageKey = qa),
-      (l.getIsEditedAfterReceivedAsHistory = Ua),
-      (l.getGroupHistoryBundleSender = Va),
-      (l.getIsGroupHistoryMessageInOwnChat = Ha),
-      (l.isRealMessage = Ga));
+      (l.getScreenedElsewhere = wa),
+      (l.getIsAdHocGroupCall = Aa),
+      (l.getIsGroupCall = Fa),
+      (l.getFinalCallOutcome = Oa),
+      (l.getGroupHistoryBundleMetadata = Wa),
+      (l.getGroupHistoryIndividualMessageInfo = qa),
+      (l.getGroupHistoryBundleMessageKey = Ua),
+      (l.getIsEditedAfterReceivedAsHistory = Va),
+      (l.getGroupHistoryBundleSender = Ha),
+      (l.getIsGroupHistoryMessageInOwnChat = Ga),
+      (l.isRealMessage = za));
   },
   98,
 );

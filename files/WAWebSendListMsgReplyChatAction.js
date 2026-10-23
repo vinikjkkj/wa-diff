@@ -22,7 +22,7 @@ __d(
             i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
             l = t.title || "",
             s = t.description || "",
-            u = [l, s].join("\n"),
+            u = s !== "" ? l + "\n" + s : l,
             c = babelHelpers.extends(
               {
                 type: "list_response",

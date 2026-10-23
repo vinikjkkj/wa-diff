@@ -323,7 +323,6 @@ __d(
         e.HATCH_ACTION_TYPE.ARTIFACT_SHARE_SHEET_UNPUBLISH,
       artifact_forward_sheet_impression:
         e.HATCH_ACTION_TYPE.ARTIFACT_FORWARD_SHEET_IMPRESSION,
-      artifact_shared: e.HATCH_ACTION_TYPE.ARTIFACT_SHARED,
       artifact_downloaded: e.HATCH_ACTION_TYPE.ARTIFACT_DOWNLOADED,
       artifact_renamed: e.HATCH_ACTION_TYPE.ARTIFACT_RENAMED,
       artifact_pinned: e.HATCH_ACTION_TYPE.ARTIFACT_PINNED,

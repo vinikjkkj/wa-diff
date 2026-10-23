@@ -102,7 +102,7 @@ __d(
       if (n != null && a != null) {
         var i = o(
           "WAWebGroupHistoryGating",
-        ).getGroupHistoryMessagesTimeLimitSecs(n);
+        ).getGroupHistoryMessagesTimeLimitSecs();
         if (a < t - i) return !0;
       }
       return !1;

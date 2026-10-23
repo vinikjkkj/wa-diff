@@ -6,10 +6,12 @@ __d(
     "WAWebBizSendOrderAction",
     "WAWebOrderCollection",
     "WAWebOrderItemModel",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c() {
+      r("vulture")("IXA8Gs2AIGU8WvPHmN8IU9ExpJA=");
       var t = window.chat;
       if (!t) {
         o("WALogger").WARN(
@@ -46,22 +48,24 @@ __d(
             tax: null,
           })
           .then(function () {
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendOrderDetailsMessageAsMerchantMD: done",
-                ])),
-            );
+            (r("vulture")("kF1QxNGqD7kzNTfjn3h5yHZV84g="),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendOrderDetailsMessageAsMerchantMD: done",
+                  ])),
+              ));
           })
           .catch(function (e) {
-            o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendOrderDetailsMessageAsMerchantMD: error ",
-                  "",
-                ])),
-              String(e),
-            );
+            (r("vulture")("9ctHrDig3mbl0N9g3uCRxq9lksg="),
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendOrderDetailsMessageAsMerchantMD: error ",
+                    "",
+                  ])),
+                String(e),
+              ));
           }));
     }
     ((c.doc = "Send order details in chat"), (l.default = c));

@@ -327,7 +327,7 @@ __d(
               .sendDeleteMsgs([].concat(u, c), a, l.id)
               .then(function () {
                 return (
-                  u.forEach(function (e) {
+                  [].concat(u, c).forEach(function (e) {
                     (e.delete(),
                       o("WAWebAllMediaCollection").AllMediaCollection.remove(
                         e,

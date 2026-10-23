@@ -44,7 +44,7 @@ __d(
       I,
       T,
       D,
-      x = { CONNECT_REASON: 1, PROGRESS_HEARTBEAT: 2, DISCONNECT_NOW: 4 },
+      x = { CONNECT_REASON: 1, PROGRESS_HEARTBEAT: 2 },
       $ = 1e3,
       P = (function () {
         function t(t) {

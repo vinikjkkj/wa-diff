@@ -1,6 +1,6 @@
 __d(
   "WAWebExtractMentionFieldsFromScheduledMsg",
-  ["WAWebDecodeJid", "WAWebGetScheduledMsgContextInfo"],
+  ["WAWebDecodeJid", "WAWebGetScheduledMsgContextInfo", "WAWebMentionsCap"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WAWebGetScheduledMsgContextInfo").getScheduledMsgContextInfo(
@@ -13,7 +13,7 @@ __d(
         i = t.nonJidMentions;
       if (Array.isArray(a) && a.length > 0) {
         var l = [];
-        for (var u of a) {
+        for (var u of o("WAWebMentionsCap").capMentions(a, "mentionedJid")) {
           var c = s(u);
           c != null && l.push(c);
         }
@@ -21,7 +21,7 @@ __d(
       }
       if (Array.isArray(r) && r.length > 0) {
         var d = [];
-        for (var m of r) {
+        for (var m of o("WAWebMentionsCap").capMentions(r, "groupMentions")) {
           var p = s(m.groupJid);
           p != null && d.push({ groupJid: p, groupSubject: m.groupSubject });
         }

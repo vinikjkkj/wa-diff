@@ -7,49 +7,58 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["name", "email", "phone"],
-      s = 256,
-      u = /[\u200c\u200d]/g,
-      c =
+      s = ["first_name", "last_name"],
+      u = 256,
+      c = /[\u200c\u200d]/g,
+      d =
         /(?:[\0-\x1F\x7F-\x9F\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F])/;
-    function d(e) {
-      var t = new Set();
-      return e.map(function (e) {
-        var n = o(
-          "WAWebOrgAdminRosterCSVParser",
-        ).getOrgAdminRosterCSVHeaderField(e);
-        return n == null || t.has(n) ? "skip" : (t.add(n), n);
-      });
+    function m(e) {
+      var t = new Set(),
+        n = e.map(function (e) {
+          var n = o(
+            "WAWebOrgAdminRosterCSVParser",
+          ).getOrgAdminRosterCSVHeaderField(e);
+          return n == null || t.has(n) ? "skip" : (t.add(n), n);
+        });
+      return t.has("name")
+        ? n.map(function (e) {
+            return s.includes(e) ? "skip" : e;
+          })
+        : n;
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       return e.map(function (e, r) {
-        return r === t ? n : n !== "skip" && e === n ? "skip" : e;
+        return r === t ? n : n !== "skip" && v(e, n) ? "skip" : e;
       });
     }
-    function p(t) {
+    function _(t) {
+      var n = t.map(function (e) {
+        return s.includes(e) ? "name" : e;
+      });
       return e.filter(function (e) {
-        return !t.includes(e);
+        return !n.includes(e);
       });
     }
-    function _(e) {
+    function f(e) {
       var t = e.columns,
         n = e.fixes,
         r = e.getMemberTag,
         o = e.roster,
         a = e.table,
-        i = E(o),
+        i = I(o),
         l = new Set(),
         s = t.includes("member_tag"),
         u = a.rows.map(function (e) {
           var o,
             a = n.get(e.rowNumber),
-            u = v(e, t, a, r),
-            c = C(u),
-            d = u.email == null ? null : k(u.email),
+            u = R(e, t, a, r),
+            c = b(u),
+            d = u.email == null ? null : T(u.email),
             m = d == null ? null : (o = i.get(d)) != null ? o : null,
             p = d != null && l.has(d);
           return (
             c.length === 0 && d != null && !p && l.add(d),
-            y({
+            C({
               cells: u,
               fixed: a != null,
               match: m,
@@ -82,7 +91,7 @@ __d(
         }),
       };
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       var r = new Map();
       for (var o of [].concat(e.updated, e.unchanged))
         o.match != null && r.set(o.match.id, o);
@@ -94,7 +103,7 @@ __d(
             ? [{ entry: t.entry, rowNumber: t.rowNumber }]
             : a.has(e)
               ? []
-              : [{ entry: x(e), rowNumber: null }];
+              : [{ entry: P(e), rowNumber: null }];
         }),
         e.added.map(function (e) {
           var t = e.entry,
@@ -103,7 +112,7 @@ __d(
         }),
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = new Set(
           e.rows.flatMap(function (e) {
             var t = e.match;
@@ -125,10 +134,10 @@ __d(
         }),
       };
     }
-    function h(t) {
+    function y(t) {
       return e.filter(function (e) {
         return e === "name"
-          ? t.name != null && !I(t.name.trim())
+          ? t.name != null && !D(t.name.trim())
           : e === "email"
             ? t.email != null &&
               !o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
@@ -138,7 +147,7 @@ __d(
               ? t.phone != null &&
                 o(
                   "WAWebOrgAdminGroupCandidate",
-                ).normalizeOrgAdminRosterPhoneNumber(t.phone) == null
+                ).normalizeOrgAdminRosterPhoneNumberInput(t.phone) == null
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -147,7 +156,7 @@ __d(
                 })();
       });
     }
-    function y(e) {
+    function C(e) {
       var t = e.cells,
         n = e.fixed,
         r = e.match,
@@ -155,8 +164,8 @@ __d(
         a = e.repeated,
         i = e.row,
         l = e.tagColumnMapped,
-        s = r == null ? D(t) : S(r, t, l),
-        u = r == null ? [] : R(r, s);
+        s = r == null ? $(t) : L(r, t, l),
+        u = r == null ? [] : E(r, s);
       return {
         cells: i.cells,
         changes: u,
@@ -169,13 +178,13 @@ __d(
         name: t.name,
         phoneText: t.phoneText,
         rowNumber: i.rowNumber,
-        status: b(o, a, r, u),
+        status: S(o, a, r, u),
       };
     }
-    function C(t) {
+    function b(t) {
       return e.filter(function (e) {
         return e === "name"
-          ? !I(t.name)
+          ? !D(t.name)
           : e === "email"
             ? t.email == null
             : e === "phone"
@@ -188,7 +197,14 @@ __d(
                 })();
       });
     }
-    function b(e, t, n, r) {
+    function v(e, t) {
+      return (
+        e === t ||
+        (e === "name" && s.includes(t)) ||
+        (s.includes(e) && t === "name")
+      );
+    }
+    function S(e, t, n, r) {
       return e.includes("email") || e.includes("phone")
         ? "incomplete"
         : e.includes("name")
@@ -201,7 +217,7 @@ __d(
                 ? "updated"
                 : "unchanged";
     }
-    function v(e, t, n, r) {
+    function R(e, t, n, r) {
       var a,
         i,
         l,
@@ -216,24 +232,24 @@ __d(
         c = (
           (i = n == null ? void 0 : n.phone) != null ? i : s("phone")
         ).trim(),
-        d = s("member_tag");
+        d = s("member_tag"),
+        m =
+          s("name") ||
+          [s("first_name"), s("last_name")].filter(Boolean).join(" ");
       return {
         email: o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(u)
           ? u
           : null,
         emailText: u,
         memberTag: d === "" ? null : r(d),
-        name: ((l = n == null ? void 0 : n.name) != null
-          ? l
-          : s("name")
-        ).trim(),
+        name: ((l = n == null ? void 0 : n.name) != null ? l : m).trim(),
         phone: o(
           "WAWebOrgAdminGroupCandidate",
-        ).normalizeOrgAdminRosterPhoneNumber(c),
+        ).normalizeOrgAdminRosterPhoneNumberInput(c),
         phoneText: c,
       };
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       var r;
       return {
         emailAddress: e.emailAddress,
@@ -242,7 +258,7 @@ __d(
         phoneNumber: (r = t.phone) != null ? r : e.phoneNumber,
       };
     }
-    function R(e, t) {
+    function E(e, t) {
       var n,
         r,
         a = [];
@@ -250,7 +266,7 @@ __d(
         t.name !== e.name && a.push("name"),
         ((n = t.memberTag) != null ? n : null) !==
           ((r = e.memberTag) != null ? r : null) && a.push("member_tag"),
-        L(
+        k(
           t.phoneNumber,
           e.phoneNumber,
           o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber,
@@ -258,25 +274,25 @@ __d(
         a
       );
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       return (e == null ? null : n(e)) === (t == null ? null : n(t));
     }
-    function E(e) {
+    function I(e) {
       var t = new Map();
       for (var n of e) {
         var r = n.emailAddress;
-        r != null && !t.has(k(r)) && t.set(k(r), n);
+        r != null && !t.has(T(r)) && t.set(T(r), n);
       }
       return t;
     }
-    function k(e) {
+    function T(e) {
       return e.trim().toLowerCase();
     }
-    function I(e) {
+    function D(e) {
       var t = e.normalize("NFC");
-      return t !== "" && T(t) <= s && !c.test(t.replace(u, ""));
+      return t !== "" && x(t) <= u && !d.test(t.replace(c, ""));
     }
-    function T(e) {
+    function x(e) {
       var t = 0;
       for (var n of Array.from(e)) {
         var r,
@@ -291,7 +307,7 @@ __d(
       }
       return t;
     }
-    function D(e) {
+    function $(e) {
       return {
         emailAddress: e.email,
         memberTag: e.memberTag,
@@ -299,7 +315,7 @@ __d(
         phoneNumber: e.phone,
       };
     }
-    function x(e) {
+    function P(e) {
       return {
         emailAddress: e.emailAddress,
         memberTag: e.memberTag,
@@ -307,13 +323,13 @@ __d(
         phoneNumber: e.phoneNumber,
       };
     }
-    ((l.guessOrgAdminRosterUploadColumns = d),
-      (l.setOrgAdminRosterUploadColumn = m),
-      (l.getOrgAdminRosterUploadMissingFields = p),
-      (l.buildOrgAdminRosterUploadPlan = _),
-      (l.getOrgAdminRosterUploadReplacement = f),
-      (l.getOrgAdminRosterUploadPeopleNotInFile = g),
-      (l.getOrgAdminRosterUploadFixErrors = h));
+    ((l.guessOrgAdminRosterUploadColumns = m),
+      (l.setOrgAdminRosterUploadColumn = p),
+      (l.getOrgAdminRosterUploadMissingFields = _),
+      (l.buildOrgAdminRosterUploadPlan = f),
+      (l.getOrgAdminRosterUploadReplacement = g),
+      (l.getOrgAdminRosterUploadPeopleNotInFile = h),
+      (l.getOrgAdminRosterUploadFixErrors = y));
   },
   98,
 );

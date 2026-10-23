@@ -4,8 +4,10 @@ __d(
     "WALogger",
     "WAWebDBExperienceIdCounts",
     "WAWebExperienceIdGatingUtils",
+    "WAWebFalcoCanonicalAbKey2",
     "WAWebFalcoCanonicalAppVersion",
     "WAWebFalcoCanonicalMdId",
+    "WAWebWamGlobals",
     "WamExperienceIdDailyFalcoEvent",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -51,8 +53,15 @@ __d(
       try {
         var n = r("WAWebFalcoCanonicalMdId")();
         r("WamExperienceIdDailyFalcoEvent").log(function () {
+          var e;
           return {
+            ab_key2: r("WAWebFalcoCanonicalAbKey2")(),
             app_version: r("WAWebFalcoCanonicalAppVersion")(),
+            expo_key:
+              o("WAWebWamGlobals").Global == null ||
+              (e = o("WAWebWamGlobals").Global.all) == null
+                ? void 0
+                : e.expoKey,
             md_id: n != null ? String(n) : null,
             experience_id: String(t.experienceId),
             unique_message_count: String(t.uniqueMessageCount),

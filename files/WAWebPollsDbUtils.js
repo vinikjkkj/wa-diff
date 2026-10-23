@@ -5,23 +5,22 @@ __d(
     function e(e) {
       return e == null
         ? void 0
-        : e
-            .slice()
-            .sort(function (e, t) {
-              return e.localId - t.localId;
-            })
-            .map(function (e, t) {
-              var n = e.addOptionMsgKey,
-                r = e.hash,
-                o = e.localId,
-                a = e.name;
-              return (
-                o === t || s(0, 59784),
-                r != null
-                  ? { name: a, hash: r, addOptionMsgKey: n }
-                  : { name: a, addOptionMsgKey: n }
-              );
-            });
+        : e.map(function (e) {
+            var t = e.addOptionMsgKey,
+              n = e.addOptionMsgT,
+              r = e.hash,
+              o = e.localId,
+              a = e.name;
+            return r != null
+              ? {
+                  name: a,
+                  hash: r,
+                  addOptionMsgKey: t,
+                  localId: o,
+                  addOptionMsgT: n,
+                }
+              : { name: a, addOptionMsgKey: t, localId: o, addOptionMsgT: n };
+          });
     }
     function u(e) {
       var t,
@@ -49,17 +48,25 @@ __d(
         ? void 0
         : e.map(function (e, t) {
             var n = e.addOptionMsgKey,
-              a = e.hash,
-              i = e.name;
-            return a == null
-              ? { name: r("nullthrows")(i), localId: t, addOptionMsgKey: n }
+              a = e.addOptionMsgT,
+              i = e.hash,
+              l = e.localId,
+              s = e.name;
+            return i == null
+              ? {
+                  name: r("nullthrows")(s),
+                  localId: l != null ? l : t,
+                  addOptionMsgKey: n,
+                  addOptionMsgT: a,
+                }
               : {
-                  name: r("nullthrows")(i),
-                  localId: t,
+                  name: r("nullthrows")(s),
+                  localId: l != null ? l : t,
                   hash: o(
                     "WAWebPollOptionHashUtils",
-                  ).createOptionHashHexFromString(a),
+                  ).createOptionHashHexFromString(i),
                   addOptionMsgKey: n,
+                  addOptionMsgT: a,
                 };
           });
     }

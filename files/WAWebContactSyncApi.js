@@ -33,6 +33,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "cr:17537",
     "err",
     "getErrorSafe",
     "nullthrows",
@@ -99,140 +100,138 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = e.contactIds,
-            i = e.mode,
-            l = e.shouldSyncDevice;
-          if (a.length !== 0) {
-            o("WAWebAppTracker").AppTracker.start(
+          var a = e.businessProfileVersion,
+            i = e.contactIds,
+            l = e.mode,
+            s = e.shouldSyncDevice;
+          if (i.length === 0) return !0;
+          o("WAWebAppTracker").AppTracker.start(
+            o("WAWebAppTracker").AppTrackerType.ContactSync,
+          );
+          try {
+            var u = yield V(i),
+              c = new (o("WAWebUsync").USyncQuery)()
+                .withContext("background")
+                .withMode(l)
+                .withBusinessProtocol(a)
+                .withStatusProtocol();
+            (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
+              c.withTextStatusProtocol(),
+              s && c.withDeviceProtocol(),
+              c.withDisappearingModeProtocol(),
+              c.withLidProtocol(),
+              c.withUsernameProtocol());
+            var d = o(
+                "WAWebContactSyncLogger",
+              ).contactSyncLogger.createEventContext({
+                syncType: o("WAWebContactSyncLogger").getSyncTypeString(
+                  "background",
+                  l,
+                ),
+                requestOrigin:
+                  t != null
+                    ? t
+                    : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
+                requestedCount: u.length,
+                protocols: c.protocols,
+              }),
+              p = u
+                .filter(function (e) {
+                  return !e.id.isLid();
+                })
+                .map(function (e) {
+                  return o("WAWebWidFactory").asUserWidOrThrow(e.id);
+                }),
+              _ = new Map(
+                r("compactMap")(p, function (e) {
+                  var t = o("WAWebApiContact").getCurrentLid(e);
+                  return t == null ? null : [e.toString(), t];
+                }),
+              ),
+              f = u
+                .filter(function (e) {
+                  return !e.id.isLid();
+                })
+                .map(function (e) {
+                  return e.id;
+                }),
+              g = yield q(u);
+            u.forEach(function (e) {
+              var t = new (o("WAWebUsyncUser").USyncUser)()
+                .withId(e.id)
+                .withDeviceHash(String(e.hash));
+              if (!e.id.isLid()) {
+                var n = _.get(e.id.toString());
+                n != null && t.withLid(n);
+              }
+              var r = o("WAWebUsernameTypes").serializeMaybeUsername(
+                g.get(o("WAWebWidFactory").asUserWidOrThrow(e.id)),
+              );
+              (r != null && t.withUsername(r), c.withUser(t));
+            });
+            for (var h = null, y = 3, C = 10 * Math.random(); y-- > 0; )
+              try {
+                h = yield c.execute();
+                var b = h.error.all;
+                if (b) {
+                  var v;
+                  throw (
+                    (C = (v = b.errorBackoff) != null ? v : 10 * Math.random()),
+                    r("err")(
+                      "syncContactList: error " +
+                        b.errorCode +
+                        ": " +
+                        b.errorText,
+                    )
+                  );
+                } else y = 0;
+              } catch (e) {
+                var R = r("getErrorSafe")(e);
+                (y === 0 &&
+                  (o("WALogger")
+                    .ERROR(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "failed to execute usync query",
+                        ])),
+                    )
+                    .verbose()
+                    .sendLogs("failed to execute usync query: " + R.message),
+                  o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
+                    d,
+                    R.errorCode,
+                    h != null ? h : void 0,
+                    o("WAWebContactSyncErrorCodes").BACKGROUND_SYNC,
+                  )),
+                  yield o("WAPromiseDelays").delayMs(C * 1e3));
+              }
+            if (h == null || h.error.all) return !1;
+            var L = h.refresh,
+              E = [];
+            for (var k of Object.keys(L)) E.push(L[k]);
+            if (E.length > 0) {
+              var I = Math.min.apply(Math, E);
+              G(I);
+            }
+            yield M(h);
+            var T = o("WAWebContactSyncLogger").createUpdateCounter();
+            return (
+              yield (S || (S = n("Promise"))).all([
+                s ? B(h, f, T) : (S || (S = n("Promise"))).resolve(),
+                P(h, T),
+                o("WAWebHandleUsernameSync").handleUsernameSync(h),
+                D(h, T),
+                x(h),
+                A(h, T),
+              ]),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(d, h, T),
+              yield O(i),
+              a == null || h.error.business == null
+            );
+          } finally {
+            o("WAWebAppTracker").AppTracker.stop(
               o("WAWebAppTracker").AppTrackerType.ContactSync,
             );
-            try {
-              var s = yield V(a),
-                u = new (o("WAWebUsync").USyncQuery)()
-                  .withContext("background")
-                  .withMode(i)
-                  .withBusinessProtocol()
-                  .withStatusProtocol();
-              (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-                u.withTextStatusProtocol(),
-                l && u.withDeviceProtocol(),
-                u.withDisappearingModeProtocol(),
-                u.withLidProtocol(),
-                u.withUsernameProtocol());
-              var c = o(
-                  "WAWebContactSyncLogger",
-                ).contactSyncLogger.createEventContext({
-                  syncType: o("WAWebContactSyncLogger").getSyncTypeString(
-                    "background",
-                    i,
-                  ),
-                  requestOrigin:
-                    t != null
-                      ? t
-                      : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
-                  requestedCount: s.length,
-                  protocols: u.protocols,
-                }),
-                d = s
-                  .filter(function (e) {
-                    return !e.id.isLid();
-                  })
-                  .map(function (e) {
-                    return o("WAWebWidFactory").asUserWidOrThrow(e.id);
-                  }),
-                p = new Map(
-                  r("compactMap")(d, function (e) {
-                    var t = o("WAWebApiContact").getCurrentLid(e);
-                    return t == null ? null : [e.toString(), t];
-                  }),
-                ),
-                _ = s
-                  .filter(function (e) {
-                    return !e.id.isLid();
-                  })
-                  .map(function (e) {
-                    return e.id;
-                  }),
-                f = yield q(s);
-              s.forEach(function (e) {
-                var t = new (o("WAWebUsyncUser").USyncUser)()
-                  .withId(e.id)
-                  .withDeviceHash(String(e.hash));
-                if (!e.id.isLid()) {
-                  var n = p.get(e.id.toString());
-                  n != null && t.withLid(n);
-                }
-                var r = o("WAWebUsernameTypes").serializeMaybeUsername(
-                  f.get(o("WAWebWidFactory").asUserWidOrThrow(e.id)),
-                );
-                (r != null && t.withUsername(r), u.withUser(t));
-              });
-              for (var g = null, h = 3, y = 10 * Math.random(); h-- > 0; )
-                try {
-                  g = yield u.execute();
-                  var C = g.error.all;
-                  if (C) {
-                    var b;
-                    throw (
-                      (y =
-                        (b = C.errorBackoff) != null ? b : 10 * Math.random()),
-                      r("err")(
-                        "syncContactList: error " +
-                          C.errorCode +
-                          ": " +
-                          C.errorText,
-                      )
-                    );
-                  } else h = 0;
-                } catch (e) {
-                  var v = r("getErrorSafe")(e);
-                  (h === 0 &&
-                    (o("WALogger")
-                      .ERROR(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "failed to execute usync query",
-                          ])),
-                      )
-                      .verbose()
-                      .sendLogs("failed to execute usync query: " + v.message),
-                    o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                      c,
-                      v.errorCode,
-                      g != null ? g : void 0,
-                      o("WAWebContactSyncErrorCodes").BACKGROUND_SYNC,
-                    )),
-                    yield o("WAPromiseDelays").delayMs(y * 1e3));
-                }
-              if (g == null || g.error.all) return;
-              var R = g.refresh,
-                L = [];
-              for (var E of Object.keys(R)) L.push(R[E]);
-              if (L.length > 0) {
-                var k = Math.min.apply(Math, L);
-                G(k);
-              }
-              yield M(g);
-              var I = o("WAWebContactSyncLogger").createUpdateCounter();
-              (yield (S || (S = n("Promise"))).all([
-                l ? B(g, _, I) : (S || (S = n("Promise"))).resolve(),
-                P(g, I),
-                o("WAWebHandleUsernameSync").handleUsernameSync(g),
-                D(g, I),
-                x(g),
-                A(g, I),
-              ]),
-                o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
-                  c,
-                  g,
-                  I,
-                ),
-                yield O(a));
-            } finally {
-              o("WAWebAppTracker").AppTracker.stop(
-                o("WAWebAppTracker").AppTrackerType.ContactSync,
-              );
-            }
           }
         })),
         T.apply(this, arguments)
@@ -472,18 +471,26 @@ __d(
     function F() {
       return (
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.list.filter(function (e) {
+          var r = e.list.filter(function (e) {
             var t = e.business;
             return !!t;
           });
-          ((t.businessChange = n.length),
+          ((t.businessChange = r.length),
             yield o("WAWebBizVerifiedNameAction").handleVerifiedNameSync(
-              n.map(function (e) {
+              r.map(function (e) {
                 var t = e.business.verifiedName,
                   n = e.id;
                 return { id: n, verifiedName: t };
               }),
-            ));
+            ),
+            n("cr:17537") == null ||
+              n("cr:17537").observeAeaBusinessAccountTypes(
+                r.map(function (e) {
+                  var t = e.business.aeaAccountType,
+                    n = e.id;
+                  return { wid: n, aeaAccountType: t };
+                }),
+              ));
         })),
         F.apply(this, arguments)
       );

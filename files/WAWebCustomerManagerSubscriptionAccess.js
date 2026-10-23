@@ -74,7 +74,6 @@ __d(
     }
     ((l.isCustomerManagerSubscriptionAccessAllowed = e),
       (l.useWAWebCustomerManagerSubscriptionAccessAllowed = s),
-      (l.hasCustomerManagerPaidBenefit = u),
       (l.useWAWebHasCustomerManagerPaidBenefit = c));
   },
   98,

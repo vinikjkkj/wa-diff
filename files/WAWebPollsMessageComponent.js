@@ -1,6 +1,7 @@
 __d(
   "WAWebPollsMessageComponent",
   [
+    "WAWebMessageAssociation.flow",
     "WAWebMsgGetters",
     "WAWebPollResultSnapshotUtils",
     "WAWebPollsMessageComponentView",
@@ -16,9 +17,10 @@ __d(
       u = ["msgKey"],
       c = ["msgKey"],
       d,
-      m = d || (d = o("react"));
-    function p(t) {
-      var n = o("react-compiler-runtime").c(10),
+      m = d || (d = o("react")),
+      p = d.useMemo;
+    function _(t) {
+      var n = o("react-compiler-runtime").c(12),
         r,
         a;
       n[0] !== t
@@ -33,31 +35,42 @@ __d(
         ? ((i = [o("WAWebMsgGetters").getIsNewsletterMsg]), (n[3] = i))
         : (i = n[3]);
       var l = o("useWAWebMsgValues").useMsgValues(r, i),
-        s = l[0];
+        s = l[0],
+        u = y(a.associatedMessages);
       if (s) {
-        var u;
+        var c;
         return (
-          n[4] !== r || n[5] !== a
-            ? ((u = m.jsx(f, babelHelpers.extends({ msgKey: r }, a))),
-              (n[4] = r),
-              (n[5] = a),
-              (n[6] = u))
-            : (u = n[6]),
-          u
+          n[4] !== u || n[5] !== r || n[6] !== a
+            ? ((c = m.jsx(
+                g,
+                babelHelpers.extends({ msgKey: r }, a, {
+                  associatedMessages: u,
+                }),
+              )),
+              (n[4] = u),
+              (n[5] = r),
+              (n[6] = a),
+              (n[7] = c))
+            : (c = n[7]),
+          c
         );
       }
-      var c;
+      var d;
       return (
-        n[7] !== r || n[8] !== a
-          ? ((c = m.jsx(_, babelHelpers.extends({ msgKey: r }, a))),
-            (n[7] = r),
-            (n[8] = a),
-            (n[9] = c))
-          : (c = n[9]),
-        c
+        n[8] !== u || n[9] !== r || n[10] !== a
+          ? ((d = m.jsx(
+              f,
+              babelHelpers.extends({ msgKey: r }, a, { associatedMessages: u }),
+            )),
+            (n[8] = u),
+            (n[9] = r),
+            (n[10] = a),
+            (n[11] = d))
+          : (d = n[11]),
+        d
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(7),
         n,
         r;
@@ -84,7 +97,7 @@ __d(
         i
       );
     }
-    function f(e) {
+    function g(e) {
       var t = o("react-compiler-runtime").c(7),
         n,
         r;
@@ -111,8 +124,8 @@ __d(
         i
       );
     }
-    function g(e) {
-      var t = o("react-compiler-runtime").c(12),
+    function h(e) {
+      var t = o("react-compiler-runtime").c(13),
         n,
         r;
       t[0] !== e
@@ -128,36 +141,55 @@ __d(
         : (a = t[3]);
       var i = o("useWAWebMsgValues").useMsgValues(n, a),
         l = i[0],
-        s;
+        s = y(r.associatedMessages),
+        u;
       if (t[4] !== (l == null ? void 0 : l.pollVotes)) {
-        var u;
-        ((s = (u = l == null ? void 0 : l.pollVotes) != null ? u : []),
+        var d;
+        ((u = (d = l == null ? void 0 : l.pollVotes) != null ? d : []),
           (t[4] = l == null ? void 0 : l.pollVotes),
-          (t[5] = s));
-      } else s = t[5];
-      var d;
-      t[6] !== s
-        ? ((d = o("WAWebPollResultSnapshotUtils").aggegateVoteSnapshot(s)),
-          (t[6] = s),
-          (t[7] = d))
-        : (d = t[7]);
-      var p = d,
-        _;
+          (t[5] = u));
+      } else u = t[5];
+      var p;
+      t[6] !== u
+        ? ((p = o("WAWebPollResultSnapshotUtils").aggegateVoteSnapshot(u)),
+          (t[6] = u),
+          (t[7] = p))
+        : (p = t[7]);
+      var _ = p,
+        f;
       return (
-        t[8] !== n || t[9] !== p || t[10] !== r
-          ? ((_ = m.jsx(
+        t[8] !== s || t[9] !== n || t[10] !== _ || t[11] !== r
+          ? ((f = m.jsx(
               o("WAWebPollsMessageComponentView").PollSnapshotMessageComponent,
-              babelHelpers.extends({ msgKey: n }, r, { optionsToResults: p }),
+              babelHelpers.extends({ msgKey: n }, r, {
+                associatedMessages: s,
+                optionsToResults: _,
+              }),
             )),
-            (t[8] = n),
-            (t[9] = p),
-            (t[10] = r),
-            (t[11] = _))
-          : (_ = t[11]),
-        _
+            (t[8] = s),
+            (t[9] = n),
+            (t[10] = _),
+            (t[11] = r),
+            (t[12] = f))
+          : (f = t[12]),
+        f
       );
     }
-    ((l.Poll = p), (l.PollResultSnapshot = g));
+    function y(e) {
+      var t = o("react-compiler-runtime").c(2),
+        n;
+      return (
+        t[0] !== e ? ((n = e.filter(C)), (t[0] = e), (t[1] = n)) : (n = t[1]),
+        n
+      );
+    }
+    function C(e) {
+      return (
+        e.associationType ===
+        o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
+      );
+    }
+    ((l.Poll = _), (l.PollResultSnapshot = h));
   },
   98,
 );

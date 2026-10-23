@@ -10,6 +10,7 @@ __d(
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y;
@@ -19,7 +20,8 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebCtwaPerCustomerDataSharingSync").applyMutations(e);
+          (r("vulture")("MWYVO1BKA4ERDG6wEzxcNzS5ibM="),
+            yield r("WAWebCtwaPerCustomerDataSharingSync").applyMutations(e));
         })),
         b.apply(this, arguments)
       );
@@ -32,6 +34,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("ADda30ZKc4rdlyYzcWnaI21gUHw=");
           var n = o("WAWebWidFactory").createUserLidOrThrow(e);
           return r(
             "WAWebCtwaPerCustomerDataSharingSync",
@@ -50,7 +53,8 @@ __d(
       "Send per-customer data sharing mutation to primary device through syncd. This will sync the setting to your Android/iOS device.";
     function R() {
       if (
-        (o("WALogger").LOG(
+        (r("vulture")("PXvhdLUTIxHsxyLfoA63OlOZ5cM="),
+        o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[debug] DataSharing3pdLidCollection - Total records: ",
@@ -79,21 +83,23 @@ __d(
         o(
           "WAWebDataSharing3pdLidCollection",
         ).DataSharing3pdLidCollection.forEach(function (e) {
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[debug] - LID: ",
-                ", Enabled: ",
-                "",
-              ])),
-            e.id,
-            e.dataSharing3pdEnabled,
-          );
+          (r("vulture")("Qc6eAw53RA5rw0PjDdRJTBufoS4="),
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debug] - LID: ",
+                  ", Enabled: ",
+                  "",
+                ])),
+              e.id,
+              e.dataSharing3pdEnabled,
+            ));
         }));
     }
     R.doc =
       "Inspect the current state of DataSharing3pdLidCollection. Shows total count and details of all records.";
     function L(e) {
+      r("vulture")("Iwem6hZG5UpL0MJiNvh0y8LUdEM=");
       var t = o(
           "WAWebDataSharing3pdLidCollection",
         ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
@@ -140,6 +146,7 @@ __d(
     L.doc =
       "Check data sharing status for a specific customer LID. Returns whether sharing is enabled and shows model details if it exists.";
     function E() {
+      r("vulture")("G348sOpRBQRJ5L8UzfyZhwkEqhE=");
       var e = o("WAWebDataSharing3pdLidCollection").DataSharing3pdLidCollection
         .length;
       o("WALogger").LOG(
@@ -154,9 +161,10 @@ __d(
         "WAWebDataSharing3pdLidCollection",
       ).DataSharing3pdLidCollection.toArray();
       (t.forEach(function (e) {
-        o(
-          "WAWebDataSharing3pdLidCollection",
-        ).DataSharing3pdLidCollection.remove(e);
+        (r("vulture")("cYuzbi87P8OG64oMbgBOdPTpYno="),
+          o(
+            "WAWebDataSharing3pdLidCollection",
+          ).DataSharing3pdLidCollection.remove(e));
       }),
         o("WALogger").LOG(
           g ||
@@ -180,6 +188,7 @@ __d(
       "Clear all records from DataSharing3pdLidCollection. Useful for testing initialization and syncing.";
     var k = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        r("vulture")("R2EKKZAChLy-qRT5EO3-Tas3NU4=");
         try {
           var n = o("WAWebContactSystemMsg").genNotificationMsg(e, {
             type: "notification_template",
@@ -212,7 +221,7 @@ __d(
       "Creates and renders a system message of type biz_per_customer_3pd_data_share_opt_in or biz_per_customer_3pd_data_share_opt_out in the current chat."),
       (k.paramsToExecute = []));
     function I(e) {
-      if (e.endsWith("@lid"))
+      if ((r("vulture")("DbHfKP4VgB1gmEQSIGw3GQoz9t0="), e.endsWith("@lid")))
         return { lid: e, pn: e.replace(/@lid$/, "") + "@s.whatsapp.net" };
       var t = e.replace(/@(?:s\.whatsapp\.net|c\.us)$/, "");
       return { lid: t + "@lid", pn: t + "@s.whatsapp.net" };

@@ -29,37 +29,47 @@ __d(
         }),
       );
     }
-    function p() {
+    function p(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Deleted AI knowledge"),
+          msg: s._(
+            /*BTDS*/ '_j{"*":"{number} files added","_1":"File added"}',
+            [s._plural(e, "number")],
+          ),
         }),
       );
     }
     function _() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Product info deleted"),
+          msg: s._(/*BTDS*/ "Deleted AI knowledge"),
         }),
       );
     }
     function f() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Example response deleted"),
+          msg: s._(/*BTDS*/ "Product info deleted"),
         }),
       );
     }
     function g() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Example response deleted"),
+        }),
       );
     }
     function h() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+      );
+    }
+    function y() {
       return !navigator.onLine;
     }
-    function y(e, t) {
-      if (h()) {
+    function C(e, t) {
+      if (y()) {
         (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
           c(),
           t.onError());
@@ -76,7 +86,7 @@ __d(
       }
       n.then(function (e) {
         (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(e.isSuccess),
-          e.isSuccess ? (g(), t.onSuccess()) : (c(), t.onError()));
+          e.isSuccess ? (h(), t.onSuccess()) : (c(), t.onError()));
       }).catch(function () {
         (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
           c(),
@@ -86,11 +96,12 @@ __d(
     ((l.showErrorToast = c),
       (l.showDeletedToast = d),
       (l.showDeletedFileToast = m),
-      (l.showDeletedAIKnowledgeToast = p),
-      (l.showDeletedProductInfoToast = _),
-      (l.showDeletedExampleResponseToast = f),
-      (l.showUpdatedToast = g),
-      (l.saveBizAISetting = y));
+      (l.showGoogleDriveFilesAddedToast = p),
+      (l.showDeletedAIKnowledgeToast = _),
+      (l.showDeletedProductInfoToast = f),
+      (l.showDeletedExampleResponseToast = g),
+      (l.showUpdatedToast = h),
+      (l.saveBizAISetting = C));
   },
   226,
 );

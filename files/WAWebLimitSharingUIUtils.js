@@ -163,7 +163,7 @@ __d(
     }
     function v(e) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebLimitSharingInvokeBlockedPopup.react"), { chat: e }),
+        c.jsx(r("WAWebLimitSharingInvokeBlockedPopup.react"), { chatId: e.id }),
       );
     }
     function S(e) {

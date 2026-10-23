@@ -17,6 +17,7 @@ __d(
                 "WAWebBizBroadcastProRemoveRecipientAudienceScreenQuery$Parameters",
               ),
               variables: {
+                audienceId: t.caId,
                 caId: t.caId,
                 first: o("WAWebBizBroadcastsAudiencePaginationConstants")
                   .AUDIENCE_PAGE_SIZE,

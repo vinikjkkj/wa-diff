@@ -127,11 +127,11 @@ __d(
                 },
                 sendReason: a,
                 sendToOther: function (n, r, o) {
-                  var t = e.env.host.clock();
+                  var t = e.env.host.clock(e.env);
                   m(f, n, r, t, e, o != null ? o : "sendToOther");
                 },
                 sendToSelf: function (n, r) {
-                  var t = e.env.host.clock();
+                  var t = e.env.host.clock(e.env);
                   m(f, e, n, t, e, r != null ? r : "sendToSelf");
                 },
                 stateClock: e.stateClock,
@@ -210,7 +210,7 @@ __d(
               } else b(e, i, l, !1);
             }
             if (
-              ((e.stateClock = e.env.host.clock()),
+              ((e.stateClock = e.env.host.clock(e.env)),
               h !== void 0 &&
                 (!e.env.config.optimizeAutoDisposeTraversal &&
                   e.$$nextgendashEverCalledMakeChildSm &&
@@ -223,7 +223,7 @@ __d(
                 e.env.workQueue,
                 e,
                 { prevState: i, type: "__enter" },
-                e.env.host.clock(),
+                e.env.host.clock(e.env),
                 e,
                 "from:" +
                   ((L = i.state) != null ? L : "?") +
@@ -325,7 +325,7 @@ __d(
                 e.env.workQueue,
                 e,
                 { exception: B, type: "__exception" },
-                e.env.host.clock(),
+                e.env.host.clock(e.env),
                 e,
                 "in:" +
                   ((W = i.state) != null ? W : "?") +
@@ -375,7 +375,7 @@ __d(
               e.env.workQueue,
               e,
               { prevState: i, type: "__enter" },
-              e.env.host.clock(),
+              e.env.host.clock(e.env),
               e,
               "from:" +
                 ((G = i.state) != null ? G : "?") +
@@ -391,7 +391,7 @@ __d(
                 e.env.workQueue,
                 j,
                 { exception: U, type: "__exception" },
-                e.env.host.clock(),
+                e.env.host.clock(e.env),
                 e,
                 "child:#" +
                   e.sequentialId +
@@ -415,7 +415,7 @@ __d(
                 X.env.workQueue,
                 X,
                 { reason: "__released_by_parent", type: "__dispose" },
-                e.env.host.clock(),
+                e.env.host.clock(e.env),
                 e,
                 "parent:#" +
                   e.sequentialId +
@@ -447,39 +447,40 @@ __d(
     function b(t, n, r, o) {
       if ((o === void 0 && (o = !1), !(o && r.size <= 0) && n[u] !== s)) {
         var a = t.env.config.optimizeAutoDisposeTraversal,
-          i = a ? y : [],
-          l = a ? C : new Set();
+          i = t.env.config.reduceStateMachineEventOverhead,
+          l = a ? y : [],
+          c = a ? C : new Set();
         try {
-          l.add(n);
-          for (var c = n; c != null; ) {
-            if (c.$$nextgendashBaseSymbol === e) {
-              if (c.parentSm === t)
+          c.add(n);
+          for (var d = n; d != null; ) {
+            if (d.$$nextgendashBaseSymbol === e) {
+              if (d.parentSm === t)
                 if (o) {
-                  if ((r.delete(c), r.size <= 0)) break;
-                } else r.add(c);
-            } else {
-              var d = c.constructor;
-              if (d === _)
-                for (var m in c) {
-                  var p = c[m];
-                  p != null &&
-                    typeof p == "object" &&
-                    c[u] !== s &&
-                    !l.has(p) &&
-                    (l.add(p), i.push(p));
-                }
-              else if (d === f || d === g || d === h)
-                for (var b of c)
+                  if ((r.delete(d), r.size <= 0)) break;
+                } else r.add(d);
+            } else if (!(i && d[u] === s)) {
+              var m = d.constructor;
+              if (m === _)
+                for (var p in d) {
+                  var b = d[p];
                   b != null &&
                     typeof b == "object" &&
-                    c[u] !== s &&
-                    !l.has(b) &&
-                    (l.add(b), i.push(b));
+                    d[u] !== s &&
+                    !c.has(b) &&
+                    (c.add(b), l.push(b));
+                }
+              else if (m === f || m === g || m === h)
+                for (var v of d)
+                  v != null &&
+                    typeof v == "object" &&
+                    d[u] !== s &&
+                    !c.has(v) &&
+                    (c.add(v), l.push(v));
             }
-            c = i.pop();
+            d = l.pop();
           }
         } finally {
-          a && ((i.length = 0), l.clear());
+          a && ((l.length = 0), c.clear());
         }
       }
     }
@@ -496,7 +497,7 @@ __d(
       var o = {};
       return {
         createSM: function (a, i, l, s) {
-          var t = i.host.clock(),
+          var t = i.host.clock(i),
             u = {
               $$nextgendashBaseSymbol: e,
               $$nextgendashChildSms: null,
@@ -513,7 +514,7 @@ __d(
                   u.env.workQueue,
                   u,
                   t,
-                  o != null ? o : u.env.host.clock(),
+                  o != null ? o : u.env.host.clock(u.env),
                   n,
                   r,
                 );
@@ -529,7 +530,13 @@ __d(
               sm: u,
               type: "state_machine_created",
             }),
-            m(u.env.workQueue, u, { type: "__init" }, u.env.host.clock(), l),
+            m(
+              u.env.workQueue,
+              u,
+              { type: "__init" },
+              u.env.host.clock(u.env),
+              l,
+            ),
             u
           );
         },

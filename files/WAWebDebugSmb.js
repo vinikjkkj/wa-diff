@@ -50,6 +50,7 @@ __d(
     "err",
     "react",
     "requireDeferred",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -84,19 +85,20 @@ __d(
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.colorIndex,
             n = e.id,
-            r = e.isActive,
-            a = e.name,
-            i = e.orderIndex,
-            l = e.predefinedId,
-            s = e.type,
-            u = { id: n, name: a, colorIndex: t, predefinedId: l };
-          i != null && (u.orderIndex = i);
-          var c = s != null ? o("WAWebSchemaLabel").ListType.cast(s) : null;
-          (c != null && (u.type = c),
-            r != null && (u.isActive = r),
-            yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(u),
+            a = e.isActive,
+            i = e.name,
+            l = e.orderIndex,
+            s = e.predefinedId,
+            u = e.type;
+          r("vulture")("_eJJzzEQ74ZswFLv-9b_nSNApQU=");
+          var c = { id: n, name: i, colorIndex: t, predefinedId: s };
+          l != null && (c.orderIndex = l);
+          var d = u != null ? o("WAWebSchemaLabel").ListType.cast(u) : null;
+          (d != null && (c.type = d),
+            a != null && (c.isActive = a),
+            yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(c),
             o("WAWebLabelCollection").LabelCollection.add(
-              babelHelpers.extends({}, u),
+              babelHelpers.extends({}, c),
               { merge: !0 },
             ));
         })),
@@ -112,15 +114,16 @@ __d(
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.count,
             n = e.id,
-            r = e.keywords,
-            a = e.message,
-            i = e.shortcut,
-            l = { id: n, shortcut: i, count: t, message: a, keywords: r };
+            a = e.keywords,
+            i = e.message,
+            l = e.shortcut;
+          r("vulture")("untm6PKTbu_NMu6H6yq02aj2H-I=");
+          var s = { id: n, shortcut: l, count: t, message: i, keywords: a };
           (yield o("WAWebSchemaQuickReply")
             .getQuickReplyTable()
-            .createOrReplace(l),
+            .createOrReplace(s),
             o("WAWebQuickReplyCollection").QuickReplyCollection.add(
-              { id: n, shortcut: i, message: a, keywords: r, count: t },
+              { id: n, shortcut: l, message: i, keywords: a, count: t },
               { merge: !0 },
             ));
         })),
@@ -134,8 +137,9 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = new Map([
+          var e;
+          r("vulture")("ZeVClSWHyJQsC8WDn0UjfHhYIGo=");
+          var t = new Map([
               [
                 (e = o("WAWebMobilePlatforms")).PLATFORMS.SMBA,
                 e.PLATFORMS.ANDROID,
@@ -171,6 +175,7 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("KF7jHfwv65dBmRX9sF9-impbWQQ=");
           var t = o("WAWebWidFactory").createWidFromWidLike(e).toString();
           return {
             row: yield o("WAWebApiBusinessProfile").getBusinessProfileRow(t),
@@ -189,30 +194,32 @@ __d(
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.accessTokenMeta,
-            r = e.paymentAccountID,
-            a = e.wizardName,
-            i = yield (S || (S = n("Promise"))).all([k.load(), E.load()]),
-            l = i[0],
-            s = i[1],
-            c = yield s(t),
-            d = yield l({
-              relayEnvironment: c,
-              paymentAccountID: r,
-              wizardName: a != null ? a : "ADD_PM",
+            a = e.paymentAccountID,
+            i = e.wizardName;
+          r("vulture")("-LhlJi3LyRBK0p8a5xitm7FzC90=");
+          var l = yield (S || (S = n("Promise"))).all([k.load(), E.load()]),
+            s = l[0],
+            c = l[1],
+            d = yield c(t),
+            m = yield s({
+              relayEnvironment: d,
+              paymentAccountID: a,
+              wizardName: i != null ? i : "ADD_PM",
               wizardPropsJSON: null,
               flowID: "debug",
               onCloseCb: function (t) {
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Billing wizard return code: ",
-                      "",
-                    ])),
-                  t,
-                );
+                (r("vulture")("FGCINichpF9ziUjzt407dnovjWo="),
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Billing wizard return code: ",
+                        "",
+                      ])),
+                    t,
+                  ));
               },
             });
-          d();
+          m();
         })),
         A.apply(this, arguments)
       );
@@ -223,7 +230,8 @@ __d(
     function O() {
       return (
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebOIDCFlow.react").launchOIDCFlow(),
+          (r("vulture")("WFRHzZdYexzFe4maYGjUNaUHNVA="),
+            yield o("WAWebOIDCFlow.react").launchOIDCFlow(),
             o("WAWebModalManager").ModalManager.open(
               L.jsxs(o("WAWebModal.react").Modal, {
                 type: o("WAWebModal.react").ModalTheme.AutoWrap,
@@ -238,38 +246,45 @@ __d(
       );
     }
     function B(t) {
-      return o("WAWebBizGetProfileShimlinksQuery")
-        .getProfileShimlinks(t)
-        .then(function (t) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "debug:bizFetchBusinessProfileShimlinks",
-              ])),
-          );
-        });
+      return (
+        r("vulture")("rl7DgSsCi6jmWfL2hIxJtZ4JqaM="),
+        o("WAWebBizGetProfileShimlinksQuery")
+          .getProfileShimlinks(t)
+          .then(function (t) {
+            (r("vulture")("New68DBw9IBGoM0zrXz1Ropm1nQ="),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "debug:bizFetchBusinessProfileShimlinks",
+                  ])),
+              ));
+          })
+      );
     }
     B.doc = "Fetch business profile shimlinks";
     var W = function () {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
-          onExit: r("WAWebNoop"),
-        }),
-      );
+      (r("vulture")("A2LYpOOVMSkaRq3LOyQM4f_2Q4I="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
+            onExit: r("WAWebNoop"),
+          }),
+        ));
     };
     ((W.doc = "Opens the order request education modal"),
       (W.paramsToExecute = []));
     function q() {
-      o("WAWebBizOrderExpansionModal.react").openOrderExpansionModal(
-        r("WAWebNoop"),
-      );
+      (r("vulture")("8SUomXtUIuXGuE4x_Tmmb7AZDsc="),
+        o("WAWebBizOrderExpansionModal.react").openOrderExpansionModal(
+          r("WAWebNoop"),
+        ));
     }
     function U() {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebBizOrderRequestManagementDrawer.react"), {
-          onBack: o("WAWebModalManager").closeModalManager,
-        }),
-      );
+      (r("vulture")("SMSqDXvpH24aR2Cvxv7DiO3RqbA="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(r("WAWebBizOrderRequestManagementDrawer.react"), {
+            onBack: o("WAWebModalManager").closeModalManager,
+          }),
+        ));
     }
     function V(e) {
       return H.apply(this, arguments);
@@ -277,6 +292,7 @@ __d(
     function H() {
       return (
         (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("-2JhEi7fJ43aCPzsRtw4N4MjoEQ=");
           try {
             var t = yield o("WAWebSchemaAgent")
               .getAgentTable()
@@ -309,13 +325,14 @@ __d(
     function z() {
       return (
         (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield V([
-            { id: "1", name: "Agent1", deviceId: 1, isDeleted: !0 },
-            { id: "11", name: "Vasily", deviceId: 2, isDeleted: !1 },
-            { id: "111", name: "Max", deviceId: 3, isDeleted: !1 },
-            { id: "1111", name: "Jesse", deviceId: 10, isDeleted: !1 },
-            { id: "11111", name: "Fabio", deviceId: 99, isDeleted: !1 },
-          ]);
+          (r("vulture")("L_NKOHFR6C6_txd4mgYXHPUJ2hM="),
+            yield V([
+              { id: "1", name: "Agent1", deviceId: 1, isDeleted: !0 },
+              { id: "11", name: "Vasily", deviceId: 2, isDeleted: !1 },
+              { id: "111", name: "Max", deviceId: 3, isDeleted: !1 },
+              { id: "1111", name: "Jesse", deviceId: 10, isDeleted: !1 },
+              { id: "11111", name: "Fabio", deviceId: 99, isDeleted: !1 },
+            ]));
         })),
         z.apply(this, arguments)
       );
@@ -327,37 +344,39 @@ __d(
       return (
         (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
-          e === void 0 && (e = 10);
+          (e === void 0 && (e = 10),
+            r("vulture")("jDw_4IWoWvZRz3GB2Jn9wbf-LyQ="));
           var n = o("WAWebAgentCollection")
               .AgentCollection.getModelsArray()
               .filter(function (e) {
                 return e.id !== "-1";
               }),
-            r =
+            a =
               (t = o("WAWebChatCollection").ChatCollection.getModelsArray()) ==
               null
                 ? void 0
                 : t.slice(0, e).map(function (e, t) {
-                    var r = e.id.toString(),
-                      o = n[t % (n.length - 1)].id;
+                    r("vulture")("8QBk7e9Rw_D0p1X4kYSabB1zthI=");
+                    var o = e.id.toString(),
+                      a = n[t % (n.length - 1)].id;
                     return {
                       id: "" + t,
-                      chatId: r,
-                      agentId: o,
+                      chatId: o,
+                      agentId: a,
                       chatOpenedByAgent: !1,
                     };
                   });
           try {
-            var a = yield o("WAWebSchemaChatAssignment")
+            var i = yield o("WAWebSchemaChatAssignment")
               .getChatAssignmentTable()
-              .bulkCreateOrReplace(r);
+              .bulkCreateOrReplace(a);
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
                   "createOrReplaceAgent: ",
                   "",
                 ])),
-              String(a),
+              String(i),
             );
           } catch (e) {
             o("WALogger").WARN(
@@ -379,6 +398,7 @@ __d(
     function X() {
       return (
         (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("lmsYjGY8SLqaL4bIQsHLwdUTvEE=");
           var e = [
             {
               id: "WA_PREMIUM_1",
@@ -433,6 +453,7 @@ __d(
     function J() {
       return (
         (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("5XEi5aO26OxRc-vMSc8yQ0YaeZE=");
           try {
             var t = yield o("WAWebPremiumMessageSchema")
               .getPremiumMessageTable()
@@ -460,76 +481,85 @@ __d(
       );
     }
     var Z = function () {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebDOIntroPopup.react"), {}),
-      );
+      (r("vulture")("6YSwVoQFs_Cwb5XqLg0iTuK9bvk="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(r("WAWebDOIntroPopup.react"), {}),
+        ));
     };
     ((Z.doc = "Opens the DO Intro Popup"), (Z.paramsToExecute = []));
     var ee = function () {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
-      );
+      (r("vulture")("qCwURaUgrBdpUhxGnO63Ham7ZmU="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
+        ));
     };
     ((ee.doc = "Opens the SMB Lists Intro NUX Popup"),
       (ee.paramsToExecute = []));
     var te = function () {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
-      );
+      (r("vulture")("B3Kq6DVZO-2SfgQe9L2qUmHRu0o="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
+        ));
     };
     ((te.doc = "Opens the Customer Manager Intro NUX Modal"),
       (te.paramsToExecute = []));
     var ne = function () {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
-      );
+      (r("vulture")("PYqA_8qsJoy-fHeXOWOuW_RL3bs="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
+        ));
     };
     ((ne.doc = "Opens the new contact info fields NUX Modal"),
       (ne.paramsToExecute = []));
     var re = function () {
-      o("WAWebModalManager").ModalManager.open(
-        L.jsx(
-          r("WAWebSmbDataSharingOptInModalDialog")
-            .SmbDataSharingOptInModalDialog,
-          {
-            entrypoint: o("WAWebWamEnumSmbDataSharingConsentScreenEntryPoint")
-              .SMB_DATA_SHARING_CONSENT_SCREEN_ENTRY_POINT.CART,
-            callback: function () {},
-          },
-        ),
-      );
+      (r("vulture")("dycd9a5Q2zDU0zqyDcgot5wg1bg="),
+        o("WAWebModalManager").ModalManager.open(
+          L.jsx(
+            r("WAWebSmbDataSharingOptInModalDialog")
+              .SmbDataSharingOptInModalDialog,
+            {
+              entrypoint: o("WAWebWamEnumSmbDataSharingConsentScreenEntryPoint")
+                .SMB_DATA_SHARING_CONSENT_SCREEN_ENTRY_POINT.CART,
+              callback: function () {},
+            },
+          ),
+        ));
     };
     function oe(e) {
       return ae.apply(this, arguments);
     }
     function ae() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {})),
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("URCJo3asnFPvtAtNZV6yK6p9q3U=");
+        })),
         ae.apply(this, arguments)
       );
     }
     oe.doc = "send delete mutation";
     var ie = function (t) {
-        o("WAWebModalManager").ModalManager.open(
-          L.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
-            accountLid: t,
-            entryPoint: o(
-              "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
-            ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
-              .CONTACT_INFO_CARD,
-          }),
-        );
+        (r("vulture")("JXo1zqXpQyDXicQM4ARZUAaPfUI="),
+          o("WAWebModalManager").ModalManager.open(
+            L.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
+              accountLid: t,
+              entryPoint: o(
+                "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
+              ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
+                .CONTACT_INFO_CARD,
+            }),
+          ));
       },
       le = function (t) {
-        o("WAWebModalManager").ModalManager.open(
-          L.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
-            accountLids: [t],
-            entryPoint: o(
-              "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
-            ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
-              .CONTACT_INFO_CARD,
-          }),
-        );
+        (r("vulture")("9o4hSAZFGJYyC0NFJk4XvkW3FRo="),
+          o("WAWebModalManager").ModalManager.open(
+            L.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
+              accountLids: [t],
+              entryPoint: o(
+                "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
+              ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
+                .CONTACT_INFO_CARD,
+            }),
+          ));
       };
     function se(e, t) {
       return ue.apply(this, arguments);
@@ -537,6 +567,7 @@ __d(
     function ue() {
       return (
         (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("_JNijRQYrgerRjMV2PYdu86YDXE=");
           var n = o("WAJids").unsafeCoerceToChatJid(e);
           yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
         })),
@@ -550,6 +581,7 @@ __d(
     function de() {
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("GG9DhR7bkaQ2Z5qDs9gJGAJ6Meg=");
           var t = o("WAJids").unsafeCoerceToChatJid(e);
           return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
         })),
@@ -563,6 +595,7 @@ __d(
     function pe() {
       return (
         (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("LRb1CYVECHaSxkRQU8VSnniG_2k=");
           var e = o("WAWebChatCollection")
             .ChatCollection.filter(function (e) {
               return r("WAWebWid").isUser(e.id);
@@ -578,16 +611,17 @@ __d(
             return;
           }
           var t = e.map(function (e, t) {
-            var n,
-              r = o("WAWebContactCollection").ContactCollection.get(e.id),
-              a =
-                r != null
-                  ? o("WAWebFrontendContactGetters").getDisplayName(r)
+            var n;
+            r("vulture")("COlOwEpG_J4GBvUGsksg9l8c6D0=");
+            var a = o("WAWebContactCollection").ContactCollection.get(e.id),
+              i =
+                a != null
+                  ? o("WAWebFrontendContactGetters").getDisplayName(a)
                   : "Test Customer " + String(t + 1);
             return {
               id: e.id.toString(),
-              name: a,
-              shortName: (n = a.split(" ")[0]) != null ? n : "",
+              name: i,
+              shortName: (n = i.split(" ")[0]) != null ? n : "",
               type: "in",
               isAddressBookContact: 1,
               isContactSyncCompleted: 0,
@@ -629,17 +663,18 @@ __d(
           }
           (yield (S || (S = n("Promise"))).all(
             u.map(function (e, t) {
+              r("vulture")("qzb5jdOhTkBrHb3FrHLryWyJQo4=");
               var n = o("WAJids").unsafeCoerceToChatJid(e.id.toString()),
-                r = l[t % l.length];
+                a = l[t % l.length];
               return (
                 s.length < 3 &&
-                  s.push({ chatId: e.id.toString(), leadStage: r }),
+                  s.push({ chatId: e.id.toString(), leadStage: a }),
                 o("WAWebCustomerDataAction").customerDataAddAction(n, {
                   contactType: o("WAWebContactType").ContactType.CUSTOMER,
                   email: "test@meta.com",
                   altPhoneNumbers: "666-888-9999",
                   address: "1 Hacker Way",
-                  leadStage: r,
+                  leadStage: a,
                   acquisitionSource: 0,
                   lastOrder: o("WATimeUtils").castToUnixTime(1773181023),
                 })
@@ -671,12 +706,13 @@ __d(
     function fe() {
       return (
         (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            b ||
-              (b = babelHelpers.taggedTemplateLiteralLoose([
-                "[DEBUG][SMB] fetching BP access token and session cookies",
-              ])),
-          );
+          (r("vulture")("Kzdf44boSW1xC0EN0dcmKlEKeXQ="),
+            o("WALogger").LOG(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DEBUG][SMB] fetching BP access token and session cookies",
+                ])),
+            ));
           var t = yield o(
             "WAWebBPAccessTokenAndSessionCookiesMutation",
           ).fetchBPAccessTokenAndSessionCookies(e);

@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugLabelAssociation",
-  ["WAWebLabelJidSync", "asyncToGeneratorRuntime"],
+  ["WAWebLabelJidSync", "asyncToGeneratorRuntime", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -8,7 +8,8 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebLabelJidSync").applyMutations(e);
+          (r("vulture")("8ZwdlBnr_ZOmFo5LLcMf1NiaiCU="),
+            yield r("WAWebLabelJidSync").applyMutations(e));
         })),
         s.apply(this, arguments)
       );

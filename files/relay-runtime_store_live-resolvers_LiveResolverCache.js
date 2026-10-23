@@ -329,7 +329,14 @@ __d(
                   n.add(i);
                   var l = this.$1.get(i);
                   if (l == null) continue;
-                  for (var s of l) (P(s, e), n.has(s) || (n.add(s), r.push(s)));
+                  for (var s of l) {
+                    if (e.get(s) == null) {
+                      l.delete(s);
+                      continue;
+                    }
+                    (P(s, e), n.has(s) || (n.add(s), r.push(s)));
+                  }
+                  l.size === 0 && this.$1.delete(i);
                 }
             }
           }

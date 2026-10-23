@@ -20,6 +20,7 @@ __d(
     "WAWebFutureproofProtoUtils",
     "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingProtoUtils",
+    "WAWebMentionsCap",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationValidation",
     "WAWebMessagePluginParseProtobuf",
@@ -454,15 +455,19 @@ __d(
         )),
         (e.quotedType = t.quotedType),
         (e.mentionedJidList = Array.isArray(l)
-          ? l.map(o("WAWebDecodeJid").decodeJid)
+          ? o("WAWebMentionsCap")
+              .capMentions(l, "mentionedJid")
+              .map(o("WAWebDecodeJid").decodeJid)
           : l),
         (e.groupMentions = Array.isArray(s)
-          ? s.map(function (e) {
-              return {
-                groupSubject: e.groupSubject,
-                groupJid: o("WAWebDecodeJid").decodeJid(e.groupJid),
-              };
-            })
+          ? o("WAWebMentionsCap")
+              .capMentions(s, "groupMentions")
+              .map(function (e) {
+                return {
+                  groupSubject: e.groupSubject,
+                  groupJid: o("WAWebDecodeJid").decodeJid(e.groupJid),
+                };
+              })
           : s),
         (e.isForwarded = t.isForwarded),
         (e.isQuestion = t.isQuestion),

@@ -5,6 +5,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebTextStatusUtils",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -13,6 +14,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("wNdfP37mI08p8k5T0BKXhN6M-5s=");
           var e = yield r("WAWebLidAwareContactsDB").all();
           if (!(!e || e.length === 0)) {
             var t = e.map(function (e) {
@@ -31,14 +33,15 @@ __d(
             ),
               o("WAWebContactCollection").ContactCollection.forEach(
                 function (e) {
-                  e.set({
-                    textStatusString: null,
-                    textStatusEmoji: null,
-                    textStatusEphemeralDuration: null,
-                    textStatusLastUpdateTime: o("WAWebTextStatusUtils")
-                      .TEXT_STATUS_NOT_FETCHED,
-                    textStatusExpiryTs: null,
-                  });
+                  (r("vulture")("ieau0nSGgfSki04UqZ6pI4EH8Hg="),
+                    e.set({
+                      textStatusString: null,
+                      textStatusEmoji: null,
+                      textStatusEphemeralDuration: null,
+                      textStatusLastUpdateTime: o("WAWebTextStatusUtils")
+                        .TEXT_STATUS_NOT_FETCHED,
+                      textStatusExpiryTs: null,
+                    }));
                 },
               ));
           }

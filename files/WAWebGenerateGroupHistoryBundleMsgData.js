@@ -78,7 +78,7 @@ __d(
             var h = _ != null ? _ : o("WATimeUtils").unixTime(),
               y = o(
                 "WAWebGroupHistoryGating",
-              ).getGroupHistoryMessagesTimeLimitSecs(f),
+              ).getGroupHistoryMessagesTimeLimitSecs(),
               C = h - y,
               b = new Set(
                 g.map(function (e) {

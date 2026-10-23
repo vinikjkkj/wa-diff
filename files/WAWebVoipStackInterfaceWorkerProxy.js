@@ -991,6 +991,17 @@ __d(
             }
             return t;
           })(),
+          setOwnOtherDeviceJids: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                yield Re("setOwnOtherDeviceJids", { ownOtherDeviceJids: e });
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
           handleSignOut: function () {
             if (
               (o("WALogger").LOG(

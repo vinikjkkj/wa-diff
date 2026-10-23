@@ -10,6 +10,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -23,9 +24,12 @@ __d(
       f,
       g = { delaySaveMs: 0, simulateErrorOnSaveOrDeleteContact: null };
     function h(e) {
-      (e === void 0 && (e = 1e4), (g.delaySaveMs = Math.max(e, 0)));
+      (e === void 0 && (e = 1e4),
+        r("vulture")("i8mSeGdhGHrViMspkXGRaPXR4rc="),
+        (g.delaySaveMs = Math.max(e, 0)));
     }
     function y(e) {
+      r("vulture")("A05v3yrXRG_SRuvUJ3qNm901U_Q=");
       var t = e == null ? void 0 : e.toUpperCase();
       if (t !== "USYNC" && t !== "NETWORK" && t !== "CLIENT")
         throw r("err")("Unsupported error type");
@@ -34,6 +38,7 @@ __d(
     function C(t) {
       return (
         t === void 0 && (t = !0),
+        r("vulture")("99MOd1H0UBSc8pE4Dclxa6UFLlA="),
         t
           ? o("WAWebNonAddressBookContactsJob")
               .getAndUpdateNonAddressBookContacts()
@@ -67,6 +72,7 @@ __d(
     function b(e) {
       return (
         e === void 0 && (e = !0),
+        r("vulture")("D-xFwMBLroiKersrmDEBuxgSRpw="),
         e
           ? o("WAWebNonAddressBookContactsJob")
               .getNonAddressBookContactsAndMarkAllContactsDirty()
@@ -103,13 +109,14 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("mvFwOfmC9Ac7vlA26dt1fA8xnEo=");
           var t = o("WAWebWidFactory").createUserLidOrThrow(e),
             n = o("WAWebApiContact").getPhoneNumber(t),
-            r = o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY").getContactTable(),
-            a = yield r.get(t.toJid());
-          (a != null
-            ? (yield r.bulkCreateOrMerge([
-                babelHelpers.extends({}, a, {
+            a = o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY").getContactTable(),
+            i = yield a.get(t.toJid());
+          (i != null
+            ? (yield a.bulkCreateOrMerge([
+                babelHelpers.extends({}, i, {
                   phoneNumber: void 0,
                   phoneNumberCreatedAt: void 0,
                 }),
@@ -131,7 +138,7 @@ __d(
                 t.toString(),
               ),
             n != null
-              ? (yield r.remove(n.toJid()),
+              ? (yield a.remove(n.toJid()),
                 o("WALogger").LOG(
                   p ||
                     (p = babelHelpers.taggedTemplateLiteralLoose([

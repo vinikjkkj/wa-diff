@@ -35,7 +35,11 @@ __d(
         : t.routeMatchInfos.some(function (e) {
               return e.serverParamAccesses != null;
             }) ||
-            r("CometRouteMapperOptimized").needsDynamicCacheReconciliation(e)
+            r("CometRouteMapperOptimized").needsDynamicCacheReconciliation(
+              e,
+              t.type !== "routeDefinition" ||
+                t.routeDefinition.prefetchable === !1,
+            )
           ? !0
           : t.type === "routeRedirect" && u(t.redirectUrl, t.redirectResult);
     }

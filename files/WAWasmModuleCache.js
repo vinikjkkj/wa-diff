@@ -25,7 +25,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = d.get(e);
             if (t != null) return t;
-            var n = yield f(e);
+            var n = yield g(f(e));
             return (d.set(e, n), n);
           });
           return function (t) {
@@ -33,32 +33,43 @@ __d(
           };
         })(),
       );
-    function p(e) {
-      var t = new AbortController();
-      return o("WAExponentialBackoff").exponentialBackoff(
-        babelHelpers.extends({}, u, { signal: t.signal }),
-        (function () {
-          var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (n, o) {
-              if (o > c)
-                throw r("err")("WASM fetch exceeded max retries (" + c + ")");
-              yield _(t.signal);
-              var a;
-              try {
-                a = yield s(e, { signal: t.signal });
-              } catch (e) {
-                return n(r("getErrorSafe")(e));
-              }
-              if (a.status >= 500)
-                return n(r("err")("WASM fetch server error: " + a.status));
-              if (!a.ok) throw r("err")("WASM fetch failed: " + a.status);
-              return a;
-            },
-          );
-          return function (e, t) {
-            return o.apply(this, arguments);
-          };
-        })(),
+    function p(e, t, a) {
+      return (
+        t === void 0 && (t = new AbortController().signal),
+        o("WAExponentialBackoff").exponentialBackoff(
+          babelHelpers.extends({}, u, { signal: t }),
+          (function () {
+            var o = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (n, o) {
+                if (o > c)
+                  throw r("err")("WASM fetch exceeded max retries (" + c + ")");
+                o > 0 &&
+                  (a == null || a("wait_for_online"),
+                  yield _(t),
+                  a == null || a("fetch"));
+                var i;
+                try {
+                  i = yield s(e, { signal: t });
+                } catch (e) {
+                  return (
+                    a == null || a("retry_backoff"),
+                    n(r("getErrorSafe")(e))
+                  );
+                }
+                if (i.status >= 500)
+                  return (
+                    a == null || a("retry_backoff"),
+                    n(r("err")("WASM fetch server error: " + i.status))
+                  );
+                if (!i.ok) throw r("err")("WASM fetch failed: " + i.status);
+                return i;
+              },
+            );
+            return function (e, t) {
+              return o.apply(this, arguments);
+            };
+          })(),
+        )
       );
     }
     function _(t) {
@@ -81,23 +92,24 @@ __d(
               t.addEventListener("abort", a, { once: !0 }));
           });
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function f(e, t, n) {
+      return r("gkx")("22038") ? p(e, t, n) : s(e, { signal: t });
     }
-    function g() {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("gkx")("22038"),
-            n = t ? p(e) : s(e);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (typeof WebAssembly.compileStreaming == "function")
-            return WebAssembly.compileStreaming(n);
-          var o = yield n;
-          return WebAssembly.compile(yield o.arrayBuffer());
+            return WebAssembly.compileStreaming(e);
+          var t = yield e;
+          return WebAssembly.compile(yield t.arrayBuffer());
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.loadWasmModule = m;
+    ((l.loadWasmModule = m), (l.fetchWasm = f), (l.compileWasm = g));
   },
   98,
 );

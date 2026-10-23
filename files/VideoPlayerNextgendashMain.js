@@ -1824,7 +1824,21 @@ __d(
         });
       return a;
     }
-    function pe(e) {
+    function pe(e, t) {
+      var n,
+        r = te(e),
+        o = ce(
+          t,
+          r == null || (n = r.bufferedRangesWithRepIds) == null
+            ? void 0
+            : n.video,
+          null,
+        );
+      return re(e).find(function (e) {
+        return e.representationId === o;
+      });
+    }
+    function _e(e) {
       var t = te(e),
         n = t == null ? void 0 : t.targetRepresentationId.audio,
         r = oe(e).find(function (e) {
@@ -1832,7 +1846,7 @@ __d(
         });
       return r;
     }
-    function _e(e) {
+    function fe(e) {
       var t = te(e),
         n = t == null ? void 0 : t.targetRepresentationId.video,
         r = re(e).find(function (e) {
@@ -1840,7 +1854,7 @@ __d(
         });
       return r;
     }
-    function fe(e) {
+    function ge(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -1848,7 +1862,7 @@ __d(
             : t.selectedMediaVariant;
       return n;
     }
-    function ge(e) {
+    function he(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -1879,12 +1893,14 @@ __d(
       (l.getAvailableVideoRepresentations = ie),
       (l.getAvailableAudioRepresentations = se),
       (l.filterVideoRepresentationsByTargetVariant = ue),
+      (l.internal_findCurrentPlayingRepresentationID = ce),
       (l.getCurrentPlayingAudioRepresentation = de),
       (l.getCurrentPlayingVideoRepresentation = me),
-      (l.getCurrentTargetAudioRepresentation = pe),
-      (l.getCurrentTargetVideoRepresentation = _e),
-      (l.getSelectedMediaVariant = fe),
-      (l.getSelectedVideoQualityDisplayLabel = ge));
+      (l.getVideoRepresentationAtMediaTime = pe),
+      (l.getCurrentTargetAudioRepresentation = _e),
+      (l.getCurrentTargetVideoRepresentation = fe),
+      (l.getSelectedMediaVariant = ge),
+      (l.getSelectedVideoQualityDisplayLabel = he));
   },
   98,
 );

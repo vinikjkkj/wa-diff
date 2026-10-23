@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -21,6 +22,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("Fact6M9gbGqbaYCUYUUrC_C6PQs=");
           var n = window.chat;
           if (!n) {
             o("WALogger").WARN(
@@ -92,9 +94,10 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield c(
-            "Welcome to Coatpaints \uD83C\uDF89\nSign up today and get *20% OFF* your first order!",
-          );
+          (r("vulture")("HmyWfl_sMyK8yLrNThL3GZVCjfI="),
+            yield c(
+              "Welcome to Coatpaints \uD83C\uDF89\nSign up today and get *20% OFF* your first order!",
+            ));
         })),
         p.apply(this, arguments)
       );
@@ -103,7 +106,8 @@ __d(
       "Receive an example signup AGM with realistic business greeting text in the active chat"),
       (m.paramsToExecute = []));
     function _(e) {
-      o("WAWebSignupMetadataFetcher").setSignupMetadataOverride(e);
+      (r("vulture")("AAqmBKRof5v27nkcFxWUclkzel0="),
+        o("WAWebSignupMetadataFetcher").setSignupMetadataOverride(e));
     }
     _.doc =
       "Override signup metadata GraphQL response for E2E testing (DEV only)";

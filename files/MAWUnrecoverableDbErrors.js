@@ -62,11 +62,24 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
+      })(s),
+      p = (function (e) {
+        function t() {
+          for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+            r[o] = arguments[o];
+          return (
+            (t = e.call.apply(e, [this].concat(r)) || this),
+            (t.name = "maw_worker_restart_failed"),
+            babelHelpers.assertThisInitialized(t) ||
+              babelHelpers.assertThisInitialized(t)
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
       })(s);
-    function p(e) {
-      return e == null ? !1 : e instanceof s || _(e.name);
-    }
     function _(e) {
+      return e == null ? !1 : e instanceof s || f(e.name);
+    }
+    function f(e) {
       return (
         e === "indexed_db_access_error" ||
         e === "ear_init_error" ||
@@ -75,12 +88,12 @@ __d(
         e === "wa_exceeded_storage_quota_error"
       );
     }
-    var f = null,
-      g = new Set();
-    function h() {
-      return f;
+    var g = null,
+      h = new Set();
+    function y() {
+      return g;
     }
-    function y(t, n) {
+    function C(t, n) {
       (r("FBLogger")("messenger_web").MUSTFIX(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,17 +102,17 @@ __d(
           ])),
         t.name,
       ),
-        (f = t),
+        (g = t),
         n == null || n(),
-        g.forEach(function (e) {
+        h.forEach(function (e) {
           return e(t);
         }));
     }
-    function C(e) {
+    function b(e) {
       return (
-        g.add(e),
+        h.add(e),
         function () {
-          return g.delete(e);
+          return h.delete(e);
         }
       );
     }
@@ -108,11 +121,12 @@ __d(
       (l.EarRuntimeError = c),
       (l.EbsmHydrationError = d),
       (l.WAExceededStorageQuotaError = m),
-      (l.isUnrecoverableDbError = p),
-      (l.isUnrecoverableDbErrorByName = _),
-      (l.getError = h),
-      (l.setError = y),
-      (l.subscribe = C));
+      (l.MAWWorkerRestartFailedError = p),
+      (l.isUnrecoverableDbError = _),
+      (l.isUnrecoverableDbErrorByName = f),
+      (l.getError = y),
+      (l.setError = C),
+      (l.subscribe = b));
   },
   98,
 );

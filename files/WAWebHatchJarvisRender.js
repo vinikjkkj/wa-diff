@@ -23,58 +23,58 @@ __d(
       ]),
       _ = new Set(["avi", "m4v", "mov", "mp4", "webm"]),
       f = new Set(["aac", "flac", "m4a", "mp3", "oga", "ogg", "opus", "wav"]);
-    function g(t, n) {
-      var r = t.presentation,
-        o = r != null ? L(r, t.displayText, t.fileMetadata, t.messageId) : [],
-        a = [].concat(
-          o.length > 0 ? o : h(t.displayText, t.fileMetadata),
-          t.inlineWidgets.flatMap(R),
-          A(t.citations),
+    function g(t, n, r) {
+      var o = t.presentation,
+        a = o != null ? k(o, t.displayText, t.fileMetadata, t.messageId) : [],
+        i = [].concat(
+          a.length > 0 ? a : h(t.displayText, t.fileMetadata),
+          t.inlineWidgets.flatMap(E),
+          O(t.citations),
         ),
-        i = new Map(),
-        l = [];
-      for (var s of a)
+        l = new Map(),
+        s = [];
+      for (var u of i)
         e: {
-          var u = s;
+          var c = u;
           if (
-            ((typeof u == "object" && u !== null) || typeof u == "function") &&
-            u.type === "markdown" &&
-            "text" in u
+            ((typeof c == "object" && c !== null) || typeof c == "function") &&
+            c.type === "markdown" &&
+            "text" in c
           ) {
-            var c = u.text;
-            l.push(b(c));
+            var d = c.text;
+            s.push(b(d));
             break e;
           }
           if (
-            ((typeof u == "object" && u !== null) || typeof u == "function") &&
-            u.type === "primitive" &&
-            "primitive" in u
+            ((typeof c == "object" && c !== null) || typeof c == "function") &&
+            c.type === "primitive" &&
+            "primitive" in c
           ) {
-            var d = u.primitive;
-            l.push(v(d));
+            var m = c.primitive;
+            s.push(v(m));
             break e;
           }
           if (
-            ((typeof u == "object" && u !== null) || typeof u == "function") &&
-            u.type === "item" &&
-            "item" in u
+            ((typeof c == "object" && c !== null) || typeof c == "function") &&
+            c.type === "item" &&
+            "item" in c
           ) {
-            var m = u.item,
-              p = "" + e + i.size;
-            (i.set(p, m), l.push(S(p)));
+            var p = c.item,
+              _ = "" + e + l.size;
+            (l.set(_, R(p, r)), s.push(S(_)));
             break e;
           }
           throw Error(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-              u,
+              c,
           );
         }
       return {
-        items: i,
+        items: l,
         unifiedResponse: {
           __typename: "XMSGGenAIUnifiedResponse",
           response_id: n,
-          sections: l,
+          sections: s,
         },
       };
     }
@@ -88,7 +88,7 @@ __d(
           (e !== "" && n.push({ text: e, type: "markdown" }), (r = []));
         },
         l = function () {
-          (n.push.apply(n, k(o)), (o = []));
+          (n.push.apply(n, T(o)), (o = []));
         };
       for (var s of e.trim().split("\n")) {
         m.test(s) && (a = !a);
@@ -178,12 +178,61 @@ __d(
         },
       };
     }
-    function R(e) {
+    function R(e, t) {
+      return (t == null ? void 0 : t.readOnly) !== !0
+        ? e
+        : (function (t) {
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "buttons" &&
+              "buttons" in t
+            ) {
+              var n = t.buttons;
+              return {
+                buttons: n.map(function (e) {
+                  return e.url == null
+                    ? babelHelpers.extends({}, e, { isDisabled: !0 })
+                    : e;
+                }),
+                type: "buttons",
+              };
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "list" &&
+              "fileMetadata" in t &&
+              "list" in t
+            ) {
+              var r = t.fileMetadata,
+                o = t.list;
+              return {
+                fileMetadata: r,
+                list: babelHelpers.extends({}, o, { rows: o.rows.map(L) }),
+                type: "list",
+              };
+            }
+            return e;
+          })(e);
+    }
+    function L(e) {
+      var t = e.flight;
+      return t != null
+        ? babelHelpers.extends({}, e, {
+            flight: babelHelpers.extends({}, t, {
+              bookingMessage: null,
+              bookingTitle: null,
+            }),
+          })
+        : e;
+    }
+    function E(e) {
       if (e.kind !== "option") return [];
-      var t = E(e.data, e.id);
+      var t = I(e.data, e.id);
       return t != null ? [{ item: t, type: "item" }] : [];
     }
-    function L(e, t, n, r) {
+    function k(e, t, n, r) {
       var a = e.data;
       e: {
         if (e.kind === "shopping_results" || e.kind === "shopping_results_v2")
@@ -195,9 +244,9 @@ __d(
         if (e.kind === "generic_list") {
           var i = o("WAWebHatchJarvisWidgets").list(a);
           return i != null
-            ? w(i, e.id, n)
-            : I(
-                T(
+            ? F(i, e.id, n)
+            : D(
+                x(
                   o("WAWebHatchJsonReaders").readString(a, "title"),
                   o("WAWebHatchJsonReaders").readString(a, "subtitle"),
                 ),
@@ -208,7 +257,7 @@ __d(
           return l != null ? [{ primitive: l, type: "primitive" }] : [];
         }
         if (e.kind === "option") {
-          var c = E(a, e.id);
+          var c = I(a, e.id);
           return c != null ? [{ item: c, type: "item" }] : [];
         }
         if (e.kind === "image_options") {
@@ -231,14 +280,14 @@ __d(
                 kind: "image",
                 label: g != null ? g : "",
               });
-            var y = g != null ? g : f != null ? M(f) : null;
+            var y = g != null ? g : f != null ? A(f) : null;
             y != null && p.push(y);
           }
-          return [].concat(k(m), I(D(p)));
+          return [].concat(T(m), D($(p)));
         }
         if (e.kind === "voice_options")
-          return I(
-            D(
+          return D(
+            $(
               o("WAWebHatchJsonReaders")
                 .readObjects(a, "options")
                 .map(function (e) {
@@ -250,23 +299,23 @@ __d(
             ),
           );
         if (e.kind === "avatar_share")
-          return I(
-            T(
+          return D(
+            x(
               o("WAWebHatchJsonReaders").readString(a, "title"),
               o("WAWebHatchJsonReaders").readString(a, "subtitle"),
             ),
           );
         if (e.kind === "navigation")
-          return I(
-            T(
+          return D(
+            x(
               o("WAWebHatchJsonReaders").readString(a, "title"),
               o("WAWebHatchJsonReaders").readString(a, "summary"),
             ),
           );
         if (e.kind === "idea_group") {
           var b = o("WAWebHatchJsonReaders").readObject(a, "navigation");
-          return I(
-            T(
+          return D(
+            x(
               o("WAWebHatchJsonReaders").readString(b, "title"),
               o("WAWebHatchJsonReaders").readString(b, "summary"),
             ),
@@ -277,12 +326,12 @@ __d(
             S = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(v, "motivation"),
             );
-          return I(
+          return D(
             [].concat(
               S != null ? [S] : [],
               o("WAWebHatchJsonReaders")
                 .readObjects(v, "elements")
-                .map(x)
+                .map(P)
                 .filter(Boolean),
             ),
           );
@@ -292,22 +341,22 @@ __d(
             L = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "fallback_text"),
             ),
-            $ = o("WAWebHatchJarvisWidgets").text(
+            E = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "html_file"),
             ),
-            A = I(L != null ? [L] : []);
-          if ($ == null || !$.startsWith(s)) return A;
-          var F = C({ label: "", url: $ }, (R = n.get($)) != null ? R : null);
-          return F.type === "file"
-            ? [].concat(A, [{ item: F, type: "item" }])
-            : A;
+            k = D(L != null ? [L] : []);
+          if (E == null || !E.startsWith(s)) return k;
+          var N = C({ label: "", url: E }, (R = n.get(E)) != null ? R : null);
+          return N.type === "file"
+            ? [].concat(k, [{ item: N, type: "item" }])
+            : k;
         }
         if (e.kind === "space_build_completed") {
           var O = o("WAWebHatchJarvisWidgets").spaceCard(a);
           return O != null
             ? [{ primitive: O, type: "primitive" }]
-            : I(
-                T(
+            : D(
+                x(
                   o("WAWebHatchJsonReaders").readString(a, "display_name"),
                   o("WAWebHatchJsonReaders").readString(a, "summary"),
                 ),
@@ -328,9 +377,9 @@ __d(
           var W = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "text"),
             ),
-            q = o("WAWebHatchJarvisWidgets").actionButtons(P(a));
+            q = o("WAWebHatchJarvisWidgets").actionButtons(M(a));
           return [].concat(
-            I(W != null ? [W] : []),
+            D(W != null ? [W] : []),
             q.length > 0
               ? [{ item: { buttons: q, type: "buttons" }, type: "item" }]
               : [],
@@ -340,8 +389,8 @@ __d(
           var U = o("WAWebHatchJarvisWidgets").text(
             o("WAWebHatchJsonReaders").readString(a, "text"),
           );
-          return I(
-            [].concat(U != null ? [U] : [], P(a).map(N).filter(Boolean)),
+          return D(
+            [].concat(U != null ? [U] : [], M(a).map(w).filter(Boolean)),
           );
         }
         if (e.kind === "internal_link_action_card") {
@@ -369,7 +418,7 @@ __d(
                       "url",
                     ),
                   );
-          return I(
+          return D(
             [G != null && j != null ? "[" + G + "](" + j + ")" : G, z].filter(
               Boolean,
             ),
@@ -378,7 +427,7 @@ __d(
         return [];
       }
     }
-    function E(e, t) {
+    function I(e, t) {
       var n,
         r = (
           (n = o("WAWebHatchJsonReaders").readArray(e, "options")) != null
@@ -406,7 +455,7 @@ __d(
             widgetId: t,
           };
     }
-    function k(e) {
+    function T(e) {
       for (var t = [], n = 0; n < e.length; n += c)
         t.push({
           item: { media: e.slice(n, n + c), type: "media" },
@@ -414,10 +463,10 @@ __d(
         });
       return t;
     }
-    function I(e) {
+    function D(e) {
       return e.length > 0 ? [{ text: e.join("\n"), type: "markdown" }] : [];
     }
-    function T(e, t) {
+    function x(e, t) {
       var n = o("WAWebHatchJarvisWidgets").text(e),
         r = o("WAWebHatchJarvisWidgets").text(t);
       return [].concat(
@@ -425,12 +474,12 @@ __d(
         r != null ? [r] : [],
       );
     }
-    function D(e) {
+    function $(e) {
       return e.map(function (e, t) {
         return t + 1 + ". " + e;
       });
     }
-    function x(e) {
+    function P(e) {
       e: {
         var t = o("WAWebHatchJsonReaders").readString(e, "kind");
         if (t === "rich_place") {
@@ -438,7 +487,7 @@ __d(
             o("WAWebHatchJsonReaders").readString(e, "name"),
           );
           return n != null
-            ? $("**" + n + "**", [
+            ? N("**" + n + "**", [
                 o("WAWebHatchJsonReaders").readString(e, "category"),
                 o("WAWebHatchJsonReaders").readString(e, "description"),
               ])
@@ -449,7 +498,7 @@ __d(
             o("WAWebHatchJsonReaders").readString(e, "title"),
           );
           return r != null
-            ? $(r, [o("WAWebHatchJsonReaders").readString(e, "subtitle")])
+            ? N(r, [o("WAWebHatchJsonReaders").readString(e, "subtitle")])
             : null;
         }
         if (t === "marketplace_listing") {
@@ -461,7 +510,7 @@ __d(
           var l = o("WAWebHatchUrl").toWebUrl(
             o("WAWebHatchJsonReaders").readString(e, "url"),
           );
-          return $(l != null ? "[" + i + "](" + l + ")" : i, [
+          return N(l != null ? "[" + i + "](" + l + ")" : i, [
             (a = o("WAWebHatchJsonReaders").readString(e, "sale_price")) != null
               ? a
               : o("WAWebHatchJsonReaders").readString(e, "price"),
@@ -470,18 +519,18 @@ __d(
         return null;
       }
     }
-    function $(e, t) {
+    function N(e, t) {
       var n = t.map(o("WAWebHatchJarvisWidgets").text).filter(Boolean);
       return n.length > 0 ? "- " + e + ": " + n.join(" \xB7 ") : "- " + e;
     }
-    function P(e) {
+    function M(e) {
       var t = o("WAWebHatchJsonReaders").readObject(e, "button");
       return [].concat(
         t != null ? [t] : [],
         o("WAWebHatchJsonReaders").readObjects(e, "secondary_buttons"),
       );
     }
-    function N(e) {
+    function w(e) {
       var t = o("WAWebHatchJarvisWidgets").text(
         o("WAWebHatchJsonReaders").readString(e, "label"),
       );
@@ -491,11 +540,11 @@ __d(
       );
       return n != null ? "[" + t + "](" + n + ")" : t;
     }
-    function M(e) {
+    function A(e) {
       var t;
       return (t = e.split("/").pop()) != null ? t : e;
     }
-    function w(e, t, n) {
+    function F(e, t, n) {
       var r = [],
         a = e.rows.filter(function (e) {
           var n = o("WAWebHatchJarvisWidgets").connectorCardForRow(e, t);
@@ -507,7 +556,7 @@ __d(
       return r.length === 0
         ? [{ item: { fileMetadata: n, list: e, type: "list" }, type: "item" }]
         : [].concat(
-            I(T(e.title, e.subtitle)),
+            D(x(e.title, e.subtitle)),
             r,
             a.length > 0
               ? [
@@ -523,7 +572,7 @@ __d(
               : [],
           );
     }
-    function A(e) {
+    function O(e) {
       var t = e.map(function (e) {
         var t,
           n = o("WAWebHatchUrl").toWebUrl(e.uri);
@@ -535,7 +584,7 @@ __d(
               : null,
           source_display_name: e.label,
           source_subtitle:
-            (t = e.domain) != null ? t : n != null ? F(n) : e.uri,
+            (t = e.domain) != null ? t : n != null ? B(n) : e.uri,
           source_type: "THIRD_PARTY",
           source_url: n,
         };
@@ -552,7 +601,7 @@ __d(
           ]
         : [];
     }
-    function F(e) {
+    function B(e) {
       return new URL(e).hostname.replace(/^www\./, "");
     }
     l.buildHatchJarvisRender = g;

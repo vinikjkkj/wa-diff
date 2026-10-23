@@ -17,12 +17,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 50;
-    function s(e, t) {
-      var n = t != null ? t : o("WATimeUtils").unixTime(),
-        r = o("WAWebGroupHistoryGating").getGroupHistoryMessagesTimeLimitSecs(
-          e,
-        );
-      return n - r;
+    function s(e) {
+      var t = e != null ? e : o("WATimeUtils").unixTime(),
+        n = o("WAWebGroupHistoryGating").getGroupHistoryMessagesTimeLimitSecs();
+      return t - n;
     }
     function u(e, t, n) {
       if (
@@ -60,7 +58,7 @@ __d(
                 "group_history_message_count_limit",
               ),
             ),
-            l = s(t, a),
+            l = s(a),
             c = [];
           return (
             yield o("WAWebModelStorageUtils")

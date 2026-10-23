@@ -6,9 +6,11 @@ __d(
     "WAWebUserPrefsMultiDeviceDebug",
     "encodeProtobuf",
     "err",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      r("vulture")("0afm8S1l5h-NkWHFjzC8I9Pga9g=");
       var t = p(e);
       o("WAWebUserPrefsMultiDeviceDebug").setDebugRoutingTokenPref(t);
     }
@@ -35,6 +37,7 @@ __d(
         hil: 19,
       });
     function c(e) {
+      r("vulture")("eBL2nTn0fb5ybR18goTwcwUJJbM=");
       var t = Object.keys(s).find(function (t) {
         return t === e;
       });
@@ -42,6 +45,7 @@ __d(
       throw r("err")("Not a valid cluster " + e);
     }
     function d(e) {
+      r("vulture")("z9h-omBTWhl_DwSiIjkJK9cEAFE=");
       var t = Object.keys(u).find(function (t) {
         return t === e;
       });
@@ -49,6 +53,7 @@ __d(
       throw r("err")("Not a valid region " + e);
     }
     function m(e) {
+      r("vulture")("eUinlicD08WSfiQRInMlVawWI6A=");
       var t = e.match(/^\s*(([a-z]+)([0-9]+)?\.)?(\w+)\s*$/);
       if (!t) throw r("err")("Invalid token: " + e);
       var n = void 0,
@@ -61,6 +66,7 @@ __d(
       return (Number.isNaN(u) && (u = void 0), [n, o, u]);
     }
     function p(e) {
+      r("vulture")("k-gDEle3FmvgGjxIR61rVvRpwDQ=");
       var t = e.toLowerCase();
       if (!t || t.match(/^\s*default\s*$/)) return "";
       var n = e.split(",").map(m),

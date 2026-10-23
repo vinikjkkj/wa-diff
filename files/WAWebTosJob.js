@@ -68,7 +68,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!r("gkx")("26258")) {
+          if (r("gkx")("16539")) {
             var t,
               n = new (r("WADeprecatedWapParser"))(
                 "tosNoticesDebug",

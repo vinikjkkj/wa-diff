@@ -4,9 +4,12 @@ __d(
     "WAWebUserPrefsInfoStore",
     "WAWebUserPrefsScreenLock",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {}
+    function e() {
+      r("vulture")("MNayDOR2zXJ_JMctnffN-MmziJg=");
+    }
     e.doc = "Outputs the noise info from local storage.";
     function s() {
       return u.apply(this, arguments);
@@ -14,10 +17,12 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("82zNFjfsaKEYylOt4ZusbzHvc4M="), e());
           var t = String(window.prompt("Create a password to lock WhatsApp.")),
             n = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.lockNoiseInfo(t);
-          n &&
-            o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(900);
+          (n &&
+            o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(900),
+            e());
         })),
         u.apply(this, arguments)
       );
@@ -29,6 +34,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("NipTCyJyrTGZVEaCtjd0Y5HHvt4="), e());
           var t = String(
               window.prompt(
                 "Enter your current password to remove the app lock.",
@@ -37,11 +43,12 @@ __d(
             n = yield o(
               "WAWebUserPrefsInfoStore",
             ).waNoiseInfo.removeLockOnNoiseInfo(t);
-          n
+          (n
             ? o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(0)
             : alert(
                 "Incorrect password! Failed to remove the lock from the noise info.",
-              );
+              ),
+            e());
         })),
         d.apply(this, arguments)
       );

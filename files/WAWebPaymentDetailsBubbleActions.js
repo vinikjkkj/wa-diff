@@ -42,7 +42,7 @@ __d(
               p(
                 a,
                 function (e, t, n) {
-                  var r = e.confirmMarkAsPaid;
+                  var r = e.confirmMarkAsPaidFromBubble;
                   return r(t, n);
                 },
                 o("WAWebPaymentDetailsStrings").getMarkAsPaidFailedToast,
@@ -64,7 +64,7 @@ __d(
               p(
                 a,
                 function (e, t, n) {
-                  var r = e.openAddReceiptDialog;
+                  var r = e.openAddReceiptDialogFromBubble;
                   return r(t, n);
                 },
                 o("WAWebPaymentDetailsStrings").getAddReceiptFailedToast,

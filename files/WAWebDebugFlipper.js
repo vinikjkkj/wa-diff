@@ -17,6 +17,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -32,6 +33,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("6jqLm3vKBV1Ni81RewBeNys-Xio=");
           var e = yield r("JSResourceForInteraction")("js-flipper")
               .__setRef("WAWebDebugFlipper")
               .load(),
@@ -39,6 +41,7 @@ __d(
             a = !0;
           t.start(p, {
             websocketFactory: function (t) {
+              r("vulture")("fgzXzsMHMWjZ3kD9-1zBpcc7UWU=");
               var e = new (r("ReconnectingWebSocket"))(t, void 0, {
                 reconnectInterval: 2e3,
                 timeoutInterval: 1e4,
@@ -54,6 +57,7 @@ __d(
               r("WASmaxMocksWasm")({
                 instantiateWasm: function (t, n) {
                   return (
+                    r("vulture")("rzVu4j50MIMZRNFcTTZrubnf0tc="),
                     WebAssembly.instantiateStreaming(
                       self.fetch(
                         o("WAWebBuildConstants").WEB_PUBLIC_PATH +
@@ -62,17 +66,19 @@ __d(
                       t,
                     )
                       .then(function (e) {
-                        n(e.instance);
+                        (r("vulture")("GTrOXijM6yHP7rcw8gTflqWxMSk="),
+                          n(e.instance));
                       })
                       .catch(function (e) {
-                        o("WALogger").ERROR(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
-                              "[smax] ",
-                              "",
-                            ])),
-                          r("getErrorSafe")(e),
-                        );
+                        (r("vulture")("bGSO75_Z9uQSTQL5QAWmlpF3fSM="),
+                          o("WALogger").ERROR(
+                            d ||
+                              (d = babelHelpers.taggedTemplateLiteralLoose([
+                                "[smax] ",
+                                "",
+                              ])),
+                            r("getErrorSafe")(e),
+                          ));
                       }),
                     {}
                   );
@@ -93,6 +99,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("FoWYkOACILOrQLVdSX1DAMNedqo=");
           var e = yield r("JSResourceForInteraction")("js-flipper")
               .__setRef("WAWebDebugFlipper")
               .load(),
@@ -106,35 +113,37 @@ __d(
         function t(e, t) {
           ((this.backend = null),
             (this.loggerId = null),
+            r("vulture")("bRVzcgWY_iUT53XV4RfzzljdQ7I="),
             (this.comms = e),
             (this.wasmModule = t));
         }
         var a = t.prototype;
         return (
           (a.getId = function () {
-            return "wa-smax";
+            return (r("vulture")("IsAIkFaGdn7BO4sJJzTkXWS9k5o="), "wa-smax");
           }),
           (a.onConnect = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var a = this,
-                  i = new (o("WASmaxMockRunnerBackend").SmaxMockRunnerBackend)(
-                    this.wasmModule,
-                    function (n, r) {
-                      try {
-                        t.send(n, JSON.parse(r));
-                      } catch (t) {
-                        o("WALogger").ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[smax] ",
-                              "",
-                            ])),
-                          t,
-                        );
-                      }
-                    },
-                  ),
+                var a = this;
+                r("vulture")("QUCnRFWuxXQlilbj8bjwqswEFak=");
+                var i = new (o(
+                    "WASmaxMockRunnerBackend",
+                  ).SmaxMockRunnerBackend)(this.wasmModule, function (n, a) {
+                    r("vulture")("XIaDiH18HsEDmdX0ZO-QDb8GgPo=");
+                    try {
+                      t.send(n, JSON.parse(a));
+                    } catch (t) {
+                      o("WALogger").ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[smax] ",
+                            "",
+                          ])),
+                        t,
+                      );
+                    }
+                  }),
                   l = o("WASmaxMockRunner").SmaxAutomaticMockRunner.fromRunner(
                     i.wasmModule,
                     i.runnerPointer,
@@ -184,7 +193,10 @@ __d(
                         "Signal keys not available. Running in pre-pairing mode: plaintext stanza injection works, but encrypted message mocks require pairing first.",
                     })),
                   l.subscribe(function (e) {
-                    if (e.type === "Injection") {
+                    if (
+                      (r("vulture")("qSTpJJF26QVBybR3mn0x2zP4IMQ="),
+                      e.type === "Injection")
+                    ) {
                       var t = o("WAWap").decodeStanzaDebug(e.data),
                         i = (m || (m = n("Promise"))).resolve(
                           a.comms.handleStanza(
@@ -194,25 +206,33 @@ __d(
                           ),
                         );
                       i.then(function (e) {
-                        if (!(e === "CLOSE_SOCKET" || e === "NO_ACK"))
+                        if (
+                          (r("vulture")("d6jrsjCB2BED81TMloAg7I00spI="),
+                          !(e === "CLOSE_SOCKET" || e === "NO_ACK"))
+                        )
                           return a.comms.castStanza(e);
                       }).catch(function (e) {
-                        o("WALogger").ERROR(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "[smax] ",
-                              "",
-                            ])),
-                          r("getErrorSafe")(e),
-                        );
+                        (r("vulture")("dgVRW0GAY8NWOKTkOzou3hWLL0s="),
+                          o("WALogger").ERROR(
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                                "[smax] ",
+                                "",
+                              ])),
+                            r("getErrorSafe")(e),
+                          ));
                       });
                     }
                   }),
                   t.receive("rpc", function (e) {
-                    return i.handleRpc(e);
+                    return (
+                      r("vulture")("-P9TIjMumcN6ZhWMCmtzauJk9PI="),
+                      i.handleRpc(e)
+                    );
                   }),
                   (this.backend = i),
                   this.comms.setOnBeforeCastStanza(function (e) {
+                    r("vulture")("pdYOBoInFMT2qtF5b_JiP9wjw0k=");
                     try {
                       var n = o("WAWap").encodeStanza(e);
                       return (l.match(n), []);
@@ -232,7 +252,8 @@ __d(
                   (this.loggerId = o("WASmaxMockRunner")
                     .getSmaxLogEmitter(this.wasmModule)
                     .subscribe(function (e) {
-                      t.send("log", { message: e });
+                      (r("vulture")("Wwu1_fwXtBtE-BGNBDOvgcdKcxU="),
+                        t.send("log", { message: e }));
                     })));
               },
             );
@@ -242,8 +263,9 @@ __d(
             return a;
           })()),
           (a.onDisconnect = function () {
-            this.backend != null &&
-              (this.backend.cleanup(), (this.backend = null));
+            (r("vulture")("z6YQAO_rqbnQW3-ToFvYIOqSeOA="),
+              this.backend != null &&
+                (this.backend.cleanup(), (this.backend = null)));
             var e = this.loggerId;
             (e != null &&
               (o("WASmaxMockRunner")

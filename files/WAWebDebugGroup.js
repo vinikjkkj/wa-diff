@@ -33,16 +33,19 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "escapeRegex",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d() {
-      o("WAWebQueryAndUpdateGroupMetadataJob").queryAndUpdateAllGroupMetadata(
-        {},
-      );
+      (r("vulture")("tGazH9PnXUCzWTzuNtFGqFF7HpY="),
+        o("WAWebQueryAndUpdateGroupMetadataJob").queryAndUpdateAllGroupMetadata(
+          {},
+        ));
     }
     d.doc = "Use this to query and update all group metadata";
     function m() {
+      r("vulture")("2_Dvim9r8hwLzHXGKUtGPSX-L1c=");
       var t = o("WAWebDebugUtils").getSelectedChat();
       if (!t || !t.groupMetadata) {
         o("WALogger").WARN(
@@ -63,14 +66,15 @@ __d(
         );
         return;
       }
-      var r = n.filter(function (e) {
+      var a = n.filter(function (e) {
         return !e.isAdmin;
       });
-      o("WAWebModifyParticipantsGroupAction").promoteParticipants(t, r);
+      o("WAWebModifyParticipantsGroupAction").promoteParticipants(t, a);
     }
     ((m.doc = "Make everyone in the group an admin"), (m.paramsToExecute = []));
     function p(e, t, a) {
-      a === void 0 && (a = "Test");
+      (a === void 0 && (a = "Test"),
+        r("vulture")("Fn4TsxVth1N_6ANdeSE9ayaDrVk="));
       for (
         var i = self.performance.now(),
           l = t.map(function (e) {
@@ -89,7 +93,9 @@ __d(
             l,
           ),
         );
-      return (c || (c = n("Promise"))).all(s).then(function () {});
+      return (c || (c = n("Promise"))).all(s).then(function () {
+        r("vulture")("dC89giV7vuIaHCpxcVX7cjxHl2w=");
+      });
     }
     p.doc = "Create [n] groups, each with the given [members]";
     function _(e, t, n) {
@@ -101,6 +107,7 @@ __d(
           if (
             (a === void 0 &&
               (a = "Group name filter as a RegExp excluding leading ^"),
+            r("vulture")("uUytsgMHwgLG4r5f3VmdCBuoZEE="),
             !(e > 1 && a.length < 2))
           ) {
             var i = self.performance.now(),
@@ -130,7 +137,8 @@ __d(
     _.doc =
       "Send [message], [n] times, to every group starting with /^[groupNameFilter]/.";
     function g(e, t) {
-      t === void 0 && (t = "Test");
+      (t === void 0 && (t = "Test"),
+        r("vulture")("g8fuMIoTbrtSTnrKGe3fgwGCM2U="));
       var a = self.performance.now(),
         i = new RegExp("^" + r("escapeRegex")(t)),
         l = o("WAWebChatCollection").ChatCollection.filter(function (e) {
@@ -141,6 +149,7 @@ __d(
       for (var u of l)
         s.push(o("WAWebSetArchiveChatAction").setArchive(u, e, !0));
       return (c || (c = n("Promise"))).all(s).then(function () {
+        r("vulture")("n969e9cNZ2XjiNLnoH7A3hcG3c4=");
         var e = Math.floor(self.performance.now() - a);
       });
     }
@@ -151,7 +160,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null) {
+          if ((r("vulture")("q6SPY3yFBR4gQaYPtt8JdlwQl2w="), e == null)) {
             o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -196,7 +205,8 @@ __d(
       );
     }
     function C() {
-      o("WAWebApiParticipantStore").pruneExpiredPastParticipants();
+      (r("vulture")("rZlk4-V9bgFayT5X5rJAepX8KEc="),
+        o("WAWebApiParticipantStore").pruneExpiredPastParticipants());
     }
     C.doc = "Prunes past participants older than 60 days";
     function b(e, t) {
@@ -205,6 +215,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("GcexE0Bo-fIjowLBwyXsTgVeYdQ=");
           var n = o("WAWebDebugUtils").getSelectedMsg();
           if (!n)
             throw r("err")("You need to select a message by right clicking it");
@@ -266,6 +277,7 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("VshfzeqnjJ75A-lcJ7NckbEac5s=");
           var e = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
               .all(),
@@ -275,7 +287,7 @@ __d(
             n = t.map(function (e) {
               return o("WAWebWidFactory").createWid(e.id);
             }),
-            r = yield o("WAWebGroupsParticipantsApi").bulkCheckMyMembership(n);
+            a = yield o("WAWebGroupsParticipantsApi").bulkCheckMyMembership(n);
           return t.map(function (e, t) {
             return {
               id: e.id,
@@ -283,7 +295,7 @@ __d(
               isLidAddressingMode: e.isLidAddressingMode,
               suspended: e.suspended,
               terminated: e.terminated,
-              isMember: r[t],
+              isMember: a[t],
             };
           });
         })),
@@ -298,9 +310,10 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o(
-            "WAWebInactiveGroupLidMigrationJob",
-          ).migrateInactiveGroupsToLid();
+          return (
+            r("vulture")("_904JxK8KnMZ4DiTUySmpYTGyCk="),
+            o("WAWebInactiveGroupLidMigrationJob").migrateInactiveGroupsToLid()
+          );
         })),
         E.apply(this, arguments)
       );
@@ -313,6 +326,7 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("rYMXWZUvuGda2BLWm6FCTPdKrN4=");
           var t = o("WAWebWidFactory").createWid(e),
             n = yield o("WAWebGroupQueryGroupJob").queryGroupJob(t);
           return n;

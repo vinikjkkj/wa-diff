@@ -5,7 +5,10 @@ __d(
     function e() {
       return s._(/*BTDS*/ "Meta Business Agent");
     }
-    l.getBizAiHubTitle = e;
+    function u() {
+      return s._(/*BTDS*/ "Reconnect");
+    }
+    ((l.getBizAiHubTitle = e), (l.getReconnectPartnerAppButtonLabel = u));
   },
   226,
 );

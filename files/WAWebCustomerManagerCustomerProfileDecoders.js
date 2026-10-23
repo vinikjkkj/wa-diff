@@ -92,26 +92,52 @@ __d(
               ? String(e.numericValue)
               : ""
             : e.fieldType === "MONEY"
-              ? y(e)
+              ? b(e)
               : e.fieldType === "ENUM"
-                ? h(e)
+                ? C(e)
                 : "";
     }
     function h(e) {
+      var t;
+      return e.fieldType === "MONEY"
+        ? y(e)
+        : e.fieldType === "ENUM"
+          ? (t = e.enumOptionKey) != null
+            ? t
+            : ""
+          : g(e);
+    }
+    function y(e) {
+      var t = e.currencyDecimalPlaces,
+        n = e.moneyAmount;
+      if (n == null || t == null) return "";
+      var r = Math.abs(n),
+        o = Math.min(Math.max(t, 0), 2),
+        a = Math.pow(10, Math.max(t - 2, 0)),
+        i = Math.floor(r / a) + (r % a >= a / 2 ? 1 : 0),
+        l = n < 0 && i !== 0 ? "-" : "",
+        s = v(i, o);
+      return o === 0
+        ? "" + l + s + ".00"
+        : o === 1
+          ? "" + l + s + "0"
+          : "" + l + s;
+    }
+    function C(e) {
       var t,
         n = e.enumLabels,
         r = e.enumOptionKey,
         o = e.enumOptionKeys;
       return r == null ? "" : (t = n[o.indexOf(r)]) != null ? t : "";
     }
-    function y(e) {
+    function b(e) {
       var t = e.currencyDecimalPlaces,
         n = e.moneyAmount;
       if (n == null || t == null) return "";
       var r = n < 0 ? "-" : "";
-      return "" + r + C(Math.abs(n), t);
+      return "" + r + v(Math.abs(n), t);
     }
-    function C(e, t) {
+    function v(e, t) {
       if (t <= 0) return String(e);
       var n = String(e).padStart(t + 1, "0");
       return n.slice(0, -t) + "." + n.slice(-t);
@@ -124,7 +150,8 @@ __d(
       (l.toOptionalUnixTime = m),
       (l.latestUpdateTs = p),
       (l.toFieldUpdates = _),
-      (l.formatCustomFieldValue = g));
+      (l.formatCustomFieldValue = g),
+      (l.formatCustomFieldExportValue = h));
   },
   98,
 );

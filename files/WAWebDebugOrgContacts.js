@@ -16,6 +16,7 @@ __d(
     "err",
     "nullthrows",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -27,6 +28,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("EVcoPsWPrNoNDb7yOwp5q89-0J8=");
           var t = yield m(e),
             n = new Set(t.populated),
             a = o("WAWebOrgAdminDirectoryAdapters").toOrgAdminDirectoryMembers(
@@ -89,6 +91,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("ZEogMoZDjvp77dOrNw2VJK24ZWw=");
           var t = yield f(e),
             n = yield o("WAWebOrgFetchDirectoryAction").fetchOrgDirectory(t, {
               createModels: !0,
@@ -145,6 +148,7 @@ __d(
     m.doc =
       "Clear usernames for org contacts with known phone numbers, keeping display names. Loads organizations automatically and defaults to the first org. Changes are in memory; restore with restoreOrgContactsAfterPhoneNumberFallback.";
     function _() {
+      r("vulture")("XTjODGJfhNus1LXtyHbv4MLcDpI=");
       var e = u;
       ((u = []),
         e.reverse().forEach(function (e) {
@@ -159,6 +163,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("PmFKcm5GAA--Q6gmO6YGOhQ91NE=");
           var t = yield o("WAWebOrgRefreshListAction").refreshOrgList({
             bypassCooldown: !0,
           });

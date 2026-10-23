@@ -1,0 +1,29 @@
+__d(
+  "WAWebBizBroadcastProInviteContactsModalLoadable",
+  [
+    "JSResourceForInteraction",
+    "WAWebLoadingModal.react",
+    "WAWebModal.react",
+    "WAWebModalLoadable",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react")),
+      u = r("WAWebModalLoadable")(
+        r("JSResourceForInteraction")(
+          "WAWebBizBroadcastProInviteContactsModal.react",
+        ).__setRef("WAWebBizBroadcastProInviteContactsModalLoadable"),
+        "BizBroadcastProInviteContactsModal",
+        function (e) {
+          return s.jsx(r("WAWebLoadingModal.react"), {
+            error: !!e.error,
+            theme: o("WAWebModal.react").ModalTheme.BizBroadcastVerifyOnPhone,
+          });
+        },
+      );
+    l.WAWebBizBroadcastProInviteContactsModalLoadable = u;
+  },
+  98,
+);

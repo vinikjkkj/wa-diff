@@ -46,39 +46,42 @@ __d(
       return "wmi_media_service_v1_" + e;
     }
     function P(e) {
-      return "maw_attachment_cdn_urls_v1_" + e;
+      return "media_storage_v2_" + e;
     }
     function N(e) {
-      return "messenger_web_metadata_v1_" + e;
+      return "maw_attachment_cdn_urls_v1_" + e;
     }
     function M(e) {
-      return "persisted_queue_" + e + "_v1";
+      return "messenger_web_metadata_v1_" + e;
     }
     function w(e) {
-      return "worm_persisted_queue_" + e + "_v1";
+      return "persisted_queue_" + e + "_v1";
     }
     function A(e) {
-      return "db_maintenance_" + e + "_v1";
+      return "worm_persisted_queue_" + e + "_v1";
     }
     function F(e) {
-      return C + "_" + e;
+      return "db_maintenance_" + e + "_v1";
     }
     function O(e) {
-      return b + "_" + e;
+      return C + "_" + e;
     }
     function B(e) {
-      return v + "_" + e;
+      return b + "_" + e;
     }
     function W(e) {
-      return "cache_service_" + e + "_v3";
+      return v + "_" + e;
     }
     function q(e) {
-      return "debug_info_v1_" + e;
+      return "cache_service_" + e + "_v3";
     }
     function U(e) {
-      return "recovery_code_v1_" + e;
+      return "debug_info_v1_" + e;
     }
     function V(e) {
+      return "recovery_code_v1_" + e;
+    }
+    function H(e) {
       return R + "_" + e;
     }
     ((i.dbName = L),
@@ -89,18 +92,19 @@ __d(
       (i.signalWorm = D),
       (i.webReverDbbName = x),
       (i.wmiMediaServiceName = $),
-      (i.mawAttachmentCdnUrlDbName = P),
-      (i.wmiMetadataDbName = N),
-      (i.persistedQueueDbName = M),
-      (i.wormPersistedQueueDbName = w),
-      (i.wormMaintenanceDbName = A),
-      (i.logDbName = F),
-      (i.ebdbName = O),
-      (i.ebMinosDbName = B),
-      (i.MAWcacheServiceDbName = W),
-      (i.MAWDebugInfoDBName = q),
-      (i.ebRecoveryCodeDBName = U),
-      (i.wmiRateLimitDbName = V));
+      (i.mediaStorageCacheName = P),
+      (i.mawAttachmentCdnUrlDbName = N),
+      (i.wmiMetadataDbName = M),
+      (i.persistedQueueDbName = w),
+      (i.wormPersistedQueueDbName = A),
+      (i.wormMaintenanceDbName = F),
+      (i.logDbName = O),
+      (i.ebdbName = B),
+      (i.ebMinosDbName = W),
+      (i.MAWcacheServiceDbName = q),
+      (i.MAWDebugInfoDBName = U),
+      (i.ebRecoveryCodeDBName = V),
+      (i.wmiRateLimitDbName = H));
   },
   66,
 );

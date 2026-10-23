@@ -15,15 +15,16 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:10198",
     "cr:627",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.ackTime,
             r = t.chatId,
             a = t.excludeList,
@@ -31,7 +32,7 @@ __d(
             l = t.msgProtobuf,
             _ = t.msgRecord,
             f = t.scheduledMsgMetadata,
-            h = _.data.to,
+            g = _.data.to,
             y = _.data.id.id;
           o("WALogger")
             .LOG(
@@ -42,7 +43,7 @@ __d(
                   "",
                 ])),
               y,
-              h.toString(),
+              g.toString(),
             )
             .tags("messaging");
           var C = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
@@ -72,12 +73,12 @@ __d(
           try {
             var v = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
               S = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: [h, v],
+                wids: [g, v],
               }),
               R = o("WAArrayDifferenceBy").differenceBy(S, a, String);
             if (R.length === 0) {
               var L;
-              if (yield g(h, v, a)) {
+              if (yield h(g, v, a)) {
                 var E;
                 (o("WALogger")
                   .LOG(
@@ -164,7 +165,7 @@ __d(
                 )
                 .tags("messaging"),
               o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-                [h, v],
+                [g, v],
                 "message",
                 I,
               ));
@@ -185,31 +186,48 @@ __d(
             _.data,
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           if (n("cr:627") == null || !e.isUser()) return !1;
-          var a = o("WAArrayDifferenceBy").differenceBy(
-              yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: [e, t],
-                chatWidSetToIncludeHostedInFanoutOneToOneChatOnly: e,
-              }),
-              r,
-              String,
-            ),
-            i = yield n("cr:627").getAeaExcludedSendDevices(e, a);
-          return a.length > 0 && i.length === a.length;
+          try {
+            var i = o("WAArrayDifferenceBy").differenceBy(
+                yield o("WAWebDBDeviceListFanout").getFanOutList({
+                  wids: [e, t],
+                  chatWidSetToIncludeHostedInFanoutOneToOneChatOnly: e,
+                }),
+                a,
+                String,
+              ),
+              l = yield n("cr:627").getAeaExcludedSendDevices(e, i);
+            return i.length > 0 && l.length === i.length;
+          } catch (t) {
+            return (
+              o("WALogger")
+                .WARN(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "resendUserMsg: failed to read the devices AEA excluded from ",
+                      "",
+                    ])),
+                  e.toLogString(),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("aea-resend-missing-devices-read-fail"),
+              !1
+            );
+          }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.resendUserMsg = _;
+    l.resendUserMsg = f;
   },
   98,
 );

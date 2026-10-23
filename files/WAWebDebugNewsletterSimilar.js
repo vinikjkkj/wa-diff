@@ -1,6 +1,11 @@
 __d(
   "WAWebDebugNewsletterSimilar",
-  ["WAJids", "WAWebMexFetchSimilarNewslettersJob", "asyncToGeneratorRuntime"],
+  [
+    "WAJids",
+    "WAWebMexFetchSimilarNewslettersJob",
+    "asyncToGeneratorRuntime",
+    "vulture",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -9,20 +14,22 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r;
-          (t === void 0 && (t = 10), n === void 0 && (n = ["US"]));
-          var a =
+          var a;
+          (t === void 0 && (t = 10),
+            n === void 0 && (n = ["US"]),
+            r("vulture")("tKvzdT7tV_RF_q-HHwd6JEe5J9g="));
+          var i =
             e != null
               ? e
-              : (r = window.chat) == null
+              : (a = window.chat) == null
                 ? void 0
-                : r.id.toString();
-          if (a != null)
-            var i = o("WAJids").toNewsletterJid(a),
-              l = yield o(
+                : a.id.toString();
+          if (i != null)
+            var l = o("WAJids").toNewsletterJid(i),
+              s = yield o(
                 "WAWebMexFetchSimilarNewslettersJob",
               ).mexFetchSimilarNewsletters({
-                newsletterId: i,
+                newsletterId: l,
                 limit: t,
                 countryCodes: n,
               });

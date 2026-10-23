@@ -254,7 +254,8 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t,
-                  n = this;
+                  n = this,
+                  r = self.performance.now();
                 if (
                   (self.setTimeout(function () {
                     o("WAWebBackendApi").frontendFireAndForget(
@@ -327,7 +328,7 @@ __d(
                       ));
                   }, o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_CHECK_TIMEOUT_MS),
                   this.$14(o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE),
-                  this.$17()
+                  this.$17(r)
                 );
               },
             );
@@ -433,77 +434,86 @@ __d(
               ));
           }),
           (t.$17 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
-                ? o("WAWebOneQueue").waitForOneQueueOfflineEnd()
-                : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
-                o(
-                  "WAWebWamOfflineResumeReporter",
-                ).OfflineResumeReporter.logOfflineDecryptionErrorCount(this.$3),
-                o(
-                  "WAWebWamOfflineResumeReporter",
-                ).OfflineResumeReporter.logLastStanzaT(),
-                o("WAWebThreadMetadata").resetThreadMeta(),
-                o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][non-blocking] _onOfflineComplete: waitForOfflineMsgThread done, total decryption error: ",
-                      "",
-                    ])),
-                  this.$3,
-                ),
-                (this.$3 = 0),
-                yield o("WAWebOfflineResumeUtils").clearOfflineSnapShot(),
-                (this.$12 = 97),
-                yield this.$7,
-                yield o(
-                  "WAWebOffdStorageUpdateOfflinePeerReceipts",
-                ).updatePeerReceipts());
-              try {
-                yield R == null ? void 0 : R();
-              } catch (e) {
-                o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][non-blocking] reconcileMetaAiUnreadCounts failed: ",
-                      "",
-                    ])),
-                  String(e),
-                );
-              }
-              ((this.$12 = 99),
-                o("WALogger").LOG(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][non-blocking] _onOfflineComplete: clearOfflineSnapShot done.",
-                    ])),
-                ),
-                o(
-                  "WAWebBackendEventBus",
-                ).BackendEventBus.triggerOfflineDeliveryEnd(),
-                o("WAWebUserPrefsGeneral").setOfflinePushCount(0),
-                this.$11.forceRunNow(),
-                this.$11.cancel(),
-                o(
-                  "WAWebWamOfflineResumeReporter",
-                ).OfflineResumeReporter.commit(),
-                o("WAWebSignalProtocolStore").enablePersistSignalStore(),
-                o("WAWebOfflineResumeUtils").runReceiptCleanUpLoop(),
-                o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-                  "processAllOrphanPaymentNotifications",
-                ),
-                o("WAWebChatThreadLogging").uploadChatThreadLoggingEvents(),
-                r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
-                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
-                ),
-                o("WAWebWamMemoryStat").setCurrentMemoryScenario(
-                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
-                ),
-                self.setTimeout(function () {
-                  o("WAWebApiPendingDeviceSync").doPendingDeviceSync();
-                }, o("WAWebOfflineResumeConst").OFFLINE_DEVICE_SYNC_DELAY));
-            });
-            function t() {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                (yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
+                  ? o("WAWebOneQueue").waitForOneQueueOfflineWorkDrained()
+                  : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
+                  o(
+                    "WAWebWamOfflineResumeReporter",
+                  ).OfflineResumeReporter.logOfflineEndWait(
+                    self.performance.now() - e,
+                  ),
+                  o(
+                    "WAWebWamOfflineResumeReporter",
+                  ).OfflineResumeReporter.logOfflineDecryptionErrorCount(
+                    this.$3,
+                  ),
+                  o(
+                    "WAWebWamOfflineResumeReporter",
+                  ).OfflineResumeReporter.logLastStanzaT(),
+                  o("WAWebThreadMetadata").resetThreadMeta(),
+                  o("WALogger").LOG(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][non-blocking] _onOfflineComplete: waitForOfflineMsgThread done, total decryption error: ",
+                        "",
+                      ])),
+                    this.$3,
+                  ),
+                  (this.$3 = 0),
+                  yield o("WAWebOfflineResumeUtils").clearOfflineSnapShot(),
+                  (this.$12 = 97),
+                  yield this.$7,
+                  yield o(
+                    "WAWebOffdStorageUpdateOfflinePeerReceipts",
+                  ).updatePeerReceipts());
+                try {
+                  yield R == null ? void 0 : R();
+                } catch (e) {
+                  o("WALogger").LOG(
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][non-blocking] reconcileMetaAiUnreadCounts failed: ",
+                        "",
+                      ])),
+                    String(e),
+                  );
+                }
+                ((this.$12 = 99),
+                  o("WALogger").LOG(
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][non-blocking] _onOfflineComplete: clearOfflineSnapShot done.",
+                      ])),
+                  ),
+                  o(
+                    "WAWebBackendEventBus",
+                  ).BackendEventBus.triggerOfflineDeliveryEnd(),
+                  o("WAWebUserPrefsGeneral").setOfflinePushCount(0),
+                  this.$11.forceRunNow(),
+                  this.$11.cancel(),
+                  o(
+                    "WAWebWamOfflineResumeReporter",
+                  ).OfflineResumeReporter.commit(),
+                  o("WAWebSignalProtocolStore").enablePersistSignalStore(),
+                  o("WAWebOfflineResumeUtils").runReceiptCleanUpLoop(),
+                  o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+                    "processAllOrphanPaymentNotifications",
+                  ),
+                  o("WAWebChatThreadLogging").uploadChatThreadLoggingEvents(),
+                  r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
+                    o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+                  ),
+                  o("WAWebWamMemoryStat").setCurrentMemoryScenario(
+                    o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+                  ),
+                  self.setTimeout(function () {
+                    o("WAWebApiPendingDeviceSync").doPendingDeviceSync();
+                  }, o("WAWebOfflineResumeConst").OFFLINE_DEVICE_SYNC_DELAY));
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

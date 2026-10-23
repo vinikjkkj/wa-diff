@@ -436,6 +436,24 @@ __d(
           }
           return t;
         })(),
+        setOwnOtherDeviceJids: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield l,
+              n = new t.StringList();
+            e.forEach(function (e) {
+              return n.push_back(e);
+            });
+            try {
+              t.setOwnOtherDeviceJids(n);
+            } finally {
+              n.delete();
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         handleSignOut: function () {
           (o("WALogger").LOG(
             C ||

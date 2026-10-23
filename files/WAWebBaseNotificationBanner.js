@@ -25,6 +25,7 @@ __d(
     "WAWebOpenLastActiveChatAction",
     "WAWebSendTextMsgChatAction",
     "WAWebSwNotificationBannerRegistry",
+    "WAWebUpdateUnreadChatAction",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "cr:3133",
@@ -52,10 +53,11 @@ __d(
       f,
       g,
       h,
-      y = (s = n("cr:3133")) != null ? s : {},
-      C = y.closeMessageNotification,
-      b = y.showMessageNotification,
-      v = (function () {
+      y,
+      C = (s = n("cr:3133")) != null ? s : {},
+      b = C.closeMessageNotification,
+      v = C.showMessageNotification,
+      S = (function () {
         function t(e) {
           var t = this,
             a,
@@ -74,7 +76,7 @@ __d(
                     o("WATypeUtils").isFunction(t.notification.close) &&
                     t.notification.close(),
                     t.$2 != null && (t.$6(), t.$7()),
-                    C == null || C(t.key, t.tag));
+                    b == null || b(t.key, t.tag));
                 })
                 .catch(r("WAWebNoop"));
             }),
@@ -170,7 +172,7 @@ __d(
             (this.canBlock = s.canBlock),
             (this.doNotOpenChat = s.doNotOpenChat),
             (this.isReplyable = s.isReplyable));
-          var m = new (h || (h = n("Promise")))(function (e) {
+          var m = new (y || (y = n("Promise")))(function (e) {
             t.waitingPromise = { resolver: e };
           });
           this.waitingPromise.promise = m;
@@ -192,7 +194,7 @@ __d(
         var a = t.prototype;
         return (
           (a.$5 = function () {
-            return (h || (h = n("Promise"))).resolve();
+            return (y || (y = n("Promise"))).resolve();
           }),
           (a.waitForClose = function () {
             return this.waitingPromise.promise;
@@ -216,10 +218,19 @@ __d(
                         "quickReply inside WAWebBaseNotificationBanner",
                       ])),
                   ),
-                  yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
-                    t,
-                    e,
-                  )),
+                  yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(t, e),
+                  yield o("WAWebUpdateUnreadChatAction")
+                    .sendSeen({ chat: t, afterAvailable: !1 })
+                    .catch(function (e) {
+                      o("WALogger").WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "quickReply: sendSeen failed: ",
+                            "",
+                          ])),
+                        String(e),
+                      );
+                    })),
                   this.$7());
               },
             );
@@ -250,8 +261,8 @@ __d(
               },
               _,
             );
-            (b
-              ? b({
+            (v
+              ? v({
                   key: n,
                   tag: o,
                   title: p,
@@ -276,8 +287,8 @@ __d(
               (e = this.notification) == null ||
                 e.addEventListener("error", function (e) {
                   o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "native notification error",
                       ])),
                   );
@@ -285,8 +296,8 @@ __d(
               (a = this.notification) == null ||
                 a.addEventListener("close", function (e) {
                   o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "native notification close",
                       ])),
                   );
@@ -310,8 +321,8 @@ __d(
               i.catch(function (t) {
                 (o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "service worker notification failed",
                       ])),
                   )
@@ -329,8 +340,8 @@ __d(
                     : r.ready;
                 if ((a == null ? void 0 : a.showNotification) == null) {
                   (o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "no service worker available to show notification",
                       ])),
                   ),
@@ -355,7 +366,7 @@ __d(
           (a.$6 = function () {
             var e = this.$2,
               t = this.tag;
-            (h || (h = n("Promise")))
+            (y || (y = n("Promise")))
               .resolve(this.$3)
               .catch(r("WAWebNoop"))
               .then(function () {
@@ -385,8 +396,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "sw close notification failed",
                       ])),
                   )
@@ -421,6 +432,8 @@ __d(
                     "WAWebMuteCollection",
                   ).MuteCollection.setAllNotificationsAndReactions(!1);
                   break;
+                case r("WAWebBannerContextMenuActions")
+                  .OpenNotificationSettings:
                 case r("WAWebBannerContextMenuActions").None:
                   break;
               }
@@ -438,8 +451,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "mute failed",
                       ])),
                   )
@@ -468,7 +481,7 @@ __d(
           t
         );
       })();
-    l.default = v;
+    l.default = S;
   },
   98,
 );

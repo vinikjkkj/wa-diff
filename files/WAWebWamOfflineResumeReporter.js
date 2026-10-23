@@ -243,6 +243,8 @@ __d(
     var S = (function () {
       function t() {
         ((this.offlineBatch = v()),
+          (this.offlineEndWaitMs = null),
+          (this.socketConnectCount = 0),
           (this.getPageLoadId = o("WAWebNullFunc").returnNull),
           this._initEvents(h.ResumeFromRestart));
       }
@@ -263,6 +265,8 @@ __d(
             (this.offlineResume.preackReceiptCount = 0),
             (this.offlineResume.isOfflineCompleteMissed = !1),
             (this.offlineBatch = v()),
+            (this.offlineEndWaitMs = null),
+            (this.socketConnectCount = 0),
             (this.qpl = new y(t)));
           var e = this._generateOfflineSessionId();
           ((this.offlineStage = new C(t, e)),
@@ -337,6 +341,13 @@ __d(
               t,
             )));
         }),
+        (a.logOfflineEndWait = function (t) {
+          var e;
+          this.offlineEndWaitMs = Math.max(
+            (e = this.offlineEndWaitMs) != null ? e : 0,
+            t,
+          );
+        }),
         (a.logOfflinePassiveT = function () {
           var e;
           ((e = this.offlineResume) == null ? void 0 : e.passiveModeT) ==
@@ -371,7 +382,8 @@ __d(
                 !globalThis.document.hidden));
         }),
         (a.logSocketConnectT = function () {
-          (this._logPerformanceT("socketConnectT"),
+          (this.socketConnectCount++,
+            this._logPerformanceT("socketConnectT"),
             this.isInitialSync ||
               (this.$1(), this.offlineStage.logSocketConnect()));
         }),
@@ -520,7 +532,7 @@ __d(
                     },
                   }),
                   r("gkx")("20665") &&
-                    this.qpl.addAnnotations(R(this.offlineBatch)),
+                    (this.qpl.addAnnotations(R(this.offlineBatch)), this.$2()),
                   this.qpl.end(),
                   this.endTableUsageMetric());
                 var i = 120 * 1e3,
@@ -572,6 +584,21 @@ __d(
           }
           return a;
         })()),
+        (a.$2 = function () {
+          var e =
+            this.offlineEndWaitMs != null
+              ? Math.round(this.offlineEndWaitMs)
+              : void 0;
+          this.qpl.addAnnotations({
+            int: {
+              offline_end_wait_ms: e,
+              socket_changes_during_resume: Math.max(
+                this.socketConnectCount - 1,
+                0,
+              ),
+            },
+          });
+        }),
         (a.resetEvent = function () {
           this.offlineResume == null &&
             (this._initEvents(h.ResumeFromOpentab), this.logOfflineStartT());

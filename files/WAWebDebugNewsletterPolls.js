@@ -11,11 +11,15 @@ __d(
     "WAWebPollOptionHashUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
     function p() {
-      return Math.trunc(Math.random() * (Math.pow(10, 6) - 10) + 10);
+      return (
+        r("vulture")("vKKSFG4VwY6J24qo8fTS3ADVmAc="),
+        Math.trunc(Math.random() * (Math.pow(10, 6) - 10) + 10)
+      );
     }
     function _(e) {
       return f.apply(this, arguments);
@@ -23,17 +27,18 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r = (t = e.pollOptions) != null ? t : [],
-            a = yield (m || (m = n("Promise"))).all(
-              r.map(function (e) {
+          var t;
+          r("vulture")("VYRSSeGXHqcTULdIbyzOz-wtsVI=");
+          var a = (t = e.pollOptions) != null ? t : [],
+            i = yield (m || (m = n("Promise"))).all(
+              a.map(function (e) {
                 return o("WAWebPollOptionHashUtils").getHashHexForString(
                   e.name,
                 );
               }),
             );
           return new Map(
-            a.map(function (e) {
+            i.map(function (e) {
               return [e, p()];
             }),
           );
@@ -47,6 +52,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("7h2Bs7_pU229KkT8kmLihcskQbo=");
           var t = window.msg;
           if (t == null) {
             o("WALogger").WARN(
@@ -94,6 +100,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("XhYA4AXvACGD8CLPoVxQGsht4u0=");
           var e = window.msg;
           if (e == null) {
             o("WALogger").WARN(
@@ -120,6 +127,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("snXt7moSxiIYfYgux5_Nj-x53xg=");
           var t = window.msg;
           if (t == null) {
             o("WALogger").WARN(

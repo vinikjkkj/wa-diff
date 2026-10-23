@@ -1,34 +1,48 @@
 __d(
   "WAWebDebugGalaxyFlow",
-  ["WAWebGalaxyFlowMediaEditorCollection", "WAWebGalaxyFlowsSessionsCache"],
+  [
+    "WAWebGalaxyFlowMediaEditorCollection",
+    "WAWebGalaxyFlowsSessionsCache",
+    "vulture",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return o("WAWebGalaxyFlowMediaEditorCollection")
-        .GalaxyFlowMediaEditorCollection;
+      return (
+        r("vulture")("eUm-ozKyRwmSXuchYpPwMuc4AbA="),
+        o("WAWebGalaxyFlowMediaEditorCollection")
+          .GalaxyFlowMediaEditorCollection
+      );
     }
     ((e.doc = "Get the GalaxyFlowMediaEditorCollection instance"),
       (e.paramsToExecute = []));
     function s(e) {
-      return o(
-        "WAWebGalaxyFlowMediaEditorCollection",
-      ).GalaxyFlowMediaEditorCollection.getMsgs(e);
+      return (
+        r("vulture")("Une-zkYRxA6IhIpFvxs2IprvUC4="),
+        o(
+          "WAWebGalaxyFlowMediaEditorCollection",
+        ).GalaxyFlowMediaEditorCollection.getMsgs(e)
+      );
     }
     s.doc =
       "Get messages for a specific collection id in GalaxyFlowMediaEditorCollection";
     function u() {
-      return o("WAWebGalaxyFlowMediaEditorCollection")
-        .GalaxyFlowMediaEditorCollection.getModelsArray()
-        .map(function (e) {
-          return e.id;
-        });
+      return (
+        r("vulture")("HV003Ji0RMun3qlzNhq7yS9FMPU="),
+        o("WAWebGalaxyFlowMediaEditorCollection")
+          .GalaxyFlowMediaEditorCollection.getModelsArray()
+          .map(function (e) {
+            return e.id;
+          })
+      );
     }
     ((u.doc = "Get all collection ids in GalaxyFlowMediaEditorCollection"),
       (u.paramsToExecute = []));
     function c() {
-      o(
-        "WAWebGalaxyFlowMediaEditorCollection",
-      ).GalaxyFlowMediaEditorCollection.reset();
+      (r("vulture")("ZX0CTD1-q0W9aLe-G-fXMk9oErc="),
+        o(
+          "WAWebGalaxyFlowMediaEditorCollection",
+        ).GalaxyFlowMediaEditorCollection.reset());
     }
     ((c.doc = "Clear all collections in GalaxyFlowMediaEditorCollection"),
       (c.paramsToExecute = []));

@@ -2,7 +2,6 @@ __d(
   "ConstUriUtils",
   [
     "CometLruCache",
-    "ConstUriUtilsGating",
     "ExecutionEnvironment",
     "FBLogger",
     "PHPQuerySerializer",
@@ -190,48 +189,34 @@ __d(
           i
         );
       var s = t != null && t !== "" ? t : T(l, !1);
-      if (l.domain === "" && l.path.indexOf("\\") !== -1)
-        return (
-          (i.valid = !1),
+      return l.domain === "" && l.path.indexOf("\\") !== -1
+        ? ((i.valid = !1),
           (i.error =
             "Invalid URI: (no domain but multiple back-slashes " + s + ")"),
-          i
-        );
-      if (!l.protocol && h.test(s))
-        return (
-          (i.valid = !1),
-          (i.error = "Invalid URI: (unsafe protocol-relative URI " + s + ")"),
-          i
-        );
-      if (l.domain !== "" && l.path !== "" && !l.path.startsWith("/"))
-        return (
-          (i.valid = !1),
-          (i.error =
-            "Invalid URI: (domain and pathwhere path lacks leading slash " +
-            s +
-            ")"),
-          i
-        );
-      if (
-        l.protocol !== "" &&
-        l.protocol !== "file" &&
-        !l.isGeneric &&
-        !l.domain &&
-        l.path !== ""
-      ) {
-        r("FBLogger")("ConstUriUtils").warn(
-          'invalid URI (protocol "' + l.protocol + '" with no domain)',
-        );
-        var c = o("ConstUriUtilsGating").enforceNoMissingDomain();
-        if (c)
-          return (
-            (i.valid = !1),
-            (i.error =
-              "Invalid URI: (protocol " + l.protocol + " with no domain)"),
-            i
-          );
-      }
-      return i;
+          i)
+        : !l.protocol && h.test(s)
+          ? ((i.valid = !1),
+            (i.error = "Invalid URI: (unsafe protocol-relative URI " + s + ")"),
+            i)
+          : l.domain !== "" && l.path !== "" && !l.path.startsWith("/")
+            ? ((i.valid = !1),
+              (i.error =
+                "Invalid URI: (domain and pathwhere path lacks leading slash " +
+                s +
+                ")"),
+              i)
+            : (l.protocol !== "" &&
+                l.protocol !== "file" &&
+                !l.isGeneric &&
+                !l.domain &&
+                l.path !== "" &&
+                (r("FBLogger")("ConstUriUtils").warn(
+                  'invalid URI (protocol "' + l.protocol + '" with no domain)',
+                ),
+                (i.valid = !1),
+                (i.error =
+                  "Invalid URI: (protocol " + l.protocol + " with no domain)")),
+              i);
     }
     var P = (function () {
       function e(e) {

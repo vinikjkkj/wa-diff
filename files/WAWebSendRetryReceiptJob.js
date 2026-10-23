@@ -29,7 +29,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:10198",
-    "cr:4533",
+    "cr:17674",
     "err",
     "gkx",
   ],
@@ -75,23 +75,23 @@ __d(
             C = t.retryReason,
             b = t.to;
           if (
-            (r("gkx")("26258") ||
-              n("cr:10198") == null ||
-              n("cr:10198").injectDebug(
-                b,
-                "RetryReceiptSent",
-                "externalId:" + a,
-              ),
-            !r("gkx")("26258"))
+            (r("gkx")("16539") &&
+              (n("cr:10198") == null ||
+                n("cr:10198").injectDebug(
+                  b,
+                  "RetryReceiptSent",
+                  "externalId:" + a,
+                )),
+            r("gkx")("16539"))
           ) {
             var v =
-              n("cr:4533") == null
+              n("cr:17674") == null
                 ? void 0
-                : n("cr:4533").getDebugDoNotSendRetryReceipt();
+                : n("cr:17674").getDebugDoNotSendRetryReceipt();
             if (v != null && v > 0)
               return (
-                n("cr:4533") == null ||
-                  n("cr:4533").setDebugDoNotSendRetryReceipt(v - 1),
+                n("cr:17674") == null ||
+                  n("cr:17674").setDebugDoNotSendRetryReceipt(v - 1),
                 (c || (c = n("Promise"))).resolve()
               );
           }

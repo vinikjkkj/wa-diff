@@ -159,7 +159,7 @@ __d(
             fieldName: s,
             value: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).formatCustomFieldValue({
+            ).formatCustomFieldExportValue({
               currencyDecimalPlaces: i.currency_decimal_places,
               dateValue: n.date_value,
               enumLabels: (r = i.enum_values) != null ? r : [],

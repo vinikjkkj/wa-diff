@@ -147,21 +147,21 @@ __d(
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );
             a.type === "xml-not-well-formed" &&
-              (r("gkx")("26258")
-                ? o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[handleStreamError] bad xml, closing socket",
-                      ])),
-                  )
-                : o("WALogger")
+              (r("gkx")("9092")
+                ? o("WALogger")
                     .WARN(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "[handleStreamError] bad xml, closing socket",
                         ])),
                     )
-                    .sendLogs("sent-xml-not-well-formed"));
+                    .sendLogs("sent-xml-not-well-formed")
+                : o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[handleStreamError] bad xml, closing socket",
+                      ])),
+                  ));
           }
           return (p || (p = n("Promise"))).resolve("CLOSE_SOCKET");
         })),

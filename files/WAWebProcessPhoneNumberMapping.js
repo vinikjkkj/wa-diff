@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAArrayUtils",
     "WALogger",
+    "WAStanzaUtils",
     "WAWebApiContact",
     "WAWebCoexV2PhoneNumberMapping",
     "WAWebDBCreateLidPnMappings",
@@ -302,7 +303,8 @@ __d(
     }
     function S(e) {
       var t = e.flushImmediately,
-        n = e.mapping;
+        n = e.mapping,
+        r = e.sourceStanzaId;
       return n.learningSource === "recipient-latest-lid"
         ? o("WAWebDBCreateLidPnMappings").createLidPnMappings({
             mappings: [
@@ -311,11 +313,13 @@ __d(
             ],
             flushImmediately: t,
             learningSource: "recipient-latest-lid",
+            sourceStanzaId: r,
           })
         : o("WAWebDBCreateLidPnMappings").createLidPnMappings({
             mappings: [{ lid: n.lid, pn: n.pn }],
             flushImmediately: t,
             learningSource: n.learningSource,
+            sourceStanzaId: r,
           });
     }
     function R(e) {
@@ -386,7 +390,13 @@ __d(
               (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(u)),
             l != null &&
               typeof l == "object" &&
-              (yield S({ mapping: l, flushImmediately: t })),
+              (yield S({
+                mapping: l,
+                flushImmediately: t,
+                sourceStanzaId: o("WAStanzaUtils").toStanzaId(
+                  e.msgInfo.externalId,
+                ),
+              })),
             l
           );
         })),

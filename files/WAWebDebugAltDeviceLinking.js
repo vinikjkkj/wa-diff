@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugAltDeviceLinking",
-  ["WABase64", "WAWebCryptoCurve25519", "asyncToGeneratorRuntime"],
+  ["WABase64", "WAWebCryptoCurve25519", "asyncToGeneratorRuntime", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return s.apply(this, arguments);
@@ -8,6 +8,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("Ckg0m3NOjW0PHvT4IRx8L3CiUWU=");
           var e = o("WABase64").decodeB64("MsKm2JQ="),
             t = o("WABase64").decodeB64(
               "dVa0iwyftkpuVl0RRkbATG00utMF6HN3NQlwBlvKk7s=",
@@ -37,8 +38,9 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = {
+          var e;
+          r("vulture")("SFeGzo4h-HaKMvMC0SdXbCIiHaQ=");
+          var t = {
               pubKey: (e = o("WABase64")).decodeB64(
                 "nEwK7XnPjmx68KlnIosZTQzQNjgBbdEVHIYGqCmBdCU=",
               ),

@@ -151,7 +151,7 @@ __d(
       })(),
       _ = (function () {
         function e(e, t) {
-          ((this.protobufMessage = e), (this.messageConfig = t));
+          ((this.protobufMessage = e.slice()), (this.messageConfig = t));
         }
         var t = e.prototype;
         return (

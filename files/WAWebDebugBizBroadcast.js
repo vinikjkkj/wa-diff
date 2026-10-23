@@ -21,29 +21,33 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      o(
-        "WAWebBizBroadcastDeviceCapabilityCommon",
-      ).saveBizBroadcastCapabilityToStorage(e);
+      (r("vulture")("dNGA_beVGuQq5WS9ViAkNJJnz6g="),
+        o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).saveBizBroadcastCapabilityToStorage(e));
     }
     s.doc =
       "Override primary device Business Broadcast capability (true/false)";
     function u() {
-      o("WAWebTos").TosManager.setState(
-        o("WAWebBizBroadcastTos").getBizBroadcastTosId(),
-        "ACCEPTED",
-        o("WATimeUtils").unixTime(),
-      );
+      (r("vulture")("UfCFjaN9pGU-nr_TnYvinnGZiIo="),
+        o("WAWebTos").TosManager.setState(
+          o("WAWebBizBroadcastTos").getBizBroadcastTosId(),
+          "ACCEPTED",
+          o("WATimeUtils").unixTime(),
+        ));
     }
     ((u.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
       (u.paramsToExecute = []));
     function c() {
-      (o(
-        "WAWebBizBroadcastDeviceCapabilityCommon",
-      ).saveBizBroadcastProCapabilityToStorage(!0),
+      (r("vulture")("WtlSoj4JqgoQbiw76VUzsX2cdk8="),
+        o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).saveBizBroadcastProCapabilityToStorage(!0),
         o(
           "WAWebBizBroadcastProOnboardingStatus",
         ).debugSetBizBroadcastProOnboardingStatus(
@@ -55,9 +59,10 @@ __d(
       "Force BB Pro capability and onboarding status to eligible_to_onboard (E2E)"),
       (c.paramsToExecute = []));
     function d() {
-      (o(
-        "WAWebBizBroadcastDeviceCapabilityCommon",
-      ).saveBizBroadcastProCapabilityToStorage(!0),
+      (r("vulture")("jmVRI40riGtkBYl3TX2z4wei-RI="),
+        o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).saveBizBroadcastProCapabilityToStorage(!0),
         o(
           "WAWebBizBroadcastProOnboardingStatus",
         ).debugSetBizBroadcastProOnboardingStatus(
@@ -69,13 +74,13 @@ __d(
       "Force BB Pro capability and onboarding status to onboarded (E2E)"),
       (d.paramsToExecute = []));
     function m() {
-      (d(), S("empty"));
+      (r("vulture")("2vP-WnRDUNl1bFV7T4wJPd9yz_g="), d(), S("empty"));
     }
     ((m.doc =
       "Set up an onboarded BB Pro account with no campaigns or audiences (E2E)"),
       (m.paramsToExecute = []));
     function p() {
-      (d(), S("audience_only"));
+      (r("vulture")("fpJ1xOlNxXxNCK5OpgMcRiWeqpM="), d(), S("audience_only"));
     }
     ((p.doc =
       "Set up an onboarded BB Pro account with an audience and no campaigns (E2E)"),
@@ -88,28 +93,30 @@ __d(
       C = null,
       b = "empty";
     function v() {
-      S("empty");
+      (r("vulture")("2kobmMMVCP12CXolGP_X6nRFQ4U="), S("empty"));
     }
     function S(t) {
-      if (((b = t), C == null)) {
-        var r = self.fetch.bind(self),
-          a = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
+      if ((r("vulture")("HoT0Xs6CHy53vUZDcDK3a6DZKq0="), (b = t), C == null)) {
+        var a = self.fetch.bind(self),
+          i = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
         C = function () {
-          Reflect.set(self, "fetch", r);
+          (r("vulture")("USf9IUKC_UOCwmtlaYAsdX06rmE="),
+            Reflect.set(self, "fetch", a));
         };
-        var i = 0;
+        var l = 0;
         Reflect.set(self, "fetch", function (t, o) {
-          var l = t instanceof Request ? t.url : String(t);
-          if (l !== a) return r(t, o);
-          var s = "234567890123456" + String(i);
+          r("vulture")("QYHbjmPgqtvNJs2sHeFF8lj3IvE=");
+          var s = t instanceof Request ? t.url : String(t);
+          if (s !== i) return a(t, o);
+          var u = "234567890123456" + String(l);
           return (
-            (i += 1),
+            (l += 1),
             (e || (e = n("Promise"))).resolve(
               new Response(
                 JSON.stringify({
                   data: {
                     create_wa_marketing_messages_custom_audience: {
-                      custom_audience_id: s,
+                      custom_audience_id: u,
                     },
                     viewer: {
                       backing_waba: {
@@ -161,22 +168,28 @@ __d(
     ((v.doc = "Mock BB Pro audience GraphQL responses (E2E)"),
       (v.paramsToExecute = []));
     function R() {
-      (C == null || C(), (C = null));
+      (r("vulture")("uh15KTFdS_FAY6S0l5zpGNAPqh0="),
+        C == null || C(),
+        (C = null));
     }
     ((R.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
       (R.paramsToExecute = []));
     var L = 1e4;
     function E(t) {
+      r("vulture")("VVQyakP4bPA0f7HAOE-jfQtmisk=");
       var a = o("WAWebWidFactory").createWid(t);
       return o("WAWebChatCollection").ChatCollection.get(a) != null
         ? (e || (e = n("Promise"))).resolve()
         : new (e || (e = n("Promise")))(function (e, n) {
+            r("vulture")("JqxbMlWj_srp6IcVuPtAC-Dsm6U=");
             var i = function () {
-              o("WAWebChatCollection").ChatCollection.get(a) != null &&
-                (o("WAWebChatCollection").ChatCollection.off("add", i), e());
+              (r("vulture")("PVHPzAME7NouhtN72x8FavJEv-A="),
+                o("WAWebChatCollection").ChatCollection.get(a) != null &&
+                  (o("WAWebChatCollection").ChatCollection.off("add", i), e()));
             };
             (window.setTimeout(function () {
-              (o("WAWebChatCollection").ChatCollection.off("add", i),
+              (r("vulture")("wZ3pguQsSguRlrRXCyupc1NnB9A="),
+                o("WAWebChatCollection").ChatCollection.off("add", i),
                 n(
                   r("err")(
                     "Broadcast chat " +
@@ -197,7 +210,9 @@ __d(
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            t.length < o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS
+            (r("vulture")("Pm80KYD8Tje3BxBe7HyF3oLFpZs="),
+            t.length <
+              o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS)
           )
             throw r("err")(
               'createBizBroadcastAudience("' +
@@ -222,6 +237,7 @@ __d(
     }
     k.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
     function T() {
+      r("vulture")("m5aRIlrFKSn_stY9NCRYBRnkr64=");
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e == null) throw r("err")("No active chat");
       return o("WAWebWidToJid").widToBroadcastJid(e.id);
@@ -232,6 +248,7 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("9B3P7T0Qee3i5KkBAFG2iMCYBcM=");
           var e = T(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
             n = o("WAWebUserPrefsMeUser")
@@ -268,12 +285,13 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("xtFM8UIjKS2O9QInZyOXgIZvjr4=");
           var t = T(),
-            r = yield o(
+            a = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t);
           (yield (e || (e = n("Promise"))).all(
-            r
+            a
               .filter(function (e) {
                 return (
                   e.status ===
@@ -301,9 +319,12 @@ __d(
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
       ($.paramsToExecute = []));
     function N(e, t) {
-      return o(
-        "WAWebBizBroadcastProUpdateCampaignAction",
-      ).rescheduleBizBroadcastProCampaign(e, t);
+      return (
+        r("vulture")("8rJX9JincJN0bS6ndQL2fJMGQEQ="),
+        o(
+          "WAWebBizBroadcastProUpdateCampaignAction",
+        ).rescheduleBizBroadcastProCampaign(e, t)
+      );
     }
     N.doc =
       "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";

@@ -76,58 +76,48 @@ __d(
         }
       return !1;
     }
-    var p = 1209600;
-    function _(e) {
-      var t = o("WAWebABProps").getABPropConfigValue(
+    function p() {
+      return o("WAWebABProps").getABPropConfigValue(
         "group_history_messages_time_limit_secs",
       );
-      if (t !== p || e == null) return t;
-      try {
-        return o("WAWebGroupABProps").getGroupABPropConfigValue(
-          o("WAWebWidToJid").widToGroupJid(e),
-          "group_history_messages_time_limit_secs_group_level",
-        );
-      } catch (e) {
-        return t;
-      }
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
     }
-    function g(e) {
-      return m(e) || f();
+    function f(e) {
+      return m(e) || _();
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_after_join_prerequisites",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_after_join_sender_prerequisites",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_once_default_on",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_default_on",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_sender_speed_bump_dialog_display_times",
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_per_group_toggle_md_sync",
       );
     }
-    function R() {
+    function S() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistorySenderEnabled = e),
@@ -136,15 +126,15 @@ __d(
       (l.isGroupHistoryReceiverReportingTokenEnabled = c),
       (l.isOutOfWindowPinSenderEnabled = d),
       (l.isGroupHistoryPostJoinSenderEnabled = m),
-      (l.getGroupHistoryMessagesTimeLimitSecs = _),
-      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = g),
-      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = h),
-      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = y),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = C),
-      (l.isGroupHistorySendDefaultOnEnabled = b),
-      (l.getGroupHistorySpeedBumpDialogDisplayTimes = v),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = S),
-      (l.shouldSkipUnsupportedMessagesFromBundle = R));
+      (l.getGroupHistoryMessagesTimeLimitSecs = p),
+      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = f),
+      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = g),
+      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = h),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = y),
+      (l.isGroupHistorySendDefaultOnEnabled = C),
+      (l.getGroupHistorySpeedBumpDialogDisplayTimes = b),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = v),
+      (l.shouldSkipUnsupportedMessagesFromBundle = S));
   },
   98,
 );

@@ -11,6 +11,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -28,8 +29,9 @@ __d(
             d = t.daysOverdue,
             m = t.dueDateMs,
             p = t.isOverdue,
-            _ = t.url,
-            f = window.chat;
+            _ = t.url;
+          r("vulture")("iqZTfO_pEJWlmMwTXSiQxgTFOHk=");
+          var f = window.chat;
           if (!f) {
             o("WALogger").WARN(
               e ||
@@ -111,6 +113,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("0Z8PqgHOzuI-5qMrzf-hak8lgKw=");
           var e = Date.now() + 864e5;
           yield c({
             accountName: "Electric Company",
@@ -135,6 +138,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("yl7dkwQ2lVbh1npRBvKO-z2TBxE=");
           var e = Date.now() - 2592e5;
           yield c({
             accountName: "Credit Card Co",

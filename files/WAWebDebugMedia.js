@@ -9,6 +9,7 @@ __d(
     "WAWebMmsClient",
     "WAWebMsgType",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -18,11 +19,12 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          t === void 0 && (t = !0);
-          var r = o("WAWebChatCollection").ChatCollection.getActive();
-          if (r == null)
+          (t === void 0 && (t = !0),
+            r("vulture")("XfAJ8IOvx3NsL6dSq_PhwGdDsh4="));
+          var a = o("WAWebChatCollection").ChatCollection.getActive();
+          if (a == null)
             return "No active chat is open \u2014 open a chat containing a sticker first.";
-          var a = r.msgs
+          var i = a.msgs
             .getModelsArray()
             .map(function (e) {
               return { msg: e, mediaObject: e.mediaObject };
@@ -32,23 +34,23 @@ __d(
                 n = e.msg;
               return n.type === o("WAWebMsgType").MSG_TYPE.STICKER && t != null;
             });
-          for (var i of a) {
-            var l = i.mediaObject;
-            l == null ||
-              l.consolidate({
+          for (var l of i) {
+            var s = l.mediaObject;
+            s == null ||
+              s.consolidate({
                 downloadStage: o("WAWebMediaTypes").DownloadStage.NEED_POKE,
               });
           }
           if (t) {
             yield (e || (e = n("Promise"))).all(
-              a.map(function (e) {
+              i.map(function (e) {
                 var t = e.mediaObject;
                 return t == null ? void 0 : t.resolveWhenConsolidated();
               }),
             );
-            for (var s of a) {
-              var u = s.msg;
-              u.mediaData.set({
+            for (var u of i) {
+              var c = u.msg;
+              c.mediaData.set({
                 preview: null,
                 renderableUrl: "",
                 rgbaBuffer: null,
@@ -59,7 +61,7 @@ __d(
           }
           return (
             "Reset " +
-            a.length +
+            i.length +
             " sticker(s) to NEED_POKE in the active chat" +
             (t ? " and blanked their images" : "") +
             ". Scroll them into view to see the download button."

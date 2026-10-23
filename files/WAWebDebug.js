@@ -196,6 +196,7 @@ __d(
     "err",
     "gkx",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -214,38 +215,46 @@ __d(
       ).getWAWebDebugLabyrinthGatedMethods(),
       C = (e = n("cr:5553")) == null ? void 0 : e.VoipBridgePerfSimulator;
     function b() {
-      return (h || (h = n("Promise")))
-        .all([
-          o("WAWebModelStorage").destroy(),
-          o("WAWebSignalStorage").destroy(),
-          o("WAWebOffdStorage").destroy(),
-        ])
-        .then(function () {
-          (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[reload] resetStorage",
-              ])),
-          ),
-            location.reload());
-        });
+      return (
+        r("vulture")("hJ6vUttc71yMYGqsb542p6-m7IY="),
+        (h || (h = n("Promise")))
+          .all([
+            o("WAWebModelStorage").destroy(),
+            o("WAWebSignalStorage").destroy(),
+            o("WAWebOffdStorage").destroy(),
+          ])
+          .then(function () {
+            (r("vulture")("fGa0quwu7kyptagKGAWGfHEy6BI="),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[reload] resetStorage",
+                  ])),
+              ),
+              location.reload());
+          })
+      );
     }
     b.doc = "Reset model, signal, offd local storage, and reload";
     function v() {
-      return (h || (h = n("Promise")))
-        .all([
-          o("WAWebModelStorage").destroy(),
-          o("WAWebOffdStorage").destroy(),
-        ])
-        .then(function () {
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[reload] clearMessages",
-              ])),
-          ),
-            location.reload());
-        });
+      return (
+        r("vulture")("Lv-qxCiAgwFL1z8T1TbVliW98gs="),
+        (h || (h = n("Promise")))
+          .all([
+            o("WAWebModelStorage").destroy(),
+            o("WAWebOffdStorage").destroy(),
+          ])
+          .then(function () {
+            (r("vulture")("K_tDa4FWKBzqFJGmjSoRwE2Qfzk="),
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[reload] clearMessages",
+                  ])),
+              ),
+              location.reload());
+          })
+      );
     }
     v.doc = "Clear all model and offd local storage, and reload";
     function S() {
@@ -255,6 +264,7 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
+            r("vulture")("ShDfUikUBg9DfW0RmQ-piuHkfA0="),
             yield o("WAWebUserPrefsMultiDevice").clearRegistrationInfo(),
             (h || (h = n("Promise")))
               .all([
@@ -263,12 +273,13 @@ __d(
                 o("WAWebOffdStorage").destroy(),
               ])
               .then(function () {
-                (o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[reload] signOut",
-                    ])),
-                ),
+                (r("vulture")("54ZUXgIGnlz7_SBt-FxnvnKR1Gs="),
+                  o("WALogger").LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[reload] signOut",
+                      ])),
+                  ),
                   location.reload());
               })
           );
@@ -278,52 +289,70 @@ __d(
     }
     S.doc = "Sign out";
     function L(e) {
-      return o("WAWebSyncDeviceAdvDeviceListJob")
-        .syncDeviceListJob(
-          e.map(function (e) {
-            return o("WAWebWidFactory").createUserWidOrThrow(e);
-          }),
-          null,
-          null,
-        )
-        .then(r("WAWebNoop"));
+      return (
+        r("vulture")("KGOlDHYvRcqwx90CXbCP0N13W50="),
+        o("WAWebSyncDeviceAdvDeviceListJob")
+          .syncDeviceListJob(
+            e.map(function (e) {
+              return o("WAWebWidFactory").createUserWidOrThrow(e);
+            }),
+            null,
+            null,
+          )
+          .then(r("WAWebNoop"))
+      );
     }
     L.doc = "Sync device list to a list of user jids";
     function E(e, t) {
-      var n,
-        r = o("WAWebChatCollection").ChatCollection.gadd({
+      var n;
+      r("vulture")("x6eeY9ZrKqA6Ud9wKtiu3IwgVeI=");
+      var a = o("WAWebChatCollection").ChatCollection.gadd({
           id: o("WAWebWidFactory").createWid(t + "@broadcast"),
         }),
-        a = e.map(function (e) {
-          return { id: o("WAWebWidFactory").createWid(e + "@s.whatsapp.net") };
+        i = e.map(function (e) {
+          return (
+            r("vulture")("eOhMHSia9hNPm5XPvkpRsgULTpM="),
+            { id: o("WAWebWidFactory").createWid(e + "@s.whatsapp.net") }
+          );
         });
-      (n = r.groupMetadata) == null || n.set({ participants: a });
+      (n = a.groupMetadata) == null || n.set({ participants: i });
     }
     E.doc = "Create a broadcast list with a list of participants";
     function k(e) {
-      return r("WAWebSetReadReceiptJob")(e).then(function (e) {
-        return (
-          e.value !== "error" &&
-            o("WAWebUserPrefsMultiDeviceDebug").setDebugReadReceipt(e.value),
-          e
-        );
-      });
+      return (
+        r("vulture")("h8jquO2vOl557yIOj9DYEP7FsIQ="),
+        r("WAWebSetReadReceiptJob")(e).then(function (e) {
+          return (
+            r("vulture")("rMoTW2e7zn0_3ASUtvZA0zhNS2s="),
+            e.value !== "error" &&
+              o("WAWebUserPrefsMultiDeviceDebug").setDebugReadReceipt(e.value),
+            e
+          );
+        })
+      );
     }
     k.doc = "Send a debug read receipt";
     function I(e) {
-      return o("WASendPassiveModeProtocol").sendPassiveModeProtocol(e);
+      return (
+        r("vulture")("yYd1RdTzw1VmEUwQVlxV_XhaLw0="),
+        o("WASendPassiveModeProtocol").sendPassiveModeProtocol(e)
+      );
     }
     I.doc = "Send a passive info query (active|passive)";
     function T() {
-      o("WAWebPersistedJobManagerWorkerCompatible")
-        .getJobManager()
-        .fireAndForget(
-          o("WAWebPersistedJobDefinitions").jobSerializers.rotateKey(),
-        );
+      (r("vulture")("PfemyOw1gVKPqukcDFv8gvxUckc="),
+        o("WAWebPersistedJobManagerWorkerCompatible")
+          .getJobManager()
+          .fireAndForget(
+            o("WAWebPersistedJobDefinitions").jobSerializers.rotateKey(),
+          ));
     }
     T.doc = "Fire and forget a rotateKey job";
     function D() {
-      return o("WAWebAdvDeviceInfoCheckJob").runAdvDeviceInfoCheck();
+      return (
+        r("vulture")("RrcFU0ToSMMV-VvOlE13KdiAONg="),
+        o("WAWebAdvDeviceInfoCheckJob").runAdvDeviceInfoCheck()
+      );
     }
     D.doc = "run adv check and removal for expired devices";
     function x(e, t) {
@@ -332,6 +361,7 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("7A649xOgswkEcC6dGaRUgWXufCs=");
           var n = yield o("WAWebSchemaDeviceList").getDeviceListTable().get(e);
           if (n == null)
             return (
@@ -345,14 +375,14 @@ __d(
               ),
               !1
             );
-          var r = new Set([
+          var a = new Set([
             "timestamp",
             "expectedTs",
             "expectedTsLastDeviceJobTs",
             "expectedTsUpdateTs",
           ]);
-          for (var a of Object.keys(t))
-            if (!r.has(a))
+          for (var i of Object.keys(t))
+            if (!a.has(i))
               return (
                 o("WALogger").WARN(
                   p ||
@@ -360,7 +390,7 @@ __d(
                       "debug: setDeviceListEntry: unsupported key: ",
                       "",
                     ])),
-                  a,
+                  i,
                 ),
                 !1
               );
@@ -369,6 +399,7 @@ __d(
             .merge(e, t)
             .then(function () {
               return (
+                r("vulture")("0FZFFFqFCMYzJLRrA5dkYzKJeQ8="),
                 o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -384,39 +415,56 @@ __d(
     }
     x.doc = "set field(s) for an entry in the device table for a given user";
     function P(e) {
-      r("WAWebDebugRoutingToken").setDebugRoutingToken(e);
+      (r("vulture")("wOzfOthEbo9tPVTZK3SL2ajRFQM="),
+        r("WAWebDebugRoutingToken").setDebugRoutingToken(e));
     }
     P.doc =
       "Pin to a specific cdev server, used when your change is canaried on a cdev server";
     function N() {
-      return o("WAWebUpdaterUpdatePoll").checkForUpdates();
+      return (
+        r("vulture")("F1NsNh_gEptB3kcqEuhQFw0tflA="),
+        o("WAWebUpdaterUpdatePoll").checkForUpdates()
+      );
     }
     N.doc =
       "Trigger update check polling and install if an update is available";
     function M() {
-      if (r("gkx")("16539"))
+      if ((r("vulture")("8fNXWHTHf_GCaoOIQVYt0qP8c2g="), r("gkx")("16539")))
         return n("cr:10202") == null
           ? void 0
           : n("cr:10202").getMediaEditorDebug();
     }
     function w() {
-      r("gkx")("16539") &&
-        (n("cr:10204") == null || n("cr:10204").toggleStickerMakerDebug());
+      (r("vulture")("kJtSdzHBzA3MmQkY7mES5rvNDYU="),
+        r("gkx")("16539") &&
+          (n("cr:10204") == null || n("cr:10204").toggleStickerMakerDebug()));
     }
     ((w.doc = "Toggle Sticker Maker debug mode"), (w.paramsToExecute = []));
     function A(e, t) {
-      return o("WAWebDBPurgeExpiredRecords").purgeExpiredOrphanRecords(e, t);
+      return (
+        r("vulture")("PK4kQLW_OJw3hHJCZiFql_WuAdU="),
+        o("WAWebDBPurgeExpiredRecords").purgeExpiredOrphanRecords(e, t)
+      );
     }
     function F(e) {
-      return o("WAWebUserPrefsMultiDeviceDebug").setDebugEnableOfflineMock(e);
+      return (
+        r("vulture")("xtkbWLMD3ZZZYDKUBe6nbfCujRs="),
+        o("WAWebUserPrefsMultiDeviceDebug").setDebugEnableOfflineMock(e)
+      );
     }
     F.doc = "Enable/disable offline simulator.";
     function O(e) {
-      return o("WAWebUserPrefsMultiDeviceDebug").setDebugOfflineMockTraffic(e);
+      return (
+        r("vulture")("YIWTIZBDzzu_qWjP9KTd9wQ77Rk="),
+        o("WAWebUserPrefsMultiDeviceDebug").setDebugOfflineMockTraffic(e)
+      );
     }
     O.doc = "Override incoming mock traffic (traffic.js).";
     function B() {
-      return o("WAWebApiChat").pruneExpiredOrphanTcTokens();
+      return (
+        r("vulture")("ty2QoM3JuGO4ZSF6i0XBBq5dWOk="),
+        o("WAWebApiChat").pruneExpiredOrphanTcTokens()
+      );
     }
     B.doc = "Prunes expired orphan tokens older than 30 days";
     function W(e, t) {
@@ -425,6 +473,7 @@ __d(
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("VnQDsNOJhdiEc4vDNx0iA079HzE=");
           var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           if (n == null) {
             o("WALogger").WARN(
@@ -476,10 +525,14 @@ __d(
     W.doc =
       "Sending multiple messages without store message in DB, which will make the sending faster";
     function U(e) {
-      return o("WAWap").decodeStanzaDebug(e);
+      return (
+        r("vulture")("qtneLkHpIshV3ZfPpOv0H-GqNO0="),
+        o("WAWap").decodeStanzaDebug(e)
+      );
     }
     U.doc = "Decode a stanza from a buffer and return the WAP node";
     function V(e) {
+      r("vulture")("EOqv3vAN0wYzmuWsRac_qfXc-s8=");
       var t = o("WACryptoPkcs7").unpadPkcs7(
         new Uint8Array(r("nullthrows")(e.futureproofBuffer)),
       );
@@ -496,7 +549,8 @@ __d(
     function G() {
       return (
         (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("WAWebNetworkStatus").simulateNetworkStatus(!1),
+          (r("vulture")("xpJsYlq1cmms5DU77u6qof_DxxM="),
+            r("WAWebNetworkStatus").simulateNetworkStatus(!1),
             (o("WAWebSocketModel").Socket.socket = null),
             (o("WAWebSocketModel").Socket.state = o(
               "WAWebSocketConstants",
@@ -515,7 +569,8 @@ __d(
     function j() {
       return (
         (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("WAWebNetworkStatus").simulateNetworkStatus(!0),
+          (r("vulture")("wVGeBDuPznGVq2w5beubywhF9h4="),
+            r("WAWebNetworkStatus").simulateNetworkStatus(!0),
             yield o("WAWebStartBackend").startBackend());
         })),
         j.apply(this, arguments)
@@ -527,7 +582,8 @@ __d(
     function Q() {
       return (
         (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebBackendEventBus").BackendEventBus.triggerReconnectSocket();
+          (r("vulture")("1_lZqGlBRya20uEWddoF8XrgOpM="),
+            o("WAWebBackendEventBus").BackendEventBus.triggerReconnectSocket());
         })),
         Q.apply(this, arguments)
       );
@@ -538,6 +594,7 @@ __d(
     function Y() {
       return (
         (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("Yfre-WH_D5L71Z29gcyeo8_PM74=");
           var t = typeof e == "string" ? e : e.toString(),
             n = yield o("WAWebSchemaChat").getChatTable().get(t);
           if (n == null) throw r("err")("No chat found for id " + t);
@@ -548,28 +605,37 @@ __d(
     }
     X.doc = "get chat row deserialized from DB";
     function J(e) {
-      o("WAWebUserPrefsMultiDeviceDebug").setDebugDecryptFail(e);
+      (r("vulture")("wk1HdFPx1_wT4nJnSqV25zZCRvs="),
+        o("WAWebUserPrefsMultiDeviceDebug").setDebugDecryptFail(e));
     }
     J.doc = "Set the next N message decryptions to fail";
     function Z() {
-      return o("WAWebUserPrefsMultiDeviceDebug").getDebugDecryptFail();
+      return (
+        r("vulture")("XeeHIDVEnSEINB_nwjQX4litIXQ="),
+        o("WAWebUserPrefsMultiDeviceDebug").getDebugDecryptFail()
+      );
     }
     Z.doc = "Check how many more message decryptions are set to fail";
     function ee(e, t) {
-      return o("WAWebUserPrefsMultiDeviceDebug").setDebugEncryptFail(
-        o("WAWebWidFactory").createUserWidOrThrow(e),
-        t,
+      return (
+        r("vulture")("xzYo41l7NChA0FulBlyq2BuVvbs="),
+        o("WAWebUserPrefsMultiDeviceDebug").setDebugEncryptFail(
+          o("WAWebWidFactory").createUserWidOrThrow(e),
+          t,
+        )
       );
     }
     ee.doc = "Fails create-session for a given device";
     function te(e) {
-      o("WAWebUserPrefsMultiDeviceDebug").setDebugDoNotSendRetryReceipt(e);
+      (r("vulture")("YI4BzocgFurMsKbQvaMMmDw3FEU="),
+        o("WAWebUserPrefsMultiDeviceDebug").setDebugDoNotSendRetryReceipt(e));
     }
     te.doc = "Set the next N retry receipts will not be sent";
     function ne() {
-      return o(
-        "WAWebUserPrefsMultiDeviceDebug",
-      ).getDebugDoNotSendRetryReceipt();
+      return (
+        r("vulture")("UmxLecDScXlpBvo4M6-U5Jl2ZV4="),
+        o("WAWebUserPrefsMultiDeviceDebug").getDebugDoNotSendRetryReceipt()
+      );
     }
     ne.doc = "Check how many more retry receipts will be skipped";
     function re() {
@@ -578,6 +644,7 @@ __d(
     function oe() {
       return (
         (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("bim4WkhG9QLu3MmAr2pZOs8U5fw=");
           var e = Array.from(
               o("WAWebModelStorageUtils").getStorage().tables.keys(),
             ),
@@ -585,6 +652,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
+                    r("vulture")("IbWejl5sOTZXTuwUegU8SV7Wpws=");
                     var t = o("WAWebModelStorageUtils").getStorage().table(e),
                       n = yield t.all();
                     return [e, n];
@@ -607,6 +675,7 @@ __d(
     function ie() {
       return (
         (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("mMU7F5p51AylWf8VERdqML5ZC08=");
           var e = Array.from(
               o("WAWebSignalStorageUtils").getStorage().tables.keys(),
             ),
@@ -614,6 +683,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
+                    r("vulture")("RRrXTib57ytrX_nBM163u5rRiYQ=");
                     var t = o("WAWebSignalStorageUtils").getStorage().table(e),
                       n = yield t.all();
                     return [e, n];
@@ -636,7 +706,10 @@ __d(
     function se() {
       return (
         (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebWam").sendAllLogs(e);
+          return (
+            r("vulture")("uHdmxKFwzkBj2RYBJM9lS8NBUmM="),
+            o("WAWebWam").sendAllLogs(e)
+          );
         })),
         se.apply(this, arguments)
       );
@@ -645,7 +718,8 @@ __d(
       "Submit all cached metrics for the given WAM buffer type ('regular' or one of Private Stats keys)"),
       (le.paramsToExecute = ["regular"]));
     function ue(e) {
-      o("WAWebUserPrefsGeneral").setDebugFacebookGraphQLEndpointOverride(e);
+      (r("vulture")("BVT89x4vP5kwm1ySP5EXBRO6dIU="),
+        o("WAWebUserPrefsGeneral").setDebugFacebookGraphQLEndpointOverride(e));
     }
     ue.doc =
       'Debug method for testing against a specific graphQL Facebook OD endpoint. Pass OD number as a string, e.g. "0934"';
@@ -655,9 +729,12 @@ __d(
     function de() {
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaReportingInfo")
-            .getReportingInfoTable()
-            .equals(["msgKey"], [e]);
+          return (
+            r("vulture")("E__tXEK3UeBx-yknC3m3h-Scjrw="),
+            o("WAWebSchemaReportingInfo")
+              .getReportingInfoTable()
+              .equals(["msgKey"], [e])
+          );
         })),
         de.apply(this, arguments)
       );
@@ -670,6 +747,7 @@ __d(
         (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             e === void 0 && (e = -1),
+            r("vulture")("3ID7ocNE3L2C4HCiT9CbTMG8_BI="),
             o("WAWebDBReportingTokenUtils").cleanupReportingTokenAndContent(e)
           );
         })),
@@ -682,9 +760,12 @@ __d(
     function fe() {
       return (
         (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
-            JSON.parse(e),
-          ).commitAndWaitForFlush(!0);
+          return (
+            r("vulture")("30p6FtIBDe4epWDvNXB3mWxRfLY="),
+            new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
+              JSON.parse(e),
+            ).commitAndWaitForFlush(!0)
+          );
         })),
         fe.apply(this, arguments)
       );
@@ -692,11 +773,13 @@ __d(
     ((_e.doc = "Send a raw wam event (used by UWP Hybrid app)"),
       (_e.paramsToExecute = []));
     function ge(e, t) {
-      o("WAWebTos").TosManager.setState(e, t, o("WATimeUtils").unixTime());
+      (r("vulture")("SDbG34TilP6I6G-yF-kthq2ORFs="),
+        o("WAWebTos").TosManager.setState(e, t, o("WATimeUtils").unixTime()));
     }
     ge.doc = "Set the state of a given TOS notice";
     function he(e) {
-      o("WAWebTPSharerPreference").setSharerSkipPreference(e);
+      (r("vulture")("JrobMpEeRS8EvKtCVP1NrLNnmM8="),
+        o("WAWebTPSharerPreference").setSharerSkipPreference(e));
     }
     he.doc =
       "Set the WebTP sharer skip confirmation preference (debug override)";
@@ -706,15 +789,16 @@ __d(
     function Ce() {
       return (
         (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("5OQp4EISyaUr1Z6AqrxjP89Kgs4=");
           var t = 0,
             n = 0x7048860ddf79,
-            r = yield o(
+            a = yield o(
               "WAWebCanonicalTokenExchange",
             ).storeCanonicalCredentials(
               { userId: n, deviceId: t, accessToken: e },
               "recovery",
             );
-          return r ===
+          return a ===
             o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
             ? "success"
             : "failed";
@@ -724,7 +808,10 @@ __d(
     }
     ye.doc = "Store canonical credentials directly (for E2E tests)";
     function be() {
-      return o("WAWebCanonicalUtils").isCanonicalPresent();
+      return (
+        r("vulture")("RindQ8M2oQnn4ayF25IM4k6DzJo="),
+        o("WAWebCanonicalUtils").isCanonicalPresent()
+      );
     }
     be.doc = "Check if canonical token has been stored";
     function ve(e) {
@@ -733,6 +820,7 @@ __d(
     function Se() {
       return (
         (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("PNgalV5256wL1TDcltm6h9-0v0A=");
           var t = Array.isArray(e) ? e : [e],
             n = t.map(function (e) {
               return r("WAWebMsgKey").from(e);
@@ -776,6 +864,7 @@ __d(
     function Le() {
       return (
         (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("PTUrb-lbA1idzq1sX-_TZfmE388=");
           try {
             return (
               yield o("WAWebUploadPQPrekeysJob").generateAndUploadPQPreKeys(),
@@ -790,7 +879,8 @@ __d(
     }
     Re.doc = "Trigger PQ (post-quantum) prekey generation and upload";
     function Ee() {
-      r("WAWebDebugDownFunnelSignals").dfsInitialize();
+      (r("vulture")("ayItXAwZfflCWNH5TOb62TR9cew="),
+        r("WAWebDebugDownFunnelSignals").dfsInitialize());
     }
     var ke = babelHelpers.extends(
       { initialize: Ee, delayMs: o("WAPromiseDelays").delayMs, _: null },

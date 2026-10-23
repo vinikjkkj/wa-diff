@@ -1,6 +1,10 @@
 __d(
   "WAWebCustomerProfileAcquisitionSourceNames",
-  ["fbt", "WAWebCustomerProfileAcquisitionSource"],
+  [
+    "fbt",
+    "WAWebCustomerManagerCustomerProfileDecoders",
+    "WAWebCustomerProfileAcquisitionSource",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e ===
@@ -26,8 +30,20 @@ __d(
       if (n === "") return null;
       for (var r of o("WAWebCustomerProfileAcquisitionSource")
         .PROFILE_ACQUISITION_SOURCE_ORDER) {
-        var a = e(r);
-        if (a != null && String(a).toLowerCase() === n) return r;
+        var a;
+        if (
+          ((a = o(
+            "WAWebCustomerManagerCustomerProfileDecoders",
+          ).toAcquisitionSourceFilterText(r)) == null
+            ? void 0
+            : a.toLowerCase()) === n
+        )
+          return r;
+      }
+      for (var i of o("WAWebCustomerProfileAcquisitionSource")
+        .PROFILE_ACQUISITION_SOURCE_ORDER) {
+        var l = e(i);
+        if (l != null && String(l).toLowerCase() === n) return i;
       }
       return null;
     }

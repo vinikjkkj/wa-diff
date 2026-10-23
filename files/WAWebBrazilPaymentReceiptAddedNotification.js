@@ -103,7 +103,7 @@ __d(
             return;
           }
           var a = yield d(),
-            i = a.openPaymentDetails;
+            i = a.openPaymentDetailsFromReceiptNotice;
           i(r);
         })),
         g.apply(this, arguments)

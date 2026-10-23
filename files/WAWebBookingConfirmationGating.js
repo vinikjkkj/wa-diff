@@ -7,7 +7,13 @@ __d(
         "booking_confirmation_enabled_wa_web",
       );
     }
-    l.isBookingConfirmationEnabled = e;
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "utility_appointment_logging_enabled",
+      );
+    }
+    ((l.isBookingConfirmationEnabled = e),
+      (l.isBookingConfirmationLoggingEnabled = s));
   },
   98,
 );

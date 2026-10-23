@@ -10,14 +10,18 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = "@lid";
     function c(e) {
-      return o("WAWebWidFactory").createUserLidOrThrow(
-        e.includes("@") ? e : "" + e + u,
+      return (
+        r("vulture")("tCDp0ClNViKDo1Q8P9pltOEl5F4="),
+        o("WAWebWidFactory").createUserLidOrThrow(
+          e.includes("@") ? e : "" + e + u,
+        )
       );
     }
     function d(e, t) {
@@ -26,6 +30,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          r("vulture")("F3X2x7Z1c1VPueqjmoeTsRZcunw=");
           var a = window.chat;
           if (a == null) {
             o("WALogger").WARN(

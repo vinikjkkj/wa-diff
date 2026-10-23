@@ -20,6 +20,7 @@ __d(
     "WAWebUserPrefsStatusType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -29,9 +30,10 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSendStatusMsgAction").sendStatusTextMsgAction({
-            text: e,
-          });
+          (r("vulture")("_CqURJBCEjs42B_OAZEjkA7Ag80="),
+            yield o("WAWebSendStatusMsgAction").sendStatusTextMsgAction({
+              text: e,
+            }));
         })),
         _.apply(this, arguments)
       );
@@ -43,6 +45,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("sjjAnmHj4pr8yGK-wtoBz1OE9-U=");
           var t = e.map(function (e) {
             return o("WAWebWidFactory").createWid(e + "@c.us");
           });
@@ -57,11 +60,17 @@ __d(
     }
     f.doc = "set status message allow list user jid";
     function h(e) {
-      return o("WAWebStatusDBOperations").createOrUpdateStatus(e);
+      return (
+        r("vulture")("4G_naAt5nHDZ9CsCD_M7UU7qyPM="),
+        o("WAWebStatusDBOperations").createOrUpdateStatus(e)
+      );
     }
     h.doc = "Store in database status";
     function y() {
-      return o("WAWebRevokeStatusPsaMsgAction").revokeAllStatusPSA();
+      return (
+        r("vulture")("rH1juGGTVg3dB-XDb0YRkmlWc7c="),
+        o("WAWebRevokeStatusPsaMsgAction").revokeAllStatusPSA()
+      );
     }
     y.doc = "Deletes all PSA status campaigns";
     function C(e, t) {
@@ -70,8 +79,9 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = yield t(),
-            a = r.map(function (e) {
+          r("vulture")("Ir-MhXH1KJFBetcH8kF9J1yfI2A=");
+          var a = yield t(),
+            i = a.map(function (e) {
               return e.id;
             });
           (o("WALogger").LOG(
@@ -82,9 +92,9 @@ __d(
                 " messages",
               ])),
             n,
-            a.length,
+            i.length,
           ),
-            yield o("WAWebSchemaMessage").getMessageTable().bulkRemove(a),
+            yield o("WAWebSchemaMessage").getMessageTable().bulkRemove(i),
             location.reload());
         })),
         b.apply(this, arguments)
@@ -96,9 +106,12 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return C(
-            o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper,
-            "clearGroupStatuses",
+          return (
+            r("vulture")("iwiMWDMtAfHo7bW9vu9dNnebEHE="),
+            C(
+              o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper,
+              "clearGroupStatuses",
+            )
           );
         })),
         S.apply(this, arguments)
@@ -111,9 +124,12 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return C(
-            o("WAWebDBMessageStoreUtils").queryNewsletterStatusMsgsHelper,
-            "clearNewsletterStatuses",
+          return (
+            r("vulture")("gdmGDnxitULwiqJMrjJHrSgalXk="),
+            C(
+              o("WAWebDBMessageStoreUtils").queryNewsletterStatusMsgsHelper,
+              "clearNewsletterStatuses",
+            )
           );
         })),
         L.apply(this, arguments)
@@ -126,21 +142,22 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("5Dqz1ckxr6ovM5FoJwXhGEb3opM=");
           var t = o("WAWebWidFactory").createWid(e),
             n = o("WAWebDBMessageUtils").InternalIdPrefix.Default;
           t.isNewsletter()
             ? (n = o("WAWebDBMessageUtils").InternalIdPrefix.NewsletterStatus)
             : t.isGroup() &&
               (n = o("WAWebDBMessageUtils").InternalIdPrefix.GroupStatus);
-          var r = n + o("WAWebDBMessageUtils").beginningOfChat(t),
-            a = n + o("WAWebDBMessageUtils").endOfChat(t),
-            i = yield o("WAWebSchemaMessage")
+          var a = n + o("WAWebDBMessageUtils").beginningOfChat(t),
+            i = n + o("WAWebDBMessageUtils").endOfChat(t),
+            l = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .between(["internalId"], r, a, {
+              .between(["internalId"], a, i, {
                 lowerInclusive: !1,
                 upperInclusive: !1,
               }),
-            l = i.map(function (e) {
+            u = l.map(function (e) {
               return e.id;
             });
           (o("WALogger").LOG(
@@ -150,10 +167,10 @@ __d(
                 " messages for ",
                 "",
               ])),
-            l.length,
+            u.length,
             e,
           ),
-            yield o("WAWebSchemaMessage").getMessageTable().bulkRemove(l),
+            yield o("WAWebSchemaMessage").getMessageTable().bulkRemove(u),
             location.reload());
         })),
         k.apply(this, arguments)
@@ -166,9 +183,10 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("4Sy14tP6IdkthNMOkGfkGbBG_9w=");
           var t = o("WAWebWidFactory").createWid(e),
-            r = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: [t] });
-          if (r.length === 0) {
+            a = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: [t] });
+          if (a.length === 0) {
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -179,7 +197,7 @@ __d(
             );
             return;
           }
-          (yield o("WAWebUserPrefsStatus").markForgetStatusSenderKey(r),
+          (yield o("WAWebUserPrefsStatus").markForgetStatusSenderKey(a),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -188,33 +206,33 @@ __d(
                   ")",
                 ])),
               e,
-              r.length,
+              a.length,
             ));
-          var a = [],
-            i = [t];
+          var i = [],
+            l = [t];
           if (t.isUser()) {
-            var l = o("WAWebApiContact").getAlternateUserWid(
+            var s = o("WAWebApiContact").getAlternateUserWid(
               o("WAWebWidFactory").asUserWidOrThrow(t),
             );
-            l != null && i.push(l);
+            s != null && l.push(s);
           }
-          for (var s of i) {
-            var p = yield o("WAWebApiDeviceList").getDeviceRecord(s);
-            if (p != null && !p.deleted)
-              for (var _ of p.devices)
-                a.push(
+          for (var p of l) {
+            var _ = yield o("WAWebApiDeviceList").getDeviceRecord(p);
+            if (_ != null && !_.deleted)
+              for (var f of _.devices)
+                i.push(
                   o("WAWebSignalSessionApi").deleteDeviceSenderKey(
                     o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
-                      p.id,
                       _.id,
-                      _.isHosted,
+                      f.id,
+                      f.isHosted,
                     ),
                   ),
                 );
           }
-          (yield (m || (m = n("Promise"))).all(a),
+          (yield (m || (m = n("Promise"))).all(i),
             yield m.all(
-              r.map(function (e) {
+              a.map(function (e) {
                 return o("WAWebSignal").Session.deleteRemoteSession(e);
               }),
             ),
@@ -229,7 +247,7 @@ __d(
                   ")",
                 ])),
               e,
-              r.length,
+              a.length,
             ));
         })),
         T.apply(this, arguments)
@@ -238,9 +256,10 @@ __d(
     I.doc =
       'Forget status sender key and delete all signal sessions for a LID (e.g. "12345@lid")';
     function D() {
-      o(
-        "WAWebStatusChainFromMyCounter",
-      ).resetStatusChainFromMyInteractionCount();
+      (r("vulture")("ynInsHzdLyJCXLJIQRcjmrpxt-k="),
+        o(
+          "WAWebStatusChainFromMyCounter",
+        ).resetStatusChainFromMyInteractionCount());
     }
     D.doc =
       'Reset the "See more statuses" (Chain from My Status) pill tap count so the pill shows again';

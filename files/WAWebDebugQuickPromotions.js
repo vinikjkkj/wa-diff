@@ -12,38 +12,52 @@ __d(
     "WAWebQuickPromotionValidatorUtils",
     "WAWebSchemaQuickPromotions",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "whatsapp_gk_enabled";
     function s() {
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(["quick-promotions"], function (e) {
-          var t = e[0];
-          return t.clear();
-        });
+      return (
+        r("vulture")("NdrX2SZS0yOgWtVAMtSLwIcJG6c="),
+        o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(["quick-promotions"], function (e) {
+            var t = e[0];
+            return (r("vulture")("j53pDrFnI30UD75X8emVjKUoz_M="), t.clear());
+          })
+      );
     }
     ((s.doc = "delete the Quick Promotion local cache"),
       (s.paramsToExecute = []));
     function u() {
-      return o("WAWebFetchQuickPromotions")
-        .fetchQuickPromotions()
-        .then(function (e) {})
-        .catch(function (e) {});
+      return (
+        r("vulture")("OD4l0JtI8qYM-f5nD6nZsohxJLw="),
+        o("WAWebFetchQuickPromotions")
+          .fetchQuickPromotions()
+          .then(function (e) {
+            r("vulture")("hmHqKi-1fOOtQwb85IEhYA9papU=");
+          })
+          .catch(function (e) {})
+      );
     }
     ((u.doc = "Fetch quick promotions"), (u.paramsToExecute = []));
     function c() {
-      return o("WAWebSchemaQuickPromotions")
-        .getQuickPromotionsTable()
-        .all()
-        .then(function (e) {
-          return e;
-        });
+      return (
+        r("vulture")("Qr_TeyVmSWmnw-EAS_VrPlr57JM="),
+        o("WAWebSchemaQuickPromotions")
+          .getQuickPromotionsTable()
+          .all()
+          .then(function (e) {
+            return (r("vulture")("LlnEFFqg_NGq556x6esDuqAqYDU="), e);
+          })
+      );
     }
     ((c.doc = "Get the Quick Promotion local cache"), (c.paramsToExecute = []));
     function d(e) {
-      e !== "" && o("WAWebJobUserExposureToQuickPromotion").reportViaFalco(e);
+      (r("vulture")("vv0mhgcb90UzE7zH7bK6G8PaYLY="),
+        e !== "" &&
+          o("WAWebJobUserExposureToQuickPromotion").reportViaFalco(e));
     }
     ((d.doc =
       "Log a QP qp_exposure Falco event for a given promotion id (the whatsapp_gk_enabled exposure path). Fire-and-forget \u2014 verify server-side."),
@@ -55,27 +69,28 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
-          if (t === "") return "no-id";
-          var r = yield o("WAWebSchemaQuickPromotions")
+          if ((r("vulture")("H_mP1jwj8BFoy6E5lGMkWtAAudw="), t === ""))
+            return "no-id";
+          var a = yield o("WAWebSchemaQuickPromotions")
             .getQuickPromotionsTable()
             .get(t);
-          if (r == null) return "not-found";
-          var a =
+          if (a == null) return "not-found";
+          var i =
             o(
               "WAWebQuickPromotionValidatorUtils",
-            ).getQuickPromotionContentAttribute(r.data, e) === "true";
-          if (a)
+            ).getQuickPromotionContentAttribute(a.data, e) === "true";
+          if (i)
             return (
               o("WAWebJobUserExposureToQuickPromotion").reportViaFalco(t),
               "falco"
             );
-          var i = yield o("WASmaxInAppCommsEventRPC").sendEventRPC({
+          var l = yield o("WASmaxInAppCommsEventRPC").sendEventRPC({
             eventType: "exposure",
             eventPromotionId: t,
             eventTimestampSec: o("WATimeUtils").unixTime(),
-            eventLogdata: (n = r.data.qpConfigExperimentKey) != null ? n : "",
+            eventLogdata: (n = a.data.qpConfigExperimentKey) != null ? n : "",
           });
-          return i.name;
+          return l.name;
         })),
         p.apply(this, arguments)
       );
@@ -84,20 +99,24 @@ __d(
       "Log a QP exposure: Falco for whatsapp_gk_enabled promotions, otherwise the traditional IQ comms event. Returns the path taken / server result."),
       (m.paramsToExecute = [""]));
     function _(e) {
-      return o("WAWebSchemaQuickPromotions")
-        .getQuickPromotionsTable()
-        .get(e)
-        .then(function (e) {
-          var t;
-          if (e == null) return null;
-          var n =
-              (t = e.data.qpConfigInstanceLogData) == null
-                ? void 0
-                : t.elementValue,
-            r = "";
-          if (n != null) for (var o of n) r += String.fromCharCode(o);
-          return { surfaceId: e.surfaceId, instanceLogData: r };
-        });
+      return (
+        r("vulture")("4_ON9E4MpzcjyeuOZh3GeF1ip-s="),
+        o("WAWebSchemaQuickPromotions")
+          .getQuickPromotionsTable()
+          .get(e)
+          .then(function (e) {
+            var t;
+            if ((r("vulture")("UVTpmy-479NQ4bG7geANaF4Sf2k="), e == null))
+              return null;
+            var n =
+                (t = e.data.qpConfigInstanceLogData) == null
+                  ? void 0
+                  : t.elementValue,
+              o = "";
+            if (n != null) for (var a of n) o += String.fromCharCode(a);
+            return { surfaceId: e.surfaceId, instanceLogData: o };
+          })
+      );
     }
     function f(e) {
       return g.apply(this, arguments);
@@ -105,11 +124,12 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e === "") return "no-id";
+          if ((r("vulture")("8lR9b5BXWZGyfoYbQTCx96pDv3g="), e === ""))
+            return "no-id";
           var t = yield _(e);
           if (t == null) return "not-found";
           var n = o("WATimeUtils").unixTime(),
-            r = o("WAWebMobilePlatforms").isSMB()
+            a = o("WAWebMobilePlatforms").isSMB()
               ? yield o(
                   "WAWebQuickPromotionActionMutation",
                 ).executeQuickPromotionActionMutation({
@@ -128,7 +148,7 @@ __d(
                   promotion_logging_data: "",
                   client_time: n,
                 });
-          return r.type;
+          return a.type;
         })),
         g.apply(this, arguments)
       );
@@ -142,11 +162,12 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e === "") return "no-id";
+          if ((r("vulture")("OI_OC0NtsE8okcO6BEU829neKCw="), e === ""))
+            return "no-id";
           var t = yield _(e);
           if (t == null) return "not-found";
           var n = o("WATimeUtils").unixTime(),
-            r = o("WAWebMobilePlatforms").isSMB()
+            a = o("WAWebMobilePlatforms").isSMB()
               ? yield o(
                   "WAWebQuickPromotionActionMutation",
                 ).executeQuickPromotionActionMutation({
@@ -167,7 +188,7 @@ __d(
                   promotion_logging_data: "",
                   client_time: n,
                 });
-          return r.type;
+          return a.type;
         })),
         y.apply(this, arguments)
       );
@@ -181,11 +202,12 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e === "") return "no-id";
+          if ((r("vulture")("1t_mw1kYQJ3O4yx1dh17f1kYzB0="), e === ""))
+            return "no-id";
           var t = yield _(e);
           if (t == null) return "not-found";
           var n = o("WATimeUtils").unixTime(),
-            r = o("WAWebMobilePlatforms").isSMB()
+            a = o("WAWebMobilePlatforms").isSMB()
               ? yield o(
                   "WAWebQuickPromotionActionMutation",
                 ).executeQuickPromotionActionMutation({
@@ -206,7 +228,7 @@ __d(
                   promotion_logging_data: "",
                   client_time: n,
                 });
-          return r.type;
+          return a.type;
         })),
         b.apply(this, arguments)
       );
@@ -215,10 +237,15 @@ __d(
       "Log a QP dismiss via the GraphQL action mutation; returns the server result type."),
       (C.paramsToExecute = [""]));
     function v(e) {
-      return o("WAWebQuickPromotionActionMutation")
-        .executeQuickPromotionActionMutation(e)
-        .then(function (e) {})
-        .catch(function (e) {});
+      return (
+        r("vulture")("fITeP5gs9ocjdU5vk_pGTuiu5kw="),
+        o("WAWebQuickPromotionActionMutation")
+          .executeQuickPromotionActionMutation(e)
+          .then(function (e) {
+            r("vulture")("kjfaLrw0LTIcvNhlgEjxc6YFPRA=");
+          })
+          .catch(function (e) {})
+      );
     }
     var S = {
       deleteAllQPPromotions: s,

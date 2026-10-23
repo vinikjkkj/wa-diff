@@ -1,12 +1,13 @@
 __d(
   "WAWebDebugNotifications",
-  ["WATimeUtils", "WAWebUserPrefsNotifications"],
+  ["WATimeUtils", "WAWebUserPrefsNotifications", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      o("WAWebUserPrefsNotifications").setWebNotificationsBBStatus({
-        isDismissed: !0,
-        lastDismissTime: o("WATimeUtils").unixTime(),
-      });
+      (r("vulture")("cjb8RBCsbxsqKGajnFmzK0tJeWw="),
+        o("WAWebUserPrefsNotifications").setWebNotificationsBBStatus({
+          isDismissed: !0,
+          lastDismissTime: o("WATimeUtils").unixTime(),
+        }));
     }
     var s = { expireNotificationButterbar: e };
     l.default = s;

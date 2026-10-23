@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugFavorites",
-  ["WAWebFavoritesSync", "asyncToGeneratorRuntime"],
+  ["WAWebFavoritesSync", "asyncToGeneratorRuntime", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -8,7 +8,8 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebFavoritesSync").applyMutations(e);
+          (r("vulture")("chTyQ3v-3KXUbe_rqAspeiuYqzA="),
+            yield r("WAWebFavoritesSync").applyMutations(e));
         })),
         s.apply(this, arguments)
       );

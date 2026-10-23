@@ -13,7 +13,7 @@ __d(
       s = {
         triggerLogoutDiagnosticFromBridge: function (n) {
           var t = n.reason;
-          r("gkx")("26258") ||
+          r("gkx")("16539") &&
             window.dispatchEvent(
               new CustomEvent(e, {
                 detail: { reason: t, timestamp: Date.now() },

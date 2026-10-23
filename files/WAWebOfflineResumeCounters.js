@@ -7,6 +7,7 @@ __d(
         awaitUnflushedMsgWrite: function () {},
         msgRoutedToOnlineQueue: function () {},
         oneQueueFlushFailed: function () {},
+        oneQueueOfflineEndNotResolved: function () {},
         oneQueueTimeout: function () {},
       },
       l = e;
@@ -26,6 +27,9 @@ __d(
       l.oneQueueFlushFailed();
     }
     function p(e) {
+      l.oneQueueOfflineEndNotResolved(e);
+    }
+    function _(e) {
       l.appReload(e);
     }
     ((i.setOfflineResumeCounters = s),
@@ -33,7 +37,8 @@ __d(
       (i.maybeLogAwaitUnflushedMsgWrite = c),
       (i.logOneQueueTimeout = d),
       (i.logOneQueueFlushFailed = m),
-      (i.logAppReload = p));
+      (i.logOneQueueOfflineEndNotResolved = p),
+      (i.logAppReload = _));
   },
   66,
 );

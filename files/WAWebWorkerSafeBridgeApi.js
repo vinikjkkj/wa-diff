@@ -343,12 +343,18 @@ __d(
             t,
           );
         },
-        syncContactListJob: function (t) {
-          var e = t.contactIds,
-            n = t.mode,
-            r = t.shouldSyncDevice;
-          return o("WAWebSyncContactJob").syncContactListJob(e, r, n);
-        },
+        syncContactListJob: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.contactIds,
+              n = e.mode,
+              r = e.shouldSyncDevice;
+            yield o("WAWebSyncContactJob").syncContactListJob(t, r, n);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         checkOrphanFavoriteStickers: function () {
           return o("WAWebSyncdOrphan").checkOrphanFavoriteStickers();
         },

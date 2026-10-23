@@ -69,7 +69,7 @@ __d(
     "WAWebStateUtils",
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
-    "cr:6009",
+    "cr:17680",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -688,9 +688,9 @@ __d(
     }
     function X(e) {
       if (
-        (n("cr:6009") == null
+        (n("cr:17680") == null
           ? void 0
-          : n("cr:6009").messageEditRestrictionEnabled()) === !1
+          : n("cr:17680").messageEditRestrictionEnabled()) === !1
       )
         return !0;
       var t = o("WAWebStateUtils").unproxy(e);
@@ -719,9 +719,9 @@ __d(
     }
     function J(e) {
       if (
-        (n("cr:6009") == null
+        (n("cr:17680") == null
           ? void 0
-          : n("cr:6009").messageEditRestrictionEnabled()) === !1
+          : n("cr:17680").messageEditRestrictionEnabled()) === !1
       )
         return !0;
       var t = o("WAWebStateUtils").unproxy(e);
@@ -739,9 +739,9 @@ __d(
     }
     function Z(e) {
       if (
-        (n("cr:6009") == null
+        (n("cr:17680") == null
           ? void 0
-          : n("cr:6009").messageEditRestrictionEnabled()) === !1
+          : n("cr:17680").messageEditRestrictionEnabled()) === !1
       )
         return !0;
       var t = o("WAWebStateUtils").unproxy(e);

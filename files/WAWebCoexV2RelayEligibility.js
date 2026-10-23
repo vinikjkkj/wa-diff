@@ -167,29 +167,30 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             r = e.chatId,
-            a = e.msgProtobuf,
-            i = e.option,
-            l = e.stanzaTo;
-          if (!$(a, l, i)) return null;
-          var s = yield (m || (m = n("Promise"))).all([
+            a = e.isAeaE2eeSend,
+            i = e.msgProtobuf,
+            l = e.option,
+            s = e.stanzaTo;
+          if (!$(i, s, l)) return null;
+          var c = yield (m || (m = n("Promise"))).all([
               T(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(r),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(r),
-              k(r, a),
+              a != null ? a : k(r, i),
             ]),
-            c = s[0],
-            d = s[1],
-            p = s[2],
-            _ = s[3],
-            f = d && !_;
-          if (!c && !f) return null;
-          var g = c ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
-            h = f && !p ? P(t == null ? void 0 : t.accountLid, l) : null,
-            y =
-              h != null &&
-              (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(h));
-          f &&
-            (p || y) &&
+            d = c[0],
+            p = c[1],
+            _ = c[2],
+            f = c[3],
+            g = p && !f;
+          if (!d && !g) return null;
+          var h = d ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
+            y = g && !_ ? P(t == null ? void 0 : t.accountLid, s) : null,
+            C =
+              y != null &&
+              (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(y));
+          g &&
+            (_ || C) &&
             o("WALogger")
               .WARN(
                 u ||
@@ -198,10 +199,10 @@ __d(
                   ])),
               )
               .sendLogs("coexv2-relay-peer-blocked");
-          var C = y ? null : h;
-          return g == null && C == null
+          var b = C ? null : y;
+          return h == null && b == null
             ? null
-            : { peerLid: C, selfIsCoexV2: c, selfLid: g };
+            : { peerLid: b, selfIsCoexV2: d, selfLid: h };
         })),
         E.apply(this, arguments)
       );
@@ -320,6 +321,7 @@ __d(
       (l.getCoexV2InvokedAgentSendPlan = S),
       (l.shouldRejectCoexV2AgentSend = R),
       (l.getCoexV2RelaySendPlan = L),
+      (l.shouldAeaStopRelayCopy = k),
       (l.isSelfCoexV2Hosted = T));
   },
   98,

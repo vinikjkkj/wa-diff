@@ -371,36 +371,44 @@ __d(
               o("WAWebCoexV2RelayEligibility").isSelfCoexV2Hosted(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(a),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(a),
+              o("WAWebCoexV2RelayEligibility").shouldAeaStopRelayCopy(
+                a,
+                o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+                  o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
+                  e,
+                ),
+              ),
             ]),
             l = i[0],
             s = i[1],
             u = i[2],
-            c = [],
-            d = [];
-          for (var m of t) {
-            var p = D(m, r);
-            p != null &&
-              (o("WAWebUserPrefsMeUser").isMeAccount(p)
-                ? l && c.push(p)
-                : s && !u && d.push(p));
+            c = i[3],
+            d = [],
+            m = [];
+          for (var p of t) {
+            var _ = D(p, r);
+            _ != null &&
+              (o("WAWebUserPrefsMeUser").isMeAccount(_)
+                ? l && d.push(_)
+                : s && !u && !c && m.push(_));
           }
-          var _ = yield C.all(
-              d.map(function (e) {
+          var f = yield C.all(
+              m.map(function (e) {
                 return o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
                   e,
                 );
               }),
             ),
-            f = d.filter(function (e, t) {
-              return !_[t];
+            g = m.filter(function (e, t) {
+              return !f[t];
             }),
-            g =
-              f.length > 0
+            h =
+              g.length > 0
                 ? yield o(
                     "WAWebSendMsgCommonApi",
-                  ).filterDeviceWithChangedIdentity(e, f)
-                : f;
-          return { selfHosted: l, survivors: [].concat(c, g) };
+                  ).filterDeviceWithChangedIdentity(e, g)
+                : g;
+          return { selfHosted: l, survivors: [].concat(d, h) };
         })),
         T.apply(this, arguments)
       );

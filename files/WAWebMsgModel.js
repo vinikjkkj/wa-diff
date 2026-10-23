@@ -444,6 +444,7 @@ __d(
             (e.callLinkToken = o("WAWebBaseModel").prop(null)),
             (e.finalCallOutcome = o("WAWebBaseModel").prop()),
             (e.terminatedByDeviceSwitch = o("WAWebBaseModel").prop(null)),
+            (e.screenedElsewhere = o("WAWebBaseModel").prop(null)),
             (e.selfOtherDeviceConnected = o("WAWebBaseModel").prop(null)),
             (e.bytesSent = o("WAWebBaseModel").prop(null)),
             (e.bytesReceived = o("WAWebBaseModel").prop(null)),
@@ -559,7 +560,7 @@ __d(
             (e.isOverwrittenByRevoke = o("WAWebBaseModel").session(!1)),
             (e.bizContentPlaceholderType = o("WAWebBaseModel").prop(null)),
             (e.hostedBizEncStateMismatch = o("WAWebBaseModel").prop(!1)),
-            (e.aeaAutoUpgrade = o("WAWebBaseModel").prop(!1)),
+            (e.aeaAutoUpgrade = o("WAWebBaseModel").prop()),
             (e.senderOrRecipientAccountTypeHosted =
               o("WAWebBaseModel").prop(!1)),
             (e.placeholderCreatedWhenAccountIsHosted =
@@ -641,9 +642,6 @@ __d(
                 this.senderObj.setIsMarketingMessageThread(!0)),
               (this.mentionedJidList = this.mentionedJidList || []),
               (this.groupMentions = this.groupMentions || []),
-              this.mentionedJidList.forEach(function (e) {
-                return o("WAWebContactCollection").ContactCollection.gadd(e);
-              }),
               this.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
                 this.listenToOnce(this, "change:type", this.$MsgImpl$p_14),
               (this.mediaObject = void 0),

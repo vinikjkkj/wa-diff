@@ -243,12 +243,6 @@ __d(
         o("WAWebModalManager").ModalManager.open(
           d.jsx(r("WAWebSendTextFlow.react"), {
             alwaysShowComposeModal: !0,
-            onSent: function () {
-              return o("WAWebHatchLogging").logHatchArtifact(
-                "artifact_shared",
-                t,
-              );
-            },
             openChatAfterSingleSend: !0,
             text: e,
           }),

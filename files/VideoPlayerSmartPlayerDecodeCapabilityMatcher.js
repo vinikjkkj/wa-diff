@@ -3,8 +3,9 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = 30;
-    function l(e) {
+    var e = 30,
+      l = 1;
+    function s(e) {
       switch (e.toLowerCase()) {
         case "avc":
         case "avc1":
@@ -20,7 +21,7 @@ __d(
           return null;
       }
     }
-    function s(e, t) {
+    function u(e, t) {
       var n = Math.min(e.width, e.height),
         r = Math.max(e.width, e.height),
         o = Math.min(t.width, t.height),
@@ -37,27 +38,27 @@ __d(
               ? e.frameRate < t.frameRate
               : e.bitrate < t.bitrate;
     }
-    function u(t, n) {
+    function c(t, n) {
       var r,
-        o = l(n.codecFamily);
+        o = s(n.codecFamily);
       if (o == null) return null;
       var a = Math.min(n.width, n.height),
         i = Math.max(n.width, n.height),
-        u = (r = n.frameRate) != null ? r : e,
-        c = null;
-      for (var d of t) {
-        var m = Math.min(d.width, d.height),
-          p = Math.max(d.width, d.height);
-        d.codecFamily !== o ||
-          m < a ||
-          p < i ||
-          d.frameRate < u ||
-          d.bitrate < n.bitrate ||
-          ((c == null || s(d, c)) && (c = d));
+        c = (r = n.frameRate) != null ? r : e,
+        d = null;
+      for (var m of t) {
+        var p = Math.min(m.width, m.height),
+          _ = Math.max(m.width, m.height);
+        m.codecFamily !== o ||
+          p < a ||
+          _ < i ||
+          m.frameRate + l < c ||
+          m.bitrate < n.bitrate ||
+          ((d == null || u(m, d)) && (d = m));
       }
-      return c;
+      return d;
     }
-    i.getVideoPlayerSmartPlayerDecodeCapability = u;
+    i.getVideoPlayerSmartPlayerDecodeCapability = c;
   },
   66,
 );

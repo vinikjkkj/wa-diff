@@ -3,32 +3,44 @@ __d(
   ["WAWap", "WAWebCommonParsersVerifiedName", "WAWebJidToWid"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t;
       e.assertTag("business");
-      var t = e.maybeChild("error");
-      if (t)
+      var n = e.maybeChild("error");
+      if (n)
         return {
-          errorCode: t.attrInt("code"),
-          errorText: t.attrString("text"),
+          errorCode: n.attrInt("code"),
+          errorText: n.attrString("text"),
         };
-      var n = e.maybeChild("verified_name"),
-        a = n ? r("WAWebCommonParsersVerifiedName")(n) : null,
-        i = e.hasAttr("pn_jid")
+      var a = e.maybeChild("verified_name"),
+        i = a ? r("WAWebCommonParsersVerifiedName")(a) : null,
+        l = e.hasAttr("pn_jid")
           ? o("WAWebJidToWid").deviceJidToUserWid(e.attrDeviceJid("pn_jid"))
-          : null;
-      return { pn: i, verifiedName: a };
+          : null,
+        s =
+          (t = e.maybeChild("profile")) == null ||
+          (t = t.maybeChild("aea_account_type")) == null
+            ? void 0
+            : t.maybeAttrString("value");
+      return { pn: l, verifiedName: i, aeaAccountType: s };
     }
     var s = (function () {
-      function e() {}
+      function e(e) {
+        this.profileVersion = e;
+      }
       var t = e.prototype;
       return (
         (t.getName = function () {
           return "business";
         }),
         (t.getQueryElement = function () {
+          var e = this.profileVersion;
           return o("WAWap").wap(
             "business",
             null,
             o("WAWap").wap("verified_name", null),
+            e != null
+              ? o("WAWap").wap("profile", { v: o("WAWap").INT(e) })
+              : null,
           );
         }),
         (t.getUserElement = function (t) {

@@ -33,6 +33,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "sumBy",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -90,6 +91,7 @@ __d(
     function re() {
       return (
         (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("W8jBs-Wu98CU9KwQdMV4SJeMY-s=");
           var t;
           if (e instanceof ArrayBuffer) t = e;
           else if (e instanceof Uint8Array) t = e;
@@ -102,15 +104,15 @@ __d(
             );
           }
           for (
-            var r = yield self.crypto.subtle.digest("SHA-256", t),
-              o = new Uint8Array(r),
-              a = "",
-              i = 0;
-            i < o.length;
-            i++
+            var o = yield self.crypto.subtle.digest("SHA-256", t),
+              a = new Uint8Array(o),
+              i = "",
+              l = 0;
+            l < a.length;
+            l++
           )
-            a += o[i].toString(16).padStart(2, "0");
-          return a;
+            i += a[l].toString(16).padStart(2, "0");
+          return i;
         })),
         re.apply(this, arguments)
       );
@@ -121,136 +123,14 @@ __d(
     function ae() {
       return (
         (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("MELlip27xexO1A4Bp3IpjlAh9Uw=");
           var e = o("WAWebSignalProtocolStore")
               .getPersistSignalProtocolStore()
               .cache_TESTONLY(),
             t = yield o("WAWebSignalStorage").getSessionTable().all(),
-            r = new Map();
-          (yield (J || (J = n("Promise"))).all(
-            t.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.address,
-                      n = e.session;
-                    if (n != null) {
-                      var o = yield ne(n);
-                      r.set(t, o);
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            yield J.all(
-              Array.from(e.SessionStore.entries()).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1];
-                      if (n != null && n.deleted) r.delete(t);
-                      else if (n != null) {
-                        var o = yield ne(n.session);
-                        r.set(t, o);
-                      }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            (Z = r));
-          var a = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
-            i = new Map();
-          (yield J.all(
-            a.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.senderKey,
-                      n = e.senderKeyName;
-                    if (t != null) {
-                      var r = yield ne(t);
-                      i.set(n, r);
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            yield J.all(
-              Array.from(e.SenderKeyStore.entries()).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1];
-                      if (n != null) {
-                        var r = yield ne(n);
-                        i.set(t, r);
-                      } else i.delete(t);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            (ee = i));
-          var l = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
-          ((te = new Set(l.senderKey)),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "snapshotSignalSessions: captured ",
-                  " session entries, ",
-                  " sender key entries (IDB + cache overlay), ",
-                  " status SK distrib entries",
-                ])),
-              r.size,
-              i.size,
-              te.size,
-            ));
-        })),
-        ae.apply(this, arguments)
-      );
-    }
-    oe.doc =
-      "Take a snapshot of all in-memory signal sessions and sender keys (address + hash). Call diffSignalSessions after sending to see changes.";
-    function ie() {
-      return le.apply(this, arguments);
-    }
-    function le() {
-      return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (Z == null)
-            return (
-              o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "diffSignalSessions: no snapshot taken yet, call snapshotSignalSessions first",
-                  ])),
-              ),
-              null
-            );
-          var e = Z,
-            t = o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .cache_TESTONLY(),
-            r = yield o("WAWebSignalStorage").getSessionTable().all(),
             a = new Map();
           (yield (J || (J = n("Promise"))).all(
-            r.map(
+            t.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -269,7 +149,7 @@ __d(
             ),
           ),
             yield J.all(
-              Array.from(t.SessionStore.entries()).map(
+              Array.from(e.SessionStore.entries()).map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
@@ -287,18 +167,141 @@ __d(
                   };
                 })(),
               ),
+            ),
+            (Z = a));
+          var i = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
+            l = new Map();
+          (yield J.all(
+            i.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = e.senderKey,
+                      n = e.senderKeyName;
+                    if (t != null) {
+                      var r = yield ne(t);
+                      l.set(n, r);
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          ),
+            yield J.all(
+              Array.from(e.SenderKeyStore.entries()).map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0],
+                        n = e[1];
+                      if (n != null) {
+                        var r = yield ne(n);
+                        l.set(t, r);
+                      } else l.delete(t);
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            ),
+            (ee = l));
+          var s = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
+          ((te = new Set(s.senderKey)),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "snapshotSignalSessions: captured ",
+                  " session entries, ",
+                  " sender key entries (IDB + cache overlay), ",
+                  " status SK distrib entries",
+                ])),
+              a.size,
+              l.size,
+              te.size,
             ));
-          var i = [],
-            l = [],
+        })),
+        ae.apply(this, arguments)
+      );
+    }
+    oe.doc =
+      "Take a snapshot of all in-memory signal sessions and sender keys (address + hash). Call diffSignalSessions after sending to see changes.";
+    function ie() {
+      return le.apply(this, arguments);
+    }
+    function le() {
+      return (
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if ((r("vulture")("MaJRvqc30aJFCEaEbMKLUj9EsYA="), Z == null))
+            return (
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "diffSignalSessions: no snapshot taken yet, call snapshotSignalSessions first",
+                  ])),
+              ),
+              null
+            );
+          var e = Z,
+            t = o("WAWebSignalProtocolStore")
+              .getPersistSignalProtocolStore()
+              .cache_TESTONLY(),
+            a = yield o("WAWebSignalStorage").getSessionTable().all(),
+            i = new Map();
+          (yield (J || (J = n("Promise"))).all(
+            a.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = e.address,
+                      n = e.session;
+                    if (n != null) {
+                      var r = yield ne(n);
+                      i.set(t, r);
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          ),
+            yield J.all(
+              Array.from(t.SessionStore.entries()).map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0],
+                        n = e[1];
+                      if (n != null && n.deleted) i.delete(t);
+                      else if (n != null) {
+                        var r = yield ne(n.session);
+                        i.set(t, r);
+                      }
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            ));
+          var l = [],
             s = [],
-            u = 0;
-          for (var c of a) {
-            var d = c[0],
-              L = c[1],
-              E = e.get(d);
-            E == null ? i.push(d) : E !== L ? s.push(d) : u++;
+            u = [],
+            c = 0;
+          for (var d of i) {
+            var L = d[0],
+              E = d[1],
+              k = e.get(L);
+            k == null ? l.push(L) : k !== E ? u.push(L) : c++;
           }
-          for (var k of e.keys()) a.has(k) || l.push(k);
+          for (var I of e.keys()) i.has(I) || s.push(I);
           (o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -308,54 +311,54 @@ __d(
                 " modified, ",
                 " unchanged",
               ])),
-            i.length,
             l.length,
             s.length,
-            u,
+            u.length,
+            c,
           ),
-            i.length > 0 &&
+            l.length > 0 &&
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "  NEW: ",
                     "",
                   ])),
-                i.join(", "),
+                l.join(", "),
               ),
-            l.length > 0 &&
+            s.length > 0 &&
               o("WALogger").LOG(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
                     "  REMOVED: ",
                     "",
                   ])),
-                l.join(", "),
+                s.join(", "),
               ),
-            s.length > 0 &&
+            u.length > 0 &&
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
                     "  MODIFIED: ",
                     "",
                   ])),
-                s.join(", "),
+                u.join(", "),
               ));
-          var I = [].concat(
-              i.map(function (e) {
+          var T = [].concat(
+              l.map(function (e) {
                 return { change: "added", address: e };
               }),
-              l.map(function (e) {
+              s.map(function (e) {
                 return { change: "removed", address: e };
               }),
-              s.map(function (e) {
+              u.map(function (e) {
                 return { change: "modified", address: e };
               }),
             ),
-            T = ee != null ? ee : new Map(),
-            D = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
-            x = new Map();
+            D = ee != null ? ee : new Map(),
+            x = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
+            $ = new Map();
           (yield J.all(
-            D.map(
+            x.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -363,7 +366,7 @@ __d(
                       n = e.senderKeyName;
                     if (t != null) {
                       var r = yield ne(t);
-                      x.set(n, r);
+                      $.set(n, r);
                     }
                   },
                 );
@@ -382,8 +385,8 @@ __d(
                         n = e[1];
                       if (n != null) {
                         var r = yield ne(n);
-                        x.set(t, r);
-                      } else x.delete(t);
+                        $.set(t, r);
+                      } else $.delete(t);
                     },
                   );
                   return function (t) {
@@ -392,19 +395,19 @@ __d(
                 })(),
               ),
             ));
-          var $ = [],
-            P = [],
+          var P = [],
             N = [],
-            M = 0;
-          for (var w of x) {
-            var A = w[0],
-              F = w[1];
+            M = [],
+            w = 0;
+          for (var A of $) {
+            var F = A[0],
+              O = A[1];
             {
-              var O = T.get(A);
-              O == null ? $.push(A) : O !== F ? N.push(A) : M++;
+              var B = D.get(F);
+              B == null ? P.push(F) : B !== O ? M.push(F) : w++;
             }
           }
-          for (var B of T.keys()) x.has(B) || P.push(B);
+          for (var W of D.keys()) $.has(W) || N.push(W);
           (o("WALogger").LOG(
             h ||
               (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -414,57 +417,57 @@ __d(
                 " modified, ",
                 " unchanged",
               ])),
-            $.length,
             P.length,
             N.length,
-            M,
+            M.length,
+            w,
           ),
-            $.length > 0 &&
+            P.length > 0 &&
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
                     "  NEW: ",
                     "",
                   ])),
-                $.join(", "),
+                P.join(", "),
               ),
-            P.length > 0 &&
+            N.length > 0 &&
               o("WALogger").LOG(
                 C ||
                   (C = babelHelpers.taggedTemplateLiteralLoose([
                     "  REMOVED: ",
                     "",
                   ])),
-                P.join(", "),
+                N.join(", "),
               ),
-            N.length > 0 &&
+            M.length > 0 &&
               o("WALogger").LOG(
                 b ||
                   (b = babelHelpers.taggedTemplateLiteralLoose([
                     "  MODIFIED: ",
                     "",
                   ])),
-                N.join(", "),
+                M.join(", "),
               ));
-          var W = [].concat(
-              $.map(function (e) {
+          var q = [].concat(
+              P.map(function (e) {
                 return { change: "added", address: e };
               }),
-              P.map(function (e) {
+              N.map(function (e) {
                 return { change: "removed", address: e };
               }),
-              N.map(function (e) {
+              M.map(function (e) {
                 return { change: "modified", address: e };
               }),
             ),
-            q = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
-            U = new Set(q.senderKey),
-            V = te,
-            H = [],
-            G = [];
-          if (V != null) {
-            for (var z of U) V.has(z) || H.push(z);
-            for (var j of V) U.has(j) || G.push(j);
+            U = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
+            V = new Set(U.senderKey),
+            H = te,
+            G = [],
+            z = [];
+          if (H != null) {
+            for (var j of V) H.has(j) || G.push(j);
+            for (var K of H) V.has(K) || z.push(K);
           }
           (o("WALogger").LOG(
             v ||
@@ -473,41 +476,41 @@ __d(
                 " new, ",
                 " removed",
               ])),
-            H.length,
             G.length,
+            z.length,
           ),
-            H.length > 0 &&
+            G.length > 0 &&
               o("WALogger").LOG(
                 S ||
                   (S = babelHelpers.taggedTemplateLiteralLoose([
                     "  NEW: ",
                     "",
                   ])),
-                H.join(", "),
+                G.join(", "),
               ),
-            G.length > 0 &&
+            z.length > 0 &&
               o("WALogger").LOG(
                 R ||
                   (R = babelHelpers.taggedTemplateLiteralLoose([
                     "  REMOVED: ",
                     "",
                   ])),
-                G.join(", "),
+                z.join(", "),
               ));
-          var K = [].concat(
-            H.map(function (e) {
+          var Q = [].concat(
+            G.map(function (e) {
               return { change: "added", address: e };
             }),
-            G.map(function (e) {
+            z.map(function (e) {
               return { change: "removed", address: e };
             }),
           );
           return {
-            sessions: I,
-            senderKeys: W,
-            statusSkDistrib: K,
-            unchanged: u,
-            skUnchanged: M,
+            sessions: T,
+            senderKeys: q,
+            statusSkDistrib: Q,
+            unchanged: c,
+            skUnchanged: w,
           };
         })),
         le.apply(this, arguments)
@@ -523,34 +526,35 @@ __d(
         (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.from,
             n = e.parentMessageSecret,
-            r = e.parentMessageSender,
-            a = e.parentMessageStanzaId,
-            i = Math.round(Date.now() / 1e3),
-            l = [
+            a = e.parentMessageSender,
+            i = e.parentMessageStanzaId;
+          r("vulture")("PW_j426kfnfijJkNtwNpfkxWBbw=");
+          var l = Math.round(Date.now() / 1e3),
+            s = [
               "\uD83D\uDE00",
               "\uD83D\uDE02",
               "\uD83D\uDE07",
               "\uD83D\uDE08",
               "\uD83D\uDE0A",
             ],
-            s = l[Math.floor(Math.random() * l.length)],
-            u = self.crypto.getRandomValues(new Uint8Array(12)),
-            c = {
+            u = s[Math.floor(Math.random() * s.length)],
+            c = self.crypto.getRandomValues(new Uint8Array(12)),
+            d = {
               type: o("WAWebMsgType").MsgKind.ReactionDecrypted,
-              encode: { text: s, senderTimestampMs: i },
+              encode: { text: u, senderTimestampMs: l },
             },
-            d = yield o("WAWebAddonEncryption").encryptAddOn(c, {
+            m = yield o("WAWebAddonEncryption").encryptAddOn(d, {
               messageSecret: n,
-              iv: u,
-              stanzaId: a,
+              iv: c,
+              stanzaId: i,
               originalMessageSender:
-                o("WAWebWidFactory").createUserWidOrThrow(r),
+                o("WAWebWidFactory").createUserWidOrThrow(a),
               addOnSender: o("WAWebWidFactory").createUserWidOrThrow(t),
             }),
-            m = d.encPayload;
+            p = m.encPayload;
           return {
-            encPayload: o("WABase64").encodeB64(m),
-            encIv: o("WABase64").encodeB64(u.buffer),
+            encPayload: o("WABase64").encodeB64(p),
+            encIv: o("WABase64").encodeB64(c.buffer),
           };
         })),
         ue.apply(this, arguments)
@@ -562,6 +566,7 @@ __d(
     function de() {
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("vQkoKJDfC_xTFBWBVwCL52PeBIA=");
           var e = o("WAWebDebugUtils").getSelectedChat();
           if (!e) {
             o("WALogger").WARN(
@@ -574,10 +579,10 @@ __d(
           }
           var t = [];
           if (o("WAWebChatGetters").getIsGroup(e)) {
-            var r = yield o("WAWebApiParticipantStore").getGroupSenderKeyList(
+            var a = yield o("WAWebApiParticipantStore").getGroupSenderKeyList(
               e.id,
             );
-            ((t = [].concat(r.skList, r.skDistribList)),
+            ((t = [].concat(a.skList, a.skDistribList)),
               yield o("WAWebApiParticipantStore").markForgetSenderKey(e.id, t));
           } else
             t = yield o("WAWebDBDeviceListFanout").getFanOutList({
@@ -592,13 +597,13 @@ __d(
             );
             return;
           }
-          var a = 0;
+          var i = 0;
           (yield (J || (J = n("Promise"))).all([
             (yield o("WAWebSignal").Session.hasSignalSessions(t)).map(
               function (e, n) {
                 if (e)
                   return (
-                    a++,
+                    i++,
                     o("WAWebSignal").Session.deleteRemoteSession(t[n])
                   );
               },
@@ -616,7 +621,7 @@ __d(
                   "removeSignalSessionsForActiveChat: removed ",
                   " sessions",
                 ])),
-              a,
+              i,
             ));
         })),
         de.apply(this, arguments)
@@ -630,6 +635,7 @@ __d(
     function pe() {
       return (
         (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("qEJSyPq0IqgLZ-Mosj6mAj-ZoTU=");
           var t = o("WAWebDebugUtils").getSelectedChat();
           if (!t || !o("WAWebChatGetters").getIsGroup(t)) {
             o("WALogger").WARN(
@@ -643,8 +649,8 @@ __d(
           var n = yield o("WAWebApiParticipantStore").getGroupSenderKeyList(
               t.id,
             ),
-            r = [].concat(n.skList, n.skDistribList);
-          if (r.length === 0) {
+            a = [].concat(n.skList, n.skDistribList);
+          if (a.length === 0) {
             o("WALogger").WARN(
               T ||
                 (T = babelHelpers.taggedTemplateLiteralLoose([
@@ -653,14 +659,14 @@ __d(
             );
             return;
           }
-          var a = r;
+          var i = a;
           if (e != null) {
-            var i = o("WAWebWidFactory").createWid(e);
-            a = a.filter(function (e) {
-              return e.user === i.user && e.server === i.server;
+            var l = o("WAWebWidFactory").createWid(e);
+            i = i.filter(function (e) {
+              return e.user === l.user && e.server === l.server;
             });
           }
-          a.forEach(function (e) {
+          i.forEach(function (e) {
             return o("WAWebSignalSessionApi").deleteDeviceSenderKey(e);
           });
         })),
@@ -675,6 +681,7 @@ __d(
     function fe() {
       return (
         (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("u3TUOUdY41MCHYtGQrvo3w5rC5w=");
           var e = o("WAWebDebugUtils").getSelectedChat();
           if (!e) {
             o("WALogger").WARN(
@@ -749,6 +756,7 @@ __d(
     function he() {
       return (
         (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("vWzLp7Vkp2VcQ0fzMR9BrONxIeE=");
           var e = o("WAWebDebugUtils").getSelectedChat();
           if (!e || !o("WAWebChatGetters").getIsUser(e)) {
             o("WALogger").WARN(
@@ -808,67 +816,66 @@ __d(
     function Ce() {
       return (
         (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a,
-            i = o("WAWebDeviceListPk").createDeviceListPK(e),
-            l = yield o("WAWebApiDeviceList").getDeviceRecord(e);
-          if (l == null) {
+          var n, a, i;
+          r("vulture")("jPpyIJZpvt8K6OP9y596A6ANVpQ=");
+          var l = o("WAWebDeviceListPk").createDeviceListPK(e),
+            s = yield o("WAWebApiDeviceList").getDeviceRecord(e);
+          if (s == null) {
             o("WALogger").WARN(
               F ||
                 (F = babelHelpers.taggedTemplateLiteralLoose([
                   "removeDeviceForUser: no record for ",
                   "",
                 ])),
-              i,
+              l,
             );
             return;
-          } else if (l.deleted) {
+          } else if (s.deleted) {
             o("WALogger").WARN(
               O ||
                 (O = babelHelpers.taggedTemplateLiteralLoose([
                   'removeDeviceForUser: user "',
                   '" has been deleted',
                 ])),
-              i,
+              l,
             );
             return;
           }
-          var s = t;
-          if (s == null) {
-            var u,
-              c =
-                (u = l.devices.find(function (e) {
+          var u = t;
+          if (u == null) {
+            var c,
+              d =
+                (c = s.devices.find(function (e) {
                   var t = e.id;
                   return t !== o("WAJids").DEFAULT_DEVICE_ID;
                 })) == null
                   ? void 0
-                  : u.id;
-            if (c == null) {
+                  : c.id;
+            if (d == null) {
               o("WALogger").WARN(
                 B ||
                   (B = babelHelpers.taggedTemplateLiteralLoose([
                     'removeDeviceForUser: user "',
                     '" has no companion devices',
                   ])),
-                i,
+                l,
               );
               return;
             }
-            s = c;
+            u = d;
           }
-          var d = babelHelpers.extends({}, l, {
+          var m = babelHelpers.extends({}, s, {
             devices:
-              (n = l.devices) == null
+              (n = s.devices) == null
                 ? void 0
                 : n.filter(function (e) {
                     var t = e.id;
-                    return t !== s;
+                    return t !== u;
                   }),
           });
           if (
-            ((r = l.devices) == null ? void 0 : r.length) ===
-            ((a = d.devices) == null ? void 0 : a.length)
+            ((a = s.devices) == null ? void 0 : a.length) ===
+            ((i = m.devices) == null ? void 0 : i.length)
           ) {
             o("WALogger").WARN(
               W ||
@@ -877,13 +884,13 @@ __d(
                   '" not found in ',
                   " record",
                 ])),
-              s,
-              i,
+              u,
+              l,
             );
             return;
           }
           return (
-            yield o("WAWebApiDeviceList").createOrReplaceDeviceRecord(d),
+            yield o("WAWebApiDeviceList").createOrReplaceDeviceRecord(m),
             o("WALogger").LOG(
               q ||
                 (q = babelHelpers.taggedTemplateLiteralLoose([
@@ -891,10 +898,10 @@ __d(
                   " has been removed from ",
                   "",
                 ])),
-              s,
-              i,
+              u,
+              l,
             ),
-            o("WAWebWidFactory").createDeviceWidFromDeviceListPk(d.id, s)
+            o("WAWebWidFactory").createDeviceWidFromDeviceListPk(m.id, u)
           );
         })),
         Ce.apply(this, arguments)
@@ -906,6 +913,7 @@ __d(
     function ve() {
       return (
         (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("sj3IfLC87OavhFo4np76eNqANCY=");
           var t = o("WAWebDebugUtils").getSelectedChat();
           if (!t || !o("WAWebChatGetters").getIsUser(t)) {
             o("WALogger").WARN(
@@ -928,6 +936,7 @@ __d(
     function Re() {
       return (
         (Re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("BmJIG-MIereUAeRZWZgksLCcwNM=");
           var e = o("WAWebDebugUtils").getSelectedChat();
           if (!(e != null && e.id.isGroup())) {
             o("WALogger").WARN(
@@ -993,6 +1002,7 @@ __d(
     }
     Se.doc = "Remove one of the devices for the active group chat.";
     function Le() {
+      r("vulture")("5GekqaM7JTywx3yvekEUnrGwFaU=");
       var t = o("WAWebChatCollection").ChatCollection.getActive();
       if (!(t != null && t.id.isGroup()))
         return (
@@ -1004,12 +1014,12 @@ __d(
           ),
           (J || (J = n("Promise"))).resolve()
         );
-      var r = t == null ? void 0 : t.id.toString();
+      var a = t == null ? void 0 : t.id.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["participant"], function (e) {
           var t = e[0];
-          return t.get(r).then(function (e) {
+          return t.get(a).then(function (e) {
             if (!e) {
               o("WALogger").LOG(
                 s ||
@@ -1017,7 +1027,7 @@ __d(
                     "groupChatRotateSelfSenderKey: group participant info missing for group ",
                     "",
                   ])),
-                r,
+                a,
               );
               return;
             }
@@ -1040,6 +1050,7 @@ __d(
     function ke() {
       return (
         (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("zAVWv2DSfJ1lA4WMZ6GHJ923nOo=");
           var e = o("WAWebChatCollection").ChatCollection.getActive();
           if (!(e != null && e.id.isGroup())) {
             o("WALogger").WARN(
@@ -1075,6 +1086,7 @@ __d(
     function Te() {
       return (
         (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("aZEiQEqkwwo6WKNOqNX-0dwH7Gc=");
           var e = o("WAWebChatCollection").ChatCollection.getActive();
           if (!(e != null && e.id.isGroup())) {
             o("WALogger").WARN(
@@ -1113,9 +1125,10 @@ __d(
     function xe() {
       return (
         (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = 1);
-          var r = o("WAWebDebugUtils").getSelectedChat();
-          if (!r) {
+          (t === void 0 && (t = 1),
+            r("vulture")("53Pyhq2FYLn4nNve6ujP_yuED80="));
+          var a = o("WAWebDebugUtils").getSelectedChat();
+          if (!a) {
             o("WALogger").WARN(
               X ||
                 (X = babelHelpers.taggedTemplateLiteralLoose([
@@ -1124,14 +1137,14 @@ __d(
             );
             return;
           }
-          for (var a = [], i = 0; i < t; i++)
-            a.push(
+          for (var i = [], l = 0; l < t; l++)
+            i.push(
               o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
-                r,
-                e + " | " + i,
+                a,
+                e + " | " + l,
               ),
             );
-          (yield (J || (J = n("Promise"))).all(a),
+          (yield (J || (J = n("Promise"))).all(i),
             o("WALogger").LOG(
               Y ||
                 (Y = babelHelpers.taggedTemplateLiteralLoose([
@@ -1142,7 +1155,7 @@ __d(
                 ])),
               t,
               e,
-              r.id,
+              a.id,
             ));
         })),
         xe.apply(this, arguments)
@@ -1155,6 +1168,7 @@ __d(
     function Pe() {
       return (
         (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("aX8hhtKGZb-eABOsovapWiUmNN8=");
           var t = we(e),
             n = Fe(Ae(e, "scope")),
             a = Oe(Ae(e, "action")),
@@ -1205,9 +1219,10 @@ __d(
     function Me() {
       return (
         (Me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("qGO_CYdoXoqQuYoQbl0wfEf65fU=");
           var t = we(e),
             n = Be(Ae(e, "action")),
-            r = yield o(
+            a = yield o(
               "WAWebUserPrefsStatus",
             ).previewOrResetStatusSenderKeyDistribution(t.deviceWid, n);
           return {
@@ -1216,12 +1231,12 @@ __d(
               peer: t.peer,
               device: t.device,
               deviceWid: String(t.deviceWid),
-              alternateDeviceWid: r.alternateDeviceWid,
-              aliasResolution: r.aliasResolution,
+              alternateDeviceWid: a.alternateDeviceWid,
+              aliasResolution: a.aliasResolution,
             },
-            before: r.before,
-            after: r.after,
-            changed: r.changed,
+            before: a.before,
+            after: a.after,
+            changed: a.changed,
           };
         })),
         Me.apply(this, arguments)
@@ -1230,6 +1245,7 @@ __d(
     Ne.doc =
       'Preview or reset status sender-key distribution bookkeeping for one exact device only. The result reports whether the PN/LID alias resolved; reset is an unchanged no-op when it did not. Example: Debug.exactStatusSenderKeyDistribution({peer: "12345@lid", device: 2, action: "preview"}).';
     function we(e) {
+      r("vulture")("xxHGOeC4YVOs3EwB3_9qvVxa680=");
       var t = Ae(e, "peer"),
         n = Ae(e, "device");
       if (typeof t != "string" || t.length === 0)
@@ -1259,27 +1275,42 @@ __d(
       };
     }
     function Ae(e, t) {
-      if (typeof e != "object" || e == null || Array.isArray(e))
+      if (
+        (r("vulture")("XibyRI-PPxjEx28kSs3ZISDCWPg="),
+        typeof e != "object" || e == null || Array.isArray(e))
+      )
         throw r("err")("expected one structured object argument");
       if (!(t in e)) throw r("err")("missing required " + t);
       return e[t];
     }
     function Fe(e) {
-      if (e === o("WAWebSessionScope").SessionScope.DEFAULT)
+      if (
+        (r("vulture")("ggG3gmwFtuAiXFEzXIrIyvzrrXw="),
+        e === o("WAWebSessionScope").SessionScope.DEFAULT)
+      )
         return o("WAWebSessionScope").SessionScope.DEFAULT;
       if (e === o("WAWebSessionScope").SessionScope.STATUS)
         return o("WAWebSessionScope").SessionScope.STATUS;
       throw r("err")('scope must be exactly "default" or "status"');
     }
     function Oe(e) {
-      if (e === "preview" || e === "delete") return e;
+      if (
+        (r("vulture")("dfWdpJp85-c4MunkMFWrgJvKsSY="),
+        e === "preview" || e === "delete")
+      )
+        return e;
       throw r("err")('action must be exactly "preview" or "delete"');
     }
     function Be(e) {
-      if (e === "preview" || e === "reset") return e;
+      if (
+        (r("vulture")("ncTOiovBS6necvmrRT6NSk8Zviw="),
+        e === "preview" || e === "reset")
+      )
+        return e;
       throw r("err")('action must be exactly "preview" or "reset"');
     }
     function We(e) {
+      r("vulture")("_k8FDUbxWD4BKfmOtocEc-555Kc=");
       var t = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebWidFactory").createWid(e),
       );

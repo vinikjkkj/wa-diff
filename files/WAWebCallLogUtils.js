@@ -55,7 +55,24 @@ __d(
           a === o("WAWebCallLogMsgData.flow").CallOutcome.Canceled)
       );
     }
-    function m(e, t) {
+    function m(e) {
+      var t = o("WAWebMsgGetters").getCallOutcome(e),
+        n = o("WAWebMsgGetters").getFinalCallOutcome(e),
+        r =
+          t === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+          n !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
+      return (
+        !r &&
+        d(
+          o("WAWebMsgGetters").getIsMissedCall(e),
+          c(o("WAWebMsgGetters").getCallParticipants(e)),
+          o("WAWebMsgGetters").getIsSentByMe(e),
+          t,
+          n,
+        )
+      );
+    }
+    function p(e, t) {
       return e === o("WAWebVoipWaCallEnums").CallState.Calling
         ? s._(/*BTDS*/ "Calling...")
         : e === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived
@@ -79,8 +96,8 @@ __d(
                       ? o("WAWebVoipWaCallEnums").CallState.getName(e)
                       : "unknown";
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
       switch (e) {
         case 0:
           return o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
@@ -104,7 +121,7 @@ __d(
           return o("WAWebCallLogMsgData.flow").CallOutcome.Unknown;
       }
     }
-    function _(e) {
+    function f(e) {
       switch (e) {
         case 0:
           return o("WAWebVoipWaCallEnums").CallParticipantState.Connected;
@@ -127,7 +144,7 @@ __d(
           return o("WAWebVoipWaCallEnums").CallParticipantState.Invalid;
       }
     }
-    function f(e, t) {
+    function g(e, t) {
       switch (e) {
         case o("WAWebVoipWaCallEnums").CallLogResult.Connected:
         case o("WAWebVoipWaCallEnums").CallLogResult.ConnectedLonely:
@@ -151,7 +168,7 @@ __d(
           return o("WAWebCallLogMsgData.flow").CallOutcome.Unknown;
       }
     }
-    function g(e) {
+    function h(e) {
       switch (e) {
         case o("WAWebVoipWaCallEnums").CallState.None:
           return o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
@@ -173,7 +190,7 @@ __d(
           return o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing;
       }
     }
-    function h(e) {
+    function y(e) {
       switch (e) {
         case 1:
           return "scheduled";
@@ -201,19 +218,19 @@ __d(
           return;
       }
     }
-    function y(e, t) {
+    function C(e, t) {
       return e != null && t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function C(e, t) {
+    function b(e, t) {
       return e.length !== t.length
         ? !1
         : e.every(function (e) {
             return t.some(function (t) {
-              return y(e, t);
+              return C(e, t);
             });
           });
     }
-    function b(e) {
+    function v(e) {
       var t,
         n,
         r = e.unsafe();
@@ -236,12 +253,12 @@ __d(
               }),
       };
     }
-    function v(e, t) {
+    function S(e, t) {
       if (
         e.isCallLink ||
         t.isCallLink ||
-        !y(e.sender, t.sender) ||
-        !y(e.to, t.to)
+        !C(e.sender, t.sender) ||
+        !C(e.to, t.to)
       )
         return !1;
       var n =
@@ -263,13 +280,13 @@ __d(
       var a =
         e.participantWids != null &&
         t.participantWids != null &&
-        C(e.participantWids, t.participantWids);
+        b(e.participantWids, t.participantWids);
       return a;
     }
-    function S(e, t) {
-      return v(b(e), b(t));
+    function R(e, t) {
+      return S(v(e), v(t));
     }
-    function R(e) {
+    function L(e) {
       if (e.length === 0) return [];
       var t = e.filter(function (e) {
         return (
@@ -284,7 +301,7 @@ __d(
               "[mergeCallRecords] record is not a call log record",
             );
           }),
-          a = n.map(b),
+          a = n.map(v),
           i = [],
           l = 0,
           s = [n[0].unsafe()],
@@ -292,44 +309,44 @@ __d(
         u < n.length;
         u++
       )
-        v(a[l], a[u])
+        S(a[l], a[u])
           ? s.push(n[u].unsafe())
           : (i.push({ mergedMsgs: s }), (l = u), (s = [n[u].unsafe()]));
       return (i.push({ mergedMsgs: s }), i);
     }
-    var L = 1e5,
-      E = 1e4,
-      k = 1e3,
-      I = 100,
-      T = 10,
-      D = 1;
-    function x(e, t) {
+    var E = 1e5,
+      k = 1e4,
+      I = 1e3,
+      T = 100,
+      D = 10,
+      x = 1;
+    function $(e, t) {
       var n = 0;
-      (t.isCaller && (n += L), t.isBot && (n += E), t.isConnected && (n += k));
+      (t.isCaller && (n += E), t.isBot && (n += k), t.isConnected && (n += I));
       var r = o("WAWebContactCollection").ContactCollection.get(e),
         a = (r == null ? void 0 : r.name) != null && r.name !== "";
       a
-        ? (n += I)
+        ? (n += T)
         : r != null &&
           o("WAWebContactGetters").getNotifyName(r) != null &&
-          (n += T);
+          (n += D);
       var i = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
           e,
         ),
         l = o("WAWebProfilePicThumbGetters").getMaybeImg(i),
         s = l != null && l !== "";
-      return (s && (n += D), n);
+      return (s && (n += x), n);
     }
-    function $(e, t, n) {
+    function P(e, t, n) {
       var r,
         o,
         a = (r = n == null ? void 0 : n.has(e.toString())) != null ? r : !1,
         i = (o = n == null ? void 0 : n.has(t.toString())) != null ? o : !1,
-        l = x(e, { isCaller: !1, isConnected: a, isBot: !1 }),
-        s = x(t, { isCaller: !1, isConnected: i, isBot: !1 });
+        l = $(e, { isCaller: !1, isConnected: a, isBot: !1 }),
+        s = $(t, { isCaller: !1, isConnected: i, isBot: !1 });
       return s - l;
     }
-    function P(e, t, n) {
+    function N(e, t, n) {
       var r,
         a = (r = n == null ? void 0 : n.excludeSelf) != null ? r : !1,
         i = e.some(function (e) {
@@ -363,7 +380,7 @@ __d(
             ? -1
             : !m && p
               ? 1
-              : $(
+              : P(
                   r,
                   a,
                   new Set(
@@ -382,7 +399,7 @@ __d(
                 );
         });
     }
-    function N(e) {
+    function M(e) {
       var t,
         n = r("WAWebCallCollection").lastActiveCall;
       if ((n == null ? void 0 : n.userEndedCall) === !0) return !1;
@@ -392,7 +409,7 @@ __d(
         s = (n == null ? void 0 : n.callFailedReason) != null;
       return s ? !0 : !l;
     }
-    function M(e, t) {
+    function w(e, t) {
       return (
         t === void 0 && (t = !1),
         e === o("WAWebVoipWaCallEnums").CallLogResult.Connected
@@ -423,30 +440,30 @@ __d(
                     })()
       );
     }
-    M.displayName = M.name + " [from " + i.id + "]";
-    function w(e, t, n, r) {
+    w.displayName = w.name + " [from " + i.id + "]";
+    function A(e, t, n, r) {
       return (
         n === void 0 && (n = !0),
         e ? "return" : n && (t || r === !0) ? "join_here" : "join"
       );
     }
-    function A(e, t) {
+    function F(e, t) {
       return [].concat(e).sort(function (e, n) {
         var r = o("WAWebBotUtils").isMetaAiBot(e),
           a = o("WAWebBotUtils").isMetaAiBot(n);
-        return r && !a ? -1 : !r && a ? 1 : $(e, n, t);
+        return r && !a ? -1 : !r && a ? 1 : P(e, n, t);
       });
     }
-    function F(e) {
+    function O(e) {
       var t = new Set(
           e.map(function (e) {
             return e.toString();
           }),
         ),
-        n = A(e, t);
+        n = F(e, t);
       return { sortedParticipants: n, connectedSet: t };
     }
-    function O(e, t, n) {
+    function B(e, t, n) {
       var r,
         a,
         i = (r = n == null ? void 0 : n.excludeSelf) != null ? r : !1,
@@ -464,7 +481,7 @@ __d(
           if (i && e.equals(u)) return !1;
           if (l) {
             var t = o("WAWebContactCollection").ContactCollection.get(e);
-            if (t != null && B(t)) return !1;
+            if (t != null && W(t)) return !1;
           }
           return !0;
         })
@@ -481,10 +498,10 @@ __d(
           if (!a && i) return 1;
           var l = o("WAWebBotUtils").isMetaAiBot(e),
             s = o("WAWebBotUtils").isMetaAiBot(t);
-          return l && !s ? -1 : !l && s ? 1 : $(e, t, null);
+          return l && !s ? -1 : !l && s ? 1 : P(e, t, null);
         });
     }
-    function B(e) {
+    function W(e) {
       return (
         e.externalUserState ===
         o("WAWebContactExternalUserState").ExternalUserState.GuestUser
@@ -498,22 +515,23 @@ __d(
       ).getCallLogTargetDetails),
       (l.getIsSelfConnected = c),
       (l.getIsMissedCallOrNotConnected = d),
-      (l.getCallStateText = m),
-      (l.getCallOutcomeFromCallResultSyncProto = p),
-      (l.getCallParticipantStateFromCallResultSyncProto = _),
-      (l.getCallOutcomeFromCallLogResult = f),
-      (l.getCallOutcomeFromCallState = g),
-      (l.getCallSilenceReason = h),
-      (l.shouldMergeCallLogRecords = S),
-      (l.mergeCallRecords = R),
-      (l.getParticipantSortScore = x),
-      (l.sortCallParticipants = P),
-      (l.shouldShowCallEndedScreen = N),
-      (l.getCallResultText = M),
-      (l.getJoinButtonTextType = w),
-      (l.sortParticipantWidsByPriority = A),
-      (l.sortConnectedParticipants = F),
-      (l.sortCallParticipantWids = O));
+      (l.getIsCallLogOutcomeMissed = m),
+      (l.getCallStateText = p),
+      (l.getCallOutcomeFromCallResultSyncProto = _),
+      (l.getCallParticipantStateFromCallResultSyncProto = f),
+      (l.getCallOutcomeFromCallLogResult = g),
+      (l.getCallOutcomeFromCallState = h),
+      (l.getCallSilenceReason = y),
+      (l.shouldMergeCallLogRecords = R),
+      (l.mergeCallRecords = L),
+      (l.getParticipantSortScore = $),
+      (l.sortCallParticipants = N),
+      (l.shouldShowCallEndedScreen = M),
+      (l.getCallResultText = w),
+      (l.getJoinButtonTextType = A),
+      (l.sortParticipantWidsByPriority = F),
+      (l.sortConnectedParticipants = O),
+      (l.sortCallParticipantWids = B));
   },
   226,
 );

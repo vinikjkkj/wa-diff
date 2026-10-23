@@ -6,6 +6,7 @@ __d(
     "WAWebBizAdCreationEUCountryUtils",
     "WAWebBizAdCreationUnknownAgeOptIn",
     "WAWebBizNativeAdsGatingUtils",
+    "serializeWAWebBizAdTargetingSpec",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -55,7 +56,7 @@ __d(
             e.audienceData.audienceOption === "SAVED_AUDIENCE"
               ? e.audienceData.audienceID
               : null,
-          targeting_spec_string: JSON.stringify(
+          targeting_spec_string: r("serializeWAWebBizAdTargetingSpec")(
             o("WAWebBizAdCreationUnknownAgeOptIn").applyUnknownAgeOptIn(
               e.audienceData.targetSpec,
               e.audienceData.audienceOption,

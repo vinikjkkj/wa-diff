@@ -1,12 +1,13 @@
 __d(
   "WAWebDebugNewsletterAdminInsights",
-  ["WALogger", "WATimeUtils", "WAWebNewsletterAdminInsightsModel"],
+  ["WALogger", "WATimeUtils", "WAWebNewsletterAdminInsightsModel", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
     function s() {
-      var t,
-        n = window.chat;
+      var t;
+      r("vulture")("EhnKlYwuqVMzAy9b7JbdJS2nfxs=");
+      var n = window.chat;
       if (n == null) {
         o("WALogger").WARN(
           e ||
@@ -16,7 +17,7 @@ __d(
         );
         return;
       }
-      var r = new (o(
+      var a = new (o(
         "WAWebNewsletterAdminInsightsModel",
       ).NewsletterAdminInsights)({
         id: n.id,
@@ -43,7 +44,7 @@ __d(
         netFollows: 974e3,
         growthChartData: m,
       });
-      (t = n.newsletterMetadata) == null || t.set("adminInsights", r);
+      (t = n.newsletterMetadata) == null || t.set("adminInsights", a);
     }
     var u = { mockAdminInsightsForChannel: s },
       c = Array(30)
@@ -52,9 +53,12 @@ __d(
           return new Date(2024, 11, t);
         });
     function d(e) {
-      return e.map(function (e) {
-        return [e.valueOf(), Math.random() * 1e6];
-      });
+      return (
+        r("vulture")("Yv2XOacSV8x3ICb9P3ef56R7HbM="),
+        e.map(function (e) {
+          return [e.valueOf(), Math.random() * 1e6];
+        })
+      );
     }
     var m = [d(c), d(c), d(c)];
     l.default = u;

@@ -134,8 +134,9 @@ __d(
                 : r.has(
                     o("WAWebPollPendingOptionHashes").optionHashDependencyId(s),
                   ) || l.push(s);
-            return l.length > 0
-              ? (yield o(
+            if (l.length > 0)
+              return (
+                yield o(
                   "WAWebDBPollsPendingUpdatesStore",
                 ).enqueuePollPendingUpdate(
                   babelHelpers.extends({}, b(e), {
@@ -149,10 +150,17 @@ __d(
                     ).packOptionHashes(l),
                   }),
                 ),
-                null)
-              : i.length === 0
-                ? null
-                : C(e, t, i);
+                null
+              );
+            var u = new Set(
+                n.map(function (e) {
+                  return e.localId;
+                }),
+              ),
+              c = i.filter(function (e) {
+                return u.has(e);
+              });
+            return c.length === 0 ? null : C(e, t, c);
           },
         )),
         y.apply(this, arguments)

@@ -4,11 +4,12 @@ __d(
     "WAWebCurrentMoment",
     "WAWebUserPrefsStore",
     "WAWebVoipCallingNavNuxSequencing",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      e === void 0 && (e = 1);
+      (e === void 0 && (e = 1), r("vulture")("pDue51KMLJltV_Ye0Yau7NF5Ii4="));
       var t = o("WAWebCurrentMoment")
         .getCurrentMoment()
         .subtract(e * 24, "hours");
@@ -23,6 +24,7 @@ __d(
     e.doc =
       "Pretend the header calling NUX was dismissed `daysAgo` days ago (default 1 = 24h ago \u2192 the Calls-tab nav NUX unlocks now; 0 = now \u2192 stays locked). Reload to apply.";
     function s() {
+      r("vulture")("mN3w6KcrB5Tqfd8jmmEuQNDeO2I=");
       var e = r("WAWebUserPrefsStore").getUser(
           o("WAWebVoipCallingNavNuxSequencing").HEADER_NUX_DISMISSED_AT_KEY,
         ),
@@ -42,9 +44,10 @@ __d(
     s.doc =
       "Show the stored header-dismissal timestamp, hours elapsed since, and whether the Calls-tab nav NUX is currently unlocked.";
     function u() {
-      r("WAWebUserPrefsStore").setUser(
-        o("WAWebVoipCallingNavNuxSequencing").HEADER_NUX_DISMISSED_AT_KEY,
-      );
+      (r("vulture")("N4eg03fz5fANvifRtbFqbDnhGjI="),
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebVoipCallingNavNuxSequencing").HEADER_NUX_DISMISSED_AT_KEY,
+        ));
     }
     u.doc =
       'Remove the stored header-dismissal timestamp (back to "header never dismissed" \u2014 the nav NUX stays locked).';

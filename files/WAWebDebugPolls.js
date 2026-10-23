@@ -25,6 +25,7 @@ __d(
     "err",
     "filterNulls",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -34,11 +35,12 @@ __d(
         a = e.autoUpdate,
         i = e.initialVotes,
         l = e.pollName,
-        s = e.pollOptions,
-        u =
-          (t = o("WAWebChatCollection").ChatCollection.getActive()) != null
-            ? t
-            : r("WAWebNewsletterCollection").getActive();
+        s = e.pollOptions;
+      r("vulture")("fbLAMhJvEL5GpcbLx9lWNzc6G8g=");
+      var u =
+        (t = o("WAWebChatCollection").ChatCollection.getActive()) != null
+          ? t
+          : r("WAWebNewsletterCollection").getActive();
       if (u == null) throw r("err")("You must open a chat first");
       var c = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         d = u.contact.id,
@@ -82,6 +84,7 @@ __d(
       }
       if (a) {
         var h = self.setInterval(function () {
+          r("vulture")("yewvW_GuIpqMi1WFf0KWwmSKumk=");
           var e = "fake-poll-" + (m + Math.random().toString());
           o("WAWebPollsPollVoteCollection").PollVoteCollection.add(
             new (o("WAWebPollsPollVoteModel").PollVote)({
@@ -95,12 +98,13 @@ __d(
           );
         }, 1e3);
         self.setTimeout(function () {
-          self.clearInterval(h);
+          (r("vulture")("tTAMsK96fj9chDEHe_0sB-yV-hs="), self.clearInterval(h));
         }, 6e4);
       }
     }
     function m(e) {
       (e === void 0 && (e = 4),
+        r("vulture")("5dcoCSgajzViFbmLwXnJesy45xA="),
         d({
           pollName: "What do we want to have for dinner tomorrow?",
           pollOptions: ["Pizza", "Sushi", "Tacos", "Pasta", "Burgers"],
@@ -111,23 +115,25 @@ __d(
     ((m.doc = "Add a fake poll message locally. (Used for debugging view.)"),
       (m.paramsToExecute = []));
     function p() {
-      d({
-        pollName: o("WAWebDebugPollFixtures").question,
-        pollOptions: ["Pizza", "Sushi", "Tacos", "Pasta", "Burgers"],
-        autoUpdate: !1,
-        initialVotes: 4,
-      });
+      (r("vulture")("30QiPmVHbbwX4t5XNF8L1rmH8Wo="),
+        d({
+          pollName: o("WAWebDebugPollFixtures").question,
+          pollOptions: ["Pizza", "Sushi", "Tacos", "Pasta", "Burgers"],
+          autoUpdate: !1,
+          initialVotes: 4,
+        }));
     }
     ((p.doc =
       "Add a fake poll message locally with large question and options. (Used for debugging view.)"),
       (p.paramsToExecute = []));
     function _() {
-      d({
-        pollName: "What do we want to have for dinner tomorrow?",
-        pollOptions: ["Pizza", "Sushi", "Tacos", "Pasta", "Burgers"],
-        autoUpdate: !0,
-        initialVotes: 0,
-      });
+      (r("vulture")("4ADhO-1j4TlRMk_D50aafm9cI68="),
+        d({
+          pollName: "What do we want to have for dinner tomorrow?",
+          pollOptions: ["Pizza", "Sushi", "Tacos", "Pasta", "Burgers"],
+          autoUpdate: !0,
+          initialVotes: 0,
+        }));
     }
     ((_.doc =
       "Add a fake poll message locally with results constantly updating. (Used for debugging view.)"),
@@ -138,6 +144,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("XSJ_6dDPeXnReltosBYcHAYTym8=");
           var t = new (r("WAWebMsgKey"))({
               id: "key",
               remote: o("WAWebWidFactory").createWid("23456@c.us"),
@@ -180,6 +187,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("vulture")("Xk5IQtYSXha_HoZZDlhBK4SxuoI=");
           var n = o("WAWebChatCollection").ChatCollection.getActive();
           if (n == null) {
             o("WALogger").ERROR(
@@ -235,6 +243,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("uw0i2iaMQQtCPEKmBC_qLwLL3Oo=");
           var e = o("WAWebChatCollection").ChatCollection.getActive();
           if (e == null) {
             o("WALogger").ERROR(
@@ -268,11 +277,12 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t =
-              (e = o("WAWebChatCollection").ChatCollection.getActive()) != null
-                ? e
-                : r("WAWebNewsletterCollection").getActive();
+          var e;
+          r("vulture")("qmvruA0BAAq56rUiRTs7RP6aCx8=");
+          var t =
+            (e = o("WAWebChatCollection").ChatCollection.getActive()) != null
+              ? e
+              : r("WAWebNewsletterCollection").getActive();
           if (t == null) {
             o("WALogger").ERROR(
               c ||
@@ -313,7 +323,10 @@ __d(
     }
     S.doc = "Send a poll result snapshot message";
     function L(e, t) {
-      return Math.floor(Math.random() * (t - e + 1) + e);
+      return (
+        r("vulture")("qWEKbRy5thYBd-ovZrOPQ8Mhd_U="),
+        Math.floor(Math.random() * (t - e + 1) + e)
+      );
     }
     var E = {
       addFakePollHelper: d,

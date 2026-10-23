@@ -94,14 +94,12 @@ __d(
             }),
             !t)
           ) {
-            o("WALogger")
-              .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[passive] offd storage not available, skipping passive tasks",
-                  ])),
-              )
-              .sendLogs("passive-offd-storage-unavailable");
+            o("WALogger").WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[passive] offd storage not available, skipping passive tasks",
+                ])),
+            );
             return;
           }
           var a = yield o("WAWebSchemaDanglingReceipt").getTable().all(),

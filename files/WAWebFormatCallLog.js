@@ -1,35 +1,21 @@
 __d(
   "WAWebFormatCallLog",
-  ["fbt", "WAWebCallLogMsgData.flow", "WAWebCallLogUtils", "WAWebMsgGetters"],
+  ["fbt", "WAWebCallLogUtils", "WAWebMsgGetters"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg;
       if (o("WAWebMsgGetters").getIsCallSilenced(t))
         return s._(/*BTDS*/ "Silenced unknown caller");
       var n = u(t.subtype);
-      if (n != null) return n;
-      var r = o("WAWebMsgGetters").getCallOutcome(t),
-        a = o("WAWebMsgGetters").getIsAdHocGroupCall(t),
-        i = o("WAWebMsgGetters").getIsMissedCall(t),
-        l = o("WAWebMsgGetters").getIsVideoCall(t),
-        d = o("WAWebMsgGetters").getIsSentByMe(t),
-        m = o("WAWebMsgGetters").getCallParticipants(t),
-        p = o("WAWebMsgGetters").getFinalCallOutcome(t),
-        _ = o("WAWebCallLogUtils").getIsSelfConnected(m),
-        f = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(i, _, d, r, p),
-        g =
-          r === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-          p !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
-      return (
-        r &&
-          (n = c({
-            isAdHocGroupCall: a,
-            isMissedCall: f,
-            isOngoing: g,
-            isVideoCall: l,
-          })),
-        n != null ? n : ""
-      );
+      return n != null
+        ? n
+        : (o("WAWebMsgGetters").getCallOutcome(t) &&
+            (n = c({
+              isAdHocGroupCall: o("WAWebMsgGetters").getIsAdHocGroupCall(t),
+              isMissedCall: o("WAWebCallLogUtils").getIsCallLogOutcomeMissed(t),
+              isVideoCall: o("WAWebMsgGetters").getIsVideoCall(t),
+            })),
+          n != null ? n : "");
     }
     function u(e) {
       switch (e) {
@@ -45,17 +31,16 @@ __d(
     function c(e) {
       var t = e.isAdHocGroupCall,
         n = e.isMissedCall,
-        r = e.isOngoing,
-        o = e.isVideoCall;
-      return n && !r
+        r = e.isVideoCall;
+      return n
         ? t
           ? s._(/*BTDS*/ "Missed group call")
-          : o
+          : r
             ? s._(/*BTDS*/ "Missed video call")
             : s._(/*BTDS*/ "Missed voice call")
         : t
           ? s._(/*BTDS*/ "Group call")
-          : o
+          : r
             ? s._(/*BTDS*/ "Video call")
             : s._(/*BTDS*/ "Voice call");
     }

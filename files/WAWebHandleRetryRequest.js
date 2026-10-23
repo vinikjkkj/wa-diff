@@ -192,7 +192,16 @@ __d(
                             k == null ||
                             k !== (R == null ? void 0 : R.identityKey) ||
                             P.isIdentityChangedSinceSend;
-                        if (yield T(i, D, w, F)) return;
+                        if (
+                          yield T(
+                            a != null ? a : i,
+                            D,
+                            w,
+                            F,
+                            R == null ? void 0 : R.identityKey,
+                          )
+                        )
+                          return;
                         var O = {
                           to: p,
                           participant: _,
@@ -245,13 +254,13 @@ __d(
         r !== "voip_1x1_retry"
       );
     }
-    function T(e, t, n, r) {
+    function T(e, t, n, r, o) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
+          function* (e, t, a, i, l) {
             if (
               n("cr:627") == null ||
               !e.isRegularUser() ||
@@ -259,7 +268,7 @@ __d(
             )
               return !1;
             try {
-              var l = yield n("cr:627").isAeaRetryBlocked({
+              var s = yield n("cr:627").isAeaRetryBlocked({
                 recipient: e,
                 message: o(
                   "WAWebOutgoingMessage",
@@ -271,9 +280,11 @@ __d(
                   "WAWebMsgGetters",
                 ).getIsBotFeedbackMessage(a.data),
                 isIdentityChangedSinceSend: i,
+                requester: t,
+                authorizedIdentityKey: l,
               });
               return (
-                l &&
+                s &&
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -282,7 +293,7 @@ __d(
                       ])),
                     t.toLogString(),
                   ),
-                l
+                s
               );
             } catch (e) {
               return (

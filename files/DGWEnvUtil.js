@@ -1,14 +1,6 @@
 __d(
   "DGWEnvUtil",
-  [
-    "DGWConstants",
-    "URI",
-    "WebStorage",
-    "cr:975",
-    "gkx",
-    "justknobx",
-    "vulture",
-  ],
+  ["DGWConstants", "URI", "WebStorage", "cr:975", "gkx", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -54,10 +46,7 @@ __d(
       });
     }
     function m(e, t) {
-      if (
-        (r("vulture")("dp4uAbw7ZVHdnLgjiWunREhcgEw="),
-        e.includes("internalfb.com"))
-      )
+      if (e.includes("internalfb.com"))
         return { endpoint: "gateway.internalfb.com", authType: "INTERNALFB" };
       if (e.includes("workplace.com"))
         return { endpoint: "gateway.workplace.com", authType: "FACEBOOK" };

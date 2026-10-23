@@ -6,6 +6,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWap",
+    "WAWebAeaRollout",
     "WAWebBackendApi",
     "WAWebCommsWapMd",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
@@ -155,7 +156,7 @@ __d(
                   o(
                     "WAWebMarkBroadcastSenderKeyRotateForUser",
                   ).markBroadcastSenderKeyRotateForUser(h),
-                  C ||
+                  (!C || o("WAWebAeaRollout").isAeaMonitoringEnabled()) &&
                     o("WAWebManageE2ESessionsJob")
                       .ensureE2ESessions({
                         identityChanged: !0,

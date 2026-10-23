@@ -19,9 +19,14 @@ __d(
         )
         .waitUntilCompleted(r);
     }
-    function s(e, t, n) {
+    function s(e, t, n, r) {
       t === void 0 && (t = !0);
-      var r = { contactIds: e, shouldSyncDevice: t, mode: n };
+      var a = {
+        contactIds: e,
+        shouldSyncDevice: t,
+        mode: n,
+        businessProfileVersion: r,
+      };
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "syncContactList",
@@ -30,7 +35,7 @@ __d(
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
         )
-        .waitUntilCompleted(r);
+        .waitUntilCompleted(a);
     }
     ((l.syncContactListInChunksJob = e), (l.syncContactListJob = s));
   },

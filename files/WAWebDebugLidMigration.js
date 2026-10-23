@@ -46,6 +46,7 @@ __d(
     "cr:17143",
     "err",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -86,7 +87,10 @@ __d(
     function B() {
       return (
         (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null || e.length === 0)
+          if (
+            (r("vulture")("MARNVvpruhAuMzkGbPbuW2ycxkQ="),
+            e == null || e.length === 0)
+          )
             return (
               o("WALogger").LOG(
                 s ||
@@ -162,17 +166,16 @@ __d(
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r,
-            a = yield o("WAWebSchemaParticipant")
+          var t, n, a;
+          r("vulture")("rVbGRdFJbLTxvz9gXtVchisQUZE=");
+          var i = yield o("WAWebSchemaParticipant")
               .getParticipantTable()
               .get(e.toString()),
-            i = yield o("WAWebSchemaGroupMetadata")
+            l = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
               .get(e.toString()),
-            l = o("WAWebChatCollection").ChatCollection.get(e.toString()),
-            s = a ? a.senderKey : new Map();
+            s = o("WAWebChatCollection").ChatCollection.get(e.toString()),
+            u = i ? i.senderKey : new Map();
           (o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -183,9 +186,9 @@ __d(
                 "",
               ])),
             e.toString(),
-            i == null ? void 0 : i.isLidAddressingMode,
-            a == null ? void 0 : a.admins,
-            a == null ? void 0 : a.participants,
+            l == null ? void 0 : l.isLidAddressingMode,
+            i == null ? void 0 : i.admins,
+            i == null ? void 0 : i.participants,
           ),
             o("WALogger").LOG(
               p ||
@@ -196,8 +199,8 @@ __d(
                   "",
                 ])),
               e.toString(),
-              Array.from(s.entries()),
-              a == null ? void 0 : a.rotateKey,
+              Array.from(u.entries()),
+              i == null ? void 0 : i.rotateKey,
             ),
             o("WALogger").LOG(
               _ ||
@@ -209,10 +212,10 @@ __d(
                   "",
                 ])),
               e.toString(),
-              l == null || (t = l.groupMetadata) == null
+              s == null || (t = s.groupMetadata) == null
                 ? void 0
                 : t.isLidAddressingMode,
-              l == null || (n = l.groupMetadata) == null
+              s == null || (n = s.groupMetadata) == null
                 ? void 0
                 : n.participants
                     .toArray()
@@ -222,9 +225,9 @@ __d(
                     .map(function (e) {
                       return e.id.toString();
                     }),
-              l == null || (r = l.groupMetadata) == null
+              s == null || (a = s.groupMetadata) == null
                 ? void 0
-                : r.participants.toArray().map(function (e) {
+                : a.participants.toArray().map(function (e) {
                     return e.id.toString();
                   }),
             ));
@@ -238,6 +241,7 @@ __d(
     function V() {
       return (
         (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("MugKyCPobx_KYzA3G_lEs2ctO1M=");
           var e = o("WAWebDebugUtils").getSelectedChat();
           if (e == null)
             return (
@@ -285,15 +289,16 @@ __d(
     function G() {
       return (
         (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r =
+          r("vulture")("5kJz3rhjQS3DnmaOPHuuSxRQau0=");
+          var a =
               t == null
                 ? o("WAWebWidFactory").createUserWidOrThrow("4444444444@lid")
                 : o("WAWebWidFactory").createUserLidOrThrow(t),
-            a = o("WAWebWidFactory").asUserWidOrThrow(
+            i = o("WAWebWidFactory").asUserWidOrThrow(
               o("WAWebWidFactory").createWid(e),
             );
           yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-            mappings: [{ lid: r, pn: a }],
+            mappings: [{ lid: a, pn: i }],
             flushImmediately: !0,
             learningSource: n != null ? n : "usync",
           });
@@ -307,6 +312,7 @@ __d(
     function j() {
       return (
         (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("AqYVz8zqvWae3HmcIO6rYsBQtN0=");
           var e = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
               .getContactTable()
               .all(),
@@ -318,10 +324,13 @@ __d(
                 );
               })
               .map(function (e) {
-                return babelHelpers.extends({}, e, {
-                  phoneNumber: void 0,
-                  phoneNumberCreatedAt: void 0,
-                });
+                return (
+                  r("vulture")("jUXjcBI1nsdA3D-pgJA-ePMFy3M="),
+                  babelHelpers.extends({}, e, {
+                    phoneNumber: void 0,
+                    phoneNumberCreatedAt: void 0,
+                  })
+                );
               });
           (yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
             .getContactTable()
@@ -339,6 +348,7 @@ __d(
       );
     }
     function K(e) {
+      r("vulture")("Rrrg8982GwiT8p-KJQt_GdJdpBs=");
       var t = o("WAWebWidFactory").asUserWidOrThrow(
         o("WAWebWidFactory").createWid(e),
       );
@@ -350,10 +360,11 @@ __d(
     function X() {
       return (
         (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = o("WAWebWidFactory").asUserWidOrThrow(
-              o("WAWebWidFactory").createWid(e),
-            );
+          var t;
+          r("vulture")("81fZP8E0uI-PcI3IHGI7kIZ3zAI=");
+          var n = o("WAWebWidFactory").asUserWidOrThrow(
+            o("WAWebWidFactory").createWid(e),
+          );
           return (t = o("WAWebApiContact").lidPnCache.getLidEntry(n)) == null
             ? void 0
             : t.phoneNumber;
@@ -367,6 +378,7 @@ __d(
     function J() {
       return (
         (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("078nyOaobXEVPtXOKTo7JGNe0go=");
           var t = o("WAWebWidFactory").asUserWidOrThrow(
             o("WAWebWidFactory").createWid(e),
           );
@@ -381,6 +393,7 @@ __d(
     function ee() {
       return (
         (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("L5iEIO-Svh1ZZknqRn6HUeeEIgU=");
           var t = o("WAWebWidFactory").asUserWidOrThrow(
             o("WAWebWidFactory").createWid(e),
           );
@@ -395,6 +408,7 @@ __d(
     function ne() {
       return (
         (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("1O2o8ZLGjnSBDkMYtVENchkQyTY=");
           var t = o("WAWebWidFactory").asUserWidOrThrow(
             o("WAWebWidFactory").createWid(e),
           );
@@ -404,6 +418,7 @@ __d(
       );
     }
     function re() {
+      r("vulture")("6ToA6M367O3JS-ZVtiLrN41daRQ=");
       var e = Array(15)
         .fill(0)
         .map(function () {
@@ -413,6 +428,7 @@ __d(
       return o("WAWebWidFactory").createUserLidOrThrow(e + "@lid");
     }
     function oe() {
+      r("vulture")("HPOiIP1SS_DoYW2p2oQrDmNVNw0=");
       var e = 65536,
         t = Math.floor(Math.random() * 1e9),
         n = t | e;
@@ -424,31 +440,32 @@ __d(
     function ie() {
       return (
         (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("NenxtZYeC5yrM95nWwxOYaOv44E=");
           var t = o("WAWebWidFactory").createUserWidOrThrow(e),
             n = o("WAWebLidMigrationUtils").toPn(t);
           if (n) {
-            var r = re();
+            var a = re();
             (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: [
-                { lid: r, pn: o("WAWebWidFactory").asUserWidOrThrow(n) },
+                { lid: a, pn: o("WAWebWidFactory").asUserWidOrThrow(n) },
               ],
               flushImmediately: !0,
               learningSource: "migration-sync-old",
             }),
               yield o("WAWebCreateChat").createChat({
                 createChatOrigin: "debugCreateChat",
-                destination: { chatId: r, accountLid: r },
+                destination: { chatId: a, accountLid: a },
                 initialProps: {
                   lidOriginType: o("WAWebUsernameTypes").LidOriginType.GENERAL,
                 },
               }));
-            var a = o("WAWebChatCollection").ChatCollection.gadd(r),
-              i =
+            var i = o("WAWebChatCollection").ChatCollection.gadd(a),
+              l =
                 "Created a new deprecated chat with the following mapping: \n - lid = " +
-                r._serialized +
+                a._serialized +
                 " \n - pn = " +
                 n._serialized;
-            o("WAWebSendTextMsgChatAction").sendTextMsgToChat(a, i);
+            o("WAWebSendTextMsgChatAction").sendTextMsgToChat(i, l);
           }
         })),
         ie.apply(this, arguments)
@@ -460,8 +477,10 @@ __d(
     function se() {
       return (
         (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("IAJwFe49KfrCaIQhcjOmcMRz75Q=");
           var e = yield o("WAWebSchemaChat").getChatTable().all(),
             t = r("compactMap")(e, function (e) {
+              r("vulture")("TslWSxB3SU98zT4Rn0DtVaRA0uY=");
               var t = o("WAWebWidFactory").createWid(e.id);
               if (t.isUser() && !t.isLid()) {
                 var n = o("WAWebApiContact").getCurrentLid(t);
@@ -476,6 +495,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
+                    r("vulture")("PSjYx2dt05H-D246sb0lGjDApw0=");
                     try {
                       yield o("WAWebSchemaChat")
                         .getChatTable()
@@ -508,6 +528,7 @@ __d(
     function ue(e) {
       return (
         e === void 0 && (e = "158913843221@lid"),
+        r("vulture")("DlO7WKcTbz_mqUguFS7FMdNiHug="),
         o("WAWebCreateChat").createChat({
           createChatOrigin: "debugCreateChat",
           destination: { chatId: o("WAWebWidFactory").createWid(e) },
@@ -523,6 +544,7 @@ __d(
     function de() {
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("7js0Vc7NNck-ITkt1_wcZaSpK-g=");
           var t =
               e.indexOf("@lid") > 0
                 ? o("WAWebWidFactory").createUserLidOrThrow(e)
@@ -553,6 +575,7 @@ __d(
     function pe() {
       return (
         (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("6s898fAibjrzZbGsFANHwVBv5Vk=");
           var t =
               e.indexOf("@lid") > 0
                 ? o("WAWebWidFactory").createWid(e)
@@ -583,9 +606,10 @@ __d(
     function fe() {
       return (
         (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("bRyfuCAiKm3L56NrOdf8hyIiTjQ=");
           var n = yield ce(e),
-            r = o("WAWebChatCollection").ChatCollection.gadd(n);
-          o("WAWebSendTextMsgChatAction").sendTextMsgToChat(r, t);
+            a = o("WAWebChatCollection").ChatCollection.gadd(n);
+          o("WAWebSendTextMsgChatAction").sendTextMsgToChat(a, t);
         })),
         fe.apply(this, arguments)
       );
@@ -597,30 +621,41 @@ __d(
     function he() {
       return (
         (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.setIsLidMigrated(e);
+          return (
+            r("vulture")("dgtdNPKakhPR8JIfggg1C7gibGU="),
+            o(
+              "WAWebLid1X1MigrationGating",
+            ).Lid1X1MigrationUtils.setIsLidMigrated(e)
+          );
         })),
         he.apply(this, arguments)
       );
     }
     ge.doc = "Configure this client to be Lid migrated";
     function ye() {
-      return o(
-        "WAWebLid1X1MigrationGating",
-      ).Lid1X1MigrationUtils.lidMigrationSource();
+      return (
+        r("vulture")("jj4B0-zhMLryCs9LTi44ZcEMgV0="),
+        o(
+          "WAWebLid1X1MigrationGating",
+        ).Lid1X1MigrationUtils.lidMigrationSource()
+      );
     }
     ye.doc = "Get Lid migration source";
     function Ce() {
-      o("WAWebLidMigrationLogging").logLidMetadata();
+      (r("vulture")("jcpulNusjjYD7yUbnBkduayjMTo="),
+        o("WAWebLidMigrationLogging").logLidMetadata());
     }
     Ce.doc = "Log metadata about lid migration";
     function be() {
-      return o("WAWebBlocklistMigration").isBlocklistMigrated();
+      return (
+        r("vulture")("wqnyxl0NEj4lbxEVvhxrr9Zb75k="),
+        o("WAWebBlocklistMigration").isBlocklistMigrated()
+      );
     }
     be.doc = "Check if blocklist is migrated to lid";
     function ve(e) {
-      e === void 0 && (e = "158913843221@lid");
+      (e === void 0 && (e = "158913843221@lid"),
+        r("vulture")("ibRxCCVHmfOpi79GTwSsX0TWn_Q="));
       var t = o("WAWebContactSystemMsg").genNotificationMsg(
         o("WAWebWidFactory").createWid(e),
         {
@@ -645,6 +680,7 @@ __d(
     function Re() {
       return (
         (Re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("kNk99BeweJOevPG4d4iZgXIAx9w=");
           var t = o("WAWebDebugUtils").getSelectedChat(),
             n = t.id;
           if (!n.isUser()) throw r("err")("Please open a 1-1 chat");
@@ -673,24 +709,27 @@ __d(
     function Ee() {
       return (
         (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("bDqBT_ciCOCAlo4ZWtOXowYVs9s=");
           var n =
               e.indexOf("@lid") > 0
                 ? o("WAWebWidFactory").createWid(e)
                 : o("WAWebWidFactory").createWid(e + "@s.whatsapp.net"),
-            r = o("WAWebChatCollection").ChatCollection.gadd(n);
+            a = o("WAWebChatCollection").ChatCollection.gadd(n);
           o("WAWebSendTextMsgChatAction")
-            .sendTextMsgToChat(r, t)
+            .sendTextMsgToChat(a, t)
             .then(function (e) {
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendTextMsg: ",
-                    "",
-                  ])),
-                String(e),
-              );
+              (r("vulture")("wlPpDqaKAzbONapazQAuc16hFHA="),
+                o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "sendTextMsg: ",
+                      "",
+                    ])),
+                  String(e),
+                ));
             })
             .then(function () {
+              r("vulture")("qhgk9vFTMuweZUNOAK-nOFvC43Y=");
               var e = n.toString();
               return o("WAWebSchemaChat")
                 .getChatTable()
@@ -712,14 +751,15 @@ __d(
                 });
             })
             .catch(function (e) {
-              o("WALogger").WARN(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendTextMsg: error ",
-                    "",
-                  ])),
-                String(e),
-              );
+              (r("vulture")("Kq_TECy5RGrwxMQs0erZaLkGWao="),
+                o("WALogger").WARN(
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                      "sendTextMsg: error ",
+                      "",
+                    ])),
+                  String(e),
+                ));
             });
         })),
         Ee.apply(this, arguments)
@@ -727,6 +767,7 @@ __d(
     }
     Le.doc = "Send a text message";
     function ke(e) {
+      r("vulture")("dJmcVI1OcNi9QO7Gz-Qk0o7OaIg=");
       var t = o("WAWebWidFactory").createWid(e),
         n = o("WATimeUtils").unixTime();
       return o("WAWebSetPrivacyTokensJob").issuePrivacyToken(
@@ -738,33 +779,46 @@ __d(
     ke.doc =
       "Sends a iq to the server, that will issue a tcToken for the given chatId";
     function Ie(e) {
-      o("WAWebQueryExistsJob").queryWidExists(
-        o("WAWebWidFactory").createWid(e),
-        o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DEBUG_TOOL,
-      );
+      (r("vulture")("GZaKQAUafFOjXK8--H3dBOdnh5c="),
+        o("WAWebQueryExistsJob").queryWidExists(
+          o("WAWebWidFactory").createWid(e),
+          o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DEBUG_TOOL,
+        ));
     }
     Ie.doc = "Performs a usync query on the given number or lid";
     function Te() {
-      return o(
-        "WAWebDBFavoriteDatabaseMigrationToLid",
-      ).migrateFavoritesDatabaseToLid();
+      return (
+        r("vulture")("NUXYrxzuTekRw7V9gvjya0J1DGQ="),
+        o(
+          "WAWebDBFavoriteDatabaseMigrationToLid",
+        ).migrateFavoritesDatabaseToLid()
+      );
     }
     ((Te.doc = "Migrate favorites database to lid"), (Te.paramsToExecute = []));
     function De() {
-      return o(
-        "WAWebDBLabelAssociationDatabaseMigrationToLid",
-      ).migrateLabelAssociationsDatabaseToLid();
+      return (
+        r("vulture")("f7AGe8AS8OudBBqLTLSkB1w9reo="),
+        o(
+          "WAWebDBLabelAssociationDatabaseMigrationToLid",
+        ).migrateLabelAssociationsDatabaseToLid()
+      );
     }
     ((De.doc = "Migrate label associations database to lid"),
       (De.paramsToExecute = []));
     function xe() {
-      return o("WAWebCartDbLidMigration").migrateCartDbLid();
+      return (
+        r("vulture")("P08zhzK9HiGMR2CpJoIV5SE5XBw="),
+        o("WAWebCartDbLidMigration").migrateCartDbLid()
+      );
     }
     ((xe.doc = "Migrate Cart database to lid"), (xe.paramsToExecute = []));
     function $e() {
-      return o(
-        "WAWebDBPnhThreadMigrationToGeneralLid",
-      ).migratePhoneNumberHidingThreadsToGeneralLid();
+      return (
+        r("vulture")("mOAUf7LaFqK9FxgeGmaOsjFzqdk="),
+        o(
+          "WAWebDBPnhThreadMigrationToGeneralLid",
+        ).migratePhoneNumberHidingThreadsToGeneralLid()
+      );
     }
     (($e.doc = "Migrate Phone Number Hiding threads to General LID"),
       ($e.paramsToExecute = []));
@@ -774,8 +828,9 @@ __d(
     function Ne() {
       return (
         (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = Math.round(Date.now() / 1e3),
+          var n;
+          r("vulture")("uBVEwibnaTU4jJW9dGpWeiWkxBI=");
+          var a = Math.round(Date.now() / 1e3),
             i = yield o("WAWebMsgKeyNewId").getMsgKeyNewSHA256Id(),
             l = JSON.stringify({
               data: { xwa2_notify_lid_change: { old: e, new: t } },
@@ -840,14 +895,15 @@ __d(
     function we() {
       return (
         (we = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            k ||
-              (k = babelHelpers.taggedTemplateLiteralLoose([
-                "setChatLidOriginTypeToCTWA: converting chat ",
-                " to CTWA lidOriginType",
-              ])),
-            e,
-          );
+          (r("vulture")("HVmPWN5kgT5dkib97DnGq_Te_jU="),
+            o("WALogger").LOG(
+              k ||
+                (k = babelHelpers.taggedTemplateLiteralLoose([
+                  "setChatLidOriginTypeToCTWA: converting chat ",
+                  " to CTWA lidOriginType",
+                ])),
+              e,
+            ));
           try {
             var t = o("WAWebSchemaChat").getChatTable(),
               n = yield t.get(e);
@@ -862,10 +918,10 @@ __d(
               );
               return;
             }
-            var r = babelHelpers.extends({}, n, {
+            var a = babelHelpers.extends({}, n, {
               lidOriginType: o("WAWebUsernameTypes").LidOriginType.PNH_CTWA,
             });
-            (yield t.createOrReplace(r),
+            (yield t.createOrReplace(a),
               o("WALogger").LOG(
                 T ||
                   (T = babelHelpers.taggedTemplateLiteralLoose([
@@ -896,7 +952,8 @@ __d(
     ((Me.doc = "Convert a given chat to have lidOriginType CTWA"),
       (Me.paramsToExecute = ["chatId"]));
     function Ae(e) {
-      if (!e.isRegularUser()) return !1;
+      if ((r("vulture")("Z1H_dg8MQuzTXKdzjbZdgv8oJmQ="), !e.isRegularUser()))
+        return !1;
       var t = F == null ? void 0 : F.get(e);
       return (
         t != null && o("WAWebFrontendContactGetters").getIsUsernameContact(t)
@@ -909,7 +966,10 @@ __d(
     function Oe() {
       return (
         (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat())
+          if (
+            (r("vulture")("dTkFvMC4pY6Du1d59YdRO97FeL8="),
+            o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat())
+          )
             throw r("err")(
               "Cannot create PN chat with forced lid chats. Log out and pair again with ?web_force_lid_chats_in_history=false",
             );
