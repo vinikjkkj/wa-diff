@@ -106,9 +106,11 @@ __d(
       var t = [];
       for (var n of (r = e == null ? void 0 : e.profiles) != null ? r : []) {
         var r,
-          a = n.lid;
-        a == null ||
-          a === "" ||
+          a =
+            n.lid_jid != null
+              ? o("WAJids").validateLidUserJid(n.lid_jid)
+              : null;
+        a != null &&
           t.push({
             acquisitionSource: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
@@ -118,7 +120,7 @@ __d(
               n.dob,
             ),
             birthdayIso: n.dob,
-            chatJid: o("WAJids").toLidUserJid(a),
+            chatJid: a,
             customFieldValues: R(n.custom_field_values),
             email: n.email,
             lastOrder: o(

@@ -86,32 +86,40 @@ __d(
                 (S === "sender_revoke" || S === "admin_revoke") &&
                 (k = [].concat(k, [y]));
           var D =
-            n("cr:627") != null
-              ? yield n("cr:627").captureAeaSendBaseline({
-                  recipient: R,
-                  fanoutDevices: k,
-                  message: i,
-                  msgRecord: l,
-                })
-              : null;
-          (D == null ? void 0 : D.isEnforced) !== !0 &&
-            o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
-            o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
-              senderOrRecipientAccountTypeHosted: !0,
-            });
-          var x = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
-            chatId: r,
-            deviceWids: k,
-            metricReporter: a,
-            msgProtobuf: i,
-            msgRecord: l,
-            option: { fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT },
-            scheduledMsgMetadata: p,
-            aeaBaseline: D,
-          });
+              n("cr:627") != null
+                ? yield n("cr:627").captureAeaSendBaseline({
+                    recipient: R,
+                    fanoutDevices: k,
+                    message: i,
+                    msgRecord: l,
+                  })
+                : null,
+            x;
+          try {
+            ((D == null ? void 0 : D.isEnforced) !== !0 &&
+              o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
+              o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
+                senderOrRecipientAccountTypeHosted: !0,
+              }),
+              (x = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
+                chatId: r,
+                deviceWids: k,
+                metricReporter: a,
+                msgProtobuf: i,
+                msgRecord: l,
+                option: {
+                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT,
+                },
+                scheduledMsgMetadata: p,
+                aeaBaseline: D,
+              })));
+          } finally {
+            n("cr:627") == null || n("cr:627").releaseAeaSendDecisionTurn(D);
+          }
           f(R, x);
-          var $ = x.phash;
-          if ($ != null) {
+          var $ = x,
+            P = $.phash;
+          if (P != null) {
             o("WALogger")
               .LOG(
                 s ||
@@ -119,10 +127,10 @@ __d(
                     "encryptAndSendUserMsg: phash mismatch, got server phash ",
                     "",
                   ])),
-                $,
+                P,
               )
               .tags("messaging");
-            var P = o("WATimeUtils").unixTime();
+            var N = o("WATimeUtils").unixTime();
             (o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric({
               chatWid: R,
               msgProtobuf: i,
@@ -153,13 +161,13 @@ __d(
                   return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
                     [R, L],
                     "message",
-                    $,
+                    P,
                   );
                 })
                 .then(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                     return h({
-                      ackTime: P,
+                      ackTime: N,
                       chatId: r,
                       excludeList: g(k, D),
                       metricReporter: a,

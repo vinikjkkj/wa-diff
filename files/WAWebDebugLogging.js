@@ -11,7 +11,6 @@ __d(
     "WAWebLoggerDev",
     "WAWebLoggerImpl",
     "WAWebTasksDailyStatsTask",
-    "WAWebTimeSpentLoggingNavigation",
     "WAWebTimeSpentLoggingSession",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
@@ -229,8 +228,6 @@ __d(
       setLogContext: E,
       setLogLevel: v,
       togglePageLoadDebug: C,
-      toggleTsNavigationDebug: o("WAWebTimeSpentLoggingNavigation")
-        .toggleTsNavigationDebug,
       uploadLogs: m,
       uploadLogsTesting: p,
       uploadThreadLoggingEventsNow: g,

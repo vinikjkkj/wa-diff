@@ -6,7 +6,6 @@ __d(
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
     "WAWebDeleteMessageForMeSync",
-    "WAWebKeyManagementHandleKeyShareApi",
     "WAWebMsgKey",
     "WAWebPrimaryVersion",
     "WAWebProtobufSyncAction.pb",
@@ -325,28 +324,7 @@ __d(
     }
     T.doc =
       "Issues a REMOVE mutation for the last stored SyncD mutation in regular collection";
-    function x() {
-      (r("vulture")("4C0LJCqlK6_Mh1Yit8_OIgxHoTM="),
-        o("WAWebKeyManagementHandleKeyShareApi").setAppStateSyncKeyShareHandler(
-          function (e) {
-            return (
-              r("vulture")("dVFJiHKgzgixhOK02GYjBQHVso0="),
-              function () {
-                return (
-                  r("vulture")("5rVCChJ6eJgNF65MgynxfDQf33g="),
-                  o(
-                    "WAWebKeyManagementHandleKeyShareApi",
-                  ).setAppStateSyncKeyShareHandler(function (t) {
-                    return e;
-                  }),
-                  (m || (m = n("Promise"))).resolve()
-                );
-              }
-            );
-          },
-        ));
-    }
-    function $(e) {
+    function x(e) {
       return (
         r("vulture")("ja4uV4saOhjbe7trd3RbAmuzKIA="),
         o("WAWebSendNonMessageDataRequest").sendPeerDataOperationRequest(
@@ -359,8 +337,8 @@ __d(
         )
       );
     }
-    $.doc = "requestSyncdSnapshotRecovery";
-    var P = {
+    x.doc = "requestSyncdSnapshotRecovery";
+    var $ = {
       enterSyncdFatalState: f,
       getActiveMessageRanges: g,
       decodeBinarySyncAction: p,
@@ -373,10 +351,9 @@ __d(
       getPrimarySessionStartVersion: k,
       sendSentinelPatch: I,
       removeLastStoredSyncDMutationForCollectionRegular: T,
-      ignoreNextSyncdKeyShare: x,
-      requestSyncdSnapshotRecovery: $,
+      requestSyncdSnapshotRecovery: x,
     };
-    l.default = P;
+    l.default = $;
   },
   98,
 );

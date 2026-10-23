@@ -10,7 +10,7 @@ __d(
             alias: null,
             args: null,
             kind: "ScalarField",
-            name: "lid",
+            name: "lid_jid",
             storageKey: null,
           },
         ],

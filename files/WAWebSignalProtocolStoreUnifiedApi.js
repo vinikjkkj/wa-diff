@@ -895,8 +895,8 @@ __d(
           })()),
           (a.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = this;
+              function* (e, t, n, r) {
+                var a = this;
                 (o("WALogger")
                   .LOG(
                     g ||
@@ -906,15 +906,20 @@ __d(
                   )
                   .tags("unified-store"),
                   yield this.$6(n));
-                var a = [];
+                var i = [];
                 (n.forEach(function (n) {
-                  var o = r.$1.IdentityStore.get(n);
-                  if (o && !o.deleted && (o[e] == null || o[e] > t)) {
-                    var i = babelHelpers.extends({}, o);
-                    ((i[e] = t),
-                      r.$1.IdentityStore.set(n, i),
-                      r.$1.Dirty.identity.add(n),
-                      a.push(n));
+                  var o = a.$1.IdentityStore.get(n);
+                  if (
+                    o &&
+                    !o.deleted &&
+                    (r == null || o.identityKey === r) &&
+                    (o[e] == null || o[e] > t)
+                  ) {
+                    var l = babelHelpers.extends({}, o);
+                    ((l[e] = t),
+                      a.$1.IdentityStore.set(n, l),
+                      a.$1.Dirty.identity.add(n),
+                      i.push(n));
                   }
                 }),
                   o("WALogger")
@@ -924,28 +929,28 @@ __d(
                           "[Signal]updateIdentityRangeAfterEncryption: ",
                           " updated",
                         ])),
-                      a.length,
+                      i.length,
                     )
                     .tags("unified-store"));
               },
             );
-            function t(t, n, r) {
+            function t(t, n, r, o) {
               return e.apply(this, arguments);
             }
             return t;
           })()),
           (a.updateIdentityRangeAfterEncryption = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = yield this.$1.Mutex.identity.acquire();
+              function* (e, t, n, r) {
+                var o = yield this.$1.Mutex.identity.acquire();
                 try {
-                  yield this.$17(e, t, n);
+                  yield this.$17(e, t, n, r);
                 } finally {
-                  r.release();
+                  o.release();
                 }
               },
             );
-            function t(t, n, r) {
+            function t(t, n, r, o) {
               return e.apply(this, arguments);
             }
             return t;

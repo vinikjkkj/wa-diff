@@ -58,12 +58,18 @@ __d(
         )
       );
     }
-    function m() {
+    function m(e) {
       return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_business_broadcast_pro_enabled",
-        )
+        e === void 0 && (e = !1),
+        o("WAWebMobilePlatforms").isSMB()
+          ? e
+            ? o("WAWebABProps").getABPropConfigValue(
+                "smb_business_broadcast_pro_enabled_with_exposure",
+              )
+            : o("WAWebABProps").getABPropConfigValue(
+                "smb_business_broadcast_pro_enabled",
+              )
+          : !1
       );
     }
     function p() {

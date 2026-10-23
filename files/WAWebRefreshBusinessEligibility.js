@@ -9,7 +9,6 @@ __d(
     "WAWebBizBroadcastGenAIGating",
     "WAWebBizBroadcastMarketingMessagesEligibilityModel",
     "WAWebBizBroadcastProOnboardingStatus",
-    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebGetBusinessEligibilityJob",
     "asyncToGeneratorRuntime",
   ],
@@ -57,9 +56,7 @@ __d(
         function (e) {
           return o("WAWebGetBusinessEligibilityJob")
             .getBusinessEligibility({
-              checkBBPro: o(
-                "WAWebBusinessBroadcastsGatingUtils",
-              ).isBizBroadcastProEnabled(),
+              checkBBPro: !0,
               checkGenAI: o(
                 "WAWebBizBroadcastGenAIGating",
               ).isGenAIMasterEnabled(),

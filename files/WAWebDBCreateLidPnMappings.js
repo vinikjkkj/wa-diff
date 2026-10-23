@@ -2,7 +2,6 @@ __d(
   "WAWebDBCreateLidPnMappings",
   [
     "Promise",
-    "WAGetPlatformFromStanzaId",
     "WALogger",
     "WAPromiseDelays",
     "WATimeUtils",
@@ -11,6 +10,7 @@ __d(
     "WAWebContactsDbLidMigrationUtils",
     "WAWebDBContactRemoveSoftDeletedUsernames",
     "WAWebDynamicThrottlingManager",
+    "WAWebGetPlatformFromStanzaId",
     "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebUsernameGatingUtils",
@@ -92,8 +92,12 @@ __d(
       );
     }
     function R(e) {
+      var t;
       return e != null
-        ? o("WAGetPlatformFromStanzaId").getPlatformFromStanzaId(e)
+        ? (t = o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(e)) !=
+          null
+          ? t
+          : "unknown"
         : "n/a";
     }
     function L(t) {

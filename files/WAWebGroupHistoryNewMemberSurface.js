@@ -10,6 +10,7 @@ __d(
     var e = n("$InternalEnum").Mirrored([
       "MembershipApprovalRequests",
       "MentionPicker",
+      "ContactCard",
     ]);
     function s(t) {
       return t === e.MembershipApprovalRequests
@@ -27,12 +28,21 @@ __d(
               uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
                 .GROUP_MEMBER_ADD_EXISTING_GROUP,
             }
-          : (function () {
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  t,
-              );
-            })();
+          : t === e.ContactCard
+            ? {
+                groupAddMemberEntryPoint: o(
+                  "WAWebWamEnumAddMembersEntrypointType",
+                ).ADD_MEMBERS_ENTRYPOINT_TYPE
+                  .GROUP_ADD_MEMBER_FROM_SHARED_CONTACT,
+                uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                  .GROUP_MEMBER_ADD_EXISTING_GROUP,
+              }
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t,
+                );
+              })();
     }
     ((l.GroupHistoryNewMemberSurface = e),
       (l.getGroupHistoryNewMemberLogging = s));

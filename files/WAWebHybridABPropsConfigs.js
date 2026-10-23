@@ -665,6 +665,7 @@ __d(
       win_hybrid_expiry_wrong_clock_block_enabled: [39502, "bool", !1, !0],
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
+      win_hybrid_push_task_all_banners_enabled: [40423, "bool", !1, !0],
       win_hybrid_tray_wake_keep_resumed_seconds: [38862, "int", 0, 600],
       win_hybrid_voip_anr_optimizations: [22616, "int", 0, 0],
       win_hybrid_vsr_button_enabled_2: [34279, "bool", !1, !1],

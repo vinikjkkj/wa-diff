@@ -14,7 +14,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebLidMigrationUtils",
     "WAWebProtobufsServerSync.pb",
-    "WAWebSyncContactsJob",
+    "WAWebSyncNewContact",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
@@ -159,7 +159,7 @@ __d(
                           }
                           return (
                             h.push(f),
-                            o("WAWebSyncContactsJob").syncNewContact(i),
+                            o("WAWebSyncNewContact").syncNewContact(i),
                             {
                               actionState:
                                 o("WAWebSyncdConst").SyncActionState.Success,

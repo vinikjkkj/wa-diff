@@ -27,6 +27,7 @@ __d(
     "WAWebUserPrefsStatus",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "cr:17732",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -131,11 +132,14 @@ __d(
                     ])),
                   h.toString(),
                 );
-                var n = o("WAWebWidFactory").asUserWidOrThrow(h);
-                (yield o("WAWebSignal").Session.deleteRemoteInfo(h),
+                var a = o("WAWebWidFactory").asUserWidOrThrow(h);
+                (yield n("cr:17732") == null
+                  ? void 0
+                  : n("cr:17732").saveAeaIdentityChangeBaseline(a),
+                  yield o("WAWebSignal").Session.deleteRemoteInfo(h),
                   o("WAWebSecurityCodeApi")
                     .addSecurityCodeChangedNotifications({
-                      user: n,
+                      user: a,
                       stanzaLid: e,
                       offline: C,
                     })
@@ -151,7 +155,7 @@ __d(
                     }),
                   o(
                     "WAWebSendTcTokenWhenDeviceIdentityChange",
-                  ).sendTcTokenWhenDeviceIdentityChange(n),
+                  ).sendTcTokenWhenDeviceIdentityChange(a),
                   o("WAWebUserPrefsStatus").markStatusSenderKeyRotate([h]),
                   o(
                     "WAWebMarkBroadcastSenderKeyRotateForUser",
@@ -177,7 +181,7 @@ __d(
                   yield o(
                     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
                   ).createOrReplaceDisplayNamesAndLidPnMappings(
-                    [{ id: n, lid: e, displayName: l }],
+                    [{ id: a, lid: e, displayName: l }],
                     !f,
                   ));
               }

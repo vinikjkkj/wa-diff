@@ -136,22 +136,33 @@ __d(
                 ])),
               e.length,
             ));
-          var l = yield o(
-            "WASmaxPreKeysFetchMissingPreKeysRPC",
-          ).sendFetchMissingPreKeysRPC({
-            userArgs: i,
-            hasKeyFetchPqsupportTrue:
-              o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
-          });
+          var l = {
+              userArgs: i,
+              hasKeyFetchPqsupportTrue:
+                o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
+            },
+            s = null,
+            _ =
+              n("cr:475") == null
+                ? yield o(
+                    "WASmaxPreKeysFetchMissingPreKeysRPC",
+                  ).sendFetchMissingPreKeysRPC(l)
+                : yield o(
+                    "WASmaxPreKeysFetchMissingPreKeysRPC",
+                  ).sendFetchMissingPreKeysRPC(l, {
+                    onResponse: function (t) {
+                      s = t;
+                    },
+                  });
           e: {
-            var s = l;
+            var f = _;
             if (
-              ((typeof s == "object" && s !== null) ||
-                typeof s == "function") &&
-              s.name === "FetchMissingPreKeysResponseSuccess" &&
-              "value" in s
+              ((typeof f == "object" && f !== null) ||
+                typeof f == "function") &&
+              f.name === "FetchMissingPreKeysResponseSuccess" &&
+              "value" in f
             ) {
-              var _ = s.value;
+              var g = f.value;
               return (
                 o("WALogger").LOG(
                   d ||
@@ -161,50 +172,22 @@ __d(
                     ])),
                   e.length,
                 ),
-                I(_)
+                I(g, s)
               );
               break e;
             }
             if (
-              ((typeof s == "object" && s !== null) ||
-                typeof s == "function") &&
-              s.name === "FetchMissingPreKeysResponseServerError" &&
-              "value" in s
+              ((typeof f == "object" && f !== null) ||
+                typeof f == "function") &&
+              f.name === "FetchMissingPreKeysResponseServerError" &&
+              "value" in f
             ) {
-              var f = s.value,
-                g = f.errorServerErrors.value;
+              var h = f.value,
+                C = h.errorServerErrors.value;
               return (
                 o("WALogger").LOG(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "fetchResendMissingKeys failed: ",
-                      ":",
-                      "",
-                    ])),
-                  g.code,
-                  g.text,
-                ),
-                (y || (y = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(g.code),
-                    g.text,
-                  ),
-                )
-              );
-              break e;
-            }
-            if (
-              ((typeof s == "object" && s !== null) ||
-                typeof s == "function") &&
-              s.name === "FetchMissingPreKeysResponseRequestError" &&
-              "value" in s
-            ) {
-              var h = s.value,
-                C = h.errorRequestErrorsFetch.value;
-              return (
-                o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "fetchResendMissingKeys failed: ",
                       ":",
                       "",
@@ -221,9 +204,37 @@ __d(
               );
               break e;
             }
+            if (
+              ((typeof f == "object" && f !== null) ||
+                typeof f == "function") &&
+              f.name === "FetchMissingPreKeysResponseRequestError" &&
+              "value" in f
+            ) {
+              var b = f.value,
+                v = b.errorRequestErrorsFetch.value;
+              return (
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "fetchResendMissingKeys failed: ",
+                      ":",
+                      "",
+                    ])),
+                  v.code,
+                  v.text,
+                ),
+                (y || (y = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(v.code),
+                    v.text,
+                  ),
+                )
+              );
+              break e;
+            }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                s,
+                f,
             );
           }
         })),
@@ -293,96 +304,108 @@ __d(
       });
       return (y || (y = n("Promise"))).all(t);
     }
-    function I(e) {
+    function I(e, t) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [],
-            r = 0,
-            a = [];
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r =
+              n("cr:475") == null
+                ? void 0
+                : n("cr:475").getRawPrekeyUsers(t, e.listUser.length),
+            a = [],
+            i = 0,
+            l = [];
           if (
-            (e.listUser.forEach(function (e) {
-              var i =
+            (e.listUser.forEach(function (e, t) {
+              var s =
                 e.userFetchMissingPreKeysSuccessOrFetchMissingPreKeysErrorOrFetchMissingPreKeysErrorFallbackMixinGroup;
-              switch (i.name) {
+              switch (s.name) {
                 case "FetchMissingPreKeysUserSuccess": {
-                  var l = i.value,
-                    s = l.device,
-                    u = l.jid,
-                    c = o("WAWebWidFactory").createWid(u);
-                  s.forEach(function (e) {
-                    var i,
-                      l,
+                  var u = s.value,
+                    c = u.device,
+                    d = u.jid,
+                    m = o("WAWebWidFactory").createWid(d),
+                    p =
+                      n("cr:475") == null
+                        ? void 0
+                        : n("cr:475").getRawPrekeyDevices(
+                            r == null ? void 0 : r[t],
+                            c.length,
+                          );
+                  c.forEach(function (e, t) {
+                    var r,
                       s,
-                      d = e.deviceSuccessOrFetchMissingPreKeysErrorMixinGroup;
-                    if (d.name === "FetchMissingPreKeysDeviceError") {
-                      (r++,
-                        a.length < 3 &&
-                          a.push(
-                            u +
+                      u,
+                      c = e.deviceSuccessOrFetchMissingPreKeysErrorMixinGroup;
+                    if (c.name === "FetchMissingPreKeysDeviceError") {
+                      (i++,
+                        l.length < 3 &&
+                          l.push(
+                            d +
                               ":" +
                               e.id +
                               ": " +
-                              d.value.errorCode +
+                              c.value.errorCode +
                               ":" +
-                              d.value.errorText,
+                              c.value.errorText,
                           ));
                       return;
                     }
-                    var m = d.value,
-                      p = m.preKeyMixin,
-                      _ = m.pQKeyMixin;
-                    t.push({
+                    var _ = c.value,
+                      f = _.preKeyMixin,
+                      g = _.pQKeyMixin;
+                    a.push({
                       aeaEvidence:
-                        (i =
+                        (r =
                           n("cr:475") == null
                             ? void 0
-                            : n("cr:475").parseAeaEvidenceFromPrekey(
-                                m.nonE2EEAttestationOrForceOverrideE2EEStateMixinGroup,
+                            : n("cr:475").parseAeaEvidenceFromKeyNode(
+                                _.nonE2EEAttestationOrForceOverrideE2EEStateMixinGroup,
+                                p == null ? void 0 : p[t],
                               )) != null
-                          ? i
+                          ? r
                           : null,
-                      identity: m.elementValue,
+                      identity: _.elementValue,
                       deviceIdentity:
-                        (l =
-                          (s = m.deviceIdentityMixin) == null
+                        (s =
+                          (u = _.deviceIdentityMixin) == null
                             ? void 0
-                            : s.deviceIdentityElementValue) != null
-                          ? l
+                            : u.deviceIdentityElementValue) != null
+                          ? s
                           : null,
                       skey: {
                         id: o("WAParsableXmlNode").convertBytesToUint(
-                          m.skeyIdKeyIDMixin.elementValue,
+                          _.skeyIdKeyIDMixin.elementValue,
                           3,
                         ),
-                        pubkey: m.skeyValueKeyDataMixin.elementValue,
-                        signature: m.skeySignatureElementValue,
+                        pubkey: _.skeyValueKeyDataMixin.elementValue,
+                        signature: _.skeySignatureElementValue,
                       },
-                      key: p && {
+                      key: f && {
                         id: o("WAParsableXmlNode").convertBytesToUint(
-                          p.keyIdKeyIDMixin.elementValue,
+                          f.keyIdKeyIDMixin.elementValue,
                           3,
                         ),
-                        pubkey: p.keyValueKeyDataMixin.elementValue,
+                        pubkey: f.keyValueKeyDataMixin.elementValue,
                       },
-                      kyberKey: _
+                      kyberKey: g
                         ? {
                             id: o("WAParsableXmlNode").convertBytesToUint(
-                              _.idKeyIDMixin.elementValue,
+                              g.idKeyIDMixin.elementValue,
                               3,
                             ),
-                            publicKey: _.valuePQKeyDataMixin.elementValue,
-                            signature: _.signatureElementValue,
+                            publicKey: g.valuePQKeyDataMixin.elementValue,
+                            signature: g.signatureElementValue,
                           }
                         : null,
                       regId: o("WAParsableXmlNode").convertBytesToUint(
-                        m.registrationElementValue,
+                        _.registrationElementValue,
                         4,
                       ),
                       wid: o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
-                        o("WAWebDeviceListPk").createDeviceListPK(c),
+                        o("WAWebDeviceListPk").createDeviceListPK(m),
                         e.id,
                         !1,
                       ),
@@ -392,15 +415,15 @@ __d(
                 }
                 case "FetchMissingPreKeysUserErrorFallback":
                 case "FetchMissingPreKeysUserError": {
-                  var d = i.value;
-                  (r++,
-                    a.length < 3 &&
-                      a.push(e.jid + ": " + d.errorCode + ":" + d.errorText));
+                  var _ = s.value;
+                  (i++,
+                    l.length < 3 &&
+                      l.push(e.jid + ": " + _.errorCode + ":" + _.errorText));
                   return;
                 }
               }
             }),
-            r > 0 &&
+            i > 0 &&
               o("WALogger")
                 .WARN(
                   f ||
@@ -409,8 +432,8 @@ __d(
                       " users/devices => ",
                       "",
                     ])),
-                  r,
-                  a,
+                  i,
+                  l,
                 )
                 .sendLogs("fetchResendMissingKeys-user-error"),
             o("WALogger").LOG(
@@ -419,12 +442,12 @@ __d(
                   "fetchResendMissingKeys: parsed ",
                   " keys",
                 ])),
-              t.length,
+              a.length,
             ),
-            t.length > 0)
+            a.length > 0)
           ) {
-            var i = yield o("WAWebProcessKeyBundle").processKeyBundles(t),
-              l = i.processedPrekeyCount;
+            var s = yield o("WAWebProcessKeyBundle").processKeyBundles(a),
+              u = s.processedPrekeyCount;
             o("WALogger").LOG(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -432,8 +455,8 @@ __d(
                   "/",
                   " E2E sessions",
                 ])),
-              l,
-              t.length,
+              u,
+              a.length,
             );
           }
         })),

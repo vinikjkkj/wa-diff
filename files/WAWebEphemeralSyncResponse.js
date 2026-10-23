@@ -583,10 +583,7 @@ __d(
         V.apply(this, arguments)
       );
     }
-    var H = w;
-    ((l.processEphemeralSyncResponse = P),
-      (l.syncEphemeralSetting = W),
-      (l._sendEphemeralSyncResponse = H));
+    ((l.processEphemeralSyncResponse = P), (l.syncEphemeralSetting = W));
   },
   98,
 );

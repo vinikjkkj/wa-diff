@@ -1,6 +1,7 @@
 __d(
   "WAWebProcessRetryKeyBundle",
   [
+    "WAJids",
     "WALogger",
     "WAWebAddonRetryRequestUtils",
     "WAWebApiContact",
@@ -25,6 +26,7 @@ __d(
     "WAWebWamMsgUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "cr:17732",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g;
@@ -283,7 +285,7 @@ __d(
                       "processKeyBundle: missing session for retry",
                     ])),
                 ),
-                yield o("WAWebSignal").Session.deleteRemoteInfo(i),
+                yield E(i),
                 !1
               );
             if (l !== a)
@@ -298,7 +300,7 @@ __d(
                   l,
                   a,
                 ),
-                yield o("WAWebSignal").Session.deleteRemoteInfo(i),
+                yield E(i),
                 !1
               );
             o("WALogger").LOG(
@@ -369,6 +371,23 @@ __d(
           return !0;
         })),
         L.apply(this, arguments)
+      );
+    }
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          (((t = e.device) != null ? t : o("WAJids").DEFAULT_DEVICE_ID) ===
+            o("WAJids").DEFAULT_DEVICE_ID &&
+            (yield n("cr:17732") == null
+              ? void 0
+              : n("cr:17732").saveAeaIdentityChangeBaseline(e)),
+            yield o("WAWebSignal").Session.deleteRemoteInfo(e));
+        })),
+        k.apply(this, arguments)
       );
     }
     ((l.loadGroupSentMessage = C),

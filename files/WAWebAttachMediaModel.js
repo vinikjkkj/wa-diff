@@ -662,11 +662,6 @@ __d(
           }
           return this.mediaPrep.sendToChat({ chat: e, options: n });
         }),
-        (i.getFileType = function () {
-          if (!(this.file instanceof Blob || this.file instanceof File))
-            throw r("err")("expected file to be a Blob or File");
-          return o("WAWebFileUtils").typeFromMimetype(this.file.type);
-        }),
         (i.delete = function () {
           (this.fullPreview && window.URL.revokeObjectURL(this.fullPreview),
             t.prototype.delete.call(this),

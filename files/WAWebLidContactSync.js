@@ -11,7 +11,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebProtobufsServerSync.pb",
     "WAWebSetUsernameJob",
-    "WAWebSyncContactsJob",
+    "WAWebSyncNewContact",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
@@ -114,7 +114,7 @@ __d(
                               m != null &&
                               y.push({ userId: a, username: m }),
                             g.push(p),
-                            o("WAWebSyncContactsJob").syncNewContact(a),
+                            o("WAWebSyncNewContact").syncNewContact(a),
                             v++,
                             {
                               actionState:

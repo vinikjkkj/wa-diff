@@ -44,35 +44,33 @@ __d(
         [e.ALLOWED_PREDEFINED_LABEL_IDS.FOLLOW_UP, s.CTWA_LABEL_TYPE.FOLLOW_UP],
         [e.ALLOWED_PREDEFINED_LABEL_IDS.LEAD, s.CTWA_LABEL_TYPE.LEAD],
       ]),
-      c = { globalSharingSettingEnabled: !1 },
-      d = function (t) {
-        return t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.FOLLOW_UP ||
-          t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD ||
-          t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_LEAD
-          ? {}
-          : t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PAID
-            ? { paid: !0 }
-            : { paid: !1 };
-      },
-      m = function (t) {
-        var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
-        switch (e) {
-          case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true:
-            return babelHelpers.extends(
-              { globalSharingSettingEnabled: !0 },
-              o(
-                "WAWebCTWAGatingUtils",
-              ).isPerCustomerDataSharingControlsEnabled()
-                ? null
-                : { eventSharingSettingEnabled: t },
-            );
-          case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false:
-            return c;
-          case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset:
-          default:
-            return null;
-        }
-      };
+      c = { globalSharingSettingEnabled: !1 };
+    function d(e) {
+      return e === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.FOLLOW_UP ||
+        e === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD ||
+        e === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_LEAD
+        ? {}
+        : e === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PAID
+          ? { paid: !0 }
+          : { paid: !1 };
+    }
+    function m(e) {
+      var t = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
+      switch (t) {
+        case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true:
+          return babelHelpers.extends(
+            { globalSharingSettingEnabled: !0 },
+            o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled()
+              ? null
+              : { eventSharingSettingEnabled: e },
+          );
+        case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false:
+          return c;
+        case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset:
+        default:
+          return null;
+      }
+    }
     function p(e, t) {
       var n = t.lead,
         r = t.metadata,

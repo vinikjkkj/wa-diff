@@ -10,7 +10,6 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "WAWebWamEnumTsSurface",
-    "gkx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -226,7 +225,7 @@ __d(
           : babelHelpers.extends({}, e, { id: n }),
         o =
           (t = g[g.length - 1]) != null ? t : { surface: "background", id: -1 };
-      return (g.push(r), w(), R(o), n);
+      return (g.push(r), R(o), n);
     }
     function C(e) {
       return (
@@ -251,7 +250,7 @@ __d(
         return;
       }
       var r = g[n];
-      (g.splice(n, 1), w(), R(r));
+      (g.splice(n, 1), R(r));
     }
     var v = [],
       S = new (o("WAShiftTimer").ShiftTimer)(function () {
@@ -308,57 +307,55 @@ __d(
         p.id !== ((t = f) == null ? void 0 : t.id))
       ) {
         var h = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
-        if ((T(), e.surface === "unknown" && p.surface === "unknown")) {
-          w();
-          return;
+        if ((T(), !(e.surface === "unknown" && p.surface === "unknown"))) {
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[tsNavigation] navigation from ",
+                " to ",
+                " with viewName ",
+                "",
+              ])),
+            e.surface,
+            p.surface,
+            p.viewName,
+          );
+          var y = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
+              tsSessionId: h.id,
+              relativeTimestampMs: h.relativeTimestampMs,
+              navigationSource: _[e.surface],
+              navigationDestination: _[p.surface],
+              navigationDestinationProductArea:
+                (n = p.extras) == null
+                  ? void 0
+                  : n.navigationDestinationProductArea,
+              groupSize: (r = p.extras) == null ? void 0 : r.groupSize,
+              typeOfGroup: (a = p.extras) == null ? void 0 : a.typeOfGroup,
+              threadType: (i = p.extras) == null ? void 0 : i.threadType,
+              cid:
+                (l = p.extras) == null || (l = l.channelWid) == null
+                  ? void 0
+                  : l.user,
+              isCanonicalEntPresent: o(
+                "WAWebCanonicalUtils",
+              ).isCanonicalPresent(),
+            }),
+            C = (s = p.viewName) != null ? s : "";
+          (C != null && (y.navigationDestinationViewName = C),
+            h.tsTimestampMs != null && (y.tsTimestampMs = h.tsTimestampMs),
+            h.unifiedSessionId != null &&
+              (y.unifiedSessionId = h.unifiedSessionId),
+            v.push({
+              sourceId: e.id,
+              destId: p.id,
+              sourceSurface: (d = e.viewName) != null ? d : e.surface,
+              destSurface: (m = p.viewName) != null ? m : p.surface,
+              destNavigationSurface: p.surface,
+              event: y,
+            }),
+            S.onOrBefore(100),
+            (f = p));
         }
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "[tsNavigation] navigation from ",
-              " to ",
-              " with viewName ",
-              "",
-            ])),
-          e.surface,
-          p.surface,
-          p.viewName,
-        );
-        var y = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
-            tsSessionId: h.id,
-            relativeTimestampMs: h.relativeTimestampMs,
-            navigationSource: _[e.surface],
-            navigationDestination: _[p.surface],
-            navigationDestinationProductArea:
-              (n = p.extras) == null
-                ? void 0
-                : n.navigationDestinationProductArea,
-            groupSize: (r = p.extras) == null ? void 0 : r.groupSize,
-            typeOfGroup: (a = p.extras) == null ? void 0 : a.typeOfGroup,
-            threadType: (i = p.extras) == null ? void 0 : i.threadType,
-            cid:
-              (l = p.extras) == null || (l = l.channelWid) == null
-                ? void 0
-                : l.user,
-            isCanonicalEntPresent: o(
-              "WAWebCanonicalUtils",
-            ).isCanonicalPresent(),
-          }),
-          C = (s = p.viewName) != null ? s : "";
-        (C != null && (y.navigationDestinationViewName = C),
-          h.tsTimestampMs != null && (y.tsTimestampMs = h.tsTimestampMs),
-          h.unifiedSessionId != null &&
-            (y.unifiedSessionId = h.unifiedSessionId),
-          v.push({
-            sourceId: e.id,
-            destId: p.id,
-            sourceSurface: (d = e.viewName) != null ? d : e.surface,
-            destSurface: (m = p.viewName) != null ? m : p.surface,
-            destNavigationSurface: p.surface,
-            event: y,
-          }),
-          S.onOrBefore(100),
-          (f = p));
       }
     }
     var L = null;
@@ -450,21 +447,13 @@ __d(
           );
         }
     }
-    var N = !1;
-    function M() {
-      r("gkx")("26258") || (N = !N);
-    }
-    function w() {
-      return r("gkx")("26258") ? !1 : N;
-    }
     ((l.useTsNavigation = h),
       (l.tsNavigationEnter = y),
       (l.tsNavigationExit = b),
       (l.logTsBackgroundNavigation = E),
       (l.setPendingBackgroundNavigation = I),
       (l.logTsForegroundNavigation = D),
-      (l.addNavigationListener = $),
-      (l.toggleTsNavigationDebug = M));
+      (l.addNavigationListener = $));
   },
   98,
 );

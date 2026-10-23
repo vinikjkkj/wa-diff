@@ -287,19 +287,6 @@ __d(
       );
     }
     function C(e) {
-      var t = e === void 0 ? {} : e,
-        n = t.selectable;
-      return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: n }]],
-        [
-          [r("WAWebBoldFormatMutator"), { selectable: n }],
-          [r("WAWebItalicFormatMutator"), { selectable: n }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: n }],
-        ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: n }]],
-      ];
-    }
-    function b(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -322,7 +309,7 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: a }]],
       ].filter(Boolean);
     }
-    function v(e) {
+    function b(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.messageHasSpoiler,
@@ -391,7 +378,7 @@ __d(
         ])
         .filter(Boolean);
     }
-    function S(e) {
+    function v(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -411,7 +398,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function R(e) {
+    function S(e) {
       var t = e.groupMentions,
         n = e.groupMetadata,
         a = e.mentions,
@@ -439,7 +426,7 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: i }]],
       ].filter(Boolean);
     }
-    function L(e) {
+    function R(e) {
       var t,
         a = e.links,
         i = !!e.expandedFormattingEnabled,
@@ -487,7 +474,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function E(e) {
+    function L(e) {
       var t,
         a = !!(e != null && e.expandedFormattingEnabled),
         i = !!((t = e == null ? void 0 : e.bulletPointsEnabled) != null
@@ -535,7 +522,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function k(e) {
+    function E(e) {
       var t = e === void 0 ? {} : e,
         n = t.links,
         o = t.selectable,
@@ -547,7 +534,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o }]],
       ].filter(Boolean);
     }
-    function I(e) {
+    function k(e) {
       e === void 0 && (e = {});
       var t = e,
         n = t.groupMentions,
@@ -626,7 +613,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function T(e) {
+    function I(e) {
       var t = e.selectable,
         n = e.parseHeadings,
         a = n === void 0 ? !0 : n,
@@ -718,16 +705,15 @@ __d(
       (l.SearchName = g),
       (l.LastMessage = h),
       (l.FTSMessage = y),
-      (l.QuickReply = C),
-      (l.Unformat = b),
-      (l.QuotedMention = v),
-      (l.FormattedNotification = S),
-      (l.FormattedGroupNotification = R),
-      (l.TrustedGroupDesc = L),
-      (l.UntrustedGroupDesc = E),
-      (l.HeaderAndFooter = k),
-      (l.InlineMessage = I),
-      (l.RichResponse = T));
+      (l.Unformat = C),
+      (l.QuotedMention = b),
+      (l.FormattedNotification = v),
+      (l.FormattedGroupNotification = S),
+      (l.TrustedGroupDesc = R),
+      (l.UntrustedGroupDesc = L),
+      (l.HeaderAndFooter = E),
+      (l.InlineMessage = k),
+      (l.RichResponse = I));
   },
   98,
 );

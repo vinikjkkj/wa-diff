@@ -120,14 +120,15 @@ __d(
           try {
             if (
               (y.forEach(function (e) {
+                var t, n;
                 if (!e.isUserNotPSA()) {
                   x++;
                   return;
                 }
-                var t = o("WAWebSignalCommonUtils").createSignalAddress(e, h),
-                  n = o("WAWebAeaRollout").isAeaEnforcementEnabled()
+                var a = o("WAWebSignalCommonUtils").createSignalAddress(e, h),
+                  i = o("WAWebAeaRollout").isAeaEnforcementEnabled()
                     ? [
-                        t,
+                        a,
                         String(r != null),
                         String(r == null ? void 0 : r.isMonitoredSend),
                         String(
@@ -135,12 +136,18 @@ __d(
                             ? void 0
                             : r.isBeforeEnforcedSendDecision) === !0,
                         ),
+                        (t =
+                          r == null || (n = r.sendRecipient) == null
+                            ? void 0
+                            : n.toString()) != null
+                          ? t
+                          : "",
                       ].join(":")
-                    : t,
-                  a = v.get(n);
-                a
-                  ? (R.push(a), L.push(e))
-                  : (T.push(e), k.push(n), v.set(n, C.promise));
+                    : a,
+                  l = v.get(i);
+                l
+                  ? (R.push(l), L.push(e))
+                  : (T.push(e), k.push(i), v.set(i, C.promise));
               }),
               x > 0 &&
                 o("WALogger").LOG(

@@ -28,6 +28,7 @@ __d(
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWamMediaPickerStatsLogger",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -191,7 +192,7 @@ __d(
                   ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
                   : null;
                 (yield this.processAttachments(e, t, i, s, a, u, c),
-                  o("WAWebBotUtils").isMetaAiBot(n.id) && d(this, n));
+                  o("WAWebBotUtils").isMetaAiBot(n.id) && m(this, n));
               },
             );
             function t(t, n, r, o, a) {
@@ -361,23 +362,23 @@ __d(
               l = 0,
               u = 0,
               c = 0,
-              d = null,
-              m = 0,
+              m = null,
               p = 0,
               _ = 0,
               f = 0,
               g = 0,
               h = 0,
               y = 0,
-              C = !1,
-              b = o("WAWebL10nFilesize").getL10nFilesize(
+              C = 0,
+              b = !1,
+              v = o("WAWebL10nFilesize").getL10nFilesize(
                 o("WAWebServerPropConstants").MAX_FILE_SIZE_BYTES,
               ),
-              v = o("WAWebL10nFilesize").getL10nFilesize(
+              S = o("WAWebL10nFilesize").getL10nFilesize(
                 o("WAWebServerPropConstants").VCARD_MAX_SIZE_KB * 1024,
               ),
-              S = n === o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
-              R = S
+              R = n === o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
+              L = R
                 ? o("WAWebWamEnumMediaPickerOriginType")
                     .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_PHOTO_LIBRARY
                 : null;
@@ -408,35 +409,35 @@ __d(
                         break;
                       case o("WAWebFileUtils").FILETYPE.DOCUMENT:
                         e.isVcardOverMmsDocument
-                          ? (m += e.documentPageCount)
-                          : ((c += 1), (d = e.exception.uploadLimit));
+                          ? (p += e.documentPageCount)
+                          : ((c += 1), (m = e.exception.uploadLimit));
                         break;
                     }
                   else if (
                     e.exception instanceof
                     o("WAWebMediaFileErrors").MediaFileEmpty
                   )
-                    switch (e.getFileType()) {
+                    switch (d(e)) {
                       case o("WAWebFileUtils").FILETYPE.IMAGE:
-                        p += 1;
-                        break;
-                      case o("WAWebFileUtils").FILETYPE.VIDEO:
                         _ += 1;
                         break;
-                      case o("WAWebFileUtils").FILETYPE.AUDIO:
+                      case o("WAWebFileUtils").FILETYPE.VIDEO:
                         f += 1;
+                        break;
+                      case o("WAWebFileUtils").FILETYPE.AUDIO:
+                        g += 1;
                         break;
                       case o("WAWebFileUtils").FILETYPE.DOCUMENT:
                         e.isVcardOverMmsDocument
-                          ? (h += e.documentPageCount)
-                          : (g += 1);
+                          ? (y += e.documentPageCount)
+                          : (h += 1);
                         break;
                     }
                   else
                     e.exception instanceof
                     o("WAWebMediaFileErrors").MediaFileFailedLoad
-                      ? (C = !0)
-                      : (y += 1);
+                      ? (b = !0)
+                      : (C += 1);
               }),
               i > 0 &&
                 e.push(
@@ -447,7 +448,7 @@ __d(
                       s._param(
                         "maxSize",
                         o("WAWebL10nFilesize").getL10nFilesize(
-                          o("WAWebMediaGatingUtils").getUploadLimit("image", R),
+                          o("WAWebMediaGatingUtils").getUploadLimit("image", L),
                         ),
                       ),
                     ],
@@ -462,7 +463,7 @@ __d(
                       s._param(
                         "maxSize",
                         o("WAWebL10nFilesize").getL10nFilesize(
-                          o("WAWebMediaGatingUtils").getUploadLimit("video", R),
+                          o("WAWebMediaGatingUtils").getUploadLimit("video", L),
                         ),
                       ),
                     ],
@@ -478,7 +479,7 @@ __d(
                       s._param(
                         "maxSize",
                         o("WAWebL10nFilesize").getL10nFilesize(
-                          o("WAWebMediaGatingUtils").getUploadLimit("audio", R),
+                          o("WAWebMediaGatingUtils").getUploadLimit("audio", L),
                         ),
                       ),
                     ],
@@ -486,69 +487,69 @@ __d(
                 ),
               c > 0)
             ) {
-              var L = d != null ? o("WAWebL10nFilesize").getL10nFilesize(d) : b;
+              var E = m != null ? o("WAWebL10nFilesize").getL10nFilesize(m) : v;
               e.push(
                 s._(
                   /*BTDS*/ '_j{"*":{"*":"{number} documents you tried adding are larger than the {maxSize} limit."},"_1":{"_1":"1 document you tried adding is larger than the {maxSize} limit."}}',
                   [
                     s._plural(c, "number"),
                     s._plural(c),
-                    s._param("maxSize", L),
+                    s._param("maxSize", E),
                   ],
                 ),
               );
             }
             if (
-              (m > 0 &&
+              (p > 0 &&
                 e.push(
                   s._(
                     /*BTDS*/ '_j{"*":"The contacts that you tried to add are larger than the {maxSize} limit.","_1":"The contact that you tried to add is larger than the {maxSize} limit."}',
-                    [s._plural(m), s._param("maxSize", v)],
-                  ),
-                ),
-              p > 0 &&
-                e.push(
-                  s._(
-                    /*BTDS*/ '_j{"*":"{number} images you tried adding have no content.","_1":"1 image you tried adding has no content."}',
-                    [s._plural(p, "number")],
+                    [s._plural(p), s._param("maxSize", S)],
                   ),
                 ),
               _ > 0 &&
                 e.push(
                   s._(
-                    /*BTDS*/ '_j{"*":{"*":"{number} videos you tried adding have no content."},"_1":{"_1":"1 video you tried adding has no content."}}',
-                    [s._plural(_, "number"), s._plural(_)],
+                    /*BTDS*/ '_j{"*":"{number} images you tried adding have no content.","_1":"1 image you tried adding has no content."}',
+                    [s._plural(_, "number")],
                   ),
                 ),
               f > 0 &&
                 e.push(
                   s._(
-                    /*BTDS*/ '_j{"*":{"*":"{number} files you tried adding have no content."},"_1":{"_1":"1 file you tried adding has no content."}}',
+                    /*BTDS*/ '_j{"*":{"*":"{number} videos you tried adding have no content."},"_1":{"_1":"1 video you tried adding has no content."}}',
                     [s._plural(f, "number"), s._plural(f)],
                   ),
                 ),
               g > 0 &&
                 e.push(
                   s._(
-                    /*BTDS*/ '_j{"*":{"*":"{number} documents you tried adding have no content."},"_1":{"_1":"1 document you tried adding has no content."}}',
+                    /*BTDS*/ '_j{"*":{"*":"{number} files you tried adding have no content."},"_1":{"_1":"1 file you tried adding has no content."}}',
                     [s._plural(g, "number"), s._plural(g)],
                   ),
                 ),
               h > 0 &&
                 e.push(
                   s._(
-                    /*BTDS*/ '_j{"*":{"*":"{number} contacts that you tried to add have no content."},"_1":{"_1":"1 contact that you tried to add has no content."}}',
+                    /*BTDS*/ '_j{"*":{"*":"{number} documents you tried adding have no content."},"_1":{"_1":"1 document you tried adding has no content."}}',
                     [s._plural(h, "number"), s._plural(h)],
                   ),
                 ),
               y > 0 &&
                 e.push(
                   s._(
-                    /*BTDS*/ '_j{"*":"{number} files you tried adding are not supported.","_1":"1 file you tried adding is not supported."}',
-                    [s._plural(y, "number")],
+                    /*BTDS*/ '_j{"*":{"*":"{number} contacts that you tried to add have no content."},"_1":{"_1":"1 contact that you tried to add has no content."}}',
+                    [s._plural(y, "number"), s._plural(y)],
                   ),
                 ),
-              C &&
+              C > 0 &&
+                e.push(
+                  s._(
+                    /*BTDS*/ '_j{"*":"{number} files you tried adding are not supported.","_1":"1 file you tried adding is not supported."}',
+                    [s._plural(C, "number")],
+                  ),
+                ),
+              b &&
                 ((e = []),
                 e.push(
                   s._(/*BTDS*/ "The item you tried adding failed to load."),
@@ -556,41 +557,41 @@ __d(
               e.length > 1)
             ) {
               e = [];
-              var E = i + l + u + c,
-                k = p + _ + f + g,
-                I = E + k + y;
-              y === 0
-                ? (E !== 0 &&
+              var k = i + l + u + c,
+                I = _ + f + g + h,
+                T = k + I + C;
+              C === 0
+                ? (k !== 0 &&
                     e.push(
                       s._(
                         /*BTDS*/ '_j{"*":"{number} files you tried adding are larger than the {maxSize} limit.","_1":"1 file you tried adding is larger than the {maxSize} limit."}',
-                        [s._plural(E, "number"), s._param("maxSize", b)],
+                        [s._plural(k, "number"), s._param("maxSize", v)],
                       ),
                     ),
-                  k !== 0 &&
+                  I !== 0 &&
                     e.push(
                       s._(
                         /*BTDS*/ '_j{"*":"{number} files you tried adding have no content.","_1":"1 file you tried adding has no content."}',
-                        [s._plural(k, "number")],
+                        [s._plural(I, "number")],
                       ),
                     ))
                 : e.push(
                     s._(
                       /*BTDS*/ '_j{"*":"{number} files could not be added.","_1":"1 file could not be added."}',
-                      [s._plural(I, "number")],
+                      [s._plural(T, "number")],
                     ),
                   );
             }
-            var T = e.join(" ");
-            this.errorMsgs = T;
-            var D = this.getPreviewableMedias().length;
-            this.ignore(D - t);
-            var x = this.ignored;
+            var D = e.join(" ");
+            this.errorMsgs = D;
+            var x = this.getPreviewableMedias().length;
+            this.ignore(x - t);
+            var $ = this.ignored;
             return (
               (this.ignored = 0),
-              x && this.trigger("max_upload_limit", x),
-              y > 0 && this.trigger("files_not_supported"),
-              { errorMsgs: T }
+              $ && this.trigger("max_upload_limit", $),
+              C > 0 && this.trigger("files_not_supported"),
+              { errorMsgs: D }
             );
           }),
           (i.canSendMedia = function (t) {
@@ -621,12 +622,18 @@ __d(
       var t = e.file;
       return t instanceof File ? t.type : null;
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function d(e) {
+      var t = e.file;
+      if (!(t instanceof Blob || t instanceof File))
+        throw r("err")("expected file to be a Blob or File");
+      return o("WAWebFileUtils").typeFromMimetype(t.type);
     }
-    function m() {
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.countWhere(function (e) {
             return (
               e.exception instanceof r("WAWebMediaFileTooLargeError") &&
@@ -645,7 +652,7 @@ __d(
               ).getMetaAiImagineEventContext(t),
             });
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
     l.default = u;

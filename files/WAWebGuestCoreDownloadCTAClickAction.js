@@ -66,7 +66,7 @@ __d(
         e === o("WAWebGuestCoreConsts").GuestMobilePlatform.IOS_BROWSER
         ? C(c)
         : e === o("WAWebGuestCoreConsts").GuestMobilePlatform.ANDROID_BROWSER
-          ? b(t, n, r)
+          ? b({ eventInviteCode: n, eventToken: t, guestBct: r })
           : e === o("WAWebGuestCoreConsts").GuestMobilePlatform.UNKNOWN
             ? s
             : (function () {
@@ -113,14 +113,17 @@ __d(
     function C(t) {
       return e + "&ct=" + t;
     }
-    function b(e, t, n) {
-      var r = new URLSearchParams();
+    function b(e) {
+      var t = e.eventInviteCode,
+        n = e.eventToken,
+        r = e.guestBct,
+        o = new URLSearchParams();
       return (
-        r.set("mode", "gr"),
-        r.set("event_code", e),
-        t !== "" && r.set("ic", t),
-        n !== "" && r.set("bct", n),
-        "https://www.whatsapp.com/dl/?" + r.toString()
+        o.set("mode", "gr"),
+        o.set("event_code", n),
+        t !== "" && o.set("ic", t),
+        r !== "" && o.set("bct", r),
+        "https://www.whatsapp.com/dl/?" + o.toString()
       );
     }
     ((l.isGuestEventsSurface = d),

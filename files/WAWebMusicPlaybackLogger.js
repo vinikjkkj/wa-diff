@@ -6,25 +6,24 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebUserThreadIdHmac",
+    "WAWebWamEnumMusicProduct",
     "WamMusicPlaybackFalcoEvent",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u = 4;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a = (n = t.musicData) == null ? void 0 : n.musicContentMediaId;
           if (a != null) {
             var i = t.id.fromMe,
-              l = m(t);
+              l = d(t);
             if (l == null) {
               o("WALogger")
                 .WARN(
@@ -36,36 +35,37 @@ __d(
                 .sendLogs("music-playback-missing-author-lid");
               return;
             }
-            var s = yield _(l, a);
+            var s = yield p(l, a);
             s != null &&
               r("WamMusicPlaybackFalcoEvent").log(function () {
                 return {
                   content_id_hash: s,
-                  music_product: u,
+                  music_product: o("WAWebWamEnumMusicProduct").MUSIC_PRODUCT
+                    .CHATS,
                   is_self_play: i,
                 };
               });
           }
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function m(e) {
-      if (p(e)) return o("WAWebFrontendMsgGetters").getChat(e).accountLid;
+    function d(e) {
+      if (m(e)) return o("WAWebFrontendMsgGetters").getChat(e).accountLid;
       var t = o("WAWebMsgGetters").getSender(e);
       return t == null || !t.isUser()
         ? null
         : o("WAWebLidMigrationUtils").toUserLid(t);
     }
-    function p(e) {
+    function m(e) {
       return !e.id.fromMe && !o("WAWebMsgGetters").getIsGroupMsg(e);
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield o("WAWebUserThreadIdHmac").generateUserThreadIDHMAC(
               e.toString(),
@@ -86,10 +86,10 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.logMusicPlayback = c;
+    l.logMusicPlayback = u;
   },
   98,
 );

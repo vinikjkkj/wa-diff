@@ -58,6 +58,7 @@ __d(
                 12,
                 o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE,
               ],
+              imagineRequestId: [31, e.TYPES.STRING],
               implementationType: [
                 11,
                 o("WAWebWamEnumImplementationType").IMPLEMENTATION_TYPE,

@@ -9,6 +9,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,7 +52,7 @@ __d(
       if (a == null) return null;
       var i = o("WAWebCustomerContactResolver").resolveCustomerContact(n);
       return {
-        candidateLid: a.user,
+        candidateLid: o("WAWebWidToJid").userLidtoLidUserJid(a),
         chatJid: e,
         lastMessageT: r == null ? void 0 : r.t,
         sortName: i != null ? p(i) : "",

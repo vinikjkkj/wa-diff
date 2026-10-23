@@ -487,26 +487,6 @@ __d(
         }
         return t;
       })(),
-      sendNewsletterFollowerInviteMessage: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          r("vulture")("9to7V2njUyHWfgq7v3gwUmy2DWI=");
-          var n = o("WAWebDebugUtils").getSelectedChat(),
-            a = o("WAWebDecodeJid").strictDecodeJid(e);
-          if (n == null || a == null)
-            throw r("err")("No selected chat or invalid jid");
-          yield o(
-            "WAWebNewsletterSendMsgAction",
-          ).sendNewsletterFollowerInviteMessage(n, {
-            newsletterWid: a,
-            inviteMessage: t != null ? t : "Please follow this channel!",
-            base64Thumb: null,
-          });
-        });
-        function t(t, n) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
       showDemoteNotif: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("tO3wzanE9Fn2NwlkGJrhbtiDyr4=");

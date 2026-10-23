@@ -7,8 +7,6 @@ __d(
     "WAWebChatCollection",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactCollection",
-    "WAWebEphemeralSyncResponse",
-    "WAWebEphemeralityTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgCollection",
     "WAWebMsgKey",
@@ -23,45 +21,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, o) {
+    function s(e, t) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            r("vulture")("EkqlDVfmMJIiP91elkBCODUyNZA=");
-            var l = o("WAWebEphemeralityTypes").DisappearingModeInitiator.cast(
-                a,
-              ),
-              s = o("WAWebEphemeralityTypes").DisappearingModeTrigger.cast(i);
-            if (l == null || s == null)
-              throw r("err")("initator or trigger is not a valid enum");
-            var u = o("WAWebWidFactory").createUserWidOrThrow(e),
-              c = o("WAWebChatCollection").ChatCollection.get(u);
-            if (c == null) throw r("err")("Couldn't find chat for number " + e);
-            yield o("WAWebEphemeralSyncResponse")._sendEphemeralSyncResponse({
-              changes: {
-                duration: t,
-                settingTimestamp: n,
-                initiator: l,
-                disappearingModeTrigger: s,
-              },
-              to: u,
-            });
-          },
-        )),
-        u.apply(this, arguments)
-      );
-    }
-    s.doc =
-      "Sends an ESR message to the give number with provided duration, ts, and initiator";
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           r("vulture")("77AFAtim88Ie31oScn1o7cSI_WY=");
           var a = o("WAWebWidFactory").createUserWidOrThrow(e),
@@ -79,16 +44,16 @@ __d(
           var l = o("WAWebContactCollection").ContactCollection.get(a);
           l == null || l.set("isEphemeralityDisabled", t);
         })),
-        d.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    c.doc = "Sets or unsets isEphemeralityDisabled on the specified contact";
-    function m(e, t) {
-      return p.apply(this, arguments);
+    s.doc = "Sets or unsets isEphemeralityDisabled on the specified contact";
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function p() {
+    function d() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           r("vulture")("W2lJnXpkBCsEJ011Lh6WjtdnwsA=");
           var n = yield o(
               "WAWebMsgCollection",
@@ -98,17 +63,17 @@ __d(
           var i = o("WATimeUtils").unixTime() + t;
           a.expiredTimestamp = i;
         })),
-        p.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    m.doc =
+    c.doc =
       "Overrides expiredTimestamp on the given msg to (now + durationSeconds). Use durationSeconds=0 to expire immediately. Triggers the AR receiver-side expiration timer / fade-out animation. Note: in-memory only \u2014 change is lost on reload. msgId is the serialized msg key string (e.g. 'false_447...@c.us_3EB0...').";
-    function _() {
-      return f.apply(this, arguments);
+    function m() {
+      return p.apply(this, arguments);
     }
-    function f() {
+    function p() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("wkotZBsl40rBy6H--MEt7BLTdig=");
           var t = o("WAWebChatCollection")
             .ChatCollection.getModelsArray()
@@ -147,18 +112,17 @@ __d(
             t.length
           );
         })),
-        f.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    _.doc =
+    m.doc =
       'Inserts a keep-in-chat gp2 system message (subtype ephemeral_keep_in_chat, the "Learn more" notice) into every chat that has disappearing messages enabled (ephemeralDuration > 0). Reproduces the server-sent EPHEMERAL_KEEP_IN_CHAT notice locally via handleSingleMsg (no network; persisted to DB). Returns the number of chats updated. Use to preview/QA the keep-in-chat system message and its CTA.';
-    var g = {
-      sendEphemeralSyncResponse: s,
-      setEphemeralityDisabledForContact: c,
-      overrideMsgExpiredTimestamp: m,
-      addKeepInChatSystemMsgToAllEphemeralChats: _,
+    var _ = {
+      setEphemeralityDisabledForContact: s,
+      overrideMsgExpiredTimestamp: c,
+      addKeepInChatSystemMsgToAllEphemeralChats: m,
     };
-    l.default = g;
+    l.default = _;
   },
   98,
 );

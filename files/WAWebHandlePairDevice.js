@@ -49,7 +49,7 @@ __d(
             u = l.makeSetToCompanionResponseClientResponse,
             c = l.parsedRequest,
             d = c.pairDeviceRef.map(function (e) {
-              var t = new (o("WABinary").Binary)(e.elementValue);
+              var t = o("WABinary").Binary.build(e.elementValue);
               return t.readString(t.size());
             });
           return (f(d), u());

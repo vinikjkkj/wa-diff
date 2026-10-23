@@ -25,13 +25,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d, m, p;
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.stanzaTo;
           if (
@@ -83,10 +83,10 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       return (
         (e == null ? void 0 : e.statelessSessionEnabled) === !0 &&
         (t.isHosted() ||
@@ -94,59 +94,59 @@ __d(
             o("WAWebSendMsgCommonApi").isPrimaryDevice(t)))
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (m || (m = n("Promise"))).all(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield (p || (p = n("Promise"))).all(
             t
               .filter(function (t) {
-                return !t.isHosted() && f(e, t);
+                return !t.isHosted() && g(e, t);
               })
               .map(function (e) {
                 return o("WAWebSignalSessionApi").deleteRemoteSession(e);
               }),
           );
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!e.isUser() || e.isBot() || e.isFbidBot()) return !1;
           var t =
             ((yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) &&
               !(yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
                 e,
               ))) ||
-            (yield N());
+            (yield M());
           return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!x(e, t) || !(yield T())) return null;
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!$(e, t) || !(yield D())) return null;
           var n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
           return n == null
             ? null
             : { agentCopyIsRequired: !0, kind: "user_agent", selfLid: n };
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       var t = e.hasFbidBotDevice,
         n = e.isBotInvokeMessage,
         r = e.isResendingMsg,
@@ -156,63 +156,76 @@ __d(
         ? null
         : { agentCopyIsRequired: !1, kind: "invoked_agent", relayPlan: a };
     }
-    function R(e, t) {
+    function L(e, t) {
       return (e == null ? void 0 : e.agentCopyIsRequired) === !0 && t === 0;
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             r = e.chatId,
             a = e.isAeaE2eeSend,
             i = e.msgProtobuf,
             l = e.option,
             s = e.stanzaTo;
-          if (!$(i, s, l)) return null;
-          var c = yield (m || (m = n("Promise"))).all([
-              T(),
+          if (!P(i, s, l)) return null;
+          var d = yield (p || (p = n("Promise"))).all([
+              D(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(r),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(r),
-              a != null ? a : k(r, i),
+              a != null ? a : I(r, i),
             ]),
-            d = c[0],
-            p = c[1],
-            _ = c[2],
-            f = c[3],
-            g = p && !f;
-          if (!d && !g) return null;
-          var h = d ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
-            y = g && !_ ? P(t == null ? void 0 : t.accountLid, s) : null,
-            C =
-              y != null &&
-              (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(y));
-          g &&
-            (_ || C) &&
-            o("WALogger")
-              .WARN(
+            m = d[0],
+            _ = d[1],
+            f = d[2],
+            g = d[3],
+            h = _ && !g;
+          if (
+            (_ &&
+              g &&
+              o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[aea] relay copy stopped chat=",
+                    "",
+                  ])),
+                r.toLogString(),
+              ),
+            !m && !h)
+          )
+            return null;
+          var y = m ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
+            C = h && !f ? N(t == null ? void 0 : t.accountLid, s) : null,
+            b =
+              C != null &&
+              (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(C));
+          h &&
+            (f || b) &&
+            o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[coexv2] relay: peer is blocked; dropping peer <to>",
                   ])),
               )
               .sendLogs("coexv2-relay-peer-blocked");
-          var b = C ? null : y;
-          return h == null && b == null
+          var v = b ? null : C;
+          return y == null && v == null
             ? null
-            : { peerLid: b, selfIsCoexV2: d, selfLid: h };
+            : { peerLid: v, selfIsCoexV2: m, selfLid: y };
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a,
             i = (a = t.protocolMessage) == null ? void 0 : a.type;
           if (
@@ -230,9 +243,9 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] relay: failed to read the AEA thread state",
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[aea] relay copy: failed to read the thread state",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
@@ -241,15 +254,15 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
-    }
     function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebApiDeviceList").getMyDeviceList();
             return e.devices.some(function (e) {
@@ -259,8 +272,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[coexv2] gate: failed to read self device list",
                     ])),
                 )
@@ -270,10 +283,10 @@ __d(
             );
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t) {
+    function $(e, t) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
         e.isFbidBot() &&
@@ -281,7 +294,7 @@ __d(
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(t)
       );
     }
-    function $(e, t, n) {
+    function P(e, t, n) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
         n.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
@@ -292,7 +305,7 @@ __d(
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(e)
       );
     }
-    function P(t, n) {
+    function N(t, n) {
       var r =
         t != null && t.isLid() ? t : o("WAWebLidMigrationUtils").toUserLid(n);
       return (
@@ -308,21 +321,21 @@ __d(
         r
       );
     }
-    function N() {
+    function M() {
       return o("WAWebUserPrefsMeUser").getMaybeMeLidUser() == null
-        ? (m || (m = n("Promise"))).resolve(!1)
-        : T();
+        ? (p || (p = n("Promise"))).resolve(!1)
+        : D();
     }
-    ((l.resolveCoexV2SimpleSignalPolicy = p),
-      (l.shouldUseCoexV2StatelessSession = f),
-      (l.deleteCoexV2SimpleSignalPrimarySessions = g),
-      (l.genIsCoexV2RelayEligibleSend = y),
-      (l.getCoexV2AgentSendPlan = b),
-      (l.getCoexV2InvokedAgentSendPlan = S),
-      (l.shouldRejectCoexV2AgentSend = R),
-      (l.getCoexV2RelaySendPlan = L),
-      (l.shouldAeaStopRelayCopy = k),
-      (l.isSelfCoexV2Hosted = T));
+    ((l.resolveCoexV2SimpleSignalPolicy = _),
+      (l.shouldUseCoexV2StatelessSession = g),
+      (l.deleteCoexV2SimpleSignalPrimarySessions = h),
+      (l.genIsCoexV2RelayEligibleSend = C),
+      (l.getCoexV2AgentSendPlan = v),
+      (l.getCoexV2InvokedAgentSendPlan = R),
+      (l.shouldRejectCoexV2AgentSend = L),
+      (l.getCoexV2RelaySendPlan = E),
+      (l.shouldAeaStopRelayCopy = I),
+      (l.isSelfCoexV2Hosted = D));
   },
   98,
 );

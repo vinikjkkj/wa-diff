@@ -8,6 +8,7 @@ __d(
       VIDEO_PREVIEW: 3,
       CONTEXT_MENU: 4,
       MEDIA_CAPTION: 5,
+      CTA_BUTTON: 6,
     });
     i.CHANNEL_POST_LINK_PLACEMENT = e;
   },

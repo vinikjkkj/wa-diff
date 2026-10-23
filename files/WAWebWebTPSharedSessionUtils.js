@@ -3,24 +3,27 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebRemoveExpiredWebTPSharedSessions",
     "WAWebSchemaWebTPSharedSession",
     "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t, n) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           try {
             if (r != null) {
-              yield S();
-              var a = yield g();
-              yield y(a);
+              yield o(
+                "WAWebRemoveExpiredWebTPSharedSessions",
+              ).removeExpiredWebTPSharedSessions();
+              var a = yield f();
+              yield h(a);
             }
             var i = o("WATimeUtils").unixTime(),
               l = o(
@@ -48,15 +51,15 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o(
                 "WAWebSchemaWebTPSharedSession",
@@ -79,15 +82,15 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g() {
-      return h.apply(this, arguments);
+    function f() {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o(
               "WAWebSchemaWebTPSharedSession",
             ).getWebTPSharedSessionTable(),
@@ -95,15 +98,15 @@ __d(
             n = yield e.betweenCount(["expiresAt"], t, 1 / 0);
           return n;
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = r("justknobx")._("2196"),
               n = e - t + 1;
@@ -129,15 +132,15 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o(
               "WAWebSchemaWebTPSharedSession",
@@ -157,42 +160,12 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = o(
-                "WAWebSchemaWebTPSharedSession",
-              ).getWebTPSharedSessionTable(),
-              t = o("WATimeUtils").unixTime(),
-              n = yield e.bulkDeleteRange(["expiresAt"], 0, t);
-          } catch (e) {
-            throw (
-              o("WALogger").ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[PDF3PBridge] Failed to remove expired sessions: ",
-                    "",
-                  ])),
-                e,
-              ),
-              e
-            );
-          }
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    ((l.storeWebTPSharedSession = m),
-      (l.getWebTPSharedSession = _),
-      (l.clearWebTPSharedSessionFileBuffer = b),
-      (l.removeExpiredWebTPSharedSessions = S));
+    ((l.storeWebTPSharedSession = d),
+      (l.getWebTPSharedSession = p),
+      (l.clearWebTPSharedSessionFileBuffer = C));
   },
   98,
 );

@@ -422,6 +422,7 @@ __d(
         AEA_CONSUMER_BACKFILL_SCHEDULED_VERSION:
           "WAAeaConsumerBackfillScheduledVersion",
         AEA_CONSUMER_BACKFILL_RUN_HISTORY: "WAAeaConsumerBackfillRunHistory",
+        AEA_IDENTITY_CHANGE_BASELINES: "WAAeaIdentityChangeBaselines",
       }),
       _ = Object.freeze({
         USER_PRIVACY_SETTINGS: "user-privacy-settings",

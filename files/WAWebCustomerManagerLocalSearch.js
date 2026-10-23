@@ -14,7 +14,6 @@ __d(
     "WAWebLeadStage",
     "WAWebLeadStageNames",
     "WAWebPhoneNumberSearch",
-    "WAWebWid",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -164,10 +163,11 @@ __d(
     function y(t) {
       if (t == null) return null;
       var n = [];
-      for (var a of t)
+      for (var r of t) {
+        var a = o("WAJids").validateLidUserJid(r);
         if (
-          r("WAWebWid").isStringLid(a) &&
-          (n.push(o("WAWebWidFactory").createUserLidOrThrow(a).user),
+          a != null &&
+          (n.push(a),
           n.length ===
             o("WAWebCustomerManagerProfileQueryPlan").MAX_CANDIDATE_LIDS)
         ) {
@@ -183,15 +183,16 @@ __d(
             .sendLogs("customer_manager_search_candidates_truncated");
           break;
         }
+      }
       return n;
     }
     function C(e, t) {
       var n = new Set();
       for (var r of t)
-        for (var a of (i = e.get(r)) != null ? i : []) {
-          var i,
-            l = a.candidateLid;
-          n.add(o("WAJids").toLidUserJid(l));
+        for (var o of (a = e.get(r)) != null ? a : []) {
+          var a,
+            i = o.candidateLid;
+          n.add(i);
         }
       return n;
     }
@@ -199,10 +200,10 @@ __d(
       var t = new Map();
       for (var n of e) {
         var r = n[0],
-          a = n[1];
-        for (var i of a) {
-          var l = i.candidateLid;
-          t.set(o("WAJids").toLidUserJid(l), r);
+          o = n[1];
+        for (var a of o) {
+          var i = a.candidateLid;
+          t.set(i, r);
         }
       }
       return t;

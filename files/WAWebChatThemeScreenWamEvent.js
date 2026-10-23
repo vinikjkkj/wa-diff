@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumChatThemeEntryType",
     "WAWebWamEnumChatWallpaperType",
     "WAWebWamEnumDeviceAppearanceType",
+    "WAWebWamEnumSharedChatThemeSharingResult",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -29,6 +30,11 @@ __d(
               ],
               colorSchemeId: [6, e.TYPES.STRING],
               dedupKey: [8, e.TYPES.INTEGER],
+              sharingResult: [
+                9,
+                o("WAWebWamEnumSharedChatThemeSharingResult")
+                  .SHARED_CHAT_THEME_SHARING_RESULT,
+              ],
               wallpaperId: [7, e.TYPES.STRING],
             },
             [1, 1, 1],

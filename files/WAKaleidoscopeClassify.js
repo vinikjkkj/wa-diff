@@ -33,11 +33,12 @@ __d(
             e: {
               if (t === "audio") return yield k(e, r);
               if (t === "sticker-pack") return yield T(e, r);
+              if (t === "sound-sticker-audio") return yield x(e, r);
               if (t === "image") return yield L(e, r);
               if (t === "video" || t === "gif") return yield S(e, r);
               if (t === "document") {
                 var o = n != null ? [n] : [];
-                return yield x(
+                return yield P(
                   babelHelpers.extends(
                     {
                       input: e,
@@ -67,7 +68,7 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["video/mp4", "video/quicktime"];
-          return yield x(
+          return yield P(
             babelHelpers.extends(
               {
                 input: e,
@@ -90,7 +91,7 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-          return yield x(
+          return yield P(
             babelHelpers.extends(
               {
                 input: e,
@@ -113,7 +114,7 @@ __d(
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["audio/ogg; codecs=opus", "audio/m4a", "audio/x-m4a"];
-          return yield x(
+          return yield P(
             babelHelpers.extends(
               {
                 input: e,
@@ -136,7 +137,7 @@ __d(
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["application/zip", "image/webp", "application/was"];
-          return yield x(
+          return yield P(
             babelHelpers.extends(
               {
                 input: e,
@@ -152,12 +153,34 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x(e) {
+    function x(e, t) {
       return $.apply(this, arguments);
     }
     function $() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return yield P(
+            babelHelpers.extends(
+              {
+                input: e,
+                allowedMimeTypes: ["audio/ogg; codecs=opus", "audio/m4a"],
+                withEnforceStrictMimetypeMatch: !1,
+                withMimetypeIgnoreParameters: !0,
+                withMimetypeFuzzyMatch: !0,
+              },
+              t,
+            ),
+          );
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a,
             i,
@@ -171,7 +194,7 @@ __d(
             b = t.withMimetypeFuzzyMatch,
             v = t.withMimetypeIgnoreParameters,
             S = o("WASI").createWasi(
-              P({
+              M({
                 input: _,
                 mimetypeHints: p,
                 strictJpegScanValidationEnabled: f,
@@ -270,10 +293,10 @@ __d(
                 score: $.score,
               });
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P(e) {
+    function M(e) {
       var t,
         n = e.input,
         r = e.mimetypeHints,

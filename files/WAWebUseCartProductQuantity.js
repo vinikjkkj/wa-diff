@@ -4,15 +4,12 @@ __d(
     "WAWebCartCollection",
     "react",
     "react-compiler-runtime",
-    "useWAWebListener",
+    "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = s.useEffect,
-      c = s.useMemo,
-      d = s.useState,
-      m = function (t) {
+      s = (e || (e = o("react"))).useMemo,
+      u = function (t) {
         var e,
           n,
           r =
@@ -21,7 +18,7 @@ __d(
               : null;
         return r ? o("WAWebCartCollection").CartCollection.findCart(r) : null;
       },
-      p = function (t, n) {
+      c = function (t, n) {
         var e,
           r,
           o =
@@ -30,7 +27,7 @@ __d(
               : null;
         return (r = o == null ? void 0 : o.get("quantity")) != null ? r : 0;
       },
-      _ = function (t, n) {
+      d = function (t, n) {
         var e,
           r = new Set(
             t == null ||
@@ -50,85 +47,47 @@ __d(
           o
         );
       };
-    function f(e) {
-      var t = o("react-compiler-runtime").c(12),
+    function m(e) {
+      var t = o("react-compiler-runtime").c(7),
         n;
-      t[0] !== e ? ((n = m(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r || t[3] !== e.id
-        ? ((a = p(e.id.toString(), r)), (t[2] = r), (t[3] = e.id), (t[4] = a))
-        : (a = t[4]);
-      var i = d(a),
-        l = i[0],
-        s = i[1],
-        c,
-        _;
-      (t[5] !== r || t[6] !== e.id
-        ? ((c = function () {
-            s(p(e.id.toString(), r));
+      t[0] !== e ? ((n = u(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var a = n,
+        i;
+      t[2] !== a || t[3] !== e.id
+        ? ((i = function () {
+            return c(e.id.toString(), a);
           }),
-          (_ = [e.id, r]),
-          (t[5] = r),
-          (t[6] = e.id),
-          (t[7] = c),
-          (t[8] = _))
-        : ((c = t[7]), (_ = t[8])),
-        u(c, _));
-      var f;
+          (t[2] = a),
+          (t[3] = e.id),
+          (t[4] = i))
+        : (i = t[4]);
+      var l;
       return (
-        t[9] !== r || t[10] !== e.id
-          ? ((f = function () {
-              s(p(e.id.toString(), r));
-            }),
-            (t[9] = r),
-            (t[10] = e.id),
-            (t[11] = f))
-          : (f = t[11]),
-        o("useWAWebListener").useListener(r, "change:cartItemCollection", f),
-        l
+        t[5] !== e.id ? ((l = [e.id]), (t[5] = e.id), (t[6] = l)) : (l = t[6]),
+        r("useWAWebEventTargetValue")(a, "change:cartItemCollection", i, l)
       );
     }
-    function g(e) {
-      var t = o("react-compiler-runtime").c(12),
+    function p(e) {
+      var t = o("react-compiler-runtime").c(7),
         n;
-      t[0] !== e ? ((n = m(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r || t[3] !== e
-        ? ((a = _(e, r)), (t[2] = r), (t[3] = e), (t[4] = a))
-        : (a = t[4]);
-      var i = d(a),
-        l = i[0],
-        s = i[1],
-        c,
-        p;
-      (t[5] !== r || t[6] !== e
-        ? ((c = function () {
-            s(_(e, r));
+      t[0] !== e ? ((n = u(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var a = n,
+        i;
+      t[2] !== a || t[3] !== e
+        ? ((i = function () {
+            return d(e, a);
           }),
-          (p = [e, r]),
-          (t[5] = r),
-          (t[6] = e),
-          (t[7] = c),
-          (t[8] = p))
-        : ((c = t[7]), (p = t[8])),
-        u(c, p));
-      var f;
+          (t[2] = a),
+          (t[3] = e),
+          (t[4] = i))
+        : (i = t[4]);
+      var l;
       return (
-        t[9] !== r || t[10] !== e
-          ? ((f = function () {
-              s(_(e, r));
-            }),
-            (t[9] = r),
-            (t[10] = e),
-            (t[11] = f))
-          : (f = t[11]),
-        o("useWAWebListener").useListener(r, "change:cartItemCollection", f),
-        l
+        t[5] !== e ? ((l = [e]), (t[5] = e), (t[6] = l)) : (l = t[6]),
+        r("useWAWebEventTargetValue")(a, "change:cartItemCollection", i, l)
       );
     }
-    ((l.useCartProductQuantity = f), (l.useCartProductQuantityMultiple = g));
+    ((l.useCartProductQuantity = m), (l.useCartProductQuantityMultiple = p));
   },
   98,
 );

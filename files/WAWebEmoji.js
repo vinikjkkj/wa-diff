@@ -114,11 +114,11 @@ __d(
         .map(function (e) {
           return String.fromCodePoint(e);
         })
-        .join(""),
-      F = function (t) {
-        return t.replace(/\uFE0F/g, "");
-      },
-      O = o("WAMemoizeCache").memoizeWithArgs(
+        .join("");
+    function F(e) {
+      return e.replace(/\uFE0F/g, "");
+    }
+    var O = o("WAMemoizeCache").memoizeWithArgs(
         function (e, t) {
           function n(r) {
             if ((r === void 0 && (r = []), r.length === t)) return [r];

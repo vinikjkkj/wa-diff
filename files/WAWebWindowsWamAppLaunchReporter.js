@@ -8,6 +8,7 @@ __d(
     "WAWebNoop",
     "WAWebWamBaseAppLaunchReporter",
     "WAWebWamEnumAppLaunchType",
+    "WAWebWindowsAppLaunchContext",
     "WAWebWindowsHybridBridgeCommon",
     "asyncToGeneratorRuntime",
   ],
@@ -258,13 +259,11 @@ __d(
     }
     function T(e) {
       var t,
-        n,
-        r = new URLSearchParams((t = self.location.search) != null ? t : ""),
-        o = (n = r.get("launchContext")) != null ? n : "";
-      o !== "" &&
-        (e.appContext == null
-          ? (e.appContext = o)
-          : (e.appContext = e.appContext + "+launch:" + o));
+        n = o("WAWebWindowsAppLaunchContext").getNativeLaunchAppContext(
+          e.appContext,
+          (t = self.location.search) != null ? t : "",
+        );
+      n != null && (e.appContext = n);
     }
     var D = new (o("WAWebWamBaseAppLaunchReporter").BaseAppLaunchReporter)(
       L,

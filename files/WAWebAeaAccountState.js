@@ -12,10 +12,6 @@ __d(
       return t === e.HYBRID_E2EE || t === e.NON_E2EE;
     }
     function u(t) {
-      var n = e.cast(t);
-      return n != null && s(n);
-    }
-    function c(t) {
       return t ===
         o("WAWebProtobufsAea.pb").NonE2EEAttestation$AccountType.HYBRID_E2EE
         ? e.HYBRID_E2EE
@@ -24,7 +20,7 @@ __d(
           ? e.NON_E2EE
           : null;
     }
-    function d(t) {
+    function c(t) {
       if (t == null) return null;
       var n = o("WAWebProtobufsAdv.pb").ADVEncryptionType.cast(t);
       return n == null
@@ -44,9 +40,8 @@ __d(
     }
     ((l.AeaAccountState = e),
       (l.isAeaNonE2eeAccountState = s),
-      (l.isAeaNonE2eeThreadState = u),
-      (l.aeaAccountStateFromAttestation = c),
-      (l.aeaAccountStateFromAdv = d));
+      (l.aeaAccountStateFromAttestation = u),
+      (l.aeaAccountStateFromAdv = c));
   },
   98,
 );

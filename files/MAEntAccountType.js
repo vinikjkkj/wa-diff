@@ -24,6 +24,7 @@ __d(
       NISABA: 19,
       GLAM: 20,
       LANTERN: 21,
+      GIZMO: 22,
       META_ACCOUNT: 100,
       DO_NOT_USE: 1e4,
       EXAMPLE: 10001,

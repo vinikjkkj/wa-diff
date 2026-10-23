@@ -265,9 +265,7 @@ __d(
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebContactManagerCustomerProfilesQuery",
-          ).fetchCompleteCustomerProfileRecords({
-            candidateLids: e.map(o("WAJids").lidFromLidUserJid),
-          });
+          ).fetchCompleteCustomerProfileRecords({ candidateLids: e });
           return t != null
             ? new Set(
                 t.map(function (e) {

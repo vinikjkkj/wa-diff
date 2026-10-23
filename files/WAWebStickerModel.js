@@ -5,8 +5,8 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBaseModel",
-    "WAWebMedia",
     "WAWebMediaData",
+    "WAWebMediaStickers",
     "WAWebMediaTypes",
     "WAWebStickerGetters",
     "getErrorSafe",
@@ -74,11 +74,11 @@ __d(
                 }),
               !this.isPlaceholder &&
                 !this.isCreateButton &&
-                o("WAWebMedia").registerSticker(this));
+                o("WAWebMediaStickers").registerSticker(this));
           }),
           (a.downloadMedia = function (n) {
             var t = this;
-            return o("WAWebMedia")
+            return o("WAWebMediaStickers")
               .downloadStickerOrStickerPackIcon({
                 shouldThrow: n,
                 sticker: this,
@@ -125,7 +125,7 @@ __d(
           (a.delete = function () {
             (t.prototype.delete.call(this),
               o("WAWebStickerGetters").clearStickerGetterCacheFor(this),
-              o("WAWebMedia").deregisterSticker(this));
+              o("WAWebMediaStickers").deregisterSticker(this));
           }),
           n
         );

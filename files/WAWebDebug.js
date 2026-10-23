@@ -15,7 +15,6 @@ __d(
     "WAWebACSNetwork",
     "WAWebAccountLinkingDebug",
     "WAWebAccountSyncJob",
-    "WAWebAdvDeviceInfoCheckJob",
     "WAWebAlarm",
     "WAWebApiChat",
     "WAWebApiPendingDeviceSync",
@@ -159,7 +158,6 @@ __d(
     "WAWebSendMsgMetricReporter",
     "WAWebSendMsgTypes",
     "WAWebSendNonMessageDataRequest",
-    "WAWebSetReadReceiptJob",
     "WAWebSignalStorage",
     "WAWebSignalStorageUtils",
     "WAWebSocketConstants",
@@ -320,26 +318,12 @@ __d(
     E.doc = "Create a broadcast list with a list of participants";
     function k(e) {
       return (
-        r("vulture")("h8jquO2vOl557yIOj9DYEP7FsIQ="),
-        r("WAWebSetReadReceiptJob")(e).then(function (e) {
-          return (
-            r("vulture")("rMoTW2e7zn0_3ASUtvZA0zhNS2s="),
-            e.value !== "error" &&
-              o("WAWebUserPrefsMultiDeviceDebug").setDebugReadReceipt(e.value),
-            e
-          );
-        })
-      );
-    }
-    k.doc = "Send a debug read receipt";
-    function I(e) {
-      return (
         r("vulture")("yYd1RdTzw1VmEUwQVlxV_XhaLw0="),
         o("WASendPassiveModeProtocol").sendPassiveModeProtocol(e)
       );
     }
-    I.doc = "Send a passive info query (active|passive)";
-    function T() {
+    k.doc = "Send a passive info query (active|passive)";
+    function I() {
       (r("vulture")("PfemyOw1gVKPqukcDFv8gvxUckc="),
         o("WAWebPersistedJobManagerWorkerCompatible")
           .getJobManager()
@@ -347,20 +331,13 @@ __d(
             o("WAWebPersistedJobDefinitions").jobSerializers.rotateKey(),
           ));
     }
-    T.doc = "Fire and forget a rotateKey job";
+    I.doc = "Fire and forget a rotateKey job";
+    function T(e, t) {
+      return D.apply(this, arguments);
+    }
     function D() {
       return (
-        r("vulture")("RrcFU0ToSMMV-VvOlE13KdiAONg="),
-        o("WAWebAdvDeviceInfoCheckJob").runAdvDeviceInfoCheck()
-      );
-    }
-    D.doc = "run adv check and removal for expired devices";
-    function x(e, t) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           r("vulture")("7A649xOgswkEcC6dGaRUgWXufCs=");
           var n = yield o("WAWebSchemaDeviceList").getDeviceListTable().get(e);
           if (n == null)
@@ -410,69 +387,69 @@ __d(
               );
             });
         })),
-        $.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    x.doc = "set field(s) for an entry in the device table for a given user";
-    function P(e) {
+    T.doc = "set field(s) for an entry in the device table for a given user";
+    function x(e) {
       (r("vulture")("wOzfOthEbo9tPVTZK3SL2ajRFQM="),
         r("WAWebDebugRoutingToken").setDebugRoutingToken(e));
     }
-    P.doc =
+    x.doc =
       "Pin to a specific cdev server, used when your change is canaried on a cdev server";
-    function N() {
+    function $() {
       return (
         r("vulture")("F1NsNh_gEptB3kcqEuhQFw0tflA="),
         o("WAWebUpdaterUpdatePoll").checkForUpdates()
       );
     }
-    N.doc =
+    $.doc =
       "Trigger update check polling and install if an update is available";
-    function M() {
+    function P() {
       if ((r("vulture")("8fNXWHTHf_GCaoOIQVYt0qP8c2g="), r("gkx")("16539")))
         return n("cr:10202") == null
           ? void 0
           : n("cr:10202").getMediaEditorDebug();
     }
-    function w() {
+    function N() {
       (r("vulture")("kJtSdzHBzA3MmQkY7mES5rvNDYU="),
         r("gkx")("16539") &&
           (n("cr:10204") == null || n("cr:10204").toggleStickerMakerDebug()));
     }
-    ((w.doc = "Toggle Sticker Maker debug mode"), (w.paramsToExecute = []));
-    function A(e, t) {
+    ((N.doc = "Toggle Sticker Maker debug mode"), (N.paramsToExecute = []));
+    function M(e, t) {
       return (
         r("vulture")("PK4kQLW_OJw3hHJCZiFql_WuAdU="),
         o("WAWebDBPurgeExpiredRecords").purgeExpiredOrphanRecords(e, t)
       );
     }
-    function F(e) {
+    function w(e) {
       return (
         r("vulture")("xtkbWLMD3ZZZYDKUBe6nbfCujRs="),
         o("WAWebUserPrefsMultiDeviceDebug").setDebugEnableOfflineMock(e)
       );
     }
-    F.doc = "Enable/disable offline simulator.";
-    function O(e) {
+    w.doc = "Enable/disable offline simulator.";
+    function A(e) {
       return (
         r("vulture")("YIWTIZBDzzu_qWjP9KTd9wQ77Rk="),
         o("WAWebUserPrefsMultiDeviceDebug").setDebugOfflineMockTraffic(e)
       );
     }
-    O.doc = "Override incoming mock traffic (traffic.js).";
-    function B() {
+    A.doc = "Override incoming mock traffic (traffic.js).";
+    function F() {
       return (
         r("vulture")("ty2QoM3JuGO4ZSF6i0XBBq5dWOk="),
         o("WAWebApiChat").pruneExpiredOrphanTcTokens()
       );
     }
-    B.doc = "Prunes expired orphan tokens older than 30 days";
-    function W(e, t) {
-      return q.apply(this, arguments);
+    F.doc = "Prunes expired orphan tokens older than 30 days";
+    function O(e, t) {
+      return B.apply(this, arguments);
     }
-    function q() {
+    function B() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           r("vulture")("VnQDsNOJhdiEc4vDNx0iA079HzE=");
           var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           if (n == null) {
@@ -519,19 +496,19 @@ __d(
             );
           }
         })),
-        q.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    W.doc =
+    O.doc =
       "Sending multiple messages without store message in DB, which will make the sending faster";
-    function U(e) {
+    function W(e) {
       return (
         r("vulture")("qtneLkHpIshV3ZfPpOv0H-GqNO0="),
         o("WAWap").decodeStanzaDebug(e)
       );
     }
-    U.doc = "Decode a stanza from a buffer and return the WAP node";
-    function V(e) {
+    W.doc = "Decode a stanza from a buffer and return the WAP node";
+    function q(e) {
       r("vulture")("EOqv3vAN0wYzmuWsRac_qfXc-s8=");
       var t = o("WACryptoPkcs7").unpadPkcs7(
         new Uint8Array(r("nullthrows")(e.futureproofBuffer)),
@@ -541,14 +518,14 @@ __d(
         t,
       );
     }
-    V.doc =
+    q.doc =
       "Returns the decoded message object of the given futureproof message";
-    function H() {
-      return G.apply(this, arguments);
+    function U() {
+      return V.apply(this, arguments);
     }
-    function G() {
+    function V() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (r("vulture")("xpJsYlq1cmms5DU77u6qof_DxxM="),
             r("WAWebNetworkStatus").simulateNetworkStatus(!1),
             (o("WAWebSocketModel").Socket.socket = null),
@@ -560,6 +537,19 @@ __d(
             ).SOCKET_STREAM.DISCONNECTED),
             yield o("WAComms").stopComms());
         })),
+        V.apply(this, arguments)
+      );
+    }
+    function H() {
+      return G.apply(this, arguments);
+    }
+    function G() {
+      return (
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("wVGeBDuPznGVq2w5beubywhF9h4="),
+            r("WAWebNetworkStatus").simulateNetworkStatus(!0),
+            yield o("WAWebStartBackend").startBackend());
+        })),
         G.apply(this, arguments)
       );
     }
@@ -569,54 +559,41 @@ __d(
     function j() {
       return (
         (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("vulture")("wVGeBDuPznGVq2w5beubywhF9h4="),
-            r("WAWebNetworkStatus").simulateNetworkStatus(!0),
-            yield o("WAWebStartBackend").startBackend());
+          (r("vulture")("1_lZqGlBRya20uEWddoF8XrgOpM="),
+            o("WAWebBackendEventBus").BackendEventBus.triggerReconnectSocket());
         })),
         j.apply(this, arguments)
       );
     }
-    function K() {
+    function K(e) {
       return Q.apply(this, arguments);
     }
     function Q() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("vulture")("1_lZqGlBRya20uEWddoF8XrgOpM="),
-            o("WAWebBackendEventBus").BackendEventBus.triggerReconnectSocket());
-        })),
-        Q.apply(this, arguments)
-      );
-    }
-    function X(e) {
-      return Y.apply(this, arguments);
-    }
-    function Y() {
-      return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("Yfre-WH_D5L71Z29gcyeo8_PM74=");
           var t = typeof e == "string" ? e : e.toString(),
             n = yield o("WAWebSchemaChat").getChatTable().get(t);
           if (n == null) throw r("err")("No chat found for id " + t);
           return o("WAWebDBChatSerialization").deserializeChat(n);
         })),
-        Y.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    X.doc = "get chat row deserialized from DB";
-    function J(e) {
+    K.doc = "get chat row deserialized from DB";
+    function X(e) {
       (r("vulture")("wk1HdFPx1_wT4nJnSqV25zZCRvs="),
         o("WAWebUserPrefsMultiDeviceDebug").setDebugDecryptFail(e));
     }
-    J.doc = "Set the next N message decryptions to fail";
-    function Z() {
+    X.doc = "Set the next N message decryptions to fail";
+    function Y() {
       return (
         r("vulture")("XeeHIDVEnSEINB_nwjQX4litIXQ="),
         o("WAWebUserPrefsMultiDeviceDebug").getDebugDecryptFail()
       );
     }
-    Z.doc = "Check how many more message decryptions are set to fail";
-    function ee(e, t) {
+    Y.doc = "Check how many more message decryptions are set to fail";
+    function J(e, t) {
       return (
         r("vulture")("xzYo41l7NChA0FulBlyq2BuVvbs="),
         o("WAWebUserPrefsMultiDeviceDebug").setDebugEncryptFail(
@@ -625,25 +602,25 @@ __d(
         )
       );
     }
-    ee.doc = "Fails create-session for a given device";
-    function te(e) {
+    J.doc = "Fails create-session for a given device";
+    function Z(e) {
       (r("vulture")("YI4BzocgFurMsKbQvaMMmDw3FEU="),
         o("WAWebUserPrefsMultiDeviceDebug").setDebugDoNotSendRetryReceipt(e));
     }
-    te.doc = "Set the next N retry receipts will not be sent";
-    function ne() {
+    Z.doc = "Set the next N retry receipts will not be sent";
+    function ee() {
       return (
         r("vulture")("UmxLecDScXlpBvo4M6-U5Jl2ZV4="),
         o("WAWebUserPrefsMultiDeviceDebug").getDebugDoNotSendRetryReceipt()
       );
     }
-    ne.doc = "Check how many more retry receipts will be skipped";
-    function re() {
-      return oe.apply(this, arguments);
+    ee.doc = "Check how many more retry receipts will be skipped";
+    function te() {
+      return ne.apply(this, arguments);
     }
-    function oe() {
+    function ne() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("bim4WkhG9QLu3MmAr2pZOs8U5fw=");
           var e = Array.from(
               o("WAWebModelStorageUtils").getStorage().tables.keys(),
@@ -665,16 +642,16 @@ __d(
             );
           return (h || (h = n("Promise"))).all(t);
         })),
-        oe.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    re.doc = "Dump all model data from IndexedDB";
-    function ae() {
-      return ie.apply(this, arguments);
+    te.doc = "Dump all model data from IndexedDB";
+    function re() {
+      return oe.apply(this, arguments);
     }
-    function ie() {
+    function oe() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("mMU7F5p51AylWf8VERdqML5ZC08=");
           var e = Array.from(
               o("WAWebSignalStorageUtils").getStorage().tables.keys(),
@@ -696,33 +673,49 @@ __d(
             );
           return (h || (h = n("Promise"))).all(t);
         })),
-        ie.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    ae.doc = "Dump all signal data from IndexedDB";
-    function le(e) {
-      return se.apply(this, arguments);
+    re.doc = "Dump all signal data from IndexedDB";
+    function ae(e) {
+      return ie.apply(this, arguments);
     }
-    function se() {
+    function ie() {
       return (
-        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("vulture")("uHdmxKFwzkBj2RYBJM9lS8NBUmM="),
             o("WAWebWam").sendAllLogs(e)
           );
         })),
-        se.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    ((le.doc =
+    ((ae.doc =
       "Submit all cached metrics for the given WAM buffer type ('regular' or one of Private Stats keys)"),
-      (le.paramsToExecute = ["regular"]));
-    function ue(e) {
+      (ae.paramsToExecute = ["regular"]));
+    function le(e) {
       (r("vulture")("BVT89x4vP5kwm1ySP5EXBRO6dIU="),
         o("WAWebUserPrefsGeneral").setDebugFacebookGraphQLEndpointOverride(e));
     }
-    ue.doc =
+    le.doc =
       'Debug method for testing against a specific graphQL Facebook OD endpoint. Pass OD number as a string, e.g. "0934"';
+    function se(e) {
+      return ue.apply(this, arguments);
+    }
+    function ue() {
+      return (
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (
+            r("vulture")("E__tXEK3UeBx-yknC3m3h-Scjrw="),
+            o("WAWebSchemaReportingInfo")
+              .getReportingInfoTable()
+              .equals(["msgKey"], [e])
+          );
+        })),
+        ue.apply(this, arguments)
+      );
+    }
     function ce(e) {
       return de.apply(this, arguments);
     }
@@ -730,10 +723,9 @@ __d(
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
-            r("vulture")("E__tXEK3UeBx-yknC3m3h-Scjrw="),
-            o("WAWebSchemaReportingInfo")
-              .getReportingInfoTable()
-              .equals(["msgKey"], [e])
+            e === void 0 && (e = -1),
+            r("vulture")("3ID7ocNE3L2C4HCiT9CbTMG8_BI="),
+            o("WAWebDBReportingTokenUtils").cleanupReportingTokenAndContent(e)
           );
         })),
         de.apply(this, arguments)
@@ -746,49 +738,34 @@ __d(
       return (
         (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
-            e === void 0 && (e = -1),
-            r("vulture")("3ID7ocNE3L2C4HCiT9CbTMG8_BI="),
-            o("WAWebDBReportingTokenUtils").cleanupReportingTokenAndContent(e)
-          );
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    function _e(e) {
-      return fe.apply(this, arguments);
-    }
-    function fe() {
-      return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (
             r("vulture")("30p6FtIBDe4epWDvNXB3mWxRfLY="),
             new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
               JSON.parse(e),
             ).commitAndWaitForFlush(!0)
           );
         })),
-        fe.apply(this, arguments)
+        pe.apply(this, arguments)
       );
     }
-    ((_e.doc = "Send a raw wam event (used by UWP Hybrid app)"),
-      (_e.paramsToExecute = []));
-    function ge(e, t) {
+    ((me.doc = "Send a raw wam event (used by UWP Hybrid app)"),
+      (me.paramsToExecute = []));
+    function _e(e, t) {
       (r("vulture")("SDbG34TilP6I6G-yF-kthq2ORFs="),
         o("WAWebTos").TosManager.setState(e, t, o("WATimeUtils").unixTime()));
     }
-    ge.doc = "Set the state of a given TOS notice";
-    function he(e) {
+    _e.doc = "Set the state of a given TOS notice";
+    function fe(e) {
       (r("vulture")("JrobMpEeRS8EvKtCVP1NrLNnmM8="),
         o("WAWebTPSharerPreference").setSharerSkipPreference(e));
     }
-    he.doc =
+    fe.doc =
       "Set the WebTP sharer skip confirmation preference (debug override)";
-    function ye(e) {
-      return Ce.apply(this, arguments);
+    function ge(e) {
+      return he.apply(this, arguments);
     }
-    function Ce() {
+    function he() {
       return (
-        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("5OQp4EISyaUr1Z6AqrxjP89Kgs4=");
           var t = 0,
             n = 0x7048860ddf79,
@@ -803,23 +780,23 @@ __d(
             ? "success"
             : "failed";
         })),
-        Ce.apply(this, arguments)
+        he.apply(this, arguments)
       );
     }
-    ye.doc = "Store canonical credentials directly (for E2E tests)";
-    function be() {
+    ge.doc = "Store canonical credentials directly (for E2E tests)";
+    function ye() {
       return (
         r("vulture")("RindQ8M2oQnn4ayF25IM4k6DzJo="),
         o("WAWebCanonicalUtils").isCanonicalPresent()
       );
     }
-    be.doc = "Check if canonical token has been stored";
-    function ve(e) {
-      return Se.apply(this, arguments);
+    ye.doc = "Check if canonical token has been stored";
+    function Ce(e) {
+      return be.apply(this, arguments);
     }
-    function Se() {
+    function be() {
       return (
-        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("PNgalV5256wL1TDcltm6h9-0v0A=");
           var t = Array.isArray(e) ? e : [e],
             n = t.map(function (e) {
@@ -853,17 +830,17 @@ __d(
             }
           );
         })),
-        Se.apply(this, arguments)
+        be.apply(this, arguments)
       );
     }
-    ve.doc =
+    Ce.doc =
       "Fires a real PLACEHOLDER_MESSAGE_RESEND RDU for the given serialized msg key(s).";
-    function Re() {
-      return Le.apply(this, arguments);
+    function ve() {
+      return Se.apply(this, arguments);
     }
-    function Le() {
+    function Se() {
       return (
-        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("PTUrb-lbA1idzq1sX-_TZfmE388=");
           try {
             return (
@@ -874,16 +851,16 @@ __d(
             return "PQ key upload failed: " + String(e);
           }
         })),
-        Le.apply(this, arguments)
+        Se.apply(this, arguments)
       );
     }
-    Re.doc = "Trigger PQ (post-quantum) prekey generation and upload";
-    function Ee() {
+    ve.doc = "Trigger PQ (post-quantum) prekey generation and upload";
+    function Re() {
       (r("vulture")("ayItXAwZfflCWNH5TOb62TR9cew="),
         r("WAWebDebugDownFunnelSignals").dfsInitialize());
     }
-    var ke = babelHelpers.extends(
-      { initialize: Ee, delayMs: o("WAPromiseDelays").delayMs, _: null },
+    var Le = babelHelpers.extends(
+      { initialize: Re, delayMs: o("WAPromiseDelays").delayMs, _: null },
       r("WAWebDebugL10N"),
       r("WAWebDebugNewsletter"),
       r("WAWebDebugABProps"),
@@ -978,26 +955,24 @@ __d(
         getMessageTable: o("WAWebSchemaMessage").getMessageTable,
         resetStorage: b,
         clearMessages: v,
-        cleanExpiredOrphanTcTokens: B,
+        cleanExpiredOrphanTcTokens: F,
         signOut: S,
         syncDeviceList: L,
         ensurePhoneNumberToLidMapping: o("WAWebManagePhoneNumberMappingJob")
           .ensurePhoneNumberToLidMapping,
         createBroadcast: E,
-        setReadReceipt: k,
         sendOrderDetailsMessageAsMerchantMD: r(
           "WAWebDebugSendOrderDetailsMessage",
         ),
-        sendPassiveModeIq: I,
+        sendPassiveModeIq: k,
         fts: { ftsClient: o("WAWebFtsClient").ftsClient },
         tee: r("WAWebDebugTee"),
-        rotateKey: T,
-        runAdvDeviceInfoCheck: D,
-        setDeviceListEntry: x,
+        rotateKey: I,
+        setDeviceListEntry: T,
         getComms: o("WAComms").getComms,
-        forceSocketReconnect: K,
-        pinClientToCdev: P,
-        checkForUpdates: N,
+        forceSocketReconnect: z,
+        pinClientToCdev: x,
+        checkForUpdates: $,
         accSync: o("WAWebAccountSyncJob"),
         createWid: o("WAWebWidFactory").createWid,
         createUserWidOrThrow: o("WAWebWidFactory").createUserWidOrThrow,
@@ -1027,28 +1002,28 @@ __d(
         Fullscreen: r("WAWebDomFullscreen"),
         UIM: o("WAWebUim").UIM,
         makeWapNode: o("WAWap").makeWapNode,
-        getMediaEditorDebug: M,
-        toggleStickerMakerDebug: w,
+        getMediaEditorDebug: P,
+        toggleStickerMakerDebug: N,
         getModelStorage: o("WAWebModelStorageUtils").getStorage,
-        dumpModelStorage: re,
-        dumpSignalStorage: ae,
+        dumpModelStorage: te,
+        dumpSignalStorage: re,
         doPendingDeviceSync: o("WAWebApiPendingDeviceSync").doPendingDeviceSync,
-        requestPlaceholderResend: ve,
-        setDebugEnableOfflineMock: F,
-        setDebugOfflineMockTraffic: O,
+        requestPlaceholderResend: Ce,
+        setDebugEnableOfflineMock: w,
+        setDebugOfflineMockTraffic: A,
         InMemoryMediaBlobCache: o("WAWebMediaInMemoryBlobCache")
           .InMemoryMediaBlobCache,
-        bulkSendMessageWithoutStoreByPn: W,
-        purgeOrphanRecords: A,
+        bulkSendMessageWithoutStoreByPn: O,
+        purgeOrphanRecords: M,
         userPrefsIdb: o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb,
         runSubscriptionsManager:
           o("WAWebSubscriptions").runSubscriptionsManager,
         getMyPn: o("WAWebUserPrefsMeUser").getMaybeMePnUser,
-        decodeFutureproofBuffer: V,
+        decodeFutureproofBuffer: q,
         getAllChatsDeserialized: o("WAWebApiChat").getAllChatsDeserialized,
-        getChatDeserializedFromDBById: X,
-        sendAllLogs: le,
-        decodeStanza: U,
+        getChatDeserializedFromDBById: K,
+        sendAllLogs: ae,
+        decodeStanza: W,
         voipWinRTBridge:
           n("cr:17219") == null ||
           (c = n("cr:17219").getWindowsBridge(
@@ -1057,33 +1032,33 @@ __d(
             ? void 0
             : c.voip,
         VoipBridgePerfSimulator: C,
-        rawWamEvent: _e,
+        rawWamEvent: me,
         fetchWithACSCredential: o("WAWebACSNetwork").fetchWithACSCredential,
-        networkSimulateOffline: H,
-        networkReconnectOnline: z,
+        networkSimulateOffline: U,
+        networkReconnectOnline: H,
         getDebugShownMsgs: o("WAWebUserPrefsDebugMsgs").getDebugShownMsgs,
-        setDebugDecryptFail: J,
-        getDebugDecryptFail: Z,
-        setDebugEncryptFail: ee,
-        setDebugDoNotSendRetryReceipt: te,
-        getDebugDoNotSendRetryReceipt: ne,
+        setDebugDecryptFail: X,
+        getDebugDecryptFail: Y,
+        setDebugEncryptFail: J,
+        setDebugDoNotSendRetryReceipt: Z,
+        getDebugDoNotSendRetryReceipt: ee,
         setDebugIgnoreParticipantAdd: o("WAWebUserPrefsMultiDeviceDebug")
           .setDebugIgnoreParticipantAdd,
         getDebugIgnoreParticipantAdd: o("WAWebUserPrefsMultiDeviceDebug")
           .getDebugIgnoreParticipantAdd,
         InMemoryLottieStickerCache: o("WAWebInMemoryLottieStickerCache")
           .InMemoryLottieStickerCache,
-        getReportingInfoRow: ce,
-        triggerReportingTokenCleanup: me,
+        getReportingInfoRow: se,
+        triggerReportingTokenCleanup: ce,
         Moment: r("WAWeb-moment"),
         UnifiedSessionManager: o("WAWebUnifiedSession").UnifiedSessionManager,
         openSuspendedCommunityModal: o("WAWebSuspendedCommunityUtils")
           .openSuspendedCommunityModal,
-        setTosState: ge,
-        overrideFacebookGraphQLEndpointForTest: ue,
-        setSharerSkipPreference: he,
-        setCanonicalToken: ye,
-        isCanonicalPresent: be,
+        setTosState: _e,
+        overrideFacebookGraphQLEndpointForTest: le,
+        setSharerSkipPreference: fe,
+        setCanonicalToken: ge,
+        isCanonicalPresent: ye,
         MemberLabel: r("WAWebMemberLabelDebug"),
         GroupHistory: r("WAWebGroupHistoryDebug"),
         getJSUsageReport: r("WAWebJSUsageDebug").getJSUsageReport,
@@ -1096,7 +1071,7 @@ __d(
         ).injectInteractiveMessageWithBloksWidget,
         injectUnifiedResponseTestMessage: o("WAWebUnifiedResponseDebug")
           .injectUnifiedResponseTestMessage,
-        triggerPQKeyUpload: Re,
+        triggerPQKeyUpload: ve,
         resetPQState: o("WAWebResetPQState").resetPQState,
         showChatlistSkeleton: o("WAWebDebugChatlistSkeleton")
           .showChatlistSkeleton,
@@ -1104,7 +1079,7 @@ __d(
           .hideChatlistSkeleton,
       },
     );
-    l.default = ke;
+    l.default = Le;
   },
   98,
 );

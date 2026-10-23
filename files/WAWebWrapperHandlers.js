@@ -2,11 +2,9 @@ __d(
   "WAWebWrapperHandlers",
   [
     "fbt",
-    "WAWebAeaAccountState",
     "WAWebAfterReadUtils",
     "WAWebBizCoexStringUtils",
     "WAWebBizPrivacyUtils",
-    "WAWebChatGetters",
     "WAWebCmd",
     "WAWebConfirmPopup.react",
     "WAWebEphemeralFbtKic",
@@ -31,11 +29,12 @@ __d(
     var e,
       u,
       c = u || (u = o("react"));
-    function d(t) {
-      var n = function () {
+    function d(t, n) {
+      n === void 0 && (n = !1);
+      var a = function () {
           o("WAWebCmd").Cmd.msgInfoDrawer(o("WAWebStateUtils").unproxy(t));
         },
-        a = function (n) {
+        i = function (n) {
           var e = t.author,
             r = o(
               "WAWebGroupAgentOneToOneContact",
@@ -51,13 +50,13 @@ __d(
               targetId: r,
             });
         },
-        i = function () {
+        l = function () {
           o("WAWebModalManager").ModalManager.open(
             c.jsx(r("WAWebWebSearchPopup.react"), { message: t }),
             { transition: "modal-flow" },
           );
         },
-        l = function () {
+        u = function () {
           var e,
             n,
             r = (e = t.afterReadDuration) != null ? e : 0,
@@ -95,7 +94,7 @@ __d(
               { transition: "modal-flow" },
             ));
         },
-        u = function () {
+        d = function () {
           var e = t.bizPrivacyStatus;
           e != null &&
             o("WAWebModalManager").ModalManager.open(
@@ -110,8 +109,8 @@ __d(
               { transition: "modal-flow" },
             );
         },
-        d = function () {
-          var e = m(t);
+        p = function () {
+          var e = m(t, n);
           e != null &&
             o("WAWebModalManager").ModalManager.open(
               c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
@@ -125,8 +124,8 @@ __d(
               { transition: "modal-flow" },
             );
         },
-        p = function () {
-          var n = m(t);
+        _ = function () {
+          var a = m(t, n);
           o("WAWebModalManager").ModalManager.open(
             c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
               tsNavigationData: {
@@ -143,13 +142,13 @@ __d(
               },
               onOK: o("WAWebModalManager").closeModalManager,
               children: [
-                n != null ? c.jsx("p", { children: n }) : null,
+                a != null ? c.jsx("p", { children: a }) : null,
                 c.jsx(
                   "p",
                   babelHelpers.extends(
                     {},
                     (e || (e = r("stylex"))).props(
-                      n != null &&
+                      a != null &&
                         o("WDSMargins.stylex").wdsMargins.marginTop12,
                     ),
                     {
@@ -164,7 +163,7 @@ __d(
             { transition: "modal-flow" },
           );
         },
-        _ = function () {
+        f = function () {
           var e = o(
               "WAWebWrapperOrderEphemeralExemption",
             ).getOrderEphemeralExemptionInfoString(),
@@ -189,7 +188,7 @@ __d(
             { transition: "modal-flow" },
           );
         },
-        f = function () {
+        g = function () {
           o("WAWebModalManager").ModalManager.open(
             c.jsx(
               o("WAWebMarketingMessagesUserControlsPopupLoadable")
@@ -204,37 +203,32 @@ __d(
           );
         };
       return {
-        handleMsgInfoClick: n,
-        handleOpenContactChat: a,
-        handleOpenWebSearchFlow: i,
-        handleOpenEphemeralInfoPopup: l,
-        handleOpenBizPrivacyInfoPopup: u,
-        handleOpenEphemeralExemptionInfoPopup: _,
-        handleOpenBizEncStateMismatchInfoPopup: d,
-        handleOpenEncryptionAndEphemeralExemptionInfoPopup: p,
-        handleOpenMarketingMessagesFeedbackPopup: f,
+        handleMsgInfoClick: a,
+        handleOpenContactChat: i,
+        handleOpenWebSearchFlow: l,
+        handleOpenEphemeralInfoPopup: u,
+        handleOpenBizPrivacyInfoPopup: d,
+        handleOpenEphemeralExemptionInfoPopup: f,
+        handleOpenBizEncStateMismatchInfoPopup: p,
+        handleOpenEncryptionAndEphemeralExemptionInfoPopup: _,
+        handleOpenMarketingMessagesFeedbackPopup: g,
       };
     }
-    function m(e) {
-      var t,
-        n,
+    function m(e, t) {
+      var n,
         r,
-        a = o("WAWebFrontendMsgGetters").getChat(e),
-        i =
-          (a == null || (t = a.contact) == null
-            ? void 0
-            : t.isOrHasBeenHosted) === !0,
+        a,
+        i = o("WAWebFrontendMsgGetters").getChat(e),
         l =
-          a != null &&
-          o("WAWebAeaAccountState").isAeaNonE2eeThreadState(
-            o("WAWebChatGetters").getAeaThreadState(a),
-          );
-      return (!i && !l && !e.id.fromMe) ||
+          (i == null || (n = i.contact) == null
+            ? void 0
+            : n.isOrHasBeenHosted) === !0;
+      return (!l && !t && !e.id.fromMe) ||
         !(
           e != null &&
-          (n = e.id) != null &&
-          (n = n.remote) != null &&
-          n.isUser()
+          (r = e.id) != null &&
+          (r = r.remote) != null &&
+          r.isUser()
         )
         ? null
         : e.aeaAutoUpgrade === !0
@@ -243,7 +237,7 @@ __d(
             )
           : e.id.fromMe &&
               o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
-                a == null || (r = a.contact) == null ? void 0 : r.privacyMode,
+                i == null || (a = i.contact) == null ? void 0 : a.privacyMode,
               ) === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP
             ? o("WAWebBizPrivacyUtils").getBizPrivacyInfoString(
                 o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.BSP,

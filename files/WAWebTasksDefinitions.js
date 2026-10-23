@@ -44,6 +44,7 @@ __d(
     "WAWebQplStorage",
     "WAWebQuarantineDataCleanupJob",
     "WAWebQuickPromotionGating",
+    "WAWebRemoveExpiredWebTPSharedSessions",
     "WAWebReportDbVerionsJob",
     "WAWebReportingTokenConstants",
     "WAWebRestartRecentSyncJob",
@@ -61,7 +62,6 @@ __d(
     "WAWebUserPrefsBot",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsMultiDevice",
-    "WAWebWebTPSharedSessionUtils",
     "asyncToGeneratorRuntime",
     "cr:4857",
     "cr:4940",
@@ -1282,7 +1282,7 @@ __d(
                                                                                           .DAY_SECONDS;
                                                                                       try {
                                                                                         yield o(
-                                                                                          "WAWebWebTPSharedSessionUtils",
+                                                                                          "WAWebRemoveExpiredWebTPSharedSessions",
                                                                                         ).removeExpiredWebTPSharedSessions();
                                                                                       } catch (e) {
                                                                                         o(

@@ -10,7 +10,6 @@ __d(
     "WAWebGroupMemberLinkMode",
     "WAWebHandleMsgTypes.flow",
     "WAWebMexFetchGroupInviteCodeJob",
-    "WAWebNoop",
     "WAWebStateUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -55,11 +54,11 @@ __d(
     }
     function _(t) {
       if (t.groupInviteCodePromise) return t.groupInviteCodePromise;
-      var a = t.participants.iAmAdmin(),
-        i = t.memberLinkMode;
+      var r = t.participants.iAmAdmin(),
+        a = t.memberLinkMode;
       if (
-        !a &&
-        i !== o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
+        !r &&
+        a !== o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
       ) {
         o("WALogger")
           .ERROR(
@@ -69,26 +68,20 @@ __d(
               ])),
           )
           .sendLogs("query-group-invite-code-user-not-admin");
-        var l = 401;
+        var i = 401;
         return (u || (u = n("Promise"))).reject(
-          new (o("WAWebBackendErrors").ServerStatusCodeError)(l),
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(i),
         );
       }
-      var s = o("WAWebMexFetchGroupInviteCodeJob")
+      var l = o("WAWebMexFetchGroupInviteCodeJob")
         .fetchMexGroupInviteCode(t.id)
         .then(function (e) {
-          return { code: e };
+          t.inviteCode = e;
+        })
+        .finally(function () {
+          t.groupInviteCodePromise = null;
         });
-      return (
-        (t.groupInviteCodePromise = s.then(r("WAWebNoop"))),
-        s
-          .then(function (e) {
-            t.inviteCode = e.code;
-          })
-          .finally(function () {
-            t.groupInviteCodePromise = null;
-          })
-      );
+      return ((t.groupInviteCodePromise = l), l);
     }
     function f(e) {
       return e.revokeGroupInvitePromise

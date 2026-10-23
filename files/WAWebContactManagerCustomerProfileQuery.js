@@ -26,8 +26,12 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = d(e),
-            a = yield o("WAWebFetchAdAccountToken").fetchToken();
+            n = o("WAJids").validateLidUserJid(e);
+          if (n == null)
+            throw r("err")(
+              "[CustomerManager] fetchCustomerProfile: chatJid must be a LID-based JID",
+            );
+          var a = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (a.type !== "success")
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: no access token (" +
@@ -59,7 +63,7 @@ __d(
               "[CustomerManager] fetchCustomerProfile: missing profile etag",
             );
           var c = (t = l.last_updates) != null ? t : [],
-            m = c.flatMap(function (e) {
+            d = c.flatMap(function (e) {
               var t = e.field_name;
               return t != null && t !== "" ? [t] : [];
             });
@@ -106,18 +110,11 @@ __d(
             orderPreferences: o(
               "WAWebCustomerOrderPreferences",
             ).toOrderPreferences(l.order_preferences),
-            updatedFields: m.length === c.length ? m : void 0,
+            updatedFields: d.length === c.length ? d : void 0,
           };
         })),
         c.apply(this, arguments)
       );
-    }
-    function d(e) {
-      if (!e.endsWith(o("WAJids").LID_DOMAIN))
-        throw r("err")(
-          "[CustomerManager] fetchCustomerProfile: chatJid must be a LID-based JID",
-        );
-      return e.slice(0, -o("WAJids").LID_DOMAIN.length);
     }
     l.fetchCustomerProfile = u;
   },

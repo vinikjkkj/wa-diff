@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c",
+      c = "1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d",
       d = {
+        "1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d":
+          function () {
+            return r("bx")("110763");
+          },
         "36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c":
           function () {
             return r("bx")("110751");
@@ -77,12 +81,8 @@ __d(
           function () {
             return r("bx")("110416");
           },
-        c3e39c440134ed5583d1c4da05a46c4dd336ba26625bf85b150b23f7bdea6c7a:
-          function () {
-            return r("bx")("110412");
-          },
       },
-      m = d["36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c"],
+      m = d["1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d"],
       p = null,
       _ = null;
     try {
@@ -91,6 +91,10 @@ __d(
       p = e;
     }
     var f = {
+        "1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d":
+          function () {
+            return r("bx")("110762");
+          },
         "36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c":
           function () {
             return r("bx")("110750");
@@ -151,16 +155,12 @@ __d(
           function () {
             return r("bx")("110415");
           },
-        c3e39c440134ed5583d1c4da05a46c4dd336ba26625bf85b150b23f7bdea6c7a:
-          function () {
-            return r("bx")("32299");
-          },
       },
-      g = f["36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c"],
+      g = f["1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d"],
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1792648885558" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1792735368499" });
     } catch (e) {
       h = e;
     }
@@ -199,7 +199,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -924,10 +924,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1409087: function () {
+          1410431: function () {
             return Date.now();
           },
-          1409110: function (t, n) {
+          1410454: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -3558,7 +3558,7 @@ __d(
             I(e, new bt(e)));
         }
         var rn = function (t, n) {
-            if (((j = t), uc(), P)) throw (K(!n), dn(t), "unwind");
+            if (((j = t), sc(), P)) throw (K(!n), dn(t), "unwind");
             if (fe() && !n) {
               var e =
                 "program exited (with status: " +
@@ -3754,7 +3754,7 @@ __d(
                           " actual=" +
                           t.actualBuildSha
                         : "voip: pinned worker glue load failed: " + t.error;
-                    if (ic && typeof v.onPthreadGlueFailure == "function")
+                    if (ac && typeof v.onPthreadGlueFailure == "function")
                       v.onPthreadGlueFailure(
                         r === "wasmGlueBuildMismatch"
                           ? {
@@ -7700,40 +7700,40 @@ __d(
             getentropy: ci,
             gethostbyname: gi,
             invoke_d: Bs,
-            invoke_diii: nc,
-            invoke_fi: iu,
+            invoke_diii: tc,
+            invoke_fi: lu,
             invoke_fii: ys,
-            invoke_fiii: tc,
-            invoke_fiiiiii: Eu,
+            invoke_fiii: ec,
+            invoke_fiiiiii: ru,
             invoke_i: kl,
-            invoke_id: su,
+            invoke_id: uu,
             invoke_ii: Tl,
             invoke_iid: qs,
             invoke_iidi: js,
-            invoke_iidii: au,
+            invoke_iidii: iu,
             invoke_iidjjjidjjjdjjji: ss,
             invoke_iidjjjii: gs,
             invoke_iidjjjiii: cs,
             invoke_iiffiii: bs,
             invoke_iiffiiiii: Cs,
-            invoke_iifi: vu,
-            invoke_iifii: du,
-            invoke_iifiii: lu,
+            invoke_iifi: Ru,
+            invoke_iifii: mu,
+            invoke_iifiii: su,
             invoke_iii: Dl,
             invoke_iiid: Fs,
-            invoke_iiifi: Lu,
+            invoke_iiifi: ou,
             invoke_iiii: Ll,
-            invoke_iiiidd: Su,
+            invoke_iiiidd: Lu,
             invoke_iiiifiii: Es,
             invoke_iiiifiiiiii: Ds,
             invoke_iiiii: Ml,
-            invoke_iiiiid: Zu,
+            invoke_iiiiid: Ju,
             invoke_iiiiii: ql,
             invoke_iiiiiii: $l,
-            invoke_iiiiiiiddiiid: Xu,
+            invoke_iiiiiiiddiiid: Qu,
             invoke_iiiiiiii: Bl,
-            invoke_iiiiiiiidi: Yu,
-            invoke_iiiiiiiifii: ru,
+            invoke_iiiiiiiidi: Xu,
+            invoke_iiiiiiiifii: nu,
             invoke_iiiiiiiii: wl,
             invoke_iiiiiiiiii: Ol,
             invoke_iiiiiiiiiiffiii: vs,
@@ -7745,68 +7745,67 @@ __d(
             invoke_iiiiiiiiiiiiiiffiiiii: ks,
             invoke_iiiiiiiiiiiiiii: Ms,
             invoke_iiiiiiiiiiiiiiiffiiiii: Ss,
-            invoke_iiiiiiiiiiiiiiii: ou,
+            invoke_iiiiiiiiiiiiiiii: au,
             invoke_iiiiiiiiiiiiiiiiiffiiiii: Rs,
             invoke_iiiiiiiiiiiiiiiiii: jl,
-            invoke_iiiiiiiiiiiiiiiiiiiiiiiiiiii: Qu,
+            invoke_iiiiiiiiiiiiiiiiiiiiiiiiiiii: Ku,
             invoke_iiiiiiiiiiji: ts,
-            invoke_iiiiiiiiij: Hu,
-            invoke_iiiiiiiij: Uu,
-            invoke_iiiiiiij: Tu,
-            invoke_iiiiiiijjii: gu,
+            invoke_iiiiiiiiij: Vu,
+            invoke_iiiiiiiiijiiiiiiiiii: Cu,
+            invoke_iiiiiiiij: qu,
+            invoke_iiiiiiij: Iu,
+            invoke_iiiiiiijjii: hu,
             invoke_iiiiiij: Vs,
-            invoke_iiiiiijiiii: Gu,
-            invoke_iiiiiijjijiiiiiiiiii: yu,
+            invoke_iiiiiijiiii: Hu,
             invoke_iiiiij: As,
-            invoke_iiiiiji: Bu,
+            invoke_iiiiiji: Ou,
             invoke_iiiiijjii: _s,
             invoke_iiiiijjiii: fs,
             invoke_iiiiijjjii: ms,
             invoke_iiiiijjjiii: ps,
             invoke_iiiij: Ns,
-            invoke_iiiijiii: fu,
+            invoke_iiiijiii: gu,
             invoke_iiiijiiji: is,
             invoke_iiiijjii: hs,
             invoke_iiiijjiii: ds,
-            invoke_iiij: Js,
-            invoke_iiijddddddd: wu,
+            invoke_iiij: Ys,
+            invoke_iiijddddddd: Mu,
             invoke_iiiji: es,
             invoke_iiijii: Jl,
             invoke_iiijiiji: as,
             invoke_iiijji: os,
-            invoke_iiijjiiii: $u,
+            invoke_iiijjiiii: xu,
             invoke_iij: Ps,
-            invoke_iiji: bu,
-            invoke_iijii: Vu,
-            invoke_iijiii: eu,
-            invoke_iijijijiji: Ku,
-            invoke_iijj: nu,
-            invoke_iijjjiiii: Du,
-            invoke_iijjjj: Au,
-            invoke_iijjjji: Mu,
+            invoke_iiji: vu,
+            invoke_iijii: Uu,
+            invoke_iijiii: Zs,
+            invoke_iijijijiji: ju,
+            invoke_iijj: tu,
+            invoke_iijjjiiii: Tu,
+            invoke_iijjjj: wu,
+            invoke_iijjjji: Nu,
             invoke_ij: Xs,
-            invoke_iji: Gs,
             invoke_j: Kl,
             invoke_ji: Yl,
             invoke_jii: Us,
             invoke_jiii: Al,
-            invoke_jiiii: ec,
-            invoke_jiiiii: ju,
-            invoke_jiiiiiiii: qu,
-            invoke_jiiiiiji: zu,
-            invoke_jiij: Ru,
+            invoke_jiiii: Zu,
+            invoke_jiiiii: zu,
+            invoke_jiiiiiiii: Wu,
+            invoke_jiiiiiji: Gu,
+            invoke_jiij: Su,
             invoke_jij: Ks,
             invoke_jj: Hs,
             invoke_v: xl,
             invoke_vd: Os,
             invoke_vi: Pl,
             invoke_vid: Ws,
-            invoke_viddjjii: xu,
-            invoke_vif: tu,
-            invoke_viff: mu,
+            invoke_viddjjii: Du,
+            invoke_vif: eu,
+            invoke_viff: pu,
             invoke_vii: Il,
             invoke_viid: zs,
-            invoke_viif: Ou,
+            invoke_viif: Fu,
             invoke_viii: El,
             invoke_viiii: Nl,
             invoke_viiiii: Wl,
@@ -7817,29 +7816,29 @@ __d(
             invoke_viiiiiiii: Vl,
             invoke_viiiiiiiii: Ul,
             invoke_viiiiiiiiii: ns,
-            invoke_viiiiiiiiiiii: Fu,
-            invoke_viiiiiiiiiiiii: ku,
-            invoke_viiiiiiiiiiiiiii: rc,
-            invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: Nu,
-            invoke_viiiiiiij: Iu,
-            invoke_viiiiij: uu,
-            invoke_viiiiiji: Ju,
-            invoke_viiiij: cu,
+            invoke_viiiiiiiiiiii: Au,
+            invoke_viiiiiiiiiiiii: Eu,
+            invoke_viiiiiiiiiiiiiii: nc,
+            invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: Pu,
+            invoke_viiiiiiij: ku,
+            invoke_viiiiij: cu,
+            invoke_viiiiiji: Yu,
+            invoke_viiiij: du,
             invoke_viiiijiiii: Ts,
-            invoke_viiij: Cu,
+            invoke_viiij: bu,
             invoke_viiiji: ls,
-            invoke_viij: Ys,
-            invoke_viiji: pu,
-            invoke_viijii: _u,
-            invoke_viijiiii: hu,
-            invoke_viijj: Wu,
+            invoke_viij: Gs,
+            invoke_viiji: _u,
+            invoke_viijii: fu,
+            invoke_viijiiii: yu,
+            invoke_viijj: Bu,
             invoke_viijjdiii: us,
             invoke_viijji: ws,
             invoke_vij: $s,
-            invoke_viji: Zs,
+            invoke_viji: Js,
             invoke_vijiiiii: Ql,
             invoke_vijj: Qs,
-            invoke_vijji: Pu,
+            invoke_vijji: $u,
             invoke_vjiiiiii: Xl,
             is_participant_known_contact_js: ot,
             llvm_eh_typeid_for: hi,
@@ -7923,8 +7922,8 @@ __d(
           Cl = (v.___get_exception_message = Ne("__get_exception_message")),
           bl = Ne("__cxa_can_catch"),
           vl = Ne("__cxa_is_pointer_type"),
-          Sl = (v.___start_em_js = 1403100),
-          Rl = (v.___stop_em_js = 1409087);
+          Sl = (v.___start_em_js = 1404444),
+          Rl = (v.___stop_em_js = 1410431);
         function Ll(e, t, n, r) {
           var o = fl();
           try {
@@ -8737,12 +8736,12 @@ __d(
             return (cl(1, 0), BigInt(0));
           }
         }
-        function Gs(e, t, n) {
-          var r = fl();
+        function Gs(e, t, n, r) {
+          var o = fl();
           try {
-            return fn(e)(t, n);
+            fn(e)(t, n, r);
           } catch (e) {
-            if ((gl(r), !(e instanceof Me))) throw e;
+            if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
@@ -8794,7 +8793,7 @@ __d(
         function Ys(e, t, n, r) {
           var o = fl();
           try {
-            fn(e)(t, n, r);
+            return fn(e)(t, n, r);
           } catch (e) {
             if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
@@ -8803,22 +8802,13 @@ __d(
         function Js(e, t, n, r) {
           var o = fl();
           try {
-            return fn(e)(t, n, r);
-          } catch (e) {
-            if ((gl(o), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Zs(e, t, n, r) {
-          var o = fl();
-          try {
             fn(e)(t, n, r);
           } catch (e) {
             if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
-        function eu(e, t, n, r, o, a) {
+        function Zs(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -8827,7 +8817,7 @@ __d(
             cl(1, 0);
           }
         }
-        function tu(e, t, n) {
+        function eu(e, t, n) {
           var r = fl();
           try {
             fn(e)(t, n);
@@ -8836,7 +8826,7 @@ __d(
             cl(1, 0);
           }
         }
-        function nu(e, t, n, r) {
+        function tu(e, t, n, r) {
           var o = fl();
           try {
             return fn(e)(t, n, r);
@@ -8845,7 +8835,7 @@ __d(
             cl(1, 0);
           }
         }
-        function ru(e, t, n, r, o, a, i, l, s, u, c) {
+        function nu(e, t, n, r, o, a, i, l, s, u, c) {
           var d = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8854,7 +8844,25 @@ __d(
             cl(1, 0);
           }
         }
-        function ou(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+        function ru(e, t, n, r, o, a, i) {
+          var l = fl();
+          try {
+            return fn(e)(t, n, r, o, a, i);
+          } catch (e) {
+            if ((gl(l), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function ou(e, t, n, r, o) {
+          var a = fl();
+          try {
+            return fn(e)(t, n, r, o);
+          } catch (e) {
+            if ((gl(a), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function au(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
           var g = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
@@ -8863,7 +8871,7 @@ __d(
             cl(1, 0);
           }
         }
-        function au(e, t, n, r, o) {
+        function iu(e, t, n, r, o) {
           var a = fl();
           try {
             return fn(e)(t, n, r, o);
@@ -8872,7 +8880,7 @@ __d(
             cl(1, 0);
           }
         }
-        function iu(e, t) {
+        function lu(e, t) {
           var n = fl();
           try {
             return fn(e)(t);
@@ -8881,7 +8889,7 @@ __d(
             cl(1, 0);
           }
         }
-        function lu(e, t, n, r, o, a) {
+        function su(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -8890,7 +8898,7 @@ __d(
             cl(1, 0);
           }
         }
-        function su(e, t) {
+        function uu(e, t) {
           var n = fl();
           try {
             return fn(e)(t);
@@ -8899,7 +8907,7 @@ __d(
             cl(1, 0);
           }
         }
-        function uu(e, t, n, r, o, a, i) {
+        function cu(e, t, n, r, o, a, i) {
           var l = fl();
           try {
             fn(e)(t, n, r, o, a, i);
@@ -8908,7 +8916,7 @@ __d(
             cl(1, 0);
           }
         }
-        function cu(e, t, n, r, o, a) {
+        function du(e, t, n, r, o, a) {
           var i = fl();
           try {
             fn(e)(t, n, r, o, a);
@@ -8917,7 +8925,7 @@ __d(
             cl(1, 0);
           }
         }
-        function du(e, t, n, r, o) {
+        function mu(e, t, n, r, o) {
           var a = fl();
           try {
             return fn(e)(t, n, r, o);
@@ -8926,7 +8934,7 @@ __d(
             cl(1, 0);
           }
         }
-        function mu(e, t, n, r) {
+        function pu(e, t, n, r) {
           var o = fl();
           try {
             fn(e)(t, n, r);
@@ -8935,7 +8943,7 @@ __d(
             cl(1, 0);
           }
         }
-        function pu(e, t, n, r, o) {
+        function _u(e, t, n, r, o) {
           var a = fl();
           try {
             fn(e)(t, n, r, o);
@@ -8944,7 +8952,7 @@ __d(
             cl(1, 0);
           }
         }
-        function _u(e, t, n, r, o, a) {
+        function fu(e, t, n, r, o, a) {
           var i = fl();
           try {
             fn(e)(t, n, r, o, a);
@@ -8953,7 +8961,7 @@ __d(
             cl(1, 0);
           }
         }
-        function fu(e, t, n, r, o, a, i, l) {
+        function gu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l);
@@ -8962,7 +8970,7 @@ __d(
             cl(1, 0);
           }
         }
-        function gu(e, t, n, r, o, a, i, l, s, u, c) {
+        function hu(e, t, n, r, o, a, i, l, s, u, c) {
           var d = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8971,7 +8979,7 @@ __d(
             cl(1, 0);
           }
         }
-        function hu(e, t, n, r, o, a, i, l) {
+        function yu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             fn(e)(t, n, r, o, a, i, l);
@@ -8980,7 +8988,7 @@ __d(
             cl(1, 0);
           }
         }
-        function yu(
+        function Cu(
           e,
           t,
           n,
@@ -9030,21 +9038,12 @@ __d(
             cl(1, 0);
           }
         }
-        function Cu(e, t, n, r, o) {
+        function bu(e, t, n, r, o) {
           var a = fl();
           try {
             fn(e)(t, n, r, o);
           } catch (e) {
             if ((gl(a), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function bu(e, t, n, r) {
-          var o = fl();
-          try {
-            return fn(e)(t, n, r);
-          } catch (e) {
-            if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
@@ -9057,16 +9056,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Su(e, t, n, r, o, a) {
-          var i = fl();
-          try {
-            return fn(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((gl(i), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Ru(e, t, n, r) {
+        function Su(e, t, n, r) {
           var o = fl();
           try {
             return fn(e)(t, n, r);
@@ -9075,25 +9065,25 @@ __d(
             return (cl(1, 0), BigInt(0));
           }
         }
-        function Lu(e, t, n, r, o) {
-          var a = fl();
+        function Ru(e, t, n, r) {
+          var o = fl();
           try {
-            return fn(e)(t, n, r, o);
+            return fn(e)(t, n, r);
           } catch (e) {
-            if ((gl(a), !(e instanceof Me))) throw e;
+            if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
-        function Eu(e, t, n, r, o, a, i) {
-          var l = fl();
+        function Lu(e, t, n, r, o, a) {
+          var i = fl();
           try {
-            return fn(e)(t, n, r, o, a, i);
+            return fn(e)(t, n, r, o, a);
           } catch (e) {
-            if ((gl(l), !(e instanceof Me))) throw e;
+            if ((gl(i), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
-        function ku(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+        function Eu(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
           var _ = fl();
           try {
             fn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
@@ -9102,7 +9092,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Iu(e, t, n, r, o, a, i, l, s) {
+        function ku(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             fn(e)(t, n, r, o, a, i, l, s);
@@ -9111,7 +9101,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Tu(e, t, n, r, o, a, i, l) {
+        function Iu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l);
@@ -9120,7 +9110,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Du(e, t, n, r, o, a, i, l, s) {
+        function Tu(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s);
@@ -9129,7 +9119,7 @@ __d(
             cl(1, 0);
           }
         }
-        function xu(e, t, n, r, o, a, i, l) {
+        function Du(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             fn(e)(t, n, r, o, a, i, l);
@@ -9138,7 +9128,7 @@ __d(
             cl(1, 0);
           }
         }
-        function $u(e, t, n, r, o, a, i, l, s) {
+        function xu(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s);
@@ -9147,7 +9137,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Pu(e, t, n, r, o) {
+        function $u(e, t, n, r, o) {
           var a = fl();
           try {
             fn(e)(t, n, r, o);
@@ -9156,7 +9146,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Nu(
+        function Pu(
           e,
           t,
           n,
@@ -9230,7 +9220,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Mu(e, t, n, r, o, a, i) {
+        function Nu(e, t, n, r, o, a, i) {
           var l = fl();
           try {
             return fn(e)(t, n, r, o, a, i);
@@ -9239,7 +9229,7 @@ __d(
             cl(1, 0);
           }
         }
-        function wu(e, t, n, r, o, a, i, l, s, u, c) {
+        function Mu(e, t, n, r, o, a, i, l, s, u, c) {
           var d = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -9248,7 +9238,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Au(e, t, n, r, o, a) {
+        function wu(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -9257,7 +9247,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Fu(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+        function Au(e, t, n, r, o, a, i, l, s, u, c, d, m) {
           var p = fl();
           try {
             fn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
@@ -9266,7 +9256,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Ou(e, t, n, r) {
+        function Fu(e, t, n, r) {
           var o = fl();
           try {
             fn(e)(t, n, r);
@@ -9275,7 +9265,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Bu(e, t, n, r, o, a, i) {
+        function Ou(e, t, n, r, o, a, i) {
           var l = fl();
           try {
             return fn(e)(t, n, r, o, a, i);
@@ -9284,7 +9274,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Wu(e, t, n, r, o) {
+        function Bu(e, t, n, r, o) {
           var a = fl();
           try {
             fn(e)(t, n, r, o);
@@ -9293,7 +9283,7 @@ __d(
             cl(1, 0);
           }
         }
-        function qu(e, t, n, r, o, a, i, l, s) {
+        function Wu(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s);
@@ -9302,7 +9292,7 @@ __d(
             return (cl(1, 0), BigInt(0));
           }
         }
-        function Uu(e, t, n, r, o, a, i, l, s) {
+        function qu(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s);
@@ -9311,7 +9301,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Vu(e, t, n, r, o) {
+        function Uu(e, t, n, r, o) {
           var a = fl();
           try {
             return fn(e)(t, n, r, o);
@@ -9320,7 +9310,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Hu(e, t, n, r, o, a, i, l, s, u) {
+        function Vu(e, t, n, r, o, a, i, l, s, u) {
           var c = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u);
@@ -9329,7 +9319,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Gu(e, t, n, r, o, a, i, l, s, u, c) {
+        function Hu(e, t, n, r, o, a, i, l, s, u, c) {
           var d = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -9338,7 +9328,7 @@ __d(
             cl(1, 0);
           }
         }
-        function zu(e, t, n, r, o, a, i, l) {
+        function Gu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l);
@@ -9347,7 +9337,7 @@ __d(
             return (cl(1, 0), BigInt(0));
           }
         }
-        function ju(e, t, n, r, o, a) {
+        function zu(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -9356,7 +9346,7 @@ __d(
             return (cl(1, 0), BigInt(0));
           }
         }
-        function Ku(e, t, n, r, o, a, i, l, s, u) {
+        function ju(e, t, n, r, o, a, i, l, s, u) {
           var c = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u);
@@ -9365,7 +9355,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Qu(
+        function Ku(
           e,
           t,
           n,
@@ -9431,7 +9421,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Xu(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+        function Qu(e, t, n, r, o, a, i, l, s, u, c, d, m) {
           var p = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
@@ -9440,7 +9430,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Yu(e, t, n, r, o, a, i, l, s, u) {
+        function Xu(e, t, n, r, o, a, i, l, s, u) {
           var c = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u);
@@ -9449,7 +9439,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Ju(e, t, n, r, o, a, i, l) {
+        function Yu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             fn(e)(t, n, r, o, a, i, l);
@@ -9458,7 +9448,7 @@ __d(
             cl(1, 0);
           }
         }
-        function Zu(e, t, n, r, o, a) {
+        function Ju(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -9467,13 +9457,22 @@ __d(
             cl(1, 0);
           }
         }
-        function ec(e, t, n, r, o) {
+        function Zu(e, t, n, r, o) {
           var a = fl();
           try {
             return fn(e)(t, n, r, o);
           } catch (e) {
             if ((gl(a), !(e instanceof Me))) throw e;
             return (cl(1, 0), BigInt(0));
+          }
+        }
+        function ec(e, t, n, r) {
+          var o = fl();
+          try {
+            return fn(e)(t, n, r);
+          } catch (e) {
+            if ((gl(o), !(e instanceof Me))) throw e;
+            cl(1, 0);
           }
         }
         function tc(e, t, n, r) {
@@ -9485,16 +9484,7 @@ __d(
             cl(1, 0);
           }
         }
-        function nc(e, t, n, r) {
-          var o = fl();
-          try {
-            return fn(e)(t, n, r);
-          } catch (e) {
-            if ((gl(o), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function rc(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+        function nc(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
           var g = fl();
           try {
             fn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
@@ -9511,7 +9501,7 @@ __d(
           (v.FS = Zt),
           (v.PThread = sn),
           (v.registeredTypes = cr));
-        var oc = [
+        var rc = [
           "writeI53ToI64",
           "writeI53ToI64Clamped",
           "writeI53ToI64Signaling",
@@ -9665,8 +9655,8 @@ __d(
           "emval_allocateDestructors",
           "emval_addMethodCaller",
         ];
-        oc.forEach(je);
-        var ac = [
+        rc.forEach(je);
+        var oc = [
           "run",
           "addOnPreRun",
           "addOnInit",
@@ -9916,24 +9906,24 @@ __d(
           "emval_registeredMethods",
           "IDBFS",
         ];
-        ac.forEach(Ke);
-        var ic;
+        oc.forEach(Ke);
+        var ac;
         Le = function e() {
-          (ic || sc(), ic || (Le = e));
+          (ac || lc(), ac || (Le = e));
         };
-        function lc() {
+        function ic() {
           (K(!P), ml(), se());
         }
-        function sc() {
+        function lc() {
           if (Se > 0) return;
-          if ((P || lc(), P)) {
+          if ((P || ic(), P)) {
             (S(v), he(), startWorker(v));
             return;
           }
           if ((ge(), Se > 0)) return;
           function e() {
-            ic ||
-              ((ic = !0),
+            ac ||
+              ((ac = !0),
               (v.calledRun = !0),
               !z &&
                 (he(),
@@ -9956,7 +9946,7 @@ __d(
             : e(),
             ue());
         }
-        function uc() {
+        function sc() {
           var e = B,
             t = W,
             n = !1;
@@ -9988,7 +9978,7 @@ __d(
             v.preInit.length > 0;
           )
             v.preInit.pop()();
-        return (sc(), a.ready);
+        return (lc(), a.ready);
       };
     })();
     ((C.BUILD_SHA = c),

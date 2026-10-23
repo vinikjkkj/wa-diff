@@ -4,7 +4,7 @@ __d(
     "WAWebBizProfileGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileTypes",
-    "cr:5664",
+    "cr:17670",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -265,9 +265,9 @@ __d(
         Ue,
         Ve = e.maybeChild("commands");
       (Ve && (Ue = u(Ve)),
-        !r("gkx")("26258") &&
-          n("cr:5664") &&
-          n("cr:5664").debugBotConfigs.injectBizBotFields === !0 &&
+        r("gkx")("16539") &&
+          n("cr:17670") &&
+          n("cr:17670").debugBotConfigs.injectBizBotFields === !0 &&
           ((Oe = o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.BASIC),
           (d =
             "Hello! I'm Midjourney, your personal assistant. I'm here to assist you with anything you might need, from travel information to workout plans, and even caring for your plants. I can even sketch your imagination!"),

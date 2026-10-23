@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAArrayUtils",
     "WALogger",
-    "WAStanzaUtils",
     "WAWebApiContact",
     "WAWebCoexV2PhoneNumberMapping",
     "WAWebDBCreateLidPnMappings",
@@ -393,9 +392,7 @@ __d(
               (yield S({
                 mapping: l,
                 flushImmediately: t,
-                sourceStanzaId: o("WAStanzaUtils").toStanzaId(
-                  e.msgInfo.externalId,
-                ),
+                sourceStanzaId: e.msgInfo.externalId,
               })),
             l
           );

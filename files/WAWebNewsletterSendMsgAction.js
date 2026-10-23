@@ -50,13 +50,13 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h;
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g;
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = o("WAWebStateUtils").unproxy(e);
           if (!o("WAWebChatGetters").getIsNewsletter(a))
             throw new (o(
@@ -77,25 +77,25 @@ __d(
               "WAWebRichTextFormatMessageSendLogger",
             ).maybeCreateRichTextFormatMessageSendCommit(l, a.id),
             u = n.linkPreview ? "media" : "text";
-          return N({
+          return P({
             chat: a,
             commitRichTextFormatMessageSend: s,
             msg: l,
             type: u,
           });
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b(e) {
+    function C(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
       return o("WAWebFrontendMsgGetters").getAsMms(e)
-        ? (h || (h = n("Promise"))).resolve()
-        : N({ chat: t, msg: e, type: "text" });
+        ? (g || (g = n("Promise"))).resolve()
+        : P({ chat: t, msg: e, type: "text" });
     }
-    function v(e, t, r) {
+    function b(e, t, r) {
       if (!o("WAWebChatGetters").getIsNewsletter(e))
-        return (h || (h = n("Promise"))).reject(
+        return (g || (g = n("Promise"))).reject(
           new (o("WAWebNewsletterErrors").UnexpectedNonNewsletterChatError)(),
         );
       var a =
@@ -109,7 +109,7 @@ __d(
           : o(
               "WAWebRichTextFormatMessageSendLogger",
             ).maybeCreateRichTextFormatMessageSendCommit(a, e.id);
-      return N({
+      return P({
         chat: e,
         commitRichTextFormatMessageSend: i,
         msg: a,
@@ -117,7 +117,7 @@ __d(
         uploadMediaMsg: r,
       });
     }
-    function S(e) {
+    function v(e) {
       ((e.wamMessageSendReporter = new (o(
         "WAWebMessageSendReporter",
       ).MessageSendReporter)(e, {
@@ -132,12 +132,12 @@ __d(
           messageType: o("WAWebWamMsgUtils").getWamMessageType(e),
         })));
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             yield o("WAWebDBProcessEditProtocolMsgs").generateMessageEdit(
               o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
@@ -190,22 +190,22 @@ __d(
             );
           }
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msgData,
             r = new (o("WAWebMsgModel").Msg)(n),
             a = o(
               "WAWebRichTextFormatMessageSendLogger",
             ).maybeCreateRichTextFormatMessageSendCommit(r, t.id),
-            i = yield N({
+            i = yield P({
               chat: t,
               commitRichTextFormatMessageSend: a,
               msg: r,
@@ -213,28 +213,28 @@ __d(
             });
           return [r, i];
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msg;
-          return N({ chat: t, msg: n, type: "text" });
+          return P({ chat: t, msg: n, type: "text" });
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msgData;
           if (
@@ -253,18 +253,18 @@ __d(
               r("err")("Poll forwarding is not enabled")
             );
           var a = new (o("WAWebMsgModel").Msg)(n),
-            i = yield N({ chat: t, msg: a, type: "pollResultSnapshot" });
+            i = yield P({ chat: t, msg: a, type: "pollResultSnapshot" });
           return [a, i];
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebFrontendMsgGetters").getIsMms(t))
             return (
               o("WALogger").ERROR(
@@ -281,7 +281,7 @@ __d(
           var n = yield o(
             "WAWebNewsletterSendMsgActionUtils",
           ).prepMsgDataForForward(t);
-          return N({
+          return P({
             chat: e,
             msg: o("WAWebMsgModelFromData").msgModelFromMsgData(n),
             type:
@@ -291,15 +291,15 @@ __d(
                 : "text",
           });
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             r,
             a = e.chat,
@@ -312,7 +312,7 @@ __d(
               "WAWebNewsletterExtendedGatingUtils",
             ).isNewsletterAdminProfilesSenderEnabled(a.newsletterMetadata)
           ) {
-            var c, f, g;
+            var c, f, h;
             u.newsletterAdminProfile =
               (c =
                 (f = a.newsletterMetadata) == null ? void 0 : f.adminProfile) !=
@@ -322,20 +322,20 @@ __d(
                     id: null,
                     name: a.name,
                     pictureDirectPath:
-                      (g = o("WAWebProfilePicThumbGetters").getMaybeImgFull(
+                      (h = o("WAWebProfilePicThumbGetters").getMaybeImgFull(
                         o(
                           "WAWebProfilePicThumbCollection",
                         ).ProfilePicThumbCollection.get(a.id),
                       )) != null
-                        ? g
+                        ? h
                         : null,
                     pictureId: null,
                   };
           }
-          (S(u),
+          (v(u),
             (t = u.wamMessageSendPerfReporter) == null ||
               t.startRenderedStage(),
-            yield a.addQueue.enqueue((h || (h = n("Promise"))).resolve(u)).then(
+            yield a.addQueue.enqueue((g || (g = n("Promise"))).resolve(u)).then(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -356,7 +356,7 @@ __d(
             (r = u.wamMessageSendPerfReporter) == null ||
               r.postRenderedStage());
           try {
-            var y, C, b, v;
+            var y, C, b, S;
             try {
               s != null && (u = yield s(u));
             } catch (e) {
@@ -394,8 +394,8 @@ __d(
               o("WAWebNewsletterSendMessageJob").sendNewsletterMessageJob(E),
             );
             switch (
-              ((v = u.wamMessageSendPerfReporter) == null ||
-                v.postWrittenWireStage(),
+              ((S = u.wamMessageSendPerfReporter) == null ||
+                S.postWrittenWireStage(),
               k.success)
             ) {
               case !0: {
@@ -409,7 +409,7 @@ __d(
                 ((u.serverId = k.serverId),
                   (u.t = k.ack.t),
                   u.updateAck(o("WAAckLevel").ACK.SENT, !0),
-                  w(u));
+                  M(u));
                 try {
                   var D, x;
                   ((D = u.wamMessageSendPerfReporter) == null ||
@@ -517,10 +517,10 @@ __d(
               (u.wamMessageSendPerfReporter = null));
           }
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(t) {
+    function M(t) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "thread_interactions_channel_own_posts_sent_web_enabled",
@@ -548,12 +548,12 @@ __d(
         }
       }
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function F() {
+    function A() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.base64Thumb,
             a = t.invitee,
             i = t.inviteMessage,
@@ -623,87 +623,19 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.base64Thumb,
-            a = t.inviteMessage,
-            i = t.newsletterWid;
-          try {
-            var l = o("WAWebStateUtils").unproxy(e),
-              s = r("nullthrows")(r("WAWebNewsletterCollection").get(i)),
-              u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              c = babelHelpers.extends(
-                {
-                  ack: o("WAAckLevel").ACK.CLOCK,
-                  from: u,
-                  id: new (r("WAWebMsgKey"))({
-                    from: u,
-                    to: l.id,
-                    id: yield r("WAWebMsgKey").newId(),
-                    participant: void 0,
-                    selfDir: "out",
-                  }),
-                  local: !0,
-                  t: o("WATimeUtils").unixTime(),
-                  to: l.id,
-                  type: "newsletter_follower_invite",
-                  kind: "newsletterFollowerInvite",
-                  viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                  broadcast: !0,
-                  isNewMsg: !0,
-                  newsletterFollowerInviteInfo: {
-                    newsletterId:
-                      o("WAWebWidFactory").asNewsletterWidOrThrow(i),
-                    newsletterName: s == null ? void 0 : s.name,
-                    inviteMessage: a,
-                    pictureThumbnail: n,
-                  },
-                },
-                o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  l,
-                ),
-              );
-            return o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, c)[1];
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sendNewsletterFollowerInviteMessage] send failed ",
-                      "",
-                    ])),
-                  e,
-                )
-                .tags("newsletter")
-                .sendLogs("newsletter-failed-to-send-follower-invite"),
-              {
-                messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
-                  .ERROR_UNKNOWN,
-              }
-            );
-          }
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    ((l.sendNewsletterTextMsg = y),
-      (l.resendNewsletterMsg = b),
-      (l.sendNewsletterMediaMsg = v),
-      (l.sendNewsletterEditMsg = R),
-      (l.sendNewsletterPollCreationMsg = E),
-      (l.sendNewsletterAlbumMsg = I),
-      (l.sendNewsletterPollResultSnapshotMsg = D),
-      (l.forwardNewsletterMessage = $),
-      (l.sendNewsletterAdminInviteMessage = A),
-      (l.sendNewsletterFollowerInviteMessage = O));
+    ((l.sendNewsletterTextMsg = h),
+      (l.resendNewsletterMsg = C),
+      (l.sendNewsletterMediaMsg = b),
+      (l.sendNewsletterEditMsg = S),
+      (l.sendNewsletterPollCreationMsg = L),
+      (l.sendNewsletterAlbumMsg = k),
+      (l.sendNewsletterPollResultSnapshotMsg = T),
+      (l.forwardNewsletterMessage = x),
+      (l.sendNewsletterMessage = P),
+      (l.sendNewsletterAdminInviteMessage = w));
   },
   98,
 );

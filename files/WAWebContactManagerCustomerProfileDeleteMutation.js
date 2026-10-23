@@ -26,8 +26,12 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = m(e),
-            a = yield o("WAWebFetchAdAccountToken").fetchToken();
+            n = o("WAJids").validateLidUserJid(e);
+          if (n == null)
+            throw r("err")(
+              "[CustomerManager] customer profile delete: chatJid must be a LID-based JID",
+            );
+          var a = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (a.type !== "success")
             throw r("err")(
               "[CustomerManager] customer profile delete: no access token (" +
@@ -72,13 +76,6 @@ __d(
         })),
         d.apply(this, arguments)
       );
-    }
-    function m(e) {
-      if (!e.endsWith(o("WAJids").LID_DOMAIN))
-        throw r("err")(
-          "[CustomerManager] customer profile delete: chatJid must be a LID-based JID",
-        );
-      return e.slice(0, -o("WAJids").LID_DOMAIN.length);
     }
     l.deleteCustomerProfileFromServer = c;
   },

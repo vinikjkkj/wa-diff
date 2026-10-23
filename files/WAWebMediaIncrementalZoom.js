@@ -109,21 +109,21 @@ __d(
       I = [].concat(E, k),
       T = 1,
       D = 5,
-      x = [1, 2, 3, 4, 5],
-      $ = function (t) {
-        return x.reduce(function (e, n) {
-          return Math.abs(n - t) < Math.abs(e - t) ? n : e;
-        });
-      };
+      x = [1, 2, 3, 4, 5];
+    function $(e) {
+      return x.reduce(function (t, n) {
+        return Math.abs(n - e) < Math.abs(t - e) ? n : t;
+      });
+    }
     function P(e, t) {
       var n = Math.log(e / t) / Math.log(L) + 1;
       return $(n);
     }
-    var N = function (t, n) {
-      var e = $(t),
-        r = n * Math.pow(L, e - 1);
-      return { scale: r, zoomLevel: e };
-    };
+    function N(e, t) {
+      var n = $(e),
+        r = t * Math.pow(L, n - 1);
+      return { scale: r, zoomLevel: n };
+    }
     function M(e, t) {
       return !e || !t
         ? null
@@ -149,11 +149,11 @@ __d(
         a = e.imageW;
       return { x: (r - a * t) / 2, y: (n - o * t) / 2 };
     }
-    var F = function (t) {
-      var e = t.container,
-        n = t.currentScale,
-        r = t.getMinScaleToFit,
-        o = t.zoomIn,
+    function F(e) {
+      var t = e.container,
+        n = e.currentScale,
+        r = e.getMinScaleToFit,
+        o = e.zoomIn,
         a = r(),
         i = a,
         l = Math.log(n / i) / Math.log(L) + 1,
@@ -162,11 +162,11 @@ __d(
         c = N(u, i),
         d = c.scale,
         m = c.zoomLevel,
-        p = e.getBoundingClientRect(),
+        p = t.getBoundingClientRect(),
         _ = p.left + p.width / 2,
         f = p.top + p.height / 2;
       return { scale: d, centerX: _, centerY: f, zoomLevel: m };
-    };
+    }
     function O(e) {
       var t = o("react-compiler-runtime").c(17),
         n = h(0),

@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumChatThemeEntryType",
     "WAWebWamEnumDeviceAppearanceType",
     "WAWebWamEnumMessageChatType",
+    "WAWebWamEnumSharedChatThemeSetter",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,6 +27,10 @@ __d(
               chatType: [2, o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE],
               colorSchemeId: [8, e.TYPES.STRING],
               dedupKey: [10, e.TYPES.INTEGER],
+              sharedThemeSetter: [
+                11,
+                o("WAWebWamEnumSharedChatThemeSetter").SHARED_CHAT_THEME_SETTER,
+              ],
               threadId: [3, e.TYPES.STRING],
               wallpaperApplied: [4, e.TYPES.BOOLEAN],
               wallpaperId: [9, e.TYPES.STRING],

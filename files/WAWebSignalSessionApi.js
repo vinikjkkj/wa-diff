@@ -17,7 +17,7 @@ __d(
     "WAWebSignalStoreApi",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "cr:4533",
+    "cr:17674",
     "err",
     "gkx",
   ],
@@ -50,23 +50,23 @@ __d(
             i = t.identity,
             l = t.wid;
           if (
-            (r("gkx")("26258")
+            (r("gkx")("9092")
               ? o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Signal::createSignalSession sessionScope=",
-                      "",
-                    ])),
-                  n != null ? n : "default",
-                )
-              : o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "Signal::createSignalSession with ",
                       " sessionScope=",
                       "",
                     ])),
                   l.toString({ legacy: !0 }),
+                  n != null ? n : "default",
+                )
+              : o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "Signal::createSignalSession sessionScope=",
+                      "",
+                    ])),
                   n != null ? n : "default",
                 ),
             l.device != null && l.device !== o("WAJids").DEFAULT_DEVICE_ID)

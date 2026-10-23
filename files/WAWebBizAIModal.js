@@ -9,6 +9,7 @@ __d(
     "WAWebModal.react",
     "WAWebModalManager",
     "WAWebNoop",
+    "WAWebStopEvent",
     "react",
     "react-compiler-runtime",
   ],
@@ -34,7 +35,7 @@ __d(
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
           "data-testid": "biz-ai-modal-dismissal-keys",
-          handlers: { esc: h },
+          handlers: { esc: o("WAWebStopEvent").stopPropagation },
           children: a,
         }),
         { blockClose: !0 },
@@ -56,52 +57,52 @@ __d(
         c;
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((c = function (t) {
-            (C(t), s(!0));
+            (y(t), s(!0));
           }),
           (t[0] = c))
         : (c = t[0]);
       var d = c,
-        p = l ? y : h,
+        p = l ? h : o("WAWebStopEvent").stopPropagation,
         _;
       t[1] !== p ? ((_ = { esc: p }), (t[1] = p), (t[2] = _)) : (_ = t[2]);
       var f = l ? void 0 : r("WAWebNoop"),
-        b;
+        C;
       t[3] !== a
-        ? ((b = u.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+        ? ((C = u.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
             fallback: g,
             name: "biz-ai-entrypoint-modal-boundary",
             onError: d,
             children: u.jsx(u.Fragment, { children: a }),
           })),
           (t[3] = a),
-          (t[4] = b))
-        : (b = t[4]);
-      var v;
-      t[5] !== n || t[6] !== f || t[7] !== b
-        ? ((v = u.jsx(o("WAWebModal.react").Modal, {
+          (t[4] = C))
+        : (C = t[4]);
+      var b;
+      t[5] !== n || t[6] !== f || t[7] !== C
+        ? ((b = u.jsx(o("WAWebModal.react").Modal, {
             ariaLabel: n,
             autoHeight: !0,
             onOverlayClick: f,
             type: o("WAWebModal.react").ModalTheme.Auto,
-            children: b,
+            children: C,
           })),
           (t[5] = n),
           (t[6] = f),
-          (t[7] = b),
-          (t[8] = v))
-        : (v = t[8]);
-      var S;
+          (t[7] = C),
+          (t[8] = b))
+        : (b = t[8]);
+      var v;
       return (
-        t[9] !== _ || t[10] !== v
-          ? ((S = u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        t[9] !== _ || t[10] !== b
+          ? ((v = u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
               handlers: _,
-              children: v,
+              children: b,
             })),
             (t[9] = _),
-            (t[10] = v),
-            (t[11] = S))
-          : (S = t[11]),
-        S
+            (t[10] = b),
+            (t[11] = v))
+          : (v = t[11]),
+        v
       );
     }
     function g() {
@@ -112,12 +113,9 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      e.stopPropagation();
-    }
-    function y(e) {
       (e.stopPropagation(), o("WAWebModalManager").ModalManager.close());
     }
-    function C(t) {
+    function y(t) {
       o("WALogger")
         .ERROR(
           e ||

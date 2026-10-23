@@ -11,6 +11,7 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebMsgModelPropUtils",
     "WAWebPttAudioChannels",
+    "WAWebSoundStickerAudioValidation",
     "WAWebSoundStickerGating",
     "WAWebSoundStickerUtils",
     "WAWebStartMediaDownloadQpl",
@@ -23,7 +24,7 @@ __d(
     var e,
       s,
       u,
-      c = 1048576,
+      c = 1e6,
       d = 20,
       m = 300 * 1e3,
       p = new Set(),
@@ -250,6 +251,23 @@ __d(
                 }),
                 r("err")("invalid clip")
               );
+            try {
+              l = yield o(
+                "WAWebSoundStickerAudioValidation",
+              ).checkSoundStickerAudio({
+                input: l,
+                mimetype: t.mimetype,
+                downloadQpl: i,
+              });
+            } catch (e) {
+              throw (
+                i.endFailWithError(
+                  "invalid_sticker_audio",
+                  r("getErrorSafe")(e).message,
+                ),
+                e
+              );
+            }
             var s;
             try {
               var u;

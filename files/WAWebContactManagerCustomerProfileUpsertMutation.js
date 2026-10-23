@@ -78,11 +78,11 @@ __d(
           }
           return (
             a.profiles.forEach(function (e) {
-              var t = e.lid;
+              var t = e.lid_jid;
               return l(t, "written");
             }),
             a.conflicts.forEach(function (e) {
-              var t = e.lid;
+              var t = e.lid_jid;
               return l(t, "existing");
             }),
             a.unresolved_lids.forEach(function (e) {
@@ -294,7 +294,9 @@ __d(
       var r;
       if (e == null || t == null) return !1;
       var o = (r = e[0]) != null ? r : t[0];
-      return e.length + t.length === 1 && (o == null ? void 0 : o.lid) === n;
+      return (
+        e.length + t.length === 1 && (o == null ? void 0 : o.lid_jid) === n
+      );
     }
     function I(e) {
       return T.apply(this, arguments);

@@ -97,7 +97,7 @@ __d(
           return this.$2[t];
         }),
         (t.set = function (t, n) {
-          var e = this.$2;
+          var e = o("WebBloksUtils").cast(this.$2);
           e[t] = n;
         }),
         (t.getWireStyleId = function () {
@@ -177,11 +177,11 @@ __d(
             this.$1,
           );
           if (n) {
-            var r = t.$2;
-            for (var o of Object.entries(n)) {
-              var a = o[0],
-                i = o[1];
-              r[a] = i;
+            var r = o("WebBloksUtils").cast(t.$2);
+            for (var a of Object.entries(n)) {
+              var i = a[0],
+                l = a[1];
+              r[i] = l;
             }
           }
           return (

@@ -264,19 +264,31 @@ __d(
           if (
             o.length >= P &&
             a.phone != null &&
-            (w(o) || (t != null && n !== !0 && M(e, r, o.length, t)))
+            (w(o) ||
+              (t != null &&
+                n !== !0 &&
+                M({
+                  data: e,
+                  delimiter: t,
+                  headerIndex: r,
+                  headerWidth: o.length,
+                })))
           )
             return { data: o, index: r };
         }
       }
       return null;
     }
-    function M(e, t, n, r) {
-      return e.slice(t + 1).some(function (e) {
+    function M(e) {
+      var t = e.data,
+        n = e.delimiter,
+        r = e.headerIndex,
+        o = e.headerWidth;
+      return t.slice(r + 1).some(function (e) {
         return (
-          e.length === n &&
+          e.length === o &&
           e.some(function (e) {
-            return e.includes(r);
+            return e.includes(n);
           })
         );
       });

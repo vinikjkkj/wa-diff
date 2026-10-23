@@ -70,9 +70,7 @@ __d(
           try {
             var n = yield o(
               "WAWebContactManagerCustomerProfilesQuery",
-            ).fetchCompleteCustomerProfileRecords({
-              candidateLids: t.map(o("WAJids").lidFromLidUserJid),
-            });
+            ).fetchCompleteCustomerProfileRecords({ candidateLids: t });
             return (
               n == null &&
                 o("WALogger")

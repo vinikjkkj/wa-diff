@@ -25,6 +25,7 @@ __d(
               ],
               groupHistoryReceiverGroupId: [3, e.TYPES.STRING],
               groupHistoryUncountedMessagesCount: [14, e.TYPES.INTEGER],
+              hasChatThemeMessage: [17, e.TYPES.BOOLEAN],
               isAutoProcess: [4, e.TYPES.BOOLEAN],
               messageKeyHash: [10, e.TYPES.STRING],
               messageReceivedTs: [5, e.TYPES.INTEGER],

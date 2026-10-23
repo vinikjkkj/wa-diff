@@ -16,8 +16,13 @@ __d(
         ? e
         : s._(/*BTDS*/ "{plan name} plan", [s._param("plan name", e)]);
     }
+    function c(e) {
+      var t = e.usageRowLabel;
+      return t != null && t.trim() !== "" ? t : u(e.planName);
+    }
     ((l.getHatchSubscriptionUsageText = e),
-      (l.getHatchSubscriptionPlanTitle = u));
+      (l.getHatchSubscriptionPlanTitle = u),
+      (l.getHatchSubscriptionPlanLabel = c));
   },
   226,
 );

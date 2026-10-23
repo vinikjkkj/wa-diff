@@ -13,7 +13,7 @@ __d(
     "WAWebOpenChatSocket",
     "WAWebSocketConstants",
     "WAWebStanzaValidation",
-    "cr:7907",
+    "cr:17672",
     "gkx",
     "nullthrows",
   ],
@@ -113,18 +113,18 @@ __d(
                     a,
                   )
                   .sendLogs("send-string-jid"),
-                r("gkx")("26258") ||
-                  n("cr:7907") == null ||
-                  n("cr:7907").sendNewStanzaToDevTool(a, !0),
+                r("gkx")("16539") &&
+                  (n("cr:17672") == null ||
+                    n("cr:17672").sendNewStanzaToDevTool(a, !0)),
                 o("WAWebStanzaValidation").validateSentStanza(a));
             },
             onHandleAck: function (t) {
               r("WAWebCommsProcessAck")(t);
             },
             onHandleStanza: function (t) {
-              r("gkx")("26258") ||
-                n("cr:7907") == null ||
-                n("cr:7907").sendNewStanzaToDevTool(t, !1);
+              r("gkx")("16539") &&
+                (n("cr:17672") == null ||
+                  n("cr:17672").sendNewStanzaToDevTool(t, !1));
             },
             onSendIq: o("WAWebStanzaValidation").validateSentStanza,
             onClockSkewUpdate:

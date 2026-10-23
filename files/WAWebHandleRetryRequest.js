@@ -36,6 +36,8 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:10198",
+    "cr:17732",
+    "cr:17733",
     "cr:627",
     "getErrorSafe",
     "gkx",
@@ -194,7 +196,13 @@ __d(
                             P.isIdentityChangedSinceSend;
                         if (
                           yield T(
-                            a != null ? a : i,
+                            (n("cr:17733") == null
+                              ? void 0
+                              : n("cr:17733").isAeaBotAccount(i)) === !0
+                              ? o("WAWebWidFactory").asUserWidOrThrow(D)
+                              : a != null
+                                ? a
+                                : i,
                             D,
                             w,
                             F,
@@ -263,7 +271,9 @@ __d(
           function* (e, t, a, i, l) {
             if (
               n("cr:627") == null ||
-              !e.isRegularUser() ||
+              (n("cr:17733") == null
+                ? void 0
+                : n("cr:17733").isRegularUserOrAeaBot(e)) !== !0 ||
               o("WAWebUserPrefsMeUser").isMeAccount(t)
             )
               return !1;
@@ -396,11 +406,18 @@ __d(
             return yield o("WAWebSendMsgQueueMap").sendMsgQueueMap.enqueue(
               e.toString(),
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var n = yield o("WAWebSignalProtocolStore")
-                  .getPersistSignalProtocolStore()
-                  .getIdentityWithRowId(
-                    o("WAWebSignalCommonUtils").createSignalAddress(m),
-                  );
+                var a,
+                  i = yield o("WAWebSignalProtocolStore")
+                    .getPersistSignalProtocolStore()
+                    .getIdentityWithRowId(
+                      o("WAWebSignalCommonUtils").createSignalAddress(m),
+                    ),
+                  s =
+                    (a = i == null ? void 0 : i.identityKey) != null
+                      ? a
+                      : n("cr:17732") == null
+                        ? void 0
+                        : n("cr:17732").readAeaIdentityChangeBaselineKey(m);
                 (yield o(
                   "WAWebUpdateLocalSignalSession",
                 ).updateLocalSignalSession(e, t, r),
@@ -408,8 +425,11 @@ __d(
                     identityChanged: !1,
                     sessionScope: r,
                     wids: [m],
-                  }));
-                var a = yield o("WAWebSignalProtocolStore")
+                  }),
+                  yield n("cr:17732") == null
+                    ? void 0
+                    : n("cr:17732").restoreAeaIdentityChangeBaseline(m));
+                var c = yield o("WAWebSignalProtocolStore")
                   .getPersistSignalProtocolStore()
                   .getIdentityWithRowId(
                     o("WAWebSignalCommonUtils").createSignalAddress(m),
@@ -419,8 +439,8 @@ __d(
                   chat: e,
                   requester: m,
                   isLidBot: l,
-                  identity: a,
-                  previousIdentityKey: n == null ? void 0 : n.identityKey,
+                  identity: c,
+                  previousIdentityKey: s,
                 };
               }),
             );

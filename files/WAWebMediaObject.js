@@ -9,7 +9,8 @@ __d(
     "WAWebCryptoCreateMediaKeys",
     "WAWebCryptoMediaTypeInfo",
     "WAWebInteractiveMessageHeaderMediaType",
-    "WAWebMedia",
+    "WAWebMediaCancelDownloadMsg",
+    "WAWebMediaCancelUploadMsg",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDataUtils",
     "WAWebMediaEntry",
@@ -299,8 +300,8 @@ __d(
           (a.delete = function (t) {
             (t === void 0 && (t = "media_object_delete"),
               (this.saveMedia = null),
-              o("WAWebMedia").cancelDownloadMedia(this),
-              o("WAWebMedia").cancelUploadMedia(this, t),
+              o("WAWebMediaCancelDownloadMsg").cancelDownloadMedia(this),
+              o("WAWebMediaCancelUploadMsg").cancelUploadMedia(this, t),
               this.clearBlob());
           }),
           (a.runProcessIfNotRunBefore = function (t, r, o) {

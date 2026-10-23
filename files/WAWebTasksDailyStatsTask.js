@@ -371,7 +371,7 @@ __d(
               .WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "logDailyStats: failed to report the AEA backfill status",
+                    "[aea] logDailyStats: failed to report the backfill status",
                   ])),
               )
               .catching(r("getErrorSafe")(e))

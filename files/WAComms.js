@@ -1111,8 +1111,14 @@ __d(
         o,
         a = (n = t == null ? void 0 : t.withoutRetry) != null ? n : !1,
         i = (r = t == null ? void 0 : t.timeoutSeconds) != null ? r : 0,
-        l = (o = t == null ? void 0 : t.signal) != null ? o : null;
-      return pe(e, a, i, l, "smax");
+        l = (o = t == null ? void 0 : t.signal) != null ? o : null,
+        s = t == null ? void 0 : t.onResponse,
+        u = pe(e, a, i, l, "smax");
+      return s == null
+        ? u
+        : u.then(function (e) {
+            return (s(e), e);
+          });
     }
     function fe() {
       var e = Ce("sendPing");

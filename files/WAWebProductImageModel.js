@@ -7,13 +7,13 @@ __d(
     "WAPromiseBackoffs",
     "WAWebBaseModel",
     "WAWebCryptoCalculateFilehash",
-    "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaDataUtils",
     "WAWebMediaLoadErrors",
     "WAWebMediaOpaqueData",
     "WAWebMediaStore",
     "WAWebMediaTypes",
+    "WAWebPrepRawMedia",
     "WAWebProductImageGetters",
     "asyncToGeneratorRuntime",
   ],
@@ -75,7 +75,7 @@ __d(
                 "_processAndUpdateMediaData: before prepRawMedia",
               ])),
           );
-          var s = o("WAWebMedia").prepRawMedia(l, {});
+          var s = o("WAWebPrepRawMedia").prepRawMedia(l, {});
           s.waitForPrep()
             .then(function (e) {
               return (

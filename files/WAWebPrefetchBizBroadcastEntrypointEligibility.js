@@ -2,7 +2,6 @@ __d(
   "WAWebPrefetchBizBroadcastEntrypointEligibility",
   [
     "WALogger",
-    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebRefreshBusinessEligibility",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -16,24 +15,21 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled()
-          )
-            try {
-              yield o(
-                "WAWebRefreshBusinessEligibility",
-              ).refreshBusinessEligibilityIfNeeded({ rethrowOnFailure: !0 });
-            } catch (t) {
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[BB Pro] Eligibility prefetch failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("bb-pro-eligibility-prefetch-failed");
-            }
+          try {
+            yield o(
+              "WAWebRefreshBusinessEligibility",
+            ).refreshBusinessEligibilityIfNeeded({ rethrowOnFailure: !0 });
+          } catch (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[BB Pro] Eligibility prefetch failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("bb-pro-eligibility-prefetch-failed");
+          }
         })),
         u.apply(this, arguments)
       );

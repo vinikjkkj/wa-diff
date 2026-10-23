@@ -13,7 +13,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "getErrorSafe",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b;
@@ -80,7 +79,7 @@ __d(
               ])),
           )
           .catching(d),
-          r("gkx")("26258") ||
+          o("WAWebCurrentUser").isEmployee() &&
             o("WALogger")
               .ERROR(
                 _ ||

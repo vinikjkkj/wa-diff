@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WAWebAeaRollout",
     "WAWebSignal",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
@@ -130,7 +129,10 @@ __d(
                         a != null &&
                         a.isMonitoredSend !== !1 &&
                         !i &&
-                        o("WAWebAeaRollout").isAeaEnforcementEnabled()
+                        n("cr:510") != null &&
+                        (yield n(
+                          "cr:510",
+                        ).isAeaEnforcedForUnevaluatedKeyResponse(e.wid, a))
                       )
                         return (
                           o("WALogger").LOG(
@@ -147,7 +149,7 @@ __d(
                       var u = b[t];
                       return (n("cr:510") == null
                         ? void 0
-                        : n("cr:510").isAeaKeyResponseRejected(u)) === !0
+                        : n("cr:510").shouldRejectAeaKeyResponse(u, a)) === !0
                         ? (o("WALogger").LOG(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([

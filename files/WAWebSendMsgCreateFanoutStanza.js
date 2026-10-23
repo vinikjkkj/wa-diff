@@ -621,10 +621,14 @@ __d(
                     ? {
                         isBeforeEnforcedSendDecision:
                           (y == null ? void 0 : y.isEnforced) === !0,
+                        sendRecipient:
+                          y != null
+                            ? o("WAWebWidFactory").asUserWidOrThrow(W)
+                            : void 0,
                         isMonitoredSend:
                           (n("cr:627") == null
                             ? void 0
-                            : n("cr:627").isMonitoredSend({
+                            : n("cr:627").isAeaSendMonitoringCandidate({
                                 recipient: W,
                                 fanoutDevices: R,
                                 message: k,
@@ -1052,7 +1056,7 @@ __d(
                   .WARN(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "createFanoutMsgStanza: failed to mark the hosted account send",
+                        "[aea] createFanoutMsgStanza: failed to mark the hosted account send",
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))

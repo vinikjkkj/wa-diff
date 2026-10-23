@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAPromiseTimeout",
-    "WASmaxInWaffleWFNotificationRequest",
+    "WASmaxWaffleWFNotificationRPC",
     "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
@@ -61,9 +61,9 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WASmaxInWaffleWFNotificationRequest",
-          ).parseWFNotificationRequest(e);
+          var t = o("WASmaxWaffleWFNotificationRPC").parseWFNotificationRequest(
+            e,
+          );
           if (t.success) {
             var n = o(
               "WAWebAccountLinkingConstants",

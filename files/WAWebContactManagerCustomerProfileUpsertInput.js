@@ -133,13 +133,14 @@ __d(
       return e == null || e === "" ? null : e;
     }
     function d(e) {
-      if (!e.endsWith(o("WAJids").LID_DOMAIN))
+      var t = o("WAJids").validateLidUserJid(e);
+      if (t == null)
         throw r("err")(
           '[CustomerManager] customer profile upsert: chatJid must be a LID-based JID, got "' +
             e +
             '"',
         );
-      return e.slice(0, -o("WAJids").LID_DOMAIN.length);
+      return t;
     }
     ((l.buildFieldUpdateInput = s), (l.buildUpsertInput = u));
   },

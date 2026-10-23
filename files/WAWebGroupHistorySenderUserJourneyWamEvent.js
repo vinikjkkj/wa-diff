@@ -55,6 +55,7 @@ __d(
               ],
               groupHistoryUncountedMessagesCount: [7, e.TYPES.INTEGER],
               groupSize: [8, e.TYPES.INTEGER],
+              hasChatThemeMessage: [30, e.TYPES.BOOLEAN],
               ineligibleReason: [
                 9,
                 o("WAWebWamEnumGroupHistoryIneligibilityReason")

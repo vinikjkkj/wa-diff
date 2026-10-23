@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+      a2ui_fallback_show_timestamp: [40437, "bool", !1, !0],
       a2ui_supported_elements: [
         32276,
         "string",
@@ -489,7 +490,6 @@ __d(
       aura_stickers_suggestions_weight: [37398, "float", 2, 2],
       aura_subscription_simulation_enabled: [26086, "bool", !1, !1],
       aura_upsell_generic_headline_enabled: [39461, "bool", !1, !1],
-      auth_agent_soft_offboarding_enabled: [28802, "bool", !1, !1],
       auth_agents_consumer_exp_enabled: [26492, "bool", !1, !0],
       auth_agents_consumer_offboarding_exp_enabled: [30360, "bool", !1, !0],
       auth_reps_consumer_ai_group_block_enabled: [36453, "bool", !1, !0],
@@ -601,6 +601,7 @@ __d(
       booking_confirmation_enabled_wa_web: [23559, "bool", !1, !0],
       bot_3p_status: [5985, "int", 0, 0],
       bot_profile_sync_migration_enabled: [17485, "bool", !1, !1],
+      br_api_offers_text_detection_cta_enabled: [40429, "bool", !1, !1],
       br_consumer_delete_payment_info_web_enabled: [34062, "bool", !1, !1],
       br_consumer_payments_home_web_enabled: [32968, "bool", !1, !1],
       br_consumer_payments_web_enabled: [36339, "bool", !1, !1],
@@ -4053,6 +4054,7 @@ __d(
       web_contact_collection_locale_listener: [31103, "bool", !1, !1],
       web_contact_sort_letters_first: [28962, "int", -1, -1],
       web_contacts_and_groups_enabled: [40041, "bool", !1, !1],
+      web_contacts_and_groups_online_now_enabled: [40460, "bool", !1, !1],
       web_conversation_cleanup_temp_collection: [30829, "bool", !1, !1],
       web_crosspost_settings_sync: [26296, "int", 0, 0],
       web_date_marker_calendar_enabled: [25811, "bool", !1, !0],
@@ -4216,6 +4218,7 @@ __d(
         !1,
         !0,
       ],
+      web_promote_group_actions_to_admins: [40469, "bool", !1, !1],
       web_ptt_render_throttling: [31126, "bool", !1, !0],
       web_ptt_streamer_upload: [1902, "bool", !1, !1],
       web_ptt_transcription_button_enabled: [32799, "bool", !1, !1],
@@ -4375,6 +4378,8 @@ __d(
       win_hybrid_expiry_wrong_clock_block_enabled: [39502, "bool", !1, !0],
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
+      win_hybrid_push_task_all_banners_enabled: [40423, "bool", !1, !0],
+      win_hybrid_startup_telemetry_l1_sample_interval: [40452, "int", 1e3, 1],
       win_hybrid_tray_wake_keep_resumed_seconds: [38862, "int", 0, 600],
       win_hybrid_voip_anr_optimizations: [22616, "int", 0, 0],
       win_hybrid_vsr_button_enabled: [34272, "bool", !1, !0],

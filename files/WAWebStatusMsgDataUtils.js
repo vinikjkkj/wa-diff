@@ -8,6 +8,8 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebSpoilerFormatRegex",
+    "WAWebSpoilerGating",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -57,6 +59,9 @@ __d(
               from: m,
               to: d,
               isNewMsg: !0,
+              isSpoiler:
+                o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(c) &&
+                o("WAWebSpoilerGating").isStatusSpoilerSenderEnabled(),
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
               font: (l = t.font) != null ? l : void 0,

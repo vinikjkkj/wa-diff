@@ -16,7 +16,6 @@ __d(
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "WAWebWamEnumMdSyncdFatalErrorCode",
     "asyncToGeneratorRuntime",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -217,11 +216,7 @@ __d(
             .sendLogs("syncd: key share wid error"),
           (f || (f = n("Promise"))).resolve());
     }
-    function b(e) {
-      r("gkx")("26258") || (y = e(y));
-    }
-    ((l.handleAppStateSyncKeyShare = C),
-      (l.setAppStateSyncKeyShareHandler = b));
+    l.handleAppStateSyncKeyShare = C;
   },
   98,
 );

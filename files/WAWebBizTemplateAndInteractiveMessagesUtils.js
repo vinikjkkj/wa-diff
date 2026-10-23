@@ -135,14 +135,14 @@ __d(
               )
             : !1;
     }
-    var _ = function (t) {
-      return t.hydratedTemplateButton != null
-        ? t.hydratedTemplateButton.quickReplyButton != null
-        : t.nativeFlowButton != null
-          ? t.nativeFlowButton.name ===
+    function _(e) {
+      return e.hydratedTemplateButton != null
+        ? e.hydratedTemplateButton.quickReplyButton != null
+        : e.nativeFlowButton != null
+          ? e.nativeFlowButton.name ===
             String(r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY)
           : !1;
-    };
+    }
     function f(e) {
       if (e.length === 0) return !1;
       var t = _(e[0]),

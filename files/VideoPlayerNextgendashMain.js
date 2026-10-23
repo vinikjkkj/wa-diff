@@ -12,7 +12,6 @@ __d(
     "deepEquals",
     "emptyFunction",
     "nextgendasherr",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -1546,11 +1545,10 @@ __d(
       return babelHelpers.extends({}, t, { liveManifestRefreshTimerHandle: i });
     }
     function V(e) {
-      r("vulture")("1wLiKFPfHrElLyAyUVtiG3U2nXA=");
       var t = e.enableLive,
         n = e.isManifestParsed,
-        o = e.manifestType;
-      return t && n && o === "dynamic";
+        r = e.manifestType;
+      return t && n && r === "dynamic";
     }
     function H(e, t, n) {
       var r, o;

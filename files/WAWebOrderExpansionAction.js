@@ -14,24 +14,24 @@ __d(
     "WAWebOrdersExpansionUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = function (t) {
-        var e = t.interactiveType,
-          n = t.isSentByMe,
-          o = t.nativeFlowName;
-        return (
-          e === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-          o === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-          n
-        );
-      },
-      c = function (t, n) {
-        var e = !(
-          n === o("WAWebOrderStatus").OrderStatus.Canceled ||
-          n === o("WAWebOrderStatus").OrderStatus.Complete
-        );
-        return e && u(t);
-      };
+    var e;
+    function u(e) {
+      var t = e.interactiveType,
+        n = e.isSentByMe,
+        o = e.nativeFlowName;
+      return (
+        t === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        o === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+        n
+      );
+    }
+    function c(e, t) {
+      var n = !(
+        t === o("WAWebOrderStatus").OrderStatus.Canceled ||
+        t === o("WAWebOrderStatus").OrderStatus.Complete
+      );
+      return n && u(e);
+    }
     function d(t) {
       var n = t.chat,
         a = t.msgKey,

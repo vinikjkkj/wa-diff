@@ -13,7 +13,7 @@ __d(
     "WAWebCreateFile",
     "WAWebDBProcessMessage",
     "WAWebImageUtils",
-    "WAWebMedia",
+    "WAWebMediaMsgRegistration",
     "WAWebMsgDataFromModel",
     "WAWebMsgKey",
     "WAWebMsgModel",
@@ -101,7 +101,7 @@ __d(
                 ),
                   (m = !0));
               } finally {
-                m || o("WAWebMedia").deregisterMsg(d);
+                m || o("WAWebMediaMsgRegistration").deregisterMsg(d);
               }
             }
           }
@@ -156,7 +156,7 @@ __d(
             try {
               return (yield R(a, e.mediaType), a);
             } catch (e) {
-              throw (o("WAWebMedia").deregisterMsg(a), e);
+              throw (o("WAWebMediaMsgRegistration").deregisterMsg(a), e);
             }
           },
         )),

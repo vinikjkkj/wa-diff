@@ -81,6 +81,7 @@ __d(
               r("aeaThreadState"),
               r("aeaCooldownStartedAtMs"),
               r("aeaCooldownIdentityKey"),
+              r("aeaDisclosedThreadState"),
             ])
             .version(n.chatAddDisappearingModeInitiator(), [
               r("disappearingModeInitiator"),

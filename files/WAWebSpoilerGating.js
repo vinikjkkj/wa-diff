@@ -12,7 +12,19 @@ __d(
         "is_spoiler_rich_format_sender_enabled",
       );
     }
-    ((l.isSpoilerReceiverEnabled = e), (l.isSpoilerSenderEnabled = s));
+    function u() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue("spoilers_status_sender_enabled")
+      );
+    }
+    function c(e, t) {
+      return (t === void 0 && (t = !1), e || t ? u() : s());
+    }
+    ((l.isSpoilerReceiverEnabled = e),
+      (l.isSpoilerSenderEnabled = s),
+      (l.isStatusSpoilerSenderEnabled = u),
+      (l.isSpoilerSenderEnabledForDestination = c));
   },
   98,
 );
