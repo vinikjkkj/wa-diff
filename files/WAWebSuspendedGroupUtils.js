@@ -12,6 +12,7 @@ __d(
     "WAWebExitAndDeleteGroupPopup.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
+    "WAWebGetMaybeChatById",
     "WAWebGroupAppealApprovedModalLoadable",
     "WAWebGroupAppealInReviewModalLoadable",
     "WAWebGroupAppealRejectedModalLoadable",
@@ -94,7 +95,10 @@ __d(
         i;
       (r[0] !== e || r[1] !== t || r[2] !== n
         ? ((a = function () {
-            n != null && e != null && m({ chat: e, uiAction: t, uiSurface: n });
+            if (!(n == null || e == null)) {
+              var r = o("WAWebGetMaybeChatById").getMaybeChatById(e);
+              r != null && m({ chat: r, uiAction: t, uiSurface: n });
+            }
           }),
           (i = [e, t, n]),
           (r[0] = e),
@@ -175,7 +179,7 @@ __d(
     }
     function S(e) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebSuspendedGroupModalV2.react"), { chat: e }),
+        c.jsx(r("WAWebSuspendedGroupModalV2.react"), { chatId: e.id }),
         { transition: "modal-flow" },
       );
     }
@@ -307,7 +311,7 @@ __d(
         c.jsx(
           o("WAWebGroupAppealInReviewModalLoadable")
             .GroupAppealInReviewModalLoadable,
-          { chat: e },
+          { chatId: e.id },
         ),
         { transition: "modal-flow" },
       );
@@ -317,7 +321,7 @@ __d(
         c.jsx(
           o("WAWebGroupAppealRejectedModalLoadable")
             .GroupAppealRejectedModalLoadable,
-          { chat: e },
+          { chatId: e.id },
         ),
         { transition: "modal-flow" },
       );
@@ -366,7 +370,7 @@ __d(
           c.jsx(
             o("WAWebGroupAppealApprovedModalLoadable")
               .GroupAppealApprovedModalLoadable,
-            { chat: a },
+            { chatId: a.id },
           ),
           { transition: "modal-flow" },
         ));
@@ -374,10 +378,10 @@ __d(
     function $(e) {
       o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
         ? o("WDSDialogBridge").openWDSDialog(
-            c.jsx(r("WAWebExitAndDeleteGroupDialogV2.react"), { chat: e }),
+            c.jsx(r("WAWebExitAndDeleteGroupDialogV2.react"), { chatId: e.id }),
           )
         : o("WAWebModalManager").ModalManager.open(
-            c.jsx(r("WAWebExitAndDeleteGroupPopup.react"), { chat: e }),
+            c.jsx(r("WAWebExitAndDeleteGroupPopup.react"), { chatId: e.id }),
             { transition: "modal-flow" },
           );
     }

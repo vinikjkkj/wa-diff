@@ -25,6 +25,7 @@ __d(
         e.emailText,
         f(e.phoneText),
         e.memberTag,
+        e.secondaryMemberTag,
       ]
         .filter(Boolean)
         .join(" \xB7 ");
@@ -59,10 +60,10 @@ __d(
         })
         .join(" \u2022 ");
     }
-    function c(e) {
+    function c(e, t) {
       return e.removed + e.updated > 0
         ? u(e)
-        : e.added > 0
+        : e.added > 0 || t
           ? null
           : s._(/*BTDS*/ "Nothing new in this file").toString();
     }
@@ -146,36 +147,41 @@ __d(
                     );
                   })();
     }
-    function p(e, t) {
-      return [
-        e.added > 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"{number} people added","_1":"1 person added"}',
-              [s._plural(e.added, "number")],
-            )
-          : null,
-        e.updated > 0
-          ? s._(/*BTDS*/ '_j{"*":"{number} updated","_1":"1 updated"}', [
-              s._plural(e.updated, "number"),
-            ])
-          : null,
-        e.removed > 0
-          ? s._(/*BTDS*/ '_j{"*":"{number of people removed} removed"}', [
-              s._param("number of people removed", e.removed, [0]),
-            ])
-          : null,
-        t > 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"{number} invites didn\'t go out; resend from People","_1":"1 invite didn\'t go out; resend from People"}',
-              [s._plural(t, "number")],
-            )
-          : null,
-      ]
-        .filter(Boolean)
-        .map(function (e) {
-          return e.toString();
-        })
-        .join(" \xB7 ");
+    function p(e, t, n) {
+      return (
+        n === void 0 && (n = !1),
+        e.added + e.updated + e.removed === 0 && n
+          ? s._(/*BTDS*/ "Member tag names saved").toString()
+          : [
+              e.added > 0
+                ? s._(
+                    /*BTDS*/ '_j{"*":"{number} people added","_1":"1 person added"}',
+                    [s._plural(e.added, "number")],
+                  )
+                : null,
+              e.updated > 0
+                ? s._(/*BTDS*/ '_j{"*":"{number} updated","_1":"1 updated"}', [
+                    s._plural(e.updated, "number"),
+                  ])
+                : null,
+              e.removed > 0
+                ? s._(/*BTDS*/ '_j{"*":"{number of people removed} removed"}', [
+                    s._param("number of people removed", e.removed, [0]),
+                  ])
+                : null,
+              t > 0
+                ? s._(
+                    /*BTDS*/ '_j{"*":"{number} invites didn\'t go out; resend from People","_1":"1 invite didn\'t go out; resend from People"}',
+                    [s._plural(t, "number")],
+                  )
+                : null,
+            ]
+              .filter(Boolean)
+              .map(function (e) {
+                return e.toString();
+              })
+              .join(" \xB7 ")
+      );
     }
     function _(e) {
       var t = o(

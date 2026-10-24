@@ -622,6 +622,7 @@ __d(
       ],
       wa_individual_new_chat_msg_latest_rampup_date: [20601, "int", 0, 0],
       wa_individual_new_chat_thread_capping_limit: [29369, "int", 0, 0],
+      wa_msg_tctoken_receive_enabled: [40575, "bool", !1, !1],
       wa_web_adaptive_layout_enabled: [30140, "bool", !1, !1],
       wa_web_calling_calls_tab_notifications_off_banner_enabled: [
         37282,
@@ -659,6 +660,7 @@ __d(
       win_enable_ss_button_audio: [9633, "bool", !1, !1],
       win_hybrid_background_message_sync: [37827, "bool", !1, !0],
       win_hybrid_bridge_ui_thread_completion_enabled: [39187, "bool", !1, !1],
+      win_hybrid_bridge_work_off_ui_thread_enabled: [40495, "bool", !1, !1],
       win_hybrid_bt_enabled: [30041, "bool", !1, !0],
       win_hybrid_eager_device_watching: [37128, "bool", !1, !0],
       win_hybrid_expiry_server_time_killswitch: [39501, "bool", !0, !0],
@@ -666,6 +668,7 @@ __d(
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
       win_hybrid_push_task_all_banners_enabled: [40423, "bool", !1, !0],
+      win_hybrid_renderer_failure_max_reloads: [40531, "int", 0, 3],
       win_hybrid_tray_wake_keep_resumed_seconds: [38862, "int", 0, 600],
       win_hybrid_voip_anr_optimizations: [22616, "int", 0, 0],
       win_hybrid_vsr_button_enabled_2: [34279, "bool", !1, !1],

@@ -18,14 +18,15 @@ __d(
     }
     function s(e) {
       var t = e.hasDebugOverride,
-        n = e.isNewsletterMsg,
-        r = e.manifestUrl;
+        n = t === void 0 ? !1 : t,
+        r = e.isNewsletterMsg,
+        a = e.manifestUrl;
       return (
-        (r != null || t) &&
+        (a != null || n) &&
         o(
           "WAWebNewsletterVideoPlayerGating",
-        ).isNewsletterVideoWithPlaybackLoggingFor(n) &&
-        (t ||
+        ).isNewsletterVideoWithPlaybackLoggingFor(r) &&
+        (n ||
           o("WAWebNewsletterGatingUtils").isChannelVideoDashPlaybackEnabled())
       );
     }

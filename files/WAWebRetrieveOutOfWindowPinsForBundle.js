@@ -2,7 +2,6 @@ __d(
   "WAWebRetrieveOutOfWindowPinsForBundle",
   [
     "WALogger",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistorySupportedMessageTypesUtil",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
@@ -32,10 +31,8 @@ __d(
           var a = t.chatId,
             i = t.inWindowMessageKeys,
             l = t.messagesNotOlderThanTimestamp,
-            s = t.targetJoinTime;
-          if (!o("WAWebGroupHistoryGating").isOutOfWindowPinSenderEnabled(a))
-            return [];
-          var c = a.toString(),
+            s = t.targetJoinTime,
+            c = a.toString(),
             d = [];
           return (
             yield o("WAWebModelStorageUtils")

@@ -94,7 +94,7 @@ __d(
             u.jsx(
               o("WAWebGroupAppealInReviewModalLoadable")
                 .GroupAppealInReviewModalLoadable,
-              { chat: i },
+              { chatId: i.id },
             ),
             { transition: "modal-flow" },
           );
@@ -105,7 +105,7 @@ __d(
             u.jsx(
               o("WAWebGroupAppealRejectedModalLoadable")
                 .GroupAppealRejectedModalLoadable,
-              { chat: i },
+              { chatId: i.id },
             ),
             { transition: "modal-flow" },
           );

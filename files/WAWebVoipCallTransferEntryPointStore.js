@@ -10,6 +10,7 @@ __d(
           return (
             (t = e.call.apply(e, [this].concat(r)) || this),
             (t.$CallTransferEntryPointStore$p_1 = new Map()),
+            (t.$CallTransferEntryPointStore$p_2 = []),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -34,7 +35,13 @@ __d(
                 isVideoCall: n,
               });
             else if (!this.$CallTransferEntryPointStore$p_1.delete(l)) return;
-            this.trigger("change");
+            ((this.$CallTransferEntryPointStore$p_2 = Array.from(
+              this.$CallTransferEntryPointStore$p_1.values(),
+            )),
+              this.trigger("change"));
+          }),
+          (n.getEntryPoints = function () {
+            return this.$CallTransferEntryPointStore$p_2;
           }),
           (n.getForChat = function (t) {
             for (var e of this.$CallTransferEntryPointStore$p_1.values()) {
@@ -48,6 +55,11 @@ __d(
               )
                 return e;
             }
+            return null;
+          }),
+          (n.getForRootCallId = function (t) {
+            for (var e of this.$CallTransferEntryPointStore$p_1.values())
+              if (e.rootCallId === t) return e;
             return null;
           }),
           t

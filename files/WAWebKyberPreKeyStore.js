@@ -16,14 +16,12 @@ __d(
       u,
       c,
       d,
-      m = 1;
-    function p(e, t) {
+      m = 1,
+      p = 2;
+    function _(e, t) {
       if (e == null) return t;
       var n = e.value;
       return typeof n == "number" ? n : t;
-    }
-    function _(e) {
-      return e == null ? !1 : e.value === !0;
     }
     function f() {
       return g.apply(this, arguments);
@@ -34,7 +32,7 @@ __d(
           var e = yield o("WAWebSignalStorage")
             .getMetaTable()
             .get(o("WAWebSignalConst").META_KEYS.NEXT_KYBER_PK_ID);
-          return p(e, m);
+          return _(e, m);
         })),
         g.apply(this, arguments)
       );
@@ -53,7 +51,7 @@ __d(
                 var t = yield o("WAWebSignalStorage")
                     .getMetaTable()
                     .get(o("WAWebSignalConst").META_KEYS.NEXT_KYBER_PK_ID),
-                  n = p(t, m);
+                  n = _(t, m);
                 return (
                   yield o("WAWebSignalStorage")
                     .getMetaTable()
@@ -318,28 +316,44 @@ __d(
       return (
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSignalStorage")
-              .getMetaTable()
-              .get(o("WAWebSignalConst").META_KEYS.PQ_MIGRATED),
-            t = _(e);
-          return t;
+            .getMetaTable()
+            .get(o("WAWebSignalConst").META_KEYS.PQ_MIGRATED);
+          return (e == null ? void 0 : e.value) === p;
         })),
         O.apply(this, arguments)
       );
     }
-    function B(e) {
+    function B() {
       return W.apply(this, arguments);
     }
     function W() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebSignalStorage")
+            .getMetaTable()
+            .get(o("WAWebSignalConst").META_KEYS.PQ_MIGRATED);
+          return (
+            (e == null ? void 0 : e.value) === !0 ||
+            (e == null ? void 0 : e.value) === p
+          );
+        })),
+        W.apply(this, arguments)
+      );
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebSignalStorage")
             .getMetaTable()
             .createOrReplace({
               key: o("WAWebSignalConst").META_KEYS.PQ_MIGRATED,
-              value: e,
+              value: e ? p : !1,
             });
         })),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
     ((l.getNextKyberPreKeyId = f),
@@ -354,7 +368,8 @@ __d(
       (l.removeKyberPreKey = N),
       (l.clearKyberPreKeysAndMigrationState = w),
       (l.isPQMigrated = F),
-      (l.setPQMigrated = B));
+      (l.hasPQMigrationState = B),
+      (l.setPQMigrated = q));
   },
   98,
 );

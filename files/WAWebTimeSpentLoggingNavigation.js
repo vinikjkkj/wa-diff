@@ -98,6 +98,10 @@ __d(
           .CHANNEL_PRODUCER_INSIGHTS_FOLLOWERS,
         "channel-notifications-settings": o("WAWebWamEnumTsSurface").TS_SURFACE
           .CHANNEL_NOTIFICATIONS_SETTINGS,
+        "channel-settings": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .CHANNEL_SETTINGS,
+        "channel-admin-profile-viewer": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .CHANNEL_ADMIN_PROFILE_VIEWER,
         "channel-response-viewer": o("WAWebWamEnumTsSurface").TS_SURFACE
           .CHANNEL_RESPONSE_VIEWER,
         "create-event": o("WAWebWamEnumTsSurface").TS_SURFACE.CREATE_EVENT,

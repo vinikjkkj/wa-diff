@@ -13,7 +13,8 @@ __d(
         e.labelId != null ||
         e.acquisitionSource != null ||
         e.lastMessageRange != null ||
-        e.lastMessageCustomRange != null
+        e.lastMessageCustomRange != null ||
+        e.unreadOnly === !0
       );
     }
     ((l.NO_LABEL_FILTER_ID = e),

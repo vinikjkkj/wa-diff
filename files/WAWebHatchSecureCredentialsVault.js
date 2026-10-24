@@ -16,7 +16,16 @@ __d(
       u = 100,
       c = 5e3,
       d = { kind: "not_found" },
-      m = { raw: "session", reason: "session" },
+      m = {
+        channel: { raw: "session.channel", reason: "session" },
+        credentials: { raw: "session.credentials", reason: "session" },
+        no_api: { raw: "session.no_api", reason: "session" },
+        stale_generation: {
+          raw: "session.stale_generation",
+          reason: "session",
+        },
+        threw: { raw: "session.threw", reason: "session" },
+      },
       p = { raw: "transport", reason: "transport" },
       _ = { raw: "malformed_response", reason: "malformed_response" },
       f = { raw: "unknown", reason: "unknown" },
@@ -243,16 +252,19 @@ __d(
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = !1);
-          var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (r == null) throw O(t + "_no_session", m);
-          var a = yield e(r);
-          if ((n && a.kind === "Failure" && (a = yield e(r)), a.kind === "Ok"))
-            return { kind: "ok", value: a.value };
-          if (a.kind === "Rejected") {
-            if (a.statusCode === 404) return d;
-            throw O(t + "_rejected", F(a.statusCode));
+          var r = yield o(
+            "WAWebHatchVmConnection",
+          ).connectHatchVmApiWithResult();
+          if (r.kind !== "ready") throw O(t + "_no_session", m[r.failure]);
+          var a = r.api,
+            i = yield e(a);
+          if ((n && i.kind === "Failure" && (i = yield e(a)), i.kind === "Ok"))
+            return { kind: "ok", value: i.value };
+          if (i.kind === "Rejected") {
+            if (i.statusCode === 404) return d;
+            throw O(t + "_rejected", F(i.statusCode));
           }
-          throw O(t + "_" + a.kind.toLowerCase(), g[a.kind]);
+          throw O(t + "_" + i.kind.toLowerCase(), g[i.kind]);
         })),
         A.apply(this, arguments)
       );

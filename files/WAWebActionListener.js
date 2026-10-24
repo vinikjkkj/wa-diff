@@ -1000,7 +1000,9 @@ __d(
     function D(e, t) {
       if (o("WAWebChatAssignmentUtils").canAssignChat(e) === !1) {
         o("WAWebModalManager").ModalManager.open(
-          m.jsx(r("WAWebBizChatAssignmentAiRepliesModal.react"), { chat: e }),
+          m.jsx(r("WAWebBizChatAssignmentAiRepliesModal.react"), {
+            chatId: e.id,
+          }),
         );
         return;
       }
@@ -1012,7 +1014,7 @@ __d(
       }),
         o("WAWebModalManager").ModalManager.open(
           m.jsx(r("WAWebBizChatAssignmentModal.react"), {
-            chats: [e],
+            chatIds: [e.id],
             entryPoint: t,
           }),
         ));

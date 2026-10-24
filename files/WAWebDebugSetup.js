@@ -11,8 +11,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      (r("vulture")("2JeiJGCc4ymwJbB7mXvCw_DtdZw="),
-        (window.Debug = { VERSION: o("WAWebBuildConstants").VERSION_STR }),
+      ((window.Debug = { VERSION: o("WAWebBuildConstants").VERSION_STR }),
         n("cr:17682") &&
           (window.Debug.pinClientToCdev = function (e) {
             (r("vulture")("rvG4QbuPhiHWay1qiaTVr4fr99w="),

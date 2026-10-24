@@ -1,6 +1,8 @@
 __d(
   "WAWebCreateOrUpdateGroupMetadataAction",
   [
+    "WAWebChatCollection",
+    "WAWebCommunityGatingUtils",
     "WAWebGroupHistoryParticipantStateHydration",
     "WAWebGroupMetadataCollection",
     "WAWebGroupQueryBridge",
@@ -65,6 +67,12 @@ __d(
             },
           ),
         ),
+        e.isParentGroup === !0 &&
+          o("WAWebCommunityGatingUtils").fetchMissingParentGroupsEnabled() &&
+          o("WAWebChatCollection").ChatCollection.gadd({
+            id: e.id,
+            isReadOnly: !1,
+          }),
         e.isInternal != null)
       ) {
         var f;

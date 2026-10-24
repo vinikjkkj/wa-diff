@@ -52,6 +52,8 @@ __d(
         ACCOUNT_LINKING: "account_linking",
         USERNAME_CLAIMED: "username_claimed",
         ERROR_POPUP: "error_popup",
+        GUEST_CALLING_LANDING: "guest_calling_landing",
+        GUEST_CALLING_POST_CALL: "guest_calling_post_call",
       }),
       d = e({
         REG_ROUTE_SELECTOR_IMPRESSION: "reg_route_selector_impression",
@@ -147,6 +149,17 @@ __d(
           "username_reservation_claimed_get_whatsapp_clicked",
         USERNAME_RESERVATION_CLAIMED_REMIND_LATER_CLICKED:
           "username_reservation_claimed_remind_later_clicked",
+        GUEST_CALLING_LANDING_IMPRESSION: "guest_calling_landing_impression",
+        GUEST_CALLING_JOIN_CLICKED: "guest_calling_join_clicked",
+        GUEST_CALLING_WAITING_ROOM_ENTERED:
+          "guest_calling_waiting_room_entered",
+        GUEST_CALLING_JOIN_SUCCESS: "guest_calling_join_success",
+        GUEST_CALLING_JOIN_FAILED: "error_guest_calling_join_failed",
+        GUEST_CALLING_MEDIA_BLOCKED: "guest_calling_media_blocked",
+        GUEST_CALLING_HOST_DENIED: "guest_calling_host_denied",
+        GUEST_CALLING_JOIN_CANCELLED: "guest_calling_join_cancelled",
+        GUEST_CALLING_POST_CALL_PHONE_SUBMITTED:
+          "guest_calling_post_call_phone_submitted",
       }),
       m = e.Mirrored([
         "GuestActiveInviteCode",

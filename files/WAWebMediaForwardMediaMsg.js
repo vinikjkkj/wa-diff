@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebBotUtils",
     "WAWebForwardDocCaptionGating",
+    "WAWebForwardMediaUtils",
     "WAWebFrontendMsgGetters",
     "WAWebGetAiBotContextForForwardedMsg",
     "WAWebGetNewsletterContextForForwardedMsg",
@@ -15,7 +16,6 @@ __d(
     "WAWebMediaPrep",
     "WAWebMediaTypes",
     "WAWebMsgGetters",
-    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebSoundStickerUtils",
     "WAWebStatusGatingUtils",
@@ -219,8 +219,9 @@ __d(
                 w.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
               placeholderProps: K,
               isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(w),
-              forwardingScore:
-                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(w),
+              forwardingScore: o(
+                "WAWebForwardMediaUtils",
+              ).getMsgForwardingScoreWhenForwarded(w),
               multicast: F,
               productMsgOptions: Q,
               isAvatar: (_ = w.isAvatar) != null ? _ : !1,

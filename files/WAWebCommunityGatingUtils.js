@@ -5,6 +5,7 @@ __d(
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebMobilePlatforms",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -51,6 +52,9 @@ __d(
         "web_communities_general_chat_v_2",
       );
     }
+    function f() {
+      return r("justknobx")._("6821");
+    }
     ((l.communitiesCreationEnabled = e),
       (l.getParentGroupLinkLimit = s),
       (l.getParentGroupLinkLimitCommunityCreation = u),
@@ -58,7 +62,8 @@ __d(
       (l.shouldShowNewSubgroupIdentity = d),
       (l.memberSuggestedGroupsM3ReceiverEnabled = m),
       (l.memberSuggestedGroupsM3SenderEnabled = p),
-      (l.communityGeneralChatV2Enabled = _));
+      (l.communityGeneralChatV2Enabled = _),
+      (l.fetchMissingParentGroupsEnabled = f));
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebManageE2ESessionsJob",
+    "WAWebPQGatingUtils",
     "WAWebSendMsgDatabaseJob",
     "WAWebSessionScope",
     "WAWebUserPrefsMeUser",
@@ -24,7 +25,10 @@ __d(
               );
             yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
               identityChanged: !1,
-              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              sessionScope:
+                (t == null ? void 0 : t.isUser()) === !0
+                  ? o("WAWebPQGatingUtils").getOneToOneChatSessionScope()
+                  : o("WAWebSessionScope").SessionScope.DEFAULT,
               wids: a,
             });
           } catch (t) {

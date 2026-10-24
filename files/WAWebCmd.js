@@ -38,9 +38,12 @@ __d(
       g,
       h,
       y,
-      C = 1300,
-      b = 400,
-      v = (function (t) {
+      C = 1300;
+    function b() {
+      return window.matchMedia("(max-width: " + C + "px)").matches;
+    }
+    var v = 400,
+      S = (function (t) {
         function a() {
           var e;
           return (
@@ -50,7 +53,7 @@ __d(
             (e.$CmdImpl$p_1 = null),
             o(
               "WAWebUiIdleEventBus",
-            ).UiIdleEventBus.setDeferUntilDocumentFlushed(S),
+            ).UiIdleEventBus.setDeferUntilDocumentFlushed(R),
             e
           );
         }
@@ -236,7 +239,7 @@ __d(
             this.trigger("pause_ptt_recording");
           }),
           (i.sendPttRecording = function () {
-            R.trigger("send_ptt_recording");
+            L.trigger("send_ptt_recording");
           }),
           (i.editGroupDescription = function () {
             this.trigger("edit_group_description");
@@ -470,11 +473,7 @@ __d(
                             (n = r == null ? void 0 : r.existsDrawer()) != null
                               ? n
                               : !1;
-                        (a &&
-                          window.matchMedia("(max-width: " + C + "px)")
-                            .matches &&
-                          (r == null || r.closeDrawer()),
-                          e(t));
+                        (a && b() && (r == null || r.closeDrawer()), e(t));
                       },
                     );
                     function r(e) {
@@ -534,7 +533,7 @@ __d(
                               return e.$CmdImpl$p_4({
                                 pos: "center",
                                 animate: a,
-                                duration: b,
+                                duration: v,
                                 easing: [0.7, 0, 0.3, 1],
                               });
                             }));
@@ -554,7 +553,7 @@ __d(
                                 return e.$CmdImpl$p_4({
                                   pos: "center",
                                   animate: a,
-                                  duration: b,
+                                  duration: v,
                                   easing: [0.88, 0.64, 0.13, 0.99],
                                 });
                               };
@@ -605,7 +604,7 @@ __d(
                     o("WAPromiseDelays")
                       .delayMs(500)
                       .then(function () {
-                        (R.openMediaViewerForAlbumMedia(
+                        (L.openMediaViewerForAlbumMedia(
                           o("WAWebStateUtils").unproxy(e),
                         ),
                           t == null || t());
@@ -1141,7 +1140,7 @@ __d(
           a
         );
       })(r("WAWebEventEmitter"));
-    function S(e) {
+    function R(e) {
       var t,
         n = function () {
           if (!t) {
@@ -1173,11 +1172,12 @@ __d(
         n
       );
     }
-    var R = new v();
+    var L = new S();
     ((l.Revoke = o("WAWebCmd.flow").Revoke),
-      (l.CmdImpl = v),
-      (l.deferUntilDocumentFlushed = S),
-      (l.Cmd = R));
+      (l.isRightDrawerOverConversation = b),
+      (l.CmdImpl = S),
+      (l.deferUntilDocumentFlushed = R),
+      (l.Cmd = L));
   },
   98,
 );

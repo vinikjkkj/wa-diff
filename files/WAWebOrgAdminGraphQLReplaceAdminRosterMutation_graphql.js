@@ -54,6 +54,20 @@ __d(
                   {
                     alias: null,
                     args: null,
+                    kind: "ScalarField",
+                    name: "member_tag_name",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "secondary_member_tag_name",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
                     concreteType: "XWAOrgAdminRoster",
                     kind: "LinkedField",
                     name: "admin_roster",
@@ -94,6 +108,13 @@ __d(
                             args: null,
                             kind: "ScalarField",
                             name: "member_tag",
+                            storageKey: null,
+                          },
+                          {
+                            alias: null,
+                            args: null,
+                            kind: "ScalarField",
+                            name: "secondary_member_tag",
                             storageKey: null,
                           },
                           {
@@ -148,7 +169,7 @@ __d(
           selections: n,
         },
         params: {
-          id: "28419705454357517",
+          id: "40094294076828603",
           metadata: {},
           name: "WAWebOrgAdminGraphQLReplaceAdminRosterMutation",
           operationKind: "mutation",

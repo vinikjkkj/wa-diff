@@ -544,11 +544,11 @@ __d(
     }
     ht.displayName = ht.name + " [from " + i.id + "]";
     function yt() {
-      return s._(/*BTDS*/ "Disconnected");
+      return s._(/*BTDS*/ "Broadcasts are disconnected");
     }
     yt.displayName = yt.name + " [from " + i.id + "]";
     function Ct(e) {
-      return s._(/*BTDS*/ "Connect business broadcasts to send. {=m2}", [
+      return s._(/*BTDS*/ "Connect to send business broadcasts. {=m2}", [
         s._implicitParam(
           "=m2",
           u.jsx(r("WDSTextualLink.react"), {
@@ -659,7 +659,7 @@ __d(
           "=m2",
           u.jsx(r("WDSTextualLink.react"), {
             href: o("WAWebFaqUrl").getBusinessBroadcastsLearnMoreUrl(),
-            children: s._(/*BTDS*/ "Learn about business broadcasts"),
+            children: s._(/*BTDS*/ "Learn more"),
           }),
         ),
       ]);
@@ -705,7 +705,7 @@ __d(
     }
     zt.displayName = zt.name + " [from " + i.id + "]";
     function jt() {
-      return s._(/*BTDS*/ "What are high-quality messages?");
+      return s._(/*BTDS*/ "What are high quality messages?");
     }
     jt.displayName = jt.name + " [from " + i.id + "]";
     function Kt() {

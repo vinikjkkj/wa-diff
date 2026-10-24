@@ -5,7 +5,7 @@ __d(
     "use strict";
     var e = r("gkx")("26258");
     function s() {
-      if ((r("vulture")("k38D2-8icfUES4Q4J6JBGeCe3AQ="), e)) return !1;
+      if (e) return !1;
       var t = r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_VPV_OVERLAY_ENABLED,
       );

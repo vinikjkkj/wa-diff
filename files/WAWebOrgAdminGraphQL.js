@@ -194,94 +194,119 @@ __d(
                 : "NOT_FOUND_OR_UNAVAILABLE",
             );
           }
-          var s = je(i);
+          var s = je(i, a.org_info);
           if (s == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
           return s;
         })),
         ne.apply(this, arguments)
       );
     }
-    function re(e, t) {
+    function re(e, t, n) {
       return oe.apply(this, arguments);
     }
     function oe() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a,
-            i = t.map(function (e) {
-              return {
-                email_address: e.emailAddress,
-                member_tag: e.memberTag,
-                name: e.name,
-                phone_number: e.phoneNumber,
-              };
-            }),
-            l = yield o("WAWebRelayClient").commitMutation(
-              M,
-              { input: { entries: i, org_id: e } },
-              K,
-            ),
-            s = l == null ? void 0 : l.xwa_org_admin_roster_replace;
-          if (s == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
-          if (s.status !== "SUCCESS") {
-            var u,
-              c = (u = s.error_reason) != null ? u : "NOT_FOUND_OR_UNAVAILABLE";
-            if (Qe(c)) {
-              var d;
-              return {
-                errorReason: c,
-                invalidRowNumber: (d = s.invalid_row_number) != null ? d : null,
-                status: "validation_error",
-              };
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            var a,
+              i,
+              l = t.map(function (e) {
+                return {
+                  email_address: e.emailAddress,
+                  member_tag: e.memberTag,
+                  name: e.name,
+                  phone_number: e.phoneNumber,
+                  secondary_member_tag: e.secondaryMemberTag,
+                };
+              }),
+              s = yield o("WAWebRelayClient").commitMutation(
+                M,
+                {
+                  input: {
+                    entries: l,
+                    member_tag_name: n == null ? void 0 : n.memberTagName,
+                    org_id: e,
+                    secondary_member_tag_name:
+                      n == null ? void 0 : n.secondaryMemberTagName,
+                  },
+                },
+                K,
+              ),
+              u = s == null ? void 0 : s.xwa_org_admin_roster_replace;
+            if (u == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
+            if (u.status !== "SUCCESS") {
+              var c,
+                d =
+                  (c = u.error_reason) != null ? c : "NOT_FOUND_OR_UNAVAILABLE";
+              if (Ye(d)) {
+                var m;
+                return {
+                  errorReason: d,
+                  invalidRowNumber:
+                    (m = u.invalid_row_number) != null ? m : null,
+                  status: "validation_error",
+                };
+              }
+              throw r("err")(d);
             }
-            throw r("err")(c);
-          }
-          var m = (n = s.org) == null ? void 0 : n.admin_roster;
-          if (m == null) return { status: "success_needs_refresh" };
-          var p = je(m);
-          return p == null
-            ? { status: "success_needs_refresh" }
-            : babelHelpers.extends({}, p, {
-                status: "success",
-                totalCount: (a = p.totalCount) != null ? a : t.length,
-              });
-        })),
+            var p = (a = u.org) == null ? void 0 : a.admin_roster;
+            if (p == null) return { status: "success_needs_refresh" };
+            var _ = je(p, u.org);
+            return _ == null
+              ? { status: "success_needs_refresh" }
+              : babelHelpers.extends({}, _, {
+                  status: "success",
+                  totalCount: (i = _.totalCount) != null ? i : t.length,
+                });
+          },
+        )),
         oe.apply(this, arguments)
       );
     }
-    function ae(e, t) {
+    function ae(e, t, n) {
       return ie.apply(this, arguments);
     }
     function ie() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a,
-            i = t.map(function (e) {
-              return {
-                email_address: e.emailAddress,
-                member_tag: e.memberTag,
-                name: e.name,
-                phone_number: e.phoneNumber,
-              };
-            }),
-            l = yield o("WAWebRelayClient").commitMutation(
-              w,
-              { input: { entries: i, org_id: e } },
-              K,
-            ),
-            s = l == null ? void 0 : l.xwa_org_admin_roster_append;
-          if (s == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
-          if (s.status === "SUCCESS") return { status: "success" };
-          var u = (n = s.error_reason) != null ? n : "NOT_FOUND_OR_UNAVAILABLE";
-          if (!Qe(u)) throw r("err")(u);
-          return {
-            errorReason: u,
-            invalidRowNumber: (a = s.invalid_row_number) != null ? a : null,
-            status: "validation_error",
-          };
-        })),
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            var a,
+              i,
+              l = t.map(function (e) {
+                return {
+                  email_address: e.emailAddress,
+                  member_tag: e.memberTag,
+                  name: e.name,
+                  phone_number: e.phoneNumber,
+                  secondary_member_tag: e.secondaryMemberTag,
+                };
+              }),
+              s = yield o("WAWebRelayClient").commitMutation(
+                w,
+                {
+                  input: {
+                    entries: l,
+                    member_tag_name: n == null ? void 0 : n.memberTagName,
+                    org_id: e,
+                    secondary_member_tag_name:
+                      n == null ? void 0 : n.secondaryMemberTagName,
+                  },
+                },
+                K,
+              ),
+              u = s == null ? void 0 : s.xwa_org_admin_roster_append;
+            if (u == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
+            if (u.status === "SUCCESS") return { status: "success" };
+            var c =
+              (a = u.error_reason) != null ? a : "NOT_FOUND_OR_UNAVAILABLE";
+            if (!Ye(c)) throw r("err")(c);
+            return {
+              errorReason: c,
+              invalidRowNumber: (i = u.invalid_row_number) != null ? i : null,
+              status: "validation_error",
+            };
+          },
+        )),
         ie.apply(this, arguments)
       );
     }
@@ -415,7 +440,7 @@ __d(
                   var t = e.member;
                   return t == null
                     ? []
-                    : et(
+                    : nt(
                         t.lid,
                         t.display_name,
                         t.role,
@@ -455,7 +480,7 @@ __d(
             Be("xwa_org_get.managed_channels", "channels=" + a.length),
             a.flatMap(function (e) {
               var t;
-              return Xe(
+              return Je(
                 e.id,
                 e.name,
                 e.description,
@@ -532,7 +557,7 @@ __d(
             throw qe("xwa_org_get", Ae);
           if (c > Q) return { memberCount: c, status: "roster_too_large" };
           var d = s.nodes.flatMap(function (e) {
-              return et(
+              return nt(
                 e.lid,
                 e.display_name,
                 e.role,
@@ -586,13 +611,13 @@ __d(
           if (a == null) throw Ue(r == null ? void 0 : r.error_reason);
           var i = a.flatMap(function (e) {
             var t;
-            return Je(
+            return et(
               e.gid,
               e.subject,
               e.creation_timestamp_s,
               e.participant_count,
               ((t = e.participants) != null ? t : []).flatMap(function (e) {
-                return tt(e.lid, e.role);
+                return rt(e.lid, e.role);
               }),
               e.roster_partial,
             );
@@ -622,13 +647,13 @@ __d(
             c =
               u == null || (n = u.org_info) == null ? void 0 : n.managed_group;
           if (c == null) throw Ue(u == null ? void 0 : u.error_reason);
-          var d = Ze(
+          var d = tt(
             c.gid,
             c.subject,
             c.creation_timestamp_s,
             c.participant_count,
             ((r = c.participants) != null ? r : []).flatMap(function (e) {
-              return tt(e.lid, e.role);
+              return rt(e.lid, e.role);
             }),
             c.roster_partial,
           );
@@ -663,7 +688,7 @@ __d(
             throw Ue(r == null ? void 0 : r.error_reason);
           var a = r.group;
           if (a == null) throw Ue(null);
-          var i = Ze(
+          var i = tt(
             a.gid,
             a.subject,
             a.creation_timestamp_s,
@@ -692,7 +717,7 @@ __d(
             throw Ue(a == null ? void 0 : a.error_reason);
           var i = a.channel;
           if (i == null) throw Ue(null);
-          var l = Ye(
+          var l = Ze(
             i.id,
             i.name,
             i.description,
@@ -924,40 +949,49 @@ __d(
             viewerRole: (m = e.viewer_role) != null ? m : null,
           };
     }
-    function je(e) {
-      var t = e.entries;
-      if (!Array.isArray(t)) return null;
-      var n = [];
-      for (var r of t) {
-        if (r == null) return null;
-        var o = Ke(
-          r.id,
-          r.name,
-          r.member_tag,
-          r.email_address,
-          r.phone_number,
-          r.member_lid,
-        );
+    function je(e, t) {
+      var n = e.entries;
+      if (!Array.isArray(n)) return null;
+      var r = [];
+      for (var o of n) {
         if (o == null) return null;
-        n.push(o);
+        var a = Qe(
+          o.id,
+          o.name,
+          o.member_tag,
+          o.email_address,
+          o.phone_number,
+          o.member_lid,
+          o.secondary_member_tag,
+        );
+        if (a == null) return null;
+        r.push(a);
       }
-      var a = e.is_truncated,
-        i = e.total_count;
-      return typeof a != "boolean" || (i != null && typeof i != "number")
+      var i = e.is_truncated,
+        l = e.total_count;
+      return typeof i != "boolean" || (l != null && typeof l != "number")
         ? null
-        : {
-            entries: n,
-            isTruncated: a,
-            totalCount: i != null ? i : a ? null : n.length,
-          };
+        : babelHelpers.extends({}, Ke(t), {
+            entries: r,
+            isTruncated: i,
+            totalCount: l != null ? l : i ? null : r.length,
+          });
     }
-    function Ke(e, t, n, r, o, a) {
+    function Ke(e) {
+      var t, n;
+      return {
+        memberTagName:
+          (t = e == null ? void 0 : e.member_tag_name) != null ? t : null,
+        secondaryMemberTagName:
+          (n = e == null ? void 0 : e.secondary_member_tag_name) != null
+            ? n
+            : null,
+      };
+    }
+    function Qe(e, t, n, r, o, a, i) {
       return typeof e != "string" ||
         typeof t != "string" ||
-        (n != null && typeof n != "string") ||
-        (r != null && typeof r != "string") ||
-        (o != null && typeof o != "string") ||
-        (a != null && typeof a != "string")
+        ![n, r, o, a, i].every(Xe)
         ? null
         : {
             emailAddress: r,
@@ -966,9 +1000,13 @@ __d(
             memberTag: n,
             name: t,
             phoneNumber: o,
+            secondaryMemberTag: i,
           };
     }
-    function Qe(e) {
+    function Xe(e) {
+      return e == null || typeof e == "string";
+    }
+    function Ye(e) {
       return (
         e === "INVALID_ROSTER_ENTRY" ||
         e === "DUPLICATE_ROSTER_CONTACT" ||
@@ -976,11 +1014,11 @@ __d(
         e === "TOO_MANY_ROSTER_ENTRIES"
       );
     }
-    function Xe(e, t, n, r, o, a, i) {
-      var l = Ye(e, t, n, r, o, a, i);
+    function Je(e, t, n, r, o, a, i) {
+      var l = Ze(e, t, n, r, o, a, i);
       return l == null ? [] : [l];
     }
-    function Ye(e, t, n, r, o, a, i) {
+    function Ze(e, t, n, r, o, a, i) {
       return e == null || t == null
         ? null
         : {
@@ -993,11 +1031,11 @@ __d(
             pictureURI: o != null ? o : null,
           };
     }
-    function Je(e, t, n, r, o, a) {
-      var i = Ze(e, t, n, r, o, a);
+    function et(e, t, n, r, o, a) {
+      var i = tt(e, t, n, r, o, a);
       return i == null ? [] : [i];
     }
-    function Ze(e, t, n, r, o, a) {
+    function tt(e, t, n, r, o, a) {
       if (e == null || t == null || n == null || r == null) return null;
       var i = {
         gid: e,
@@ -1014,7 +1052,7 @@ __d(
         ? l
         : babelHelpers.extends({}, l, { rosterPartial: a });
     }
-    function et(e, t, n, r, o, a) {
+    function nt(e, t, n, r, o, a) {
       return e == null || e === "" || t == null || n == null
         ? []
         : [
@@ -1028,7 +1066,7 @@ __d(
             },
           ];
     }
-    function tt(e, t) {
+    function rt(e, t) {
       return e == null || t == null ? [] : [{ lid: e, role: t }];
     }
     ((l.MAX_ORG_DIRECTORY_MEMBERS = Q),

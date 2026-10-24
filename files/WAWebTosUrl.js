@@ -3,7 +3,8 @@ __d(
   ["WAWebL10N"],
   function (t, n, r, o, a, i, l) {
     var e = "https://www.whatsapp.com/legal/",
-      s = "https://www.whatsapp.com/legal/business-terms",
+      s =
+        "https://www.whatsapp.com/legal/WhatsApp-Terms-for-WhatsApp-Business-App",
       u = "https://www.facebook.com/legal/terms/businesstools",
       c = "https://faq.whatsapp.com/732422085323636";
     function d() {

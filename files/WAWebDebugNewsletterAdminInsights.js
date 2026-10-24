@@ -53,12 +53,9 @@ __d(
           return new Date(2024, 11, t);
         });
     function d(e) {
-      return (
-        r("vulture")("Yv2XOacSV8x3ICb9P3ef56R7HbM="),
-        e.map(function (e) {
-          return [e.valueOf(), Math.random() * 1e6];
-        })
-      );
+      return e.map(function (e) {
+        return [e.valueOf(), Math.random() * 1e6];
+      });
     }
     var m = [d(c), d(c), d(c)];
     l.default = u;

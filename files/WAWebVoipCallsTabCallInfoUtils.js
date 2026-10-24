@@ -1,6 +1,7 @@
 __d(
   "WAWebVoipCallsTabCallInfoUtils",
   [
+    "WAWebCallCollection",
     "WAWebCallLogUtils",
     "WAWebChatCollection",
     "WAWebChatLockUtils",
@@ -11,7 +12,10 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
+    "WAWebVoipCallTransferEntryPointStore",
+    "WAWebVoipEventConstants",
     "WAWebVoipOngoingCallCollection",
+    "WAWebVoipOngoingTransferCalls",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -99,6 +103,35 @@ __d(
                   .WAWebVoipOngoingCallCollection;
               },
               events: ["add", "remove", "reset"],
+              delivery: "immediate",
+            },
+          ],
+        },
+        {
+          isShown: function (t) {
+            return !o("WAWebVoipOngoingTransferCalls")
+              .getOngoingTransferRootCallIds()
+              .has(t.id.id);
+          },
+          triggers: [
+            {
+              source: function () {
+                return o("WAWebVoipCallTransferEntryPointStore")
+                  .WAWebVoipCallTransferEntryPointStore;
+              },
+              events: ["change"],
+              delivery: "immediate",
+            },
+            {
+              source: function () {
+                return r("WAWebCallCollection");
+              },
+              events: [
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallCollectionEvents
+                    .ACTIVE_CALL,
+                ),
+              ],
               delivery: "immediate",
             },
           ],

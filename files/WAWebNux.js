@@ -54,6 +54,12 @@ __d(
       EPHEMERAL_AFTER_READ: "ephemeral_after_read",
       BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
       CUSTOMER_MANAGER_INTRO: "customer_manager_intro",
+      CUSTOMER_MANAGER_SUGGESTED_UNREAD_CHATS:
+        "customer_manager_suggested_unread_chats",
+      CUSTOMER_MANAGER_SUGGESTED_PIPELINE_VIEW:
+        "customer_manager_suggested_pipeline_view",
+      CUSTOMER_MANAGER_SUGGESTED_LEAD_STAGES:
+        "customer_manager_suggested_lead_stages",
       CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
       NEWSLETTER_STATUS_INTRO: "newsletter_status_intro",
       NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
@@ -187,6 +193,12 @@ __d(
           EPHEMERAL_AFTER_READ: "ephemeral_after_read",
           BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
           CUSTOMER_MANAGER_INTRO: "customer_manager_intro",
+          CUSTOMER_MANAGER_SUGGESTED_UNREAD_CHATS:
+            "customer_manager_suggested_unread_chats",
+          CUSTOMER_MANAGER_SUGGESTED_PIPELINE_VIEW:
+            "customer_manager_suggested_pipeline_view",
+          CUSTOMER_MANAGER_SUGGESTED_LEAD_STAGES:
+            "customer_manager_suggested_lead_stages",
           CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
           NEWSLETTER_STATUS_INTRO: "newsletter_status_intro",
           NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",

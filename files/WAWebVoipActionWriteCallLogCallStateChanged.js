@@ -13,6 +13,7 @@ __d(
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipCallStateUtils",
     "WAWebVoipOngoingCallCollection",
+    "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -229,38 +230,43 @@ __d(
               );
               return;
             }
-            var v = e.creatorDeviceJid,
-              S = e.isJoinableGroupCall
+            var S = e.creatorDeviceJid,
+              R = e.isJoinableGroupCall
                 ? yield o(
                     "WAWebVoipCallLogWriteMutex",
                   ).WACallLogWriteMutex.acquire()
                 : null;
             try {
-              var R,
-                L = o("WAWebMsgCollection").MsgCollection.get(C),
-                E = {
+              var L,
+                E = o("WAWebMsgCollection").MsgCollection.get(C),
+                k = v(e, E == null ? void 0 : E.callOutcome);
+              o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
+                o("WAWebVoipTransferredCallRegistry").markTransferredCallEnded(
+                  e.callId,
+                );
+              var I = {
                   id: C,
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
                   viewMode: f,
-                  callOutcome: g(e, L == null ? void 0 : L.callOutcome),
+                  callOutcome: g(e, k),
                   isVideoCall: e.videoEnabled,
-                  callCreator: v,
+                  callCreator: S,
                   from: a,
                   to: i,
                   t:
-                    (R = L == null ? void 0 : L.t) != null
-                      ? R
+                    (L = E == null ? void 0 : E.t) != null
+                      ? L
                       : o(
                           "WAWebVoipCallLogTimestamp",
                         ).resolveCallLogTimestampFromOfferTime(
                           e.offerEpochTimeMs,
                         ),
-                  callDuration: h(e, L == null ? void 0 : L.callDuration),
+                  callDuration: h(e, E == null ? void 0 : E.callDuration),
                   callParticipants: y(
                     e,
-                    L == null ? void 0 : L.callParticipants,
-                    L == null ? void 0 : L.callOutcome,
+                    E == null ? void 0 : E.callParticipants,
+                    k,
                   ),
                   finalCallOutcome: o(
                     "WAWebCallLogUtils",
@@ -269,22 +275,22 @@ __d(
                     e.callDuration,
                   ),
                 },
-                k =
-                  L != null &&
+                T =
+                  E != null &&
                   !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState),
-                I = yield o(
+                D = yield o(
                   "WAWebVoipActionWriteCallLogImpl",
-                ).writeVoipCallLogMessageImpl(i, E, !1, !0, k);
+                ).writeVoipCallLogMessageImpl(i, I, !1, !0, T);
               return (
-                I != null &&
+                D != null &&
                   o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
                   o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(
                     e.callId,
                   ),
-                I
+                D
               );
             } finally {
-              S == null || S.release();
+              R == null || R.release();
             }
           } catch (e) {
             o("WALogger")
@@ -302,6 +308,13 @@ __d(
         })),
         b.apply(this, arguments)
       );
+    }
+    function v(e, t) {
+      var n =
+        o("WAWebVoipCallStateUtils").isCallConnected(e.callState) &&
+        o("WAWebVoipTransferredCallRegistry").isTransferredCallLive(e.callId) &&
+        t !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing;
+      return n ? null : t;
     }
     ((l.resolveCallOutcome = g),
       (l.resolveCallLogDuration = h),

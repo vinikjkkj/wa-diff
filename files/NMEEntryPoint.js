@@ -610,6 +610,10 @@ __d(
         "ig_free_form_name_retargeting_notif",
       IG_FRIEND_INVITE_NOTIF: "nme_ig_friend_invite_notif",
       IG_HELP_AND_SUPPORT_CENTER: "ig_help_and_support_center",
+      IG_LINKS_IN_BIO_POSTS_POST_PUBLISH_DIALOG:
+        "ig_links_in_bio_posts_post_publish_dialog",
+      IG_LINKS_IN_BIO_REELS_POST_PUBLISH_DIALOG:
+        "ig_links_in_bio_reels_post_publish_dialog",
       IG_LINKS_IN_POSTS_FEED_PUBLISH_UPGRADE_UPSELL:
         "ig_links_in_posts_feed_publish_upgrade_upsell",
       IG_LINKS_IN_POSTS_MV_PRODUCT_GATING:
@@ -761,6 +765,8 @@ __d(
       IG_PRO_ONBOARDING_CHECKLIST_STEP: "ig_pro_onboarding_checklist_step",
       IG_PRO_ONBOARDING_CHECKLIST_STEP_PRO_SUB:
         "ig_pro_onboarding_checklist_step_pro_sub",
+      IG_PRO_SUBS_SCHEDULING_FOLLOWER_ACTIVE_TIMES_CONTEXTUAL_EP:
+        "ig_pro_subs_scheduling_follower_active_times_contextual_ep",
       IG_REELS_NETEGO_PRO_AC: "ig_reels_netego_pro_ac",
       IG_REELS_NETEGO_PRO_BIZ: "ig_reels_netego_pro_biz",
       IG_REEL_INSIGHTS_BANNER_UPSELL: "nme_ig_reel_insights_banner_upsell",
@@ -923,6 +929,7 @@ __d(
         "meta_one_fb_pro_acquisition_follower_notif_upsell",
       META_ONE_FB_REELS_COMPOSER_LOCKED_ROW:
         "meta_one_fb_reels_composer_locked_row",
+      META_ONE_FB_TAP_TO_DM_LOCKED_ROW: "meta_one_fb_tap_to_dm_locked_row",
       META_ONE_IG_SUBSCRIPTION_COMPLETION_NOTIF:
         "meta_one_ig_subscription_completion_notif",
       META_ONE_IG_SUBSCRIPTION_REVOCATION_NOTIF:

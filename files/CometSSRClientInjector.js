@@ -109,9 +109,17 @@ __d(
           t.addMetadata("ssr_total_page_element_count", n));
       });
     }
-    function C() {
+    function C(e) {
       try {
-        (s == null && (s = new (r("CometSSRStateManager"))()),
+        (e != null &&
+          m.push(
+            babelHelpers.extends({}, e, {
+              id: "global_failure",
+              payloadType: "LAST",
+              renderPassCount: 0,
+            }),
+          ),
+          s == null && (s = new (r("CometSSRStateManager"))()),
           s.disableSSRInFlight(),
           u && v(u.eid),
           o("CometSSRMergedContentInjector").updateRenderPassStatus({
@@ -121,20 +129,20 @@ __d(
             status: "fail_ssr_disabled",
           }),
           o("CometSSRMergedContentInjector").markSSRError());
-      } catch (o) {
-        var e,
-          t,
-          n = r("getErrorSafe")(o);
+      } catch (e) {
+        var t,
+          n,
+          a = r("getErrorSafe")(e);
         throw (
           r("FBLogger")("comet_ssr")
-            .catching(n)
+            .catching(a)
             .mustfix(
               "disableSSRInFlight(): Error while disabling SSR in flight (ssrData.enabled: %s, ssrData.eid: %s): %s",
-              (e = u) == null ? void 0 : e.enabled,
-              (t = u) == null ? void 0 : t.eid,
-              n.message,
+              (t = u) == null ? void 0 : t.enabled,
+              (n = u) == null ? void 0 : n.eid,
+              a.message,
             ),
-          n
+          a
         );
       }
     }

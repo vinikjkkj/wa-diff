@@ -94,22 +94,24 @@ __d(
             ? o.email
             : t === "member_tag"
               ? o.memberTag
-              : t === "status"
-                ? o.status
-                : t === "groups"
-                  ? o.lid == null
-                    ? null
-                    : (r = n.groupsByMemberLID) == null ||
-                        (r = r.get(o.lid)) == null ||
-                        (r = r[0]) == null
-                      ? void 0
-                      : r.subject
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          t,
-                      );
-                    })();
+              : t === "secondary_member_tag"
+                ? o.secondaryMemberTag
+                : t === "status"
+                  ? o.status
+                  : t === "groups"
+                    ? o.lid == null
+                      ? null
+                      : (r = n.groupsByMemberLID) == null ||
+                          (r = r.get(o.lid)) == null ||
+                          (r = r[0]) == null
+                        ? void 0
+                        : r.subject
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            t,
+                        );
+                      })();
     }
     function h(t, n) {
       return (function (t) {
@@ -119,16 +121,21 @@ __d(
           "member" in t
         ) {
           var r,
-            o = t.member;
+            o,
+            a = t.member;
           return {
-            email: n.emailsByMemberLID.get(o.lid),
-            lid: o.lid,
-            memberTag: o.memberTag,
+            email: n.emailsByMemberLID.get(a.lid),
+            lid: a.lid,
+            memberTag: a.memberTag,
             phoneNumber:
-              (r = n.phoneNumbersByMemberLID.get(o.lid)) != null
+              (r = n.phoneNumbersByMemberLID.get(a.lid)) != null
                 ? r
-                : o.phoneNumber,
-            status: y(o.role),
+                : a.phoneNumber,
+            secondaryMemberTag:
+              (o = n.secondaryMemberTagsByMemberLID) == null
+                ? void 0
+                : o.get(a.lid),
+            status: y(a.role),
           };
         }
         if (
@@ -136,13 +143,14 @@ __d(
           t.type === "roster" &&
           "entry" in t
         ) {
-          var a = t.entry;
+          var i = t.entry;
           return {
-            email: a.emailAddress,
-            lid: a.memberLID,
-            memberTag: a.memberTag,
-            phoneNumber: a.phoneNumber,
-            status: a.memberLID == null ? e : null,
+            email: i.emailAddress,
+            lid: i.memberLID,
+            memberTag: i.memberTag,
+            phoneNumber: i.phoneNumber,
+            secondaryMemberTag: i.secondaryMemberTag,
+            status: i.memberLID == null ? e : null,
           };
         }
         throw Error(

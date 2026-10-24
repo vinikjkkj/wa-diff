@@ -36,6 +36,10 @@ __d(
           pendingNewListId: n,
         }),
         type: o("WAWebDropdown.react").MenuType.DropdownMenu,
+        role: "menu",
+        ariaLabel: s._(/*BTDS*/ "Add to list"),
+        autoFocus: !0,
+        findFirstItem: !0,
         dirX: r("WAWebL10N").isRTL()
           ? o("WAWebDropdown.react").DirX.RIGHT
           : o("WAWebDropdown.react").DirX.LEFT,

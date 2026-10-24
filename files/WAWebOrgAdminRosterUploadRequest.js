@@ -5,99 +5,106 @@ __d(
     var e = 5e3,
       s = 1e3,
       u = { joined: [], removed: [] },
-      c = { people: new Set(), rows: new Set() };
-    function d(e) {
+      c = {},
+      d = { people: new Set(), rows: new Set() };
+    function m(e) {
       var t = e.holds,
         n = e.memberDirectoryEnabled,
-        r = e.memberTagOptions,
-        a = e.mode,
-        i = e.plan,
-        l = e.roster,
-        s = e.rosterStatus,
-        c = a === "replace",
-        d = c
+        r = e.memberTagNames,
+        a = r === void 0 ? c : r,
+        i = e.memberTagOptions,
+        l = e.mode,
+        s = e.plan,
+        d = e.roster,
+        m = e.rosterStatus,
+        p = l === "replace",
+        _ = p
           ? o(
               "WAWebOrgAdminRosterUploadPlan",
-            ).getOrgAdminRosterUploadPeopleNotInFile(i, l)
+            ).getOrgAdminRosterUploadPeopleNotInFile(s, d)
           : u,
-        m = i.added.filter(function (e) {
+        g = s.added.filter(function (e) {
           var n = e.rowNumber;
           return !t.rows.has(n);
         }),
-        p = i.updated.filter(function (e) {
+        h = s.updated.filter(function (e) {
           var n = e.rowNumber;
           return !t.rows.has(n);
         }),
-        f = d.removed.filter(function (e) {
+        y = _.removed.filter(function (e) {
           var n = e.id;
           return !t.people.has(n);
         }),
-        g = [].concat(m, p),
-        h = c
-          ? o(
-              "WAWebOrgAdminRosterUploadPlan",
-            ).getOrgAdminRosterUploadReplacement(
-              babelHelpers.extends({}, i, { added: m, updated: p }),
-              l,
-              f,
-            )
-          : g.map(function (e) {
-              var t = e.entry,
-                n = e.rowNumber;
-              return { entry: t, rowNumber: n };
-            }),
-        y = l.length - f.length + m.length,
-        C = new Set(r),
-        b = Array.from(
+        C = [].concat(g, h),
+        b = C.length + y.length > 0,
+        v =
+          p && b
+            ? o(
+                "WAWebOrgAdminRosterUploadPlan",
+              ).getOrgAdminRosterUploadReplacement(
+                babelHelpers.extends({}, s, { added: g, updated: h }),
+                d,
+                y,
+              )
+            : C.map(function (e) {
+                var t = e.entry,
+                  n = e.rowNumber;
+                return { entry: t, rowNumber: n };
+              }),
+        S = d.length - y.length + g.length,
+        R = new Set(i),
+        L = Array.from(
           new Set(
-            g.flatMap(function (e) {
+            C.flatMap(function (e) {
               var t = e.entry.memberTag;
-              return t == null || C.has(t) ? [] : [t];
+              return t == null || R.has(t) ? [] : [t];
             }),
           ),
         ),
-        v = n && b.length > 0;
+        E = n && L.length > 0;
       return {
-        blocker: _({
-          entryCount: y,
-          memberTagCount: r.length + b.length,
-          rosterStatus: s,
-          savesMemberTags: v,
+        blocker: f({
+          entryCount: S,
+          memberTagCount: i.length + L.length,
+          rosterStatus: m,
+          savesMemberTags: E,
         }),
         counts: {
-          added: m.length,
+          added: g.length,
           notImported:
-            i.incomplete.length + i.unnamed.length + i.repeated.length,
-          removed: f.length,
-          updated: p.length,
+            s.incomplete.length + s.unnamed.length + s.repeated.length,
+          removed: y.length,
+          updated: h.length,
         },
-        newMemberTags: b,
-        notInFile: d,
-        plan: i,
+        memberTagNames: a,
+        newMemberTags: L,
+        notInFile: _,
+        plan: s,
         request: {
-          entries: h.map(function (e) {
+          entries: v.map(function (e) {
             var t = e.entry;
             return t;
           }),
           inviteEmails: n
-            ? m.flatMap(function (e) {
+            ? g.flatMap(function (e) {
                 var t = e.entry.emailAddress;
                 return t == null ? [] : [t];
               })
             : [],
-          memberTagOptions: r,
-          mode: a,
-          newMemberTagOptions: v ? b : [],
-          roster: l,
+          memberTagNames: Object.keys(a).length === 0 ? void 0 : a,
+          memberTagOptions: i,
+          mode: b ? l : "append",
+          newMemberTagOptions: E ? L : [],
+          roster: d,
         },
-        rosterCount: y,
-        rowNumbers: h.map(function (e) {
+        rosterCount: S,
+        rowNumbers: v.map(function (e) {
           var t = e.rowNumber;
           return t;
         }),
       };
     }
-    function m(e, t) {
+    function p(e, t) {
       return (function (t) {
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -105,7 +112,7 @@ __d(
           "id" in t
         ) {
           var n = t.id;
-          return babelHelpers.extends({}, e, { people: p(e.people, n) });
+          return babelHelpers.extends({}, e, { people: _(e.people, n) });
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -113,7 +120,7 @@ __d(
           "rowNumber" in t
         ) {
           var r = t.rowNumber;
-          return babelHelpers.extends({}, e, { rows: p(e.rows, r) });
+          return babelHelpers.extends({}, e, { rows: _(e.rows, r) });
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -121,11 +128,11 @@ __d(
         );
       })(t);
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = new Set(e);
       return (n.delete(t) || n.add(t), n);
     }
-    function _(t) {
+    function f(t) {
       var n = t.entryCount,
         r = t.memberTagCount,
         a = t.rosterStatus,
@@ -142,9 +149,9 @@ __d(
     }
     ((l.MAX_ORG_ADMIN_ROSTER_REPLACE_ENTRIES = e),
       (l.MAX_ORG_ADMIN_ROSTER_APPEND_ENTRIES = s),
-      (l.NO_ORG_ADMIN_ROSTER_UPLOAD_HOLDS = c),
-      (l.getOrgAdminRosterUploadDraft = d),
-      (l.toggleOrgAdminRosterUploadHold = m));
+      (l.NO_ORG_ADMIN_ROSTER_UPLOAD_HOLDS = d),
+      (l.getOrgAdminRosterUploadDraft = m),
+      (l.toggleOrgAdminRosterUploadHold = p));
   },
   98,
 );

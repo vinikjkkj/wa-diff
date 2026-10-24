@@ -339,24 +339,30 @@ __d(
         )
       );
     }
-    function C(e) {
+    function C(e, t) {
+      t === void 0 && (t = !1);
       for (
-        var t = e.endNode,
-          n = e.startNode,
-          a = r("nullthrows")(n.getParent()),
-          i = r("nullthrows")(t.getParent()).getNextSibling(),
-          l = b(a),
-          s = [],
-          u = a;
-        u && u !== i;
+        var n = e.endNode,
+          a = e.startNode,
+          i = r("nullthrows")(a.getParent()),
+          l = r("nullthrows")(n.getParent()).getNextSibling(),
+          s = b(i),
+          u = [],
+          c = [],
+          d = i;
+        d && d !== l;
       ) {
-        var c = u.getTextContent(),
-          d = o("WAWebQuoteLineUtils").isInsideCodeBlock(c);
-        (!l && !d && c.trim() !== "" && s.push(u),
-          d && (l = !l),
-          (u = u.getNextSibling()));
+        var m = d.getTextContent(),
+          p = o("WAWebQuoteLineUtils").isInsideCodeBlock(m);
+        (s || p
+          ? (c = [])
+          : m.trim() !== ""
+            ? (u.push.apply(u, c.concat([d])), (c = []))
+            : t && u.length > 0 && c.push(d),
+          p && (s = !s),
+          (d = d.getNextSibling()));
       }
-      return s;
+      return u;
     }
     function b(e) {
       for (var t = [], n = e.getPreviousSibling(); n; )
@@ -364,21 +370,26 @@ __d(
       return o("WAWebQuoteLineUtils").isInsideCodeBlock(t.join("\n"));
     }
     function v(t) {
-      var n = C(t);
+      var n = C(
+        t,
+        o("WAWebABProps").getABPropConfigValue(
+          "expanded_formatting_multiline_quotes",
+        ),
+      );
       if (n.length === 0) {
         h(t, e.Quote);
         return;
       }
       for (var r of n)
         if (r.getQuoteLineNode() == null) {
-          var a;
-          (N(r.getFirstChild()),
-            (a = r.getFirstChild()) == null ||
-              a.insertBefore(
-                o("WAWebListNumberNode").$createListNumberNode(
-                  o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX,
-                ),
-              ));
+          N(r.getFirstChild());
+          var a = r.getFirstChild();
+          (a == null && ((a = o("Lexical").$createTextNode("")), r.append(a)),
+            a.insertBefore(
+              o("WAWebListNumberNode").$createListNumberNode(
+                o("WAWebQuoteLineUtils").QUOTE_LINE_PREFIX,
+              ),
+            ));
         }
     }
     function S(e) {

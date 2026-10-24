@@ -856,8 +856,7 @@ __d(
     }
     ve.doc = "Trigger PQ (post-quantum) prekey generation and upload";
     function Re() {
-      (r("vulture")("ayItXAwZfflCWNH5TOb62TR9cew="),
-        r("WAWebDebugDownFunnelSignals").dfsInitialize());
+      r("WAWebDebugDownFunnelSignals").dfsInitialize();
     }
     var Le = babelHelpers.extends(
       { initialize: Re, delayMs: o("WAPromiseDelays").delayMs, _: null },

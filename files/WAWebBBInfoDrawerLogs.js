@@ -103,15 +103,17 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.NEW_BROADCAST_TILE,
       });
     }
-    function h(e, t, n) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        extraAttributes: { audience_id: n },
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_AUDIENCE_INFO_DRAWER,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.OPEN_BROADCAST_THREAD,
-      });
+    function h(e, t, n, r) {
+      (r === void 0 &&
+        (r = o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_AUDIENCE_INFO_DRAWER),
+        e({
+          action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+          entryPoint: t,
+          extraAttributes: { audience_id: n },
+          surface: r,
+          userActionTarget:
+            o("WAWebBBLoggerTypes").UserActionTarget.OPEN_BROADCAST_THREAD,
+        }));
     }
     function y(e, t, n) {
       e({

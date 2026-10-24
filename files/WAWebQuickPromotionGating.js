@@ -10,18 +10,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "privacy_tips_profile_build",
-      );
-    }
-    function u() {
       return o("WATimeUtils").castToUnixTime(
         o("WAWebABProps").getABPropConfigValue(
           "updates_privacy_notice_rollout_date",
         ),
       );
     }
-    function c() {
+    function u() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -29,22 +24,19 @@ __d(
         )
       );
     }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_graphql_to_fetch_qp_frequency_mins",
-      );
-    }
-    function m() {
+    function c() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? d()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "smb_graphql_to_fetch_qp_frequency_mins",
+          )
         : o("WAWebABProps").getABPropConfigValue(
             "consumer_web_qp_graphql_to_fetch_qp_frequency_mins",
           );
     }
-    function p() {
-      return !o("WAWebMobilePlatforms").isSMB() || c();
+    function d() {
+      return !o("WAWebMobilePlatforms").isSMB() || u();
     }
-    function _(t) {
+    function m(t) {
       var n = new Map(
           Array.from(
             o("WAWebCTWAConstants").KNOWN_QP_SURFACES.values(),
@@ -75,32 +67,30 @@ __d(
         r
       );
     }
-    function f() {
-      return _(
+    function p() {
+      return m(
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function g() {
-      return _(
+    function _() {
+      return m(
         o("WAWebABProps").getABPropConfigValue(
           "consumer_graphql_web_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function h() {
-      return o("WAWebMobilePlatforms").isSMB() ? f() : g();
+    function f() {
+      return o("WAWebMobilePlatforms").isSMB() ? p() : _();
     }
-    ((l.profilePrivacyTipsEnabled = s),
-      (l.getUpdatesTabPrivacyNoticeRolloutDate = u),
-      (l.qpGraphQLEnabledSMB = c),
-      (l.qpGraphQLFetchIntervalMinutesSMB = d),
-      (l.qpGraphQLFetchIntervalMinutes = m),
-      (l.qpGraphQLEnabled = p),
-      (l.qpSurfaceIdsUsingGraphQLSMB = f),
-      (l.qpSurfaceIdsUsingGraphQLConsumer = g),
-      (l.qpSurfaceIdsUsingGraphQL = h));
+    ((l.getUpdatesTabPrivacyNoticeRolloutDate = s),
+      (l.qpGraphQLEnabledSMB = u),
+      (l.qpGraphQLFetchIntervalMinutes = c),
+      (l.qpGraphQLEnabled = d),
+      (l.qpSurfaceIdsUsingGraphQLSMB = p),
+      (l.qpSurfaceIdsUsingGraphQLConsumer = _),
+      (l.qpSurfaceIdsUsingGraphQL = f));
   },
   98,
 );

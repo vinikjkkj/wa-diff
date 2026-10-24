@@ -18,10 +18,11 @@ __d(
       var t,
         n,
         r = e.chat,
-        a = e.profileEntryPoint,
-        i = e.threadId,
-        l = e.uim,
-        u =
+        a = e.noFocus,
+        i = e.profileEntryPoint,
+        l = e.threadId,
+        u = e.uim,
+        c =
           (t =
             (n = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "mid",
@@ -30,7 +31,7 @@ __d(
               : n.existsDrawer()) != null
             ? t
             : !1;
-      u ||
+      c ||
         (r.contact.isBusiness &&
           o("WAWebMessageLogQplEvents").qplStartProfileView("Header"),
         (o("WAWebChatGetters").getIsUser(r) ||
@@ -42,32 +43,35 @@ __d(
               ? {
                   descriptorType: "info_flow",
                   chat: o("WAWebStateUtils").unproxy(r),
-                  profileEntryPoint: a,
+                  profileEntryPoint: i,
                   sourceGroupChatOrNewsletter: o("WAWebChatGetters").getIsGroup(
                     r,
                   )
                     ? r
                     : void 0,
-                  threadId: i,
+                  threadId: l,
+                  skipFocusOnMount: a,
                 }
               : s.jsx(
                   o("WAWebInfoFlowLoadable").InfoFlowLoadable,
                   {
                     chat: o("WAWebStateUtils").unproxy(r),
-                    profileEntryPoint: a,
+                    profileEntryPoint: i,
                     sourceGroupChatOrNewsletter: o(
                       "WAWebChatGetters",
                     ).getIsGroup(r)
                       ? r
                       : void 0,
-                    threadId: i,
+                    threadId: l,
+                    skipFocusOnMount: a,
                   },
                   "info-" + r.id.toString(),
                 ),
             {
               transition: "slide-left",
-              uim: l,
+              uim: u,
               focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+              noFocus: a,
             },
           ));
     }

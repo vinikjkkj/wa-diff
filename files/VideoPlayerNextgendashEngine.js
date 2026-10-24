@@ -27,6 +27,7 @@ __d(
     "VideoPlayerNextgendashWorkQueue",
     "clearTimeout",
     "cr:11335",
+    "cr:17758",
     "cr:3020",
     "cr:39935",
     "cr:39936",
@@ -39,8 +40,9 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    function c() {
+    var e, s, u, c;
+    function d() {
+      if (n("cr:3020").mediaSinkConnectToWorker != null) return "RealWorkerV2";
       if (r("gkx")("9512")) {
         var e = r("gkx")("7137") ? "ManagedMediaSource" : "MediaSource";
         if (n("cr:3020").mediaSourceCanConstructInDedicatedWorker(e))
@@ -48,12 +50,12 @@ __d(
       }
       return "VirtualWorker";
     }
-    var d = c();
-    d === "VirtualWorker" &&
+    var m = d();
+    m === "VirtualWorker" &&
       o(
         "VideoPlayerNextgendashConnectionPortToVirtualWorker",
       ).preloadWorkerEnvironmentJSResourceWhenVirtualWorkerOnly();
-    var m = {
+    var p = {
         RealWorker:
           (e =
             n("cr:39936") == null
@@ -65,42 +67,41 @@ __d(
             : null,
         RealWorkerV2:
           (s =
-            n("cr:39935") == null
+            (u = n("cr:39935") != null ? n("cr:39935") : n("cr:17758")) == null
               ? void 0
-              : n("cr:39935")
-                  .createVideoPlayerNextgendashConnectionPortToRealWorkerV2) !=
+              : u.createVideoPlayerNextgendashConnectionPortToRealWorkerV2) !=
           null
             ? s
             : null,
         VirtualWorker: o("VideoPlayerNextgendashConnectionPortToVirtualWorker")
           .createVideoPlayerNextgendashConnectionPortToVirtualWorker,
       },
-      p = {
+      _ = {
         clientRev: r("SiteData").client_revision,
         cometEnv: r("SiteData").comet_env,
       };
-    function _() {
+    function f() {
       o("VideoPlayerNextgendashConnectionMainToWorker").preloadWorker({
         envForErrors: {
           host: { clock: n("cr:3020").clock },
-          loggingState: { metadata: babelHelpers.extends({}, p) },
+          loggingState: { metadata: babelHelpers.extends({}, _) },
         },
         virtualWorkerHostAPI: n("cr:3020"),
-        workerEnvConfig: R(),
-        workerPortFactories: m,
-        workerType: d,
+        workerEnvConfig: L(),
+        workerPortFactories: p,
+        workerType: m,
       });
     }
-    var f = null,
-      g = "ngdprefetch-" + r("guid")();
-    function h() {
-      if (f != null) return f;
-      _();
+    var g = null,
+      h = "ngdprefetch-" + r("guid")();
+    function y() {
+      if (g != null) return g;
+      f();
       var e = o(
           "VideoPlayerNextgendashWorkQueue",
         ).createVideoPlayerNextgendashWorkQueue(n("cr:3020").scheduleToRun),
-        t = n("cr:9718") == null ? void 0 : n("cr:9718")(g, e),
-        r = R();
+        t = n("cr:9718") == null ? void 0 : n("cr:9718")(h, e),
+        r = L();
       return (
         o(
           "VideoPlayerNextgendashSmartPlayerStaticSignals",
@@ -108,12 +109,12 @@ __d(
           r,
           function () {},
         ),
-        (f = o(
+        (g = o(
           "VideoPlayerNextgendashPrefetchConnection",
         ).createVideoPlayerNextgendashPrefetchConnection({
           config: r,
           hostAPI: n("cr:3020"),
-          instanceKey: g,
+          instanceKey: h,
           loggingDestinations: [
             o(
               "VideoPlayerNextgendashLoggingDestinationFBLogger",
@@ -121,19 +122,19 @@ __d(
             n("cr:9712"),
             t == null ? void 0 : t.loggingDestination,
           ],
-          siteMetadata: p,
-          workerPortFactories: m,
-          workerType: d,
+          siteMetadata: _,
+          workerPortFactories: p,
+          workerType: m,
           workQueue: e,
         })),
-        f
+        g
       );
     }
-    function y() {
+    function C() {
       return r("gkx")("26980");
     }
-    function C(e) {
-      return e == null && !y() && r("gkx")("16361")
+    function b(e) {
+      return e == null && !C() && r("gkx")("16361")
         ? 540
         : e == null && r("gkx")("21918")
           ? 480
@@ -143,25 +144,25 @@ __d(
               ]
             : 0;
     }
-    function b(e) {
-      h().prefetch(
+    function v(e) {
+      y().prefetch(
         e,
         o(
           "VideoPlayerNextgendashEngineConfig",
         ).createVideoPlayerNextgendashABRConfig({
-          videoPreferredMinimumSmallestDimension: C(null),
+          videoPreferredMinimumSmallestDimension: b(null),
         }),
       );
     }
-    function v(e) {
-      h().releasePrefetchKey(e);
+    function S(e) {
+      y().releasePrefetchKey(e);
     }
-    var S = 5e6;
-    function R() {
+    var R = 5e6;
+    function L() {
       var e = o("VideoPlayerNextgendashEnvironment").createDefaultConfig(),
-        t = y();
+        t = C();
       return babelHelpers.extends({}, e, {
-        bandwidthDiagnosticsFallbackDefaultEstimate: t ? S : null,
+        bandwidthDiagnosticsFallbackDefaultEstimate: t ? R : null,
         blockDuplicatePrefetch: r("gkx")("25126"),
         bufferAheadTargetNoMediaElementSec: r("gkx")("26985")
           ? 4
@@ -289,6 +290,9 @@ __d(
           ? 1080
           : e.prefetchResolutionThreshold,
         qplEnabled: r("gkx")("19263"),
+        realWorkerV2SkipHasteResponsePreloader:
+          n("cr:3020").mediaSinkConnectToWorker != null ||
+          e.realWorkerV2SkipHasteResponsePreloader,
         reduceStateMachineEventOverhead: r("gkx")("2977"),
         reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("18169"),
         resetTargetRepresentationWhenItGetsBlocked: r("gkx")("18461"),
@@ -303,8 +307,8 @@ __d(
         webCodecsVideoInWorker: r("gkx")("12553"),
       });
     }
-    var L = 0;
-    function E(e, t, n) {
+    var E = 0;
+    function k(e, t, n) {
       return e.mediaSinkType !== "EMSS"
         ? n
         : babelHelpers.extends({}, n, {
@@ -315,10 +319,10 @@ __d(
             },
           });
     }
-    function k(e) {
+    function I(e) {
       return function (t) {
         var r = t.url;
-        return new (u || (u = n("Promise")))(function (t) {
+        return new (c || (c = n("Promise")))(function (t) {
           e(r)
             .then(function (e) {
               var n = e.reason,
@@ -333,30 +337,30 @@ __d(
         });
       };
     }
-    function I(e) {
+    function T(e) {
       var t,
         a = e.initialProps,
         i = a.coreVideoPlayerMetaData.videoFBID,
         l = String(a.loggingMetaData.instanceKey),
         s = (t = a.coreVideoPlayerMetaData.subOrigin) != null ? t : void 0,
-        u = L++,
+        u = E++,
         c = "#" + u + "::" + l,
-        _ = a.coreVideoPlayerMetaData.initialRepresentationIds,
+        d = a.coreVideoPlayerMetaData.initialRepresentationIds,
         f = !1,
         g = null,
         h = o(
           "VideoPlayerNextgendashWorkQueue",
         ).createVideoPlayerNextgendashWorkQueue(n("cr:3020").scheduleToRun),
         y = n("cr:9718") == null ? void 0 : n("cr:9718")(c, h),
-        b = n("cr:11335") ? new (n("cr:11335"))() : null,
+        C = n("cr:11335") ? new (n("cr:11335"))() : null,
         v = { current: null },
         S = { current: null },
-        I = { current: null },
-        D = [],
+        R = { current: null },
+        T = [],
         x = null,
         $ = null,
         P = null,
-        N = R();
+        N = L();
       P = o(
         "VideoPlayerNextgendashSmartPlayerStaticSignals",
       ).subscribeVideoPlayerNextgendashSmartPlayerStaticSignals(N, function () {
@@ -419,20 +423,20 @@ __d(
                   O.point(
                     "warning",
                     o("VideoPlayerNextgendashQPL").qplAnnotationsForError(
-                      T(F, e),
+                      D(F, e),
                     ),
                   ),
-                  I.current != null
-                    ? I.current.dispatch({
+                  R.current != null
+                    ? R.current.dispatch({
                         payload: { warningError: e },
                         type: "implementation_warning",
                       })
-                    : D.push(e));
+                    : T.push(e));
               },
             ),
             n("cr:9712"),
             y == null ? void 0 : y.loggingDestination,
-            b == null ? void 0 : b.loggingDestination,
+            C == null ? void 0 : C.loggingDestination,
             o(
               "VideoPlayerNextgendashLoggingDestinationODSFromEngine",
             ).createVideoPlayerNextgendashLoggingDestinationODSFromEngine(),
@@ -443,7 +447,7 @@ __d(
           loggingState: {
             logstampPrefix: c,
             logstampTint: (u % 5) / 5,
-            metadata: babelHelpers.extends({}, p, {
+            metadata: babelHelpers.extends({}, _, {
               nextgendashCreatedAt: n("cr:3020").clock(),
               nextgendashInstanceIndex: u,
               playerInstanceKey: l,
@@ -471,11 +475,11 @@ __d(
             abrConfig: o(
               "VideoPlayerNextgendashEngineConfig",
             ).createVideoPlayerNextgendashABRConfig({
-              videoPreferredMinimumSmallestDimension: C(a.minQualityPreference),
+              videoPreferredMinimumSmallestDimension: b(a.minQualityPreference),
             }),
             audioOnly: a.coreVideoPlayerMetaData.audioOnly === !0,
             initialExpiredVideoUrlRefreshHandlerState:
-              B != null ? { handler: k(B), identity: B } : null,
+              B != null ? { handler: I(B), identity: B } : null,
             initialMediaVariantIfLangExistsInManifest:
               a.initialAudioUserPreferredLanguage != null
                 ? {
@@ -556,7 +560,7 @@ __d(
                   l !== Y.current.getUnderlyingVideoElement()) &&
                   (Y.current =
                     l != null
-                      ? E(
+                      ? k(
                           N,
                           l,
                           o(
@@ -601,15 +605,15 @@ __d(
             playerSubOrigin: s,
             playerViewportDimensionsInitial: A,
             prefetchResultInitial:
-              _ != null && _.length > 0
+              d != null && d.length > 0
                 ? {
-                    prefetchedRepresentationIds: _,
+                    prefetchedRepresentationIds: d,
                     prefetchStartedAt: F.host.clock(),
                   }
                 : null,
             videoFBID: i,
-            workerPortFactories: m,
-            workerTypeInitial: d,
+            workerPortFactories: p,
+            workerTypeInitial: m,
           },
         );
       v.current = V;
@@ -630,9 +634,9 @@ __d(
           createDebugAPI: function (t) {
             var e = t.getVideoElementAPI,
               n = t.loggerToVPL;
-            return b == null
+            return C == null
               ? void 0
-              : b.createDebugAPI({
+              : C.createDebugAPI({
                   engineExtrasAPI: G,
                   getConfig: function () {
                     return a.experimentationConfig;
@@ -733,7 +737,7 @@ __d(
                 (l == null ? i != null : l !== i) &&
                 V.sendEvent({
                   expiredVideoUrlRefreshHandlerState:
-                    i != null ? { handler: k(i), identity: i } : null,
+                    i != null ? { handler: I(i), identity: i } : null,
                   type: "update_expired_video_url_refresh_handler",
                 }),
                 N.trackScrollPosition &&
@@ -751,14 +755,14 @@ __d(
         Q = j.handleFatalImplementationError,
         X = j.machine,
         Y = j.videoElementAPIRef;
-      I.current = X;
-      for (var J of D)
+      R.current = X;
+      for (var J of T)
         X.dispatch({
           payload: { warningError: J },
           type: "implementation_warning",
         });
       if (
-        ((D.length = 0),
+        ((T.length = 0),
         (a.manifest != null || a.manifestUrl != null) &&
           V.sendEvent({
             dashManifestUrl: a.manifestUrl,
@@ -785,7 +789,7 @@ __d(
                 t != null)
               ) {
                 var r;
-                (O.endWithError(g != null ? g : T(F, t)),
+                (O.endWithError(g != null ? g : D(F, t)),
                   (r = x) == null || r.remove(),
                   (x = null));
               } else if (n === "playing") {
@@ -833,16 +837,16 @@ __d(
       }
       return (O == null || O.point("engine_created"), K);
     }
-    function T(e, t) {
+    function D(e, t) {
       return o("nextgendasherr").nextgendasherr.apply(
         void 0,
         [e, t.errorName, t.errorMessageFormat].concat(t.errorMessageParams),
       );
     }
-    ((l.preloadVideoPlayerNextgendashWorker = _),
-      (l.prefetchUsingNextgendash = b),
-      (l.releasePrefetchUsingNextgendash = v),
-      (l.createVideoPlayerNextgendashEngine = I));
+    ((l.preloadVideoPlayerNextgendashWorker = f),
+      (l.prefetchUsingNextgendash = v),
+      (l.releasePrefetchUsingNextgendash = S),
+      (l.createVideoPlayerNextgendashEngine = T));
   },
   98,
 );

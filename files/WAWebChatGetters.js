@@ -43,100 +43,102 @@ __d(
       F = c("tcToken"),
       O = c("tcTokenTimestamp"),
       B = c("previewT"),
-      W = u(
+      W = c("toneId"),
+      q = c("accountLid"),
+      U = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [_],
       ),
-      q = u(
+      V = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [_],
       ),
-      U = u(
+      H = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [_],
       ),
-      V = u(
+      G = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isMetaForBusiness(t);
         },
         [_],
       ),
-      H = u(
+      z = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [_],
       ),
-      G = u(
+      j = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [_],
       ),
-      z = u(
+      K = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [_],
       ),
-      j = u(
+      Q = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [_],
       ),
-      K = u(
+      X = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isMetaAiBot(t);
         },
         [_],
       ),
-      Q = u(
+      Y = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBusinessAssistantBot(t);
         },
         [_],
       ),
-      X = u(
+      J = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isHatchBot(t);
         },
         [_],
       ),
-      Y = u(
+      Z = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBotChannelFBID(t);
         },
         [_],
       ),
-      J = u(
+      ee = u(
         function (e) {
           var t = e[0],
             n = e[1];
           return !t && !n;
         },
-        [G, q],
+        [j, V],
       ),
-      Z = u(o("WAWebBoolFunc").returnTrue, [G]),
-      ee = u(
+      te = u(o("WAWebBoolFunc").returnTrue, [j]),
+      ne = u(
         function (e) {
           var t = e[0];
           return t !== 0;
@@ -171,21 +173,23 @@ __d(
       (l.getTcToken = F),
       (l.getTcTokenTimestamp = O),
       (l.getPreviewT = B),
-      (l.getIsUser = W),
-      (l.getIsPSA = q),
-      (l.getIsIAS = U),
-      (l.getIsMetaForBusiness = V),
-      (l.getIsGroup = H),
-      (l.getIsBroadcast = G),
-      (l.getIsNewsletter = z),
-      (l.getIsBot = j),
-      (l.getIsMetaAiBot = K),
-      (l.getIsBusinessAssistantBot = Q),
-      (l.getIsHatchBot = X),
-      (l.getIsBotChannel = Y),
-      (l.getIsEligibleForContactSync = J),
-      (l.getCanUnread = Z),
-      (l.getHasUnread = ee));
+      (l.getToneId = W),
+      (l.getAccountLid = q),
+      (l.getIsUser = U),
+      (l.getIsPSA = V),
+      (l.getIsIAS = H),
+      (l.getIsMetaForBusiness = G),
+      (l.getIsGroup = z),
+      (l.getIsBroadcast = j),
+      (l.getIsNewsletter = K),
+      (l.getIsBot = Q),
+      (l.getIsMetaAiBot = X),
+      (l.getIsBusinessAssistantBot = Y),
+      (l.getIsHatchBot = J),
+      (l.getIsBotChannel = Z),
+      (l.getIsEligibleForContactSync = ee),
+      (l.getCanUnread = te),
+      (l.getHasUnread = ne));
   },
   98,
 );

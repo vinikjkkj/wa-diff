@@ -29,6 +29,9 @@ __d(
           L(a, function (e) {
             return e.phoneNumber;
           }),
+          L(a, function (e) {
+            return e.secondaryMemberTag;
+          }),
         );
       }
       if (e.startsWith(s)) {
@@ -54,7 +57,7 @@ __d(
           })
         : null;
     }
-    function _(e, t, n) {
+    function _(e, t, n, r) {
       return {
         emailAddress: t,
         key: u(e.lid),
@@ -64,6 +67,7 @@ __d(
         memberTag: e.memberTag,
         name: e.displayName,
         phoneNumber: n != null ? n : e.phoneNumber,
+        secondaryMemberTag: r,
         username: e.username,
       };
     }
@@ -78,6 +82,7 @@ __d(
         memberTag: e.memberTag,
         name: e.name,
         phoneNumber: e.phoneNumber,
+        secondaryMemberTag: e.secondaryMemberTag,
         username: null,
       };
     }

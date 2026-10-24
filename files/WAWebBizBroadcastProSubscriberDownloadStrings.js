@@ -6,66 +6,62 @@ __d(
     function e() {
       return s._(/*BTDS*/ "Download recipients");
     }
-    function u() {
-      return s._(/*BTDS*/ "Download a CSV file with subscribed recipients.");
-    }
-    function c(e, t) {
+    function u(e, t) {
       return s._(/*BTDS*/ "{name} ({phone number})", [
         s._param("name", e),
         s._param("phone number", t),
       ]);
     }
-    function d(e) {
+    function c(e) {
       return s._(/*BTDS*/ '_j{"*":"{count}"}', [s._param("count", e, [0])]);
     }
-    function m(e, t) {
+    function d(e, t) {
       return s._(/*BTDS*/ '_j{"*":{"*":"{lower bound} - {upper bound}"}}', [
         s._param("lower bound", e, [0]),
         s._param("upper bound", t, [0]),
       ]);
     }
-    function p() {
+    function m() {
       return s._(
         /*BTDS*/ "There's nothing to download yet. Your customer base has no subscribed recipients.",
       );
     }
-    function _() {
+    function p() {
       return s._(
         /*BTDS*/ "Your last download is still being prepared. Try again once it's ready.",
       );
     }
-    function f() {
+    function _() {
       return s._(/*BTDS*/ "Your file is ready");
     }
-    function g() {
+    function f() {
       return s._(
         /*BTDS*/ "Your file with subscribed recipients is ready to download.",
       );
     }
-    function h() {
+    function g() {
       return s._(/*BTDS*/ "Couldn't prepare your file");
     }
-    function y() {
+    function h() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
-    function C() {
+    function y() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
     ((l.getPreparingFileLabel = r(
       "WAWebBizBroadcastProDownloadPreparingFileLabel",
     )),
       (l.getDownloadRecipientsModalTitle = e),
-      (l.getDownloadRecipientsModalSubtitle = u),
-      (l.getCustomerBaseLabel = c),
-      (l.getRecipientCountExactLabel = d),
-      (l.getRecipientCountRangeLabel = m),
-      (l.getNoSubscribedRecipientsLabel = p),
-      (l.getDownloadStillPreparingLabel = _),
-      (l.getFileReadyLabel = f),
-      (l.getFileReadySublabel = g),
-      (l.getFileFailedLabel = h),
-      (l.getFileFailedSublabel = y),
-      (l.getSaveFailedToastLabel = C));
+      (l.getCustomerBaseLabel = u),
+      (l.getRecipientCountExactLabel = c),
+      (l.getRecipientCountRangeLabel = d),
+      (l.getNoSubscribedRecipientsLabel = m),
+      (l.getDownloadStillPreparingLabel = p),
+      (l.getFileReadyLabel = _),
+      (l.getFileReadySublabel = f),
+      (l.getFileFailedLabel = g),
+      (l.getFileFailedSublabel = h),
+      (l.getSaveFailedToastLabel = y));
   },
   226,
 );

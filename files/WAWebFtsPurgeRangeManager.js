@@ -33,8 +33,8 @@ __d(
             var e = this;
             return (
               this.$3 == null &&
-                (this.$3 = this.$4().then(function (t) {
-                  return ((e.$3 = null), t);
+                (this.$3 = this.$4().finally(function () {
+                  e.$3 = null;
                 })),
               this.$3
             );

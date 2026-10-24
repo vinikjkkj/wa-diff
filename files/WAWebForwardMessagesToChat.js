@@ -10,6 +10,7 @@ __d(
     "WAWebForwardAssociatedChildren",
     "WAWebForwardContentMsgs",
     "WAWebForwardErrorChatAction",
+    "WAWebHatchJarvisForwardSend",
     "WAWebLimitSharingGatingUtils",
     "WAWebLogNewsletterMessageForward",
     "WAWebMsgActionCapability",
@@ -44,7 +45,10 @@ __d(
                 o(
                   "WAWebLogNewsletterMessageForward",
                 ).logNewsletterMessageForward(m, i));
-          var p = yield (e || (e = n("Promise"))).all(
+          var p = o(
+              "WAWebHatchJarvisForwardSend",
+            ).createHatchJarvisForwardSendSession(),
+            _ = yield (e || (e = n("Promise"))).all(
               i
                 .filter(function (e) {
                   return (
@@ -80,6 +84,7 @@ __d(
                               "WAWebChatForwardMessage",
                             ).forwardMessages({
                               chat: e,
+                              hatchJarvisSession: p,
                               msgs: n,
                               multicast: !0,
                               includeCaption: s,
@@ -97,7 +102,7 @@ __d(
                   })(),
                 ),
             ),
-            _ = r("compactMap")(p, function (e) {
+            f = r("compactMap")(_, function (e) {
               var t = e.chat,
                 n = e.msgsThatCanBeforwarded,
                 o = e.msgsThatCannotBeForwarded,
@@ -114,7 +119,7 @@ __d(
                 i != null && i !== "" ? { chat: t, reason: i } : null
               );
             });
-          if (_.length) throw new (r("WAWebForwardErrorChatAction"))(_);
+          if (f.length) throw new (r("WAWebForwardErrorChatAction"))(f);
           return !0;
         })),
         u.apply(this, arguments)

@@ -96,19 +96,20 @@ __d(
                 }),
                 $ = x.callCreatorUserWid,
                 P = x.chatId,
-                N = x.msgKeyId,
-                M = x.participant,
-                w = x.viewMode,
-                A = {
+                N = x.fromMe,
+                M = x.msgKeyId,
+                w = x.participant,
+                A = x.viewMode,
+                F = {
                   id: new (r("WAWebMsgKey"))({
                     remote: P,
-                    participant: M,
-                    fromMe: m,
-                    id: N,
+                    participant: w,
+                    fromMe: N,
+                    id: M,
                   }),
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
-                  viewMode: w,
+                  viewMode: A,
                   callOutcome: R,
                   isVideoCall: b != null ? b : !1,
                   callCreator: k,
@@ -127,10 +128,10 @@ __d(
                   bytesSent: v,
                   bytesReceived: S,
                 },
-                F = yield o(
+                O = yield o(
                   "WAWebVoipActionWriteCallLogImpl",
-                ).writeVoipCallLogMessageImpl(P, A, !1);
-              F != null &&
+                ).writeVoipCallLogMessageImpl(P, F, !1);
+              O != null &&
                 o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(l);
             }
           } catch (t) {

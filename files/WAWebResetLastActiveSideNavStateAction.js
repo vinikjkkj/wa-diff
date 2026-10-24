@@ -44,6 +44,7 @@ __d(
       if (t != null)
         switch (t) {
           case o("WAWebNavBarTypes").NavBarItems.Chats:
+          case o("WAWebNavBarTypes").NavBarItems.WODirectory:
             o("WAWebSideNavButtonsActivityModel").setLastActiveChat(null);
             break;
           case o("WAWebNavBarTypes").NavBarItems.Newsletters:

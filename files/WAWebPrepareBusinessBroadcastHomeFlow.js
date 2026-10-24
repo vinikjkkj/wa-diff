@@ -159,64 +159,72 @@ __d(
       );
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(9),
+      var t = o("react-compiler-runtime").c(10),
         n = e.entryPoint,
         a = e.initialTab,
         i = e.onClose,
         l = e.openBroadcastSettings,
-        s = e.openCustomerBasePanel,
-        u = o(
+        s = e.openContactImport,
+        u = e.openCustomerBasePanel,
+        c = o(
           "useWAWebBizBroadcastProEligibilityState",
         ).useWAWebBizBroadcastProEligibilityState(),
-        c = u.onboardingStatus,
-        d;
-      t[0] !== n || t[1] !== a || t[2] !== i || t[3] !== l || t[4] !== s
-        ? ((d = {
+        d = c.onboardingStatus,
+        p;
+      t[0] !== n ||
+      t[1] !== a ||
+      t[2] !== i ||
+      t[3] !== l ||
+      t[4] !== s ||
+      t[5] !== u
+        ? ((p = {
             entryPoint: n,
             initialTab: a,
             onClose: i,
             openBroadcastSettings: l,
-            openCustomerBasePanel: s,
+            openCustomerBasePanel: u,
+            openContactImport: s,
           }),
           (t[0] = n),
           (t[1] = a),
           (t[2] = i),
           (t[3] = l),
           (t[4] = s),
-          (t[5] = d))
-        : (d = t[5]);
-      var p = d;
+          (t[5] = u),
+          (t[6] = p))
+        : (p = t[6]);
+      var _ = p;
       if (
         o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled() &&
-        c == null
+        d == null
       ) {
-        var _;
+        var f;
         return (
-          t[6] === Symbol.for("react.memo_cache_sentinel")
-            ? ((_ = m.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })),
-              (t[6] = _))
-            : (_ = t[6]),
-          _
+          t[7] === Symbol.for("react.memo_cache_sentinel")
+            ? ((f = m.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })),
+              (t[7] = f))
+            : (f = t[7]),
+          f
         );
       }
-      var f;
+      var h;
       return (
-        t[7] !== p
-          ? ((f =
+        t[8] !== _
+          ? ((h =
               o(
                 "WAWebBusinessBroadcastsGatingUtils",
               ).isBizBroadcastProEnabled() &&
               o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
-                ? m.jsx(g, babelHelpers.extends({}, p))
+                ? m.jsx(g, babelHelpers.extends({}, _))
                 : m.jsx(
                     o("WAWebBusinessBroadcastHomeFlowLoadable")
                       .WAWebBusinessBroadcastCoreHomeFlowLoadable,
-                    babelHelpers.extends({}, p),
+                    babelHelpers.extends({}, _),
                   )),
-            (t[7] = p),
-            (t[8] = f))
-          : (f = t[8]),
-        f
+            (t[8] = _),
+            (t[9] = h))
+          : (h = t[9]),
+        h
       );
     }
     l.loadBusinessBroadcastHomeFlow = C;

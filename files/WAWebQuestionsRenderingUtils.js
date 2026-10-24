@@ -2,6 +2,7 @@ __d(
   "WAWebQuestionsRenderingUtils",
   [
     "fbt",
+    "WAJids",
     "WALogger",
     "WAWebChatUnreadCount.react",
     "WAWebDBUpdateMessageTable",
@@ -10,11 +11,14 @@ __d(
     "WAWebKeyboardTabUtils",
     "WAWebModalManager",
     "WAWebMsgCollection",
+    "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebQuestions.flow",
     "WAWebQuestionsAdminGatingUtils",
     "WAWebQuestionsCreateResponseModalLoadable",
     "WAWebQuestionsGatingUtils",
+    "WAWebQuestionsMyResponsesGatingUtils",
+    "WAWebQuestionsMyResponsesModalLoadable",
     "WAWebQuestionsSenderGatingUtils",
     "WAWebResponsesListDrawerLoadable",
     "react",
@@ -40,9 +44,9 @@ __d(
                   : i.iAmAdminOrOwner()) != null
                 ? a
                 : !1,
-            f;
+            _;
           p
-            ? (f =
+            ? (_ =
                 r > 0
                   ? c.jsxs(c.Fragment, {
                       children: [
@@ -55,7 +59,7 @@ __d(
                       ],
                     })
                   : s._(/*BTDS*/ "View responses"))
-            : (f = s._(/*BTDS*/ "Respond"));
+            : (_ = s._(/*BTDS*/ "Respond"));
           var g = p ? "view-question-responses-cta" : "respond-to-question-cta",
             h = function () {
               var n = o("WAWebMsgCollection").MsgCollection.get(t);
@@ -69,7 +73,7 @@ __d(
                 return;
               }
               p
-                ? _(n, m)
+                ? f(n, m)
                 : o("WAWebModalManager").ModalManager.open(
                     c.jsx(
                       o("WAWebQuestionsCreateResponseModalLoadable")
@@ -88,11 +92,48 @@ __d(
                   isNewsletterMsg: l,
                   type: d,
                 });
-          return { label: f, testid: g, onClick: h, disabled: y };
+          return { label: _, testid: g, onClick: h, disabled: y };
         }
       }
     }
     function m(e) {
+      var t = e.serverId;
+      if (
+        !o("WAWebMsgGetters").getIsNewsletterMsg(e) ||
+        e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN ||
+        o("WAWebMsgGetters").getIsForwarded(e) ||
+        !o("WAWebMsgGetters").getIsQuestion(e) ||
+        t == null ||
+        !o(
+          "WAWebQuestionsMyResponsesGatingUtils",
+        ).isQuestionViewYourResponsesEnabled()
+      )
+        return null;
+      var n = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(e.id, !0);
+      if (n == null) return null;
+      var r = o("WAJids").toNewsletterJid(n.id.toJid()),
+        a = n.newsletterMetadata;
+      return r == null || a == null || a.iAmAdminOrOwner()
+        ? null
+        : {
+            label: s._(/*BTDS*/ "View your responses"),
+            testid: "view-your-question-responses-cta",
+            onClick: function () {
+              return o("WAWebModalManager").ModalManager.open(
+                c.jsx(
+                  o("WAWebQuestionsMyResponsesModalLoadable")
+                    .MyQuestionResponsesModalLoadable,
+                  {
+                    questionMsgKey: e.id,
+                    questionServerId: t,
+                    newsletterJid: r,
+                  },
+                ),
+              );
+            },
+          };
+    }
+    function p(e) {
       switch (e) {
         case o("WAWebQuestions.flow").ResponsesFilterType.ALL:
           return s._(/*BTDS*/ "All");
@@ -104,7 +145,7 @@ __d(
           return s._(/*BTDS*/ "Starred");
       }
     }
-    function p(e) {
+    function _(e) {
       switch (e) {
         case o("WAWebQuestions.flow").QuestionType.Question:
           return s._(/*BTDS*/ "Create question");
@@ -114,8 +155,8 @@ __d(
           return s._(/*BTDS*/ "Respond");
       }
     }
-    function _(e, t) {
-      f(e);
+    function f(e, t) {
+      g(e);
       var n = !o(
         "WAWebQuestionsSenderGatingUtils",
       ).isQuestionReplySenderEnabled(t);
@@ -127,7 +168,7 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function f(e) {
+    function g(e) {
       return (
         (e.readQuestionResponsesCount = e.questionResponsesCount),
         o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
@@ -136,8 +177,9 @@ __d(
       );
     }
     ((l.getQuestionAction = d),
-      (l.getResponsesFilterLabel = m),
-      (l.getModalTitleFromQuestionType = p));
+      (l.getMyQuestionResponsesAction = m),
+      (l.getResponsesFilterLabel = p),
+      (l.getModalTitleFromQuestionType = _));
   },
   226,
 );

@@ -24,17 +24,17 @@ __d(
       d,
       m,
       p,
-      _ = r("requireDeferred")("WAPQUploadPreKeysProtocol").__setRef(
+      _,
+      f,
+      g,
+      h = (g = r("requireDeferred"))("WAPQUploadPreKeysProtocol").__setRef(
         "WAWebHandlePreKeyLow",
       ),
-      f = r("requireDeferred")("WASignalPQKeys").__setRef(
-        "WAWebHandlePreKeyLow",
-      ),
-      g = r("requireDeferred")("WAWebKyberPreKeyStore").__setRef(
-        "WAWebHandlePreKeyLow",
-      ),
-      h = new Set(),
-      y = new (r("WADeprecatedWapParser"))("lowKeyParser", function (e) {
+      y = g("WASignalPQKeys").__setRef("WAWebHandlePreKeyLow"),
+      C = g("WAWebKyberPreKeyStore").__setRef("WAWebHandlePreKeyLow"),
+      b = g("WAWebUploadPQPrekeysJob").__setRef("WAWebHandlePreKeyLow"),
+      v = new Set(),
+      S = new (r("WADeprecatedWapParser"))("lowKeyParser", function (e) {
         (e.assertTag("notification"),
           e.assertAttr("type", "encrypt"),
           e.assertFromServer());
@@ -49,82 +49,100 @@ __d(
           }
         );
       });
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function b() {
+    function L() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = y.parse(t);
-          if (r.error)
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = S.parse(e);
+          if (n.error)
             throw (
               o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "handlePreKeyLow: Parsing Error: ",
                     "",
                   ])),
-                r.error.toString(),
+                n.error.toString(),
               ),
-              r.error
+              n.error
             );
-          var a = r.success,
-            i = o("WAWap").wap("ack", {
+          var r = n.success,
+            a = o("WAWap").wap("ack", {
               to: o("WAWap").S_WHATSAPP_NET,
-              id: o("WAWap").CUSTOM_STRING(a.stanzaId),
+              id: o("WAWap").CUSTOM_STRING(r.stanzaId),
               class: "notification",
             });
-          return !a.hasLegacyCount || h.has(n)
-            ? (a.hasPqCount &&
+          return r.hasLegacyCount
+            ? v.has(t)
+              ? a
+              : (v.add(t),
+                o("WAWebSignalStoreApi").waSignalStore.setServerHasPreKeys(!1),
+                yield o(
+                  "WAWebEventsWaitForOfflineDeliveryEnd",
+                ).waitForOfflineDeliveryEnd(),
+                o("WAWebUploadPreKeysJob")
+                  .uploadPreKeys()
+                  .then(function () {
+                    return (
+                      o("WAWebPQGatingUtils").isPqKeysUploadEnabled() && E(),
+                      a
+                    );
+                  })
+                  .finally(function () {
+                    return void v.delete(t);
+                  }))
+            : (r.hasPqCount &&
                 o("WAWebPQGatingUtils").isPqKeysUploadEnabled() &&
-                S(),
-              i)
-            : (h.add(n),
-              o("WAWebSignalStoreApi").waSignalStore.setServerHasPreKeys(!1),
-              yield o(
-                "WAWebEventsWaitForOfflineDeliveryEnd",
-              ).waitForOfflineDeliveryEnd(),
-              o("WAWebUploadPreKeysJob")
-                .uploadPreKeys()
-                .then(function () {
-                  return (
-                    a.hasPqCount &&
-                      o("WAWebPQGatingUtils").isPqKeysUploadEnabled() &&
-                      S(),
-                    i
-                  );
-                })
-                .finally(function () {
-                  return void h.delete(n);
-                }));
+                I(),
+              a);
         })),
-        b.apply(this, arguments)
+        L.apply(this, arguments)
       );
-    }
-    var v = null;
-    function S() {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            v != null ||
-              (v = L().finally(function () {
-                v = null;
-              })),
-            v
-          );
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L() {
-      return E.apply(this, arguments);
     }
     function E() {
+      b.load()
+        .then(function (e) {
+          var t = e.generateAndUploadPQPreKeys;
+          return t();
+        })
+        .catch(function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "handlePreKeyLow: PQ prekey re-upload failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("pq-prekeys-reupload-failed");
+        });
+    }
+    var k = null;
+    function I() {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            k != null ||
+              (k = D().finally(function () {
+                k = null;
+              })),
+            k
+          );
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o(
               "WAWebSignalStoreApi",
@@ -134,40 +152,50 @@ __d(
                 e.identityKeyPair.pubKey,
                 e.identityKeyPair.privKey,
               ),
-              a = yield (p || (p = n("Promise"))).all([
-                _.load(),
-                f.load(),
-                g.load(),
+              a = yield (f || (f = n("Promise"))).all([
+                h.load(),
+                y.load(),
+                C.load(),
               ]),
               i = a[0].addPQPreKeysProtocol,
               l = a[1].generateKyberPreKeys,
-              h = a[2],
-              y = h.markKyberPreKeysAsSent,
-              C = h.removeKyberPreKey,
-              b = h.reserveKyberPreKeyIds,
-              v = h.saveKyberPreKeys,
-              S = Math.max(
+              s = a[2],
+              g = s.isPQMigrated,
+              b = s.markKyberPreKeysAsSent,
+              v = s.removeKyberPreKey,
+              S = s.reserveKyberPreKeyIds,
+              R = s.saveKyberPreKeys;
+            if (!(yield g())) {
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "replenishPQPreKeys: skipped, PQ prekeys are not migrated",
+                  ])),
+              );
+              return;
+            }
+            var L = Math.max(
                 1,
                 o("WAWebABProps").getABPropConfigValue("pq_batch_upload_size"),
               ),
-              R = yield b(S);
+              E = yield S(L);
             o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "replenishPQPreKeys: generating ",
                   " PQ prekeys starting at ID ",
                   "",
                 ])),
-              S,
-              R,
+              L,
+              E,
             );
-            var L = yield l(
-                R,
-                S,
+            var k = yield l(
+                E,
+                L,
                 t,
                 o("WAWebReleaseToEventLoop").releaseToEventLoop,
               ),
-              E = L.map(function (e) {
+              I = k.map(function (e) {
                 return {
                   keyId: e.id,
                   keyPair: {
@@ -179,47 +207,47 @@ __d(
                   sentToServer: !1,
                 };
               });
-            yield v(E);
-            var k = yield i(L);
-            if (k.success)
-              (yield y(
-                L.map(function (e) {
+            yield R(I);
+            var T = yield i(k);
+            if (T.success)
+              (yield b(
+                k.map(function (e) {
                   return e.id;
                 }),
               ),
                 o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "replenishPQPreKeys: uploaded ",
                       " PQ prekeys",
                     ])),
-                  L.length,
+                  k.length,
                 ));
             else {
               o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "replenishPQPreKeys: upload rejected: ",
                       " (",
                       ")",
                     ])),
-                  k.error.category,
-                  k.error.code,
+                  T.error.category,
+                  T.error.code,
                 )
                 .sendLogs("pq-replenish-upload-fail");
-              var I = yield (p || (p = n("Promise"))).allSettled(
-                L.map(function (e) {
-                  return C(e.id);
+              var D = yield (f || (f = n("Promise"))).allSettled(
+                k.map(function (e) {
+                  return v(e.id);
                 }),
               );
-              I.some(function (e) {
+              D.some(function (e) {
                 return e.status === "rejected";
               }) &&
                 o("WALogger")
                   .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "replenishPQPreKeys: failed to remove some rejected PQ prekeys",
                       ])),
                   )
@@ -228,8 +256,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "replenishPQPreKeys: error",
                   ])),
               )
@@ -237,10 +265,10 @@ __d(
               .sendLogs("pq-replenish-error");
           }
         })),
-        E.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    l.default = C;
+    l.default = R;
   },
   98,
 );

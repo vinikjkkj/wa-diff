@@ -9,6 +9,7 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "WAWebVoipTransferredCallRegistry",
     "WAWebWaitForInitialChatsSynced",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -22,35 +23,41 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.callCreatorWid,
-            a = t.callId,
-            i = t.groupJid,
-            l = t.isCallLink,
-            s = t.peerWid,
-            u = t.participants,
-            c = u === void 0 ? [] : u,
-            m,
-            _,
-            f = o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            g = yield p({
-              callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(n),
+          var n,
+            a,
+            i,
+            l = t.callCreatorWid,
+            s = t.callId,
+            u = t.groupJid,
+            c = t.isCallLink,
+            m = t.peerWid,
+            _ = t.participants,
+            f = _ === void 0 ? [] : _,
+            g,
+            h,
+            y = o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            C = o("WAWebVoipTransferredCallRegistry").getTransferredCallRoot(s),
+            b = yield p({
+              callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(
+                (n = C == null ? void 0 : C.rootCallCreatorWid) != null ? n : l,
+              ),
             }),
-            h = o("WAWebUserPrefsMeUser").isMeAccount(g),
-            y = c.filter(function (e) {
+            v = o("WAWebUserPrefsMeUser").isMeAccount(b),
+            S = f.filter(function (e) {
               return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
             });
-          if (i != null) ((m = i), (_ = g));
-          else if (!h) m = g;
+          if (u != null) ((g = u), (h = b));
+          else if (!v) g = b;
           else {
-            var C = y.length === 1 ? y[0] : null;
-            l !== !0 && C != null && !(yield d(C))
-              ? (m = yield p({
-                  callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(C),
+            var R = S.length === 1 ? S[0] : null;
+            c !== !0 && R != null && !(yield d(R))
+              ? (g = yield p({
+                  callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(R),
                 }))
-              : l !== !0 && s != null && !(yield d(s))
-                ? (m = yield p({
+              : c !== !0 && m != null && !(yield d(m))
+                ? (g = yield p({
                     callDestinationWid:
-                      o("WAWebWidFactory").asUserWidOrThrow(s),
+                      o("WAWebWidFactory").asUserWidOrThrow(m),
                   }))
                 : (o("WALogger").LOG(
                     e ||
@@ -58,20 +65,24 @@ __d(
                         "[voip] getCallLogTargetDetails: msg -> self chat",
                       ])),
                   ),
-                  (m = g),
-                  (f =
-                    y.length > 0 || s != null
+                  (g = b),
+                  (y =
+                    S.length > 0 || m != null
                       ? o("WAWebViewMode.flow").ViewModeType
                           .CALL_LOG_AD_HOC_GROUP_CALL
                       : o("WAWebViewMode.flow").ViewModeType.HIDDEN));
           }
           return {
-            msgKeyId: a != null ? a : yield r("WAWebMsgKey").newId(),
-            fromMe: h,
-            callCreatorUserWid: g,
-            chatId: m,
-            participant: _,
-            viewMode: f,
+            msgKeyId:
+              (a = (i = C == null ? void 0 : C.rootCallId) != null ? i : s) !=
+              null
+                ? a
+                : yield r("WAWebMsgKey").newId(),
+            fromMe: v,
+            callCreatorUserWid: b,
+            chatId: g,
+            participant: h,
+            viewMode: y,
           };
         })),
         c.apply(this, arguments)

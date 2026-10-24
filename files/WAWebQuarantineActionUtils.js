@@ -70,15 +70,7 @@ __d(
           return (
             r("WAWebWid").isUser(e) &&
             !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
-            !(
-              r("WAWebWid").isPSA(e) ||
-              r("WAWebWid").isIAS(e) ||
-              r("WAWebWid").isOfficialBizAccount(e) ||
-              r("WAWebWid").isSupportAccount(e) ||
-              r("WAWebWid").isCAPISupportAccount(e) ||
-              r("WAWebWid").isAiHub(e) ||
-              o("WAWebBotUtils").isAnyMetaAiBot(e)
-            ) &&
+            !o("WAWebBotUtils").isMetaOperatedAccount(e) &&
             !(yield o("WAWebApiContact").isAddressBookContact(
               o("WAWebWidToJid").widToUserJid(
                 o("WAWebWidFactory").asUserWidOrThrow(e),

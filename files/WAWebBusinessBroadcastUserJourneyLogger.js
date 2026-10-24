@@ -813,11 +813,12 @@ __d(
               r,
             );
           }),
-          (t.openBroadcastThreadClicked = function (t, n) {
+          (t.openBroadcastThreadClicked = function (t, n, r) {
             o("WAWebBBInfoDrawerLogs").openBroadcastThreadClicked(
               this.$1,
               t,
               n,
+              r,
             );
           }),
           (t.audienceInfoDrawerViewed = function (t, n) {

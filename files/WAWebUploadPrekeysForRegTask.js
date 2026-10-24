@@ -120,7 +120,8 @@ __d(
                 (yield o("WAComms").waitForConnection(),
                   yield o(
                     "WAWebSignalStoreApi",
-                  ).waSignalStore.markKeyAsUploaded(s));
+                  ).waSignalStore.markKeyAsUploaded(s),
+                  yield o("WAWebUploadPreKeysJob").resetPQMigration());
                 var y = yield o(
                   "WADeprecatedSendIq",
                 ).deprecatedSendIqWithoutRetry(

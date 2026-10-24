@@ -1,6 +1,7 @@
 __d(
   "WAWebIsAiRichResponseForwardable",
   [
+    "JSResourceForInteraction",
     "WAWebBotTypes",
     "WAWebBotUnifiedResponseGating",
     "WAWebBotUtils",
@@ -10,7 +11,10 @@ __d(
     "WAWebUnifiedResponseUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = r("JSResourceForInteraction")(
+      "WAWebHatchJarvisForwardSendPolicy",
+    ).__setRef("WAWebIsAiRichResponseForwardable");
+    function s(e) {
       var t = o("WAWebFrontendMsgGetters").getAsRichResponse(e);
       if (
         t == null ||
@@ -19,14 +23,14 @@ __d(
         !o(
           "WAWebBotUnifiedResponseGating",
         ).isAiRichResponseForwardingSenderEnabled(e.t) ||
-        s(t.unifiedResponse) ||
+        u(e, t.unifiedResponse) ||
         o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(
           t.unifiedResponse,
         ) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasConnectorActionCard(
           t.unifiedResponse,
         ) ||
-        u(e, t.unifiedResponse) ||
+        d(e, t.unifiedResponse) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasSpaceCard(
           t.unifiedResponse,
         )
@@ -46,13 +50,20 @@ __d(
         })
       );
     }
-    function s(e) {
+    function u(e, t) {
       return (
-        o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(e) ||
-        o("WAWebHatchJarvisPayload").hatchJarvisPayloadMayCarryMedia(e)
+        o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(t) ||
+        (o("WAWebHatchJarvisPayload").hatchJarvisPayloadMayCarryMedia(t) &&
+          !c(e))
       );
     }
-    function u(e, t) {
+    function c(t) {
+      var n = e.getModuleIfRequired();
+      return (
+        (n == null ? void 0 : n.inspectHatchJarvisForwardability(t).ok) === !0
+      );
+    }
+    function d(e, t) {
       return (
         o(
           "WAWebUnifiedResponseUtils",
@@ -62,7 +73,7 @@ __d(
           o("WAWebUnifiedResponseUtils").hasNestedOrEmbeddedContent(t))
       );
     }
-    l.isAiRichResponseForwardable = e;
+    l.isAiRichResponseForwardable = s;
   },
   98,
 );

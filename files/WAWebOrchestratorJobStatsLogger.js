@@ -7,7 +7,7 @@ __d(
     "WAWebWamEnumWebcJobResultTypeCode",
     "WAWebWamEnumWebcScenarioType",
     "WAWebWebcJobInfoWamEvent",
-    "cr:4324",
+    "cr:17752",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +19,7 @@ __d(
         var a = t.prototype;
         return (
           (a.logJobCreated = function (t) {
-            if (!r("gkx")("26258")) {
+            if (r("gkx")("9092")) {
               var e = t.jobId,
                 n = t.jobName,
                 a = t.jobPriority,
@@ -35,7 +35,7 @@ __d(
             }
           }),
           (a.logJobStarted = function (t) {
-            if (!r("gkx")("26258")) {
+            if (r("gkx")("9092")) {
               var e = this.$1.get(t);
               e == null || e.logJobStarted();
             }
@@ -69,7 +69,7 @@ __d(
             );
           }),
           (a.$2 = function (t, n) {
-            if (!r("gkx")("26258")) {
+            if (r("gkx")("9092")) {
               var e = this.$1.get(t);
               (e == null || e.logJobCompleted(n),
                 this.$3(e),
@@ -120,9 +120,9 @@ __d(
                 var p,
                   _ =
                     (p =
-                      n("cr:4324") == null
+                      n("cr:17752") == null
                         ? void 0
-                        : n("cr:4324").JOB_EVENT_SAMPLING_RATE[t]) != null
+                        : n("cr:17752").JOB_EVENT_SAMPLING_RATE[t]) != null
                       ? p
                       : 1;
                 m.weight = _;

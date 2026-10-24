@@ -2,12 +2,26 @@ __d(
   "WAWebOrgAdminPeopleColumns",
   ["fbt", "WAWebUICustomizationStore"],
   function (t, n, r, o, a, i, l, s) {
-    var e = ["phone", "email", "member_tag", "status", "groups"],
+    var e = [
+        "phone",
+        "email",
+        "member_tag",
+        "secondary_member_tag",
+        "status",
+        "groups",
+      ],
       u = "org_admin_people_hidden_columns:";
-    function c(t, n) {
-      return e.filter(function (e) {
-        return (e !== "email" || t) && (e !== "groups" || n);
-      });
+    function c(t, n, r) {
+      return (
+        r === void 0 && (r = !1),
+        e.filter(function (e) {
+          return (
+            (e !== "email" || t) &&
+            (e !== "groups" || n) &&
+            (e !== "secondary_member_tag" || r)
+          );
+        })
+      );
     }
     function d(e) {
       return new Set(
@@ -22,7 +36,8 @@ __d(
         }),
       );
     }
-    function p(e) {
+    function p(e, t) {
+      var n, r;
       return e === "name"
         ? s._(/*BTDS*/ "Name")
         : e === "phone"
@@ -30,17 +45,23 @@ __d(
           : e === "email"
             ? s._(/*BTDS*/ "Email")
             : e === "member_tag"
-              ? s._(/*BTDS*/ "Member tag")
-              : e === "status"
-                ? s._(/*BTDS*/ "Status")
-                : e === "groups"
-                  ? s._(/*BTDS*/ "Groups")
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })();
+              ? (n = t == null ? void 0 : t.memberTagName) != null
+                ? n
+                : s._(/*BTDS*/ "Member tag")
+              : e === "secondary_member_tag"
+                ? (r = t == null ? void 0 : t.secondaryMemberTagName) != null
+                  ? r
+                  : s._(/*BTDS*/ "Second member tag")
+                : e === "status"
+                  ? s._(/*BTDS*/ "Status")
+                  : e === "groups"
+                    ? s._(/*BTDS*/ "Groups")
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
     function _(t) {
       if (!Array.isArray(t)) return null;

@@ -258,7 +258,6 @@ __d(
               var L = function () {
                 I({
                   bundleSendSource: u,
-                  groupOnlyWid: t,
                   onDone: function (t) {
                     S(t, function () {
                       (o("WAWebModalManager").ModalManager.closeSupportModal(),
@@ -423,7 +422,6 @@ __d(
             var R = function () {
               I({
                 bundleSendSource: u,
-                groupOnlyWid: t,
                 onDone: function (t) {
                   v(t, function () {
                     (o("WAWebModalManager").ModalManager.closeSupportModal(),
@@ -486,39 +484,35 @@ __d(
     k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
       var t = e.bundleSendSource,
-        n = e.groupOnlyWid,
-        a = e.onDone,
-        i = e.totalMessages,
-        l = e.uiSurface;
+        n = e.onDone,
+        a = e.totalMessages,
+        i = e.uiSurface;
       t != null &&
         o(
           "WAWebGroupHistorySenderUserJourneyLogger",
         ).GroupHistorySenderUserJourneyLogger.countChangeEntryPointClicked({
-          groupHistoryMessagesCount: i,
-          uiSurface: l,
+          groupHistoryMessagesCount: a,
+          uiSurface: i,
         });
-      var u = Math.min(
+      var l = Math.min(
         o("WAWebABProps").getABPropConfigValue(
           "group_history_message_count_limit",
         ),
-        i,
+        a,
       );
       o("WAWebModalManager").ModalManager.openSupportModal(
         f.jsx(r("WAWebGroupHistorySendMessagesModal.react"), {
-          currentMessageCount: i,
-          selectedMessageCount: u,
-          showPinDisclaimer: o(
-            "WAWebGroupHistoryGating",
-          ).isOutOfWindowPinSenderEnabled(n),
+          currentMessageCount: a,
+          selectedMessageCount: l,
           primaryButtonLabel: s._(/*BTDS*/ "Send"),
-          onDone: a,
+          onDone: n,
           onCountChanged: function (n) {
             t != null &&
               o(
                 "WAWebGroupHistorySenderUserJourneyLogger",
               ).GroupHistorySenderUserJourneyLogger.countChanged({
                 groupHistoryMessagesCount: n,
-                uiSurface: l,
+                uiSurface: i,
               });
           },
           onCancel: function () {

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizLabelUtils",
     "WAWebBoolFunc",
+    "WAWebChatGetters",
     "WAWebCustomerManagerChatResolver",
     "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerManagerDateRangeUtils",
@@ -23,6 +24,7 @@ __d(
         "label",
         "lastMessage",
         "lastMessageCustomRange",
+        "unread",
       ];
     function u(e) {
       return e === "leadStage"
@@ -35,12 +37,14 @@ __d(
               ? p
               : e === "lastMessageCustomRange"
                 ? _
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
+                : e === "unread"
+                  ? f
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          e,
+                      );
+                    })();
     }
     var c = {
         isClientActive: o("WAWebBoolFunc").returnFalse,
@@ -90,11 +94,11 @@ __d(
       },
       m = {
         isClientActive: function (t) {
-          return t.labelId != null && !g(t);
+          return t.labelId != null && !h(t);
         },
         matcher: function (t) {
           var e = t.labelId;
-          if (e == null || g(t)) return o("WAWebBoolFunc").returnTrue;
+          if (e == null || h(t)) return o("WAWebBoolFunc").returnTrue;
           var n = new Set();
           if (
             e === o("WAWebCustomerManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
@@ -145,7 +149,7 @@ __d(
             r = n.endSec,
             a = n.startSec;
           return function (e) {
-            var t = f(e);
+            var t = g(e);
             return t != null && t >= a && (r == null || t <= r);
           };
         },
@@ -164,13 +168,29 @@ __d(
             r = n.endSec,
             a = n.startSec;
           return function (e) {
-            var t = f(e);
+            var t = g(e);
             return t != null && t >= a && t <= r;
           };
         },
         serverFilter: e.returnNull,
+      },
+      f = {
+        isClientActive: function (t) {
+          return t.unreadOnly === !0;
+        },
+        matcher: function (t) {
+          return t.unreadOnly !== !0
+            ? o("WAWebBoolFunc").returnTrue
+            : function (e) {
+                var t = o(
+                  "WAWebCustomerManagerChatResolver",
+                ).resolveCustomerManagerChat(e.chatJid);
+                return t != null && o("WAWebChatGetters").getHasUnread(t);
+              };
+        },
+        serverFilter: e.returnNull,
       };
-    function f(e) {
+    function g(e) {
       var t;
       return (t = o(
         "WAWebCustomerManagerChatResolver",
@@ -178,7 +198,7 @@ __d(
         ? void 0
         : t.t;
     }
-    function g(e) {
+    function h(e) {
       var t,
         n = e.labelId;
       return (

@@ -1,6 +1,7 @@
 __d(
   "WAWebPttOocPlayer",
   [
+    "WAAbortError",
     "WAWebChatEntryPoint",
     "WAWebChatGetters",
     "WAWebChatMessageSearch",
@@ -13,6 +14,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebName.react",
     "WAWebNewsletterName.react",
+    "WAWebNoop",
     "WAWebPttAudioFilePlaceholder.react",
     "WAWebPttAudioStatusBadge.react",
     "WAWebPttCalculateAudioProgress",
@@ -235,7 +237,9 @@ __d(
       var O;
       t[26] !== g || t[27] !== v || t[28] !== h
         ? ((O = function (t) {
-            (v ? (g.pause(), h.increaseOocPauseCount()) : g.play(),
+            (v
+              ? (g.pause(), h.increaseOocPauseCount())
+              : g.play().catch(o("WAAbortError").catchAbort(r("WAWebNoop"))),
               t.preventDefault());
           }),
           (t[26] = g),

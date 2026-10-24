@@ -309,6 +309,8 @@ __d(
             ? r
             : {},
         k = {
+          allowSingleTildeStrikethrough:
+            n == null ? void 0 : n.allowSingleTildeStrikethrough,
           breaks: (a = n == null ? void 0 : n.breaks) != null ? a : !1,
           isOptimistic:
             (i = n == null ? void 0 : n.isOptimistic) != null ? i : !0,

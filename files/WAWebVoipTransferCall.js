@@ -6,6 +6,8 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipLobbyEntryPointStore",
     "WAWebVoipStackInterface",
+    "WAWebVoipTransferredCallRegistry",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -26,10 +28,11 @@ __d(
             a = t.peerActiveDevice,
             i = t.rootCallCreator,
             l = t.rootCallId,
-            m;
+            m,
+            p;
           try {
-            var p = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            if (p == null)
+            var _ = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            if (_ == null)
               return (
                 o("WALogger").WARN(
                   e ||
@@ -41,29 +44,36 @@ __d(
               );
             (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!1),
               o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
-              o("WAWebVoipCallIdProvider").resetPendingCallId());
-            var _ = o("WAWebVoipCallIdProvider").generateNewCallId();
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: transferCall: rootCallId=",
-                  " callId=",
-                  " hasVideo=",
-                  "",
-                ])),
-              l,
-              _,
-              String(n),
-            ),
-              (m = yield p.transferCallStart({
+              o("WAWebVoipCallIdProvider").resetPendingCallId(),
+              (p = o("WAWebVoipCallIdProvider").generateNewCallId()),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: transferCall: rootCallId=",
+                    " callId=",
+                    " hasVideo=",
+                    "",
+                  ])),
+                l,
+                p,
+                String(n),
+              ),
+              o("WAWebVoipTransferredCallRegistry").registerTransferredCall(p, {
+                rootCallId: l,
+                rootCallCreatorWid: o("WAWebWidFactory").createWid(i),
+              }),
+              (m = yield _.transferCallStart({
                 rootCallId: l,
                 rootCallCreator: i,
                 peerActiveDevice: a,
-                callId: _,
+                callId: p,
                 hasVideo: n,
               })));
           } catch (e) {
             return (
+              o("WAWebVoipTransferredCallRegistry").unregisterTransferredCall(
+                p,
+              ),
               o("WALogger")
                 .ERROR(
                   u ||
@@ -77,7 +87,10 @@ __d(
             );
           }
           return m !== d
-            ? (o("WALogger")
+            ? (o("WAWebVoipTransferredCallRegistry").unregisterTransferredCall(
+                p,
+              ),
+              o("WALogger")
                 .ERROR(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([

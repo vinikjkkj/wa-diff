@@ -2,7 +2,6 @@ __d(
   "WAWebHatchFrontendGating",
   [
     "WAWebABProps",
-    "WAWebBotBaseGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebHatchLinkedStatusManager",
@@ -30,7 +29,7 @@ __d(
       );
     }
     function u() {
-      return $({
+      return P({
         abProp: "ai_hatch_approval_notification_enabled",
         primaryFeature: "ai_hatch_approval_notification_enabled",
       });
@@ -41,7 +40,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        $({
+        P({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
@@ -63,25 +62,25 @@ __d(
       );
     }
     function p() {
-      return $({
+      return P({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
     }
     function _() {
-      return $({
+      return P({
         abProp: "ai_hatch_vm_capability_sync_enabled",
         primaryFeature: "ai_hatch_vm_capability_sync_enabled",
       });
     }
     function f() {
-      return $({
+      return P({
         abProp: "ai_hatch_ideas_enabled",
         primaryFeature: "ai_hatch_ideas_enabled",
       });
     }
     function g() {
-      return $({
+      return P({
         abProp: "ai_hatch_identity_enabled",
         primaryFeature: "ai_hatch_identity_enabled",
       });
@@ -94,7 +93,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        $({
+        P({
           abProp: "ai_hatch_browser_enabled",
           primaryFeature: "ai_hatch_browser_enabled",
         })
@@ -104,7 +103,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        $({
+        P({
           abProp: "ai_hatch_theme_enabled",
           primaryFeature: "ai_hatch_theme_enabled",
         })
@@ -114,7 +113,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        $({
+        P({
           abProp: "ai_hatch_avatar_working_video_enabled",
           primaryFeature: "ai_hatch_avatar_working_video_enabled",
         })
@@ -126,7 +125,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        $({
+        P({
           abProp: "ai_hatch_secure_credentials_enabled",
           primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
@@ -138,26 +137,26 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        $({
+        P({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
     function S() {
-      return $({
+      return P({
         abProp: "ai_hatch_media_enabled",
         primaryFeature: "ai_hatch_media_enabled",
       });
     }
     function R() {
-      return $({
+      return P({
         abProp: "ai_hatch_revoke_enabled",
         primaryFeature: "ai_hatch_revoke_enabled",
       });
     }
     function L() {
-      return $({
+      return P({
         abProp: "ai_hatch_data_controls_enabled",
         primaryFeature: "ai_hatch_data_controls_enabled",
       });
@@ -165,34 +164,44 @@ __d(
     function E() {
       return (
         e() &&
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
-          "ai_hatch_manage_subscription_enabled",
-        ) &&
-        o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
+        (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
+          "ai_hatch_in_app_subscriptions_enabled",
+        ) ||
+          o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
+            "ai_hatch_manage_subscription_enabled",
+          )) &&
         o("WAWebABProps").getABPropConfigValue(
-          "ai_hatch_manage_subscription_enabled",
+          "ai_hatch_in_app_subscriptions_enabled",
         )
       );
     }
     function k() {
-      return $({
+      return (
+        E() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_in_app_additional_tokens_enabled",
+        )
+      );
+    }
+    function I() {
+      return P({
         abProp: "ai_hatch_scheduled_tasks_enabled",
         primaryFeature: "ai_hatch_scheduled_tasks_enabled",
       });
     }
-    function I() {
-      return $({
+    function T() {
+      return P({
         abProp: "ai_hatch_activity_enabled",
         primaryFeature: "ai_hatch_activity_enabled",
       });
     }
-    function T() {
-      return $({
+    function D() {
+      return P({
         abProp: "ai_hatch_video_avatars_enabled",
         primaryFeature: "ai_hatch_video_avatars_enabled",
       });
     }
-    function D() {
+    function x() {
       var e = o(
         "WAWebMuseDefaultAssistantVariant",
       ).MuseDefaultAssistantVariant.cast(
@@ -210,8 +219,8 @@ __d(
         : r("WAWebHatchLinkedStatusManager").isLinked() &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
-    function x(e) {
-      return e || !T()
+    function $(e) {
+      return e || !D()
         ? "static"
         : (function (e) {
             return e === 1 ? "loop" : e === 2 ? "once" : "static";
@@ -221,7 +230,7 @@ __d(
             ),
           );
     }
-    function $(t) {
+    function P(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -249,11 +258,12 @@ __d(
       (l.isHatchRevokeEnabled = R),
       (l.isHatchDataControlsEnabled = L),
       (l.isHatchManageSubscriptionEnabled = E),
-      (l.isHatchScheduledTasksEnabled = k),
-      (l.isHatchActivityEnabled = I),
-      (l.isHatchVideoAvatarsEnabled = T),
-      (l.isMuseNavBarEntryPointSelected = D),
-      (l.getHatchNavBarAnimationMode = x));
+      (l.isHatchAdditionalTokensEnabled = k),
+      (l.isHatchScheduledTasksEnabled = I),
+      (l.isHatchActivityEnabled = T),
+      (l.isHatchVideoAvatarsEnabled = D),
+      (l.isMuseNavBarEntryPointSelected = x),
+      (l.getHatchNavBarAnimationMode = $));
   },
   98,
 );

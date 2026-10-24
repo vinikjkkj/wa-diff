@@ -1,8 +1,8 @@
 __d(
   "WAWebChannelVideoDashManifestPool",
   [
+    "WAWebCanPlayChannelVideoDash",
     "WAWebChannelVideoDashManifestPrefetchLoadable",
-    "WAWebChannelVideoDashPrefetchGating",
     "WAWebChannelVideoDashPrefetchODS",
     "WAWebMediaTypes",
     "WAWebNearestChannelVideos",
@@ -86,7 +86,7 @@ __d(
         a = e.url;
       (c == null &&
         b(
-          o("WAWebChannelVideoDashPrefetchGating").canPrefetchChannelVideoDash({
+          o("WAWebCanPlayChannelVideoDash").canPlayChannelVideoDashFor({
             isNewsletterMsg: n,
             manifestUrl: a,
           }),

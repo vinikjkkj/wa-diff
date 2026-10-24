@@ -17,9 +17,7 @@ __d(
     "WAWebConnModel",
     "WAWebEmoji",
     "WAWebEmojiConst",
-    "WAWebFileUtils",
     "WAWebFindChatAction",
-    "WAWebForwardDocCaptionGating",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetPlainTextFromBotMsg",
@@ -174,20 +172,7 @@ __d(
         (e.unifiedResponseRawData = void 0),
         (e.botSignatureVerificationMetadata = void 0));
     }
-    function R(e) {
-      var t = e.filter(function (e) {
-        return o("WAWebMsgGetters").getHasOriginatedFromNewsletter(e) ||
-          (!o("WAWebMsgGetters").getIsMedia(e) &&
-            !o("WAWebFileUtils").isDocument(e)) ||
-          !e.caption
-          ? !1
-          : o("WAWebFileUtils").isDocument(e) && e.caption === e.filename
-            ? !o("WAWebForwardDocCaptionGating").isForwardDocCaptionEnabled()
-            : !0;
-      });
-      return t;
-    }
-    function L(t) {
+    function R(t) {
       var n, a, i, l;
       if (t instanceof o("WAWebMsgModel").Msg) ((i = t), (l = t.id));
       else if (t instanceof r("WAWebMsgKey")) l = t;
@@ -231,10 +216,10 @@ __d(
           : void 0;
       }
     }
-    function E(e) {
+    function L(e) {
       var t;
       if (!e.invis) {
-        var n = L(e);
+        var n = R(e);
         n &&
           ((t = n.map(function (e) {
             return e.remote;
@@ -245,7 +230,7 @@ __d(
                 return e.id.equals(t);
               })
             ) {
-              var n = D(e);
+              var n = T(e);
               ((n.to = t.remote), (n.id = t), (n.broadcast = !0));
               var a = o("WAWebMsgCollection").MsgCollection.add(n, {
                 merge: !0,
@@ -275,7 +260,7 @@ __d(
                       }
                       return (e.push(n), e);
                     }, []);
-                  k({ insertAfter: !0, newRecords: n, threadOrChat: t });
+                  E({ insertAfter: !0, newRecords: n, threadOrChat: t });
                 },
               );
             }
@@ -283,7 +268,7 @@ __d(
       }
       return t;
     }
-    function k(e) {
+    function E(e) {
       var t = e.anchorMsgKey,
         n = e.chatMsgsCollection,
         r = e.firstUnreadKey,
@@ -302,16 +287,16 @@ __d(
                   "models:msg:store:resetMostRecentMsgs .msgs === cmc !",
                 ])),
             ),
-              I(s, d, i));
+              k(s, d, i));
           else {
-            ((m = !0), I(s, d, i));
+            ((m = !0), k(s, d, i));
             var p = new (o("WAWebChatMsgsCollection").ChatMsgsCollection)();
             (p.replace(s.msgs),
               s.msgChunks.push(p),
               s.replaceMsgsCollection(d),
               s.msgs.trigger("change:last", s.msgs.last()));
           }
-        else if (a) m ? I(s, d, i) : T(d, i);
+        else if (a) m ? k(s, d, i) : I(d, i);
         else {
           var _ = 0;
           if (t) {
@@ -332,7 +317,7 @@ __d(
                 ));
             }
           }
-          T(d, i, { at: _, silent: i.every(x) });
+          I(d, i, { at: _, silent: i.every(D) });
         }
         var h = r;
         h &&
@@ -344,11 +329,11 @@ __d(
               })));
       }
     }
-    function I(e, t, n) {
+    function k(e, t, n) {
       var r = n.at(-1);
-      r && (T(t, n), (e.lastReceivedKey = r.id));
+      r && (I(t, n), (e.lastReceivedKey = r.id));
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       try {
         e.add(t, n);
       } catch (e) {
@@ -364,18 +349,18 @@ __d(
         else throw e;
       }
     }
-    function D(e) {
+    function T(e) {
       return e != null && typeof e == "object"
         ? JSON.parse(JSON.stringify(e), o("WAWebWidJsonReviver").jsonWidReviver)
         : e;
     }
-    function x(e) {
+    function D(e) {
       return (
         o("WAWebFrontendMsgGetters").getEventType(e) ===
         o("WAWebCommonMsgUtils").EventType.IGNORE
       );
     }
-    function $(e) {
+    function x(e) {
       return e
         .filter(function (e) {
           return e.ack === o("WAWebAck").ACK.READ;
@@ -384,7 +369,7 @@ __d(
           return e.id.toString();
         });
     }
-    function P(e, t) {
+    function $(e, t) {
       if (t === o("WAWebMsgType").MSG_TYPE.CHAT && !(e == null || e === "")) {
         var n = o("WAWebEmoji").EmojiUtil.matchLargeEmojiPattern(e);
         if (!(n == null || n.length !== 1)) {
@@ -393,19 +378,19 @@ __d(
         }
       }
     }
-    function N(e, t) {
+    function P(e, t) {
       if (
         !o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiEnabled() ||
         !r("WAWebChatPreferenceCollection").get("autoplayAnimatedImages")
       )
         return !1;
-      var n = P(e, t);
+      var n = $(e, t);
       return (
         n != null &&
         o("WAWebEmojiConst").getSupportedAnimatedEmojis().includes(n)
       );
     }
-    var M = new Set([
+    var N = new Set([
       (_ = o("WAWebMsgType")).MSG_TYPE.NOTIFICATION,
       _.MSG_TYPE.NOTIFICATION_TEMPLATE,
       _.MSG_TYPE.GP2,
@@ -416,9 +401,9 @@ __d(
       _.MSG_TYPE.DEBUG,
       _.MSG_TYPE.CIPHERTEXT,
     ]);
-    function w(e) {
+    function M(e) {
       var t = o("WAWebMsgGetters").getSender(e);
-      if (t == null && !M.has(e.type)) {
+      if (t == null && !N.has(e.type)) {
         var n, r, a;
         (o("WALogger").LOG(
           m ||
@@ -445,7 +430,7 @@ __d(
       }
       return t;
     }
-    function A(e) {
+    function w(e) {
       var t = o("WAWebMsgGetters").getSender(e);
       return (
         o("WAWebMsgGetters").getIsNewsletterMsg(e)
@@ -454,25 +439,18 @@ __d(
         t
       );
     }
-    function F(e) {
+    function A(e) {
       return (
         e.isFromTemplate ||
         (!o("WAWebFrontendMsgGetters").getHasTemplateButtons(e) &&
           e.type !== o("WAWebMsgType").MSG_TYPE.TEMPLATE_BUTTON_REPLY)
       );
     }
-    function O(e) {
+    function F(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e).msgs.last();
       return e.id.equals(t == null ? void 0 : t.id);
     }
-    function B(e) {
-      var t = 5,
-        n =
-          o("WAWebMsgGetters").getNumTimesForwarded(e) +
-          (o("WAWebMsgGetters").getShouldDisplayAsForwarded(e) ? 1 : 0);
-      return n >= t ? o("WAWebMsgGetters").FREQUENTLY_FORWARDED_SENTINEL : n;
-    }
-    function W(e) {
+    function O(e) {
       var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
       return t == null
         ? null
@@ -480,7 +458,7 @@ __d(
           ? 0
           : t - o("WATimeUtils").unixTime();
     }
-    function q(e, t) {
+    function B(e, t) {
       var n = t.duringDetach,
         r = e.parentMsgKey;
       if (r) {
@@ -501,10 +479,10 @@ __d(
           );
       }
     }
-    function U(e, t) {
+    function W(e, t) {
       return (
         t === void 0 && (t = {}),
-        V(
+        q(
           {
             chat: o("WAWebFrontendMsgGetters").getMaybeChat(e),
             isPSA: o("WAWebMsgGetters").getIsPSA(e),
@@ -516,7 +494,7 @@ __d(
         )
       );
     }
-    function V(e, t) {
+    function q(e, t) {
       var n = e.chat,
         a = e.isPSA,
         i = e.notifyName,
@@ -580,22 +558,20 @@ __d(
       (l.msgMatchesType = C),
       (l.createQuotedMsg = b),
       (l.createMsgSnapshot = v),
-      (l.getMediaMsgWithCaptionForForwarding = R),
-      (l.getBroadcastFanoutKeys = L),
-      (l.broadcastFanout = E),
-      (l.addRecordsToChat = k),
-      (l.getReadMsgKeys = $),
-      (l.isSingleEmojiMessageText = P),
-      (l.isAnimatedEmoji = N),
-      (l.getValidatedSender = w),
-      (l.getQuotedParticipantForContextInfo = A),
-      (l.interactiveButtonsReleased = F),
-      (l.isLastMsg = O),
-      (l.getMsgForwardingScoreWhenForwarded = B),
-      (l.getMsgTimeUntilExpiration = W),
-      (l.hideParentMessageInChat = q),
-      (l.getMsgDisplayName = U),
-      (l.getMsgDisplayNameFor = V));
+      (l.getBroadcastFanoutKeys = R),
+      (l.broadcastFanout = L),
+      (l.addRecordsToChat = E),
+      (l.getReadMsgKeys = x),
+      (l.isSingleEmojiMessageText = $),
+      (l.isAnimatedEmoji = P),
+      (l.getValidatedSender = M),
+      (l.getQuotedParticipantForContextInfo = w),
+      (l.interactiveButtonsReleased = A),
+      (l.isLastMsg = F),
+      (l.getMsgTimeUntilExpiration = O),
+      (l.hideParentMessageInChat = B),
+      (l.getMsgDisplayName = W),
+      (l.getMsgDisplayNameFor = q));
   },
   226,
 );

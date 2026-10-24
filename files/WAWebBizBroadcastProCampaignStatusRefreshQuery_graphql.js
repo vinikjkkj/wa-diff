@@ -8,7 +8,14 @@ __d(
           { defaultValue: null, kind: "LocalArgument", name: "campaignId" },
         ],
         t = [{ kind: "Variable", name: "id", variableName: "campaignId" }],
-        r = [
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        o = [
           {
             alias: null,
             args: null,
@@ -41,7 +48,43 @@ __d(
             ],
             storageKey: null,
           },
-        ];
+        ],
+        a = {
+          kind: "InlineFragment",
+          selections: [
+            {
+              alias: null,
+              args: null,
+              concreteType: "WhatsAppBusinessMessagingBroadcastInsights",
+              kind: "LinkedField",
+              name: "broadcast_insights",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "XFBWhatsAppBusinessMessagingMetricCountData",
+                  kind: "LinkedField",
+                  name: "ads_delivered",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "count",
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "XFBWhatsAppBusinessMMLiteCampaign",
+          abstractKey: null,
+        };
       return {
         fragment: {
           argumentDefinitions: e,
@@ -57,6 +100,7 @@ __d(
               name: "node",
               plural: !1,
               selections: [
+                r,
                 {
                   fragment: {
                     kind: "InlineFragment",
@@ -64,7 +108,7 @@ __d(
                       {
                         kind: "InlineDataFragmentSpread",
                         name: "WAWebBizBroadcastProCampaignStatusRefreshQuery_campaign",
-                        selections: r,
+                        selections: o,
                         args: null,
                         argumentDefinitions: [],
                       },
@@ -74,6 +118,11 @@ __d(
                   },
                   kind: "AliasedInlineFragmentSpread",
                   name: "WAWebBizBroadcastProCampaignStatusRefreshQuery_campaign",
+                },
+                {
+                  fragment: a,
+                  kind: "AliasedInlineFragmentSpread",
+                  name: "deliveryMetrics",
                 },
               ],
               storageKey: null,
@@ -103,19 +152,14 @@ __d(
                   name: "__typename",
                   storageKey: null,
                 },
+                r,
                 {
                   kind: "InlineFragment",
-                  selections: r,
+                  selections: o,
                   type: "XFBWhatsAppBusinessMMLiteCampaign",
                   abstractKey: null,
                 },
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "id",
-                  storageKey: null,
-                },
+                a,
               ],
               storageKey: null,
             },

@@ -8,15 +8,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r, o) {
       if (!e || (r === "" && o == null)) return t;
-      var a = h(n);
+      var a = y(n);
       return t.filter(function (e) {
         var t;
-        return y(e, (t = a.get(e.lid)) != null ? t : [], r, o);
+        return C(e, (t = a.get(e.lid)) != null ? t : [], r, o);
       });
     }
     function s(e, t, n, r, o, a) {
       if (!t || (o === "" && a == null)) return [];
-      var i = h(n),
+      var i = y(n),
         l = new Set(
           e.map(function (e) {
             return e.lid;
@@ -26,7 +26,7 @@ __d(
         var t;
         if (l.has(e.lid)) return !1;
         var n = (t = i.get(e.lid)) != null ? t : [];
-        return y(e, n, o, a);
+        return C(e, n, o, a);
       });
     }
     function u(e, t, n, r, o) {
@@ -40,7 +40,7 @@ __d(
         return (
           (e.memberLID == null || !a.has(e.memberLID)) &&
           (o == null || e.memberTag === o) &&
-          C(e, r)
+          b(e, r)
         );
       });
     }
@@ -125,6 +125,14 @@ __d(
     }
     function h(e) {
       var t = new Map();
+      for (var n of e)
+        n.memberLID != null &&
+          n.secondaryMemberTag != null &&
+          t.set(n.memberLID, n.secondaryMemberTag);
+      return t;
+    }
+    function y(e) {
+      var t = new Map();
       for (var n of e) {
         var r,
           o = n.memberLID;
@@ -135,7 +143,7 @@ __d(
       }
       return t;
     }
-    function y(e, t, n, r) {
+    function C(e, t, n, r) {
       var a,
         i =
           o(
@@ -145,7 +153,7 @@ __d(
             ? void 0
             : a.toLocaleLowerCase().includes(n)) === !0 ||
           t.some(function (e) {
-            return C(e, n);
+            return b(e, n);
           }),
         l =
           r == null ||
@@ -155,7 +163,7 @@ __d(
           });
       return i && l;
     }
-    function C(e, t) {
+    function b(e, t) {
       return t === ""
         ? !0
         : [
@@ -181,7 +189,8 @@ __d(
       (l.getWAWebOrgAdminPeopleCounts = p),
       (l.getWAWebOrgAdminRosterInviteEmails = _),
       (l.getWAWebOrgAdminRosterEmailsByMemberLID = f),
-      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = g));
+      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = g),
+      (l.getWAWebOrgAdminRosterSecondaryMemberTagsByMemberLID = h));
   },
   98,
 );

@@ -63,6 +63,20 @@ __d(
       return e;
     }
     function S(e) {
+      if (R(e) != null)
+        throw r("fb-error")
+          .FBLogger("comet_video_player_nextgendash")
+          .mustfixThrow(
+            "VideoPlayerNextgendashHostMediaSourceHandleIsNotAMediaSourceHandle",
+          );
+      return e;
+    }
+    function R(e) {
+      return typeof MessagePort == "function" && e instanceof MessagePort
+        ? e
+        : null;
+    }
+    function L(e) {
       return e;
     }
     ((l.diffVideoPlayerNextgendashClockstamp = e),
@@ -79,8 +93,10 @@ __d(
       (l.unopaqueVideoPlayerNextgendashHostSourceBuffer = y),
       (l.unopaqueVideoPlayerNextgendashHostSourceBufferAsSink = C),
       (l.opaqueVideoPlayerNextgendashHostMediaSourceHandle = b),
-      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandle = v),
-      (l.unopaqueVideoPlayerNextgendashHostEventTarget = S));
+      (l.opaqueVideoPlayerNextgendashHostMediaSourceHandleFromSinkPort = v),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandle = S),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandleAsSinkPort = R),
+      (l.unopaqueVideoPlayerNextgendashHostEventTarget = L));
   },
   98,
 );

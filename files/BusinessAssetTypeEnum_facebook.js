@@ -96,6 +96,7 @@ __d(
         "WHATSAPP_BUSINESS_ASSET",
         "WHATSAPP_BUSINESS_PRESENCE",
         "WHATSAPP_MARKETING_MESSAGE_SUBSCRIBER_POOL",
+        "WHATSAPP_MESSAGE_PACKS_BILLABLE_ACCOUNT",
       ]),
       l = e;
     i.default = l;

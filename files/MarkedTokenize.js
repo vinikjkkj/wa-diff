@@ -32,6 +32,8 @@ __d(
             inline: babelHelpers.extends({}, o.tokenizer.rules.inline),
           };
           return (
+            t.allowSingleTildeStrikethrough === !1 &&
+              (a.inline.del = /^~~(?=\S)([\s\S]*?\S)~~/),
             ((n = t.rules) == null ? void 0 : n.inline) != null &&
               (a.inline = babelHelpers.extends({}, a.inline, t.rules.inline)),
             ((r = t.rules) == null ? void 0 : r.block) != null &&
@@ -167,18 +169,20 @@ __d(
       "###",
     ];
     function _(e, t) {
+      var n =
+        t.allowSingleTildeStrikethrough === !1 ? /(?:[*_`]|~~)+$/ : /[*_`~]+$/;
       return (
         y(e, function (e) {
-          var n = g(e),
-            r = n.replace(/[*_`~]+$/, ""),
-            o = C(r);
-          if (o.length > 0 || n.length !== r) {
-            var a = h(e).replace(/[*_`~]+$/, "") + o.toReversed().join(""),
-              i = new u(t),
-              l = i.inlineTokens(a, []),
-              s = g(l),
-              c = C(s);
-            if (c.length <= o.length && s.length < n.length) return l;
+          var r = g(e),
+            o = r.replace(n, ""),
+            a = C(o, t);
+          if (a.length > 0 || r.length !== o) {
+            var i = h(e).replace(n, "") + a.toReversed().join(""),
+              l = new u(t),
+              s = l.inlineTokens(i, []),
+              c = g(s),
+              d = C(c, t);
+            if (d.length <= a.length && c.length < r.length) return s;
           }
           return null;
         }),
@@ -255,9 +259,13 @@ __d(
       var f = (n = e.tokens) != null ? n : [];
       return ((e.tokens = (r = t(f)) != null ? r : f), f);
     }
-    function C(e) {
-      var t;
-      return (t = e.match(/[*_`~]/g)) != null ? t : [];
+    function C(e, t) {
+      var n;
+      return (n = e.match(
+        t.allowSingleTildeStrikethrough === !1 ? /~~|[*_`]/g : /[*_`~]/g,
+      )) != null
+        ? n
+        : [];
     }
     ((l.tokenize = e), (l.AMBIGUOUS_OPENING_TAGS = p));
   },

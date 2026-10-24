@@ -2,7 +2,7 @@ __d(
   "WAWebBizBroadcastProCampaignStatusRefreshQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "29053378024280748";
+    a.exports = "28799940919614822";
   },
   null,
 );

@@ -13,9 +13,9 @@ __d(
     "WAWebEnvironment",
     "WAWebIdentityApiUtils",
     "WAWebManageE2ESessionsJob",
+    "WAWebPQGatingUtils",
     "WAWebProtobufsFingerprintV3.pb",
     "WAWebSendMsgDatabaseJob",
-    "WAWebSessionScope",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
@@ -260,7 +260,8 @@ __d(
                   "WAWebVoipGatingUtils",
                 ).isGuestViewer(),
               },
-              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              sessionScope:
+                o("WAWebPQGatingUtils").getOneToOneChatSessionScope(),
               wids: I,
             });
           } catch (e) {

@@ -1,6 +1,12 @@
 __d(
   "WAWebStatusBaseMediaController",
-  ["WAWebABProps", "WAWebStatusEventHandlersMap", "WAWebStatusSetupController"],
+  [
+    "WAAbortError",
+    "WAWebABProps",
+    "WAWebNoop",
+    "WAWebStatusEventHandlersMap",
+    "WAWebStatusSetupController",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -39,13 +45,16 @@ __d(
           }),
           (this.play = function () {
             var e;
-            (e = t.$1) == null || e.play();
+            (e = t.$1) == null ||
+              e.play().catch(o("WAAbortError").catchAbort(r("WAWebNoop")));
           }),
           (this.pause = function () {
             t.$1 && !t.$1.paused && t.$1.pause();
           }),
           (this.resume = function () {
-            t.$1 && !t.$2 && t.$1.play();
+            t.$1 &&
+              !t.$2 &&
+              t.$1.play().catch(o("WAAbortError").catchAbort(r("WAWebNoop")));
           }),
           (this.stop = function () {
             t.$1 && !t.$1.paused && t.$1.pause();

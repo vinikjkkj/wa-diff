@@ -5,7 +5,7 @@ __d(
     "use strict";
     var e;
     function s(e, t) {
-      if (!e) {
+      if (e == null || !e) {
         for (
           var n = t,
             o = arguments.length,

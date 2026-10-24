@@ -351,7 +351,9 @@ __d(
           o("WAWebOrdersExpansionUtils").isContactCountrySupported(n);
       if (!s) {
         o("WAWebModalManager").ModalManager.open(
-          c.jsx(r("WAWebOrderExpansionNotSupportedPopup.react"), { chat: n }),
+          c.jsx(r("WAWebOrderExpansionNotSupportedPopup.react"), {
+            chatId: n.id,
+          }),
         );
         return;
       }
@@ -377,7 +379,7 @@ __d(
       o("WAWebChatEphemerality").isEphemeralSettingOn(n)
         ? o("WAWebModalManager").ModalManager.open(
             c.jsx(r("WAWebOrderEphemeralExemptionPopup.react"), {
-              chat: n,
+              chatId: n.id,
               onSubmit: u,
             }),
           )

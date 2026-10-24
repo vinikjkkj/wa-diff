@@ -209,7 +209,7 @@ __d(
                     function* (e) {
                       var t = yield S.load(),
                         n = t.clearKyberPreKeysAndMigrationState,
-                        a = t.isPQMigrated;
+                        a = t.hasPQMigrationState;
                       if (yield a()) {
                         o("WALogger").LOG(
                           f ||

@@ -66,6 +66,7 @@ __d(
         }
         switch (n) {
           case o("WAWebNavBarTypes").NavBarItems.Chats:
+          case o("WAWebNavBarTypes").NavBarItems.WODirectory:
             _(t);
             break;
           case o("WAWebNavBarTypes").NavBarItems.Newsletters:

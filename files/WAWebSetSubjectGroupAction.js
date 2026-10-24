@@ -94,7 +94,7 @@ __d(
                       d.jsx(
                         o("WAWebCommunitySubjectChangePopups.react")
                           .CommunitySubjectHalfSuccessErrorPopup,
-                        { parentChat: t },
+                        { parentChatId: t.id },
                       ),
                     );
                     return;

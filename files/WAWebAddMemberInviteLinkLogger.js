@@ -1,11 +1,14 @@
 __d(
   "WAWebAddMemberInviteLinkLogger",
   [
+    "WATimeUtils",
     "WAWebGroupInviteLinkClickWamEvent",
+    "WAWebGroupInviteLinkPageVisitWamEvent",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebWamEnumGroupInviteLinkEntryPoint",
+    "WAWebWamEnumInviteLinkEntryPointType",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -22,7 +25,18 @@ __d(
         },
       ).commit();
     }
-    l.logAddMemberCopyLinkClick = e;
+    function s(e) {
+      new (o(
+        "WAWebGroupInviteLinkPageVisitWamEvent",
+      ).GroupInviteLinkPageVisitWamEvent)({
+        inviteLinkEntryPoint: o("WAWebWamEnumInviteLinkEntryPointType")
+          .INVITE_LINK_ENTRY_POINT_TYPE.ADD_MEMBER,
+        groupId: o("WAWebGroupJoinRequestMetricUtils").getSanitizedJid(e.id),
+        userJourneyEventMs: o("WATimeUtils").unixTimeMs(),
+      }).commit();
+    }
+    ((l.logAddMemberCopyLinkClick = e),
+      (l.logAddMemberInviteOptionsOpened = s));
   },
   98,
 );

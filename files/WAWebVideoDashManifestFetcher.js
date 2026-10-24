@@ -27,11 +27,12 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.timeoutMs,
             n = e.url;
-          if (!o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(n))
+          if (!o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(n)) {
+            var a = new (o(
+              "WAWebVideoDashManifestErrors",
+            ).DashManifestUrlNotAllowedError)();
             throw (
-              o("WAWebVideoDashManifestODS").bumpDashManifestFailure(
-                "URL_NOT_ALLOWED",
-              ),
+              o("WAWebVideoDashManifestODS").bumpDashManifestFailure(a),
               o("WALogger")
                 .WARN(
                   s ||
@@ -40,27 +41,26 @@ __d(
                     ])),
                 )
                 .sendLogs(m),
-              new (o(
-                "WAWebVideoDashManifestErrors",
-              ).DashManifestUrlNotAllowedError)()
+              a
             );
-          var a = new AbortController(),
-            i = self.setTimeout(function () {
-              return a.abort();
+          }
+          var i = new AbortController(),
+            l = self.setTimeout(function () {
+              return i.abort();
             }, t);
           o("WAWebVideoDashManifestODS").bumpDashManifestAttempt();
           try {
-            var l = yield r("WAWebPonyfillsFetch")(n, { signal: a.signal });
-            C(l.status);
-            var u = b(yield l.text());
+            var u = yield r("WAWebPonyfillsFetch")(n, { signal: i.signal });
+            C(u.status);
+            var c = b(yield u.text());
             return (
-              o("WAWebVideoDashManifestODS").bumpDashManifestResult(u.kind),
-              u
+              o("WAWebVideoDashManifestODS").bumpDashManifestResult(c),
+              c
             );
           } catch (e) {
             throw y(h(e));
           } finally {
-            self.clearTimeout(i);
+            self.clearTimeout(l);
           }
         })),
         g.apply(this, arguments)
@@ -74,7 +74,7 @@ __d(
           : new (o("WAWebVideoDashManifestErrors").DashManifestNetworkError)();
     }
     function y(t) {
-      o("WAWebVideoDashManifestODS").bumpDashManifestFailure(t.reason);
+      o("WAWebVideoDashManifestODS").bumpDashManifestFailure(t);
       var n =
         t instanceof o("WAWebVideoDashManifestErrors").DashManifestHttpError
           ? t.reason + " " + t.status

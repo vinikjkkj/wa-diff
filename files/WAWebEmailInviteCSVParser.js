@@ -19,7 +19,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      s = 1024 * 1024,
+      s = 10 * 1024 * 1024,
       u = 50,
       c = /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       d = u * 2 + 2,

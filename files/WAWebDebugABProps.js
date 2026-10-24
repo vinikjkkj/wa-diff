@@ -90,15 +90,14 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          r("vulture")("GM-y2F7xPHXtpSxilJu4vojWecw=");
           var n = o("WAWebABPropsConfigs").ABPropConfigs[e][0],
-            a = yield h(e),
-            i = { configCode: String(n), configValue: String(a) };
-          t != null && (i.overriddenConfigValue = String(t));
-          var l = t != null ? t : a;
+            r = yield h(e),
+            a = { configCode: String(n), configValue: String(r) };
+          t != null && (a.overriddenConfigValue = String(t));
+          var i = t != null ? t : r;
           return o("WAWebSchemaAbPropConfig")
             .getAbpropConfigsTable()
-            .createOrReplace(i)
+            .createOrReplace(a)
             .then(function () {
               o("WALogger").LOG(
                 s ||
@@ -110,7 +109,7 @@ __d(
                   ])),
                 e,
                 String(n),
-                String(l),
+                String(i),
               );
               var r = {
                 service_improvement_opt_out_flag: o(
@@ -156,11 +155,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (
-            r("vulture")("jwWLncNghqUG2htVLB_GdnB3uPk="),
-            yield y(e, t),
-            t
-          );
+          return (yield y(e, t), t);
         })),
         v.apply(this, arguments)
       );

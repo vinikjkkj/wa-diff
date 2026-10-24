@@ -31,6 +31,7 @@ __d(
     "WAWebContactModel",
     "WAWebDisplayType",
     "WAWebFileUtils",
+    "WAWebForwardedBotMessageUtils",
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGroupHistoryUtils",
@@ -104,14 +105,14 @@ __d(
       );
     }
     function y(e, t) {
-      if (!k(e)) return !1;
+      if (!I(e)) return !1;
       if (e.type === o("WAWebMsgType").MSG_TYPE.MUSIC) return C(t.id);
       if (
         t instanceof r("WAWebContactModel") ||
         !o("WAWebChatGetters").getIsNewsletter(t)
       )
         return !0;
-      if (D(e)) return !1;
+      if (x(e)) return !1;
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.PTV:
           return o(
@@ -164,7 +165,7 @@ __d(
       var r = o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
         e,
       );
-      return n.entries.getDownloadEntry(r) != null || I(e, r);
+      return n.entries.getDownloadEntry(r) != null || T(e, r);
     }
     function L(e) {
       return (
@@ -180,20 +181,26 @@ __d(
         ? o(
             "WAWebMuseGroupRichResponseForward",
           ).canForwardMuseGroupRichResponse(e)
-        : !(
-            !o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
+        : o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(e.unifiedResponse)
+          ? !k(e) &&
+            o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
               e,
-            ) ||
-            !o("WAWebBotBaseGating").isRichResponseForwardSendingEnabled() ||
-            (o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(
-              e.unifiedResponse,
             ) &&
-              !o(
-                "WAWebBotBaseGating",
-              ).isRichResponseJarvisForwardSendingEnabled())
-          );
+            o("WAWebBotBaseGating").isRichResponseJarvisForwardSendingEnabled()
+          : o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
+              e,
+            ) && o("WAWebBotBaseGating").isRichResponseForwardSendingEnabled();
     }
     function k(e) {
+      var t = e.forwardedAiBotMessageInfo;
+      return (
+        t != null &&
+        o("WAWebForwardedBotMessageUtils").getForwardedBotDisplayMode(
+          t.validationStatus,
+        ) === "masked"
+      );
+    }
+    function I(e) {
       var t,
         n,
         a,
@@ -289,7 +296,7 @@ __d(
         if (
           s.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER ||
-          x(s)
+          $(s)
         )
           return !0;
         if (s.nativeFlowName != null) return !1;
@@ -311,7 +318,7 @@ __d(
           m.mediaStage === o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING ||
           m.mediaStage ===
             o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED ||
-          (!T(s) &&
+          (!D(s) &&
             (s.type === o("WAWebMsgType").MSG_TYPE.IMAGE ||
               s.type === o("WAWebMsgType").MSG_TYPE.VIDEO ||
               s.type === o("WAWebMsgType").MSG_TYPE.PTV ||
@@ -355,7 +362,7 @@ __d(
             )))
       );
     }
-    function I(e, t) {
+    function T(e, t) {
       var n;
       return (
         t &&
@@ -364,10 +371,10 @@ __d(
           null
       );
     }
-    function T(e) {
+    function D(e) {
       return R(e);
     }
-    function D(e) {
+    function x(e) {
       return (
         L(e) &&
         e.mediaData.mediaStage !==
@@ -375,16 +382,16 @@ __d(
         o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(e)
       );
     }
-    function x(e) {
+    function $(e) {
       return (
         r("WAWebWid").isPSA(e.id.remote) &&
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
         e.nativeFlowName === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
       );
     }
-    function $(e) {
+    function P(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return !k(e) ||
+      return !I(e) ||
         o("WAWebMsgGetters").getIsFrequentlyForwarded(t) ||
         o("WAWebMsgLinks").getSuspiciousLinks(t).length !== 0 ||
         o("WAWebFrontendMsgGetters").getAsPttLike(t) != null ||
@@ -406,7 +413,7 @@ __d(
             t.type === o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT ||
             t.ctwaContext != null;
     }
-    function P(e) {
+    function N(e) {
       var t,
         n,
         r = o("WAWebStateUtils").unproxy(e);
@@ -439,7 +446,7 @@ __d(
             o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
             !o("WAWebFrontendMsgGetters").getAsAlbum(r);
     }
-    function N(e) {
+    function M(e) {
       var t,
         n,
         a = o("WAWebStateUtils").unproxy(e),
@@ -496,7 +503,7 @@ __d(
             !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(a) &&
             !o("WAWebFrontendMsgGetters").getAsAlbum(a);
     }
-    function M(e) {
+    function w(e) {
       var t,
         n,
         r = e == null || (t = e.contact) == null ? void 0 : t.businessProfile;
@@ -509,7 +516,7 @@ __d(
         o("WAWebBusinessProfileGetters").getIsBizBot1p(r)
       );
     }
-    function w(e, t) {
+    function A(e, t) {
       var n, r;
       return (
         o("WAWebMsgGetters").getBizBotType(e) ===
@@ -523,45 +530,45 @@ __d(
         !o("WAWebMsgGetters").getIsCoexV2Relay(e)
       );
     }
-    function A(e, t) {
-      return !w(e, t) || e.type !== o("WAWebMsgType").MSG_TYPE.CHAT
+    function F(e, t) {
+      return !A(e, t) || e.type !== o("WAWebMsgType").MSG_TYPE.CHAT
         ? !1
-        : !U(e, t) &&
-            V(e, t, !o("WAWebMsgMayFail").msgMayFail(e)) &&
+        : !V(e, t) &&
+            H(e, t, !o("WAWebMsgMayFail").msgMayFail(e)) &&
             !o("WAWebMsgGetters").getIsQuestion(e) &&
             !o("WAWebBizBroadcastProChatUtils").getIsBizBroadcastProChat(t) &&
             !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(t) &&
             o("WAWebChatGroupUtils").canSendIgnoringAiAgentBlock(t);
     }
-    function F(e) {
+    function O(e) {
       return (
-        w(e, o("WAWebFrontendMsgGetters").getMaybeChat(e)) &&
+        A(e, o("WAWebFrontendMsgGetters").getMaybeChat(e)) &&
         o("WAWebBizAiAgentGating").isAiAgentMessageEditingEnabled()
       );
     }
-    function O(e) {
-      return F(e)
+    function B(e) {
+      return O(e)
         ? o("WAWebMessageEditUtils").isParentWithinEditUIWindow({
             parentTsInSeconds: e.t,
             msgKey: e.id,
           })
         : !0;
     }
-    function B(e) {
-      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE && O(e);
+    function W(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE && B(e);
     }
-    function W(e, t) {
+    function q(e, t) {
       t === void 0 && (t = !1);
       var n = o("WAWebFrontendMsgGetters").getChat(e);
-      if (U(e, n)) return !1;
+      if (V(e, n)) return !1;
       var r =
         (o("WAWebMsgGetters").getIsEdited(e) &&
           o("WAWebMsgGetters").getIsFailed(e) &&
           !t) ||
         !o("WAWebMsgMayFail").msgMayFail(e);
-      if (o("WAWebChatGetters").getIsNewsletter(n)) return q(e, n, r);
-      var a = w(e, n);
-      return V(e, n, r)
+      if (o("WAWebChatGetters").getIsNewsletter(n)) return U(e, n, r);
+      var a = A(e, n);
+      return H(e, n, r)
         ? a && o("WAWebBizAiAgentGating").isAiAgentMessageEditingEnabled()
           ? o("WAWebChatGroupUtils").canSendIgnoringAiAgentBlock(n)
           : (e.local ||
@@ -575,7 +582,7 @@ __d(
             n.canSend
         : !1;
     }
-    function q(e, t, n) {
+    function U(e, t, n) {
       var r, a;
       return (
         ((r =
@@ -589,14 +596,14 @@ __d(
           o("WAWebMsgGetters").getIsSentByMe(e))
       );
     }
-    function U(e, t) {
+    function V(e, t) {
       return (
-        (o("WAWebMsgGetters").getIsBotQuery(e) && !H(e, t)) ||
-        M(t) ||
+        (o("WAWebMsgGetters").getIsBotQuery(e) && !G(e, t)) ||
+        w(t) ||
         o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t)
       );
     }
-    function V(e, t, n) {
+    function H(e, t, n) {
       var r;
       return (
         o("WAWebMsgGetters").getIsSentByMe(e) &&
@@ -605,7 +612,7 @@ __d(
         ((r = t.contact) == null ? void 0 : r.isEnterprise) !== !0
       );
     }
-    function H(e, t) {
+    function G(e, t) {
       var n,
         r,
         a = (n = t.groupMetadata) == null ? void 0 : n.participants;
@@ -628,7 +635,7 @@ __d(
         })
       );
     }
-    function G(e) {
+    function z(e) {
       var t = o("WAWebMsgGetters").getIsGroupMsg(e),
         n = o("WAWebMsgGetters").getIsSentByMe(e),
         r = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
@@ -642,24 +649,24 @@ __d(
         ? !1
         : !!(r != null && r.reportToAdminMode);
     }
-    function z(e, t) {
+    function j(e, t) {
       return (
         t === void 0 && (t = !1),
         o("WAWebMessageEditUtils").getMsgEditType(e.type) ===
-          o("WAWebMessageEditUtils").MsgEditType.TextEdit && W(e, t)
+          o("WAWebMessageEditUtils").MsgEditType.TextEdit && q(e, t)
       );
     }
-    function j(e, t) {
+    function K(e, t) {
       return (
         t === void 0 && (t = !1),
         o("WAWebMessageEditUtils").getMsgEditType(e.type) ===
           o("WAWebMessageEditUtils").MsgEditType.CaptionEdit &&
           !!e.caption &&
           o("WAWebFrontendMsgGetters").getAsViewOnce(e) == null &&
-          W(e, t)
+          q(e, t)
       );
     }
-    function K(e, t) {
+    function Q(e, t) {
       if (
         (t === void 0 && (t = !1),
         o("WAWebMessageEditUtils").getMsgEditType(e.type) !==
@@ -673,9 +680,9 @@ __d(
       var n = o("WAWebMsgGetters").getPollEndTime(e);
       return n != null && n <= o("WAWebClock").Clock.getServerTimeMs()
         ? !1
-        : W(e, t);
+        : q(e, t);
     }
-    function Q(e) {
+    function X(e) {
       switch (e) {
         case o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION:
         case o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT:
@@ -686,7 +693,7 @@ __d(
           return !1;
       }
     }
-    function X(e) {
+    function Y(e) {
       if (
         (n("cr:17680") == null
           ? void 0
@@ -695,47 +702,27 @@ __d(
         return !0;
       var t = o("WAWebStateUtils").unproxy(e);
       if (o("WAWebMsgGetters").getIsQuestion(t)) return !1;
-      var r = z(t, !0) || j(t, !0) || K(t, !0);
+      var r = j(t, !0) || K(t, !0) || Q(t, !0);
       return r
         ? o("WAWebMessageEditUtils").isParentWithinEditUIWindow({
             parentTsInSeconds: t.t,
             msgKey: t.id,
           })
           ? !0
-          : F(t) ||
+          : O(t) ||
             o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
               msgKey: t.id,
               msgType: t.type,
             })
         : !1;
     }
-    function Y(e, t, n) {
+    function J(e, t, n) {
       return (
-        X(e) &&
-        Q(t) &&
+        Y(e) &&
+        X(t) &&
         !o("WAWebBizBroadcastProChatUtils").getIsBizBroadcastProChat(n) &&
         !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n)
       );
-    }
-    function J(e) {
-      if (
-        (n("cr:17680") == null
-          ? void 0
-          : n("cr:17680").messageEditRestrictionEnabled()) === !1
-      )
-        return !0;
-      var t = o("WAWebStateUtils").unproxy(e);
-      return o("WAWebMsgGetters").getIsQuestion(t)
-        ? !1
-        : z(t) &&
-            (o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
-              parentTsInSeconds: t.t,
-              msgKey: t.id,
-            }) ||
-              o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
-                msgKey: t.id,
-                msgType: t.type,
-              }));
     }
     function Z(e) {
       if (
@@ -758,6 +745,26 @@ __d(
               }));
     }
     function ee(e) {
+      if (
+        (n("cr:17680") == null
+          ? void 0
+          : n("cr:17680").messageEditRestrictionEnabled()) === !1
+      )
+        return !0;
+      var t = o("WAWebStateUtils").unproxy(e);
+      return o("WAWebMsgGetters").getIsQuestion(t)
+        ? !1
+        : K(t) &&
+            (o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
+              parentTsInSeconds: t.t,
+              msgKey: t.id,
+            }) ||
+              o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
+                msgKey: t.id,
+                msgType: t.type,
+              }));
+    }
+    function te(e) {
       var t,
         n,
         a = o("WAWebStateUtils").unproxy(e);
@@ -790,13 +797,13 @@ __d(
                 a.type,
               );
     }
-    function te(e) {
+    function ne(e) {
       return (
         o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(e) <=
         o("WAWebRevokeMsgConstants").NEWSLETTER_REVOKE_WINDOW
       );
     }
-    function ne(t) {
+    function re(t) {
       var n,
         r,
         a,
@@ -811,12 +818,12 @@ __d(
           ),
           !1
         );
-      if (le(t)) return !1;
+      if (se(t)) return !1;
       var l =
         ((n = t.ack) != null ? n : o("WAWebAck").ACK.CLOCK) <
         o("WAWebAck").ACK.CLOCK;
       return (
-        (te(t) || l) &&
+        (ne(t) || l) &&
         ((r =
           (a = i.newsletterMetadata) == null ? void 0 : a.iAmAdminOrOwner()) !=
         null
@@ -824,9 +831,9 @@ __d(
           : !1)
       );
     }
-    function re(e) {
+    function oe(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
-      return !o("WAWebChatGetters").getIsNewsletter(t) || !te(e)
+      return !o("WAWebChatGetters").getIsNewsletter(t) || !ne(e)
         ? !1
         : t.newsletterMetadata == null
           ? (o("WALogger").ERROR(
@@ -854,9 +861,9 @@ __d(
                 !1)
               : !(e.type === o("WAWebMsgType").MSG_TYPE.REVOKED || !g(e, t));
     }
-    function oe(e) {
+    function ae(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
-      if (!o("WAWebChatGetters").getIsNewsletter(t) || !te(e)) return !1;
+      if (!o("WAWebChatGetters").getIsNewsletter(t) || !ne(e)) return !1;
       var n = t.newsletterMetadata;
       return n == null
         ? (o("WALogger").ERROR(
@@ -888,24 +895,24 @@ __d(
               ? !1
               : o("WAWebNewsletterGatingUtils").isChannelWebEmbeddingEnabled();
     }
-    function ae(e) {
+    function ie(e) {
       var t;
       if (!o("WAWebNewsletterGatingUtils").isChannelDSA26SenderEnabled())
         return !1;
       var n = o("WAWebFrontendMsgGetters").getChat(e);
       return !(
         !o("WAWebChatGetters").getIsNewsletter(n) ||
-        !te(e) ||
+        !ne(e) ||
         !((t = n.newsletterMetadata) != null && t.iAmAdminOrOwner()) ||
         e.hasPaidPartnershipLabel === !0 ||
         !o("WAWebSpamUtils").isMsgTypeSupportedForPaidPartnershipLabel(e)
       );
     }
-    function ie(e) {
+    function le(e) {
       var t,
         n = o("WAWebFrontendMsgGetters").getChat(e);
       return !o("WAWebChatGetters").getIsNewsletter(n) ||
-        !te(e) ||
+        !ne(e) ||
         !((t = n.newsletterMetadata) != null && t.iAmAdminOrOwner()) ||
         o("WAWebMsgGetters").getIsAiContent(e) === !0 ||
         o("WAWebFrontendMsgGetters").getAsVisualMedia(e) == null
@@ -914,7 +921,7 @@ __d(
             "WAWebNewsletterGatingUtils",
           ).isChannelSGISenderSelfDisclosureEnabled();
     }
-    function le(e) {
+    function se(e) {
       var t = !1;
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -926,7 +933,7 @@ __d(
         t || e.type === o("WAWebMsgType").MSG_TYPE.REVOKED
       );
     }
-    function se(e) {
+    function ue(e) {
       if (!e.isBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
         return !1;
       var t = o("WAWebResolveBotProfile").resolveBotSupportInput(e);
@@ -935,19 +942,19 @@ __d(
         o("WAWebBotSupportGating").isThirdPartyAgent(t)
       );
     }
-    function ue(e, t) {
+    function ce(e, t) {
       var n;
-      if ((t === void 0 && (t = !1), le(e))) return !1;
+      if ((t === void 0 && (t = !1), se(e))) return !1;
       var r = o("WAWebFrontendMsgGetters").getCurrentChat(e);
       return o("WAWebChatGetters").getIsNewsletter(r)
-        ? ne(e)
+        ? re(e)
         : (o("WAWebChatGetters").getIsGroup(r) &&
               !((n = r.groupMetadata) != null && n.participants.iAmMember())) ||
             o("WAWebContactGetters").getIsMe(r.contact) ||
             (r.contact.isEnterprise && !r.contact.id.isBot()) ||
             o("WAWebFrontendChatGetters").getIsCapiHostedGroup(r) ||
-            M(r) ||
-            (!t && se(r.id))
+            w(r) ||
+            (!t && ue(r.id))
           ? !1
           : e.type === o("WAWebMsgType").MSG_TYPE.COMMENT
             ? e.ack != null && e.ack >= o("WAWebAck").ACK.SENT
@@ -963,34 +970,34 @@ __d(
                 o("WAWebFrontendMsgGetters").getCurrentChat(e),
               );
     }
-    function ce(e) {
+    function de(e) {
       var t = e;
       e instanceof o("WAWebMsgModel").Msg &&
         (t = o("WAWebStateUtils").unproxy(e));
       var n =
         o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <=
         o("WAWebRevokeMsgConstants").REVOKE_WINDOW;
-      return ue(t) && t.id.fromMe && n;
+      return ce(t) && t.id.fromMe && n;
     }
-    function de(e) {
+    function me(e) {
       var t,
         n = e;
       e instanceof o("WAWebMsgModel").Msg &&
         (n = o("WAWebStateUtils").unproxy(e));
       var r = o("WAWebFrontendMsgGetters").getCurrentChat(n);
-      if (o("WAWebChatGetters").getIsNewsletter(r)) return ne(n);
+      if (o("WAWebChatGetters").getIsNewsletter(r)) return re(n);
       var a =
         o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(n) <=
         o("WAWebRevokeMsgConstants").REVOKE_WINDOW;
       return (
-        ue(n) &&
+        ce(n) &&
         !n.id.fromMe &&
         !!((t = r.groupMetadata) != null && t.participants.iAmAdmin()) &&
         !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(r) &&
         a
       );
     }
-    function me(e) {
+    function pe(e) {
       var t = e;
       e instanceof o("WAWebMsgModel").Msg &&
         (t = o("WAWebStateUtils").unproxy(e));
@@ -1003,7 +1010,7 @@ __d(
           o("WAWebMsgGetters").getSenderWithDevice(t),
           o("WAWebMsgGetters").getMetaFrom(t),
         );
-      return !ue(t, r === !0) || !n
+      return !ce(t, r === !0) || !n
         ? !1
         : r != null
           ? r
@@ -1015,7 +1022,7 @@ __d(
               ) &&
               o("WAWebHatchFrontendGating").isHatchRevokeEnabled());
     }
-    function pe(e) {
+    function _e(e) {
       var t, n;
       if (
         o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
@@ -1032,7 +1039,7 @@ __d(
       var r = o("WAWebFrontendMsgGetters").getChat(e);
       return o("WAWebChatGetters").getIsBroadcast(r)
         ? !1
-        : !o("WAWebChatGetters").getIsNewsletter(r) || ne(e);
+        : !o("WAWebChatGetters").getIsNewsletter(r) || re(e);
     }
     ((l.isWamoMsg = f),
       (l.canWamoSubMsgBeSharedByUser = g),
@@ -1041,32 +1048,32 @@ __d(
       (l.allowedChatOrContactForForwarding = S),
       (l.hasRetrievableMedia = R),
       (l.isForwardedAsMedia = L),
-      (l.canForwardMsg = k),
-      (l.isForwardablePsaMsg = x),
-      (l.canQuickForwardMsg = $),
-      (l.canStarMsg = P),
-      (l.canPinMsg = N),
-      (l.isBizAiAgentTextEditOpportunity = A),
-      (l.shouldCoachAgentEdit = F),
-      (l.shouldDeliverAgentEditToRecipient = O),
-      (l.canDeliverEditProtocolMessage = B),
-      (l.canReportToAdmin = G),
-      (l.displayTypeSupportsEditing = Q),
-      (l.canEnterEditingFlow = X),
-      (l.canShowMsgEditAction = Y),
-      (l.canEditText = J),
-      (l.canEditCaption = Z),
-      (l.canReportMsg = ee),
-      (l.isNewsletterMsgOnServer = te),
-      (l.canRevokeNewsletterMsg = ne),
-      (l.canCopyNewsletterMessageLink = re),
-      (l.canEmbedNewsletterMessage = oe),
-      (l.canAddPaidPartnershipLabelToMsg = ae),
-      (l.canAddAiContentLabelToMsg = ie),
-      (l.canSenderRevokeMsg = ce),
-      (l.canAdminRevokeMsg = de),
-      (l.canBotResponseBeRevokeByInvoker = me),
-      (l.canDeleteMsg = pe));
+      (l.canForwardMsg = I),
+      (l.isForwardablePsaMsg = $),
+      (l.canQuickForwardMsg = P),
+      (l.canStarMsg = N),
+      (l.canPinMsg = M),
+      (l.isBizAiAgentTextEditOpportunity = F),
+      (l.shouldCoachAgentEdit = O),
+      (l.shouldDeliverAgentEditToRecipient = B),
+      (l.canDeliverEditProtocolMessage = W),
+      (l.canReportToAdmin = z),
+      (l.displayTypeSupportsEditing = X),
+      (l.canEnterEditingFlow = Y),
+      (l.canShowMsgEditAction = J),
+      (l.canEditText = Z),
+      (l.canEditCaption = ee),
+      (l.canReportMsg = te),
+      (l.isNewsletterMsgOnServer = ne),
+      (l.canRevokeNewsletterMsg = re),
+      (l.canCopyNewsletterMessageLink = oe),
+      (l.canEmbedNewsletterMessage = ae),
+      (l.canAddPaidPartnershipLabelToMsg = ie),
+      (l.canAddAiContentLabelToMsg = le),
+      (l.canSenderRevokeMsg = de),
+      (l.canAdminRevokeMsg = me),
+      (l.canBotResponseBeRevokeByInvoker = pe),
+      (l.canDeleteMsg = _e));
   },
   98,
 );

@@ -6,7 +6,7 @@ __d(
       return s._(/*BTDS*/ "You created an audience.");
     }
     function u() {
-      return s._(/*BTDS*/ "About this business broadcast");
+      return s._(/*BTDS*/ "About business broadcasts");
     }
     function c(e) {
       var t = e.length;

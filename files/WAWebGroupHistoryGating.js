@@ -44,24 +44,6 @@ __d(
     }
     function d(e) {
       if (
-        o("WAWebABProps").getABPropConfigValue(
-          "group_history_out_of_window_pin_sender",
-        )
-      )
-        return !0;
-      if (e != null)
-        try {
-          return o("WAWebGroupABProps").getGroupABPropConfigValue(
-            o("WAWebWidToJid").widToGroupJid(e),
-            "group_history_out_of_window_pin_sender_group_level",
-          );
-        } catch (e) {
-          return !1;
-        }
-      return !1;
-    }
-    function m(e) {
-      if (
         o("WAWebABProps").getABPropConfigValue("group_history_send_after_join")
       )
         return !0;
@@ -76,65 +58,64 @@ __d(
         }
       return !1;
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_messages_time_limit_secs",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
     }
-    function f(e) {
-      return m(e) || _();
+    function _(e) {
+      return d(e) || p();
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_after_join_prerequisites",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_after_join_sender_prerequisites",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_once_default_on",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_default_on",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_sender_speed_bump_dialog_display_times",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_per_group_toggle_md_sync",
       );
     }
-    function S() {
+    function v() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistorySenderEnabled = e),
       (l.isGroupHistorySettingsToggleUIEnabled = s),
       (l.isGroupHistorySenderReportingTokenEnabled = u),
       (l.isGroupHistoryReceiverReportingTokenEnabled = c),
-      (l.isOutOfWindowPinSenderEnabled = d),
-      (l.isGroupHistoryPostJoinSenderEnabled = m),
-      (l.getGroupHistoryMessagesTimeLimitSecs = p),
-      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = f),
-      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = g),
-      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = h),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = y),
-      (l.isGroupHistorySendDefaultOnEnabled = C),
-      (l.getGroupHistorySpeedBumpDialogDisplayTimes = b),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = v),
-      (l.shouldSkipUnsupportedMessagesFromBundle = S));
+      (l.isGroupHistoryPostJoinSenderEnabled = d),
+      (l.getGroupHistoryMessagesTimeLimitSecs = m),
+      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = _),
+      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = f),
+      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = g),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = h),
+      (l.isGroupHistorySendDefaultOnEnabled = y),
+      (l.getGroupHistorySpeedBumpDialogDisplayTimes = C),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = b),
+      (l.shouldSkipUnsupportedMessagesFromBundle = v));
   },
   98,
 );

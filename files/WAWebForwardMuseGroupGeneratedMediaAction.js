@@ -2,10 +2,10 @@ __d(
   "WAWebForwardMuseGroupGeneratedMediaAction",
   [
     "WALogger",
+    "WAWebForwardMediaUtils",
     "WAWebGetAiBotContextForForwardedMsg",
     "WAWebMediaOpaqueData",
     "WAWebMsgGetters",
-    "WAWebMsgModelUtils",
     "WAWebMuseGroupRichResponseForward",
     "WAWebPonyfillsFetch",
     "WAWebPrepRawMedia",
@@ -39,10 +39,9 @@ __d(
                     "WAWebGetAiBotContextForForwardedMsg",
                   ).getAiBotContextForForwardedMsg(r),
                   forwardedFromWeb: !0,
-                  forwardingScore:
-                    o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(
-                      r,
-                    ),
+                  forwardingScore: o(
+                    "WAWebForwardMediaUtils",
+                  ).getMsgForwardingScoreWhenForwarded(r),
                   isForwarded:
                     o("WAWebMsgGetters").getShouldDisplayAsForwarded(r),
                   multicast: a,

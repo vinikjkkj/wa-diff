@@ -365,7 +365,10 @@ __d(
               "throw",
               "Expected either mediaSourceHandle or mediaSource from Worker.",
             );
-          Y(e, o);
+          (r != null &&
+            (K.host.mediaSinkReceivedSourceHandle == null ||
+              K.host.mediaSinkReceivedSourceHandle(K, r)),
+            Y(e, o));
         }
         function le(e, t) {
           var n,

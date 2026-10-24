@@ -15,8 +15,9 @@ __d(
         i = t.hostAPI,
         l = t.instanceKey,
         s = t.workQueue,
-        u = new Map(),
-        c = {
+        c = new Map(),
+        d = !1,
+        m = {
           config: a,
           host: i,
           logging: o(
@@ -33,54 +34,65 @@ __d(
           },
           workQueue: s,
         },
-        d = o("VideoPlayerNextgendashConnectionMainToWorker").connectToWorker(
-          c,
+        p = o("VideoPlayerNextgendashConnectionMainToWorker").connectToWorker(
+          m,
           t.workerPortFactories,
           t.workerType,
           l,
           function (e) {
-            if (e.type === "from_worker_to_main_prefetch_task_complete") {
-              var t = u.get(e.prefetchKey);
-              t != null && (u.delete(e.prefetchKey), t());
+            if (e.type === "__exception") {
+              (m.logging.log(m, {
+                error: e.exception,
+                type: "generic_error_as_warning",
+              }),
+                (d = !0));
+              var t = Array.from(c.values());
+              c.clear();
+              for (var n of t) u(m, n);
               return;
             }
-            var n =
+            if (e.type === "from_worker_to_main_prefetch_task_complete") {
+              var r = c.get(e.prefetchKey);
+              r != null && (c.delete(e.prefetchKey), r());
+              return;
+            }
+            var a =
                 typeof e == "object" && e != null && typeof e.type == "string"
                   ? e.type
                   : "[unknown]",
-              r;
+              i;
             try {
-              r = JSON.stringify(e);
+              i = JSON.stringify(e);
             } catch (e) {
-              r = "[serialization failed]";
+              i = "[serialization failed]";
             }
             throw o("nextgendasherr").nextgendasherr(
-              c,
+              m,
               "VideoPlayerNextgendashUnexpectedEventFromWorkerPrefetcher",
               "Unexpected event received: type=%s, event=%s",
-              n,
-              r,
+              a,
+              i,
             );
           },
         );
       return {
-        prefetch: function (n, o, l, s, c) {
-          if (n.representations.length === 0) {
-            c == null || c();
+        prefetch: function (n, o, l, s, u) {
+          if (n.representations.length === 0 || d) {
+            u == null || u();
             return;
           }
-          if (c != null) {
-            var t = u.get(n.prefetchKey);
-            (u.set(n.prefetchKey, c), t == null || t());
+          if (u != null) {
+            var t = c.get(n.prefetchKey);
+            (c.set(n.prefetchKey, u), t == null || t());
           }
           var m = 1,
-            p = !1;
+            _ = !1;
           if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
-            var _;
-            ((m = (_ = window.devicePixelRatio) != null ? _ : 1),
-              (p = document.hidden));
+            var f;
+            ((m = (f = window.devicePixelRatio) != null ? f : 1),
+              (_ = document.hidden));
           }
-          d.sendToWorker({
+          p.sendToWorker({
             eventToWorker: {
               groupId: s,
               initialAbrParams: {
@@ -92,7 +104,7 @@ __d(
                 devicePixelRatio: m,
                 enableSmartPlayerStaticCapabilityFiltering:
                   a.enableSmartPlayerStaticCapabilityFiltering,
-                isDocumentHidden: p,
+                isDocumentHidden: _,
                 playerDimensions: l,
                 prefetchResolutionThreshold: a.prefetchResolutionThreshold,
                 smartPlayerVideoDecodeCapabilities:
@@ -105,9 +117,9 @@ __d(
           });
         },
         releasePrefetchKey: function (t) {
-          var e = u.get(t);
-          (e != null && (u.delete(t), e()),
-            d.sendToWorker({
+          var e = c.get(t);
+          (e != null && (c.delete(t), e()),
+            p.sendToWorker({
               eventToWorker: {
                 prefetchKey: t,
                 type: "from_main_to_worker_release_prefetch_key",
@@ -116,7 +128,7 @@ __d(
             }));
         },
         sendPrefetchGroupAction: function (t) {
-          d.sendToWorker({
+          p.sendToWorker({
             eventToWorker: {
               prefetchGroupAction: t,
               type: "from_main_to_worker_prefetch_group_action",
@@ -125,6 +137,20 @@ __d(
           });
         },
       };
+    }
+    function u(e, t) {
+      try {
+        t();
+      } catch (t) {
+        e.logging.log(e, {
+          error: o("nextgendasherr").nextgendasherrFromCause(
+            e,
+            t,
+            "VideoPlayerNextgendashPrefetchOnCompleteFailed",
+          ),
+          type: "generic_error_as_warning",
+        });
+      }
     }
     l.createVideoPlayerNextgendashPrefetchConnection = s;
   },

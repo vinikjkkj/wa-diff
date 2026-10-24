@@ -424,6 +424,7 @@ __d(
       ai_hatch_media_enabled: !0,
       ai_hatch_revoke_enabled: !0,
       ai_hatch_manage_subscription_enabled: !0,
+      ai_hatch_in_app_subscriptions_enabled: !0,
       ai_hatch_avatar_working_video_enabled: !0,
       ai_hatch_approval_notification_enabled: !0,
       ai_hatch_identity_enabled: !0,

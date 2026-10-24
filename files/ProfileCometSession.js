@@ -56,23 +56,22 @@ __d(
       var o = (e || (e = r("WebStorage"))).getLocalStorage();
       if (!o) return null;
       var a = r("uuidv4")();
-      return (g(t, a), d(t, a, n == null ? void 0 : n.tracePolicy), a);
+      return (y(t, a), d(t, a, n == null ? void 0 : n.tracePolicy), a);
     }
     function p(e, t) {
-      var n = f(e);
+      var n = g(e);
       return n === null ? m(e, t) : n;
     }
     function _(t) {
-      var n = s(t),
-        o = (e || (e = r("WebStorage"))).getLocalStorageForRead();
-      if (n === null || !o) return null;
-      var a = o.getItem(n);
-      if (a == null) return null;
-      var i = a.split(":"),
-        l = i[0],
-        u = i[1],
-        c = parseInt(u, 10);
-      return [l, c];
+      var n = (e || (e = r("WebStorage"))).getLocalStorageForRead();
+      if (t == null || !n) return null;
+      var o = n.getItem(t);
+      if (o == null) return null;
+      var a = o.split(":"),
+        i = a[0],
+        l = a[1],
+        s = parseInt(l, 10);
+      return [i, s];
     }
     function f(e) {
       var t = _(e);
@@ -84,36 +83,41 @@ __d(
       }
       return null;
     }
-    function g(t, n) {
+    function g(e) {
+      return f(s(e));
+    }
+    function h(t, n) {
       var o = Date.now(),
-        a = s(t),
-        i = (e || (e = r("WebStorage"))).getLocalStorage();
-      return i && a !== null
-        ? ((e || (e = r("WebStorage"))).setItemGuarded(i, a, n + ":" + o), n)
+        a = (e || (e = r("WebStorage"))).getLocalStorage();
+      return a && t != null
+        ? ((e || (e = r("WebStorage"))).setItemGuarded(a, t, n + ":" + o), n)
         : null;
     }
-    function h(e, t) {
-      var n = p(e, t);
-      return n == null ? null : (g(e, n), n);
-    }
     function y(e, t) {
+      return h(s(e), t);
+    }
+    function C(e, t) {
+      var n = p(e, t);
+      return n == null ? null : (y(e, n), n);
+    }
+    function b(e, t) {
       return p(e, t);
     }
-    function C(e, t, n) {
+    function v(e, t, n) {
       if (t != null) {
-        var r = f(e);
-        if (r === null) return (d(e, t, n), g(e, t));
+        var r = g(e);
+        if (r === null) return (d(e, t, n), y(e, t));
       }
-      return h(e);
+      return C(e);
     }
-    function b(e, t, n, r) {
+    function S(e, t, n, r) {
       return o("ProfileCometSessionUtil").isSameProfileSession(t, n) ||
         r === "popstate" ||
         r === "initial"
-        ? h(e, n)
+        ? C(e, n)
         : m(e, n);
     }
-    ((l.extend = h), (l.get = y), (l.initOrExtend = C), (l.navigate = b));
+    ((l.extend = C), (l.get = b), (l.initOrExtend = v), (l.navigate = S));
   },
   98,
 );

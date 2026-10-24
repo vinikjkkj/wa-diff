@@ -194,7 +194,12 @@ __d(
                   y.length,
                   A.length,
                 );
-                var O = yield o("WAWebFetchPrekeysJob").fetchPrekeys(A, i),
+                var O = yield o("WAWebFetchPrekeysJob").fetchPrekeys(
+                    A,
+                    i,
+                    void 0,
+                    { pqSupport: h === o("WAWebSessionScope").SessionScope.PQ },
+                  ),
                   B = O.errors,
                   W = O.prekeyBundles;
                 o("WALogger").LOG(

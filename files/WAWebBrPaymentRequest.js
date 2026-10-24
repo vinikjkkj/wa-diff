@@ -6,6 +6,7 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "WAWebPaymentRequestForwardingGating",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
@@ -24,11 +25,20 @@ __d(
         "br_payments_payment_detection_enhancement",
       );
     }
-    function c(e) {
-      return e ? s() : u();
+    function c(e, t) {
+      return (
+        t === void 0 && (t = !1),
+        t
+          ? o(
+              "WAWebPaymentRequestForwardingGating",
+            ).isPaymentRequestForwardingEnabled() && s()
+          : e
+            ? s()
+            : u()
+      );
     }
-    function d(e) {
-      return e ? s() : (u(), !1);
+    function d(e, t) {
+      return (t === void 0 && (t = !1), t ? c(e, !0) : e ? s() : (u(), !1));
     }
     function m(t) {
       try {

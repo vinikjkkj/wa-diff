@@ -15,10 +15,7 @@ __d(
         );
       },
       getDebugInfo: function (t) {
-        return (
-          r("vulture")("5DisN8XwgLsW_G9l44mN6aSjm9Q="),
-          o("WAWebLoggerDebugInfo").getDebugInfo(t != null ? t : void 0)
-        );
+        return o("WAWebLoggerDebugInfo").getDebugInfo(t != null ? t : void 0);
       },
     };
     l.DebugBridgeApi = e;

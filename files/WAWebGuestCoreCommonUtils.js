@@ -23,13 +23,12 @@ __d(
       );
     }
     function s() {
-      var t = r("WAWebBrowserInfo")(),
-        n = o("WAWebUA").UA.parser.getResult();
+      var t = r("WAWebBrowserInfo")();
       return {
         browserName: e() ? "WhatsApp-AppClip" : t.name,
-        browserVersion: n.browser.version,
+        browserVersion: o("WAWebUA").UA.browserVersion,
         osName: t.os,
-        osVersion: t.version,
+        osVersion: o("WAWebUA").UA.osVersion,
       };
     }
     function u(e) {

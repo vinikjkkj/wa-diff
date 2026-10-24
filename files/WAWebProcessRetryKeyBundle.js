@@ -36,7 +36,8 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (r("WAWebMsgKey"))({
+          var n,
+            a = new (r("WAWebMsgKey"))({
               id: t,
               remote: e,
               fromMe: !0,
@@ -44,41 +45,51 @@ __d(
                 ? void 0
                 : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             }),
-            a = yield o("WAWebAddonRetryRequestUtils").getSentAddonMsgRecord(n);
-          if (a != null)
+            i = o("WAWebLidMigrationUtils").getAlternateMsgKey(a),
+            l =
+              (n = yield o("WAWebAddonRetryRequestUtils").getSentAddonMsgRecord(
+                a,
+              )) != null
+                ? n
+                : i != null
+                  ? yield o(
+                      "WAWebAddonRetryRequestUtils",
+                    ).getSentAddonMsgRecord(i)
+                  : null;
+          if (l != null)
             return {
-              msgKey: n,
-              messageRowId: a.selfMsgRow.rowId,
+              msgKey: a,
+              messageRowId: l.selfMsgRow.rowId,
               msgRecord: {
                 type: o("WAWebSendMsgTypes").SendMessageRecordType.Addon,
-                data: a.msgData,
+                data: l.msgData,
               },
             };
-          var i = yield o("WAWebSchemaMessage")
+          var s = yield o("WAWebSchemaMessage")
             .getMessageTable()
-            .get(String(n));
-          if (i == null) {
-            var l = o("WAWebLidMigrationUtils").getAlternateMsgKey(n);
-            l != null &&
-              (i = yield o("WAWebSchemaMessage")
+            .get(String(a));
+          return (
+            s == null &&
+              i != null &&
+              (s = yield o("WAWebSchemaMessage")
                 .getMessageTable()
-                .get(String(l)));
-          }
-          return i == null
-            ? null
-            : {
-                msgKey: n,
-                messageRowId:
-                  i.type === o("WAWebMsgType").MSG_TYPE.REVOKED
-                    ? i.protocolMessageRowId
-                    : i.rowId,
-                msgRecord: {
-                  type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-                  data: new (o("WAWebMsgModel").Msg)(
-                    o("WAWebDBMessageSerialization").messageFromDbRow(i),
-                  ),
-                },
-              };
+                .get(String(i))),
+            s == null
+              ? null
+              : {
+                  msgKey: a,
+                  messageRowId:
+                    s.type === o("WAWebMsgType").MSG_TYPE.REVOKED
+                      ? s.protocolMessageRowId
+                      : s.rowId,
+                  msgRecord: {
+                    type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
+                    data: new (o("WAWebMsgModel").Msg)(
+                      o("WAWebDBMessageSerialization").messageFromDbRow(s),
+                    ),
+                  },
+                }
+          );
         })),
         y.apply(this, arguments)
       );

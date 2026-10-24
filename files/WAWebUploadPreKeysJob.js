@@ -14,6 +14,7 @@ __d(
     "WAWebSignalUtilsApi",
     "asyncToGeneratorRuntime",
     "err",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -25,14 +26,17 @@ __d(
       p,
       _,
       f,
-      g = 812,
-      h = { error: !1, result: !0 },
-      y = new (r("WADeprecatedWapParser"))("uploadPreKeyResParser", function (
+      g = r("requireDeferred")("WAWebKyberPreKeyStore").__setRef(
+        "WAWebUploadPreKeysJob",
+      ),
+      h = 812,
+      y = { error: !1, result: !0 },
+      C = new (r("WADeprecatedWapParser"))("uploadPreKeyResParser", function (
         e,
       ) {
         var t;
         (e.assertTag("iq"), e.assertFromServer());
-        var n = e.attrEnum("type", h);
+        var n = e.attrEnum("type", y);
         if (n) return { success: !0 };
         var r = e.child("error");
         return {
@@ -40,12 +44,12 @@ __d(
           errorText: (t = r.maybeAttrString("text")) != null ? t : "",
         };
       });
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (f || (f = n("Promise"))).all([
               o("WAWebSignalStoreApi").waSignalStore.getRegistrationInfo(),
               o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
@@ -57,7 +61,7 @@ __d(
             l = t.registrationId,
             s = yield o("WAWebSignalStoreApi")
               .waSignalStore.getOrGenPreKeys(
-                g,
+                h,
                 o("WAWebSignalKeyApi").generatePreKeyPair,
               )
               .then(function (e) {
@@ -94,20 +98,23 @@ __d(
                 ];
               }),
             u = s[0],
-            h = s[1],
-            C = s[2];
+            g = s[1],
+            y = s[2];
           try {
             var b = yield o("WAComms")
               .waitForConnection()
               .then(function () {
                 return o("WAWebSignalStoreApi").waSignalStore.markKeyAsUploaded(
-                  h,
+                  g,
                 );
+              })
+              .then(function () {
+                return L();
               })
               .then(function () {
                 return o("WADeprecatedSendIq").deprecatedSendIqWithoutRetry(
                   u,
-                  y,
+                  C,
                 );
               });
             if (b.success)
@@ -120,7 +127,7 @@ __d(
                       " keys uploaded, raw stanza size: ",
                       "b",
                     ])),
-                  C,
+                  y,
                   u.toString().length,
                 ),
                 { success: !0 }
@@ -137,7 +144,7 @@ __d(
                         "b)",
                       ])),
                     v,
-                    C,
+                    y,
                     u.toString().length,
                   )
                 : v === 406
@@ -148,7 +155,7 @@ __d(
                           ", size: ",
                           "b)",
                         ])),
-                      C,
+                      y,
                       u.toString().length,
                     )
                   : o("WALogger").WARN(
@@ -160,7 +167,7 @@ __d(
                           "b)",
                         ])),
                       v,
-                      C,
+                      y,
                       u.toString().length,
                     ),
               { errorCode: b.errorCode, errorText: b.errorText }
@@ -175,20 +182,20 @@ __d(
                   "b",
                 ])),
               e,
-              C,
+              y,
               u.toString().length,
             );
             return;
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    var v = { algo: { type: "fibonacci", first: 1e3, second: 2e3 }, max: 61e4 };
-    function S() {
+    var S = { algo: { type: "fibonacci", first: 1e3, second: 2e3 }, max: 61e4 };
+    function R() {
       var t = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
         name: "uploadPreKeys",
-        timer: v,
+        timer: S,
         code: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             o("WALogger").LOG(
@@ -197,7 +204,7 @@ __d(
                   "uploadPreKeys: running",
                 ])),
             );
-            var n = yield C();
+            var n = yield b();
             (n == null ? void 0 : n.success) === !0
               ? (o("WALogger").LOG(
                   s ||
@@ -221,9 +228,23 @@ __d(
       });
       return (t.start(), t.promise());
     }
-    ((l.UPLOAD_KEYS_COUNT = g),
-      (l.uploadPreKeyResParser = y),
-      (l.uploadPreKeys = S));
+    function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield g.load(),
+            t = e.setPQMigrated;
+          yield t(!1);
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    ((l.UPLOAD_KEYS_COUNT = h),
+      (l.uploadPreKeyResParser = C),
+      (l.uploadPreKeys = R),
+      (l.resetPQMigration = L));
   },
   98,
 );

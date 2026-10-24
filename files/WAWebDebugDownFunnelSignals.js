@@ -6,6 +6,9 @@ __d(
     "WASmaxBizSettingsGetPrivacySettingRPC",
     "WASmaxInBizSettingsEnums",
     "WATimeUtils",
+    "WAWebABPropsCache",
+    "WAWebABPropsConfigs",
+    "WAWebAECompanionEligibility",
     "WAWebCTWADataSharingModel",
     "WAWebChatCollection",
     "WAWebCmd",
@@ -19,11 +22,13 @@ __d(
     "WAWebConversionTupleModel",
     "WAWebDataSharingOptInCoolOffModel",
     "WAWebDataSharingUpsellModel",
+    "WAWebDebugABProps",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebLabelCollection",
     "WAWebMobilePlatforms",
     "WAWebMsgType",
+    "WAWebPrimaryFeaturesModel",
     "WAWebSMBDataSharingSettingAction",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsIndexedDBStorage",
@@ -86,15 +91,16 @@ __d(
       te,
       ne,
       re,
-      oe;
-    function ae() {
+      oe,
+      ae;
+    function ie() {
       (r("vulture")("Kl2iMMR9zcQgmwwXcUD3UGnwWrI="),
         o("WAWebCmd").Cmd.on("open_chat", function (e) {
           var t = e.chat;
-          (r("vulture")("xBUKpDL6kQMXGownAgNIoBG_GxM="), (oe = t));
+          (r("vulture")("xBUKpDL6kQMXGownAgNIoBG_GxM="), (ae = t));
         }));
     }
-    var ie = (function () {
+    var le = (function () {
       var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
         return (
           r("vulture")("mjgKP6shTGmyHwvZu7UVyck7WWE="),
@@ -131,10 +137,10 @@ __d(
         return t.apply(this, arguments);
       };
     })();
-    ((ie.doc =
+    ((le.doc =
       'DFS - resets SMB Data Sharing setting on the server. Sets the value to "notset" (optional version)'),
-      (ie.paramsToExecute = []));
-    var le = (function () {
+      (le.paramsToExecute = []));
+    var se = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
         return (
           r("vulture")("L-MpgF_pa7MGikW3Ib0YervhQbE="),
@@ -170,13 +176,13 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((le.doc =
+    ((se.doc =
       'DFS - Sets the SMB Data Sharing setting on the server to a given value ("true"/"false"/"notset") and optional disclosure version'),
-      (le.paramsToExecute = [
+      (se.paramsToExecute = [
         o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true,
         2,
       ]));
-    var se = function (t) {
+    var ue = function (t) {
       (r("vulture")("tZKjoyDmLsfMAfQ8CVCi4UTSQCo="),
         o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
           o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset,
@@ -189,10 +195,10 @@ __d(
             ])),
         ));
     };
-    ((se.doc =
+    ((ue.doc =
       "DFS - resets SMB Data Sharing setting locally (client-only, no server RPC; optional version)"),
-      (se.paramsToExecute = []));
-    var ue = function (t) {
+      (ue.paramsToExecute = []));
+    var ce = function (t) {
       (r("vulture")("1i2KzJZ4HIHIA7RRHSE20aGh-QM="),
         o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
           o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true,
@@ -205,10 +211,10 @@ __d(
             ])),
         ));
     };
-    ((ue.doc =
+    ((ce.doc =
       "DFS - sets SMB Data Sharing setting to true locally (client-only, no server RPC; optional version)"),
-      (ue.paramsToExecute = []));
-    var ce = function (t) {
+      (ce.paramsToExecute = []));
+    var de = function (t) {
       (r("vulture")("EArX1enQK9FsqALnUgIup-czk5c="),
         o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
           o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false,
@@ -221,10 +227,10 @@ __d(
             ])),
         ));
     };
-    ((ce.doc =
+    ((de.doc =
       "DFS - sets SMB Data Sharing setting to false locally (client-only, no server RPC; optional version)"),
-      (ce.paramsToExecute = []));
-    var de = function () {
+      (de.paramsToExecute = []));
+    var me = function () {
       (r("vulture")("NBGZAEvbMDGFT5Q1yalK7kyOKuA="),
         r("WAWebUserPrefsStore").set(
           o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_V2_DISCLOSURE_SEEN,
@@ -237,10 +243,10 @@ __d(
             ])),
         ));
     };
-    ((de.doc =
+    ((me.doc =
       'DFS - Resets the "v2 disclosure seen" flag so the v2 (ePD) disclosure is treated as not-yet-seen and can be shown again.'),
-      (de.paramsToExecute = []));
-    var me = (function () {
+      (me.paramsToExecute = []));
+    var pe = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("QMoE5xlSIwmaSBAIgFI5Zyi09Wk=");
         try {
@@ -285,10 +291,10 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((me.doc =
+    ((pe.doc =
       "DFS - Fetches the SMB Data Sharing setting (value + disclosure version) from the server"),
-      (me.paramsToExecute = []));
-    var pe = function () {
+      (pe.paramsToExecute = []));
+    var _e = function () {
       r("vulture")("3cr-4VOoTfEmqsZZWQyDP62KhH8=");
       var e = {
         value: o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
@@ -306,14 +312,14 @@ __d(
         e
       );
     };
-    ((pe.doc =
+    ((_e.doc =
       "DFS - Reads the SMB Data Sharing setting (value + disclosure version) from the local client model (no server RPC)"),
-      (pe.paramsToExecute = []));
-    var _e = function (t) {
+      (_e.paramsToExecute = []));
+    var fe = function (t) {
       var e, n;
       r("vulture")("83Mj5sx7LzuWhghY-2VwutP98eY=");
       var a =
-          (t == null ? void 0 : t.chatId) || ((e = oe) == null ? void 0 : e.id),
+          (t == null ? void 0 : t.chatId) || ((e = ae) == null ? void 0 : e.id),
         i = (n = t == null ? void 0 : t.payload) != null ? n : "mock_data";
       if (a == null) {
         o("WALogger").ERROR(
@@ -355,13 +361,13 @@ __d(
         );
       }
     };
-    ((_e.doc =
+    ((fe.doc =
       "DFS - Adds CTWA payload to current chat. This will be used by the l10n team and in bug bashes."),
-      (_e.paramsToExecute = []));
-    function fe(e) {
+      (fe.paramsToExecute = []));
+    function ge(e) {
       var t, n;
       r("vulture")("9iky1ovxR6kybPXjoS8DaYyTE_U=");
-      var a = e.chatId || ((t = oe) == null ? void 0 : t.id),
+      var a = e.chatId || ((t = ae) == null ? void 0 : t.id),
         i = (n = e.payload) != null ? n : "mock_data";
       if (a == null) {
         o("WALogger").ERROR(
@@ -406,23 +412,23 @@ __d(
         );
       }
     }
-    var ge = function (t) {
+    var he = function (t) {
       (r("vulture")("VFPBj3x79Am6og3dKwnDAqVkQk4="),
-        fe({
+        ge({
           chatId: t == null ? void 0 : t.chatId,
           payload: t == null ? void 0 : t.payload,
           ctwaSignals: t == null ? void 0 : t.ctwaSignals,
           fromMe: !1,
         }));
     };
-    ((ge.doc =
+    ((he.doc =
       "DFS - Mocks an INBOUND CTWA payload (fromMe=false) \u2014 customer-replied-to-our-ad scenario."),
-      (ge.paramsToExecute = []));
-    var he = function (t) {
+      (he.paramsToExecute = []));
+    var ye = function (t) {
       var e, n;
       r("vulture")("vGP2Bbm3XNLrOD1CPYZTRZRhLAA=");
       var a =
-        (t == null ? void 0 : t.chatId) || ((e = oe) == null ? void 0 : e.id);
+        (t == null ? void 0 : t.chatId) || ((e = ae) == null ? void 0 : e.id);
       if (a == null) {
         o("WALogger").ERROR(
           E ||
@@ -465,25 +471,25 @@ __d(
         );
       }
     };
-    ((he.doc =
+    ((ye.doc =
       'DFS - Mocks an INBOUND 3pdag (EPD) CTWA thread: FB_Ads source, ctwaSignals="3pdag,3pdag", null encrypted payload, seeded ad id (fromMe=false). Simulates an ePD-customer thread.'),
-      (he.paramsToExecute = []));
-    var ye = function (t) {
+      (ye.paramsToExecute = []));
+    var Ce = function (t) {
       (r("vulture")("VpGdDq3zs7EeiERIF6TFCBNGVu4="),
-        fe({
+        ge({
           chatId: t == null ? void 0 : t.chatId,
           payload: t == null ? void 0 : t.payload,
           ctwaSignals: t == null ? void 0 : t.ctwaSignals,
           fromMe: !0,
         }));
     };
-    ((ye.doc =
+    ((Ce.doc =
       "DFS - Mocks an OUTBOUND CTWA payload (fromMe=true) \u2014 this business clicked another business's ad scenario."),
-      (ye.paramsToExecute = []));
-    var Ce = function (t) {
+      (Ce.paramsToExecute = []));
+    var be = function (t) {
       var e;
       r("vulture")("uqqx-n1RGeJLvO7CSkTHYSyNhBA=");
-      var n = t || ((e = oe) == null ? void 0 : e.id);
+      var n = t || ((e = ae) == null ? void 0 : e.id);
       n === "all"
         ? (r("WAWebConversionTupleCollection").delete(),
           o("WALogger").LOG(
@@ -509,20 +515,20 @@ __d(
                 ])),
             );
     };
-    ((Ce.doc =
+    ((be.doc =
       "DFS - Removes CTWA payload from the current chat, or all chats if chatId is not provided. Will be used in bug bashes"),
-      (Ce.paramsToExecute = []));
-    var be = function () {
+      (be.paramsToExecute = []));
+    var ve = function () {
       (r("vulture")("GH8WVB2LI6MuoOaiJzZu4qzkPEE="),
         r("WAWebUserPrefsStore").set(
           o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_UPSELL_ACTIVE,
           null,
         ));
     };
-    ((be.doc =
+    ((ve.doc =
       "DFS - Resets value of the flag used to control whether to show Data sharing Upsell on the first order creation if OptIn was cancelled"),
-      (be.paramsToExecute = []));
-    var ve = function (t) {
+      (ve.paramsToExecute = []));
+    var Se = function (t) {
       if ((r("vulture")("h7_XiQommhRXLL6BNvpASA1dVzU="), t)) {
         var e;
         ((e = r("WAWebConversionTupleCollection").get(t)) == null || e.delete(),
@@ -546,13 +552,13 @@ __d(
             [],
           ));
     };
-    ((ve.doc =
+    ((Se.doc =
       "DFS - Resets Consumer Transparency Icon. If no chat id provided clears all conversion tuples and permanent storage for icon markers"),
-      (ve.paramsToExecute = []));
-    var Se = function (t) {
+      (Se.paramsToExecute = []));
+    var Re = function (t) {
       var e;
       r("vulture")("FQzmbU5jXDIc5jxLOZXHcvV_BqA=");
-      var n = t || ((e = oe) == null ? void 0 : e.id);
+      var n = t || ((e = ae) == null ? void 0 : e.id);
       if (n == null) {
         o("WALogger").ERROR(
           $ ||
@@ -574,23 +580,23 @@ __d(
         a,
       );
     };
-    ((Se.doc =
+    ((Re.doc =
       "DFS - adds chatId to the perm storage. This will be used by l10n team. They do not need e2e, just to see the consumer dialog"),
-      (Se.paramsToExecute = []));
-    var Re = function () {
+      (Re.paramsToExecute = []));
+    var Le = function () {
       r("vulture")("8x6eoxxzYUkDumLQ87ac-Q8tnvk=");
       var e = o(
         "WAWebCommonCTWAConsumerTransparency",
       ).shouldShowROWConsumerDisclosure();
     };
-    ((Re.doc =
+    ((Le.doc =
       "DFS - checks if the updated consumer UI should be shown. This will be used by testers and bug bashers"),
-      (Re.paramsToExecute = []));
-    var Le = (function () {
+      (Le.paramsToExecute = []));
+    var Ee = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
         var t;
         r("vulture")("YeI7IanHM2KdGMCe9TZmY55PhLo=");
-        var n = e || ((t = oe) == null ? void 0 : t.id);
+        var n = e || ((t = ae) == null ? void 0 : t.id);
         if (n != null) {
           var a = new Map([]);
           if (n === "all")
@@ -640,10 +646,10 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Le.doc =
+    ((Ee.doc =
       "Lists - util to unapply all labels from a given chat, the current chat, or from all chats."),
-      (Le.paramsToExecute = []));
-    var Ee = function () {
+      (Ee.paramsToExecute = []));
+    var ke = function () {
       r("vulture")("aEdHjLDNu31BjfOiM70v9xCVKNk=");
       var e = o("WAWebUserPrefsGeneral").getDetectedOutcomeOnboardingStatus(),
         t = e == null ? !0 : !e;
@@ -659,10 +665,10 @@ __d(
           String(t),
         ));
     };
-    ((Ee.doc =
+    ((ke.doc =
       "DFS - Flips the isOptedIn value of WAWebCTWADetectedOutcomeModel. If null, sets to true."),
-      (Ee.paramsToExecute = []));
-    var ke = function () {
+      (ke.paramsToExecute = []));
+    var Ie = function () {
       r("vulture")("mdJ4KWbPShIPR1pjqMVNHSiG38U=");
       var e = o("WAWebUserPrefsGeneral").getDetectedOutcomeOnboardingStatus();
       return (
@@ -677,9 +683,9 @@ __d(
         e
       );
     };
-    ((ke.doc = "DFS - Display the value of WAWebCTWADetectedOutcomeModel."),
-      (ke.paramsToExecute = []));
-    var Ie = (function () {
+    ((Ie.doc = "DFS - Display the value of WAWebCTWADetectedOutcomeModel."),
+      (Ie.paramsToExecute = []));
+    var Te = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("-DoBQC5Giy_iazumoHMBF0p9Gl4=");
         var e = yield o(
@@ -701,10 +707,10 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Ie.doc =
+    ((Te.doc =
       "DFS - Fetch the account's canonical coex product state (product_states from Get BSP Info) and log the validated result without storing it."),
-      (Ie.paramsToExecute = []));
-    var Te = function () {
+      (Te.paramsToExecute = []));
+    var De = function () {
       r("vulture")("QiOnPn3ud3U6D4sR375UX3J-_dg=");
       var e = o("WAWebCoexProductStateStore").getCoexProductState();
       return (
@@ -719,10 +725,10 @@ __d(
         e
       );
     };
-    ((Te.doc =
+    ((De.doc =
       "DFS - Show the stored coex product state (WACoexProductState in the IndexedDB user prefs), or null when none is stored."),
-      (Te.paramsToExecute = []));
-    var De = function () {
+      (De.paramsToExecute = []));
+    var xe = function () {
       (r("vulture")("KcOHiTSpp07NEnjprRL77RmQUes="),
         o("WAWebCoexProductStateStore").clearCoexProductState(),
         o("WALogger").LOG(
@@ -732,59 +738,168 @@ __d(
             ])),
         ));
     };
-    ((De.doc =
+    ((xe.doc =
       "DFS - Clear the stored coex product state (WACoexProductState in the IndexedDB user prefs)."),
-      (De.paramsToExecute = []));
-    var xe = (function () {
+      (xe.paramsToExecute = []));
+    var $e = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         return (
           r("vulture")("-iajjepXTx3h5ILgAecTox-yy8g="),
           yield o("WAWebCoexStateSyncCoordinator").requestCoexStateRefresh(
             "debug",
           ),
-          Te()
+          De()
         );
       });
       return function () {
         return e.apply(this, arguments);
       };
     })();
-    ((xe.doc =
+    (($e.doc =
       "DFS - Pull the canonical coex product state through the refresh coordinator, store it when the snapshot is valid, then show the stored copy."),
-      (xe.paramsToExecute = []));
-    var $e = function () {
-      (r("vulture")("92QETC8tXo11s60ssXp8jkPUYBc="),
-        o("WAWebUserPrefsGeneral").setCTWADataSharingDisclosureShownCount(0),
+      ($e.paramsToExecute = []));
+    var Pe = function () {
+      var e,
+        t,
+        n,
+        r = {
+          ctwa_coex_state_sync_enabled: (n =
+            o("WAWebABPropsCache")).peekABPropConfigValue(
+            "ctwa_coex_state_sync_enabled",
+          ),
+          ctwa_smb_ae_onboarding_compatability_code: n.peekABPropConfigValue(
+            "ctwa_smb_ae_onboarding_compatability_code",
+          ),
+          ctwa_smb_ae_onboarding_enabled: n.peekABPropConfigValue(
+            "ctwa_smb_ae_onboarding_enabled",
+          ),
+          ctwa_smb_ae_companion_onboarding_enabled: n.peekABPropConfigValue(
+            "ctwa_smb_ae_companion_onboarding_enabled",
+          ),
+        },
+        a = o("WAWebMobilePlatforms").isSMB(),
+        i = o("WAWebUserPrefsGeneral").getCTWAMessageReceived(),
+        l = o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
+          "ctwa_message_received",
+        ),
+        s =
+          (e =
+            (t = o("WAWebCoexProductStateStore").getCoexProductState()) == null
+              ? void 0
+              : t.surfaces) != null
+            ? e
+            : null,
+        u = {
+          isBusinessAccount: function () {
+            return a;
+          },
+          hasCtwaContext: function () {
+            return i || l;
+          },
+          getCoexSurfaces: function () {
+            return r.ctwa_coex_state_sync_enabled.value === !0 ? s : null;
+          },
+          getCompatibilityBits: function () {
+            return Number(r.ctwa_smb_ae_onboarding_compatability_code.value);
+          },
+          isOnboardingFeatureEnabled: function () {
+            return r.ctwa_smb_ae_onboarding_enabled.value === !0;
+          },
+          isCompanionGateEnabled: function () {
+            return r.ctwa_smb_ae_companion_onboarding_enabled.value === !0;
+          },
+        },
+        c = o("WAWebAECompanionEligibility").getAEOnboardingRouteResult(u),
+        d = {
+          aeSwitch: (function (e) {
+            return Array.isArray(e) && e.length === 2 && e[0] === !0
+              ? "on"
+              : Array.isArray(e) && e.length === 2 && e[1] === "presented"
+                ? "off"
+                : "hidden";
+          })([o("WAWebAECompanionEligibility").isAEOffboardingAvailable(u), c]),
+          route: c,
+          isBusinessAccount: a,
+          webCtwaMessageReceived: i,
+          primaryCtwaMessageReceived: l,
+          storedCoexSurfaces: s,
+          props: r,
+        };
+      return (
         o("WALogger").LOG(
           F ||
             (F = babelHelpers.taggedTemplateLiteralLoose([
+              "debug: AE companion eligibility: ",
+              "",
+            ])),
+          JSON.stringify(d),
+        ),
+        d
+      );
+    };
+    ((Pe.doc =
+      "DFS - Show whether the AE switch in Lists is on, off or hidden, the eligibility route, and every input it reads, including each ABProp value and where it came from. Logs no exposures."),
+      (Pe.paramsToExecute = []));
+    var Ne = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        return (
+          o("WAWebMobilePlatforms").isSMB() &&
+            (yield Me("ctwa_coex_state_sync_enabled"),
+            yield Me("ctwa_smb_ae_onboarding_compatability_code"),
+            yield Me("ctwa_smb_ae_onboarding_enabled"),
+            yield Me("ctwa_smb_ae_companion_onboarding_enabled"),
+            yield o("WAWebCoexStateSyncCoordinator").requestCoexStateRefresh(
+              "debug",
+            )),
+          Pe()
+        );
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
+    ((Ne.doc =
+      "DFS - Override the AE-on-companions ABProps on this browser with their debug defaults, pull the coex state, then show dfsAECompanionEligibility. Does nothing on a consumer account."),
+      (Ne.paramsToExecute = []));
+    function Me(e) {
+      return r("WAWebDebugABProps").overrideABProp(
+        e,
+        o("WAWebABPropsConfigs").ABPropConfigs[e][3],
+      );
+    }
+    var we = function () {
+      (r("vulture")("92QETC8tXo11s60ssXp8jkPUYBc="),
+        o("WAWebUserPrefsGeneral").setCTWADataSharingDisclosureShownCount(0),
+        o("WALogger").LOG(
+          O ||
+            (O = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Reset CTWA Data Sharing Disclosure Shown Count to 0",
             ])),
         ));
     };
-    (($e.doc =
+    ((we.doc =
       "DFS - Reset the CTWA Data Sharing Disclosure Shown Count to 0. This allows opted-out users to see the disclosure again."),
-      ($e.paramsToExecute = []));
-    var Pe = function (t) {
+      (we.paramsToExecute = []));
+    var Ae = function (t) {
       (r("vulture")("t0-Rw81RzbCXTRKyinxtN118yIU="),
         o("WAWebUserPrefsGeneral").setCTWADataSharingDisclosureShownCount(t),
         o("WALogger").LOG(
-          O ||
-            (O = babelHelpers.taggedTemplateLiteralLoose([
+          B ||
+            (B = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Set CTWA Data Sharing Disclosure Shown Count to ",
               "",
             ])),
           String(t),
         ));
     };
-    ((Pe.doc =
+    ((Ae.doc =
       "DFS - Set the CTWA Data Sharing Disclosure Shown Count to a specific value."),
-      (Pe.paramsToExecute = [0]));
-    var Ne = function () {
+      (Ae.paramsToExecute = [0]));
+    var Fe = function () {
       (r("vulture")("jwjx35W2gCxq5m48AP3Ip_sdqxM="),
         o("WALogger").LOG(
-          B ||
-            (B = babelHelpers.taggedTemplateLiteralLoose([
+          W ||
+            (W = babelHelpers.taggedTemplateLiteralLoose([
               "debug: CTWADataSharingDisclosure - Total Views: ",
               "",
             ])),
@@ -793,29 +908,29 @@ __d(
           ),
         ));
     };
-    ((Ne.doc =
+    ((Fe.doc =
       "DFS - Log the current CTWA Data Sharing Disclosure Shown Count to the console."),
-      (Ne.paramsToExecute = []));
-    var Me = function () {
+      (Fe.paramsToExecute = []));
+    var Oe = function () {
       (r("vulture")("lIXjR0623wuh2lWqHOiipFAK7qA="),
         o("WAWebUserPrefsGeneral").setCTWADataSharingOptOutDisclosureShownCount(
           0,
         ),
         o("WALogger").LOG(
-          W ||
-            (W = babelHelpers.taggedTemplateLiteralLoose([
+          q ||
+            (q = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Reset CTWA Opt-Out Disclosure Shown Count to 0",
             ])),
         ));
     };
-    ((Me.doc =
+    ((Oe.doc =
       "DFS - Reset the CTWA Opt-Out Disclosure Shown Count to 0. This allows opted-out users who have dismissed the disclosure more than two times to see it again."),
-      (Me.paramsToExecute = []));
-    var we = function () {
+      (Oe.paramsToExecute = []));
+    var Be = function () {
       (r("vulture")("LuaQRzdLywn7Ghmg6WT8TaYejWE="),
         o("WALogger").LOG(
-          q ||
-            (q = babelHelpers.taggedTemplateLiteralLoose([
+          U ||
+            (U = babelHelpers.taggedTemplateLiteralLoose([
               "debug: CTWAOptOutDisclosure - Total Views: ",
               "",
             ])),
@@ -826,37 +941,37 @@ __d(
           ),
         ));
     };
-    ((we.doc =
+    ((Be.doc =
       "DFS - Log the current CTWA Opt-Out Disclosure Shown Count to the console."),
-      (we.paramsToExecute = []));
-    var Ae = function () {
+      (Be.paramsToExecute = []));
+    var We = function () {
       (r("vulture")("XcrAF0MEyFg5TzDYCL_Ib3kcyjk="),
         o("WALogger").LOG(
-          U ||
-            (U = babelHelpers.taggedTemplateLiteralLoose([
+          V ||
+            (V = babelHelpers.taggedTemplateLiteralLoose([
               "debug: CTWAMessageReceived: ",
               "",
             ])),
           String(o("WAWebUserPrefsGeneral").getCTWAMessageReceived()),
         ));
     };
-    ((Ae.doc =
+    ((We.doc =
       'DFS - Log the current CTWA-message-received flag. This flag gates the "Your customers\' activity" settings row.'),
-      (Ae.paramsToExecute = []));
-    var Fe = function () {
+      (We.paramsToExecute = []));
+    var qe = function () {
       (r("vulture")("Jg1RwUV_1-nhZ87co8tEMd9WHQM="),
         o("WAWebUserPrefsGeneral").setCTWAMessageReceived(!1),
         o("WALogger").LOG(
-          V ||
-            (V = babelHelpers.taggedTemplateLiteralLoose([
+          H ||
+            (H = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Reset CTWAMessageReceived to false",
             ])),
         ));
     };
-    ((Fe.doc =
+    ((qe.doc =
       'DFS - Reset the CTWA-message-received flag to false, so the "Your customers\' activity" settings row is hidden again until the next CTWA message is received.'),
-      (Fe.paramsToExecute = []));
-    var Oe = (function () {
+      (qe.paramsToExecute = []));
+    var Ue = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
         r("vulture")("3KnmSv_yLxFWwguJ2pXPy-2kFw8=");
         try {
@@ -874,8 +989,8 @@ __d(
           });
         } catch (e) {
           o("WALogger").ERROR(
-            H ||
-              (H = babelHelpers.taggedTemplateLiteralLoose([
+            G ||
+              (G = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsRenderDetectedOutcomeSystemMessage",
               ])),
           );
@@ -885,10 +1000,10 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Oe.doc =
+    ((Ue.doc =
       "DFS - Creates and renders a system message of type biz_automatically_labeled_chat_system_message in the current chat."),
-      (Oe.paramsToExecute = []));
-    var Be = (function () {
+      (Ue.paramsToExecute = []));
+    var Ve = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("FbSjr-UY1zA7xu49l_WBPC_cBHU=");
         var e = new Date();
@@ -917,15 +1032,15 @@ __d(
             o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
         } catch (e) {
           o("WALogger").ERROR(
-            G ||
-              (G = babelHelpers.taggedTemplateLiteralLoose([
+            z ||
+              (z = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsSetNewMessageCappedStatus",
               ])),
           );
         }
         o("WALogger").LOG(
-          z ||
-            (z = babelHelpers.taggedTemplateLiteralLoose([
+          j ||
+            (j = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Set New Message Capped Status",
             ])),
         );
@@ -934,9 +1049,9 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Be.doc = "DFS - Set New Message Capped Status"),
-      (Be.paramsToExecute = []));
-    var We = (function () {
+    ((Ve.doc = "DFS - Set New Message Capped Status"),
+      (Ve.paramsToExecute = []));
+    var He = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("cf8X8UC1C5CgDMIUztaXja-3A5s=");
         var e = new Date();
@@ -965,15 +1080,15 @@ __d(
             o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
         } catch (e) {
           o("WALogger").ERROR(
-            j ||
-              (j = babelHelpers.taggedTemplateLiteralLoose([
+            K ||
+              (K = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsResetNewMessageCappedStatus",
               ])),
           );
         }
         o("WALogger").LOG(
-          K ||
-            (K = babelHelpers.taggedTemplateLiteralLoose([
+          Q ||
+            (Q = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Reset New Message Capped Status",
             ])),
         );
@@ -982,9 +1097,9 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((We.doc = "DFS - Reset New Message Capped Status"),
-      (We.paramsToExecute = []));
-    var qe = (function () {
+    ((He.doc = "DFS - Reset New Message Capped Status"),
+      (He.paramsToExecute = []));
+    var Ge = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("PZPUXUPHsOKIHveiPlwZbIhNmI4=");
         var e = new Date();
@@ -1012,15 +1127,15 @@ __d(
           ),
             o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
             o("WALogger").LOG(
-              Q ||
-                (Q = babelHelpers.taggedTemplateLiteralLoose([
+              X ||
+                (X = babelHelpers.taggedTemplateLiteralLoose([
                   "debug: Set First Warning Status",
                 ])),
             ));
         } catch (e) {
           o("WALogger").ERROR(
-            X ||
-              (X = babelHelpers.taggedTemplateLiteralLoose([
+            Y ||
+              (Y = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsSetFirstWarningStatus",
               ])),
           );
@@ -1030,9 +1145,9 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((qe.doc = "DFS - Set New Message Capping First Warning Status"),
-      (qe.paramsToExecute = []));
-    var Ue = (function () {
+    ((Ge.doc = "DFS - Set New Message Capping First Warning Status"),
+      (Ge.paramsToExecute = []));
+    var ze = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("HB2XzA99rpvp7wPEuDt3hdQcVfk=");
         var e = new Date();
@@ -1060,15 +1175,15 @@ __d(
           ),
             o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
             o("WALogger").LOG(
-              Y ||
-                (Y = babelHelpers.taggedTemplateLiteralLoose([
+              J ||
+                (J = babelHelpers.taggedTemplateLiteralLoose([
                   "debug: Set Second Warning Status",
                 ])),
             ));
         } catch (e) {
           o("WALogger").ERROR(
-            J ||
-              (J = babelHelpers.taggedTemplateLiteralLoose([
+            Z ||
+              (Z = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsSetSecondWarningStatus",
               ])),
           );
@@ -1078,9 +1193,9 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Ue.doc = "DFS - Set New Message Capping Second Warning Status"),
-      (Ue.paramsToExecute = []));
-    var Ve = (function () {
+    ((ze.doc = "DFS - Set New Message Capping Second Warning Status"),
+      (ze.paramsToExecute = []));
+    var je = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("FVGZWDiU2BCJ9_vEBeE5TyoyLdw=");
         try {
@@ -1091,15 +1206,15 @@ __d(
             o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
         } catch (e) {
           o("WALogger").ERROR(
-            Z ||
-              (Z = babelHelpers.taggedTemplateLiteralLoose([
+            ee ||
+              (ee = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsClearNewMessageCappedData",
               ])),
           );
         }
         o("WALogger").LOG(
-          ee ||
-            (ee = babelHelpers.taggedTemplateLiteralLoose([
+          te ||
+            (te = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Clear New Message Capped Data",
             ])),
         );
@@ -1108,9 +1223,9 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Ve.doc = "DFS - Clear New Message Capped data"),
-      (Ve.paramsToExecute = []));
-    var He = (function () {
+    ((je.doc = "DFS - Clear New Message Capped data"),
+      (je.paramsToExecute = []));
+    var Ke = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         r("vulture")("G3c2VlmziJYmxj6yuxL0NO_8h_g=");
         var e = new Date();
@@ -1139,15 +1254,15 @@ __d(
             o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
         } catch (e) {
           o("WALogger").ERROR(
-            te ||
-              (te = babelHelpers.taggedTemplateLiteralLoose([
+            ne ||
+              (ne = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsSetCappedWithOTEEligible",
               ])),
           );
         }
         o("WALogger").LOG(
-          ne ||
-            (ne = babelHelpers.taggedTemplateLiteralLoose([
+          re ||
+            (re = babelHelpers.taggedTemplateLiteralLoose([
               "debug: Set Capped With OTE Eligible",
             ])),
         );
@@ -1156,9 +1271,9 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((He.doc = "DFS - Set capping status to CAPPED with OTE ELIGIBLE"),
-      (He.paramsToExecute = []));
-    var Ge = (function () {
+    ((Ke.doc = "DFS - Set capping status to CAPPED with OTE ELIGIBLE"),
+      (Ke.paramsToExecute = []));
+    var Qe = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
         r("vulture")("nl0WhX_WOJ2OQuDP0iisBIejhU8=");
         try {
@@ -1176,8 +1291,8 @@ __d(
           });
         } catch (e) {
           o("WALogger").ERROR(
-            re ||
-              (re = babelHelpers.taggedTemplateLiteralLoose([
+            oe ||
+              (oe = babelHelpers.taggedTemplateLiteralLoose([
                 "error:debug:dfsRenderConsumerDataDisclosureSystemMessage",
               ])),
           );
@@ -1187,26 +1302,26 @@ __d(
         return e.apply(this, arguments);
       };
     })();
-    ((Ge.doc =
+    ((Qe.doc =
       "DFS - Creates and renders a system message of type ctwa_consumer_data_disclosure in the current chat."),
-      (Ge.paramsToExecute = []));
-    var ze = {
-      dfsSmbSettingReset: ie,
-      dfsSmbSettingServerSet: le,
-      dfsSmbSettingResetLocal: se,
-      dfsSmbSettingOptInLocal: ue,
-      dfsSmbSettingOptOutLocal: ce,
-      dfsSmbSettingServerFetch: me,
-      dfsSmbSettingLocalFetch: pe,
-      dfsResetV2DisclosureSeen: de,
-      dfsSmbUpsellReset: be,
-      dfsMockCtwaPayloadForCurrentChatOrChatId: _e,
-      dfsMockReceivedCtwaPayloadForCurrentChatOrChatId: ge,
-      dfsMockReceived3pdagCtwaThreadForCurrentChatOrChatId: he,
-      dfsMockSentCtwaPayloadForCurrentChatOrChatId: ye,
-      dfsUnmockCtwaPayloadForCurrentChatOrChatId: Ce,
-      dfsConsumerIconReset: ve,
-      dfsConsumerMockInfoIconForCurrentChatOrChatId: Se,
+      (Qe.paramsToExecute = []));
+    var Xe = {
+      dfsSmbSettingReset: le,
+      dfsSmbSettingServerSet: se,
+      dfsSmbSettingResetLocal: ue,
+      dfsSmbSettingOptInLocal: ce,
+      dfsSmbSettingOptOutLocal: de,
+      dfsSmbSettingServerFetch: pe,
+      dfsSmbSettingLocalFetch: _e,
+      dfsResetV2DisclosureSeen: me,
+      dfsSmbUpsellReset: ve,
+      dfsMockCtwaPayloadForCurrentChatOrChatId: fe,
+      dfsMockReceivedCtwaPayloadForCurrentChatOrChatId: he,
+      dfsMockReceived3pdagCtwaThreadForCurrentChatOrChatId: ye,
+      dfsMockSentCtwaPayloadForCurrentChatOrChatId: Ce,
+      dfsUnmockCtwaPayloadForCurrentChatOrChatId: be,
+      dfsConsumerIconReset: Se,
+      dfsConsumerMockInfoIconForCurrentChatOrChatId: Re,
       dfsSmbSettingModel: o("WAWebCTWADataSharingModel").CTWADataSharingModel,
       dfsSmbCoolOffModel: o("WAWebDataSharingOptInCoolOffModel")
         .DataSharingOptInCoolOffModel,
@@ -1216,32 +1331,34 @@ __d(
       },
       dfsConsumerInfoIconModel: o("WAWebConsumerTransparencyInfoIconModel")
         .ConsumerTransparencyInfoIconModel,
-      dfsInitialize: ae,
-      dfsShouldShowROWConsumerDisclosure: Re,
-      dfsFlipCTWADetectedOutcomeOptIn: Ee,
-      dfsDisplayCTWADetectedOutcomeOnboardingStatus: ke,
-      dfsFetchCoexCanonicalState: Ie,
-      dfsShowCoexProductState: Te,
-      dfsClearCoexProductState: De,
-      dfsRefreshCoexState: xe,
-      dfsResetCTWADataSharingDisclosureShownCount: $e,
-      dfsSetCTWADataSharingDisclosureShownCount: Pe,
-      dfsDisplayCTWADataSharingDisclosureShownCount: Ne,
-      dfsResetCTWADataSharingOptOutDisclosureShownCount: Me,
-      dfsDisplayCTWADataSharingOptOutDisclosureShownCount: we,
-      dfsDisplayCTWAMessageReceived: Ae,
-      dfsResetCTWAMessageReceived: Fe,
-      dfsRenderDetectedOutcomeSystemMessage: Oe,
-      labelsUnassignAllLabelsFromChat: Le,
-      dfsSetNewMessageCappedStatus: Be,
-      dfsSetFirstWarningStatus: qe,
-      dfsSetSecondWarningStatus: Ue,
-      dfsResetNewMessageCappedStatus: We,
-      dfsClearNewMessageCappedData: Ve,
-      dfsSetCappedWithOTEEligible: He,
-      dfsRenderConsumerDataDisclosureSystemMessage: Ge,
+      dfsInitialize: ie,
+      dfsShouldShowROWConsumerDisclosure: Le,
+      dfsFlipCTWADetectedOutcomeOptIn: ke,
+      dfsDisplayCTWADetectedOutcomeOnboardingStatus: Ie,
+      dfsFetchCoexCanonicalState: Te,
+      dfsShowCoexProductState: De,
+      dfsClearCoexProductState: xe,
+      dfsRefreshCoexState: $e,
+      dfsAECompanionEligibility: Pe,
+      dfsAECompanionSetup: Ne,
+      dfsResetCTWADataSharingDisclosureShownCount: we,
+      dfsSetCTWADataSharingDisclosureShownCount: Ae,
+      dfsDisplayCTWADataSharingDisclosureShownCount: Fe,
+      dfsResetCTWADataSharingOptOutDisclosureShownCount: Oe,
+      dfsDisplayCTWADataSharingOptOutDisclosureShownCount: Be,
+      dfsDisplayCTWAMessageReceived: We,
+      dfsResetCTWAMessageReceived: qe,
+      dfsRenderDetectedOutcomeSystemMessage: Ue,
+      labelsUnassignAllLabelsFromChat: Ee,
+      dfsSetNewMessageCappedStatus: Ve,
+      dfsSetFirstWarningStatus: Ge,
+      dfsSetSecondWarningStatus: ze,
+      dfsResetNewMessageCappedStatus: He,
+      dfsClearNewMessageCappedData: je,
+      dfsSetCappedWithOTEEligible: Ke,
+      dfsRenderConsumerDataDisclosureSystemMessage: Qe,
     };
-    l.default = ze;
+    l.default = Xe;
   },
   98,
 );
