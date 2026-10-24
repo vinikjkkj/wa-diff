@@ -3,7 +3,6 @@ __d(
   ["WAWebUserPrefsDebugKeys", "WAWebUserPrefsStore", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      r("vulture")("G_TRIuQ_XEvTY9aCKK_ZBEUnzDI=");
       var e = r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_ERROR_TOAST_ENABLED,
       );
@@ -12,7 +11,7 @@ __d(
     var s = e(),
       u = new Set();
     function c() {
-      return (r("vulture")("yMhl1FWXeWNkPxqbjp2_vIZ7Kc8="), s);
+      return s;
     }
     function d(e) {
       (r("vulture")("ixAUdAAWY_OULfEP1xO0NFoMaxg="),
@@ -29,7 +28,6 @@ __d(
     ((d.doc = "Enable/disable error toast messages"), (d.paramsToExecute = []));
     function m(e) {
       return (
-        r("vulture")("DUHhVI0GO_tlDH1uov6IRbmvjgs="),
         u.add(e),
         function () {
           u.delete(e);

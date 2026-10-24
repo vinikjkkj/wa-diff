@@ -167,7 +167,7 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (r("vulture")("wsgVvISsbpTzItVjkqgbMrqcxFk="), yield y(e, void 0));
+          yield y(e, void 0);
         })),
         R.apply(this, arguments)
       );

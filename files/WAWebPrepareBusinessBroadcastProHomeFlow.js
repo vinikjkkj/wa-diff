@@ -60,16 +60,17 @@ __d(
       );
     }
     function E(t) {
-      var a = o("react-compiler-runtime").c(16),
+      var a = o("react-compiler-runtime").c(17),
         i = t.entryPoint,
         l = t.initialTab,
         s = t.onClose,
         u = t.openBroadcastSettings,
-        c = t.openCustomerBasePanel,
-        m,
-        _;
+        c = t.openContactImport,
+        m = t.openCustomerBasePanel,
+        _,
+        f;
       (a[0] !== i
-        ? ((m = function () {
+        ? ((_ = function () {
             return (
               o(
                 "WAWebBusinessBroadcastHomeQPLLogger",
@@ -77,19 +78,24 @@ __d(
               k
             );
           }),
-          (_ = [i]),
+          (f = [i]),
           (a[0] = i),
-          (a[1] = m),
-          (a[2] = _))
-        : ((m = a[1]), (_ = a[2])),
-        y(m, _));
-      var f, g;
-      a[3] !== i || a[4] !== l || a[5] !== s || a[6] !== u || a[7] !== c
-        ? ((f = (function () {
+          (a[1] = _),
+          (a[2] = f))
+        : ((_ = a[1]), (f = a[2])),
+        y(_, f));
+      var g, C;
+      a[3] !== i ||
+      a[4] !== l ||
+      a[5] !== s ||
+      a[6] !== u ||
+      a[7] !== c ||
+      a[8] !== m
+        ? ((g = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 try {
-                  var n = yield I(i, l, s, c === !0, u === !0);
+                  var n = yield I(i, l, s, m === !0, u === !0, c === !0);
                   return (t.aborted && n.dispose(), n);
                 } catch (n) {
                   var a = n;
@@ -118,47 +124,48 @@ __d(
               return t.apply(this, arguments);
             };
           })()),
-          (g = [i, l, s, u, c]),
+          (C = [i, l, s, u, m, c]),
           (a[3] = i),
           (a[4] = l),
           (a[5] = s),
           (a[6] = u),
           (a[7] = c),
-          (a[8] = f),
-          (a[9] = g))
-        : ((f = a[8]), (g = a[9]));
-      var C = r("useWAWebAsync")(f, g),
-        b = C.value,
-        v,
-        S;
-      (a[10] !== b
-        ? ((v = function () {
-            if (b != null) return b.dispose;
+          (a[8] = m),
+          (a[9] = g),
+          (a[10] = C))
+        : ((g = a[9]), (C = a[10]));
+      var b = r("useWAWebAsync")(g, C),
+        v = b.value,
+        S,
+        R;
+      (a[11] !== v
+        ? ((S = function () {
+            if (v != null) return v.dispose;
           }),
-          (S = [b]),
-          (a[10] = b),
+          (R = [v]),
           (a[11] = v),
-          (a[12] = S))
-        : ((v = a[11]), (S = a[12])),
-        h(v, S));
-      var R;
-      a[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = d.jsx(r("WAWebLoadingDrawer.react"), {
+          (a[12] = S),
+          (a[13] = R))
+        : ((S = a[12]), (R = a[13])),
+        h(S, R));
+      var L;
+      a[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = d.jsx(r("WAWebLoadingDrawer.react"), {
             error: !1,
             testid: "business-broadcast-pro-home-loading-drawer",
           })),
-          (a[13] = R))
-        : (R = a[13]);
-      var L = R;
-      if (b == null) return L;
-      var E;
+          (a[14] = L))
+        : (L = a[14]);
+      var E = L;
+      if (v == null) return E;
+      var T;
       return (
-        a[14] !== b.content
-          ? ((E = d.jsx(p, { fallback: L, children: b.content })),
-            (a[14] = b.content),
-            (a[15] = E))
-          : (E = a[15]),
-        E
+        a[15] !== v.content
+          ? ((T = d.jsx(p, { fallback: E, children: v.content })),
+            (a[15] = v.content),
+            (a[16] = T))
+          : (T = a[16]),
+        T
       );
     }
     function k() {
@@ -166,69 +173,70 @@ __d(
         "WAWebBusinessBroadcastHomeQPLLogger",
       ).BusinessBroadcastHomeQPLLogger.dropIfActive();
     }
-    function I(e, t, n, r, o) {
+    function I(e, t, n, r, o, a) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            var l;
-            (l = o(
+          function* (e, t, n, a, i, l) {
+            var s;
+            (s = o(
               "WAWebBusinessBroadcastHomeQPLLogger",
             )).BusinessBroadcastHomeQPLLogger.pointOnce(
-              l.BusinessBroadcastHomeQPLPoints
+              s.BusinessBroadcastHomeQPLPoints
                 .PRO_RELAY_ENVIRONMENT_FETCH_START,
             );
-            var s = yield r("WAWebBizBroadcastProRelayEnvironment")();
-            (l.BusinessBroadcastHomeQPLLogger.pointOnce(
-              l.BusinessBroadcastHomeQPLPoints.PRO_RELAY_ENVIRONMENT_FETCH_END,
+            var u = yield r("WAWebBizBroadcastProRelayEnvironment")();
+            (s.BusinessBroadcastHomeQPLLogger.pointOnce(
+              s.BusinessBroadcastHomeQPLPoints.PRO_RELAY_ENVIRONMENT_FETCH_END,
             ),
-              l.BusinessBroadcastHomeQPLLogger.pointOnce(
-                l.BusinessBroadcastHomeQPLPoints.CAMPAIGNS_FETCH_START,
+              s.BusinessBroadcastHomeQPLLogger.pointOnce(
+                s.BusinessBroadcastHomeQPLPoints.CAMPAIGNS_FETCH_START,
               ));
-            var u = o(
+            var c = o(
                 "WAWebBizBroadcastProCampaignQueryLoader",
-              ).preloadProCampaignQuery(s),
-              c;
-            try {
-              c = o(
-                "WAWebBizBroadcastProAudienceQueryLoader",
-              ).preloadProAudienceQuery(s);
-            } catch (e) {
-              throw (u.dispose(), e);
-            }
-            var m;
+              ).preloadProCampaignQuery(u),
+              m;
             try {
               m = o(
-                "WAWebBizBroadcastProSubscriberPoolStateQuery",
-              ).preloadSubscriberPoolStateQuery(s);
+                "WAWebBizBroadcastProAudienceQueryLoader",
+              ).preloadProAudienceQuery(u);
             } catch (e) {
-              throw (u.dispose(), c.dispose(), e);
+              throw (c.dispose(), e);
             }
-            var p = !1,
-              _ = function () {
-                p || ((p = !0), u.dispose(), c.dispose(), m.dispose());
+            var p;
+            try {
+              p = o(
+                "WAWebBizBroadcastProSubscriberPoolStateQuery",
+              ).preloadSubscriberPoolStateQuery(u);
+            } catch (e) {
+              throw (c.dispose(), m.dispose(), e);
+            }
+            var _ = !1,
+              f = function () {
+                _ || ((_ = !0), c.dispose(), m.dispose(), p.dispose());
               },
-              f = W(c);
+              g = W(m);
             return {
               content: d.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                environment: s,
+                environment: u,
                 children: d.jsx(D, {
-                  ProAudienceTable: f,
-                  dispose: _,
+                  ProAudienceTable: g,
+                  dispose: f,
                   entryPoint: e,
-                  environment: s,
-                  initialAudienceQueryRef: c,
-                  initialQueryRef: u,
-                  initialSubscriberPoolQueryRef: m,
+                  environment: u,
+                  initialAudienceQueryRef: m,
+                  initialQueryRef: c,
+                  initialSubscriberPoolQueryRef: p,
                   initialTab: t,
                   onClose: n,
                   openBroadcastSettings: i,
                   openCustomerBasePanel: a,
+                  openContactImport: l,
                 }),
               }),
-              dispose: _,
+              dispose: f,
             };
           },
         )),
@@ -238,7 +246,7 @@ __d(
     function D(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(57),
+        a = o("react-compiler-runtime").c(58),
         i = e.ProAudienceTable,
         l = e.dispose,
         c = e.entryPoint,
@@ -249,38 +257,33 @@ __d(
         h = e.initialTab,
         y = e.onClose,
         C = e.openBroadcastSettings,
-        L = e.openCustomerBasePanel,
-        E;
+        L = e.openContactImport,
+        E = e.openCustomerBasePanel,
+        k;
       a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = new Map()), (a[0] = E))
-        : (E = a[0]);
-      var k = b(E),
-        I;
+        ? ((k = new Map()), (a[0] = k))
+        : (k = a[0]);
+      var I = b(k),
+        T;
       (a[1] !== l
-        ? ((I = function () {
-            (k.current.forEach(P), k.current.clear(), l());
+        ? ((T = function () {
+            (I.current.forEach(P), I.current.clear(), l());
           }),
           (a[1] = l),
-          (a[2] = I))
-        : (I = a[2]),
-        r("useWAWebOnUnmount")(I));
-      var T;
+          (a[2] = T))
+        : (T = a[2]),
+        r("useWAWebOnUnmount")(T));
+      var D;
       a[3] !== m
-        ? ((T = function (t) {
-            var e = k.current.get(t);
+        ? ((D = function (t) {
+            var e = I.current.get(t);
             e == null || e.unsubscribe();
             var n,
               a = function () {
-                n != null && k.current.get(t) === n && k.current.delete(t);
+                n != null && I.current.get(t) === n && I.current.delete(t);
               };
-            o("CometRelay")
-              .fetchQuery(
-                m,
-                o("WAWebBizBroadcastProCampaignStatusRefreshQuery")
-                  .proCampaignStatusRefreshQuery,
-                { campaignId: t },
-                { fetchPolicy: "network-only" },
-              )
+            o("WAWebBizBroadcastProCampaignStatusRefreshQuery")
+              .fetchProCampaignStatusRefresh(m, t)
               .subscribe({
                 complete: a,
                 error: function (t) {
@@ -296,64 +299,64 @@ __d(
                       .sendLogs("bb-pro-campaign-refresh-failed"));
                 },
                 start: function (r) {
-                  ((n = r), k.current.set(t, r));
+                  ((n = r), I.current.set(t, r));
                 },
                 unsubscribe: a,
               });
           }),
           (a[3] = m),
-          (a[4] = T))
-        : (T = a[4]);
-      var D = r("useWAWebStableCallback")(T);
+          (a[4] = D))
+        : (D = a[4]);
+      var M = r("useWAWebStableCallback")(D);
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "biz_broadcast_pro_campaign_invalidated",
-        D,
+        M,
       );
-      var M;
+      var w;
       a[5] !== m
-        ? ((M = function () {
+        ? ((w = function () {
             return o(
               "WAWebBizBroadcastProAudienceQueryLoader",
             ).refreshProAudienceQuery(m);
           }),
           (a[5] = m),
-          (a[6] = M))
-        : (M = a[6]);
-      var w = M,
-        F = o("CometRelay").useQueryLoader(
+          (a[6] = w))
+        : (w = a[6]);
+      var F = w,
+        W = o("CometRelay").useQueryLoader(
           o("WAWebBizBroadcastProCampaignTableQuery").proCampaignTableQuery,
           f,
         ),
-        W = F[0],
-        q = F[1],
-        U = o("CometRelay").useQueryLoader(
+        q = W[0],
+        U = W[1],
+        V = o("CometRelay").useQueryLoader(
           o("WAWebBizBroadcastProSubscriberPoolStateQuery")
             .subscriberPoolStateQuery,
           g,
         ),
-        V = U[0],
-        H = U[1],
-        G = v(null),
-        z = G[0],
-        j = G[1],
-        K = v("unavailable"),
-        Q = K[0],
-        X = K[1],
-        Y = v(0),
-        J = Y[0],
-        Z = Y[1],
-        ee = v(0),
-        te = ee[0],
-        ne = ee[1],
-        re = S(),
-        oe = re[1],
-        ae;
-      a[7] !== q
-        ? ((ae = function (t) {
-            oe(function () {
-              (t && Z($),
-                q(
+        H = V[0],
+        G = V[1],
+        z = v(null),
+        j = z[0],
+        K = z[1],
+        Q = v("unavailable"),
+        X = Q[0],
+        Y = Q[1],
+        J = v(0),
+        Z = J[0],
+        ee = J[1],
+        te = v(0),
+        ne = te[0],
+        re = te[1],
+        oe = S(),
+        ae = oe[1],
+        ie;
+      a[7] !== U
+        ? ((ie = function (t) {
+            ae(function () {
+              (t && ee($),
+                U(
                   {
                     after: null,
                     first: o("WAWebBizBroadcastProCampaignQueryLoader")
@@ -363,68 +366,68 @@ __d(
                 ));
             });
           }),
-          (a[7] = q),
-          (a[8] = ae))
-        : (ae = a[8]);
-      var ie = ae,
-        le;
-      a[9] !== ie
-        ? ((le = function () {
-            return ie(!1);
+          (a[7] = U),
+          (a[8] = ie))
+        : (ie = a[8]);
+      var le = ie,
+        se;
+      a[9] !== le
+        ? ((se = function () {
+            return le(!1);
           }),
-          (a[9] = ie),
-          (a[10] = le))
-        : (le = a[10]);
-      var se = le;
+          (a[9] = le),
+          (a[10] = se))
+        : (se = a[10]);
+      var ue = se;
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         o("WAWebBroadcastConsts").BIZ_BROADCAST_CAMPAIGN_UPDATED_EVENT,
-        se,
+        ue,
       );
-      var ue;
-      a[11] !== ie
-        ? ((ue = function () {
-            return ie(!0);
+      var ce;
+      a[11] !== le
+        ? ((ce = function () {
+            return le(!0);
           }),
-          (a[11] = ie),
-          (a[12] = ue))
-        : (ue = a[12]);
-      var ce = ue,
-        de;
-      a[13] !== H
-        ? ((de = function () {
-            (ne(x), H({}, { fetchPolicy: "network-only" }));
+          (a[11] = le),
+          (a[12] = ce))
+        : (ce = a[12]);
+      var de = ce,
+        me;
+      a[13] !== G
+        ? ((me = function () {
+            (re(x), G({}, { fetchPolicy: "network-only" }));
           }),
-          (a[13] = H),
-          (a[14] = de))
-        : (de = a[14]);
-      var me = de,
-        pe;
-      a[15] !== V
-        ? ((pe = function (t, n, r) {
-            t === V && j({ queryRef: t, retryKey: n, subscriberPoolState: r });
+          (a[13] = G),
+          (a[14] = me))
+        : (me = a[14]);
+      var pe = me,
+        _e;
+      a[15] !== H
+        ? ((_e = function (t, n, r) {
+            t === H && K({ queryRef: t, retryKey: n, subscriberPoolState: r });
           }),
-          (a[15] = V),
-          (a[16] = pe))
-        : (pe = a[16]);
-      var _e = pe,
-        fe;
-      a[17] !== V
-        ? ((fe = function (t, n) {
-            t === V &&
-              j({
+          (a[15] = H),
+          (a[16] = _e))
+        : (_e = a[16]);
+      var fe = _e,
+        ge;
+      a[17] !== H
+        ? ((ge = function (t, n) {
+            t === H &&
+              K({
                 queryRef: t,
                 retryKey: n,
                 subscriberPoolState: { status: "error" },
               });
           }),
-          (a[17] = V),
-          (a[18] = fe))
-        : (fe = a[18]);
-      var ge = fe,
-        he;
+          (a[17] = H),
+          (a[18] = ge))
+        : (ge = a[18]);
+      var he = ge,
+        ye;
       a[19] === Symbol.for("react.memo_cache_sentinel")
-        ? ((he = function (t) {
+        ? ((ye = function (t) {
             (o("WALogger")
               .ERROR(
                 u ||
@@ -434,46 +437,48 @@ __d(
               )
               .catching(t)
               .sendLogs("bb-pro-home-audience-state-read-failed"),
-              X("unavailable"));
+              Y("unavailable"));
           }),
-          (a[19] = he))
-        : (he = a[19]);
-      var ye = he,
-        Ce;
-      a[20] !== J || a[21] !== W || a[22] !== ce
-        ? ((Ce =
-            W == null
+          (a[19] = ye))
+        : (ye = a[19]);
+      var Ce = ye,
+        be;
+      a[20] !== Z || a[21] !== q || a[22] !== de
+        ? ((be =
+            q == null
               ? null
-              : { errorBoundaryResetKey: J, onRetry: ce, queryRef: W }),
-          (a[20] = J),
-          (a[21] = W),
-          (a[22] = ce),
-          (a[23] = Ce))
-        : (Ce = a[23]);
-      var be = Ce,
-        ve = W == null ? null : B,
-        Se;
+              : { errorBoundaryResetKey: Z, onRetry: de, queryRef: q }),
+          (a[20] = Z),
+          (a[21] = q),
+          (a[22] = de),
+          (a[23] = be))
+        : (be = a[23]);
+      var ve = be,
+        Se = q == null ? null : B,
+        Re;
       a[24] !== i ||
       a[25] !== c ||
       a[26] !== h ||
       a[27] !== y ||
       a[28] !== C ||
       a[29] !== L ||
-      a[30] !== Q ||
-      a[31] !== w ||
-      a[32] !== se ||
-      a[33] !== ve
-        ? ((Se = {
+      a[30] !== E ||
+      a[31] !== X ||
+      a[32] !== F ||
+      a[33] !== ue ||
+      a[34] !== Se
+        ? ((Re = {
             entryPoint: c,
             initialTab: h,
             onClose: y,
-            onProCampaignsRefresh: se,
-            onRefreshProAudiences: w,
+            onProCampaignsRefresh: ue,
+            onRefreshProAudiences: F,
             openBroadcastSettings: C,
-            openCustomerBasePanel: L,
+            openCustomerBasePanel: E,
+            openContactImport: L,
             proAudienceTable: i,
-            proAudienceTableEmptyState: Q,
-            proBroadcastTable: ve,
+            proAudienceTableEmptyState: X,
+            proBroadcastTable: Se,
           }),
           (a[24] = i),
           (a[25] = c),
@@ -481,107 +486,108 @@ __d(
           (a[27] = y),
           (a[28] = C),
           (a[29] = L),
-          (a[30] = Q),
-          (a[31] = w),
-          (a[32] = se),
-          (a[33] = ve),
-          (a[34] = Se))
-        : (Se = a[34]);
-      var Re = Se,
-        Le;
-      a[35] !== Re || a[36] !== W || a[37] !== me
-        ? ((Le = function (t, n, r) {
+          (a[30] = E),
+          (a[31] = X),
+          (a[32] = F),
+          (a[33] = ue),
+          (a[34] = Se),
+          (a[35] = Re))
+        : (Re = a[35]);
+      var Le = Re,
+        Ee;
+      a[36] !== Le || a[37] !== q || a[38] !== pe
+        ? ((Ee = function (t, n, r) {
             return d.jsx(
               O,
-              babelHelpers.extends({}, Re, {
+              babelHelpers.extends({}, Le, {
                 isSubscriberPoolRefreshing: t,
-                onRetrySubscriberPool: me,
-                queryRef: W,
+                onRetrySubscriberPool: pe,
+                queryRef: q,
                 subscriberPoolRetryKey: n,
                 subscriberPoolState: r,
               }),
             );
           }),
-          (a[35] = Re),
-          (a[36] = W),
-          (a[37] = me),
-          (a[38] = Le))
-        : (Le = a[38]);
-      var Ee = Le,
-        ke = z != null && z.queryRef === V,
-        Ie = (t = z == null ? void 0 : z.retryKey) != null ? t : 0,
-        Te;
-      a[39] !== ge ||
-      a[40] !== _e ||
-      a[41] !== ke ||
-      a[42] !== V ||
-      a[43] !== te
-        ? ((Te =
-            V != null && !ke
+          (a[36] = Le),
+          (a[37] = q),
+          (a[38] = pe),
+          (a[39] = Ee))
+        : (Ee = a[39]);
+      var ke = Ee,
+        Ie = j != null && j.queryRef === H,
+        Te = (t = j == null ? void 0 : j.retryKey) != null ? t : 0,
+        De;
+      a[40] !== he ||
+      a[41] !== fe ||
+      a[42] !== Ie ||
+      a[43] !== H ||
+      a[44] !== ne
+        ? ((De =
+            H != null && !Ie
               ? d.jsx(
                   o("WAWebErrorBoundary.react").ErrorBoundary,
                   {
                     fallback: o("WAWebNullFunc").returnNull,
                     name: "biz-broadcast-pro-home-subscriber-pool",
                     onError: function () {
-                      return ge(V, te);
+                      return he(H, ne);
                     },
                     children: d.jsx(p, {
                       fallback: null,
                       children: d.jsx(A, {
-                        onResolve: _e,
-                        queryRef: V,
-                        retryKey: te,
+                        onResolve: fe,
+                        queryRef: H,
+                        retryKey: ne,
                       }),
                     }),
                   },
-                  te,
+                  ne,
                 )
               : null),
-          (a[39] = ge),
-          (a[40] = _e),
-          (a[41] = ke),
-          (a[42] = V),
-          (a[43] = te),
-          (a[44] = Te))
-        : (Te = a[44]);
-      var De;
-      a[45] !== _
-        ? ((De = d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+          (a[40] = he),
+          (a[41] = fe),
+          (a[42] = Ie),
+          (a[43] = H),
+          (a[44] = ne),
+          (a[45] = De))
+        : (De = a[45]);
+      var xe;
+      a[46] !== _
+        ? ((xe = d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
             fallback: o("WAWebNullFunc").returnNull,
             name: "biz-broadcast-pro-home-audience-state",
-            onError: ye,
+            onError: Ce,
             children: d.jsx(p, {
               fallback: null,
-              children: d.jsx(N, { onResolve: X, queryRef: _ }),
+              children: d.jsx(N, { onResolve: Y, queryRef: _ }),
             }),
           })),
-          (a[45] = _),
-          (a[46] = De))
-        : (De = a[46]);
-      var xe = V != null && !ke,
-        $e =
-          (n = z == null ? void 0 : z.subscriberPoolState) != null ? n : null,
-        Pe;
-      a[47] !== Ee || a[48] !== Ie || a[49] !== xe || a[50] !== $e
-        ? ((Pe = Ee(xe, Ie, $e)),
-          (a[47] = Ee),
-          (a[48] = Ie),
-          (a[49] = xe),
+          (a[46] = _),
+          (a[47] = xe))
+        : (xe = a[47]);
+      var $e = H != null && !Ie,
+        Pe =
+          (n = j == null ? void 0 : j.subscriberPoolState) != null ? n : null,
+        Ne;
+      a[48] !== ke || a[49] !== Te || a[50] !== $e || a[51] !== Pe
+        ? ((Ne = ke($e, Te, Pe)),
+          (a[48] = ke),
+          (a[49] = Te),
           (a[50] = $e),
-          (a[51] = Pe))
-        : (Pe = a[51]);
-      var Ne;
+          (a[51] = Pe),
+          (a[52] = Ne))
+        : (Ne = a[52]);
+      var Me;
       return (
-        a[52] !== be || a[53] !== Te || a[54] !== De || a[55] !== Pe
-          ? ((Ne = d.jsxs(R.Provider, { value: be, children: [Te, De, Pe] })),
-            (a[52] = be),
-            (a[53] = Te),
+        a[53] !== ve || a[54] !== De || a[55] !== xe || a[56] !== Ne
+          ? ((Me = d.jsxs(R.Provider, { value: ve, children: [De, xe, Ne] })),
+            (a[53] = ve),
             (a[54] = De),
-            (a[55] = Pe),
-            (a[56] = Ne))
-          : (Ne = a[56]),
-        Ne
+            (a[55] = xe),
+            (a[56] = Ne),
+            (a[57] = Me))
+          : (Me = a[57]),
+        Me
       );
     }
     function x(e) {
@@ -712,7 +718,7 @@ __d(
       );
     }
     function O(e) {
-      var t = o("react-compiler-runtime").c(23),
+      var t = o("react-compiler-runtime").c(24),
         n = e.entryPoint,
         a = e.initialTab,
         i = e.isSubscriberPoolRefreshing,
@@ -721,40 +727,41 @@ __d(
         u = e.onRefreshProAudiences,
         c = e.onRetrySubscriberPool,
         m = e.openBroadcastSettings,
-        p = e.openCustomerBasePanel,
-        _ = e.proAudienceTable,
-        f = e.proAudienceTableEmptyState,
-        g = e.proBroadcastTable,
-        h = e.queryRef,
-        y = e.subscriberPoolRetryKey,
-        C = e.subscriberPoolState,
-        b;
-      t[0] !== i || t[1] !== c || t[2] !== y || t[3] !== C
-        ? ((b = {
+        p = e.openContactImport,
+        _ = e.openCustomerBasePanel,
+        f = e.proAudienceTable,
+        g = e.proAudienceTableEmptyState,
+        h = e.proBroadcastTable,
+        y = e.queryRef,
+        C = e.subscriberPoolRetryKey,
+        b = e.subscriberPoolState,
+        v;
+      t[0] !== i || t[1] !== c || t[2] !== C || t[3] !== b
+        ? ((v = {
             isRefreshing: i,
             onRetry: c,
-            retryKey: y,
-            subscriberPoolState: C,
+            retryKey: C,
+            subscriberPoolState: b,
           }),
           (t[0] = i),
           (t[1] = c),
-          (t[2] = y),
-          (t[3] = C),
-          (t[4] = b))
-        : (b = t[4]);
-      var v = r("useWAWebBizBroadcastProSubscriberPoolSetup")(b),
-        S = v.setupCard,
-        R = v.subscriberPoolID,
-        L;
-      t[5] !== S || t[6] !== R
-        ? ((L = { subscriberPoolID: R, subscriberPoolSetupCard: S }),
-          (t[5] = S),
-          (t[6] = R),
-          (t[7] = L))
-        : (L = t[7]);
-      var E;
-      t[8] !== _ ||
-      t[9] !== g ||
+          (t[2] = C),
+          (t[3] = b),
+          (t[4] = v))
+        : (v = t[4]);
+      var S = r("useWAWebBizBroadcastProSubscriberPoolSetup")(v),
+        R = S.setupCard,
+        L = S.subscriberPoolID,
+        E;
+      t[5] !== R || t[6] !== L
+        ? ((E = { subscriberPoolID: L, subscriberPoolSetupCard: R }),
+          (t[5] = R),
+          (t[6] = L),
+          (t[7] = E))
+        : (E = t[7]);
+      var k;
+      t[8] !== f ||
+      t[9] !== h ||
       t[10] !== n ||
       t[11] !== a ||
       t[12] !== l ||
@@ -762,23 +769,25 @@ __d(
       t[14] !== u ||
       t[15] !== m ||
       t[16] !== p ||
-      t[17] !== f ||
-      t[18] !== L
-        ? ((E = {
+      t[17] !== _ ||
+      t[18] !== g ||
+      t[19] !== E
+        ? ((k = {
             entryPoint: n,
             initialTab: a,
             onClose: l,
             onProCampaignsRefresh: s,
             onRefreshProAudiences: u,
             openBroadcastSettings: m,
-            openCustomerBasePanel: p,
-            proAudienceManagementConfig: L,
-            proAudienceTable: _,
-            proAudienceTableEmptyState: f,
-            proBroadcastTable: g,
+            openCustomerBasePanel: _,
+            openContactImport: p,
+            proAudienceManagementConfig: E,
+            proAudienceTable: f,
+            proAudienceTableEmptyState: g,
+            proBroadcastTable: h,
           }),
-          (t[8] = _),
-          (t[9] = g),
+          (t[8] = f),
+          (t[9] = h),
           (t[10] = n),
           (t[11] = a),
           (t[12] = l),
@@ -786,31 +795,32 @@ __d(
           (t[14] = u),
           (t[15] = m),
           (t[16] = p),
-          (t[17] = f),
-          (t[18] = L),
-          (t[19] = E))
-        : (E = t[19]);
-      var k = E,
-        I;
+          (t[17] = _),
+          (t[18] = g),
+          (t[19] = E),
+          (t[20] = k))
+        : (k = t[20]);
+      var I = k,
+        T;
       return (
-        t[20] !== k || t[21] !== h
-          ? ((I =
-              h == null
+        t[21] !== I || t[22] !== y
+          ? ((T =
+              y == null
                 ? d.jsx(
                     o("WAWebBusinessBroadcastProHomeFlowBoundary")
                       .WAWebBusinessBroadcastProHomeFlowBoundary,
-                    babelHelpers.extends({}, k, { proHomeQueryRef: null }),
+                    babelHelpers.extends({}, I, { proHomeQueryRef: null }),
                   )
                 : d.jsx(
                     o("WAWebBizBroadcastProCampaignTableQuery")
                       .WAWebBizBroadcastProHomeQueryReader,
-                    babelHelpers.extends({}, k, { queryRef: h }),
+                    babelHelpers.extends({}, I, { queryRef: y }),
                   )),
-            (t[20] = k),
-            (t[21] = h),
-            (t[22] = I))
-          : (I = t[22]),
-        I
+            (t[21] = I),
+            (t[22] = y),
+            (t[23] = T))
+          : (T = t[23]),
+        T
       );
     }
     var B = function (t) {

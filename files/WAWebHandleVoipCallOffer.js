@@ -145,7 +145,10 @@ __d(
                   })(),
                 );
             }
-            if (e.silence_reason === "vc_wave_all") {
+            if (
+              e.silence_reason === "vc_wave_all" &&
+              !o("WAWebVoipGatingUtils").isWebVoiceChatEnabled()
+            ) {
               var h,
                 y =
                   e.group_jid != null

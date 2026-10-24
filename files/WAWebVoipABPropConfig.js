@@ -124,6 +124,11 @@ __d(
           type: "bool",
         },
         {
+          abProp: "voice_chat_companion_experience_version",
+          wasmKey: "voice_chat_companion_experience_version",
+          type: "int",
+        },
+        {
           abProp: "voice_ai_conversation_starter_latency_tracking",
           wasmKey: "voice_ai_conversation_starter_latency_tracking",
           type: "bool",
