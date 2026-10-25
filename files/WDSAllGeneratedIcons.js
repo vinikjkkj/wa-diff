@@ -36,6 +36,7 @@ __d(
     "WDSIconIcArrowDownward.react",
     "WDSIconIcArrowDropDown.react",
     "WDSIconIcArrowForward.react",
+    "WDSIconIcArrowInsert.react",
     "WDSIconIcArrowRight.react",
     "WDSIconIcArrowUpward.react",
     "WDSIconIcArticle.react",
@@ -116,6 +117,7 @@ __d(
     "WDSIconIcDangerous.react",
     "WDSIconIcDarkMode.react",
     "WDSIconIcDataUsage.react",
+    "WDSIconIcDataset.react",
     "WDSIconIcDelete.react",
     "WDSIconIcDeployedCode.react",
     "WDSIconIcDeployedCodeFill.react",
@@ -163,6 +165,7 @@ __d(
     "WDSIconIcFavoriteFilled.react",
     "WDSIconIcFilter.react",
     "WDSIconIcFilterFilled.react",
+    "WDSIconIcFilterList.react",
     "WDSIconIcFingerprint.react",
     "WDSIconIcFitnessCenter.react",
     "WDSIconIcFlag.react",
@@ -178,15 +181,19 @@ __d(
     "WDSIconIcFormatAlignLeft.react",
     "WDSIconIcFormatAlignRight.react",
     "WDSIconIcFormatBold.react",
+    "WDSIconIcFormatInkHighlighter.react",
     "WDSIconIcFormatItalic.react",
     "WDSIconIcFormatListBulleted.react",
     "WDSIconIcFormatListNumbered.react",
     "WDSIconIcFormatQuote.react",
     "WDSIconIcFormatStrikethrough.react",
+    "WDSIconIcFormatUnderlined.react",
     "WDSIconIcFullscreen.react",
     "WDSIconIcFullscreenExit.react",
     "WDSIconIcGavel.react",
+    "WDSIconIcGesture.react",
     "WDSIconIcGif.react",
+    "WDSIconIcGifBox.react",
     "WDSIconIcGoogleLensIcon.react",
     "WDSIconIcGppMaybe.react",
     "WDSIconIcGrade.react",
@@ -291,6 +298,7 @@ __d(
     "WDSIconIcOpenBook.react",
     "WDSIconIcOpenBookFilled.react",
     "WDSIconIcOpenInNew.react",
+    "WDSIconIcPageInfo.react",
     "WDSIconIcPaid.react",
     "WDSIconIcPaidFill.react",
     "WDSIconIcPalette.react",
@@ -321,6 +329,7 @@ __d(
     "WDSIconIcPhoneMissed.react",
     "WDSIconIcPhotoCamera.react",
     "WDSIconIcPhotoCameraFilled.react",
+    "WDSIconIcPhotoLibrary.react",
     "WDSIconIcPictureInPictureAlt.react",
     "WDSIconIcPlayArrow.react",
     "WDSIconIcPlayArrowFilled.react",
@@ -328,6 +337,7 @@ __d(
     "WDSIconIcPodcasts.react",
     "WDSIconIcPriorityHigh.react",
     "WDSIconIcPrivacyTip.react",
+    "WDSIconIcPromptSuggestion.react",
     "WDSIconIcPublic.react",
     "WDSIconIcPushPin.react",
     "WDSIconIcPushPinFilled.react",
@@ -353,6 +363,7 @@ __d(
     "WDSIconIcRestaurant.react",
     "WDSIconIcReviews.react",
     "WDSIconIcRotate90DegreesCcw.react",
+    "WDSIconIcRotate90DegreesCw.react",
     "WDSIconIcSchedule.react",
     "WDSIconIcScheduleFilled.react",
     "WDSIconIcScheduleSend.react",
@@ -369,6 +380,7 @@ __d(
     "WDSIconIcSend.react",
     "WDSIconIcSendFilled.react",
     "WDSIconIcSendToMobile.react",
+    "WDSIconIcSensors.react",
     "WDSIconIcSentimentDissatisfied.react",
     "WDSIconIcSentimentExcited.react",
     "WDSIconIcSentimentExtremelyDissatisfied.react",
@@ -376,9 +388,12 @@ __d(
     "WDSIconIcSettings.react",
     "WDSIconIcSettingsFilled.react",
     "WDSIconIcShare.react",
+    "WDSIconIcShareWindows.react",
     "WDSIconIcShield.react",
     "WDSIconIcShieldLock.react",
     "WDSIconIcShieldPattern.react",
+    "WDSIconIcShieldPerson.react",
+    "WDSIconIcShieldPersonFilled.react",
     "WDSIconIcShieldVerified.react",
     "WDSIconIcShieldVerifiedFilled.react",
     "WDSIconIcShoppingBag.react",
@@ -999,6 +1014,7 @@ __d(
     "WDSIconIosWdsIcReasoningAiFill.react",
     "WDSIconIosWdsIcReels.react",
     "WDSIconIosWdsIcReelsFilled.react",
+    "WDSIconIosWdsIcRemoveSelection.react",
     "WDSIconIosWdsIcReshareCheck.react",
     "WDSIconIosWdsIcScamDetection.react",
     "WDSIconIosWdsIcScheduleSend.react",
@@ -1366,6 +1382,7 @@ __d(
     "WDSIconWdsIcReceiveFromMobile.react",
     "WDSIconWdsIcReels.react",
     "WDSIconWdsIcReelsFilled.react",
+    "WDSIconWdsIcRemoveSelection.react",
     "WDSIconWdsIcReshareCheck.react",
     "WDSIconWdsIcScamDetection.react",
     "WDSIconWdsIcSettingsBadge.react",
@@ -1588,6 +1605,10 @@ __d(
         {
           Component: r("WDSIconIcArrowForward.react"),
           name: "WDSIconIcArrowForward",
+        },
+        {
+          Component: r("WDSIconIcArrowInsert.react"),
+          name: "WDSIconIcArrowInsert",
         },
         {
           Component: r("WDSIconIcArrowRight.react"),
@@ -1837,6 +1858,7 @@ __d(
           Component: r("WDSIconIcDataUsage.react"),
           name: "WDSIconIcDataUsage",
         },
+        { Component: r("WDSIconIcDataset.react"), name: "WDSIconIcDataset" },
         { Component: r("WDSIconIcDelete.react"), name: "WDSIconIcDelete" },
         {
           Component: r("WDSIconIcDeployedCode.react"),
@@ -1975,6 +1997,10 @@ __d(
           name: "WDSIconIcFilterFilled",
         },
         {
+          Component: r("WDSIconIcFilterList.react"),
+          name: "WDSIconIcFilterList",
+        },
+        {
           Component: r("WDSIconIcFingerprint.react"),
           name: "WDSIconIcFingerprint",
         },
@@ -2023,6 +2049,10 @@ __d(
           name: "WDSIconIcFormatBold",
         },
         {
+          Component: r("WDSIconIcFormatInkHighlighter.react"),
+          name: "WDSIconIcFormatInkHighlighter",
+        },
+        {
           Component: r("WDSIconIcFormatItalic.react"),
           name: "WDSIconIcFormatItalic",
         },
@@ -2043,6 +2073,10 @@ __d(
           name: "WDSIconIcFormatStrikethrough",
         },
         {
+          Component: r("WDSIconIcFormatUnderlined.react"),
+          name: "WDSIconIcFormatUnderlined",
+        },
+        {
           Component: r("WDSIconIcFullscreen.react"),
           name: "WDSIconIcFullscreen",
         },
@@ -2051,7 +2085,9 @@ __d(
           name: "WDSIconIcFullscreenExit",
         },
         { Component: r("WDSIconIcGavel.react"), name: "WDSIconIcGavel" },
+        { Component: r("WDSIconIcGesture.react"), name: "WDSIconIcGesture" },
         { Component: r("WDSIconIcGif.react"), name: "WDSIconIcGif" },
+        { Component: r("WDSIconIcGifBox.react"), name: "WDSIconIcGifBox" },
         {
           Component: r("WDSIconIcGoogleLensIcon.react"),
           name: "WDSIconIcGoogleLensIcon",
@@ -2333,6 +2369,7 @@ __d(
           Component: r("WDSIconIcOpenInNew.react"),
           name: "WDSIconIcOpenInNew",
         },
+        { Component: r("WDSIconIcPageInfo.react"), name: "WDSIconIcPageInfo" },
         { Component: r("WDSIconIcPaid.react"), name: "WDSIconIcPaid" },
         { Component: r("WDSIconIcPaidFill.react"), name: "WDSIconIcPaidFill" },
         { Component: r("WDSIconIcPalette.react"), name: "WDSIconIcPalette" },
@@ -2430,6 +2467,10 @@ __d(
           name: "WDSIconIcPhotoCameraFilled",
         },
         {
+          Component: r("WDSIconIcPhotoLibrary.react"),
+          name: "WDSIconIcPhotoLibrary",
+        },
+        {
           Component: r("WDSIconIcPictureInPictureAlt.react"),
           name: "WDSIconIcPictureInPictureAlt",
         },
@@ -2453,6 +2494,10 @@ __d(
         {
           Component: r("WDSIconIcPrivacyTip.react"),
           name: "WDSIconIcPrivacyTip",
+        },
+        {
+          Component: r("WDSIconIcPromptSuggestion.react"),
+          name: "WDSIconIcPromptSuggestion",
         },
         { Component: r("WDSIconIcPublic.react"), name: "WDSIconIcPublic" },
         { Component: r("WDSIconIcPushPin.react"), name: "WDSIconIcPushPin" },
@@ -2515,6 +2560,10 @@ __d(
           Component: r("WDSIconIcRotate90DegreesCcw.react"),
           name: "WDSIconIcRotate90DegreesCcw",
         },
+        {
+          Component: r("WDSIconIcRotate90DegreesCw.react"),
+          name: "WDSIconIcRotate90DegreesCw",
+        },
         { Component: r("WDSIconIcSchedule.react"), name: "WDSIconIcSchedule" },
         {
           Component: r("WDSIconIcScheduleFilled.react"),
@@ -2555,6 +2604,7 @@ __d(
           Component: r("WDSIconIcSendToMobile.react"),
           name: "WDSIconIcSendToMobile",
         },
+        { Component: r("WDSIconIcSensors.react"), name: "WDSIconIcSensors" },
         {
           Component: r("WDSIconIcSentimentDissatisfied.react"),
           name: "WDSIconIcSentimentDissatisfied",
@@ -2577,6 +2627,10 @@ __d(
           name: "WDSIconIcSettingsFilled",
         },
         { Component: r("WDSIconIcShare.react"), name: "WDSIconIcShare" },
+        {
+          Component: r("WDSIconIcShareWindows.react"),
+          name: "WDSIconIcShareWindows",
+        },
         { Component: r("WDSIconIcShield.react"), name: "WDSIconIcShield" },
         {
           Component: r("WDSIconIcShieldLock.react"),
@@ -2585,6 +2639,14 @@ __d(
         {
           Component: r("WDSIconIcShieldPattern.react"),
           name: "WDSIconIcShieldPattern",
+        },
+        {
+          Component: r("WDSIconIcShieldPerson.react"),
+          name: "WDSIconIcShieldPerson",
+        },
+        {
+          Component: r("WDSIconIcShieldPersonFilled.react"),
+          name: "WDSIconIcShieldPersonFilled",
         },
         {
           Component: r("WDSIconIcShieldVerified.react"),
@@ -4844,6 +4906,10 @@ __d(
           name: "WDSIconIosWdsIcReelsFilled",
         },
         {
+          Component: r("WDSIconIosWdsIcRemoveSelection.react"),
+          name: "WDSIconIosWdsIcRemoveSelection",
+        },
+        {
           Component: r("WDSIconIosWdsIcReshareCheck.react"),
           name: "WDSIconIosWdsIcReshareCheck",
         },
@@ -6273,6 +6339,10 @@ __d(
         {
           Component: r("WDSIconWdsIcReelsFilled.react"),
           name: "WDSIconWdsIcReelsFilled",
+        },
+        {
+          Component: r("WDSIconWdsIcRemoveSelection.react"),
+          name: "WDSIconWdsIcRemoveSelection",
         },
         {
           Component: r("WDSIconWdsIcReshareCheck.react"),

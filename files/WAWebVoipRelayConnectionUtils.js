@@ -247,6 +247,7 @@ __d(
     var w = n("$InternalEnum").Mirrored([
       "STUN_ALLOC",
       "STUN_BIND",
+      "STUN_STATEFUL_PING",
       "STUN_UNKNOWN",
       "NonSTUN",
     ]);
@@ -257,7 +258,13 @@ __d(
         r = t[1];
       if ((n & 192) === 0) {
         var o = ((n & 63) << 8) | r;
-        return o === 1 ? w.STUN_BIND : o === 3 ? w.STUN_ALLOC : w.STUN_UNKNOWN;
+        return o === 1
+          ? w.STUN_BIND
+          : o === 3
+            ? w.STUN_ALLOC
+            : o === 2052
+              ? w.STUN_STATEFUL_PING
+              : w.STUN_UNKNOWN;
       }
       return w.NonSTUN;
     }

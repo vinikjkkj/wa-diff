@@ -3,109 +3,235 @@ __d(
   ["fbt", "WAWebOrgAdminBulkGroupNaming", "WAWebOrgAdminGroupCandidate"],
   function (t, n, r, o, a, i, l, s) {
     var e = "",
-      u = { excludedKeys: new Set(), names: new Map() };
-    function c(t) {
+      u = "",
+      c = { excludedKeys: new Set(), names: new Map() };
+    function d(t) {
       var n = t.candidates,
         r = t.edits,
-        a = r === void 0 ? u : r,
+        a = r === void 0 ? c : r,
         i = t.maxGroupNameLength,
         l = t.maxMembersPerGroup,
-        c = t.template,
-        d = new Map(),
-        m = 0,
-        p = 0;
-      n.forEach(function (t) {
+        s = t.selection,
+        d = t.template,
+        m = new Map(),
+        p = 0,
+        _ = 0,
+        h = s.scope == null ? [] : [s.scope],
+        C = f(s) ? g(n, s.scope) : [],
+        b = new Map(
+          s.tags.map(function (e) {
+            return [
+              e,
+              new Map(
+                y(C, e).map(function (e) {
+                  var t = e.value;
+                  return [
+                    o(
+                      "WAWebOrgAdminBulkGroupNaming",
+                    ).getOrgAdminBulkGroupMemberTagKey(t),
+                    t,
+                  ];
+                }),
+              ),
+            ];
+          }),
+        );
+      C.forEach(function (t) {
         if (!o("WAWebOrgAdminGroupCandidate").canAddOrgAdminGroupCandidate(t)) {
-          p += 1;
+          _ += 1;
           return;
         }
-        var n = o(
-            "WAWebOrgAdminBulkGroupNaming",
-          ).normalizeOrgAdminBulkGroupMemberTag(t.memberTag),
-          r =
-            n == null
+        var n = R(t, s.tags, b),
+          r = n == null ? null : [].concat(h, n),
+          a =
+            r == null
               ? e
-              : o(
-                  "WAWebOrgAdminBulkGroupNaming",
-                ).getOrgAdminBulkGroupMemberTagKey(n),
-          a = d.get(r);
-        if (a == null) {
-          d.set(r, { memberTag: n, membersByKey: new Map([[t.key, t]]) });
+              : r
+                  .map(function (e) {
+                    var t = e.value;
+                    return o(
+                      "WAWebOrgAdminBulkGroupNaming",
+                    ).getOrgAdminBulkGroupMemberTagKey(t);
+                  })
+                  .join(u),
+          i = m.get(a);
+        if (i == null) {
+          m.set(a, { membersByKey: new Map([[t.key, t]]), tagValues: r });
           return;
         }
-        (a.memberTag != null && n != null && (a.memberTag = _(a.memberTag, n)),
-          a.membersByKey.has(t.key) && (m += 1),
-          a.membersByKey.set(t.key, t));
+        (i.membersByKey.has(t.key) && (p += 1), i.membersByKey.set(t.key, t));
       });
-      var g = Array.from(d.entries())
+      var v = Array.from(m.entries())
           .map(function (e) {
             var t,
               n = e[0],
               r = e[1],
-              u = r.membersByKey,
-              d = r.memberTag,
-              m = Array.from(u.values()),
-              p = o("WAWebOrgAdminBulkGroupNaming").formatOrgAdminBulkGroupName(
-                c,
-                d != null ? d : s._(/*BTDS*/ "Unassigned").toString(),
-              ),
-              _ = ((t = a.names.get(n)) != null ? t : "").trim(),
-              f = _ === "" ? p : _,
-              g = [];
+              s = r.membersByKey,
+              u = r.tagValues,
+              c = Array.from(s.values()),
+              m =
+                u == null
+                  ? S(d)
+                  : o(
+                      "WAWebOrgAdminBulkGroupNaming",
+                    ).formatOrgAdminBulkGroupName(d, u),
+              p = ((t = a.names.get(n)) != null ? t : "").trim(),
+              _ = p === "" ? m : p,
+              f = [];
             return (
-              f.length > i && g.push("name_too_long"),
-              m.length > l && g.push("too_many_members"),
+              _.length > i && f.push("name_too_long"),
+              c.length > l && f.push("too_many_members"),
               {
-                autoName: p,
+                autoName: m,
                 included: !a.excludedKeys.has(n),
                 key: n,
-                memberTag:
-                  d != null ? d : s._(/*BTDS*/ "No member tag").toString(),
-                members: m,
-                name: f,
-                validationErrors: g,
+                members: c,
+                name: _,
+                tagValues: u != null ? u : h,
+                validationErrors: f,
               }
             );
           })
-          .sort(f),
-        h = g.filter(function (e) {
+          .sort(E),
+        L = v.filter(function (e) {
           return e.included;
         });
       return {
-        collapsedMemberCount: m,
-        excludedMemberCount: p,
-        groups: g,
-        includedGroups: h,
-        invalidGroupCount: h.filter(function (e) {
+        collapsedMemberCount: p,
+        excludedMemberCount: _,
+        groups: v,
+        includedGroups: L,
+        invalidGroupCount: L.filter(function (e) {
           return e.validationErrors.length > 0;
         }).length,
-        sourceMemberCount: n.length,
+        sourceMemberCount: C.length,
       };
     }
-    function d(e) {
+    function m() {
+      return s._(/*BTDS*/ "Unassigned").toString();
+    }
+    function p(e) {
+      var t = e.scope,
+        n = e.tags;
+      return t == null ? n : [t.tag].concat(n);
+    }
+    function _(e) {
+      var t = e.scope,
+        n = e.tags;
+      return t == null && n.length === 1 ? ["value"] : n;
+    }
+    function f(e) {
+      return e.scope != null || e.tags.length > 0;
+    }
+    function g(e, t) {
+      if (t == null) return e;
+      var n = o(
+        "WAWebOrgAdminBulkGroupNaming",
+      ).getOrgAdminBulkGroupMemberTagKey(t.value);
+      return e.filter(function (e) {
+        var r = h(e, t.tag);
+        return (
+          r != null &&
+          o("WAWebOrgAdminBulkGroupNaming").getOrgAdminBulkGroupMemberTagKey(
+            r,
+          ) === n
+        );
+      });
+    }
+    function h(e, t) {
+      return o(
+        "WAWebOrgAdminBulkGroupNaming",
+      ).normalizeOrgAdminBulkGroupMemberTag(
+        t === "member_tag"
+          ? e.memberTag
+          : o(
+              "WAWebOrgAdminGroupCandidate",
+            ).getOrgAdminGroupCandidateSecondaryMemberTag(e),
+      );
+    }
+    function y(e, t) {
+      var n = new Map();
+      return (
+        e.forEach(function (e) {
+          var r,
+            a = h(e, t);
+          if (a != null) {
+            var i = o(
+                "WAWebOrgAdminBulkGroupNaming",
+              ).getOrgAdminBulkGroupMemberTagKey(a),
+              l = n.get(i);
+            n.set(i, {
+              count: ((r = l == null ? void 0 : l.count) != null ? r : 0) + 1,
+              value: l == null ? a : L(l.value, a),
+            });
+          }
+        }),
+        Array.from(n.keys())
+          .sort()
+          .flatMap(function (e) {
+            var t;
+            return (t = n.get(e)) != null ? t : [];
+          })
+      );
+    }
+    function C(e) {
       return e.reduce(function (e, t) {
         return e + t.members.length;
       }, 0);
     }
-    function m(e) {
+    function b(e) {
       return e.reduce(function (e, t) {
         return Math.max(e, t.members.length);
       }, 0);
     }
-    function p(e) {
+    function v(e) {
       return (
         e.excludedMemberCount +
-        d(
+        C(
           e.groups.filter(function (e) {
             return !e.included;
           }),
         )
       );
     }
-    function _(e, t) {
+    function S(e) {
+      var t = m();
+      return e.organizationName !== "" &&
+        e.pattern.includes(
+          o("WAWebOrgAdminBulkGroupNaming")
+            .ORG_ADMIN_BULK_GROUP_ORGANIZATION_TOKEN,
+        )
+        ? t + " \xB7 " + e.organizationName
+        : t;
+    }
+    function R(e, t, n) {
+      var r = [];
+      for (var a of t) {
+        var i,
+          l,
+          s = h(e, a);
+        if (s == null) return null;
+        r.push({
+          tag: a,
+          value:
+            (i =
+              (l = n.get(a)) == null
+                ? void 0
+                : l.get(
+                    o(
+                      "WAWebOrgAdminBulkGroupNaming",
+                    ).getOrgAdminBulkGroupMemberTagKey(s),
+                  )) != null
+              ? i
+              : s,
+        });
+      }
+      return r;
+    }
+    function L(e, t) {
       return e < t ? e : t;
     }
-    function f(t, n) {
+    function E(t, n) {
       var r = t.key === e;
       return r !== (n.key === e)
         ? r
@@ -118,10 +244,17 @@ __d(
             : 0;
     }
     ((l.ORG_ADMIN_BULK_GROUP_NO_MEMBER_TAG_KEY = e),
-      (l.buildOrgAdminBulkGroupPlan = c),
-      (l.countOrgAdminBulkGroupMembers = d),
-      (l.getOrgAdminBulkGroupLargestMemberCount = m),
-      (l.getOrgAdminBulkGroupLeftOutMemberCount = p));
+      (l.buildOrgAdminBulkGroupPlan = d),
+      (l.getOrgAdminBulkGroupUnassignedName = m),
+      (l.getOrgAdminBulkGroupSelectionTags = p),
+      (l.getOrgAdminBulkGroupRequiredNameTokens = _),
+      (l.isOrgAdminBulkGroupSelectionReady = f),
+      (l.filterOrgAdminBulkGroupCandidatesToScope = g),
+      (l.getOrgAdminBulkGroupCandidateTag = h),
+      (l.getOrgAdminBulkGroupTagValueCounts = y),
+      (l.countOrgAdminBulkGroupMembers = C),
+      (l.getOrgAdminBulkGroupLargestMemberCount = b),
+      (l.getOrgAdminBulkGroupLeftOutMemberCount = v));
   },
   226,
 );

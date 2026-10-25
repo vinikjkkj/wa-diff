@@ -266,6 +266,8 @@ __d(
                 isTeeBotGroup: (p = f.isTeeBotGroup) != null ? p : !1,
                 shouldDefaultGroupHistoryShareOn:
                   f.shouldDefaultGroupHistoryShareOn,
+                hasIncompleteParticipantInformation:
+                  f.hasIncompleteParticipantInformation === !0,
               }
             : null;
         })),

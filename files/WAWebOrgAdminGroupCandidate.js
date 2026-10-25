@@ -53,7 +53,7 @@ __d(
         .concat(
           t
             .filter(function (e) {
-              return !R(e, o, a);
+              return !L(e, o, a);
             })
             .map(p),
           i
@@ -85,7 +85,7 @@ __d(
       var t = e.rosterEntry,
         n = t.emailAddress,
         r = t.phoneNumber,
-        a = L(r);
+        a = E(r);
       return n != null && n !== ""
         ? a == null
           ? n
@@ -106,13 +106,16 @@ __d(
       return e.source === "roster" ? e.rosterEntry.emailAddress : null;
     }
     function b(e) {
+      return e.source === "roster" ? e.rosterEntry.secondaryMemberTag : null;
+    }
+    function v(e) {
       if (e.source !== "roster") return null;
       var t = e.rosterEntry,
         n = t.emailAddress,
         r = t.id;
       return n == null || n === "" ? null : r;
     }
-    function v(e, t) {
+    function S(e, t) {
       if (e.source === "directory") {
         var n;
         return (
@@ -137,7 +140,7 @@ __d(
       var a = o(
           "WAWebOrgAdminDirectoryMemberDisplay",
         ).normalizeOrgAdminPhoneSearchValue(t),
-        i = L(r.phoneNumber);
+        i = E(r.phoneNumber);
       return (
         i != null &&
         a !== "" &&
@@ -147,12 +150,12 @@ __d(
         i.includes(a)
       );
     }
-    function S(e) {
-      return y(e) != null || b(e) != null;
+    function R(e) {
+      return y(e) != null || v(e) != null;
     }
-    function R(e, t, n) {
+    function L(e, t, n) {
       if (e.memberLID != null) return e.memberLID === t;
-      var r = L(e.phoneNumber);
+      var r = E(e.phoneNumber);
       if (r == null) return !1;
       if (r === n) return !0;
       try {
@@ -168,7 +171,7 @@ __d(
         return !1;
       }
     }
-    function L(e) {
+    function E(e) {
       if (e == null) return null;
       var t = e
         .trim()
@@ -184,7 +187,7 @@ __d(
         ? t
         : null;
     }
-    function E(t) {
+    function k(t) {
       var n = t.replace(e, ""),
         r = n.replace(s, ""),
         a =
@@ -192,12 +195,12 @@ __d(
           c.test(n) &&
           o("WAWebPhoneUtils").isValidMobileForRegistration(u, n)
             ? "" + u + n
-            : L(r);
+            : E(r);
       return a != null && (!a.startsWith(u) || a.length === d) ? a : null;
     }
-    function k(t) {
+    function I(t) {
       var n = t.replace(e, "");
-      return E(t) === "" + u + n;
+      return k(t) === "" + u + n;
     }
     ((l.directoryMemberToGroupCandidate = m),
       (l.rosterEntryToGroupCandidate = p),
@@ -207,13 +210,14 @@ __d(
       (l.getOrgAdminGroupCandidateProfileLID = h),
       (l.getOrgAdminGroupCandidateLID = y),
       (l.getOrgAdminGroupCandidateEmailAddress = C),
-      (l.getOrgAdminGroupCandidateEmailInviteID = b),
-      (l.orgAdminGroupCandidateMatchesQuery = v),
-      (l.canAddOrgAdminGroupCandidate = S),
-      (l.isCurrentUserOrgAdminRosterEntry = R),
-      (l.normalizeOrgAdminRosterPhoneNumber = L),
-      (l.normalizeOrgAdminRosterPhoneNumberInput = E),
-      (l.isOrgAdminRosterPhoneNumberInputWithoutCountryCode = k));
+      (l.getOrgAdminGroupCandidateSecondaryMemberTag = b),
+      (l.getOrgAdminGroupCandidateEmailInviteID = v),
+      (l.orgAdminGroupCandidateMatchesQuery = S),
+      (l.canAddOrgAdminGroupCandidate = R),
+      (l.isCurrentUserOrgAdminRosterEntry = L),
+      (l.normalizeOrgAdminRosterPhoneNumber = E),
+      (l.normalizeOrgAdminRosterPhoneNumberInput = k),
+      (l.isOrgAdminRosterPhoneNumberInputWithoutCountryCode = I));
   },
   98,
 );

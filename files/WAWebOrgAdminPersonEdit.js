@@ -2,6 +2,7 @@ __d(
   "WAWebOrgAdminPersonEdit",
   [
     "fbt",
+    "WAWebOrgAdminGroupCandidate",
     "WAWebOrgAdminMemberTagOptions",
     "WAWebOrgAdminPeople",
     "WAWebOrgAdminRosterUploadMessages",
@@ -48,23 +49,22 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a =
-              (r = o("WAWebOrgAdminPeople").getOrgAdminPersonRosterEntry(
-                t,
-                e.roster,
-              )) == null
-                ? void 0
-                : r.emailAddress;
-          if (a == null) return p();
+          var r = o("WAWebOrgAdminPeople").getOrgAdminPersonRosterEntry(
+              t,
+              e.roster,
+            ),
+            a = r == null ? void 0 : r.emailAddress;
+          if (r == null || a == null) return p();
           try {
             var i = yield e.upload({
               entries: [babelHelpers.extends({}, n, { emailAddress: a })],
               inviteEmails: [],
               memberTagOptions: e.memberTagOptions,
               mode: "append",
-              newMemberTagOptions: _(e, n.memberTag),
+              newMemberTagOptions: f(e, n.memberTag),
+              removes: [],
               roster: e.roster,
+              updates: [_(r, n)],
             });
             return m(i, e.showSuccessToast);
           } catch (e) {
@@ -111,6 +111,30 @@ __d(
       return s._(/*BTDS*/ "Couldn't save your changes. Try again.");
     }
     function _(e, t) {
+      var n,
+        r = t.memberTag,
+        a = t.name,
+        i = t.phoneNumber;
+      return {
+        id: e.id,
+        memberTag:
+          (r != null ? r : null) === ((n = e.memberTag) != null ? n : null)
+            ? null
+            : r != null
+              ? r
+              : "",
+        name: a === e.name ? null : a,
+        phoneNumber:
+          i ===
+          o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber(
+            e.phoneNumber,
+          )
+            ? null
+            : i,
+        secondaryMemberTag: null,
+      };
+    }
+    function f(e, t) {
       var n = e.memberDirectoryEnabled,
         r = e.memberTagOptions;
       return n && t != null && !r.includes(t) ? [t] : [];

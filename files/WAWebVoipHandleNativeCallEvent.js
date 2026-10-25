@@ -29,6 +29,7 @@ __d(
     "WAWebVoipHandleNativeCallEventCallLogHandlers",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipHandleNativeCallEventMediaHandlers",
+    "WAWebVoipHandleNativeCallEventVoiceChatHandlers",
     "WAWebVoipHardwareInfo",
     "WAWebVoipIncomingCallUiActionStore",
     "WAWebVoipInitEventEmitter",
@@ -876,11 +877,22 @@ __d(
                                                                                                           "WAWebVoipWaCallEnums",
                                                                                                         )
                                                                                                           .CallEvent
-                                                                                                          .SwitchEntryPointChanged
-                                                                                                      ? ye(
+                                                                                                          .LonelyStateTimeout
+                                                                                                      ? o(
+                                                                                                          "WAWebVoipHandleNativeCallEventVoiceChatHandlers",
+                                                                                                        ).handleLonelyStateTimeout(
                                                                                                           t,
                                                                                                         )
-                                                                                                      : null;
+                                                                                                      : e ===
+                                                                                                          o(
+                                                                                                            "WAWebVoipWaCallEnums",
+                                                                                                          )
+                                                                                                            .CallEvent
+                                                                                                            .SwitchEntryPointChanged
+                                                                                                        ? ye(
+                                                                                                            t,
+                                                                                                          )
+                                                                                                        : null;
         })),
         pe.apply(this, arguments)
       );
@@ -920,21 +932,28 @@ __d(
     function he() {
       return (
         (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebABProps").getABPropConfigValue(
+          var t = o("WAWebABProps").getABPropConfigValue(
               "group_calling_wave_receiving_enabled",
-            )
-          ) {
-            var t = r("nullthrows")(
+            ),
+            n = o("WAWebVoipGatingUtils").isWebVoiceChatEnabled();
+          if (!(!t && !n)) {
+            var a = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             );
-            if (t.type === "web") {
-              var n = t.parsers.parseVoiceChatWaveReceivedData(e);
-              if (n.silenceReason === "wave") {
-                var a = n.callId,
-                  i = n.groupJid,
-                  l = n.senderWid;
-                if (l == null) {
+            if (a.type === "web") {
+              var i = a.parsers.parseVoiceChatWaveReceivedData(e),
+                l =
+                  i.silenceReason === "wave"
+                    ? t
+                    : i.silenceReason === "vc_wave" ||
+                        i.silenceReason === "vc_wave_all"
+                      ? n
+                      : !1;
+              if (l) {
+                var s = i.callId,
+                  u = i.groupJid,
+                  c = i.senderWid;
+                if (c == null) {
                   o("WALogger")
                     .WARN(
                       k ||
@@ -947,7 +966,7 @@ __d(
                 }
                 o("WAWebBackendApi").frontendFireAndForget(
                   "showVoiceChatWaveNotification",
-                  { senderWid: l, groupJid: i, callId: a },
+                  { senderWid: c, groupJid: u, callId: s },
                 );
               }
             }

@@ -446,6 +446,7 @@ __d(
             (e.terminatedByDeviceSwitch = o("WAWebBaseModel").prop(null)),
             (e.screenedElsewhere = o("WAWebBaseModel").prop(null)),
             (e.selfOtherDeviceConnected = o("WAWebBaseModel").prop(null)),
+            (e.isVoiceChat = o("WAWebBaseModel").prop(null)),
             (e.bytesSent = o("WAWebBaseModel").prop(null)),
             (e.bytesReceived = o("WAWebBaseModel").prop(null)),
             (e.reactionParentKey = o("WAWebBaseModel").prop()),

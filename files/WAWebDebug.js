@@ -695,8 +695,7 @@ __d(
       "Submit all cached metrics for the given WAM buffer type ('regular' or one of Private Stats keys)"),
       (ae.paramsToExecute = ["regular"]));
     function le(e) {
-      (r("vulture")("BVT89x4vP5kwm1ySP5EXBRO6dIU="),
-        o("WAWebUserPrefsGeneral").setDebugFacebookGraphQLEndpointOverride(e));
+      o("WAWebUserPrefsGeneral").setDebugFacebookGraphQLEndpointOverride(e);
     }
     le.doc =
       'Debug method for testing against a specific graphQL Facebook OD endpoint. Pass OD number as a string, e.g. "0934"';

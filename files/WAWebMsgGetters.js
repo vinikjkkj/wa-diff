@@ -1725,8 +1725,9 @@ __d(
       Pa = _("isCallLink"),
       Na = _("callLinkToken"),
       Ma = _("selfOtherDeviceConnected"),
-      wa = _("screenedElsewhere"),
-      Aa = p(
+      wa = _("isVoiceChat"),
+      Aa = _("screenedElsewhere"),
+      Fa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1742,50 +1743,50 @@ __d(
         },
         [tt, $a, Na],
       ),
-      Fa = p(
+      Oa = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [tt, Aa],
+        [tt, Fa],
       ),
-      Oa = _("finalCallOutcome"),
-      Ba = _("groupHistoryBundleMessageKey"),
-      Wa = _("groupHistoryBundleMetadata"),
-      qa = _("groupHistoryIndividualMessageInfo"),
-      Ua = p(
+      Ba = _("finalCallOutcome"),
+      Wa = _("groupHistoryBundleMessageKey"),
+      qa = _("groupHistoryBundleMetadata"),
+      Ua = _("groupHistoryIndividualMessageInfo"),
+      Va = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [qa, Ba],
-      ),
-      Va = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
-        },
-        [qa],
+        [Ua, Wa],
       ),
       Ha = p(
         function (e) {
           var t = e[0];
-          return t == null ? void 0 : t.bundleSender;
+          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
         },
-        [qa],
+        [Ua],
       ),
       Ga = p(
+        function (e) {
+          var t = e[0];
+          return t == null ? void 0 : t.bundleSender;
+        },
+        [Ua],
+      ),
+      za = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t != null && r("WAWebWid").equals(t.remote, n);
         },
-        [Ua, P],
+        [Va, P],
       );
-    function za(e) {
+    function ja(e) {
       var t =
         v(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(I(e));
@@ -2112,17 +2113,18 @@ __d(
       (l.getIsCallLink = Pa),
       (l.getCallLinkToken = Na),
       (l.getSelfOtherDeviceConnected = Ma),
-      (l.getScreenedElsewhere = wa),
-      (l.getIsAdHocGroupCall = Aa),
-      (l.getIsGroupCall = Fa),
-      (l.getFinalCallOutcome = Oa),
-      (l.getGroupHistoryBundleMetadata = Wa),
-      (l.getGroupHistoryIndividualMessageInfo = qa),
-      (l.getGroupHistoryBundleMessageKey = Ua),
-      (l.getIsEditedAfterReceivedAsHistory = Va),
-      (l.getGroupHistoryBundleSender = Ha),
-      (l.getIsGroupHistoryMessageInOwnChat = Ga),
-      (l.isRealMessage = za));
+      (l.getIsVoiceChat = wa),
+      (l.getScreenedElsewhere = Aa),
+      (l.getIsAdHocGroupCall = Fa),
+      (l.getIsGroupCall = Oa),
+      (l.getFinalCallOutcome = Ba),
+      (l.getGroupHistoryBundleMetadata = qa),
+      (l.getGroupHistoryIndividualMessageInfo = Ua),
+      (l.getGroupHistoryBundleMessageKey = Va),
+      (l.getIsEditedAfterReceivedAsHistory = Ha),
+      (l.getGroupHistoryBundleSender = Ga),
+      (l.getIsGroupHistoryMessageInOwnChat = za),
+      (l.isRealMessage = ja));
   },
   98,
 );

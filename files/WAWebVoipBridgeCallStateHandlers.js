@@ -148,6 +148,7 @@ __d(
               (y.groupJid = a.groupJid),
               (y.outgoing = a.isCaller),
               (y.isBotGroupCall = a.isBotGroupCall),
+              (y.isVoiceChat = a.isLightweight),
               a.isGroupCall && a.participants)
             ) {
               var C = [],

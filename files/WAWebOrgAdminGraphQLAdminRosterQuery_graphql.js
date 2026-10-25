@@ -66,6 +66,13 @@ __d(
             {
               alias: null,
               args: null,
+              kind: "ScalarField",
+              name: "version",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
               concreteType: "XWAOrgAdminRosterEntry",
               kind: "LinkedField",
               name: "entries",
@@ -186,7 +193,7 @@ __d(
           ],
         },
         params: {
-          id: "29001689866132521",
+          id: "27826500007026111",
           metadata: {},
           name: "WAWebOrgAdminGraphQLAdminRosterQuery",
           operationKind: "query",

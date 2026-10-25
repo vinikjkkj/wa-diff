@@ -5,9 +5,12 @@ __d(
     "WAWebApiContact",
     "WAWebBaseNotification",
     "WAWebCallCollection",
+    "WAWebChatCollection",
     "WAWebChatFlowTypes",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebMuteCollection",
+    "WAWebMuteGetters",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebWidFactory",
@@ -36,9 +39,27 @@ __d(
       var a = t.prototype;
       return (
         (a.shouldMute = function (t) {
-          var e = r("WAWebCallCollection").activeCall;
-          return e != null && e.id === this.callId
-            ? r("WAWebNotificationMuteReason").AppState
+          var e,
+            n,
+            a,
+            i = r("WAWebCallCollection").activeCall;
+          if (i != null && i.id === this.callId)
+            return r("WAWebNotificationMuteReason").AppState;
+          var l =
+              (e =
+                (n = this.groupJid) != null
+                  ? n
+                  : (a = o(
+                        "WAWebChatCollection",
+                      ).ChatCollection.getLatestChatForWid(this.senderWid)) ==
+                      null
+                    ? void 0
+                    : a.id) != null
+                ? e
+                : this.senderWid,
+            s = o("WAWebMuteCollection").MuteCollection.get(l);
+          return s != null && o("WAWebMuteGetters").getIsCallMuted(s)
+            ? r("WAWebNotificationMuteReason").MutedChat
             : null;
         }),
         (a.buildKey = function () {

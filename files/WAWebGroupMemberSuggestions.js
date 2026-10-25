@@ -17,7 +17,7 @@ __d(
       s,
       u = { contacts: [], frequentContacts: [], recentContacts: [] },
       c = 5,
-      d = 5,
+      d = 3,
       m = 20,
       p = 72 * o("WATimeUtils").HOUR_SECONDS,
       _ = 8 * o("WATimeUtils").DAY_SECONDS,

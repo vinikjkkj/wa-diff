@@ -73,6 +73,7 @@ __d(
             SelfOtherDeviceConnected:
               (e = a.self_other_device_connected) != null ? e : !1,
             OfferEpochTime: (n = a.offer_epoch_time_ms) != null ? n : 0,
+            SilenceReason: a.silence_reason,
           };
         },
         parseRejectedDecryptionFailureData: function (t) {
@@ -652,6 +653,17 @@ __d(
             silenceReason: e.silence_reason,
             isFirstWave: e.is_first_wave,
           };
+        },
+        parseLonelyStateTimeoutData: function (t) {
+          var e,
+            n =
+              (e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(
+                t,
+              )) == null
+                ? void 0
+                : e.remaining_duration_ms;
+          if (n == null) throw r("err")("Invalid lonely state timeout data");
+          return { remainingDurationMs: n };
         },
         parseSwitchEntryPointChangedData: function (t) {
           var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);

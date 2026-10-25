@@ -107,14 +107,16 @@ __d(
                 [s._param("name of someone already in the organization", n)],
               )
             : (e === "INVALID_ROSTER_ENTRY" ||
-                  e === "DUPLICATE_ROSTER_CONTACT") &&
+                  e === "DUPLICATE_ROSTER_CONTACT" ||
+                  e === "DUPLICATE_EMAIL") &&
                 t != null
               ? s._(
                   /*BTDS*/ "Check row {row number} of the file. Its name, email or mobile phone number isn't valid, or its email belongs to someone else in the organization. Fix the row in the file, then upload it again.",
                   [s._param("row number", r("intlNumUtils").formatNumber(t))],
                 )
               : (e === "INVALID_ROSTER_ENTRY" ||
-                    e === "DUPLICATE_ROSTER_CONTACT") &&
+                    e === "DUPLICATE_ROSTER_CONTACT" ||
+                    e === "DUPLICATE_EMAIL") &&
                   n != null
                 ? s._(
                     /*BTDS*/ "{name of someone already in the organization} is already in the organization, but their name, email or mobile phone number isn't valid, or their email belongs to someone else. Add a row for them to the file with the right details, then upload it again.",
@@ -127,7 +129,8 @@ __d(
                   )
                 : e === "INVALID_MEMBER_TAG" ||
                     e === "INVALID_ROSTER_ENTRY" ||
-                    e === "DUPLICATE_ROSTER_CONTACT"
+                    e === "DUPLICATE_ROSTER_CONTACT" ||
+                    e === "DUPLICATE_EMAIL"
                   ? f(null)
                   : _();
     }
