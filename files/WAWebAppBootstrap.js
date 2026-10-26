@@ -31,6 +31,7 @@ __d(
     "WAWebLoomStuckTraceEviction",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
+    "WAWebODS",
     "WAWebPageLoadLoggingImpl",
     "WAWebPrefetchHatchDetailsOnLogin",
     "WAWebRunInTransaction",
@@ -53,7 +54,6 @@ __d(
     "cr:17677",
     "cr:34988",
     "cr:5203",
-    "cr:6448",
     "getErrorSafe",
     "gkx",
     "initWAWebPlatformWebPage",
@@ -87,7 +87,7 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, a, i;
-          (n("cr:6448") == null || n("cr:6448").incr("web.app.bootstrap"),
+          (r("WAWebODS").incr("web.app.bootstrap"),
             n("cr:5203") == null || n("cr:5203")(),
             o("WAWebMainThreadLogger").initializeWAWebMainThreadLogger(),
             o("WDSTooltipShortcutResolver").registerWDSTooltipShortcutResolver(

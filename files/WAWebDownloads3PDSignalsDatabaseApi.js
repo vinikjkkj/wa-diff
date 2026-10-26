@@ -23,9 +23,13 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = e,
+            n =
+              o("WATimeUtils").unixTimeMs() -
+              t * o("WATimeUtils").DAY_MILLISECONDS;
           return o("WAWebSchemaDownload3PDSignals")
             .getDownload3PDSignalsTable()
-            .all();
+            .greaterThan(["timestamp"], n);
         })),
         m.apply(this, arguments)
       );
@@ -36,23 +40,6 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = e,
-            n =
-              o("WATimeUtils").unixTimeMs() -
-              t * o("WATimeUtils").DAY_MILLISECONDS;
-          return o("WAWebSchemaDownload3PDSignals")
-            .getDownload3PDSignalsTable()
-            .greaterThan(["timestamp"], n);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e =
               o("WATimeUtils").unixTimeMs() -
               s * o("WATimeUtils").DAY_MILLISECONDS,
@@ -68,13 +55,12 @@ __d(
                 }),
               ));
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
     ((l.addOrEdit3PDSignal = u),
-      (l.getAll3PDSignals = d),
-      (l.getRecent3PDSignals = p),
-      (l.cleanup3PDSignalsTable = f));
+      (l.getRecent3PDSignals = d),
+      (l.cleanup3PDSignalsTable = p));
   },
   98,
 );

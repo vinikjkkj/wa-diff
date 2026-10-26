@@ -1,18 +1,30 @@
 __d(
   "WAWebPersistedJobManagerWorkerCompatible",
-  ["nullthrows"],
+  ["WALogger", "WAWebJobsMigrationGating", "nullthrows"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t) {
-      e = t;
-    }
-    function u() {
-      return r("nullthrows")(e, "WAWebPersistedJobManager is not initialised");
+    var e, s;
+    function u(e) {
+      s = e;
     }
     function c() {
-      return u();
+      return (
+        s == null &&
+          o("WAWebJobsMigrationGating").isJobsManagerDecommissioned() &&
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[jobs-manager] reached while decommissioned",
+                ])),
+            )
+            .sendLogs("jobs-manager-reached-while-decommissioned"),
+        r("nullthrows")(s, "WAWebPersistedJobManager is not initialised")
+      );
     }
-    ((l.setInstance = s), (l.getInstance = u), (l.getJobManager = c));
+    function d() {
+      return c();
+    }
+    ((l.setInstance = u), (l.getInstance = c), (l.getJobManager = d));
   },
   98,
 );

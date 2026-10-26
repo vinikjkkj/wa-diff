@@ -66,14 +66,7 @@ __d(
           n.forEach(function (t) {
             var n = e.get(t);
             n != null && u.set(t, n.url);
-          }));
-        var a = new Set(u.values());
-        (r.forEach(function (e) {
-          a.has(e) ||
-            o(
-              "WAWebChannelVideoDashManifestPrefetchLoadable",
-            ).dropChannelVideoDashManifestIfLoaded(e);
-        }),
+          }),
           u.forEach(function (t, n) {
             var o = e.get(n);
             o != null && r.get(n) !== t && C(o);

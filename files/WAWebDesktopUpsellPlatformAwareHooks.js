@@ -8,8 +8,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
+      return s() || o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled();
+    }
+    function s() {
       var e = o("react-compiler-runtime").c(2),
-        t = s(),
+        t = u(),
         n;
       return (
         e[0] !== t
@@ -20,7 +23,7 @@ __d(
         n
       );
     }
-    function s() {
+    function u() {
       var e = o("react-compiler-runtime").c(2),
         t = o("WAWebDesktopUpsellUtils").getUserDesktopOs(),
         n;
@@ -49,8 +52,9 @@ __d(
           ? l.value
           : !1;
     }
-    ((l.useWAWebDesktopUpsellPlatformCheck = e),
-      (l.useWAWebDesktopUpsellPlatformAwareOsVersionCheck = s));
+    ((l.useWAWebNativeAppUpsellPlatformCheck = e),
+      (l.useWAWebDesktopUpsellPlatformCheck = s),
+      (l.useWAWebDesktopUpsellPlatformAwareOsVersionCheck = u));
   },
   98,
 );

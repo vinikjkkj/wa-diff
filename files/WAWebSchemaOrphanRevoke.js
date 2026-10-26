@@ -17,6 +17,8 @@ __d(
           n("sender"),
           n("timestamp"),
           n("subtype"),
+          n("authenticatedSender"),
+          n("requiresTargetAuthorization"),
         ])
         .view(function (e) {
           return e;

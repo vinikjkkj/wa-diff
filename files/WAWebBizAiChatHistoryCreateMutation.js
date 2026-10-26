@@ -3,9 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebBizAiChatHistoryCreateMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,11 +26,8 @@ __d(
             return r("WAWebNetworkStatus")
               .waitIfOffline()
               .then(function () {
-                return o("WAWebRelayClient")
-                  .commitMutation(u, n, {
-                    environmentType: "facebook",
-                    accessToken: t.token,
-                  })
+                return o("WAWebBizAiRelayClient")
+                  .commitMutation(u, n, { accessToken: t.token })
                   .then(function (e) {
                     var t =
                       e == null ? void 0 : e.xfb_maiba_create_chat_history;

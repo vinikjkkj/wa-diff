@@ -31,6 +31,7 @@ __d(
       CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE:
         "cleanupGroupHistoryReportingTokenTable",
       CLEANUP_SCHEDULED_MSG_REVEAL_KEYS: "cleanupScheduledMsgRevealKeys",
+      CLEANUP_COEXV2_MESSAGING_STORES: "cleanupCoexV2MessagingStores",
       CLEANUP_3PD_SIGNALS_TABLE: "cleanup3PDSignalsTable",
       FETCH_QUICK_PROMOTIONS: "fetchQuickPromotions",
       WAFFLE_SCHEDULED_TASKS: "waffleScheduledTasks",

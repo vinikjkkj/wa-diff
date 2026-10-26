@@ -72,6 +72,7 @@ __d(
         ]),
         controllerNavigationLogger: null,
         versioningID: "",
+        onInteraction: null,
       },
       c = {
         toLogicalStyle: {},
@@ -189,7 +190,8 @@ __d(
         $,
         P,
         N,
-        M;
+        M,
+        w;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -283,6 +285,7 @@ __d(
                 ? N
                 : e.controllerNavigationLogger,
             versioningID: (M = t.versioningID) != null ? M : e.versioningID,
+            onInteraction: (w = t.onInteraction) != null ? w : e.onInteraction,
           }
         : e;
     }

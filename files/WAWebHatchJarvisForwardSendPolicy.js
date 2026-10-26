@@ -118,7 +118,7 @@ __d(
             o("WAWebHatchJarvisForwardMedia").decodeHash(
               (e = n == null ? void 0 : n.envelopeFilehash) != null ? e : "",
             ) == null ||
-            (i == null ? void 0 : i.kind) !== "encrypted"
+            i == null
           )
             return { v: null };
           a.push({ descriptor: i.descriptor, ref: t });

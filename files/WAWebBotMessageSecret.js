@@ -5,6 +5,7 @@ __d(
     "WACryptoAesGcm",
     "WACryptoHkdf",
     "WALogger",
+    "WATimeUtils",
     "WAWebBotGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotMsgDecryptError",
@@ -12,10 +13,12 @@ __d(
     "WAWebBotTypes",
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2ResponseWindow",
     "WAWebCommonMsgUtils",
     "WAWebDBMessageSerialization",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
+    "WAWebMsgType",
     "WAWebMsmsgMsgSecretCache",
     "WAWebOrphanBotMsgError",
     "WAWebProtobufsE2E.pb",
@@ -35,13 +38,25 @@ __d(
       m,
       p,
       _ = 32,
-      f = "Bot Message";
-    function g(e) {
-      return h.apply(this, arguments);
+      f = "Bot Message",
+      g = (function (e) {
+        function t(t, n, r) {
+          var o;
+          return (
+            (o = e.call(this, r) || this),
+            (o.reason = n),
+            (o.targetMsgKey = t),
+            o
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(r("WAWebBotMsgSecretError"));
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o("WABinary").Binary)(e).readByteArrayView(),
             n = yield o("WACryptoHkdf").extractAndExpand(
               new Uint8Array(t),
@@ -50,26 +65,26 @@ __d(
             );
           return n;
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return t.msgInfo.author.isFbidBot() ? S(e, t) : b(e, t);
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return t.msgInfo.author.isFbidBot() ? R(e, t) : v(e, t);
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i,
             l = n.msgInfo,
@@ -90,7 +105,7 @@ __d(
               ),
             };
           l.chat.isGroup() && (d.participant = s.targetSenderJid);
-          var m = yield E(d, l),
+          var m = yield D(new (r("WAWebMsgKey"))(d), l),
             p = o("WAWebWidToJid").widToUserJid(
               (i = s.targetSenderJid) != null
                 ? i
@@ -107,7 +122,7 @@ __d(
             );
           try {
             var y = l.externalId,
-              C = yield $({
+              C = yield A({
                 decryptSecret: m,
                 messageSecretOriginalUserJid: p,
                 senderJid: _,
@@ -128,7 +143,7 @@ __d(
                 (b = n.msgBotInfo) == null ? void 0 : b.botEditTargetId,
                 "decryptMsmsgBotMessage: botEditTargetId",
               ),
-              S = yield $({
+              S = yield A({
                 decryptSecret: m,
                 messageSecretOriginalUserJid: p,
                 senderJid: _,
@@ -138,95 +153,122 @@ __d(
           }
           return f;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a,
-            i = t.msgBotInfo,
-            l = t.msgInfo,
-            c = t.msgMeta,
-            d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            m = (a = c.targetSenderJid) != null ? a : d,
-            p = {
-              fromMe: o("WAWebUserPrefsMeUser").isMeAccount(m),
-              remote: l.chat,
-              id: r("nullthrows")(
-                c.targetId,
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.msgInfo,
+            o = t.msgMeta,
+            a = E({
+              chat: n.chat,
+              targetId: r("nullthrows")(
+                o.targetId,
                 "decryptMsmsgFbidBotMessage: targetId",
               ),
-            };
-          if (l.chat.isGroup()) {
-            var _;
-            p.participant =
-              (_ = o("WAWebLidMigrationUtils").toPn(m)) != null ? _ : m;
-          }
-          var f = yield E(p, l),
-            g = l.externalId,
-            h = null;
-          ((i == null ? void 0 : i.botEditType) ===
+              targetSenderJid: o.targetSenderJid,
+            }),
+            i = yield D(a, n);
+          return k(e, t, i);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e) {
+      var t = e.chat,
+        n = e.targetId,
+        a = e.targetSenderJid,
+        i = a != null ? a : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        l = {
+          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(i),
+          remote: t,
+          id: n,
+        };
+      if (t.isGroup()) {
+        var s;
+        l.participant =
+          (s = o("WAWebLidMigrationUtils").toPn(i)) != null ? s : i;
+      }
+      return new (r("WAWebMsgKey"))(l);
+    }
+    function k(e, t, n) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          var i,
+            l = t.msgBotInfo,
+            c = t.msgInfo,
+            d = t.msgMeta,
+            m =
+              (i = d.targetSenderJid) != null
+                ? i
+                : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            p = c.externalId,
+            _ = null;
+          ((l == null ? void 0 : l.botEditType) ===
             o("WAWebBotTypes").BotMsgEditType.INNER ||
-            (i == null ? void 0 : i.botEditType) ===
+            (l == null ? void 0 : l.botEditType) ===
               o("WAWebBotTypes").BotMsgEditType.LAST) &&
-            ((i == null ? void 0 : i.botEditTargetId) != null
-              ? ((g = i == null ? void 0 : i.botEditTargetId),
-                (h = l.externalId))
+            ((l == null ? void 0 : l.botEditTargetId) != null
+              ? ((p = l == null ? void 0 : l.botEditTargetId),
+                (_ = c.externalId))
               : o("WALogger").WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[decryptMsmsgFbidBotMessage] fallback\u2192externalId edit=",
                       "",
                     ])),
-                  i == null ? void 0 : i.botEditType,
+                  l == null ? void 0 : l.botEditType,
                 ));
-          var y = l.metaFrom,
-            C = o("WAWebWidToJid").widToUserJid(
-              y != null &&
-                l.author != null &&
-                l.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+          var f = c.metaFrom,
+            g = o("WAWebWidToJid").widToUserJid(
+              f != null &&
+                c.author != null &&
+                c.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
                 o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
-                ? y
+                ? f
                 : r("nullthrows")(
-                    l.author,
+                    c.author,
                     "decryptMsmsgFbidBotMessage: author",
                   ),
             ),
-            b = o("WAWebWidToJid").widToUserJid(m),
-            v = o("decodeProtobuf").decodeProtobuf(
+            h = o("WAWebWidToJid").widToUserJid(m),
+            y = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
               e,
             ),
-            S = v.encIv,
-            R = v.encPayload,
-            k = r("nullthrows")(S, "decryptMsmsgFbidBotMessage: encIv"),
-            I = r("nullthrows")(R, "decryptMsmsgFbidBotMessage: encPayload");
-          function T(e) {
-            return D.apply(this, arguments);
+            C = y.encIv,
+            b = y.encPayload,
+            v = r("nullthrows")(C, "decryptMsmsgFbidBotMessage: encIv"),
+            S = r("nullthrows")(b, "decryptMsmsgFbidBotMessage: encPayload");
+          function R(e) {
+            return L.apply(this, arguments);
           }
-          function D() {
+          function L() {
             return (
-              (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-                var t = yield $({
-                  decryptSecret: f,
-                  messageSecretOriginalUserJid: b,
-                  senderJid: C,
+              (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+                var t = yield A({
+                  decryptSecret: a,
+                  messageSecretOriginalUserJid: h,
+                  senderJid: g,
                   stanzaId: e,
                 });
-                return o("WACryptoAesGcm").gcmDecrypt(t, k, I, e + "\0" + C);
+                return o("WACryptoAesGcm").gcmDecrypt(t, v, S, e + "\0" + g);
               })),
-              D.apply(this, arguments)
+              L.apply(this, arguments)
             );
           }
           try {
-            var x = yield T(g);
-            return x;
+            var E = yield R(p);
+            return E;
           } catch (e) {
-            if (h == null) throw L(e);
+            if (_ == null) throw T(e);
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -235,49 +277,48 @@ __d(
                   ": ",
                   "",
                 ])),
-              g,
-              h,
+              p,
+              _,
               String(e),
             );
             try {
-              return yield T(h);
+              return yield R(_);
             } catch (e) {
-              throw L(e);
+              throw T(e);
             }
           }
         })),
-        R.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function L(e) {
+    function T(e) {
       return new (r("WAWebBotMsgDecryptError"))(
         "decryptMsmsgFbidBotMessage: decrypt with the message secret failed: " +
           String(e),
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function k() {
+    function x() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = new (r("WAWebMsgKey"))(e),
-            i = a.toString(),
-            l =
-              (n = o("WAWebLidMigrationUtils").getAlternateMsgKey(a)) == null
+            a = e.toString(),
+            i =
+              (n = o("WAWebLidMigrationUtils").getAlternateMsgKey(e)) == null
                 ? void 0
                 : n.toString(),
-            s = D(i, l);
-          if (s != null) return g(s);
-          var u = yield o("WAWebSchemaMessage")
+            l = N(a, i, t);
+          if (l != null) return h(l);
+          var s = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .bulkGet([i, l].filter(Boolean)),
-            _ = u[0],
-            f = u[1],
-            h = _ != null ? _ : f;
-          if (h == null)
-            throw I(t)
+              .bulkGet([a, i].filter(Boolean)),
+            u = s[0],
+            _ = s[1],
+            f = u != null ? u : _;
+          if (f == null)
+            throw $(t)
               ? (o("WALogger")
                   .WARN(
                     c ||
@@ -286,7 +327,7 @@ __d(
                       ])),
                   )
                   .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(i, "no-target-row"))
+                new (r("WAWebOrphanBotMsgError"))(a, "no-target-row"))
               : (o("WALogger")
                   .WARN(
                     d ||
@@ -296,14 +337,22 @@ __d(
                   )
                   .tags("messaging")
                   .sendLogs("bot-msmsg-no-target-row", { sampling: 0.01 }),
-                new (r("WAWebBotMsgSecretError"))(
+                new g(
+                  a,
+                  "no-target-row",
                   "decryptMsmsgBotMessage: no target row for the message secret",
                 ));
-          var y = o("WAWebDBMessageSerialization").messageFromDbRow(h);
-          if (o("WAWebCommonMsgUtils").isPlaceholderMsg(y.type) && I(t)) {
+          var y = o("WAWebDBMessageSerialization").messageFromDbRow(f);
+          if (o("WAWebCommonMsgUtils").isPlaceholderMsg(y.type)) {
+            if (!$(t))
+              throw new g(
+                a,
+                "placeholder-target-row",
+                "decryptMsmsgBotMessage: decryptSecretBase",
+              );
             var C =
-              _ != null && f != null
-                ? o("WAWebDBMessageSerialization").messageFromDbRow(f)
+              u != null && _ != null
+                ? o("WAWebDBMessageSerialization").messageFromDbRow(_)
                 : null;
             if (C == null || o("WAWebCommonMsgUtils").isPlaceholderMsg(C.type))
               throw (
@@ -315,14 +364,14 @@ __d(
                       ])),
                   )
                   .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(i, "placeholder-target-row")
+                new (r("WAWebOrphanBotMsgError"))(a, "placeholder-target-row")
               );
             y = C;
           }
-          x(i, y);
+          w(a, y);
           var b = y.messageSecret;
           if (b == null)
-            throw T(t)
+            throw P(t)
               ? (o("WALogger")
                   .WARN(
                     p ||
@@ -331,36 +380,58 @@ __d(
                       ])),
                   )
                   .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(i, "secretless-target-row"))
-              : new (r("WAWebBotMsgSecretError"))(
-                  "decryptMsmsgBotMessage: decryptSecretBase",
-                );
-          return g(b);
+                new (r("WAWebOrphanBotMsgError"))(a, "secretless-target-row"))
+              : y.type === o("WAWebMsgType").MSG_TYPE.REVOKED
+                ? new g(
+                    a,
+                    "revoked-target-row",
+                    "decryptMsmsgBotMessage: decryptSecretBase",
+                  )
+                : new (r("WAWebBotMsgSecretError"))(
+                    "decryptMsmsgBotMessage: decryptSecretBase",
+                  );
+          return h(b);
         })),
-        k.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T(e) || o("WAWebBotGating").isBotOrphanMsgEnabled();
+    function $(e) {
+      return P(e) || o("WAWebBotGating").isBotOrphanMsgEnabled();
     }
-    function T(e) {
+    function P(e) {
       return (
         e.chat.isGroup() &&
         e.author.isBot() &&
         o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
       );
     }
-    function D(e, t) {
+    function N(e, t, n) {
+      var r = M(e, n);
+      return r != null || t == null ? r : M(t, n);
+    }
+    function M(e, t) {
       var n = o(
         "WAWebMsmsgMsgSecretCache",
       ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(e);
-      return n != null || t == null
-        ? n
-        : o(
-            "WAWebMsmsgMsgSecretCache",
-          ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(t);
+      if (n == null) return null;
+      if (
+        t.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+        o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+      ) {
+        var r = o(
+          "WAWebMsmsgMsgSecretCache",
+        ).msmsgMsgSecretCache.getMsmsgMsgSecretTimestampFromCache(e);
+        if (
+          r == null ||
+          !Number.isFinite(r) ||
+          r + o("WAWebCoexV2ResponseWindow").COEXV2_RESPONSE_WINDOW_SECONDS <=
+            o("WATimeUtils").unixTime()
+        )
+          return null;
+      }
+      return n;
     }
-    function x(e, t) {
+    function w(e, t) {
       var n,
         r = t.botGroupParticipant;
       if (
@@ -384,12 +455,12 @@ __d(
           );
       }
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function P() {
+    function F() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.decryptSecret,
             n = e.messageSecretOriginalUserJid,
             r = e.senderJid,
@@ -402,12 +473,15 @@ __d(
             );
           return l;
         })),
-        P.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    ((l.genBotMsgSecretFromMsgSecret = g),
-      (l.decryptMsmsgBotMessage = y),
-      (l.genBotDecryptionKey = $));
+    ((l.RetainedBotMessageSecretLookupError = g),
+      (l.genBotMsgSecretFromMsgSecret = h),
+      (l.decryptMsmsgBotMessage = C),
+      (l.getFbidBotResponseTargetMsgKey = E),
+      (l.decryptMsmsgFbidBotMessageWithBotMessageSecret = k),
+      (l.genBotDecryptionKey = A));
   },
   98,
 );

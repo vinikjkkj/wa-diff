@@ -171,13 +171,23 @@ __d(
               ((t = n.current.uiMutableContainer) == null ||
               (t = t.gestures) == null
                 ? void 0
-                : t.preventTap) !== !0 &&
-                v() &&
-                ((S != null || R != null || L != null) &&
-                  T == null &&
-                  D == null &&
-                  x == null &&
-                  (S != null &&
+                : t.preventTap) !== !0 && v())
+            ) {
+              if (
+                (S != null || R != null || L != null) &&
+                T == null &&
+                D == null &&
+                x == null
+              ) {
+                var o,
+                  a = (o = S != null ? S : R) != null ? o : L;
+                (a != null &&
+                  (r.bloksContext.objectSet.environment.onInteraction == null ||
+                    r.bloksContext.objectSet.environment.onInteraction(
+                      n.current,
+                      a,
+                    )),
+                  S != null &&
                     r.executeCatch(n.current, S, [n.current, r.bloksContext]),
                   R != null &&
                     r.executeCatch(n.current, R, [
@@ -193,34 +203,37 @@ __d(
                       r,
                       e.clientX,
                       e.clientY,
-                    ])),
+                    ]));
+              }
+              if (
                 (T != null || D != null || x != null) &&
-                  (S != null || R != null || L != null) &&
-                  e.detail === 1))
-            ) {
-              var o;
-              (window.clearTimeout(
-                (o = B.doublePressTimeout) != null ? o : void 0,
-              ),
-                (B.doublePressTimeout = window.setTimeout(function () {
-                  (S != null &&
-                    r.executeCatch(n.current, S, [n.current, r.bloksContext]),
-                    R != null &&
-                      r.executeCatch(n.current, R, [
-                        n.current,
-                        r.bloksContext,
-                        e.clientX,
-                        e.clientY,
-                      ]),
-                    L != null &&
-                      r.executeCatch(n.current, L, [
-                        n.current,
-                        r.bloksContext,
-                        r,
-                        e.clientX,
-                        e.clientY,
-                      ]));
-                }, u)));
+                (S != null || R != null || L != null) &&
+                e.detail === 1
+              ) {
+                var i;
+                (window.clearTimeout(
+                  (i = B.doublePressTimeout) != null ? i : void 0,
+                ),
+                  (B.doublePressTimeout = window.setTimeout(function () {
+                    (S != null &&
+                      r.executeCatch(n.current, S, [n.current, r.bloksContext]),
+                      R != null &&
+                        r.executeCatch(n.current, R, [
+                          n.current,
+                          r.bloksContext,
+                          e.clientX,
+                          e.clientY,
+                        ]),
+                      L != null &&
+                        r.executeCatch(n.current, L, [
+                          n.current,
+                          r.bloksContext,
+                          r,
+                          e.clientX,
+                          e.clientY,
+                        ]));
+                  }, u)));
+              }
             }
           }
           (S != null ||

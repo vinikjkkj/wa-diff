@@ -819,6 +819,7 @@ __d(
               "workerInit",
               "mediaHostsSync",
               "networkStatusSync",
+              "registrationState",
               "comms",
             ])),
               D(P, "backend worker restarted"),

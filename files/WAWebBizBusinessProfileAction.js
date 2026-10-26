@@ -3,10 +3,14 @@ __d(
   [
     "WAWebBusinessCategoriesResultModel",
     "WAWebBusinessProfileCategoriesBridge",
+    "WAWebGraphQLProductCatalogGetPublicKeyJob",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebQueryBusinessProfile",
     "WAWebQueryBusinessProfileWithCompliance",
+    "WAWebQueryGetSignedUserInfoJob",
+    "WAWebRestOperations",
+    "WAWebScheduledOperations",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -40,11 +44,19 @@ __d(
           );
     }
     function c(e) {
-      return o("WAWebPersistedJobManagerWorkerCompatible")
-        .getJobManager()
-        .waitUntilCompleted(
-          o("WAWebPersistedJobDefinitions").jobSerializers.getPublicKey(e),
-        );
+      return o("WAWebRestOperations").runJobsManagerFreeOperation(
+        o("WAWebScheduledOperations").ScheduledOperation.GET_PUBLIC_KEY,
+        function () {
+          return o("WAWebGraphQLProductCatalogGetPublicKeyJob").getPublicKey(e);
+        },
+        function () {
+          return o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .waitUntilCompleted(
+              o("WAWebPersistedJobDefinitions").jobSerializers.getPublicKey(e),
+            );
+        },
+      );
     }
     function d(e) {
       return m.apply(this, arguments);
@@ -52,13 +64,24 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .waitUntilCompleted(
-                o(
-                  "WAWebPersistedJobDefinitions",
-                ).jobSerializers.getSignedUserInfo(e),
-              ),
+          var t = yield o("WAWebRestOperations").runJobsManagerFreeOperation(
+              o("WAWebScheduledOperations").ScheduledOperation
+                .GET_SIGNED_USER_INFO,
+              function () {
+                return o("WAWebQueryGetSignedUserInfoJob").querySignedUserInfo({
+                  businessJid: e.toString(),
+                });
+              },
+              function () {
+                return o("WAWebPersistedJobManagerWorkerCompatible")
+                  .getJobManager()
+                  .waitUntilCompleted(
+                    o(
+                      "WAWebPersistedJobDefinitions",
+                    ).jobSerializers.getSignedUserInfo(e),
+                  );
+              },
+            ),
             n = t.businessDomain,
             a = t.phoneNumber,
             i = t.phoneNumberSignature,

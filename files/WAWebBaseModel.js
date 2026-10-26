@@ -10,7 +10,6 @@ __d(
     "WAWebUiIdleEventBus",
     "cr:5292",
     "err",
-    "gkx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -120,12 +119,10 @@ __d(
           (i.get = function (t) {
             return this[t];
           }),
-          (i.set = function (a, i, l) {
+          (i.set = function (r, a, i) {
             var t;
-            !r("gkx")("26258") &&
-              (n("cr:5292") == null
-                ? void 0
-                : n("cr:5292").currentTransaction) != null &&
+            (n("cr:5292") == null ? void 0 : n("cr:5292").currentTransaction) !=
+              null &&
               o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -134,13 +131,13 @@ __d(
                   ])),
                 this.constructor.name,
               );
-            var s = l;
-            return typeof a == "string"
-              ? this._set({ keyOrAttrs: a, maybeOptions: s, valueOrOptions: i })
-              : ((s = i),
-                (t = s) != null && t.merge
-                  ? this._set({ keyOrAttrs: _(a), valueOrOptions: s })
-                  : this._set({ keyOrAttrs: a, valueOrOptions: s }));
+            var l = i;
+            return typeof r == "string"
+              ? this._set({ keyOrAttrs: r, maybeOptions: l, valueOrOptions: a })
+              : ((l = a),
+                (t = l) != null && t.merge
+                  ? this._set({ keyOrAttrs: _(r), valueOrOptions: l })
+                  : this._set({ keyOrAttrs: r, valueOrOptions: l }));
           }),
           (i._markChange = function (t, n) {
             this.__initialized &&

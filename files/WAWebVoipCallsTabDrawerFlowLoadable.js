@@ -5,6 +5,8 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
     "asyncToGeneratorRuntime",
+    "cr:11133",
+    "cr:17806",
     "react",
     "react-loadable",
   ],
@@ -21,14 +23,19 @@ __d(
           return e;
         }),
         "VoipCallsTabDrawerFlow",
-      ),
-      c = r("react-loadable")({
-        loader: u,
-        loading: function (t) {
-          return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
-        },
-      });
-    l.VoipCallsTabDrawerFlowLoadable = c;
+      );
+    function c(e) {
+      return e.error != null
+        ? s.jsx(r("WAWebLoadingDrawer.react"), { error: !0 })
+        : (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
+            n("cr:17806") != null
+          ? s.jsx(n("cr:17806"), {})
+          : s.jsx(r("WAWebLoadingDrawer.react"), { error: !1 });
+    }
+    c.displayName = c.name + " [from " + i.id + "]";
+    var d = r("react-loadable")({ loader: u, loading: c });
+    ((l.renderCallsTabDrawerLoading = c),
+      (l.VoipCallsTabDrawerFlowLoadable = d));
   },
   98,
 );

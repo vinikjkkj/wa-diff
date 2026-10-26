@@ -4,9 +4,9 @@ __d(
     "WALogger",
     "WAWebBizAiHandoffRemovalTimingFetchQuery.graphql",
     "WAWebBizAiHandoffRemovalTimingModel",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,12 +27,8 @@ __d(
             : r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
-                    .fetchQuery(
-                      u,
-                      {},
-                      { environmentType: "facebook", accessToken: e.token },
-                    )
+                  return o("WAWebBizAiRelayClient")
+                    .fetchQuery(u, {}, { accessToken: e.token })
                     .then(function (e) {
                       var t,
                         n =

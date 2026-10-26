@@ -10,6 +10,7 @@ __d(
     "WAWebContactModel",
     "WAWebContactSearchGatingUtils",
     "WAWebDebounce",
+    "WAWebL10N",
     "WAWebSlicedMatcher",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -39,6 +40,12 @@ __d(
                     stale: r.stale,
                   })
                 : (c || (c = n("Promise"))).resolve({ id: t });
+            }),
+            e.listenTo(r("WAWebL10N"), "locale_change", function () {
+              var t = r("WAWebL10N").getLocale();
+              e.forEach(function (e) {
+                e.locale = t;
+              });
             }),
             e.listenTo(
               o("WAWebSocketModel").Socket,

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAddonDeletionQueueDef",
     "WAWebKeyShareQueueDef",
+    "WAWebMetaAiThreadServerDeleteQueueDef",
     "WAWebResendMsgQueueDef",
     "WAWormQueue",
   ],
@@ -10,6 +11,8 @@ __d(
     "use strict";
     var e = {
         addonDeletion: o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE,
+        metaAiThreadServerDelete: o("WAWebMetaAiThreadServerDeleteQueueDef")
+          .META_AI_THREAD_SERVER_DELETE_QUEUE,
         resendGroupMsg: o("WAWebResendMsgQueueDef").RESEND_GROUP_MSG_QUEUE,
         resendUserMsg: o("WAWebResendMsgQueueDef").RESEND_USER_MSG_QUEUE,
         sendRequestedKeyShare: o("WAWebKeyShareQueueDef")
@@ -18,6 +21,7 @@ __d(
       s = "wa_web_persisted_queues",
       u = {
         addonDeletion: e.addonDeletion.store,
+        metaAiThreadServerDelete: e.metaAiThreadServerDelete.store,
         resendGroupMsg: e.resendGroupMsg.store,
         resendUserMsg: e.resendUserMsg.store,
         sendRequestedKeyShare: e.sendRequestedKeyShare.store,
@@ -29,6 +33,11 @@ __d(
         "addonDeletion",
         e.addonDeletion,
       ),
+        n.bindWAWormQueue(
+          t,
+          "metaAiThreadServerDelete",
+          e.metaAiThreadServerDelete,
+        ),
         n.bindWAWormQueue(t, "resendGroupMsg", e.resendGroupMsg),
         n.bindWAWormQueue(t, "resendUserMsg", e.resendUserMsg),
         n.bindWAWormQueue(t, "sendRequestedKeyShare", e.sendRequestedKeyShare));

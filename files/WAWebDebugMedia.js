@@ -73,7 +73,6 @@ __d(
     s.doc =
       "Mark every sticker in the currently open chat as not-downloaded (NEED_POKE) so the download button/label reappears. Pass false to keep the sticker image visible. Repro tool for the sticker media-control UI.";
     var c = {
-      checkMediaExistence: o("WAWebMedia").checkMediaExistence,
       forceStickerNeedPoke: s,
       WAWebMmsClient: r("WAWebMmsClient"),
       WAWebMediaDownloadMmsThumbnail: r("WAWebMediaDownloadMmsThumbnail"),

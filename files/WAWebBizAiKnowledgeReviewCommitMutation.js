@@ -2,8 +2,8 @@ __d(
   "WAWebBizAiKnowledgeReviewCommitMutation",
   [
     "WAWebBizAiKnowledgeReviewCommitMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebBoolFunc",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -12,8 +12,8 @@ __d(
           ? e
           : (e = n("WAWebBizAiKnowledgeReviewCommitMutation.graphql"));
     function u(e) {
-      return o("WAWebRelayClient")
-        .commitMutation(s, { ids: e }, { environmentType: "facebook" })
+      return o("WAWebBizAiRelayClient")
+        .commitMutation(s, { ids: e })
         .then(function (e) {
           var t,
             n,

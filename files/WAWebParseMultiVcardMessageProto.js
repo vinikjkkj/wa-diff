@@ -3,6 +3,7 @@ __d(
   [
     "WAWebMsgType",
     "WAWebMultiVcardMessageValidationError",
+    "WAWebVcardParsingUtils",
     "WAWebWamEnumE2eFailureReason",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,13 +33,15 @@ __d(
           kind: o("WAWebMsgType").MsgKind.MultiVcard,
           vcardFormattedName: s,
           vcardList: Array.isArray(i)
-            ? i.map(function (e) {
-                return {
-                  displayName: e.displayName,
-                  vcard: e.vcard,
-                  isMultiVcard: !1,
-                };
-              })
+            ? i
+                .slice(0, o("WAWebVcardParsingUtils").MAX_VCARDS_PER_MESSAGE)
+                .map(function (e) {
+                  return {
+                    displayName: e.displayName,
+                    vcard: e.vcard,
+                    isMultiVcard: !1,
+                  };
+                })
             : [],
         });
         return { msgData: u, contextInfo: l };

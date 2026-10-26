@@ -3,49 +3,48 @@ __d(
   [
     "WAWebABProps",
     "WAWebAgentTransitionUtils",
+    "WAWebMobilePlatforms",
     "WAWebUserPrefsMultiDevice",
-    "cr:37209",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (e = n("cr:37209")) != null ? e : {},
-      u = s.isSMB;
-    function c() {
-      return !!(u != null && u());
+    var e = r("gkx")("10314") ? null : o("WAWebMobilePlatforms").isSMB;
+    function s() {
+      return !!(e != null && e());
     }
-    function d() {
-      return u != null && u()
+    function u() {
+      return e != null && e()
         ? o("WAWebABProps").getABPropConfigValue(
             "lazy_system_message_insertion_enabled",
           )
         : !1;
     }
-    function m() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "auth_agents_consumer_offboarding_exp_enabled",
       );
     }
-    function p() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_auth_agent_offboarding_enabled",
       );
     }
-    function _() {
+    function m() {
       return (
-        (u == null ? void 0 : u()) === !0 &&
+        (e == null ? void 0 : e()) === !0 &&
         !o(
           "WAWebUserPrefsMultiDevice",
         ).getIsHostedMeAccountFromLocalStorage() &&
         o("WAWebAgentTransitionUtils").getMeSmbOffboardingState() &&
-        p()
+        d()
       );
     }
-    ((l.smbHostedPrimaryPairingAllowed = c),
-      (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = d),
-      (l.agentOffboardingEnabled = m),
-      (l.agentSmbOffboardingEnabled = p),
-      (l.isCallingDisabledOnAuthAgentSoftOffboarded = _));
+    ((l.smbHostedPrimaryPairingAllowed = s),
+      (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = u),
+      (l.agentOffboardingEnabled = c),
+      (l.agentSmbOffboardingEnabled = d),
+      (l.isCallingDisabledOnAuthAgentSoftOffboarded = m));
   },
   98,
 );

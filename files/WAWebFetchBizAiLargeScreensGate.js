@@ -8,11 +8,11 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBackendApi",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiLargeScreensGateQuery.graphql",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
     "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
@@ -142,8 +142,8 @@ __d(
         });
     }
     function k(e) {
-      return o("WAWebRelayClient")
-        .fetchQuery(g, {}, { accessToken: e, environmentType: "facebook" })
+      return o("WAWebBizAiRelayClient")
+        .fetchQuery(g, {}, { accessToken: e })
         .then(function (e) {
           var t;
           return {

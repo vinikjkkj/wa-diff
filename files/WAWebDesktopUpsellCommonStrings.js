@@ -28,6 +28,8 @@ __d(
       }
     }
     function c(e) {
+      if (o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled())
+        return s._(/*BTDS*/ "Get WhatsApp for Android");
       var t = o("WAWebDesktopUpsellUtils").getUserDesktopOs();
       if (t == null) return null;
       switch (t) {
@@ -40,6 +42,11 @@ __d(
       }
     }
     function d(e) {
+      return o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled()
+        ? s._(/*BTDS*/ "Download WhatsApp for Android")
+        : m(e);
+    }
+    function m(e) {
       var t,
         n =
           (t = o("WAWebDesktopUpsellUtils").getUserDesktopOs()) != null
@@ -75,7 +82,14 @@ __d(
             : s._(/*BTDS*/ "Download WhatsApp for Mac");
       }
     }
-    function m(e) {
+    function p(e) {
+      return o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled()
+        ? s._(
+            /*BTDS*/ "Get better performance, notifications, media sharing and more.",
+          )
+        : _(e);
+    }
+    function _(e) {
       var t,
         n =
           (t = o("WAWebDesktopUpsellUtils").getUserDesktopOs()) != null
@@ -129,7 +143,7 @@ __d(
       (l.getDesktopAppDownloadFromStoreBtnLabel = u),
       (l.getDesktopUpsellToastbarLabel = c),
       (l.getDesktopUpsellDownloadWhatsAppTitle = d),
-      (l.getDesktopUpsellIntroPanelText = m));
+      (l.getDesktopUpsellIntroPanelText = p));
   },
   226,
 );

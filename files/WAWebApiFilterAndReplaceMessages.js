@@ -3,7 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebApiOrphanRevoke",
+    "WAWebBackendApi",
+    "WAWebCoexV2StoredRevokeAuthorization",
     "WAWebLidMigrationUtils",
+    "WAWebRequestDeleteAddOns",
     "WAWebWid",
     "asyncToGeneratorRuntime",
   ],
@@ -37,27 +40,43 @@ __d(
             i = [],
             l = [],
             s = 0,
-            u = [];
+            u = [],
+            c = [];
           return (
             t.forEach(function (e) {
               var t,
-                c = e.id.toString(),
-                d = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
-                m = (t = a.get(c)) != null ? t : d && a.get(d.toString());
-              if (m)
+                d = e.id.toString(),
+                m = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
+                p = (t = a.get(d)) != null ? t : m && a.get(m.toString()),
+                _ = p
+                  ? o(
+                      "WAWebCoexV2StoredRevokeAuthorization",
+                    ).getCoexV2OrphanRevokeOutcome(e, p)
+                  : null;
+              if (
+                (p && _ === "reject" && i.push(p),
+                p && (_ == null || _ === "accept"))
+              )
                 (s++,
                   u.length < 3 && u.push(e.id.id),
                   r("WAWebWid").isStatus(e.id.remote) ||
                     l.push(
                       o("WAWebApiOrphanRevoke").createRevokeMsgFromOrphanRevoke(
                         e,
-                        m,
+                        p,
                       ),
                     ),
-                  i.push(m));
+                  _ === "accept" &&
+                    (o(
+                      "WAWebRequestDeleteAddOns",
+                    ).requestDeleteAddOnsFireAndForget(e.id.remote.toString(), [
+                      d,
+                    ]),
+                    c.push(d)),
+                  i.push(p));
               else if (n) {
-                var p = n(e);
-                p && l.push(p);
+                var f = n(e);
+                f && l.push(f);
               } else l.push(e);
             }),
             s > 0 &&
@@ -70,6 +89,11 @@ __d(
                   ])),
                 s,
                 u,
+              ),
+            c.length > 0 &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "deleteModelsForLastAddOnPreview",
+                { messagesIds: c },
               ),
             o("WAWebApiOrphanRevoke").bulkRemoveOrphansUsingOrphansCache(i),
             { newMsgs: l }

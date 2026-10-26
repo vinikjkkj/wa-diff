@@ -85,7 +85,12 @@ __d(
                     r.length > 0
                       ? o(
                           "WAWebMsgCollection",
-                        ).MsgCollection.incrementalStarredUpdate(r)
+                        ).MsgCollection.processMultipleMessages(
+                          void 0,
+                          r,
+                          { add: "search" },
+                          "msgCollectionIncrementalStarredUpdate",
+                        )
                       : (u || (u = n("Promise"))).resolve([]);
                   return i
                     .then(function (t) {

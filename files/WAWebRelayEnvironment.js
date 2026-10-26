@@ -185,170 +185,212 @@ __d(
         h.apply(this, arguments)
       );
     }
-    var y = new Map();
-    function C(e) {
-      return b.apply(this, arguments);
+    var y = new Map(),
+      C = new Map();
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            a = (t = e.environmentType) != null ? t : "whatsapp_catalog",
-            i = y.get(a);
-          if (i != null) {
-            var l = !1;
+            n = (t = e.environmentType) != null ? t : "whatsapp_catalog",
+            r = e.log;
+          if (r != null) return S(e, n, r);
+          var o = y.get(n);
+          if (o != null) {
+            var a = !1;
             if (
               (e.accessToken != null &&
-                e.accessToken !== i.accessToken &&
-                (l = !0),
-              e.actorID != null && e.actorID !== i.actorID && (l = !0),
-              !l)
+                e.accessToken !== o.accessToken &&
+                (a = !0),
+              e.actorID != null && e.actorID !== o.actorID && (a = !0),
+              !a)
             )
-              return i.environment;
+              return o.environment;
           }
-          var s = yield u(),
-            c = s.Environment,
-            h = s.Network,
-            C = s.RecordSource,
-            b = s.Store,
-            v = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t, n, a, i) {
-                  var l,
-                    s,
-                    u,
-                    c =
-                      (l = e.environmentType) != null ? l : "whatsapp_catalog",
-                    h = {
-                      Accept: "application/json",
-                      "Content-Type": "application/json",
-                    };
-                  if (c === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
-                    var y = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
-                    y != null && (h["X-WA-Device-ID"] = y);
-                  }
-                  var C =
-                      (s = o("WAWebGraphQLPersistedQueries").PersistedQueries[
-                        t.name
-                      ]) != null
-                        ? s
-                        : t.id,
-                    b = m(c),
-                    v = yield o("WAWebBackendApi").frontendSendAndReceive(
-                      "getFullLocale",
-                      void 0,
-                    ),
-                    S = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
-                      v.replace("-", "_"),
-                      o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
-                    );
-                  if (c === "whatsapp_web")
-                    return g({
-                      docId: C,
-                      locale: S,
-                      localeParameterName: b,
-                      variables: n,
-                    });
-                  if (
-                    c === "whatsapp_guest" &&
-                    (e == null ? void 0 : e.accessToken) == null
-                  )
-                    throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
-                      {
-                        errors: [
-                          {
-                            code: 0,
-                            message:
-                              "Missing WhatsApp guest GraphQL access token",
-                          },
-                        ],
-                      },
-                    );
-                  var R = babelHelpers.extends(
-                      {
-                        access_token:
-                          (u = e == null ? void 0 : e.accessToken) != null
-                            ? u
-                            : o("WAWebGraphQLConstants")
-                                .WHATSAPP_GRAPHQL_CATALOG_ACCESS_TOKEN,
-                        doc_id: C,
-                        variables: n,
-                      },
-                      b === "lang" ? { lang: S } : { locale: S },
-                    ),
-                    L;
-                  if (i != null && Object.keys(i).length > 0) {
-                    var E;
-                    delete h["Content-Type"];
-                    var k = new FormData();
-                    (k.append("access_token", R.access_token),
-                      R.doc_id != null && k.append("doc_id", R.doc_id),
-                      k.append(
-                        "variables",
-                        JSON.stringify((E = R.variables) != null ? E : {}),
-                      ),
-                      R.lang != null && k.append("lang", R.lang),
-                      R.locale != null && k.append("locale", R.locale),
-                      Object.keys(i).forEach(function (e) {
-                        k.append(e, i[e]);
-                      }),
-                      (L = k));
-                  } else L = JSON.stringify(R);
-                  var I = yield self.fetch(d(c), {
-                    method: "POST",
-                    headers: h,
-                    body: L,
-                  });
-                  if (!I.ok) {
-                    var T, D;
-                    try {
-                      D = yield I.json();
-                    } catch (e) {
-                      p(I);
-                    }
-                    if (((T = D) == null ? void 0 : T.error) != null)
-                      throw new (o(
-                        "WAWebGraphQLServerError",
-                      ).GraphQLServerError)({
-                        errors: [D.error],
-                        httpStatus: I.status,
-                      });
-                    p(I);
-                  }
-                  if (c === "facebook" && !r("justknobx")._("1636")) {
-                    var x = _(yield I.text());
-                    return (f(x), x);
-                  }
-                  var $ = yield I.json();
-                  if (($ == null ? void 0 : $.errors) != null)
-                    throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
-                      { errors: $.errors },
-                    );
-                  return $;
-                },
-              );
-              return function (n, r, o, a) {
-                return t.apply(this, arguments);
-              };
-            })(),
-            S = new c({
-              network: h.create(v),
-              store: new b(new C()),
-              options: { actorID: e == null ? void 0 : e.actorID },
-            });
+          var i = yield u(),
+            l = L(e, i);
           return (
-            y.set(a, {
-              environment: S,
+            y.set(n, {
+              environment: l,
               accessToken: e == null ? void 0 : e.accessToken,
               actorID: e == null ? void 0 : e.actorID,
             }),
-            S
+            l
           );
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.requireRelayRuntime = u), (l.getEnvironment = C));
+    function S(e, t, n) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            o,
+            a = C.get(t);
+          a == null && ((a = new WeakMap()), C.set(t, a));
+          var i = babelHelpers.extends({}, e, {
+              accessToken: (r = e.accessToken) != null ? r : null,
+              actorID: (o = e.actorID) != null ? o : null,
+              environmentType: t,
+              log: n,
+            }),
+            l = a.get(n);
+          if (
+            l != null &&
+            l.accessToken === i.accessToken &&
+            l.actorID === i.actorID
+          )
+            return l.promise;
+          var s = {
+            accessToken: i.accessToken,
+            actorID: i.actorID,
+            promise: u().then(function (e) {
+              return L(i, e);
+            }),
+          };
+          a.set(n, s);
+          try {
+            return yield s.promise;
+          } catch (e) {
+            throw (a.get(n) === s && a.delete(n), e);
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e, t) {
+      var a = t.Environment,
+        i = t.Network,
+        l = t.RecordSource,
+        s = t.Store,
+        u = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n, a, i) {
+              var l,
+                s,
+                u,
+                c = (l = e.environmentType) != null ? l : "whatsapp_catalog",
+                h = {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                };
+              if (c === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
+                var y = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
+                y != null && (h["X-WA-Device-ID"] = y);
+              }
+              var C =
+                  (s = o("WAWebGraphQLPersistedQueries").PersistedQueries[
+                    t.name
+                  ]) != null
+                    ? s
+                    : t.id,
+                b = m(c),
+                v = yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "getFullLocale",
+                  void 0,
+                ),
+                S = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
+                  v.replace("-", "_"),
+                  o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
+                );
+              if (c === "whatsapp_web")
+                return g({
+                  docId: C,
+                  locale: S,
+                  localeParameterName: b,
+                  variables: n,
+                });
+              if (
+                c === "whatsapp_guest" &&
+                (e == null ? void 0 : e.accessToken) == null
+              )
+                throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
+                  errors: [
+                    {
+                      code: 0,
+                      message: "Missing WhatsApp guest GraphQL access token",
+                    },
+                  ],
+                });
+              var R = babelHelpers.extends(
+                  {
+                    access_token:
+                      (u = e == null ? void 0 : e.accessToken) != null
+                        ? u
+                        : o("WAWebGraphQLConstants")
+                            .WHATSAPP_GRAPHQL_CATALOG_ACCESS_TOKEN,
+                    doc_id: C,
+                    variables: n,
+                  },
+                  b === "lang" ? { lang: S } : { locale: S },
+                ),
+                L;
+              if (i != null && Object.keys(i).length > 0) {
+                var E;
+                delete h["Content-Type"];
+                var k = new FormData();
+                (k.append("access_token", R.access_token),
+                  R.doc_id != null && k.append("doc_id", R.doc_id),
+                  k.append(
+                    "variables",
+                    JSON.stringify((E = R.variables) != null ? E : {}),
+                  ),
+                  R.lang != null && k.append("lang", R.lang),
+                  R.locale != null && k.append("locale", R.locale),
+                  Object.keys(i).forEach(function (e) {
+                    k.append(e, i[e]);
+                  }),
+                  (L = k));
+              } else L = JSON.stringify(R);
+              var I = yield self.fetch(d(c), {
+                method: "POST",
+                headers: h,
+                body: L,
+              });
+              if (!I.ok) {
+                var T, D;
+                try {
+                  D = yield I.json();
+                } catch (e) {
+                  p(I);
+                }
+                if (((T = D) == null ? void 0 : T.error) != null)
+                  throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
+                    errors: [D.error],
+                    httpStatus: I.status,
+                  });
+                p(I);
+              }
+              if (c === "facebook" && !r("justknobx")._("1636")) {
+                var x = _(yield I.text());
+                return (f(x), x);
+              }
+              var $ = yield I.json();
+              if (($ == null ? void 0 : $.errors) != null)
+                throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
+                  errors: $.errors,
+                });
+              return $;
+            },
+          );
+          return function (n, r, o, a) {
+            return t.apply(this, arguments);
+          };
+        })();
+      return new a(
+        babelHelpers.extends({}, e.log != null ? { log: e.log } : {}, {
+          network: i.create(u),
+          store: new s(new l()),
+          options: { actorID: e == null ? void 0 : e.actorID },
+        }),
+      );
+    }
+    ((l.requireRelayRuntime = u), (l.getEnvironment = b));
   },
   98,
 );

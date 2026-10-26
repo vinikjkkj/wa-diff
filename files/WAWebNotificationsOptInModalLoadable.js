@@ -21,16 +21,20 @@ __d(
           return e;
         }),
         "NotificationsOptInModal",
-      ),
-      c = r("WAWebLoadable")({
-        loader: u,
-        loading: function (t) {
-          return t.error
-            ? s.jsx(r("WAWebLoadingConfirmPopup.react"), { error: !0 })
-            : s.jsx(s.Fragment, {});
-        },
-      });
-    l.NotificationsOptInModalLoadable = c;
+      );
+    function c() {
+      return u().then(function () {});
+    }
+    var d = r("WAWebLoadable")({
+      loader: u,
+      loading: function (t) {
+        return t.error
+          ? s.jsx(r("WAWebLoadingConfirmPopup.react"), { error: !0 })
+          : s.jsx(s.Fragment, {});
+      },
+    });
+    ((l.preloadNotificationsOptInModal = c),
+      (l.NotificationsOptInModalLoadable = d));
   },
   98,
 );

@@ -87,8 +87,6 @@ __d(
     "WAWebOfflineResumeUtils",
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
-    "WAWebPersistedJobManager",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPrimaryFeatures",
     "WAWebPrimaryVersion",
     "WAWebPushNotificationsGatingUtils",
@@ -100,6 +98,7 @@ __d(
     "WAWebSocketModel",
     "WAWebStartBackendLoginListeners",
     "WAWebStartBackendWorker",
+    "WAWebStartPersistedJobs",
     "WAWebStoreSpecialAbProps",
     "WAWebSubscriptions",
     "WAWebSyncBootstrap",
@@ -400,10 +399,7 @@ __d(
                 "WAWebAuthAgentFeatureControlLifecycle",
               ).startAuthAgentFeatureControlLifecycle(),
             yield o("WAWebInitChatThreadLogging").initChatThreadLogging(),
-            yield o("WAWebPersistedJobManager").startWebPersistedJobManager(),
-            o("WAWebPersistedJobManagerWorkerCompatible").setInstance(
-              o("WAWebPersistedJobManager").getJobManager(),
-            ),
+            yield o("WAWebStartPersistedJobs").startPersistedJobs(),
             o("WAWebOfflineResumeMainThread").setupMainThreadResume(
               o("WAWebOfflineHandler").OfflineMessageHandler,
             ),
@@ -778,7 +774,7 @@ __d(
                   .finally(function () {
                     (o("WAWebBackendApi").frontendFireAndForget(
                       "clearStatusForRemovedContact",
-                      {},
+                      { isStartupSync: !0 },
                     ),
                       o(
                         "WAWebUserPrefsMultiDevice",
@@ -803,7 +799,7 @@ __d(
                   })
               : o("WAWebBackendApi").frontendFireAndForget(
                   "clearStatusForRemovedContact",
-                  {},
+                  { isStartupSync: !0 },
                 ),
             o("WAWebTasksDefinitions").registerTasks(),
             o("WAWebSignalSessionCleanupJob").cleanupCorruptedSignalSessions(),

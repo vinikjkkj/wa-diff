@@ -6,7 +6,6 @@ __d(
     "WAWebDBStats",
     "WAWebDBTableUsage",
     "WAWebLidAwareContactsDB",
-    "WAWebProfiler",
     "WAWebSchemaChat",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebSchemaMessage",
@@ -78,17 +77,12 @@ __d(
       );
     }
     m.doc = "get chat row from DB";
-    var _ = function (t) {
-      (r("vulture")("s6DN0MUQWASICCWMkvRQqeKVwMA="),
-        o("WAWebProfiler").logDBStatsDev(t));
-    };
-    _.doc = "Prints DB stats for a table in the dev console";
-    var f = function () {
+    var _ = function () {
       (r("vulture")("iGXFgeWRUrQLhvqjqq3dvrZMSbA="),
         o("WAWebDBStats").dbStats.resetStatsLog());
     };
-    f.doc = "Resets DB stats in the dev console";
-    var g = {
+    _.doc = "Resets DB stats in the dev console";
+    var f = {
       beginDBTableUsage: o("WAWebDBTableUsage").beginDBTableUsage,
       getMessageFromDBBYStanzaId: s,
       getMessageFromDBByMsgKey: c,
@@ -96,10 +90,9 @@ __d(
       getContactTable: o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable,
       WAWebLidAwareContactsDB: r("WAWebLidAwareContactsDB"),
-      logDBStats: _,
-      resetDBStats: f,
+      resetDBStats: _,
     };
-    l.default = g;
+    l.default = f;
   },
   98,
 );

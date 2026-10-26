@@ -25,14 +25,15 @@ __d(
       c,
       d,
       m,
-      p = 10,
-      _ = 3e3;
-    function f(e) {
-      return g.apply(this, arguments);
+      p,
+      _ = 10,
+      f = 3e3;
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.ciphertextHmac,
             i = t.debugString,
             l = t.expectedPlaintextHash,
@@ -51,33 +52,33 @@ __d(
                 ])),
               i,
             ),
-            a.byteLength < p)
+            a.byteLength < _)
           )
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "ciphertext too short: " + a.byteLength,
             );
-          var _ = c.encKey,
+          var p = c.encKey,
             f = c.iv,
             g = c.macKey,
-            y = o("WATypedArraysCast").castTypedArrays(Uint8Array, a);
+            h = o("WATypedArraysCast").castTypedArrays(Uint8Array, a);
           try {
-            var b = o("WAWebABProps").getABPropConfigValue(
+            var C = o("WAWebABProps").getABPropConfigValue(
                 "web_media_compute_in_worker_enabled",
               ),
-              S = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+              v = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
                 new Uint8Array(f),
-                y.subarray(0, 0 - p),
+                h.subarray(0, 0 - _),
               ]);
             return yield (
-              b
-                ? v({ macKey: g, data: S, truncateLength: p })
-                : o("WACryptoHmac").hmacSha256(g, S, p)
+              C
+                ? S({ macKey: g, data: v, truncateLength: _ })
+                : o("WACryptoHmac").hmacSha256(g, v, _)
             )
               .then(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = y.buffer.slice(0 - p);
+                      var t = h.buffer.slice(0 - _);
                       if (!o("WACryptoUtils").arrayBuffersEqual(e, t))
                         throw new (o(
                           "WAWebMediaFileErrors",
@@ -86,10 +87,10 @@ __d(
                             o("WAWebMediaFileErrors").HMAC_MISMATCH_ERROR,
                         );
                       d && (yield r("WAWebCommonTaskScheduler").yield());
-                      var n = y.subarray(0, 0 - p);
-                      return b
-                        ? h({ encKey: _, iv: f, ciphertext: n })
-                        : C({ encKey: _, iv: f, ciphertext: n });
+                      var n = h.subarray(0, 0 - _);
+                      return C
+                        ? y({ encKey: p, iv: f, ciphertext: n })
+                        : b({ encKey: p, iv: f, ciphertext: n });
                     },
                   );
                   return function (t) {
@@ -103,8 +104,8 @@ __d(
                     function* (e) {
                       if (l == null) return e;
                       d && (yield r("WAWebCommonTaskScheduler").yield());
-                      var t = b
-                        ? yield R(e)
+                      var t = C
+                        ? yield L(e)
                         : yield o("WAMediaCalculateFilehash").calculateFilehash(
                             e,
                           );
@@ -147,89 +148,102 @@ __d(
               e instanceof o("WAWebMediaFileErrors").MediaDecryptionError)
             )
               throw e;
-            var L = r("getErrorSafe")(e);
+            var R = r("getErrorSafe")(e);
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
-              "decryption error: " + String(L) + "; stack: " + L.stack,
+              "decryption error: " + String(R) + "; stack: " + R.stack,
             );
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ciphertext,
             n = e.encKey,
             r = e.iv,
-            a = yield o("WAPromiseTimeout")
-              .promiseTimeout(
-                o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-                _,
-                "[media][crypto] backend worker bridge timed out",
-              )
-              .catch(function (e) {
-                if (e instanceof o("WACustomError").TimeoutError) return null;
-                throw e;
-              });
-          if (a == null) {
-            var i = o("WAWebABPropsCache").isABPropConfigsReady(),
-              l = o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady();
+            a = t.buffer;
+          if (!(a instanceof ArrayBuffer))
+            return (
+              o("WALogger")
+                .WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[media][crypto] shared ciphertext buffer, fallback to main",
+                    ])),
+                )
+                .sendLogs("media-decrypt-shared-ciphertext"),
+              b({ encKey: n, iv: r, ciphertext: t.slice() })
+            );
+          var i = yield o("WAPromiseTimeout")
+            .promiseTimeout(
+              o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
+              f,
+              "[media][crypto] backend worker bridge timed out",
+            )
+            .catch(function (e) {
+              if (e instanceof o("WACustomError").TimeoutError) return null;
+              throw e;
+            });
+          if (i == null) {
+            var l = o("WAWebABPropsCache").isABPropConfigsReady(),
+              s = o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady();
             return (
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[media][crypto] worker bridge timeout, fallback to main ",
                     "",
                   ])),
-                { isABPropsReady: i, isBridgeReady: l },
+                { isABPropsReady: l, isBridgeReady: s },
               ),
-              C({ encKey: n, iv: r, ciphertext: t })
+              b({ encKey: n, iv: r, ciphertext: t })
             );
           }
-          return a.sendAndReceive(
+          return i.sendAndReceive(
             "crypto",
             "aesCbcDecrypt",
             { encKey: n, iv: r, ciphertext: t },
             !1,
             void 0,
             void 0,
-            [t.buffer],
+            [a],
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ciphertext,
             n = e.encKey,
             r = e.iv;
           return o("WACryptoAesCbc").aesCbcDecrypt(n, r, t);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.data,
             n = e.macKey,
             r = e.truncateLength,
             a = yield o("WAPromiseTimeout")
               .promiseTimeout(
                 o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-                _,
+                f,
                 "[media][crypto] backend worker bridge timed out (hmac)",
               )
               .catch(function (e) {
@@ -238,8 +252,8 @@ __d(
               });
           return a == null
             ? (o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[media][crypto] bridge timeout (hmac), main fallback",
                   ])),
               ),
@@ -254,19 +268,19 @@ __d(
                 [t.buffer],
               );
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAPromiseTimeout")
             .promiseTimeout(
               o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-              _,
+              f,
               "[media][crypto] backend worker bridge timed out (filehash)",
             )
             .catch(function (e) {
@@ -275,18 +289,18 @@ __d(
             });
           return t == null
             ? (o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[media][crypto] bridge timeout (filehash), main fallback",
                   ])),
               ),
               o("WAMediaCalculateFilehash").calculateFilehash(e))
             : t.sendAndReceive("crypto", "sha256Base64", { data: e });
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    l.default = f;
+    l.default = g;
   },
   98,
 );

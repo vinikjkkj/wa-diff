@@ -193,6 +193,8 @@ __d(
         "ctwa_native_ad_heuristics_budget_recommendation",
       CTWA_NATIVE_AD_BUDGET_REC_MODEL_V1_RECOMMENDATION:
         "ctwa_native_ad_budget_rec_model_v1_recommendation",
+      CTWA_NATIVE_AD_BUDGET_REC_MODEL_V1_DECISION:
+        "ctwa_native_ad_budget_rec_model_v1_decision",
       CTWA_NATIVE_AD_SABR_V2_WITH_ESTIMATION_WIDGET:
         "ctwa_native_ad_sabr_v2_with_estimation_widget",
       CTWA_SERVER_DRAFT_RESTORE: "ctwa_server_draft_restore",
@@ -1548,6 +1550,7 @@ __d(
       CREATIVE_EDITOR_MODAL_SELECT_MEDIA: "creative_editor_modal_select_media",
       CREATIVE_EDITOR_MODAL_UNSELECT_MEDIA:
         "creative_editor_modal_unselect_media",
+      CREATIVE_EDITOR_MODAL_STOCK_SEARCH: "creative_editor_modal_stock_search",
       CREATIVE_EDITOR_MODAL_CLICK_MANUAL_ADD_TEXT_VARIANTS:
         "creative_editor_modal_click_manual_add_text_variants",
       CREATIVE_EDITOR_MODAL_EXIT_MODAL: "creative_editor_modal_exit_modal",

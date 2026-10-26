@@ -7,6 +7,7 @@ __d(
     "WAWebABPropsConfigs",
     "WAWebABPropsGlobals",
     "WAWebABPropsParseConfigValue",
+    "WAWebABPropsUrlOverrideParam",
     "WAWebApiAbPropConfig",
     "WAWebBackendWorkerInitState",
     "WAWebGroupABPropsCache",
@@ -79,13 +80,17 @@ __d(
         : null;
     }
     function k(e, t) {
-      if (t == null || t === "") return null;
-      var n = o("WAWebABPropsConfigs").ABPropConfigs[e],
-        r = n[1],
-        a = n[2],
-        i = n[3],
-        l = a;
-      return o("WAWebABPropsParseConfigValue").parseConfigValue(t, r, l);
+      var n =
+        t == null
+          ? null
+          : o("WAWebABPropsUrlOverrideParam").getABPropUrlOverrideParam(t, e);
+      if (n == null || n === "") return null;
+      var r = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        a = r[1],
+        i = r[2],
+        l = r[3],
+        s = i;
+      return o("WAWebABPropsParseConfigValue").parseConfigValue(n, a, s);
     }
     function I(e) {
       var t = E();
@@ -93,28 +98,27 @@ __d(
         t.size === 0 ||
         Object.keys(o("WAWebABPropsConfigs").ABPropConfigs).forEach(
           function (n) {
-            var r = k(n, t.get(n));
+            var r = k(n, t);
             r != null &&
               (e[String(o("WAWebABPropsConfigs").ABPropConfigs[n][0])] = r);
           },
         );
     }
     function T(e) {
-      var t,
-        n = k(e, (t = E()) == null ? void 0 : t.get(e));
-      if (n != null) return n;
-      var r = o("WAWebABPropsConfigs").ABPropConfigs[e],
-        a = r[0],
-        i = r[2],
-        l = r[3],
-        c = i;
+      var t = k(e, E());
+      if (t != null) return t;
+      var n = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        r = n[0],
+        a = n[2],
+        i = n[3],
+        l = a;
       if (!y.resolveWasCalled()) {
         if (!o("WAWebABProps").usedBeforeInitializationConfigs.includes(e)) {
-          var d,
-            m = (d = f.get(e)) != null ? d : 0;
-          m < _ &&
-            (f.set(e, m + 1),
-            m === 0
+          var c,
+            d = (c = f.get(e)) != null ? c : 0;
+          d < _ &&
+            (f.set(e, d + 1),
+            d === 0
               ? o("WALogger").WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -134,9 +138,9 @@ __d(
                   e,
                 ));
         }
-        return c;
+        return l;
       }
-      return $(a);
+      return $(r);
     }
     function D(e) {
       return e == null && r("justknobx")._("6581");
@@ -167,33 +171,31 @@ __d(
           : t.configValue;
     }
     function P(e) {
-      var t,
-        n = k(e, (t = E()) == null ? void 0 : t.get(e));
-      if (n != null) return { value: n, source: "url_override" };
-      var a = o("WAWebABPropsConfigs").ABPropConfigs[e],
-        i = a[0],
-        l = a[2],
-        s = a[3],
-        u = y.resolveWasCalled() ? h.get(i) : null;
+      var t = k(e, E());
+      if (t != null) return { value: t, source: "url_override" };
+      var n = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        a = n[0],
+        i = n[2],
+        l = n[3],
+        s = y.resolveWasCalled() ? h.get(a) : null;
       return r("gkx")("16539") &&
-        (u == null ? void 0 : u.overriddenConfigValue) != null
-        ? { value: u.overriddenConfigValue, source: "local_override" }
-        : (u == null ? void 0 : u.configValue) != null
-          ? { value: u.configValue, source: "server" }
-          : { value: l, source: "default" };
+        (s == null ? void 0 : s.overriddenConfigValue) != null
+        ? { value: s.overriddenConfigValue, source: "local_override" }
+        : (s == null ? void 0 : s.configValue) != null
+          ? { value: s.configValue, source: "server" }
+          : { value: i, source: "default" };
     }
     function N(e) {
-      var t,
-        n = k(e, (t = E()) == null ? void 0 : t.get(e)),
-        a = o("WAWebABPropsConfigs").ABPropConfigs[e],
-        i = a[0],
-        l = y.resolveWasCalled() ? h.get(i) : null,
-        s =
+      var t = k(e, E()),
+        n = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        a = n[0],
+        i = y.resolveWasCalled() ? h.get(a) : null,
+        l =
           r("gkx")("16539") &&
-          (l == null ? void 0 : l.overriddenConfigValue) != null;
+          (i == null ? void 0 : i.overriddenConfigValue) != null;
       return {
-        isOverridden: n != null || s,
-        hasServerValue: (l == null ? void 0 : l.configValue) != null,
+        isOverridden: t != null || l,
+        hasServerValue: (i == null ? void 0 : i.configValue) != null,
       };
     }
     function M(e) {

@@ -28,7 +28,6 @@ __d(
     "WAWebChatConstants",
     "WAWebChatDocMsgsCollection",
     "WAWebChatEntryPoint",
-    "WAWebChatFlowTypes",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebChatLinkMsgsCollection",
@@ -95,7 +94,6 @@ __d(
     "WAWebValidateLidChat",
     "WAWebViewOnceState",
     "WAWebViewRepliesCollection",
-    "WAWebWamEnumWebcChatType",
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -1216,29 +1214,6 @@ __d(
                   : (t = this.lastReceivedKey)),
               t || void 0
             );
-          }),
-          (i.getWebcChatType = function () {
-            var e = o("WAWebFrontendChatGetters").getKind(this);
-            if (e != null)
-              switch (e) {
-                case o("WAWebChatFlowTypes").ChatKindType.Chat:
-                  return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE
-                    .INDIVIDUAL;
-                case o("WAWebChatFlowTypes").ChatKindType.Group:
-                  return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.GROUP;
-                case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
-                  return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE
-                    .BROADCAST_LIST;
-                case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
-                  return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE
-                    .NEWSLETTER;
-                case o("WAWebChatFlowTypes").ChatKindType.Community:
-                  return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.COMMUNITY;
-              }
-            else {
-              var t = new TypeError("Invalid Chat.kind " + String(e));
-              throw (t.stack, t);
-            }
           }),
           (i.getMdChatAssignmentChatType = function () {
             return o(

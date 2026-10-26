@@ -4,9 +4,9 @@ __d(
     "WAWebBizAiKnowledgeSourceDeleteMutation.graphql",
     "WAWebBizAiKnowledgeSourceDeleteMutationChatHistoryMutation.graphql",
     "WAWebBizAiKnowledgeSourceDeleteMutationWebsiteMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -38,11 +38,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       c,
                       { input: { uploaded_file_data_source_id: e } },
-                      { environmentType: "facebook", accessToken: t.token },
+                      { accessToken: t.token },
                     )
                     .then(function (e) {
                       var t =
@@ -64,11 +64,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       d,
                       { input: { website_data_source_id: e } },
-                      { environmentType: "facebook", accessToken: t.token },
+                      { accessToken: t.token },
                     )
                     .then(function (e) {
                       var t =
@@ -90,12 +90,8 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
-                    .commitMutation(
-                      m,
-                      {},
-                      { environmentType: "facebook", accessToken: e.token },
-                    )
+                  return o("WAWebBizAiRelayClient")
+                    .commitMutation(m, {}, { accessToken: e.token })
                     .then(function (e) {
                       var t =
                         e == null ? void 0 : e.xfb_maiba_delete_chat_history;

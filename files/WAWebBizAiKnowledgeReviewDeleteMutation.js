@@ -2,8 +2,8 @@ __d(
   "WAWebBizAiKnowledgeReviewDeleteMutation",
   [
     "WAWebBizAiKnowledgeReviewDeleteMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebBoolFunc",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -12,12 +12,8 @@ __d(
           ? e
           : (e = n("WAWebBizAiKnowledgeReviewDeleteMutation.graphql"));
     function u(e, t) {
-      return o("WAWebRelayClient")
-        .commitMutation(
-          s,
-          { id: e, source: t },
-          { environmentType: "facebook" },
-        )
+      return o("WAWebBizAiRelayClient")
+        .commitMutation(s, { id: e, source: t })
         .then(function (e) {
           var t,
             n,

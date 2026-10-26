@@ -24,6 +24,7 @@ __d(
     "WAWebLogoutReasonConstants",
     "WAWebMediaStore",
     "WAWebNetworkStatus",
+    "WAWebNotifyWorkerUnregistered",
     "WAWebReleaseToEventLoop",
     "WAWebReloadAfterLogout",
     "WAWebSentinel",
@@ -224,10 +225,11 @@ __d(
           (i.clearCredentialsAndStoredData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "triggerLogoutDiagnosticFromBridge",
-                  { reason: e },
-                );
+                (o("WAWebNotifyWorkerUnregistered").notifyWorkerUnregistered(),
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "triggerLogoutDiagnosticFromBridge",
+                    { reason: e },
+                  ));
                 var a = !1;
                 if (r("WAWebEnvironment").isWindows) {
                   var i,
@@ -334,6 +336,7 @@ __d(
                 r("WAWebLocalStorage").removeItem("WebEncKeySalt"),
               r("WAWebLocalStorage") == null ||
                 r("WAWebLocalStorage").removeItem("WANoiseInfo"),
+              o("WAWebNotifyWorkerUnregistered").notifyWorkerUnregistered(),
               o("WAWebInvocationInterface")
                 .get()
                 .setLogoutState(!0)

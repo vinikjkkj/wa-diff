@@ -2,9 +2,9 @@ __d(
   "WAWebBizAiExampleResponseDeleteMutation",
   [
     "WAWebBizAiExampleResponseDeleteMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,11 +22,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       s,
                       { input: { knowledge_types_to_delete: [e] } },
-                      { environmentType: "facebook", accessToken: t.token },
+                      { accessToken: t.token },
                     )
                     .then(function (e) {
                       var t =
@@ -50,11 +50,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       s,
                       { input: { knowledge_types_to_delete: [e], faq_ids: t } },
-                      { environmentType: "facebook", accessToken: n.token },
+                      { accessToken: n.token },
                     )
                     .then(function (e) {
                       var t =

@@ -12,8 +12,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t) {
+    var e, s, u, c, d;
+    function m(t) {
       var n =
         t == null
           ? o("WAWebExternalLink.react").ANDROID_STORE_URIS.touchscreen_overlay
@@ -37,20 +37,22 @@ __d(
           .sendLogs("android-tablet-play-store-open");
       }
     }
-    function m(e) {
+    function p(e) {
       var t = e.ctaSource,
         n = e.isBetaUpsell,
         r = e.isBetaUser,
         a = e.qrScreenExperimentGroup,
         i = o("WAWebDesktopUpsellUtils").getUserDesktopOs();
       (i === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS
-        ? _(t)
+        ? h(t)
         : i === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS
-          ? g(t, n)
+          ? C(t, n)
           : t ===
               o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
                 .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
-                .LINK_DEVICE_APPLE_TOUCHSCREEN_OVERLAY && p(),
+                .LINK_DEVICE_APPLE_TOUCHSCREEN_OVERLAY
+            ? _()
+            : o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled() && f(t),
         new (o("WAWebWebcNativeUpsellCtaWamEvent").WebcNativeUpsellCtaWamEvent)(
           {
             webcNativeUpsellCtaEventType: o(
@@ -68,7 +70,7 @@ __d(
           },
         ).commitAndWaitForFlush(!0));
     }
-    function p() {
+    function _() {
       try {
         o("WAWebExternalLink.react").openExternalLink(
           o("WAWebExternalLink.react").IOS_STORE_URIS.touchscreen_overlay,
@@ -89,17 +91,52 @@ __d(
           .sendLogs("desktop-upsell-ios-store-open-failed");
       }
     }
-    function _(e) {
+    function f(e) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(f(e), {
-          target: o("WAWebExternalLink.react").ExternalLinkTarget
-            .DEEPLINK_IN_CURRENT_TAB,
+        o("WAWebExternalLink.react").openExternalLink(g(e), {
+          target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB,
         });
       } catch (e) {
         o("WALogger")
           .ERROR(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[desktop-upsell] Google Play open failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("desktop-upsell-google-play-open-failed");
+      }
+    }
+    function g(e) {
+      e: {
+        if (
+          e ===
+          o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
+            .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.INTRO_PANEL
+        )
+          return o("WAWebExternalLink.react").ANDROID_STORE_URIS.intro_panel;
+        if (
+          e ===
+          o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
+            .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.BUTTERBAR
+        )
+          return o("WAWebExternalLink.react").ANDROID_STORE_URIS
+            .chatlist_toastbar;
+        throw r("err")("Invalid CTA source: " + e);
+      }
+    }
+    function h(e) {
+      try {
+        o("WAWebExternalLink.react").openExternalLink(y(e), {
+          target: o("WAWebExternalLink.react").ExternalLinkTarget
+            .DEEPLINK_IN_CURRENT_TAB,
+        });
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[desktop-upsell] MS Store open failed",
               ])),
           )
@@ -107,7 +144,7 @@ __d(
           .sendLogs("desktop-upsell-ms-store-open-failed");
       }
     }
-    function f(e) {
+    function y(e) {
       switch (e) {
         case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
           .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.QR_SLIM_BANNER:
@@ -147,17 +184,17 @@ __d(
       }
       throw r("err")("Invalid CTA source: " + e);
     }
-    function g(e, t) {
+    function C(e, t) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(h(e, t), {
+        o("WAWebExternalLink.react").openExternalLink(b(e, t), {
           target: o("WAWebExternalLink.react").ExternalLinkTarget
             .DEEPLINK_IN_CURRENT_TAB,
         });
       } catch (e) {
         o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[desktop-upsell] Mac WhatsApp Desktop download failed",
               ])),
           )
@@ -165,11 +202,11 @@ __d(
           .sendLogs("desktop-upsell-mac-download-failed");
       }
     }
-    function h(e, t) {
+    function b(e, t) {
       return t === !0
         ? o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI_BETA +
             "&src=whatsapp_beta_webclient_" +
-            y(e)
+            v(e)
         : e ===
             o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
               .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
@@ -177,9 +214,9 @@ __d(
           ? o("WAWebExternalLink.react").IOS_STORE_URIS.touchscreen_overlay
           : o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI +
             "&src=whatsapp_webclient_" +
-            y(e);
+            v(e);
     }
-    function y(e) {
+    function v(e) {
       var t = Object.entries(
         o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
           .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE,
@@ -190,8 +227,8 @@ __d(
       });
       return t ? t[0].toLowerCase() : "unknown";
     }
-    ((l.openExternalWhatsAppAndroidTabletDownloadUrl = d),
-      (l.openExternalWhatsAppDesktopDownloadUrl = m));
+    ((l.openExternalWhatsAppAndroidTabletDownloadUrl = m),
+      (l.openExternalWhatsAppDesktopDownloadUrl = p));
   },
   98,
 );

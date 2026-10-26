@@ -2,7 +2,6 @@ __d(
   "WAWebMsgModelUtils",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebAck",
     "WAWebAnimatedEmojiGatingUtils",
     "WAWebBackendErrors",
@@ -24,7 +23,6 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInvisiblePlaceholderViewModeProcessor",
-    "WAWebKeepInChatMsgUtils",
     "WAWebMessageAssociationUIUtils",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
@@ -450,15 +448,7 @@ __d(
       var t = o("WAWebFrontendMsgGetters").getChat(e).msgs.last();
       return e.id.equals(t == null ? void 0 : t.id);
     }
-    function O(e) {
-      var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
-      return t == null
-        ? null
-        : o("WAWebKeepInChatMsgUtils").isExpired(e)
-          ? 0
-          : t - o("WATimeUtils").unixTime();
-    }
-    function B(e, t) {
+    function O(e, t) {
       var n = t.duringDetach,
         r = e.parentMsgKey;
       if (r) {
@@ -479,10 +469,10 @@ __d(
           );
       }
     }
-    function W(e, t) {
+    function B(e, t) {
       return (
         t === void 0 && (t = {}),
-        q(
+        W(
           {
             chat: o("WAWebFrontendMsgGetters").getMaybeChat(e),
             isPSA: o("WAWebMsgGetters").getIsPSA(e),
@@ -494,7 +484,7 @@ __d(
         )
       );
     }
-    function q(e, t) {
+    function W(e, t) {
       var n = e.chat,
         a = e.isPSA,
         i = e.notifyName,
@@ -568,10 +558,9 @@ __d(
       (l.getQuotedParticipantForContextInfo = w),
       (l.interactiveButtonsReleased = A),
       (l.isLastMsg = F),
-      (l.getMsgTimeUntilExpiration = O),
-      (l.hideParentMessageInChat = B),
-      (l.getMsgDisplayName = W),
-      (l.getMsgDisplayNameFor = q));
+      (l.hideParentMessageInChat = O),
+      (l.getMsgDisplayName = B),
+      (l.getMsgDisplayNameFor = W));
   },
   226,
 );

@@ -10,7 +10,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "WAWebWamEnumOnboardSources",
-    "cr:5151",
+    "cr:17797",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -244,16 +244,16 @@ __d(
       );
     }
     function P() {
-      return n("cr:5151")
+      return n("cr:17797")
         ? r("WAWebUserPrefsStore").getUser(
-            n("cr:5151").IGNORE_NONDIRECT_GROUP_MSG,
+            n("cr:17797").IGNORE_NONDIRECT_GROUP_MSG,
           ) === !0
         : !1;
     }
     function N(e) {
-      n("cr:5151") &&
+      n("cr:17797") &&
         r("WAWebUserPrefsStore").setUser(
-          n("cr:5151").IGNORE_NONDIRECT_GROUP_MSG,
+          n("cr:17797").IGNORE_NONDIRECT_GROUP_MSG,
           e,
         );
     }

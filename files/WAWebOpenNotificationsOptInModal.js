@@ -15,15 +15,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = n("$InternalEnum")({ OPTED_IN: "opted_in", DECLINED: "declined" });
-    function c() {
+      s = e || (e = o("react"));
+    function u() {
+      return o(
+        "WAWebNotificationsOptInModalLoadable",
+      ).preloadNotificationsOptInModal();
+    }
+    var c = n("$InternalEnum")({ OPTED_IN: "opted_in", DECLINED: "declined" });
+    function d() {
       o("WAWebUserPrefsNotifications").setWebNotificationsBBStatus({
         isDismissed: !0,
         lastDismissTime: o("WATimeUtils").unixTime(),
       });
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       var a =
         t ===
           o("WAWebNotificationsModalVariant").NotificationsOptInModalCopy
@@ -54,7 +59,7 @@ __d(
             onAllow: function () {
               (r("WAWebDialogEventLogger")({
                 dialogName: a,
-                source: u.OPTED_IN,
+                source: c.OPTED_IN,
               }),
                 n == null || n.onModalResolved == null || n.onModalResolved(),
                 o(
@@ -69,16 +74,17 @@ __d(
             onDismiss: function () {
               (r("WAWebDialogEventLogger")({
                 dialogName: a,
-                source: u.DECLINED,
+                source: c.DECLINED,
               }),
                 n == null || n.onModalResolved == null || n.onModalResolved(),
-                c());
+                d());
             },
           },
         ),
       );
     }
-    l.openNotificationsOptInModal = d;
+    ((l.preloadNotificationsOptInModal = u),
+      (l.openNotificationsOptInModal = m));
   },
   98,
 );

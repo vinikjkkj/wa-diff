@@ -278,7 +278,7 @@ __d(
           return self.crypto.subtle.decrypt(
             { name: "RSA-OAEP", padding: "OAEP" },
             e,
-            t,
+            t.slice(),
           );
         })),
         V.apply(this, arguments)

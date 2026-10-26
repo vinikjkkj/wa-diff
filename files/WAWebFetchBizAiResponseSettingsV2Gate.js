@@ -8,12 +8,12 @@ __d(
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebBizAiAgentGating",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiResponseSettingsV2GateMutation.graphql",
     "WAWebGraphQLServerError",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
     "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
@@ -150,8 +150,8 @@ __d(
         });
     }
     function D(e) {
-      return o("WAWebRelayClient")
-        .commitMutation(y, {}, { accessToken: e, environmentType: "facebook" })
+      return o("WAWebBizAiRelayClient")
+        .commitMutation(y, {}, { accessToken: e })
         .then(function (e) {
           var t = e == null ? void 0 : e.xfb_meta_ai_biz_agent_wa_fetch_qe_bool;
           return (t == null ? void 0 : t.success) !== !0

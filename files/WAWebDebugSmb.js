@@ -179,9 +179,6 @@ __d(
           var t = o("WAWebWidFactory").createWidFromWidLike(e).toString();
           return {
             row: yield o("WAWebApiBusinessProfile").getBusinessProfileRow(t),
-            record: yield o("WAWebApiBusinessProfile").getBusinessProfileRecord(
-              t,
-            ),
           };
         })),
         M.apply(this, arguments)

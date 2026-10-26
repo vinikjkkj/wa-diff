@@ -11,15 +11,16 @@ __d(
           var e = t.coreVideoPlayerMetaData,
             n = t.logDataAdditions,
             r = t.loggingMetaData,
-            a = t.state,
-            i = o(
-              "MediaPlaybackMetadataProvider",
-            ).getSNAPLRequiredMetadataCommon(a, e, r, n);
-          return babelHelpers.extends({}, i, {
-            tracking_type: "organic",
-            persistent_id: n.persistent_id,
-            media_id_string: n.media_id_string,
-          });
+            a = t.state;
+          return s(
+            o("MediaPlaybackMetadataProvider").getSNAPLRequiredMetadataCommon(
+              a,
+              e,
+              r,
+              n,
+            ),
+            n,
+          );
         },
         getTagMetadata: function (t) {
           var e = t.coreVideoPlayerMetaData,
@@ -38,7 +39,16 @@ __d(
         },
       };
     }
-    l.createWAVideoMetadataProvider = e;
+    function s(e, t) {
+      var n;
+      return babelHelpers.extends({}, e, {
+        media_id: (n = t.media_id) != null ? n : e.media_id,
+        tracking_type: "organic",
+        persistent_id: t.persistent_id,
+        media_id_string: t.media_id_string,
+      });
+    }
+    ((l.createWAVideoMetadataProvider = e), (l.getWAVideoRequiredMetadata = s));
   },
   98,
 );

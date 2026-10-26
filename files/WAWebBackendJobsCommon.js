@@ -125,6 +125,8 @@ __d(
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.GROUP_HISTORY;
           case o("WAWebBackendJobs.flow").EncMediaType.Music:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
+          case o("WAWebBackendJobs.flow").EncMediaType.Collection:
+            return o("WAWebWamEnumMediaType").MEDIA_TYPE.MEDIA_ALBUM;
         }
       return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
     }
@@ -207,6 +209,8 @@ __d(
           return o("WAWebBackendJobs.flow").EncMediaType.GroupHistory;
         if (e.musicMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Music;
+        if (e.albumMessage)
+          return o("WAWebBackendJobs.flow").EncMediaType.Collection;
         if (
           ((t = e.extendedTextMessage) == null ? void 0 : t.matchedText) !=
             null &&
@@ -273,6 +277,8 @@ __d(
               return "group_history";
             case o("WAWebBackendJobs.flow").EncMediaType.Music:
               return "music";
+            case o("WAWebBackendJobs.flow").EncMediaType.Collection:
+              return "collection";
             default:
               return null;
           }

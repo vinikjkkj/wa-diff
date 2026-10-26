@@ -14,10 +14,23 @@ __d(
       s = (e || (e = n("Promise"))).resolve(),
       u = 1e3;
     function c(e, t) {
-      var n = null;
+      var n = null,
+        r = !1;
       return {
         getPromise: function () {
-          return e() ? s : (n == null && (n = t().catch(function () {})), n);
+          return r
+            ? n != null
+              ? n
+              : s
+            : e()
+              ? ((r = !0), (n = s), n)
+              : (n == null &&
+                  (n = t()
+                    .catch(function () {})
+                    .then(function (e) {
+                      return ((r = !0), e);
+                    })),
+                n);
         },
       };
     }
@@ -57,7 +70,17 @@ __d(
         ).catch(function () {});
       });
     }
-    var _ = c(m, function () {
+    function _(e) {
+      return o("WAWebCmd").Cmd.isOfflineDeliveryEnd
+        ? s
+        : r("WAWebEventsWaitForBbEvent")(
+            o("WAWebCmd").Cmd,
+            "offline_delivery_end_from_bridge",
+            void 0,
+            e,
+          );
+    }
+    var f = c(m, function () {
       return d(function (e) {
         return [
           p(e),
@@ -76,25 +99,25 @@ __d(
         ];
       });
     });
-    function f() {
+    function g() {
       return (n("cr:4145") == null
         ? void 0
         : n("cr:4145").getChatlistRowsHold()) != null
         ? !1
-        : g || m();
+        : h || m();
     }
-    var g = !1,
-      h = function () {},
-      y = new e(function (e) {
-        h = e;
+    var h = !1,
+      y = function () {},
+      C = new e(function (e) {
+        y = e;
       });
-    function C(e) {
-      e && ((g = !0), h());
+    function b(e) {
+      e && ((h = !0), y());
     }
-    function b() {
-      return g && !m();
+    function v() {
+      return h && !m();
     }
-    function v(t) {
+    function S(t) {
       return !t || document.visibilityState === "hidden"
         ? s
         : new (e || (e = n("Promise")))(function (e) {
@@ -119,10 +142,10 @@ __d(
               })));
           });
     }
-    var S = c(f, function () {
-        return (e || (e = n("Promise"))).race([y, _.getPromise()]);
+    var R = c(g, function () {
+        return (e || (e = n("Promise"))).race([C, f.getPromise()]);
       }),
-      R = {
+      L = {
         getPromise: function () {
           var e;
           return (e =
@@ -130,18 +153,19 @@ __d(
               ? void 0
               : n("cr:4145").getChatlistRowsHold()) != null
             ? e
-            : S.getPromise();
+            : R.getPromise();
         },
       };
     ((l.createReadinessSignal = c),
       (l.raceReadinessSubscriptions = d),
       (l.isChatlistReady = m),
-      (l.chatlistReadySignal = _),
-      (l.isChatlistRowsReady = f),
-      (l.markChatlistRowsReady = C),
-      (l.isChatlistRowsLoading = b),
-      (l.waitForChatlistRowsPaint = v),
-      (l.chatlistRowsReadySignal = R));
+      (l.waitForOfflineDeliveryEnd = _),
+      (l.chatlistReadySignal = f),
+      (l.isChatlistRowsReady = g),
+      (l.markChatlistRowsReady = b),
+      (l.isChatlistRowsLoading = v),
+      (l.waitForChatlistRowsPaint = S),
+      (l.chatlistRowsReadySignal = L));
   },
   98,
 );

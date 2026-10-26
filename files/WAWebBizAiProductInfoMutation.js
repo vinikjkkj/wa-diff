@@ -4,9 +4,9 @@ __d(
     "WAWebBizAiProductInfoMutation.graphql",
     "WAWebBizAiProductInfoMutationDeleteMutation.graphql",
     "WAWebBizAiProductInfoMutationUpdateMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -49,11 +49,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       m,
                       { input: h(e), media_options: d },
-                      { environmentType: "facebook", accessToken: t.token },
+                      { accessToken: t.token },
                     )
                     .then(function (e) {
                       var t =
@@ -77,11 +77,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       p,
                       { id: e, media_options: d, product_params: h(t) },
-                      { environmentType: "facebook", accessToken: n.token },
+                      { accessToken: n.token },
                     )
                     .then(function (e) {
                       var t =
@@ -105,11 +105,11 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       _,
                       { product_ids: [].concat(e) },
-                      { environmentType: "facebook", accessToken: t.token },
+                      { accessToken: t.token },
                     )
                     .then(function (e) {
                       var t =

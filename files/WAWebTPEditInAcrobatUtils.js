@@ -3,7 +3,7 @@ __d(
   [
     "WAWebMediaEditPdfModal.react",
     "WAWebModalManager",
-    "WAWebTPLoggingUtils",
+    "WAWebTPPdfLoggingUtils",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +16,7 @@ __d(
         i = e.onPreferenceSaved,
         l = e.showSavePreferenceCheckbox,
         u = e.source;
-      (o("WAWebTPLoggingUtils").logEditInAcrobatClickEvent(t, u, n.filehash),
+      (o("WAWebTPPdfLoggingUtils").logEditInAcrobatClickEvent(t, u, n.filehash),
         o("WAWebModalManager").ModalManager.openSupportModal(
           s.jsx(r("WAWebMediaEditPdfModal.react"), {
             msg: a,

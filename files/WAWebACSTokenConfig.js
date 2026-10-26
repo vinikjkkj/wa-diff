@@ -1,6 +1,6 @@
 __d(
   "WAWebACSTokenConfig",
-  ["WATimeUtils", "keyMirror"],
+  ["WATimeUtils", "cr:17794", "keyMirror", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -54,10 +54,18 @@ __d(
       },
     };
     function s(t) {
-      return {
-        maxRedeemCount: e[t].getMaxRedeemCount(),
-        maxExpirySeconds: e[t].getMaxExpirySeconds(),
-      };
+      var o = e,
+        a = o[t];
+      return a == null
+        ? r("nullthrows")(
+            n("cr:17794") == null
+              ? void 0
+              : n("cr:17794").getNonProdTokenConfig(t),
+          )
+        : {
+            maxRedeemCount: a.getMaxRedeemCount(),
+            maxExpirySeconds: a.getMaxExpirySeconds(),
+          };
     }
     var u = r("keyMirror")(e);
     ((l.getACSTokenConfig = s), (l.ACS_PROJECTS = u));

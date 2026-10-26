@@ -33,14 +33,10 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (e === void 0 && (e = !0),
-            r("vulture")("uPYjjTvF4zMCgjs0_e_woqAXZNw="));
-          var t = yield o("WAWebAbPropsSyncJob").syncABProps({
-            shouldSendHash: e,
-          });
-          return (
-            yield o("WAWebABPropsUpdateFromStorage").updateABPropsFromStorage(),
-            t
-          );
+            r("vulture")("uPYjjTvF4zMCgjs0_e_woqAXZNw="),
+            yield o("WAWebAbPropsSyncJob").syncABPropsTask({
+              shouldSendHash: e,
+            }));
         })),
         _.apply(this, arguments)
       );

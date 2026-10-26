@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAPromiseDelays",
+    "WAResolvable",
     "WAWebAudioUtility",
     "WAWebBackendApi",
     "WAWebBoolFunc",
@@ -13,6 +14,7 @@ __d(
     "WAWebVoipPthreadHardening",
     "WAWebVoipScreenShareSurfaceState",
     "WAWebVoipSharedBufferCaptureProcessorConfig",
+    "WAWebVoipSharedBufferRingRelease",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoCameraCapture",
     "WAWebVoipVideoCaptureBase",
@@ -54,6 +56,8 @@ __d(
             (e.systemAudioWorkletNode = null),
             (e.systemAudioSabBuffer = null),
             (e.systemAudioTracks = []),
+            (e.$WAWebVoipVideoDesktopCaptureImpl$p_1 = null),
+            (e.$WAWebVoipVideoDesktopCaptureImpl$p_2 = !1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -109,7 +113,7 @@ __d(
                   l,
                   m,
                 );
-                var _ = yield this.$WAWebVoipVideoDesktopCaptureImpl$p_1();
+                var _ = yield this.$WAWebVoipVideoDesktopCaptureImpl$p_3();
                 if (_ == null) {
                   (o("WALogger").LOG(
                     s ||
@@ -117,7 +121,7 @@ __d(
                         "[AV:startDesktopCapture] stream failed, canceling",
                       ])),
                   ),
-                    yield this.$WAWebVoipVideoDesktopCaptureImpl$p_2());
+                    yield this.$WAWebVoipVideoDesktopCaptureImpl$p_4());
                   return;
                 }
                 var f = _.getVideoTracks().at(0),
@@ -169,15 +173,15 @@ __d(
                       ])),
                   ),
                     this.releaseDesktopStream(),
-                    yield this.$WAWebVoipVideoDesktopCaptureImpl$p_2());
+                    yield this.$WAWebVoipVideoDesktopCaptureImpl$p_4());
                   return;
                 }
                 var b = C.getAudioTracks();
                 if (b.length > 0)
                   try {
-                    yield this.$WAWebVoipVideoDesktopCaptureImpl$p_3(C);
+                    yield this.$WAWebVoipVideoDesktopCaptureImpl$p_5(C);
                   } catch (e) {
-                    (yield this.$WAWebVoipVideoDesktopCaptureImpl$p_4(),
+                    (yield this.$WAWebVoipVideoDesktopCaptureImpl$p_6(),
                       o("WALogger")
                         .ERROR(
                           d ||
@@ -195,7 +199,7 @@ __d(
             }
             return a;
           })()),
-          (i.$WAWebVoipVideoDesktopCaptureImpl$p_1 = (function () {
+          (i.$WAWebVoipVideoDesktopCaptureImpl$p_3 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e,
                 t,
@@ -243,7 +247,7 @@ __d(
                           "[AV:startDesktopCapture] stream ended, stopping",
                         ])),
                     ),
-                      a.$WAWebVoipVideoDesktopCaptureImpl$p_2());
+                      a.$WAWebVoipVideoDesktopCaptureImpl$p_4());
                   }),
                 s
               );
@@ -253,7 +257,7 @@ __d(
             }
             return t;
           })()),
-          (i.$WAWebVoipVideoDesktopCaptureImpl$p_2 = (function () {
+          (i.$WAWebVoipVideoDesktopCaptureImpl$p_4 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = yield o(
                 "WAWebVoipStackInterface",
@@ -300,7 +304,7 @@ __d(
                 })
                 .catch(r("WAWebNoop")));
           }),
-          (i.$WAWebVoipVideoDesktopCaptureImpl$p_3 = (function () {
+          (i.$WAWebVoipVideoDesktopCaptureImpl$p_5 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.getAudioTracks();
@@ -344,41 +348,46 @@ __d(
                     { numberOfInputs: 1, numberOfOutputs: 0 },
                   );
                   this.systemAudioWorkletNode = C;
-                  var b = new (S || (S = n("Promise")))(function (e) {
+                  var b = new (o("WAResolvable").Resolvable)();
+                  this.$WAWebVoipVideoDesktopCaptureImpl$p_1 = b;
+                  var v = new (S || (S = n("Promise")))(function (e) {
                       C.port.onmessage = function (t) {
                         var n = t.data;
                         typeof n != "object" ||
                           n == null ||
                           (n.type === "ready"
                             ? e()
-                            : o(
-                                "WAWebVoipAudioCaptureSharedBufferWorklet",
-                              ).handleSharedBufferWorkletDiagnostics(
-                                n,
-                                "SystemAudio",
-                              ));
+                            : n.type === "stopped"
+                              ? b.resolve()
+                              : o(
+                                  "WAWebVoipAudioCaptureSharedBufferWorklet",
+                                ).handleSharedBufferWorkletDiagnostics(
+                                  n,
+                                  "SystemAudio",
+                                ));
                       };
                     }),
-                    v = yield o("WAPromiseDelays").withTimeout(
-                      b,
+                    L = yield o("WAPromiseDelays").withTimeout(
+                      v,
                       5e3,
                       o("WAWebBoolFunc").returnFalse,
                     );
-                  if (v === !1)
+                  if (L === !1)
                     throw r("err")(
                       "AudioWorklet processor not ready within 5s",
                     );
-                  var L = u.GROWABLE_HEAP_F32();
+                  var E = u.GROWABLE_HEAP_F32();
                   (C.port.postMessage({
                     type: "initSharedBuffer",
-                    heapBuffer: L.buffer,
+                    heapBuffer: E.buffer,
                     heapBufferOffset: _,
                     bufferSize: s,
                     targetSampleRate: l,
                   }),
+                    (this.$WAWebVoipVideoDesktopCaptureImpl$p_2 = !0),
                     d.connect(C));
-                  var E = u.startSystemAudioReaderThread(_, s, i);
-                  if (!E)
+                  var k = u.startSystemAudioReaderThread(_, s, i);
+                  if (!k)
                     throw r("err")(
                       "Failed to start system audio reader thread",
                     );
@@ -397,17 +406,18 @@ __d(
             }
             return t;
           })()),
-          (i.$WAWebVoipVideoDesktopCaptureImpl$p_4 = (function () {
+          (i.$WAWebVoipVideoDesktopCaptureImpl$p_6 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this.systemAudioWorkletNode;
+              var e = this.systemAudioWorkletNode,
+                t = this.$WAWebVoipVideoDesktopCaptureImpl$p_7();
               if (e) {
                 (e.port.postMessage({ type: "stop" }),
                   e.disconnect(),
                   (this.systemAudioWorkletNode = null));
                 try {
-                  var t;
-                  (t = o("WAWebAudioUtility").getCachedWasmModule()) == null ||
-                    t.stopSystemAudioReaderThread();
+                  var n;
+                  (n = o("WAWebAudioUtility").getCachedWasmModule()) == null ||
+                    n.stopSystemAudioReaderThread();
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -420,52 +430,79 @@ __d(
                     .sendLogs("system-audio-reader-stop-failed");
                 }
               }
-              for (var n of this.systemAudioTracks) n.stop();
-              if (
-                ((this.systemAudioTracks = []),
+              for (var a of this.systemAudioTracks) a.stop();
+              ((this.systemAudioTracks = []),
                 this.systemAudioSourceNode &&
                   (this.systemAudioSourceNode.disconnect(),
-                  (this.systemAudioSourceNode = null)),
-                this.systemAudioContext &&
-                  (this.systemAudioContext.close().catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        C ||
-                          (C = babelHelpers.taggedTemplateLiteralLoose([
-                            "[AV:systemAudio] context close failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("system-audio-context-close-failed");
-                  }),
-                  (this.systemAudioContext = null)),
-                this.systemAudioSabBuffer != null)
-              ) {
+                  (this.systemAudioSourceNode = null)));
+              var i = null;
+              this.systemAudioContext &&
+                ((i = this.systemAudioContext.close().catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "[AV:systemAudio] context close failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("system-audio-context-close-failed");
+                })),
+                (this.systemAudioContext = null));
+              var l = this.systemAudioSabBuffer;
+              (l != null &&
+                ((this.systemAudioSabBuffer = null),
+                yield this.$WAWebVoipVideoDesktopCaptureImpl$p_8(l, t, i)),
+                o("WALogger").LOG(
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                      "[AV:systemAudio] capture stopped",
+                    ])),
+                ));
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$WAWebVoipVideoDesktopCaptureImpl$p_7 = function () {
+            var e,
+              t = this.$WAWebVoipVideoDesktopCaptureImpl$p_2
+                ? (e = this.$WAWebVoipVideoDesktopCaptureImpl$p_1) == null
+                  ? void 0
+                  : e.promise
+                : null;
+            return (
+              (this.$WAWebVoipVideoDesktopCaptureImpl$p_1 = null),
+              (this.$WAWebVoipVideoDesktopCaptureImpl$p_2 = !1),
+              t
+            );
+          }),
+          (i.$WAWebVoipVideoDesktopCaptureImpl$p_8 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, a) {
+                var i =
+                  t != null && a != null
+                    ? (S || (S = n("Promise"))).race([t, a])
+                    : t;
                 try {
-                  yield o("WAWebAudioUtility").freeWasmBuffer(
-                    this.systemAudioSabBuffer,
-                  );
+                  yield o(
+                    "WAWebVoipSharedBufferRingRelease",
+                  ).freeRingBufferAfterWorkletStop(e, i, "SystemAudio");
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
                           "[AV:systemAudio] buffer free failed",
                         ])),
                     )
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("system-audio-buffer-free-failed");
                 }
-                this.systemAudioSabBuffer = null;
-              }
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "[AV:systemAudio] capture stopped",
-                  ])),
-              );
-            });
-            function t() {
+              },
+            );
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;
@@ -473,7 +510,7 @@ __d(
           (i.__cleanup = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this.desktopStream;
-              (yield this.$WAWebVoipVideoDesktopCaptureImpl$p_4(),
+              (yield this.$WAWebVoipVideoDesktopCaptureImpl$p_6(),
                 yield t.prototype.__cleanup.call(this),
                 (!o(
                   "WAWebVoipPthreadHardening",

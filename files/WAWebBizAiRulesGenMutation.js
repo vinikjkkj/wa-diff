@@ -1,10 +1,10 @@
 __d(
   "WAWebBizAiRulesGenMutation",
   [
+    "WAWebBizAiRelayClient",
     "WAWebBizAiRulesGenMutation.graphql",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,12 +18,8 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
-                    .commitMutation(
-                      s,
-                      {},
-                      { environmentType: "facebook", accessToken: e.token },
-                    )
+                  return o("WAWebBizAiRelayClient")
+                    .commitMutation(s, {}, { accessToken: e.token })
                     .then(function (e) {
                       var t =
                         e == null

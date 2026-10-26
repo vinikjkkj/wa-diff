@@ -19,47 +19,77 @@ __d(
         : [].concat(e.slice(0, r), [t], e.slice(r));
     }
     function s(t, n) {
-      switch (n.type) {
-        case "DELETE_CONTACT": {
-          var r = n.payload.contact.rowIndex;
+      e: {
+        var r = n;
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "DELETE_CONTACT" &&
+          "payload" in r
+        ) {
+          var o = r.payload,
+            a = o.contact.rowIndex;
           return babelHelpers.extends({}, t, {
             validContactsData: t.validContactsData.filter(function (e) {
-              return e.rowIndex !== r;
+              return e.rowIndex !== a;
             }),
           });
         }
-        case "DELETE_ERROR_ITEM": {
-          var o = n.payload.errorItem.rowIndex;
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "DELETE_ERROR_ITEM" &&
+          "payload" in r
+        ) {
+          var i = r.payload,
+            s = i.errorItem.rowIndex;
           return babelHelpers.extends({}, t, {
             errorList: t.errorList.filter(function (e) {
-              return e.rowIndex !== o;
+              return e.rowIndex !== s;
             }),
           });
         }
-        case "DELETE_ALL_ERROR_ITEMS":
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "DELETE_ALL_ERROR_ITEMS"
+        )
           return babelHelpers.extends({}, t, { errorList: [] });
-        case "UNDO_DELETE_ALL_ERROR_ITEMS":
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "UNDO_DELETE_ALL_ERROR_ITEMS" &&
+          "payload" in r
+        ) {
+          var u = r.payload;
           return babelHelpers.extends({}, t, {
-            errorList: n.payload.originalErrorList,
+            errorList: u.originalErrorList,
           });
-        case "UNDO_DELETE_ERROR_ITEM":
+        }
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "UNDO_DELETE_ERROR_ITEM" &&
+          "payload" in r
+        ) {
+          var c = r.payload;
           return babelHelpers.extends({}, t, {
-            errorList: l(
-              t.errorList,
-              n.payload.originalErrorItem,
-              n.payload.originalIndex,
-            ),
+            errorList: l(t.errorList, c.originalErrorItem, c.originalIndex),
           });
-        case "UNDO_DELETE_CONTACT":
+        }
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "UNDO_DELETE_CONTACT" &&
+          "payload" in r
+        ) {
+          var d = r.payload;
           return babelHelpers.extends({}, t, {
             validContactsData: e(
               t.validContactsData,
-              n.payload.originalContact,
-              n.payload.originalIndex,
+              d.originalContact,
+              d.originalIndex,
             ),
           });
-        default:
-          return t;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            r,
+        );
       }
     }
     i.reducer = s;

@@ -23,48 +23,40 @@ __d(
     e.doc = "Add 3pd signal row to DB";
     function s() {
       return (
-        r("vulture")("oyVQmvD0_kpOBFlr7l_55UJ0mKU="),
-        o("WAWebDownloads3PDSignalsDatabaseApi").getAll3PDSignals()
-      );
-    }
-    s.doc = "Get all 3pd signal rows from DB";
-    function u() {
-      return (
         r("vulture")("AB0SSuoOKo9tAYqnu658PSVSxco="),
         o("WAWebDownloads3PDSignalsDatabaseApi").getRecent3PDSignals()
       );
     }
-    u.doc = "Get last 30 days 3pd signal rows from DB";
-    function c() {
+    s.doc = "Get last 30 days 3pd signal rows from DB";
+    function u() {
       return (
         r("vulture")("LRm4xmSA5Zg7Dqvfj9ALTSX1KN0="),
         o("WAWebDownloads3PDSignalsDatabaseApi").cleanup3PDSignalsTable()
       );
     }
-    c.doc = "Cleanup older than 30 days of 3pd signal rows from DB";
-    function d() {
+    u.doc = "Cleanup older than 30 days of 3pd signal rows from DB";
+    function c() {
       return (
         r("vulture")("XSKzgPnErEm58slpBEsTyMcpbgE="),
         o("WAWebCsv3pdSignals").generateCsvDataFor3pdSignals()
       );
     }
-    d.doc = "Generate CSV data for 3pd signals";
-    function m() {
+    c.doc = "Generate CSV data for 3pd signals";
+    function d() {
       return (
         r("vulture")("JihJapzuZu_dYoqriYqs-6gwwsc="),
         o("WAWebCsv3pdSignals").downloadCsvFor3pdSignals()
       );
     }
-    m.doc = "Download CSV for 3pd signals";
-    var p = {
+    d.doc = "Download CSV for 3pd signals";
+    var m = {
       add3PDSignalToDB: e,
-      bulkGetAll3PDSignalsFromDB: s,
-      getLast30Days3PDSignalsFromDB: u,
-      cleanupOlderThan30Days3PDSignalsFromDB: c,
-      generateCsvDataFor3pdSignalsDebug: d,
-      downloadCsvFor3pdSignalsDebug: m,
+      getLast30Days3PDSignalsFromDB: s,
+      cleanupOlderThan30Days3PDSignalsFromDB: u,
+      generateCsvDataFor3pdSignalsDebug: c,
+      downloadCsvFor3pdSignalsDebug: d,
     };
-    l.default = p;
+    l.default = m;
   },
   98,
 );

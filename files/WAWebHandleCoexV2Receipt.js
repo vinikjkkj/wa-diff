@@ -9,6 +9,8 @@ __d(
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2MessageAckProjection",
     "WAWebCoexV2MessageAckProjectionEligibility",
+    "WAWebCoexV2ReceiptRecipient",
+    "WAWebHandleDirectChatReceipt",
     "WAWebLidMigrationUtils",
     "WAWebOfflineHandler",
     "WAWebUserPrefsIndexedDBStorage",
@@ -19,37 +21,37 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
+    var e, s, u, c, d;
+    function m(e) {
       return !e.from.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
         (!o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled() &&
           !o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled())
         ? null
-        : m(e);
+        : p(e);
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.ack,
             i = t.ackString,
             l = t.externalIds,
-            d = t.offline,
-            m = t.participant,
-            p = t.recipient,
-            g = t.ts;
-          d != null &&
+            m = t.offline,
+            p = t.participant,
+            _ = t.recipient,
+            h = t.ts;
+          m != null &&
             o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete();
-          var h =
-            d != null &&
+          var y =
+            m != null &&
             !o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.isResumeFromRestartComplete();
-          if (p == null) {
+          if (_ == null) {
             o("WALogger")
               .WARN(
                 e ||
@@ -61,12 +63,28 @@ __d(
             return;
           }
           try {
-            var y = f(i, m, p);
-            if (y == null) {
+            var v,
+              S = f(t);
+            if (g(i) && S == null) {
               o("WALogger")
                 .WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[coexv2] receipt: invalid read identity",
+                    ])),
+                )
+                .sendLogs("coexv2-relay-receipt-invalid-read-identity");
+              return;
+            }
+            var R =
+              (v = S == null ? void 0 : S.representedLid) != null
+                ? v
+                : b(i, p, _);
+            if (R == null) {
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[coexv2] receipt: unresolved represented LID for type ",
                       "",
                     ])),
@@ -75,44 +93,57 @@ __d(
                 .sendLogs("coexv2-relay-receipt-unresolved-lid");
               return;
             }
-            var C = o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
-              ? o(
-                  "WAWebCoexV2MessageAckProjectionEligibility",
-                ).getEligibleCoexV2MessageAckProjection({
-                  projectedAck: _(a, i),
-                  representedLid: y,
-                })
-              : null;
+            var L =
+              o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled() &&
+              (S == null ? void 0 : S.direction) === "outgoing"
+                ? o(
+                    "WAWebCoexV2MessageAckProjectionEligibility",
+                  ).getEligibleCoexV2MessageAckProjection({
+                    projectedAck: C(a, i),
+                    representedLid: R,
+                  })
+                : null;
             if (
-              (yield (c || (c = n("Promise"))).all(
+              (yield (d || (d = n("Promise"))).all(
                 l.map(function (e) {
                   return o(
                     "WAWebApiCoexV2RelayReceiptStore",
                   ).addOrUpdateCoexV2RelayReceipt({
                     ack: a,
                     msgId: e,
-                    projectedAck: C,
-                    representedLid: y,
-                    ts: g,
+                    projectedAck: L,
+                    representedLid: R,
+                    ts: h,
                   });
                 }),
               ),
-              C == null)
-            )
+              o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled() &&
+                (S == null ? void 0 : S.direction) === "incoming")
+            ) {
+              yield o("WAWebHandleDirectChatReceipt").handleChatSimpleReceipt(
+                babelHelpers.extends({}, t, {
+                  from: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  participant: null,
+                  recipient: S.partner,
+                  offline: y ? m : null,
+                }),
+              );
               return;
+            }
+            if (L == null) return;
             yield o(
               "WAWebCoexV2MessageAckProjection",
             ).projectCoexV2ReadReceiptAck({
-              isOffline: h,
+              isOffline: y,
               msgIds: l,
-              projectedAck: C,
-              representedLid: y,
+              projectedAck: L,
+              representedLid: R,
             });
           } catch (e) {
             o("WALogger")
               .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[coexv2] receipt: failed to process for type ",
                     "",
                   ])),
@@ -122,10 +153,52 @@ __d(
               .sendLogs("coexv2-relay-receipt-process-failed");
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t) {
+    function f(e) {
+      var t = e.ack,
+        n = e.ackString,
+        r = e.participant,
+        a = e.recipient;
+      if (t !== o("WAWebAck").ACK.READ || !g(n)) return null;
+      var i = h(a),
+        l = y(n, r);
+      return i == null || l == null
+        ? null
+        : o("WAWebUserPrefsMeUser").isMeAccount(l)
+          ? { direction: "incoming", partner: i, representedLid: l }
+          : n === o("WAWebAck").ACK_STRING.READ && l.equals(i)
+            ? { direction: "outgoing", partner: i, representedLid: l }
+            : null;
+    }
+    function g(e) {
+      return (
+        e === o("WAWebAck").ACK_STRING.READ ||
+        e === o("WAWebAck").ACK_STRING.READ_SELF
+      );
+    }
+    function h(e) {
+      if (e == null || (!e.isRegularUser() && !e.isFbidBot())) return null;
+      var t = o("WAWebCoexV2ReceiptRecipient").toCoexV2ReceiptRecipient(e);
+      return t != null &&
+        !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+        !t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
+        ? t
+        : null;
+    }
+    function y(e, t) {
+      return t != null
+        ? t.isRegularUser()
+          ? o("WAWebLidMigrationUtils").toUserLid(
+              o("WAWebWidFactory").asUserWidOrThrow(t),
+            )
+          : null
+        : e === o("WAWebAck").ACK_STRING.READ_SELF
+          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          : null;
+    }
+    function C(e, t) {
       var n;
       return t !== o("WAWebAck").ACK_STRING.READ || e !== o("WAWebAck").ACK.READ
         ? null
@@ -137,13 +210,11 @@ __d(
           ? o("WAWebAck").ACK.RECEIVED
           : o("WAWebAck").ACK.READ;
     }
-    function f(e, t, n) {
+    function b(e, t, n) {
       return e === o("WAWebAck").ACK_STRING.SENDER ||
-        e === o("WAWebAck").ACK_STRING.READ_SELF ||
         e === o("WAWebAck").ACK_STRING.PLAYED_SELF
         ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-        : e === o("WAWebAck").ACK_STRING.READ ||
-            e === o("WAWebAck").ACK_STRING.PLAYED
+        : e === o("WAWebAck").ACK_STRING.PLAYED
           ? t != null
             ? o("WAWebLidMigrationUtils").toUserLid(
                 o("WAWebWidFactory").asUserWidOrThrow(t),
@@ -155,7 +226,7 @@ __d(
               )
             : null;
     }
-    l.maybeHandleCoexV2Receipt = d;
+    l.maybeHandleCoexV2Receipt = m;
   },
   98,
 );

@@ -2,63 +2,68 @@ __d(
   "WAWebMessageEditBotGroupMetadata",
   [
     "Promise",
+    "WALogger",
     "WAWebBotGroupGatingUtils",
     "WAWebBotMetadataProtoUtils",
     "WAWebGenerateBotGroupMetadata",
+    "WAWebLidMigrationUtils",
+    "WAWebMsgGetters",
+    "WAWebMsmsgMsgSecretCache",
     "WAWebResolveGroupAgentParticipants",
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
+    var e, s, u;
+    function c(e, t, n) {
       var r,
         o,
         a = { id: e.id, mentionedJidList: n },
         i = [
-          d(a, e),
-          p(a, t.messageContextInfo),
-          p(
+          y(a, e),
+          b(a, t.messageContextInfo),
+          b(
             a,
             (r = t.protocolMessage) == null || (r = r.editedMessage) == null
               ? void 0
               : r.messageContextInfo,
           ),
         ];
-      return (o = i.find(f)) != null ? o : {};
+      return (o = i.find(S)) != null ? o : {};
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function c() {
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r,
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            r,
             a,
             i,
-            l,
-            s = t.id.remote.toString(),
-            u = yield (e || (e = n("Promise"))).all([
-              o("WAWebSchemaParticipant").getParticipantTable().get(s),
-              o("WAWebSchemaGroupMetadata").getGroupMetadataTable().get(s),
+            l = e.id.remote.toString(),
+            s = yield (u || (u = n("Promise"))).all([
+              o("WAWebSchemaParticipant").getParticipantTable().get(l),
+              o("WAWebSchemaGroupMetadata").getGroupMetadataTable().get(l),
             ]),
-            c = u[0],
-            d = u[1],
-            _ = yield o(
+            c = s[0],
+            d = s[1],
+            m = yield o(
               "WAWebResolveGroupAgentParticipants",
             ).resolveGroupAgentParticipants(
-              (r = c == null ? void 0 : c.participants) != null ? r : [],
+              (t = c == null ? void 0 : c.participants) != null ? t : [],
             ),
-            f = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
+            p = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
               {
                 messageContextInfo: {
                   botMetadata: {
                     botGroupMetadata: o(
                       "WAWebGenerateBotGroupMetadata",
                     ).generateBotGroupMetadata(
-                      (a = t.botGroupParticipant) != null
-                        ? a
+                      (r = e.botGroupParticipant) != null
+                        ? r
                         : o(
                             "WAWebBotGroupGatingUtils",
                           ).getSendGroupBotParticipant(d),
@@ -66,45 +71,138 @@ __d(
                   },
                 },
               },
-              _,
+              m,
             ),
-            g = f.messageContextInfo,
-            h =
-              (i =
-                g == null ||
-                (l = g.botMetadata) == null ||
-                (l = l.botGroupMetadata) == null
+            _ = p.messageContextInfo,
+            f =
+              (a =
+                _ == null ||
+                (i = _.botMetadata) == null ||
+                (i = i.botGroupMetadata) == null
                   ? void 0
-                  : l.participantsMetadata) != null
-                ? i
+                  : i.participantsMetadata) != null
+                ? a
                 : [];
-          return p(
-            t,
-            m(
-              h.flatMap(function (e) {
+          return b(
+            e,
+            C(
+              f.flatMap(function (e) {
                 var t = e.botFbid;
                 return t != null ? [t] : [];
               }),
             ),
           );
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      var n = _(t);
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            !e.id.remote.isGroup() ||
+            !o("WAWebMsgGetters").getIsSentByMeFromWeb(e)
+          )
+            return e;
+          try {
+            var t = yield d(e),
+              n = t.botGroupParticipant,
+              a = t.botGroupParticipants;
+            return babelHelpers.extends({}, e, {
+              botGroupParticipant: n != null ? n : null,
+              botGroupParticipants: a != null ? a : null,
+            });
+          } catch (t) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[message-edit] own edit BotGroupMetadata failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("message-edit-own-bot-group-metadata-failed"),
+              e
+            );
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t, n) {
+      var r, o;
+      if (t.id.remote.isGroup()) {
+        var a = n.botResponseTargetId != null;
+        (n.botGroupParticipants == null && !a) ||
+          ((e.botGroupParticipant =
+            (r = n.botGroupParticipant) != null ? r : null),
+          (e.botGroupParticipants =
+            (o = n.botGroupParticipants) != null ? o : null));
+      }
+    }
+    function g(t) {
+      t.forEach(function (t) {
+        var n = t.editedMsgData,
+          a = t.isLatest,
+          i = t.parentMsg;
+        if (!(!a || n.botGroupParticipants === void 0))
+          try {
+            h(i.id, n.botGroupParticipants, n.botGroupParticipant);
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[message-edit] bot group gossip cache update failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("message-edit-bot-group-gossip-cache-failed");
+          }
+      });
+    }
+    function h(e, t, n) {
+      var r = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(t, n);
+      [e, o("WAWebLidMigrationUtils").getAlternateMsgKey(e)].forEach(
+        function (e) {
+          if (e != null) {
+            if (r == null) {
+              o(
+                "WAWebMsmsgMsgSecretCache",
+              ).msmsgBotGroupGossipDataCache.deleteMsmsgBotGroupGossipDataFromCache(
+                e.toString(),
+              );
+              return;
+            }
+            o(
+              "WAWebMsmsgMsgSecretCache",
+            ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
+              e.toString(),
+              r.participants,
+              r.isLegacySingular,
+            );
+          }
+        },
+      );
+    }
+    function y(e, t) {
+      var n = v(t);
       if (n.botGroupParticipants == null) return n;
-      var r = p(
+      var r = b(
         e,
-        m(
+        C(
           n.botGroupParticipants.map(function (e) {
             return e.user;
           }),
         ),
       );
-      return f(r) ? r : n;
+      return S(r) ? r : n;
     }
-    function m(e) {
+    function C(e) {
       return {
         botMetadata: {
           botGroupMetadata: {
@@ -116,7 +214,7 @@ __d(
         threadId: [],
       };
     }
-    function p(e, t) {
+    function b(e, t) {
       var n,
         r = {
           id: e.id,
@@ -124,12 +222,12 @@ __d(
         };
       return (
         o("WAWebBotMetadataProtoUtils").parseBotMetadataProto(r, t, !0),
-        _(r)
+        v(r)
       );
     }
-    function _(e) {
+    function v(e) {
       var t, n;
-      return f(e)
+      return S(e)
         ? {
             botGroupParticipant: (t = e.botGroupParticipant) != null ? t : null,
             botGroupParticipants:
@@ -137,11 +235,14 @@ __d(
           }
         : {};
     }
-    function f(e) {
+    function S(e) {
       return e.botGroupParticipant != null || e.botGroupParticipants != null;
     }
-    ((l.getReceivedEditBotGroupMetadata = s),
-      (l.getOwnEditBotGroupMetadata = u));
+    ((l.getReceivedEditBotGroupMetadata = c),
+      (l.getOwnEditBotGroupMetadata = d),
+      (l.addOwnEditBotGroupMetadata = p),
+      (l.applyEditedBotGroupMetadata = f),
+      (l.updateBotGroupGossipCache = g));
   },
   98,
 );

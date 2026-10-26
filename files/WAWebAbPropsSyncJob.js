@@ -219,7 +219,7 @@ __d(
         g.apply(this, arguments)
       );
     }
-    ((l.syncABProps = p), (l.syncABPropsTask = f));
+    l.syncABPropsTask = f;
   },
   98,
 );

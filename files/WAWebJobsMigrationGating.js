@@ -1,47 +1,54 @@
 __d(
   "WAWebJobsMigrationGating",
-  ["WAWebABProps"],
+  ["WAWebABProps", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = null,
-      s = null;
-    function u() {
-      return _().queues;
-    }
+    var e = { decommission: !0, queues: !0, rest: !0, serviced: !0 },
+      s = null,
+      u = null;
     function c() {
-      return _().rest;
+      return g().decommission;
     }
     function d() {
-      return _().serviced;
+      return g().queues;
     }
     function m() {
-      return _();
+      return g().rest;
     }
-    function p(e) {
-      s = e;
+    function p() {
+      return g().serviced;
     }
     function _() {
-      return s != null
-        ? s
-        : (e == null &&
-            (e = {
-              queues: o("WAWebABProps").getABPropConfigValue(
-                "wa_web_jm_to_ts_queues",
-              ),
-              rest: o("WAWebABProps").getABPropConfigValue(
-                "wa_web_jm_to_ts_rest",
-              ),
-              serviced: o("WAWebABProps").getABPropConfigValue(
-                "wa_web_jm_to_ts_serviced",
-              ),
-            }),
-          e);
+      return g();
     }
-    ((l.isPersistedQueuesEnabled = u),
-      (l.isRestOperationsEnabled = c),
-      (l.isServicedJobsEnabled = d),
-      (l.getJobsMigrationGates = m),
-      (l.initJobsMigrationGatesFromWorkerInit = p));
+    function f(e) {
+      u = e;
+    }
+    function g() {
+      return u != null ? u : (s == null && (s = h()), s);
+    }
+    function h() {
+      return r("gkx")("14549")
+        ? e
+        : {
+            decommission: !1,
+            queues: o("WAWebABProps").getABPropConfigValue(
+              "wa_web_jm_to_ts_queues",
+            ),
+            rest: o("WAWebABProps").getABPropConfigValue(
+              "wa_web_jm_to_ts_rest",
+            ),
+            serviced: o("WAWebABProps").getABPropConfigValue(
+              "wa_web_jm_to_ts_serviced",
+            ),
+          };
+    }
+    ((l.isJobsManagerDecommissioned = c),
+      (l.isPersistedQueuesEnabled = d),
+      (l.isRestOperationsEnabled = m),
+      (l.isServicedJobsEnabled = p),
+      (l.getJobsMigrationGates = _),
+      (l.initJobsMigrationGatesFromWorkerInit = f));
   },
   98,
 );

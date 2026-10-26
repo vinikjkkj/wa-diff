@@ -1,40 +1,48 @@
 __d(
   "WAWebMetaAiThreadServerDeleteJobImpl",
   [
+    "QPLFlow",
     "WALogger",
     "WAWebDeleteMetaAiThreadGQL",
+    "WAWebJobsMigrationGating",
+    "WAWebLazyPersistedQueue",
     "WAWebMetaAiThreadServerDeleteJob",
     "WAWebPersistedJobManager",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebPersistedQueueQpl",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = new Map();
-    function c(e, t) {
-      var n = JSON.stringify([e, t]),
-        r = u.get(n);
-      if (r != null) return r;
-      var o = d(e, t).finally(function () {
-        u.delete(n);
-      });
-      return (u.set(n, o), o);
-    }
+      u,
+      c = new Map();
     function d(e, t) {
-      return m.apply(this, arguments);
+      var n = JSON.stringify([e, t]),
+        r = c.get(n);
+      if (r != null) return r;
+      var a = o("WAWebJobsMigrationGating").isJobsManagerDecommissioned()
+          ? _
+          : m,
+        i = a(e, t).finally(function () {
+          c.delete(n);
+        });
+      return (c.set(n, i), i);
     }
-    function m() {
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (
             !(yield o("WAWebPersistedJobManager").hasUnfinishedJob(
               o("WAWebMetaAiThreadServerDeleteJob").JOB_TYPE,
               t,
             ))
           ) {
-            if (!f(n)) {
+            if (!y(n)) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -52,21 +60,65 @@ __d(
               });
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.botFbid,
-            n = e.meLid;
-          if (!f(n)) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            (yield o("WAWebLazyPersistedQueue").whenPersistedQueuesMayOpen(),
+            !y(t))
+          ) {
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[meta-ai-thread-server-delete] account-changed-before-enqueue",
+                ])),
+            );
+            return;
+          }
+          var r = o("QPLFlow").startQPLFlow(
+            o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
+            {
+              annotations: {
+                bool: { isPQ: !0 },
+                string: {
+                  operationType: o("WAWebMetaAiThreadServerDeleteJob").JOB_TYPE,
+                },
+              },
+              timeoutInMs: o("WAWebPersistedQueueQpl")
+                .PERSISTED_QUEUE_TIMEOUT_MS,
+            },
+          );
+          yield o("QPLFlow").endWith(
+            r,
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var n = yield o(
+                "WAWebLazyPersistedQueue",
+              ).whenPersistedQueuesReady(r);
+              yield n.enqueueMetaAiThreadServerDeleteNow(e, t);
+            }),
+          );
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.botFbid,
+            n = e.meLid;
+          if (!y(n)) {
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[meta-ai-thread-server-delete] account-changed-since-enqueue",
                 ])),
             );
@@ -78,10 +130,10 @@ __d(
           r === "retryable" &&
             o("WAWebMetaAiThreadServerDeleteJob").retryOnBackoff();
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function f(e) {
+    function y(e) {
       var t;
       return (
         ((t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
@@ -89,7 +141,7 @@ __d(
           : t.toString()) === e
       );
     }
-    ((l.enqueueMetaAiThreadServerDelete = c), (l.deleteOnServer = p));
+    ((l.enqueueMetaAiThreadServerDelete = d), (l.deleteOnServer = g));
   },
   98,
 );

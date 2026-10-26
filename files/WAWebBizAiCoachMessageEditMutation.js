@@ -3,11 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebBizAiCoachMessageEditMutation.graphql",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
     "WAWebPonyfillsCryptoRandomUUID",
-    "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -70,7 +70,7 @@ __d(
           }
           try {
             var l,
-              s = yield o("WAWebRelayClient").commitMutation(
+              s = yield o("WAWebBizAiRelayClient").commitMutation(
                 m,
                 {
                   input: {
@@ -83,7 +83,7 @@ __d(
                     request_id: r("WAWebPonyfillsCryptoRandomUUID")(),
                   },
                 },
-                { environmentType: "facebook", accessToken: i.token },
+                { accessToken: i.token },
               );
             return (s == null ||
             (l = s.xfb_meta_ai_biz_agent_wa_coach_ai_response) == null

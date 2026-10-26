@@ -12,6 +12,7 @@ __d(
     "WAWebCoexV2HostedContactUtils",
     "WAWebCoexV2RelayEligibility",
     "WAWebCoexV2SendContribution",
+    "WAWebCoexV2UserAgentEligibility",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
     "WAWebMsgGetters",
@@ -368,7 +369,7 @@ __d(
           r === void 0 && (r = !1);
           var a = e.data.id.remote,
             i = yield (C || (C = n("Promise"))).all([
-              o("WAWebCoexV2RelayEligibility").isSelfCoexV2Hosted(),
+              o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(a),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(a),
               o("WAWebCoexV2RelayEligibility").shouldAeaStopRelayCopy(

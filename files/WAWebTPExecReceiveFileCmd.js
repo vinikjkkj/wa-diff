@@ -5,7 +5,7 @@ __d(
     "WAWebCmd",
     "WAWebSchemaWebTPSharedSession",
     "WAWebTP3PBridge",
-    "WAWebTPLoggingUtils",
+    "WAWebTPPdfLoggingUtils",
     "WAWebTPPdfViewerGatingUtils",
     "WAWebTPPdfViewerQpl",
     "WAWebWebTPSharedSessionUtils",
@@ -27,7 +27,7 @@ __d(
       if (i == null) return !1;
       try {
         if (t == null) return !1;
-        (o("WAWebTPLoggingUtils").logPdfReceiverFileForwardedEvent(t),
+        (o("WAWebTPPdfLoggingUtils").logPdfReceiverFileForwardedEvent(t),
           o("WAWebTPPdfViewerQpl").pdfViewerQpl.receiverForwardStart(),
           s(t).then(
             (function () {
@@ -35,7 +35,7 @@ __d(
                 function* (e) {
                   if (e == null || e.fileBuffer == null)
                     throw (
-                      o("WAWebTPLoggingUtils").logPdfReceiverErrorEvent(
+                      o("WAWebTPPdfLoggingUtils").logPdfReceiverErrorEvent(
                         "forward_session_not_found",
                         "Session not found or file buffer is null",
                         t,
@@ -55,7 +55,7 @@ __d(
                       "WAWebTPPdfViewerGatingUtils",
                     ).isPdfPreviewBeforeSendEnabled()
                       ? (o(
-                          "WAWebTPLoggingUtils",
+                          "WAWebTPPdfLoggingUtils",
                         ).logPdfReceiverPreviewOpenEvent(t, a),
                         o("WAWebCmd").Cmd.trigger(
                           "open_file_forward_modal_with_preview",
@@ -64,12 +64,12 @@ __d(
                             showPreview: !0,
                             onSend: function () {
                               o(
-                                "WAWebTPLoggingUtils",
+                                "WAWebTPPdfLoggingUtils",
                               ).logPdfReceiverPreviewSendEvent(t);
                             },
                             onCancel: function () {
                               o(
-                                "WAWebTPLoggingUtils",
+                                "WAWebTPPdfLoggingUtils",
                               ).logPdfReceiverPreviewCancelEvent(t);
                             },
                           },
@@ -87,7 +87,7 @@ __d(
           ));
       } catch (e) {
         return (
-          o("WAWebTPLoggingUtils").logPdfReceiverErrorEvent(
+          o("WAWebTPPdfLoggingUtils").logPdfReceiverErrorEvent(
             "forward_failed",
             "Exception during file forward",
             t,

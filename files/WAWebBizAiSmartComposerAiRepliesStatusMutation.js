@@ -5,11 +5,11 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebBizAiAgentGating",
+    "WAWebBizAiRelayClient",
     "WAWebBizAiSmartComposerAiRepliesStatusMutation.graphql",
     "WAWebFetchAdAccountToken",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -54,7 +54,7 @@ __d(
       return C().then(function (i) {
         return i == null
           ? f
-          : o("WAWebRelayClient")
+          : o("WAWebBizAiRelayClient")
               .commitMutation(
                 _,
                 {
@@ -63,7 +63,7 @@ __d(
                   thread_status: n,
                   suggested_replies_enabled: a != null ? a : null,
                 },
-                { environmentType: "facebook", accessToken: i },
+                { accessToken: i },
               )
               .then(function (e) {
                 var t =

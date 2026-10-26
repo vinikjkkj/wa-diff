@@ -3,13 +3,13 @@ __d(
   [
     "WAExponentialBackoff",
     "WALogger",
+    "WAWebBizAiRelayClient",
     "WAWebBizAiSmartComposerErrorMapping",
     "WAWebBizAiSmartComposerSuggestionFetcherQuery.graphql",
     "WAWebBizAiSmartComposerSuggestionStateMachine",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
     "filterNulls",
@@ -101,7 +101,7 @@ __d(
               return g;
             ((a = !0),
               n == null || n(),
-              (i = yield o("WAWebRelayClient").fetchQuery(
+              (i = yield o("WAWebBizAiRelayClient").fetchQuery(
                 p,
                 {
                   stanza_id: e.stanzaId,
@@ -109,7 +109,7 @@ __d(
                   consumer_phone_number:
                     (s = e.consumerPhoneNumber) != null ? s : "",
                 },
-                { environmentType: "facebook", accessToken: u.token },
+                { accessToken: u.token },
               )));
           } catch (e) {
             return (

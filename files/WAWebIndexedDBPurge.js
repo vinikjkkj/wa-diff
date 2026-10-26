@@ -5,9 +5,9 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWeb-dexie",
+    "WAWebIndexedDB",
     "WAWebUA",
     "asyncToGeneratorRuntime",
-    "cr:5411",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,36 +46,34 @@ __d(
           var t = Object.keys(c).map(function (e) {
             return c[e];
           });
-          if (
-            !r("gkx")("26258") &&
-            o("WAWebUA").UA.isChrome &&
-            n("cr:5411") != null &&
-            n("cr:5411").databases
-          ) {
-            var a = yield n("cr:5411").databases(),
-              i = new Set(
-                a.map(function (e) {
-                  return e.name;
-                }),
-              ),
-              l = new Set(t),
-              d = Array.from(i).filter(function (e) {
-                return !l.has(e);
-              });
-            d.length !== 0 &&
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "deleteAllIdb: Deletion List missing DBs: ",
-                      "",
-                    ])),
-                  d.join(","),
-                )
-                .sendLogs("idb-deletion-list-incomplete");
+          if (!r("gkx")("26258")) {
+            var a = r("WAWebIndexedDB");
+            if (o("WAWebUA").UA.isChrome && a != null && a.databases) {
+              var i = yield a.databases(),
+                l = new Set(
+                  i.map(function (e) {
+                    return e.name;
+                  }),
+                ),
+                d = new Set(t),
+                m = Array.from(l).filter(function (e) {
+                  return !d.has(e);
+                });
+              m.length !== 0 &&
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "deleteAllIdb: Deletion List missing DBs: ",
+                        "",
+                      ])),
+                    m.join(","),
+                  )
+                  .sendLogs("idb-deletion-list-incomplete");
+            }
           }
-          var m = !1,
-            p = t.map(
+          var p = !1,
+            _ = t.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -88,7 +86,7 @@ __d(
                           7e3,
                         );
                       } catch (t) {
-                        ((m = !0),
+                        ((p = !0),
                           r("gkx")("26258") ||
                             o("WALogger")
                               .ERROR(
@@ -110,7 +108,7 @@ __d(
                 };
               })(),
             );
-          return (yield (u || (u = n("Promise"))).all(p), m);
+          return (yield (u || (u = n("Promise"))).all(_), p);
         })),
         m.apply(this, arguments)
       );

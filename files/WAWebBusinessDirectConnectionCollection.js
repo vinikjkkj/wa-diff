@@ -10,8 +10,11 @@ __d(
     "WAWebBusinessDirectUtils",
     "WAWebCertificateString",
     "WAWebDirectConnectionCypher",
+    "WAWebGraphQLVerifyPostcodeJob",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRestOperations",
+    "WAWebScheduledOperations",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -164,14 +167,21 @@ __d(
             return r;
           })()),
           (i._verifyPostcode = function (t, n) {
-            return o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .waitUntilCompleted(
-                o("WAWebPersistedJobDefinitions").jobSerializers.verifyPostcode(
-                  t,
-                  n,
-                ),
-              );
+            return o("WAWebRestOperations").runJobsManagerFreeOperation(
+              o("WAWebScheduledOperations").ScheduledOperation.VERIFY_POSTCODE,
+              function () {
+                return o("WAWebGraphQLVerifyPostcodeJob").verifyPostcode(t, n);
+              },
+              function () {
+                return o("WAWebPersistedJobManagerWorkerCompatible")
+                  .getJobManager()
+                  .waitUntilCompleted(
+                    o(
+                      "WAWebPersistedJobDefinitions",
+                    ).jobSerializers.verifyPostcode(t, n),
+                  );
+              },
+            );
           }),
           (i._updateModel = function (t) {
             return this.set([t]);

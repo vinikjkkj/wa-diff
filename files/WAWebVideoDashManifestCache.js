@@ -2,45 +2,49 @@ __d(
   "WAWebVideoDashManifestCache",
   [
     "Promise",
+    "WALogger",
     "WAWebVideoDashManifestErrors",
     "WAWebVideoDashManifestFetcher",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 10,
-      u = 5e3,
-      c = 3,
-      d = 500,
-      m = new Map(),
-      p = new Map();
-    function _(t) {
-      var r = t.timeoutMs,
-        o = t.url,
-        a = C(o);
-      if (a != null)
-        return (e || (e = n("Promise"))).resolve({
+      s,
+      u = 10,
+      c = 5e3,
+      d = 3,
+      m = 500,
+      p = new Map(),
+      _ = new Map(),
+      f = new Set();
+    function g(e) {
+      var t = e.timeoutMs,
+        r = e.url,
+        o = v(r);
+      if (o != null)
+        return (s || (s = n("Promise"))).resolve({
           kind: "OK",
-          manifestXml: a,
+          manifestXml: o,
         });
-      var i = m.get(o);
-      if (i != null) return i;
-      var l = g({ attempt: 1, timeoutMs: r, url: o }).then(
+      var a = p.get(r);
+      if (a != null) return a;
+      var i = y({ attempt: 1, timeoutMs: t, url: r }).then(
         function (e) {
           return (
-            m.get(o) === l &&
-              (m.delete(o),
-              e.kind === "OK" && S({ manifestXml: e.manifestXml, url: o })),
+            p.get(r) === i &&
+              (p.delete(r),
+              e.kind === "OK" && E({ manifestXml: e.manifestXml, url: r })),
             e
           );
         },
         function (e) {
-          throw (m.get(o) === l && m.delete(o), e);
+          throw (p.get(r) === i && p.delete(r), e);
         },
       );
-      return (m.set(o, l), l);
+      return (p.set(r, i), i);
     }
-    function f(e) {
+    function h(e) {
       return e instanceof
         o("WAWebVideoDashManifestErrors").DashManifestHttpError
         ? e.reason === "HTTP_5XX"
@@ -49,12 +53,12 @@ __d(
             e instanceof
               o("WAWebVideoDashManifestErrors").DashManifestTimeoutError;
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.attempt,
             n = e.timeoutMs,
             r = e.url;
@@ -63,45 +67,73 @@ __d(
               "WAWebVideoDashManifestFetcher",
             ).fetchVideoDashManifest({ timeoutMs: n, url: r });
           } catch (e) {
-            if (t >= c || !f(e)) throw e;
+            if (t >= d || !h(e)) throw e;
             return (
-              yield y(d * Math.pow(2, t - 1)),
-              g({ attempt: t + 1, timeoutMs: n, url: r })
+              yield b(m * Math.pow(2, t - 1)),
+              y({ attempt: t + 1, timeoutMs: n, url: r })
             );
           }
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(t) {
-      return new (e || (e = n("Promise")))(function (e) {
-        self.setTimeout(e, t);
+    function b(e) {
+      return new (s || (s = n("Promise")))(function (t) {
+        self.setTimeout(t, e);
       });
     }
-    function C(e) {
+    function v(e) {
       var t;
-      return (t = p.get(e)) != null ? t : null;
-    }
-    function b(e) {
-      p.delete(e);
-    }
-    function v() {
-      (p.clear(), m.clear());
+      return (t = _.get(e)) != null ? t : null;
     }
     function S(e) {
+      return (
+        f.add(e),
+        function () {
+          f.delete(e);
+        }
+      );
+    }
+    function R(e) {
+      _.delete(e) && k();
+    }
+    function L() {
+      var e = _.size > 0;
+      (_.clear(), p.clear(), e && k());
+    }
+    function E(e) {
       var t = e.manifestXml,
         n = e.url;
-      if ((p.delete(n), p.size >= s)) {
-        var r = p.keys().next().value;
-        r != null && p.delete(r);
+      if ((_.delete(n), _.size >= u)) {
+        var r = _.keys().next().value;
+        r != null && _.delete(r);
       }
-      p.set(n, t);
+      (_.set(n, t), k());
     }
-    ((l.MANIFEST_FETCH_TIMEOUT_MS = u),
-      (l.loadVideoDashManifest = _),
-      (l.peekVideoDashManifest = C),
-      (l.invalidateVideoDashManifest = b),
-      (l.clearVideoDashManifestCache = v));
+    function k() {
+      Array.from(f).forEach(function (t) {
+        if (f.has(t))
+          try {
+            t();
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[video-dash] manifest cache listener failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("video-dash-manifest-listener-failed");
+          }
+      });
+    }
+    ((l.MANIFEST_FETCH_TIMEOUT_MS = c),
+      (l.loadVideoDashManifest = g),
+      (l.peekVideoDashManifest = v),
+      (l.subscribeToVideoDashManifests = S),
+      (l.invalidateVideoDashManifest = R),
+      (l.clearVideoDashManifestCache = L));
   },
   98,
 );

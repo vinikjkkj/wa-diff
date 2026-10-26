@@ -25,7 +25,8 @@ __d(
           .map(function (e) {
             return o("WAWebVcardParsingUtils").parseMultiVcard(e);
           })
-          .flat(),
+          .flat()
+          .slice(0, o("WAWebVcardParsingUtils").MAX_VCARDS_PER_MESSAGE),
         a = n
           .map(function (e) {
             return o("WAWebVcardParsingUtils").vcardAllWids(e);

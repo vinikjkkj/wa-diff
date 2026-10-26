@@ -8,7 +8,7 @@ __d(
     "WAWebDrawerManager",
     "WAWebKeyboardRun",
     "WAWebNavBarTypes",
-    "WAWebTPLoggingUtils",
+    "WAWebTPPdfLoggingUtils",
     "WAWebTPPdfViewerGatingUtils",
     "asyncToGeneratorRuntime",
     "cr:6711",
@@ -47,7 +47,7 @@ __d(
                   "[webtp] Desktop return PDF rejected by kaleidoscope",
                 ])),
             ),
-              o("WAWebTPLoggingUtils").logPdfReceiverErrorEvent(
+              o("WAWebTPPdfLoggingUtils").logPdfReceiverErrorEvent(
                 s,
                 l.success
                   ? "Score " + l.value.score + " >= 90 or wrong mimetype"
@@ -66,18 +66,20 @@ __d(
             ),
             o("WAWebCmd").Cmd.scrollChatListToTop(),
             o("WAWebTPPdfViewerGatingUtils").isPdfPreviewBeforeSendEnabled()
-              ? (o("WAWebTPLoggingUtils").logPdfReceiverPreviewOpenEvent(),
+              ? (o("WAWebTPPdfLoggingUtils").logPdfReceiverPreviewOpenEvent(),
                 o("WAWebCmd").Cmd.trigger(
                   "open_file_forward_modal_with_preview",
                   u,
                   {
                     showPreview: !0,
                     onSend: function () {
-                      o("WAWebTPLoggingUtils").logPdfReceiverPreviewSendEvent();
+                      o(
+                        "WAWebTPPdfLoggingUtils",
+                      ).logPdfReceiverPreviewSendEvent();
                     },
                     onCancel: function () {
                       o(
-                        "WAWebTPLoggingUtils",
+                        "WAWebTPPdfLoggingUtils",
                       ).logPdfReceiverPreviewCancelEvent();
                     },
                   },

@@ -4,8 +4,8 @@ __d(
     "CometDASHPrefetchCache",
     "CometDASHPrefetchTaskQueue",
     "RunComet",
-    "cr:13904",
-    "cr:19794",
+    "cr:17809",
+    "cr:17810",
     "cr:9469",
     "oz-player/configs/OzGlobalConfig",
   ],
@@ -19,10 +19,10 @@ __d(
           ? e
           : { preloadVideoPlayerNextgendashWorker: null },
       d = c.preloadVideoPlayerNextgendashWorker,
-      m = (s = n("cr:13904")) != null ? s : { prefetchUsingNextgendash: null },
+      m = (s = n("cr:17809")) != null ? s : { prefetchUsingNextgendash: null },
       p = m.prefetchUsingNextgendash,
       _ =
-        (u = n("cr:19794")) != null
+        (u = n("cr:17810")) != null
           ? u
           : { releasePrefetchUsingNextgendash: null },
       f = _.releasePrefetchUsingNextgendash,

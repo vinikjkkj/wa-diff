@@ -2,68 +2,71 @@ __d(
   "WAWebMsgProcessingDecryptEnc",
   [
     "Promise",
+    "WALogger",
     "WAWebBackendJobs.flow",
     "WAWebBotMessageSecret",
     "WAWebBotUtils",
+    "WAWebCoexV2BotSecretLifecycle",
     "WAWebMsgProcessingApiUtils",
     "WAWebOrphanBotMsgError",
     "WAWebSignal",
     "WAWebWasaRootSecretWriter",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t) {
-      var a = t.enc,
-        i = t.from,
-        l = t.parsedMsgPayload,
-        s = t.participant,
-        c = t.sessionScope,
-        d = a.ciphertext,
-        m = a.e2eType;
+    var e, s;
+    function u(e) {
+      var t = e.enc,
+        a = e.from,
+        i = e.parsedMsgPayload,
+        l = e.participant,
+        u = e.sessionScope,
+        d = t.ciphertext,
+        m = t.e2eType;
       return m === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
         ? (function () {
-            return i.isGroup() || i.isBroadcast()
-              ? s
+            return a.isGroup() || a.isBroadcast()
+              ? l
                 ? o("WAWebSignal").Cipher.decryptGroupSignalProto({
                     ciphertext: d,
-                    sender: s,
-                    target: i,
+                    sender: l,
+                    target: a,
                   })
-                : (e || (e = n("Promise"))).reject(
+                : (s || (s = n("Promise"))).reject(
                     r("err")(
                       "['messaging'] decryptEnc: receive msg from " +
-                        i.toString() +
+                        a.toString() +
                         " without participant",
                     ),
                   )
-              : (e || (e = n("Promise"))).reject(
+              : (s || (s = n("Promise"))).reject(
                   r("err")(
                     "['messaging'] decryptEnc: Can not do skmsg for non group " +
-                      i.toString(),
+                      a.toString(),
                   ),
                 );
           })()
         : m === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg ||
             m === o("WAWebBackendJobs.flow").CiphertextType.Msg
           ? (function () {
-              var t = i.isUser() ? i : s;
-              if (!t)
-                return (e || (e = n("Promise"))).reject(
+              var e = a.isUser() ? a : l;
+              if (!e)
+                return (s || (s = n("Promise"))).reject(
                   r("err")(
                     "['messaging'] decryptEnc: receive msg from " +
-                      i.toString() +
+                      a.toString() +
                       " without participant",
                   ),
                 );
-              var u = o(
+              var c = o(
                 "WAWebMsgProcessingApiUtils",
-              ).shouldOmitSessionPersistence(m, l, a, t);
-              return o("WAWebSignal").Cipher.decryptSignalProto(t, m, d, u, c);
+              ).shouldOmitSessionPersistence(m, i, t, e);
+              return o("WAWebSignal").Cipher.decryptSignalProto(e, m, d, c, u);
             })()
           : m === o("WAWebBackendJobs.flow").CiphertextType.Msmsg
-            ? u(d, l)
+            ? c(d, i)
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -71,39 +74,89 @@ __d(
                 );
               })();
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield o("WAWebBotMessageSecret").decryptMsmsgBotMessage(
               e,
               t,
             );
-          } catch (a) {
-            if (!(a instanceof r("WAWebOrphanBotMsgError"))) throw a;
-            var n = yield d(t);
-            if (n === "recovered")
+          } catch (i) {
+            var n = m(i);
+            if (
+              n != null &&
+              o(
+                "WAWebCoexV2BotSecretLifecycle",
+              ).isRetainedCoexV2BotMessageSecretRecoveryApplicable(t)
+            )
+              return p(e, t, n);
+            if (!(i instanceof r("WAWebOrphanBotMsgError"))) throw i;
+            var a = yield f(t);
+            if (a === "recovered")
               return o("WAWebBotMessageSecret").decryptMsmsgBotMessage(e, t);
-            throw n === "unrecovered"
+            throw a === "unrecovered"
               ? new (r("WAWebOrphanBotMsgError"))(
-                  a.targetMsgKey,
+                  i.targetMsgKey,
                   "wasa-root-secret-missing",
                 )
-              : a;
+              : i;
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return e instanceof
+        o("WAWebBotMessageSecret").RetainedBotMessageSecretLookupError ||
+        (e instanceof r("WAWebOrphanBotMsgError") &&
+          (e.reason === "no-target-row" ||
+            e.reason === "placeholder-target-row"))
+        ? e
+        : null;
     }
-    function m() {
+    function p(e, t, n) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i;
+          try {
+            i = yield o(
+              "WAWebCoexV2BotSecretLifecycle",
+            ).getRetainedCoexV2BotMessageSecret(n);
+          } catch (t) {
+            throw (
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[coexv2] retained bot-secret lookup failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("coexv2-retained-secret-recovery-failed"),
+              a
+            );
+          }
+          if (i == null) throw a;
+          return o(
+            "WAWebBotMessageSecret",
+          ).decryptMsmsgFbidBotMessageWithBotMessageSecret(t, n, i);
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.msgInfo,
             r = e.msgMeta,
@@ -118,10 +171,10 @@ __d(
               : "unrecovered"
             : "not-wasa";
         })),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.decryptEnc = s;
+    l.decryptEnc = u;
   },
   98,
 );

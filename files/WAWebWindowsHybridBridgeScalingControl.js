@@ -33,12 +33,6 @@ __d(
               t.addEventListener("zoomOutRequested", this.$4),
             (n = this.$1) == null || n.subscribe(null));
         }),
-        (t.zoomIn = function () {
-          this.$3();
-        }),
-        (t.zoomOut = function () {
-          this.$4();
-        }),
         (t.showScalingControl = function (t) {
           var e = this;
           (r("WAWebODS").incr(

@@ -27,7 +27,7 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return self.crypto.subtle.importKey(
             "raw",
-            e,
+            e instanceof ArrayBuffer ? e : e.slice(),
             { name: "AES-GCM", length: 256 },
             !1,
             ["encrypt", "decrypt"],

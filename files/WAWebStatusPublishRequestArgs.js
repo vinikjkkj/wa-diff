@@ -166,6 +166,9 @@ __d(
                                                     .EncMediaType.Call ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")
+                                                    .EncMediaType.Collection ||
+                                                e ===
+                                                  o("WAWebBackendJobs.flow")
                                                     .EncMediaType.Future ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")

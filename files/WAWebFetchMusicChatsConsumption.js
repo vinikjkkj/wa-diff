@@ -6,6 +6,7 @@ __d(
     "WAWebACSTokenConfig",
     "WAWebL10nGetRenderedLocale",
     "WAWebMobilePlatforms",
+    "WAWebMusicOnChatsAcsProject",
     "WAWebOHAIClient",
     "asyncToGeneratorRuntime",
   ],
@@ -27,7 +28,11 @@ __d(
           try {
             var a = yield o("WAWebOHAIClient").fetchOHAI({
               url: u,
-              project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
+              project: o(
+                "WAWebMusicOnChatsAcsProject",
+              ).getMusicOnChatsAcsProject(
+                o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
+              ),
               payload: _(Array.from(new Set(t)), n),
               headers: r,
             });

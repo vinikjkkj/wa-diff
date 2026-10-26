@@ -178,24 +178,6 @@ __d(
               )
             );
           }),
-          (a.tryCopyCachedMediaFiles = function (t) {
-            var e = this;
-            return (
-              r("WAWebODS").incr(
-                "web.hybrid.bridge.media_files.send.try_copy_cached_media_files",
-              ),
-              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                {
-                  bridge: "mediaFiles",
-                  method: "tryCopyCachedMediaFiles",
-                  type: "async",
-                },
-                function () {
-                  return e.$1.tryCopyCachedMediaFiles(t);
-                },
-              )
-            );
-          }),
           (a.requestSharedBufferForMediaFile = function (a, i) {
             var t = this;
             r("WAWebODS").incr(

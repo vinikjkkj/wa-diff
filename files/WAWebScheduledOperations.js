@@ -9,10 +9,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
         DELETE_ADD_ONS: "deleteAddOns",
+        DELETE_JOBS_STORAGE: "deleteJobsStorage",
         DISMISS_QUICK_PROMOTION: "dismissQuickPromotion",
+        GET_PUBLIC_KEY: "getPublicKey",
+        GET_SIGNED_USER_INFO: "getSignedUserInfo",
         IMPRESSION_ON_QUICK_PROMOTION: "impressionOnQuickPromotion",
         INCREMENT_NEWSLETTER_FORWARD_COUNTER:
           "incrementNewsletterForwardCounter",
+        META_AI_THREAD_SERVER_DELETE: "metaAiThreadServerDelete",
         PRIMARY_ACTION_CLICK_IN_QUICK_PROMOTION:
           "primaryActionClickInQuickPromotion",
         QUERY_AND_UPDATE_GROUPS_METADATA_BY_JIDS:
@@ -25,6 +29,7 @@ __d(
         SET_ABOUT: "setAbout",
         SET_TEXT_STATUS: "setTextStatus",
         USER_EXPOSURE_TO_QUICK_PROMOTION: "userExposureToQuickPromotion",
+        VERIFY_POSTCODE: "verifyPostcode",
       }),
       s = 4,
       u = 3e4,
@@ -36,14 +41,18 @@ __d(
     function p(t) {
       return t === e.DELETE_ADD_ONS
         ? o("TaskSchedulerPriority").NORMAL_PRIORITY
-        : t === e.DISMISS_QUICK_PROMOTION
+        : t === e.DELETE_JOBS_STORAGE || t === e.DISMISS_QUICK_PROMOTION
           ? o("TaskSchedulerPriority").BACKGROUND_PRIORITY
-          : t === e.RESEND_GROUP_MSG ||
+          : t === e.GET_PUBLIC_KEY ||
+              t === e.GET_SIGNED_USER_INFO ||
+              t === e.VERIFY_POSTCODE ||
+              t === e.RESEND_GROUP_MSG ||
               t === e.RESEND_USER_MSG ||
               t === e.SEND_REQUESTED_KEY_SHARE
             ? o("TaskSchedulerPriority").NORMAL_PRIORITY
             : t === e.IMPRESSION_ON_QUICK_PROMOTION ||
                 t === e.INCREMENT_NEWSLETTER_FORWARD_COUNTER ||
+                t === e.META_AI_THREAD_SERVER_DELETE ||
                 t === e.PRIMARY_ACTION_CLICK_IN_QUICK_PROMOTION ||
                 t === e.QUERY_AND_UPDATE_GROUPS_METADATA_BY_JIDS ||
                 t === e.QUERY_PRODUCT_LIST ||

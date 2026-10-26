@@ -318,14 +318,6 @@ __d(
             }
             return t;
           })()),
-          (i.incrementalStarredUpdate = function (t) {
-            return this.processMultipleMessages(
-              void 0,
-              t,
-              { add: "search" },
-              "msgCollectionIncrementalStarredUpdate",
-            );
-          }),
           (i.search = function (t, n, r, a, i) {
             var e,
               l = this;

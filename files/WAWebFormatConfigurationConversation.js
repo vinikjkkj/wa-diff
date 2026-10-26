@@ -24,7 +24,6 @@ __d(
     "WAWebPhoneNumberFormatMutator",
     "WAWebStrikethroughFormatMutator",
     "cr:6000",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -163,7 +162,7 @@ __d(
                 ],
               ]
             : null,
-          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(p) : null,
+          n("cr:6000") ? n("cr:6000")(p) : null,
           O,
           [
             [r("WAWebBoldFormatMutator"), { selectable: p, boldXstyle: w }],

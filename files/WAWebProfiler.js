@@ -4,11 +4,8 @@ __d(
     "WALogger",
     "WAShiftTimer",
     "WATypeUtils",
-    "WAWebDBStats",
-    "WAWebGetAllModelStorageTableNames",
     "WAWebIdentityFunction",
     "WAWebNoop",
-    "compactMap",
     "gkx",
     "sumBy",
   ],
@@ -77,33 +74,7 @@ __d(
             : 0,
       };
     }
-    function m(e) {
-      if (!r("gkx")("26258")) {
-        var t =
-            e == null
-              ? o("WAWebGetAllModelStorageTableNames").allModelStorageTableNames
-              : [e],
-          n = r("compactMap")(t, function (e) {
-            var t = o("WAWebDBStats").dbStats.getStatsLog(e);
-            return t ? d(t, e) : null;
-          });
-        if (n.length > 0) {
-          var a =
-              e == null
-                ? o("WAWebGetAllModelStorageTableNames")
-                    .allModelStorageTableNames
-                : [e],
-            i = r("compactMap")(a, function (e) {
-              var t = o("WAWebDBStats").dbStats.getStatsLog(e);
-              return t ? d(t, e) : null;
-            });
-          (console.groupCollapsed("[db-stats] Click to expand"),
-            console.table(i),
-            console.groupEnd());
-        }
-      }
-    }
-    var p = (function () {
+    var m = (function () {
         function t() {
           var e = this;
           if (r("gkx")("26258")) {
@@ -238,8 +209,8 @@ __d(
           t
         );
       })(),
-      _ = new p();
-    ((l.calculateStats = d), (l.logDBStatsDev = m), (l.Profiler = _));
+      p = new m();
+    ((l.calculateStats = d), (l.Profiler = p));
   },
   98,
 );

@@ -10,6 +10,7 @@ __d(
       CHANNEL: 5,
       META_AI: 6,
       AI_CHARACTERS: 7,
+      MUSE: 8,
     });
     i.UI_ACTION_CHAT_TYPE = e;
   },

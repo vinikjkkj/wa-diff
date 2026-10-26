@@ -306,6 +306,7 @@ __d(
                     ).msmsgMsgSecretCache.addMsmsgMsgSecretToCache(
                       O.id.toString(),
                       B,
+                      O.t,
                     )),
                     z &&
                       H != null &&

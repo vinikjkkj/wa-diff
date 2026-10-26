@@ -24,6 +24,7 @@ __d(
     "WAWebStatusGetters",
     "WAWebStatusModel",
     "WAWebUserPrefsMeUser",
+    "WAWebViewMode.flow",
     "WAWebWebcStatusSessionWamEvent",
     "WAWebWebcStatusSyncWamEvent",
     "WAWebWidFactory",
@@ -245,7 +246,8 @@ __d(
                 : t.author),
             this.hasSynced())
           ) {
-            if (n) return !0;
+            if (n || t.viewMode === o("WAWebViewMode.flow").ViewModeType.HIDDEN)
+              return !0;
             var i =
                 t.subtype === "sender_revoke" || t.subtype === "admin_revoke",
               l = a ? this.getStatusModel(a, i) : null;

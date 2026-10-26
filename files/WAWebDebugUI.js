@@ -3,12 +3,9 @@ __d(
   [
     "ReactDOM_DEPRECATED",
     "WALogger",
-    "WAWebClientFeatureFlags",
-    "WAWebCmd",
     "WAWebDebugE2EMode",
     "WAWebInternalToolsLoadingScreenSimulator.react",
     "WAWebLocalStorage",
-    "WAWebMiscBrowserUtils",
     "WAWebThemeContext",
     "WAWebUserPrefsGeneral",
     "nullthrows",
@@ -85,18 +82,6 @@ __d(
       "Blur out the message context from the chat list before taking a secreenshot"),
       (_.paramsToExecute = []));
     function f() {
-      r("vulture")("v1V3XvvXXMP0iwgmWehymcPzNOk=");
-      var e = "lid_debug";
-      o("WAWebClientFeatureFlags").isFeatureEnabled(e)
-        ? (o("WAWebClientFeatureFlags").debugDisableFeatureFlag(e),
-          r("WAWebMiscBrowserUtils").hardRefresh())
-        : (o("WAWebClientFeatureFlags").debugEnableFeatureFlag(e),
-          o("WAWebCmd").Cmd.toggleLidDebugBadge());
-    }
-    ((f.doc =
-      "Highlight the LID chats to help an easy distinguishion among PN chats"),
-      (f.paramsToExecute = []));
-    function g() {
       (r("vulture")("gD9Ouc5SN-gSpFkMZ5_cQfhwL6E="),
         r("WAWebLocalStorage") == null ||
           r("WAWebLocalStorage").removeItem(
@@ -110,18 +95,17 @@ __d(
         ),
         location.reload());
     }
-    ((g.doc = "Reset adjustable chat list custom width to default and reload"),
-      (g.paramsToExecute = []));
-    var h = {
+    ((f.doc = "Reset adjustable chat list custom width to default and reload"),
+      (f.paramsToExecute = []));
+    var g = {
       toggleDarkMode: d,
       toggleCSSDebugMode: m,
       toggleE2EDebugMode: o("WAWebDebugE2EMode").toggleE2EDebugMode,
       toggleResumeScreen: p,
       toggleScreenShotMode: _,
-      toggleLidDebugMode: f,
-      resetChatlistWidth: g,
+      resetChatlistWidth: f,
     };
-    l.default = h;
+    l.default = g;
   },
   98,
 );

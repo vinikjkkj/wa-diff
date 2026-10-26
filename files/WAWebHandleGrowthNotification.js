@@ -6,7 +6,6 @@ __d(
     "WATimeUtils",
     "WAWap",
     "WAWebChatFindBridge",
-    "WAWebChatMessageCountsWamEvent",
     "WAWebChatThreadLogging",
     "WAWebCreateChat",
     "WAWebHandleSingleMsgWorkerCompatible",
@@ -132,12 +131,7 @@ __d(
                 newMsg: i,
                 handleSingleMsgOrigin:
                   "processInviteDeepLinkSenderNotification",
-              }),
-              new (o(
-                "WAWebChatMessageCountsWamEvent",
-              ).ChatMessageCountsWamEvent)({
-                isInviteCreatedThread: !0,
-              }).commit());
+              }));
           }
         })),
         f.apply(this, arguments)

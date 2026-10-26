@@ -5,7 +5,7 @@ __d(
     "WAWebCryptoLibrary",
     "WAWebSignalCommonErrors",
     "asyncToGeneratorRuntime",
-    "cr:4533",
+    "cr:17674",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,15 +17,15 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, s) {
-            if ((l === void 0 && (l = !1), !r("gkx")("26258"))) {
+            if ((l === void 0 && (l = !1), r("gkx")("16539"))) {
               var u =
-                n("cr:4533") == null
+                n("cr:17674") == null
                   ? void 0
-                  : n("cr:4533").getDebugDecryptFail();
+                  : n("cr:17674").getDebugDecryptFail();
               if (u != null && u > 0)
                 return (
-                  n("cr:4533") == null ||
-                    n("cr:4533").setDebugDecryptFail(u - 1),
+                  n("cr:17674") == null ||
+                    n("cr:17674").setDebugDecryptFail(u - 1),
                   (e || (e = n("Promise"))).reject(
                     new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
                   )
@@ -62,14 +62,15 @@ __d(
           var a = t.ciphertext,
             i = t.sender,
             l = t.target;
-          if (!r("gkx")("26258")) {
+          if (r("gkx")("16539")) {
             var s =
-              n("cr:4533") == null
+              n("cr:17674") == null
                 ? void 0
-                : n("cr:4533").getDebugDecryptFail();
+                : n("cr:17674").getDebugDecryptFail();
             if (s != null && s > 0)
               return (
-                n("cr:4533") == null || n("cr:4533").setDebugDecryptFail(s - 1),
+                n("cr:17674") == null ||
+                  n("cr:17674").setDebugDecryptFail(s - 1),
                 (e || (e = n("Promise"))).reject(
                   new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
                 )

@@ -6,20 +6,34 @@ __d(
       function e() {
         var e = this;
         ((this.cache = new Map()),
+          (this.timestamps = new Map()),
           o("WAWebBackendEventBus").BackendEventBus.onLogout(function () {
             return e.clearCache();
           }));
       }
       var t = e.prototype;
       return (
-        (t.addMsmsgMsgSecretToCache = function (t, n) {
-          this.cache.set(t, n);
+        (t.addMsmsgMsgSecretToCache = function (t, n, r) {
+          if (
+            (r === void 0 && (r = null),
+            this.cache.set(t, n),
+            r != null && Number.isFinite(r))
+          ) {
+            var e = this.timestamps.get(t);
+            this.timestamps.set(t, e == null ? r : Math.min(e, r));
+          }
         }),
         (t.getMsmsgMsgSecretFromCache = function (t) {
           return this.cache.get(t);
         }),
+        (t.getMsmsgMsgSecretTimestampFromCache = function (t) {
+          return this.timestamps.get(t);
+        }),
+        (t.deleteMsmsgMsgSecretFromCache = function (t) {
+          (this.cache.delete(t), this.timestamps.delete(t));
+        }),
         (t.clearCache = function () {
-          this.cache = new Map();
+          ((this.cache = new Map()), (this.timestamps = new Map()));
         }),
         e
       );

@@ -153,11 +153,40 @@ __d(
         "web.video_dash_manifest.prefetch.resolved_at_trigger",
       );
     }
+    function m(e) {
+      e: {
+        if (e === "REQUESTED") {
+          r("WAWebODS").incr("web.video_dash_segment.prefetch.requested");
+          break e;
+        }
+        if (e === "RELEASED") {
+          r("WAWebODS").incr("web.video_dash_segment.prefetch.released");
+          break e;
+        }
+        if (e === "SKIPPED_NO_REPRESENTATIONS") {
+          r("WAWebODS").incr(
+            "web.video_dash_segment.prefetch.skipped_no_representations",
+          );
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    function p(e) {
+      e
+        ? r("WAWebODS").incr("web.video_dash_segment.at_open.prefetched")
+        : r("WAWebODS").incr("web.video_dash_segment.at_open.not_prefetched");
+    }
     ((l.bumpPrefetchResult = e),
       (l.bumpPrefetchSkip = s),
       (l.bumpPrefetchInFlightAtStart = u),
       (l.bumpPrefetchSessionReached = c),
-      (l.bumpPrefetchResolvedAtTrigger = d));
+      (l.bumpPrefetchResolvedAtTrigger = d),
+      (l.bumpSegmentPrefetchResult = m),
+      (l.bumpSegmentPrefetchAtOpen = p));
   },
   98,
 );

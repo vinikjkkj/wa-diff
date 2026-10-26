@@ -11,18 +11,13 @@ __d(
     "WAWebEphemeralityTypes",
     "WAWebEphemeralityUtils",
     "WAWebLimitSharingGatingUtils",
+    "WAWebOpusUtils",
     "WAWebProtobufsProtocol.pb",
     "asyncToGeneratorRuntime",
-    "cr:37261",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d = (e = n("cr:37261")) != null ? e : {},
-      m = d.opusProcessChat;
-    function p(e) {
+    var e, s, u;
+    function c(e) {
       var t, n;
       if (
         e.isCAG() ||
@@ -44,12 +39,12 @@ __d(
         a && o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function f() {
+    function m() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             t.ephemeralDuration != null &&
             t.ephemeralDuration > 0 &&
@@ -79,8 +74,8 @@ __d(
                 yield o("WAWebDBUpdateChatTable").updateChatTable(e.id, l),
                 e.set(l),
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[maybeDisableEphemeralityForMsg] duration=",
                       " contact=",
                       "",
@@ -94,18 +89,17 @@ __d(
           }
           return { msgData: t, systemMsgs: null };
         })),
-        f.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      var n;
+    function p(t, n) {
+      var r;
       if (
         o("WAWebLimitSharingGatingUtils").isOpusEnabled() &&
-        m != null &&
-        ((n = e.limitSharing) == null ? void 0 : n.sharingLimited) === !0
+        ((r = t.limitSharing) == null ? void 0 : r.sharingLimited) === !0
       ) {
-        var r = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
-          e.id,
+        var a = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
+          t.id,
           {
             sharingLimited: !1,
             trigger: o("WAWebProtobufsProtocol.pb").LimitSharing$Trigger
@@ -113,34 +107,36 @@ __d(
           },
         );
         return (
-          m(e.id.toString(), { skipSystemMessage: !0 }).catch(function (e) {
-            e instanceof Error
-              ? o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[opus] send fallback failed",
-                      ])),
-                  )
-                  .catching(e)
-                  .sendLogs(t)
-              : o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[opus] send fallback failed",
-                      ])),
-                  )
-                  .sendLogs(t);
-          }),
-          r
+          o("WAWebOpusUtils")
+            .opusProcessChat(t.id.toString(), { skipSystemMessage: !0 })
+            .catch(function (t) {
+              t instanceof Error
+                ? o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[opus] send fallback failed",
+                        ])),
+                    )
+                    .catching(t)
+                    .sendLogs(n)
+                : o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[opus] send fallback failed",
+                        ])),
+                    )
+                    .sendLogs(n);
+            }),
+          a
         );
       }
       return null;
     }
-    ((l.hasGroupAgentParticipant = p),
-      (l.maybeDisableEphemeralityForMsg = _),
-      (l.maybeGetOpusSystemMsg = g));
+    ((l.hasGroupAgentParticipant = c),
+      (l.maybeDisableEphemeralityForMsg = d),
+      (l.maybeGetOpusSystemMsg = p));
   },
   98,
 );

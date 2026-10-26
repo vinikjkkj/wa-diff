@@ -19,7 +19,6 @@ __d(
     "WAWebContactTextStatusExpiry",
     "WAWebFrontendContactGetters",
     "WAWebInitializeBotContact",
-    "WAWebL10N",
     "WAWebOptOutListCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebTextStatusCollection",
@@ -162,28 +161,23 @@ __d(
                     "change:pushname",
                     this.$Contact$p_2,
                   ),
-                this.listenTo(
-                  r("WAWebL10N"),
-                  "locale_change",
-                  this.$Contact$p_3,
-                ),
                 this.id.isUser() &&
                   (o("WAWebContactBlocklistUtils").updateContactBlocked(this),
                   this.updateContactOptedOutOfMarketingMessages()),
-                this.listenTo(this, "change:name", this.$Contact$p_4),
+                this.listenTo(this, "change:name", this.$Contact$p_3),
                 this.listenTo(this, "change:name", this.updateName),
                 (this.pendingAction = 0),
                 o("WAWebBizLabelUtils").initializeLabels(this));
-              var a = this.id;
-              if (a.isLid()) {
-                var i =
-                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(a);
-                i != null && this.copyFieldsFromPnContact(i);
+              var r = this.id;
+              if (r.isLid()) {
+                var a =
+                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(r);
+                a != null && this.copyFieldsFromPnContact(a);
               } else
                 this.id.isUser() &&
-                  (this.$Contact$p_5(),
-                  this.listenTo(this, "change:name", this.$Contact$p_5),
-                  this.listenTo(this, "change:statusMute", this.$Contact$p_5));
+                  (this.$Contact$p_4(),
+                  this.listenTo(this, "change:name", this.$Contact$p_4),
+                  this.listenTo(this, "change:statusMute", this.$Contact$p_4));
               this.id.isBot() &&
                 o("WAWebInitializeBotContact").initializeBotContact(this);
             }
@@ -194,9 +188,6 @@ __d(
           (a.$Contact$p_2 = function () {
             this.set({ pushname: o("WAWebConnModel").Conn.pushname });
           }),
-          (a.$Contact$p_3 = function () {
-            this.locale = r("WAWebL10N").getLocale();
-          }),
           (a.updateName = function () {
             !o("WAWebFrontendContactGetters").getIsMyContact(this) &&
               o("WAWebBotBaseGating").isBizBot3pEnabled() &&
@@ -206,7 +197,7 @@ __d(
               this.verifiedName != null &&
               this.set({ name: this.verifiedName });
           }),
-          (a.$Contact$p_4 = function () {
+          (a.$Contact$p_3 = function () {
             if (
               o("WAWebContactGetters").getIsUser(this) &&
               this.name &&
@@ -216,7 +207,7 @@ __d(
               e != null && this.set("shortName", e);
             }
           }),
-          (a.$Contact$p_6 = function () {
+          (a.$Contact$p_5 = function () {
             var e = o("WAWebWidFactory").asUserWidOrThrow(this.id);
             if (e.isLid()) return this;
             var t = o("WAWebApiContact").getCurrentLid(e);
@@ -224,8 +215,8 @@ __d(
               ? o("WAWebContactCollection").ContactCollection.get(t)
               : null;
           }),
-          (a.$Contact$p_5 = function () {
-            var e = this.$Contact$p_6();
+          (a.$Contact$p_4 = function () {
+            var e = this.$Contact$p_5();
             e &&
               (e.set({ name: this.name }),
               e.set({ parentStatusMute: this.statusMute }));
@@ -268,11 +259,11 @@ __d(
           (a.addPendingAction = function (t) {
             var e = this,
               n = function () {
-                e.$Contact$p_7();
+                e.$Contact$p_6();
               };
             return (t.then(n, n), this.pendingAction++, t);
           }),
-          (a.$Contact$p_7 = function () {
+          (a.$Contact$p_6 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(

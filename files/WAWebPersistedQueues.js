@@ -5,6 +5,7 @@ __d(
     "WAWebAddonDeletionQueue",
     "WAWebDbEncryptionKey",
     "WAWebKeyShareQueue",
+    "WAWebMetaAiThreadServerDeleteQueue",
     "WAWebNoop",
     "WAWebODS",
     "WAWebPersistedQueuesRegistry",
@@ -81,6 +82,9 @@ __d(
           }
           (o("WAWebAddonDeletionQueue").startAddonDeletionQueueDrain(),
             o("WAWebKeyShareQueue").startKeyShareQueue(),
+            o(
+              "WAWebMetaAiThreadServerDeleteQueue",
+            ).startMetaAiThreadServerDeleteQueue(),
             o("WAWebResendMsgQueue").startResendQueues());
         })),
         _.apply(this, arguments)
@@ -109,6 +113,9 @@ __d(
       }
     }
     ((l.requestKeyShareNow = o("WAWebKeyShareQueue").requestKeyShareNow),
+      (l.enqueueMetaAiThreadServerDeleteNow = o(
+        "WAWebMetaAiThreadServerDeleteQueue",
+      ).enqueueMetaAiThreadServerDeleteNow),
       (l.runGroupMsgResendQueued = o(
         "WAWebResendMsgQueue",
       ).runGroupMsgResendQueued),

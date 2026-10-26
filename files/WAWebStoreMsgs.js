@@ -392,10 +392,12 @@ __d(
                   if (n.length > 0) {
                     var r = [],
                       a = new Set();
-                    (n.forEach(function (e) {
-                      r.push(e.revokeMsgKey.toString());
-                      var t = e.revokeMsgKey.remote.toString();
-                      a.add(t);
+                    (n.forEach(function (t) {
+                      var n,
+                        o = t.revokeMsgKey.toString();
+                      r.push((n = e.get(o)) != null ? n : o);
+                      var i = t.revokeMsgKey.remote.toString();
+                      a.add(i);
                     }),
                       yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                         Array.from(a.values()).join(","),

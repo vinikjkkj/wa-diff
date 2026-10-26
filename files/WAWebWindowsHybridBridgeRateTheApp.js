@@ -8,24 +8,6 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.getStoreProductForCurrentApp = function () {
-          var e = this;
-          return (
-            r("WAWebODS").incr(
-              "web.hybrid.bridge.rate_the_app.send.get_store_product_for_current_app_async",
-            ),
-            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-              {
-                bridge: "rateTheApp",
-                method: "getStoreProductForCurrentAppAsync",
-                type: "async",
-              },
-              function () {
-                return e.$1.getStoreProductForCurrentAppAsync();
-              },
-            )
-          );
-        }),
         (t.requestRateAndApp = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this;

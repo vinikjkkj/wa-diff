@@ -4,10 +4,10 @@ __d(
     "Promise",
     "WAWebAiAgentAutoReplyControlMutation.graphql",
     "WAWebBizAiAgentGating",
+    "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
-    "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,7 +34,7 @@ __d(
             ? r("WAWebNetworkStatus")
                 .waitIfOffline()
                 .then(function () {
-                  return o("WAWebRelayClient")
+                  return o("WAWebBizAiRelayClient")
                     .commitMutation(
                       u,
                       {
@@ -42,7 +42,7 @@ __d(
                         phone_number: e != null ? e : "",
                         thread_status: n,
                       },
-                      { environmentType: "facebook", accessToken: a.token },
+                      { accessToken: a.token },
                     )
                     .then(function (e) {
                       var t =

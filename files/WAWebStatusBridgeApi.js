@@ -3,85 +3,112 @@ __d(
   [
     "JSResourceForInteraction",
     "WAJids",
+    "WALogger",
     "WAWebCmd",
     "WAWebContactGetters",
     "WAWebDeleteStatusAction",
     "WAWebNewsletterSyntheticStatusUtils",
     "WAWebSettingsModel",
     "WAWebStatusCollection",
+    "cr:17802",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
-      clearStatusForRemovedContact: function () {
-        return o("WAWebStatusCollection")
-          .StatusCollection.sync()
-          .then(o("WAWebDeleteStatusAction").clearStatusForRemovedContact)
-          .then(
-            o("WAWebNewsletterSyntheticStatusUtils")
-              .createSyntheticsForNewsletters,
-          );
-      },
-      fillGapFromIncomingStanza: function (t) {
-        var e = t.incomingServerId,
-          n = t.newsletterJid,
-          a = t.sentTime;
-        return r("JSResourceForInteraction")(
-          "WAWebNewsletterStatusGapFillAction",
-        )
-          .__setRef("WAWebStatusBridgeApi")
-          .load()
-          .then(function (t) {
-            return t.fillGapFromIncomingStanza(
-              o("WAJids").toNewsletterJid(n),
-              e,
-              a,
-            );
-          });
-      },
-      fillSubscribedStatusGaps: function () {
-        return r("JSResourceForInteraction")(
-          "WAWebNewsletterStatusGapFillAction",
-        )
-          .__setRef("WAWebStatusBridgeApi")
-          .load()
-          .then(function (e) {
-            return e.fillSubscribedStatusGaps();
-          });
-      },
-      handleStatusUpdate: function (t) {
-        var e = t.isMsgUpdate,
-          n = t.rawMsg;
-        return o("WAWebStatusCollection").StatusCollection.handleUpdate(n, e);
-      },
-      handleReadStatus: function (t) {
-        var e = t.msgKeys;
-        for (var n of e) {
-          var r = s(n),
-            a = r && o("WAWebStatusCollection").StatusCollection.get(r);
-          if (a) {
-            var i = o("WAWebContactGetters").getIsMe(a.contact) && !n.fromMe;
-            if (i) continue;
-            a.handleReadStatus(n);
+    var e,
+      s = {
+        clearStatusForRemovedContact: function (a) {
+          var t = a.isStartupSync,
+            i = t === void 0 ? !1 : t,
+            l = o("WAWebStatusCollection")
+              .StatusCollection.sync()
+              .then(o("WAWebDeleteStatusAction").clearStatusForRemovedContact)
+              .then(
+                o("WAWebNewsletterSyntheticStatusUtils")
+                  .createSyntheticsForNewsletters,
+              );
+          return !i || n("cr:17802") == null
+            ? l
+            : l
+                .then(function () {
+                  n("cr:17802").markStatusStartupSyncComplete();
+                })
+                .catch(function (t) {
+                  throw (
+                    n("cr:17802").markStatusStartupSyncFailed(),
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "status-tab:startup status restoration failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(t))
+                      .sendLogs("status-tab-startup-sync-failed"),
+                    t
+                  );
+                });
+        },
+        fillGapFromIncomingStanza: function (t) {
+          var e = t.incomingServerId,
+            n = t.newsletterJid,
+            a = t.sentTime;
+          return r("JSResourceForInteraction")(
+            "WAWebNewsletterStatusGapFillAction",
+          )
+            .__setRef("WAWebStatusBridgeApi")
+            .load()
+            .then(function (t) {
+              return t.fillGapFromIncomingStanza(
+                o("WAJids").toNewsletterJid(n),
+                e,
+                a,
+              );
+            });
+        },
+        fillSubscribedStatusGaps: function () {
+          return r("JSResourceForInteraction")(
+            "WAWebNewsletterStatusGapFillAction",
+          )
+            .__setRef("WAWebStatusBridgeApi")
+            .load()
+            .then(function (e) {
+              return e.fillSubscribedStatusGaps();
+            });
+        },
+        handleStatusUpdate: function (t) {
+          var e = t.isMsgUpdate,
+            n = t.rawMsg;
+          return o("WAWebStatusCollection").StatusCollection.handleUpdate(n, e);
+        },
+        handleReadStatus: function (t) {
+          var e = t.msgKeys;
+          for (var n of e) {
+            var r = u(n),
+              a = r && o("WAWebStatusCollection").StatusCollection.get(r);
+            if (a) {
+              var i = o("WAWebContactGetters").getIsMe(a.contact) && !n.fromMe;
+              if (i) continue;
+              a.handleReadStatus(n);
+            }
           }
-        }
-      },
-      triggerUpdateCrosspostAutoShareSettingsFromBridge: function (t) {
-        var e = t.shareToFB,
-          n = t.shareToIG;
-        (e != null && (r("WAWebSettingsModel").shareToFB = e),
-          n != null && (r("WAWebSettingsModel").shareToIG = n),
-          o("WAWebCmd").Cmd.updateCrosspostAutoShareSettingsFromBridge(t));
-      },
-      triggerUpdateStatusPrivacySettingsFromBridge: function (t) {
-        o("WAWebCmd").Cmd.updateStatusPrivacySettingsFromBridge(t);
-      },
-    };
-    function s(e) {
+        },
+        triggerUpdateCrosspostAutoShareSettingsFromBridge: function (t) {
+          var e = t.shareToFB,
+            n = t.shareToIG;
+          (e != null && (r("WAWebSettingsModel").shareToFB = e),
+            n != null && (r("WAWebSettingsModel").shareToIG = n),
+            o("WAWebCmd").Cmd.updateCrosspostAutoShareSettingsFromBridge(t));
+        },
+        triggerUpdateStatusPrivacySettingsFromBridge: function (t) {
+          o("WAWebCmd").Cmd.updateStatusPrivacySettingsFromBridge(t);
+        },
+      };
+    function u(e) {
       var t = e.participant,
         n = e.remote;
       return n.isStatus() ? t : n.isGroup() || n.isNewsletter() ? n : null;
     }
-    l.StatusBridgeApi = e;
+    l.StatusBridgeApi = s;
   },
   98,
 );

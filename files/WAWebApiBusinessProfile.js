@@ -81,8 +81,10 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(e);
-          return t ? I(t) : null;
+          var t = k(e);
+          yield o("WAWebSchemaBusinessProfile")
+            .getBusinessProfileTable()
+            .createOrMerge(t.id, t);
         })),
         S.apply(this, arguments)
       );
@@ -93,32 +95,18 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = T(e);
-          yield o("WAWebSchemaBusinessProfile")
-            .getBusinessProfileTable()
-            .createOrMerge(t.id, t);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.id,
             r = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t);
           return (m || (m = n("Promise"))).all(
             r.map(function (t) {
-              return R(babelHelpers.extends({}, e, { id: t }));
+              return v(babelHelpers.extends({}, e, { id: t }));
             }),
           );
         })),
-        k.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function I(t) {
+    function E(t) {
       var n = t.commandsDescription,
         r = o("WAWebWidFactory").createWid(t.id),
         a = o("WAWebBotTypes").BizBotAutomatedType.cast(t.automatedType),
@@ -186,7 +174,7 @@ __d(
         commandsDescription: n,
       };
     }
-    function T(e) {
+    function k(e) {
       var t = e.commandsDescription,
         n = e.id.toString(),
         r;
@@ -206,9 +194,8 @@ __d(
     }
     ((l.getBusinessProfileRow = p),
       (l.getBusinessProfileRowLidAware = C),
-      (l.getBusinessProfileRecord = v),
-      (l.createOrMergeBusinessProfileRecordLidAware = E),
-      (l.businessProfileFromDbRow = I));
+      (l.createOrMergeBusinessProfileRecordLidAware = R),
+      (l.businessProfileFromDbRow = E));
   },
   98,
 );

@@ -116,6 +116,10 @@ __d(
               var i = e.id.toString();
               if (t.has(i)) {
                 var l = r("nullthrows")(t.get(i));
+                if (l.requiresTargetAuthorization === !0) {
+                  n.push(l);
+                  return;
+                }
                 (a.push(
                   babelHelpers.extends(
                     {},

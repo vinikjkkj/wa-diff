@@ -37,7 +37,7 @@ __d(
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = yield F(e);
-            return (G(t), []);
+            return (j(t), []);
           });
           return function (t) {
             return e.apply(this, arguments);
@@ -138,7 +138,7 @@ __d(
           if (e != null)
             return t
               .then(function () {
-                return z(e);
+                return K(e);
               })
               .catch(r("WAWebNoop"));
         });
@@ -167,7 +167,7 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t != null && (yield t, yield z(e));
+          t != null && (yield t, yield K(e));
         })),
         $.apply(this, arguments)
       );
@@ -201,14 +201,16 @@ __d(
               ).getCoexV2RelayMessageAck(i, a),
               representedLid: a,
             });
-            return {
-              msgKey: e.id,
-              receiptInfo:
-                l == null
-                  ? null
-                  : { msgIds: [i], projectedAck: l, representedLid: a },
-              representedLid: a,
-            };
+            return l == null && !q(e)
+              ? null
+              : {
+                  msgKey: e.id,
+                  receiptInfo:
+                    l == null
+                      ? null
+                      : { msgIds: [i], projectedAck: l, representedLid: a },
+                  representedLid: a,
+                };
           } catch (t) {
             return (
               o("WALogger")
@@ -260,7 +262,7 @@ __d(
                 return e.receiptInfo;
               }),
             );
-            G(t);
+            j(t);
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -300,7 +302,7 @@ __d(
                           ),
                           i = new Map();
                         t.forEach(function (e, t) {
-                          q(e, a[t], i);
+                          U(e, a[t], i);
                         });
                         var l = r("compactMap")(
                           Array.from(i.entries()),
@@ -364,22 +366,27 @@ __d(
       return t;
     }
     function W(e) {
-      var t;
       return (
         e.id.fromMe &&
         e.id.remote.isUser() &&
-        ((t = e.senderWithDevice) == null
-          ? void 0
-          : t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) === !0 &&
-        e.metaFrom != null &&
-        o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom) &&
+        (!q(e) ||
+          (e.metaFrom != null &&
+            o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom))) &&
         e.isScheduledMsg !== !0 &&
         o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
       );
     }
-    function q(e, t, n) {
+    function q(e) {
+      var t;
+      return (
+        ((t = e.senderWithDevice) == null
+          ? void 0
+          : t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) === !0
+      );
+    }
+    function U(e, t, n) {
       try {
-        var a = U(e, t);
+        var a = V(e, t);
         if (t == null || a == null) return;
         var i = a.toString(),
           l = n.get(i);
@@ -396,34 +403,37 @@ __d(
           .sendLogs("coexv2-message-ack-projection-invalid-message");
       }
     }
-    function U(e, t) {
+    function V(e, t) {
       if (t == null) return null;
       var n = r("WAWebMsgKey").fromString(t.id);
-      if (!V(t, n)) return null;
-      var o = H(t, n);
-      return o === e.msgId ? n : null;
+      return H(t, n) && z(t, n).includes(e.msgId) ? n : null;
     }
-    function V(e, t) {
+    function H(e, t) {
       return (
         t.fromMe &&
         t.remote.isUser() &&
-        e.senderWithDevice != null &&
-        o("WAWebWidFactory")
-          .createWidFromWidLike(e.senderWithDevice)
-          .equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
-        e.metaFrom != null &&
-        o("WAWebUserPrefsMeUser").isMeAccount(
-          o("WAWebWidFactory").createWidFromWidLike(e.metaFrom),
-        ) &&
+        (!G(e) ||
+          (e.metaFrom != null &&
+            o("WAWebUserPrefsMeUser").isMeAccount(
+              o("WAWebWidFactory").createWidFromWidLike(e.metaFrom),
+            ))) &&
         e.isScheduledMsg !== !0
       );
     }
-    function H(e, t) {
-      return e.latestEditMsgKey == null
-        ? t.id
-        : r("WAWebMsgKey").fromString(e.latestEditMsgKey).id;
-    }
     function G(e) {
+      return (
+        e.senderWithDevice != null &&
+        o("WAWebWidFactory")
+          .createWidFromWidLike(e.senderWithDevice)
+          .equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
+      );
+    }
+    function z(e, t) {
+      if (e.latestEditMsgKey == null) return [t.id];
+      var n = r("WAWebMsgKey").fromString(e.latestEditMsgKey).id;
+      return G(e) ? [n] : [t.id, n];
+    }
+    function j(e) {
       if (e.length !== 0)
         try {
           o("WAWebBackendApi").frontendFireAndForget("updateMsgModelAcks", {
@@ -441,12 +451,12 @@ __d(
             .sendLogs("coexv2-message-ack-projection-publish-failed");
         }
     }
-    function z(e) {
-      return j.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function j() {
+    function Q() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t;
             try {
@@ -488,10 +498,10 @@ __d(
                 .sendLogs("coexv2-message-ack-reconciliation-refresh-failed");
               return;
             }
-            G(t);
+            j(t);
           }
         })),
-        j.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
     ((l.projectCoexV2ReadReceiptAck = C),

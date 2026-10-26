@@ -12,6 +12,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebWamEnumMdChatAssignmentChatType",
+    "WAWebWamEnumWebcChatType",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -40,6 +41,26 @@ __d(
       }
     }
     function s(e) {
+      var t = o("WAWebFrontendChatGetters").getKind(e);
+      if (t != null)
+        switch (t) {
+          case o("WAWebChatFlowTypes").ChatKindType.Chat:
+            return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.INDIVIDUAL;
+          case o("WAWebChatFlowTypes").ChatKindType.Group:
+            return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.GROUP;
+          case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
+            return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.BROADCAST_LIST;
+          case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
+            return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.NEWSLETTER;
+          case o("WAWebChatFlowTypes").ChatKindType.Community:
+            return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.COMMUNITY;
+        }
+      else {
+        var n = new TypeError("Invalid Chat.kind " + String(t));
+        throw (n.stack, n);
+      }
+    }
+    function u(e) {
       return (
         e.type !== o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION &&
         (e.type !== o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE ||
@@ -61,7 +82,7 @@ __d(
         )
       );
     }
-    function u(e) {
+    function c(e) {
       var t;
       return (
         e.subtype === "acp2_system_message" &&
@@ -73,7 +94,7 @@ __d(
         )
       );
     }
-    function c(e) {
+    function d(e) {
       if (
         o("WAWebChatGetters").getIsBroadcast(e) ||
         o("WAWebChatGetters").getIsMetaAiBot(e) ||
@@ -93,9 +114,10 @@ __d(
           : !0;
     }
     ((l.getMdChatAssignmentChatTypeFn = e),
-      (l.isPreviewMessage = s),
-      (l.isAcp2RestrictionNotice = u),
-      (l.canSendPolls = c));
+      (l.getWebcChatTypeFn = s),
+      (l.isPreviewMessage = u),
+      (l.isAcp2RestrictionNotice = c),
+      (l.canSendPolls = d));
   },
   98,
 );

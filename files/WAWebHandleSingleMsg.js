@@ -166,8 +166,8 @@ __d(
                                     revokeTimestamp: f,
                                   },
                                 ]),
-                                y = g.toString();
-                              h.has(y) &&
+                                y = h.get(g.toString());
+                              y != null &&
                                 (o("WAWebBackendApi").frontendFireAndForget(
                                   "deleteModelsForLastAddOnPreview",
                                   { messagesIds: [y] },

@@ -10,6 +10,7 @@ __d(
     "WAWebABProps",
     "WAWebAppTracker",
     "WAWebBackendErrors",
+    "WAWebChatModelDerivedMethods",
     "WAWebCreateMediaDownloadMetrics",
     "WAWebCryptoCreateMediaKeys",
     "WAWebCryptoDecryptMedia",
@@ -533,7 +534,9 @@ __d(
             var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
             (l.webcChatType == null &&
               t &&
-              (l.webcChatType = t.getWebcChatType()),
+              (l.webcChatType = o(
+                "WAWebChatModelDerivedMethods",
+              ).getWebcChatTypeFn(t)),
               l.webcMessageT == null && (l.webcMessageT = e.t),
               (l.messageMediaType = o("WAWebWamMsgUtils").getWamMediaType(e)));
           }

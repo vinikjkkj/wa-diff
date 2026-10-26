@@ -5,12 +5,11 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebAeaRollout",
-    "WAWebApiDeviceList",
     "WAWebApiVerifiedBusinessName",
-    "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2HostedContactUtils",
     "WAWebCoexV2SupportedMsgTypes",
+    "WAWebCoexV2UserAgentEligibility",
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebMessagingGatingUtils",
@@ -25,13 +24,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.stanzaTo;
           if (
@@ -83,10 +82,10 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function f(e, t) {
       return (
         (e == null ? void 0 : e.statelessSessionEnabled) === !0 &&
         (t.isHosted() ||
@@ -94,59 +93,63 @@ __d(
             o("WAWebSendMsgCommonApi").isPrimaryDevice(t)))
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (p || (p = n("Promise"))).all(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield (m || (m = n("Promise"))).all(
             t
               .filter(function (t) {
-                return !t.isHosted() && g(e, t);
+                return !t.isHosted() && f(e, t);
               })
               .map(function (e) {
                 return o("WAWebSignalSessionApi").deleteRemoteSession(e);
               }),
           );
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!e.isUser() || e.isBot() || e.isFbidBot()) return !1;
           var t =
             ((yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) &&
               !(yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
                 e,
               ))) ||
-            (yield M());
+            (yield $());
           return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!$(e, t) || !(yield D())) return null;
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            !T(e, t) ||
+            !(yield o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted())
+          )
+            return null;
           var n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
           return n == null
             ? null
             : { agentCopyIsRequired: !0, kind: "user_agent", selfLid: n };
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R(e) {
+    function S(e) {
       var t = e.hasFbidBotDevice,
         n = e.isBotInvokeMessage,
         r = e.isResendingMsg,
@@ -156,29 +159,29 @@ __d(
         ? null
         : { agentCopyIsRequired: !1, kind: "invoked_agent", relayPlan: a };
     }
-    function L(e, t) {
+    function R(e, t) {
       return (e == null ? void 0 : e.agentCopyIsRequired) === !0 && t === 0;
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             r = e.chatId,
             a = e.isAeaE2eeSend,
             i = e.msgProtobuf,
             l = e.option,
             s = e.stanzaTo;
-          if (!P(i, s, l)) return null;
-          var d = yield (p || (p = n("Promise"))).all([
-              D(),
+          if (!D(i, s, l)) return null;
+          var d = yield (m || (m = n("Promise"))).all([
+              o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(r),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(r),
-              a != null ? a : I(r, i),
+              a != null ? a : k(r, i),
             ]),
-            m = d[0],
+            p = d[0],
             _ = d[1],
             f = d[2],
             g = d[3],
@@ -194,11 +197,11 @@ __d(
                   ])),
                 r.toLogString(),
               ),
-            !m && !h)
+            !p && !h)
           )
             return null;
-          var y = m ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
-            C = h && !f ? N(t == null ? void 0 : t.accountLid, s) : null,
+          var y = p ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
+            C = h && !f ? x(t == null ? void 0 : t.accountLid, s) : null,
             b =
               C != null &&
               (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(C));
@@ -215,17 +218,17 @@ __d(
           var v = b ? null : C;
           return y == null && v == null
             ? null
-            : { peerLid: v, selfIsCoexV2: m, selfLid: y };
+            : { peerLid: v, selfIsCoexV2: p, selfLid: y };
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a,
             i = (a = t.protocolMessage) == null ? void 0 : a.type;
           if (
@@ -254,47 +257,17 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D() {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o("WAWebApiDeviceList").getMyDeviceList();
-            return e.devices.some(function (e) {
-              return e.isHosted === !0;
-            });
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] gate: failed to read self device list",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-self-device-list-read-failed"),
-              !1
-            );
-          }
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t) {
+    function T(e, t) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
-        e.isFbidBot() &&
-        !e.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+        o("WAWebCoexV2UserAgentEligibility").isCoexV2UserAgentTarget(e) &&
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(t)
       );
     }
-    function P(e, t, n) {
+    function D(e, t, n) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
         n.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
@@ -305,7 +278,7 @@ __d(
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(e)
       );
     }
-    function N(t, n) {
+    function x(t, n) {
       var r =
         t != null && t.isLid() ? t : o("WAWebLidMigrationUtils").toUserLid(n);
       return (
@@ -321,21 +294,20 @@ __d(
         r
       );
     }
-    function M() {
+    function $() {
       return o("WAWebUserPrefsMeUser").getMaybeMeLidUser() == null
-        ? (p || (p = n("Promise"))).resolve(!1)
-        : D();
+        ? (m || (m = n("Promise"))).resolve(!1)
+        : o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted();
     }
-    ((l.resolveCoexV2SimpleSignalPolicy = _),
-      (l.shouldUseCoexV2StatelessSession = g),
-      (l.deleteCoexV2SimpleSignalPrimarySessions = h),
-      (l.genIsCoexV2RelayEligibleSend = C),
-      (l.getCoexV2AgentSendPlan = v),
-      (l.getCoexV2InvokedAgentSendPlan = R),
-      (l.shouldRejectCoexV2AgentSend = L),
-      (l.getCoexV2RelaySendPlan = E),
-      (l.shouldAeaStopRelayCopy = I),
-      (l.isSelfCoexV2Hosted = D));
+    ((l.resolveCoexV2SimpleSignalPolicy = p),
+      (l.shouldUseCoexV2StatelessSession = f),
+      (l.deleteCoexV2SimpleSignalPrimarySessions = g),
+      (l.genIsCoexV2RelayEligibleSend = y),
+      (l.getCoexV2AgentSendPlan = b),
+      (l.getCoexV2InvokedAgentSendPlan = S),
+      (l.shouldRejectCoexV2AgentSend = R),
+      (l.getCoexV2RelaySendPlan = L),
+      (l.shouldAeaStopRelayCopy = k));
   },
   98,
 );

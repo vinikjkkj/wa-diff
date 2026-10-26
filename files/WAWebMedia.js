@@ -1,7 +1,6 @@
 __d(
   "WAWebMedia",
   [
-    "WAWebCheckMediaExistence",
     "WAWebDownloadProgressiveJpegThumbnail",
     "WAWebDownloadStatusThumbnail",
     "WAWebDownloadVideoThumbnail",
@@ -21,17 +20,16 @@ __d(
     var e = importNamespace(
         "WAWebDownloadVideoThumbnail",
       ).downloadVideoThumbnail,
-      l = importNamespace("WAWebCheckMediaExistence").checkMediaExistence,
-      s = importNamespace("WAWebMediaDownloadMsg").downloadMsg,
-      u = importNamespace(
+      l = importNamespace("WAWebMediaDownloadMsg").downloadMsg,
+      s = importNamespace(
         "WAWebDownloadProgressiveJpegThumbnail",
       ).downloadProgressiveJpegThumbnail,
-      c = importNamespace(
+      u = importNamespace(
         "WAWebDownloadStatusThumbnail",
       ).downloadStatusThumbnail,
-      d = importNamespace("WAWebManuallySetMedia").manuallySetMedia,
-      m = importNamespace("WAWebPrepRawMedia").prepRawMedia,
-      p = importNamespace("WAWebMediaResumeUploadMsg").resumeUploadMsg;
+      c = importNamespace("WAWebManuallySetMedia").manuallySetMedia,
+      d = importNamespace("WAWebPrepRawMedia").prepRawMedia,
+      m = importNamespace("WAWebMediaResumeUploadMsg").resumeUploadMsg;
     (Object.keys(importNamespace("WAWebMediaCancelDownloadMsg")).forEach(
       function (e) {
         e === "default" ||
@@ -76,13 +74,12 @@ __d(
         },
       ),
       (i.downloadVideoThumbnail = e),
-      (i.checkMediaExistence = l),
-      (i.downloadMsg = s),
-      (i.downloadProgressiveJpegThumbnail = u),
-      (i.downloadStatusThumbnail = c),
-      (i.manuallySetMedia = d),
-      (i.prepRawMedia = m),
-      (i.resumeUploadMsg = p));
+      (i.downloadMsg = l),
+      (i.downloadProgressiveJpegThumbnail = s),
+      (i.downloadStatusThumbnail = u),
+      (i.manuallySetMedia = c),
+      (i.prepRawMedia = d),
+      (i.resumeUploadMsg = m));
   },
   66,
 );

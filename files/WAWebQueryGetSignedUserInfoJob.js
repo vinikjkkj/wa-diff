@@ -32,42 +32,41 @@ __d(
       ),
       u = o("WAWebDefinePersistedJob")
         .defineWebPersistedJob()
-        .finalStep(
-          "sendStanza",
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n = e.businessJid,
-                  r = (t = o("WAWap")).wap(
-                    "iq",
-                    {
-                      to: t.S_WHATSAPP_NET,
-                      type: "get",
-                      xmlns: "w:biz:catalog",
-                      id: t.generateId(),
-                    },
-                    t.wap("signed_user_info", {
-                      biz_jid: o("WAWebCommsWapMd").USER_JID(
-                        o("WAWebWidFactory").createWid(n),
-                      ),
-                    }),
-                  ),
-                  a = yield o("WADeprecatedSendIq").deprecatedSendIq(r, s);
-                if (!a.success)
-                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    a.errorCode,
-                  );
-                return a.result;
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        )
+        .finalStep("sendStanza", c)
         .end();
-    l.QueryGetSignedUserInfo = u;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.businessJid,
+            r = (t = o("WAWap")).wap(
+              "iq",
+              {
+                to: t.S_WHATSAPP_NET,
+                type: "get",
+                xmlns: "w:biz:catalog",
+                id: t.generateId(),
+              },
+              t.wap("signed_user_info", {
+                biz_jid: o("WAWebCommsWapMd").USER_JID(
+                  o("WAWebWidFactory").createWid(n),
+                ),
+              }),
+            ),
+            a = yield o("WADeprecatedSendIq").deprecatedSendIq(r, s);
+          if (!a.success)
+            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              a.errorCode,
+            );
+          return a.result;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    ((l.QueryGetSignedUserInfo = u), (l.querySignedUserInfo = c));
   },
   98,
 );

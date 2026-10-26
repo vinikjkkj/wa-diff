@@ -15,6 +15,7 @@ __d(
     "WAWebChatCollection",
     "WAWebChatGetMessage",
     "WAWebChatGetters",
+    "WAWebChatModelDerivedMethods",
     "WAWebCmd",
     "WAWebCommonMsgUtils",
     "WAWebContactCollection",
@@ -23,8 +24,12 @@ __d(
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendMsgGetters",
     "WAWebInteractiveMessageCarouselConstants",
-    "WAWebMedia",
+    "WAWebMediaCancelDownloadMsg",
+    "WAWebMediaCancelUploadMsg",
     "WAWebMediaData",
+    "WAWebMediaDownloadMsg",
+    "WAWebMediaMsgRegistration",
+    "WAWebMediaResumeUploadMsg",
     "WAWebMediaTypes",
     "WAWebMessageAssociationUIUtils",
     "WAWebMessageReceiptUtils",
@@ -605,7 +610,7 @@ __d(
             (this.$MsgImpl$p_12(),
               (!this.isViewOnce ||
                 o("WAWebViewOnceState").isUnviewed(this.safe())) &&
-                o("WAWebMedia").registerMsg(this));
+                o("WAWebMediaMsgRegistration").registerMsg(this));
           }),
           (i.initialize = function () {
             var e;
@@ -909,7 +914,9 @@ __d(
           (i.resumeRemoteUpload = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (o("WAWebMsgGetters").getIsNewsletterMsg(this)) {
-                var e = yield o("WAWebMedia").resumeUploadMsg(this);
+                var e = yield o("WAWebMediaResumeUploadMsg").resumeUploadMsg(
+                  this,
+                );
                 return e == null ? void 0 : e.messageSendResult;
               }
               return (
@@ -924,7 +931,7 @@ __d(
             return t;
           })()),
           (i.cancelDownload = function () {
-            o("WAWebMedia").cancelDownloadMsg(this);
+            o("WAWebMediaCancelDownloadMsg").cancelDownloadMsg(this);
           }),
           (i.resumeUpload = function () {
             return (
@@ -940,7 +947,7 @@ __d(
                     this.mediaData.mediaStage,
                   )
                   .sendLogs("resume-non-need-upload"),
-              o("WAWebMedia")
+              o("WAWebMediaResumeUploadMsg")
                 .resumeUploadMsg(this)
                 .then(function (e) {
                   return e == null ? void 0 : e.messageSendResult;
@@ -948,7 +955,7 @@ __d(
             );
           }),
           (i.cancelUpload = function () {
-            o("WAWebMedia").cancelUploadMsg(this);
+            o("WAWebMediaCancelUploadMsg").cancelUploadMsg(this);
           }),
           (i.forceDownloadMediaEvenIfExpensive = function () {
             return this.downloadMedia({
@@ -1024,7 +1031,7 @@ __d(
                 })
               );
             }
-            return o("WAWebMedia").downloadMsg({
+            return o("WAWebMediaDownloadMsg").downloadMsg({
               msg: this,
               isUserClick:
                 u ===
@@ -1047,7 +1054,9 @@ __d(
             var e = { webcRmrReason: t, webcMessageT: this.t },
               n = o("WAWebFrontendMsgGetters").getMaybeChat(this);
             if (n) {
-              ((e.webcChatType = n.getWebcChatType()),
+              ((e.webcChatType = o(
+                "WAWebChatModelDerivedMethods",
+              ).getWebcChatTypeFn(n)),
                 n.initialIndex != null &&
                   (e.webcChatPosition = n.initialIndex));
               var r = this.$MsgImpl$p_1;
@@ -1094,9 +1103,9 @@ __d(
               function* (e) {
                 ((this.createdMediaDataOnUpdate = !0),
                   this.$MsgImpl$p_12(),
-                  o("WAWebMedia").registerMsgEarly(this, e));
+                  o("WAWebMediaMsgRegistration").registerMsgEarly(this, e));
                 try {
-                  yield o("WAWebMedia").prepareMsg(this);
+                  yield o("WAWebMediaMsgRegistration").prepareMsg(this);
                 } catch (e) {
                   throw (
                     o("WALogger")
@@ -1145,7 +1154,7 @@ __d(
                 ),
                 this.$MsgImpl$p_11());
               var t = e
-                ? o("WAWebMedia").prepareMsg(this)
+                ? o("WAWebMediaMsgRegistration").prepareMsg(this)
                 : (f || (f = n("Promise"))).resolve();
               return t;
             });
@@ -1196,7 +1205,7 @@ __d(
                 "WAWebPinInChatCollection",
               ).PinInChatCollection.deleteByParentMessageKey(this.id),
               o("WAWebMsgModelUtils").typeIsMms(this) &&
-                o("WAWebMedia").deregisterMsg(this));
+                o("WAWebMediaMsgRegistration").deregisterMsg(this));
             var e = this.getCollection();
             (o("WAWebMessageAssociationUIUtils")
               .getHiddenAssociatedMessages(this.id)
@@ -1349,7 +1358,7 @@ __d(
                   "change:mediaStage",
                   this.$MsgImpl$p_15,
                 ),
-                o("WAWebMedia").deregisterMsg(this));
+                o("WAWebMediaMsgRegistration").deregisterMsg(this));
             }
           }),
           (i.getCollection = function () {

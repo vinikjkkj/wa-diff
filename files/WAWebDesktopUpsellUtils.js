@@ -5,29 +5,55 @@ __d(
     "WAWebABProps",
     "WAWebBrowserInfo",
     "WAWebEnvironment",
+    "WAWebMobilePlatforms",
     "WAWebUA",
     "asyncToGeneratorRuntime",
+    "isWAWebFeatureDetectionAndroidTablet",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["WINDOWS", "MACOS"]),
       s,
-      u = n("$InternalEnum").Mirrored(["Control", "Variant2", "Variant3"]);
-    function c() {
+      u,
+      c = n("$InternalEnum").Mirrored(["Control", "Variant2", "Variant3"]);
+    function d() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_growth_empty_state_upsell_variant_m1",
       );
       return e === 2 || e === 3;
     }
-    function d() {
+    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_growth_empty_state_upsell_variant_m1",
       );
-      return e === 2 ? u.Variant2 : e === 3 ? u.Variant3 : u.Control;
-    }
-    function m() {
-      return (s !== void 0 || (s = p()), s);
+      return e === 2 ? c.Variant2 : e === 3 ? c.Variant3 : c.Control;
     }
     function p() {
+      return (
+        !o("WAWebMobilePlatforms").isSMB() &&
+        f() == null &&
+        _() &&
+        r("justknobx")._("6837")
+      );
+    }
+    function _() {
+      var e;
+      return (
+        u != null ||
+          (u =
+            ((e = self.navigator.userAgentData) == null
+              ? void 0
+              : e.platform) === "Android" ||
+            o(
+              "isWAWebFeatureDetectionAndroidTablet",
+            ).isWAWebFeatureDetectionAndroidOS()),
+        u
+      );
+    }
+    function f() {
+      return (s !== void 0 || (s = g()), s);
+    }
+    function g() {
       var t = r("WAWebBrowserInfo")();
       switch (t.os.toLowerCase()) {
         case "windows":
@@ -37,20 +63,20 @@ __d(
       }
       return null;
     }
-    var _ = "8.0.0",
-      f = 10,
-      g = "12.0.0",
-      h = null,
-      y = null;
-    function C() {
-      return b.apply(this, arguments);
+    var h = "8.0.0",
+      y = 10,
+      C = "12.0.0",
+      b = null,
+      v = null;
+    function S() {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t;
           if (r("WAWebEnvironment").isWindows) return !1;
-          if (h != null) return h;
+          if (b != null) return b;
           var n = yield (e = self.navigator) == null ||
           (e = e.userAgentData) == null
             ? void 0
@@ -61,26 +87,26 @@ __d(
               "windows" &&
             n.platformVersion != null
           )
-            h = R(_, n.platformVersion) <= 0;
+            b = k(h, n.platformVersion) <= 0;
           else {
             var o = r("WAWebBrowserInfo")();
-            h = o.os === "Windows" && parseInt(o.version, 10) >= f;
+            b = o.os === "Windows" && parseInt(o.version, 10) >= y;
           }
-          return h;
+          return b;
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
+    function L() {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t;
           if (r("WAWebEnvironment").isWindows) return !1;
           if (o("WAWebUA").UA.isSafari) return !0;
-          if (y != null) return y;
+          if (v != null) return v;
           var n = yield (e = self.navigator) == null ||
           (e = e.userAgentData) == null
             ? void 0
@@ -90,23 +116,24 @@ __d(
               ((t = n.platform) == null ? void 0 : t.toLowerCase()) ===
                 "macos" &&
               n.platformVersion != null &&
-              (y = R(g, n.platformVersion) <= 0),
-            y != null ? y : !1
+              (v = k(C, n.platformVersion) <= 0),
+            v != null ? v : !1
           );
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function R(e, t) {
+    function k(e, t) {
       return e.localeCompare(t, void 0, { numeric: !0, sensitivity: "base" });
     }
     ((l.UserDesktopOs = e),
-      (l.EmptyStateUpsellBannerVariantEnum = u),
-      (l.isEmptyStateUpsellBannerVariantEnabled = c),
-      (l.getEmptyStateUpsellBannerVariant = d),
-      (l.getUserDesktopOs = m),
-      (l.isWebUserOnSupportedWindowsOSForUWPAsync = C),
-      (l.isWebUserOnSupportedMacOSForCatalystAsync = v));
+      (l.EmptyStateUpsellBannerVariantEnum = c),
+      (l.isEmptyStateUpsellBannerVariantEnabled = d),
+      (l.getEmptyStateUpsellBannerVariant = m),
+      (l.isAndroidAppUpsellEnabled = p),
+      (l.getUserDesktopOs = f),
+      (l.isWebUserOnSupportedWindowsOSForUWPAsync = S),
+      (l.isWebUserOnSupportedMacOSForCatalystAsync = L));
   },
   98,
 );

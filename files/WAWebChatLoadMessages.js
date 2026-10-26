@@ -13,6 +13,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebChatConstants",
     "WAWebChatGetters",
+    "WAWebChatModelDerivedMethods",
     "WAWebCollectionConstants",
     "WAWebEventsWaitForBbEvent",
     "WAWebGetNewsletterCursor",
@@ -380,7 +381,9 @@ __d(
             ).WEBC_MESSAGE_QUERY_DIRECTION.LOAD_AROUND));
       var _ = o("WAWebNetworkType").getEffectiveNetworkType();
       (_ != null && (u.webcBrowserNetworkType = _),
-        (u.webcChatType = m.getWebcChatType()),
+        (u.webcChatType = o("WAWebChatModelDerivedMethods").getWebcChatTypeFn(
+          m,
+        )),
         typeof m.initialIndex == "number" &&
           (u.webcChatPosition = m.initialIndex));
       var g = r("WARaceSignal")(

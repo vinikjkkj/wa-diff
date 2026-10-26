@@ -38,7 +38,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgModelFromData",
-    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNotificationController",
     "WAWebNotificationsKeepInChatNotification",
@@ -241,49 +240,44 @@ __d(
             a)
           ) {
             case o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL: {
-              var I = (t.keptCount || 0) + 1;
+              var T = (t.keptCount || 0) + 1;
               yield S({
-                keptCount: I,
+                keptCount: T,
                 kicKey: f,
                 kicTimestampMs: g,
                 msgToKeepAssociationType: t.associationType,
                 msgToKeepKey: t.id,
               });
-              var T = new (o(
+              var D = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(
                 babelHelpers.extends({}, E, {
                   kicActionName: o("WAWebWamEnumKicActionNameType")
                     .KIC_ACTION_NAME_TYPE.KEEP_MESSAGE,
-                  keptCount: I,
+                  keptCount: T,
                 }),
               );
-              T.commit();
+              D.commit();
               break;
             }
             case o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL: {
-              var D;
+              var x;
               yield R(t.id, f, g);
-              var x = new (o(
+              var $ = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(
                 babelHelpers.extends({}, E, {
                   kicActionName: o("WAWebWamEnumKicActionNameType")
                     .KIC_ACTION_NAME_TYPE.UNKEEP_MESSAGE,
                   keptDelta: k(t.kicTimestampMs),
-                  messageExpiryTimer:
-                    (D =
-                      o("WAWebMsgModelUtils").getMsgTimeUntilExpiration(t)) !=
-                    null
-                      ? D
-                      : 0,
+                  messageExpiryTimer: (x = I(t)) != null ? x : 0,
                   messageExpiredOnUnkeep: o(
                     "WAWebKeepInChatMsgUtils",
                   ).isExpired(t),
                   keptCount: t.keptCount,
                 }),
               );
-              x.commit();
+              $.commit();
               break;
             }
             default:
@@ -332,15 +326,23 @@ __d(
         (o("WATimeUtils").unixTime() - r("nullthrows")(e) / 1e3) / 3600,
       );
     }
-    function I(e, t) {
+    function I(e) {
+      var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
+      return t == null
+        ? null
+        : o("WAWebKeepInChatMsgUtils").isExpired(e)
+          ? 0
+          : t - o("WATimeUtils").unixTime();
+    }
+    function T(e, t) {
       return L(e, o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL, t);
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield L(
             e,
             o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL,
@@ -363,30 +365,30 @@ __d(
             r
           );
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield (h || (h = n("Promise"))).all(
             e.map(function (e) {
-              return P(e, { allowNotification: !1 });
+              return N(e, { allowNotification: !1 });
             }),
           );
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function N(e, t) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.allowNotification,
             a = o("WAWebMsgModelFromData").msgModelFromMsgData(e),
             i = yield o("WAWebDBMsgUtils").getMsgByMsgKey(a.keptMessageKey);
@@ -423,7 +425,7 @@ __d(
                     "KIC: cannot find associated message",
                   ])),
               ),
-              M(a, s, y)),
+              w(a, s, y)),
               yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
                 [a],
                 function (e) {
@@ -464,7 +466,7 @@ __d(
                   "KIC: msg revoked, cannot keep/unkeep",
                 ])),
             ),
-              w(a, i, s, y));
+              A(a, i, s, y));
             return;
           }
           if (i.kicKey != null && i.kicTimestampMs != null) {
@@ -562,7 +564,7 @@ __d(
                 yield o(
                   "WAWebDBMarkFutureproofMessagesReparsed",
                 ).markFutureproofMessagesReparsed([a.id.toString()]),
-                A(
+                F(
                   a,
                   i,
                   o("WAWebWamEnumKicRequestTypeType").KIC_REQUEST_TYPE_TYPE
@@ -577,7 +579,7 @@ __d(
                 yield o(
                   "WAWebDBMarkFutureproofMessagesReparsed",
                 ).markFutureproofMessagesReparsed([a.id.toString()]),
-                A(
+                F(
                   a,
                   i,
                   o("WAWebWamEnumKicRequestTypeType").KIC_REQUEST_TYPE_TYPE
@@ -600,10 +602,10 @@ __d(
               break;
           }
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
+    function w(e, t, n) {
       var r = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
         response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
         requestSendTime: e.t,
@@ -618,7 +620,7 @@ __d(
       );
       (a && r.set({ kicRequestType: a }), r.commit());
     }
-    function w(e, t, n, r) {
+    function A(e, t, n, r) {
       var a = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
           response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
           requestSendTime: e.t,
@@ -636,7 +638,7 @@ __d(
         r != null && a.set({ threadId: r }),
         a.commit());
     }
-    function A(e, t, n, r, a) {
+    function F(e, t, n, r, a) {
       var i = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
         kicRequestType: n,
         response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.SUCCESS,
@@ -650,10 +652,10 @@ __d(
       });
       (a != null && i.set({ threadId: a }), i.commit());
     }
-    ((l.keepMessage = I),
-      (l.undoKeepMessage = T),
-      (l.processKeepInChatMessages = x),
-      (l.processKeepInChatMessage = P));
+    ((l.keepMessage = T),
+      (l.undoKeepMessage = D),
+      (l.processKeepInChatMessages = $),
+      (l.processKeepInChatMessage = N));
   },
   226,
 );

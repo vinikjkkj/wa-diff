@@ -143,7 +143,6 @@ __d(
     "WAWebNoop",
     "WAWebOffdStorage",
     "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsProtocol.pb",
     "WAWebProtobufsWeb.pb",
@@ -158,6 +157,7 @@ __d(
     "WAWebSendMsgMetricReporter",
     "WAWebSendMsgTypes",
     "WAWebSendNonMessageDataRequest",
+    "WAWebServicedJobs",
     "WAWebSignalStorage",
     "WAWebSignalStorageUtils",
     "WAWebSocketConstants",
@@ -325,11 +325,9 @@ __d(
     k.doc = "Send a passive info query (active|passive)";
     function I() {
       (r("vulture")("PfemyOw1gVKPqukcDFv8gvxUckc="),
-        o("WAWebPersistedJobManagerWorkerCompatible")
-          .getJobManager()
-          .fireAndForget(
-            o("WAWebPersistedJobDefinitions").jobSerializers.rotateKey(),
-          ));
+        o("WAWebServicedJobs").runServicedJob(
+          o("WAWebPersistedJobDefinitions").jobSerializers.rotateKey(),
+        ));
     }
     I.doc = "Fire and forget a rotateKey job";
     function T(e, t) {

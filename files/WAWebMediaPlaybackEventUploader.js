@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebACSTokenConfig",
     "WAWebCRUDOperationsMediaPlaybackEvent",
+    "WAWebMusicOnChatsAcsProject",
     "WAWebNetworkStatus",
     "WAWebPromiseQueue",
     "WAWebSNAPLUploadMusicConsumptionLogs",
@@ -120,7 +121,9 @@ __d(
             n = new TextEncoder(),
             r = t[0] != null && C(t[0].event),
             a = r
-              ? o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusicReporting
+              ? o("WAWebMusicOnChatsAcsProject").getMusicOnChatsAcsProject(
+                  o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusicReporting,
+                )
               : o("WAWebACSTokenConfig").ACS_PROJECTS.WA_StatusMusicReporting,
             i = t.reduce(
               function (t, o) {

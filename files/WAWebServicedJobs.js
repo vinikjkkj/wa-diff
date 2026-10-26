@@ -2,14 +2,13 @@ __d(
   "WAWebServicedJobs",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebJobsMigrationGating",
     "WAWebNoop",
     "WAWebPersistedJobInitializers",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRunJobStepsNonPersisted",
     "WAWebScheduledOperations",
     "asyncToGeneratorRuntime",
-    "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -76,23 +75,12 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebPersistedJobInitializers")[e.type](),
-            n = {
-              afterCrash: !1,
-              interruptJob: function () {
-                throw r("err")(
-                  "serviced job " + e.type + " tried to interrupt",
-                );
-              },
-              jobStartTime: o("WATimeUtils").unixTime(),
-            };
-          yield t.reduce(function (t, r) {
-            return t.then(function (t) {
-              var o = r.info(t, e.args, n),
-                a = o.code;
-              return a(t, e.args, n);
-            });
-          }, Promise.resolve(e.args));
+          var t = yield r("WAWebPersistedJobInitializers")[e.type]();
+          yield o("WAWebRunJobStepsNonPersisted").runJobStepsNonPersisted(
+            e.type,
+            t,
+            e.args,
+          );
         })),
         _.apply(this, arguments)
       );

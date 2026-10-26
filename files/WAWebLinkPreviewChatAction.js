@@ -343,9 +343,16 @@ __d(
       );
     }
     function T(e, t) {
-      return e === "video"
-        ? o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$PreviewType
-            .VIDEO
+      var n =
+        e === "video"
+          ? o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$PreviewType
+              .VIDEO
+          : e === "profile"
+            ? o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$PreviewType
+                .PROFILE
+            : null;
+      return n != null
+        ? n
         : t.resultType === o("WAWebApi").APICmd.PAYMENT_LINK &&
             t.data.shouldDetectInComposer
           ? o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$PreviewType

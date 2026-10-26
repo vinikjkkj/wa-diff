@@ -17,6 +17,7 @@ __d(
         a = e.mediaIdString,
         i = e.videoOrigin,
         l = {
+          media_id: r != null ? r : "-1",
           media_id_string: a != null ? a : "",
           current_watching_module: o(
             "WAWebCometVideoPlayerUtils",

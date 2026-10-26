@@ -154,7 +154,6 @@ __d(
                     d.newsletterAdminInviteMessage ||
                     d.newsletterFollowerInviteMessageV2 ||
                     d.messageHistoryNotice ||
-                    d.albumMessage ||
                     d.statusNotificationMessage ||
                     d.richResponseMessage
                   ? o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text
