@@ -132,7 +132,7 @@ __d(
                 }));
           } else
             s.push({ type: "add_username", lid: e.lid, username: e.username });
-          var g = o("WAWebContactSyncUtils").constructUsyncDeltaQuery(s),
+          var g = yield o("WAWebContactSyncUtils").constructUsyncDeltaQuery(s),
             h = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
@@ -379,7 +379,7 @@ __d(
                   };
                 }),
               ),
-              a = o("WAWebContactSyncUtils").constructUsyncDeltaQuery(n),
+              a = yield o("WAWebContactSyncUtils").constructUsyncDeltaQuery(n),
               i = o(
                 "WAWebContactSyncLogger",
               ).contactSyncLogger.createEventContext({

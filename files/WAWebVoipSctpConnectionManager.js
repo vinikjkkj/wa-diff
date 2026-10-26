@@ -181,6 +181,7 @@ __d(
         connectionId: r,
         ip: p,
         port: _,
+        standby: n.isWebTransportWarmStandby === !0,
       });
       return (
         g
@@ -1199,7 +1200,11 @@ __d(
                 "WAWebVoipSctpWarmStandby",
               ).shouldUseMainThreadForWebTransportSctp() &&
                 !o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled() &&
-                (s = yield yt()),
+                (s = yield yt({
+                  withRing: o(
+                    "WAWebVoipSctpWarmStandby",
+                  ).shouldStartSctpSendRing(),
+                })),
               pe)
             )
               return (lt(e.id), Be(e.id), !1);
@@ -1821,11 +1826,12 @@ __d(
         Re("remote_close"),
         Ne(n, "remote_close", "remote_close_reconnecting", "[SCTP]"));
     }
-    function yt() {
+    function yt(e) {
       return o("WAWebVoipSctpDataChannelThreadManager").initDataChannelWorker(
         function () {
           return ce;
         },
+        e,
       );
     }
     ((l.markSctpEnteredViaWebTransportFallback = o(

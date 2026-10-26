@@ -2,6 +2,8 @@ __d(
   "WAWebCustomerManagerUsernamesQuery",
   [
     "WALogger",
+    "WAWebContactSyncPrivacyHints",
+    "WAWebUsernameTypes",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
@@ -18,44 +20,52 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length === 0) return new Map();
           var n = new Map(),
-            a = new (o("WAWebUsync").USyncQuery)().withUsernameProtocol();
-          t.forEach(function (e) {
-            var t = o("WAWebWidFactory").createUserWidOrThrow(e);
-            (n.set(String(t), e),
-              n.set(t.user, e),
-              a.withUser(new (o("WAWebUsyncUser").USyncUser)().withId(t)));
-          });
-          var i = yield a.execute(),
-            l = i.error.all || i.error.username;
-          if (l != null)
+            a = new (o("WAWebUsync").USyncQuery)().withUsernameProtocol(),
+            i = [],
+            l = o("WAWebContactSyncPrivacyHints").usyncPrivacyHintsEnabled();
+          (t.forEach(function (e) {
+            var t = e.expectedUsername,
+              r = e.lid,
+              s = o("WAWebWidFactory").createUserWidOrThrow(r);
+            (n.set(String(s), r), n.set(s.user, r));
+            var u = new (o("WAWebUsyncUser").USyncUser)().withId(s),
+              c = l ? m(t) : null;
+            (c != null && u.withUsername(c),
+              i.push({ user: u, wid: s }),
+              a.withUser(u));
+          }),
+            yield o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(i));
+          var c = yield a.execute(),
+            d = c.error.all || c.error.username;
+          if (d != null)
             throw r("err")(
               "[cm:import] username usync failed: " +
-                String(l.errorCode) +
+                String(d.errorCode) +
                 " " +
-                String(l.errorText),
+                String(d.errorText),
             );
-          var c = new Map(),
-            d = 0,
-            m = 0;
+          var p = new Map(),
+            _ = 0,
+            f = 0;
           return (
-            i.list.forEach(function (e) {
+            c.list.forEach(function (e) {
               var t;
               if (e.id != null) {
                 var r =
                   (t = n.get(String(e.id))) != null ? t : n.get(e.id.user);
                 if (r == null) {
-                  d++;
+                  _++;
                   return;
                 }
                 var o = "username" in e ? e.username : null;
                 if (o != null && typeof o != "string") {
-                  m++;
+                  f++;
                   return;
                 }
-                c.set(r, o);
+                p.set(r, o);
               }
             }),
-            d > 0 &&
+            _ > 0 &&
               o("WALogger")
                 .WARN(
                   e ||
@@ -63,10 +73,10 @@ __d(
                       "[cm:import] ",
                       " username results did not match a requested lid",
                     ])),
-                  d,
+                  _,
                 )
                 .sendLogs("cm-import-username-uncorrelated-result"),
-            m > 0 &&
+            f > 0 &&
               o("WALogger")
                 .WARN(
                   s ||
@@ -74,7 +84,7 @@ __d(
                       "[cm:import] ",
                       " username results carried a per-user error",
                     ])),
-                  m,
+                  f,
                 )
                 .sendLogs("cm-import-username-per-user-error"),
             o("WALogger").LOG(
@@ -84,14 +94,20 @@ __d(
                   " of ",
                   " usernames",
                 ])),
-              c.size,
+              p.size,
               t.length,
             ),
-            c
+            p
           );
         })),
         d.apply(this, arguments)
       );
+    }
+    function m(e) {
+      if (e == null) return null;
+      var t = e.trim(),
+        n = t.startsWith("@") ? t.slice(1) : t;
+      return o("WAWebUsernameTypes").isUsername(n) ? n : null;
     }
     l.fetchUsernamesByLid = c;
   },

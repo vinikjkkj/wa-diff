@@ -57,376 +57,385 @@ __d(
               .GROUP_HISTORY_INELIGIBILITY_REASON.UNKNOWN;
     }
     var _ = (function () {
-        function t() {}
-        var n = t.prototype;
-        return (
-          (n.$1 = function (n) {
-            var t = o(
-              "WAWebUnifiedSession",
-            ).UnifiedSessionManager.getSessionId();
-            if (t == null) {
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history][M2] Unified session ID is null",
-                  ])),
-              );
-              return;
-            }
-            new (o(
-              "WAWebGroupHistorySenderUserJourneyWamEvent",
-            ).GroupHistorySenderUserJourneyWamEvent)(
-              babelHelpers.extends({}, n, {
-                userJourneyTs: o("WATimeUtils").unixTimeMs(),
-                unifiedSessionId: t,
-              }),
-            ).commit();
-          }),
-          (n.$2 = function (t, n) {
-            var e = n.groupHistorySystemMessageType,
-              r = n.recipientCount,
-              o = n.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: t,
-              groupHistorySystemMessageType: e,
-              recipientCount: r,
-              uiSurface: o,
-            });
-          }),
-          (n.sendMessageHistorySystemMessageClicked = function (t) {
-            this.$2(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .SEND_MESSAGE_HISTORY_SYSTEM_MESSAGE_CLICKED,
-              t,
+      function t() {}
+      var n = t.prototype;
+      return (
+        (n.$1 = function (n) {
+          var t = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
+          if (t == null) {
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[group-history][M2] Unified session ID is null",
+                ])),
             );
-          }),
-          (n.viewOptionsSystemMessageClicked = function (t) {
-            this.$2(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .VIEW_OPTIONS_SYSTEM_MESSAGE_CLICKED,
-              t,
-            );
-          }),
-          (n.sendMessageHistoryCtaSystemMessageDisplayed = function (t) {
-            var e = t.groupHistorySystemMessageType,
-              n = t.recipientCount,
-              r = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .SEND_MESSAGE_HISTORY_CTA_SYSTEM_MESSAGE_DISPLAY,
-              groupHistorySystemMessageType: e,
-              recipientCount: n,
-              uiSurface: r,
-            });
-          }),
-          (n.ctaSystemMessageNotDisplayed = function (t) {
-            var e = t.groupHistorySystemMessageType,
-              n = t.ineligibleReason,
-              r = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .SEND_MESSAGE_HISTORY_CTA_SYSTEM_MESSAGE_NOT_DISPLAYED,
-              groupHistorySystemMessageType: e,
-              ineligibleReason: n,
-              uiSurface: r,
-            });
-          }),
-          (n.dropdownMenuItemDisplayed = function (t) {
-            var e = t.recipientCount,
-              n = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_DROPDOWN_MENU_ITEM_DISPLAYED,
-              recipientCount: e,
-              uiSurface: n,
-            });
-          }),
-          (n.dropdownMenuItemClicked = function (t) {
-            var e = t.recipientCount,
-              n = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_DROPDOWN_MENU_ITEM_CLICKED,
-              recipientCount: e,
-              uiSurface: n,
-            });
-          }),
-          (n.$3 = function (t, n) {
-            var e = n.bundleSendSource,
-              r = n.recipientCount,
-              o = n.uiSurface;
-            this.$1({
-              bundleSendSource: e,
-              groupHistorySenderActionType: t,
-              recipientCount: r,
-              uiSurface: o,
-            });
-          }),
-          (n.bottomsheetDisplayed = function (t) {
-            this.$3(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_BOTTOMSHEET_DISPLAYED,
-              t,
-            );
-          }),
-          (n.bottomsheetConfirmButtonClicked = function (t) {
-            this.$3(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_BOTTOMSHEET_CONFIRM_BUTTON_CLICKED,
-              t,
-            );
-          }),
-          (n.bottomsheetCancelButtonClicked = function (t) {
-            this.$3(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_BOTTOMSHEET_CANCEL_BUTTON_CLICKED,
-              t,
-            );
-          }),
-          (n.bottomsheetDismissed = function (t) {
-            this.$3(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_BOTTOMSHEET_DISMISSED,
-              t,
-            );
-          }),
-          (n.bundleMessageSent = function (t) {
-            var e = t.bundleSendSource,
-              n = t.groupAddMemberEntryPoint,
-              r = t.groupHistoryMessagesCount,
-              a = t.groupHistorySystemMessageType,
-              i = t.recipientCount,
-              l = t.uiSurface;
-            this.$1({
-              bundleSendSource: e,
-              groupAddMemberEntryPoint: n != null ? n : void 0,
-              groupHistoryMessagesCount: r != null ? r : void 0,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_BUNDLE_MESSAGE_SENT,
-              groupHistorySystemMessageType: a != null ? a : void 0,
-              recipientCount: i,
-              uiSurface: l,
-            });
-          }),
-          (n.noticeMessageSent = function (t) {
-            var e = t.bundleSendSource,
-              n = t.groupAddMemberEntryPoint,
-              r = t.groupHistorySystemMessageType,
-              a = t.recipientCount,
-              i = t.uiSurface;
-            this.$1({
-              bundleSendSource: e,
-              groupAddMemberEntryPoint: n != null ? n : void 0,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_NOTICE_MESSAGE_SENT,
-              groupHistorySystemMessageType: r != null ? r : void 0,
-              recipientCount: a,
-              uiSurface: i,
-            });
-          }),
-          (n.$4 = function (t, n) {
-            var e = n.bundleSendSource,
-              r = n.groupHistorySystemMessageType,
-              o = n.recipientCount,
-              a = n.uiSurface;
-            this.$1({
-              bundleSendSource: e,
-              groupHistorySenderActionType: t,
-              groupHistorySystemMessageType: r != null ? r : void 0,
-              recipientCount: o,
-              uiSurface: a,
-            });
-          }),
-          (n.bundleMessageAcked = function (t) {
-            this.$4(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_BUNDLE_MESSAGE_ACKED,
-              t,
-            );
-          }),
-          (n.noticeMessageAcked = function (t) {
-            this.$4(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_NOTICE_MESSAGE_ACKED,
-              t,
-            );
-          }),
-          (n.$5 = function (t, n) {
-            var e = n.ineligibleReason,
-              r = n.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: t,
-              ineligibleReason: e,
-              uiSurface: r,
-            });
-          }),
-          (n.sendIneligibleAtCtaClick = function (t) {
-            this.$5(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_SEND_INELIGIBLE_AT_CTA_CLICK,
-              t,
-            );
-          }),
-          (n.sendIneligibleAtSendClick = function (t) {
-            this.$5(
-              o("WAWebWamEnumGroupHistorySenderActionType")
-                .GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_SEND_INELIGIBLE_AT_SEND_CLICK,
-              t,
-            );
-          }),
-          (n.selectableMessagesLoaded = function (t) {
-            var e = t.groupHistoryMessagesCount,
-              n = t.uiSurface;
-            this.$1({
-              groupHistoryMessagesCount: e,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_SELECTABLE_MESSAGES_LOADED,
-              uiSurface: n,
-            });
-          }),
-          (n.countChangeEntryPointClicked = function (t) {
-            var e = t.groupHistoryMessagesCount,
-              n = t.uiSurface;
-            this.$1({
-              groupHistoryMessagesCount: e,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_COUNT_CHANGE_ENTRY_POINT_CLICKED,
-              uiSurface: n,
-            });
-          }),
-          (n.countChanged = function (t) {
-            var e = t.groupHistoryMessagesCount,
-              n = t.uiSurface;
-            this.$1({
-              groupHistoryMessagesCount: e,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_COUNT_CHANGED,
-              uiSurface: n,
-            });
-          }),
-          (n.footerDisplayed = function (t) {
-            var e = t.groupAddMemberEntryPoint,
-              n = t.groupHistoryMessagesCount,
-              r = t.isGroupHistoryToggledOn,
-              a = t.toggleActivation,
-              i = t.uiSurface;
-            this.$1({
-              groupAddMemberEntryPoint: e != null ? e : void 0,
-              groupHistoryMessagesCount: n,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_FOOTER_DISPLAYED,
-              isGroupHistoryToggledOn: r,
-              toggleDefaultOn: a.toggleDefaultOn,
-              togglePerGroupUsageActivated: a.togglePerGroupUsageActivated,
-              toggleUserActivated: a.toggleUserActivated,
-              uiSurface: i,
-            });
-          }),
-          (n.groupHistoryToggleOn = function (t) {
-            var e = t.groupAddMemberEntryPoint,
-              n = t.groupHistoryMessagesCount,
-              r = t.uiSurface;
-            this.$1({
-              groupAddMemberEntryPoint: e != null ? e : void 0,
-              groupHistoryMessagesCount: n,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_TOGGLE_ON,
-              uiSurface: r,
-            });
-          }),
-          (n.groupHistoryToggleOff = function (t) {
-            var e = t.groupAddMemberEntryPoint,
-              n = t.groupHistoryMessagesCount,
-              r = t.uiSurface;
-            this.$1({
-              groupAddMemberEntryPoint: e != null ? e : void 0,
-              groupHistoryMessagesCount: n,
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_TOGGLE_OFF,
-              uiSurface: r,
-            });
-          }),
-          (n.speedBumpDialogDisplayed = function (t) {
-            var e = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_SPEED_BUMP_DIALOG_DISPLAYED,
-              uiSurface: e,
-            });
-          }),
-          (n.speedBumpDialogContinued = function (t) {
-            var e = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_SPEED_BUMP_DIALOG_CONTINUED,
-              uiSurface: e,
-            });
-          }),
-          (n.speedBumpDialogCanceled = function (t) {
-            var e = t.uiSurface;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_SPEED_BUMP_DIALOG_CANCELED,
-              uiSurface: e,
-            });
-          }),
-          (n.groupHistoryToggleModeMdSyncReceived = function (t) {
-            var e = t.isToggleOn;
-            this.$1({
-              groupHistorySenderActionType: o(
-                "WAWebWamEnumGroupHistorySenderActionType",
-              ).GROUP_HISTORY_SENDER_ACTION_TYPE
-                .GROUP_HISTORY_TOGGLE_MODE_MD_SYNC_RECEIVED,
-              groupHistoryToggleMode: e
-                ? o("WAWebWamEnumGroupHistoryToggleMode")
-                    .GROUP_HISTORY_TOGGLE_MODE.ON
-                : o("WAWebWamEnumGroupHistoryToggleMode")
-                    .GROUP_HISTORY_TOGGLE_MODE.OFF,
-            });
-          }),
-          t
-        );
-      })(),
-      f = new _();
+            return;
+          }
+          new (o(
+            "WAWebGroupHistorySenderUserJourneyWamEvent",
+          ).GroupHistorySenderUserJourneyWamEvent)(
+            babelHelpers.extends({}, n, {
+              userJourneyTs: o("WATimeUtils").unixTimeMs(),
+              unifiedSessionId: t,
+            }),
+          ).commit();
+        }),
+        (n.$2 = function (t, n) {
+          var e = n.groupHistorySystemMessageType,
+            r = n.recipientCount,
+            o = n.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: t,
+            groupHistorySystemMessageType: e,
+            recipientCount: r,
+            uiSurface: o,
+          });
+        }),
+        (n.sendMessageHistorySystemMessageClicked = function (t) {
+          this.$2(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .SEND_MESSAGE_HISTORY_SYSTEM_MESSAGE_CLICKED,
+            t,
+          );
+        }),
+        (n.viewOptionsSystemMessageClicked = function (t) {
+          this.$2(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .VIEW_OPTIONS_SYSTEM_MESSAGE_CLICKED,
+            t,
+          );
+        }),
+        (n.sendMessageHistoryCtaSystemMessageDisplayed = function (t) {
+          var e = t.groupHistorySystemMessageType,
+            n = t.recipientCount,
+            r = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .SEND_MESSAGE_HISTORY_CTA_SYSTEM_MESSAGE_DISPLAY,
+            groupHistorySystemMessageType: e,
+            recipientCount: n,
+            uiSurface: r,
+          });
+        }),
+        (n.ctaSystemMessageNotDisplayed = function (t) {
+          var e = t.groupHistorySystemMessageType,
+            n = t.ineligibleReason,
+            r = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .SEND_MESSAGE_HISTORY_CTA_SYSTEM_MESSAGE_NOT_DISPLAYED,
+            groupHistorySystemMessageType: e,
+            ineligibleReason: n,
+            uiSurface: r,
+          });
+        }),
+        (n.dropdownMenuItemDisplayed = function (t) {
+          var e = t.recipientCount,
+            n = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_DROPDOWN_MENU_ITEM_DISPLAYED,
+            recipientCount: e,
+            uiSurface: n,
+          });
+        }),
+        (n.dropdownMenuItemClicked = function (t) {
+          var e = t.recipientCount,
+            n = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_DROPDOWN_MENU_ITEM_CLICKED,
+            recipientCount: e,
+            uiSurface: n,
+          });
+        }),
+        (n.$3 = function (t, n) {
+          var e = n.bundleSendSource,
+            r = n.recipientCount,
+            o = n.uiSurface;
+          this.$1({
+            bundleSendSource: e,
+            groupHistorySenderActionType: t,
+            recipientCount: r,
+            uiSurface: o,
+          });
+        }),
+        (n.bottomsheetDisplayed = function (t) {
+          this.$3(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_BOTTOMSHEET_DISPLAYED,
+            t,
+          );
+        }),
+        (n.bottomsheetConfirmButtonClicked = function (t) {
+          this.$3(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_BOTTOMSHEET_CONFIRM_BUTTON_CLICKED,
+            t,
+          );
+        }),
+        (n.bottomsheetCancelButtonClicked = function (t) {
+          this.$3(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_BOTTOMSHEET_CANCEL_BUTTON_CLICKED,
+            t,
+          );
+        }),
+        (n.bottomsheetDismissed = function (t) {
+          this.$3(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_BOTTOMSHEET_DISMISSED,
+            t,
+          );
+        }),
+        (n.bundleMessageSent = function (t) {
+          var e = t.bundleSendSource,
+            n = t.groupAddMemberEntryPoint,
+            r = t.groupHistoryMessagesCount,
+            a = t.groupHistorySystemMessageType,
+            i = t.recipientCount,
+            l = t.uiSurface;
+          this.$1({
+            bundleSendSource: e,
+            groupAddMemberEntryPoint: n != null ? n : void 0,
+            groupHistoryMessagesCount: r != null ? r : void 0,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_BUNDLE_MESSAGE_SENT,
+            groupHistorySystemMessageType: a != null ? a : void 0,
+            recipientCount: i,
+            uiSurface: l,
+          });
+        }),
+        (n.noticeMessageSent = function (t) {
+          var e = t.bundleSendSource,
+            n = t.groupAddMemberEntryPoint,
+            r = t.groupHistorySystemMessageType,
+            a = t.recipientCount,
+            i = t.uiSurface;
+          this.$1({
+            bundleSendSource: e,
+            groupAddMemberEntryPoint: n != null ? n : void 0,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_NOTICE_MESSAGE_SENT,
+            groupHistorySystemMessageType: r != null ? r : void 0,
+            recipientCount: a,
+            uiSurface: i,
+          });
+        }),
+        (n.$4 = function (t, n) {
+          var e = n.bundleSendSource,
+            r = n.groupHistorySystemMessageType,
+            o = n.recipientCount,
+            a = n.uiSurface;
+          this.$1({
+            bundleSendSource: e,
+            groupHistorySenderActionType: t,
+            groupHistorySystemMessageType: r != null ? r : void 0,
+            recipientCount: o,
+            uiSurface: a,
+          });
+        }),
+        (n.bundleMessageAcked = function (t) {
+          this.$4(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_BUNDLE_MESSAGE_ACKED,
+            t,
+          );
+        }),
+        (n.noticeMessageAcked = function (t) {
+          this.$4(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_NOTICE_MESSAGE_ACKED,
+            t,
+          );
+        }),
+        (n.$5 = function (t, n) {
+          var e = n.ineligibleReason,
+            r = n.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: t,
+            ineligibleReason: e,
+            uiSurface: r,
+          });
+        }),
+        (n.sendIneligibleAtCtaClick = function (t) {
+          this.$5(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_SEND_INELIGIBLE_AT_CTA_CLICK,
+            t,
+          );
+        }),
+        (n.sendIneligibleAtSendClick = function (t) {
+          this.$5(
+            o("WAWebWamEnumGroupHistorySenderActionType")
+              .GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_SEND_INELIGIBLE_AT_SEND_CLICK,
+            t,
+          );
+        }),
+        (n.selectableMessagesLoaded = function (t) {
+          var e = t.groupHistoryMessagesCount,
+            n = t.uiSurface;
+          this.$1({
+            groupHistoryMessagesCount: e,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_SELECTABLE_MESSAGES_LOADED,
+            uiSurface: n,
+          });
+        }),
+        (n.countChangeEntryPointClicked = function (t) {
+          var e = t.groupHistoryMessagesCount,
+            n = t.uiSurface;
+          this.$1({
+            groupHistoryMessagesCount: e,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_COUNT_CHANGE_ENTRY_POINT_CLICKED,
+            uiSurface: n,
+          });
+        }),
+        (n.countChanged = function (t) {
+          var e = t.groupHistoryMessagesCount,
+            n = t.uiSurface;
+          this.$1({
+            groupHistoryMessagesCount: e,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_COUNT_CHANGED,
+            uiSurface: n,
+          });
+        }),
+        (n.footerDisplayed = function (t) {
+          var e = t.groupAddMemberEntryPoint,
+            n = t.groupHistoryMessagesCount,
+            r = t.isGroupHistoryToggledOn,
+            a = t.storedTogglePreference,
+            i = t.toggleActivation,
+            l = t.uiSurface;
+          this.$1({
+            groupAddMemberEntryPoint: e != null ? e : void 0,
+            groupHistoryMessagesCount: n,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_FOOTER_DISPLAYED,
+            groupHistoryToggleMode: f(a),
+            isGroupHistoryToggledOn: r,
+            toggleDefaultOn: i.toggleDefaultOn,
+            togglePerGroupUsageActivated: i.togglePerGroupUsageActivated,
+            toggleUserActivated: i.toggleUserActivated,
+            uiSurface: l,
+          });
+        }),
+        (n.groupHistoryToggleOn = function (t) {
+          var e = t.groupAddMemberEntryPoint,
+            n = t.groupHistoryMessagesCount,
+            r = t.uiSurface;
+          this.$1({
+            groupAddMemberEntryPoint: e != null ? e : void 0,
+            groupHistoryMessagesCount: n,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_TOGGLE_ON,
+            uiSurface: r,
+          });
+        }),
+        (n.groupHistoryToggleOff = function (t) {
+          var e = t.groupAddMemberEntryPoint,
+            n = t.groupHistoryMessagesCount,
+            r = t.uiSurface;
+          this.$1({
+            groupAddMemberEntryPoint: e != null ? e : void 0,
+            groupHistoryMessagesCount: n,
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_TOGGLE_OFF,
+            uiSurface: r,
+          });
+        }),
+        (n.speedBumpDialogDisplayed = function (t) {
+          var e = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_SPEED_BUMP_DIALOG_DISPLAYED,
+            uiSurface: e,
+          });
+        }),
+        (n.speedBumpDialogContinued = function (t) {
+          var e = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_SPEED_BUMP_DIALOG_CONTINUED,
+            uiSurface: e,
+          });
+        }),
+        (n.speedBumpDialogCanceled = function (t) {
+          var e = t.uiSurface;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_SPEED_BUMP_DIALOG_CANCELED,
+            uiSurface: e,
+          });
+        }),
+        (n.groupHistoryToggleModeMdSyncReceived = function (t) {
+          var e = t.isToggleOn;
+          this.$1({
+            groupHistorySenderActionType: o(
+              "WAWebWamEnumGroupHistorySenderActionType",
+            ).GROUP_HISTORY_SENDER_ACTION_TYPE
+              .GROUP_HISTORY_TOGGLE_MODE_MD_SYNC_RECEIVED,
+            groupHistoryToggleMode: e
+              ? o("WAWebWamEnumGroupHistoryToggleMode")
+                  .GROUP_HISTORY_TOGGLE_MODE.ON
+              : o("WAWebWamEnumGroupHistoryToggleMode")
+                  .GROUP_HISTORY_TOGGLE_MODE.OFF,
+          });
+        }),
+        t
+      );
+    })();
+    function f(e) {
+      return e === !0
+        ? o("WAWebWamEnumGroupHistoryToggleMode").GROUP_HISTORY_TOGGLE_MODE.ON
+        : e === !1
+          ? o("WAWebWamEnumGroupHistoryToggleMode").GROUP_HISTORY_TOGGLE_MODE
+              .OFF
+          : o("WAWebWamEnumGroupHistoryToggleMode").GROUP_HISTORY_TOGGLE_MODE
+              .DEFAULT;
+    }
+    var g = new _();
     ((l.getGroupHistorySystemMessageType = d),
       (l.mapEligibilityResultToIneligibleReason = p),
-      (l.GroupHistorySenderUserJourneyLogger = f));
+      (l.GroupHistorySenderUserJourneyLogger = g));
   },
   98,
 );

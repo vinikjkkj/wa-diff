@@ -27,8 +27,7 @@ __d(
           return o("WAWap").wap("status", null);
         }),
         (t.getUserElement = function (t) {
-          var e = t.getTcToken();
-          return e ? o("WAWap").wap("tctoken", null, e) : null;
+          return null;
         }),
         e
       );

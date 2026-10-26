@@ -23,7 +23,9 @@ __d(
       return s._(/*BTDS*/ "Requested by you");
     }
     function d(e) {
-      return s._(/*BTDS*/ "Requested by {name}", [s._param("name", e)]);
+      return s._(/*BTDS*/ "Requested by {merchant_name}", [
+        s._param("merchant_name", e),
+      ]);
     }
     function m() {
       return s._(

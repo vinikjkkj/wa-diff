@@ -7,6 +7,7 @@ __d(
     "WAWebABPropsCache",
     "WAWebAppSwInitializer",
     "WAWebBackendWorkerInitState",
+    "WAWebBrLastUsedPaymentMethodCache",
     "WAWebBrokerBackendInterface",
     "WAWebBuildConstants",
     "WAWebCacheStoreGatingUtil",
@@ -187,6 +188,9 @@ __d(
             o(
               "WAWebPrefetchHatchDetailsOnLogin",
             ).initHatchDetailsPrefetchOnLogin(),
+            o(
+              "WAWebBrLastUsedPaymentMethodCache",
+            ).initLastUsedBrPaymentMethodCacheLifecycle(),
             n("cr:17677") == null || n("cr:17677").init(),
             o("WALogger").LOG(
               u ||

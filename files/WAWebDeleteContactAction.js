@@ -38,7 +38,7 @@ __d(
           )
             throw new (o("WAWebSaveContactAction").NetworkUnavailable)();
           var a = e.phoneNumber || e.lid,
-            i = o("WAWebContactSyncUtils").constructUsyncDeltaQuery([
+            i = yield o("WAWebContactSyncUtils").constructUsyncDeltaQuery([
               { type: "delete", contact: a },
             ]),
             l = o(
@@ -202,7 +202,7 @@ __d(
           )
             throw new (o("WAWebSaveContactAction").NetworkUnavailable)();
           var t = e.map(S),
-            n = o("WAWebContactSyncUtils").constructUsyncDeltaQuery(
+            n = yield o("WAWebContactSyncUtils").constructUsyncDeltaQuery(
               t.map(function (e) {
                 return { type: "delete", contact: e };
               }),

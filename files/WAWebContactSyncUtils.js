@@ -3,66 +3,84 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
+    "WAWebContactSyncPrivacyHints",
     "WAWebLidMigrationUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "uniqueBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t) {
-      var n = new (o("WAWebUsync").USyncQuery)()
-          .withMode("delta")
-          .withContext("interactive")
-          .withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID)
-          .withUsernameProtocol(),
-        r = [];
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        t.forEach(function (e) {
-          if (e.type === "add") {
-            n.withUser(
-              new (o("WAWebUsyncUser").USyncUser)().withPhone(e.phoneNumber),
-            );
-            return;
-          }
-          if (e.type === "add_username") {
-            n.withUser(
-              new (o("WAWebUsyncUser").USyncUser)()
-                .withId(e.lid)
-                .withUsername(e.username),
-            );
-            return;
-          }
-          e.type;
-          var t = e.contact,
-            a = new (o("WAWebUsyncUser").USyncUser)().withType("delete");
-          if (t.isLid()) a.withId(t);
-          else if (t.isRegularUserPn()) {
-            var i = o("WAWebLidMigrationUtils").toUserLid(t);
-            (i != null && a.withId(i), a.withPnJid(t));
-          } else (a.withId(t), r.length < 3 && r.push(t.toLogString()));
-          n.withUser(a);
-        }),
-        r.length > 0 &&
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[constructUsyncDeltaQuery] ",
-                  " not LID/PN => ",
-                  "",
-                ])),
-              r.length,
-              r,
-            )
-            .sendLogs("unexpected_contact_type_in_delta_delete", {
-              sampling: 0.1,
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = new (o("WAWebUsync").USyncQuery)()
+              .withMode("delta")
+              .withContext("interactive")
+              .withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID)
+              .withUsernameProtocol(),
+            n = [],
+            r = [];
+          return (
+            e.forEach(function (e) {
+              if (e.type === "add") {
+                var a = new (o("WAWebUsyncUser").USyncUser)().withPhone(
+                  e.phoneNumber,
+                );
+                (r.push({
+                  user: a,
+                  wid: o("WAWebContactSyncPrivacyHints").userWidFromPhone(
+                    e.phoneNumber,
+                  ),
+                }),
+                  t.withUser(a));
+                return;
+              }
+              if (e.type === "add_username") {
+                var i = new (o("WAWebUsyncUser").USyncUser)()
+                  .withId(e.lid)
+                  .withUsername(e.username);
+                (r.push({ user: i, wid: e.lid }), t.withUser(i));
+                return;
+              }
+              e.type;
+              var l = e.contact,
+                s = new (o("WAWebUsyncUser").USyncUser)().withType("delete");
+              if (l.isLid()) s.withId(l);
+              else if (l.isRegularUserPn()) {
+                var u = o("WAWebLidMigrationUtils").toUserLid(l);
+                (u != null && s.withId(u), s.withPnJid(l));
+              } else (s.withId(l), n.length < 3 && n.push(l.toLogString()));
+              (r.push({ user: s, wid: l }), t.withUser(s));
             }),
-        n
+            yield o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(r),
+            n.length > 0 &&
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[constructUsyncDeltaQuery] ",
+                      " not LID/PN => ",
+                      "",
+                    ])),
+                  n.length,
+                  n,
+                )
+                .sendLogs("unexpected_contact_type_in_delta_delete", {
+                  sampling: 0.1,
+                }),
+            t
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
+    function m(e) {
       return r("uniqueBy")(
         e
           .filter(function (e) {
@@ -76,60 +94,60 @@ __d(
         },
       );
     }
-    function m(e, t) {
-      if (e.length === 0) return t;
-      var n = new Map();
-      (t.forEach(function (e) {
-        n.set(e.wid.toString(), e);
+    function p(t, n) {
+      if (t.length === 0) return n;
+      var r = new Map();
+      (n.forEach(function (e) {
+        r.set(e.wid.toString(), e);
       }),
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
               "[backfillMissingDeviceSyncEntries] req=",
               " resp=",
               "",
             ])),
-          e.length,
           t.length,
+          n.length,
         ));
-      var r = [];
+      var a = [];
       if (
-        (e.forEach(function (e) {
-          var a = e.toString();
-          if (!n.has(a)) {
+        (t.forEach(function (e) {
+          var t = e.toString();
+          if (!r.has(t)) {
             var i = o("WAWebApiContact").getCurrentLid(
               o("WAWebWidFactory").asUserWidOrThrow(e),
             );
             if (i != null) {
-              var l = n.get(i.toString());
+              var l = r.get(i.toString());
               l != null &&
-                (t.push({ wid: e, devices: l.devices }),
-                r.length < 3 &&
-                  r.push({ lid: i.toLogString(), pn: e.toLogString() }));
+                (n.push({ wid: e, devices: l.devices }),
+                a.length < 3 &&
+                  a.push({ lid: i.toLogString(), pn: e.toLogString() }));
             }
           }
         }),
-        r.length > 0)
+        a.length > 0)
       ) {
-        var a = r.map(function (e) {
+        var i = a.map(function (e) {
           return e.lid + " -> " + e.pn;
         });
         o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[backfillMissingDeviceSyncEntries] dup=",
               " => ",
               "",
             ])),
-          r.length,
-          a,
+          a.length,
+          i,
         );
       }
-      return t;
+      return n;
     }
     ((l.constructUsyncDeltaQuery = c),
-      (l.getDeviceSyncBackfillPnWids = d),
-      (l.backfillMissingDeviceSyncEntries = m));
+      (l.getDeviceSyncBackfillPnWids = m),
+      (l.backfillMissingDeviceSyncEntries = p));
   },
   98,
 );

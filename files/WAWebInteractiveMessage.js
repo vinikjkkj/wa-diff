@@ -5,7 +5,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetInteractiveActions",
     "WAWebGetInteractiveFooterText",
-    "WAWebInteractiveActionMenuDialog.react",
+    "WAWebInteractiveActionMenuDialogLoadable.react",
     "WAWebInteractiveBubble.react",
     "WAWebInteractiveHeader",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -17,6 +17,7 @@ __d(
     "WAWebOrderStatusButton",
     "WAWebPrimaryFeaturesGetters",
     "WAWebShowMessageActionFallbackErrorAction",
+    "WAWebShowMessageActionRetryErrorAction",
     "WDSDialogBridge",
     "react",
     "useWAWebConversationPanelCanCompose",
@@ -170,8 +171,16 @@ __d(
         n = e.menu;
       return n != null
         ? function () {
-            return o("WDSDialogBridge").openWDSDialog(
-              s.jsx(r("WAWebInteractiveActionMenuDialog.react"), { menu: n }),
+            if ((n.isEligible == null ? void 0 : n.isEligible()) === !1) {
+              r("WAWebShowMessageActionRetryErrorAction")();
+              return;
+            }
+            o("WDSDialogBridge").openWDSDialog(
+              s.jsx(
+                o("WAWebInteractiveActionMenuDialogLoadable.react")
+                  .InteractiveActionMenuDialogLoadable,
+                { menu: n },
+              ),
             );
           }
         : (t = e.onClick) != null

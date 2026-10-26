@@ -262,7 +262,9 @@ __d(
               ),
               a = t.map(function (t) {
                 var n = t.getId(),
-                  r = t.getPnJid();
+                  r = t.getPnJid(),
+                  a = t.getCommonGid(),
+                  i = t.getTcToken();
                 return o("WAWap").wap(
                   "user",
                   {
@@ -272,10 +274,15 @@ __d(
                     pn_jid: r
                       ? o("WAWebCommsWapMd").USER_JID(r)
                       : o("WAWap").DROP_ATTR,
+                    common_gid: a
+                      ? o("WAWebCommsWapMd").GROUP_JID(a)
+                      : o("WAWap").DROP_ATTR,
                   },
-                  e.protocols.map(function (e) {
-                    return e.getUserElement(t);
-                  }),
+                  [i ? o("WAWap").wap("tctoken", null, i) : null].concat(
+                    e.protocols.map(function (e) {
+                      return e.getUserElement(t);
+                    }),
+                  ),
                 );
               }),
               i = o("WAWap").wap("list", null, a);

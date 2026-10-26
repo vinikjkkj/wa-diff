@@ -30,7 +30,7 @@ __d(
         .map(function (e) {
           return babelHelpers.extends({}, e, {
             members: e.members.filter(function (e) {
-              var t = f(e);
+              var t = g(e);
               return (
                 t.length === 0 ||
                 !t.some(function (e) {
@@ -46,24 +46,31 @@ __d(
       return s.length === 0 ? u : s;
     }
     function d(e) {
-      var t = g(e);
+      var t = h(e);
       return t == null ? null : m(t, e);
     }
     function m(e, t) {
+      var n = o("WAWebContactCollection").ContactCollection.get(e);
+      return n != null
+        ? n
+        : o("WAWebContactCollection").ContactCollection.gadd(
+            babelHelpers.extends({ id: e }, p(e, t)),
+          );
+    }
+    function p(e, t) {
       var n,
         r = o("WAWebContactCollection").ContactCollection.get(e);
       return r != null
-        ? r
-        : o("WAWebContactCollection").ContactCollection.gadd({
-            id: e,
+        ? { phoneNumber: r.phoneNumber, username: r.username }
+        : {
             phoneNumber:
               (n = o("WAWebApiContact").getPnIfLidIsLatestMapping(e)) != null
                 ? n
-                : p(e, t.phoneNumber),
+                : _(e, t.phoneNumber),
             username: t.username,
-          });
+          };
     }
-    function p(t, n) {
+    function _(t, n) {
       var a,
         i = (a = n == null ? void 0 : n.replace(/\D/g, "")) != null ? a : "";
       if (i === "") return null;
@@ -87,14 +94,14 @@ __d(
       var s = o("WAWebApiContact").getCurrentLid(l);
       return s == null || s.equals(t) ? l : null;
     }
-    function _(e, t) {
+    function f(e, t) {
       if (e.length === 0 || t.length === 0) return e;
       var n = new Set(
         t
           .flatMap(function (e) {
             return e.members;
           })
-          .flatMap(f),
+          .flatMap(g),
       );
       return n.size === 0
         ? e
@@ -104,8 +111,8 @@ __d(
             );
           });
     }
-    function f(e) {
-      var t = g(e);
+    function g(e) {
+      var t = h(e);
       return t == null
         ? []
         : [
@@ -113,7 +120,7 @@ __d(
             t.toString(),
           ];
     }
-    function g(e) {
+    function h(e) {
       try {
         return o("WAWebWidFactory").createUserLidOrThrow(e.id, "lid");
       } catch (e) {
@@ -131,7 +138,7 @@ __d(
         );
       }
     }
-    function h(e) {
+    function y(e) {
       if (e.loading)
         return {
           height: o("WAWebOrgMemberSearchLoadingRowLayout")
@@ -157,9 +164,10 @@ __d(
       (l.dedupeOrgMemberSections = c),
       (l.toOrgMemberContact = d),
       (l.getOrgMemberContact = m),
-      (l.withoutOrgMembers = _),
-      (l.toOrgMemberLid = g),
-      (l.toOrgMemberStatusRow = h));
+      (l.getOrgMemberIdentifiers = p),
+      (l.withoutOrgMembers = f),
+      (l.toOrgMemberLid = h),
+      (l.toOrgMemberStatusRow = y));
   },
   98,
 );

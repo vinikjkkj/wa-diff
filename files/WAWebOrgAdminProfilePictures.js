@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebContactSyncPrivacyHints",
     "WAWebGetProfilePicJob",
     "WAWebUsync",
     "WAWebUsyncUser",
@@ -34,14 +35,16 @@ __d(
                 .withContext("interactive")
                 .withMode("query")
                 .withPictureProtocol(),
-              f = 0;
-            for (var g of a)
+              f = 0,
+              g = [];
+            for (var h of a)
               try {
-                var h = o("WAWebWidFactory").createUserLidOrThrow(g, "lid");
-                (l.set(h.toString(), g),
-                  p.withUser(new (o("WAWebUsyncUser").USyncUser)().withId(h)));
+                var y = o("WAWebWidFactory").createUserLidOrThrow(h, "lid");
+                l.set(y.toString(), h);
+                var C = new (o("WAWebUsyncUser").USyncUser)().withId(y);
+                (g.push({ user: C, wid: y }), p.withUser(C));
               } catch (e) {
-                (f++, m.add(g));
+                (f++, m.add(h));
               }
             if (
               (f > 0 &&
@@ -58,9 +61,10 @@ __d(
               l.size === 0)
             )
               return { profilePictureURLByLID: new Map(), unavailableLIDs: m };
-            var y = yield p.execute(),
-              C = (i = y.error.all) != null ? i : y.error.picture;
-            if (C != null)
+            yield o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(g);
+            var b = yield p.execute(),
+              v = (i = b.error.all) != null ? i : b.error.picture;
+            if (v != null)
               throw (
                 o("WALogger")
                   .WARN(
@@ -69,15 +73,15 @@ __d(
                         "[org_admin] profile picture USync returned ",
                         "",
                       ])),
-                    C.errorCode,
+                    v.errorCode,
                   )
                   .sendLogs("org-admin-profile-picture-usync-error"),
                 r("err")("Organization member profile picture USync failed")
               );
-            var b = new Map();
+            var S = new Map();
             return (
               yield (d || (d = n("Promise"))).all(
-                y.list.map(
+                b.list.map(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
@@ -94,7 +98,7 @@ __d(
                                 "WAWebGetProfilePicJob",
                               ).getProfilePic(t, { preview: !0 }),
                               s = i.eurl;
-                            s === "" ? m.add(n) : b.set(n, s);
+                            s === "" ? m.add(n) : S.set(n, s);
                           } catch (e) {
                             e instanceof
                               o("WAWebBackendErrors").ServerStatusCodeError &&
@@ -124,10 +128,10 @@ __d(
                   })(),
                 ),
               ),
-              { profilePictureURLByLID: b, unavailableLIDs: m }
+              { profilePictureURLByLID: S, unavailableLIDs: m }
             );
           } catch (e) {
-            var v = r("getErrorSafe")(e);
+            var R = r("getErrorSafe")(e);
             throw (
               o("WALogger")
                 .ERROR(
@@ -136,9 +140,9 @@ __d(
                       "[org_admin] failed to fetch member profile picture metadata",
                     ])),
                 )
-                .catching(v)
+                .catching(R)
                 .sendLogs("org-admin-profile-picture-usync-failed"),
-              v
+              R
             );
           }
         })),

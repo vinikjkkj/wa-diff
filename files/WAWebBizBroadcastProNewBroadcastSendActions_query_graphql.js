@@ -97,6 +97,13 @@ __d(
                   name: "is_sending_allowed",
                   storageKey: null,
                 },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "upsell_business_verification",
+                  storageKey: null,
+                },
               ],
               storageKey: null,
             },

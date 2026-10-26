@@ -2,7 +2,7 @@ __d(
   "WAWebBizBroadcastProExistingAudienceModal.entrypoint",
   [
     "JSResourceForInteraction",
-    "WAWebBizBroadcastProAudiencePollConstants",
+    "WAWebBizBroadcastProAudienceQueryConstants",
     "WAWebBizBroadcastProExistingAudienceModalAudienceListQuery$Parameters",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
                 "WAWebBizBroadcastProExistingAudienceModalAudienceListQuery$Parameters",
               ),
               variables: {
-                first: o("WAWebBizBroadcastProAudiencePollConstants")
+                first: o("WAWebBizBroadcastProAudienceQueryConstants")
                   .PRO_AUDIENCE_QUERY_PAGE_SIZE,
               },
             },

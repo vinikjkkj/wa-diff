@@ -1,99 +1,221 @@
 __d(
   "WAWebBrLastUsedPaymentMethodStore",
   [
+    "Promise",
     "WALogger",
+    "WAWebBrLastUsedPaymentMethodCache",
     "WAWebFrontendMsgGetters",
-    "WAWebMsgGetters",
     "WAWebPaymentsGatingUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = "WABrLastUsedPaymentMethods",
-      u = 50;
-    function c(t, n) {
-      if (!(o("WAWebMsgGetters").getIsSentByMe(t.unsafe()) || n === "")) {
-        var a = o("WAWebFrontendMsgGetters").getChat(t.unsafe());
-        !a.id.isUser() ||
-          !o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(a) ||
-          d(a.id.toString(), n, Date.now()).catch(function (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BR_LAST_USED_PAYMENT_METHOD] record failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("br-last-used-payment-method-record-failed");
-          });
-      }
-    }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+      s,
+      u = "WABrLastUsedPaymentMethods",
+      c = (s || (s = n("Promise"))).resolve();
+    function d() {
+      var e = o(
+        "WAWebBrLastUsedPaymentMethodCache",
+      ).prepareLastUsedBrPaymentMethodAccount();
+      if (
+        e == null ||
+        o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
+          .loaded
+      )
+        return (s || (s = n("Promise"))).resolve();
+      if (
+        o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
+          .pendingWarm != null
+      )
+        return o("WAWebBrLastUsedPaymentMethodCache")
+          .brLastUsedPaymentMethodCache.pendingWarm;
+      var t = o("WAWebBrLastUsedPaymentMethodCache")
+        .brLastUsedPaymentMethodCache.generation;
+      o(
+        "WAWebBrLastUsedPaymentMethodCache",
+      ).brLastUsedPaymentMethodCache.pendingWarm = _(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              s,
-              p(
-                o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s),
-                e,
-                t,
-                n,
+            !(
+              o(
+                "WAWebBrLastUsedPaymentMethodCache",
+              ).prepareLastUsedBrPaymentMethodAccount() !== e ||
+              t !==
+                o("WAWebBrLastUsedPaymentMethodCache")
+                  .brLastUsedPaymentMethodCache.generation ||
+              o("WAWebBrLastUsedPaymentMethodCache")
+                .brLastUsedPaymentMethodCache.loaded
+            ) &&
+              ((o(
+                "WAWebBrLastUsedPaymentMethodCache",
+              ).brLastUsedPaymentMethodCache.entries = g(
+                f(o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u), e),
                 Date.now(),
-              ),
-            ));
-        })),
-        m.apply(this, arguments)
+              )),
+              (o(
+                "WAWebBrLastUsedPaymentMethodCache",
+              ).brLastUsedPaymentMethodCache.loaded = !0)));
+        }),
       );
+      var r = o("WAWebBrLastUsedPaymentMethodCache")
+        .brLastUsedPaymentMethodCache.pendingWarm;
+      return (
+        r.finally(function () {
+          t ===
+            o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
+              .generation &&
+            o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
+              .pendingWarm === r &&
+            (o(
+              "WAWebBrLastUsedPaymentMethodCache",
+            ).brLastUsedPaymentMethodCache.pendingWarm = null);
+        }),
+        r
+      );
+    }
+    function m(e, t) {
+      if (!(t.trim() === "" || t === "UNKNOWN")) {
+        var r = o("WAWebBrLastUsedPaymentMethodCache").getMerchantLid(e);
+        if (
+          !(
+            r == null ||
+            !o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(
+              o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
+            )
+          )
+        ) {
+          var a = o(
+            "WAWebBrLastUsedPaymentMethodCache",
+          ).prepareLastUsedBrPaymentMethodAccount();
+          if (a != null) {
+            var i = Date.now(),
+              l = o("WAWebBrLastUsedPaymentMethodCache")
+                .brLastUsedPaymentMethodCache.generation;
+            _(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+                  !(
+                    o(
+                      "WAWebBrLastUsedPaymentMethodCache",
+                    ).prepareLastUsedBrPaymentMethodAccount() !== a ||
+                    l !==
+                      o("WAWebBrLastUsedPaymentMethodCache")
+                        .brLastUsedPaymentMethodCache.generation
+                  ) &&
+                    ((o(
+                      "WAWebBrLastUsedPaymentMethodCache",
+                    ).brLastUsedPaymentMethodCache.entries = p(
+                      f(
+                        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u),
+                        a,
+                      ),
+                      a + "|" + r,
+                      t,
+                      i,
+                      Date.now(),
+                    )),
+                    (o(
+                      "WAWebBrLastUsedPaymentMethodCache",
+                    ).brLastUsedPaymentMethodCache.loaded = !0),
+                    yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                      u,
+                      o("WAWebBrLastUsedPaymentMethodCache")
+                        .brLastUsedPaymentMethodCache.entries,
+                    )));
+              }),
+            );
+          }
+        }
+      }
     }
     function p(e, t, n, r, o) {
       var a,
         i,
-        l = _(e),
+        l = h(e, o),
         s = (a = (i = l[t]) == null ? void 0 : i.t) != null ? a : 0;
-      if (s > r && s <= o) return l;
-      l[t] = { m: n, t: r };
-      var c = Object.keys(l);
-      if (c.length <= u) return l;
-      var d = {};
+      return s > r && s <= o ? g(l, o) : ((l[t] = { m: n, t: r }), g(l, o, t));
+    }
+    function _(t) {
       return (
+        (c = c.then(t).catch(function () {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BR_LAST_USED_PAYMENT_METHOD] storage operation failed",
+                ])),
+            )
+            .sendLogs("br-last-used-payment-method-storage-failed");
+        })),
         c
-          .sort(function (e, t) {
-            return l[t].t - l[e].t;
-          })
-          .slice(0, u)
-          .forEach(function (e) {
-            d[e] = l[e];
-          }),
-        d
       );
     }
-    function _(e) {
-      var t = {};
-      if (e == null || typeof e != "object" || Array.isArray(e)) return t;
-      for (var n of Object.entries(e)) {
-        var r = n[0],
-          o = n[1];
-        if (!(o == null || typeof o != "object")) {
-          var a = o.m,
-            i = o.t;
-          typeof a == "string" &&
-            typeof i == "number" &&
-            Number.isFinite(i) &&
-            i >= 0 &&
-            (t[r] = { m: a, t: i });
-        }
-      }
-      return t;
+    function f(e, t) {
+      return Object.fromEntries(
+        Object.entries(h(e, Date.now())).filter(function (e) {
+          var n = e[0];
+          return n.startsWith(t + "|") && n.endsWith("@lid");
+        }),
+      );
     }
-    ((l.MAX_MERCHANTS = u),
-      (l.recordLastUsedBrPaymentMethod = c),
+    function g(e, t, n) {
+      var r = h(e, t),
+        a = Object.keys(r).sort(function (e, t) {
+          return r[t].t - r[e].t;
+        }),
+        i =
+          n != null && r[n] != null
+            ? [n].concat(
+                a.filter(function (e) {
+                  return e !== n;
+                }),
+              )
+            : a;
+      return Object.fromEntries(
+        i
+          .slice(0, o("WAWebBrLastUsedPaymentMethodCache").MAX_MERCHANTS)
+          .map(function (e) {
+            return [e, r[e]];
+          }),
+      );
+    }
+    function h(e, t) {
+      var n = {};
+      if (e == null || typeof e != "object" || Array.isArray(e)) return n;
+      for (var r of Object.entries(e)) {
+        var o = r[0],
+          a = r[1],
+          i = y(a, t);
+        i != null && (n[o] = i);
+      }
+      return n;
+    }
+    function y(e, t) {
+      if (e == null || typeof e != "object") return null;
+      var n = e.m,
+        r = e.t;
+      return typeof n != "string" ||
+        n.trim() === "" ||
+        n === "UNKNOWN" ||
+        typeof r != "number" ||
+        !Number.isFinite(r) ||
+        r < 0 ||
+        r > t ||
+        t - r > o("WAWebBrLastUsedPaymentMethodCache").RETENTION_MS
+        ? null
+        : { m: n, t: r };
+    }
+    ((l.MAX_MERCHANTS = o("WAWebBrLastUsedPaymentMethodCache").MAX_MERCHANTS),
+      (l.RETENTION_MS = o("WAWebBrLastUsedPaymentMethodCache").RETENTION_MS),
+      (l.resetLastUsedBrPaymentMethodCache = o(
+        "WAWebBrLastUsedPaymentMethodCache",
+      ).resetLastUsedBrPaymentMethodCache),
+      (l.getCachedLastUsedBrPaymentMethod = o(
+        "WAWebBrLastUsedPaymentMethodCache",
+      ).getCachedLastUsedBrPaymentMethod),
+      (l.warmLastUsedBrPaymentMethodCache = d),
+      (l.recordLastUsedBrPaymentMethod = m),
       (l.updateLastUsedPaymentMethods = p));
   },
   98,

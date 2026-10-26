@@ -623,7 +623,8 @@ __d(
       (l.readRowsByLids = P),
       (l.mergeOrgContactRow = N),
       (l.updateOrgMemberRole = w),
-      (l.removeOrgMember = F));
+      (l.removeOrgMember = F),
+      (l.removeOrgRoster = B));
   },
   98,
 );

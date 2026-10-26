@@ -317,6 +317,17 @@ __d(
                               concreteType:
                                 "XFBBillableAccountBillingInfoAction",
                               kind: "LinkedField",
+                              name: "inline_action",
+                              plural: !1,
+                              selections: l,
+                              storageKey: null,
+                            },
+                            {
+                              alias: null,
+                              args: null,
+                              concreteType:
+                                "XFBBillableAccountBillingInfoAction",
+                              kind: "LinkedField",
                               name: "primary_action",
                               plural: !1,
                               selections: l,

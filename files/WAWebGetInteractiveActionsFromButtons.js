@@ -16,7 +16,7 @@ __d(
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBookingConfirmationLoggingConstants",
     "WAWebBookingConfirmationLoggingLazy",
-    "WAWebBrLastUsedPaymentMethodStoreLazy",
+    "WAWebBrLastUsedPaymentMethodCache",
     "WAWebBrPaymentMethodKey",
     "WAWebBrPaymentMethodSurface",
     "WAWebBrPaymentRequest",
@@ -87,63 +87,63 @@ __d(
       p,
       _,
       f = _ || (_ = o("react"));
-    function g(e, t, n, a) {
+    function g(e, t, n, a, i) {
       a === void 0 &&
         (a = o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface
           .INLINE_CTA);
-      var i = [];
-      for (var l of e) {
-        var s = void 0,
-          u = o(
+      var l = [];
+      for (var s of e) {
+        var u = void 0,
+          c = o(
             "WAWebBizTemplateAndInteractiveMessagesUtils",
-          ).getNativeFlowNameByButtonName(l.name);
-        if (u != null) {
-          switch (u) {
+          ).getNativeFlowNameByButtonName(s.name);
+        if (c != null) {
+          switch (c) {
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_URL:
-              s = y(l, t, n);
+              u = y(s, t, n);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL:
-              s = k(l, t);
+              u = k(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY:
-              s = E(l, t, n);
+              u = E(s, t, n);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_CATALOG:
-              s = I(l, t);
+              u = I(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CATALOG_MESSAGE:
-              s = I(l, t);
+              u = I(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_COPY_CODE:
-              s = T(l, t);
+              u = T(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_APP:
-              s = b(l, t);
+              u = b(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW:
-              s = o(
+              u = o(
                 "WAWebGetGalaxyFlowsActionFromButton",
-              ).getCtaFlowInteractiveActionFor(l, t, {
+              ).getCtaFlowInteractiveActionFor(s, t, {
                 chat: n.chat,
                 galaxyFlowDisabled: n.galaxyFlowDisabled,
                 isFlowDisabledForSender: n.isSentByMe,
               });
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS:
-              s = D(l, t);
+              u = D(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER:
-              s = w(l);
+              u = w(s);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .BOOKING_CONFIRMATION:
-              s = A(l, t);
+              u = A(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST:
-              s = F(l, t, n, a);
+              u = F(s, t, n, a, i);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
-              s = L(l, t, n);
+              u = L(s, t, n);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .OFFER_PAYMENT_ACCOUNT:
@@ -164,10 +164,10 @@ __d(
             case r("WAWebInteractiveMessagesNativeFlowName").A2UI_REPLY_ACTION:
               break;
           }
-          s != null && i.push(s);
+          u != null && l.push(u);
         }
       }
-      return i;
+      return l;
     }
     function h(t) {
       var n,
@@ -922,16 +922,16 @@ __d(
             testid: "booking-confirmation-view-details-button",
           };
     }
-    function F(e, t, n, a) {
-      var i = n.isFromTemplate;
-      if (!o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(i === !0))
+    function F(e, t, n, a, i) {
+      var l = n.isFromTemplate;
+      if (!o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(l === !0))
         return null;
-      var l = e.data.paymentRequestInfo;
-      if (l == null) return null;
-      switch (l.paymentType) {
+      var u = e.data.paymentRequestInfo;
+      if (u == null) return null;
+      switch (u.paymentType) {
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO: {
-          var u = l.digitableLine;
-          return u == null
+          var c = u.digitableLine;
+          return c == null
             ? null
             : {
                 label: s._(/*BTDS*/ "Copy boleto code"),
@@ -946,9 +946,10 @@ __d(
                           o("WAWebBrPaymentRequest").PaymentRequestCtaType
                             .BOLETO,
                           a,
+                          i,
                         ),
                           o(
-                            "WAWebBrLastUsedPaymentMethodStoreLazy",
+                            "WAWebBrLastUsedPaymentMethodCache",
                           ).recordLastUsedBrPaymentMethodLazy(
                             n,
                             o("WAWebBrPaymentMethodKey").BrPaymentMethodKey
@@ -962,7 +963,7 @@ __d(
                           ));
                       },
                       successMsg: s._(/*BTDS*/ "Boleto code copied"),
-                      text: u,
+                      text: c,
                     });
                 },
                 Icon: r("WDSIconIcContentCopy.react"),
@@ -970,9 +971,9 @@ __d(
         }
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType
           .PIX_DYNAMIC_CODE: {
-          var c = l.code,
-            d = l.pixFlowType;
-          return c == null
+          var d = u.code,
+            m = u.pixFlowType;
+          return d == null
             ? null
             : {
                 label: s._(/*BTDS*/ "Copy Pix code"),
@@ -987,14 +988,15 @@ __d(
                           o("WAWebBrPaymentRequest").PaymentRequestCtaType
                             .PIX_DYNAMIC_CODE,
                           a,
+                          i,
                         ),
                           o(
-                            "WAWebBrLastUsedPaymentMethodStoreLazy",
+                            "WAWebBrLastUsedPaymentMethodCache",
                           ).recordLastUsedBrPaymentMethodLazy(
                             n,
                             o(
                               "WAWebBrPaymentMethodKey",
-                            ).getPixMethodKeyForServerOrdering(d),
+                            ).getPixMethodKeyForServerOrdering(m),
                           ),
                           q(
                             e,
@@ -1004,24 +1006,24 @@ __d(
                           ));
                       },
                       successMsg: s._(/*BTDS*/ "Pix Code copied"),
-                      text: c,
+                      text: d,
                     });
                 },
                 Icon: r("WDSIconIcContentCopy.react"),
               };
         }
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.PAYMENT_LINK: {
-          var m = l.psp,
-            p = l.uri;
-          return p == null
+          var p = u.psp,
+            _ = u.uri;
+          return _ == null
             ? null
             : {
                 label:
-                  m === "mercadopago"
+                  p === "mercadopago"
                     ? s._(/*BTDS*/ "Open in Mercado Pago")
                     : s._(/*BTDS*/ "Open payment link"),
                 onClick: function () {
-                  o("WAWebExternalLink.react").openExternalLink(p);
+                  o("WAWebExternalLink.react").openExternalLink(_);
                   var n = h(t);
                   n != null &&
                     (O(
@@ -1029,9 +1031,10 @@ __d(
                       o("WAWebBrPaymentRequest").PaymentRequestCtaType
                         .PAYMENT_LINK,
                       a,
+                      i,
                     ),
                     o(
-                      "WAWebBrLastUsedPaymentMethodStoreLazy",
+                      "WAWebBrLastUsedPaymentMethodCache",
                     ).recordLastUsedBrPaymentMethodLazy(
                       n,
                       o("WAWebBrPaymentMethodKey").BrPaymentMethodKey
@@ -1051,7 +1054,7 @@ __d(
           return null;
       }
     }
-    function O(e, t, n) {
+    function O(e, t, n, a) {
       B(e)
         .then(function (r) {
           r
@@ -1063,7 +1066,7 @@ __d(
               ).logBizAiPaymentRequestPixCopyWAMEvent(e)
             : o(
                 "WAWebPaymentRequestWamLogger",
-              ).logPaymentRequestInteractionWAMEvent(e, t, n);
+              ).logPaymentRequestInteractionWAMEvent(e, t, n, a);
         })
         .catch(function (e) {
           o("WALogger")

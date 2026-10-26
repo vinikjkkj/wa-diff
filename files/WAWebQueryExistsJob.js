@@ -8,6 +8,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
+    "WAWebContactSyncPrivacyHints",
     "WAWebDBCreateLidPnMappings",
     "WAWebHandleUsernameSync",
     "WAWebMexUsersGetUsername",
@@ -45,6 +46,8 @@ __d(
             o("WAWebABProps").getABPropConfigValue(
               "username_antiscraping_send_cached_un",
             ) === !0 && (yield f(n, e)),
+            o("WAWebContactSyncPrivacyHints").usyncPrivacyHintsEnabled() &&
+              (yield h(n, e)),
             r.withUser(n),
             r.withBusinessProtocol(),
             r.withDisappearingModeProtocol(),
@@ -99,13 +102,13 @@ __d(
             p = u.lid,
             _ = u.pn,
             g = u.username,
-            h = s[0].disappearingMode;
+            y = s[0].disappearingMode;
           if (e.type === "phone" && (d == null ? void 0 : d.type) !== "in")
             return (
               o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
               null
             );
-          var y = {
+          var C = {
             wid: m,
             biz: c != null,
             bizInfo: c,
@@ -113,33 +116,33 @@ __d(
           };
           (o("WAWebUsernameGatingUtils").usernameSearchEnabled() &&
             g != null &&
-            (y.username = g),
-            h &&
-              ((y.disappearingMode = {
-                duration: h.duration,
-                settingTimestamp: h.t,
+            (C.username = g),
+            y &&
+              ((C.disappearingMode = {
+                duration: y.duration,
+                settingTimestamp: y.t,
               }),
-              h.ephemeralityDisabled &&
-                (y.disappearingMode.isEphemeralityDisabled = !0)));
-          var C = null,
-            b = null;
+              y.ephemeralityDisabled &&
+                (C.disappearingMode.isEphemeralityDisabled = !0)));
+          var b = null,
+            v = null;
           return (
             m.isLid()
-              ? ((C = _), (b = m))
-              : ((C = m),
+              ? ((b = _), (v = m))
+              : ((b = m),
                 p != null &&
-                  (b = o("WAWebWidFactory").createUserWidOrThrow(p, "lid"))),
-            C != null &&
-              b != null &&
+                  (v = o("WAWebWidFactory").createUserWidOrThrow(p, "lid"))),
+            b != null &&
+              v != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: [{ pn: C, lid: b }],
+                mappings: [{ pn: b, lid: v }],
                 flushImmediately: !0,
                 learningSource: "usync",
               }),
-              m.isLid() || (y.wid = b)),
+              m.isLid() || (C.wid = v)),
             yield o("WAWebHandleUsernameSync").handleUsernameSync(i),
             o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
-            y
+            C
           );
         })),
         p.apply(this, arguments)
@@ -174,7 +177,24 @@ __d(
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = _(t);
+          if (n != null) {
+            var r = yield o("WAWebContactSyncPrivacyHints").getUsyncPrivacyHint(
+              n,
+            );
+            r != null && e.withTcToken(r.tcToken).withCommonGid(r.commonGid);
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -249,15 +269,15 @@ __d(
             );
           o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l);
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.isLid()) {
             var t, n, r;
             if (
@@ -288,7 +308,7 @@ __d(
                   ))
                 : (r = !0);
             } else {
-              var l = yield h(e);
+              var l = yield C(e);
               l != null && ((t = l.username), (n = l.id), (r = l.shouldDelete));
             }
             if (n != null) {
@@ -312,12 +332,12 @@ __d(
                 var g = yield o("WAWebSetUsernameJob").setUsernamesJob([
                     { userId: n, deleteUsername: !0 },
                   ]),
-                  y = g.get(n.toString());
-                ((s = (y == null ? void 0 : y.usernameChanged) === !0),
-                  (c = (y == null ? void 0 : y.wasPreviouslyKnown) === !0),
-                  (d = (y == null ? void 0 : y.isPhoneNumberKnown) === !0),
+                  h = g.get(n.toString());
+                ((s = (h == null ? void 0 : h.usernameChanged) === !0),
+                  (c = (h == null ? void 0 : h.wasPreviouslyKnown) === !0),
+                  (d = (h == null ? void 0 : h.isPhoneNumberKnown) === !0),
                   (m = o("WAWebUsernameTypes").serializeMaybeUsername(
-                    y == null ? void 0 : y.oldUsername,
+                    h == null ? void 0 : h.oldUsername,
                   )));
               }
               return {
@@ -330,15 +350,15 @@ __d(
             }
           }
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    function R(e, t, n) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             e.length < o("WAWebUsernameTypes").USERNAME_MIN_LENGTH ||
             e.length > o("WAWebUsernameTypes").USERNAME_MAX_LENGTH
@@ -450,14 +470,14 @@ __d(
             { keyRequired: !0, username: f, isUsernameSearch: !0 }
           );
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
     ((l.queryWidExists = c),
       (l.queryPhoneExists = d),
       (l.queryExist = m),
-      (l.queryWidUsernameExists = C),
-      (l.queryUsernameExists = v));
+      (l.queryWidUsernameExists = v),
+      (l.queryUsernameExists = R));
   },
   98,
 );

@@ -120,6 +120,7 @@ __d(
       ],
       callee_accept_timeout_ms: [6007, "int", 3e4, 3e4],
       calling_32p_version: [7709, "int", 0, 3],
+      calling_abprop_bucket_codes: [40587, "string", "", ""],
       calling_audio_share_version: [6598, "int", 0, 0],
       calling_av_sync_webrtc: [24599, "bool", !1, !1],
       calling_dual_stream_camera_auto_off_battery_threshold_pct: [

@@ -5,20 +5,22 @@ __d(
     "use strict";
     var e = {
       getPreloadProps: function (t) {
-        var e = t.businessID,
-          r = t.entrypoint,
-          o = t.productType,
-          a = t.waWebDestination;
+        var e = t.assetID,
+          r = t.businessID,
+          o = t.entrypoint,
+          a = t.productType,
+          i = t.waWebDestination;
         return {
           queries: {
             metaOneDialogQueryReference: {
               options: { fetchPolicy: "network-only" },
               parameters: n("MetaOneDialogQuery$Parameters"),
               variables: {
-                business_id: e,
-                entrypoint: r,
-                product_type: o,
-                wa_web_destination: a != null ? a : null,
+                asset_id: e != null ? e : null,
+                business_id: r,
+                entrypoint: o,
+                product_type: a,
+                wa_web_destination: i != null ? i : null,
               },
             },
           },

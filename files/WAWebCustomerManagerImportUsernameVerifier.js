@@ -21,7 +21,10 @@ __d(
             i = new Set();
           if (
             (n.forEach(function (e) {
-              e != null && !i.has(e.lid) && (i.add(e.lid), a.push(e.lid));
+              e != null &&
+                !i.has(e.lid) &&
+                (i.add(e.lid),
+                a.push({ lid: e.lid, expectedUsername: e.typed }));
             }),
             a.length === 0)
           )

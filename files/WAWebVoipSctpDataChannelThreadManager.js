@@ -24,11 +24,15 @@ __d(
       y,
       C,
       b,
-      v = null,
-      S = null,
-      R = null;
-    function L() {
-      if (R != null) return R;
+      v,
+      S,
+      R,
+      L = null,
+      E = null,
+      k = null,
+      I = null;
+    function T() {
+      if (I != null) return I;
       var t = null;
       try {
         t = new RTCPeerConnection();
@@ -40,9 +44,9 @@ __d(
         (r.port1.postMessage({ ch: n }, [n]),
           r.port1.close(),
           r.port2.close(),
-          (R = !0));
+          (I = !0));
       } catch (e) {
-        R = !1;
+        I = !1;
       } finally {
         var a;
         (a = t) == null || a.close();
@@ -54,20 +58,23 @@ __d(
               "voip: [DCThread] RTCDataChannel transfer supported: ",
               "",
             ])),
-          String(R),
+          String(I),
         ),
-        R === !0
+        I === !0
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function k() {
+    function x() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebABProps").getABPropConfigValue(
-            "enable_web_voip_proxy_and_sctp_workers",
-          );
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t === void 0 ? {} : t,
+            a = n.withRing,
+            i = a === void 0 ? !0 : a,
+            l = o("WAWebABProps").getABPropConfigValue(
+              "enable_web_voip_proxy_and_sctp_workers",
+            );
           if (
             (o("WALogger").LOG(
               u ||
@@ -75,9 +82,9 @@ __d(
                   "voip: [DCThread] init shouldEnable=",
                   "",
                 ])),
-              String(t),
+              String(l),
             ),
-            !t)
+            !l)
           )
             return (
               o("WALogger").LOG(
@@ -88,7 +95,7 @@ __d(
               ),
               !1
             );
-          if (!L())
+          if (!T())
             return (
               o("WALogger").LOG(
                 d ||
@@ -98,7 +105,10 @@ __d(
               ),
               !1
             );
-          if (S != null && S.isActive())
+          var s = k;
+          s != null && (yield s);
+          var C = E;
+          if (C != null && C.isActive())
             return (
               o("WALogger").LOG(
                 m ||
@@ -106,9 +116,11 @@ __d(
                     "voip: [DCThread] thread already active, reuse",
                   ])),
               ),
+              i && (yield C.ensureRingBuffer()),
               !0
             );
-          if (v != null) {
+          var b = L;
+          if (b != null) {
             o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -116,23 +128,20 @@ __d(
                 ])),
             );
             try {
-              var n, a;
-              return (
-                (S = yield v),
+              var v = yield b;
+              return L !== b ||
+                ((E = v),
                 o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [DCThread] Existing promise resolved, thread active: ",
                       "",
                     ])),
-                  String(
-                    (n = (a = S) == null ? void 0 : a.isActive()) != null
-                      ? n
-                      : !1,
-                  ),
+                  String(v.isActive()),
                 ),
-                S != null && S.isActive()
-              );
+                !v.isActive())
+                ? !1
+                : (i && (yield v.ensureRingBuffer()), !0);
             } catch (e) {
               return (
                 o("WALogger").LOG(
@@ -147,32 +156,37 @@ __d(
               );
             }
           }
-          (o("WALogger").LOG(
+          o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [DCThread] init WASM pthread for RTCDataChannel I/O",
               ])),
-          ),
-            (v = r("WAWebVoipSctpDataChannelThread").create()));
+          );
+          var S = r("WAWebVoipSctpDataChannelThread").create({ initRing: i });
+          L = S;
           try {
-            var i, l, s, C;
-            return (
-              (S = yield v),
-              (i = S) == null ||
-                i.setRemoveRelayPortOverride(
-                  o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
+            var R,
+              I,
+              D,
+              x,
+              P = yield S;
+            return L !== S
+              ? !1
+              : ((E = P),
+                (R = E) == null ||
+                  R.setRemoveRelayPortOverride(
+                    o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
+                  ),
+                (I = E) == null || I.setSctpTimeoutMs(e()),
+                (D = E) == null || D.setRelayParkedTxIdleMs($()),
+                o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [DCThread] WASM pthread created successfully",
+                    ])),
                 ),
-              (l = S) == null || l.setSctpTimeoutMs(e()),
-              (s = S) == null || s.setRelayParkedTxIdleMs(I()),
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [DCThread] WASM pthread created successfully",
-                  ])),
-              ),
-              (C = S) == null || C.ping(),
-              !0
-            );
+                (x = E) == null || x.ping(),
+                !0);
           } catch (e) {
             return (
               o("WALogger").ERROR(
@@ -183,15 +197,15 @@ __d(
                   ])),
                 e,
               ),
-              (v = null),
+              (L = null),
               !1
             );
           }
         })),
-        k.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function I() {
+    function $() {
       try {
         return r("justknobx")._("1307") || 0;
       } catch (e) {
@@ -208,45 +222,122 @@ __d(
         );
       }
     }
-    function T() {
-      return S != null && S.isActive();
+    function P() {
+      return A() != null || L != null;
     }
-    function D() {
-      return S != null && S.isActive() ? S : null;
+    function N() {
+      return M.apply(this, arguments);
     }
-    function x() {
-      return $.apply(this, arguments);
-    }
-    function $() {
+    function M() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (((v = null), S == null || !S.isActive())) {
-            S = null;
-            return;
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = E,
+            t = L;
+          if (e == null && t != null) {
+            try {
+              e = yield t;
+            } catch (e) {
+              return (
+                o("WALogger").LOG(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [DCThread] No send ring: pthread creation failed: ",
+                      "",
+                    ])),
+                  String(e),
+                ),
+                !1
+              );
+            }
+            if (L !== t) return !1;
           }
-          o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [DCThread] Shutting down WASM pthread",
-              ])),
-          );
-          var e = S;
-          ((S = null),
-            yield e.shutdown(),
-            o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [DCThread] WASM pthread shutdown complete",
-                ])),
-            ));
+          return e == null || !e.isActive() ? !1 : e.ensureRingBuffer();
         })),
-        $.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    ((l.initDataChannelWorker = E),
-      (l.isDataChannelThreadActive = T),
-      (l.getDataChannelThread = D),
-      (l.stopDataChannelWorker = x));
+    function w() {
+      return E != null && E.isActive();
+    }
+    function A() {
+      return E != null && E.isActive() ? E : null;
+    }
+    function F() {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = L;
+          L = null;
+          var t = E;
+          if (((E = null), t != null)) {
+            t.isActive() &&
+              (o("WALogger").LOG(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [DCThread] Shutting down WASM pthread",
+                  ])),
+              ),
+              yield t.shutdown(),
+              o("WALogger").LOG(
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [DCThread] WASM pthread shutdown complete",
+                  ])),
+              ));
+            return;
+          }
+          if (e != null) {
+            var n = B(e);
+            k = n;
+            try {
+              yield n;
+            } finally {
+              k === n && (k = null);
+            }
+          }
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    function B(e) {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          try {
+            t = yield e;
+          } catch (e) {
+            o("WALogger").WARN(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [DCThread] Stopped pthread creation had failed: ",
+                  "",
+                ])),
+              String(e),
+            );
+            return;
+          }
+          (o("WALogger").LOG(
+            R ||
+              (R = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [DCThread] Shutting down a WASM pthread that was still being created",
+              ])),
+          ),
+            yield t.shutdown());
+        })),
+        W.apply(this, arguments)
+      );
+    }
+    ((l.initDataChannelWorker = D),
+      (l.hasDataChannelThreadOrPending = P),
+      (l.ensureDataChannelRingBuffer = N),
+      (l.isDataChannelThreadActive = w),
+      (l.getDataChannelThread = A),
+      (l.stopDataChannelWorker = F));
   },
   98,
 );

@@ -15,6 +15,7 @@ __d(
     "WAWebOrderDetailsCloudApiSignalResolver",
     "WAWebOrderDetailsCreationActionWamEventUtilP2MFlow",
     "WAWebOrderPaymentStatus",
+    "WAWebPaymentRequestWamLogger",
     "WAWebPsStructuredMessageInteractionWamEvent",
     "WAWebWamEnumBizPlatform",
     "WAWebWamEnumCloudApiSignalTemplateType",
@@ -25,13 +26,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = "api_receiver_event_log_key";
-    function u(e) {
-      return c.apply(this, arguments);
+      s,
+      u = "api_receiver_event_log_key";
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           if (!o("WAWebMsgGetters").getIsSentByMe(t.unsafe())) {
             var r = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
@@ -86,15 +88,15 @@ __d(
               }));
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (!o("WAWebMsgGetters").getIsSentByMe(e.unsafe())) {
             var r = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
@@ -168,50 +170,60 @@ __d(
               }));
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a = e.msg,
             i = e.orderAcceptedPaymentMethod,
             l = e.orderInfo,
-            u = e.surface;
+            s = e.renderedSnapshot,
+            c = e.surface;
           if (!o("WAWebMsgGetters").getIsSentByMe(a.unsafe())) {
-            var c = [];
+            var d = [];
             o("WAWebBrPaymentSettingsUtils").hasValidDynamicPix(l) &&
-              c.push(
+              d.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               );
-            var d = o("WAWebFrontendMsgGetters").getChat(a.unsafe());
-            (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(d) &&
+            var m = o("WAWebFrontendMsgGetters").getChat(a.unsafe());
+            (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(m) &&
               o("WAWebBrPaymentSettingsUtils").hasValidBoletoCode(l) &&
-              c.push(
+              d.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
               ),
-              o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(d) &&
+              o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(m) &&
                 o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(l) &&
-                c.push(
+                d.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .PAYMENT_LINK,
                 ),
               o("WAWebBrPaymentSettingsUtils").hasValidCard(l) &&
-                c.push(
+                d.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .NATIVE,
                 ));
-            var m = JSON.stringify(c),
-              p = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
+            var p =
+                s == null
+                  ? JSON.stringify(d)
+                  : o(
+                      "WAWebPaymentRequestWamLogger",
+                    ).getRenderedAcceptedPaymentMethods(s),
+              _ =
+                s == null
+                  ? void 0
+                  : o("WAWebPaymentRequestWamLogger").getRenderedRankSource(s),
+              f = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
                 a,
-                s,
+                u,
               ),
-              _ = new (o(
+              g = new (o(
                 "WAWebPsStructuredMessageInteractionWamEvent",
               ).PsStructuredMessageInteractionWamEvent)({
                 bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
@@ -220,7 +232,7 @@ __d(
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
                 messageClassAttributes: JSON.stringify({
-                  order_funnel_id: p,
+                  order_funnel_id: f,
                   wa_pay_registered: !1,
                   is_template: !1,
                   is_cta_available: !0,
@@ -229,11 +241,12 @@ __d(
                   ).P2MFlow.ORDER,
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
-                  accepted_pay_methods: m,
+                  accepted_pay_methods: p,
                   p2m_type: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
                   payment_method_choice: i,
                   is_simplified_order: l.isOrderNodeOmitted,
-                  payment_method_surface: u,
+                  payment_method_surface: c,
+                  payment_method_rank_source: _,
                 }),
                 messageInteraction:
                   i ===
@@ -244,15 +257,15 @@ __d(
                         .USER_PAY_NOW,
                 messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
               });
-            (_.commit(),
-              f({ msg: a, orderAcceptedPaymentMethod: i, orderInfo: l }),
+            (g.commit(),
+              y({ msg: a, orderAcceptedPaymentMethod: i, orderInfo: l }),
               o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
                 isLoggingEnabled: o(
                   "WAWebBizFrontendGatingUtils",
                 ).isCopyPixCodeBuyerLoggingEnabled(
                   (n = a.senderObj) == null ? void 0 : n.id.toJid(),
                 ),
-                psFunnelId: p,
+                psFunnelId: f,
                 attributes: {
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
@@ -263,13 +276,13 @@ __d(
                   ).P2MFlow.ORDER,
                   currency: "BRL",
                   isTemplate: !1,
-                  acceptedPaymentMethod: c.map(function (e) {
+                  acceptedPaymentMethod: d.map(function (e) {
                     return e;
                   }),
                   p2mType: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
                   chatType: o(
                     "WAWebBrPixRequestRowAttributes",
-                  ).getChatTypeString(d),
+                  ).getChatTypeString(m),
                   isSimplifiedOrder: l.isOrderNodeOmitted,
                 },
                 interaction:
@@ -283,10 +296,73 @@ __d(
               }));
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msg,
+            n = e.renderedSnapshot,
+            r = e.weights;
+          if (!o("WAWebMsgGetters").getIsSentByMe(t.unsafe()))
+            try {
+              var a,
+                i = o(
+                  "WAWebPaymentRequestWamLogger",
+                ).getRenderedAcceptedPaymentMethods(n),
+                l = o("WAWebPaymentRequestWamLogger").getRenderedRankSource(n),
+                c = o("WAWebPaymentRequestWamLogger").getWeightsAttributes(r),
+                d = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
+                  t,
+                  u,
+                );
+              new (o(
+                "WAWebPsStructuredMessageInteractionWamEvent",
+              ).PsStructuredMessageInteractionWamEvent)({
+                bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
+                businessOwnerJid:
+                  (a = t.senderObj) == null ? void 0 : a.id.toJid(),
+                messageClass: o("WAWebWamEnumStructuredMessageClass")
+                  .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+                messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
+                messageInteraction: o("WAWebWamEnumInteractionType")
+                  .INTERACTION_TYPE.OTHER_WAYS_TO_PAY_VIEW,
+                messageClassAttributes: JSON.stringify(
+                  babelHelpers.extends(
+                    {
+                      cta: "payment_options_sheet_shown",
+                      p2m_flow: o(
+                        "WAWebOrderDetailsCreationActionWamEventUtilP2MFlow",
+                      ).P2MFlow.ORDER,
+                      is_template: !1,
+                      order_funnel_id: d,
+                      accepted_pay_methods: i,
+                      payment_method_surface: "options_sheet",
+                      payment_method_rank_source: l,
+                    },
+                    c,
+                  ),
+                ),
+              }).commit();
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAM:BR_PAYMENT] options shown log failed",
+                    ])),
+                )
+                .sendLogs("br-payment-options-shown-log-failed");
+            }
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
       var t = e.msg,
         n = e.orderAcceptedPaymentMethod,
         r = e.orderInfo,
@@ -305,9 +381,10 @@ __d(
         });
       }
     }
-    ((l.logPaymentInfoOrderDetailsInteractiveActionForRecepient = u),
-      (l.logPaymentRequestInteractiveAction = d),
-      (l.logAPIMerchantPaymentMethodClickEvent = p));
+    ((l.logPaymentInfoOrderDetailsInteractiveActionForRecepient = c),
+      (l.logPaymentRequestInteractiveAction = m),
+      (l.logAPIMerchantPaymentMethodClickEvent = _),
+      (l.logAPIMerchantPaymentOptionsShownEvent = g));
   },
   98,
 );

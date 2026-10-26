@@ -18,18 +18,27 @@ __d(
         n = e.status;
       return n === "hidden"
         ? []
-        : c(
-            [
+        : e.hasRows === !0 && t.length === 0 && n === "ready"
+          ? [
               {
-                failure: n === "error" ? m() : null,
-                loading: n === "loading",
-                members: t,
-                orgId: "primary",
-                orgName: "",
+                itemKey: "org-members-header-primary",
+                status: { kind: "header" },
+                type: o("WAWebMultiSelectChatListTypes").Row
+                  .ROW_ORG_MEMBERS_STATUS,
               },
-            ],
-            o("WAWebBoolFunc").returnTrue,
-          );
+            ]
+          : c(
+              [
+                {
+                  failure: n === "error" ? m() : null,
+                  loading: n === "loading",
+                  members: t,
+                  orgId: "primary",
+                  orgName: "",
+                },
+              ],
+              o("WAWebBoolFunc").returnTrue,
+            );
     }
     function s(e) {
       var t = e[0],

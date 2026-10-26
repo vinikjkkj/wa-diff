@@ -8,6 +8,9 @@ __d(
     "WAWebFormatMsgTextUtils",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
+    "WAWebHatchJarvisPayload",
+    "WAWebHatchJarvisReplyGate",
+    "WAWebHatchJarvisText",
     "WAWebMsgGetters",
     "WAWebRichResponse.flow",
     "WAWebRichResponseMsgUtils",
@@ -20,43 +23,56 @@ __d(
     function e(e) {
       var t = e.msg,
         n = e.options,
-        a = o("WAWebFrontendMsgGetters").getAsRichResponse(t);
+        r = o("WAWebFrontendMsgGetters").getAsRichResponse(t);
       if (
-        a != null &&
+        r != null &&
         o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(t)
       )
-        return u(
-          t,
-          r("getPlainTextFromUnifiedResponse")(a.unifiedResponse),
-          n.formatAsLastMsg === !0,
-          n,
-        );
+        return c(t, u(t, r.unifiedResponse), n.formatAsLastMsg === !0, n);
       if (
-        a == null ||
+        r == null ||
         o("WAWebRichResponseMsgUtils").isRichResponseMsgUnparsedAfterCompletion(
-          a,
+          r,
         )
       )
         return o("WAWebFormatUnknownMsg").formatUnknownMsgText(t);
-      var i = a.richResponse,
-        l = i.fragments,
-        s = i.parseState,
-        c = o("WAWebRichResponseMsgUtils")
-          .getBundledRichResponseFragments(l)
+      var a = r.richResponse,
+        i = a.fragments,
+        l = a.parseState,
+        s = o("WAWebRichResponseMsgUtils")
+          .getBundledRichResponseFragments(i)
           .map(function (e) {
-            return d(e, s);
+            return m(e, l);
           })
           .join("\n");
-      return c.trim() === ""
+      return s.trim() === ""
         ? o("WAWebFormatUnknownMsg").formatUnknownMsgText(t)
         : o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
             t,
-            c,
+            s,
             n,
           );
     }
-    function u(e, t, n, r) {
-      var a = t.trim() === "" && n ? c(e) : null;
+    function u(e, t) {
+      if (t == null) return "";
+      var n = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
+          chatId: e.id.remote,
+          hasForwardedAttribution:
+            o("WAWebMsgGetters").getForwardedAiBotMessageInfo(e) != null,
+          isForwarded: o("WAWebMsgGetters").getIsForwarded(e),
+          isFromMe: e.id.fromMe,
+          unifiedResponse: t,
+        }),
+        a =
+          n === "reply"
+            ? o("WAWebHatchJarvisPayload").getHatchJarvisPayload(t)
+            : null;
+      return a != null && a.presentation == null
+        ? o("WAWebHatchJarvisText").getHatchJarvisReplyText(a.displayText)
+        : r("getPlainTextFromUnifiedResponse")(t);
+    }
+    function c(e, t, n, r) {
+      var a = t.trim() === "" && n ? d(e) : null;
       return a == null
         ? o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
             e,
@@ -67,7 +83,7 @@ __d(
             s._param("agent name", a),
           ]);
     }
-    function c(e) {
+    function d(e) {
       if (
         o("WAWebMsgGetters").getIsSentByMe(e) ||
         !o("WAWebBotUtils").isHatchBot(e.id.remote)
@@ -77,7 +93,7 @@ __d(
         n = t == null ? "" : o("WAWebContactGetters").getName(t);
       return n === "" ? null : n;
     }
-    function d(e, t) {
+    function m(e, t) {
       switch (e.type) {
         case o("WAWebRichResponse.flow").RichResponseFragmentType.Text:
           return e.text;

@@ -32,7 +32,7 @@ __d(
                 u.jsx(r("WDSTextualLink.react"), {
                   href: o("WAWebBroadcastConsts").BIZ_BROADCAST_TOS_URL,
                   children: s._(
-                    /*BTDS*/ "Meta Terms for WhatsApp Business Broadcast with Advanced Tools",
+                    /*BTDS*/ "Meta Terms for WhatsApp Business Broadcasts",
                   ),
                 }),
               ),
@@ -46,7 +46,7 @@ __d(
                 u.jsx(r("WDSTextualLink.react"), {
                   href: o("WAWebBroadcastConsts").BIZ_BROADCAST_TOS_URL,
                   children: s._(
-                    /*BTDS*/ "Meta Terms for WhatsApp Business Broadcast with Advanced Tools",
+                    /*BTDS*/ "Meta Terms for WhatsApp Business Broadcasts",
                   ),
                 }),
               ),
@@ -54,7 +54,7 @@ __d(
                 "=m5",
                 u.jsx(r("WDSTextualLink.react"), {
                   href: o("WAWebBroadcastConsts").HIGH_QUALITY_MESSAGES_DOC_URL,
-                  children: s._(/*BTDS*/ "sending high quality messages"),
+                  children: s._(/*BTDS*/ "sending high-quality messages"),
                 }),
               ),
             ],

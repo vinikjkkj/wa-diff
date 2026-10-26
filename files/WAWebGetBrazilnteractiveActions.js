@@ -4,7 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WAWebBizOrderDetailsParams",
-    "WAWebBrLastUsedPaymentMethodStoreLazy",
+    "WAWebBrLastUsedPaymentMethodCache",
     "WAWebBrPaymentInteractionLogger",
     "WAWebBrPaymentMethodKey",
     "WAWebBrPaymentMethodSurface",
@@ -109,7 +109,8 @@ __d(
         i =
           a === void 0
             ? o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface.INLINE_CTA
-            : a;
+            : a,
+        l = e.paymentMethodSnapshot;
       return {
         label: s._(/*BTDS*/ "Open payment link"),
         onClick: function () {
@@ -128,10 +129,11 @@ __d(
                   .OrderAcceptedPaymentMethods.PAYMENT_LINK,
                 orderInfo: n,
                 surface: i,
+                renderedSnapshot: l,
               })
               .catch(r("WAWebNoop")),
             o(
-              "WAWebBrLastUsedPaymentMethodStoreLazy",
+              "WAWebBrLastUsedPaymentMethodCache",
             ).recordLastUsedBrPaymentMethodLazy(
               a,
               o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.PAYMENT_LINK,
@@ -147,7 +149,8 @@ __d(
         i =
           a === void 0
             ? o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface.INLINE_CTA
-            : a;
+            : a,
+        l = e.paymentMethodSnapshot;
       return {
         label: s._(/*BTDS*/ "Copy boleto code"),
         onClick: function () {
@@ -164,10 +167,11 @@ __d(
                       .OrderAcceptedPaymentMethods.BOLETO,
                     orderInfo: n,
                     surface: i,
+                    renderedSnapshot: l,
                   })
                   .catch(r("WAWebNoop")),
                 o(
-                  "WAWebBrLastUsedPaymentMethodStoreLazy",
+                  "WAWebBrLastUsedPaymentMethodCache",
                 ).recordLastUsedBrPaymentMethodLazy(
                   e,
                   o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.BOLETO,
@@ -225,7 +229,8 @@ __d(
         i =
           a === void 0
             ? o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface.INLINE_CTA
-            : a;
+            : a,
+        l = e.paymentMethodSnapshot;
       return {
         label: s._(/*BTDS*/ "Copy Pix code"),
         onClick: function () {
@@ -246,10 +251,11 @@ __d(
                       .OrderAcceptedPaymentMethods.PIX,
                     orderInfo: n,
                     surface: i,
+                    renderedSnapshot: l,
                   })
                   .catch(r("WAWebNoop")),
                 o(
-                  "WAWebBrLastUsedPaymentMethodStoreLazy",
+                  "WAWebBrLastUsedPaymentMethodCache",
                 ).recordLastUsedBrPaymentMethodLazy(
                   e,
                   o("WAWebBrPaymentMethodKey").getPixMethodKeyForServerOrdering(

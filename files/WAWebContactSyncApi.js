@@ -14,6 +14,7 @@ __d(
     "WAWebBizVerifiedNameAction",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
+    "WAWebContactSyncPrivacyHints",
     "WAWebContactSyncUtils",
     "WAWebDBCreateLidPnMappings",
     "WAWebGetIdentityKeysJob",
@@ -155,7 +156,14 @@ __d(
                 .map(function (e) {
                   return e.id;
                 }),
-              g = yield q(u);
+              g = yield q(u),
+              h = o("WAWebContactSyncPrivacyHints").usyncPrivacyHintsEnabled()
+                ? yield o("WAWebContactSyncPrivacyHints").getUsyncPrivacyHints(
+                    u.map(function (e) {
+                      return e.id;
+                    }),
+                  )
+                : new Map();
             u.forEach(function (e) {
               var t = new (o("WAWebUsyncUser").USyncUser)()
                 .withId(e.id)
@@ -167,27 +175,30 @@ __d(
               var r = o("WAWebUsernameTypes").serializeMaybeUsername(
                 g.get(o("WAWebWidFactory").asUserWidOrThrow(e.id)),
               );
-              (r != null && t.withUsername(r), c.withUser(t));
+              r != null && t.withUsername(r);
+              var a = h.get(e.id);
+              (a != null && t.withTcToken(a.tcToken).withCommonGid(a.commonGid),
+                c.withUser(t));
             });
-            for (var h = null, y = 3, C = 10 * Math.random(); y-- > 0; )
+            for (var y = null, C = 3, b = 10 * Math.random(); C-- > 0; )
               try {
-                h = yield c.execute();
-                var b = h.error.all;
-                if (b) {
-                  var v;
+                y = yield c.execute();
+                var v = y.error.all;
+                if (v) {
+                  var R;
                   throw (
-                    (C = (v = b.errorBackoff) != null ? v : 10 * Math.random()),
+                    (b = (R = v.errorBackoff) != null ? R : 10 * Math.random()),
                     r("err")(
                       "syncContactList: error " +
-                        b.errorCode +
+                        v.errorCode +
                         ": " +
-                        b.errorText,
+                        v.errorText,
                     )
                   );
-                } else y = 0;
+                } else C = 0;
               } catch (e) {
-                var R = r("getErrorSafe")(e);
-                (y === 0 &&
+                var L = r("getErrorSafe")(e);
+                (C === 0 &&
                   (o("WALogger")
                     .ERROR(
                       m ||
@@ -196,37 +207,37 @@ __d(
                         ])),
                     )
                     .verbose()
-                    .sendLogs("failed to execute usync query: " + R.message),
+                    .sendLogs("failed to execute usync query: " + L.message),
                   o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
                     d,
-                    R.errorCode,
-                    h != null ? h : void 0,
+                    L.errorCode,
+                    y != null ? y : void 0,
                     o("WAWebContactSyncErrorCodes").BACKGROUND_SYNC,
                   )),
-                  yield o("WAPromiseDelays").delayMs(C * 1e3));
+                  yield o("WAPromiseDelays").delayMs(b * 1e3));
               }
-            if (h == null || h.error.all) return !1;
-            var L = h.refresh,
-              E = [];
-            for (var k of Object.keys(L)) E.push(L[k]);
-            if (E.length > 0) {
-              var I = Math.min.apply(Math, E);
-              G(I);
+            if (y == null || y.error.all) return !1;
+            var E = y.refresh,
+              k = [];
+            for (var I of Object.keys(E)) k.push(E[I]);
+            if (k.length > 0) {
+              var T = Math.min.apply(Math, k);
+              G(T);
             }
-            yield M(h);
-            var T = o("WAWebContactSyncLogger").createUpdateCounter();
+            yield M(y);
+            var $ = o("WAWebContactSyncLogger").createUpdateCounter();
             return (
               yield (S || (S = n("Promise"))).all([
-                s ? B(h, f, T) : (S || (S = n("Promise"))).resolve(),
-                P(h, T),
-                o("WAWebHandleUsernameSync").handleUsernameSync(h),
-                D(h, T),
-                x(h),
-                A(h, T),
+                s ? B(y, f, $) : (S || (S = n("Promise"))).resolve(),
+                P(y, $),
+                o("WAWebHandleUsernameSync").handleUsernameSync(y),
+                D(y, $),
+                x(y),
+                A(y, $),
               ]),
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(d, h, T),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(d, y, $),
               yield O(i),
-              a == null || h.error.business == null
+              a == null || y.error.business == null
             );
           } finally {
             o("WAWebAppTracker").AppTracker.stop(

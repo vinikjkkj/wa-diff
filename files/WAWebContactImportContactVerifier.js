@@ -4,6 +4,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebContactSyncLogger",
+    "WAWebContactSyncPrivacyHints",
     "WAWebPerformanceUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
@@ -33,11 +34,23 @@ __d(
               : u.withContactProtocol(
                   o("WAWebUsync").USYNC_ADDRESSING_MODE.LID,
                 ));
-          var c = self.performance.now();
-          t.forEach(function (e) {
-            u.withUser(new (o("WAWebUsyncUser").USyncUser)().withPhone(e));
+          var c = t.map(function (e) {
+            return new (o("WAWebUsyncUser").USyncUser)().withPhone(e);
           });
-          var d = o(
+          n.withPictureProtocol === !0 &&
+            (yield o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(
+              c.map(function (e, n) {
+                return {
+                  user: e,
+                  wid: o("WAWebContactSyncPrivacyHints").userWidFromPhone(t[n]),
+                };
+              }),
+            ));
+          var d = self.performance.now();
+          c.forEach(function (e) {
+            u.withUser(e);
+          });
+          var m = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
               protocols: u.protocols,
@@ -48,17 +61,17 @@ __d(
                 "query",
               ),
             }),
-            m = yield o(
+            p = yield o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.executeWithLogging(
-              d,
+              m,
               function () {
                 return u.execute();
               },
               a,
             );
-          m.error &&
-            !r("isEmptyObject")(m.error) &&
+          p.error &&
+            !r("isEmptyObject")(p.error) &&
             (o("WALogger")
               .WARN(
                 e ||
@@ -71,11 +84,11 @@ __d(
                 t.length,
               )
               .sendLogs("business-broadcast-contact-verify-errors"),
-            Object.entries(m.error).forEach(function (e) {
+            Object.entries(p.error).forEach(function (e) {
               var t = e[0],
                 n = e[1];
             }));
-          var p = o("WAWebPerformanceUtils").getElapsedTimeMs(c);
+          var _ = o("WAWebPerformanceUtils").getElapsedTimeMs(d);
           return (
             o("WALogger").LOG(
               s ||
@@ -86,18 +99,18 @@ __d(
                   " numbers",
                 ])),
               i,
-              p,
+              _,
               t.length,
             ),
-            m.error && m.error.all
+            p.error && p.error.all
               ? o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                  d,
-                  m.error.all.errorCode,
                   m,
+                  p.error.all.errorCode,
+                  p,
                   a,
                 )
-              : o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(d, m),
-            m
+              : o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(m, p),
+            p
           );
         })),
         m.apply(this, arguments)

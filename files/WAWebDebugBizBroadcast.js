@@ -44,10 +44,9 @@ __d(
     ((u.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
       (u.paramsToExecute = []));
     function c() {
-      (r("vulture")("WtlSoj4JqgoQbiw76VUzsX2cdk8="),
-        o(
-          "WAWebBizBroadcastDeviceCapabilityCommon",
-        ).saveBizBroadcastProCapabilityToStorage(!0),
+      (o(
+        "WAWebBizBroadcastDeviceCapabilityCommon",
+      ).saveBizBroadcastProCapabilityToStorage(!0),
         o(
           "WAWebBizBroadcastProOnboardingStatus",
         ).debugSetBizBroadcastProOnboardingStatus(

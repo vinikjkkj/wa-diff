@@ -18,7 +18,8 @@ __d(
           var a = r.added,
             i = r.memberUpdatedTsUsec,
             l = r.removedLids,
-            s = { status: "missing_org" };
+            s = r.removesViewer,
+            u = { status: "missing_org" };
           return (
             yield o("WAWebModelStorageUtils")
               .getStorage()
@@ -27,17 +28,26 @@ __d(
                 (function () {
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (r) {
-                      var u = r[0],
-                        d = r[1],
-                        m = u,
+                      var d = r[0],
+                        m = r[1],
                         p = d,
-                        _ = yield m.get(t);
-                      if (_ != null) {
-                        if (!c(i, _.memberUpdatedTsUsec)) {
-                          s = { status: "stale" };
+                        _ = m,
+                        f = yield p.get(t);
+                      if (f != null) {
+                        if (!c(i, f.memberUpdatedTsUsec)) {
+                          u = { status: "stale" };
                           return;
                         }
-                        var f = Array.from(
+                        if (s) {
+                          (yield p.remove(t),
+                            yield o("WAWebDBOrg").removeOrgRoster(_, t),
+                            (u = {
+                              orgs: yield p.all(),
+                              status: "viewer_removed",
+                            }));
+                          return;
+                        }
+                        var g = Array.from(
                             new Set(
                               [].concat(
                                 a.map(function (e) {
@@ -47,8 +57,8 @@ __d(
                               ),
                             ),
                           ),
-                          g = new Map(
-                            (yield p.anyOf(["lid"], f))
+                          h = new Map(
+                            (yield _.anyOf(["lid"], g))
                               .filter(function (e) {
                                 return e.orgId === t;
                               })
@@ -58,24 +68,24 @@ __d(
                           );
                         (yield (e || (e = n("Promise"))).all(
                           l.map(function (e) {
-                            return p.remove([t, e]);
+                            return _.remove([t, e]);
                           }),
                         ),
-                          yield p.bulkCreateOrReplace(
+                          yield _.bulkCreateOrReplace(
                             a.map(function (e) {
                               return o("WAWebDBOrg").mergeOrgContactRow(
                                 babelHelpers.extends({}, e, { orgId: t }),
-                                g.get(e.lid),
+                                h.get(e.lid),
                               );
                             }),
                           ));
-                        var h = babelHelpers.extends({}, _, {
+                        var y = babelHelpers.extends({}, f, {
                           memberUpdatedTsUsec: i,
                         });
-                        (yield m.createOrReplace(h),
-                          (s = {
-                            org: h,
-                            rows: yield o("WAWebDBOrg").readRowsByLids(p, f),
+                        (yield p.createOrReplace(y),
+                          (u = {
+                            org: y,
+                            rows: yield o("WAWebDBOrg").readRowsByLids(_, g),
                             status: "applied",
                           }));
                       }
@@ -86,7 +96,7 @@ __d(
                   };
                 })(),
               ),
-            s
+            u
           );
         })),
         u.apply(this, arguments)

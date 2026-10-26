@@ -7,6 +7,7 @@ __d(
     "WAWebCountriesUtils",
     "WAWebFMXGatingUtils",
     "WAWebFrontendContactGetters",
+    "WAWebOrgMemberContactName",
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
@@ -106,7 +107,10 @@ __d(
       );
     }
     function y(e) {
-      return !o("WAWebFrontendContactGetters").getIsMyContact(e);
+      return (
+        !o("WAWebFrontendContactGetters").getIsMyContact(e) &&
+        o("WAWebOrgMemberContactName").getKnownOrgMember(e.id) == null
+      );
     }
     function C(e) {
       if (y(e)) return s._(/*BTDS*/ "Not a contact");

@@ -77,45 +77,52 @@ __d(
     R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
       return s._(
-        /*BTDS*/ '_j{"*":"Select at least {number} recipients to continue.","_1":"Select at least 1 recipient to continue."}',
+        /*BTDS*/ '_j{"*":"Your audience needs at least {number} recipients to send.","_1":"Your audience needs at least 1 recipient to send."}',
         [s._plural(e, "number")],
       );
     }
     L.displayName = L.name + " [from " + i.id + "]";
-    function E() {
-      return s._(/*BTDS*/ "OK");
+    function E(e) {
+      return s._(
+        /*BTDS*/ '_j{"*":"Select at least {number} recipients to continue.","_1":"Select at least 1 recipient to continue."}',
+        [s._plural(e, "number")],
+      );
     }
     E.displayName = E.name + " [from " + i.id + "]";
-    function k(e) {
+    function k() {
+      return s._(/*BTDS*/ "OK");
+    }
+    k.displayName = k.name + " [from " + i.id + "]";
+    function I(e) {
       return s._(
         /*BTDS*/ '_j{"*":"Keep at least {number} recipients to continue.","_1":"Keep at least 1 recipient to continue."}',
         [s._plural(e, "number")],
       );
     }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(e) {
       return s._(
         /*BTDS*/ '_j{"*":"Upload a file with at least {number} recipients to continue.","_1":"Upload a file with at least 1 recipient to continue."}',
         [s._plural(e, "number")],
       );
     }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T() {
-      return s._(/*BTDS*/ "Upload new file");
-    }
     T.displayName = T.name + " [from " + i.id + "]";
     function D() {
-      return s._(/*BTDS*/ "Cancel");
+      return s._(/*BTDS*/ "Upload new file");
     }
     D.displayName = D.name + " [from " + i.id + "]";
-    function x(e, t) {
+    function x() {
+      return s._(/*BTDS*/ "Cancel");
+    }
+    x.displayName = x.name + " [from " + i.id + "]";
+    function $(e, t) {
       return s._(
         /*BTDS*/ '_j{"*":"Upload a CSV or Excel file with at least {number} recipients\' names and phone numbers. For best results, {template_link}.","_1":"Upload a CSV or Excel file with at least 1 recipient\'s name and phone number. For best results, {template_link}."}',
         [s._plural(e, "number"), s._param("template_link", t)],
       );
     }
-    x.displayName = x.name + " [from " + i.id + "]";
-    function $(e, t) {
+    $.displayName = $.name + " [from " + i.id + "]";
+    function P(e, t) {
       return e <= 0
         ? s._(
             /*BTDS*/ "Upload a CSV or Excel file with your recipients' phone numbers. For best results, {template_link}.",
@@ -126,78 +133,78 @@ __d(
             [s._plural(e, "number"), s._param("template_link", t)],
           );
     }
-    $.displayName = $.name + " [from " + i.id + "]";
-    function P() {
+    P.displayName = P.name + " [from " + i.id + "]";
+    function N() {
       return s._(/*BTDS*/ "Go back");
     }
-    function N() {
+    function M() {
       return s._(/*BTDS*/ "Choose recipients to add");
     }
-    N.displayName = N.name + " [from " + i.id + "]";
-    function M() {
+    M.displayName = M.name + " [from " + i.id + "]";
+    function w() {
       return s._(/*BTDS*/ "Choose recipients to remove");
     }
-    M.displayName = M.name + " [from " + i.id + "]";
-    function w(e) {
+    w.displayName = w.name + " [from " + i.id + "]";
+    function A(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} selected","_1":"1 selected"}', [
         s._plural(e, "number"),
       ]);
     }
-    w.displayName = w.name + " [from " + i.id + "]";
-    function A() {
-      return s._(/*BTDS*/ "Select all");
-    }
     A.displayName = A.name + " [from " + i.id + "]";
     function F() {
-      return s._(/*BTDS*/ "Search name or number");
+      return s._(/*BTDS*/ "Select all");
     }
     F.displayName = F.name + " [from " + i.id + "]";
     function O() {
-      return s._(/*BTDS*/ "Search number");
+      return s._(/*BTDS*/ "Search name or number");
     }
     O.displayName = O.name + " [from " + i.id + "]";
     function B() {
+      return s._(/*BTDS*/ "Search number");
+    }
+    B.displayName = B.name + " [from " + i.id + "]";
+    function W() {
       return s._(/*BTDS*/ "Contact list");
     }
-    function W(e) {
+    function q(e) {
       return s._(/*BTDS*/ "Select recipient {recipient phone number}", [
         s._param("recipient phone number", e),
       ]);
     }
-    function q(e) {
+    function U(e) {
       return s._(
         /*BTDS*/ "Keep recipient {recipient phone number} in this audience",
         [s._param("recipient phone number", e)],
       );
     }
-    function U() {
+    function V() {
       return s._(/*BTDS*/ "Load more");
     }
-    U.displayName = U.name + " [from " + i.id + "]";
-    function V() {
+    V.displayName = V.name + " [from " + i.id + "]";
+    function H() {
       return s._(/*BTDS*/ "Loading\u2026");
     }
-    V.displayName = V.name + " [from " + i.id + "]";
-    function H(e) {
+    H.displayName = H.name + " [from " + i.id + "]";
+    function G(e) {
       return s._(/*BTDS*/ "Delete {audience name}?", [
         s._param("audience name", e),
       ]);
     }
-    H.displayName = H.name + " [from " + i.id + "]";
-    function G() {
-      return s._(/*BTDS*/ "Processing your audience\u2026");
-    }
     G.displayName = G.name + " [from " + i.id + "]";
     function z() {
-      return s._(/*BTDS*/ "We'll update you when it's complete.");
+      return s._(/*BTDS*/ "Processing your audience\u2026");
     }
     z.displayName = z.name + " [from " + i.id + "]";
     function j() {
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
+    }
+    j.displayName = j.name + " [from " + i.id + "]";
+    function K() {
       return s._(
         /*BTDS*/ "Your edits are processing. We'll update you when it's complete.",
       );
     }
-    ((j.displayName = j.name + " [from " + i.id + "]"),
+    ((K.displayName = K.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -212,30 +219,31 @@ __d(
       (l.getAudienceTooSmallTitle = v),
       (l.getAudienceBelowFloorBannerTitle = S),
       (l.getAudienceBelowFloorBannerBody = R),
-      (l.getAudienceTooSmallSelectBody = L),
-      (l.getAudienceTooSmallDismissLabel = E),
-      (l.getAudienceTooSmallRemoveBody = k),
-      (l.getAudienceTooSmallUploadBody = I),
-      (l.getAudienceTooSmallUploadNewFileLabel = T),
-      (l.getAudienceTooSmallCancelLabel = D),
-      (l.getImportAudienceMinRecipientsDescription = x),
-      (l.getImportAudiencePhoneOnlyDescription = $),
-      (l.getGoBackAriaLabel = P),
-      (l.getChooseRecipientsToAddHeader = N),
-      (l.getChooseRecipientsToRemoveHeader = M),
-      (l.getSelectedCountSubtitle = w),
-      (l.getSelectAllLabel = A),
-      (l.getSearchPlaceholder = F),
-      (l.getSearchByNumberPlaceholder = O),
-      (l.getContactListAriaLabel = B),
-      (l.getSelectRecipientAriaLabel = W),
-      (l.getKeepRecipientAriaLabel = q),
-      (l.getLoadMorePaginationLabel = U),
-      (l.getLoadingPaginationLabel = V),
-      (l.getDeleteAudienceModalTitle = H),
-      (l.getAudienceProcessingTitle = G),
-      (l.getAudienceProcessingSubtitle = z),
-      (l.getAudienceEditsProcessingMessage = j));
+      (l.getAudienceBelowFloorStatusBody = L),
+      (l.getAudienceTooSmallSelectBody = E),
+      (l.getAudienceTooSmallDismissLabel = k),
+      (l.getAudienceTooSmallRemoveBody = I),
+      (l.getAudienceTooSmallUploadBody = T),
+      (l.getAudienceTooSmallUploadNewFileLabel = D),
+      (l.getAudienceTooSmallCancelLabel = x),
+      (l.getImportAudienceMinRecipientsDescription = $),
+      (l.getImportAudiencePhoneOnlyDescription = P),
+      (l.getGoBackAriaLabel = N),
+      (l.getChooseRecipientsToAddHeader = M),
+      (l.getChooseRecipientsToRemoveHeader = w),
+      (l.getSelectedCountSubtitle = A),
+      (l.getSelectAllLabel = F),
+      (l.getSearchPlaceholder = O),
+      (l.getSearchByNumberPlaceholder = B),
+      (l.getContactListAriaLabel = W),
+      (l.getSelectRecipientAriaLabel = q),
+      (l.getKeepRecipientAriaLabel = U),
+      (l.getLoadMorePaginationLabel = V),
+      (l.getLoadingPaginationLabel = H),
+      (l.getDeleteAudienceModalTitle = G),
+      (l.getAudienceProcessingTitle = z),
+      (l.getAudienceProcessingSubtitle = j),
+      (l.getAudienceEditsProcessingMessage = K));
   },
   226,
 );

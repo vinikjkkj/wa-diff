@@ -683,34 +683,37 @@ __d(
                 ).sendHistoryBundleAction(h, _, g, l, i),
                 C = y.bundleAcked,
                 b = y.noticeAcked;
-              (o(
-                "WAWebGroupHistoryShareToggleDefaultAction",
-              ).setGroupHistoryShareToggleDefault(a, !0),
+              if (
+                (o(
+                  "WAWebGroupHistoryShareToggleDefaultAction",
+                ).setGroupHistoryShareToggleDefault(a, !0),
                 o(
                   "WAWebGroupHistoryGating",
                 ).isGroupHistorySendOnceDefaultOnEnabled() &&
                   o(
                     "WAWebGroupHistorySentOnceAction",
                   ).markGroupHistorySentOnce(),
-                t != null &&
-                  (C &&
-                    o(
-                      "WAWebGroupHistorySenderUserJourneyLogger",
-                    ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
-                      bundleSendSource: t,
-                      groupHistorySystemMessageType: r,
-                      recipientCount: _.length,
-                      uiSurface: d,
-                    }),
-                  b &&
-                    o(
-                      "WAWebGroupHistorySenderUserJourneyLogger",
-                    ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
-                      bundleSendSource: t,
-                      groupHistorySystemMessageType: r,
-                      recipientCount: _.length,
-                      uiSurface: d,
-                    })),
+                !C)
+              )
+                return;
+              (t != null &&
+                (o(
+                  "WAWebGroupHistorySenderUserJourneyLogger",
+                ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
+                  bundleSendSource: t,
+                  groupHistorySystemMessageType: r,
+                  recipientCount: _.length,
+                  uiSurface: d,
+                }),
+                b &&
+                  o(
+                    "WAWebGroupHistorySenderUserJourneyLogger",
+                  ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
+                    bundleSendSource: t,
+                    groupHistorySystemMessageType: r,
+                    recipientCount: _.length,
+                    uiSurface: d,
+                  })),
                 o("WAWebToastManager").ToastManager.open(
                   f.jsx(o("WAWebToast.react").Toast, {
                     msg: s._(/*BTDS*/ "Message history sent to {contactName}", [
@@ -786,38 +789,37 @@ __d(
                     ).sendHistoryBundleAction(y, m, _, r, c),
                     b = C.bundleAcked,
                     v = C.noticeAcked;
-                  (o(
-                    "WAWebGroupHistoryShareToggleDefaultAction",
-                  ).setGroupHistoryShareToggleDefault(e, !0),
+                  if (
+                    (o(
+                      "WAWebGroupHistoryShareToggleDefaultAction",
+                    ).setGroupHistoryShareToggleDefault(e, !0),
                     o(
                       "WAWebGroupHistoryGating",
                     ).isGroupHistorySendOnceDefaultOnEnabled() &&
                       o(
                         "WAWebGroupHistorySentOnceAction",
                       ).markGroupHistorySentOnce(),
-                    a != null &&
-                      (b &&
-                        o(
-                          "WAWebGroupHistorySenderUserJourneyLogger",
-                        ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked(
-                          {
-                            bundleSendSource: a,
-                            groupHistorySystemMessageType: l,
-                            recipientCount: m.length,
-                            uiSurface: i,
-                          },
-                        ),
-                      v &&
-                        o(
-                          "WAWebGroupHistorySenderUserJourneyLogger",
-                        ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked(
-                          {
-                            bundleSendSource: a,
-                            groupHistorySystemMessageType: l,
-                            recipientCount: m.length,
-                            uiSurface: i,
-                          },
-                        )),
+                    !b)
+                  )
+                    return;
+                  (a != null &&
+                    (o(
+                      "WAWebGroupHistorySenderUserJourneyLogger",
+                    ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
+                      bundleSendSource: a,
+                      groupHistorySystemMessageType: l,
+                      recipientCount: m.length,
+                      uiSurface: i,
+                    }),
+                    v &&
+                      o(
+                        "WAWebGroupHistorySenderUserJourneyLogger",
+                      ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
+                        bundleSendSource: a,
+                        groupHistorySystemMessageType: l,
+                        recipientCount: m.length,
+                        uiSurface: i,
+                      })),
                     o("WAWebToastManager").ToastManager.open(
                       f.jsx(o("WAWebToast.react").Toast, {
                         msg: s._(

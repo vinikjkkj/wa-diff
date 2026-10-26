@@ -4,9 +4,13 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Send broadcast");
+      return s._(/*BTDS*/ "Only photos and videos are supported");
     }
-    l.getSendBroadcastButtonLabel = e;
+    function u() {
+      return s._(/*BTDS*/ "Enter a valid maximum price");
+    }
+    ((l.getUnsupportedAttachmentDisabledReason = e),
+      (l.getInvalidMaxBidDisabledReason = u));
   },
   226,
 );

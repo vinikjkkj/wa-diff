@@ -46,6 +46,9 @@ __d(
           (n.withTcToken = function (t) {
             return ((this.$12 = t), this);
           }),
+          (n.withCommonGid = function (t) {
+            return ((this.$13 = t), this);
+          }),
           (n.getDeviceHash = function () {
             return this.$5;
           }),
@@ -81,6 +84,9 @@ __d(
           }),
           (n.getTcToken = function () {
             return this.$12;
+          }),
+          (n.getCommonGid = function () {
+            return this.$13;
           }),
           (n.validate = function () {
             if (
