@@ -22,10 +22,7 @@ __d(
       return o + t.slice(a);
     }
     function m(e) {
-      var t = /[\]}]\s*$/.exec(e);
-      return t != null
-        ? e.slice(0, t.index) + "/*x*/" + e.slice(t.index)
-        : "/*x*/" + e;
+      return e + "/*x*/";
     }
     function p(e) {
       var t = null,
@@ -87,7 +84,7 @@ __d(
             } catch (e) {
               R = !1;
             }
-          R || (t = r("json5").fromSection(m(p)));
+          R || (t = r("json5").fromSegment(m(p)));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
@@ -103,7 +100,7 @@ __d(
         t
       );
     }
-    l.readBootState = p;
+    l.readBootRecord = p;
   },
   98,
 );

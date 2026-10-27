@@ -15,6 +15,7 @@ __d(
     "WAWebVoipCallAudioUnlock",
     "WAWebVoipSharedBufferPlaybackProcessorConfig",
     "WAWebVoipSharedBufferRingRelease",
+    "WAWebVoipSharedCallAudioContext",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -213,8 +214,12 @@ __d(
                   a = t.playbackOutputSink,
                   i = Y(r),
                   l = yield o(
-                    "WAWebAudioDeviceManager",
-                  ).switchAudioOutputSinkIdInternal(e, a, i, n);
+                    "WAWebVoipSharedCallAudioContext",
+                  ).changeCallAudioOutput(t.playbackAudioContext, function () {
+                    return o(
+                      "WAWebAudioDeviceManager",
+                    ).switchAudioOutputSinkIdInternal(e, a, i, n);
+                  });
                 return a != null &&
                   (t.playbackOutputSink !== a || t.playbackOutputRoute !== r)
                   ? (o("WALogger").WARN(
@@ -510,6 +515,8 @@ __d(
                   heapBuffer: E,
                   heapBufferOffset: b,
                   bufferSize: _,
+                  doorbellOffset: p.getAudioDoorbellPtr(),
+                  doorbellChunkSamples: l,
                 }),
                   (this.$20 = !0),
                   yield this.connectOutputRoute(a, s),
@@ -725,11 +732,15 @@ __d(
               r = e.audioWorkletNode,
               a = e.isStartCancelled,
               i = yield o(
-                "WAWebAudioDeviceManager",
-              ).applyPreferredAudioOutputSink(
-                n,
-                "AV:SharedBuffer:Playback:AudioContext",
-              );
+                "WAWebVoipSharedCallAudioContext",
+              ).changeCallAudioOutput(t, function () {
+                return o(
+                  "WAWebAudioDeviceManager",
+                ).applyPreferredAudioOutputSink(
+                  n,
+                  "AV:SharedBuffer:Playback:AudioContext",
+                );
+              });
             return a()
               ? !1
               : (r.connect(t.destination),

@@ -13,6 +13,7 @@ __d(
     "WAWebMuteGetters",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
+    "WAWebOrgMemberContactName",
     "WAWebWidFactory",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
@@ -95,9 +96,13 @@ __d(
           };
         }),
         (a.$WAVoiceChatWaveNotification$p_1 = function () {
-          var e = this.$WAVoiceChatWaveNotification$p_3();
-          return e != null
-            ? o("WAWebFrontendContactGetters").getDisplayName(e)
+          var e,
+            t = this.$WAVoiceChatWaveNotification$p_3();
+          return t != null
+            ? (e = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(t)) !=
+              null
+              ? e
+              : o("WAWebFrontendContactGetters").getDisplayName(t)
             : o("WAWebWidFormat").widToFormattedUser(this.senderWid);
         }),
         (a.$WAVoiceChatWaveNotification$p_3 = function () {

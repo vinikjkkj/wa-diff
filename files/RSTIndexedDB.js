@@ -23,22 +23,31 @@ __d(
       return (
         (a.initDB = function () {
           var t = this;
+          if (this.$1 != null)
+            return (e || (e = n("Promise"))).resolve(this.$1);
+          if (this.$2 != null) return this.$2;
+          var r = this.$3().finally(function () {
+            t.$2 === r && (t.$2 = null);
+          });
+          return ((this.$2 = r), r);
+        }),
+        (a.$3 = function () {
+          var t = this;
           return new (e || (e = n("Promise")))(function (e, n) {
             if (s == null)
               return n("IndexedDB is not supported in this browser");
-            if (t.$1 != null) return e(t.$1);
             var o = s.open(
               r("RSTConfig").INDEX_DB_NAME,
               r("RSTConfig").INDEX_DB_VERSION,
             );
             ((o.onupgradeneeded = function () {
               ((t.$1 = o.result),
-                t.$2(),
-                t.$3(),
-                t.$4(r("RSTConfig").INDEX_DB_TABLE_NAME, !0));
+                t.$4(),
+                t.$5(),
+                t.$6(r("RSTConfig").INDEX_DB_TABLE_NAME, !0));
             }),
               (o.onsuccess = function (n) {
-                ((t.$1 = n.target.result), t.$3(), e(n.target.result));
+                ((t.$1 = n.target.result), t.$5(), e(n.target.result));
               }),
               (o.onblocked = function () {
                 n("Database open blocked by another tab");
@@ -55,21 +64,25 @@ __d(
               }));
           });
         }),
-        (a.$2 = function () {
+        (a.$4 = function () {
           var e = this.$1;
           if (e != null)
             for (var t of r("RSTConfig").PAST_INDEX_DB_TABLE_NAMES)
               e.objectStoreNames.contains(t) && e.deleteObjectStore(t);
         }),
-        (a.$3 = function () {
-          var e = this;
-          this.$1 == null ||
-            this.$1.onversionchange != null ||
-            (this.$1.onversionchange = function () {
-              e.closeDBConnection();
+        (a.$5 = function () {
+          var e = this,
+            t = this.$1;
+          t == null ||
+            t.onversionchange != null ||
+            (t.onversionchange = function () {
+              try {
+                t.close();
+              } catch (e) {}
+              e.$1 === t && (e.$1 = null);
             });
         }),
-        (a.$4 = function (t, n) {
+        (a.$6 = function (t, n) {
           n === void 0 && (n = !1);
           var e = this.$1;
           if (!(e == null || e.objectStoreNames.contains(t))) {
@@ -80,12 +93,12 @@ __d(
             e.createObjectStore(t, { autoIncrement: !0 });
           }
         }),
-        (a.$5 = function (t) {
+        (a.$7 = function (t) {
           return r("RSTConfig").ENCRYPT_DB
             ? r("RSTCrypt").encrypt(JSON.stringify(t))
             : t;
         }),
-        (a.$6 = function (t) {
+        (a.$8 = function (t) {
           if (t == null) return null;
           var e = !1,
             n = null;
@@ -100,7 +113,7 @@ __d(
           var a = n;
           return ((a.hasDecryptionError = e), a);
         }),
-        (a.$7 = function (t) {
+        (a.$9 = function (t) {
           (t === void 0 && (t = null),
             this.closeDBConnection(),
             o("RSTUtils").debugLogImportant(
@@ -117,7 +130,7 @@ __d(
                 .warn("Failed to clear object store after IndexedDB error");
             }));
         }),
-        (a.$8 = (function () {
+        (a.$10 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = [],
               n = 50;
@@ -125,13 +138,13 @@ __d(
               for (var r = 0; r < e.length; r += n) {
                 var a = e.slice(r, r + n);
                 for (var i of a) {
-                  var l = this.$6(i);
+                  var l = this.$8(i);
                   l != null && t.push(l);
                 }
                 r + n < e.length && (yield o("RSTUtils").scheduleYield());
               }
             } catch (e) {
-              this.$7(e);
+              this.$9(e);
             }
             return t;
           });
@@ -140,7 +153,7 @@ __d(
           }
           return t;
         })()),
-        (a.$9 = function (t, n, r) {
+        (a.$11 = function (t, n, r) {
           var e = this;
           t.onerror = function (t) {
             var a, i;
@@ -155,7 +168,7 @@ __d(
             (o("RSTUtils").debugLogImportant(s), n(s));
           };
         }),
-        (a.$10 = function (t, n, r) {
+        (a.$12 = function (t, n, r) {
           var e = this;
           t.onerror = function (t) {
             var a, i;
@@ -209,8 +222,8 @@ __d(
                 ((i.onsuccess = function () {
                   e(i.result);
                 }),
-                  t.$9(i, n, "countIncidentsInDB"),
-                  t.$10(o, n, "countIncidentsInDB"));
+                  t.$11(i, n, "countIncidentsInDB"),
+                  t.$12(o, n, "countIncidentsInDB"));
               })
             );
           });
@@ -240,12 +253,12 @@ __d(
                     "readwrite",
                   ),
                   o = n.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                  i = o.add(a.$5(l));
+                  i = o.add(a.$7(l));
                 ((i.onsuccess = function () {
                   e();
                 }),
-                  a.$9(i, t, "persistEventToDB"),
-                  a.$10(n, t, "persistEventToDB"));
+                  a.$11(i, t, "persistEventToDB"),
+                  a.$12(n, t, "persistEventToDB"));
               })
             );
           });
@@ -272,17 +285,17 @@ __d(
               ((i.onsuccess = function () {
                 e(i.result);
               }),
-                t.$9(i, n, "readEventsFromDB"),
-                t.$10(o, n, "readEventsFromDB"));
+                t.$11(i, n, "readEventsFromDB"),
+                t.$12(o, n, "readEventsFromDB"));
             });
-            return this.$8(o);
+            return this.$10(o);
           });
           function o() {
             return t.apply(this, arguments);
           }
           return o;
         })()),
-        (a.$11 = (function () {
+        (a.$13 = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (t, a) {
               var i = this;
@@ -309,7 +322,7 @@ __d(
                       return;
                     }
                     try {
-                      var l = i.$6(r.value);
+                      var l = i.$8(r.value);
                       if (l == null)
                         (o("RSTUtils").debugLog(
                           "Unable to parse an incident, deleting it from indexDB",
@@ -328,15 +341,15 @@ __d(
                             (o("RSTUtils").debugLog(
                               "Update incident " + l.incidentID + " in indexDB",
                             ),
-                            r.update(i.$5(l)));
+                            r.update(i.$7(l)));
                       }
                     } catch (e) {
                       r.delete();
                     }
                     r.continue();
                   }),
-                    i.$9(u, n, a),
-                    i.$10(l, n, a));
+                    i.$11(u, n, a),
+                    i.$12(l, n, a));
                 })
               );
             },
@@ -347,15 +360,15 @@ __d(
           return a;
         })()),
         (a.mutateIncidentsInDB = function (t) {
-          return this.$11(t, "mutateIncidentsInDB");
+          return this.$13(t, "mutateIncidentsInDB");
         }),
         (a.updateIncidentInDB = function (t) {
-          return this.$11(function (e) {
+          return this.$13(function (e) {
             return t(e) ? "update" : "keep";
           }, "updateIncidentInDB");
         }),
         (a.clearIncidentFromDB = function (t) {
-          return this.$11(function (e) {
+          return this.$13(function (e) {
             return t.has(e.incidentID) ? "delete" : "keep";
           }, "clearIncidentFromDB");
         }),
@@ -387,8 +400,8 @@ __d(
                       (a.closeDBConnection(),
                         n("Error clearing the store: " + e.target.errorCode));
                     }),
-                    a.$9(l, n, "clearObjectStore"),
-                    a.$10(o, n, "clearObjectStore"));
+                    a.$11(l, n, "clearObjectStore"),
+                    a.$12(o, n, "clearObjectStore"));
                 } catch (t) {
                   e();
                 }
@@ -419,8 +432,8 @@ __d(
                 ((l.onsuccess = function () {
                   e();
                 }),
-                  o.$9(l, n, "deleteEventFromDB"),
-                  o.$10(a, n, "deleteEventFromDB"));
+                  o.$11(l, n, "deleteEventFromDB"),
+                  o.$12(a, n, "deleteEventFromDB"));
               })
             );
           });

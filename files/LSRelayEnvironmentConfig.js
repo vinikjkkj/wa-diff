@@ -3,8 +3,7 @@ __d(
   [
     "LSRelayEntryPointQueryPreload",
     "LSRelayEntryPointQueryPreloader",
-    "ReactiveQueryExecutionNode_EXPERIMENTAL",
-    "ReactiveQueryExecutionStore_EXPERIMENTAL",
+    "ReactiveExecutorImplementation",
     "nullthrows",
     "relay-runtime",
   ],
@@ -12,9 +11,7 @@ __d(
     "use strict";
     function e(e, t, n, a, i, l) {
       (a === void 0 && (a = !1), i === void 0 && (i = !1));
-      var s = new (o("ReactiveQueryExecutionNode_EXPERIMENTAL").Executor)(
-        new (r("ReactiveQueryExecutionStore_EXPERIMENTAL"))(t, n, a),
-      );
+      var s = o("ReactiveExecutorImplementation").createExecutor(t, n, a);
       function u(e, t, n, r, o, a, i, l) {
         return d(e, t, n, r, o, a, i, l, null);
       }

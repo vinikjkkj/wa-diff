@@ -89,9 +89,10 @@ __d(
                 S,
                 R,
                 o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
-                  sessionScope: L
-                    ? u
-                    : o("WAWebSessionScope").SessionScope.DEFAULT,
+                  sessionScope:
+                    L.length > 0
+                      ? u
+                      : o("WAWebSessionScope").SessionScope.DEFAULT,
                 }),
                 E,
               ),

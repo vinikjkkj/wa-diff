@@ -14,10 +14,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t = /[\]}]\s*$/.exec(e);
-      return t != null
-        ? e.slice(0, t.index) + "/*x*/" + e.slice(t.index)
-        : "/*x*/" + e;
+      return e + "/*x*/";
     }
     function u(t) {
       r("gkx")("23983") &&
@@ -76,7 +73,7 @@ __d(
           }
         if (!d && n("cr:7329"))
           try {
-            ((c = n("cr:7329").fromSection(s(t))), (d = !0));
+            ((c = n("cr:7329").fromSegment(s(t))), (d = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))

@@ -1,6 +1,8 @@
 __d(
   "WAWebCustomerManagerMetaOneEntryPointLogger",
   [
+    "WAWebActiveSubscriptionProductTypes",
+    "WAWebEligibleSubscriptionProductTypes",
     "WAWebSubscriptionUserActionWamEvent",
     "WAWebWamEnumWsuaAction",
     "WAWebWamEnumWsuaActionTarget",
@@ -27,6 +29,12 @@ __d(
         wsuaAction: t,
         wsuaActionTarget: o("WAWebWamEnumWsuaActionTarget").WSUA_ACTION_TARGET
           .GET_META_ONE_BUSINESS,
+        wsuaActiveSubscriptions: o(
+          "WAWebActiveSubscriptionProductTypes",
+        ).getActiveSubscriptionProductTypes(),
+        wsuaEligibleSubscriptions: o(
+          "WAWebEligibleSubscriptionProductTypes",
+        ).getEligibleSubscriptionProductTypes(),
         wsuaProductType: o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE
           .META_ONE_BUSINESS,
         wsuaScreenElement: e[n],

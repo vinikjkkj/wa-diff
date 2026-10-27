@@ -9,9 +9,9 @@ __d(
       c = null,
       d = null,
       m = new Set();
-    function p(e) {
+    function p(e, t) {
       ((u += 1),
-        (c = { id: u, destination: e }),
+        (c = { id: u, destination: e, sessionId: t }),
         m.forEach(function (e) {
           return e();
         }));

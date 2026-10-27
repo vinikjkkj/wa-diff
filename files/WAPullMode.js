@@ -67,72 +67,72 @@ __d(
           }),
           t
         );
-      })(),
-      p = (function () {
-        function e() {
-          this.$1 = [];
-        }
-        var t = e.prototype;
-        return (
-          (t.offlineStart = function () {
-            this.clear();
-          }),
-          (t.$2 = function (t) {
-            return Math.min(Math.max(Math.pow(2, 10 - t), 10), 700);
-          }),
-          (t.$3 = function (t) {
-            var e = this.$1.some(function (e) {
-              return e.didReceievAllItems() ? !1 : (e.receiveEntity(t), !0);
-            });
-            e || (this.$4(t), this.$1[this.$1.length - 1].receiveEntity(t));
-          }),
-          (t.$5 = function () {
-            var e = this.$1.some(function (e) {
-              return e.markEntityIsReadyForPersistence();
-            });
-            e ||
-              (this.$4(),
-              this.$1[this.$1.length - 1].markEntityIsReadyForPersistence());
-          }),
-          (t.$4 = function (t) {
-            var e =
-                this.$1.length === 0
-                  ? t != null
-                    ? t
-                    : 0
-                  : this.$1[this.$1.length - 1].getMaxOffline(),
-              n = this.$2(e);
-            (this.$1.push(new m(n)), this.$6(n));
-          }),
-          (t.stanzaReceived = function (t) {
-            this.$3(t);
-          }),
-          (t.shouldFlash = function () {
-            var e = !1;
-            return (
-              (e = this.$1.some(function (e) {
-                return e.shouldFlash();
-              })),
-              e && this.$4(),
-              (this.$1 = this.$1.filter(function (e) {
-                return e.isBatchClosed() === !1;
-              })),
-              e
-            );
-          }),
-          (t.$6 = function (t) {
-            o("WAOfflineBatchIb").sendBatchRequestIb(t);
-          }),
-          (t.stanzaProcessed = function () {
-            this.$5();
-          }),
-          (t.clear = function () {
-            this.$1 = [];
-          }),
-          e
-        );
       })();
-    l.PullMode = p;
+    function p(e) {
+      return Math.min(Math.max(Math.pow(2, 10 - e), 10), 700);
+    }
+    var _ = (function () {
+      function e(e) {
+        (e === void 0 && (e = p), (this.$1 = []), (this.$2 = e));
+      }
+      var t = e.prototype;
+      return (
+        (t.offlineStart = function () {
+          this.clear();
+        }),
+        (t.$3 = function (t) {
+          var e = this.$1.some(function (e) {
+            return e.didReceievAllItems() ? !1 : (e.receiveEntity(t), !0);
+          });
+          e || (this.$4(t), this.$1[this.$1.length - 1].receiveEntity(t));
+        }),
+        (t.$5 = function () {
+          var e = this.$1.some(function (e) {
+            return e.markEntityIsReadyForPersistence();
+          });
+          e ||
+            (this.$4(),
+            this.$1[this.$1.length - 1].markEntityIsReadyForPersistence());
+        }),
+        (t.$4 = function (t) {
+          var e =
+              this.$1.length === 0
+                ? t != null
+                  ? t
+                  : 0
+                : this.$1[this.$1.length - 1].getMaxOffline(),
+            n = this.$2(e);
+          (this.$1.push(new m(n)), this.$6(n));
+        }),
+        (t.stanzaReceived = function (t) {
+          this.$3(t);
+        }),
+        (t.shouldFlash = function () {
+          var e = !1;
+          return (
+            (e = this.$1.some(function (e) {
+              return e.shouldFlash();
+            })),
+            e && this.$4(),
+            (this.$1 = this.$1.filter(function (e) {
+              return e.isBatchClosed() === !1;
+            })),
+            e
+          );
+        }),
+        (t.$6 = function (t) {
+          o("WAOfflineBatchIb").sendBatchRequestIb(t);
+        }),
+        (t.stanzaProcessed = function () {
+          this.$5();
+        }),
+        (t.clear = function () {
+          this.$1 = [];
+        }),
+        e
+      );
+    })();
+    ((l.defaultOfflineBatchSize = p), (l.PullMode = _));
   },
   98,
 );

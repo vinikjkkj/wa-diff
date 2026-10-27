@@ -48,11 +48,11 @@ __d(
           (m.has(t) ||
             (m.add(t),
             o("WAWebSyncBotSupportFields")
-              .syncBotSupportFields(
-                t,
-                s,
-                i == null ? null : o("WAWebWidToJid").widToGroupJid(i),
-              )
+              .syncBotSupportFields(t, {
+                groupJid:
+                  i == null ? null : o("WAWebWidToJid").widToGroupJid(i),
+                tombstoneOnMissing: s,
+              })
               .catch(function (t) {
                 o("WALogger")
                   .ERROR(

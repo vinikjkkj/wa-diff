@@ -9,6 +9,7 @@ __d(
     "WAWebUA",
     "WAWebVoipCallAudioUnlock",
     "WAWebVoipMicrophoneLevelAccumulator",
+    "WAWebVoipSharedCallAudioContext",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -61,9 +62,9 @@ __d(
           : null;
     }
     function I(t) {
-      var n;
+      var n, r;
       if (o("WAWebUA").UA.isFirefox) {
-        var r = new AudioContext({ latencyHint: "interactive" });
+        var a = new AudioContext({ latencyHint: "interactive" });
         return (
           o("WALogger").LOG(
             e ||
@@ -72,16 +73,22 @@ __d(
                 "Hz, VoIP expects ",
                 "Hz",
               ])),
-            r.sampleRate,
+            a.sampleRate,
             t.sampleRate,
           ),
-          r
+          a
         );
       }
-      return (n = o("WAWebVoipCallAudioUnlock").takeUnlockedAudioContext(
-        "capture",
-        t.sampleRate,
-      )) != null
+      return (n =
+        (r = o("WAWebVoipSharedCallAudioContext").acquireSharedCallAudioContext(
+          "capture",
+          t.sampleRate,
+        )) != null
+          ? r
+          : o("WAWebVoipCallAudioUnlock").takeUnlockedAudioContext(
+              "capture",
+              t.sampleRate,
+            )) != null
         ? n
         : new AudioContext({
             sampleRate: t.sampleRate,
@@ -116,7 +123,13 @@ __d(
           { audioContext: n, silentSource: a }
         );
       } catch (e) {
-        throw (n.close().catch(r("WAWebNoop")), e);
+        throw (
+          o("WAWebVoipSharedCallAudioContext").releaseSharedCallAudioContext(
+            "capture",
+            n,
+          ) || n.close().catch(r("WAWebNoop")),
+          e
+        );
       }
     }
     function D(e) {

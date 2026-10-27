@@ -1,21 +1,33 @@
 __d(
   "WAWebVoipStackInterfaceWebHelpers",
-  ["WALogger", "WAWebABProps", "WAWebVoipABPropConfig"],
+  [
+    "WALogger",
+    "WAWebABProps",
+    "WAWebVoipABPropConfig",
+    "WAWebVoipChromiumDesktopBrowser",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(t) {
-      for (var n of r("WAWebVoipABPropConfig")) {
-        var a = n.abProp,
-          i = n.type,
-          l = n.wasmKey;
+    function s() {
+      var e = o("WAWebVoipChromiumDesktopBrowser").isChromiumDesktopBrowser();
+      return r("WAWebVoipABPropConfig").filter(function (t) {
+        var n = t.chromiumDesktopOnly;
+        return n !== !0 || e;
+      });
+    }
+    function u(t) {
+      for (var n of s()) {
+        var r = n.abProp,
+          a = n.type,
+          i = n.wasmKey;
         try {
-          var s = o("WAWebABProps").getABPropConfigValue(a);
-          i === "bool"
-            ? t.setABPropBool(l, s)
-            : i === "string"
-              ? t.setABPropString(l, String(s))
-              : t.setABPropInt(l, s);
+          var l = o("WAWebABProps").getABPropConfigValue(r);
+          a === "bool"
+            ? t.setABPropBool(i, l)
+            : a === "string"
+              ? t.setABPropString(i, String(l))
+              : t.setABPropInt(i, l);
         } catch (t) {
           o("WALogger").WARN(
             e ||
@@ -23,12 +35,12 @@ __d(
                 "voip: skipping unknown AB prop ",
                 "",
               ])),
-            a,
+            r,
           );
         }
       }
     }
-    l.setABPropsOnWasm = s;
+    ((l.getForwardedVoipABProps = s), (l.setABPropsOnWasm = u));
   },
   98,
 );

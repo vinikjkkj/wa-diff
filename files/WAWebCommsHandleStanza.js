@@ -6,6 +6,7 @@ __d(
     "WAWebCommsHandleWorkerCompatibleStanza",
     "WAWebHandleStanzaCommon",
     "WAWebOfflineHandler",
+    "WAWebOneQueue",
     "WAWebVoipBackendEnqueueCallOfferPlaceholder",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -19,11 +20,13 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           a === void 0 && (a = 0);
+          var i = d(t, n, a),
+            l = o("WAWebOneQueue").countOfflineStanzaForPullMode(t);
           try {
-            var i = yield d(t, n, a);
-            if (i != null) return i;
+            var u = yield i;
+            if (u != null) return u;
           } catch (n) {
-            var l, u;
+            var c, m;
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -33,8 +36,8 @@ __d(
                   "",
                 ])),
               t.tag,
-              (l = t.attrs) == null ? void 0 : l.type,
-              (u = t.attrs) == null ? void 0 : u.id,
+              (c = t.attrs) == null ? void 0 : c.type,
+              (m = t.attrs) == null ? void 0 : m.id,
             ),
               o("WALogger")
                 .ERROR(
@@ -46,6 +49,8 @@ __d(
                   r("getErrorSafe")(n).stack,
                 )
                 .sendLogs("handle-stanza"));
+          } finally {
+            l();
           }
           return "NO_ACK";
         })),

@@ -57,13 +57,14 @@ __d(
       return e;
     }
     function k(e) {
+      var t, n, r, o;
       return e == null
         ? {}
         : {
-            paddingTop: I(e.get(b)),
-            paddingRight: I(e.get(y)),
-            paddingBottom: I(e.get(h)),
-            paddingLeft: I(e.get(C)),
+            paddingTop: (t = I(e.get(b))) != null ? t : void 0,
+            paddingRight: (n = I(e.get(y))) != null ? n : void 0,
+            paddingBottom: (r = I(e.get(h))) != null ? r : void 0,
+            paddingLeft: (o = I(e.get(C))) != null ? o : void 0,
           };
     }
     function I(e) {

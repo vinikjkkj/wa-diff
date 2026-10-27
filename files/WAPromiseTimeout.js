@@ -5,7 +5,7 @@ __d(
     "use strict";
     var e,
       s = function (r, a, i) {
-        var t = null,
+        var t,
           l = new (e || (e = n("Promise")))(function (e, n) {
             t = setTimeout(function () {
               (n(new (o("WACustomError").TimeoutError)(i)), clearTimeout(t));

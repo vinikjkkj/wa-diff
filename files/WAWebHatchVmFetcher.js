@@ -274,67 +274,74 @@ __d(
           return t;
         })()),
         (t.lease = function (t) {
-          return this.$3(
-            p,
-            { hatchling_vm_type: m, notary_token: !0 },
-            t,
-            "lease",
-          );
+          return this.$3({
+            abraToken: t,
+            body: { hatchling_vm_type: m, notary_token: !0 },
+            label: "lease",
+            url: p,
+          });
         }),
         (t.wake = function (t, n) {
-          return this.$3(_, { retry_count: 0, vm_id: n }, t, "wake");
+          return this.$3({
+            abraToken: t,
+            body: { retry_count: 0, vm_id: n },
+            label: "wake",
+            url: _,
+          });
         }),
         (t.$3 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r) {
-              var o = n.trim();
-              if (o === "")
-                return { detail: "ABRA token is empty", kind: "failure" };
-              var a = new AbortController(),
-                i = self.setTimeout(function () {
-                  return a.abort();
-                }, c),
-                l;
-              try {
-                l = yield this.$1(e, {
-                  body: JSON.stringify(t),
-                  headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + o,
-                    "Content-Type": "application/json",
-                  },
-                  method: "POST",
-                  signal: a.signal,
-                });
-              } catch (e) {
-                var s = a.signal.aborted;
-                return (
-                  C(r, s ? "timeout" : "transport"),
-                  {
-                    detail: s
-                      ? "VM " + r + " request timed out"
-                      : "VM " + r + " request failed",
-                    kind: "failure",
-                  }
-                );
-              } finally {
-                self.clearTimeout(i);
-              }
-              if (l.status === 401)
-                return {
-                  detail: "ABRA token was refused for the VM " + r,
-                  kind: "unauthorized",
-                };
-              if (!l.ok) {
-                var u = "VM " + r + " request returned HTTP " + l.status;
-                return l.status === 404
-                  ? { detail: u, kind: "not_found" }
-                  : { detail: u, kind: "failure" };
-              }
-              return { kind: "ok" };
-            },
-          );
-          function t(t, n, r, o) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.abraToken,
+              n = e.body,
+              r = e.label,
+              o = e.url,
+              a = t.trim();
+            if (a === "")
+              return { detail: "ABRA token is empty", kind: "failure" };
+            var i = new AbortController(),
+              l = self.setTimeout(function () {
+                return i.abort();
+              }, c),
+              s;
+            try {
+              s = yield this.$1(o, {
+                body: JSON.stringify(n),
+                headers: {
+                  Accept: "application/json",
+                  Authorization: "Bearer " + a,
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                signal: i.signal,
+              });
+            } catch (e) {
+              var u = i.signal.aborted;
+              return (
+                C(r, u ? "timeout" : "transport"),
+                {
+                  detail: u
+                    ? "VM " + r + " request timed out"
+                    : "VM " + r + " request failed",
+                  kind: "failure",
+                }
+              );
+            } finally {
+              self.clearTimeout(l);
+            }
+            if (s.status === 401)
+              return {
+                detail: "ABRA token was refused for the VM " + r,
+                kind: "unauthorized",
+              };
+            if (!s.ok) {
+              var d = "VM " + r + " request returned HTTP " + s.status;
+              return s.status === 404
+                ? { detail: d, kind: "not_found" }
+                : { detail: d, kind: "failure" };
+            }
+            return { kind: "ok" };
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

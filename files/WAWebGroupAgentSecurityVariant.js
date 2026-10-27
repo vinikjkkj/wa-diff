@@ -27,17 +27,16 @@ __d(
         var a = d(r);
         a != null && n.push(a);
       }
-      return n.length === 0
-        ? null
-        : n.length === 1 && n[0] === s.META_AI_OPEN
-          ? e.META_AI
-          : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-            ? n.every(function (e) {
-                return e === s.MUSE;
-              })
-              ? e.MUSE
-              : e.GENERIC
-            : null;
+      if (n.length === 0) return null;
+      if (n.length === 1 && n[0] === s.META_AI_OPEN) return e.META_AI;
+      var i = n.every(function (e) {
+        return e === s.MUSE;
+      })
+        ? e.MUSE
+        : e.GENERIC;
+      return o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+        ? i
+        : null;
     }
     function c(t, n) {
       return o("WAWebGroupAgentProfileRouting").isOpenGroupAiAgent(t, n)
@@ -61,11 +60,10 @@ __d(
       var t = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return (t == null ? void 0 : t.lastFetchedTimeMs) == null
         ? !1
-        : o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled() &&
-            o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileProduct(
-              e,
-              o("WAWebBotProduct").botProductFromServerValue(t.product),
-            );
+        : o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileProduct(
+            e,
+            o("WAWebBotProduct").botProductFromServerValue(t.product),
+          ) && o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled();
     }
     ((l.GroupAgentSecurityVariant = e),
       (l.getGroupAgentSecurityVariant = u),

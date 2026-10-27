@@ -22,6 +22,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumDeviceType",
     "WAWebWamEnumEncryptionTypeCode",
+    "WAWebWamEnumPqFallbackReason",
     "WAWebWamEnumRetryRejectReason",
     "WAWebWamMsgUtils",
     "WAWebWidFactory",
@@ -113,13 +114,14 @@ __d(
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.chat,
             r = t.identity,
-            a = t.loadedSentMessage,
-            i = t.originalMsgId,
-            l = t.requester,
-            c = t.retryCount,
-            d = t.sessionScope,
-            m = a != null ? a : yield h(n, i);
-          if (m == null)
+            a = t.isPq,
+            i = t.loadedSentMessage,
+            l = t.originalMsgId,
+            c = t.requester,
+            d = t.retryCount,
+            m = t.sessionScope,
+            p = i != null ? i : yield h(n, l);
+          if (p == null)
             return (
               o("WALogger").WARN(
                 e ||
@@ -127,22 +129,22 @@ __d(
                     "getMsgIfAuthorized: can not find msg ",
                     ".",
                   ])),
-                i,
+                l,
               ),
               null
             );
-          var p = m.messageRowId,
-            _ = m.msgKey,
-            f = m.msgRecord,
-            g =
-              f.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon
+          var _ = p.messageRowId,
+            f = p.msgKey,
+            g = p.msgRecord,
+            y =
+              g.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon
                 ? r == null
                   ? void 0
                   : r.sentAddonRowId
                 : r == null
                   ? void 0
                   : r.rowId;
-          if (p == null)
+          if (_ == null)
             return (
               o("WALogger").WARN(
                 s ||
@@ -150,48 +152,48 @@ __d(
                     "getMsgIfAuthorized: msg missing rowId ",
                     ".",
                   ])),
-                _.toString(),
+                f.toString(),
               ),
               null
             );
-          var y = yield o(
+          var C = yield o(
               "WAWebCoexV2RetryAuthorization",
-            ).getCoexV2RelayRetryEligibility(l, i),
-            C =
-              y != null
-                ? { hasAdditionalRetryTargets: !1, retryEligibility: y }
+            ).getCoexV2RelayRetryEligibility(c, l),
+            b =
+              C != null
+                ? { hasAdditionalRetryTargets: !1, retryEligibility: C }
                 : yield o(
                     "WAWebApiMessageInfoStore",
                   ).getRetryEligibilityWithMetadata({
-                    identityRowId: g,
-                    messageRowId: p,
-                    msgKey: _,
-                    receiver: l,
+                    identityRowId: y,
+                    messageRowId: _,
+                    msgKey: f,
+                    receiver: c,
                   }),
-            b = C.hasAdditionalRetryTargets,
-            v = C.retryEligibility,
-            S =
-              v ===
+            v = b.hasAdditionalRetryTargets,
+            S = b.retryEligibility,
+            R =
+              S ===
               o("WAWebApiMessageInfoStore").RetryEligibilityResult
                 .INELIGIBLE_RECORD_MISSING,
-            R = S
+            L = R
               ? o("WAWebApiContact").getAlternateDeviceWid(
-                  o("WAWebWidFactory").createDeviceWidFromWidOrThrow(l),
+                  o("WAWebWidFactory").createDeviceWidFromWidOrThrow(c),
                 )
               : null;
-          if (R) {
-            var L = yield o(
+          if (L) {
+            var E = yield o(
               "WAWebApiMessageInfoStore",
             ).getRetryEligibilityWithMetadata({
-              identityRowId: g,
-              messageRowId: p,
-              msgKey: _,
-              receiver: R,
+              identityRowId: y,
+              messageRowId: _,
+              msgKey: f,
+              receiver: L,
             });
-            ((b = L.hasAdditionalRetryTargets), (v = L.retryEligibility));
+            ((v = E.hasAdditionalRetryTargets), (S = E.retryEligibility));
           }
-          (f.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
-            (yield f.data.waitForPrep()),
+          (g.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
+            (yield g.data.waitForPrep()),
             o("WALogger")
               .LOG(
                 u ||
@@ -201,63 +203,69 @@ __d(
                     " retry eligibility ",
                     "",
                   ])),
-                i,
-                String(l),
-                v,
+                l,
+                String(c),
+                S,
               )
               .tags("messaging"));
-          var E = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER,
-            k = !1;
+          var k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER,
+            I = !1;
           switch (
-            (f.data.type === o("WAWebMsgType").MSG_TYPE.REVOKED &&
-              ((k = !0),
-              (f.data.type = "protocol"),
-              (f.data.subtype =
-                f.data.subtype === "admin" ? "admin_revoke" : "sender_revoke")),
-            v)
+            (g.data.type === o("WAWebMsgType").MSG_TYPE.REVOKED &&
+              ((I = !0),
+              (g.data.type = "protocol"),
+              (g.data.subtype =
+                g.data.subtype === "admin" ? "admin_revoke" : "sender_revoke")),
+            S)
           ) {
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult.ELIGIBLE:
               return {
-                msgRecord: f,
-                retryContext: { hasAdditionalRetryTargets: b },
-                isIdentityChangedSinceSend: y == null && (g == null || p < g),
+                msgRecord: g,
+                retryContext: { hasAdditionalRetryTargets: v },
+                isIdentityChangedSinceSend: C == null && (y == null || _ < y),
               };
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult
               .INELIGIBLE_ALREADY_DELIVERED:
-              E = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
+              k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
                 .DOUBLE_CHECKMARK;
               break;
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult
               .INELIGIBLE_CHANGED_IDENTITY:
-              E = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
+              k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
                 .IDENTITY_CHANGE;
               break;
             default:
-              E = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER;
+              k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER;
               break;
           }
-          var I = new (o("WAWebE2eRetryRejectWamEvent").E2eRetryRejectWamEvent)(
+          var T = new (o("WAWebE2eRetryRejectWamEvent").E2eRetryRejectWamEvent)(
               {
-                senderDeviceType: l.isCompanion()
+                isPq: a === !0,
+                pqFallbackReason:
+                  a === !1
+                    ? o("WAWebWamEnumPqFallbackReason").PQ_FALLBACK_REASON
+                        .PQ_NO_SESSION_REGULAR_FALLBACK
+                    : void 0,
+                senderDeviceType: c.isCompanion()
                   ? o("WAWebWamEnumDeviceType").DEVICE_TYPE.COMPANION
                   : o("WAWebWamEnumDeviceType").DEVICE_TYPE.PRIMARY,
-                messageType: o("WAWebWamMsgUtils").getWamMessageType(f.data),
-                msgRetryCount: c,
-                retryRevoke: k,
-                retryRejectReason: E,
+                messageType: o("WAWebWamMsgUtils").getWamMessageType(g.data),
+                msgRetryCount: d,
+                retryRevoke: I,
+                retryRejectReason: k,
                 sessionScope: o(
                   "WAWebSessionScopeWamUtils",
-                ).sessionScopeToWamType(d),
+                ).sessionScopeToWamType(m),
               },
             ),
-            T = o("WAWebWamMsgUtils").getWamE2eSenderType(l);
+            D = o("WAWebWamMsgUtils").getWamE2eSenderType(c);
           return (
-            T != null && (I.e2eSenderType = T),
-            l.isHosted() &&
-              (I.encryptionType = o(
+            D != null && (T.e2eSenderType = D),
+            c.isHosted() &&
+              (T.encryptionType = o(
                 "WAWebWamEnumEncryptionTypeCode",
               ).ENCRYPTION_TYPE_CODE.COEX),
-            I.commit(),
+            T.commit(),
             null
           );
         })),

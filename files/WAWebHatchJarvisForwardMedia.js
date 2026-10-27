@@ -21,7 +21,7 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           yield (e || (e = n("Promise"))).all(
             t.map(function (e) {
-              return _(e.url);
+              return f(e.url);
             }),
           );
           var o = p(t, r);
@@ -35,18 +35,28 @@ __d(
       for (var r of e) {
         var o = c.get(r.url);
         if (o == null) return "pending";
-        var a = g(r, o, t != null ? t : []);
+        var a = h(r, o, t != null ? t : []);
         if (a == null) return null;
         n.set(r.url, a);
       }
       return n;
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function _(e, t) {
+      var n = b(e);
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        n != null &&
+        n.length === t.length &&
+        n.every(function (e, n) {
+          return e === t[n];
+        })
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = c.get(e);
           if (t != null) return t;
           var n = yield o(
@@ -54,21 +64,21 @@ __d(
           ).computeRichResponseMediaId(e);
           return (c.set(e, n), n);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       var r,
         a = n.filter(function (e) {
           return e.id === t;
         }),
         i = a.length === 1 ? a[0].previewMedia : null;
       return i == null ||
-        !h(i) ||
+        !y(i) ||
         o("WAWebHatchJarvisForwardPolicy").hatchJarvisMediaFamily(
           i.mimetype,
         ) !== e.family ||
-        !y(e.envelopeFilehash, i.fileSha256)
+        !C(e.envelopeFilehash, i.fileSha256)
         ? null
         : {
             directPath: i.directPath,
@@ -82,29 +92,22 @@ __d(
             mimetype: i.mimetype,
           };
     }
-    function h(e) {
+    function y(e) {
       var t;
       return (
-        C(e.mediaKey) != null &&
-        C(e.fileSha256) != null &&
-        C(e.fileEncSha256) != null &&
+        b(e.mediaKey) != null &&
+        b(e.fileSha256) != null &&
+        b(e.fileEncSha256) != null &&
         e.directPath.startsWith("/") &&
         ((t = e.mediaKeyTimestamp) != null ? t : 0) > 0
       );
     }
-    function y(e, t) {
+    function C(e, t) {
       if (e == null) return !0;
-      var n = C(e),
-        r = C(t);
-      return (
-        n != null &&
-        r != null &&
-        n.every(function (e, t) {
-          return e === r[t];
-        })
-      );
+      var n = b(t);
+      return n != null && _(e, n);
     }
-    function C(e) {
+    function b(e) {
       var t;
       try {
         t = new Uint8Array(o("WABase64").decodeB64(e));
@@ -115,7 +118,8 @@ __d(
     }
     ((l.resolveHatchJarvisForwardMedia = d),
       (l.resolveHatchJarvisForwardMediaSync = p),
-      (l.decodeHash = C));
+      (l.matchesHash = _),
+      (l.decodeHash = b));
   },
   98,
 );

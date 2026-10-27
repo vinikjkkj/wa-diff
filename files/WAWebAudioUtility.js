@@ -105,6 +105,7 @@ __d(
       return a;
     }
     ((l.AudioCaptureDevType = e),
+      (l.initWasmModule = c),
       (l.getCachedWasmModule = m),
       (l.mallocWasmBuffer = p),
       (l.freeWasmBuffer = f),

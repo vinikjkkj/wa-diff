@@ -17,7 +17,6 @@ __d(
     "WAWebNoop",
     "WAWebUA",
     "WAWebVisibilityAwareTimeout",
-    "WAWebVoipABPropConfig",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipCallIdProvider",
     "WAWebVoipCallStateUtils",
@@ -41,6 +40,7 @@ __d(
     "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpConnectionManager",
+    "WAWebVoipStackInterfaceWebHelpers",
     "WAWebVoipStorageInit",
     "WAWebVoipTransportFallbackTracker",
     "WAWebVoipVideoCaptureFpsTracker",
@@ -109,12 +109,14 @@ __d(
       J;
     function Z() {
       var t = {};
-      for (var n of r("WAWebVoipABPropConfig")) {
-        var a = n.abProp,
-          i = n.type,
-          l = n.wasmKey;
+      for (var n of o(
+        "WAWebVoipStackInterfaceWebHelpers",
+      ).getForwardedVoipABProps()) {
+        var r = n.abProp,
+          a = n.type,
+          i = n.wasmKey;
         try {
-          t[l] = { value: o("WAWebABProps").getABPropConfigValue(a), type: i };
+          t[i] = { value: o("WAWebABProps").getABPropConfigValue(r), type: a };
         } catch (t) {
           o("WALogger").WARN(
             e ||
@@ -122,7 +124,7 @@ __d(
                 "voip: skipping unknown AB prop ",
                 "",
               ])),
-            a,
+            r,
           );
         }
       }

@@ -3,7 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebODS",
     "WAWebUA",
+    "WAWebVoipSelfPreviewVideoFrameSupport",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
     "WAWebVoipVideoRendererRegistry",
@@ -21,16 +23,23 @@ __d(
       d,
       m,
       p,
-      _ = 4,
-      f = 5e3,
-      g = (function () {
+      _,
+      f,
+      g,
+      h = 4,
+      y = 5e3,
+      C = 1e3,
+      b = (function () {
         function t(e) {
           var n = e.canvas,
             r = e.portalMode,
             a = e.rendererType,
             i = e.threadingMode;
-          ((this.$11 = !1),
-            (this.$10 = o(
+          ((this.$12 = !1),
+            (this.$10 = !1),
+            (this.$13 = !1),
+            (this.$14 = 0),
+            (this.$11 = o(
               "WAWebVoipVideoRendererInterface",
             ).onRenderCallbackNoop));
           var l = t.rendererIdCounter++,
@@ -77,13 +86,13 @@ __d(
                 "WAWebVoipVideoRendererWorker",
               ),
               l = Date.now(),
-              p = !1,
-              _ = !1;
+              _ = !1,
+              f = !1;
             (i.onMessage.add(function () {
-              if (!p) {
-                p = !0;
+              if (!_) {
+                _ = !0;
                 var t = Date.now() - l;
-                _
+                f
                   ? o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -114,17 +123,17 @@ __d(
                 );
               }));
             var g = window.setTimeout(function () {
-              p ||
-                ((_ = !0),
+              _ ||
+                ((f = !0),
                 o("WALogger").WARN(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: VideoRendererWorker silent >",
                       "ms, may stay gray",
                     ])),
-                  f,
+                  y,
                 ));
-            }, f);
+            }, y);
             return (
               i.addMessageListener("shutdown", function () {
                 window.clearTimeout(g);
@@ -182,6 +191,28 @@ __d(
                   l = a ? t.$7(i, o) : n;
                 l != null && r === l.$2 && l.$9();
               }),
+              i.addMessageListener("videoFrameObjectReleased", function (e) {
+                var l = e.failed,
+                  s = e.rendererId,
+                  u = a ? t.$7(i, s) : n;
+                (u != null && (u.$10 = !1),
+                  l &&
+                    (o("WALogger").WARN(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: VideoRendererWorker: VideoFrame draw failed, capture returns to bytes",
+                        ])),
+                    ),
+                    o(
+                      "WAWebVoipSelfPreviewVideoFrameSupport",
+                    ).isSelfPreviewVideoFrameSupported() &&
+                      r("WAWebODS").incr(
+                        "web.call.self_preview.videoframe_fallback.draw_failed",
+                      ),
+                    o(
+                      "WAWebVoipSelfPreviewVideoFrameSupport",
+                    ).updateSelfPreviewVideoFrameSupport(!1)));
+              }),
               i.addMessageListener("requestKeyFrame", function (e) {
                 var r = e.rendererId;
                 try {
@@ -194,8 +225,8 @@ __d(
                   ).videoRendererRegistry.requestKeyFrameForCanvas(s);
                 } catch (e) {
                   o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererWorker: Failed to request key frame: ",
                         "",
                       ])),
@@ -225,7 +256,7 @@ __d(
                 o("WAWebVoipVideoRendererInterface")
                   .WAWebVoipVideoRendererThreadingMode.SINGLE_WORKER
                   ? 1 / 0
-                  : _;
+                  : h;
               for (var r of t.workerPool) {
                 var a = r[0],
                   i = r[1];
@@ -246,13 +277,13 @@ __d(
               }),
               o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3") &&
                 ((this.$3 = null),
-                (this.$10 = o(
+                (this.$11 = o(
                   "WAWebVoipVideoRendererInterface",
                 ).onRenderCallbackNoop)));
           }),
           (n.reset = function () {
             ((this.$2 += 1),
-              (this.$11 = !1),
+              (this.$12 = !1),
               this.$5.postMessage({
                 type: "reset",
                 rendererId: this.$1,
@@ -310,18 +341,80 @@ __d(
               isKeyFrame: o,
             });
           }),
+          (n.renderVideoFrame = function (t) {
+            var e = t.frame,
+              n = t.mirror,
+              a = t.orientation;
+            if (this.$13) return "busy";
+            if (this.$10)
+              return window.performance.now() - this.$14 < C
+                ? "busy"
+                : ((this.$13 = !0),
+                  o("WALogger").WARN(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: VideoRendererWorker: VideoFrame release missing, capture returns to bytes",
+                      ])),
+                  ),
+                  o(
+                    "WAWebVoipSelfPreviewVideoFrameSupport",
+                  ).isSelfPreviewVideoFrameSupported() &&
+                    r("WAWebODS").incr(
+                      "web.call.self_preview.videoframe_fallback.release_timeout",
+                    ),
+                  "failed");
+            var i = null;
+            try {
+              ((i = e.clone()),
+                this.$5.postMessage(
+                  {
+                    type: "onVideoFrameObject",
+                    rendererId: this.$1,
+                    frame: i,
+                    mirror: n,
+                    orientation: a,
+                  },
+                  [i],
+                ));
+            } catch (e) {
+              var l;
+              return (
+                (l = i) == null || l.close(),
+                o("WALogger").WARN(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: VideoRendererWorker: VideoFrame transfer failed: ",
+                      "",
+                    ])),
+                  String(e),
+                ),
+                o(
+                  "WAWebVoipSelfPreviewVideoFrameSupport",
+                ).isSelfPreviewVideoFrameSupported() &&
+                  r("WAWebODS").incr(
+                    "web.call.self_preview.videoframe_fallback.transfer_failed",
+                  ),
+                "failed"
+              );
+            }
+            return (
+              (this.$10 = !0),
+              (this.$14 = window.performance.now()),
+              "sent"
+            );
+          }),
           (n.setRenderCallback = function (t) {
-            this.$10 = t;
+            this.$11 = t;
           }),
           (n.$9 = function () {
-            if (!this.$11) {
-              this.$11 = !0;
+            if (!this.$12) {
+              this.$12 = !0;
               try {
-                this.$10();
+                this.$11();
               } catch (e) {
                 o("WALogger").WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: VideoRendererWorker: render callback failed: ",
                       "",
                     ])),
@@ -333,7 +426,7 @@ __d(
           t
         );
       })();
-    ((g.rendererIdCounter = 0), (g.workerPool = new Map()), (l.default = g));
+    ((b.rendererIdCounter = 0), (b.workerPool = new Map()), (l.default = b));
   },
   98,
 );

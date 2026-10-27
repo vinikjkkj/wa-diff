@@ -77,119 +77,122 @@ __d(
         ));
     }
     function T(e) {
-      var t = o("react-compiler-runtime").c(25),
-        n = e.externalStyle,
-        a = e.node,
-        i;
-      t[0] !== a
-        ? ((i = a.getExpression(h)), (t[0] = a), (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        u;
-      t[2] !== a ? ((u = a.get(C)), (t[2] = a), (t[3] = u)) : (u = t[3]);
-      var c = u,
-        d = a.get(b),
-        m = a.get(R),
-        T = a.get(L),
-        D = a.getSubNode(E),
-        x = a.get(v),
-        $ = a.get(p),
-        P = a.get(y),
-        N = a.getSubNode(S),
-        M;
-      t[4] !== a ? ((M = a.get(k)), (t[4] = a), (t[5] = M)) : (M = t[5]);
-      var w = M,
-        A = a.get(_),
-        F = a.get(f),
-        O = a.get(g),
-        B = o("WebBloksStyle").useStyle(a, n, l != null),
-        W = B.ref,
-        q = B.style,
-        U = B.wrapper,
-        V = B.wrapperProps,
-        H = o("WebBloksTheme").useTheme().getTheme(),
-        G =
-          (x != null &&
+      var t,
+        n = o("react-compiler-runtime").c(25),
+        a = e.externalStyle,
+        i = e.node,
+        l;
+      n[0] !== i
+        ? ((l = i.getExpression(h)), (n[0] = i), (n[1] = l))
+        : (l = n[1]);
+      var u = l,
+        c;
+      n[2] !== i ? ((c = i.get(C)), (n[2] = i), (n[3] = c)) : (c = n[3]);
+      var d = c,
+        m = i.get(b),
+        T = i.get(R),
+        D = i.get(L),
+        x = i.getSubNode(E),
+        $ = i.get(v),
+        P = i.get(p),
+        N = i.get(y),
+        M = i.getSubNode(S),
+        w;
+      n[4] !== i ? ((w = i.get(k)), (n[4] = i), (n[5] = w)) : (w = n[5]);
+      var A = w,
+        F = i.get(_),
+        O = i.get(f),
+        B = i.get(g),
+        W = o("WebBloksStyle").useStyle(i, a, u != null),
+        q = W.ref,
+        U = W.style,
+        V = W.wrapper,
+        H = W.wrapperProps,
+        G = o("WebBloksTheme").useTheme().getTheme(),
+        z =
+          ($ != null &&
             o("WebBloksUtils").convertRGBArrToString(
-              o("WebBloksUtils").convertRGBOrHexStringToArr(x),
+              o("WebBloksUtils").convertRGBOrHexStringToArr($),
             )) ||
-          (D && o("WebBloksUtils").getRGBColorWithTheme(D, H)),
-        z = r("useClickablePropsForWebBloks")(a, l),
-        j = o("WebBloksComponentContext").useWebBloksContext(),
-        K = j.bloksContext,
-        Q = j.renderNode,
-        X = K.objectSet.environment.fontFamilyMappings,
-        Y =
-          N != null
-            ? Q(N)
-            : c == null
-              ? c
-              : c === " "
+          (x && o("WebBloksUtils").getRGBColorWithTheme(x, G)),
+        j = r("useClickablePropsForWebBloks")(i, u),
+        K = o("WebBloksComponentContext").useWebBloksContext(),
+        Q = K.bloksContext,
+        X = K.renderNode,
+        Y = Q.objectSet.environment.fontFamilyMappings,
+        J =
+          M != null
+            ? X(M)
+            : d == null
+              ? d
+              : d === " "
                 ? s.jsx(s.Fragment, { children: "\xA0" })
-                : c;
-      I(W, w, Y);
-      var J = o("WebBloksUtils").toPx(A),
-        Z = J != null ? J : o("WebBloksTextStyle").getLineHeight(F),
-        ee = o("WebBloksTextStyle").getLineClampStyle(O),
-        te = o("WebBloksTextStyle").getTextStyle(T),
-        ne = o("WebBloksTextStyle").getVerticalSpacingStyles(Z),
-        re = o("WebBloksUtils").toPx(m),
-        oe = o("WebBloksTextStyle").getFontFamily($, X),
-        ae = o("WebBloksUtils").toHyphen(d),
-        ie = o("WebBloksBooleanUtils").isTrue(P) ? "line-through" : "",
-        le;
-      t[6] !== G ||
-      t[7] !== Z ||
-      t[8] !== q ||
-      t[9] !== ie ||
-      t[10] !== ee ||
-      t[11] !== te ||
-      t[12] !== ne ||
-      t[13] !== re ||
-      t[14] !== oe ||
-      t[15] !== ae
-        ? ((le = babelHelpers.extends({}, q, ee, te, ne, {
-            lineHeight: Z,
-            fontSize: re,
-            fontFamily: oe,
-            textAlign: ae,
-            textDecoration: ie,
-            color: G,
+                : d;
+      I(q, A, J);
+      var Z = o("WebBloksUtils").toPx(F),
+        ee = Z != null ? Z : o("WebBloksTextStyle").getLineHeight(O),
+        te = o("WebBloksTextStyle").getLineClampStyle(B),
+        ne = o("WebBloksTextStyle").getTextStyle(D),
+        re = o("WebBloksTextStyle").getVerticalSpacingStyles(ee),
+        oe = o("WebBloksUtils").toPx(T),
+        ae =
+          (t = o("WebBloksTextStyle").getFontFamily(P, Y)) != null ? t : void 0,
+        ie = o("WebBloksUtils").toHyphen(m),
+        le = o("WebBloksBooleanUtils").isTrue(N) ? "line-through" : "",
+        se = z != null ? z : void 0,
+        ue;
+      n[6] !== ee ||
+      n[7] !== U ||
+      n[8] !== le ||
+      n[9] !== se ||
+      n[10] !== te ||
+      n[11] !== ne ||
+      n[12] !== re ||
+      n[13] !== oe ||
+      n[14] !== ae ||
+      n[15] !== ie
+        ? ((ue = babelHelpers.extends({}, U, te, ne, re, {
+            lineHeight: ee,
+            fontSize: oe,
+            fontFamily: ae,
+            textAlign: ie,
+            textDecoration: le,
+            color: se,
             whiteSpace: "pre-wrap",
             overflowWrap: "break-word",
             padding: "unset",
             maxWidth: "100%",
           })),
-          (t[6] = G),
-          (t[7] = Z),
-          (t[8] = q),
-          (t[9] = ie),
-          (t[10] = ee),
-          (t[11] = te),
-          (t[12] = ne),
-          (t[13] = re),
-          (t[14] = oe),
-          (t[15] = ae),
-          (t[16] = le))
-        : (le = t[16]);
-      var se;
-      t[17] !== z || t[18] !== le || t[19] !== Y || t[20] !== V
-        ? ((se = s.jsx(
+          (n[6] = ee),
+          (n[7] = U),
+          (n[8] = le),
+          (n[9] = se),
+          (n[10] = te),
+          (n[11] = ne),
+          (n[12] = re),
+          (n[13] = oe),
+          (n[14] = ae),
+          (n[15] = ie),
+          (n[16] = ue))
+        : (ue = n[16]);
+      var ce;
+      n[17] !== j || n[18] !== ue || n[19] !== J || n[20] !== H
+        ? ((ce = s.jsx(
             "span",
-            babelHelpers.extends({}, V, { style: le }, z, { children: Y }),
+            babelHelpers.extends({}, H, { style: ue }, j, { children: J }),
           )),
-          (t[17] = z),
-          (t[18] = le),
-          (t[19] = Y),
-          (t[20] = V),
-          (t[21] = se))
-        : (se = t[21]);
-      var ue;
+          (n[17] = j),
+          (n[18] = ue),
+          (n[19] = J),
+          (n[20] = H),
+          (n[21] = ce))
+        : (ce = n[21]);
+      var de;
       return (
-        t[22] !== se || t[23] !== U
-          ? ((ue = U(se)), (t[22] = se), (t[23] = U), (t[24] = ue))
-          : (ue = t[24]),
-        ue
+        n[22] !== ce || n[23] !== V
+          ? ((de = V(ce)), (n[22] = ce), (n[23] = V), (n[24] = de))
+          : (de = n[24]),
+        de
       );
     }
     l.default = T;

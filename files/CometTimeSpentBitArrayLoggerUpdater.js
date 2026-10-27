@@ -7,7 +7,7 @@ __d(
       s = null;
     function u(e) {
       o("CometTimeSpentBitArrayLogger").updateTimeSpentArray(
-        Date.now(),
+        o("CometTimeSpentBitArrayLogger").currentTimeInMS(),
         e.type,
       );
     }

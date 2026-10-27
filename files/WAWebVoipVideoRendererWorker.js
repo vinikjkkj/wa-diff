@@ -20,11 +20,12 @@ __d(
       _,
       f,
       g,
-      h = new (o("WorkerMessagePort").WorkerMessagePort)(
+      h,
+      y = new (o("WorkerMessagePort").WorkerMessagePort)(
         self,
         "WAWebVoipVideoRendererWorker",
       );
-    function y() {
+    function C() {
       (o("WAWebVoipVideoRendererLogging").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -32,11 +33,11 @@ __d(
           ])),
       ),
         o("WAWebVoipVideoWebCodecsRenderer").setFatalErrorCallback(function () {
-          h.postMessage({ type: "decoderFatalError" });
+          y.postMessage({ type: "decoderFatalError" });
         }),
-        h.addMessageListener("registerCanvas", function (e) {
+        y.addMessageListener("registerCanvas", function (e) {
           try {
-            b.registerCanvas({
+            v.registerCanvas({
               canvas: e.offscreenCanvas,
               generation: e.generation,
               portalMode: e.portalMode,
@@ -54,9 +55,9 @@ __d(
             );
           }
         }),
-        h.addMessageListener("onVideoFrame", function (e) {
+        y.addMessageListener("onVideoFrame", function (e) {
           try {
-            b.renderFrame(
+            v.renderFrame(
               e.rendererId,
               e.frameBuffer,
               e.width,
@@ -72,7 +73,7 @@ __d(
               t instanceof
               o("WAWebVoipVideoWebCodecsRenderer").KeyFrameNeededError
             ) {
-              h.postMessage({
+              y.postMessage({
                 type: "requestKeyFrame",
                 rendererId: e.rendererId,
               });
@@ -88,17 +89,42 @@ __d(
             );
           }
         }),
-        h.addMessageListener("onCanvasResize", function (e) {
+        y.addMessageListener("onVideoFrameObject", function (e) {
+          var t = e.frame,
+            n = e.rendererId,
+            r = !1;
           try {
-            b.onCanvasResize({
+            v.renderVideoFrame(n, t, e.orientation, e.mirror);
+          } catch (e) {
+            ((r = !0),
+              o("WAWebVoipVideoRendererLogging").ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: VideoRendererWorker: Failed to render VideoFrame: ",
+                    "",
+                  ])),
+                e,
+              ));
+          } finally {
+            (t.close(),
+              y.postMessage({
+                type: "videoFrameObjectReleased",
+                rendererId: n,
+                failed: r,
+              }));
+          }
+        }),
+        y.addMessageListener("onCanvasResize", function (e) {
+          try {
+            v.onCanvasResize({
               height: e.height,
               rendererId: e.rendererId,
               width: e.width,
             });
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererWorker: Failed to handle canvas resize: ",
                   "",
                 ])),
@@ -106,13 +132,13 @@ __d(
             );
           }
         }),
-        h.addMessageListener("unregisterCanvas", function (e) {
+        y.addMessageListener("unregisterCanvas", function (e) {
           try {
-            b.unregisterCanvas(e.rendererId);
+            v.unregisterCanvas(e.rendererId);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererWorker: Failed to unregister canvas: ",
                   "",
                 ])),
@@ -120,13 +146,13 @@ __d(
             );
           }
         }),
-        h.addMessageListener("reset", function (e) {
+        y.addMessageListener("reset", function (e) {
           try {
-            b.reset(e.rendererId, e.generation);
+            v.reset(e.rendererId, e.generation);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererWorker: Failed to reset: ",
                   "",
                 ])),
@@ -134,13 +160,13 @@ __d(
             );
           }
         }),
-        h.addMessageListener("requireKeyframe", function (e) {
+        y.addMessageListener("requireKeyframe", function (e) {
           try {
-            b.requireKeyframe(e.rendererId);
+            v.requireKeyframe(e.rendererId);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererWorker: Failed to requireKeyframe: ",
                   "",
                 ])),
@@ -148,13 +174,13 @@ __d(
             );
           }
         }),
-        h.addMessageListener("setCoverFit", function (e) {
+        y.addMessageListener("setCoverFit", function (e) {
           try {
-            b.setCoverFit(e.rendererId, e.enabled);
+            v.setCoverFit(e.rendererId, e.enabled);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererWorker: Failed to set cover fit: ",
                   "",
                 ])),
@@ -162,13 +188,13 @@ __d(
             );
           }
         }),
-        h.addMessageListener("setVideoEnhancement", function (e) {
+        y.addMessageListener("setVideoEnhancement", function (e) {
           try {
-            b.setVideoEnhancement(e.rendererId, e.brightness, e.sharpening);
+            v.setVideoEnhancement(e.rendererId, e.brightness, e.sharpening);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererWorker: Failed to set video enhancement: ",
                   "",
                 ])),
@@ -177,13 +203,13 @@ __d(
           }
         }),
         o("WAWebVoipVideoRendererLogging").LOG(
-          g ||
-            (g = babelHelpers.taggedTemplateLiteralLoose([
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
               "voip: VideoRendererWorker: Video renderer worker initialized",
             ])),
         ));
     }
-    var C = (function () {
+    var b = (function () {
         function e() {
           this.$1 = new Map();
         }
@@ -241,7 +267,7 @@ __d(
                 e.renderer.cleanup();
               } finally {
                 (this.$1.delete(t),
-                  this.$1.size === 0 && h.postMessage({ type: "shutdown" }));
+                  this.$1.size === 0 && y.postMessage({ type: "shutdown" }));
               }
           }),
           (t.reset = function (t, n) {
@@ -294,6 +320,13 @@ __d(
                 width: r,
               });
           }),
+          (t.renderVideoFrame = function (t, n, r, a) {
+            var e,
+              i = (e = this.$1.get(t)) == null ? void 0 : e.renderer;
+            i instanceof
+              o("WAWebVoipVideoRasterRenderer").WAWebVoipVideoFrameRenderer &&
+              i.renderVideoFrame({ frame: n, mirror: a, orientation: r });
+          }),
           (t.$2 = function (t) {
             var e = this.$1.get(t);
             if (e != null && !e.isResetting) {
@@ -303,7 +336,7 @@ __d(
               }
               e.hasReportedFirstFrame ||
                 ((e.hasReportedFirstFrame = !0),
-                h.postMessage({
+                y.postMessage({
                   type: "frameRendered",
                   rendererId: t,
                   generation: e.generation,
@@ -320,7 +353,7 @@ __d(
                 return;
               }
               try {
-                h.postMessage(
+                y.postMessage(
                   {
                     type: "mainThreadRender",
                     rendererId: t,
@@ -338,8 +371,8 @@ __d(
           e
         );
       })(),
-      b = new C();
-    l.default = y;
+      v = new b();
+    l.default = C;
   },
   98,
 );

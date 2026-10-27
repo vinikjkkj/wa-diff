@@ -253,6 +253,8 @@ __d(
                   reportInputLevel: this.$4 != null,
                   levelReportIntervalMs: o("WAWebVoipMicrophoneInputState")
                     .LEVEL_REPORT_INTERVAL_MS,
+                  doorbellOffset: m.getAudioDoorbellPtr(),
+                  doorbellChunkSamples: i,
                 }),
                   (this.$6 = !0),
                   (this.mediaStreamSource = s),

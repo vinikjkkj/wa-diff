@@ -16,6 +16,7 @@ __d(
     "WAWebVoipAudioPlaybackWorklet",
     "WAWebVoipCallAudioUnlock",
     "WAWebVoipPerfOptimizations",
+    "WAWebVoipSharedCallAudioContext",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -147,7 +148,8 @@ __d(
                 var _ = this.playbackParams;
                 try {
                   var f, g;
-                  ((this.playbackAudioContext = P(_.sampleRate)),
+                  (yield o("WAWebAudioUtility").initWasmModule(),
+                    (this.playbackAudioContext = P(_.sampleRate)),
                     o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                       o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                         .WORKLET_PRELOAD,
@@ -460,7 +462,13 @@ __d(
                 (this.implementation != null &&
                   (yield this.implementation.stopAudioPlayback()),
                   this.playbackAudioContext &&
-                    (this.playbackAudioContext.state !== "closed" &&
+                    (!o(
+                      "WAWebVoipSharedCallAudioContext",
+                    ).releaseSharedCallAudioContext(
+                      "playback",
+                      this.playbackAudioContext,
+                    ) &&
+                      this.playbackAudioContext.state !== "closed" &&
                       this.playbackAudioContext
                         .close()
                         .then(function () {})
@@ -621,11 +629,17 @@ __d(
         );
       })();
     function P(e) {
-      var t;
-      return (t = o("WAWebVoipCallAudioUnlock").takeUnlockedAudioContext(
-        "playback",
-        e,
-      )) != null
+      var t, n;
+      return (t =
+        (n = o("WAWebVoipSharedCallAudioContext").acquireSharedCallAudioContext(
+          "playback",
+          e,
+        )) != null
+          ? n
+          : o("WAWebVoipCallAudioUnlock").takeUnlockedAudioContext(
+              "playback",
+              e,
+            )) != null
         ? t
         : new AudioContext({ sampleRate: e, latencyHint: "interactive" });
     }

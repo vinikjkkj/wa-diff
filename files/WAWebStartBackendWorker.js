@@ -363,6 +363,12 @@ __d(
               createSnapshot: function () {
                 o("WAWebGetMessageCache").getMessageCache().createSnapshot();
               },
+              writeSignalState: function (t) {
+                var e = t.snapshotInMemoryMode;
+                return o("WAWebGetMessageCache")
+                  .getMessageCache()
+                  .writeSignalState(e);
+              },
               checkpointQueueWait: function () {
                 return o("WAWebGetMessageCache")
                   .getMessageCache()

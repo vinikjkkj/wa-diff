@@ -24,105 +24,116 @@ __d(
       b = {},
       v,
       S = null,
-      R = null;
-    function L() {
+      R = null,
+      L,
+      E = 0;
+    function k() {
+      return L == null ? Date.now() : L.now();
+    }
+    function I() {
       return { timeoutDelayMap: b, nextDelay: v, timeoutInSeconds: p };
     }
-    function E() {
+    function T() {
       var e = u;
       if (e) {
-        var t = Date.now();
+        var t = k();
         t > f && (h = Math.min(s, Math.ceil(t / 1e3 - _)));
-        var n = x();
+        var n = N();
         n && e(n, v);
       }
-      D();
+      P();
     }
-    function k() {
-      (I(),
+    function D() {
+      (x(),
         (m = r("setTimeoutAcrossTransitions")(
-          r("TimeSlice").guard(E, "TimeSpentArray Timeout", {
+          r("TimeSlice").guard(T, "TimeSpentArray Timeout", {
             propagationType: r("TimeSlice").PropagationType.ORPHAN,
           }),
           p * 1e3,
         )));
     }
-    function I() {
+    function x() {
       m != null && m !== 0 && (r("clearTimeout")(m), (m = null));
     }
-    function T(t, n) {
-      ((_ = t), (f = _ * 1e3));
-      for (var r = [1], o = 1; o < e; o++) r.push(0);
-      ((g = r), (h = 1), (y += 1), (C += 1));
-      var a = C.toString() + "_delay";
-      ((v = b[a]), v === void 0 && (v = b.delay));
-      var i = C.toString() + "_timeout",
-        l = b[i];
-      (l === void 0 && (l = b.timeout),
-        (l = Math.min(l, s)),
-        (p = l || s),
+    function $(t, n) {
+      var r, o;
+      ((_ = t),
+        (E =
+          (r = (o = L) == null ? void 0 : o.getOffsetMillis()) != null ? r : 0),
+        (f = _ * 1e3));
+      for (var a = [1], i = 1; i < e; i++) a.push(0);
+      ((g = a), (h = 1), (y += 1), (C += 1));
+      var l = C.toString() + "_delay";
+      ((v = b[l]), v === void 0 && (v = b.delay));
+      var u = C.toString() + "_timeout",
+        c = b[u];
+      (c === void 0 && (c = b.timeout),
+        (c = Math.min(c, s)),
+        (p = c || s),
         (S = d ? d() : null),
         (R = n),
-        k());
+        D());
     }
-    function D() {
-      (I(), (g = null));
+    function P() {
+      (x(), (g = null));
     }
-    function x() {
-      return g
-        ? {
+    function N() {
+      var e = g;
+      return e == null
+        ? null
+        : {
             tos_id: r("pageID"),
-            start_time: _,
-            tos_array: g.slice(0),
+            start_time: Math.floor(_ - E / 1e3),
+            tos_array: e.slice(0),
             tos_len: h,
             tos_seq: C,
             tos_cum: y,
             start_endpoint: S,
             start_event: R,
-          }
-        : null;
+          };
     }
-    function $(e, t) {
-      (e >= f && e - f < 1e3) || (c && c(e), P(Math.floor(e / 1e3), t));
+    function M(e, t) {
+      (e >= f && e - f < 1e3) || (c && c(e), w(Math.floor(e / 1e3), t));
     }
-    function P(e, t) {
+    function w(e, t) {
       var n = e - _;
-      ((n < 0 || n >= s) && E(),
+      ((n < 0 || n >= s) && T(),
         g
           ? ((g[n >> 5] |= 1 << (n & 31)), (h = n + 1), (y += 1), (f = e * 1e3))
-          : T(e, t));
+          : $(e, t));
     }
-    function N(e, t, n, o, a) {
+    function A(e, t, n, o, a, i) {
       ((y = 0),
         (C = -1),
         (u = e),
         (c = o),
         (d = a),
+        (L = i),
         typeof t == "object" && t !== null ? (b = t) : (b = {}),
-        T(Math.floor((n == null || n === 0 ? Date.now() : n) / 1e3), "init"),
-        r("Banzai").subscribe(r("Banzai").SHUTDOWN, E));
+        $(Math.floor((n == null || n === 0 ? k() : n) / 1e3), "init"),
+        r("Banzai").subscribe(r("Banzai").SHUTDOWN, T));
     }
-    function M(e, t) {
-      $(e, t != null ? t : "unknown");
-    }
-    function w() {
-      return x();
-    }
-    function A() {
-      E();
-    }
-    function F() {
-      D();
+    function F(e, t) {
+      M(e, t != null ? t : "unknown");
     }
     function O() {
-      return L();
+      return N();
     }
-    ((l.init = N),
-      (l.update = M),
-      (l.get = w),
-      (l.ship = A),
-      (l.reset = F),
-      (l.testState = O));
+    function B() {
+      T();
+    }
+    function W() {
+      P();
+    }
+    function q() {
+      return I();
+    }
+    ((l.init = A),
+      (l.update = F),
+      (l.get = O),
+      (l.ship = B),
+      (l.reset = W),
+      (l.testState = q));
   },
   98,
 );

@@ -238,7 +238,7 @@ __d(
       );
     }
     function h(e, t, n) {
-      return t == null || n == null ? null : t + e * (n - t);
+      if (!(t == null || n == null)) return t + e * (n - t);
     }
     function y(e, t) {
       var n = o("react-compiler-runtime").c(4),

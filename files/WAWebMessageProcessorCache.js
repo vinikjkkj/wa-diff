@@ -277,6 +277,21 @@ __d(
             }
             return t;
           })()),
+          (t.writeSignalState = function (t) {
+            var e = o("WAWebSignalProtocolStore").getSignalProtocolStore();
+            if (!t && !e.hasPendingPersistWrites())
+              return (y || (y = n("Promise"))).resolve();
+            this.createSnapshot();
+            var r = e.generateSnapshot();
+            return this.$3.enqueue(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                r != null
+                  ? yield I(r)
+                  : e.hasPendingPersistWrites() &&
+                    (yield e.flushBufferToDiskIfNotMemOnlyMode());
+              }),
+            );
+          }),
           (t.createSnapshot = function () {
             var e,
               t,
@@ -358,52 +373,7 @@ __d(
                           b.all,
                           "checkpoint_signal_write_start",
                         ),
-                        yield o("WAWebSignalStorageUtils")
-                          .getStorage()
-                          .lock(
-                            [
-                              "session-store",
-                              "identity-store",
-                              "prekey-store",
-                              "senderkey-store",
-                            ],
-                            n("asyncToGeneratorRuntime").asyncToGenerator(
-                              function* () {
-                                yield (y || (y = n("Promise"))).all([
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkPutSession(
-                                    C.sessionUpdate,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkPutIdentityKeyWithRowId(
-                                    C.identityUpdate,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkPutSenderKey(
-                                    C.senderKeyUpdate,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkRemovePreKey(
-                                    C.preKeyRemove,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkRemoveSession(
-                                    C.sessionRemove,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkRemoveIdentity(
-                                    C.identityRemove,
-                                  ),
-                                ]);
-                              },
-                            ),
-                          ),
+                        yield I(C),
                         o(
                           "WAWebMessageReceiveFlow",
                         ).markMessageReceiveCheckpoint(
@@ -430,7 +400,7 @@ __d(
                         b.aggregatedReceipts.filter(function (t) {
                           return !e.includes(t);
                         }),
-                        { batchSize: a.length, signalDirtyCount: I(C) },
+                        { batchSize: a.length, signalDirtyCount: T(C) },
                       ),
                       o("WALogger").LOG(
                         _ ||
@@ -512,6 +482,40 @@ __d(
       );
     }
     function I(e) {
+      return o("WAWebSignalStorageUtils")
+        .getStorage()
+        .lock(
+          [
+            "session-store",
+            "identity-store",
+            "prekey-store",
+            "senderkey-store",
+          ],
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            yield (y || (y = n("Promise"))).all([
+              o("WAWebSignalStoreApi").waSignalStore.bulkPutSession(
+                e.sessionUpdate,
+              ),
+              o(
+                "WAWebSignalStoreApi",
+              ).waSignalStore.bulkPutIdentityKeyWithRowId(e.identityUpdate),
+              o("WAWebSignalStoreApi").waSignalStore.bulkPutSenderKey(
+                e.senderKeyUpdate,
+              ),
+              o("WAWebSignalStoreApi").waSignalStore.bulkRemovePreKey(
+                e.preKeyRemove,
+              ),
+              o("WAWebSignalStoreApi").waSignalStore.bulkRemoveSession(
+                e.sessionRemove,
+              ),
+              o("WAWebSignalStoreApi").waSignalStore.bulkRemoveIdentity(
+                e.identityRemove,
+              ),
+            ]);
+          }),
+        );
+    }
+    function T(e) {
       return e == null
         ? 0
         : e.sessionUpdate.length +

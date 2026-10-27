@@ -3,15 +3,16 @@ __d(
   ["QPLUserFlow", "WebBloksQPLMinificationKeys", "WebBloksQPLUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, a, i) {
-      var l = i.get(
+      var l,
+        s = i.get(
           o("WebBloksQPLMinificationKeys").QPL_EVENT_CONFIG_SAMPLE_RATE,
         ),
-        s = i.get(
+        u = i.get(
           o("WebBloksQPLMinificationKeys").QPL_EVENT_CONFIG_SAMPLING_TYPE,
         ),
-        u = o("WebBloksQPLUtils").createSyntheticQPLEvent(t, l, s);
-      r("QPLUserFlow").endCancel(u, {
-        annotations: { string: { cancel_reason: a } },
+        c = o("WebBloksQPLUtils").createSyntheticQPLEvent(t, s, u);
+      r("QPLUserFlow").endCancel(c, {
+        annotations: { string: ((l = {}), (l.cancel_reason = a), l) },
         instanceKey: n,
       });
     }

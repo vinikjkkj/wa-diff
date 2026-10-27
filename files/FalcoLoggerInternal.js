@@ -77,56 +77,51 @@ __d(
         o("ServerTime").getOffsetMillis()
       );
     }
-    function C(e, t, n, o, a, i) {
+    function C(e, t, n, o, a) {
       if ((s || (s = r("AnalyticsCoreData"))).enable_observer) {
-        var l = babelHelpers.extends(
-          { name: e, time: t, sampled: n, getData: a, policy: o },
-          i && { getPrivacyContext: i },
-        );
-        L.emit("event", l);
+        var i = { name: e, time: t, sampled: n, getData: a, policy: o };
+        L.emit("event", i);
       }
     }
-    function b(e, t, n, a, i, l) {
-      var u = JSON.stringify(i);
-      if (u.length > m) {
+    function b(e, t, n, a, i) {
+      var l = JSON.stringify(a);
+      if (l.length > m) {
         (o("FalcoUtils").bumpODSMetrics(e, "event.filters.exceeded_size", 1),
           r("FBLogger")("falco", "oversized_message:" + e).warn(
             'Dropping event "%s" due to exceeding the max size %s at %s',
             e,
             m,
-            u.length,
+            l.length,
           ));
         return;
       }
-      var p = o("FalcoUtils").xorBitmap([0, 0], c);
-      p = o("FalcoUtils").xorBitmap(p, d);
-      var _ = {
+      var u = o("FalcoUtils").xorBitmap([0, 0], c);
+      u = o("FalcoUtils").xorBitmap(u, d);
+      var p = {
         name: e,
         policy: t,
         time: n,
-        extra: u,
-        privacyContext: a,
-        tags: p,
+        extra: l,
+        tags: u,
         sessionId: o("WebSession").getId(),
         deviceId: (s || (s = r("AnalyticsCoreData"))).device_id,
         appVersion: s.app_version,
       };
-      (l.wrapAndEnqueueItem(_),
+      (i.wrapAndEnqueueItem(p),
         o("FalcoUtils").bumpODSMetrics(e, "event.captured", 1));
     }
-    function v(e, t, n, a, i, l) {
+    function v(e, t, n, a, i) {
       try {
-        var s = y();
+        var l = y();
         o("FalcoUtils").bumpODSMetrics(e, "event.logged", 1);
-        var u = g(s, t, e);
-        if (u) {
-          var c = a(),
-            d = n && n();
-          i
+        var s = g(l, t, e);
+        if (s) {
+          var u = n();
+          a
             ? r("promiseDone")(
-                i()
+                a()
                   .then(function (n) {
-                    b(e, t, s, d, babelHelpers.extends({}, c, n), l);
+                    b(e, t, l, babelHelpers.extends({}, u, n), i);
                   })
                   .catch(function (n) {
                     (r("FBLogger")("falco", "canonical_resolution_failed")
@@ -135,26 +130,25 @@ __d(
                         'Failed to resolve canonicals for "%s", logging without them',
                         e,
                       ),
-                      b(e, t, s, d, c, l));
+                      b(e, t, l, u, i));
                   }),
               )
-            : b(e, t, s, d, c, l);
+            : b(e, t, l, u, i);
         }
-        C(e, s, u, t, a, n);
+        C(e, l, s, t, n);
       } catch (e) {
         R(e);
       }
     }
-    function S(t, a, i, l, s, u) {
+    function S(t, a, i, l, s) {
       try {
-        var c = y();
+        var u = y();
         o("FalcoUtils").bumpODSMetrics(t, "event.logged", 1);
-        var d = g(c, a, t);
-        if (d) {
-          var m = l(),
-            p = (e || (e = n("Promise"))).resolve(i && i()),
-            _ = s
-              ? s().catch(function (e) {
+        var c = g(u, a, t);
+        if (c) {
+          var d = i(),
+            m = l
+              ? l().catch(function (e) {
                   return (
                     r("FBLogger")("falco", "canonical_resolution_failed")
                       .catching(e instanceof Error ? e : r("err")(String(e)))
@@ -166,27 +160,15 @@ __d(
                   );
                 })
               : null;
-          return e.all([m, p, _]).then(function (e) {
+          return (e || (e = n("Promise"))).all([d, m]).then(function (e) {
             var n = e[0],
-              r = e[1],
-              o = e[2];
-            (b(t, a, c, r, o ? babelHelpers.extends({}, n, o) : n, u),
-              C(
-                t,
-                c,
-                d,
-                a,
-                function () {
-                  return n;
-                },
-                r &&
-                  function () {
-                    return r;
-                  },
-              ));
+              r = e[1];
+            (b(t, a, u, r ? babelHelpers.extends({}, n, r) : n, s),
+              C(t, u, c, a, function () {
+                return n;
+              }));
           });
-        } else
-          return (C(t, c, d, a, l, i), (e || (e = n("Promise"))).resolve());
+        } else return (C(t, u, c, a, i), (e || (e = n("Promise"))).resolve());
       } catch (t) {
         return (e || (e = n("Promise"))).reject(t);
       }
@@ -206,20 +188,20 @@ __d(
         o = f.logImmediatelyQueue,
         a = f.logQueue;
       return {
-        log: function (o, i) {
-          v(e, t, i, o, n, a);
+        log: function (o) {
+          v(e, t, o, n, a);
         },
-        logAsync: function (o, i) {
-          S(e, t, i, o, n, a).catch(R);
+        logAsync: function (o) {
+          S(e, t, o, n, a).catch(R);
         },
-        logImmediately: function (a, i) {
-          v(e, t, i, a, n, o);
+        logImmediately: function (a) {
+          v(e, t, a, n, o);
         },
-        logCritical: function (a, i) {
-          v(e, t, i, a, n, r);
+        logCritical: function (a) {
+          v(e, t, a, n, r);
         },
-        logRealtimeEvent: function (a, i) {
-          v(e, t, i, a, n, r);
+        logRealtimeEvent: function (a) {
+          v(e, t, a, n, r);
         },
       };
     }

@@ -17,30 +17,29 @@ __d(
       y,
       C,
       b,
-      v,
-      S = (v = r("gkx"))("2548"),
-      R = v("221"),
-      L = v("19232"),
-      E = v("6600");
-    function k(e) {
+      v = (b = r("gkx"))("2548"),
+      S = b("221"),
+      R = b("19232"),
+      L = b("6600");
+    function E(e) {
       return Object.prototype.hasOwnProperty.call(
         o("VirtualizationExperimentConfig").ROLLOUT_CONFIG,
         e,
       )
         ? o("VirtualizationExperimentConfig").ROLLOUT_CONFIG
-        : S &&
+        : v &&
             Object.prototype.hasOwnProperty.call(
               o("VirtualizationExperimentConfig").GK_HOLDOUT_CONFIG,
               e,
             )
           ? o("VirtualizationExperimentConfig").GK_HOLDOUT_CONFIG
-          : L &&
+          : R &&
               Object.prototype.hasOwnProperty.call(
                 o("VirtualizationExperimentConfig").FIREFOX_ROLLOUT_CONFIG,
                 e,
               )
             ? o("VirtualizationExperimentConfig").FIREFOX_ROLLOUT_CONFIG
-            : R &&
+            : S &&
                 Object.prototype.hasOwnProperty.call(
                   o("VirtualizationExperimentConfig").GK_ROLLOUT_CONFIG,
                   e,
@@ -48,16 +47,16 @@ __d(
               ? o("VirtualizationExperimentConfig").GK_ROLLOUT_CONFIG
               : null;
     }
-    var I = function (t) {
-        var e = k(t);
+    var k = function (t) {
+        var e = E(t);
         return e == null ? void 0 : e[t];
       },
-      T = new Set(
+      I = new Set(
         ((e = r("qex")._("641")) != null ? e : "").split(",").map(function (e) {
           return e.trim();
         }),
       );
-    function D(e) {
+    function T(e) {
       var t = new Map();
       return function (n) {
         if (t.has(n)) {
@@ -68,14 +67,14 @@ __d(
         return (t.set(n, o), o);
       };
     }
-    function x(e) {
+    function D(e) {
       var t;
-      if (T.has(e)) return !0;
-      var n = I(e);
+      if (I.has(e)) return !0;
+      var n = k(e);
       return (t = n == null ? void 0 : n.surface_enabled) != null ? t : !1;
     }
-    var $ = D(x);
-    function P(e) {
+    var x = T(D);
+    function $(e) {
       var t = new Map();
       return (
         e.split(",").forEach(function (e) {
@@ -95,163 +94,140 @@ __d(
         t
       );
     }
-    var N = P((s = r("qex")._("628")) != null ? s : "");
-    function M(e) {
+    var P = $((s = r("qex")._("628")) != null ? s : "");
+    function N(e) {
       var t;
-      if (N.has(e)) {
+      if (P.has(e)) {
         var n;
-        return (n = N.get(e)) != null
+        return (n = P.get(e)) != null
           ? n
           : o("VirtualizationExperimentConfig").DEFAULT_TOP_BOTTOM_MARGIN;
       }
-      var r = I(e);
+      var r = k(e);
       return (t = r == null ? void 0 : r.root_margin_top_bottom) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_TOP_BOTTOM_MARGIN;
     }
-    var w = D(M),
-      A = P((u = r("qex")._("2453")) != null ? u : "");
-    function F(e) {
-      var t = A.get(e);
+    var M = T(N),
+      w = $((u = r("qex")._("2453")) != null ? u : "");
+    function A(e) {
+      var t = w.get(e);
       return t != null && t >= 0 ? t : null;
     }
-    var O = new Set(((c = r("qex")._("642")) != null ? c : "all").split(",")),
-      B = new Set();
-    function W(e) {
-      B.has(e) ||
-        ((O.has("all") || O.has(e)) &&
+    var F = new Set(((c = r("qex")._("642")) != null ? c : "all").split(",")),
+      O = new Set();
+    function B(e) {
+      O.has(e) ||
+        ((F.has("all") || F.has(e)) &&
           o("QE2Logger").logExposureForActingAccount(
             "comet_front_end_virtualization",
           ),
-        B.add(e));
+        O.add(e));
     }
-    var q =
+    var W =
       (d = r("qex")._("4937")) != null
         ? d
         : o("VirtualizationExperimentConfig").DEFAULT_ACTIVITY_MODE_ON;
-    function U(e) {
+    function q(e) {
       var t;
-      if (T.has(e)) return q != null ? q : !1;
-      var n = I(e);
+      if (I.has(e)) return W != null ? W : !1;
+      var n = k(e);
       return (t = n == null ? void 0 : n.react_activity_mode) != null ? t : !1;
     }
-    var V = D(U),
-      H =
+    var U = T(q),
+      V =
         (m = r("qex")._("648")) != null
           ? m
           : o("VirtualizationExperimentConfig")
               .DEFAULT_PIN_CHILDREN_ON_INTERACTION;
-    function G(e) {
+    function H(e) {
       var t;
-      if (T.has(e)) return H != null ? H : !0;
-      var n = I(e);
+      if (I.has(e)) return V != null ? V : !0;
+      var n = k(e);
       return (t = n == null ? void 0 : n.pin_children_on_interaction) != null
         ? t
         : !0;
     }
-    var z = D(G),
-      j =
+    var G = T(H),
+      z =
         (p = r("qex")._("347")) != null
           ? p
           : o("VirtualizationExperimentConfig").DEFAULT_PIN_EXCLUSION_ENABLED;
-    function K(e) {
+    function j(e) {
       var t;
-      if (T.has(e))
-        return j != null
-          ? j
+      if (I.has(e))
+        return z != null
+          ? z
           : o("VirtualizationExperimentConfig").DEFAULT_PIN_EXCLUSION_ENABLED;
-      var n = I(e);
+      var n = k(e);
       return (t = n == null ? void 0 : n.pin_exclusion_enabled) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_PIN_EXCLUSION_ENABLED;
     }
-    var Q = D(K);
-    function X() {
+    var K = T(j);
+    function Q() {
       var e;
       return (e = r("qex")._("2825")) != null
         ? e
         : o("VirtualizationExperimentConfig")
             .DEFAULT_MEDIA_CONTROL_PIN_EXCLUSION;
     }
-    function Y() {
+    function X() {
       var e;
       return (e = r("qex")._("48")) != null
         ? e
         : o("VirtualizationExperimentConfig")
             .DEFAULT_RESUME_FEED_VIDEO_PLAYHEAD;
     }
-    var J =
-      (_ = r("qex")._("302")) != null
+    var Y =
+      (_ = r("qex")._("4590")) != null
         ? _
-        : o("VirtualizationExperimentConfig").DEFAULT_PERSISTED_MARGIN_ENABLED;
-    function Z(e) {
+        : o("VirtualizationExperimentConfig").DEFAULT_SHARED_MARGIN_ENABLED;
+    function J(e) {
       var t;
-      if (T.has(e))
-        return J != null
-          ? J
-          : o("VirtualizationExperimentConfig")
-              .DEFAULT_PERSISTED_MARGIN_ENABLED;
-      var n = I(e);
-      return (t = n == null ? void 0 : n.persisted_margin_enabled) != null
-        ? t
-        : o("VirtualizationExperimentConfig").DEFAULT_PERSISTED_MARGIN_ENABLED;
-    }
-    var ee = D(Z),
-      te =
-        (f = r("qex")._("4590")) != null
-          ? f
-          : o("VirtualizationExperimentConfig").DEFAULT_SHARED_MARGIN_ENABLED;
-    function ne(e) {
-      var t;
-      if (T.has(e)) return te;
-      var n = I(e);
+      if (I.has(e)) return Y;
+      var n = k(e);
       return (t = n == null ? void 0 : n.shared_margin_enabled) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_SHARED_MARGIN_ENABLED;
     }
-    var re = D(ne),
-      oe = r("qex")._("989");
-    function ae() {
-      return oe == null || !Number.isInteger(oe) || oe < 1
-        ? o("VirtualizationExperimentConfig").DEFAULT_EMA_WEIGHT_CAP
-        : oe;
-    }
-    var ie = (g = r("qex")._("339")) != null ? g : "default",
-      le = ie === "disable" ? !0 : ie === "enable" ? !1 : null;
-    function se(e) {
+    var Z = T(J),
+      ee = (f = r("qex")._("339")) != null ? f : "default",
+      te = ee === "disable" ? !0 : ee === "enable" ? !1 : null;
+    function ne(e) {
       var t;
-      if (T.has(e))
-        return le != null
-          ? le
+      if (I.has(e))
+        return te != null
+          ? te
           : o("VirtualizationExperimentConfig").DEFAULT_DISABLE_HIDING;
-      var n = I(e);
+      var n = k(e);
       return (t = n == null ? void 0 : n.hiding_disabled) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_DISABLE_HIDING;
     }
-    var ue = D(se),
-      ce =
-        (h = r("qex")._("885")) != null
-          ? h
+    var re = T(ne),
+      oe =
+        (g = r("qex")._("885")) != null
+          ? g
           : o("VirtualizationExperimentConfig")
               .DEFAULT_PIN_CHILDREN_WITH_PLAYER;
-    function de(e) {
+    function ae(e) {
       var t;
-      if (T.has(e))
-        return ce != null
-          ? ce
+      if (I.has(e))
+        return oe != null
+          ? oe
           : o("VirtualizationExperimentConfig")
               .DEFAULT_PIN_CHILDREN_WITH_PLAYER;
-      var n = I(e);
+      var n = k(e);
       return (t = n == null ? void 0 : n.pin_children_with_player) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_PIN_CHILDREN_WITH_PLAYER;
     }
-    var me = D(de);
-    function pe() {
+    var ie = T(ae);
+    function le() {
       return r("gkx")("5800");
     }
-    function _e(e) {
+    function se(e) {
       var t = new Map();
       return (
         e.split(",").forEach(function (e) {
@@ -271,77 +247,75 @@ __d(
         t
       );
     }
-    var fe = _e((y = r("qex")._("1851")) != null ? y : "");
-    function ge(e) {
+    var ue = se((h = r("qex")._("1851")) != null ? h : "");
+    function ce(e) {
       var t;
-      if (fe.has(e)) {
+      if (ue.has(e)) {
         var n;
-        return (n = fe.get(e)) != null
+        return (n = ue.get(e)) != null
           ? n
           : o("VirtualizationExperimentConfig").DEFAULT_VIRTUALIZATION_STRATEGY;
       }
-      var r = I(e);
+      var r = k(e);
       return (t = r == null ? void 0 : r.virtualization_strategy) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_VIRTUALIZATION_STRATEGY;
     }
-    var he =
-      (C = r("qex")._("1271")) != null
-        ? C
+    var de =
+      (y = r("qex")._("1271")) != null
+        ? y
         : o("VirtualizationExperimentConfig")
             .DEFAULT_SKIP_SCROLL_ANCHORING_CHECK;
-    function ye(e) {
-      return T.has(e)
-        ? he != null
-          ? he
+    function me(e) {
+      return I.has(e)
+        ? de != null
+          ? de
           : o("VirtualizationExperimentConfig")
               .DEFAULT_SKIP_SCROLL_ANCHORING_CHECK
-        : (R && E) || L;
+        : (S && L) || R;
     }
-    var Ce = D(ye),
-      be = D(ge),
-      ve = function (t) {
-        var e = I(t);
+    var pe = T(me),
+      _e = T(ce),
+      fe = function (t) {
+        var e = k(t);
         return (e == null ? void 0 : e.is_at_bottom_scroll_up) === !0 ||
           o("VirtualizationExperimentConfig").infiniteScrollUpSurfaces.has(t)
           ? !0
           : o("VirtualizationExperimentConfig").DEFAULT_AT_BOTTOM_SCROLL_UP;
       },
-      Se =
-        (b = r("qex")._("5027")) != null
-          ? b
+      ge =
+        (C = r("qex")._("5027")) != null
+          ? C
           : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
-    function Re(e) {
+    function he(e) {
       var t;
-      if (T.has(e))
-        return Se != null
-          ? Se
+      if (I.has(e))
+        return ge != null
+          ? ge
           : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
-      var n = I(e);
+      var n = k(e);
       return (t = n == null ? void 0 : n.text_searchable) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
     }
-    var Le = D(Re);
-    ((l.isSurfaceEnabled = $),
-      (l.getTopBottomMargin = w),
-      (l.getReadAheadMarginMax = F),
-      (l.logQEExposureOnceWhenNecessary = W),
-      (l.getActivityModeOn = V),
-      (l.getPinChildrenOnInteration = z),
-      (l.getPinExclusionEnabled = Q),
-      (l.isMediaControlPinExclusionEnabled = X),
-      (l.isResumeFeedVideoPlayheadEnabled = Y),
-      (l.getPersistedMarginEnabled = ee),
-      (l.getSharedMarginEnabled = re),
-      (l.getEmaWeightCap = ae),
-      (l.isHidingDisabled = ue),
-      (l.getPinChildrenWithPlayer = me),
-      (l.isPinVideoPostsWithPlayerEnabled = pe),
-      (l.getSkipScrollAnchoringCheck = Ce),
-      (l.getVirtualizationStrategy = be),
-      (l.getIsInfiniteScrollUp = ve),
-      (l.getTextSearchable = Le));
+    var ye = T(he);
+    ((l.isSurfaceEnabled = x),
+      (l.getTopBottomMargin = M),
+      (l.getReadAheadMarginMax = A),
+      (l.logQEExposureOnceWhenNecessary = B),
+      (l.getActivityModeOn = U),
+      (l.getPinChildrenOnInteration = G),
+      (l.getPinExclusionEnabled = K),
+      (l.isMediaControlPinExclusionEnabled = Q),
+      (l.isResumeFeedVideoPlayheadEnabled = X),
+      (l.getSharedMarginEnabled = Z),
+      (l.isHidingDisabled = re),
+      (l.getPinChildrenWithPlayer = ie),
+      (l.isPinVideoPostsWithPlayerEnabled = le),
+      (l.getSkipScrollAnchoringCheck = pe),
+      (l.getVirtualizationStrategy = _e),
+      (l.getIsInfiniteScrollUp = fe),
+      (l.getTextSearchable = ye));
   },
   98,
 );

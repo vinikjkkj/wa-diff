@@ -20,6 +20,7 @@ __d(
     "WAWebVoipMicrophoneInputState",
     "WAWebVoipMicrophoneTrackObserver",
     "WAWebVoipPerfOptimizations",
+    "WAWebVoipSharedCallAudioContext",
     "WAWebVoipSilentCapture",
     "asyncToGeneratorRuntime",
     "err",
@@ -593,10 +594,12 @@ __d(
               autoGainControl: t !== !1,
             };
             this.captureParams = s;
-            var u = yield o("WAWebVoipSilentCapture").findMicrophone(),
-              c = u.missingReason,
-              d = u.selectedDeviceId;
-            if (!(c != null && this.$14(s, c))) {
+            try {
+              yield o("WAWebAudioUtility").initWasmModule();
+              var u = yield o("WAWebVoipSilentCapture").findMicrophone(),
+                c = u.missingReason,
+                d = u.selectedDeviceId;
+              if (c != null && this.$14(s, c)) return;
               if (d == null) {
                 var m;
                 ((this.audioCaptureInitState = tt.Error),
@@ -613,130 +616,125 @@ __d(
                 d,
               );
               var p = s;
-              try {
-                if (
-                  navigator.mediaDevices &&
-                  navigator.mediaDevices.getUserMedia
-                ) {
-                  var _,
-                    f,
-                    g = yield o("WAWebBackendApi").frontendSendAndReceive(
-                      "voipAcquireMediaStream",
-                      { type: "microphone", selectedDeviceId: d, params: p },
-                    );
-                  if (g == null)
-                    throw r("err")(
-                      "Failed to get media stream from getUserMedia",
-                    );
-                  var h = g.getTracks(),
-                    y = h.slice(0, 3);
-                  (o("WALogger").LOG(
-                    I ||
-                      (I = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV] Initializing audio capture with ",
-                        " devices. Kinds: ",
-                        ", Labels: ",
-                        ", IDs: ",
-                        "",
+              if (
+                navigator.mediaDevices &&
+                navigator.mediaDevices.getUserMedia
+              ) {
+                var _,
+                  f,
+                  g = yield o("WAWebBackendApi").frontendSendAndReceive(
+                    "voipAcquireMediaStream",
+                    { type: "microphone", selectedDeviceId: d, params: p },
+                  );
+                if (g == null)
+                  throw r("err")(
+                    "Failed to get media stream from getUserMedia",
+                  );
+                var h = g.getTracks(),
+                  y = h.slice(0, 3);
+                (o("WALogger").LOG(
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV] Initializing audio capture with ",
+                      " devices. Kinds: ",
+                      ", Labels: ",
+                      ", IDs: ",
+                      "",
+                    ])),
+                  h.length,
+                  y.map(function (e) {
+                    return e.kind;
+                  }),
+                  y.map(function (e) {
+                    return e.label;
+                  }),
+                  y.map(function (e) {
+                    return e.getSettings().deviceId;
+                  }),
+                ),
+                  o("WALogger").LOG(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:initCaptureDriver] granted mic permission and got audio stream",
                       ])),
-                    h.length,
-                    y.map(function (e) {
-                      return e.kind;
-                    }),
-                    y.map(function (e) {
-                      return e.label;
-                    }),
-                    y.map(function (e) {
-                      return e.getSettings().deviceId;
-                    }),
                   ),
+                  (this.audioContext = o(
+                    "WAWebVoipSilentCapture",
+                  ).createCaptureAudioContext(p)),
+                  this.audioContext.state === "suspended" &&
                     o("WALogger").LOG(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:initCaptureDriver] granted mic permission and got audio stream",
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:initCaptureDriver] AudioContext suspended - will resume when needed",
                         ])),
+                    ));
+                try {
+                  this.mediaStreamSource =
+                    this.audioContext.createMediaStreamSource(g);
+                } catch (e) {
+                  throw (
+                    o("WALogger").ERROR(
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:initCaptureDriver] Failed to create MediaStreamSource:\n            ",
+                          "",
+                        ])),
+                      e,
                     ),
-                    (this.audioContext = o(
-                      "WAWebVoipSilentCapture",
-                    ).createCaptureAudioContext(p)),
-                    this.audioContext.state === "suspended" &&
-                      o("WALogger").LOG(
-                        D ||
-                          (D = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:initCaptureDriver] AudioContext suspended - will resume when needed",
-                          ])),
-                      ));
-                  try {
-                    this.mediaStreamSource =
-                      this.audioContext.createMediaStreamSource(g);
-                  } catch (e) {
-                    throw (
-                      o("WALogger").ERROR(
-                        x ||
-                          (x = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:initCaptureDriver] Failed to create MediaStreamSource:\n            ",
-                            "",
-                          ])),
-                        e,
-                      ),
-                      e
-                    );
-                  }
-                  (this.$15(g),
-                    o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-                      o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                        .WORKLET_PRELOAD,
-                    ) &&
-                      ((_ = this.implementation) == null
-                        ? void 0
-                        : _.preloadWorkletModule) != null &&
-                      this.audioContext != null &&
-                      this.implementation.preloadWorkletModule(
-                        this.audioContext,
-                      ),
-                    this.$16());
-                  var C = this.audioContext;
-                  (C != null && this.$8(C, g, "initial"),
-                    (this.audioCaptureInitState = tt.Ready),
-                    (f = this.audioCaptureInitResolvable) == null ||
-                      f.resolve());
-                } else {
-                  var b;
-                  (o("WALogger")
-                    .ERROR(
-                      $ ||
-                        ($ = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:initCaptureDriver] getUserMedia not supported",
-                        ])),
-                    )
-                    .sendLogs("voip: getUserMedia not supported"),
-                    (this.audioCaptureInitState = tt.Error),
-                    (b = this.audioCaptureInitResolvable) == null ||
-                      b.reject(r("err")("getUserMedia not supported")));
+                    e
+                  );
                 }
-              } catch (e) {
-                var v;
+                (this.$15(g),
+                  o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+                    o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
+                      .WORKLET_PRELOAD,
+                  ) &&
+                    ((_ = this.implementation) == null
+                      ? void 0
+                      : _.preloadWorkletModule) != null &&
+                    this.audioContext != null &&
+                    this.implementation.preloadWorkletModule(this.audioContext),
+                  this.$16());
+                var C = this.audioContext;
+                (C != null && this.$8(C, g, "initial"),
+                  (this.audioCaptureInitState = tt.Ready),
+                  (f = this.audioCaptureInitResolvable) == null || f.resolve());
+              } else {
+                var b;
                 (o("WALogger")
                   .ERROR(
-                    P ||
-                      (P = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:initCaptureDriver] error: ",
-                        "",
+                    $ ||
+                      ($ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:initCaptureDriver] getUserMedia not supported",
                       ])),
-                    e,
                   )
-                  .sendLogs("voip: error in initCaptureDriver"),
+                  .sendLogs("voip: getUserMedia not supported"),
                   (this.audioCaptureInitState = tt.Error),
-                  (v = this.audioCaptureInitResolvable) == null || v.reject(e),
-                  yield this.cleanup());
+                  (b = this.audioCaptureInitResolvable) == null ||
+                    b.reject(r("err")("getUserMedia not supported")));
               }
-              o("WALogger").LOG(
-                N ||
-                  (N = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:initCaptureDriver] completed successfully",
-                  ])),
-              );
+            } catch (e) {
+              var v;
+              (o("WALogger")
+                .ERROR(
+                  P ||
+                    (P = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:initCaptureDriver] error: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs("voip: error in initCaptureDriver"),
+                (this.audioCaptureInitState = tt.Error),
+                (v = this.audioCaptureInitResolvable) == null || v.reject(e),
+                yield this.cleanup());
             }
+            o("WALogger").LOG(
+              N ||
+                (N = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV:initCaptureDriver] completed successfully",
+                ])),
+            );
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -1221,8 +1219,11 @@ __d(
                   ));
               }
               if (this.audioContext) {
-                if (this.audioContext.state !== "closed") {
-                  var r = this.audioContext;
+                var r = this.audioContext;
+                (!o(
+                  "WAWebVoipSharedCallAudioContext",
+                ).releaseSharedCallAudioContext("capture", r) &&
+                  r.state !== "closed" &&
                   r.close().catch(function (e) {
                     o("WALogger").LOG(
                       ie ||
@@ -1232,9 +1233,8 @@ __d(
                         ])),
                       String(e),
                     );
-                  });
-                }
-                this.audioContext = null;
+                  }),
+                  (this.audioContext = null));
               }
             } finally {
               if (this.audioBuffer != null) {

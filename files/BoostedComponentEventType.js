@@ -439,6 +439,12 @@ __d(
       CREATE_FORM_CLIENT: "create_form_client",
       CREATE_FORM_ERROR: "create_form_error",
       CREATE_FORM_ERROR_CLIENT: "create_form_error_client",
+      WA_LEAD_GEN_ADD_FORM_VIEWED: "wa_lead_gen_add_form_viewed",
+      WA_LEAD_GEN_CREATE_FORM_STEPPER_VIEWED:
+        "wa_lead_gen_create_form_stepper_viewed",
+      WA_LEAD_GEN_CREATE_FORM_STANDALONE_VIEWED:
+        "wa_lead_gen_create_form_standalone_viewed",
+      WA_LEAD_GEN_FORM_COMMITTED: "wa_lead_gen_form_committed",
       FORM_UPDATE_FORM_NAME: "form_update_form_name",
       FORM_TOGGLE_CUSTOM_TEXT: "form_toggle_custom_text",
       FORM_ADD_CUSTOMER_INFO_QUESTION: "form_add_customer_info_question",

@@ -74,6 +74,12 @@ __d(
           type: "bool",
         },
         {
+          abProp: "web_voip_audio_pipeline_v2",
+          wasmKey: "web_voip_audio_pipeline_v2",
+          type: "bool",
+          chromiumDesktopOnly: !0,
+        },
+        {
           abProp: "wa_web_console_log_level",
           wasmKey: "log_level",
           type: "int",
@@ -182,6 +188,11 @@ __d(
         {
           abProp: "enable_1on1_call_transfer_switchable",
           wasmKey: "enable_1on1_call_transfer_switchable",
+          type: "bool",
+        },
+        {
+          abProp: "voip_enable_1to1_accepted_elsewhere_call_log_update",
+          wasmKey: "voip_enable_1to1_accepted_elsewhere_call_log_update",
           type: "bool",
         },
         {

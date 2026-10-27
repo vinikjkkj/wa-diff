@@ -326,46 +326,51 @@ __d(
           (r.$14 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                if ((e === void 0 && (e = !1), this.$9)) return this.$19(e);
-                if (this.isResumeComplete() || this.$4 || this.$5) {
-                  this.isResumeComplete() ||
+                if (
+                  (e === void 0 && (e = !1),
+                  !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
+                ) {
+                  if (this.$9) return this.$19(e);
+                  if (this.isResumeComplete() || this.$4 || this.$5) {
+                    this.isResumeComplete() ||
+                      o("WALogger").LOG(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                            "[offline-resume][adaptive] _maybeRequestMoreStanza: skip, prevPending: ",
+                            ", currentPending: ",
+                            ", complete: ",
+                            "",
+                          ])),
+                        this.$4,
+                        this.$5,
+                        this.isResumeComplete(),
+                      );
+                    return;
+                  }
+                  this.$3 <= C &&
+                    (o("WALogger").LOG(
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                          "[offline-resume][adaptive] _maybeRequestMoreStanza: start request next batch",
+                        ])),
+                    ),
+                    (this.$5 = !0),
+                    yield this.$17(),
+                    o("WASmaxOfflineBatchRPC").sendBatchRPC({
+                      offlineBatchCount: C,
+                    }),
+                    this.$16(),
+                    (this.$5 = !1),
+                    (this.$4 = !0),
                     o("WALogger").LOG(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "[offline-resume][adaptive] _maybeRequestMoreStanza: skip, prevPending: ",
-                          ", currentPending: ",
-                          ", complete: ",
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "[offline-resume][adaptive] _maybeRequestMoreStanza: request next batch, pending message ",
                           "",
                         ])),
-                      this.$4,
-                      this.$5,
-                      this.isResumeComplete(),
-                    );
-                  return;
+                      this.$3,
+                    ));
                 }
-                this.$3 <= C &&
-                  (o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][adaptive] _maybeRequestMoreStanza: start request next batch",
-                      ])),
-                  ),
-                  (this.$5 = !0),
-                  yield this.$17(),
-                  o("WASmaxOfflineBatchRPC").sendBatchRPC({
-                    offlineBatchCount: C,
-                  }),
-                  this.$16(),
-                  (this.$5 = !1),
-                  (this.$4 = !0),
-                  o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][adaptive] _maybeRequestMoreStanza: request next batch, pending message ",
-                        "",
-                      ])),
-                    this.$3,
-                  ));
               },
             );
             function t(t) {

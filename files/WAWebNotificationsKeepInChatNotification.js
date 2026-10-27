@@ -18,6 +18,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotificationsDailyUtils",
+    "WAWebOrgMemberContactName",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWidFormat",
@@ -241,11 +242,16 @@ __d(
         i = o("WAWebFrontendMsgGetters").getChat(e);
       if (o("WAWebMsgGetters").getIsGroupMsg(e)) {
         var l,
-          u = o("WAWebContactCollection").ContactCollection.gadd(t);
+          u,
+          c = o("WAWebContactCollection").ContactCollection.gadd(t);
         r =
-          (l = u.name) != null
+          (l =
+            (u = c.name) != null
+              ? u
+              : o("WAWebOrgMemberContactName").getOrgMemberDisplayName(c)) !=
+          null
             ? l
-            : o("WAWebWidFormat").widToFormattedUser(u.id);
+            : o("WAWebWidFormat").widToFormattedUser(c.id);
       }
       return i.isLocked
         ? {

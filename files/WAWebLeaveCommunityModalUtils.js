@@ -19,7 +19,7 @@ __d(
         ? (o("WAWebModalManager").closeModalManager(),
           o("WDSDialogBridge").openWDSDialog(
             s.jsx(r("WAWebLeaveCommunityModalV2.react"), {
-              chat: t,
+              chatId: t.id,
               onExitAndDeleteSuccess: e.onExitAndDeleteSuccess,
               onSuccess: e.onSuccess,
               spamFlow: e.spamFlow,

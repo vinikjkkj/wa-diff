@@ -3,41 +3,48 @@ __d(
   ["WAWebLongAnimationFrameObserver", "WAWebLongTaskObserver", "WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.longAnimationFrame,
-        n = e.longtask,
-        a = [],
-        i = null,
-        l = null;
+      var t,
+        n,
+        a = e.longAnimationFrame,
+        i = e.longtask,
+        l = [],
+        s = null,
+        u = null;
       if (
-        (n.enabled &&
-          ((i = new (o("WAWebLongTaskObserver").WAWebLongTaskObserver)()),
-          i.isSupported() && a.push("longtask")),
-        t.enabled &&
-          ((l = new (o(
+        (i.enabled &&
+          ((s = new (o("WAWebLongTaskObserver").WAWebLongTaskObserver)()),
+          s.isSupported() && l.push("longtask")),
+        a.enabled &&
+          ((u = new (o(
             "WAWebLongAnimationFrameObserver",
           ).WAWebLongAnimationFrameObserver)()),
-          l.isSupported() && a.push("long-animation-frame")),
-        a.length === 0)
+          u.isSupported() && l.push("long-animation-frame")),
+        l.length === 0)
       )
         return r("WAWebNoop");
-      var s = new window.PerformanceObserver(function (e) {
-        if (
-          (i &&
-            a.includes("longtask") &&
-            i.handle(e.getEntriesByType("longtask")),
-          l && a.includes("long-animation-frame"))
-        ) {
-          var t = e.getEntriesByType("long-animation-frame");
-          l.handle(t);
-        }
-      });
-      return (
-        s.observe({ entryTypes: a }),
-        i && i.documentVisibilityObserver.observe(),
-        function () {
-          s.disconnect();
-        }
-      );
+      var c = !1,
+        d = new window.PerformanceObserver(function (e) {
+          if (
+            !c &&
+            (s &&
+              l.includes("longtask") &&
+              s.handle(e.getEntriesByType("longtask")),
+            u && l.includes("long-animation-frame"))
+          ) {
+            var t = e.getEntriesByType("long-animation-frame");
+            u.handle(t);
+          }
+        });
+      d.observe({ entryTypes: l });
+      var m =
+        (t =
+          (n = s) == null ? void 0 : n.documentVisibilityObserver.observe()) !=
+        null
+          ? t
+          : r("WAWebNoop");
+      return function () {
+        c || ((c = !0), d.disconnect(), m());
+      };
     }
     l.initPerformanceObserver = e;
   },

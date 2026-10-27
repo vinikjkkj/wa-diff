@@ -18,14 +18,15 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e, t, n, r, o, a, i) {
+    function c(e, t, n, r, o, a, i, l) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, c, d, p) {
-            var _ = {
+          function* (t, a, i, l, c, d, p, _) {
+            _ === void 0 && (_ = !1);
+            var f = {
               senderKeyDistributionMessage: {
                 groupId: a.toString({ legacy: !0 }),
                 axolotlSenderKeyDistributionMessage: l,
@@ -41,27 +42,32 @@ __d(
                 t == null ? void 0 : t.id.toString(),
               )
               .tags("messaging");
-            var f = yield m({
+            var g = yield m({
                 dsmPhash: d,
                 groupId: a,
-                proto: _,
+                proto: f,
                 shouldWrapDeviceSendMessage: c,
                 skDistributionList: i,
               }),
-              g = i.map(
+              h = _
+                ? function () {
+                    return !1;
+                  }
+                : o("WAWebSendMsgCommonApi").isPrimaryDevice,
+              y = i.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
                       try {
                         var t,
                           a =
-                            (t = f.get(
+                            (t = g.get(
                               o("WAWebWidFactory")
                                 .asUserWidOrThrow(e)
                                 .toString(),
                             )) != null
                               ? t
-                              : babelHelpers.extends({}, _),
+                              : babelHelpers.extends({}, f),
                           i = yield o(
                             "WAWebEncryptMsgProtobuf",
                           ).encryptMsgProtobuf(e, 0, a, void 0, void 0, p);
@@ -92,7 +98,7 @@ __d(
                               t,
                             )
                             .tags("messaging"),
-                          o("WAWebSendMsgCommonApi").isPrimaryDevice(e))
+                          h(e))
                         )
                           return (u || (u = n("Promise"))).reject(
                             r("err")(
@@ -107,8 +113,8 @@ __d(
                   };
                 })(),
               ),
-              h = yield (u || (u = n("Promise"))).all(g);
-            return h.filter(Boolean);
+              C = yield (u || (u = n("Promise"))).all(y);
+            return C.filter(Boolean);
           },
         )),
         d.apply(this, arguments)

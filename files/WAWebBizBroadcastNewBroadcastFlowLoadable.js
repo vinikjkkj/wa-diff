@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastNewBroadcastFlowLoadable",
   [
     "JSResourceForInteraction",
+    "WAWebBizBroadcastCoreNewBroadcastFlowLoadable",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
@@ -14,27 +15,24 @@ __d(
       u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
-            "WAWebBizBroadcastNewBroadcastFlow.react",
+            "WAWebBizBroadcastNewBroadcastFlowRouter.react",
           )
             .__setRef("WAWebBizBroadcastNewBroadcastFlowLoadable")
             .load();
           return e;
         }),
-        "BizBroadcastNewBroadcastFlow",
-      );
-    function c() {
-      r("JSResourceForInteraction")("WAWebBizBroadcastNewBroadcastFlow.react")
-        .__setRef("WAWebBizBroadcastNewBroadcastFlowLoadable")
-        .load();
-    }
-    var d = r("WAWebLoadable")({
-      loader: u,
-      loading: function (t) {
-        return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
-      },
-    });
-    ((l.prefetchNewBroadcastFlow = c),
-      (l.WAWebBizBroadcastNewBroadcastFlowLoadable = d));
+        "BizBroadcastNewBroadcastFlowRouter",
+      ),
+      c = r("WAWebLoadable")({
+        loader: u,
+        loading: function (t) {
+          return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
+        },
+      });
+    ((l.prefetchNewBroadcastFlow = o(
+      "WAWebBizBroadcastCoreNewBroadcastFlowLoadable",
+    ).prefetchNewBroadcastFlow),
+      (l.WAWebBizBroadcastNewBroadcastFlowLoadable = c));
   },
   98,
 );

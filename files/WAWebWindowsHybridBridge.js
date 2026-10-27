@@ -19,7 +19,6 @@ __d(
     "WAWebWindowsHybridBridgeRateTheApp",
     "WAWebWindowsHybridBridgeRingtone",
     "WAWebWindowsHybridBridgeScalingControl",
-    "WAWebWindowsHybridBridgeSeamlessMigration",
     "WAWebWindowsHybridBridgeSharesheet",
     "WAWebWindowsHybridBridgeSystemIntegrations",
     "WAWebWindowsHybridBridgeTouchpadFix",
@@ -150,26 +149,21 @@ __d(
           (this.browserExtensionsBridge = new (o(
             "WAWebWindowsHybridBridgeBrowserExtensions",
           ).WindowsHybridBridgeBrowserExtensions)(R));
-        var L = e.hostObjects.SeamlessMigrationBridge;
+        var L = e.hostObjects.MediaTranscodingBridge;
         L &&
-          (this.seamlessMigrationBridge = new (o(
-            "WAWebWindowsHybridBridgeSeamlessMigration",
-          ).WindowsHybridBridgeSeamlessMigration)(L));
-        var E = e.hostObjects.MediaTranscodingBridge;
-        E &&
           (this.mediaTranscodeBridge = new (o(
             "WAWebWindowsHybridBridgeMediaTranscoder",
-          ).WindowsHybridBridgeMediaTranscoder)(e, E));
-        var k = e.hostObjects.RingtoneBridge;
-        k != null &&
+          ).WindowsHybridBridgeMediaTranscoder)(e, L));
+        var E = e.hostObjects.RingtoneBridge;
+        E != null &&
           (this.ringtoneBridge = new (o(
             "WAWebWindowsHybridBridgeRingtone",
-          ).WindowsHybridBridgeRingtone)(k));
-        var I = e.hostObjects.MetaConfigBridge;
-        (I != null &&
+          ).WindowsHybridBridgeRingtone)(E));
+        var k = e.hostObjects.MetaConfigBridge;
+        (k != null &&
           ((this.metaConfig = new (o(
             "WAWebWindowsHybridBridgeMetaConfig",
-          ).WindowsHybridBridgeMetaConfig)(I)),
+          ).WindowsHybridBridgeMetaConfig)(k)),
           this.metaConfig.initialize()),
           (t = e.hostObjects.WebUpdateBridge) == null ||
             t.updateWebRevision(o("WAWebBuildConstants").VERSION_TERTIARY));

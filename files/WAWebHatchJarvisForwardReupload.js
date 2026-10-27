@@ -99,19 +99,8 @@ __d(
           if (i == null) throw new d("missing_download");
           var l = yield o("WAWebFileUtils").blobToArrayBuffer(i.blob),
             s = new Uint8Array(yield o("WACryptoSha256").sha256(l)),
-            u = (n = a.envelopeFilehash) != null ? n : r.filehash,
-            c =
-              u != null
-                ? o("WAWebHatchJarvisForwardMedia").decodeHash(u)
-                : null;
-          if (
-            u == null ||
-            c == null ||
-            c.length !== s.length ||
-            !c.every(function (e, t) {
-              return e === s[t];
-            })
-          )
+            u = (n = a.envelopeFilehash) != null ? n : r.filehash;
+          if (u == null || !o("WAWebHatchJarvisForwardMedia").matchesHash(u, s))
             throw new d("source_hash");
           return { buffer: l, fileSha256: u, ref: a };
         })),

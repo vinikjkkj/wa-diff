@@ -383,6 +383,8 @@ __d(
                     heapBufferOffset: _,
                     bufferSize: s,
                     targetSampleRate: l,
+                    doorbellOffset: u.getAudioDoorbellPtr(),
+                    doorbellChunkSamples: i,
                   }),
                     (this.$WAWebVoipVideoDesktopCaptureImpl$p_2 = !0),
                     d.connect(C));

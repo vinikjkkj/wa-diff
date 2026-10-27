@@ -150,7 +150,9 @@ __d(
         return O
           ? s.jsx("div", {
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: babelHelpers.extends({}, t, { aspectRatio: D }),
+              style: babelHelpers.extends({}, t, {
+                aspectRatio: D != null ? D : void 0,
+              }),
               children: r,
             })
           : r;

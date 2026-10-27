@@ -134,6 +134,20 @@ __d(
               );
             }
           }),
+          (a.renderVideoFrame = function (t) {
+            var e = t.frame,
+              n = t.mirror,
+              r = t.orientation;
+            (this.applyPendingResize(),
+              this.renderVideoFrameToCanvas(
+                e,
+                e.displayWidth,
+                e.displayHeight,
+                r,
+                n,
+                !0,
+              ));
+          }),
           (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
             (i === void 0 && (i = !1),
               y(this.$1, this.$2, n, r, o, a, i, this.$6(t, n, r), this.$4),

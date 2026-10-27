@@ -4,21 +4,31 @@ __d(
     "CometTS2BitArrayLogger",
     "ODS",
     "Random",
+    "ServerTime",
     "TimeSpentArray",
     "TimeSpentImmediateActiveSecondsLogger",
     "TimeSpentWWWCometConfig.experimental",
     "WebSession",
     "WebTimeSpentBitArrayFalcoEvent",
     "cr:6036",
+    "gkx",
     "isInIframe",
+    "performanceAbsoluteNow",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = "",
-      u = null;
-    function c(e, t) {
-      ((e.sid_raw = s),
+      s,
+      u = r("gkx")("10809"),
+      c = "",
+      d = null;
+    function m() {
+      return u
+        ? Math.floor((s || (s = r("performanceAbsoluteNow")))())
+        : Date.now();
+    }
+    function p(e, t) {
+      ((e.sid_raw = c),
         r("WebTimeSpentBitArrayFalcoEvent").logImmediately(function () {
           return {
             sid_raw: e.sid_raw,
@@ -34,17 +44,17 @@ __d(
         }),
         o("CometTS2BitArrayLogger").log(e));
     }
-    function d(e) {
-      var t = p();
-      t !== s && (o("TimeSpentArray").ship(), (s = t));
+    function _(e) {
+      var t = g();
+      t !== c && (o("TimeSpentArray").ship(), (c = t));
     }
-    function m() {
-      return u;
+    function f() {
+      return d;
     }
-    function p() {
+    function g() {
       return (o("WebSession").extend(), o("WebSession").getId());
     }
-    function _(e) {
+    function h(e) {
       return !!(
         e === "XWorkPostPluginCometController" ||
         e === "XWorkGroupFeedPluginCometController" ||
@@ -59,22 +69,23 @@ __d(
         (e != null && e.startsWith("shopify_whatsapp_app."))
       );
     }
-    function f(t) {
-      if (!(r("isInIframe")() && !_(t))) {
-        u = t;
-        var a = Date.now();
+    function y(t) {
+      if (!(r("isInIframe")() && !h(t))) {
+        d = t;
+        var a = m();
         (n("cr:6036") == null ||
           n("cr:6036").addTimeSpentStartupPoint("time_spent_array_init_start"),
           o("TimeSpentArray").init(
-            c,
+            p,
             r("TimeSpentWWWCometConfig.experimental").CONFIG,
             a,
-            d,
-            m,
+            _,
+            f,
+            { getOffsetMillis: o("ServerTime").getOffsetMillis, now: m },
           ),
           n("cr:6036") == null ||
             n("cr:6036").addTimeSpentStartupPoint("time_spent_array_init_end"),
-          (s = p()),
+          (c = g()),
           r("TimeSpentImmediateActiveSecondsLogger").maybeReportActiveSecond(
             a,
           ));
@@ -88,14 +99,17 @@ __d(
           );
       }
     }
-    function g(e, t) {
+    function C(e, t) {
       (o("TimeSpentArray").update(e, t),
         r("TimeSpentImmediateActiveSecondsLogger").maybeReportActiveSecond(e));
     }
-    function h(e) {
-      u = e;
+    function b(e) {
+      d = e;
     }
-    ((l.init = f), (l.updateTimeSpentArray = g), (l.changeEndpoint = h));
+    ((l.currentTimeInMS = m),
+      (l.init = y),
+      (l.updateTimeSpentArray = C),
+      (l.changeEndpoint = b));
   },
   98,
 );

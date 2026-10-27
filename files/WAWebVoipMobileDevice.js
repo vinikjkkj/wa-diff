@@ -18,7 +18,14 @@ __d(
         r("isWAWebFeatureDetectionAppleTouchscreen")()
       );
     }
-    l.isVoipMobileDevice = e;
+    function s() {
+      return (
+        o("WAWebGuestCoreGetMobilePlatform").getGuestMobilePlatform() ===
+          o("WAWebGuestCoreConsts").GuestMobilePlatform.IOS_BROWSER ||
+        r("isWAWebFeatureDetectionAppleTouchscreen")()
+      );
+    }
+    ((l.isVoipMobileDevice = e), (l.isVoipIosBrowser = s));
   },
   98,
 );

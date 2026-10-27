@@ -561,6 +561,11 @@ __d(
               );
             });
         },
+        onSelfPreviewVideoFrameWasmToJs: function (t) {
+          o(
+            "WAWebVoipVideoCaptureAndRendering",
+          ).onSelfPreviewVideoFrameWasmToJs(t);
+        },
         startDesktopCaptureJS: function (t) {
           o("WALogger").LOG(
             F ||

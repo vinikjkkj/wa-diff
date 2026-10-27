@@ -64,7 +64,7 @@ __d(
                 u.jsx(
                   o("WAWebNewsletterRevokeInvitePopup.react")
                     .NewsletterRevokeInvitePopupWithNewsletterInformation,
-                  { chat: c, contact: p },
+                  { chatId: c.id, contact: p },
                 ),
               );
           }
@@ -85,7 +85,7 @@ __d(
             if (i == null) throw r("err")("Failed to retrieve newsletter");
             o("WAWebModalManager").ModalManager.open(
               u.jsx(r("WAWebNewsletterAcceptAdminInviteModal.react"), {
-                chat: i,
+                chatId: i.id,
                 expiration: n,
                 extendedNux: a,
               }),

@@ -195,11 +195,20 @@ __d(
       );
     }
     function L(e) {
-      return E.apply(this, arguments);
+      var t = e.frame,
+        n = e.height,
+        r = e.orientation,
+        a = e.width;
+      o(
+        "WAWebVoipVideoRendererRegistry",
+      ).videoRendererRegistry.onSelfPreviewVideoFrame(t, a, n, r);
     }
-    function E() {
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           _.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var t = e.height,
@@ -216,15 +225,15 @@ __d(
             "startDesktopCapture",
           );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k() {
-      return I.apply(this, arguments);
-    }
     function I() {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           _.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               yield o(
@@ -234,10 +243,10 @@ __d(
             "stopDesktopCapture",
           );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T() {
+    function D() {
       (o(
         "WAWebVoipVideoDesktopCapture",
       ).WAWebVoipVideoDesktopCapture.releasePreflightDesktopStream(),
@@ -248,9 +257,10 @@ __d(
     ((l.startVideoCaptureJS = h),
       (l.stopVideoCaptureJS = C),
       (l.onVideoFrameWasmToJs = S),
-      (l.startDesktopCaptureJS = L),
-      (l.stopDesktopCaptureJS = k),
-      (l.releaseDesktopStreamJS = T));
+      (l.onSelfPreviewVideoFrameWasmToJs = L),
+      (l.startDesktopCaptureJS = E),
+      (l.stopDesktopCaptureJS = I),
+      (l.releaseDesktopStreamJS = D));
   },
   98,
 );

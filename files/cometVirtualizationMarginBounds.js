@@ -18,10 +18,7 @@ __d(
         topMax: o != null && r ? o : u,
       };
     }
-    function c(e, t, n) {
-      return Math.min(t, Math.max(n, e));
-    }
-    ((l.computeMarginBounds = u), (l.clampRestoredMargin = c));
+    l.computeMarginBounds = u;
   },
   98,
 );

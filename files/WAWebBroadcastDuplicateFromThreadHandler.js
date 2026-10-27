@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastContextualEntrypointUtils",
+    "WAWebBizBroadcastCoreNewBroadcastFlowLoadable",
     "WAWebBizBroadcastCreationQPLLogger",
-    "WAWebBizBroadcastNewBroadcastFlowLoadable",
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
     "WAWebWamEnumEntryPoint",
@@ -54,8 +54,8 @@ __d(
               ).getBizBroadcastCampaignByMsgId(t.id.id);
             o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
               u.jsx(
-                o("WAWebBizBroadcastNewBroadcastFlowLoadable")
-                  .WAWebBizBroadcastNewBroadcastFlowLoadable,
+                o("WAWebBizBroadcastCoreNewBroadcastFlowLoadable")
+                  .WAWebBizBroadcastCoreNewBroadcastFlowLoadable,
                 {
                   entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.BB_THREAD,
                   onBack: function () {

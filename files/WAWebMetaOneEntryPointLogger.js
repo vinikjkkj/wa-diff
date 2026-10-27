@@ -1,6 +1,7 @@
 __d(
   "WAWebMetaOneEntryPointLogger",
   [
+    "WAWebEligibleSubscriptionProductTypes",
     "WAWebSubscriptionUserActionWamEvent",
     "WAWebWamEnumWsuaAction",
     "WAWebWamEnumWsuaActionTarget",
@@ -37,28 +38,32 @@ __d(
           .LIST_ITEM,
       },
     };
-    function s(e, t) {
-      c(o("WAWebWamEnumWsuaAction").WSUA_ACTION.VIEW, e, t);
+    function s(e, t, n) {
+      c(o("WAWebWamEnumWsuaAction").WSUA_ACTION.VIEW, e, t, n);
     }
-    function u(e, t) {
-      c(o("WAWebWamEnumWsuaAction").WSUA_ACTION.CLICK, e, t);
+    function u(e, t, n) {
+      c(o("WAWebWamEnumWsuaAction").WSUA_ACTION.CLICK, e, t, n);
     }
-    function c(t, n, r) {
-      var a = e[n],
-        i = a.actionTarget,
-        l = a.referral,
-        s = a.screen,
-        u = a.screenElement;
+    function c(t, n, r, a) {
+      var i = e[n],
+        l = i.actionTarget,
+        s = i.referral,
+        u = i.screen,
+        c = i.screenElement;
       new (o(
         "WAWebSubscriptionUserActionWamEvent",
       ).SubscriptionUserActionWamEvent)({
         wsuaAction: t,
-        wsuaActionTarget: i,
+        wsuaActionTarget: l,
+        wsuaActiveSubscriptions: a,
+        wsuaEligibleSubscriptions: o(
+          "WAWebEligibleSubscriptionProductTypes",
+        ).getEligibleSubscriptionProductTypes(),
         wsuaProductType: o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE
           .META_ONE_BUSINESS,
-        wsuaReferral: l,
-        wsuaScreen: s,
-        wsuaScreenElement: u,
+        wsuaReferral: s,
+        wsuaScreen: u,
+        wsuaScreenElement: c,
         wsuaSessionId: r,
       }).commit();
     }

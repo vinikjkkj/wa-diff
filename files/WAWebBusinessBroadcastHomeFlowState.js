@@ -1,9 +1,20 @@
 __d(
   "WAWebBusinessBroadcastHomeFlowState",
-  [],
+  ["$InternalEnum"],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e(e, t) {
+    var e = n("$InternalEnum").Mirrored([
+      "HOME_SCREEN",
+      "UNSUBSCRIBE_RECIPIENTS",
+      "NEW_BROADCAST",
+      "CREATE_AUDIENCE",
+      "EDIT_AUDIENCE",
+      "IMPORT_AUDIENCE",
+      "IMPORT_AUDIENCES",
+      "ADD_BB_PRO_RECIPIENTS",
+      "REMOVE_BB_PRO_RECIPIENTS",
+    ]);
+    function l(e, t) {
       if (e === t) return !0;
       if (e.length !== t.length) return !1;
       for (var n = 0; n < e.length; n++) {
@@ -22,15 +33,16 @@ __d(
       }
       return !0;
     }
-    function l(e) {
+    function s(e) {
       return e.sentAt > 0 ? e.sentAt : e.createdTimestamp;
     }
-    function s(e, t, n) {
-      return e ? t : n;
+    function u(t, n) {
+      return n ? e.HOME_SCREEN : t;
     }
-    ((i.areAudienceListsEqual = e),
-      (i.getCampaignSortTimestamp = l),
-      (i.getHomeCreationAction = s));
+    ((i.BroadcastHomeFlowStep = e),
+      (i.areAudienceListsEqual = l),
+      (i.getCampaignSortTimestamp = s),
+      (i.getActiveHomeFlowStep = u));
   },
   66,
 );

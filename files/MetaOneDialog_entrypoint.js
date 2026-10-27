@@ -9,7 +9,8 @@ __d(
           r = t.businessID,
           o = t.entrypoint,
           a = t.productType,
-          i = t.waWebDestination;
+          i = t.waWebDestination,
+          l = t.waWebSessionID;
         return {
           queries: {
             metaOneDialogQueryReference: {
@@ -21,6 +22,7 @@ __d(
                 entrypoint: o,
                 product_type: a,
                 wa_web_destination: i != null ? i : null,
+                wa_web_session_id: l != null ? l : null,
               },
             },
           },
