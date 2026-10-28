@@ -1,0 +1,251 @@
+__d(
+  "WAWebFetchBizAiWebDataDownloadsGate",
+  [
+    "Promise",
+    "WACustomError",
+    "WALogger",
+    "WAPromiseTimeout",
+    "WATimeUtils",
+    "WAWebBackendApi",
+    "WAWebBizAiRelayClient",
+    "WAWebFetchAdAccountToken",
+    "WAWebFetchBizAiWebDataDownloadsGateQuery.graphql",
+    "WAWebMobilePlatforms",
+    "WAWebNetworkStatus",
+    "WAWebUserPrefsStore",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g =
+        e !== void 0
+          ? e
+          : (e = n("WAWebFetchBizAiWebDataDownloadsGateQuery.graphql")),
+      h = "biz_ai_web_data_downloads_gate",
+      y = 360 * 60,
+      C = 1e4,
+      b = 2;
+    function v(e) {
+      o("WAWebBackendApi").frontendFireAndForget(
+        "loadedBizAiWebDataDownloadsGate",
+        { enabled: e },
+      );
+    }
+    function S(e) {
+      var t = r("WAWebUserPrefsStore").getUser(e);
+      if (t == null || typeof t != "object") return null;
+      var n = t.enabled,
+        a = t.ts;
+      if (typeof n != "boolean" || typeof a != "number") return null;
+      var i = !o("WATimeUtils").isInFuture(
+        o("WATimeUtils").futureUnixTime(y, o("WATimeUtils").castToUnixTime(a)),
+      );
+      return i ? null : n;
+    }
+    function R(e, t) {
+      r("WAWebUserPrefsStore").setUser(e, {
+        enabled: t,
+        ts: o("WATimeUtils").unixTime(),
+      });
+    }
+    function L() {
+      return (
+        b *
+        (o(
+          "WAWebFetchAdAccountToken",
+        ).getMaximumAdAccountFetchTimeoutSeconds() *
+          1e3 +
+          C)
+      );
+    }
+    function E(e) {
+      if (!o("WAWebMobilePlatforms").isSMB())
+        return (f || (f = n("Promise"))).resolve();
+      var t = e === "debug" ? null : S(h);
+      return t != null
+        ? (v(t),
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] Web data downloads gate cache hit",
+              ])),
+          ),
+          (f || (f = n("Promise"))).resolve())
+        : (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] fetchBizAiWebDataDownloadsGate reason=",
+                "",
+              ])),
+            e,
+          ),
+          r("WAWebNetworkStatus")
+            .waitIfOffline()
+            .then(function () {
+              return o("WAPromiseTimeout").promiseTimeout(k(), L());
+            })
+            .then(function (e) {
+              return T(e, t);
+            })
+            .catch(function (e) {
+              T(
+                e instanceof o("WACustomError").TimeoutError
+                  ? { type: "timeout" }
+                  : { type: "network-failed" },
+                t,
+              );
+            }));
+    }
+    function k() {
+      return o("WAWebFetchAdAccountToken")
+        .fetchToken()
+        .then(function (e) {
+          return e.type !== "success"
+            ? { type: "token-failed" }
+            : o("WAPromiseTimeout")
+                .promiseTimeout(I(e.token), C)
+                .then(function (e) {
+                  return e.type === "ok"
+                    ? babelHelpers.extends({}, e, { type: "enabled" })
+                    : e.type === "error"
+                      ? { type: "network-failed" }
+                      : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
+                        o("WAWebFetchAdAccountToken")
+                          .fetchToken(!0)
+                          .then(function (e) {
+                            return e.type !== "success"
+                              ? { type: "token-failed" }
+                              : o("WAPromiseTimeout")
+                                  .promiseTimeout(I(e.token), C)
+                                  .then(function (e) {
+                                    return e.type === "ok"
+                                      ? babelHelpers.extends({}, e, {
+                                          type: "enabled",
+                                        })
+                                      : e.type === "auth"
+                                        ? (o(
+                                            "WAWebFetchAdAccountToken",
+                                          ).markTokenAsInvalid(),
+                                          { type: "auth-failed" })
+                                        : { type: "network-failed" };
+                                  });
+                          }));
+                });
+        });
+    }
+    function I(e) {
+      return o("WAWebBizAiRelayClient")
+        .fetchQuery(g, {}, { accessToken: e })
+        .then(function (e) {
+          var t =
+            e == null
+              ? void 0
+              : e.xfb_meta_ai_biz_agent_wa_web_data_downloads_gate;
+          return (t == null ? void 0 : t.success) !== !0 ||
+            typeof t.value != "boolean"
+            ? { type: "error" }
+            : { enabled: t.value, type: "ok" };
+        })
+        .catch(function (e) {
+          return e instanceof Error &&
+            o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+            ? { type: "auth" }
+            : { type: "error" };
+        });
+    }
+    function T(e, t) {
+      e: {
+        var n = e;
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "enabled" &&
+          "enabled" in n
+        ) {
+          var r = n.enabled;
+          (R(h, r),
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate loaded",
+                ])),
+            ),
+            v(r));
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "timeout"
+        ) {
+          (o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate fetch timed out",
+                ])),
+            )
+            .sendLogs("maiba-web-data-downloads-gate-fetch-timeout"),
+            v(t != null ? t : !1));
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "auth-failed"
+        ) {
+          (o("WALogger")
+            .WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate fetch failed (auth)",
+                ])),
+            )
+            .sendLogs("maiba-web-data-downloads-gate-fetch-failed-auth"),
+            v(t != null ? t : !1));
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "network-failed"
+        ) {
+          (o("WALogger")
+            .WARN(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate fetch failed",
+                ])),
+            )
+            .sendLogs("maiba-web-data-downloads-gate-fetch-failed-network"),
+            v(t != null ? t : !1));
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "token-failed"
+        ) {
+          (o("WALogger")
+            .WARN(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate token fetch failed",
+                ])),
+            )
+            .sendLogs("maiba-web-data-downloads-gate-token-fetch-failed"),
+            v(t != null ? t : !1));
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            n,
+        );
+      }
+    }
+    l.fetchBizAiWebDataDownloadsGate = E;
+  },
+  98,
+);

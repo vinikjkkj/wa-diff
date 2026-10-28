@@ -12,14 +12,18 @@ __d(
     "WAWebMediaUpdateMsg",
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
-    "WAWebNewsletterSendMsgAction",
     "WAWebSendMsgChatAction",
     "asyncToGeneratorRuntime",
     "err",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
+    var e,
+      s,
+      u = r("requireDeferred")("WAWebNewsletterSendMsgAction").__setRef(
+        "WAWebMediaResumeUploadMsg",
+      );
+    function c(t) {
       var a,
         i = t.mediaObject;
       if (!i)
@@ -40,19 +44,19 @@ __d(
         );
       i.userUploadAttemptCount++;
       var l = i.filehash,
-        u =
+        c =
           l != null &&
           (a = o("WAWebMediaInMemoryKeyCache").MediaKeyCache.get(l)) != null
             ? a
             : void 0;
       t.ack = o("WAWebAck").ACK.CLOCK;
-      var c = o("WAWebMsgGetters").getIsNewsletterMsg(t)
+      var d = o("WAWebMsgGetters").getIsNewsletterMsg(t)
           ? o("WAWebMediaMmsV4Upload").uploadUnencryptedMedia
           : o("WAWebMediaMmsV4Upload").uploadMedia,
-        d = c({
+        m = d({
           mimetype: t.mimetype,
           mediaObject: i,
-          mediaKeyInfo: u,
+          mediaKeyInfo: c,
           mediaType: o("WAWebMmsMediaTypes").getMsgMediaType(t),
           forwardedFromWeb: !!t.forwardedFromWeb,
           uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
@@ -97,23 +101,25 @@ __d(
             };
           })(),
         ),
-        m = o("WAWebMsgGetters").getIsNewsletterMsg(t)
-          ? o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
-              o("WAWebFrontendMsgGetters").getChat(t),
-              t,
-              function () {
-                return d;
-              },
-            )
+        p = o("WAWebMsgGetters").getIsNewsletterMsg(t)
+          ? u.load().then(function (e) {
+              return e.sendNewsletterMediaMsg(
+                o("WAWebFrontendMsgGetters").getChat(t),
+                t,
+                function () {
+                  return m;
+                },
+              );
+            })
           : o("WAWebSendMsgChatAction").resendMsgToChat(
               o("WAWebFrontendMsgGetters").getChat(t),
-              d,
+              m,
             );
-      return m.catch(function () {
+      return p.catch(function () {
         t.ack = o("WAWebAck").ACK.FAILED;
       });
     }
-    l.resumeUploadMsg = u;
+    l.resumeUploadMsg = c;
   },
   98,
 );

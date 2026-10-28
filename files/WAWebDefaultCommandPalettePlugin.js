@@ -23,6 +23,7 @@ __d(
     "WAWebSettingSearchModel",
     "WAWebSettings.MenuItem",
     "WAWebStaticMenuItem.react",
+    "WAWebWODirectory.react",
     "WAWebWamEnumProfileEntryPoint",
     "WDSIconIcPerson.react",
     "WDSIconIcSchedule.react",
@@ -152,7 +153,7 @@ __d(
       return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
     }
     function C(e) {
-      var t = o("react-compiler-runtime").c(38),
+      var t = o("react-compiler-runtime").c(43),
         n = e.section,
         a = o("WAWebCommandPaletteController").useCommandPalette();
       switch (n.type) {
@@ -180,7 +181,7 @@ __d(
             : (l = t[2]);
           var s;
           t[3] !== n.results
-            ? ((s = n.results.map(b)), (t[3] = n.results), (t[4] = s))
+            ? ((s = n.results.map(v)), (t[3] = n.results), (t[4] = s))
             : (s = t[4]);
           var c;
           return (
@@ -266,9 +267,9 @@ __d(
             : (y = t[18]);
           var C;
           if (t[19] !== a || t[20] !== n.results || t[21] !== n.type) {
-            var v;
+            var S;
             (t[23] !== a || t[24] !== n.type
-              ? ((v = function (t) {
+              ? ((S = function (t) {
                   return u.jsx(
                     r("WAWebContact.MenuItem"),
                     {
@@ -288,28 +289,28 @@ __d(
                 }),
                 (t[23] = a),
                 (t[24] = n.type),
-                (t[25] = v))
-              : (v = t[25]),
-              (C = n.results.map(v)),
+                (t[25] = S))
+              : (S = t[25]),
+              (C = n.results.map(S)),
               (t[19] = a),
               (t[20] = n.results),
               (t[21] = n.type),
               (t[22] = C));
           } else C = t[22];
-          var S;
+          var R;
           return (
             t[26] !== C
-              ? ((S = u.jsxs(u.Fragment, { children: [y, C] })),
+              ? ((R = u.jsxs(u.Fragment, { children: [y, C] })),
                 (t[26] = C),
-                (t[27] = S))
-              : (S = t[27]),
-            S
+                (t[27] = R))
+              : (R = t[27]),
+            R
           );
         }
         case "non-contact-pushname": {
-          var R;
+          var L;
           t[28] === Symbol.for("react.memo_cache_sentinel")
-            ? ((R = u.jsx(f, {
+            ? ((L = u.jsx(f, {
                 title: o(
                   "WAWebNonContactPushNameSearchModel",
                 ).getNonContactPushNameHeader(),
@@ -322,13 +323,13 @@ __d(
                   isDecorative: !0,
                 }),
               })),
-              (t[28] = R))
-            : (R = t[28]);
-          var L;
+              (t[28] = L))
+            : (L = t[28]);
+          var E;
           if (t[29] !== a || t[30] !== n.results || t[31] !== n.type) {
-            var E;
+            var k;
             (t[33] !== a || t[34] !== n.type
-              ? ((E = function (t) {
+              ? ((k = function (t) {
                   return u.jsx(
                     r("WAWebContact.MenuItem"),
                     {
@@ -348,22 +349,41 @@ __d(
                 }),
                 (t[33] = a),
                 (t[34] = n.type),
-                (t[35] = E))
-              : (E = t[35]),
-              (L = n.results.map(E)),
+                (t[35] = k))
+              : (k = t[35]),
+              (E = n.results.map(k)),
               (t[29] = a),
               (t[30] = n.results),
               (t[31] = n.type),
-              (t[32] = L));
-          } else L = t[32];
-          var k;
+              (t[32] = E));
+          } else E = t[32];
+          var I;
           return (
-            t[36] !== L
-              ? ((k = u.jsxs(u.Fragment, { children: [R, L] })),
-                (t[36] = L),
-                (t[37] = k))
-              : (k = t[37]),
-            k
+            t[36] !== E
+              ? ((I = u.jsxs(u.Fragment, { children: [L, E] })),
+                (t[36] = E),
+                (t[37] = I))
+              : (I = t[37]),
+            I
+          );
+        }
+        case "wo-directory": {
+          var T;
+          t[38] !== n.results
+            ? ((T = n.results.map(b)), (t[38] = n.results), (t[39] = T))
+            : (T = t[39]);
+          var D;
+          return (
+            t[40] !== a.closeModal || t[41] !== T
+              ? ((D = u.jsx(
+                  o("WAWebWODirectory.react").WODirectoryCommandPaletteSection,
+                  { members: T, onSelect: a.closeModal },
+                )),
+                (t[40] = a.closeModal),
+                (t[41] = T),
+                (t[42] = D))
+              : (D = t[42]),
+            D
           );
         }
         default:
@@ -373,13 +393,16 @@ __d(
     function b(e) {
       return e.data;
     }
-    function v() {
+    function v(e) {
+      return e.data;
+    }
+    function S() {
       var e = o("react-compiler-runtime").c(7),
         t = o("WAWebCommandPaletteController").useCommandPalette(),
         n;
       if (e[0] !== t.pluginList) {
         var r;
-        ((n = (r = t.pluginList) == null ? void 0 : r.some(S)),
+        ((n = (r = t.pluginList) == null ? void 0 : r.some(R)),
           (e[0] = t.pluginList),
           (e[1] = n));
       } else n = e[1];
@@ -390,7 +413,7 @@ __d(
         : (i = e[2]);
       var l;
       e[3] !== a
-        ? ((l = a && u.jsx(R, {})), (e[3] = a), (e[4] = l))
+        ? ((l = a && u.jsx(L, {})), (e[3] = a), (e[4] = l))
         : (l = e[4]);
       var s;
       return (
@@ -402,10 +425,10 @@ __d(
         s
       );
     }
-    function S(e) {
+    function R(e) {
       return e.plugin.id === "HelpCommandPalettePlugin";
     }
-    function R() {
+    function L() {
       var e = o("react-compiler-runtime").c(4),
         t;
       e[0] === Symbol.for("react.memo_cache_sentinel")
@@ -455,7 +478,7 @@ __d(
         i
       );
     }
-    function L(e) {
+    function E(e) {
       var t,
         n,
         r,
@@ -509,8 +532,8 @@ __d(
           : e;
       });
     }
-    function E() {
-      var t = o("react-compiler-runtime").c(13),
+    function k() {
+      var t = o("react-compiler-runtime").c(16),
         a = o("WAWebCommandPaletteController").useCommandPalette(),
         i;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -519,9 +542,11 @@ __d(
       var l = p(i),
         s = l[0],
         c = l[1],
-        m;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = new (o("WAWebSearchCollection").SearchCollection)(
+        m = p(T),
+        _ = m[0],
+        f;
+      t[1] !== _
+        ? ((f = new (o("WAWebSearchCollection").SearchCollection)(
             [
               new (o("WAWebSettingSearchModel").SettingSearch)({
                 maxPageLength: 3,
@@ -540,87 +565,105 @@ __d(
                     ).getNonContactPushNameSearch(),
                   ]
                 : [],
+              _ == null ? [] : [_],
             ),
           )),
-          (t[1] = m))
-        : (m = t[1]);
-      var _ = m,
-        f;
-      t[2] !== a.input
-        ? ((f = function () {
-            (e || (e = n("Promise")))
-              .all(_.query(a.input))
-              .then(function (e) {
-                return c(e);
-              })
-              .catch(r("WAWebNoop"));
-          }),
-          (t[2] = a.input),
-          (t[3] = f))
-        : (f = t[3]);
-      var g = r("useWAWebStableCallback")(f),
-        h,
-        y;
-      (t[4] !== a.input
+          (t[1] = _),
+          (t[2] = f))
+        : (f = t[2]);
+      var g = f,
+        h;
+      t[3] !== a.input || t[4] !== g
         ? ((h = function () {
             (e || (e = n("Promise")))
-              .all(_.query(a.input))
+              .all(g.query(a.input))
               .then(function (e) {
                 return c(e);
               })
               .catch(r("WAWebNoop"));
           }),
-          (y = [_, a.input]),
-          (t[4] = a.input),
-          (t[5] = h),
-          (t[6] = y))
-        : ((h = t[5]), (y = t[6])),
-        d(h, y));
-      var C;
+          (t[3] = a.input),
+          (t[4] = g),
+          (t[5] = h))
+        : (h = t[5]);
+      var y = r("useWAWebStableCallback")(h),
+        C,
+        b;
+      (t[6] !== a.input || t[7] !== g
+        ? ((C = function () {
+            (e || (e = n("Promise")))
+              .all(g.query(a.input))
+              .then(function (e) {
+                return c(e);
+              })
+              .catch(r("WAWebNoop"));
+          }),
+          (b = [g, a.input]),
+          (t[6] = a.input),
+          (t[7] = g),
+          (t[8] = C),
+          (t[9] = b))
+        : ((C = t[8]), (b = t[9])),
+        d(C, b));
+      var v;
       if (
-        (t[7] === Symbol.for("react.memo_cache_sentinel")
-          ? ((C = ["add", "change:product"]), (t[7] = C))
-          : (C = t[7]),
+        (t[10] === Symbol.for("react.memo_cache_sentinel")
+          ? ((v = ["add", "change:product"]), (t[10] = v))
+          : (v = t[10]),
         o("useWAWebListener").useListener(
           o("WAWebBotProfileCollection").BotProfileCollection,
-          C,
-          g,
+          v,
+          y,
+        ),
+        o("useWAWebListener").useListener(
+          _ == null ? void 0 : _.events,
+          "load",
+          y,
         ),
         a.input === "")
       ) {
-        var b;
+        var R;
         return (
-          t[8] === Symbol.for("react.memo_cache_sentinel")
-            ? ((b = u.jsx(v, {})), (t[8] = b))
-            : (b = t[8]),
-          b
+          t[11] === Symbol.for("react.memo_cache_sentinel")
+            ? ((R = u.jsx(S, {})), (t[11] = R))
+            : (R = t[11]),
+          R
         );
       }
-      var S;
-      t[9] !== s ? ((S = L(s).map(k)), (t[9] = s), (t[10] = S)) : (S = t[10]);
-      var R;
+      var L;
+      t[12] !== s
+        ? ((L = o("WAWebWODirectory.react")
+            .dedupeWODirectoryMemberSection(E(s))
+            .map(I)),
+          (t[12] = s),
+          (t[13] = L))
+        : (L = t[13]);
+      var k;
       return (
-        t[11] !== S
-          ? ((R = u.jsx(o("WAWebLexicalWAWebMenu.react").LexicalWAWebMenu, {
+        t[14] !== L
+          ? ((k = u.jsx(o("WAWebLexicalWAWebMenu.react").LexicalWAWebMenu, {
               forceSelection: !0,
-              children: S,
+              children: L,
             })),
-            (t[11] = S),
-            (t[12] = R))
-          : (R = t[12]),
-        R
+            (t[14] = L),
+            (t[15] = k))
+          : (k = t[15]),
+        k
       );
     }
-    function k(e) {
+    function I(e) {
       return e.results.length > 0 && u.jsx(C, { section: e }, e.type);
     }
-    var I = {
+    function T() {
+      return o("WAWebWODirectory.react").createWODirectoryMemberSearch();
+    }
+    var D = {
       id: "DefaultCommand",
       placeholder: "Search anything",
       shortName: null,
-      Component: E,
+      Component: k,
     };
-    l.DefaultCommandPalettePlugin = I;
+    l.DefaultCommandPalettePlugin = D;
   },
   98,
 );

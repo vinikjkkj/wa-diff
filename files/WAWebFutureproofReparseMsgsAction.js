@@ -6,22 +6,27 @@ __d(
     "WAWebAddonGatingUtils",
     "WAWebDBAddOnProviders",
     "WAWebDBMessageSerialization",
-    "WAWebHandleMsgProcess",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebNewsletterReparseMsgAction",
     "WAWebProcessMsgInfoForLid",
     "asyncToGeneratorRuntime",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c = r("requireDeferred")("WAWebHandleMsgProcess").__setRef(
+        "WAWebFutureproofReparseMsgsAction",
+      );
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = t.futureproofBuffer,
               r = t.futureproofParams;
@@ -33,17 +38,16 @@ __d(
               if (r) {
                 var a = r.info,
                   i = r.msgMeta;
-                (o("WAWebLidMigrationUtils").shouldHaveAccountLid(a.chat) &&
+                o("WAWebLidMigrationUtils").shouldHaveAccountLid(a.chat) &&
                   a.accountLid == null &&
                   (yield o(
                     "WAWebProcessMsgInfoForLid",
-                  ).maybeProcessMsgInfoForLid({ msgInfo: a, msgMeta: i })),
-                  yield o("WAWebHandleMsgProcess").processDecryptedMessageProto(
-                    babelHelpers.extends({}, r, {
-                      decrypted: n,
-                      reparsing: !0,
-                    }),
-                  ));
+                  ).maybeProcessMsgInfoForLid({ msgInfo: a, msgMeta: i }));
+                var l = yield c.load(),
+                  s = l.processDecryptedMessageProto;
+                yield s(
+                  babelHelpers.extends({}, r, { decrypted: n, reparsing: !0 }),
+                );
               }
               return t;
             }
@@ -64,15 +68,15 @@ __d(
             );
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = [],
               r = [];
@@ -91,12 +95,12 @@ __d(
             }),
               yield (u || (u = n("Promise"))).all(
                 r.map(function (e) {
-                  return c(e);
+                  return d(e);
                 }),
               ),
               yield u.all(
                 t.map(function (e) {
-                  return c(e);
+                  return d(e);
                 }),
               ));
           } catch (e) {
@@ -108,10 +112,10 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.processFutureproof = m;
+    l.processFutureproof = p;
   },
   98,
 );

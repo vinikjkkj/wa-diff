@@ -1,19 +1,28 @@
 __d(
   "WAWebOpenOrgAdminFlowAction",
-  ["WAWebDrawerManager", "WAWebOrgAdminFlowLoadable", "react"],
+  ["WALogger", "WAWebDrawerManager", "WAWebOrgAdminFlowLoadable", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react"));
-    function u(e, t) {
-      o("WAWebDrawerManager").DrawerManager.openDrawerMid(
-        s.jsx(r("WAWebOrgAdminFlowLoadable"), {
-          initialOrganizationID: e,
-          initialPage: t,
-        }),
-        { disableRotateFocus: !0, transition: "none" },
-      );
+      s,
+      u = s || (s = o("react"));
+    function c(t, n) {
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[org-admin] opened Admin Hub page=",
+            "",
+          ])),
+        n != null ? n : "default",
+      ),
+        o("WAWebDrawerManager").DrawerManager.openDrawerMid(
+          u.jsx(r("WAWebOrgAdminFlowLoadable"), {
+            initialOrganizationID: t,
+            initialPage: n,
+          }),
+          { disableRotateFocus: !0, transition: "none" },
+        ));
     }
-    l.openOrgAdminFlow = u;
+    l.openOrgAdminFlow = c;
   },
   98,
 );

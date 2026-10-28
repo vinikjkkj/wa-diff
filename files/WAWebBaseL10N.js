@@ -11,12 +11,6 @@ __d(
         babelHelpers.inheritsLoose(n, t);
         var o = n.prototype;
         return (
-          (o.getLocale = function () {
-            throw e;
-          }),
-          (o.getNormalizedLocale = function () {
-            throw e;
-          }),
           (o.getFullLocale = function () {
             throw e;
           }),

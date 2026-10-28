@@ -18,17 +18,18 @@ __d(
     var e,
       s,
       u,
-      c = new Set(),
+      c,
       d = new Set(),
       m = new Set(),
-      p = new Map(),
-      _ = null;
-    function f(e) {
-      return e == null ? (u || (u = n("Promise"))).resolve() : g([e]);
-    }
+      p = new Set(),
+      _ = new Map(),
+      f = null;
     function g(e) {
+      return e == null ? (c || (c = n("Promise"))).resolve() : h([e]);
+    }
+    function h(e) {
       if (!o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled())
-        return (u || (u = n("Promise"))).resolve();
+        return (c || (c = n("Promise"))).resolve();
       var t = e.filter(function (e) {
         return (
           o("WAWebOrgMemberLidEligibility").parseWAWebOrgMemberLidUser(e) !=
@@ -37,34 +38,34 @@ __d(
       });
       o("WAWebOrgBridgeApi").noteOrgContactsRequested(t);
       var r = t.filter(function (e) {
-        return !m.has(e);
+        return !p.has(e);
       });
       return r.length === 0
-        ? _ != null
-          ? _
-          : (u || (u = n("Promise"))).resolve()
+        ? f != null
+          ? f
+          : (c || (c = n("Promise"))).resolve()
         : (r.forEach(function (e) {
-            d.has(e) || c.add(e);
+            m.has(e) || d.add(e);
           }),
-          C());
+          b());
     }
-    function h(e) {
+    function y(e) {
       e.forEach(function (e) {
-        (m.add(e), p.delete(e));
+        (p.add(e), _.delete(e));
       });
     }
-    function y() {
-      ((c = new Set()),
-        (d = new Set()),
-        (m = new Set()),
-        (p = new Map()),
-        (_ = null));
-    }
     function C() {
-      if (_ == null) {
-        var t = (u || (u = n("Promise")))
+      ((d = new Set()),
+        (m = new Set()),
+        (p = new Set()),
+        (_ = new Map()),
+        (f = null));
+    }
+    function b() {
+      if (f == null) {
+        var t = (c || (c = n("Promise")))
           .resolve()
-          .then(b)
+          .then(v)
           .catch(function (t) {
             o("WALogger")
               .ERROR(
@@ -77,50 +78,50 @@ __d(
               .sendLogs("org-affiliations-resolution-failed");
           })
           .finally(function () {
-            (_ === t && (_ = null), c.size > 0 && C());
+            (f === t && (f = null), d.size > 0 && b());
           });
-        _ = t;
+        f = t;
       }
-      return _;
-    }
-    function b() {
-      return v.apply(this, arguments);
+      return f;
     }
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebOrgRefreshListAction").whenOrgListReady();
-          var e = Array.from(c);
-          ((c = new Set()),
+          var e = Array.from(d);
+          ((d = new Set()),
             e.forEach(function (e) {
-              return d.add(e);
+              return m.add(e);
             }));
           try {
-            var t = yield S(
+            var t = yield R(
               e.filter(function (e) {
-                return !m.has(e);
+                return !p.has(e);
               }),
             );
-            if (t && (yield L())) {
-              h(e);
+            if (t && (yield E())) {
+              y(e);
               return;
             }
-            yield I(e.filter(k));
+            yield T(e.filter(I));
           } finally {
             e.forEach(function (e) {
-              return d.delete(e);
+              return m.delete(e);
             });
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return !0;
           try {
             var t = yield o(
@@ -149,21 +150,21 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L() {
-      return E.apply(this, arguments);
-    }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebOrgCollection")
               .OrgCollection.getModelsArray()
               .map(function (e) {
                 return e.id;
               }),
-            t = yield (u || (u = n("Promise"))).all(
+            t = yield (c || (c = n("Promise"))).all(
               e.map(function (e) {
                 return (
                   o("WAWebOrgFetchDirectoryAction").isOrgDirectoryLoaded(e) ||
@@ -173,19 +174,19 @@ __d(
             );
           return t.every(Boolean);
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
-      var t = p.get(e);
-      return !m.has(e) && (t == null || t <= Date.now());
-    }
     function I(e) {
-      return T.apply(this, arguments);
+      var t = _.get(e);
+      return !p.has(e) && (t == null || t <= Date.now());
     }
-    function T() {
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t = yield o("WAWebOrgMembershipUsyncJob").syncOrgMemberships(e),
               n = t.rows,
@@ -202,20 +203,36 @@ __d(
               rows: n,
             }),
               r.forEach(function (e, t) {
-                return D(t, e);
+                return x(t, e);
               }));
+            var i = e.filter(function (e) {
+              var t;
+              return ((t = r.get(e)) == null ? void 0 : t.status) === "retry";
+            }).length;
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-affiliations] usync people=",
+                  " answered=",
+                  " retrying=",
+                  "",
+                ])),
+              e.length,
+              a.length,
+              i,
+            );
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      t.status === "retry" ? p.set(e, Date.now() + t.backoffMs) : h([e]);
+    function x(e, t) {
+      t.status === "retry" ? _.set(e, Date.now() + t.backoffMs) : y([e]);
     }
-    ((l.requestOrgContact = f),
-      (l.requestOrgContacts = g),
-      (l.markOrgContactsChecked = h),
-      (l.resetOrgRequestContactAction = y));
+    ((l.requestOrgContact = g),
+      (l.requestOrgContacts = h),
+      (l.markOrgContactsChecked = y),
+      (l.resetOrgRequestContactAction = C));
   },
   98,
 );

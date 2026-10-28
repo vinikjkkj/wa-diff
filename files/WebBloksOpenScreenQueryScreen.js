@@ -5,6 +5,7 @@ __d(
     "WebBloksErrors",
     "WebBloksModel",
     "WebBloksPayloadParser",
+    "WebBloksRenderDiagnostics",
     "WebBloksScreen",
     "webBloksPerformanceUtils",
   ],
@@ -47,6 +48,11 @@ __d(
         ),
         S = n.get(e);
       (S != null && (v.controllerName = S),
+        o("WebBloksRenderDiagnostics").isWebBloksRenderDiagnosticsInstalled() &&
+          o("WebBloksRenderDiagnostics").reportWebBloksScreenRoute(
+            v,
+            g != null ? String(g) : null,
+          ),
         t.objectSet.navigationManager.open(v, a));
     }
     l.default = c;

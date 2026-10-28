@@ -271,6 +271,7 @@ __d(
       enable_vod_sharpen_chat_fullscreen: [38267, "bool", !1, !1],
       enable_vod_sharpen_status: [38268, "bool", !1, !1],
       enable_vsr_chat_fullscreen: [38038, "bool", !1, !1],
+      enable_vsr_stats: [40846, "bool", !1, !1],
       enable_vsr_status_fullscreen: [38037, "bool", !1, !1],
       enable_waiting_room_admin_ui: [21676, "bool", !1, !1],
       enable_waiting_room_logging: [24991, "bool", !1, !1],

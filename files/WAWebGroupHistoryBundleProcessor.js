@@ -411,7 +411,12 @@ __d(
                 );
                 continue;
               }
-              var M = P(x, t, a, T);
+              var M = P({
+                baseMessage: t,
+                bundleMessageKey: a,
+                messageInfo: x,
+                scrubUnattestableFields: T,
+              });
               if (M == null) continue;
               if (T && !O(M)) {
                 W(L, M.id);
@@ -520,63 +525,67 @@ __d(
         $.apply(this, arguments)
       );
     }
-    function P(t, n, r, a) {
-      var i,
-        l,
-        s,
-        u,
-        c = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
-          babelHelpers.extends({}, t.key, { participant: t.participant }),
-          n,
+    function P(t) {
+      var n,
+        r,
+        a,
+        i,
+        l = t.baseMessage,
+        s = t.bundleMessageKey,
+        u = t.messageInfo,
+        c = t.scrubUnattestableFields,
+        d = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
+          babelHelpers.extends({}, u.key, { participant: u.participant }),
+          l,
         ),
-        d =
-          ((i = t.message) == null ||
-          (i = i.editedMessage) == null ||
-          (i = i.message) == null ||
-          (i = i.protocolMessage) == null
+        m =
+          ((n = u.message) == null ||
+          (n = n.editedMessage) == null ||
+          (n = n.message) == null ||
+          (n = n.protocolMessage) == null
             ? void 0
-            : i.key) != null,
-        m = d
-          ? (l = t.message) == null ||
-            (l = l.editedMessage) == null ||
-            (l = l.message) == null ||
-            (l = l.protocolMessage) == null
+            : n.key) != null,
+        p = m
+          ? (r = u.message) == null ||
+            (r = r.editedMessage) == null ||
+            (r = r.message) == null ||
+            (r = r.protocolMessage) == null
             ? void 0
-            : l.key
-          : (s = t.message) == null || (s = s.protocolMessage) == null
+            : r.key
+          : (a = u.message) == null || (a = a.protocolMessage) == null
             ? void 0
-            : s.key;
-      if (m != null) {
-        var p = o(
+            : a.key;
+      if (p != null) {
+        var _ = o(
           "WAWebE2EProtoUtils",
         ).translateRegularMessageKeyToLocalReference(
-          babelHelpers.extends({}, m, { participant: t.participant }),
-          n,
+          babelHelpers.extends({}, p, { participant: u.participant }),
+          l,
         );
-        if (p != null)
-          if (d) {
-            var _, f, g;
-            t.message = babelHelpers.extends({}, t.message, {
+        if (_ != null)
+          if (m) {
+            var f, g, h;
+            u.message = babelHelpers.extends({}, u.message, {
               editedMessage: babelHelpers.extends(
                 {},
-                (_ = t.message) == null ? void 0 : _.editedMessage,
+                (f = u.message) == null ? void 0 : f.editedMessage,
                 {
                   message: babelHelpers.extends(
                     {},
-                    (f = t.message) == null || (f = f.editedMessage) == null
+                    (g = u.message) == null || (g = g.editedMessage) == null
                       ? void 0
-                      : f.message,
+                      : g.message,
                     {
                       protocolMessage: babelHelpers.extends(
                         { additionalPromptIds: [] },
-                        (g = t.message) == null ||
-                          (g = g.editedMessage) == null ||
-                          (g = g.message) == null
+                        (h = u.message) == null ||
+                          (h = h.editedMessage) == null ||
+                          (h = h.message) == null
                           ? void 0
-                          : g.protocolMessage,
+                          : h.protocolMessage,
                         {
                           key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(
-                            p,
+                            _,
                           ),
                         },
                       ),
@@ -586,55 +595,55 @@ __d(
               ),
             });
           } else {
-            var h;
-            t.message = babelHelpers.extends({}, t.message, {
+            var y;
+            u.message = babelHelpers.extends({}, u.message, {
               protocolMessage: babelHelpers.extends(
                 { additionalPromptIds: [] },
-                (h = t.message) == null ? void 0 : h.protocolMessage,
-                { key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(p) },
+                (y = u.message) == null ? void 0 : y.protocolMessage,
+                { key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(_) },
               ),
             });
           }
       }
-      if (c) {
-        var y = o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(c);
-        ((t.key = y), y.participant != null && (t.participant = y.participant));
+      if (d) {
+        var C = o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(d);
+        ((u.key = C), C.participant != null && (u.participant = C.participant));
       }
-      var C =
-        (u = t.message) == null ||
-        (u = u.messageContextInfo) == null ||
-        (u = u.messageAssociation) == null
+      var b =
+        (i = u.message) == null ||
+        (i = i.messageContextInfo) == null ||
+        (i = i.messageAssociation) == null
           ? void 0
-          : u.parentMessageKey;
-      if (C != null) {
-        var b,
-          v = o(
+          : i.parentMessageKey;
+      if (b != null) {
+        var v,
+          S = o(
             "WAWebE2EProtoUtils",
           ).translateRegularMessageKeyToLocalReference(
-            babelHelpers.extends({}, C, { participant: t.participant }),
-            n,
+            babelHelpers.extends({}, b, { participant: u.participant }),
+            l,
           );
         if (
-          v != null &&
-          ((b = t.message) == null || (b = b.messageContextInfo) == null
+          S != null &&
+          ((v = u.message) == null || (v = v.messageContextInfo) == null
             ? void 0
-            : b.messageAssociation) != null
+            : v.messageAssociation) != null
         ) {
-          var S, R;
-          t.message = babelHelpers.extends({}, t.message, {
+          var R, L;
+          u.message = babelHelpers.extends({}, u.message, {
             messageContextInfo: babelHelpers.extends(
               {},
-              (S = t.message) == null ? void 0 : S.messageContextInfo,
+              (R = u.message) == null ? void 0 : R.messageContextInfo,
               {
                 messageAssociation: babelHelpers.extends(
                   {},
-                  (R = t.message) == null || (R = R.messageContextInfo) == null
+                  (L = u.message) == null || (L = L.messageContextInfo) == null
                     ? void 0
-                    : R.messageAssociation,
+                    : L.messageAssociation,
                   {
                     parentMessageKey: o(
                       "WAWebProtobufMsgKeyUtils",
-                    ).msgKeyToProtobuf(v),
+                    ).msgKeyToProtobuf(S),
                   },
                 ),
               },
@@ -642,17 +651,17 @@ __d(
           });
         }
       }
-      var L = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(
+      var E = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(
         o("WAWebMsgHistorySyncExtensions").omitPrimaryOnlyHistorySyncFields(
-          babelHelpers.extends({}, t, {
+          babelHelpers.extends({}, u, {
             is1PBizBotMessage: void 0,
             botMessageInvokerJid: void 0,
           }),
         ),
       );
-      if (!L) return null;
-      var E = n.author;
-      return E == null
+      if (!E) return null;
+      var k = l.author;
+      return k == null
         ? (o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -660,16 +669,16 @@ __d(
               ])),
           ),
           null)
-        : babelHelpers.extends({}, L, {
+        : babelHelpers.extends({}, E, {
             ack:
-              c != null && c.fromMe
+              d != null && d.fromMe
                 ? o("WAWebAck").ACK.RECEIVED
                 : o("WAWebAck").ACK.READ,
-            hsmTag: a ? void 0 : L.hsmTag,
-            viewMode: N(L),
+            hsmTag: c ? void 0 : E.hsmTag,
+            viewMode: N(E),
             groupHistoryIndividualMessageInfo: {
-              bundleMessageKey: r,
-              bundleSender: E,
+              bundleMessageKey: s,
+              bundleSender: k,
               isEditedAfterReceivedAsHistory: !1,
             },
           });

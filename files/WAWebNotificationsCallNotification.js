@@ -250,7 +250,12 @@ __d(
         }),
         (a.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
-            ? o("WAWebMuteCollection").MuteCollection.getGlobalCallRingtone() &&
+            ? o(
+                "WAWebMuteCollection",
+              ).MuteCollection.getGlobalCallNotifications() &&
+                o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalCallRingtone() &&
                 o("WAWebVoipGatingUtils").isWebCallingUiEnabled()
             : !1;
         }),

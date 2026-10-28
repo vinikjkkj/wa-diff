@@ -30,10 +30,13 @@ __d(
         ? !0
         : e === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
     }
-    function u(e, t, n) {
-      return e || t
+    function u(e) {
+      var t = e.iAmAdmin,
+        n = e.iAmSuperAdmin,
+        r = e.memberShareGroupHistoryMode;
+      return t || n
         ? !0
-        : n ===
+        : r ===
             o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
               .ALL_MEMBER_SHARE;
     }
@@ -61,7 +64,11 @@ __d(
     function p(e) {
       return !s(e.groupType) || e.hasCapi === !0
         ? !1
-        : u(e.iAmAdmin, e.iAmSuperAdmin, e.memberShareGroupHistoryMode);
+        : u({
+            iAmAdmin: e.iAmAdmin,
+            iAmSuperAdmin: e.iAmSuperAdmin,
+            memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
+          });
     }
     function _(e) {
       return o(

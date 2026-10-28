@@ -147,7 +147,11 @@ __d(
             s = yield v(t, n, a, l, i);
           if (!C(s == null ? void 0 : s.match)) {
             var u = L(e, t, i, n);
-            if (u != null) return { row: R(e, n, a, u), failureReason: null };
+            if (u != null)
+              return {
+                row: R({ ctx: n, parsedMsg: e, receivedInfo: u, stanzaId: a }),
+                failureReason: null,
+              };
           }
           if (s == null)
             return (
@@ -197,7 +201,17 @@ __d(
                   isPartOfGroupHistory: !0,
                   groupHistoryBundleMessageId: n.bundleMsgStanzaId,
                 })),
-              { row: R(e, n, a, y, h, _), failureReason: g });
+              {
+                row: R({
+                  computedInfo: _,
+                  ctx: n,
+                  isValid: h,
+                  parsedMsg: e,
+                  receivedInfo: y,
+                  stanzaId: a,
+                }),
+                failureReason: g,
+              });
         })),
         y.apply(this, arguments)
       );
@@ -260,34 +274,41 @@ __d(
         S.apply(this, arguments)
       );
     }
-    function R(e, t, n, r, a, i) {
-      (a === void 0 && (a = !0), i === void 0 && (i = null));
-      var l = r.reportingTag;
-      if (l == null) return null;
-      var s = {
-        msgKey: _(e),
-        stanzaId: n,
-        reportingTag: l,
-        msgTs: t.bundleMsgTimestamp,
+    function R(e) {
+      var t = e.computedInfo,
+        n = t === void 0 ? null : t,
+        r = e.ctx,
+        a = e.isValid,
+        i = a === void 0 ? !0 : a,
+        l = e.parsedMsg,
+        s = e.receivedInfo,
+        u = e.stanzaId,
+        c = s.reportingTag;
+      if (c == null) return null;
+      var d = {
+        msgKey: _(l),
+        stanzaId: u,
+        reportingTag: c,
+        msgTs: r.bundleMsgTimestamp,
         receivedTs: o("WATimeUtils").unixTimeMs(),
-        reportingTagParticipant: t.senderJid,
+        reportingTagParticipant: r.senderJid,
       };
-      if (r.reportingToken != null) {
-        var u, c;
-        ((s.reportingToken = r.reportingToken.slice(
-          0,
-          a
-            ? o("WAWebReportingTokenUtils").REPORTING_TOKEN_STORAGE_SIZE
-            : o("WAWebReportingTokenUtils")
-                .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
-        )),
-          (s.version = r.version),
-          ((u = i) == null ? void 0 : u.reportingTokenContent) != null &&
-            (s.reportingTokenContentOpaqueData = i.reportingTokenContent),
-          ((c = i) == null ? void 0 : c.reportingTokenKey) != null &&
-            (s.reportingTokenKey = i.reportingTokenKey));
-      }
-      return s;
+      return (
+        s.reportingToken != null &&
+          ((d.reportingToken = s.reportingToken.slice(
+            0,
+            i
+              ? o("WAWebReportingTokenUtils").REPORTING_TOKEN_STORAGE_SIZE
+              : o("WAWebReportingTokenUtils")
+                  .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
+          )),
+          (d.version = s.version),
+          (n == null ? void 0 : n.reportingTokenContent) != null &&
+            (d.reportingTokenContentOpaqueData = n.reportingTokenContent),
+          (n == null ? void 0 : n.reportingTokenKey) != null &&
+            (d.reportingTokenKey = n.reportingTokenKey)),
+        d
+      );
     }
     function L(t, n, r, a) {
       var i = r.find(function (e) {

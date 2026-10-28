@@ -307,7 +307,7 @@ __d(
     function D(e, t, n) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: n != null ? n : void 0,
-        extraAttributes: { response_count: e, flow_id: t != null ? t : void 0 },
+        extraAttributes: { flow_id: t != null ? t : void 0, response_count: e },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         stickyEntryPoint: !1,
@@ -341,9 +341,9 @@ __d(
         entryPoint: a != null ? a : void 0,
         extraAttributes: {
           action_status: i,
-          is_download_all: e,
-          flow_id: r != null ? r : void 0,
           error: n != null ? n : void 0,
+          flow_id: r != null ? r : void 0,
+          is_download_all: e,
         },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,

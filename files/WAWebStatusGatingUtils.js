@@ -110,59 +110,79 @@ __d(
         "wa_web_status_resharer_flow_enabled",
       );
     }
-    var v = 5;
-    function S() {
+    function v() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_notify_broadcast_addressing_enabled",
+      );
+    }
+    var S = 5;
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_send_over_status_stanza",
       );
     }
-    function R() {
-      return S() && L();
-    }
     function L() {
-      return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");
+      return R() && E();
     }
     function E() {
-      return o("WAWebABProps").getABPropConfigValue("web_status_recv_via_smax");
+      return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");
     }
     function k() {
+      return o("WAWebABProps").getABPropConfigValue("web_status_recv_via_smax");
+    }
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_batched_status_sending_enabled",
       );
     }
-    function I() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_player_avatar_status_creation_entrypoint",
       );
     }
-    function T() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_new_at_end",
       );
     }
-    function D() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_status_chain_unseen_min_pog",
       );
     }
-    function x() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_chaining_from_my_status",
       );
     }
-    function $() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_chain_from_my_interaction_limit",
       );
     }
-    function P() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_from_chatlist",
       );
     }
-    function N() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_companion_read_sync_fix_enabled",
+      );
+    }
+    function w() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_vpv_per_view_load_time_enabled",
+      );
+    }
+    function A() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_vpv_successful_view_consistency_enabled",
+      );
+    }
+    function F() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_load_timer_pause_on_bg_enabled",
       );
     }
     ((l.statusQuickReplyEmojis = u),
@@ -177,18 +197,22 @@ __d(
       (l.isStatusViewerActionPsaLinkClickLoggingEnabled = y),
       (l.isStatusCloseFriendsViewerSideEnabled = C),
       (l.isStatusReshareViewerFlowEnabled = b),
-      (l.STATUS_RESHARING_VIEWER_DEGSEP_LIMIT = v),
-      (l.isStatusStanzaSendEnabled = S),
-      (l.isStatusPublishViaSmaxEnabled = R),
-      (l.isStatusDeliverViaSmaxEnabled = E),
-      (l.isBatchedStatusSendingEnabled = k),
-      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = I),
-      (l.isStatusAddUnseenAtEndEnabled = T),
-      (l.statusChainUnseenMinPog = D),
-      (l.isChainingFromMyStatusEnabled = x),
-      (l.getStatusChainFromMyInteractionLimit = $),
-      (l.isChainFromChatListEnabled = P),
-      (l.isStatusCompanionReadSyncEnabled = N));
+      (l.isStatusNotifyBroadcastAddressingEnabled = v),
+      (l.STATUS_RESHARING_VIEWER_DEGSEP_LIMIT = S),
+      (l.isStatusStanzaSendEnabled = R),
+      (l.isStatusPublishViaSmaxEnabled = L),
+      (l.isStatusDeliverViaSmaxEnabled = k),
+      (l.isBatchedStatusSendingEnabled = I),
+      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = T),
+      (l.isStatusAddUnseenAtEndEnabled = D),
+      (l.statusChainUnseenMinPog = x),
+      (l.isChainingFromMyStatusEnabled = $),
+      (l.getStatusChainFromMyInteractionLimit = P),
+      (l.isChainFromChatListEnabled = N),
+      (l.isStatusCompanionReadSyncEnabled = M),
+      (l.isStatusVpvPerViewLoadTimeEnabled = w),
+      (l.isStatusVpvSuccessfulViewConsistencyEnabled = A),
+      (l.isStatusLoadTimerPauseOnBackgroundEnabled = F));
   },
   98,
 );

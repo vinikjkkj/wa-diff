@@ -1,6 +1,6 @@
 __d(
   "WebBloksErrorBoundary",
-  ["WebBloksErrorRoot", "react"],
+  ["WebBloksErrorRoot", "WebBloksRenderDiagnostics", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -22,11 +22,18 @@ __d(
         var n = t.prototype;
         return (
           (n.componentDidCatch = function (t, n) {
-            this.props.logger.mustfix(
-              "Error rendering components: %s",
-              t,
-              n == null ? void 0 : n.componentStack,
-            );
+            (o(
+              "WebBloksRenderDiagnostics",
+            ).isWebBloksRenderDiagnosticsInstalled() &&
+              o("WebBloksRenderDiagnostics").reportWebBloksRenderError({
+                message: o("WebBloksRenderDiagnostics").safeErrorMessage(t),
+                componentStack: n == null ? void 0 : n.componentStack,
+              }),
+              this.props.logger.mustfix(
+                "Error rendering components: %s",
+                t,
+                n == null ? void 0 : n.componentStack,
+              ));
           }),
           (n.render = function () {
             var e = this.state.error;

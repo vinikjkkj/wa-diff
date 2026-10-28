@@ -191,7 +191,33 @@ __d(
             .join("")
         );
       },
+      ACTIVITY_GOAL_STEP_REPORT: function (n, r, o) {
+        return (
+          "/api/activity/goals/" +
+          u(n) +
+          "/actions/" +
+          u(r) +
+          "?report_offset=" +
+          o
+        );
+      },
+      ACTIVITY_GOAL_STEPS: function (n, r, o) {
+        return (
+          "/api/activity/goals/" +
+          u(n) +
+          "/actions?limit=" +
+          r +
+          (o == null ? "" : "&cursor=" + u(o))
+        );
+      },
       ACTIVITY_SUBSCRIBE: "/api/activity/subscribe",
+      APPROVALS_HISTORY: function (n, r) {
+        return (
+          "/approvals/history?record_schema=snapshot_v1&limit=" +
+          n +
+          (r == null || r.trim() === "" ? "" : "&cursor=" + u(r))
+        );
+      },
       ARTIFACTS_LIST: "/api/artifacts",
       ARTIFACTS_PIN: "/api/artifacts/pin",
       ARTIFACTS_SUBSCRIBE: "/api/artifacts/subscribe",

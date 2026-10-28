@@ -10,6 +10,7 @@ __d(
     "WebBloksLogger",
     "WebBloksModel",
     "WebBloksModuleStore",
+    "WebBloksRenderDiagnostics",
     "WebBloksViewportDimensionsDataModule",
     "WebDriverConfig",
     "react",
@@ -42,6 +43,7 @@ __d(
         enableDeterministicTextSize: !1,
         appLoader: null,
         logger: new (r("WebBloksLogger"))(),
+        renderDiagnostics: null,
         locale: "en_US",
         isRtl: !1,
         emitDataBloksName: r("WebDriverConfig").isTestRunning,
@@ -114,6 +116,9 @@ __d(
       if (
         (o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
           g.enableBindInstrumentation,
+        ),
+        o("WebBloksRenderDiagnostics").installWebBloksRenderDiagnostics(
+          g.renderDiagnostics,
         ),
         g.versioningID === "")
       )
@@ -191,7 +196,8 @@ __d(
         P,
         N,
         M,
-        w;
+        w,
+        A;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -286,6 +292,8 @@ __d(
                 : e.controllerNavigationLogger,
             versioningID: (M = t.versioningID) != null ? M : e.versioningID,
             onInteraction: (w = t.onInteraction) != null ? w : e.onInteraction,
+            renderDiagnostics:
+              (A = t.renderDiagnostics) != null ? A : e.renderDiagnostics,
           }
         : e;
     }

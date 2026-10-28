@@ -35,51 +35,57 @@ __d(
       c = new (o("WAWebWamCodegenGlobalMetrics").Metrics)(),
       d = {},
       m = new Map(),
-      p = r("justknobx")._("1600");
+      p = new Map();
     function _(e) {
+      return p.get(e);
+    }
+    var f = r("justknobx")._("1600");
+    function g(e) {
       return m.get(e);
     }
-    function f(t) {
+    function h(t) {
       var n = t.id,
         a = t.name,
         i = t.privateStatsIdInt,
         l = t.props,
         _ = t.validators,
-        f = t.wamChannel,
-        g = t.weight,
-        h = {
+        g = t.wamChannel,
+        h = t.weight,
+        y = {
           id: n,
-          weight: g,
-          wamChannel: f,
+          weight: h,
+          wamChannel: g,
           privateStatsIdInt: i,
           validators: _,
         },
-        y = {},
-        C = [],
-        b = {},
-        v = new Map();
-      for (var S in l) {
-        var R = l[S],
-          L = c.define({ eventName: a, fieldName: S, id: R[0], type: R[1] });
-        (v.set(R[0], L.name),
-          (y[S] = L.validator),
-          p && (b[S] = e(S)),
-          R[1] === u.TIMER && C.push(S));
+        C = {},
+        b = [],
+        v = {},
+        S = new Map();
+      for (var R in l) {
+        var L = l[R],
+          E = c.define({ eventName: a, fieldName: R, id: L[0], type: L[1] });
+        (S.set(L[0], E.name),
+          (C[R] = E.validator),
+          f && (v[R] = e(R)),
+          L[1] === u.TIMER && b.push(R));
       }
-      if (p) {
-        var E = s(a);
-        ((h.$falcoEventName = E),
-          (h.$falcoFieldMap = b),
-          m.set(n, { falcoEventName: E, falcoFieldMap: b, fieldIdToName: v }));
+      if (f) {
+        var k = s(a);
+        ((y.$falcoEventName = k),
+          (y.$falcoFieldMap = v),
+          m.set(n, { falcoEventName: k, falcoFieldMap: v, fieldIdToName: S }));
       }
-      var k = o("WAWebWamTypeHash").defineTypeHash(
+      var I = l.dedupKey;
+      I != null && p.set(n, I[0]);
+      var T = o("WAWebWamTypeHash").defineTypeHash(
         a,
-        y,
+        C,
         o("WAWebWamCodegenWamEvent").WamEvent,
       );
       return (
-        C.forEach(function (e) {
-          ((h["mark" + r("WAUpperFirst")(e)] = function () {
+        b.forEach(function (e) {
+          ((y["mark" + r("WAUpperFirst")(e)] = function () {
             var t,
               n,
               r = this.eventTime,
@@ -88,18 +94,18 @@ __d(
               Date.now() -
               ((t = (n = o[e]) == null ? void 0 : n.ts) != null ? t : r);
           }),
-            (h["start" + r("WAUpperFirst")(e)] = function () {
+            (y["start" + r("WAUpperFirst")(e)] = function () {
               var t = Date.now();
               this.startMarkers[e] = { ts: t };
             }));
         }),
-        p && (h.$rawProps = l),
-        Object.assign(k.prototype, h),
-        (d[a] = k),
-        k
+        f && (y.$rawProps = l),
+        Object.assign(T.prototype, y),
+        (d[a] = T),
+        T
       );
     }
-    function g(e, t) {
+    function y(e, t) {
       t === void 0 && (t = {});
       for (var n in e) {
         var o,
@@ -110,7 +116,7 @@ __d(
         (r("gkx")("26259") && (s = l[1]), r("gkx")("26258") && (s = l[2]));
         var u = (o = i[3]) != null ? o : "regular",
           c = i.length === 5 ? i[4] : -1;
-        return f({
+        return h({
           name: n,
           id: i[0],
           props: i[1],
@@ -122,7 +128,7 @@ __d(
       }
       throw r("err")("defineEvent: empty definition");
     }
-    var h = (function (e) {
+    var C = (function (e) {
       function t() {
         for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
@@ -135,7 +141,7 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WAWebWamTypeHash").TypeHash);
-    function y(e) {
+    function b(e) {
       var t = {},
         n = function () {
           var n = e[r],
@@ -155,15 +161,16 @@ __d(
           };
         };
       for (var r in e) n();
-      var a = o("WAWebWamTypeHash").defineTypeHash("Global", t, h);
+      var a = o("WAWebWamTypeHash").defineTypeHash("Global", t, C);
       return new a();
     }
     ((l.TYPES = u),
       (l.metrics = c),
       (l.events = d),
-      (l.getFalcoMetadataForWamEventId = _),
-      (l.defineEvents = g),
-      (l.defineGlobal = y));
+      (l.getWamDedupKeyFieldId = _),
+      (l.getFalcoMetadataForWamEventId = g),
+      (l.defineEvents = y),
+      (l.defineGlobal = b));
   },
   98,
 );

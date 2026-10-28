@@ -28,6 +28,24 @@ __d(
             babelHelpers.extends({}, r, { responseShape: "flat-or-envelope" }),
           );
         }),
+        (r.activityGoalSteps = function (t, n, r, a) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.ACTIVITY_GOAL_STEPS(t, n, r),
+            babelHelpers.extends({}, a, { responseShape: "flat-or-envelope" }),
+          );
+        }),
+        (r.activityGoalStepReport = function (t, n, r, a) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.ACTIVITY_GOAL_STEP_REPORT(
+              t,
+              n,
+              r,
+            ),
+            babelHelpers.extends({}, a, { responseShape: "flat-or-envelope" }),
+          );
+        }),
         (r.openActivitySubscription = function (t, n) {
           return this.$1.openStream(
             {
@@ -37,6 +55,13 @@ __d(
               path: o("WAWebHatchVmTransport").JarvisPaths.ACTIVITY_SUBSCRIBE,
             },
             n,
+          );
+        }),
+        (r.approvalHistory = function (t, n, r) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.APPROVALS_HISTORY(t, n),
+            babelHelpers.extends({}, r, { service: "sentinel" }),
           );
         }),
         (r.artifacts = function () {

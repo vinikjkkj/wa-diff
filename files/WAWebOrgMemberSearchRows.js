@@ -14,9 +14,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = Object.freeze([]);
-    function c(e, t, n) {
-      if (e.length === 0) return u;
+      u,
+      c = Object.freeze([]);
+    function d(e, t, n) {
+      if (e.length === 0) return c;
       var r = new Set();
       for (var a of t) {
         r.add(o("WAWebNonContactPushNameSearchModel").canonicalDedupeId(a.id));
@@ -30,7 +31,7 @@ __d(
         .map(function (e) {
           return babelHelpers.extends({}, e, {
             members: e.members.filter(function (e) {
-              var t = g(e);
+              var t = h(e);
               return (
                 t.length === 0 ||
                 !t.some(function (e) {
@@ -43,21 +44,33 @@ __d(
         .filter(function (e) {
           return e.failure != null || e.loading || e.members.length > 0;
         });
-      return s.length === 0 ? u : s;
+      return s.length === 0 ? c : s;
     }
-    function d(e) {
-      var t = h(e);
-      return t == null ? null : m(t, e);
+    function m(e) {
+      var t = y(e);
+      return t == null ? null : p(t, e);
     }
-    function m(e, t) {
-      var n = o("WAWebContactCollection").ContactCollection.get(e);
-      return n != null
-        ? n
-        : o("WAWebContactCollection").ContactCollection.gadd(
-            babelHelpers.extends({ id: e }, p(e, t)),
-          );
+    function p(t, n) {
+      var r = o("WAWebContactCollection").ContactCollection.get(t);
+      if (r != null) return r;
+      var a = _(t, n);
+      return (
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[org-contact] created a contact for a picked member phone=",
+              " username=",
+              "",
+            ])),
+          String(a.phoneNumber != null),
+          String(a.username != null),
+        ),
+        o("WAWebContactCollection").ContactCollection.gadd(
+          babelHelpers.extends({ id: t }, a),
+        )
+      );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n,
         r = o("WAWebContactCollection").ContactCollection.get(e);
       return r != null
@@ -66,42 +79,42 @@ __d(
             phoneNumber:
               (n = o("WAWebApiContact").getPnIfLidIsLatestMapping(e)) != null
                 ? n
-                : _(e, t.phoneNumber),
+                : f(e, t.phoneNumber),
             username: t.username,
           };
     }
-    function _(t, n) {
-      var a,
-        i = (a = n == null ? void 0 : n.replace(/\D/g, "")) != null ? a : "";
-      if (i === "") return null;
-      var l;
+    function f(e, t) {
+      var n,
+        a = (n = t == null ? void 0 : t.replace(/\D/g, "")) != null ? n : "";
+      if (a === "") return null;
+      var i;
       try {
-        l = o("WAWebWidFactory").createUserWidOrThrow(i + "@c.us");
-      } catch (t) {
+        i = o("WAWebWidFactory").createUserWidOrThrow(a + "@c.us");
+      } catch (e) {
         return (
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[org-search] unparseable directory phone number",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
+            .catching(r("getErrorSafe")(e))
             .sendLogs("org-member-bad-phone-number"),
           null
         );
       }
-      var s = o("WAWebApiContact").getCurrentLid(l);
-      return s == null || s.equals(t) ? l : null;
+      var l = o("WAWebApiContact").getCurrentLid(i);
+      return l == null || l.equals(e) ? i : null;
     }
-    function f(e, t) {
+    function g(e, t) {
       if (e.length === 0 || t.length === 0) return e;
       var n = new Set(
         t
           .flatMap(function (e) {
             return e.members;
           })
-          .flatMap(g),
+          .flatMap(h),
       );
       return n.size === 0
         ? e
@@ -111,8 +124,8 @@ __d(
             );
           });
     }
-    function g(e) {
-      var t = h(e);
+    function h(e) {
+      var t = y(e);
       return t == null
         ? []
         : [
@@ -120,15 +133,15 @@ __d(
             t.toString(),
           ];
     }
-    function h(e) {
+    function y(e) {
       try {
         return o("WAWebWidFactory").createUserLidOrThrow(e.id, "lid");
       } catch (e) {
         return (
           o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[org-search] unparseable member lid",
                 ])),
             )
@@ -138,7 +151,7 @@ __d(
         );
       }
     }
-    function y(e) {
+    function C(e) {
       if (e.loading)
         return {
           height: o("WAWebOrgMemberSearchLoadingRowLayout")
@@ -160,14 +173,14 @@ __d(
               .ROW_ORG_MEMBERS_ERROR,
           };
     }
-    ((l.EMPTY_ORG_RENDER_SECTIONS = u),
-      (l.dedupeOrgMemberSections = c),
-      (l.toOrgMemberContact = d),
-      (l.getOrgMemberContact = m),
-      (l.getOrgMemberIdentifiers = p),
-      (l.withoutOrgMembers = f),
-      (l.toOrgMemberLid = h),
-      (l.toOrgMemberStatusRow = y));
+    ((l.EMPTY_ORG_RENDER_SECTIONS = c),
+      (l.dedupeOrgMemberSections = d),
+      (l.toOrgMemberContact = m),
+      (l.getOrgMemberContact = p),
+      (l.getOrgMemberIdentifiers = _),
+      (l.withoutOrgMembers = g),
+      (l.toOrgMemberLid = y),
+      (l.toOrgMemberStatusRow = C));
   },
   98,
 );

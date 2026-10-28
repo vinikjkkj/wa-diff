@@ -8,6 +8,7 @@ __d(
     "WAWebCallCollection",
     "WAWebChatCollection",
     "WAWebCmd",
+    "WAWebCommsGating",
     "WAWebConfirmPopup.react",
     "WAWebCryptoEncKeyHelper",
     "WAWebDbEncryptionKey",
@@ -142,7 +143,7 @@ __d(
             return;
           }
           (yield o("WAWebCryptoEncKeyHelper").initEncSalt(),
-            t.openSocketLoop());
+            o("WAWebCommsGating").isCommsInWorker() || t.openSocketLoop());
         })),
         y.apply(this, arguments)
       );

@@ -47,6 +47,7 @@ __d(
     "WAWebGenerateRichResponseMessageProto",
     "WAWebGenerateSecretMessageEditProto",
     "WAWebGenerateSendPaymentMessageProto",
+    "WAWebGenerateStatusNotificationMessageProto",
     "WAWebGenerateStickerPackMessageProto",
     "WAWebGenerateTemplateButtonReplyMessageProto",
     "WAWebGenerateVcardMessageProto",
@@ -459,7 +460,7 @@ __d(
         {
           type: "status_notification",
           subtype: "status_notification_message",
-          generateProtobuf: null,
+          generateProtobuf: r("WAWebGenerateStatusNotificationMessageProto"),
         },
         {
           type: "sticker",

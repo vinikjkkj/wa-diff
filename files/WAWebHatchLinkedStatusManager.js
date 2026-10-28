@@ -6,6 +6,7 @@ __d(
     "WAResolvable",
     "WAWebLocalStorage",
     "WAWebUserPrefsMeUser",
+    "WAWebWamEnumMuseChannelStatus",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -23,25 +24,26 @@ __d(
           ((this.$1 = null),
             (this.$2 = "not_loaded"),
             (this.$3 = null),
-            (this.$4 = []),
-            (this.$5 = null),
-            (this.$6 = 0),
-            (this.$7 = null),
-            (this.$8 = new (o("WAResolvable").Resolvable)()),
-            (this.$9 = !1));
+            (this.$4 = !1),
+            (this.$5 = []),
+            (this.$6 = null),
+            (this.$7 = 0),
+            (this.$8 = null),
+            (this.$9 = new (o("WAResolvable").Resolvable)()),
+            (this.$10 = !1));
         }
         var a = t.prototype;
         return (
           (a.registerFetcher = function (t) {
-            var e = this.$7 != null;
-            ((this.$5 = t), this.$10(), e && this.fetchAndUpdateStatus());
+            var e = this.$8 != null;
+            ((this.$6 = t), this.$11(), e && this.fetchAndUpdateStatus());
           }),
           (a.subscribeToLinkedStatus = function (t) {
             var e = this;
             return (
-              this.$4.push(t),
+              this.$5.push(t),
               function () {
-                e.$4 = e.$4.filter(function (e) {
+                e.$5 = e.$5.filter(function (e) {
                   return e !== t;
                 });
               }
@@ -56,6 +58,19 @@ __d(
           (a.getLastConfirmedLinkedStatusState = function () {
             return this.$3;
           }),
+          (a.getMuseChannelStatusForLogging = function () {
+            var e = this;
+            return (function (t) {
+              return t === "linked"
+                ? o("WAWebWamEnumMuseChannelStatus").MUSE_CHANNEL_STATUS
+                    .CHANNEL_CONNECTED
+                : t === "unlinked" && e.$4
+                  ? o("WAWebWamEnumMuseChannelStatus").MUSE_CHANNEL_STATUS
+                      .CHANNEL_DISCONNECTED
+                  : o("WAWebWamEnumMuseChannelStatus").MUSE_CHANNEL_STATUS
+                      .UNKNOWN;
+            })(this.$2);
+          }),
           (a.isLinked = function () {
             return this.$3 === "linked";
           }),
@@ -68,7 +83,7 @@ __d(
                 t = (e = this.$3) != null ? e : h();
               return t != null
                 ? t
-                : (this.$7 == null && this.fetchAndUpdateStatus(), this.$11());
+                : (this.$8 == null && this.fetchAndUpdateStatus(), this.$12());
             });
             function t() {
               return e.apply(this, arguments);
@@ -80,16 +95,16 @@ __d(
               (this.$2 = "unlinked"),
               (this.$3 = "unlinked"),
               g("unlinked"),
-              this.$10(),
-              this.$12());
+              this.$11(),
+              this.$13());
           }),
           (a.fetchAndUpdateStatus = function () {
             var t = this;
-            if (this.$7 != null) {
-              this.$9 = !0;
+            if (this.$8 != null) {
+              this.$10 = !0;
               return;
             }
-            var n = this.$5;
+            var n = this.$6;
             if (n == null) {
               o("WALogger").LOG(
                 e ||
@@ -99,13 +114,13 @@ __d(
               );
               return;
             }
-            var a = this.$6,
+            var a = this.$7,
               i = n()
                 .then(function (e) {
-                  a === t.$6 && t.$13(e);
+                  a === t.$7 && t.$14(e);
                 })
                 .catch(function (e) {
-                  a === t.$6 &&
+                  a === t.$7 &&
                     (o("WALogger")
                       .ERROR(
                         s ||
@@ -115,33 +130,34 @@ __d(
                       )
                       .catching(r("getErrorSafe")(e))
                       .sendLogs("hatch-linked-status-fetch-fail"),
-                    t.$14());
+                    t.$15());
                 });
-            ((this.$7 = i),
+            ((this.$8 = i),
               i.then(function () {
-                t.$7 === i &&
-                  ((t.$7 = null),
-                  t.$9 && ((t.$9 = !1), t.fetchAndUpdateStatus()));
+                t.$8 === i &&
+                  ((t.$8 = null),
+                  t.$10 && ((t.$10 = !1), t.fetchAndUpdateStatus()));
               }));
           }),
-          (a.$11 = (function () {
+          (a.$12 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this.$7;
+              var e = this.$8;
               return e == null || this.$3 != null
                 ? this.$3
-                : (yield (m || (m = n("Promise"))).race([e, this.$8.promise]),
-                  this.$11());
+                : (yield (m || (m = n("Promise"))).race([e, this.$9.promise]),
+                  this.$12());
             });
             function t() {
               return e.apply(this, arguments);
             }
             return t;
           })()),
-          (a.$13 = function (t) {
+          (a.$14 = function (t) {
             var e = t != null && f(t) ? "linked" : "unlinked";
             ((this.$1 = t),
               (this.$2 = e),
               (this.$3 = e),
+              e === "linked" && (this.$4 = !0),
               g(e),
               o("WALogger").LOG(
                 u ||
@@ -149,20 +165,20 @@ __d(
                     "[HatchLinkedStatusManager] fetched linked status",
                   ])),
               ),
-              this.$12());
+              this.$13());
           }),
-          (a.$14 = function () {
-            ((this.$2 = "failed"), this.$12());
+          (a.$15 = function () {
+            ((this.$2 = "failed"), this.$13());
           }),
-          (a.$10 = function () {
-            ((this.$6 += 1),
-              (this.$7 = null),
-              (this.$9 = !1),
-              this.$8.resolve(),
-              (this.$8 = new (o("WAResolvable").Resolvable)()));
+          (a.$11 = function () {
+            ((this.$7 += 1),
+              (this.$8 = null),
+              (this.$10 = !1),
+              this.$9.resolve(),
+              (this.$9 = new (o("WAResolvable").Resolvable)()));
           }),
-          (a.$12 = function () {
-            for (var e of [].concat(this.$4)) e(this.$1);
+          (a.$13 = function () {
+            for (var e of [].concat(this.$5)) e(this.$1);
           }),
           t
         );

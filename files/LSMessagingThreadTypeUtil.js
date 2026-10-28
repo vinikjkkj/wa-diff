@@ -217,7 +217,7 @@ __d(
           (e || (e = o("I64"))).equal(
             t.threadType,
             (s || (s = o("LSIntEnum"))).ofNumber(1),
-          ) && !j(t);
+          ) && !Q(t);
       return !I(t.threadSubtype) && !v(t.threadSubtype) && (n || r);
     }
     function L(e) {
@@ -337,10 +337,21 @@ __d(
               (s || (s = o("LSIntEnum"))).ofNumber(207),
             );
     }
-    function H(e) {
+    function H(t) {
+      return t == null
+        ? !1
+        : (e || (e = o("I64"))).equal(
+            t,
+            (s || (s = o("LSIntEnum"))).ofNumber(228),
+          );
+    }
+    function G(e) {
       return o("LSThreadBitOffset").has(183, e);
     }
-    function G(t) {
+    function z(e, t) {
+      return G(e) && !t;
+    }
+    function j(t) {
       return (
         m(t) ||
         (e || (e = o("I64"))).equal(
@@ -374,7 +385,7 @@ __d(
         (e || (e = o("I64"))).equal(t, (s || (s = o("LSIntEnum"))).ofNumber(11))
       );
     }
-    function z(t) {
+    function K(t) {
       return (
         A(t) ||
         W(t) ||
@@ -387,7 +398,7 @@ __d(
         F(t)
       );
     }
-    function j(t) {
+    function Q(t) {
       return (
         (e || (e = o("I64"))).equal(
           t.threadType,
@@ -402,7 +413,7 @@ __d(
         )
       );
     }
-    function K(t) {
+    function X(t) {
       return (
         t != null &&
         ((e || (e = o("I64"))).equal(
@@ -425,14 +436,14 @@ __d(
           ))
       );
     }
-    function Q(e) {
+    function Y(e) {
       if (c(e)) return (s || (s = o("LSIntEnum"))).ofNumber(15);
       if (S(e)) return (s || (s = o("LSIntEnum"))).ofNumber(16);
       throw r("FBLogger")("messenger_web").mustfixThrow(
         "Expected either open 1:1 or open group thread",
       );
     }
-    function X(t) {
+    function J(t) {
       return (
         t != null &&
         (e || (e = o("I64"))).equal(
@@ -443,7 +454,7 @@ __d(
         )
       );
     }
-    function Y(t) {
+    function Z(t) {
       return (e || (e = o("I64"))).equal(
         t,
         (s || (s = o("LSIntEnum"))).ofNumber(5),
@@ -484,14 +495,16 @@ __d(
       (l.isChannelPreview = q),
       (l.isAiBot = U),
       (l.isAiAgent = V),
-      (l.isAiBotSummoning = H),
-      (l.isPrivateThread = G),
-      (l.isPublicCMThread = z),
-      (l.isThreadForPage = j),
-      (l.isWorkThread = K),
-      (l.mapOpenToSecureThreadType = Q),
-      (l.isSubThreadTypeIGDGroup = X),
-      (l.isMarketplaceThread = Y));
+      (l.isMuse = H),
+      (l.isAiBotSummoning = G),
+      (l.isAiBotSummoningAllowed = z),
+      (l.isPrivateThread = j),
+      (l.isPublicCMThread = K),
+      (l.isThreadForPage = Q),
+      (l.isWorkThread = X),
+      (l.mapOpenToSecureThreadType = Y),
+      (l.isSubThreadTypeIGDGroup = J),
+      (l.isMarketplaceThread = Z));
   },
   98,
 );

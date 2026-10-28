@@ -25,13 +25,13 @@ __d(
             try {
               l = yield o(
                 "WAWebNewsletterGetStatusesQuery",
-              ).queryNewsletterStatuses(
-                t,
-                a,
-                i == null ? void 0 : i.afterServerId,
-                i == null ? void 0 : i.beforeServerId,
-                i == null ? void 0 : i.count,
-              );
+              ).queryNewsletterStatuses({
+                afterServerId: i == null ? void 0 : i.afterServerId,
+                beforeServerId: i == null ? void 0 : i.beforeServerId,
+                count: i == null ? void 0 : i.count,
+                newsletterJid: t,
+                viewRole: a,
+              });
             } catch (a) {
               return (
                 o("WALogger")

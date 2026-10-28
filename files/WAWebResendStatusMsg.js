@@ -16,6 +16,7 @@ __d(
     "WAWebManageE2ESessionsJob",
     "WAWebReportingTokenUtils",
     "WAWebSendMsgCommonApi",
+    "WAWebSendMsgMetaNode",
     "WAWebSessionScope",
     "WAWebSignal",
     "WAWebSignalProtocolStore",
@@ -56,9 +57,10 @@ __d(
             _ = p.authorId,
             f = p.participantList,
             g = p.skDistribList,
-            y = i.data.id;
+            y = i.data.id,
+            b = o("WAWebSendMsgMetaNode").getStatusContentType(c, i, a);
           if (!r("justknobx")._("6798")) {
-            var b = yield o("WAWebEncryptAndSendStatusMsg").genMessageBody({
+            var v = yield o("WAWebEncryptAndSendStatusMsg").genMessageBody({
                 authorId: _,
                 msgProtobuf: a,
                 participantList: f,
@@ -66,15 +68,15 @@ __d(
                 skDistribList: g,
                 to: c,
               }),
-              v = b[0],
-              S = b[1],
-              R = b[2],
-              L = b[3],
-              E = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+              S = v[0],
+              R = v[1],
+              L = v[2],
+              E = v[3],
+              k = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
                 i.data,
                 a,
               ),
-              k = o("WAWap").wap(
+              I = o("WAWap").wap(
                 "message",
                 {
                   id: o("WAWap").CUSTOM_STRING(y.id),
@@ -85,64 +87,66 @@ __d(
                     i.data.subtype,
                   ),
                 },
-                v,
                 S,
                 R,
+                L,
                 o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
+                  contentType: b,
                   sessionScope:
-                    L.length > 0
+                    E.length > 0
                       ? u
                       : o("WAWebSessionScope").SessionScope.DEFAULT,
                 }),
-                E,
+                k,
               ),
-              I = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(k);
+              T = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(I);
             return (
               yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
                 .flushBufferToDiskIfNotMemOnlyMode(),
-              { stanza: k, stanzaClass: I }
+              { stanza: I, stanzaClass: T }
             );
           }
-          var T = babelHelpers.extends({}, a);
+          var D = babelHelpers.extends({}, a);
           g.length > 0 &&
-            (T.senderKeyDistributionMessage = {
+            !o("WAWebSendMsgMetaNode").isStatusNotificationPayload(a) &&
+            (D.senderKeyDistributionMessage = {
               groupId: c.toString({ legacy: !0 }),
               axolotlSenderKeyDistributionMessage: yield o(
                 "WAWebSignal",
               ).Session.getGroupSenderKeyInfo(c, _),
             });
-          var D = o("WAWebUserPrefsMeUser").isMeAccount(m)
-            ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(T, c)
-            : T;
+          var x = o("WAWebUserPrefsMeUser").isMeAccount(m)
+            ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(D, c)
+            : D;
           yield o("WAWebICDCMetaApi").populateICDCMeta(
             o("WAWebWidFactory").asUserWidOrThrow(m),
-            D,
+            x,
           );
-          var x = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+          var $ = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
               m,
               n.retryCount,
-              D,
+              x,
               i.data,
               o("WAWebBackendJobsCommon").getMetricEditTypeFromMsg(a, i.data),
               u,
             ),
-            $ = x.ciphertext,
-            P = x.type,
-            N =
-              P === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+            P = $.ciphertext,
+            N = $.type,
+            M =
+              N === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
                 ? o("WAWap").wap(
                     "device-identity",
                     null,
                     yield o("WAWebAdvSignatureApi").getADVEncodedIdentity(),
                   )
                 : null,
-            M = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+            w = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
               i.data,
               a,
               "retry",
             ),
-            w = o("WAWap").wap(
+            A = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING(y.id),
@@ -160,13 +164,13 @@ __d(
                   v: o("WAWap").CUSTOM_STRING(
                     o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
                   ),
-                  type: o("WAWap").CUSTOM_STRING(P),
+                  type: o("WAWap").CUSTOM_STRING(N),
                   count:
                     n.retryCount > 0
                       ? o("WAWap").INT(n.retryCount)
                       : o("WAWap").DROP_ATTR,
                   session_type: o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(
-                    $,
+                    P,
                   )
                     ? o("WAWap").CUSTOM_STRING("pq")
                     : o("WAWap").DROP_ATTR,
@@ -179,15 +183,16 @@ __d(
                     o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(a),
                   ),
                 },
-                $,
+                P,
               ),
-              N,
+              M,
               o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
+                contentType: b,
                 sessionScope: u,
               }),
-              M,
+              w,
             ),
-            A = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(w);
+            F = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(A);
           return (
             o("WALogger")
               .LOG(
@@ -202,7 +207,7 @@ __d(
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            { stanza: w, stanzaClass: A }
+            { stanza: A, stanzaClass: F }
           );
         })),
         _.apply(this, arguments)
@@ -276,6 +281,9 @@ __d(
               hideDecryptFail:
                 o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(n) ===
                 o("WAWebBackendJobs.flow").DecryptFailType.Hide,
+              isStatusNotify: o(
+                "WAWebSendMsgMetaNode",
+              ).isStatusNotificationPayload(n),
               msgType: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(n),
               retryCount: t.retryCount,
               retryEnc: {

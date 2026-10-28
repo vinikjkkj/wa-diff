@@ -1,12 +1,35 @@
 __d(
   "WebBloksScriptDebuggingUtils",
-  ["WebBloksAsyncActions", "WebBloksScriptPrinter", "WebDriverConfig"],
+  [
+    "WebBloksAsyncActions",
+    "WebBloksRenderDiagnostics",
+    "WebBloksScriptPrinter",
+    "WebDriverConfig",
+  ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, o) {
-      var a = t == null ? void 0 : t.stackFrame;
-      (r("WebDriverConfig").isJestE2ETestRun &&
-        e.toastManager.enqueueSimpleToast(t.toString()),
-        e.environment.logger.scriptError(t));
+    function e(e, t, n, a) {
+      var i = t == null ? void 0 : t.stackFrame;
+      if (
+        (r("WebDriverConfig").isJestE2ETestRun &&
+          e.toastManager.enqueueSimpleToast(t.toString()),
+        e.environment.logger.scriptError(t),
+        o("WebBloksRenderDiagnostics").isWebBloksRenderDiagnosticsInstalled())
+      ) {
+        var l, s;
+        o("WebBloksRenderDiagnostics").reportWebBloksScriptError({
+          errorClass: o(
+            "WebBloksRenderDiagnostics",
+          ).classifyWebBloksRenderError(t),
+          loggingId:
+            (l =
+              a == null || (s = a.getSourceMapNode()) == null
+                ? void 0
+                : s.getLoggingID()) != null
+              ? l
+              : void 0,
+          message: o("WebBloksRenderDiagnostics").safeErrorMessage(t),
+        });
+      }
     }
     var s = "com.bloks.www.bloks.error.report_to_sandbox";
     function u(e, t, n) {

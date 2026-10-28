@@ -49,7 +49,10 @@ __d(
       c = r("JSResourceForInteraction")("WAWebChannelsForwardCounter").__setRef(
         "WAWebWorkerSafeBridgeApi",
       ),
-      d = {
+      d = r("JSResourceForInteraction")(
+        "WAWebFetchBizAiWebDataDownloadsGate",
+      ).__setRef("WAWebWorkerSafeBridgeApi"),
+      m = {
         setProfilePicThumb: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.wid;
@@ -263,6 +266,18 @@ __d(
             "WAWebFetchBizAiWebSmartComposerAiListsGate",
           ).fetchBizAiWebSmartComposerAiListsGate(e);
         },
+        fetchBizAiWebDataDownloadsGate: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.trigger,
+              n = yield d.load(),
+              r = n.fetchBizAiWebDataDownloadsGate;
+            return r(t);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         fetchBizAiResponseSettingsV2Gate: function (t) {
           var e = t.trigger;
           return o(
@@ -373,7 +388,7 @@ __d(
           return t;
         })(),
       };
-    l.WorkerSafeBridgeApi = d;
+    l.WorkerSafeBridgeApi = m;
   },
   98,
 );

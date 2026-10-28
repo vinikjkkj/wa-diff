@@ -40,6 +40,8 @@ __d(
     "WAWebMsgType",
     "WAWebMuseGroupRichResponseForward",
     "WAWebNewsletterSendMsgAction",
+    "WAWebPaymentRequestForwardFields",
+    "WAWebPaymentRequestForwardPolicy",
     "WAWebSendMsgChatAction",
     "WAWebSendTextMsgChatAction",
     "WAWebWid",
@@ -75,7 +77,12 @@ __d(
             _ = t.multicast,
             f = _ === void 0 ? !1 : _,
             h = t.pairedMediaType;
-          if (o("WAWebMsgActionCapability").isForwardedAsMedia(p))
+          if (
+            (o(
+              "WAWebPaymentRequestForwardPolicy",
+            ).assertCanForwardPaymentRequest(p, l),
+            o("WAWebMsgActionCapability").isForwardedAsMedia(p))
+          )
             return o("WAWebMediaForwardMediaMsg").forwardMediaMsg({
               appendedText: a,
               chat: l,
@@ -85,28 +92,11 @@ __d(
               pairedMediaType: h,
               associationOptions: i,
             });
-          var C = yield g({ appendedText: a, chat: l, msg: p, multicast: f });
+          var C = yield y({ appendedText: a, chat: l, msg: p, multicast: f });
           if (C != null) return C;
-          var b = x(p, l);
-          if (
-            (o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(
-              p.unifiedResponse,
-            ) &&
-              (yield o(
-                "WAWebHatchJarvisForwardSend",
-              ).applyHatchJarvisForwardFields(
-                p,
-                l,
-                b,
-                u != null
-                  ? u
-                  : o(
-                      "WAWebHatchJarvisForwardSend",
-                    ).createHatchJarvisForwardSendSession(),
-              )),
-            T(p, b))
-          ) {
-            if (E(p))
+          var v = yield g({ chat: l, hatchJarvisSession: u, msg: p });
+          if (x(p, v)) {
+            if (I(p))
               throw r("err")(
                 "Muse group media forward failed with no text fallback",
               );
@@ -126,33 +116,49 @@ __d(
             o("WAWebBotUtils").isMetaAiBot(l.id) &&
             (a != null &&
               a !== "" &&
-              (b.body = o(
+              (v.body = o(
                 "WAWebMetaAiForwardedText",
-              ).composeMetaAiForwardedText(b.body, a)),
+              ).composeMetaAiForwardedText(v.body, a)),
             o("WAWebBotGating").isAiChatThreadsEnabled())
-          )
+          ) {
+            var S;
             return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
               type: "MetaAiForward",
-              query: b.body,
+              query: (S = v.body) != null ? S : "",
             });
-          var v = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, p.type),
-            S = v.type,
-            R = babelHelpers.objectWithoutPropertiesLoose(v, e),
-            L = babelHelpers.extends({}, b, R, {
-              participant: void 0,
-              star: !1,
-              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(p),
-              forwardedFromWeb: !0,
-              forwardingScore: o(
-                "WAWebForwardMediaUtils",
-              ).getMsgForwardingScoreWhenForwarded(p),
-              multicast: f,
-              messageSecret:
-                o(
-                  "WAWebMessagingGatingUtils",
-                ).isReportingTokenSendingEnabled() &&
-                self.crypto.getRandomValues(new Uint8Array(32)),
-            });
+          }
+          var R = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, p.type),
+            L = R.type,
+            E = babelHelpers.objectWithoutPropertiesLoose(R, e),
+            k = babelHelpers.extends(
+              {},
+              v,
+              E,
+              {
+                id: o(
+                  "WAWebPaymentRequestForwardFields",
+                ).getPaymentRequestForwardKey(p, l.id, E.id),
+                participant: void 0,
+                star: !1,
+                isForwarded:
+                  o("WAWebMsgGetters").getShouldDisplayAsForwarded(p),
+                forwardedFromWeb: !0,
+                forwardingScore: o(
+                  "WAWebForwardMediaUtils",
+                ).getMsgForwardingScoreWhenForwarded(p),
+              },
+              o(
+                "WAWebPaymentRequestForwardFields",
+              ).getPaymentRequestForwardingOverrides(p),
+              {
+                multicast: f,
+                messageSecret:
+                  o(
+                    "WAWebMessagingGatingUtils",
+                  ).isReportingTokenSendingEnabled() &&
+                  self.crypto.getRandomValues(new Uint8Array(32)),
+              },
+            );
           if (r("WAWebWid").isNewsletter(l.id))
             return o("WAWebNewsletterSendMsgAction").forwardNewsletterMessage(
               l,
@@ -161,20 +167,24 @@ __d(
               ).maybeStripNewsletterForwardMetadata({
                 isQuestionOrQuestionReply:
                   p.isQuestion || p.questionReplyQuotedMessage != null,
-                forwardable: L,
+                forwardable: k,
                 destination: l.id,
                 source: p.id.remote,
                 isOriginalMsgForwarded: p.isForwarded,
               }),
             );
-          var k = yield y(L),
-            I = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, k),
-            D = I[0],
-            $ = I[1],
-            P = yield (m || (m = n("Promise"))).all([D, $]),
-            N = P[0],
-            M = P[1];
-          return babelHelpers.extends({}, M, { msg: N });
+          var T = yield b(k);
+          o("WAWebPaymentRequestForwardPolicy").assertCanForwardPaymentRequest(
+            p,
+            l,
+          );
+          var D = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, T),
+            $ = D[0],
+            P = D[1],
+            N = yield (m || (m = n("Promise"))).all([$, P]),
+            M = N[0],
+            w = N[1];
+          return babelHelpers.extends({}, w, { msg: M });
         })),
         f.apply(this, arguments)
       );
@@ -185,6 +195,42 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.hatchJarvisSession,
+            r = e.msg,
+            a = o(
+              "WAWebPaymentRequestForwardFields",
+            ).getPaymentRequestForwardFields(r);
+          if (a != null) return babelHelpers.extends({}, a, N(t));
+          var i = P(r, t);
+          return (
+            o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(
+              r.unifiedResponse,
+            ) &&
+              (yield o(
+                "WAWebHatchJarvisForwardSend",
+              ).applyHatchJarvisForwardFields(
+                r,
+                t,
+                i,
+                n != null
+                  ? n
+                  : o(
+                      "WAWebHatchJarvisForwardSend",
+                    ).createHatchJarvisForwardSendSession(),
+              )),
+            i
+          );
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.appendedText,
             n = e.chat,
             a = e.msg,
@@ -226,15 +272,15 @@ __d(
             }
           return s;
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFrontendMsgGetters").getAsUrl(
             o("WAWebMsgModelFromData").msgModelFromMsgData(e),
           );
@@ -261,7 +307,7 @@ __d(
               s = l.filehash,
               u = l.mediaEntry;
             return (u == null ? void 0 : u.getMediaKey()) == null
-              ? b(e)
+              ? S(e)
               : babelHelpers.extends({}, e, {
                   thumbnailDirectPath: u == null ? void 0 : u.directPath,
                   thumbnailSha256: s,
@@ -274,13 +320,13 @@ __d(
                     u == null ? void 0 : u.getMediaKeyTimestamp(),
                 });
           } catch (t) {
-            return b(e);
+            return S(e);
           }
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b(e) {
+    function S(e) {
       return babelHelpers.extends({}, e, {
         thumbnailHQ: void 0,
         thumbnailDirectPath: void 0,
@@ -292,12 +338,12 @@ __d(
         thumbnailWidth: void 0,
       });
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.appendedText,
             n = e.chat,
             a = e.hatchJarvisSession,
@@ -372,27 +418,28 @@ __d(
                     "[chat forward message] error during forwarding message",
                   ])),
               ),
-                R(g, e) && f.push(g));
+                E(g, e) && f.push(g));
             }
           }
           return f;
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e, t) {
+    function E(e, t) {
       return (
-        L(e) || o("WAWebHatchJarvisForwardSend").isHatchJarvisForwardFailure(t)
+        k(e) || o("WAWebHatchJarvisForwardSend").isHatchJarvisForwardFailure(t)
       );
     }
-    function L(e) {
+    function k(e) {
       return (
         p(e) ||
         o("WAWebForwardAssociationConfig").isForwardContainerMsgType(e.type) ||
-        E(e)
+        I(e) ||
+        o("WAWebPaymentRequestForwardPolicy").isPaymentRequestMsgModel(e)
       );
     }
-    function E(e) {
+    function I(e) {
       return (
         o("WAWebMuseGroupRichResponseForward").isMuseGroupAgentRichResponse(
           e,
@@ -401,30 +448,30 @@ __d(
           null
       );
     }
-    function k(e) {
+    function T(e) {
       if (e.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) return !1;
       var t = o("WAWebMsgGetters").getSender(e);
       return t != null && o("WAWebBotUtils").isHatchBot(t);
     }
-    function I(e) {
+    function D(e) {
       return (
-        k(e) ||
+        T(e) ||
         o("WAWebMuseGroupRichResponseForward").isMuseGroupAgentRichResponse(
           e,
         ) ||
         o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(e.unifiedResponse)
       );
     }
-    function T(e, t) {
+    function x(e, t) {
       return (
-        I(e) &&
+        D(e) &&
         t.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
         r("isStringNullOrEmpty")(t.body)
       );
     }
-    function D(e, t) {
+    function $(e, t) {
       var n;
-      return I(e)
+      return D(e)
         ? ((t.body =
             (n = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e, {
               includeBodyFallback: !1,
@@ -440,7 +487,7 @@ __d(
           !0)
         : !1;
     }
-    function x(e, t) {
+    function P(e, t) {
       var n,
         a,
         i,
@@ -531,9 +578,13 @@ __d(
           (l.add("isFromTemplate"),
           l.add("hydratedButtons"),
           l.add("carouselCardsParsed")));
-      var d = r("filterObject")(e.toJSON(), function (e, t) {
-        return !l.has(t);
-      });
+      var d = babelHelpers.extends(
+        {},
+        r("filterObject")(e.toJSON(), function (e, t) {
+          return !l.has(t);
+        }),
+        N(t),
+      );
       (e.ctwaContext &&
         ((d.body = e.ctwaContext.sourceUrl),
         (d.type = o("WAWebMsgType").MSG_TYPE.CHAT),
@@ -545,7 +596,7 @@ __d(
           ).generatePollVotesSnapshotFromPoll(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))));
-      var m = D(e, d);
+      var m = $(e, d);
       if (
         (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           !m &&
@@ -556,22 +607,6 @@ __d(
         (d.forwardedAiBotMessageInfo = o(
           "WAWebGetAiBotContextForForwardedMsg",
         ).getAiBotContextForForwardedMsg(e)),
-        o("WAWebChatEphemerality").isEphemeralSettingOn(t))
-      ) {
-        var p = o("WAWebChatEphemerality").getAfterReadEnvelopeForChat(t),
-          _ = p.afterReadDuration,
-          f = p.ephemeralDuration;
-        ((d.ephemeralDuration = f), (d.afterReadDuration = _));
-      }
-      var g = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
-      g != null && (d.ephemeralSettingTimestamp = g);
-      var h = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
-      h != null && (d.disappearingModeInitiator = h);
-      var y = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
-      y != null && (d.disappearingModeTrigger = y);
-      var C = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
-      if (
-        (C != null && (d.disappearingModeInitiatedByMe = C),
         !(
           ((a = e.id.remote) != null && a.isBot()) ||
           ((i = e.mentionedJidList) == null
@@ -584,18 +619,33 @@ __d(
           (d.messageSecret = self.crypto.getRandomValues(new Uint8Array(32))),
         t.id.isBot())
       ) {
-        var b,
-          v =
-            (b = o("WAWebBotProfileCollection").BotProfileCollection.get(
+        var p,
+          _ =
+            (p = o("WAWebBotProfileCollection").BotProfileCollection.get(
               t.id,
             )) == null
               ? void 0
-              : b.personaId;
-        v != null && (d.botPersonaId = v);
+              : p.personaId;
+        _ != null && (d.botPersonaId = _);
       }
       return d;
     }
-    ((l.forwardMessages = v), (l.getForwardedMessageFields = x));
+    function N(e) {
+      var t = o("WAWebChatEphemerality").isEphemeralSettingOn(e)
+          ? o("WAWebChatEphemerality").getAfterReadEnvelopeForChat(e)
+          : {},
+        n = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(e),
+        r = o("WAWebChatEphemerality").getDisappearingModeInitiator(e),
+        a = o("WAWebChatEphemerality").getDisappearingModeTrigger(e),
+        i = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(e);
+      return babelHelpers.extends({}, t, {
+        ephemeralSettingTimestamp: n != null ? n : void 0,
+        disappearingModeInitiator: r != null ? r : void 0,
+        disappearingModeTrigger: a != null ? a : void 0,
+        disappearingModeInitiatedByMe: i != null ? i : void 0,
+      });
+    }
+    ((l.forwardMessages = R), (l.getForwardedMessageFields = P));
   },
   98,
 );

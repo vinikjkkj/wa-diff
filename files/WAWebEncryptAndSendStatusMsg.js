@@ -31,6 +31,7 @@ __d(
     "WAWebSchemaMessageInfo",
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgCreateFanoutStanza",
+    "WAWebSendMsgMetaNode",
     "WAWebSessionScope",
     "WAWebSignal",
     "WAWebSignalProtocolStore",
@@ -184,16 +185,15 @@ __d(
                   wids: [].concat(F, [S]),
                   shouldMergeAltDevices: !0,
                 });
-                return (
-                  T(O, "direct revoke deviceList"),
-                  re({
+                (T(O, "direct revoke deviceList"),
+                  yield re({
                     deviceList: O,
                     metricsReporter: s,
                     msgProtobuf: y,
                     sendMsgRecord: C,
                     sessionScope: w,
-                  })
-                );
+                  }));
+                return;
               }
               ((E = F), (I = !1));
             } else ((E = x.list), (I = !0), (D = x.setting));
@@ -755,19 +755,28 @@ __d(
       return "message";
     }
     function ee(e) {
-      var t = e.sessionScope,
-        n = e.statusSetting;
-      return n == null && t !== o("WAWebSessionScope").SessionScope.STATUS
+      var t = e.contentType,
+        n = e.sessionScope,
+        r = e.statusSetting;
+      return [
+        t == null,
+        r == null,
+        n !== o("WAWebSessionScope").SessionScope.STATUS,
+      ].every(function (e) {
+        return e;
+      })
         ? null
         : o("WAWap").wap("meta", {
+            content_type:
+              t != null ? o("WAWap").CUSTOM_STRING(t) : o("WAWap").DROP_ATTR,
             status_setting:
-              n != null
+              r != null
                 ? o(
                     "WAWebStatusPublishRequestArgs",
-                  ).toStatusSettingMetaAttribute(n)
+                  ).toStatusSettingMetaAttribute(r)
                 : o("WAWap").DROP_ATTR,
             session_scope:
-              t === o("WAWebSessionScope").SessionScope.STATUS
+              n === o("WAWebSessionScope").SessionScope.STATUS
                 ? o("WAWap").CUSTOM_STRING("status")
                 : o("WAWap").DROP_ATTR,
           });
@@ -872,9 +881,12 @@ __d(
                   "",
                 ])),
               u.id,
-            ),
-            yield g(),
-            (n = a.sendPerfReporter) == null || n.postWrittenWireStage());
+            ));
+          var h = yield g();
+          return (
+            (n = a.sendPerfReporter) == null || n.postWrittenWireStage(),
+            h
+          );
         })),
         oe.apply(this, arguments)
       );
@@ -886,61 +898,70 @@ __d(
       return (
         (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.deviceEncs,
-            n = e.msgProtobuf,
-            r = e.sendMsgRecord,
-            a = e.sessionScope,
-            i = r.data.id,
-            l = yield j(t),
-            s = o("WAWebStatusPublishRequestArgs").toStatusDirectPublishArgs({
+            r = e.msgProtobuf,
+            a = e.sendMsgRecord,
+            i = e.sessionScope,
+            l = a.data.id,
+            s = yield j(t),
+            u = o("WAWebStatusPublishRequestArgs").toStatusDirectPublishArgs({
               ciphertextVersion: o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION,
               clientReportingToken: yield o(
                 "WAWebReportingTokenUtils",
-              ).genClientReportingTokenMixinArgs(r.data, n),
+              ).genClientReportingTokenMixinArgs(a.data, r),
               deviceEncs: t,
-              deviceIdentity: l,
+              deviceIdentity: s,
               editOrRevoke: o(
                 "WAWebStatusPublishRequestArgs",
-              ).toStatusEditOrRevokeArgs(n, r.data.subtype),
+              ).toStatusEditOrRevokeArgs(r, a.data.subtype),
               encMediaType: o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(
-                n,
+                r,
               ),
               hideDecryptFail:
-                o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(n) ===
+                o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(r) ===
                 o("WAWebBackendJobs.flow").DecryptFailType.Hide,
-              msgType: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(n),
-              statusId: i.id,
+              isStatusNotify: o(
+                "WAWebSendMsgMetaNode",
+              ).isStatusNotificationPayload(r),
+              msgType: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(r),
+              statusId: l.id,
               useStatusSessionScope:
-                a === o("WAWebSessionScope").SessionScope.STATUS,
+                i === o("WAWebSessionScope").SessionScope.STATUS,
             });
-          return function () {
-            return O(s);
-          };
+          return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return (yield O(u), null);
+          });
         })),
         ie.apply(this, arguments)
       );
     }
     function le(e) {
       var t = e.sendMsgRecord,
-        n = e.sessionScope,
-        r = e.stanza,
-        a = e.to,
-        i = t.data.id,
-        l = Z(r);
+        a = e.sessionScope,
+        i = e.stanza,
+        l = e.to,
+        s = t.data.id,
+        u = Z(i);
       return (
-        se(r, ee({ sessionScope: n })),
-        function () {
-          return o(
-            "WAWebDeprecatedSendIqWorkerCompatible",
-          ).deprecatedSendStanzaAndReturnAck(
-            r,
-            o("WAWebCommsAckParser").toCoreAckTemplate({
-              id: i.id,
-              class: l,
-              from: a,
-              participant: null,
-            }),
-          );
-        }
+        se(i, ee({ sessionScope: a })),
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndReturnAck(
+              i,
+              o("WAWebCommsAckParser").toCoreAckTemplate({
+                id: s.id,
+                class: u,
+                from: l,
+                participant: null,
+              }),
+            ),
+            t = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(e);
+          if (t.error != null)
+            throw r("err")(
+              "encryptAndSendStatusDirectMsg: invalid ack from server",
+            );
+          return t.success.error;
+        })
       );
     }
     function se(e, t) {

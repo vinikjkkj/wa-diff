@@ -1,6 +1,7 @@
 __d(
   "WAWebOrgPrimaryDirectoryStore",
   [
+    "WALogger",
     "WAWebLidMigrationUtils",
     "WAWebOrgCollection",
     "WAWebOrgFetchDirectoryAction",
@@ -10,8 +11,10 @@ __d(
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = [],
-      s = (function () {
+    var e,
+      s,
+      u = [],
+      c = (function () {
         function t(e) {
           var t = this;
           ((this.$1 = !1),
@@ -35,7 +38,14 @@ __d(
         var n = t.prototype;
         return (
           (n.retry = function () {
-            (this.$7({ download: "loading", remoteHits: null }), this.$6());
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-picker] retrying the primary directory download",
+                ])),
+            ),
+              this.$7({ download: "loading", remoteHits: null }),
+              this.$6());
           }),
           (n.search = function (t) {
             ((this.$4 = t), this.$5.download === "too_large" && this.$8(t));
@@ -49,7 +59,15 @@ __d(
               .fetchOrgDirectory(this.$3, { createModels: !0 })
               .then(
                 function (t) {
-                  (e.$7(babelHelpers.extends({}, e.$5, { download: c(t) })),
+                  (o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[org-picker] primary directory ",
+                        "",
+                      ])),
+                    t.status,
+                  ),
+                    e.$7(babelHelpers.extends({}, e.$5, { download: m(t) })),
                     e.$5.download === "too_large" &&
                       e.$4 != null &&
                       e.$8(e.$4));
@@ -59,17 +77,17 @@ __d(
                 },
               );
           }),
-          (n.$8 = function (n) {
-            var t = this;
+          (n.$8 = function (t) {
+            var e = this;
             o("WAWebOrgSearchMembersAction")
-              .searchOrgMembers(n)
+              .searchOrgMembers(t)
               .then(
-                function (r) {
-                  var o;
-                  t.$9(n, (o = r == null ? void 0 : r.members) != null ? o : e);
+                function (n) {
+                  var r;
+                  e.$9(t, (r = n == null ? void 0 : n.members) != null ? r : u);
                 },
                 function () {
-                  t.$9(n, e);
+                  e.$9(t, u);
                 },
               );
           }),
@@ -91,30 +109,30 @@ __d(
           t
         );
       })();
-    function u(t, n, r, a) {
-      var i, l;
-      if (n.download === "loading" || n.download === "error") return e;
-      var s =
-          a.matchOrgName &&
-          (i =
-            (l = o("WAWebOrgCollection").OrgCollection.get(t)) == null
+    function d(e, t, n, r) {
+      var a, i;
+      if (t.download === "loading" || t.download === "error") return u;
+      var l =
+          r.matchOrgName &&
+          (a =
+            (i = o("WAWebOrgCollection").OrgCollection.get(e)) == null
               ? void 0
-              : l.name) != null
-            ? i
+              : i.name) != null
+            ? a
             : "",
-        u =
-          n.download === "too_large"
-            ? m(n.remoteHits, a.query)
-            : p(r, s, a.query),
-        c = new Set([].concat(d(a.excludeContacts), a.excludeLids)),
-        _ = a.includeViewer
+        s =
+          t.download === "too_large"
+            ? _(t.remoteHits, r.query)
+            : f(n, l, r.query),
+        c = new Set([].concat(p(r.excludeContacts), r.excludeLids)),
+        d = r.includeViewer
           ? null
           : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user;
-      return u.filter(function (e) {
-        return e.id !== _ && !c.has(e.id);
+      return s.filter(function (e) {
+        return e.id !== d && !c.has(e.id);
       });
     }
-    function c(e) {
+    function m(e) {
       return e.status === "success" || e.status === "not_allowed"
         ? "ready"
         : e.status === "roster_too_large"
@@ -128,7 +146,7 @@ __d(
                 );
               })();
     }
-    function d(e) {
+    function p(e) {
       return r("compactMap")(e, function (e) {
         var t;
         return e.id.isRegularUser()
@@ -138,15 +156,15 @@ __d(
           : null;
       });
     }
-    function m(t, n) {
-      return t != null && t.query === n ? t.members : e;
+    function _(e, t) {
+      return e != null && e.query === t ? e.members : u;
     }
-    function p(e, t, n) {
+    function f(e, t, n) {
       return n.trim() === ""
         ? e
         : o("WAWebOrgMemberSearchMatch").findOrgMembers(e, t, n);
     }
-    ((l.PrimaryOrgDirectoryStore = s), (l.selectPrimaryOrgMembers = u));
+    ((l.PrimaryOrgDirectoryStore = c), (l.selectPrimaryOrgMembers = d));
   },
   98,
 );

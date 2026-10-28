@@ -3,6 +3,7 @@ __d(
   [
     "WebBloksComponentContext",
     "WebBloksModel",
+    "WebBloksRenderDiagnostics",
     "WebBloksStyle",
     "WebBloksTheme",
     "WebBloksUtils",
@@ -43,6 +44,18 @@ __d(
       }
     }
     function L(e) {
+      if (e != null && e.startsWith("data:"))
+        return { host: "data", source: "data" };
+      try {
+        var t = new URL(e != null ? e : "", window.location.href),
+          n = t.host,
+          r = n === "fbcdn.net" || n.endsWith(".fbcdn.net");
+        return { host: n, source: r ? "fbcdn" : "external" };
+      } catch (e) {
+        return { host: "unparseable", source: "unparseable" };
+      }
+    }
+    function E(e) {
       var t,
         n = e.externalStyle,
         r = e.node,
@@ -52,101 +65,114 @@ __d(
         u = r.get(m),
         C = r.get(y),
         b = r.getExpression(g),
-        L = o("WebBloksComponentContext").useWebBloksContext(),
-        E = L.bloksContext,
-        k = L.executeCatch,
-        I = o("WebBloksStyle").useStyle(r, n),
-        T = I.style,
-        D = I.wrapper,
-        x = I.wrapperProps,
-        $ = babelHelpers.extends({}, T),
-        P = o("WebBloksTheme").useTheme().getTheme(),
-        N = r.get(h);
-      $.position === "absolute" &&
-        $.left === "0px" &&
-        $.right === "0px" &&
-        ($.width = "100%");
-      var M =
-          $.position === "absolute" && $.top === "0px" && $.bottom === "0px"
-            ? babelHelpers.extends({}, $, { height: "100%" })
-            : $,
-        w = S(i),
-        A = {};
+        E = o("WebBloksComponentContext").useWebBloksContext(),
+        k = E.bloksContext,
+        I = E.executeCatch,
+        T = o("WebBloksStyle").useStyle(r, n),
+        D = T.style,
+        x = T.wrapper,
+        $ = T.wrapperProps,
+        P = babelHelpers.extends({}, D),
+        N = o("WebBloksTheme").useTheme().getTheme(),
+        M = r.get(h);
+      P.position === "absolute" &&
+        P.left === "0px" &&
+        P.right === "0px" &&
+        (P.width = "100%");
+      var w =
+          P.position === "absolute" && P.top === "0px" && P.bottom === "0px"
+            ? babelHelpers.extends({}, P, { height: "100%" })
+            : P,
+        A = S(i),
+        F = {};
       if (u != null && l != null) {
-        var F = w === "fill" ? "100% 100%" : w;
-        A = {
+        var O = A === "fill" ? "100% 100%" : A;
+        F = {
           WebkitMaskImage: "url(" + l + ")",
-          WebkitMaskSize: F,
+          WebkitMaskSize: O,
           maskImage: "url(" + l + ")",
-          maskSize: F,
-          backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(u, P),
+          maskSize: O,
+          backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(u, N),
           objectPosition: "10000px 10000px",
         };
       }
-      var O = function (t) {
-        b != null && k(r, b, [t, Date.now(), E]);
+      var B = function (t) {
+        b != null && I(r, b, [t, Date.now(), k]);
       };
       c(function () {
-        O("ImageRequested");
+        B("ImageRequested");
       }, []);
-      var B = N == null ? void 0 : N.get(v);
-      if (B != null) {
-        var W = B.charAt(0),
-          q = "";
-        switch (W) {
+      var W = M == null ? void 0 : M.get(v);
+      if (W != null) {
+        var q = W.charAt(0),
+          U = "";
+        switch (q) {
           case "/":
-            q = "jpg";
+            U = "jpg";
             break;
           case "i":
-            q = "png";
+            U = "png";
             break;
           case "R":
-            q = "gif";
+            U = "gif";
             break;
           case "U":
-            q = "webp";
+            U = "webp";
             break;
           case "P":
-            q = "svg";
+            U = "svg";
             break;
         }
-        B = "data:image/" + q + ";base64," + B;
+        W = "data:image/" + U + ";base64," + W;
       }
-      var U = P === o("WebBloksTheme").THEME.light || a == null ? l : a,
-        V = typeof U == "string" && U ? U.replace(/\\/g, "") : null,
-        H = B != null ? B : V,
-        G = babelHelpers.extends({}, x, {
+      var V = N === o("WebBloksTheme").THEME.light || a == null ? l : a,
+        H = typeof V == "string" && V ? V.replace(/\\/g, "") : null,
+        G = W != null ? W : H,
+        z = babelHelpers.extends({}, $, {
           "aria-label": null,
-          alt: (t = x == null ? void 0 : x["aria-label"]) != null ? t : "",
+          alt: (t = $ == null ? void 0 : $["aria-label"]) != null ? t : "",
         }),
-        z = d(
+        j = d(
           function () {
             return C != null && u == null ? R(C) : void 0;
           },
           [u, C],
         );
-      return D(
+      return x(
         s.jsx(
           "img",
           babelHelpers.extends(
             {},
-            G,
+            z,
             {
-              src: H,
+              src: G,
               onLoad: function () {
-                return O("ImageFinalRendered");
+                return B("ImageFinalRendered");
               },
               onError: function () {
-                return O("ImageFailed");
+                if (
+                  (B("ImageFailed"),
+                  o(
+                    "WebBloksRenderDiagnostics",
+                  ).isWebBloksRenderDiagnosticsInstalled())
+                ) {
+                  var e = L(G),
+                    t = e.host,
+                    n = e.source;
+                  o("WebBloksRenderDiagnostics").reportWebBloksRenderDrop(
+                    "media_load_failed",
+                    { attribute: n, message: t, styleId: r.styleId },
+                  );
+                }
               },
             },
             o("WebBloksStyle").getStyleProps(
               babelHelpers.extends(
                 {},
-                M,
-                A,
-                { objectFit: w },
-                z != null ? { objectPosition: z } : null,
+                w,
+                F,
+                { objectFit: A },
+                j != null ? { objectPosition: j } : null,
                 { overflow: "hidden" },
               ),
             ),
@@ -154,7 +180,7 @@ __d(
         ),
       );
     }
-    ((L.displayName = L.name + " [from " + i.id + "]"), (l.default = L));
+    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = E));
   },
   98,
 );

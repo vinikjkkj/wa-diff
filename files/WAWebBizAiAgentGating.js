@@ -4,6 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebBizAiLargeScreensGateModel",
     "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
+    "WAWebBizAiWebDataDownloadsGateModel",
     "WAWebBizAiWebEditingCoachingGateModel",
     "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
     "WAWebBizAiWebSmartComposerAiListsGateModel",
@@ -36,7 +37,12 @@ __d(
       );
     }
     function d() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_enable_download");
+      return (
+        o(
+          "WAWebBizAiWebDataDownloadsGateModel",
+        ).isBizAiWebDataDownloadsGateEnabled() &&
+        o("WAWebABProps").getABPropConfigValue("biz_ai_enable_download")
+      );
     }
     function m() {
       return r("justknobx")._("5395");

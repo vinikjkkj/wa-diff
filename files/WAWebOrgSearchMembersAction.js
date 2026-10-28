@@ -15,13 +15,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = o("WAWebOrgCollection").OrgCollection.getViewerPrimaryOrgId(),
             i = a == null ? null : o("WAWebOrgCollection").OrgCollection.get(a);
           if (
@@ -31,7 +31,7 @@ __d(
           )
             return null;
           if (!o("WAWebOrgMemberSearchMatch").isOrgMemberQueryLongEnough(t))
-            return d(i, []);
+            return m(i, []);
           o("WAWebOrgFetchDirectoryAction").isOrgDirectoryLoaded(i.id) ||
             (n == null || n({ orgId: i.id, orgName: i.name }),
             yield o("WAWebOrgFetchDirectoryAction").fetchOrgDirectory(i.id, {
@@ -44,24 +44,32 @@ __d(
             i.name,
             t,
           );
-          if (l.length > 0 || c(i)) return d(i, l);
+          if (l.length > 0 || d(i)) return m(i, l);
           try {
             n == null || n({ orgId: i.id, orgName: i.name });
-            var s = yield o("WAWebOrgDirectorySyncJob").searchOrgDirectory(
+            var u = yield o("WAWebOrgDirectorySyncJob").searchOrgDirectory(
                 i.id,
                 t.trim(),
               ),
-              u = s.lids,
-              m = s.rows;
+              c = u.lids,
+              p = u.rows;
             return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-search] server search hits=",
+                    "",
+                  ])),
+                c.length,
+              ),
               o("WAWebOrgBridgeApi").applyOrgContactRows({
                 createModels: !0,
-                lids: u,
-                rows: m,
+                lids: c,
+                rows: p,
               }),
-              d(
+              m(
                 i,
-                u.flatMap(function (e) {
+                c.flatMap(function (e) {
                   var t = o(
                     "WAWebOrgContactCollection",
                   ).OrgContactCollection.get(e);
@@ -69,18 +77,18 @@ __d(
                 }),
               )
             );
-          } catch (t) {
+          } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[org-search] member search failed",
                     ])),
                 )
-                .catching(r("getErrorSafe")(t))
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("org-member-search-failed-per-org"),
-              babelHelpers.extends({}, d(i, []), {
+              babelHelpers.extends({}, m(i, []), {
                 failure: r("WAWebNetworkStatus").online
                   ? "unavailable"
                   : "offline",
@@ -88,19 +96,19 @@ __d(
             );
           }
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function c(e) {
+    function d(e) {
       return (
         e.directoryIsComplete === !0 &&
         o("WAWebOrgFetchDirectoryAction").isOrgDirectoryLoaded(e.id)
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       return { failure: null, members: t, orgId: e.id, orgName: e.name };
     }
-    l.searchOrgMembers = s;
+    l.searchOrgMembers = u;
   },
   98,
 );

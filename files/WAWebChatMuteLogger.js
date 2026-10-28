@@ -3,7 +3,6 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
-    "WAWebABProps",
     "WAWebChatGetters",
     "WAWebChatMuteWamEvent",
     "WAWebMetaAiChatActionLogger",
@@ -39,12 +38,7 @@ __d(
         i = o("WAWebMetaAiChatActionLogger").resolveMetaAiChatActionChatType(
           t.id,
         );
-      if (
-        i != null &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_chat_action_logging_addition_enabled",
-        )
-      ) {
+      if (i != null) {
         _(t, n, i).catch(function () {
           o("WALogger")
             .WARN(

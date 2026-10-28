@@ -52,6 +52,9 @@ __d(
           (a.getEventNameForFalco = function () {
             return this.$falcoEventName;
           }),
+          (a.setWamDedupKey = function (t) {
+            this.all.dedupKey == null && this.set({ dedupKey: t });
+          }),
           (a.hasFalcoField = function (t) {
             var e;
             return ((e = this.$falcoFieldMap) == null ? void 0 : e[t]) != null;
@@ -226,6 +229,12 @@ __d(
               ? e
               : null;
           }),
+          (r.setWamDedupKey = function (t) {
+            var e = o("WAWebWamCodegenUtils").getWamDedupKeyFieldId(this.id);
+            e != null &&
+              this.all[String(e)] == null &&
+              this.$RawWamEvent$p_1(e, t);
+          }),
           (r.hasFalcoField = function (t) {
             var e;
             return (
@@ -245,13 +254,7 @@ __d(
                 var a = r[0],
                   i = r[1];
                 if (i === t) {
-                  (o("WAWebWamCodegenUtils").metrics.define({
-                    eventName: this.$className,
-                    fieldName: String(a),
-                    id: a,
-                    type: "number",
-                  }),
-                    (this.all[String(a)] = n));
+                  this.$RawWamEvent$p_1(a, n);
                   return;
                 }
               }
@@ -275,6 +278,15 @@ __d(
               }
             }
             return t;
+          }),
+          (r.$RawWamEvent$p_1 = function (t, n) {
+            (o("WAWebWamCodegenUtils").metrics.define({
+              eventName: this.$className,
+              fieldName: String(t),
+              id: t,
+              type: "number",
+            }),
+              (this.all[String(t)] = n));
           }),
           n
         );

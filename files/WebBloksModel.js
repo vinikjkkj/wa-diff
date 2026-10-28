@@ -5,6 +5,7 @@ __d(
     "WebBloksExpressionParser",
     "WebBloksInternalAttributeKeys",
     "WebBloksMinificationUtils",
+    "WebBloksRenderDiagnostics",
     "WebBloksScript",
     "WebBloksScriptParser",
     "WebBloksScriptString",
@@ -58,7 +59,17 @@ __d(
               : o(
                   "WebBloksMinificationUtils",
                 ).getOptionalMinifiedWebBloksAttributeKeyFromEntry(l, n);
-        d != null && (a[d] = s);
+        if (d == null) {
+          o(
+            "WebBloksRenderDiagnostics",
+          ).isWebBloksRenderDiagnosticsInstalled() &&
+            o("WebBloksRenderDiagnostics").reportWebBloksRenderDrop(
+              "unknown_attribute",
+              { attribute: l, styleId: u },
+            );
+          continue;
+        }
+        a[d] = s;
       }
       return r;
     }
@@ -91,7 +102,13 @@ __d(
           return e == null ? null : String(e);
         }),
         (t.get = function (t) {
-          return this.$2[t];
+          return (
+            o("WebBloksRenderDiagnostics").checkWebBloksAttributeRead(
+              this.styleId,
+              t,
+            ),
+            this.$2[t]
+          );
         }),
         (t.getUntyped = function (t) {
           return this.$2[t];
@@ -287,7 +304,14 @@ __d(
     }
     function L(e, t, n) {
       var r = E(e, n);
-      return new S(o("WebBloksUtils").cast(r), t, void 0, e);
+      return (
+        o("WebBloksRenderDiagnostics").isWebBloksRenderDiagnosticsInstalled() &&
+          o("WebBloksRenderDiagnostics").reportUndeclaredWireAttributes(
+            r,
+            Object.keys(t),
+          ),
+        new S(o("WebBloksUtils").cast(r), t, void 0, e)
+      );
     }
     function E(e, t) {
       var n = t[e];

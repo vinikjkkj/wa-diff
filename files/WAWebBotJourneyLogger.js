@@ -5,6 +5,7 @@ __d(
     "WAWebBotJourneyWamEvent",
     "WAWebBotLoggingUtils",
     "WAWebGetSharedSessionId",
+    "WAWebHatchLinkedStatusManager",
     "WAWebWamEnumBotEntryPointType",
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumTsSurface",
@@ -104,14 +105,17 @@ __d(
             var e = t.isMetaAiAssistant;
             try {
               var n,
-                r = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
+                a = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
               new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
                 appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
                 actionType: o("WAWebWamEnumChatFilterActionTypes")
                   .CHAT_FILTER_ACTION_TYPES.AI_FAB_CLICK,
-                botEntryPoint: r,
-                rawBotEntryPoint: (n = c(r)) != null ? n : void 0,
+                botEntryPoint: a,
+                rawBotEntryPoint: (n = c(a)) != null ? n : void 0,
                 isMetaAiAssistant: e,
+                museChannelStatus: r(
+                  "WAWebHatchLinkedStatusManager",
+                ).getMuseChannelStatusForLogging(),
                 eventTsMs: Date.now(),
               }).commit();
             } catch (e) {
@@ -131,14 +135,17 @@ __d(
             var e = t.isMetaAiAssistant;
             try {
               var n,
-                r = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
+                a = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
               new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
                 appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
                 actionType: o("WAWebWamEnumChatFilterActionTypes")
                   .CHAT_FILTER_ACTION_TYPES.AI_FAB_IMPRESSION,
-                botEntryPoint: r,
-                rawBotEntryPoint: (n = c(r)) != null ? n : void 0,
+                botEntryPoint: a,
+                rawBotEntryPoint: (n = c(a)) != null ? n : void 0,
                 isMetaAiAssistant: e,
+                museChannelStatus: r(
+                  "WAWebHatchLinkedStatusManager",
+                ).getMuseChannelStatusForLogging(),
                 eventTsMs: Date.now(),
               }).commit();
             } catch (e) {

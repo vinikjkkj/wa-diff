@@ -5,12 +5,16 @@ __d(
     "WebBloksCachedStackedScreens",
     "WebBloksErrors",
     "WebBloksPayloadParser",
+    "WebBloksRenderDiagnostics",
+    "WebBloksSSRUtils",
     "WebBloksUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = (function () {
-      function e(e, t, n, r, o) {
+    var e = 3e4;
+    function s() {}
+    var u = (function () {
+      function t(e, t, n, r, o) {
         ((this.$1 = new Set()),
           (this.$2 = e),
           (this.$3 = t),
@@ -18,9 +22,9 @@ __d(
           (this.$6 = r),
           (this.$4 = o));
       }
-      var t = e.prototype;
+      var n = t.prototype;
       return (
-        (t.runQuery = function (t, n, r) {
+        (n.runQuery = function (t, n, r) {
           var e = this.$3.get(t);
           if (
             e != null &&
@@ -33,24 +37,26 @@ __d(
             r(a);
           } else this.$7(t, n, r);
         }),
-        (t.$7 = function (t, n, r) {
+        (n.$7 = function (t, n, r) {
           var e = this;
           if (!this.$1.has(t)) {
             this.$1.add(t);
-            var a = o("WebBloksUtils").nullthrows(this.$2);
-            a.fetchComponentQuery(n.appId, n.params)
-              .then(function (a) {
-                var i = new Map();
+            var a = this.$8(n.appId),
+              i = o("WebBloksUtils").nullthrows(this.$2);
+            i.fetchComponentQuery(n.appId, n.params)
+              .then(function (i) {
+                a();
+                var l = new Map();
                 try {
-                  for (var l of a.components) {
-                    var s = o("WebBloksPayloadParser").parseTree(
-                      l.payload,
+                  for (var s of i.components) {
+                    var u = o("WebBloksPayloadParser").parseTree(
+                      s.payload,
                       e.$5,
                       e.$6,
                       e.$4,
                       void 0,
                     );
-                    i.set(l.id, s);
+                    l.set(s.id, u);
                   }
                 } catch (e) {
                   throw new (o(
@@ -60,45 +66,71 @@ __d(
                     e instanceof Error ? e : null,
                   );
                 }
-                var u = { components: i },
-                  c = {
-                    response: u,
+                var c = { components: l },
+                  d = {
+                    response: c,
                     responseTimestampMs: Date.now().toString(),
                     queryPurpose: n.queryPurpose,
-                    stackedScreens: a.stacked_screens,
-                    stackedScreensDelayMs: a.stacked_screens_delay_ms,
+                    stackedScreens: i.stacked_screens,
+                    stackedScreensDelayMs: i.stacked_screens_delay_ms,
                     stackedScreensConsumed: !1,
                   },
-                  d = babelHelpers.extends(
-                    { result: u, success: !0 },
+                  m = babelHelpers.extends(
+                    { result: c, success: !0 },
                     o("WebBloksCachedStackedScreens").readCachedStackedScreens(
-                      c,
+                      d,
                     ),
                   );
-                (e.$3.set(t, c), e.$1.delete(t), r(d));
+                (e.$3.set(t, d), e.$1.delete(t), r(m));
               })
-              .catch(function (a) {
-                (e.$1.delete(t),
+              .catch(function (i) {
+                (a(),
+                  e.$1.delete(t),
                   r({
                     result: { components: new Map() },
                     success: !1,
                     error:
-                      a instanceof
+                      i instanceof
                       o("WebBloksErrors").WebBloksComponentQueryParseError
-                        ? a
+                        ? i
                         : new (o("WebBloksErrors").WebBloksError)(
                             "Failed to fetch async component for appId: " +
                               n.appId,
-                            a instanceof Error ? a : null,
+                            i instanceof Error ? i : null,
                           ),
                   }));
               });
           }
         }),
-        e
+        (n.$8 = function (n) {
+          if (
+            !o("WebBloksSSRUtils").canUseDOM ||
+            !o(
+              "WebBloksRenderDiagnostics",
+            ).isWebBloksRenderDiagnosticsInstalled()
+          )
+            return s;
+          var t = Date.now(),
+            r = o("WebBloksRenderDiagnostics").getWebBloksDocumentGeneration(),
+            a = window.setTimeout(function () {
+              document.visibilityState !== "visible" ||
+                Date.now() - t > e * 1.5 ||
+                o(
+                  "WebBloksRenderDiagnostics",
+                ).getWebBloksDocumentGeneration() !== r ||
+                o("WebBloksRenderDiagnostics").reportWebBloksRenderDrop(
+                  "async_fetch_timeout",
+                  { queryAppId: n },
+                );
+            }, e);
+          return function () {
+            return window.clearTimeout(a);
+          };
+        }),
+        t
       );
     })();
-    l.default = e;
+    l.default = u;
   },
   98,
 );

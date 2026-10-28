@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebBotUtils",
     "WAWebMetaAiThreadChat",
     "WAWebUserPrefsMeUser",
@@ -50,14 +49,7 @@ __d(
           (r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
             ? void 0
             : r.toString();
-      if (
-        a == null ||
-        i == null ||
-        !o("WAWebABProps").getABPropConfigValue(
-          "ai_chat_action_logging_addition_enabled",
-        )
-      )
-        return null;
+      if (a == null || i == null) return null;
       var l = _();
       return {
         commit: function () {
@@ -96,10 +88,7 @@ __d(
             : t.toString(),
         a = d(e),
         i =
-          a == null ||
-          !o("WAWebABProps").getABPropConfigValue(
-            "ai_chat_action_logging_addition_enabled",
-          )
+          a == null
             ? (u || (u = n("Promise"))).resolve({})
             : _().then(function (t) {
                 var n;

@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebChatPreferenceCollection",
+    "WAWebMediaAutoDownloadQualitySync",
     "WAWebMuteCollection",
     "WAWebNormalizeThemeId",
     "WAWebProtobufSyncAction.pb",
@@ -362,6 +363,11 @@ __d(
                 return;
               case "isDocumentsAutodownloadEnabled":
                 o("WAWebUserPrefsGeneral").setAutoDownloadDocuments(!!a);
+                return;
+              case "mediaAutoDownloadQuality":
+                o(
+                  "WAWebMediaAutoDownloadQualitySync",
+                ).applySyncedMediaAutoDownloadQuality(a);
                 return;
               case "disableLinkPreviews":
                 return;

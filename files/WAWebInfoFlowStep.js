@@ -27,6 +27,8 @@ __d(
       "ProductList",
       "Starred",
       "ChatTheme",
+      "HatchActivity",
+      "HatchApprovalHistory",
       "HatchConnectors",
       "HatchIdeas",
       "HatchPermissions",

@@ -772,7 +772,6 @@ __d(
                       bool: {
                         wa_web_media_wasm_worker_split: r("gkx")("24042"),
                         supportModule: r("supportsModuleWorker")(!1),
-                        early_backend_worker: r("gkx")("27242"),
                       },
                       int: { retryStart: i },
                     },

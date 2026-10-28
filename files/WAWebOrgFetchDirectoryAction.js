@@ -13,38 +13,41 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = new Map(),
-      c = new Set();
-    function d(e, t) {
+      u,
+      c,
+      d,
+      m = new Map(),
+      p = new Set();
+    function _(e, t) {
       var n = t.createModels,
         r = t.force,
         o = r === void 0 ? !1 : r,
-        a = n || c.has(e),
-        i = u.get(e);
+        a = n || p.has(e),
+        i = m.get(e);
       if (i != null)
         return a && !i.createModels
           ? i.promise.then(function (t) {
-              return g(e, t);
+              return C(e, t);
             })
           : i.promise;
-      var l = _(e, a, o).finally(function () {
+      var l = h(e, a, o).finally(function () {
         var t;
-        ((t = u.get(e)) == null ? void 0 : t.promise) === l && u.delete(e);
+        ((t = m.get(e)) == null ? void 0 : t.promise) === l && m.delete(e);
       });
-      return (u.set(e, { createModels: a, promise: l }), l);
+      return (m.set(e, { createModels: a, promise: l }), l);
     }
-    function m(e) {
-      return c.has(e);
+    function f(e) {
+      return p.has(e);
     }
-    function p() {
-      ((u = new Map()), (c = new Set()));
+    function g() {
+      ((m = new Map()), (p = new Set()));
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function f() {
+    function y() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (
             !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(
               o("WAWebOrgCollection").OrgCollection.get(t),
@@ -56,57 +59,78 @@ __d(
               !a &&
               (yield o("WAWebOrgDirectorySyncJob").isStoredOrgDirectoryFresh(t))
             )
-              return n && !c.has(t) ? h(t) : { status: "success" };
+              return n && !p.has(t) ? b(t) : { status: "success" };
             var i = yield o("WAWebOrgDirectorySyncJob").syncOrgDirectory(t);
-            if (i.status === "roster_too_large") return i;
+            if (i.status === "roster_too_large")
+              return (
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[org-directory] too large to download members=",
+                      "",
+                    ])),
+                  i.memberCount,
+                ),
+                i
+              );
             var l = i.lids,
-              s = i.org,
-              u = i.rows;
+              c = i.org,
+              d = i.rows;
             return (
-              s != null &&
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-directory] downloaded members=",
+                    " forced=",
+                    "",
+                  ])),
+                l.length,
+                String(a),
+              ),
+              c != null &&
                 o("WAWebOrgBridgeApi").applyOrgRows({
                   isFullList: !1,
-                  rows: [s],
+                  rows: [c],
                 }),
               o("WAWebOrgBridgeApi").applyOrgDirectory({
                 createModels: n,
                 lids: l,
                 orgId: t,
-                rows: u,
+                rows: d,
               }),
-              n && c.add(t),
+              n && p.add(t),
               { status: "success" }
             );
-          } catch (t) {
-            var d = r("getErrorSafe")(t);
+          } catch (e) {
+            var m = r("getErrorSafe")(e);
             return (
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[org-admin] public member directory refresh failed: ",
                       "",
                     ])),
-                  o("WAWebOrgAdminGraphQL").getOrgAdminServerFailureReason(t),
+                  o("WAWebOrgAdminGraphQL").getOrgAdminServerFailureReason(e),
                 )
-                .catching(d)
+                .catching(m)
                 .sendLogs("org-admin-directory-refresh-failed"),
-              { error: d, status: "failed" }
+              { error: m, status: "failed" }
             );
           }
         })),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return t.status === "success" ? h(e) : t;
+    function C(e, t) {
+      return t.status === "success" ? b(e) : t;
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function y() {
+    function v() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebOrgDirectorySyncJob").loadStoredOrgDirectory(
                 e,
@@ -114,13 +138,21 @@ __d(
               n = t.lids,
               a = t.rows;
             return (
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-directory] loaded the stored directory members=",
+                    "",
+                  ])),
+                n.length,
+              ),
               o("WAWebOrgBridgeApi").applyOrgDirectory({
                 createModels: !0,
                 lids: n,
                 orgId: e,
                 rows: a,
               }),
-              c.add(e),
+              p.add(e),
               { status: "success" }
             );
           } catch (e) {
@@ -128,8 +160,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[org-directory] stored directory read failed",
                     ])),
                 )
@@ -139,12 +171,12 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.fetchOrgDirectory = d),
-      (l.isOrgDirectoryLoaded = m),
-      (l.resetOrgDirectoryDownloads = p));
+    ((l.fetchOrgDirectory = _),
+      (l.isOrgDirectoryLoaded = f),
+      (l.resetOrgDirectoryDownloads = g));
   },
   98,
 );

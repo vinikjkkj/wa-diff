@@ -17,7 +17,7 @@ __d(
       _ = 2,
       f = 100;
     function g(e, t, n) {
-      var a = o("react-compiler-runtime").c(28),
+      var a = o("react-compiler-runtime").c(25),
         i;
       a[0] !== e
         ? ((i = e === void 0 ? [] : e), (a[0] = e), (a[1] = i))
@@ -45,12 +45,12 @@ __d(
       var b = C,
         v = y,
         S;
-      a[7] !== n.current
+      a[7] !== n
         ? ((S = function () {
             var e;
             (e = n.current) == null || e.scroll({ behavior: "smooth", top: 0 });
           }),
-          (a[7] = n.current),
+          (a[7] = n),
           (a[8] = S))
         : (S = a[8]);
       var R = S,
@@ -66,7 +66,7 @@ __d(
         k;
       a[11] !== E
         ? ((k = function (t) {
-            E(t.currentTarget);
+            t.currentTarget instanceof HTMLElement && E(t.currentTarget);
           }),
           (a[11] = E),
           (a[12] = k))
@@ -90,8 +90,9 @@ __d(
           (a[16] = T))
         : (T = a[16]);
       var D = T,
-        x;
-      a[17] !== I || a[18] !== D || a[19] !== n.current
+        x,
+        $;
+      (a[17] !== I || a[18] !== D || a[19] !== n
         ? ((x = function () {
             var e = n.current;
             return (
@@ -101,24 +102,22 @@ __d(
               }
             );
           }),
+          ($ = [n, D, I]),
           (a[17] = I),
           (a[18] = D),
-          (a[19] = n.current),
-          (a[20] = x))
-        : (x = a[20]);
-      var $;
-      (a[21] !== I || a[22] !== D || a[23] !== n
-        ? (($ = [n, D, I]), (a[21] = I), (a[22] = D), (a[23] = n), (a[24] = $))
-        : ($ = a[24]),
+          (a[19] = n),
+          (a[20] = x),
+          (a[21] = $))
+        : ((x = a[20]), ($ = a[21])),
         c(x, $));
       var P;
       return (
-        a[25] !== g || a[26] !== R
+        a[22] !== g || a[23] !== R
           ? ((P = { ordersLazylist: g, scrollToTop: R }),
-            (a[25] = g),
-            (a[26] = R),
-            (a[27] = P))
-          : (P = a[27]),
+            (a[22] = g),
+            (a[23] = R),
+            (a[24] = P))
+          : (P = a[24]),
         P
       );
     }

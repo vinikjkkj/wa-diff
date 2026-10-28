@@ -74,6 +74,9 @@ __d(
           s.SyncActionValue$SettingsSyncAction$SettingKey.IS_DOCUMENTS_AUTODOWNLOAD_ENABLED
         ] = "isDocumentsAutodownloadEnabled"),
         (e[
+          s.SyncActionValue$SettingsSyncAction$SettingKey.MEDIA_AUTO_DOWNLOAD_QUALITY
+        ] = "mediaAutoDownloadQuality"),
+        (e[
           s.SyncActionValue$SettingsSyncAction$SettingKey.DISABLE_LINK_PREVIEWS
         ] = "disableLinkPreviews"),
         (e[
@@ -166,6 +169,9 @@ __d(
         isDocumentsAutodownloadEnabled:
           s.SyncActionValue$SettingsSyncAction$SettingKey
             .IS_DOCUMENTS_AUTODOWNLOAD_ENABLED,
+        mediaAutoDownloadQuality:
+          s.SyncActionValue$SettingsSyncAction$SettingKey
+            .MEDIA_AUTO_DOWNLOAD_QUALITY,
         disableLinkPreviews:
           s.SyncActionValue$SettingsSyncAction$SettingKey.DISABLE_LINK_PREVIEWS,
         notificationToneId:
@@ -221,6 +227,7 @@ __d(
         isAudiosAutodownloadEnabled: "isAudiosAutodownloadEnabled",
         isVideosAutodownloadEnabled: "isVideosAutodownloadEnabled",
         isDocumentsAutodownloadEnabled: "isDocumentsAutodownloadEnabled",
+        mediaAutoDownloadQuality: "mediaAutoDownloadQuality",
         disableLinkPreviews: "disableLinkPreviews",
         notificationToneId: "notificationToneId",
         mediaUploadQuality: "mediaUploadQuality",

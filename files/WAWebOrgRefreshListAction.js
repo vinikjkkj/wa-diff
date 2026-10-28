@@ -21,98 +21,118 @@ __d(
       s,
       u,
       c,
-      d = { error: null, liveOrgIds: null, status: "idle" },
-      m = 1e3,
-      p = d,
-      _ = null,
-      f = null,
-      g = null,
-      h = A(),
-      y = new Set();
-    function C() {
-      return (_ != null || (_ = k()), _);
-    }
-    function b(e) {
-      var t = e.bypassCooldown;
-      if (f != null) return f;
-      if (!o("WAWebCanonicalUtils").isCanonicalPresent())
-        return (x(), (c || (c = n("Promise"))).resolve({ status: "skipped" }));
-      if (!t && o("WAWebOrgCollection").OrgCollection.length > 0 && M())
-        return (c || (c = n("Promise"))).resolve({ status: "skipped" });
-      var r = T().finally(function () {
-        f === r && (f = null);
-      });
-      return ((f = r), r);
-    }
-    function v() {
-      return h.promise;
-    }
-    function S() {
-      return f == null
-        ? (c || (c = n("Promise"))).resolve()
-        : f.then(r("WAWebNoop"));
-    }
+      d,
+      m,
+      p,
+      _,
+      f = { error: null, liveOrgIds: null, status: "idle" },
+      g = 1e3,
+      h = f,
+      y = null,
+      C = null,
+      b = null,
+      v = q(),
+      S = new Set();
     function R() {
-      return p;
+      return (y != null || (y = x()), y);
     }
-    function L(e) {
+    function L(t) {
+      var r = t.bypassCooldown;
+      if (C != null) return C;
+      if (!o("WAWebCanonicalUtils").isCanonicalPresent())
+        return (M(), (_ || (_ = n("Promise"))).resolve({ status: "skipped" }));
+      if (!r && o("WAWebOrgCollection").OrgCollection.length > 0 && B())
+        return (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[org-list] refresh skipped within the cooldown",
+              ])),
+          ),
+          (_ || (_ = n("Promise"))).resolve({ status: "skipped" })
+        );
+      var a = P().finally(function () {
+        C === a && (C = null);
+      });
+      return ((C = a), a);
+    }
+    function E() {
+      return v.promise;
+    }
+    function k() {
+      return C == null
+        ? (_ || (_ = n("Promise"))).resolve()
+        : C.then(r("WAWebNoop"));
+    }
+    function I() {
+      return h;
+    }
+    function T(e) {
       return (
-        y.add(e),
+        S.add(e),
         function () {
-          y.delete(e);
+          S.delete(e);
         }
       );
     }
-    function E() {
-      ((p = d),
-        (_ = null),
-        (f = null),
-        (g = null),
-        (h = A()),
-        y.forEach(function (e) {
+    function D() {
+      ((h = f),
+        (y = null),
+        (C = null),
+        (b = null),
+        (v = q()),
+        S.forEach(function (e) {
           return e();
         }));
     }
-    function k() {
-      return I.apply(this, arguments);
+    function x() {
+      return $.apply(this, arguments);
     }
-    function I() {
+    function $() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          p.status === "idle" && w({ status: "loading" });
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          h.status === "idle" && W({ status: "loading" });
           try {
             var e = yield o("WAWebOrgListSyncJob").loadStoredOrgs();
-            (o("WAWebOrgBridgeApi").applyOrgRows({ isFullList: !0, rows: e }),
-              e.length > 0 && h.resolve(),
-              p.status === "loading" &&
-                f == null &&
-                w({ error: null, status: "ready" }));
+            (o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-list] restored cached orgs=",
+                  "",
+                ])),
+              e.length,
+            ),
+              o("WAWebOrgBridgeApi").applyOrgRows({ isFullList: !0, rows: e }),
+              e.length > 0 && v.resolve(),
+              h.status === "loading" &&
+                C == null &&
+                W({ error: null, status: "ready" }));
           } catch (e) {
             var t = r("getErrorSafe")(e);
             (o("WALogger")
               .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[org-list] cached org list read failed",
                   ])),
               )
               .catching(t)
               .sendLogs("org-list-cache-read-failed"),
-              p.status === "loading" &&
-                f == null &&
-                w({ error: t, status: "error" }));
+              h.status === "loading" &&
+                C == null &&
+                W({ error: t, status: "error" }));
           }
         })),
-        I.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
+    function P() {
+      return N.apply(this, arguments);
     }
-    function D() {
+    function N() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          w({
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          W({
             error: null,
             status:
               o("WAWebOrgCollection").OrgCollection.length === 0
@@ -120,11 +140,12 @@ __d(
                 : "refreshing",
           });
           try {
-            var e = yield $(yield o("WAWebOrgListSyncJob").syncOrgList());
+            var e = yield w(yield o("WAWebOrgListSyncJob").syncOrgList());
             return (
+              F(e),
               o("WAWebOrgBridgeApi").applyOrgRows({ isFullList: !0, rows: e }),
-              N(),
-              w({
+              O(),
+              W({
                 liveOrgIds: new Set(
                   e.map(function (e) {
                     return e.orgId;
@@ -132,7 +153,7 @@ __d(
                 ),
                 status: "ready",
               }),
-              h.resolve(),
+              v.resolve(),
               { rows: e, status: "refreshed" }
             );
           } catch (e) {
@@ -140,8 +161,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[org-admin] organizations load failed: ",
                       "",
                     ])),
@@ -149,30 +170,36 @@ __d(
                 )
                 .catching(t)
                 .sendLogs("org-admin-orgs-load-failed"),
-              w({ error: t, status: "error" }),
+              W({ error: t, status: "error" }),
               { error: t, status: "failed" }
             );
           }
         })),
-        D.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function x() {
-      if (!(g != null || !o("WAWebCanonicalGating").isCanonicalEnabled())) {
+    function M() {
+      if (!(b != null || !o("WAWebCanonicalGating").isCanonicalEnabled())) {
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[org-list] refresh waits for canonical credentials",
+            ])),
+        );
         var e = o("WAWebCanonicalUtils")
           .waitForCanonicalPresent()
           .then(function () {
-            g === e && ((g = null), b({ bypassCooldown: !0 }));
+            b === e && ((b = null), L({ bypassCooldown: !0 }));
           });
-        g = e;
+        b = e;
       }
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function P() {
+    function A() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e
             .filter(function (e) {
               return !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(e);
@@ -196,25 +223,45 @@ __d(
             return (t = n.get(e.orgId)) != null ? t : e;
           });
         })),
-        P.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function N() {
+    function F(e) {
+      var t = e.filter(function (e) {
+          return o("WAWebOrgViewerRoleUtils").canViewerAdministerOrg(e);
+        }).length,
+        n = e.filter(function (e) {
+          return !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(e);
+        }).length;
+      o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "[org-list] refreshed orgs=",
+            " administered=",
+            " hidden_directories=",
+            "",
+          ])),
+        e.length,
+        t,
+        n,
+      );
+    }
+    function O() {
       o("WAWebUserPrefsOrgs")
         .setOrgListFetchedTs(Date.now())
-        .catch(function (t) {
+        .catch(function (e) {
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[org-list] could not store the org list fetch time",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
+            .catching(r("getErrorSafe")(e))
             .sendLogs("org-list-stamp-write-failed");
         });
     }
-    function M() {
+    function B() {
       var e = o("WAWebUserPrefsOrgs").getOrgListFetchedTs();
       if (e == null) return !1;
       var t = Date.now() - e;
@@ -224,29 +271,29 @@ __d(
           o("WAWebABProps").getABPropConfigValue(
             "whatsapp_orgs_fetch_cooldown_secs",
           ) *
-            m
+            g
       );
     }
-    function w(e) {
-      ((p = babelHelpers.extends({}, p, e)),
-        y.forEach(function (e) {
+    function W(e) {
+      ((h = babelHelpers.extends({}, h, e)),
+        S.forEach(function (e) {
           return e();
         }));
     }
-    function A() {
+    function q() {
       var e = r("WAWebNoop"),
-        t = new (c || (c = n("Promise")))(function (t) {
+        t = new (_ || (_ = n("Promise")))(function (t) {
           e = t;
         });
       return { promise: t, resolve: e };
     }
-    ((l.restoreCachedOrgList = C),
-      (l.refreshOrgList = b),
-      (l.whenOrgListReady = v),
-      (l.whenOrgListRefreshSettles = S),
-      (l.getOrgListState = R),
-      (l.subscribeToOrgListState = L),
-      (l.resetOrgListAction = E));
+    ((l.restoreCachedOrgList = R),
+      (l.refreshOrgList = L),
+      (l.whenOrgListReady = E),
+      (l.whenOrgListRefreshSettles = k),
+      (l.getOrgListState = I),
+      (l.subscribeToOrgListState = T),
+      (l.resetOrgListAction = D));
   },
   98,
 );
