@@ -11,7 +11,7 @@ __d(
     "WAWebCommsWapMd",
     "WAWebDBMessageDelete",
     "WAWebHandleMsgProcess",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebWidFactory",
@@ -156,7 +156,7 @@ __d(
             i = t.id,
             l = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
             s = {
-              type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS,
+              type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS,
               externalId: i,
               ts: r,
               edit: -1,

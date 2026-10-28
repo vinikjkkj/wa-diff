@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebApiMessageInfoStore",
     "WAWebBaseCollection",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgInfoAction",
@@ -44,10 +44,10 @@ __d(
           countedAgents: a,
         };
       if (l != null) {
-        var _ = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+        var _ = o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
             l.hostStorage,
           ),
-          f = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+          f = o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
             l.actualActors,
           );
         if (f == null || _ == null)

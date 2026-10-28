@@ -103,6 +103,7 @@ __d(
     "WAWebDebugScheduledMessages",
     "WAWebDebugScreenLock",
     "WAWebDebugSendOrderDetailsMessage",
+    "WAWebDebugSignalStateFlush",
     "WAWebDebugSignupAGM",
     "WAWebDebugSmax",
     "WAWebDebugSmb",
@@ -591,34 +592,24 @@ __d(
       );
     }
     Y.doc = "Check how many more message decryptions are set to fail";
-    function J(e, t) {
-      return (
-        r("vulture")("xzYo41l7NChA0FulBlyq2BuVvbs="),
-        o("WAWebUserPrefsMultiDeviceDebug").setDebugEncryptFail(
-          o("WAWebWidFactory").createUserWidOrThrow(e),
-          t,
-        )
-      );
-    }
-    J.doc = "Fails create-session for a given device";
-    function Z(e) {
+    function J(e) {
       (r("vulture")("YI4BzocgFurMsKbQvaMMmDw3FEU="),
         o("WAWebUserPrefsMultiDeviceDebug").setDebugDoNotSendRetryReceipt(e));
     }
-    Z.doc = "Set the next N retry receipts will not be sent";
-    function ee() {
+    J.doc = "Set the next N retry receipts will not be sent";
+    function Z() {
       return (
         r("vulture")("UmxLecDScXlpBvo4M6-U5Jl2ZV4="),
         o("WAWebUserPrefsMultiDeviceDebug").getDebugDoNotSendRetryReceipt()
       );
     }
-    ee.doc = "Check how many more retry receipts will be skipped";
-    function te() {
-      return ne.apply(this, arguments);
+    Z.doc = "Check how many more retry receipts will be skipped";
+    function ee() {
+      return te.apply(this, arguments);
     }
-    function ne() {
+    function te() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("bim4WkhG9QLu3MmAr2pZOs8U5fw=");
           var e = Array.from(
               o("WAWebModelStorageUtils").getStorage().tables.keys(),
@@ -640,16 +631,16 @@ __d(
             );
           return (h || (h = n("Promise"))).all(t);
         })),
-        ne.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    te.doc = "Dump all model data from IndexedDB";
-    function re() {
-      return oe.apply(this, arguments);
+    ee.doc = "Dump all model data from IndexedDB";
+    function ne() {
+      return re.apply(this, arguments);
     }
-    function oe() {
+    function re() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("mMU7F5p51AylWf8VERdqML5ZC08=");
           var e = Array.from(
               o("WAWebSignalStorageUtils").getStorage().tables.keys(),
@@ -671,38 +662,38 @@ __d(
             );
           return (h || (h = n("Promise"))).all(t);
         })),
-        oe.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    re.doc = "Dump all signal data from IndexedDB";
-    function ae(e) {
-      return ie.apply(this, arguments);
+    ne.doc = "Dump all signal data from IndexedDB";
+    function oe(e) {
+      return ae.apply(this, arguments);
     }
-    function ie() {
+    function ae() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("vulture")("uHdmxKFwzkBj2RYBJM9lS8NBUmM="),
             o("WAWebWam").sendAllLogs(e)
           );
         })),
-        ie.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    ((ae.doc =
+    ((oe.doc =
       "Submit all cached metrics for the given WAM buffer type ('regular' or one of Private Stats keys)"),
-      (ae.paramsToExecute = ["regular"]));
-    function le(e) {
+      (oe.paramsToExecute = ["regular"]));
+    function ie(e) {
       o("WAWebUserPrefsGeneral").setDebugFacebookGraphQLEndpointOverride(e);
     }
-    le.doc =
+    ie.doc =
       'Debug method for testing against a specific graphQL Facebook OD endpoint. Pass OD number as a string, e.g. "0934"';
-    function se(e) {
-      return ue.apply(this, arguments);
+    function le(e) {
+      return se.apply(this, arguments);
     }
-    function ue() {
+    function se() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("vulture")("E__tXEK3UeBx-yknC3m3h-Scjrw="),
             o("WAWebSchemaReportingInfo")
@@ -710,30 +701,30 @@ __d(
               .equals(["msgKey"], [e])
           );
         })),
-        ue.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function ce(e) {
-      return de.apply(this, arguments);
+    function ue(e) {
+      return ce.apply(this, arguments);
     }
-    function de() {
+    function ce() {
       return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             e === void 0 && (e = -1),
             r("vulture")("3ID7ocNE3L2C4HCiT9CbTMG8_BI="),
             o("WAWebDBReportingTokenUtils").cleanupReportingTokenAndContent(e)
           );
         })),
-        de.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function me(e) {
-      return pe.apply(this, arguments);
+    function de(e) {
+      return me.apply(this, arguments);
     }
-    function pe() {
+    function me() {
       return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("vulture")("30p6FtIBDe4epWDvNXB3mWxRfLY="),
             new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
@@ -741,28 +732,28 @@ __d(
             ).commitAndWaitForFlush(!0)
           );
         })),
-        pe.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    ((me.doc = "Send a raw wam event (used by UWP Hybrid app)"),
-      (me.paramsToExecute = []));
-    function _e(e, t) {
+    ((de.doc = "Send a raw wam event (used by UWP Hybrid app)"),
+      (de.paramsToExecute = []));
+    function pe(e, t) {
       (r("vulture")("SDbG34TilP6I6G-yF-kthq2ORFs="),
         o("WAWebTos").TosManager.setState(e, t, o("WATimeUtils").unixTime()));
     }
-    _e.doc = "Set the state of a given TOS notice";
-    function fe(e) {
+    pe.doc = "Set the state of a given TOS notice";
+    function _e(e) {
       (r("vulture")("JrobMpEeRS8EvKtCVP1NrLNnmM8="),
         o("WAWebTPSharerPreference").setSharerSkipPreference(e));
     }
-    fe.doc =
+    _e.doc =
       "Set the WebTP sharer skip confirmation preference (debug override)";
-    function ge(e) {
-      return he.apply(this, arguments);
+    function fe(e) {
+      return ge.apply(this, arguments);
     }
-    function he() {
+    function ge() {
       return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("5OQp4EISyaUr1Z6AqrxjP89Kgs4=");
           var t = 0,
             n = 0x7048860ddf79,
@@ -777,23 +768,23 @@ __d(
             ? "success"
             : "failed";
         })),
-        he.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    ge.doc = "Store canonical credentials directly (for E2E tests)";
-    function ye() {
+    fe.doc = "Store canonical credentials directly (for E2E tests)";
+    function he() {
       return (
         r("vulture")("RindQ8M2oQnn4ayF25IM4k6DzJo="),
         o("WAWebCanonicalUtils").isCanonicalPresent()
       );
     }
-    ye.doc = "Check if canonical token has been stored";
-    function Ce(e) {
-      return be.apply(this, arguments);
+    he.doc = "Check if canonical token has been stored";
+    function ye(e) {
+      return Ce.apply(this, arguments);
     }
-    function be() {
+    function Ce() {
       return (
-        (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("PNgalV5256wL1TDcltm6h9-0v0A=");
           var t = Array.isArray(e) ? e : [e],
             n = t.map(function (e) {
@@ -827,17 +818,17 @@ __d(
             }
           );
         })),
-        be.apply(this, arguments)
+        Ce.apply(this, arguments)
       );
     }
-    Ce.doc =
+    ye.doc =
       "Fires a real PLACEHOLDER_MESSAGE_RESEND RDU for the given serialized msg key(s).";
-    function ve() {
-      return Se.apply(this, arguments);
+    function be() {
+      return ve.apply(this, arguments);
     }
-    function Se() {
+    function ve() {
       return (
-        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("PTUrb-lbA1idzq1sX-_TZfmE388=");
           try {
             return (
@@ -848,15 +839,15 @@ __d(
             return "PQ key upload failed: " + String(e);
           }
         })),
-        Se.apply(this, arguments)
+        ve.apply(this, arguments)
       );
     }
-    ve.doc = "Trigger PQ (post-quantum) prekey generation and upload";
-    function Re() {
+    be.doc = "Trigger PQ (post-quantum) prekey generation and upload";
+    function Se() {
       r("WAWebDebugDownFunnelSignals").dfsInitialize();
     }
-    var Le = babelHelpers.extends(
-      { initialize: Re, delayMs: o("WAPromiseDelays").delayMs, _: null },
+    var Re = babelHelpers.extends(
+      { initialize: Se, delayMs: o("WAPromiseDelays").delayMs, _: null },
       r("WAWebDebugL10N"),
       r("WAWebDebugNewsletter"),
       r("WAWebDebugABProps"),
@@ -902,6 +893,7 @@ __d(
       r("WAWebDebugHybrid"),
       r("WAWebDebugEphemerality"),
       r("WAWebDebugMessagingInfra"),
+      r("WAWebDebugSignalStateFlush"),
       r("WAWebDebugBookingConfirmation"),
       r("WAWebDebugInAppSignupConfirmation"),
       r("WAWebDebugInAppSignupPrompt"),
@@ -1001,10 +993,10 @@ __d(
         getMediaEditorDebug: P,
         toggleStickerMakerDebug: N,
         getModelStorage: o("WAWebModelStorageUtils").getStorage,
-        dumpModelStorage: te,
-        dumpSignalStorage: re,
+        dumpModelStorage: ee,
+        dumpSignalStorage: ne,
         doPendingDeviceSync: o("WAWebApiPendingDeviceSync").doPendingDeviceSync,
-        requestPlaceholderResend: Ce,
+        requestPlaceholderResend: ye,
         setDebugEnableOfflineMock: w,
         setDebugOfflineMockTraffic: A,
         InMemoryMediaBlobCache: o("WAWebMediaInMemoryBlobCache")
@@ -1018,7 +1010,7 @@ __d(
         decodeFutureproofBuffer: q,
         getAllChatsDeserialized: o("WAWebApiChat").getAllChatsDeserialized,
         getChatDeserializedFromDBById: K,
-        sendAllLogs: ae,
+        sendAllLogs: oe,
         decodeStanza: W,
         voipWinRTBridge:
           n("cr:17219") == null ||
@@ -1028,33 +1020,28 @@ __d(
             ? void 0
             : c.voip,
         VoipBridgePerfSimulator: C,
-        rawWamEvent: me,
+        rawWamEvent: de,
         fetchWithACSCredential: o("WAWebACSNetwork").fetchWithACSCredential,
         networkSimulateOffline: U,
         networkReconnectOnline: H,
         getDebugShownMsgs: o("WAWebUserPrefsDebugMsgs").getDebugShownMsgs,
         setDebugDecryptFail: X,
         getDebugDecryptFail: Y,
-        setDebugEncryptFail: J,
-        setDebugDoNotSendRetryReceipt: Z,
-        getDebugDoNotSendRetryReceipt: ee,
-        setDebugIgnoreParticipantAdd: o("WAWebUserPrefsMultiDeviceDebug")
-          .setDebugIgnoreParticipantAdd,
-        getDebugIgnoreParticipantAdd: o("WAWebUserPrefsMultiDeviceDebug")
-          .getDebugIgnoreParticipantAdd,
+        setDebugDoNotSendRetryReceipt: J,
+        getDebugDoNotSendRetryReceipt: Z,
         InMemoryLottieStickerCache: o("WAWebInMemoryLottieStickerCache")
           .InMemoryLottieStickerCache,
-        getReportingInfoRow: se,
-        triggerReportingTokenCleanup: ce,
+        getReportingInfoRow: le,
+        triggerReportingTokenCleanup: ue,
         Moment: r("WAWeb-moment"),
         UnifiedSessionManager: o("WAWebUnifiedSession").UnifiedSessionManager,
         openSuspendedCommunityModal: o("WAWebSuspendedCommunityUtils")
           .openSuspendedCommunityModal,
-        setTosState: _e,
-        overrideFacebookGraphQLEndpointForTest: le,
-        setSharerSkipPreference: fe,
-        setCanonicalToken: ge,
-        isCanonicalPresent: ye,
+        setTosState: pe,
+        overrideFacebookGraphQLEndpointForTest: ie,
+        setSharerSkipPreference: _e,
+        setCanonicalToken: fe,
+        isCanonicalPresent: he,
         MemberLabel: r("WAWebMemberLabelDebug"),
         GroupHistory: r("WAWebGroupHistoryDebug"),
         getJSUsageReport: r("WAWebJSUsageDebug").getJSUsageReport,
@@ -1067,7 +1054,7 @@ __d(
         ).injectInteractiveMessageWithBloksWidget,
         injectUnifiedResponseTestMessage: o("WAWebUnifiedResponseDebug")
           .injectUnifiedResponseTestMessage,
-        triggerPQKeyUpload: ve,
+        triggerPQKeyUpload: be,
         resetPQState: o("WAWebResetPQState").resetPQState,
         showChatlistSkeleton: o("WAWebDebugChatlistSkeleton")
           .showChatlistSkeleton,
@@ -1075,7 +1062,7 @@ __d(
           .hideChatlistSkeleton,
       },
     );
-    l.default = Le;
+    l.default = Re;
   },
   98,
 );

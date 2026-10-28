@@ -46,22 +46,34 @@ __d(
       });
     }
     function u(e) {
-      var t,
-        n,
-        r = o(
-          "WAWebCustomerDataCollection",
-        ).CustomerDataCollection.maybeGetCustomerDataByChatJid(e.chatJid);
-      return r == null
+      var t = o(
+        "WAWebCustomerDataCollection",
+      ).CustomerDataCollection.maybeGetCustomerDataByChatJid(e.chatJid);
+      return c(
+        e,
+        t == null
+          ? null
+          : {
+              address: t.address,
+              altPhoneNumbers: t.altPhoneNumbers,
+              birthday: t.birthday,
+              createdAt: t.createdAt,
+            },
+      );
+    }
+    function c(e, t) {
+      var n, r;
+      return t == null
         ? e
         : new (o("WAWebCustomerDataModel").CustomerData)({
             acquisitionSource: e.acquisitionSource,
-            address: (t = e.address) != null ? t : r.address,
-            altPhoneNumbers: r.altPhoneNumbers,
-            birthday: (n = e.birthday) != null ? n : r.birthday,
+            address: (n = e.address) != null ? n : t.address,
+            altPhoneNumbers: t.altPhoneNumbers,
+            birthday: (r = e.birthday) != null ? r : t.birthday,
             birthdayIso: e.birthdayIso,
             chatJid: e.chatJid,
             contactType: e.contactType,
-            createdAt: r.createdAt,
+            createdAt: t.createdAt,
             email: e.email,
             id: e.id,
             lastOrder: e.lastOrder,
@@ -69,7 +81,7 @@ __d(
             modifiedAt: e.modifiedAt,
           });
     }
-    function c(e) {
+    function d(e) {
       var t = o("WATimeUtils").castToUnixTime(0);
       return new (o("WAWebCustomerDataModel").CustomerData)({
         acquisitionSource: null,
@@ -90,7 +102,8 @@ __d(
     ((l.customerDataFromProfileRecord = e),
       (l.customerDataWithLeadStage = s),
       (l.withClientOnlyFields = u),
-      (l.emptyCustomerData = c));
+      (l.withClientOnlyFieldsSnapshot = c),
+      (l.emptyCustomerData = d));
   },
   98,
 );

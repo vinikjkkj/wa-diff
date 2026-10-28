@@ -21,40 +21,36 @@ __d(
             : t.handleIndividualChatState,
         a = (n = e.groupMessage) == null ? void 0 : n.handleGroupChatState;
       return function (t) {
+        var e;
         if (r == null && a == null) return s;
-        var e = o(
+        var n = o(
             "WASmaxChatstateServerNotificationRPC",
           ).receiveServerNotificationRPC(t),
-          n = e.parsedRequest,
-          i = n.stateSource,
-          l = n.stateTypes,
-          u = o("WAHandleChatStateProtocol").parseChatStatus(l);
-        if (i.name === "FromUser") {
-          var c;
-          return (c =
-            r == null
-              ? void 0
-              : r({ status: u, jid: i.value.from }).then(
-                  o("WAResultOrError").makeResult,
-                )) != null
-            ? c
-            : s;
-        } else {
+          i = n.parsedRequest,
+          l = i.stateSource,
+          u = i.stateTypes,
+          c = o("WAHandleChatStateProtocol").parseChatStatus(u);
+        if (l.name === "FromGroup") {
           var d;
-          return (
-            i.name,
-            (d =
-              a == null
-                ? void 0
-                : a({
-                    status: u,
-                    jid: i.value.from,
-                    participant: i.value.participant,
-                  }).then(o("WAResultOrError").makeResult)) != null
-              ? d
-              : s
-          );
+          return (d =
+            a == null
+              ? void 0
+              : a({
+                  status: c,
+                  jid: l.value.from,
+                  participant: l.value.participant,
+                }).then(o("WAResultOrError").makeResult)) != null
+            ? d
+            : s;
         }
+        return (e =
+          r == null
+            ? void 0
+            : r({ status: c, jid: l.value.from }).then(
+                o("WAResultOrError").makeResult,
+              )) != null
+          ? e
+          : s;
       };
     }
     l.createHandleChatState = u;

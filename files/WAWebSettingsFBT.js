@@ -385,9 +385,45 @@ __d(
       );
     }
     function _t() {
-      return s._(/*BTDS*/ "Status ad");
+      return s._(/*BTDS*/ "Live call screening");
     }
     function ft() {
+      return s._(
+        /*BTDS*/ "Screen 1:1 voice calls to read what the caller says before you answer.",
+      );
+    }
+    function gt() {
+      return s._(/*BTDS*/ "Calls from unknown numbers");
+    }
+    function ht() {
+      return s._(/*BTDS*/ "Choose what happens when unknown numbers call.");
+    }
+    function yt() {
+      return s._(/*BTDS*/ "Never");
+    }
+    function Ct() {
+      return s._(/*BTDS*/ "All calls will ring normally.");
+    }
+    function bt() {
+      return s._(/*BTDS*/ "Ask reason for calling");
+    }
+    function vt() {
+      return s._(
+        /*BTDS*/ "For 1:1 voice calls, unknown callers will be asked why they're calling so you can decide whether to answer.",
+      );
+    }
+    function St() {
+      return s._(/*BTDS*/ "Silence");
+    }
+    function Rt() {
+      return s._(
+        /*BTDS*/ "Silence all calls from unknown callers. You'll still see them in your Calls tab and notifications.",
+      );
+    }
+    function Lt() {
+      return s._(/*BTDS*/ "Status ad");
+    }
+    function Et() {
       return s._(/*BTDS*/ "View details on your phone");
     }
     ((l.wallpaperTitle = e),
@@ -504,8 +540,18 @@ __d(
       (l.protectIpInCallsDescription = dt),
       (l.silenceUnknownCallersTitle = mt),
       (l.silenceUnknownCallersDescription = pt),
-      (l.wamoNonAGMMessagePreviewTitle = _t),
-      (l.wamoNonAGMMessagePreviewDescription = ft));
+      (l.liveCallScreeningTitle = _t),
+      (l.liveCallScreeningDescription = ft),
+      (l.callScreeningSettingSectionTitle = gt),
+      (l.callScreeningSettingSectionDescription = ht),
+      (l.callScreeningSettingNeverTitle = yt),
+      (l.callScreeningSettingNeverDescription = Ct),
+      (l.callScreeningSettingScreenTitle = bt),
+      (l.callScreeningSettingScreenDescription = vt),
+      (l.callScreeningSettingSilenceTitle = St),
+      (l.callScreeningSettingSilenceDescription = Rt),
+      (l.wamoNonAGMMessagePreviewTitle = Lt),
+      (l.wamoNonAGMMessagePreviewDescription = Et));
   },
   226,
 );

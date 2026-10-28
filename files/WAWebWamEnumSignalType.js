@@ -33,6 +33,8 @@ __d(
       USER_BLOCK_REASON_DONT_RECOGNIZE: 27,
       IAB_LPV: 28,
       IAB_LPV_BODY: 29,
+      IAB_LPV_V2: 30,
+      IAB_LPV_BODY_V2: 31,
     });
     i.SIGNAL_TYPE = e;
   },

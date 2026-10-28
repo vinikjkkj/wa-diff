@@ -19,7 +19,6 @@ __d(
     e.doc =
       "Sets the locale for debug, saved, or phone priority. Defaults to debug priority.";
     function u(e) {
-      r("vulture")("zSNL1g5nFyu60GDNj4P2onXyK2A=");
       var t =
           r("WAWebL10N").getLocale() === "fb_AR" ||
           r("WAWebL10N").getLocale() === "ar-XB",

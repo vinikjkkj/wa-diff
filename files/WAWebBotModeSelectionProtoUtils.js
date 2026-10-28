@@ -2,7 +2,6 @@ __d(
   "WAWebBotModeSelectionProtoUtils",
   [
     "WALogger",
-    "WAWebBotBaseGating",
     "WAWebBotModeSelectionTypes",
     "WAWebBotUtils",
     "WAWebProtobufsAICommon.pb",
@@ -58,25 +57,23 @@ __d(
           );
           return;
         }
-        if (o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()) {
-          var p = l.overrideMode;
-          p != null && p.length > 0
-            ? ((t.botModeOverride = p),
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[parseBotModeSelectionMetadataProto] override=",
-                    "",
-                  ])),
-                p.join(", "),
-              ))
-            : o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[parseBotModeSelectionMetadataProto] no override mode",
-                  ])),
-              );
-        }
+        var p = l.overrideMode;
+        p != null && p.length > 0
+          ? ((t.botModeOverride = p),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[parseBotModeSelectionMetadataProto] override=",
+                  "",
+                ])),
+              p.join(", "),
+            ))
+          : o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[parseBotModeSelectionMetadataProto] no override mode",
+                ])),
+            );
         var _ = l.mode;
         if (_ == null || _.length === 0) {
           o("WALogger").LOG(

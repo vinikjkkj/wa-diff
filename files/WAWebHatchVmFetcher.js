@@ -168,7 +168,11 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.trim();
             if (t === "")
-              return { detail: "ABRA token is empty", kind: "failure" };
+              return {
+                cause: "empty_token",
+                detail: "ABRA token is empty",
+                kind: "failure",
+              };
             var n = new AbortController(),
               r = self.setTimeout(function () {
                 return n.abort();
@@ -189,6 +193,7 @@ __d(
                 return (
                   y(a ? "timeout" : "transport"),
                   {
+                    cause: a ? "timeout" : "network",
                     detail: a
                       ? "VM credential request timed out"
                       : "VM credential request failed",
@@ -203,12 +208,14 @@ __d(
                 };
               if (o.status === 403)
                 return {
+                  cause: "forbidden",
                   detail:
                     "ABRA token is stale or not scoped for Hatch VM discovery",
                   kind: "failure",
                 };
               if (!o.ok)
                 return {
+                  cause: "http",
                   detail: "VM credential request returned HTTP " + o.status,
                   kind: "failure",
                 };
@@ -220,6 +227,7 @@ __d(
                 return (
                   y(l ? "timeout" : "not_json"),
                   {
+                    cause: l ? "timeout" : "malformed",
                     detail: l
                       ? "VM credential request timed out"
                       : "VM credential response was not JSON",
@@ -229,6 +237,7 @@ __d(
               }
               if (i == null || typeof i != "object" || Array.isArray(i))
                 return {
+                  cause: "malformed",
                   detail: "VM credential response was invalid",
                   kind: "failure",
                 };
@@ -237,6 +246,7 @@ __d(
                 return (
                   h("vm_list"),
                   {
+                    cause: "malformed",
                     detail: "VM credential response omitted vm_list",
                     kind: "failure",
                   }
@@ -256,6 +266,7 @@ __d(
               if (u.length === 0) {
                 var b;
                 return {
+                  cause: "malformed",
                   detail:
                     (b = m[0]) != null
                       ? b
@@ -297,7 +308,11 @@ __d(
               o = e.url,
               a = t.trim();
             if (a === "")
-              return { detail: "ABRA token is empty", kind: "failure" };
+              return {
+                cause: "empty_token",
+                detail: "ABRA token is empty",
+                kind: "failure",
+              };
             var i = new AbortController(),
               l = self.setTimeout(function () {
                 return i.abort();
@@ -319,6 +334,7 @@ __d(
               return (
                 C(r, u ? "timeout" : "transport"),
                 {
+                  cause: u ? "timeout" : "network",
                   detail: u
                     ? "VM " + r + " request timed out"
                     : "VM " + r + " request failed",
@@ -337,7 +353,11 @@ __d(
               var d = "VM " + r + " request returned HTTP " + s.status;
               return s.status === 404
                 ? { detail: d, kind: "not_found" }
-                : { detail: d, kind: "failure" };
+                : {
+                    cause: s.status === 403 ? "forbidden" : "http",
+                    detail: d,
+                    kind: "failure",
+                  };
             }
             return { kind: "ok" };
           });

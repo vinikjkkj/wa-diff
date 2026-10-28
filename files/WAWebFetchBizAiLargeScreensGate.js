@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
@@ -63,12 +62,7 @@ __d(
       );
     }
     function L(e) {
-      if (
-        !o("WAWebMobilePlatforms").isSMB() ||
-        !o("WAWebABProps").getABPropConfigValue(
-          "biz_ai_large_screens_gate_fetch_enabled",
-        )
-      )
+      if (!o("WAWebMobilePlatforms").isSMB())
         return (f || (f = n("Promise"))).resolve();
       if (e !== "debug") {
         var t = v();

@@ -10,96 +10,77 @@ __d(
     }
     function u(e) {
       r("WAWebUserPrefsStore").set(
-        r("WAWebUserPrefsDebugKeys").DEBUG_READ_RECEIPT,
+        r("WAWebUserPrefsDebugKeys").DEBUG_PASSIVE_MODE,
         e,
       );
     }
     function c() {
       return r("WAWebUserPrefsStore").get(
-        r("WAWebUserPrefsDebugKeys").DEBUG_READ_RECEIPT,
+        r("WAWebUserPrefsDebugKeys").DEBUG_PASSIVE_MODE,
       );
     }
     function d(e) {
       r("WAWebUserPrefsStore").set(
-        r("WAWebUserPrefsDebugKeys").DEBUG_PASSIVE_MODE,
+        r("WAWebUserPrefsDebugKeys").DEBUG_ENABLE_OFFLINE_MOCK,
         e,
       );
     }
     function m() {
-      return r("WAWebUserPrefsStore").get(
-        r("WAWebUserPrefsDebugKeys").DEBUG_PASSIVE_MODE,
-      );
-    }
-    function p(e) {
-      r("WAWebUserPrefsStore").set(
-        r("WAWebUserPrefsDebugKeys").DEBUG_ENABLE_OFFLINE_MOCK,
-        e,
-      );
-    }
-    function _() {
       return !!r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_ENABLE_OFFLINE_MOCK,
       );
     }
-    function f(e) {
+    function p(e) {
       return r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").DEBUG_OFFLINE_MOCK_TRAFFIC,
         e,
       );
     }
-    function g() {
+    function _() {
       return r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_OFFLINE_MOCK_TRAFFIC,
       );
     }
-    function h(e) {
+    function f(e) {
       r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").DEBUG_DECRYPT_FAIL,
         e,
       );
     }
-    function y() {
+    function g() {
       return s(
         r("WAWebUserPrefsStore").get(
           r("WAWebUserPrefsDebugKeys").DEBUG_DECRYPT_FAIL,
         ),
       );
     }
-    var C = new Map();
-    function b(e, t) {
-      C.set(e.user, t);
-    }
-    function v(e) {
-      var t;
-      return (t = C.get(e.user)) != null ? t : !1;
-    }
-    function S(e) {
+    function h(e) {
       r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").DEBUG_DO_NOT_SEND_RETRY_RECEIPT,
         e,
       );
     }
-    function R() {
+    function y() {
       return s(
         r("WAWebUserPrefsStore").get(
           r("WAWebUserPrefsDebugKeys").DEBUG_DO_NOT_SEND_RETRY_RECEIPT,
         ),
       );
     }
-    function L(e) {
+    function C(e) {
       r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").DEBUG_ROUTING_TOKEN,
         e,
       );
     }
-    function E() {
+    function b() {
       return e(
         r("WAWebUserPrefsStore").get(
           r("WAWebUserPrefsDebugKeys").DEBUG_ROUTING_TOKEN,
         ),
       );
     }
-    function k(e) {
+    function v(e) {
       var t;
       if (e == null) {
         r("WAWebUserPrefsStore").set(
@@ -117,59 +98,40 @@ __d(
             n,
           ));
     }
-    function I() {
+    function S() {
       return e(
         r("WAWebUserPrefsStore").get(
           r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERRIDE,
         ),
       );
     }
-    function T(e) {
-      r("WAWebUserPrefsStore").set(
-        r("WAWebUserPrefsDebugKeys").DEBUG_IGNORE_PARTICIPANT_ADD,
-        e,
-      );
-    }
-    function D() {
-      return s(
-        r("WAWebUserPrefsStore").get(
-          r("WAWebUserPrefsDebugKeys").DEBUG_IGNORE_PARTICIPANT_ADD,
-        ),
-      );
-    }
-    function x(e) {
+    function R(e) {
       r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").LID_MIGRATION_DEBUG_MODE,
         e,
       );
     }
-    function $() {
+    function L() {
       return !!r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").LID_MIGRATION_DEBUG_MODE,
       );
     }
-    ((l.setDebugReadReceipt = u),
-      (l.getDebugReadReceipt = c),
-      (l.setDebugPassiveMode = d),
-      (l.getDebugPassiveMode = m),
-      (l.setDebugEnableOfflineMock = p),
-      (l.getDebugEnableOfflineMock = _),
-      (l.setDebugOfflineMockTraffic = f),
-      (l.getDebugOfflineMockTraffic = g),
-      (l.setDebugDecryptFail = h),
-      (l.getDebugDecryptFail = y),
-      (l.setDebugEncryptFail = b),
-      (l.getDebugEncryptFail = v),
-      (l.setDebugDoNotSendRetryReceipt = S),
-      (l.getDebugDoNotSendRetryReceipt = R),
-      (l.setDebugRoutingTokenPref = L),
-      (l.getDebugRoutingTokenPref = E),
-      (l.setDebugDefaultBotOverride = k),
-      (l.getDebugDefaultBotOverride = I),
-      (l.setDebugIgnoreParticipantAdd = T),
-      (l.getDebugIgnoreParticipantAdd = D),
-      (l.setLidMigrationDebugMode = x),
-      (l.getLidMigrationDebugMode = $));
+    ((l.setDebugPassiveMode = u),
+      (l.getDebugPassiveMode = c),
+      (l.setDebugEnableOfflineMock = d),
+      (l.getDebugEnableOfflineMock = m),
+      (l.setDebugOfflineMockTraffic = p),
+      (l.getDebugOfflineMockTraffic = _),
+      (l.setDebugDecryptFail = f),
+      (l.getDebugDecryptFail = g),
+      (l.setDebugDoNotSendRetryReceipt = h),
+      (l.getDebugDoNotSendRetryReceipt = y),
+      (l.setDebugRoutingTokenPref = C),
+      (l.getDebugRoutingTokenPref = b),
+      (l.setDebugDefaultBotOverride = v),
+      (l.getDebugDefaultBotOverride = S),
+      (l.setLidMigrationDebugMode = R),
+      (l.getLidMigrationDebugMode = L));
   },
   98,
 );

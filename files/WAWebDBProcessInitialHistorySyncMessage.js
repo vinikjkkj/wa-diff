@@ -14,6 +14,7 @@ __d(
     "WAWebChatCollection",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBGroupHistoryPreProcessor",
+    "WAWebDBProcessReplyMsgs",
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreMessage",
     "WAWebDbEncryptionKey",
@@ -343,9 +344,9 @@ __d(
                 );
               throw e;
             })
-            .then(function () {
-              return (
-                o("WALogger")
+            .then(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                (o("WALogger")
                   .LOG(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -355,27 +356,32 @@ __d(
                     a,
                   )
                   .tags("history-sync"),
-                r("WAWeb-dexie").ignoreTransaction(function () {
-                  o("WAWebSchemaFtsIndexingQueue")
-                    .getFtsIndexingQueueTable()
-                    .bulkCreateOrReplace(
-                      b.messages.map(function (e) {
-                        return { id: String(e.rowId) };
-                      }),
-                    )
-                    .then(function () {
-                      o("WAWebFtsClient")
-                        .ftsClient.index()
-                        .catch(r("WAWebNoop"));
-                    });
-                }),
-                o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(
-                  Object.keys(t).flatMap(function (e) {
-                    return t[e].msgs;
-                  }),
-                )
-              );
-            })
+                  r("WAWeb-dexie").ignoreTransaction(function () {
+                    o("WAWebSchemaFtsIndexingQueue")
+                      .getFtsIndexingQueueTable()
+                      .bulkCreateOrReplace(
+                        b.messages.map(function (e) {
+                          return { id: String(e.rowId) };
+                        }),
+                      )
+                      .then(function () {
+                        o("WAWebFtsClient")
+                          .ftsClient.index()
+                          .catch(r("WAWebNoop"));
+                      });
+                  }));
+                var e = Object.keys(t).flatMap(function (e) {
+                  return t[e].msgs;
+                });
+                return (
+                  yield o("WAWebDBProcessReplyMsgs").hydrateReplyMsgsSafely(
+                    e,
+                    "history-sync",
+                  ),
+                  o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(e)
+                );
+              }),
+            )
             .catch(function (e) {
               o("WALogger").WARN(
                 g ||

@@ -3,7 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebBlockContants",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMmSignalSharingConversationCounters",
     "WAWebMmSignalSharingExpirationWindowUtils",
     "WAWebMmSignalSharingGatingUtils",
@@ -370,7 +370,7 @@ __d(
         ((n = a.contact) == null || (n = n.privacyMode) == null
           ? void 0
           : n.hostStorage) ===
-          o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook &&
+          o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook &&
         o(
           "WAWebMmSignalSharingLoggingUtils",
         ).logMmSignalSharingVerificationEvent({
@@ -555,7 +555,7 @@ __d(
       ((t = n.contact) == null || (t = t.privacyMode) == null
         ? void 0
         : t.hostStorage) !==
-        o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook ||
+        o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook ||
         !o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingCollectionEnabled(n.id.toString()) ||

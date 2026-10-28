@@ -5,10 +5,10 @@ __d(
     "WAWebABProps",
     "WAWebAttachMediaModel",
     "WAWebDualUploadsSendPolicy",
-    "WAWebMedia",
     "WAWebMediaOpaqueData",
     "WAWebMessageAssociation.flow",
     "WAWebMsgType",
+    "WAWebPrepRawMedia",
     "WAWebSendMsgResultAction",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -66,7 +66,7 @@ __d(
         i = e.options,
         l = e.parentPlaceholderProps,
         s = e.source,
-        u = o("WAWebMedia").prepRawMedia(
+        u = o("WAWebPrepRawMedia").prepRawMedia(
           s.then(function (e) {
             var t = e.file;
             return r("WAWebMediaOpaqueData").createFromData(t, t.type);

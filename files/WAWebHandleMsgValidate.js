@@ -17,7 +17,7 @@ __d(
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
     "WAWebHandleMsgMetaUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMaibaWASSMigration",
     "WAWebMessagingGatingUtils",
     "WAWebMobilePlatforms",
@@ -158,8 +158,7 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r =
-              t.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+              t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
                 ? t.bclParticipants.map(function (e) {
                     var t;
                     return (t = e.preMatWid) != null ? t : e.wid;

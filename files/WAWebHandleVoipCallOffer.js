@@ -6,7 +6,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCallLogMsgData.flow",
     "WAWebCoreActionsODS",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
     "WAWebVoipBootInitDecision",
@@ -214,7 +214,7 @@ __d(
             d = t.voipNode,
             m = t.voipStackInterface;
           switch (l) {
-            case o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS: {
+            case o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS: {
               var p,
                 _ = yield o("WAWebVoipContactUtils").isCallerNotContact(
                   n.peer_jid,
@@ -252,7 +252,7 @@ __d(
                   ));
               break;
             }
-            case o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY:
+            case o("WAWebHandleMsgTypes").E2EProcessResult.RETRY:
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -269,7 +269,7 @@ __d(
                   );
               }
               break;
-            case o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR:
+            case o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR:
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([

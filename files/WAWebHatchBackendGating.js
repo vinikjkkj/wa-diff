@@ -18,7 +18,7 @@ __d(
       });
     }
     function u() {
-      return f({
+      return g({
         abProp: "ai_hatch_approval_notification_enabled",
         primaryFeature: "ai_hatch_approval_notification_enabled",
       });
@@ -29,7 +29,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        f({
+        g({
           abProp: "ai_hatch_browser_enabled",
           primaryFeature: "ai_hatch_browser_enabled",
         })
@@ -41,7 +41,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        f({
+        g({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
@@ -53,7 +53,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        f({
+        g({
           abProp: "ai_hatch_secure_credentials_enabled",
           primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
@@ -65,19 +65,22 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        f({
+        g({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
     function _() {
-      return f({
+      return g({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
     }
-    function f(e) {
+    function f() {
+      return g({ abProp: "ai_hatch_cvm_enabled" });
+    }
+    function g(e) {
       var t = e.abProp,
         n = e.primaryFeature;
       return (
@@ -93,7 +96,8 @@ __d(
       (l.isHatchConnectorsEnabledOnBackend = d),
       (l.isHatchSecureCredentialsEnabledOnBackend = m),
       (l.isHatchSpaceEnabledOnBackend = p),
-      (l.isHatchJarvisSchemaEnabledOnBackend = _));
+      (l.isHatchJarvisSchemaEnabledOnBackend = _),
+      (l.isHatchCvmEnabledOnBackend = f));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "OzOneSemanticHandlerUtils",
-  ["ConstUriUtils", "FBLogger", "qex", "vulture"],
+  ["ConstUriUtils", "FBLogger", "qex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -52,12 +52,10 @@ __d(
       return !1;
     }
     function c(e, t) {
-      if (
-        (r("vulture")("ZWm_v2mk5WEsoJiamoEo2M8qlbc="), e != null && t != null)
-      ) {
+      if (e != null && t != null) {
         var n = parseInt(e, 10),
-          o = parseInt(t, 10);
-        return !isNaN(n) && !isNaN(o) && n > 0 && n <= o;
+          r = parseInt(t, 10);
+        return !isNaN(n) && !isNaN(r) && n > 0 && n <= r;
       }
       return !1;
     }

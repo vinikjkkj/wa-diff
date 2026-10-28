@@ -100,14 +100,14 @@ __d(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? {
                 descriptorType: "existing_group_permissions",
-                chat: e,
+                chatId: e.id,
                 groupMetadata: t,
               }
             : s.jsx(
                 o("WAWebExistingGroupPermissionsDrawerLoadable")
                   .ExistingGroupPermissionsDrawerLoadable,
                 {
-                  chat: e,
+                  chatId: e.id,
                   groupMetadata: t,
                   onClose: o("WAWebDrawerManager").closeDrawerRight,
                 },

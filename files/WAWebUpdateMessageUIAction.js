@@ -10,7 +10,7 @@ __d(
     "WAWebDBProcessMessage",
     "WAWebHandleForMessageRange",
     "WAWebHandleForMessageRangeEnums",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebStatusCollection",
@@ -32,8 +32,7 @@ __d(
             l = t.messageOverwriteOption,
             c =
               l === void 0
-                ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
-                    .NO_OVERWRITE
+                ? o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE
                 : l,
             d = t.msg,
             m = t.preserveOrder,
@@ -42,8 +41,7 @@ __d(
               add: "after",
               update:
                 c !==
-                o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
-                  .NO_OVERWRITE,
+                o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE,
               isHistory: !1,
             },
             g = !i,

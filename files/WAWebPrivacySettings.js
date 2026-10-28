@@ -14,7 +14,12 @@ __d(
       c = babelHelpers.extends({}, u, { error: "error" }),
       d = babelHelpers.extends({}, s, { error: "error" }),
       m = { all: "all", contacts: "contacts" },
-      p = { all: "all", known: "known", contacts: "contacts" },
+      p = {
+        all: "all",
+        known: "known",
+        contacts: "contacts",
+        screen: "screen",
+      },
       _ = babelHelpers.extends({}, p, { error: "error" }),
       f = { off: "off", on_standard: "on_standard" };
     ((i.VISIBILITY = e),

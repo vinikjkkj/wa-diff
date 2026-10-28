@@ -77,7 +77,7 @@ __d(
             ),
               this.getAgentCollectionForChatId(
                 o("WAWebWidFactory").createWid(t.chatId),
-              ).trigger("change", []));
+              ).trigger("change"));
           }),
           (r.$ChatAssignmentCollectionImpl$p_7 = function (t) {
             var e = this.$ChatAssignmentCollectionImpl$p_3.filter(function (e) {

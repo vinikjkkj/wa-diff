@@ -96,6 +96,7 @@ __d(
       ATTACHMENT_TRAY: 91,
       BIZ_PROFILE_CONNECTED_MEDIA: 92,
       BB_STATUS_UPSELL: 93,
+      CONTENT_HUB: 94,
     });
     i.ENTRY_POINT = e;
   },

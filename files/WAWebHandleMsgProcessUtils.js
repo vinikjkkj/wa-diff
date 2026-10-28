@@ -190,11 +190,14 @@ __d(
           "WAWebKeepAndApplyBrazilPaymentStateUpdates",
         ).isRoutedBrazilPaymentStateUpdateMsg(t)
         ? null
-        : r.offline != null && !i
-          ? (d(t, r, a), (c || (c = n("Promise"))).resolve())
-          : o(
-              "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-            ).keepAndApplyBrazilPaymentStateUpdate(t, i);
+        : (o(
+            "WAWebBrazilPaymentStateUpdateMsgUtils",
+          ).awaitBrazilPaymentStateUpdateReceipt(t),
+          r.offline != null && !i
+            ? (d(t, r, a), (c || (c = n("Promise"))).resolve())
+            : o(
+                "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+              ).keepAndApplyBrazilPaymentStateUpdate(t, i));
     }
     function v(t) {
       return S(t).catch(function (n) {

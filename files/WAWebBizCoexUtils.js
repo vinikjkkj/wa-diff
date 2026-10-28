@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCoexPrivacySysMsgWamEvent",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMsgKey",
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
@@ -66,7 +66,7 @@ __d(
       var t;
       return (
         ((t = e.privacyMode) == null ? void 0 : t.hostStorage) ===
-        o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook
+        o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook
       );
     }
     function y(e) {

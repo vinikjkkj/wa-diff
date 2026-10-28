@@ -118,12 +118,14 @@ __d(
                       ),
                       e.parentNode.removeChild(e)));
                 });
-              (r &&
-                ((this.$6 = !0),
-                (this.$4 = function () {
-                  for (var e = 0; e < r.length; e++) r[e]();
-                })),
-                (this.$3 = o));
+              if (r) {
+                this.$6 = !0;
+                var a = r;
+                this.$4 = function () {
+                  for (var e = 0; e < a.length; e++) a[e]();
+                };
+              }
+              this.$3 = o;
             }
           }),
           (r.setDeferred = function (t) {

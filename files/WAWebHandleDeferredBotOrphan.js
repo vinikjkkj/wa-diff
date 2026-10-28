@@ -10,7 +10,7 @@ __d(
     "WAWebDBProcessOrphansForNewMsg",
     "WAWebDBStoreMessageOrphans",
     "WAWebHandleMsgSendReceipt",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebMessageInsertDeferredPlaceholder",
     "WAWebMessageReceiveFlow",
@@ -69,12 +69,9 @@ __d(
             }
           }
           var m = d
-            ? {
-                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.BACKFILL,
-              }
+            ? { result: o("WAWebHandleMsgTypes").E2EProcessResult.BACKFILL }
             : {
-                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                  .PARSE_ERROR,
+                result: o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR,
                 nackReason: o("WAWebCreateNackFromStanza").NackReason
                   .UnhandledError,
               };

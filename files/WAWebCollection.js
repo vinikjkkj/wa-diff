@@ -487,7 +487,7 @@ __d(
       return r("gkx")("12882");
     }
     function f(e) {
-      return !m.has(e) && !/\s/.test(e);
+      return typeof e == "string" && !m.has(e) && !/\s/.test(e);
     }
     l.default = p;
   },

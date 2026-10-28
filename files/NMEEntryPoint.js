@@ -353,6 +353,8 @@ __d(
       FB_QUOTA_LIMIT_UPSELL: "fb_quota_limit_upsell",
       FB_REELS_AQP_PRO_AC: "fb_reels_aqp_pro_ac",
       FB_REELS_AQP_PRO_BIZ: "fb_reels_aqp_pro_biz",
+      FB_REELS_PLAYBACK_CONTROLS_PICTURE_IN_PICTURE_UPSELL:
+        "fb_reels_playback_controls_picture_in_picture_upsell",
       FB_REELS_REWATCH_INSIGHTS_TILE_UPSELL:
         "fb_reels_rewatch_insights_tile_upsell",
       FB_REELS_SELF_VIEW_FOLLOW_CTA_UPSELL:
@@ -912,6 +914,8 @@ __d(
       META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE:
         "meta_one_biz_ai_mbs_inbox_quota_lifecycle",
       META_ONE_BIZ_AI_MBS_UPSELL: "meta_one_biz_ai_mbs_upsell",
+      META_ONE_BIZ_AI_MESSAGE_COMPOSER_BANNER:
+        "meta_one_biz_ai_message_composer_banner",
       META_ONE_BIZ_AI_MESSENGER_UPSELL: "meta_one_biz_ai_messenger_upsell",
       META_ONE_BIZ_AI_QUOTA_EMAIL: "meta_one_biz_ai_quota_email",
       META_ONE_BIZ_AI_WA_WEB_AI_HOME_UPSELL:
@@ -927,6 +931,7 @@ __d(
         "meta_one_fb_profile_authenticity_bottom_sheet",
       META_ONE_FB_PRO_ACQUISITION_FOLLOWER_NOTIF_UPSELL:
         "meta_one_fb_pro_acquisition_follower_notif_upsell",
+      META_ONE_FB_REACH_BOOST_LOCKED_ROW: "meta_one_fb_reach_boost_locked_row",
       META_ONE_FB_REELS_COMPOSER_LOCKED_ROW:
         "meta_one_fb_reels_composer_locked_row",
       META_ONE_FB_TAP_TO_DM_LOCKED_ROW: "meta_one_fb_tap_to_dm_locked_row",
@@ -1130,6 +1135,8 @@ __d(
       META_SUBS_VIBES_WEB_MOVIE_GEN_LIGHTBOX_REACHED_LIMIT_UPSELL:
         "meta_subs_vibes_web_movie_gen_lightbox_reached_limit_upsell",
       META_SUBS_WA_META_PLUS_ONBOARDING: "meta_subs_wa_meta_plus_onboarding",
+      META_SUBS_WA_SANCTIONS_STEP_UP_REMINDER_NOTIF:
+        "meta_subs_wa_sanctions_step_up_reminder_notif",
       MOBILE_FB_LWI_POST_AD_CREATION_GUIDANCE_UPSELL:
         "mobile_fb_lwi_post_ad_creation_guidance_upsell",
       MOBILE_MBS_POST_AD_CREATION_GUIDANCE_UPSELL:

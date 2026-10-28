@@ -6,6 +6,7 @@ __d(
     "WAWebAdvMetadataCreationFailureWamEvent",
     "WAWebApiContact",
     "WAWebApiDeviceList",
+    "WAWebBoolFunc",
     "WAWebDeviceSentMessageProtoUtils",
     "WAWebE2EProtoGenerator",
     "WAWebEncryptMsgProtobuf",
@@ -50,9 +51,7 @@ __d(
                 skDistributionList: i,
               }),
               h = _
-                ? function () {
-                    return !1;
-                  }
+                ? o("WAWebBoolFunc").returnFalse
                 : o("WAWebSendMsgCommonApi").isPrimaryDevice,
               y = i.map(
                 (function () {

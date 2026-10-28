@@ -19,7 +19,7 @@ __d(
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
     "WAWebHandleMsgMetaUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebMessagingGatingUtils",
     "WAWebMsgAGMProcessing",
@@ -307,17 +307,17 @@ __d(
                 m.protocolMessage.lidMigrationMappingSyncMessage,
             };
           switch (d.type) {
-            case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT:
+            case o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT:
               return o("WAWebUserPrefsMeUser").isMeAccount(d.author)
                 ? D(e)
                 : N(e);
-            case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP:
+            case o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP:
               return d.isDirect &&
                 o("WAWebUserPrefsMeUser").isMeAccount(d.author) &&
                 !J(e)
                 ? D(e)
                 : N(e);
-            case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST: {
+            case o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST: {
               if (
                 e.ciphertextType ===
                 o("WAWebBackendJobs.flow").CiphertextType.Skmsg
@@ -333,11 +333,11 @@ __d(
                 ? N(e)
                 : $(e);
             }
-            case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST:
+            case o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST:
               return N(e);
-            case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.DIRECT_PEER_STATUS:
+            case o("WAWebHandleMsgTypes").MESSAGE_TYPE.DIRECT_PEER_STATUS:
               return d.isDirect === !0 ? I(e) : $(e);
-            case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS:
+            case o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS:
               return N(e);
             default:
               throw r("err")("Unrecognized MESSAGE_TYPE");
@@ -595,17 +595,14 @@ __d(
             ((T.futureproofParams = te), (T.futureproofBuffer = Z));
           }
           if (
-            (C.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS &&
+            (C.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS &&
               ((T.campaignId = C.campaignId),
               (T.campaignDuration = C.campaignDuration)),
-            C.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST &&
+            C.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST &&
               ((T.broadcastId = C.chat),
               (T.bclParticipants = C.bclParticipants),
               (J = T)),
-            C.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST)
+            C.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST)
           ) {
             var ne;
             T.broadcastId = C.chat;
@@ -649,8 +646,7 @@ __d(
             de = Q || Y || (ce && h === !0 && T.futureproofType == null);
           return (
             de ||
-              (C.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+              (C.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
                 ? (ue = yield j(T, C.bclParticipants))
                 : ((T.subtype === "payment_transaction_request_cancelled" ||
                     T.subtype === "payment_action_request_declined") &&
@@ -726,8 +722,7 @@ __d(
     function B(e) {
       return !(
         (e.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
-          e.type !==
-            o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST) ||
+          e.type !== o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST) ||
         e.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
       );
     }
@@ -738,25 +733,24 @@ __d(
         i = e.placeholderType;
       if (!B(t)) return null;
       var l =
-          i === o("WAWebHandleMsgTypes.flow").PlaceholderType.E2E
+          i === o("WAWebHandleMsgTypes").PlaceholderType.E2E
             ? void 0
             : i ===
-                o("WAWebHandleMsgTypes.flow").PlaceholderType
-                  .BOT_UNAVAILABLE_FANOUT
+                o("WAWebHandleMsgTypes").PlaceholderType.BOT_UNAVAILABLE_FANOUT
               ? "bot_unavailable_fanout"
               : i ===
-                  o("WAWebHandleMsgTypes.flow").PlaceholderType
+                  o("WAWebHandleMsgTypes").PlaceholderType
                     .HOSTED_UNAVAILABLE_FANOUT
                 ? "hosted_unavailable_fanout"
                 : i ===
-                    o("WAWebHandleMsgTypes.flow").PlaceholderType
+                    o("WAWebHandleMsgTypes").PlaceholderType
                       .VIEW_ONCE_UNAVAILABLE_FANOUT
                   ? "view_once_unavailable_fanout"
                   : i ===
-                      o("WAWebHandleMsgTypes.flow").PlaceholderType
+                      o("WAWebHandleMsgTypes").PlaceholderType
                         .ACP_UNAVAILABLE_FANOUT
                     ? "acp_unavailable_fanout"
-                    : i === o("WAWebHandleMsgTypes.flow").PlaceholderType.FANOUT
+                    : i === o("WAWebHandleMsgTypes").PlaceholderType.FANOUT
                       ? "fanout"
                       : (function () {
                           throw Error(
@@ -773,7 +767,7 @@ __d(
           e2eSenderType: o("WAWebWamMsgUtils").getWamE2eSenderType(t.author),
           placeholderAddReason: a,
           bclParticipants:
-            t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+            t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
               ? t.bclParticipants
               : void 0,
           read: s ? !0 : void 0,
@@ -1065,13 +1059,13 @@ __d(
       );
     }
     function Q(e) {
-      if (e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST)
+      if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST)
         return new (r("WAWebMsgKey"))({
           remote: o("WAWebWidFactory").asUserWidOrThrow(e.author),
           fromMe: !1,
           id: e.externalId,
         });
-      if (e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT) {
+      if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT) {
         var t =
           e.metaFrom != null
             ? o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom)
@@ -1106,7 +1100,7 @@ __d(
         : o("WAWebWamEnumDeviceType").DEVICE_TYPE.COMPANION;
     }
     function Y(e) {
-      return e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
+      return e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT
         ? e.author
         : e.chat;
     }

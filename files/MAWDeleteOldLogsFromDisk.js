@@ -26,9 +26,9 @@ __d(
           n = e(),
           o = n.count();
         return (
-          (o.onsuccess = function (e) {
-            var n = e.target.result;
-            t.resolve(n);
+          (o.onsuccess = function () {
+            var e = o.result;
+            t.resolve(e);
           }),
           (o.onerror = function (e) {
             t.reject(e);
@@ -46,13 +46,13 @@ __d(
           i = o.index("date"),
           l = i.openCursor();
         return (
-          (l.onsuccess = function (e) {
-            var r = e.target.result;
-            if (r == null || !t(r.value, a)) {
+          (l.onsuccess = function () {
+            var e = l.result;
+            if (e == null || !t(e.value, a)) {
               n.resolve(a);
               return;
             }
-            (a.push(r.value.id), r.continue());
+            (a.push(e.value.id), e.continue());
           }),
           (l.onerror = function (e) {
             n.reject(e);

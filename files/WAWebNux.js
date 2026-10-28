@@ -74,6 +74,7 @@ __d(
       CONTACTS_AND_GROUPS_RESTRICTED_CHATS_BANNER:
         "contacts_and_groups_restricted_chats_banner",
       STATUS_RESHARE_INTRO: "status_reshare_intro",
+      CALL_SCREENING_INTRO: "call_screening_intro",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -208,6 +209,7 @@ __d(
           BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
           TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
           STATUS_RESHARE_INTRO: "status_reshare_intro",
+          CALL_SCREENING_INTRO: "call_screening_intro",
         },
       },
       g = {

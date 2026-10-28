@@ -1,7 +1,6 @@
 __d(
   "WAWebMaybeGetBotModeSelection",
   [
-    "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotModeSelectionTypes",
     "WAWebBotUtils",
@@ -72,10 +71,7 @@ __d(
       var n,
         r = t.to;
       if (
-        !(
-          !o("WAWebBotUtils").isMetaAiBot(r) ||
-          !o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()
-        ) &&
+        o("WAWebBotUtils").isMetaAiBot(r) &&
         o("WAWebBotGating").isAiModeSelectorInteractive()
       ) {
         var a =

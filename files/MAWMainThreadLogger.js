@@ -16,26 +16,28 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "performanceAbsoluteNow",
     "promiseDone",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = !1;
-    function u() {
-      s = !1;
-    }
+      s,
+      u = !1;
     function c() {
-      s || ((s = !0), o("WATagsLogger").initializeWaLogger(S));
+      u = !1;
     }
-    var d = function () {
+    function d() {
+      u || ((u = !0), o("WATagsLogger").initializeWaLogger(R));
+    }
+    var m = function () {
       return r("FBLogger")("messenger_web");
     };
-    function m(e, t) {
-      var n = p(e);
+    function p(e, t) {
+      var n = _(e);
       n != null && o("MAWLoggerUtils").logToHistory("log", n, t, !1);
     }
-    function p(e) {
+    function _(e) {
       if (
         !(
           !o("CurrentMessengerUser").isEmployee() &&
@@ -46,11 +48,6 @@ __d(
         return ((t = o("MAWLeakDetection").maybeReplaceVaultedString(t)), t);
       }
     }
-    function _(e, t) {
-      var n = o("WAJids").maybeSanitizeLogLineText(e);
-      ((n = o("MAWLeakDetection").maybeReplaceVaultedString(n)),
-        o("MAWLoggerUtils").logToHistory("log", n, t, !1));
-    }
     function f(e, t) {
       var n = o("WAJids").maybeSanitizeLogLineText(e);
       ((n = o("MAWLeakDetection").maybeReplaceVaultedString(n)),
@@ -59,7 +56,12 @@ __d(
     function g(e, t) {
       var n = o("WAJids").maybeSanitizeLogLineText(e);
       ((n = o("MAWLeakDetection").maybeReplaceVaultedString(n)),
-        d()
+        o("MAWLoggerUtils").logToHistory("log", n, t, !1));
+    }
+    function h(e, t) {
+      var n = o("WAJids").maybeSanitizeLogLineText(e);
+      ((n = o("MAWLeakDetection").maybeReplaceVaultedString(n)),
+        m()
           .tags(
             t.map(function (e) {
               return String(e);
@@ -67,41 +69,41 @@ __d(
           )
           .warn(n));
     }
-    function h(e, t, n, o, a, i) {
+    function y(e, t, n, o, a, i) {
       var l = r("err")(n);
-      ((l.stack = o), r("promiseDone")(b(e, t, l, a, i)));
+      ((l.stack = o), r("promiseDone")(v(e, t, l, a, i)));
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = o("MAWLeakDetection").maybeReplaceVaultedString(
-              o("WAJids").maybeSanitizeLogLineText(t),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = o("MAWLeakDetection").maybeReplaceVaultedString(
+              o("WAJids").maybeSanitizeLogLineText(e),
             ),
-            i = o("MAWLoggingSwitches").removeLoggingFromBridge
-              ? o("MAWSaveLogToDisk").getLastNEntries(r)
-              : (e || (e = n("Promise"))).resolve([]),
-            l =
-              r === 0
+            a = o("MAWLoggingSwitches").removeLoggingFromBridge
+              ? o("MAWSaveLogToDisk").getLastNEntries(t)
+              : (s || (s = n("Promise"))).resolve([]),
+            i =
+              t === 0
                 ? []
                 : [].concat(
-                    (yield i).map(function (e) {
+                    (yield a).map(function (e) {
                       return e.args;
                     }),
                   );
-          return { logs: [].concat(l), sanitizedMessage: a };
+          return { logs: [].concat(i), sanitizedMessage: r };
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t, n, r, o) {
-      return v.apply(this, arguments);
+    function v(e, t, n, r, o) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             var l,
               s,
@@ -109,9 +111,9 @@ __d(
                 o("WAJids").maybeSanitizeLogLineText(e),
               ),
               c = n != null ? n : r("err")(u),
-              m = a != null ? a : n == null ? 2 : 0,
+              d = a != null ? a : n == null ? 2 : 0,
               p = i != null ? i : 0,
-              _ = yield y(c.message, p),
+              _ = yield C(c.message, p),
               f = _.logs,
               g = _.sanitizedMessage,
               h = r("getErrorSafe")(c);
@@ -120,8 +122,8 @@ __d(
             } catch (e) {
               h = r("err")(g, c.fileName, c.lineNumber);
             }
-            (m !== 0 && (h.framesToPop = m),
-              (l = d()) == null ||
+            (d !== 0 && (h.framesToPop = d),
+              (l = m()) == null ||
                 (s = l
                   .addMetadata(
                     "MESSENGER_E2EE_WEB",
@@ -136,10 +138,10 @@ __d(
                   .catching(h)).mustfix.apply(s, [g].concat(f)));
           },
         )),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    var S = {
+    var R = {
       count: function (t, n) {
         o("MAWConsoleLogger").logToConsole("count", t, n);
       },
@@ -199,72 +201,72 @@ __d(
         }
       },
       error: function (t, n, a) {
-        (r("promiseDone")(b(t, n, a)),
+        (r("promiseDone")(v(t, n, a)),
           o("MAWConsoleLogger").logToConsole("error", t, n));
       },
       info: function (t, n) {
-        (f(t, n), o("MAWConsoleLogger").logToConsole("info", t, n));
+        (g(t, n), o("MAWConsoleLogger").logToConsole("info", t, n));
       },
       logRestricted: function (t, n) {
-        (m(t, n), o("MAWConsoleLogger").logToConsole("log", t, n));
+        (p(t, n), o("MAWConsoleLogger").logToConsole("log", t, n));
       },
       warn: function (t, n) {
-        (g(t, n), o("MAWConsoleLogger").logToConsole("warn", t, n));
+        (h(t, n), o("MAWConsoleLogger").logToConsole("warn", t, n));
       },
     };
-    function R() {
+    function L() {
       return o("MAWLoggingSwitches").removeLoggingFromBridge
         ? o("MAWSaveLogToDisk").getEntriesFromDb()
-        : (e || (e = n("Promise"))).resolve([]);
-    }
-    function L() {
-      return E.apply(this, arguments);
+        : (s || (s = n("Promise"))).resolve([]);
     }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("MAWLoggingSwitches").removeLoggingFromBridge &&
             (yield o("MAWDeleteOldLogsFromDisk").clearLogs());
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
+    function I(e) {
       return new Date(typeof e == "string" ? parseInt(e, 10) : e)
         .toISOString()
         .replace("T", " ")
         .replace("Z", "");
     }
-    function I(e) {
-      return e
-        .map(function (e) {
+    function T(t) {
+      return t
+        .map(function (t) {
           try {
-            var t = k(e.date);
-            return [t, e.level, e.category, e.event, e.args].join(" | ");
-          } catch (e) {
-            var n = r("getErrorSafe")(e);
+            var n = I(t.date);
+            return [n, t.level, t.category, t.event, t.args].join(" | ");
+          } catch (t) {
+            var o = r("getErrorSafe")(t);
             return [
-              k(Date.now()),
+              I((e || (e = r("performanceAbsoluteNow")))()),
               "error",
               "LOGGER",
               "Error formatting log: " +
-                ((n == null ? void 0 : n.message) || ""),
+                ((o == null ? void 0 : o.message) || ""),
             ].join(" | ");
           }
         })
         .filter(Boolean)
         .join("\n");
     }
-    ((l.__testClearLoggerSetup = u),
-      (l.setupMainWaLogger = c),
-      (l.logRestricted = m),
-      (l.count = _),
-      (l.info = f),
-      (l.warn = g),
-      (l.logError = h),
-      (l.getEntries = R),
-      (l.clearEntries = L),
-      (l.formatEntries = I));
+    ((l.__testClearLoggerSetup = c),
+      (l.setupMainWaLogger = d),
+      (l.logRestricted = p),
+      (l.count = f),
+      (l.info = g),
+      (l.warn = h),
+      (l.logError = y),
+      (l.getEntries = L),
+      (l.clearEntries = E),
+      (l.formatEntries = T));
   },
   98,
 );

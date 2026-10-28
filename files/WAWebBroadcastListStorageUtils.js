@@ -6,7 +6,7 @@ __d(
     "WAWebAudienceResolver",
     "WAWebBackendApi",
     "WAWebBroadcastSystemMsg",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebInitialSystemMsg",
     "WAWebSchemaBroadcastMetadata",
@@ -32,7 +32,7 @@ __d(
               return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: t,
                 handleSingleMsgOrigin: "createChat",
-                messageOverwriteOption: o("WAWebHandleMsgTypes.flow")
+                messageOverwriteOption: o("WAWebHandleMsgTypes")
                   .MessageOverwriteOption.NO_OVERWRITE,
                 newMsg: e,
                 preserveOrder: !1,

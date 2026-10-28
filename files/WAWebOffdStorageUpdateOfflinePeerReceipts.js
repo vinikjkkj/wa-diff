@@ -20,6 +20,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSchemaMessage",
     "WAWebSchemaPeerReadReceipt",
+    "WAWebStorageCrashAnnotations",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -152,6 +153,7 @@ __d(
               ])),
             t.length,
           ),
+            o("WAWebStorageCrashAnnotations").logPeerReceiptRowsForCrash(t),
             o("WAWebQplFlowWrapper").QPL.markerAnnotate(h, {
               int: { peerReceiptRowCount: t.length },
             }));

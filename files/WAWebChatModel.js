@@ -67,7 +67,7 @@ __d(
     "WAWebL10N",
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingModelUtils",
-    "WAWebMedia",
+    "WAWebMediaMsgRegistration",
     "WAWebMemoryPressureCacheRegistry",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
@@ -1231,7 +1231,7 @@ __d(
               (o("WAWebAppTracker").AppTracker.mark(
                 o("WAWebAppTracker").AppTrackerType.PurgeViewOnce,
               ),
-              o("WAWebMedia").deregisterMsg(t));
+              o("WAWebMediaMsgRegistration").deregisterMsg(t));
           }),
           (i.$ChatImpl$p_28 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

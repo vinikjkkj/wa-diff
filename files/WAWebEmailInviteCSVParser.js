@@ -37,7 +37,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield y(t, s, d),
+          var n = yield y({ file: t, maxBytes: s, previewRows: d }),
             r = v(n, !0),
             o = [],
             a = [],
@@ -67,7 +67,7 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           n === void 0 && (n = []);
-          var r = yield y(t, s, d),
+          var r = yield y({ file: t, maxBytes: s, previewRows: d }),
             o = v(r, !1);
           if (o.length > u) throw new e("too_many_emails");
           if (o.length === 0) throw new e("empty_file");
@@ -83,20 +83,23 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
+    function y(e) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          b(t, n);
-          var a = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
-            yield o("WAWebFileUtils").blobToText(t),
-            r,
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.file,
+            r = t.maxBytes,
+            a = t.previewRows;
+          b(n, r);
+          var i = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
+            yield o("WAWebFileUtils").blobToText(n),
+            a,
           );
-          if (a.meta.truncated) throw new e("too_many_emails");
-          if (a.errors.some(k)) throw new e("invalid_file");
-          var i = a.data
+          if (i.meta.truncated) throw new e("too_many_emails");
+          if (i.errors.some(k)) throw new e("invalid_file");
+          var l = i.data
             .map(function (e, t) {
               return { cells: e, rowNumber: t + 1 };
             })
@@ -105,8 +108,8 @@ __d(
                 return e.trim() !== "";
               });
             });
-          if (i.length === 0) throw new e("empty_file");
-          return i;
+          if (l.length === 0) throw new e("empty_file");
+          return l;
         })),
         C.apply(this, arguments)
       );

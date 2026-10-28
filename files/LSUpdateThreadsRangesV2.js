@@ -35,19 +35,21 @@ __d(
                             var r = e.item;
                             return (
                               (n[13] = r.minLastActivityTimestampMs),
-                              (n[15] = r.minThreadKey),
+                              (n[17] = r.isLoadingBefore),
+                              (n[16] = r.minThreadKey),
                               (n[14] = t.i64.lt(
                                 n[9] == null ? n[13] : n[9],
                                 n[13],
                               )),
-                              (n[9] = n[14] ? n[13] : n[9]),
-                              (n[10] = n[14] ? n[15] : n[10]),
-                              (n[11] = n[11] || r.isLoadingBefore),
+                              (n[15] = n[14]),
+                              (n[9] = n[15] ? n[13] : n[9]),
+                              (n[10] = n[15] ? n[16] : n[10]),
+                              (n[11] = n[11] || n[17]),
                               (n[12] =
                                 n[12] ||
                                 (t.i64.gt(n[13], t.i64.cast([0, 1])) &&
                                   t.i64.gt(
-                                    n[15],
+                                    n[16],
                                     t.i64.cast([-2147483648, 0]),
                                   )))
                             );
@@ -94,19 +96,21 @@ __d(
                             var r = e.item;
                             return (
                               (n[13] = r.minLastActivityTimestampMs),
-                              (n[15] = r.minThreadKey),
+                              (n[17] = r.isLoadingBefore),
+                              (n[16] = r.minThreadKey),
                               (n[14] = t.i64.lt(
                                 n[9] == null ? n[13] : n[9],
                                 n[13],
                               )),
-                              (n[9] = n[14] ? n[13] : n[9]),
-                              (n[10] = n[14] ? n[15] : n[10]),
-                              (n[11] = n[11] || r.isLoadingBefore),
+                              (n[15] = n[14]),
+                              (n[9] = n[15] ? n[13] : n[9]),
+                              (n[10] = n[15] ? n[16] : n[10]),
+                              (n[11] = n[11] || n[17]),
                               (n[12] =
                                 n[12] ||
                                 (t.i64.gt(n[13], t.i64.cast([0, 1])) &&
                                   t.i64.gt(
-                                    n[15],
+                                    n[16],
                                     t.i64.cast([-2147483648, 0]),
                                   )))
                             );

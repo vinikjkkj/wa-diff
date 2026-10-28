@@ -347,9 +347,6 @@ __d(
         NEWSLETTER_TAB_LAST_SEEN_TIMESTAMP: "WANewslettersTabLastSeenTimestamp",
         NEWSLETTER_WAS_BOOTSTRAPPED: "WANewslettersWasBootstrapped",
         BOT_LIST_LAST_REQUESTED_TIMESTAMP: "WABotListLastRequestedTimestamp",
-        UGC_BOT_LIST_LAST_REQUESTED_TIMESTAMP:
-          "WAUgcBotListLastRequestedTimestamp",
-        UGC_BOT_LIST_LAST_BHASH: "WAUgcBotListLastBhash",
         IS_HOSTED_ME_ACCOUNT: "WAIsHostedMeAccount",
         MMS4_CONN: "WAMms4Conn",
       }),

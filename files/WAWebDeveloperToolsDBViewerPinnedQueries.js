@@ -63,7 +63,13 @@ __d(
         filters: r,
         conditions: n,
         groupByColumn: o != null ? o : null,
-        label: y(a, t, r, n, o),
+        label: y({
+          columns: t,
+          conditions: n,
+          filters: r,
+          groupByColumn: o,
+          tableName: a,
+        }),
         pinnedAt: Date.now(),
       };
     }
@@ -90,19 +96,24 @@ __d(
         "query: " + r.join(", ")
       );
     }
-    function y(e, t, n, o, a) {
-      var i = r("countWhere")(t, function (e) {
+    function y(e) {
+      var t = e.columns,
+        n = e.conditions,
+        o = e.filters,
+        a = e.groupByColumn,
+        i = e.tableName,
+        l = r("countWhere")(t, function (e) {
           return e.selected;
         }),
-        l = t.length,
-        s = [e];
-      i < l && s.push(i + "/" + l + " fields");
-      var u = g(n);
-      u !== "" && s.push(u);
-      var d = h(o);
-      (d !== "" && s.push(d), a != null && s.push("group by: " + a));
-      var m = s.join(" | ");
-      return m.length > c ? m.slice(0, c - 1) + "\u2026" : m;
+        s = t.length,
+        u = [i];
+      l < s && u.push(l + "/" + s + " fields");
+      var d = g(o);
+      d !== "" && u.push(d);
+      var m = h(n);
+      (m !== "" && u.push(m), a != null && u.push("group by: " + a));
+      var p = u.join(" | ");
+      return p.length > c ? p.slice(0, c - 1) + "\u2026" : p;
     }
     ((l.loadPinnedQueries = d),
       (l.addPinnedQuery = p),

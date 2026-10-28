@@ -8,9 +8,10 @@ __d(
     "WAWebChatCollection",
     "WAWebChatEntryPoint",
     "WAWebCmd",
-    "WAWebCommentsModal.react",
+    "WAWebCommentsModalLoadable",
     "WAWebComposeBoxActions",
     "WAWebConfirmPopup.react",
+    "WAWebDeactivatedContactUtils",
     "WAWebDisplayType",
     "WAWebFbtCommon",
     "WAWebForwardMessageFlowLoadable",
@@ -21,7 +22,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
-    "WAWebMultiSelectBar.react",
+    "WAWebMultiSelectBarConstants",
     "WAWebQuotedMessageUserJourneyLogger",
     "WAWebStateUtils",
     "asyncToGeneratorRuntime",
@@ -59,7 +60,7 @@ __d(
         );
       else {
         if (i && h) {
-          n && n(o("WAWebMultiSelectBar.react").MultiSelectMode.FORWARD);
+          n && n(o("WAWebMultiSelectBarConstants").MultiSelectMode.FORWARD);
           return;
         }
         if (c) {
@@ -105,29 +106,32 @@ __d(
         }),
       );
     }
-    function p(e, t, n, a) {
-      if (
-        (o("WAWebModalManager").closeModalManager(),
-        o("WAWebFrontendChatGetters").getIsCAG(e))
-      )
-        o("WAWebModalManager").ModalManager.open(
-          d.jsx(r("WAWebCommentsModal.react"), { parentMsgs: [t] }),
-        );
-      else {
-        var i = o("WAWebStateUtils").unproxy(t);
-        ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(i)),
-          (a == null ? void 0 : a.replyInPlace) === !0 ||
-          e === o("WAWebChatCollection").ChatCollection.getActive()
-            ? o("WAWebComposeBoxActions").ComposeBoxActions.focus(e)
-            : o("WAWebCmd").Cmd.openChatBottom({
-                chat: e,
-                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                  .MessageReply,
-              }),
-          o(
-            "WAWebQuotedMessageUserJourneyLogger",
-          ).QuotedMessageUserJourneyLogger.quotedMessageAdded(e.id, n, t));
-      }
+    function p(e, t, n, r) {
+      if (!o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(e))
+        if (
+          (o("WAWebModalManager").closeModalManager(),
+          o("WAWebFrontendChatGetters").getIsCAG(e))
+        )
+          o("WAWebModalManager").ModalManager.open(
+            d.jsx(o("WAWebCommentsModalLoadable").WAWebCommentsModalLoadable, {
+              parentMsgs: [t],
+            }),
+          );
+        else {
+          var a = o("WAWebStateUtils").unproxy(t);
+          ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(a)),
+            (r == null ? void 0 : r.replyInPlace) === !0 ||
+            e === o("WAWebChatCollection").ChatCollection.getActive()
+              ? o("WAWebComposeBoxActions").ComposeBoxActions.focus(e)
+              : o("WAWebCmd").Cmd.openChatBottom({
+                  chat: e,
+                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                    .MessageReply,
+                }),
+            o(
+              "WAWebQuotedMessageUserJourneyLogger",
+            ).QuotedMessageUserJourneyLogger.quotedMessageAdded(e.id, n, t));
+        }
     }
     function _(e) {
       return f.apply(this, arguments);

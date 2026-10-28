@@ -5,7 +5,7 @@ __d(
     "WASmaxStatusDeliverIncomingNewsletterStatusRPC",
     "WAWebBackendApi",
     "WAWebHandleMsgError",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebMessageProcessorCache",
@@ -161,7 +161,7 @@ __d(
               o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.processMessageDecryptResult(
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR,
+                o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR,
               );
             var y = r("getErrorSafe")(e);
             throw (
@@ -237,7 +237,7 @@ __d(
         ? (o(
             "WAWebOfflineHandler",
           ).OfflineMessageHandler.processMessageDecryptResult(
-            o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+            o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
           ),
           o("WAWebMessageProcessorCache")
             .messageProcessorCache.addMessages([

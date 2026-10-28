@@ -49,13 +49,15 @@ __d(
               var r = n[t];
               return r == null || r.error === !0
                 ? (l++, { errored: !0 })
-                : (i.push(t),
-                  a.push(
-                    r.username != null
-                      ? { userId: e, username: r.username }
-                      : { userId: e, deleteUsername: !0 },
-                  ),
-                  { errored: !1 });
+                : r.noChange === !0
+                  ? { errored: !1 }
+                  : (i.push(t),
+                    a.push(
+                      r.username != null
+                        ? { userId: e, username: r.username }
+                        : { userId: e, deleteUsername: !0 },
+                    ),
+                    { errored: !1 });
             });
           if ((l > 0 && m(l), a.length > 0))
             try {

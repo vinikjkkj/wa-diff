@@ -16,16 +16,10 @@ __d(
     function s(e) {
       return (
         e === void 0 && (e = !1),
-        e ? r("qex")._("2997") === !0 : r("qex")._("3291") === !0
-      );
-    }
-    function u(e) {
-      return (
-        e === void 0 && (e = !1),
         e ? r("qex")._("2110") === !0 : r("qex")._("2203") === !0
       );
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = t === void 0 ? !0 : t,
         r = o(
           "useAdsLWIExposeAdAccountBoolUniverseHook",
@@ -41,9 +35,8 @@ __d(
       return r === !0;
     }
     ((l.getShouldDisableEditForCompletedAdsAndBoostAgain = e),
-      (l.getShouldHighlightBoostAgain = s),
-      (l.getShouldEnableIGBoostAgain = u),
-      (l.useShouldEnableEditErrorFix = c));
+      (l.getShouldEnableIGBoostAgain = s),
+      (l.useShouldEnableEditErrorFix = u));
   },
   98,
 );

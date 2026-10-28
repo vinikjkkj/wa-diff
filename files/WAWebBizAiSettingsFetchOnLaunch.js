@@ -14,9 +14,7 @@ __d(
     "WAWebProtobufSyncAction.pb",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["add"]
-      .concat(o("WAWebBizAiAgentStatusUtils").ONBOARDING_EVENTS)
-      .join(" ");
+    var e = ["add"].concat(o("WAWebBizAiAgentStatusUtils").ONBOARDING_EVENTS);
     function s() {
       for (var e of o("WAWebChatCollection").ChatCollection.getModelsArray())
         o("WAWebBizAiHandoffRemoval").armHandoffRemovalEvictionTimer(e);

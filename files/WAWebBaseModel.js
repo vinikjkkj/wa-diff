@@ -15,9 +15,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = /^change:/,
-      c = {},
-      d = (function (t) {
+      u,
+      c = /^change:/,
+      d = {},
+      m = (function (t) {
         function a(e, n) {
           var r;
           if (
@@ -40,7 +41,7 @@ __d(
           var a = r.__defaults,
             i = a ? babelHelpers.extends({}, a, e) : e;
           return (
-            i && !p(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
+            i && !_(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
             r.initialize(),
             (r.__initialized = !0),
             r
@@ -73,13 +74,21 @@ __d(
                 (this.mirror = new (o("WAWebBaseMirror").BaseMirror)(this)));
           }),
           (i._refreshStaleModel = function () {
-            if (!(!this._uiObservers && this.stale))
-              if (this.getCollection != null)
-                this.getCollection().find(this.id);
-              else
-                throw r("err")(
-                  "base_model:_refreshStaleModel getCollection does not exist",
-                );
+            (!this._uiObservers && this.stale) ||
+              (this.getCollection != null
+                ? this.getCollection().find(this.id)
+                : o("WALogger")
+                    .WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "base_model:_refreshStaleModel getCollection does not exist on ",
+                          "",
+                        ])),
+                      this.constructor.name,
+                    )
+                    .sendLogs("base-model-stale-refresh-no-get-collection", {
+                      sampling: 0.01,
+                    }));
           }),
           (i.incObservers = function (t) {
             (this._uiObservers++,
@@ -119,25 +128,25 @@ __d(
           (i.get = function (t) {
             return this[t];
           }),
-          (i.set = function (r, a, i) {
-            var t;
+          (i.set = function (t, r, a) {
+            var e;
             (n("cr:5292") == null ? void 0 : n("cr:5292").currentTransaction) !=
               null &&
               o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[txn] UI change in ",
                     ". See https://fburl.com/aleoj4tt",
                   ])),
                 this.constructor.name,
               );
-            var l = i;
-            return typeof r == "string"
-              ? this._set({ keyOrAttrs: r, maybeOptions: l, valueOrOptions: a })
-              : ((l = a),
-                (t = l) != null && t.merge
-                  ? this._set({ keyOrAttrs: _(r), valueOrOptions: l })
-                  : this._set({ keyOrAttrs: r, valueOrOptions: l }));
+            var i = a;
+            return typeof t == "string"
+              ? this._set({ keyOrAttrs: t, maybeOptions: i, valueOrOptions: r })
+              : ((i = r),
+                (e = i) != null && e.merge
+                  ? this._set({ keyOrAttrs: f(t), valueOrOptions: i })
+                  : this._set({ keyOrAttrs: t, valueOrOptions: i }));
           }),
           (i._markChange = function (t, n) {
             this.__initialized &&
@@ -322,10 +331,10 @@ __d(
           }),
           (i._getUnboundCachedEventBubblingHandler = function (t) {
             var e;
-            return (e = c[t]) != null
+            return (e = d[t]) != null
               ? e
-              : (c[t] = function (e, n, r) {
-                  u.test(e)
+              : (d[t] = function (e, n, r) {
+                  c.test(e)
                     ? this.trigger("change:" + t + "." + e.split(":")[1], n, r)
                     : e === "change" && this.trigger("change", this);
                 });
@@ -340,9 +349,9 @@ __d(
           a
         );
       })(r("WAWebEventEmitter"));
-    function m(e) {
+    function p(e) {
       var t = o("WAWebModelUtils").convert(e),
-        n = o("WAWebModelUtils").stateExtend(d, t);
+        n = o("WAWebModelUtils").stateExtend(m, t);
       if (e.Proxy) {
         var r = o("WAWebBaseMirror").genMirrorMask(t);
         ((n.prototype.mirrorMask = r),
@@ -351,24 +360,24 @@ __d(
       }
       return n;
     }
-    function p(e) {
+    function _(e) {
       for (var t in e) if (Object.hasOwn(e, t)) return !1;
       return !0;
     }
-    function _(e) {
+    function f(e) {
       for (var t = Object.keys(e), n = t.length, r = {}, o = 0; o < n; o++) {
         var a = t[o];
         e[a] !== void 0 && (r[a] = e[a]);
       }
       return r;
     }
-    ((l.prop = (s = o("WAWebModelUtils")).prop),
-      (l.session = s.session),
-      (l.derived = s.derived),
-      (l.getter = s.getter),
-      (l.collection = s.collection),
-      (l.BaseModel = d),
-      (l.defineModel = m));
+    ((l.prop = (u = o("WAWebModelUtils")).prop),
+      (l.session = u.session),
+      (l.derived = u.derived),
+      (l.getter = u.getter),
+      (l.collection = u.collection),
+      (l.BaseModel = m),
+      (l.defineModel = p));
   },
   98,
 );

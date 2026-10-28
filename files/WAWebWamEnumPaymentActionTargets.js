@@ -419,6 +419,8 @@ __d(
       SWIPE_DOWN: 414,
       SEND_AGAIN: 415,
       SET_UP_WA_PAYMENTS: 416,
+      SELECT_EXTERNAL_APP: 417,
+      SELECT_WA_APP: 418,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

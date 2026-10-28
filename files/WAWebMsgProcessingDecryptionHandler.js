@@ -14,7 +14,7 @@ __d(
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
     "WAWebHandleMsgProcess",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebIsOfficialClient",
     "WAWebMessagingGatingUtils",
     "WAWebMsgProcessingApiUtils",
@@ -153,7 +153,7 @@ __d(
               n.skMsgFailedEnc == null;
           if (s == null || u)
             return {
-              result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+              result: o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
               hasInactiveMsg: a,
               isOrphanAddon: i,
             };
@@ -176,8 +176,8 @@ __d(
                     type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
                     msgMeta: l.msgMeta,
                     msgInfo: l.msgInfo,
-                    placeholderType: o("WAWebHandleMsgTypes.flow")
-                      .PlaceholderType.E2E,
+                    placeholderType: o("WAWebHandleMsgTypes").PlaceholderType
+                      .E2E,
                     placeholderAddReason: o(
                       "WAWebBackendJobsCommon",
                     ).getPlaceholderAddReason(d, l),
@@ -205,7 +205,7 @@ __d(
                     })),
             m === v.SignalRetryable || m === v.UnknownDevice
               ? {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY,
+                  result: o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
                   retryCount: c.retryCount,
                   retryReason: _,
                   placeholderCreated: p,
@@ -214,13 +214,13 @@ __d(
                 }
               : m === v.SignalDuplicateMessage
                 ? {
-                    result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                    result: o("WAWebHandleMsgTypes").E2EProcessResult
                       .SIGNAL_OLD_COUNTER_ERROR,
                     failedEnc: c,
                   }
                 : m === v.DeviceSentMessage
                   ? {
-                      result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                      result: o("WAWebHandleMsgTypes").E2EProcessResult
                         .PARSE_VALIDATION_ERROR,
                       e2eFailureReason:
                         d instanceof
@@ -230,7 +230,7 @@ __d(
                     }
                   : m === v.InvalidProtobuf
                     ? {
-                        result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                        result: o("WAWebHandleMsgTypes").E2EProcessResult
                           .PARSE_VALIDATION_ERROR,
                         e2eFailureReason:
                           d instanceof
@@ -240,13 +240,13 @@ __d(
                       }
                     : m === v.HsmMismatch
                       ? {
-                          result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                          result: o("WAWebHandleMsgTypes").E2EProcessResult
                             .HSM_MISMATCH,
                         }
                       : m === v.BroadcastEphSettings
                         ? {
-                            result: o("WAWebHandleMsgTypes.flow")
-                              .E2EProcessResult.RETRY,
+                            result: o("WAWebHandleMsgTypes").E2EProcessResult
+                              .RETRY,
                             retryCount: c.retryCount,
                             retryReason: _,
                             placeholderCreated: p,
@@ -258,29 +258,29 @@ __d(
                           ? s.error instanceof r("WAWebOrphanBotMsgError")
                             ? {
                                 deferReason: s.error.reason,
-                                result: o("WAWebHandleMsgTypes.flow")
+                                result: o("WAWebHandleMsgTypes")
                                   .E2EProcessResult.DEFERRED,
                                 targetMsgKey: s.error.targetMsgKey,
                               }
                             : {
-                                result: o("WAWebHandleMsgTypes.flow")
+                                result: o("WAWebHandleMsgTypes")
                                   .E2EProcessResult.PARSE_ERROR,
                               }
                           : m === v.BotMsgMissingSecret
                             ? {
-                                result: o("WAWebHandleMsgTypes.flow")
+                                result: o("WAWebHandleMsgTypes")
                                   .E2EProcessResult.PARSE_ERROR,
                                 nackReason: D(),
                               }
                             : m === v.BotMsgDecryptFailure
                               ? {
-                                  result: o("WAWebHandleMsgTypes.flow")
+                                  result: o("WAWebHandleMsgTypes")
                                     .E2EProcessResult.PARSE_ERROR,
                                   nackReason: x(l),
                                 }
                               : m === v.Unknown
                                 ? {
-                                    result: o("WAWebHandleMsgTypes.flow")
+                                    result: o("WAWebHandleMsgTypes")
                                       .E2EProcessResult.PARSE_ERROR,
                                   }
                                 : (function () {

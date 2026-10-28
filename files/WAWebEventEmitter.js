@@ -15,7 +15,7 @@ __d(
             return this.$3.apply(
               this,
               [this.on].concat(Array.prototype.slice.call(arguments)),
-            )
+            ) || typeof t != "string"
               ? this
               : (this.$4(t).push({ callback: n, context: o }), this);
           }),
@@ -46,7 +46,11 @@ __d(
             )
               return this;
             if (!t && n == null && r == null) return ((this.$1 = void 0), this);
-            for (var o = t ? [t] : Object.keys(e), a = 0; a < o.length; a++) {
+            for (
+              var o = t && typeof t == "string" ? [t] : Object.keys(e), a = 0;
+              a < o.length;
+              a++
+            ) {
               var i = o[a],
                 l = e[i];
               if (l) {
@@ -147,18 +151,20 @@ __d(
             }
           }),
           (n.$3 = function (n, r) {
+            for (
+              var t = arguments.length, o = new Array(t > 2 ? t - 2 : 0), a = 2;
+              a < t;
+              a++
+            )
+              o[a - 2] = arguments[a];
+            if (Array.isArray(r)) {
+              for (var i = 0; i < r.length; i++)
+                n.call.apply(n, [this, r[i]].concat(o));
+              return !0;
+            }
             if (e.test(r)) {
-              for (
-                var t = r.split(e),
-                  o = arguments.length,
-                  a = new Array(o > 2 ? o - 2 : 0),
-                  i = 2;
-                i < o;
-                i++
-              )
-                a[i - 2] = arguments[i];
-              for (var l = 0; l < t.length; l++)
-                n.call.apply(n, [this, t[l]].concat(a));
+              for (var l = r.split(e), s = 0; s < l.length; s++)
+                n.call.apply(n, [this, l[s]].concat(o));
               return !0;
             }
             return !1;

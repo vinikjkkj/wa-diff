@@ -11,7 +11,7 @@ __d(
       return r;
     }
     function l(e, t) {
-      if ((t === void 0 && (t = new Set()), !e || typeof e != "object"))
+      if ((t === void 0 && (t = new Set()), e == null || typeof e != "object"))
         return !1;
       if (t.has(e)) return !0;
       var n = new Set(t);

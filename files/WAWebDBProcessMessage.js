@@ -217,6 +217,7 @@ __d(
                     if (
                       ((s.rowId = a.rowId),
                       (s.internalId = a.internalId),
+                      R(s, a),
                       s.rowId == null || s.internalId == null)
                     )
                       throw r("err")(
@@ -243,7 +244,17 @@ __d(
               })(),
             );
     }
-    function R(e) {
+    function R(e, t) {
+      var n, r, o, a, i, l;
+      ((e.isStarred = (n = e.isStarred) != null ? n : t.isStarred),
+        (e.kicKey = (r = e.kicKey) != null ? r : t.kicKey),
+        (e.kicState = (o = e.kicState) != null ? o : t.kicState),
+        (e.kicTimestampMs =
+          (a = e.kicTimestampMs) != null ? a : t.kicTimestampMs),
+        (e.kicNotified = (i = e.kicNotified) != null ? i : t.kicNotified),
+        (e.keptCount = (l = e.keptCount) != null ? l : t.keptCount));
+    }
+    function L(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .bulkGet(e)
@@ -300,7 +311,7 @@ __d(
           })(),
         );
     }
-    function L(e) {
+    function E(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .bulkCreateOrMerge(
@@ -315,8 +326,9 @@ __d(
       (l.storeMessages = C),
       (l.updateExistingMessages = v),
       (l.updateMessage = S),
-      (l.starMessages = R),
-      (l.unstarMessages = L));
+      (l.keepUserStateOfPrevRow = R),
+      (l.starMessages = L),
+      (l.unstarMessages = E));
   },
   98,
 );

@@ -6,12 +6,17 @@ __d(
     function s(e) {
       return u(e).isLidDeprecated;
     }
-    function u(t) {
-      if (!t.id.isRegularUser() || !t.accountLid) return e;
-      var n = o("WAWebApiContact").getDeprecatedLidLatestLid(t.accountLid);
-      return n != null ? { isLidDeprecated: !0, latestLid: n } : e;
+    function u(e) {
+      return c(e.id, e.accountLid);
     }
-    ((l.isDeprecatedLidChatSendBlocked = s), (l.getLidDeprecatedInfo = u));
+    function c(t, n) {
+      if (!t.isRegularUser() || !n) return e;
+      var r = o("WAWebApiContact").getDeprecatedLidLatestLid(n);
+      return r != null ? { isLidDeprecated: !0, latestLid: r } : e;
+    }
+    ((l.isDeprecatedLidChatSendBlocked = s),
+      (l.getLidDeprecatedInfo = u),
+      (l.getLidDeprecatedInfoForAccount = c));
   },
   98,
 );

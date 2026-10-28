@@ -14,7 +14,7 @@ __d(
     var u = s(),
       c = new Set();
     function d() {
-      return (r("vulture")("mQSGpH4wf07EW472T9tCwpWU1jQ="), !e && u);
+      return !e && u;
     }
     function m(t) {
       (r("vulture")("rIqQBj0TDECcJEYCo8j6qEWBynE="),
@@ -35,10 +35,9 @@ __d(
       (p.paramsToExecute = []));
     function _(e) {
       return (
-        r("vulture")("WzzMQJILwaD9eD8VD0Cexn3OY78="),
         c.add(e),
         function () {
-          (r("vulture")("hMbY5yH7EE98b2bTu8kkFXjK-Ls="), c.delete(e));
+          c.delete(e);
         }
       );
     }

@@ -26,7 +26,7 @@ __d(
         i = [],
         l = 0;
       for (var c of o) {
-        var d = p(c);
+        var d = f(c);
         d == null
           ? a.push(c)
           : ((l += 1), i.length < s && i.push({ email: c, reason: d }));
@@ -41,16 +41,54 @@ __d(
             invalidEmails: i,
           };
     }
-    function m(e) {
+    function m(e, t) {
+      var n = g(t),
+        r = e.emails.filter(function (e) {
+          return !n.has(e.toLowerCase());
+        });
+      return babelHelpers.extends({}, e, {
+        emails: e.emails.filter(function (e) {
+          return n.has(e.toLowerCase());
+        }),
+        invalidEmailCount: e.invalidEmailCount + r.length,
+        invalidEmails: []
+          .concat(
+            e.invalidEmails,
+            r.map(function (e) {
+              return { email: e, reason: "not_on_roster" };
+            }),
+          )
+          .slice(0, s),
+      });
+    }
+    function p(e, t) {
+      var n = g(t);
+      return e.flatMap(function (e) {
+        var t = n.get(e.toLowerCase());
+        return t == null ? [] : [t];
+      });
+    }
+    function _(e) {
       return c.test(e) && e.length <= l;
     }
-    function p(e) {
+    function f(e) {
       return c.test(e) ? (e.length > l ? "too_long" : null) : "invalid_format";
+    }
+    function g(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = n.emailAddress,
+          o = n.id;
+        r != null && t.set(r.toLowerCase(), o);
+      }
+      return t;
     }
     ((i.MAX_ORG_INVITE_EMAILS = e),
       (i.MAX_ORG_INVITE_EMAIL_LENGTH = l),
       (i.parseInviteEmails = d),
-      (i.isWellFormedOrgEmail = m));
+      (i.skipEmailsNotOnRoster = m),
+      (i.getRosterEntryIDs = p),
+      (i.isWellFormedOrgEmail = _));
   },
   66,
 );

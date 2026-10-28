@@ -12,34 +12,42 @@ __d(
         n = e.attributes,
         r = n === void 0 ? {} : n,
         a = e.connector,
-        i = e.surface,
-        l = e.target;
+        i = e.entryPoint,
+        l = i === void 0 ? "setup_nux" : i,
+        u = e.surface,
+        c = e.target;
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.BUSINESS_TOOLS,
-        extraAttributes: babelHelpers.extends(
-          {
-            is_connector_framework: !0,
-            connector_flow_variant: "connect_first",
-            entry_point: "setup_nux",
-          },
-          a == null
-            ? {}
-            : {
-                connector_id: a.id,
-                connector_name: a.name,
-                connector_auth_type: a.isMembrane ? "membrane" : "direct_oauth",
-              },
-          r,
-        ),
+        extraAttributes: babelHelpers.extends({}, s(a, l), r),
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         stickyEntryPoint: !1,
-        surface: i,
-        userActionTarget: l,
+        surface: u,
+        userActionTarget: c,
         userActionType: t,
       });
     }
-    l.logAppointmentConnectorJourney = e;
+    function s(e, t) {
+      return (
+        t === void 0 && (t = "setup_nux"),
+        babelHelpers.extends(
+          {
+            is_connector_framework: !0,
+            connector_flow_variant: "connect_first",
+            entry_point: t,
+          },
+          e == null
+            ? {}
+            : {
+                connector_id: e.id,
+                connector_name: e.name,
+                connector_auth_type: e.isMembrane ? "membrane" : "direct_oauth",
+              },
+        )
+      );
+    }
+    ((l.logAppointmentConnectorJourney = e),
+      (l.getAppointmentConnectorLogAttributes = s));
   },
   98,
 );

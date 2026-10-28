@@ -17,6 +17,7 @@ __d(
       FRL: "17:0",
       GUEST: "19:0",
       DEV_HUB: "22:0",
+      META_DOT_COM: "26:0",
     });
     function s(t) {
       if (t === "TEST") return e.TEST;
@@ -32,6 +33,7 @@ __d(
       if (t === "FRL") return e.FRL;
       if (t === "GUEST") return e.GUEST;
       if (t === "DEV_HUB") return e.DEV_HUB;
+      if (t === "META_DOT_COM") return e.META_DOT_COM;
       throw r("err")("failed to convert string to DGWAuth Type");
     }
     function u(t) {
@@ -48,6 +50,7 @@ __d(
       if (t === e.FRL) return "FRL";
       if (t === e.GUEST) return "GUEST";
       if (t === e.DEV_HUB) return "DEV_HUB";
+      if (t === e.META_DOT_COM) return "META_DOT_COM";
       throw r("err")("failed to convert DGWAuth to string");
     }
     ((l.DGWAuth = e), (l.fromStringToDGWAuth = s), (l.fromDGWAuthToString = u));

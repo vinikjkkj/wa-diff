@@ -8,6 +8,21 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t = o("WAWebCustomerManagerChatJid").toChatJidOrNull(e);
+      return t == null
+        ? null
+        : { chatJid: t, wid: o("WAWebWidFactory").createWid(String(t)) };
+    }
+    function s(e) {
+      var t = o("WAWebChatCollection").ChatCollection.get(e.chatJid);
+      if (t != null) return t;
+      var n = e.wid,
+        r = n.isUser() ? o("WAWebLidMigrationUtils").toUserLid(n) : null;
+      return r != null
+        ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(r)
+        : null;
+    }
+    function u(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(e);
       if (t != null) return t;
       var n = o("WAWebCustomerManagerChatJid").toChatJidOrNull(String(e));
@@ -18,7 +33,9 @@ __d(
         ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(a)
         : null;
     }
-    l.resolveCustomerManagerChat = e;
+    ((l.prepareCustomerManagerChatLookup = e),
+      (l.resolvePreparedCustomerManagerChat = s),
+      (l.resolveCustomerManagerChat = u));
   },
   98,
 );

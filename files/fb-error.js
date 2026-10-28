@@ -54,49 +54,48 @@ __d(
     function _(e) {
       p === !1 && ((p = !0), (m.config = Object.freeze(e)));
     }
-    var f = { access_token: null },
-      g = 6,
-      h = 6e4,
-      y = 10 * h,
-      C = new Map(),
-      b = 0;
-    function v() {
+    var f = 6,
+      g = 6e4,
+      h = 10 * g,
+      y = new Map(),
+      C = 0;
+    function b() {
       var t = (e || (e = n("performanceNow")))();
-      if (t > b + h) {
-        var r = t - y;
-        for (var o of C) {
+      if (t > C + g) {
+        var r = t - h;
+        for (var o of y) {
           var a = o[0],
             i = o[1];
-          i.lastAccessed < r && C.delete(a);
+          i.lastAccessed < r && y.delete(a);
         }
-        b = t;
+        C = t;
       }
     }
-    function S(t) {
-      v();
+    function v(t) {
+      b();
       var r = (e || (e = n("performanceNow")))(),
-        o = C.get(t);
+        o = y.get(t);
       if (o == null)
-        return (C.set(t, { dropped: 0, logged: [r], lastAccessed: r }), 1);
+        return (y.set(t, { dropped: 0, logged: [r], lastAccessed: r }), 1);
       var a = o.dropped,
         i = o.logged;
-      for (o.lastAccessed = r; i[0] < r - h; ) i.shift();
-      return i.length < g
+      for (o.lastAccessed = r; i[0] < r - g; ) i.shift();
+      return i.length < f
         ? ((o.dropped = 0), i.push(r), a + 1)
         : (o.dropped++, null);
     }
-    var R = {
+    var S = {
         shouldLog: function (t) {
-          return S(t.hash);
+          return v(t.hash);
         },
       },
-      L = "RE_EXN_ID";
-    function E(e) {
+      R = "RE_EXN_ID";
+    function L(e) {
       var t = null;
       return (
         e == null || typeof e != "object"
           ? (t = s("Non-object thrown: %s", String(e)))
-          : Object.prototype.hasOwnProperty.call(e, L)
+          : Object.prototype.hasOwnProperty.call(e, R)
             ? (t = s("Rescript exception thrown: %s", JSON.stringify(e)))
             : typeof (e == null ? void 0 : e.then) == "function"
               ? (t = s("Promise thrown: %s", JSON.stringify(e)))
@@ -123,48 +122,48 @@ __d(
           : e
       );
     }
-    var k =
+    var E =
         typeof window == "undefined" ? "<self.onerror>" : "<window.onerror>",
-      I;
-    function T(e) {
+      k;
+    function I(e) {
       var t,
-        n = e.error != null ? E(e.error) : s(e.message || "");
+        n = e.error != null ? L(e.error) : s(e.message || "");
       (n.fileName == null && e.filename != null && (n.fileName = e.filename),
         n.line == null && e.lineno != null && (n.line = e.lineno),
         n.column == null && e.colno != null && (n.column = e.colno),
-        (n.guardList = [k]),
+        (n.guardList = [E]),
         (n.loggingSource = "ONERROR"),
-        (t = I) === null || t === void 0 || t.reportError(n));
+        (t = k) === null || t === void 0 || t.reportError(n));
     }
-    var D = {
+    var T = {
         setup: function (n) {
           typeof t.addEventListener == "function" &&
-            I == null &&
-            ((I = n), t.addEventListener("error", T));
+            k == null &&
+            ((k = n), t.addEventListener("error", I));
         },
       },
-      x = [],
-      $ = {
+      D = [],
+      x = {
         pushGuard: function (t) {
-          x.unshift(t);
+          D.unshift(t);
         },
         popGuard: function () {
-          x.shift();
+          D.shift();
         },
         inGuard: function () {
-          return x.length !== 0;
+          return D.length !== 0;
         },
         cloneGuardList: function () {
-          return x.map(function (e) {
+          return D.map(function (e) {
             return e.name;
           });
         },
         findDeferredSource: function () {
-          for (var e of x)
+          for (var e of D)
             if (e.deferredSource != null) return e.deferredSource;
         },
       };
-    function P(e) {
+    function $(e) {
       return e.type != null
         ? e.type
         : e.loggingSource == "GUARDED" ||
@@ -177,10 +176,10 @@ __d(
             ? "warn"
             : "error";
     }
-    var N = [],
-      M = (function () {
+    var P = [],
+      N = (function () {
         function e() {
-          this.metadata = [].concat(N);
+          this.metadata = [].concat(P);
         }
         var t = e.prototype;
         return (
@@ -217,28 +216,28 @@ __d(
             return this.metadata;
           }),
           (e.addGlobalMetadata = function (t, n, r) {
-            N.push([t, n, r]);
+            P.push([t, n, r]);
           }),
           (e.getGlobalMetadata = function () {
-            return N;
+            return P;
           }),
           (e.unsetGlobalMetadata = function (t, n) {
-            N = N.filter(function (e) {
+            P = P.filter(function (e) {
               return !(Array.isArray(e) && e[0] === t && e[1] === n);
             });
           }),
           e
         );
       })(),
-      w = { debug: 1, info: 2, warn: 3, error: 4, fatal: 5 };
-    function A(e, t) {
+      M = { debug: 1, info: 2, warn: 3, error: 4, fatal: 5 };
+    function w(e, t) {
       var n, r;
       if (!Object.isFrozen(e)) {
-        t.type && (!e.type || w[e.type] > w[t.type]) && (e.type = t.type);
+        t.type && (!e.type || M[e.type] > M[t.type]) && (e.type = t.type);
         var o = t.metadata;
         if (o != null) {
           var a,
-            i = (a = e.metadata) !== null && a !== void 0 ? a : new M();
+            i = (a = e.metadata) !== null && a !== void 0 ? a : new N();
           (o != null && i.addEntries.apply(i, o.getAll()), (e.metadata = i));
         }
         (t.project != null && (e.project = t.project),
@@ -264,14 +263,14 @@ __d(
         e.forcedKey = m;
       }
     }
-    function F(e) {
+    function A(e) {
       var t;
-      return O(
+      return F(
         (t = e.messageFormat) !== null && t !== void 0 ? t : e.message,
         e.messageParams || [],
       );
     }
-    function O(e, t) {
+    function F(e, t) {
       var n = 0,
         r = String(e),
         o = r.replace(/%s/g, function () {
@@ -279,30 +278,30 @@ __d(
         });
       return (n < t.length && (o += " PARAMS" + JSON.stringify(t.slice(n))), o);
     }
-    function B(e) {
+    function O(e) {
       return (e != null ? e : []).map(function (e) {
         return String(e);
       });
     }
-    var W = { aggregateError: A, toReadableMessage: F, toStringParams: B },
-      q = 5,
-      U = [];
-    function V(e) {
-      (U.push(e), U.length > q && U.shift());
+    var B = { aggregateError: w, toReadableMessage: A, toStringParams: O },
+      W = 5,
+      q = [];
+    function U(e) {
+      (q.push(e), q.length > W && q.shift());
     }
-    function H(e) {
+    function V(e) {
       var t = e.getAllResponseHeaders();
       if (t != null && t.indexOf("X-FB-Debug") >= 0) {
         var n = e.getResponseHeader("X-FB-Debug");
-        n != null && n !== "" && V(n);
+        n != null && n !== "" && U(n);
       }
     }
-    function G() {
-      return U;
+    function H() {
+      return q;
     }
-    var z = { add: V, addFromXHR: H, getAll: G },
-      j = "abcdefghijklmnopqrstuvwxyz012345";
-    function K() {
+    var G = { add: U, addFromXHR: V, getAll: H },
+      z = "abcdefghijklmnopqrstuvwxyz012345";
+    function j() {
       for (var e = 0, t = arguments.length, n = new Array(t), r = 0; r < t; r++)
         n[r] = arguments[r];
       for (var o of n)
@@ -310,20 +309,20 @@ __d(
           for (var a = o.length, i = 0; i < a; i++)
             e = (e << 5) - e + o.charCodeAt(i);
       for (var l = "", s = 0; s < 6; s++)
-        ((l = j.charAt(e & 31) + l), (e >>= 5));
+        ((l = z.charAt(e & 31) + l), (e >>= 5));
       return l;
     }
-    var Q = [
+    var K = [
         /\(([^\s\)\()]+):(\d+):(\d+)\)$/,
         /@([^\s\)\()]+):(\d+):(\d+)$/,
         /^([^\s\)\()]+):(\d+):(\d+)$/,
         /^at ([^\s\)\()]+):(\d+):(\d+)$/,
       ],
-      X = /^\w+:\s.*?\n/g;
+      Q = /^\w+:\s.*?\n/g;
     Error.stackTraceLimit != null &&
       Error.stackTraceLimit < 80 &&
       (Error.stackTraceLimit = 80);
-    function Y(e) {
+    function X(e) {
       var t = e.message,
         n = e.name,
         r = e.stack;
@@ -343,9 +342,9 @@ __d(
           s = r.substring(0, l);
         if (/^\w+$/.test(s)) return r.substring(l + i.length);
       }
-      return r.replace(X, "");
+      return r.replace(Q, "");
     }
-    function J(e) {
+    function Y(e) {
       var t = e.trim(),
         n = t,
         r,
@@ -354,7 +353,7 @@ __d(
       if (t.includes("charset=utf-8;base64,")) n = "<inlined-file>";
       else {
         var i;
-        for (var l of Q) if (((i = t.match(l)), i != null)) break;
+        for (var l of K) if (((i = t.match(l)), i != null)) break;
         (i != null && i.length === 4
           ? ((r = i[1]),
             (o = parseInt(i[2], 10)),
@@ -364,16 +363,16 @@ __d(
           (n = n.replace(/^at /, "").trim()));
       }
       var s = { identifier: n, script: r, line: o, column: a };
-      return ((s.text = ne(s)), s);
+      return ((s.text = te(s)), s);
+    }
+    function J(e) {
+      return e == null || e === "" ? [] : e.split(/\n\n/)[0].split("\n").map(Y);
     }
     function Z(e) {
-      return e == null || e === "" ? [] : e.split(/\n\n/)[0].split("\n").map(J);
+      var t = X(e);
+      return J(t);
     }
     function ee(e) {
-      var t = Y(e);
-      return Z(t);
-    }
-    function te(e) {
       if (e == null || e === "") return null;
       var t = e.split("\n");
       return (
@@ -383,7 +382,7 @@ __d(
         })
       );
     }
-    function ne(e) {
+    function te(e) {
       var t = e.column,
         n = e.identifier,
         r = e.line,
@@ -397,7 +396,7 @@ __d(
         a
       );
     }
-    function re(r) {
+    function ne(r) {
       var o,
         a,
         i,
@@ -408,7 +407,7 @@ __d(
         m,
         p,
         _,
-        f = ee(r),
+        f = Z(r),
         g = (o = r.taalOpcodes) !== null && o !== void 0 ? o : [],
         h = r.framesToPop;
       if (h != null)
@@ -420,9 +419,9 @@ __d(
             return String(e);
           },
         ),
-        S = te(r.componentStack),
-        R = S == null ? null : S.map(J),
-        L = r.metadata ? r.metadata.format() : new M().format();
+        S = ee(r.componentStack),
+        R = S == null ? null : S.map(Y),
+        L = r.metadata ? r.metadata.format() : new N().format();
       L.length === 0 && (L = void 0);
       var E = f
           .map(function (e) {
@@ -430,31 +429,31 @@ __d(
           })
           .join("\n"),
         k = (s = r.errorName) !== null && s !== void 0 ? s : r.name,
-        I = P(r),
+        I = $(r),
         T = r.loggingSource,
         D = r.project,
         x = (u = r.lineNumber) !== null && u !== void 0 ? u : r.line,
-        $ = (c = r.columnNumber) !== null && c !== void 0 ? c : r.column,
-        N = (d = r.fileName) !== null && d !== void 0 ? d : r.sourceURL,
+        P = (c = r.columnNumber) !== null && c !== void 0 ? c : r.column,
+        M = (d = r.fileName) !== null && d !== void 0 ? d : r.sourceURL,
         w = f.length > 0;
       (w && x == null && (x = f[0].line),
-        w && $ == null && ($ = f[0].column),
-        w && N == null && (N = f[0].script));
+        w && P == null && (P = f[0].column),
+        w && M == null && (M = f[0].script));
       var A = {
         blameModule: r.blameModule,
         cause: r.cause,
-        column: $ == null ? null : String($),
+        column: P == null ? null : String(P),
         clientTime: Math.floor(Date.now() / 1e3),
         componentStackFrames: R,
-        deferredSource: r.deferredSource != null ? re(r.deferredSource) : null,
+        deferredSource: r.deferredSource != null ? ne(r.deferredSource) : null,
         extra: (m = r.extra) !== null && m !== void 0 ? m : {},
         fbtrace_id: r.fbtrace_id,
         guardList: (p = r.guardList) !== null && p !== void 0 ? p : [],
-        hash: K(k, E, I, D, T),
+        hash: j(k, E, I, D, T),
         isNormalizedError: !0,
         line: x == null ? null : String(x),
         loggingSource: T,
-        message: W.toReadableMessage(r),
+        message: B.toReadableMessage(r),
         messageFormat: b,
         messageParams: v,
         metadata: L,
@@ -462,12 +461,12 @@ __d(
         page_time: Math.floor((e || (e = n("performanceNow")))()),
         project: D,
         reactComponentStack: S,
-        script: N,
+        script: M,
         serverHash: r.serverHash,
         stack: E,
         stackFrames: f,
         type: I,
-        xFBDebug: z.getAll(),
+        xFBDebug: G.getAll(),
         tags: (_ = r.tags) !== null && _ !== void 0 ? _ : [],
         operation: r.operation,
       };
@@ -478,28 +477,28 @@ __d(
       for (var O in A) A[O] == null && delete A[O];
       return A;
     }
-    function oe(e) {
+    function re(e) {
       return e != null && typeof e == "object" && e.isNormalizedError === !0
         ? e
         : null;
     }
-    var ae = {
-        formatStackFrame: ne,
-        normalizeError: re,
-        ifNormalizedError: oe,
+    var oe = {
+        formatStackFrame: te,
+        normalizeError: ne,
+        ifNormalizedError: re,
       },
-      ie = "<global.react>",
+      ae = "<global.react>",
+      ie = [],
       le = [],
-      se = [],
-      ue = 50,
-      ce = !1,
-      de = {
-        history: se,
+      se = 50,
+      ue = !1,
+      ce = {
+        history: le,
         addListener: function (t, n) {
           (n === void 0 && (n = !1),
-            le.push(t),
+            ie.push(t),
             n ||
-              se.forEach(function (e) {
+              le.forEach(function (e) {
                 var n;
                 return t(
                   e,
@@ -510,61 +509,61 @@ __d(
               }));
         },
         unshiftListener: function (t) {
-          le.unshift(t);
+          ie.unshift(t);
         },
         removeListener: function (t) {
-          n("removeFromArray")(le, t);
+          n("removeFromArray")(ie, t);
         },
         reportError: function (t) {
-          var e = ae.normalizeError(t);
-          de.reportNormalizedError(e);
+          var e = oe.normalizeError(t);
+          ce.reportNormalizedError(e);
         },
         reportNormalizedError: function (t) {
-          if (ce) return !1;
-          var e = $.cloneGuardList();
+          if (ue) return !1;
+          var e = x.cloneGuardList();
           if (
-            (t.componentStackFrames && e.unshift(ie),
+            (t.componentStackFrames && e.unshift(ae),
             e.length > 0 && (t.guardList = e),
             t.deferredSource == null)
           ) {
-            var n = $.findDeferredSource();
-            n != null && (t.deferredSource = ae.normalizeError(n));
+            var n = x.findDeferredSource();
+            n != null && (t.deferredSource = oe.normalizeError(n));
           }
-          (se.length > ue && se.splice(ue / 2, 1), se.push(t), (ce = !0));
-          for (var r = 0; r < le.length; r++)
+          (le.length > se && le.splice(se / 2, 1), le.push(t), (ue = !0));
+          for (var r = 0; r < ie.length; r++)
             try {
               var o;
-              le[r](
+              ie[r](
                 t,
                 (o = t.loggingSource) !== null && o !== void 0
                   ? o
                   : "DEPRECATED",
               );
             } catch (e) {}
-          return ((ce = !1), !0);
+          return ((ue = !1), !0);
         },
       };
-    de.addListener(c.errorListener);
-    var me = "<anonymous guard>",
-      pe = !1,
-      _e = {
+    ce.addListener(c.errorListener);
+    var de = "<anonymous guard>",
+      me = !1,
+      pe = {
         applyWithGuard: function (t, n, r, o) {
           if (m.config.skipDupErrorGuard && "__isMetaErrorGuarded" in t)
             return t.apply(n, r);
           if (
-            ($.pushGuard({
+            (x.pushGuard({
               name:
                 ((o == null ? void 0 : o.name) != null ? o.name : null) ||
                 (t.name ? "func_name:" + t.name : null) ||
-                me,
+                de,
               deferredSource: o == null ? void 0 : o.deferredSource,
             }),
-            pe)
+            me)
           )
             try {
               return t.apply(n, r);
             } finally {
-              $.popGuard();
+              x.popGuard();
             }
           try {
             return Function.prototype.apply.call(t, n, r);
@@ -575,7 +574,7 @@ __d(
                 i = a.deferredSource,
                 l = a.onError,
                 s = a.onNormalizedError,
-                u = E(n),
+                u = L(n),
                 c = {
                   deferredSource: i,
                   loggingSource: "GUARDED",
@@ -586,8 +585,8 @@ __d(
                       : "ErrorGuard",
                   type: o == null ? void 0 : o.errorType,
                 };
-              W.aggregateError(u, c);
-              var d = ae.normalizeError(u);
+              B.aggregateError(u, c);
+              var d = oe.normalizeError(u);
               (u == null &&
                 t &&
                 ((d.extra[t.toString().substring(0, 100)] = "function"),
@@ -595,20 +594,20 @@ __d(
                   r.length &&
                   (d.extra[Array.from(r).toString().substring(0, 100)] =
                     "args")),
-                (d.guardList = $.cloneGuardList()),
+                (d.guardList = x.cloneGuardList()),
                 l && l(u),
                 s && s(d),
-                de.reportNormalizedError(d));
+                ce.reportNormalizedError(d));
             } catch (e) {}
           } finally {
-            $.popGuard();
+            x.popGuard();
           }
         },
         guard: function (t, n) {
           function e() {
             for (var e = arguments.length, r = new Array(e), o = 0; o < e; o++)
               r[o] = arguments[o];
-            return _e.applyWithGuard(t, this, r, n);
+            return pe.applyWithGuard(t, this, r, n);
           }
           return (
             (e.__isMetaErrorGuarded = !0),
@@ -617,22 +616,22 @@ __d(
           );
         },
         inGuard: function () {
-          return $.inGuard();
+          return x.inGuard();
         },
         skipGuardGlobal: function (t) {
-          pe = t;
+          me = t;
         },
       },
-      fe = 1024,
-      ge = [],
-      he = 0;
-    function ye(e) {
+      _e = 1024,
+      fe = [],
+      ge = 0;
+    function he(e) {
       return String(e);
     }
-    function Ce(e) {
+    function ye(e) {
       return e == null ? null : String(e);
     }
-    function be(e, t) {
+    function Ce(e, t) {
       var n = {};
       return (
         t &&
@@ -645,52 +644,51 @@ __d(
         Object.keys(n)
       );
     }
-    function ve(e) {
+    function be(e) {
       return (e != null ? e : []).map(function (e) {
         return {
-          column: Ce(e.column),
+          column: ye(e.column),
           identifier: e.identifier,
-          line: Ce(e.line),
+          line: ye(e.line),
           script: e.script,
         };
       });
     }
-    function Se(e) {
+    function ve(e) {
       var t = String(e);
-      return t.length > fe ? t.substring(0, fe - 3) + "..." : t;
+      return t.length > _e ? t.substring(0, _e - 3) + "..." : t;
     }
-    function Re(e, t) {
+    function Se(e, t) {
       var n,
         r,
         o,
         a,
         i = {
-          appId: Ce(t.appId),
+          appId: ye(t.appId),
           cavalry_lid: t.cavalry_lid,
-          access_token: f.access_token,
           ancestor_hash: e.hash,
           bundle_variant:
             (n = t.bundle_variant) !== null && n !== void 0 ? n : null,
-          clientTime: ye(e.clientTime),
+          clientTime: he(e.clientTime),
           column: e.column,
-          componentStackFrames: ve(e.componentStackFrames),
+          componentStackFrames: be(e.componentStackFrames),
           events: e.events,
-          extra: be(e.extra, t.extra),
+          extra: Ce(e.extra, t.extra),
           forcedKey: e.forcedKey,
           frontend_env:
             (r = t.frontend_env) !== null && r !== void 0 ? r : null,
           guardList: e.guardList,
           line: e.line,
           loggingFramework: t.loggingFramework,
-          messageFormat: Se(e.messageFormat),
-          messageParams: e.messageParams.map(Se),
+          messageFormat: ve(e.messageFormat),
+          messageParams: e.messageParams.map(ve),
           name: e.name,
-          sample_weight: Ce(t.sample_weight),
+          sample_weight: ye(t.sample_weight),
           script: e.script,
           site_category: t.site_category,
-          stackFrames: ve(e.stackFrames),
+          stackFrames: be(e.stackFrames),
           type: e.type,
-          page_time: Ce(e.page_time),
+          page_time: ye(e.page_time),
           project: e.project,
           push_phase: t.push_phase,
           report_source: t.report_source,
@@ -698,14 +696,14 @@ __d(
           rollout_hash:
             (o = t.rollout_hash) !== null && o !== void 0 ? o : null,
           script_path: t.script_path,
-          server_revision: Ce(t.server_revision),
-          spin: Ce(t.spin),
+          server_revision: ye(t.server_revision),
+          spin: ye(t.spin),
           svn_rev: String(t.client_revision),
           additional_client_revisions: Array.from(
             (a = t.additional_client_revisions) !== null && a !== void 0
               ? a
               : [],
-          ).map(ye),
+          ).map(he),
           taalOpcodes:
             e.taalOpcodes == null
               ? null
@@ -723,7 +721,7 @@ __d(
         l != null && (i.blameModule = String(l)),
         s &&
           s.stackFrames &&
-          (i.deferredSource = { stackFrames: ve(s.stackFrames) }),
+          (i.deferredSource = { stackFrames: be(s.stackFrames) }),
         e.metadata && (i.metadata = e.metadata),
         e.loadingUrls && (i.loadingUrls = e.loadingUrls),
         e.serverHash != null && (i.serverHash = e.serverHash),
@@ -733,10 +731,10 @@ __d(
         i
       );
     }
-    function Le(e, t, n) {
+    function Re(e, t, n) {
       var r;
-      if ((he++, t.sample_weight === 0)) return !1;
-      var o = R.shouldLog(e);
+      if ((ge++, t.sample_weight === 0)) return !1;
+      var o = S.shouldLog(e);
       if (
         o == null ||
         ((r = t.projectBlocklist) !== null &&
@@ -744,36 +742,36 @@ __d(
           r.includes(e.project))
       )
         return !1;
-      var a = Re(e, t);
+      var a = Se(e, t);
       return (
         Object.assign(a, {
-          ancestors: ge.slice(),
-          clientWeight: ye(o),
-          page_position: ye(he),
+          ancestors: fe.slice(),
+          clientWeight: he(o),
+          page_position: he(ge),
         }),
-        ge.length < 15 &&
+        fe.length < 15 &&
           ["fatal", "error"].includes(e.type) &&
-          ge.push(e.hash),
+          fe.push(e.hash),
         n(a),
         !0
       );
     }
-    var Ee = { createErrorPayload: Re, postError: Le },
-      ke = null,
-      Ie = !1;
-    function Te(e) {
-      if (ke != null) {
-        var t = ke,
+    var Le = { createErrorPayload: Se, postError: Re },
+      Ee = null,
+      ke = !1;
+    function Ie(e) {
+      if (Ee != null) {
+        var t = Ee,
           n = e.reason,
           r,
-          o = E(n),
+          o = L(n),
           a = null;
         if (n !== o && typeof n == "object" && n !== null) {
           if (
             ((r = Object.keys(n).sort().slice(0, 3)),
             typeof n.message != "string" &&
               typeof n.messageFormat == "string" &&
-              ((n.message = n.messageFormat), (o = E(n))),
+              ((n.message = n.messageFormat), (o = L(n))),
             typeof n.message != "string" && typeof n.errorMsg == "string")
           )
             if (/^\s*\<!doctype/i.test(n.errorMsg)) {
@@ -792,7 +790,7 @@ __d(
             } else
               /^\s*<\?xml/i.test(n.errorMsg)
                 ? (o = s("XML document sanitized"))
-                : ((n.message = n.errorMsg), (o = E(n)));
+                : ((n.message = n.errorMsg), (o = L(n)));
           (o !== n && typeof n.name == "string" && (a = n.name),
             typeof n.name != "string" &&
               typeof n.errorCode == "string" &&
@@ -842,25 +840,25 @@ __d(
           "__isPromiseWithTracing" in p &&
             p.__isPromiseWithTracing === !0 &&
             p.deferredError != null &&
-            (o.deferredSource = E(p.deferredError));
+            (o.deferredSource = L(p.deferredError));
         } catch (e) {}
         (t.reportError(o), e.preventDefault());
       }
     }
-    function De(e) {
-      ((ke = e),
+    function Te(e) {
+      ((Ee = e),
         typeof t.addEventListener == "function" &&
-          !Ie &&
-          ((Ie = !0), t.addEventListener("unhandledrejection", Te)));
+          !ke &&
+          ((ke = !0), t.addEventListener("unhandledrejection", Ie)));
     }
-    var xe = { onunhandledrejection: Te, setup: De },
-      $e = {
+    var De = { onunhandledrejection: Ie, setup: Te },
+      xe = {
         preSetup: function (t) {
-          ((t == null || t.ignoreOnError !== !0) && D.setup(de),
-            (t == null || t.ignoreOnUnahndledRejection !== !0) && xe.setup(de));
+          ((t == null || t.ignoreOnError !== !0) && T.setup(ce),
+            (t == null || t.ignoreOnUnahndledRejection !== !0) && De.setup(ce));
         },
         setup: function (t, n, r) {
-          de.addListener(function (e) {
+          ce.addListener(function (e) {
             var o,
               a = babelHelpers.extends(
                 {},
@@ -869,12 +867,12 @@ __d(
                   ? o
                   : {},
               );
-            Ee.postError(e, a, n);
+            Le.postError(e, a, n);
           });
         },
       },
-      Pe = 20,
-      Ne = (function () {
+      $e = 20,
+      Pe = (function () {
         function e(e, t) {
           var n = this;
           (t === void 0 && (t = []),
@@ -940,7 +938,7 @@ __d(
             }),
             (this.project = e),
             (this.events = []),
-            (this.metadata = new M()),
+            (this.metadata = new N()),
             (this.taalOpcodes = []),
             (this.loggerTags = new Set(t)));
         }
@@ -970,14 +968,14 @@ __d(
                   " [Caught in: " +
                   t +
                   "]",
-                messageParams: W.toStringParams(
+                messageParams: B.toStringParams(
                   [].concat(this.normalizedError.messageParams, p),
                 ),
                 project: u,
                 type: n,
                 loggingSource: "FBLOGGER",
               })),
-                (d.message = W.toReadableMessage(d)),
+                (d.message = B.toReadableMessage(d)),
                 i != null &&
                   (d.forcedKey =
                     d.forcedKey != null ? i + "_" + d.forcedKey : i));
@@ -987,23 +985,23 @@ __d(
                   .blameToPreviousFrame()
                   .blameToPreviousFrame()
                   .warn("Blame helpers do not work with catching"),
-                W.aggregateError(c, {
+                B.aggregateError(c, {
                   messageFormat: t,
-                  messageParams: W.toStringParams(p),
+                  messageParams: B.toStringParams(p),
                   errorName: c.name,
                   forcedKey: i,
                   project: u,
                   type: n,
                   loggingSource: "FBLOGGER",
                 }),
-                (d = ae.normalizeError(c)));
+                (d = oe.normalizeError(c)));
             else {
               if (((c = new Error(t)), c.stack === void 0))
                 try {
                   throw c;
                 } catch (e) {}
               ((c.messageFormat = t),
-                (c.messageParams = W.toStringParams(p)),
+                (c.messageParams = B.toStringParams(p)),
                 (c.blameModule = o),
                 (c.forcedKey = i),
                 (c.project = u),
@@ -1012,7 +1010,7 @@ __d(
                 (c.taalOpcodes = [l.PREVIOUS_FRAME, l.PREVIOUS_FRAME].concat(
                   this.taalOpcodes,
                 )),
-                (d = ae.normalizeError(c)),
+                (d = oe.normalizeError(c)),
                 (d.name = "FBLogger"));
             }
             if (!s.isEmpty())
@@ -1027,14 +1025,14 @@ __d(
                 var h;
                 (h = d.events).push.apply(h, a);
               } else d.events = [].concat(a);
-              if (d.events != null && d.events.length > Pe) {
-                var y = d.events.length - Pe;
+              if (d.events != null && d.events.length > $e) {
+                var y = d.events.length - $e;
                 d.events.splice(0, y + 1, "<first " + y + " events omitted>");
               }
             }
             return (
               (d.tags = Array.from(this.loggerTags)),
-              de.reportNormalizedError(d),
+              ce.reportNormalizedError(d),
               c
             );
           }),
@@ -1088,7 +1086,7 @@ __d(
               (o.taalOpcodes = o.taalOpcodes || []),
               o.taalOpcodes.push(l.PREVIOUS_FRAME));
             try {
-              o.message = W.toReadableMessage(o);
+              o.message = B.toReadableMessage(o);
             } catch (e) {}
             throw ((o.is_js_error = !0), o);
           }),
@@ -1152,23 +1150,23 @@ __d(
           e
         );
       })(),
-      Me = function (t, n) {
-        var e = new Ne(t);
+      Ne = function (t, n) {
+        var e = new Pe(t);
         return n != null ? e.event(t + "." + n) : e;
       };
-    Me.addGlobalMetadata = function (e, t, n) {
-      M.addGlobalMetadata(e, t, n);
+    Ne.addGlobalMetadata = function (e, t, n) {
+      N.addGlobalMetadata(e, t, n);
     };
-    var we = "<CUSTOM_NAME:",
-      Ae = ">";
-    function Fe(e, t) {
+    var Me = "<CUSTOM_NAME:",
+      we = ">";
+    function Ae(e, t) {
       if (e != null && t != null)
         try {
-          Object.defineProperty(e, "name", { value: we + " " + t + Ae });
+          Object.defineProperty(e, "name", { value: Me + " " + t + we });
         } catch (e) {}
       return e;
     }
-    var Oe = {
+    var Fe = {
         blameToPreviousFile: function (t) {
           var e;
           return (
@@ -1197,30 +1195,29 @@ __d(
           );
         },
       },
-      Be = {
+      Oe = {
         err: s,
         ErrorBrowserConsole: c,
         ErrorConfig: m,
-        ErrorDynamicData: f,
-        ErrorFilter: R,
-        ErrorGlobalEventHandler: D,
-        ErrorGuard: _e,
-        ErrorGuardState: $,
-        ErrorMetadata: M,
-        ErrorNormalizeUtils: ae,
-        ErrorPoster: Ee,
-        ErrorPubSub: de,
-        ErrorSerializer: W,
-        ErrorSetup: $e,
-        ErrorXFBDebug: z,
-        FBLogger: Me,
-        getErrorSafe: E,
-        getSimpleHash: K,
-        TAAL: Oe,
+        ErrorFilter: S,
+        ErrorGlobalEventHandler: T,
+        ErrorGuard: pe,
+        ErrorGuardState: x,
+        ErrorMetadata: N,
+        ErrorNormalizeUtils: oe,
+        ErrorPoster: Le,
+        ErrorPubSub: ce,
+        ErrorSerializer: B,
+        ErrorSetup: xe,
+        ErrorXFBDebug: G,
+        FBLogger: Ne,
+        getErrorSafe: L,
+        getSimpleHash: j,
+        TAAL: Fe,
         TAALOpcode: l,
-        renameFunction: Fe,
+        renameFunction: Ae,
       };
-    a.exports = Be;
+    a.exports = Oe;
   },
   null,
 );

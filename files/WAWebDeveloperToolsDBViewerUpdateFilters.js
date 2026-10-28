@@ -10,17 +10,19 @@ __d(
         o = [].concat(n);
       return (r ? o.splice(t, 1, r) : o.splice(t, 1), o);
     }
-    function l(e, t, n, r) {
+    function l(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, o) {
-            var a = yield e({ filterIndex: t, filters: n, updatedValue: o });
-            yield r(a);
-          },
-        )),
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.filterIndex,
+            r = t.filters,
+            o = t.onFilterChange,
+            a = t.updatedValue,
+            i = yield e({ filterIndex: n, filters: r, updatedValue: a });
+          yield o(i);
+        })),
         s.apply(this, arguments)
       );
     }

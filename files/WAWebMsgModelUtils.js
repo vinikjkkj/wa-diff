@@ -2,6 +2,7 @@ __d(
   "WAWebMsgModelUtils",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebAnimatedEmojiGatingUtils",
     "WAWebBackendErrors",
@@ -153,7 +154,13 @@ __d(
       var t = new (o("WAWebMsgModel").Msg)(
         babelHelpers.extends({}, e.toJSON(), { local: e.local }),
       );
-      return (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE && S(t), t);
+      return (
+        o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4") &&
+          t.senderObj != null &&
+          t.stopListening(t.senderObj),
+        t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE && S(t),
+        t
+      );
     }
     function S(e) {
       var t,

@@ -19,7 +19,7 @@ __d(
             (n.dirty = !1),
             n.listenTo(
               n,
-              "change:weight change:length",
+              "change:weight",
               r("WAWebDebounce")(function () {
                 return n._sortTrimScale();
               }, e),

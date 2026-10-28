@@ -1,19 +1,25 @@
 __d(
   "WAWebFetchAdAccountToken",
   [
+    "Promise",
+    "WACustomError",
+    "WAPromiseTimeout",
     "WAResolvable",
     "WASmaxBizCtwaAdAccountGetAccessTokenAndSessionCookiesRPC",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCommonAdsTypes",
     "WAWebFailureErrorCodes",
     "WAWebGraphQLServerError",
+    "WAWebNoop",
     "WAWebQplFlowWrapper",
     "WAWebUserPrefsCTWA",
+    "justknobx",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = r("qpl")._(1029388606, "2771");
-    function s(e) {
+    var e,
+      s = r("qpl")._(1029388606, "2771");
+    function u(e) {
       switch (e == null ? void 0 : e.elementValue) {
         case "Weak":
           return o("WAWebCommonAdsTypes").WAAIdentityTokenStrengthEnum.WEAK;
@@ -22,40 +28,115 @@ __d(
           return o("WAWebCommonAdsTypes").WAAIdentityTokenStrengthEnum.STRONG;
       }
     }
-    var u = null,
-      c = 1;
-    function d(t) {
-      if (u != null) {
-        if (t !== !0) return u.promise;
-        u = null;
+    var c = null,
+      d = null,
+      m = null,
+      p = 0,
+      _ = 1;
+    function f(e) {
+      if (c != null && e !== !0) return c.promise;
+      var t = d;
+      if (t != null && v()) return t;
+      var n = new (o("WAResolvable").Resolvable)();
+      c = n;
+      var r = o("WAWebUserPrefsCTWA").getAdAccountToken();
+      return e !== !0 && r != null && r.bp_id !== ""
+        ? ((m = r), n.resolve({ token: r, type: "success" }), n.promise)
+        : (g(n), n.promise);
+    }
+    function g(e) {
+      var t = e.promise,
+        n = p;
+      d = t;
+      var a = function () {
+        d === t && (d = null);
+      };
+      (o("WAPromiseTimeout")
+        .promiseTimeout(t.then(r("WAWebNoop"), r("WAWebNoop")), M())
+        .catch(function (t) {
+          t instanceof o("WACustomError").TimeoutError && (a(), v() && h(e, n));
+        }),
+        o("WAWebQplFlowWrapper").QPL.markerStart(s),
+        o("WAWebQplFlowWrapper").QPL.markerPoint(s, "request_token_start"));
+      var i = { retriedAfterIncorrectNonce: !1 };
+      T(_, i)
+        .then(function (t) {
+          (a(), y(e, t, i, n));
+        })
+        .catch(function (t) {
+          (a(), C(e, t));
+        });
+    }
+    function h(e, t) {
+      var n = p !== t ? m : null;
+      if ((b(e), n == null)) {
+        (N("timeout"), e.resolve({ type: "error" }));
+        return;
       }
-      var n = (u = new (o("WAResolvable").Resolvable)()),
-        r = o("WAWebUserPrefsCTWA").getAdAccountToken();
-      return r != null && r.bp_id !== "" && t !== !0
-        ? (n.resolve({ token: r, type: "success" }), n.promise)
-        : (o("WAWebQplFlowWrapper").QPL.markerStart(e),
-          o("WAWebQplFlowWrapper").QPL.markerPoint(e, "request_token_start"),
-          g(c)
-            .then(function (e) {
-              (e.type === "success"
-                ? o("WAWebUserPrefsCTWA").setAdAccountToken(e.token)
-                : (e.type, (u = null)),
-                n.resolve(e));
-            })
-            .catch(function (e) {
-              ((u = null), n.reject(e));
-            }),
-          n.promise);
+      (o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, {
+        bool: { timed_out: !0 },
+      }),
+        P(),
+        e.resolve({ token: n, type: "success" }));
     }
-    function m() {
-      ((u = null), o("WAWebUserPrefsCTWA").clearAdAccountToken());
+    function y(e, t, n, r) {
+      var a = c == null || c === e;
+      if (e.isSettled) {
+        t.type === "success" && a && p === r && E(t.token);
+        return;
+      }
+      (x(t, n),
+        t.type === "success"
+          ? a &&
+            (o("WAWebUserPrefsCTWA").setAdAccountToken(t.token),
+            (m = t.token),
+            p++,
+            (c = e))
+          : (t.type, b(e)),
+        e.resolve(t));
     }
-    function p(e) {
-      o("WAWebUserPrefsCTWA").setAdAccountToken(e);
+    function C(e, t) {
+      e.isSettled || (N("error"), b(e), e.reject(t));
+    }
+    function b(e) {
+      c === e && (c = null);
+    }
+    function v() {
+      return r("justknobx")._("6864");
+    }
+    function S(t) {
+      if (!v()) return (L(), f(!0));
+      var r = R(t);
+      return r != null
+        ? (e || (e = n("Promise"))).resolve(r)
+        : (L(),
+          f(!0).then(
+            function (e) {
+              var n;
+              return (n = R(t)) != null ? n : e;
+            },
+            function (e) {
+              var n = R(t);
+              if (n == null) throw e;
+              return n;
+            },
+          ));
+    }
+    function R(e) {
+      var t = m;
+      return t != null && t.bp_id === e.bp_id && t.token !== e.token
+        ? { token: t, type: "success" }
+        : null;
+    }
+    function L() {
+      ((c = null), (m = null), o("WAWebUserPrefsCTWA").clearAdAccountToken());
+    }
+    function E(e) {
+      (o("WAWebUserPrefsCTWA").setAdAccountToken(e), (m = e), p++);
       var t = new (o("WAResolvable").Resolvable)();
-      (t.resolve({ token: e, type: "success" }), (u = t));
+      (t.resolve({ token: e, type: "success" }), (c = t));
     }
-    function _(e) {
+    function k(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t = e.source.errors.some(function (e) {
           return (
@@ -70,7 +151,7 @@ __d(
       }
       return !1;
     }
-    function f(e) {
+    function I(e) {
       return e instanceof o("WAWebGraphQLServerError").GraphQLServerError
         ? e.source.errors.some(function (e) {
             var t = o("WAWebGraphQLServerError").GraphQLErrorCode.cast(e.code);
@@ -85,29 +166,30 @@ __d(
           })
         : !1;
     }
-    function g(e) {
+    function T(e, t) {
       return o("WAWebCTWABizAccessTokenNonceManager")
         .fetchNonce()
-        .then(function (t) {
-          switch (t.type) {
+        .then(function (n) {
+          switch (n.type) {
             case "error":
             case "recovery-required":
-              return (b(t.type), t);
+              return n;
             default:
               return (
-                t.type,
-                h(t.nonce).then(function (t) {
-                  return t.type === "incorrect-nonce" && e > 0
-                    ? g(e - 1).then(function (e) {
-                        return e.type === "success" ? e : (e.type, t);
-                      })
-                    : t;
+                n.type,
+                D(n.nonce).then(function (n) {
+                  return n.type === "incorrect-nonce" && e > 0
+                    ? ((t.retriedAfterIncorrectNonce = !0),
+                      T(e - 1, t).then(function (e) {
+                        return e.type === "success" ? e : (e.type, n);
+                      }))
+                    : n;
                 })
               );
           }
         });
     }
-    function h(e) {
+    function D(e) {
       return (
         o("WAWebCTWABizAccessTokenNonceManager").markNonceAsUsed(),
         o("WASmaxBizCtwaAdAccountGetAccessTokenAndSessionCookiesRPC")
@@ -115,20 +197,19 @@ __d(
           .then(function (e) {
             switch (e.name) {
               case "GetAccessTokenAndSessionCookiesResponseTooManyAttempts":
-                return (b("too-many-attempts"), { type: "too-many-attempts" });
+                return { type: "too-many-attempts" };
               case "GetAccessTokenAndSessionCookiesResponseIncorrectNonce":
-                return (b("incorrect-nonce"), { type: "incorrect-nonce" });
+                return { type: "incorrect-nonce" };
               case "GetAccessTokenAndSessionCookiesResponseError":
-                return (b("error"), { type: "error" });
+                return { type: "error" };
               default:
                 return (
                   e.name,
-                  C(),
                   {
                     token: o("WAWebCommonAdsTypes").asAdAccountToken({
                       bp_id: e.value.businessPersonId,
                       token: e.value.accessTokenElementValue,
-                      tokenStrength: s(e.value.tokenType),
+                      tokenStrength: u(e.value.tokenType),
                       type: "WAA",
                     }),
                     type: "success",
@@ -136,39 +217,47 @@ __d(
                 );
             }
           })
-          .catch(function (e) {
-            throw (b("error"), e);
-          })
       );
     }
-    function y(t) {
-      (o("WAWebQplFlowWrapper").QPL.markerPoint(e, "request_token_end"),
-        o("WAWebQplFlowWrapper").QPL.markerEnd(e, t));
+    function x(e, t) {
+      (t.retriedAfterIncorrectNonce &&
+        o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, {
+          bool: { incorrect_nonce_retried: !0 },
+        }),
+        e.type === "success" ? P() : N(e.type));
     }
-    function C() {
-      y(2);
+    function $(e) {
+      (o("WAWebQplFlowWrapper").QPL.markerPoint(s, "request_token_end"),
+        o("WAWebQplFlowWrapper").QPL.markerEnd(s, e));
     }
-    function b(t) {
-      (o("WAWebQplFlowWrapper").QPL.markerAnnotate(e, {
-        string: { failure_reason: t },
+    function P() {
+      $(2);
+    }
+    function N(e) {
+      (o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, {
+        string: { failure_reason: e },
       }),
-        y(3));
+        $(3));
     }
-    function v() {
+    function M() {
+      return 2 * w() * 1e3;
+    }
+    function w() {
       return (
         o(
           "WAWebCTWABizAccessTokenNonceManager",
         ).getMaximumNonceFetchTimeoutSeconds() *
-        (c + 1)
+        (_ + 1)
       );
     }
-    ((l.FETCH_AD_ACCOUNT_TOKEN_MAX_RETRIES = c),
-      (l.fetchToken = d),
-      (l.markTokenAsInvalid = m),
-      (l.setToken = p),
-      (l.hasGraphQLAuthError = _),
-      (l.hasTerminalIntegrityDenial = f),
-      (l.getMaximumAdAccountFetchTimeoutSeconds = v));
+    ((l.FETCH_AD_ACCOUNT_TOKEN_MAX_RETRIES = _),
+      (l.fetchToken = f),
+      (l.refreshRejectedToken = S),
+      (l.markTokenAsInvalid = L),
+      (l.setToken = E),
+      (l.hasGraphQLAuthError = k),
+      (l.hasTerminalIntegrityDenial = I),
+      (l.getMaximumAdAccountFetchTimeoutSeconds = w));
   },
   98,
 );

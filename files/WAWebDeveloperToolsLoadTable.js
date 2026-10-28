@@ -92,17 +92,20 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, n, r, o) {
+    function L(e) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            var a = yield S(e, t, n, r);
-            return F(a, o);
-          },
-        )),
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.columns,
+            n = e.columnToGroupBy,
+            r = e.filters,
+            o = e.groups,
+            a = e.tableName,
+            i = yield S(a, t, r, o);
+          return F(i, n);
+        })),
         E.apply(this, arguments)
       );
     }
@@ -144,30 +147,32 @@ __d(
         T.apply(this, arguments)
       );
     }
-    function D(e, t, n, r) {
+    function D(e) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield S(e, t, n, r),
-              a = t
-                .filter(function (e) {
-                  return e.selected;
-                })
-                .map(function (e) {
-                  return e.name;
-                }),
-              i = o.map(function (e) {
-                var t = {};
-                for (var n of a) t[n] = e[n];
-                return t;
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.columns,
+            n = e.filters,
+            r = e.groups,
+            o = e.tableName,
+            a = yield S(o, t, n, r),
+            i = t
+              .filter(function (e) {
+                return e.selected;
+              })
+              .map(function (e) {
+                return e.name;
               }),
-              l = JSON.stringify(i, null, 2);
-            return new Blob([l], { type: "application/json" });
-          },
-        )),
+            l = a.map(function (e) {
+              var t = {};
+              for (var n of i) t[n] = e[n];
+              return t;
+            }),
+            s = JSON.stringify(l, null, 2);
+          return new Blob([s], { type: "application/json" });
+        })),
         x.apply(this, arguments)
       );
     }

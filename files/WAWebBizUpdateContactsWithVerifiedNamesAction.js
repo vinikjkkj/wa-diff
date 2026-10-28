@@ -4,7 +4,7 @@ __d(
     "WAWebApiVerifiedBusinessName",
     "WAWebBusinessProfileTypes",
     "WAWebContactCollection",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -64,12 +64,12 @@ __d(
               privacyMode: s
                 ? {
                     actualActors: r("nullthrows")(
-                      o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+                      o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
                         s.actualActors,
                       ),
                     ),
                     hostStorage: r("nullthrows")(
-                      o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+                      o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
                         s.hostStorage,
                       ),
                     ),

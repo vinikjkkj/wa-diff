@@ -22,7 +22,7 @@ __d(
           (t = e.call(this) || this),
           t.listenTo(
             r("WAWebUnjoinedSubgroupMetadataCollection"),
-            "add remove change:subject",
+            ["add", "remove", "change:subject"],
             t.$CommunityActivityCollection$p_1,
           ),
           t

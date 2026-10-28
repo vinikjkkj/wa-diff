@@ -52,7 +52,7 @@ __d(
       );
     }
     function h(e) {
-      o("WAWebTos").TosManager.registerDisclosureNoticeIds(de(e));
+      o("WAWebTos").TosManager.registerDisclosureNoticeIds(ce(e));
     }
     function y(e) {
       return C.apply(this, arguments);
@@ -60,7 +60,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = de(e);
+          var t = ce(e);
           (o("WAWebTos").TosManager.registerDisclosureNoticeIds(t),
             t.some(function (e) {
               return o("WAWebTos").TosManager.getState(e) !== "ACCEPTED";
@@ -276,7 +276,7 @@ __d(
         ? !0
         : e.every(function (e) {
             if (e.blocking === !1) return !0;
-            var t = me(e.id);
+            var t = de(e.id);
             return (
               t != null && o("WAWebTos").TosManager.getState(t) === "ACCEPTED"
             );
@@ -391,32 +391,29 @@ __d(
       );
     }
     function le(e) {
-      r("WAWebUserPrefsStore").setUser(u, e);
-    }
-    function se(e) {
       var t = o("WAWebBotGating").getNonBlockingBotNoticeIds();
       return t.length === 0 ? !1 : t.includes(Number(e));
     }
-    function ue(e) {
+    function se(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null && e === t;
     }
-    function ce(e) {
-      if (se(Number(e))) return !0;
+    function ue(e) {
+      if (le(Number(e))) return !0;
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null ? !0 : o("WAWebBotTosIds").supportedTosNoticeIds.has(e);
     }
-    function de(e) {
+    function ce(e) {
       var t = [];
       return (
         (e != null ? e : []).forEach(function (e) {
-          var n = me(e.id);
+          var n = de(e.id);
           n != null && t.push(n);
         }),
         t
       );
     }
-    function me(e) {
+    function de(e) {
       return e != null && Number.isSafeInteger(e) && e > 0 ? String(e) : null;
     }
     ((l.GROUP_NOTICE_CONFIRMATION_TIMEOUT_MS = m),
@@ -444,10 +441,9 @@ __d(
       (l.markSeenInvokeTos = Z),
       (l.markSeenShortcutTos = te),
       (l.acceptBizBotTos = re),
-      (l.setBizBotTosDismissalTime = le),
-      (l.isNonBlockingBotNotice = se),
-      (l.isMasterBotTosNotice = ue),
-      (l.canShowBotTos = ce));
+      (l.isNonBlockingBotNotice = le),
+      (l.isMasterBotTosNotice = se),
+      (l.canShowBotTos = ue));
   },
   98,
 );

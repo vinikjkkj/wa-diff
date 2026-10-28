@@ -5,7 +5,7 @@ __d(
     "WAWebAdvSignatureApi",
     "WAWebBackendJobs.flow",
     "WAWebGetMessageCache",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMessageReceiveFlow",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgProcessingDecryptEnc",
@@ -56,8 +56,7 @@ __d(
                     )
                     .tags("messaging"),
                   {
-                    result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                      .RETRY,
+                    result: o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
                     retryCount: l[0].retryCount,
                     retryReason: o("WAWebSendRetryReceiptJob").RetryReason
                       .AdvFailure,

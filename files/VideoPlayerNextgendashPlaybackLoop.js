@@ -3982,7 +3982,11 @@ __d(
           baseURL: a.baseURL,
           byteRange: {
             byteLength:
-              l.byteLength != null ? l.byteOffset + l.byteLength : null,
+              l.byteLength != null
+                ? l.byteOffset +
+                  l.byteLength -
+                  (e.config.enableExactSegmentGroupByteRange ? i.byteOffset : 0)
+                : null,
             byteOffset: i.byteOffset,
           },
           type: "BaseURLByteRange",
@@ -6493,6 +6497,7 @@ __d(
       (l.internal_computePairedRefetchAnchorSec = Ke),
       (l.internal_addBoundedWorkaroundForSegmentBufferedInsufficiently = Qe),
       (l.makeSegmentFetchDataKey = Xe),
+      (l.internal_makeGroupOfSegmentsFetchDemand = Je),
       (l.findDataForDataKey = Ze),
       (l.debugPrepareFetchDemands = nt),
       (l.internal_handleSourceBufferEvent = _t),

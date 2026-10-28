@@ -6,7 +6,7 @@ __d(
     "WAWebBotTos",
     "WAWebBotTosIds",
     "WAWebBotUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebPDFNCommonUtils",
     "WAWebTos",
     "WAWebTosGatingUtils",
@@ -19,7 +19,7 @@ __d(
           o("WAWebTos").TosManager.getState(o("WAWebTos").TOS_3_ID) ===
             "NOT_ACCEPTED" &&
           ((t = e.privacyMode) == null ? void 0 : t.hostStorage) ===
-            o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook &&
+            o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook &&
           !o("WAWebABPropsInternalNumber").getFbBrandedNumber(e.id.user)
         )
           return !0;

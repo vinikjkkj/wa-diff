@@ -5,6 +5,7 @@ __d(
     "WAWebChatCommunityUtils",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
+    "WAWebDeactivatedContactUtils",
     "WAWebEnvironment",
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
@@ -63,7 +64,7 @@ __d(
         o("WAWebMsgGetters").getIsBotFutureproofPlaceholder(t) ||
         (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
           !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
-        o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(n)
+        c(n)
         ? !1
         : o("WAWebFrontendChatGetters").getIsCAG(n)
           ? t.messageSecret != null
@@ -74,6 +75,12 @@ __d(
             : n.canSend && s(e);
     }
     function c(e) {
+      return (
+        o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(e) ||
+        o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(e)
+      );
+    }
+    function d(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e),
         r = o("WAWebFrontendMsgGetters").getChat(n);
@@ -110,7 +117,7 @@ __d(
               o("WAWebMsgModelUtils").interactiveButtonsReleased(n) &&
               !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(n);
     }
-    function d(e) {
+    function m(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e),
         r = o("WAWebFrontendMsgGetters").getChat(n);
@@ -145,8 +152,8 @@ __d(
     ((l.isStatusReplyMsg = e),
       (l.replyChecks = s),
       (l.canReplyMsg = u),
-      (l.canPrivateReply = c),
-      (l.canPrivateReplyInRestrictedGrp = d));
+      (l.canPrivateReply = d),
+      (l.canPrivateReplyInRestrictedGrp = m));
   },
   98,
 );

@@ -28,55 +28,56 @@ __d(
       f,
       g,
       h,
-      y =
+      y,
+      C =
         e !== void 0
           ? e
           : (e = n("WAWebFetchBizAiResponseSettingsV2GateMutation.graphql")),
-      C = "biz_ai_response_settings_v2_gate",
-      b = 360 * 60,
-      v = 1e4,
-      S = 2;
-    function R(e) {
+      b = "biz_ai_response_settings_v2_gate",
+      v = 360 * 60,
+      S = 1e4,
+      R = 2;
+    function L(e) {
       o("WAWebBackendApi").frontendFireAndForget(
         "loadedBizAiResponseSettingsV2Gate",
         { enabled: e },
       );
     }
-    function L() {
-      var e = r("WAWebUserPrefsStore").getUser(C);
+    function E() {
+      var e = r("WAWebUserPrefsStore").getUser(b);
       if (e == null || typeof e != "object") return null;
       var t = e.enabled,
         n = e.ts;
       if (typeof t != "boolean" || typeof n != "number") return null;
       var a = !o("WATimeUtils").isInFuture(
-        o("WATimeUtils").futureUnixTime(b, o("WATimeUtils").castToUnixTime(n)),
+        o("WATimeUtils").futureUnixTime(v, o("WATimeUtils").castToUnixTime(n)),
       );
       return a ? null : t;
     }
-    function E(e) {
-      r("WAWebUserPrefsStore").setUser(C, {
+    function k(e) {
+      r("WAWebUserPrefsStore").setUser(b, {
         enabled: e,
         ts: o("WATimeUtils").unixTime(),
       });
     }
-    function k() {
+    function I() {
       return (
-        S *
+        R *
         (o(
           "WAWebFetchAdAccountToken",
         ).getMaximumAdAccountFetchTimeoutSeconds() *
           1e3 +
-          v)
+          S)
       );
     }
-    function I(e) {
+    function T(e) {
       if (!o("WAWebMobilePlatforms").isSMB())
-        return (h || (h = n("Promise"))).resolve();
+        return (y || (y = n("Promise"))).resolve();
       var t = o("WAWebBizAiAgentGating").getResponseSettingsV2TriState();
-      if (t === "NONE") return (R(!1), (h || (h = n("Promise"))).resolve());
-      if (t === "ROLLOUT") return (R(!0), (h || (h = n("Promise"))).resolve());
+      if (t === "NONE") return (L(!1), (y || (y = n("Promise"))).resolve());
+      if (t === "ROLLOUT") return (L(!0), (y || (y = n("Promise"))).resolve());
       if (e !== "debug") {
-        var a = L();
+        var a = E();
         if (a != null)
           return (
             o("WALogger").LOG(
@@ -87,8 +88,8 @@ __d(
                 ])),
               a,
             ),
-            R(a),
-            (h || (h = n("Promise"))).resolve()
+            L(a),
+            (y || (y = n("Promise"))).resolve()
           );
       }
       return (
@@ -103,11 +104,11 @@ __d(
         r("WAWebNetworkStatus")
           .waitIfOffline()
           .then(function () {
-            return o("WAPromiseTimeout").promiseTimeout(T(), k());
+            return o("WAPromiseTimeout").promiseTimeout(D(), I());
           })
-          .then($)
+          .then(P)
           .catch(function (e) {
-            $(
+            P(
               e instanceof o("WACustomError").TimeoutError
                 ? { type: "timeout" }
                 : { type: "unknown-failed" },
@@ -115,43 +116,47 @@ __d(
           })
       );
     }
-    function T() {
+    function D() {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (e) {
           return e.type !== "success"
             ? { type: "token-failed" }
-            : D(e.token).then(function (e) {
+            : x(e.token).then(function (e) {
                 return e.type === "ok"
                   ? { enabled: e.enabled, type: "enabled" }
                   : e.type === "error"
                     ? { reason: e.reason, type: "network-failed" }
-                    : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
-                      o("WAWebFetchAdAccountToken")
-                        .fetchToken(!0)
-                        .then(function (e) {
-                          return e.type !== "success"
-                            ? { type: "token-failed" }
-                            : D(e.token).then(function (e) {
-                                return e.type === "ok"
-                                  ? { enabled: e.enabled, type: "enabled" }
-                                  : e.type === "auth"
-                                    ? (o(
-                                        "WAWebFetchAdAccountToken",
-                                      ).markTokenAsInvalid(),
-                                      { type: "auth-failed" })
-                                    : {
-                                        reason: e.reason,
-                                        type: "network-failed",
-                                      };
-                              });
-                        }));
+                    : e.type === "unreachable"
+                      ? { type: "network-unreachable" }
+                      : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
+                        o("WAWebFetchAdAccountToken")
+                          .fetchToken(!0)
+                          .then(function (e) {
+                            return e.type !== "success"
+                              ? { type: "token-failed" }
+                              : x(e.token).then(function (e) {
+                                  return e.type === "ok"
+                                    ? { enabled: e.enabled, type: "enabled" }
+                                    : e.type === "auth"
+                                      ? (o(
+                                          "WAWebFetchAdAccountToken",
+                                        ).markTokenAsInvalid(),
+                                        { type: "auth-failed" })
+                                      : e.type === "unreachable"
+                                        ? { type: "network-unreachable" }
+                                        : {
+                                            reason: e.reason,
+                                            type: "network-failed",
+                                          };
+                                });
+                          }));
               });
         });
     }
-    function D(e) {
+    function x(e) {
       return o("WAWebBizAiRelayClient")
-        .commitMutation(y, {}, { accessToken: e })
+        .commitMutation(C, {}, { accessToken: e })
         .then(function (e) {
           var t = e == null ? void 0 : e.xfb_meta_ai_biz_agent_wa_fetch_qe_bool;
           return (t == null ? void 0 : t.success) !== !0
@@ -164,10 +169,12 @@ __d(
         .catch(function (e) {
           return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
             ? { type: "auth" }
-            : { reason: x(e), type: "error" };
+            : e instanceof TypeError
+              ? { type: "unreachable" }
+              : { reason: $(e), type: "error" };
         });
     }
-    function x(e) {
+    function $(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t,
           n,
@@ -189,7 +196,7 @@ __d(
       }
       return e instanceof Error ? e.name : typeof e;
     }
-    function $(e) {
+    function P(e) {
       e: {
         var t = e;
         if (
@@ -198,7 +205,7 @@ __d(
           "enabled" in t
         ) {
           var n = t.enabled;
-          (E(n),
+          (k(n),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -207,7 +214,7 @@ __d(
                 ])),
               n,
             ),
-            R(n));
+            L(n));
           break e;
         }
         if (
@@ -222,7 +229,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-timeout"),
-            R(!1));
+            L(!1));
           break e;
         }
         if (
@@ -237,7 +244,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-failed-auth"),
-            R(!1));
+            L(!1));
           break e;
         }
         if (
@@ -262,7 +269,22 @@ __d(
                   ])),
               )
               .sendLogs("maiba-response-settings-v2-gate-fetch-failed-network"),
-            R(!1));
+            L(!1));
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "network-unreachable"
+        ) {
+          (o("WALogger")
+            .WARN(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] response settings V2 gate fetch could not reach the server",
+                ])),
+            )
+            .verbose(),
+            L(!1));
           break e;
         }
         if (
@@ -271,13 +293,13 @@ __d(
         ) {
           (o("WALogger")
             .WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[BizAI] response settings V2 gate token fetch failed",
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-token-fetch-failed"),
-            R(!1));
+            L(!1));
           break e;
         }
         if (
@@ -286,13 +308,13 @@ __d(
         ) {
           (o("WALogger")
             .WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[BizAI] response settings V2 gate fetch failed (unknown)",
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-failed-unknown"),
-            R(!1));
+            L(!1));
           break e;
         }
         throw Error(
@@ -301,7 +323,7 @@ __d(
         );
       }
     }
-    l.fetchBizAiResponseSettingsV2Gate = I;
+    l.fetchBizAiResponseSettingsV2Gate = T;
   },
   98,
 );

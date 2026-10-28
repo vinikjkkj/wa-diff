@@ -264,7 +264,8 @@ __d(
               {
                 id: d.id,
                 username: d.username,
-                shouldDelete: !Object.hasOwn(d, "username"),
+                shouldDelete:
+                  Object.hasOwn(d, "username") && d.username == null,
               }
             );
           o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l);
@@ -306,7 +307,7 @@ __d(
                 ? (t = o("WAWebUsernameTypes").serializeMaybeUsername(
                     i.username,
                   ))
-                : (r = !0);
+                : i.noChange !== !0 && (r = !0);
             } else {
               var l = yield C(e);
               l != null && ((t = l.username), (n = l.id), (r = l.shouldDelete));

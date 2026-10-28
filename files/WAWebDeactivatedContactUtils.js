@@ -4,6 +4,7 @@ __d(
     "WAJids",
     "WAWebApiContact",
     "WAWebContactCollection",
+    "WAWebConversationDeprecatedLidChatUtils",
     "WAWebOutContactCollection",
     "WAWebOutContactInviteGating",
   ],
@@ -18,18 +19,26 @@ __d(
     }
     function s(e) {
       return (
-        u(e) &&
+        c(e) &&
         o("WAWebOutContactInviteGating").isInviteDeactivatedUserWebEnabled()
       );
     }
-    function u(e) {
-      var t = c(e);
+    function u(t) {
+      return !t.id.isRegularUser() ||
+        !o("WAWebOutContactInviteGating").isInviteDeactivatedUserWebEnabled()
+        ? !1
+        : o(
+            "WAWebConversationDeprecatedLidChatUtils",
+          ).isDeprecatedLidChatSendBlocked(t) || c(e(t));
+    }
+    function c(e) {
+      var t = d(e);
       return (
         t != null &&
         o("WAWebOutContactCollection").OutContactCollection.get(t) != null
       );
     }
-    function c(e) {
+    function d(e) {
       var t = e == null ? void 0 : e.id;
       if (t == null || !t.isRegularUser()) return null;
       var n = t.isLid() ? o("WAWebApiContact").getPnIfLidIsLatestMapping(t) : t;
@@ -37,8 +46,9 @@ __d(
     }
     ((l.getDeactivatedChatContact = e),
       (l.isDeactivatedContactInviteEnabled = s),
-      (l.isSyncedNonWAContact = u),
-      (l.getSyncedNonWAContactId = c));
+      (l.isDeactivatedChatReplyBlocked = u),
+      (l.isSyncedNonWAContact = c),
+      (l.getSyncedNonWAContactId = d));
   },
   98,
 );

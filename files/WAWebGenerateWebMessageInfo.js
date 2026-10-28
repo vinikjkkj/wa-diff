@@ -56,6 +56,7 @@ __d(
             groupMentions: [],
             statusAttributions: [],
             experienceIds: [],
+            sourceExperienceIds: [],
           };
         (e.mentionedJidList &&
           e.mentionedJidList.length > 0 &&

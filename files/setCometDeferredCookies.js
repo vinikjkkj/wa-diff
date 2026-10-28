@@ -9,7 +9,12 @@ __d(
     function c(e) {
       s ? e() : u.add(e);
     }
-    function d(t) {
+    function d(e) {
+      c(function () {
+        r("DeferredCookie").registerCallbackOnFirstPartyCookieFlush(e);
+      });
+    }
+    function m(t) {
       (Object.entries(t).forEach(function (e) {
         var t = e[0],
           n = e[1],
@@ -26,7 +31,9 @@ __d(
         }),
         u.clear());
     }
-    ((l.onCometDeferredCookieSet = c), (l.setCometDeferredCookies = d));
+    ((l.onCometDeferredCookieSet = c),
+      (l.onCometFirstPartyCookieFlush = d),
+      (l.setCometDeferredCookies = m));
   },
   98,
 );

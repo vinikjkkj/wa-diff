@@ -28,6 +28,7 @@ __d(
               groupMentions: [],
               statusAttributions: [],
               experienceIds: [],
+              sourceExperienceIds: [],
             },
           };
         }

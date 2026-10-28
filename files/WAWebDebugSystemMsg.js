@@ -6,9 +6,11 @@ __d(
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
+      r("vulture")("Y5aLXrPDBIKnNq0hwDM8Yh45OMk=");
       var a = new (r("WAWebMsgKey"))({
         fromMe: !0,
         remote: e,

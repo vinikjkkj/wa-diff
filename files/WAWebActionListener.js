@@ -1081,7 +1081,10 @@ __d(
         )) == null || t.commit();
       };
       o("WDSDialogBridge").openWDSDialog(
-        m.jsx(r("WAWebClearChatPopup.react"), { chat: e, onClearConfirmed: a }),
+        m.jsx(r("WAWebClearChatPopup.react"), {
+          chatId: e.id,
+          onClearConfirmed: a,
+        }),
       );
     }
     function A(e, t, n) {

@@ -167,10 +167,22 @@ __d(
         return !1;
       }
     }
+    function b(e) {
+      return (
+        e != null &&
+        r("WAWebMarkdownLinkFormatMutator")
+          .match(e)
+          .some(function (e) {
+            var t = e[4];
+            return C(t[3]);
+          })
+      );
+    }
     ((l.getAppointmentConnectorNuxBullets = p),
       (l.getAppointmentConnectorValuePropBullets = _),
       (l.wrapServerText = g),
-      (l.wrapServerMarkdown = h));
+      (l.wrapServerMarkdown = h),
+      (l.hasAppointmentConnectorFooterLink = b));
   },
   226,
 );

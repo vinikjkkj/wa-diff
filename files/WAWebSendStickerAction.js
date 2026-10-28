@@ -7,8 +7,8 @@ __d(
     "WAWebBizBotTosUtils",
     "WAWebCmd",
     "WAWebConfirmPopup.react",
-    "WAWebMedia",
     "WAWebMediaOpaqueData",
+    "WAWebMediaStickers",
     "WAWebModalManager",
     "WAWebRecentStickerCollection",
     "WAWebSendMsgResultAction",
@@ -110,7 +110,7 @@ __d(
               n.mediaData.mediaBlob.retain());
           var s = a.stickerSendOrigin,
             u = babelHelpers.objectWithoutPropertiesLoose(a, e),
-            c = yield o("WAWebMedia")
+            c = yield o("WAWebMediaStickers")
               .prepSticker(n)
               .sendToChat({
                 chat: t,

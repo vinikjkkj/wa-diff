@@ -6,12 +6,12 @@ __d(
     "WAWebPhoneUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, o) {
-      if (!e || (r === "" && o == null)) return t;
-      var a = y(n);
+    function e(e, t, n, r, o, a) {
+      if ((a === void 0 && (a = null), !e || R(r, o, a))) return t;
+      var i = y(n);
       return t.filter(function (e) {
         var t;
-        return C(e, (t = a.get(e.lid)) != null ? t : [], r, o);
+        return C(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
       });
     }
     function s(e, t, n, r, o, a) {
@@ -26,21 +26,19 @@ __d(
         var t;
         if (l.has(e.lid)) return !1;
         var n = (t = i.get(e.lid)) != null ? t : [];
-        return C(e, n, o, a);
+        return C(e, n, o, a, null);
       });
     }
-    function u(e, t, n, r, o) {
-      if (!e) return [];
-      var a = new Set(
+    function u(e, t, n, r, o, a) {
+      if ((a === void 0 && (a = null), !e)) return [];
+      var i = new Set(
         n.map(function (e) {
           return e.lid;
         }),
       );
       return t.filter(function (e) {
         return (
-          (e.memberLID == null || !a.has(e.memberLID)) &&
-          (o == null || e.memberTag === o) &&
-          b(e, r)
+          (e.memberLID == null || !i.has(e.memberLID)) && S(e, o, a) && E(e, r)
         );
       });
     }
@@ -64,37 +62,47 @@ __d(
     function m(e) {
       return e === "all" || e === "not_joined";
     }
-    function p(t, n, r, o, a, i) {
+    function p(t, n, r, o, a, i, l, s) {
       (o === void 0 && (o = ""),
         a === void 0 && (a = null),
-        i === void 0 && (i = "all"));
-      var l = function (a) {
-          return e(!0, t, n, o, a).filter(function (e) {
+        i === void 0 && (i = "all"),
+        l === void 0 && (l = []),
+        s === void 0 && (s = null));
+      var d = function (a, l) {
+          return e(!0, t, n, o, a, l).filter(function (e) {
             return c(e, i);
           }).length;
         },
-        s = function (r) {
-          return m(i) ? u(!0, n, t, o, r).length : 0;
+        p = function (r, a) {
+          return m(i) ? u(!0, n, t, o, r, a).length : 0;
         },
-        d = new Map();
-      for (var p of r) d.set(p, l(p) + s(p));
-      var _ = e(!0, t, n, o, a),
-        f = u(!0, n, t, o, a).length,
-        g = function (t) {
-          return _.filter(function (e) {
+        _ = function (t, n) {
+          return d(t, n) + p(t, n);
+        },
+        f = L(r, function (e) {
+          return _(e, s);
+        }),
+        g = L(l, function (e) {
+          return _(a, e);
+        }),
+        h = e(!0, t, n, o, a, s),
+        y = u(!0, n, t, o, a, s).length,
+        C = function (t) {
+          return h.filter(function (e) {
             return c(e, t);
           }).length;
         };
       return {
-        memberCount: _.length,
-        memberTagCounts: d,
-        notJoinedCount: f,
+        memberCount: h.length,
+        memberTagCounts: f,
+        notJoinedCount: y,
+        secondaryMemberTagCounts: g,
         statusCounts: {
-          admin: g("admin"),
-          all: _.length + f,
-          member: g("member"),
-          not_joined: f,
-          owner: g("owner"),
+          admin: C("admin"),
+          all: h.length + y,
+          member: C("member"),
+          not_joined: y,
+          owner: C("owner"),
         },
       };
     }
@@ -143,27 +151,54 @@ __d(
       }
       return t;
     }
-    function C(e, t, n, r) {
-      var a,
-        i =
+    function C(e, t, n, r, a) {
+      var i,
+        l =
           o(
             "WAWebOrgAdminDirectoryMemberDisplay",
           ).orgAdminDirectoryMemberMatchesQuery(e, n) ||
-          ((a = e.memberTag) == null
+          ((i = e.memberTag) == null
             ? void 0
-            : a.toLocaleLowerCase().includes(n)) === !0 ||
+            : i.toLocaleLowerCase().includes(n)) === !0 ||
           t.some(function (e) {
-            return b(e, n);
-          }),
-        l =
-          r == null ||
-          e.memberTag === r ||
-          t.some(function (e) {
-            return e.memberTag === r;
+            return E(e, n);
           });
-      return i && l;
+      return l && b(e, t, r) && v(t, a);
     }
-    function b(e, t) {
+    function b(e, t, n) {
+      return (
+        n == null ||
+        e.memberTag === n ||
+        t.some(function (e) {
+          return e.memberTag === n;
+        })
+      );
+    }
+    function v(e, t) {
+      return (
+        t == null ||
+        e.some(function (e) {
+          return e.secondaryMemberTag === t;
+        })
+      );
+    }
+    function S(e, t, n) {
+      return (
+        (t == null || e.memberTag === t) &&
+        (n == null || e.secondaryMemberTag === n)
+      );
+    }
+    function R(e, t, n) {
+      return e === "" && t == null && n == null;
+    }
+    function L(e, t) {
+      return new Map(
+        e.map(function (e) {
+          return [e, t(e)];
+        }),
+      );
+    }
+    function E(e, t) {
       return t === ""
         ? !0
         : [

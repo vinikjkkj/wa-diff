@@ -21,19 +21,7 @@ __d(
         e,
       );
     }
-    function u(e) {
-      r("WAWebUserPrefsStore").set(
-        o("WAWebUserPrefsKeys").MD_KEYS.UGC_BOT_LIST_LAST_REQUESTED_TIMESTAMP,
-        e,
-      );
-    }
-    function c(e) {
-      r("WAWebUserPrefsStore").set(
-        o("WAWebUserPrefsKeys").MD_KEYS.UGC_BOT_LIST_LAST_BHASH,
-        e,
-      );
-    }
-    function d() {
+    function u() {
       var e,
         t = o(
           "WAWebUserPrefsDeviceCapabilities",
@@ -43,26 +31,26 @@ __d(
         : o("WAWebProtobufsDeviceCapabilities.pb")
             .DeviceCapabilities$AiThread$SupportLevel.NONE;
     }
-    var m = { IN_PROGRESS: "IN_PROGRESS", COMPLETE: "COMPLETE" };
-    function p() {
+    var c = { IN_PROGRESS: "IN_PROGRESS", COMPLETE: "COMPLETE" };
+    function d() {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_MIGRATION_STATE,
       );
     }
-    function _(e) {
+    function m(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_MIGRATION_STATE,
         e,
       );
     }
+    function p() {
+      var e = d();
+      return (e == null ? void 0 : e.migrationProgress) === c.COMPLETE;
+    }
+    function _() {
+      return m({ migrationProgress: c.COMPLETE });
+    }
     function f() {
-      var e = p();
-      return (e == null ? void 0 : e.migrationProgress) === m.COMPLETE;
-    }
-    function g() {
-      return _({ migrationProgress: m.COMPLETE });
-    }
-    function h() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
@@ -70,7 +58,7 @@ __d(
         ? e
         : 0;
     }
-    function y(e) {
+    function g(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
         e,
@@ -78,16 +66,14 @@ __d(
     }
     ((l.getBotListLastRequestedTimestamp = e),
       (l.setBotListLastRequestedTimestamp = s),
-      (l.setUgcBotListLastRequestedTimestamp = u),
-      (l.setUgcBotListLastBhash = c),
-      (l.getPrimaryAiThreadSupportLevelFromLocalStorage = d),
-      (l.MetaAIThreadMigrationProgress = m),
-      (l.getMetaAIThreadMigrationState = p),
-      (l.setMetaAIThreadMigrationState = _),
-      (l.isMetaAIThreadMigrationComplete = f),
-      (l.markMetaAIThreadMigrationStateAsComplete = g),
-      (l.getMetaAiBotSessionLastCleanupTs = h),
-      (l.setMetaAiBotSessionLastCleanupTs = y));
+      (l.getPrimaryAiThreadSupportLevelFromLocalStorage = u),
+      (l.MetaAIThreadMigrationProgress = c),
+      (l.getMetaAIThreadMigrationState = d),
+      (l.setMetaAIThreadMigrationState = m),
+      (l.isMetaAIThreadMigrationComplete = p),
+      (l.markMetaAIThreadMigrationStateAsComplete = _),
+      (l.getMetaAiBotSessionLastCleanupTs = f),
+      (l.setMetaAiBotSessionLastCleanupTs = g));
   },
   98,
 );

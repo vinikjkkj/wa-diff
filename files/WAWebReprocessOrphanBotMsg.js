@@ -6,7 +6,7 @@ __d(
     "WAWap",
     "WAWebHandleMsgParser",
     "WAWebHandleMsgProcess",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMessageInsertDeferredPlaceholder",
     "WAWebMsgProcessingDecryptApi",
     "WAWebProcessMsgInfoForLid",
@@ -98,7 +98,7 @@ __d(
               o("WAWebHandleMsgProcess").processDecryptedMessageProto,
             ),
             f = _.result;
-          if (f !== o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS) {
+          if (f !== o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS) {
             var h = g(f);
             return (
               h === "unrecoverable"
@@ -138,8 +138,8 @@ __d(
     }
     function g(e) {
       return e ===
-        o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_VALIDATION_ERROR ||
-        e === o("WAWebHandleMsgTypes.flow").E2EProcessResult.HSM_MISMATCH
+        o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_VALIDATION_ERROR ||
+        e === o("WAWebHandleMsgTypes").E2EProcessResult.HSM_MISMATCH
         ? "unrecoverable"
         : "retryable";
     }

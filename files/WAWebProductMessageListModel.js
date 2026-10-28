@@ -49,7 +49,7 @@ __d(
               }),
               this.triggerProductUpdate(),
               this.listenTo(this.productCollection, "remove", function (t) {
-                return e.$ProductMessageListImpl$p_1(t.id);
+                return e.$ProductMessageListImpl$p_1(t.id.toString());
               }));
           }),
           (a.$ProductMessageListImpl$p_1 = function (t) {

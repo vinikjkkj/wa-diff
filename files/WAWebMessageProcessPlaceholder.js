@@ -13,7 +13,7 @@ __d(
     "WAWebCurrentUser",
     "WAWebDBProcessMessage",
     "WAWebHandleMsgCommon",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebMessageDestinationChat",
     "WAWebMessageProcessorCache",
@@ -56,9 +56,9 @@ __d(
             if (
               i.isUser() &&
               (t.placeholderType ===
-                o("WAWebHandleMsgTypes.flow").PlaceholderType.E2E ||
+                o("WAWebHandleMsgTypes").PlaceholderType.E2E ||
                 t.placeholderType ===
-                  o("WAWebHandleMsgTypes.flow").PlaceholderType.FANOUT)
+                  o("WAWebHandleMsgTypes").PlaceholderType.FANOUT)
             ) {
               var d,
                 m =
@@ -110,8 +110,7 @@ __d(
               if (
                 f == null ||
                 (f.realType != null,
-                a.type ===
-                o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+                a.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
                   ? (yield o("WAWebDBProcessMessage").storeMessages(
                       [f],
                       f.id.remote,

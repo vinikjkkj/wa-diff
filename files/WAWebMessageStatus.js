@@ -2,7 +2,6 @@ __d(
   "WAWebMessageStatus",
   [
     "WAWebAck",
-    "WAWebMessageAssociationUIUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebStatusUtils",
@@ -12,18 +11,18 @@ __d(
     "isStringNullOrEmpty",
     "react",
     "react-compiler-runtime",
+    "useWAWebLowestAckState",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = e.useMemo,
-      c = {
+      u = {
         light: { color: "x17t9dm2", $$css: !0 },
         ackBlue: { color: "x1rv0e52", $$css: !0 },
       };
-    function d(e) {
-      var t = o("react-compiler-runtime").c(24),
+    function c(e) {
+      var t = o("react-compiler-runtime").c(28),
         n = e.associatedMessages,
         a = e.msgKey,
         i;
@@ -40,93 +39,101 @@ __d(
         ]),
           (t[0] = i));
       } else i = t[0];
-      var u = o("useWAWebMsgValues").useMsgValues(a, i),
-        d = u[0],
-        m = u[1],
-        p = u[2],
-        _ = u[3],
-        f = u[4],
-        g = u[5],
-        h = u[6],
+      var c = o("useWAWebMsgValues").useMsgValues(a, i),
+        d = c[0],
+        m = c[1],
+        p = c[2],
+        _ = c[3],
+        f = c[4],
+        g = c[5],
+        h = c[6],
         y = d != null ? d : o("WAWebAck").ACK.CLOCK,
-        C = o("WAWebMessageAssociationUIUtils").getLowestAckState(y, f, n),
-        b;
-      t[1] !== _ ||
-      t[2] !== h ||
-      t[3] !== m ||
-      t[4] !== p ||
-      t[5] !== g ||
-      t[6] !== f
-        ? ((b =
+        C;
+      t[1] !== y || t[2] !== n || t[3] !== f
+        ? ((C = { ack: y, associatedMessages: n, msgType: f }),
+          (t[1] = y),
+          (t[2] = n),
+          (t[3] = f),
+          (t[4] = C))
+        : (C = t[4]);
+      var b = r("useWAWebLowestAckState")(C),
+        v;
+      t[5] !== _ ||
+      t[6] !== h ||
+      t[7] !== m ||
+      t[8] !== p ||
+      t[9] !== g ||
+      t[10] !== f
+        ? ((v =
             (m &&
               r("isStringNullOrEmpty")(_) &&
               !p &&
               f !== o("WAWebMsgType").MSG_TYPE.AUDIO) ||
             (f === o("WAWebMsgType").MSG_TYPE.LOCATION && !g && !h)),
-          (t[1] = _),
-          (t[2] = h),
-          (t[3] = m),
-          (t[4] = p),
-          (t[5] = g),
-          (t[6] = f),
-          (t[7] = b))
-        : (b = t[7]);
-      var v = b,
-        S,
+          (t[5] = _),
+          (t[6] = h),
+          (t[7] = m),
+          (t[8] = p),
+          (t[9] = g),
+          (t[10] = f),
+          (t[11] = v))
+        : (v = t[11]);
+      var S = v,
         R,
         L,
         E,
-        k;
-      if (t[8] !== y || t[9] !== C) {
-        var I = o("WAWebStatusUtils").getMessageStatusLabel(y);
-        (C < o("WAWebAck").ACK.SENT
-          ? ((S = r("WDSIconWdsIcStatusPending.react")),
-            (k = "wds-ic-status-pending"))
-          : C === o("WAWebAck").ACK.SENT
-            ? ((S = r("WDSIconWdsIcDelivered.react")), (k = "wds-ic-delivered"))
-            : C === o("WAWebAck").ACK.RECEIVED
-              ? ((S = r("WDSIconWdsIcRead.react")), (k = "wds-ic-read"))
-              : ((S = r("WDSIconWdsIcRead.react")),
-                (k = "wds-ic-read"),
-                (L = c.ackBlue)),
-          (R = S),
-          (E = I.toString()),
-          (t[8] = y),
-          (t[9] = C),
-          (t[10] = S),
-          (t[11] = R),
-          (t[12] = L),
-          (t[13] = E),
-          (t[14] = k));
-      } else ((S = t[10]), (R = t[11]), (L = t[12]), (E = t[13]), (k = t[14]));
-      var T = " " + E + " ",
-        D = S === r("WDSIconWdsIcStatusPending.react") ? 11 : void 0,
-        x = v && c.light,
-        $;
-      t[15] !== L || t[16] !== x
-        ? (($ = [x, L]), (t[15] = L), (t[16] = x), (t[17] = $))
-        : ($ = t[17]);
-      var P;
+        k,
+        I;
+      if (t[12] !== y || t[13] !== b) {
+        var T = o("WAWebStatusUtils").getMessageStatusLabel(y);
+        (b < o("WAWebAck").ACK.SENT
+          ? ((R = r("WDSIconWdsIcStatusPending.react")),
+            (I = "wds-ic-status-pending"))
+          : b === o("WAWebAck").ACK.SENT
+            ? ((R = r("WDSIconWdsIcDelivered.react")), (I = "wds-ic-delivered"))
+            : b === o("WAWebAck").ACK.RECEIVED
+              ? ((R = r("WDSIconWdsIcRead.react")), (I = "wds-ic-read"))
+              : ((R = r("WDSIconWdsIcRead.react")),
+                (I = "wds-ic-read"),
+                (E = u.ackBlue)),
+          (L = R),
+          (k = T.toString()),
+          (t[12] = y),
+          (t[13] = b),
+          (t[14] = R),
+          (t[15] = L),
+          (t[16] = E),
+          (t[17] = k),
+          (t[18] = I));
+      } else ((R = t[14]), (L = t[15]), (E = t[16]), (k = t[17]), (I = t[18]));
+      var D = " " + k + " ",
+        x = R === r("WDSIconWdsIcStatusPending.react") ? 11 : void 0,
+        $ = S && u.light,
+        P;
+      t[19] !== E || t[20] !== $
+        ? ((P = [$, E]), (t[19] = E), (t[20] = $), (t[21] = P))
+        : (P = t[21]);
+      var N;
       return (
-        t[18] !== R || t[19] !== T || t[20] !== D || t[21] !== $ || t[22] !== k
-          ? ((P = s.jsx(R, {
-              "aria-label": T,
-              height: D,
-              testid: k,
+        t[22] !== L || t[23] !== D || t[24] !== x || t[25] !== P || t[26] !== I
+          ? ((N = s.jsx(L, {
+              "aria-label": D,
+              height: x,
+              testid: I,
               width: 16,
-              xstyle: $,
+              xstyle: P,
             })),
-            (t[18] = R),
-            (t[19] = T),
-            (t[20] = D),
-            (t[21] = $),
-            (t[22] = k),
-            (t[23] = P))
-          : (P = t[23]),
-        P
+            (t[22] = L),
+            (t[23] = D),
+            (t[24] = x),
+            (t[25] = P),
+            (t[26] = I),
+            (t[27] = N))
+          : (N = t[27]),
+        N
       );
     }
-    l.default = d;
+    l.default = c;
   },
   98,
 );

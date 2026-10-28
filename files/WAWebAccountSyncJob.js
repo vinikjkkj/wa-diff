@@ -13,17 +13,20 @@ __d(
     "WAWebQueryPrivacySettingsJob",
     "WAWebSchemaPrivacyDisallowedList",
     "WAWebSyncDeviceAdvDeviceListJob",
-    "WAWebSyncPrivacyDisallowedLists",
     "WAWebTos",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "justknobx",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = n("$InternalEnum")({
+      s = r("requireDeferred")("WAWebSyncPrivacyDisallowedLists").__setRef(
+        "WAWebAccountSyncJob",
+      ),
+      u = n("$InternalEnum")({
         BLOCKLIST: "blocklist",
         OPTOUTLIST: "biz_opt_out_list",
         DEVICES: "devices",
@@ -36,14 +39,14 @@ __d(
         USER: "user",
         TEXT_STATUS: "text_status",
       });
-    function u(e) {
+    function c(e) {
       return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
         o("WAWebUserPrefsMeUser").getMeDeviceWids(),
         e,
         null,
       );
     }
-    function c() {
+    function d() {
       var e = o("WAWebApiContact").getMeUserWids();
       for (var t of e) {
         var n = o(
@@ -58,26 +61,26 @@ __d(
         "WAWebProfilePicThumbCollection",
       ).ProfilePicThumbCollection.resyncPicturesByWid(e);
     }
-    var d = 3e3,
-      m = 1e3,
-      p = null,
+    var m = 3e3,
+      p = 1e3,
       _ = null,
-      f = new (r("WAPromiseCache"))(
+      f = null,
+      g = new (r("WAPromiseCache"))(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var t,
               n = yield o("WAWebQueryPrivacySettingsJob").getPrivacy();
             o("WAWebUserPrefsGeneral").setUserPrivacySettings(n);
-            var r = yield o(
-              "WAWebSyncPrivacyDisallowedLists",
-            ).syncPrivacyDisallowedLists([
-              (t = o("WAWebSchemaPrivacyDisallowedList"))
-                .PrivacyDisallowedListType.About,
-              t.PrivacyDisallowedListType.GroupAdd,
-              t.PrivacyDisallowedListType.LastSeen,
-              t.PrivacyDisallowedListType.ProfilePicture,
-            ]);
-            return { privacySettings: n, privacyDisallowedRows: r };
+            var r = yield s.load(),
+              a = r.syncPrivacyDisallowedLists,
+              i = yield a([
+                (t = o("WAWebSchemaPrivacyDisallowedList"))
+                  .PrivacyDisallowedListType.About,
+                t.PrivacyDisallowedListType.GroupAdd,
+                t.PrivacyDisallowedListType.LastSeen,
+                t.PrivacyDisallowedListType.ProfilePicture,
+              ]);
+            return { privacySettings: n, privacyDisallowedRows: i };
           } catch (t) {
             throw (
               o("WALogger")
@@ -94,42 +97,42 @@ __d(
         }),
         {
           maxCached: 1,
-          maxAge: d,
+          maxAge: m,
           shouldCache: function (t) {
             return t.privacySettings != null;
           },
         },
       );
-    function g() {
+    function h() {
       return (
         o(
           "WAWebDefenseModeTransitionListener",
         ).initDefenseModeTransitionListener(),
-        f.getOrRun("privacy")
+        g.getOrRun("privacy")
       );
     }
-    function h() {
+    function y() {
       if (
         (o(
           "WAWebDefenseModeTransitionListener",
         ).initDefenseModeTransitionListener(),
         r("justknobx")._("3378"))
       )
-        return (f.delete("privacy"), f.getOrRun("privacy"));
-      (p != null && self.clearTimeout(p),
-        _ == null && (_ = new (o("WAResolvable").Resolvable)()));
-      var e = _;
+        return (g.delete("privacy"), g.getOrRun("privacy"));
+      (_ != null && self.clearTimeout(_),
+        f == null && (f = new (o("WAResolvable").Resolvable)()));
+      var e = f;
       return (
-        (p = self.setTimeout(function () {
-          ((p = null),
-            (_ = null),
-            f.delete("privacy"),
-            e.resolve(f.getOrRun("privacy")));
-        }, m)),
+        (_ = self.setTimeout(function () {
+          ((_ = null),
+            (f = null),
+            g.delete("privacy"),
+            e.resolve(g.getOrRun("privacy")));
+        }, p)),
         e.promise
       );
     }
-    function y(e) {
+    function C(e) {
       var t = o("WATimeUtils").unixTime();
       e.forEach(function (e) {
         var n;
@@ -140,12 +143,12 @@ __d(
         );
       });
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
             "WAWebQueryDisappearingModeJob",
           ).queryDisappearingMode();
@@ -157,16 +160,16 @@ __d(
             newSettingTimestamp: e.t,
           });
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.AccountSyncType = s),
-      (l.getDevices = u),
-      (l.getAndUpdateProfilePicture = c),
-      (l.updatePrivacySettings = g),
-      (l.forceUpdatePrivacySettings = h),
-      (l.updateTosStateFromAccountSync = y),
-      (l.updateDefaultDisappearingMode = C));
+    ((l.AccountSyncType = u),
+      (l.getDevices = c),
+      (l.getAndUpdateProfilePicture = d),
+      (l.updatePrivacySettings = h),
+      (l.forceUpdatePrivacySettings = y),
+      (l.updateTosStateFromAccountSync = C),
+      (l.updateDefaultDisappearingMode = b));
   },
   98,
 );

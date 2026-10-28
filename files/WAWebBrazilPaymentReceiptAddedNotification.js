@@ -28,11 +28,7 @@ __d(
     function m(t, n) {
       var a = _(n);
       return a == null
-        ? {
-            text: o("WAWebPaymentDetailsStrings").getPlainReceiptAddedNotice(),
-            inlineCtaText: null,
-            handleClick: null,
-          }
+        ? { text: p(t), inlineCtaText: null, handleClick: null }
         : {
             text: p(t),
             inlineCtaText: c.jsx(c.Fragment, {

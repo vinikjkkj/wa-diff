@@ -9,7 +9,7 @@ __d(
     "WAWebExtensionsStructuredMessageInteractionWamEvent",
     "WAWebGalaxyFlowsUtils",
     "WAWebGetGalaxyFlowCtaButton",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
@@ -158,7 +158,7 @@ __d(
         : ((t = e.contact) == null || (t = t.privacyMode) == null
               ? void 0
               : t.hostStorage) ===
-            o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook
+            o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook
           ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI
           : n.isEnterprise
             ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT

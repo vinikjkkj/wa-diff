@@ -32,8 +32,6 @@ __d(
     "WAWebUpdateDbForGroupActionApi",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
-    "cr:4533",
-    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -273,18 +271,18 @@ __d(
       return (
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
-            a = e.agentChangeInDeletedChat,
-            i = e.isOffline,
-            l = i === void 0 ? !1 : i,
-            s = e.meta,
-            u = e.pendingOfflineWrites;
+            n = e.agentChangeInDeletedChat,
+            r = e.isOffline,
+            a = r === void 0 ? !1 : r,
+            i = e.meta,
+            l = e.pendingOfflineWrites;
           if (!t) return !1;
-          var C =
-            a != null
-              ? a
+          var s =
+            n != null
+              ? n
               : yield o(
                   "WAWebGroupAgentDeletedChat",
-                ).isAgentChangeInDeletedGroupChatForActions(s.chatId, [t]);
+                ).isAgentChangeInDeletedGroupChatForActions(i.chatId, [t]);
           o("WALogger")
             .LOG(
               c ||
@@ -295,40 +293,40 @@ __d(
               t.actionType,
             )
             .tags("groups");
-          var b = [];
+          var u = [];
           try {
             if (
               (yield o(
                 "WAWebLidMappingUsernameLearnUtils",
               ).processParsedGroupNotificationForLidMappingAndUsernames({
-                notification: s,
-                flushImmediately: !l,
+                notification: i,
+                flushImmediately: !a,
               }),
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE &&
                 (yield o(
                   "WAWebMemberLabelGroupRemoveHandler",
-                ).handleMemberLabelUpdatesOnGroupParticipantRemoval(s, t)),
+                ).handleMemberLabelUpdatesOnGroupParticipantRemoval(i, t)),
               t.actionType ===
                 o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
                   .CREATE)
             ) {
-              var S,
-                L,
-                k = babelHelpers.extends({}, t.groupInfo, {
-                  id: s.chatId,
-                  isLidAddressingMode: s.isLidAddressingMode,
+              var C,
+                b,
+                S = babelHelpers.extends({}, t.groupInfo, {
+                  id: i.chatId,
+                  isLidAddressingMode: i.isLidAddressingMode,
                 }),
-                T = D(s, t, k),
-                x = yield v(k.id),
-                $ = T == null || (t.isNewGroup === !0 && !x),
-                P = $
-                  ? (S =
-                      (L = yield o(
+                L = D(i, t, S),
+                k = yield v(S.id),
+                T = L == null || (t.isNewGroup === !0 && !k),
+                x = T
+                  ? (C =
+                      (b = yield o(
                         "WAWebGroupsParticipantsApi",
-                      ).getParticipants(s.chatId)) == null
+                      ).getParticipants(i.chatId)) == null
                         ? void 0
-                        : L.participants) != null
-                    ? S
+                        : b.participants) != null
+                    ? C
                     : []
                   : [];
               o("WALogger")
@@ -339,18 +337,18 @@ __d(
                       " exists in storage = ",
                       "",
                     ])),
-                  k.id,
-                  x,
+                  S.id,
+                  k,
                 )
                 .tags("groups");
-              var N = yield o(
+              var $ = yield o(
                 "WAWebGroupAgentPrivacyNotice",
               ).genGroupAgentNoticeMsgsForCreate({
-                meta: s,
-                participants: k.participants,
+                meta: i,
+                participants: S.participants,
               });
               if (
-                (yield I(s, k, l, T, t.reason === "invite", N.length > 0),
+                (yield I(i, S, a, L, t.reason === "invite", $.length > 0),
                 o("WALogger")
                   .LOG(
                     m ||
@@ -358,7 +356,7 @@ __d(
                         "handleGroupCreation done for group id ",
                         "",
                       ])),
-                    k.id,
+                    S.id,
                   )
                   .tags("groups"),
                 o(
@@ -368,84 +366,68 @@ __d(
                     "WAWebBotGroupGatingUtils",
                   ).isTEEGroupBotParticipantAddEnabled())
               ) {
-                var M = o(
+                var P = o(
                   "WAWebBotUtils",
-                ).participantListIncludeOpenOrTeeGroupBotWid(k.participants);
-                (M.includeOpenMetabot || M.includeTeeMetabot) &&
+                ).participantListIncludeOpenOrTeeGroupBotWid(S.participants);
+                (P.includeOpenMetabot || P.includeTeeMetabot) &&
                   o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                    id: s.chatId,
+                    id: i.chatId,
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
                   });
               }
-              var w = yield o("WAWebGroupSystemMsg").genMsgsForGroupCreation(
-                  s,
+              var N = yield o("WAWebGroupSystemMsg").genMsgsForGroupCreation(
+                  i,
+                  S,
                   k,
-                  x,
-                  T,
+                  L,
                 ),
-                A = $
+                M = T
                   ? yield o(
                       "WAWebGroupAgentAddSystemMsgs",
                     ).genGroupCreateAgentAddMsgs({
-                      meta: s,
-                      participants: k.participants,
-                      prevParticipantIds: P,
+                      meta: i,
+                      participants: S.participants,
+                      prevParticipantIds: x,
                       reason: t.reason,
                     })
                   : [];
-              b.push.apply(
-                b,
-                (x
-                  ? [].concat(w.filter(Boolean), N)
-                  : [].concat(N, w.filter(Boolean))
-                ).concat(A),
+              u.push.apply(
+                u,
+                (k
+                  ? [].concat(N.filter(Boolean), $)
+                  : [].concat($, N.filter(Boolean))
+                ).concat(M),
               );
             } else if (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD) {
-              if (!r("gkx")("26258")) {
-                var F,
-                  B =
-                    (F =
-                      n("cr:4533") == null
-                        ? void 0
-                        : n("cr:4533").getDebugIgnoreParticipantAdd()) != null
-                      ? F
-                      : 0;
-                if (B > 0)
-                  return (
-                    n("cr:4533") == null ||
-                      n("cr:4533").setDebugIgnoreParticipantAdd(B - 1),
-                    !1
-                  );
-              }
-              var q = yield o(
+              var w = yield o(
                   "WAWebHandleGroupNotificationConst",
-                ).notAlreadyInGroup(s.chatId, t.participants),
-                V = yield o(
+                ).notAlreadyInGroup(i.chatId, t.participants),
+                A = yield o(
                   "WAWebShouldTriggerQueryGroupInfo",
                 ).shouldTriggerQueryGroupInfo({
-                  groupWid: s.chatId,
+                  groupWid: i.chatId,
                   action: t,
                 });
               if (
-                (V
+                (A
                   ? yield o(
                       "WAWebGroupQueryJob",
                     ).queryAndUpdateGroupMetadataById({
-                      id: s.chatId,
+                      id: i.chatId,
                       actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
                     })
                   : (yield o(
                       "WAWebUpdateDbForGroupActionApi",
-                    ).updateDBForGroupAction(s, t, l),
-                    E(s, t)),
-                q.length || t.reason)
+                    ).updateDBForGroupAction(i, t, a),
+                    E(i, t)),
+                w.length || t.reason)
               ) {
-                var H = yield R({
-                  meta: s,
+                var F = yield R({
+                  meta: i,
                   action: t,
                   actionShouldBeHiddenFromNonAdmins: !0,
                 });
-                if (H.length > 0) {
+                if (F.length > 0) {
                   if (
                     (o("WALogger").LOG(
                       p ||
@@ -453,16 +435,16 @@ __d(
                           "[system message] eligible participants = ",
                           " - ADD",
                         ])),
-                      H.length,
+                      F.length,
                     ),
-                    b.push.apply(
-                      b,
+                    u.push.apply(
+                      u,
                       yield O({
                         action: t,
-                        meta: s,
-                        newParticipants: q,
-                        rowParticipants: H,
-                        skipPrivacyNotices: V,
+                        meta: i,
+                        newParticipants: w,
+                        rowParticipants: F,
+                        skipPrivacyNotices: A,
                       }),
                     ),
                     o(
@@ -472,31 +454,31 @@ __d(
                         "WAWebBotGroupGatingUtils",
                       ).isTEEGroupBotParticipantAddEnabled())
                   ) {
-                    var G =
+                    var B =
                       o(
                         "WAWebBotUtils",
-                      ).participantListIncludeOpenOrTeeGroupBotWid(H);
-                    !V &&
-                      (G.includeOpenMetabot || G.includeTeeMetabot) &&
+                      ).participantListIncludeOpenOrTeeGroupBotWid(F);
+                    !A &&
+                      (B.includeOpenMetabot || B.includeTeeMetabot) &&
                       o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                        id: s.chatId,
+                        id: i.chatId,
                         actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
                       });
                   }
                   if (t.reason === o("WAWebGroupType").ADD_REASON.INVITE) {
-                    var z = yield o(
+                    var q = yield o(
                       "WAWebApiParticipantStore",
-                    ).isCurrentUserGroupAdmin(s.chatId.toString());
-                    if (z)
+                    ).isCurrentUserGroupAdmin(i.chatId.toString());
+                    if (q)
                       try {
-                        var j = yield o(
+                        var V = yield o(
                             "WAWebDBGroupsGroupMetadata",
-                          ).getGroupMetadata(s.chatId),
-                          K = yield o(
+                          ).getGroupMetadata(i.chatId),
+                          H = yield o(
                             "WAWebGroupLinkJoinUtils",
-                          ).maybeGenerateLinkJoinNotifications(s, j, H);
-                        K.forEach(function (e) {
-                          b.push(e);
+                          ).maybeGenerateLinkJoinNotifications(i, V, F);
+                        H.forEach(function (e) {
+                          u.push(e);
                         });
                       } catch (e) {
                         o("WALogger").LOG(
@@ -535,105 +517,105 @@ __d(
                   t.reason ===
                     o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
                 ) {
-                  var Q = yield o(
+                  var G = yield o(
                     "WAWebGroupSystemMsg",
-                  ).genIntegrityDeleteParentNotificationMsgs(s, t);
-                  (Q.forEach(function (e) {
-                    b.push(e);
+                  ).genIntegrityDeleteParentNotificationMsgs(i, t);
+                  (G.forEach(function (e) {
+                    u.push(e);
                   }),
                     yield o(
                       "WAWebUpdateDbForGroupActionApi",
-                    ).updateDBForGroupAction(s, t, l),
-                    E(s, t));
+                    ).updateDBForGroupAction(i, t, a),
+                    E(i, t));
                 } else if (
                   t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DESC_ADD ||
                   t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DESC_REMOVE
                 )
-                  (b.push(
+                  (u.push(
                     yield o(
                       "WAWebGroupSystemMsg",
-                    ).genDescriptionNotificationMsg(s, t),
+                    ).genDescriptionNotificationMsg(i, t),
                   ),
                     yield o(
                       "WAWebUpdateDbForGroupActionApi",
-                    ).updateDBForGroupAction(s, t, l),
-                    E(s, t));
+                    ).updateDBForGroupAction(i, t, a),
+                    E(i, t));
                 else if (
                   t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DELETE &&
                   t.reason === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT
                 ) {
-                  var X = yield o(
+                  var z = yield o(
                     "WAWebGroupSystemMsg",
-                  ).generateDeleteParentNotificationMessages(s);
-                  if (X.length === 0) return !1;
-                  (X.forEach(function (e) {
-                    b.push(e);
+                  ).generateDeleteParentNotificationMessages(i);
+                  if (z.length === 0) return !1;
+                  (z.forEach(function (e) {
+                    u.push(e);
                   }),
                     yield o(
                       "WAWebUpdateDbForGroupActionApi",
-                    ).updateDBForGroupAction(s, t, l),
-                    E(s, t));
+                    ).updateDBForGroupAction(i, t, a),
+                    E(i, t));
                 } else {
-                  var Y = !1;
+                  var j = !1;
                   if (
                     t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE
                   ) {
-                    var J = yield o(
+                    var K = yield o(
                       "WAWebShouldTriggerQueryGroupInfo",
                     ).shouldTriggerQueryGroupInfo({
-                      groupWid: s.chatId,
+                      groupWid: i.chatId,
                       action: t,
                       disableForCAGs: !0,
                     });
-                    J &&
-                      ((Y = !0),
+                    K &&
+                      ((j = !0),
                       o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                        id: s.chatId,
+                        id: i.chatId,
                         actionType: o("WAWebGroupType").GROUP_ACTIONS.REMOVE,
                       }));
                   }
-                  if (!Y) {
-                    var Z = yield o(
+                  if (!j) {
+                    var Q = yield o(
                       "WAWebHandleGroupNotificationConst",
-                    ).shouldSkipGenMsg(s, t);
+                    ).shouldSkipGenMsg(i, t);
                     if (
                       (yield o(
                         "WAWebUpdateDbForGroupActionApi",
-                      ).updateDBForGroupAction(s, t, l),
-                      E(s, t),
-                      !Z)
+                      ).updateDBForGroupAction(i, t, a),
+                      E(i, t),
+                      !Q)
                     ) {
-                      var ee = yield o(
+                      var X = yield o(
                         "WAWebApiParticipantStore",
-                      ).isCurrentUserGroupAdmin(s.chatId.toString());
+                      ).isCurrentUserGroupAdmin(i.chatId.toString());
                       if (
                         t.actionType ===
                         o("WAWebGroupType").GROUP_ACTIONS.REMOVE
                       ) {
-                        var te = yield R({
-                          meta: s,
+                        var Y = yield R({
+                          meta: i,
                           action: t,
                           actionShouldBeHiddenFromNonAdmins: !0,
                         });
                         if (
-                          te.length > 0 &&
+                          Y.length > 0 &&
                           (o("WALogger").LOG(
                             f ||
                               (f = babelHelpers.taggedTemplateLiteralLoose([
                                 "[system message] eligible participants = ",
                                 " - REMOVE",
                               ])),
-                            te.length,
+                            Y.length,
                           ),
-                          b.push.apply(
-                            b,
+                          u.push.apply(
+                            u,
                             yield W({
                               action: babelHelpers.extends({}, t, {
-                                participants: te,
+                                participants: Y,
                               }),
-                              dbIsStale: Y,
-                              isAdmin: ee,
-                              meta: s,
+                              dbIsStale: j,
+                              isAdmin: X,
+                              meta: i,
                             }),
                           ),
                           o(
@@ -643,15 +625,15 @@ __d(
                               "WAWebBotGroupGatingUtils",
                             ).isTEEGroupBotParticipantAddEnabled())
                         ) {
-                          var ne =
+                          var J =
                             o(
                               "WAWebBotUtils",
-                            ).participantListIncludeOpenOrTeeGroupBotWid(te);
-                          (ne.includeOpenMetabot || ne.includeTeeMetabot) &&
+                            ).participantListIncludeOpenOrTeeGroupBotWid(Y);
+                          (J.includeOpenMetabot || J.includeTeeMetabot) &&
                             o(
                               "WAWebGroupQueryJob",
                             ).queryAndUpdateGroupMetadataById({
-                              id: s.chatId,
+                              id: i.chatId,
                               actionType:
                                 o("WAWebGroupType").GROUP_ACTIONS.REMOVE,
                             });
@@ -661,10 +643,10 @@ __d(
                         o("WAWebGroupType").GROUP_ACTIONS
                           .CREATED_SUBGROUP_SUGGESTION
                       ) {
-                        var re = yield o(
+                        var Z = yield o(
                           "WAWebGroupSystemMsg",
-                        ).genCreatedSubgroupSuggestionNotificationMsg(s, t);
-                        re && b.push(re);
+                        ).genCreatedSubgroupSuggestionNotificationMsg(i, t);
+                        Z && u.push(Z);
                       } else if (
                         t.actionType ===
                           o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
@@ -678,18 +660,18 @@ __d(
                         t.actionType ===
                           o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE
                       ) {
-                        var oe =
+                        var ee =
                             t.actionType ===
                               o("WAWebGroupType").GROUP_ACTIONS.DEMOTE ||
                             t.actionType ===
                               o("WAWebGroupType").GROUP_ACTIONS
                                 .LINKED_GROUP_DEMOTE,
-                          ae = yield R({
-                            meta: s,
+                          te = yield R({
+                            meta: i,
                             action: t,
-                            actionShouldBeHiddenFromNonAdmins: oe,
+                            actionShouldBeHiddenFromNonAdmins: ee,
                           });
-                        ae.length > 0 &&
+                        te.length > 0 &&
                           (o("WALogger").LOG(
                             g ||
                               (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -697,20 +679,18 @@ __d(
                                 " - actionType = ",
                                 "",
                               ])),
-                            ae.length,
+                            te.length,
                             t.actionType,
                           ),
-                          b.push(
+                          u.push(
                             yield o(
                               "WAWebGroupSystemMsg",
                             ).genGroupNotificationMsg({
-                              meta: babelHelpers.extends({}, s, {
-                                isAdmin: ee,
-                              }),
+                              meta: babelHelpers.extends({}, i, { isAdmin: X }),
                               action: babelHelpers.extends({}, t, {
-                                participants: ae,
+                                participants: te,
                               }),
-                              dbIsStale: Y,
+                              dbIsStale: j,
                             }),
                           ));
                       } else if (
@@ -718,18 +698,18 @@ __d(
                         o("WAWebGroupType").GROUP_ACTIONS
                           .ALLOW_NON_ADMIN_SUB_GROUP_CREATION
                       ) {
-                        var ie = yield o(
+                        var ne = yield o(
                           "WAWebGroupSystemMsg",
-                        ).genAllowNonAdminSubGroupCreationNotificationMsg(s, t);
-                        ie && b.push(ie);
+                        ).genAllowNonAdminSubGroupCreationNotificationMsg(i, t);
+                        ne && u.push(ne);
                       } else if (
                         t.actionType ===
                         o("WAWebGroupType").GROUP_ACTIONS.COMMUNITY_OWNER_UPDATE
                       ) {
-                        var le = yield o(
+                        var re = yield o(
                           "WAWebGroupSystemMsg",
-                        ).genCommunityOwnerUpdateNotificationMsg(s, t);
-                        le && b.push(le);
+                        ).genCommunityOwnerUpdateNotificationMsg(i, t);
+                        re && u.push(re);
                       } else
                         (o("WALogger").LOG(
                           h ||
@@ -739,27 +719,25 @@ __d(
                             ])),
                           t.actionType,
                         ),
-                          b.push(
+                          u.push(
                             yield o(
                               "WAWebGroupSystemMsg",
                             ).genGroupNotificationMsg({
-                              meta: babelHelpers.extends({}, s, {
-                                isAdmin: ee,
-                              }),
+                              meta: babelHelpers.extends({}, i, { isAdmin: X }),
                               action: t,
-                              dbIsStale: Y,
+                              dbIsStale: j,
                             }),
                           ));
                     }
                   }
                 }
             }
-            var se = C ? [] : b.filter(Boolean),
-              ue = U(se, l);
+            var oe = s ? [] : u.filter(Boolean),
+              ae = U(oe, a);
             return (
-              l && u != null ? u.push(ue) : yield ue,
+              a && l != null ? l.push(ae) : yield ae,
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE &&
-                se.length > 0
+                oe.length > 0
             );
           } catch (e) {
             return (

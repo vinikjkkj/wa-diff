@@ -23,7 +23,7 @@ __d(
     "WAWebHandleCloudApiThreadControlNotification",
     "WAWebHandleMsgError",
     "WAWebHandleMsgProcessUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleMsgValidate",
     "WAWebHandlePushnameUpdate",
     "WAWebLimitSharingAcp2HideReceivedMsgs",
@@ -286,9 +286,8 @@ __d(
                 o("WAWebMsgProcessingApiUtils").isRevokeInfo(c)) ||
               I,
             te = ee
-              ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.RETRY
-              : o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
-                  .NO_OVERWRITE,
+              ? o("WAWebHandleMsgTypes").MessageOverwriteOption.RETRY
+              : o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE,
             ne = null;
           if (I) {
             ((ne = r("justknobx")._("5752")
@@ -394,8 +393,7 @@ __d(
               !0 && (c.senderOrRecipientAccountTypeHosted = !0),
             (se == null ? void 0 : se.hostedBizEncMismatch) === !0 &&
               (c.hostedBizEncStateMismatch = !0),
-            c.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST &&
+            c.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST &&
               s.retryCount > 0)
           ) {
             var ue = yield o("WAWebDBMsgUtils").getMsgByMsgKey(
@@ -988,7 +986,7 @@ __d(
               o("WAWebBackendEventBus").BackendEventBus
                 .isOfflineDeliveryEnd)) &&
             (yield s),
-            t === o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.RETRY &&
+            t === o("WAWebHandleMsgTypes").MessageOverwriteOption.RETRY &&
               o("WAWebBackendApi").frontendFireAndForget("removePlaceholder", {
                 msg: n,
               }));

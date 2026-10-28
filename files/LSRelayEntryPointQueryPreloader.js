@@ -1,6 +1,6 @@
 __d(
   "LSRelayEntryPointQueryPreloader",
-  ["clearTimeout", "err", "nullthrows", "relay-runtime", "setTimeout"],
+  ["clearTimeout", "err", "gkx", "nullthrows", "relay-runtime", "setTimeout"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 3e4,
@@ -134,6 +134,10 @@ __d(
           }
           var _;
           try {
+            if (!r("gkx")("11696")) {
+              p(t);
+              return;
+            }
             var g = o("relay-runtime").__internal.withProvidedVariables(
               t.variables,
               n.params.providedVariables,

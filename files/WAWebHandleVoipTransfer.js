@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebVoipHandleIncomingSignalingMessage",
     "WAWebVoipRejectCallWithReasonEnc",
     "WAWebVoipValidateAndDecryptEnc",
@@ -34,13 +34,13 @@ __d(
             a = r.result,
             i = r.retryCount;
           e: {
-            if (a === o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS) {
+            if (a === o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS) {
               yield o(
                 "WAWebVoipHandleIncomingSignalingMessage",
               ).handleVoipIncomingSignalingMessage(t, n);
               break e;
             }
-            if (a === o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY) {
+            if (a === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY) {
               var l = yield o(
                 "WAWebVoipRejectCallWithReasonEnc",
               ).rejectCallWithReasonEnc(t, i != null ? i : 0, !1);

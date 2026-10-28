@@ -21,6 +21,7 @@ __d(
     "WAWebDBMessageSerialization",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebDBProcessGroupInviteMsgs",
+    "WAWebDBProcessMessage",
     "WAWebDBProcessPaymentMessages",
     "WAWebDBProcessPollUpdateMsgs",
     "WAWebDBProcessReactionsMsgs",
@@ -325,8 +326,22 @@ __d(
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
                       var n = t[0],
-                        r = t[1];
-                      (yield n.bulkCreateOrReplace(e),
+                        r = t[1],
+                        i = yield n.bulkGet(
+                          e.map(function (e) {
+                            return e.id;
+                          }),
+                          !1,
+                        );
+                      (e.forEach(function (e, t) {
+                        var n = i[t];
+                        n != null &&
+                          o("WAWebDBProcessMessage").keepUserStateOfPrevRow(
+                            e,
+                            n,
+                          );
+                      }),
+                        yield n.bulkCreateOrReplace(e),
                         yield o(
                           "WAWebQuarantineDataStore",
                         ).bulkCreateOrReplaceQuarantineData(a, r),

@@ -6,7 +6,6 @@ __d(
     "WAWebSchemaExperienceId",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -27,7 +26,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            if (!s(t) || !r("justknobx")._("6170")) return;
+            if (!s(t)) return;
             var n = o("WATimeUtils").unixTimeMs(),
               a = t.flatMap(function (e) {
                 var t = e.experienceIds,

@@ -4,7 +4,7 @@ __d(
     "invariant",
     "$InternalEnum",
     "Promise",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebSchemaVerifiedBusinessName",
     "asyncToGeneratorRuntime",
@@ -137,12 +137,10 @@ __d(
       );
     }
     function E(e) {
-      var t = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+      var t = o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
           e.actualActors,
         ),
-        n = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
-          e.hostStorage,
-        );
+        n = o("WAWebHandleMsgTypes").HostStorageEnumType.cast(e.hostStorage);
       return t == null || n == null
         ? null
         : { actualActors: t, hostStorage: n, privacyModeTs: e.privacyModeTs };

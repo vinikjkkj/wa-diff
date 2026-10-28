@@ -1,6 +1,7 @@
 __d(
   "WAWebL10N",
   [
+    "Locale",
     "WALogger",
     "WAWeb-moment",
     "WAWebBaseL10N",
@@ -10,12 +11,16 @@ __d(
     "WAWebL10NConstants",
     "WAWebL10NCookieUtils",
     "WAWebL10NHelpers",
+    "WAWebL10NNumbersPluginRegistry",
     "WAWebL10nGetRenderedLocale",
+    "WAWebLocaleToTranslation",
     "WAWebMomentLocaleResolver",
     "WAWebMomentLocales",
     "WAWebParseLocaleSubtags",
+    "WAWebSupportedLocales",
     "WAWebUserPrefsLocales",
     "asyncToGeneratorRuntime",
+    "err",
     "gkx",
     "justknobx",
     "nullthrows",
@@ -38,14 +43,28 @@ __d(
       v,
       S,
       R = 5e3,
-      L = o("WAWebL10NCoerceToFBLocale").DEFAULT_WA_WEB_LOCALE.replaceAll(
+      L = new Set(["fa"]),
+      E = "\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669".split(
+        "",
+      );
+    function k(e) {
+      return E[parseInt(e, 10)];
+    }
+    var I = Math.pow(10, 6),
+      T = Math.pow(10, 3),
+      D = Math.pow(10, 4),
+      x = 1024 * 1024 * 1024,
+      $ = 1024,
+      P = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"],
+      N = P.length - 1,
+      M = o("WAWebL10NCoerceToFBLocale").DEFAULT_WA_WEB_LOCALE.replaceAll(
         "_",
         "-",
       ),
-      E = (function (t) {
+      w = (function (t) {
         function a() {
           var a;
-          ((a = t.call(this, { l: "en", loc: "en" }) || this),
+          ((a = t.call(this) || this),
             (a.$L10n$p_4 = null),
             (a.setLocale = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -257,7 +276,7 @@ __d(
               : o("WAWebL10NCoerceToFBLocale").isWAWebl10nDebugLocale(
                     this.$L10n$p_2,
                   )
-                ? L
+                ? M
                 : this.$L10n$p_2;
           }),
           (i.getNormalizedLocale = function () {
@@ -357,7 +376,7 @@ __d(
                   for (
                     var a = o(
                         "WAWebMomentLocaleResolver",
-                      ).getMomentLocalesToTry(t, L),
+                      ).getMomentLocalesToTry(t, M),
                       i = 0;
                     i < a.length;
                     ++i
@@ -442,11 +461,108 @@ __d(
                 ).setLangPrefCookieDidMismatchWithUserPref(!0),
                 r("justknobx")._("2237") || this.$L10n$p_9());
           }),
+          (i.embedDir = function (t, n) {
+            return (
+              n === void 0 && (n = this.isRTL()),
+              n ? this.embedRTL(t) : this.embedLTR(t)
+            );
+          }),
+          (i.LR = function (t, n) {
+            return this.isRTL() ? n : t;
+          }),
+          (i.embedLTR = function (t) {
+            return "\u202A" + t + "\u202C";
+          }),
+          (i.embedRTL = function (t) {
+            return "\u202B" + t + "\u202C";
+          }),
+          (i.isRTL = function () {
+            return o("Locale").isRTL();
+          }),
+          (i.isolateLTR = function (t) {
+            return "\u2066" + t + "\u2069";
+          }),
+          (i.isolateRTL = function (t) {
+            return "\u2067" + t + "\u2069";
+          }),
+          (i.forceLTR = function (t) {
+            return "\u200E" + t;
+          }),
+          (i.forceRTL = function (t) {
+            return "\u200F" + t;
+          }),
+          (i.isLocaleSupported = function (t) {
+            return (
+              t != null && t !== "" && !!this.normalizeLocaleToWajsLocale(t)
+            );
+          }),
+          (i.normalizeLocaleToWajsLocale = function (t) {
+            var e = t.replace(/-/g, "_").toLowerCase(),
+              n = this.$L10n$p_11(e);
+            if (n) return n;
+            for (var r = e; r; ) {
+              r = r.split("_").slice(0, -1).join("_");
+              var o = r && this.$L10n$p_11(r);
+              if (o != null && o !== "") return o;
+            }
+          }),
+          (i.$L10n$p_11 = function (t) {
+            var e = r("WAWebLocaleToTranslation")[t] || t;
+            return r("WAWebSupportedLocales")[e];
+          }),
+          (i.d = function (t, n, r) {
+            var e = o(
+              "WAWebL10NNumbersPluginRegistry",
+            ).l10nNumberFormattersRegister.get(this.getFullLocale());
+            if (e != null && typeof t == "number")
+              return e.format(t, this.getFullLocale());
+            var a =
+              typeof t == "number" && (t >= I || (t >= T && t < D)) ? 1 : 0;
+            return this.n(
+              t,
+              n,
+              babelHelpers.extends({}, r, {
+                notation: "compact",
+                roundingMode: "trunc",
+                trailingZeroDisplay: "stripIfInteger",
+                minimumFractionDigits: a,
+                maximumFractionDigits: a,
+              }),
+            );
+          }),
+          (i.filesizeWithParams = function (t, n) {
+            var e;
+            if (Number.isNaN(t)) throw r("err")("Invalid filesize value: NaN");
+            var o = Math.abs(t),
+              a = Math.min(
+                N,
+                Math.max(0, Math.floor(Math.log(o) / Math.log($))),
+              ),
+              i = t > x ? 10 : 1,
+              l = Math.round((o / Math.pow($, a)) * i) / i;
+            l === $ && a < N && ((l = 1), a++);
+            var s = P[a],
+              u = (e = n[s]) != null ? e : s,
+              c = Intl.NumberFormat(this.getFullLocale()).format(
+                t < 0 ? -l : l,
+              );
+            return this.n(c + " " + u);
+          }),
+          (i.n = function (t, n, r) {
+            return typeof t == "number"
+              ? Intl.NumberFormat(this.getFullLocale(), r).format(t)
+              : this.useArabicScriptDigits(n)
+                ? t.toString().replace(/[0-9]/g, k)
+                : t;
+          }),
+          (i.useArabicScriptDigits = function (t) {
+            return L.has(t != null ? t : this.getNormalizedLocale());
+          }),
           a
         );
       })(o("WAWebBaseL10N").WAWebBaseL10n),
-      k = new E();
-    l.default = k;
+      A = new w();
+    l.default = A;
   },
   98,
 );

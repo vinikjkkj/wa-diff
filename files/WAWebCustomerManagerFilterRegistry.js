@@ -94,11 +94,11 @@ __d(
       },
       m = {
         isClientActive: function (t) {
-          return t.labelId != null && !h(t);
+          return t.labelId != null && !y(t);
         },
         matcher: function (t) {
           var e = t.labelId;
-          if (e == null || h(t)) return o("WAWebBoolFunc").returnTrue;
+          if (e == null || y(t)) return o("WAWebBoolFunc").returnTrue;
           var n = new Set();
           if (
             e === o("WAWebCustomerManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
@@ -120,18 +120,27 @@ __d(
               r(a);
           }
           return function (t) {
-            var r = o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
-              String(t.chatJid),
-              o("WAWebListItemParentType").LabelItemParentType.Chat,
-            );
+            var r = String(t.chatJid);
             return e === o("WAWebCustomerManagerSearchUtils").NO_LABEL_FILTER_ID
-              ? r.length === 0
+              ? o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
+                  r,
+                  o("WAWebListItemParentType").LabelItemParentType.Chat,
+                ).length === 0
               : e ===
                   o("WAWebCustomerManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
-                ? r.every(function (e) {
-                    return n.has(e);
-                  })
-                : r.includes(e);
+                ? o("WAWebBizLabelUtils")
+                    .getLabelsForModelAnyAddressingMode(
+                      r,
+                      o("WAWebListItemParentType").LabelItemParentType.Chat,
+                    )
+                    .every(function (e) {
+                      return n.has(e);
+                    })
+                : o("WAWebBizLabelUtils").hasLabelForModelAnyAddressingMode(
+                    r,
+                    o("WAWebListItemParentType").LabelItemParentType.Chat,
+                    e,
+                  );
           };
         },
         serverFilter: e.returnNull,
@@ -141,16 +150,12 @@ __d(
           return t.lastMessageRange != null;
         },
         matcher: function (t) {
-          var e = t.lastMessageRange;
-          if (e == null) return o("WAWebBoolFunc").returnTrue;
-          var n = o(
-              "WAWebCustomerManagerLastMessageRangeSecondsBounds",
-            ).lastMessageRangeSecondsBounds(e),
-            r = n.endSec,
-            a = n.startSec;
-          return function (e) {
-            var t = g(e);
-            return t != null && t >= a && (r == null || t <= r);
+          var e = g({
+            lastMessageCustomRange: null,
+            lastMessageRange: t.lastMessageRange,
+          });
+          return function (t) {
+            return e(h(t));
           };
         },
         serverFilter: e.returnNull,
@@ -160,16 +165,12 @@ __d(
           return t.lastMessageCustomRange != null;
         },
         matcher: function (t) {
-          var e = t.lastMessageCustomRange;
-          if (e == null) return o("WAWebBoolFunc").returnTrue;
-          var n = o(
-              "WAWebCustomerManagerDateRangeUtils",
-            ).getCustomRangeSecondsBounds(e.start, e.end),
-            r = n.endSec,
-            a = n.startSec;
-          return function (e) {
-            var t = g(e);
-            return t != null && t >= a && t <= r;
+          var e = g({
+            lastMessageCustomRange: t.lastMessageCustomRange,
+            lastMessageRange: null,
+          });
+          return function (t) {
+            return e(h(t));
           };
         },
         serverFilter: e.returnNull,
@@ -190,7 +191,33 @@ __d(
         },
         serverFilter: e.returnNull,
       };
-    function g(e) {
+    function g(e, t) {
+      t === void 0 && (t = new Date());
+      var n =
+          e.lastMessageRange == null
+            ? null
+            : o(
+                "WAWebCustomerManagerLastMessageRangeSecondsBounds",
+              ).lastMessageRangeSecondsBounds(e.lastMessageRange, t),
+        r = e.lastMessageCustomRange,
+        a =
+          r == null
+            ? null
+            : o(
+                "WAWebCustomerManagerDateRangeUtils",
+              ).getCustomRangeSecondsBounds(r.start, r.end);
+      return n == null && a == null
+        ? o("WAWebBoolFunc").returnTrue
+        : function (e) {
+            return (
+              e != null &&
+              (n == null ||
+                (e >= n.startSec && (n.endSec == null || e <= n.endSec))) &&
+              (a == null || (e >= a.startSec && e <= a.endSec))
+            );
+          };
+    }
+    function h(e) {
       var t;
       return (t = o(
         "WAWebCustomerManagerChatResolver",
@@ -198,7 +225,7 @@ __d(
         ? void 0
         : t.t;
     }
-    function h(e) {
+    function y(e) {
       var t,
         n = e.labelId;
       return (
@@ -210,7 +237,9 @@ __d(
           o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
       );
     }
-    ((l.CUSTOMER_MANAGER_FILTER_KEYS = s), (l.getFilterSpec = u));
+    ((l.CUSTOMER_MANAGER_FILTER_KEYS = s),
+      (l.getFilterSpec = u),
+      (l.createLastMessageTimeMatcher = g));
   },
   98,
 );

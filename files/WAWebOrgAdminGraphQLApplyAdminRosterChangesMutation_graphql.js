@@ -38,6 +38,13 @@ __d(
               {
                 alias: null,
                 args: null,
+                kind: "ScalarField",
+                name: "added_entry_ids",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
                 concreteType: "XWAOrgAdminRosterInvalidChange",
                 kind: "LinkedField",
                 name: "invalid_change",
@@ -82,7 +89,7 @@ __d(
           selections: t,
         },
         params: {
-          id: "28663122083296973",
+          id: "40256649857252491",
           metadata: {},
           name: "WAWebOrgAdminGraphQLApplyAdminRosterChangesMutation",
           operationKind: "mutation",

@@ -4,7 +4,7 @@ __d(
     "WAWebCommonCTWAConsumerTransparency",
     "WAWebContactSystemMsg",
     "WAWebDBUpdateChatTable",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
@@ -32,7 +32,7 @@ __d(
               chatId: e.id,
               handleSingleMsgOrigin:
                 "hasCtwaConsumerDataSharingDisclosureNotification",
-              messageOverwriteOption: o("WAWebHandleMsgTypes.flow")
+              messageOverwriteOption: o("WAWebHandleMsgTypes")
                 .MessageOverwriteOption.NO_OVERWRITE,
               newMsg: t,
               preserveOrder: !1,

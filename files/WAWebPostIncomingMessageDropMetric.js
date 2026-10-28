@@ -8,7 +8,7 @@ __d(
     "WAWebCoexV2WamClassification",
     "WAWebGetMetricE2eDestination",
     "WAWebHandleMsgCommon",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebIncomingMessageDropWamEvent",
     "WAWebJidToWid",
     "WAWebSessionScopeWamUtils",
@@ -21,7 +21,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
+      return e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT
         ? e.author
         : e.chat;
     }

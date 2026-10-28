@@ -4,7 +4,7 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAWebAck",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebJidToWid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -149,10 +149,10 @@ __d(
       var l;
       if (t.hasChild("biz")) {
         var s = t.child("biz"),
-          u = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+          u = o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
             s.maybeAttrInt("actual_actors"),
           ),
-          c = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+          c = o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
             s.maybeAttrInt("host_storage"),
           ),
           d = s.maybeAttrInt("privacy_mode_ts");

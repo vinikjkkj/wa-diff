@@ -5,7 +5,6 @@ __d(
     "WAHex",
     "WALogger",
     "WAParsableWapNode",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebAsISOCountryCode",
     "WAWebBackendJobs.flow",
@@ -16,15 +15,12 @@ __d(
     "WAWebCurrentUser",
     "WAWebGroupHistoryGating",
     "WAWebHandleMsgCommon",
-    "WAWebHandleMsgTypes.flow",
-    "WAWebHandlePaymentAmountUtils",
+    "WAWebHandleMsgTypes",
     "WAWebIdentityFunction",
     "WAWebJidToWid",
     "WAWebMaibaWASSMigration",
     "WAWebMessagingGatingUtils",
-    "WAWebPaymentNotificationParser",
-    "WAWebPaymentStatusUtils",
-    "WAWebProtobufsWeb.pb",
+    "WAWebParseIncomingMsgPaymentInfo",
     "WAWebReportingTokenConstants",
     "WAWebScheduledMsgConstants",
     "WAWebSessionScope",
@@ -78,12 +74,14 @@ __d(
           u = L(e, a),
           c = S({ botInfo: s, encs: a, msgMeta: u, node: e }),
           d = I(e, c),
-          m = x(e),
+          m = o("WAWebParseIncomingMsgPaymentInfo").parseIncomingMsgPaymentInfo(
+            e,
+          ),
           p = m.dehydratedPaymentNode,
           _ = m.paymentInfo,
           f = D(e),
-          g = N(e),
-          h = M(e, a),
+          g = $(e),
+          h = P(e, a),
           y =
             (t =
               (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
@@ -206,7 +204,7 @@ __d(
               o("WAWebHandleMsgCommon").MSG_CATEGORY,
             ),
             offline: l.maybeAttrString("offline"),
-            senderCountryCode: w(l.maybeChild("meta")),
+            senderCountryCode: N(l.maybeChild("meta")),
           },
           _ != null ? { serverStoreTimeMicros: _ } : null,
         ),
@@ -256,7 +254,7 @@ __d(
           var T = I != null ? I : o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
           if (T != null)
             return babelHelpers.extends(
-              { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+              { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
               f,
               { chat: k, author: g, metaFrom: T },
             );
@@ -265,7 +263,7 @@ __d(
           x = D.chat,
           $ = D.metaFrom;
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
           f,
           { chat: x, author: g, metaFrom: $ },
         );
@@ -273,7 +271,7 @@ __d(
       if (r && g.isPnBot() && k != null) {
         var P;
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
           f,
           {
             chat: o("WAWebWidFactory").asUserWidOrThrow(
@@ -284,23 +282,23 @@ __d(
           },
         );
       } else if (r && g.isFbidBot() && k != null) {
-        var N = o("WAWebWidFactory").asUserWidOrThrow(k);
+        var M = o("WAWebWidFactory").asUserWidOrThrow(k);
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
           f,
-          { chat: N, author: g, botParticipant: g },
+          { chat: M, author: g, botParticipant: g },
         );
       } else if (g.isUser()) {
-        var M = g;
+        var w = g;
         if (y != null) {
           if (!o("WAWebUserPrefsMeUser").isMeAccount(g))
             return l.throw("recipient on non peer chat message");
-          M = y;
+          w = y;
         }
         var A = null,
           F = o(
             "WAWebSimpleSignalPNToFBIDMigration",
-          ).getDeprecatedPnChatForFbidThread(M);
+          ).getDeprecatedPnChatForFbidThread(w);
         F != null &&
           (o("WALogger").LOG(
             e ||
@@ -309,12 +307,12 @@ __d(
                 " to ",
                 "",
               ])),
-            M.toLogString(),
+            w.toLogString(),
             F.toLogString(),
           ),
           y != null && (A = y),
-          (M = F));
-        var O = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(M);
+          (w = F));
+        var O = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(w);
         return (
           O != null &&
             (o("WALogger").LOG(
@@ -324,16 +322,16 @@ __d(
                   " to ",
                   "",
                 ])),
-              M.toLogString(),
+              w.toLogString(),
               O.toLogString(),
             ),
             y != null && (A = y),
-            (M = O)),
+            (w = O)),
           babelHelpers.extends(
-            { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+            { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
             f,
             {
-              chat: o("WAWebWidFactory").asUserWidOrThrow(M),
+              chat: o("WAWebWidFactory").asUserWidOrThrow(w),
               author: g,
               originalBotRecipient: A,
             },
@@ -407,7 +405,7 @@ __d(
           );
         }
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP },
           f,
           { chat: g, author: h, isDirect: b, addressingMode: W },
         );
@@ -420,7 +418,7 @@ __d(
                 ? l.throw("peer broadcast message with no participants node")
                 : babelHelpers.extends(
                     {
-                      type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
+                      type: o("WAWebHandleMsgTypes").MESSAGE_TYPE
                         .PEER_BROADCAST,
                     },
                     f,
@@ -434,8 +432,7 @@ __d(
                   )
               : babelHelpers.extends(
                   {
-                    type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                      .OTHER_BROADCAST,
+                    type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST,
                   },
                   f,
                   {
@@ -459,7 +456,7 @@ __d(
             if (E == null)
               return babelHelpers.extends(
                 {
-                  type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
+                  type: o("WAWebHandleMsgTypes").MESSAGE_TYPE
                     .DIRECT_PEER_STATUS,
                 },
                 f,
@@ -470,8 +467,7 @@ __d(
             });
             return babelHelpers.extends(
               {
-                type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                  .DIRECT_PEER_STATUS,
+                type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.DIRECT_PEER_STATUS,
               },
               f,
               {
@@ -484,7 +480,7 @@ __d(
             );
           }
           return babelHelpers.extends(
-            { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS },
+            { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS },
             f,
             { chat: g, author: h, isDirect: b, statusSetting: V },
           );
@@ -762,10 +758,10 @@ __d(
         d = e.maybeChild("biz"),
         m = null;
       if (d != null) {
-        var p = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+        var p = o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
             d.maybeAttrInt("actual_actors"),
           ),
-          _ = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+          _ = o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
             d.maybeAttrInt("host_storage"),
           ),
           f = d.maybeAttrInt("privacy_mode_ts");
@@ -840,103 +836,7 @@ __d(
       }
       return null;
     }
-    function x(e) {
-      var t = null,
-        n = null,
-        r = e.hasChild("pay") ? e.child("pay") : null,
-        a = e.hasChild("transaction") ? e.child("transaction") : null,
-        i = o("WAWebJidToWid")
-          .jidWithTypeToWid(e.attrJidWithType("from"))
-          .isGroup(),
-        l = e.hasAttr("participant")
-          ? o("WAWebJidToWid").jidWithTypeToWid(
-              e.attrJidWithType("participant"),
-            )
-          : null;
-      if (a) {
-        var s = o("WAWebPaymentNotificationParser").parseTransactionNode(a);
-        s
-          ? $(i, l, o("WAWebWidFactory").createWid(s.receiver.toString()))
-            ? (t = {
-                receiverJid: s.receiver.toString(),
-                currency: s.currency,
-                amount1000: s.amount1000,
-                transactionTimestamp: s.ts,
-                txnStatus: o("WAWebPaymentStatusUtils").getPaymentTxnWebStatus(
-                  s.status,
-                ),
-              })
-            : (t = {
-                receiverJid: s.receiver.toString(),
-                currency: s.currency,
-                amount1000: s.amount1000,
-                transactionTimestamp: s.ts,
-              })
-          : o("WAWebHandlePaymentAmountUtils").isDehydratedPaymentNode(a) &&
-            (n = "transaction");
-      } else if (r) {
-        var u = r.attrEnum("type", o("WAWebHandleMsgCommon").PAY_NODE_TYPES);
-        switch (u) {
-          case o("WAWebHandleMsgCommon").PAY_NODE_TYPES.send: {
-            if (
-              o("WAWebABProps").getABPropConfigValue(
-                "wa_web_xb_bubble_enabled",
-              ) !== !0 &&
-              r.hasAttr("transaction-type") &&
-              r.attrString("transaction-type") === "remittance"
-            ) {
-              t = { futureproofed: !0 };
-              break;
-            }
-            if (o("WAWebHandlePaymentAmountUtils").isDehydratedPaymentNode(r)) {
-              ((n = "pay"), (t = { futureproofed: !0 }));
-              break;
-            }
-            var c = o("WAWebHandlePaymentAmountUtils").getAmount1000AndCurrency(
-                r,
-              ),
-              d = c.amount1000,
-              m = c.currency,
-              p = r.hasAttr("receiver")
-                ? r.attrString("receiver")
-                : e.attrString("recipient");
-            $(i, l, o("WAWebWidFactory").createWid(p))
-              ? (t = {
-                  receiverJid: p,
-                  currency: m,
-                  amount1000: d,
-                  transactionTimestamp: e.attrInt("t"),
-                  txnStatus: o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus
-                    .INIT,
-                })
-              : (t = {
-                  receiverJid: p,
-                  currency: m,
-                  amount1000: d,
-                  transactionTimestamp: e.attrInt("t"),
-                });
-            break;
-          }
-          case o("WAWebHandleMsgCommon").PAY_NODE_TYPES.request:
-            break;
-          case o("WAWebHandleMsgCommon").PAY_NODE_TYPES.invite:
-            break;
-          default:
-            break;
-        }
-      }
-      return { paymentInfo: t, dehydratedPaymentNode: n };
-    }
-    function $(e, t, n) {
-      return !(
-        e &&
-        t != null &&
-        n != null &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(n)
-      );
-    }
-    var P = new (r("WADeprecatedWapParser"))(
+    var x = new (r("WADeprecatedWapParser"))(
       "incomingMsgParserForAckOnly",
       function (e) {
         e.assertTag("message");
@@ -984,7 +884,7 @@ __d(
         };
       },
     );
-    function N(e) {
+    function $(e) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var t = e.maybeChild("reporting");
@@ -1016,7 +916,7 @@ __d(
       }
       return n;
     }
-    function M(e, t) {
+    function P(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var n = t.some(function (e) {
@@ -1087,7 +987,7 @@ __d(
       }
       return c;
     }
-    function w(e) {
+    function N(e) {
       var t = e == null ? void 0 : e.maybeAttrString("sender_country_code");
       if (t != null)
         try {
@@ -1108,7 +1008,7 @@ __d(
               });
         }
     }
-    ((l.incomingMsgParser = b), (l.incomingMsgParserForAckOnly = P));
+    ((l.incomingMsgParser = b), (l.incomingMsgParserForAckOnly = x));
   },
   98,
 );

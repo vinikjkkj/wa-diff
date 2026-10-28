@@ -5,6 +5,7 @@ __d(
     "ErrorPubSub",
     "WAWebAppBootstrap",
     "WAWebCometBuildRoot",
+    "justknobx",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,28 +15,33 @@ __d(
       u = r("requireDeferred")("CometRootDeferredShared").__setRef(
         "WAWebRootConfig",
       ),
-      c = {
+      c = o("CometRootInitClient").makeInitClient({
+        postInit: [
+          function () {
+            return void o("WAWebAppBootstrap").bootstrapApp();
+          },
+          function () {
+            s.onReady(function (t) {
+              return (e || (e = r("ErrorPubSub"))).removeListener(
+                t.errorListener,
+              );
+            });
+          },
+        ],
+      }),
+      d = {
         DeferredRoot: u,
         buildRootComponent: o("WAWebCometBuildRoot").buildRootComponent,
-        initClient: o("CometRootInitClient").makeInitClient({
-          postInit: [
-            function () {
-              return void o("WAWebAppBootstrap").bootstrapApp();
-            },
-            function () {
-              s.onReady(function (t) {
-                return (e || (e = r("ErrorPubSub"))).removeListener(
-                  t.errorListener,
-                );
-              });
-            },
-          ],
-        }),
+        initClient: function (t) {
+          return r("justknobx")._("6879")
+            ? void o("WAWebAppBootstrap").bootstrapApp()
+            : c(t);
+        },
         initDarkMode: null,
         strictModeEnabled: !1,
       },
-      d = c;
-    l.default = d;
+      m = d;
+    l.default = m;
   },
   98,
 );

@@ -27,7 +27,7 @@ __d(
         rollback: e.NewsletterChatsMigrationRollbackBanner,
       },
       m = "add remove reset",
-      p = "add remove reset change:membershipType",
+      p = ["add", "remove", "reset", "change:membershipType"],
       _ = { dismissed: !1, firstImpressionAtMs: null },
       f = new (r("WAWebEventEmitter"))();
     function g(e, t) {

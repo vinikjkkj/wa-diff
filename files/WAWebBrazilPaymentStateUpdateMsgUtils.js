@@ -1,6 +1,7 @@
 __d(
   "WAWebBrazilPaymentStateUpdateMsgUtils",
   [
+    "WAWebBrazilPaymentStateUpdatePayload",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -13,7 +14,7 @@ __d(
       return s.size === 0
         ? e
         : e.map(function (e) {
-            return e.type === o("WAWebMsgType").MSG_TYPE.IMAGE && m(e.id)
+            return e.type === o("WAWebMsgType").MSG_TYPE.IMAGE && p(e.id)
               ? babelHelpers.extends({}, e, {
                   viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
                 })
@@ -22,17 +23,27 @@ __d(
     }
     function c(t, n, o) {
       var a = new (r("WAWebMsgKey"))({ fromMe: n, remote: t, id: o });
-      s.set(a.toString(), p(a));
+      s.set(a.toString(), _(a));
       for (var i of s.keys()) {
         if (s.size <= e) return;
         s.delete(i);
       }
     }
-    function d(e, t, n) {
-      m(new (r("WAWebMsgKey"))({ fromMe: t, remote: e, id: n }));
+    function d(e) {
+      var t,
+        n =
+          (t = o(
+            "WAWebBrazilPaymentStateUpdatePayload",
+          ).getBrazilPaymentStateUpdate(e)) == null
+            ? void 0
+            : t.receiptMsgId;
+      n != null && c(e.id.remote, e.id.fromMe, n);
     }
-    function m(e) {
-      var t = new Set(p(e));
+    function m(e, t, n) {
+      p(new (r("WAWebMsgKey"))({ fromMe: t, remote: e, id: n }));
+    }
+    function p(e) {
+      var t = new Set(_(e));
       for (var n of s) {
         var r = n[0],
           o = n[1];
@@ -45,14 +56,15 @@ __d(
       }
       return !1;
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
       return t == null ? [e.toString()] : [e.toString(), t.toString()];
     }
     ((l.MAX_AWAITED_RECEIPTS = e),
       (l.hideAwaitedBrazilPaymentReceipts = u),
       (l.awaitBrazilPaymentReceipt = c),
-      (l.stopAwaitingBrazilPaymentReceipt = d));
+      (l.awaitBrazilPaymentStateUpdateReceipt = d),
+      (l.stopAwaitingBrazilPaymentReceipt = m));
   },
   98,
 );

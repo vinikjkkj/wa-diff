@@ -8,7 +8,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBrokerGlobalAppState",
     "WAWebChatThreadLogging",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebJSHaltDetector",
     "WAWebMessageQueue",
     "WAWebMessageQueueImpl",
@@ -373,7 +373,7 @@ __d(
           (t.processDecryptResult = function (t) {
             (this.$16(),
               (this.$2 += 1),
-              t === o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY &&
+              t === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY &&
                 (this.$3 += 1));
           }),
           (t.offlineStanzaReceivedAfterComplete = function () {

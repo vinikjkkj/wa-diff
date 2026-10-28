@@ -7,6 +7,7 @@ __d(
       AD_EXTENSION_LIQUIDITY: "ad_extension_liquidity",
       AFFILIATE_OPO_V2: "affiliate_opo_v2",
       APP_PROSPECTING_LM: "app_prospecting_lm",
+      AUTO_DUBBING_TRANSLATION: "auto_dubbing_translation",
       BOOKING_IOS_APPLINK: "booking_ios_applink",
       BUY_WITH_PRIME_DESTINATION_AUTOMATION:
         "buy_with_prime_destination_automation",

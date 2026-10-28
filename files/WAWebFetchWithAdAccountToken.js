@@ -26,14 +26,15 @@ __d(
           if (n.type !== "success") throw new e(n);
           try {
             return yield t(n.token);
-          } catch (n) {
+          } catch (a) {
             if (
-              !(n instanceof Error) ||
-              !o("WAWebFetchAdAccountToken").hasGraphQLAuthError(n)
+              !(a instanceof Error) ||
+              !o("WAWebFetchAdAccountToken").hasGraphQLAuthError(a)
             )
-              throw n;
-            o("WAWebFetchAdAccountToken").markTokenAsInvalid();
-            var r = yield o("WAWebFetchAdAccountToken").fetchToken(!0);
+              throw a;
+            var r = yield o("WAWebFetchAdAccountToken").refreshRejectedToken(
+              n.token,
+            );
             if (r.type !== "success") throw new e(r);
             return t(r.token);
           }

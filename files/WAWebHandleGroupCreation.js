@@ -11,7 +11,7 @@ __d(
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupJoinCWamEvent",
     "WAWebGroupParticipantsJob",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandlePushnameUpdate",
     "WAWebQueryMissingParentGroupJob",
     "WAWebUserPrefsMeUser",
@@ -105,9 +105,9 @@ __d(
                     { createdOffline: _, suppressInitialE2EENotice: h },
                     S === !0 && {
                       nextPrivacyMode: {
-                        actualActors: o("WAWebHandleMsgTypes.flow")
+                        actualActors: o("WAWebHandleMsgTypes")
                           .ActualActorsEnumType.Capi,
-                        hostStorage: o("WAWebHandleMsgTypes.flow")
+                        hostStorage: o("WAWebHandleMsgTypes")
                           .HostStorageEnumType.Facebook,
                         privacyModeTs: 0,
                       },

@@ -9,7 +9,7 @@ __d(
     "WAWebAdvSignatureApi",
     "WAWebAppTracker",
     "WAWebBackendJobs.flow",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebProtobufsE2E.pb",
     "WAWebSignal",
     "WAWebSignalCommonErrors",
@@ -30,7 +30,7 @@ __d(
             a = t.peer_jid;
           if (!n || !a)
             return {
-              result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+              result: o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
             };
           var i = n.maybeAttrInt("count");
           (i == null || Number.isNaN(i)) && (i = 0);
@@ -60,8 +60,7 @@ __d(
                     ])),
                 ),
                 {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                    .PARSE_ERROR,
+                  result: o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR,
                 }
               );
             if (s) {
@@ -73,8 +72,7 @@ __d(
                 });
               if (!p)
                 return {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                    .PARSE_ERROR,
+                  result: o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR,
                 };
               o("WALogger").LOG(
                 d ||
@@ -90,7 +88,7 @@ __d(
               g = _.decrypted,
               h = _.result;
             return (
-              h === o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
+              h === o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS &&
                 (n.unsafeSetNodeContent(new Uint8Array(r("nullthrows")(g))),
                 yield o("WAWebSignalProtocolStore")
                   .getSignalProtocolStore()
@@ -105,10 +103,7 @@ __d(
                     "voip:validateAndDecryptEnc error",
                   ])),
               ),
-              {
-                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                  .PARSE_ERROR,
-              }
+              { result: o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR }
             );
           }
         })),
@@ -130,13 +125,11 @@ __d(
               );
             return (t = r.call) != null && t.callKey
               ? {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                    .SUCCESS,
+                  result: o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
                   decrypted: r.call.callKey,
                 }
               : {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                    .PARSE_ERROR,
+                  result: o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR,
                 };
           })
           .catch(
@@ -152,10 +145,7 @@ __d(
                       ])),
                     t,
                   ),
-                  {
-                    result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                      .RETRY,
-                  }
+                  { result: o("WAWebHandleMsgTypes").E2EProcessResult.RETRY }
                 );
               },
             ),
@@ -170,10 +160,7 @@ __d(
                   ])),
                 e,
               ),
-              {
-                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                  .PARSE_ERROR,
-              }
+              { result: o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR }
             );
           })
       );

@@ -78,21 +78,25 @@ __d(
       });
     }
     function p(e, t, r) {
-      return n("relay-runtime/network/RelayObservable").create(function (t) {
-        var n = r.subjectForInFlightStatus.subscribe({
-          error: t.error,
+      return n("relay-runtime/network/RelayObservable").create(function (n) {
+        if (t.get(r.identifier) !== r) {
+          n.complete();
+          return;
+        }
+        var o = r.subjectForInFlightStatus.subscribe({
+          error: n.error,
           next: function (o) {
             if (!e.isRequestActive(r.identifier)) {
-              t.complete();
+              n.complete();
               return;
             }
-            t.next();
+            n.next();
           },
-          complete: t.complete,
-          unsubscribe: t.complete,
+          complete: n.complete,
+          unsubscribe: n.complete,
         });
         return function () {
-          n.unsubscribe();
+          o.unsubscribe();
         };
       });
     }

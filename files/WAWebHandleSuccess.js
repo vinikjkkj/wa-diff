@@ -10,6 +10,7 @@ __d(
     "WAWebABPropsLocalStorage",
     "WAWebAbPropsSyncJob",
     "WAWebBackendEventBus",
+    "WAWebChatdLoginIdentity",
     "WAWebCollectionHandlerActions",
     "WAWebCryptoEncKeyHelper",
     "WAWebDbEncryptionKey",
@@ -80,7 +81,8 @@ __d(
               (d || (d = n("Promise"))).reject(s.error)
             );
           var u = s.success;
-          (o("WAWebUpdateClockSkewUtils").updateClockSkew(u.ts),
+          (o("WAWebChatdLoginIdentity").onChatdLoginSucceeded(),
+            o("WAWebUpdateClockSkewUtils").updateClockSkew(u.ts),
             o("WAWebUpdateMeLidUtils").updateMeLid(
               u.lid != null ? o("WAWebWidFactory").createWid(u.lid) : null,
             ),

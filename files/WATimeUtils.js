@@ -26,7 +26,7 @@ __d(
       S = e;
     }
     function E(e) {
-      return te(e).toUTCString();
+      return ne(e).toUTCString();
     }
     function k(e) {
       var t = e | 0;
@@ -50,126 +50,131 @@ __d(
         : e;
     }
     function x(e) {
+      if (!/^-?\d+$/.test(e)) return null;
+      var t = Number(e);
+      return Number.isSafeInteger(t) ? t : null;
+    }
+    function $(e) {
       return e == null ? e : e > C ? I(e) : k(e);
     }
-    function $() {
-      return oe() - S * 1e3;
-    }
-    function P(e) {
-      return e;
+    function P() {
+      return ae() - S * 1e3;
     }
     function N(e) {
       return e;
     }
     function M(e) {
+      return e;
+    }
+    function w(e) {
       return e * 1e3;
     }
-    function w(e, t) {
-      return A(V(), e, t);
+    function A(e, t) {
+      return F(H(), e, t);
     }
-    function A(e, t, n) {
+    function F(e, t, n) {
       var r = Math.max(t + n - e, 0);
       return Math.min(1e3 * r, ~(1 << 31));
     }
-    function F(e, t) {
-      var n = t != null ? t : V();
+    function O(e, t) {
+      var n = t != null ? t : H();
       return k(Math.ceil(n + Math.max(e, 0)));
     }
-    function O(e, t) {
-      var n = t != null ? t : V();
+    function B(e, t) {
+      var n = t != null ? t : H();
       return k(Math.ceil(n - Math.max(e, 0)));
     }
-    var B = Math.pow(2, 48);
-    function W(e) {
-      return e >= B ? $() + 6e4 : e;
-    }
+    var W = Math.pow(2, 48);
     function q(e) {
-      var t = Math.max(e - V(), 0);
+      return e >= W ? P() + 6e4 : e;
+    }
+    function U(e) {
+      var t = Math.max(e - H(), 0);
       return Math.min(1e3 * t, ~(1 << 31));
     }
-    function U(t) {
-      var r = q(t);
+    function V(t) {
+      var r = U(t);
       return new (e || (e = n("Promise")))(function (e) {
         return void setTimeout(e, r);
       });
     }
-    function V() {
+    function H() {
       return k(Date.now() / 1e3 - S);
     }
-    function H() {
+    function G() {
       return k(Date.now() / 1e3);
     }
-    function G() {
+    function z() {
       return k(new Date().setHours(0, 0, 0, 0) / 1e3 - S);
     }
-    function z() {
+    function j() {
       return Date.now() - S * 1e3;
     }
-    function j(e) {
-      return Math.max(e - V(), 0);
-    }
     function K(e) {
-      return j(e) > 0;
+      return Math.max(e - H(), 0);
     }
-    function Q() {
+    function Q(e) {
+      return K(e) > 0;
+    }
+    function X() {
       return performance.now();
     }
-    function X(e) {
+    function Y(e) {
       return Math.floor(performance.now() - e);
     }
-    function Y(e, t) {
+    function J(e, t) {
       return e < t ? e : t;
     }
-    var J = (function () {
+    var Z = (function () {
       function e() {
-        var e = Q();
+        var e = X();
         ((this.$1 = e), (this.$2 = e));
       }
       var t = e.prototype;
       return (
         (t.reset = function () {
-          this.$2 = Q();
+          this.$2 = X();
         }),
         (t.elapsed = function () {
-          return X(this.$2);
+          return Y(this.$2);
         }),
         (t.cumulative = function () {
-          return X(this.$1);
+          return Y(this.$1);
         }),
         e
       );
     })();
-    function Z(e, t, n) {
+    function ee(e, t, n) {
       return Math.abs(e - t) <= n;
     }
-    function ee(e, t) {
-      return Z(V(), e, t);
+    function te(e, t) {
+      return ee(H(), e, t);
     }
-    function te(e) {
+    function ne(e) {
       return new Date(e * 1e3);
     }
-    function ne(e, t) {
+    function re(e, t) {
       if (Math.abs(e - t) > d) return !1;
-      var n = v.time === e ? v.day : te(e + S).getDay(),
-        r = v.time === t ? v.day : te(t + S).getDay();
+      var n = v.time === e ? v.day : ne(e + S).getDay(),
+        r = v.time === t ? v.day : ne(t + S).getDay();
       return ((v.time = t), (v.day = r), n === r);
     }
-    function re(e) {
+    function oe(e) {
       var t = Number.parseInt(e, 16);
       return Number.isFinite(t) ? new Date(k(t) * 1e3) : null;
     }
-    function oe() {
+    function ae() {
       return Date.now();
     }
-    function ae(e) {
+    function ie(e) {
       var t = new Date(e);
       return isNaN(t) ? null : I(t.getTime());
     }
-    function ie(e, t) {
+    function le(e, t) {
       var n = Math.abs(e - t);
       return Math.ceil(n / g);
     }
-    function le(e) {
+    function se(e) {
       var t = 864e5,
         n = new Date(e.getTime()),
         r = n.getUTCDay() || 7;
@@ -197,37 +202,38 @@ __d(
       (l.castMilliSecondsToUnixTime = I),
       (l.castLongIntToUnixTime = T),
       (l.castLongIntToMillisTime = D),
-      (l.castMillisTimeToUnixTime = x),
-      (l.millisTime = $),
-      (l.castToMillisTime = P),
-      (l.fromMillisTime = N),
-      (l.castUnixTimeToMillisTime = M),
-      (l.timeoutFor = w),
-      (l.timeoutForAt = A),
-      (l.futureUnixTime = F),
-      (l.pastUnixTime = O),
-      (l.miAdjustTimestamp = W),
-      (l.cappedMillisecondsUntil = q),
-      (l.delayUntil = U),
-      (l.unixTime = V),
-      (l.unixTimeWithoutClockSkewCorrection = H),
-      (l.midnight = G),
-      (l.unixTimeMs = z),
-      (l.secondsUntil = j),
-      (l.isInFuture = K),
-      (l.monotonicTime = Q),
-      (l.monotonicTimeSince = X),
-      (l.oldest = Y),
-      (l.MonotonicTimer = J),
-      (l.happenedWithinAt = Z),
-      (l.happenedWithin = ee),
-      (l.toDate = te),
-      (l.sameDay = ne),
-      (l.convertHexToDate = re),
-      (l.performanceAbsoluteNow = oe),
-      (l.convertISO8601DateFormatToUnixTime = ae),
-      (l.daysDiff = ie),
-      (l.weekOfYear = le));
+      (l.decimalStringToMillisTime = x),
+      (l.castMillisTimeToUnixTime = $),
+      (l.millisTime = P),
+      (l.castToMillisTime = N),
+      (l.fromMillisTime = M),
+      (l.castUnixTimeToMillisTime = w),
+      (l.timeoutFor = A),
+      (l.timeoutForAt = F),
+      (l.futureUnixTime = O),
+      (l.pastUnixTime = B),
+      (l.miAdjustTimestamp = q),
+      (l.cappedMillisecondsUntil = U),
+      (l.delayUntil = V),
+      (l.unixTime = H),
+      (l.unixTimeWithoutClockSkewCorrection = G),
+      (l.midnight = z),
+      (l.unixTimeMs = j),
+      (l.secondsUntil = K),
+      (l.isInFuture = Q),
+      (l.monotonicTime = X),
+      (l.monotonicTimeSince = Y),
+      (l.oldest = J),
+      (l.MonotonicTimer = Z),
+      (l.happenedWithinAt = ee),
+      (l.happenedWithin = te),
+      (l.toDate = ne),
+      (l.sameDay = re),
+      (l.convertHexToDate = oe),
+      (l.performanceAbsoluteNow = ae),
+      (l.convertISO8601DateFormatToUnixTime = ie),
+      (l.daysDiff = le),
+      (l.weekOfYear = se));
   },
   98,
 );

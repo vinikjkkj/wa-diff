@@ -58,26 +58,23 @@ __d(
     g.doc =
       'get a group ABProp config value from cache for a given group JID (e.g., "120363023305337144@g.us")';
     function h(t) {
-      return (
-        r("vulture")("wTxJHu1SmfIjj6AgOxfvxNrmDZU="),
-        o("WAWebApiAbPropConfig")
-          .getConfigValue(t)
-          .then(function (n) {
-            return (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    'ABProp "',
-                    '" config value: [',
-                    "]",
-                  ])),
-                t,
-                String(n),
-              ),
-              n
-            );
-          })
-      );
+      return o("WAWebApiAbPropConfig")
+        .getConfigValue(t)
+        .then(function (n) {
+          return (
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  'ABProp "',
+                  '" config value: [',
+                  "]",
+                ])),
+              t,
+              String(n),
+            ),
+            n
+          );
+        });
     }
     h.doc = "get an ABProp config value";
     function y(e, t) {

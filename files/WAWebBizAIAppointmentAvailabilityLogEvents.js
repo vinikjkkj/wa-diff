@@ -9,16 +9,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      u("edit_hours_button");
+    function e(e) {
+      (e === void 0 && (e = "create"), u("edit_hours_button", e));
     }
-    function s() {
-      u("select_timezone");
+    function s(e) {
+      (e === void 0 && (e = "create"), u("select_timezone", e));
     }
-    function u(e) {
+    function u(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.BUSINESS_TOOLS,
-        extraAttributes: { flow_type: "create", is_m5_1_refresh: !0 },
+        extraAttributes: { flow_type: t, is_m5_1_refresh: !0 },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         prevSurface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE

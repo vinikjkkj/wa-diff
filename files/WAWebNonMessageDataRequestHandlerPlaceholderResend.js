@@ -7,7 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebCurrentUser",
     "WAWebHandleMsgProcess",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
     "WAWebMsgProcessingApiUtils",
@@ -130,9 +130,9 @@ __d(
                       p && (m.accountLid = p);
                     }
                     var h = o("WAWebMsgProcessingApiUtils").isRevokeInfo(m)
-                      ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
+                      ? o("WAWebHandleMsgTypes").MessageOverwriteOption
                           .PEER_RETRY
-                      : o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
+                      : o("WAWebHandleMsgTypes").MessageOverwriteOption
                           .NO_OVERWRITE;
                     if (o("WAWebCurrentUser").isEmployee()) {
                       var y = d.entries().toArray().length;
@@ -300,13 +300,13 @@ __d(
               r("err")("recipient on non peer chat message")
             );
           return babelHelpers.extends(
-            { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+            { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
             a,
             { chat: m[0], author: i },
           );
         }
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
           a,
           { chat: o("WAWebWidFactory").asUserWidOrThrow(i), author: i },
         );
@@ -322,7 +322,7 @@ __d(
             r("err")("group message with no participant")
           );
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP },
           a,
           { chat: i, author: l, isDirect: !1 },
         );
@@ -339,9 +339,7 @@ __d(
           );
         return o("WAWebUserPrefsMeUser").isMeAccount(l)
           ? babelHelpers.extends(
-              {
-                type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST,
-              },
+              { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST },
               a,
               {
                 chat: i,
@@ -352,10 +350,7 @@ __d(
               },
             )
           : babelHelpers.extends(
-              {
-                type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                  .OTHER_BROADCAST,
-              },
+              { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST },
               a,
               { chat: i, author: l, isDirect: !1, ephSetting: null },
             );
@@ -371,7 +366,7 @@ __d(
             r("err")("status message with no participant")
           );
         return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS },
+          { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS },
           a,
           { chat: i, author: l, isDirect: !1 },
         );

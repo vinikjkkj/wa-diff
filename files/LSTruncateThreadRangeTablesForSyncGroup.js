@@ -34,6 +34,8 @@ __d(
                             [
                               [t.i64.cast([0, 0])],
                               [t.i64.cast([-1, 4294967295])],
+                              [t.i64.cast([-1, 4294967277])],
+                              [t.i64.cast([-1, 4294967267])],
                             ],
                           ]),
                         function (e) {
@@ -48,6 +50,14 @@ __d(
                               t.i64.eq(
                                 e.parentThreadKey,
                                 t.i64.cast([-1, 4294967295]),
+                              ) ||
+                              t.i64.eq(
+                                e.parentThreadKey,
+                                t.i64.cast([-1, 4294967277]),
+                              ) ||
+                              t.i64.eq(
+                                e.parentThreadKey,
+                                t.i64.cast([-1, 4294967267]),
                               ))
                           );
                         },

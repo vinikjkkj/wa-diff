@@ -20,29 +20,25 @@ __d(
         .COMET_FEED_PRODUCT_EXTENSIONS_CARD_SIZE;
     }
     function d(e) {
-      return o("CometFeedAdImageWidths").COMET_FEED_AD_FOOTER_THUMBNAIL_SIZE;
-    }
-    function m(e) {
       return o("getCometFeedImageWidth").getCometFeedImageWidth(
         e.innerWidth,
         e.innerHeight,
       );
     }
-    var p = new Map([
-      [(e = o("CometImagePrefetchSurfaces")).SURFACE.COMET_HOME_FEED_IMAGE, m],
+    var m = new Map([
+      [(e = o("CometImagePrefetchSurfaces")).SURFACE.COMET_HOME_FEED_IMAGE, d],
       [e.SURFACE.COMET_HOME_FEED_CAROUSEL, u],
       [e.SURFACE.COMET_HOME_FEED_PRODUCT_EXTENSIONS, c],
       [e.SURFACE.COMET_HOME_RHC, s],
-      [e.SURFACE.COMET_HOME_FEED_AD_FOOTER, d],
     ]);
-    function _(e, t, n) {
+    function p(e, t, n) {
       if (e == null) return t;
-      var r = p.get(e);
+      var r = m.get(e);
       if (r == null) return t;
       var o = r(n);
       return o;
     }
-    l.default = _;
+    l.default = p;
   },
   98,
 );

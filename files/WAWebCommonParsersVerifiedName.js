@@ -2,7 +2,7 @@ __d(
   "WAWebCommonParsersVerifiedName",
   [
     "WAWebHandleMsgCommon",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebNonEmptyString",
     "WAWebValidateBusinessCertificate",
   ],
@@ -34,10 +34,10 @@ __d(
         s = i.isSmb,
         u = i.name,
         c = i.serial,
-        d = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+        d = o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
           t.maybeAttrInt("actual_actors"),
         ),
-        m = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+        m = o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
           t.maybeAttrInt("host_storage"),
         ),
         p = t.maybeAttrInt("privacy_mode_ts"),

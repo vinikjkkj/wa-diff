@@ -3,7 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebCloudApiSignalEventWamEvent",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMmSignalSharingModelUtils",
     "WAWebWamEnumCloudApiSignalType",
   ],
@@ -46,7 +46,7 @@ __d(
           ((t = a.contact) == null || (t = t.privacyMode) == null
             ? void 0
             : t.hostStorage) !==
-            o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook ||
+            o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook ||
           o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMsg(l)
         )
       ) {

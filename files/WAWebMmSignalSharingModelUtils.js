@@ -2,7 +2,7 @@ __d(
   "WAWebMmSignalSharingModelUtils",
   [
     "WAWebABProps",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMmSignalSharingContextInfo",
     "WAWebMmSignalSharingExpirationWindowUtils",
     "WAWebMmSignalSharingGatingUtils",
@@ -27,7 +27,7 @@ __d(
         ? (((n = e.contact) == null || (n = n.privacyMode) == null
             ? void 0
             : n.hostStorage) ===
-            o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook &&
+            o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook &&
             o("WAWebMsgGetters").getIsMarketingTemplateTag(t)) ||
             (u(t) === !0 &&
               o("WAWebABProps").getABPropConfigValue(

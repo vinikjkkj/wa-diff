@@ -34,17 +34,7 @@ __d(
       S = o("WATagsLogger").TAGS(["OneQueue"]),
       R = (function () {
         function t(t) {
-          var n = this,
-            r = t.castAcks,
-            a = t.context,
-            i = t.danglingQueue,
-            l = t.enqueuePriority,
-            s = t.flushables,
-            u = t.mode,
-            c = t.promotionTimeoutMs,
-            d = t.pullMode,
-            m = t.schedulerLifecycleListener,
-            p = t.schedulerName;
+          var n = this;
           ((this.$1 = o("WAPubSub").simplePubSub()),
             (this.$2 = []),
             (this.$3 = []),
@@ -53,25 +43,27 @@ __d(
             (this.$9 = 0),
             (this.$12 = []),
             (this.$13 = new (o("WAResolvable").Resolvable)()));
-          var _ = o("TaskScheduler").taskScheduler(
-            p,
-            {
-              concurrency: 1,
-              failOnTimeout: !0,
-              promotionTimeoutMs: c,
-              timeoutMs: 15e3,
-            },
-            o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
-          );
-          (_.setLifecycleListener(m),
-            (this.$14 = _),
+          var r = t.castAcks,
+            a = t.context,
+            i = t.danglingQueue,
+            l = t.enqueuePriority,
+            s = t.flushables,
+            u = t.mode,
+            c = t.pullMode;
+          ((this.$14 = t.scheduler
+            ? t.scheduler
+            : L(
+                t.schedulerName,
+                t.promotionTimeoutMs,
+                t.schedulerLifecycleListener,
+              )),
             (this.$15 = l),
             (this.$16 = i),
             (this.$4 = u),
             (this.$11 = a),
             (this.$17 = r),
             (this.$12 = s),
-            (this.$6 = d),
+            (this.$6 = c),
             (this.$5 = new (o("WAShiftTimer").ShiftTimer)(function () {
               n.$14
                 .run(
@@ -291,7 +283,7 @@ __d(
                         ])),
                       s,
                     ),
-                    L(e)
+                    E(e)
                       ? a.$2.push({ response: e, socketId: o })
                       : a.$2.push({ response: e, socketId: o }),
                     e
@@ -440,7 +432,20 @@ __d(
           t
         );
       })();
-    function L(e) {
+    function L(e, t, n) {
+      var r = o("TaskScheduler").taskScheduler(
+        e,
+        {
+          concurrency: 1,
+          failOnTimeout: !0,
+          promotionTimeoutMs: t,
+          timeoutMs: 15e3,
+        },
+        o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
+      );
+      return (r.setLifecycleListener(n), r);
+    }
+    function E(e) {
       return !(e === "NO_ACK" || e === "CLOSE_SOCKET");
     }
     l.WAOneQueue = R;

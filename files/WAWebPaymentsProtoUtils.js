@@ -14,6 +14,7 @@ __d(
             groupMentions: [],
             statusAttributions: [],
             experienceIds: [],
+            sourceExperienceIds: [],
           },
           n = o("WAWebE2EProtoUtils").encodeJid(e.quotedParticipant);
         if ((n != null && (t.participant = n), e.quotedMsg)) {

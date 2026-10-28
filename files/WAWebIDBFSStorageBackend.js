@@ -216,7 +216,9 @@ __d(
             var r = this.$11(t, n);
             try {
               var a = e.readFile(r);
-              return a.buffer;
+              return a.buffer instanceof ArrayBuffer
+                ? a.buffer
+                : a.slice().buffer;
             } catch (e) {
               return (
                 o("WALogger").WARN(

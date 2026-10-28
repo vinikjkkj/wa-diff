@@ -22,11 +22,12 @@ __d(
           var t, n, r, a, i, l;
           ((this.$4 = null),
             (this.$8 = null),
-            (this.$9 = null),
+            (this.$9 = !1),
             (this.$10 = null),
             (this.$11 = null),
-            (this.$13 = !1),
+            (this.$12 = null),
             (this.$14 = !1),
+            (this.$15 = !1),
             (this.$1 = e.attestationVerifier),
             (this.$2 =
               (t = e.clearWatchdog) != null
@@ -62,7 +63,7 @@ __d(
                 : function (e, t) {
                     return self.setTimeout(e, t);
                   }),
-            (this.$12 =
+            (this.$13 =
               (l = e.webSocketFactory) != null
                 ? l
                 : function (e) {
@@ -73,12 +74,13 @@ __d(
         return (
           (a.connect = function (r) {
             var t = this;
-            if (this.$14)
+            if (this.$15)
               return (s || (s = n("Promise"))).resolve({
+                cause: "setup_failed",
                 detail: "channel already started",
                 status: "failed",
               });
-            this.$14 = !0;
+            this.$15 = !0;
             var a = this.$3();
             return new (s || (s = n("Promise")))(function (n) {
               var i = !1,
@@ -91,23 +93,33 @@ __d(
                     n(r),
                     o && t.close());
                 },
-                d = function (t) {
-                  return s({ detail: t, status: "failed" }, !0);
+                d = function (t, n) {
+                  return s({ cause: n, detail: t, status: "failed" }, !0);
                 },
-                p = [],
-                _ = function (t) {
+                p = !1,
+                _ = function () {
+                  return p ? "ws_dropped" : "unreachable";
+                },
+                f = [],
+                g = function (t) {
                   t instanceof ArrayBuffer
-                    ? p.length >= c
-                      ? d("Noise channel received too many early frames")
-                      : p.push(t.slice(0))
-                    : d("Noise channel received non-binary data");
+                    ? f.length >= c
+                      ? d(
+                          "Noise channel received too many early frames",
+                          "handshake_failed",
+                        )
+                      : f.push(t.slice(0))
+                    : d(
+                        "Noise channel received non-binary data",
+                        "handshake_failed",
+                      );
                 };
-              if (((t.$8 = d), t.$13)) {
-                d("channel closed");
+              if (((t.$8 = d), t.$14)) {
+                d("channel closed", "closed");
                 return;
               }
               try {
-                var f = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl(
+                var h = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl(
                     babelHelpers.extends({}, r, {
                       appId: m(),
                       appVersion: o("WAWebBuildConstants")
@@ -115,37 +127,38 @@ __d(
                       requestId: t.$6(),
                     }),
                   ),
-                  g = t.$12(f);
-                t.$9 = g;
-                var h = t.$5();
-                ((t.$4 = h),
-                  (g.binaryType = "arraybuffer"),
+                  y = t.$13(h);
+                t.$10 = y;
+                var C = t.$5();
+                ((t.$4 = C),
+                  (y.binaryType = "arraybuffer"),
                   (l = t.$7(function () {
-                    return d("Noise handshake timed out");
+                    return d("Noise handshake timed out", "handshake_timeout");
                   }, u)),
-                  (g.onerror = function () {
-                    return d("Noise WebSocket failed");
+                  (y.onerror = function () {
+                    return d("Noise WebSocket failed", _());
                   }),
-                  (g.onclose = function () {
-                    return d("Noise WebSocket closed during handshake");
+                  (y.onclose = function () {
+                    return d("Noise WebSocket closed during handshake", _());
                   }),
-                  (g.onopen = function () {
-                    t.$15(g, h).catch(function () {
-                      return d("Noise handshake failed");
-                    });
+                  (y.onopen = function () {
+                    ((p = !0),
+                      t.$16(y, C).catch(function () {
+                        return d("Noise handshake failed", "handshake_failed");
+                      }));
                   }));
-                var y = !1;
-                g.onmessage = function (n) {
-                  if (y) {
-                    _(n.data);
+                var b = !1;
+                y.onmessage = function (n) {
+                  if (b) {
+                    g(n.data);
                     return;
                   }
-                  ((y = !0),
+                  ((b = !0),
                     t
-                      .$16(g, h, n.data, p)
+                      .$17(y, C, n.data, f)
                       .then(function (n) {
-                        if (t.$13) {
-                          d("channel closed");
+                        if (t.$14) {
+                          d("channel closed", "closed");
                           return;
                         }
                         (o("WALogger").LOG(
@@ -159,18 +172,21 @@ __d(
                           s({ status: "ready", transport: n }, !1));
                       })
                       .catch(function () {
-                        return d("Noise handshake failed");
+                        return d(
+                          "Noise handshake failed",
+                          t.$9 ? "attestation_rejected" : "handshake_failed",
+                        );
                       }));
                 };
               } catch (e) {
-                d("Noise channel setup failed");
+                d("Noise channel setup failed", "setup_failed");
               }
             });
           }),
-          (a.$15 = (function () {
+          (a.$16 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                if ((yield t.initialize(), this.$13))
+                if ((yield t.initialize(), this.$14))
                   throw r("err")(
                     "WAWebHatchNoiseChannel: closed during handshake",
                   );
@@ -182,25 +198,26 @@ __d(
             }
             return t;
           })()),
-          (a.$16 = (function () {
+          (a.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, o) {
                 var a = this;
-                if ((this.$17(), !(n instanceof ArrayBuffer)))
+                if ((this.$18(), !(n instanceof ArrayBuffer)))
                   throw r("err")(
                     "WAWebHatchNoiseChannel: expected a binary handshake message",
                   );
-                (yield t.readMessage2(new Uint8Array(n)), this.$17());
+                (yield t.readMessage2(new Uint8Array(n)), this.$18());
                 var i = t.remoteStaticPublicKey();
                 if (i == null || !(yield this.$1(i, t.handshakeHash())))
-                  throw r("err")(
-                    "WAWebHatchNoiseChannel: attestation rejected",
+                  throw (
+                    (this.$9 = !0),
+                    r("err")("WAWebHatchNoiseChannel: attestation rejected")
                   );
-                (this.$17(), e.send(yield t.writeMessage3()), this.$17());
+                (this.$18(), e.send(yield t.writeMessage3()), this.$18());
                 var l = yield t.split(),
                   s = l[0],
                   u = l[1];
-                if ((t.destroy(), this.$13))
+                if ((t.destroy(), this.$14))
                   throw (
                     s.destroy(),
                     u.destroy(),
@@ -226,7 +243,7 @@ __d(
                     }
                   },
                   h = function (t) {
-                    if (!(p != null || a.$13)) {
+                    if (!(p != null || a.$14)) {
                       if (!(t instanceof ArrayBuffer)) {
                         f("Noise channel received non-binary data");
                         return;
@@ -249,14 +266,14 @@ __d(
                         t.onFailure(p);
                         return;
                       }
-                      if (a.$13) {
+                      if (a.$14) {
                         t.onClose();
                         return;
                       }
                       d = t;
                       var e = o.splice(0);
                       for (var n of e) {
-                        if (p != null || a.$13) break;
+                        if (p != null || a.$14) break;
                         t.onMessage(n);
                       }
                     },
@@ -268,8 +285,8 @@ __d(
                     socket: e,
                   };
                 return (
-                  (this.$11 = g),
-                  (this.$10 = y),
+                  (this.$12 = g),
+                  (this.$11 = y),
                   (this.$4 = null),
                   (e.onopen = null),
                   (e.onmessage = function (e) {
@@ -290,32 +307,32 @@ __d(
             }
             return t;
           })()),
-          (a.$17 = function () {
-            if (this.$13)
+          (a.$18 = function () {
+            if (this.$14)
               throw r("err")("WAWebHatchNoiseChannel: closed during handshake");
           }),
           (a.close = function () {
             var e, t, n, r;
-            if (!this.$13) {
-              this.$13 = !0;
+            if (!this.$14) {
+              this.$14 = !0;
               var o = this.$8;
               this.$8 = null;
-              var a = this.$11;
-              ((this.$11 = null),
-                o == null || o("channel closed"),
+              var a = this.$12;
+              ((this.$12 = null),
+                o == null || o("channel closed", "closed"),
                 a == null || a(),
                 (e = this.$4) == null || e.destroy(),
-                (t = this.$10) == null || t.encryptCipher.destroy(),
-                (n = this.$10) == null || n.decryptCipher.destroy(),
-                this.$9 != null &&
-                  ((this.$9.onopen = null),
-                  (this.$9.onmessage = null),
-                  (this.$9.onerror = null),
-                  (this.$9.onclose = null)),
-                (r = this.$9) == null || r.close(),
+                (t = this.$11) == null || t.encryptCipher.destroy(),
+                (n = this.$11) == null || n.decryptCipher.destroy(),
+                this.$10 != null &&
+                  ((this.$10.onopen = null),
+                  (this.$10.onmessage = null),
+                  (this.$10.onerror = null),
+                  (this.$10.onclose = null)),
+                (r = this.$10) == null || r.close(),
                 (this.$4 = null),
-                (this.$10 = null),
-                (this.$9 = null));
+                (this.$11 = null),
+                (this.$10 = null));
             }
           }),
           t

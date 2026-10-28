@@ -155,9 +155,6 @@ __d(
       return s._(/*BTDS*/ "{name} added a receipt.", [s._param("name", e)]);
     }
     function j() {
-      return s._(/*BTDS*/ "A receipt was added.");
-    }
-    function K() {
       return s._(/*BTDS*/ "View details");
     }
     ((l.getPaymentDetailsTitle = e),
@@ -199,8 +196,7 @@ __d(
       (l.getRecipientLabel = H),
       (l.getPixKeyLabel = G),
       (l.getReceiptAddedNotice = z),
-      (l.getPlainReceiptAddedNotice = j),
-      (l.getViewDetailsLabel = K));
+      (l.getViewDetailsLabel = j));
   },
   226,
 );

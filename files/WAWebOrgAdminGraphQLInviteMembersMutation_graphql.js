@@ -4,14 +4,21 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = { defaultValue: null, kind: "LocalArgument", name: "emails" },
-        t = { defaultValue: null, kind: "LocalArgument", name: "orgID" },
-        n = [
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "orgID" },
+          { defaultValue: null, kind: "LocalArgument", name: "rosterEntryIDs" },
+        ],
+        t = [
           {
             alias: null,
             args: [
-              { kind: "Variable", name: "emails", variableName: "emails" },
+              { kind: "Literal", name: "emails", value: [] },
               { kind: "Variable", name: "org_id", variableName: "orgID" },
+              {
+                kind: "Variable",
+                name: "roster_entry_ids",
+                variableName: "rosterEntryIDs",
+              },
             ],
             concreteType: "XWAOrgStatusResponse",
             kind: "LinkedField",
@@ -38,23 +45,23 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t],
+          argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
-          selections: n,
+          selections: t,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, e],
+          argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
-          selections: n,
+          selections: t,
         },
         params: {
-          id: "27941953275465289",
+          id: "39921184154161445",
           metadata: {},
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
           operationKind: "mutation",

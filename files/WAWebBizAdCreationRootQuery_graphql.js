@@ -469,7 +469,8 @@ __d(
             storageKey: null,
           },
         ],
-        $ = {
+        $ = [c],
+        P = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -1326,6 +1327,61 @@ __d(
                                       alias: null,
                                       args: null,
                                       concreteType:
+                                        "AdCallToActionSpecification",
+                                      kind: "LinkedField",
+                                      name: "call_to_action",
+                                      plural: !1,
+                                      selections: $,
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType:
+                                        "CreativeAssetGroupTextSpec",
+                                      kind: "LinkedField",
+                                      name: "long_texts",
+                                      plural: !0,
+                                      selections: $,
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType:
+                                        "CreativeAssetGroupMessageExtensionSpec",
+                                      kind: "LinkedField",
+                                      name: "message_extensions",
+                                      plural: !0,
+                                      selections: $,
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType:
+                                        "CreativeAssetGroupPostSpec",
+                                      kind: "LinkedField",
+                                      name: "posts",
+                                      plural: !0,
+                                      selections: $,
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType:
+                                        "CreativeAssetGroupTextSpec",
+                                      kind: "LinkedField",
+                                      name: "short_texts",
+                                      plural: !0,
+                                      selections: $,
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType:
                                         "CreativeAssetGroupImageSpec",
                                       kind: "LinkedField",
                                       name: "images",
@@ -1338,8 +1394,19 @@ __d(
                                           name: "hash",
                                           storageKey: null,
                                         },
+                                        {
+                                          alias: null,
+                                          args: null,
+                                          concreteType:
+                                            "AdImageCropsPerDimensionSpec",
+                                          kind: "LinkedField",
+                                          name: "image_crops",
+                                          plural: !1,
+                                          selections: $,
+                                          storageKey: null,
+                                        },
                                         D,
-                                        $,
+                                        P,
                                       ],
                                       storageKey: null,
                                     },
@@ -1354,7 +1421,7 @@ __d(
                                       selections: [
                                         f,
                                         g,
-                                        $,
+                                        P,
                                         {
                                           alias: null,
                                           args: null,

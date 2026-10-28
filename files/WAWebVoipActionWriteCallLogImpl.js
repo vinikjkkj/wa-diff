@@ -12,7 +12,7 @@ __d(
     "WAWebDBStoreMessageOrphans",
     "WAWebFindChatAction",
     "WAWebGetMessageCache",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMessageQueue",
     "WAWebMessageQueueTimeout",
@@ -212,9 +212,8 @@ __d(
                               chatId: i,
                               newMsg: b,
                               handleSingleMsgOrigin: "voipNotification",
-                              messageOverwriteOption: o(
-                                "WAWebHandleMsgTypes.flow",
-                              ).MessageOverwriteOption.VOIP_CALL_LOG,
+                              messageOverwriteOption: o("WAWebHandleMsgTypes")
+                                .MessageOverwriteOption.VOIP_CALL_LOG,
                             }),
                           ])
                         : yield o(
@@ -223,9 +222,8 @@ __d(
                             chatId: i,
                             newMsg: b,
                             handleSingleMsgOrigin: "voipNotification",
-                            messageOverwriteOption: o(
-                              "WAWebHandleMsgTypes.flow",
-                            ).MessageOverwriteOption.VOIP_CALL_LOG,
+                            messageOverwriteOption: o("WAWebHandleMsgTypes")
+                              .MessageOverwriteOption.VOIP_CALL_LOG,
                           }),
                         o(
                           "WAWebVoipPendingCallLogOutcome",
@@ -561,7 +559,7 @@ __d(
                     chatId: r,
                     newMsg: m,
                     handleSingleMsgOrigin: "voipNotification",
-                    messageOverwriteOption: o("WAWebHandleMsgTypes.flow")
+                    messageOverwriteOption: o("WAWebHandleMsgTypes")
                       .MessageOverwriteOption.VOIP_CALL_LOG,
                   }),
                 ]),

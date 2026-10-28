@@ -43,17 +43,23 @@ __d(
           if (a != null) {
             var i = new Map();
             for (var l of a) {
-              var s;
-              i.set(
-                l.jid,
-                l.username_info == null
-                  ? { error: !0, username: null }
-                  : {
-                      username: o("WAWebUsernameTypes").asMaybeUsername(
-                        (s = l.username_info) == null ? void 0 : s.username,
-                      ),
-                    },
-              );
+              var s, u;
+              if (l.username_info == null) {
+                i.set(l.jid, { error: !0, username: null });
+                continue;
+              }
+              if (
+                ((s = l.username_info) == null ? void 0 : s.status) ===
+                "NO_CHANGE"
+              ) {
+                i.set(l.jid, { username: null, noChange: !0 });
+                continue;
+              }
+              i.set(l.jid, {
+                username: o("WAWebUsernameTypes").asMaybeUsername(
+                  (u = l.username_info) == null ? void 0 : u.username,
+                ),
+              });
             }
             return e.map(function (e) {
               var t;

@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebVoipStackInterface",
     "WAWebVoipValidateAndDecryptEnc",
     "asyncToGeneratorRuntime",
@@ -51,7 +51,7 @@ __d(
             ),
             m)
           ) {
-            case o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS:
+            case o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS:
               if (_ == null)
                 o("WALogger").ERROR(
                   u ||
@@ -85,8 +85,7 @@ __d(
               break;
           }
           return {
-            shouldRetry:
-              m === o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY,
+            shouldRetry: m === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
             retryCount: p,
           };
         })),

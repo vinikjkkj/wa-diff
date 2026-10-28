@@ -4,12 +4,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t) {
+    function u(e, t, n) {
       o("WDSDialogBridge").openWDSDialog(
         s.jsx(r("WAWebOrgAdminInviteMembersModal.react"), {
           initialEmails: t,
           onClose: o("WDSDialogBridge").closeWDSDialog,
           onInviteMembers: e,
+          rosterEntries: n,
         }),
       );
     }

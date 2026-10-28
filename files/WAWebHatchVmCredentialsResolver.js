@@ -17,8 +17,13 @@ __d(
       m = 1e4,
       p = 10,
       _ = 12e4,
-      f = new Set(["DELETING", "DISABLED", "ERROR"]),
-      g = (function () {
+      f = {
+        cause: "superseded",
+        detail: "Superseded by an account change",
+        kind: "failure",
+      },
+      g = new Set(["DELETING", "DISABLED", "ERROR"]),
+      h = (function () {
         function t(e) {
           var t, r, a, i;
           ((this.$1 = null),
@@ -33,7 +38,7 @@ __d(
                     return Date.now();
                   }),
             (this.$4 = new (o("WAWebHatchVmFetcher").WAWebHatchVmFetcher)(
-              (r = e.fetch) != null ? r : y,
+              (r = e.fetch) != null ? r : C,
               this.$3,
             )),
             (this.$8 = e.mintAbraToken),
@@ -74,13 +79,22 @@ __d(
                         ])),
                     )
                     .sendLogs("hatch-vm-credentials-resolve-threw"),
-                  { detail: "VM credential resolve failed", kind: "failure" }
+                  {
+                    cause: "threw",
+                    detail: "VM credential resolve failed",
+                    kind: "failure",
+                  }
                 );
               })
               .finally(function () {
                 t.$6 === i && (t.$6 = null);
               });
             return ((this.$6 = i), i);
+          }),
+          (r.refreshVm = function (t) {
+            var e;
+            ((e = this.$2) == null ? void 0 : e.credentials) === t &&
+              (this.$2 = null);
           }),
           (r.invalidate = function () {
             (this.$5++, (this.$1 = null), (this.$2 = null), (this.$6 = null));
@@ -93,6 +107,7 @@ __d(
                   r = n != null ? n : yield this.$12(e);
                 if (r == null)
                   return {
+                    cause: "mint_failed",
                     detail: "ABRA token could not be minted",
                     kind: "failure",
                   };
@@ -101,18 +116,21 @@ __d(
                 if (a.kind === "unauthorized" && n != null) {
                   this.$14(n, e);
                   var i = yield this.$12(e);
-                  if (i == null) return { detail: a.detail, kind: "failure" };
+                  if (i == null)
+                    return {
+                      cause: "mint_failed",
+                      detail: a.detail,
+                      kind: "failure",
+                    };
                   ((o = i), (a = yield this.$13(o, e)));
                 }
-                if (
-                  (a.kind === "unauthorized" && this.$14(o, e), a.kind !== "ok")
-                )
-                  return { detail: a.detail, kind: "failure" };
-                if (e !== this.$5)
-                  return {
-                    detail: "Superseded by an account change",
-                    kind: "failure",
-                  };
+                if (a.kind === "unauthorized")
+                  return (
+                    this.$14(o, e),
+                    { cause: "unauthorized", detail: a.detail, kind: "failure" }
+                  );
+                if (a.kind !== "ok") return a;
+                if (e !== this.$5) return f;
                 var l = a,
                   s = l.entry,
                   u = {
@@ -143,6 +161,7 @@ __d(
                 if (n.kind === "ok" && n.entries.length === 0) {
                   if (this.$7 === t)
                     return {
+                      cause: "lease_pending",
                       detail: "Leased VM is not listed yet",
                       kind: "failure",
                     };
@@ -150,14 +169,19 @@ __d(
                   var r = yield this.$4.lease(e);
                   if (r.kind === "unauthorized")
                     return (this.$7 === t && (this.$7 = null), r);
-                  if (r.kind !== "ok")
-                    return { detail: r.detail, kind: "failure" };
+                  if (r.kind === "not_found")
+                    return { cause: "http", detail: r.detail, kind: "failure" };
+                  if (r.kind !== "ok") return r;
                   n = yield this.$4.fetch(e);
                 }
                 if (n.kind !== "ok") return n;
-                var o = h(n.entries);
+                var o = y(n.entries);
                 return o == null
-                  ? { detail: "fetch_vms returned no VM", kind: "failure" }
+                  ? {
+                      cause: "no_vm",
+                      detail: "fetch_vms returned no VM",
+                      kind: "failure",
+                    }
                   : this.$15(e, o, t);
               },
             );
@@ -173,15 +197,19 @@ __d(
                   a = (r = t.state) == null ? void 0 : r.toUpperCase();
                 if (a === "RUNNING")
                   return { cacheable: !0, entry: t, kind: "ok" };
-                if (a != null && f.has(a))
-                  return { detail: "VM is " + a, kind: "failure" };
+                if (a != null && g.has(a))
+                  return {
+                    cause: "vm_state",
+                    detail: "VM is " + a,
+                    kind: "failure",
+                  };
                 if (a === "CREATING" || a === "UPDATING")
                   return this.$16(e, t.vmId, n);
                 var i = yield this.$4.wake(e, t.vmId);
                 return i.kind === "unauthorized"
                   ? i
                   : i.kind === "not_found"
-                    ? { detail: i.detail, kind: "failure" }
+                    ? { cause: "no_vm", detail: i.detail, kind: "failure" }
                     : (i.kind === "failure" &&
                         o("WALogger")
                           .WARN(
@@ -209,14 +237,11 @@ __d(
                 var i = Math.min(d * Math.pow(2, r), m);
                 if (r >= p || this.$3() - o + i > _)
                   return {
+                    cause: "not_running",
                     detail: "VM was not running in time",
                     kind: "failure",
                   };
-                if ((yield this.$10(i), n !== this.$5))
-                  return {
-                    detail: "Superseded by an account change",
-                    kind: "failure",
-                  };
+                if ((yield this.$10(i), n !== this.$5)) return f;
                 var l = yield this.$4.fetch(e);
                 if (l.kind === "unauthorized") return l;
                 var s =
@@ -226,13 +251,21 @@ __d(
                       })
                     : void 0;
                 if (l.kind === "ok" && s == null)
-                  return { detail: "VM is no longer listed", kind: "failure" };
+                  return {
+                    cause: "no_vm",
+                    detail: "VM is no longer listed",
+                    kind: "failure",
+                  };
                 var u =
                   s == null || (a = s.state) == null ? void 0 : a.toUpperCase();
                 return s != null && u === "RUNNING"
                   ? { cacheable: !0, entry: s, kind: "ok" }
-                  : u != null && f.has(u)
-                    ? { detail: "VM is " + u, kind: "failure" }
+                  : u != null && g.has(u)
+                    ? {
+                        cause: "vm_state",
+                        detail: "VM is " + u,
+                        kind: "failure",
+                      }
                     : this.$16(e, t, n, r + 1, o);
               },
             );
@@ -261,7 +294,7 @@ __d(
           t
         );
       })();
-    function h(e) {
+    function y(e) {
       var t;
       return (t = e.find(function (e) {
         return e.isDefault;
@@ -269,12 +302,12 @@ __d(
         ? t
         : e[0];
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield self.fetch(e, t);
           return {
             json: function () {
@@ -284,10 +317,10 @@ __d(
             status: n.status,
           };
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.WAWebHatchVmCredentialsResolver = g;
+    l.WAWebHatchVmCredentialsResolver = h;
   },
   98,
 );

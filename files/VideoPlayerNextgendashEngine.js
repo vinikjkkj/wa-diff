@@ -198,6 +198,7 @@ __d(
         enableCombinedInitSidxFetch: r("gkx")("17649"),
         enableDisposalResourceCleanup: r("gkx")("11526"),
         enableDynamicBufferWatermarks: r("gkx")("11395"),
+        enableExactSegmentGroupByteRange: r("gkx")("28035"),
         enableFBPrefetchCacheKeyNormalization: r("gkx")("18280"),
         enableFetchPool: r("gkx")("21866"),
         enableFilterFailedPrefetchBootstrap: r("gkx")("11654"),
@@ -276,6 +277,8 @@ __d(
           : r("gkx")("10183")
             ? 5
             : -1,
+        mediaElementSkipFullWatchdogSnapshotsWhilePlaybackMoves:
+          r("gkx")("17440") && r("gkx")("18263"),
         mediaElementSkipUpdateIfFullyBufferedAndOnlyPlayheadMoving:
           r("gkx")("19158"),
         mediaSinkType: n("cr:3020").mediaSinkType,

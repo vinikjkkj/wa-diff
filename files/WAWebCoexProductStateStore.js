@@ -35,14 +35,15 @@ __d(
     }
     function m(e) {
       var t = d();
-      (o("WAWebUserPrefsIndexedDBStorage")
+      o("WAWebUserPrefsIndexedDBStorage")
         .userPrefsIdb.set(s, {
           version: u,
           surfaces: [].concat(e.surfaces),
           fetchedAtMs: e.fetchedAtMs,
         })
-        .catch(h),
-        (t == null || !g(t, e)) && c.trigger("change", e));
+        .catch(h);
+      var n = t == null || !g(t, e);
+      return (n && c.trigger("change", e), n);
     }
     function p() {
       var e = d() != null;

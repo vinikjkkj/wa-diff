@@ -1,6 +1,6 @@
 __d(
   "WAWebMessageAssociationUIUpdateFromStorage",
-  ["WAWebBackendApi", "WAWebHandleMsgTypes.flow"],
+  ["WAWebBackendApi", "WAWebHandleMsgTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -8,7 +8,7 @@ __d(
         o("WAWebBackendApi").frontendFireAndForget("updateMessageUI", {
           chatId: e.id.remote,
           msg: e,
-          messageOverwriteOption: o("WAWebHandleMsgTypes.flow")
+          messageOverwriteOption: o("WAWebHandleMsgTypes")
             .MessageOverwriteOption.NO_OVERWRITE,
           preserveOrder: !0,
         });

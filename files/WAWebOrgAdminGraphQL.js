@@ -215,7 +215,11 @@ __d(
               s = l == null ? void 0 : l.xwa_org_admin_roster_apply_changes;
             if (s == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
             if (s.status === "SUCCESS")
-              return { status: "success", version: s.version };
+              return {
+                addedEntryIDs: s.added_entry_ids,
+                status: "success",
+                version: s.version,
+              };
             var u =
               (i = s.error_reason) != null ? i : "NOT_FOUND_OR_UNAVAILABLE";
             if (u === "STALE_ROSTER_VERSION") return { status: "stale" };
@@ -672,13 +676,13 @@ __d(
         (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebRelayClient").commitMutation(
               q,
-              { orgID: e, emails: t },
+              { orgID: e, rosterEntryIDs: t },
               H,
             ),
             r = n == null ? void 0 : n.xwa_org_invite_members;
           if ((r == null ? void 0 : r.status) === "SUCCESS")
             return (
-              we("xwa_org_invite_members", "emails=" + t.length),
+              we("xwa_org_invite_members", "entries=" + t.length),
               "success"
             );
           if ((r == null ? void 0 : r.error_reason) === "INVALID_EMAIL_BATCH")

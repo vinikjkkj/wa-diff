@@ -35,22 +35,21 @@ __d(
             (a[1] = i),
             (a[2] = l))
           : ((i = a[1]), (l = a[2]));
-        var s = l === void 0 ? void 0 : l,
-          u;
+        var s;
         a[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((u = o("BootloaderResource").read(t)), (a[3] = u))
-          : (u = a[3]);
-        var d = u;
+          ? ((s = o("BootloaderResource").read(t)), (a[3] = s))
+          : (s = a[3]);
+        var u = s;
         n("cr:2448")(t);
-        var m;
+        var d;
         return (
-          a[4] !== i || a[5] !== s
-            ? ((m = c.jsx(d, babelHelpers.extends({}, i, { ref: s }))),
+          a[4] !== i || a[5] !== l
+            ? ((d = c.jsx(u, babelHelpers.extends({}, i, { ref: l }))),
               (a[4] = i),
-              (a[5] = s),
-              (a[6] = m))
-            : (m = a[6]),
-          m
+              (a[5] = l),
+              (a[6] = d))
+            : (d = a[6]),
+          d
         );
       }
       i.displayName = "lazyLoadComponent(" + t.getModuleId() + ")";

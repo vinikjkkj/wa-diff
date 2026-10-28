@@ -10,7 +10,7 @@ __d(
     "WAWebApiHistorySyncNotification",
     "WAWebBackendJobs.flow",
     "WAWebDBReportingTokenUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebHistorySyncLogUtils",
     "WAWebHistorySyncNotificationUtils",
@@ -92,8 +92,7 @@ __d(
                       a = o("WAWebWidFactory").createWid(l);
                     }
                     var c = {
-                      type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                        .OTHER_STATUS,
+                      type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS,
                       externalId: r("nullthrows")(
                         e.key.id,
                         "HistorySync:handleStatusMessages: missing key.id",

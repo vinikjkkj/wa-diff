@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
@@ -14,6 +13,7 @@ __d(
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
     "asyncToGeneratorRuntime",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -23,20 +23,23 @@ __d(
       d,
       m,
       p,
-      _ = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      _ = r("requireDeferred")("WAWebAccountLinkingAPI").__setRef(
+        "WAWebAccountLinkingHandler",
+      ),
+      f = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function f() {
-      return g.apply(this, arguments);
-    }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o(
             "WAWebMetaAiWaffleAuthTokenCache",
           ).clearMetaAiWaffleAuthTokenBlobCache();
           try {
-            yield _.updateAccountLinkingState(
+            yield f.updateAccountLinkingState(
               o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
             );
           } finally {
@@ -45,21 +48,21 @@ __d(
             ).invalidateSubscriptionAgeVerdict();
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF) {
             o(
               "WAWebMetaAiWaffleAuthTokenCache",
             ).clearMetaAiWaffleAuthTokenBlobCache();
             try {
-              yield _.purgeWaffleData();
+              yield f.purgeWaffleData();
             } finally {
               yield o(
                 "WAWebSubscriptionAgeGating",
@@ -74,8 +77,11 @@ __d(
             });
           } else
             try {
-              (yield o("WAWebAccountLinkingAPI").ping(),
-                yield o("WAWebAccountLinkingAPI").fetchServiceData(),
+              var n = yield _.load(),
+                r = n.fetchServiceData,
+                a = n.ping;
+              (yield a(),
+                yield r(),
                 o("WAWebWaffleLifecycleWamLogger").logNotification({
                   linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
                     .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.NOT_APPLICABLE,
@@ -97,18 +103,20 @@ __d(
                 .sendLogs("waffle-partial-unlink-failed", { sampling: 0.01 });
             }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            (yield o("WAWebAccountLinkingAPI").ping(),
-              yield o("WAWebAccountLinkingAPI").fetchServiceData());
+            var e = yield _.load(),
+              t = e.fetchServiceData,
+              n = e.ping;
+            (yield n(), yield t());
           } catch (e) {
             throw (
               o("WALogger")
@@ -126,26 +134,29 @@ __d(
             );
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
-    }
     function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            var e = yield o("WAWebAccountLinkingAPI").stateExists();
-            if (e != null)
-              switch (e) {
+            var e = yield _.load(),
+              t = e.refreshAccessToken,
+              n = e.stateExists,
+              r = yield n();
+            if (r != null)
+              switch (r) {
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .UNLINKED:
                   o(
                     "WAWebMetaAiWaffleAuthTokenCache",
                   ).clearMetaAiWaffleAuthTokenBlobCache();
                   try {
-                    yield _.purgeWaffleData();
+                    yield f.purgeWaffleData();
                   } finally {
                     yield o(
                       "WAWebSubscriptionAgeGating",
@@ -155,7 +166,7 @@ __d(
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .ACTIVE:
                   o("WAWebAccountLinkingGatingUtils").isGuestMode()
-                    ? yield o("WAWebAccountLinkingAPI").refreshAccessToken()
+                    ? yield t()
                     : yield o(
                         "WAWebAccountLinkingNonceFetchAPI",
                       ).requestNonceFromPrimary();
@@ -181,33 +192,36 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R() {
-      return L.apply(this, arguments);
-    }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            var e = yield o("WAWebAccountLinkingAPI").stateExists();
-            if (e != null)
-              switch (e) {
+            var e = yield _.load(),
+              t = e.refreshAccessToken,
+              n = e.stateExists,
+              r = yield n();
+            if (r != null)
+              switch (r) {
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .UNLINKED:
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .ACTIVE:
                   o("WAWebAccountLinkingGatingUtils").isGuestMode()
-                    ? yield o("WAWebAccountLinkingAPI").refreshAccessToken()
+                    ? yield t()
                     : yield o(
                         "WAWebAccountLinkingNonceFetchAPI",
                       ).requestNonceFromPrimary();
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .PAUSED:
-                  yield f();
+                  yield g();
                   break;
               }
           } catch (e) {
@@ -227,18 +241,18 @@ __d(
             );
           }
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             if (e != null) {
-              var t = yield _.getLastResyncTimestamp();
+              var t = yield f.getLastResyncTimestamp();
               if (t != null) {
                 var n = o("WATimeUtils").unixTime() - t;
                 if (n >= 0 && n <= e) return !0;
@@ -259,18 +273,20 @@ __d(
           }
           return !1;
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!(yield E(e))) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!(yield k(e))) {
             try {
-              yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
+              var t = yield _.load(),
+                n = t.fetchValidCertificate;
+              yield n();
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -285,29 +301,29 @@ __d(
                 .sendLogs("waffle-resync-cert-failed", { sampling: 0.01 });
             }
             try {
-              var t = yield _.getAccountLinkingData();
-              (t != null
+              var r = yield f.getAccountLinkingData();
+              (r != null
                 ? (o("WAWebWaffleLifecycleWamLogger").logNotification({
                     linkState: o(
                       "WAWebWaffleLifecycleWamLogger",
-                    ).mapLinkStateToWam(t.linkState),
+                    ).mapLinkStateToWam(r.linkState),
                     traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
                       .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
                   }),
-                  t.linkState ===
+                  r.linkState ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Active &&
-                    (yield C()),
-                  t.linkState ===
+                    (yield b()),
+                  r.linkState ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Paused &&
-                    (yield v()))
+                    (yield S()))
                 : (o("WAWebWaffleLifecycleWamLogger").logNotification({
                     linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
                       .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
                     traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
                       .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
                   }),
-                  yield R()),
-                yield _.updateLastResyncTimestamp(o("WATimeUtils").unixTime()));
+                  yield L()),
+                yield f.updateLastResyncTimestamp(o("WATimeUtils").unixTime()));
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -323,12 +339,12 @@ __d(
             }
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    ((l.handlePausedState = f),
-      (l.handleUnlinkedState = h),
-      (l.handleResyncState = I));
+    ((l.handlePausedState = g),
+      (l.handleUnlinkedState = y),
+      (l.handleResyncState = T));
   },
   98,
 );

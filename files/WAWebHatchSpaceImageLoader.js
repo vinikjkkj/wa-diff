@@ -156,14 +156,19 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield P(e, t, n);
-          return r.kind === "failure" && r.detail !== p ? P(e, t, n) : r;
+          var r = yield P({ api: e, route: t, timeoutMs: n });
+          return r.kind === "failure" && r.detail !== p
+            ? P({ api: e, route: t, timeoutMs: n })
+            : r;
         })),
         $.apply(this, arguments)
       );
     }
-    function P(e, t, n) {
-      return e.exchange("GET", t, { timeoutMs: n });
+    function P(e) {
+      var t = e.api,
+        n = e.route,
+        r = e.timeoutMs;
+      return t.exchange("GET", n, { timeoutMs: r });
     }
     function N(e, t, n) {
       return M.apply(this, arguments);

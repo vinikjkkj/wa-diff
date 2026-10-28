@@ -24,6 +24,7 @@ __d(
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotUtils",
     "WAWebBrAddPixKeyDeepLinkGating",
+    "WAWebBrPixPaymentsHomeDeepLink",
     "WAWebBrSavePartnerPixKeyFeature",
     "WAWebBroadcastApiParse",
     "WAWebBusinessAdCreationUtils",
@@ -365,7 +366,13 @@ __d(
         i = e.isExternal,
         l = e.preserveAttribution,
         P = e.sessionId;
-      switch (t.resultType) {
+      switch (
+        (t.resultType !== "BRAZIL_PIX_HOME" &&
+          o(
+            "WAWebBrPixPaymentsHomeDeepLink",
+          ).cancelPendingBrPixPaymentsHomeDeepLink(),
+        t.resultType)
+      ) {
         case "GROUP_INVITE": {
           var N;
           o("WAWebCmd").Cmd.closeStatusViewer();
@@ -839,6 +846,16 @@ __d(
               ),
               !1);
         }
+        case "BRAZIL_PIX_HOME":
+          return (
+            o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
+              deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
+                .DEEP_LINK_PAYMENT,
+              isExternal: i,
+            }),
+            o("WAWebBrPixPaymentsHomeDeepLink").openBrPixPaymentsHomeDeepLink(),
+            !0
+          );
         case "BRAZIL_ADD_PIX_KEY": {
           var Ee = t.data,
             ke = Ee.campaignId,

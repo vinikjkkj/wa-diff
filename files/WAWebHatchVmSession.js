@@ -92,6 +92,7 @@ __d(
                   var d = s(a);
                   if (d == null)
                     return {
+                      cause: "invalid_fingerprint",
                       detail: "Trusted peer fingerprint is invalid",
                       kind: "Failure",
                     };
@@ -111,23 +112,30 @@ __d(
                 if (n !== this.$3)
                   return (
                     m.close(),
-                    { detail: "Connection was superseded", kind: "Failure" }
+                    {
+                      cause: "superseded",
+                      detail: "Connection was superseded",
+                      kind: "Failure",
+                    }
                   );
                 if (a == null)
                   return (
                     m.close(),
                     i != null
                       ? { fingerprint: i, kind: "NeedsTrust" }
-                      : {
-                          detail:
-                            p.status === "failed"
-                              ? p.detail
-                              : "Noise peer fingerprint was not presented",
-                          kind: "Failure",
-                        }
+                      : p.status === "failed"
+                        ? { cause: p.cause, detail: p.detail, kind: "Failure" }
+                        : {
+                            cause: "no_fingerprint",
+                            detail: "Noise peer fingerprint was not presented",
+                            kind: "Failure",
+                          }
                   );
                 if (p.status === "failed")
-                  return (m.close(), { detail: p.detail, kind: "Failure" });
+                  return (
+                    m.close(),
+                    { cause: p.cause, detail: p.detail, kind: "Failure" }
+                  );
                 var _ = r("WAWebHatchNoiseVmTransport").create(
                   p.transport,
                   e.credentials.vmAuthToken,
@@ -138,7 +146,11 @@ __d(
                 );
                 return n !== this.$3
                   ? (m.close(),
-                    { detail: "Noise channel failed", kind: "Failure" })
+                    {
+                      cause: "superseded",
+                      detail: "Noise channel failed",
+                      kind: "Failure",
+                    })
                   : ((this.$2 = m),
                     (this.$1 = new (o("WAWebHatchVmApi").WAWebHatchVmApi)(_)),
                     (this.$5 = e.credentials.vmId),

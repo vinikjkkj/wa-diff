@@ -137,6 +137,11 @@ __d(
         };
       if (e.includes("spark.meta.com"))
         return { endpoint: "gateway.spark.meta.com", authType: "SPARK_WEB" };
+      if (
+        (e === "www.meta.com" || e.endsWith(".www.meta.com")) &&
+        r("gkx")("28008")
+      )
+        return { endpoint: "gateway.www.meta.com", authType: "META_DOT_COM" };
       if (/^.*developer.*oculus.com.*$/.test(e))
         return { endpoint: "gateway.oculus.com", authType: "OCULUS" };
       if (e.includes("oculus.com") && r("justknobx")._("5321"))

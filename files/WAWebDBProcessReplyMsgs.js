@@ -2,28 +2,35 @@ __d(
   "WAWebDBProcessReplyMsgs",
   [
     "WADeepEquals",
+    "WALogger",
     "WAWebBatchedStatusIdUtils",
+    "WAWebCommonMsgUtils",
     "WAWebDBMessageSerialization",
     "WAWebDBMsgUtils",
     "WAWebGroupType",
+    "WAWebLidMigrationUtils",
     "WAWebMessageEditUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
+    "WAWebMsgType",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "filterObject",
+    "getErrorSafe",
     "isStringNullOrEmpty",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function s() {
+    function c() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length) {
             var t = yield o("WAWebModelStorageUtils")
               .getStorage()
@@ -33,62 +40,84 @@ __d(
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
                       var n = t[0],
-                        a = new Set();
-                      e.forEach(function (e) {
-                        var t = u(e);
-                        t !== "missing-stanza-id" && a.add(t.toString());
-                      });
-                      var i = (yield o("WAWebDBMsgUtils").getMsgsByMsgKey(
-                          Array.from(a.values()),
-                        )).filter(function (e) {
-                          var t = o("WAWebMessageEditUtils").getMsgEditType(
-                            e.type,
-                          );
-                          return t != null;
+                        a = f(),
+                        i = e.map(function (e) {
+                          return { msg: e, keys: _(e, a) };
                         }),
-                        l = new Map(
-                          i.map(function (e) {
+                        l = new Set(
+                          i.flatMap(function (e) {
+                            var t = e.keys;
+                            return t;
+                          }),
+                        ),
+                        s = (yield o("WAWebDBMsgUtils").getMsgsByMsgKey(
+                          Array.from(l.values()),
+                        )).filter(function (e) {
+                          return a
+                            ? !o("WAWebCommonMsgUtils").isPlaceholderMsg(
+                                e.type,
+                              ) &&
+                                e.type !==
+                                  o("WAWebMsgType").MSG_TYPE.QUARANTINED &&
+                                e.type !==
+                                  o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+                                !o("WAWebCommonMsgUtils").isNotificationType(
+                                  e.type,
+                                  e.subtype,
+                                )
+                            : o("WAWebMessageEditUtils").getMsgEditType(
+                                e.type,
+                              ) != null;
+                        }),
+                        u = new Map(
+                          s.map(function (e) {
                             return [e.id.toString(), e];
                           }),
                         ),
-                        s = e.filter(function (e) {
-                          var t = u(e);
-                          return t === "missing-stanza-id"
-                            ? !1
-                            : l.has(t.toString());
-                        });
-                      if (s.length) {
-                        var c = [];
+                        c = [];
+                      if (
+                        (i.forEach(function (e) {
+                          var t = e.keys,
+                            n = e.msg,
+                            o = t.find(function (e) {
+                              return u.has(e);
+                            });
+                          o != null &&
+                            c.push({
+                              msg: n,
+                              quotedMsg: r("nullthrows")(u.get(o)),
+                            });
+                        }),
+                        !!c.length)
+                      ) {
+                        var d = [];
                         if (
-                          (s.forEach(function (e) {
-                            var t = u(e);
-                            if (t !== "missing-stanza-id") {
-                              var n = r("nullthrows")(l.get(t.toString()));
-                              e.quotedMsg == null
-                                ? c.push(
-                                    babelHelpers.extends({}, e, {
-                                      quotedMsg: n,
-                                    }),
-                                  )
-                                : d(r("nullthrows")(e.quotedMsg), n) &&
-                                  c.push(
-                                    babelHelpers.extends({}, e, {
-                                      quotedMsg: n,
-                                    }),
-                                  );
-                            }
+                          (c.forEach(function (e) {
+                            var t = e.msg,
+                              n = e.quotedMsg;
+                            t.quotedMsg == null
+                              ? d.push(
+                                  babelHelpers.extends({}, t, { quotedMsg: n }),
+                                )
+                              : o("WAWebMessageEditUtils").getMsgEditType(
+                                  n.type,
+                                ) != null &&
+                                C(r("nullthrows")(t.quotedMsg), n) &&
+                                d.push(
+                                  babelHelpers.extends({}, t, { quotedMsg: n }),
+                                );
                           }),
-                          !!c.length)
+                          !!d.length)
                         )
                           return (
                             yield n.bulkCreateOrMerge(
-                              c.map(function (e) {
+                              d.map(function (e) {
                                 return o(
                                   "WAWebDBMessageSerialization",
                                 ).dbRowFromMessage(e);
                               }),
                             ),
-                            c
+                            d
                           );
                       }
                     },
@@ -110,10 +139,72 @@ __d(
               });
           }
         })),
-        s.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function u(e) {
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.filter(p);
+          if (!(n.length === 0 || !f()))
+            try {
+              yield u(n);
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[reply-messages] processReplyMsgs failed, source: ",
+                      "",
+                    ])),
+                  t,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("process-reply-msgs-failed");
+            }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return e.quotedMsg == null && !r("isStringNullOrEmpty")(e.quotedStanzaID);
+    }
+    function _(e, t) {
+      var n = g(function () {
+        return h(e);
+      });
+      if (n == null || n === "missing-stanza-id") return [];
+      if (!t) return [n.toString()];
+      var r = g(function () {
+        return o("WAWebLidMigrationUtils").getAlternateMsgKey(n);
+      });
+      return r == null ? [n.toString()] : [n.toString(), r.toString()];
+    }
+    function f() {
+      return r("justknobx")._("6899");
+    }
+    function g(t) {
+      try {
+        return t();
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[reply-messages] failed to create quoted msg key",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("reply-msgs-quoted-key-fail"),
+          null
+        );
+      }
+    }
+    function h(e) {
       var t, n;
       if (r("isStringNullOrEmpty")(e.quotedStanzaID))
         return "missing-stanza-id";
@@ -136,7 +227,7 @@ __d(
             : void 0,
       });
     }
-    var c = {
+    var y = {
       inviteGrpType: o("WAWebGroupType").GroupType.DEFAULT,
       thumbnail: "",
       body: "",
@@ -146,19 +237,19 @@ __d(
       staticUrl: "",
       pageCount: 0,
     };
-    function d(e, t) {
+    function C(e, t) {
       var n = r("filterObject")(e, function (e, t) {
           return e != null && t !== "kind";
         }),
         a = r("filterObject")(t, function (e, t) {
           return Object.prototype.hasOwnProperty.call(n, t) && t !== "kind";
         }),
-        i = m(n),
-        l = m(a);
+        i = b(n),
+        l = b(a);
       return !o("WADeepEquals").deepEqual(i, l);
     }
-    function m(e) {
-      var t = babelHelpers.extends({}, c);
+    function b(e) {
+      var t = babelHelpers.extends({}, y);
       for (var n of Object.entries(e)) {
         var r = n[0],
           o = n[1];
@@ -166,7 +257,9 @@ __d(
       }
       return t;
     }
-    ((l.processReplyMsgs = e), (l.createQuotedMsgKey = u));
+    ((l.processReplyMsgs = u),
+      (l.hydrateReplyMsgsSafely = d),
+      (l.createQuotedMsgKey = h));
   },
   98,
 );

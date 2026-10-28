@@ -407,6 +407,12 @@ __d(
                   .HATCH_ARTIFACT_CARD_ENABLED,
               ]
             : [],
+          h(e, t) && o("WAWebHatchBackendGating").isHatchCvmEnabledOnBackend()
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType.HATCH_CVM_ENABLED,
+              ]
+            : [],
         );
       return r.length === 0 ? void 0 : { capabilities: r };
     }

@@ -12,7 +12,9 @@ __d(
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
     "WAWebIdbTransactionCounter",
+    "WAWebSafeCrashAnnotation",
     "WAWebStorageCmd",
+    "WAWebStorageCrashAnnotations",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -651,46 +653,67 @@ __d(
           (a.$16 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, a) {
-                var i,
-                  l = this;
+                var i = this;
                 if ((a === void 0 && (a = !0), t.length === 0))
                   return o("WAWebDexieCastTypes").dexieCastToPromise();
-                var c = self.performance.now(),
-                  d = {
+                var l = self.performance.now(),
+                  c = {
                     encrypted: null,
                     serialized: null,
                     transaction: null,
                     modified: null,
                     put: null,
                   };
-                (o("WAWebAppTracker").AppTracker.start(
+                o("WAWebAppTracker").AppTracker.start(
                   o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
-                ),
-                  (i = this.updateListener) == null ||
-                    i.call(
+                );
+                var d = o(
+                    "WAWebStorageCrashAnnotations",
+                  ).startBulkWriteForCrash(this.table, t),
+                  m = new Map(),
+                  p = this.$17(),
+                  _ = this;
+                try {
+                  var f;
+                  (f = this.updateListener) == null ||
+                    f.call(
                       this,
                       t.map(function (e) {
-                        return l.$15(e);
+                        return i.$15(e);
                       }),
                       t,
-                    ));
-                var m = new Map(),
-                  p = this.$17(),
-                  _ = this,
-                  f = yield this.$10(t);
-                ((d.encrypted = Math.round(self.performance.now() - c)),
-                  f.forEach(function (e) {
-                    var t = l.propFilter(e),
-                      n = l.$5(t, !0);
-                    (p in n || s(0, 97881), m.set(n[p], n));
-                  }),
-                  (d.serialized = Math.round(self.performance.now() - c)));
-                function g(e) {
-                  return h.apply(this, arguments);
+                    );
+                  var g = yield this.$10(t);
+                  ((c.encrypted = Math.round(self.performance.now() - l)),
+                    g.forEach(function (e) {
+                      var t = i.propFilter(e),
+                        n = i.$5(t, !0);
+                      (p in n || s(0, 97881), m.set(n[p], n));
+                    }),
+                    (c.serialized = Math.round(self.performance.now() - l)));
+                } catch (e) {
+                  throw (
+                    o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+                      "wa:appContext",
+                      function () {
+                        return o("WAWebAppTracker").AppTracker.stop(
+                          o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
+                        );
+                      },
+                    ),
+                    o("WAWebStorageCrashAnnotations").endBulkWriteForCrash(
+                      d,
+                      self.performance.now() - l,
+                    ),
+                    e
+                  );
                 }
-                function h() {
+                function h(e) {
+                  return y.apply(this, arguments);
+                }
+                function y() {
                   return (
-                    (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    (y = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
                         var t = _.table
                           .where(":id")
@@ -702,20 +725,20 @@ __d(
                         return n;
                       },
                     )),
-                    h.apply(this, arguments)
+                    y.apply(this, arguments)
                   );
                 }
                 return o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     this.db.transaction("rw", this.table, function () {
                       return (
-                        (d.transaction = Math.round(
-                          self.performance.now() - c,
+                        (c.transaction = Math.round(
+                          self.performance.now() - l,
                         )),
-                        g(m).then(function (t) {
+                        h(m).then(function (t) {
                           if (
-                            ((d.modified = Math.round(
-                              self.performance.now() - c,
+                            ((c.modified = Math.round(
+                              self.performance.now() - l,
                             )),
                             t.length === 0 || !a)
                           ) {
@@ -728,18 +751,18 @@ __d(
                                     "",
                                   ])),
                                 t.length,
-                                l.table.name,
+                                i.table.name,
                               );
                             return;
                           }
-                          return l.table.bulkPut(t);
+                          return i.table.bulkPut(t);
                         })
                       );
                     }),
                   )
                   .catch(function (e) {
                     throw (
-                      l.$1(
+                      i.$1(
                         r("getErrorSafe")(e),
                         "bulkMaybeCreateOrMerge(shouldCreate=" +
                           a.toString() +
@@ -751,11 +774,21 @@ __d(
                   })
                   .finally(function () {
                     var e;
-                    (o("WAWebAppTracker").AppTracker.stop(
-                      o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
-                    ),
-                      (d.put = Math.round(self.performance.now() - c)),
-                      d.put > 5e3 &&
+                    o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+                      "wa:appContext",
+                      function () {
+                        return o("WAWebAppTracker").AppTracker.stop(
+                          o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
+                        );
+                      },
+                    );
+                    var n = Math.round(self.performance.now() - l);
+                    ((c.put = n),
+                      o("WAWebStorageCrashAnnotations").endBulkWriteForCrash(
+                        d,
+                        n,
+                      ),
+                      n > 5e3 &&
                         (e = self.document) != null &&
                         e.hasFocus != null &&
                         e.hasFocus() &&
@@ -772,13 +805,13 @@ __d(
                                 " mod:",
                                 "",
                               ])),
-                            l.table.name,
+                            i.table.name,
                             t.length,
-                            d.put,
-                            d.encrypted,
-                            d.serialized,
-                            d.transaction,
-                            d.modified,
+                            c.put,
+                            c.encrypted,
+                            c.serialized,
+                            c.transaction,
+                            c.modified,
                           )
                           .sendLogs("long-bulk-db-operation", {
                             sampling: 0.001,

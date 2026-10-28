@@ -94,11 +94,10 @@ __d(
       oe,
       ae;
     function ie() {
-      (r("vulture")("Kl2iMMR9zcQgmwwXcUD3UGnwWrI="),
-        o("WAWebCmd").Cmd.on("open_chat", function (e) {
-          var t = e.chat;
-          (r("vulture")("xBUKpDL6kQMXGownAgNIoBG_GxM="), (ae = t));
-        }));
+      o("WAWebCmd").Cmd.on("open_chat", function (e) {
+        var t = e.chat;
+        (r("vulture")("xBUKpDL6kQMXGownAgNIoBG_GxM="), (ae = t));
+      });
     }
     var le = (function () {
       var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {

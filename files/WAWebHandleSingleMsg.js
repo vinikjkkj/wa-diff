@@ -17,7 +17,7 @@ __d(
     "WAWebDBProcessRevokeMsgs",
     "WAWebHandleForMessageRange",
     "WAWebHandleForMessageRangeEnums",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandlePlaceholderWam",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -41,8 +41,7 @@ __d(
             b = t.messageOverwriteOption,
             v =
               b === void 0
-                ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
-                    .NO_OVERWRITE
+                ? o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE
                 : b,
             S = t.preserveOrder,
             R = S === void 0 ? !0 : S;
@@ -64,11 +63,10 @@ __d(
             .tags("messaging");
           var L =
               v !==
-              o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.NO_OVERWRITE,
+              o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE,
             E =
               v ===
-              o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
-                .VOIP_CALL_LOG,
+              o("WAWebHandleMsgTypes").MessageOverwriteOption.VOIP_CALL_LOG,
             k = { add: "after", update: L, isHistory: !1 },
             I =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&

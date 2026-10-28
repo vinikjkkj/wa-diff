@@ -5,19 +5,23 @@ __d(
     "WALogger",
     "WAWebChatThreadLogging",
     "WAWebChatThreadLoggingEventStore",
-    "WAWebChatThreadLoggingEventUploader",
     "WAWebChatThreadLoggingLocalstorageMetadataHandler",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
+    var e,
+      s,
+      u = r("requireDeferred")("WAWebChatThreadLoggingEventUploader").__setRef(
+        "WAWebInitChatThreadLogging",
+      );
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           t === void 0 && (t = !0);
           var r = t;
           (yield o(
@@ -48,9 +52,7 @@ __d(
                   },
                 },
             l = r
-              ? new (o(
-                  "WAWebChatThreadLoggingEventUploader",
-                ).ChatThreadLoggingEventUploaderImpl)(a, i)
+              ? m(a, i)
               : {
                   uploadEvents: function () {
                     return (s || (s = n("Promise"))).resolve(0);
@@ -70,10 +72,33 @@ __d(
                 ])),
             ));
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.initChatThreadLogging = u;
+    function m(e, t) {
+      var n = null;
+      return {
+        uploadEvents: function (o) {
+          var r = o == null ? void 0 : babelHelpers.extends({}, o);
+          return (
+            n != null ||
+              (n = u
+                .load()
+                .then(function (n) {
+                  var r = n.ChatThreadLoggingEventUploaderImpl;
+                  return new r(e, t);
+                })
+                .catch(function (e) {
+                  throw ((n = null), e);
+                })),
+            n.then(function (e) {
+              return e.uploadEvents(r);
+            })
+          );
+        },
+      };
+    }
+    l.initChatThreadLogging = c;
   },
   98,
 );

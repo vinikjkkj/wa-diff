@@ -1,20 +1,19 @@
 __d(
   "WAWebPrivacyModeSystemMsg",
-  ["$InternalEnum", "WAWebHandleMsgTypes.flow"],
+  ["$InternalEnum", "WAWebHandleMsgTypes"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["E2EE", "BSP", "FB", "HOSTED_GROUP"]);
     function s(t) {
       return t == null ||
         (t.actualActors ===
-          o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.Self &&
+          o("WAWebHandleMsgTypes").ActualActorsEnumType.Self &&
           t.hostStorage ===
-            o("WAWebHandleMsgTypes.flow").HostStorageEnumType.OnPremise)
+            o("WAWebHandleMsgTypes").HostStorageEnumType.OnPremise)
         ? e.E2EE
-        : t.actualActors ===
-            o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.Capi
+        : t.actualActors === o("WAWebHandleMsgTypes").ActualActorsEnumType.Capi
           ? e.HOSTED_GROUP
           : t.hostStorage ===
-              o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook
+              o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook
             ? e.FB
             : e.BSP;
     }

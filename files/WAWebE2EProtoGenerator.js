@@ -150,6 +150,7 @@ __d(
                 groupMentions: i,
                 statusAttributions: [],
                 experienceIds: [],
+                sourceExperienceIds: [],
               }
             : void 0;
         ((t.stanzaId = e.quotedStanzaID),
@@ -235,6 +236,7 @@ __d(
                 mentionedJid: [],
                 statusAttributions: [],
                 experienceIds: [],
+                sourceExperienceIds: [],
               },
               void 0,
               "quoted",

@@ -2,7 +2,7 @@ __d(
   "WAWebGetPrivacyModeWhenSent",
   [
     "WAWebApiVerifiedBusinessName",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebPrivacyModeSystemMsg",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUserPrefsMeUser",
@@ -16,7 +16,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT) {
+          if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT) {
             if (!o("WAWebUserPrefsMeUser").isMeAccount(e.author))
               return t.privacyMode;
             var n = t.privacyMode,

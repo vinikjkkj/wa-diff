@@ -193,7 +193,7 @@ __d(
           yield r("WAWebNetworkStatus").waitIfOffline();
           var a;
           try {
-            var i, l;
+            var i, l, s;
             a = yield o("WAWebRelayClient").fetchQuery(
               u,
               {
@@ -206,7 +206,7 @@ __d(
                   }),
                   sort_column: e.sortColumn,
                   sort_descending: e.sortDescending === !0,
-                  page_size: c,
+                  page_size: (s = e.pageSize) != null ? s : c,
                   cursor: e.cursor,
                 },
                 includeCustomFields: e.includeCustomFields === !0,

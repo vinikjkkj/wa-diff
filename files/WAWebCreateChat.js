@@ -25,7 +25,7 @@ __d(
     "WAWebFetchAndSetIntegritySignals",
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebGetMessageCache",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebInitialSystemMsg",
     "WAWebLidAwareContactsDB",
@@ -364,8 +364,7 @@ __d(
               updates: [{ id: w, integritySignalsPromise: ge }],
             });
           }
-          var he = o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
-              .NO_OVERWRITE,
+          var he = o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE,
             ye = !1,
             Ce = []
               .concat(
@@ -478,8 +477,8 @@ __d(
       );
     }
     var E = {
-      actualActors: o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.Bsp,
-      hostStorage: o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook,
+      actualActors: o("WAWebHandleMsgTypes").ActualActorsEnumType.Bsp,
+      hostStorage: o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook,
       privacyModeTs: 0,
     };
     function k(e, t) {

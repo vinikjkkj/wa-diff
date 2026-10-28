@@ -6,6 +6,7 @@ __d(
     "WAWebChatThreadLogging",
     "WAWebCmd",
     "WAWebComposeBoxActions",
+    "WAWebDeactivatedContactUtils",
     "WAWebFindChatAction",
     "WAWebFrontendMsgGetters",
     "WAWebGroupAgentOneToOneContact",
@@ -39,7 +40,10 @@ __d(
                 chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
                   .PrivateReply,
               });
-            l &&
+            !l ||
+              o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(
+                i,
+              ) ||
               (o(
                 "WAWebComposeBoxActions",
               ).ComposeBoxActions.addMsgSendingLogAttributes(i, {

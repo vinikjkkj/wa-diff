@@ -3,7 +3,6 @@ __d(
   [
     "WABase64",
     "WALogger",
-    "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingConstants",
     "WAWebCryptoCurve25519CalculateSignature",
     "WAWebFeaturePkiRootCertificate",
@@ -14,6 +13,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -21,21 +21,24 @@ __d(
       u,
       c,
       d,
-      m = "2.5.4.3",
-      p = "Facebook Rootcanal Prod Root CA",
-      _ = 16,
+      m = r("requireDeferred")("WAWebAccountLinkingAPI").__setRef(
+        "WAWebAccountLinkingCryptoUtils",
+      ),
+      p = "2.5.4.3",
+      _ = "Facebook Rootcanal Prod Root CA",
       f = 16,
-      g = 512,
-      h = "#PWD_WAFFLE",
-      y = 12,
-      C = 1,
-      b = 255;
-    function v() {
-      return S.apply(this, arguments);
-    }
+      g = 16,
+      h = 512,
+      y = "#PWD_WAFFLE",
+      C = 12,
+      b = 1,
+      v = 255;
     function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield self.crypto.subtle.generateKey(
               {
                 name: "RSA-OAEP",
@@ -50,32 +53,32 @@ __d(
             n = e.publicKey;
           return { privateKey: t, publicKey: n };
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R() {
-      return L.apply(this, arguments);
-    }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return self.crypto.subtle.generateKey(
             { name: "AES-GCM", length: 256 },
             !0,
             ["encrypt", "decrypt"],
           );
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            return yield I(t);
+            return yield T(t);
           } catch (t) {
             return (
               o("WALogger")
@@ -91,15 +94,15 @@ __d(
             );
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e[0],
             n = e[1],
             a,
@@ -107,7 +110,7 @@ __d(
           if (t.subject.isEqual(n.issuer)) ((a = t), (i = n));
           else if (n.subject.isEqual(t.issuer)) ((a = n), (i = t));
           else throw r("err")("[WAFFLE] Certificates do not form a chain");
-          var l = yield $(a),
+          var l = yield P(a),
             s = yield o("WAWebX509Utils").validateCertificates([a, i], [l]);
           if (!s.result)
             throw r("err")(
@@ -118,22 +121,22 @@ __d(
             );
           return i;
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = "SHA-1");
           var n = yield o("WAWebX509Utils").extractCertificates(e);
           if (n.length !== 2)
             throw r("err")(
               "[WAFFLE] Payload encryption certificate chain is invalid",
             );
-          var a = yield E(n);
+          var a = yield k(n);
           if (a == null)
             throw r("err")(
               "[WAFFLE] Payload encryption certificate validation failed",
@@ -145,16 +148,16 @@ __d(
             },
           });
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = N(e.issuer);
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = M(e.issuer);
           if (
             t === o("WAWebFeaturePkiRootCertificate").FeaturePkiRootCommonName
           ) {
@@ -168,7 +171,7 @@ __d(
             return n;
           }
           return (
-            t !== p &&
+            t !== _ &&
               o("WALogger")
                 .WARN(
                   s ||
@@ -179,27 +182,27 @@ __d(
                   t != null ? t : "missing",
                 )
                 .sendLogs("waffle-unknown-cert-issuer"),
-            M(o("WAWebAccountLinkingConstants").ProdRootCertificatePem)
+            w(o("WAWebAccountLinkingConstants").ProdRootCertificatePem)
           );
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
+    function M(e) {
       var t;
       return (t = e.typesAndValues.find(function (e) {
         var t = e.type;
-        return t === m;
+        return t === p;
       })) == null
         ? void 0
         : t.value.valueBlock.value;
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = "-----BEGIN CERTIFICATE-----",
             n = "-----END CERTIFICATE-----",
             a = t + "\n" + e + "\n" + n,
@@ -208,19 +211,19 @@ __d(
             throw r("err")("[WAFFLE] Root certificate failed extraction");
           return i[0];
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new TextEncoder(),
             n = t.encode(e),
             r = self.crypto.getRandomValues(new Uint8Array(12)),
-            o = yield R(),
+            o = yield L(),
             a = yield self.crypto.subtle.encrypt(
               { name: "AES-GCM", iv: r, length: 256 },
               o,
@@ -231,15 +234,15 @@ __d(
             s = i.slice(0, -16);
           return { key: o, cipherText: s, tag: l, iv: r };
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e, t, n, r) {
-      return B.apply(this, arguments);
+    function B(e, t, n, r) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var o = new Uint8Array(t.length + r.length);
             (o.set(t), o.set(r, t.length));
@@ -251,45 +254,45 @@ __d(
             return a;
           },
         )),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return self.crypto.subtle.encrypt(
             { name: "RSA-OAEP", padding: "OAEP" },
             e,
             t,
           );
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e, t) {
-      return V.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return self.crypto.subtle.decrypt(
             { name: "RSA-OAEP", padding: "OAEP" },
             e,
             t.slice(),
           );
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield self.crypto.subtle.exportKey("spki", e),
             n = new Uint8Array(t),
             r = btoa(
@@ -301,15 +304,15 @@ __d(
             "-----BEGIN PUBLIC KEY-----\n" + r + "\n-----END PUBLIC KEY-----\n"
           );
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e, t, n) {
-      return j.apply(this, arguments);
+    function j(e, t, n) {
+      return K.apply(this, arguments);
     }
-    function j() {
+    function K() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           (t === void 0 && (t = !1),
             n === void 0 && (n = ["encrypt", "decrypt"]));
           var a = t
@@ -349,43 +352,43 @@ __d(
             );
           }
         })),
-        j.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function K(e, t) {
-      return Q.apply(this, arguments);
+    function Q(e, t) {
+      return X.apply(this, arguments);
     }
-    function Q() {
+    function X() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield z(e, !1, ["encrypt"]),
-            r = yield z(t, !0, ["decrypt"]);
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield j(e, !1, ["encrypt"]),
+            r = yield j(t, !0, ["decrypt"]);
           return { publicKey: n, privateKey: r };
         })),
-        Q.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function X(e) {
-      return Y.apply(this, arguments);
+    function Y(e) {
+      return J.apply(this, arguments);
     }
-    function Y() {
+    function J() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield self.crypto.subtle.exportKey("raw", e);
           return new Uint8Array(t);
         })),
-        Y.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    function J(e, t, n, r, o) {
-      return Z.apply(this, arguments);
+    function Z(e, t, n, r, o) {
+      return ee.apply(this, arguments);
     }
-    function Z() {
+    function ee() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             try {
-              var l = yield ne({
+              var l = yield re({
                 data: n,
                 key: t,
                 nonce: a,
@@ -408,22 +411,22 @@ __d(
             }
           },
         )),
-        Z.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    function ee(e) {
-      return te.apply(this, arguments);
+    function te(e) {
+      return ne.apply(this, arguments);
     }
-    function te() {
+    function ne() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.data,
             n = e.key,
             a = e.nonce,
             i = e.privateKey,
             l = e.tag;
           try {
-            return yield ne({
+            return yield re({
               data: t,
               key: n,
               nonce: a,
@@ -444,23 +447,23 @@ __d(
             );
           }
         })),
-        te.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    function ne(e) {
-      return re.apply(this, arguments);
+    function re(e) {
+      return oe.apply(this, arguments);
     }
-    function re() {
+    function oe() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.data,
             n = e.key,
             o = e.nonce,
             a = e.privateKey,
             i = e.tag,
-            l = yield U(a, n),
-            s = yield oe(l),
-            u = yield O(s, t, o, i),
+            l = yield V(a, n),
+            s = yield ae(l),
+            u = yield B(s, t, o, i),
             c = new TextDecoder("utf-8").decode(u),
             d = JSON.parse(c),
             m = d.data;
@@ -470,145 +473,150 @@ __d(
             );
           return m;
         })),
-        re.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    function oe(e) {
-      return ae.apply(this, arguments);
+    function ae(e) {
+      return ie.apply(this, arguments);
     }
-    function ae() {
+    function ie() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield self.crypto.subtle.importKey("raw", e, "AES-GCM", !0, [
             "encrypt",
             "decrypt",
           ]);
           return t;
         })),
-        ae.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    function ie(e, t) {
-      return le.apply(this, arguments);
+    function le(e, t) {
+      return se.apply(this, arguments);
     }
-    function le() {
+    function se() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t;
           if (n == null) {
-            var a = yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
-            if (a == null)
+            var o = yield m.load(),
+              a = o.fetchValidCertificate,
+              i = yield a();
+            if (i == null)
               throw r("err")("[WAFFLE] fetchValidCertificate failed");
-            n = a.encryptionKey;
+            n = i.encryptionKey;
           }
-          var i = yield A(JSON.stringify(e)),
-            l = i.cipherText,
-            s = i.iv,
-            u = i.key,
-            c = i.tag,
-            d = yield X(u),
-            m = yield W(n, d);
-          return { tag: c, nonce: s, cipherText: l, encryptedKey: m };
+          var l = yield F(JSON.stringify(e)),
+            s = l.cipherText,
+            u = l.iv,
+            c = l.key,
+            d = l.tag,
+            p = yield Y(c),
+            _ = yield q(n, p);
+          return { tag: d, nonce: u, cipherText: s, encryptedKey: _ };
         })),
-        le.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function se(e, t, n) {
-      return ue.apply(this, arguments);
+    function ue(e, t, n) {
+      return ce.apply(this, arguments);
     }
-    function ue() {
+    function ce() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
             var a = yield o("WAWebRSAPublicKeyDer").getRSAPublicKeyDer(t),
-              i = new Uint8Array(f),
-              l = yield R(),
+              i = new Uint8Array(g),
+              l = yield L(),
               s = yield self.crypto.subtle.encrypt(
-                { name: "AES-GCM", additionalData: a, iv: i, tagLength: _ * 8 },
+                { name: "AES-GCM", additionalData: a, iv: i, tagLength: f * 8 },
                 l,
                 new TextEncoder().encode(JSON.stringify(e)),
               ),
               u = new Uint8Array(s),
-              c = yield X(l),
+              c = yield Y(l),
               d = new Uint8Array(
                 yield self.crypto.subtle.encrypt({ name: "RSA-OAEP" }, t, c),
               );
-            if (d.length !== g)
+            if (d.length !== h)
               throw r("err")(
                 "[WAFFLE] PKI V2 needs a 4096-bit payload key, got a " +
                   d.length * 8 +
                   "-bit wrap",
               );
             return {
-              cipherText: u.slice(0, -_),
+              cipherText: u.slice(0, -f),
               encryptedKey: d,
               keyId: n,
-              tag: u.slice(-_),
+              tag: u.slice(-f),
             };
           },
         )),
-        ue.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function ce(e, t) {
-      return de.apply(this, arguments);
+    function de(e, t) {
+      return me.apply(this, arguments);
     }
-    function de() {
+    function me() {
       return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n =
-            t != null
-              ? t
-              : yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t;
+          if (n == null) {
+            var o = yield m.load(),
+              a = o.fetchValidCertificate;
+            n = yield a();
+          }
           if (n == null)
             throw r("err")("[WAFFLE] fetchValidCertificate failed");
-          var a = n.encryptionKey,
-            i = n.payloadEncryptionKeyV2,
-            l = n.payloadKeyId;
-          return l == null || i == null
-            ? { params: yield ie(e, a), version: 1 }
-            : { params: yield se(e, i, l), version: 2 };
+          var i = n,
+            l = i.encryptionKey,
+            s = i.payloadEncryptionKeyV2,
+            u = i.payloadKeyId;
+          return u == null || s == null
+            ? { params: yield le(e, l), version: 1 }
+            : { params: yield ue(e, s, u), version: 2 };
         })),
-        de.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    var me = 1,
-      pe = 2,
-      _e = "rsa2048",
-      fe = "rsa4096";
-    function ge(e) {
+    var pe = 1,
+      _e = 2,
+      fe = "rsa2048",
+      ge = "rsa4096";
+    function he(e) {
       if (e.version === 2) {
         var t = e.params;
         return JSON.stringify({
-          algorithm: fe,
+          algorithm: ge,
           auth_tag: o("WABase64").encodeB64(t.tag),
           encrypted_data: o("WABase64").encodeB64(t.cipherText),
           encrypted_key: o("WABase64").encodeB64(t.encryptedKey),
           key_id: t.keyId,
-          v: pe,
+          v: _e,
         });
       }
       var n = e.params;
       return JSON.stringify({
-        algorithm: _e,
+        algorithm: fe,
         auth_tag: o("WABase64").encodeB64(n.tag),
         encrypted_data: o("WABase64").encodeB64(n.cipherText),
         encrypted_key: o("WABase64").encodeB64(n.encryptedKey),
         nonce: o("WABase64").encodeB64(n.nonce),
-        v: me,
+        v: pe,
       });
     }
-    function he(e, t, n) {
-      return ye.apply(this, arguments);
+    function ye(e, t, n) {
+      return Ce.apply(this, arguments);
     }
-    function ye() {
+    function Ce() {
       return (
-        (ye = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
             var r = new TextEncoder(),
               a = r.encode(e),
               i = self.crypto.getRandomValues(new Uint8Array(12)),
-              l = yield R(),
+              l = yield L(),
               s = yield self.crypto.subtle.encrypt(
                 { name: "AES-GCM", iv: i, length: 256 },
                 l,
@@ -617,7 +625,7 @@ __d(
               u = new Uint8Array(s),
               c = u.slice(-16),
               d = u.slice(0, -16),
-              m = yield X(l),
+              m = yield Y(l),
               p = yield o("WAWebRSAPkcs1v15").rsaPkcs1v15Encrypt(t, m),
               _ = p.length,
               f = 16 + _ + 16 + d.length,
@@ -640,17 +648,17 @@ __d(
             return "#PWD_WA:11:" + b + ":" + C;
           },
         )),
-        ye.apply(this, arguments)
+        Ce.apply(this, arguments)
       );
     }
-    function Ce(e, t, n) {
-      return be.apply(this, arguments);
+    function be(e, t, n) {
+      return ve.apply(this, arguments);
     }
-    function be() {
+    function ve() {
       return (
-        (be = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
-            if (!Number.isInteger(n) || n < 0 || n > b)
+            if (!Number.isInteger(n) || n < 0 || n > v)
               throw r("err")(
                 "[WAFFLE] password key_id " +
                   n +
@@ -659,53 +667,53 @@ __d(
             var a = new TextEncoder(),
               i = Math.floor(Date.now() / 1e3),
               l = a.encode(String(i)),
-              s = new Uint8Array(f),
-              u = yield R(),
+              s = new Uint8Array(g),
+              u = yield L(),
               c = yield self.crypto.subtle.encrypt(
-                { name: "AES-GCM", additionalData: l, iv: s, tagLength: _ * 8 },
+                { name: "AES-GCM", additionalData: l, iv: s, tagLength: f * 8 },
                 u,
                 a.encode(e),
               ),
               d = new Uint8Array(c),
-              m = d.slice(-_),
-              p = d.slice(0, -_),
-              g = yield X(u),
-              C = new Uint8Array(
-                yield self.crypto.subtle.encrypt({ name: "RSA-OAEP" }, t, g),
+              m = d.slice(-f),
+              p = d.slice(0, -f),
+              _ = yield Y(u),
+              h = new Uint8Array(
+                yield self.crypto.subtle.encrypt({ name: "RSA-OAEP" }, t, _),
               ),
-              v = ve(n, C, m, p);
+              b = Se(n, h, m, p);
             return (
-              h + ":" + y + ":" + i + ":" + o("WABase64").encodeB64UrlSafe(v)
+              y + ":" + C + ":" + i + ":" + o("WABase64").encodeB64UrlSafe(b)
             );
           },
         )),
-        be.apply(this, arguments)
+        ve.apply(this, arguments)
       );
     }
-    function ve(e, t, n, r) {
+    function Se(e, t, n, r) {
       var o = t.length,
-        a = new Uint8Array(4 + o + _ + r.length),
+        a = new Uint8Array(4 + o + f + r.length),
         i = new DataView(a.buffer),
         l = 0;
       return (
-        (a[l++] = C),
+        (a[l++] = b),
         (a[l++] = e),
         i.setUint16(l, o, !0),
         (l += 2),
         a.set(t, l),
         (l += o),
         a.set(n, l),
-        (l += _),
+        (l += f),
         a.set(r, l),
         a
       );
     }
-    function Se(e) {
-      return Re.apply(this, arguments);
+    function Re(e) {
+      return Le.apply(this, arguments);
     }
-    function Re() {
+    function Le() {
       return (
-        (Re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSignalProtocolStore")
             .getSignalProtocolStore()
             .getIdentityKeyPair();
@@ -717,15 +725,15 @@ __d(
             ).calculateSignature(n, a.buffer);
           return new Uint8Array(i);
         })),
-        Re.apply(this, arguments)
+        Le.apply(this, arguments)
       );
     }
-    function Le(e, t) {
-      return Ee.apply(this, arguments);
+    function Ee(e, t) {
+      return ke.apply(this, arguments);
     }
-    function Ee() {
+    function ke() {
       return (
-        (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if ((t === void 0 && (t = "SHA-1"), e.length === 0))
             throw r("err")("Empty PEM string");
           var n = "-----BEGIN PUBLIC KEY-----",
@@ -748,27 +756,27 @@ __d(
             ["encrypt"],
           );
         })),
-        Ee.apply(this, arguments)
+        ke.apply(this, arguments)
       );
     }
-    ((l.generateRSAKeys = v),
-      (l.generateAESKey = R),
-      (l.validateCertificateChain = E),
-      (l.importPayloadEncryptionKey = D),
-      (l.cryptoKeyToPem = H),
-      (l.convertTestKeys = K),
-      (l.decryptRSAEncryptedPayload = J),
-      (l.decryptRSAEncryptedData = ee),
-      (l.wrapPayloadWithRSAAESEncryption = ie),
-      (l.wrapPayloadWithRSAAESEncryptionV2 = se),
-      (l.wrapWafflePayload = ce),
-      (l.WAFFLE_AUTH_ENVELOPE_VERSION_V1 = me),
-      (l.WAFFLE_AUTH_ENVELOPE_VERSION_V2 = pe),
-      (l.serializeWaffleEncryptedEnvelope = ge),
-      (l.encryptPassword = he),
-      (l.encryptPasswordWithOaep = Ce),
-      (l.computeIdSign = Se),
-      (l.importPasswordPublicKey = Le));
+    ((l.generateRSAKeys = S),
+      (l.generateAESKey = L),
+      (l.validateCertificateChain = k),
+      (l.importPayloadEncryptionKey = x),
+      (l.cryptoKeyToPem = G),
+      (l.convertTestKeys = Q),
+      (l.decryptRSAEncryptedPayload = Z),
+      (l.decryptRSAEncryptedData = te),
+      (l.wrapPayloadWithRSAAESEncryption = le),
+      (l.wrapPayloadWithRSAAESEncryptionV2 = ue),
+      (l.wrapWafflePayload = de),
+      (l.WAFFLE_AUTH_ENVELOPE_VERSION_V1 = pe),
+      (l.WAFFLE_AUTH_ENVELOPE_VERSION_V2 = _e),
+      (l.serializeWaffleEncryptedEnvelope = he),
+      (l.encryptPassword = ye),
+      (l.encryptPasswordWithOaep = be),
+      (l.computeIdSign = Re),
+      (l.importPasswordPublicKey = Ee));
   },
   98,
 );

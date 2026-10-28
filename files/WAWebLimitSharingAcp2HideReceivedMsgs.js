@@ -5,7 +5,7 @@ __d(
     "WAPromiseTimeout",
     "WAWebBackendApi",
     "WAWebCommonMsgUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingModelUtils",
     "WAWebLimitSharingProtoUtils",
@@ -30,8 +30,8 @@ __d(
         d.Message$ProtocolMessage$Type.EPHEMERAL_SYNC_RESPONSE,
       ]),
       p = new Set([
-        o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT,
-        o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP,
+        o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
+        o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP,
       ]),
       _ = 5e3;
     function f(e) {

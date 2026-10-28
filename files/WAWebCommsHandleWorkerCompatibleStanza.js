@@ -8,7 +8,6 @@ __d(
     "WAWebHandleGroupNotification",
     "WAWebHandleIdentityChange",
     "WAWebHandleNewsletterMsg",
-    "WAWebHandleNewsletterStatus",
     "WAWebHandleVoipCallReceipt",
     "WAWebNewsletterGatingUtils",
     "WAWebPostUnknownStanzaMetric",
@@ -17,14 +16,18 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    var e = r("requireDeferred")("WAWebHandleNewsletterStatus").__setRef(
+      "WAWebCommsHandleWorkerCompatibleStanza",
+    );
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebRuntimeEnvironmentUtils").isWorker()) return e;
           var t = yield e;
           return (
@@ -34,10 +37,10 @@ __d(
             t
           );
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function u(t) {
+    function c(t) {
       var n = o("WAWebCommsHandleMessagingStanza").handleMessagingStanza(t);
       if (n != null) return n;
       var a = t.attrs;
@@ -45,10 +48,10 @@ __d(
         case "notification": {
           switch (a.type) {
             case "w:gp2":
-              return e(
+              return s(
                 o("WAWebHandleGroupNotification").handleGroupNotification(t),
               ).catch(function (e) {
-                return c(t, r("getErrorSafe")(e));
+                return d(t, r("getErrorSafe")(e));
               });
             case "encrypt": {
               var i = t.content;
@@ -56,10 +59,10 @@ __d(
               var l = i[0].tag;
               switch (l) {
                 case "identity":
-                  return e(
+                  return s(
                     o("WAWebHandleIdentityChange").handleE2eIdentityChange(t),
                   ).catch(function (e) {
-                    return c(t, r("getErrorSafe")(e));
+                    return d(t, r("getErrorSafe")(e));
                   });
               }
               break;
@@ -68,8 +71,8 @@ __d(
           break;
         }
         case "message": {
-          var s = t.attrs.from;
-          if (r("WAWebWid").isNewsletter(s == null ? void 0 : s.toString()))
+          var u = t.attrs.from;
+          if (r("WAWebWid").isNewsletter(u == null ? void 0 : u.toString()))
             return r("WAWebHandleNewsletterMsg")(t).catch(function (e) {
               return o(
                 "WAWebCommsHandleStanzaUtils",
@@ -78,16 +81,21 @@ __d(
           break;
         }
         case "status": {
-          var u = t.attrs.from;
+          var c = t.attrs.from;
           if (
-            r("WAWebWid").isNewsletter(u == null ? void 0 : u.toString()) &&
+            r("WAWebWid").isNewsletter(c == null ? void 0 : c.toString()) &&
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
           )
-            return r("WAWebHandleNewsletterStatus")(t).catch(function (e) {
-              return o(
-                "WAWebCommsHandleStanzaUtils",
-              ).handleMessageParsingFailure(t, r("getErrorSafe")(e));
-            });
+            return e
+              .load()
+              .then(function (e) {
+                return e(t);
+              })
+              .catch(function (e) {
+                return o(
+                  "WAWebCommsHandleStanzaUtils",
+                ).handleMessageParsingFailure(t, r("getErrorSafe")(e));
+              });
           break;
         }
         case "receipt":
@@ -108,7 +116,7 @@ __d(
           }
       }
     }
-    function c(e, t) {
+    function d(e, t) {
       return t instanceof o("WAParsableWapNode").XmppParsingFailure
         ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e),
           o("WAWebCreateNackFromStanza").createNackFromStanza(
@@ -120,7 +128,7 @@ __d(
             o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
           );
     }
-    l.handleWorkerCompatibleStanza = u;
+    l.handleWorkerCompatibleStanza = c;
   },
   98,
 );

@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWap",
-    "WAWebBotBaseGating",
     "WAWebBotModeSelectionTypes",
     "WAWebBotTypes",
     "WAWebMsgGetters",
@@ -67,12 +66,7 @@ __d(
         i,
         l,
         s = e.botModeOverride;
-      if (
-        s != null &&
-        s.length > 0 &&
-        o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()
-      )
-        l = String(s[0]);
+      if (s != null && s.length > 0) l = String(s[0]);
       else {
         var u = e.botModeSelection;
         if (u != null && u.length > 0) {

@@ -14,7 +14,7 @@ __d(
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractPairedMediaTypeFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleSingleMsg",
     "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebMessageQueue",
@@ -328,8 +328,8 @@ __d(
               "WAWebLimitSharingAcp2HideReceivedMsgs",
             ).hideMsgsReceivedInAcp2RestrictedChat({
               messageType: u
-                ? o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP
-                : o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT,
+                ? o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP
+                : o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
               msgs: [T],
               proto: t,
             });

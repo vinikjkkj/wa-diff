@@ -10,7 +10,7 @@ __d(
     "WAWebDeliveryReceiptClassUtils",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgSendAck",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMsgProcessingApiUtils",
     "WAWebPostMessageHighRetryCountMetric",
     "WAWebSendDeliveryReceiptJob",
@@ -42,7 +42,7 @@ __d(
               C = o("WAWebMsgProcessingApiUtils").getFrom(t),
               b = null;
             if (
-              t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
+              t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT &&
               o("WAWebUserPrefsMeUser").isMeAccount(t.author)
             )
               if (t.originalBotRecipient != null) b = t.originalBotRecipient;
@@ -51,7 +51,7 @@ __d(
                 b = (v = t.preMatChat) != null ? v : t.chat;
               }
             else if (
-              t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
+              t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT &&
               o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
                 t.author,
                 t.metaFrom,
@@ -61,7 +61,7 @@ __d(
               b = (S = t.preMatChat) != null ? S : t.chat;
             }
             var R =
-                t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
+                t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT
                   ? null
                   : (m = t.preMatChat) != null
                     ? m
@@ -144,9 +144,9 @@ __d(
             e: {
               if (
                 i.result ===
-                  o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS ||
+                  o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS ||
                 i.result ===
-                  o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                  o("WAWebHandleMsgTypes").E2EProcessResult
                     .SIGNAL_OLD_COUNTER_ERROR
               ) {
                 if (_(t)) {
@@ -171,7 +171,7 @@ __d(
                 ) {
                   var $, P, N;
                   return (
-                    t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
+                    t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT
                       ? (($ = t.author), (P = t.chat))
                       : (($ = t.chat), (N = t.author)),
                     o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks({
@@ -210,7 +210,7 @@ __d(
               }
               if (
                 i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.HSM_MISMATCH
+                o("WAWebHandleMsgTypes").E2EProcessResult.HSM_MISMATCH
               ) {
                 o("WALogger")
                   .WARN(
@@ -225,8 +225,7 @@ __d(
                 return;
               }
               if (
-                i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY
+                i.result === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY
               ) {
                 var M = i.retryCount == null ? 1 : i.retryCount + 1,
                   w = i.failedEnc;
@@ -267,8 +266,7 @@ __d(
                 return;
               }
               if (
-                i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.BACKFILL
+                i.result === o("WAWebHandleMsgTypes").E2EProcessResult.BACKFILL
               )
                 return o("WAWebHandleMsgSendAck").sendAck({
                   externalId: p,
@@ -279,8 +277,7 @@ __d(
                 });
               if (
                 i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                  .PARSE_VALIDATION_ERROR
+                o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_VALIDATION_ERROR
               )
                 return (l == null ? void 0 : l.canNack) === !1
                   ? o("WAWebHandleMsgSendAck").sendAck({
@@ -301,7 +298,7 @@ __d(
                     );
               if (
                 i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR
+                o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR
               ) {
                 var A;
                 return (l == null ? void 0 : l.canNack) === !1
@@ -326,8 +323,7 @@ __d(
                     );
               }
               if (
-                i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.DEFERRED
+                i.result === o("WAWebHandleMsgTypes").E2EProcessResult.DEFERRED
               )
                 return (
                   o("WALogger")
@@ -373,14 +369,14 @@ __d(
     }
     function _(e) {
       return (
-        e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
+        e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT &&
         o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom) &&
         o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e.author, e.metaFrom)
       );
     }
     function f(e) {
       return (
-        e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
+        e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT &&
         o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
           e.author,
           e.metaFrom,
@@ -398,7 +394,7 @@ __d(
           ) &&
           (t |=
             1 << o("WAWebSendReceiptJobCommon").ReceiptModeBitPosition.ORPHAN),
-        e.result === o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY &&
+        e.result === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY &&
           e.placeholderCreated === !1 &&
           o("WAWebABProps").getABPropConfigValue(
             "web_send_hid_failed_decrypt_in_receipts_enabled",

@@ -10,7 +10,7 @@ __d(
     "WAWebCoexV2HostedContactUtils",
     "WAWebCoexV2SupportedMsgTypes",
     "WAWebCoexV2UserAgentEligibility",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebMessagingGatingUtils",
     "WAWebMsgFanoutTypes",
@@ -58,7 +58,7 @@ __d(
             ).convertPrivacyModeFromStorageType(i);
             return l == null ||
               l.hostStorage !==
-                o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook
+                o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook
               ? null
               : {
                   privacyMode: l,

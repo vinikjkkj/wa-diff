@@ -21,7 +21,7 @@ __d(
                 t.$AgentCollectionImpl$p_1.set(e.deviceId, e);
               }));
           }),
-          t.on("remove reset", t.triggerDeviceIdMapUpdate),
+          t.on(["remove", "reset"], t.triggerDeviceIdMapUpdate),
           o("WAWebConnModel").Conn.on("change:pushname", function () {
             var e = t.getModelsArray().filter(function (e) {
               return e.deviceId === o("WAWebAgentModelUtils").PRIMARY_DEVICE_ID;

@@ -19,7 +19,7 @@ __d(
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryReportingTokenDBUtils",
     "WAWebGroupHistoryReportingTokenUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessagePluginGenerateReportingTokenContent",
@@ -769,11 +769,11 @@ __d(
         };
       return r("WAWebWid").isGroup(i)
         ? babelHelpers.extends({}, l, {
-            type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP,
+            type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP,
             isDirect: !1,
           })
         : babelHelpers.extends({}, l, {
-            type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT,
+            type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
           });
     }
     function Y(e) {

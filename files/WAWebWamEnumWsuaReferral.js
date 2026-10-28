@@ -41,6 +41,7 @@ __d(
       AI_MEDIA_EDITOR: 36,
       CUSTOM_REACTIONS_SETTINGS: 37,
       FOCUS_LISTS: 38,
+      CUSTOMER_MANAGER: 39,
     });
     i.WSUA_REFERRAL = e;
   },

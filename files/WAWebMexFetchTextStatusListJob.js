@@ -59,7 +59,7 @@ __d(
               _ != null &&
                 (u[m].privacy_token = {
                   tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
-                    _.buffer,
+                    _,
                   ),
                 });
             }

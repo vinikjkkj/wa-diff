@@ -4,9 +4,9 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = 86400;
-    function l(t) {
-      var n = new Date(),
-        r = Math.floor(n.getTime() / 1e3);
+    function l(t, n) {
+      n === void 0 && (n = new Date());
+      var r = Math.floor(n.getTime() / 1e3);
       return t === "today"
         ? s(n, 0)
         : t === "yesterday"

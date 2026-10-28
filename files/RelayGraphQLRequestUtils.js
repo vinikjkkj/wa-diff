@@ -13,7 +13,12 @@ __d(
     var e = n("AMLoggingUtils").isInAdsManager,
       l = n("AMLoggingUtils").parseHeaders,
       s = n("RelayRuntime").RelayError,
-      u = {
+      u =
+        "The request could not be understood by the server due to malformed syntax.",
+      c = JSON.stringify({ error: { code: 1, message: u } }),
+      d = /^graph\.(.+)\.facebook\.com$/,
+      m = /^[a-z][a-z0-9+.-]*:\/\/([^/?#:]+)/i,
+      p = {
         createErrorFromPayload: function (t, r) {
           var e;
           if (typeof t == "object")
@@ -82,17 +87,22 @@ __d(
           }
           return f;
         },
-        createErrorFromXHR: function (r, o) {
+        createErrorFromXHR: function (r, o, a) {
           var t;
+          if (r.errorCode === n("XHRHttpError").HTTP_TRANSPORT_ERROR)
+            t = s.createWarning("NetworkTransportError", o);
+          else if (
+            r.errorCode === n("XHRHttpError").HTTP_CLIENT_ERROR &&
+            r.errorMsg != null &&
+            r.errorMsg.match(/OAuthException/)
+          )
+            t = s.create("NetworkOAuthError", o);
+          else {
+            var i = f(r, a);
+            t = i != null ? g(i) : s.create("NetworkRequestError", o);
+          }
           return (
-            r.errorCode === n("XHRHttpError").HTTP_TRANSPORT_ERROR
-              ? (t = s.createWarning("NetworkTransportError", o))
-              : r.errorCode === n("XHRHttpError").HTTP_CLIENT_ERROR &&
-                  r.errorMsg != null &&
-                  r.errorMsg.match(/OAuthException/)
-                ? (t = s.create("NetworkOAuthError", o))
-                : (t = s.create("NetworkRequestError", o)),
-            e() && (t.opes_mids = u.extractOpesMidsFromRelayError(r)),
+            e() && (t.opes_mids = p.extractOpesMidsFromRelayError(r)),
             (t.source = r),
             t
           );
@@ -122,7 +132,7 @@ __d(
         },
         parsePayload: function (t) {
           if (n("CSRFGuard").exists(t)) {
-            var e = c(n("CSRFGuard").clean(t));
+            var e = _(n("CSRFGuard").clean(t));
             if (
               Object.prototype.hasOwnProperty.call(e, "data") ||
               !Object.prototype.hasOwnProperty.call(e, "error")
@@ -151,10 +161,10 @@ __d(
               a
             );
           }
-          return c(t);
+          return _(t);
         },
       };
-    function c(e) {
+    function _(e) {
       try {
         return n("RelayFBJsonParser").parse(e);
       } catch (e) {
@@ -170,7 +180,37 @@ __d(
         );
       }
     }
-    a.exports = u;
+    function f(e, t) {
+      var r,
+        o,
+        a = e,
+        i =
+          typeof a == "object" && a != null ? a.errorRawTransportStatus : null,
+        l =
+          e.errorCode === n("XHRHttpError").HTTP_CLIENT_ERROR &&
+          i === 400 &&
+          e.errorMsg === c;
+      if (t == null || !l) return null;
+      var s = (r = String(t).match(m)) == null ? void 0 : r[1],
+        u = s == null || (o = s.match(d)) == null ? void 0 : o[1];
+      return s == null || u == null || u === "prod"
+        ? null
+        : { sandbox: u, sandboxHost: s };
+    }
+    function g(e) {
+      var t = e.sandbox,
+        n = e.sandboxHost,
+        r = s.create(
+          "NetworkSandboxAccessError",
+          'Request rejected by the "%s" sandbox tier: %s returned HTTP 400 with ' +
+            ('server error code 1 ("' + u + '"). ') +
+            "WWW returns this generic response for several request checks, including intern-tier checks that block requests from outside the corporate network. If you're not on VPN or Lighthouse, connect and try again. Otherwise, clear Internal Settings > Sandbox and restart the app.",
+          t,
+          n,
+        );
+      return ((r.sandbox = t), (r.sandboxHost = n), (r.httpStatus = 400), r);
+    }
+    a.exports = p;
   },
   null,
 );

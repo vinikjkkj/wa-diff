@@ -1,11 +1,14 @@
 __d(
   "WAWebDebugEncNodeUtils",
-  [],
+  ["vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {}
+    function e(e) {
+      r("vulture")("PUQBi2XtV2s9CdhYg9ODD8_SYtg=");
+    }
     var s = new Set(["fromMe", "id", "participant", "remoteJid"]);
     function u(e, t) {
+      r("vulture")("K2Im8rE-zXzuntXRbIQxOWlCnJY=");
       try {
         return t == null
           ? t

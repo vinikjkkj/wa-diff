@@ -25,7 +25,7 @@ __d(
     "WAWebBuildConstants",
     "WAWebCallsOnlyGating",
     "WAWebCartDbLidMigration",
-    "WAWebClientPayload",
+    "WAWebClientPayloadLoginShared",
     "WAWebCoexStateSyncStartup",
     "WAWebCommonCTWADataSharing",
     "WAWebCommsConfig",
@@ -181,7 +181,9 @@ __d(
         o("WAWebBackendEventBus").BackendEventBus.onOpenSocketStream(
           function () {
             (o("WAWebUserPrefsGeneral").incrementLoginCounter(),
-              o("WAWebClientPayload").incrementSuccessfulLoginCounter(),
+              o(
+                "WAWebClientPayloadLoginShared",
+              ).incrementSuccessfulLoginCounter(),
               o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd &&
                 o(
                   "WAWebWamOfflineResumeReporter",

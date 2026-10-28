@@ -11,6 +11,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebDBEncryptMultipleMsgs",
+    "WAWebDBProcessReplyMsgs",
     "WAWebDBStoreEncryptedMsgs",
     "WAWebMsgGetters",
     "WAWebMsgStoreExtensions",
@@ -240,6 +241,10 @@ __d(
                 unreadMentionsToAdd: k,
               }),
               yield v(u),
+              yield o("WAWebDBProcessReplyMsgs").hydrateReplyMsgsSafely(
+                c,
+                "history-sync",
+              ),
               yield o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(c));
           },
         )),

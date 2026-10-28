@@ -41,6 +41,7 @@ __d(
             case 1:
               return "low";
             case 2:
+            case 3:
               return this.$8() !== null
                 ? this.$1.getBool("fall_back_to_low_latency_in_ull", !1)
                   ? "low"

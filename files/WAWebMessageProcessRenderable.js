@@ -19,7 +19,7 @@ __d(
     "WAWebGroupHistoryNoticeHandler",
     "WAWebHandleBizBotMsgs",
     "WAWebHandleMsgProcessUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleMsgValidate",
     "WAWebHandlePrivacyModeChange",
     "WAWebHandleSingleMsgWorkerCompatible",
@@ -132,7 +132,7 @@ __d(
                 t,
                 n,
               ),
-              s = E(a);
+              s = k(a);
             (s != null &&
               (i = i.map(function (e) {
                 return babelHelpers.extends({}, e, {
@@ -227,15 +227,15 @@ __d(
                   R = t.offline != null && !m,
                   L = "online";
                 m ? (L = "reparsing") : R && (L = "offline");
-                var E = yield v(p, t, i, s),
-                  I = E.newMsgs;
+                var k = yield v(p, t, i, s),
+                  T = k.newMsgs;
                 if (
                   (y == null || y(),
                   o(
                     "WAWebMessagingGatingUtils",
                   ).isWebReportingTokenDelayProcessingEnabled())
                 ) {
-                  var T = o(
+                  var D = o(
                     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                   ).msgProcessReporter.startMarker(
                     o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
@@ -243,16 +243,16 @@ __d(
                   );
                   (yield o(
                     "WAWebHandleMsgValidate",
-                  ).validateAndProcessReportingTokenInfo({ renderableMsgs: I }),
-                    T == null || T());
+                  ).validateAndProcessReportingTokenInfo({ renderableMsgs: T }),
+                    D == null || D());
                 }
-                var D = o(
+                var x = o(
                   "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                 ).msgProcessReporter.startMarker(
                   o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
                     .msgProcessReporter.stage.Processing,
                 );
-                I.forEach(function (e) {
+                T.forEach(function (e) {
                   e.id.fromMe &&
                     o("WAWebMsgGetters").getIsStatus(e) &&
                     o("WAWebStatusDBMessageInfo").updatePeerStatusReceiptInfo(
@@ -261,76 +261,76 @@ __d(
                       t.statusSetting,
                     );
                 });
-                for (var x = null, $ = [], P = [], N = 0; N < I.length; N++) {
-                  var M,
-                    w,
+                for (var $ = null, P = [], N = [], M = 0; M < T.length; M++) {
+                  var w,
                     A,
                     F,
-                    O = I[N],
-                    B = O.messageSecret,
-                    W = !!(B && (M = O.id.remote) != null && M.isBot()),
-                    q =
-                      (w =
-                        (A = O.invokedBotWid) == null ? void 0 : A.isBot()) !=
+                    O,
+                    B = T[M],
+                    W = B.messageSecret,
+                    q = !!(W && (w = B.id.remote) != null && w.isBot()),
+                    U =
+                      (A =
+                        (F = B.invokedBotWid) == null ? void 0 : F.isBot()) !=
                       null
-                        ? w
+                        ? A
                         : !1,
-                    U = O.botGroupParticipant,
-                    V = O.id.participant,
-                    H = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(
-                      O.botGroupParticipants,
-                      U,
+                    V = B.botGroupParticipant,
+                    H = B.id.participant,
+                    G = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(
+                      B.botGroupParticipants,
+                      V,
                     ),
-                    G =
-                      (F = H == null ? void 0 : H.participants) != null
-                        ? F
+                    z =
+                      (O = G == null ? void 0 : G.participants) != null
+                        ? O
                         : [];
-                  P.push.apply(
-                    P,
-                    G.filter(function (e) {
+                  N.push.apply(
+                    N,
+                    z.filter(function (e) {
                       return e instanceof r("WAWebWid");
                     }),
                   );
-                  var z = o("WAWebBotGroupGatingUtils").isGroupBotMessage({
-                    authorWid: O.id.participant,
-                    botGroupParticipant: U,
-                    chatWid: O.id.remote,
-                    isBotInvoke: q,
+                  var j = o("WAWebBotGroupGatingUtils").isGroupBotMessage({
+                    authorWid: B.id.participant,
+                    botGroupParticipant: V,
+                    chatWid: B.id.remote,
+                    isBotInvoke: U,
                   });
-                  (B &&
-                    (W || q || z) &&
-                    O.isForwarded !== !0 &&
-                    (q && (x = O),
+                  (W &&
+                    (q || U || j) &&
+                    B.isForwarded !== !0 &&
+                    (U && ($ = B),
                     o(
                       "WAWebMsmsgMsgSecretCache",
                     ).msmsgMsgSecretCache.addMsmsgMsgSecretToCache(
-                      O.id.toString(),
-                      B,
-                      O.t,
+                      B.id.toString(),
+                      W,
+                      B.t,
                     )),
-                    z &&
-                      H != null &&
+                    j &&
+                      G != null &&
                       o(
                         "WAWebMsmsgMsgSecretCache",
                       ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
-                        O.id.toString(),
-                        H.participants,
-                        H.isLegacySingular,
+                        B.id.toString(),
+                        G.participants,
+                        G.isLegacySingular,
                       ),
-                    O.id.remote.isGroup() &&
-                      H != null &&
-                      b(V, H, R, m) &&
-                      $.push({
-                        groupWid: O.id.remote,
-                        participantWids: H.participants,
+                    B.id.remote.isGroup() &&
+                      G != null &&
+                      b(H, G, R, m) &&
+                      P.push({
+                        groupWid: B.id.remote,
+                        participantWids: G.participants,
                       }),
-                    (I[N] = yield o(
+                    (T[M] = yield o(
                       "WAWebBotSignatureVerificationPostProcessor",
-                    ).verifyForwardedBotMessage(O)));
+                    ).verifyForwardedBotMessage(B)));
                 }
                 if (
                   (o("WAWebSyncGroupBotSupportFields")
-                    .maybeLazySyncGroupBotSupportFields(P, $, {
+                    .maybeLazySyncGroupBotSupportFields(N, P, {
                       sourceGroupWid: S.isGroup() ? S : void 0,
                     })
                     .catch(function (e) {
@@ -346,20 +346,20 @@ __d(
                           "handle-msg-refresh-group-agent-profiles-error",
                         );
                     }),
-                  x != null)
+                  $ != null)
                 ) {
-                  var j = yield o(
+                  var K = yield o(
                     "WAWebBotIncomingInvokeSystemMsg",
-                  ).createSysMsgForIncomingBotInvoke(x);
-                  j && I.unshift(j);
+                  ).createSysMsgForIncomingBotInvoke($);
+                  K && T.unshift(K);
                 }
-                var K;
+                var Q;
                 if (
                   (S.isUser() &&
-                    (K = yield o(
+                    (Q = yield o(
                       "WAWebHandlePrivacyModeChange",
                     ).handlePrivacyModeChangeAndCreateChat({
-                      msgs: I,
+                      msgs: T,
                       chatWid: S,
                       bizInfo: i,
                       msgMeta: l,
@@ -367,25 +367,25 @@ __d(
                     })),
                   o("WAWebBotBaseGating").isBotEnabled())
                 ) {
-                  var Q = I.filter(C);
-                  if (Q.length) {
-                    var X = yield o("WAWebHandleBizBotMsgs").handleBizBotMsgs(
+                  var X = T.filter(C);
+                  if (X.length) {
+                    var Y = yield o("WAWebHandleBizBotMsgs").handleBizBotMsgs(
                       S,
-                      Q,
+                      X,
                     );
-                    I.unshift.apply(I, X);
+                    T.unshift.apply(T, Y);
                   }
                 }
-                var Y = yield k(I, S);
+                var J = yield I(T, S);
                 if (
-                  (Y != null && I.unshift(Y),
+                  (J != null && T.unshift(J),
                   r("WAWebWid").isCAPISupportAccount(S) &&
                     !S.isSupportAgentBot())
                 ) {
-                  var J = I.some(function (e) {
+                  var Z = T.some(function (e) {
                     return e.shouldShowSupportAISystemMessage === !0;
                   });
-                  J === !0 &&
+                  Z === !0 &&
                     (yield o(
                       "WAWebHandleSingleMsgWorkerCompatible",
                     ).handleSingleMsg({
@@ -394,44 +394,47 @@ __d(
                       handleSingleMsgOrigin: "supportSagaInit",
                     }));
                 }
-                var Z = {
+                var ee = {
                     msgInfo: t,
                     messageOverwriteOption: s,
-                    msgs: I,
+                    msgs: T,
                     isOffline: R,
                     latestPrivacyMode:
-                      (f = K) == null ? void 0 : f.latestPrivacyMode,
+                      (f = Q) == null ? void 0 : f.latestPrivacyMode,
                     shouldQueryContactInfo:
                       (g =
-                        (h = K) == null ? void 0 : h.shouldQueryContactInfo) !=
+                        (h = Q) == null ? void 0 : h.shouldQueryContactInfo) !=
                       null
                         ? g
                         : !1,
                   },
-                  ee = R ? null : new (o("WAResolvable").Resolvable)(),
-                  te =
-                    ee == null
+                  te = o("WAWebBackendEventBus").BackendEventBus
+                    .isOfflineDeliveryEnd,
+                  ne = E(R, te),
+                  re = ne ? new (o("WAResolvable").Resolvable)() : null,
+                  oe =
+                    re == null
                       ? o(
                           "WAWebMessageProcessDBPipeline",
                         ).processMsgDataDBPipeline({
                           flushImmediatly: !1,
-                          msgData: I,
+                          msgData: T,
                         })
                       : o(
                           "WAWebMessageProcessDBPipeline",
                         ).processMsgDataDBPipeline({
                           flushImmediatly: !0,
-                          msgData: I,
-                          uiNotified: ee,
+                          msgData: T,
+                          uiNotified: re,
                         });
-                te.then(function () {
+                oe.then(function () {
                   return o(
                     "WAWebLimitSharingProtoUtils",
-                  ).applyLimitSharingHeldForStoredMsgs(I);
+                  ).applyLimitSharingHeldForStoredMsgs(T);
                 });
                 try {
                   if (
-                    (I.forEach(function (e) {
+                    (T.forEach(function (e) {
                       return void o(
                         "WAWebGroupHistoryNoticeHandler",
                       ).maybeHandleGroupHistoryNotice(e);
@@ -439,27 +442,25 @@ __d(
                     o("WAWebBackendEventBus").BackendEventBus
                       .isMainStreamReadyMd || m)
                   ) {
-                    D == null || D();
-                    var ne = o("WAWebBackendEventBus").BackendEventBus
-                      .isOfflineDeliveryEnd;
-                    ne &&
-                      (o(
-                        "WAWebOfflineResumeCounters",
-                      ).maybeLogAwaitUnflushedMsgWrite(
-                        R,
-                        o("WAWebMessageQueueImpl").getMessageQueueImpl(),
-                      ),
-                      yield te);
-                    var re = o(
+                    (x == null || x(),
+                      te &&
+                        (o(
+                          "WAWebOfflineResumeCounters",
+                        ).maybeLogAwaitUnflushedMsgWrite(
+                          !ne,
+                          o("WAWebMessageQueueImpl").getMessageQueueImpl(),
+                        ),
+                        yield oe));
+                    var ae = o(
                         "WAWebMessagePostprocessRenderable",
-                      ).postprocessRenderableMessages(Z),
-                      oe = o(
+                      ).postprocessRenderableMessages(ee),
+                      ie = o(
                         "WAWebCoexV2MessageAckProjection",
                       ).reconcileCoexV2ReceiptAcksAfterMessagePersisted(
-                        I,
-                        te,
-                        re,
-                        { deferUntilMessagePersisted: R && !ne },
+                        T,
+                        oe,
+                        ae,
+                        { deferUntilMessagePersisted: R && !te },
                       );
                     if (
                       R &&
@@ -469,7 +470,7 @@ __d(
                         o("WAWebOfflineResumeTypes").ResumeType.NonBlocking
                     ) {
                       (_ || (_ = n("Promise")))
-                        .all([re, oe])
+                        .all([ae, ie])
                         .catch(function (e) {
                           o("WALogger")
                             .ERROR(
@@ -486,19 +487,19 @@ __d(
                         });
                       return;
                     }
-                    yield (_ || (_ = n("Promise"))).all([re, oe]);
+                    yield (_ || (_ = n("Promise"))).all([ae, ie]);
                     return;
                   }
                   yield o(
                     "WAWebCoexV2MessageAckProjection",
                   ).reconcileCoexV2ReceiptAcksAfterMessagePersisted(
-                    I,
-                    te,
+                    T,
+                    oe,
                     null,
                     { deferUntilMessagePersisted: R },
                   );
                 } finally {
-                  ee == null || ee.resolve(void 0);
+                  re == null || re.resolve(void 0);
                 }
               } catch (e) {
                 o("WALogger")
@@ -524,18 +525,21 @@ __d(
         L.apply(this, arguments)
       );
     }
-    function E(e) {
+    function E(e, t) {
+      return (
+        !e || (t && o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
+      );
+    }
+    function k(e) {
       return e ===
-        o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.NO_OVERWRITE ||
-        e ===
-          o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.FUTURE_PROOF ||
-        e === o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.VOIP_CALL_LOG
+        o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE ||
+        e === o("WAWebHandleMsgTypes").MessageOverwriteOption.FUTURE_PROOF ||
+        e === o("WAWebHandleMsgTypes").MessageOverwriteOption.VOIP_CALL_LOG
         ? null
-        : e === o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.RETRY
+        : e === o("WAWebHandleMsgTypes").MessageOverwriteOption.RETRY
           ? o("WAWebWamEnumPlaceholderPopulationType")
               .PLACEHOLDER_POPULATION_TYPE.RETRY
-          : e ===
-              o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.PEER_RETRY
+          : e === o("WAWebHandleMsgTypes").MessageOverwriteOption.PEER_RETRY
             ? o("WAWebWamEnumPlaceholderPopulationType")
                 .PLACEHOLDER_POPULATION_TYPE.PEER_MESSAGE
             : (function () {
@@ -545,12 +549,12 @@ __d(
                 );
               })();
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!o("WAWebLimitSharingGatingUtils").isOpusFlagOn() || g == null)
             return null;
           var n = o("WAWebABProps").getABPropConfigValue("opus_t");
@@ -610,14 +614,14 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
     ((l.overrideParentKeyForAssociations = y),
       (l.isBizBotDisclosureMsg = C),
       (l.shouldCollectGroupAgentRosterGossip = b),
       (l.processRenderableMessages = R),
-      (l.maybeCreateOpusSystemMsg = k));
+      (l.maybeCreateOpusSystemMsg = I));
   },
   98,
 );

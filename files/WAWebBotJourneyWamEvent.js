@@ -12,6 +12,7 @@ __d(
     "WAWebWamEnumInlineTosStatus",
     "WAWebWamEnumInputType",
     "WAWebWamEnumMetaAiReadOnlyReasonType",
+    "WAWebWamEnumMuseChannelStatus",
     "WAWebWamEnumPromptTriggerPoint",
     "WAWebWamEnumTsSurface",
   ],
@@ -91,7 +92,12 @@ __d(
                 o("WAWebWamEnumMetaAiReadOnlyReasonType")
                   .META_AI_READ_ONLY_REASON_TYPE,
               ],
+              metaData: [59, e.TYPES.STRING],
               metricCount: [17, e.TYPES.INTEGER],
+              museChannelStatus: [
+                60,
+                o("WAWebWamEnumMuseChannelStatus").MUSE_CHANNEL_STATUS,
+              ],
               newBadgeVisible: [56, e.TYPES.BOOLEAN],
               promptTriggerPoint: [
                 50,

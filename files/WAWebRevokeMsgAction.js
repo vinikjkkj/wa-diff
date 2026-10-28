@@ -20,7 +20,7 @@ __d(
     "WAWebErrorType",
     "WAWebFrontendMsgGetters",
     "WAWebFtsClient",
-    "WAWebMedia",
+    "WAWebMediaMsgRegistration",
     "WAWebMessageSendPerfReporter",
     "WAWebMsgActionCapability",
     "WAWebMsgGetters",
@@ -448,7 +448,8 @@ __d(
         );
         return;
       }
-      (o("WAWebMsgModelUtils").typeIsMms(e) && o("WAWebMedia").deregisterMsg(e),
+      (o("WAWebMsgModelUtils").typeIsMms(e) &&
+        o("WAWebMediaMsgRegistration").deregisterMsg(e),
         l == null || l.removeFromCollection(e),
         e.trigger("revoked"),
         o("WAWebMsgGetters").clearMsgGetterCacheFor(e),

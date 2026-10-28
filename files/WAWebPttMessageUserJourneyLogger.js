@@ -182,7 +182,10 @@ __d(
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.PREVIEW_PLAYBACK ||
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
-                .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK ||
+            e ===
+              o("WAWebWamEnumPttMessageUserJourneyAction")
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.SLOW_STOP
           ? !0
           : (function () {
               throw Error(
@@ -236,7 +239,10 @@ __d(
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.PREVIEW_PLAYBACK ||
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
-                .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK ||
+            e ===
+              o("WAWebWamEnumPttMessageUserJourneyAction")
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.SLOW_STOP
           ? !1
           : (function () {
               throw Error(

@@ -3,7 +3,7 @@ __d(
   [
     "WAWebContactCollection",
     "WAWebCountryCodeUtils",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebPairAdopterRegistry",
     "WAWebPairEligibilityConfig",
     "WAWebPairEligibilityEvaluator",
@@ -56,7 +56,7 @@ __d(
           (r == null || (t = r.privacyMode) == null
             ? void 0
             : t.hostStorage) ===
-          o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook,
+          o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook,
         businessIso:
           (n = o("WAWebCountryCodeUtils").getCountryCodeFromPn(e)) != null
             ? n

@@ -59,6 +59,7 @@ __d(
               motionPhotoSentCount: [32, e.TYPES.INTEGER],
               numberOfArPostCapture: [45, e.TYPES.INTEGER],
               numberOfArPreCapture: [46, e.TYPES.INTEGER],
+              numberOfDualCapture: [57, e.TYPES.INTEGER],
               numberOfIgluPostCapture: [49, e.TYPES.INTEGER],
               numberOfIgluPreCapture: [50, e.TYPES.INTEGER],
               photoGalleryDurationT: [23, e.TYPES.TIMER],

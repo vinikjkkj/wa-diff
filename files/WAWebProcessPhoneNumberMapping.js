@@ -7,7 +7,7 @@ __d(
     "WAWebApiContact",
     "WAWebCoexV2PhoneNumberMapping",
     "WAWebDBCreateLidPnMappings",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebUpdateLidMetadataJob",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
@@ -343,9 +343,7 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          if (
-            e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
-          ) {
+          if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST) {
             var a = e.bclParticipants.map(function (n) {
                 return I({ msgInfo: e, msgMeta: t, bclParticipant: n }, r);
               }),

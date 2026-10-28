@@ -3,7 +3,8 @@ __d(
   [
     "Promise",
     "WAWebChatCollection",
-    "WAWebMedia",
+    "WAWebDownloadProgressiveJpegThumbnail",
+    "WAWebDownloadStatusThumbnail",
     "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaTypes",
     "WAWebMmsClient",
@@ -76,9 +77,11 @@ __d(
       forceStickerNeedPoke: s,
       WAWebMmsClient: r("WAWebMmsClient"),
       WAWebMediaDownloadMmsThumbnail: r("WAWebMediaDownloadMmsThumbnail"),
-      downloadProgressiveJpegThumbnail:
-        o("WAWebMedia").downloadProgressiveJpegThumbnail,
-      downloadStatusThumbnail: o("WAWebMedia").downloadStatusThumbnail,
+      downloadProgressiveJpegThumbnail: o(
+        "WAWebDownloadProgressiveJpegThumbnail",
+      ).downloadProgressiveJpegThumbnail,
+      downloadStatusThumbnail: o("WAWebDownloadStatusThumbnail")
+        .downloadStatusThumbnail,
     };
     l.default = c;
   },

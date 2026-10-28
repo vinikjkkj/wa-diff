@@ -2,7 +2,7 @@ __d(
   "WAWebNewsletterReparseMsgAction",
   [
     "WAWebBackendApi",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "asyncToGeneratorRuntime",
@@ -37,7 +37,7 @@ __d(
               {
                 msg: l,
                 chatId: e.id.remote,
-                messageOverwriteOption: o("WAWebHandleMsgTypes.flow")
+                messageOverwriteOption: o("WAWebHandleMsgTypes")
                   .MessageOverwriteOption.RETRY,
               },
             ),

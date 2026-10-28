@@ -29,6 +29,7 @@ __d(
       "ChatTheme",
       "HatchConnectors",
       "HatchIdeas",
+      "HatchPermissions",
       "HatchSecureCredentials",
       "HatchSubscription",
       "HatchWallet",

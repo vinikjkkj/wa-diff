@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+      active_integrity_holdout_enabled: [39648, "bool", !1, !1],
       adv_accept_hosted_devices: [6939, "bool", !1, !0],
       ai_3p_agent_media_support_mode: [34393, "int", 0, 0],
       ai_3p_bot_product_enabled: [33090, "bool", !1, !1],
@@ -660,6 +661,7 @@ __d(
       win_call_log_send_outgoing_syncd_mutations: [5308, "bool", !1, !0],
       win_enable_ss_button_audio: [9633, "bool", !1, !1],
       win_hybrid_background_message_sync: [37827, "bool", !1, !0],
+      win_hybrid_background_run_records_enabled: [40473, "bool", !0, !0],
       win_hybrid_bridge_ui_thread_completion_enabled: [39187, "bool", !1, !1],
       win_hybrid_bridge_work_off_ui_thread_enabled: [40495, "bool", !1, !1],
       win_hybrid_bt_enabled: [30041, "bool", !1, !0],
@@ -668,8 +670,10 @@ __d(
       win_hybrid_expiry_wrong_clock_block_enabled: [39502, "bool", !1, !0],
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
+      win_hybrid_multi_account_enabled: [40655, "bool", !1, !0],
       win_hybrid_push_task_all_banners_enabled: [40423, "bool", !1, !0],
       win_hybrid_renderer_failure_max_reloads: [40531, "int", 0, 3],
+      win_hybrid_startup_telemetry_level: [40650, "int", 0, 2],
       win_hybrid_tray_wake_keep_resumed_seconds: [38862, "int", 0, 600],
       win_hybrid_voip_anr_optimizations: [22616, "int", 0, 0],
       win_hybrid_vsr_button_enabled_2: [34279, "bool", !1, !1],

@@ -206,7 +206,11 @@ __d(
                   c != null || l(0, 22686, r);
                   var d = p(c),
                     m = e.$3.getValue(d, i);
-                  m === !0 ? e.$23(o.selections, r) : m == null && e.$19();
+                  m === !0
+                    ? e.$23(o.selections, r)
+                    : m == null
+                      ? e.$19()
+                      : e.onRefinementRuledOut();
                 }
                 break;
               }
@@ -253,17 +257,19 @@ __d(
                 break;
               case "RelayResolver":
               case "RelayLiveResolver":
-                e.$8 || e.$29(o, r);
+                e.$8 ? e.checkExecTimeResolver(o, r) : e.$29(o, r);
                 break;
               case "ClientEdgeToClientObject":
               case "ClientEdgeToServerObject":
-                e.$8 || e.$29(o.backingField, r);
+                e.$8 ? e.checkExecTimeResolver(o, r) : e.$29(o.backingField, r);
                 break;
               default:
                 l(0, 2045, o.kind);
             }
           });
         }),
+        (r.checkExecTimeResolver = function (t, n) {}),
+        (r.onRefinementRuledOut = function () {}),
         (r.$29 = function (t, n) {
           t.fragment && this.$23([t.fragment], n);
         }),
@@ -357,7 +363,7 @@ __d(
         t
       );
     })();
-    a.exports = { check: h };
+    a.exports = { DataChecker: y, check: h };
   },
   null,
 );

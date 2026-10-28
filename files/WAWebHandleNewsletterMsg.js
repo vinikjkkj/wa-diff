@@ -6,7 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebHandleNewsletterMsgAddOns",
     "WAWebHandleNewsletterMsgLogger",
     "WAWebLogReceivedMessages",
@@ -120,8 +120,7 @@ __d(
                           ? (o(
                               "WAWebOfflineHandler",
                             ).OfflineMessageHandler.processMessageDecryptResult(
-                              o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                                .SUCCESS,
+                              o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
                             ),
                             o("WAWebMessageProcessorCache")
                               .messageProcessorCache.addMessages([

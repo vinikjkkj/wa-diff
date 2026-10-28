@@ -18,10 +18,11 @@ __d(
       c = t.Blob
         ? {
             getBlob: function (r, o) {
-              if (((r = r || []), (o = o || {}), e === void 0 && s(), e))
-                return new t.Blob(r, o);
-              for (var n = new u(), a = 0; a < r.length; a++) n.append(r[a]);
-              return n.getBlob(o.type);
+              var n = r || [],
+                a = o || {};
+              if ((e === void 0 && s(), e)) return new t.Blob(n, a);
+              for (var i = new u(), l = 0; l < n.length; l++) i.append(n[l]);
+              return i.getBlob(a.type);
             },
             isSupported: r("emptyFunction").thatReturnsTrue,
           }

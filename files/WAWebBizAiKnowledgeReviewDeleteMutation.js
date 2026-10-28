@@ -1,35 +1,13 @@
 __d(
   "WAWebBizAiKnowledgeReviewDeleteMutation",
-  [
-    "WAWebBizAiKnowledgeReviewDeleteMutation.graphql",
-    "WAWebBizAiRelayClient",
-    "WAWebBoolFunc",
-  ],
+  ["WAWebBizAiKnowledgeReviewDeleteMutation.graphql"],
   function (t, n, r, o, a, i, l) {
     var e,
       s =
         e !== void 0
           ? e
           : (e = n("WAWebBizAiKnowledgeReviewDeleteMutation.graphql"));
-    function u(e, t) {
-      return o("WAWebBizAiRelayClient")
-        .commitMutation(s, { id: e, source: t })
-        .then(function (e) {
-          var t,
-            n,
-            r =
-              (t =
-                e == null ||
-                (n = e.xfb_maiba_delete_potential_knowledge_mutation) == null
-                  ? void 0
-                  : n.success) != null
-                ? t
-                : !1;
-          return r;
-        })
-        .catch(o("WAWebBoolFunc").returnFalse);
-    }
-    l.deletePendingData = u;
+    l.MUTATION = s;
   },
   98,
 );

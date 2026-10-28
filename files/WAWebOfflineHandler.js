@@ -15,6 +15,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebQplFlowWrapper",
     "WAWebRuntimeEnvironmentUtils",
+    "WAWebStorageCrashAnnotations",
     "WAWebWamOfflineResumeReporter",
     "asyncToGeneratorRuntime",
     "qpl",
@@ -82,6 +83,9 @@ __d(
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.OfflineResume,
               ),
+              o(
+                "WAWebStorageCrashAnnotations",
+              ).logOfflineResumeMessagesForCrash(t),
               this.$13(),
               (this.$9 = !o("WAWebRuntimeEnvironmentUtils").isServiceWorker()),
               this.$1 != null)

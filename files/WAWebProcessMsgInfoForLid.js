@@ -10,7 +10,7 @@ __d(
     "WAWebCoexV2GatingUtils",
     "WAWebGetPlatformFromStanzaId",
     "WAWebHandleMsgCommon",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebLidStatusMigrationUtils",
     "WAWebMessageProcessUtils",
@@ -47,22 +47,20 @@ __d(
             var p = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
               _ =
                 p &&
-                (i.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT ||
+                (i.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT ||
                   i.type ===
-                    o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST ||
+                    o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST ||
                   i.type ===
-                    o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                      .OTHER_BROADCAST) &&
+                    o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST) &&
                 i.author.isLid() &&
                 n.isLid(),
               f =
                 r("justknobx")._("2459") &&
-                (i.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT ||
+                (i.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT ||
                   i.type ===
-                    o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST ||
+                    o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST ||
                   i.type ===
-                    o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                      .OTHER_BROADCAST) &&
+                    o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST) &&
                 i.author.isHosted() &&
                 i.author.isHostedLid() &&
                 n.isLid(),
@@ -195,9 +193,7 @@ __d(
               "WAWebProcessPhoneNumberMapping",
             ).processPhoneNumberMappings(t, a, t.offline == null);
           if (t.category !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer) {
-            if (
-              t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS
-            ) {
+            if (t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS) {
               var l = o("WAWebWidFactory").asUserWidOrThrow(t.author),
                 s = o("WAWebWidFactory").asUserWidOrThrow(
                   o("WAWebLidStatusMigrationUtils").matWidConvert(l),
@@ -227,8 +223,7 @@ __d(
               return;
             }
             if (
-              t.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+              t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
             ) {
               if (i.type !== "peer-broadcast")
                 throw r("err")(
@@ -267,7 +262,7 @@ __d(
               i.type;
               var d =
                   t.type ===
-                  o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST,
+                  o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST,
                 f = d ? t.author : t.chat;
               if (!f.isRegularUser()) return;
               var g = yield _({

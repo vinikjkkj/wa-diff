@@ -8,7 +8,7 @@ __d(
     "WAWebFindChatAction",
     "WAWebGroupInviteJob",
     "WAWebGroupMemberLinkMode",
-    "WAWebHandleMsgTypes.flow",
+    "WAWebHandleMsgTypes",
     "WAWebMexFetchGroupInviteCodeJob",
     "WAWebStateUtils",
     "asyncToGeneratorRuntime",
@@ -32,10 +32,10 @@ __d(
             i =
               n.hasCapi === !0
                 ? {
-                    actualActors: o("WAWebHandleMsgTypes.flow")
-                      .ActualActorsEnumType.Capi,
-                    hostStorage: o("WAWebHandleMsgTypes.flow")
-                      .HostStorageEnumType.Facebook,
+                    actualActors: o("WAWebHandleMsgTypes").ActualActorsEnumType
+                      .Capi,
+                    hostStorage: o("WAWebHandleMsgTypes").HostStorageEnumType
+                      .Facebook,
                     privacyModeTs: 0,
                   }
                 : void 0;

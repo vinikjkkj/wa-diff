@@ -20,6 +20,7 @@ __d(
     "relay-runtime/query/fetchQueryInternal",
     "relay-runtime/query/fetchQuery_DEPRECATED",
     "relay-runtime/store/ClientID",
+    "relay-runtime/store/ExecTimeS2CDataChecker",
     "relay-runtime/store/NormalizationEngine",
     "relay-runtime/store/RelayConcreteVariables",
     "relay-runtime/store/RelayModernEnvironment",
@@ -164,6 +165,7 @@ __d(
           "relay-runtime/query/fetchQueryInternal",
         ).getObservableForActiveRequest,
         NormalizationEngine: n("relay-runtime/store/NormalizationEngine"),
+        ExecTimeS2CDataChecker: n("relay-runtime/store/ExecTimeS2CDataChecker"),
         normalizeResponse: n("relay-runtime/store/normalizeResponse"),
         withProvidedVariables: n("relay-runtime/util/withProvidedVariables"),
       };
