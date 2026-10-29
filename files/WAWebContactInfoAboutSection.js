@@ -2,17 +2,18 @@ __d(
   "WAWebContactInfoAboutSection",
   [
     "fbt",
+    "WAWebBox.react",
     "WAWebChatInfoDrawerSection.react",
     "WAWebChatStatus",
     "WAWebChatTextStatusWrapper",
     "WAWebExternalLink.react",
     "WAWebMiscGatingUtils",
-    "WAWebText.react",
     "WAWebTextStatusGatingUtils",
     "WAWebUseAboutDisplayStatus",
     "WAWebWid",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -68,9 +69,13 @@ __d(
           : (h = t[4]);
         var y;
         t[5] !== f
-          ? ((y = u.jsxs(o("WAWebText.react").WAWebTextTitleRefreshed, {
+          ? ((y = u.jsx(r("WAWebBox.react"), {
               as: "span",
-              children: [p, g, f, h, d],
+              children: u.jsxs(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDefault",
+                children: [p, g, f, h, d],
+              }),
             })),
             (t[5] = f),
             (t[6] = y))
@@ -133,10 +138,13 @@ __d(
                 titleTestId: "section-about",
                 title: E,
                 titleXStyle: o("WDSPaddings.stylex").wdsPaddings.padding0,
-                children: u.jsx(o("WAWebText.react").WAWebTextTitleRefreshed, {
-                  color: "wdsContentDefault",
+                children: u.jsx(r("WAWebBox.react"), {
                   xstyle: o("WDSMargins.stylex").wdsMargins.marginTop4,
-                  children: L,
+                  children: u.jsx(r("WDSText.react"), {
+                    type: "Body1",
+                    colorName: "contentDefault",
+                    children: L,
+                  }),
                 }),
               },
             )),

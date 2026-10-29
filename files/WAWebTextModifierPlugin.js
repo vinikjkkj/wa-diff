@@ -3,6 +3,7 @@ __d(
   [
     "Lexical",
     "LexicalComposerContext",
+    "WAWebBidiParagraphNode",
     "WAWebClipboardPlugin",
     "WAWebLexicalUtils",
     "WAWebMultilinePlugin",
@@ -79,33 +80,38 @@ __d(
     function c() {
       var e = o("WAWebLexicalUtils").$getSelectionParagraph();
       if (e) {
-        var t = e.getPreviousSibling(),
-          n = t == null ? void 0 : t.getBulletNode();
-        if (!(!t || !n))
-          if (v(t)) t.remove();
-          else {
-            var r = n.getTextContent();
-            o("WAWebLexicalUtils").$insertText(r + " ");
-          }
+        var t = e.getPreviousSibling();
+        if (t instanceof o("WAWebBidiParagraphNode").BidiParagraphNode) {
+          var n = t.getBulletNode();
+          if (n)
+            if (v(t)) t.remove();
+            else {
+              var r = n.getTextContent();
+              o("WAWebLexicalUtils").$insertText(r + " ");
+            }
+        }
       }
     }
     function d() {
       var e = o("WAWebLexicalUtils").$getSelectionParagraph();
       if (e) {
-        var t = e.getPreviousSibling(),
-          n = t == null ? void 0 : t.getNumberNode();
-        if (!(!t || !n))
-          if (v(t)) t.remove();
-          else {
-            var r = parseInt(n.getTextContent(), 10) + 1;
-            r <= 99 && o("WAWebLexicalUtils").$insertText(r + ". ");
-          }
+        var t = e.getPreviousSibling();
+        if (t instanceof o("WAWebBidiParagraphNode").BidiParagraphNode) {
+          var n = t.getNumberNode();
+          if (n)
+            if (v(t)) t.remove();
+            else {
+              var r = parseInt(n.getTextContent(), 10) + 1;
+              r <= 99 && o("WAWebLexicalUtils").$insertText(r + ". ");
+            }
+        }
       }
     }
     function m() {
       var e = o("WAWebLexicalUtils").$getSelectionParagraph(),
         t = e == null ? void 0 : e.getPreviousSibling();
-      if (!e || !t) return !1;
+      if (!e || !(t instanceof o("WAWebBidiParagraphNode").BidiParagraphNode))
+        return !1;
       var n = t.getTextContent();
       return t.getQuoteLineNode() == null ||
         o("WAWebQuoteLineUtils").isInsideCodeBlock(_(t) + "\n" + n)
@@ -122,7 +128,10 @@ __d(
     function p() {
       var e = o("WAWebLexicalUtils").$getTextAnchor(),
         t = e == null ? void 0 : e.node.getParent(),
-        n = t == null ? void 0 : t.getQuoteLineNode();
+        n =
+          t instanceof o("WAWebBidiParagraphNode").BidiParagraphNode
+            ? t.getQuoteLineNode()
+            : null;
       if (
         e == null ||
         t == null ||

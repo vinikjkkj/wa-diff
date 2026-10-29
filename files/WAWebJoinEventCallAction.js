@@ -34,29 +34,25 @@ __d(
               i = a.callType,
               l = a.token,
               s = i === "video",
-              m = o("WAWebChatGetters").getIsGroup(e.chat)
-                ? o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
-                    .EVENT_GROUP_CHAT
-                : o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
-                    .EVENT_INDIVIDUAL_CHAT,
+              m = h(e.chat),
               p = yield (d || (d = n("Promise"))).all([
                 r("JSResourceForInteraction")("WAWebVoipCallBlockedModals")
                   .__setRef("WAWebJoinEventCallAction")
                   .load()
                   .catch(function (e) {
-                    return (y(e, "blocked_modals"), null);
+                    return (C(e, "blocked_modals"), null);
                   }),
                 r("JSResourceForInteraction")("WAWebVoipPreviewCallLinkAction")
                   .__setRef("WAWebJoinEventCallAction")
                   .load()
                   .catch(function (e) {
-                    return (y(e, "preview_action"), null);
+                    return (C(e, "preview_action"), null);
                   }),
               ]),
               f = p[0],
               g = p[1];
             if (f == null) {
-              h();
+              y();
               return;
             }
             try {
@@ -102,14 +98,24 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h() {
+    function h(e) {
+      return e == null
+        ? o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+            .EVENT_MESSAGE
+        : o("WAWebChatGetters").getIsGroup(e)
+          ? o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+              .EVENT_GROUP_CHAT
+          : o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+              .EVENT_INDIVIDUAL_CHAT;
+    }
+    function y() {
       o("WAWebToastManager").ToastManager.open(
         p.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Couldn't join call. Please try again."),
         }),
       );
     }
-    function y(t, n) {
+    function C(t, n) {
       o("WALogger")
         .ERROR(
           e ||

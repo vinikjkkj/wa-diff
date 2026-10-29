@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebODS",
+    "WAWebWindowsHybridBridgeJsonEvents",
     "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
     "err",
@@ -29,88 +30,83 @@ __d(
       R,
       L,
       E = (function () {
-        function t(t, n) {
-          var r = this;
+        function t(e, t) {
+          var n = this;
           ((this.$3 = new Map()),
             (this.$4 = new Map()),
-            (this.$6 = function (t) {
-              var n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+            (this.$6 = function (e) {
+              n.$8(
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
                   {
                     bridge: "mediaTranscoder",
                     method: "onProgressChangedEvent",
                   },
                   function () {
                     return {
-                      percentage: t.percentage,
-                      sourceBufferId: t.sourceBufferId,
+                      percentage: e.percentage,
+                      sourceBufferId: e.sourceBufferId,
                     };
                   },
                 ),
-                a = n.percentage,
-                i = n.sourceBufferId;
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[onProgressChanged] sourceBufferId=",
-                    ", percentage=",
-                    "",
-                  ])),
-                i,
-                a,
               );
-              var l = r.$4.get(i);
-              l && l(a);
             }),
-            (this.$1 = n),
-            (this.$2 = t),
+            (this.$7 = function (e) {
+              var t = o(
+                "WAWebWindowsHybridBridgeJsonEvents",
+              ).parseHybridBridgeJsonEvent("progressChangedJsonEvent", e, k);
+              t != null && n.$8(t);
+            }),
+            (this.$1 = t),
+            (this.$2 = e),
             this.$2.addEventListener("sharedbufferreceived", function (e) {
-              r.$5(e);
+              n.$5(e);
             }),
             this.$1.addEventListener("onProgressChangedEvent", this.$6),
+            this.$1.addEventListener("progressChangedJsonEvent", this.$7),
             this.$1.subscribe(null));
         }
         var a = t.prototype;
         return (
           (a.requestSharedBufferForTranscoding = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var a = this;
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, a) {
+                var i = this;
                 o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
                       "[requestSharedBufferForTranscoding] Starting shared buffer request for requestId=",
                       ", bufferSize=",
                       "",
                     ])),
-                  e,
                   t,
+                  a,
                 );
-                var i = 2 * 1024 * 1024 * 1024;
-                if (t >= i) {
-                  var l =
+                var l = 2 * 1024 * 1024 * 1024;
+                if (a >= l) {
+                  var p =
                     "Buffer size " +
-                    t +
+                    a +
                     " exceeds maximum allowed size of " +
-                    i +
+                    l +
                     " bytes (2GB)";
                   throw (
                     o("WALogger").ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[requestSharedBufferForTranscoding] ",
                           "",
                         ])),
-                      l,
+                      p,
                     ),
-                    r("err")(l)
+                    r("err")(p)
                   );
                 }
                 try {
                   var _ = new (L || (L = n("Promise")))(
                       (function () {
-                        var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (n, i) {
-                            a.$3.set(e, n);
+                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (e, n) {
+                            i.$3.set(t, e);
                             try {
                               r("WAWebODS").incr(
                                 "web.hybrid.bridge.media_transcoder.send.try_request_shared_buffer_for_transcoding_async",
@@ -125,26 +121,26 @@ __d(
                                   type: "async",
                                 },
                                 function () {
-                                  return a.$1.tryRequestSharedBufferForTranscodingAsync(
-                                    e,
+                                  return i.$1.tryRequestSharedBufferForTranscodingAsync(
                                     t,
+                                    a,
                                   );
                                 },
                               );
                               l
                                 ? o("WALogger").LOG(
-                                    d ||
-                                      (d =
+                                    c ||
+                                      (c =
                                         babelHelpers.taggedTemplateLiteralLoose(
                                           [
                                             "[requestSharedBufferForTranscoding] Shared buffer creation initiated successfully, waiting for buffer",
                                           ],
                                         )),
                                   )
-                                : (a.$3.delete(e),
+                                : (i.$3.delete(t),
                                   o("WALogger").ERROR(
-                                    c ||
-                                      (c =
+                                    u ||
+                                      (u =
                                         babelHelpers.taggedTemplateLiteralLoose(
                                           [
                                             "[requestSharedBufferForTranscoding] Failed to create shared buffer for requestId=",
@@ -152,33 +148,33 @@ __d(
                                             "",
                                           ],
                                         )),
-                                    e,
                                     t,
+                                    a,
                                   ),
-                                  i(
+                                  n(
                                     r("err")(
                                       "Failed to create shared buffer for transcoding",
                                     ),
                                   ));
-                            } catch (t) {
-                              (a.$3.delete(e),
+                            } catch (e) {
+                              (i.$3.delete(t),
                                 o("WALogger")
                                   .ERROR(
-                                    m ||
-                                      (m =
+                                    d ||
+                                      (d =
                                         babelHelpers.taggedTemplateLiteralLoose(
                                           [
                                             "[requestSharedBufferForTranscoding] Error during shared buffer request",
                                           ],
                                         )),
                                   )
-                                  .catching(r("getErrorSafe")(t)),
-                                i(t));
+                                  .catching(r("getErrorSafe")(e)),
+                                n(e));
                             }
                           },
                         );
-                        return function (e, t) {
-                          return i.apply(this, arguments);
+                        return function (t, n) {
+                          return e.apply(this, arguments);
                         };
                       })(),
                     ),
@@ -188,8 +184,8 @@ __d(
                   throw (
                     o("WALogger")
                       .ERROR(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "[requestSharedBufferForTranscoding] Error awaiting shared buffer response",
                           ])),
                       )
@@ -199,18 +195,18 @@ __d(
                 }
               },
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
+            function a(e, n) {
+              return t.apply(this, arguments);
             }
-            return t;
+            return a;
           })()),
           (a.performVideoTranscodingFromSharedBuffer = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, a) {
                 var i = this;
                 o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[performVideoTranscodingFromSharedBuffer] Starting video transcoding from sourceBufferId=",
                       " to resultBufferId=",
                       " with maxResultSize=",
@@ -247,15 +243,15 @@ __d(
                           );
                           s
                             ? o("WALogger").LOG(
-                                g ||
-                                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                                f ||
+                                  (f = babelHelpers.taggedTemplateLiteralLoose([
                                     "[performVideoTranscodingFromSharedBuffer] Video transcoding initiated successfully, waiting for result buffer",
                                   ])),
                               )
                             : (i.$3.delete(t),
                               o("WALogger").ERROR(
-                                f ||
-                                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                                _ ||
+                                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                                     "[performVideoTranscodingFromSharedBuffer] Video transcoding failed for sourceBufferId=",
                                     ", resultBufferId=",
                                     " with maxResultSize=",
@@ -270,8 +266,8 @@ __d(
                           (i.$3.delete(t),
                             o("WALogger")
                               .ERROR(
-                                h ||
-                                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                                g ||
+                                  (g = babelHelpers.taggedTemplateLiteralLoose([
                                     "[performVideoTranscodingFromSharedBuffer] Error during video transcoding",
                                   ])),
                               )
@@ -302,8 +298,8 @@ __d(
                   s,
                   u;
                 o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[getVideoPreviewFrameFromSharedBuffer] Starting video preview frame extraction from sourceBufferId=",
                       " to resultBufferId=",
                       "",
@@ -337,16 +333,16 @@ __d(
                             );
                             l
                               ? o("WALogger").LOG(
-                                  b ||
-                                    (b =
+                                  C ||
+                                    (C =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "[getVideoPreviewFrameFromSharedBuffer] Video preview frame extraction initiated successfully, waiting for result buffer",
                                       ])),
                                 )
                               : (a.$3.delete(t),
                                 o("WALogger").ERROR(
-                                  C ||
-                                    (C =
+                                  y ||
+                                    (y =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "[getVideoPreviewFrameFromSharedBuffer] Video preview frame extraction failed for sourceBufferId=",
                                         ", resultBufferId=",
@@ -364,8 +360,8 @@ __d(
                             (a.$3.delete(t),
                               o("WALogger")
                                 .ERROR(
-                                  v ||
-                                    (v =
+                                  b ||
+                                    (b =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "[getVideoPreviewFrameFromSharedBuffer] Error during video preview frame extraction",
                                       ])),
@@ -401,8 +397,8 @@ __d(
           (a.releaseSharedBuffer = function (t) {
             var e = this;
             (o("WALogger").LOG(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "[releaseSharedBuffer] Releasing shared buffer with bufferId=",
                   "",
                 ])),
@@ -427,6 +423,22 @@ __d(
           }),
           (a.clearProgressCallback = function (t) {
             this.$4.delete(t);
+          }),
+          (a.$8 = function (t) {
+            var e = t.percentage,
+              n = t.sourceBufferId;
+            o("WALogger").LOG(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "[onProgressChanged] sourceBufferId=",
+                  ", percentage=",
+                  "",
+                ])),
+              n,
+              e,
+            );
+            var r = this.$4.get(n);
+            r && r(e);
           }),
           (a.$5 = function (t) {
             if (
@@ -459,6 +471,13 @@ __d(
           t
         );
       })();
+    function k(e) {
+      var t = e.percentage,
+        n = e.sourceBufferId;
+      return typeof t == "number" && typeof n == "number"
+        ? { percentage: t, sourceBufferId: n }
+        : null;
+    }
     l.WindowsHybridBridgeMediaTranscoder = E;
   },
   98,

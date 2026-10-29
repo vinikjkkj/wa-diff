@@ -85,12 +85,6 @@ __d(
           enter: { props: { opacity: [1, 0], translateX: [0, -100] } },
           leave: { props: { opacity: [0, 1], translateX: [-100, 0] } },
         },
-        pttComposer: {
-          duration: 300,
-          easing: "easeInOut",
-          enter: { props: { opacity: [1, 0] } },
-          leave: { props: { opacity: [0, 1] } },
-        },
         "fade-fast": {
           easing: "ease",
           enter: { props: { opacity: [1, 0] }, duration: 150 },
@@ -288,20 +282,6 @@ __d(
           ],
           leave: { props: { translateX: ["-100%", "0%"] } },
         },
-        "drawer-left-rtl": {
-          duration: 300,
-          easing: e,
-          enter: [
-            { props: { translateX: ["0%", "100%"] } },
-            {
-              selector: "[data-animate-drawer-title]",
-              props: { translateX: [0, 50], opacity: [1, 0] },
-              duration: 500,
-              easing: "easeOut",
-            },
-          ],
-          leave: { props: { translateX: ["100%", "0%"] } },
-        },
         dropdown: {
           duration: 300,
           easing: e,
@@ -365,18 +345,6 @@ __d(
           leave: {
             selector: "[data-animate-media-viewer]",
             props: { opacity: [0, 1] },
-          },
-        },
-        "status-quoted-msg": {
-          enter: {
-            props: { translateY: ["0%", "100%"], opacity: [1, 0] },
-            duration: 200,
-            easing: e,
-          },
-          leave: {
-            props: { translateY: ["100%", "0%"], opacity: [0, 1] },
-            duration: 200,
-            easing: s,
           },
         },
         "status-quick-reply": {
@@ -457,18 +425,6 @@ __d(
           easing: e,
           enter: { props: { translateX: ["0%", "-100%"] } },
           leave: { props: { translateX: ["-100%", "0%"] } },
-        },
-        "slide-forward": {
-          duration: 200,
-          easing: [0.19, 0.93, 0.18, 0.99],
-          enter: { props: { translateX: ["0%", "100%"] } },
-          leave: { props: { translateX: ["-100%", "0%"] } },
-        },
-        "slide-back": {
-          duration: 200,
-          easing: [0.19, 0.93, 0.18, 0.99],
-          enter: { props: { translateX: ["0%", "-100%"] } },
-          leave: { props: { translateX: ["100%", "0%"] } },
         },
         "slide-down-date": {
           duration: 300,
@@ -660,13 +616,6 @@ __d(
             easing: u,
           },
         },
-        "replace-fade": {
-          enter: [
-            { props: { opacity: [0, 0] }, duration: 400 },
-            { props: { opacity: [1, 0] }, duration: 400, delay: 400 },
-          ],
-          leave: { props: { opacity: [0, 1] }, duration: 400 },
-        },
         scaleAndFade: {
           duration: 300,
           easing: e,
@@ -675,11 +624,6 @@ __d(
             { props: { opacity: [1, 0] }, duration: 100 },
           ],
           leave: { props: { scaleX: [0, 1], scaleY: [0, 1], opacity: [0, 1] } },
-        },
-        "similar-channels": {
-          easing: "ease-out",
-          duration: 500,
-          enter: { props: { opacity: [1, 0] } },
         },
         "fade-ease-out": {
           easing: "ease-out",

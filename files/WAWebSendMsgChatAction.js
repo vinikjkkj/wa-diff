@@ -53,31 +53,32 @@ __d(
     function f(e, t) {
       return S(o("WAWebStateUtils").unproxy(e), t);
     }
-    function g(e, t) {
+    function g(e, t, n) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
               e,
               "voipCallLog",
             ),
-            a = r.chat,
-            i = o("WAWebMsgCollection").MsgCollection.add(
+            i = a.chat,
+            l = o("WAWebMsgCollection").MsgCollection.add(
               babelHelpers.extends({}, t),
             )[0];
-          if (i) {
-            var l = (function () {
+          if (l) {
+            var s = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
                   return (
                     yield o(
                       "WAWebHandleSingleMsgWorkerCompatible",
                     ).handleSingleMsg({
-                      chatId: a.id,
+                      chatId: i.id,
                       newMsg: t,
                       handleSingleMsgOrigin: "voipNotification",
+                      messageOverwriteOption: r,
                     }),
                     { msg: e }
                   );
@@ -87,7 +88,7 @@ __d(
                 return e.apply(this, arguments);
               };
             })();
-            return v(a, l(i));
+            return v(i, s(l));
           }
           return (p || (p = n("Promise"))).resolve(null);
         })),

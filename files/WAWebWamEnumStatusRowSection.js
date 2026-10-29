@@ -43,6 +43,7 @@ __d(
       ME_TAB: 40,
       CHANNEL_INFO_SHEET: 41,
       CONTACTS_TAB: 42,
+      CONTENT_HUB: 43,
     });
     i.STATUS_ROW_SECTION = e;
   },

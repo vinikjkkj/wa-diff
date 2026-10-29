@@ -18,7 +18,7 @@ __d(
       return (
         t.append("vm_id", c(e.vmId)),
         t.append("auth_token", e.abraToken),
-        t.append("notary_token", e.notaryToken),
+        e.notaryToken != null && t.append("notary_token", e.notaryToken),
         t.append("app_id", e.appId),
         t.append("app_version", e.appVersion),
         t.append("request_id", e.requestId),

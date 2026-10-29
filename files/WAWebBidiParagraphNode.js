@@ -113,25 +113,27 @@ __d(
           }),
           (a.updateDOMMargin = function (t) {
             var e = 0,
-              n = 0,
-              r = this.getBulletNode() || this.getNumberNode();
-            if (r) {
-              var o = this.getPreviousSibling(),
-                a =
-                  (o == null ? void 0 : o.getBulletNode()) ||
-                  (o == null ? void 0 : o.getNumberNode());
-              (!a || a.getType() !== r.getType()) && (e = 4);
-              var i = this.getNextSibling(),
-                l =
-                  (i == null ? void 0 : i.getBulletNode()) ||
-                  (i == null ? void 0 : i.getNumberNode());
-              (!l || l.getType() !== r.getType()) && (n = 4);
+              r = 0,
+              o = this.getBulletNode() || this.getNumberNode();
+            if (o) {
+              var a = this.getPreviousSibling(),
+                i =
+                  a instanceof n
+                    ? a.getBulletNode() || a.getNumberNode()
+                    : null;
+              (!i || i.getType() !== o.getType()) && (e = 4);
+              var l = this.getNextSibling(),
+                s =
+                  l instanceof n
+                    ? l.getBulletNode() || l.getNumberNode()
+                    : null;
+              (!s || s.getType() !== o.getType()) && (r = 4);
             }
             if (this.getQuoteLineNode()) {
-              var s = m(this, t);
-              ((n = s.marginBottom), (e = s.marginTop));
+              var u = m(this, t);
+              ((r = u.marginBottom), (e = u.marginTop));
             }
-            ((t.style.marginTop = e + "px"), (t.style.marginBottom = n + "px"));
+            ((t.style.marginTop = e + "px"), (t.style.marginBottom = r + "px"));
           }),
           (a.updateDOMQuoteBarHeight = function (t) {
             if (!this.getQuoteLineNode()) {
@@ -168,7 +170,7 @@ __d(
     }
     function _(e, t) {
       return (
-        t != null &&
+        t instanceof d &&
         t.getQuoteLineNode() != null &&
         t.getQuoteBarDirection() === e.getQuoteBarDirection()
       );

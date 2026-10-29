@@ -27,17 +27,7 @@ __d(
             var t,
               n,
               a,
-              i = yield o("WAWebMexClient").fetchQuery(m, {
-                input: {
-                  query_input: [
-                    {
-                      jid: e.toJid(),
-                      integrity_signals: { use_case: "CHAT_FMX" },
-                    },
-                  ],
-                  telemetry: { context: "INTERACTIVE" },
-                },
-              }),
+              i = yield f(e, "CHAT_FMX"),
               l = (t = i.xwa2_fetch_wa_users) == null ? void 0 : t[0];
             if (l == null)
               return (
@@ -51,8 +41,8 @@ __d(
                 ),
                 null
               );
-            var p = l.integrity_signals_info;
-            if (p == null)
+            var m = l.integrity_signals_info;
+            if (m == null)
               return (
                 o("WALogger").LOG(
                   u ||
@@ -64,8 +54,8 @@ __d(
                 ),
                 null
               );
-            var _ = (n = p.is_new_account) != null ? n : null,
-              f = (a = p.is_suspicious_start_chat) != null ? a : null;
+            var p = (n = m.is_new_account) != null ? n : null,
+              _ = (a = m.is_suspicious_start_chat) != null ? a : null;
             return (
               o("WALogger").LOG(
                 c ||
@@ -76,10 +66,10 @@ __d(
                     "",
                   ])),
                 e.toLogString(),
+                String(p),
                 String(_),
-                String(f),
               ),
-              { isNewAccount: _, isSuspicious: f }
+              { isNewAccount: p, isSuspicious: _ }
             );
           } catch (t) {
             return (
@@ -101,7 +91,15 @@ __d(
         _.apply(this, arguments)
       );
     }
-    l.fetchIntegritySignals = p;
+    function f(e, t) {
+      return o("WAWebMexClient").fetchQuery(m, {
+        input: {
+          query_input: [{ jid: e.toJid(), integrity_signals: { use_case: t } }],
+          telemetry: { context: "INTERACTIVE" },
+        },
+      });
+    }
+    ((l.fetchIntegritySignals = p), (l.queryIntegritySignals = f));
   },
   98,
 );

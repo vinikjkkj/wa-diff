@@ -6,8 +6,8 @@ __d(
     "WAWebApiCoexV2RelayReceiptStore",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
-    "WAWebCoexV2BotWid",
     "WAWebCoexV2ProtoSanitize",
+    "WAWebCoexV2RelayOneShotEncrypt",
     "WAWebCoexV2RetryMarkerStore",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
@@ -246,40 +246,33 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i, l, s, u) {
             try {
-              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-                identityChanged: !1,
-                sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-                wids: [o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID],
-              });
-              var c = o("WAWebCoexV2ProtoSanitize").sanitizeCoexV2RelayMessage(
-                  n,
-                ),
-                d = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
-                  o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
-                  l != null ? l : 0,
-                  c,
-                  t,
-                  a,
-                  o("WAWebSessionScope").SessionScope.DEFAULT,
-                  !0,
-                  s,
-                ),
-                m = d.ciphertext,
-                p = d.type,
-                _ = o("WAWap").wap(
+              var c = yield o(
+                  "WAWebCoexV2RelayOneShotEncrypt",
+                ).encryptCoexV2RelayOneShot({
+                  coexV2SelfHosted: s,
+                  editType: a,
+                  msg: t,
+                  msgProtobuf: o(
+                    "WAWebCoexV2ProtoSanitize",
+                  ).sanitizeCoexV2RelayMessage(n),
+                  retryCount: l != null ? l : 0,
+                }),
+                d = c.ciphertext,
+                m = c.type,
+                p = o("WAWap").wap(
                   "enc",
                   {
                     v: o("WAWap").CUSTOM_STRING(
                       o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
                     ),
-                    type: o("WAWap").CUSTOM_STRING(p),
+                    type: o("WAWap").CUSTOM_STRING(m),
                     session_type: o(
                       "WAWebEncryptMsgProtobuf",
-                    ).isPqxdhCiphertext(m)
+                    ).isPqxdhCiphertext(d)
                       ? o("WAWap").CUSTOM_STRING("pq")
                       : o("WAWap").DROP_ATTR,
                     state:
-                      p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                      m === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
                         ? o("WAWap").CUSTOM_STRING("false")
                         : o("WAWap").DROP_ATTR,
                     count:
@@ -287,7 +280,7 @@ __d(
                         ? o("WAWap").INT(l)
                         : o("WAWap").DROP_ATTR,
                   },
-                  m,
+                  d,
                 );
               return {
                 node: C({
@@ -296,11 +289,11 @@ __d(
                   destinationWids: i,
                   isFeedback: !1,
                   personaType: null,
-                  sharedEnc: _,
+                  sharedEnc: p,
                 }),
                 shouldHaveIdentity:
-                  p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
-                type: p,
+                  m === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+                type: m,
               };
             } catch (t) {
               return (

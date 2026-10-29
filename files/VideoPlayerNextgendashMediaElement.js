@@ -450,66 +450,66 @@ __d(
       var g,
         h,
         y,
-        C,
         b,
         v,
-        S = t.mediaElement,
-        R = t.mediaElementSnapshot,
-        L = t.playheadLastMovedClock,
-        E = t.playheadLastObserved,
-        k = t.playheadWatchdogTimer;
-      k != null && e.host.timers.clearTimeout(k);
-      var I = (g = l == null ? void 0 : l.currentTime) != null ? g : 0,
-        T =
+        S,
+        R = t.mediaElement,
+        L = t.mediaElementSnapshot,
+        E = t.playheadLastMovedClock,
+        k = t.playheadLastObserved,
+        I = t.playheadWatchdogTimer;
+      I != null && e.host.timers.clearTimeout(I);
+      var T = (g = l == null ? void 0 : l.currentTime) != null ? g : 0,
+        D =
           (h =
             (y = e.config
               .mediaElementSkipFullWatchdogSnapshotsWhilePlaybackMoves
-              ? E == null
+              ? k == null
                 ? void 0
-                : E.mediaTimeSec
+                : k.mediaTimeSec
               : null) != null
               ? y
-              : R == null
+              : L == null
                 ? void 0
-                : R.currentTime) != null
+                : L.currentTime) != null
             ? h
             : 0,
-        D = 200,
-        x =
+        x = 200,
+        $ =
           e.config.isLivePlayback && e.config.liveGapSkipStallThresholdMs > 0
             ? e.config.liveGapSkipStallThresholdMs
-            : D,
-        $ = I === T,
-        P =
+            : x,
+        P = T === D,
+        N =
           l != null &&
           l.error == null &&
           !l.seeking &&
           !l.paused &&
           !l.ended &&
           l.buffered.length > 0,
-        N = e.config.mediaElementSkipFullWatchdogSnapshotsWhilePlaybackMoves
-          ? E != null
-          : R != null,
-        M = I !== T || (l != null && !N) ? s : null,
-        w = null,
-        A = r(),
-        F =
-          l != null &&
-          !l.buffered.some(function (e) {
-            return o("VideoPlayerNextgendashMediaUtils").isWithinRange(e, I, 0);
-          }),
+        M = e.config.mediaElementSkipFullWatchdogSnapshotsWhilePlaybackMoves
+          ? k != null
+          : L != null,
+        w = T !== D || (l != null && !M) ? s : null,
+        A = null,
+        F = r(),
         O =
+          l != null &&
+          !l.buffered.some(function (t) {
+            return C(t, T, e.config.bufferedRangeStartToleranceSec);
+          }),
+        B =
           e.config.isLivePlayback &&
           e.config.liveGapSkipStuckAtRangeEndToleranceSec > 0 &&
           l != null &&
-          c(l.buffered, I, e.config.liveGapSkipStuckAtRangeEndToleranceSec),
-        B =
+          c(l.buffered, T, e.config.liveGapSkipStuckAtRangeEndToleranceSec),
+        W =
           l != null &&
-          L != null &&
+          E != null &&
           d({
             bufferedRangeCount: l.buffered.length,
             ended: l.ended,
-            frozenMs: s.perfMs - L.perfMs,
+            frozenMs: s.perfMs - E.perfMs,
             hasError: l.error != null,
             isLivePlayback: e.config.isLivePlayback,
             paused: l.paused,
@@ -517,114 +517,114 @@ __d(
             thresholdMs: e.config.liveGapSkipStuckSeekRecoveryMs,
           });
       if (
-        S != null &&
+        R != null &&
         l != null &&
-        A != null &&
-        $ &&
-        L != null &&
-        s.perfMs - L.perfMs >= x &&
-        (P || B) &&
-        (F || O) &&
-        (A.some(function (e) {
-          return o("VideoPlayerNextgendashMediaUtils").isWithinRange(e, I, 0);
+        F != null &&
+        P &&
+        E != null &&
+        s.perfMs - E.perfMs >= $ &&
+        (N || W) &&
+        (O || B) &&
+        (F.some(function (e) {
+          return o("VideoPlayerNextgendashMediaUtils").isWithinRange(e, T, 0);
         }) ||
           (e.config.isLivePlayback &&
             l.buffered.some(function (e) {
-              return e[0] > I;
+              return e[0] > T;
             })))
       ) {
-        var W,
-          q =
-            (W = l.buffered.find(function (e) {
-              return e[0] > I;
+        var q,
+          U =
+            (q = l.buffered.find(function (e) {
+              return e[0] > T;
             })) == null
               ? void 0
-              : W[0];
-        q != null &&
-          (w = { reason: m + ":SegmentBufferedInsufficiently", timeSec: q });
+              : q[0];
+        U != null &&
+          (A = { reason: m + ":SegmentBufferedInsufficiently", timeSec: U });
       }
-      var U = 500,
-        V =
+      var V = 500,
+        H =
           l == null
             ? void 0
             : l.buffered.find(function (e) {
                 return o("VideoPlayerNextgendashMediaUtils").isWithinRange(
                   e,
-                  I,
+                  T,
                   0,
                 );
               }),
-        H = V != null ? V[1] - I : 0;
+        G = H != null ? H[1] - T : 0;
       if (
-        w == null &&
+        A == null &&
         p(
           e.config.isLivePlayback,
           e.config.playheadStallRecoveryEnabled,
           e.config.livePlayheadStallRecoveryEnabled,
         ) &&
-        S != null &&
+        R != null &&
         l != null &&
-        $ &&
-        L != null &&
-        s.perfMs - L.perfMs >= U &&
         P &&
+        E != null &&
+        s.perfMs - E.perfMs >= V &&
+        N &&
         l.readyState >= 4 &&
         l.buffered.some(function (e) {
-          return o("VideoPlayerNextgendashMediaUtils").isWithinRange(e, I, 0);
+          return o("VideoPlayerNextgendashMediaUtils").isWithinRange(e, T, 0);
         }) &&
-        (!e.config.isLivePlayback || _(H))
+        (!e.config.isLivePlayback || _(G))
       ) {
-        var G =
+        var z =
           t.consecutiveNudges === 0
             ? 0.01
             : t.consecutiveNudges === 1
               ? 0.1
               : 0.5;
-        w = {
+        A = {
           reason: m + ":StallRecoveryNudge:attempt" + (t.consecutiveNudges + 1),
-          timeSec: I + G,
+          timeSec: T + z,
         };
       }
-      var z = 3e3,
-        j = I + 0.1;
-      (w == null &&
+      var j = 3e3,
+        K = T + 0.1;
+      (A == null &&
         (e.config.segmentStallRecoveryEnabled ||
           (e.config.isLivePlayback && e.config.liveStallRecoveryEnabled)) &&
-        S != null &&
+        R != null &&
         l != null &&
-        $ &&
-        L != null &&
-        s.perfMs - L.perfMs >= z &&
         P &&
+        E != null &&
+        s.perfMs - E.perfMs >= j &&
+        N &&
         l.readyState < 4 &&
         t.lastNonZeroNonErrorCurrentTimeSec != null &&
-        f(l.buffered, j) &&
-        (w = { reason: m + ":SegmentStallRecovery", timeSec: j }),
-        w != null && l != null && a(w.timeSec, l, w.reason));
-      var K =
-          w != null
+        f(l.buffered, K) &&
+        (A = { reason: m + ":SegmentStallRecovery", timeSec: K }),
+        A != null && l != null && a(A.timeSec, l, A.reason));
+      var Q =
+          A != null
             ? t.consecutiveNudges + 1
-            : I !== T
+            : T !== D
               ? 0
               : t.consecutiveNudges,
-        Q =
+        X =
           e.config.mediaSinkType !== "WEBCODECS" &&
-          (P ||
-            ($ &&
+          (N ||
+            (P &&
               ((l == null ? void 0 : l.seeking) === !0 ||
                 (l == null ? void 0 : l.buffered.length) === 0)))
             ? e.host.timers.setTimeout(n, u)
             : null,
-        X = (C = M != null ? M : L) != null ? C : null,
-        Y = (b = l == null ? void 0 : l.mediaSourceAttached) != null ? b : !1,
-        J = (v = R == null ? void 0 : R.mediaSourceAttached) != null ? v : !1;
+        Y = (b = w != null ? w : E) != null ? b : null,
+        J = (v = l == null ? void 0 : l.mediaSourceAttached) != null ? v : !1,
+        Z = (S = L == null ? void 0 : L.mediaSourceAttached) != null ? S : !1;
       return (
-        Y !== J &&
+        J !== Z &&
           e.workQueue.enqueueWork(function () {
-            i(s, Y);
+            i(s, J);
           }),
         {
-          consecutiveNudges: K,
+          consecutiveNudges: Q,
           lastNonZeroNonErrorCurrentTimeSec:
             l != null &&
             l.error == null &&
@@ -634,21 +634,21 @@ __d(
               : t.lastNonZeroNonErrorCurrentTimeSec,
           mediaElementSnapshot: l,
           mediaElementSnapshotBeforeErrorOccurred:
-            l == null || R == null
+            l == null || L == null
               ? t.mediaElementSnapshotBeforeErrorOccurred
-              : R.error == null && l.error != null
-                ? R
-                : R.error != null && l.error == null
+              : L.error == null && l.error != null
+                ? L
+                : L.error != null && l.error == null
                   ? null
                   : t.mediaElementSnapshotBeforeErrorOccurred,
           mediaElementSnapshotClock: s,
-          playheadLastMovedClock: X,
+          playheadLastMovedClock: Y,
           playheadLastObserved:
             e.config.mediaElementSkipFullWatchdogSnapshotsWhilePlaybackMoves &&
             l != null
-              ? { clock: s, mediaTimeSec: I }
+              ? { clock: s, mediaTimeSec: T }
               : null,
-          playheadWatchdogTimer: Q,
+          playheadWatchdogTimer: X,
         }
       );
     }
@@ -680,7 +680,9 @@ __d(
           t.lastBufferingEndPerfMs != null &&
           n.perfMs - t.lastBufferingEndPerfMs < _ &&
           (m = p),
-          (r == null || r.paused || C(r, m)) &&
+          (r == null ||
+            r.paused ||
+            b(r, m, e.bufferedRangeStartToleranceSec)) &&
             ((i = !1),
             (s = n.perfMs),
             l &&
@@ -691,7 +693,11 @@ __d(
       } else
         r != null &&
           !r.paused &&
-          !C(r, e.bufferingBeginBufferAheadSec) &&
+          !b(
+            r,
+            e.bufferingBeginBufferAheadSec,
+            e.bufferedRangeStartToleranceSec,
+          ) &&
           ((u =
             t.mediaElementSnapshot != null && !t.mediaElementSnapshot.paused),
           (i = !0));
@@ -717,22 +723,30 @@ __d(
         lastBufferingEndPerfMs: s,
       });
     }
-    function C(e, t) {
+    function C(e, t, n) {
+      return e[0] - n <= t && t <= e[1];
+    }
+    function b(e, t, n) {
       for (
-        var n = 0.2, r = e.currentTime, o = e.duration, a = null, i = 0;
-        i < e.buffered.length;
-        i++
+        var r = 0.2,
+          o = e.currentTime,
+          a = e.duration,
+          i = !e.seeking && e.readyState >= 2 ? n : 0,
+          l = null,
+          s = 0;
+        s < e.buffered.length;
+        s++
       ) {
-        var l = e.buffered[i];
-        if (l[0] <= r && r <= l[1]) {
-          a = l;
+        var u = e.buffered[s];
+        if (C(u, o, i)) {
+          l = u;
           break;
         }
       }
-      var s =
-        o !== "NOT_A_NUMBER" &&
-        ((a != null && Math.abs(a[1] - o) <= n) || Math.abs(r - o) <= n);
-      return s || (a != null && a[1] - r > t);
+      var c =
+        a !== "NOT_A_NUMBER" &&
+        ((l != null && Math.abs(l[1] - a) <= r) || Math.abs(o - a) <= r);
+      return c || (l != null && l[1] - Math.max(o, l[0]) > t);
     }
     ((l.internal_isPlayheadStuckAtBufferedRangeEndWithIslandAhead = c),
       (l.internal_isPlayheadStuckInRecoverySeek = d),

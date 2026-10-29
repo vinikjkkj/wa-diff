@@ -7,8 +7,8 @@ __d(
     "WAWebWebcNativeUpsellCtaWamEvent",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = new (o(
+    function e(e, t) {
+      var n = new (o(
         "WAWebWebcNativeUpsellCtaWamEvent",
       ).WebcNativeUpsellCtaWamEvent)({
         webcNativeUpsellCtaEventType:
@@ -30,15 +30,27 @@ __d(
                           e,
                       );
                     })(),
-        webcNativeUpsellCtaSource: o(
-          "WAWebWamEnumWebcNativeUpsellCtaSourceType",
-        ).WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.LINK_DEVICE_ANDROID_TABLET_OVERLAY,
+        webcNativeUpsellCtaSource:
+          t === "googlebook"
+            ? o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
+                .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
+                .LINK_DEVICE_GOOGLEBOOK_OVERLAY
+            : t === "tablet"
+              ? o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
+                  .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
+                  .LINK_DEVICE_ANDROID_TABLET_OVERLAY
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })(),
         webcNativeUpsellCtaReleaseChannel: o(
           "WAWebWamEnumWebcNativeUpsellCtaReleaseChannel",
         ).WEBC_NATIVE_UPSELL_CTA_RELEASE_CHANNEL.PRODUCTION,
         webcNativeUpsellCtaIsBetaUser: !1,
       });
-      e === "download-app" ? t.commitAndWaitForFlush(!0) : t.commit();
+      e === "download-app" ? n.commitAndWaitForFlush(!0) : n.commit();
     }
     l.logAndroidTabletOverlayWamEvent = e;
   },

@@ -85,20 +85,21 @@ __d(
               )) == null
                 ? void 0
                 : e.voip;
-          if (n != null && P != null && n instanceof P)
-            try {
+          try {
+            n == null ||
+              n.setSelfCountryCode == null ||
               n.setSelfCountryCode(t);
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "WAWebVoipStackInterfaceWindows: setSelfCountryCode failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("voip-windows-set-self-country-code-failed");
-            }
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "WAWebVoipStackInterfaceWindows: setSelfCountryCode failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("voip-windows-set-self-country-code-failed");
+          }
         },
         setHideMyIp: function (t) {
           var e;

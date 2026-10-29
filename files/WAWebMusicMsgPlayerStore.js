@@ -154,6 +154,14 @@ __d(
                 this.$MusicMsgPlayerStore$p_9({ positionMs: e }));
             }
           }),
+          (n.seek = function (t, n) {
+            this.$MusicMsgPlayerStore$p_1.msg === t &&
+              (this.$MusicMsgPlayerStore$p_2.set(t, n),
+              this.$MusicMsgPlayerStore$p_9({
+                positionMs: n,
+                resumePositionMs: n,
+              }));
+          }),
           (n.onEnded = function (t) {
             this.$MusicMsgPlayerStore$p_1.msg === t &&
               (this.$MusicMsgPlayerStore$p_2.delete(t), this.stop());

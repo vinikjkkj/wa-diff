@@ -16,6 +16,9 @@ __d(
           (t.byEventId = o("WAWebCollectionUtils").aggregated(function (e) {
             return e.eventId;
           })),
+          (t.byInviteeLid = o("WAWebCollectionUtils").aggregated(function (e) {
+            return e.inviteeLid;
+          })),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

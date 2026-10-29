@@ -31,6 +31,7 @@ __d(
           imagineAction: t,
           imagineActionSource: r,
           imagineActionTarget: i,
+          imagineActionThreadType: d.threadType,
           imagineMediaType: l,
           isCancelled: u,
           isSent: c,

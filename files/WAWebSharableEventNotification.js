@@ -5,6 +5,7 @@ __d(
     "WAWebBaseNotification",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebFbtCommon",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebNotificationIconUtils",
@@ -33,9 +34,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var a = t.prototype;
       return (
-        (r.buildKey = function () {
+        (a.buildKey = function () {
           return (
             "sharable_event:" +
             o("WAWebSharableEventNotificationConstants").getIdentifierTag(
@@ -45,7 +46,7 @@ __d(
             this.payload.eventId
           );
         }),
-        (r.getBannerOptions = function () {
+        (a.getBannerOptions = function () {
           var e, t;
           return {
             wid:
@@ -56,7 +57,7 @@ __d(
             body:
               (t = o(
                 "WAWebSharableEventNotificationStrings",
-              ).formatSharableEventBody(this.payload.body)) != null
+              ).formatSharableEventBody(this.computeBody())) != null
                 ? t
                 : "",
             onClick: o("WAWebOpenSharableEventInviteNotSupportedModalAction")
@@ -64,7 +65,7 @@ __d(
             doNotOpenChat: !0,
           };
         }),
-        (r.getSenderContact = function () {
+        (a.getSenderContact = function () {
           var e,
             t = this.senderWid;
           if (t == null) return null;
@@ -78,27 +79,50 @@ __d(
           var a = (e = o("WAWebLidMigrationUtils").toPn(t)) != null ? e : t;
           return o("WAWebContactCollection").ContactCollection.get(a);
         }),
-        (r.computeTitle = function () {
+        (a.computeTitle = function () {
+          var e;
           if (
             this.type ===
+              o("WAWebSharableEventNotificationConstants")
+                .SharableEventNotificationType.GuestJoinedWa &&
+            this.payload.title === ""
+          ) {
+            var t;
+            return (t = this.getSenderDisplayName()) != null
+              ? t
+              : r("WAWebFbtCommon")("WhatsApp").toString();
+          }
+          return this.type ===
             o("WAWebSharableEventNotificationConstants")
               .SharableEventNotificationType.Suspended
-          )
-            return s._(/*BTDS*/ "Event suspended").toString();
-          if (
-            !o("WAWebSharableEventNotificationConstants").isSenderAttributed(
-              this.type,
-            )
-          )
-            return this.payload.title;
+            ? s._(/*BTDS*/ "Event suspended").toString()
+            : o("WAWebSharableEventNotificationConstants").isSenderAttributed(
+                  this.type,
+                )
+              ? (e = this.getSenderDisplayName()) != null
+                ? e
+                : this.payload.title
+              : this.payload.title;
+        }),
+        (a.computeBody = function () {
+          var e,
+            t = this.payload.body;
+          return t.kind !== "guestJoinedWa"
+            ? t
+            : babelHelpers.extends({}, t, {
+                guestName:
+                  (e = this.getSenderDisplayName()) != null ? e : t.guestName,
+              });
+        }),
+        (a.getSenderDisplayName = function () {
           var e = this.getSenderContact(),
             t =
               e != null
                 ? o("WAWebFrontendContactGetters").getFormattedName(e)
                 : null;
-          return t != null && t.length > 0 ? t : this.payload.title;
+          return t != null && t.length > 0 ? t : null;
         }),
-        (r.getIcon = (function () {
+        (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e,
               t = this.senderWid;
@@ -130,7 +154,7 @@ __d(
           }
           return t;
         })()),
-        (r.getChatKind = function () {
+        (a.getChatKind = function () {
           return null;
         }),
         t

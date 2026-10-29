@@ -214,9 +214,7 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
     function R() {
-      return (
-        S() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
-      );
+      return o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo");
     }
     function L() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_video");

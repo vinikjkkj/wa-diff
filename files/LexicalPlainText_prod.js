@@ -234,7 +234,11 @@ __d(
           _require_Lexical.COPY_COMMAND,
           function (e) {
             var n = require("Lexical").$getSelection();
-            return !!require("Lexical").$isRangeSelection(n) && (l(e, t), !0);
+            return !(
+              !require("Lexical").$isRangeSelection(n) ||
+              require("Lexical").$isEventFromEmbeddedInput(e) ||
+              (l(e, t), 0)
+            );
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
         ),
@@ -242,8 +246,9 @@ __d(
           _require_Lexical.CUT_COMMAND,
           function (e) {
             var n = require("Lexical").$getSelection();
-            return (
-              !!require("Lexical").$isRangeSelection(n) &&
+            return !(
+              !require("Lexical").$isRangeSelection(n) ||
+              require("Lexical").$isEventFromEmbeddedInput(e) ||
               ((function (e, t) {
                 (l(e, t),
                   t.update(
@@ -254,7 +259,7 @@ __d(
                     { tag: require("Lexical").CUT_TAG },
                   ));
               })(e, t),
-              !0)
+              0)
             );
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
@@ -263,8 +268,9 @@ __d(
           _require_Lexical.PASTE_COMMAND,
           function (n) {
             var r = require("Lexical").$getSelection();
-            return (
-              !!require("Lexical").$isRangeSelection(r) &&
+            return !(
+              !require("Lexical").$isRangeSelection(r) ||
+              require("Lexical").$isEventFromEmbeddedInput(n) ||
               ((function (t, n) {
                 (t.preventDefault(),
                   n.update(
@@ -286,7 +292,7 @@ __d(
                     { tag: require("Lexical").PASTE_TAG },
                   ));
               })(n, t),
-              !0)
+              0)
             );
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,

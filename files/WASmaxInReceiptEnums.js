@@ -44,32 +44,12 @@ __d(
         validators: [
           (e = o("WAJids")).validateBroadcastJid,
           e.validateGroupJid,
-        ],
-        typeName: "BroadcastJid|GroupJid",
-      },
-      S = {
-        validators: [
-          e.validateBroadcastJid,
-          e.validateGroupJid,
           e.validateNewsletterJid,
           e.validateStatusJid,
         ],
         typeName: "BroadcastJid|GroupJid|NewsletterJid|StatusJid",
       },
-      R = {
-        validators: [
-          e.validateDeviceJid,
-          e.validateBroadcastJid,
-          e.validateDeviceJid,
-          e.validateGroupJid,
-          e.validateInteropDeviceJid,
-          e.validateInteropDeviceJid,
-          e.validateNewsletterJid,
-        ],
-        typeName:
-          "DeviceJid|BroadcastJid|DeviceJid|GroupJid|InteropDeviceJid|InteropDeviceJid|NewsletterJid",
-      },
-      L = {
+      S = {
         validators: [
           e.validateDeviceJid,
           e.validateBroadcastJid,
@@ -83,7 +63,7 @@ __d(
         typeName:
           "DeviceJid|BroadcastJid|DeviceJid|GroupJid|InteropDeviceJid|InteropDeviceJid|NewsletterJid|StatusJid",
       },
-      E = {
+      R = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -92,7 +72,7 @@ __d(
         ],
         typeName: "DeviceJid|DeviceJid|InteropDeviceJid|InteropDeviceJid",
       },
-      k = {
+      L = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -101,7 +81,7 @@ __d(
         ],
         typeName: "DeviceJid|DeviceJid|UserJid|UserJid",
       },
-      I = {
+      E = {
         validators: [
           e.validateDeviceJid,
           e.validateUserJid,
@@ -112,7 +92,11 @@ __d(
         ],
         typeName: "DeviceJid|UserJid|DeviceJid|UserJid|UserJid|UserJid",
       },
-      T = {
+      k = {
+        validators: [e.validateUserJid, e.validateDeviceJid],
+        typeName: "UserJid|DeviceJid",
+      },
+      I = {
         validators: [
           e.validateUserJid,
           e.validateLidUserJid,
@@ -120,7 +104,7 @@ __d(
         ],
         typeName: "UserJid|LidUserJid|UserJid",
       },
-      D = {
+      T = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
@@ -138,17 +122,15 @@ __d(
       (l.ENUM_FALSE_TRUE = y),
       (l.ENUM_FREECUSTOMERSERVICE_FREEENTRYPOINT_REGULAR = C),
       (l.ENUM_HSMENVELOPEMISMATCH_STRUCTUREUNAVAILABLE = b),
-      (l.BROADCASTJID_GROUPJID = v),
-      (l.BROADCASTJID_GROUPJID_NEWSLETTERJID_STATUSJID = S),
-      (l.DEVICEJID_BROADCASTJID_DEVICEJID_GROUPJID_INTEROPDEVICEJID_INTEROPDEVICEJID_NEWSLETTERJID =
-        R),
+      (l.BROADCASTJID_GROUPJID_NEWSLETTERJID_STATUSJID = v),
       (l.DEVICEJID_BROADCASTJID_DEVICEJID_GROUPJID_INTEROPDEVICEJID_INTEROPDEVICEJID_NEWSLETTERJID_STATUSJID =
-        L),
-      (l.DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID = E),
-      (l.DEVICEJID_DEVICEJID_USERJID_USERJID = k),
-      (l.DEVICEJID_USERJID_DEVICEJID_USERJID_USERJID_USERJID = I),
-      (l.USERJID_LIDUSERJID_USERJID = T),
-      (l.USERJID_USERJID = D));
+        S),
+      (l.DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID = R),
+      (l.DEVICEJID_DEVICEJID_USERJID_USERJID = L),
+      (l.DEVICEJID_USERJID_DEVICEJID_USERJID_USERJID_USERJID = E),
+      (l.USERJID_DEVICEJID = k),
+      (l.USERJID_LIDUSERJID_USERJID = I),
+      (l.USERJID_USERJID = T));
   },
   98,
 );

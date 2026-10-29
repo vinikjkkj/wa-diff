@@ -10,42 +10,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      var t = e.trim().replace(/:/g, "");
-      return /^[0-9a-fA-F]{64}$/.test(t)
-        ? o("WAWebHatchNoiseBytes").hexToBytes(t)
-        : null;
-    }
-    function u(e) {
-      return (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.length !== 32) return !1;
-          var n = new Uint8Array(
-            yield crypto.subtle.digest("SHA-256", t.slice().buffer),
-          );
-          return o("WAWebHatchNoiseBytes").constantTimeEqual(n, e);
-        });
-        return function (e) {
-          return t.apply(this, arguments);
-        };
-      })();
-    }
-    function c(e) {
-      return (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.length !== 32) return !1;
-          var n = new Uint8Array(
-            yield crypto.subtle.digest("SHA-256", t.slice().buffer),
-          );
-          return (e(o("WAWebHatchNoiseBytes").bytesToHex(n)), !1);
-        });
-        return function (e) {
-          return t.apply(this, arguments);
-        };
-      })();
-    }
-    var d = (function () {
+    var e,
+      s,
+      u,
+      c = (function () {
         function t(e) {
           (e === void 0 &&
             (e = function (t) {
@@ -56,8 +24,9 @@ __d(
             (this.$1 = null),
             (this.$2 = null),
             (this.$3 = 0),
-            (this.$5 = null),
-            (this.$4 = e));
+            (this.$4 = new Map()),
+            (this.$6 = null),
+            (this.$5 = e));
         }
         var a = t.prototype;
         return (
@@ -65,7 +34,7 @@ __d(
             return this.$1;
           }),
           (a.connectedVmId = function () {
-            return this.$5;
+            return this.$6;
           }),
           (a.disconnect = function () {
             var e;
@@ -73,7 +42,7 @@ __d(
               (e = this.$2) == null || e.close(),
               (this.$2 = null),
               (this.$1 = null),
-              (this.$5 = null));
+              (this.$6 = null));
           }),
           (a.connect = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -81,79 +50,49 @@ __d(
                 var t = this;
                 this.disconnect();
                 var n = this.$3,
-                  a = e.trustedFingerprint,
-                  i = null,
-                  l;
-                if (a == null)
-                  l = c(function (e) {
-                    i = e;
-                  });
-                else {
-                  var d = s(a);
-                  if (d == null)
-                    return {
-                      cause: "invalid_fingerprint",
-                      detail: "Trusted peer fingerprint is invalid",
-                      kind: "Failure",
-                    };
-                  l = u(d);
-                }
-                var m = this.$4(l),
-                  p;
+                  a = this.$5(this.$7(e.credentials.vmId)),
+                  i;
                 try {
-                  p = yield m.connect({
+                  i = yield a.connect({
                     abraToken: e.credentials.vmAuthToken,
                     notaryToken: e.credentials.notaryToken,
                     vmId: e.credentials.vmId,
                   });
                 } catch (e) {
-                  throw (m.close(), e);
+                  throw (a.close(), e);
                 }
                 if (n !== this.$3)
                   return (
-                    m.close(),
+                    a.close(),
                     {
                       cause: "superseded",
                       detail: "Connection was superseded",
                       kind: "Failure",
                     }
                   );
-                if (a == null)
+                if (i.status === "failed")
                   return (
-                    m.close(),
-                    i != null
-                      ? { fingerprint: i, kind: "NeedsTrust" }
-                      : p.status === "failed"
-                        ? { cause: p.cause, detail: p.detail, kind: "Failure" }
-                        : {
-                            cause: "no_fingerprint",
-                            detail: "Noise peer fingerprint was not presented",
-                            kind: "Failure",
-                          }
+                    a.close(),
+                    { cause: i.cause, detail: i.detail, kind: "Failure" }
                   );
-                if (p.status === "failed")
-                  return (
-                    m.close(),
-                    { cause: p.cause, detail: p.detail, kind: "Failure" }
-                  );
-                var _ = r("WAWebHatchNoiseVmTransport").create(
-                  p.transport,
+                var l = r("WAWebHatchNoiseVmTransport").create(
+                  i.transport,
                   e.credentials.vmAuthToken,
                   e.acceptLanguage,
                   function () {
-                    return t.$6(n);
+                    return t.$8(n);
                   },
                 );
                 return n !== this.$3
-                  ? (m.close(),
+                  ? (a.close(),
                     {
                       cause: "superseded",
                       detail: "Noise channel failed",
                       kind: "Failure",
                     })
-                  : ((this.$2 = m),
-                    (this.$1 = new (o("WAWebHatchVmApi").WAWebHatchVmApi)(_)),
-                    (this.$5 = e.credentials.vmId),
+                  : ((this.$2 = a),
+                    (this.$1 = new (o("WAWebHatchVmApi").WAWebHatchVmApi)(l)),
+                    (this.$6 = e.credentials.vmId),
                     { kind: "Ready", vmId: e.credentials.vmId });
               },
             );
@@ -162,21 +101,78 @@ __d(
             }
             return t;
           })()),
-          (a.$6 = function (n) {
-            n === this.$3 &&
+          (a.$7 = function (t) {
+            var e = this;
+            return (function () {
+              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (n) {
+                  try {
+                    yield e.$9(t, n);
+                  } catch (e) {
+                    d(e);
+                  }
+                  return !0;
+                },
+              );
+              return function (e) {
+                return r.apply(this, arguments);
+              };
+            })();
+          }),
+          (a.$9 = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, n) {
+                var r = o("WAWebHatchNoiseBytes").bytesToHex(
+                    new Uint8Array(
+                      yield crypto.subtle.digest("SHA-256", n.slice().buffer),
+                    ),
+                  ),
+                  a = this.$4.get(t);
+                (this.$4.set(t, r),
+                  a != null &&
+                    a !== r &&
+                    o("WALogger")
+                      .WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "hatch-vm: VM key changed",
+                          ])),
+                      )
+                      .sendLogs("hatch-vm-key-changed"));
+              },
+            );
+            function r(e, n) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.$8 = function (t) {
+            t === this.$3 &&
               (this.disconnect(),
               o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "hatch-vm: channel failed, session reset",
                   ])),
               ));
           }),
           t
         );
-      })(),
-      m = new d();
-    ((l.WAWebHatchVmSession = d), (l.waWebHatchVmSession = m));
+      })();
+    function d(e) {
+      try {
+        o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-vm: VM key check failed",
+              ])),
+          )
+          .sendLogs("hatch-vm-key-check-failed");
+      } catch (e) {}
+    }
+    var m = new c();
+    ((l.WAWebHatchVmSession = c), (l.waWebHatchVmSession = m));
   },
   98,
 );

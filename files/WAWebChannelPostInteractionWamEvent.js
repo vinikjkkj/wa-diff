@@ -38,6 +38,8 @@ __d(
               dedupKey: [9, e.TYPES.INTEGER],
               discoverySurface: [6, o("WAWebWamEnumTsSurface").TS_SURFACE],
               postId: [7, e.TYPES.STRING],
+              responseServerId: [11, e.TYPES.STRING],
+              responseSheetSessionId: [12, e.TYPES.INTEGER],
               updatesTabSessionId: [8, e.TYPES.INTEGER],
             },
             [1, 1, 1],

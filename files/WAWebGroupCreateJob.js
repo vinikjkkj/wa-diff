@@ -107,6 +107,7 @@ __d(
                     : { namedSubject: { anySubject: E } },
                 hasAnnouncement: !g,
                 hasCapi: !1,
+                hasLightE2ee: !1,
                 hasNoFrequentlyForwarded: !1,
                 hasHiddenGroup: !1,
                 hasLocked: !L,

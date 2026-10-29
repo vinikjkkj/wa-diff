@@ -4,6 +4,7 @@ __d(
     "WABase64",
     "WALogger",
     "WALongInt",
+    "WAWebABProps",
     "WAWebAsISOCountryCode",
     "WAWebMusicGatingUtils",
     "WAWebProtobufsE2E.pb",
@@ -99,9 +100,9 @@ __d(
         y = a.musicContentMediaId,
         C = a.musicSongStartTimeInMs,
         b = a.overlapDurationInMs,
-        L = a.songId,
+        v = a.songId,
         E = a.title;
-      if (y == null || L == null || f == null || E == null) return null;
+      if (y == null || v == null || f == null || E == null) return null;
       (i == null &&
         o("WALogger").WARN(
           s ||
@@ -116,14 +117,14 @@ __d(
                 "[music] music message has no artwork uri",
               ])),
           ));
-      var k = S(C);
+      var k = R(C);
       return {
         musicContentMediaId: y,
-        songId: L,
+        songId: v,
         author: f,
         title: E,
-        songUri: v(i, "song"),
-        artworkUri: v(r, "artwork"),
+        songUri: S(i, "song"),
+        artworkUri: S(r, "artwork"),
         style:
           (t = o(
             "WAWebProtobufsE2E.pb",
@@ -131,7 +132,7 @@ __d(
             ? t
             : void 0,
         songStartTimeMs: k != null ? k : void 0,
-        clipDurationMs: (n = R(k, b)) != null ? n : void 0,
+        clipDurationMs: (n = L(k, b)) != null ? n : void 0,
         isExplicit: h,
         countryBlocklist: g,
         artistAttribution: c,
@@ -144,14 +145,35 @@ __d(
     function b(e) {
       return (
         e != null &&
-        e.style ===
-          o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
-            .VINYL &&
         e.songUri != null &&
-        o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled()
+        o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled() &&
+        v(e.style) != null
       );
     }
-    function v(e, t) {
+    function v(e) {
+      return e ===
+        o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.VINYL
+        ? o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.VINYL
+        : e ===
+            o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+              .MESSAGE_BUBBLE
+          ? o("WAWebABProps").getABPropConfigValue(
+              "music_on_chats_style_message_bubble_receiver_enabled",
+            )
+            ? o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+                .MESSAGE_BUBBLE
+            : null
+          : e ===
+                o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+                  .LYRICS &&
+              o("WAWebABProps").getABPropConfigValue(
+                "music_on_chats_style_lyrics_receiver_enabled",
+              )
+            ? o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+                .LYRICS
+            : null;
+    }
+    function S(e, t) {
       if (e != null) {
         var n;
         try {
@@ -197,7 +219,7 @@ __d(
         return e;
       }
     }
-    function S(e) {
+    function R(e) {
       if (e == null) return 0;
       var t = o("WALongInt").maybeNumber(e);
       return t == null || t < 0 || t > _
@@ -212,7 +234,7 @@ __d(
           null)
         : t;
     }
-    function R(e, t) {
+    function L(e, t) {
       if (e == null || t == null) return null;
       var n = o("WALongInt").maybeNumber(t);
       return n == null || n <= 0 || n > _ - e
@@ -232,7 +254,8 @@ __d(
       (l.toMusicMetadata = y),
       (l.toMusicData = C),
       (l.canRenderMusicMessage = b),
-      (l.toAllowedUri = v));
+      (l.renderableMusicStyle = v),
+      (l.toAllowedUri = S));
   },
   98,
 );

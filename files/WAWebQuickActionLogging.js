@@ -66,10 +66,15 @@ __d(
         n = e.numActionsVisible,
         r = e.slotPosition,
         o = e.surface;
-      b(o, t, r, n);
+      b({ actionId: t, numActionsVisible: n, slotPosition: r, surface: o });
     }
     function h(e, t) {
-      b(e, t, null, null);
+      b({
+        actionId: t,
+        numActionsVisible: null,
+        slotPosition: null,
+        surface: e,
+      });
     }
     function y(e, t, n, r) {
       v(e, t, n, r);
@@ -77,22 +82,26 @@ __d(
     function C(e, t) {
       v(e, t, null, null);
     }
-    function b(e, t, n, r) {
-      var a = _(e, t);
-      if (!p.has(a)) {
-        p.add(a);
-        var i = new (o(
+    function b(e) {
+      var t = e.actionId,
+        n = e.numActionsVisible,
+        r = e.slotPosition,
+        a = e.surface,
+        i = _(a, t);
+      if (!p.has(i)) {
+        p.add(i);
+        var l = new (o(
           "WAWebWebcQuickActionWamEvent",
         ).WebcQuickActionWamEvent)();
-        ((i.webcQuickActionEventType = o(
+        ((l.webcQuickActionEventType = o(
           "WAWebWamEnumWebcQuickActionEventType",
         ).WEBC_QUICK_ACTION_EVENT_TYPE.IMPRESSION),
-          (i.webcQuickActionSurface = u[e]),
-          (i.webcQuickActionId = c[t]),
-          n != null && (i.webcQuickActionSlotPosition = n),
-          r != null && (i.webcQuickActionNumVisible = r),
-          (i.webcQuickActionIsCustomized = d),
-          i.commit());
+          (l.webcQuickActionSurface = u[a]),
+          (l.webcQuickActionId = c[t]),
+          r != null && (l.webcQuickActionSlotPosition = r),
+          n != null && (l.webcQuickActionNumVisible = n),
+          (l.webcQuickActionIsCustomized = d),
+          l.commit());
       }
     }
     function v(e, t, n, r) {

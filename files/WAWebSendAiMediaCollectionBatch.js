@@ -9,14 +9,10 @@ __d(
     "WAWebAttachMediaGetters",
     "WAWebBotUtils",
     "WAWebCreateAiMediaCollectionMsgData",
-    "WAWebGetMetaAiImagineEventContext",
-    "WAWebLogImagineAction",
+    "WAWebImagineActionLogger",
     "WAWebMsgKey",
-    "WAWebMsgType",
     "WAWebSendAiMediaCollectionEnvelope",
     "WAWebToastManager",
-    "WAWebWamEnumImagineAction",
-    "WAWebWamEnumImagineMediaType",
     "asyncToGeneratorRuntime",
     "countWhere",
     "react",
@@ -38,7 +34,15 @@ __d(
             l = t.medias,
             s = t.threadId;
           if (l.length !== 0) {
-            f(i, l);
+            o("WAWebImagineActionLogger").logImagineMediaSendConfirm({
+              chat: i,
+              mediaTypes: l.map(function (e) {
+                return e.type;
+              }),
+              origins: l.map(function (e) {
+                return e.fileOrigin;
+              }),
+            });
             var d = yield r("WAWebMsgKey").newId(),
               m = yield o(
                 "WAWebCreateAiMediaCollectionMsgData",
@@ -65,15 +69,15 @@ __d(
                   n,
                 )
                 .sendLogs("ai-media-collection-envelope-send-failed"),
-                h(t));
+                f(t));
               return;
             }
             var p = i.composeQuotedMsg;
             ((i.composeQuotedMsg = null), i.setAttachMediaContents(null));
             var _ = m.botPersonaId,
               g = m.botMetricsMetadata,
-              y = m.aiThreadInfo,
-              C = yield (c || (c = n("Promise"))).allSettled(
+              h = m.aiThreadInfo,
+              y = yield (c || (c = n("Promise"))).allSettled(
                 l.map(function (e, t) {
                   var n = {
                     type: e.type,
@@ -90,7 +94,7 @@ __d(
                       uploadOrderIndex: t,
                     },
                     botMetricsMetadata: g,
-                    aiThreadInfo: y,
+                    aiThreadInfo: h,
                   };
                   return (
                     t === 0 && (n.quotedMsg = p),
@@ -98,10 +102,10 @@ __d(
                   );
                 }),
               ),
-              b = r("countWhere")(C, function (e) {
+              C = r("countWhere")(y, function (e) {
                 return e.status === "fulfilled";
               });
-            b < l.length &&
+            C < l.length &&
               o("WALogger")
                 .ERROR(
                   u ||
@@ -110,7 +114,7 @@ __d(
                       "/",
                       " child send fail; may buffer",
                     ])),
-                  l.length - b,
+                  l.length - C,
                   l.length,
                 )
                 .sendLogs("ai-media-collection-child-send-shortfall");
@@ -119,32 +123,7 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          o("WAWebBotUtils").isMetaAiBot(e.id) &&
-            t.every(function (e) {
-              return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
-            }) &&
-            o("WAWebLogImagineAction").logImagineAction({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_INPUT_SEND_CONFIRM,
-              mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-                .DOCUMENT,
-              maxIndex: t.length,
-              isSent: !0,
-              eventContext: yield o(
-                "WAWebGetMetaAiImagineEventContext",
-              ).getMetaAiImagineEventContext(e),
-            });
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function f(e) {
       var t = new (o("WAWebActionToast.react").ActionType)(
         o("WAWebBotUtils").isMetaAiBot(e.chat.id)
           ? s._(/*BTDS*/ "Couldn't send to Meta AI.")

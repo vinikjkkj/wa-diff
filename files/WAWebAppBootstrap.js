@@ -23,6 +23,7 @@ __d(
     "WAWebFrontendL10nHelpers",
     "WAWebGlobals",
     "WAWebHandlePreviousLogout",
+    "WAWebImagineActionMediaInputLogging",
     "WAWebInfraErrorLogger",
     "WAWebInvocationInterface",
     "WAWebKeyboardShortcuts",
@@ -47,7 +48,7 @@ __d(
     "WAWebWamWorkerSpecificEvents",
     "WAWebWidToJid",
     "WAWebWindowsHybridBridgeInitiator",
-    "WDSTooltipShortcutResolver",
+    "WDSShortcutResolver",
     "asyncToGeneratorRuntime",
     "cr:13019",
     "cr:17219",
@@ -90,7 +91,7 @@ __d(
           (r("WAWebODS").incr("web.app.bootstrap"),
             n("cr:5203") == null || n("cr:5203")(),
             o("WAWebMainThreadLogger").initializeWAWebMainThreadLogger(),
-            o("WDSTooltipShortcutResolver").registerWDSTooltipShortcutResolver(
+            o("WDSShortcutResolver").registerWDSShortcutResolver(
               o("WAWebKeyboardShortcuts").getWDSShortcuts,
             ),
             o("WAWebInfraErrorLogger").addListenerToErrorPubSub(),
@@ -191,6 +192,9 @@ __d(
             o(
               "WAWebBrLastUsedPaymentMethodCache",
             ).initLastUsedBrPaymentMethodCacheLifecycle(),
+            o(
+              "WAWebImagineActionMediaInputLogging",
+            ).initImagineActionMediaInputLogging(),
             n("cr:17677") == null || n("cr:17677").init(),
             o("WALogger").LOG(
               u ||

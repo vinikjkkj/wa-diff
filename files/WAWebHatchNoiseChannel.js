@@ -4,8 +4,10 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBuildConstants",
+    "WAWebHatchAttestationErrors",
     "WAWebHatchNoiseBytes",
     "WAWebHatchNoiseIngressUrl",
+    "WAWebHatchNoiseRvAuth",
     "WAWebHatchNoiseXXInitiator",
     "WAWebMobilePlatforms",
     "asyncToGeneratorRuntime",
@@ -17,7 +19,8 @@ __d(
       s,
       u = 3e4,
       c = 16,
-      d = (function () {
+      d = new Set(["accepted", "accepted_chip_pinned"]),
+      m = (function () {
         function t(e) {
           var t, n, r, a, i, l;
           ((this.$4 = null),
@@ -96,19 +99,30 @@ __d(
                 d = function (t, n) {
                   return s({ cause: n, detail: t, status: "failed" }, !0);
                 },
-                p = !1,
-                _ = function () {
-                  return p ? "ws_dropped" : "unreachable";
+                m = function (n) {
+                  return d(
+                    g(n),
+                    t.$9 ||
+                      o("WAWebHatchAttestationErrors").isHatchAttestationError(
+                        n,
+                      )
+                      ? "attestation_rejected"
+                      : "handshake_failed",
+                  );
                 },
-                f = [],
-                g = function (t) {
+                _ = !1,
+                f = function () {
+                  return _ ? "ws_dropped" : "unreachable";
+                },
+                h = [],
+                y = function (t) {
                   t instanceof ArrayBuffer
-                    ? f.length >= c
+                    ? h.length >= c
                       ? d(
                           "Noise channel received too many early frames",
                           "handshake_failed",
                         )
-                      : f.push(t.slice(0))
+                      : h.push(t.slice(0))
                     : d(
                         "Noise channel received non-binary data",
                         "handshake_failed",
@@ -118,44 +132,53 @@ __d(
                 d("channel closed", "closed");
                 return;
               }
+              var C =
+                r.privateAuth == null
+                  ? null
+                  : {
+                      auth: r.privateAuth,
+                      clientNonce: o(
+                        "WAWebHatchNoiseRvAuth",
+                      ).createNoiseClientNonce(),
+                      message1Hash: null,
+                      notaryToken: r.notaryToken,
+                    };
               try {
-                var h = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl(
-                    babelHelpers.extends({}, r, {
-                      appId: m(),
-                      appVersion: o("WAWebBuildConstants")
-                        .VERSION_BASE_WITH_WINDOWS_BUILD,
-                      requestId: t.$6(),
-                    }),
-                  ),
-                  y = t.$13(h);
-                t.$10 = y;
-                var C = t.$5();
-                ((t.$4 = C),
-                  (y.binaryType = "arraybuffer"),
+                var b = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl({
+                    abraToken: r.abraToken,
+                    notaryToken: C == null ? r.notaryToken : null,
+                    vmId: r.vmId,
+                    appId: p(),
+                    appVersion: o("WAWebBuildConstants")
+                      .VERSION_BASE_WITH_WINDOWS_BUILD,
+                    requestId: t.$6(),
+                  }),
+                  v = t.$13(b);
+                t.$10 = v;
+                var S = t.$5();
+                ((t.$4 = S),
+                  (v.binaryType = "arraybuffer"),
                   (l = t.$7(function () {
                     return d("Noise handshake timed out", "handshake_timeout");
                   }, u)),
-                  (y.onerror = function () {
-                    return d("Noise WebSocket failed", _());
+                  (v.onerror = function () {
+                    return d("Noise WebSocket failed", f());
                   }),
-                  (y.onclose = function () {
-                    return d("Noise WebSocket closed during handshake", _());
+                  (v.onclose = function () {
+                    return d("Noise WebSocket closed during handshake", f());
                   }),
-                  (y.onopen = function () {
-                    ((p = !0),
-                      t.$16(y, C).catch(function () {
-                        return d("Noise handshake failed", "handshake_failed");
-                      }));
+                  (v.onopen = function () {
+                    ((_ = !0), t.$16(v, S, C).catch(m));
                   }));
-                var b = !1;
-                y.onmessage = function (n) {
-                  if (b) {
-                    g(n.data);
+                var R = !1;
+                v.onmessage = function (n) {
+                  if (R) {
+                    y(n.data);
                     return;
                   }
-                  ((b = !0),
+                  ((R = !0),
                     t
-                      .$17(y, C, n.data, f)
+                      .$17(v, S, n.data, h, C)
                       .then(function (n) {
                         if (t.$14) {
                           d("channel closed", "closed");
@@ -171,12 +194,7 @@ __d(
                         ),
                           s({ status: "ready", transport: n }, !1));
                       })
-                      .catch(function () {
-                        return d(
-                          "Noise handshake failed",
-                          t.$9 ? "attestation_rejected" : "handshake_failed",
-                        );
-                      }));
+                      .catch(m));
                 };
               } catch (e) {
                 d("Noise channel setup failed", "setup_failed");
@@ -185,124 +203,152 @@ __d(
           }),
           (a.$16 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
+              function* (e, t, n) {
                 if ((yield t.initialize(), this.$14))
                   throw r("err")(
                     "WAWebHatchNoiseChannel: closed during handshake",
                   );
-                e.send(yield t.writeMessage1());
+                if (n == null) {
+                  e.send(yield t.writeMessage1());
+                  return;
+                }
+                var a = yield t.writeMessage1(
+                  o("WAWebHatchNoiseRvAuth").encodeRvMessage1(n.clientNonce),
+                );
+                ((n.message1Hash = t.handshakeHash().slice()), e.send(a));
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;
           })()),
           (a.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, o) {
-                var a = this;
+              function* (e, t, n, o, a) {
+                var i = this;
                 if ((this.$18(), !(n instanceof ArrayBuffer)))
                   throw r("err")(
                     "WAWebHatchNoiseChannel: expected a binary handshake message",
                   );
-                (yield t.readMessage2(new Uint8Array(n)), this.$18());
-                var i = t.remoteStaticPublicKey();
-                if (i == null || !(yield this.$1(i, t.handshakeHash())))
+                var l = yield t.readMessage2(new Uint8Array(n));
+                this.$18();
+                var s = t.remoteStaticPublicKey();
+                if (s == null)
                   throw (
                     (this.$9 = !0),
                     r("err")("WAWebHatchNoiseChannel: attestation rejected")
                   );
-                (this.$18(), e.send(yield t.writeMessage3()), this.$18());
-                var l = yield t.split(),
-                  s = l[0],
-                  u = l[1];
+                var u =
+                  a == null
+                    ? yield this.$19(s, t)
+                    : yield _(a, l, s, t.handshakeHash().slice());
+                (this.$18(), e.send(yield t.writeMessage3(u)), this.$18());
+                var d = yield t.split(),
+                  m = d[0],
+                  p = d[1];
                 if ((t.destroy(), this.$14))
                   throw (
-                    s.destroy(),
-                    u.destroy(),
+                    m.destroy(),
+                    p.destroy(),
                     r("err")("WAWebHatchNoiseChannel: closed during handshake")
                   );
-                var d = null,
-                  m = !1,
-                  p = null,
-                  _ = function (t) {
+                var f = null,
+                  g = !1,
+                  h = null,
+                  y = function (t) {
                     var e;
-                    p == null &&
-                      ((p = t),
+                    h == null &&
+                      ((h = t),
                       (o.length = 0),
-                      (e = d) == null || e.onFailure(t));
+                      (e = f) == null || e.onFailure(t));
                   },
-                  f = function (t) {
-                    (_(t), a.close());
+                  C = function (t) {
+                    (y(t), i.close());
                   },
-                  g = function () {
-                    if (((o.length = 0), p == null)) {
+                  b = function () {
+                    if (((o.length = 0), h == null)) {
                       var e;
-                      (e = d) == null || e.onClose();
+                      (e = f) == null || e.onClose();
                     }
                   },
-                  h = function (t) {
-                    if (!(p != null || a.$14)) {
+                  v = function (t) {
+                    if (!(h != null || i.$14)) {
                       if (!(t instanceof ArrayBuffer)) {
-                        f("Noise channel received non-binary data");
+                        C("Noise channel received non-binary data");
                         return;
                       }
-                      var e = d;
+                      var e = f;
                       e != null
                         ? e.onMessage(t)
                         : o.length >= c
-                          ? f("Noise channel received too many early frames")
+                          ? C("Noise channel received too many early frames")
                           : o.push(t.slice(0));
                     }
                   },
-                  y = {
+                  S = {
                     attach: function (t) {
-                      if (m)
+                      if (g)
                         throw r("err")(
                           "WAWebHatchNoiseChannel: transport already attached",
                         );
-                      if (((m = !0), p != null)) {
-                        t.onFailure(p);
+                      if (((g = !0), h != null)) {
+                        t.onFailure(h);
                         return;
                       }
-                      if (a.$14) {
+                      if (i.$14) {
                         t.onClose();
                         return;
                       }
-                      d = t;
+                      f = t;
                       var e = o.splice(0);
                       for (var n of e) {
-                        if (p != null || a.$14) break;
+                        if (h != null || i.$14) break;
                         t.onMessage(n);
                       }
                     },
                     close: function () {
-                      return a.close();
+                      return i.close();
                     },
-                    decryptCipher: u,
-                    encryptCipher: s,
+                    decryptCipher: p,
+                    encryptCipher: m,
                     socket: e,
                   };
                 return (
-                  (this.$12 = g),
-                  (this.$11 = y),
+                  (this.$12 = b),
+                  (this.$11 = S),
                   (this.$4 = null),
                   (e.onopen = null),
                   (e.onmessage = function (e) {
-                    return h(e.data);
+                    return v(e.data);
                   }),
                   (e.onerror = function () {
-                    return f("Noise WebSocket failed");
+                    return C("Noise WebSocket failed");
                   }),
                   (e.onclose = function (e) {
-                    e.wasClean ? a.close() : f("Noise WebSocket closed");
+                    e.wasClean ? i.close() : C("Noise WebSocket closed");
                   }),
-                  y
+                  S
                 );
               },
             );
-            function t(t, n, r, o) {
+            function t(t, n, r, o, a) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$19 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                if (!(yield this.$1(e, t.handshakeHash())))
+                  throw (
+                    (this.$9 = !0),
+                    r("err")("WAWebHatchNoiseChannel: attestation rejected")
+                  );
+                return new Uint8Array(0);
+              },
+            );
+            function t(t, n) {
               return e.apply(this, arguments);
             }
             return t;
@@ -338,12 +384,63 @@ __d(
           t
         );
       })();
-    function m() {
+    function p() {
       return o("WAWebMobilePlatforms").isSMB()
         ? (656096963291760).toString()
         : (0x97e965c4439a).toString();
     }
-    ((l.HANDSHAKE_TIMEOUT_MS = u), (l.WAWebHatchNoiseChannel = d));
+    function _(e, t, n, r) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            var i = e.auth,
+              l = e.clientNonce,
+              s = e.message1Hash,
+              u = e.notaryToken,
+              c = o("WAWebHatchNoiseRvAuth").decodeRvChallenge(t);
+            if (s == null)
+              throw r("err")("WAWebHatchNoiseChannel: msg1 hash missing");
+            var m = yield i.verifyAttestation({
+              attestationBundle: c.attestation,
+              clientNonce: l.slice(),
+              serverStaticPublicKey: n,
+            });
+            if (!d.has(m))
+              throw new (o(
+                "WAWebHatchAttestationErrors",
+              ).HatchAttestationError)(
+                "PolicyViolation",
+                "attestation verdict was not accepted",
+              );
+            var p = yield i.resolveRvKey();
+            try {
+              return yield o("WAWebHatchNoiseRvAuth").buildRvMessage3({
+                challenge: c,
+                clientNonce: l,
+                message1Hash: s,
+                message2Hash: a,
+                notaryToken: u,
+                rvKey: p,
+              });
+            } finally {
+              o("WAWebHatchNoiseBytes").zeroBytes(p);
+            }
+          },
+        )),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return e instanceof o("WAWebHatchNoiseRvAuth").WAWebHatchNoiseRvError
+        ? "Noise handshake failed: " + e.code
+        : o("WAWebHatchAttestationErrors").isHatchAttestationError(e)
+          ? "Noise handshake failed: attestation " + e.kind
+          : "Noise handshake failed";
+    }
+    ((l.HANDSHAKE_TIMEOUT_MS = u), (l.WAWebHatchNoiseChannel = m));
   },
   98,
 );

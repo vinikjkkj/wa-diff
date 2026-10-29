@@ -4,8 +4,8 @@ __d(
     "Locale",
     "WALogger",
     "WAWeb-moment",
-    "WAWebBaseL10N",
     "WAWebDebounce",
+    "WAWebEventEmitter",
     "WAWebEventsWaitForMainStreamReadyMd",
     "WAWebL10NCoerceToFBLocale",
     "WAWebL10NConstants",
@@ -207,6 +207,7 @@ __d(
               }),
               R,
             )),
+            a.customizeMoment(),
             (a.$L10n$p_1 = o(
               "WAWebL10nGetRenderedLocale",
             ).WAWebL10nGetRenderedLocale()),
@@ -558,9 +559,16 @@ __d(
           (i.useArabicScriptDigits = function (t) {
             return L.has(t != null ? t : this.getNormalizedLocale());
           }),
+          (i.customizeMoment = function () {
+            var e;
+            ((e = r("WAWeb-moment")).relativeTimeRounding(Math.floor),
+              e.relativeTimeThreshold("s", 60),
+              e.relativeTimeThreshold("m", 60),
+              e.relativeTimeThreshold("h", 24));
+          }),
           a
         );
-      })(o("WAWebBaseL10N").WAWebBaseL10n),
+      })(r("WAWebEventEmitter")),
       A = new w();
     l.default = A;
   },

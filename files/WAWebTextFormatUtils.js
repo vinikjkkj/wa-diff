@@ -1,9 +1,11 @@
 __d(
   "WAWebTextFormatUtils",
   [
+    "invariant",
     "$InternalEnum",
     "Lexical",
     "WAWebABProps",
+    "WAWebBidiParagraphNode",
     "WAWebDelimiterNode",
     "WAWebLexicalUtils",
     "WAWebListBulletNode",
@@ -11,7 +13,7 @@ __d(
     "WAWebQuoteLineUtils",
     "nullthrows",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e = n("$InternalEnum").Mirrored([
         "Bold",
         "Italic",
@@ -23,20 +25,20 @@ __d(
         "NumberedList",
         "Quote",
       ]),
-      s = [e.BulletedList, e.NumberedList, e.Quote],
-      u = 99,
-      c = n("$InternalEnum").Mirrored(["Remove", "Add", "Skip"]);
-    function d() {
+      u = [e.BulletedList, e.NumberedList, e.Quote],
+      c = 99,
+      d = n("$InternalEnum").Mirrored(["Remove", "Add", "Skip"]);
+    function m() {
       var e = o("WAWebLexicalUtils").$getRangeSelection();
       if (!e || !e.isCollapsed()) return null;
       var t = o("Lexical").$createTextNode("");
       e.insertNodes([t]);
       for (
         var n = [t], a = t.getPreviousSibling(), i = t.getNextSibling();
-        a && i;
+        o("Lexical").$isTextNode(a) && o("Lexical").$isTextNode(i);
       ) {
         var l = null;
-        for (var s of x)
+        for (var s of P)
           if (
             a.getTextContent().endsWith(s) &&
             i.getTextContent().startsWith(s)
@@ -55,11 +57,11 @@ __d(
         var m = o("WAWebLexicalUtils").$splitText(i, l.length);
         if (((c = m[0]), (i = m[1]), u && c)) {
           var p,
-            f,
+            _,
             g = o("WAWebDelimiterNode").$createDelimiterNode(l, "open"),
             h = o("WAWebDelimiterNode").$createDelimiterNode(l, "close");
           ((p = u) == null || p.replace(g),
-            (f = c) == null || f.replace(h),
+            (_ = c) == null || _.replace(h),
             (n = [g].concat(n, [h])));
         }
       }
@@ -74,7 +76,7 @@ __d(
           selection: e,
           isMultiLines: !1,
         };
-      var y = _(
+      var y = f(
         n,
         0,
         r("nullthrows")(n[n.length - 1]).getTextContentSize() - 1,
@@ -91,10 +93,10 @@ __d(
           })
         : null;
     }
-    function m() {
+    function p() {
       var e = o("WAWebLexicalUtils").$getRangeSelection();
       if (!e) return null;
-      if (e.isCollapsed()) return d();
+      if (e.isCollapsed()) return m();
       var t = e.getNodes().filter(o("Lexical").$isTextNode);
       if (t.length === 0) return null;
       var n = e.anchor.offset,
@@ -107,7 +109,7 @@ __d(
       var l = t[0],
         s = t[t.length - 1],
         u = l.getParent() !== s.getParent(),
-        c = _(t, n, a);
+        c = f(t, n, a);
       return c
         ? babelHelpers.extends({}, c, {
             startNode: r("nullthrows")(c.selectedNodes[0]),
@@ -120,7 +122,7 @@ __d(
           })
         : null;
     }
-    function p(e, t, n, r, a, i, l) {
+    function _(e, t, n, r, a, i, l) {
       for (var s = t, u = n; ; ) {
         var c = e[s];
         if (c == null || (c === e[r] && u > a)) return null;
@@ -140,7 +142,7 @@ __d(
       }
       return { startNodeIndex: s, startOffset: u };
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r = [].concat(e),
         a = t,
         i = n,
@@ -176,9 +178,9 @@ __d(
           m[n] = ((t = m[n]) != null ? t : 0) + 1;
         }
       });
-      var _ = p(r, l, a, s, i, m, d);
-      if (_ == null) return null;
-      for (l = _.startNodeIndex, a = _.startOffset; ; ) {
+      var p = _(r, l, a, s, i, m, d);
+      if (p == null) return null;
+      for (l = p.startNodeIndex, a = p.startOffset; ; ) {
         var f = r[s];
         if (f == null || (f === r[l] && a > i)) return null;
         if (
@@ -199,7 +201,7 @@ __d(
       }
       return { selectedNodes: r.slice(l, s + 1), startOffset: a, endOffset: i };
     }
-    function f(t, n) {
+    function g(t, n) {
       var r = t.endOffset,
         a = t.isCollapsed,
         i = t.selection,
@@ -218,7 +220,7 @@ __d(
           var m = u.splitText(r + 1);
           u = m[0];
         }
-      var p = $(n),
+      var p = N(n),
         _ = o("WAWebDelimiterNode").$createDelimiterNode(p, "open"),
         f = o("WAWebDelimiterNode").$createDelimiterNode(p, "close");
       (s.insertBefore(_), u.insertAfter(f));
@@ -235,19 +237,19 @@ __d(
         !o("WAWebDelimiterNode").$isDelimiterNode(y) &&
         f.insertAfter(o("Lexical").$createTextNode(" "));
       var b = n !== e.InlineCode && n !== e.Code;
-      P(i, s, u, b);
+      M(i, s, u, b);
     }
-    function g(e, t) {
+    function h(e, t) {
       var n;
       t === void 0 && (t = { keepNumberedList: !1 });
       for (
-        var o = t,
-          a = o.keepNumberedList,
+        var r = t,
+          a = r.keepNumberedList,
           i = e.endNode,
           l = e.startNode,
-          s = r("nullthrows")(l.getParent()),
+          s = v(l),
           u = (n = i.getParent()) == null ? void 0 : n.getNextSibling();
-        s;
+        s instanceof o("WAWebBidiParagraphNode").BidiParagraphNode;
       ) {
         var c = a && !!s.getNumberNode();
         if (!c) {
@@ -260,7 +262,7 @@ __d(
                 : s.getQuoteLineNode();
           if (p) {
             var _ = p.getNextSibling();
-            if ((p.remove(), _)) {
+            if ((p.remove(), o("Lexical").$isTextNode(_))) {
               var f = _.splitText(1),
                 g = f[0];
               g.remove();
@@ -270,68 +272,71 @@ __d(
         if (((s = s.getNextSibling()), s === u)) break;
       }
     }
-    function h(t, n) {
-      var a,
-        i = t.endNode,
-        l = t.startNode,
-        s = r("nullthrows")(l.getParent()),
-        c = (a = i.getParent()) == null ? void 0 : a.getNextSibling(),
+    function y(t, n) {
+      var r,
+        a = t.endNode,
+        i = t.startNode,
+        l = v(i),
+        s = l,
+        u = (r = a.getParent()) == null ? void 0 : r.getNextSibling(),
         d = 1;
       if (n === e.NumberedList) {
         var m,
           p = parseInt(
-            (m = s) == null || (m = m.getNumberNode()) == null
-              ? void 0
-              : m.getTextContent(),
+            (m = l.getNumberNode()) == null ? void 0 : m.getTextContent(),
             10,
           );
         if (p) d = p;
         else {
           var _,
-            f,
-            h = (_ = s) == null ? void 0 : _.getPreviousSibling(),
-            y = parseInt(
-              h == null || (f = h.getNumberNode()) == null
-                ? void 0
-                : f.getTextContent(),
+            f = l.getPreviousSibling(),
+            g = parseInt(
+              f instanceof o("WAWebBidiParagraphNode").BidiParagraphNode
+                ? (_ = f.getNumberNode()) == null
+                  ? void 0
+                  : _.getTextContent()
+                : null,
               10,
             );
-          y && (d = Math.min(y + 1, u));
+          g && (d = Math.min(g + 1, c));
         }
       }
-      for (g(t, { keepNumberedList: n === e.NumberedList }); s; ) {
-        N(s.getFirstChild());
-        var C = s.getFirstChild();
+      for (
+        h(t, { keepNumberedList: n === e.NumberedList });
+        s instanceof o("WAWebBidiParagraphNode").BidiParagraphNode;
+      ) {
+        w(s.getFirstChild());
+        var y = s.getFirstChild();
         if (
-          (!C &&
+          (!y &&
             !t.isMultiLines &&
-            ((C = o("Lexical").$createTextNode("")), s.append(C)),
-          C)
+            ((y = o("Lexical").$createTextNode("")), s.append(y)),
+          y)
         )
           if (n === e.BulletedList)
-            C.insertBefore(
+            y.insertBefore(
               o("WAWebListBulletNode").$createListBulletNode("* "),
             );
           else if (n === e.NumberedList) {
             if (
-              (o("WAWebListNumberNode").$isListNumberNode(C)
-                ? (d = parseInt(C.getTextContent(), 10))
-                : C.insertBefore(
+              (o("WAWebListNumberNode").$isListNumberNode(y)
+                ? (d = parseInt(y.getTextContent(), 10))
+                : y.insertBefore(
                     o("WAWebListNumberNode").$createListNumberNode(d + ". "),
                   ),
               d++,
-              d > u)
+              d > c)
             )
               break;
           } else
             n === e.Quote &&
-              C.insertBefore(
+              y.insertBefore(
                 o("WAWebListNumberNode").$createListNumberNode("> "),
               );
-        if (((s = s.getNextSibling()), s === c)) break;
+        if (((s = s.getNextSibling()), s === u)) break;
       }
     }
-    function y(t) {
+    function C(t) {
       return (
         t === e.Quote &&
         o("WAWebABProps").getABPropConfigValue(
@@ -339,18 +344,18 @@ __d(
         )
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       t === void 0 && (t = !1);
       for (
         var n = e.endNode,
           a = e.startNode,
-          i = r("nullthrows")(a.getParent()),
+          i = v(a),
           l = r("nullthrows")(n.getParent()).getNextSibling(),
-          s = b(i),
+          s = S(i),
           u = [],
           c = [],
           d = i;
-        d && d !== l;
+        d instanceof o("WAWebBidiParagraphNode").BidiParagraphNode && d !== l;
       ) {
         var m = d.getTextContent(),
           p = o("WAWebQuoteLineUtils").isInsideCodeBlock(m);
@@ -364,25 +369,33 @@ __d(
       }
       return u;
     }
-    function b(e) {
+    function v(e) {
+      var t = e.getParent();
+      return (
+        t instanceof o("WAWebBidiParagraphNode").BidiParagraphNode ||
+          s(0, 189089),
+        t
+      );
+    }
+    function S(e) {
       for (var t = [], n = e.getPreviousSibling(); n; )
         (t.push(n.getTextContent()), (n = n.getPreviousSibling()));
       return o("WAWebQuoteLineUtils").isInsideCodeBlock(t.join("\n"));
     }
-    function v(t) {
-      var n = C(
+    function R(t) {
+      var n = b(
         t,
         o("WAWebABProps").getABPropConfigValue(
           "expanded_formatting_multiline_quotes",
         ),
       );
       if (n.length === 0) {
-        h(t, e.Quote);
+        y(t, e.Quote);
         return;
       }
       for (var r of n)
         if (r.getQuoteLineNode() == null) {
-          N(r.getFirstChild());
+          w(r.getFirstChild());
           var a = r.getFirstChild();
           (a == null && ((a = o("Lexical").$createTextNode("")), r.append(a)),
             a.insertBefore(
@@ -392,102 +405,105 @@ __d(
             ));
         }
     }
-    function S(e) {
-      for (var t of C(e)) {
+    function L(e) {
+      for (var t of b(e)) {
         var n = t.getQuoteLineNode();
         if (n) {
           var r = n.getNextSibling();
-          if ((n.remove(), r)) {
-            var o = r.splitText(1),
-              a = o[0];
-            a.remove();
+          if ((n.remove(), o("Lexical").$isTextNode(r))) {
+            var a = r.splitText(1),
+              i = a[0];
+            i.remove();
           }
         }
       }
     }
-    function R(e, t) {
+    function E(e, t) {
       var n = e.endOffset,
         o = e.selectedNodes,
         a = e.selection,
         i = e.startOffset,
-        l = r("nullthrows")(k(o, i, t)),
-        s = r("nullthrows")(I({ format: t, nodes: o, offset: n }));
-      (P(a, l, s), l.remove(), s.remove());
+        l = r("nullthrows")(T(o, i, t)),
+        s = r("nullthrows")(D({ format: t, nodes: o, offset: n }));
+      (M(a, l, s), l.remove(), s.remove());
     }
-    function L(t, n) {
-      var o = t.endNode,
-        a = t.endOffset,
-        i = t.isCollapsed,
-        l = t.isMultiLines,
-        u = t.selectedNodes,
-        d = t.startNode,
-        m = t.startOffset,
-        p = s.includes(n),
-        _ = n === e.Code;
-      if (l && !p && !_) return c.Skip;
-      if (p) {
-        var f = r("nullthrows")(d.getParent()),
-          g = r("nullthrows")(o.getParent()).getNextSibling();
-        if (!l && f.getTextContentSize() === 0) return E(f, n);
-        if (y(n)) {
-          var h = C(t);
-          return h.length === 0
-            ? c.Skip
-            : h.every(function (e) {
+    function k(t, n) {
+      var a = t.endNode,
+        i = t.endOffset,
+        l = t.isCollapsed,
+        s = t.isMultiLines,
+        c = t.selectedNodes,
+        m = t.startNode,
+        p = t.startOffset,
+        _ = u.includes(n),
+        f = n === e.Code;
+      if (s && !_ && !f) return d.Skip;
+      if (_) {
+        var g = v(m),
+          h = r("nullthrows")(a.getParent()).getNextSibling();
+        if (!s && g.getTextContentSize() === 0) return I(g, n);
+        if (C(n)) {
+          var y = b(t);
+          return y.length === 0
+            ? d.Skip
+            : y.every(function (e) {
                   return e.getQuoteLineNode() != null;
                 })
-              ? c.Remove
-              : c.Add;
+              ? d.Remove
+              : d.Add;
         }
-        for (var b = !0, v = f; v; ) {
+        for (
+          var S = !0, R = g;
+          R instanceof o("WAWebBidiParagraphNode").BidiParagraphNode;
+        ) {
           if (
-            v.getTextContentSize() !== 0 &&
-            ((n === e.BulletedList && v.getBulletNode() == null) ||
-              (n === e.NumberedList && v.getNumberNode() == null) ||
-              (n === e.Quote && v.getQuoteLineNode() == null))
+            R.getTextContentSize() !== 0 &&
+            ((n === e.BulletedList && R.getBulletNode() == null) ||
+              (n === e.NumberedList && R.getNumberNode() == null) ||
+              (n === e.Quote && R.getQuoteLineNode() == null))
           ) {
-            b = !1;
+            S = !1;
             break;
           }
-          if (((v = v.getNextSibling()), v === g)) break;
+          if (((R = R.getNextSibling()), R === h)) break;
         }
-        return b ? c.Remove : c.Add;
+        return S ? d.Remove : d.Add;
       }
       if (
-        d !== o &&
-        ((m !== 0 && T([d]).length !== 0) ||
-          (a + 1 !== o.getTextContentSize() && T([o]).length !== 0))
+        m !== a &&
+        ((p !== 0 && x([m]).length !== 0) ||
+          (i + 1 !== a.getTextContentSize() && x([a]).length !== 0))
       )
-        return c.Skip;
-      var S = k(u, m, n),
-        R = I({ format: n, nodes: u, offset: a }),
-        L = !!(S && R);
-      if (!L) {
-        var D = T(i ? [u[0].getPreviousSibling(), u[0].getNextSibling()] : u);
+        return d.Skip;
+      var L = T(c, p, n),
+        E = D({ format: n, nodes: c, offset: i }),
+        k = !!(L && E);
+      if (!k) {
+        var $ = x(l ? [c[0].getPreviousSibling(), c[0].getNextSibling()] : c);
         if (
-          !D.some(function (e) {
+          !$.some(function (e) {
             return e === n;
           }) &&
-          !D.some(function (t) {
+          !$.some(function (t) {
             return t === e.Code || t === e.InlineCode;
           })
         )
-          return c.Add;
+          return d.Add;
       }
-      return L ? c.Remove : c.Skip;
+      return k ? d.Remove : d.Skip;
     }
-    function E(e, t) {
-      return y(t) && b(e) ? c.Skip : c.Add;
+    function I(e, t) {
+      return C(t) && S(e) ? d.Skip : d.Add;
     }
-    function k(e, t, n) {
+    function T(e, t, n) {
       if (t !== 0) return null;
       for (var r of e) {
         if (!o("WAWebDelimiterNode").$isDelimiterNode(r)) break;
-        if (r.getTextContent() === $(n)) return r;
+        if (r.getTextContent() === N(n)) return r;
       }
       return null;
     }
-    function I(e) {
+    function D(e) {
       var t,
         n = e.format,
         r = e.nodes,
@@ -500,11 +516,11 @@ __d(
       for (var i = r.length - 1; i >= 0; i--) {
         var l = r[i];
         if (!o("WAWebDelimiterNode").$isDelimiterNode(l)) break;
-        if (l.getTextContent() === $(n)) return l;
+        if (l.getTextContent() === N(n)) return l;
       }
       return null;
     }
-    function T(t) {
+    function x(t) {
       var n = [];
       return (
         t.forEach(function (t) {
@@ -530,31 +546,31 @@ __d(
         n
       );
     }
-    var D = {};
-    ((D[e.Bold] = "*"),
-      (D[e.Italic] = "_"),
-      (D[e.Strikethrough] = "~"),
-      (D[e.Spoiler] = "||"),
-      (D[e.Code] = "```"),
-      (D[e.InlineCode] = "`"));
-    var x = Array.from(Object.values(D));
-    function $(e) {
-      return r("nullthrows")(D[e]);
-    }
-    function P(e, t, n, a) {
-      a === void 0 && (a = !0);
-      for (
-        var i = t, l = n;
-        a &&
-        o("WAWebDelimiterNode").$isDelimiterNode(i) &&
-        o("WAWebDelimiterNode").$isDelimiterNode(l) &&
-        i.getTextContent() === l.getTextContent();
-      )
-        ((i = r("nullthrows")(i.getNextSibling())),
-          (l = r("nullthrows")(l.getPreviousSibling())));
-      e.setTextNodeRange(i, 0, l, l.getTextContentSize());
-    }
+    var $ = {};
+    (($[e.Bold] = "*"),
+      ($[e.Italic] = "_"),
+      ($[e.Strikethrough] = "~"),
+      ($[e.Spoiler] = "||"),
+      ($[e.Code] = "```"),
+      ($[e.InlineCode] = "`"));
+    var P = Array.from(Object.values($));
     function N(e) {
+      return r("nullthrows")($[e]);
+    }
+    function M(e, t, n, r) {
+      r === void 0 && (r = !0);
+      for (
+        var a = t, i = n;
+        r &&
+        o("WAWebDelimiterNode").$isDelimiterNode(a) &&
+        o("WAWebDelimiterNode").$isDelimiterNode(i) &&
+        a.getTextContent() === i.getTextContent();
+      )
+        ((a = o("WAWebLexicalUtils").assertTextNode(a.getNextSibling())),
+          (i = o("WAWebLexicalUtils").assertTextNode(i.getPreviousSibling())));
+      e.setTextNodeRange(a, 0, i, i.getTextContentSize());
+    }
+    function w(e) {
       if (e) {
         var t = e.getTextContent(),
           n = t.trimStart();
@@ -563,40 +579,40 @@ __d(
           return;
         }
         var r = t.length - n.length;
-        if (r !== 0) {
-          var o = e.splitText(r),
-            a = o[0];
-          a.remove();
+        if (!(r === 0 || !o("Lexical").$isTextNode(e))) {
+          var a = e.splitText(r),
+            i = a[0];
+          i.remove();
         }
       }
     }
-    function M(e) {
-      var t = m();
+    function A(e) {
+      var t = p();
       if (!t) return !1;
-      var n = L(t, e);
-      if (s.includes(e))
+      var n = k(t, e);
+      if (u.includes(e))
         switch (n) {
-          case c.Add:
-            return (y(e) ? v(t) : h(t, e), !0);
-          case c.Remove:
-            return (y(e) ? S(t) : g(t), !0);
-          case c.Skip:
+          case d.Add:
+            return (C(e) ? R(t) : y(t, e), !0);
+          case d.Remove:
+            return (C(e) ? L(t) : h(t), !0);
+          case d.Skip:
             return !1;
         }
-      switch (L(t, e)) {
-        case c.Add:
-          return (f(t, e), !0);
-        case c.Remove:
-          return (R(t, e), !0);
-        case c.Skip:
+      switch (k(t, e)) {
+        case d.Add:
+          return (g(t, e), !0);
+        case d.Remove:
+          return (E(t, e), !0);
+        case d.Skip:
           return !1;
       }
     }
     ((l.TextFormatType = e),
-      (l.TextFormatActionType = c),
-      (l.$normalizeTextSelection = m),
-      (l.$getTextFormatAction = L),
-      (l.$toggleTextFormat = M));
+      (l.TextFormatActionType = d),
+      (l.$normalizeTextSelection = p),
+      (l.$getTextFormatAction = k),
+      (l.$toggleTextFormat = A));
   },
   98,
 );

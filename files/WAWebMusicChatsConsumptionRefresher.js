@@ -1,6 +1,7 @@
 __d(
   "WAWebMusicChatsConsumptionRefresher",
   [
+    "WALongInt",
     "WATimeUtils",
     "WAWebAsISOCountryCode",
     "WAWebBackendApi",
@@ -8,7 +9,9 @@ __d(
     "WAWebFetchMusicChatsConsumption",
     "WAWebL10NCountryCodes",
     "WAWebMsgType",
+    "WAWebMusicLyricsUtils",
     "WAWebMusicParsingUtils",
+    "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -35,22 +38,31 @@ __d(
           var i = o("WATimeUtils").unixTime(),
             l = yield d(t, (n == null ? void 0 : n.force) === !0, i);
           if (l.length === 0) return !1;
-          var s = yield o(
-            "WAWebFetchMusicChatsConsumption",
-          ).fetchMusicChatsConsumption(
-            l.map(function (e) {
+          var s = l.some(function (e) {
               var t = e.musicData;
-              return t.musicContentMediaId;
+              return (
+                t.style ===
+                o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+                  .LYRICS
+              );
             }),
-            a,
-          );
-          if (s == null) return !1;
-          var u = new Map(
-              s.map(function (e) {
+            u = yield o(
+              "WAWebFetchMusicChatsConsumption",
+            ).fetchMusicChatsConsumption(
+              l.map(function (e) {
+                var t = e.musicData;
+                return t.musicContentMediaId;
+              }),
+              a,
+              s,
+            );
+          if (u == null) return !1;
+          var c = new Map(
+              u.map(function (e) {
                 return [e.mediaId, e];
               }),
             ),
-            c = yield d(
+            m = yield d(
               l.map(function (e) {
                 var t = e.msg;
                 return t.id.toString();
@@ -58,17 +70,17 @@ __d(
               (n == null ? void 0 : n.force) === !0,
               i,
             ),
-            m = c
+            p = m
               .map(function (e) {
-                return _(e, u.get(e.musicData.musicContentMediaId), i);
+                return _(e, c.get(e.musicData.musicContentMediaId), i);
               })
               .filter(Boolean);
-          return m.length === 0
+          return p.length === 0
             ? !1
             : (yield o("WAWebSchemaMessage")
                 .getMessageTable()
                 .bulkMergeOnly(
-                  m.map(function (e) {
+                  p.map(function (e) {
                     var t = e.msgKey,
                       n = e.msgRowOpaqueData;
                     return { id: t, msgRowOpaqueData: n };
@@ -77,7 +89,7 @@ __d(
               o("WAWebBackendApi").frontendFireAndForget(
                 "updateMusicMsgConsumption",
                 {
-                  updates: m.map(function (t) {
+                  updates: p.map(function (t) {
                     var n = t.msgRowOpaqueData,
                       r = babelHelpers.objectWithoutPropertiesLoose(t, e);
                     return r;
@@ -126,29 +138,67 @@ __d(
         l = e.msg,
         s = e.musicData;
       if (t == null) return null;
-      var u = babelHelpers.extends({}, s, {
-          songUri:
-            (r = o("WAWebMusicParsingUtils").toAllowedUri(t.songUri, "song")) !=
-            null
-              ? r
-              : s.songUri,
-          artworkUri:
-            (a = o("WAWebMusicParsingUtils").toAllowedUri(
-              t.artworkUri,
-              "artwork",
-            )) != null
-              ? a
-              : s.artworkUri,
-          consumptionCheckedAtS: n,
-          isAvailableForConsumption:
-            (i = t.isAvailable) != null ? i : s.isAvailableForConsumption,
-        }),
+      var u = babelHelpers.extends(
+          {},
+          s,
+          {
+            songUri:
+              (r = o("WAWebMusicParsingUtils").toAllowedUri(
+                t.songUri,
+                "song",
+              )) != null
+                ? r
+                : s.songUri,
+            artworkUri:
+              (a = o("WAWebMusicParsingUtils").toAllowedUri(
+                t.artworkUri,
+                "artwork",
+              )) != null
+                ? a
+                : s.artworkUri,
+            consumptionCheckedAtS: n,
+            isAvailableForConsumption:
+              (i = t.isAvailable) != null ? i : s.isAvailableForConsumption,
+          },
+          f(s, t.lyrics, n),
+        ),
         c = o("WAWebDBMessageSerialization").dbRowFromMessage(
           babelHelpers.extends({}, l, { musicData: u }),
           { storeReportingInfo: !0 },
         ),
         d = c.msgRowOpaqueData;
       return { msgKey: l.id.toString(), msgRowOpaqueData: d, musicData: u };
+    }
+    function f(e, t, n) {
+      var r, a, i;
+      if (
+        e.style !==
+        o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.LYRICS
+      )
+        return {};
+      if (t == null)
+        return o("WAWebMusicLyricsUtils").areLyricsExpired(e, n)
+          ? { lyrics: [] }
+          : {};
+      if (!t.available) return { lyrics: [], lyricsConfirmedAtS: n };
+      var l = (r = e.songStartTimeMs) != null ? r : 0,
+        s = l + ((a = e.clipDurationMs) != null ? a : 0),
+        u = t.lines.filter(function (e) {
+          var t = o("WALongInt").maybeNumber(e.startTimeInMs),
+            n = o("WALongInt").maybeNumber(e.endTimeInMs);
+          return t == null || n == null || (n > l && t < s);
+        });
+      return {
+        lyrics:
+          (i = o("WAWebMusicLyricsUtils").toMusicLyrics(
+            { lines: u },
+            e.songStartTimeMs,
+            e.clipDurationMs,
+          )) != null
+            ? i
+            : [],
+        lyricsConfirmedAtS: n,
+      };
     }
     l.refreshMusicChatsConsumption = u;
   },

@@ -74,6 +74,10 @@ __d(
       CALL_LOG_MULTI_SELECT_TOOLBAR: 69,
       CALL_LOG_SWIPE: 70,
       CALL_LOG_CLEAR_ALL: 71,
+      KEYBOARD_SHORTCUT: 72,
+      POPOUT_WINDOW: 73,
+      DOC_PIP_WINDOW: 74,
+      MINI_PLAYER: 75,
     });
     i.SUB_SURFACE = e;
   },

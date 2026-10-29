@@ -866,8 +866,9 @@ __d(
                   }),
                 },
               ),
-            se(
-              {
+            se({
+              arrival: t,
+              callMessage: {
                 from: i,
                 message: l,
                 node: e,
@@ -875,9 +876,8 @@ __d(
                 stanzaId: c,
                 voipNode: d,
               },
-              m,
-              t,
-            )
+              staleCallStanza: m,
+            })
           );
         })),
         ie.apply(this, arguments)
@@ -890,32 +890,33 @@ __d(
         !j(e) &&
         o("WAWebVoipColdPathEarlyStart").startVoipColdPathEarly("incoming", n);
     }
-    function se(e, t, n) {
+    function se(e) {
       return ue.apply(this, arguments);
     }
     function ue() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            if (t != null) return ce(t, e);
-            var r = yield K(e.message, e.payloadTag, n);
-            return r === "reload_required"
-              ? (o("WALogger").LOG(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: retaining call stanza until user reloads, type=",
-                      "",
-                    ])),
-                  e.payloadTag,
-                ),
-                "NO_ACK")
-              : re(
-                  babelHelpers.extends({}, e, {
-                    canUseVoipStack: r === "available",
-                  }),
-                );
-          },
-        )),
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.arrival,
+            n = e.callMessage,
+            r = e.staleCallStanza;
+          if (r != null) return ce(r, n);
+          var a = yield K(n.message, n.payloadTag, t);
+          return a === "reload_required"
+            ? (o("WALogger").LOG(
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: retaining call stanza until user reloads, type=",
+                    "",
+                  ])),
+                n.payloadTag,
+              ),
+              "NO_ACK")
+            : re(
+                babelHelpers.extends({}, n, {
+                  canUseVoipStack: a === "available",
+                }),
+              );
+        })),
         ue.apply(this, arguments)
       );
     }

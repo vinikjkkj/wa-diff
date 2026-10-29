@@ -1,7 +1,10 @@
 __d(
   "WAWebSharableEventNotificationHandler",
   [
+    "JSResourceForInteraction",
     "WALogger",
+    "WAWebLazyLoadedRetriable",
+    "WAWebMexSharableEventGuestJoinedWaNotifications",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventNotificationConstants",
     "WAWebSharableEventResolveSender",
@@ -11,8 +14,24 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _ = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return r("JSResourceForInteraction")(
+            "WAWebSharableEventNotificationPersistence",
+          )
+            .__setRef("WAWebSharableEventNotificationHandler")
+            .load();
+        }),
+        "WAWebSharableEventNotificationPersistence",
+      );
+    function f(e) {
       return e === "ACTIVE"
         ? o("WAWebSharableEventNotificationConstants").SharableEventStatus
             .Active
@@ -24,7 +43,7 @@ __d(
                 .Suspended
             : null;
     }
-    function _(e) {
+    function g(e) {
       return e === "GOING"
         ? o("WAWebSharableEventNotificationConstants")
             .SharableEventNotificationRsvpStatus.Going
@@ -39,7 +58,7 @@ __d(
                   .SharableEventNotificationRsvpStatus.NoResponse
               : null;
     }
-    function f(e) {
+    function h(e) {
       return e === "DELETED_BY_HOST"
         ? o("WAWebSharableEventNotificationConstants").SharableEventDeleteReason
             .DeletedByHost
@@ -48,14 +67,14 @@ __d(
               .SharableEventDeleteReason.Expired
           : null;
     }
-    function g(e) {
+    function y(e) {
       return e === "EVENT_STARTED"
         ? o("WAWebSharableEventNotificationConstants").SharableEventReminderType
             .EventStarted
         : o("WAWebSharableEventNotificationConstants").SharableEventReminderType
             .EventStartingSoon;
     }
-    function h(t, n, r) {
+    function C(t, n, r) {
       return o("WAWebUserPrefsMeUser").isMeAccount(n)
         ? (o("WALogger").LOG(
             e ||
@@ -70,12 +89,12 @@ __d(
           !0)
         : !1;
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.body,
             n = e.eventId,
             r = e.senderWid,
@@ -88,30 +107,36 @@ __d(
             i,
           );
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    var b = 60;
-    function v(e) {
+    var S = 60;
+    function R(e) {
       if (e == null) return 0;
       var t = Math.floor(Date.now() / 1e3),
         n = Math.max(0, e - t);
-      return Math.floor(n / b);
+      return Math.floor(n / S);
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function R() {
+    function E() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.apply,
             n = e.extract,
-            a = e.response,
-            i = e.scope;
+            a = e.persist,
+            i = e.response,
+            l = e.scope;
           if (
+            (a != null &&
+              o(
+                "WAWebSharableEventGatingUtils",
+              ).isEventsV2OnCompanionEnabled() &&
+              (yield a(i)),
             !o(
               "WAWebSharableEventGatingUtils",
-            ).isSharableEventNotificationsEnabled()
+            ).isSharableEventNotificationsEnabled())
           ) {
             o("WALogger").LOG(
               s ||
@@ -119,24 +144,24 @@ __d(
                   "[sharable_event][mex][",
                   "] notifications-disabled-ack-only",
                 ])),
-              i,
+              l,
             );
             return;
           }
-          var l = n(a);
-          if (l == null) {
+          var m = n(i);
+          if (m == null) {
             o("WALogger").WARN(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[sharable_event][mex][",
                   "] response-extract-failed",
                 ])),
-              i,
+              l,
             );
             return;
           }
           try {
-            (yield t(l),
+            (yield t(m),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -144,8 +169,8 @@ __d(
                     "] apply eventId=",
                     "",
                   ])),
-                i,
-                l.eventId,
+                l,
+                m.eventId,
               ));
           } catch (e) {
             o("WALogger")
@@ -155,24 +180,37 @@ __d(
                     "[sharable_event][mex][",
                     "] apply failed",
                   ])),
-                i,
+                l,
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("sharable-event-mex-apply-failed");
           }
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return L({
             scope: "invite",
             response: t,
+            persist: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = yield _(),
+                    n = t.persistSharableEventInviteNotification;
+                  yield n(e.xwa2_notify_event_on_invite);
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
             extract: function (t) {
               var e,
                 n =
@@ -192,25 +230,38 @@ __d(
             })(),
           });
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return L({
             scope: "update",
             response: t,
+            persist: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = yield _(),
+                    n = t.persistSharableEventUpdateNotification;
+                  yield n(e.xwa2_notify_event_on_update);
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
             extract: function (t) {
               var e = t.xwa2_notify_event_on_update;
               return {
                 eventId: e.event_id,
                 eventName: e.event_name,
                 creatorLid: e.creator_lid,
-                eventStatus: p(e.event_status),
+                eventStatus: f(e.event_status),
               };
             },
             apply: (function () {
@@ -246,71 +297,14 @@ __d(
                     var n = o(
                       "WAWebSharableEventResolveSender",
                     ).normalizeSharableEventSenderLid(e.creatorLid);
-                    h("update", n, e.eventId) ||
-                      (yield y({
+                    C("update", n, e.eventId) ||
+                      (yield b({
                         type: o("WAWebSharableEventNotificationConstants")
                           .SharableEventNotificationType.Update,
                         eventId: e.eventId,
                         title: t,
                         body: { kind: "update", eventName: t },
                         senderWid: n,
-                      }));
-                  }
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-          });
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
-            scope: "rsvp",
-            response: t,
-            extract: function (t) {
-              var e = t.xwa2_notify_event_on_rsvp;
-              return {
-                eventId: e.event_id,
-                eventName: e.event_name,
-                inviteeLid: e.invitee_lid,
-                rsvpStatus: _(e.rsvp_status),
-              };
-            },
-            apply: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.eventName,
-                    n = e.rsvpStatus;
-                  if (
-                    !(
-                      t == null ||
-                      n == null ||
-                      n ===
-                        o("WAWebSharableEventNotificationConstants")
-                          .SharableEventNotificationRsvpStatus.NoResponse
-                    )
-                  ) {
-                    var r = o(
-                      "WAWebSharableEventResolveSender",
-                    ).normalizeSharableEventSenderLid(e.inviteeLid);
-                    h("rsvp", r, e.eventId) ||
-                      (yield y({
-                        type: o("WAWebSharableEventNotificationConstants")
-                          .SharableEventNotificationType.Rsvp,
-                        eventId: e.eventId,
-                        title: t,
-                        body: { kind: "rsvp", eventName: t, rsvp: n },
-                        senderWid: r,
                       }));
                   }
                 },
@@ -331,51 +325,43 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
-            scope: "delete",
+          return L({
+            scope: "rsvp",
             response: t,
             extract: function (t) {
-              var e = t.xwa2_notify_event_on_delete;
+              var e = t.xwa2_notify_event_on_rsvp;
               return {
                 eventId: e.event_id,
                 eventName: e.event_name,
-                creatorLid: e.creator_lid,
-                deleteReason: f(e.delete_reason),
+                inviteeLid: e.invitee_lid,
+                rsvpStatus: g(e.rsvp_status),
               };
             },
             apply: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  var t = e.eventName;
-                  if (t != null) {
-                    if (
-                      e.deleteReason ===
-                      o("WAWebSharableEventNotificationConstants")
-                        .SharableEventDeleteReason.Expired
-                    ) {
-                      o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "[sharable_event][mex][",
-                            "] expired-skip eventId=",
-                            "",
-                          ])),
-                        "delete",
-                        e.eventId,
-                      );
-                      return;
-                    }
-                    var n = o(
+                  var t = e.eventName,
+                    n = e.rsvpStatus;
+                  if (
+                    !(
+                      t == null ||
+                      n == null ||
+                      n ===
+                        o("WAWebSharableEventNotificationConstants")
+                          .SharableEventNotificationRsvpStatus.NoResponse
+                    )
+                  ) {
+                    var r = o(
                       "WAWebSharableEventResolveSender",
-                    ).normalizeSharableEventSenderLid(e.creatorLid);
-                    h("delete", n, e.eventId) ||
-                      (yield y({
+                    ).normalizeSharableEventSenderLid(e.inviteeLid);
+                    C("rsvp", r, e.eventId) ||
+                      (yield b({
                         type: o("WAWebSharableEventNotificationConstants")
-                          .SharableEventNotificationType.Delete,
+                          .SharableEventNotificationType.Rsvp,
                         eventId: e.eventId,
                         title: t,
-                        body: { kind: "delete", eventName: t },
-                        senderWid: n,
+                        body: { kind: "rsvp", eventName: t, rsvp: n },
+                        senderWid: r,
                       }));
                   }
                 },
@@ -396,41 +382,81 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
-            scope: "reminder",
+          return L({
+            scope: "delete",
             response: t,
+            persist: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = e.xwa2_notify_event_on_delete.event_id;
+                  try {
+                    var n = yield _(),
+                      a = n.persistSharableEventDeleteNotification;
+                    yield a(t);
+                  } catch (e) {
+                    o("WALogger")
+                      .WARN(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "[sharable_event][mex][delete] persist failed eventId=",
+                            "",
+                          ])),
+                        t,
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("sharable-event-mex-delete-persist-failed");
+                  }
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
             extract: function (t) {
-              var e = t.xwa2_notify_event_on_reminder;
+              var e = t.xwa2_notify_event_on_delete;
               return {
                 eventId: e.event_id,
                 eventName: e.event_name,
-                startTsSec: e.start_ts_sec,
-                reminderType: g(e.reminder_type),
+                creatorLid: e.creator_lid,
+                deleteReason: h(e.delete_reason),
               };
             },
             apply: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  var t = e.eventName,
-                    n = e.reminderType;
-                  t == null ||
-                    n == null ||
-                    (yield o(
-                      "WAWebSharableEventShowNotificationBridge",
-                    ).showSharableEventNotificationFromBackend(
-                      {
+                  var t = e.eventName;
+                  if (t != null) {
+                    if (
+                      e.deleteReason ===
+                      o("WAWebSharableEventNotificationConstants")
+                        .SharableEventDeleteReason.Expired
+                    ) {
+                      o("WALogger").LOG(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "[sharable_event][mex][",
+                            "] expired-skip eventId=",
+                            "",
+                          ])),
+                        "delete",
+                        e.eventId,
+                      );
+                      return;
+                    }
+                    var n = o(
+                      "WAWebSharableEventResolveSender",
+                    ).normalizeSharableEventSenderLid(e.creatorLid);
+                    C("delete", n, e.eventId) ||
+                      (yield b({
+                        type: o("WAWebSharableEventNotificationConstants")
+                          .SharableEventNotificationType.Delete,
                         eventId: e.eventId,
                         title: t,
-                        body: {
-                          kind: "reminder",
-                          reminderType: n,
-                          minutesUntilStart: v(e.startTsSec),
-                        },
-                        senderWidString: null,
-                      },
-                      o("WAWebSharableEventNotificationConstants")
-                        .SharableEventNotificationType.Reminder,
-                    ));
+                        body: { kind: "delete", eventName: t },
+                        senderWid: n,
+                      }));
+                  }
                 },
               );
               function t(t) {
@@ -449,9 +475,75 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
+          return L({
+            scope: "reminder",
+            response: t,
+            extract: function (t) {
+              var e = t.xwa2_notify_event_on_reminder;
+              return {
+                eventId: e.event_id,
+                eventName: e.event_name,
+                startTsSec: e.start_ts_sec,
+                reminderType: y(e.reminder_type),
+              };
+            },
+            apply: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = e.eventName,
+                    n = e.reminderType;
+                  t == null ||
+                    n == null ||
+                    (yield o(
+                      "WAWebSharableEventShowNotificationBridge",
+                    ).showSharableEventNotificationFromBackend(
+                      {
+                        eventId: e.eventId,
+                        title: t,
+                        body: {
+                          kind: "reminder",
+                          reminderType: n,
+                          minutesUntilStart: R(e.startTsSec),
+                        },
+                        senderWidString: null,
+                      },
+                      o("WAWebSharableEventNotificationConstants")
+                        .SharableEventNotificationType.Reminder,
+                    ));
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
+          });
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e, t) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return L({
             scope: "invite-remove",
             response: t,
+            persist: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = yield _(),
+                    n = t.persistSharableEventInviteRemoveNotification;
+                  yield n(e.xwa2_notify_event_on_invite_remove);
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
             extract: function (t) {
               var e = t.xwa2_notify_event_on_invite_remove;
               return {
@@ -471,15 +563,54 @@ __d(
             })(),
           });
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    ((l.mexHandleSharableEventInviteNotification = L),
-      (l.mexHandleSharableEventUpdateNotification = k),
-      (l.mexHandleSharableEventRsvpNotification = T),
-      (l.mexHandleSharableEventDeleteNotification = x),
-      (l.mexHandleSharableEventReminderNotification = P),
-      (l.mexHandleSharableEventInviteRemoveNotification = M));
+    function O(e, t) {
+      return B.apply(this, arguments);
+    }
+    function B() {
+      return (
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return L({
+            scope: "guest-joined-wa",
+            response: t,
+            extract: o("WAWebMexSharableEventGuestJoinedWaNotifications")
+              .toGuestJoinedWaNotificationData,
+            apply: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t;
+                  e.isUserVisible === !0 &&
+                    (yield b({
+                      type: o("WAWebSharableEventNotificationConstants")
+                        .SharableEventNotificationType.GuestJoinedWa,
+                      eventId: e.eventId,
+                      title: (t = e.guestName) != null ? t : "",
+                      body: { kind: "guestJoinedWa", guestName: e.guestName },
+                      senderWid: o(
+                        "WAWebSharableEventResolveSender",
+                      ).normalizeSharableEventSenderLid(e.inviteeLid),
+                    }));
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
+          });
+        })),
+        B.apply(this, arguments)
+      );
+    }
+    ((l.mexHandleSharableEventInviteNotification = k),
+      (l.mexHandleSharableEventUpdateNotification = T),
+      (l.mexHandleSharableEventRsvpNotification = x),
+      (l.mexHandleSharableEventDeleteNotification = P),
+      (l.mexHandleSharableEventReminderNotification = M),
+      (l.mexHandleSharableEventInviteRemoveNotification = A),
+      (l.mexHandleSharableEventGuestJoinedWaNotification = O));
   },
   98,
 );

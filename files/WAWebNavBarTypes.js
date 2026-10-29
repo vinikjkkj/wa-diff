@@ -27,6 +27,7 @@ __d(
       OrgAdmin: "orgAdmin",
       GroupAdmin: "groupAdmin",
       ContactsAndGroups: "contactsAndGroups",
+      Events: "events",
     });
     i.NavBarItems = e;
   },

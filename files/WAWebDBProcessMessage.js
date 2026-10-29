@@ -200,25 +200,24 @@ __d(
                           .tags("messaging"),
                         new h()
                       );
-                    var i = e.from,
-                      l = babelHelpers.extends({}, e);
-                    (a.t != null && (l.t = a.t),
-                      a.ack > e.ack && (l.ack = a.ack),
+                    var i = babelHelpers.extends({}, e);
+                    (a.t != null && (i.t = a.t),
+                      a.ack > e.ack && (i.ack = a.ack),
                       a.serverStoreTimeMicros != null &&
-                        (l.serverStoreTimeMicros = a.serverStoreTimeMicros));
-                    var s = o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
-                      msg: o("WAWebDBMessageSerialization").dbRowFromMessage(l),
-                      chatId: i.toString(),
-                      hasLink: o("WAWebLinkify").hasHttpLink(l),
+                        (i.serverStoreTimeMicros = a.serverStoreTimeMicros));
+                    var l = o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
+                      msg: o("WAWebDBMessageSerialization").dbRowFromMessage(i),
+                      chatId: e.id.remote.toString(),
+                      hasLink: o("WAWebLinkify").hasHttpLink(i),
                       rowId: void 0,
                       inChatMsgId: void 0,
                       pendingReadReceipt: a.pendingReadReceipt,
                     });
                     if (
-                      ((s.rowId = a.rowId),
-                      (s.internalId = a.internalId),
-                      R(s, a),
-                      s.rowId == null || s.internalId == null)
+                      ((l.rowId = a.rowId),
+                      (l.internalId = a.internalId),
+                      R(l, a),
+                      l.rowId == null || l.internalId == null)
                     )
                       throw r("err")(
                         "[messaging] updateMessage: msgId::" +
@@ -226,7 +225,7 @@ __d(
                           ", missing rowId or internalId",
                       );
                     return (
-                      yield n.createOrReplace(s),
+                      yield n.createOrReplace(l),
                       o("WAWebCommonMsgUtils").isPlaceholderMsg(a.type) &&
                         o(
                           "WAWebHandlePlaceholderWam",
@@ -234,7 +233,7 @@ __d(
                           o("WAWebDBMessageSerialization").messageFromDbRow(a),
                         ]),
                       y([e]),
-                      l
+                      i
                     );
                   },
                 );

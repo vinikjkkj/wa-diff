@@ -347,7 +347,7 @@ __d(
             var u;
             ((t.controllerName = s.controller_name),
               (u = e.environment.controllerNavigationLogger) == null ||
-                u.setCurrentController(s.controller_name));
+                u.setCurrentController(s.controller_name, "navigation"));
           }
           var c = o("WebBloksPayloadParser").parseTree(
             { layout: { bloks_payload: r } },

@@ -25,9 +25,11 @@ __d(
       E = c("countGoing"),
       k = c("countMaybe"),
       I = c("countNotGoing"),
-      T = c("totalInvitedCount"),
-      D = c("unseenChangeFlags"),
-      x = u(
+      T = c("countNoResponse"),
+      D = c("totalInvitedCount"),
+      x = c("isScheduledCall"),
+      $ = c("unseenChangeFlags"),
+      P = u(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -57,9 +59,11 @@ __d(
       (l.getSharableEventCountGoing = E),
       (l.getSharableEventCountMaybe = k),
       (l.getSharableEventCountNotGoing = I),
-      (l.getSharableEventTotalInvitedCount = T),
-      (l.getSharableEventUnseenChangeFlags = D),
-      (l.getSharableEventEffectiveEndTsSec = x));
+      (l.getSharableEventCountNoResponse = T),
+      (l.getSharableEventTotalInvitedCount = D),
+      (l.getSharableEventIsScheduledCall = x),
+      (l.getSharableEventUnseenChangeFlags = $),
+      (l.getSharableEventEffectiveEndTsSec = P));
   },
   98,
 );

@@ -587,64 +587,66 @@ __d(
             l = e.strictJpegScanValidationEnabled,
             s = e.strictMp4ValidationEnabled,
             u = e.strictOggOpusValidationEnabled,
-            c = ae();
+            c = e.zipArchiveCheckEnabled,
+            d = ae();
           q().INFO(
             I ||
               (I = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classifiy in worker, requestId: ",
                 "",
               ])),
-            c,
+            d,
           );
-          var d = yield H.getNextConnectedPortWithTimeout(t);
-          if (!d.success)
+          var m = yield H.getNextConnectedPortWithTimeout(t);
+          if (!m.success)
             return {
               transferredBuffer: r,
-              result: o("WAResultOrError").makeError({ errorName: d.error }),
+              result: o("WAResultOrError").makeError({ errorName: m.error }),
             };
-          var m = d.value;
+          var p = m.value;
           return ie(
-            m,
+            p,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = m.onMessageOnce(
+              var e = p.onMessageOnce(
                 "kaleidoscopeClassifyResponse",
                 function (e) {
-                  return e.requestId === c;
+                  return e.requestId === d;
                 },
               );
-              (m.postMessage(
+              (p.postMessage(
                 {
                   mediaType: a,
                   rawMimeType: i,
                   strictJpegScanValidationEnabled: l,
                   strictOggOpusValidationEnabled: u,
                   strictMp4ValidationEnabled: s,
+                  zipArchiveCheckEnabled: c,
                   input: r,
-                  requestId: c,
+                  requestId: d,
                   type: "kaleidoscopeClassifyRequest",
                 },
                 [r],
               ),
                 t.addPoint("sent_request_to_media_worker_start"));
               var n = yield e,
-                d = n.output,
-                p = n.transferredBuffer;
-              return d.success
+                m = n.output,
+                _ = n.transferredBuffer;
+              return m.success
                 ? (q().INFO(
                     T ||
                       (T = babelHelpers.taggedTemplateLiteralLoose([
                         "received output from worker, requestId: ",
                         "",
                       ])),
-                    c,
+                    d,
                   ),
                   t == null || t.addPoint("sent_request_to_media_worker_end"),
-                  { transferredBuffer: p, result: d })
+                  { transferredBuffer: _, result: m })
                 : (t.addPoint("sent_request_to_media_worker_fail"),
                   {
-                    transferredBuffer: p,
+                    transferredBuffer: _,
                     result: o("WAResultOrError").makeError({
-                      errorName: d.error,
+                      errorName: m.error,
                     }),
                   });
             }),

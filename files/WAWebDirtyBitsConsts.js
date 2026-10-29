@@ -8,6 +8,7 @@ __d(
         syncd_app_state: "syncd_app_state",
         newsletter_metadata: "newsletter_metadata",
         orgs: "orgs",
+        event_metadata: "event_metadata",
       },
       l = {
         devices: "devices",

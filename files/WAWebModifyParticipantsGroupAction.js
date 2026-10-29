@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebActionToast.react",
+    "WAWebBackendErrors",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
     "WAWebGroupAddResultDialogs.react",
@@ -15,8 +16,8 @@ __d(
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupStringsAction",
+    "WAWebIncompatibleAgentRequestsRejectTriggers",
     "WAWebJidToWid",
-    "WAWebMembershipApprovalRequestAction",
     "WAWebMiscErrors",
     "WAWebModalManager",
     "WAWebModifyParticipantsRateLimitText",
@@ -25,6 +26,7 @@ __d(
     "WAWebOutContactInviteAction",
     "WAWebOutContactInviteUtils",
     "WAWebOutContactSmsInviteConfirmModal.react",
+    "WAWebSentGroupAgentRequests",
     "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -48,12 +50,11 @@ __d(
       f,
       g,
       h,
-      y,
-      C = y || (y = o("react"));
-    function b(e, t, n, r) {
+      y = h || (h = o("react"));
+    function C(e, t, n, r) {
       return (
         n === void 0 && (n = []),
-        I({
+        k({
           addMembersEntrypoint: r,
           chat: o("WAWebStateUtils").unproxy(e),
           contacts: t,
@@ -61,75 +62,79 @@ __d(
         })
       );
     }
+    function b(e, t) {
+      return N(o("WAWebStateUtils").unproxy(e), t);
+    }
     function v(e, t) {
-      return P(o("WAWebStateUtils").unproxy(e), t);
+      return A(o("WAWebStateUtils").unproxy(e), t);
     }
     function S(e, t) {
-      return w(o("WAWebStateUtils").unproxy(e), t);
+      return O(o("WAWebStateUtils").unproxy(e), t);
     }
     function R(e, t) {
-      return F(o("WAWebStateUtils").unproxy(e), t);
-    }
-    function L(e, t) {
-      return B(o("WAWebStateUtils").unproxy(e), t);
-    }
-    function E(e, t) {
       return W(o("WAWebStateUtils").unproxy(e), t);
     }
-    var k = [];
-    function I(e) {
-      return T.apply(this, arguments);
+    function L(e, t) {
+      return q(o("WAWebStateUtils").unproxy(e), t);
     }
-    function T() {
+    var E = [];
+    function k(e) {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
             i = e.addMembersEntrypoint,
             l = e.chat,
             u = e.contacts,
-            c = e.outContacts,
-            p = c === void 0 ? k : c,
+            m = e.outContacts,
+            p = m === void 0 ? E : m,
             _ = e.toastId,
             f = _ === void 0 ? o("WAWebActionToast.react").genId() : _,
-            g = (t = l.groupMetadata) == null ? void 0 : t.participants;
-          if (g == null)
-            return (h || (h = n("Promise"))).reject(
+            h = (t = l.groupMetadata) == null ? void 0 : t.participants;
+          if (h == null)
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           if (
             u.some(function (e) {
-              return g.get(e.id);
+              return h.get(e.id);
             })
           )
             return (
               o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[groupMeta] addParticipants: already member",
                   ])),
               ),
-              (h || (h = n("Promise"))).reject(
+              (g || (g = n("Promise"))).reject(
                 new (o("WAWebMiscErrors").ActionError)(),
               )
             );
-          if (!g.canAdd())
-            return (h || (h = n("Promise"))).reject(
+          if (!h.canAdd())
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
-          var y =
+          var C =
               ((a = l.groupMetadata) == null
                 ? void 0
                 : a.isLidAddressingMode) === !0,
             b = p.map(function (e) {
               return o("WAWebJidToWid").userJidToUserWid(e.id);
             }),
-            v = o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
+            v = T(
               l.id,
+              u.map(function (e) {
+                var t = e.id;
+                return t;
+              }),
               u.map(function (e) {
                 return o(
                   "WAWebGroupMutationParticipantUtils",
-                ).getGroupAddParticipant(e, y, "addParticipants");
+                ).getGroupAddParticipant(e, C, "addParticipants");
               }),
               b,
             ),
@@ -150,20 +155,19 @@ __d(
               r("WAWebFbtIntlList").DELIMITERS.COMMA,
             ).toString(),
             L = u.length === 0 && p.length > 0,
-            E = L ? R : S,
-            T = L ? p.length : u.length,
-            P = new (o("WAWebActionToast.react").ActionType)(
-              o("WAWebGroupStringsAction").addingString(E, T),
+            I = L ? R : S,
+            D = L ? p.length : u.length,
+            x = new (o("WAWebActionToast.react").ActionType)(
+              o("WAWebGroupStringsAction").addingString(I, D),
             ),
             N = v
               .then(function (e) {
                 var t,
-                  n = $(e, i),
+                  n = P(e, i),
                   a = n.agentConflictWids,
                   c = n.hasIncompatibleDeviceRejection,
-                  d = n.reportedResponse;
-                D(l, e);
-                var m = (t = e.invitedOutContacts) != null ? t : [],
+                  d = n.reportedResponse,
+                  m = (t = e.invitedOutContacts) != null ? t : [],
                   _ = e.participants.some(function (e) {
                     return e.code === "403";
                   }),
@@ -176,30 +180,30 @@ __d(
                         return e.phoneNumberWid.toString();
                       }),
                   ),
-                  h = p.filter(function (e) {
+                  g = p.filter(function (e) {
                     return f.has(
                       o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
                     );
                   }),
-                  y = r("countWhere")(m, function (e) {
+                  C = r("countWhere")(m, function (e) {
                     return e.code !== "200";
                   }),
                   b =
                     p.length > 0
                       ? function () {
-                          if (h.length > 0) {
+                          if (g.length > 0) {
                             o("WAWebModalManager").ModalManager.open(
-                              C.jsx(
+                              y.jsx(
                                 r("WAWebOutContactSmsInviteConfirmModal.react"),
                                 {
-                                  names: h.map(function (e) {
+                                  names: g.map(function (e) {
                                     return e.getName();
                                   }),
                                   onConfirm: function () {
                                     (o(
                                       "WAWebOutContactInviteAction",
                                     ).sendMultiGroupInvite(
-                                      h.map(function (e) {
+                                      g.map(function (e) {
                                         return e.phoneNumber;
                                       }),
                                       o("WAWebWidToJid").widToGroupJid(l.id),
@@ -218,7 +222,7 @@ __d(
                             );
                             return;
                           }
-                          (L || x(y),
+                          (L || $(C),
                             o("WAWebModalManager").closeModalManager());
                         }
                       : r("WAWebNoop");
@@ -226,7 +230,7 @@ __d(
                   { agentConflictWids: a, hasIncompatibleDeviceRejection: c },
                   function () {
                     _
-                      ? g.sendForNeededAddRequest(e.participants, b)
+                      ? h.sendForNeededAddRequest(e.participants, b)
                       : b == null || b();
                   },
                 );
@@ -245,9 +249,9 @@ __d(
                   return new (o("WAWebActionToast.react").ActionType)(S);
                 }
                 if (L) {
-                  if (h.length > 0) {
+                  if (g.length > 0) {
                     var E = r("WAWebFbtIntlList")(
-                      h.map(function (e) {
+                      g.map(function (e) {
                         return e.getName();
                       }),
                       r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
@@ -256,14 +260,14 @@ __d(
                     return new (o("WAWebActionToast.react").ActionType)(
                       o("WAWebGroupStringsAction").addSuccessString(
                         E,
-                        h.length,
+                        g.length,
                       ),
                     );
                   }
                   throw new (o("WAWebActionToast.react").ActionType)(
                     o(
                       "WAWebOutContactInviteUtils",
-                    ).getGroupInviteAddFailedToastText(y),
+                    ).getGroupInviteAddFailedToastText(C),
                   );
                 }
                 if ((c || a.length > 0) && d.participants.length === 0)
@@ -303,7 +307,7 @@ __d(
                   {
                     actionText: s._(/*BTDS*/ "Try again."),
                     actionHandler: function () {
-                      return I({
+                      return k({
                         addMembersEntrypoint: i,
                         chat: l,
                         contacts: u,
@@ -345,8 +349,8 @@ __d(
                   default:
                     throw (
                       o("WALogger").WARN(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
                             "[groupMeta] addParticipants dropped",
                           ])),
                       ),
@@ -356,52 +360,91 @@ __d(
               });
           return (
             o("WAWebToastManager").ToastManager.open(
-              C.jsx(o("WAWebActionToast.react").ActionToast, {
+              y.jsx(o("WAWebActionToast.react").ActionToast, {
                 id: f,
-                initialAction: P,
+                initialAction: x,
                 pendingAction: N,
               }),
             ),
             v
           );
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(t, n) {
-      var a = n.participants
-        .filter(function (e) {
-          return e.code === "200" && e.userWid.isFbidBot();
-        })
-        .map(function (e) {
-          return e.userWid;
-        });
-      a.length !== 0 &&
-        o("WAWebMembershipApprovalRequestAction")
-          .rejectIncompatibleAgentRequests(t, a)
-          .catch(function (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[groupMeta] incompatible agent request reject failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("membership-approval-agent-reject-failed");
-          });
+    function T(e, t, n, r) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield o(
+                "WAWebSentGroupAgentRequests",
+              ).recordSentGroupAgentRequests(e, t, "add"),
+              i;
+            try {
+              i = yield o(
+                "WAWebGroupModifyParticipantsJob",
+              ).addGroupParticipants(e, n, r);
+            } catch (n) {
+              throw (
+                x(n) &&
+                  o(
+                    "WAWebIncompatibleAgentRequestsRejectTriggers",
+                  ).startIncompatibleAgentRequestRejectsAfterAnswer(
+                    e,
+                    a,
+                    t,
+                    [],
+                  ),
+                n
+              );
+            }
+            return (
+              o(
+                "WAWebIncompatibleAgentRequestsRejectTriggers",
+              ).startIncompatibleAgentRequestRejectsAfterAnswer(
+                e,
+                a,
+                t,
+                i.participants
+                  .filter(function (e) {
+                    var t = e.code;
+                    return t === "200";
+                  })
+                  .map(function (e) {
+                    var t = e.userWid;
+                    return t;
+                  }),
+              ),
+              i
+            );
+          },
+        )),
+        D.apply(this, arguments)
+      );
     }
     function x(e) {
+      return (
+        e instanceof o("WAWebBackendErrors").ServerStatusCodeError ||
+        e instanceof
+          o("WAWebBackendErrors").GroupAddParticipantTimeRateLimitServerError ||
+        e instanceof
+          o("WAWebBackendErrors").GroupAddParticipantCountRateLimitServerError
+      );
+    }
+    function $(e) {
       e !== 0 &&
         o("WAWebToastManager").ToastManager.open(
-          C.jsx(o("WAWebToast.react").Toast, {
+          y.jsx(o("WAWebToast.react").Toast, {
             msg: o(
               "WAWebOutContactInviteUtils",
             ).getGroupInviteAddFailedToastText(e),
           }),
         );
     }
-    function $(e, t) {
+    function P(e, t) {
       var n = o(
           "WAWebGroupIncompatibleDeviceAddResult",
         ).splitIncompatibleDeviceRejections(e, t),
@@ -430,17 +473,17 @@ __d(
             }),
           };
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    function N(e, t, n) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i;
           a === void 0 && (a = o("WAWebActionToast.react").genId());
           var l = (i = e.groupMetadata) == null ? void 0 : i.participants;
           if (l == null)
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           if (
@@ -448,7 +491,7 @@ __d(
               return !l.canRemove(e);
             })
           )
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           var u = o("WAWebGroupModifyParticipantsJob").removeGroupParticipants(
@@ -469,15 +512,15 @@ __d(
             d = new (o("WAWebActionToast.react").ActionType)(
               o("WAWebGroupStringsAction").removingString(c, t.length),
             ),
-            m = u
+            p = u
               .then(function (n) {
-                return M(e, n, t);
+                return w(e, n, t);
               })
               .catch(function (n) {
                 return (
                   o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[groupMeta] removeParticipants dropped",
                       ])),
                   ),
@@ -489,67 +532,67 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return P(e, t, a);
+                        return N(e, t, a);
                       },
                     },
                   )
                 );
               });
           (o("WAWebToastManager").ToastManager.open(
-            C.jsx(o("WAWebActionToast.react").ActionToast, {
+            y.jsx(o("WAWebActionToast.react").ActionToast, {
               id: a,
               initialAction: d,
-              pendingAction: m,
+              pendingAction: p,
             }),
           ),
             yield u);
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
-      var a,
-        i = o("WAWebGroupAgentRemoveNotFoundJob").getNotFoundGroupAgentWids(t);
-      if (i.length === 0)
+    function w(t, n, a) {
+      var i,
+        l = o("WAWebGroupAgentRemoveNotFoundJob").getNotFoundGroupAgentWids(n);
+      if (l.length === 0)
         return new (o("WAWebActionToast.react").ActionType)(
           o("WAWebGroupStringsAction").formatRemoveResult(
-            t,
-            n.map(function (e) {
+            n,
+            a.map(function (e) {
               return e.contact;
             }),
           ),
         );
       o("WAWebGroupAgentRemoveNotFoundJob")
         .removeDepartedGroupAgents(
-          e.id,
-          i,
-          ((a = e.groupMetadata) == null ? void 0 : a.isLidAddressingMode) ===
+          t.id,
+          l,
+          ((i = t.groupMetadata) == null ? void 0 : i.isLidAddressingMode) ===
             !0,
         )
-        .catch(function (e) {
+        .catch(function (t) {
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[groupMeta] removeParticipants: departed agent sync failed",
                 ])),
             )
-            .catching(r("getErrorSafe")(e))
+            .catching(r("getErrorSafe")(t))
             .sendLogs("group-agent-remove-404-sync-failed");
         });
-      var l = new Set(i.map(String)),
-        s = t.participants.filter(function (e) {
+      var s = new Set(l.map(String)),
+        u = n.participants.filter(function (e) {
           var t = e.userWid;
-          return !l.has(t.toString());
+          return !s.has(t.toString());
         });
-      return s.length === 0
+      return u.length === 0
         ? null
         : new (o("WAWebActionToast.react").ActionType)(
             o("WAWebGroupStringsAction").formatRemoveResult(
-              babelHelpers.extends({}, t, { participants: s }),
-              n
+              babelHelpers.extends({}, n, { participants: u }),
+              a
                 .filter(function (e) {
-                  return !l.has(e.id.toString());
+                  return !s.has(e.id.toString());
                 })
                 .map(function (e) {
                   return e.contact;
@@ -557,17 +600,17 @@ __d(
             ),
           );
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    function A(e, t, n) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i, l;
           a === void 0 && (a = o("WAWebActionToast.react").genId());
           var u = (i = e.groupMetadata) == null ? void 0 : i.participants;
           if (u == null)
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           if (
@@ -575,7 +618,7 @@ __d(
               return !u.canPromote(e);
             })
           )
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           var c = o("WAWebGroupModifyParticipantsJob").promoteGroupParticipants(
@@ -602,7 +645,7 @@ __d(
                 [s._plural(t.length), s._param("participantNames", d)],
               ),
             ),
-            p = c
+            _ = c
               .then(function (e) {
                 var n,
                   r = (n = o("WAWebGroupStringsAction")).formatResult(
@@ -619,8 +662,8 @@ __d(
               .catch(function (n) {
                 return (
                   o("WALogger").WARN(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[groupMeta] promoteParticipants dropped",
                       ])),
                   ),
@@ -632,35 +675,35 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return w(e, t, a);
+                        return A(e, t, a);
                       },
                     },
                   )
                 );
               });
           (o("WAWebToastManager").ToastManager.open(
-            C.jsx(o("WAWebActionToast.react").ActionToast, {
+            y.jsx(o("WAWebActionToast.react").ActionToast, {
               id: a,
               initialAction: m,
-              pendingAction: p,
+              pendingAction: _,
             }),
           ),
             yield c);
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function O(e, t, n) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i, l;
           a === void 0 && (a = o("WAWebActionToast.react").genId());
           var u = (i = e.groupMetadata) == null ? void 0 : i.participants;
           if (u == null)
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           if (
@@ -668,7 +711,7 @@ __d(
               return !u.canDemote(e);
             })
           )
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           var c = o("WAWebGroupModifyParticipantsJob").demoteGroupParticipants(
@@ -712,8 +755,8 @@ __d(
               .catch(function (n) {
                 return (
                   o("WALogger").WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[groupMeta] demoteParticipants dropped",
                       ])),
                   ),
@@ -725,14 +768,14 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return F(e, t, a);
+                        return O(e, t, a);
                       },
                     },
                   )
                 );
               });
           (o("WAWebToastManager").ToastManager.open(
-            C.jsx(o("WAWebActionToast.react").ActionToast, {
+            y.jsx(o("WAWebActionToast.react").ActionToast, {
               id: a,
               initialAction: m,
               pendingAction: p,
@@ -740,15 +783,15 @@ __d(
           ),
             yield c);
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B(e, t, a) {
+    function W(e, t, a) {
       var i, l;
       a === void 0 && (a = o("WAWebActionToast.react").genId());
-      var u = (i = e.groupMetadata) == null ? void 0 : i.participants;
-      if (u == null)
-        return (h || (h = n("Promise"))).reject(
+      var c = (i = e.groupMetadata) == null ? void 0 : i.participants;
+      if (c == null)
+        return (g || (g = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       var d = o("WAWebGroupModifyParticipantsJob").promoteCommunityParticipants(
@@ -787,8 +830,8 @@ __d(
           .catch(function (e) {
             return (
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[groupMeta] promoteCommunityParticipants dropped",
                   ])),
               ),
@@ -802,7 +845,7 @@ __d(
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          C.jsx(o("WAWebActionToast.react").ActionToast, {
+          y.jsx(o("WAWebActionToast.react").ActionToast, {
             id: a,
             initialAction: p,
             pendingAction: _,
@@ -811,12 +854,12 @@ __d(
         d
       );
     }
-    function W(e, t, n) {
-      return q.apply(this, arguments);
+    function q(e, t, n) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i, l;
           if (
             (a === void 0 && (a = o("WAWebActionToast.react").genId()),
@@ -841,13 +884,13 @@ __d(
                       [s._plural(t.length), s._param("userNames", u)],
                     );
             o("WAWebToastManager").ToastManager.open(
-              C.jsx(o("WAWebToast.react").Toast, { msg: c }),
+              y.jsx(o("WAWebToast.react").Toast, { msg: c }),
             );
             return;
           }
           var d = (i = e.groupMetadata) == null ? void 0 : i.participants;
           if (d == null)
-            return (h || (h = n("Promise"))).reject(
+            return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
           var m = o(
@@ -878,7 +921,7 @@ __d(
                     [s._plural(t.length), s._param("userNames", p)],
                   ),
             ),
-            f = m
+            h = m
               .then(function (e) {
                 if (e.status === 207)
                   return new (o("WAWebActionToast.react").ActionType)(
@@ -894,8 +937,8 @@ __d(
               .catch(function (e) {
                 return (
                   o("WALogger").WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[groupMeta] demoteCommunityParticipants dropped",
                       ])),
                   ),
@@ -913,23 +956,23 @@ __d(
                 );
               });
           (o("WAWebToastManager").ToastManager.open(
-            C.jsx(o("WAWebActionToast.react").ActionToast, {
+            y.jsx(o("WAWebActionToast.react").ActionToast, {
               id: a,
               initialAction: _,
-              pendingAction: f,
+              pendingAction: h,
             }),
           ),
             yield m);
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    ((l.addParticipants = b),
-      (l.removeParticipants = v),
-      (l.promoteParticipants = S),
-      (l.demoteParticipants = R),
-      (l.promoteCommunityParticipants = L),
-      (l.demoteCommunityParticipants = E));
+    ((l.addParticipants = C),
+      (l.removeParticipants = b),
+      (l.promoteParticipants = v),
+      (l.demoteParticipants = S),
+      (l.promoteCommunityParticipants = R),
+      (l.demoteCommunityParticipants = L));
   },
   226,
 );

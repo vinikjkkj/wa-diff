@@ -72,6 +72,7 @@ __d(
             ).WebBloksHotReloadDataModule)(),
           ],
         ]),
+        enableSameControllerReporting: !1,
         controllerNavigationLogger: null,
         versioningID: "",
         onInteraction: null,
@@ -197,7 +198,8 @@ __d(
         N,
         M,
         w,
-        A;
+        A,
+        F;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -286,14 +288,18 @@ __d(
             accessibilityModule:
               ($ = t.accessibilityModule) != null ? $ : e.accessibilityModule,
             gkx: (P = t.gkx) != null ? P : e.gkx,
-            controllerNavigationLogger:
-              (N = t.controllerNavigationLogger) != null
+            enableSameControllerReporting:
+              (N = t.enableSameControllerReporting) != null
                 ? N
+                : e.enableSameControllerReporting,
+            controllerNavigationLogger:
+              (M = t.controllerNavigationLogger) != null
+                ? M
                 : e.controllerNavigationLogger,
-            versioningID: (M = t.versioningID) != null ? M : e.versioningID,
-            onInteraction: (w = t.onInteraction) != null ? w : e.onInteraction,
+            versioningID: (w = t.versioningID) != null ? w : e.versioningID,
+            onInteraction: (A = t.onInteraction) != null ? A : e.onInteraction,
             renderDiagnostics:
-              (A = t.renderDiagnostics) != null ? A : e.renderDiagnostics,
+              (F = t.renderDiagnostics) != null ? F : e.renderDiagnostics,
           }
         : e;
     }

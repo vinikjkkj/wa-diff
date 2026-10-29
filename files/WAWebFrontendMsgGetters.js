@@ -27,6 +27,7 @@ __d(
     "WAWebOrderStatus",
     "WAWebProductCatalogCatalogConstants",
     "WAWebProtobufsAICommon.pb",
+    "WAWebProtobufsE2E.pb",
     "WAWebStickerPremiumStatus",
     "WAWebStringTruncation",
     "WAWebTemplateButtonSubtype",
@@ -805,9 +806,10 @@ __d(
             l = e[5],
             s = e[6],
             u = e[7],
-            c = r != null || u != null;
+            c = e[8],
+            d = r != null || u != null;
           return t === o("WAWebMsgType").MSG_TYPE.STICKER
-            ? !c &&
+            ? !d &&
                 !n &&
                 !(
                   l &&
@@ -818,10 +820,13 @@ __d(
                 ) &&
                 !s
             : t === o("WAWebMsgType").MSG_TYPE.CHAT
-              ? !c && a && !s
+              ? !d && a && !s
               : t === o("WAWebMsgType").MSG_TYPE.MUSIC
-                ? !c &&
+                ? !d &&
                   !s &&
+                  (c == null ? void 0 : c.style) ===
+                    o("WAWebProtobufsE2E.pb")
+                      .Message$MusicMessage$MusicMessageStyle.VINYL &&
                   o("WAWebMusicGatingUtils").isMusicOnChatsGeogatingEnabled()
                 : t === o("WAWebMsgType").MSG_TYPE.PTV
                   ? u == null && !s
@@ -836,6 +841,7 @@ __d(
           u.getIsForwarded,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
+          u.getMusicData,
         ],
       ),
       Ue = m(

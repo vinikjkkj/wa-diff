@@ -77,7 +77,7 @@ __d(
         VCARD: "vcard",
         VIDEO: "video",
       },
-      l = { MEDIA_MSG: 1, DOC_MSG: 2, HAS_LINK: 4 },
+      l = { MEDIA_MSG: 1, DOC_MSG: 2, HAS_LINK: 4, MUSIC_MSG: 8 },
       s = new Set(
         Object.keys(e).map(function (t) {
           return e[t];

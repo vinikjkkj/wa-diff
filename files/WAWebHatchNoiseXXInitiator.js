@@ -196,7 +196,12 @@ __d(
               : null;
           }),
           (a.handshakeHash = function () {
-            if (this.$6 !== "M2" && this.$6 !== "M3" && this.$6 !== "S")
+            if (
+              this.$6 !== "M1" &&
+              this.$6 !== "M2" &&
+              this.$6 !== "M3" &&
+              this.$6 !== "S"
+            )
               throw r("err")(
                 "WAWebHatchNoiseXXInitiator: handshake hash is unavailable",
               );

@@ -119,6 +119,7 @@ __d(
         !0,
         !0,
       ],
+      call_screening_caller_version: [37323, "int", 0, 0],
       callee_accept_timeout_ms: [6007, "int", 3e4, 3e4],
       calling_32p_version: [7709, "int", 0, 3],
       calling_abprop_bucket_codes: [40587, "string", "", ""],

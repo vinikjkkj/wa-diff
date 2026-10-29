@@ -27,22 +27,24 @@ __d(
       u,
       c,
       d = 1,
-      m = "waweb",
-      p = 2e4,
-      _ = null,
-      f = null,
+      m = 200,
+      p = 200,
+      _ = "waweb",
+      f = 2e4,
       g = null,
       h = null,
-      y = 0,
-      C = 0,
-      b = new Map(),
-      v = -1 / 0,
-      S = null,
-      R = new Set();
-    function L() {
+      y = null,
+      C = null,
+      b = 0,
+      v = 0,
+      S = new Map(),
+      R = -1 / 0,
+      L = null,
+      E = new Set();
+    function k() {
       return (
-        _ != null ||
-          (_ = new (o("WAOneQueue").WAOneQueue)({
+        g != null ||
+          (g = new (o("WAOneQueue").WAOneQueue)({
             castAcks: function () {
               return (c || (c = n("Promise"))).resolve();
             },
@@ -66,27 +68,27 @@ __d(
             scheduler: o(
               "WAWebOneQueuePromiseScheduler",
             ).makeOneQueuePromiseScheduler({
-              lifecycleListener: A,
-              name: m,
-              timeoutMs: p,
+              lifecycleListener: O,
+              name: _,
+              timeoutMs: f,
             }),
           })),
-        _
+        g
       );
     }
-    function E(e) {
+    function I(e) {
       var t = e.action,
         n = e.isOffline,
         r = e.waitForAdmission,
         a = function () {
-          return L().enqueue(
+          return k().enqueue(
             function () {
-              return t(F());
+              return t(B());
             },
             { flush: !n, operationType: "wa_web_message_queue" },
           );
         },
-        i = r == null ? a() : w(r, a);
+        i = r == null ? a() : F(r, a);
       return i.catch(function (e) {
         throw (
           e instanceof o("TaskSchedulerError").TaskSchedulerTimeoutError &&
@@ -98,36 +100,36 @@ __d(
         );
       });
     }
-    function k(e) {
-      var t = h,
-        n = e.attrs.offline;
-      if (t == null || !n) return I;
-      T(parseInt(n, 10));
-      var r = function () {
-        return D(t);
-      };
-      return e.tag === "message" || e.tag === "status" ? r : (r(), I);
-    }
-    function I() {}
     function T(e) {
-      (y > 0 && C >= y) || (C++, $().stanzaReceived(e));
+      var t = C,
+        n = e.attrs.offline;
+      if (t == null || !n) return D;
+      x(parseInt(n, 10));
+      var r = function () {
+        return $(t);
+      };
+      return e.tag === "message" || e.tag === "status" ? r : (r(), D);
     }
-    function D(e) {
+    function D() {}
+    function x(e) {
+      (b > 0 && v >= b) || (v++, N().stanzaReceived(e));
+    }
+    function $(e) {
       var t;
       if (
         !(
-          e !== h ||
+          e !== C ||
           e.socketId !==
             ((t = o("WAComms").getComms()) == null ? void 0 : t.socketId)
         )
       ) {
-        var n = $();
-        (n.stanzaProcessed(), n.shouldFlash() && x());
+        var n = N();
+        (n.stanzaProcessed(), n.shouldFlash() && P());
       }
     }
-    function x() {
-      M(function () {
-        return L().enqueue(
+    function P() {
+      A(function () {
+        return k().enqueue(
           function () {
             return (c || (c = n("Promise"))).resolve();
           },
@@ -145,10 +147,10 @@ __d(
           .sendLogs("one-queue-offline-batch-flush-failed", { sampling: 0.01 });
       });
     }
-    function $() {
+    function N() {
       return (
-        g != null ||
-          (g = new (o("WAPullMode").PullMode)(function (e) {
+        y != null ||
+          (y = new (o("WAPullMode").PullMode)(function (e) {
             var t = Math.max(
               d,
               Math.min(
@@ -156,37 +158,38 @@ __d(
                 o("WAWebABProps").getABPropConfigValue(
                   "web_message_processing_cache_size",
                 ),
+                b === 0 ? m : 1 / 0,
               ),
             );
-            return ((y += t), t);
-          })),
-        g
+            return ((b += t), t);
+          }, p)),
+        y
       );
     }
-    function P(e) {
-      ((h = e > 0 ? { socketId: f } : null),
-        (y = 0),
-        (C = 0),
-        $().offlineStart());
-    }
-    function N() {
-      var e;
-      ((h = null), (e = g) == null || e.clear());
-    }
     function M(e) {
-      return R.size === 0
-        ? e()
-        : (c || (c = n("Promise"))).allSettled(Array.from(R)).then(e);
+      ((C = e > 0 ? { socketId: h } : null),
+        (b = 0),
+        (v = 0),
+        N().offlineStart());
     }
-    function w(e, t) {
+    function w() {
+      var e;
+      ((C = null), (e = y) == null || e.clear());
+    }
+    function A(e) {
+      return E.size === 0
+        ? e()
+        : (c || (c = n("Promise"))).allSettled(Array.from(E)).then(e);
+    }
+    function F(e, t) {
       var n = e();
-      R.add(n);
+      E.add(n);
       var r = function () {
-        R.delete(n);
+        E.delete(n);
       };
       return (n.then(r, r), n.then(t));
     }
-    function A(e) {
+    function O(e) {
       var t = self.performance.now();
       e: {
         var n = e;
@@ -196,7 +199,7 @@ __d(
           "taskId" in n
         ) {
           var r = n.taskId;
-          b.set(r, t);
+          S.set(r, t);
           break e;
         }
         if (
@@ -206,8 +209,8 @@ __d(
         ) {
           var o,
             a = n.taskId,
-            i = Math.max((o = b.get(a)) != null ? o : t, v);
-          (b.delete(a), (S = { gateWaitMs: Math.max(t - i, 0), grantedAt: t }));
+            i = Math.max((o = S.get(a)) != null ? o : t, R);
+          (S.delete(a), (L = { gateWaitMs: Math.max(t - i, 0), grantedAt: t }));
           break e;
         }
         if (
@@ -218,7 +221,7 @@ __d(
           (((typeof n == "object" && n !== null) || typeof n == "function") &&
             n.type === "stuck")
         ) {
-          v = t;
+          R = t;
           break e;
         }
         if (
@@ -232,10 +235,10 @@ __d(
         );
       }
     }
-    function F() {
-      var e = S;
+    function B() {
+      var e = L;
       return (
-        (S = null),
+        (L = null),
         e == null
           ? null
           : {
@@ -244,10 +247,10 @@ __d(
             }
       );
     }
-    function O(e) {
+    function W(e) {
       if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
-        var t = L();
-        (W(t),
+        var t = k();
+        (U(t),
           t.handleOfflineStartStanza({
             appdata: 0,
             count: e.count,
@@ -255,33 +258,33 @@ __d(
             notification: e.notification,
             receipt: e.receipt,
           }),
-          P(e.count));
+          M(e.count));
       }
-    }
-    function B() {
-      var e;
-      if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
-        var t = L();
-        (f !== ((e = o("WAComms").getComms()) == null ? void 0 : e.socketId) &&
-          W(t),
-          q());
-      }
-    }
-    function W(e) {
-      var t;
-      (e.newConnection(),
-        (f = (t = o("WAComms").getComms()) == null ? void 0 : t.socketId));
     }
     function q() {
+      var e;
       if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
-        N();
-        var e = L(),
-          t = f;
-        M(function () {
+        var t = k();
+        (h !== ((e = o("WAComms").getComms()) == null ? void 0 : e.socketId) &&
+          U(t),
+          V());
+      }
+    }
+    function U(e) {
+      var t;
+      (e.newConnection(),
+        (h = (t = o("WAComms").getComms()) == null ? void 0 : t.socketId));
+    }
+    function V() {
+      if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
+        w();
+        var e = k(),
+          t = h;
+        A(function () {
           return e.handleOfflineEndStanza(t);
         })
           .then(function () {
-            return U(t);
+            return H(t);
           })
           .catch(function (e) {
             o("WALogger").ERROR(
@@ -295,15 +298,15 @@ __d(
           });
       }
     }
-    function U(e) {
-      var t = e != null && e !== f ? "replaced" : "dropped",
-        n = L().waitForWAInfraOfflineSyncEnd();
-      return V(n).then(function (e) {
+    function H(e) {
+      var t = e != null && e !== h ? "replaced" : "dropped",
+        n = k().waitForWAInfraOfflineSyncEnd();
+      return G(n).then(function (e) {
         e &&
           o("WAWebOfflineResumeCounters").logOneQueueOfflineEndNotResolved(t);
       });
     }
-    function V(e) {
+    function G(e) {
       var t = {};
       return (c || (c = n("Promise"))).race([e, c.resolve(t)]).then(function (
         e,
@@ -311,16 +314,16 @@ __d(
         return e === t;
       }, o("WAWebBoolFunc").returnFalse);
     }
-    function H() {
-      return G.apply(this, arguments);
+    function z() {
+      return j.apply(this, arguments);
     }
-    function G() {
+    function j() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          R.size > 0 &&
-            (yield (c || (c = n("Promise"))).allSettled(Array.from(R)));
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          E.size > 0 &&
+            (yield (c || (c = n("Promise"))).allSettled(Array.from(E)));
           try {
-            yield L().enqueue(
+            yield k().enqueue(
               function () {
                 return (c || (c = n("Promise"))).resolve();
               },
@@ -338,16 +341,16 @@ __d(
               .sendLogs("one-queue-offline-drain-failed", { sampling: 0.01 });
           }
         })),
-        G.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    ((l.getWAWebOneQueue = L),
-      (l.enqueueOnOneQueue = E),
-      (l.countOfflineStanzaForPullMode = k),
-      (l.handleOneQueueOfflineStart = O),
-      (l.handleOneQueueOfflineIb = B),
-      (l.handleOneQueueOfflineEnd = q),
-      (l.waitForOneQueueOfflineWorkDrained = H));
+    ((l.getWAWebOneQueue = k),
+      (l.enqueueOnOneQueue = I),
+      (l.countOfflineStanzaForPullMode = T),
+      (l.handleOneQueueOfflineStart = W),
+      (l.handleOneQueueOfflineIb = q),
+      (l.handleOneQueueOfflineEnd = V),
+      (l.waitForOneQueueOfflineWorkDrained = z));
   },
   98,
 );

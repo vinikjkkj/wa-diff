@@ -298,6 +298,10 @@ __d(
           n |= o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG;
           break;
         }
+        case o("WAWebMsgType").MSG_TYPE.MUSIC: {
+          n |= o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MUSIC_MSG;
+          break;
+        }
         default:
           break;
       }

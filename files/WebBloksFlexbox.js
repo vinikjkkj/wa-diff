@@ -38,21 +38,22 @@ __d(
       k = o("WebBloksModel").defineWebBloksAttributeKey(":"),
       I = o("WebBloksModel").defineWebBloksAttributeKey(";"),
       T = o("WebBloksModel").defineWebBloksAttributeKey("1"),
-      D = o("WebBloksModel").defineWebBloksAttributeKey("1");
-    function x(e) {
+      D = o("WebBloksModel").defineWebBloksAttributeKey("1"),
+      x = o("WebBloksModel").defineWebBloksAttributeKey(";");
+    function $(e) {
       var t = o("react-compiler-runtime").c(2);
       if (e.node.get(T) === "gone") return null;
       var n;
       return (
         t[0] !== e
-          ? ((n = u.jsx($, babelHelpers.extends({}, e))),
+          ? ((n = u.jsx(P, babelHelpers.extends({}, e))),
             (t[0] = e),
             (t[1] = n))
           : (n = t[1]),
         n
       );
     }
-    function $(t) {
+    function P(t) {
       var n,
         a,
         i,
@@ -62,92 +63,94 @@ __d(
         m = c.getExpression(b),
         x = c.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY),
         $ = c.getSubNode(f),
-        N = c.get(T),
-        w = c.get(p),
-        A = c.get(_),
-        F = c.get(h),
-        O = c.get(y),
-        B = c.get(C),
-        W = c.getExpression(v),
-        q = o("WebBloksUtils").isBloksModelEnabled(c, g),
-        U = o("WebBloksStyle").useStyle(c, s, m != null && q, g),
-        V = U.ref,
-        H = U.style,
-        G = U.wrapper,
-        z = U.wrapperProps,
-        j = r("WebBloksDecoration")($, c.get(g), m != null, V),
-        K = j[0],
-        Q = j[1],
-        X = o(
+        P = c.get(T),
+        M = c.get(p),
+        F = c.get(_),
+        O = c.get(h),
+        B = c.get(y),
+        W = c.get(C),
+        q = c.getExpression(v),
+        U = o("WebBloksUtils").isBloksModelEnabled(c, g),
+        V = o("WebBloksStyle").useStyle(c, s, m != null && U, g),
+        H = V.ref,
+        G = V.style,
+        z = V.wrapper,
+        j = V.wrapperProps,
+        K = r("WebBloksDecoration")($, c.get(g), m != null, H),
+        Q = K[0],
+        X = K[1],
+        Y = o(
           "WebBloksAnchorTagExtensionHandlerUtils",
         ).useWebBloksAnchorTagExtensionProps(c),
-        Y = X !== null,
-        J = (X == null ? void 0 : X.preferNativeNavigation) === !0,
-        Z = X != null ? X : {},
-        ee = Z.preferNativeNavigation,
-        te = babelHelpers.objectWithoutPropertiesLoose(Z, e),
-        ne = r("useClickablePropsForWebBloks")(
+        J = Y !== null,
+        Z = (Y == null ? void 0 : Y.preferNativeNavigation) === !0,
+        ee = Y != null ? Y : {},
+        te = ee.preferNativeNavigation,
+        ne = babelHelpers.objectWithoutPropertiesLoose(ee, e),
+        re = r("useClickablePropsForWebBloks")(
           c,
           m,
-          z.disabled === !0 ? !1 : q,
-          Y && !J,
-          J,
+          j.disabled === !0 ? !1 : U,
+          J && !Z,
+          Z,
         ),
-        re = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        oe = re.isRtl,
-        ae = o("WebBloksComponentContext").useWebBloksContext(),
-        ie = ae.bloksContext,
-        le = ae.executeOnNextTickCatch,
-        se = ae.renderChildren;
+        oe = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        ae = oe.isRtl,
+        ie = o("WebBloksComponentContext").useWebBloksContext(),
+        le = ie.bloksContext,
+        se = ie.executeOnNextTickCatch,
+        ue = ie.renderChildren;
       d(
         function () {
-          W != null && le(c, W, [c, ie]);
+          q != null && se(c, q, [c, le]);
         },
-        [W],
+        [q],
       );
-      var ue = $ == null ? void 0 : $.get(D),
-        ce = c.get(I),
-        de = c.get(S),
-        me = c.get(L),
-        pe = c.get(E),
-        _e = c.get(k),
-        fe = c.get(R),
-        ge = oe ? fe : _e,
-        he = oe ? _e : fe,
-        ye = ge != null ? ge : me,
+      var ce = $ == null ? void 0 : $.get(D),
+        de = c.get(I),
+        me = c.get(S),
+        pe = c.get(L),
+        _e = c.get(E),
+        fe = c.get(k),
+        ge = c.get(R),
+        he = ae ? ge : fe,
+        ye = ae ? fe : ge,
         Ce = he != null ? he : pe,
-        be = babelHelpers.extends({ pointerEvents: "none" }, H, M(N), K, {
-          alignContent: o("WebBloksUtils").toHyphen(w),
-          alignItems: o("WebBloksUtils").toHyphen(A),
-          flexDirection: o("WebBloksUtils").toHyphen(F),
-          flexWrap: o("WebBloksUtils").toHyphen(O),
+        be = ye != null ? ye : _e,
+        ve = babelHelpers.extends({ pointerEvents: "none" }, G, A(P), Q, {
+          alignContent: o("WebBloksUtils").toHyphen(M),
+          alignItems: o("WebBloksUtils").toHyphen(F),
+          flexDirection: o("WebBloksUtils").toHyphen(O),
+          flexWrap: o("WebBloksUtils").toHyphen(B),
           justifyContent: o("WebBloksUtils").toHyphen(
-            B != null ? B : H.justifyContent,
+            W != null ? W : G.justifyContent,
           ),
           paddingTop:
-            (n = o("WebBloksUtils").toPx(ce)) != null ? n : H.paddingTop,
+            (n = o("WebBloksUtils").toPx(de)) != null ? n : G.paddingTop,
           paddingBottom:
-            (a = o("WebBloksUtils").toPx(de)) != null ? a : H.paddingBottom,
+            (a = o("WebBloksUtils").toPx(me)) != null ? a : G.paddingBottom,
           paddingLeft:
-            (i = o("WebBloksUtils").toPx(ye)) != null ? i : H.paddingLeft,
+            (i = o("WebBloksUtils").toPx(Ce)) != null ? i : G.paddingLeft,
           paddingRight:
-            (l = o("WebBloksUtils").toPx(Ce)) != null ? l : H.paddingRight,
+            (l = o("WebBloksUtils").toPx(be)) != null ? l : G.paddingRight,
+          isolation:
+            (x == null ? void 0 : x.some(w)) === !0 ? "isolate" : void 0,
         });
-      return G(
-        Y
+      return z(
+        J
           ? u.jsxs(
               "a",
               babelHelpers.extends(
                 {},
-                z,
+                j,
                 {
                   className: o("WebBloksStyle").WebBloksStyles.container,
-                  style: be,
+                  style: ve,
                 },
+                re,
                 ne,
-                te,
                 {
-                  children: [se(x), ue ? u.jsx(P, { drawable: ue }) : null, Q],
+                  children: [ue(x), ce ? u.jsx(N, { drawable: ce }) : null, X],
                 },
               ),
             )
@@ -155,21 +158,21 @@ __d(
               "div",
               babelHelpers.extends(
                 {},
-                z,
+                j,
                 {
                   className: o("WebBloksStyle").WebBloksStyles.container,
-                  style: be,
+                  style: ve,
                 },
-                ne,
+                re,
                 {
-                  children: [se(x), ue ? u.jsx(P, { drawable: ue }) : null, Q],
+                  children: [ue(x), ce ? u.jsx(N, { drawable: ce }) : null, X],
                 },
               ),
             ),
       );
     }
-    $.displayName = $.name + " [from " + i.id + "]";
-    function P(e) {
+    P.displayName = P.name + " [from " + i.id + "]";
+    function N(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.drawable,
         a = o("WebBloksEnvironmentContext").useDataBloksName(),
@@ -188,7 +191,7 @@ __d(
               "div",
               babelHelpers.extends({}, c, {
                 ref: i,
-                className: N.foreground,
+                className: M.foreground,
                 style: l,
               }),
             )),
@@ -199,7 +202,7 @@ __d(
         d
       );
     }
-    var N = o("WebBloksStyle").createStyles({
+    var M = o("WebBloksStyle").createStyles({
       foreground: {
         position: "absolute",
         top: 0,
@@ -209,7 +212,15 @@ __d(
         pointerEvents: "none",
       },
     });
-    function M(e) {
+    function w(e) {
+      var t = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
+      return (
+        t != null &&
+        o("WebBloksUtils").isStyle(t, "bk.style.Base") &&
+        Number(t.get(x)) < 0
+      );
+    }
+    function A(e) {
       switch (e) {
         case "gone":
           return { display: "none" };
@@ -217,7 +228,7 @@ __d(
           return { visibility: "hidden" };
       }
     }
-    l.default = x;
+    l.default = $;
   },
   98,
 );

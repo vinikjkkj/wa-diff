@@ -31,14 +31,12 @@ __d(
           o("VultureJSGating").__DO_NOT_USE_DISABLE_VULTURE_JS_LOGGING());
         return;
       }
-      (r("gkx")("2664") ||
-        o("VultureJSGating").__DO_NOT_USE_DISABLE_VULTURE_JS_LOGGING(),
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[app] enabling FalcoLoggerTransports",
-            ])),
-        ),
+      (o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "[app] enabling FalcoLoggerTransports",
+          ])),
+      ),
         n("cr:7426") &&
           (n("cr:7426").adapter.config.known_routes = r(
             "WhatsAppWebBanzaiConfig",
@@ -54,7 +52,7 @@ __d(
           n("cr:7507").onReady(function (e) {
             return e.attach();
           }),
-        r("gkx")("16915") && o("WAWebFBLoggerSetup").init());
+        o("WAWebFBLoggerSetup").init());
     }
     function m() {
       n("cr:7426") && (n("cr:7426").adapter.config.disabled = !0);

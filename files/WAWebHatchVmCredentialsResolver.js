@@ -38,7 +38,7 @@ __d(
                     return Date.now();
                   }),
             (this.$4 = new (o("WAWebHatchVmFetcher").WAWebHatchVmFetcher)(
-              (r = e.fetch) != null ? r : C,
+              (r = e.fetch) != null ? r : v,
               this.$3,
             )),
             (this.$8 = e.mintAbraToken),
@@ -182,7 +182,7 @@ __d(
                       detail: "fetch_vms returned no VM",
                       kind: "failure",
                     }
-                  : this.$15(e, o, t);
+                  : this.$15({ entry: o, generation: t, token: e });
               },
             );
             function t(t, n) {
@@ -191,6 +191,28 @@ __d(
             return t;
           })()),
           (r.$15 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  n = e.entry,
+                  r = e.generation,
+                  o = e.token,
+                  a = C(n);
+                if (a != null) return a;
+                var i = yield this.$16(o, n, r);
+                return i.kind !== "ok" || i.entry === n
+                  ? i
+                  : (t = C(i.entry)) != null
+                    ? t
+                    : i;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.$16 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n) {
                 var r,
@@ -204,7 +226,7 @@ __d(
                     kind: "failure",
                   };
                 if (a === "CREATING" || a === "UPDATING")
-                  return this.$16(e, t.vmId, n);
+                  return this.$17(e, t.vmId, n);
                 var i = yield this.$4.wake(e, t.vmId);
                 return i.kind === "unauthorized"
                   ? i
@@ -220,7 +242,7 @@ __d(
                           )
                           .sendLogs("hatch-vm-credentials-wake-failed"),
                       a === "STOPPED"
-                        ? this.$16(e, t.vmId, n)
+                        ? this.$17(e, t.vmId, n)
                         : { cacheable: i.kind === "ok", entry: t, kind: "ok" });
               },
             );
@@ -229,7 +251,7 @@ __d(
             }
             return t;
           })()),
-          (r.$16 = (function () {
+          (r.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, o) {
                 var a;
@@ -266,7 +288,7 @@ __d(
                         detail: "VM is " + u,
                         kind: "failure",
                       }
-                    : this.$16(e, t, n, r + 1, o);
+                    : this.$17(e, t, n, r + 1, o);
               },
             );
             function t(t, n, r, o, a) {
@@ -295,19 +317,29 @@ __d(
         );
       })();
     function y(e) {
-      var t;
-      return (t = e.find(function (e) {
+      var t = e.find(function (e) {
         return e.isDefault;
-      })) != null
-        ? t
-        : e[0];
+      });
+      return t != null ? t : e.every(b) || e.length === 1 ? e[0] : null;
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function C(e) {
+      return b(e)
+        ? null
+        : {
+            cause: "unsupported_vm_type",
+            detail: "VM type " + String(e.vmType) + " is not supported",
+            kind: "failure",
+          };
     }
-    function b() {
+    function b(e) {
+      return o("WAWebHatchVmFetcher").isStandardVmType(e.vmType);
+    }
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield self.fetch(e, t);
           return {
             json: function () {
@@ -317,7 +349,7 @@ __d(
             status: n.status,
           };
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     l.WAWebHatchVmCredentialsResolver = h;

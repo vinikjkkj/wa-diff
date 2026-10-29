@@ -204,11 +204,9 @@ __d(
               label: e.data.label,
               onClick: function () {
                 o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                  f.jsx(
-                    o("WAWebBizAiKnowledgeReviewDrawerLoadable.react")
-                      .WAWebBizAiKnowledgeReviewDrawerLoadable,
-                    { url: i },
-                  ),
+                  f.jsx(r("WAWebBizAiKnowledgeReviewDrawerLoadable.react"), {
+                    url: i,
+                  }),
                 );
               },
               testid: "biz-ai-review-knowledge-cta",

@@ -1,6 +1,6 @@
 __d(
   "WAWebRenumberNumberedLists",
-  ["Lexical", "WAWebComputeListNumbering"],
+  ["Lexical", "WAWebBidiParagraphNode", "WAWebComputeListNumbering"],
   function (t, n, r, o, a, i, l) {
     var e = /^(\d+)(\D[\s\S]*)$/;
     function s() {
@@ -8,7 +8,9 @@ __d(
           .$getRoot()
           .getChildren()
           .map(function (e) {
-            return e.getNumberNode();
+            return e instanceof o("WAWebBidiParagraphNode").BidiParagraphNode
+              ? e.getNumberNode()
+              : null;
           }),
         n = o("WAWebComputeListNumbering").computeListNumbering(
           t.map(function (e) {

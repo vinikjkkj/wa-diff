@@ -52,8 +52,9 @@ __d(
       D,
       x,
       $,
-      P = new Map();
-    function N(e) {
+      P,
+      N = new Map();
+    function M(e) {
       switch (e) {
         case 400:
           return "bad_request";
@@ -73,12 +74,12 @@ __d(
           return "unknown";
       }
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o(
               "WAWebBizBroadcastCampaignAPI",
@@ -121,10 +122,10 @@ __d(
             "WAWebPendingBusinessBroadcastSerialization",
           ).deserializePendingBusinessBroadcast(s, i);
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
+    function F(e) {
       var t, n, r, o, a;
       return {
         adId: (t = e.adId) != null ? t : void 0,
@@ -138,12 +139,12 @@ __d(
         status: e.status,
       };
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function O(e, t, n) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = yield o(
             "WAWebBizBroadcastCampaignAPI",
           ).getBizBroadcastCampaignByAdGroupId(e);
@@ -156,19 +157,19 @@ __d(
                 status: o("WAWebSchemaBusinessBroadcastCampaign")
                   .BusinessBroadcastCampaignStatus.SENT,
               },
-              u = babelHelpers.extends({}, a, l),
+              s = babelHelpers.extends({}, a, l),
               c = Date.now(),
               d = r("WAWebBroadcastCampaignSync").getCampaignMutation(
                 a.campaignId,
-                A(u),
+                F(s),
                 c,
               );
             (yield o(
               "WAWebBizBroadcastCampaignNotifier",
             ).updateCampaignWithSyncAndNotify(a.campaignId, l, [d]),
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Updated campaign status to SENT",
                   ])),
               ),
@@ -178,15 +179,15 @@ __d(
                   .remove(i)));
           }
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function W() {
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o(
             "WAWebBizBroadcastCampaignAPI",
           ).getBizBroadcastCampaignByAdGroupId(e);
@@ -200,29 +201,29 @@ __d(
               l = Date.now(),
               s = r("WAWebBroadcastCampaignSync").getCampaignMutation(
                 n.campaignId,
-                A(i),
+                F(i),
                 l,
               );
             (yield o(
               "WAWebBizBroadcastCampaignNotifier",
             ).updateCampaignWithSyncAndNotify(n.campaignId, a, [s]),
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Updated campaign status to FAILED",
                   ])),
               ));
           }
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function q(e, t, n, r, o, a) {
-      return U.apply(this, arguments);
+    function U(e, t, n, r, o, a) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i) {
             var l = o("WAWebWidFactory").createWid(e);
             yield o("WAWebCatalogCollection").CatalogCollection.findProduct({
@@ -234,22 +235,22 @@ __d(
             if (u == null)
               return (
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Product not found in catalog after findProduct",
                     ])),
                 ),
                 null
               );
-            var m = o("WAWebProductCatalogMessage").createProductMsgSnapshot(u),
+            var c = o("WAWebProductCatalogMessage").createProductMsgSnapshot(u),
               p = u.getProductImageCollectionHead();
             p != null && (yield p.triggerImageUpdate());
             var _ = u.getHeadImageFile();
             if (_ == null)
               return (
                 o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Product image not available after triggerImageUpdate",
                     ])),
                 ),
@@ -262,7 +263,7 @@ __d(
               h = f.mediaMsgData,
               y = o("WAWebBroadcastMsgDataUtils").createBroadcastProductMsgData(
                 h,
-                m,
+                c,
               );
             return o("WAWebSendBroadcastMsgAction").sendBroadcastMsgAction({
               beforeSend: o(
@@ -274,15 +275,15 @@ __d(
             });
           },
         )),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V(e, t, n, r, o, a) {
-      return H.apply(this, arguments);
+    function H(e, t, n, r, o, a) {
+      return G.apply(this, arguments);
     }
-    function H() {
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i) {
             var l = o("WAWebWidFactory").createWid(e);
             yield o("WAWebCatalogCollection").CatalogCollection.find(l);
@@ -295,8 +296,8 @@ __d(
               return (
                 o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:campaign-notification] Full catalog send failed: product image unavailable after fetch. catalogWid=",
                         ", hasProduct=",
                         ", hasHeadImage=",
@@ -313,10 +314,10 @@ __d(
                   .sendLogs("business-broadcast-full-catalog-send-failed"),
                 null
               );
-            var p = JSON.parse(a),
+            var m = JSON.parse(a),
               _ = yield o(
                 "WAWebBizBroadcastMediaProcessor",
-              ).processMediaWithCTAForBroadcast(d, t.length, n, r, p),
+              ).processMediaWithCTAForBroadcast(d, t.length, n, r, m),
               f = _.freshMedia,
               g = _.mediaMsgData,
               h = yield o("WAWebSendBroadcastMsgAction").sendBroadcastMsgAction(
@@ -329,38 +330,38 @@ __d(
                   recipients: t,
                 },
               );
-            return { mediaType: f.type, result: h };
+            return { mediaType: f.type, result: h, sentCtaButtonJson: a };
           },
         )),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function z() {
+    function j() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.adGroupId,
             n = e.adId,
             r = e.broadcastJid;
           (yield o("WAWebPendingBusinessBroadcastAPI").deletePendingBroadcast(
             t,
           ),
-            yield B(t, n),
+            yield W(t, n),
             yield o(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(r));
         })),
-        z.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function j(e, t) {
-      return K.apply(this, arguments);
+    function K(e, t) {
+      return Q.apply(this, arguments);
     }
-    function K() {
+    function Q() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.adGroupId,
             r = e.adId,
             a = e.broadcastJid,
@@ -377,8 +378,8 @@ __d(
           });
           if (u != null) {
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-notification] Sending single product broadcast, listId=",
                   ", catalogWid=",
                   ", productId=",
@@ -388,9 +389,9 @@ __d(
               l,
               u,
             );
-            var m = yield q(l, u, c, a, t, i);
+            var m = yield U(l, u, c, a, t, i);
             return m == null
-              ? (yield G({ adGroupId: n, adId: r, broadcastJid: a }),
+              ? (yield z({ adGroupId: n, adId: r, broadcastJid: a }),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -402,12 +403,12 @@ __d(
                   d,
                 ),
                 null)
-              : { mediaType: null, result: m };
+              : { mediaType: null, result: m, sentCtaButtonJson: null };
           }
           if (s != null) {
             o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-notification] Sending full catalog broadcast, listId=",
                   ", catalogWid=",
                   "",
@@ -415,9 +416,9 @@ __d(
               a,
               l,
             );
-            var g = yield V(l, c, a, t, s, i);
-            return g == null
-              ? (yield G({ adGroupId: n, adId: r, broadcastJid: a }),
+            var p = yield H(l, c, a, t, s, i);
+            return p == null
+              ? (yield z({ adGroupId: n, adId: r, broadcastJid: a }),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -429,18 +430,18 @@ __d(
                   d,
                 ),
                 null)
-              : g;
+              : p;
           }
           return (
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-notification] Invalid catalog state: catalogWid=",
                   " but no productId or ctaButtonJson",
                 ])),
               l,
             ),
-            yield G({ adGroupId: n, adId: r, broadcastJid: a }),
+            yield z({ adGroupId: n, adId: r, broadcastJid: a }),
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -454,15 +455,15 @@ __d(
             null
           );
         })),
-        K.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function Q(e) {
-      return X.apply(this, arguments);
+    function X(e) {
+      return Y.apply(this, arguments);
     }
-    function X() {
+    function Y() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.broadcastJid,
             n = e.businessMetadata,
             r = e.catalogWid,
@@ -475,8 +476,8 @@ __d(
             d = null;
           if (i != null && a != null) {
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-notification] Sending interactive broadcast with media + CTA, listId=",
                   ", recipients=",
                   "",
@@ -502,11 +503,11 @@ __d(
                 recipients: s,
               })));
           } else {
-            if (r != null) return j(e, u);
+            if (r != null) return K(e, u);
             if (i != null) {
               o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Sending media broadcast with fresh processing, listId=",
                     ", recipients=",
                     "",
@@ -514,11 +515,11 @@ __d(
                 t,
                 s.length,
               );
-              var C = yield o(
+              var g = yield o(
                   "WAWebBizBroadcastMediaProcessor",
                 ).processMediaForBroadcast(i, s.length, t, u),
-                b = C.freshMedia,
-                v = C.mediaMsgData;
+                b = g.freshMedia,
+                v = g.mediaMsgData;
               ((d = b.type),
                 (c = yield o(
                   "WAWebSendBroadcastMsgAction",
@@ -532,8 +533,8 @@ __d(
                 })));
             } else if (a != null) {
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Sending interactive broadcast, listId=",
                     ", recipients=",
                     "",
@@ -557,14 +558,14 @@ __d(
               );
             }
           }
-          return { mediaType: d, result: c };
+          return { mediaType: d, result: c, sentCtaButtonJson: a };
         })),
-        X.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function Y(t) {
+    function J(t) {
       var n = t.adGroupId,
-        r = P.get(n);
+        r = N.get(n);
       if (r != null)
         return (
           o("WALogger").LOG(
@@ -577,25 +578,25 @@ __d(
           ),
           r
         );
-      var a = ee(t).finally(function () {
-        P.delete(n);
+      var a = te(t).finally(function () {
+        N.delete(n);
       });
-      return (P.set(n, a), a);
+      return (N.set(n, a), a);
     }
-    function J(e) {
-      return Z.apply(this, arguments);
+    function Z(e) {
+      return ee.apply(this, arguments);
     }
-    function Z() {
+    function ee() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebBizBroadcastCampaignAPI",
           ).getBizBroadcastCampaignByAdGroupId(e);
           if (t == null)
             return (
               o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Ad Group ID not found, presuming notification was meant for primary device",
                   ])),
               ),
@@ -606,8 +607,8 @@ __d(
             .getDeviceId();
           return t.deviceId !== n
             ? (o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Campaign was created on device ",
                     ", skipping on current device ",
                     "",
@@ -620,8 +621,8 @@ __d(
                 o("WAWebSchemaBusinessBroadcastCampaign")
                   .BusinessBroadcastCampaignStatus.PROCESSING
               ? (o("WALogger").LOG(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Campaign is no longer processing, skipping ad_group_id: ",
                       ", status: ",
                       "",
@@ -632,41 +633,41 @@ __d(
                 null)
               : t;
         })),
-        Z.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    function ee(e) {
-      return te.apply(this, arguments);
+    function te(e) {
+      return ne.apply(this, arguments);
     }
-    function te() {
+    function ne() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.adGroupId,
             n = e.adId;
           if (t == null || n == null)
             return (
               o("WALogger").ERROR(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Missing required params",
                   ])),
               ),
               !1
             );
           o("WALogger").LOG(
-            R ||
-              (R = babelHelpers.taggedTemplateLiteralLoose([
+            L ||
+              (L = babelHelpers.taggedTemplateLiteralLoose([
                 "[broadcast:campaign-notification] Retrieving pending broadcast for ad_group_id: ",
                 "",
               ])),
             t,
           );
-          var a = yield J(t);
+          var a = yield Z(t);
           if (a == null) return !1;
           if (e.status === "INTEGRITY_NOT_CLEARED") {
             (o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-notification] Integrity not cleared for campaign, ad_group_id: ",
                   "",
                 ])),
@@ -675,7 +676,7 @@ __d(
               yield o(
                 "WAWebPendingBusinessBroadcastAPI",
               ).deletePendingBroadcast(t),
-              yield B(t, n));
+              yield W(t, n));
             var i = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignByAdGroupId(t);
@@ -704,12 +705,12 @@ __d(
             m = null;
           try {
             var p,
-              _ = yield M(t);
+              _ = yield w(t);
             if (_ == null)
               return (
                 o("WALogger").LOG(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Pending broadcast data not found for campaign",
                     ])),
                 ),
@@ -723,83 +724,84 @@ __d(
               b = _.messageBody,
               v = _.productId;
             ((l = f), (u = C), (c = g), (d = v));
-            var $ = babelHelpers.extends(
+            var S = babelHelpers.extends(
               { campaign_id: n },
               y != null ? { free_reserved_msgs: String(y) } : null,
             );
             if (b == null || f == null)
               return (
                 o("WALogger").LOG(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Message not found for broadcast",
                     ])),
                 ),
                 f != null &&
-                  (yield G({ adGroupId: t, adId: n, broadcastJid: f })),
+                  (yield z({ adGroupId: t, adId: n, broadcastJid: f })),
                 !1
               );
             var P = o("WAWebWidFactory").createWid(f),
               N = yield o("WAWebBroadcastDatabaseJob").getBroadcastMetadataJob(
                 P,
               ),
-              w = (
+              M = (
                 (p = N == null ? void 0 : N.recipients) != null ? p : []
               ).map(function (e) {
                 return o("WAWebWidFactory").createUserLidOrThrow(e);
               });
-            ((s = w.length),
+            ((s = M.length),
               o("WALogger").LOG(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] retrieved metadata with recipients count: ",
                     " for broadcast list ID: ",
                     "",
                   ])),
-                w.length,
+                M.length,
                 f,
               ));
-            var A = yield Q({
+            var A = yield X({
               adGroupId: t,
               adId: n,
               broadcastJid: f,
-              businessMetadata: $,
+              businessMetadata: S,
               catalogWid: g,
               ctaButtonJson: h,
               freeReservedMsgs: y,
               mediaFile: C,
               messageBody: b,
               productId: v,
-              recipients: w,
+              recipients: M,
             });
             if (A == null) return !1;
-            var O = A.mediaType,
-              W = A.result;
+            var F = A.mediaType,
+              B = A.result,
+              q = A.sentCtaButtonJson;
             if (
-              ((m = O),
-              W.messageSendResult ===
+              ((m = F),
+              B.messageSendResult ===
                 o("WAWebSendMsgResultAction").SendMsgResult.OK)
             ) {
-              var q, U, V, H;
+              var U, V, H, G, j;
               return (
                 o("WALogger").LOG(
-                  T ||
-                    (T = babelHelpers.taggedTemplateLiteralLoose([
+                  D ||
+                    (D = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Broadcast sent successfully, recipients count: ",
                       ", broadcast list ID: ",
                       ", campaign_id: ",
                       "",
                     ])),
-                  w.length,
+                  M.length,
                   f,
                   n,
                 ),
-                yield F(
+                yield O(
                   t,
                   n,
-                  W.msgId != null
+                  B.msgId != null
                     ? o("WAWebBizBroadcastCampaignMsgKeyUtils").extractStanzaId(
-                        W.msgId,
+                        B.msgId,
                       )
                     : null,
                 ),
@@ -810,49 +812,50 @@ __d(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.sendCampaignAck({
                   attachment_type:
-                    (q = o("WAWebBizBroadcastMediaProcessor").getAttachmentType(
-                      { catalogWid: g, mediaType: O, productId: v },
+                    (U = o("WAWebBizBroadcastMediaProcessor").getAttachmentType(
+                      { catalogWid: g, mediaType: F, productId: v },
                     )) != null
-                      ? q
+                      ? U
                       : void 0,
                   campaign_id: n,
-                  campaign_send_ts: (U = _.sendTimestamp) != null ? U : void 0,
+                  campaign_send_ts: (V = _.sendTimestamp) != null ? V : void 0,
                   character_cnt: b.length,
                   client_campaign_id: a == null ? void 0 : a.campaignId,
                   created_from_client_campaign_id:
-                    (V = a == null ? void 0 : a.sourceCampaignId) != null
-                      ? V
+                    (H = a == null ? void 0 : a.sourceCampaignId) != null
+                      ? H
                       : void 0,
                   has_catalog: g != null,
                   has_document_attachments:
-                    O === o("WAWebMsgType").MSG_TYPE.DOCUMENT,
+                    F === o("WAWebMsgType").MSG_TYPE.DOCUMENT,
                   has_trackable_link: h != null,
+                  inserted_buttons: (G = ae(q)) != null ? G : void 0,
                   integrity_status: e.status,
                   is_duplicate_bb:
                     (a == null ? void 0 : a.isDuplicate) === !0 ? !0 : void 0,
                   is_web_imported_list:
-                    (H = N == null ? void 0 : N.isWebCreatedList) != null
-                      ? H
+                    (j = N == null ? void 0 : N.isWebCreatedList) != null
+                      ? j
                       : !1,
-                  photo_cnt: O === o("WAWebMsgType").MSG_TYPE.IMAGE ? 1 : 0,
-                  recipient_cnt: w.length,
+                  photo_cnt: F === o("WAWebMsgType").MSG_TYPE.IMAGE ? 1 : 0,
+                  recipient_cnt: M.length,
                   scheduled: !1,
-                  video_cnt: O === o("WAWebMsgType").MSG_TYPE.VIDEO ? 1 : 0,
+                  video_cnt: F === o("WAWebMsgType").MSG_TYPE.VIDEO ? 1 : 0,
                 }),
                 !0
               );
             }
-            yield ne(W, t, n, f, w, g, v, O, C);
+            yield re(B, t, n, f, M, g, v, F, C);
           } catch (e) {
-            var z, j, K;
+            var K, Q, Y;
             if (
               e ===
               o("WAWebPendingBusinessBroadcastAPI").AD_GROUP_NOT_FOUND_ERROR
             )
               return (
                 o("WALogger").LOG(
-                  D ||
-                    (D = babelHelpers.taggedTemplateLiteralLoose([
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:campaign-notification] Ad Group ID not found, presuming notification was meant for primary device",
                     ])),
                 ),
@@ -860,27 +863,27 @@ __d(
               );
             (o("WALogger")
               .ERROR(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-notification] Failed to create pending broadcast",
                   ])),
               )
               .catching(r("getErrorSafe")(e)),
               l != null &&
-                (yield G({ adGroupId: t, adId: n, broadcastJid: l })),
+                (yield z({ adGroupId: t, adId: n, broadcastJid: l })),
               o(
                 "WAWebBusinessBroadcastUserJourneyLogger",
               ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
                 s,
                 "failure",
-                ((z = u) == null ? void 0 : z.name) != null
+                ((K = u) == null ? void 0 : K.name) != null
                   ? o("WAWebFileUtils").getFileExtension(u.name)
                   : null,
                 String(
-                  (j =
-                    (K = r("getErrorSafe")(e)) == null ? void 0 : K.message) !=
+                  (Q =
+                    (Y = r("getErrorSafe")(e)) == null ? void 0 : Y.message) !=
                     null
-                    ? j
+                    ? Q
                     : e,
                 ),
                 "unknown",
@@ -893,20 +896,20 @@ __d(
           }
           return !1;
         })),
-        te.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    function ne(e, t, n, r, o, a, i, l, s) {
-      return re.apply(this, arguments);
+    function re(e, t, n, r, o, a, i, l, s) {
+      return oe.apply(this, arguments);
     }
-    function re() {
+    function oe() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i, l, s, u) {
             var c = e.ackErrorCode;
             o("WALogger").LOG(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-notification] Failed to send broadcast, recipients count: ",
                   ", broadcast list ID: ",
                   ", campaign_id: ",
@@ -931,8 +934,8 @@ __d(
                   o("WAWebBizBroadcastCampaignMsgKeyUtils").extractStanzaId(d),
                 ));
             }
-            yield G({ adGroupId: t, adId: n, broadcastJid: r });
-            var p = N(c);
+            yield z({ adGroupId: t, adId: n, broadcastJid: r });
+            var p = M(c);
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -951,10 +954,45 @@ __d(
             );
           },
         )),
-        re.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    l.processCampaignNotification = Y;
+    function ae(e) {
+      if (e == null) return "[]";
+      try {
+        var t = JSON.parse(e);
+        if (!Array.isArray(t.buttons)) return null;
+        var n = [];
+        for (var r of t.buttons) {
+          var a =
+            r.name === "quick_reply"
+              ? "CTA_QUICK_REPLY"
+              : r.name === "cta_url"
+                ? "CTA_URL"
+                : r.name === "cta_call"
+                  ? "CTA_CALL"
+                  : r.name === "cta_catalog"
+                    ? "CTA_CATALOG"
+                    : null;
+          if (a == null) return null;
+          n.push(a);
+        }
+        return JSON.stringify(n);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[broadcast:campaign-notification] Unable to parse sent CTA types for campaign acknowledgement",
+                ])),
+            )
+            .sendLogs("business-broadcast-inserted-buttons-parse-failed"),
+          null
+        );
+      }
+    }
+    l.processCampaignNotification = J;
   },
   98,
 );

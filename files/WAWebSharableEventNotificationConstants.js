@@ -11,6 +11,7 @@ __d(
         "Reminder",
         "InviteRemove",
         "Suspended",
+        "GuestJoinedWa",
       ]),
       s = e.Mirrored(["EventStartingSoon", "EventStarted"]),
       u = e.Mirrored([
@@ -34,7 +35,7 @@ __d(
     var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
       m = e.Mirrored(["Active", "Canceled", "Suspended"]),
       p = e.Mirrored(["DeletedByHost", "Expired"]),
-      _ = new Set([l.Update, l.Rsvp, l.Delete]);
+      _ = new Set([l.Update, l.Rsvp, l.Delete, l.GuestJoinedWa]);
     function f(e) {
       return _.has(e);
     }
@@ -53,12 +54,14 @@ __d(
                   ? "inviteRemove"
                   : e === l.Suspended
                     ? "suspended"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+                    : e === l.GuestJoinedWa
+                      ? "guestJoinedWa"
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              e,
+                          );
+                        })();
     }
     ((i.SharableEventNotificationType = l),
       (i.SharableEventReminderType = s),

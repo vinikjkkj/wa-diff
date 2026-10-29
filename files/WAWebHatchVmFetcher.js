@@ -12,8 +12,10 @@ __d(
       p = "https://hatch-api.meta.ai/hatch/lease_vm",
       _ = "https://hatch-api.meta.ai/hatch/vm/wake",
       f = 4294967295,
-      g = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
-    function h(t) {
+      g = "hatch_vm",
+      h = "invalid",
+      y = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
+    function C(t) {
       o("WALogger")
         .WARN(
           e ||
@@ -25,7 +27,7 @@ __d(
         )
         .sendLogs("hatch-vm-credentials-rejected-field");
     }
-    function y(e) {
+    function b(e) {
       o("WALogger")
         .WARN(
           s ||
@@ -37,7 +39,7 @@ __d(
         )
         .sendLogs("hatch-vm-credentials-request-failed");
     }
-    function C(e, t) {
+    function v(e, t) {
       o("WALogger")
         .WARN(
           u ||
@@ -51,11 +53,11 @@ __d(
         )
         .sendLogs("hatch-vm-credentials-control-failed");
     }
-    function b(e) {
+    function S(e) {
       var t = e.trim();
-      return g.test(t) ? t : null;
+      return y.test(t) ? t : null;
     }
-    function v(e) {
+    function R(e) {
       var t;
       try {
         t = new URL(e);
@@ -66,14 +68,62 @@ __d(
         r = t.hostname.toLowerCase();
       if (!r.endsWith(n)) return null;
       var o = r.slice(0, -n.length);
-      return b(o);
+      return S(o);
     }
-    function S(e) {
+    function L(e) {
       if (typeof e != "string") return null;
       var t = e.trim();
       return t === "" ? null : t;
     }
-    function R(e, t) {
+    function E(e) {
+      return e == null || e === g;
+    }
+    function k(e, t) {
+      if (!Array.isArray(e))
+        return (
+          C("vm_list"),
+          {
+            cause: "malformed",
+            detail: "VM credential response omitted vm_list",
+            kind: "failure",
+          }
+        );
+      var n = [],
+        r = [],
+        o = new Set(),
+        a = !1;
+      for (var i of e) {
+        var l = x(i, t);
+        l.kind === "ok"
+          ? n.push(l.entry)
+          : (r.push(l.detail), o.add(l.field), a || (a = T(i)));
+      }
+      for (var s of o) C(s);
+      return I({ droppedDecisiveEntry: a, entries: n, invalidDetails: r });
+    }
+    function I(e) {
+      var t = e.droppedDecisiveEntry,
+        n = e.entries,
+        r = e.invalidDetails;
+      return t
+        ? {
+            cause: "malformed",
+            detail: "VM credential response had an invalid default or typed VM",
+            kind: "failure",
+          }
+        : n.length === 0 && r.length > 0
+          ? { cause: "malformed", detail: r[0], kind: "failure" }
+          : { entries: n, kind: "ok" };
+    }
+    function T(e) {
+      return e == null || typeof e != "object" || Array.isArray(e)
+        ? !1
+        : e.default === !0 || (e.vm_type != null && !E(e.vm_type));
+    }
+    function D(e) {
+      return e == null ? null : typeof e == "string" ? e : h;
+    }
+    function x(e, t) {
       var n;
       if (e == null || typeof e != "object" || Array.isArray(e))
         return {
@@ -86,55 +136,56 @@ __d(
         a = r.default === !0,
         i = r.vm_id,
         l = typeof r.vm_state == "string" ? r.vm_state : null,
-        s = r.vm_auth_token,
-        u = r.vm_notary_tokens,
-        c = r.notary_token_expiration_ts;
+        s = D(r.vm_type),
+        u = r.vm_auth_token,
+        c = r.vm_notary_tokens,
+        d = r.notary_token_expiration_ts;
       if (typeof o != "string" || o.trim() === "")
         return {
           detail: "VM entry omitted its gateway URL",
           field: "vm_ws_url",
           kind: "failure",
         };
-      var d = o.trim();
-      if (typeof s != "string" || s.trim() === "")
+      var m = o.trim();
+      if (typeof u != "string" || u.trim() === "")
         return {
           detail: "VM entry omitted its auth token",
           field: "vm_auth_token",
           kind: "failure",
         };
-      var m = s.trim();
-      if (u == null || typeof u != "object" || Array.isArray(u))
+      var p = u.trim();
+      if (c == null || typeof c != "object" || Array.isArray(c))
         return {
           detail: "VM entry omitted its notary tokens",
           field: "vm_notary_tokens",
           kind: "failure",
         };
-      if (typeof c != "number" || !Number.isFinite(c) || c < 0 || c > f)
+      if (typeof d != "number" || !Number.isFinite(d) || d < 0 || d > f)
         return {
           detail: "VM entry had an invalid notary expiration",
           field: "notary_token_expiration_ts",
           kind: "failure",
         };
-      var p = typeof i == "string" ? i.trim() : "",
-        _ = p !== "",
-        g = _ ? b(p) : v(d),
-        h = (n = S(u["/v1/noise"])) != null ? n : S(u["/"]),
-        y = c * 1e3;
-      return g == null
+      var _ = typeof i == "string" ? i.trim() : "",
+        g = _ !== "",
+        h = g ? S(_) : R(m),
+        y = (n = L(c["/v1/noise"])) != null ? n : L(c["/"]),
+        C = d * 1e3;
+      return h == null
         ? {
-            detail: _
+            detail: g
               ? "VM entry had an invalid VM id"
               : "VM entry had an invalid gateway host",
-            field: _ ? "vm_id" : "vm_ws_url",
+            field: g ? "vm_id" : "vm_ws_url",
             kind: "failure",
           }
-        : h == null
+        : y == null
           ? {
               detail: "VM entry omitted its Noise notary token",
               field: "vm_notary_tokens",
               kind: "failure",
             }
-          : y <= t
+          : C <= t
             ? {
                 detail: "VM entry had an expired notary token",
                 field: "notary_token_expiration_ts",
@@ -142,18 +193,19 @@ __d(
               }
             : {
                 entry: {
-                  gatewayUrl: d,
+                  gatewayUrl: m,
                   isDefault: a,
-                  notaryExpiresAtMs: y,
-                  notaryToken: h,
+                  notaryExpiresAtMs: C,
+                  notaryToken: y,
                   state: l,
-                  vmAuthToken: m,
-                  vmId: g,
+                  vmAuthToken: p,
+                  vmId: h,
+                  vmType: s,
                 },
                 kind: "ok",
               };
     }
-    var L = (function () {
+    var $ = (function () {
       function e(e, t) {
         (t === void 0 &&
           (t = function () {
@@ -191,7 +243,7 @@ __d(
               } catch (e) {
                 var a = n.signal.aborted;
                 return (
-                  y(a ? "timeout" : "transport"),
+                  b(a ? "timeout" : "transport"),
                   {
                     cause: a ? "timeout" : "network",
                     detail: a
@@ -225,7 +277,7 @@ __d(
               } catch (e) {
                 var l = n.signal.aborted;
                 return (
-                  y(l ? "timeout" : "not_json"),
+                  b(l ? "timeout" : "not_json"),
                   {
                     cause: l ? "timeout" : "malformed",
                     detail: l
@@ -235,46 +287,13 @@ __d(
                   }
                 );
               }
-              if (i == null || typeof i != "object" || Array.isArray(i))
-                return {
-                  cause: "malformed",
-                  detail: "VM credential response was invalid",
-                  kind: "failure",
-                };
-              var s = i.vm_list;
-              if (!Array.isArray(s))
-                return (
-                  h("vm_list"),
-                  {
+              return i == null || typeof i != "object" || Array.isArray(i)
+                ? {
                     cause: "malformed",
-                    detail: "VM credential response omitted vm_list",
+                    detail: "VM credential response was invalid",
                     kind: "failure",
                   }
-                );
-              if (s.length === 0) return { entries: [], kind: "ok" };
-              var u = [],
-                m = [],
-                p = new Set(),
-                _ = this.$2();
-              for (var f of s) {
-                var g = R(f, _);
-                g.kind === "ok"
-                  ? u.push(g.entry)
-                  : (m.push(g.detail), p.add(g.field));
-              }
-              for (var C of p) h(C);
-              if (u.length === 0) {
-                var b;
-                return {
-                  cause: "malformed",
-                  detail:
-                    (b = m[0]) != null
-                      ? b
-                      : "VM credential response contained no entries",
-                  kind: "failure",
-                };
-              }
-              return { entries: u, kind: "ok" };
+                : k(i.vm_list, this.$2());
             } finally {
               self.clearTimeout(r);
             }
@@ -332,7 +351,7 @@ __d(
             } catch (e) {
               var u = i.signal.aborted;
               return (
-                C(r, u ? "timeout" : "transport"),
+                v(r, u ? "timeout" : "transport"),
                 {
                   cause: u ? "timeout" : "network",
                   detail: u
@@ -369,7 +388,9 @@ __d(
         e
       );
     })();
-    ((l.extractVmId = v), (l.WAWebHatchVmFetcher = L));
+    ((l.extractVmId = R),
+      (l.isStandardVmType = E),
+      (l.WAWebHatchVmFetcher = $));
   },
   98,
 );

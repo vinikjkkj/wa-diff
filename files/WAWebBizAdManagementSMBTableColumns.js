@@ -161,6 +161,7 @@ __d(
                 onDelete: a.onDeleteDraft,
               })
             : u.jsx(r("WAWebBizAdManagementActionsCell.react"), {
+                adsLwiGoal: a.adsLwiGoal,
                 boostId: a.boostId,
                 boostingStatus: a.boostingStatus,
                 isDetailsOpen: n,

@@ -151,6 +151,10 @@ __d(
             type: "NewsletterPollCreation",
             payload: c(n.value),
           });
+        case "NewsletterQuestionResponseRevokeFanout":
+          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+            "unrecognized-newsletter-message-type",
+          );
         default:
           throw (
             n.name,

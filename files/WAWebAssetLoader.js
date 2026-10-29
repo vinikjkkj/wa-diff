@@ -12,6 +12,7 @@ __d(
     "WAWebAssetLoaderDpiChangeDispatch",
     "WAWebAssetLoaderDynamicStyle",
     "WAWebAssetToLoad",
+    "WAWebCleanAssets",
     "WAWebEmoji",
     "WAWebEmojiAssetLoader",
     "WAWebEmojiConst",
@@ -20,7 +21,6 @@ __d(
     "WAWebWamEnumWebcAssetCacheTypeCode",
     "WAWebWebcAssetLoadWamEvent",
     "asyncToGeneratorRuntime",
-    "cr:5624",
     "err",
     "getErrorSafe",
     "gkx",
@@ -375,22 +375,21 @@ __d(
           }),
           (a.$11 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r) {
-                var o = this,
-                  a = (r == null ? void 0 : r.forceCheck) !== !1,
-                  i = (r == null ? void 0 : r.estimateStorage) === !0,
-                  l = yield (h || (h = n("Promise"))).all(
+              function* (e, t, o) {
+                var a = this,
+                  i = (o == null ? void 0 : o.forceCheck) !== !1,
+                  l = (o == null ? void 0 : o.estimateStorage) === !0,
+                  s = yield (h || (h = n("Promise"))).all(
                     e.map(function (e) {
-                      return o.loadAsset(e, t, a);
+                      return a.loadAsset(e, t, i);
                     }),
                   );
                 return (
-                  n("cr:5624") &&
-                    n("cr:5624")({
-                      keep: Object.values(this.$2),
-                      estimateStorage: i,
-                    }),
-                  l
+                  r("WAWebCleanAssets")({
+                    keep: Object.values(this.$2),
+                    estimateStorage: l,
+                  }),
+                  s
                 );
               },
             );

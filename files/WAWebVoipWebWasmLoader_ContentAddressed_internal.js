@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "34e4306a2f4e557ddc9fe7fa9a3208819d4e22ae2c5d7c7b9c601ab59512357b",
+      c = "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb",
       d = {
+        "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb":
+          function () {
+            return r("bx")("110810");
+          },
         "34e4306a2f4e557ddc9fe7fa9a3208819d4e22ae2c5d7c7b9c601ab59512357b":
           function () {
             return r("bx")("110807");
@@ -77,12 +81,8 @@ __d(
           function () {
             return r("bx")("110622");
           },
-        "55fe9b69e4ab2c508e87ba56c102718856f20e2d9b3058b7562a21f5097575e4":
-          function () {
-            return r("bx")("110620");
-          },
       },
-      m = d["34e4306a2f4e557ddc9fe7fa9a3208819d4e22ae2c5d7c7b9c601ab59512357b"],
+      m = d["9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb"],
       p = null,
       _ = null;
     try {
@@ -91,6 +91,10 @@ __d(
       p = e;
     }
     var f = {
+        "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb":
+          function () {
+            return r("bx")("110809");
+          },
         "34e4306a2f4e557ddc9fe7fa9a3208819d4e22ae2c5d7c7b9c601ab59512357b":
           function () {
             return r("bx")("110806");
@@ -151,16 +155,12 @@ __d(
           function () {
             return r("bx")("110621");
           },
-        "55fe9b69e4ab2c508e87ba56c102718856f20e2d9b3058b7562a21f5097575e4":
-          function () {
-            return r("bx")("110619");
-          },
       },
-      g = f["34e4306a2f4e557ddc9fe7fa9a3208819d4e22ae2c5d7c7b9c601ab59512357b"],
+      g = f["9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb"],
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1793229936156" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1793269076525" });
     } catch (e) {
       h = e;
     }
@@ -199,7 +199,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/34e4306a2f4e557ddc9fe7fa9a3208819d4e22ae2c5d7c7b9c601ab59512357b/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -923,10 +923,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1414796: function () {
+          1416732: function () {
             return Date.now();
           },
-          1414819: function (t, n) {
+          1416755: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7708,7 +7708,7 @@ __d(
             invoke_fi: lu,
             invoke_fii: Cs,
             invoke_fiii: ec,
-            invoke_fiiiiii: ou,
+            invoke_fiiiiii: Qs,
             invoke_i: El,
             invoke_id: uu,
             invoke_ii: Il,
@@ -7725,7 +7725,7 @@ __d(
             invoke_iifiii: su,
             invoke_iii: Tl,
             invoke_iiid: Fs,
-            invoke_iiifi: au,
+            invoke_iiifi: Xs,
             invoke_iiii: Rl,
             invoke_iiiidd: Lu,
             invoke_iiiifiii: ks,
@@ -7737,7 +7737,7 @@ __d(
             invoke_iiiiiiiddiiid: Qu,
             invoke_iiiiiiii: Bl,
             invoke_iiiiiiiidi: Xu,
-            invoke_iiiiiiiifii: ru,
+            invoke_iiiiiiiifii: au,
             invoke_iiiiiiiii: Ml,
             invoke_iiiiiiiiii: Fl,
             invoke_iiiiiiiiiiffiii: Ss,
@@ -7772,7 +7772,7 @@ __d(
             invoke_iiiijiiji: ls,
             invoke_iiiijjii: ys,
             invoke_iiiijjiii: ms,
-            invoke_iiij: Js,
+            invoke_iiij: eu,
             invoke_iiijddddddd: Mu,
             invoke_iiiji: ts,
             invoke_iiijii: Zl,
@@ -7782,13 +7782,13 @@ __d(
             invoke_iij: Ps,
             invoke_iiji: vu,
             invoke_iijii: Uu,
-            invoke_iijiii: eu,
+            invoke_iijiii: nu,
             invoke_iijijijiji: ju,
-            invoke_iijj: nu,
+            invoke_iijj: ou,
             invoke_iijjjiiii: Tu,
             invoke_iijjjj: wu,
             invoke_iijjjji: Nu,
-            invoke_ij: Ys,
+            invoke_ij: Zs,
             invoke_j: Ql,
             invoke_ji: Jl,
             invoke_jii: Vs,
@@ -7798,14 +7798,14 @@ __d(
             invoke_jiiiiiiii: Wu,
             invoke_jiiiiiji: Gu,
             invoke_jiij: Su,
-            invoke_jij: Qs,
+            invoke_jij: Ys,
             invoke_jj: Gs,
             invoke_v: Dl,
             invoke_vd: Os,
             invoke_vi: $l,
             invoke_vid: qs,
             invoke_viddjjii: Du,
-            invoke_vif: tu,
+            invoke_vif: ru,
             invoke_viff: pu,
             invoke_vii: kl,
             invoke_viid: js,
@@ -7840,9 +7840,9 @@ __d(
             invoke_viijjdiii: cs,
             invoke_viijji: ws,
             invoke_vij: $s,
-            invoke_viji: Zs,
+            invoke_viji: tu,
             invoke_vijiiiii: Xl,
-            invoke_vijj: Xs,
+            invoke_vijj: Js,
             invoke_vijji: $u,
             invoke_vjiiiiii: Yl,
             is_participant_known_contact_js: rt,
@@ -7926,8 +7926,8 @@ __d(
           yl = (v.___get_exception_message = Ne("__get_exception_message")),
           Cl = Ne("__cxa_can_catch"),
           bl = Ne("__cxa_is_pointer_type"),
-          vl = (v.___start_em_js = 1408748),
-          Sl = (v.___stop_em_js = 1414796);
+          vl = (v.___start_em_js = 1410684),
+          Sl = (v.___stop_em_js = 1416732);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -8785,88 +8785,7 @@ __d(
             ul(1, 0);
           }
         }
-        function Qs(e, t, n) {
-          var r = _l();
-          try {
-            return _n(e)(t, n);
-          } catch (e) {
-            if ((fl(r), !(e instanceof Me))) throw e;
-            return (ul(1, 0), BigInt(0));
-          }
-        }
-        function Xs(e, t, n, r) {
-          var o = _l();
-          try {
-            _n(e)(t, n, r);
-          } catch (e) {
-            if ((fl(o), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function Ys(e, t) {
-          var n = _l();
-          try {
-            return _n(e)(t);
-          } catch (e) {
-            if ((fl(n), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function Js(e, t, n, r) {
-          var o = _l();
-          try {
-            return _n(e)(t, n, r);
-          } catch (e) {
-            if ((fl(o), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function Zs(e, t, n, r) {
-          var o = _l();
-          try {
-            _n(e)(t, n, r);
-          } catch (e) {
-            if ((fl(o), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function eu(e, t, n, r, o, a) {
-          var i = _l();
-          try {
-            return _n(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((fl(i), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function tu(e, t, n) {
-          var r = _l();
-          try {
-            _n(e)(t, n);
-          } catch (e) {
-            if ((fl(r), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function nu(e, t, n, r) {
-          var o = _l();
-          try {
-            return _n(e)(t, n, r);
-          } catch (e) {
-            if ((fl(o), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function ru(e, t, n, r, o, a, i, l, s, u, c) {
-          var d = _l();
-          try {
-            return _n(e)(t, n, r, o, a, i, l, s, u, c);
-          } catch (e) {
-            if ((fl(d), !(e instanceof Me))) throw e;
-            ul(1, 0);
-          }
-        }
-        function ou(e, t, n, r, o, a, i) {
+        function Qs(e, t, n, r, o, a, i) {
           var l = _l();
           try {
             return _n(e)(t, n, r, o, a, i);
@@ -8875,12 +8794,93 @@ __d(
             ul(1, 0);
           }
         }
-        function au(e, t, n, r, o) {
+        function Xs(e, t, n, r, o) {
           var a = _l();
           try {
             return _n(e)(t, n, r, o);
           } catch (e) {
             if ((fl(a), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function Ys(e, t, n) {
+          var r = _l();
+          try {
+            return _n(e)(t, n);
+          } catch (e) {
+            if ((fl(r), !(e instanceof Me))) throw e;
+            return (ul(1, 0), BigInt(0));
+          }
+        }
+        function Js(e, t, n, r) {
+          var o = _l();
+          try {
+            _n(e)(t, n, r);
+          } catch (e) {
+            if ((fl(o), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function Zs(e, t) {
+          var n = _l();
+          try {
+            return _n(e)(t);
+          } catch (e) {
+            if ((fl(n), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function eu(e, t, n, r) {
+          var o = _l();
+          try {
+            return _n(e)(t, n, r);
+          } catch (e) {
+            if ((fl(o), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function tu(e, t, n, r) {
+          var o = _l();
+          try {
+            _n(e)(t, n, r);
+          } catch (e) {
+            if ((fl(o), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function nu(e, t, n, r, o, a) {
+          var i = _l();
+          try {
+            return _n(e)(t, n, r, o, a);
+          } catch (e) {
+            if ((fl(i), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function ru(e, t, n) {
+          var r = _l();
+          try {
+            _n(e)(t, n);
+          } catch (e) {
+            if ((fl(r), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function ou(e, t, n, r) {
+          var o = _l();
+          try {
+            return _n(e)(t, n, r);
+          } catch (e) {
+            if ((fl(o), !(e instanceof Me))) throw e;
+            ul(1, 0);
+          }
+        }
+        function au(e, t, n, r, o, a, i, l, s, u, c) {
+          var d = _l();
+          try {
+            return _n(e)(t, n, r, o, a, i, l, s, u, c);
+          } catch (e) {
+            if ((fl(d), !(e instanceof Me))) throw e;
             ul(1, 0);
           }
         }

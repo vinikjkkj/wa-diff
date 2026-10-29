@@ -10,21 +10,18 @@ __d(
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebFileUtils",
-    "WAWebGetMetaAiImagineEventContext",
     "WAWebHatchGating",
     "WAWebL10nFilesize",
-    "WAWebLogImagineAction",
     "WAWebMediaEditorEnumsThemes",
     "WAWebMediaFileErrors",
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
+    "WAWebMediaInputEvents",
     "WAWebMimeTypes",
     "WAWebResolveSupportedMediaTypes",
     "WAWebServerPropConstants",
     "WAWebSingleSelection",
     "WAWebTPPdfViewerGatingUtils",
-    "WAWebWamEnumImagineAction",
-    "WAWebWamEnumImagineMediaType",
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWamMediaPickerStatsLogger",
     "asyncToGeneratorRuntime",
@@ -189,10 +186,24 @@ __d(
                         "WAWebBotGating",
                       ).getMetaAiDocumentUploadSizeLimitBytes());
                 var c = o("WAWebBotUtils").isMetaAiBot(n.id)
-                  ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
-                  : null;
-                (yield this.processAttachments(e, t, i, s, a, u, c),
-                  o("WAWebBotUtils").isMetaAiBot(n.id) && m(this, n));
+                    ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
+                    : null,
+                  d = yield this.$AttachMediaCollection$p_3(
+                    e,
+                    t,
+                    i,
+                    s,
+                    a,
+                    u,
+                    c,
+                  );
+                o("WAWebMediaInputEvents").emitMediaInputEvent({
+                  type: "attachments_processed",
+                  chat: n,
+                  mediaTypes: d.map(m),
+                  origin: t,
+                  tooLargeTypes: p(d),
+                });
               },
             );
             function t(t, n, r, o, a) {
@@ -201,6 +212,17 @@ __d(
             return t;
           })()),
           (i.processAttachments = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, r, o, a, i) {
+                yield this.$AttachMediaCollection$p_3(e, t, n, r, o, a, i);
+              },
+            );
+            function t(t, n, r, o, a, i, l) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$AttachMediaCollection$p_3 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, a, i, l, s, u, c) {
                 var d = this,
@@ -275,12 +297,12 @@ __d(
                       e,
                       o("WAWebAttachMediaGetters").PREVIEWABLE_ROOT_EVENTS_STR,
                       function () {
-                        d.$AttachMediaCollection$p_3(f, g);
+                        d.$AttachMediaCollection$p_4(f, g);
                       },
                     );
                   }),
                   (e || (e = n("Promise"))).all(t).then(function () {
-                    d.$AttachMediaCollection$p_3(f, g);
+                    d.$AttachMediaCollection$p_4(f, g);
                   }),
                   yield e.all(
                     f.map(function (e) {
@@ -289,9 +311,10 @@ __d(
                   ),
                   s && s(),
                   f.forEach(function (e) {
-                    return d.$AttachMediaCollection$p_4(e, a);
+                    return d.$AttachMediaCollection$p_5(e, a);
                   }),
-                  this.$AttachMediaCollection$p_3(f, g)
+                  this.$AttachMediaCollection$p_4(f, g),
+                  f
                 );
               },
             );
@@ -300,7 +323,7 @@ __d(
             }
             return a;
           })()),
-          (i.$AttachMediaCollection$p_3 = function (t, n) {
+          (i.$AttachMediaCollection$p_4 = function (t, n) {
             if (
               !this.getActive() &&
               !this.getModelsArray().some(function (e) {
@@ -320,7 +343,7 @@ __d(
                 e && this.setActive(e));
             }
           }),
-          (i.$AttachMediaCollection$p_4 = function (t, n) {
+          (i.$AttachMediaCollection$p_5 = function (t, n) {
             if (n != null) {
               var e = t.isGif ? "gif" : t.type;
               this.mediaPickerStatsLogger.logAdd(t.id, e, n);
@@ -628,32 +651,19 @@ __d(
         throw r("err")("expected file to be a Blob or File");
       return o("WAWebFileUtils").typeFromMimetype(t.type);
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function m(e) {
+      var t = e.exception;
+      return t instanceof r("WAWebMediaFileTooLargeError")
+        ? t.mediaType
+        : e.type;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.countWhere(function (e) {
-            return (
-              e.exception instanceof r("WAWebMediaFileTooLargeError") &&
-              e.exception.mediaType === o("WAWebFileUtils").FILETYPE.DOCUMENT
-            );
-          });
-          n !== 0 &&
-            o("WAWebLogImagineAction").logImagineAction({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_SIZE_EXCEED_LIMIT,
-              mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-                .DOCUMENT,
-              maxIndex: n,
-              eventContext: yield o(
-                "WAWebGetMetaAiImagineEventContext",
-              ).getMetaAiImagineEventContext(t),
-            });
-        })),
-        p.apply(this, arguments)
-      );
+    function p(e) {
+      var t = [];
+      for (var n of e) {
+        var o = n.exception;
+        o instanceof r("WAWebMediaFileTooLargeError") && t.push(o.mediaType);
+      }
+      return t;
     }
     l.default = u;
   },

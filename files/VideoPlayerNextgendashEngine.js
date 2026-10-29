@@ -181,6 +181,12 @@ __d(
           r("gkx")("26985") || (r("gkx")("17440") && r("gkx")("18263"))
             ? 4
             : e.bufferAheadTargetNoMediaElementSec,
+        bufferedRangeStartToleranceSec: o(
+          "VideoPlayerNextgendashEngineConfig",
+        ).getVideoPlayerNextgendashLGBufferedRangeStartToleranceSec(
+          r("gkx")("28286"),
+          n("cr:3020").mediaSinkType,
+        ),
         bufferingBeginBufferAheadSec: r("gkx")("7137")
           ? 0.1
           : e.bufferingBeginBufferAheadSec,
@@ -305,6 +311,9 @@ __d(
         preferredMediaSourceAPIType: r("gkx")("7137")
           ? "ManagedMediaSource"
           : "MediaSource",
+        prefetchCacheMaxEntries: r("gkx")("17440")
+          ? 10
+          : e.prefetchCacheMaxEntries,
         prefetchResolutionThreshold: r("gkx")("16054")
           ? 1080
           : e.prefetchResolutionThreshold,

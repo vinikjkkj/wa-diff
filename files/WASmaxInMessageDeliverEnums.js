@@ -10,6 +10,7 @@ __d(
         avatar_sticker: "avatar_sticker",
         buttons_response: "buttons_response",
         cataloglink: "cataloglink",
+        chat_theme: "chat_theme",
         collection: "collection",
         contact: "contact",
         contact_array: "contact_array",
@@ -20,16 +21,20 @@ __d(
         group_history: "group_history",
         history: "history",
         image: "image",
+        instant_image: "instant_image",
         list_response: "list_response",
         location: "location",
         motion_photo: "motion_photo",
         motion_video: "motion_video",
+        music: "music",
         native_flow_response: "native_flow_response",
         order: "order",
         product: "product",
         productlink: "productlink",
         ptt: "ptt",
         ptv: "ptv",
+        request_location: "request_location",
+        request_location_update: "request_location_update",
         sticker: "sticker",
         sticker_pack: "sticker_pack",
         story_reply: "story_reply",
@@ -97,14 +102,15 @@ __d(
         third_party: "third_party",
         unified_inbox: "unified_inbox",
       },
-      C = {
+      C = { AFTER: "AFTER", BEFORE: "BEFORE", ON: "ON" },
+      b = {
         allowlist: "allowlist",
         contacts: "contacts",
         customlist: "customlist",
         denylist: "denylist",
       },
-      b = { allow: "allow", bypass: "bypass", deny: "deny", error: "error" },
-      v = {
+      v = { allow: "allow", bypass: "bypass", deny: "deny", error: "error" },
+      S = {
         ASPRESENTED: "ASPRESENTED",
         BIMONTHLY: "BIMONTHLY",
         DAILY: "DAILY",
@@ -117,7 +123,7 @@ __d(
         WEEKLY: "WEEKLY",
         YEARLY: "YEARLY",
       },
-      S = {
+      R = {
         audio: "audio",
         avatar_sticker: "avatar_sticker",
         buttons_response: "buttons_response",
@@ -144,7 +150,36 @@ __d(
         video: "video",
         xma: "xma",
       },
-      R = {
+      L = {
+        AUTH_CANCEL_FAILED: "AUTH_CANCEL_FAILED",
+        AUTH_CANCEL_FAILED_PROCESSING: "AUTH_CANCEL_FAILED_PROCESSING",
+        COLLECT_EXPIRED: "COLLECT_EXPIRED",
+        COLLECT_FAILED: "COLLECT_FAILED",
+        COLLECT_FAILED_RISK: "COLLECT_FAILED_RISK",
+        COLLECT_REJECTED: "COLLECT_REJECTED",
+        EXPIRED: "EXPIRED",
+        FAILED: "FAILED",
+        FAILED_DA: "FAILED_DA",
+        FAILED_DA_FINAL: "FAILED_DA_FINAL",
+        FAILED_PROCESSING: "FAILED_PROCESSING",
+        FAILED_RECEIVER_PROCESSING: "FAILED_RECEIVER_PROCESSING",
+        FAILED_RISK: "FAILED_RISK",
+        FAILURE: "FAILURE",
+        REFUND_FAILED: "REFUND_FAILED",
+        REFUND_FAILED_DA: "REFUND_FAILED_DA",
+        REFUND_FAILED_PROCESSING: "REFUND_FAILED_PROCESSING",
+      },
+      E = {
+        av1_video_dual_upload: "av1_video_dual_upload",
+        hd_image_dual_upload: "hd_image_dual_upload",
+        hd_video_dual_upload: "hd_video_dual_upload",
+        hevc_video_dual_upload: "hevc_video_dual_upload",
+        media_poll: "media_poll",
+        motion_photo: "motion_photo",
+        poll_add_option: "poll_add_option",
+        sticker_annotation: "sticker_annotation",
+      },
+      k = {
         br: "br",
         incentive: "incentive",
         p2m: "p2m",
@@ -154,19 +189,21 @@ __d(
         upi: "upi",
         upi_lite: "upi_lite",
       },
-      L = { buyer: "buyer", seller: "seller" },
-      E = {
+      I = { buyer: "buyer", seller: "seller" },
+      T = {
         card: "card",
+        external_wallet: "external_wallet",
+        hpp_payment_link: "hpp_payment_link",
         "net-banking": "net-banking",
         upi: "upi",
         wallet: "wallet",
       },
-      k = {
+      D = {
         channels_invitation: "channels_invitation",
         event_invitation: "event_invitation",
       },
-      I = { closed: "closed", open: "open" },
-      T = {
+      x = { closed: "closed", open: "open" },
+      $ = {
         country: "country",
         es: "es",
         react: "react",
@@ -174,14 +211,16 @@ __d(
         tos3: "tos3",
         true: "true",
       },
-      D = { creation: "creation", edit: "edit", response: "response" },
-      x = {
+      P = { creation: "creation", edit: "edit", response: "response" },
+      N = {
         default: "default",
         group_history: "group_history",
+        group_root_key_share: "group_root_key_share",
         history: "history",
         member_tag: "member_tag",
+        tee_tool_response: "tee_tool_response",
       },
-      $ = {
+      M = {
         delivery: "delivery",
         impressions: "impressions",
         link_clicks: "link_clicks",
@@ -189,75 +228,72 @@ __d(
         offsite_conversions: "offsite_conversions",
         replies: "replies",
       },
-      P = {
+      w = {
         DEREGISTER: "DEREGISTER",
         INIT_TOP_UP: "INIT_TOP_UP",
         PAY: "PAY",
         TOP_UP: "TOP_UP",
       },
-      N = { df: "df", ds: "ds", fc: "fc", ge: "ge" },
-      M = {
+      A = { df: "df", ds: "ds", fc: "fc", ge: "ge" },
+      F = {
         document: "document",
         image: "image",
         mixed: "mixed",
         video: "video",
       },
-      w = {
+      O = {
+        drop_all: "drop_all",
         drop_invalid_reporting_token: "drop_invalid_reporting_token",
         drop_missing_reporting_token: "drop_missing_reporting_token",
+        log_missing_reporting_token: "log_missing_reporting_token",
       },
-      A = { EXACT: "EXACT", MAX: "MAX" },
-      F = { FAILED: "FAILED", PENDING: "PENDING", SUCCESS: "SUCCESS" },
-      O = { FAILURE: "FAILURE", INIT: "INIT", SUCCESS: "SUCCESS" },
-      B = { false: "false", true: "true" },
-      W = { FBPAY: "FBPAY", UPI: "UPI" },
-      q = { first: "first", full: "full", inner: "inner", last: "last" },
-      U = {
+      B = { EXACT: "EXACT", MAX: "MAX" },
+      W = { FAILED: "FAILED", PENDING: "PENDING", SUCCESS: "SUCCESS" },
+      q = { FAILURE: "FAILURE", INIT: "INIT", SUCCESS: "SUCCESS" },
+      U = { false: "false", true: "true" },
+      V = { FBPAY: "FBPAY", UPI: "UPI" },
+      H = { first: "first", full: "full", inner: "inner", last: "last" },
+      G = {
         FULL: "FULL",
         MISSING_FIELD_NOT_PARTIAL: "MISSING_FIELD_NOT_PARTIAL",
         PARTIAL: "PARTIAL",
       },
-      V = { group: "group", sender: "sender" },
-      H = { guest: "guest", wa: "wa" },
-      G = {
-        hd_image_dual_upload: "hd_image_dual_upload",
-        hd_video_dual_upload: "hd_video_dual_upload",
-        hevc_video_dual_upload: "hevc_video_dual_upload",
-        media_poll: "media_poll",
-        motion_photo: "motion_photo",
-        poll_add_option: "poll_add_option",
-        sticker_annotation: "sticker_annotation",
+      z = { group: "group", sender: "sender" },
+      j = { guest: "guest", wa: "wa", work: "work" },
+      K = { high: "high", high_force: "high_force", low: "low" },
+      Q = { high: "high", low: "low", unknown: "unknown" },
+      X = {
+        hosted: "hosted",
+        sender_drop: "sender_drop",
+        view_once: "view_once",
       },
-      z = { high: "high", high_force: "high_force", low: "low" },
-      j = { high: "high", low: "low", unknown: "unknown" },
-      K = { hosted: "hosted", view_once: "view_once" },
-      Q = { hpp_payment_link: "hpp_payment_link", upi: "upi" },
-      X = { lid: "lid", pn: "pn" },
-      Y = { matched: "matched", unmatched: "unmatched" },
-      J = {
+      Y = { hpp_payment_link: "hpp_payment_link", upi: "upi" },
+      J = { lid: "lid", pn: "pn" },
+      Z = { matched: "matched", unmatched: "unmatched" },
+      ee = {
         message_limit_reached: "message_limit_reached",
         under_limit: "under_limit",
       },
-      Z = { msg: "msg", pkmsg: "pkmsg" },
-      ee = {
+      te = { msg: "msg", pkmsg: "pkmsg" },
+      ne = {
         new_member: "new_member",
         rereg_recovery_request: "rereg_recovery_request",
         rereg_recovery_response: "rereg_recovery_response",
         user_delete: "user_delete",
         user_update: "user_update",
       },
-      te = { none: "none", service_provider: "service_provider" },
-      ne = { on_demand: "on_demand", scheduled: "scheduled" },
-      re = { p2m: "p2m", p2p: "p2p" },
-      oe = { p2p: "p2p", remittance: "remittance" },
-      ae = { request: "request", send: "send" },
-      ie = { smb_mm: "smb_mm", smb_promo: "smb_promo" },
-      le = {
+      re = { none: "none", service_provider: "service_provider" },
+      oe = { on_demand: "on_demand", scheduled: "scheduled" },
+      ae = { p2m: "p2m", p2p: "p2p" },
+      ie = { p2p: "p2p", remittance: "remittance" },
+      le = { request: "request", send: "send" },
+      se = { smb_mm: "smb_mm", smb_promo: "smb_promo" },
+      ue = {
         tier3: "tier3",
         tier6_matched: "tier6_matched",
         tier6_unmatched: "tier6_unmatched",
       },
-      se = {
+      ce = {
         "": "",
         call_permission_request: "call_permission_request",
         catalog_message: "catalog_message",
@@ -268,12 +304,13 @@ __d(
         payment_info: "payment_info",
         payment_key_info: "payment_key_info",
         payment_method: "payment_method",
+        payment_request: "payment_request",
         payment_status: "payment_status",
         split_payment: "split_payment",
         video_call: "video_call",
         voice_call: "voice_call",
       },
-      ue = {
+      de = {
         validators: [
           (e = o("WAJids")).validateDeviceJid,
           e.validateBroadcastJid,
@@ -287,11 +324,11 @@ __d(
         typeName:
           "DeviceJid|BroadcastJid|DeviceJid|GroupJid|InteropDeviceJid|InteropDeviceJid|DeviceJid|StatusJid",
       },
-      ce = {
+      me = {
         validators: [e.validateDeviceJid, e.validateDeviceJid],
         typeName: "DeviceJid|DeviceJid",
       },
-      de = {
+      pe = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -302,7 +339,7 @@ __d(
         typeName:
           "DeviceJid|DeviceJid|InteropDeviceJid|InteropDeviceJid|DeviceJid",
       },
-      me = {
+      _e = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -315,7 +352,7 @@ __d(
         typeName:
           "DeviceJid|DeviceJid|UserJid|UserJid|DeviceJid|LidUserJid|UserJid",
       },
-      pe = {
+      fe = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -326,20 +363,24 @@ __d(
         ],
         typeName: "DeviceJid|DeviceJid|UserJid|UserJid|LidUserJid|UserJid",
       },
-      _e = {
+      ge = {
         validators: [e.validateGroupJid, e.validateUserJid],
         typeName: "GroupJid|UserJid",
       },
-      fe = {
+      he = {
         validators: [e.validateUserJid, e.validateDeviceJid],
         typeName: "UserJid|DeviceJid",
       },
-      ge = {
+      ye = {
+        validators: [e.validateUserJid, e.validateGroupJid, e.validateUserJid],
+        typeName: "UserJid|GroupJid|UserJid",
+      },
+      Ce = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
     ((l.ENUM_0_1 = s),
-      (l.ENUM_1PSTICKER_AUDIO_AVATARSTICKER_BUTTONSRESPONSE_CATALOGLINK_COLLECTION_CONTACT_CONTACTARRAY_DOCUMENT_FEEDRESHARE_GENAISTICKER_GIF_GROUPHISTORY_HISTORY_IMAGE_LISTRESPONSE_LOCATION_MOTIONPHOTO_MOTIONVIDEO_NATIVEFLOWRESPONSE_ORDER_PRODUCT_PRODUCTLINK_PTT_PTV_STICKER_STICKERPACK_STORYREPLY_URL_USERCREATEDSTICKER_VCARD_VIDEO_XMA =
+      (l.ENUM_1PSTICKER_AUDIO_AVATARSTICKER_BUTTONSRESPONSE_CATALOGLINK_CHATTHEME_COLLECTION_CONTACT_CONTACTARRAY_DOCUMENT_FEEDRESHARE_GENAISTICKER_GIF_GROUPHISTORY_HISTORY_IMAGE_INSTANTIMAGE_LISTRESPONSE_LOCATION_MOTIONPHOTO_MOTIONVIDEO_MUSIC_NATIVEFLOWRESPONSE_ORDER_PRODUCT_PRODUCTLINK_PTT_PTV_REQUESTLOCATION_REQUESTLOCATIONUPDATE_STICKER_STICKERPACK_STORYREPLY_URL_USERCREATEDSTICKER_VCARD_VIDEO_XMA =
         u),
       (l.ENUM_1PSTICKER_AUDIO_AVATARSTICKER_CATALOGLINK_COLLECTION_DOCUMENT_GENAISTICKER_GIF_IMAGE_MOTIONPHOTO_MOTIONVIDEO_PRODUCTLINK_PTT_PTV_STICKER_STICKERPACK_URL_USERCREATEDSTICKER_VCARD_VIDEO =
         c),
@@ -354,65 +395,71 @@ __d(
         h),
       (l.ENUM_ADSMANAGER_MAIBA_MAIBAAIHUB_MARKETINGMESSAGESWITHOPTIMIZATIONS_THIRDPARTY_UNIFIEDINBOX =
         y),
-      (l.ENUM_ALLOWLIST_CONTACTS_CUSTOMLIST_DENYLIST = C),
-      (l.ENUM_ALLOW_BYPASS_DENY_ERROR = b),
+      (l.ENUM_AFTER_BEFORE_ON = C),
+      (l.ENUM_ALLOWLIST_CONTACTS_CUSTOMLIST_DENYLIST = b),
+      (l.ENUM_ALLOW_BYPASS_DENY_ERROR = v),
       (l.ENUM_ASPRESENTED_BIMONTHLY_DAILY_FORTNIGHTLY_HALFYEARLY_MONTHLY_ONETIME_QUARTERLY_UNKNOWN_WEEKLY_YEARLY =
-        v),
-      (l.ENUM_AUDIO_AVATARSTICKER_BUTTONSRESPONSE_CATALOGLINK_CONTACT_CONTACTARRAY_DOCUMENT_FEEDRESHARE_GIF_HISTORY_IMAGE_LISTRESPONSE_LOCATION_NATIVEFLOWRESPONSE_ORDER_PRODUCT_PRODUCTLINK_PTT_PTV_STICKER_STORYREPLY_URL_VCARD_VIDEO_XMA =
         S),
-      (l.ENUM_BR_INCENTIVE_P2M_P2P_PAYOUT_REMITTANCE_UPI_UPILITE = R),
-      (l.ENUM_BUYER_SELLER = L),
-      (l.ENUM_CARD_NETBANKING_UPI_WALLET = E),
-      (l.ENUM_CHANNELSINVITATION_EVENTINVITATION = k),
-      (l.ENUM_CLOSED_OPEN = I),
-      (l.ENUM_COUNTRY_ES_REACT_SYSMSGVERSION_TOS3_TRUE = T),
-      (l.ENUM_CREATION_EDIT_RESPONSE = D),
-      (l.ENUM_DEFAULTP_GROUPHISTORY_HISTORY_MEMBERTAG = x),
+      (l.ENUM_AUDIO_AVATARSTICKER_BUTTONSRESPONSE_CATALOGLINK_CONTACT_CONTACTARRAY_DOCUMENT_FEEDRESHARE_GIF_HISTORY_IMAGE_LISTRESPONSE_LOCATION_NATIVEFLOWRESPONSE_ORDER_PRODUCT_PRODUCTLINK_PTT_PTV_STICKER_STORYREPLY_URL_VCARD_VIDEO_XMA =
+        R),
+      (l.ENUM_AUTHCANCELFAILED_AUTHCANCELFAILEDPROCESSING_COLLECTEXPIRED_COLLECTFAILED_COLLECTFAILEDRISK_COLLECTREJECTED_EXPIRED_FAILED_FAILEDDA_FAILEDDAFINAL_FAILEDPROCESSING_FAILEDRECEIVERPROCESSING_FAILEDRISK_FAILURE_REFUNDFAILED_REFUNDFAILEDDA_REFUNDFAILEDPROCESSING =
+        L),
+      (l.ENUM_AV1VIDEODUALUPLOAD_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_POLLADDOPTION_STICKERANNOTATION =
+        E),
+      (l.ENUM_BR_INCENTIVE_P2M_P2P_PAYOUT_REMITTANCE_UPI_UPILITE = k),
+      (l.ENUM_BUYER_SELLER = I),
+      (l.ENUM_CARD_EXTERNALWALLET_HPPPAYMENTLINK_NETBANKING_UPI_WALLET = T),
+      (l.ENUM_CHANNELSINVITATION_EVENTINVITATION = D),
+      (l.ENUM_CLOSED_OPEN = x),
+      (l.ENUM_COUNTRY_ES_REACT_SYSMSGVERSION_TOS3_TRUE = $),
+      (l.ENUM_CREATION_EDIT_RESPONSE = P),
+      (l.ENUM_DEFAULTP_GROUPHISTORY_GROUPROOTKEYSHARE_HISTORY_MEMBERTAG_TEETOOLRESPONSE =
+        N),
       (l.ENUM_DELIVERY_IMPRESSIONS_LINKCLICKS_NOOPTIMIZATION_OFFSITECONVERSIONS_REPLIES =
-        $),
-      (l.ENUM_DEREGISTER_INITTOPUP_PAY_TOPUP = P),
-      (l.ENUM_DF_DS_FC_GE = N),
-      (l.ENUM_DOCUMENT_IMAGE_MIXED_VIDEO = M),
-      (l.ENUM_DROPINVALIDREPORTINGTOKEN_DROPMISSINGREPORTINGTOKEN = w),
-      (l.ENUM_EXACT_MAX = A),
-      (l.ENUM_FAILED_PENDING_SUCCESS = F),
-      (l.ENUM_FAILURE_INIT_SUCCESS = O),
-      (l.ENUM_FALSE_TRUE = B),
-      (l.ENUM_FBPAY_UPI = W),
-      (l.ENUM_FIRST_FULL_INNER_LAST = q),
-      (l.ENUM_FULL_MISSINGFIELDNOTPARTIAL_PARTIAL = U),
-      (l.ENUM_GROUP_SENDER = V),
-      (l.ENUM_GUEST_WA = H),
-      (l.ENUM_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_POLLADDOPTION_STICKERANNOTATION =
-        G),
-      (l.ENUM_HIGH_HIGHFORCE_LOW = z),
-      (l.ENUM_HIGH_LOW_UNKNOWN = j),
-      (l.ENUM_HOSTED_VIEWONCE = K),
-      (l.ENUM_HPPPAYMENTLINK_UPI = Q),
-      (l.ENUM_LID_PN = X),
-      (l.ENUM_MATCHED_UNMATCHED = Y),
-      (l.ENUM_MESSAGELIMITREACHED_UNDERLIMIT = J),
-      (l.ENUM_MSG_PKMSG = Z),
+        M),
+      (l.ENUM_DEREGISTER_INITTOPUP_PAY_TOPUP = w),
+      (l.ENUM_DF_DS_FC_GE = A),
+      (l.ENUM_DOCUMENT_IMAGE_MIXED_VIDEO = F),
+      (l.ENUM_DROPALL_DROPINVALIDREPORTINGTOKEN_DROPMISSINGREPORTINGTOKEN_LOGMISSINGREPORTINGTOKEN =
+        O),
+      (l.ENUM_EXACT_MAX = B),
+      (l.ENUM_FAILED_PENDING_SUCCESS = W),
+      (l.ENUM_FAILURE_INIT_SUCCESS = q),
+      (l.ENUM_FALSE_TRUE = U),
+      (l.ENUM_FBPAY_UPI = V),
+      (l.ENUM_FIRST_FULL_INNER_LAST = H),
+      (l.ENUM_FULL_MISSINGFIELDNOTPARTIAL_PARTIAL = G),
+      (l.ENUM_GROUP_SENDER = z),
+      (l.ENUM_GUEST_WA_WORK = j),
+      (l.ENUM_HIGH_HIGHFORCE_LOW = K),
+      (l.ENUM_HIGH_LOW_UNKNOWN = Q),
+      (l.ENUM_HOSTED_SENDERDROP_VIEWONCE = X),
+      (l.ENUM_HPPPAYMENTLINK_UPI = Y),
+      (l.ENUM_LID_PN = J),
+      (l.ENUM_MATCHED_UNMATCHED = Z),
+      (l.ENUM_MESSAGELIMITREACHED_UNDERLIMIT = ee),
+      (l.ENUM_MSG_PKMSG = te),
       (l.ENUM_NEWMEMBER_REREGRECOVERYREQUEST_REREGRECOVERYRESPONSE_USERDELETE_USERUPDATE =
-        ee),
-      (l.ENUM_NONE_SERVICEPROVIDER = te),
-      (l.ENUM_ONDEMAND_SCHEDULED = ne),
-      (l.ENUM_P2M_P2P = re),
-      (l.ENUM_P2P_REMITTANCE = oe),
-      (l.ENUM_REQUEST_SEND = ae),
-      (l.ENUM_SMBMM_SMBPROMO = ie),
-      (l.ENUM_TIER3_TIER6MATCHED_TIER6UNMATCHED = le),
-      (l.ENUM__CALLPERMISSIONREQUEST_CATALOGMESSAGE_MENUOPTIONS_ORDERDETAILS_ORDERSTATUS_OTP_PAYMENTINFO_PAYMENTKEYINFO_PAYMENTMETHOD_PAYMENTSTATUS_SPLITPAYMENT_VIDEOCALL_VOICECALL =
-        se),
+        ne),
+      (l.ENUM_NONE_SERVICEPROVIDER = re),
+      (l.ENUM_ONDEMAND_SCHEDULED = oe),
+      (l.ENUM_P2M_P2P = ae),
+      (l.ENUM_P2P_REMITTANCE = ie),
+      (l.ENUM_REQUEST_SEND = le),
+      (l.ENUM_SMBMM_SMBPROMO = se),
+      (l.ENUM_TIER3_TIER6MATCHED_TIER6UNMATCHED = ue),
+      (l.ENUM__CALLPERMISSIONREQUEST_CATALOGMESSAGE_MENUOPTIONS_ORDERDETAILS_ORDERSTATUS_OTP_PAYMENTINFO_PAYMENTKEYINFO_PAYMENTMETHOD_PAYMENTREQUEST_PAYMENTSTATUS_SPLITPAYMENT_VIDEOCALL_VOICECALL =
+        ce),
       (l.DEVICEJID_BROADCASTJID_DEVICEJID_GROUPJID_INTEROPDEVICEJID_INTEROPDEVICEJID_DEVICEJID_STATUSJID =
-        ue),
-      (l.DEVICEJID_DEVICEJID = ce),
-      (l.DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID_DEVICEJID = de),
-      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_DEVICEJID_LIDUSERJID_USERJID = me),
-      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_LIDUSERJID_USERJID = pe),
-      (l.GROUPJID_USERJID = _e),
-      (l.USERJID_DEVICEJID = fe),
-      (l.USERJID_USERJID = ge));
+        de),
+      (l.DEVICEJID_DEVICEJID = me),
+      (l.DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID_DEVICEJID = pe),
+      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_DEVICEJID_LIDUSERJID_USERJID = _e),
+      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_LIDUSERJID_USERJID = fe),
+      (l.GROUPJID_USERJID = ge),
+      (l.USERJID_DEVICEJID = he),
+      (l.USERJID_GROUPJID_USERJID = ye),
+      (l.USERJID_USERJID = Ce));
   },
   98,
 );

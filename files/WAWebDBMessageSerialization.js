@@ -9,6 +9,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebMusicGatingUtils",
+    "WAWebMusicParsingUtils",
     "WAWebPollCreationUtils",
     "WAWebPollsDbUtils",
     "WAWebProtobufsMdStorageMsgRowOpaqueData.pb",
@@ -203,8 +204,12 @@ __d(
         : null;
     }
     function _(e) {
+      var t;
       e.type === o("WAWebMsgType").MSG_TYPE.MUSIC &&
-        !o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled() &&
+        (!o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled() ||
+          o("WAWebMusicParsingUtils").renderableMusicStyle(
+            (t = e.musicData) == null ? void 0 : t.style,
+          ) == null) &&
         ((e.type = o("WAWebMsgType").MSG_TYPE.UNKNOWN),
         (e.kind = o("WAWebMsgType").MsgKind.Unknown),
         (e.futureproofType = o("WAWebMsgType").MSG_TYPE.MUSIC));

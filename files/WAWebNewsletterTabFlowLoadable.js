@@ -18,7 +18,7 @@ __d(
           )
             .__setRef("WAWebNewsletterTabFlowLoadable")
             .load();
-          return e.NewsletterTabFlow;
+          return e;
         }),
         "NewsletterTabFlow",
       ),

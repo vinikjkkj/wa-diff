@@ -46,10 +46,14 @@ __d(
             .NeedsUpgrade;
       }
     }
-    function u(e, t) {
-      var n;
+    function u(e, t, n) {
+      var r,
+        a = n === void 0 ? {} : n,
+        i = a.logExposure,
+        l = i === void 0 ? !0 : i;
       return (
-        o("WAWebNewsletterGatingUtils").shouldFetchAndLogCapabilities() &&
+        l &&
+          o("WAWebNewsletterGatingUtils").shouldFetchAndLogCapabilities() &&
           o("WAWebLogNewsletterExposuresAction").logNewsletterExposuresAction([
             {
               newsletterJid: o(
@@ -58,7 +62,7 @@ __d(
               capability: t,
             },
           ]),
-        ((n = e.capabilities) == null ? void 0 : n.has(t)) &&
+        ((r = e.capabilities) == null ? void 0 : r.has(t)) &&
           o("WAWebABProps").getABPropConfigValue(
             "channels_capabilities_enabled",
           )
@@ -168,7 +172,7 @@ __d(
                 .CHANNEL_STATUS_ADMIN_INSIGHTS,
             );
     }
-    function y(e) {
+    function y(e, t) {
       return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -179,6 +183,7 @@ __d(
               e,
               o("WAWebCommonNewsletterEnums").NewsletterCapability
                 .ADMIN_NOTIFICATIONS,
+              t,
             );
     }
     function C(e) {

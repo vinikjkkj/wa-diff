@@ -42,6 +42,8 @@ __d(
       CUSTOM_REACTIONS_SETTINGS: 37,
       FOCUS_LISTS: 38,
       CUSTOMER_MANAGER: 39,
+      MUSE_CHAT_THREAD: 40,
+      MUSE_CHAT_INFO: 41,
     });
     i.WSUA_REFERRAL = e;
   },

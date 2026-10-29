@@ -15,7 +15,7 @@ __d(
       return ((window.nativeCameraVariant = a), a);
     }
     function u() {
-      return !r("gkx")("14464") || r("gkx")("26256")
+      return r("gkx")("26256")
         ? e.NONE
         : r("gkx")("15235")
           ? e.TEST

@@ -249,6 +249,11 @@ __d(
       } catch (e) {
         return (
           o("WAWebCoreActionsODS").logGroupCreateError(),
+          o("WAWebToastManager").ToastManager.open(
+            y.jsx(o("WAWebToast.react").Toast, {
+              msg: s._(/*BTDS*/ "Couldn't create group."),
+            }),
+          ),
           (g || (g = n("Promise"))).resolve(void 0)
         );
       }

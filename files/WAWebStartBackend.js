@@ -55,6 +55,7 @@ __d(
     "WAWebIdentityChangeApi",
     "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebInboxFiltersGatingUtils",
+    "WAWebIncompatibleAgentRequestsRejectTriggers",
     "WAWebInitBotGatingHelpers",
     "WAWebInitChatThreadLogging",
     "WAWebInitFavoritesFromStorage",
@@ -224,6 +225,9 @@ __d(
         o(
           "WAWebMetaAiBotSessionCleanupJob",
         ).registerMetaAiBotSessionCleanupOnResume(),
+        o(
+          "WAWebIncompatibleAgentRequestsRejectTriggers",
+        ).registerIncompatibleAgentRequestRejectsOnResume(),
         (x = !0));
     }
     function P() {

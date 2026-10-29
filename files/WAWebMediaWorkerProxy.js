@@ -53,17 +53,22 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
           return n("cr:36997").kaleidoscopeClassifyInWorker(
             babelHelpers.extends({}, e, {
-              strictJpegScanValidationEnabled: o(
-                "WAWebABProps",
-              ).getABPropConfigValue("ks_jpeg_scan_strict_validation_enabled"),
-              strictOggOpusValidationEnabled: o(
-                "WAWebABProps",
-              ).getABPropConfigValue("ks_ogg_opus_strict_validation_enabled"),
-              strictMp4ValidationEnabled: o(
-                "WAWebABProps",
-              ).getABPropConfigValue("ks_mp4_strict_validation_enabled"),
+              strictJpegScanValidationEnabled: (t =
+                o("WAWebABProps")).getABPropConfigValue(
+                "ks_jpeg_scan_strict_validation_enabled",
+              ),
+              strictOggOpusValidationEnabled: t.getABPropConfigValue(
+                "ks_ogg_opus_strict_validation_enabled",
+              ),
+              strictMp4ValidationEnabled: t.getABPropConfigValue(
+                "ks_mp4_strict_validation_enabled",
+              ),
+              zipArchiveCheckEnabled: t.getABPropConfigValue(
+                "ks_zip_archive_check_enabled",
+              ),
             }),
           );
         })),

@@ -61,7 +61,7 @@ __d(
             logger: new (r("WebBloksHasteLogger"))(),
             AssetRenderer: o("WebBloksUtils").cast(r("WebBloksAssetRenderer")),
             controllerNavigationLogger: {
-              setCurrentController: function (t) {
+              setCurrentController: function (t, n) {
                 return o("ScriptPath").set(t);
               },
               getCurrentController: function () {

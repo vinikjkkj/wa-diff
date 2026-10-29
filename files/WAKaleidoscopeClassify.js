@@ -21,24 +21,25 @@ __d(
       f = "/" + p,
       g = "/" + _,
       h = 65536,
-      y = 1048576,
-      C = 4194304;
-    function b(e, t, n, r) {
-      return v.apply(this, arguments);
+      y = 262144,
+      C = 1048576,
+      b = 4194304;
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             e: {
-              if (t === "audio") return yield k(e, r);
-              if (t === "sticker-pack") return yield T(e, r);
-              if (t === "sound-sticker-audio") return yield x(e, r);
-              if (t === "image") return yield L(e, r);
-              if (t === "video" || t === "gif") return yield S(e, r);
+              if (t === "audio") return yield I(e, r);
+              if (t === "sticker-pack") return yield D(e, r);
+              if (t === "sound-sticker-audio") return yield $(e, r);
+              if (t === "image") return yield E(e, r);
+              if (t === "video" || t === "gif") return yield R(e, r);
               if (t === "document") {
                 var o = n != null ? [n] : [];
-                return yield P(
+                return yield N(
                   babelHelpers.extends(
                     {
                       input: e,
@@ -58,17 +59,17 @@ __d(
             }
           },
         )),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["video/mp4", "video/quicktime"];
-          return yield P(
+          return yield N(
             babelHelpers.extends(
               {
                 input: e,
@@ -81,17 +82,17 @@ __d(
             ),
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-          return yield P(
+          return yield N(
             babelHelpers.extends(
               {
                 input: e,
@@ -104,17 +105,17 @@ __d(
             ),
           );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["audio/ogg; codecs=opus", "audio/m4a", "audio/x-m4a"];
-          return yield P(
+          return yield N(
             babelHelpers.extends(
               {
                 input: e,
@@ -127,17 +128,17 @@ __d(
             ),
           );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = ["application/zip", "image/webp", "application/was"];
-          return yield P(
+          return yield N(
             babelHelpers.extends(
               {
                 input: e,
@@ -150,16 +151,16 @@ __d(
             ),
           );
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return yield P(
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return yield N(
             babelHelpers.extends(
               {
                 input: e,
@@ -172,15 +173,15 @@ __d(
             ),
           );
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a,
             i,
@@ -193,13 +194,15 @@ __d(
             C = t.withEnforceStrictMimetypeMatch,
             b = t.withMimetypeFuzzyMatch,
             v = t.withMimetypeIgnoreParameters,
-            S = o("WASI").createWasi(
-              M({
+            S = t.zipArchiveCheckEnabled,
+            R = o("WASI").createWasi(
+              w({
                 input: _,
                 mimetypeHints: p,
                 strictJpegScanValidationEnabled: f,
                 strictMp4ValidationEnabled: h,
                 strictOggOpusValidationEnabled: y,
+                zipArchiveCheckEnabled: S,
                 withEnforceStrictMimetypeMatch: C,
                 withMimetypeIgnoreParameters: v,
                 withMimetypeFuzzyMatch: b,
@@ -224,14 +227,14 @@ __d(
                 },
               }),
             ),
-            R = S.getImportObject,
-            L = S.start,
-            E = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-            k = yield WebAssembly.instantiate(E, R()),
-            I = L(k),
-            T = I.exitCode,
-            D = I.fs;
-          if (T !== 0)
+            L = R.getImportObject,
+            E = R.start,
+            k = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+            I = yield WebAssembly.instantiate(k, L()),
+            T = E(I),
+            D = T.exitCode,
+            x = T.fs;
+          if (D !== 0)
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -241,12 +244,12 @@ __d(
                       "classifyWithMediaType failed with exit code ",
                       "",
                     ])),
-                  T,
+                  D,
                 ),
               o("WAResultOrError").makeError("wasm-runtime-error")
             );
-          var x = (n = D[g]) == null ? void 0 : n.content;
-          if (typeof x != "string")
+          var $ = (n = x[g]) == null ? void 0 : n.content;
+          if (typeof $ != "string")
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -258,9 +261,9 @@ __d(
                 ),
               o("WAResultOrError").makeError("wasm-result-not-json")
             );
-          var $ = {};
+          var P = {};
           try {
-            $ = JSON.parse(x);
+            P = JSON.parse($);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -275,7 +278,7 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json")
             );
           }
-          return typeof ((a = $) == null ? void 0 : a.score) != "number"
+          return typeof ((a = P) == null ? void 0 : a.score) != "number"
             ? (o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .MUSTFIX(
@@ -287,16 +290,16 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json"))
             : o("WAResultOrError").makeResult({
                 mimetype:
-                  ((i = $) == null ? void 0 : i.mimetype) ||
+                  ((i = P) == null ? void 0 : i.mimetype) ||
                   "application/octet-stream",
-                extension: ((l = $) == null ? void 0 : l.extension) || null,
-                score: $.score,
+                extension: ((l = P) == null ? void 0 : l.extension) || null,
+                score: P.score,
               });
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e) {
+    function w(e) {
       var t,
         n = e.input,
         r = e.mimetypeHints,
@@ -309,20 +312,21 @@ __d(
         c = e.withMimetypeFuzzyMatch,
         d = e.withMimetypeIgnoreParameters,
         m = e.withStreamCheck,
-        b = ["kaleidoscope"],
-        v = (i ? h : 0) + (s ? y : 0) + (l ? C : 0);
-      (v !== 0 && b.push("--flags=" + v),
-        b.push("classify"),
-        b.push("--json-report=" + _),
-        c && b.push("--with-mimetype-fuzzy-match"),
-        u && b.push("--with-enforce-strict-mimetype-match"),
-        d && b.push("--with-mimetype-ignore-parameters"),
-        m && b.push("--with-stream-check"));
-      for (var S of r) b.push("--mimetype-hints=" + S);
+        v = e.zipArchiveCheckEnabled,
+        S = ["kaleidoscope"],
+        R = (i ? h : 0) + (v ? y : 0) + (s ? C : 0) + (l ? b : 0);
+      (R !== 0 && S.push("--flags=" + R),
+        S.push("classify"),
+        S.push("--json-report=" + _),
+        c && S.push("--with-mimetype-fuzzy-match"),
+        u && S.push("--with-enforce-strict-mimetype-match"),
+        d && S.push("--with-mimetype-ignore-parameters"),
+        m && S.push("--with-stream-check"));
+      for (var L of r) S.push("--mimetype-hints=" + L);
       return (
-        b.push(p),
+        S.push(p),
         {
-          args: b,
+          args: S,
           fs:
             ((t = {}),
             (t[f] = {
@@ -352,8 +356,8 @@ __d(
         }
       );
     }
-    ((l.kaleidoscopeClassifyByMediaType = b),
-      (l.kaleidoscopeClassifyVideo = S));
+    ((l.kaleidoscopeClassifyByMediaType = v),
+      (l.kaleidoscopeClassifyVideo = R));
   },
   98,
 );

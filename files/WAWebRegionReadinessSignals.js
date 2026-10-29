@@ -7,40 +7,49 @@ __d(
     "WAWebCmd",
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendChatGetters",
-    "cr:4145",
+    "cr:18403",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = n("Promise"))).resolve(),
       u = 1e3;
     function c(e, t) {
-      var n = null,
-        r = !1;
+      var r = null,
+        o = !1;
       return {
         getPromise: function () {
-          return r
-            ? n != null
-              ? n
-              : s
-            : e()
-              ? ((r = !0), (n = s), n)
-              : (n == null &&
-                  (n = t()
-                    .catch(function () {})
-                    .then(function (e) {
-                      return ((r = !0), e);
-                    })),
-                n);
+          var a =
+            n("cr:18403") == null ? void 0 : n("cr:18403").getRegionHold();
+          return a != null
+            ? a
+            : o
+              ? r != null
+                ? r
+                : s
+              : e()
+                ? ((o = !0), (r = s), r)
+                : (r == null &&
+                    (r = t()
+                      .catch(function () {})
+                      .then(function (e) {
+                        return ((o = !0), e);
+                      })),
+                  r);
         },
       };
     }
-    function d(t) {
+    function d() {
+      return (
+        (n("cr:18403") == null ? void 0 : n("cr:18403").getRegionHold()) != null
+      );
+    }
+    function m(t) {
       var r = new AbortController();
       return (e || (e = n("Promise"))).race(t(r.signal)).finally(function () {
         r.abort();
       });
     }
-    function m() {
+    function p() {
       if (o("WAWebCmd").Cmd.isOfflineDeliveryEnd) return !0;
       var e = o("WAWebChatCollection").ChatCollection.filter(
         o("WAWebFrontendChatGetters").getShouldAppearInList,
@@ -49,28 +58,31 @@ __d(
         e.length > 0 && !e.some(o("WAWebChatGetters").getPendingInitialLoading)
       );
     }
-    function p(t) {
-      return new (e || (e = n("Promise")))(function (a) {
-        var i = !1,
-          l = function () {
+    function _(t, o, a, i) {
+      return new (e || (e = n("Promise")))(function (l) {
+        var s = !1,
+          u = function () {
             return (
-              i ||
-                ((i = !0),
+              s ||
+                ((s = !0),
                 (e || (e = n("Promise"))).resolve().then(function () {
-                  ((i = !1), !t.aborted && m() && a(void 0));
+                  ((s = !1), !i.aborted && a() && l(void 0));
                 })),
               !1
             );
           };
-        r("WAWebEventsWaitForBbEvent")(
-          o("WAWebChatCollection").ChatCollection,
-          "add change:msgsLength change:msgsChanged change:pendingInitialLoading change:t sort reset",
-          l,
-          t,
-        ).catch(function () {});
+        r("WAWebEventsWaitForBbEvent")(t, o, u, i).catch(function () {});
       });
     }
-    function _(e) {
+    function f(e) {
+      return _(
+        o("WAWebChatCollection").ChatCollection,
+        "add change:msgsLength change:msgsChanged change:pendingInitialLoading change:t sort reset",
+        p,
+        e,
+      );
+    }
+    function g(e) {
       return o("WAWebCmd").Cmd.isOfflineDeliveryEnd
         ? s
         : r("WAWebEventsWaitForBbEvent")(
@@ -80,10 +92,10 @@ __d(
             e,
           );
     }
-    var f = c(m, function () {
-      return d(function (e) {
+    var h = c(p, function () {
+      return m(function (e) {
         return [
-          p(e),
+          f(e),
           r("WAWebEventsWaitForBbEvent")(
             o("WAWebCmd").Cmd,
             "on_initial_chat_synced_from_bridge",
@@ -99,25 +111,21 @@ __d(
         ];
       });
     });
-    function g() {
-      return (n("cr:4145") == null
-        ? void 0
-        : n("cr:4145").getChatlistRowsHold()) != null
-        ? !1
-        : h || m();
+    function y() {
+      return d() ? !1 : C || p();
     }
-    var h = !1,
-      y = function () {},
-      C = new e(function (e) {
-        y = e;
+    var C = !1,
+      b = function () {},
+      v = new e(function (e) {
+        b = e;
       });
-    function b(e) {
-      e && ((h = !0), y());
+    function S(e) {
+      e && ((C = !0), b());
     }
-    function v() {
-      return h && !m();
+    function R() {
+      return C && !p();
     }
-    function S(t) {
+    function L(t) {
       return !t || document.visibilityState === "hidden"
         ? s
         : new (e || (e = n("Promise")))(function (e) {
@@ -142,30 +150,21 @@ __d(
               })));
           });
     }
-    var R = c(g, function () {
-        return (e || (e = n("Promise"))).race([C, f.getPromise()]);
-      }),
-      L = {
-        getPromise: function () {
-          var e;
-          return (e =
-            n("cr:4145") == null
-              ? void 0
-              : n("cr:4145").getChatlistRowsHold()) != null
-            ? e
-            : R.getPromise();
-        },
-      };
+    var E = c(y, function () {
+      return (e || (e = n("Promise"))).race([v, h.getPromise()]);
+    });
     ((l.createReadinessSignal = c),
-      (l.raceReadinessSubscriptions = d),
-      (l.isChatlistReady = m),
-      (l.waitForOfflineDeliveryEnd = _),
-      (l.chatlistReadySignal = f),
-      (l.isChatlistRowsReady = g),
-      (l.markChatlistRowsReady = b),
-      (l.isChatlistRowsLoading = v),
-      (l.waitForChatlistRowsPaint = S),
-      (l.chatlistRowsReadySignal = L));
+      (l.isStartupRegionHeld = d),
+      (l.raceReadinessSubscriptions = m),
+      (l.isChatlistReady = p),
+      (l.waitForReadyOncePerBurst = _),
+      (l.waitForOfflineDeliveryEnd = g),
+      (l.chatlistReadySignal = h),
+      (l.isChatlistRowsReady = y),
+      (l.markChatlistRowsReady = S),
+      (l.isChatlistRowsLoading = R),
+      (l.waitForChatlistRowsPaint = L),
+      (l.chatlistRowsReadySignal = E));
   },
   98,
 );

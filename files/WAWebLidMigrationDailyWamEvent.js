@@ -18,6 +18,7 @@ __d(
               numberOfCagGroups: [15, e.TYPES.INTEGER],
               numberOfCagLidGroups: [16, e.TYPES.INTEGER],
               numberOfChatsWithClientAssignedLid: [8, e.TYPES.INTEGER],
+              numberOfChatsWithInvalidPnMapping: [25, e.TYPES.INTEGER],
               numberOfDeprecatedChats: [9, e.TYPES.INTEGER],
               numberOfLidBroadcastLists: [10, e.TYPES.INTEGER],
               numberOfLidGroups: [11, e.TYPES.INTEGER],

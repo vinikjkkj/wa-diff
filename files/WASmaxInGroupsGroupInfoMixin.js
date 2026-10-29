@@ -223,58 +223,67 @@ __d(
       if (!w.success) return w;
       var A = o("WASmaxParseUtils").optionalChild(t, "capi");
       if (!A.success) return A;
-      var F = o("WASmaxParseUtils").optionalChildWithTag(
+      var F = o("WASmaxParseUtils").optionalChild(t, "work");
+      if (!F.success) return F;
+      var O = o("WASmaxParseUtils").optionalChild(t, "light_e2ee");
+      if (!O.success) return O;
+      var B = o("WASmaxParseUtils").optionalChildWithTag(
         t,
         "evolution_version",
         h,
       );
-      if (!F.success) return F;
-      var O = o("WASmaxParseUtils").optionalChild(t, "group_safety_check");
-      if (!O.success) return O;
-      var B = o("WASmaxParseUtils").optionalChild(
+      if (!B.success) return B;
+      var W = o("WASmaxParseUtils").optionalChild(t, "group_safety_check");
+      if (!W.success) return W;
+      var q = o("WASmaxParseUtils").optionalChild(
         t,
         "participant_label_enabled",
       );
-      if (!B.success) return B;
-      var W = o("WASmaxParseUtils").optionalChildWithTag(
+      if (!q.success) return q;
+      var U = o("WASmaxParseUtils").optionalChildWithTag(
         t,
         "limit_sharing_enabled",
         y,
       );
-      if (!W.success) return W;
-      var q = o("WASmaxParseUtils").optionalLiteral(
+      if (!U.success) return U;
+      var V = o("WASmaxParseUtils").optionalChild(
+        t,
+        "limit_companion_sharing_enabled",
+      );
+      if (!V.success) return V;
+      var H = o("WASmaxParseUtils").optionalLiteral(
         o("WASmaxParseUtils").attrString,
         t,
         "ack",
         "false",
       );
-      if (!q.success) return q;
-      var U = o(
+      if (!H.success) return H;
+      var G = o(
         "WASmaxInGroupsGroupInfoAttributesMixin",
       ).parseGroupInfoAttributesMixin(t);
-      if (!U.success) return U;
-      var V = o(
+      if (!G.success) return G;
+      var z = o(
           "WASmaxInGroupsGroupMemberAddModeMixin",
         ).parseGroupMemberAddModeMixin(t),
-        H = o(
+        j = o(
           "WASmaxInGroupsGroupMemberLinkModeMixin",
         ).parseGroupMemberLinkModeMixin(t),
-        G = o(
+        K = o(
           "WASmaxInGroupsGroupMemberShareGroupHistoryModeMixin",
         ).parseGroupMemberShareGroupHistoryModeMixin(t),
-        z = o("WASmaxParseUtils").mapChildrenWithTag(
+        Q = o("WASmaxParseUtils").mapChildrenWithTag(
           t,
           "participant",
           0,
           19999,
           e,
         );
-      return z.success
+      return Q.success
         ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({ ack: q.value }, U.value, {
-              groupMemberAddModeMixin: V.success ? V.value : null,
-              groupMemberLinkModeMixin: H.success ? H.value : null,
-              groupMemberShareGroupHistoryModeMixin: G.success ? G.value : null,
+            babelHelpers.extends({ ack: H.value }, G.value, {
+              groupMemberAddModeMixin: z.success ? z.value : null,
+              groupMemberLinkModeMixin: j.success ? j.value : null,
+              groupMemberShareGroupHistoryModeMixin: K.success ? K.value : null,
               description: r.value,
               hasLocked: a.value != null,
               hasAnnouncement: i.value != null,
@@ -297,14 +306,17 @@ __d(
               linkedParent: M.value,
               hasHiddenGroup: w.value != null,
               hasCapi: A.value != null,
-              evolutionVersion: F.value,
-              hasGroupSafetyCheck: O.value != null,
-              hasParticipantLabelEnabled: B.value != null,
-              limitSharingEnabled: W.value,
-              participant: z.value,
+              hasWork: F.value != null,
+              hasLightE2ee: O.value != null,
+              evolutionVersion: B.value,
+              hasGroupSafetyCheck: W.value != null,
+              hasParticipantLabelEnabled: q.value != null,
+              limitSharingEnabled: U.value,
+              hasLimitCompanionSharingEnabled: V.value != null,
+              participant: Q.value,
             }),
           )
-        : z;
+        : Q;
     }
     ((l.parseGroupInfoParticipant = e),
       (l.parseGroupInfoDescription = s),

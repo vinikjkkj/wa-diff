@@ -24,9 +24,6 @@ __d(
         md_id: s("WAWebFalcoCanonicalMdId").__setRef(
           "WamPathfinderWebFalcoEvent",
         ),
-        md_session_id: s("WAWebFalcoCanonicalMdSessionId").__setRef(
-          "WamPathfinderWebFalcoEvent",
-        ),
       };
     function d() {
       return (e || (e = n("Promise")))

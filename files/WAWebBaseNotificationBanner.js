@@ -27,6 +27,7 @@ __d(
     "WAWebSwNotificationBannerRegistry",
     "WAWebUpdateUnreadChatAction",
     "WAWebUserPrefsGeneral",
+    "WAWebUserPrefsNotifications",
     "asyncToGeneratorRuntime",
     "cr:3133",
     "getErrorSafe",
@@ -94,7 +95,9 @@ __d(
                 t.msg && t.msg.off("change:type", t.$9));
             }),
             (this.$8 = function () {
-              (t.$1 == null || t.$1(), window.focus());
+              (o("WAWebUserPrefsNotifications").setNotificationClickedOnce(),
+                t.$1 == null || t.$1(),
+                window.focus());
               var e = t.chat,
                 n = t.msg,
                 a = t.doNotOpenChat == null ? !1 : t.doNotOpenChat;

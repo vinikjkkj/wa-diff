@@ -10,13 +10,14 @@ __d(
     var c = o("WAServerRPCLogger").logger.TAGS(["PullMode"]),
       d = 10,
       m = (function () {
-        function t(t) {
+        function t(t, n) {
           ((this.$1 = 0),
             (this.$2 = 0),
             (this.$3 = 0),
             (this.$4 = 0),
             (this.$5 = !1),
             (this.$1 = t),
+            (this.$6 = n),
             c.LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -42,7 +43,7 @@ __d(
           }),
           (n.shouldFlash = function () {
             if (this.$5) return !1;
-            var e = this.$4 + d >= this.$1;
+            var e = this.$4 + this.$6 >= this.$1;
             return (e && (this.$5 = !0), e);
           }),
           (n.isBatchClosed = function () {
@@ -72,29 +73,33 @@ __d(
       return Math.min(Math.max(Math.pow(2, 10 - e), 10), 700);
     }
     var _ = (function () {
-      function e(e) {
-        (e === void 0 && (e = p), (this.$1 = []), (this.$2 = e));
+      function e(e, t) {
+        (e === void 0 && (e = p),
+          t === void 0 && (t = d),
+          (this.$1 = []),
+          (this.$2 = e),
+          (this.$3 = t));
       }
       var t = e.prototype;
       return (
         (t.offlineStart = function () {
           this.clear();
         }),
-        (t.$3 = function (t) {
+        (t.$4 = function (t) {
           var e = this.$1.some(function (e) {
             return e.didReceievAllItems() ? !1 : (e.receiveEntity(t), !0);
           });
-          e || (this.$4(t), this.$1[this.$1.length - 1].receiveEntity(t));
+          e || (this.$5(t), this.$1[this.$1.length - 1].receiveEntity(t));
         }),
-        (t.$5 = function () {
+        (t.$6 = function () {
           var e = this.$1.some(function (e) {
             return e.markEntityIsReadyForPersistence();
           });
           e ||
-            (this.$4(),
+            (this.$5(),
             this.$1[this.$1.length - 1].markEntityIsReadyForPersistence());
         }),
-        (t.$4 = function (t) {
+        (t.$5 = function (t) {
           var e =
               this.$1.length === 0
                 ? t != null
@@ -102,10 +107,10 @@ __d(
                   : 0
                 : this.$1[this.$1.length - 1].getMaxOffline(),
             n = this.$2(e);
-          (this.$1.push(new m(n)), this.$6(n));
+          (this.$1.push(new m(n, this.$3)), this.$7(n));
         }),
         (t.stanzaReceived = function (t) {
-          this.$3(t);
+          this.$4(t);
         }),
         (t.shouldFlash = function () {
           var e = !1;
@@ -113,18 +118,18 @@ __d(
             (e = this.$1.some(function (e) {
               return e.shouldFlash();
             })),
-            e && this.$4(),
+            e && this.$5(),
             (this.$1 = this.$1.filter(function (e) {
               return e.isBatchClosed() === !1;
             })),
             e
           );
         }),
-        (t.$6 = function (t) {
+        (t.$7 = function (t) {
           o("WAOfflineBatchIb").sendBatchRequestIb(t);
         }),
         (t.stanzaProcessed = function () {
-          this.$5();
+          this.$6();
         }),
         (t.clear = function () {
           this.$1 = [];

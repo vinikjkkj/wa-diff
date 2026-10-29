@@ -386,43 +386,43 @@ __d(
     function f(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.albumIndex,
-        r = e.albumMsgs,
-        a = e.associatedMsg,
-        i = e.trusted;
-      if (a) {
-        var l;
-        t[0] !== a
-          ? ((l = o("WAWebFrontendMsgGetters").getAsImage(a.unsafe())),
-            (t[0] = a),
-            (t[1] = l))
-          : (l = t[1]);
-        var u = l;
-        if (u) {
-          var c;
+        a = e.albumMsgs,
+        i = e.associatedMsg,
+        l = e.trusted;
+      if (i) {
+        var u;
+        t[0] !== i
+          ? ((u = o("WAWebFrontendMsgGetters").getAsImage(i.unsafe())),
+            (t[0] = i),
+            (t[1] = u))
+          : (u = t[1]);
+        var c = u;
+        if (c) {
+          var d;
           return (
             t[2] !== n ||
-            t[3] !== r ||
-            t[4] !== a.mediaData ||
-            t[5] !== u.id ||
-            t[6] !== i
-              ? ((c = s.jsx(o("WAWebMessagePicture.react").ImageMessage, {
-                  albumMsgs: r,
+            t[3] !== a ||
+            t[4] !== i.mediaData ||
+            t[5] !== c.id ||
+            t[6] !== l
+              ? ((d = s.jsx(r("WAWebMessagePicture.react"), {
+                  albumMsgs: a,
                   currentAlbumMessageIndex: n,
-                  msgKey: u.id,
-                  mediaData: a.mediaData,
-                  trusted: i,
+                  msgKey: c.id,
+                  mediaData: i.mediaData,
+                  trusted: l,
                   displayAuthor: !1,
                   hideMeta: !0,
                   theme: o("WAWebTypesMedia").DisplayTheme.PhotoPoll,
                 })),
                 (t[2] = n),
-                (t[3] = r),
-                (t[4] = a.mediaData),
-                (t[5] = u.id),
-                (t[6] = i),
-                (t[7] = c))
-              : (c = t[7]),
-            c
+                (t[3] = a),
+                (t[4] = i.mediaData),
+                (t[5] = c.id),
+                (t[6] = l),
+                (t[7] = d))
+              : (d = t[7]),
+            d
           );
         }
       }

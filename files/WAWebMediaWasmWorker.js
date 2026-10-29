@@ -375,21 +375,23 @@ __d(
                 i = t.strictJpegScanValidationEnabled,
                 l = t.strictMp4ValidationEnabled,
                 s = t.strictOggOpusValidationEnabled,
-                u = yield o(
+                u = t.zipArchiveCheckEnabled,
+                c = yield o(
                   "WAKaleidoscopeClassify",
                 ).kaleidoscopeClassifyByMediaType(e, n, r, {
                   strictJpegScanValidationEnabled: i,
                   strictOggOpusValidationEnabled: s,
                   strictMp4ValidationEnabled: l,
+                  zipArchiveCheckEnabled: u,
                 });
               return b({
-                output: u.success
+                output: c.success
                   ? o("WAResultOrError").makeResult({
-                      mimetype: u.value.mimetype,
-                      extension: u.value.extension,
-                      score: u.value.score,
+                      mimetype: c.value.mimetype,
+                      extension: c.value.extension,
+                      score: c.value.score,
                     })
-                  : u,
+                  : c,
                 input: e,
                 requestId: a,
               });

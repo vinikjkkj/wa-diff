@@ -33,6 +33,7 @@ __d(
                 strictJpegScanValidationEnabled: !1,
                 strictOggOpusValidationEnabled: !1,
                 strictMp4ValidationEnabled: !1,
+                zipArchiveCheckEnabled: !1,
               },
             );
           if (

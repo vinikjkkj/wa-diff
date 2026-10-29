@@ -36,6 +36,8 @@ __d(
       "HatchPermissionConnectors",
       "HatchPermissionArtifacts",
       "HatchPermissionScheduledTasks",
+      "HatchPermissionWebsites",
+      "HatchPermissionProtocols",
       "HatchSecureCredentials",
       "HatchSubscription",
       "HatchWallet",

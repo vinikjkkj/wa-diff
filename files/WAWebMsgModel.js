@@ -355,6 +355,7 @@ __d(
             (e.parentMsgKey = o("WAWebBaseModel").prop()),
             (e.associationType = o("WAWebBaseModel").prop()),
             (e.pairedMediaType = o("WAWebBaseModel").prop()),
+            (e.businessInteractionPills = o("WAWebBaseModel").prop()),
             (e.viewMode = o("WAWebBaseModel").prop()),
             (e.messageSecret = o("WAWebBaseModel").prop()),
             (e.originalSelfAuthor = o("WAWebBaseModel").prop()),

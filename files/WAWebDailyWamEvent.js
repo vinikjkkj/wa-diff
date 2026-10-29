@@ -17,6 +17,7 @@ __d(
     "WAWebWamEnumPrivacySettingsContactsBuckets",
     "WAWebWamEnumPrivacySettingsValueType",
     "WAWebWamEnumUsernameState",
+    "WAWebWamEnumWebPermissionState",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -271,6 +272,14 @@ __d(
               verifiedProfileLinksCount: [246, e.TYPES.INTEGER],
               videoFolderFileCount: [23, e.TYPES.INTEGER],
               videoFolderSize: [22, e.TYPES.INTEGER],
+              webPermissionCamera: [
+                267,
+                o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE,
+              ],
+              webPermissionMic: [
+                268,
+                o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE,
+              ],
               webcContactsTableSize: [207, e.TYPES.INTEGER],
               webcFilteredContactsSize: [208, e.TYPES.INTEGER],
             },

@@ -6,6 +6,8 @@ __d(
     "WAWebChatlistTypes",
     "WAWebContactCollection",
     "WAWebNonContactPushNameSearchModel",
+    "WAWebOrgMemberContactName",
+    "WAWebOrgMemberLidEligibility",
     "WAWebOrgMemberSearchErrorRowLayout",
     "WAWebOrgMemberSearchLoadingRowLayout",
     "WAWebWidFactory",
@@ -31,7 +33,7 @@ __d(
         .map(function (e) {
           return babelHelpers.extends({}, e, {
             members: e.members.filter(function (e) {
-              var t = h(e);
+              var t = C(e);
               return (
                 t.length === 0 ||
                 !t.some(function (e) {
@@ -47,7 +49,7 @@ __d(
       return s.length === 0 ? c : s;
     }
     function m(e) {
-      var t = y(e);
+      var t = b(e);
       return t == null ? null : p(t, e);
     }
     function p(t, n) {
@@ -71,19 +73,27 @@ __d(
       );
     }
     function _(e, t) {
-      var n,
-        r = o("WAWebContactCollection").ContactCollection.get(e);
-      return r != null
-        ? { phoneNumber: r.phoneNumber, username: r.username }
-        : {
-            phoneNumber:
-              (n = o("WAWebApiContact").getPnIfLidIsLatestMapping(e)) != null
-                ? n
-                : f(e, t.phoneNumber),
-            username: t.username,
-          };
+      var n = o("WAWebContactCollection").ContactCollection.get(e);
+      return n != null
+        ? { phoneNumber: n.phoneNumber, username: n.username }
+        : g(e, t);
     }
-    function f(e, t) {
+    function f(e) {
+      var t = o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(e),
+        n = o("WAWebOrgMemberContactName").getKnownOrgMember(e);
+      return t == null || n == null ? null : g(t, n);
+    }
+    function g(e, t) {
+      var n;
+      return {
+        phoneNumber:
+          (n = o("WAWebApiContact").getPnIfLidIsLatestMapping(e)) != null
+            ? n
+            : h(e, t.phoneNumber),
+        username: t.username,
+      };
+    }
+    function h(e, t) {
       var n,
         a = (n = t == null ? void 0 : t.replace(/\D/g, "")) != null ? n : "";
       if (a === "") return null;
@@ -107,14 +117,14 @@ __d(
       var l = o("WAWebApiContact").getCurrentLid(i);
       return l == null || l.equals(e) ? i : null;
     }
-    function g(e, t) {
+    function y(e, t) {
       if (e.length === 0 || t.length === 0) return e;
       var n = new Set(
         t
           .flatMap(function (e) {
             return e.members;
           })
-          .flatMap(h),
+          .flatMap(C),
       );
       return n.size === 0
         ? e
@@ -124,8 +134,8 @@ __d(
             );
           });
     }
-    function h(e) {
-      var t = y(e);
+    function C(e) {
+      var t = b(e);
       return t == null
         ? []
         : [
@@ -133,7 +143,7 @@ __d(
             t.toString(),
           ];
     }
-    function y(e) {
+    function b(e) {
       try {
         return o("WAWebWidFactory").createUserLidOrThrow(e.id, "lid");
       } catch (e) {
@@ -151,7 +161,7 @@ __d(
         );
       }
     }
-    function C(e) {
+    function v(e) {
       if (e.loading)
         return {
           height: o("WAWebOrgMemberSearchLoadingRowLayout")
@@ -178,9 +188,10 @@ __d(
       (l.toOrgMemberContact = m),
       (l.getOrgMemberContact = p),
       (l.getOrgMemberIdentifiers = _),
-      (l.withoutOrgMembers = g),
-      (l.toOrgMemberLid = y),
-      (l.toOrgMemberStatusRow = C));
+      (l.getKnownOrgMemberIdentifiers = f),
+      (l.withoutOrgMembers = y),
+      (l.toOrgMemberLid = b),
+      (l.toOrgMemberStatusRow = v));
   },
   98,
 );

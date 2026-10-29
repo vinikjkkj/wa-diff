@@ -10,7 +10,7 @@ __d(
           "eventName" in e
         ) {
           var t = e.eventName;
-          return c(t);
+          return d(t);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -18,7 +18,7 @@ __d(
           "eventName" in e
         ) {
           var n = e.eventName;
-          return d(n);
+          return m(n);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -27,13 +27,21 @@ __d(
           return u();
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "guestJoinedWa" &&
+          "guestName" in e
+        ) {
+          var r = e.guestName;
+          return c(r);
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.kind === "rsvp" &&
           "rsvp" in e &&
           "eventName" in e
         ) {
-          var r = e.rsvp,
-            o = e.eventName;
-          return m(r, o);
+          var o = e.rsvp,
+            a = e.eventName;
+          return p(o, a);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -41,9 +49,9 @@ __d(
           "reminderType" in e &&
           "minutesUntilStart" in e
         ) {
-          var a = e.reminderType,
-            i = e.minutesUntilStart;
-          return p(a, i);
+          var i = e.reminderType,
+            l = e.minutesUntilStart;
+          return _(i, l);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -57,20 +65,29 @@ __d(
         .toString();
     }
     function c(e) {
+      return e == null || e === ""
+        ? s._(/*BTDS*/ "A guest is now on WhatsApp.").toString()
+        : s
+            ._(/*BTDS*/ "{guestName} is now on WhatsApp.", [
+              s._param("guestName", e),
+            ])
+            .toString();
+    }
+    function d(e) {
       return s
         ._(/*BTDS*/ "updated \ud83d\uddd3 {eventName}", [
           s._param("eventName", e),
         ])
         .toString();
     }
-    function d(e) {
+    function m(e) {
       return s
         ._(/*BTDS*/ "canceled \ud83d\uddd3 {eventName}", [
           s._param("eventName", e),
         ])
         .toString();
     }
-    function m(e, t) {
+    function p(e, t) {
       return e ===
         o("WAWebSharableEventNotificationConstants")
           .SharableEventNotificationRsvpStatus.Going
@@ -106,7 +123,7 @@ __d(
                   );
                 })();
     }
-    function p(e, t) {
+    function _(e, t) {
       return e ===
         o("WAWebSharableEventNotificationConstants").SharableEventReminderType
           .EventStarted
@@ -114,7 +131,7 @@ __d(
         : e ===
             o("WAWebSharableEventNotificationConstants")
               .SharableEventReminderType.EventStartingSoon
-          ? _(
+          ? f(
               o(
                 "WAWebSharableEventNotificationConstants",
               ).nearestReminderBucket(t),
@@ -126,15 +143,15 @@ __d(
               );
             })();
     }
-    function _(e) {
+    function f(e) {
       return e ===
         o("WAWebSharableEventNotificationConstants")
           .SharableEventReminderLeadTimeBucket.FifteenMinutes
-        ? f(15)
+        ? g(15)
         : e ===
             o("WAWebSharableEventNotificationConstants")
               .SharableEventReminderLeadTimeBucket.ThirtyMinutes
-          ? f(30)
+          ? g(30)
           : e ===
               o("WAWebSharableEventNotificationConstants")
                 .SharableEventReminderLeadTimeBucket.OneHour
@@ -154,7 +171,7 @@ __d(
                     );
                   })();
     }
-    function f(e) {
+    function g(e) {
       return s
         ._(/*BTDS*/ "\ud83d\uddd3 starts in {minutes} min", [
           s._param("minutes", e),
@@ -162,10 +179,11 @@ __d(
         .toString();
     }
     ((l.formatSharableEventBody = e),
-      (l.updateNotificationBody = c),
-      (l.deleteNotificationBody = d),
-      (l.rsvpHostNotificationBody = m),
-      (l.reminderNotificationBody = p));
+      (l.guestJoinedWaNotificationBody = c),
+      (l.updateNotificationBody = d),
+      (l.deleteNotificationBody = m),
+      (l.rsvpHostNotificationBody = p),
+      (l.reminderNotificationBody = _));
   },
   226,
 );

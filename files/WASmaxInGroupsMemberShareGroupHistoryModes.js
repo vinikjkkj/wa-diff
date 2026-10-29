@@ -4,6 +4,7 @@ __d(
     "WAResultOrError",
     "WASmaxInGroupsAdminShareModeMixin",
     "WASmaxInGroupsAllMembersShareModeMixin",
+    "WASmaxInGroupsAllMembersShareToggleOnModeMixin",
     "WASmaxInGroupsUnknownShareModeMixin",
     "WASmaxParseUtils",
   ],
@@ -26,17 +27,30 @@ __d(
           value: n.value,
         });
       var r = o(
+        "WASmaxInGroupsAllMembersShareToggleOnModeMixin",
+      ).parseAllMembersShareToggleOnModeMixin(e);
+      if (r.success)
+        return o("WAResultOrError").makeResult({
+          name: "AllMembersShareToggleOnMode",
+          value: r.value,
+        });
+      var a = o(
         "WASmaxInGroupsUnknownShareModeMixin",
       ).parseUnknownShareModeMixin(e);
-      return r.success
+      return a.success
         ? o("WAResultOrError").makeResult({
             name: "UnknownShareMode",
-            value: r.value,
+            value: a.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
-            ["AdminShareMode", "AllMembersShareMode", "UnknownShareMode"],
-            [t, n, r],
+            [
+              "AdminShareMode",
+              "AllMembersShareMode",
+              "AllMembersShareToggleOnMode",
+              "UnknownShareMode",
+            ],
+            [t, n, r, a],
           );
     }
     l.parseMemberShareGroupHistoryModes = e;

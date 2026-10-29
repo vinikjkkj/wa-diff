@@ -207,14 +207,13 @@ __d(
                 (c = t.sendLogs) == null ? void 0 : c.employeeSampling,
             });
           (v.catch(function (e) {}),
-            r("gkx")("16915") &&
-              v
-                .then(function (e) {
-                  f(t, b, e);
-                })
-                .catch(function () {
-                  f(t, b, null);
-                }));
+            v
+              .then(function (e) {
+                f(t, b, e);
+              })
+              .catch(function () {
+                f(t, b, null);
+              }));
         }
       },
     };

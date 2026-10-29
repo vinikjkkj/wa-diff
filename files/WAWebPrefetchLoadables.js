@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebAddContactToGroupFlowLoadable",
     "WAWebArchivedFlowLoadable",
@@ -42,6 +43,7 @@ __d(
     "WAWebNewChatFlowLoadable",
     "WAWebNewGroupFlowLoadable",
     "WAWebNoop",
+    "WAWebP2PPillsContactCardUIRequireBundle",
     "WAWebPhotoPickerLoadable.react",
     "WAWebProductDetailsFlowLoadable",
     "WAWebProfileDrawerLoadableRequireBundle",
@@ -151,6 +153,9 @@ __d(
               o("WAWebGroupInviteLinkDrawerLoadable").requireBundle(),
               o("WAWebStatusQuotedFlowLoadable").requireBundle(),
               o("WAWebContactMsgInfoFlowLoadable").requireBundle(),
+              o("WAWebABProps").getABPropConfigValue("p2p_pills_enabled")
+                ? o("WAWebP2PPillsContactCardUIRequireBundle").requireBundle()
+                : null,
               o("WAWebSendLogsPopupLoadable").requireBundle(),
               o("WAWebGroupsV4InviteFlowLoadable").requireBundle(),
               o("WAWebArchivedFlowLoadable").requireBundle(),

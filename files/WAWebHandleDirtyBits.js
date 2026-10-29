@@ -13,6 +13,7 @@ __d(
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebFetchAndUpdateBlocklistJob",
     "WAWebHandleOrgsDirtyBit",
+    "WAWebHandleSharableEventDirtyBit",
     "WAWebMdAppStateDirtyBitsWamEvent",
     "WAWebNewsletterGatingUtils",
     "WAWebOfflineDeviceCache",
@@ -202,7 +203,7 @@ __d(
             i,
             l,
           );
-          var m = [].concat(a, r);
+          var m = new Set();
           return (
             yield (u || (u = n("Promise"))).all(
               r.map(function (e) {
@@ -245,11 +246,24 @@ __d(
                   o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.syncd_app_state
                 )
                   return _();
-                r === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.orgs &&
+                if (r === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.orgs)
                   o("WAWebHandleOrgsDirtyBit").handleOrgsDirtyBit();
+                else if (
+                  r ===
+                  o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.event_metadata
+                )
+                  return o("WAWebHandleSharableEventDirtyBit")
+                    .handleSharableEventDirtyBit()
+                    .then(function (e) {
+                      e || m.add(r);
+                    });
               }),
             ),
-            o("WAWebClearDirtyBitsJob").clearDirtyBits(m)
+            o("WAWebClearDirtyBitsJob").clearDirtyBits(
+              [].concat(a, r).filter(function (e) {
+                return !m.has(e.type);
+              }),
+            )
           );
         })),
         C.apply(this, arguments)

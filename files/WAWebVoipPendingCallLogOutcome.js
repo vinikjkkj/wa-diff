@@ -5,16 +5,20 @@ __d(
     "use strict";
     var e = 100,
       s = new Map();
-    function u(t, n) {
-      var r = t.toString();
-      if (n !== o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere)
-        return (s.delete(r), !1);
-      if (s.has(r)) return !0;
-      if (s.size >= e) {
-        var a = s.keys().next().value;
-        a != null && s.delete(a);
+    function u(t, n, r) {
+      var a = t.toString();
+      if (
+        (r == null ? void 0 : r.keepAnyOutcome) !== !0 &&
+        n !== o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere
+      )
+        return (s.delete(a), !1);
+      var i = s.get(a);
+      if ((i == null ? void 0 : i.callOutcome) === n) return !0;
+      if (i == null && s.size >= e) {
+        var l = s.keys().next().value;
+        l != null && s.delete(l);
       }
-      return (s.set(r, { callOutcome: n }), !0);
+      return (s.set(a, { callOutcome: n }), !0);
     }
     function c(e) {
       return s.get(e.toString());

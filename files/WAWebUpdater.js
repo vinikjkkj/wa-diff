@@ -6,6 +6,7 @@ __d(
     "WAPromiseDelays",
     "WAWebAlarm",
     "WAWebCallCollection",
+    "WAWebFeatureDetectionSwSupport",
     "WAWebMiscBrowserUtils",
     "WAWebStartupResourcesPrefetchBeforeUpdatePrompt",
     "WAWebStreamModel",
@@ -17,7 +18,6 @@ __d(
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
     "cr:12474",
-    "cr:6022",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -149,8 +149,7 @@ __d(
           (i._update = function (t) {
             if (
               !this.activeVersion.equals(t) &&
-              n("cr:6022") != null &&
-              n("cr:6022").alive
+              r("WAWebFeatureDetectionSwSupport").alive
             )
               return r("WAWebCallCollection").activeCall != null
                 ? (o("WALogger").LOG(
@@ -172,7 +171,7 @@ __d(
             return (_ || (_ = n("Promise"))).resolve(e);
           }),
           (i.killServiceWorker = function () {
-            if (!(n("cr:6022") != null && n("cr:6022").alive))
+            if (!r("WAWebFeatureDetectionSwSupport").alive)
               return (_ || (_ = n("Promise"))).resolve();
             var e = navigator.serviceWorker;
             return e

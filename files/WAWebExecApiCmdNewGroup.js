@@ -9,6 +9,7 @@ __d(
     "WAWebModalManager",
     "WAWebNavBarTypes",
     "WAWebNewGroupFlowLoadable",
+    "WAWebNullFunc",
     "WAWebReachoutTimelockRestrictedModalLoadable",
     "WAWebReachoutTimelockUtils",
     "asyncToGeneratorRuntime",
@@ -53,14 +54,9 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield t.then(
-            function (e) {
-              return e;
-            },
-            function () {
-              return null;
-            },
-          );
+          var n = yield t.then(function (e) {
+            return e;
+          }, o("WAWebNullFunc").returnNull);
           if (n != null)
             try {
               yield o(

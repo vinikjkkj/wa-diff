@@ -112,6 +112,7 @@ __d(
         countNoResponse: e.countNoResponse,
         totalInvitedCount: e.totalInvitedCount,
         lastInvitationUpdatedTsUsec: e.lastInvitationUpdatedTsUsec,
+        isScheduledCall: e.isScheduledCall === !0,
       };
     }
     l.SharableEventCollection = s;

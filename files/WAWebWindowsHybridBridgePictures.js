@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebABProps",
     "WAWebLidMigrationUtils",
     "WAWebODS",
     "WAWebProfilePicThumbCollection",
@@ -24,91 +25,120 @@ __d(
     var d = (function () {
       function t(t) {
         var r = this;
-        ((this.$3 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = JSON.parse(t);
-            for (var a of n) {
-              var i;
-              if (o("WAJids").validateGroupJid(a.id.toString())) {
-                var l = o(
-                  "WAWebProfilePicThumbCollection",
-                ).ProfilePicThumbCollection.get(a.id);
-                (l == null ? void 0 : l.eurl) !== a.eurl &&
-                  r.$2(
-                    [
-                      {
-                        eurl: l == null ? void 0 : l.eurl,
-                        id: a.id.toString(),
-                      },
-                    ],
-                    "verify:group",
-                  );
-                continue;
-              }
-              var s = o("WAWebLidMigrationUtils").toPn(a.id),
-                u = o("WAWebLidMigrationUtils").toLid(a.id);
-              if (s == null && u == null) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WindowsHybridBridgePictures] both PN and LID WID are null for record.id=",
-                        "",
-                      ])),
-                    a.id.toString(),
-                  )
-                  .sendLogs("hybrid-pictures-verify-null-wids");
-                continue;
-              }
-              var d = [];
-              (s != null && d.push(s), u != null && d.push(u));
-              var m = c(d);
-              if (
-                (m == null &&
-                  (yield o(
-                    "WAWebProfilePicThumbCollection",
-                  ).ProfilePicThumbCollection.resyncPicturesByWid(d),
-                  (m = c(d))),
-                ((i = m) == null ? void 0 : i.eurl) !== a.eurl)
-              ) {
-                if (s != null) {
-                  var p;
-                  r.$2(
-                    [
-                      {
-                        eurl: (p = m) == null ? void 0 : p.eurl,
-                        id: s.toString(),
-                      },
-                    ],
-                    "verify:user:pn",
-                  );
+        ((this.$2 = new Map()),
+          (this.$3 = !1),
+          (this.$5 = function () {
+            r.$3 = !1;
+            var e = Array.from(r.$2, function (e) {
+              var t = e[0],
+                n = e[1];
+              return { eurl: n, id: t };
+            });
+            (r.$2.clear(), e.length > 0 && r.$6(e, "batch"));
+          }),
+          (this.$7 = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = JSON.parse(t);
+                for (var a of n) {
+                  var i;
+                  if (o("WAJids").validateGroupJid(a.id.toString())) {
+                    var l = o(
+                      "WAWebProfilePicThumbCollection",
+                    ).ProfilePicThumbCollection.get(a.id);
+                    (l == null ? void 0 : l.eurl) !== a.eurl &&
+                      r.$4(
+                        [
+                          {
+                            eurl: l == null ? void 0 : l.eurl,
+                            id: a.id.toString(),
+                          },
+                        ],
+                        "verify:group",
+                      );
+                    continue;
+                  }
+                  var s = o("WAWebLidMigrationUtils").toPn(a.id),
+                    u = o("WAWebLidMigrationUtils").toLid(a.id);
+                  if (s == null && u == null) {
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[WindowsHybridBridgePictures] both PN and LID WID are null for record.id=",
+                            "",
+                          ])),
+                        a.id.toString(),
+                      )
+                      .sendLogs("hybrid-pictures-verify-null-wids");
+                    continue;
+                  }
+                  var d = [];
+                  (s != null && d.push(s), u != null && d.push(u));
+                  var m = c(d);
+                  if (
+                    (m == null &&
+                      (yield o(
+                        "WAWebProfilePicThumbCollection",
+                      ).ProfilePicThumbCollection.resyncPicturesByWid(d),
+                      (m = c(d))),
+                    ((i = m) == null ? void 0 : i.eurl) !== a.eurl)
+                  ) {
+                    if (s != null) {
+                      var p;
+                      r.$4(
+                        [
+                          {
+                            eurl: (p = m) == null ? void 0 : p.eurl,
+                            id: s.toString(),
+                          },
+                        ],
+                        "verify:user:pn",
+                      );
+                    }
+                    if (u != null) {
+                      var _;
+                      r.$4(
+                        [
+                          {
+                            eurl: (_ = m) == null ? void 0 : _.eurl,
+                            id: u.toString(),
+                          },
+                        ],
+                        "verify:user:lid",
+                      );
+                    }
+                  }
                 }
-                if (u != null) {
-                  var _;
-                  r.$2(
-                    [
-                      {
-                        eurl: (_ = m) == null ? void 0 : _.eurl,
-                        id: u.toString(),
-                      },
-                    ],
-                    "verify:user:lid",
-                  );
-                }
-              }
-            }
-          });
-          return function (e) {
-            return t.apply(this, arguments);
-          };
-        })()),
+              },
+            );
+            return function (e) {
+              return t.apply(this, arguments);
+            };
+          })()),
           (this.$1 = t),
-          t.addEventListener("verifyPictureEvent", this.$3),
+          t.addEventListener("verifyPictureEvent", this.$7),
           t.subscribe(null));
       }
       var a = t.prototype;
       return (
-        (a.$2 = function (t, n) {
+        (a.$4 = function (t, n) {
+          if (
+            !o("WAWebABProps").getABPropConfigValue(
+              "web_anr_batch_profile_picture_updates_enabled",
+            )
+          ) {
+            (this.$5(), this.$6(t, n));
+            return;
+          }
+          for (var e of t) {
+            var r = e.eurl,
+              a = e.id;
+            this.$2.set(a, r);
+          }
+          this.$3 || ((this.$3 = !0), self.setTimeout(this.$5, 0));
+        }),
+        (a.$6 = function (t, n) {
           var e = this;
           r("WAWebODS").incr(
             "web.hybrid.bridge.pictures.send.set_profile_pictures",
@@ -144,7 +174,7 @@ __d(
         (a.notifyUpdate = function (t) {
           if (t != null) {
             if (o("WAJids").validateGroupJid(t.id.toString())) {
-              this.$2([{ eurl: t.eurl, id: t.id.toString() }], "notify:group");
+              this.$4([{ eurl: t.eurl, id: t.id.toString() }], "notify:group");
               return;
             }
             if (t.id.isUser()) {
@@ -164,9 +194,9 @@ __d(
                 return;
               }
               (e != null &&
-                this.$2([{ eurl: t.eurl, id: e.toString() }], "notify:user:pn"),
+                this.$4([{ eurl: t.eurl, id: e.toString() }], "notify:user:pn"),
                 n != null &&
-                  this.$2(
+                  this.$4(
                     [{ eurl: t.eurl, id: n.toString() }],
                     "notify:user:lid",
                   ));

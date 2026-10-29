@@ -444,6 +444,34 @@ __d(
         !1,
       );
     }
+    function ue() {
+      return (
+        r("WAWebUserPrefsStore").get(
+          o("WAWebUserPrefsKeys").UserPrefs.NotificationClickedOnce,
+        ) === !0
+      );
+    }
+    function ce() {
+      r("WAWebUserPrefsStore").set(
+        o("WAWebUserPrefsKeys").UserPrefs.NotificationClickedOnce,
+        !0,
+      );
+    }
+    function de() {
+      return (
+        r("WAWebUserPrefsStore").get(
+          o("WAWebUserPrefsKeys").UserPrefs
+            .NotReceivingNotificationsBannerDismissed,
+        ) === !0
+      );
+    }
+    function me() {
+      r("WAWebUserPrefsStore").set(
+        o("WAWebUserPrefsKeys").UserPrefs
+          .NotReceivingNotificationsBannerDismissed,
+        !0,
+      );
+    }
     ((l.getGlobalSounds = e),
       (l.setGlobalSounds = s),
       (l.getGlobalCallRingtone = u),
@@ -498,7 +526,11 @@ __d(
       (l.getNotificationsGranularityAwarenessBannerStatus = ae),
       (l.getNotificationTestVerified = ie),
       (l.setNotificationTestVerified = le),
-      (l.clearNotificationTestVerified = se));
+      (l.clearNotificationTestVerified = se),
+      (l.getNotificationClickedOnce = ue),
+      (l.setNotificationClickedOnce = ce),
+      (l.getNotReceivingNotificationsBannerDismissed = de),
+      (l.setNotReceivingNotificationsBannerDismissed = me));
   },
   98,
 );

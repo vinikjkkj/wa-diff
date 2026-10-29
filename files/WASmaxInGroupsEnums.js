@@ -26,51 +26,34 @@ __d(
         invite_auto_add: "invite_auto_add",
         linked_group_join: "linked_group_join",
       },
-      f = { admin: "admin", creator: "creator" },
-      g = { admin: "admin", superadmin: "superadmin" },
-      h = {
-        approved: "approved",
-        cancelled: "cancelled",
-        rejected: "rejected",
-      },
-      y = {
+      f = { admin: "admin", superadmin: "superadmin" },
+      g = {
         approved: "approved",
         in_review: "in_review",
         none: "none",
         rejected: "rejected",
       },
-      C = {
+      h = {
         deactivate_general_chat: "deactivate_general_chat",
         delete_capi: "delete_capi",
         delete_parent: "delete_parent",
         integrity_delete_parent: "integrity_delete_parent",
       },
-      b = {
-        deactivate_group: "deactivate_group",
-        delete_parent: "delete_parent",
-        integrity_delete_parent: "integrity_delete_parent",
-        unlink_group: "unlink_group",
-      },
-      v = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
-      S = { false: "false", true: "true" },
-      R = { group: "group", user: "user" },
-      L = { image: "image", preview: "preview" },
-      E = {
+      y = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
+      C = { false: "false", true: "true" },
+      b = { group: "group", user: "user" },
+      v = { image: "image", preview: "preview" },
+      S = {
         invite_link: "invite_link",
         linked_group_join: "linked_group_join",
         non_admin_add: "non_admin_add",
       },
-      k = { lid: "lid", pn: "pn" },
-      I = {
-        parent_group: "parent_group",
-        sibling_group: "sibling_group",
-        sub_group: "sub_group",
-      },
-      T = {
+      R = { lid: "lid", pn: "pn" },
+      L = {
         validators: [(e = o("WAJids")).validateDomainJid, e.validateGroupJid],
         typeName: "DomainJid|GroupJid",
       },
-      D = {
+      E = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
@@ -83,23 +66,18 @@ __d(
         p),
       (l.ENUM_ACCEPT_AUTOADD_DEFAULTSUBGROUPPROMOTE_INVITE_INVITEAUTOADD_LINKEDGROUPJOIN =
         _),
-      (l.ENUM_ADMIN_CREATOR = f),
-      (l.ENUM_ADMIN_SUPERADMIN = g),
-      (l.ENUM_APPROVED_CANCELLED_REJECTED = h),
-      (l.ENUM_APPROVED_INREVIEW_NONE_REJECTED = y),
+      (l.ENUM_ADMIN_SUPERADMIN = f),
+      (l.ENUM_APPROVED_INREVIEW_NONE_REJECTED = g),
       (l.ENUM_DEACTIVATEGENERALCHAT_DELETECAPI_DELETEPARENT_INTEGRITYDELETEPARENT =
-        C),
-      (l.ENUM_DEACTIVATEGROUP_DELETEPARENT_INTEGRITYDELETEPARENT_UNLINKGROUP =
-        b),
-      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = v),
-      (l.ENUM_FALSE_TRUE = S),
-      (l.ENUM_GROUP_USER = R),
-      (l.ENUM_IMAGE_PREVIEW = L),
-      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = E),
-      (l.ENUM_LID_PN = k),
-      (l.ENUM_PARENTGROUP_SIBLINGGROUP_SUBGROUP = I),
-      (l.DOMAINJID_GROUPJID = T),
-      (l.USERJID_USERJID = D));
+        h),
+      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = y),
+      (l.ENUM_FALSE_TRUE = C),
+      (l.ENUM_GROUP_USER = b),
+      (l.ENUM_IMAGE_PREVIEW = v),
+      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = S),
+      (l.ENUM_LID_PN = R),
+      (l.DOMAINJID_GROUPJID = L),
+      (l.USERJID_USERJID = E));
   },
   98,
 );

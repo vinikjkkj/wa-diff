@@ -1,12 +1,6 @@
 __d(
   "WAWebSoundStickerUtils",
-  [
-    "WABase64",
-    "WAWebMmsMediaTypes",
-    "WAWebMsgType",
-    "WAWebSoundStickerGating",
-    "WAWebWid",
-  ],
+  ["WABase64", "WAWebMsgType", "WAWebSoundStickerGating", "WAWebWid"],
   function (t, n, r, o, a, i, l) {
     var e = 32,
       s = new Set([
@@ -69,21 +63,10 @@ __d(
     }
     function g(e) {
       var t = e == null ? void 0 : e.stickerAudio;
-      return (t == null ? void 0 : t.filehash) == null || !h(t.mimetype)
+      return (t == null ? void 0 : t.filehash) == null || !c(t.mimetype)
         ? !1
         : (e == null ? void 0 : e.id.remote.isNewsletter()) === !0 ||
             (t.mediaKey != null && t.encFilehash != null);
-    }
-    function h(e) {
-      var t;
-      return (
-        e != null &&
-        ((t = o("WAWebMmsMediaTypes").getValidMimeTypes(
-          o("WAWebMsgType").MSG_TYPE.AUDIO,
-        )) == null
-          ? void 0
-          : t.has(e)) === !0
-      );
     }
     ((l.isSoundStickerMsg = u),
       (l.isSoundStickerAudioMimetype = c),

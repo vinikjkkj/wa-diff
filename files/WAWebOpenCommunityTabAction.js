@@ -17,7 +17,10 @@ __d(
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "community_flow" }
-            : s.jsx(o("WAWebCommunityFlowLoadable").CommunityFlowLoadable, {}),
+            : s.jsx(
+                o("WAWebCommunityFlowLoadable").CommunityTabFlowLoadable,
+                {},
+              ),
           { disableRotateFocus: !0 },
         ),
         o("WAWebCmd").Cmd.setActiveNavBarItem(

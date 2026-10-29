@@ -20,7 +20,6 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h;
@@ -31,11 +30,7 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, n;
-          if (
-            (r("gkx")("26258") ||
-              (yield o("WAWebSaveContactAction")._runDebugContactAction()),
-            !r("WAWebNetworkStatus").online)
-          )
+          if (!r("WAWebNetworkStatus").online)
             throw new (o("WAWebSaveContactAction").NetworkUnavailable)();
           var a = e.phoneNumber || e.lid,
             i = yield o("WAWebContactSyncUtils").constructUsyncDeltaQuery([
@@ -195,11 +190,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            (r("gkx")("26258") ||
-              (yield o("WAWebSaveContactAction")._runDebugContactAction()),
-            !r("WAWebNetworkStatus").online)
-          )
+          if (!r("WAWebNetworkStatus").online)
             throw new (o("WAWebSaveContactAction").NetworkUnavailable)();
           var t = e.map(S),
             n = yield o("WAWebContactSyncUtils").constructUsyncDeltaQuery(

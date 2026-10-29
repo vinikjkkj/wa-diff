@@ -38,7 +38,7 @@ __d(
         t[5] !== i ||
         t[6] !== _ ||
         t[7] !== m
-          ? ((f = s.jsx(o("WAWebMessagePicture.react").ImageMessage, {
+          ? ((f = s.jsx(r("WAWebMessagePicture.react"), {
               contentContainerClassName: p,
               displayAuthor: !1,
               mediaData: d,

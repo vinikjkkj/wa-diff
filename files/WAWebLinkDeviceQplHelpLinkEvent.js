@@ -88,6 +88,7 @@ __d(
                   ).setAlwaysOnSampleRate(u, 1),
                 i != null &&
                   ((m.android_tablet_detection_source = i.detectionSource),
+                  (m.android_tablet_device_class = i.deviceClass),
                   (m.android_tablet_model_source = i.modelSource)));
               var _ = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
                 annotations: { int: d, string: m },

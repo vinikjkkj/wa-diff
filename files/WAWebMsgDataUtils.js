@@ -44,7 +44,9 @@ __d(
                 n === "invite" ||
                 n === "invite_auto_add" ||
                 n === "linked_group_join" ||
-                n === "community_invite_auto_add_rich"
+                n === "community_invite_auto_add_rich" ||
+                n === "auto_add" ||
+                n === "default_sub_group_admin_add"
               ? e.recipients &&
                 o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
                 ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
@@ -73,8 +75,6 @@ __d(
                       : n === "created_subgroup_suggestion"
                         ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
                         : n === "parent_group_link" ||
-                            n === "auto_add" ||
-                            n === "default_sub_group_admin_add" ||
                             n === "community_participant_add_rich" ||
                             n === "subgroup_admin_triggered_auto_add" ||
                             n === "subgroup_admin_triggered_invite_auto_add" ||

@@ -52,14 +52,11 @@ __d(
         !o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent()
         ? !1
         : (o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-            s.jsx(
-              o("WAWebBizAIDrawerLoadable.react").WAWebBizAIDrawerLoadable,
-              {
-                entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHATS_LIST,
-                initialStep: n,
-                onBack: o("WAWebDrawerManager").closeDrawerRight,
-              },
-            ),
+            s.jsx(r("WAWebBizAIDrawerLoadable.react"), {
+              entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHATS_LIST,
+              initialStep: n,
+              onBack: o("WAWebDrawerManager").closeDrawerRight,
+            }),
           ),
           !0);
     }

@@ -72,6 +72,8 @@ __d(
         "CanonicalRetryBackoffSeconds",
         "CanonicalPeerRequestTimestamp",
         "CanonicalFalcoBuffer",
+        "NotificationClickedOnce",
+        "NotReceivingNotificationsBannerDismissed",
       ]),
       u = Object.freeze(
         babelHelpers.extends(

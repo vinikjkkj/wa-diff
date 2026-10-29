@@ -246,6 +246,7 @@ __d(
             a("associationType"),
             a("parentMsgKey"),
             a("pairedMediaType"),
+            a("businessInteractionPills"),
             a("statusMentioned"),
             a("viewMode"),
             a("stickers"),

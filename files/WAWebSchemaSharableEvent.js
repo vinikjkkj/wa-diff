@@ -42,6 +42,7 @@ __d(
           n("countNoResponse"),
           n("totalInvitedCount"),
           n("lastInvitationUpdatedTsUsec"),
+          n("isScheduledCall"),
           r("startTsSec"),
           r("callLinkToken"),
         ])

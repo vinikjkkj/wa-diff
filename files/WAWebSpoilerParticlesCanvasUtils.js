@@ -120,11 +120,15 @@ __d(
       }
       return n;
     }
-    function p(e, t, n, r) {
-      var o = t.left - n.x,
-        a = o + (r ? t.width - e.width : 0),
-        i = t.top - n.y;
-      return { x: e.left - a, y: e.top - i };
+    function p(e) {
+      var t = e.isRTL,
+        n = e.placedRect,
+        r = e.previousTranslation,
+        o = e.unionRect,
+        a = n.left - r.x,
+        i = a + (t ? n.width - o.width : 0),
+        l = n.top - r.y;
+      return { x: o.left - i, y: o.top - l };
     }
     function _(e) {
       var t = e.x,

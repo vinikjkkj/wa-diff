@@ -39,7 +39,7 @@ __d(
         : ((l = t[0]), (d = t[1]), (m = t[2]));
       var p;
       t[3] !== i
-        ? ((p = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
+        ? ((p = u.jsx(r("WAWebMediaEditorToolbarButton.react"), {
             xstyle: l,
             icon: d,
             title: m,
@@ -67,7 +67,7 @@ __d(
         : ((_ = t[5]), (f = t[6]), (g = t[7]));
       var h;
       t[8] !== i
-        ? ((h = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
+        ? ((h = u.jsx(r("WAWebMediaEditorToolbarButton.react"), {
             xstyle: _,
             icon: f,
             title: g,
@@ -93,7 +93,7 @@ __d(
         : (b = t[11]);
       var v;
       t[12] !== a || t[13] !== C
-        ? ((v = u.jsx(o("WAWebMediaEditorToolbarButton.react").ToolbarButton, {
+        ? ((v = u.jsx(r("WAWebMediaEditorToolbarButton.react"), {
             xstyle: y,
             onClick: a,
             disabled: C,

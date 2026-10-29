@@ -42,17 +42,20 @@ __d(
           (e = o(
             "isWAWebFeatureDetectionAndroidTablet",
           ).isWAWebFeatureDetectionAndroidTablet()),
-        d() && e && r("gkx")("27147")
+        e && d() && r("gkx")("27147")
       );
     }
     function p() {
-      return !d() ||
+      if (
         o(
           "isWAWebFeatureDetectionAndroidTablet",
-        ).isWAWebFeatureDetectionAndroidTabletClientHintResolutionRequired() ||
-        !o(
-          "isWAWebFeatureDetectionAndroidTablet",
-        ).isWAWebFeatureDetectionAndroidTablet()
+        ).isWAWebFeatureDetectionAndroidTabletClientHintResolutionRequired()
+      )
+        return "none";
+      var e = o(
+        "isWAWebFeatureDetectionAndroidTablet",
+      ).getWAWebFeatureDetectionAndroidTabletInfo();
+      return e == null || e.deviceClass === "googlebook" || !d()
         ? "none"
         : m(!0)
           ? "test"
@@ -63,13 +66,20 @@ __d(
         r("isWAWebFeatureDetectionAppleTouchscreen")() && r("gkx")("20339")
       );
     }
+    function f() {
+      return (
+        !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
+        r("gkx")("28277")
+      );
+    }
     ((l.LinkDeviceScreenVariantType = e),
       (l.getLinkDeviceScreenVariant = s),
       (l.getOptimizedRegFromWebVariant = c),
       (l.isAndroidTabletOverlayPotentiallyEnabled = d),
       (l.isAndroidTabletOverlayEnabled = m),
       (l.getAndroidTabletOverlayExperiment = p),
-      (l.isAppleTouchscreenOverlayEnabled = _));
+      (l.isAppleTouchscreenOverlayEnabled = _),
+      (l.isGooglebookOverlayEnabled = f));
   },
   98,
 );

@@ -36,6 +36,7 @@ __d(
           (t.countNoResponse = o("WAWebBaseModel").prop(0)),
           (t.totalInvitedCount = o("WAWebBaseModel").prop(0)),
           (t.lastInvitationUpdatedTsUsec = o("WAWebBaseModel").prop(0)),
+          (t.isScheduledCall = o("WAWebBaseModel").prop(!1)),
           (t.unseenChangeFlags = o("WAWebBaseModel").prop(0)),
           (t.lastChangeTsUsec = o("WAWebBaseModel").prop(0)),
           babelHelpers.assertThisInitialized(t) ||

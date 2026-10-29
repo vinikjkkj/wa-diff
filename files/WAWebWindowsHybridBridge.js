@@ -24,6 +24,7 @@ __d(
     "WAWebWindowsHybridBridgeTouchpadFix",
     "WAWebWindowsHybridBridgeVoip",
     "WAWebWindowsHybridBridgeWam",
+    "WAWebWindowsStartupWebTimings",
     "cr:17220",
   ],
   function (t, n, r, o, a, i, l) {
@@ -166,7 +167,8 @@ __d(
           ).WindowsHybridBridgeMetaConfig)(k)),
           this.metaConfig.initialize()),
           (t = e.hostObjects.WebUpdateBridge) == null ||
-            t.updateWebRevision(o("WAWebBuildConstants").VERSION_TERTIARY));
+            t.updateWebRevision(o("WAWebBuildConstants").VERSION_TERTIARY),
+          o("WAWebWindowsStartupWebTimings").markWindowsBridgeReady());
       }
       var t = e.prototype;
       return (

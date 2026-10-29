@@ -44,127 +44,132 @@ __d(
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = t.deviceIdentity,
-            i = t.identity,
-            l = t.wid;
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.deviceIdentity,
+            a = e.identity,
+            i = e.wid;
           if (
             (r("gkx")("9092")
               ? o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "Signal::createSignalSession with ",
                       " sessionScope=",
                       "",
                     ])),
-                  l.toString({ legacy: !0 }),
-                  n != null ? n : "default",
+                  i.toString({ legacy: !0 }),
+                  t != null ? t : "default",
                 )
               : o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "Signal::createSignalSession sessionScope=",
                       "",
                     ])),
-                  n != null ? n : "default",
+                  t != null ? t : "default",
                 ),
-            l.device != null && l.device !== o("WAJids").DEFAULT_DEVICE_ID)
+            i.device != null && i.device !== o("WAJids").DEFAULT_DEVICE_ID)
           ) {
-            if (!a)
+            if (!n)
               throw r("err")(
                 "Signal::createSignalSession: expected device-identity in keyBundle for companion device",
               );
-            var m = yield o("WAWebAdvSignatureApi").validateADVwithIdentityKey(
-              l,
-              a,
+            var l = yield o("WAWebAdvSignatureApi").validateADVwithIdentityKey(
               i,
+              n,
+              a,
             );
-            if (!m)
+            if (!l)
               throw r("err")(
                 "Signal::createSignalSession: invalid identityKey fetched",
               );
           }
-          var p, _, f;
-          try {
-            p = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-              t.identity.slice().buffer,
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Assertion failed!",
-                    ])),
-                )
-                .sendLogs(
-                  "Signal::createSignalSession: invalid identityKey fetched",
-                ),
-              e
-            );
-          }
-          try {
-            _ = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-              t.skey.pubkey.slice().buffer,
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "Assertion failed!",
-                    ])),
-                )
-                .sendLogs(
-                  "Signal::createSignalSession: invalid signedPreKey fetched",
-                ),
-              e
-            );
-          }
-          if (t.key)
-            try {
-              f = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-                t.key.pubkey.slice().buffer,
-              );
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "Assertion failed!",
-                    ])),
-                )
-                .sendLogs(
-                  "Signal::createSignalSession: invalid preKey fetched",
-                );
-            }
-          var g = {
-            registrationId: t.regId,
-            identityKey: p,
-            signedPreKey: {
-              keyId: t.skey.id,
-              publicKey: _,
-              signature: t.skey.signature.slice().buffer,
-            },
-          };
-          t.key && f && (g.preKey = { keyId: t.key.id, publicKey: f });
-          var h = t.kyberKey;
-          return (
-            h != null &&
-              (g.kyberKey = {
-                keyId: h.id,
-                publicKey: new Uint8Array(h.publicKey).buffer,
-                signature: new Uint8Array(h.signature).buffer,
-              }),
-            o("WAWebCryptoLibrarySessionApi").createSignalSession(g, l, n)
+          return o("WAWebCryptoLibrarySessionApi").createSignalSession(
+            R(e),
+            i,
+            t,
           );
         })),
         S.apply(this, arguments)
       );
     }
-    function R(e, t) {
+    function R(t) {
+      var n, r, a;
+      try {
+        n = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+          t.identity.slice().buffer,
+        );
+      } catch (t) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Assertion failed!",
+                ])),
+            )
+            .sendLogs(
+              "Signal::createSignalSession: invalid identityKey fetched",
+            ),
+          t
+        );
+      }
+      try {
+        r = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+          t.skey.pubkey.slice().buffer,
+        );
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Assertion failed!",
+                ])),
+            )
+            .sendLogs(
+              "Signal::createSignalSession: invalid signedPreKey fetched",
+            ),
+          e
+        );
+      }
+      if (t.key)
+        try {
+          a = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+            t.key.pubkey.slice().buffer,
+          );
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "Assertion failed!",
+                ])),
+            )
+            .sendLogs("Signal::createSignalSession: invalid preKey fetched");
+        }
+      var i = {
+        registrationId: t.regId,
+        identityKey: n,
+        signedPreKey: {
+          keyId: t.skey.id,
+          publicKey: r,
+          signature: t.skey.signature.slice().buffer,
+        },
+      };
+      t.key && a && (i.preKey = { keyId: t.key.id, publicKey: a });
+      var l = t.kyberKey;
+      return (
+        l != null &&
+          (i.kyberKey = {
+            keyId: l.id,
+            publicKey: new Uint8Array(l.publicKey).buffer,
+            signature: new Uint8Array(l.signature).buffer,
+          }),
+        i
+      );
+    }
+    function L(e, t) {
       return (
         o("WAWebApiContact").checkPnToLidMapping(
           e,
@@ -182,12 +187,12 @@ __d(
           )
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebCryptoLibrarySessionApi").getRemoteRegId(e, t);
           return n != null || t === o("WAWebSessionScope").SessionScope.DEFAULT
             ? n
@@ -196,15 +201,15 @@ __d(
                 o("WAWebSessionScope").SessionScope.DEFAULT,
               );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebApiContact").checkPnToLidMapping(
             [e],
             o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -234,15 +239,15 @@ __d(
           );
           yield (C || (C = n("Promise"))).all(r);
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WAWebApiContact").checkPnToLidMapping(
             [e],
             o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -269,21 +274,21 @@ __d(
               }),
             ));
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
+    function $(e) {
       var t = o("WAWebSignalCommonUtils").createSignalAddress(e).toString();
       return o("WAWebSignalProtocolStore")
         .getPersistSignalProtocolStore()
         .maybeCleanUpUnconvertedSession(t);
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebCryptoLibraryDbCallbacksApi").getCryptoDbCallbacks(),
             a = o("WAJids").unsafeCoerceToDeviceJid(e.toJid()),
             i = yield r("WAWebCryptoLibraryUtilsApi").getSessionAliceBaseKey(
@@ -292,22 +297,22 @@ __d(
             );
           return i.success === !0 ? i.value : null;
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t, n) {
-      return M.apply(this, arguments);
+    function M(e, t, n) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WAWebApiContact").checkPnToLidMapping(
             [e],
             o("WAWebApiContact").CheckPnToLidMappingCaller
               .WAWEB_SIGNAL_SESSION_SAVE_SESSION_BASE_KEY,
           );
           var r = o("WAWebSignalCommonUtils").createSignalAddress(e, n),
-            a = yield $(e, n);
+            a = yield P(e, n);
           a
             ? yield o("WAWebSignalStoreApi").waSignalStore.saveBaseKey(
                 r.toString(),
@@ -323,15 +328,15 @@ __d(
                 t,
               );
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    function A(e, t, n) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           o("WAWebApiContact").checkPnToLidMapping(
             [e],
             o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -339,7 +344,7 @@ __d(
           );
           var a = o("WAWebSignalCommonUtils").createSignalAddress(e, r),
             i = yield (C || (C = n("Promise"))).all([
-              $(e, r),
+              P(e, r),
               o("WAWebSignalStoreApi").waSignalStore.loadBaseKey(
                 a.toString(),
                 t,
@@ -387,15 +392,15 @@ __d(
               ),
               !1);
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function O(e, t, n) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           return o(
             "WAWebCryptoLibrarySessionApi",
           ).createGroupSenderSignalSession(
@@ -404,21 +409,21 @@ __d(
             n,
           );
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function W() {
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return o("WAWebCryptoLibrary").getGroupSenderKeyInfo(e, t);
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function q(e, t) {
+    function U(e, t) {
       o("WAWebApiContact").checkPnToLidMapping(
         [t],
         o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -428,7 +433,7 @@ __d(
         r = e.toString({ legacy: !0 }) + "::" + n.toString();
       return o("WAWebSignalStoreApi").waSignalStore.removeSenderKey(r);
     }
-    function U(e) {
+    function V(e) {
       o("WAWebApiContact").checkPnToLidMapping(
         [e],
         o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -440,17 +445,18 @@ __d(
       );
     }
     ((l.createSignalSession = v),
-      (l.hasSignalSessions = R),
-      (l.getRemoteRegId = L),
-      (l.deleteRemoteInfo = k),
-      (l.deleteRemoteSession = T),
-      (l.maybeDeleteUnconvertedSession = x),
-      (l.saveSessionBaseKey = N),
-      (l.hasSameBaseKey = w),
-      (l.createGroupSignalSession = F),
-      (l.getGroupSenderKeyInfo = B),
-      (l.deleteGroupSenderKeyInfo = q),
-      (l.deleteDeviceSenderKey = U));
+      (l.toSignalPrekeyBundle = R),
+      (l.hasSignalSessions = L),
+      (l.getRemoteRegId = E),
+      (l.deleteRemoteInfo = I),
+      (l.deleteRemoteSession = D),
+      (l.maybeDeleteUnconvertedSession = $),
+      (l.saveSessionBaseKey = M),
+      (l.hasSameBaseKey = A),
+      (l.createGroupSignalSession = O),
+      (l.getGroupSenderKeyInfo = W),
+      (l.deleteGroupSenderKeyInfo = U),
+      (l.deleteDeviceSenderKey = V));
   },
   98,
 );

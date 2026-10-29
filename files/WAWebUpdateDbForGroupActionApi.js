@@ -27,6 +27,7 @@ __d(
     "WAWebGroupType",
     "WAWebGroupsParticipantsApi",
     "WAWebHandlePushnameUpdate",
+    "WAWebIncompatibleAgentRequestsRejectTriggers",
     "WAWebLidMigrationUtils",
     "WAWebNux",
     "WAWebQueryAndUpdateSubgroupSuggestionsJob",
@@ -1036,7 +1037,7 @@ __d(
             ),
             yield (I || (I = n("Promise"))).all(B),
             a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD &&
-              x(l, a.participants)
+              (x(l, a.participants)
                 .then(function (e) {
                   return o(
                     "WAWebSyncGroupBotSupportFields",
@@ -1056,6 +1057,15 @@ __d(
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("group-action-refresh-agent-profiles-error");
                 }),
+              o(
+                "WAWebIncompatibleAgentRequestsRejectTriggers",
+              ).startIncompatibleAgentRequestRejectsAfterAddNotification(
+                l,
+                a.participants.map(function (e) {
+                  var t = e.id;
+                  return t;
+                }),
+              )),
             o("WALogger")
               .LOG(
                 E ||

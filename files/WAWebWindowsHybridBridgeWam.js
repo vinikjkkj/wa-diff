@@ -1,6 +1,7 @@
 __d(
   "WAWebWindowsHybridBridgeWam",
   [
+    "Promise",
     "WALogger",
     "WAWebAppTracker",
     "WAWebCrashContextUtils",
@@ -12,7 +13,10 @@ __d(
     "WAWebWamEnumCrashApplicationState",
     "WAWebWamEnumCrashType",
     "WAWebWamGlobals",
+    "WAWebWindowsBackgroundRunLogger",
     "WAWebWindowsHybridBridgeTrace",
+    "asyncToGeneratorRuntime",
+    "chunkArray",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,7 +33,10 @@ __d(
       h,
       y,
       C,
-      b = function (n) {
+      b,
+      v,
+      S = 100,
+      R = function (a) {
         var t = this;
         ((this.$2 = !1),
           (this.$3 = null),
@@ -41,10 +48,11 @@ __d(
               (n = t.$1) == null ||
                 n.addEventListener("eventsSaved", t.handleEvents),
               (r = t.$1) == null || r.subscribe(null),
+              t.$5(),
               ((a = t.$1) == null ? void 0 : a.setWebAppContext) != null &&
-                (o("WAWebAppTracker").AppTracker.subscribe(t.$5), t.$5()));
+                (o("WAWebAppTracker").AppTracker.subscribe(t.$6), t.$6()));
           }),
-          (this.$5 = function () {
+          (this.$6 = function () {
             var n = o("WAWebAppTracker").AppTracker.getAppContext();
             if (n !== t.$3) {
               r("WAWebODS").incr(
@@ -74,11 +82,68 @@ __d(
               t.$3 = n;
             }
           }),
+          (this.$5 = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {
+              var e;
+              if (
+                ((e = t.$1) == null
+                  ? void 0
+                  : e.getBackgroundRunRecordsAsync) != null
+              )
+                try {
+                  var a = yield o(
+                    "WAWebWindowsHybridBridgeTrace",
+                  ).traceBridgeCall(
+                    {
+                      bridge: "wam",
+                      method: "getBackgroundRunRecordsAsync",
+                      type: "async",
+                    },
+                    function () {
+                      return t.$1.getBackgroundRunRecordsAsync == null
+                        ? void 0
+                        : t.$1.getBackgroundRunRecordsAsync();
+                    },
+                  );
+                  if (a == null) return;
+                  var i = o(
+                    "WAWebWindowsBackgroundRunLogger",
+                  ).logBackgroundRunRecords(a);
+                  yield (v || (v = n("Promise"))).all(
+                    r("chunkArray")(i, S).map(function (e) {
+                      return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "wam",
+                          method: "markBackgroundRunRecordsSent",
+                          type: "async",
+                        },
+                        function () {
+                          return t.$1.markBackgroundRunRecordsSent == null
+                            ? void 0
+                            : t.$1.markBackgroundRunRecordsSent(
+                                JSON.stringify(e),
+                              );
+                        },
+                      );
+                    }),
+                  );
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[WindowsHybridBridgeWam] background run records upload failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e));
+                }
+            },
+          )),
           (this.handleEvents = function (e) {
             if (!t.$2) {
               o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[WindowsHybridBridgeWam] handleWamEvent: not init",
                   ])),
               );
@@ -90,8 +155,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[WindowsHybridBridgeWam] malformed eventsSaved payload",
                     ])),
                 )
@@ -100,8 +165,8 @@ __d(
             }
             if (!Array.isArray(n)) {
               o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[WindowsHybridBridgeWam] eventsSaved payload is not an array",
                   ])),
               );
@@ -140,19 +205,19 @@ __d(
                         o("WAWebWamEnumCrashApplicationState")
                           .CRASH_APPLICATION_STATE.FOREGROUND)
                   ) {
-                    var p = l != null ? l : "unknown";
+                    var d = l != null ? l : "unknown";
                     o("WALogger")
                       .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "Native ",
                             "s ANR detected: ",
                             "",
                           ])),
-                        p,
+                        d,
                         i,
                       )
-                      .sendLogs("hybrid-native-anr-" + p + "s", {
+                      .sendLogs("hybrid-native-anr-" + d + "s", {
                         sampling: 0.01,
                       });
                   }
@@ -165,8 +230,8 @@ __d(
               } catch (t) {
                 o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[WindowsHybridBridgeWam] dropped malformed event ",
                         "",
                       ])),
@@ -176,7 +241,7 @@ __d(
               }
             });
             var i = a.pop();
-            (a.forEach(v), i != null && S(i));
+            (a.forEach(L), i != null && E(i));
           }),
           (this.$4 = function (e) {
             var t;
@@ -185,8 +250,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[WindowsHybridBridgeWam] malformed globalsChanged payload",
                     ])),
                 )
@@ -195,37 +260,20 @@ __d(
             }
             if (typeof t != "object" || t == null || Array.isArray(t)) {
               o("WALogger").ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[WindowsHybridBridgeWam] globalsChanged payload is not an object",
                   ])),
               );
               return;
             }
-            for (var n of Object.keys(t)) R(n, t[n]);
+            for (var n of Object.keys(t)) k(n, t[n]);
           }),
-          (this.$1 = n));
+          (this.$1 = a));
       };
-    function v(e) {
+    function L(e) {
       try {
         e.commit();
-      } catch (t) {
-        o("WALogger")
-          .ERROR(
-            f ||
-              (f = babelHelpers.taggedTemplateLiteralLoose([
-                "[WindowsHybridBridgeWam] failed to commit event ",
-                "",
-              ])),
-            e.id,
-          )
-          .catching(r("getErrorSafe")(t));
-      }
-    }
-    function S(e) {
-      var t;
-      try {
-        t = e.commitAndWaitForFlush(!0);
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -237,24 +285,41 @@ __d(
             e.id,
           )
           .catching(r("getErrorSafe")(t));
+      }
+    }
+    function E(e) {
+      var t;
+      try {
+        t = e.commitAndWaitForFlush(!0);
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
+                "[WindowsHybridBridgeWam] failed to commit event ",
+                "",
+              ])),
+            e.id,
+          )
+          .catching(r("getErrorSafe")(t));
         return;
       }
       t.catch(function (e) {
         o("WALogger")
           .ERROR(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "[WindowsHybridBridgeWam] forced flush failed",
               ])),
           )
           .catching(r("getErrorSafe")(e));
       });
     }
-    function R(e, t) {
+    function k(e, t) {
       if (!o("WAWebWamCodegenUtils").metrics.hasGlobal(e)) {
         o("WALogger").ERROR(
-          y ||
-            (y = babelHelpers.taggedTemplateLiteralLoose([
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
               "[WindowsHybridBridgeWam] unknown global: ",
               "",
             ])),
@@ -268,8 +333,8 @@ __d(
       } catch (t) {
         o("WALogger")
           .ERROR(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "[WindowsHybridBridgeWam] invalid value for global ",
                 "",
               ])),
@@ -278,7 +343,7 @@ __d(
           .catching(r("getErrorSafe")(t));
       }
     }
-    l.WindowsHybridBridgeWam = b;
+    l.WindowsHybridBridgeWam = R;
   },
   98,
 );

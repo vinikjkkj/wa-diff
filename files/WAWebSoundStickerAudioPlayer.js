@@ -102,7 +102,7 @@ __d(
         n = t == null ? void 0 : t.filehash;
       t == null ||
         n == null ||
-        P(n) ||
+        N(n) ||
         !o("WAWebSoundStickerGating").isSoundStickerPlaybackEnabled() ||
         !o("WAWebSoundStickerUtils").isSoundStickerPlayable(e) ||
         !o("WAWebUserPrefsGeneral").getAutoDownloadAudio() ||
@@ -193,7 +193,7 @@ __d(
             })
           : l.promise;
       var s = x(e, t, i, a).then(function (e) {
-        return (g.delete(i), f.set(i, e), N(), e);
+        return (g.delete(i), f.set(i, e), M(), e);
       });
       return (
         s.catch(function () {
@@ -226,6 +226,8 @@ __d(
                 mediaKey: t.mediaKey,
                 mediaKeyTimestamp: t.mediaKeyTimestamp,
                 mimetype: t.mimetype,
+                isMimetypeAllowed: o("WAWebSoundStickerUtils")
+                  .isSoundStickerAudioMimetype,
                 signal: new AbortController().signal,
                 type: e.id.remote.isNewsletter()
                   ? o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
@@ -251,8 +253,9 @@ __d(
                 }),
                 r("err")("invalid clip")
               );
+            var s;
             try {
-              l = yield o(
+              s = yield o(
                 "WAWebSoundStickerAudioValidation",
               ).checkSoundStickerAudio({
                 input: l,
@@ -268,13 +271,9 @@ __d(
                 e
               );
             }
-            var s;
+            var u;
             try {
-              var u;
-              s = yield o("WAWebMediaLoad").transcode(
-                new Blob([l], { type: (u = t.mimetype) != null ? u : "" }),
-                t.mimetype,
-              );
+              u = yield P(s);
             } catch (e) {
               throw (
                 i.endFailWithError(
@@ -284,25 +283,30 @@ __d(
                 e
               );
             }
-            return (i.endSuccess(), URL.createObjectURL(s));
+            return (i.endSuccess(), URL.createObjectURL(u));
           },
         )),
         $.apply(this, arguments)
       );
     }
     function P(e) {
+      var t = e.audio,
+        n = e.mimetype;
+      return o("WAWebMediaLoad").transcode(new Blob([t], { type: n }), n);
+    }
+    function N(e) {
       var t = g.get(e);
       return t != null && o("WATimeUtils").unixTimeMs() - t < m;
     }
-    function N() {
+    function M() {
       for (var e of f) {
         var t = e[0],
           n = e[1];
         if (f.size <= d) return;
-        (_.delete(t), f.delete(t), M(n));
+        (_.delete(t), f.delete(t), w(n));
       }
     }
-    function M(e) {
+    function w(e) {
       var t = b;
       if (t == null || t.audio.src !== e) {
         URL.revokeObjectURL(e);

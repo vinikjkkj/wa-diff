@@ -73,6 +73,7 @@ __d(
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
         case "NewsletterRevoke":
         case "NewsletterReactionRevoke":
+        case "NewsletterQuestionResponseRevokeFanout":
         case "NewsletterWAMOEmpty":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
         case "NewsletterPollCreation":

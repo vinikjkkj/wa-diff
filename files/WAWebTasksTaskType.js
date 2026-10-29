@@ -46,6 +46,7 @@ __d(
       CLEAN_WEBTP_SHARED_SESSIONS: "cleanWebTPSharedSessions",
       CLEANUP_STALE_CAMPAIGNS: "cleanupStaleCampaigns",
       CLEAN_EXPIRED_QUARANTINE_DATA: "cleanExpiredQuarantineData",
+      CLEAN_EXPIRED_MUSIC_LYRICS: "cleanExpiredMusicLyrics",
       PURGE_QPL_STORAGE: "purgeQplStorage",
       OPUS_MIGRATION: "opusMigration",
       REFRESH_AUDIENCE_EXPRESSIONS: "refreshAudienceExpressions",

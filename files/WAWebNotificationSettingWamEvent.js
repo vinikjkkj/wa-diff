@@ -13,6 +13,8 @@ __d(
           NotificationSetting: [
             3684,
             {
+              callNotificationSound: [25, e.TYPES.BOOLEAN],
+              callShowNotification: [26, e.TYPES.BOOLEAN],
               dedupKey: [24, e.TYPES.INTEGER],
               groupReactionNotification: [1, e.TYPES.BOOLEAN],
               groupShowNotification: [2, e.TYPES.BOOLEAN],

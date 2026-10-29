@@ -1,7 +1,6 @@
 __d(
   "WAWebSoundStickerAudioValidation",
   [
-    "WAWebABProps",
     "WAWebKaleidoscopeWasmFeatureSupport",
     "WAWebMediaWorkerProxy",
     "asyncToGeneratorRuntime",
@@ -9,15 +8,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = 80,
-      s = new Set(["audio/ogg"]),
-      u = new Set(["audio/m4a", "audio/x-m4a"]),
-      c = new Set();
-    function d(e) {
-      return m.apply(this, arguments);
+      s = "audio/ogg; codecs=opus",
+      u = "audio/mp4",
+      c = new Set(["audio/ogg"]),
+      d = new Set(["audio/m4a", "audio/x-m4a"]),
+      m = new Set();
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.downloadQpl,
             a = t.input,
             i = t.mimetype;
@@ -27,41 +28,39 @@ __d(
             ).checkKaleidoscopeWasmFeatureSupport())
           )
             throw r("err")("kaleidoscope unavailable");
-          var l = o("WAWebABProps").getABPropConfigValue(
-              "ks_ogg_opus_strict_validation_enabled",
+          var l = yield o("WAWebMediaWorkerProxy").kaleidoscopeClassifyInWorker(
+              {
+                mediaType: "sound-sticker-audio",
+                rawMimeType: i != null ? i : "application/octet-stream",
+                input: a,
+                eventFlow: n,
+              },
             ),
-            u = yield o("WAWebMediaWorkerProxy").kaleidoscopeClassifyInWorker({
-              mediaType: "sound-sticker-audio",
-              rawMimeType: i != null ? i : "application/octet-stream",
-              input: a,
-              eventFlow: n,
-            }),
-            c = u.result,
-            d = u.transferredBuffer;
-          if (!c.success)
-            throw r("err")("kaleidoscope failed: " + c.error.errorName);
-          var m = c.value,
-            _ = m.mimetype,
-            f = m.score;
-          if (f >= e) throw r("err")("scored " + f + " as " + _);
-          if (!p(i).has(_))
+            d = l.result,
+            m = l.transferredBuffer;
+          if (!d.success)
+            throw r("err")("kaleidoscope failed: " + d.error.errorName);
+          var p = d.value,
+            _ = p.mimetype,
+            g = p.score;
+          if (g >= e) throw r("err")("scored " + g + " as " + _);
+          if (!f(i == null ? void 0 : i.toLowerCase()).has(_))
             throw r("err")(
               "declared " + (i != null ? i : "nothing") + " but detected " + _,
             );
-          if (s.has(_) && !l) throw r("err")("ogg not validated as opus");
-          return d;
+          return { audio: m, mimetype: c.has(_) ? s : u };
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p(e) {
+    function f(e) {
       return e === "audio/ogg; codecs=opus"
-        ? s
+        ? c
         : e === "audio/mp4" || e === "audio/m4a" || e === "audio/x-m4a"
-          ? u
-          : c;
+          ? d
+          : m;
     }
-    l.checkSoundStickerAudio = d;
+    l.checkSoundStickerAudio = p;
   },
   98,
 );

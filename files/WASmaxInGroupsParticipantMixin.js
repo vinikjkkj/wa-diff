@@ -11,44 +11,52 @@ __d(
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "type",
+        o("WASmaxInGroupsEnums").ENUM_ADMIN_SUPERADMIN,
+      );
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrString,
         e,
         "participant_label",
       );
-      if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optional(
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrIntRange,
         e,
         "participant_label_mtime",
         0,
         void 0,
       );
-      if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optional(
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrIntRange,
         e,
         "join_time",
         0,
         void 0,
       );
-      if (!a.success) return a;
-      var i = o("WASmaxParseUtils").optional(
+      if (!i.success) return i;
+      var l = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
         e,
         "group_history_sent",
         o("WASmaxInGroupsEnums").ENUM_FALSE_TRUE,
       );
-      if (!i.success) return i;
-      var l = o("WASmaxInGroupsParticipantMixins").parseParticipantMixins(e);
-      return l.success
+      if (!l.success) return l;
+      var s = o("WASmaxInGroupsParticipantMixins").parseParticipantMixins(e);
+      return s.success
         ? o("WAResultOrError").makeResult({
-            participantLabel: n.value,
-            participantLabelMtime: r.value,
-            joinTime: a.value,
-            groupHistorySent: i.value,
-            participantMixins: l.value,
+            type: n.value,
+            participantLabel: r.value,
+            participantLabelMtime: a.value,
+            joinTime: i.value,
+            groupHistorySent: l.value,
+            participantMixins: s.value,
           })
-        : l;
+        : s;
     }
     l.parseParticipantMixin = e;
   },

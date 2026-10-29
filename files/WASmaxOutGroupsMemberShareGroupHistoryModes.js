@@ -4,6 +4,7 @@ __d(
     "WASmaxMixinGroupExhaustiveError",
     "WASmaxOutGroupsAdminShareModeMixin",
     "WASmaxOutGroupsAllMembersShareModeMixin",
+    "WASmaxOutGroupsAllMembersShareToggleOnModeMixin",
     "WASmaxOutGroupsUnknownShareModeMixin",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,6 +17,10 @@ __d(
         return o(
           "WASmaxOutGroupsAllMembersShareModeMixin",
         ).mergeAllMembersShareModeMixin(e);
+      if (t.isAllMembersShareToggleOnMode)
+        return o(
+          "WASmaxOutGroupsAllMembersShareToggleOnModeMixin",
+        ).mergeAllMembersShareToggleOnModeMixin(e);
       if (t.unknownShareMode)
         return o(
           "WASmaxOutGroupsUnknownShareModeMixin",

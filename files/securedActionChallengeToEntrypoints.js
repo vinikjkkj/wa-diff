@@ -60,6 +60,7 @@ __d(
         case "2fac":
         case "2fac_for_biz":
         case "2fac_setup":
+        case "oc_developer_reauth":
         case "work_sso":
         case "work_sso_embedded":
           return null;
@@ -102,6 +103,7 @@ __d(
         case "2fac":
         case "2fac_for_biz":
         case "2fac_setup":
+        case "oc_developer_reauth":
         case "work_sso":
         case "work_sso_embedded":
           return null;

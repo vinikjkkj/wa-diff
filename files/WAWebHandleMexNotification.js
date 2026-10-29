@@ -501,17 +501,26 @@ __d(
                                                                                           )
                                                                                             .mexHandleSharableEventInviteRemoveNotification,
                                                                                         )
-                                                                                      : (
-                                                                                          c ||
-                                                                                          (c =
-                                                                                            n(
-                                                                                              "Promise",
-                                                                                            ))
-                                                                                        ).reject(
-                                                                                          new y(
-                                                                                            e.OperationName,
-                                                                                          ),
-                                                                                        );
+                                                                                      : e.OperationName ===
+                                                                                          "NotificationEventGuestJoinedWa"
+                                                                                        ? C(
+                                                                                            e,
+                                                                                            o(
+                                                                                              "WAWebSharableEventNotificationHandler",
+                                                                                            )
+                                                                                              .mexHandleSharableEventGuestJoinedWaNotification,
+                                                                                          )
+                                                                                        : (
+                                                                                            c ||
+                                                                                            (c =
+                                                                                              n(
+                                                                                                "Promise",
+                                                                                              ))
+                                                                                          ).reject(
+                                                                                            new y(
+                                                                                              e.OperationName,
+                                                                                            ),
+                                                                                          );
     }
     var y = (function (e) {
       function t(n) {

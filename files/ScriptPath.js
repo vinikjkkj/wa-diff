@@ -3,21 +3,22 @@ __d(
   ["ErrorGuard", "SubscriptionList", "TimeSlice", "WebStorage", "isInIframe"],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e,
+    var e = ["nav_trigger"],
       l,
-      s = "sp_pi",
-      u = 3e4,
-      c = null,
+      s,
+      u = "sp_pi",
+      c = 3e4,
       d = null,
-      m = new (n("SubscriptionList"))(),
-      p = null,
-      _ = [],
-      f = n("TimeSlice").guard(
-        function (t, r) {
-          m.getCallbacks().forEach(function (o) {
-            (e || (e = n("ErrorGuard"))).applyWithGuard(
+      m = null,
+      p = new (n("SubscriptionList"))(),
+      _ = null,
+      f = [],
+      g = n("TimeSlice").guard(
+        function (e, t) {
+          p.getCallbacks().forEach(function (r) {
+            (l || (l = n("ErrorGuard"))).applyWithGuard(
               function () {
-                o({ source: c, dest: d, cause: t, extraData: r });
+                r({ source: d, dest: m, cause: e, extraData: t });
               },
               null,
               [],
@@ -27,100 +28,103 @@ __d(
         "ScriptPath Notifying callbacks",
         { propagationType: n("TimeSlice").PropagationType.ORPHAN },
       );
-    function g() {
-      return d ? d.scriptPath : void 0;
-    }
     function h() {
-      var e = (l || (l = n("WebStorage"))).getSessionStorage();
-      !e ||
-        n("isInIframe")() ||
-        l.setItemGuarded(
-          e,
-          s,
-          JSON.stringify({ pageInfo: d, clickPoint: p, time: Date.now() }),
-        );
+      return m ? m.scriptPath : void 0;
     }
     function y() {
-      var e = (l || (l = n("WebStorage"))).getSessionStorageForRead();
+      var e = (s || (s = n("WebStorage"))).getSessionStorage();
+      !e ||
+        n("isInIframe")() ||
+        s.setItemGuarded(
+          e,
+          u,
+          JSON.stringify({ pageInfo: m, clickPoint: _, time: Date.now() }),
+        );
+    }
+    function C() {
+      var e = (s || (s = n("WebStorage"))).getSessionStorageForRead();
       if (e) {
-        var t = e.getItem(s);
+        var t = e.getItem(u);
         if (t != null && t !== "") {
           var r = JSON.parse(t);
           r &&
-            (r.time < Date.now() - u &&
-              ((e = (l || (l = n("WebStorage"))).getSessionStorage()),
-              e && e.removeItem(s)),
-            (d = r.pageInfo),
-            (p = r.clickPoint),
-            d && (d.restored = !0));
+            (r.time < Date.now() - c &&
+              ((e = (s || (s = n("WebStorage"))).getSessionStorage()),
+              e && e.removeItem(u)),
+            (m = r.pageInfo),
+            (_ = r.clickPoint),
+            m && (m.restored = !0));
         }
       }
     }
-    y();
-    var C = {
-      set: function (t, n, r) {
-        ((c = d),
-          (d = { scriptPath: t, categoryToken: n, extraData: r || {} }),
-          (_ = []),
-          (window._script_path = t),
-          f(null, null));
+    C();
+    var b = {
+      set: function (n, r, o) {
+        d = m;
+        var t = o != null ? o : {},
+          a = t.nav_trigger,
+          i = babelHelpers.objectWithoutPropertiesLoose(t, e);
+        ((m = { scriptPath: n, categoryToken: r, extraData: i }),
+          (f = []),
+          (window._script_path = n),
+          g(null, a == null ? null : { nav_trigger: a }));
       },
       openOverlayView: function (t, n, r) {
         if (t) {
-          var e = _.length;
-          (e === 0 || _[e - 1] !== t) &&
-            ((c = babelHelpers.extends({}, d)),
-            d && (d.topViewEndpoint = t),
+          var e = f.length;
+          (e === 0 || f[e - 1] !== t) &&
+            ((d = babelHelpers.extends({}, m)),
+            m && (m.topViewEndpoint = t),
             r != null && r.replaceTopOverlay === !0 && e > 0
-              ? ((_[e - 1] = t), f("replace_overlay_view", n))
-              : (_.push(t), f("open_overlay_view", n)));
+              ? ((f[e - 1] = t), g("replace_overlay_view", n))
+              : (f.push(t), g("open_overlay_view", n)));
         }
       },
       closeOverlayView: function (t, n) {
-        var e = _.lastIndexOf(t);
+        var e = f.lastIndexOf(t);
         e !== -1 &&
-          ((c = babelHelpers.extends({}, d)),
-          d &&
+          ((d = babelHelpers.extends({}, m)),
+          m &&
             (e > 0
-              ? (d.topViewEndpoint = _[e - 1])
-              : (d.topViewEndpoint = null)),
-          (_ = _.slice(0, e)),
-          f("close_overlay_view", n));
+              ? (m.topViewEndpoint = f[e - 1])
+              : (m.topViewEndpoint = null)),
+          (f = f.slice(0, e)),
+          g("close_overlay_view", n));
       },
       setClickPointInfo: function (t) {
-        ((p = t), h());
+        ((_ = t), y());
       },
       getClickPointInfo: function () {
-        return p;
+        return _;
       },
-      getScriptPath: g,
+      getScriptPath: h,
       getCategoryToken: function () {
-        return d ? d.categoryToken : void 0;
+        return m ? m.categoryToken : void 0;
       },
       getEarlyFlushPage: function () {
         var e;
-        return (e = d) == null || (e = e.extraData) == null
+        return (e = m) == null || (e = e.extraData) == null
           ? void 0
           : e.ef_page;
       },
       getTopViewEndpoint: function () {
-        var e = _.length;
-        return e > 0 ? _[e - 1] : g();
+        var e = f.length;
+        return e > 0 ? f[e - 1] : h();
       },
       getPageInfo: function () {
-        return d;
+        return m;
       },
       getSourcePageInfo: function () {
-        return c;
+        return d;
       },
       subscribe: function (t) {
-        return m.add(n("TimeSlice").guard(t, "ScriptPath.subscribe"));
+        return p.add(n("TimeSlice").guard(t, "ScriptPath.subscribe"));
       },
       shutdown: function () {
-        h();
+        y();
       },
     };
-    a.exports = C;
+    a.exports = b;
   },
   null,
 );

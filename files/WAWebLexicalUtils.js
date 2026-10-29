@@ -1,6 +1,6 @@
 __d(
   "WAWebLexicalUtils",
-  ["Lexical", "LexicalSelection", "nullthrows"],
+  ["Lexical", "LexicalSelection"],
   function (t, n, r, o, a, i, l) {
     var e = "text-send-clear";
     function s() {
@@ -171,11 +171,11 @@ __d(
     function T(e, t) {
       var n = o("Lexical").$getRoot();
       n.clear();
-      for (var a = e.split(/\r?\n/), i = 0; i < a.length; i++) {
-        n.append(o("Lexical").$createParagraphNode());
-        var l = r("nullthrows")(n.getLastChild()),
-          s = new (o("Lexical").TextNode)(a[i]);
-        l.append(s);
+      for (var r = e.split(/\r?\n/), a = 0; a < r.length; a++) {
+        var i = o("Lexical").$createParagraphNode();
+        n.append(i);
+        var l = new (o("Lexical").TextNode)(r[a]);
+        i.append(l);
       }
       t ? n.selectEnd() : o("Lexical").$setSelection(null);
     }
@@ -191,17 +191,18 @@ __d(
       var e,
         t = y(),
         n = t == null || (e = t.getNodes()) == null ? void 0 : e[0];
-      return o("Lexical").$isParagraphNode(n)
-        ? n
-        : o("Lexical").$isTextNode(n)
-          ? n.getParent()
-          : null;
+      if (o("Lexical").$isParagraphNode(n)) return n;
+      if (o("Lexical").$isTextNode(n)) {
+        var r = n.getParent();
+        return o("Lexical").$isParagraphNode(r) ? r : null;
+      }
+      return null;
     }
     function* $(e) {
       for (var t = e.getFirstChild(); t; ) {
         var n;
         if (o("Lexical").$isTextNode(t)) yield t;
-        else for (var r of $(t)) yield r;
+        else if (o("Lexical").$isElementNode(t)) for (var r of $(t)) yield r;
         t = (n = t) == null ? void 0 : n.getNextSibling();
       }
     }

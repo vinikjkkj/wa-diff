@@ -65,13 +65,16 @@ __d(
     function u(e, t, n) {
       Object.hasOwn(e, "appContext") ||
         (e.appContext =
-          t != null ? m.getAppContextWithLookback(t, n) : m.getAppContext());
+          t != null ? p.getAppContextWithLookback(t, n) : p.getAppContext());
     }
     function c(e, t, n) {
+      Object.hasOwn(e, "appContext") || (e.appContext = t(n));
+    }
+    function d(e, t, n) {
       var r = t ? " " + String(t) + ":" : "",
         o = n != null ? " (" + n.toLocaleString() + "ms)" : "";
     }
-    var d = (function () {
+    var m = (function () {
         function t() {
           ((this.$1 = new Map()), (this.$2 = null), (this.$3 = new Set()));
         }
@@ -109,7 +112,7 @@ __d(
           (n.start = function (t) {
             var e;
             ((e = this.$1.get(t)) != null && e.isRunning) ||
-              (c("Start Tracker", t),
+              (d("Start Tracker", t),
               this.$1.set(t, {
                 startTime: self.performance.now(),
                 endTime: void 0,
@@ -119,7 +122,7 @@ __d(
               this.$5());
           }),
           (n.mark = function (t) {
-            c("Mark Tracker", t);
+            d("Mark Tracker", t);
             var e = self.performance.now();
             (this.$1.set(t, { startTime: e, endTime: e, isRunning: !1 }),
               this.$4(),
@@ -130,7 +133,7 @@ __d(
             if (e != null && e.isRunning) {
               ((e.endTime = self.performance.now()), (e.isRunning = !1));
               var n = Math.round(e.endTime - e.startTime);
-              (c("Stop Tracker", t, n), this.$4(), this.$5());
+              (d("Stop Tracker", t, n), this.$4(), this.$5());
             }
           }),
           (n.isRunning = function (t) {
@@ -150,17 +153,22 @@ __d(
               : (e.sort(), (this.$2 = e.join("+")), this.$2);
           }),
           (n.getAppContextWithLookback = function (t, n) {
-            n === void 0 && (n = self.performance.now());
-            var e = n - t,
-              r = [];
-            for (var o of this.$1) {
-              var a = o[0],
-                i = o[1];
-              i.startTime > n ||
-                ((i.isRunning || (i.endTime != null && i.endTime >= e)) &&
-                  r.push(a));
+            return (
+              n === void 0 && (n = self.performance.now()),
+              _(this.$1, t, n)
+            );
+          }),
+          (n.captureAppContextWithLookback = function () {
+            var e = self.performance.now(),
+              t = new Map();
+            for (var n of this.$1) {
+              var r = n[0],
+                o = n[1];
+              t.set(r, babelHelpers.extends({}, o));
             }
-            return r.length === 0 ? "" : (r.sort(), r.join("+"));
+            return function (n) {
+              return _(t, n, e);
+            };
           }),
           (n.clear = function () {
             (this.$1.clear(), this.$4(), this.$5());
@@ -177,8 +185,22 @@ __d(
           t
         );
       })(),
-      m = new d();
-    ((l.AppTrackerType = s), (l.attachWAMAppContext = u), (l.AppTracker = m));
+      p = new m();
+    function _(e, t, n) {
+      var r = n - t,
+        o = [];
+      for (var a of e) {
+        var i = a[0],
+          l = a[1];
+        l.startTime > n ||
+          ((l.isRunning || (l.endTime != null && l.endTime >= r)) && o.push(i));
+      }
+      return o.length === 0 ? "" : (o.sort(), o.join("+"));
+    }
+    ((l.AppTrackerType = s),
+      (l.attachWAMAppContext = u),
+      (l.attachCapturedWAMAppContext = c),
+      (l.AppTracker = p));
   },
   98,
 );

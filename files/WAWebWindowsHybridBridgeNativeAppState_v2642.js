@@ -2,6 +2,7 @@ __d(
   "WAWebWindowsHybridBridgeNativeAppState.v2642",
   [
     "$InternalEnum",
+    "Promise",
     "WALogger",
     "WAWebEventEmitter",
     "WAWebODS",
@@ -13,19 +14,21 @@ __d(
       s,
       u,
       c,
-      d = n("$InternalEnum")({
+      d,
+      m = n("$InternalEnum")({
         Normal: "normal",
         MinimizedToTray: "minimizedToTray",
       }),
-      m = function (a, i) {
-        var t = this;
+      p = function (a, i) {
+        var t = this,
+          l;
         ((this.$4 = new (r("WAWebEventEmitter"))()),
           (this.updateServerTime = null),
           (this.takeStartupTrace = null),
           (this.ackStartupReport = null),
           (this.$5 = function (n) {
             var r = n.toString(),
-              a = d.cast(r);
+              a = m.cast(r);
             (a != null
               ? o("WALogger").LOG(
                   e ||
@@ -33,7 +36,7 @@ __d(
                       "WindowsHybridBridgeNativeAppState:appStateChanged: ",
                       "",
                     ])),
-                  d.getName(a),
+                  m.getName(a),
                 )
               : o("WALogger").ERROR(
                   s ||
@@ -53,7 +56,7 @@ __d(
             return t.$4;
           }),
           (this.isMinimizedToTray = function () {
-            return t.getAppState() === d.MinimizedToTray;
+            return t.getAppState() === m.MinimizedToTray;
           }),
           (this.takeAppLaunchTimeStamp = function () {
             return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -115,9 +118,68 @@ __d(
               },
             );
           }),
-          (this.getAppStateAsync = n(
+          (this.takeAppLaunchTimesAsync = (l = n(
             "asyncToGeneratorRuntime",
-          ).asyncToGenerator(function* () {
+          )).asyncToGenerator(function* () {
+            r("WAWebODS").incr(
+              "web.hybrid.bridge.native_app_state.send.take_app_launch_times_async",
+            );
+            var e = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "nativeAppStateBridge",
+                  method: "takeAppLaunchTimesAsync",
+                  type: "async",
+                },
+                function () {
+                  return (d || (d = n("Promise"))).all([
+                    t.$1.takeAppLaunchTimeStamp(),
+                    t.$1.getFirstAppRestoreTimeStamp(),
+                  ]);
+                },
+              ),
+              a = e[0],
+              i = e[1],
+              l = yield t.$6();
+            return babelHelpers.extends(
+              { appLaunchTimeStamp: a, firstAppRestoreTimeStamp: i },
+              l,
+            );
+          })),
+          (this.getAppRestoreTimesAsync = l.asyncToGenerator(function* () {
+            r("WAWebODS").incr(
+              "web.hybrid.bridge.native_app_state.send.get_app_restore_times_async",
+            );
+            var e = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "nativeAppStateBridge",
+                  method: "getAppRestoreTimesAsync",
+                  type: "async",
+                },
+                function () {
+                  return t.$1.getLastAppRestoreTimeStamp();
+                },
+              ),
+              n = yield t.$6();
+            return babelHelpers.extends({ lastAppRestoreTimeStamp: e }, n);
+          })),
+          (this.$6 = l.asyncToGenerator(function* () {
+            var e = 0,
+              n = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "nativeAppStateBridge",
+                  method: "detectNativeClockSkewAsync",
+                  type: "async",
+                },
+                function () {
+                  return ((e = Date.now()), t.$1.detectNativeClockSkew(e));
+                },
+              );
+            return {
+              nativeClockSkew: n,
+              nativeClockSkewRoundTripMs: Date.now() - e,
+            };
+          })),
+          (this.getAppStateAsync = l.asyncToGenerator(function* () {
             r("WAWebODS").incr(
               "web.hybrid.bridge.native_app_state.send.get_app_state",
             );
@@ -132,7 +194,7 @@ __d(
                 },
               ),
               n = e.toString(),
-              a = d.cast(n);
+              a = m.cast(n);
             return (
               a != null
                 ? o("WALogger").LOG(
@@ -141,7 +203,7 @@ __d(
                         "WindowsHybridBridgeNativeAppState:getAppStateAsync: ",
                         "",
                       ])),
-                    d.getName(a),
+                    m.getName(a),
                   )
                 : o("WALogger").ERROR(
                     c ||
@@ -177,7 +239,7 @@ __d(
           this.$1.addEventListener("appStateChangedEvent", this.$5),
           this.$1.subscribe(null));
       };
-    l.WindowsHybridBridgeNativeAppState_v2642 = m;
+    l.WindowsHybridBridgeNativeAppState_v2642 = p;
   },
   98,
 );

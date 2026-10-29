@@ -168,7 +168,8 @@ __d(
                     e.loadSequence.getRunningTasksCount(),
                 },
               }),
-              G({ downloadOrigin: r, partialVideoOpts: i }) && H(l, s),
+              G({ downloadOrigin: r, partialVideoOpts: i }) &&
+                H(l, s, t.isMimetypeAllowed),
               e.$1(t)
             );
           });
@@ -894,12 +895,13 @@ __d(
         )
       );
     }
-    function H(e, t) {
-      var n = o("WAWebMmsMediaTypes").mediaTypeToMsgTypeSupportedByAllowlist(e),
-        r = !1;
-      if (n != null) {
-        var a = o("WAWebMmsMediaTypes").getValidMimeTypes(n);
-        a == null
+    function H(e, t, n) {
+      var r = o("WAWebMmsMediaTypes").mediaTypeToMsgTypeSupportedByAllowlist(e),
+        a = !1;
+      if (r != null) {
+        var i,
+          l = o("WAWebMmsMediaTypes").getValidMimeTypes(r);
+        l == null
           ? (o("WALogger")
               .WARN(
                 u ||
@@ -908,13 +910,13 @@ __d(
                     " (media type ",
                     ")",
                   ])),
-                n,
+                r,
                 e,
               )
               .tags("media")
-              .sendLogs("no-mimetype-allowlist-for-msg-type-" + n),
-            (r = !0))
-          : a.has(t) ||
+              .sendLogs("no-mimetype-allowlist-for-msg-type-" + r),
+            (a = !0))
+          : ((i = n == null ? void 0 : n(t)) != null ? i : l.has(t)) ||
             (o("WALogger")
               .WARN(
                 c ||
@@ -928,7 +930,7 @@ __d(
               )
               .tags("media", "security")
               .sendLogs("unexpected-mimetype-for-media-type-" + e),
-            (r = !0));
+            (a = !0));
       } else
         t.toLowerCase() === "image/svg+xml" &&
           (o("WALogger")
@@ -942,8 +944,8 @@ __d(
             )
             .tags("media", "security")
             .sendLogs("blocked-svg-mimetype"),
-          (r = !0));
-      if (r)
+          (a = !0));
+      if (a)
         throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
           "Unexpected mimetype " + t + " for media type " + e,
           e,

@@ -28,6 +28,7 @@ __d(
           (t = i == null ? void 0 : i.map(y).filter(Boolean)) != null
             ? t
             : null,
+        protocolsHeading: x(n, "protocols_heading"),
       };
     }
     function c(e) {

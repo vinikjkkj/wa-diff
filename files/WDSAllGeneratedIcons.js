@@ -1250,6 +1250,7 @@ __d(
     "WDSIconWdsIcCurrencyUaeDirham.react",
     "WDSIconWdsIcCurrencyUaeDirhamCircle.react",
     "WDSIconWdsIcCurrencyUaeDirhamCircleFilled.react",
+    "WDSIconWdsIcCustomerInfo.react",
     "WDSIconWdsIcDeleteMedia.react",
     "WDSIconWdsIcDelivered.react",
     "WDSIconWdsIcDisappearingMessages.react",
@@ -5830,6 +5831,10 @@ __d(
         {
           Component: r("WDSIconWdsIcCurrencyUaeDirhamCircleFilled.react"),
           name: "WDSIconWdsIcCurrencyUaeDirhamCircleFilled",
+        },
+        {
+          Component: r("WDSIconWdsIcCustomerInfo.react"),
+          name: "WDSIconWdsIcCustomerInfo",
         },
         {
           Component: r("WDSIconWdsIcDeleteMedia.react"),

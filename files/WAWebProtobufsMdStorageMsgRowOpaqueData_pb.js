@@ -12,7 +12,9 @@ __d(
       _ = {},
       f = {},
       g = {},
-      h = {};
+      h = {},
+      y = {},
+      C = {};
     ((c.name = "MsgRowOpaqueData"),
       (c.internalSpec = {
         currentMsg: [1, (e = o("WAProtoConst")).TYPES.MESSAGE, m],
@@ -39,7 +41,7 @@ __d(
         clientUrl: [15, e.TYPES.STRING],
         loc: [16, e.TYPES.STRING],
         pollName: [17, e.TYPES.STRING],
-        pollOptions: [18, e.FLAGS.REPEATED | e.TYPES.MESSAGE, h],
+        pollOptions: [18, e.FLAGS.REPEATED | e.TYPES.MESSAGE, C],
         pollSelectableOptionsCount: [20, e.TYPES.UINT32],
         messageSecret: [21, e.TYPES.BYTES],
         originalSelfAuthor: [51, e.TYPES.STRING],
@@ -50,7 +52,7 @@ __d(
         pollContentType: [42, e.TYPES.ENUM, u],
         pollType: [46, e.TYPES.ENUM, s],
         correctOptionIndex: [47, e.TYPES.INT32],
-        pollVotesSnapshot: [41, e.TYPES.MESSAGE, f],
+        pollVotesSnapshot: [41, e.TYPES.MESSAGE, h],
         encReactionTargetMessageKey: [25, e.TYPES.STRING],
         encReactionEncPayload: [26, e.TYPES.BYTES],
         encReactionEncIv: [27, e.TYPES.BYTES],
@@ -63,7 +65,7 @@ __d(
         eventDescription: [35, e.TYPES.STRING],
         eventJoinLink: [36, e.TYPES.STRING],
         eventStartTime: [37, e.TYPES.INT64],
-        eventLocation: [38, e.TYPES.MESSAGE, _],
+        eventLocation: [38, e.TYPES.MESSAGE, g],
         eventEndTime: [40, e.TYPES.INT64],
         eventIsScheduledCall: [44, e.TYPES.BOOL],
         eventExtraGuestsAllowed: [45, e.TYPES.BOOL],
@@ -105,9 +107,25 @@ __d(
         artworkMediaKey: [16, e.TYPES.BYTES],
         consumptionCheckedAtS: [17, e.TYPES.INT64],
         isAvailableForConsumption: [18, e.TYPES.BOOL],
+        lyrics: [19, e.FLAGS.REPEATED | e.TYPES.MESSAGE, _],
+        lyricsConfirmedAtS: [20, e.TYPES.INT64],
       }),
-      (_.name = "MsgOpaqueData$EventLocation"),
+      (_.name = "MsgOpaqueData$MusicData$LyricsLine"),
       (_.internalSpec = {
+        startTimeMs: [1, e.TYPES.INT32],
+        endTimeMs: [2, e.TYPES.INT32],
+        text: [3, e.TYPES.STRING],
+        wordOffsets: [4, e.FLAGS.REPEATED | e.TYPES.MESSAGE, f],
+      }),
+      (f.name = "MsgOpaqueData$MusicData$LyricsLine$WordOffset"),
+      (f.internalSpec = {
+        startIndex: [1, e.TYPES.INT32],
+        endIndex: [2, e.TYPES.INT32],
+        startOffsetMs: [3, e.TYPES.INT32],
+        endOffsetMs: [4, e.TYPES.INT32],
+      }),
+      (g.name = "MsgOpaqueData$EventLocation"),
+      (g.internalSpec = {
         degreesLatitude: [1, e.TYPES.DOUBLE],
         degreesLongitude: [2, e.TYPES.DOUBLE],
         name: [3, e.TYPES.STRING],
@@ -115,17 +133,17 @@ __d(
         url: [5, e.TYPES.STRING],
         jpegThumbnail: [6, e.TYPES.BYTES],
       }),
-      (f.name = "MsgOpaqueData$PollVotesSnapshot"),
-      (f.internalSpec = {
-        pollVotes: [1, e.FLAGS.REPEATED | e.TYPES.MESSAGE, g],
+      (h.name = "MsgOpaqueData$PollVotesSnapshot"),
+      (h.internalSpec = {
+        pollVotes: [1, e.FLAGS.REPEATED | e.TYPES.MESSAGE, y],
       }),
-      (g.name = "MsgOpaqueData$PollVoteSnapshot"),
-      (g.internalSpec = {
-        option: [1, e.TYPES.MESSAGE, h],
+      (y.name = "MsgOpaqueData$PollVoteSnapshot"),
+      (y.internalSpec = {
+        option: [1, e.TYPES.MESSAGE, C],
         optionVoteCount: [2, e.TYPES.INT32],
       }),
-      (h.name = "MsgOpaqueData$PollOption"),
-      (h.internalSpec = {
+      (C.name = "MsgOpaqueData$PollOption"),
+      (C.internalSpec = {
         name: [1, e.TYPES.STRING],
         hash: [2, e.TYPES.STRING],
         addOptionMsgKey: [3, e.TYPES.STRING],
@@ -138,10 +156,12 @@ __d(
       (l.PollEncValueSpec = d),
       (l.MsgOpaqueDataSpec = m),
       (l.MsgOpaqueData$MusicDataSpec = p),
-      (l.MsgOpaqueData$EventLocationSpec = _),
-      (l.MsgOpaqueData$PollVotesSnapshotSpec = f),
-      (l.MsgOpaqueData$PollVoteSnapshotSpec = g),
-      (l.MsgOpaqueData$PollOptionSpec = h));
+      (l.MsgOpaqueData$MusicData$LyricsLineSpec = _),
+      (l.MsgOpaqueData$MusicData$LyricsLine$WordOffsetSpec = f),
+      (l.MsgOpaqueData$EventLocationSpec = g),
+      (l.MsgOpaqueData$PollVotesSnapshotSpec = h),
+      (l.MsgOpaqueData$PollVoteSnapshotSpec = y),
+      (l.MsgOpaqueData$PollOptionSpec = C));
   },
   98,
 );

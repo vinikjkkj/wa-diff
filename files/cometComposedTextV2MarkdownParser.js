@@ -272,6 +272,12 @@ __d(
               i.push(
                 o("cometComposedTextV2NodeBuilders").buildTextNode(t.text),
               );
+            else if (t.type === "image")
+              t.text !== "" &&
+                i.push.apply(
+                  i,
+                  f({ raw: t.raw, text: t.text, type: "text" }, n, a),
+                );
             else throw r("err")("markdown token " + t.type);
           }
         }),
