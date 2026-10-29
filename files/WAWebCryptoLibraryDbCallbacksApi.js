@@ -109,20 +109,23 @@ __d(
               return o("WAResultOrError").makeResult(t);
             });
         },
-        i = function (t, n, r) {
-          var e = o("WAWebWidFactory").createDeviceWidOrThrow(n);
+        i = function (t) {
+          var e = t.author,
+            n = t.groupId,
+            r = t.updated,
+            a = o("WAWebWidFactory").createDeviceWidOrThrow(e);
           o("WAWebApiContact").checkPnToLidMapping(
-            [e],
+            [a],
             o("WAWebApiContact").CheckPnToLidMappingCaller
               .WAWEB_CRYPTO_LIBRARY_DB_CALLBACK_API_SAVE_SENDER_KEY_SESSION,
           );
-          var a = o("WAWebSignalCommonUtils").createSignalLikeSenderKeyName(
-            t,
-            e,
+          var i = o("WAWebSignalCommonUtils").createSignalLikeSenderKeyName(
+            n,
+            a,
           );
           return o("WAWebSignalProtocolStore")
             .getSignalProtocolStore()
-            .storeSenderKey(a, r);
+            .storeSenderKey(i, r);
         },
         l = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {

@@ -87,17 +87,17 @@ __d(
               .SEARCH_RESULT_CLICK,
           );
         o("WAWebChatLoadMessages")
-          .loadMsgsPromiseLoop(
-            c,
-            d,
-            y,
-            function () {
+          .loadMsgsPromiseLoop({
+            chat: c,
+            chatMightBeEmpty: p == null,
+            cmc: y,
+            dir: "around",
+            event: R,
+            msg: d,
+            reqPromise: function () {
               return o("WAWebMsgCollection").MsgCollection.getContext(v, S);
             },
-            "around",
-            R,
-            p == null,
-          )
+          })
           .then(function (e) {
             var t = S();
             t &&

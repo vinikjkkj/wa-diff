@@ -149,7 +149,10 @@ __d(
         __typename: "GenAIUnifiedResponseSection",
         view_model: {
           __typename: "GenAISingleLayoutViewModel",
-          primitive: { __typename: "GenAIMarkdownTextUXPrimitive", text: e },
+          primitive: {
+            __typename: "GenAIMarkdownTextUXPrimitive",
+            text: o("WAWebHatchJarvisText").toHatchJarvisWhatsAppEmphasis(e),
+          },
         },
       };
     }
@@ -583,7 +586,11 @@ __d(
               : null,
           source_display_name: e.label,
           source_subtitle:
-            (t = e.domain) != null ? t : n != null ? w(n) : e.uri,
+            (t = e.domain) != null
+              ? t
+              : n != null
+                ? o("WAWebHatchJarvisWidgets").siteName(n)
+                : e.uri,
           source_type: "THIRD_PARTY",
           source_url: n,
         };
@@ -599,9 +606,6 @@ __d(
             },
           ]
         : [];
-    }
-    function w(e) {
-      return new URL(e).hostname.replace(/^www\./, "");
     }
     l.buildHatchJarvisRender = p;
   },

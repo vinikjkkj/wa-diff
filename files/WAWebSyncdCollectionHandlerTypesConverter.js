@@ -36,18 +36,23 @@ __d(
         };
       });
     }
-    function u(e, t, n, r, o) {
+    function u(e) {
+      var t = e.action,
+        n = e.actionState,
+        r = e.modelId,
+        o = e.modelType,
+        a = e.setMutation;
       return {
-        index: e.index,
-        binarySyncData: e.binarySyncData,
-        version: e.version,
-        keyId: e.keyId,
-        indexMac: e.indexMac,
-        valueMac: e.valueMac,
-        collection: e.collection,
-        timestamp: e.timestamp,
-        action: n,
-        actionState: t,
+        index: a.index,
+        binarySyncData: a.binarySyncData,
+        version: a.version,
+        keyId: a.keyId,
+        indexMac: a.indexMac,
+        valueMac: a.valueMac,
+        collection: a.collection,
+        timestamp: a.timestamp,
+        action: t,
+        actionState: n,
         modelId: r,
         modelType: o != null ? o : void 0,
       };

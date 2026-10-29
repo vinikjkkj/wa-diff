@@ -13,28 +13,32 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e, t) {
-      var n,
-        r,
-        a = (n = window.Notification) == null ? void 0 : n.permission,
-        i =
-          (r = t == null ? void 0 : t.showGuidePopup) == null || r
-            ? c(e)
-            : null;
-      window.Notification.requestPermission(function (n) {
-        var r,
-          l =
-            a === o("WAWebNotificationConstants").PERMISSION_DENIED &&
-            o("WAWebPushNotificationsGatingUtils").canShowNotificationsBanner(
-              a,
-              e,
-            );
-        (i == null || i({ close: !l }),
-          t == null || t.onPermissionResult == null || t.onPermissionResult(n),
-          n === o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
-            ((r = t == null ? void 0 : t.enableInAppSettingsOnGrant) == null ||
-              r) &&
-            d());
-      });
+      var n;
+      if (window.Notification != null) {
+        var r = window.Notification.permission,
+          a =
+            (n = t == null ? void 0 : t.showGuidePopup) == null || n
+              ? c(e)
+              : null;
+        window.Notification.requestPermission(function (n) {
+          var i,
+            l =
+              r === o("WAWebNotificationConstants").PERMISSION_DENIED &&
+              o("WAWebPushNotificationsGatingUtils").canShowNotificationsBanner(
+                r,
+                e,
+              );
+          (a == null || a({ close: !l }),
+            t == null ||
+              t.onPermissionResult == null ||
+              t.onPermissionResult(n),
+            n === o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
+              ((i = t == null ? void 0 : t.enableInAppSettingsOnGrant) ==
+                null ||
+                i) &&
+              d());
+        });
+      }
     }
     function c(e) {
       var t,

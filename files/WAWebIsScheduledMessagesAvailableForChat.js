@@ -9,19 +9,35 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return s({
+        contact: e.contact,
+        isBot: o("WAWebChatGetters").getIsBot(e),
+        isCAG: o("WAWebFrontendChatGetters").getIsCAG(e),
+        isCapiHostedGroup: o("WAWebFrontendChatGetters").getIsCapiHostedGroup(
+          e,
+        ),
+        isNewsletter: o("WAWebChatGetters").getIsNewsletter(e),
+      });
+    }
+    function s(e) {
+      var t = e.contact,
+        n = e.isBot,
+        r = e.isCAG,
+        a = e.isCapiHostedGroup,
+        i = e.isNewsletter;
       return (
-        !o("WAWebChatGetters").getIsBot(e) &&
-        !o("WAWebChatGetters").getIsNewsletter(e) &&
-        !o("WAWebFrontendChatGetters").getIsCAG(e) &&
-        !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(e) &&
-        !o("WAWebBizCoexUtils").isCloudApiContact(e.contact) &&
-        !o("WAWebBizCoexUtils").isMeOrCurrentContactHosted(e.contact) &&
+        !n &&
+        !i &&
+        !r &&
+        !a &&
+        !o("WAWebBizCoexUtils").isCloudApiContact(t) &&
+        !o("WAWebBizCoexUtils").isMeOrCurrentContactHosted(t) &&
         o(
           "WAWebScheduledMessagesGatingUtils",
         ).isScheduledMessagesSenderEnabled()
       );
     }
-    function s(t) {
+    function u(t) {
       return (
         e(t) &&
         o("WAWebABProps").getABPropConfigValue(
@@ -30,7 +46,8 @@ __d(
       );
     }
     ((l.isScheduledMessagesAvailableForChat = e),
-      (l.isScheduledMediaAvailableForChat = s));
+      (l.isScheduledMessagesAvailableFor = s),
+      (l.isScheduledMediaAvailableForChat = u));
   },
   98,
 );

@@ -98,10 +98,10 @@ __d(
         capture_kind: d != null ? "VERIFICATION_CODE" : "SIGN_IN",
         fields:
           d != null
-            ? [E("VERIFICATION_CODE", d, !0)]
+            ? [k("VERIFICATION_CODE", d, !0)]
             : [
-                E("USERNAME", (n = l("username_label")) != null ? n : "", !1),
-                E("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
+                k("USERNAME", (n = l("username_label")) != null ? n : "", !1),
+                k("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
               ],
         host: c.hostname,
         page_url: u,
@@ -173,7 +173,7 @@ __d(
               }
             : null,
         preview_available: a.previewAvailable === !0,
-        state: S(c, u),
+        state: R(c, u),
         status: c != null ? c : "",
         status_label: u,
         title:
@@ -194,53 +194,69 @@ __d(
     function _(e) {
       return o("WAWebHatchJsonReaders")
         .readObjects(e, "products")
-        .map(function (e) {
+        .flatMap(function (e) {
           var t,
             n,
             r,
             a,
             i,
-            l =
+            l,
+            u =
               (t = s(o("WAWebHatchJsonReaders").readString(e, "name"))) != null
                 ? t
                 : s(o("WAWebHatchJsonReaders").readString(e, "product_name")),
-            u = o("WAWebHatchUrl").toWebUrl(
+            c = o("WAWebHatchUrl").toWebUrl(
               o("WAWebHatchJsonReaders").readString(e, "url"),
             );
-          return l == null || u == null
-            ? null
-            : {
-                __typename: "GenAIProductItemCardPrimitive",
-                additional_images: [],
-                brand:
-                  (n = s(
-                    o("WAWebHatchJsonReaders").readString(e, "retailer_name"),
-                  )) != null
-                    ? n
-                    : s(o("WAWebHatchJsonReaders").readString(e, "merchant")),
-                price:
-                  (r = s(
-                    o("WAWebHatchJsonReaders").readString(e, "sale_price"),
-                  )) != null
-                    ? r
-                    : s(o("WAWebHatchJsonReaders").readString(e, "price")),
-                product_id:
-                  (a =
-                    (i = s(
-                      o("WAWebHatchJsonReaders").readString(e, "product_id"),
+          return u == null || c == null
+            ? []
+            : [
+                {
+                  __typename: "GenAIProductItemCardPrimitive",
+                  additional_images: [],
+                  brand:
+                    (n =
+                      (r = s(
+                        o("WAWebHatchJsonReaders").readString(
+                          e,
+                          "retailer_name",
+                        ),
+                      )) != null
+                        ? r
+                        : s(
+                            o("WAWebHatchJsonReaders").readString(
+                              e,
+                              "merchant",
+                            ),
+                          )) != null
+                      ? n
+                      : f(c),
+                  price:
+                    (a = s(
+                      o("WAWebHatchJsonReaders").readString(e, "sale_price"),
                     )) != null
+                      ? a
+                      : s(o("WAWebHatchJsonReaders").readString(e, "price")),
+                  product_id:
+                    (i =
+                      (l = s(
+                        o("WAWebHatchJsonReaders").readString(e, "product_id"),
+                      )) != null
+                        ? l
+                        : s(o("WAWebHatchJsonReaders").readString(e, "id"))) !=
+                    null
                       ? i
-                      : s(o("WAWebHatchJsonReaders").readString(e, "id"))) !=
-                  null
-                    ? a
-                    : u,
-                product_url: u,
-                title: l,
-              };
-        })
-        .filter(Boolean);
+                      : c,
+                  product_url: c,
+                  title: u,
+                },
+              ];
+        });
     }
-    function f(e, t) {
+    function f(e) {
+      return new URL(e).hostname.replace(/^www\./, "");
+    }
+    function g(e, t) {
       var n,
         r = o("WAWebHatchUrl").toWebUrl(
           o("WAWebHatchJsonReaders").readString(e, "url"),
@@ -251,19 +267,19 @@ __d(
             description: s(
               o("WAWebHatchJsonReaders").readString(e, "description"),
             ),
-            imageUrl: C(o("WAWebHatchJsonReaders").readString(e, "image_url")),
+            imageUrl: b(o("WAWebHatchJsonReaders").readString(e, "image_url")),
             siteName: s(o("WAWebHatchJsonReaders").readString(e, "site_name")),
             title:
               (n = s(o("WAWebHatchJsonReaders").readString(e, "title"))) != null
                 ? n
-                : L(t, r),
+                : E(t, r),
             url: r,
           };
     }
-    function g(e) {
+    function h(e) {
       var t = o("WAWebHatchJsonReaders")
         .readObjects(e, "items")
-        .map(y)
+        .map(C)
         .filter(Boolean);
       return t.length === 0
         ? null
@@ -273,24 +289,24 @@ __d(
             title: s(o("WAWebHatchJsonReaders").readString(e, "title")),
           };
     }
-    function h(e) {
-      return e
-        .map(function (e) {
-          var t = s(o("WAWebHatchJsonReaders").readString(e, "label"));
-          return t != null
-            ? {
+    function y(e) {
+      return e.flatMap(function (e) {
+        var t = s(o("WAWebHatchJsonReaders").readString(e, "label"));
+        return t != null
+          ? [
+              {
                 isDisabled:
                   o("WAWebHatchJsonReaders").readBool(e, "disabled") === !0,
                 label: t,
                 url: o("WAWebHatchUrl").toWebUrl(
                   o("WAWebHatchJsonReaders").readString(e, "url"),
                 ),
-              }
-            : null;
-        })
-        .filter(Boolean);
+              },
+            ]
+          : [];
+      });
     }
-    function y(e) {
+    function C(e) {
       var t = s(o("WAWebHatchJsonReaders").readString(e, "title"));
       if (t == null) return null;
       var n = o("WAWebHatchJsonReaders").readString(e, "type"),
@@ -299,9 +315,9 @@ __d(
         body: s(o("WAWebHatchJsonReaders").readString(e, "subtitle")),
         flight:
           n === "flight"
-            ? b(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
+            ? v(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
             : null,
-        imageUrl: C(o("WAWebHatchJsonReaders").readString(e, "image_url")),
+        imageUrl: b(o("WAWebHatchJsonReaders").readString(e, "image_url")),
         linkUrl:
           n === "link"
             ? o("WAWebHatchUrl").toWebUrl(
@@ -312,12 +328,12 @@ __d(
         title: t,
       };
     }
-    function C(e) {
+    function b(e) {
       return e != null && o("WAWebHatchJarvisMedia").isHatchJarvisMediaUrl(e)
         ? e
         : o("WAWebHatchUrl").toWebUrl(e);
     }
-    function b(e) {
+    function v(e) {
       if (e == null) return null;
       var t = o("WAWebHatchJsonReaders").readObject(e, "bags");
       return {
@@ -331,8 +347,8 @@ __d(
         detailsUrl: o("WAWebHatchUrl").toWebUrl(
           o("WAWebHatchJsonReaders").readString(e, "flight_link"),
         ),
-        isChangeable: v(o("WAWebHatchJsonReaders").readString(e, "changeable")),
-        isRefundable: v(o("WAWebHatchJsonReaders").readString(e, "refundable")),
+        isChangeable: S(o("WAWebHatchJsonReaders").readString(e, "changeable")),
+        isRefundable: S(o("WAWebHatchJsonReaders").readString(e, "refundable")),
         legs: o("WAWebHatchJsonReaders")
           .readObjects(e, "slices")
           .map(function (e) {
@@ -360,11 +376,11 @@ __d(
         price: s(o("WAWebHatchJsonReaders").readString(e, "price")),
       };
     }
-    function v(e) {
+    function S(e) {
       return e === "yes" ? !0 : e === "no" ? !1 : null;
     }
-    function S(e, t) {
-      var n = R(t);
+    function R(e, t) {
+      var n = L(t);
       return n === "starting"
         ? "STARTING"
         : (function (e) {
@@ -387,19 +403,19 @@ __d(
                               ? "NEEDS_USER"
                               : "STOPPED"
                             : "WORKING";
-          })(R(e));
+          })(L(e));
     }
-    function R(e) {
+    function L(e) {
       return (e != null ? e : "").toLowerCase().replace(/[- ]/g, "_");
     }
-    function L(e, t) {
+    function E(e, t) {
       var n = e.trim(),
         r = "](" + t + ")";
       if (!n.startsWith("[") || !n.endsWith(r)) return null;
       var o = n.slice(1, -r.length).trim();
       return o === "" || o === t || o.includes("](") ? null : o;
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       return {
         __typename: "GenAISecureCredentialField",
         is_secret: n,
@@ -414,9 +430,10 @@ __d(
       (l.spaceCard = m),
       (l.browserTask = p),
       (l.productCards = _),
-      (l.linkCard = f),
-      (l.list = g),
-      (l.actionButtons = h));
+      (l.siteName = f),
+      (l.linkCard = g),
+      (l.list = h),
+      (l.actionButtons = y));
   },
   98,
 );

@@ -148,7 +148,7 @@ __d(
             );
             if (!n)
               throw r("err")(
-                "[ContactManager] customer profile upsert: batch rejected by a version precondition",
+                "[CustomerManager] customer profile upsert: batch rejected by a version precondition",
               );
           }
         })),

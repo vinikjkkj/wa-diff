@@ -22,7 +22,7 @@ __d(
                 "WAWebOrgAdminRosterCSVParser",
               ).getOrgAdminRosterCSVHeaderField(e)) != null
                 ? r
-                : M(e, t);
+                : w(e, t);
           return a == null || n.has(a) ? "skip" : (n.add(a), a);
         });
       return n.has("name")
@@ -33,7 +33,7 @@ __d(
     }
     function p(e, t, n) {
       return e.map(function (e, r) {
-        return r === t ? n : n !== "skip" && v(e, n) ? "skip" : e;
+        return r === t ? n : n !== "skip" && S(e, n) ? "skip" : e;
       });
     }
     function _(t) {
@@ -51,7 +51,7 @@ __d(
         o = e.getSecondaryMemberTag,
         a = e.roster,
         i = e.table,
-        l = T(a),
+        l = D(a),
         s = new Set(),
         u = {
           memberTag: t.includes("member_tag"),
@@ -60,14 +60,14 @@ __d(
         c = i.rows.map(function (e) {
           var a,
             i = n.get(e.rowNumber),
-            c = R(e, t, i, { getMemberTag: r, getSecondaryMemberTag: o }),
-            d = b(c),
-            m = c.email == null ? null : D(c.email),
+            c = L(e, t, i, { getMemberTag: r, getSecondaryMemberTag: o }),
+            d = v(c),
+            m = c.email == null ? null : x(c.email),
             p = m == null ? null : (a = l.get(m)) != null ? a : null,
             _ = m != null && s.has(m);
           return (
             d.length === 0 && m != null && !_ && s.add(m),
-            C({
+            b({
               cells: c,
               fixed: i != null,
               match: p,
@@ -112,7 +112,7 @@ __d(
             ? [{ entry: t.entry, rowNumber: t.rowNumber }]
             : a.has(e)
               ? []
-              : [{ entry: N(e), rowNumber: null }];
+              : [{ entry: M(e), rowNumber: null }];
         }),
         e.added.map(function (e) {
           var t = e.entry,
@@ -133,20 +133,24 @@ __d(
             ? []
             : t.filter(function (e) {
                 return !n.has(e.id);
-              });
+              }),
+        o = r.filter(function (e) {
+          return e.memberLID == null;
+        });
       return {
         joined: r.filter(function (e) {
           return e.memberLID != null;
         }),
-        removed: r.filter(function (e) {
-          return e.memberLID == null;
+        removed: o.filter(C),
+        withoutEmail: o.filter(function (e) {
+          return !C(e);
         }),
       };
     }
     function y(t) {
       return e.filter(function (e) {
         return e === "name"
-          ? t.name != null && !x(t.name.trim())
+          ? t.name != null && !$(t.name.trim())
           : e === "email"
             ? t.email != null &&
               !o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
@@ -166,6 +170,13 @@ __d(
       });
     }
     function C(e) {
+      var t = e.emailAddress;
+      return (
+        t != null &&
+        o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(t.trim())
+      );
+    }
+    function b(e) {
       var t = e.cells,
         n = e.fixed,
         r = e.match,
@@ -173,8 +184,8 @@ __d(
         a = e.repeated,
         i = e.row,
         l = e.tagColumnsMapped,
-        s = r == null ? P(t) : L(r, t, l),
-        u = r == null ? [] : E(r, s);
+        s = r == null ? N(t) : E(r, t, l),
+        u = r == null ? [] : k(r, s);
       return {
         cells: i.cells,
         changes: u,
@@ -188,13 +199,13 @@ __d(
         phoneText: t.phoneText,
         rowNumber: i.rowNumber,
         secondaryMemberTag: t.secondaryMemberTag,
-        status: S(o, a, r, u),
+        status: R(o, a, r, u),
       };
     }
-    function b(t) {
+    function v(t) {
       return e.filter(function (e) {
         return e === "name"
-          ? !x(t.name)
+          ? !$(t.name)
           : e === "email"
             ? t.email == null
             : e === "phone"
@@ -207,14 +218,14 @@ __d(
                 })();
       });
     }
-    function v(e, t) {
+    function S(e, t) {
       return (
         e === t ||
         (e === "name" && s.includes(t)) ||
         (s.includes(e) && t === "name")
       );
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       return e.includes("email") || e.includes("phone")
         ? "incomplete"
         : e.includes("name")
@@ -227,7 +238,7 @@ __d(
                 ? "updated"
                 : "unchanged";
     }
-    function R(e, t, n, r) {
+    function L(e, t, n, r) {
       var a,
         i,
         l,
@@ -263,7 +274,7 @@ __d(
         secondaryMemberTag: _ === "" ? null : u(_),
       };
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       var r, o;
       return {
         emailAddress: e.emailAddress,
@@ -277,7 +288,7 @@ __d(
           : e.secondaryMemberTag,
       };
     }
-    function E(e, t) {
+    function k(e, t) {
       var n,
         r,
         a = [];
@@ -285,9 +296,9 @@ __d(
         t.name !== e.name && a.push("name"),
         ((n = t.memberTag) != null ? n : null) !==
           ((r = e.memberTag) != null ? r : null) && a.push("member_tag"),
-        k(t.secondaryMemberTag) !== k(e.secondaryMemberTag) &&
+        I(t.secondaryMemberTag) !== I(e.secondaryMemberTag) &&
           a.push("secondary_member_tag"),
-        I(
+        T(
           t.phoneNumber,
           e.phoneNumber,
           o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber,
@@ -295,28 +306,28 @@ __d(
         a
       );
     }
-    function k(e) {
+    function I(e) {
       return e === "" ? null : e != null ? e : null;
     }
-    function I(e, t, n) {
+    function T(e, t, n) {
       return (e == null ? null : n(e)) === (t == null ? null : n(t));
     }
-    function T(e) {
+    function D(e) {
       var t = new Map();
       for (var n of e) {
         var r = n.emailAddress;
-        r != null && !t.has(D(r)) && t.set(D(r), n);
+        r != null && !t.has(x(r)) && t.set(x(r), n);
       }
       return t;
     }
-    function D(e) {
+    function x(e) {
       return e.trim().toLowerCase();
     }
-    function x(e) {
-      var t = e.normalize("NFC");
-      return t !== "" && $(t) <= u && !d.test(t.replace(c, ""));
-    }
     function $(e) {
+      var t = e.normalize("NFC");
+      return t !== "" && P(t) <= u && !d.test(t.replace(c, ""));
+    }
+    function P(e) {
       var t = 0;
       for (var n of Array.from(e)) {
         var r,
@@ -331,7 +342,7 @@ __d(
       }
       return t;
     }
-    function P(e) {
+    function N(e) {
       var t = {
         emailAddress: e.email,
         memberTag: e.memberTag,
@@ -344,7 +355,7 @@ __d(
             secondaryMemberTag: e.secondaryMemberTag,
           });
     }
-    function N(e) {
+    function M(e) {
       return {
         emailAddress: e.emailAddress,
         memberTag: e.memberTag,
@@ -353,17 +364,17 @@ __d(
         secondaryMemberTag: e.secondaryMemberTag,
       };
     }
-    function M(e, t) {
+    function w(e, t) {
       var n = o("WAWebOrgAdminMemberTagOptions").getCanonicalMemberTagOption(e);
       return n === ""
         ? null
-        : w(t == null ? void 0 : t.memberTagName, n)
+        : A(t == null ? void 0 : t.memberTagName, n)
           ? "member_tag"
-          : w(t == null ? void 0 : t.secondaryMemberTagName, n)
+          : A(t == null ? void 0 : t.secondaryMemberTagName, n)
             ? "secondary_member_tag"
             : null;
     }
-    function w(e, t) {
+    function A(e, t) {
       return (
         e != null &&
         o("WAWebOrgAdminMemberTagOptions").getCanonicalMemberTagOption(e) === t

@@ -29,10 +29,13 @@ __d(
       );
     }
     function u() {
-      return w({ abProp: "ai_hatch_approval_history_enabled" });
+      return A({
+        abProp: "ai_hatch_approval_history_enabled",
+        primaryFeature: "ai_hatch_approval_history_enabled",
+      });
     }
     function c() {
-      return w({
+      return A({
         abProp: "ai_hatch_approval_notification_enabled",
         primaryFeature: "ai_hatch_approval_notification_enabled",
       });
@@ -43,7 +46,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        w({
+        A({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
@@ -65,30 +68,36 @@ __d(
       );
     }
     function _() {
-      return w({
+      return A({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
     }
     function f() {
-      return w({
+      return A({
         abProp: "ai_hatch_vm_capability_sync_enabled",
         primaryFeature: "ai_hatch_vm_capability_sync_enabled",
       });
     }
     function g() {
-      return w({
+      return A({
+        abProp: "ai_hatch_cvm_enabled",
+        primaryFeature: "ai_hatch_cvm_enabled",
+      });
+    }
+    function h() {
+      return A({
         abProp: "ai_hatch_ideas_enabled",
         primaryFeature: "ai_hatch_ideas_enabled",
       });
     }
-    function h() {
-      return w({
+    function y() {
+      return A({
         abProp: "ai_hatch_identity_enabled",
         primaryFeature: "ai_hatch_identity_enabled",
       });
     }
-    function y(e) {
+    function C(e) {
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
@@ -96,19 +105,9 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        w({
+        A({
           abProp: "ai_hatch_browser_enabled",
           primaryFeature: "ai_hatch_browser_enabled",
-        })
-      );
-    }
-    function C(e) {
-      return (
-        e != null &&
-        o("WAWebBotUtils").isHatchBot(e) &&
-        w({
-          abProp: "ai_hatch_theme_enabled",
-          primaryFeature: "ai_hatch_theme_enabled",
         })
       );
     }
@@ -116,58 +115,68 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        w({
+        A({
+          abProp: "ai_hatch_theme_enabled",
+          primaryFeature: "ai_hatch_theme_enabled",
+        })
+      );
+    }
+    function v(e) {
+      return (
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
+        A({
           abProp: "ai_hatch_avatar_working_video_enabled",
           primaryFeature: "ai_hatch_avatar_working_video_enabled",
         })
       );
     }
-    function v() {
+    function S() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        w({
+        A({
           abProp: "ai_hatch_secure_credentials_enabled",
           primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
       );
     }
-    function S() {
-      return w({ abProp: "ai_hatch_permission_enable" });
-    }
     function R() {
+      return A({ abProp: "ai_hatch_permission_enable" });
+    }
+    function L() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        w({
+        A({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
-    function L() {
-      return w({
+    function E() {
+      return A({
         abProp: "ai_hatch_media_enabled",
         primaryFeature: "ai_hatch_media_enabled",
       });
     }
-    function E() {
-      return w({
+    function k() {
+      return A({
         abProp: "ai_hatch_revoke_enabled",
         primaryFeature: "ai_hatch_revoke_enabled",
       });
     }
-    function k() {
-      return w({
+    function I() {
+      return A({
         abProp: "ai_hatch_data_controls_enabled",
         primaryFeature: "ai_hatch_data_controls_enabled",
       });
     }
-    function I() {
+    function T() {
       return (
         e() &&
         (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
@@ -181,36 +190,36 @@ __d(
         )
       );
     }
-    function T() {
+    function D() {
       return (
-        I() &&
+        T() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_in_app_additional_tokens_enabled",
         )
       );
     }
-    function D() {
-      return w({
+    function x() {
+      return A({
         abProp: "ai_hatch_scheduled_tasks_enabled",
         primaryFeature: "ai_hatch_scheduled_tasks_enabled",
       });
     }
-    function x() {
-      return w({
+    function $() {
+      return A({
         abProp: "ai_hatch_activity_enabled",
         primaryFeature: "ai_hatch_activity_enabled",
       });
     }
-    function $() {
-      return x() && r("gkx")("16539");
-    }
     function P() {
-      return w({
+      return $() && r("gkx")("16539");
+    }
+    function N() {
+      return A({
         abProp: "ai_hatch_video_avatars_enabled",
         primaryFeature: "ai_hatch_video_avatars_enabled",
       });
     }
-    function N() {
+    function M() {
       var e = o(
         "WAWebMuseDefaultAssistantVariant",
       ).MuseDefaultAssistantVariant.cast(
@@ -228,8 +237,8 @@ __d(
         : r("WAWebHatchLinkedStatusManager").isLinked() &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
-    function M(e) {
-      return e || !P()
+    function w(e) {
+      return e || !N()
         ? "static"
         : (function (e) {
             return e === 1 ? "loop" : e === 2 ? "once" : "static";
@@ -239,7 +248,7 @@ __d(
             ),
           );
     }
-    function w(t) {
+    function A(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -257,25 +266,26 @@ __d(
       (l.isHatchConnectorsEnabledForLoad = m),
       (l.isHatchJarvisRendererEnabled = _),
       (l.isHatchVmCapabilitySyncEnabled = f),
-      (l.isHatchIdeasEnabled = g),
-      (l.isHatchIdentityEnabled = h),
-      (l.isHatchBrowserEnabled = y),
-      (l.isHatchThemeEnabled = C),
-      (l.isHatchAvatarWorkingVideoEnabled = b),
-      (l.isHatchSecureCredentialsEnabled = v),
-      (l.isHatchPermissionsEnabled = S),
-      (l.isHatchSpaceEnabled = R),
-      (l.isHatchMediaEnabled = L),
-      (l.isHatchRevokeEnabled = E),
-      (l.isHatchDataControlsEnabled = k),
-      (l.isHatchManageSubscriptionEnabled = I),
-      (l.isHatchAdditionalTokensEnabled = T),
-      (l.isHatchScheduledTasksEnabled = D),
-      (l.isHatchActivityEnabled = x),
-      (l.isHatchGoalsEnabled = $),
-      (l.isHatchVideoAvatarsEnabled = P),
-      (l.isMuseNavBarEntryPointSelected = N),
-      (l.getHatchNavBarAnimationMode = M));
+      (l.isHatchCvmEnabled = g),
+      (l.isHatchIdeasEnabled = h),
+      (l.isHatchIdentityEnabled = y),
+      (l.isHatchBrowserEnabled = C),
+      (l.isHatchThemeEnabled = b),
+      (l.isHatchAvatarWorkingVideoEnabled = v),
+      (l.isHatchSecureCredentialsEnabled = S),
+      (l.isHatchPermissionsEnabled = R),
+      (l.isHatchSpaceEnabled = L),
+      (l.isHatchMediaEnabled = E),
+      (l.isHatchRevokeEnabled = k),
+      (l.isHatchDataControlsEnabled = I),
+      (l.isHatchManageSubscriptionEnabled = T),
+      (l.isHatchAdditionalTokensEnabled = D),
+      (l.isHatchScheduledTasksEnabled = x),
+      (l.isHatchActivityEnabled = $),
+      (l.isHatchGoalsEnabled = P),
+      (l.isHatchVideoAvatarsEnabled = N),
+      (l.isMuseNavBarEntryPointSelected = M),
+      (l.getHatchNavBarAnimationMode = w));
   },
   98,
 );

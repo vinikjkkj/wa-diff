@@ -25,12 +25,12 @@ __d(
               t,
             ])).get(t.toString());
             if (r != null) {
-              var a = e
-                  .map(d)
-                  .filter(Boolean)
-                  .map(function (e) {
-                    return { parentMsg: r, decryptedAddOption: e };
-                  }),
+              var a = e.flatMap(function (e) {
+                  var t = d(e);
+                  return t != null
+                    ? [{ parentMsg: r, decryptedAddOption: t }]
+                    : [];
+                }),
                 i = new Set(
                   (yield o("WAWebSchemaMessage")
                     .getMessageTable()

@@ -27,11 +27,22 @@ __d(
           }),
             (this.sendSignalingXmpp = function (t) {
               var n,
-                r = t.callId,
-                i = t.payload,
-                l = t.peerJid,
-                s = t.shouldEncryptBeforeSending,
-                u = function (t) {
+                r = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+                  { bridge: "voip", method: "handleSignalingXmppEvent" },
+                  function () {
+                    return {
+                      callId: t.callId,
+                      payload: t.payload,
+                      peerJid: t.peerJid,
+                      shouldEncryptBeforeSending: t.shouldEncryptBeforeSending,
+                    };
+                  },
+                ),
+                i = r.callId,
+                l = r.payload,
+                s = r.peerJid,
+                u = r.shouldEncryptBeforeSending,
+                c = function (t) {
                   return t.replace(
                     /^([^@]*)([^@][^@][^@][^@])@(.*)$/,
                     "...$2@$3",
@@ -45,18 +56,28 @@ __d(
                     " encrypt=",
                     "",
                   ])),
-                u(l),
-                r,
-                s,
+                c(s),
+                i,
+                u,
               ),
-                (n = a.$3) == null || n.onSignalingXmpp(l, r, i, s));
+                (n = a.$3) == null || n.onSignalingXmpp(s, i, l, u));
             }),
             (this.handleCallEvent = function (e) {
               var t,
-                n = e.eventDataJson,
-                r = e.eventType,
-                o = e.userData;
-              (t = a.$3) == null || t.onCallEvent(r, o, n);
+                n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+                  { bridge: "voip", method: "handleVoipCallEvent" },
+                  function () {
+                    return {
+                      eventDataJson: e.eventDataJson,
+                      eventType: e.eventType,
+                      userData: e.userData,
+                    };
+                  },
+                ),
+                r = n.eventDataJson,
+                i = n.eventType,
+                l = n.userData;
+              (t = a.$3) == null || t.onCallEvent(i, l, r);
             }),
             (this.requestOpenChat = function (e) {
               var t;
@@ -128,9 +149,15 @@ __d(
             }),
             (this.callAgain = function (e) {
               var t,
-                n = e.isVideoCall,
-                r = e.peerJid;
-              (t = a.$3) == null || t.onCallAgain(r, n);
+                n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+                  { bridge: "voip", method: "handleCallAgainEvent" },
+                  function () {
+                    return { isVideoCall: e.isVideoCall, peerJid: e.peerJid };
+                  },
+                ),
+                r = n.isVideoCall,
+                i = n.peerJid;
+              (t = a.$3) == null || t.onCallAgain(i, r);
             }),
             (this.handleLidCallerDisplayInfo = function (e) {
               var t;

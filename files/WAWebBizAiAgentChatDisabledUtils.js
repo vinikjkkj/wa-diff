@@ -22,7 +22,7 @@ __d(
           children: s._(/*BTDS*/ "Use your phone to open {chat_name}", [
             s._param(
               "chat_name",
-              u.jsx(o("WAWebName.react").Name, { chat: e }),
+              u.jsx(o("WAWebName.react").ChatName, { chatId: e.id }),
             ),
           ]),
         }),

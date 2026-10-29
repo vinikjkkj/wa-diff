@@ -410,6 +410,7 @@ __d(
                             author: I.author,
                             msgInfo: I,
                             msgMeta: T,
+                            msgBotInfo: k,
                             enc: V.failedEnc || L[0],
                             hasHideFailEnc: L.some(function (e) {
                               return e.hideFail;

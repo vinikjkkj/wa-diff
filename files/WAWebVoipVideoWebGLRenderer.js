@@ -5,6 +5,7 @@ __d(
     "WAWebVoipMediaEnums",
     "WAWebVoipVideoEnhancementShader",
     "WAWebVoipVideoRendererInterface",
+    "WAWebVoipVideoZoom",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +17,11 @@ __d(
       ]),
       s = (function () {
         function t(t) {
-          ((this.$4 = 0), (this.$5 = 0), (this.canvas = t));
+          ((this.$3 = null),
+            (this.$4 = null),
+            (this.$8 = 0),
+            (this.$9 = 0),
+            (this.canvas = t));
           var n = e.OffscreenTransfer;
           if (((this.mode = n), n === e.Direct)) this.renderer = new b(t);
           else if (
@@ -45,6 +50,7 @@ __d(
         var n = t.prototype;
         return (
           (n.reset = function () {
+            this.$3 = null;
             var e = new Uint8Array([0, 0, 0, 255]);
             (this.renderFrame({
               format: o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA,
@@ -56,15 +62,16 @@ __d(
               timestamp: 0,
               width: 1,
             }),
+              (this.$4 = null),
               this.renderer.clearNV12Textures());
           }),
           (n.cleanup = function () {
-            this.renderer.cleanup();
+            ((this.$4 = null), this.renderer.cleanup());
           }),
           (n.onCanvasResize = function (t, n) {
             this.pendingResize = { width: t, height: n };
           }),
-          (n.$3 = function () {
+          (n.$5 = function () {
             if (this.pendingResize != null) {
               var t = this.pendingResize,
                 n = t.height,
@@ -78,52 +85,64 @@ __d(
                 (this.canvas.height = n));
             }
           }),
-          (n.renderFrame = function (n) {
-            var t = n.format,
-              r = n.frameBuffer,
-              o = n.height,
-              a = n.isKeyFrame,
-              i = n.mirror,
-              l = n.orientation,
-              s = n.timestamp,
-              u = n.width;
-            if (
-              (this.$3(),
-              this.renderer.render(
-                new Uint8Array(r),
-                u,
-                o,
-                l,
-                i,
-                t,
-                this.$2,
-                this.$4,
-                this.$5,
-              ),
-              this.mode === e.Direct || !this.offscreenCanvas)
-            ) {
+          (n.renderFrame = function (t) {
+            var e = t.format,
+              n = t.frameBuffer,
+              r = t.height,
+              o = t.isKeyFrame,
+              a = t.mirror,
+              i = t.orientation,
+              l = t.timestamp,
+              s = t.width;
+            this.$5();
+            var u = {
+              format: e,
+              height: r,
+              mirror: a,
+              orientation: i,
+              width: s,
+            };
+            (this.renderer.render(new Uint8Array(n), this.$6(u)),
+              (this.$4 = u),
+              this.$7());
+          }),
+          (n.setZoom = function (t) {
+            this.$3 = t;
+            var e = this.$4;
+            e != null && (this.$5(), this.renderer.draw(this.$6(e)), this.$7());
+          }),
+          (n.$6 = function (t) {
+            return babelHelpers.extends({}, t, {
+              brightness: this.$8,
+              coverFit: this.$2,
+              sharpening: this.$9,
+              zoom: this.$3,
+            });
+          }),
+          (n.$7 = function () {
+            if (this.mode === e.Direct || !this.offscreenCanvas) {
               this.$1();
               return;
             }
-            var c = this.offscreenCanvas.transferToImageBitmap();
+            var t = this.offscreenCanvas.transferToImageBitmap();
             e: {
-              var d = this.mode;
-              if (d === e.Direct) break e;
-              if (d === e.OffscreenTransfer) {
-                var m;
-                (m = this.transferContext) == null ||
-                  m.transferFromImageBitmap(c);
+              var n = this.mode;
+              if (n === e.Direct) break e;
+              if (n === e.OffscreenTransfer) {
+                var r;
+                (r = this.transferContext) == null ||
+                  r.transferFromImageBitmap(t);
                 break e;
               }
-              if (d === e.OffscreenDraw) {
-                var p;
-                ((p = this.drawContext) == null || p.drawImage(c, 0, 0),
-                  c.close());
+              if (n === e.OffscreenDraw) {
+                var o;
+                ((o = this.drawContext) == null || o.drawImage(t, 0, 0),
+                  t.close());
                 break e;
               }
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  d,
+                  n,
               );
             }
             this.$1();
@@ -135,7 +154,7 @@ __d(
             this.$2 = t;
           }),
           (n.setVideoEnhancement = function (t, n) {
-            ((this.$4 = t), (this.$5 = n));
+            ((this.$8 = t), (this.$9 = n));
           }),
           t
         );
@@ -202,7 +221,7 @@ __d(
         antialias: !1,
       },
       _ =
-        "\n    attribute vec2 a_position;\n    varying vec2 v_texCoord;\n    uniform mat2 u_matrix;\n    void main() {\n     gl_Position = vec4(u_matrix * ((a_position * 2.0 - 1.0) * vec2(1, -1)), 0, 1);\n     v_texCoord = a_position;\n    }\n    ",
+        "\n    attribute vec2 a_position;\n    varying vec2 v_texCoord;\n    uniform mat2 u_matrix;\n    uniform vec2 u_scale;\n    uniform vec2 u_offset;\n    void main() {\n     gl_Position = vec4(u_matrix * ((a_position * 2.0 - 1.0) * vec2(1, -1)) * u_scale + u_offset, 0, 1);\n     v_texCoord = a_position;\n    }\n    ",
       f =
         "\n     precision mediump float;\n     uniform sampler2D textureRGB;\n     varying vec2 v_texCoord;\n\n     vec3 sampleRGB(vec2 coord) {\n      // I saw that [R G B] is actually laid out as [B G R] in the GPU memory\n      return texture2D(textureRGB, coord).rgb;\n     }\n     " +
         o("WAWebVoipVideoEnhancementShader").GLSL_ENHANCEMENT_HELPERS +
@@ -218,6 +237,8 @@ __d(
         program: t,
         matrixLocation: n,
         brightnessLocation: e.getUniformLocation(t, "uBrightness"),
+        offsetLocation: e.getUniformLocation(t, "u_offset"),
+        scaleLocation: e.getUniformLocation(t, "u_scale"),
         sharpenLocation: e.getUniformLocation(t, "uSharpen"),
         textureSizeLocation: e.getUniformLocation(t, "uTextureSize"),
       };
@@ -335,108 +356,153 @@ __d(
                 t,
               ));
           }),
-          (t.render = function (t, n, a, i, l, s, u, c, d) {
-            var e = this.programs_.get(s);
+          (t.render = function (t, n) {
+            (this.$1(t, n), this.draw(n));
+          }),
+          (t.draw = function (t) {
+            var e = t.brightness,
+              n = t.coverFit,
+              r = t.format,
+              a = t.height,
+              i = t.mirror,
+              l = t.orientation,
+              s = t.sharpening,
+              u = t.width,
+              c = t.zoom,
+              d = this.$2(r),
+              m = d.brightnessLocation,
+              p = d.matrixLocation,
+              _ = d.program,
+              f = d.sharpenLocation,
+              g = d.textureSizeLocation;
+            this.gl.useProgram(_);
+            var h = this.gl.canvas.width / this.gl.canvas.height,
+              b = l.valueOf() % 2 === 1 ? u / a : a / u;
+            if (c == null)
+              (this.$3(h, b, n),
+                this.gl.uniform2f(d.scaleLocation, 1, 1),
+                this.gl.uniform2f(d.offsetLocation, 0, 0));
+            else {
+              this.gl.viewport(
+                0,
+                0,
+                this.gl.canvas.width,
+                this.gl.canvas.height,
+              );
+              var v = o("WAWebVoipVideoZoom").toClipSpaceTransform(
+                o("WAWebVoipVideoZoom").computeFitScale({
+                  canvasAspect: h,
+                  coverFit: n,
+                  videoAspect: b,
+                }),
+                c,
+              );
+              (this.gl.uniform2f(d.scaleLocation, v.scaleX, v.scaleY),
+                this.gl.uniform2f(d.offsetLocation, v.offsetX, v.offsetY));
+            }
+            (this.gl.uniform1f(m, e),
+              this.gl.uniform1f(f, s),
+              this.gl.uniform2f(g, u, a));
+            var S = C[i ? 1 : 0][l.valueOf() - 1] || y;
+            (this.gl.uniformMatrix2fv(p, !1, S),
+              this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4));
+          }),
+          (t.$2 = function (t) {
+            var e = this.programs_.get(t);
             if (!e)
               throw r("err")(
                 "[webgl]: Invalid video format: " +
-                  o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(s),
+                  o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(t),
               );
-            var m = e.brightnessLocation,
-              p = e.matrixLocation,
-              _ = e.program,
-              f = e.sharpenLocation,
-              g = e.textureSizeLocation;
-            this.gl.useProgram(_);
-            var h = this.gl.canvas.width / this.gl.canvas.height,
-              b = i.valueOf() % 2 === 1 ? n / a : a / n;
+            return e;
+          }),
+          (t.$3 = function (t, n, r) {
+            r
+              ? t > n
+                ? this.gl.viewport(
+                    0,
+                    (this.gl.canvas.height - this.gl.canvas.width / n) / 2,
+                    this.gl.canvas.width,
+                    this.gl.canvas.width / n,
+                  )
+                : this.gl.viewport(
+                    (this.gl.canvas.width - this.gl.canvas.height * n) / 2,
+                    0,
+                    this.gl.canvas.height * n,
+                    this.gl.canvas.height,
+                  )
+              : t > n
+                ? this.gl.viewport(
+                    (this.gl.canvas.width - this.gl.canvas.height * n) / 2,
+                    0,
+                    this.gl.canvas.height * n,
+                    this.gl.canvas.height,
+                  )
+                : this.gl.viewport(
+                    0,
+                    (this.gl.canvas.height - this.gl.canvas.width / n) / 2,
+                    this.gl.canvas.width,
+                    this.gl.canvas.width / n,
+                  );
+          }),
+          (t.$1 = function (t, n) {
+            var e = n.format,
+              r = n.height,
+              a = n.width;
             if (
-              (u
-                ? h > b
-                  ? this.gl.viewport(
-                      0,
-                      (this.gl.canvas.height - this.gl.canvas.width / b) / 2,
-                      this.gl.canvas.width,
-                      this.gl.canvas.width / b,
-                    )
-                  : this.gl.viewport(
-                      (this.gl.canvas.width - this.gl.canvas.height * b) / 2,
-                      0,
-                      this.gl.canvas.height * b,
-                      this.gl.canvas.height,
-                    )
-                : h > b
-                  ? this.gl.viewport(
-                      (this.gl.canvas.width - this.gl.canvas.height * b) / 2,
-                      0,
-                      this.gl.canvas.height * b,
-                      this.gl.canvas.height,
-                    )
-                  : this.gl.viewport(
-                      0,
-                      (this.gl.canvas.height - this.gl.canvas.width / b) / 2,
-                      this.gl.canvas.width,
-                      this.gl.canvas.width / b,
-                    ),
-              s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
-                s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA)
+              e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
+              e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
             ) {
-              var v = new Uint8Array(t.buffer, 0, t.length);
+              var i = new Uint8Array(t.buffer, 0, t.length);
               (this.gl.activeTexture(this.gl.TEXTURE3),
                 this.gl.bindTexture(this.gl.TEXTURE_2D, this.textureRGB_),
                 this.gl.texImage2D(
                   this.gl.TEXTURE_2D,
                   0,
-                  s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24
+                  e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24
                     ? this.gl.RGB
                     : this.gl.RGBA,
-                  n,
                   a,
+                  r,
                   0,
-                  s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24
+                  e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24
                     ? this.gl.RGB
                     : this.gl.RGBA,
                   this.gl.UNSIGNED_BYTE,
-                  v,
+                  i,
                 ));
             } else if (
-              s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
+              e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
             ) {
-              var S = new Uint8Array(t.buffer, 0, n * a);
+              var l = new Uint8Array(t.buffer, 0, a * r);
               (this.gl.activeTexture(this.gl.TEXTURE4),
                 this.gl.bindTexture(this.gl.TEXTURE_2D, this.textureY_),
                 this.gl.texImage2D(
                   this.gl.TEXTURE_2D,
                   0,
                   this.gl.LUMINANCE,
-                  n,
                   a,
+                  r,
                   0,
                   this.gl.LUMINANCE,
                   this.gl.UNSIGNED_BYTE,
-                  S,
+                  l,
                 ));
-              var R = new Uint8Array(t.buffer, n * a, (n * a) / 2);
+              var s = new Uint8Array(t.buffer, a * r, (a * r) / 2);
               (this.gl.activeTexture(this.gl.TEXTURE5),
                 this.gl.bindTexture(this.gl.TEXTURE_2D, this.textureUV_),
                 this.gl.texImage2D(
                   this.gl.TEXTURE_2D,
                   0,
                   this.gl.LUMINANCE_ALPHA,
-                  n / 2,
                   a / 2,
+                  r / 2,
                   0,
                   this.gl.LUMINANCE_ALPHA,
                   this.gl.UNSIGNED_BYTE,
-                  R,
+                  s,
                 ));
             }
-            (this.gl.uniform1f(m, c),
-              this.gl.uniform1f(f, d),
-              this.gl.uniform2f(g, n, a));
-            var L = C[l ? 1 : 0][i.valueOf() - 1] || y;
-            (this.gl.uniformMatrix2fv(p, !1, L),
-              this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4));
           }),
           e
         );

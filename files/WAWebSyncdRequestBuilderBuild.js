@@ -254,7 +254,11 @@ __d(
                 index: d ? e.index : void 0,
               };
             }),
-            _ = yield o("WAWebSyncdAntiTampering").computeLtHash(t, m, a),
+            _ = yield o("WAWebSyncdAntiTampering").computeLtHash({
+              collection: t,
+              mutations: m,
+              session: a,
+            }),
             f = _.ltHash,
             g = yield o(
               "WAWebSyncdAntiTampering",

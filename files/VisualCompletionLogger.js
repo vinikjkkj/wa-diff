@@ -29,23 +29,24 @@ __d(
     function p() {
       return { bottom: 0, left: 0, right: 0, top: 0 };
     }
-    function _(e, t) {
-      var n = e.rectangle;
-      return {
-        data: {
-          height: Math.floor(n.bottom - n.top),
+    function _(e, t, n) {
+      var r = e.rectangle,
+        a = {
+          height: Math.floor(r.bottom - r.top),
           mutationType: e.mutationType,
           pixels: e.pixels,
           tagName: o("VisualCompletionUtil").getTagName(t),
           type: e.type,
           veid: e.veid,
-          width: Math.floor(n.right - n.left),
-          x: Math.floor(n.left),
-          y: Math.floor(n.top),
-        },
-        element: e.element,
-        timestamp: e.timestamp,
-      };
+          width: Math.floor(r.right - r.left),
+          x: Math.floor(r.left),
+          y: Math.floor(r.top),
+        };
+      return (
+        e.pagelet != null && (a.pagelet = e.pagelet.name),
+        n != null && n.length > 0 && (a.reactStack = n),
+        { data: a, element: e.element, timestamp: e.timestamp }
+      );
     }
     var f = (function () {
       function t(e, t, n, a, i) {
@@ -287,7 +288,7 @@ __d(
           });
           var l = null,
             s = null;
-          (this.$2.length &&
+          this.$2.length &&
             (this.addMarkerPoint("FP", this.$2[this.$2.length - 1].timestamp),
             this.$2.forEach(function (e) {
               var n = o("WebAPIs").derefOnlyAttachedElement(e.element);
@@ -358,9 +359,45 @@ __d(
                     break;
                 }
               }
-            })),
-            l != null && i.markerPoints.set(c, _(l.paint, l.element)),
-            s != null && i.markerPoints.set(d, _(s.paint, s.element)),
+            }));
+          var u =
+              l != null || s != null
+                ? (e || (e = r("performanceNow")))()
+                : null,
+            m = this.config.getReactComponentStackFromDOMElement,
+            p =
+              l != null && m != null
+                ? o("ReactStackUtils").getTrimmedReactStack(
+                    l.element,
+                    "HeroPagelet",
+                    m,
+                  )
+                : null;
+          if (
+            (l != null && i.markerPoints.set(c, _(l.paint, l.element, p)),
+            s != null)
+          ) {
+            var f,
+              g = s,
+              h = g.element,
+              y = g.paint,
+              C =
+                h === ((f = l) == null ? void 0 : f.element)
+                  ? p
+                  : m != null
+                    ? o("ReactStackUtils").getTrimmedReactStack(
+                        h,
+                        "HeroPagelet",
+                        m,
+                      )
+                    : null;
+            i.markerPoints.set(d, _(y, h, C));
+          }
+          (u != null &&
+            this.addAnnotationDouble(
+              "htRootContentfulPaintIdentityOverhead",
+              (e || (e = r("performanceNow")))() - u,
+            ),
             this.logPagelets(),
             this.logPixelProgress(),
             n &&
@@ -374,18 +411,18 @@ __d(
                 data: {},
                 timestamp: i.vcWithoutImage + this.startTime,
               })));
-          var u = e();
-          ((i.vcCalculationOverhead = u - a),
+          var b = e();
+          ((i.vcCalculationOverhead = b - a),
             this.setupMetaData(i),
             this.logCssBgElementsMetaData(),
             (this.reported = !0));
-          var m = e() - u;
+          var v = e() - b;
           return (
             r("addAnnotations")(i.annotations, {
               double: {
-                vcMetaDataLoggingLatency: m,
+                vcMetaDataLoggingLatency: v,
                 vcTotalLoggingOverhead:
-                  m +
+                  v +
                   i.cssBgScanOverhead +
                   i.mutationProcessingOverhead +
                   i.vcCalculationOverhead,

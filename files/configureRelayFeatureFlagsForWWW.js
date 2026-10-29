@@ -24,7 +24,10 @@ __d(
         (t.RelayFeatureFlags.ENABLE_UI_CONTEXT_ON_RELAY_LOGGER = !1),
         (t.RelayFeatureFlags.ENABLE_CATCH_IGNORE_HANDLED_FIELD_ERRORS =
           e("2397")),
-        (t.RelayFeatureFlags.ENABLE_IF_EMPTY_CANCELLATION = e("9750")));
+        (t.RelayFeatureFlags.ENABLE_IF_EMPTY_CANCELLATION = e("9750")),
+        (t.RelayFeatureFlags.ENABLE_FRAGMENT_SUBSCRIPTION_UPDATE_FIX =
+          e("28181")),
+        (t.RelayFeatureFlags.ENABLE_PERF_STORAGE_KEYS = e("28191")));
     }
     l.default = e;
   },

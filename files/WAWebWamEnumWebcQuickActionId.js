@@ -20,6 +20,7 @@ __d(
       NEW_CALL_LINK: 15,
       OPEN_DIALER: 16,
       SCHEDULE_CALL: 17,
+      CREATE_GROUP: 18,
     });
     i.WEBC_QUICK_ACTION_ID = e;
   },

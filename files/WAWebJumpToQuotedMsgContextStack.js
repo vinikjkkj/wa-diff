@@ -1,11 +1,11 @@
 __d(
   "WAWebJumpToQuotedMsgContextStack",
-  ["WAWebEventEmitter", "justknobx"],
+  ["WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     var e = "change",
       s = 500;
     function u() {
-      return r("justknobx")._("4542");
+      return !1;
     }
     var c = (function (t) {
         function n() {

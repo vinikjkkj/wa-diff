@@ -78,253 +78,264 @@ __d(
         de,
         me,
         pe,
-        _e = o("CometRelay").readInlineData(u, e),
-        fe = t != null ? o("CometRelay").readInlineData(c, t) : null,
-        ge = _e.wrapper_renderer,
-        he = ge == null ? void 0 : ge.boosted_component,
-        ye = ge == null ? void 0 : ge.async_request,
-        Ce =
-          (l = he == null ? void 0 : he.id) != null
+        _e,
+        fe,
+        ge,
+        he = o("CometRelay").readInlineData(u, e),
+        ye = t != null ? o("CometRelay").readInlineData(c, t) : null,
+        Ce = he.wrapper_renderer,
+        be = Ce == null ? void 0 : Ce.boosted_component,
+        ve = Ce == null ? void 0 : Ce.async_request,
+        Se =
+          (l = be == null ? void 0 : be.id) != null
             ? l
-            : ye == null
+            : ve == null
               ? void 0
-              : ye.id;
-      if (Ce == null) return null;
-      var be = (s = _e.id) != null ? s : "",
-        ve =
+              : ve.id;
+      if (Se == null) return null;
+      var Re = (s = he.id) != null ? s : "",
+        Le =
           (d =
-            he == null ||
-            (m = he.campaign_group) == null ||
+            be == null ||
+            (m = be.campaign_group) == null ||
             (m = m.ad_insights) == null
               ? void 0
               : m.edges) != null
             ? d
-            : ye == null ||
-                (p = ye.campaign_group) == null ||
+            : ve == null ||
+                (p = ve.campaign_group) == null ||
                 (p = p.ad_insights) == null
               ? void 0
               : p.edges,
-        Se =
+        Ee =
           (_ =
-            he == null || (f = he.boosting_info) == null
+            be == null || (f = be.boosting_info) == null
               ? void 0
               : f.thumbnail_image_url) != null
             ? _
-            : ye == null || (g = ye.boosting_info) == null
+            : ve == null || (g = ve.boosting_info) == null
               ? void 0
               : g.thumbnail_image_url,
-        Re =
+        ke =
           (h =
-            he == null || (y = he.spec) == null || (y = y.adgroup_spec) == null
+            be == null || (y = be.spec) == null || (y = y.adgroup_spec) == null
               ? void 0
               : y[0]) != null
             ? h
-            : ye == null ||
-                (C = ye.spec) == null ||
+            : ve == null ||
+                (C = ve.spec) == null ||
                 (C = C.adgroup_spec) == null
               ? void 0
               : C[0],
-        Le = Re == null ? void 0 : Re.creative,
-        Ee = Re == null ? void 0 : Re.adgroup_id,
-        ke =
-          (b = Le == null ? void 0 : Le.image_url) != null
+        Ie = ke == null ? void 0 : ke.creative,
+        Te = ke == null ? void 0 : ke.adgroup_id,
+        De =
+          (b = Ie == null ? void 0 : Ie.image_url) != null
             ? b
-            : Le == null
+            : Ie == null
               ? void 0
-              : Le.thumbnail_url,
-        Ie =
+              : Ie.thumbnail_url,
+        xe =
           (v =
-            he == null || (S = he.spec) == null || (S = S.ad_account) == null
+            be == null || (S = be.spec) == null || (S = S.ad_account) == null
               ? void 0
               : S.legacy_account_id) != null
             ? v
-            : ye == null || (R = ye.spec) == null || (R = R.ad_account) == null
+            : ve == null || (R = ve.spec) == null || (R = R.ad_account) == null
               ? void 0
               : R.legacy_account_id,
-        Te = Le == null ? void 0 : Le.object_story_spec,
-        De = Te == null ? void 0 : Te.link_data,
-        xe = De == null ? void 0 : De.link,
-        $e = De == null ? void 0 : De.child_attachments,
-        Pe = Te == null ? void 0 : Te.video_data,
-        Ne =
-          (L = he == null || (E = he.spec) == null ? void 0 : E.start_time) !=
+        $e = Ie == null ? void 0 : Ie.object_story_spec,
+        Pe = $e == null ? void 0 : $e.link_data,
+        Ne = Pe == null ? void 0 : Pe.link,
+        Me = Pe == null ? void 0 : Pe.child_attachments,
+        we = $e == null ? void 0 : $e.video_data,
+        Ae =
+          (L = be == null || (E = be.spec) == null ? void 0 : E.start_time) !=
           null
             ? L
-            : ye == null || (k = ye.spec) == null
+            : ve == null || (k = ve.spec) == null
               ? void 0
               : k.start_time,
-        Me =
+        Fe =
           (I =
-            (T = Le == null ? void 0 : Le.body) != null
+            (T = Ie == null ? void 0 : Ie.body) != null
               ? T
-              : De == null
+              : Pe == null
                 ? void 0
-                : De.message) != null
+                : Pe.message) != null
             ? I
-            : Te == null || (D = Te.video_data) == null
+            : $e == null || (D = $e.video_data) == null
               ? void 0
               : D.message,
-        we =
-          (x = he == null || ($ = he.spec) == null ? void 0 : $.audience) !=
+        Oe =
+          (x = be == null || ($ = be.spec) == null ? void 0 : $.audience) !=
           null
             ? x
-            : ye == null || (P = ye.spec) == null
+            : ve == null || (P = ve.spec) == null
               ? void 0
               : P.audience,
-        Ae = we
+        Be = Oe
           ? {
               targetSpecStringWithoutPlacements:
-                we.target_spec_string_without_placements,
+                Oe.target_spec_string_without_placements,
             }
           : null,
-        Fe = {
+        We = {
           adClicks:
             (N =
-              ve == null || (M = ve[0]) == null || (M = M.node) == null
+              Le == null || (M = Le[0]) == null || (M = M.node) == null
                 ? void 0
                 : M.clicks) != null
               ? N
               : 0,
-          adgroupId: Ee,
-          asyncRequestRef: ye,
-          audience: Ae,
-          boostedComponentRef: he,
-          boostId: Ce,
-          boostingStatus:
+          adgroupId: Te,
+          adsLwiGoal:
             (w =
-              he == null || (A = he.spec) == null
-                ? void 0
-                : A.boosting_status) != null
-              ? w
-              : ye == null || (F = ye.spec) == null
-                ? void 0
-                : F.boosting_status,
-          boostingStatusDisplayText:
-            (O = he == null ? void 0 : he.boosting_status_display_text) != null
-              ? O
-              : ye == null
-                ? void 0
-                : ye.boosting_status_display_text,
-          budgetType:
-            (B =
-              he == null || (W = he.spec) == null ? void 0 : W.budget_type) !=
+              be == null || (A = be.spec) == null ? void 0 : A.ads_lwi_goal) !=
             null
-              ? B
-              : ye == null || (q = ye.spec) == null
+              ? w
+              : ve == null || (F = ve.spec) == null
                 ? void 0
-                : q.budget_type,
-          businessName: fe == null ? void 0 : fe.name,
-          childAttachments: $e,
-          conversations:
+                : F.ads_lwi_goal,
+          asyncRequestRef: ve,
+          audience: Be,
+          boostedComponentRef: be,
+          boostId: Se,
+          boostingStatus:
+            (O =
+              be == null || (B = be.spec) == null
+                ? void 0
+                : B.boosting_status) != null
+              ? O
+              : ve == null || (W = ve.spec) == null
+                ? void 0
+                : W.boosting_status,
+          boostingStatusDisplayText:
+            (q = be == null ? void 0 : be.boosting_status_display_text) != null
+              ? q
+              : ve == null
+                ? void 0
+                : ve.boosting_status_display_text,
+          budgetType:
             (U =
-              ve == null || (V = ve[0]) == null || (V = V.node) == null
-                ? void 0
-                : V.results) != null
+              be == null || (V = be.spec) == null ? void 0 : V.budget_type) !=
+            null
               ? U
+              : ve == null || (H = ve.spec) == null
+                ? void 0
+                : H.budget_type,
+          businessName: ye == null ? void 0 : ye.name,
+          childAttachments: Me,
+          conversations:
+            (G =
+              Le == null || (z = Le[0]) == null || (z = z.node) == null
+                ? void 0
+                : z.results) != null
+              ? G
               : 0,
           currency:
-            (H =
-              (G =
-                he == null ||
-                (z = he.boosting_info) == null ||
-                (z = z.spent) == null
+            (j =
+              (K =
+                be == null ||
+                (Q = be.boosting_info) == null ||
+                (Q = Q.spent) == null
                   ? void 0
-                  : z.currency) != null
-                ? G
-                : ye == null ||
-                    (j = ye.boosting_info) == null ||
-                    (j = j.spent) == null
+                  : Q.currency) != null
+                ? K
+                : ve == null ||
+                    (X = ve.boosting_info) == null ||
+                    (X = X.spent) == null
                   ? void 0
-                  : j.currency) != null
-              ? H
+                  : X.currency) != null
+              ? j
               : "USD",
-          description: Me,
+          description: Fe,
           draftFlowId: null,
           draftId: null,
           durationInDays:
-            (K =
-              he == null || (Q = he.spec) == null
-                ? void 0
-                : Q.duration_in_days) != null
-              ? K
-              : ye == null || (X = ye.spec) == null
-                ? void 0
-                : X.duration_in_days,
-          formattedBudget:
             (Y =
-              he == null || (J = he.spec) == null || (J = J.budget) == null
+              be == null || (J = be.spec) == null
                 ? void 0
-                : J.formatted_for_lwi) != null
+                : J.duration_in_days) != null
               ? Y
-              : ye == null || (Z = ye.spec) == null || (Z = Z.budget) == null
+              : ve == null || (Z = ve.spec) == null
                 ? void 0
-                : Z.formatted_for_lwi,
-          formattedSpent:
+                : Z.duration_in_days,
+          formattedBudget:
             (ee =
-              (te =
-                he == null ||
-                (ne = he.boosting_info) == null ||
-                (ne = ne.spent) == null
-                  ? void 0
-                  : ne.formatted_for_lwi) != null
-                ? te
-                : ye == null ||
-                    (re = ye.boosting_info) == null ||
-                    (re = re.spent) == null
-                  ? void 0
-                  : re.formatted_for_lwi) != null
+              be == null || (te = be.spec) == null || (te = te.budget) == null
+                ? void 0
+                : te.formatted_for_lwi) != null
               ? ee
+              : ve == null || (ne = ve.spec) == null || (ne = ne.budget) == null
+                ? void 0
+                : ne.formatted_for_lwi,
+          formattedSpent:
+            (re =
+              (oe =
+                be == null ||
+                (ae = be.boosting_info) == null ||
+                (ae = ae.spent) == null
+                  ? void 0
+                  : ae.formatted_for_lwi) != null
+                ? oe
+                : ve == null ||
+                    (ie = ve.boosting_info) == null ||
+                    (ie = ie.spent) == null
+                  ? void 0
+                  : ie.formatted_for_lwi) != null
+              ? re
               : "",
-          highResImageUrl: ke,
+          highResImageUrl: De,
           isDraft: !1,
           isLoadingThumbnail: !1,
           isVerified:
-            (oe = fe == null ? void 0 : fe.is_verified) != null ? oe : !1,
-          legacyAdAccountId: Ie,
-          link: xe,
-          nodeId: be,
+            (le = ye == null ? void 0 : ye.is_verified) != null ? le : !1,
+          legacyAdAccountId: xe,
+          link: Ne,
+          nodeId: Re,
           onDeleteDraft: null,
           onRecreateAd: function (t, n) {
-            return i == null ? void 0 : i(Ce, t, n);
+            return i == null ? void 0 : i(Se, t, n);
           },
           onResumeDraft: r("WAWebNoop"),
           onViewResults: function () {
-            return a(Fe);
+            return a(We);
           },
           pageId: n,
           profilePictureUrl:
-            fe == null || (ae = fe.profile_picture) == null ? void 0 : ae.uri,
+            ye == null || (se = ye.profile_picture) == null ? void 0 : se.uri,
           reach:
-            (ie =
-              ve == null || (le = ve[0]) == null || (le = le.node) == null
+            (ue =
+              Le == null || (ce = Le[0]) == null || (ce = ce.node) == null
                 ? void 0
-                : le.reach) != null
-              ? ie
+                : ce.reach) != null
+              ? ue
               : 0,
           regulatedCategories:
-            (se =
-              (ue =
-                he == null || (ce = he.spec) == null
+            (de =
+              (me =
+                be == null || (pe = be.spec) == null
                   ? void 0
-                  : ce.regulated_categories) != null
-                ? ue
-                : ye == null || (de = ye.spec) == null
+                  : pe.regulated_categories) != null
+                ? me
+                : ve == null || (_e = ve.spec) == null
                   ? void 0
-                  : de.regulated_categories) != null
-              ? se
+                  : _e.regulated_categories) != null
+              ? de
               : [],
           spend:
-            (me =
-              ve == null || (pe = ve[0]) == null || (pe = pe.node) == null
+            (fe =
+              Le == null || (ge = Le[0]) == null || (ge = ge.node) == null
                 ? void 0
-                : pe.spend) != null
-              ? me
+                : ge.spend) != null
+              ? fe
               : 0,
-          startTime: Ne,
-          thumbnailUrl: Se,
-          videoData: Pe,
+          startTime: Ae,
+          thumbnailUrl: Ee,
+          videoData: we,
         };
-      return Fe;
+      return We;
     }
     l.default = d;
   },

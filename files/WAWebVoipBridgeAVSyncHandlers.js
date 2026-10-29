@@ -7,7 +7,6 @@ __d(
     "WAWebVoipGpuInfoProbe",
     "WAWebVoipVideoRenderSource",
     "WAWebVoipVideoRendererRegistry",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -67,17 +66,14 @@ __d(
           ).videoRendererRegistry.consumeWebCodecsDecodeOrderMetrics();
         },
         detectGpuInfo: function () {
-          return r("justknobx")._("6199")
-            ? new (e || (e = n("Promise")))(function (e) {
-                var t = !1,
-                  n = function () {
-                    t ||
-                      ((t = !0), e(o("WAWebVoipGpuInfoProbe").detectGpuInfo()));
-                  };
-                (o("WAWebPonyfillsIdleCallback").requestIdleCallback(n),
-                  window.setTimeout(n, s));
-              })
-            : (e || (e = n("Promise"))).resolve(null);
+          return new (e || (e = n("Promise")))(function (e) {
+            var t = !1,
+              n = function () {
+                t || ((t = !0), e(o("WAWebVoipGpuInfoProbe").detectGpuInfo()));
+              };
+            (o("WAWebPonyfillsIdleCallback").requestIdleCallback(n),
+              window.setTimeout(n, s));
+          });
         },
       };
     l.VoipBridgeAVSyncHandlers = u;

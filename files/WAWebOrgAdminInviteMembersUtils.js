@@ -6,9 +6,12 @@ __d(
       l = 320,
       s = 20,
       u = 1e3,
-      c =
+      c = 64,
+      d = 255,
+      m = 63,
+      p =
         /^[\w!#\$%&\'\*\+\/\=\?\^`\{\|\}~\-]+(?:\.[\w!#\$%&\'\*\+\/\=\?\^`\{\|\}~\-]+)*@(?:[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?$/i;
-    function d(t) {
+    function _(t) {
       var n = t
         .split(/[\s,;]+/)
         .map(function (e) {
@@ -26,7 +29,7 @@ __d(
         i = [],
         l = 0;
       for (var c of o) {
-        var d = f(c);
+        var d = y(c);
         d == null
           ? a.push(c)
           : ((l += 1), i.length < s && i.push({ email: c, reason: d }));
@@ -41,8 +44,8 @@ __d(
             invalidEmails: i,
           };
     }
-    function m(e, t) {
-      var n = g(t),
+    function f(e, t) {
+      var n = C(t),
         r = e.emails.filter(function (e) {
           return !n.has(e.toLowerCase());
         });
@@ -61,20 +64,20 @@ __d(
           .slice(0, s),
       });
     }
-    function p(e, t) {
-      var n = g(t);
+    function g(e, t) {
+      var n = C(t);
       return e.flatMap(function (e) {
         var t = n.get(e.toLowerCase());
         return t == null ? [] : [t];
       });
     }
-    function _(e) {
-      return c.test(e) && e.length <= l;
+    function h(e) {
+      return y(e) == null;
     }
-    function f(e) {
-      return c.test(e) ? (e.length > l ? "too_long" : null) : "invalid_format";
+    function y(e) {
+      return b(e) ? (v(e) ? "too_long" : null) : "invalid_format";
     }
-    function g(e) {
+    function C(e) {
       var t = new Map();
       for (var n of e) {
         var r = n.emailAddress,
@@ -83,12 +86,35 @@ __d(
       }
       return t;
     }
+    function b(e) {
+      return (
+        p.test(e) &&
+        e
+          .split("@")[0]
+          .split(".")
+          .every(function (e) {
+            return e.replace(/\+/g, "") !== "";
+          })
+      );
+    }
+    function v(e) {
+      var t = e.split("@"),
+        n = t[0],
+        r = t[1];
+      return (
+        n.length > c ||
+        r.length > d ||
+        r.split(".").some(function (e) {
+          return e.length > m;
+        })
+      );
+    }
     ((i.MAX_ORG_INVITE_EMAILS = e),
       (i.MAX_ORG_INVITE_EMAIL_LENGTH = l),
-      (i.parseInviteEmails = d),
-      (i.skipEmailsNotOnRoster = m),
-      (i.getRosterEntryIDs = p),
-      (i.isWellFormedOrgEmail = _));
+      (i.parseInviteEmails = _),
+      (i.skipEmailsNotOnRoster = f),
+      (i.getRosterEntryIDs = g),
+      (i.isWellFormedOrgEmail = h));
   },
   66,
 );

@@ -19,19 +19,22 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebContactManagerCustomerProfileQuery.graphql"));
-    function u(e) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = o("WAJids").validateLidUserJid(e);
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAJids").validateLidUserJid(e);
           if (n == null)
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: chatJid must be a LID-based JID",
             );
-          var a = yield o("WAWebFetchAdAccountToken").fetchToken();
+          var a = yield o("WAWebFetchAdAccountToken")
+            .fetchToken()
+            .finally(function () {
+              t == null || t();
+            });
           if (a.type !== "success")
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: no access token (" +
@@ -62,7 +65,7 @@ __d(
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: missing profile etag",
             );
-          var c = (t = l.last_updates) != null ? t : [],
+          var c = l.last_updates,
             d = c.flatMap(function (e) {
               var t = e.field_name;
               return t != null && t !== "" ? [t] : [];

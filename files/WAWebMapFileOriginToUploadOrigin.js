@@ -6,8 +6,11 @@ __d(
       return t
         ? o("WAWebWamEnumUploadSourceType").UPLOAD_SOURCE_TYPE.OTHER
         : e ===
-            o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
-              .CHAT_PHOTO_LIBRARY
+              o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+                .CHAT_PHOTO_LIBRARY ||
+            e ===
+              o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+                .EXTERNAL_DROP
           ? o("WAWebWamEnumUploadSourceType").UPLOAD_SOURCE_TYPE.GALLERY
           : e ===
               o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE

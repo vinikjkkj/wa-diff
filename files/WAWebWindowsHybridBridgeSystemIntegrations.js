@@ -11,22 +11,35 @@ __d(
       function e(e) {
         var t = this,
           n,
-          o;
+          a;
         ((this.events = new (r("WAWebEventEmitter"))()),
           (this.$2 = function (e) {
-            var n = e.action,
-              r = e.additionalData,
-              o = e.tag;
+            var n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+                {
+                  bridge: "systemIntegrations",
+                  method: "MessageNotificationActionEvent",
+                },
+                function () {
+                  return {
+                    action: e.action,
+                    additionalData: e.additionalData,
+                    tag: e.tag,
+                  };
+                },
+              ),
+              r = n.action,
+              a = n.additionalData,
+              i = n.tag;
             t.events.trigger("MessageNotificationAction", {
-              key: o,
-              action: n,
-              additionalData: r,
+              key: i,
+              action: r,
+              additionalData: a,
             });
           }),
           (this.$1 = e),
           (n = this.$1) == null ||
             n.addEventListener("MessageNotificationActionEvent", this.$2),
-          (o = this.$1) == null || o.subscribe(null));
+          (a = this.$1) == null || a.subscribe(null));
       }
       var t = e.prototype;
       return (

@@ -9,7 +9,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return _("current");
+      return p("current");
     }
     var s = "WAPrimaryCurrentVersion";
     function u() {
@@ -32,15 +32,12 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p() {
-      return _("session_start");
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaSyncActions")
             .getSyncActionsTable()
             .get('["primary_version","' + e + '"]');
@@ -56,14 +53,13 @@ __d(
           }
           return null;
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
     ((l.getPrimaryCurrentVersion = e),
       (l.getStoredPrimaryCurrentVersion = u),
       (l.storePrimaryCurrentVersion = c),
-      (l.maybeBackfillStoredPrimaryCurrentVersion = d),
-      (l.getPrimarySessionStartVersion = p));
+      (l.maybeBackfillStoredPrimaryCurrentVersion = d));
   },
   98,
 );

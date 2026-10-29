@@ -1,10 +1,10 @@
 __d(
   "WAWebSetContactManagerHiddenAction",
   [
+    "WAWebContactManagerHiddenError",
     "WAWebContactManagerMetadataSync",
     "WAWebSchemaContactManagerMetadata",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -18,9 +18,13 @@ __d(
               "WAWebSchemaContactManagerMetadata",
             ).canUseContactManagerMetadataTable()
           )
-            throw r("err")("Contact manager hidden contacts are unavailable");
+            throw new (o(
+              "WAWebContactManagerHiddenError",
+            ).ContactManagerHiddenError)("metadata_table_unavailable");
           if (e == null)
-            throw r("err")("Contact manager metadata key is unavailable");
+            throw new (o(
+              "WAWebContactManagerHiddenError",
+            ).ContactManagerHiddenError)("missing_metadata_key");
           yield r(
             "WAWebContactManagerMetadataSync",
           ).sendContactManagerMetadataUpdate({ id: e, isHidden: t });

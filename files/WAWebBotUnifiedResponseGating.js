@@ -1,6 +1,6 @@
 __d(
   "WAWebBotUnifiedResponseGating",
-  ["WAWebABProps", "gkx"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
@@ -30,7 +30,7 @@ __d(
       );
     }
     function m() {
-      return r("gkx")("6940");
+      return !0;
     }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
       (l.isUnifiedResponseReceiverEnabled = s),

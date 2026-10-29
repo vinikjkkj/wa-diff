@@ -18,7 +18,9 @@ __d(
       return t.tag !== n ? O(t, "to be <" + n + ">") : e;
     }
     function u(e, t) {
-      return B(e, t) ? W(e, e.attrs[t]) : O(e, 'to have attribute "' + t + '"');
+      if (!B(e, t)) return O(e, 'to have attribute "' + t + '"');
+      var n = e.attrs;
+      return W(e, n[t]);
     }
     function c(e, t, n, r) {
       var a = u(e, t);

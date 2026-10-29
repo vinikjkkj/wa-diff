@@ -1134,7 +1134,9 @@ __d(
         return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
       }, 0);
     }
-    ((l.saveImportedContacts = S), (l.createCustomerManagerImporter = R));
+    ((l.IMPORT_ROWS_PER_MINUTE = b),
+      (l.saveImportedContacts = S),
+      (l.createCustomerManagerImporter = R));
   },
   98,
 );

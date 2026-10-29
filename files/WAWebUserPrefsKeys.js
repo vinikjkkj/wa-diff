@@ -5,6 +5,7 @@ __d(
     var e = n("$InternalEnum").Mirrored([
         "TryItPixKeyPromoDismissed",
         "ChargesInfoBannerDismissed",
+        "OrdersDeprecationPaymentsHomeBannerDismissed",
       ]),
       s = n("$InternalEnum").Mirrored([
         "AbpropsWebRefreshId",

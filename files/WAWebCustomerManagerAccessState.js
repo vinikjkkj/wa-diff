@@ -42,7 +42,7 @@ __d(
           : e.state === "TRIAL_EXPIRED" || e.state === "TRIAL_UNAVAILABLE"
             ? _
             : e.state === "TRIAL_ACTIVE"
-              ? R(e.trialEndTime, t)
+              ? L(e.trialEndTime, t)
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -59,21 +59,30 @@ __d(
     function C(e) {
       return e.stage === "trial_start" || e.stage === "locked";
     }
-    function b(e, t) {
+    function b(e, t, n) {
+      return (function (e) {
+        return e === "ACCESS_NOT_REQUIRED"
+          ? !0
+          : e === "TRIAL_ACTIVE"
+            ? t.stage === "none" && !n
+            : !1;
+      })(e == null ? void 0 : e.state);
+    }
+    function v(e, t) {
       return e && !C(t);
     }
-    function v(t, n) {
+    function S(t, n) {
       return Math.max(1, Math.ceil((t - n) / e));
     }
-    function S(t, n) {
+    function R(t, n) {
       return t <= n
         ? null
-        : o("WATimeUtils").castToUnixTime(t - (v(t, n) - 1) * e);
+        : o("WATimeUtils").castToUnixTime(t - (S(t, n) - 1) * e);
     }
-    function R(e, t) {
+    function L(e, t) {
       if (e == null) return m;
       if (e <= t) return _;
-      var n = v(e, t);
+      var n = S(e, t);
       return n <= u
         ? { daysLeft: n, stage: "trial_ending" }
         : n <= s
@@ -87,8 +96,9 @@ __d(
       (l.getCustomerManagerUpsell = h),
       (l.isCustomerManagerAccessAllowedByState = y),
       (l.isCustomerManagerPanelBlocked = C),
-      (l.canReadCustomerData = b),
-      (l.getNextTrialDayChangeTime = S));
+      (l.isCustomerManagerOnboardingWindow = b),
+      (l.canReadCustomerData = v),
+      (l.getNextTrialDayChangeTime = R));
   },
   98,
 );

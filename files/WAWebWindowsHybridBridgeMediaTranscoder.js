@@ -34,6 +34,20 @@ __d(
           ((this.$3 = new Map()),
             (this.$4 = new Map()),
             (this.$6 = function (t) {
+              var n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+                  {
+                    bridge: "mediaTranscoder",
+                    method: "onProgressChangedEvent",
+                  },
+                  function () {
+                    return {
+                      percentage: t.percentage,
+                      sourceBufferId: t.sourceBufferId,
+                    };
+                  },
+                ),
+                a = n.percentage,
+                i = n.sourceBufferId;
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -41,11 +55,11 @@ __d(
                     ", percentage=",
                     "",
                   ])),
-                t.sourceBufferId,
-                t.percentage,
+                i,
+                a,
               );
-              var n = r.$4.get(t.sourceBufferId);
-              n && n(t.percentage);
+              var l = r.$4.get(i);
+              l && l(a);
             }),
             (this.$1 = n),
             (this.$2 = t),

@@ -19,9 +19,9 @@ __d(
       });
     }
     function d(e) {
-      m(function (t) {
+      return u().then(function (t) {
         return t.dropChannelVideoDashManifest(e);
-      });
+      }, r("WAWebNoop"));
     }
     function m(e) {
       var t;
@@ -29,7 +29,7 @@ __d(
     }
     ((l.requireChannelVideoDashManifestPrefetch = u),
       (l.clearChannelVideoDashManifestsIfLoaded = c),
-      (l.dropChannelVideoDashManifestIfLoaded = d));
+      (l.dropChannelVideoDashManifest = d));
   },
   98,
 );

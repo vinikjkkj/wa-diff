@@ -24,6 +24,7 @@ __d(
     "WAWebWamEnumSignalSurface",
     "WAWebWamEnumSignalType",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -143,7 +144,7 @@ __d(
           o(
             "WAWebMmSignalSharingGatingUtils",
           ).isMmSignalSharingReplacingShimmedLinksEnabled() &&
-            P({
+            N({
               chat: n,
               mmSignalType: p,
               mmCtaButtonIndex:
@@ -336,7 +337,7 @@ __d(
     }
     function g(e) {
       var t = e.chat;
-      (P({
+      (N({
         chat: t,
         mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
           .USER_STOP_OFFERS,
@@ -444,7 +445,7 @@ __d(
         !o("WAWebMmSignalSharingGatingUtils")
           .getMmSignalSharingBlockAndReportEntryPointsAllowlist()
           .includes(n) ||
-        P({ chat: r, mmSignalType: S(a) });
+        N({ chat: r, mmSignalType: S(a) });
     }
     function v(e) {
       var t;
@@ -495,12 +496,23 @@ __d(
     }
     function R(e) {
       var t = e.chat;
-      P({
+      (N({
         chat: t,
         mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.USER_MUTE,
-      });
+      }),
+        L({ chat: t }));
     }
     function L(e) {
+      var t = e.chat;
+      r("justknobx")._("6936") &&
+        h({
+          chat: t,
+          mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.USER_MUTE,
+          type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_MUTE,
+          surface: o("WAWebWamEnumSignalSurface").SIGNAL_SURFACE.OTHER,
+        });
+    }
+    function E(e) {
       var t,
         n = e.blockEntryPointMetric,
         r = e.chat;
@@ -510,16 +522,16 @@ __d(
         !o("WAWebMmSignalSharingGatingUtils")
           .getMmSignalSharingBlockAndReportEntryPointsAllowlist()
           .includes(n) ||
-        P({
+        N({
           chat: r,
           mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
             .USER_REPORT,
         });
     }
-    function E(e) {
+    function k(e) {
       var t = e.chat,
         n = e.msg;
-      (P({
+      (N({
         chat: t,
         mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
           .USER_INTERESTED,
@@ -532,10 +544,10 @@ __d(
           type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_INTERESTED,
         }));
     }
-    function k(e) {
+    function I(e) {
       var t = e.chat,
         n = e.msg;
-      (P({
+      (N({
         chat: t,
         mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
           .USER_NOT_INTERESTED,
@@ -548,7 +560,7 @@ __d(
           type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_NOT_INTERESTED,
         }));
     }
-    function I(e) {
+    function T(e) {
       var t,
         n = e.chat,
         r = e.newMsg;
@@ -562,7 +574,7 @@ __d(
         (o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingPostDcOldSchemaEnabled() &&
-          D({ chat: n, newMsg: r }),
+          x({ chat: n, newMsg: r }),
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingPostDcNewSchemaEnabled() &&
@@ -572,9 +584,9 @@ __d(
           (o(
             "WAWebMmSignalSharingConversationCounters",
           ).advanceMmSignalSharingConversationCounters(n, r.id.fromMe),
-          T(n, r)));
+          D(n, r)));
     }
-    function T(t, n) {
+    function D(t, n) {
       var r = n.type,
         a = o(
           "WAWebMmSignalSharingConversationCounters",
@@ -601,7 +613,7 @@ __d(
             mmConversationRepeat: s,
             mmDirectionFrom: u,
           };
-          (P({
+          (N({
             chat: t,
             mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.MESSAGE,
             postDcParams: babelHelpers.extends({}, d, {
@@ -635,7 +647,7 @@ __d(
         }
       }
     }
-    function D(e) {
+    function x(e) {
       var t = e.chat,
         n = e.newMsg,
         r = n.id.fromMe,
@@ -645,20 +657,20 @@ __d(
       if (a) {
         var i = a.isContinuation,
           l = a.messageOriginGroups,
-          s = x({
+          s = $({
             isContinuation: i,
             isNewMessagefromMe: r,
             messageOriginGroupsCount: l,
             source: o("WAWebWamEnumSignalType").SIGNAL_TYPE,
           }),
-          u = x({
+          u = $({
             isContinuation: i,
             isNewMessagefromMe: r,
             messageOriginGroupsCount: l,
             source: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE,
           });
         if (
-          (u != null && P({ chat: t, mmSignalType: u }), s != null && u != null)
+          (u != null && N({ chat: t, mmSignalType: u }), s != null && u != null)
         ) {
           var c = o(
             "WAWebMmSignalSharingTos",
@@ -689,14 +701,14 @@ __d(
         }
       }
     }
-    function x(e) {
+    function $(e) {
       var t = e.isContinuation,
         n = e.isNewMessagefromMe,
         r = e.messageOriginGroupsCount,
         o = e.source,
         a = u[String(r)];
       return a
-        ? $({
+        ? P({
             isContinuation: t,
             isNewMessagefromMe: n,
             signalConfig: a,
@@ -704,7 +716,7 @@ __d(
           })
         : null;
     }
-    function $(e) {
+    function P(e) {
       var t,
         n,
         r = e.isContinuation,
@@ -720,7 +732,7 @@ __d(
           ? void 0
           : n[0];
     }
-    function P(e) {
+    function N(e) {
       var t,
         n = e.chat,
         r = e.deepConversationParams,
@@ -745,7 +757,7 @@ __d(
             "WAWebMmSignalSharingGatingUtils",
           ).isMmSignalSharingReplacingShimmedLinksEnabled()
         ) {
-          N({
+          M({
             chat: n,
             mmSignalType: l,
             mmCtaButtonIndex: i,
@@ -776,7 +788,7 @@ __d(
           });
       }
     }
-    function N(e) {
+    function M(e) {
       var t = e.chat,
         n = e.deepConversationParams,
         r = e.mmCarouselCardIndex,
@@ -852,10 +864,11 @@ __d(
       (l.logMmSignalSharingUpdateExpirationWindowEvent = y),
       (l.logMmSignalSharingUserBlockWithReasonEvent = b),
       (l.logMmSignalSharingUserMuteEvent = R),
-      (l.logMmSignalSharingUserReportEvent = L),
-      (l.logMmSignalSharingUserInterestedEvent = E),
-      (l.logMmSignalSharingUserNotInterestedEvent = k),
-      (l.logMmSignalSharingNewMessageEvent = I));
+      (l.logMmSignalSharingMuteVerificationEvent = L),
+      (l.logMmSignalSharingUserReportEvent = E),
+      (l.logMmSignalSharingUserInterestedEvent = k),
+      (l.logMmSignalSharingUserNotInterestedEvent = I),
+      (l.logMmSignalSharingNewMessageEvent = T));
   },
   98,
 );

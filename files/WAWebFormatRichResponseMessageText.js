@@ -8,16 +8,13 @@ __d(
     "WAWebFormatMsgTextUtils",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
-    "WAWebHatchJarvisPayload",
-    "WAWebHatchJarvisReplyGate",
-    "WAWebHatchJarvisText",
     "WAWebMsgGetters",
     "WAWebRichResponse.flow",
     "WAWebRichResponseMsgUtils",
+    "WAWebRichResponsePreviewText",
     "WAWebRichResponseTableFragmentText.react",
     "WAWebRichResponseUnknownFragmentUtils",
     "WAWebUnifiedResponseUtils",
-    "getPlainTextFromUnifiedResponse",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
@@ -28,7 +25,15 @@ __d(
         r != null &&
         o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(t)
       )
-        return c(t, u(t, r.unifiedResponse), n.formatAsLastMsg === !0, n);
+        return u(
+          t,
+          o("WAWebRichResponsePreviewText").getUnifiedResponsePreviewText(
+            t,
+            r.unifiedResponse,
+          ),
+          n.formatAsLastMsg === !0,
+          n,
+        );
       if (
         r == null ||
         o("WAWebRichResponseMsgUtils").isRichResponseMsgUnparsedAfterCompletion(
@@ -42,7 +47,7 @@ __d(
         s = o("WAWebRichResponseMsgUtils")
           .getBundledRichResponseFragments(i)
           .map(function (e) {
-            return m(e, l);
+            return d(e, l);
           })
           .join("\n");
       return s.trim() === ""
@@ -53,26 +58,8 @@ __d(
             n,
           );
     }
-    function u(e, t) {
-      if (t == null) return "";
-      var n = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
-          chatId: e.id.remote,
-          hasForwardedAttribution:
-            o("WAWebMsgGetters").getForwardedAiBotMessageInfo(e) != null,
-          isForwarded: o("WAWebMsgGetters").getIsForwarded(e),
-          isFromMe: e.id.fromMe,
-          unifiedResponse: t,
-        }),
-        a =
-          n === "reply"
-            ? o("WAWebHatchJarvisPayload").getHatchJarvisPayload(t)
-            : null;
-      return a != null && a.presentation == null
-        ? o("WAWebHatchJarvisText").getHatchJarvisReplyText(a.displayText)
-        : r("getPlainTextFromUnifiedResponse")(t);
-    }
-    function c(e, t, n, r) {
-      var a = t.trim() === "" && n ? d(e) : null;
+    function u(e, t, n, r) {
+      var a = t.trim() === "" && n ? c(e) : null;
       return a == null
         ? o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
             e,
@@ -83,7 +70,7 @@ __d(
             s._param("agent name", a),
           ]);
     }
-    function d(e) {
+    function c(e) {
       if (
         o("WAWebMsgGetters").getIsSentByMe(e) ||
         !o("WAWebBotUtils").isHatchBot(e.id.remote)
@@ -93,7 +80,7 @@ __d(
         n = t == null ? "" : o("WAWebContactGetters").getName(t);
       return n === "" ? null : n;
     }
-    function m(e, t) {
+    function d(e, t) {
       switch (e.type) {
         case o("WAWebRichResponse.flow").RichResponseFragmentType.Text:
           return e.text;

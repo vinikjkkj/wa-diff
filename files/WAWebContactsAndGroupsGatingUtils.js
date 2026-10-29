@@ -1,6 +1,6 @@
 __d(
   "WAWebContactsAndGroupsGatingUtils",
-  ["WAWebABProps", "gkx"],
+  ["WAWebABProps", "WAWebContactManagementGating", "gkx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -11,7 +11,22 @@ __d(
           ) === !0)
       );
     }
-    l.isContactsAndGroupsEnabled = e;
+    function s() {
+      return (
+        e() &&
+        o("WAWebContactManagementGating").bulkAddContactGroupInfoEnabled()
+      );
+    }
+    function u() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_contacts_and_groups_online_now_enabled",
+        ) === !0
+      );
+    }
+    ((l.isContactsAndGroupsEnabled = e),
+      (l.isContactsAndGroupsBulkSaveEnabled = s),
+      (l.isContactsAndGroupsFavoritesAndRecentEnabled = u));
   },
   98,
 );

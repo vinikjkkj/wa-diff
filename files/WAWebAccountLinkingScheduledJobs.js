@@ -2,30 +2,35 @@ __d(
   "WAWebAccountLinkingScheduledJobs",
   [
     "WALogger",
-    "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebGraphQLServerError",
     "asyncToGeneratorRuntime",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      u = r("requireDeferred")("WAWebAccountLinkingAPI").__setRef(
+        "WAWebAccountLinkingScheduledJobs",
+      ),
+      c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function c() {
-      return d.apply(this, arguments);
-    }
     function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield u.getPingExpirationTime(),
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield c.getPingExpirationTime(),
             n = Date.now() / 1e3;
           if (n > t) {
             try {
-              yield o("WAWebAccountLinkingAPI").ping();
+              var r = yield u.load(),
+                a = r.ping;
+              yield a();
             } catch (t) {
-              var r =
+              var i =
                 t instanceof o("WAWebGraphQLServerError").GraphQLServerError
                   ? o("WAWebGraphQLServerError").formatGraphQLServerError(t)
                   : t;
@@ -36,16 +41,18 @@ __d(
                       "[WAFFLE] ping failed: ",
                       "",
                     ])),
-                  r,
+                  i,
                 )
                 .tags("waffle", "account-linking", "ping")
                 .sendLogs("waffle-ping-failed", { sampling: 0.01 });
               return;
             }
             try {
-              yield o("WAWebAccountLinkingAPI").fetchServiceData();
+              var l = yield u.load(),
+                d = l.fetchServiceData;
+              yield d();
             } catch (e) {
-              var a =
+              var m =
                 e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                   ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
                   : e;
@@ -56,7 +63,7 @@ __d(
                       "[WAFFLE] fetchServiceData failed: ",
                       "",
                     ])),
-                  a,
+                  m,
                 )
                 .tags("waffle", "account-linking", "fetch-service-data")
                 .sendLogs("waffle-fetch-service-data-failed", {
@@ -65,10 +72,10 @@ __d(
             }
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.scheduledWaffleJobs = c;
+    l.scheduledWaffleJobs = d;
   },
   98,
 );

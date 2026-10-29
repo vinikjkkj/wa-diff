@@ -627,6 +627,21 @@ __d(
     function er() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(207);
     }
+    function tr() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(208);
+    }
+    function nr() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(209);
+    }
+    function rr() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(210);
+    }
+    function or() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(211);
+    }
+    function ar() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(212);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -834,7 +849,12 @@ __d(
       (l.coexV2BotSecretCreateTable = Yn),
       (l.contactManagerMetadataCreateTable = Jn),
       (l.experienceIdCreateTable = Zn),
-      (l.pollPendingUpdatesCreateTable = er));
+      (l.pollPendingUpdatesCreateTable = er),
+      (l.sharableEventCreateTable = tr),
+      (l.sharableEventChangeCreateTable = nr),
+      (l.sharableEventCreatorPushNameCreateTable = rr),
+      (l.sharableEventInviteeCreateTable = or),
+      (l.sharableEventInviteLinkTokenCreateTable = ar));
   },
   98,
 );

@@ -49,10 +49,13 @@ __d(
             ) &&
               ((o(
                 "WAWebBrLastUsedPaymentMethodCache",
-              ).brLastUsedPaymentMethodCache.entries = g(
-                f(o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u), e),
-                Date.now(),
-              )),
+              ).brLastUsedPaymentMethodCache.entries = g({
+                now: Date.now(),
+                stored: f(
+                  o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u),
+                  e,
+                ),
+              })),
               (o(
                 "WAWebBrLastUsedPaymentMethodCache",
               ).brLastUsedPaymentMethodCache.loaded = !0)));
@@ -134,7 +137,9 @@ __d(
         i,
         l = h(e, o),
         s = (a = (i = l[t]) == null ? void 0 : i.t) != null ? a : 0;
-      return s > r && s <= o ? g(l, o) : ((l[t] = { m: n, t: r }), g(l, o, t));
+      return s > r && s <= o
+        ? g({ now: o, stored: l })
+        : ((l[t] = { m: n, t: r }), g({ keep: t, now: o, stored: l }));
     }
     function _(t) {
       return (
@@ -159,24 +164,27 @@ __d(
         }),
       );
     }
-    function g(e, t, n) {
-      var r = h(e, t),
-        a = Object.keys(r).sort(function (e, t) {
-          return r[t].t - r[e].t;
+    function g(e) {
+      var t = e.keep,
+        n = e.now,
+        r = e.stored,
+        a = h(r, n),
+        i = Object.keys(a).sort(function (e, t) {
+          return a[t].t - a[e].t;
         }),
-        i =
-          n != null && r[n] != null
-            ? [n].concat(
-                a.filter(function (e) {
-                  return e !== n;
+        l =
+          t != null && a[t] != null
+            ? [t].concat(
+                i.filter(function (e) {
+                  return e !== t;
                 }),
               )
-            : a;
+            : i;
       return Object.fromEntries(
-        i
+        l
           .slice(0, o("WAWebBrLastUsedPaymentMethodCache").MAX_MERCHANTS)
           .map(function (e) {
-            return [e, r[e]];
+            return [e, a[e]];
           }),
       );
     }

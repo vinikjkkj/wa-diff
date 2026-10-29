@@ -23,7 +23,7 @@ __d(
       if (
         e == null ||
         t == null ||
-        !o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e, t)
+        !e.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
       )
         return null;
       var n = o("WAWebUserPrefsMeUser").isMeAccount(t);
@@ -37,8 +37,13 @@ __d(
           : o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE.OTHER_COEX_V2,
       };
     }
-    function u(e, t, n) {
-      var r = s(e, n);
+    function u(e, t) {
+      return e != null && o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e, t)
+        ? s(e, t)
+        : null;
+    }
+    function c(e, t, n) {
+      var r = u(e, n);
       return r != null
         ? { e2eSenderType: r.e2eSenderType, encryptionType: r.encryptionType }
         : t == null
@@ -51,8 +56,9 @@ __d(
             };
     }
     ((l.getCoexV2ReceiveDropReason = e),
-      (l.getCoexV2RecvWamClassification = s),
-      (l.getRecvWamE2eClassification = u));
+      (l.getCoexV2DropWamClassification = s),
+      (l.getCoexV2RecvWamClassification = u),
+      (l.getRecvWamE2eClassification = c));
   },
   98,
 );

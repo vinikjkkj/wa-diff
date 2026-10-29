@@ -10,10 +10,20 @@ __d(
     function d(e) {
       return e != null && typeof e == "object" && !Array.isArray(e);
     }
-    function m(e, t, n) {
+    function m(e, t, n, r) {
+      var o = r === void 0 ? {} : { errorCode: r };
       return n === void 0
-        ? { detail: e, kind: "Rejected", statusCode: t }
-        : { detail: e, kind: "Rejected", statusCode: t, value: n };
+        ? babelHelpers.extends({}, o, {
+            detail: e,
+            kind: "Rejected",
+            statusCode: t,
+          })
+        : babelHelpers.extends({}, o, {
+            detail: e,
+            kind: "Rejected",
+            statusCode: t,
+            value: n,
+          });
     }
     var p = (function () {
       function t(e) {
@@ -56,6 +66,30 @@ __d(
             },
             n,
           );
+        }),
+        (r.scheduledTasks = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.SCHEDULED_TASKS,
+            babelHelpers.extends({}, t, { responseShape: "flat-or-envelope" }),
+          );
+        }),
+        (r.deleteScheduledTask = function (r, a) {
+          var t = o("WAWebHatchVmTransport").JarvisPaths.SCHEDULED_TASK(r);
+          return t == null
+            ? (e || (e = n("Promise"))).resolve({
+                detail: "Scheduled task ID is invalid",
+                kind: "Failure",
+                reason: "TRANSPORT",
+              })
+            : this.request(
+                "DELETE",
+                t,
+                babelHelpers.extends({}, a, {
+                  allowEmptySuccess: !0,
+                  responseShape: "flat-or-envelope",
+                }),
+              );
         }),
         (r.approvalHistory = function (t, n, r) {
           return this.request(
@@ -540,7 +574,7 @@ __d(
     }
     function h(e, t, n) {
       return n
-        ? m("VM returned HTTP " + t, t, e)
+        ? m("VM returned HTTP " + t, t, e, R(e != null ? e : null))
         : e === void 0
           ? { detail: "VM returned an invalid envelope", kind: "Unreadable" }
           : { kind: "Ok", value: e };
@@ -561,7 +595,7 @@ __d(
     function b(e, t, n) {
       if (e.ok !== !0) {
         var r;
-        return m(S((r = e.error) != null ? r : null), t, v(e, n));
+        return m(S((r = e.error) != null ? r : null), t, v(e, n), R(e));
       }
       return t < 200 || t >= 300
         ? m("VM returned HTTP " + t, t, e.result)
@@ -576,6 +610,15 @@ __d(
       if (typeof e == "string") return e;
       var t = d(e) ? e.message : null;
       return typeof t == "string" ? t : "VM rejected the request";
+    }
+    function R(e) {
+      var t;
+      if (d(e)) {
+        var n = (t = e.error) != null ? t : null,
+          r = d(n) ? n.code : null,
+          o = typeof r == "string" && r !== "" ? r : e.code;
+        return typeof o == "string" && o !== "" ? o : void 0;
+      }
     }
     l.WAWebHatchVmApi = p;
   },

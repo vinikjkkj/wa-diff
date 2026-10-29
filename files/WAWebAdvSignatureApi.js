@@ -113,15 +113,15 @@ __d(
                 ).addToCoexHostedVerificationCache(t)),
                 (R = R && R.byteLength > 0 ? R : void 0));
               try {
-                yield o("WAWebAdvHandlerApi").handleADVDeviceUpdateForMessage(
-                  t,
-                  S,
-                  v,
-                  R,
-                  g,
-                  a,
-                  S.accountType,
-                );
+                yield o("WAWebAdvHandlerApi").handleADVDeviceUpdateForMessage({
+                  accountSignatureKey: R,
+                  advDeviceIdentity: S,
+                  deviceIdentityKey: g,
+                  deviceWid: t,
+                  incomingAdvAccountType: S.accountType,
+                  offline: a,
+                  primarySignatureKey: v,
+                });
               } catch (e) {
                 if (!o("WAWebCurrentUser").isEmployee())
                   o("WALogger").WARN(

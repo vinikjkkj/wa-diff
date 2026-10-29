@@ -26,16 +26,21 @@ __d(
             i[l] = arguments[l];
           return (
             (n = t.call.apply(t, [this].concat(i)) || this),
-            (n.openPiP = function (e, t, r) {
-              var a;
-              (a = n.manager) == null ||
-                a.openPiP(o("WAWebPipConst").PiPVideoType.MSG, {
-                  msg: e,
-                  startTime: t,
-                  zoomRect: r,
-                  videoSrc: null,
-                  preview: null,
-                });
+            (n.openPiP = function (e, t, r, a) {
+              var i, l;
+              return (i =
+                (l = n.manager) == null
+                  ? void 0
+                  : l.openPiP(o("WAWebPipConst").PiPVideoType.MSG, {
+                      dashHandoff: a,
+                      msg: e,
+                      startTime: t,
+                      zoomRect: r,
+                      videoSrc: null,
+                      preview: null,
+                    })) != null
+                ? i
+                : !1;
             }),
             (n.closePiP = function () {
               var e;
@@ -213,6 +218,9 @@ __d(
           }),
           (a.didClose = function (t) {
             this.trigger(t.id.toString() + "_pip_did_close");
+          }),
+          (a.didFinishDashHandoff = function (t) {
+            this.trigger(t.id.toString() + "_pip_did_finish_dash_handoff");
           }),
           (a.didError = function (t) {
             this.trigger(t.id.toString() + "_pip_did_error");

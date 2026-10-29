@@ -69,13 +69,27 @@ __d(
             (this.$7 = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  var t,
-                    n,
-                    i,
-                    l = e.data.toString(),
-                    u = (t = e.channel) == null ? void 0 : t.toString(),
-                    c = (n = e.pkey) == null ? void 0 : n.toString(),
-                    d = (i = e.settings) != null ? i : null;
+                  var t = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+                      {
+                        bridge: "connection",
+                        method: "updateNotificationsTokenEvent",
+                      },
+                      function () {
+                        var t, n;
+                        return {
+                          channelString:
+                            (t = e.channel) == null ? void 0 : t.toString(),
+                          pkeyString:
+                            (n = e.pkey) == null ? void 0 : n.toString(),
+                          settings: e.settings,
+                          tokenString: e.data.toString(),
+                        };
+                      },
+                    ),
+                    n = t.channelString,
+                    i = t.pkeyString,
+                    l = t.settings,
+                    u = t.tokenString;
                   (o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -84,10 +98,10 @@ __d(
                   ),
                     yield r("WAWebEventsWaitForMainStreamReadyMd")(),
                     yield o("WAWebSetWindowsPushConfig").setWindowsPushConfig(
-                      l,
                       u,
-                      c,
-                      d,
+                      n,
+                      i,
+                      l != null ? l : null,
                     ),
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.connection.send.handle_connection_state",
@@ -112,7 +126,7 @@ __d(
                         type: "async",
                       },
                       function () {
-                        return a.$1.acknowledgeNotificationsToken(l, u);
+                        return a.$1.acknowledgeNotificationsToken(u, n);
                       },
                     ));
                 },

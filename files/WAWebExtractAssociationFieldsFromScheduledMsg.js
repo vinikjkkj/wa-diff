@@ -14,7 +14,11 @@ __d(
       if (r == null) return null;
       var a = o(
         "WAWebAssociationProtoUtils",
-      ).getValidatedAssociationFieldsFromProto(r, n, e);
+      ).getValidatedAssociationFieldsFromProto({
+        baseMessage: n,
+        messageAssociation: r,
+        msgContext: e,
+      });
       return {
         associationType: a.associationType,
         parentMsgKey: a.associationParentMsgKey,

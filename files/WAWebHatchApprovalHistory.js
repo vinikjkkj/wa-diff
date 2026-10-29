@@ -41,7 +41,7 @@ __d(
             : e,
         n = o("WAWebHatchJsonReaders").readArray(t, "items");
       if (n == null) return null;
-      var r = n.map(p).filter(Boolean);
+      var r = n.map(_).filter(Boolean);
       return {
         nextCursor: o("WAWebHatchJsonReaders").trimToNull(
           o("WAWebHatchJsonReaders").readTrimmedString(t, "next_cursor"),
@@ -53,7 +53,7 @@ __d(
     function m(e) {
       var t, n, r, o, a;
       if (e.status === "pending") return null;
-      var i = _(e);
+      var i = f(e);
       if (i == null && e.outcomeLabel == null) return null;
       var l =
           (t =
@@ -66,9 +66,18 @@ __d(
             ? t
             : e.id,
         s = (a = e.scopeSummary) != null ? a : e.purposeSummary;
-      return { caption: s === l ? null : s, outcome: i, record: e, title: l };
+      return {
+        caption: s == null || p(s, l) ? null : s,
+        outcome: i,
+        record: e,
+        title: l,
+      };
     }
-    function p(t) {
+    function p(e, t) {
+      var n = e.replace(/(\u2026|\.\.\.)$/, "").trimEnd();
+      return n === e ? e === t : t.startsWith(n);
+    }
+    function _(t) {
       var n,
         r,
         a,
@@ -125,7 +134,7 @@ __d(
         summaryTitle: u("summary_title"),
       };
     }
-    function _(e) {
+    function f(e) {
       var t;
       if (e.status === "timed_out") return "timed_out";
       if (e.decision != null) {

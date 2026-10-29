@@ -7,6 +7,7 @@ __d(
     "WAWebMmSignalSharingGatingUtils",
     "WAWebTos",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -27,22 +28,28 @@ __d(
           if (
             o(
               "WAWebMmSignalSharingGatingUtils",
-            ).isMmSignalSharingDisclosureEnabled() &&
-            (o("WAWebTos").TosManager.setState(
-              s(),
-              "ACCEPTED",
-              o("WATimeUtils").unixTime(),
-            ),
-            o(
-              "WAWebMmSignalSharingGatingUtils",
-            ).isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens())
+            ).isMmSignalSharingDisclosureEnabled()
           ) {
-            var t = o("WAWebContactSystemMsg").genMmSignalSharingSystemMsg(e);
-            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-              chatId: e,
-              newMsg: t,
-              handleSingleMsgOrigin: "mmSignalSharing",
-            });
+            var t = s();
+            if (
+              (o("WAWebTos").TosManager.setState(
+                t,
+                "ACCEPTED",
+                o("WATimeUtils").unixTime(),
+              ),
+              r("justknobx")._("6919") &&
+                o("WAWebTos").TosManager.maybeUpdateServer([t]),
+              o(
+                "WAWebMmSignalSharingGatingUtils",
+              ).isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens())
+            ) {
+              var n = o("WAWebContactSystemMsg").genMmSignalSharingSystemMsg(e);
+              yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                chatId: e,
+                newMsg: n,
+                handleSingleMsgOrigin: "mmSignalSharing",
+              });
+            }
           }
         })),
         c.apply(this, arguments)

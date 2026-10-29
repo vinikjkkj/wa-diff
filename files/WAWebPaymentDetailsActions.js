@@ -71,12 +71,13 @@ __d(
           );
           return (
             a
-              ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange(
-                  e,
-                  o("WAWebPaymentDetailsLogger").PaymentStateChange.STATUS,
-                  o("WAWebPaymentDetailsModels").PaymentDetailsStatus
-                    .MARKED_AS_PAID,
-                )
+              ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange({
+                  change: o("WAWebPaymentDetailsLogger").PaymentStateChange
+                    .STATUS,
+                  paymentMsg: e,
+                  paymentStatus: o("WAWebPaymentDetailsModels")
+                    .PaymentDetailsStatus.MARKED_AS_PAID,
+                })
               : yield K(e, H(r.previous, t)),
             a
           );
@@ -118,14 +119,14 @@ __d(
           );
           return (
             a
-              ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange(
-                  e,
-                  o("WAWebPaymentDetailsLogger").PaymentStateChange
+              ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange({
+                  change: o("WAWebPaymentDetailsLogger").PaymentStateChange
                     .RECEIPT_REMOVED,
-                  o("WAWebBrazilPaymentState").getPaymentDetailsStatus(
-                    r.previous,
-                  ),
-                )
+                  paymentMsg: e,
+                  paymentStatus: o(
+                    "WAWebBrazilPaymentState",
+                  ).getPaymentDetailsStatus(r.previous),
+                })
               : yield K(e, G(r.previous, t)),
             a
           );

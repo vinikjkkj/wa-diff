@@ -140,7 +140,11 @@ __d(
           b != null
             ? o(
                 "WAWebAssociationProtoUtils",
-              ).getValidatedAssociationFieldsFromProto(b, d, _)
+              ).getValidatedAssociationFieldsFromProto({
+                baseMessage: d,
+                messageAssociation: b,
+                msgContext: _,
+              })
             : null;
       if (
         v != null &&

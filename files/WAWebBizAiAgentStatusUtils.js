@@ -30,36 +30,44 @@ __d(
       var e = o(
         "WAWebBusinessProfileCollection",
       ).BusinessProfileCollection.getMeBusinessProfile();
+      return e == null || e.dataSource === "placeholder"
+        ? null
+        : o("WAWebBusinessProfileGetters").getIsBizBot1p(e);
+    }
+    function c() {
+      var e = o(
+        "WAWebBusinessProfileCollection",
+      ).BusinessProfileCollection.getMeBusinessProfile();
       return e != null && o("WAWebBusinessProfileGetters").getIsBizBot1p(e);
     }
-    var c = ["change:automatedType", "change:dataSource"],
-      d = ["add"].concat(c);
-    function m(e) {
+    var d = ["change:automatedType", "change:dataSource"],
+      m = ["add"].concat(d);
+    function p(e) {
       "use no forget";
       return r("useWAWebEventTargetValue")(
         e
           ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
           : null,
-        d,
+        m,
         function () {
-          return e && u();
+          return e && c();
         },
         [e],
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       "use no forget";
       o("useWAWebListener").useListener(
         e
           ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
           : null,
-        d,
+        m,
         function (e) {
           o("WAWebUserPrefsMeUser").isMeAccount(e.id) && t();
         },
       );
     }
-    function _(e) {
+    function f(e) {
       return (
         e.id.isRegularUser() &&
         !e.id.isIAS() &&
@@ -67,38 +75,38 @@ __d(
         !o("WAWebContactGetters").getIsAiHub(e.contact)
       );
     }
-    function f(e) {
-      return _(e) && !e.id.isSupportAccount() && !e.id.isCAPISupportAccount();
+    function g(e) {
+      return f(e) && !e.id.isSupportAccount() && !e.id.isCAPISupportAccount();
     }
-    function g(e, t) {
+    function h(e, t) {
       var n;
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-        f(e) &&
-        ((n = t == null ? void 0 : t.hasOnboardedAiAgent) != null ? n : u()) &&
-        !h(e, t)
+        g(e) &&
+        ((n = t == null ? void 0 : t.hasOnboardedAiAgent) != null ? n : c()) &&
+        !y(e, t)
       );
     }
-    function h(e, t) {
+    function y(e, t) {
       if (t != null)
-        return y(
+        return C(
           t.recipientRunsAiAgent,
           t.recipientIsEnterprise,
           t.recipientIsHosted,
         );
       var n = e.contact,
         r = n.businessProfile;
-      return y(
+      return C(
         r != null && o("WAWebBusinessProfileGetters").getIsBizBot1p(r),
         o("WAWebContactGetters").getIsEnterprise(n),
         o("WAWebContactGetters").getIsHosted(n),
       );
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       return e || (t && n !== !0);
     }
-    function C(e) {
+    function b(e) {
       return (
         e.capiThreadControl ===
         o("WAWebProtobufsE2E.pb")
@@ -106,13 +114,13 @@ __d(
           .CONTROL_TAKEN
       );
     }
-    function b(e) {
-      return C(e) && _(e);
-    }
     function v(e) {
-      return g(e) || b(e);
+      return b(e) && f(e);
     }
     function S(e) {
+      return h(e) || v(e);
+    }
+    function R(e) {
       var t = o("react-compiler-runtime").c(1),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -127,13 +135,13 @@ __d(
           .CONTROL_TAKEN
       );
     }
-    function R(e) {
-      return E(e, C(e), e.forceDismissAiAgentBlockBar);
-    }
     function L(e) {
+      return k(e, b(e), e.forceDismissAiAgentBlockBar);
+    }
+    function E(e) {
       var t,
         n = o("WAWebChatCollection").ChatCollection.get(e),
-        r = S(e),
+        r = R(e),
         a =
           (t = o("useWAWebChatValues").useOptionalChatValues(e, [
             o("WAWebFrontendChatGetters").getForceDismissAiAgentBlockBar,
@@ -141,16 +149,16 @@ __d(
             ? t
             : [],
         i = a[0];
-      return n != null && E(n, r, i);
+      return n != null && k(n, r, i);
     }
-    function E(e, t, n) {
-      return t && _(e) && n !== !0;
-    }
-    function k(e) {
-      return C(e);
+    function k(e, t, n) {
+      return t && f(e) && n !== !0;
     }
     function I(e) {
-      if (!o("WAWebMobilePlatforms").isSMB() || (!f(e) && !b(e))) return null;
+      return b(e);
+    }
+    function T(e) {
+      if (!o("WAWebMobilePlatforms").isSMB() || (!g(e) && !v(e))) return null;
       var t = e.capiThreadControl;
       return t ===
         o("WAWebProtobufsE2E.pb")
@@ -166,15 +174,15 @@ __d(
           ? "handoff"
           : null;
     }
-    function T(e) {
-      return I(e) != null && o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
-    }
     function D(e) {
-      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? x(e)
-        : !1;
+      return T(e) != null && o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
     }
     function x(e) {
+      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
+        ? $(e)
+        : !1;
+    }
+    function $(e) {
       var t = e.labels;
       if (t == null || t.length === 0) return !1;
       var n = o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
@@ -187,7 +195,7 @@ __d(
         );
       });
     }
-    function $(e, t) {
+    function P(e, t) {
       return (
         t === void 0 && (t = !1),
         t &&
@@ -195,26 +203,27 @@ __d(
           e.groupMetadata,
         )
           ? !1
-          : T(e) || D(e)
+          : D(e) || x(e)
       );
     }
     ((l.getAiHubSubtitle = e),
-      (l.hasOnboardedAiAgent = u),
-      (l.ONBOARDING_EVENTS = c),
-      (l.useHasOnboardedAiAgent = m),
-      (l.useObserveAiAgentOnboarding = p),
-      (l.isChatEligibleForAiAgent = g),
-      (l.isChatAiEnabled = C),
-      (l.canChangeAiReplyStatus = v),
-      (l.useIsChatAiEnabled = S),
-      (l.shouldShowAiAgentBlockBar = R),
-      (l.useShouldShowAiAgentBlockBar = L),
-      (l.shouldMuteNotification = k),
-      (l.resolveAiChatStatus = I),
-      (l.shouldShowAiChipsForChat = T),
-      (l.shouldShowLabelPillsForChat = D),
-      (l.hasDisplayableLabels = x),
-      (l.shouldShowTertiaryRowForChat = $));
+      (l.getAiAgentOnboardingState = u),
+      (l.hasOnboardedAiAgent = c),
+      (l.ONBOARDING_EVENTS = d),
+      (l.useHasOnboardedAiAgent = p),
+      (l.useObserveAiAgentOnboarding = _),
+      (l.isChatEligibleForAiAgent = h),
+      (l.isChatAiEnabled = b),
+      (l.canChangeAiReplyStatus = S),
+      (l.useIsChatAiEnabled = R),
+      (l.shouldShowAiAgentBlockBar = L),
+      (l.useShouldShowAiAgentBlockBar = E),
+      (l.shouldMuteNotification = I),
+      (l.resolveAiChatStatus = T),
+      (l.shouldShowAiChipsForChat = D),
+      (l.shouldShowLabelPillsForChat = x),
+      (l.hasDisplayableLabels = $),
+      (l.shouldShowTertiaryRowForChat = P));
   },
   226,
 );

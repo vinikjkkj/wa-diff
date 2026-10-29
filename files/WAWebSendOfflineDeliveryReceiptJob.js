@@ -38,9 +38,10 @@ __d(
               c = l.enc,
               d = l.externalId,
               m = l.from,
-              p = l.msgInfo,
-              _ = l.msgMeta,
-              f = m.isUser() || m.isNewsletter() ? null : u;
+              p = l.msgBotInfo,
+              _ = l.msgInfo,
+              f = l.msgMeta,
+              g = m.isUser() || m.isNewsletter() ? null : u;
             i
               ? (o("WALogger").LOG(
                   e ||
@@ -53,8 +54,9 @@ __d(
                 o(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropDuplicateMessage({
-                  msgMeta: _,
-                  msgInfo: p,
+                  msgMeta: f,
+                  msgInfo: _,
+                  msgBotInfo: p,
                   enc: c,
                 }),
                 n.push({
@@ -63,7 +65,7 @@ __d(
                   author: u,
                   receiptClass: o(
                     "WAWebDeliveryReceiptClassUtils",
-                  ).getDeliveryReceiptClass(m, _),
+                  ).getDeliveryReceiptClass(m, f),
                 }))
               : (o("WALogger").LOG(
                   s ||
@@ -76,19 +78,20 @@ __d(
                 o(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropOldCounter({
-                  msgMeta: _,
-                  msgInfo: p,
+                  msgMeta: f,
+                  msgInfo: _,
+                  msgBotInfo: p,
                   enc: c,
                 }),
                 o("WAWebHandleMsgSendAck").sendNack(
                   d,
                   m,
-                  _.type,
-                  f,
+                  f.type,
+                  g,
                   o("WAWebCreateNackFromStanza").NackReason
                     .SignalErrorOldCounter,
                   void 0,
-                  _.isStatusStanza === !0 ? "status" : void 0,
+                  f.isStatusStanza === !0 ? "status" : void 0,
                 ));
           }
           return n;

@@ -26,11 +26,11 @@ __d(
             if (a == null)
               return o(
                 "WAWebGenMinimalLinkPreviewChatAction",
-              ).genMinimalLinkPreview(
-                t,
-                o("WAWebProtobufsE2E.pb")
+              ).genMinimalLinkPreview({
+                link: t,
+                richPreviewType: o("WAWebProtobufsE2E.pb")
                   .Message$ExtendedTextMessage$PreviewType.NONE,
-              );
+              });
             var i = yield o("WAWebLinkPreviewUtils").getThumbnailDetails({
                 chatWid: n == null ? void 0 : n.id,
                 mediaType:

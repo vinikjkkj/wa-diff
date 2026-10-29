@@ -585,15 +585,24 @@ __d(
                             ),
                           ),
                           Ie && c.jsx(R, { isFormDirty: ke }),
-                          c.jsx("h3", {
-                            "data-testid": "poll-creation-one-more-option-hint",
-                            className: { 0: "x1nxh6w3", 1: "x1nxh6w3 xlshs6z" }[
-                              !Re << 0
-                            ],
-                            children: s._(
-                              /*BTDS*/ "You can add one more option.",
+                          c.jsx(
+                            "h3",
+                            babelHelpers.extends(
+                              {
+                                "data-testid":
+                                  "poll-creation-one-more-option-hint",
+                              },
+                              {
+                                0: { className: "x1nxh6w3" },
+                                1: { className: "x1nxh6w3 xlshs6z" },
+                              }[!Re << 0],
+                              {
+                                children: s._(
+                                  /*BTDS*/ "You can add one more option.",
+                                ),
+                              },
                             ),
-                          }),
+                          ),
                           c.jsx(r("WAWebPollsSettingsSection"), {
                             chatId: i.id,
                             hideVoterNames: U,

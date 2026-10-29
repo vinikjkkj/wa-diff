@@ -71,8 +71,6 @@ __d(
       CALLS_TAB_NOTIFICATIONS_OFF_BANNER: "calls_tab_notifications_off_banner",
       TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
       CALLS_TAB_PERMISSIONS_OFF_BANNER: "calls_tab_permissions_off_banner",
-      CONTACTS_AND_GROUPS_RESTRICTED_CHATS_BANNER:
-        "contacts_and_groups_restricted_chats_banner",
       STATUS_RESHARE_INTRO: "status_reshare_intro",
       CALL_SCREENING_INTRO: "call_screening_intro",
     };

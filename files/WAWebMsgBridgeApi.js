@@ -25,12 +25,14 @@ __d(
     "WAWebUpdateReactionMessageUIAction",
     "WAWebUpdateReplyApi",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = ["msgKey"],
+    var e = ["msgKey"],
+      s,
       u,
-      c = {
+      c,
+      d = {
         processMultipleMessages: function (t) {
           var e = t.chatId,
             n = t.chatMsgsCollection,
@@ -211,11 +213,27 @@ __d(
             ((a.hostedBizEncStateMismatch = n), (a.aeaAutoUpgrade = e));
         },
         updateViewModeForMsgs: function (t) {
-          var e = t.msgIdsViewModeMap;
-          e.forEach(function (e, t) {
+          var e = t.msgIdsViewModeMap,
+            n = t.showParentsInChat,
+            a = [];
+          (e.forEach(function (e, t) {
             var n = o("WAWebMsgCollection").MsgCollection.get(t);
-            n != null && n.set({ viewMode: e });
-          });
+            n != null && (n.set({ viewMode: e }), a.push(n));
+          }),
+            n === !0 &&
+              o("WAWebMessageAssociationUIUtils")
+                .showParentsOfAttachedMsgsInChat(a)
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "updateViewModeForMsgs: showing parents in chat failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("update-view-mode-show-parents-failed");
+                }));
         },
         detachAssociatedMsgsForever: function (t) {
           var e = t.msgIds;
@@ -240,7 +258,7 @@ __d(
         hydrateReactionsForMessages: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.messageIds;
-            yield (u || (u = n("Promise"))).all(
+            yield (c || (c = n("Promise"))).all(
               t.map(function (e) {
                 return o("WAWebReactionsCollection").ReactionsCollection.find(
                   e,
@@ -276,39 +294,39 @@ __d(
             n,
           );
         },
-        updateMusicMsgConsumption: function (t) {
-          var e = t.updates;
-          e.forEach(function (e) {
-            var t,
-              n = e.msgKey,
-              r = babelHelpers.objectWithoutPropertiesLoose(e, s);
-            (t = o("WAWebMsgCollection").MsgCollection.get(n)) == null ||
-              t.set(r);
+        updateMusicMsgConsumption: function (n) {
+          var t = n.updates;
+          t.forEach(function (t) {
+            var n,
+              r = t.msgKey,
+              a = babelHelpers.objectWithoutPropertiesLoose(t, e);
+            (n = o("WAWebMsgCollection").MsgCollection.get(r)) == null ||
+              n.set(a);
           });
         },
         deleteMessageFromCollectionForSync: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = t.msgKey,
-              r = o("WAWebMsgCollection").MsgCollection.get(n);
-            if (r) {
-              var a = o("WAWebFrontendMsgGetters").getChat(r);
-              (a.msgs.length === 1 &&
-                (yield o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: a })),
-                r.delete());
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.msgKey,
+              n = o("WAWebMsgCollection").MsgCollection.get(t);
+            if (n) {
+              var r = o("WAWebFrontendMsgGetters").getChat(n);
+              (r.msgs.length === 1 &&
+                (yield o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: r })),
+                n.delete());
             } else
               o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "delete_message_for_me_sync: ",
                     " storage+ collection-",
                   ])),
-                n,
+                t,
               );
           });
-          function r(e) {
-            return t.apply(this, arguments);
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          return r;
+          return t;
         })(),
         removeScheduledMsgModelForReveal: function (t) {
           var e = t.msgKey,
@@ -335,7 +353,7 @@ __d(
           r != null && (r.rcat = n);
         },
       };
-    l.MsgBridgeApi = c;
+    l.MsgBridgeApi = d;
   },
   98,
 );

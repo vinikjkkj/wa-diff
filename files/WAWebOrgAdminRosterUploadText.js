@@ -23,7 +23,7 @@ __d(
               .toString()
           : null,
         e.emailText,
-        f(e.phoneText),
+        g(e.phoneText),
         e.memberTag,
         e.secondaryMemberTag,
       ]
@@ -184,12 +184,30 @@ __d(
       );
     }
     function _(e) {
+      var t = e.done,
+        n = e.total;
+      return s._(
+        /*BTDS*/ '_j{"*":"Saving {number} changes \\u00b7 {saved count} of {change count}","_1":"Saving 1 change \\u00b7 {saved count} of {change count}"}',
+        [
+          s._plural(n, "number"),
+          s._param(
+            "saved count",
+            r("intlNumUtils").formatNumberWithThousandDelimiters(t, 0),
+          ),
+          s._param(
+            "change count",
+            r("intlNumUtils").formatNumberWithThousandDelimiters(n, 0),
+          ),
+        ],
+      );
+    }
+    function f(e) {
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).normalizeOrgAdminRosterPhoneNumber(e);
       return t == null ? e : o("WAWebPhoneUtils").formatPhone(t);
     }
-    function f(e) {
+    function g(e) {
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).normalizeOrgAdminRosterPhoneNumberInput(e);
@@ -201,7 +219,8 @@ __d(
       (l.getOrgAdminRosterUploadInviteFootnote = d),
       (l.getOrgAdminRosterUploadBlockerMessage = m),
       (l.getOrgAdminRosterUploadSuccessMessage = p),
-      (l.formatOrgAdminRosterUploadPhone = _));
+      (l.getOrgAdminRosterUploadProgressLabel = _),
+      (l.formatOrgAdminRosterUploadPhone = f));
   },
   226,
 );

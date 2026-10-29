@@ -7,6 +7,8 @@ __d(
     "WAWebWamEnumWsuaAction",
     "WAWebWamEnumWsuaActionTarget",
     "WAWebWamEnumWsuaProductType",
+    "WAWebWamEnumWsuaReferral",
+    "WAWebWamEnumWsuaScreen",
     "WAWebWamEnumWsuaScreenElement",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,6 +39,9 @@ __d(
         ).getEligibleSubscriptionProductTypes(),
         wsuaProductType: o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE
           .META_ONE_BUSINESS,
+        wsuaReferral: o("WAWebWamEnumWsuaReferral").WSUA_REFERRAL
+          .CUSTOMER_MANAGER,
+        wsuaScreen: o("WAWebWamEnumWsuaScreen").WSUA_SCREEN.CUSTOMER_MANAGER,
         wsuaScreenElement: e[n],
         wsuaSessionId: r,
       }).commit();

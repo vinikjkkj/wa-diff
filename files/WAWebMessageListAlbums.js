@@ -11,7 +11,7 @@ __d(
       p = [o("WAWebMsgType").MSG_TYPE.CALL_LOG];
     function _(e, t) {
       var n, a;
-      return h(e, t)
+      return y(e, t) || !f(e, t)
         ? !1
         : (o("WAWebMsgGetters").getIsGroupMsg(e)
             ? r("WAWebWid").equals(e.author, t.author)
@@ -25,11 +25,24 @@ __d(
                 : a.newsletterId) &&
             t.t - e.t <= m;
     }
-    var f = function (t) {
+    function f(e, t) {
+      var n = e.unsafe(),
+        r = t.unsafe(),
+        o = n.parentMsgKey,
+        a = r.parentMsgKey;
+      return o == null && a == null
+        ? !0
+        : o != null &&
+            a != null &&
+            o.equals(a) &&
+            n.caption == null &&
+            r.caption == null;
+    }
+    var g = function (t) {
       return !p.includes(t.type) && o("WAWebMsgGetters").getIsNotification(t);
     };
-    function g(e, t) {
-      return f(e) || f(t)
+    function h(e, t) {
+      return g(e) || g(t)
         ? !1
         : e.forwardedNewsletterMessageInfo != null
           ? t.forwardedNewsletterMessageInfo == null
@@ -40,11 +53,11 @@ __d(
             ? r("WAWebWid").equals(e.author, t.author) &&
               o("WAWebMsgGetters").getIsSentByMe(e) ===
                 o("WAWebMsgGetters").getIsSentByMe(t)
-            : h(e, t)
+            : y(e, t)
               ? !1
               : r("WAWebWid").equals(e.from, t.from);
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = o("WAWebMsgGetters").getNewsletterAdminProfile(e),
         r = o("WAWebMsgGetters").getNewsletterAdminProfile(t);
       return (
@@ -61,7 +74,7 @@ __d(
       (l.ALBUM_ANNOUNCEMENT_MAX_HEIGHT = c),
       (l.ALBUM_PADDING = d),
       (l.canBeGroupedAsAlbum = _),
-      (l.canBeGroupedWithNext = g));
+      (l.canBeGroupedWithNext = h));
   },
   98,
 );

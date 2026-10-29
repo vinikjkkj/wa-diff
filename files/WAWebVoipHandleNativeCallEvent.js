@@ -139,12 +139,16 @@ __d(
                                       o("WAWebVoipWaCallEnums").CallState
                                         .CallBCallStarting
                                     ? "CallBCallStarting"
-                                    : (function () {
-                                        throw Error(
-                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                            e,
-                                        );
-                                      })();
+                                    : e ===
+                                        o("WAWebVoipWaCallEnums").CallState
+                                          .Screening
+                                      ? "Screening"
+                                      : (function () {
+                                          throw Error(
+                                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                              e,
+                                          );
+                                        })();
     }
     var Q = null,
       X = null;

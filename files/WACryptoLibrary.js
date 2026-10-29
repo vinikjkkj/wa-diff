@@ -273,7 +273,7 @@ __d(
                 var c = u.value,
                   m = c[0],
                   p = c[1];
-                yield l(t, r, m);
+                yield l({ author: r, groupId: t, updated: m });
                 var _ = s.senderKeyStates[s.senderKeyStates.length - 1];
                 e = o("WAResultOrError").makeResult({
                   ciphertext: { ciphertext: p, type: "skmsg" },
@@ -336,7 +336,7 @@ __d(
               g = _[1];
             return (
               t || (yield l(new Uint8Array(g)), (t = !0)),
-              yield c(r, a, f),
+              yield c({ author: a, groupId: r, updated: f }),
               o("WAResultOrError").makeResult()
             );
           }),
@@ -361,7 +361,10 @@ __d(
             ).processSenderKeyDistributionMsg(a, e);
             if (!s.success) return s;
             var u = s.value;
-            return (yield l(t, r, u), o("WAResultOrError").makeResult());
+            return (
+              yield l({ author: r, groupId: t, updated: u }),
+              o("WAResultOrError").makeResult()
+            );
           }),
         )
       );
@@ -378,7 +381,10 @@ __d(
                   a,
                 ),
               n = e.senderKeyStates[0].senderKeyId;
-            return (yield i(t, r, e), { senderKeyId: n });
+            return (
+              yield i({ author: r, groupId: t, updated: e }),
+              { senderKeyId: n }
+            );
           }),
         )
       );

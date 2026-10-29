@@ -91,6 +91,7 @@ __d(
     "WAWebPrimaryVersion",
     "WAWebPushNotificationsGatingUtils",
     "WAWebRegisterPassiveTasks",
+    "WAWebRestoreSharableEventsWhenEnabled",
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebSignalSessionCleanupJob",
@@ -368,6 +369,9 @@ __d(
             H(),
             o("WAWebABPropsWamGlobals").setAbPropDependingGlobalWamAttributes(),
             o("WAWebBootstrapOrgsWhenEnabled").bootstrapOrgsWhenEnabled(),
+            o(
+              "WAWebRestoreSharableEventsWhenEnabled",
+            ).restoreSharableEventsWhenEnabled(),
             o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled() &&
               (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                 o("WAWebUserPrefsKeys").KEYS.LANG_FROM_USER,

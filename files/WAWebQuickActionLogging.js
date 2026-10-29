@@ -23,6 +23,7 @@ __d(
           .WEBC_QUICK_ACTION_ID.TEXT_STATUS,
         photo_video: s.WEBC_QUICK_ACTION_ID.PHOTO_VIDEO,
         create_channel: s.WEBC_QUICK_ACTION_ID.CREATE_CHANNEL,
+        create_group: s.WEBC_QUICK_ACTION_ID.CREATE_GROUP,
         find_channels: s.WEBC_QUICK_ACTION_ID.FIND_CHANNELS,
         community_info: s.WEBC_QUICK_ACTION_ID.COMMUNITY_INFO,
         community_members: s.WEBC_QUICK_ACTION_ID.COMMUNITY_MEMBERS,

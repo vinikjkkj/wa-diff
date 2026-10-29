@@ -10,6 +10,7 @@ __d(
         : {
             adClicks: 0,
             adgroupId: null,
+            adsLwiGoal: null,
             asyncRequestRef: null,
             audience: null,
             boostedComponentRef: null,

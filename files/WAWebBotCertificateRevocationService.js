@@ -36,31 +36,25 @@ __d(
     function g(e, t) {
       return f(e, t) !== "valid";
     }
-    function h(e) {
-      return !(
-        _.lastFetchTime == null ||
-        (_.nextUpdateTime != null && e > _.nextUpdateTime)
-      );
-    }
-    function y() {
+    function h() {
       _.refreshTimerId == null &&
-        (b(),
+        (C(),
         (_.refreshTimerId = self.setInterval(function () {
-          b();
+          C();
         }, u)));
     }
-    function C(e, t) {
+    function y(e, t) {
       ((_.revokedSerialNumbers = new Set(e)),
         (_.lastFetchTime = Date.now()),
         (_.nextUpdateTime = t),
-        L(t));
+        R(t));
+    }
+    function C() {
+      return b.apply(this, arguments);
     }
     function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           _.abortController != null && _.abortController.abort();
           var t = new AbortController();
           _.abortController = t;
@@ -71,7 +65,7 @@ __d(
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     try {
-                      yield S(t.signal);
+                      yield v(t.signal);
                     } catch (t) {
                       return e(t instanceof Error ? t : r("err")(String(t)));
                     }
@@ -99,15 +93,15 @@ __d(
             _.abortController === t && (_.abortController = null);
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
               "WAWebMexFetchBotCertificateRevocationList",
             ).mexFetchBotCertificateRevocationList(),
@@ -118,14 +112,14 @@ __d(
             var i = yield o("WAWebCertificateUtils").parseCrlSerialNumbers(n);
             if (!e.aborted) {
               if (i == null) throw r("err")("Failed to parse CRL binary");
-              C(i, a);
+              y(i, a);
             }
           }
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e) {
+    function R(e) {
       _.preFetchTimerId != null &&
         (self.clearTimeout(_.preFetchTimerId), (_.preFetchTimerId = null));
       var t = e - c,
@@ -133,14 +127,13 @@ __d(
       n > 0 &&
         n < u &&
         (_.preFetchTimerId = self.setTimeout(function () {
-          b();
+          C();
         }, n));
     }
     ((l.checkCertificateRevocationStatus = f),
       (l.isCertificateRevoked = g),
-      (l.isCrlFresh = h),
-      (l.startPeriodicCrlRefresh = y),
-      (l.updateCrlData = C));
+      (l.startPeriodicCrlRefresh = h),
+      (l.updateCrlData = y));
   },
   98,
 );

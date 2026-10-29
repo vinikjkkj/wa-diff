@@ -74,11 +74,7 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             var a = e.safe();
-            if (
-              e.id.fromMe ||
-              a.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
-            )
-              return;
+            if (a.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE) return;
             yield T(a, e, t, n);
           } catch (e) {
             o("WALogger")
@@ -95,19 +91,22 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
+    function L(e) {
+      var t = e.change,
+        n = e.paymentMsg,
+        r = e.paymentStatus;
       x(function () {
-        var r = e.id.fromMe ? null : e.id.remote.toJid();
+        var e = n.id.fromMe ? null : n.id.remote.toJid();
         return {
           bizPlatform:
-            r != null
-              ? o("WAWebContactUtils").getMaybeBizPlatformForLogging(r)
+            e != null
+              ? o("WAWebContactUtils").getMaybeBizPlatformForLogging(e)
               : void 0,
-          businessOwnerJid: r != null ? r : void 0,
+          businessOwnerJid: e != null ? e : void 0,
           change: t,
-          flowType: I(e),
-          paymentFlow: k(e),
-          paymentStatus: n,
+          flowType: I(n),
+          paymentFlow: k(n),
+          paymentStatus: r,
         };
       });
     }
@@ -151,61 +150,61 @@ __d(
                 e,
                 o("WAWebBrPixRequestRowAttributes").RECEIVER_EVENT_LOG_KEY,
               ),
-              l = (a = e.senderObj) == null ? void 0 : a.id.toJid(),
-              s = o("WAWebContactUtils").getMaybeBizPlatformForLogging(l),
-              u = s === o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN,
-              c = o("WAWebBrPixRequestRowAttributes").getChatTypeString(
+              l = t.id.fromMe,
+              s = (a = e.senderObj) == null ? void 0 : a.id.toJid(),
+              u = o("WAWebContactUtils").getMaybeBizPlatformForLogging(s),
+              c = l
+                ? !o("WAWebMobilePlatforms").isSMB()
+                : u === o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN,
+              d = o("WAWebBrPixRequestRowAttributes").getChatTypeString(
                 o("WAWebFrontendMsgGetters").getChat(t),
               ),
-              d = k(t),
-              m = d === f.PIX_CODE,
-              p = r != null ? r : void 0;
+              m = k(t),
+              p = m === f.PIX_CODE,
+              _ = r != null ? r : void 0;
             (new (o(
               "WAWebPsStructuredMessageInteractionWamEvent",
             ).PsStructuredMessageInteractionWamEvent)({
-              bizPlatform: s,
-              businessOwnerJid: l,
+              bizPlatform: l ? void 0 : u,
+              businessOwnerJid: l ? void 0 : s,
               messageClass: o("WAWebWamEnumStructuredMessageClass")
                 .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
               messageClassAttributes: JSON.stringify(
                 babelHelpers.extends(
                   {},
-                  m
+                  p
                     ? o(
                         "WAWebBrPixRequestRowAttributes",
-                      ).getCopyPixCodeAttributes(u, c, i, $(t))
+                      ).getCopyPixCodeAttributes(c, d, i, $(t))
                     : o(
                         "WAWebBrPixRequestRowAttributes",
-                      ).getCopyPixKeyAttributes(u, c, i),
-                  { payment_flow: d, status: p },
+                      ).getCopyPixKeyAttributes(c, d, i),
+                  { payment_flow: m, status: _ },
                 ),
               ),
               messageInteraction: n,
               messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
             }).commit(),
-              yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
-                isLoggingEnabled: m
-                  ? o(
-                      "WAWebBizFrontendGatingUtils",
-                    ).isCopyPixCodeBuyerLoggingEnabled(l)
-                  : o(
-                      "WAWebBizFrontendGatingUtils",
-                    ).isCopyPixKeyBuyerLoggingEnabled(l),
-                psFunnelId: i,
-                attributes: babelHelpers.extends(
-                  {},
-                  m
-                    ? o(
-                        "WAWebBrPixRequestRowAttributes",
-                      ).getCopyPixCodeBuyerAttributes(u, c)
-                    : o(
-                        "WAWebBrPixRequestRowAttributes",
-                      ).getCopyPixKeyBuyerAttributes(u, c),
-                  { status: p },
-                ),
-                interaction: n,
-                bizPlatform: s,
-              }));
+              !l &&
+                (yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
+                  isLoggingEnabled: o(
+                    "WAWebBizFrontendGatingUtils",
+                  ).isCopyPixKeyBuyerLoggingEnabled(s),
+                  psFunnelId: i,
+                  attributes: babelHelpers.extends(
+                    {},
+                    p
+                      ? o(
+                          "WAWebBrPixRequestRowAttributes",
+                        ).getCopyPixCodeBuyerAttributes(c, d)
+                      : o(
+                          "WAWebBrPixRequestRowAttributes",
+                        ).getCopyPixKeyBuyerAttributes(c, d),
+                    { status: _ },
+                  ),
+                  interaction: n,
+                  bizPlatform: u,
+                })));
           },
         )),
         D.apply(this, arguments)

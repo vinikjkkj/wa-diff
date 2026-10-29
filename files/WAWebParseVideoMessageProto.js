@@ -112,7 +112,11 @@ __d(
         ) {
           var F = o(
               "WAWebAssociationProtoUtils",
-            ).getValidatedAssociationFieldsFromProto(r, n, i),
+            ).getValidatedAssociationFieldsFromProto({
+              baseMessage: n,
+              messageAssociation: r,
+              msgContext: i,
+            }),
             O = F.associationParentMsgKey,
             B = F.associationType,
             W = F.viewMode;

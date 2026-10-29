@@ -1,7 +1,7 @@
 __d(
   "WAWebCustomerManagerSMBUserJourneyLogger",
   [
-    "$InternalEnum",
+    "WAWebLeadStage",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumSmbFeatureNameEnum",
     "WAWebWamEnumSmbUserActionTypeEnum",
@@ -13,6 +13,7 @@ __d(
         ADD_CUSTOMER_BUTTON: "add_customer_button",
         CANCEL_BUTTON: "cancel_button",
         CLOSE_BUTTON: "close_button",
+        DISMISS: "dismiss",
         EMPTY_STATE_ADD_CUSTOMER: "empty_state_add_customer",
         IMPORT_BUTTON: "import_button",
         IMPORT_DELETE_ALL_ERRORS_BUTTON: "import_delete_all_errors_button",
@@ -35,14 +36,7 @@ __d(
         VIEW_TOGGLE_LIST: "view_toggle_list",
         VIEW_TOGGLE_PIPELINE: "view_toggle_pipeline",
       },
-      s = n("$InternalEnum")({
-        SUCCESS: "success",
-        ERROR_CONTACT_EXISTS: "error_contact_exists",
-        ERROR_INVALID_PHONE: "error_invalid_phone",
-        ERROR_NETWORK: "error_network",
-        ERROR_UNKNOWN: "error_unknown",
-      }),
-      u = (function () {
+      s = (function () {
         function t() {}
         var n = t.prototype;
         return (
@@ -70,6 +64,26 @@ __d(
                   .SMB_USER_ACTION_TYPE_ENUM.VIEW,
               }),
             );
+          }),
+          (n.viewListError = function (t) {
+            this.$2({
+              extraAttributes: t,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "list_error",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.leadStageDivergence = function (t) {
+            this.$2({
+              extraAttributes: t,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "lead_stage_divergence",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
+            });
           }),
           (n.clickAddCustomerOnList = function (n) {
             this.$2({
@@ -343,18 +357,14 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.importSaveResult = function (n, r, a) {
+          (n.importSaveResult = function (n) {
             this.$2({
-              extraAttributes: {
-                duration_ms: a,
-                failure_count: r,
-                success_count: n,
-              },
+              extraAttributes: n,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_SAVE_BUTTON,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+                .SMB_USER_ACTION_TYPE_ENUM.API,
             });
           }),
           (n.clickImportUndo = function (n) {
@@ -367,14 +377,14 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.importUndoResult = function (n, r) {
+          (n.importUndoResult = function (n) {
             this.$2({
-              extraAttributes: { failure_count: r, success_count: n },
+              extraAttributes: n,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_UNDO_BUTTON,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+                .SMB_USER_ACTION_TYPE_ENUM.API,
             });
           }),
           (n.clickLearnMore = function (t) {
@@ -429,18 +439,12 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.clickToggleView = function (n) {
-            var t = n === "list" ? "pipeline" : "list";
+          (n.clickToggleView = function (n, r) {
             this.$2({
-              extraAttributes: { from_view: t },
-              surface:
-                t === "pipeline"
-                  ? o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                      .CUSTOMER_MANAGER_PIPELINE
-                  : o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                      .CUSTOMER_MANAGER_LIST,
+              extraAttributes: { from_view: n },
+              surface: this.$1(n),
               userActionTarget:
-                n === "list" ? e.VIEW_TOGGLE_LIST : e.VIEW_TOGGLE_PIPELINE,
+                r === "list" ? e.VIEW_TOGGLE_LIST : e.VIEW_TOGGLE_PIPELINE,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
@@ -457,9 +461,8 @@ __d(
           (n.changeLeadStageFilter = function (n, r, a) {
             this.$2({
               extraAttributes: {
-                applied_stages: n,
-                previously_applied: r,
-                selection_grew: n.length > r.length,
+                applied_stage: n != null ? n : "cleared",
+                previously_applied: r != null ? r : "none",
               },
               surface: this.$1(a),
               userActionTarget: e.LEAD_STAGE_FILTER_CHIP,
@@ -493,6 +496,35 @@ __d(
               userActionTarget: "acquisition_source_filter_chip",
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.changeContactTypeFilter = function (t) {
+            this.$2({
+              extraAttributes: { contact_type: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "contact_type_filter_chip",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.changeCustomDateRange = function (t, n) {
+            this.$2({
+              extraAttributes: { span_days: t },
+              surface: this.$1(n),
+              userActionTarget: "custom_date_range",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.filterResult = function (t) {
+            this.$2({
+              extraAttributes: t,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "filter_result",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
             });
           }),
           (n.viewColumnsMenu = function (t) {
@@ -542,6 +574,16 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.EDIT,
             });
           }),
+          (n.leadStageSaveResult = function (t) {
+            this.$2({
+              extraAttributes: t,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "lead_stage_save",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
           (n.viewActionsMenu = function () {
             this.$2({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -560,6 +602,16 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
+          (n.hideContactResult = function (t, n) {
+            this.$2({
+              extraAttributes: n,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_ACTIONS_MENU,
+              userActionTarget: "actions_menu_" + t,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
           (n.dismissActionsMenu = function () {
             this.$2({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -569,8 +621,13 @@ __d(
             });
           }),
           (n.viewPipeline = function (t) {
+            var e = {};
+            for (var n of o("WAWebLeadStage").ALL_LEAD_STAGES) {
+              var r;
+              e["stage_" + n + "_count"] = (r = t[String(n)]) != null ? r : 0;
+            }
             this.$2({
-              extraAttributes: { stage_counts: t },
+              extraAttributes: e,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_PIPELINE,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -608,7 +665,7 @@ __d(
           }),
           (n.clickSaveCustomer = function (n) {
             this.$2({
-              extraAttributes: { filled_field_count: n },
+              extraAttributes: n,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: e.SAVE_BUTTON,
@@ -616,9 +673,9 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.saveCustomerResult = function (n, r) {
+          (n.saveCustomerResult = function (n) {
             this.$2({
-              extraAttributes: { duration_ms: r, result: n },
+              extraAttributes: n,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: e.SAVE_ACTION,
@@ -626,15 +683,12 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.API,
             });
           }),
-          (n.dismissAddCustomer = function (n, r) {
+          (n.dismissAddCustomer = function (n) {
             this.$2({
-              extraAttributes: {
-                filled_field_count: r,
-                had_unsaved_changes: n,
-              },
+              extraAttributes: n,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
-              userActionTarget: e.CANCEL_BUTTON,
+              userActionTarget: e.DISMISS,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
             });
@@ -689,6 +743,26 @@ __d(
               userActionTarget: "customer_field_" + t,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.EDIT,
+            });
+          }),
+          (n.customerFieldSaveResult = function (t, n) {
+            this.$2({
+              extraAttributes: babelHelpers.extends({ field: t }, n),
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_PROFILE_DRAWER,
+              userActionTarget: "customer_field_" + t,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
+          (n.noteSaveResult = function (t) {
+            this.$2({
+              extraAttributes: t,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_PROFILE_DRAWER,
+              userActionTarget: "notes_save",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.API,
             });
           }),
           (n.viewTrialNux = function (t) {
@@ -825,8 +899,8 @@ __d(
           t
         );
       })(),
-      c = new u();
-    ((l.SaveResult = s), (l.CustomerManagerUserJourneyLogger = c));
+      u = new s();
+    l.CustomerManagerUserJourneyLogger = u;
   },
   98,
 );

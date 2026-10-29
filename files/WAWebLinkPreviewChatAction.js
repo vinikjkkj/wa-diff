@@ -195,12 +195,12 @@ __d(
                       ])),
                   )
                   .sendLogs("intern debug link preview not enabled"),
-              o("WAWebGenMinimalLinkPreviewChatAction").genMinimalLinkPreview(
-                e,
-                v,
-                !1,
-                { psp: S },
-              )
+              o("WAWebGenMinimalLinkPreviewChatAction").genMinimalLinkPreview({
+                isLoading: !1,
+                link: e,
+                paymentLinkDetails: { psp: S },
+                richPreviewType: v,
+              })
             );
           var w = yield r("WAWebMsgKey").newId(),
             A = o(
@@ -264,9 +264,14 @@ __d(
                   D(W == null ? void 0 : W.mediaUploadResult, F),
                   o(
                     "WAWebGenMinimalLinkPreviewChatAction",
-                  ).genMinimalLinkPreview(e, v, !1, {
-                    psp: S,
-                    previewMetadata: q.previewMetadata,
+                  ).genMinimalLinkPreview({
+                    isLoading: !1,
+                    link: e,
+                    paymentLinkDetails: {
+                      psp: S,
+                      previewMetadata: q.previewMetadata,
+                    },
+                    richPreviewType: v,
                   })
                 );
             } else {
@@ -277,7 +282,12 @@ __d(
               );
               var U = o(
                 "WAWebGenMinimalLinkPreviewChatAction",
-              ).genMinimalLinkPreview(e, v, !1, { psp: S });
+              ).genMinimalLinkPreview({
+                isLoading: !1,
+                link: e,
+                paymentLinkDetails: { psp: S },
+                richPreviewType: v,
+              });
               return (
                 (W == null ? void 0 : W.mediaUploadResult) ===
                   o("WAWebProtobufsMmsRetry.pb")
@@ -331,10 +341,12 @@ __d(
                   F,
                 ),
                 o("WAWebGenMinimalLinkPreviewChatAction").genMinimalLinkPreview(
-                  e,
-                  v,
-                  !1,
-                  { psp: S },
+                  {
+                    isLoading: !1,
+                    link: e,
+                    paymentLinkDetails: { psp: S },
+                    richPreviewType: v,
+                  },
                 )
               );
           }

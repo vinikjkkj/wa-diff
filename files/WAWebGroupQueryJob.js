@@ -3,9 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASmaxGroupsBatchGetGroupInfoRPC",
-    "WASmaxGroupsGetInviteGroupInfoRPC",
-    "WASmaxGroupsGetParticipatingGroupsRPC",
     "WAWebABProps",
     "WAWebApiChat",
     "WAWebApiChatCommon",
@@ -21,72 +18,188 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g;
-    function h() {
-      return y.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g,
+      h = r("requireDeferred")("WASmaxGroupsBatchGetGroupInfoRPC").__setRef(
+        "WAWebGroupQueryJob",
+      ),
+      y = r("requireDeferred")("WASmaxGroupsGetInviteGroupInfoRPC").__setRef(
+        "WAWebGroupQueryJob",
+      ),
+      C = r("requireDeferred")(
+        "WASmaxGroupsGetParticipatingGroupsRPC",
+      ).__setRef("WAWebGroupQueryJob");
+    function b() {
+      return v.apply(this, arguments);
     }
-    function y() {
+    function v() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebApiParticipantStore").clearAdminshipCache();
-          var t = yield o(
-            "WASmaxGroupsGetParticipatingGroupsRPC",
-          ).sendGetParticipatingGroupsRPC({
-            hasParticipants: !0,
-            hasDescription: !0,
-          });
+          var t = yield C.load(),
+            r = t.sendGetParticipatingGroupsRPC,
+            a = yield r({ hasParticipants: !0, hasDescription: !0 });
           e: {
-            var r = t;
+            var i = a;
             if (
-              ((typeof r == "object" && r !== null) ||
-                typeof r == "function") &&
-              r.name === "GetParticipatingGroupsResponseSuccess" &&
-              "value" in r
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.name === "GetParticipatingGroupsResponseSuccess" &&
+              "value" in i
             ) {
-              var a = r.value,
-                i = 0,
-                l = a.groupsGroup.map(function (e) {
+              var l = i.value,
+                c = 0,
+                d = l.groupsGroup.map(function (e) {
                   var t = e.groupInfoOrTruncatedGroupInfoGroupInfoMixinGroup,
                     n = t.value;
                   return (
-                    n.truncated && i++,
+                    n.truncated && c++,
                     n.truncated ? n : o("WAWebGroupsQueryApi").parseGroupSmax(n)
                   );
                 });
               return (
-                i > 0 &&
+                c > 0 &&
                   o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[get-participating-groups] ",
                         " truncated responses received",
                       ])),
-                    i,
+                    c,
                   ),
-                l
+                d
               );
               break e;
             }
             if (
-              ((typeof r == "object" && r !== null) ||
-                typeof r == "function") &&
-              r.name === "GetParticipatingGroupsResponseClientError" &&
-              "value" in r
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.name === "GetParticipatingGroupsResponseClientError" &&
+              "value" in i
             ) {
-              var c = r.value,
-                d =
-                  c
+              var m = i.value,
+                p =
+                  m
                     .errorIQErrorBadRequestOrRateOverlimitOrFallbackClientMixinGroup
                     .value,
-                m = d.code,
-                p = d.text;
+                _ = p.code,
+                f = p.text;
               return (
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "queryAllGroups failed: ",
+                      ":",
+                      "",
+                    ])),
+                  _,
+                  f,
+                ),
+                (g || (g = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(_),
+                    f,
+                  ),
+                )
+              );
+              break e;
+            }
+            if (
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.name === "GetParticipatingGroupsResponseServerError" &&
+              "value" in i
+            ) {
+              var h = i.value,
+                y = h.errorServerErrors.value,
+                b = y.code,
+                v = y.text;
+              return (
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "queryAllGroups failed: ",
+                      ":",
+                      "",
+                    ])),
+                  b,
+                  v,
+                ),
+                (g || (g = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(b),
+                    v,
+                  ),
+                )
+              );
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                i,
+            );
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield y.load(),
+            r = t.sendGetInviteGroupInfoRPC,
+            a = yield r({ inviteCode: e });
+          switch (a.name) {
+            case "GetInviteGroupInfoResponseSuccess":
+              return o("WAWebGroupsQueryApi").parseGroupSmax(
+                a.value.groupInviteLinkGroupInfoMixin,
+              );
+            case "GetInviteGroupInfoResponseClientError": {
+              var i = a.value.errorGetInviteGroupInfoClientErrors.value,
+                l = i.code,
+                s = i.text;
+              return (
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "queryGroupInvite failed: ",
+                      ":",
+                      "",
+                    ])),
+                  l,
+                  s,
+                ),
+                (g || (g = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(l),
+                    s,
+                  ),
+                )
+              );
+            }
+            case "GetInviteGroupInfoResponseServerError": {
+              var u = a.value.errorServerErrors.value,
+                m = u.code,
+                p = u.text;
+              return (
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "queryGroupInvite failed: ",
                       ":",
                       "",
                     ])),
@@ -100,118 +213,18 @@ __d(
                   ),
                 )
               );
-              break e;
-            }
-            if (
-              ((typeof r == "object" && r !== null) ||
-                typeof r == "function") &&
-              r.name === "GetParticipatingGroupsResponseServerError" &&
-              "value" in r
-            ) {
-              var _ = r.value,
-                f = _.errorServerErrors.value,
-                h = f.code,
-                y = f.text;
-              return (
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "queryAllGroups failed: ",
-                      ":",
-                      "",
-                    ])),
-                  h,
-                  y,
-                ),
-                (g || (g = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(h),
-                    y,
-                  ),
-                )
-              );
-              break e;
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                r,
-            );
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WASmaxGroupsGetInviteGroupInfoRPC",
-          ).sendGetInviteGroupInfoRPC({ inviteCode: e });
-          switch (t.name) {
-            case "GetInviteGroupInfoResponseSuccess":
-              return o("WAWebGroupsQueryApi").parseGroupSmax(
-                t.value.groupInviteLinkGroupInfoMixin,
-              );
-            case "GetInviteGroupInfoResponseClientError": {
-              var r = t.value.errorGetInviteGroupInfoClientErrors.value,
-                a = r.code,
-                i = r.text;
-              return (
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "queryGroupInvite failed: ",
-                      ":",
-                      "",
-                    ])),
-                  a,
-                  i,
-                ),
-                (g || (g = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(a),
-                    i,
-                  ),
-                )
-              );
-            }
-            case "GetInviteGroupInfoResponseServerError": {
-              var l = t.value.errorServerErrors.value,
-                s = l.code,
-                u = l.text;
-              return (
-                o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "queryGroupInvite failed: ",
-                      ":",
-                      "",
-                    ])),
-                  s,
-                  u,
-                ),
-                (g || (g = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(s),
-                    u,
-                  ),
-                )
-              );
             }
           }
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.actionType,
             n = e.id,
             r = e.request,
@@ -247,18 +260,18 @@ __d(
                 "createOrUpdateGroupMetadataFromQuery",
                 { groupInfo: p },
               ),
-              yield R(p));
+              yield k(p));
           }
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function L() {
+    function I() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             e.membershipApprovalMode &&
             e.participants.some(function (e) {
@@ -273,24 +286,25 @@ __d(
               : void 0;
           }
         })),
-        L.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function k() {
+    function D() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = yield o(
-            "WASmaxGroupsBatchGetGroupInfoRPC",
-          ).sendBatchGetGroupInfoRPC({
-            queryContext: t,
-            groupArgs: e.map(function (e) {
-              return { groupJid: e };
-            }),
-          });
-          switch (a.name) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = {
+              queryContext: t,
+              groupArgs: e.map(function (e) {
+                return { groupJid: e };
+              }),
+            },
+            i = yield h.load(),
+            l = i.sendBatchGetGroupInfoRPC,
+            s = yield l(a);
+          switch (s.name) {
             case "BatchGetGroupInfoResponseSuccess": {
               o("WALogger").LOG(
                 m ||
@@ -300,27 +314,27 @@ __d(
                   ])),
                 e.length,
               );
-              var i = [],
-                l = r("compactMap")(a.value.groupsGroup, function (e) {
+              var u = [],
+                c = r("compactMap")(s.value.groupsGroup, function (e) {
                   var t =
                     e.groupInfoOrTruncatedGroupInfoOrGroupForbiddenOrGroupNotExistMixinGroup;
                   if (t.name === "TruncatedGroupInfo") return t.value;
                   if (t.name === "GroupInfo")
                     return o("WAWebGroupsQueryApi").parseGroupSmax(t.value);
-                  (t.name, i.push(t.value));
+                  (t.name, u.push(t.value));
                 });
               return (
-                i.length > 0 &&
+                u.length > 0 &&
                   (o("WALogger").WARN(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[batch-group-info] ",
                         " forbidden/not-exist groups",
                       ])),
-                    i.length,
+                    u.length,
                   ),
                   yield (g || (g = n("Promise"))).all(
-                    i.map(function (e) {
+                    u.map(function (e) {
                       var t = o("WAWebWidFactory").createWid(e.id + "@g.us");
                       return o("WAWebGroupQueryGroupJob").handleGroupInfoError(
                         t,
@@ -330,13 +344,13 @@ __d(
                       );
                     }),
                   )),
-                l
+                c
               );
             }
             case "BatchGetGroupInfoResponseClientError": {
-              var s = a.value.errorBatchGetGroupInfoClientErrors.value,
-                u = s.code,
-                c = s.text;
+              var d = s.value.errorBatchGetGroupInfoClientErrors.value,
+                y = d.code,
+                C = d.text;
               return (
                 o("WALogger").LOG(
                   _ ||
@@ -345,21 +359,21 @@ __d(
                       ":",
                       "",
                     ])),
-                  u,
-                  c,
+                  y,
+                  C,
                 ),
                 (g || (g = n("Promise"))).reject(
                   new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(u),
-                    c,
+                    Number(y),
+                    C,
                   ),
                 )
               );
             }
             case "BatchGetGroupInfoResponseServerError": {
-              var d = a.value.errorServerErrors.value,
-                h = d.code,
-                y = d.text;
+              var b = s.value.errorServerErrors.value,
+                v = b.code,
+                S = b.text;
               return (
                 o("WALogger").LOG(
                   f ||
@@ -368,27 +382,27 @@ __d(
                       ":",
                       "",
                     ])),
-                  h,
-                  y,
+                  v,
+                  S,
                 ),
                 (g || (g = n("Promise"))).reject(
                   new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(h),
-                    y,
+                    Number(v),
+                    S,
                   ),
                 )
               );
             }
           }
         })),
-        k.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    ((l.queryAllGroups = h),
-      (l.queryGroupInvite = C),
-      (l.queryAndUpdateGroupMetadataById = v),
-      (l.maybeQueryAndUpdateMembershipApprovalRequests = R),
-      (l.queryGroupsById_DO_NOT_USE_DIRECTLY = E));
+    ((l.queryAllGroups = b),
+      (l.queryGroupInvite = S),
+      (l.queryAndUpdateGroupMetadataById = L),
+      (l.maybeQueryAndUpdateMembershipApprovalRequests = k),
+      (l.queryGroupsById_DO_NOT_USE_DIRECTLY = T));
   },
   98,
 );

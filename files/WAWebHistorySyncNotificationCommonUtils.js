@@ -2,6 +2,7 @@ __d(
   "WAWebHistorySyncNotificationCommonUtils",
   [
     "WALogger",
+    "WAWebBrazilPaymentReceiptAddedNoticeMsg",
     "WAWebCurrentUser",
     "WAWebHistorySyncLidChatGating",
     "WAWebHistorySyncLogUtils",
@@ -95,8 +96,8 @@ __d(
               )
               .sendLogs("parseWebMessageInfo failed during history sync"));
       }
-      return (
-        o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat() &&
+      if (
+        (o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat() &&
         s.isRegularUserPn() &&
         c != null &&
         c.id != null
@@ -121,15 +122,21 @@ __d(
               "WAWebHistorySyncMsgKeyOverrideUtils",
             ).maybeOverrideMsgKeyRemoteWithChatId(c, s, !0)),
         c != null &&
-        o(
-          "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-        ).isRoutedBrazilPaymentStateUpdateMsg(c)
-          ? (o(
-              "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-            ).keepAndApplyBrazilPaymentStateUpdate(c, !1),
-            null)
-          : c
-      );
+          o(
+            "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+          ).isRoutedBrazilPaymentStateUpdateMsg(c))
+      ) {
+        var m = o(
+          "WAWebBrazilPaymentReceiptAddedNoticeMsg",
+        ).awaitHistorySyncReceiptAddedNotice(c);
+        return (
+          o(
+            "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+          ).keepAndApplyBrazilPaymentStateUpdate(c, !1),
+          m
+        );
+      }
+      return c;
     }
     function E(e) {
       o("WALogger").LOG(

@@ -22,11 +22,14 @@ __d(
       f = 0.01,
       g = (function () {
         function t(e) {
-          ((this.$5 = null),
-            (this.$7 = !1),
-            (this.$10 = !1),
-            (this.$8 = 0),
-            (this.$9 = 0),
+          ((this.$7 = null),
+            (this.$11 = null),
+            (this.$10 = null),
+            (this.$5 = null),
+            (this.$12 = !1),
+            (this.$15 = !1),
+            (this.$13 = 0),
+            (this.$14 = 0),
             (this.$1 = e),
             (this.canvas = e),
             (this.$2 = v(e)),
@@ -51,10 +54,12 @@ __d(
         return (
           (a.cleanup = function () {
             var e;
-            ((e = this.$5) == null || e.cleanup(), (this.$5 = null));
+            ((e = this.$5) == null || e.cleanup(), (this.$5 = null), this.$6());
           }),
           (a.reset = function () {
-            this.$2.clearRect(0, 0, this.$1.width, this.$1.height);
+            ((this.$7 = null),
+              this.$6(),
+              this.$2.clearRect(0, 0, this.$1.width, this.$1.height));
           }),
           (a.onCanvasResize = function (t, n) {
             this.pendingResize = { width: t, height: n };
@@ -149,12 +154,45 @@ __d(
               ));
           }),
           (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
-            (i === void 0 && (i = !1),
-              y(this.$1, this.$2, n, r, o, a, i, this.$6(t, n, r), this.$4),
+            i === void 0 && (i = !1);
+            var e = this.$8(t, n, r),
+              l = {
+                height: r,
+                mirror: a,
+                orientation: o,
+                preserveAspectRatio: i,
+                width: n,
+              };
+            (this.$9(l, e), this.$6());
+            var s = e === t ? t.clone() : null;
+            ((this.$10 = s),
+              (this.$11 = { draw: l, image: s != null ? s : e }),
               this.$3());
           }),
-          (a.$6 = function (t, n, a) {
-            if (this.$7 || (Math.abs(this.$8) < f && Math.abs(this.$9) < f))
+          (a.setZoom = function (t) {
+            this.$7 = t;
+            var e = this.$11;
+            e != null &&
+              (this.applyPendingResize(), this.$9(e.draw, e.image), this.$3());
+          }),
+          (a.$9 = function (t, n) {
+            y({
+              canvas: this.$1,
+              coverFit: this.$4,
+              ctx: this.$2,
+              draw: t,
+              image: n,
+              zoom: this.$7,
+            });
+          }),
+          (a.$6 = function () {
+            var e;
+            ((e = this.$10) == null || e.close(),
+              (this.$10 = null),
+              (this.$11 = null));
+          }),
+          (a.$8 = function (t, n, a) {
+            if (this.$12 || (Math.abs(this.$13) < f && Math.abs(this.$14) < f))
               return (
                 this.$5 != null && (this.$5.cleanup(), (this.$5 = null)),
                 t
@@ -162,10 +200,10 @@ __d(
             try {
               this.$5 == null &&
                 (this.$5 = new (r("WAWebVoipVideoEnhancementPass"))());
-              var e = this.$5.render(t, n, a, this.$8, this.$9);
+              var e = this.$5.render(t, n, a, this.$13, this.$14);
               return (
-                this.$10 ||
-                  ((this.$10 = !0),
+                this.$15 ||
+                  ((this.$15 = !0),
                   o("WAWebVoipVideoRendererLogging").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -175,8 +213,8 @@ __d(
                         "x",
                         "",
                       ])),
-                    this.$8,
-                    this.$9,
+                    this.$13,
+                    this.$14,
                     n,
                     a,
                   )),
@@ -185,7 +223,7 @@ __d(
             } catch (e) {
               var i;
               return (
-                (this.$7 = !0),
+                (this.$12 = !0),
                 (i = this.$5) == null || i.cleanup(),
                 (this.$5 = null),
                 o("WAWebVoipVideoRendererLogging").WARN(
@@ -207,14 +245,16 @@ __d(
             this.$4 = t;
           }),
           (a.setVideoEnhancement = function (t, n) {
-            ((this.$8 = t), (this.$9 = n));
+            ((this.$13 = t), (this.$14 = n));
           }),
           t
         );
       })(),
       h = (function () {
         function e(e) {
-          ((this.$1 = e),
+          ((this.$7 = null),
+            (this.$8 = null),
+            (this.$1 = e),
             (this.$2 = v(e)),
             o("WAWebRuntimeEnvironmentUtils").isWorker()
               ? (this.$3 = new OffscreenCanvas(e.width, e.height))
@@ -232,17 +272,19 @@ __d(
         return (
           (t.cleanup = function () {}),
           (t.reset = function () {
-            this.$2.clearRect(0, 0, this.$1.width, this.$1.height);
+            ((this.$7 = null),
+              (this.$8 = null),
+              this.$2.clearRect(0, 0, this.$1.width, this.$1.height));
           }),
           (t.onCanvasResize = function (t, n) {
-            this.$7 = { width: t, height: n };
+            this.$9 = { width: t, height: n };
           }),
-          (t.$8 = function () {
-            if (this.$7 != null) {
-              var e = this.$7,
+          (t.$10 = function () {
+            if (this.$9 != null) {
+              var e = this.$9,
                 t = e.height,
                 n = e.width;
-              ((this.$7 = null), (this.$1.width = n), (this.$1.height = t));
+              ((this.$9 = null), (this.$1.width = n), (this.$1.height = t));
             }
           }),
           (t.renderFrame = function (t) {
@@ -254,7 +296,7 @@ __d(
               l = t.orientation,
               s = t.timestamp,
               u = t.width;
-            this.$8();
+            this.$10();
             var c = new Uint8Array(n),
               d =
                 e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
@@ -294,9 +336,15 @@ __d(
               (e.data.set(t),
                 (this.$3.width = n),
                 (this.$3.height = r),
-                this.$4.putImageData(e, 0, 0),
-                y(this.$1, this.$2, n, r, a, i, l, this.$3, this.$6),
-                this.$5());
+                this.$4.putImageData(e, 0, 0));
+              var s = {
+                height: r,
+                mirror: i,
+                orientation: a,
+                preserveAspectRatio: l,
+                width: n,
+              };
+              (this.$11(s), (this.$8 = s), this.$5());
             } catch (e) {
               o("WAWebVoipVideoRendererLogging").ERROR(
                 _ ||
@@ -314,32 +362,58 @@ __d(
           (t.setCoverFit = function (t) {
             this.$6 = t;
           }),
+          (t.setZoom = function (t) {
+            this.$7 = t;
+            var e = this.$8;
+            e != null && (this.$10(), this.$11(e), this.$5());
+          }),
           (t.setVideoEnhancement = function (t, n) {}),
+          (t.$11 = function (t) {
+            y({
+              canvas: this.$1,
+              coverFit: this.$6,
+              ctx: this.$2,
+              draw: t,
+              image: this.$3,
+              zoom: this.$7,
+            });
+          }),
           e
         );
       })();
-    function y(e, t, n, r, o, a, i, l, s) {
-      var u = C({
-          canvasHeight: e.height,
-          canvasWidth: e.width,
-          coverFit: s,
-          orientation: o,
-          preserveAspectRatio: i,
-          sourceHeight: r,
-          sourceWidth: n,
+    function y(e) {
+      var t = e.canvas,
+        n = e.coverFit,
+        r = e.ctx,
+        o = e.draw,
+        a = e.image,
+        i = e.zoom,
+        l = o.mirror,
+        s = o.orientation,
+        u = C({
+          canvasHeight: t.height,
+          canvasWidth: t.width,
+          coverFit: n,
+          orientation: s,
+          preserveAspectRatio: o.preserveAspectRatio,
+          sourceHeight: o.height,
+          sourceWidth: o.width,
         }),
         c = u.renderHeight,
         d = u.renderWidth;
-      t.save();
+      r.save();
       try {
-        (t.clearRect(0, 0, e.width, e.height),
-          t.translate(e.width / 2, e.height / 2),
-          t.scale(a ? -1 : 1, 1),
-          t.rotate((Math.PI * (o.valueOf() - 1)) / 2),
-          t.translate(-d / 2, -c / 2),
-          t.drawImage(l, 0, 0, d, c));
+        (r.clearRect(0, 0, t.width, t.height),
+          r.translate(t.width / 2, t.height / 2),
+          i != null &&
+            (r.translate(i.offsetX * t.width, i.offsetY * t.height),
+            r.scale(i.scale, i.scale)),
+          r.scale(l ? -1 : 1, 1),
+          r.rotate((Math.PI * (s.valueOf() - 1)) / 2),
+          r.translate(-d / 2, -c / 2),
+          r.drawImage(a, 0, 0, d, c));
       } finally {
-        t.restore();
+        r.restore();
       }
     }
     function C(e) {

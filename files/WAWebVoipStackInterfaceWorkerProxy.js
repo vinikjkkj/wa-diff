@@ -52,6 +52,7 @@ __d(
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
     "WAWebVoipWebTransportConnectionManager",
+    "WAWebVoipWorkerProxyScreeningCalls",
     "WAWebVoipWorkerProxyVoiceChatCalls",
     "WAWebWamEnumLobbyEntryPointType",
     "asyncToGeneratorRuntime",
@@ -1194,6 +1195,11 @@ __d(
               }
               return t;
             })(),
+          },
+          o(
+            "WAWebVoipWorkerProxyScreeningCalls",
+          ).createWorkerProxyScreeningCalls(Ee),
+          {
             endCall: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e, t) {

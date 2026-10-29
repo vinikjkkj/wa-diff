@@ -18,8 +18,12 @@ __d(
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
           "XLSX",
       },
-      c = 250 * 1024 * 1024;
-    function d(e) {
+      c = 250 * 1024 * 1024,
+      d = new Set(["auth_error", "not_connected", "permission_denied"]);
+    function m(e) {
+      return e != null && d.has(e);
+    }
+    function p(e) {
       return e.syncStatus != null &&
         r("BizAIGoogleDriveSyncStatus").cast(e.syncStatus) === "syncing"
         ? "syncing"
@@ -31,21 +35,21 @@ __d(
               ? "unsupported-type"
               : "selectable";
     }
-    function m(e) {
+    function _(e) {
       var t = u[e];
       if (t != null) return t;
       var n = e.split("/"),
         r = n[n.length - 1];
       return r.toUpperCase().replace(/^VND\..*\./, "");
     }
-    var p = {
+    var f = {
       selectable_count: 0,
       unsupported_type_count: 0,
       unsupported_size_count: 0,
       already_synced_count: 0,
       syncing_count: 0,
     };
-    function _(t) {
+    function g(t) {
       var n = 0,
         r = 0,
         o = 0,
@@ -53,7 +57,7 @@ __d(
         i = 0;
       for (var l of t)
         if (l.mime_type !== e) {
-          var s = d({
+          var s = p({
             id: l.id,
             name: l.name,
             mimeType: l.mime_type,
@@ -84,10 +88,11 @@ __d(
     ((l.FOLDER_MIME_TYPE = e),
       (l.SHARED_WITH_ME_FOLDER_ID = s),
       (l.MAX_FILE_SIZE_BYTES = c),
-      (l.getFileStatus = d),
-      (l.getShortName = m),
-      (l.EMPTY_BREAKDOWN = p),
-      (l.getResponseBreakdown = _));
+      (l.isGDriveReconnectErrorCode = m),
+      (l.getFileStatus = p),
+      (l.getShortName = _),
+      (l.EMPTY_BREAKDOWN = f),
+      (l.getResponseBreakdown = g));
   },
   98,
 );

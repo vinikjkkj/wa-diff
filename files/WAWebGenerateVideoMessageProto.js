@@ -17,17 +17,24 @@ __d(
         l = i != null && o("WATypeUtils").isString(i) ? parseInt(i, 10) : i,
         s = n.caption,
         u = n.mimetype || (a == null ? void 0 : a.mimetype),
-        c = {};
+        c = r("WAWebWid").isNewsletter(n.to),
+        d =
+          c &&
+          (a == null ? void 0 : a.dashManifestUrl) != null &&
+          o(
+            "WAWebChannelVideoServerTranscodeGating",
+          ).isChannelVideoServerTranscodeUploadEnabled(),
+        m = {};
       o("WAWebMediaGatingUtils").isThumbnailGenerationForMsgOnServerEnabled(
         n,
       ) &&
-        (c = {
+        (m = {
           thumbnailDirectPath: a == null ? void 0 : a.thumbnailDirectPath,
           thumbnailSha256: o("WAWebE2EProtoUtils").encodeBytes(
             a == null ? void 0 : a.thumbnailSha256,
           ),
         });
-      var d = babelHelpers.extends(
+      var p = babelHelpers.extends(
         {
           url: a == null ? void 0 : a.url,
           mimetype: u,
@@ -68,25 +75,23 @@ __d(
             ).isChannelVideoServerTranscodeUploadEnabled()
               ? a.metadataUrl
               : void 0,
-          dashManifestUrl:
-            (a == null ? void 0 : a.dashManifestUrl) != null &&
-            o(
-              "WAWebChannelVideoServerTranscodeGating",
-            ).isChannelVideoServerTranscodeUploadEnabled()
-              ? a.dashManifestUrl
-              : void 0,
+          dashManifestUrl: d
+            ? a == null
+              ? void 0
+              : a.dashManifestUrl
+            : void 0,
         },
-        c,
+        m,
       );
       return (
         o("WAWebE2EProtoUtils").validateOutgoingRequiredMediaProperties(
           n.type,
-          d,
-          r("WAWebWid").isNewsletter(n.to),
+          p,
+          c,
         ),
         n.type === o("WAWebMsgType").MSG_TYPE.PTV
-          ? { ptvMessage: d }
-          : { videoMessage: d }
+          ? { ptvMessage: p }
+          : { videoMessage: p }
       );
     }
     l.default = e;

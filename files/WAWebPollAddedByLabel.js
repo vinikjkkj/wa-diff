@@ -78,7 +78,7 @@ __d(
         c = l[0],
         d = l[1],
         p = l[2],
-        _ = r("useWAWebChatOrgMemberNames")(n),
+        _ = r("useWAWebChatOrgMemberNames")(n.id),
         f;
       return (
         t[1] !== n ||

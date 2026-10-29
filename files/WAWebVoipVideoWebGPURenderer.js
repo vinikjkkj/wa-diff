@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebVoipMediaEnums",
     "WAWebVoipVideoRendererInterface",
+    "WAWebVoipVideoZoom",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -25,7 +26,7 @@ __d(
       ]),
       f = (function () {
         function e(e) {
-          this.canvas = e;
+          ((this.$3 = null), (this.$4 = null), (this.canvas = e));
           var t = _.OffscreenTransfer;
           if (((this.mode = t), t === _.Direct)) this.renderer = new S(e);
           else if (
@@ -72,8 +73,9 @@ __d(
         var t = e.prototype;
         return (
           (t.reset = function () {
+            this.$3 = null;
             var e = new Uint8Array([0, 0, 0, 255]);
-            this.renderFrame({
+            (this.renderFrame({
               format: o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA,
               frameBuffer: e.buffer,
               height: 1,
@@ -82,15 +84,16 @@ __d(
               orientation: o("WAWebVoipMediaEnums").Orientation.Normal,
               timestamp: 0,
               width: 1,
-            });
+            }),
+              (this.$4 = null));
           }),
           (t.cleanup = function () {
-            this.renderer.cleanup();
+            ((this.$4 = null), this.renderer.cleanup());
           }),
           (t.onCanvasResize = function (t, n) {
             this.pendingResize = { width: t, height: n };
           }),
-          (t.$3 = function () {
+          (t.$5 = function () {
             if (this.pendingResize != null) {
               var e = this.pendingResize,
                 t = e.height,
@@ -113,44 +116,56 @@ __d(
               i = t.orientation,
               l = t.timestamp,
               s = t.width;
-            this.$3();
-            var u = this.renderer.render({
+            this.$5();
+            var u = {
+                format: e,
+                height: r,
+                mirror: a,
+                orientation: i,
+                width: s,
+              },
+              c = this.renderer.render(new Uint8Array(n), this.$6(u));
+            c && ((this.$4 = u), this.$7());
+          }),
+          (t.setZoom = function (t) {
+            this.$3 = t;
+            var e = this.$4;
+            e != null &&
+              (this.$5(), this.renderer.draw(this.$6(e)) && this.$7());
+          }),
+          (t.$6 = function (t) {
+            return babelHelpers.extends({}, t, {
               coverFit: this.$2,
-              data: new Uint8Array(n),
-              format: e,
-              height: r,
-              mirror: a,
-              orientation: i,
-              width: s,
+              zoom: this.$3,
             });
-            if (u) {
-              if (this.mode === _.Direct || !this.offscreenCanvas) {
-                this.$1();
-                return;
-              }
-              var c = this.offscreenCanvas.transferToImageBitmap();
-              e: {
-                var d = this.mode;
-                if (d === _.Direct) break e;
-                if (d === _.OffscreenTransfer) {
-                  var m;
-                  (m = this.transferContext) == null ||
-                    m.transferFromImageBitmap(c);
-                  break e;
-                }
-                if (d === _.OffscreenDraw) {
-                  var p;
-                  ((p = this.drawContext) == null || p.drawImage(c, 0, 0),
-                    c.close());
-                  break e;
-                }
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    d,
-                );
-              }
+          }),
+          (t.$7 = function () {
+            if (this.mode === _.Direct || !this.offscreenCanvas) {
               this.$1();
+              return;
             }
+            var e = this.offscreenCanvas.transferToImageBitmap();
+            e: {
+              var t = this.mode;
+              if (t === _.Direct) break e;
+              if (t === _.OffscreenTransfer) {
+                var n;
+                (n = this.transferContext) == null ||
+                  n.transferFromImageBitmap(e);
+                break e;
+              }
+              if (t === _.OffscreenDraw) {
+                var r;
+                ((r = this.drawContext) == null || r.drawImage(e, 0, 0),
+                  e.close());
+                break e;
+              }
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  t,
+              );
+            }
+            this.$1();
           }),
           (t.setRenderCallback = function (t) {
             this.$1 = t;
@@ -167,7 +182,7 @@ __d(
       g =
         "\nstruct Enhancements {\n  uBrightness: f32,\n  uSharpen: f32,\n  uTextureSize: vec2<f32>,\n}\n\n@group(0) @binding(4) var<uniform> enhancements: Enhancements;\n\nconst TOOL_ON_EPSILON: f32 = 0.01;\n\nfn bowRgbChannels(inVal: vec3<f32>, mag: f32) -> vec3<f32> {\n  var power = 1.0 + abs(mag);\n  if (mag < 0.0) {\n    power = 1.0 / power;\n  }\n  return vec3<f32>(1.0) - pow(vec3<f32>(1.0) - inVal, vec3<f32>(power));\n}\n\nfn applyEnhancements(colorIn: vec3<f32>, coord: vec2<f32>) -> vec3<f32> {\n  var color = colorIn;\n  if (abs(enhancements.uSharpen) > TOOL_ON_EPSILON) {\n    let texelSize = vec2<f32>(1.0) / enhancements.uTextureSize;\n    var blurred = vec3<f32>(0.0);\n    for (var x = -1; x <= 1; x = x + 1) {\n      for (var y = -1; y <= 1; y = y + 1) {\n        blurred = blurred + sampleRGB(coord + vec2<f32>(f32(x), f32(y)) * texelSize);\n      }\n    }\n    blurred = blurred / 9.0;\n    color = clamp(\n      color + (color - blurred) * mix(0.35, 2.5, enhancements.uSharpen),\n      vec3<f32>(0.0),\n      vec3<f32>(1.0)\n    );\n  }\n  if (abs(enhancements.uBrightness) > TOOL_ON_EPSILON) {\n    color = bowRgbChannels(\n      clamp(color, vec3<f32>(0.0), vec3<f32>(1.0)),\n      enhancements.uBrightness * 1.1\n    );\n  }\n  return color;\n}\n",
       h =
-        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\nstruct Uniforms {\n  transformMatrix: mat2x2<f32>,\n  fitScale: vec2<f32>,\n}\n\n@group(0) @binding(3) var<uniform> uniforms: Uniforms;\n\n@vertex\nfn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VertexOutput {\n  var pos = array<vec2<f32>, 4>(\n    vec2<f32>(0.0, 0.0),\n    vec2<f32>(0.0, 1.0),\n    vec2<f32>(1.0, 0.0),\n    vec2<f32>(1.0, 1.0)\n  );\n\n  var output: VertexOutput;\n  let base = (pos[vertexIndex] * 2.0 - 1.0) * vec2<f32>(1.0, -1.0);\n  // Cover/contain fit is applied by scaling the quad in screen (NDC) axes:\n  // a scale > 1 overflows the clip volume and is clipped (cover crop); a\n  // scale < 1 letterboxes (contain). This keeps the viewport in-bounds, which\n  // Safari requires (out-of-bounds viewports are rejected \u2014 T267655580).\n  let transformedPos = (uniforms.transformMatrix * base) * uniforms.fitScale;\n  output.position = vec4<f32>(transformedPos, 0.0, 1.0);\n  output.texCoord = pos[vertexIndex];\n  return output;\n}\n",
+        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\nstruct Uniforms {\n  transformMatrix: mat2x2<f32>,\n  fitScale: vec2<f32>,\n  offset: vec2<f32>,\n}\n\n@group(0) @binding(3) var<uniform> uniforms: Uniforms;\n\n@vertex\nfn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VertexOutput {\n  var pos = array<vec2<f32>, 4>(\n    vec2<f32>(0.0, 0.0),\n    vec2<f32>(0.0, 1.0),\n    vec2<f32>(1.0, 0.0),\n    vec2<f32>(1.0, 1.0)\n  );\n\n  var output: VertexOutput;\n  let base = (pos[vertexIndex] * 2.0 - 1.0) * vec2<f32>(1.0, -1.0);\n  // Cover/contain fit is applied by scaling the quad in screen (NDC) axes:\n  // a scale > 1 overflows the clip volume and is clipped (cover crop); a\n  // scale < 1 letterboxes (contain). This keeps the viewport in-bounds, which\n  // Safari requires (out-of-bounds viewports are rejected \u2014 T267655580).\n  let transformedPos =\n    (uniforms.transformMatrix * base) * uniforms.fitScale + uniforms.offset;\n  output.position = vec4<f32>(transformedPos, 0.0, 1.0);\n  output.texCoord = pos[vertexIndex];\n  return output;\n}\n",
       y =
         "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\n@group(0) @binding(0) var yTexture: texture_2d<f32>;\n@group(0) @binding(1) var uvTexture: texture_2d<f32>;\n@group(0) @binding(2) var mySampler: sampler;\n\nfn sampleRGB(coord: vec2<f32>) -> vec3<f32> {\n  let y = textureSample(yTexture, mySampler, coord).r;\n  let uv = textureSample(uvTexture, mySampler, coord).rg;\n\n  // NV12 to RGB conversion using BT.601 (limited range)\n  // Y is in range [0, 1], U and V are in range [0, 1] with 0.5 as neutral\n  let yNorm = 1.164 * (y - 0.0625);\n  let u = uv.r - 0.5;\n  let v = uv.g - 0.5;\n\n  let r = yNorm + 1.596 * v;\n  let g = yNorm - 0.391 * u - 0.813 * v;\n  let b = yNorm + 2.018 * u;\n\n  return clamp(vec3<f32>(r, g, b), vec3<f32>(0.0), vec3<f32>(1.0));\n}\n" +
         g +
@@ -354,14 +369,7 @@ __d(
           (a.setVideoEnhancement = function (t, n) {
             ((this.brightness = t), (this.sharpening = n));
           }),
-          (a.render = function (t) {
-            var e = t.coverFit,
-              n = t.data,
-              a = t.format,
-              i = t.height,
-              l = t.mirror,
-              d = t.orientation,
-              m = t.width;
+          (a.render = function (t, n) {
             if (
               !this.initialized ||
               this.device == null ||
@@ -371,162 +379,144 @@ __d(
               this.enhancementBuffer == null
             )
               return !1;
-            var _ = this.device,
-              f = this.context,
-              g = this.sampler,
-              h = this.uniformBuffer,
-              y = this.enhancementBuffer,
-              C = this.canvas.width / this.canvas.height,
-              S = d.valueOf() % 2 === 1 ? m / i : i / m,
-              R = 1,
-              L = 1;
-            e
-              ? C > S
-                ? (L = C / S)
-                : (R = S / C)
-              : C > S
-                ? (R = S / C)
-                : (L = C / S);
-            var E = v[l ? 1 : 0][d.valueOf() - 1] || b;
-            ((this.lastTransformMatrix !== E ||
-              this.lastFitScaleX !== R ||
-              this.lastFitScaleY !== L) &&
-              ((this.lastTransformMatrix = E),
-              (this.lastFitScaleX = R),
-              (this.lastFitScaleY = L),
-              this.cachedMatrixData.set(E, 0),
-              (this.cachedMatrixData[4] = R),
-              (this.cachedMatrixData[5] = L),
-              _.queue.writeBuffer(h, 0, this.cachedMatrixData)),
-              (this.lastEnhancementWidth !== m ||
-                this.lastEnhancementHeight !== i ||
+            var e = this.device,
+              r = this.context,
+              a = this.sampler,
+              i = this.uniformBuffer,
+              l = this.enhancementBuffer,
+              u = n.format,
+              c = n.height,
+              d = n.width;
+            (this.$1(e, i, n),
+              (this.lastEnhancementWidth !== d ||
+                this.lastEnhancementHeight !== c ||
                 this.lastEnhancementBrightness !== this.brightness ||
                 this.lastEnhancementSharpening !== this.sharpening) &&
-                ((this.lastEnhancementWidth = m),
-                (this.lastEnhancementHeight = i),
+                ((this.lastEnhancementWidth = d),
+                (this.lastEnhancementHeight = c),
                 (this.lastEnhancementBrightness = this.brightness),
                 (this.lastEnhancementSharpening = this.sharpening),
                 (this.cachedEnhancementData[0] = this.brightness),
                 (this.cachedEnhancementData[1] = this.sharpening),
-                (this.cachedEnhancementData[2] = m),
-                (this.cachedEnhancementData[3] = i),
-                _.queue.writeBuffer(y, 0, this.cachedEnhancementData)));
-            var k = null,
-              I = null;
-            if (a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12) {
-              var T = m * i,
-                D = n.subarray(0, T),
-                x = n.subarray(T);
+                (this.cachedEnhancementData[2] = d),
+                (this.cachedEnhancementData[3] = c),
+                e.queue.writeBuffer(l, 0, this.cachedEnhancementData)));
+            var m = null,
+              _ = null;
+            if (u === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12) {
+              var f = d * c,
+                g = t.subarray(0, f),
+                h = t.subarray(f);
               if (
                 this.yTexture == null ||
                 this.uvTexture == null ||
-                this.lastWidth !== m ||
-                this.lastHeight !== i
+                this.lastWidth !== d ||
+                this.lastHeight !== c
               ) {
                 (this.yTexture != null && this.yTexture.destroy(),
                   this.uvTexture != null && this.uvTexture.destroy());
-                var $ = _.createTexture({
-                  size: { width: m, height: i, depthOrArrayLayers: 1 },
+                var y = e.createTexture({
+                  size: { width: d, height: c, depthOrArrayLayers: 1 },
                   format: "r8unorm",
                   usage: p.TEXTURE_BINDING | p.COPY_DST,
                 });
-                this.yTexture = $;
-                var P = _.createTexture({
-                  size: { width: m / 2, height: i / 2, depthOrArrayLayers: 1 },
+                this.yTexture = y;
+                var C = e.createTexture({
+                  size: { width: d / 2, height: c / 2, depthOrArrayLayers: 1 },
                   format: "rg8unorm",
                   usage: p.TEXTURE_BINDING | p.COPY_DST,
                 });
-                ((this.uvTexture = P),
-                  (this.lastWidth = m),
-                  (this.lastHeight = i));
-                var N = this.nv12BindGroupLayout;
-                if (N == null) return !1;
-                this.cachedNV12BindGroup = _.createBindGroup({
-                  layout: N,
+                ((this.uvTexture = C),
+                  (this.lastWidth = d),
+                  (this.lastHeight = c));
+                var b = this.nv12BindGroupLayout;
+                if (b == null) return !1;
+                this.cachedNV12BindGroup = e.createBindGroup({
+                  layout: b,
                   entries: [
-                    { binding: 0, resource: $.createView() },
-                    { binding: 1, resource: P.createView() },
-                    { binding: 2, resource: g },
-                    { binding: 3, resource: { buffer: h } },
-                    { binding: 4, resource: { buffer: y } },
+                    { binding: 0, resource: y.createView() },
+                    { binding: 1, resource: C.createView() },
+                    { binding: 2, resource: a },
+                    { binding: 3, resource: { buffer: i } },
+                    { binding: 4, resource: { buffer: l } },
                   ],
                 });
               }
-              var M = this.yTexture,
-                w = this.uvTexture;
-              if (M == null || w == null) return !1;
-              (_.queue.writeTexture(
-                { texture: M },
-                D,
-                { offset: 0, bytesPerRow: m, rowsPerImage: i },
-                { width: m, height: i, depthOrArrayLayers: 1 },
+              var v = this.yTexture,
+                S = this.uvTexture;
+              if (v == null || S == null) return !1;
+              (e.queue.writeTexture(
+                { texture: v },
+                g,
+                { offset: 0, bytesPerRow: d, rowsPerImage: c },
+                { width: d, height: c, depthOrArrayLayers: 1 },
               ),
-                _.queue.writeTexture(
-                  { texture: w },
-                  x,
-                  { offset: 0, bytesPerRow: m, rowsPerImage: i / 2 },
-                  { width: m / 2, height: i / 2, depthOrArrayLayers: 1 },
+                e.queue.writeTexture(
+                  { texture: S },
+                  h,
+                  { offset: 0, bytesPerRow: d, rowsPerImage: c / 2 },
+                  { width: d / 2, height: c / 2, depthOrArrayLayers: 1 },
                 ),
-                (k = this.nv12Pipeline),
-                (I = this.cachedNV12BindGroup));
+                (m = this.nv12Pipeline),
+                (_ = this.cachedNV12BindGroup));
             } else if (
-              a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
-              a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
+              u === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
+              u === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
             ) {
               if (
                 this.rgbTexture == null ||
-                this.lastWidth !== m ||
-                this.lastHeight !== i
+                this.lastWidth !== d ||
+                this.lastHeight !== c
               ) {
                 this.rgbTexture != null && this.rgbTexture.destroy();
-                var A = _.createTexture({
-                  size: { width: m, height: i, depthOrArrayLayers: 1 },
+                var R = e.createTexture({
+                  size: { width: d, height: c, depthOrArrayLayers: 1 },
                   format: "rgba8unorm",
                   usage: p.TEXTURE_BINDING | p.COPY_DST,
                 });
-                ((this.rgbTexture = A),
-                  (this.rgbaConversionBuffer = new Uint8Array(m * i * 4)),
-                  (this.lastWidth = m),
-                  (this.lastHeight = i));
-                var F = this.rgbBindGroupLayout;
-                if (F == null) return !1;
-                this.cachedRGBBindGroup = _.createBindGroup({
-                  layout: F,
+                ((this.rgbTexture = R),
+                  (this.rgbaConversionBuffer = new Uint8Array(d * c * 4)),
+                  (this.lastWidth = d),
+                  (this.lastHeight = c));
+                var L = this.rgbBindGroupLayout;
+                if (L == null) return !1;
+                this.cachedRGBBindGroup = e.createBindGroup({
+                  layout: L,
                   entries: [
-                    { binding: 0, resource: A.createView() },
-                    { binding: 2, resource: g },
-                    { binding: 3, resource: { buffer: h } },
-                    { binding: 4, resource: { buffer: y } },
+                    { binding: 0, resource: R.createView() },
+                    { binding: 2, resource: a },
+                    { binding: 3, resource: { buffer: i } },
+                    { binding: 4, resource: { buffer: l } },
                   ],
                 });
               }
-              var O = n;
-              if (a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24) {
-                var B = m * i * 4;
+              var E = t;
+              if (u === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24) {
+                var k = d * c * 4;
                 (this.rgbaConversionBuffer == null ||
-                  this.rgbaConversionBuffer.length < B) &&
-                  (this.rgbaConversionBuffer = new Uint8Array(B));
+                  this.rgbaConversionBuffer.length < k) &&
+                  (this.rgbaConversionBuffer = new Uint8Array(k));
                 for (
-                  var W = this.rgbaConversionBuffer, q = m * i, U = 0;
-                  U < q;
-                  U++
+                  var I = this.rgbaConversionBuffer, T = d * c, D = 0;
+                  D < T;
+                  D++
                 )
-                  ((W[U * 4] = n[U * 3]),
-                    (W[U * 4 + 1] = n[U * 3 + 1]),
-                    (W[U * 4 + 2] = n[U * 3 + 2]),
-                    (W[U * 4 + 3] = 255));
-                O = W;
+                  ((I[D * 4] = t[D * 3]),
+                    (I[D * 4 + 1] = t[D * 3 + 1]),
+                    (I[D * 4 + 2] = t[D * 3 + 2]),
+                    (I[D * 4 + 3] = 255));
+                E = I;
               }
-              var V = this.rgbTexture;
-              if (V == null) return !1;
-              (_.queue.writeTexture(
-                { texture: V },
-                O,
-                { offset: 0, bytesPerRow: m * 4, rowsPerImage: i },
-                { width: m, height: i, depthOrArrayLayers: 1 },
+              var x = this.rgbTexture;
+              if (x == null) return !1;
+              (e.queue.writeTexture(
+                { texture: x },
+                E,
+                { offset: 0, bytesPerRow: d * 4, rowsPerImage: c },
+                { width: d, height: c, depthOrArrayLayers: 1 },
               ),
-                (k = this.rgbPipeline),
-                (I = this.cachedRGBBindGroup));
+                (m = this.rgbPipeline),
+                (_ = this.cachedRGBBindGroup));
             } else
               return (
                 o("WALogger").ERROR(
@@ -535,15 +525,76 @@ __d(
                       "[webgpu]: Invalid video format: ",
                       "",
                     ])),
-                  o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(a),
+                  o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(u),
                 ),
                 !1
               );
-            if (k == null || I == null) return !1;
-            var H = _.createCommandEncoder(),
-              G;
+            return m == null || _ == null ? !1 : this.$2(e, r, m, _);
+          }),
+          (a.draw = function (t) {
+            var e = this.context,
+              n = this.device,
+              r = this.uniformBuffer;
+            if (!this.initialized || n == null || e == null || r == null)
+              return !1;
+            var a =
+                t.format === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12,
+              i = a ? this.nv12Pipeline : this.rgbPipeline,
+              l = a ? this.cachedNV12BindGroup : this.cachedRGBBindGroup;
+            return i == null || l == null
+              ? !1
+              : (this.$1(n, r, t), this.$2(n, e, i, l));
+          }),
+          (a.$1 = function (t, n, r) {
+            var e = r.coverFit,
+              a = r.height,
+              i = r.mirror,
+              l = r.orientation,
+              s = r.width,
+              u = r.zoom,
+              c = this.canvas.width / this.canvas.height,
+              d = l.valueOf() % 2 === 1 ? s / a : a / s,
+              m = o("WAWebVoipVideoZoom").toClipSpaceTransform(
+                o("WAWebVoipVideoZoom").computeFitScale({
+                  canvasAspect: c,
+                  coverFit: e,
+                  videoAspect: d,
+                }),
+                u,
+              ),
+              p = m.offsetX,
+              _ = m.offsetY,
+              f = m.scaleX,
+              g = m.scaleY,
+              h = v[i ? 1 : 0][l.valueOf() - 1] || b;
+            if (
+              !(
+                this.lastTransformMatrix === h &&
+                this.lastScaleX === f &&
+                this.lastScaleY === g &&
+                this.lastOffsetX === p &&
+                this.lastOffsetY === _
+              )
+            ) {
+              ((this.lastTransformMatrix = h),
+                (this.lastScaleX = f),
+                (this.lastScaleY = g),
+                (this.lastOffsetX = p),
+                (this.lastOffsetY = _));
+              var y = this.cachedMatrixData;
+              (y.set(h, 0),
+                (y[4] = f),
+                (y[5] = g),
+                (y[6] = p),
+                (y[7] = _),
+                t.queue.writeBuffer(n, 0, y));
+            }
+          }),
+          (a.$2 = function (t, n, a, i) {
+            var e = t.createCommandEncoder(),
+              l;
             try {
-              G = f.getCurrentTexture();
+              l = n.getCurrentTexture();
             } catch (e) {
               this.contextReconfigured ||
                 (o("WALogger")
@@ -556,8 +607,8 @@ __d(
                   .catching(r("getErrorSafe")(e)),
                 (this.contextReconfigured = !0));
               try {
-                (f.configure({ device: _, format: this.swapChainFormat }),
-                  (G = f.getCurrentTexture()));
+                (n.configure({ device: t, format: this.swapChainFormat }),
+                  (l = n.getCurrentTexture()));
               } catch (e) {
                 return (
                   o("WALogger")
@@ -572,24 +623,24 @@ __d(
                 );
               }
             }
-            var z = {
+            var s = {
                 colorAttachments: [
                   {
-                    view: G.createView(),
+                    view: l.createView(),
                     clearValue: { r: 0, g: 0, b: 0, a: 1 },
                     loadOp: "clear",
                     storeOp: "store",
                   },
                 ],
               },
-              j = H.beginRenderPass(z);
+              d = e.beginRenderPass(s);
             return (
-              j.setPipeline(k),
-              j.setViewport(0, 0, this.canvas.width, this.canvas.height, 0, 1),
-              j.setBindGroup(0, I),
-              j.draw(4, 1, 0, 0),
-              j.end(),
-              _.queue.submit([H.finish()]),
+              d.setPipeline(a),
+              d.setViewport(0, 0, this.canvas.width, this.canvas.height, 0, 1),
+              d.setBindGroup(0, i),
+              d.draw(4, 1, 0, 0),
+              d.end(),
+              t.queue.submit([e.finish()]),
               !0
             );
           }),

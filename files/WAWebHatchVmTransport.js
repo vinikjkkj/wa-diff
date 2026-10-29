@@ -179,7 +179,12 @@ __d(
       }
       return t;
     }
-    var B = Object.freeze({
+    function B(t) {
+      return t === "" || t === "." || t === ".." || p(t)
+        ? null
+        : "/api/tasks/" + u(t);
+    }
+    var W = Object.freeze({
       ACTIVITY_PAGE: function (n, r) {
         return (
           "/api/activity?limit=" +
@@ -317,8 +322,10 @@ __d(
       },
       IDEA_CARD_ICON: w,
       IDEA_CARDS: "/api/idea-cards?iconPalette=color",
+      IDENTITY: "/api/identity",
       NAVIGATION_SUBSCRIBE: "/api/navigation/subscribe",
       OAUTH_CALLBACK: "/oauth/callback",
+      PRODUCT_IMPROVEMENTS: "/api/product-improvements",
       PERMISSIONS_ACTIVE: "/permissions/active",
       PERMISSIONS_ACTIVE_BY_SCOPE: function (t) {
         return s("group_by=scope&limit=50", t);
@@ -333,6 +340,9 @@ __d(
       PERMISSIONS_RESET: "/permissions/reset",
       PERMISSIONS_REVOKE: "/permissions/revoke",
       PERMISSIONS_SETTINGS: "/permissions/settings",
+      SCHEDULED_TASK: B,
+      SCHEDULED_TASKS: "/api/tasks",
+      SCHEDULED_TASKS_SUBSCRIBE: "/api/tasks/subscribe",
       SPACE_CVM: l,
       SPACE_DELETE: function (n) {
         return "/spaces/v2/" + n + "?source=space";
@@ -351,16 +361,19 @@ __d(
       WORKSPACE_RAW: function (t) {
         return _(C, t, "");
       },
+      WORKSPACE_READ: "/fs/read",
+      WORKSPACE_STAT: "/fs/stat",
       WORKSPACE_THUMBNAIL: function (t, n, r) {
         return _(b, t, "?p=" + r + "&v=" + n);
       },
+      WORKSPACE_WRITE: "/fs/write",
     });
-    function W(e) {
+    function q(e) {
       return e;
     }
     ((i.confineWorkspaceMediaPath = m),
-      (i.JarvisPaths = B),
-      (i.serializeJarvisPath = W));
+      (i.JarvisPaths = W),
+      (i.serializeJarvisPath = q));
   },
   66,
 );

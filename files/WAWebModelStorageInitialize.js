@@ -104,6 +104,11 @@ __d(
     "WAWebSchemaScheduledMsgOrphanRevealKey",
     "WAWebSchemaScheduledMsgRevealKey",
     "WAWebSchemaSelfAddonMessageTypeTable",
+    "WAWebSchemaSharableEvent",
+    "WAWebSchemaSharableEventChange",
+    "WAWebSchemaSharableEventCreatorPushName",
+    "WAWebSchemaSharableEventInviteLinkToken",
+    "WAWebSchemaSharableEventInvitee",
     "WAWebSchemaStickerDownload",
     "WAWebSchemaSubgroupSuggestion",
     "WAWebSchemaSubgroupSuggestionV2",
@@ -251,6 +256,11 @@ __d(
             o("WAWebSchemaOrg").addTable(),
             o("WAWebSchemaOrgContact").addTable(),
             o("WAWebSchemaExperienceId").addTable(),
+            o("WAWebSchemaSharableEvent").addTable(),
+            o("WAWebSchemaSharableEventChange").addTable(),
+            o("WAWebSchemaSharableEventCreatorPushName").addTable(),
+            o("WAWebSchemaSharableEventInvitee").addTable(),
+            o("WAWebSchemaSharableEventInviteLinkToken").addTable(),
             o("WAWebModelStorageUtils")
               .getStorage()
               .initialize()

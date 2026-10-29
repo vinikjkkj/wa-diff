@@ -107,7 +107,8 @@ __d(
       ke = s,
       Ie = s,
       Te = s,
-      De = s;
+      De = s,
+      xe = s;
     ((l.createMessagesCache = p),
       (l.createFrontendMessagesCache = _),
       (l.createChatCache = f),
@@ -178,7 +179,8 @@ __d(
       (l.createTextStatusCache = ke),
       (l.createFrontendTextStatusCache = Ie),
       (l.createOrgContactCache = Te),
-      (l.createOrgCache = De));
+      (l.createOrgCache = De),
+      (l.createSharableEventCache = xe));
   },
   98,
 );

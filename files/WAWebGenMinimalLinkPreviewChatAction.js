@@ -3,12 +3,17 @@ __d(
   ["WALogger", "WAWebLinkPreviewUtils", "WAWebUserPrefsGeneral"],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, n, r, a) {
-      if ((r === void 0 && (r = !1), a === void 0 && (a = null), !t || !t.url))
-        return null;
-      var i = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-        l = i.disableLinkPreviews;
-      return l === !0
+    function s(t) {
+      var n = t.isLoading,
+        r = n === void 0 ? !1 : n,
+        a = t.link,
+        i = t.paymentLinkDetails,
+        l = i === void 0 ? null : i,
+        s = t.richPreviewType;
+      if (!a || !a.url) return null;
+      var u = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+        c = u.disableLinkPreviews;
+      return c === !0
         ? (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -17,15 +22,15 @@ __d(
           ),
           null)
         : o("WAWebLinkPreviewUtils").genLinkPreview({
-            url: t.url,
+            url: a.url,
             linkDetails: {
-              title: t.domain,
-              description: t.url,
-              richPreviewType: n,
+              title: a.domain,
+              description: a.url,
+              richPreviewType: s,
               doNotPlayInline: !0,
               isLoading: r,
             },
-            paymentLinkDetails: a,
+            paymentLinkDetails: l,
           });
     }
     l.genMinimalLinkPreview = s;

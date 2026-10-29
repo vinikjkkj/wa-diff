@@ -71,7 +71,7 @@ __d(
             (g = _.height),
             (h = _.width),
             (y = "xMidYMid meet"),
-            (C = (s || (s = r("stylex")))(_.iconXstyle)),
+            (C = (s || (s = r("stylex"))).props(_.iconXstyle)),
             (d[0] = l),
             (d[1] = p),
             (d[2] = _),
@@ -107,13 +107,8 @@ __d(
           ? ((R = c.jsxs(
               "svg",
               babelHelpers.extends(
-                {
-                  viewBox: f,
-                  height: g,
-                  width: h,
-                  preserveAspectRatio: y,
-                  className: C,
-                },
+                { viewBox: f, height: g, width: h, preserveAspectRatio: y },
+                C,
                 i,
                 { children: [S, u] },
               ),

@@ -21,9 +21,9 @@ __d(
       })(babelHelpers.wrapNativeSuper(Error)),
       s = 10 * 1024 * 1024,
       u = 50,
-      c = /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      c = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/,
       d = u * 2 + 2,
-      m = new Set(["email", "email address", "email_address"]),
+      m = new Set(["email", "emails", "email address", "email_address"]),
       p = new Set([
         "name",
         "full name",

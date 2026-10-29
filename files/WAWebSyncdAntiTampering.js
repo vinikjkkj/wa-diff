@@ -262,15 +262,16 @@ __d(
               S = yield o(
                 "WAWebGetCollectionVersion",
               ).getCollectionVersionLtHashInTransaction(e),
-              R = yield J(
-                e,
-                v,
-                r,
-                a,
-                t.version.version,
-                o("WAWebSyncdAntiTampering.flow").SyncdPatchDirection.Incoming,
-                S,
-              ),
+              R = yield J({
+                collection: e,
+                direction: o("WAWebSyncdAntiTampering.flow").SyncdPatchDirection
+                  .Incoming,
+                fallbackQueryForValueMac: a,
+                ltHashHint: S,
+                mutations: v,
+                session: r,
+                version: t.version.version,
+              }),
               L = o("WAWebSyncdCryptoUtils").to64BitNetworkOrder(_.version),
               E = o("WAEncodeString").toUtf8(e).buffer;
             o("WALogger").LOG(
@@ -926,397 +927,390 @@ __d(
         Y.apply(this, arguments)
       );
     }
-    function J(e, t, n, r, o, a, i) {
+    function J(e) {
       return Z.apply(this, arguments);
     }
     function Z() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i, l, s) {
-            var u =
-                o("WAWebABProps").getABPropConfigValue(
-                  "enable_syncd_debug_data_in_patch",
-                ) ||
-                e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
-                l ===
-                  o("WAWebSyncdAntiTampering.flow").SyncdPatchDirection
-                    .Outgoing,
-              c =
-                s != null
-                  ? s
-                  : yield o(
-                      "WAWebGetCollectionVersion",
-                    ).getCollectionVersionLtHashInTransaction(e),
-              d =
-                o("WAWebABProps").getABPropConfigValue(
-                  "syncd_use_index_for_lthash_lookup",
-                ) === !0 &&
-                t.every(function (e) {
-                  return e.index != null;
-                });
-            d &&
-              o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "[",
-                    "] syncd: using index-based ltHash lookup for ",
-                    "",
-                  ])),
-                r,
-                e,
-              );
-            var m = d
-                ? yield ne(e, t)
-                : yield ee(
-                    t.map(function (e) {
-                      return e.indexMac;
-                    }),
-                  ),
-              p = new Map(),
-              _ = new Map(),
-              f = new Map(),
-              g = new Set();
-            if (d)
-              for (var h of t)
-                h.operation ===
-                  o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
-                    .REMOVE &&
-                  h.index != null &&
-                  g.add(h.index);
-            var y = !1,
-              C = !1;
-            if (
-              (yield o("WAPromiseEach").promiseEach(
-                t,
-                (function () {
-                  var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n, a) {
-                      var s,
-                        u = n.indexMac,
-                        c = n.operation,
-                        h = n.valueMac,
-                        b = d && (s = n.index) != null ? s : B.decode(u),
-                        v = m.get(b);
-                      if (v)
-                        c ===
-                        o("WAWebProtobufsServerSync.pb")
-                          .SyncdMutation$SyncdOperation.REMOVE
-                          ? _.set(
-                              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                                u,
-                              ),
-                              v.valueMac,
-                            )
-                          : g.has(b) ||
-                            f.set(
-                              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                                u,
-                              ),
-                              v.valueMac,
-                            );
-                      else if (
-                        c ===
-                        o("WAWebProtobufsServerSync.pb")
-                          .SyncdMutation$SyncdOperation.REMOVE
-                      ) {
-                        var S = d ? null : yield N(u);
-                        if (S != null) {
-                          var R;
-                          (_.set(
-                            o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
-                              u,
-                            ),
-                            S,
-                          ),
-                            (C = !0),
-                            o("WALogger")
-                              .WARN(
-                                k ||
-                                  (k = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[",
-                                    "] syncd: had to use fallbackQueryForValueMac in collection ",
-                                    " for platform ",
-                                    ": ",
-                                    "\n        }",
-                                  ])),
-                                r,
-                                e,
-                                (R = o("WAWebConnModel").Conn.platform) != null
-                                  ? R
-                                  : "[empty]",
-                                o("WAWebSyncdCryptoUtils")
-                                  .arrayBufferToHexPadded(u)
-                                  .slice(-16),
-                              )
-                              .tags("non-sad")
-                              .sendLogs("syncd: fallback query"),
-                            yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                              e,
-                              "[" +
-                                r +
-                                "] used fallback for " +
-                                o(
-                                  "WAWebSyncdCryptoUtils",
-                                ).arrayBufferToHexPadded(u),
-                            ));
-                        } else {
-                          var L, E, D;
-                          ((y = !0),
-                            yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                              e,
-                              "[" +
-                                r +
-                                "] incoming REMOVE mutation missing in local snapshot for collection " +
-                                e +
-                                " version " +
-                                ((L = i == null ? void 0 : i.toString()) != null
-                                  ? L
-                                  : "n/a") +
-                                ": " +
-                                o(
-                                  "WAWebSyncdCryptoUtils",
-                                ).arrayBufferToHexPadded(u),
-                            ),
-                            yield ae(e, r, "REMOVE missing", !1));
-                          var x =
-                            "\n          syncUseMultipleMacQueries: true\n          input mutations mac:\n          " +
-                            t
-                              .map(function (e) {
-                                return (
-                                  (e.operation ===
-                                  o("WAWebProtobufsServerSync.pb")
-                                    .SyncdMutation$SyncdOperation.SET
-                                    ? "SET "
-                                    : "REMOVE ") + O(e.indexMac, e.valueMac)
-                                );
-                              })
-                              .join("\n	") +
-                            "\n          currentMacs: " +
-                            Array.from(m.values())
-                              .map(function (e) {
-                                return O(e.indexMac, e.valueMac);
-                              })
-                              .join(", ") +
-                            "\n        ";
-                          (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                            e,
-                            "missing remove additional info: " + x,
-                          ),
-                            o("WAWebSyncdMetrics").uploadMdCriticalEventMetric(
-                              o("WAWebWamEnumMdSyncdCriticalEventCode")
-                                .MD_SYNCD_CRITICAL_EVENT_CODE
-                                .MISSING_MUTATION_TO_REMOVE,
-                              e,
-                              n.action,
-                            ));
-                          var $ =
-                            "[" +
-                            r +
-                            "] syncd: missing indexMAC in sync-actions table for REMOVE mutation in collection " +
-                            e +
-                            " version " +
-                            ((E = i == null ? void 0 : i.toString()) != null
-                              ? E
-                              : "n/a") +
-                            " direction " +
-                            (l || "n/a") +
-                            " for platform " +
-                            ((D = o("WAWebConnModel").Conn.platform) != null
-                              ? D
-                              : "[empty]") +
-                            ": " +
-                            o("WAWebSyncdCryptoUtils")
-                              .arrayBufferToHexPadded(u)
-                              .slice(-16);
-                          e ===
-                          o("WAWebSyncdConst").CollectionName.CriticalBlock
-                            ? (yield o(
-                                "WAWebSyncdDbCallbacksApi",
-                              ).printSyncdLog(e),
-                              o("WALogger")
-                                .ERROR(
-                                  I ||
-                                    (I =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "",
-                                        "",
-                                      ])),
-                                  $,
-                                )
-                                .sendLogs(
-                                  "syncd: missing indexMAC from REMOVE in collection " +
-                                    e,
-                                ))
-                            : o("WALogger")
-                                .ERROR(
-                                  T ||
-                                    (T =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "",
-                                        "",
-                                      ])),
-                                  $,
-                                )
-                                .sendLogs(
-                                  "syncd: missing indexMAC from REMOVE in collection " +
-                                    e,
-                                  { sampling: 0.01 },
-                                );
-                        }
-                      }
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.collection,
+            r = e.direction,
+            a = e.fallbackQueryForValueMac,
+            i = e.ltHashHint,
+            l = e.mutations,
+            s = e.session,
+            u = e.version,
+            c =
+              o("WAWebABProps").getABPropConfigValue(
+                "enable_syncd_debug_data_in_patch",
+              ) ||
+              t === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
+              r ===
+                o("WAWebSyncdAntiTampering.flow").SyncdPatchDirection.Outgoing,
+            d =
+              i != null
+                ? i
+                : yield o(
+                    "WAWebGetCollectionVersion",
+                  ).getCollectionVersionLtHashInTransaction(t),
+            m =
+              o("WAWebABProps").getABPropConfigValue(
+                "syncd_use_index_for_lthash_lookup",
+              ) === !0 &&
+              l.every(function (e) {
+                return e.index != null;
+              });
+          m &&
+            o("WALogger").LOG(
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
+                  "[",
+                  "] syncd: using index-based ltHash lookup for ",
+                  "",
+                ])),
+              s,
+              t,
+            );
+          var p = m
+              ? yield ne(t, l)
+              : yield ee(
+                  l.map(function (e) {
+                    return e.indexMac;
+                  }),
+                ),
+            _ = new Map(),
+            f = new Map(),
+            g = new Map(),
+            h = new Set();
+          if (m)
+            for (var y of l)
+              y.operation ===
+                o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
+                  .REMOVE &&
+                y.index != null &&
+                h.add(y.index);
+          var C = !1,
+            b = !1;
+          if (
+            (yield o("WAPromiseEach").promiseEach(
+              l,
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e, n) {
+                    var a,
+                      i = e.indexMac,
+                      c = e.operation,
+                      d = e.valueMac,
+                      y = m && (a = e.index) != null ? a : B.decode(i),
+                      v = p.get(y);
+                    if (v)
                       c ===
-                        o("WAWebProtobufsServerSync.pb")
-                          .SyncdMutation$SyncdOperation.SET &&
-                        p.set(
-                          o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(u),
-                          h,
-                        );
-                    },
+                      o("WAWebProtobufsServerSync.pb")
+                        .SyncdMutation$SyncdOperation.REMOVE
+                        ? f.set(
+                            o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
+                              i,
+                            ),
+                            v.valueMac,
+                          )
+                        : h.has(y) ||
+                          g.set(
+                            o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
+                              i,
+                            ),
+                            v.valueMac,
+                          );
+                    else if (
+                      c ===
+                      o("WAWebProtobufsServerSync.pb")
+                        .SyncdMutation$SyncdOperation.REMOVE
+                    ) {
+                      var S = m ? null : yield M(i);
+                      if (S != null) {
+                        var R;
+                        (f.set(
+                          o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(i),
+                          S,
+                        ),
+                          (b = !0),
+                          o("WALogger")
+                            .WARN(
+                              k ||
+                                (k = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[",
+                                  "] syncd: had to use fallbackQueryForValueMac in collection ",
+                                  " for platform ",
+                                  ": ",
+                                  "\n        }",
+                                ])),
+                              s,
+                              t,
+                              (R = o("WAWebConnModel").Conn.platform) != null
+                                ? R
+                                : "[empty]",
+                              o("WAWebSyncdCryptoUtils")
+                                .arrayBufferToHexPadded(i)
+                                .slice(-16),
+                            )
+                            .tags("non-sad")
+                            .sendLogs("syncd: fallback query"),
+                          yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                            t,
+                            "[" +
+                              s +
+                              "] used fallback for " +
+                              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
+                                i,
+                              ),
+                          ));
+                      } else {
+                        var L, E, D;
+                        ((C = !0),
+                          yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                            t,
+                            "[" +
+                              s +
+                              "] incoming REMOVE mutation missing in local snapshot for collection " +
+                              t +
+                              " version " +
+                              ((L = u == null ? void 0 : u.toString()) != null
+                                ? L
+                                : "n/a") +
+                              ": " +
+                              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(
+                                i,
+                              ),
+                          ),
+                          yield ae(t, s, "REMOVE missing", !1));
+                        var x =
+                          "\n          syncUseMultipleMacQueries: true\n          input mutations mac:\n          " +
+                          l
+                            .map(function (e) {
+                              return (
+                                (e.operation ===
+                                o("WAWebProtobufsServerSync.pb")
+                                  .SyncdMutation$SyncdOperation.SET
+                                  ? "SET "
+                                  : "REMOVE ") + O(e.indexMac, e.valueMac)
+                              );
+                            })
+                            .join("\n	") +
+                          "\n          currentMacs: " +
+                          Array.from(p.values())
+                            .map(function (e) {
+                              return O(e.indexMac, e.valueMac);
+                            })
+                            .join(", ") +
+                          "\n        ";
+                        (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                          t,
+                          "missing remove additional info: " + x,
+                        ),
+                          o("WAWebSyncdMetrics").uploadMdCriticalEventMetric(
+                            o("WAWebWamEnumMdSyncdCriticalEventCode")
+                              .MD_SYNCD_CRITICAL_EVENT_CODE
+                              .MISSING_MUTATION_TO_REMOVE,
+                            t,
+                            e.action,
+                          ));
+                        var $ =
+                          "[" +
+                          s +
+                          "] syncd: missing indexMAC in sync-actions table for REMOVE mutation in collection " +
+                          t +
+                          " version " +
+                          ((E = u == null ? void 0 : u.toString()) != null
+                            ? E
+                            : "n/a") +
+                          " direction " +
+                          (r || "n/a") +
+                          " for platform " +
+                          ((D = o("WAWebConnModel").Conn.platform) != null
+                            ? D
+                            : "[empty]") +
+                          ": " +
+                          o("WAWebSyncdCryptoUtils")
+                            .arrayBufferToHexPadded(i)
+                            .slice(-16);
+                        t === o("WAWebSyncdConst").CollectionName.CriticalBlock
+                          ? (yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(
+                              t,
+                            ),
+                            o("WALogger")
+                              .ERROR(
+                                I ||
+                                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                                    "",
+                                    "",
+                                  ])),
+                                $,
+                              )
+                              .sendLogs(
+                                "syncd: missing indexMAC from REMOVE in collection " +
+                                  t,
+                              ))
+                          : o("WALogger")
+                              .ERROR(
+                                T ||
+                                  (T = babelHelpers.taggedTemplateLiteralLoose([
+                                    "",
+                                    "",
+                                  ])),
+                                $,
+                              )
+                              .sendLogs(
+                                "syncd: missing indexMAC from REMOVE in collection " +
+                                  t,
+                                { sampling: 0.01 },
+                              );
+                      }
+                    }
+                    c ===
+                      o("WAWebProtobufsServerSync.pb")
+                        .SyncdMutation$SyncdOperation.SET &&
+                      _.set(
+                        o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(i),
+                        d,
+                      );
+                  },
+                );
+                return function (t, n) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+            C)
+          ) {
+            var v =
+              "\n      syncUseMultipleMacQueries: true\n      input mutations mac:\n      " +
+              l
+                .map(function (e) {
+                  return (
+                    (e.operation ===
+                    o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.SET
+                      ? "SET "
+                      : "REMOVE ") + O(e.indexMac, e.valueMac)
                   );
-                  return function (e, t) {
-                    return a.apply(this, arguments);
-                  };
-                })(),
-              ),
-              y)
-            ) {
-              var b =
-                "\n      syncUseMultipleMacQueries: true\n      input mutations mac:\n      " +
-                t
-                  .map(function (e) {
-                    return (
-                      (e.operation ===
-                      o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.SET
-                        ? "SET "
-                        : "REMOVE ") + O(e.indexMac, e.valueMac)
-                    );
-                  })
-                  .join("\n	") +
-                "\n      currentMacs: " +
-                Array.from(m.values())
-                  .map(function (e) {
-                    return O(e.indexMac, e.valueMac);
-                  })
-                  .join(", ") +
-                "\n    ";
-              o("WALogger").LOG(
-                D || (D = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                b,
-              );
-            }
-            var v = yield o(
-                "WACryptoLtHash",
-              ).LT_HASH_ANTI_TAMPERING.subtractThenAdd(
-                c,
-                Array.from(p.values()),
-                Array.from(_.values()).concat(Array.from(f.values())),
-              ),
-              S = v.ltHash,
-              R = v.subtractResult,
-              L =
-                "[" +
-                r +
-                "] syncd: computing ltHash for " +
-                e +
-                ":\n  mutations length: " +
-                t.length +
-                "\n  currentLtHash: " +
-                o("WAWebSyncdCryptoUtils")
-                  .arrayBufferToHexPadded(c)
-                  .slice(-16) +
-                "\n  subtractResult: " +
-                o("WAWebSyncdCryptoUtils")
-                  .arrayBufferToHexPadded(R)
-                  .slice(-16) +
-                "\n  currentMacs length: " +
-                m.size +
-                "\n  macsToAdd:\n      " +
-                Array.from(p.entries())
-                  .map(function (e) {
-                    var t = e[0],
-                      n = e[1];
-                    return O(t, n);
-                  })
-                  .join("\n	") +
-                "\n  macsToRemove:\n      " +
-                Array.from(_.entries())
-                  .map(function (e) {
-                    var t = e[0],
-                      n = e[1];
-                    return O(t, n);
-                  })
-                  .join("\n	") +
-                "\n  macsToOverwrite (also remove):\n      " +
-                Array.from(f.entries())
-                  .map(function (e) {
-                    var t = e[0],
-                      n = e[1];
-                    return O(t, n);
-                  })
-                  .join("\n	") +
-                "\n  newLtHash: " +
-                o("WAWebSyncdCryptoUtils")
-                  .arrayBufferToHexPadded(S)
-                  .slice(-16) +
-                "\n  hasMissingRemove: " +
-                y.toString() +
-                "\n  didUseFallback: " +
-                C.toString();
-            if (
-              (o("WALogger").LOG(
-                x || (x = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                L,
-              ),
+                })
+                .join("\n	") +
+              "\n      currentMacs: " +
+              Array.from(p.values())
+                .map(function (e) {
+                  return O(e.indexMac, e.valueMac);
+                })
+                .join(", ") +
+              "\n    ";
+            o("WALogger").LOG(
+              D || (D = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+              v,
+            );
+          }
+          var S = yield o(
+              "WACryptoLtHash",
+            ).LT_HASH_ANTI_TAMPERING.subtractThenAdd(
+              d,
+              Array.from(_.values()),
+              Array.from(f.values()).concat(Array.from(g.values())),
+            ),
+            R = S.ltHash,
+            L = S.subtractResult,
+            P =
+              "[" +
+              s +
+              "] syncd: computing ltHash for " +
+              t +
+              ":\n  mutations length: " +
+              l.length +
+              "\n  currentLtHash: " +
+              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(d).slice(-16) +
+              "\n  subtractResult: " +
+              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(L).slice(-16) +
+              "\n  currentMacs length: " +
+              p.size +
+              "\n  macsToAdd:\n      " +
+              Array.from(_.entries())
+                .map(function (e) {
+                  var t = e[0],
+                    n = e[1];
+                  return O(t, n);
+                })
+                .join("\n	") +
+              "\n  macsToRemove:\n      " +
+              Array.from(f.entries())
+                .map(function (e) {
+                  var t = e[0],
+                    n = e[1];
+                  return O(t, n);
+                })
+                .join("\n	") +
+              "\n  macsToOverwrite (also remove):\n      " +
+              Array.from(g.entries())
+                .map(function (e) {
+                  var t = e[0],
+                    n = e[1];
+                  return O(t, n);
+                })
+                .join("\n	") +
+              "\n  newLtHash: " +
+              o("WAWebSyncdCryptoUtils").arrayBufferToHexPadded(R).slice(-16) +
+              "\n  hasMissingRemove: " +
+              C.toString() +
+              "\n  didUseFallback: " +
+              b.toString();
+          if (
+            (o("WALogger").LOG(
+              x || (x = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+              P,
+            ),
+            yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+              t,
+              "generate lthash details 1: " + P,
+            ),
+            c)
+          ) {
+            var N =
+              "\n      input mutations mac:\n      " +
+              l
+                .map(function (e) {
+                  return (
+                    (e.operation ===
+                    o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.SET
+                      ? "SET "
+                      : "REMOVE ") + O(e.indexMac, e.valueMac)
+                  );
+                })
+                .join("\n	") +
+              "\n      currentMacs: " +
+              Array.from(p.values())
+                .map(function (e) {
+                  return O(e.indexMac, e.valueMac);
+                })
+                .join(", ") +
+              "\n    ";
+            (o("WALogger").LOG(
+              $ || ($ = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+              N,
+            ),
               yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                e,
-                "generate lthash details 1: " + L,
-              ),
-              u)
-            ) {
-              var P =
-                "\n      input mutations mac:\n      " +
-                t
-                  .map(function (e) {
-                    return (
-                      (e.operation ===
-                      o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.SET
-                        ? "SET "
-                        : "REMOVE ") + O(e.indexMac, e.valueMac)
-                    );
-                  })
-                  .join("\n	") +
-                "\n      currentMacs: " +
-                Array.from(m.values())
-                  .map(function (e) {
-                    return O(e.indexMac, e.valueMac);
-                  })
-                  .join(", ") +
-                "\n    ";
-              (o("WALogger").LOG(
-                $ || ($ = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                P,
-              ),
-                yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                  e,
-                  "generate lthash details 2: " + P,
-                ));
-            }
-            return {
-              ltHash: S,
-              numAdd: p.size,
-              numRemove: _.size,
-              hasOverride: f.size > 0,
-              subtractResult: R,
-              hasMissingRemove: y,
-              didUseFallback: C,
-            };
-            function N(e) {
-              return a == null ? (w || (w = n("Promise"))).resolve(null) : a(e);
-            }
-          },
-        )),
+                t,
+                "generate lthash details 2: " + N,
+              ));
+          }
+          return {
+            ltHash: R,
+            numAdd: _.size,
+            numRemove: f.size,
+            hasOverride: g.size > 0,
+            subtractResult: L,
+            hasMissingRemove: C,
+            didUseFallback: b,
+          };
+          function M(e) {
+            return a == null ? (w || (w = n("Promise"))).resolve(null) : a(e);
+          }
+        })),
         Z.apply(this, arguments)
       );
     }

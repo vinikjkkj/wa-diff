@@ -207,7 +207,7 @@ __d(
           } finally {
             var e = this.$6 != null;
             return (
-              e && this.$4.publish(this.$6),
+              this.$6 != null && this.$4.publish(this.$6),
               (this.$6 = null),
               (this.$5 = !1),
               e

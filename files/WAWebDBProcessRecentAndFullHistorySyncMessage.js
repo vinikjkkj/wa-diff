@@ -10,6 +10,7 @@ __d(
     "WAWebApiGroupInviteV4Store",
     "WAWebBackendApi",
     "WAWebBulkCreateOrUpdateThreadsMetadata",
+    "WAWebDBAssociatedMsgsAttachDetachAPI",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBProcessReplyMsgs",
     "WAWebDBStoreEncryptedMsgs",
@@ -245,7 +246,10 @@ __d(
                 c,
                 "history-sync",
               ),
-              yield o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(c));
+              yield o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(c),
+              yield o(
+                "WAWebDBAssociatedMsgsAttachDetachAPI",
+              ).attachDetachedChildrenAfterHistorySync(c));
           },
         )),
         y.apply(this, arguments)

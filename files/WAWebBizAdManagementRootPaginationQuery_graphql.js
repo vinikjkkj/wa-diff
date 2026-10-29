@@ -267,6 +267,13 @@ __d(
                 name: "regulated_categories",
                 storageKey: null,
               },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "ads_lwi_goal",
+                storageKey: null,
+              },
             ],
             storageKey: null,
           },

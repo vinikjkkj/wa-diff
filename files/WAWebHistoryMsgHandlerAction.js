@@ -26,6 +26,7 @@ __d(
     "WAWebContactSystemMsg",
     "WAWebCryptoCurve25519",
     "WAWebCurrentUser",
+    "WAWebDBAssociatedMsgsAttachDetachAPI",
     "WAWebDBCreateLidPnMappings",
     "WAWebDBDrainBotOrphansForHistoryMsgs",
     "WAWebDBProcessInitialHistorySyncMessage",
@@ -1046,15 +1047,19 @@ __d(
             a,
           );
         })
-        .then(function () {
-          return o(
-            "WAWebDBDrainBotOrphansForHistoryMsgs",
-          ).drainBotOrphansForHistoryMsgs(
-            Object.keys(t).flatMap(function (e) {
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = Object.keys(t).flatMap(function (e) {
               return t[e].msgs;
-            }),
-          );
-        })
+            });
+            (yield o(
+              "WAWebDBDrainBotOrphansForHistoryMsgs",
+            ).drainBotOrphansForHistoryMsgs(e),
+              yield o(
+                "WAWebDBAssociatedMsgsAttachDetachAPI",
+              ).attachDetachedChildrenAfterHistorySync(e));
+          }),
+        )
         .then(function () {
           var e;
           return (O || (O = n("Promise")))

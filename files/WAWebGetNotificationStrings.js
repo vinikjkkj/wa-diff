@@ -21,7 +21,6 @@ __d(
     "WAWebFormatRevokedMsg",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
-    "WAWebGetPlainTextFromBotMsg",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebL10N",
@@ -29,6 +28,7 @@ __d(
     "WAWebMsgNotificationPreview",
     "WAWebMsgType",
     "WAWebPollCreationUtils",
+    "WAWebRichResponsePreviewText",
     "WAWebSpoilerNotificationMask",
     "WAWebUA",
     "WAWebUnformatMsg",
@@ -439,10 +439,9 @@ __d(
         }
         case "rich_response": {
           if (m) {
-            var le = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(
-              e,
-              { includeBodyFallback: !1 },
-            );
+            var le = o(
+              "WAWebRichResponsePreviewText",
+            ).getRichResponsePreviewText(e, { includeBodyFallback: !1 });
             le != null && le !== "" && (f = r("WAWebUnformatMsg")(e, le));
           }
           break;

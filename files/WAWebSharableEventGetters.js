@@ -1,0 +1,65 @@
+__d(
+  "WAWebSharableEventGetters",
+  ["WAWebGetters", "WAWebGettersCaches", "WAWebSharableEventTiming"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WAWebGetters").createGetterFactories({
+        createCache: o("WAWebGettersCaches").createSharableEventCache,
+      }),
+      s = e.clearCacheFor,
+      u = e.computed,
+      c = e.field,
+      d = s,
+      m = c("name"),
+      p = c("description"),
+      _ = c("startTsSec"),
+      f = c("endTsSec"),
+      g = c("creatorLid"),
+      h = c("status"),
+      y = c("locationName"),
+      C = c("locationAddress"),
+      b = c("locationLatitude"),
+      v = c("locationLongitude"),
+      S = c("coverImageUrl"),
+      R = c("callLinkToken"),
+      L = c("callLinkMediaType"),
+      E = c("countGoing"),
+      k = c("countMaybe"),
+      I = c("countNotGoing"),
+      T = c("totalInvitedCount"),
+      D = c("unseenChangeFlags"),
+      x = u(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return o(
+            "WAWebSharableEventTiming",
+          ).computeSharableEventEffectiveEndTsSec({
+            startTsSec: t,
+            endTsSec: n,
+          });
+        },
+        [_, f],
+      );
+    ((l.clearSharableEventGetterCacheFor = d),
+      (l.getSharableEventName = m),
+      (l.getSharableEventDescription = p),
+      (l.getSharableEventStartTsSec = _),
+      (l.getSharableEventEndTsSec = f),
+      (l.getSharableEventCreatorLid = g),
+      (l.getSharableEventStatus = h),
+      (l.getSharableEventLocationName = y),
+      (l.getSharableEventLocationAddress = C),
+      (l.getSharableEventLocationLatitude = b),
+      (l.getSharableEventLocationLongitude = v),
+      (l.getSharableEventCoverImageUrl = S),
+      (l.getSharableEventCallLinkToken = R),
+      (l.getSharableEventCallLinkMediaType = L),
+      (l.getSharableEventCountGoing = E),
+      (l.getSharableEventCountMaybe = k),
+      (l.getSharableEventCountNotGoing = I),
+      (l.getSharableEventTotalInvitedCount = T),
+      (l.getSharableEventUnseenChangeFlags = D),
+      (l.getSharableEventEffectiveEndTsSec = x));
+  },
+  98,
+);

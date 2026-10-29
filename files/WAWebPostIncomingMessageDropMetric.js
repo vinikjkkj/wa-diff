@@ -62,56 +62,62 @@ __d(
                   : null));
         } catch (e) {}
         try {
+          var a = e.maybeChild("meta");
+          a != null &&
+            a.hasAttr("from") &&
+            (t.metaFrom = o("WAWebJidToWid").jidWithTypeToWid(
+              a.attrJidWithType("from"),
+            ));
+        } catch (e) {
+          t.metaFrom = null;
+        }
+        try {
           t.offline = e.attrInt("offline");
         } catch (e) {}
         try {
           t.edit = e.attrInt("edit");
         } catch (e) {}
         try {
-          var a = e.attrString("category"),
-            i = o("WAWebWamMsgUtils").getWamInvisibleMessageCategoryType(a);
-          i != null && (t.invisibleMessageCategoryType = i);
+          var i = e.attrString("category"),
+            l = o("WAWebWamMsgUtils").getWamInvisibleMessageCategoryType(i);
+          l != null && (t.invisibleMessageCategoryType = l);
         } catch (e) {}
-        var l = e.maybeChild("enc");
-        if (l != null) {
+        var s = e.maybeChild("enc");
+        if (s != null) {
           try {
-            t.e2eType = l.attrEnumValues(
+            t.e2eType = s.attrEnumValues(
               "type",
               o("WAWebBackendJobs.flow").CiphertextType.members(),
             );
           } catch (e) {}
           try {
             t.encMediaType = o("WAWebBackendJobs.flow").EncMediaType.cast(
-              l.maybeAttrString("mediatype"),
+              s.maybeAttrString("mediatype"),
             );
           } catch (e) {}
           try {
-            t.sessionType = l.maybeAttrString("session_type");
+            t.sessionType = s.maybeAttrString("session_type");
           } catch (e) {
             t.sessionType = null;
           }
           try {
-            t.retryCount = l.attrInt("count");
+            t.retryCount = s.attrInt("count");
           } catch (e) {}
         }
         try {
-          var s;
-          if (
-            ((t.botType = o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN),
-            (s = t.author) != null && s.isBot())
-          )
-            t.botType = o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
-          else {
-            var u,
-              c =
-                (u = e.maybeChild("bot")) == null
-                  ? void 0
-                  : u.maybeAttrString("biz_bot");
-            c === "1"
-              ? (t.botType = o("WAWebWamEnumBotType").BOT_TYPE.BOT_1P_BIZ)
-              : c === "3" &&
-                (t.botType = o("WAWebWamEnumBotType").BOT_TYPE.BOT_3P_BIZ);
-          }
+          var u, c;
+          t.botType = o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
+          var d =
+            (u = e.maybeChild("bot")) == null
+              ? void 0
+              : u.maybeAttrString("biz_bot");
+          (d === "1"
+            ? (t.relayBotType = o("WAWebWamEnumBotType").BOT_TYPE.BOT_1P_BIZ)
+            : d === "3" &&
+              (t.relayBotType = o("WAWebWamEnumBotType").BOT_TYPE.BOT_3P_BIZ),
+            (c = t.author) != null && c.isBot()
+              ? (t.botType = o("WAWebWamEnumBotType").BOT_TYPE.METABOT)
+              : t.relayBotType != null && (t.botType = t.relayBotType));
         } catch (e) {}
         return t;
       },
@@ -133,81 +139,105 @@ __d(
         g,
         h,
         y,
-        C = e.messageDropReason,
-        b = e.stanza,
-        v = null;
+        C,
+        b = e.messageDropReason,
+        v = e.stanza,
+        S = null;
       try {
-        v = s.parse(b).success;
+        S = s.parse(v).success;
       } catch (e) {}
-      var S = new (o(
+      var R = new (o(
         "WAWebIncomingMessageDropWamEvent",
       ).IncomingMessageDropWamEvent)({
-        messageDropReason: C,
+        messageDropReason: b,
         isPq:
-          ((t = v) == null ? void 0 : t.sessionType) != null
-            ? v.sessionType === "pq"
+          ((t = S) == null ? void 0 : t.sessionType) != null
+            ? S.sessionType === "pq"
             : void 0,
-        offline: ((n = v) == null ? void 0 : n.offline) != null,
-        offlineCount: (r = v) == null ? void 0 : r.offline,
+        offline: ((n = S) == null ? void 0 : n.offline) != null,
+        offlineCount: (r = S) == null ? void 0 : r.offline,
         messageMediaType: o("WAWebBackendJobsCommon").getMetricMediaType({
-          encMediaType: (a = v) == null ? void 0 : a.encMediaType,
-          msgType: (i = v) == null ? void 0 : i.type,
-          msgPollType: (l = v) == null ? void 0 : l.pollType,
+          encMediaType: (a = S) == null ? void 0 : a.encMediaType,
+          msgType: (i = S) == null ? void 0 : i.type,
+          msgPollType: (l = S) == null ? void 0 : l.pollType,
         }),
       });
-      if (((u = v) == null ? void 0 : u.from) != null) {
-        var R = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(
-          v.from,
+      if (((u = S) == null ? void 0 : u.from) != null) {
+        var L = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(
+          S.from,
         );
-        R != null && (S.e2eDestination = R);
+        L != null && (R.e2eDestination = L);
       }
-      var L = (c = v) == null ? void 0 : c.author;
-      if (L != null) {
-        var E = o("WAWebWamMsgUtils").getWamE2eSenderType(L);
-        (E != null && (S.e2eSenderType = E),
-          L.isHosted() &&
-            (S.encryptionType = o(
+      var E = (c = S) == null ? void 0 : c.author,
+        k = o("WAWebCoexV2WamClassification").getCoexV2DropWamClassification(
+          E,
+          (d = S) == null ? void 0 : d.metaFrom,
+        ),
+        I =
+          b ===
+            o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
+              .COEX_V2_RECV_UNSUPPORTED ||
+          b ===
+            o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
+              .COEX_V2_INVALID_SENDER;
+      if (k != null)
+        ((R.e2eSenderType = k.e2eSenderType),
+          (R.encryptionType = k.encryptionType));
+      else if (E != null) {
+        var T = o("WAWebWamMsgUtils").getWamE2eSenderType(E);
+        (T != null && (R.e2eSenderType = T),
+          E.isHosted() &&
+            (R.encryptionType = o(
               "WAWebWamEnumEncryptionTypeCode",
             ).ENCRYPTION_TYPE_CODE.COEX));
       }
       if (
-        (((d = v) == null ? void 0 : d.e2eType) != null &&
-          (S.e2eCiphertextType = o(
+        (((m = S) == null ? void 0 : m.e2eType) != null &&
+          (R.e2eCiphertextType = o(
             "WAWebBackendJobsCommon",
-          ).getMetricE2eCiphertextType(v.e2eType)),
-        ((m = v) == null ? void 0 : m.retryCount) != null &&
-          (S.retryCount = v.retryCount),
-        ((p = v) == null ? void 0 : p.edit) ===
+          ).getMetricE2eCiphertextType(S.e2eType)),
+        ((p = S) == null ? void 0 : p.retryCount) != null &&
+          (R.retryCount = S.retryCount),
+        ((_ = S) == null ? void 0 : _.edit) ===
         o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
-          ? (S.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
-          : ((_ = v) == null ? void 0 : _.edit) ===
+          ? (R.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
+          : ((f = S) == null ? void 0 : f.edit) ===
               o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
-            (S.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER),
-        ((f = v) == null ? void 0 : f.from) != null &&
-          ((g = v) == null ? void 0 : g.author) != null)
+            (R.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER),
+        !I &&
+          k == null &&
+          ((g = S) == null ? void 0 : g.from) != null &&
+          ((h = S) == null ? void 0 : h.author) != null)
       ) {
-        var k;
+        var D;
         if (
-          ((k = v) == null || (k = k.author) == null ? void 0 : k.isBot()) ===
+          ((D = S) == null || (D = D.author) == null ? void 0 : D.isBot()) ===
           !0
         ) {
-          var I;
-          ((I = v) == null || (I = I.from) == null ? void 0 : I.isBot()) === !0
-            ? (S.agentEngagementType = o(
+          var x;
+          ((x = S) == null || (x = x.from) == null ? void 0 : x.isBot()) === !0
+            ? (R.agentEngagementType = o(
                 "WAWebWamEnumAgentEngagementEnumType",
               ).AGENT_ENGAGEMENT_ENUM_TYPE.DIRECT_CHAT)
-            : (S.agentEngagementType = o(
+            : (R.agentEngagementType = o(
                 "WAWebWamEnumAgentEngagementEnumType",
               ).AGENT_ENGAGEMENT_ENUM_TYPE.INVOKED);
         }
       }
-      if (((h = v) == null ? void 0 : h.botType) != null) {
-        var T;
-        S.botType = (T = v) == null ? void 0 : T.botType;
+      if (I) R.botType = o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
+      else if (k != null) {
+        var $, P;
+        R.botType =
+          ($ = (P = S) == null ? void 0 : P.relayBotType) != null
+            ? $
+            : o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
+      } else if (((y = S) == null ? void 0 : y.botType) != null) {
+        var N;
+        R.botType = (N = S) == null ? void 0 : N.botType;
       }
-      (((y = v) == null ? void 0 : y.invisibleMessageCategoryType) != null &&
-        (S.invisibleMessageCategory = v.invisibleMessageCategoryType),
-        S.commit());
+      (((C = S) == null ? void 0 : C.invisibleMessageCategoryType) != null &&
+        (R.invisibleMessageCategory = S.invisibleMessageCategoryType),
+        R.commit());
     }
     function c(e) {
       u({
@@ -253,9 +283,10 @@ __d(
     function f(t, n) {
       var r = t.enc,
         a = t.error,
-        i = t.msgInfo,
-        l = t.msgMeta,
-        s = new (o(
+        i = t.msgBotInfo,
+        l = t.msgInfo,
+        s = t.msgMeta,
+        u = new (o(
           "WAWebIncomingMessageDropWamEvent",
         ).IncomingMessageDropWamEvent)({
           messageDropReason: n,
@@ -265,43 +296,56 @@ __d(
           ).getMetricE2eCiphertextType(r.e2eType),
           messageMediaType: o("WAWebBackendJobsCommon").getMetricMediaType({
             encMediaType: r.encMediaType,
-            msgType: l.type,
-            msgPollType: l.pollType,
+            msgType: s.type,
+            msgPollType: s.pollType,
           }),
           retryCount: r.retryCount,
-          offline: i.offline != null,
+          offline: l.offline != null,
           e2eFailureReason: a == null ? void 0 : a.e2eFailureReason,
           sessionScope: o("WAWebSessionScopeWamUtils").sessionScopeToWamType(
             o("WAWebSessionScopeWamUtils").getIncomingSkdmSessionScope({
-              from: e(i),
-              isGroupStatus: l.isGroupStatus,
-              isSkdm: l.isSkdm,
-              metaSessionScope: l.metaSessionScope,
+              from: e(l),
+              isGroupStatus: s.isGroupStatus,
+              isSkdm: s.isSkdm,
+              metaSessionScope: s.metaSessionScope,
             }),
           ),
         }),
-        u = e(i),
-        c = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(u);
-      if ((c != null && (s.e2eDestination = c), u)) {
-        var d = o("WAWebWamMsgUtils").getWamE2eSenderType(u);
-        (d != null && (s.e2eSenderType = d),
-          u.isHosted() &&
-            (s.encryptionType = o(
+        c = e(l),
+        d = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(c);
+      d != null && (u.e2eDestination = d);
+      var m = l.metaFrom,
+        p = o("WAWebCoexV2WamClassification").getCoexV2DropWamClassification(
+          l.author,
+          m,
+        );
+      if (p != null)
+        ((u.e2eSenderType = p.e2eSenderType),
+          (u.encryptionType = p.encryptionType),
+          (u.botType = o("WAWebWamMsgUtils").getWamBotType({
+            chatId: l.chat,
+            bizBotType: i == null ? void 0 : i.bizBotType,
+          })));
+      else if (c) {
+        var _ = o("WAWebWamMsgUtils").getWamE2eSenderType(c);
+        (_ != null && (u.e2eSenderType = _),
+          c.isHosted() &&
+            (u.encryptionType = o(
               "WAWebWamEnumEncryptionTypeCode",
             ).ENCRYPTION_TYPE_CODE.COEX));
       }
-      i.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
-        ? (s.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
-        : i.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
-          (s.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER);
-      var m = o("WAWebWamMsgUtils").getWamInvisibleMessageCategoryType(
-        i.category,
+      l.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
+        ? (u.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
+        : l.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
+          (u.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER);
+      var f = o("WAWebWamMsgUtils").getWamInvisibleMessageCategoryType(
+        l.category,
       );
-      if ((m != null && (s.invisibleMessageCategory = m), i.offline != null)) {
-        var p = parseInt(i.offline, 10);
-        Number.isNaN(p) || (s.offlineCount = p);
+      if ((f != null && (u.invisibleMessageCategory = f), l.offline != null)) {
+        var g = parseInt(l.offline, 10);
+        Number.isNaN(g) || (u.offlineCount = g);
       }
-      s.commit();
+      u.commit();
     }
     function g(e) {
       f(

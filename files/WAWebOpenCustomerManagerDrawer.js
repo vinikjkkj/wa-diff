@@ -2,6 +2,7 @@ __d(
   "WAWebOpenCustomerManagerDrawer",
   [
     "WAWebCustomerManagerDrawerLoadable",
+    "WAWebCustomerManagerOpenQpl",
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
     "react",
@@ -10,17 +11,18 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u() {
-      o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-        s.jsx(
-          o("WAWebCustomerManagerDrawerLoadable")
-            .WAWebCustomerManagerDrawerLoadable,
-          {},
-        ),
-        {
-          focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
-          transition: "slide-left",
-        },
-      );
+      (o("WAWebCustomerManagerOpenQpl").startCustomerManagerOpen(),
+        o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
+          s.jsx(
+            o("WAWebCustomerManagerDrawerLoadable")
+              .WAWebCustomerManagerDrawerLoadable,
+            {},
+          ),
+          {
+            focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+            transition: "slide-left",
+          },
+        ));
     }
     l.openCustomerManagerDrawer = u;
   },

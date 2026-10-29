@@ -167,6 +167,7 @@ __d(
             (t.__callEndGeneration = 0),
             (t.__stackCaptureWanted = !1),
             (t.__facingFlipActive = !1),
+            (t.$WAWebVoipVideoCameraCaptureImpl$p_2 = !1),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -174,6 +175,9 @@ __d(
         babelHelpers.inheritsLoose(t, e);
         var a = t.prototype;
         return (
+          (a.isCameraTrackMuted = function () {
+            return this.$WAWebVoipVideoCameraCaptureImpl$p_2;
+          }),
           (a.startCameraCapture = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
@@ -347,6 +351,7 @@ __d(
                                   },
                                 ),
                               ),
+                            t.$WAWebVoipVideoCameraCaptureImpl$p_3(e, l),
                             e
                           );
                         }
@@ -408,6 +413,25 @@ __d(
             }
             return t;
           })()),
+          (a.$WAWebVoipVideoCameraCaptureImpl$p_3 = function (t, n) {
+            var e = this;
+            if (n != null) {
+              var r = function () {
+                e.__lastCapturedStream === t &&
+                  e.$WAWebVoipVideoCameraCaptureImpl$p_4(
+                    n.readyState === "live" && n.muted,
+                  );
+              };
+              (r(),
+                n.addEventListener("mute", r),
+                n.addEventListener("unmute", r));
+            }
+          }),
+          (a.$WAWebVoipVideoCameraCaptureImpl$p_4 = function (t) {
+            this.$WAWebVoipVideoCameraCaptureImpl$p_2 !== t &&
+              ((this.$WAWebVoipVideoCameraCaptureImpl$p_2 = t),
+              be.trigger("cameraTrackMutedChanged"));
+          }),
           (a.__recordStartRequest = function (t, n, o) {
             ((this.__lastTargetWindow = o != null ? o : null),
               n != null
@@ -1390,6 +1414,7 @@ __d(
                   if (
                     ((this.__lastCapturedStream = null),
                     (this.__lastTargetWindow = null),
+                    this.$WAWebVoipVideoCameraCaptureImpl$p_4(!1),
                     r != null)
                   ) {
                     var s = [],

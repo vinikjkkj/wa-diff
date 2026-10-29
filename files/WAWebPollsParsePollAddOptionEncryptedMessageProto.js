@@ -142,7 +142,11 @@ __d(
           }
         : o(
             "WAWebAssociationProtoUtils",
-          ).getValidatedAssociationFieldsFromProto(n, t, a);
+          ).getValidatedAssociationFieldsFromProto({
+            baseMessage: t,
+            messageAssociation: n,
+            msgContext: a,
+          });
     }
     l.default = e;
   },

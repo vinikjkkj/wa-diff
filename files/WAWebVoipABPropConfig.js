@@ -130,6 +130,16 @@ __d(
           type: "bool",
         },
         {
+          abProp: "call_screening_callee_version",
+          wasmKey: "call_screening_callee_version",
+          type: "int",
+        },
+        {
+          abProp: "call_screening_caller_version",
+          wasmKey: "call_screening_caller_version",
+          type: "int",
+        },
+        {
           abProp: "voice_chat_companion_experience_version",
           wasmKey: "voice_chat_companion_experience_version",
           type: "int",

@@ -124,17 +124,20 @@ __d(
             t,
           );
     }
-    function h(e, t, n) {
-      var a = g({
+    function h(e) {
+      var t = e.baseMessage,
+        n = e.messageAssociation,
+        a = e.msgContext,
+        i = g({
           baseMessage: t,
-          msgContext: n,
-          parentMessageKey: e.parentMessageKey,
+          msgContext: a,
+          parentMessageKey: n.parentMessageKey,
         }),
-        i = m(e.associationType),
-        l = o(
+        l = m(n.associationType),
+        s = o(
           "WAWebAssociationProcessor",
-        ).getAssociationProcessorByAssociationType(i);
-      if (l == null)
+        ).getAssociationProcessorByAssociationType(l);
+      if (s == null)
         throw new (o(
           "WAWebMessageAssociationValidation",
         ).MessageAssociationValidationError)(
@@ -144,11 +147,11 @@ __d(
         );
       return {
         associationParentMsgKey: r("nullthrows")(
-          a,
+          i,
           "associationParentMsgKey can't be null",
         ),
-        associationType: i,
-        viewMode: l.viewMode,
+        associationType: l,
+        viewMode: s.viewMode,
       };
     }
     function y(t, n, a, i) {

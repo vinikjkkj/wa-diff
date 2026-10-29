@@ -17,7 +17,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a = yield (s || (s = n("Promise"))).allSettled(
-              Array.from(t).map(function (e) {
+              t.map(function (e) {
                 return o("WAWebFindChatAction")
                   .findOrCreateLatestChat(
                     o("WAWebWidFactory").createWid(e),

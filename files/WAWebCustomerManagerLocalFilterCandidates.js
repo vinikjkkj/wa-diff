@@ -92,7 +92,6 @@ __d(
       };
     }
     ((l.prepareMembershipCandidates = u),
-      (l.membershipCandidates = c),
       (l.candidateSnapshots = d),
       (l.currentMembershipRequest = m));
   },

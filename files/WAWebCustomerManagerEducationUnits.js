@@ -1,12 +1,18 @@
 __d(
   "WAWebCustomerManagerEducationUnits",
-  [],
-  function (t, n, r, o, a, i) {
+  ["cr:18128"],
+  function (t, n, r, o, a, i, l) {
     var e = [];
-    function l() {
-      return e;
+    function s() {
+      var t;
+      return (t =
+        n("cr:18128") == null
+          ? void 0
+          : n("cr:18128").getCustomerManagerEducationUnitsOverride()) != null
+        ? t
+        : e;
     }
-    i.getCustomerManagerEducationUnits = l;
+    l.getCustomerManagerEducationUnits = s;
   },
-  66,
+  98,
 );

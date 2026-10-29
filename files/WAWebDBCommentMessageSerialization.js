@@ -95,6 +95,8 @@ __d(
           kind: o("WAWebMsgType").MsgKind.CommentDecrypted,
           from: o("WAWebWidFactory").createUserWidOrThrow(s.sender),
           body: s.body,
+          messageSecret:
+            s.messageSecret != null ? new Uint8Array(s.messageSecret) : void 0,
           author: o("WAWebWidFactory").createUserWidOrThrow(s.sender),
           read: (t = e.read) != null ? t : !1,
         })

@@ -254,20 +254,20 @@ __d(
               i.length,
             );
           var g = o("WAWebMsgCountReporter").newMessageQueryEvent(u),
-            h = yield L(
-              n,
-              c,
-              i,
-              function () {
+            h = yield L({
+              chat: n,
+              chatMightBeEmpty: !0,
+              cmc: i,
+              dir: a,
+              event: g,
+              msg: c,
+              reqPromise: function () {
                 return o("WAWebMsgCollection").MsgCollection.loadMessagesQuery(
                   f,
                 );
               },
-              a,
-              g,
-              !0,
-              l,
-            );
+              signal: l,
+            });
           (r("gkx")("26259") &&
             o("WALogger").LOG(
               p ||
@@ -360,64 +360,72 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(t, a, i, l, s, u, c, d) {
-      c === void 0 && (c = !0);
-      var m = o("WAWebStateUtils").unproxy(t),
-        p = self.performance.now();
-      s === "after"
-        ? ((i.msgLoadState.isLoadingRecentMsgs = !0),
-          (u.webcMessageQueryType = o(
+    function L(t) {
+      var a = t.chat,
+        i = t.chatMightBeEmpty,
+        l = i === void 0 ? !0 : i,
+        s = t.cmc,
+        u = t.dir,
+        c = t.event,
+        d = t.msg,
+        m = t.reqPromise,
+        p = t.signal,
+        _ = o("WAWebStateUtils").unproxy(a),
+        g = self.performance.now();
+      u === "after"
+        ? ((s.msgLoadState.isLoadingRecentMsgs = !0),
+          (c.webcMessageQueryType = o(
             "WAWebWamEnumWebcMessageQueryDirection",
           ).WEBC_MESSAGE_QUERY_DIRECTION.LOAD_NEXT))
-        : s === "before"
-          ? ((i.msgLoadState.isLoadingEarlierMsgs = !0),
-            (u.webcMessageQueryType = o(
+        : u === "before"
+          ? ((s.msgLoadState.isLoadingEarlierMsgs = !0),
+            (c.webcMessageQueryType = o(
               "WAWebWamEnumWebcMessageQueryDirection",
             ).WEBC_MESSAGE_QUERY_DIRECTION.LOAD_PREV))
-          : s === "around" &&
-            ((i.msgLoadState.isLoadingAroundMsgs = !0),
-            (u.webcMessageQueryType = o(
+          : u === "around" &&
+            ((s.msgLoadState.isLoadingAroundMsgs = !0),
+            (c.webcMessageQueryType = o(
               "WAWebWamEnumWebcMessageQueryDirection",
             ).WEBC_MESSAGE_QUERY_DIRECTION.LOAD_AROUND));
-      var _ = o("WAWebNetworkType").getEffectiveNetworkType();
-      (_ != null && (u.webcBrowserNetworkType = _),
-        (u.webcChatType = o("WAWebChatModelDerivedMethods").getWebcChatTypeFn(
-          m,
+      var h = o("WAWebNetworkType").getEffectiveNetworkType();
+      (h != null && (c.webcBrowserNetworkType = h),
+        (c.webcChatType = o("WAWebChatModelDerivedMethods").getWebcChatTypeFn(
+          _,
         )),
-        typeof m.initialIndex == "number" &&
-          (u.webcChatPosition = m.initialIndex));
-      var g = r("WARaceSignal")(
-        [d, m.getDeleteSignal()].filter(Boolean),
+        typeof _.initialIndex == "number" &&
+          (c.webcChatPosition = _.initialIndex));
+      var y = r("WARaceSignal")(
+        [p, _.getDeleteSignal()].filter(Boolean),
         function (t) {
           return o("WAPromiseLoop").promiseLoop(
             (function () {
-              var c = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (c, d, _) {
+              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (a, i, l) {
                   if (t.aborted) throw new (o("WAAbortError").AbortError)();
-                  var g = o("WAPromiseDelays").delayMs(
-                      o("WABackoffUtils").expBackoff(_, 12e4, 1e3, 0.1),
+                  var p = o("WAPromiseDelays").delayMs(
+                      o("WABackoffUtils").expBackoff(l, 12e4, 1e3, 0.1),
                     ),
                     h = (f || (f = n("Promise"))).resolve();
                   try {
                     yield h;
-                    var y = yield l();
+                    var y = yield m();
                     if (t.aborted) throw new (o("WAAbortError").AbortError)();
-                    u.webcQueryT = Math.ceil(self.performance.now() - p);
+                    c.webcQueryT = Math.ceil(self.performance.now() - g);
                     var C;
                     (Array.isArray(y[0])
                       ? ((C = y[0][0]),
                         y.forEach(function (e) {
                           return o("WAWebMsgCountReporter").logMessageCounts(
-                            u,
+                            c,
                             e,
                           );
                         }))
                       : ((C = y[0]),
-                        o("WAWebMsgCountReporter").logMessageCounts(u, y)),
+                        o("WAWebMsgCountReporter").logMessageCounts(c, y)),
                       C &&
-                        ((u.webcEarliestMessageT = C.t),
-                        C.getMsgChunk() === m.msgs &&
-                          (u.webcEarliestMessageIndex = m.msgs.length - 1)),
+                        ((c.webcEarliestMessageT = C.t),
+                        C.getMsgChunk() === _.msgs &&
+                          (c.webcEarliestMessageIndex = _.msgs.length - 1)),
                       o("WAStorageEstimator")
                         .estimateStorage()
                         .then(function (e) {
@@ -425,20 +433,20 @@ __d(
                             var t = e.value,
                               n = t.quota,
                               r = t.usage;
-                            ((u.webcBrowserStorageQuotaBytes = n),
-                              (u.webcBrowserStorageQuotaUsedBytes = r));
+                            ((c.webcBrowserStorageQuotaBytes = n),
+                              (c.webcBrowserStorageQuotaUsedBytes = r));
                           }
                         })
                         .finally(function () {
-                          return u.commit();
+                          return c.commit();
                         }),
-                      E(a, i, s),
-                      c(y));
+                      E(d, s, u),
+                      a(y));
                   } catch (t) {
                     var b = r("getErrorSafe")(t);
                     if (b.name === o("WAAbortError").ABORT_ERROR) throw b;
-                    return _ > 3 || t === 404
-                      ? (E(a, i, s),
+                    return l > 3 || t === 404
+                      ? (E(d, s, u),
                         o("WALogger").WARN(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -453,15 +461,15 @@ __d(
                             )
                           : (f || (f = n("Promise"))).reject(
                               new (o("WAWebMiscErrors").GaveUpRetry)(
-                                "Gave up msg fetch after " + _ + " tries",
+                                "Gave up msg fetch after " + l + " tries",
                               ),
                             ))
-                      : g;
+                      : p;
                   }
                 },
               );
               return function (e, t, n) {
-                return c.apply(this, arguments);
+                return a.apply(this, arguments);
               };
             })(),
             0,
@@ -480,18 +488,18 @@ __d(
           o("WAFilteredCatch").filteredCatch(
             o("WAWebBackendErrors").E404,
             function (e) {
-              if (c) return [];
+              if (l) return [];
               throw e;
             },
           ),
         );
       return (
-        s === "after"
-          ? (i.loadRecentPromise = g)
-          : s === "before"
-            ? (i.loadEarlierPromise = g)
-            : s === "around" && (i.loadAroundPromise = g),
-        g
+        u === "after"
+          ? (s.loadRecentPromise = y)
+          : u === "before"
+            ? (s.loadEarlierPromise = y)
+            : u === "around" && (s.loadAroundPromise = y),
+        y
       );
     }
     function E(e, t, n) {

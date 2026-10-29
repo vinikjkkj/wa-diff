@@ -70,7 +70,15 @@ __d(
         WIN32: 4,
         WIN_HYBRID: 5,
       }),
-      y = s({ PHONE: 0, TABLET: 1, DESKTOP: 2, WEARABLE: 3, VR: 4 }),
+      y = s({
+        PHONE: 0,
+        TABLET: 1,
+        DESKTOP: 2,
+        WEARABLE: 3,
+        VR: 4,
+        SMART_DISPLAY: 5,
+        SMART_SPEAKER: 6,
+      }),
       C = s({ APPSTORE: 0, WEBSITE: 1, TESTFLIGHT: 2, INTERNAL: 3 }),
       b = s({ RELEASE: 0, BETA: 1, ALPHA: 2, DEBUG: 3 }),
       v = s({

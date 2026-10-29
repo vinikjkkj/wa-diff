@@ -240,9 +240,8 @@ __d(
         if (
           n != null &&
           n.some(function (e) {
-            return (
-              typeof e == "string" &&
-              o("WAWebContactImportTemplateParsingUtils").isPhoneFieldName(e)
+            return o("WAWebContactImportTemplateParsingUtils").isPhoneFieldName(
+              e,
             );
           })
         )

@@ -4,28 +4,33 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = "WAContactsAndGroupsLastSeen",
       s = new (r("WAWebEventEmitter"))(),
-      u = !1;
-    function c() {
+      u = !1,
+      c = 0;
+    function d() {
       return u;
     }
-    function d() {
+    function m() {
       var t = r("WAWebUserPrefsStore").getUser(e);
       return typeof t == "number" ? t : 0;
     }
-    function m(e) {
-      _(!0, e);
+    function p() {
+      return u ? c : m();
     }
-    function p(e) {
-      _(!1, e);
+    function _(e) {
+      ((c = m()), g(!0, e));
     }
-    function _(t, n) {
+    function f(e) {
+      g(!1, e);
+    }
+    function g(t, n) {
       ((u = t), r("WAWebUserPrefsStore").setUser(e, n), s.trigger("change"));
     }
     ((l.contactsAndGroupsLastSeen = s),
-      (l.isContactsAndGroupsOpen = c),
-      (l.getContactsAndGroupsLastSeen = d),
-      (l.markContactsAndGroupsOpened = m),
-      (l.markContactsAndGroupsClosed = p));
+      (l.isContactsAndGroupsOpen = d),
+      (l.getContactsAndGroupsLastSeen = m),
+      (l.getContactsAndGroupsLastSeenBeforeThisVisit = p),
+      (l.markContactsAndGroupsOpened = _),
+      (l.markContactsAndGroupsClosed = f));
   },
   98,
 );

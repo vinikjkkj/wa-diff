@@ -2,9 +2,12 @@ __d(
   "WAWebPrepareBusinessBroadcastHomeFlow",
   [
     "JSResourceForInteraction",
+    "Promise",
     "WALogger",
     "WAWebBizBroadcastDeviceCapabilityCommon",
+    "WAWebBizBroadcastProOnboardingHistoryQuery",
     "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebBizBroadcastProOnboardingStatusType",
     "WAWebBusinessBroadcastHomeFlowLoadable",
     "WAWebBusinessBroadcastsGatingUtils",
     "WAWebLazyLoadedRetriable",
@@ -24,16 +27,17 @@ __d(
       u,
       c,
       d,
-      m = d || (d = o("react")),
-      p = r("JSResourceForInteraction")(
+      m,
+      p = m || (m = o("react")),
+      _ = r("JSResourceForInteraction")(
         "WAWebBusinessBroadcastHomeFlow.react",
       ).__setRef("WAWebPrepareBusinessBroadcastHomeFlow"),
-      _ = r("JSResourceForInteraction")(
+      f = r("JSResourceForInteraction")(
         "WAWebPrepareBusinessBroadcastProHomeFlow",
       ).__setRef("WAWebPrepareBusinessBroadcastHomeFlow"),
-      f = r("WAWebLazyLoadedRetriable")(
+      g = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield _.load();
+          var e = yield f.load();
           return e.WAWebPrepareBusinessBroadcastProHomeFlow;
         }),
         "BusinessBroadcastProHomeFlow",
@@ -51,21 +55,21 @@ __d(
           },
         },
       ),
-      g = r("WAWebLoadable")({
-        loader: f,
+      h = r("WAWebLoadable")({
+        loader: g,
         loading: function (t) {
-          return m.jsx(r("WAWebLoadingDrawer.react"), {
+          return p.jsx(r("WAWebLoadingDrawer.react"), {
             error: !!t.error,
             retry: t.retry,
           });
         },
       });
-    function h() {
-      return y.apply(this, arguments);
-    }
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             (o(
               "WAWebBizBroadcastProOnboardingStatus",
@@ -96,22 +100,22 @@ __d(
               .sendLogs("bb-pro-exposure-failed");
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (o(
               "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).isBizBroadcastProExperimentCandidate() && h(),
+            ).isBizBroadcastProExperimentCandidate() && y(),
             !o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled())
           )
-            return (yield p.load(), v);
+            return (yield _.load(), L);
           var e = o(
             "WAWebBizBroadcastProOnboardingStatus",
           ).isBizBroadcastProNuxOnboardingStatusResolved();
@@ -152,13 +156,36 @@ __d(
               );
             }
           return o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
-            ? (yield _.load(), v)
-            : (yield p.load(), v);
+            ? (yield f.load(), L)
+            : (yield (d || (d = n("Promise"))).all([_.load(), S()]), L);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o(
+            "WAWebBizBroadcastProOnboardingStatus",
+          ).getBizBroadcastProNuxOnboardingStatus();
+          e !==
+            o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
+              .ELIGIBLE_TO_ONBOARD ||
+            !o(
+              "WAWebBizBroadcastDeviceCapabilityCommon",
+            ).isBizBroadcastProEntrypointEnabledForStatus(e) ||
+            o(
+              "WAWebBizBroadcastProOnboardingStatus",
+            ).getBizBroadcastProHasOnboardingHistory() != null ||
+            (yield r("WAWebBizBroadcastProOnboardingHistoryQuery")());
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
       var t = o("react-compiler-runtime").c(10),
         n = e.entryPoint,
         a = e.initialTab,
@@ -170,14 +197,14 @@ __d(
           "useWAWebBizBroadcastProEligibilityState",
         ).useWAWebBizBroadcastProEligibilityState(),
         d = c.onboardingStatus,
-        p;
+        m;
       t[0] !== n ||
       t[1] !== a ||
       t[2] !== i ||
       t[3] !== l ||
       t[4] !== s ||
       t[5] !== u
-        ? ((p = {
+        ? ((m = {
             entryPoint: n,
             initialTab: a,
             onClose: i,
@@ -191,9 +218,9 @@ __d(
           (t[3] = l),
           (t[4] = s),
           (t[5] = u),
-          (t[6] = p))
-        : (p = t[6]);
-      var _ = p;
+          (t[6] = m))
+        : (m = t[6]);
+      var _ = m;
       if (
         o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled() &&
         d == null
@@ -201,33 +228,33 @@ __d(
         var f;
         return (
           t[7] === Symbol.for("react.memo_cache_sentinel")
-            ? ((f = m.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })),
+            ? ((f = p.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })),
               (t[7] = f))
             : (f = t[7]),
           f
         );
       }
-      var h;
+      var g;
       return (
         t[8] !== _
-          ? ((h =
+          ? ((g =
               o(
                 "WAWebBusinessBroadcastsGatingUtils",
               ).isBizBroadcastProEnabled() &&
               o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
-                ? m.jsx(g, babelHelpers.extends({}, _))
-                : m.jsx(
+                ? p.jsx(h, babelHelpers.extends({}, _))
+                : p.jsx(
                     o("WAWebBusinessBroadcastHomeFlowLoadable")
                       .WAWebBusinessBroadcastCoreHomeFlowLoadable,
                     babelHelpers.extends({}, _),
                   )),
             (t[8] = _),
-            (t[9] = h))
-          : (h = t[9]),
-        h
+            (t[9] = g))
+          : (g = t[9]),
+        g
       );
     }
-    l.loadBusinessBroadcastHomeFlow = C;
+    l.loadBusinessBroadcastHomeFlow = b;
   },
   98,
 );

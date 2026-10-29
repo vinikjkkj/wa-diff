@@ -9,7 +9,7 @@ __d(
     "WAWebGdprErrors",
     "WAWebGdprRequestAccountInfoSettingsFooterNotice",
     "WAWebGdprRequestOverrideModal.react",
-    "WAWebModalManager",
+    "WDSDialogBridge",
     "WDSIconIcDescriptionFilled.react",
     "react",
     "react-compiler-runtime",
@@ -46,7 +46,7 @@ __d(
               o("WAFilteredCatch").filteredCatch(
                 o("WAWebGdprErrors").PendingGdprRequestsError,
                 function () {
-                  o("WAWebModalManager").ModalManager.open(
+                  o("WDSDialogBridge").openWDSDialog(
                     u.jsx(r("WAWebGdprRequestOverrideModal.react"), {
                       onConfirm: function () {
                         return g(!0).then(d);

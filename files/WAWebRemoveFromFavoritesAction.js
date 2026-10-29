@@ -42,20 +42,22 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
-            var i = t.toString();
+            var i = (Array.isArray(t) ? t : [t]).map(function (e) {
+              return e.toString();
+            });
             a.entryPoint != null &&
               o("WAWebFavoritesLogging").logRemovingMessagingFavorites(
-                [i],
+                i,
                 a.entryPoint,
               );
             var l = yield o("WAWebDBFavoriteDatabaseApi").getAllFavorites(),
-              u = l.find(function (e) {
+              u = l.filter(function (e) {
                 var t = e.id;
-                return t === i;
+                return i.includes(t);
               }),
               p = l.filter(function (e) {
                 var t = e.id;
-                return t !== i;
+                return !i.includes(t);
               }),
               _ = o("WATimeUtils").unixTime(),
               f = yield r("WAWebFavoritesSync").getFavoritesMutation(p, _);
@@ -70,27 +72,28 @@ __d(
                 ["favorite", "chat"],
                 [f],
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  return o("WAWebDBFavoriteDatabaseApi").removeFavorites([i]);
+                  return o("WAWebDBFavoriteDatabaseApi").removeFavorites(i);
                 }),
               )
               .then(function () {
-                return o("WAWebFavoriteCollection").FavoriteCollection.remove([
+                return o("WAWebFavoriteCollection").FavoriteCollection.remove(
                   i,
-                ]);
+                );
               });
             if (a.suppressToast === !0) yield g;
             else {
-              var h = new (o("WAWebActionToast.react").ActionType)(d()),
-                y = g.then(function () {
+              var h = u.length === 1 ? u[0] : null,
+                y = new (o("WAWebActionToast.react").ActionType)(d()),
+                C = g.then(function () {
                   return new (o("WAWebActionToast.react").ActionType)(
                     m(),
-                    u
+                    h
                       ? {
                           actionText: s._(/*BTDS*/ "Undo"),
                           actionHandler: function () {
                             return o(
                               "WAWebAddToFavoritesAction",
-                            ).addToFavoritesAction(u, {
+                            ).addToFavoritesAction(h, {
                               entryPoint: a.entryPoint,
                             });
                           },
@@ -101,8 +104,8 @@ __d(
               o("WAWebToastManager").ToastManager.open(
                 c.jsx(o("WAWebActionToast.react").ActionToast, {
                   id: o("WAWebActionToast.react").genId(),
-                  initialAction: h,
-                  pendingAction: y,
+                  initialAction: y,
+                  pendingAction: C,
                 }),
               );
             }

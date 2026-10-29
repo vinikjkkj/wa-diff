@@ -49,7 +49,11 @@ __d(
           n != null
             ? o(
                 "WAWebAssociationProtoUtils",
-              ).getValidatedAssociationFieldsFromProto(n, t, i)
+              ).getValidatedAssociationFieldsFromProto({
+                baseMessage: t,
+                messageAssociation: n,
+                msgContext: i,
+              })
             : {
                 associationParentMsgKey: s,
                 associationType: o("WAWebMessageAssociation.flow")

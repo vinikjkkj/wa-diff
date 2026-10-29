@@ -34,14 +34,18 @@ __d(
       return s.jsxs(
         "div",
         babelHelpers.extends(
+          {},
           {
-            className: {
-              0: "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h",
-              1: "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h x1h6gzvc",
-            }[!!l << 0],
-            ref: a,
-            "aria-label": r("WAWebFbtCommon")("Cancel"),
-          },
+            0: {
+              className:
+                "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h",
+            },
+            1: {
+              className:
+                "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h x1h6gzvc",
+            },
+          }[!!l << 0],
+          { ref: a, "aria-label": r("WAWebFbtCommon")("Cancel") },
           c,
           {
             children: [

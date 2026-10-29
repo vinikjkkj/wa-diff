@@ -20,7 +20,6 @@ __d(
     "WAWebFindChatAction",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebGetPlainTextFromBotMsg",
     "WAWebGroupMetadataCollection",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInvisiblePlaceholderViewModeProcessor",
@@ -32,6 +31,7 @@ __d(
     "WAWebMsgType",
     "WAWebOrgMemberContactName",
     "WAWebProtobufsE2E.pb",
+    "WAWebRichResponsePreviewText",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
     "WAWebViewMode.flow",
@@ -165,8 +165,9 @@ __d(
     function S(e) {
       var t,
         n =
-          (t = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e)) !=
-          null
+          (t = o("WAWebRichResponsePreviewText").getRichResponsePreviewText(
+            e,
+          )) != null
             ? t
             : "";
       ((e.type = o("WAWebMsgType").MSG_TYPE.CHAT),

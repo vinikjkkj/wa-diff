@@ -36,11 +36,13 @@ __d(
       );
     }
     function c() {
-      new (o("WAWebNuxCoolOff").CoolOffNux)(
-        o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
-          .CUSTOMER_MANAGER_EDUCATION_BANNER,
-        s(),
-      ).show();
+      var e = new (o("WAWebNuxCoolOff").CoolOffNux)(
+          o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
+            .CUSTOMER_MANAGER_EDUCATION_BANNER,
+          s(),
+        ),
+        t = e.shouldShow();
+      return (e.show(), t && !e.shouldShow());
     }
     function d() {
       (new (o("WAWebNuxCoolOff").CoolOffNux)(

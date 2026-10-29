@@ -32,6 +32,7 @@ __d(
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
+    "WAWebVoipScreeningRecordingInfo",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStackInterfaceWebCallbacks",
     "WAWebVoipStackInterfaceWebHelpers",
@@ -647,6 +648,94 @@ __d(
               throw (
                 o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
                 t
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        screenCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield l;
+            try {
+              return t.screenCall(e);
+            } catch (e) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(t, e),
+                e
+              );
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        acceptMediaOnly: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield l;
+            try {
+              return e.acceptMediaOnly();
+            } catch (t) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                t
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        commitAccept: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            o("WAWebVoipCallIdProvider").resetPendingCallId();
+            var e = yield l;
+            try {
+              return e.commitAccept();
+            } catch (t) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                t
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        screeningPromptFinished: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield l;
+            try {
+              return e.screeningPromptFinished();
+            } catch (t) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                t
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getScreeningRecordingInfo: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield l;
+            try {
+              return o(
+                "WAWebVoipScreeningRecordingInfo",
+              ).parseScreeningRecordingInfo(e.getScreeningRecordingInfo());
+            } catch (t) {
+              return (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                null
               );
             }
           });

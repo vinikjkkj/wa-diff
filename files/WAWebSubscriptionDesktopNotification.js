@@ -73,7 +73,7 @@ __d(
               body: r,
               doNotOpenChat: !0,
               onClick: function () {
-                (y(l, e.$WASubscriptionDesktopNotification$p_2),
+                (C(l, e.$WASubscriptionDesktopNotification$p_2),
                   i != null &&
                     o(
                       "WAWebBizAiMetaOneDialogRequestStore",
@@ -93,13 +93,13 @@ __d(
       ).WANotificationController.triggerNotification(new m(e));
     }
     function _(e) {
-      var t = g(e);
+      var t = h(e);
       if (t == null) return null;
       try {
         var n;
         return (n = t.get("meta_one_destination")) != null
           ? n
-          : h(t.get("deeplink_params"))
+          : y(t.get("deeplink_params"))
             ? c
             : null;
       } catch (e) {
@@ -107,7 +107,7 @@ __d(
       }
     }
     function f(e) {
-      var t;
+      var t = h(e);
       return (function (e) {
         if (e === "wa_abandoned_payment_notif")
           return o("WAWebWamEnumWsuaScreen").WSUA_SCREEN
@@ -118,9 +118,20 @@ __d(
         if (e === "wa_subscription_expiration_reminder")
           return o("WAWebWamEnumWsuaScreen").WSUA_SCREEN
             .BIZ_SUBS_EXPIRATION_REMINDER_NOTIF;
-      })((t = g(e)) == null ? void 0 : t.get("entrypoint"));
+        if (e === "wa_subscription_completion_notif")
+          return g(t == null ? void 0 : t.get("xgrade_completion_direction"));
+      })(t == null ? void 0 : t.get("entrypoint"));
     }
     function g(e) {
+      return e === "upgrade"
+        ? o("WAWebWamEnumWsuaScreen").WSUA_SCREEN
+            .BIZ_SUBS_XGRADE_UPGRADE_COMPLETION_NOTIF
+        : e === "downgrade"
+          ? o("WAWebWamEnumWsuaScreen").WSUA_SCREEN
+              .BIZ_SUBS_XGRADE_DOWNGRADE_COMPLETION_NOTIF
+          : void 0;
+    }
+    function h(e) {
       if (e == null) return null;
       try {
         return new URL(e).searchParams;
@@ -128,12 +139,12 @@ __d(
         return null;
       }
     }
-    function h(e) {
+    function y(e) {
       if (e == null) return !1;
       var t = JSON.parse(e);
       return typeof t == "object" && t != null && t.product_type === d;
     }
-    function y(e, t) {
+    function C(e, t) {
       new (o(
         "WAWebSubscriptionUserActionWamEvent",
       ).SubscriptionUserActionWamEvent)({

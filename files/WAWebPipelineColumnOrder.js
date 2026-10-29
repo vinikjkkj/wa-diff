@@ -36,7 +36,7 @@ __d(
             t.set(r.candidateLid, r);
         }
       }
-      return [].concat(Array.from(t.values())).sort(u);
+      return Array.from(t.values()).sort(u);
     }
     function d(e) {
       var t,

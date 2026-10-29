@@ -145,29 +145,27 @@ __d(
     function R(e) {
       var t = [];
       for (var n of e != null ? e : []) {
-        var r,
-          a,
-          i = n.custom_field_definition,
-          l = i == null ? void 0 : i.id,
-          s = i == null ? void 0 : i.name,
-          u = i == null ? void 0 : i.field_type;
-        i == null ||
+        var r = n.custom_field_definition,
+          a = r == null ? void 0 : r.id,
+          i = r == null ? void 0 : r.name,
+          l = r == null ? void 0 : r.field_type;
+        r == null ||
+          a == null ||
+          i == null ||
           l == null ||
-          s == null ||
-          u == null ||
           t.push({
-            currency: i.currency,
-            fieldId: l,
-            fieldName: s,
+            currency: r.currency,
+            fieldId: a,
+            fieldName: i,
             value: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).formatCustomFieldExportValue({
-              currencyDecimalPlaces: i.currency_decimal_places,
+              currencyDecimalPlaces: r.currency_decimal_places,
               dateValue: n.date_value,
-              enumLabels: (r = i.enum_values) != null ? r : [],
+              enumLabels: r.enum_values,
               enumOptionKey: n.enum_option_key,
-              enumOptionKeys: (a = i.enum_option_keys) != null ? a : [],
-              fieldType: u,
+              enumOptionKeys: r.enum_option_keys,
+              fieldType: l,
               moneyAmount: n.money_amount,
               numericValue: n.numeric_value,
               textValue: n.text_value,

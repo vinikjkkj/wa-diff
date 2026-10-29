@@ -66,10 +66,11 @@ __d(
       q,
       U,
       V,
-      H = 30,
-      G = 5e3,
-      z = 500;
-    function j(e) {
+      H,
+      G = 30,
+      z = 5e3,
+      j = 500;
+    function K(e) {
       var t,
         n,
         r =
@@ -78,11 +79,11 @@ __d(
             : "self";
       return e.isScreenShare() ? r + " (screen share)" : r;
     }
-    function K(e) {
+    function Q(e) {
       var t = Number.parseFloat(e);
       return Number.isFinite(t) ? Math.min(1, Math.max(0, t)) : 0;
     }
-    function Q() {
+    function X() {
       try {
         return r("justknobx")._("6845");
       } catch (t) {
@@ -99,7 +100,7 @@ __d(
         );
       }
     }
-    var X = (function () {
+    var Y = (function () {
         function e() {
           ((this.$15 = new Map()),
             (this.$10 = new Map()),
@@ -216,7 +217,7 @@ __d(
                 this.$1 ===
                   o("WAWebVoipVideoRendererInterface")
                     .WAWebVoipVideoRendererType.VIDEOFRAME) &&
-              Q()
+              X()
             );
           }),
           (t.getRendererType = function () {
@@ -588,6 +589,21 @@ __d(
               );
             }
           }),
+          (t.setZoom = function (t, n) {
+            try {
+              var e;
+              (e = this.$15.get(t)) == null || e.setZoom(n);
+            } catch (e) {
+              o("WALogger").ERROR(
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: VideoRendererRegistry: setZoom : ",
+                    "",
+                  ])),
+                e,
+              );
+            }
+          }),
           (t.requestKeyFrameForCanvas = function (t) {
             var e = this.$8.get(t);
             e != null && this.$14(e, "canvas_request");
@@ -603,8 +619,8 @@ __d(
                       (this.$39.add(e),
                       o("WALogger")
                         .WARN(
-                          v ||
-                            (v = babelHelpers.taggedTemplateLiteralLoose([
+                          S ||
+                            (S = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: VideoRendererRegistry: keyframe request unsupported for non-user source=",
                               " reason=",
                               "",
@@ -618,7 +634,7 @@ __d(
                   var a = Date.now();
                   if (!this.$40.has(e)) {
                     var i = this.$41.get(e);
-                    if (!(i != null && a - i < z)) {
+                    if (!(i != null && a - i < j)) {
                       (this.$40.add(e), this.$41.set(e, a));
                       try {
                         var l = yield o(
@@ -628,8 +644,8 @@ __d(
                         var s = yield l.requestKeyFrame(n, e.isScreenShare());
                         s !== 0 &&
                           o("WALogger").ERROR(
-                            S ||
-                              (S = babelHelpers.taggedTemplateLiteralLoose([
+                            R ||
+                              (R = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: VideoRendererRegistry: requestKeyFrameForSource failed: ",
                                 "",
                               ])),
@@ -638,8 +654,8 @@ __d(
                       } catch (e) {
                         o("WALogger")
                           .ERROR(
-                            R ||
-                              (R = babelHelpers.taggedTemplateLiteralLoose([
+                            L ||
+                              (L = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: VideoRendererRegistry: requestKeyFrameForSource threw reason=",
                                 "",
                               ])),
@@ -682,8 +698,8 @@ __d(
             if (e != null)
               if (a)
                 (o("WALogger").LOG(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
                       "[VideoRendererRegistry] keyframe rcvd ",
                       " after ",
                       " drops \u2014 resume",
@@ -693,23 +709,23 @@ __d(
                 ),
                   this.$20.delete(t));
               else {
-                if (e < H) return (this.$20.set(t, e + 1), !0);
+                if (e < G) return (this.$20.set(t, e + 1), !0);
                 (o("WALogger").LOG(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
                       "[VideoRendererRegistry] keyframe timeout ",
                       " ",
                       " drops \u2014 reactive",
                     ])),
                   t.key,
-                  H,
+                  G,
                 ),
                   this.$20.delete(t));
               }
             return n % 2 !== 0 || r % 2 !== 0
               ? (o("WALogger").ERROR(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
                       "[VideoRendererRegistry] renderFrame: odd frame ",
                       "x",
                       "",
@@ -738,13 +754,13 @@ __d(
                 s = e.episodeStarted;
               s &&
                 o("WALogger").WARN(
-                  I ||
-                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                  T ||
+                    (T = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: VideoRendererRegistry: out-of-order delta frame for ",
                       " ts=",
                       ", decoder reference chain broken until next keyframe",
                     ])),
-                  j(n),
+                  K(n),
                   a,
                 );
             }
@@ -791,8 +807,8 @@ __d(
                     continue;
                   }
                   o("WALogger").ERROR(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: renderFrame: ",
                         "",
                       ])),
@@ -826,8 +842,8 @@ __d(
                 });
                 (d === "failed" &&
                   (o("WALogger").WARN(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                    x ||
+                      (x = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: self-preview VideoFrame transfer failed, capture returns to bytes",
                       ])),
                   ),
@@ -853,8 +869,8 @@ __d(
                 : (e = o("WAWebVoipVideoRendererInterface")
                     .WAWebVoipVideoRendererThreadingMode.MAIN_THREAD),
               o("WALogger").LOG(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
                     "[VideoRendererRegistry] threadingMode=",
                     " (compat)",
                   ])),
@@ -888,8 +904,8 @@ __d(
                         : (e = o("WAWebVoipVideoRendererInterface")
                             .WAWebVoipVideoRendererType.RASTER),
                 o("WALogger").LOG(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
+                  P ||
+                    (P = babelHelpers.taggedTemplateLiteralLoose([
                       "[VideoRendererRegistry] rendererType=",
                       " (compat)",
                     ])),
@@ -919,8 +935,8 @@ __d(
                   .WAWebVoipVideoRendererThreadingMode.MAIN_THREAD
               ) {
                 o("WALogger").LOG(
-                  P ||
-                    (P = babelHelpers.taggedTemplateLiteralLoose([
+                  N ||
+                    (N = babelHelpers.taggedTemplateLiteralLoose([
                       "[VideoRendererRegistry] offthread ",
                       " ",
                       " portal=",
@@ -971,8 +987,8 @@ __d(
               (this.$15.set(t, c), this.$47(t, c));
             } catch (e) {
               o("WALogger").ERROR(
-                N ||
-                  (N = babelHelpers.taggedTemplateLiteralLoose([
+                M ||
+                  (M = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: VideoRendererRegistry: registerCanvasToRegistry: ",
                     "",
                   ])),
@@ -998,19 +1014,19 @@ __d(
                     "WAWebVoipStackInterface",
                   ).getVoipStackInterface();
                   if ((t == null ? void 0 : t.type) !== "web") return;
-                  var r = yield (V || (V = n("Promise"))).all([
+                  var r = yield (H || (H = n("Promise"))).all([
                       t.getVoipParam("options.video_brightness_setting"),
                       t.getVoipParam("options.video_sharpening_setting"),
                     ]),
                     a = r[0],
                     i = r[1];
                   if (e !== this.$51) return;
-                  var l = K(a),
-                    s = K(i);
+                  var l = Q(a),
+                    s = Q(i);
                   ((this.$48 = { brightness: l, sharpening: s }),
                     o("WALogger").LOG(
-                      M ||
-                        (M = babelHelpers.taggedTemplateLiteralLoose([
+                      w ||
+                        (w = babelHelpers.taggedTemplateLiteralLoose([
                           "[VideoRendererRegistry] video enhancement brightness=",
                           " sharpening=",
                           "",
@@ -1021,8 +1037,8 @@ __d(
                   for (var u of this.$15.values()) u.setVideoEnhancement(l, s);
                 } catch (e) {
                   o("WALogger").ERROR(
-                    w ||
-                      (w = babelHelpers.taggedTemplateLiteralLoose([
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: loadVideoEnhancement failed: ",
                         "",
                       ])),
@@ -1051,8 +1067,8 @@ __d(
               r = o("WAWebVoipGatingUtils").isAvSyncStrictFifoDrainEnabled(),
               a = this.$46();
             (o("WALogger").LOG(
-              A ||
-                (A = babelHelpers.taggedTemplateLiteralLoose([
+              F ||
+                (F = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: VideoRendererRegistry: enabling A/V sync, sampleRate=",
                   " orderingMode=",
                   "",
@@ -1068,8 +1084,8 @@ __d(
                 n,
                 function (t) {
                   (o("WALogger").WARN(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: AV sync video reset for ",
                         ", requesting keyframe",
                       ])),
@@ -1091,8 +1107,8 @@ __d(
           (t.disableAVSync = function () {
             this.$13.isEnabled() &&
               (o("WALogger").LOG(
-                O ||
-                  (O = babelHelpers.taggedTemplateLiteralLoose([
+                B ||
+                  (B = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: VideoRendererRegistry: disabling A/V sync",
                   ])),
               ),
@@ -1144,16 +1160,16 @@ __d(
                 var e,
                   t = yield o(
                     "WAWebVoipAudioCaptureAndPlayback",
-                  ).waitForPlaybackStart(G);
+                  ).waitForPlaybackStart(z);
                 if (!t) {
                   ((this.$24 = !1),
                     o("WALogger").WARN(
-                      B ||
-                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                      W ||
+                        (W = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: VideoRendererRegistry: timed out waiting ",
                           "ms for audio playback start before enabling A/V sync",
                         ])),
-                      G,
+                      z,
                     ));
                   return;
                 }
@@ -1177,8 +1193,8 @@ __d(
               } catch (e) {
                 ((this.$24 = !1),
                   o("WALogger").ERROR(
-                    W ||
-                      (W = babelHelpers.taggedTemplateLiteralLoose([
+                    q ||
+                      (q = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: initAVSync failed: ",
                         "",
                       ])),
@@ -1224,8 +1240,8 @@ __d(
                   r.size === 0 && (this.$55(n), this.$11.delete(n)));
               }
               o("WALogger").LOG(
-                q ||
-                  (q = babelHelpers.taggedTemplateLiteralLoose([
+                U ||
+                  (U = babelHelpers.taggedTemplateLiteralLoose([
                     "[VideoRendererRegistry] unregister canvas, left=",
                     "",
                   ])),
@@ -1233,8 +1249,8 @@ __d(
               );
             } catch (e) {
               o("WALogger").ERROR(
-                U ||
-                  (U = babelHelpers.taggedTemplateLiteralLoose([
+                V ||
+                  (V = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: VideoRendererRegistry: unregisterCanvasFromRegistry: ",
                     "",
                   ])),
@@ -1245,8 +1261,8 @@ __d(
           e
         );
       })(),
-      Y = new X();
-    ((l.WAWebVoipVideoRendererRegistry = X), (l.videoRendererRegistry = Y));
+      J = new Y();
+    ((l.WAWebVoipVideoRendererRegistry = Y), (l.videoRendererRegistry = J));
   },
   98,
 );

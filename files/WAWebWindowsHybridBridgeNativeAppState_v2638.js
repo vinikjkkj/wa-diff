@@ -21,6 +21,8 @@ __d(
         var t = this;
         ((this.$4 = new (r("WAWebEventEmitter"))()),
           (this.updateServerTime = null),
+          (this.takeStartupTrace = null),
+          (this.ackStartupReport = null),
           (this.$5 = function (n) {
             var r = n.toString(),
               a = d.cast(r);

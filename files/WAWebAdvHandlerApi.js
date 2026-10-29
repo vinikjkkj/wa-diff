@@ -27,31 +27,36 @@ __d(
         { concurrency: 1 },
         o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
       );
-    function d(e, t, n, r, o, a, i) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l) {
-            i === void 0 && (i = !1);
-            var s = yield o(
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.accountSignatureKey,
+            n = e.advDeviceIdentity,
+            r = e.deviceIdentityKey,
+            a = e.deviceWid,
+            i = e.incomingAdvAccountType,
+            l = e.offline,
+            s = l === void 0 ? !1 : l,
+            u = e.primarySignatureKey,
+            c = yield o(
               "WAWebLastADVCheckTimeApi",
             ).getLastADVDeviceInfoCheckTime();
-            return o(
-              "WAWebHandleAdvForMessageApi",
-            ).handleADVDeviceUpdateForMessage({
-              deviceWid: e,
-              incomingAdvAccountType: l,
-              incomingAdvDeviceIdentity: t,
-              incomingDeviceIdentity: a,
-              incomingPrimaryIdentity: r,
-              lastDeviceJobTs: s,
-              localPrimaryIdentity: n,
-              offline: i,
-            });
-          },
-        )),
+          return o(
+            "WAWebHandleAdvForMessageApi",
+          ).handleADVDeviceUpdateForMessage({
+            deviceWid: a,
+            incomingAdvAccountType: i,
+            incomingAdvDeviceIdentity: n,
+            incomingDeviceIdentity: r,
+            incomingPrimaryIdentity: t,
+            lastDeviceJobTs: c,
+            localPrimaryIdentity: u,
+            offline: s,
+          });
+        })),
         m.apply(this, arguments)
       );
     }

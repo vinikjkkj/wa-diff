@@ -187,6 +187,7 @@ __d(
         case o("WAWebVoipWaCallEnums").CallState.PreCalling:
         case o("WAWebVoipWaCallEnums").CallState.CallStateEnding:
         case o("WAWebVoipWaCallEnums").CallState.CallBCallStarting:
+        case o("WAWebVoipWaCallEnums").CallState.Screening:
           return o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing;
       }
     }

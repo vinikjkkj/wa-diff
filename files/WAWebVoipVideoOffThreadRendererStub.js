@@ -311,6 +311,13 @@ __d(
               enabled: t,
             });
           }),
+          (n.setZoom = function (t) {
+            this.$5.postMessage({
+              type: "setZoom",
+              rendererId: this.$1,
+              zoom: t,
+            });
+          }),
           (n.setVideoEnhancement = function (t, n) {
             this.$5.postMessage({
               type: "setVideoEnhancement",

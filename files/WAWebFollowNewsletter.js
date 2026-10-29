@@ -92,8 +92,8 @@ __d(
                                 [
                                   s._param(
                                     "channel_name",
-                                    c.jsx(o("WAWebName.react").Name, {
-                                      chat: e,
+                                    c.jsx(o("WAWebName.react").ChatName, {
+                                      chatId: e.id,
                                     }),
                                   ),
                                 ],

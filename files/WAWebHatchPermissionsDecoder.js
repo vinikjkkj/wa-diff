@@ -13,13 +13,16 @@ __d(
       s = ["always_ask", "auto_allow"];
     function u(e) {
       var t,
-        n = C(e),
-        r = b(n, "connector_default"),
-        a = b(n, "network_default");
+        n = S(e),
+        r = R(n, "connector_default"),
+        a = R(n, "network_default");
       if (r == null || a == null) return null;
       var i = o("WAWebHatchJsonReaders").readArray(n, "protocols");
       return {
         connectorDefault: r,
+        defaultContent: C(
+          o("WAWebHatchJsonReaders").readObject(n, "default_content"),
+        ),
         networkDefault: a,
         protocols:
           (t = i == null ? void 0 : i.map(y).filter(Boolean)) != null
@@ -30,7 +33,7 @@ __d(
     function c(e) {
       var t = g(e, "groups");
       if (t == null) return null;
-      var n = t.raw.filter(E).map(function (e) {
+      var n = t.raw.filter(T).map(function (e) {
         var t;
         return {
           permissions: (t = o("WAWebHatchJsonReaders"))
@@ -38,7 +41,7 @@ __d(
             .map(h)
             .filter(Boolean),
           scope: {
-            displayName: k(t.readObject(e, "scope"), "display_name"),
+            displayName: D(t.readObject(e, "scope"), "display_name"),
             type: t.readNonEmptyString(t.readObject(e, "scope"), "scope_type"),
           },
         };
@@ -50,12 +53,12 @@ __d(
       return t == null
         ? null
         : {
-            entries: t.raw.filter(R).map(h).filter(Boolean),
+            entries: t.raw.filter(k).map(h).filter(Boolean),
             nextCursor: t.nextCursor,
           };
     }
     function m(t) {
-      var n = o("WAWebHatchJsonReaders").readArray(C(t), "sections");
+      var n = o("WAWebHatchJsonReaders").readArray(S(t), "sections");
       if (n == null || n.length !== e.length) return null;
       var r = {},
         a = {},
@@ -93,14 +96,14 @@ __d(
     }
     function _(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readObject(e, "scope"),
-        a = I(r, n);
+        a = x(r, n);
       return o("WAWebHatchJsonReaders").readField(e, "kind") !== "owner" ||
         o("WAWebHatchJsonReaders").readField(r, "scope_type") !== t ||
         a == null ||
         f(e, r)
         ? null
         : {
-            displayName: k(r, "display_name"),
+            displayName: D(r, "display_name"),
             id: a,
             managePermissionsAvailable:
               o("WAWebHatchJsonReaders").readBool(
@@ -121,7 +124,7 @@ __d(
       );
     }
     function g(e, t) {
-      var n = C(e),
+      var n = S(e),
         r = Array.isArray(o("WAWebHatchJsonReaders").readField(n, t))
           ? n
           : o("WAWebHatchJsonReaders").readObject(n, "active_permissions"),
@@ -150,64 +153,83 @@ __d(
           e,
           "destination",
         ),
-        displayLabel: I(e, "display_label"),
+        displayLabel: x(e, "display_label"),
         id: n,
         kind: r,
-        label: k(e, "label"),
-        lifetime: k(e, "lifetime"),
-        mode: v(o("WAWebHatchJsonReaders").readField(e, "mode")),
-        modeLabel: I(a, "mode_label"),
+        label: D(e, "label"),
+        lifetime: D(e, "lifetime"),
+        mode: L(o("WAWebHatchJsonReaders").readField(e, "mode")),
+        modeLabel: x(a, "mode_label"),
         modeOptions: ((t = o("WAWebHatchJsonReaders").readArray(
           e,
           "mode_options",
         )) != null
           ? t
           : []
-        ).filter(S),
+        ).filter(E),
         revocable: o("WAWebHatchJsonReaders").readBool(e, "revocable") === !0,
-        summaryTitle: I(a, "summary_title"),
+        summaryTitle: x(a, "summary_title"),
       };
     }
     function y(e) {
-      var t = I(e, "key"),
-        n = I(e, "title");
+      var t = x(e, "key"),
+        n = x(e, "title");
       if (t == null || n == null) return null;
       var r = o("WAWebHatchJsonReaders").readField(e, "mode");
       return {
-        description: I(e, "description"),
-        iconKey: I(e, "icon_key"),
+        description: x(e, "description"),
+        iconKey: x(e, "icon_key"),
         key: t,
         mode: r === "ask" || r === "deny" ? r : "unknown",
         title: n,
       };
     }
     function C(e) {
+      var t = b(o("WAWebHatchJsonReaders").readObject(e, "connector")),
+        n = b(o("WAWebHatchJsonReaders").readObject(e, "network"));
+      return t != null && n != null ? { connector: t, network: n } : null;
+    }
+    function b(e) {
+      var t = x(e, "heading"),
+        n = o("WAWebHatchJsonReaders").readObject(e, "options"),
+        r = v(o("WAWebHatchJsonReaders").readObject(n, "always_ask")),
+        a = v(o("WAWebHatchJsonReaders").readObject(n, "auto_allow"));
+      return t != null && r != null && a != null
+        ? { heading: t, options: { always_ask: r, auto_allow: a } }
+        : null;
+    }
+    function v(e) {
+      var t = x(e, "title"),
+        n = x(e, "description");
+      return t != null && n != null ? { description: n, title: t } : null;
+    }
+    function S(e) {
       var t;
       return (t = o("WAWebHatchJsonReaders").readObject(e, "result")) != null
         ? t
         : e;
     }
-    function b(e, t) {
+    function R(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, t);
       return s.find(function (e) {
         return e === n;
       });
     }
-    function v(e) {
-      return e === "deny_all" || S(e) ? e : "unknown";
+    function L(e) {
+      return e === "deny_all" || E(e) ? e : "unknown";
     }
-    function S(e) {
+    function E(e) {
       return e === "allow" || e === "ask" || e === "deny";
     }
-    function R(e) {
+    function k(e) {
       var t = o("WAWebHatchJsonReaders").readField(e, "kind");
       return (
         t !== "connector_override" &&
         t !== "transient_connector_grant" &&
-        !L(o("WAWebHatchJsonReaders").readObject(e, "scope"))
+        !I(o("WAWebHatchJsonReaders").readObject(e, "scope"))
       );
     }
-    function L(e) {
+    function I(e) {
       var t = (function (e) {
         return e === "feed"
           ? ""
@@ -219,18 +241,18 @@ __d(
                 ? "space_slug"
                 : null;
       })(o("WAWebHatchJsonReaders").readField(e, "scope_type"));
-      return t == null || I(e, "session_scope_id") == null
+      return t == null || x(e, "session_scope_id") == null
         ? !1
-        : t === "" || I(e, t) != null;
+        : t === "" || x(e, t) != null;
     }
-    function E(e) {
+    function T(e) {
       return o("WAWebHatchJsonReaders").readObject(e, "scope") != null;
     }
-    function k(e, t) {
+    function D(e, t) {
       var n;
-      return (n = I(e, t)) != null ? n : "";
+      return (n = x(e, t)) != null ? n : "";
     }
-    function I(e, t) {
+    function x(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, t);
       return typeof n == "string"
         ? o("WAWebHatchJsonReaders").trimToNull(n)

@@ -8,20 +8,21 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = o("WAWebPluginCreateRegistryLookup").createMsgTypeRegistryLookup(
+      s,
+      u = o("WAWebPluginCreateRegistryLookup").createMsgTypeRegistryLookup(
         r("WAWebMessagePluginGenerateReportingTokenContentRegistry"),
       );
-    function u(e) {
+    function c(e) {
       var t;
-      return (t = s(e.type, e.subtype)) == null ||
+      return (t = u(e.type, e.subtype)) == null ||
         t.generateReportingTokenContent == null
         ? void 0
         : t.generateReportingTokenContent(e);
     }
-    function c(e, t) {
-      return e === o("WAWebMsgType").MSG_TYPE.PROTOCOL ? !m.has(t) : !d.has(e);
+    function d(e, t) {
+      return e === o("WAWebMsgType").MSG_TYPE.PROTOCOL ? !p.has(t) : !m.has(e);
     }
-    var d = new Set([
+    var m = new Set([
         (e = o("WAWebMsgType")).MSG_TYPE.REACTION,
         e.MSG_TYPE.REACTION_ENC,
         e.MSG_TYPE.EVENT_RESPONSE,
@@ -30,13 +31,14 @@ __d(
         e.MSG_TYPE.PIN_MESSAGE,
         e.MSG_TYPE.KEEP_IN_CHAT,
       ]),
-      m = new Set([
-        o("WAWebCommonMsgSubtypeTypes").MsgSubtype.SenderRevoke,
-        o("WAWebCommonMsgSubtypeTypes").MsgSubtype.AdminRevoke,
-        o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ScheduledMessageUnschedule,
+      p = new Set([
+        (s = o("WAWebCommonMsgSubtypeTypes")).MsgSubtype.SenderRevoke,
+        s.MsgSubtype.AdminRevoke,
+        s.MsgSubtype.MemberLabel,
+        s.MsgSubtype.ScheduledMessageUnschedule,
       ]);
-    ((l.generateReportingTokenContent = u),
-      (l.isMsgTypeReportingTokenCompatible = c));
+    ((l.generateReportingTokenContent = c),
+      (l.isMsgTypeReportingTokenCompatible = d));
   },
   98,
 );

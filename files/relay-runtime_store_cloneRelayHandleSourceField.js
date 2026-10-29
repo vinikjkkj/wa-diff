@@ -4,7 +4,9 @@ __d(
     "invariant",
     "areEqual",
     "relay-runtime/store/RelayStoreUtils",
+    "relay-runtime/store/cloneRelayHandleSourceFieldPerf",
     "relay-runtime/util/RelayConcreteNode",
+    "relay-runtime/util/RelayFeatureFlags",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -12,6 +14,12 @@ __d(
       s = n("relay-runtime/util/RelayConcreteNode").LINKED_FIELD,
       u = n("relay-runtime/store/RelayStoreUtils").getHandleStorageKey;
     function c(t, r, o) {
+      if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS)
+        return n("relay-runtime/store/cloneRelayHandleSourceFieldPerf")(
+          t,
+          r,
+          o,
+        );
       var a = r.find(function (r) {
         return (
           r.kind === s &&

@@ -196,7 +196,15 @@ __d(
           o("WAWebPhoneUtils").isValidMobileForRegistration(u, n)
             ? "" + u + n
             : E(r);
-      return a != null && (!a.startsWith(u) || a.length === d) ? a : null;
+      return a != null &&
+        (!a.startsWith(u) ||
+          (a.length === d &&
+            o("WAWebPhoneUtils").isValidMobileForRegistration(
+              u,
+              a.slice(u.length),
+            )))
+        ? a
+        : null;
     }
     function I(t) {
       var n = t.replace(e, "");

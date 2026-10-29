@@ -44,7 +44,7 @@ __d(
             Image: { enableTracking: !1 },
             Longtask: { enableTracking: !1 },
             LoAF: {
-              enableTracking: (t = r("gkx"))("18841"),
+              enableTracking: !0,
               enableLogging: function () {
                 return o("LongAnimationFrameConfig").shouldLogLoAF(
                   "" + 0x97e965c4439a,
@@ -58,7 +58,7 @@ __d(
               ),
             },
             INP: {
-              enableTracking: t("18542"),
+              enableTracking: (t = r("gkx"))("18542"),
               logReactStack: !1,
               logReactStackHash: !1,
             },

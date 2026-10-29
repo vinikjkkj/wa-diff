@@ -1133,7 +1133,7 @@ __d(
       };
       o("WDSDialogBridge").openWDSDialog(
         m.jsx(r("WAWebDeleteChatDialogV2.react"), {
-          chat: e,
+          chatId: e.id,
           onDeleteOrExit: i,
         }),
       );
