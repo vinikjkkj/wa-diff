@@ -9,10 +9,7 @@ __d(
           o("WAWebDownloadWebLogs").createDownloadDataForMdWebLogs());
       },
       getWebLogs: function () {
-        return (
-          r("vulture")("TdEQxEM-pMKqE8HaVWnAc5vmmO8="),
-          o("WAWebDownloadWebLogs").getWebLogs()
-        );
+        return o("WAWebDownloadWebLogs").getWebLogs();
       },
       getDebugInfo: function (t) {
         return o("WAWebLoggerDebugInfo").getDebugInfo(t != null ? t : void 0);

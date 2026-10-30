@@ -82,7 +82,7 @@ __d(
     function h(t) {
       if (m.size >= c) {
         var n = m.keys().next();
-        n.done || m.delete(n.value);
+        n.done !== !0 && m.delete(n.value);
       }
       m.add(t);
       var r = t.lastIndexOf("@"),

@@ -42,6 +42,7 @@ __d(
       if (
         (_(r, e.email),
         _(r, e.address),
+        _(r, e.lastOrderDescription),
         c(r, e.altPhoneNumbers),
         _(r, n),
         e.acquisitionSource != null)
@@ -97,7 +98,6 @@ __d(
       var a = n != null && n.length >= 8 ? n : null,
         i = [].concat(
           g(e.birthday, "birthday"),
-          g(e.lastOrder, "dateOnly"),
           g(
             (r = o(
               "WAWebCustomerManagerChatResolver",
@@ -139,16 +139,14 @@ __d(
       var i =
         t === "birthday"
           ? o("WAWebCustomerManagerDateFormatUtils").formatCustomerBirthday(e)
-          : t === "dateOnly"
-            ? o("WAWebCustomerManagerDateFormatUtils").formatCustomerDateOnly(e)
-            : t === "instant"
-              ? o("WAWebCustomerManagerDateFormatUtils").formatCustomerDate(e)
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      t,
-                  );
-                })();
+          : t === "instant"
+            ? o("WAWebCustomerManagerDateFormatUtils").formatCustomerDate(e)
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t,
+                );
+              })();
       return [a, i];
     }
     function h(e, t) {

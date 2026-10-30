@@ -3,7 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebHatchJsonReaders",
+    "WAWebHatchLogging",
     "WAWebHatchSubscriptionGetJob",
+    "WAWebNetworkStatus",
+    "WAWebStreamGetters",
+    "WAWebStreamModel",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,43 +23,54 @@ __d(
         "REFRESH",
         "REVOKE_AND_REFUND",
       ]),
-      d = new Set([
-        "NOT_ABRA_LINKED",
-        "SESSION_INVALID",
-        "UPSTREAM_UNAVAILABLE",
+      d = new Map([
+        ["NOT_ABRA_LINKED", "error_code_not_abra_linked"],
+        ["SESSION_INVALID", "error_code_session_invalid"],
+        ["UPSTREAM_UNAVAILABLE", "error_code_upstream_unavailable"],
       ]);
-    function m() {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.source,
+            n;
           try {
-            e = yield o(
+            n = yield o(
               "WAWebHatchSubscriptionGetJob",
             ).commitHatchSubscriptionGet();
           } catch (e) {
-            return _("request");
+            return _("request", { failureReason: f(), source: t });
           }
-          if (e == null || e.success == null) return _("empty");
-          if (e.success !== !0 || e.error_code != null)
+          if (n == null || n.success == null)
+            return _("empty", { failureReason: "empty_response", source: t });
+          if (n.success !== !0 || n.error_code != null) {
+            var r = d.get(n.error_code);
             return _(
-              "error_code:" +
-                (d.has(e.error_code) ? String(e.error_code) : "other"),
+              "error_code:" + (r != null ? String(n.error_code) : "other"),
+              { failureReason: r != null ? r : "error_code_other", source: t },
             );
-          var t;
-          try {
-            t = f(e.subscription);
-          } catch (e) {
-            return _("malformed");
           }
-          return t == null ? _("malformed") : { kind: "ok", subscription: t };
+          var a;
+          try {
+            a = h(n.subscription);
+          } catch (e) {
+            return _("malformed", { failureReason: "malformed", source: t });
+          }
+          return a == null
+            ? _("malformed", { failureReason: "malformed", source: t })
+            : (o("WAWebHatchLogging").logHatchSubscriptionRead({
+                isTopUpUnreadable: a.isTopUpUnreadable,
+                outcome: "success",
+                source: t,
+              }),
+              { kind: "ok", subscription: a.subscription });
         })),
         p.apply(this, arguments)
       );
     }
-    function _(t) {
+    function _(t, n) {
       try {
         o("WALogger")
           .WARN(
@@ -68,15 +83,40 @@ __d(
           )
           .sendLogs("hatch-subscription-read-failed");
       } catch (e) {}
-      return { kind: "unavailable" };
+      return (
+        o("WAWebHatchLogging").logHatchSubscriptionRead({
+          outcome: "error",
+          reason: n.failureReason,
+          source: n.source,
+        }),
+        { kind: "unavailable" }
+      );
     }
-    function f(e) {
+    function f() {
+      try {
+        return r("WAWebNetworkStatus").online === !1 ||
+          o("WAWebStreamGetters").getDisplayInfo(
+            o("WAWebStreamModel").Stream,
+          ) === o("WAWebStreamModel").StreamInfo.OFFLINE
+          ? "offline"
+          : "request_failed";
+      } catch (e) {
+        return "request_failed";
+      }
+    }
+    function g(e) {
+      var t, n;
+      return (t = (n = h(e)) == null ? void 0 : n.subscription) != null
+        ? t
+        : null;
+    }
+    function h(e) {
       var t,
         n = (t = o("WAWebHatchJsonReaders")).readObject(e, "tier"),
         r = t.readObject(e, "usage"),
-        a = R(n, "name"),
+        a = E(n, "name"),
         i = t.readBool(n, "is_paid"),
-        l = g(t.readString(r, "state"));
+        l = y(t.readString(r, "state"));
       if (
         o("WAWebHatchJsonReaders").readString(n, "tier_id") == null ||
         a == null ||
@@ -95,24 +135,31 @@ __d(
         var d = o("WAWebHatchJsonReaders").readInteger(r, "resets_at");
         c = d != null && d > 0 ? d : null;
       }
+      var m = b(e);
       return {
-        billingSubtitle: R(e, "billing_subtitle"),
-        isPaid: i,
-        managementRows: b(e),
-        percentUsed: s,
-        planName: a,
-        quotaStatus: o("WAWebHatchJsonReaders").readString(r, "quota_status"),
-        resetsAtSeconds: c,
-        statusSubtitle: R(e, "status_subtitle"),
-        topUp: y(e),
-        topUpEligible: o("WAWebHatchJsonReaders").readBool(e, "topup_eligible"),
-        usageRowFooter: R(e, "usage_row_footer"),
-        usageRowLabel: R(e, "usage_row_label"),
-        usageRowValueLabel: R(e, "usage_row_value_label"),
-        usageState: l,
+        isTopUpUnreadable: m.isUnreadable,
+        subscription: {
+          billingSubtitle: E(e, "billing_subtitle"),
+          isPaid: i,
+          managementRows: S(e),
+          percentUsed: s,
+          planName: a,
+          quotaStatus: o("WAWebHatchJsonReaders").readString(r, "quota_status"),
+          resetsAtSeconds: c,
+          statusSubtitle: E(e, "status_subtitle"),
+          topUp: m.topUp,
+          topUpEligible: o("WAWebHatchJsonReaders").readBool(
+            e,
+            "topup_eligible",
+          ),
+          usageRowFooter: E(e, "usage_row_footer"),
+          usageRowLabel: E(e, "usage_row_label"),
+          usageRowValueLabel: E(e, "usage_row_value_label"),
+          usageState: l,
+        },
       };
     }
-    function g(e) {
+    function y(e) {
       return e === "METERED"
         ? "METERED"
         : e === "UNLIMITED"
@@ -121,12 +168,12 @@ __d(
             ? "UNKNOWN"
             : null;
     }
-    function h(e) {
+    function C(e) {
       return e.topUpEligible === !0;
     }
-    function y(e) {
+    function b(e) {
       try {
-        return C(e);
+        return { isUnreadable: !1, topUp: v(e) };
       } catch (e) {
         try {
           o("WALogger")
@@ -138,13 +185,13 @@ __d(
             )
             .sendLogs("hatch-subscription-topup-unreadable");
         } catch (e) {}
-        return null;
+        return { isUnreadable: !0, topUp: null };
       }
     }
-    function C(e) {
+    function v(e) {
       var t = o("WAWebHatchJsonReaders").readInteger(e, "topup_total"),
         n = o("WAWebHatchJsonReaders").readInteger(e, "topup_balance"),
-        r = R(e, "topup_row_value_label");
+        r = E(e, "topup_row_value_label");
       if (
         t == null ||
         n == null ||
@@ -156,32 +203,32 @@ __d(
       )
         return null;
       var a = Math.min(Math.max(n, 0), t),
-        i = R(e, "topup_row_label");
+        i = E(e, "topup_row_label");
       return {
         percentUsed: Math.round((u * (t - a)) / t),
         title: i != null && i.trim() !== "" ? i : null,
         valueLabel: r,
       };
     }
-    function b(e) {
+    function S(e) {
       var t = o("WAWebHatchJsonReaders").readObject(e, "management_actions"),
         n = [];
       for (var r of o("WAWebHatchJsonReaders").readObjects(
         t,
         "management_rows",
       )) {
-        var a = v(r);
+        var a = R(r);
         a != null && n.push(a);
       }
       return n;
     }
-    function v(e) {
+    function R(e) {
       var t = o("WAWebHatchJsonReaders").readString(e, "action"),
-        n = R(e, "label"),
-        r = S(o("WAWebHatchJsonReaders").readString(e, "style"));
+        n = E(e, "label"),
+        r = L(o("WAWebHatchJsonReaders").readString(e, "style"));
       if (t == null || !c.has(t) || n == null || n.trim() === "" || r == null)
         return null;
-      var a = R(e, "subtitle");
+      var a = E(e, "subtitle");
       return {
         action: t,
         label: n,
@@ -189,7 +236,7 @@ __d(
         subtitle: a != null && a.trim() !== "" ? a : null,
       };
     }
-    function S(e) {
+    function L(e) {
       return e === "destructive"
         ? "destructive"
         : e === "primary"
@@ -198,7 +245,7 @@ __d(
             ? "secondary"
             : null;
     }
-    function R(e, t) {
+    function E(e, t) {
       var n,
         r,
         a = o("WAWebHatchJsonReaders").readString(e, t);
@@ -212,8 +259,8 @@ __d(
       return s === "" ? null : s;
     }
     ((l.readHatchSubscription = m),
-      (l.parseHatchSubscription = f),
-      (l.shouldShowBuyAdditionalTokens = h));
+      (l.parseHatchSubscription = g),
+      (l.shouldShowBuyAdditionalTokens = C));
   },
   98,
 );

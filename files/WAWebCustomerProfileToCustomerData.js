@@ -22,7 +22,7 @@ __d(
           createdAt: e.modifiedAt,
           email: e.email,
           id: String(e.chatJid),
-          lastOrder: e.lastOrder,
+          lastOrderDescription: e.lastOrderDescription,
           leadStage: t,
           modifiedAt: e.modifiedAt,
         })
@@ -41,6 +41,7 @@ __d(
         email: e.email,
         id: String(e.id),
         lastOrder: e.lastOrder,
+        lastOrderDescription: e.lastOrderDescription,
         leadStage: t,
         modifiedAt: e.modifiedAt,
       });
@@ -77,6 +78,7 @@ __d(
             email: e.email,
             id: e.id,
             lastOrder: e.lastOrder,
+            lastOrderDescription: e.lastOrderDescription,
             leadStage: e.leadStage,
             modifiedAt: e.modifiedAt,
           });
@@ -95,6 +97,7 @@ __d(
         email: null,
         id: String(e),
         lastOrder: null,
+        lastOrderDescription: null,
         leadStage: null,
         modifiedAt: t,
       });

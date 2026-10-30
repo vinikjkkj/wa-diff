@@ -29,7 +29,7 @@ __d(
           function m(e) {
             if (!(e instanceof r("WARetryableError"))) return void s(e);
             var t = u.next();
-            if (t.done) return void s(e.source);
+            if (t.done === !0) return void s(e.source);
             var n = Date.now() - c,
               o = l ? Math.max(t.value - n, 0) : t.value;
             i(o);

@@ -204,11 +204,22 @@ __d(
                   u
                 );
               }
-              case "from_main_to_worker_sync_state": {
+              case "from_main_to_worker_sync_media_element_state": {
                 var v = u.players,
                   S = v.get(r.playerInstanceKey);
                 if (!S) return;
                 l(S, {
+                  mediaElementStateFromMain: r.mediaElementStateFromMain,
+                  reason: r.reason,
+                  type: "update_media_element_state_from_main",
+                });
+                return;
+              }
+              case "from_main_to_worker_sync_state": {
+                var R = u.players,
+                  L = R.get(r.playerInstanceKey);
+                if (!L) return;
+                l(L, {
                   playerStateFromMain: r.playerStateFromMain,
                   reason: r.reason,
                   type: "update_player_state_from_main",
@@ -216,10 +227,10 @@ __d(
                 return;
               }
               case "from_main_to_worker_debug_log_stall_details": {
-                var R = u.players,
-                  L = R.get(r.playerInstanceKey);
-                if (!L) return;
-                l(L, {
+                var E = u.players,
+                  k = E.get(r.playerInstanceKey);
+                if (!k) return;
+                l(k, {
                   mediaElementSnapshotFromMain: r.mediaElementSnapshotFromMain,
                   stallStartClock: r.stallStartClock,
                   type: "debug_log_stall_details",
@@ -227,20 +238,20 @@ __d(
                 return;
               }
               case "from_main_to_worker_request_recovery_from_source_reset": {
-                var E = u.players,
-                  k = E.get(r.playerInstanceKey);
-                if (!k) return;
-                l(k, {
+                var I = u.players,
+                  T = I.get(r.playerInstanceKey);
+                if (!T) return;
+                l(T, {
                   mediaSourceIndex: r.mediaSourceIndex,
                   type: "request_recovery_from_source_reset",
                 });
                 return;
               }
               case "from_main_to_worker_notify_deliberate_detach_for_unmount": {
-                var I = u.players,
-                  T = I.get(r.playerInstanceKey);
-                if (!T) return;
-                l(T, {
+                var D = u.players,
+                  x = D.get(r.playerInstanceKey);
+                if (!x) return;
+                l(x, {
                   mediaSourceIndex: r.mediaSourceIndex,
                   type: "notify_deliberate_detach_for_unmount",
                 });
@@ -253,9 +264,9 @@ __d(
                   ).initiatePrefetch(n, r.prefetchInfo, r.initialAbrParams);
                   return;
                 }
-                var D;
+                var $;
                 try {
-                  D = o(
+                  $ = o(
                     "VideoPlayerNextgendashWorkerPrefetchCache",
                   ).getPrefetchTasks(n, r.prefetchInfo, r.initialAbrParams);
                 } catch (e) {
@@ -269,17 +280,17 @@ __d(
                   });
                   return;
                 }
-                if (D.length === 0) {
+                if ($.length === 0) {
                   s({
                     prefetchKey: r.prefetchInfo.prefetchKey,
                     type: "_prefetch_task_completed",
                   });
                   return;
                 }
-                var x = u.prefetchTaskQueue;
+                var P = u.prefetchTaskQueue;
                 return (
-                  x ||
-                    (x = i(
+                  P ||
+                    (P = i(
                       "prefetch-task-queue",
                       o("VideoPlayerNextgendashWorkerPrefetchTaskQueue")
                         .VideoPlayerNextgendashWorkerPrefetchTaskQueueSM,
@@ -292,15 +303,15 @@ __d(
                         },
                       },
                     )),
-                  l(x, { groupId: r.groupId, tasks: D, type: "enqueue_tasks" }),
-                  babelHelpers.extends({}, u, { prefetchTaskQueue: x })
+                  l(P, { groupId: r.groupId, tasks: $, type: "enqueue_tasks" }),
+                  babelHelpers.extends({}, u, { prefetchTaskQueue: P })
                 );
               }
               case "from_main_to_worker_prefetch_group_action": {
-                var $ = u.prefetchTaskQueue;
+                var N = u.prefetchTaskQueue;
                 return (
-                  $ == null &&
-                    ($ = i(
+                  N == null &&
+                    (N = i(
                       "prefetch-task-queue",
                       o("VideoPlayerNextgendashWorkerPrefetchTaskQueue")
                         .VideoPlayerNextgendashWorkerPrefetchTaskQueueSM,
@@ -314,12 +325,12 @@ __d(
                       },
                     )),
                   r.prefetchGroupAction.type === "stop"
-                    ? l($, { type: "stop_group" })
-                    : l($, {
+                    ? l(N, { type: "stop_group" })
+                    : l(N, {
                         groupId: r.prefetchGroupAction.groupId,
                         type: "start_group",
                       }),
-                  babelHelpers.extends({}, u, { prefetchTaskQueue: $ })
+                  babelHelpers.extends({}, u, { prefetchTaskQueue: N })
                 );
               }
               case "from_main_to_worker_release_prefetch_key": {
@@ -335,11 +346,11 @@ __d(
           case "__disposed__":
             switch (r.type) {
               case "__enter": {
-                var P = r.prevState;
-                if (P.state === "port_to_main_ready") {
-                  var N = P.mainConnection.disconnectFromMain;
-                  N != null &&
-                    N(
+                var M = r.prevState;
+                if (M.state === "port_to_main_ready") {
+                  var w = M.mainConnection.disconnectFromMain;
+                  w != null &&
+                    w(
                       u.exception != null
                         ? o("nextgendasherr").nextgendasherrFromCause(
                             n,

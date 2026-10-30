@@ -1,7 +1,6 @@
 __d(
   "WAWebCustomerManagerImportDateValidator",
   [
-    "WATimeUtils",
     "WAWebContactImportTypedError",
     "WAWebCustomerManagerImportDateParsingUtils",
     "WAWebCustomerManagerImportTemplateUtils",
@@ -25,28 +24,14 @@ __d(
     }
     function s(e) {
       var t = o(
-          "WAWebCustomerManagerImportDateParsingUtils",
-        ).parseCustomerManagerImportDate(
-          o(
-            "WAWebCustomerManagerImportTemplateUtils",
-          ).readCustomerManagerImportRawRowColumn(e, "birthday"),
-          "birthday",
-        ),
-        n = o(
-          "WAWebCustomerManagerImportDateParsingUtils",
-        ).parseCustomerManagerImportDate(
-          o(
-            "WAWebCustomerManagerImportTemplateUtils",
-          ).readCustomerManagerImportRawRowColumn(e, "lastOrder"),
-          "lastOrder",
-        );
-      return t.type === "invalid" || u(n);
-    }
-    function u(e) {
-      return (
-        e.type === "invalid" ||
-        (e.type === "valid" && e.value === o("WATimeUtils").castToUnixTime(0))
+        "WAWebCustomerManagerImportDateParsingUtils",
+      ).parseCustomerManagerImportDate(
+        o(
+          "WAWebCustomerManagerImportTemplateUtils",
+        ).readCustomerManagerImportRawRowColumn(e, "birthday"),
+        "birthday",
       );
+      return t.type === "invalid";
     }
     ((l.validateCustomerManagerImportDates = e),
       (l.hasInvalidCustomerManagerImportDates = s));

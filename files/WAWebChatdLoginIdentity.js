@@ -25,7 +25,7 @@ __d(
       g = !1;
     function h() {
       var e,
-        t = v();
+        t = b();
       if (((p = t != null), t != null))
         return {
           username: parseInt(t.user, 10),
@@ -71,9 +71,6 @@ __d(
       g = !1;
     }
     function b() {
-      ((p = !1), (_ = !1), (f = !1), (g = !1));
-    }
-    function v() {
       if (
         _ ||
         !o("WAWebABProps").getABPropConfigValue("prefer_lid_for_chatd_login")
@@ -92,8 +89,7 @@ __d(
     }
     ((l.getChatdLoginIdentity = h),
       (l.maybeFallBackToPnLogin = y),
-      (l.onChatdLoginSucceeded = C),
-      (l.resetForTesting = b));
+      (l.onChatdLoginSucceeded = C));
   },
   98,
 );

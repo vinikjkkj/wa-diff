@@ -852,7 +852,6 @@ __d(
         "address",
         "birthday",
         "lastMessage",
-        "lastOrder",
       ],
       A = M;
     function F(e, t) {
@@ -969,101 +968,92 @@ __d(
     function q(e, t, n, a, i, l, u, d) {
       var m = l != null ? l : [],
         p = u != null ? u : r("WAWebNoop"),
-        _ = function (r, o) {
-          return n != null ? D(r, o, t, n, a, m, p) : void 0;
+        _ = function (r, i, l) {
+          return {
+            cell: l,
+            header: i,
+            key: r,
+            renderHeader: n != null ? D(i, r, t, n, a, m, p) : void 0,
+            sortable: !0,
+            width: o("WAWebCustomerManagerListViewColumnWidths")
+              .customerManagerColumnWidths[r],
+          };
         },
-        f = s._(/*BTDS*/ "Name"),
-        g = i != null ? W(i) : null,
-        h = [].concat(g != null ? [g] : [], [
-          {
-            cell: function (t) {
-              return c.jsx(r("WAWebCustomerManagerCustomerCell.react"), {
-                item: t.item.leadData,
-              });
-            },
-            header: f,
-            key: "customer",
-            renderHeader: _(f, "customer"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.customer,
-          },
-          {
-            cell: function (t) {
-              return c.jsx($, { chatJid: t.item.chatJid });
-            },
-            header: s._(/*BTDS*/ "Phone number"),
-            key: "phone",
-            renderHeader: _(s._(/*BTDS*/ "Phone number"), "phone"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.phone,
-          },
-          {
-            cell: function (t) {
-              return c.jsx(P, { chatJid: t.item.chatJid });
-            },
-            header: s._(/*BTDS*/ "Username"),
-            key: "username",
-            renderHeader: _(s._(/*BTDS*/ "Username"), "username"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.username,
-          },
-          {
-            cell: function (t) {
-              return c.jsx(r("WAWebCustomerManagerListCell.react"), {
-                chatJid: t.item.chatJid,
-                leadStage: t.item.leadData.leadStage,
-              });
-            },
-            header: s._(/*BTDS*/ "List"),
-            key: "list",
-            renderHeader: _(s._(/*BTDS*/ "List"), "list"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.list,
-          },
-          {
-            cell: function (t) {
-              var e = t.item.leadData.acquisitionSource,
-                n =
-                  e != null
-                    ? o(
-                        "WAWebCustomerProfileAcquisitionSourceNames",
-                      ).getProfileAcquisitionSourceLabel(e)
-                    : null;
-              return c.jsx(r("WDSText.react"), {
-                type: "Body1",
-                colorName: "contentDeemphasized",
-                maxLines: 1,
-                children: n != null ? n : s._(/*BTDS*/ "Unknown"),
-              });
-            },
-            header: s._(/*BTDS*/ "Source"),
-            key: "acquisitionSource",
-            renderHeader: _(s._(/*BTDS*/ "Source"), "acquisitionSource"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.acquisitionSource,
-          },
-          {
-            cell: function (t) {
-              var e;
-              return c.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDefault",
-                maxLines: 1,
-                children: (e = t.item.leadData.email) != null ? e : "\u2014",
-              });
-            },
-            header: s._(/*BTDS*/ "Email"),
-            key: "email",
-            renderHeader: _(s._(/*BTDS*/ "Email"), "email"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.email,
-          },
+        f = i != null ? W(i) : null,
+        g = [].concat(f != null ? [f] : [], [
+          _("customer", s._(/*BTDS*/ "Name"), function (e) {
+            return c.jsx(r("WAWebCustomerManagerCustomerCell.react"), {
+              item: e.item.leadData,
+            });
+          }),
+          _("phone", s._(/*BTDS*/ "Phone number"), function (e) {
+            return c.jsx($, { chatJid: e.item.chatJid });
+          }),
+          _("username", s._(/*BTDS*/ "Username"), function (e) {
+            return c.jsx(P, { chatJid: e.item.chatJid });
+          }),
+          _("list", s._(/*BTDS*/ "List"), function (e) {
+            return c.jsx(r("WAWebCustomerManagerListCell.react"), {
+              chatJid: e.item.chatJid,
+              leadStage: e.item.leadData.leadStage,
+            });
+          }),
+          _("acquisitionSource", s._(/*BTDS*/ "Source"), function (e) {
+            var t = e.item.leadData.acquisitionSource,
+              n =
+                t != null
+                  ? o(
+                      "WAWebCustomerProfileAcquisitionSourceNames",
+                    ).getProfileAcquisitionSourceLabel(t)
+                  : null;
+            return c.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDeemphasized",
+              maxLines: 1,
+              children: n != null ? n : s._(/*BTDS*/ "Unknown"),
+            });
+          }),
+          _("email", s._(/*BTDS*/ "Email"), function (e) {
+            var t;
+            return c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: (t = e.item.leadData.email) != null ? t : "\u2014",
+            });
+          }),
+          _("address", s._(/*BTDS*/ "Address"), function (e) {
+            var t;
+            return c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: (t = e.item.leadData.address) != null ? t : "\u2014",
+            });
+          }),
+          _("birthday", s._(/*BTDS*/ "Birthday"), function (e) {
+            return c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: o(
+                "WAWebCustomerManagerDateFormatUtils",
+              ).formatCustomerBirthday(e.item.leadData.birthday),
+            });
+          }),
+          _("lastMessage", s._(/*BTDS*/ "Last message"), function (e) {
+            var t = o(
+              "WAWebCustomerManagerChatResolver",
+            ).resolveCustomerManagerChat(e.item.chatJid);
+            return c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: o(
+                "WAWebCustomerManagerDateFormatUtils",
+              ).formatCustomerDate(t == null ? void 0 : t.t),
+            });
+          }),
           {
             cell: function (t) {
               var e;
@@ -1071,70 +1061,15 @@ __d(
                 type: "Body2",
                 colorName: "contentDefault",
                 maxLines: 1,
-                children: (e = t.item.leadData.address) != null ? e : "\u2014",
-              });
-            },
-            header: s._(/*BTDS*/ "Address"),
-            key: "address",
-            renderHeader: _(s._(/*BTDS*/ "Address"), "address"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.address,
-          },
-          {
-            cell: function (t) {
-              return c.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDefault",
-                maxLines: 1,
-                children: o(
-                  "WAWebCustomerManagerDateFormatUtils",
-                ).formatCustomerBirthday(t.item.leadData.birthday),
-              });
-            },
-            header: s._(/*BTDS*/ "Birthday"),
-            key: "birthday",
-            renderHeader: _(s._(/*BTDS*/ "Birthday"), "birthday"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.birthday,
-          },
-          {
-            cell: function (t) {
-              var e = o(
-                "WAWebCustomerManagerChatResolver",
-              ).resolveCustomerManagerChat(t.item.chatJid);
-              return c.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDefault",
-                maxLines: 1,
-                children: o(
-                  "WAWebCustomerManagerDateFormatUtils",
-                ).formatCustomerDate(e == null ? void 0 : e.t),
-              });
-            },
-            header: s._(/*BTDS*/ "Last message"),
-            key: "lastMessage",
-            renderHeader: _(s._(/*BTDS*/ "Last message"), "lastMessage"),
-            sortable: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.lastMessage,
-          },
-          {
-            cell: function (t) {
-              return c.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDefault",
-                maxLines: 1,
-                children: o(
-                  "WAWebCustomerManagerDateFormatUtils",
-                ).formatCustomerDateOnly(t.item.leadData.lastOrder),
+                children:
+                  (e = t.item.leadData.lastOrderDescription) != null
+                    ? e
+                    : "\u2014",
               });
             },
             header: s._(/*BTDS*/ "Last order"),
             key: "lastOrder",
-            renderHeader: _(s._(/*BTDS*/ "Last order"), "lastOrder"),
-            sortable: !0,
+            renderHeader: x(s._(/*BTDS*/ "Last order"), "lastOrder", a, m, p),
             width: o("WAWebCustomerManagerListViewColumnWidths")
               .customerManagerColumnWidths.lastOrder,
           },
@@ -1164,7 +1099,7 @@ __d(
               .customerManagerColumnWidths.actions,
           },
         ]);
-      return h.map(function (e) {
+      return g.map(function (e) {
         return babelHelpers.extends({}, e, {
           headerInteractive:
             (e.sortable === !0 && n != null) ||

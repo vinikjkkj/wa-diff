@@ -18,7 +18,7 @@ __d(
       var o = u(t, n);
       if ((l.delete(o), l.set(o, r), l.size > e)) {
         var a = l.keys().next();
-        a.done || l.delete(a.value);
+        a.done !== !0 && l.delete(a.value);
       }
     }
     ((i.getPrefetchedURI = c), (i.recordPrefetchedURI = d));

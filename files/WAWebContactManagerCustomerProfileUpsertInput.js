@@ -12,7 +12,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, n) {
-      var r = { lid: d(t) };
+      var r = { lid: m(t) };
       e: {
         var a = n;
         if (
@@ -55,8 +55,8 @@ __d(
           a.field === "leadStage" &&
           "value" in a
         ) {
-          var m = a.value;
-          r.lead_stage = m != null ? String(m) : null;
+          var p = a.value;
+          r.lead_stage = p != null ? String(p) : null;
           break e;
         }
         if (
@@ -64,19 +64,28 @@ __d(
           a.field === "orderPreferences" &&
           "value" in a
         ) {
-          var p = a.value;
+          var _ = a.value;
           r.order_preferences = o(
             "WAWebCustomerOrderPreferences",
-          ).toOrderPreferences(p);
+          ).toOrderPreferences(_);
           break e;
         }
         if (
           ((typeof a == "object" && a !== null) || typeof a == "function") &&
-          a.field === "lastOrder" &&
+          a.field === "confirmedAppointmentDate" &&
           "value" in a
         ) {
-          var _ = a.value;
-          r.last_order_date = _ != null ? _ : null;
+          var f = a.value;
+          r.confirmed_appointment_date = c(f);
+          break e;
+        }
+        if (
+          ((typeof a == "object" && a !== null) || typeof a == "function") &&
+          a.field === "lastOrderDescription" &&
+          "value" in a
+        ) {
+          var g = a.value;
+          r.last_order = d(g) ? null : g;
           break e;
         }
         if (
@@ -84,12 +93,12 @@ __d(
           a.field === "acquisitionSource" &&
           "value" in a
         ) {
-          var f = a.value,
-            g = o(
+          var h = a.value,
+            y = o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).fromProfileAcquisitionSourceId(f);
-          f == null || g != null
-            ? (r.acquisition_source = g)
+            ).fromProfileAcquisitionSourceId(h);
+          h == null || y != null
+            ? (r.acquisition_source = y)
             : o("WALogger")
                 .WARN(
                   e ||
@@ -97,7 +106,7 @@ __d(
                       "[CustomerManager] customer profile upsert: acquisition source ",
                       " has no server enum member; leaving the stored value unchanged",
                     ])),
-                  f,
+                  h,
                 )
                 .sendLogs("customer_manager_acquisition_source_unmapped");
           break e;
@@ -110,29 +119,33 @@ __d(
       return r;
     }
     function u(e, t) {
-      var n = { lid: d(e) };
+      var n = { lid: m(e) };
       t.leadStage != null && (n.lead_stage = String(t.leadStage));
       for (var r of ["name", "email", "address"]) {
         var a = t[r];
         a != null && a !== "" && (n[r] = a);
       }
       var i = t.birthday;
-      (i != null &&
+      i != null &&
         ((n.dob = o("WAWebCustomerProfileBirthday").formatBirthdayToIso(
           i.value,
           i.storedDob,
         )),
-        i.ifMatch != null && (n.if_match = i.ifMatch)),
-        t.lastOrder != null && (n.last_order_date = t.lastOrder));
-      var l = o(
+        i.ifMatch != null && (n.if_match = i.ifMatch));
+      var l = t.lastOrderDescription;
+      l != null && !d(l) && (n.last_order = l);
+      var s = o(
         "WAWebCustomerManagerCustomerProfileDecoders",
       ).fromProfileAcquisitionSourceId(t.acquisitionSource);
-      return (l != null && (n.acquisition_source = l), n);
+      return (s != null && (n.acquisition_source = s), n);
     }
     function c(e) {
       return e == null || e === "" ? null : e;
     }
     function d(e) {
+      return e == null || e.trim() === "";
+    }
+    function m(e) {
       var t = o("WAJids").validateLidUserJid(e);
       if (t == null)
         throw r("err")(

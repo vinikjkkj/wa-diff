@@ -137,7 +137,9 @@ __d(
         u,
         c,
         d,
-        m =
+        m,
+        p,
+        _ =
           (a =
             (i = t == null ? void 0 : t.address) != null
               ? i
@@ -146,7 +148,7 @@ __d(
                 : n.address) == null
             ? void 0
             : a.trim(),
-        p =
+        f =
           (l =
             (s = o(
               "WAWebCustomerManagerImportTemplateUtils",
@@ -155,15 +157,15 @@ __d(
               : s.trim()) != null
             ? l
             : "",
-        _ = o(
+        h = o(
           "WAWebCustomerManagerImportTemplateUtils",
         ).readCustomerManagerImportColumn(e, "leadStage"),
-        f = _ != null ? o("WAWebLeadStageNames").getLeadStageFromName(_) : null,
-        C = r,
-        b = o(
+        C = h != null ? o("WAWebLeadStageNames").getLeadStageFromName(h) : null,
+        b = r,
+        v = o(
           "WAWebCustomerManagerImportTemplateUtils",
         ).readCustomerManagerImportColumn(e, "acquisitionSource"),
-        v = [
+        S = [
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_ADDRESS,
             imported:
@@ -172,30 +174,30 @@ __d(
               ).readCustomerManagerImportColumn(e, "address")) == null
                 ? void 0
                 : u.trim(),
-            stored: m,
+            stored: _,
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL,
             imported: o(
               "WAWebCustomerManagerImportEmailWarnings",
-            ).isValidImportEmail(p)
-              ? p
+            ).isValidImportEmail(f)
+              ? f
               : "",
             stored: t == null || (c = t.email) == null ? void 0 : c.trim(),
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_LEAD_STAGE,
-            imported: f,
-            stored: C,
+            imported: C,
+            stored: b,
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils")
               .FBT_ACQUISITION_SOURCE,
             imported:
-              b != null
+              v != null
                 ? o(
                     "WAWebCustomerProfileAcquisitionSourceNames",
-                  ).getProfileAcquisitionSourceIdFromLabel(b)
+                  ).getProfileAcquisitionSourceIdFromLabel(v)
                 : null,
             stored: t == null ? void 0 : t.acquisitionSource,
           },
@@ -221,29 +223,26 @@ __d(
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_LAST_ORDER,
-            imported: h(
-              o(
-                "WAWebCustomerManagerImportDateParsingUtils",
-              ).readValidCustomerManagerImportDate(
-                o(
-                  "WAWebCustomerManagerImportTemplateUtils",
-                ).readCustomerManagerImportColumn(e, "lastOrder"),
-                "lastOrder",
-              ),
-            ),
-            stored: h(t == null ? void 0 : t.lastOrder),
+            imported:
+              (m = o(
+                "WAWebCustomerManagerImportTemplateUtils",
+              ).readCustomerManagerImportColumn(e, "lastOrder")) == null
+                ? void 0
+                : m.trim(),
+            stored:
+              t == null || (p = t.lastOrderDescription) == null
+                ? void 0
+                : p.trim(),
           },
         ];
-      return v
-        .filter(function (e) {
-          var t = e.imported,
-            n = e.stored;
-          return g(t, n);
-        })
-        .map(function (e) {
-          var t = e.label;
-          return t;
-        });
+      return S.filter(function (e) {
+        var t = e.imported,
+          n = e.stored;
+        return g(t, n);
+      }).map(function (e) {
+        var t = e.label;
+        return t;
+      });
     }
     function g(e, t) {
       return e == null || e === "" || t == null || t === "" ? !1 : e !== t;

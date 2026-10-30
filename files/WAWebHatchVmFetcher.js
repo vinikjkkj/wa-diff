@@ -124,59 +124,59 @@ __d(
       return e == null ? null : typeof e == "string" ? e : h;
     }
     function x(e, t) {
-      var n;
       if (e == null || typeof e != "object" || Array.isArray(e))
         return {
           detail: "VM entry was not an object",
           field: "entry",
           kind: "failure",
         };
-      var r = e,
-        o = r.vm_ws_url,
-        a = r.default === !0,
-        i = r.vm_id,
-        l = typeof r.vm_state == "string" ? r.vm_state : null,
-        s = D(r.vm_type),
-        u = r.vm_auth_token,
-        c = r.vm_notary_tokens,
-        d = r.notary_token_expiration_ts;
-      if (typeof o != "string" || o.trim() === "")
+      var n = e,
+        r = n.vm_ws_url,
+        o = n.default === !0,
+        a = n.vm_id,
+        i = typeof n.vm_state == "string" ? n.vm_state : null,
+        l = D(n.vm_type),
+        s = n.vm_auth_token,
+        u = n.vm_notary_tokens,
+        c = n.notary_token_expiration_ts;
+      if (typeof r != "string" || r.trim() === "")
         return {
           detail: "VM entry omitted its gateway URL",
           field: "vm_ws_url",
           kind: "failure",
         };
-      var m = o.trim();
-      if (typeof u != "string" || u.trim() === "")
+      var d = r.trim();
+      if (typeof s != "string" || s.trim() === "")
         return {
           detail: "VM entry omitted its auth token",
           field: "vm_auth_token",
           kind: "failure",
         };
-      var p = u.trim();
-      if (c == null || typeof c != "object" || Array.isArray(c))
+      var m = s.trim();
+      if (u == null || typeof u != "object" || Array.isArray(u))
         return {
           detail: "VM entry omitted its notary tokens",
           field: "vm_notary_tokens",
           kind: "failure",
         };
-      if (typeof d != "number" || !Number.isFinite(d) || d < 0 || d > f)
+      if (typeof c != "number" || !Number.isFinite(c) || c < 0 || c > f)
         return {
           detail: "VM entry had an invalid notary expiration",
           field: "notary_token_expiration_ts",
           kind: "failure",
         };
-      var _ = typeof i == "string" ? i.trim() : "",
-        g = _ !== "",
-        h = g ? S(_) : R(m),
-        y = (n = L(c["/v1/noise"])) != null ? n : L(c["/"]),
-        C = d * 1e3;
-      return h == null
+      var p = typeof a == "string" ? a.trim() : "",
+        _ = p !== "",
+        g = _ ? S(p) : R(d),
+        h = L(u["/v1/noise"]),
+        y = h != null ? h : L(u["/"]),
+        C = c * 1e3;
+      return g == null
         ? {
-            detail: g
+            detail: _
               ? "VM entry had an invalid VM id"
               : "VM entry had an invalid gateway host",
-            field: g ? "vm_id" : "vm_ws_url",
+            field: _ ? "vm_id" : "vm_ws_url",
             kind: "failure",
           }
         : y == null
@@ -193,14 +193,15 @@ __d(
               }
             : {
                 entry: {
-                  gatewayUrl: m,
-                  isDefault: a,
+                  gatewayUrl: d,
+                  isDefault: o,
+                  noiseNotaryToken: h,
                   notaryExpiresAtMs: C,
                   notaryToken: y,
-                  state: l,
-                  vmAuthToken: p,
-                  vmId: h,
-                  vmType: s,
+                  state: i,
+                  vmAuthToken: m,
+                  vmId: g,
+                  vmType: l,
                 },
                 kind: "ok",
               };

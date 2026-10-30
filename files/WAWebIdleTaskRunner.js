@@ -22,7 +22,10 @@ __d(
                 : n.isIdle() && n.$4();
             }),
             (this.$3 = function (e) {
-              for (var t, r = n.$2.entries(); (t = r.next()) && !t.done; ) {
+              for (
+                var t, r = n.$2.entries();
+                (t = r.next()) && t.done !== !0;
+              ) {
                 var o = t.value,
                   a = o[0],
                   i = o[1];
@@ -76,7 +79,10 @@ __d(
               );
           }),
           (n.$4 = function () {
-            for (var e, t = this.$2.entries(); (e = t.next()) && !e.done; ) {
+            for (
+              var e, t = this.$2.entries();
+              (e = t.next()) && e.done !== !0;
+            ) {
               var n = e.value,
                 r = n[0],
                 o = n[1];

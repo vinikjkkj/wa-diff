@@ -290,9 +290,8 @@ __d(
         o("WAWebTosGating").shouldBlockByTos(e.contact) ||
         o("WAWebTosGating").shouldBlockByBotTos(e.contact) ||
         o("WAWebTosCountryGating").shouldBlockByCountry(e.contact) ||
-        o("WAWebBotFrontendGating").isBotChatUnavailable(e.id) ||
-        (!r && x(e)) ||
-        o("WAWebBotComposerTreatment").isBotSupportComposerBlocked(e.id)
+        N(e.id) ||
+        (!r && x(e))
       )
         return !1;
       if (
@@ -342,6 +341,13 @@ __d(
       return !0;
     }
     function N(e) {
+      return (
+        o("WAWebBotFrontendGating").isBotChatUnavailable(e) ||
+        o("WAWebBotFrontendGating").isBotChatReadOnly(e) ||
+        o("WAWebBotComposerTreatment").isBotSupportComposerBlocked(e)
+      );
+    }
+    function M(e) {
       return o("WAWebChatGetters").getIsGroup(e) && !p(e) && !e.isReadOnly;
     }
     ((l.isSupportGroup = u),
@@ -366,7 +372,7 @@ __d(
       (l.updateTitle = T),
       (l.updateCanSend = D),
       (l.canSendIgnoringAiAgentBlock = $),
-      (l.shouldShowLeaveAndReportGroupModalForChat = N));
+      (l.shouldShowLeaveAndReportGroupModalForChat = M));
   },
   98,
 );

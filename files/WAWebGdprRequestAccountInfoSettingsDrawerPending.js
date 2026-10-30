@@ -8,8 +8,8 @@ __d(
     "WAWebDrawerButton.react",
     "WAWebGdprRequestAccountInfoSettingsFooterNotice",
     "WAWebNoop",
-    "WAWebText.react",
     "WDSIconIcSchedule.react",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -40,9 +40,13 @@ __d(
         : ((c = t[2]), (d = t[3]));
       var m;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = u.jsx(o("WAWebText.react").WAWebTextTitle, {
-            testid: "gdpr-pending-request",
-            children: s._(/*BTDS*/ "Request sent"),
+        ? ((m = u.jsx("div", {
+            children: u.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDefault",
+              testid: "gdpr-pending-request",
+              children: s._(/*BTDS*/ "Request sent"),
+            }),
           })),
           (t[4] = m))
         : (m = t[4]);
@@ -56,13 +60,17 @@ __d(
             onClick: r("WAWebNoop"),
             children: [
               m,
-              u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                children: s._(/*BTDS*/ "Ready by {availability_date}", [
-                  s._param(
-                    "availability_date",
-                    r("WAWeb-moment").unix(a).format("MMMM D, YYYY"),
-                  ),
-                ]),
+              u.jsx("div", {
+                children: u.jsx(r("WDSText.react"), {
+                  type: "Body2",
+                  colorName: "contentDeemphasized",
+                  children: s._(/*BTDS*/ "Ready by {availability_date}", [
+                    s._param(
+                      "availability_date",
+                      r("WAWeb-moment").unix(a).format("MMMM D, YYYY"),
+                    ),
+                  ]),
+                }),
               }),
             ],
           })),

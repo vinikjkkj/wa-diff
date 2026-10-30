@@ -12,6 +12,7 @@ __d(
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
     "WAWebEncryptMsgProtobuf",
+    "WAWebHandleMsgError",
     "WAWebICDCMetaApi",
     "WAWebManageE2ESessionsJob",
     "WAWebMsgGetters",
@@ -296,8 +297,8 @@ __d(
                 type: m,
               };
             } catch (t) {
-              return (
-                o("WALogger")
+              if (
+                (o("WALogger")
                   .WARN(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -306,8 +307,10 @@ __d(
                   )
                   .catching(r("getErrorSafe")(t))
                   .sendLogs("coexv2-relay-bot-node-build-failed"),
-                null
-              );
+                t instanceof o("WAWebHandleMsgError").MessageValidationError)
+              )
+                throw t;
+              return null;
             }
           },
         )),

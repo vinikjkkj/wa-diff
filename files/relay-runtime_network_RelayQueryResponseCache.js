@@ -52,7 +52,7 @@ __d(
               this.$1.size > this.$2)
             ) {
               var a = this.$1.keys().next();
-              a.done || this.$1.delete(a.value);
+              a.done !== !0 && this.$1.delete(a.value);
             }
           }),
           e

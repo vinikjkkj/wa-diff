@@ -94,7 +94,7 @@ __d(
         o(
           "WAWebOpenLeaveAndReportGroupModalLoadable",
         ).openLeaveAndReportGroupModal(
-          e,
+          e.id,
           o("WAWebSpamConstants").SpamFlow.GroupOverflowMenuLeaveReportUpsell,
         );
       else {

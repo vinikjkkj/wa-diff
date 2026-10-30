@@ -22,7 +22,7 @@ __d(
             this.$3.size > this.$1)
           ) {
             var e = this.$3.keys().next();
-            e.done || this.$3.delete(e.value);
+            e.done !== !0 && this.$3.delete(e.value);
           }
         }),
         (t.get = function (t) {

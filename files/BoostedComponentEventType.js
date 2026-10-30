@@ -1934,6 +1934,14 @@ __d(
       GENAI_TEXT_TO_AUDIENCE_CREATE_MANUALLY_CLICK:
         "genai_text_to_audience_create_manually_click",
       GENAI_TEXT_TO_AUDIENCE_DISMISS: "genai_text_to_audience_dismiss",
+      LISTEN_NOW_EXPOSURE: "listen_now_exposure",
+      LISTEN_NOW_TRIGGER_DETECTED: "listen_now_trigger_detected",
+      LISTEN_NOW_GOAL_TILE: "listen_now_goal_tile",
+      LISTEN_NOW_CTA: "listen_now_cta",
+      LISTEN_NOW_GOAL_CHANGE: "listen_now_goal_change",
+      LISTEN_NOW_CAPTION_PREFILL: "listen_now_caption_prefill",
+      LISTEN_NOW_PHRASE_PROMPT: "listen_now_phrase_prompt",
+      LISTEN_NOW_SMART_LINK_TIP: "listen_now_smart_link_tip",
     });
     i.default = e;
   },

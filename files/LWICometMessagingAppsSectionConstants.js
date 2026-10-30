@@ -4,6 +4,8 @@ __d(
     "errorCode",
     "LWICometUnifiedCreationEligibilityChecker",
     "LWICometWhatsAppPageExperiments",
+    "QE2Logger",
+    "gkx",
     "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -47,28 +49,63 @@ __d(
     function C(e) {
       return e === "2";
     }
-    function b(e, t, n) {
-      return !C(e) || t === "WHATSAPP_MESSAGE"
-        ? !1
-        : n === !0
-          ? r("qex")._("1306") === !0
-          : r("qex")._("1385") === !0;
+    function b(e, t, n, r) {
+      return (e == null ? void 0 : e.adAccountID) === t && n && !r ? e : null;
     }
-    var v = ["FACEBOOK", "INSTAGRAM", "MESSENGER"],
-      S = ["FACEBOOK", "INSTAGRAM", "MESSENGER", "WHATSAPP"];
-    function R(e, t, n) {
+    var v = { BOOSTED_CONSOLIDATED_PRODUCT: !0, BOOSTED_POST: !0 };
+    function S(e, t, n, o) {
+      var a;
+      return (
+        C(e) &&
+        t !== "WHATSAPP_MESSAGE" &&
+        n != null &&
+        n !== "" &&
+        n !== "0" &&
+        o != null &&
+        ((a = v[o]) != null ? a : !1) &&
+        r("gkx")("28350")
+      );
+    }
+    function R(e, t, n, a) {
+      if (!C(e) || t === "WHATSAPP_MESSAGE") return !1;
+      var i = !1;
+      if (
+        a != null &&
+        S(e, t, a.adAccountID, a.product) &&
+        a.launchesEnabled != null
+      ) {
+        var l = a.adAccountID;
+        (n !== !0 &&
+          l != null &&
+          (o("QE2Logger").logExposureForAdAccountID(
+            "h2_train_4_b8_lwi_highmid_adacc_ctx_hbt_universe",
+            l,
+          ),
+          a.dummyValue != null &&
+            o("QE2Logger").logExposureForAdAccountID(
+              "consumer_whatsapp_steering_lwi_hbt_dummy",
+              l,
+            )),
+          (i = a.launchesEnabled === !0));
+      }
+      var s = n === !0 ? r("qex")._("1306") === !0 : r("qex")._("1385") === !0;
+      return s || i;
+    }
+    var L = ["FACEBOOK", "INSTAGRAM", "MESSENGER"],
+      E = ["FACEBOOK", "INSTAGRAM", "MESSENGER", "WHATSAPP"];
+    function k(e, t, n) {
       return (
         o(
           "LWICometUnifiedCreationEligibilityChecker",
         ).assetFeedSpecHasMessagingAppDestination(e, n) || t === e
       );
     }
-    function L(e, t, n) {
+    function I(e, t, n) {
       n === void 0 && (n = !1);
-      var r = R("INSTAGRAM_MESSAGE", e, t),
-        o = R("MESSAGE_PAGE", e, t),
-        a = R("WHATSAPP_MESSAGE", e, t),
-        i = n ? S : v,
+      var r = k("INSTAGRAM_MESSAGE", e, t),
+        o = k("MESSAGE_PAGE", e, t),
+        a = k("WHATSAPP_MESSAGE", e, t),
+        i = n ? E : L,
         l = i;
       return (
         a ||
@@ -86,14 +123,14 @@ __d(
               })
       );
     }
-    function E(e) {
+    function T(e) {
       return (
         e.filter(function (e) {
           return m(e.type);
         }).length > 1
       );
     }
-    function k(e, t, n, r, a) {
+    function D(e, t, n, r, a) {
       return (
         o(
           "LWICometWhatsAppPageExperiments",
@@ -104,10 +141,10 @@ __d(
         (n || t === "WHATSAPP_MESSAGE")
       );
     }
-    function I(e) {
+    function x(e) {
       return e === "PROMOTE_LOCAL_BUSINESS";
     }
-    function T(e, t) {
+    function $(e, t) {
       var n;
       return (
         e === "INSTAGRAM_MESSAGE"
@@ -123,7 +160,7 @@ __d(
         { type: e, value: n }
       );
     }
-    function D(e) {
+    function P(e) {
       var t = [];
       if (e != null && (e == null ? void 0 : e.adgroupSpecs) != null) {
         var n,
@@ -151,8 +188,8 @@ __d(
       }
       return t;
     }
-    var x = [2923009, 2923008, 2923011, 2923010, 2923016, 2923015],
-      $ = [2446596, 2446978, 2446974, 2446862].concat(x);
+    var N = [2923009, 2923008, 2923011, 2923010, 2923016, 2923015],
+      M = [2446596, 2446978, 2446974, 2446862].concat(N);
     ((l.INSTAGRAM_LINK = u),
       (l.MESSENGER_LINK = c),
       (l.WHATSAPP_LINK = d),
@@ -163,16 +200,18 @@ __d(
       (l.getAssetFeedSpecInstagram = h),
       (l.isWhatsAppNumberBusiness = y),
       (l.isWhatsAppConsumerNumber = C),
-      (l.shouldDisallowConsumerCTWASelection = b),
-      (l.EFFECTIVE_PUBLISHER_PLATFORMS_DEFAULT_FOR_MESSAGES = v),
-      (l.EFFECTIVE_PUBLISHER_PLATFORMS_WITH_WA_DEFAULT_FOR_MESSAGES = S),
-      (l.getClientSideEffectivePublisherPlatformsForMessagesFromSpec = L),
-      (l.ctaOptionsArrayHasMultipleMessagingDestinations = E),
-      (l.showUnifiedCreationForPPE = k),
-      (l.showUnifiedCreationForReachGoal = I),
-      (l.getCallToActionFromType = T),
-      (l.getMessagingAppsDestinationsFromCometSpec = D),
-      (l.WhatsappSMBErrorCodes = $));
+      (l.getConsumerCTWAHBTContextForSelection = b),
+      (l.isEligibleForConsumerCTWAHBT = S),
+      (l.shouldDisallowConsumerCTWASelection = R),
+      (l.EFFECTIVE_PUBLISHER_PLATFORMS_DEFAULT_FOR_MESSAGES = L),
+      (l.EFFECTIVE_PUBLISHER_PLATFORMS_WITH_WA_DEFAULT_FOR_MESSAGES = E),
+      (l.getClientSideEffectivePublisherPlatformsForMessagesFromSpec = I),
+      (l.ctaOptionsArrayHasMultipleMessagingDestinations = T),
+      (l.showUnifiedCreationForPPE = D),
+      (l.showUnifiedCreationForReachGoal = x),
+      (l.getCallToActionFromType = $),
+      (l.getMessagingAppsDestinationsFromCometSpec = P),
+      (l.WhatsappSMBErrorCodes = M));
   },
   98,
 );

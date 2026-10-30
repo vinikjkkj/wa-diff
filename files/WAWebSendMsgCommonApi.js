@@ -4,11 +4,14 @@ __d(
     "WADeprecatedWapParser",
     "WAJids",
     "WALogger",
+    "WATimeUtils",
     "WAWap",
     "WAWebABProps",
     "WAWebAck",
     "WAWebAddonRetryRequestUtils",
+    "WAWebCriticalEventWamEvent",
     "WAWebDeviceListPk",
+    "WAWebHandleMsgError",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebReactionsBEUtils",
@@ -21,6 +24,7 @@ __d(
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,24 +38,48 @@ __d(
         ) || c) * 60
       );
     }
-    function m(e) {
-      var t = o("encodeProtobuf").encodeProtobuf(
+    function m(e, t) {
+      var n = o("encodeProtobuf").encodeProtobuf(
         o("WAWebProtobufsE2E.pb").MessageSpec,
         e,
       );
       return (
-        o("WAWebSignalCommonUtils").writeRandomPadMax16(t),
-        t.readByteArrayView()
+        p(n.size(), t),
+        o("WAWebSignalCommonUtils").writeRandomPadMax16(n),
+        n.readByteArrayView()
       );
     }
-    function p(e) {
+    function p(e, t) {
+      var n, a;
+      if (
+        e === 0 &&
+        (new (o("WAWebCriticalEventWamEvent").CriticalEventWamEvent)({
+          name: "empty_encoded_message_protobuf",
+          context: "encodeAndPad",
+          debug: JSON.stringify({
+            messageType:
+              (n = t == null ? void 0 : t.type) != null
+                ? n
+                : o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+            messageSubtype:
+              (a = t == null ? void 0 : t.subtype) != null ? a : null,
+            observedAtUnixSeconds: o("WATimeUtils").unixTime(),
+          }),
+        }).commit(),
+        !!r("justknobx")._("6983"))
+      )
+        throw new (o("WAWebHandleMsgError").MessageProtobufInvalidMessageTypes)(
+          [],
+        );
+    }
+    function _(e) {
       return (
         e.protocolMessage != null &&
         e.protocolMessage.type ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
       );
     }
-    function _(e) {
+    function f(e) {
       var t,
         n,
         r,
@@ -80,7 +108,7 @@ __d(
             .POLL_EDIT
       );
     }
-    function f(e) {
+    function g(e) {
       return (
         e.keepInChatMessage != null &&
         e.keepInChatMessage.key != null &&
@@ -89,7 +117,7 @@ __d(
           o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n,
         r = o("WAWebVerifyProtobufMsgObjectKeys").getProtobufMessageTypesSet(e),
         a =
@@ -131,19 +159,19 @@ __d(
           )
             return o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
         } else if (r.has(o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT)) {
-          if (f(a)) return o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
+          if (g(a)) return o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
         } else if (r.has(o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE))
           return o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT;
       }
       return null;
     }
-    function h(e, t) {
-      var n = g(e, t);
+    function y(e, t) {
+      var n = h(e, t);
       return n != null
         ? o("WAWap").CUSTOM_STRING(String(n))
         : o("WAWap").DROP_ATTR;
     }
-    var y = new (r("WADeprecatedWapParser"))("sendMsgAckSyncParser", function (
+    var C = new (r("WADeprecatedWapParser"))("sendMsgAckSyncParser", function (
       e,
     ) {
       return (
@@ -161,15 +189,15 @@ __d(
         }
       );
     });
-    function C(e) {
+    function b(e) {
       return e.device == null || e.device === o("WAJids").DEFAULT_DEVICE_ID;
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.data.id;
           if (e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon) {
             var r = yield o("WAWebAddonRetryRequestUtils").hasSentAddonMsg(n);
@@ -206,15 +234,15 @@ __d(
                 );
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.data.id;
           if (t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon) {
             var r = yield o("WAWebAddonRetryRequestUtils").hasSentAddonMsg(n);
@@ -250,16 +278,16 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield S(e);
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield R(e);
           if (n == null)
             throw (
               o("WALogger").WARN(
@@ -314,19 +342,19 @@ __d(
             })
           );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
     ((l.getResendTimeoutInSeconds = d),
       (l.encodeAndPad = m),
-      (l.isRevokeMsg = p),
-      (l.isEditMsg = _),
-      (l.getEditAttrValue = g),
-      (l.editAttribute = h),
-      (l.sendMsgAckSyncParser = y),
-      (l.isPrimaryDevice = C),
-      (l.updateIdentityRange = b),
-      (l.filterDeviceWithChangedIdentity = L));
+      (l.isRevokeMsg = _),
+      (l.isEditMsg = f),
+      (l.getEditAttrValue = h),
+      (l.editAttribute = y),
+      (l.sendMsgAckSyncParser = C),
+      (l.isPrimaryDevice = b),
+      (l.updateIdentityRange = v),
+      (l.filterDeviceWithChangedIdentity = E));
   },
   98,
 );

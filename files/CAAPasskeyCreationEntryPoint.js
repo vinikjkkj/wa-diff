@@ -22,6 +22,7 @@ __d(
         HOUSE_AD: "house_ad",
         LOGIN_FLOW: "login_flow",
         MEGAPHONE: "megaphone",
+        META_AI_SUPPORT_ASSISTANT: "meta_ai_support_assistant",
         MIGRATION_MOMENT_NUX: "migration_moment_nux",
         MIGRATION_MOMENT_NUX_SECURITY_CHECKUP:
           "migration_moment_nux_security_checkup",

@@ -105,7 +105,7 @@ __d(
             }
           }
         }
-        o.done || (o = r.next());
+        o.done !== !0 && (o = r.next());
       }
       return a;
     }

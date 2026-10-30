@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e, t, n) {
-      for (var r = e.entries(), o = r.next(); !o.done; ) {
+      for (var r = e.entries(), o = r.next(); o.done !== !0; ) {
         var a = o.value;
         if (!t.call(n, a[1], a[0], e)) return !1;
         o = r.next();

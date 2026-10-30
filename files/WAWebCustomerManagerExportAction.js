@@ -10,8 +10,6 @@ __d(
     "WAWebCustomerManagerLocalSearch",
     "WAWebCustomerManagerSearchNoteContents",
     "WAWebCustomerManagerUserPrefs",
-    "WAWebFileSaver",
-    "WAWebFileSaverTypes",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -67,14 +65,10 @@ __d(
               }),
               m = yield o(
                 "WAWebCustomerManagerExportCsvUtils",
-              ).buildCustomerManagerCsv(u, c),
-              p = new Blob(["\uFEFF" + m], { type: "text/csv;charset=utf-8" }),
-              _ = new Date().toISOString().slice(0, 10);
-            yield o("WAWebFileSaver").FileSaver.downloadData(
-              p,
-              "customer_manager_export_" + _,
-              o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
-            );
+              ).buildCustomerManagerCsv(u, c);
+            yield o(
+              "WAWebCustomerManagerExportCsvUtils",
+            ).downloadCustomerManagerCsv(m, "customer_manager_export");
           } catch (t) {
             throw (
               o("WALogger")

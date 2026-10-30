@@ -77,12 +77,15 @@ __d(
           (a.isUnlinked = function () {
             return this.$3 === "unlinked";
           }),
+          (a.getKnownConfirmedLinkedStatusState = function () {
+            var e;
+            return (e = this.$3) != null ? e : h();
+          }),
           (a.fetchConfirmedLinkedStatusStateIfUnknown = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e,
-                t = (e = this.$3) != null ? e : h();
-              return t != null
-                ? t
+              var e = this.getKnownConfirmedLinkedStatusState();
+              return e != null
+                ? e
                 : (this.$8 == null && this.fetchAndUpdateStatus(), this.$12());
             });
             function t() {

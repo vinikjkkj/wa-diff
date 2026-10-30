@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebNewsletterCommonGatingUtils",
-    "WAWebText.react",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -14,73 +14,81 @@ __d(
     function d(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.daysDelta,
-        r = e.isPending,
-        a = e.newsletterBodyText,
-        i = n === void 0 ? 3 : n,
-        l = i < 1 ? 1 : i,
-        d;
+        a = e.isPending,
+        i = e.newsletterBodyText,
+        l = n === void 0 ? 3 : n,
+        d = l < 1 ? 1 : l,
+        m;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = s._(
+        ? ((m = s._(
             /*BTDS*/ "Your request will be canceled if you make changes to your account such as changing your number or deleting your account.",
           )),
-          (t[0] = d))
-        : (d = t[0]);
-      var m = d;
+          (t[0] = m))
+        : (m = t[0]);
+      var p = m;
       if (o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()) {
-        var p;
-        t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((p = { className: "x162tt16 x5zjp28 x109j2v6" }), (t[1] = p))
-          : (p = t[1]);
         var _;
+        t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((_ = { className: "x162tt16 x5zjp28 x109j2v6" }), (t[1] = _))
+          : (_ = t[1]);
+        var f;
         return (
-          t[2] !== r || t[3] !== a
-            ? ((_ = u.jsx(
+          t[2] !== a || t[3] !== i
+            ? ((f = u.jsx(
                 "div",
-                babelHelpers.extends({}, p, {
-                  children: u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                    children: r ? m : u.jsx(u.Fragment, { children: a }),
+                babelHelpers.extends({}, _, {
+                  children: u.jsx(r("WDSText.react"), {
+                    type: "Body2",
+                    colorName: "contentDeemphasized",
+                    children: a ? p : u.jsx(u.Fragment, { children: i }),
                   }),
                 }),
               )),
-              (t[2] = r),
-              (t[3] = a),
-              (t[4] = _))
-            : (_ = t[4]),
-          _
+              (t[2] = a),
+              (t[3] = i),
+              (t[4] = f))
+            : (f = t[4]),
+          f
         );
       }
-      var f;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = { className: "x162tt16 x5zjp28 x9orja2" }), (t[5] = f))
-        : (f = t[5]);
       var g;
-      t[6] !== l
-        ? ((g = u.jsx(o("WAWebText.react").WAWebTextMuted, {
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = { className: "x162tt16 x5zjp28 x9orja2" }), (t[5] = g))
+        : (g = t[5]);
+      var h;
+      t[6] !== d
+        ? ((h = u.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
             xstyle: c.availability,
             children: s._(
               /*BTDS*/ '_j{"*":"Your report will be ready in about {number} days. You\'ll have a few weeks to download your report after it\'s available.","_1":"Your report will be ready in about 1 day. You\'ll have a few weeks to download your report after it\'s available."}',
-              [s._plural(l, "number", l)],
+              [s._plural(d, "number", d)],
             ),
           })),
-          (t[6] = l),
-          (t[7] = g))
-        : (g = t[7]);
-      var h;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = u.jsx(o("WAWebText.react").WAWebTextMuted, { children: m })),
-          (t[8] = h))
-        : (h = t[8]);
+          (t[6] = d),
+          (t[7] = h))
+        : (h = t[7]);
       var y;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = u.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            children: p,
+          })),
+          (t[8] = y))
+        : (y = t[8]);
+      var C;
       return (
-        t[9] !== g
-          ? ((y = u.jsxs(
+        t[9] !== h
+          ? ((C = u.jsxs(
               "div",
-              babelHelpers.extends({}, f, { children: [g, h] }),
+              babelHelpers.extends({}, g, { children: [h, y] }),
             )),
-            (t[9] = g),
-            (t[10] = y))
-          : (y = t[10]),
-        y
+            (t[9] = h),
+            (t[10] = C))
+          : (C = t[10]),
+        C
       );
     }
     l.default = d;

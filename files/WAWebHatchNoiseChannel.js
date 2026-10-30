@@ -100,29 +100,21 @@ __d(
                   return s({ cause: n, detail: t, status: "failed" }, !0);
                 },
                 m = function (n) {
-                  return d(
-                    g(n),
-                    t.$9 ||
-                      o("WAWebHatchAttestationErrors").isHatchAttestationError(
-                        n,
-                      )
-                      ? "attestation_rejected"
-                      : "handshake_failed",
-                  );
+                  return d(h(n), g(n, t.$9));
                 },
                 _ = !1,
                 f = function () {
                   return _ ? "ws_dropped" : "unreachable";
                 },
-                h = [],
-                y = function (t) {
+                y = [],
+                C = function (t) {
                   t instanceof ArrayBuffer
-                    ? h.length >= c
+                    ? y.length >= c
                       ? d(
                           "Noise channel received too many early frames",
                           "handshake_failed",
                         )
-                      : h.push(t.slice(0))
+                      : y.push(t.slice(0))
                     : d(
                         "Noise channel received non-binary data",
                         "handshake_failed",
@@ -132,7 +124,7 @@ __d(
                 d("channel closed", "closed");
                 return;
               }
-              var C =
+              var b =
                 r.privateAuth == null
                   ? null
                   : {
@@ -144,41 +136,41 @@ __d(
                       notaryToken: r.notaryToken,
                     };
               try {
-                var b = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl({
+                var v = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl({
                     abraToken: r.abraToken,
-                    notaryToken: C == null ? r.notaryToken : null,
+                    notaryToken: b == null ? r.notaryToken : null,
                     vmId: r.vmId,
                     appId: p(),
                     appVersion: o("WAWebBuildConstants")
                       .VERSION_BASE_WITH_WINDOWS_BUILD,
                     requestId: t.$6(),
                   }),
-                  v = t.$13(b);
-                t.$10 = v;
-                var S = t.$5();
-                ((t.$4 = S),
-                  (v.binaryType = "arraybuffer"),
+                  S = t.$13(v);
+                t.$10 = S;
+                var R = t.$5();
+                ((t.$4 = R),
+                  (S.binaryType = "arraybuffer"),
                   (l = t.$7(function () {
                     return d("Noise handshake timed out", "handshake_timeout");
                   }, u)),
-                  (v.onerror = function () {
+                  (S.onerror = function () {
                     return d("Noise WebSocket failed", f());
                   }),
-                  (v.onclose = function () {
+                  (S.onclose = function () {
                     return d("Noise WebSocket closed during handshake", f());
                   }),
-                  (v.onopen = function () {
-                    ((_ = !0), t.$16(v, S, C).catch(m));
+                  (S.onopen = function () {
+                    ((_ = !0), t.$16(S, R, b).catch(m));
                   }));
-                var R = !1;
-                v.onmessage = function (n) {
-                  if (R) {
-                    y(n.data);
+                var L = !1;
+                S.onmessage = function (n) {
+                  if (L) {
+                    C(n.data);
                     return;
                   }
-                  ((R = !0),
+                  ((L = !0),
                     t
-                      .$17(v, S, n.data, h, C)
+                      .$17(S, R, n.data, y, b)
                       .then(function (n) {
                         if (t.$14) {
                           d("channel closed", "closed");
@@ -433,7 +425,25 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t) {
+      return t || o("WAWebHatchAttestationErrors").isHatchAttestationError(e)
+        ? "attestation_rejected"
+        : e instanceof o("WAWebHatchNoiseRvAuth").WAWebHatchNoiseRvError
+          ? e.code === "cvm_enrollment_required"
+            ? "cvm_enrollment_required"
+            : e.code === "cvm_key_rejected"
+              ? "cvm_key_rejected"
+              : e.code === "malformed_challenge"
+                ? "handshake_failed"
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e.code,
+                    );
+                  })()
+          : "handshake_failed";
+    }
+    function h(e) {
       return e instanceof o("WAWebHatchNoiseRvAuth").WAWebHatchNoiseRvError
         ? "Noise handshake failed: " + e.code
         : o("WAWebHatchAttestationErrors").isHatchAttestationError(e)

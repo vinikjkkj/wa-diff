@@ -290,6 +290,7 @@ __d(
         );
       },
       CONNECTORS_LIST: "/api/connectors",
+      CONNECTORS_LIST_SETTINGS: "/api/connectors?surface=settings",
       CONNECTORS_LIST_SUPPORTING: function (n) {
         return n.length === 0
           ? "/api/connectors"
@@ -326,6 +327,7 @@ __d(
       NAVIGATION_SUBSCRIBE: "/api/navigation/subscribe",
       OAUTH_CALLBACK: "/oauth/callback",
       PRODUCT_IMPROVEMENTS: "/api/product-improvements",
+      PERMISSIONS: "/permissions",
       PERMISSIONS_ACTIVE: "/permissions/active",
       PERMISSIONS_ACTIVE_BY_SCOPE: function (t) {
         return s("group_by=scope&limit=50", t);
@@ -339,6 +341,17 @@ __d(
       PERMISSIONS_INVENTORY: "/api/permissions/inventory",
       PERMISSIONS_RESET: "/permissions/reset",
       PERMISSIONS_REVOKE: "/permissions/revoke",
+      PERMISSIONS_SCOPE: function (n, r, o) {
+        return (
+          "/permissions/scopes/" +
+          encodeURIComponent(n) +
+          "/" +
+          encodeURIComponent(r) +
+          (o == null
+            ? ""
+            : "?connectors=" + o.map(encodeURIComponent).join(","))
+        );
+      },
       PERMISSIONS_SETTINGS: "/permissions/settings",
       SCHEDULED_TASK: B,
       SCHEDULED_TASKS: "/api/tasks",

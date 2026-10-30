@@ -1,14 +1,27 @@
 __d(
   "WAWebCustomerManagerExportCsvUtils",
-  ["JSResourceForInteraction", "WALogger", "asyncToGeneratorRuntime"],
+  [
+    "JSResourceForInteraction",
+    "WALogger",
+    "WAWebFileSaver",
+    "WAWebFileSaverTypes",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
-      return u.apply(this, arguments);
+      return o("WAWebFileSaver").FileSaver.downloadData(
+        new Blob(["\uFEFF" + e], { type: "text/csv;charset=utf-8" }),
+        t + "_" + new Date().toISOString().slice(0, 10),
+        o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
+      );
     }
-    function u() {
+    function u(e, t) {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a;
           try {
             a = yield r("JSResourceForInteraction")("papaparse")
@@ -42,10 +55,10 @@ __d(
             { escapeFormulae: /^\s*(?:[=+@\t\r]|-(?!\d+(?:\.\d+)?$))/ },
           );
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.buildCustomerManagerCsv = s;
+    ((l.downloadCustomerManagerCsv = s), (l.buildCustomerManagerCsv = u));
   },
   98,
 );

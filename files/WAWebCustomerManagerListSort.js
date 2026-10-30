@@ -67,7 +67,7 @@ __d(
       return o === "desc" ? -a : a;
     }
     function c(e, t) {
-      var n, r, a, i, l;
+      var n, r, a, i;
       return e === "customer"
         ? m(t)
         : e === "phone"
@@ -97,18 +97,17 @@ __d(
                               : i.t) != null
                           ? a
                           : null
-                        : e === "lastOrder"
-                          ? (l = t.lastOrder) != null
-                            ? l
-                            : null
-                          : e === "select" || e === "actions" || e === "notes"
-                            ? null
-                            : (function () {
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    e,
-                                );
-                              })();
+                        : e === "select" ||
+                            e === "actions" ||
+                            e === "notes" ||
+                            e === "lastOrder"
+                          ? null
+                          : (function () {
+                              throw Error(
+                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                  e,
+                              );
+                            })();
     }
     function d(e) {
       var t = e.birthday;

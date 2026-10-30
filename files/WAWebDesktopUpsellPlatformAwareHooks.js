@@ -3,6 +3,7 @@ __d(
   [
     "WAWebDesktopUpsellUtils",
     "WAWebMobilePlatforms",
+    "WAWebProductFeature",
     "react-compiler-runtime",
     "useWAWebAsync",
   ],
@@ -42,15 +43,17 @@ __d(
         o("WAWebDesktopUpsellUtils").isWebUserOnSupportedMacOSForCatalystAsync,
         i,
       );
-      return t === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS &&
-        !a.loading &&
-        !a.error
-        ? a.value
-        : t === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS &&
-            !l.loading &&
-            !l.error
-          ? l.value
-          : !1;
+      return o("WAWebProductFeature").isInternalProduct()
+        ? !1
+        : t === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS &&
+            !a.loading &&
+            !a.error
+          ? a.value
+          : t === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS &&
+              !l.loading &&
+              !l.error
+            ? l.value
+            : !1;
     }
     ((l.useWAWebNativeAppUpsellPlatformCheck = e),
       (l.useWAWebDesktopUpsellPlatformCheck = s),

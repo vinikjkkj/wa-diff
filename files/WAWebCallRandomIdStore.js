@@ -23,7 +23,7 @@ __d(
     function m() {
       if (!(s.size <= e)) {
         var t = s.keys().next();
-        t.done || s.delete(t.value);
+        t.done !== !0 && s.delete(t.value);
       }
     }
     var p = null;

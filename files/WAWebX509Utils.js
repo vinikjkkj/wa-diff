@@ -16,11 +16,12 @@ __d(
       s,
       u,
       c,
-      d = "-----BEGIN CERTIFICATE-----",
-      m = "-----END CERTIFICATE-----",
-      p = "(?:" + d + ")((?:.|\n)*?)(?:" + m + ")",
-      _ = "2.5.4.3";
-    function f(t) {
+      d,
+      m = "-----BEGIN CERTIFICATE-----",
+      p = "-----END CERTIFICATE-----",
+      _ = "(?:" + m + ")((?:.|\n)*?)(?:" + p + ")",
+      f = "2.5.4.3";
+    function g(t) {
       var n = "";
       try {
         n = atob(t);
@@ -34,33 +35,45 @@ __d(
           r("getErrorSafe")(t).toString(),
         );
       }
-      return h(n);
-    }
-    function g(e) {
-      return btoa(y(e));
+      return y(n);
     }
     function h(e) {
+      return btoa(C(e));
+    }
+    function y(e) {
       for (var t = e.length, n = new Uint8Array(t), r = 0; r < t; r++)
         n[r] = e.charCodeAt(r);
       return n.buffer;
     }
-    function y(e) {
+    function C(e) {
       return String.fromCharCode.apply(String, Array.from(new Uint8Array(e)));
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebCertificateUtils").getPkiJs(),
-            r = n.CertificateChainValidationEngine;
-          return new r({ trustedCerts: t, certs: e });
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield o("WAWebCertificateUtils").getPkiJs(),
+            a = r.CertificateChainValidationEngine,
+            i = new Date(),
+            l = new a({ trustedCerts: t, certs: e, checkDate: i });
+          try {
+            n == null || n(i.getTime());
+          } catch (e) {
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[direct-connection] Certificate validation observer failed",
+                ])),
+            );
+          }
+          return l;
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
+    function S(e, t) {
       return e.flat().reduce(function (e, n) {
         return e.every(function (e) {
           return !r("WATypedArraysEqual")(
@@ -72,48 +85,48 @@ __d(
           : e;
       }, []);
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
     function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
               "WAWebDirectConnectionCaBundle",
             )
               .__setRef("WAWebX509Utils")
               .load(),
             t = e.CA_BUNDLE;
-          return L(t);
+          return E(t);
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebCertificateUtils").getPkiJs(),
             n = t.Certificate,
             a = yield o("WAWebCertificateUtils").getAsn1FromBER();
           return r("filterNulls")(
-            Array.from(e.matchAll(new RegExp(p, "gm")), function (e) {
+            Array.from(e.matchAll(new RegExp(_, "gm")), function (e) {
               var t = e[0],
                 i = e[1],
-                l = a(f(i)),
-                u = l.result,
+                l = a(g(i)),
+                s = l.result,
                 c;
               try {
                 c =
-                  u.error != null && u.error !== ""
+                  s.error != null && s.error !== ""
                     ? null
-                    : new n({ schema: u });
+                    : new n({ schema: s });
               } catch (e) {
                 o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[direct-connection] cert chain parse failed ",
                       "",
                     ])),
@@ -124,29 +137,29 @@ __d(
             }),
           );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (yield C(e, t)).verify();
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return (yield b(e, t, n)).verify();
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield C(e, t),
-            a = v(
-              yield (c || (c = n("Promise"))).all(
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield b(e, t),
+            a = S(
+              yield (d || (d = n("Promise"))).all(
                 e.map(function (e) {
                   return r.findIssuer(e, r);
                 }),
@@ -154,11 +167,11 @@ __d(
               t,
             );
           if (a.length === 0) {
-            var i = x(e[0]);
+            var i = $(e[0]);
             return (
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[direct-connection] no trusted root certs for ",
                     "",
                   ])),
@@ -169,90 +182,90 @@ __d(
           }
           return a;
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
+    function $(e) {
       var t;
       return (t = e.issuer.typesAndValues.find(function (e) {
         var t = e.type;
-        return t === _;
+        return t === f;
       })) == null
         ? void 0
         : t.value.valueBlock.value;
     }
-    function $(e) {
+    function P(e) {
       return o("WAWebCertificateString").stringToCertificateString(
         e
           .map(function (e) {
-            var t = g(e.toSchema(!0).toBER(!1))
+            var t = h(e.toSchema(!0).toBER(!1))
               .split(/(.{0,64})/g)
               .filter(function (e) {
                 return e !== "";
               })
               .join("\n");
-            return d + "\n" + t + "\n" + m;
+            return m + "\n" + t + "\n" + p;
           })
           .join("\n"),
       );
     }
-    function P() {
-      return N.apply(this, arguments);
-    }
     function N() {
+      return M.apply(this, arguments);
+    }
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebCertificateUtils").getPkiJs(),
             t = e.getEngine;
           return t();
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebCertificateUtils").getPkiJs(),
             n = t.getRandomValues;
           return n(e);
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
+    function F(e, t) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.getPublicKey({
               algorithm: {
                 algorithm: { name: "RSA-OAEP", hash: { name: "SHA-256" } },
                 usages: ["encrypt"],
               },
             }),
-            r = yield P(),
+            r = yield N(),
             o = yield r.subtle.encrypt({ name: "RSA-OAEP" }, n, t);
-          return g(o);
+          return h(o);
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    ((l.base64ToArrayBuffer = f),
-      (l.arrayBufferToBase64 = g),
-      (l.stringToArrayBuffer = h),
-      (l.arrayBufferToString = y),
-      (l.fetchFromCABundle = S),
-      (l.extractCertificates = L),
-      (l.validateCertificates = k),
-      (l.genRootIssuers = T),
-      (l.encodeToString = $),
-      (l.getEngine = P),
-      (l.getRandomValues = M),
-      (l.encryptWithPublicKey = A));
+    ((l.base64ToArrayBuffer = g),
+      (l.arrayBufferToBase64 = h),
+      (l.stringToArrayBuffer = y),
+      (l.arrayBufferToString = C),
+      (l.fetchFromCABundle = R),
+      (l.extractCertificates = E),
+      (l.validateCertificates = I),
+      (l.genRootIssuers = D),
+      (l.encodeToString = P),
+      (l.getEngine = N),
+      (l.getRandomValues = w),
+      (l.encryptWithPublicKey = F));
   },
   98,
 );

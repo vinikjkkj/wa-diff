@@ -5,7 +5,7 @@ __d(
     "use strict";
     var e = typeof Symbol == "function" ? Symbol.iterator : "@@iterator";
     function l(t, n) {
-      for (var r = t[e](), o = r.next(); !o.done; ) {
+      for (var r = t[e](), o = r.next(); o.done !== !0; ) {
         var a = o.value;
         if (n.has(a)) return !0;
         o = r.next();

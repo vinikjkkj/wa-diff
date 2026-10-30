@@ -46,7 +46,7 @@ __d(
       );
     }
     function p(e, t) {
-      G(e, {
+      j(e, {
         hatchUserJourneyMetadata:
           t != null ? JSON.stringify({ browser_surface: t }) : void 0,
       });
@@ -58,13 +58,13 @@ __d(
       if (!(!t.isEligible || o.trim() === "")) {
         var a = _.get(e);
         ((r = a) == null ? void 0 : r.has(o)) !== !0 &&
-          G(e, { hatchUserJourneyMetadata: n }) &&
+          j(e, { hatchUserJourneyMetadata: n }) &&
           (a == null && ((a = new Set()), _.set(e, a)), a.add(o));
       }
     }
     function g(e) {
       try {
-        G(
+        j(
           e === "surface_impression"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .IDEA_SURFACE_IMPRESSION
@@ -86,23 +86,23 @@ __d(
       } catch (e) {}
     }
     function h(e) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function y(e) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function C(e) {
-      G(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      j(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function b(e, t, n) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: v(t) }),
@@ -116,55 +116,55 @@ __d(
         .join(", ");
     }
     function S(e) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function R(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function L(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function E(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_CART_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function k(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_ORDER_SUMMARY_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function I(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function T(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function D(e, t, n) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -205,11 +205,11 @@ __d(
         settings: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
       };
     function N(e, t) {
-      G(x[e], w(t));
+      j(x[e], w(t));
     }
     function M(t, n) {
       try {
-        G(
+        j(
           o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
             .SECURE_CREDENTIAL_SAVE_ERROR,
           babelHelpers.extends({}, w(n), {
@@ -290,7 +290,7 @@ __d(
       if (o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()) {
         var n = t == null ? void 0 : t.connectorType,
           r = t == null ? void 0 : t.permissionFlow;
-        G(A[e], {
+        j(A[e], {
           connectorId: t == null ? void 0 : t.connectorId,
           connectorPermissionDecisionType:
             t == null ? void 0 : t.permissionDecisionType,
@@ -347,10 +347,10 @@ __d(
       artifact_pinned: s.HATCH_ACTION_TYPE.ARTIFACT_PINNED,
     };
     function V(e, t) {
-      G(U[e], { featureEntryPoint: $[t] });
+      j(U[e], { featureEntryPoint: $[t] });
     }
     function H(e, t) {
-      G(
+      j(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .ARTIFACT_OVERFLOW_MENU_TAP,
         {
@@ -359,7 +359,64 @@ __d(
         },
       );
     }
-    function G(e, t) {
+    function G(e) {
+      try {
+        j(
+          e.outcome === "success"
+            ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+                .SUBSCRIPTION_READ_SUCCESS
+            : o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+                .SUBSCRIPTION_READ_ERROR,
+          {
+            hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
+            hatchUserJourneyMetadata: JSON.stringify(z(e)),
+          },
+        );
+      } catch (e) {}
+    }
+    function z(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.outcome === "success" &&
+          e.isTopUpUnreadable === !0 &&
+          "source" in e
+        ) {
+          var t = e.source;
+          return {
+            subscription_read_source: t,
+            subscription_topup_unreadable: !0,
+          };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.outcome === "success" &&
+          e.isTopUpUnreadable === !1 &&
+          "source" in e
+        ) {
+          var n = e.source;
+          return { subscription_read_source: n };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.outcome === "error" &&
+          "reason" in e &&
+          "source" in e
+        ) {
+          var r = e.reason,
+            o = e.source;
+          return {
+            subscription_failure_reason: r,
+            subscription_read_source: o,
+          };
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
+    }
+    function j(e, t) {
       var n, r, a, i, l;
       if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) return !1;
       var s = new (o("WAWebHatchUserJourneyWamEvent").HatchUserJourneyWamEvent)(
@@ -403,12 +460,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : z(t == null ? void 0 : t.botEntryPoint),
+              : K(t == null ? void 0 : t.botEntryPoint),
         },
       );
       return (s.commit(), !0);
     }
-    function z(e) {
+    function K(e) {
       var t,
         n =
           e != null
@@ -449,7 +506,8 @@ __d(
       (l.logHatchConnector = B),
       (l.logHatchConnectorCardImpression = q),
       (l.logHatchArtifact = V),
-      (l.logHatchArtifactMenuOpened = H));
+      (l.logHatchArtifactMenuOpened = H),
+      (l.logHatchSubscriptionRead = G));
   },
   98,
 );

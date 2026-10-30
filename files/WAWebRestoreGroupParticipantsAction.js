@@ -23,15 +23,54 @@ __d(
           var t = r("WAWebGroupMetadataCollection").get(e);
           t != null && t.participantQueryPromise == null && (t.stale = !0);
         }),
-        m(e)
+        p(e)
       );
     }
     function m(e) {
-      return p.apply(this, arguments);
+      var t = new Set(e);
+      e.forEach(function (e) {
+        var n = r("WAWebGroupMetadataCollection").get(e);
+        (n == null ? void 0 : n.defaultSubgroup) === !0 &&
+          n.parentGroup != null &&
+          t.add(n.parentGroup.toString());
+      });
+      var o = Array.from(t),
+        a = o
+          .map(function (e) {
+            return _.get(e);
+          })
+          .filter(Boolean);
+      return (c || (c = n("Promise")))
+        .all([p(o)].concat(a))
+        .then(function () {});
     }
-    function p() {
+    function p(e) {
+      var t = e.filter(function (e) {
+          var t = r("WAWebGroupMetadataCollection").get(e);
+          return (
+            (t == null ? void 0 : t.stale) === !0 &&
+            t.participantQueryPromise == null
+          );
+        }),
+        n = f(e).finally(function () {
+          t.forEach(function (e) {
+            _.get(e) === n && _.delete(e);
+          });
+        });
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        t.forEach(function (e) {
+          return _.set(e, n);
+        }),
+        n
+      );
+    }
+    var _ = new Map();
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = new Map(),
             i = 0;
           if (
@@ -240,11 +279,12 @@ __d(
             return;
           }
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
     ((l.resyncGroupParticipantsForChats = d),
-      (l.restoreGroupParticipantsForChats = m));
+      (l.restoreGroupParticipantsForChatsWithParents = m),
+      (l.restoreGroupParticipantsForChats = p));
   },
   98,
 );

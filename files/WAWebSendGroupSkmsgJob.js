@@ -139,7 +139,10 @@ __d(
               v = x(e, i),
               S = e.invokedBotWid;
             (p = l.sendPerfReporter) == null || p.startClientEncryptStage();
-            var R = o("WAWebSendMsgCommonApi").encodeAndPad(a),
+            var R = o("WAWebSendMsgCommonApi").encodeAndPad(a, {
+                type: e.type,
+                subtype: e.subtype,
+              }),
               L =
                 (c == null ? void 0 : c.kind) === "schedule"
                   ? c.originalMediaType

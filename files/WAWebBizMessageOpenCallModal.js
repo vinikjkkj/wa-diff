@@ -2,10 +2,10 @@ __d(
   "WAWebBizMessageOpenCallModal",
   [
     "fbt",
-    "WAWebButton.react",
     "WAWebFbtCommon",
     "WAWebModal.react",
     "WAWebModalManager",
+    "WDSButton.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -13,12 +13,11 @@ __d(
       u = e || (e = o("react"));
     function c() {
       var e = u.jsx(
-        o("WAWebButton.react").Button,
+        r("WDSButton.react"),
         {
           testid: "popup-controls-ok",
-          type: "primary",
-          onClick: o("WAWebModalManager").closeModalManager,
-          children: r("WAWebFbtCommon")("OK"),
+          onPress: o("WAWebModalManager").closeModalManager,
+          label: r("WAWebFbtCommon")("OK"),
         },
         0,
       );

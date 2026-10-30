@@ -69,7 +69,7 @@ __d(
         notes: m,
         birthday: e.birthday,
         birthdayIso: e.birthdayIso,
-        lastOrder: e.lastOrder,
+        lastOrderDescription: e.lastOrderDescription,
         lastMessage:
           (i =
             (l = o(

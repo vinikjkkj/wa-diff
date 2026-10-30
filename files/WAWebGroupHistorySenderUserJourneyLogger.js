@@ -307,26 +307,30 @@ __d(
           });
         }),
         (n.countChangeEntryPointClicked = function (t) {
-          var e = t.groupHistoryMessagesCount,
-            n = t.uiSurface;
+          var e = t.groupAddMemberEntryPoint,
+            n = t.groupHistoryMessagesCount,
+            r = t.uiSurface;
           this.$1({
-            groupHistoryMessagesCount: e,
+            groupAddMemberEntryPoint: e != null ? e : void 0,
+            groupHistoryMessagesCount: n,
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE
               .GROUP_HISTORY_COUNT_CHANGE_ENTRY_POINT_CLICKED,
-            uiSurface: n,
+            uiSurface: r,
           });
         }),
         (n.countChanged = function (t) {
-          var e = t.groupHistoryMessagesCount,
-            n = t.uiSurface;
+          var e = t.groupAddMemberEntryPoint,
+            n = t.groupHistoryMessagesCount,
+            r = t.uiSurface;
           this.$1({
-            groupHistoryMessagesCount: e,
+            groupAddMemberEntryPoint: e != null ? e : void 0,
+            groupHistoryMessagesCount: n,
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_COUNT_CHANGED,
-            uiSurface: n,
+            uiSurface: r,
           });
         }),
         (n.footerDisplayed = function (t) {
@@ -377,33 +381,39 @@ __d(
           });
         }),
         (n.speedBumpDialogDisplayed = function (t) {
-          var e = t.uiSurface;
+          var e = t.groupAddMemberEntryPoint,
+            n = t.uiSurface;
           this.$1({
+            groupAddMemberEntryPoint: e != null ? e : void 0,
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE
               .GROUP_HISTORY_SPEED_BUMP_DIALOG_DISPLAYED,
-            uiSurface: e,
+            uiSurface: n,
           });
         }),
         (n.speedBumpDialogContinued = function (t) {
-          var e = t.uiSurface;
+          var e = t.groupAddMemberEntryPoint,
+            n = t.uiSurface;
           this.$1({
+            groupAddMemberEntryPoint: e != null ? e : void 0,
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE
               .GROUP_HISTORY_SPEED_BUMP_DIALOG_CONTINUED,
-            uiSurface: e,
+            uiSurface: n,
           });
         }),
         (n.speedBumpDialogCanceled = function (t) {
-          var e = t.uiSurface;
+          var e = t.groupAddMemberEntryPoint,
+            n = t.uiSurface;
           this.$1({
+            groupAddMemberEntryPoint: e != null ? e : void 0,
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE
               .GROUP_HISTORY_SPEED_BUMP_DIALOG_CANCELED,
-            uiSurface: e,
+            uiSurface: n,
           });
         }),
         (n.groupHistoryToggleModeMdSyncReceived = function (t) {

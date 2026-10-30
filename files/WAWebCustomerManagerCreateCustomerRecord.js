@@ -2,7 +2,6 @@ __d(
   "WAWebCustomerManagerCreateCustomerRecord",
   [
     "WAWebContactManagerCustomerProfileQuery",
-    "WAWebContactManagerCustomerProfileUpsertMutation",
     "WAWebCustomerDataFieldSaver",
     "WAWebFindChatAction",
     "WAWebNoteAction",
@@ -28,16 +27,11 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (
-            o(
-              "WAWebContactManagerCustomerProfileUpsertMutation",
-            ).assertPersistableLastOrderDate(e.lastOrder),
-            e.birthday != null
-              ? yield o(
-                  "WAWebContactManagerCustomerProfileQuery",
-                ).fetchCustomerProfile(e.chatJid)
-              : null
-          );
+          return e.birthday != null
+            ? yield o(
+                "WAWebContactManagerCustomerProfileQuery",
+              ).fetchCustomerProfile(e.chatJid)
+            : null;
         })),
         c.apply(this, arguments)
       );
@@ -74,7 +68,7 @@ __d(
       );
     }
     function f(e, t) {
-      var n, r, o, a, i, l, s;
+      var n, r, o, a, i, l, s, u;
       return {
         acquisitionSource: (n = e.acquisitionSource) != null ? n : void 0,
         address:
@@ -89,7 +83,8 @@ __d(
               }
             : void 0,
         email: (l = (s = e.email) == null ? void 0 : s.trim()) != null ? l : "",
-        lastOrder: e.lastOrder,
+        lastOrderDescription:
+          (u = e.lastOrderDescription) == null ? void 0 : u.trim(),
       };
     }
     function g(e) {

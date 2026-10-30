@@ -85,7 +85,9 @@ __d(
           (a.$7 = function () {
             for (
               var e = this.$1.values(), n;
-              (n = e.next()) && !n.done && !(this.$3 > t.maxInProgressRetry());
+              (n = e.next()) &&
+              n.done !== !0 &&
+              !(this.$3 > t.maxInProgressRetry());
             ) {
               var o = n.value;
               this.$8(r("nullthrows")(o));

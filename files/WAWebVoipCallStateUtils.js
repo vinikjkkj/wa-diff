@@ -18,36 +18,44 @@ __d(
     function u(e) {
       return e === o("WAWebVoipWaCallEnums").CallState.Screening;
     }
-    function c(e) {
-      return e === o("WAWebVoipWaCallEnums").CallState.AcceptSent;
+    function c(e, t) {
+      return s(e) || (t === !1 && u(e));
     }
-    function d(e) {
-      return e === o("WAWebVoipWaCallEnums").CallState.CallActive;
+    function d(t, n) {
+      return e(t) || (n === !0 && u(t));
     }
     function m(e) {
+      return e === o("WAWebVoipWaCallEnums").CallState.AcceptSent;
+    }
+    function p(e) {
+      return e === o("WAWebVoipWaCallEnums").CallState.CallActive;
+    }
+    function _(e) {
       return (
         e === o("WAWebVoipWaCallEnums").CallState.CallActive ||
         e === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely
       );
     }
-    function p(e) {
+    function f(e) {
       return (
         e === o("WAWebVoipWaCallEnums").CallState.None ||
         e === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
         e === o("WAWebVoipWaCallEnums").CallState.CallActiveElseWhere
       );
     }
-    function _(t) {
+    function g(t) {
       return e(t) || s(t);
     }
     ((l.isCallOutgoing = e),
       (l.isCallIncoming = s),
       (l.isCallScreening = u),
-      (l.isCallConnecting = c),
-      (l.isCallActive = d),
-      (l.isCallConnected = m),
-      (l.isCallTerminal = p),
-      (l.isCallRinging = _));
+      (l.isCallIncomingForRole = c),
+      (l.isCallOutgoingForRole = d),
+      (l.isCallConnecting = m),
+      (l.isCallActive = p),
+      (l.isCallConnected = _),
+      (l.isCallTerminal = f),
+      (l.isCallRinging = g));
   },
   98,
 );

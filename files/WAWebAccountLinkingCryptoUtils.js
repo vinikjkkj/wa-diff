@@ -9,6 +9,7 @@ __d(
     "WAWebRSAPkcs1v15",
     "WAWebRSAPublicKeyDer",
     "WAWebSignalProtocolStore",
+    "WAWebWaffleCertificateDiagnostics",
     "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
@@ -71,16 +72,20 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e) {
+    function k(e, t) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = { checkedAtMs: null, resultCode: null, validity: {} };
           try {
-            return yield T(t);
+            return yield T(t, a);
           } catch (t) {
             return (
+              o(
+                "WAWebWaffleCertificateDiagnostics",
+              ).logCertificateValidationDiagnostic(n, a),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -97,29 +102,37 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T(e) {
+    function T(e, t) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e[0],
-            n = e[1],
-            a,
-            i;
-          if (t.subject.isEqual(n.issuer)) ((a = t), (i = n));
-          else if (n.subject.isEqual(t.issuer)) ((a = n), (i = t));
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e[0],
+            a = e[1],
+            i,
+            l;
+          if (n.subject.isEqual(a.issuer)) ((i = n), (l = a));
+          else if (a.subject.isEqual(n.issuer)) ((i = a), (l = n));
           else throw r("err")("[WAFFLE] Certificates do not form a chain");
-          var l = yield P(a),
-            s = yield o("WAWebX509Utils").validateCertificates([a, i], [l]);
-          if (!s.result)
+          t.validity = { leaf: l, intermediate: i };
+          var s = yield P(i);
+          t.validity.root = s;
+          var u = yield o("WAWebX509Utils").validateCertificates(
+            [i, l],
+            [s],
+            function (e) {
+              t.checkedAtMs = e;
+            },
+          );
+          if (((t.resultCode = u.resultCode), !u.result))
             throw r("err")(
               "[WAFFLE] Certificate chain validation failed (" +
-                s.resultCode +
+                u.resultCode +
                 "): " +
-                s.resultMessage,
+                u.resultMessage,
             );
-          return i;
+          return l;
         })),
         D.apply(this, arguments)
       );
@@ -136,7 +149,7 @@ __d(
             throw r("err")(
               "[WAFFLE] Payload encryption certificate chain is invalid",
             );
-          var a = yield k(n);
+          var a = yield k(n, { source: "unknown", role: "payload" });
           if (a == null)
             throw r("err")(
               "[WAFFLE] Payload encryption certificate validation failed",

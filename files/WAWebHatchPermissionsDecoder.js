@@ -10,56 +10,57 @@ __d(
         "scheduled_task",
         "website",
       ],
-      s = ["always_ask", "auto_allow"];
-    function u(e) {
+      s = ["observed", "pending", "predicted"],
+      u = ["always_ask", "auto_allow"];
+    function c(e) {
       var t,
-        n = S(e),
-        r = R(n, "connector_default"),
-        a = R(n, "network_default");
+        n = I(e),
+        r = T(n, "connector_default"),
+        a = T(n, "network_default");
       if (r == null || a == null) return null;
       var i = o("WAWebHatchJsonReaders").readArray(n, "protocols");
       return {
         connectorDefault: r,
-        defaultContent: C(
+        defaultContent: L(
           o("WAWebHatchJsonReaders").readObject(n, "default_content"),
         ),
         networkDefault: a,
         protocols:
-          (t = i == null ? void 0 : i.map(y).filter(Boolean)) != null
+          (t = i == null ? void 0 : i.map(R).filter(Boolean)) != null
             ? t
             : null,
-        protocolsHeading: x(n, "protocols_heading"),
+        protocolsHeading: w(n, "protocols_heading"),
       };
     }
-    function c(e) {
-      var t = g(e, "groups");
+    function d(e) {
+      var t = C(e, "groups");
       if (t == null) return null;
-      var n = t.raw.filter(T).map(function (e) {
+      var n = t.raw.filter(N).map(function (e) {
         var t;
         return {
           permissions: (t = o("WAWebHatchJsonReaders"))
             .readObjects(e, "items")
-            .map(h)
+            .map(b)
             .filter(Boolean),
           scope: {
-            displayName: D(t.readObject(e, "scope"), "display_name"),
+            displayName: M(t.readObject(e, "scope"), "display_name"),
             type: t.readNonEmptyString(t.readObject(e, "scope"), "scope_type"),
           },
         };
       });
       return { entries: n, nextCursor: t.nextCursor };
     }
-    function d(e) {
-      var t = g(e, "items");
+    function m(e) {
+      var t = C(e, "items");
       return t == null
         ? null
         : {
-            entries: t.raw.filter(k).map(h).filter(Boolean),
+            entries: t.raw.filter($).map(b).filter(Boolean),
             nextCursor: t.nextCursor,
           };
     }
-    function m(t) {
-      var n = o("WAWebHatchJsonReaders").readArray(S(t), "sections");
+    function p(t) {
+      var n = o("WAWebHatchJsonReaders").readArray(I(t), "sections");
       if (n == null || n.length !== e.length) return null;
       var r = {},
         a = {},
@@ -67,8 +68,8 @@ __d(
           var t = e.find(function (e) {
               return e === o("WAWebHatchJsonReaders").readField(n, "category");
             }),
-            i = p(n, "item_count"),
-            l = p(n, "permission_count"),
+            i = f(n, "item_count"),
+            l = f(n, "permission_count"),
             s = o("WAWebHatchJsonReaders").readArray(n, "entries");
           if (t == null || r[t] != null || i == null || l == null || s == null)
             return { v: null };
@@ -79,7 +80,7 @@ __d(
       var u = function (t, n, r) {
         return a[t]
           .map(function (e) {
-            return _(e, n, r);
+            return g(e, n, r);
           })
           .filter(Boolean);
       };
@@ -89,22 +90,44 @@ __d(
         scheduledTasks: u("scheduled_task", "schedule", "schedule_id"),
       };
     }
-    function p(e, t) {
+    function _(e, t) {
+      var n = I(e),
+        r = o("WAWebHatchJsonReaders").readObject(n, "scope"),
+        a = o("WAWebHatchJsonReaders").readNonEmptyString(n, "revision"),
+        i = o("WAWebHatchJsonReaders").readArray(n, "connectors");
+      return o("WAWebHatchJsonReaders").readField(r, "scope_type") !==
+        t.scopeType ||
+        o("WAWebHatchJsonReaders").readField(r, "scope_id") !== t.id ||
+        a == null ||
+        i == null
+        ? null
+        : {
+            connectors: i.map(v).filter(Boolean),
+            revision: a,
+            scopeID: t.id,
+            scopeType: t.scopeType,
+            websites: o("WAWebHatchJsonReaders")
+              .readObjects(n, "websites")
+              .map(b)
+              .filter(Boolean),
+          };
+    }
+    function f(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, t);
       return Number.isSafeInteger(n) && typeof n == "number" && n >= 0
         ? n
         : null;
     }
-    function _(e, t, n) {
+    function g(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readObject(e, "scope"),
-        a = x(r, n);
+        a = w(r, n);
       return o("WAWebHatchJsonReaders").readField(e, "kind") !== "owner" ||
         o("WAWebHatchJsonReaders").readField(r, "scope_type") !== t ||
         a == null ||
-        f(e, r)
+        y(e, r)
         ? null
         : {
-            displayName: D(r, "display_name"),
+            displayName: M(r, "display_name"),
             id: a,
             managePermissionsAvailable:
               o("WAWebHatchJsonReaders").readBool(
@@ -113,19 +136,41 @@ __d(
               ) === !0,
             permissions: o("WAWebHatchJsonReaders")
               .readObjects(e, "permissions")
+              .map(b)
+              .filter(Boolean),
+            requiredPermissions: o("WAWebHatchJsonReaders")
+              .readObjects(e, "required_permissions")
               .map(h)
               .filter(Boolean),
+            scopeType: t,
           };
     }
-    function f(e, t) {
+    function h(e) {
+      var t = s.find(function (t) {
+          return t === o("WAWebHatchJsonReaders").readField(e, "state");
+        }),
+        n = w(e, "method"),
+        r = o("WAWebHatchJsonReaders").readField(e, "kind"),
+        a = w(e, r === "website" ? "destination" : "connector");
+      return t == null ||
+        a == null ||
+        (n == null && o("WAWebHatchJsonReaders").readField(e, "method") != null)
+        ? null
+        : r === "connector"
+          ? { connector: a, kind: "connector", method: n, state: t }
+          : r === "website"
+            ? { destination: a, kind: "website", method: n, state: t }
+            : null;
+    }
+    function y(e, t) {
       return (
         o("WAWebHatchJsonReaders").readBool(e, "is_saved_foreign_share") ===
           !0 ||
         o("WAWebHatchJsonReaders").readBool(t, "is_saved_foreign_share") === !0
       );
     }
-    function g(e, t) {
-      var n = S(e),
+    function C(e, t) {
+      var n = I(e),
         r = Array.isArray(o("WAWebHatchJsonReaders").readField(n, t))
           ? n
           : o("WAWebHatchJsonReaders").readObject(n, "active_permissions"),
@@ -139,7 +184,7 @@ __d(
             raw: a,
           };
     }
-    function h(e) {
+    function b(e) {
       var t,
         n = o("WAWebHatchJsonReaders").readNonEmptyString(e, "permission_id"),
         r = o("WAWebHatchJsonReaders").readNonEmptyString(e, "kind");
@@ -154,83 +199,115 @@ __d(
           e,
           "destination",
         ),
-        displayLabel: x(e, "display_label"),
+        displayLabel: w(e, "display_label"),
         id: n,
         kind: r,
-        label: D(e, "label"),
-        lifetime: D(e, "lifetime"),
-        mode: L(o("WAWebHatchJsonReaders").readField(e, "mode")),
-        modeLabel: x(a, "mode_label"),
+        label: M(e, "label"),
+        lifetime: M(e, "lifetime"),
+        mode: D(o("WAWebHatchJsonReaders").readField(e, "mode")),
+        modeLabel: w(a, "mode_label"),
         modeOptions: ((t = o("WAWebHatchJsonReaders").readArray(
           e,
           "mode_options",
         )) != null
           ? t
           : []
-        ).filter(E),
+        ).filter(x),
         revocable: o("WAWebHatchJsonReaders").readBool(e, "revocable") === !0,
-        summaryTitle: x(a, "summary_title"),
+        summaryTitle: w(a, "summary_title"),
       };
     }
-    function y(e) {
-      var t = x(e, "key"),
-        n = x(e, "title");
+    function v(e) {
+      var t = w(e, "connector"),
+        n = o("WAWebHatchJsonReaders").readObject(e, "methods");
+      return t == null || typeof n != "object" || n == null
+        ? null
+        : {
+            id: t,
+            methods: Object.keys(n)
+              .map(function (e) {
+                return S(e, o("WAWebHatchJsonReaders").readObject(n, e));
+              })
+              .filter(Boolean),
+          };
+    }
+    function S(e, t) {
+      var n = w(t, "label"),
+        r = o("WAWebHatchJsonReaders").readField(t, "mode");
+      if (n == null || !x(r)) return null;
+      var a = o("WAWebHatchJsonReaders").readField(t, "override_mode");
+      return {
+        expiresAtMs: o("WAWebHatchJsonReaders").readInteger(t, "expires_at_ms"),
+        key: e,
+        label: n,
+        mode: r,
+        modeOptions: Array.from(
+          new Set(o("WAWebHatchJsonReaders").readArray(t, "mode_options")),
+        ).filter(x),
+        overrideMode: x(a) ? a : null,
+        source: w(t, "source"),
+        sourceLabel: w(t, "source_label"),
+      };
+    }
+    function R(e) {
+      var t = w(e, "key"),
+        n = w(e, "title");
       if (t == null || n == null) return null;
       var r = o("WAWebHatchJsonReaders").readField(e, "mode");
       return {
-        description: x(e, "description"),
-        iconKey: x(e, "icon_key"),
+        description: w(e, "description"),
+        iconKey: w(e, "icon_key"),
         key: t,
         mode: r === "ask" || r === "deny" ? r : "unknown",
         title: n,
       };
     }
-    function C(e) {
-      var t = b(o("WAWebHatchJsonReaders").readObject(e, "connector")),
-        n = b(o("WAWebHatchJsonReaders").readObject(e, "network"));
+    function L(e) {
+      var t = E(o("WAWebHatchJsonReaders").readObject(e, "connector")),
+        n = E(o("WAWebHatchJsonReaders").readObject(e, "network"));
       return t != null && n != null ? { connector: t, network: n } : null;
     }
-    function b(e) {
-      var t = x(e, "heading"),
+    function E(e) {
+      var t = w(e, "heading"),
         n = o("WAWebHatchJsonReaders").readObject(e, "options"),
-        r = v(o("WAWebHatchJsonReaders").readObject(n, "always_ask")),
-        a = v(o("WAWebHatchJsonReaders").readObject(n, "auto_allow"));
+        r = k(o("WAWebHatchJsonReaders").readObject(n, "always_ask")),
+        a = k(o("WAWebHatchJsonReaders").readObject(n, "auto_allow"));
       return t != null && r != null && a != null
         ? { heading: t, options: { always_ask: r, auto_allow: a } }
         : null;
     }
-    function v(e) {
-      var t = x(e, "title"),
-        n = x(e, "description");
+    function k(e) {
+      var t = w(e, "title"),
+        n = w(e, "description");
       return t != null && n != null ? { description: n, title: t } : null;
     }
-    function S(e) {
+    function I(e) {
       var t;
       return (t = o("WAWebHatchJsonReaders").readObject(e, "result")) != null
         ? t
         : e;
     }
-    function R(e, t) {
+    function T(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, t);
-      return s.find(function (e) {
+      return u.find(function (e) {
         return e === n;
       });
     }
-    function L(e) {
-      return e === "deny_all" || E(e) ? e : "unknown";
+    function D(e) {
+      return e === "deny_all" || x(e) ? e : "unknown";
     }
-    function E(e) {
+    function x(e) {
       return e === "allow" || e === "ask" || e === "deny";
     }
-    function k(e) {
+    function $(e) {
       var t = o("WAWebHatchJsonReaders").readField(e, "kind");
       return (
         t !== "connector_override" &&
         t !== "transient_connector_grant" &&
-        !I(o("WAWebHatchJsonReaders").readObject(e, "scope"))
+        !P(o("WAWebHatchJsonReaders").readObject(e, "scope"))
       );
     }
-    function I(e) {
+    function P(e) {
       var t = (function (e) {
         return e === "feed"
           ? ""
@@ -242,27 +319,28 @@ __d(
                 ? "space_slug"
                 : null;
       })(o("WAWebHatchJsonReaders").readField(e, "scope_type"));
-      return t == null || x(e, "session_scope_id") == null
+      return t == null || w(e, "session_scope_id") == null
         ? !1
-        : t === "" || x(e, t) != null;
+        : t === "" || w(e, t) != null;
     }
-    function T(e) {
+    function N(e) {
       return o("WAWebHatchJsonReaders").readObject(e, "scope") != null;
     }
-    function D(e, t) {
+    function M(e, t) {
       var n;
-      return (n = x(e, t)) != null ? n : "";
+      return (n = w(e, t)) != null ? n : "";
     }
-    function x(e, t) {
+    function w(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, t);
       return typeof n == "string"
         ? o("WAWebHatchJsonReaders").trimToNull(n)
         : null;
     }
-    ((l.decodeHatchPermissionSettings = u),
-      (l.decodeHatchPermissionGroupPage = c),
-      (l.decodeHatchAllowedWebsitePage = d),
-      (l.decodeHatchPermissionInventory = m));
+    ((l.decodeHatchPermissionSettings = c),
+      (l.decodeHatchPermissionGroupPage = d),
+      (l.decodeHatchAllowedWebsitePage = m),
+      (l.decodeHatchPermissionInventory = p),
+      (l.decodeHatchScopedPermissions = _));
   },
   98,
 );

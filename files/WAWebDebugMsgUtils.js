@@ -39,13 +39,12 @@ __d(
       );
     }
     function s(e, t, n) {
-      r("vulture")("X5TbdQgZwXAiAJF0gvlDJcxXIHA=");
-      var a = o("WAWebUserPrefsDebugMsgs").getDebugShownMsgs();
-      if (a[t] === !0) {
-        var i = o("WAWebDebugSystemMsg").genDebugMsg(e, t, n);
+      var r = o("WAWebUserPrefsDebugMsgs").getDebugShownMsgs();
+      if (r[t] === !0) {
+        var a = o("WAWebDebugSystemMsg").genDebugMsg(e, t, n);
         o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
           chatId: e,
-          newMsg: i,
+          newMsg: a,
           handleSingleMsgOrigin: "debugMsgUtils",
         });
       }

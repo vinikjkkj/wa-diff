@@ -30,6 +30,7 @@ __d(
       "HatchActivity",
       "HatchApprovalHistory",
       "HatchConnectors",
+      "HatchDataControls",
       "HatchIdeas",
       "HatchIdentity",
       "HatchPermissions",

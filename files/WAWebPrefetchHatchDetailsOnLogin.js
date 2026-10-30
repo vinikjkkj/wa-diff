@@ -3,7 +3,10 @@ __d(
   [
     "WAWebCmd",
     "WAWebHatchChannelBootstrap",
+    "WAWebHatchCvmReadOnlyCanSend",
+    "WAWebHatchCvmSecretPref",
     "WAWebHatchFrontendGating",
+    "WAWebHatchLinkedStatusManager",
     "WAWebPrimaryFeaturesModel",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,6 +17,11 @@ __d(
     function c() {
       e ||
         ((e = !0),
+        r(
+          "WAWebHatchLinkedStatusManager",
+        ).getKnownConfirmedLinkedStatusState() === "unlinked" &&
+          o("WAWebHatchCvmSecretPref").clearHatchCvmState(),
+        o("WAWebHatchCvmReadOnlyCanSend").watchHatchCvmReadOnlyCanSend(),
         (s = o("WAWebCmd").Cmd.isMainStreamReadyMd === !0),
         s ||
           o("WAWebCmd").Cmd.on(

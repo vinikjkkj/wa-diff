@@ -6,6 +6,7 @@ __d(
     "WAWebBizAiLargeScreensGateModel",
     "WAWebColdLaunchDeeplink",
     "WAWebMobilePlatforms",
+    "WAWebProductFeature",
     "WAWebWhatsNewContent",
     "WAWebWhatsNewNux",
     "asyncToGeneratorRuntime",
@@ -18,6 +19,7 @@ __d(
     }
     function s() {
       return !(
+        o("WAWebProductFeature").isInternalProduct() ||
         o("WAWebABProps").getABPropConfigValue("web_whats_new_auto_modal") !==
           !0 ||
         !o("WAWebWhatsNewContent").hasWhatsNewContent() ||

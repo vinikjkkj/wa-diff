@@ -18,6 +18,7 @@ __d(
           (t.acquisitionSource = o("WAWebBaseModel").prop()),
           (t.leadStage = o("WAWebBaseModel").prop()),
           (t.lastOrder = o("WAWebBaseModel").prop()),
+          (t.lastOrderDescription = o("WAWebBaseModel").session(null)),
           (t.createdAt = o("WAWebBaseModel").prop()),
           (t.modifiedAt = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||

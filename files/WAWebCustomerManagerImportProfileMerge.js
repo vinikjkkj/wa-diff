@@ -100,7 +100,11 @@ __d(
         address: o("address", p(t.address), _(e.address)),
         birthday: o("dob", t.birthdayIso == null, e.birthday),
         email: o("email", p(t.email), _(e.email)),
-        lastOrder: o("last_order_date", t.lastOrder == null, e.lastOrder),
+        lastOrderDescription: o(
+          "last_order",
+          p(t.lastOrderDescription),
+          _(e.lastOrderDescription),
+        ),
         leadStage: o(
           "lead_stage",
           r.canBackfillLeadStage && t.leadStage == null,

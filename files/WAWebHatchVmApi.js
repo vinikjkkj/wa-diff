@@ -196,6 +196,13 @@ __d(
             )
           );
         }),
+        (r.settingsConnectors = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTORS_LIST_SETTINGS,
+            t,
+          );
+        }),
         (r.connector = function (t, n) {
           return this.request(
             "GET",
@@ -227,6 +234,13 @@ __d(
             },
           );
         }),
+        (r.permissions = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS,
+            babelHelpers.extends({}, t, { service: "sentinel" }),
+          );
+        }),
         (r.permissionSettings = function (t) {
           return this.request(
             "GET",
@@ -253,6 +267,20 @@ __d(
             "GET",
             o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_INVENTORY,
             babelHelpers.extends({}, t, { responseShape: "flat-or-envelope" }),
+          );
+        }),
+        (r.scopedPermissions = function (t, n, r, a) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_SCOPE(t, n, r),
+            babelHelpers.extends({}, a, { service: "sentinel" }),
+          );
+        }),
+        (r.scopedPermissionSetMode = function (t, n, r) {
+          return this.request(
+            "PATCH",
+            o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_SCOPE(t, n),
+            { body: _(r), service: "sentinel" },
           );
         }),
         (r.activePermissionSetMode = function (t) {

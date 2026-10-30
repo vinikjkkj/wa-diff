@@ -13,7 +13,7 @@ __d(
       WAWebBizGetProfileShimlinksQuery: "24491258413796282",
       WAWebGraphQLProductCatalogGetPublicKeyJobQuery: "24765734146405491",
       WAWebGraphQLVerifyPostcodeJobQuery: "7573183149457062",
-      WAWebGalaxyFlowsDrawerGetFlowDataQuery: "24989855014035777",
+      WAWebGalaxyFlowsDrawerGetFlowDataQuery: "40083220921276114",
       WAWebNativeMLModelQuery: "9175958945830972",
       WAWebSignupMetadataQuery: "28516250088045061",
       WAWebCreateLabyrinthBackupJobMutation: "28411481768458599",

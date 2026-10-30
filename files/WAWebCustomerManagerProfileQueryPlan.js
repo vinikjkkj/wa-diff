@@ -44,8 +44,7 @@ __d(
         _ =
           a.length > 0 &&
           ((n == null ? void 0 : n.key) === "email" ||
-            (n == null ? void 0 : n.key) === "acquisitionSource" ||
-            (n == null ? void 0 : n.key) === "lastOrder"),
+            (n == null ? void 0 : n.key) === "acquisitionSource"),
         f = _ && s.length === 0;
       return babelHelpers.extends(
         {
@@ -106,9 +105,12 @@ __d(
             t === "lastMessage" ||
             t === "list"
           ? !0
-          : t === "email" || t === "acquisitionSource" || t === "lastOrder"
+          : t === "email" || t === "acquisitionSource"
             ? !1
-            : t === "select" || t === "actions" || t === "notes"
+            : t === "select" ||
+                t === "actions" ||
+                t === "notes" ||
+                t === "lastOrder"
               ? !0
               : (function () {
                   throw Error(

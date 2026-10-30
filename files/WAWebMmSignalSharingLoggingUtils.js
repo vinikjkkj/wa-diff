@@ -21,7 +21,9 @@ __d(
     "WAWebMsgType",
     "WAWebNetworkStatus",
     "WAWebWamEnumDisclosureEventType",
+    "WAWebWamEnumDisclosureInteraction",
     "WAWebWamEnumDisclosureSuppressionReason",
+    "WAWebWamEnumDisclosureSurface",
     "WAWebWamEnumMmSignalType",
     "WAWebWamEnumOnePdSignalNotSharedReason",
     "WAWebWamEnumSignalMessageType",
@@ -32,6 +34,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -215,58 +218,69 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.hasShownDisclosure,
-            r = e.msg,
-            a = e.signal;
+            a = e.msg,
+            i = e.signal;
           if (
             o(
               "WAWebMmSignalSharingGatingUtils",
             ).isMmSignalSharingCollectionEnabled(t.id.toString())
           ) {
-            var i = o(
+            var l = o(
                 "WAWebMmSignalSharingTos",
               ).isMmSignalSharingDisclosureTosAccepted(),
-              l = h({
-                chat: t,
-                eventType: a.disclosureEventType,
-                hasShownDisclosure: n,
-                isDisclosureTosAccepted: i,
-                msg: r,
-              }),
-              s = {
-                disclosureEventType: a.disclosureEventType,
-                disclosureInteraction: a.disclosureInteraction,
-                disclosureSource: a.disclosureSource,
-                disclosureSuppressionReason: l,
-                disclosureSurface: a.disclosureSurface,
+              s =
+                n === !0 &&
+                i.disclosureInteraction ===
+                  o("WAWebWamEnumDisclosureInteraction").DISCLOSURE_INTERACTION
+                    .LEARN_MORE &&
+                i.disclosureSurface ===
+                  o("WAWebWamEnumDisclosureSurface").DISCLOSURE_SURFACE
+                    .CHAT_THREAD &&
+                r("justknobx")._("6980"),
+              u = s
+                ? void 0
+                : h({
+                    chat: t,
+                    eventType: i.disclosureEventType,
+                    hasShownDisclosure: n,
+                    isDisclosureTosAccepted: l,
+                    msg: a,
+                  }),
+              c = {
+                disclosureEventType: i.disclosureEventType,
+                disclosureInteraction: i.disclosureInteraction,
+                disclosureSource: i.disclosureSource,
+                disclosureSuppressionReason: u,
+                disclosureSurface: i.disclosureSurface,
                 isCompanionDevice: !0,
-                isUserDisclosed: i,
-                mmHasDisclosedUrl: a.mmHasDisclosedUrl,
-                mmHasShowDisclosureFlag: a.mmHasShowDisclosureFlag,
-                userBecameDisclosed: a.userBecameDisclosed,
+                isUserDisclosed: l,
+                mmHasDisclosedUrl: i.mmHasDisclosedUrl,
+                mmHasShowDisclosureFlag: i.mmHasShowDisclosureFlag,
+                userBecameDisclosed: i.userBecameDisclosed,
               },
-              u = new (o(
+              d = new (o(
                 "WAWebMmDisclosureStateEventWamEvent",
               ).MmDisclosureStateEventWamEvent)(
                 babelHelpers.extends(
                   {},
-                  s,
+                  c,
                   { businessLidOrJid: g(t.id.toString()) },
-                  (r == null ? void 0 : r.templateId) != null
-                    ? { templateId: r.templateId }
+                  (a == null ? void 0 : a.templateId) != null
+                    ? { templateId: a.templateId }
                     : {},
                 ),
               ),
-              c = new (o(
+              m = new (o(
                 "WAWebMmDisclosureStateFsEventWamEvent",
               ).MmDisclosureStateFsEventWamEvent)(
-                babelHelpers.extends({}, s, {
+                babelHelpers.extends({}, c, {
                   threadIdHmac:
                     (yield o("WAWebChatThreadLogging").getChatThreadIDHMAC(
                       t.id.toString(),
                     )) || "",
                 }),
               );
-            (u.commit(), c.commit());
+            (d.commit(), m.commit());
           }
         })),
         d.apply(this, arguments)

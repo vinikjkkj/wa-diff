@@ -11,15 +11,18 @@ __d(
     var e = new WeakSet();
     function s(e) {
       var t;
-      if (!((t = e.contact) != null && t.isBusiness)) return !1;
-      var n = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+      return u(e.id, ((t = e.contact) == null ? void 0 : t.isBusiness) === !0);
+    }
+    function u(e, t) {
+      if (!t) return !1;
+      var n = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChatId(e);
       if (n != null && n.is3pdag) return !1;
       var r = o(
         "WAWebConsumerTransparencyInfoIconModel",
-      ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
+      ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e);
       return !(!r && n == null);
     }
-    function u() {
+    function c() {
       return (
         !o(
           "WAWebCTWAGatingUtils",
@@ -30,7 +33,7 @@ __d(
           ).isUpdatedConsumerDisclosureUiBrazilEnabled())
       );
     }
-    function c(e) {
+    function d(e) {
       var t = e.chat,
         n = e.conversionData,
         r = e.conversionSource,
@@ -48,25 +51,25 @@ __d(
           var s = t.contact;
           if (s != null) {
             if (s.isBusiness === !0) {
-              m(t);
+              p(t);
               return;
             }
-            i && d(t, s);
+            i && m(t, s);
           }
         }
       }
     }
-    function d(t, n) {
+    function m(t, n) {
       if (!e.has(n)) {
         e.add(n);
         var r = function () {
           n.isBusiness === !0 &&
-            (n.off("change:isBusiness", r), e.delete(n), m(t));
+            (n.off("change:isBusiness", r), e.delete(n), p(t));
         };
         n.on("change:isBusiness", r);
       }
     }
-    function m(e) {
+    function p(e) {
       var t = o(
         "WAWebConsumerTransparencyInfoIconModel",
       ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
@@ -79,8 +82,9 @@ __d(
         ).maybeInsertCtwaConsumerDisclosureMsg(e));
     }
     ((l.shouldShowConsumerTransparencyDisclosure = s),
-      (l.shouldShowROWConsumerDisclosure = u),
-      (l.handleConsumerTransparencyForNewMsg = c));
+      (l.shouldShowConsumerTransparencyDisclosureFor = u),
+      (l.shouldShowROWConsumerDisclosure = c),
+      (l.handleConsumerTransparencyForNewMsg = d));
   },
   98,
 );

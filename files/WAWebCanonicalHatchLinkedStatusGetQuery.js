@@ -27,7 +27,8 @@ __d(
             n,
             r,
             a,
-            i = yield o("WAPromiseTimeout")
+            i,
+            l = yield o("WAPromiseTimeout")
               .promiseTimeout(
                 o("WAWebRelayClient").fetchQuery(
                   u,
@@ -37,24 +38,37 @@ __d(
                 s,
                 "hatch linked status query timed out",
               )
-              .catch(m),
-            l =
-              i == null || (e = i.wa_genai_hatch_channel_metadata) == null
+              .catch(_),
+            c =
+              l == null || (e = l.wa_genai_hatch_channel_metadata) == null
                 ? void 0
                 : e.linked_status;
-          return l == null
+          return c == null
             ? null
             : {
-                hasChannel: (t = l.has_channel) != null ? t : !1,
-                isPaired: (n = l.is_paired) != null ? n : !1,
-                status: (r = l.status) != null ? r : null,
-                channelFbid: (a = l.channel_fbid) != null ? a : null,
+                hasChannel: (t = c.has_channel) != null ? t : !1,
+                isPaired: (n = c.is_paired) != null ? n : !1,
+                status: (r = c.status) != null ? r : null,
+                channelFbid: (a = c.channel_fbid) != null ? a : null,
+                isChannelAbsent: c.has_channel === !1,
+                vmType: m(c),
+                vmState: p((i = c.vm_info) == null ? void 0 : i.vm_state),
               };
         })),
         d.apply(this, arguments)
       );
     }
     function m(e) {
+      var t;
+      if (e.has_channel !== !0 || e.status == null || e.is_paired == null)
+        return null;
+      var n = (t = e.vm_info) == null ? void 0 : t.vm_type;
+      return n === "CVM" || n === "SVM" ? n : null;
+    }
+    function p(e) {
+      return e === "ACTIVE" || e === "TRANSFERRING" ? e : null;
+    }
+    function _(e) {
       throw e instanceof o("WAWebGraphQLServerError").GraphQLServerError
         ? r("err")(
             "hatch linked status query failed: " +

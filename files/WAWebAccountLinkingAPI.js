@@ -136,7 +136,12 @@ __d(
               ),
               s = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).validateCertificateChain(l);
+              ).validateCertificateChain(l, {
+                source: "cache",
+                role: "payload",
+                cacheFetchedAtSeconds: e.fetchTimestampSeconds,
+                ttlSeconds: e.ttlSeconds,
+              });
             if (s != null) {
               var c = yield s.getPublicKey({
                   algorithm: {
@@ -268,7 +273,10 @@ __d(
               g = yield o("WAWebX509Utils").extractCertificates(c),
               h = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).validateCertificateChain(g);
+              ).validateCertificateChain(g, {
+                source: "graphql",
+                role: "payload",
+              });
             if (h == null)
               return (
                 o("WALogger").ERROR(
@@ -307,7 +315,10 @@ __d(
                   ),
                   I = yield o(
                     "WAWebAccountLinkingCryptoUtils",
-                  ).validateCertificateChain(k);
+                  ).validateCertificateChain(k, {
+                    source: "graphql",
+                    role: "password",
+                  });
                 if (I == null)
                   throw r("err")(
                     "[WAFFLE] Password certificate chain validation failed",
@@ -529,7 +540,10 @@ __d(
                   s = yield o("WAWebX509Utils").extractCertificates(l),
                   u = yield o(
                     "WAWebAccountLinkingCryptoUtils",
-                  ).validateCertificateChain(s);
+                  ).validateCertificateChain(s, {
+                    source: "iq",
+                    role: "payload",
+                  });
                 if (u != null) {
                   var c,
                     d,

@@ -7,7 +7,7 @@ __d(
       l = n("relay-runtime/store/ViewerPattern").VIEWER_ID,
       s = typeof Symbol == "function" ? Symbol.iterator : "@@iterator";
     function u(t, n) {
-      for (var r = t[s](), o = r.next(); !o.done; ) {
+      for (var r = t[s](), o = r.next(); o.done !== !0; ) {
         var a = o.value;
         if (n.has(a) && a !== e && a !== l) return !0;
         o = r.next();

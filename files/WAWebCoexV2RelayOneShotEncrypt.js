@@ -13,6 +13,7 @@ __d(
     "WAWebCryptoLibrarySessionApi",
     "WAWebEncryptMsgProtobuf",
     "WAWebFetchPrekeysJob",
+    "WAWebHandleMsgError",
     "WAWebPostE2eMessageSendMetric",
     "WAWebSendMsgCommonApi",
     "WAWebSessionScope",
@@ -83,10 +84,12 @@ __d(
               ).postFailureDirectE2eMessageSendMetric(
                 babelHelpers.extends({}, d),
               ),
-              r("err")(
-                "[coexv2] one-shot relay encryption failed: " +
-                  r("getErrorSafe")(e).message,
-              )
+              e instanceof o("WAWebHandleMsgError").MessageValidationError
+                ? e
+                : r("err")(
+                    "[coexv2] one-shot relay encryption failed: " +
+                      r("getErrorSafe")(e).message,
+                  )
             );
           }
         })),

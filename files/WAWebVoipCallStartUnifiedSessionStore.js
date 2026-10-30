@@ -101,7 +101,7 @@ __d(
     function R() {
       if (!(d.size <= u)) {
         var e = d.keys().next();
-        e.done || d.delete(e.value);
+        e.done !== !0 && d.delete(e.value);
       }
     }
     ((l.maybeRecordCallStartUnifiedSessionId = p),

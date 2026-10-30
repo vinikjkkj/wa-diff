@@ -52,9 +52,9 @@ __d(
           value: 8,
         },
         lastOrder: {
-          options: { minWidth: 140, maxWidth: 180 },
+          options: { minWidth: 200, maxWidth: 320 },
           type: "proportional",
-          value: 7,
+          value: 12,
         },
         notes: {
           options: { minWidth: 200, maxWidth: 640 },

@@ -385,6 +385,7 @@ __d(
                 ).openMmSignalSharingDisclosureModal({
                   eventType: r,
                   chat: u,
+                  msg: a.unsafe(),
                   onOk: function () {
                     var e = l();
                     e != null && i(u, e, !0);

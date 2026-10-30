@@ -343,7 +343,8 @@ __d(
         SelfCameraAutoOff: 176,
         CallScreening: 177,
         SwitchEntryPointChanged: 178,
-        Max: 179,
+        ScreeningTimeout: 180,
+        Max: 181,
       }),
       b = s({
         Unknown: 0,

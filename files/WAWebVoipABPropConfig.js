@@ -169,6 +169,11 @@ __d(
           wasmKey: "attach_invitee_user_pn_in_offer",
           type: "bool",
         },
+        {
+          abProp: "call_setup_definition_fix",
+          wasmKey: "call_setup_definition_fix",
+          type: "bool",
+        },
         { abProp: "aigc_version", wasmKey: "aigc_version", type: "int" },
         {
           abProp: "call_admin_version",
@@ -198,6 +203,11 @@ __d(
         {
           abProp: "enable_1on1_call_transfer_switchable",
           wasmKey: "enable_1on1_call_transfer_switchable",
+          type: "bool",
+        },
+        {
+          abProp: "enable_call_transfer_auto_switch",
+          wasmKey: "enable_call_transfer_auto_switch",
           type: "bool",
         },
         {

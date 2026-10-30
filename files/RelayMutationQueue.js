@@ -95,7 +95,7 @@ __d(
     function c(e) {
       var t = e.values(),
         n = t.next();
-      if (!n.done) return (e.delete(n.value), n.value);
+      if (n.done !== !0) return (e.delete(n.value), n.value);
     }
     a.exports = u;
   },

@@ -82,19 +82,23 @@ __d(
             ? t != null && t.isVideoCall
               ? s._(/*BTDS*/ "Video call")
               : s._(/*BTDS*/ "Voice call")
-            : e === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
-                e === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
-              ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
-              : e === o("WAWebVoipWaCallEnums").CallState.CallActive
-                ? u.jsx(r("WAWebCallTimer.react"), { callState: e })
-                : e === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||
-                    e === o("WAWebVoipWaCallEnums").CallState.Rejoining
-                  ? s._(/*BTDS*/ "Waiting for others...")
-                  : e == null
-                    ? s._(/*BTDS*/ "Call ended")
-                    : e != null
-                      ? o("WAWebVoipWaCallEnums").CallState.getName(e)
-                      : "unknown";
+            : e === o("WAWebVoipWaCallEnums").CallState.Screening
+              ? (t == null ? void 0 : t.id.fromMe) === !0
+                ? s._(/*BTDS*/ "Voicemail...")
+                : s._(/*BTDS*/ "Screening call...")
+              : e === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
+                  e === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
+                ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
+                : e === o("WAWebVoipWaCallEnums").CallState.CallActive
+                  ? u.jsx(r("WAWebCallTimer.react"), { callState: e })
+                  : e === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||
+                      e === o("WAWebVoipWaCallEnums").CallState.Rejoining
+                    ? s._(/*BTDS*/ "Waiting for others...")
+                    : e == null
+                      ? s._(/*BTDS*/ "Call ended")
+                      : e != null
+                        ? o("WAWebVoipWaCallEnums").CallState.getName(e)
+                        : "unknown";
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {

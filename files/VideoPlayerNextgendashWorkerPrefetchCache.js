@@ -9,6 +9,7 @@ __d(
     "VideoPlayerNextgendashMediaUtils",
     "VideoPlayerNextgendashNetworkDiagnosticsUtils",
     "VideoPlayerNextgendashURLUtils",
+    "VideoPlayerNextgendashWebCodecsDimensions",
     "nextgendasherr",
   ],
   function (t, n, r, o, a, i, l) {
@@ -409,11 +410,17 @@ __d(
             V(e, !1),
           );
         }));
-      var i = a.filter(function (e) {
-        var t = Math.min(e.width, e.height);
-        return t / n.devicePixelRatio <= n.prefetchResolutionThreshold;
-      });
-      return i.length > 0 ? i : a.length > 0 ? [a[0]] : [];
+      var i =
+          e.config.mediaSinkType === "WEBCODECS"
+            ? o(
+                "VideoPlayerNextgendashWebCodecsDimensions",
+              ).filterVideoPlayerNextgendashWebCodecsRepresentations(a)
+            : a,
+        l = i.filter(function (e) {
+          var t = Math.min(e.width, e.height);
+          return t / n.devicePixelRatio <= n.prefetchResolutionThreshold;
+        });
+      return l.length > 0 ? l : i.length > 0 ? [i[0]] : [];
     }
     function G(e, t, n) {
       var r = e.get(t);

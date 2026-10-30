@@ -89,6 +89,7 @@ __d(
         "group_system_message",
         "group_mention",
         "group_mention_nonmember",
+        "group_mention_nonmember_cag",
       ]);
     function c(e, t) {
       var n = o("WATimeUtils").unixTimeMs();

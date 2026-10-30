@@ -12,6 +12,7 @@ __d(
     "VideoPlayerNextgendashQPL",
     "VideoPlayerNextgendashStateMachine",
     "VideoPlayerNextgendashURLUtils",
+    "VideoPlayerNextgendashWebCodecsDimensions",
     "VideoPlayerNextgendashWebmSidxParser",
     "deepEquals",
     "emptyFunction",
@@ -5327,10 +5328,17 @@ __d(
             n,
             r,
             function (t, n, r) {
-              var i, u;
+              var i,
+                u,
+                c =
+                  t.config.mediaSinkType === "WEBCODECS"
+                    ? o(
+                        "VideoPlayerNextgendashWebCodecsDimensions",
+                      ).filterVideoPlayerNextgendashWebCodecsRepresentations(n)
+                    : n;
               return o(
                 "VideoPlayerNextgendashABR",
-              ).evaluateVideoPlayerNextgendashABRForVideo(n, {
+              ).evaluateVideoPlayerNextgendashABRForVideo(c, {
                 abrConfig: a.abrConfig,
                 bandwidthDiagnostics: e.host.networkDiagnosticsReadBandwidth(
                   e.config.enableBandwidthDiagnosticsFallback,

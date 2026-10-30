@@ -412,7 +412,8 @@ __d(
           (N.bufferAheadTargetNoMediaElementSec = 9.9)),
         N.mediaSinkType === "WEBCODECS" &&
           ((N.disableZeroPlaybackRateWhileBuffering = !0),
-          (N.bufferAheadTargetNoMediaElementSec = 9.9),
+          (N.bufferAheadTargetNoMediaElementSec = 4.9),
+          (N.enablePrefetchCacheKeyNormalization = !0),
           (N.enableMediaElementUnmountNotification = !0),
           (N.enableSkipRecoveryOnDeliberateDetach = !0),
           (N.enableDisposalResourceCleanup = !0)));

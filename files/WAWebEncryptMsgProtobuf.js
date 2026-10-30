@@ -6,6 +6,7 @@ __d(
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebE2eMessageSendWamEvent",
+    "WAWebHandleMsgError",
     "WAWebMsgGetters",
     "WAWebPostE2eMessageSendMetric",
     "WAWebSendMsgCommonApi",
@@ -35,7 +36,10 @@ __d(
             try {
               var f = yield o("WAWebSignal").Cipher.encryptSignalProto(
                   t,
-                  o("WAWebSendMsgCommonApi").encodeAndPad(i),
+                  o("WAWebSendMsgCommonApi").encodeAndPad(i, {
+                    type: l == null ? void 0 : l.type,
+                    subtype: l == null ? void 0 : l.subtype,
+                  }),
                   d,
                   m,
                 ),
@@ -57,8 +61,8 @@ __d(
                 { type: h, ciphertext: g }
               );
             } catch (i) {
-              return (
-                o("WALogger")
+              if (
+                (o("WALogger")
                   .WARN(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -96,14 +100,16 @@ __d(
                   sessionScope: d,
                   coexV2SelfHosted: _,
                 }),
-                (c || (c = n("Promise"))).reject(
-                  r("err")(
-                    "[messaging] encryptMsgProtobuf: encryption fail for " +
-                      t.toString() +
-                      ", " +
-                      r("getErrorSafe")(i).message,
-                  ),
-                )
+                i instanceof o("WAWebHandleMsgError").MessageValidationError)
+              )
+                throw i;
+              return (c || (c = n("Promise"))).reject(
+                r("err")(
+                  "[messaging] encryptMsgProtobuf: encryption fail for " +
+                    t.toString() +
+                    ", " +
+                    r("getErrorSafe")(i).message,
+                ),
               );
             }
           },

@@ -5,8 +5,6 @@ __d(
     "WALogger",
     "WAWebCustomerManagerExportCsvUtils",
     "WAWebCustomerManagerImportErrorMessage",
-    "WAWebFileSaver",
-    "WAWebFileSaverTypes",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -68,14 +66,10 @@ __d(
               a = n.rows,
               i = yield o(
                 "WAWebCustomerManagerExportCsvUtils",
-              ).buildCustomerManagerCsv(r, a),
-              l = new Blob(["\uFEFF" + i], { type: "text/csv;charset=utf-8" }),
-              s = new Date().toISOString().slice(0, 10);
-            yield o("WAWebFileSaver").FileSaver.downloadData(
-              l,
-              "customer_manager_import_errors_" + s,
-              o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
-            );
+              ).buildCustomerManagerCsv(r, a);
+            yield o(
+              "WAWebCustomerManagerExportCsvUtils",
+            ).downloadCustomerManagerCsv(i, "customer_manager_import_errors");
           } catch (t) {
             throw (
               o("WALogger")

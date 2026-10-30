@@ -35,6 +35,7 @@ __d(
       ENABLE_IF_EMPTY_CANCELLATION: !1,
       ENABLE_FRAGMENT_SUBSCRIPTION_UPDATE_FIX: !1,
       ENABLE_PERF_STORAGE_KEYS: !1,
+      ENABLE_PERF_READER: !1,
     };
     a.exports = e;
   },

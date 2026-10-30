@@ -900,6 +900,8 @@ __d(
           o.phone_number,
           o.member_lid,
           o.secondary_member_tag,
+          o.status,
+          o.invite_expiry,
         );
         if (a == null) return null;
         r.push(a);
@@ -925,19 +927,22 @@ __d(
             : null,
       };
     }
-    function Ge(e, t, n, r, o, a, i) {
+    function Ge(e, t, n, r, o, a, i, l, s) {
       return typeof e != "string" ||
         typeof t != "string" ||
-        ![n, r, o, a, i].every(ze)
+        ![n, r, o, a, i].every(ze) ||
+        (s != null && typeof s != "number")
         ? null
         : {
             emailAddress: r,
             id: e,
+            inviteExpiry: s,
             memberLID: a,
             memberTag: n,
             name: t,
             phoneNumber: o,
             secondaryMemberTag: i,
+            status: l,
           };
     }
     function ze(e) {

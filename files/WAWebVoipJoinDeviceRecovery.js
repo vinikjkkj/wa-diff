@@ -49,8 +49,7 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t == null || !A(t.getState()) || r("WAWebEnvironment").isWindows)
-            return S;
+          if (t == null || !A(t) || r("WAWebEnvironment").isWindows) return S;
           o("WAWebVoipBlockedMicrophoneJoinState").discardBlockedMicrophoneJoin(
             t.id,
           );
@@ -107,7 +106,7 @@ __d(
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
-            if (t == null || !A(t.getState())) return null;
+            if (t == null || !A(t)) return null;
             var l = yield (C || (C = n("Promise"))).all([
                 o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
                   "microphone",
@@ -259,9 +258,10 @@ __d(
       });
     }
     function A(e) {
+      var t = e.getState();
       return (
-        o("WAWebVoipCallStateUtils").isCallIncoming(e) ||
-        e === o("WAWebVoipWaCallEnums").CallState.Rejoining
+        o("WAWebVoipCallStateUtils").isCallIncomingForRole(t, e.outgoing) ||
+        t === o("WAWebVoipWaCallEnums").CallState.Rejoining
       );
     }
     function F(t, n, a) {

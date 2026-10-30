@@ -55,7 +55,7 @@ __d(
             d,
             p;
           ((this.$33 = function () {
-            r.$4 && (r.$4.next().done ? (r.$4 = null) : r.$5(r.$33));
+            r.$4 && (r.$4.next().done === !0 ? (r.$4 = null) : r.$5(r.$33));
           }),
             (this.$1 = 0),
             (this.$2 = 0),
@@ -476,7 +476,8 @@ __d(
             this.$4 || ((this.$4 = this.$32()), this.$5(this.$33));
           }),
           (r.__gc = function () {
-            if (this.$13 == null) for (var e = this.$32(); !e.next().done; );
+            if (this.$13 == null)
+              for (var e = this.$32(); e.next().done !== !0; );
           }),
           (r.$32 = function* () {
             if (!(this.$18 && this.$11 == null)) {

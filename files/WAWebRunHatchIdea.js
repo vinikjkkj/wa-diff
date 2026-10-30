@@ -2,6 +2,7 @@ __d(
   "WAWebRunHatchIdea",
   [
     "WALogger",
+    "WAWebHatchCvmReadOnlyState",
     "WAWebHatchFrontendGating",
     "WAWebHatchIdeaSelection",
     "WAWebSendHatchIdeaRunMsg",
@@ -19,6 +20,10 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (!o("WAWebHatchFrontendGating").isHatchIdeasEnabled())
             return { kind: "unavailable" };
+          if (
+            o("WAWebHatchCvmReadOnlyState").getHatchCvmReadOnlyReason() != null
+          )
+            return { kind: "read_only" };
           var r = o("WAWebHatchIdeaSelection").getHatchIdeaRunScope(t, n);
           if (r == null) return { kind: "unavailable" };
           var a = d(t.id, r);

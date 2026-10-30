@@ -127,6 +127,14 @@ __d(
           r("WAWebODS").incr("web.call.permission_button.refused");
           break e;
         }
+        if (e === "invalid_style") {
+          r("WAWebODS").incr("web.call.permission_button.invalid_style");
+          break e;
+        }
+        if (e === "clipped") {
+          r("WAWebODS").incr("web.call.permission_button.clipped");
+          break e;
+        }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             e,

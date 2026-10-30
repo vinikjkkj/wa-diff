@@ -23,7 +23,7 @@ __d(
               .toString()
           : null,
         e.emailText,
-        g(e.phoneText),
+        h(e.phoneText),
         e.memberTag,
         e.secondaryMemberTag,
       ]
@@ -185,29 +185,48 @@ __d(
     }
     function _(e) {
       var t = e.done,
-        n = e.total;
+        n = e.total,
+        o = e.type;
+      return o === "invites"
+        ? f(t, n)
+        : s._(
+            /*BTDS*/ '_j{"*":"Saving {number} changes \\u00b7 {saved count} of {change count}","_1":"Saving 1 change \\u00b7 {saved count} of {change count}"}',
+            [
+              s._plural(n, "number"),
+              s._param(
+                "saved count",
+                r("intlNumUtils").formatNumberWithThousandDelimiters(t, 0),
+              ),
+              s._param(
+                "change count",
+                r("intlNumUtils").formatNumberWithThousandDelimiters(n, 0),
+              ),
+            ],
+          );
+    }
+    function f(e, t) {
       return s._(
-        /*BTDS*/ '_j{"*":"Saving {number} changes \\u00b7 {saved count} of {change count}","_1":"Saving 1 change \\u00b7 {saved count} of {change count}"}',
+        /*BTDS*/ '_j{"*":"Sending {number} invites \\u00b7 {sent count} of {invite count}","_1":"Sending 1 invite \\u00b7 {sent count} of {invite count}"}',
         [
-          s._plural(n, "number"),
+          s._plural(t, "number"),
           s._param(
-            "saved count",
-            r("intlNumUtils").formatNumberWithThousandDelimiters(t, 0),
+            "sent count",
+            r("intlNumUtils").formatNumberWithThousandDelimiters(e, 0),
           ),
           s._param(
-            "change count",
-            r("intlNumUtils").formatNumberWithThousandDelimiters(n, 0),
+            "invite count",
+            r("intlNumUtils").formatNumberWithThousandDelimiters(t, 0),
           ),
         ],
       );
     }
-    function f(e) {
+    function g(e) {
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).normalizeOrgAdminRosterPhoneNumber(e);
       return t == null ? e : o("WAWebPhoneUtils").formatPhone(t);
     }
-    function g(e) {
+    function h(e) {
       var t = o(
         "WAWebOrgAdminGroupCandidate",
       ).normalizeOrgAdminRosterPhoneNumberInput(e);
@@ -220,7 +239,7 @@ __d(
       (l.getOrgAdminRosterUploadBlockerMessage = m),
       (l.getOrgAdminRosterUploadSuccessMessage = p),
       (l.getOrgAdminRosterUploadProgressLabel = _),
-      (l.formatOrgAdminRosterUploadPhone = f));
+      (l.formatOrgAdminRosterUploadPhone = g));
   },
   226,
 );

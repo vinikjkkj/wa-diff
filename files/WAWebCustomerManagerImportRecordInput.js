@@ -30,7 +30,9 @@ __d(
         firstName: e.firstName,
         lastName: e.lastName,
         leadStage: d(e),
-        lastOrder: c(e, "lastOrder"),
+        lastOrderDescription: o(
+          "WAWebCustomerManagerImportTemplateUtils",
+        ).readCustomerManagerImportColumn(e, "lastOrder"),
         note: o(
           "WAWebCustomerManagerImportTemplateUtils",
         ).readCustomerManagerImportColumn(e, "note"),

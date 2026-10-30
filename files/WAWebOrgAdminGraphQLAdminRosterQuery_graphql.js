@@ -121,6 +121,14 @@ __d(
                   name: "member_lid",
                   storageKey: null,
                 },
+                n,
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "invite_expiry",
+                  storageKey: null,
+                },
               ],
               storageKey: null,
             },
@@ -193,7 +201,7 @@ __d(
           ],
         },
         params: {
-          id: "27826500007026111",
+          id: "40493889943531509",
           metadata: {},
           name: "WAWebOrgAdminGraphQLAdminRosterQuery",
           operationKind: "query",

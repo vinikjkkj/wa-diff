@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBotBaseGating",
     "WAWebBotUtils",
+    "WAWebHatchCvmReadOnlyState",
     "WAWebHatchFrontendGating",
     "WAWebMobilePlatforms",
   ],
@@ -20,7 +21,13 @@ __d(
             ? !o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
             : !o("WAWebBotBaseGating").isBotEnabled();
     }
-    l.isBotChatUnavailable = e;
+    function s(e) {
+      return (
+        o("WAWebBotUtils").isHatchBot(e) &&
+        o("WAWebHatchCvmReadOnlyState").getHatchCvmReadOnlyReason() != null
+      );
+    }
+    ((l.isBotChatUnavailable = e), (l.isBotChatReadOnly = s));
   },
   98,
 );

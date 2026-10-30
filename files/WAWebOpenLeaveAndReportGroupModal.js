@@ -15,13 +15,13 @@ __d(
       o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
         ? o("WDSDialogBridge").openWDSDialog(
             s.jsx(r("WAWebLeaveAndReportGroupModalV2.react"), {
-              chat: e,
+              chatId: e,
               spamFlow: t,
             }),
           )
         : o("WAWebModalManager").ModalManager.open(
             s.jsx(r("WAWebLeaveAndReportGroupModal.react"), {
-              chat: e,
+              chatId: e,
               spamFlow: t,
             }),
             { transition: "modal-flow" },

@@ -5,9 +5,8 @@ __d(
     "WALogger",
     "WAWebBotUtils",
     "WAWebFindChatAction",
+    "WAWebHatchAccountSnapshot",
     "WAWebHatchIdeaExecutePayload",
-    "WAWebHatchIdeasIconAccount",
-    "WAWebHatchLinkedStatusManager",
     "WAWebHatchLogging",
     "WAWebL10N",
     "WAWebSendMsgResultAction",
@@ -32,7 +31,7 @@ __d(
               ),
             });
           if (i != null) {
-            var l = m();
+            var l = o("WAWebHatchAccountSnapshot").readHatchAccountSnapshot();
             if (l == null) {
               o("WALogger").WARN(
                 e ||
@@ -47,7 +46,12 @@ __d(
                 "hatchIdeasDrawer",
               ),
               c = s.chat;
-            if (!p(l, m())) {
+            if (
+              !o("WAWebHatchAccountSnapshot").isSameHatchAccount(
+                l,
+                o("WAWebHatchAccountSnapshot").readHatchAccountSnapshot(),
+              )
+            ) {
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -58,7 +62,7 @@ __d(
             }
             var d = yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
               c,
-              _(n.title),
+              m(n.title),
               { hatchRequest: i },
             );
             return (
@@ -72,29 +76,7 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m() {
-      try {
-        var e;
-        return r(
-          "WAWebHatchLinkedStatusManager",
-        ).getLastConfirmedLinkedStatusState() === "unlinked"
-          ? null
-          : {
-              owner: o("WAWebHatchIdeasIconAccount").readHatchIdeasOwnerToken(),
-              channel:
-                (e = r("WAWebHatchLinkedStatusManager").getLinkedStatus()) ==
-                null
-                  ? void 0
-                  : e.channelFbid,
-            };
-      } catch (e) {
-        return null;
-      }
-    }
-    function p(e, t) {
-      return t != null && t.owner === e.owner && t.channel === e.channel;
-    }
-    function _(e) {
+    function m(e) {
       var t = s._(/*BTDS*/ "Let's do it!").toString(),
         n = e
           .split(/\s*\n\s*/)

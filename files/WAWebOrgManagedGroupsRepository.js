@@ -16,7 +16,7 @@ __d(
       d = new Set(),
       m = new Map(),
       p = new Map(),
-      _ = O();
+      _ = F();
     function f() {
       return _;
     }
@@ -29,46 +29,46 @@ __d(
       );
     }
     function h(e) {
-      var t = U(e),
+      var t = q(e),
         n = p.get(t);
       return n != null
         ? n
-        : (I(e),
-          B(e, t, function () {
-            return E(e);
+        : (k(e),
+          O(e, t, function () {
+            return L(e);
           }));
     }
     function y(e, t) {
-      var n = V(e, t),
+      var n = U(e, t),
         r = p.get(n);
       return r != null
         ? r
-        : (x(e, t),
-          B(e, n, function () {
-            return T(e, t);
+        : (D(e, t),
+          O(e, n, function () {
+            return I(e, t);
           }));
     }
     function C(e, t) {
       return (
-        q(e),
-        W(e, function () {
+        W(e),
+        B(e, function () {
           return t({
             refreshGroupAfterMutation: function (n) {
-              return R(e, n);
+              return S(e, n);
             },
             refreshGroups: function () {
-              return E(e);
+              return L(e);
             },
           });
         })
       );
     }
     function b(e, t) {
-      var n = $(e);
+      var n = x(e);
       n.groups.some(function (e) {
         var n = e.gid;
         return n === t.gid;
-      }) || N(e, babelHelpers.extends({}, n, { groups: [t].concat(n.groups) }));
+      }) || P(e, babelHelpers.extends({}, n, { groups: [t].concat(n.groups) }));
     }
     function v(e, t, n, r) {
       var o,
@@ -91,32 +91,29 @@ __d(
       if (l.length > 0) i.set(t, l);
       else if (!i.delete(t)) return;
       var s = new Map(_.emailInviteNotSentByOrgID);
-      (s.set(e, i), A({ emailInviteNotSentByOrgID: s }));
+      (s.set(e, i), w({ emailInviteNotSentByOrgID: s }));
     }
-    function S() {
-      ((m = new Map()), (p = new Map()), (_ = O()), F());
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (u || (u = n("Promise"))).all([E(e), T(e, t)]);
-          var r = P(e, t);
-          r.status === "ready" && r.group != null && w(e, r.group);
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield (u || (u = n("Promise"))).all([L(e), I(e, t)]);
+          var r = $(e, t);
+          r.status === "ready" && r.group != null && M(e, r.group);
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = $(t);
-          N(t, {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = x(t);
+          P(t, {
             error: null,
             groups: n.groups,
             status: n.groups.length === 0 ? "loading" : "refreshing",
@@ -125,9 +122,9 @@ __d(
             var a = yield o(
               "WAWebOrgManagedGroupListAdapter",
             ).loadOrgManagedGroupList(t);
-            N(t, { error: null, groups: a, status: "ready" });
+            P(t, { error: null, groups: a, status: "ready" });
           } catch (n) {
-            var i = $(t),
+            var i = x(t),
               l = r("getErrorSafe")(n);
             (o("WALogger")
               .ERROR(
@@ -138,28 +135,28 @@ __d(
               )
               .catching(l)
               .sendLogs("org-managed-groups-list-refresh-failed"),
-              N(t, { error: l, groups: i.groups, status: "error" }));
+              P(t, { error: l, groups: i.groups, status: "error" }));
           }
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e) {
-      var t = $(e);
-      N(e, {
+    function k(e) {
+      var t = x(e);
+      P(e, {
         error: null,
         groups: t.groups,
         status: t.groups.length === 0 ? "loading" : "refreshing",
       });
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = P(e, t);
-          M(e, t, {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = $(e, t);
+          N(e, t, {
             error: null,
             group: n.group,
             status: n.group == null ? "loading" : "refreshing",
@@ -168,9 +165,9 @@ __d(
             var a = yield o(
               "WAWebOrgManagedGroupDetailAdapter",
             ).loadOrgManagedGroupDetail(e, t);
-            M(e, t, { error: null, group: a, status: "ready" });
+            N(e, t, { error: null, group: a, status: "ready" });
           } catch (n) {
-            var i = P(e, t),
+            var i = $(e, t),
               l = r("getErrorSafe")(n);
             (o("WALogger")
               .ERROR(
@@ -181,50 +178,50 @@ __d(
               )
               .catching(l)
               .sendLogs("org-managed-group-detail-refresh-failed"),
-              M(e, t, { error: l, group: i.group, status: "error" }));
+              N(e, t, { error: l, group: i.group, status: "error" }));
           }
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function x(e, t) {
-      var n = P(e, t);
-      M(e, t, {
+    function D(e, t) {
+      var n = $(e, t);
+      N(e, t, {
         error: null,
         group: n.group,
         status: n.group == null ? "loading" : "refreshing",
       });
     }
-    function $(e) {
+    function x(e) {
       var t;
       return (t = _.listStateByOrgID.get(e)) != null
         ? t
         : { error: null, groups: c, status: "idle" };
     }
-    function P(e, t) {
+    function $(e, t) {
       var n, r;
       return (n =
         (r = _.detailStateByOrgID.get(e)) == null ? void 0 : r.get(t)) != null
         ? n
         : { error: null, group: null, status: "idle" };
     }
-    function N(e, t) {
+    function P(e, t) {
       var n = new Map(_.listStateByOrgID);
-      (n.set(e, t), A({ listStateByOrgID: n }));
+      (n.set(e, t), w({ listStateByOrgID: n }));
     }
-    function M(e, t, n) {
+    function N(e, t, n) {
       var r,
         o = new Map(_.detailStateByOrgID),
         a = new Map((r = o.get(e)) != null ? r : []);
-      (a.set(t, n), o.set(e, a), A({ detailStateByOrgID: o }));
+      (a.set(t, n), o.set(e, a), w({ detailStateByOrgID: o }));
     }
-    function w(e, t) {
-      var n = $(e),
+    function M(e, t) {
+      var n = x(e),
         r = n.groups.findIndex(function (e) {
           return e.gid === t.gid;
         });
       r !== -1 &&
-        N(
+        P(
           e,
           babelHelpers.extends({}, n, {
             groups: n.groups.map(function (e, n) {
@@ -233,30 +230,30 @@ __d(
           }),
         );
     }
-    function A(e) {
-      ((_ = babelHelpers.extends({}, _, e)), F());
+    function w(e) {
+      ((_ = babelHelpers.extends({}, _, e)), A());
     }
-    function F() {
+    function A() {
       d.forEach(function (e) {
         return e();
       });
     }
-    function O() {
+    function F() {
       return {
         detailStateByOrgID: new Map(),
         emailInviteNotSentByOrgID: new Map(),
         listStateByOrgID: new Map(),
       };
     }
-    function B(e, t, n) {
+    function O(e, t, n) {
       var r = p.get(t);
       if (r != null) return r;
-      var o = W(e, n).finally(function () {
+      var o = B(e, n).finally(function () {
         p.get(t) === o && p.delete(t);
       });
       return (p.set(t, o), o);
     }
-    function W(e, t) {
+    function B(e, t) {
       var n = m.get(e),
         r = n == null ? t() : n.then(t),
         o = r
@@ -269,17 +266,17 @@ __d(
           });
       return (m.set(e, o), r);
     }
-    function q(e) {
-      p.delete(U(e));
+    function W(e) {
+      p.delete(q(e));
       var t = "detail\0" + e + "\0";
       p.forEach(function (e, n) {
         n.startsWith(t) && p.delete(n);
       });
     }
-    function U(e) {
+    function q(e) {
       return "list\0" + e;
     }
-    function V(e, t) {
+    function U(e, t) {
       return "detail\0" + e + "\0" + t;
     }
     ((l.getOrgManagedGroupsRepositorySnapshot = f),
@@ -288,8 +285,7 @@ __d(
       (l.refreshOrgManagedGroup = y),
       (l.runOrgManagedGroupsMutation = C),
       (l.addOrgManagedGroupPreview = b),
-      (l.recordOrgManagedGroupEmailInvites = v),
-      (l.resetOrgManagedGroupsRepository = S));
+      (l.recordOrgManagedGroupEmailInvites = v));
   },
   98,
 );

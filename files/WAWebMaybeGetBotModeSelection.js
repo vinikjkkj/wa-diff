@@ -31,21 +31,18 @@ __d(
     function m() {
       return e;
     }
-    function p() {
-      e != null && ((e = null), u());
+    var p = [0],
+      _ = null;
+    function f(e) {
+      ((_ = e), u());
     }
-    var _ = [0],
-      f = null;
-    function g(e) {
-      ((f = e), u());
+    function g() {
+      return _;
     }
     function h() {
-      return f;
+      _ != null && ((_ = null), u());
     }
-    function y() {
-      f != null && ((f = null), u());
-    }
-    function C(e, t) {
+    function y(e, t) {
       if (t != null) {
         var n,
           r = (n = e.aiThreads) == null ? void 0 : n.get(t);
@@ -53,12 +50,12 @@ __d(
           return r.botModeSelection;
       }
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = t.to;
       if (o("WAWebBotUtils").isMetaAiBot(n)) {
         var r = o("WAWebThreadMsgUtils").getMsgAiThread(t);
         if (r != null) {
-          var a = C(e, r);
+          var a = y(e, r);
           if (a !== void 0) return a;
         }
         var i = m();
@@ -67,7 +64,7 @@ __d(
           : [o("WAWebBotModeSelectionTypes").BotUserSelectionMode.Default];
       }
     }
-    function v(e, t) {
+    function b(e, t) {
       var n,
         r = t.to;
       if (
@@ -88,20 +85,19 @@ __d(
             if ((s == null ? void 0 : s.botModeOverride) != null)
               return s.botModeOverride;
           }
-          var u = h();
-          return u != null ? u : _;
+          var u = g();
+          return u != null ? u : p;
         }
       }
     }
     ((l.subscribeToBotModeSelection = c),
       (l.storeInMemoryBotMode = d),
       (l.getInMemoryBotMode = m),
-      (l.clearInMemoryBotMode = p),
-      (l.storeInMemoryBotModeOverride = g),
-      (l.getInMemoryBotModeOverride = h),
-      (l.clearInMemoryBotModeOverride = y),
-      (l.maybeGetBotModeSelection = b),
-      (l.maybeGetBotDynamicModeSelection = v));
+      (l.storeInMemoryBotModeOverride = f),
+      (l.getInMemoryBotModeOverride = g),
+      (l.clearInMemoryBotModeOverride = h),
+      (l.maybeGetBotModeSelection = C),
+      (l.maybeGetBotDynamicModeSelection = b));
   },
   98,
 );

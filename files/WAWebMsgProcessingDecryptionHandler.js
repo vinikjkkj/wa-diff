@@ -545,8 +545,7 @@ __d(
                 ])),
               C.e2eType,
             )
-            .tags("messaging")
-            .sendLogs("handleMsg: orphan bot message deferred");
+            .tags("messaging");
           break;
         }
         case S.BotMsgMissingSecret: {

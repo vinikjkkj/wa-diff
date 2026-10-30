@@ -123,9 +123,7 @@ __d(
             chatJid: a,
             customFieldValues: R(n.custom_field_values),
             email: n.email,
-            lastOrder: o(
-              "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toOptionalUnixTime(n.last_order_date),
+            lastOrderDescription: n.last_order,
             leadStage: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toLeadStageType(n.lead_stage),

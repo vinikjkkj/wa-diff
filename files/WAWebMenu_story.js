@@ -144,38 +144,6 @@ __d(
         {
           example: function () {
             var e;
-            return s.jsx(o("WAWebMenu.react").WAWebMenu, {
-              children: s.jsx((e = o("WAWebMenuItems.react")).SubMenuItem, {
-                optionId: "switch",
-                primary: "Submenu",
-                children: s.jsxs(e.SelectMenuItemGroup, {
-                  multiselect: !0,
-                  initialSelection: ["2", "3"],
-                  children: [
-                    s.jsx(e.SelectMenuItem, {
-                      optionId: "1",
-                      primary: "Multi choice 1",
-                    }),
-                    s.jsx(e.SelectMenuItem, {
-                      optionId: "2",
-                      primary: "Multi choice 2",
-                    }),
-                    s.jsx(e.SelectMenuItem, {
-                      optionId: "3",
-                      primary: "Multi choice 3",
-                    }),
-                  ],
-                }),
-              }),
-            });
-          },
-          title: "SubMenuItem",
-          description: "TODO",
-          templateStyle: u,
-        },
-        {
-          example: function () {
-            var e;
             return s.jsxs(o("WAWebMenu.react").WAWebMenu, {
               children: [
                 s.jsx((e = o("WAWebMenuItems.react")).MenuSearchInput, {
@@ -268,72 +236,6 @@ __d(
                 s.jsx(e.SwitchMenuItem, {
                   optionId: "switch-2",
                   primary: "Switch 2",
-                }),
-                s.jsxs(e.SubMenuItem, {
-                  optionId: "submenu",
-                  primary: "Submenu",
-                  children: [
-                    s.jsx(e.ActionMenuItem, {
-                      optionId: "sa-1",
-                      primary: "Action 1",
-                      onSelect: c,
-                    }),
-                    s.jsx(e.SwitchMenuItem, {
-                      optionId: "ss-1",
-                      primary: "Switch 1",
-                    }),
-                    s.jsxs(e.SelectMenuItemGroup, {
-                      multiselect: !0,
-                      initialSelection: ["sm-2", "sm-3"],
-                      children: [
-                        s.jsx(e.SelectMenuItem, {
-                          optionId: "sm-1",
-                          primary: "Multi choice 1",
-                        }),
-                        s.jsx(e.SelectMenuItem, {
-                          optionId: "sm-2",
-                          primary: "Multi choice 2",
-                        }),
-                        s.jsx(e.SelectMenuItem, {
-                          optionId: "sm-3",
-                          primary: "Multi choice 3",
-                        }),
-                      ],
-                    }),
-                    s.jsxs(e.SubMenuItem, {
-                      optionId: "sub-submenu",
-                      primary: "Submenu",
-                      children: [
-                        s.jsx(e.ActionMenuItem, {
-                          optionId: "ssa-1",
-                          primary: "Action 1",
-                          onSelect: c,
-                        }),
-                        s.jsx(e.SwitchMenuItem, {
-                          optionId: "sss-1",
-                          primary: "Switch 1",
-                        }),
-                        s.jsxs(e.SelectMenuItemGroup, {
-                          multiselect: !0,
-                          initialSelection: ["ssm-2", "ssm-3"],
-                          children: [
-                            s.jsx(e.SelectMenuItem, {
-                              optionId: "ssm-1",
-                              primary: "choice 1",
-                            }),
-                            s.jsx(e.SelectMenuItem, {
-                              optionId: "ssm-2",
-                              primary: "choice 2",
-                            }),
-                            s.jsx(e.SelectMenuItem, {
-                              optionId: "ssm-3",
-                              primary: "choice 3",
-                            }),
-                          ],
-                        }),
-                      ],
-                    }),
-                  ],
                 }),
               ],
             });

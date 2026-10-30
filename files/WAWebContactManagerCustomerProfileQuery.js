@@ -83,6 +83,7 @@ __d(
               l.dob,
             ),
             birthdayIso: l.dob,
+            confirmedAppointmentDate: l.confirmed_appointment_date,
             etag: u,
             email: l.email,
             fieldUpdates: o(
@@ -95,9 +96,7 @@ __d(
                 return { fieldName: t, source: n != null ? n : null, ts: r };
               }),
             ),
-            lastOrder: o(
-              "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toOptionalUnixTime(l.last_order_date),
+            lastOrderDescription: l.last_order,
             leadStage: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toLeadStageType(l.lead_stage),

@@ -94,7 +94,8 @@ __d(
         id: "lastOrder",
         header: e.FBT_LAST_ORDER,
         getValue: function (t) {
-          return t.lastOrder == null ? "" : u(t.lastOrder);
+          var e;
+          return (e = t.lastOrderDescription) != null ? e : "";
         },
       },
       {

@@ -100,6 +100,7 @@ __d(
                   eventType: o("WAWebWamEnumDisclosureEventType")
                     .DISCLOSURE_EVENT_TYPE.BODY_URL_CLICK,
                   chat: t,
+                  msg: n,
                   onOk: function () {
                     var e = o(
                         "WAWebMmSignalSharingModelUtils",
@@ -235,10 +236,11 @@ __d(
       var t = e.action,
         n = e.chat,
         r = e.eventType,
-        a = e.onCancel,
-        i = e.onDismissed,
-        l = e.onLearnMore,
-        s = e.onOk;
+        a = e.msg,
+        i = e.onCancel,
+        l = e.onDismissed,
+        s = e.onLearnMore,
+        c = e.onOk;
       o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingDisclosureEnabled() &&
@@ -250,10 +252,11 @@ __d(
               action: t,
               eventType: r,
               chat: n,
-              onOk: s,
-              onCancel: a,
-              onDismissed: i,
-              onLearnMore: l,
+              msg: a,
+              onOk: c,
+              onCancel: i,
+              onDismissed: l,
+              onLearnMore: s,
             },
           ),
         );

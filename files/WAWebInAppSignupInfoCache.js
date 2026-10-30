@@ -19,14 +19,10 @@ __d(
     function c(t) {
       for (var n of t) e.set(n.id, n);
     }
-    function d() {
-      e.clear();
-    }
     ((i.getInAppSignupInfo = l),
       (i.buildMergedInAppSignupInfoRow = s),
       (i.setInAppSignupInfo = u),
-      (i.primeInAppSignupInfoCache = c),
-      (i.clearInAppSignupInfoCache = d));
+      (i.primeInAppSignupInfoCache = c));
   },
   66,
 );

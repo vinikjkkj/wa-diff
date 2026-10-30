@@ -42,10 +42,9 @@ __d(
     function v() {
       return s
         ._(
-          /*BTDS*/ "For {Birthday column header} and {Last order column header}, use {recommended date format} (recommended). {month-first date format} (slashes) is month-first; {day-first date format} (hyphens) is day-first.",
+          /*BTDS*/ "For {Birthday column header}, use {recommended date format} (recommended). {month-first date format} (slashes) is month-first; {day-first date format} (hyphens) is day-first.",
           [
             s._param("Birthday column header", g),
-            s._param("Last order column header", h),
             s._param(
               "recommended date format",
               o("WAWebCustomerManagerImportDateParsingUtils")
@@ -170,7 +169,7 @@ __d(
         ),
         "Met at the trade show",
         "04/15/1990",
-        "2025-06-01",
+        "Two pizzas on Oct 3",
       ].join(","),
       k = [
         o("WAWebContactImportTemplateParsingUtils").FBT_NAME,

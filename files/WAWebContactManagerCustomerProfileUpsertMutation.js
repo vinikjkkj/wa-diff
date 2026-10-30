@@ -59,7 +59,7 @@ __d(
             throw r("err")(
               "[CustomerManager] customer profile import: duplicate LID",
             );
-          var a = yield I(t);
+          var a = yield k(t);
           if (
             (a == null ? void 0 : a.profiles) == null ||
             a.conflicts == null ||
@@ -112,7 +112,7 @@ __d(
             throw r("err")(
               "[CustomerManager] customer profile patch requires an etag",
             );
-          return L([
+          return R([
             babelHelpers.extends(
               {},
               o(
@@ -137,7 +137,7 @@ __d(
               yield C(e[0].chatJid, e[0].profile, t);
               return;
             }
-            var n = yield L(
+            var n = yield R(
               e.map(function (e) {
                 var t = e.chatJid,
                   n = e.profile;
@@ -172,7 +172,7 @@ __d(
             var i, l;
             if (
               (a === void 0 && (a = 1),
-              !(yield L([
+              !(yield R([
                 o(
                   "WAWebContactManagerCustomerProfileUpsertInput",
                 ).buildUpsertInput(
@@ -214,7 +214,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield L([
+          yield R([
             o(
               "WAWebContactManagerCustomerProfileUpsertInput",
             ).buildFieldUpdateInput(e, t),
@@ -224,26 +224,20 @@ __d(
       );
     }
     function R(e) {
-      if (e === 0)
-        throw r("err")(
-          "[CustomerManager] customer profile last order date cannot be Unix epoch zero",
-        );
+      return L.apply(this, arguments);
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
-            i = yield I(e),
+            i = yield k(e),
             l = e.length === 1 ? e[0] : null;
           if (
             l != null &&
             l.if_match != null &&
-            !k(
+            !E(
               i == null ? void 0 : i.profiles,
               i == null ? void 0 : i.conflicts,
               l.lid,
@@ -287,10 +281,10 @@ __d(
             !0
           );
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
+    function E(e, t, n) {
       var r;
       if (e == null || t == null) return !1;
       var o = (r = e[0]) != null ? r : t[0];
@@ -298,15 +292,12 @@ __d(
         e.length + t.length === 1 && (o == null ? void 0 : o.lid_jid) === n
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e.forEach(function (e) {
-            R(e.last_order_date);
-          });
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (t.type !== "success")
             throw r("err")(
@@ -334,15 +325,14 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
     ((l.upsertCustomerProfileToServer = c),
       (l.createCustomerProfilesIfAbsent = m),
       (l.updateCustomerProfileIfUnchanged = _),
       (l.upsertCustomerProfilesToServer = g),
-      (l.upsertCustomerProfileFieldToServer = v),
-      (l.assertPersistableLastOrderDate = R));
+      (l.upsertCustomerProfileFieldToServer = v));
   },
   98,
 );

@@ -46,7 +46,7 @@ __d(
       return {
         nextBackoffMs: function () {
           var e = n.next();
-          return e.done ? null : e.value;
+          return e.done === !0 ? null : e.value;
         },
         reset: function () {
           n = o("WAExponentialBackoffIterator").exponentialBackoffIterator(t);
