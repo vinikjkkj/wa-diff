@@ -1,6 +1,6 @@
 __d(
   "WAWebMusicGatingUtils",
-  ["WAWebABProps"],
+  ["WAWebABProps", "WAWebBizAiHomeChat"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -24,27 +24,44 @@ __d(
     function d() {
       return !1;
     }
-    function m() {
+    function m(e) {
+      return p(e)
+        ? _() &&
+            o("WAWebABProps").getABPropConfigValue(
+              "music_on_chats_standalone_producer_enabled",
+            )
+        : !1;
+    }
+    function p(e) {
+      return (
+        e.isGroup() ||
+        (e.isRegularUser() &&
+          !e.isHosted() &&
+          !o("WAWebBizAiHomeChat").isBizAiHomeChat(e))
+      );
+    }
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "music_on_chats_standalone_receiver_enabled",
       );
     }
-    function p() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "music_on_chats_geogating_enabled",
       );
     }
-    var _ = 6e4,
-      f = 600;
+    var g = 6e4,
+      h = 600;
     ((l.isStatusMusicReceiverEnabled = e),
       (l.isStatusMusicSaveToDiskEnabled = s),
       (l.isStatusMusicReceiverEnabledForNewsletter = u),
       (l.isNewsletterStatusMusicConsumptionEnabled = c),
       (l.isMusicOnChatsForwardingEnabled = d),
-      (l.isMusicOnChatsReceiverEnabled = m),
-      (l.isMusicOnChatsGeogatingEnabled = p),
-      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = _),
-      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = f));
+      (l.canSendMusicTo = m),
+      (l.isMusicOnChatsReceiverEnabled = _),
+      (l.isMusicOnChatsGeogatingEnabled = f),
+      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = g),
+      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = h));
   },
   98,
 );

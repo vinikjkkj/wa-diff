@@ -9,7 +9,6 @@ __d(
     "WAWebChatThemeGatingUtils",
     "WAWebChatlistAppearanceSettingsGating",
     "WAWebCommonCTWADataSharing",
-    "WAWebCurrentUser",
     "WAWebListsGatingUtils",
     "WAWebMediaGatingUtils",
     "WAWebPaymentsGatingUtils",
@@ -775,7 +774,7 @@ __d(
             id: "download_logs",
             isAvailable: function () {
               return (
-                o("WAWebCurrentUser").isEmployee() ||
+                r("gkx")("9092") ||
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_web_log_download",
                 )

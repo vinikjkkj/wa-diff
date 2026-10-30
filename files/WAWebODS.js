@@ -19,6 +19,13 @@ __d(
             }),
           );
         },
+        flush: function () {
+          r("promiseDone")(
+            e.load().then(function (e) {
+              e.flush();
+            }),
+          );
+        },
       };
     l.default = s;
   },

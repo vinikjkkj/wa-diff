@@ -20,7 +20,10 @@ __d(
       var r, a, i;
       if (
         t.type !== o("WAWebMsgType").MSG_TYPE.IMAGE ||
-        n.associationType != null ||
+        (n.associationType != null &&
+          n.associationType !==
+            o("WAWebMessageAssociation.flow").MessageAssociationType
+              .MEDIA_ALBUM) ||
         n.isViewOnce === !0 ||
         t.quality !== o("WAWebAttachMediaModel").MediaQuality.HD ||
         !t.hdEligible ||

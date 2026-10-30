@@ -14,6 +14,9 @@ __d(
             (e || (e = o("ODS"))).bumpEntityKey(2363, s, n, a),
             r("WAWebODSObserver").emit("event", { count: a, key: n }));
         },
+        flush: function () {
+          (e || (e = o("ODS"))).flush("critical");
+        },
       },
       c = u;
     l.default = c;

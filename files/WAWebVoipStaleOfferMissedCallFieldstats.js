@@ -1,11 +1,13 @@
 __d(
   "WAWebVoipStaleOfferMissedCallFieldstats",
   [
+    "Promise",
     "WALogger",
     "WARandomHex",
     "WAWebBackendApi",
     "WAWebCallWamEvent",
     "WAWebPonyfillsIdleCallback",
+    "WAWebVoipClosedTabCallRingFields",
     "WAWebWamEnumCallResultType",
     "WAWebWamEnumCallSide",
     "WAWebWamEnumCallTermReason",
@@ -18,11 +20,12 @@ __d(
     var e,
       s,
       u,
-      c = 16,
-      d = 1e3,
-      m = 27,
-      p = 127,
-      _ = new Set([
+      c,
+      d = 16,
+      m = 1e3,
+      p = 27,
+      _ = 127,
+      f = new Set([
         "android",
         "capi",
         "ios_tablet",
@@ -41,33 +44,33 @@ __d(
         "windows_electron",
         "wp",
       ]),
-      f = new Map([
+      g = new Map([
         [
           "accepted_elsewhere",
-          (u = o("WAWebWamEnumCallTermReason")).CALL_TERM_REASON
+          (c = o("WAWebWamEnumCallTermReason")).CALL_TERM_REASON
             .ACCEPTED_ELSEWHERE,
         ],
-        ["call_is_full", u.CALL_TERM_REASON.CALL_IS_FULL],
-        ["device_switch", u.CALL_TERM_REASON.DEVICE_SWITCH],
-        ["group_call_ended", u.CALL_TERM_REASON.GROUP_CALL_ENDED],
-        ["heartbeat", u.CALL_TERM_REASON.HEARTBEAT_TERMINATE],
-        ["media_rx_timeout", u.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
-        ["media_tx_timeout", u.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
-        ["rejected_elsewhere", u.CALL_TERM_REASON.REJECTED_ELSEWHERE],
-        ["relay_bind_failed", u.CALL_TERM_REASON.RELAY_BIND_FAILED],
-        ["screened_elsewhere", u.CALL_TERM_REASON.ACCEPTED_ELSEWHERE],
-        ["setup_failed", u.CALL_TERM_REASON.SETUP_FAILED],
-        ["timeout", u.CALL_TERM_REASON.RINGING_TIMEOUT],
-        ["user_invisible", u.CALL_TERM_REASON.USER_INVISIBLE],
-        ["user_removed", u.CALL_TERM_REASON.USER_REMOVED],
+        ["call_is_full", c.CALL_TERM_REASON.CALL_IS_FULL],
+        ["device_switch", c.CALL_TERM_REASON.DEVICE_SWITCH],
+        ["group_call_ended", c.CALL_TERM_REASON.GROUP_CALL_ENDED],
+        ["heartbeat", c.CALL_TERM_REASON.HEARTBEAT_TERMINATE],
+        ["media_rx_timeout", c.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
+        ["media_tx_timeout", c.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
+        ["rejected_elsewhere", c.CALL_TERM_REASON.REJECTED_ELSEWHERE],
+        ["relay_bind_failed", c.CALL_TERM_REASON.RELAY_BIND_FAILED],
+        ["screened_elsewhere", c.CALL_TERM_REASON.ACCEPTED_ELSEWHERE],
+        ["setup_failed", c.CALL_TERM_REASON.SETUP_FAILED],
+        ["timeout", c.CALL_TERM_REASON.RINGING_TIMEOUT],
+        ["user_invisible", c.CALL_TERM_REASON.USER_INVISIBLE],
+        ["user_removed", c.CALL_TERM_REASON.USER_REMOVED],
       ]);
-    function g(t, n, a) {
+    function h(t, n, a) {
       if (n.hasChild("uploadfieldstat")) {
         var i = !1,
           l = function () {
             i ||
               ((i = !0),
-              y(t, n, a).catch(function (t) {
+              C(t, n, a).catch(function (t) {
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -87,50 +90,57 @@ __d(
               }));
           };
         (o("WAWebPonyfillsIdleCallback").requestIdleCallback(l),
-          self.setTimeout(l, d));
+          self.setTimeout(l, m));
       }
     }
-    function h(e, t, n, r) {
+    function y(e, t, n, r) {
       return t === "terminate"
-        ? k(e, n, r)
+        ? I(e, n, r)
         : t === "accept"
-          ? I(
+          ? T(
               e,
               o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
                 .ACCEPTED_ELSEWHERE,
             )
           : t === "reject"
-            ? I(
+            ? T(
                 e,
                 o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
                   .REJECTED_ELSEWHERE,
               )
             : e;
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function C(e, t, n) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebBackendApi").frontendSendAndReceive(
-              "getUnifiedSessionId",
-            ),
-            a = b(e, n());
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = yield (u || (u = n("Promise"))).all([
+              o("WAWebBackendApi").frontendSendAndReceive(
+                "getUnifiedSessionId",
+              ),
+              o("WAWebVoipClosedTabCallRingFields").takeClosedTabCallRingFields(
+                e.call_id,
+              ),
+            ]),
+            i = a[0],
+            l = a[1],
+            c = v(e, r());
           (new (o("WAWebCallWamEvent").CallWamEvent)(
             babelHelpers.extends(
               {
                 callOfferElapsedT: e.e,
-                callPeerAppVersion: e.peer_app_version.slice(0, m),
-                callPeerPlatform: _.has(e.peer_platform)
+                callPeerAppVersion: e.peer_app_version.slice(0, p),
+                callPeerPlatform: f.has(e.peer_platform)
                   ? e.peer_platform
                   : "unknown",
-                callRandomId: o("WARandomHex").randomHex(c).toLowerCase(),
+                callRandomId: o("WARandomHex").randomHex(d).toLowerCase(),
                 callReplayerId: "",
-                callResult: S(a),
+                callResult: R(c),
                 callSide: o("WAWebWamEnumCallSide").CALL_SIDE.CALLEE,
-                callTermReason: a,
-                callTestBucket: R(t),
+                callTermReason: c,
+                callTestBucket: L(t),
                 callWakeupSource: o("WAWebWamEnumCallWakeupSource")
                   .CALL_WAKEUP_SOURCE.NONE,
                 fieldStatsRowType: o("WAWebWamEnumFieldStatsRowType")
@@ -138,7 +148,8 @@ __d(
                 isLidCall: e.call_creator.isLid() ? !0 : null,
                 videoEnabled: e.isVideoCall === !0,
               },
-              r == null ? null : { unifiedSessionId: r },
+              i == null ? null : { unifiedSessionId: i },
+              l,
             ),
           ).commit(),
             o("WALogger").LOG(
@@ -148,27 +159,27 @@ __d(
                 ])),
             ));
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       var n,
         r = t == null ? void 0 : t.terminated;
       return r != null
         ? r
         : e.is_call_ended === !0
-          ? v(e.terminate_reason)
+          ? S(e.terminate_reason)
           : (n = t == null ? void 0 : t.answered) != null
             ? n
             : o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.RINGING_TIMEOUT;
     }
-    function v(e) {
+    function S(e) {
       var t;
-      return (t = f.get(e != null ? e : "")) != null
+      return (t = g.get(e != null ? e : "")) != null
         ? t
         : o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ENDED_BY_PEER;
     }
-    function S(e) {
+    function R(e) {
       return e ===
         o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ACCEPTED_ELSEWHERE ||
         e === o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.DEVICE_SWITCH
@@ -178,40 +189,40 @@ __d(
           ? o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.REJECTED_ELSEWHERE
           : o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.MISSED_NO_RECEIPT;
     }
-    function R(e) {
+    function L(e) {
       try {
         var t = e.maybeChild("voip_settings");
         if (t == null) return "";
-        var n = E(JSON.parse(L(t)));
-        return n == null ? "" : n.slice(0, p);
+        var n = k(JSON.parse(E(t)));
+        return n == null ? "" : n.slice(0, _);
       } catch (e) {
         return "";
       }
     }
-    function L(e) {
+    function E(e) {
       var t = e.contentBytes();
       return t instanceof Uint8Array ? new TextDecoder().decode(t) : String(t);
     }
-    function E(e) {
+    function k(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.test;
       if (t == null || typeof t != "object") return null;
       var n = t.name;
       return typeof n == "string" ? n : null;
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       return e.terminated != null || n.maybeAttrString("joinable") === "1"
         ? e
-        : babelHelpers.extends({}, e, { terminated: v(t.terminate_reason) });
+        : babelHelpers.extends({}, e, { terminated: S(t.terminate_reason) });
     }
-    function I(e, t) {
+    function T(e, t) {
       return e.answered == null
         ? babelHelpers.extends({}, e, { answered: t })
         : e;
     }
-    ((l.logStaleOfferMissedCallFieldstats = g),
-      (l.applyFollowUpStanza = h),
-      (l.getStaleOfferCallTermReason = b));
+    ((l.logStaleOfferMissedCallFieldstats = h),
+      (l.applyFollowUpStanza = y),
+      (l.getStaleOfferCallTermReason = v));
   },
   98,
 );

@@ -19,7 +19,7 @@ __d(
           )
             .__setRef("WAWebQuestionsInputModalLoadable")
             .load();
-          return e.QuestionsInputModal;
+          return e;
         }),
         "QuestionsInputModal",
       ),

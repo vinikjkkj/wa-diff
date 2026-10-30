@@ -136,7 +136,6 @@ __d(
       );
     }
     ((l.getAppointmentLocationLabel = e),
-      (l.getBookingLocationLabel = u),
       (l.getBookingLocationPresentation = c),
       (l.getBookingTitle = d),
       (l.formatAppointmentDuration = m),

@@ -33,21 +33,21 @@ __d(
         transition: s.SMB_USER_ACTION_TYPE_ENUM.VIEW,
       };
     function p(e) {
-      I(
+      T(
         "smart_composer",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_chat_ai_eligible: e, variant: c },
       );
     }
     function _() {
-      I(
+      T(
         "mode_switching_bottom_sheet",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { variant: c },
       );
     }
     function f(e) {
-      I(
+      T(
         e,
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_companion: !0 },
@@ -55,7 +55,16 @@ __d(
           .GEN_AI_AGENT_SMART_COMPOSER_HANDOFF_CARD,
       );
     }
-    function g(e) {
+    function g() {
+      T(
+        "subscribe",
+        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        { is_companion: !0 },
+        o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_AGENT_SMART_COMPOSER_HANDOFF_CARD,
+      );
+    }
+    function h(e) {
       var t = e.cardStatus,
         n = e.cardType,
         r = e.errorCode,
@@ -68,14 +77,14 @@ __d(
           (l.error_code = o(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(r)),
-        I(
+        T(
           "suggested_reply_card_dismissed",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .DISMISS,
           l,
         ));
     }
-    function h(e) {
+    function y(e) {
       var t = e.action,
         n = e.cardStatus,
         r = e.cardType,
@@ -91,42 +100,42 @@ __d(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(l)),
         i != null && (u.edit_distance_ratio = i),
-        I("suggested_reply_card_funnel", m[t], u));
+        T("suggested_reply_card_funnel", m[t], u));
     }
-    function y(e) {
-      I(
+    function C(e) {
+      T(
         "suggested_reply_metering_gql_response",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { success: e },
       );
     }
-    function C(e, t, n) {
-      I(
+    function b(e, t, n) {
+      T(
         "suggested_reply_card_view",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { card_state: "success", is_from_cache: t, trigger: e, card_type: n },
       );
     }
-    function b(e) {
-      I(
+    function v(e) {
+      T(
         "suggested_reply_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { trigger: e },
       );
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = { trigger: e };
       (t != null &&
         (n.error_code = o(
           "WAWebBizAiSmartComposerErrorMapping",
         ).getSuggestedReplyErrorWireValue(t)),
-        I(
+        T(
           "suggested_reply_received",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
           n,
         ));
     }
-    function S(e, t, n) {
+    function R(e, t, n) {
       var r = {
         card_type: t,
         suggestion_word_count: n.suggestionWordCount,
@@ -136,21 +145,21 @@ __d(
       (n.editDistance != null && (r.edit_distance = n.editDistance),
         n.editDistanceRatio != null &&
           (r.edit_distance_ratio = n.editDistanceRatio),
-        I(
+        T(
           "suggested_reply_send",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .CLICK,
           r,
         ));
     }
-    function R() {
-      I(
+    function L() {
+      T(
         "submit_coaching_response_start",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
       );
     }
-    function L(e) {
-      I(
+    function E(e) {
+      T(
         "submit_coaching_response_result",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         e === "success"
@@ -158,25 +167,25 @@ __d(
           : { error: e, result: "failure" },
       );
     }
-    function E(e, t) {
-      I(
+    function k(e, t) {
+      T(
         "suggested_reply_card_tapped",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { card_type: t, trigger: e },
       );
     }
-    function k(e) {
+    function I(e) {
       var t = e.from,
         n = e.success,
         r = e.to,
         a = e.trigger;
-      I(
+      T(
         "mode_switch_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { from: u[t], success: n, to: u[r], trigger: a, variant: c },
       );
     }
-    function I(t, n, a, i) {
+    function T(t, n, a, i) {
       i === void 0 &&
         (i = o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SMB_SMART_COMPOSER);
       try {
@@ -205,17 +214,18 @@ __d(
     ((l.logViewSmartComposer = p),
       (l.logViewModeSwitchingSheet = _),
       (l.logViewHandoffCard = f),
-      (l.logDismissSuggestionCard = g),
-      (l.logSuggestionCardFunnel = h),
-      (l.logMeteringResponse = y),
-      (l.logViewSuggestionCard = C),
-      (l.logSuggestionRequested = b),
-      (l.logSuggestionReceived = v),
-      (l.logSendSuggestion = S),
-      (l.logSuggestedReplyCoachingStart = R),
-      (l.logSuggestedReplyCoachingResult = L),
-      (l.logTapSuggestionCard = E),
-      (l.logModeSwitchRequested = k));
+      (l.logSubscribeFromQuotaNotice = g),
+      (l.logDismissSuggestionCard = h),
+      (l.logSuggestionCardFunnel = y),
+      (l.logMeteringResponse = C),
+      (l.logViewSuggestionCard = b),
+      (l.logSuggestionRequested = v),
+      (l.logSuggestionReceived = S),
+      (l.logSendSuggestion = R),
+      (l.logSuggestedReplyCoachingStart = L),
+      (l.logSuggestedReplyCoachingResult = E),
+      (l.logTapSuggestionCard = k),
+      (l.logModeSwitchRequested = I));
   },
   98,
 );

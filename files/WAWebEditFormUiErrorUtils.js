@@ -6,7 +6,7 @@ __d(
       s = e || (e = o("react"));
     function u(e) {
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, { msg: e, duration: 6e3 }),
+        s.jsx(o("WAWebToast.react").Toast, { msg: e }),
       );
     }
     l.showError = u;

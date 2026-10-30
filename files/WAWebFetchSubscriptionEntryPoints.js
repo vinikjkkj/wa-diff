@@ -36,19 +36,35 @@ __d(
       return o("WAWebMobilePlatforms").isSMB()
         ? o(
             "WAWebUserPrefsSubscription",
-          ).getNextFetchSubscriptionEntryPointsTime() > Date.now()
-          ? (d || (d = n("Promise"))).resolve({
-              type: "success",
-              subscriptionEntrypoints: y(),
-            })
-          : (f == null &&
-              (f = C().finally(function () {
-                f = null;
-              })),
-            f)
+          ).getNextFetchSubscriptionEntryPointsTime() <= Date.now()
+          ? y()
+          : C()
+            ? y().then(function (e) {
+                return e.type === "success" ? e : b();
+              })
+            : (d || (d = n("Promise"))).resolve(b())
         : (d || (d = n("Promise"))).resolve(p);
     }
     function y() {
+      return (
+        f == null &&
+          (f = S().finally(function () {
+            f = null;
+          })),
+        f
+      );
+    }
+    function C() {
+      return (
+        o("WAWebUserPrefsSubscription").getSubscriptionsEntryPointEligibility()
+          .metaOne == null &&
+        o("WAWebMetaOneGating").isMetaOneBizAiAdditionalEntryPointsEnabled()
+      );
+    }
+    function b() {
+      return { type: "success", subscriptionEntrypoints: v() };
+    }
+    function v() {
       var e = o(
           "WAWebUserPrefsSubscription",
         ).getSubscriptionsEntryPointEligibility(),
@@ -73,15 +89,15 @@ __d(
         t
       );
     }
-    function C() {
-      return b.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           try {
-            e = yield L(v());
+            e = yield I(L());
           } catch (e) {
             return (
               o("WALogger")
@@ -98,7 +114,7 @@ __d(
           }
           if (e.type === "success") {
             var t;
-            (R((t = e.subscriptionEntrypoints) != null ? t : []),
+            (k((t = e.subscriptionEntrypoints) != null ? t : []),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -116,19 +132,19 @@ __d(
             );
           return e;
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v() {
-      return S() ? ["META_VERIFIED", "META_ONE"] : ["META_VERIFIED"];
+    function L() {
+      return E() ? ["META_VERIFIED", "META_ONE"] : ["META_VERIFIED"];
     }
-    function S() {
+    function E() {
       return (
         o("WAWebMetaOneGating").isAnyMetaOneEntryPointEnabled() ||
         o("WAWebSubscriptionsGatingUtils").customerManagerMetaOneUpsellEnabled()
       );
     }
-    function R(e) {
+    function k(e) {
       var t,
         n,
         a = e.find(function (e) {
@@ -159,15 +175,15 @@ __d(
         Date.now() + l,
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (t.type !== "success") return (t.type, t);
-          var n = yield k(t.token, e);
+          var n = yield D(t.token, e);
           return (
             n.type === "success"
               ? n.type
@@ -177,15 +193,15 @@ __d(
             n
           );
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function I() {
+    function x() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
             var n,
@@ -229,7 +245,7 @@ __d(
               : m;
           }
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     l.fetchSubscriptionEntryPoints = h;

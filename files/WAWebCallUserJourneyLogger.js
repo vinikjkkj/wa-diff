@@ -7,11 +7,13 @@ __d(
     "WAWebCallUserJourneyWamEvent",
     "WAWebUserJourneyEventMs",
     "WAWebWamEnumCallActionType",
+    "WAWebWamEnumSubSurface",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = Object.freeze({
+      s,
+      u = Object.freeze({
         TAP_DIALER_ENTRY: (e = o("WAWebWamEnumCallActionType")).CALL_ACTION_TYPE
           .TAP_DIALER_ENTRY,
         TAP_DIALER_CALL_BUTTON: e.CALL_ACTION_TYPE.TAP_DIALER_CALL_BUTTON,
@@ -28,8 +30,8 @@ __d(
           e.CALL_ACTION_TYPE.TAP_FAVORITES_DELETE_BUTTON,
         REORDER_FAVORITES: e.CALL_ACTION_TYPE.REORDER_FAVORITES,
       }),
-      u = Object.freeze(
-        babelHelpers.extends({}, s, {
+      c = Object.freeze(
+        babelHelpers.extends({}, u, {
           TAP_MUTE: e.CALL_ACTION_TYPE.TAP_MUTE,
           TAP_UNMUTE: e.CALL_ACTION_TYPE.TAP_UNMUTE,
           TURN_ON_CAMERA: e.CALL_ACTION_TYPE.TURN_ON_CAMERA,
@@ -84,7 +86,37 @@ __d(
             e.CALL_ACTION_TYPE.MESSAGE_SEND_IN_LINKED_CHAT,
         }),
       ),
-      c = (function () {
+      d = Object.freeze({
+        OPEN_POPOUT_WINDOW: e.CALL_ACTION_TYPE.OPEN_POPOUT_WINDOW,
+        RETURN_TO_MAIN_WINDOW: e.CALL_ACTION_TYPE.RETURN_TO_MAIN_WINDOW,
+        SELF_VIEW_ENLARGE: e.CALL_ACTION_TYPE.SELF_VIEW_ENLARGE,
+        SELF_VIEW_NORMAL_SIZE: e.CALL_ACTION_TYPE.SELF_VIEW_NORMAL_SIZE,
+        MAXIMIZE_CALL: e.CALL_ACTION_TYPE.MAXIMIZE_CALL,
+        MINIMIZE_CALL: e.CALL_ACTION_TYPE.MINIMIZE_CALL,
+      }),
+      m = Object.freeze({
+        CALL_START_BLOCKED_BY_MIC_PERMISSION:
+          e.CALL_ACTION_TYPE.CALL_START_BLOCKED_BY_MIC_PERMISSION,
+        CALL_START_BLOCKED_BY_CAMERA_PERMISSION:
+          e.CALL_ACTION_TYPE.CALL_START_BLOCKED_BY_CAMERA_PERMISSION,
+      }),
+      p = new Set([
+        d.OPEN_POPOUT_WINDOW,
+        d.RETURN_TO_MAIN_WINDOW,
+        d.SELF_VIEW_ENLARGE,
+        d.SELF_VIEW_NORMAL_SIZE,
+        d.MAXIMIZE_CALL,
+        d.MINIMIZE_CALL,
+        m.CALL_START_BLOCKED_BY_MIC_PERMISSION,
+        m.CALL_START_BLOCKED_BY_CAMERA_PERMISSION,
+      ]),
+      _ = new Set([
+        (s = o("WAWebWamEnumSubSurface")).SUB_SURFACE.KEYBOARD_SHORTCUT,
+        s.SUB_SURFACE.POPOUT_WINDOW,
+        s.SUB_SURFACE.DOC_PIP_WINDOW,
+        s.SUB_SURFACE.MINI_PLAYER,
+      ]),
+      f = (function () {
         function e() {
           ((this.$1 = null),
             (this.$2 = !1),
@@ -115,14 +147,7 @@ __d(
           }),
           (t.logAction = function (n) {
             var t = this.$1;
-            if (
-              !(
-                t == null ||
-                !o(
-                  "WAWebCallUserJourneyGating",
-                ).isCallUserJourneyLoggingEnabled()
-              )
-            ) {
+            if (!(t == null || !h(n.callActionType))) {
               var r = {
                 appSessionId: o(
                   "WAWebCallUserJourneyAppSessionId",
@@ -139,18 +164,17 @@ __d(
                 var a = this.$5;
                 a != null && (r.numConnectedParticipants = a);
               }
-              n.subSurface != null && (r.subSurface = n.subSurface);
-              var i = o("WAWebUserJourneyEventMs").userJourneyEventMs();
-              (i != null && (r.userJourneyEventMs = i),
+              var i = y(n.subSurface);
+              i != null && (r.subSurface = i);
+              var l = o("WAWebUserJourneyEventMs").userJourneyEventMs();
+              (l != null && (r.userJourneyEventMs = l),
                 new (o("WAWebCallUserJourneyWamEvent").CallUserJourneyWamEvent)(
                   r,
                 ).commit());
             }
           }),
           (t.logOutOfCallAction = function (n) {
-            if (
-              o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled()
-            ) {
+            if (h(n.callActionType)) {
               var t = this.$1,
                 r = {
                   appSessionId: o(
@@ -179,12 +203,27 @@ __d(
           e
         );
       })();
-    c.appSessionId = o("WARandomHex").randomHex(16);
-    var d = new c();
-    ((l.OUT_OF_CALL_ACTION_TYPE = s),
-      (l.PARITY_CALL_ACTION_TYPE = u),
-      (l.WAWebCallUserJourneyLogger = c),
-      (l.CallUserJourneyLogger = d));
+    f.appSessionId = o("WARandomHex").randomHex(16);
+    var g = new f();
+    function h(e) {
+      return p.has(e)
+        ? o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled()
+        : o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled();
+    }
+    function y(e) {
+      return e == null
+        ? null
+        : !_.has(e) ||
+            o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled()
+          ? e
+          : null;
+    }
+    ((l.OUT_OF_CALL_ACTION_TYPE = u),
+      (l.PARITY_CALL_ACTION_TYPE = c),
+      (l.M2_CALL_ACTION_TYPE = d),
+      (l.M2_OUT_OF_CALL_ACTION_TYPE = m),
+      (l.WAWebCallUserJourneyLogger = f),
+      (l.CallUserJourneyLogger = g));
   },
   98,
 );

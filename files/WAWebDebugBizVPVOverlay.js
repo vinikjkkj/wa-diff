@@ -3,9 +3,9 @@ __d(
   ["WAWebUserPrefsDebugKeys", "WAWebUserPrefsStore", "gkx", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("gkx")("26258");
+    var e = r("gkx")("16539");
     function s() {
-      if (e) return !1;
+      if (!e) return !1;
       var t = r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_VPV_OVERLAY_ENABLED,
       );
@@ -14,11 +14,11 @@ __d(
     var u = s(),
       c = new Set();
     function d() {
-      return !e && u;
+      return e && u;
     }
     function m(t) {
       (r("vulture")("rIqQBj0TDECcJEYCo8j6qEWBynE="),
-        !(e || u === t) &&
+        !(!e || u === t) &&
           ((u = t),
           r("WAWebUserPrefsStore").set(
             r("WAWebUserPrefsDebugKeys").DEBUG_VPV_OVERLAY_ENABLED,

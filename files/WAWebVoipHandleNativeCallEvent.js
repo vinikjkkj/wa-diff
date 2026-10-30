@@ -14,9 +14,11 @@ __d(
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
     "WAWebVoipCallEnterPipModeCountStore",
+    "WAWebVoipCallReachabilityStore",
     "WAWebVoipCallScreeningCaller",
     "WAWebVoipCallStartUnifiedSessionStore",
     "WAWebVoipCallStateUtils",
+    "WAWebVoipCallWindowMode",
     "WAWebVoipCalleeOfferToRingStore",
     "WAWebVoipCameraFingerprintLogging",
     "WAWebVoipContactUtils",
@@ -32,9 +34,12 @@ __d(
     "WAWebVoipHandleNativeCallEventMediaHandlers",
     "WAWebVoipHandleNativeCallEventVoiceChatHandlers",
     "WAWebVoipHardwareInfo",
+    "WAWebVoipIncomingCallNotificationStateStore",
     "WAWebVoipIncomingCallUiActionStore",
     "WAWebVoipInitEventEmitter",
+    "WAWebVoipLobbyVisibilityStore",
     "WAWebVoipLocalCallStateStore",
+    "WAWebVoipOneOnOneJoinableCall",
     "WAWebVoipOwnDeviceJids",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
@@ -43,6 +48,7 @@ __d(
     "WAWebVoipSctpIceTcpFallback",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
+    "WAWebVoipTabStateAtOfferStore",
     "WAWebVoipThreadPoolManagerRegistry",
     "WAWebVoipTransportFallbackTracker",
     "WAWebVoipVideoCameraCapture",
@@ -1139,6 +1145,7 @@ __d(
             o(
               "WAWebVoipAppInBgWhenCallStartsStore",
             ).resetAppInBgWhenCallStarts(),
+            o("WAWebVoipCallReachabilityStore").resetCallReachability(),
             o(
               "WAWebVoipCallEnterPipModeCountStore",
             ).resetCallEnterPipModeCount(),
@@ -1148,6 +1155,10 @@ __d(
             o(
               "WAWebVoipAppInBgWhenCallStartsStore",
             ).maybeRecordAppInBgWhenCallStarts(u, l),
+            o("WAWebVoipCallReachabilityStore").maybeRecordCallReachability(
+              u,
+              l,
+            ),
             o(
               "WAWebVoipCallStartUnifiedSessionStore",
             ).maybeRecordCallStartUnifiedSessionId(
@@ -1160,7 +1171,8 @@ __d(
               : ke(typeof s.callId == "string" ? s.callId : null),
             !o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
               o("WAWebVoipCallStateUtils").isCallTerminal(l) &&
-              (o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
+              (o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
+              o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
               o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
               o(
                 "WAWebVoipSctpConnectionManager",
@@ -1182,6 +1194,11 @@ __d(
             ).CallUserJourneyLogger.setCallConnected(
               o("WAWebVoipCallStateUtils").isCallConnected(l),
             ),
+            o("WAWebVoipOneOnOneJoinableCall").maybeLogOneOnOneJoinableCall(
+              u,
+              l,
+              s,
+            ),
             o("WAWebCallUserJourneyLogger").CallUserJourneyLogger.setGroupCall(
               s.isGroupCall === !0,
             ),
@@ -1197,7 +1214,16 @@ __d(
               ),
               o(
                 "WAWebVoipCalleeOfferToRingStore",
-              ).dropCalleeOfferToRingOfOtherCall(s.callId)));
+              ).dropCalleeOfferToRingOfOtherCall(s.callId),
+              o("WAWebVoipTabStateAtOfferStore").dropTabStateAtOfferOfOtherCall(
+                s.callId,
+              ),
+              o(
+                "WAWebVoipIncomingCallNotificationStateStore",
+              ).dropIncomingCallNotificationStateOfOtherCall(s.callId),
+              o("WAWebVoipLobbyVisibilityStore").dropLobbyVisibilityOfOtherCall(
+                s.callId,
+              )));
           var d = o("WAWebVoipGatingUtils").isWebTransportEnabled();
           o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
             s.isGroupCall === !0,
@@ -1461,6 +1487,7 @@ __d(
             var I = X != null ? X : "unknown";
             ((X = null),
               o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
+              o("WAWebVoipCallWindowMode").resetCallWindowMode(),
               o("WAWebVoipCrashRecovery").clearExitMarkers(I),
               o("WAWebVoipCrashRecovery").unregisterGracefulExitHandler(),
               o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),

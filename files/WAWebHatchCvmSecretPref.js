@@ -32,13 +32,13 @@ __d(
             r = n.importCvmAccountSecret,
             a = yield r(e.secret);
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var i = x(e.ownerLid),
+          var i = P(e.ownerLid),
             l = Math.max(
               ((t = i == null ? void 0 : i.generation) != null ? t : 0) + 1,
               o("WATimeUtils").unixTimeMs(),
             );
           return (
-            yield P({
+            yield M({
               generation: l,
               ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e.ownerLid),
               secret: a,
@@ -57,10 +57,10 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var t = x(e.ownerLid);
+          var t = P(e.ownerLid);
           (t == null ? void 0 : t.secret) == null ||
             t.generation !== e.generation ||
-            (yield P(babelHelpers.extends({}, t, { secret: null })));
+            (yield M(babelHelpers.extends({}, t, { secret: null })));
         })),
         h.apply(this, arguments)
       );
@@ -72,11 +72,15 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-              yield (u || (u = n("Promise"))).all([
-                o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(c),
-                o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(m),
-              ]));
+            if (
+              (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+              !$())
+            )
+              return;
+            yield (u || (u = n("Promise"))).all([
+              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(c),
+              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(m),
+            ]);
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -89,7 +93,7 @@ __d(
               .sendLogs("hatch-cvm-clear-failed");
             return;
           }
-          O();
+          W();
         })),
         C.apply(this, arguments)
       );
@@ -102,7 +106,7 @@ __d(
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            ((n = x(e)) == null ? void 0 : n.vmType) !== t && (yield $(e, t)));
+            ((n = P(e)) == null ? void 0 : n.vmType) !== t && (yield N(e, t)));
         })),
         v.apply(this, arguments)
       );
@@ -117,12 +121,12 @@ __d(
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
           var a = e.ownerLid,
             i = e.status,
-            l = (t = (r = x(a)) == null ? void 0 : r.vmType) != null ? t : null,
+            l = (t = (r = P(a)) == null ? void 0 : r.vmType) != null ? t : null,
             s = i.vmState === "TRANSFERRING",
-            c = A(a),
-            d = F({ current: l, status: i, transferEnded: c && !s }),
-            m = d === l ? null : $(a, d),
-            p = s === c ? null : M({ ownerLid: a, transferring: s });
+            c = O(a),
+            d = B({ current: l, status: i, transferEnded: c && !s }),
+            m = d === l ? null : N(a, d),
+            p = s === c ? null : A({ ownerLid: a, transferring: s });
           yield (u || (u = n("Promise"))).all([m, p]);
         })),
         R.apply(this, arguments)
@@ -135,7 +139,7 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var t = x(e);
+          var t = P(e);
           return (t == null ? void 0 : t.secret) == null || t.generation == null
             ? null
             : { generation: t.generation, key: t.secret };
@@ -152,21 +156,25 @@ __d(
           var t, n;
           return (
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            (t = (n = x(e)) == null ? void 0 : n.vmType) != null ? t : null
+            (t = (n = P(e)) == null ? void 0 : n.vmType) != null ? t : null
           );
         })),
         I.apply(this, arguments)
       );
     }
     function T(e) {
-      var t = x(e);
+      var t = P(e);
       return {
         hasSecret: (t == null ? void 0 : t.secret) != null,
         isConfidential: (t == null ? void 0 : t.vmType) === "confidential",
-        isTransferring: A(e),
+        isTransferring: O(e),
       };
     }
     function D(e) {
+      var t, n;
+      return (t = (n = P(e)) == null ? void 0 : n.vmType) != null ? t : null;
+    }
+    function x(e) {
       return (
         p.add(e),
         function () {
@@ -174,33 +182,27 @@ __d(
         }
       );
     }
-    function x(e) {
+    function $() {
+      return (
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(c) != null ||
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m) != null
+      );
+    }
+    function P(e) {
       var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(c);
       return (t == null ? void 0 : t.ownerLid) ===
         o("WAWebWidToJid").userLidtoLidUserJid(e)
         ? t
         : null;
     }
-    function $(e, t) {
-      var n = x(e);
-      return P({
+    function N(e, t) {
+      var n = P(e);
+      return M({
         generation: n == null ? void 0 : n.generation,
         ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e),
         secret: n == null ? void 0 : n.secret,
         vmType: t,
       });
-    }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(c, e),
-            O());
-        })),
-        N.apply(this, arguments)
-      );
     }
     function M(e) {
       return w.apply(this, arguments);
@@ -208,6 +210,18 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(c, e),
+            W());
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ownerLid,
             n = e.transferring;
           (yield n
@@ -216,18 +230,18 @@ __d(
                 o("WAWebWidToJid").userLidtoLidUserJid(t),
               )
             : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(m),
-            O());
+            W());
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e) {
+    function O(e) {
       return (
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m) ===
         o("WAWebWidToJid").userLidtoLidUserJid(e)
       );
     }
-    function F(e) {
+    function B(e) {
       var t = e.current,
         n = e.status,
         r = e.transferEnded;
@@ -241,7 +255,7 @@ __d(
               ? "standard"
               : t;
     }
-    function O() {
+    function W() {
       for (var t of Array.from(p))
         try {
           t();
@@ -265,7 +279,8 @@ __d(
       (l.readHatchCvmSecret = L),
       (l.readHatchCvmVmType = k),
       (l.peekHatchCvmReadOnlyInputs = T),
-      (l.subscribeToHatchCvmSecretChanges = D));
+      (l.peekHatchCvmVmType = D),
+      (l.subscribeToHatchCvmSecretChanges = x));
   },
   98,
 );

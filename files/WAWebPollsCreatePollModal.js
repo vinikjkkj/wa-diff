@@ -422,8 +422,7 @@ __d(
                 l.setActive(a),
                 _e == null || _e.requestDismiss());
               var s = c.jsx(
-                o("WAWebPollAttachMediaViewLoadable.react")
-                  .PollAttachMediaViewLoadable,
+                r("WAWebPollAttachMediaViewLoadable.react"),
                 babelHelpers.extends({ mediaCollection: l }, n),
               );
               o("WAWebModalManager").ModalManager.openMedia(s, {

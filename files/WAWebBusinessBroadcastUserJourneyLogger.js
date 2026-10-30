@@ -480,6 +480,13 @@ __d(
               p,
             );
           }),
+          (t.campaignCreationResult = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").campaignCreationResult(
+              this.$1,
+              t,
+              n,
+            );
+          }),
           (t.sendCampaignAck = function (t) {
             o("WAWebBBBroadcastCreationLogs").sendCampaignAck(this.$1, t);
           }),

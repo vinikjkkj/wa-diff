@@ -1,6 +1,6 @@
 __d(
   "WAWebParseCallLinkType",
-  ["WAWebCurrentUser", "WAWebVoipGatingUtils"],
+  ["WAWebVoipGatingUtils", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = /^https:\/\/call\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
@@ -13,14 +13,14 @@ __d(
       d =
         /^https:\/\/dev-web\.[^/]+\.whatsapp\.com\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i;
     function m(t, n) {
-      var r;
+      var a;
       n === void 0 && (n = !1);
-      var a = (r = t.match(e)) != null ? r : t.match(s);
+      var i = (a = t.match(e)) != null ? a : t.match(s);
       return (
-        a == null && o("WAWebCurrentUser").isEmployee() && (a = t.match(u)),
-        a == null || (!n && !o("WAWebVoipGatingUtils").isCallingEnabled())
+        i == null && r("gkx")("9092") && (i = t.match(u)),
+        i == null || (!n && !o("WAWebVoipGatingUtils").isCallingEnabled())
           ? null
-          : a[1].toLowerCase() === "video"
+          : i[1].toLowerCase() === "video"
             ? "video"
             : "voice"
       );

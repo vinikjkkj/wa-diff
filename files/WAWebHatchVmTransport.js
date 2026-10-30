@@ -312,6 +312,7 @@ __d(
         );
       },
       CREDENTIALS_CATALOG_UPDATE: "/v1/credentials/catalog/update",
+      DATA_EXPORT: "/api/dyi/export",
       FOA_ACCOUNTS: function (n) {
         return "/api/foa/accounts?app=" + encodeURIComponent(n);
       },

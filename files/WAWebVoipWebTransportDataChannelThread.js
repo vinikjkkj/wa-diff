@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WAWebNoop",
-    "WAWebVoipJsWorkerThread",
+    "WAWebVoipJsWorkerCreation",
     "WAWebVoipPerfOptimizations",
     "WAWebVoipWebTransportSendRingBuffer",
     "asyncToGeneratorRuntime",
@@ -33,15 +33,17 @@ __d(
             (this.$2 = e));
         }
         t.create = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield r("WAWebVoipJsWorkerThread").create(),
-              n = new t(e);
-            return (n.$1(), n);
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var n = yield o("WAWebVoipJsWorkerCreation").createJsWorkerThread(
+                e,
+              ),
+              r = new t(n);
+            return (r.$1(), r);
           });
-          function o() {
+          function r(t) {
             return e.apply(this, arguments);
           }
-          return o;
+          return r;
         })();
         var a = t.prototype;
         return (

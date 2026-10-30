@@ -14,6 +14,7 @@ __d(
     "WAWebVoipPthreadHardening",
     "WAWebVoipScreenShareSurfaceState",
     "WAWebVoipSharedBufferCaptureProcessorConfig",
+    "WAWebVoipSharedBufferRingQuarantine",
     "WAWebVoipSharedBufferRingRelease",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoCameraCapture",
@@ -393,7 +394,10 @@ __d(
                     throw r("err")(
                       "Failed to start system audio reader thread",
                     );
-                  (C.port.postMessage({ type: "start" }),
+                  (o(
+                    "WAWebVoipSharedBufferRingQuarantine",
+                  ).releaseHeldSharedBufferRings("system", _),
+                    C.port.postMessage({ type: "start" }),
                     o("WALogger").LOG(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([

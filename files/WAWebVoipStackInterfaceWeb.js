@@ -23,9 +23,12 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParsersWeb",
     "WAWebVoipLobbyEntryPointStore",
+    "WAWebVoipLobbyVisibilityStore",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipLocalVideoPolicy",
     "WAWebVoipLogDrainer",
+    "WAWebVoipMainThreadLockMarker",
+    "WAWebVoipMainThreadLockODS",
     "WAWebVoipNativeStackTraceLogger",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPerfOptimizations",
@@ -150,7 +153,7 @@ __d(
       var i = o("WAWebVoipWasmHeapBuffer").createHeapBufferState(),
         l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
         K = null;
-      function X() {
+      function Y() {
         o("WAWebVoipWebTransportConnectionManager").registerPacketHandler(
           function (e, t, n) {
             var r = K;
@@ -194,7 +197,7 @@ __d(
                     ])),
                   String(o("WAWebVoipGatingUtils").isWebTransportEnabled()),
                 ),
-                X(),
+                Y(),
                 o(
                   "WAWebVoipWebTransportConnectionManager",
                 ).registerFallbackHandler(function (e) {
@@ -609,15 +612,7 @@ __d(
                   o(
                     "WAWebCallUserJourneyGating",
                   ).isCallUserJourneyLoggingEnabled() &&
-                  o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
-                    n ===
-                      o("WAWebWamEnumLobbyEntryPointType")
-                        .LOBBY_ENTRY_POINT_TYPE.NOTIFICATION_BUTTON
-                      ? o("WAWebWamEnumLobbyEntryPointType")
-                          .LOBBY_ENTRY_POINT_TYPE.NOTIFICATION_BUTTON
-                      : o("WAWebWamEnumLobbyEntryPointType")
-                          .LOBBY_ENTRY_POINT_TYPE.OPEN_FOR_RINGING,
-                  ),
+                  o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(X(n)),
                 o("WAWebVoipCallIdProvider").resetPendingCallId());
               var a = yield l;
               try {
@@ -1826,6 +1821,35 @@ __d(
           }
           return t;
         })(),
+        cleanupUnfinishedCallStats: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield l,
+              t = o("WAWebVoipMainThreadLockMarker").startMainThreadLockMarker(
+                "fs_cleanup",
+                "main",
+              );
+            try {
+              e.cleanupUnfinishedCallStats();
+            } catch (t) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                t
+              );
+            } finally {
+              o("WAWebVoipMainThreadLockODS").logMainThreadLockCallDuration(
+                "fs_cleanup",
+                o("WAWebVoipMainThreadLockMarker").finishMainThreadLockMarker(
+                  t,
+                ),
+              );
+            }
+            return !0;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         isWebP2PEnabled: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
@@ -1935,6 +1959,20 @@ __d(
         });
       }
       return n;
+    }
+    function X(e) {
+      var t =
+        o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled() &&
+        o("WAWebVoipLobbyVisibilityStore").getGroupRingLobbyEntryPoint() ===
+          o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+            .OPEN_FOR_RINGING;
+      return e ===
+        o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+          .NOTIFICATION_BUTTON && !t
+        ? o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+            .NOTIFICATION_BUTTON
+        : o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+            .OPEN_FOR_RINGING;
     }
     l.createWAWebVoipStackInterface = K;
   },

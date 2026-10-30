@@ -67,6 +67,17 @@ __d(
             n,
           );
         }),
+        (r.openDataExport = function (t) {
+          return this.$1.openStream(
+            {
+              accept: "application/zip",
+              body: new Uint8Array(0),
+              method: "POST",
+              path: o("WAWebHatchVmTransport").JarvisPaths.DATA_EXPORT,
+            },
+            t,
+          );
+        }),
         (r.scheduledTasks = function (t) {
           return this.request(
             "GET",

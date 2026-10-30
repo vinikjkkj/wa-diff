@@ -8,12 +8,12 @@ __d(
         : (e === o("WAWebMediaTypes").MediaDataStage.RESOLVED && t === !1) ||
             e === o("WAWebMediaTypes").MediaDataStage.INIT ||
             e === o("WAWebMediaTypes").MediaDataStage.EXISTS ||
-            e === o("WAWebMediaTypes").MediaDataStage.NEED_POKE ||
-            e === o("WAWebMediaTypes").MediaDataStage.PROGRESSIVE_READY
+            e === o("WAWebMediaTypes").MediaDataStage.NEED_POKE
           ? "request"
           : e === o("WAWebMediaTypes").MediaDataStage.FETCHING ||
               e === o("WAWebMediaTypes").MediaDataStage.DECRYPTING ||
               e === o("WAWebMediaTypes").MediaDataStage.PREPARING ||
+              e === o("WAWebMediaTypes").MediaDataStage.PROGRESSIVE_READY ||
               e === o("WAWebMediaTypes").MediaDataStage.REUPLOADING
             ? "inflight"
             : e === o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING ||

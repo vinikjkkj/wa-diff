@@ -5,6 +5,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebHatchConnectInfoDecoder",
     "WAWebHatchConnectorAccountsDecoder",
+    "WAWebHatchConnectorPermissionsDecoder",
     "WAWebHatchFirstPartyConnectors",
     "WAWebHatchJsonReaders",
     "WAWebHatchVmConnection",
@@ -247,7 +248,14 @@ __d(
           var a = yield o(
             "WAWebRequestHatchConnectors",
           ).requestHatchConnectorPermissions(e);
-          if (r.kind !== "Ok" && r.kind !== "Unreadable" && !x(t, a))
+          if (
+            r.kind !== "Ok" &&
+            r.kind !== "Unreadable" &&
+            !x(t, a) &&
+            o(
+              "WAWebHatchConnectorPermissionsDecoder",
+            ).hasHatchConnectorUserOverrides(a)
+          )
             throw B("reset_permissions_" + r.kind.toLowerCase());
           return a;
         })),

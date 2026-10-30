@@ -9,25 +9,21 @@ __d(
     "WAWebMsgType",
     "WAWebProductCatalogLogQplEvents",
     "WAWebProductSelectors",
-    "WAWebToast.react",
-    "WAWebToastManager",
     "WAWebWamEnumMediaPickerOriginType",
+    "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
     "nullthrows",
-    "react",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u,
-      c = u || (u = o("react"));
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    var e;
+    function u(e, t, n) {
+      return c.apply(this, arguments);
     }
-    function m() {
+    function c() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = r("nullthrows")(
             new (r("WAWebAttachMediaCollection"))({ chatParticipantCount: t }),
           );
@@ -56,10 +52,10 @@ __d(
             }
           }
         })),
-        m.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function p(e) {
+    function d(e) {
       return babelHelpers.extends(
         {
           businessOwnerJid: e.catalogWid.toString({ legacy: !0 }),
@@ -79,65 +75,59 @@ __d(
         },
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function f() {
+    function p() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i = n.getHeadImageFile();
           if (!i)
             throw (
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ "Cannot send product before media is ready",
-                  ),
-                }),
-              ),
+              o("WDSToastImperativeHost").showWDSToast({
+                message: s._(
+                  /*BTDS*/ "Cannot send product before media is ready",
+                ),
+              }),
               r("err")(
                 "Tried to send product message. Media file is not available.",
               )
             );
           var l = t.getParticipantCount(),
-            u = yield d(i, l, t);
-          if (!u)
+            c = yield u(i, l, t);
+          if (!c)
             throw (
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ "Cannot send product before media is ready",
-                  ),
-                }),
-              ),
+              o("WDSToastImperativeHost").showWDSToast({
+                message: s._(
+                  /*BTDS*/ "Cannot send product before media is ready",
+                ),
+              }),
               r("err")(
                 "Tried to send product message. Media data is not available.",
               )
             );
           var m = {
             quotedMsg: a,
-            caption: u.caption,
+            caption: c.caption,
             addEvenWhilePreparing:
-              o("WAWebAttachMediaGetters").getPreviewable(u) &&
-              u.state ===
+              o("WAWebAttachMediaGetters").getPreviewable(c) &&
+              c.state ===
                 o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.PROCESSING,
             useBasePropsType: !0,
           };
-          return u
+          return c
             .sendToChat({
               chat: t,
               options: babelHelpers.extends({}, m, {
                 type: o("WAWebMsgType").MSG_TYPE.PRODUCT,
-                productMsgOptions: p(n),
+                productMsgOptions: d(n),
               }),
             })
             .catch(function () {
               throw (
-                o("WAWebToastManager").ToastManager.open(
-                  c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Couldn't send product"),
-                  }),
-                ),
+                o("WDSToastImperativeHost").showWDSToast({
+                  message: s._(/*BTDS*/ "Couldn't send product"),
+                }),
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -151,10 +141,10 @@ __d(
               );
             });
         })),
-        f.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.createProductMsgSnapshot = p), (l.sendProductMessage = _));
+    ((l.createProductMsgSnapshot = d), (l.sendProductMessage = m));
   },
   226,
 );

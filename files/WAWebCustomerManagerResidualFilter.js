@@ -17,20 +17,18 @@ __d(
       )
         return e;
       var l = r.map(function (e) {
-        return o("WAWebCustomerManagerFilterRegistry")
-          .getFilterSpec(e)
-          .matcher(a);
-      });
+          return o("WAWebCustomerManagerFilterRegistry")
+            .getFilterSpec(e)
+            .matcher(a);
+        }),
+        s = o(
+          "WAWebCustomerManagerLocalSearch",
+        ).createCustomerSearchQueryMatcher(i);
       return e.filter(function (e) {
         return (
           l.every(function (t) {
             return t(e);
-          }) &&
-          o("WAWebCustomerManagerLocalSearch").matchesCustomerSearchQuery(
-            e,
-            i,
-            n == null ? void 0 : n.get(String(e.chatJid)),
-          )
+          }) && s(e, n == null ? void 0 : n.get(String(e.chatJid)))
         );
       });
     }

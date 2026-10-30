@@ -62,7 +62,7 @@ __d(
           extension_message_id: e.galaxyFlowQPLMessageId,
         },
         bool: {
-          is_debug_build: !r("gkx")("26258"),
+          is_debug_build: r("gkx")("16539"),
           is_response_flow: !!t.isResponseFlow,
           data_channel_navigation: !o(
             "WAWebGalaxyFlowsUtils",
@@ -155,7 +155,7 @@ __d(
             endpoint_public_key_fetch_mode: n,
           },
           bool: {
-            is_debug_build: !r("gkx")("26258"),
+            is_debug_build: r("gkx")("16539"),
             is_graphql_prod: r("gkx")("26258"),
           },
         }

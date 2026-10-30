@@ -125,7 +125,7 @@ __d(
                         t,
                       )
                       .sendLogs("failed-to-parse-receipt-stanza", {
-                        sampling: r("gkx")("26259") ? 1 : 0.1,
+                        sampling: r("gkx")("9092") ? 1 : 0.1,
                       }),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,

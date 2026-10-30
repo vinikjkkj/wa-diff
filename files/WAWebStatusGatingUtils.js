@@ -172,17 +172,7 @@ __d(
     }
     function w() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_status_vpv_per_view_load_time_enabled",
-      );
-    }
-    function A() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_status_vpv_successful_view_consistency_enabled",
-      );
-    }
-    function F() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_status_load_timer_pause_on_bg_enabled",
+        "web_status_bad_ux_logging_parity_enabled",
       );
     }
     ((l.statusQuickReplyEmojis = u),
@@ -210,9 +200,7 @@ __d(
       (l.getStatusChainFromMyInteractionLimit = P),
       (l.isChainFromChatListEnabled = N),
       (l.isStatusCompanionReadSyncEnabled = M),
-      (l.isStatusVpvPerViewLoadTimeEnabled = w),
-      (l.isStatusVpvSuccessfulViewConsistencyEnabled = A),
-      (l.isStatusLoadTimerPauseOnBackgroundEnabled = F));
+      (l.isStatusBadUxLoggingParityEnabled = w));
   },
   98,
 );

@@ -53,23 +53,31 @@ __d(
         n = e.callEnterPipModeCount,
         r = e.callFromUi,
         o = e.callRandomId,
-        a = e.incomingCallUiAction,
-        i = e.isAppInBgWhenCallStarts,
-        l = e.jsonDataStr,
-        u = e.lobbyEntryPoint,
-        c = e.unifiedSessionIdAtCallStart,
-        d = {
+        a = e.callReachability,
+        i = e.incomingCallNotificationState,
+        l = e.incomingCallUiAction,
+        u = e.isAppInBgWhenCallStarts,
+        c = e.jsonDataStr,
+        d = e.lobbyEntryPoint,
+        m = e.lobbyVisibleForMs,
+        p = e.tabStateAtOffer,
+        _ = e.unifiedSessionIdAtCallStart,
+        f = {
           calleeOfferToRingT: t,
           callEnterPipModeCount: n,
           callFromUi: r,
           callRandomId: o,
-          incomingCallUiAction: a,
-          isAppInBgWhenCallStarts: i,
-          jsonDataStr: l,
-          lobbyEntryPoint: u,
-          unifiedSessionIdAtCallStart: c,
+          callReachability: a,
+          incomingCallNotificationState: i,
+          incomingCallUiAction: l,
+          isAppInBgWhenCallStarts: u,
+          jsonDataStr: c,
+          lobbyEntryPoint: d,
+          lobbyVisibleForMs: m,
+          tabStateAtOffer: p,
+          unifiedSessionIdAtCallStart: _,
         };
-      return ((s = d), d);
+      return ((s = f), f);
     }
     function p() {
       return s;

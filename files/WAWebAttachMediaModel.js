@@ -14,7 +14,6 @@ __d(
     "WAWebChatGetters",
     "WAWebFileUtils",
     "WAWebHDMediaUtils",
-    "WAWebMedia",
     "WAWebMediaDataUtils",
     "WAWebMediaEditorData",
     "WAWebMediaFileErrors",
@@ -27,6 +26,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebPREGatingUtils",
+    "WAWebPrepRawMedia",
     "WAWebStickerConstants",
     "asyncToGeneratorRuntime",
     "err",
@@ -341,7 +341,7 @@ __d(
                           "processAttachmentPromiseHelper before prepRawMedia",
                         ])),
                     );
-                    var y = o("WAWebMedia").prepRawMedia(h, i);
+                    var y = o("WAWebPrepRawMedia").prepRawMedia(h, i);
                     e.set({ mediaPrep: y });
                     var C = yield y.waitForPrep(),
                       b = C.documentPreview,

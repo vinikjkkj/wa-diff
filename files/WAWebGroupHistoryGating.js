@@ -71,35 +71,30 @@ __d(
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_after_join_prerequisites",
+        "group_history_after_join_sender_prerequisites",
       );
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_after_join_sender_prerequisites",
+        "group_history_send_once_default_on",
       );
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_once_default_on",
+        "group_history_send_default_on",
       );
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_default_on",
+        "group_history_sender_speed_bump_dialog_display_times",
       );
     }
     function C() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_sender_speed_bump_dialog_display_times",
-      );
-    }
-    function b() {
-      return o("WAWebABProps").getABPropConfigValue(
         "group_history_per_group_toggle_md_sync",
       );
     }
-    function v() {
+    function b() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistorySenderEnabled = e),
@@ -109,13 +104,12 @@ __d(
       (l.isGroupHistoryPostJoinSenderEnabled = d),
       (l.getGroupHistoryMessagesTimeLimitSecs = m),
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = _),
-      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = f),
-      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = g),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = h),
-      (l.isGroupHistorySendDefaultOnEnabled = y),
-      (l.getGroupHistorySpeedBumpDialogDisplayTimes = C),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = b),
-      (l.shouldSkipUnsupportedMessagesFromBundle = v));
+      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = f),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = g),
+      (l.isGroupHistorySendDefaultOnEnabled = h),
+      (l.getGroupHistorySpeedBumpDialogDisplayTimes = y),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = C),
+      (l.shouldSkipUnsupportedMessagesFromBundle = b));
   },
   98,
 );

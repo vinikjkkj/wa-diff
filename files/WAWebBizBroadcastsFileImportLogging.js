@@ -12,38 +12,41 @@ __d(
         a = null,
         i = !1,
         l = !1;
-      function s(l) {
-        if (!(t && i)) {
+      function u(t) {
+        if (!i) {
           i = !0;
-          var s = babelHelpers.extends(
+          var l = {};
+          t.result === "failure" && (l.error_category = s(t.error_type));
+          var u = babelHelpers.extends(
             {},
             o(
               "WAWebBizBroadcastsImportLoggingUtils",
             ).getImportAudienceLoggingExtraAttributes(n()),
             a == null ? {} : { auto_detection_error_type: a },
+            t,
             l,
             { latency_ms: Date.now() - r },
           );
           (o(
             "WAWebBusinessBroadcastUserJourneyLogger",
           ).BusinessBroadcastUserJourneyLogger.importAudienceProcessingResult(
-            s,
+            u,
             e,
           ),
-            t && c(l.result));
+            d(t.result, l.error_category));
         }
       }
-      function u() {
+      function c() {
         t &&
           ((a = "no_phone_numbers_detected"),
           o(
             "WAWebBusinessBroadcastUserJourneyLogger",
           ).BusinessBroadcastUserJourneyLogger.importAudienceError(a, e));
       }
-      function m(e) {
-        t && s(e);
+      function p(e) {
+        t && u(e);
       }
-      function p() {
+      function _() {
         if (!(!t || !l)) {
           ((l = !1), (i = !1), (r = Date.now()));
           var a = babelHelpers.extends(
@@ -65,12 +68,12 @@ __d(
             ));
         }
       }
-      var _ = function (n, r) {
-        return d(
+      var f = function (n, r) {
+        return m(
           t,
           r,
           function () {
-            (m({
+            (p({
               error_type: "no_phone_numbers_detected",
               phase: "column_detection",
               result: "failure",
@@ -81,14 +84,25 @@ __d(
         );
       };
       return {
-        handleProNoPhoneNumbersScreenOpened: _,
-        logProcessingResult: s,
-        logProNoPhoneNumbersDetected: u,
-        logProProcessingResult: m,
-        startProManualColumnSelection: p,
+        handleProNoPhoneNumbersScreenOpened: f,
+        logProcessingResult: u,
+        logProNoPhoneNumbersDetected: c,
+        logProProcessingResult: p,
+        startProManualColumnSelection: _,
       };
     }
     function s(e) {
+      return e === "TYPE" ||
+        e === "FORMAT" ||
+        e === "TOO_MANY_ITEMS" ||
+        e === "TOO_MANY_ERRORS" ||
+        e === "TOO_SMALL" ||
+        e === "TEMPLATE_MISMATCH" ||
+        e === "no_phone_numbers_detected"
+        ? "account"
+        : "unknown";
+    }
+    function u(e) {
       return {
         error_type: e,
         phase:
@@ -98,27 +112,27 @@ __d(
         result: "failure",
       };
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       n(
         babelHelpers.extends({}, e, t ? { phase: "file_processing" } : {}, {
           result: "success",
         }),
       );
     }
-    function c(e) {
+    function d(e, t) {
       e: {
         if (e === "success") {
           o("WAWebBroadcastODS").logAudienceImportSuccess();
           break e;
         }
         if (e === "failure") {
-          o("WAWebBroadcastODS").logAudienceImportError();
+          o("WAWebBroadcastODS").logAudienceImportError(t);
           break e;
         }
         return;
       }
     }
-    function d(e, t, n, r) {
+    function m(e, t, n, r) {
       if (!e || t.aborted) return function () {};
       n();
       function a() {
@@ -135,9 +149,9 @@ __d(
       );
     }
     ((l.createImportProcessingResultLogger = e),
-      (l.getImportScreenLoadFailureAttributes = s),
-      (l.logCompletedFileImport = u),
-      (l.logFileImportProcessingCount = c));
+      (l.getImportScreenLoadFailureAttributes = u),
+      (l.logCompletedFileImport = c),
+      (l.logFileImportProcessingCount = d));
   },
   98,
 );

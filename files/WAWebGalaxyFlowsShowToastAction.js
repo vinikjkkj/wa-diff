@@ -11,13 +11,12 @@ __d(
             (t != null && s.isFbtInstance(t)) || typeof t == "string"
               ? t
               : null,
-          a = typeof e.duration == "number" ? e.duration : null;
+          a = typeof e.duration == "number";
         n != null &&
-          a != null &&
+          a &&
           o("WAWebToastManager").ToastManager.open(
             u.jsx(o("WAWebToast.react").Toast, {
               msg: n,
-              duration: a,
               action: {
                 actionText:
                   e.actionText != null && typeof e.actionText == "string"

@@ -8,7 +8,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebProxyStateFactory",
     "WAWebUiIdleEventBus",
-    "cr:5292",
+    "cr:18506",
     "err",
     "nullthrows",
   ],
@@ -130,8 +130,9 @@ __d(
           }),
           (i.set = function (t, r, a) {
             var e;
-            (n("cr:5292") == null ? void 0 : n("cr:5292").currentTransaction) !=
-              null &&
+            (n("cr:18506") == null
+              ? void 0
+              : n("cr:18506").currentTransaction) != null &&
               o("WALogger").WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([

@@ -9,76 +9,67 @@ __d(
     "WAWebProductCatalogContext",
     "WAWebProductCatalogLogEvents",
     "WAWebQplFlowWrapper",
-    "WAWebToast.react",
-    "WAWebToastManager",
+    "WDSToastImperativeHost",
     "qpl",
-    "react",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = e || (e = o("react")),
-      c = r("qpl")._(774779113, "3440"),
-      d = r("qpl")._(774778628, "3442");
-    function m(e) {
-      var t = e.context,
-        n = e.e,
-        r = e.markerId,
-        a = e.newProduct,
-        i = e.product,
-        l = e.setImageError,
-        m = e.setRetailerIdError;
-      a
+    var e = r("qpl")._(774779113, "3440"),
+      u = r("qpl")._(774778628, "3442");
+    function c(t) {
+      var n = t.context,
+        r = t.e,
+        a = t.markerId,
+        i = t.newProduct,
+        l = t.product,
+        c = t.setImageError,
+        d = t.setRetailerIdError;
+      i
         ? o("WAWebProductCatalogLogEvents").logAddProductFailed(
-            o("WAWebProductCatalogContext").getProductCatalogContext(t),
-            n.statusCode,
+            o("WAWebProductCatalogContext").getProductCatalogContext(n),
+            r.statusCode,
           )
         : o("WAWebProductCatalogLogEvents").logEditProductFailed(
-            i,
-            o("WAWebProductCatalogContext").getProductCatalogContext(t),
-            n.statusCode,
+            l,
+            o("WAWebProductCatalogContext").getProductCatalogContext(n),
+            r.statusCode,
           );
-      var p = s._(/*BTDS*/ "Couldn't save changes");
+      var m = s._(/*BTDS*/ "Couldn't save changes");
       if (
-        n instanceof o("WAWebBackendErrors").CatalogEditServerError &&
-        n.errors != null
+        r instanceof o("WAWebBackendErrors").CatalogEditServerError &&
+        r.errors != null
       ) {
         if (
-          n.errors.some(function (e) {
+          r.errors.some(function (e) {
             return e.reason === "duplicate";
           })
         ) {
-          var _ = r === c ? c : d;
-          o("WAWebQplFlowWrapper").QPL.markerDrop(_);
+          var p = a === e ? e : u;
+          o("WAWebQplFlowWrapper").QPL.markerDrop(p);
         } else {
-          var f = r === c ? c : d;
-          o("WAWebQplFlowWrapper").QPL.markerEnd(f, 3);
+          var _ = a === e ? e : u;
+          o("WAWebQplFlowWrapper").QPL.markerEnd(_, 3);
         }
-        n.errors.map(function (e) {
+        r.errors.map(function (e) {
           (e.name === "media" &&
             e.reason === "duplicate" &&
-            l(
+            c(
               s._(
                 /*BTDS*/ "Two or more images are the same. Delete any duplicates and try again.",
               ),
             ),
             (e.name === "retailer_id" || e.name === "retailer-id") &&
               e.reason === "duplicate" &&
-              m(s._(/*BTDS*/ "Item code must be unique.")),
+              d(s._(/*BTDS*/ "Item code must be unique.")),
             e.name === "currency" &&
               e.reason === "invalid-data" &&
-              (p = s._(
+              (m = s._(
                 /*BTDS*/ "Price can't be shown in your country. Delete the price you entered.",
               )));
         });
       }
-      o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: p,
-          id: o("WAWebToast.react").genId("catalog_save_item_failed"),
-        }),
-      );
+      o("WDSToastImperativeHost").showWDSToast({ message: m });
     }
-    function p(e) {
+    function d(e) {
       var t = e.catalog,
         n = e.context,
         r = e.onDelete,
@@ -96,108 +87,105 @@ __d(
             r == null || r(a));
         })
         .catch(function () {
-          o("WAWebToastManager").ToastManager.open(
-            u.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "Couldn't delete item"),
-            }),
-          );
+          o("WDSToastImperativeHost").showWDSToast({
+            message: s._(/*BTDS*/ "Couldn't delete item"),
+          });
         });
     }
-    function _(e) {
+    function m(e) {
       var t = e.catalog,
         n = e.context,
         r = e.localProduct,
         a = e.newProduct,
         i = e.onCreate,
         l = e.onEditSuccess,
-        c = e.product;
+        u = e.product;
       (t.productCollection.add(r, { merge: !0 }),
         a
           ? o("WAWebProductCatalogLogEvents").logAddProductSuccess(
               o("WAWebProductCatalogContext").getProductCatalogContext(n),
             )
           : o("WAWebProductCatalogLogEvents").logEditProductSuccess(
-              c,
+              u,
               o("WAWebProductCatalogContext").getProductCatalogContext(n),
             ),
-        o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
-            msg: a ? s._(/*BTDS*/ "Item saved") : s._(/*BTDS*/ "Changes saved"),
-            id: o("WAWebToast.react").genId("catalog_item_saved"),
-          }),
-        ),
+        o("WDSToastImperativeHost").showWDSToast({
+          message: a
+            ? s._(/*BTDS*/ "Item saved")
+            : s._(/*BTDS*/ "Changes saved"),
+        }),
         l(r),
         a != null && (i == null || i()));
     }
-    function f(e) {
-      var t = e.catalog,
-        n = e.handleEditError,
-        r = e.handleEditSuccess,
-        a = e.imagePanelRef,
-        i = e.isModified,
-        l = e.newProduct,
-        s = e.product,
-        u = e.productChanges,
-        m = e.propsProduct,
-        p = e.setIsUpdating,
+    function p(t) {
+      var n = t.catalog,
+        r = t.handleEditError,
+        a = t.handleEditSuccess,
+        i = t.imagePanelRef,
+        l = t.isModified,
+        s = t.newProduct,
+        c = t.product,
+        d = t.productChanges,
+        m = t.propsProduct,
+        p = t.setIsUpdating,
         _ = !0;
-      if ((p(!0), !l && !i))
-        (o("WAWebQplFlowWrapper").QPL.markerStart(d, {
+      if ((p(!0), !s && !l))
+        (o("WAWebQplFlowWrapper").QPL.markerStart(u, {
           annotations: { string: { EntryPoint: "Product" } },
         }),
           o("WAWebBizProductCatalogBridge")
-            .productVisibilitySet(s.id.toString(), u.isHidden)
+            .productVisibilitySet(c.id.toString(), d.isHidden)
             .then(function () {
-              (m.setIsHidden(u.isHidden),
-                r(s),
+              (m.setIsHidden(d.isHidden),
+                a(c),
                 (_ = !1),
-                o("WAWebQplFlowWrapper").QPL.markerEnd(d, 2));
+                o("WAWebQplFlowWrapper").QPL.markerEnd(u, 2));
             })
             .catch(function (e) {
               (e instanceof o("WAWebBackendErrors").CatalogEditServerError ||
                 e instanceof o("WAWebBackendErrors").ServerStatusCodeError) &&
-                ((_ = !1), n(e, d));
+                ((_ = !1), r(e, u));
             })
             .finally(function () {
-              (_ && o("WAWebQplFlowWrapper").QPL.markerEnd(d, 3), p(!1));
+              (_ && o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3), p(!1));
             }));
       else {
         var f;
-        (o("WAWebQplFlowWrapper").QPL.markerStart(c, {
-          annotations: { bool: { IsNewProduct: !!l } },
+        (o("WAWebQplFlowWrapper").QPL.markerStart(e, {
+          annotations: { bool: { IsNewProduct: !!s } },
         }),
-          (f = a.current) == null ||
+          (f = i.current) == null ||
             f
-              .uploadImages(l)
-              .then(function (e) {
-                ((u.imageCdnUrl = e[0]),
-                  (u.additionalImageCdnUrl = e.slice(1)));
-                var a = l ? t.addProduct(u) : t.editProduct(u);
-                a.then(function (e) {
-                  (r(e),
+              .uploadImages(s)
+              .then(function (t) {
+                ((d.imageCdnUrl = t[0]),
+                  (d.additionalImageCdnUrl = t.slice(1)));
+                var i = s ? n.addProduct(d) : n.editProduct(d);
+                i.then(function (t) {
+                  (a(t),
                     (_ = !1),
-                    o("WAWebQplFlowWrapper").QPL.markerEnd(c, 2));
+                    o("WAWebQplFlowWrapper").QPL.markerEnd(e, 2));
                 })
-                  .catch(function (e) {
-                    (e instanceof
+                  .catch(function (t) {
+                    (t instanceof
                       o("WAWebBackendErrors").CatalogEditServerError ||
-                      e instanceof
+                      t instanceof
                         o("WAWebBackendErrors").ServerStatusCodeError) &&
-                      ((_ = !1), n(e, c));
+                      ((_ = !1), r(t, e));
                   })
                   .finally(function () {
-                    (_ && o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3), p(!1));
+                    (_ && o("WAWebQplFlowWrapper").QPL.markerEnd(e, 3), p(!1));
                   });
               })
-              .catch(function (e) {
-                throw (o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3), p(!1), e);
+              .catch(function (t) {
+                throw (o("WAWebQplFlowWrapper").QPL.markerEnd(e, 3), p(!1), t);
               }));
       }
     }
-    ((l.handleEditError = m),
-      (l.handleDeleteItem = p),
-      (l.handleEditSuccessFn = _),
-      (l.saveItem = f));
+    ((l.handleEditError = c),
+      (l.handleDeleteItem = d),
+      (l.handleEditSuccessFn = m),
+      (l.saveItem = p));
   },
   226,
 );

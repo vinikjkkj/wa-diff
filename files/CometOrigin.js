@@ -41,13 +41,10 @@ __d(
         }));
     }
     function d(t) {
-      var n, r, o;
+      var n;
       if (e == null) return null;
-      var a = e.baseUri;
-      return (n = t.setPort(a.getPort())) == null ||
-        (n = n.setProtocol((r = a.getProtocol()) != null ? r : "")) == null
-        ? void 0
-        : n.setDomain((o = a.getDomain()) != null ? o : "");
+      var r = e.baseUri;
+      return (n = t.qualifyDomain(r)) == null ? void 0 : n.setPort(r.getPort());
     }
     function m(t) {
       if (e == null) return !1;

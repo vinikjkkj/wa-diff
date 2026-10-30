@@ -5,8 +5,12 @@ __d(
     "WALogger",
     "WAWebAudioUtility",
     "WAWebBackendApi",
+    "WAWebVoipMainThreadLockFixes",
+    "WAWebVoipMainThreadLockMarker",
+    "WAWebVoipMainThreadLockODS",
     "WorkerMessagePort",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -33,18 +37,35 @@ __d(
       I = 262144,
       T = 8,
       D = (function () {
-        function r(t) {
+        function a(t) {
           ((this.$4 = !1),
             (this.$5 = null),
             (this.$6 = null),
             (this.$7 = !1),
-            (this.$1 = t));
-          var n = t.startJsWorkerThread(),
-            r = t.getJsWorkerPThreadId(n);
-          ((this.$2 = n),
-            (this.$3 = r),
+            (this.$1 = t),
+            o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix(
+              "sctp_thread_create",
+            ));
+          var n = o("WAWebVoipMainThreadLockMarker").startMainThreadLockMarker(
+              "sctp_thread_create",
+              "main",
+            ),
+            a = 0;
+          try {
+            a = t.startJsWorkerThread();
+          } finally {
+            o("WAWebVoipMainThreadLockODS").logMainThreadLockCallDuration(
+              "sctp_thread_create",
+              o("WAWebVoipMainThreadLockMarker").finishMainThreadLockMarker(n),
+            );
+          }
+          if (a === 0)
+            throw r("err")("voip: [DCThread] startJsWorkerThread failed");
+          var i = t.getJsWorkerPThreadId(a);
+          ((this.$2 = a),
+            (this.$3 = i),
             (this.worker = o("WorkerMessagePort").CastWorkerMessagePort(
-              t.PThread.pthreads[r],
+              t.PThread.pthreads[i],
             )),
             (this.$4 = !0),
             o("WALogger").LOG(
@@ -53,14 +74,14 @@ __d(
                   "voip: [DCThread] WASM pthread created, threadId: ",
                   "",
                 ])),
-              r,
+              i,
             ));
         }
-        r.create = (function () {
+        a.create = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e === void 0 ? {} : e,
               n = t.initRing,
-              a = n === void 0 ? !0 : n;
+              r = n === void 0 ? !0 : n;
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -71,17 +92,17 @@ __d(
                 yield o("WAWebBackendApi").frontendSendAndReceive(
                   "initializeVoipWasm",
                 ),
-              l = new r(i);
-            return (a && (yield l.ensureRingBuffer()), l);
+              l = new a(i);
+            return (r && (yield l.ensureRingBuffer()), l);
           });
           function t(t) {
             return e.apply(this, arguments);
           }
           return t;
         })();
-        var a = r.prototype;
+        var i = a.prototype;
         return (
-          (a.ensureRingBuffer = function () {
+          (i.ensureRingBuffer = function () {
             var e = this;
             return this.$7
               ? (k || (k = n("Promise"))).resolve(!1)
@@ -121,7 +142,7 @@ __d(
                       })),
                   this.$6);
           }),
-          (a.transferChannel = function (t) {
+          (i.transferChannel = function (t) {
             var e = t.channel,
               n = t.connectionId,
               r = t.ip,
@@ -183,7 +204,7 @@ __d(
               );
             }
           }),
-          (a.sendPacket = function (t, n) {
+          (i.sendPacket = function (t, n) {
             if (!this.$4) return !1;
             try {
               return (
@@ -215,7 +236,7 @@ __d(
               );
             }
           }),
-          (a.activateChannel = function (t) {
+          (i.activateChannel = function (t) {
             if (!this.$4) return !1;
             try {
               return (
@@ -243,7 +264,7 @@ __d(
               );
             }
           }),
-          (a.closeChannel = function (t) {
+          (i.closeChannel = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -252,13 +273,13 @@ __d(
                 connectionId: t,
               });
           }),
-          (a.isActive = function () {
+          (i.isActive = function () {
             return this.$4;
           }),
-          (a.getVoipWasm = function () {
+          (i.getVoipWasm = function () {
             return this.$1;
           }),
-          (a.ping = function () {
+          (i.ping = function () {
             if (!this.$4) {
               o("WALogger").WARN(
                 f ||
@@ -275,7 +296,7 @@ __d(
               timestamp: Date.now(),
             });
           }),
-          (a.setRemoveRelayPortOverride = function (t) {
+          (i.setRemoveRelayPortOverride = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -284,7 +305,7 @@ __d(
                 enabled: t,
               });
           }),
-          (a.setSctpTimeoutMs = function (t) {
+          (i.setSctpTimeoutMs = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -293,7 +314,7 @@ __d(
                 ms: t,
               });
           }),
-          (a.setRelayParkedTxIdleMs = function (t) {
+          (i.setRelayParkedTxIdleMs = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -302,7 +323,7 @@ __d(
                 ms: t,
               });
           }),
-          (a.updateIceRtt = function (t, n, r) {
+          (i.updateIceRtt = function (t, n, r) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -313,7 +334,7 @@ __d(
                 relayPort: r,
               });
           }),
-          (a.joinThread = (function () {
+          (i.joinThread = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               for (var e = 50, r = 0; r < e; r++) {
                 var a = this.$1.tryJoinJsWorkerThread(this.$2);
@@ -342,7 +363,7 @@ __d(
             }
             return r;
           })()),
-          (a.initRingBuffer = (function () {
+          (i.initRingBuffer = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (!this.$4)
                 return (
@@ -415,7 +436,7 @@ __d(
             }
             return t;
           })()),
-          (a.shutdownRingBuffer = function () {
+          (i.shutdownRingBuffer = function () {
             var e = this.$5;
             if (e != null) {
               try {
@@ -438,7 +459,7 @@ __d(
                 });
             }
           }),
-          (a.freeRingBufferMemory = (function () {
+          (i.freeRingBufferMemory = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this.$5;
               if (e != null) {
@@ -462,7 +483,7 @@ __d(
             }
             return t;
           })()),
-          (a.shutdown = (function () {
+          (i.shutdown = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (this.$4) {
                 (o("WALogger").LOG(
@@ -500,7 +521,7 @@ __d(
             }
             return t;
           })()),
-          r
+          a
         );
       })();
     l.default = D;

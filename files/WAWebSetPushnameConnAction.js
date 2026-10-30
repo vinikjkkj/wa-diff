@@ -17,8 +17,8 @@ __d(
     var e,
       u,
       c = u || (u = o("react"));
-    function d(e, t) {
-      return m({ onDismiss: t, pushname: e });
+    function d(e) {
+      return m({ pushname: e });
     }
     function m(e) {
       return p.apply(this, arguments);
@@ -28,30 +28,24 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.isUndoAction,
             a = n === void 0 ? !1 : n,
-            i = t.onDismiss,
-            l = t.pushname,
-            u = t.toastId,
-            d = u === void 0 ? o("WAWebActionToast.react").genId() : u,
-            p = r("WAWebPushNameBridge")(l),
-            _ = new (o("WAWebActionToast.react").ActionType)(
+            i = t.pushname,
+            l = t.toastId,
+            u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
+            d = r("WAWebPushNameBridge")(i),
+            p = new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Changing your name"),
             ),
-            f = o("WAWebConnModel").Conn.pushname,
-            g = p
+            _ = o("WAWebConnModel").Conn.pushname,
+            f = d
               .then(function () {
                 var e;
                 return (
                   !a &&
-                    f != null &&
+                    _ != null &&
                     (e = {
                       actionText: s._(/*BTDS*/ "Undo"),
                       actionHandler: function () {
-                        return m({
-                          isUndoAction: !0,
-                          onDismiss: i,
-                          pushname: f,
-                          toastId: d,
-                        });
+                        return m({ isUndoAction: !0, pushname: _, toastId: u });
                       },
                     }),
                   new (o("WAWebActionToast.react").ActionType)(
@@ -84,11 +78,7 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return m({
-                          onDismiss: i,
-                          pushname: t.status,
-                          toastId: d,
-                        });
+                        return m({ pushname: i, toastId: u });
                       },
                     },
                   )
@@ -96,14 +86,13 @@ __d(
               });
           (o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebActionToast.react").ActionToast, {
-              id: d,
-              initialAction: _,
-              onDismiss: i,
-              pendingAction: g,
+              id: u,
+              initialAction: p,
+              pendingAction: f,
             }),
           ),
-            yield p,
-            o("WAWebSetPushnameLocallyAction").setPushnameLocally(l));
+            yield d,
+            o("WAWebSetPushnameLocallyAction").setPushnameLocally(i));
         })),
         p.apply(this, arguments)
       );

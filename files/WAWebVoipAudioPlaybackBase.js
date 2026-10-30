@@ -419,79 +419,83 @@ __d(
             return t;
           })()),
           (a.stopPlayback = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              this.audioPlaybackInitState !== D.Ready &&
-                o("WALogger").ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:stopPlayback] invalid initialization. state = ",
-                      "",
-                    ])),
-                  this.audioPlaybackInitState,
-                );
-              try {
-                yield this.cleanup();
-              } catch (e) {
-                o("WALogger").ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:stopPlayback] error: ",
-                      "",
-                    ])),
-                  e,
-                );
-              }
-            });
-            function t() {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                this.audioPlaybackInitState !== D.Ready &&
+                  o("WALogger").ERROR(
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:stopPlayback] invalid initialization. state = ",
+                        "",
+                      ])),
+                    this.audioPlaybackInitState,
+                  );
+                try {
+                  yield this.cleanup(e);
+                } catch (e) {
+                  o("WALogger").ERROR(
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:stopPlayback] error: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                }
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;
           })()),
           (a.cleanup = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              try {
-                if (this.deviceChangeHandler != null) {
-                  var e;
-                  ((e = navigator.mediaDevices) == null ||
-                    e.removeEventListener(
-                      "devicechange",
-                      this.deviceChangeHandler,
-                    ),
-                    (this.deviceChangeHandler = null));
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                try {
+                  if (this.deviceChangeHandler != null) {
+                    var t;
+                    ((t = navigator.mediaDevices) == null ||
+                      t.removeEventListener(
+                        "devicechange",
+                        this.deviceChangeHandler,
+                      ),
+                      (this.deviceChangeHandler = null));
+                  }
+                  (this.implementation != null &&
+                    (yield this.implementation.stopAudioPlayback(void 0, e)),
+                    this.playbackAudioContext &&
+                      (!o(
+                        "WAWebVoipSharedCallAudioContext",
+                      ).releaseSharedCallAudioContext(
+                        "playback",
+                        this.playbackAudioContext,
+                      ) &&
+                        this.playbackAudioContext.state !== "closed" &&
+                        this.playbackAudioContext
+                          .close()
+                          .then(function () {})
+                          .catch(function (e) {
+                            o("WALogger").WARN(
+                              R ||
+                                (R = babelHelpers.taggedTemplateLiteralLoose([
+                                  "voip: [AV:cleanup] playback AudioContext close error (non-fatal): ",
+                                  "",
+                                ])),
+                              String(e),
+                            );
+                          }),
+                      (this.playbackAudioContext = null)));
+                } finally {
+                  if (this.playbackBuffer != null) {
+                    var n = this.playbackBuffer;
+                    yield this.$3(n);
+                  }
+                  this.audioPlaybackInitState = D.Uninitialized;
                 }
-                (this.implementation != null &&
-                  (yield this.implementation.stopAudioPlayback()),
-                  this.playbackAudioContext &&
-                    (!o(
-                      "WAWebVoipSharedCallAudioContext",
-                    ).releaseSharedCallAudioContext(
-                      "playback",
-                      this.playbackAudioContext,
-                    ) &&
-                      this.playbackAudioContext.state !== "closed" &&
-                      this.playbackAudioContext
-                        .close()
-                        .then(function () {})
-                        .catch(function (e) {
-                          o("WALogger").WARN(
-                            R ||
-                              (R = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [AV:cleanup] playback AudioContext close error (non-fatal): ",
-                                "",
-                              ])),
-                            String(e),
-                          );
-                        }),
-                    (this.playbackAudioContext = null)));
-              } finally {
-                if (this.playbackBuffer != null) {
-                  var t = this.playbackBuffer;
-                  yield this.$3(t);
-                }
-                this.audioPlaybackInitState = D.Uninitialized;
-              }
-            });
-            function t() {
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

@@ -1,9 +1,11 @@
 __d(
   "WAWebVoipStartCallPermissions",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WALogger",
     "WAWebCallCollection",
+    "WAWebCallUserJourneyGating",
     "WAWebCoreActionsODS",
     "WAWebModalManager",
     "WAWebVoipAcquireMediaStream",
@@ -24,17 +26,18 @@ __d(
       m,
       p,
       _,
-      f = o("WAWebVoipEventConstants").getChangeEvent(
+      f,
+      g = o("WAWebVoipEventConstants").getChangeEvent(
         o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
       ),
-      g = {
+      h = {
         closeModal: o("WAWebModalManager").closeModalManager,
         openModal: function (t, n) {
           return o("WAWebModalManager").ModalManager.open(t, n);
         },
       };
-    function h() {
-      return y().catch(function (t) {
+    function y() {
+      return C().catch(function (t) {
         o("WALogger")
           .WARN(
             e ||
@@ -45,12 +48,12 @@ __d(
           .catching(r("getErrorSafe")(t));
       });
     }
-    function y() {
-      return C.apply(this, arguments);
-    }
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o(
               "WAWebVoipBrowserPermissionButtonGating",
@@ -66,16 +69,79 @@ __d(
               ).preloadDevicePermissionDialog();
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield E(e),
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield I(e, t);
+          return (n == null && (yield R(e, t)), n);
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            !(
+              !o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled() ||
+              !k(t)
+            )
+          ) {
+            var n = yield o(
+                "WAWebVoipAcquireMediaStream",
+              ).queryPermissionStatus(e),
+              a = n.cameraPermission,
+              i = n.micPermission,
+              l = E(e, i, a);
+            if (!(l == null || !k(t)))
+              try {
+                var s = yield r("JSResourceForInteraction")(
+                  "WAWebCallUserJourneyCallStartBlocked",
+                )
+                  .__setRef("WAWebVoipStartCallPermissions")
+                  .load();
+                k(t) && s(l);
+              } catch (e) {
+                o("WALogger")
+                  .WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [start call] blocked start logging failed to load",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
+              }
+          }
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t, n) {
+      return t !== "granted"
+        ? "microphone"
+        : e && n !== "granted"
+          ? "camera"
+          : null;
+    }
+    function k(e) {
+      return !e.aborted && r("WAWebCallCollection").activeCall == null;
+    }
+    function I(e, t) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield P(e),
             a =
               e &&
               !(
@@ -95,7 +161,7 @@ __d(
                   function* (e) {
                     var n, r;
                     return (
-                      (l = e === "denied" ? yield k(a) : null),
+                      (l = e === "denied" ? yield N(a) : null),
                       ((n = l) == null ? void 0 : n.type) === "microphone" &&
                         (o("WAWebCoreActionsODS").logCallStartMicrophoneRefused(
                           i ? "blocked_before" : "at_prompt",
@@ -118,41 +184,41 @@ __d(
           if (u)
             return e && !a
               ? (o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [start call] camera blocked, starting the video call with the camera off",
                     ])),
                 ),
-                P("blocked"))
+                B("blocked"))
               : { cameraOff: null };
           var c = l;
           return t.aborted || c == null
             ? null
             : c.type === "camera"
-              ? D(c.reason, t)
-              : s == null || !(yield $(s, c.isBlocked, t))
+              ? A(c.reason, t)
+              : s == null || !(yield O(s, c.isBlocked, t))
                 ? null
-                : R({
+                : x({
                     asksCamera: a && i,
                     checksCamera: a,
                     isVideo: e,
                     signal: t,
                   });
         })),
-        v.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function S(e, t) {
+    function D(e, t) {
       var n = t.cameraOff;
       (o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(e, n != null),
         n != null && o("WAWebCoreActionsODS").logCallOutgoingVideoCameraOff(n));
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function L() {
+    function $() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.asksCamera,
             a = e.checksCamera,
             i = e.isVideo,
@@ -161,7 +227,7 @@ __d(
             u = s.cameraPermission,
             c = a && (u === "granted" || (u === "prompt" && t)),
             d = null,
-            p = yield o(
+            m = yield o(
               "WAWebVoipAcquireMediaStream",
             ).checkVoipDevicePermissions(c, null, l, {
               shouldOpenFailureGuide: (function () {
@@ -174,7 +240,7 @@ __d(
                     return t.micPermission !== "granted"
                       ? !1
                       : c
-                        ? ((d = T(t)), !1)
+                        ? ((d = w(t)), !1)
                         : !0;
                   },
                 );
@@ -184,37 +250,37 @@ __d(
                 return t;
               })(),
             });
-          if (p)
+          if (m)
             return i && !c
-              ? P(a ? "refused" : "blocked")
+              ? B(a ? "refused" : "blocked")
               : r("WAWebCallCollection").activeCall != null
                 ? (o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [start call] another call came in during the recheck, not starting",
                       ])),
                   ),
                   null)
                 : { cameraOff: null };
           var _ = d;
-          return _ != null && !l.aborted ? D(_, l) : null;
+          return _ != null && !l.aborted ? A(_, l) : null;
         })),
-        L.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function E(e) {
+    function P(e) {
       return o(
         "WAWebVoipBrowserPermissionButtonGating",
       ).hasBrowserPermissionButton("microphone")
         ? o("WAWebVoipAcquireMediaStream").queryPermissionStatus(e)
-        : (_ || (_ = n("Promise"))).resolve(null);
+        : (f || (f = n("Promise"))).resolve(null);
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function I() {
+    function M() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !o(
               "WAWebVoipBrowserPermissionButtonGating",
@@ -231,24 +297,24 @@ __d(
             ? null
             : t.micPermission !== "granted"
               ? { isBlocked: t.micPermission === "denied", type: "microphone" }
-              : { reason: T(t), type: "camera" };
+              : { reason: w(t), type: "camera" };
         })),
-        I.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function T(e) {
+    function w(e) {
       return e.cameraPermission === "granted" ? "blocked_by_system" : "refused";
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function x() {
+    function F() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return (
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [start call] camera ",
                   ", starting the video call with the camera off",
                 ])),
@@ -259,14 +325,14 @@ __d(
               null,
               t,
             ))
-              ? P(e)
+              ? B(e)
               : null
           );
         })),
-        x.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function $(e, t, a) {
+    function O(e, t, a) {
       return r("WAWebCallCollection").activeCall != null
         ? (o("WALogger").LOG(
             s ||
@@ -274,12 +340,12 @@ __d(
                 "voip: [start call] another call came in before the microphone permission button",
               ])),
           ),
-          (_ || (_ = n("Promise"))).resolve(!1))
-        : new (_ || (_ = n("Promise")))(function (i) {
+          (f || (f = n("Promise"))).resolve(!1))
+        : new (f || (f = n("Promise")))(function (i) {
             var l = new AbortController(),
               s = null,
               c = function () {
-                (_ || (_ = n("Promise"))).resolve().then(function () {
+                (f || (f = n("Promise"))).resolve().then(function () {
                   return s == null ? void 0 : s(!1, "closed");
                 });
               },
@@ -297,7 +363,7 @@ __d(
               ((s = null),
                 o("WAWebModalManager").ModalManager.off("open_modal", c),
                 o("WAWebModalManager").ModalManager.off("close_modal", c),
-                r("WAWebCallCollection").off(f, p),
+                r("WAWebCallCollection").off(g, p),
                 a.removeEventListener("abort", m),
                 o("WALogger").LOG(
                   u ||
@@ -311,7 +377,7 @@ __d(
             }),
               o(
                 "WAWebVoipDevicePermissionDialogLoader.react",
-              ).openDevicePermissionDialog(g, e, {
+              ).openDevicePermissionDialog(h, e, {
                 action: "start",
                 cancelSignal: l.signal,
                 isBlocked: t,
@@ -324,11 +390,11 @@ __d(
               }),
               o("WAWebModalManager").ModalManager.on("open_modal", c),
               o("WAWebModalManager").ModalManager.on("close_modal", c),
-              r("WAWebCallCollection").on(f, p),
+              r("WAWebCallCollection").on(g, p),
               a.addEventListener("abort", m));
           });
     }
-    function P(e) {
+    function B(e) {
       return r("WAWebCallCollection").activeCall != null
         ? (o("WALogger").LOG(
             c ||
@@ -339,9 +405,9 @@ __d(
           null)
         : { cameraOff: e };
     }
-    ((l.preloadStartCallPermissionDialog = h),
-      (l.checkStartCallPermissions = b),
-      (l.markCallStart = S));
+    ((l.preloadStartCallPermissionDialog = y),
+      (l.checkStartCallPermissions = v),
+      (l.markCallStart = D));
   },
   98,
 );

@@ -33,12 +33,15 @@ __d(
         a = e.status,
         i = e.suggestedRepliesEnabled,
         l = e.wid;
-      if (!o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled())
+      if (
+        !o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() ||
+        !l.isUser()
+      )
         return (p || (p = n("Promise"))).resolve(f);
       var u =
           (t = o("WAWebLidMigrationUtils").toLid(l)) == null ? void 0 : t.user,
         c = (r = o("WAWebLidMigrationUtils").toPn(l)) == null ? void 0 : r.user;
-      return u == null || c == null
+      return u == null && c == null
         ? (o("WALogger")
             .ERROR(
               s ||
@@ -48,7 +51,7 @@ __d(
             )
             .sendLogs("biz-ai-smart-composer-ai-replies-status-missing-id"),
           (p || (p = n("Promise"))).resolve(f))
-        : y(c, u, a, i);
+        : y(c != null ? c : "", u != null ? u : "", a, i);
     }
     function y(e, t, n, a) {
       return C().then(function (i) {

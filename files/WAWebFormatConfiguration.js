@@ -25,7 +25,7 @@ __d(
     "WAWebStatusLinkFormatMutator",
     "WAWebStrikethroughFormatMutator",
     "WAWebTextMentionFormatMutator",
-    "cr:6000",
+    "cr:18512",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -466,7 +466,7 @@ __d(
           [r("WAWebItalicFormatMutator"), { selectable: s }],
           [r("WAWebStrikethroughFormatMutator"), { selectable: s }],
         ],
-        n("cr:6000") ? n("cr:6000")(s) : null,
+        n("cr:18512") ? n("cr:18512")(s) : null,
         [[r("WAWebEmojiFormatMutator"), { selectable: s }]],
         i
           ? [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: s }]]
@@ -514,7 +514,7 @@ __d(
           [r("WAWebItalicFormatMutator"), { selectable: l }],
           [r("WAWebStrikethroughFormatMutator"), { selectable: l }],
         ],
-        n("cr:6000") ? n("cr:6000")(l) : null,
+        n("cr:18512") ? n("cr:18512")(l) : null,
         [[r("WAWebEmojiFormatMutator"), { selectable: l }]],
         a
           ? [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: l }]]

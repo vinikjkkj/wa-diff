@@ -3,11 +3,13 @@ __d(
   [
     "WAAbortError",
     "WAWebL10N",
+    "WAWebNoop",
     "WAWebSetRefCache",
     "WAWebToastManager",
     "WAWebVelocityTransitionGroup",
     "WDSToast.react",
     "cr:782",
+    "justknobx",
     "react",
     "stylex",
     "uniqueID",
@@ -90,9 +92,9 @@ __d(
         c = f(!1),
         m = g({}),
         C = m[0],
-        S = m[1],
-        R = f(null);
-      function L(e, t) {
+        R = m[1],
+        L = f(null);
+      function E(e, t) {
         var n = e.action,
           r = e.duration,
           a = e.id,
@@ -114,71 +116,58 @@ __d(
                     })(),
           c = Array.isArray(n) ? n[0] : n;
         return (
-          (c == null ? void 0 : c.onAction) != null
-            ? l({
-                testid: "toast-body",
-                align: u,
-                type: "default",
-                message: i,
-                dedupId: a,
-                action: {
-                  label: c.actionText,
-                  onPress: function () {
-                    c.onAction();
-                  },
-                  testid: c.testid,
-                },
-              })
-            : l({
-                testid: "toast-body",
-                align: u,
-                type: "default",
-                message: i,
-                dedupId: a,
-              }),
+          l({
+            testid: "toast-body",
+            align: u,
+            type: "default",
+            message: i,
+            dedupId: a,
+            action: c != null ? b(c) : void 0,
+          }),
           !0
         );
       }
-      function E(e, t) {
+      function k(e, t) {
         var n = e.id,
-          r = e.initialAction,
-          a = e.onDismiss,
-          i = e.pendingAction,
-          s = e.settleDuration,
-          u = e.toastPosition;
-        if (s != null && s !== 5e3) return !1;
-        var c = u != null ? u : t,
-          d =
-            c === o("WAWebToastManager").ToastPosition.LEFT ||
-            c === "LEFT" ||
-            c === void 0
+          a = e.initialAction,
+          i = e.onDismiss,
+          s = e.pendingAction,
+          u = e.settleDuration,
+          c = e.toastPosition;
+        if (u != null && u !== 5e3) return !1;
+        var d = r("justknobx")._("6996") ? n : void 0,
+          m = c != null ? c : t,
+          p =
+            m === o("WAWebToastManager").ToastPosition.LEFT ||
+            m === "LEFT" ||
+            m === void 0
               ? "start"
-              : c === o("WAWebToastManager").ToastPosition.CENTER
+              : m === o("WAWebToastManager").ToastPosition.CENTER
                 ? "center"
-                : c === o("WAWebToastManager").ToastPosition.RIGHT ||
-                    c === "RIGHT"
+                : m === o("WAWebToastManager").ToastPosition.RIGHT ||
+                    m === "RIGHT"
                   ? "end"
                   : (function () {
                       throw Error(
                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          c,
+                          m,
                       );
                     })();
-        if (r) {
-          var m = r.action,
-            p = r.handler,
-            _ = r.testid,
-            f = r.text,
-            g = f,
-            h = null,
-            y = !1;
-          (i
+        if (a) {
+          var _ = a.action,
+            f = a.handler,
+            g = a.testid,
+            h = a.text,
+            y = h,
+            C = null,
+            b = !1;
+          (s
             .then(function (e) {
               e &&
-                ((g = e.text),
+                ((y = e.text),
                 e.action != null &&
                   e.handler != null &&
-                  (h = {
+                  (C = {
                     label: e.action,
                     handler: e.handler,
                     testid: e.testid,
@@ -189,61 +178,68 @@ __d(
                 typeof e == "object" &&
                 e.name !== o("WAAbortError").ABORT_ERROR &&
                 (e == null ? void 0 : e.text) != null &&
-                ((g = String(e.text)),
+                ((y = String(e.text)),
                 (e == null ? void 0 : e.action) != null &&
                   (e == null ? void 0 : e.handler) != null &&
-                  (h = {
+                  (C = {
                     label: e.action,
                     handler: e.handler,
                     testid: e.testid,
                   }));
             }),
             l({
-              align: d,
+              align: p,
+              dedupId: d,
               type: "loading",
               message: function (t) {
-                return t !== "loading" ? g : f;
+                return t !== "loading" ? y : h;
               },
               action: function (t) {
-                return t !== "loading" && h != null
+                return t !== "loading" && C != null
                   ? {
-                      label: h.label,
+                      label: C.label,
                       onPress: function () {
                         var e;
-                        y || ((y = !0), (e = h) == null || e.handler());
+                        b || ((b = !0), (e = C) == null || e.handler());
                       },
-                      testid: h.testid,
+                      testid: C.testid,
                     }
-                  : t === "loading" && m != null && p != null
+                  : t === "loading" && _ != null && f != null
                     ? {
-                        label: m,
+                        label: _,
                         onPress: function () {
-                          y || ((y = !0), p());
+                          b || ((b = !0), f());
                         },
-                        testid: _,
+                        testid: g,
                       }
                     : null;
               },
-              process: i,
+              process: s,
             }));
         } else {
-          var C = !1;
-          i.then(function (e) {
+          var v = !1;
+          s.then(function (e) {
             e &&
               (e.action != null && e.handler != null
                 ? l({
-                    align: d,
+                    align: p,
+                    dedupId: d,
                     type: "default",
                     message: e.text,
                     action: {
                       label: e.action,
                       onPress: function () {
-                        C || ((C = !0), e.handler == null || e.handler());
+                        v || ((v = !0), e.handler == null || e.handler());
                       },
                       testid: e.testid,
                     },
                   })
-                : l({ align: d, type: "default", message: e.text }));
+                : l({
+                    align: p,
+                    dedupId: d,
+                    type: "default",
+                    message: e.text,
+                  }));
           }).catch(function (e) {
             e != null &&
               typeof e == "object" &&
@@ -252,32 +248,33 @@ __d(
               ((e == null ? void 0 : e.action) != null &&
               (e == null ? void 0 : e.handler) != null
                 ? l({
-                    align: d,
+                    align: p,
+                    dedupId: d,
                     type: "error",
                     message: e.text,
                     action: {
                       label: e.action,
                       onPress: function () {
-                        C || ((C = !0), e.handler == null || e.handler());
+                        v || ((v = !0), e.handler == null || e.handler());
                       },
                       testid: e.testid,
                     },
                   })
-                : l({ align: d, type: "error", message: e.text }));
+                : l({ align: p, dedupId: d, type: "error", message: e.text }));
           });
         }
         return !0;
       }
-      var k = function (n, r) {
+      var I = function (n, r) {
           var e,
             o = !1,
             a = n.props;
-          if (("pendingAction" in a ? (o = E(a, r)) : (o = L(a, r)), !o)) {
-            var i = (e = a.id) != null ? e : v(),
+          if (("pendingAction" in a ? (o = k(a, r)) : (o = E(a, r)), !o)) {
+            var i = (e = a.id) != null ? e : S(),
               l = t.current.get(i);
             l
               ? l.restartDelay == null || l.restartDelay()
-              : S(function (e) {
+              : R(function (e) {
                   var t;
                   return babelHelpers.extends(
                     {},
@@ -287,9 +284,9 @@ __d(
                 });
           }
         },
-        I = function (t) {
+        T = function (t) {
           C[t] &&
-            S(function (e) {
+            R(function (e) {
               var n = e[t],
                 r = babelHelpers.objectWithoutPropertiesLoose(e, [t].map(u));
               return r;
@@ -298,26 +295,26 @@ __d(
       (o("useWAWebListener").useListener(
         o("WAWebToastManager").ToastManager,
         "open_toast",
-        k,
+        I,
       ),
         o("useWAWebListener").useListener(
           o("WAWebToastManager").ToastManager,
           "close_toast",
-          I,
+          T,
         ),
         _(
           function () {
-            var e = R.current;
-            ((R.current = C),
+            var e = L.current;
+            ((L.current = C),
               (c.current =
                 Object.keys(e != null ? e : {}).length >
                 Object.keys(C).length));
           },
           [C],
         ));
-      var T = c.current,
-        D = Object.values(C)
-          .sort(b)
+      var D = c.current,
+        x = Object.values(C)
+          .sort(v)
           .map(function (t, n) {
             var a = t.id,
               i = t.position,
@@ -330,7 +327,7 @@ __d(
                   h.wrapper,
                   i === o("WAWebToastManager").ToastPosition.CENTER && h.center,
                   i === o("WAWebToastManager").ToastPosition.RIGHT && h.right,
-                  n === 0 && T && h.slide0,
+                  n === 0 && D && h.slide0,
                   n === 1 && h.slide1,
                   n === 2 && h.slide2,
                   n >= y && h.slide3,
@@ -361,19 +358,35 @@ __d(
           });
       return d.jsxs(d.Fragment, {
         children: [
-          n("cr:782") != null && d.jsx(n("cr:782"), { openToast: k }),
+          n("cr:782") != null && d.jsx(n("cr:782"), { openToast: I }),
           d.jsx(r("WAWebVelocityTransitionGroup"), {
             transitionName: "fade_sifo",
-            children: D,
+            children: x,
           }),
         ],
       });
     }
     C.displayName = C.name + " [from " + i.id + "]";
-    function b(e, t) {
+    function b(e) {
+      if (e.onAction == null)
+        return {
+          label: e.actionText,
+          onPress: r("WAWebNoop"),
+          testid: e.testid,
+        };
+      var t = e.onAction;
+      return {
+        label: e.actionText,
+        onPress: function () {
+          t();
+        },
+        testid: e.testid,
+      };
+    }
+    function v(e, t) {
       return e.id === t.id ? 0 : e.id < t.id ? 1 : -1;
     }
-    function v(e) {
+    function S(e) {
       return r("uniqueID")(e || "toast");
     }
     l.default = C;

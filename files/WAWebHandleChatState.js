@@ -2,8 +2,12 @@ __d(
   "WAWebHandleChatState",
   ["WAWebBackendApi", "WAWebJidToWid", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    var e = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.jid,
             n = e.status,
             r = o("WAWebJidToWid").userJidToUserWid(t);
@@ -14,13 +18,16 @@ __d(
             ),
             "NO_ACK"
           );
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })(),
-      s = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.jid,
             n = e.participant,
             r = e.status,
@@ -33,12 +40,11 @@ __d(
             ),
             "NO_ACK"
           );
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })();
-    ((l.handleIndividualChatState = e), (l.handleGroupChatState = s));
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    ((l.handleIndividualChatState = e), (l.handleGroupChatState = u));
   },
   98,
 );

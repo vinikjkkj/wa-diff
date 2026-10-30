@@ -47,8 +47,23 @@ __d(
     function v() {
       r("WAWebODS").incr("web.broadcast.audience.import.success");
     }
-    function S() {
+    function S(e) {
       r("WAWebODS").incr("web.broadcast.audience.import.error");
+      e: {
+        if (e === "account") {
+          r("WAWebODS").incr("web.broadcast.audience.import.error.account");
+          break e;
+        }
+        if (e === "unknown") {
+          r("WAWebODS").incr("web.broadcast.audience.import.error.unknown");
+          break e;
+        }
+        if (e === void 0) return;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
     }
     function R() {
       r("WAWebODS").incr("web.broadcast.pro.campaign.create");

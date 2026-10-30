@@ -1,22 +1,23 @@
 __d(
   "WAWebOrgAdminManagedRosterUtils",
   [
+    "WATimeUtils",
     "WAWebOrgAdminDirectoryMemberDisplay",
     "WAWebOrgAdminInviteMembersUtils",
     "WAWebPhoneUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r, o, a) {
-      if ((a === void 0 && (a = null), !e || R(r, o, a))) return t;
-      var i = y(n);
+      if ((a === void 0 && (a = null), !e || E(r, o, a))) return t;
+      var i = b(n);
       return t.filter(function (e) {
         var t;
-        return C(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
+        return v(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
       });
     }
     function s(e, t, n, r, o, a) {
       if (!t || (o === "" && a == null)) return [];
-      var i = y(n),
+      var i = b(n),
         l = new Set(
           e.map(function (e) {
             return e.lid;
@@ -26,7 +27,7 @@ __d(
         var t;
         if (l.has(e.lid)) return !1;
         var n = (t = i.get(e.lid)) != null ? t : [];
-        return C(e, n, o, a, null);
+        return v(e, n, o, a, null);
       });
     }
     function u(e, t, n, r, o, a) {
@@ -38,14 +39,17 @@ __d(
       );
       return t.filter(function (e) {
         return (
-          (e.memberLID == null || !i.has(e.memberLID)) && S(e, o, a) && E(e, r)
+          (e.memberLID == null || !i.has(e.memberLID)) && L(e, o, a) && I(e, r)
         );
       });
     }
     function c(e, t) {
       return t === "all" || t === "member"
         ? !0
-        : t === "not_joined"
+        : t === "not_joined" ||
+            t === "invited" ||
+            t === "invite_expired" ||
+            t === "not_invited"
           ? !1
           : t === "owner" || t === "admin"
             ? d(e.role) === t
@@ -60,9 +64,44 @@ __d(
       return e === "CREATOR" ? "owner" : e === "ADMIN" ? "admin" : "member";
     }
     function m(e) {
-      return e === "all" || e === "not_joined";
+      var t;
+      return e.memberLID != null
+        ? null
+        : e.status === "INVITED" || e.status === "EMAIL_SENT"
+          ? ((t = e.inviteExpiry) != null ? t : 0) > o("WATimeUtils").unixTime()
+            ? "invited"
+            : "invite_expired"
+          : "not_invited";
     }
-    function p(t, n, r, o, a, i, l, s) {
+    function p(e, t) {
+      return e === "all" || e === "member" || e === "owner" || e === "admin"
+        ? !0
+        : e === "not_joined"
+          ? !t
+          : e === "invited" || e === "invite_expired" || e === "not_invited"
+            ? t
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
+    }
+    function _(e, t) {
+      return t === "all" || t === "not_joined"
+        ? !0
+        : t === "member" || t === "owner" || t === "admin"
+          ? !1
+          : t === "invited" || t === "invite_expired" || t === "not_invited"
+            ? m(e) === t
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t,
+                );
+              })();
+    }
+    function f(t, n, r, o, a, i, l, s) {
       (o === void 0 && (o = ""),
         a === void 0 && (a = null),
         i === void 0 && (i = "all"),
@@ -73,40 +112,51 @@ __d(
             return c(e, i);
           }).length;
         },
-        p = function (r, a) {
-          return m(i) ? u(!0, n, t, o, r, a).length : 0;
+        m = function (r, a) {
+          return u(!0, n, t, o, r, a).filter(function (e) {
+            return _(e, i);
+          }).length;
         },
-        _ = function (t, n) {
-          return d(t, n) + p(t, n);
+        p = function (t, n) {
+          return d(t, n) + m(t, n);
         },
-        f = L(r, function (e) {
-          return _(e, s);
+        f = k(r, function (e) {
+          return p(e, s);
         }),
-        g = L(l, function (e) {
-          return _(a, e);
+        g = k(l, function (e) {
+          return p(a, e);
         }),
         h = e(!0, t, n, o, a, s),
-        y = u(!0, n, t, o, a, s).length,
-        C = function (t) {
-          return h.filter(function (e) {
-            return c(e, t);
-          }).length;
+        y = u(!0, n, t, o, a, s),
+        C = y.length,
+        b = function (t) {
+          return (
+            h.filter(function (e) {
+              return c(e, t);
+            }).length +
+            y.filter(function (e) {
+              return _(e, t);
+            }).length
+          );
         };
       return {
         memberCount: h.length,
         memberTagCounts: f,
-        notJoinedCount: y,
+        notJoinedCount: C,
         secondaryMemberTagCounts: g,
         statusCounts: {
-          admin: C("admin"),
-          all: h.length + y,
-          member: C("member"),
-          not_joined: y,
-          owner: C("owner"),
+          admin: b("admin"),
+          all: h.length + C,
+          invite_expired: b("invite_expired"),
+          invited: b("invited"),
+          member: b("member"),
+          not_invited: b("not_invited"),
+          not_joined: C,
+          owner: b("owner"),
         },
       };
     }
-    function _(e) {
+    function g(e) {
       return e.flatMap(function (e) {
         var t = e.emailAddress;
         return t != null &&
@@ -115,7 +165,7 @@ __d(
           : [];
       });
     }
-    function f(e) {
+    function h(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -123,7 +173,7 @@ __d(
           t.set(n.memberLID, n.emailAddress);
       return t;
     }
-    function g(e) {
+    function y(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -131,7 +181,7 @@ __d(
           t.set(n.memberLID, n.phoneNumber);
       return t;
     }
-    function h(e) {
+    function C(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -139,7 +189,7 @@ __d(
           t.set(n.memberLID, n.secondaryMemberTag);
       return t;
     }
-    function y(e) {
+    function b(e) {
       var t = new Map();
       for (var n of e) {
         var r,
@@ -151,7 +201,7 @@ __d(
       }
       return t;
     }
-    function C(e, t, n, r, a) {
+    function v(e, t, n, r, a) {
       var i,
         l =
           o(
@@ -161,11 +211,11 @@ __d(
             ? void 0
             : i.toLocaleLowerCase().includes(n)) === !0 ||
           t.some(function (e) {
-            return E(e, n);
+            return I(e, n);
           });
-      return l && b(e, t, r) && v(t, a);
+      return l && S(e, t, r) && R(t, a);
     }
-    function b(e, t, n) {
+    function S(e, t, n) {
       return (
         n == null ||
         e.memberTag === n ||
@@ -174,7 +224,7 @@ __d(
         })
       );
     }
-    function v(e, t) {
+    function R(e, t) {
       return (
         t == null ||
         e.some(function (e) {
@@ -182,23 +232,23 @@ __d(
         })
       );
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       return (
         (t == null || e.memberTag === t) &&
         (n == null || e.secondaryMemberTag === n)
       );
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       return e === "" && t == null && n == null;
     }
-    function L(e, t) {
+    function k(e, t) {
       return new Map(
         e.map(function (e) {
           return [e, t(e)];
         }),
       );
     }
-    function E(e, t) {
+    function I(e, t) {
       return t === ""
         ? !0
         : [
@@ -220,12 +270,14 @@ __d(
       (l.getWAWebOrgAdminRosterOnlyEntries = u),
       (l.orgAdminMemberMatchesStatus = c),
       (l.getOrgAdminMemberStatus = d),
-      (l.orgAdminRosterOnlyEntriesMatchStatus = m),
-      (l.getWAWebOrgAdminPeopleCounts = p),
-      (l.getWAWebOrgAdminRosterInviteEmails = _),
-      (l.getWAWebOrgAdminRosterEmailsByMemberLID = f),
-      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = g),
-      (l.getWAWebOrgAdminRosterSecondaryMemberTagsByMemberLID = h));
+      (l.getOrgAdminRosterInviteStatus = m),
+      (l.isOrgAdminPeopleStatusOffered = p),
+      (l.orgAdminRosterOnlyEntryMatchesStatus = _),
+      (l.getWAWebOrgAdminPeopleCounts = f),
+      (l.getWAWebOrgAdminRosterInviteEmails = g),
+      (l.getWAWebOrgAdminRosterEmailsByMemberLID = h),
+      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = y),
+      (l.getWAWebOrgAdminRosterSecondaryMemberTagsByMemberLID = C));
   },
   98,
 );

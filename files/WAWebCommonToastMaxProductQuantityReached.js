@@ -29,11 +29,7 @@ __d(
           [s._param("max-number-of-items", e, [0]), s._plural(e)],
         );
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          action: n,
-          duration: 6e3,
-          msg: a,
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { action: n, msg: a }),
       );
     }
     l.default = c;

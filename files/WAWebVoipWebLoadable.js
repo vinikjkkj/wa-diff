@@ -17,6 +17,7 @@ __d(
     "WAWebVoipBootInitDecision",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitReloadRecovery",
+    "WAWebVoipMainThreadLockFixes",
     "WAWebVoipPthreadGlueFailureTracker",
     "WAWebVoipPthreadHardening",
     "WAWebVoipQplHelpers",
@@ -318,6 +319,7 @@ __d(
             t,
           ),
             o("WAWebVoipQplHelpers").voipInitQplAnnotatePthreadHardening(t),
+            o("WAWebVoipMainThreadLockFixes").readMainThreadLockFixAtBoot(),
             o("WAWebVoipGatingUtils").isGuestViewer() || (yield M()),
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_START,

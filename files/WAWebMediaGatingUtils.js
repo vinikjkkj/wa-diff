@@ -15,6 +15,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWid",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
@@ -217,25 +218,28 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo");
     }
     function L() {
-      return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_video");
+      return r("justknobx")._("7000");
     }
     function E() {
+      return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_video");
+    }
+    function k() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "media_quality_auto_download_settings_enabled",
-        ) && L()
+        ) && E()
       );
     }
-    function k() {
+    function I() {
       var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
       return e ===
         o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
-        !E()
+        !k()
         ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
             .STANDARD
         : e;
     }
-    function I() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
@@ -255,10 +259,11 @@ __d(
       (l.isThumbnailGenerationOnServerEnabledForMediaType = v),
       (l.isHdImageDualUploadConsumptionEnabled = S),
       (l.isHdImageDualUploadSendEnabled = R),
-      (l.isHdVideoDualUploadConsumptionEnabled = L),
-      (l.isMediaAutoDownloadQualityAutoEnabled = E),
-      (l.resolveEffectiveAutoDownloadMediaQuality = k),
-      (l.getHQImageThumbnailInChatScans = I));
+      (l.isHdMarkSweepEnabled = L),
+      (l.isHdVideoDualUploadConsumptionEnabled = E),
+      (l.isMediaAutoDownloadQualityAutoEnabled = k),
+      (l.resolveEffectiveAutoDownloadMediaQuality = I),
+      (l.getHQImageThumbnailInChatScans = T));
   },
   98,
 );

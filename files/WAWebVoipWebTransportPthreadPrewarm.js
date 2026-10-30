@@ -5,24 +5,49 @@ __d(
     "WAWebPonyfillsIdleCallback",
     "WAWebVoipGatingUtils",
     "WAWebVoipHiddenPrewarmIdleWork",
+    "WAWebVoipInitEventEmitter",
+    "WAWebVoipMainThreadLockFixes",
+    "WAWebVoipMainThreadLockODS",
     "WAWebVoipWebTransportDataChannelThreadManager",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
     function s() {
-      !o("WAWebVoipGatingUtils").isWebTransportEnabled() ||
-        !o("WAWebVoipGatingUtils").isWebTransportFastSetupEnabled() ||
-        o("WAWebVoipHiddenPrewarmIdleWork").requestHiddenPrewarmIdleWork(
-          "webtransport_pthread",
-          u,
-        ) ||
-        o("WAWebPonyfillsIdleCallback").requestIdleCallback(u);
+      if (
+        !(
+          !o("WAWebVoipGatingUtils").isWebTransportEnabled() ||
+          !o("WAWebVoipGatingUtils").isWebTransportFastSetupEnabled()
+        )
+      ) {
+        var e =
+          o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix() &&
+          !r("justknobx")._("7008");
+        if (
+          e &&
+          !o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+        ) {
+          (o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.once(
+            "voipInitSuccess",
+            u,
+          ),
+            o("WAWebVoipMainThreadLockODS").logMainThreadLockPrewarmDeferred());
+          return;
+        }
+        u();
+      }
     }
     function u() {
+      o("WAWebVoipHiddenPrewarmIdleWork").requestHiddenPrewarmIdleWork(
+        "webtransport_pthread",
+        c,
+      ) || o("WAWebPonyfillsIdleCallback").requestIdleCallback(c);
+    }
+    function c() {
       o("WAWebVoipWebTransportDataChannelThreadManager")
-        .initWebTransportDataChannelWorker()
+        .initWebTransportDataChannelWorker("wt_prewarm")
         .catch(function (t) {
           o("WALogger")
             .ERROR(

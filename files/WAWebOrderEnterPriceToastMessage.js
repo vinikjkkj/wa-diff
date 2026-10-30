@@ -1,10 +1,8 @@
 __d(
   "WAWebOrderEnterPriceToastMessage",
-  ["fbt", "WAWebToast.react", "WAWebToastManager", "react"],
+  ["fbt", "WAWebNoop", "WDSToastImperativeHost"],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = e || (e = o("react"));
-    function c(e) {
+    function e(e) {
       var t = e.length;
       return t === 0
         ? ""
@@ -29,27 +27,20 @@ __d(
                 ],
               );
     }
-    function d(e, t) {
-      var n = e.reduce(function (e, n) {
+    function u(t, n) {
+      var a = t.reduce(function (e, t) {
           var r,
-            o = (r = n.price) != null ? r : t[n.id];
-          return (Number.isInteger(o) || e.push(n.name || ""), e);
+            o = (r = t.price) != null ? r : n[t.id];
+          return (Number.isInteger(o) || e.push(t.name || ""), e);
         }, []),
-        r = c(n);
-      r &&
-        o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
-            duration: 1e4,
-            msg: r,
-            action: {
-              actionText: s._(/*BTDS*/ "OK"),
-              dismiss: !0,
-              theme: "success",
-            },
-          }),
-        );
+        i = e(a);
+      i &&
+        o("WDSToastImperativeHost").showWDSToast({
+          action: { label: s._(/*BTDS*/ "OK"), onPress: r("WAWebNoop") },
+          message: i,
+        });
     }
-    ((l.getErrorMsgFromProducts = c), (l.notifyIfAnyProductMissesPrice = d));
+    ((l.getErrorMsgFromProducts = e), (l.notifyIfAnyProductMissesPrice = u));
   },
   226,
 );

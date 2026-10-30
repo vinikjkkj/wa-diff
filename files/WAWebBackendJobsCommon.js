@@ -306,7 +306,7 @@ __d(
         return o("WAWebWamEnumPlaceholderReasonType").PLACEHOLDER_REASON_TYPE
           .UNKNOWN_COMPANION_NO_PREKEY;
       if (t instanceof o("WAWebSignalCommonErrors").SignalDecryptionError) {
-        var a = r("gkx")("26258") ? 0.001 : 0.01;
+        var a = r("gkx")("9092") ? 0.01 : 0.001;
         switch (t.message) {
           case "errSignalNoSession":
           case "errLoadSenderKeySession":

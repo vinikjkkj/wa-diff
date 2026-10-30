@@ -579,12 +579,12 @@ __d(
       var e = Ne;
       return ((Ne = null), e);
     }
-    function we(e) {
+    function we(e, t) {
       return Ae.apply(this, arguments);
     }
     function Ae() {
       return (
-        (Ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (e == null ? void 0 : e.device_type) !==
             o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio &&
             (re() && q(),
@@ -601,7 +601,7 @@ __d(
                   return;
                 }
                 ((Ne = e.consumeAudioCaptureMetrics()),
-                  yield e.stopCapture(),
+                  yield e.stopCapture(t == null ? void 0 : t.nativeStopped),
                   (B = null));
               }),
               "stopCapture",
@@ -714,20 +714,20 @@ __d(
       var e = qe;
       return ((qe = null), e);
     }
-    function Ve() {
+    function Ve(e) {
       return He.apply(this, arguments);
     }
     function He() {
       return (
-        (He = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = re(),
-            t = e ? null : H;
-          (e && K(),
+        (He = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = re(),
+            r = t ? null : H;
+          (t && K(),
             te.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e = U;
-                if (e == null) {
-                  (t != null && Q(t),
+                var t = U;
+                if (t == null) {
+                  (r != null && Q(r),
                     o("WALogger").WARN(
                       T ||
                         (T = babelHelpers.taggedTemplateLiteralLoose([
@@ -736,11 +736,11 @@ __d(
                     ));
                   return;
                 }
-                qe = e.consumeAudioPlaybackMetrics();
+                qe = t.consumeAudioPlaybackMetrics();
                 try {
-                  yield e.stopPlayback();
+                  yield t.stopPlayback(e);
                 } finally {
-                  (t != null && Q(t),
+                  (r != null && Q(r),
                     (U = null),
                     o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
                       null,

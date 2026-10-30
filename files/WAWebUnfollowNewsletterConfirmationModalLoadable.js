@@ -28,8 +28,7 @@ __d(
           return s.jsx(r("WAWebLoadingModal.react"), { error: !!t.error });
         },
       });
-    ((l.requireBundle = u),
-      (l.UnfollowNewsletterConfirmationModalLoadable = c));
+    l.UnfollowNewsletterConfirmationModalLoadable = c;
   },
   98,
 );

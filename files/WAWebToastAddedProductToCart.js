@@ -29,7 +29,6 @@ __d(
               n();
             },
           },
-          duration: 6e3,
           msg: s._(/*BTDS*/ "Item added to cart"),
         }),
       );

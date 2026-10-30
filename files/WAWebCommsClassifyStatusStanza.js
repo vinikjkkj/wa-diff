@@ -27,7 +27,7 @@ __d(
               o("WAJids").maybeSanitizeLogLineText(n.error),
             )
             .sendLogs("status-deliver-smax-parse-failed", {
-              sampling: r("gkx")("26259") ? 1 : 0.1,
+              sampling: r("gkx")("9092") ? 1 : 0.1,
             }),
           null);
     }

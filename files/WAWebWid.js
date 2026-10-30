@@ -11,6 +11,7 @@ __d(
     "WAWebWidValidator",
     "err",
     "gkx",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -126,13 +127,16 @@ __d(
         var n = t.prototype;
         return (
           (n.$1 = function () {
-            if (!r("gkx")("26258")) return this.user;
+            var e = r("justknobx")._("7009")
+              ? r("gkx")("9092")
+              : !r("gkx")("26258");
+            if (e) return this.user;
             if (this.isGroup()) {
-              var e = this.user.split("-");
-              if (e.length === 2) {
-                var t = e[0],
-                  n = e[1];
-                return t.slice(-S) + "-" + n;
+              var t = this.user.split("-");
+              if (t.length === 2) {
+                var n = t[0],
+                  o = t[1];
+                return n.slice(-S) + "-" + o;
               }
             }
             return this.user.slice(-S);

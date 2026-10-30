@@ -6,7 +6,6 @@ __d(
     "WAWebABProps",
     "WAWebBizToolsGatingUtils",
     "WAWebCTWAGatingUtils",
-    "WAWebCurrentUser",
     "err",
     "gkx",
   ],
@@ -71,7 +70,7 @@ __d(
           return r("gkx")("9092");
         case e.DownloadLogs:
           return (
-            o("WAWebCurrentUser").isEmployee() ||
+            r("gkx")("9092") ||
             o("WAWebABProps").getABPropConfigValue("enable_web_log_download")
           );
         case e.Developer:

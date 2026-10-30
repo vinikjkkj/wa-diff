@@ -10,6 +10,7 @@ __d(
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2HostedContactUtils",
+    "WAWebCoexV2RelayEditProto",
     "WAWebCoexV2RelayEligibility",
     "WAWebCoexV2SendContribution",
     "WAWebCoexV2UserAgentEligibility",
@@ -133,19 +134,23 @@ __d(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
               e,
             ),
-            g = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(a, a.id.remote),
-            h = yield o(
+            g = yield o("WAWebCoexV2RelayEditProto").genCoexV2RelayProtobuf(
+              f,
+              o("WAWebMsgGetters").getMessageSecret(a),
+            ),
+            h = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(a, a.id.remote),
+            y = yield o(
               "WAWebCoexV2SendContribution",
             ).genCoexV2RelayBotNodeForTargets(
               a,
-              f,
+              g,
               o("WAWebMsgGetters").getWamEditType(a),
               _,
               t,
               u,
               {
                 clientThreadId: null,
-                localAutomatedType: g
+                localAutomatedType: h
                   ? null
                   : o("WAWebBotTypes").getBotLocalAutomatedType(a.bizBotType),
                 modeSelected: null,
@@ -153,13 +158,13 @@ __d(
                 type: o("WAWebSendMsgBotStanza").getBotStanzaType(a),
               },
             );
-          if (h == null)
+          if (y == null)
             throw r("err")(
               "[coexv2] retry: failed to build relay bot node for " +
                 _.length +
                 " undelivered target(s)",
             );
-          var y = o("WAWebSendMsgMetaNode").genMetaNode({
+          var C = o("WAWebSendMsgMetaNode").genMetaNode({
             chatId: a.id.remote,
             groupData: null,
             includeAttributes: { appendHostedSenderIntent: !0 },
@@ -174,8 +179,8 @@ __d(
               type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(f),
               edit: o("WAWebSendMsgCommonApi").editAttribute(f, a.subtype),
             },
-            h.node,
-            y,
+            y.node,
+            C,
           );
         })),
         S.apply(this, arguments)

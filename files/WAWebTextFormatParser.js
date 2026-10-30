@@ -18,7 +18,7 @@ __d(
     "WAWebPhoneNumberFormatMutator",
     "WAWebSpoilerFormatMutator",
     "WAWebStrikethroughFormatMutator",
-    "cr:9051",
+    "cr:18511",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -78,7 +78,7 @@ __d(
           return { format: g.Code, symbol: d };
         case o("WAWebBotCommandFormatMutator").BotCommand:
           return { format: g.BotCommand, symbol: "" };
-        case n("cr:9051"):
+        case n("cr:18511"):
         case r("WAWebPhoneNumberFormatMutator"):
         case r("WAWebLinkFormatMutator"):
           return { format: g.Link, symbol: "" };
@@ -187,7 +187,7 @@ __d(
                 ],
               ]
             : null,
-          p && n("cr:9051") ? [[n("cr:9051"), {}]] : null,
+          p && n("cr:18511") ? [[n("cr:18511"), {}]] : null,
           u
             ? [[o("WAWebBotCommandFormatMutator").BotCommand, { commands: u }]]
             : null,

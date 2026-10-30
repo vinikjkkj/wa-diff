@@ -119,7 +119,6 @@ __d(
       });
     }
     ((l.isUnlockedSubscribedOrOwnedChannel = s),
-      (l.isChatListChannel = u),
       (l.isArchivedChatListChannel = c),
       (l.shouldIncludeChannelsForFilter = d),
       (l.getChatListChannelResults = m),

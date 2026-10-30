@@ -21,46 +21,46 @@ __d(
       m = null,
       p = null,
       _ = 0;
-    function f() {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = p;
-          if (e != null) {
-            if (e.isActive()) return !0;
-            ((p = null), (m = null), _++, yield b(e));
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = p;
+          if (t != null) {
+            if (t.isActive()) return !0;
+            ((p = null), (m = null), _++, yield b(t));
           }
-          var t = m;
-          if (t == null) {
-            var r = _;
-            ((t = (d || (d = n("Promise"))).resolve().then(function () {
-              return h(r);
+          var r = m;
+          if (r == null) {
+            var o = _;
+            ((r = (d || (d = n("Promise"))).resolve().then(function () {
+              return h(o, e);
             })),
-              (m = t));
+              (m = r));
           }
-          var o = yield t;
-          return o == null || !o.isActive() ? (m === t && (m = null), !1) : !0;
+          var a = yield r;
+          return a == null || !a.isActive() ? (m === r && (m = null), !1) : !0;
         })),
         g.apply(this, arguments)
       );
     }
-    function h(e) {
+    function h(e, t) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [WebTransportThread] Creating dedicated WebTransport pthread",
               ])),
           );
-          var n;
+          var a;
           try {
-            n = yield r("WAWebVoipWebTransportDataChannelThread").create();
+            a = yield r("WAWebVoipWebTransportDataChannelThread").create(n);
           } catch (e) {
             return (
               o("WALogger")
@@ -76,14 +76,14 @@ __d(
               null
             );
           }
-          return t !== _ || !n.isActive()
+          return t !== _ || !a.isActive()
             ? (o(
                 "WAWebVoipPthreadHardening",
               ).isVoipWorkerLifecycleHardeningEnabled()
-                ? b(n)
-                : yield b(n),
+                ? b(a)
+                : yield b(a),
               null)
-            : ((p = n), n);
+            : ((p = a), a);
         })),
         y.apply(this, arguments)
       );

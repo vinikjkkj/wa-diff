@@ -23,7 +23,8 @@ __d(
     }
     ((l.maybeRecordAppInBgWhenCallStarts = s),
       (l.getAppInBgWhenCallStarts = u),
-      (l.resetAppInBgWhenCallStarts = c));
+      (l.resetAppInBgWhenCallStarts = c),
+      (l.isCallStart = d));
   },
   98,
 );

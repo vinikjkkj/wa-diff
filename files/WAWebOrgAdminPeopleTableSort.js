@@ -1,29 +1,32 @@
 __d(
   "WAWebOrgAdminPeopleTableSort",
   [
+    "WAWebOrgAdminManagedRosterUtils",
     "WAWebOrgAdminPeople",
     "WAWebOrgAdminTableSort",
     "WAWebOrgMemberDisplayName",
     "WAWebPhoneUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 0,
-      s = 1,
-      u = 2,
-      c = 3;
-    function d(e, t, n) {
+    var e = -2,
+      s = -1,
+      u = 0,
+      c = 1,
+      d = 2,
+      m = 3;
+    function p(e, t, n) {
       return o("WAWebOrgAdminTableSort").sortOrgAdminTableRows(
         e,
         t,
         function (e, t) {
-          return g(e, t, n);
+          return y(e, t, n);
         },
         function (e) {
-          return f(e, n);
+          return h(e, n);
         },
       );
     }
-    function m(e) {
+    function _(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -47,19 +50,19 @@ __d(
         );
       })(e);
     }
-    function p(e, t) {
+    function f(e, t) {
       return o(
         "WAWebOrgMemberDisplayName",
       ).getOrgMemberNameWithUsernameFallback(
         e.displayName,
         e.username,
-        _(t != null ? t : e.phoneNumber),
+        g(t != null ? t : e.phoneNumber),
       );
     }
-    function _(e) {
+    function g(e) {
       return e == null ? null : o("WAWebPhoneUtils").formatPhone(e);
     }
-    function f(e, t) {
+    function h(e, t) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -67,7 +70,7 @@ __d(
           "member" in e
         ) {
           var n = e.member;
-          return p(n, t.phoneNumbersByMemberLID.get(n.lid));
+          return f(n, t.phoneNumbersByMemberLID.get(n.lid));
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -83,11 +86,11 @@ __d(
         );
       })(e);
     }
-    function g(e, t, n) {
+    function y(e, t, n) {
       var r,
-        o = h(e, n);
+        o = C(e, n);
       return t === "name"
-        ? f(e, n)
+        ? h(e, n)
         : t === "phone"
           ? o.phoneNumber
           : t === "email"
@@ -113,59 +116,72 @@ __d(
                         );
                       })();
     }
-    function h(t, n) {
-      return (function (t) {
+    function C(e, t) {
+      return (function (e) {
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "member" &&
-          "member" in t
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.type === "member" &&
+          "member" in e
         ) {
-          var r,
-            o,
-            a = t.member;
+          var n,
+            r,
+            o = e.member;
           return {
-            email: n.emailsByMemberLID.get(a.lid),
-            lid: a.lid,
-            memberTag: a.memberTag,
+            email: t.emailsByMemberLID.get(o.lid),
+            lid: o.lid,
+            memberTag: o.memberTag,
             phoneNumber:
-              (r = n.phoneNumbersByMemberLID.get(a.lid)) != null
-                ? r
-                : a.phoneNumber,
+              (n = t.phoneNumbersByMemberLID.get(o.lid)) != null
+                ? n
+                : o.phoneNumber,
             secondaryMemberTag:
-              (o = n.secondaryMemberTagsByMemberLID) == null
+              (r = t.secondaryMemberTagsByMemberLID) == null
                 ? void 0
-                : o.get(a.lid),
-            status: y(a.role),
+                : r.get(o.lid),
+            status: v(o.role),
           };
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "roster" &&
-          "entry" in t
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.type === "roster" &&
+          "entry" in e
         ) {
-          var i = t.entry;
+          var a = e.entry;
           return {
-            email: i.emailAddress,
-            lid: i.memberLID,
-            memberTag: i.memberTag,
-            phoneNumber: i.phoneNumber,
-            secondaryMemberTag: i.secondaryMemberTag,
-            status: i.memberLID == null ? e : null,
+            email: a.emailAddress,
+            lid: a.memberLID,
+            memberTag: a.memberTag,
+            phoneNumber: a.phoneNumber,
+            secondaryMemberTag: a.secondaryMemberTag,
+            status: b(a, t.showInviteStatus),
           };
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
+            e,
         );
-      })(t);
+      })(e);
     }
-    function y(e) {
-      return e === "CREATOR" ? c : e === "ADMIN" ? u : s;
+    function b(t, n) {
+      return t.memberLID != null
+        ? null
+        : (function (t) {
+            return t === "invite_expired" ? e : t === "invited" ? s : u;
+          })(
+            n
+              ? o(
+                  "WAWebOrgAdminManagedRosterUtils",
+                ).getOrgAdminRosterInviteStatus(t)
+              : null,
+          );
     }
-    ((l.sortOrgAdminPeopleRows = d),
-      (l.getOrgAdminPeopleRowKey = m),
-      (l.getOrgAdminMemberName = p),
-      (l.formatOrgAdminPhoneNumber = _));
+    function v(e) {
+      return e === "CREATOR" ? m : e === "ADMIN" ? d : c;
+    }
+    ((l.sortOrgAdminPeopleRows = p),
+      (l.getOrgAdminPeopleRowKey = _),
+      (l.getOrgAdminMemberName = f),
+      (l.formatOrgAdminPhoneNumber = g));
   },
   98,
 );

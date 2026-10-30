@@ -4,7 +4,6 @@ __d(
     "WATimeUtils",
     "WAWebAfterReadUtils",
     "WAWebAsISOCountryCode",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebJidToWid",
@@ -121,80 +120,74 @@ __d(
       }
     }
     function p(e) {
-      var t = o(
-        "WAWebGroupHistoryGating",
-      ).isGroupHistoryAfterJoinPrerequisitesEnabled();
       return e.map(function (e) {
-        var n, r;
+        var t, n;
         if (e.groupInfoParticipantMixins.name === "GroupInfoParticipantAdmin") {
-          var a = e.groupInfoParticipantMixins.value.type;
-          ((n = !0), (r = a === "superadmin"));
-        } else (e.groupInfoParticipantMixins.name, (n = !1), (r = !1));
-        var i = e.groupInfoParticipantMixins.value,
-          l = i.groupHistorySent,
-          s = i.joinTime,
-          u = i.participantMixins,
-          c = t ? s : void 0,
-          p = t
-            ? o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(l)
-            : void 0;
-        return u.name === "ParticipantWithJid"
+          var r = e.groupInfoParticipantMixins.value.type;
+          ((t = !0), (n = r === "superadmin"));
+        } else (e.groupInfoParticipantMixins.name, (t = !1), (n = !1));
+        var a = e.groupInfoParticipantMixins.value,
+          i = a.groupHistorySent,
+          l = a.joinTime,
+          s = a.participantMixins,
+          u = o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(i);
+        return s.name === "ParticipantWithJid"
           ? {
-              isAdmin: n,
-              isSuperAdmin: r,
-              joinTime: c,
-              groupHistorySentState: p,
-              id: o("WAWebJidToWid").userJidToUserWid(u.value.jid),
+              isAdmin: t,
+              isSuperAdmin: n,
+              joinTime: l,
+              groupHistorySentState: u,
+              id: o("WAWebJidToWid").userJidToUserWid(s.value.jid),
             }
-          : u.name === "ParticipantWithJidAndDisplayName"
+          : s.name === "ParticipantWithJidAndDisplayName"
             ? {
-                isAdmin: n,
-                isSuperAdmin: r,
-                joinTime: c,
-                groupHistorySentState: p,
-                id: o("WAWebJidToWid").userJidToUserWid(u.value.jid),
-                displayName: u.value.displayName,
+                isAdmin: t,
+                isSuperAdmin: n,
+                joinTime: l,
+                groupHistorySentState: u,
+                id: o("WAWebJidToWid").userJidToUserWid(s.value.jid),
+                displayName: s.value.displayName,
               }
-            : u.name === "ParticipantWithJidLidAndDisplayName"
+            : s.name === "ParticipantWithJidLidAndDisplayName"
               ? {
-                  isAdmin: n,
-                  isSuperAdmin: r,
-                  joinTime: c,
-                  groupHistorySentState: p,
-                  id: o("WAWebJidToWid").userJidToUserWid(u.value.jid),
-                  lid: o("WAWebJidToWid").userJidToUserWid(u.value.lid),
-                  displayName: u.value.displayName,
+                  isAdmin: t,
+                  isSuperAdmin: n,
+                  joinTime: l,
+                  groupHistorySentState: u,
+                  id: o("WAWebJidToWid").userJidToUserWid(s.value.jid),
+                  lid: o("WAWebJidToWid").userJidToUserWid(s.value.lid),
+                  displayName: s.value.displayName,
                 }
-              : u.name === "ParticipantWithJidAndLid"
+              : s.name === "ParticipantWithJidAndLid"
                 ? {
-                    isAdmin: n,
-                    isSuperAdmin: r,
-                    joinTime: c,
-                    groupHistorySentState: p,
-                    id: o("WAWebJidToWid").userJidToUserWid(u.value.jid),
-                    lid: o("WAWebJidToWid").userJidToUserWid(u.value.lid),
+                    isAdmin: t,
+                    isSuperAdmin: n,
+                    joinTime: l,
+                    groupHistorySentState: u,
+                    id: o("WAWebJidToWid").userJidToUserWid(s.value.jid),
+                    lid: o("WAWebJidToWid").userJidToUserWid(s.value.lid),
                   }
-                : u.name === "ParticipantWithJidAndIdentity"
+                : s.name === "ParticipantWithJidAndIdentity"
                   ? {
-                      isAdmin: n,
-                      isSuperAdmin: r,
-                      joinTime: c,
-                      groupHistorySentState: p,
-                      id: o("WAWebJidToWid").userJidToUserWid(u.value.jid),
-                      phoneNumber: d(u.value.identityTypes),
-                      username: m(u.value.identityTypes),
+                      isAdmin: t,
+                      isSuperAdmin: n,
+                      joinTime: l,
+                      groupHistorySentState: u,
+                      id: o("WAWebJidToWid").userJidToUserWid(s.value.jid),
+                      phoneNumber: d(s.value.identityTypes),
+                      username: m(s.value.identityTypes),
                     }
-                  : (u.name,
+                  : (s.name,
                     {
-                      isAdmin: n,
-                      isSuperAdmin: r,
-                      joinTime: c,
-                      groupHistorySentState: p,
-                      id: o("WAWebJidToWid").userJidToUserWid(u.value.jid),
+                      isAdmin: t,
+                      isSuperAdmin: n,
+                      joinTime: l,
+                      groupHistorySentState: u,
+                      id: o("WAWebJidToWid").userJidToUserWid(s.value.jid),
                       lid: null,
-                      displayName: u.value.displayName,
-                      phoneNumber: d(u.value.identityTypes),
-                      username: m(u.value.identityTypes),
+                      displayName: s.value.displayName,
+                      phoneNumber: d(s.value.identityTypes),
+                      username: m(s.value.identityTypes),
                     });
       });
     }

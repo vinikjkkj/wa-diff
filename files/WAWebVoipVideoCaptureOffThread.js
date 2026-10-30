@@ -129,7 +129,7 @@ __d(
         "Error",
       ]),
       de = (function () {
-        function t() {
+        function t(e) {
           ((this.thread = null),
             (this.track = null),
             (this.$1 = null),
@@ -156,7 +156,8 @@ __d(
             (this.$22 = 0),
             (this.$23 = null),
             (this.$24 = !1),
-            (this.$25 = 0));
+            (this.$25 = 0),
+            (this.$26 = e));
         }
         var a = t.prototype;
         return (
@@ -165,45 +166,46 @@ __d(
               function* (t) {
                 var n,
                   a,
-                  i = this,
-                  l = t.enableWebCodecsEncoderOutputWatchdog,
-                  v = l === void 0 ? !1 : l,
-                  S = t.height,
-                  R = t.maxFps,
-                  L = t.onVideoDataFnType,
-                  E = t.stream,
-                  k = t.width,
-                  I = "voip: wasm: [AV:startVideoCapture (offthread)]";
+                  i,
+                  l = this,
+                  v = t.enableWebCodecsEncoderOutputWatchdog,
+                  S = v === void 0 ? !1 : v,
+                  R = t.height,
+                  L = t.maxFps,
+                  E = t.onVideoDataFnType,
+                  k = t.stream,
+                  I = t.width,
+                  T = "voip: wasm: [AV:startVideoCapture (offthread)]";
                 o("WALogger").LOG(
                   e || (e = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                  I,
+                  T,
                 );
-                var T = this.$1;
-                T != null &&
+                var D = this.$1;
+                D != null &&
                   (o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " waiting for a stop in flight",
                       ])),
-                    I,
+                    T,
                   ),
-                  yield T);
-                var D = { width: k, height: S, maxFps: R },
-                  x = o(
+                  yield D);
+                var x = { width: I, height: R, maxFps: L },
+                  $ = o(
                     "WAWebVoipWebCodecsEncoderState",
                   ).isWebCodecsEncoderEnabled(),
-                  $ = L === "onDesktopCaptureDataFromJs",
-                  P = x && o("WAWebUA").UA.isSafari && $,
-                  N = x && !P;
-                this.$8 = N && !$;
-                var M =
-                    N &&
-                    !$ &&
+                  P = E === "onDesktopCaptureDataFromJs",
+                  N = $ && o("WAWebUA").UA.isSafari && P,
+                  M = $ && !N;
+                this.$8 = M && !P;
+                var w =
+                    M &&
+                    !P &&
                     o(
                       "WAWebVoipSelfPreviewVideoFrameSupport",
                     ).isSelfPreviewVideoFrameSupported(),
-                  w = (function (e) {
+                  A = (function (e) {
                     return ((typeof e == "object" && e !== null) ||
                       typeof e == "function") &&
                       e.useVideoElementCapture === !0
@@ -216,8 +218,8 @@ __d(
                         ? o("WAWebVoipMediaEnums").VideoCapturePath
                             .WorkerWebCodecs
                         : o("WAWebVoipMediaEnums").VideoCapturePath.WorkerRaw;
-                  })({ useVideoElementCapture: N, useWebCodecsEncoder: x }),
-                  A = "requestVideoFrameCallback" in HTMLVideoElement.prototype;
+                  })({ useVideoElementCapture: M, useWebCodecsEncoder: $ }),
+                  F = "requestVideoFrameCallback" in HTMLVideoElement.prototype;
                 (o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -231,24 +233,24 @@ __d(
                       " MSTP=",
                       "",
                     ])),
-                  I,
-                  String(x),
-                  String(v),
-                  String(N),
+                  T,
+                  String($),
+                  String(S),
+                  String(M),
                   String(this.$8),
-                  String(P),
-                  String(A),
-                  String(!N && "MediaStreamTrackProcessor" in window),
+                  String(N),
+                  String(F),
+                  String(!M && "MediaStreamTrackProcessor" in window),
                 ),
-                  (this.track = E.getVideoTracks()[0]));
-                var F =
+                  (this.track = k.getVideoTracks()[0]));
+                var O =
                     (n = this.track) == null || n.getSettings == null
                       ? void 0
                       : n.getSettings(),
-                  O = F == null ? void 0 : F.height,
-                  B = F == null ? void 0 : F.width,
-                  W = F == null ? void 0 : F.facingMode,
-                  q = W === "environment";
+                  B = O == null ? void 0 : O.height,
+                  W = O == null ? void 0 : O.width,
+                  q = O == null ? void 0 : O.facingMode,
+                  U = q === "environment";
                 o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -256,22 +258,22 @@ __d(
                       " got video track, facingMode=",
                       "",
                     ])),
-                  I,
-                  W != null ? W : "unknown",
+                  T,
+                  q != null ? q : "unknown",
                 );
-                var U = null;
-                if (N)
+                var V = null;
+                if (M)
                   o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " using video-element capture (WebCodecs)",
                       ])),
-                    I,
+                    T,
                   );
-                else if (!P && "MediaStreamTrackProcessor" in window) {
-                  var V = this.track;
-                  if (V == null) {
+                else if (!N && "MediaStreamTrackProcessor" in window) {
+                  var H = this.track;
+                  if (H == null) {
                     o("WALogger")
                       .ERROR(
                         m ||
@@ -279,13 +281,13 @@ __d(
                             "",
                             " track is null when creating MediaStreamTrackProcessor",
                           ])),
-                        I,
+                        T,
                       )
                       .sendLogs("voip: off-thread: track null for processor");
                     return;
                   }
-                  ((U = {
-                    readable: yield new MediaStreamTrackProcessor({ track: V })
+                  ((V = {
+                    readable: yield new MediaStreamTrackProcessor({ track: H })
                       .readable,
                   }),
                     o("WALogger").LOG(
@@ -294,11 +296,11 @@ __d(
                           "",
                           " (Chrome) got MediaStreamTrackProcessor readable",
                         ])),
-                      I,
+                      T,
                     ));
                 } else {
-                  var H = this.track;
-                  if (H == null) {
+                  var G = this.track;
+                  if (G == null) {
                     o("WALogger")
                       .ERROR(
                         _ ||
@@ -306,25 +308,29 @@ __d(
                             "",
                             " track is null for Safari capture path",
                           ])),
-                        I,
+                        T,
                       )
                       .sendLogs("voip: off-thread: track null for safari");
                     return;
                   }
-                  ((U = { track: H }), (this.track = null));
+                  ((V = { track: G }), (this.track = null));
                 }
-                var G = yield r("WAWebVoipJsWorkerThread").create();
-                ((this.thread = G),
+                var z = yield r("WAWebVoipJsWorkerThread").create(
+                  void 0,
+                  "legacy-pj",
+                  (a = this.$26) == null ? void 0 : a.call(this),
+                );
+                ((this.thread = z),
                   o("WALogger").LOG(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " Created worker thread",
                       ])),
-                    I,
+                    T,
                   ),
-                  (this.$6 = k),
-                  (this.$7 = S),
+                  (this.$6 = I),
+                  (this.$7 = R),
                   (this.$4 = 0),
                   (this.$5 = !1),
                   o("WALogger").LOG(
@@ -338,14 +344,14 @@ __d(
                         " isBackCamera=",
                         "",
                       ])),
-                    I,
+                    T,
                     this.$6,
                     this.$7,
+                    String(W != null ? W : "na"),
                     String(B != null ? B : "na"),
-                    String(O != null ? O : "na"),
-                    String(q),
+                    String(U),
                   ));
-                var z = o("WAWebVoipMediaEnums").computeVideoOrientation(0, q);
+                var j = o("WAWebVoipMediaEnums").computeVideoOrientation(0, U);
                 (o("WALogger").LOG(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -353,28 +359,28 @@ __d(
                       " initial device orientation: ",
                       "",
                     ])),
-                  I,
-                  z,
+                  T,
+                  j,
                 ),
                   ue(
-                    G,
+                    z,
                     {
                       jsWorkerCmd: "startVideoCapture",
-                      params: D,
-                      captureObject: U,
-                      onVideoDataFnType: L,
-                      useWebCodecsEncoder: x,
-                      videoElementCapture: N,
-                      enableWebCodecsEncoderOutputWatchdog: v,
+                      params: x,
+                      captureObject: V,
+                      onVideoDataFnType: E,
+                      useWebCodecsEncoder: $,
+                      videoElementCapture: M,
+                      enableWebCodecsEncoderOutputWatchdog: S,
                       normalizeVideoElementPresentationFrames: this.$8,
-                      initialOrientationValue: z,
-                      isScreenShare: $,
+                      initialOrientationValue: j,
+                      isScreenShare: P,
                       interruptCaptureOnStop: o(
                         "WAWebVoipPthreadHardening",
                       ).isVoipWorkerLifecycleHardeningEnabled(),
-                      selfPreviewVideoFrame: M,
+                      selfPreviewVideoFrame: w,
                     },
-                    U != null ? Object.values(U) : [],
+                    V != null ? Object.values(V) : [],
                   ),
                   o("WALogger").LOG(
                     y ||
@@ -382,38 +388,38 @@ __d(
                         "",
                         " Sent startVideoCapture message to worker thread",
                       ])),
-                    I,
+                    T,
                   ),
-                  (a = this.$23) == null || a.call(this),
-                  (this.$23 = M
+                  (i = this.$23) == null || i.call(this),
+                  (this.$23 = w
                     ? o(
                         "WAWebVoipSelfPreviewVideoFrameSupport",
                       ).subscribeToSelfPreviewVideoFrameLoss(function () {
-                        ue(G, { jsWorkerCmd: "disableSelfPreviewVideoFrame" });
+                        ue(z, { jsWorkerCmd: "disableSelfPreviewVideoFrame" });
                       })
                     : null));
-                var j = function () {
+                var K = function () {
                   var e,
                     t,
                     n,
                     r,
                     a,
-                    l,
+                    i,
                     s = o("WAWebVoipMediaEnums").computeVideoOrientation(
-                      i.$4,
-                      q,
+                      l.$4,
+                      U,
                     ),
                     u = globalThis.screen,
                     c = u != null ? u[le] : null,
                     d = c == null ? void 0 : c.angle,
-                    m = (e = i.$9) == null ? void 0 : e.videoHeight,
-                    p = (t = i.$9) == null ? void 0 : t.videoWidth,
+                    m = (e = l.$9) == null ? void 0 : e.videoHeight,
+                    p = (t = l.$9) == null ? void 0 : t.videoWidth,
                     _ = {
-                      actualTrackHeight: typeof O == "number" ? O : null,
-                      actualTrackWidth: typeof B == "number" ? B : null,
-                      capturePath: w,
-                      isBackCamera: q,
-                      isScreenShare: $,
+                      actualTrackHeight: typeof B == "number" ? B : null,
+                      actualTrackWidth: typeof W == "number" ? W : null,
+                      capturePath: A,
+                      isBackCamera: U,
+                      isScreenShare: P,
                       maxTouchPoints:
                         (n =
                           (r = globalThis.navigator) == null
@@ -421,12 +427,12 @@ __d(
                             : r.maxTouchPoints) != null
                           ? n
                           : 0,
-                      requestedHeight: i.$7,
-                      requestedWidth: i.$6,
+                      requestedHeight: l.$7,
+                      requestedWidth: l.$6,
                       screenAngle: typeof d == "number" ? d : null,
                       screenType:
                         (a = c == null ? void 0 : c.type) != null ? a : null,
-                      sensorOffset: i.$4,
+                      sensorOffset: l.$4,
                       videoHeight: typeof m == "number" && m > 0 ? m : null,
                       videoWidth: typeof p == "number" && p > 0 ? p : null,
                     };
@@ -442,42 +448,42 @@ __d(
                         " capturePath=",
                         "",
                       ])),
-                    I,
+                    T,
                     String(d),
-                    (l = _.screenType) != null ? l : "unknown",
+                    (i = _.screenType) != null ? i : "unknown",
                     s,
-                    i.$4,
-                    String(q),
-                    w,
+                    l.$4,
+                    String(U),
+                    A,
                   ),
-                    ue(G, {
+                    ue(z, {
                       jsWorkerCmd: "updateDeviceOrientation",
                       diagnostics: _,
                       orientationValue: s,
                     }));
                 };
-                ((this.$3 = j),
-                  window.addEventListener("orientationchange", j));
+                ((this.$3 = K),
+                  window.addEventListener("orientationchange", K));
                 try {
-                  var K = globalThis.screen,
-                    Q = K != null ? K[le] : null;
-                  Q == null || Q.addEventListener("change", j);
+                  var Q = globalThis.screen,
+                    X = Q != null ? Q[le] : null;
+                  X == null || X.addEventListener("change", K);
                 } catch (e) {}
-                if ((j(), this.$2 != null && this.$2(), x)) {
+                if ((K(), this.$2 != null && this.$2(), $)) {
                   this.$2 = o(
                     "WAWebVoipWebCodecsEncoderState",
                   ).subscribeToEncodeParamsChanges(function (e) {
-                    ue(G, {
+                    ue(z, {
                       jsWorkerCmd: "updateWebCodecsEncodeParams",
                       params: e,
                     });
                   });
-                  var X = o(
+                  var Y = o(
                     "WAWebVoipWebCodecsEncoderState",
                   ).getAllWebCodecsEncodeParams();
-                  for (var Y of X) {
-                    var J = Y[0],
-                      Z = Y[1];
+                  for (var J of Y) {
+                    var Z = J[0],
+                      ee = J[1];
                     (o("WALogger").LOG(
                       b ||
                         (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -489,20 +495,20 @@ __d(
                           "bps ",
                           "fps",
                         ])),
-                      I,
-                      J,
-                      Z.targetWidth,
-                      Z.targetHeight,
-                      Z.targetBitrateBps,
-                      Z.targetFps,
+                      T,
+                      Z,
+                      ee.targetWidth,
+                      ee.targetHeight,
+                      ee.targetBitrateBps,
+                      ee.targetFps,
                     ),
-                      ue(G, {
+                      ue(z, {
                         jsWorkerCmd: "updateWebCodecsEncodeParams",
-                        params: Z,
+                        params: ee,
                       }));
                   }
                 }
-                N && this.$26(E, G, A, q);
+                M && this.$27(k, z, F, U);
               },
             );
             function a(e) {
@@ -510,7 +516,7 @@ __d(
             }
             return a;
           })()),
-          (a.$26 = function (t, n, r, a) {
+          (a.$27 = function (t, n, r, a) {
             var e,
               i,
               l,
@@ -614,7 +620,7 @@ __d(
               g = function (t) {
                 if (
                   !(s.$10 || t !== s.$19) &&
-                  (s.$27(m, n, a), !(s.$10 || t !== s.$19))
+                  (s.$28(m, n, a), !(s.$10 || t !== s.$19))
                 ) {
                   var e = document.visibilityState === "visible",
                     i = o(
@@ -742,7 +748,7 @@ __d(
                   }, 500)));
               }));
           }),
-          (a.$27 = function (t, n, a) {
+          (a.$28 = function (t, n, a) {
             if (
               this.$11 &&
               !(
@@ -878,7 +884,7 @@ __d(
                   (this.$24 = !1),
                   (this.$25 = 0));
               } catch (e) {
-                if (this.$28(e)) return;
+                if (this.$29(e)) return;
                 (o("WALogger").ERROR(
                   N ||
                     (N = babelHelpers.taggedTemplateLiteralLoose([
@@ -890,7 +896,7 @@ __d(
                   (this.$10 = !0));
               }
           }),
-          (a.$28 = function (t) {
+          (a.$29 = function (t) {
             var e = this.track;
             if (!Me(t) || e == null || e.readyState !== "live") return !1;
             if (e.muted) this.$25 = 0;
@@ -917,15 +923,15 @@ __d(
                 "WAWebVoipPthreadHardening",
               ).isVoipWorkerLifecycleHardeningEnabled()
             )
-              return this.$29();
+              return this.$30();
             var t = this.$1;
             if (t != null) return t;
-            var n = this.$29().finally(function () {
+            var n = this.$30().finally(function () {
               e.$1 === n && (e.$1 = null);
             });
             return ((this.$1 = n), n);
           }),
-          (a.$29 = (function () {
+          (a.$30 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e,
                 t = "voip: stopVideoCapture (offthread)";
@@ -974,18 +980,18 @@ __d(
                   "WAWebVoipPthreadHardening",
                 ).isVoipWorkerLifecycleHardeningEnabled())
               ) {
-                yield this.$30();
+                yield this.$31();
                 return;
               }
               (this.track != null && (this.track.stop(), (this.track = null)),
-                yield this.$31());
+                yield this.$32());
             });
             function t() {
               return e.apply(this, arguments);
             }
             return t;
           })()),
-          (a.$31 = (function () {
+          (a.$32 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this.thread;
               if (e != null) {
@@ -1041,7 +1047,7 @@ __d(
             }
             return t;
           })()),
-          (a.$30 = (function () {
+          (a.$31 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               try {
                 if (this.thread != null) {

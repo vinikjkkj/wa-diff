@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WAWebBackendApi",
+    "WAWebVoipMainThreadLockMarker",
     "WAWebVoipPthreadHardening",
     "WAWebVoipPthreadWorkerFields",
     "WorkerMessagePort",
@@ -56,19 +57,34 @@ __d(
         );
       })(),
       I = (function () {
-        function a(e, t) {
-          if (
-            (t === void 0 && (t = "legacy-pj"),
+        function a(e, t, n) {
+          (t === void 0 && (t = "legacy-pj"),
             (this.$8 = null),
             (this.$7 = "busy"),
             (this.$9 = !1),
             (this.$1 = e),
-            (this.$2 = t),
+            (this.$2 = t));
+          var a = o("WAWebVoipMainThreadLockMarker").startMainThreadLockMarker(
+            "jsworker_create",
+            "main",
+            {
+              caller: n == null ? void 0 : n.caller,
+              initState: n == null ? void 0 : n.initState,
+            },
+          );
+          try {
             t === "pre-init"
               ? (this.$3 = e.startPreInitJsWorkerThread())
-              : (this.$3 = e.startJsWorkerThread()),
-            this.$3 === 0)
-          )
+              : (this.$3 = e.startJsWorkerThread());
+          } finally {
+            var i = o(
+              "WAWebVoipMainThreadLockMarker",
+            ).finishMainThreadLockMarker(a);
+            n == null ||
+              n.onNativeStartFinished == null ||
+              n.onNativeStartFinished(i);
+          }
+          if (this.$3 === 0)
             throw r("err")("voip: failed to create JsWorkerThread");
           ((this.$4 =
             t === "pre-init" ? this.$3 : e.getJsWorkerPThreadId(this.$3)),
@@ -82,18 +98,18 @@ __d(
         }
         a.create = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
+            function* (e, t, n) {
               t === void 0 && (t = "legacy-pj");
-              var n =
+              var r =
                 e != null
                   ? e
                   : yield o("WAWebBackendApi").frontendSendAndReceive(
                       "initializeVoipWasm",
                     );
-              return new a(n, t);
+              return new a(r, t, n);
             },
           );
-          function t(t, n) {
+          function t(t, n, r) {
             return e.apply(this, arguments);
           }
           return t;

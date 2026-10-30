@@ -4,7 +4,6 @@ __d(
     "fbt",
     "JSResourceForInteraction",
     "WAFilteredCatch",
-    "WAWebActionToast.react",
     "WAWebBackendErrors",
     "WAWebCatalogCollection",
     "WAWebContactUtils",
@@ -15,9 +14,8 @@ __d(
     "WAWebLoadingDrawer.react",
     "WAWebProductCatalogContext",
     "WAWebProductCatalogSession",
-    "WAWebToast.react",
-    "WAWebToastManager",
     "WAWebUserPrefsMeUser",
+    "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -74,12 +72,9 @@ __d(
       });
     }
     function p() {
-      o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't load catalog"),
-          id: o("WAWebActionToast.react").genId(),
-        }),
-      );
+      o("WDSToastImperativeHost").showWDSToast({
+        message: s._(/*BTDS*/ "Couldn't load catalog"),
+      });
     }
     function _(e) {
       var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),

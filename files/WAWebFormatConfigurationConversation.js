@@ -23,7 +23,7 @@ __d(
     "WAWebNumberedListItemFormatMutator",
     "WAWebPhoneNumberFormatMutator",
     "WAWebStrikethroughFormatMutator",
-    "cr:6000",
+    "cr:18512",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -162,7 +162,7 @@ __d(
                 ],
               ]
             : null,
-          n("cr:6000") ? n("cr:6000")(p) : null,
+          n("cr:18512") ? n("cr:18512")(p) : null,
           O,
           [
             [r("WAWebBoldFormatMutator"), { selectable: p, boldXstyle: w }],

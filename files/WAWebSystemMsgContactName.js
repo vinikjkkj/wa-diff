@@ -8,8 +8,9 @@ __d(
     "WAWebOrgMemberContactName",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s({
+    var e = ["chat"];
+    function s(e, t) {
+      return u({
         chat: e,
         contact: t,
         formattedName: o("WAWebFrontendContactGetters").getFormattedName(t),
@@ -20,24 +21,40 @@ __d(
         ),
       });
     }
-    function s(e) {
-      var t = e.chat,
+    function u(t) {
+      var n = t.chat,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return c(
+        babelHelpers.extends({}, r, {
+          chatId: n == null ? void 0 : n.id,
+          groupMetadata: n == null ? void 0 : n.groupMetadata,
+        }),
+      );
+    }
+    function c(e) {
+      var t = e.chatId,
         n = e.contact,
         r = e.formattedName,
-        a = e.isMyContact,
-        i = e.notifyName,
-        l = e.orgMemberName;
-      return a
+        a = e.groupMetadata,
+        i = e.isMyContact,
+        l = e.notifyName,
+        s = e.orgMemberName;
+      return i
         ? r
-        : l != null
-          ? l
-          : i != null
-            ? o("WAWebChatContactUtils").getFormattedNotifyName(i)
-            : o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(t, n)
+        : s != null
+          ? s
+          : l != null
+            ? o("WAWebChatContactUtils").getFormattedNotifyName(l)
+            : o("WAWebChatCommunityUtils").shouldMaskPhoneNumberFor(
+                  { chatId: t, groupMetadata: a },
+                  n,
+                )
               ? o("WAWebFrontendContactGetters").getMaskedPhoneLid(n)
               : o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(n);
     }
-    ((l.getSystemMsgContactName = e), (l.resolveSystemMsgContactName = s));
+    ((l.getSystemMsgContactName = s),
+      (l.resolveSystemMsgContactName = u),
+      (l.resolveSystemMsgContactNameFor = c));
   },
   98,
 );

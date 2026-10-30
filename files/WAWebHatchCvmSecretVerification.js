@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WAWebHatchVmConnection",
+    "WAWebNullFunc",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -24,9 +25,11 @@ __d(
           var e = o("WAWebHatchVmConnection")
               .connectHatchVmApiWithResult()
               .catch(f),
-            t = yield o("WAPromiseDelays").withTimeout(e, m, function () {
-              return null;
-            });
+            t = yield o("WAPromiseDelays").withTimeout(
+              e,
+              m,
+              o("WAWebNullFunc").returnNull,
+            );
           return t == null
             ? (o("WALogger").LOG(
                 s ||

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAResolvable",
+    "WAWebABProps",
     "WAWebAppLaunchWamEvent",
     "WAWebAppTracker",
     "WAWebNoop",
@@ -10,6 +11,7 @@ __d(
     "WAWebWamEnumAppLaunchType",
     "WAWebWindowsAppLaunchContext",
     "WAWebWindowsHybridBridgeCommon",
+    "WAWebWindowsStartupTraceReporter",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,114 +25,131 @@ __d(
       _,
       f,
       g,
-      h = 2e3,
-      y = new (o("WAResolvable").Resolvable)(),
-      C = 0,
-      b = !1;
-    function v(e, t) {
+      h,
+      y = 2e3,
+      C = new (o("WAResolvable").Resolvable)(),
+      b = 0,
+      v = !1;
+    function S(e, t) {
       return t > e
         ? o("WAWebWamEnumAppLaunchType").APP_LAUNCH_TYPE.LUKEWARM
         : o("WAWebWamEnumAppLaunchType").APP_LAUNCH_TYPE.COLD;
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           if (!e) {
             var n = !0;
-            if (!b) {
-              var r = ++C;
-              if (((n = yield y.promise), r !== C)) return;
+            if (!v) {
+              var r = ++b;
+              if (((n = yield C.promise), r !== b)) return;
             }
             if (n) {
               var a = Date.now(),
                 i =
+                  o(
+                    "WAWebAppTracker",
+                  ).AppTracker.captureAppContextWithLookback(),
+                l =
                   (t = o(
                     "WAWebWindowsHybridBridgeCommon",
                   ).WAWebWindowsGetBridge()) == null
                     ? void 0
                     : t.nativeAppStateBridge;
-              if (i == null) {
+              if (l == null) {
                 o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "onAppStateChanged: ignoring: bridge is null",
                     ])),
                 );
                 return;
               }
-              var l = i.detectNativeClockSkew();
-              if (l != null && l > h) {
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "commitEventAsync: large clock skew: ",
-                        "",
-                      ])),
-                    l,
-                  )
-                  .sendLogs("native-clock-skew");
-                return;
-              }
-              var d = i.getLastAppRestoreTimeStamp();
-              if (d === 0) {
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "onAppStateChanged: ignoring: appRestoreT not available",
-                    ])),
-                );
-                return;
-              }
-              var m = a - d,
-                p = new (o("WAWebAppLaunchWamEvent").AppLaunchWamEvent)({
-                  appLaunchTypeT: o("WAWebWamEnumAppLaunchType").APP_LAUNCH_TYPE
-                    .WARM,
-                  appLaunchT: a - d,
+              if (!x()) {
+                E(a, i, w(l), function () {
+                  return l.getLastAppRestoreTimeStamp();
                 });
-              (o("WAWebAppTracker").attachWAMAppContext(p, m),
-                p.commit(),
-                (b = !0));
+                return;
+              }
+              var s = yield N(l);
+              s != null &&
+                E(a, i, s.nativeClockSkew, function () {
+                  return s.lastAppRestoreTimeStamp;
+                });
             }
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L() {
-      var t,
-        n =
-          (t = o("WAWebWindowsHybridBridgeCommon").WAWebWindowsGetBridge()) ==
+    function E(t, n, r, a) {
+      if (r != null && r > y) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "commitEventAsync: large clock skew: ",
+                "",
+              ])),
+            r,
+          )
+          .sendLogs("native-clock-skew");
+        return;
+      }
+      var i = a();
+      if (i === 0) {
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "onAppStateChanged: ignoring: appRestoreT not available",
+            ])),
+        );
+        return;
+      }
+      var l = t - i,
+        u = new (o("WAWebAppLaunchWamEvent").AppLaunchWamEvent)({
+          appLaunchTypeT: o("WAWebWamEnumAppLaunchType").APP_LAUNCH_TYPE.WARM,
+          appLaunchT: t - i,
+        });
+      (o("WAWebAppTracker").attachCapturedWAMAppContext(u, n, l),
+        u.commit(),
+        (v = !0));
+    }
+    function k() {
+      var e,
+        t =
+          (e = o("WAWebWindowsHybridBridgeCommon").WAWebWindowsGetBridge()) ==
           null
             ? void 0
-            : t.nativeAppStateBridge;
-      if (n == null) {
+            : e.nativeAppStateBridge;
+      if (t == null) {
         o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "initializeEvent: ignoring: bridge is null",
             ])),
         );
         return;
       }
       return (
-        n.getEvents().on("appStateChanged", S),
+        t.getEvents().on("appStateChanged", R),
         new (o("WAWebAppLaunchWamEvent").AppLaunchWamEvent)()
       );
     }
-    function E(e) {
-      k(e).catch(r("WAWebNoop"));
+    function I(e) {
+      (o("WAWebWindowsStartupTraceReporter").startReportingStartupTrace(),
+        T(e).catch(r("WAWebNoop")));
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t,
               n =
@@ -149,11 +168,14 @@ __d(
               return;
             }
             var r = Date.now(),
-              a = n.takeAppLaunchTimeStamp(),
-              i = n.getFirstAppRestoreTimeStamp(),
-              l = n.detectNativeClockSkew(),
-              s = n.isMinimizedToTray();
-            if (l != null && l > h) {
+              a =
+                o("WAWebAppTracker").AppTracker.captureAppContextWithLookback(),
+              i = n.isMinimizedToTray(),
+              l = yield $(n),
+              s = l.nativeAppLaunchT,
+              u = l.nativeAppRestoreT,
+              c = l.nativeSkew;
+            if (c != null && c > y) {
               o("WALogger")
                 .ERROR(
                   m ||
@@ -161,12 +183,12 @@ __d(
                       "commitEventAsync: large clock skew: ",
                       "",
                     ])),
-                  l,
+                  c,
                 )
                 .sendLogs("native-clock-skew");
               return;
             }
-            if (s || a === 0) {
+            if (i || s === 0) {
               (o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -174,39 +196,39 @@ __d(
                     ",\n      appLaunchT=",
                     "",
                   ])),
+                i,
                 s,
-                a,
               ),
-                y.resolve(a !== 0));
+                C.resolve(s !== 0));
               return;
             }
-            if (r < i) {
-              var u = Date.now() - i;
-              ((e.appLaunchT = u),
+            if (r < u) {
+              var h = Date.now() - u;
+              ((e.appLaunchT = h),
                 (e.appLaunchTypeT = o(
                   "WAWebWamEnumAppLaunchType",
                 ).APP_LAUNCH_TYPE.WARM),
-                o("WAWebAppTracker").attachWAMAppContext(e, u),
+                o("WAWebAppTracker").attachWAMAppContext(e, h),
                 e.commit(),
-                (b = !0),
-                y.resolve(!1));
+                (v = !0),
+                C.resolve(!1));
               return;
             }
-            var c = Math.max(a, i),
-              C = r - c;
-            if (C > 6e5) {
-              var S = function (t) {
+            var b = Math.max(s, u),
+              R = r - b;
+            if (R > 6e5) {
+              var L = function (t) {
                   try {
                     return new Date(t).toISOString();
                   } catch (e) {
                     return t.toString();
                   }
                 },
-                R = S(a),
-                L = S(i),
-                E = S(c),
-                k = S(r),
-                I = S(self.performance.timing.fetchStart);
+                E = L(s),
+                k = L(u),
+                I = L(b),
+                T = L(r),
+                D = L(self.performance.timing.fetchStart);
               (o("WALogger")
                 .ERROR(
                   _ ||
@@ -216,9 +238,9 @@ __d(
                       " restore=",
                       "",
                     ])),
-                  C,
                   R,
-                  L,
+                  E,
+                  k,
                 )
                 .sendLogs("app_launch_time_is_large"),
                 o("WALogger")
@@ -230,19 +252,19 @@ __d(
                         " fetch=",
                         "",
                       ])),
-                    E,
-                    k,
                     I,
+                    T,
+                    D,
                   )
                   .sendLogs("app_launch_time_is_large"));
             }
-            ((e.appLaunchT = C),
-              (e.appLaunchTypeT = v(a, i)),
-              o("WAWebAppTracker").attachWAMAppContext(e, C),
-              T(e),
+            ((e.appLaunchT = R),
+              (e.appLaunchTypeT = S(s, u)),
+              o("WAWebAppTracker").attachCapturedWAMAppContext(e, a, R),
+              F(e),
               e.commit(),
-              (b = !0),
-              y.resolve(!1));
+              (v = !0),
+              C.resolve(!1));
           } catch (e) {
             o("WALogger").WARN(
               g ||
@@ -254,10 +276,83 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e) {
+    function x() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_anr_native_app_state_async_reads_enabled",
+      );
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!x())
+            return {
+              nativeAppLaunchT: e.takeAppLaunchTimeStamp(),
+              nativeAppRestoreT: e.getFirstAppRestoreTimeStamp(),
+              nativeSkew: w(e),
+            };
+          var t = yield e.takeAppLaunchTimesAsync();
+          return {
+            nativeAppLaunchT: t.appLaunchTimeStamp,
+            nativeAppRestoreT: t.firstAppRestoreTimeStamp,
+            nativeSkew: A(t.nativeClockSkew, t.nativeClockSkewRoundTripMs),
+          };
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(e) {
+      return M.apply(this, arguments);
+    }
+    function M() {
+      return (
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            var t = yield e.getAppRestoreTimesAsync();
+            return {
+              lastAppRestoreTimeStamp: t.lastAppRestoreTimeStamp,
+              nativeClockSkew: A(
+                t.nativeClockSkew,
+                t.nativeClockSkewRoundTripMs,
+              ),
+            };
+          } catch (e) {
+            return (
+              o("WALogger").WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "onAppStateChanged: reading restore times failed: ",
+                    "",
+                  ])),
+                e,
+              ),
+              null
+            );
+          }
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e) {
+      var t = Date.now(),
+        n = e.detectNativeClockSkew();
+      return A(n, Date.now() - t);
+    }
+    function A(e, t) {
+      return e == null ||
+        e <= y ||
+        !o("WAWebABProps").getABPropConfigValue(
+          "web_anr_app_launch_skew_rtt_guard_enabled",
+        )
+        ? e
+        : Math.max(0, e - t);
+    }
+    function F(e) {
       var t,
         n = o("WAWebWindowsAppLaunchContext").getNativeLaunchAppContext(
           e.appContext,
@@ -265,11 +360,11 @@ __d(
         );
       n != null && (e.appContext = n);
     }
-    var D = new (o("WAWebWamBaseAppLaunchReporter").BaseAppLaunchReporter)(
-      L,
-      E,
+    var O = new (o("WAWebWamBaseAppLaunchReporter").BaseAppLaunchReporter)(
+      k,
+      I,
     );
-    l.WAWebWindowsWamAppLaunchReporter = D;
+    l.WAWebWindowsWamAppLaunchReporter = O;
   },
   98,
 );

@@ -32,8 +32,10 @@ __d(
     "WAWebUserPrefsMultiDevice",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
+    var e = ["isReadOnly"],
+      s,
+      u;
+    function c(e) {
       var t;
       if (!e) return !1;
       var n = o("WAWebStateUtils").unproxy(e);
@@ -42,7 +44,7 @@ __d(
         ((t = n.groupMetadata) == null ? void 0 : t.support) === !0
       );
     }
-    function c(e) {
+    function d(e) {
       var t;
       if (!e) return !1;
       var n = o("WAWebStateUtils").unproxy(e);
@@ -51,32 +53,35 @@ __d(
         ((t = n.groupMetadata) == null ? void 0 : t.isOpenBotGroup) === !0
       );
     }
-    function d(e) {
-      var t;
-      if (!e) return !1;
-      var n = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebChatGetters").getIsGroup(n) &&
-        ((t = n.groupMetadata) == null ? void 0 : t.isTeeBotGroup) === !0
-      );
-    }
     function m(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebChatGetters").getIsGroup(n) &&
-        !!((t = n.groupMetadata) != null && t.terminated)
-      );
+      return e ? p(G(e)) : !1;
     }
     function p(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
+      var t = e.chatId,
+        n = e.groupMetadata;
+      return t.isGroup() && (n == null ? void 0 : n.isTeeBotGroup) === !0;
+    }
+    function _(e) {
+      return f(G(e));
+    }
+    function f(e) {
+      var t = e.chatId,
+        n = e.groupMetadata;
+      return t.isGroup() && !!(n != null && n.terminated);
+    }
+    function g(e) {
+      return h(G(e));
+    }
+    function h(e) {
+      var t = e.chatId,
+        n = e.groupMetadata;
       return (
-        o("WAWebChatGetters").getIsGroup(t) &&
-        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
+        t.isGroup() &&
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(n) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       );
     }
-    function _(e) {
+    function y(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return (
         o("WAWebChatGetters").getIsGroup(t) &&
@@ -84,142 +89,147 @@ __d(
           o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
       );
     }
-    function f(e) {
-      var t;
-      if (!e) return !1;
-      var n = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebChatGetters").getIsGroup(n) &&
-        !!((t = n.groupMetadata) != null && t.suspended)
-      );
-    }
-    function g(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
-      return (
-        t.canSend &&
-        !f(t) &&
-        !m(t) &&
-        !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t)
-      );
-    }
-    function h(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebChatGetters").getIsGroup(n) &&
-        ((t = n.groupMetadata) == null ? void 0 : t.growthLockType) ===
-          "invite" &&
-        (n.groupMetadata.growthLockExpiration || 0) >
-          o("WATimeUtils").unixTime()
-      );
-    }
-    function y(e) {
-      var t;
-      if (!e) return !1;
-      var n = o("WAWebStateUtils").unproxy(e),
-        r = m(n),
-        a =
-          f(n) &&
-          !((t = n.groupMetadata) != null && t.participants.iAmMember());
-      return (r || a) && !p(n);
-    }
     function C(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && f(t)
-      );
+      return e ? b(G(e)) : !1;
     }
     function b(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-        f(t) &&
-        m(t)
-      );
+      var t = e.chatId,
+        n = e.groupMetadata;
+      return t.isGroup() && !!(n != null && n.suspended);
     }
     function v(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return (
-        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && m(t)
+        t.canSend &&
+        !C(t) &&
+        !_(t) &&
+        !o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t)
       );
     }
     function S(e) {
-      return f(e) || m(e);
+      return R(G(e));
     }
-    function R(t) {
-      var a,
-        i = o("WAWebStateUtils").unproxy(t);
-      if (!(u(i) && i.isReadOnly)) {
-        var l = (s || (s = n("Promise"))).resolve();
-        if (o("WAWebChatGetters").getIsNewsletter(i)) {
-          var c,
+    function R(e) {
+      var t = e.chatId,
+        n = e.groupMetadata;
+      return (
+        t.isGroup() &&
+        (n == null ? void 0 : n.growthLockType) === "invite" &&
+        (n.growthLockExpiration || 0) > o("WATimeUtils").unixTime()
+      );
+    }
+    function L(e) {
+      return e ? E(G(e)) : !1;
+    }
+    function E(e) {
+      var t,
+        n = f(e),
+        r =
+          b(e) &&
+          !((t = e.groupMetadata) != null && t.participants.iAmMember());
+      return (n || r) && !h(e);
+    }
+    function k(e) {
+      return I(G(e));
+    }
+    function I(e) {
+      return (
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && b(e)
+      );
+    }
+    function T(e) {
+      return D(G(e));
+    }
+    function D(e) {
+      return (
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
+        b(e) &&
+        f(e)
+      );
+    }
+    function x(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      return (
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && _(t)
+      );
+    }
+    function $(e) {
+      return C(e) || _(e);
+    }
+    function P(e) {
+      var t,
+        a = o("WAWebStateUtils").unproxy(e);
+      if (!(c(a) && a.isReadOnly)) {
+        var i = (u || (u = n("Promise"))).resolve();
+        if (o("WAWebChatGetters").getIsNewsletter(a)) {
+          var l,
             d =
-              !((c = i.newsletterMetadata) != null && c.iAmAdminOrOwner()) ||
-              i.isSuspendedOrTerminated();
-          i.isReadOnly !== d &&
+              !((l = a.newsletterMetadata) != null && l.iAmAdminOrOwner()) ||
+              a.isSuspendedOrTerminated();
+          a.isReadOnly !== d &&
             o("WAWebDBUpdateChatTable")
-              .updateChatTable(i.id, { isReadOnly: d })
+              .updateChatTable(a.id, { isReadOnly: d })
               .then(function () {
-                ((i.isReadOnly = d), D(i));
+                ((a.isReadOnly = d), O(a));
               })
               .catch(r("WAWebNoop"));
           return;
         }
         if (
-          o("WAWebChatGetters").getIsGroup(i) &&
-          !((a = i.groupMetadata) != null && a.stale)
+          o("WAWebChatGetters").getIsGroup(a) &&
+          !((t = a.groupMetadata) != null && t.stale)
         ) {
-          var p,
-            _ =
+          var m,
+            p =
               o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
-                i.groupMetadata,
+                a.groupMetadata,
               ) !== o("WAWebGroupType").GroupType.COMMUNITY &&
-              (!((p = i.groupMetadata) != null && p.participants.iAmMember()) ||
-                m(i));
-          i.isReadOnly !== _ &&
+              (!((m = a.groupMetadata) != null && m.participants.iAmMember()) ||
+                _(a));
+          a.isReadOnly !== p &&
             (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "chat:updateReadOnly:old ",
                   ", new ",
                   "",
                 ])),
-              i.isReadOnly,
-              _,
+              a.isReadOnly,
+              p,
             ),
-            (l = o("WAWebDBUpdateChatTable")
-              .updateChatTable(i.id, { isReadOnly: _ })
+            (i = o("WAWebDBUpdateChatTable")
+              .updateChatTable(a.id, { isReadOnly: p })
               .then(function () {
-                ((i.isReadOnly = _), D(i));
+                ((a.isReadOnly = p), O(a));
               })));
         }
-        l.then(function () {
-          o("WAWebChatGetters").getIsBroadcast(i) && T(i);
+        i.then(function () {
+          o("WAWebChatGetters").getIsBroadcast(a) && F(a);
         });
       }
     }
-    function L(e) {
+    function N(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return (
         ((t = n.groupMetadata) == null ? void 0 : t.participants.length) || 1
       );
     }
-    function E(e, t, n) {
+    function M(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
       return r.equals(e) ? o("WAWebUserPrefsMeUser").getMeUserOrThrow() : e;
     }
-    function k(e) {
+    function w(e) {
       var t,
         n = e.participants,
         r = (t = e.size) != null ? t : 0,
         o = n.iAmAdmin() ? r : n.length;
       return o;
     }
-    function I(e) {
+    function A(e) {
       var t,
         n,
         r = e.name;
@@ -237,8 +247,8 @@ __d(
             })
             .join(", ");
     }
-    function T(e) {
-      if (o("WAWebChatGetters").getIsBroadcast(e)) e.formattedTitle = I(e);
+    function F(e) {
+      if (o("WAWebChatGetters").getIsBroadcast(e)) e.formattedTitle = A(e);
       else if (o("WAWebChatGetters").getIsUser(e)) {
         var t;
         e.formattedTitle = e.id.isAiHub()
@@ -266,22 +276,22 @@ __d(
               : i.name;
       }
     }
-    function D(e, t) {
-      var n = P(e, { businessProfile: t, ignoreAiAgentBlock: !1 });
+    function O(e, t) {
+      var n = q(e, { businessProfile: t, ignoreAiAgentBlock: !1 });
       return ((e.canSend = n), n);
     }
-    function x(e) {
+    function B(e) {
       return (
         o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
         o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e)
       );
     }
-    function $(e) {
+    function W(e) {
       return e.contact == null
         ? !1
-        : P(e, { businessProfile: null, ignoreAiAgentBlock: !0 });
+        : q(e, { businessProfile: null, ignoreAiAgentBlock: !0 });
     }
-    function P(e, t) {
+    function q(e, t) {
       var n = t.businessProfile,
         r = t.ignoreAiAgentBlock;
       if (
@@ -290,8 +300,8 @@ __d(
         o("WAWebTosGating").shouldBlockByTos(e.contact) ||
         o("WAWebTosGating").shouldBlockByBotTos(e.contact) ||
         o("WAWebTosCountryGating").shouldBlockByCountry(e.contact) ||
-        N(e.id) ||
-        (!r && x(e))
+        U(e.id) ||
+        (!r && B(e))
       )
         return !1;
       if (
@@ -340,39 +350,57 @@ __d(
       }
       return !0;
     }
-    function N(e) {
+    function U(e) {
       return (
         o("WAWebBotFrontendGating").isBotChatUnavailable(e) ||
         o("WAWebBotFrontendGating").isBotChatReadOnly(e) ||
         o("WAWebBotComposerTreatment").isBotSupportComposerBlocked(e)
       );
     }
-    function M(e) {
-      return o("WAWebChatGetters").getIsGroup(e) && !p(e) && !e.isReadOnly;
+    function V(e) {
+      return H(babelHelpers.extends({}, G(e), { isReadOnly: e.isReadOnly }));
     }
-    ((l.isSupportGroup = u),
-      (l.isAIGroupOpen = c),
-      (l.isAIGroupTee = d),
-      (l.isTerminatedGroup = m),
-      (l.isCommunityAnnouncementGroup = p),
-      (l.isCommunityGeneralGroup = _),
-      (l.isSuspendedGroup = f),
-      (l.canSendToGroup = g),
-      (l.isInviteGrowthLockedGroup = h),
-      (l.isTerminatedGroupOrNotMember = y),
-      (l.isSuspendedCommunityAnnouncementGroup = C),
-      (l.isIntegrityDeactivatedCommunityAnnouncementGroup = b),
-      (l.isDeactivatedCommunityAnnouncementGroup = v),
-      (l.shouldBlockCall = S),
-      (l.updateReadOnly = R),
-      (l.getParticipantCount = L),
-      (l.getOneToOneContactFromGroupContact = E),
-      (l.getGroupParticipantsCount = k),
-      (l.getBroadcastChatTitle = I),
-      (l.updateTitle = T),
-      (l.updateCanSend = D),
-      (l.canSendIgnoringAiAgentBlock = $),
-      (l.shouldShowLeaveAndReportGroupModalForChat = M));
+    function H(t) {
+      var n = t.isReadOnly,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return r.chatId.isGroup() && !h(r) && !n;
+    }
+    function G(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      return { chatId: t.id, groupMetadata: t.groupMetadata };
+    }
+    ((l.isSupportGroup = c),
+      (l.isAIGroupOpen = d),
+      (l.isAIGroupTee = m),
+      (l.isAIGroupTeeFor = p),
+      (l.isTerminatedGroup = _),
+      (l.isTerminatedGroupFor = f),
+      (l.isCommunityAnnouncementGroup = g),
+      (l.isCommunityAnnouncementGroupFor = h),
+      (l.isCommunityGeneralGroup = y),
+      (l.isSuspendedGroup = C),
+      (l.isSuspendedGroupFor = b),
+      (l.canSendToGroup = v),
+      (l.isInviteGrowthLockedGroup = S),
+      (l.isInviteGrowthLockedGroupFor = R),
+      (l.isTerminatedGroupOrNotMember = L),
+      (l.isTerminatedGroupOrNotMemberFor = E),
+      (l.isSuspendedCommunityAnnouncementGroup = k),
+      (l.isSuspendedCommunityAnnouncementGroupFor = I),
+      (l.isIntegrityDeactivatedCommunityAnnouncementGroup = T),
+      (l.isIntegrityDeactivatedCommunityAnnouncementGroupFor = D),
+      (l.isDeactivatedCommunityAnnouncementGroup = x),
+      (l.shouldBlockCall = $),
+      (l.updateReadOnly = P),
+      (l.getParticipantCount = N),
+      (l.getOneToOneContactFromGroupContact = M),
+      (l.getGroupParticipantsCount = w),
+      (l.getBroadcastChatTitle = A),
+      (l.updateTitle = F),
+      (l.updateCanSend = O),
+      (l.canSendIgnoringAiAgentBlock = W),
+      (l.shouldShowLeaveAndReportGroupModalForChat = V),
+      (l.shouldShowLeaveAndReportGroupModalFor = H));
   },
   98,
 );

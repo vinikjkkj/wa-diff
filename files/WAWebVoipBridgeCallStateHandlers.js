@@ -780,7 +780,6 @@ __d(
                   msg: s._(
                     /*BTDS*/ "Another participant is already sharing their screen",
                   ),
-                  duration: 5e3,
                 }),
               ))),
             !n &&

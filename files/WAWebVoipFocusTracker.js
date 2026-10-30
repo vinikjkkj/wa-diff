@@ -1,6 +1,11 @@
 __d(
   "WAWebVoipFocusTracker",
-  ["WALogger", "WAWebBaseJSHaltDetector"],
+  [
+    "WALogger",
+    "WAWebBaseJSHaltDetector",
+    "WAWebCallUserJourneyGating",
+    "WAWebVoipCallWindowMode",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -84,14 +89,14 @@ __d(
         (k = null));
     }
     function M(e) {
-      $(e);
+      (o("WAWebVoipCallWindowMode").setCallWindowMode(e), $(e));
     }
     function w() {
       if (!f) {
         ((f = !0), (D = null), N(), P());
         var e = Date.now();
         ((h = e),
-          (g = "main"),
+          (g = o("WAWebVoipCallWindowMode").getCallWindowMode()),
           (y = !document.hidden),
           (C = e),
           (T = function () {
@@ -178,17 +183,24 @@ __d(
           L,
           E,
         ),
-        {
-          mainTabVisibleMsT: b,
-          mainTabHiddenMsT: v,
-          popoutWebWindowMsT: S,
-          pipWebWindowMsT: R,
-          jsHaltCount: L,
-          jsHaltTotalMsT: E,
-        }
+        babelHelpers.extends(
+          { mainTabVisibleMsT: b, mainTabHiddenMsT: v },
+          O(),
+          {
+            popoutWebWindowMsT: S,
+            pipWebWindowMsT: R,
+            jsHaltCount: L,
+            jsHaltTotalMsT: E,
+          },
+        )
       );
     }
     function O() {
+      return o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled()
+        ? { miniPlayerWebWindowMsT: b + v }
+        : {};
+    }
+    function B() {
       var e = Date.now();
       ((b = 0), (v = 0), (S = 0), (R = 0), (L = 0), (E = 0), (h = e), (C = e));
     }
@@ -196,7 +208,7 @@ __d(
       (l.startVoipFocusTracking = w),
       (l.stopVoipFocusTracking = A),
       (l.snapshotFocusStats = F),
-      (l.resetFocusStats = O));
+      (l.resetFocusStats = B));
   },
   98,
 );

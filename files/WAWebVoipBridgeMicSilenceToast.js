@@ -61,7 +61,6 @@ __d(
             msg: s._(
               /*BTDS*/ "Your microphone may not be working. Try switching to a different microphone.",
             ),
-            duration: 1e4,
           }),
         ));
     }

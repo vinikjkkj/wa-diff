@@ -395,7 +395,7 @@ __d(
             e,
           ),
             o("WAWebVoipAudioCaptureAndPlayback")
-              .stopCaptureJS(t)
+              .stopCaptureJS(t, { nativeStopped: !0 })
               .catch(function (e) {
                 o("WALogger").WARN(
                   E ||
@@ -464,7 +464,7 @@ __d(
               ])),
           ),
             o("WAWebVoipAudioCaptureAndPlayback")
-              .stopPlaybackJS()
+              .stopPlaybackJS({ nativeStopped: !0 })
               .catch(function (e) {
                 o("WALogger").WARN(
                   $ ||

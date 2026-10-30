@@ -913,7 +913,7 @@ __d(
               }
               var l = yield o(
                   "WAWebVoipWebTransportDataChannelThreadManager",
-                ).initWebTransportDataChannelWorker(),
+                ).initWebTransportDataChannelWorker("wt_connect"),
                 s = o(
                   "WAWebVoipWebTransportDataChannelThreadManager",
                 ).getWebTransportDataChannelThread();

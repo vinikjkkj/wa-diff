@@ -16,13 +16,15 @@ __d(
           p = t.key,
           _ = t.msgId,
           f = t.onClick,
-          g = t.renotify,
-          h = t.requireInteraction,
-          y = t.showViaServiceWorker,
-          C = t.suppressBanner,
-          b = t.tag,
-          v = t.title,
-          S = t.wid;
+          g = t.onDismiss,
+          h = t.onError,
+          y = t.renotify,
+          C = t.requireInteraction,
+          b = t.showViaServiceWorker,
+          v = t.suppressBanner,
+          S = t.tag,
+          R = t.title,
+          L = t.wid;
         return (
           e.call(this, {
             key: p,
@@ -39,14 +41,16 @@ __d(
               isReplyable: m,
               notification: window.Notification,
               onClick: f,
-              renotify: g,
-              requireInteraction: h,
-              showViaServiceWorker: y,
-              suppressBanner: C,
-              title: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(v),
+              onDismiss: g,
+              onError: h,
+              renotify: y,
+              requireInteraction: C,
+              showViaServiceWorker: b,
+              suppressBanner: v,
+              title: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(R),
             },
-            tag: b,
-            wid: S,
+            tag: S,
+            wid: L,
           }) || this
         );
       }

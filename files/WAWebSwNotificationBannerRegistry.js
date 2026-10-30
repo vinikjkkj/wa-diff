@@ -16,9 +16,10 @@ __d(
       var n = t != null ? e.get(t) : null;
       return (n == null || n.onClick(), n != null);
     }
-    function m(t) {
-      var n = t != null ? e.get(t) : null;
-      return (n == null || n.onClose(), n != null);
+    function m(t, n) {
+      n === void 0 && (n = !1);
+      var r = t != null ? e.get(t) : null;
+      return (r == null || r.onClose(n), r != null);
     }
     ((i.registerSwNotificationBanner = u),
       (i.unregisterSwNotificationBanner = c),

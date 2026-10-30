@@ -66,7 +66,7 @@ __d(
       );
     }
     function C(e, t) {
-      var n = L(e, t);
+      var n = E(e, t);
       return I(
         "read_scoped",
         function (t) {
@@ -81,7 +81,7 @@ __d(
             : babelHelpers.extends({}, r, {
                 connectors: r.connectors.filter(function (e) {
                   return n.some(function (t) {
-                    return E(t, e.id);
+                    return L(t, e.id);
                   });
                 }),
               });
@@ -123,11 +123,18 @@ __d(
       });
     }
     function L(e, t) {
+      var n = function (t) {
+        var e;
+        return ((e = d[t]) != null ? e : t).replace(/-/g, "_");
+      };
+      return n(e) === n(t);
+    }
+    function E(e, t) {
       var n = [].concat(t),
         r = function (t) {
           t != null &&
             !n.some(function (e) {
-              return E(e, t);
+              return L(e, t);
             }) &&
             n.push(t);
         };
@@ -145,13 +152,6 @@ __d(
           }),
         n.sort().slice(0, c)
       );
-    }
-    function E(e, t) {
-      var n = function (t) {
-        var e;
-        return ((e = d[t]) != null ? e : t).replace(/-/g, "_");
-      };
-      return n(e) === n(t);
     }
     function k(e, t, r) {
       var a = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
@@ -304,7 +304,8 @@ __d(
       (l.updateHatchScopedPermissionMode = b),
       (l.updateHatchActivePermissionMode = v),
       (l.revokeHatchPermission = S),
-      (l.resetHatchPermissions = R));
+      (l.resetHatchPermissions = R),
+      (l.hatchConnectorIDsMatch = L));
   },
   98,
 );

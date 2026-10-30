@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebAfterReadUtils",
     "WAWebBackendErrors",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
@@ -372,48 +371,45 @@ __d(
           "missing participants in group info participant response",
         );
       var n = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-        r = o(
-          "WAWebGroupHistoryGating",
-        ).isGroupHistoryAfterJoinPrerequisitesEnabled(),
-        a = t.map(function (e) {
+        r = t.map(function (e) {
           var t,
-            a,
-            i = e.group_history_sent,
-            l = e.join_time,
-            s = e.node,
-            u = e.role,
+            r,
+            a = e.group_history_sent,
+            i = e.join_time,
+            l = e.node,
+            s = e.role,
+            u,
             c,
-            d,
-            m;
-          if (s.id == null)
+            d;
+          if (l.id == null)
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
               500,
               "missing id in group info participant response",
             );
           return (
-            (c = o("WAWebWidFactory").createWid(s.id)),
-            s.lid != null && (d = o("WAWebWidFactory").createWid(s.lid)),
-            s.pn != null && (m = o("WAWebWidFactory").createWid(s.pn)),
+            (u = o("WAWebWidFactory").createWid(l.id)),
+            l.lid != null && (c = o("WAWebWidFactory").createWid(l.lid)),
+            l.pn != null && (d = o("WAWebWidFactory").createWid(l.pn)),
             {
-              id: c,
-              lid: d,
-              phoneNumber: m != null ? m : null,
-              displayName: (t = s.display_name) != null ? t : null,
-              isAdmin: u === "ADMIN_MEMBER" || u === "SUPERADMIN_MEMBER",
-              isSuperAdmin: u === "SUPERADMIN_MEMBER",
+              id: u,
+              lid: c,
+              phoneNumber: d != null ? d : null,
+              displayName: (t = l.display_name) != null ? t : null,
+              isAdmin: s === "ADMIN_MEMBER" || s === "SUPERADMIN_MEMBER",
+              isSuperAdmin: s === "SUPERADMIN_MEMBER",
               username: n
-                ? (a = s.username_info) == null
+                ? (r = l.username_info) == null
                   ? void 0
-                  : a.username
+                  : r.username
                 : null,
-              joinTime: r && l != null ? l : null,
-              groupHistorySentState: r
-                ? o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(i)
-                : void 0,
+              joinTime: i != null ? i : null,
+              groupHistorySentState: o(
+                "WAWebGroupHistoryPostJoinTypes",
+              ).groupHistorySentToState(a),
             }
           );
         });
-      return a;
+      return r;
     }
     l.mexGetGroupInfo = y;
   },

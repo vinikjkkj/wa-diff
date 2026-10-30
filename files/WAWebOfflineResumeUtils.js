@@ -28,6 +28,7 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "cr:11133",
+    "cr:18497",
     "cr:37442",
     "getErrorSafe",
   ],
@@ -285,7 +286,9 @@ __d(
                         .sendLogs("startup-restore-after-main-failed"),
                       e
                     );
-                  }))
+                  }),
+                  n("cr:18497") != null &&
+                    (yield n("cr:18497").waitForResumeRelease()))
                 : (yield x(e), M()),
               o(
                 "WAWebBackendEventBus",

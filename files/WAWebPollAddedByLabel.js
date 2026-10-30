@@ -4,8 +4,8 @@ __d(
     "fbt",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
-    "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebSystemMsgContactName",
     "WAWebUserPrefsMeUser",
@@ -13,6 +13,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "useWAWebChatOrgMemberNames",
+    "useWAWebChatValues",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -43,7 +44,7 @@ __d(
             break e;
           }
           ((r = d),
-            (a = o("WAWebFrontendMsgGetters").getChat(n)),
+            (a = n.id.remote),
             (i = o("WAWebContactCollection").ContactCollection.gadd(c)));
         }
         ((t[0] = n), (t[1] = r), (t[2] = a), (t[3] = i), (t[4] = l));
@@ -52,7 +53,7 @@ __d(
       var _;
       return (
         t[6] !== r || t[7] !== a || t[8] !== i
-          ? ((_ = u.jsx(r, { chat: a, contact: i })),
+          ? ((_ = u.jsx(r, { chatId: a, contact: i })),
             (t[6] = r),
             (t[7] = a),
             (t[8] = i),
@@ -62,55 +63,68 @@ __d(
       );
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.chat,
-        a = e.contact,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [
+      var t,
+        n = o("react-compiler-runtime").c(9),
+        a = e.chatId,
+        i = e.contact,
+        l;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [
             o("WAWebFrontendContactGetters").getFormattedName,
             o("WAWebFrontendContactGetters").getIsMyContact,
             o("WAWebContactGetters").getNotifyName,
           ]),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = o("useWAWebContactValues").useContactValues(a.id, i),
-        c = l[0],
-        d = l[1],
-        p = l[2],
-        _ = r("useWAWebChatOrgMemberNames")(n.id),
-        f;
+          (n[0] = l))
+        : (l = n[0]);
+      var c = o("useWAWebContactValues").useContactValues(i.id, l),
+        d = c[0],
+        p = c[1],
+        _ = c[2],
+        f =
+          (t = o("useWAWebChatValues").useOptionalChatValues(a, [
+            o("WAWebFrontendChatGetters").getGroupMetadata,
+          ])) != null
+            ? t
+            : [null],
+        g = f[0],
+        h = r("useWAWebChatOrgMemberNames")(a),
+        y;
       return (
-        t[1] !== n ||
-        t[2] !== a ||
-        t[3] !== c ||
-        t[4] !== _ ||
-        t[5] !== d ||
-        t[6] !== p
-          ? ((f = u.jsx(m, {
+        n[1] !== a ||
+        n[2] !== i ||
+        n[3] !== d ||
+        n[4] !== h ||
+        n[5] !== g ||
+        n[6] !== p ||
+        n[7] !== _
+          ? ((y = u.jsx(m, {
               label: s._(/*BTDS*/ "Added by {contributor-name}", [
                 s._param(
                   "contributor-name",
-                  o("WAWebSystemMsgContactName").resolveSystemMsgContactName({
-                    chat: n,
-                    contact: a,
-                    formattedName: c,
-                    isMyContact: d,
-                    notifyName: p,
-                    orgMemberName: _(a),
-                  }),
+                  o("WAWebSystemMsgContactName").resolveSystemMsgContactNameFor(
+                    {
+                      chatId: a,
+                      contact: i,
+                      formattedName: d,
+                      groupMetadata: g,
+                      isMyContact: p,
+                      notifyName: _,
+                      orgMemberName: h(i),
+                    },
+                  ),
                 ),
               ]),
             })),
-            (t[1] = n),
-            (t[2] = a),
-            (t[3] = c),
-            (t[4] = _),
-            (t[5] = d),
-            (t[6] = p),
-            (t[7] = f))
-          : (f = t[7]),
-        f
+            (n[1] = a),
+            (n[2] = i),
+            (n[3] = d),
+            (n[4] = h),
+            (n[5] = g),
+            (n[6] = p),
+            (n[7] = _),
+            (n[8] = y))
+          : (y = n[8]),
+        y
       );
     }
     function m(e) {

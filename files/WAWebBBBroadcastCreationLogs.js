@@ -5,6 +5,18 @@ __d(
     "use strict";
     function e(e, t, n) {
       e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        extraAttributes: babelHelpers.extends(
+          {},
+          t === "failure" ? { error_category: "unknown" } : {},
+          { phase: n, save_result: t },
+        ),
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget: "create_campaign",
+      });
+    }
+    function s(e, t, n) {
+      e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
         extraAttributes: n,
@@ -12,7 +24,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.PAGE,
       });
     }
-    function s(e, t, n, r) {
+    function u(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
         entryPoint: t,
@@ -22,7 +34,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.MAX_BID_INPUT,
       });
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
         entryPoint: t,
@@ -32,7 +44,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CAMPAIGN_BUDGET_INPUT,
       });
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -53,7 +65,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function d(e, t, n, r, a, i) {
+    function m(e, t, n, r, a, i) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -68,7 +80,7 @@ __d(
           : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function m(e, t, n, r, a, i, l, s, u, c) {
+    function p(e, t, n, r, a, i, l, s, u, c) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
@@ -87,7 +99,7 @@ __d(
           : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function p(e, t) {
+    function _(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -97,7 +109,7 @@ __d(
             .ATTACHMENTS_IMAGE_VIDEOS_DROPDOWN,
       });
     }
-    function _(e, t) {
+    function f(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -106,7 +118,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ATTACHMENTS_CAMERA_DROPDOWN,
       });
     }
-    function f(e, t) {
+    function g(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -115,7 +127,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ATTACHMENTS_CATALOG_DROPDOWN,
       });
     }
-    function g(e, t) {
+    function h(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -125,7 +137,7 @@ __d(
             .ATTACHMENTS_DOCUMENT_DROPDOWN,
       });
     }
-    function h(e, t) {
+    function y(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -134,7 +146,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_ATTACHMENT_BUTTON,
       });
     }
-    function y(e, t) {
+    function C(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -143,7 +155,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ATTACHMENT_SELECTION_PREVIEW,
       });
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -151,7 +163,7 @@ __d(
         userActionTarget: n,
       });
     }
-    function b(e) {
+    function v(e) {
       var t = e.entryPoint,
         n = e.fileExt,
         r = e.fileSize,
@@ -169,7 +181,7 @@ __d(
               .ATTACHMENT_PREVIEW_SAVE_BUTTON,
         }));
     }
-    function v(e) {
+    function S(e) {
       var t = e.entryPoint,
         n = e.fileExt,
         r = e.fileSize,
@@ -186,7 +198,7 @@ __d(
           userActionTarget: i,
         }));
     }
-    function S(e, t, n, r, a) {
+    function R(e, t, n, r, a) {
       var i = {};
       (r != null && (i.attachmentExt = r),
         a != null && (i.attachmentFileSize = a),
@@ -198,7 +210,7 @@ __d(
           userActionTarget: n,
         }));
     }
-    function R(e, t, n) {
+    function L(e, t, n) {
       var r = {};
       (n != null && (r.errorType = n),
         e({
@@ -210,7 +222,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.ADD_ATTACHMENT_BUTTON,
         }));
     }
-    function L(e, t) {
+    function E(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -220,7 +232,7 @@ __d(
             .ATTACHMENT_SECTION_ERROR_RENDER,
       });
     }
-    function E(e) {
+    function k(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
@@ -229,7 +241,7 @@ __d(
             .DOCUMENT_PREVIEW_MESSAGE_BUBBLE_ERROR_RENDER,
       });
     }
-    function k(e, t) {
+    function I(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -238,7 +250,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_AUDIENCE_BUTTON,
       });
     }
-    function I(e, t) {
+    function T(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -247,7 +259,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function T(e, t, n, r, a, i, l, s, u, c, d, m, p) {
+    function D(e, t, n, r, a, i, l, s, u, c, d, m, p) {
       var _ = { contact_count: t, save_result: n };
       (s != null && ((_.audience_count = s), (_.is_multi_audience = s > 1)),
         a != null && (_.errorType = a),
@@ -267,7 +279,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
         }));
     }
-    function D(e, t) {
+    function x(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         extraAttributes: t,
@@ -276,7 +288,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_CAMPAIGN_ACK,
       });
     }
-    function x(e, t, n) {
+    function $(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -286,7 +298,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CHOOSE_AUDIENCE_BUTTON,
       });
     }
-    function $(e, t, n) {
+    function P(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -295,7 +307,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.MENU,
       });
     }
-    function P(e, t, n) {
+    function N(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -304,7 +316,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CREATE_AUDIENCE_BUTTON,
       });
     }
-    function N(e, t, n) {
+    function M(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -313,7 +325,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
       });
     }
-    function M(e, t) {
+    function w(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -322,7 +334,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_BUTTON,
       });
     }
-    function w(e, t) {
+    function A(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -330,7 +342,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function A(e, t, n, r, a, i, l, s, u, c) {
+    function F(e, t, n, r, a, i, l, s, u, c) {
       var d = t.length,
         m = {
           audience_count: d,
@@ -353,7 +365,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
         }));
     }
-    function F(e, t, n) {
+    function O(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -378,7 +390,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function O(e, t) {
+    function B(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -388,7 +400,7 @@ __d(
             .EXIT_CONFIRMATION_DISMISS_BUTTON,
       });
     }
-    function B(e, t) {
+    function W(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -398,7 +410,7 @@ __d(
             .EXIT_CONFIRMATION_CONTINUE_BUTTON,
       });
     }
-    function W(e, t) {
+    function q(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -407,7 +419,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_MODAL,
       });
     }
-    function q(e, t, n) {
+    function U(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -417,41 +429,42 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_MODAL,
       });
     }
-    ((l.createBroadcastViewed = e),
-      (l.proMaxBidValidated = s),
-      (l.proCampaignBudgetValidated = u),
-      (l.proSendButtonViewed = c),
-      (l.proSendClicked = d),
-      (l.proSendResult = m),
-      (l.attachmentsImageVideoDropdownClicked = p),
-      (l.attachmentsCameraDropdownClicked = _),
-      (l.attachmentsCatalogDropdownClicked = f),
-      (l.attachmentsDocumentDropdownClicked = g),
-      (l.addAttachmentButtonClicked = h),
-      (l.attachmentFileSelected = y),
-      (l.catalogAttachmentSelected = C),
-      (l.attachmentPreviewSaveButtonClicked = b),
-      (l.attachmentPreviewButtonClicked = v),
-      (l.attachmentRemoveButtonClicked = S),
-      (l.attachmentUpload = R),
-      (l.attachmentSectionErrorRender = L),
-      (l.documentPreviewMessageBubbleErrorRender = E),
-      (l.addAudienceButtonClicked = k),
-      (l.addCTAButtonClicked = I),
-      (l.sendBroadcastResult = T),
-      (l.sendCampaignAck = D),
-      (l.createBroadcastChooseAudienceClicked = x),
-      (l.createBroadcastAudienceMenuViewed = $),
-      (l.createAudienceButtonClicked = P),
-      (l.importAudienceButtonClicked = N),
-      (l.createBroadcastAudienceMenuExistingAudiencesClicked = M),
-      (l.createBroadcastBackClicked = w),
-      (l.createBroadcastSendClicked = A),
-      (l.sendBroadcastButtonViewed = F),
-      (l.createBroadcastExitConfirmationDismissed = O),
-      (l.createBroadcastExitConfirmationConfirmed = B),
-      (l.existingAudiencesModalViewed = W),
-      (l.existingAudiencesModalSaved = q));
+    ((l.campaignCreationResult = e),
+      (l.createBroadcastViewed = s),
+      (l.proMaxBidValidated = u),
+      (l.proCampaignBudgetValidated = c),
+      (l.proSendButtonViewed = d),
+      (l.proSendClicked = m),
+      (l.proSendResult = p),
+      (l.attachmentsImageVideoDropdownClicked = _),
+      (l.attachmentsCameraDropdownClicked = f),
+      (l.attachmentsCatalogDropdownClicked = g),
+      (l.attachmentsDocumentDropdownClicked = h),
+      (l.addAttachmentButtonClicked = y),
+      (l.attachmentFileSelected = C),
+      (l.catalogAttachmentSelected = b),
+      (l.attachmentPreviewSaveButtonClicked = v),
+      (l.attachmentPreviewButtonClicked = S),
+      (l.attachmentRemoveButtonClicked = R),
+      (l.attachmentUpload = L),
+      (l.attachmentSectionErrorRender = E),
+      (l.documentPreviewMessageBubbleErrorRender = k),
+      (l.addAudienceButtonClicked = I),
+      (l.addCTAButtonClicked = T),
+      (l.sendBroadcastResult = D),
+      (l.sendCampaignAck = x),
+      (l.createBroadcastChooseAudienceClicked = $),
+      (l.createBroadcastAudienceMenuViewed = P),
+      (l.createAudienceButtonClicked = N),
+      (l.importAudienceButtonClicked = M),
+      (l.createBroadcastAudienceMenuExistingAudiencesClicked = w),
+      (l.createBroadcastBackClicked = A),
+      (l.createBroadcastSendClicked = F),
+      (l.sendBroadcastButtonViewed = O),
+      (l.createBroadcastExitConfirmationDismissed = B),
+      (l.createBroadcastExitConfirmationConfirmed = W),
+      (l.existingAudiencesModalViewed = q),
+      (l.existingAudiencesModalSaved = U));
   },
   98,
 );

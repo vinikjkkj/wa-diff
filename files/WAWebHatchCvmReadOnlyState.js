@@ -10,7 +10,7 @@ __d(
     "use strict";
     function e() {
       var e = r("WAWebHatchLinkedStatusManager").isLinked();
-      if ((!e && !u()) || !o("WAWebHatchFrontendGating").isHatchCvmEnabled())
+      if ((!e && !c()) || !o("WAWebHatchFrontendGating").isHatchCvmEnabled())
         return null;
       var t = o("WAWebHatchCvmSecretPref").peekHatchCvmReadOnlyInputs(
           o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
@@ -20,7 +20,14 @@ __d(
         i = t.isTransferring;
       return i ? "transferring" : e && a && !n ? "pin_required" : null;
     }
-    function s(e) {
+    function s() {
+      return (
+        o("WAWebHatchCvmSecretPref").peekHatchCvmVmType(
+          o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        ) === "standard"
+      );
+    }
+    function u(e) {
       var t = o("WAWebHatchCvmSecretPref").subscribeToHatchCvmSecretChanges(e),
         n = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
           function () {
@@ -31,14 +38,16 @@ __d(
         (t(), n());
       };
     }
-    function u() {
+    function c() {
       return (
         r(
           "WAWebHatchLinkedStatusManager",
         ).getKnownConfirmedLinkedStatusState() === "linked"
       );
     }
-    ((l.getHatchCvmReadOnlyReason = e), (l.subscribeToHatchCvmReadOnly = s));
+    ((l.getHatchCvmReadOnlyReason = e),
+      (l.isHatchCvmTransferToConfidential = s),
+      (l.subscribeToHatchCvmReadOnly = u));
   },
   98,
 );

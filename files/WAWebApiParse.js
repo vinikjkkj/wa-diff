@@ -10,7 +10,6 @@ __d(
     "WAWebApiParseUtils",
     "WAWebBrAddPixKeyDeepLinkPrefill",
     "WAWebBroadcastApiParse",
-    "WAWebCurrentUser",
     "WAWebExternalCtxConfig",
     "WAWebNewsletterApiParse",
     "WAWebNewsletterStatusApiParse",
@@ -885,10 +884,7 @@ __d(
     }
     function Ht(e) {
       var t = e.match(wt) || e.match(At) || e.match(Ft) || e.match(Ot);
-      if (
-        (t == null && o("WAWebCurrentUser").isEmployee() && (t = e.match(Bt)),
-        t)
-      )
+      if ((t == null && r("gkx")("9092") && (t = e.match(Bt)), t))
         return (
           o("WALogger").LOG(
             d ||

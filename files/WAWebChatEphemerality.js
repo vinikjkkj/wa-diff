@@ -8,37 +8,40 @@ __d(
     "WAWebEphemeralityTypes",
     "WAWebStateUtils",
     "WAWebUserPrefsMultiDevice",
+    "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
-      var n,
-        r = o("WAWebStateUtils").unproxy(t),
-        a = o("WAWebChatGetters").getIsGroup(r)
-          ? (n = r.groupMetadata) == null
-            ? void 0
-            : n.ephemeralDuration
-          : r.ephemeralDuration;
+    var e = ["contact"],
+      s,
+      u;
+    function c(e) {
+      return d(y(e));
+    }
+    function d(e) {
+      var t = e.chatId,
+        n = e.ephemeralDuration,
+        r = e.groupMetadata,
+        a = t.isGroup() ? (r == null ? void 0 : r.ephemeralDuration) : n;
       return a == null || a === 0
         ? null
         : a < 0
           ? (o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[ephemeral] invalid duration of ",
                   " for chat ",
                   "",
                 ])),
               a,
-              r.id.toLogString(),
+              t.toLogString(),
             ),
             null)
           : a;
     }
-    function c(e) {
+    function m(e) {
       var t = o("WAWebStateUtils").unproxy(e),
         n,
-        r = b(t);
+        r = E(t);
       if (r == null) {
         var a;
         n = o("WAWebChatGetters").getIsGroup(t)
@@ -51,8 +54,8 @@ __d(
         ? null
         : n < 0
           ? (o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[ephemeral] invalid duration of ",
                   " for chat ",
                   "",
@@ -63,85 +66,100 @@ __d(
             null)
           : n;
     }
-    function d(e) {
+    function p(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return o("WAWebChatGetters").getIsGroup(t) ||
         t.ephemeralSettingTimestamp === 0
         ? null
         : t.ephemeralSettingTimestamp;
     }
-    function m(e) {
-      var t = o("WAWebStateUtils").unproxy(e),
-        n = u(t);
-      return n != null && n !== 0;
+    function _(e) {
+      return f(y(e));
     }
-    function p(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
+    function f(e) {
+      var t = d(e);
+      return t != null && t !== 0;
+    }
+    function g(e) {
+      return h(
+        babelHelpers.extends({}, y(e), {
+          contact: o("WAWebStateUtils").unproxy(e).contact,
+        }),
+      );
+    }
+    function h(t) {
+      var n = t.contact,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.chatId,
+        l = a.groupMetadata,
+        s = i.isGroup();
       if (
         (o(
           "WAWebUserPrefsMultiDevice",
         ).getIsHostedMeAccountFromLocalStorage() &&
-          !o("WAWebChatGetters").getIsGroup(t)) ||
-        o("WAWebChatGetters").getIsPSA(t) ||
-        t.id.isBot() ||
-        t.id.isAiHub()
+          !s) ||
+        r("WAWebWid").isPSA(i) ||
+        i.isBot() ||
+        i.isAiHub()
       )
         return !1;
-      if (o("WAWebChatGetters").getIsGroup(t)) {
-        var n,
-          r,
-          a =
-            (n = t.groupMetadata) == null
-              ? void 0
-              : n.participants.getSuperAdmin();
+      if (s) {
+        var u = l == null ? void 0 : l.participants.getSuperAdmin();
         if (
-          (a != null && a.contact.isEnterprise) ||
-          (!((r = t.groupMetadata) != null && r.canSetEphemeralSetting()) &&
-            !m(t))
+          (u != null && u.contact.isEnterprise) ||
+          (!(l != null && l.canSetEphemeralSetting()) && !f(a))
         )
           return !1;
       }
       return !(
-        o("WAWebChatGetters").getIsBroadcast(t) ||
-        t.contact.isEnterprise ||
+        r("WAWebWid").isBroadcast(i) ||
+        n.isEnterprise ||
         o(
           "WAWebEphemeralityFrontendUtils",
-        ).isEphemeralityDisabledInUIForContact(t.contact)
+        ).isEphemeralityDisabledInUIForContact(n)
       );
     }
-    function _(e) {
+    function y(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      return {
+        chatId: t.id,
+        ephemeralDuration: t.ephemeralDuration,
+        groupMetadata: t.groupMetadata,
+      };
+    }
+    function C(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return t.disappearingModeInitiator != null
         ? t.disappearingModeInitiator
-        : m(t)
+        : _(t)
           ? o("WAWebEphemeralityTypes").DisappearingModeInitiator.ChangedInChat
           : null;
     }
-    function f(e) {
+    function b(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return o("WAWebChatGetters").getIsGroup(t)
-        ? h(t)
+        ? S(t)
         : t.disappearingModeTrigger != null
           ? t.disappearingModeTrigger
-          : m(t)
+          : _(t)
             ? o("WAWebEphemeralityTypes").DisappearingModeTrigger.ChatSettings
             : null;
     }
-    function g(e) {
+    function v(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return o("WAWebChatGetters").getIsGroup(t)
-        ? y(t)
+        ? R(t)
         : t.disappearingModeInitiatedByMe != null
           ? t.disappearingModeInitiatedByMe
           : null;
     }
-    function h(e) {
+    function S(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e),
         r = (t = n.groupMetadata) == null ? void 0 : t.disappearingModeTrigger;
       return r == null ? null : r;
     }
-    function y(e) {
+    function R(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e),
         r =
@@ -150,7 +168,7 @@ __d(
             : t.disappearingModeInitiatedByMe;
       return r == null ? null : r;
     }
-    function C(e) {
+    function L(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return n.ephemeralDuration == null &&
@@ -166,7 +184,7 @@ __d(
             afterReadDuration: n.afterReadDuration,
           };
     }
-    function b(e) {
+    function E(e) {
       if (!o("WAWebAfterReadUtils").isAfterReadEnabled()) return null;
       var t = o("WAWebStateUtils").unproxy(e),
         n;
@@ -176,22 +194,22 @@ __d(
       } else n = t.afterReadDuration;
       return n == null || n <= 0 ? null : n;
     }
-    function v(e) {
+    function k(e) {
       var t = o("WAWebStateUtils").unproxy(e),
-        n = S(t);
+        n = I(t);
       return {
         ephemeralDuration:
           n != null
             ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
-            : u(t),
+            : c(t),
         afterReadDuration: n,
       };
     }
-    function S(e) {
+    function I(e) {
       var t = o("WAWebStateUtils").unproxy(e),
-        n = b(t);
+        n = E(t);
       if (n != null) return n;
-      var r = u(t);
+      var r = c(t);
       return r == null
         ? null
         : o("WAWebAfterReadUtils").isAfterReadDuration(r) &&
@@ -199,20 +217,23 @@ __d(
           ? r
           : null;
     }
-    ((l.getEphemeralSetting = u),
-      (l.calculateEphemeralDurationForChat = c),
-      (l.getEphemeralSettingTimestamp = d),
-      (l.isEphemeralSettingOn = m),
-      (l.shouldShowEphemeralSetting = p),
-      (l.getDisappearingModeInitiator = _),
-      (l.getDisappearingModeTrigger = f),
-      (l.getDisappearingModeInitiatedByMe = g),
-      (l.getDisappearingModeTriggerGroups = h),
-      (l.getDisappearingModeInitiatedByMeGroups = y),
-      (l.getChatEphemeralityFields = C),
-      (l.getAfterReadDurationForChat = b),
-      (l.getAfterReadEnvelopeForChat = v),
-      (l.getInferredAfterReadDurationForChat = S));
+    ((l.getEphemeralSetting = c),
+      (l.getEphemeralSettingFor = d),
+      (l.calculateEphemeralDurationForChat = m),
+      (l.getEphemeralSettingTimestamp = p),
+      (l.isEphemeralSettingOn = _),
+      (l.isEphemeralSettingOnFor = f),
+      (l.shouldShowEphemeralSetting = g),
+      (l.shouldShowEphemeralSettingFor = h),
+      (l.getDisappearingModeInitiator = C),
+      (l.getDisappearingModeTrigger = b),
+      (l.getDisappearingModeInitiatedByMe = v),
+      (l.getDisappearingModeTriggerGroups = S),
+      (l.getDisappearingModeInitiatedByMeGroups = R),
+      (l.getChatEphemeralityFields = L),
+      (l.getAfterReadDurationForChat = E),
+      (l.getAfterReadEnvelopeForChat = k),
+      (l.getInferredAfterReadDurationForChat = I));
   },
   98,
 );

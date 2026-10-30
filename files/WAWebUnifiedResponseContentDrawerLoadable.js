@@ -18,7 +18,7 @@ __d(
           )
             .__setRef("WAWebUnifiedResponseContentDrawerLoadable")
             .load();
-          return e.WAWebUnifiedResponseContentDrawer;
+          return e;
         }),
         "WAWebUnifiedResponseContentDrawer",
       ),

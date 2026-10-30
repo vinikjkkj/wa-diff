@@ -15,6 +15,8 @@ __d(
     "WAWebApiPrivacyEphemerality",
     "WAWebBackendApi",
     "WAWebBlocklistMigration",
+    "WAWebCallReachability",
+    "WAWebCallUserJourneyGating",
     "WAWebCanonicalUtils",
     "WAWebChatThreadLoggingUtils",
     "WAWebCommunityHomeActionWamEvent",
@@ -105,11 +107,12 @@ __d(
       h,
       y,
       C,
-      b = (e = n("cr:7293")) != null ? e : {},
-      v = b.getNotificationToneGroupSetting,
-      S = b.getNotificationToneSetting,
-      R = b.getNotificationToneStatusSetting;
-    function L(e) {
+      b,
+      v = (e = n("cr:7293")) != null ? e : {},
+      S = v.getNotificationToneGroupSetting,
+      R = v.getNotificationToneSetting,
+      L = v.getNotificationToneStatusSetting;
+    function E(e) {
       if (
         e.goldenBoxContactNarrativeAppearCount > 0 ||
         e.goldenBoxContactDialogAppearCount > 0 ||
@@ -225,7 +228,7 @@ __d(
         l.commit();
       }
     }
-    function E() {
+    function k() {
       var e = !o("WAWebMuteCollection").MuteCollection.globalReactionsMute(),
         t = !!o("WAWebUserPrefsNotifications").getIgnoreNondirectGroupMsg(),
         n = o("WAWebABProps").getABPropConfigValue(
@@ -238,8 +241,8 @@ __d(
         var a = void 0,
           i = void 0,
           l = void 0;
-        (S && v && R
-          ? ((a = S()), (i = v()), (l = R()))
+        (R && S && L
+          ? ((a = R()), (i = S()), (l = L()))
           : (o("WAWebMuteCollection").MuteCollection.getGlobalSoundsEnabled() &&
               (a = o("WAWebWamEnumNotificationSoundTone")
                 .NOTIFICATION_SOUND_TONE.DEFAULT),
@@ -253,75 +256,102 @@ __d(
             ).MuteCollection.getGlobalStatusSoundsEnabled() &&
               (l = o("WAWebWamEnumNotificationSoundTone")
                 .NOTIFICATION_SOUND_TONE.DEFAULT)),
-          r.set({
-            groupReactionNotification: o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalGroupNotificationReactionsEnabled(),
-            groupShowNotification: o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalGroupNotificationsEnabled(),
-            groupSoundTone: i,
-            messageReactionNotification: o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalNotificationReactionsEnabled(),
-            messageShowNotification: o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalNotificationsEnabled(),
-            messageSoundTone: a,
-            statusReactionNotification: o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalStatusNotificationReactionsEnabled(),
-            statusShowNotification: o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalStatusNotificationsEnabled(),
-            statusSoundTone: l,
-            showPreview: o("WAWebUserPrefsNotifications").getGlobalPreviews(),
-            offlineNotification: o(
-              "WAWebUserPrefsNotifications",
-            ).getGlobalOfflineNotifications(),
-          }));
+          r.set(
+            babelHelpers.extends(
+              {
+                groupReactionNotification: o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalGroupNotificationReactionsEnabled(),
+                groupShowNotification: o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalGroupNotificationsEnabled(),
+                groupSoundTone: i,
+                messageReactionNotification: o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalNotificationReactionsEnabled(),
+                messageShowNotification: o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalNotificationsEnabled(),
+                messageSoundTone: a,
+                statusReactionNotification: o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalStatusNotificationReactionsEnabled(),
+                statusShowNotification: o(
+                  "WAWebMuteCollection",
+                ).MuteCollection.getGlobalStatusNotificationsEnabled(),
+                statusSoundTone: l,
+                showPreview: o(
+                  "WAWebUserPrefsNotifications",
+                ).getGlobalPreviews(),
+                offlineNotification: o(
+                  "WAWebUserPrefsNotifications",
+                ).getGlobalOfflineNotifications(),
+              },
+              I(),
+            ),
+          ));
       } else
-        r.set({
-          groupReactionNotification: t && e,
-          groupShowNotification: t,
-          groupSoundTone: o("WAWebWamEnumNotificationSoundTone")
-            .NOTIFICATION_SOUND_TONE.DEFAULT,
-          inAppNotificationSound: o(
-            "WAWebUserPrefsNotifications",
-          ).getGlobalSounds(),
-          messageReactionNotification: e,
-          messageShowNotification: o(
-            "WAWebUserPrefsNotifications",
-          ).getGlobalNotifications(),
-          messageSoundTone: o("WAWebWamEnumNotificationSoundTone")
-            .NOTIFICATION_SOUND_TONE.DEFAULT,
-          showPreview: o("WAWebUserPrefsNotifications").getGlobalPreviews(),
-          offlineNotification: o(
-            "WAWebUserPrefsNotifications",
-          ).getGlobalOfflineNotifications(),
-        });
+        r.set(
+          babelHelpers.extends(
+            {
+              groupReactionNotification: t && e,
+              groupShowNotification: t,
+              groupSoundTone: o("WAWebWamEnumNotificationSoundTone")
+                .NOTIFICATION_SOUND_TONE.DEFAULT,
+              inAppNotificationSound: o(
+                "WAWebUserPrefsNotifications",
+              ).getGlobalSounds(),
+              messageReactionNotification: e,
+              messageShowNotification: o(
+                "WAWebUserPrefsNotifications",
+              ).getGlobalNotifications(),
+              messageSoundTone: o("WAWebWamEnumNotificationSoundTone")
+                .NOTIFICATION_SOUND_TONE.DEFAULT,
+              showPreview: o("WAWebUserPrefsNotifications").getGlobalPreviews(),
+              offlineNotification: o(
+                "WAWebUserPrefsNotifications",
+              ).getGlobalOfflineNotifications(),
+            },
+            I(),
+          ),
+        );
       r.commit();
     }
-    function k() {
-      return I.apply(this, arguments);
-    }
     function I() {
+      return !o("WAWebMuteCollection").MuteCollection
+        .hasRestoredGlobalSettings ||
+        !o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled()
+        ? {}
+        : {
+            callNotificationSound: o(
+              "WAWebMuteCollection",
+            ).MuteCollection.getGlobalCallRingtone(),
+            callShowNotification: o(
+              "WAWebMuteCollection",
+            ).MuteCollection.getGlobalCallNotifications(),
+          };
+    }
+    function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o(
             "WAWebABPropsGlobals",
           ).logClientExposurePulseEventFromDailyStatsTask(),
             o(
               "WAWebGroupABPropsGlobals",
             ).logGroupExposurePulseEventFromDailyStatsTask());
-          var e = yield (C || (C = n("Promise"))).all([
-              T(),
-              B(),
-              H(),
+          var e = yield (b || (b = n("Promise"))).all([
+              x(),
+              q(),
               z(),
               K(),
-              ee(),
               J(),
+              oe(),
+              ne(),
+              X(),
             ]),
             t = e[0],
             a = e[1],
@@ -330,18 +360,19 @@ __d(
             c = e[4],
             d = e[5],
             m = e[6],
-            p = j(),
-            _ = babelHelpers.extends({}, t, a, i, p, c, d, m, {
+            p = e[7],
+            _ = Q(),
+            f = babelHelpers.extends({}, t, a, i, _, c, d, m, p, {
               isCanonicalEntPresent: o(
                 "WAWebCanonicalUtils",
               ).isCanonicalPresent(),
             }),
-            f = new (o("WAWebDailyWamEvent").DailyWamEvent)();
-          (f.set(_), f.commit(), E());
+            g = new (o("WAWebDailyWamEvent").DailyWamEvent)();
+          (g.set(f), g.commit(), k());
           try {
-            var g = yield x({ includeGroupComposition: !0 });
+            var h = yield P({ includeGroupComposition: !0 });
             new (o("WAWebLidMigrationDailyWamEvent").LidMigrationDailyWamEvent)(
-              g,
+              h,
             ).commit();
           } catch (e) {
             o("WALogger")
@@ -355,14 +386,14 @@ __d(
               .sendLogs("lid-migration-daily-dropped");
           }
           o("WAWebTasksExperienceIdDailyReport").reportExperienceIdDailyStats();
-          var h = new (o(
+          var y = new (o(
             "WAWebWebcFtsStorageWamEvent",
           ).WebcFtsStorageWamEvent)();
-          (h.set({ ftsTotalSize: l }), h.commit());
-          var y = new (o(
+          (y.set({ ftsTotalSize: l }), y.commit());
+          var C = new (o(
             "WAWebScreenLockSettingsDataWamEvent",
           ).ScreenLockSettingsDataWamEvent)();
-          (y.set(X()), y.commit());
+          (C.set(ee()), C.commit());
           try {
             n("cr:17587") == null ||
               n("cr:17587").reportAeaConsumerBackfillStatus();
@@ -377,61 +408,61 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("aea-backfill-status-report-fail");
           }
-          var b = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
-            v = new (o(
+          var v = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
+            S = new (o(
               "WAWebWebcStorageStatWamEvent",
             ).WebcStorageStatWamEvent)();
-          (v.set({
+          (S.set({
             webcStorageQuota: i.storageTotalSize,
             webcStorageUsage: i.storageUsed,
             webcAgeOfStorage:
-              b != null
-                ? o("WATimeUtils").unixTimeWithoutClockSkewCorrection() - b
+              v != null
+                ? o("WATimeUtils").unixTimeWithoutClockSkewCorrection() - v
                 : -1,
             webcPackingEnabled: !1,
           }),
-            v.commit());
-          var S = yield o(
+            S.commit());
+          var R = yield o(
             "WAWebUserPrefsGeneral",
           ).getOfflineNotificationEngagement();
-          if (S) {
-            var R, k;
+          if (R) {
+            var L, I;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
               isWebBackgroundSyncNotif: !0,
-              totalNotifShown: (R = S.totalNotifShown) != null ? R : 0,
-              totalNotifTapToOpen: (k = S.totalNotifTapToOpen) != null ? k : 0,
+              totalNotifShown: (L = R.totalNotifShown) != null ? L : 0,
+              totalNotifTapToOpen: (I = R.totalNotifTapToOpen) != null ? I : 0,
             }).commit(),
               o(
                 "WAWebUserPrefsGeneral",
               ).clearOfflineNotificationContentEngagement());
           }
-          var I = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
-          if (I) {
-            var D, $, P, N;
+          var T = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
+          if (T) {
+            var D, $, N, M;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
               totalNotifRtcVoipAccept:
-                (D = I.totalNotifRtcVoipAccept) != null ? D : 0,
+                (D = T.totalNotifRtcVoipAccept) != null ? D : 0,
               totalNotifRtcVoipDecline:
-                ($ = I.totalNotifRtcVoipDecline) != null ? $ : 0,
-              totalNotifShown: (P = I.totalNotifShown) != null ? P : 0,
-              totalNotifTapToOpen: (N = I.totalNotifTapToOpen) != null ? N : 0,
+                ($ = T.totalNotifRtcVoipDecline) != null ? $ : 0,
+              totalNotifShown: (N = T.totalNotifShown) != null ? N : 0,
+              totalNotifTapToOpen: (M = T.totalNotifTapToOpen) != null ? M : 0,
             }).commit(),
               o("WAWebUserPrefsGeneral").clearNotificationContentEngagement());
           }
           o("WAWebWamPrivateStatsUtils").logDailyPrivateStatsTestEvents();
-          var M = o("WAWebDailyAggregatedStatsCollection")
+          var w = o("WAWebDailyAggregatedStatsCollection")
             .DailyAggregatedStatsCollection.toArray()
             .filter(function (e) {
               return e.shouldBeSubmitted();
             });
           (o(
             "WAWebDailyAggregatedStatsCollection",
-          ).DailyAggregatedStatsCollection.remove(M),
-            M.forEach(function (e) {
+          ).DailyAggregatedStatsCollection.remove(w),
+            w.forEach(function (e) {
               var t = new (o("WAWebPttDailyWamEvent").PttDailyWamEvent)({
                 pttCancelBroadcast: e.pttCancelBroadcast,
                 pttCancelGroup: e.pttCancelGroup,
@@ -471,7 +502,7 @@ __d(
                 pttPausedRecordNewsletter: e.pttPausedRecordNewsletter,
               });
               (t.commit(),
-                L(e),
+                E(e),
                 new (o(
                   "WAWebCommunityTabActionWamEvent",
                 ).CommunityTabActionWamEvent)({
@@ -561,15 +592,15 @@ __d(
               "WAWebWebDynamicSamplingTestEventWithSamplingWamEvent",
             ).WebDynamicSamplingTestEventWithSamplingWamEvent)().commit());
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
+    function x() {
+      return $.apply(this, arguments);
     }
-    function D() {
+    function $() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDeviceInfo",
             void 0,
@@ -582,15 +613,15 @@ __d(
             simMnc: parseInt(e.mnc, 10),
           };
         })),
-        D.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
@@ -776,7 +807,7 @@ __d(
               o("WAWebABProps").getABPropConfigValue(
                 "lid_migration_daily_group_composition_enabled",
               )
-                ? yield M(b)
+                ? yield A(b)
                 : null,
             N = babelHelpers.extends(
               {
@@ -810,15 +841,15 @@ __d(
             N
           );
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P() {
-      return N.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new Set(),
             t = yield o("WAWebDBOutContactDatabaseApi").getAllOutContacts();
           for (var n of t)
@@ -827,15 +858,15 @@ __d(
             } catch (e) {}
           return e;
         })),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = {
               numberOfPnOnlyGroups: 0,
               numberOfLidOnlyGroups: 0,
@@ -853,13 +884,13 @@ __d(
             .forEach(function (e) {
               n.set(e.groupId, e.participants);
             });
-          var r = yield P(),
+          var r = yield M(),
             a = 0;
           for (var i of e)
             try {
               var l,
                 s = (l = n.get(i.id)) != null ? l : [];
-              F(t, i.defaultSubgroup === !0, A(s), r);
+              B(t, i.defaultSubgroup === !0, O(s), r);
             } catch (e) {
               a++;
             }
@@ -878,10 +909,10 @@ __d(
             t
           );
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e) {
+    function O(e) {
       var t = !1,
         n = !1,
         r = !1,
@@ -902,7 +933,7 @@ __d(
         unmappedPnWids: a,
       };
     }
-    function F(e, t, n, r) {
+    function B(e, t, n, r) {
       var o = n.hasLidParticipant,
         a = n.hasPnParticipant,
         i = n.isCurrentUserMember;
@@ -918,9 +949,9 @@ __d(
         e.numberOfLidOnlyGroups++;
         return;
       }
-      a && (e.numberOfPnOnlyGroups++, i || O(e, n, r));
+      a && (e.numberOfPnOnlyGroups++, i || W(e, n, r));
     }
-    function O(e, t, n) {
+    function W(e, t, n) {
       e.numberOfPnOnlyGroupsNotMember++;
       var r = t.unmappedPnWids;
       r.length === 0
@@ -931,12 +962,12 @@ __d(
           ? e.numberOfPnOnlyGroupsNotMemberUnmappedOutContacts++
           : e.numberOfPnOnlyGroupsNotMemberUnmappedContacts++;
     }
-    function B() {
-      return W.apply(this, arguments);
+    function q() {
+      return U.apply(this, arguments);
     }
-    function W() {
+    function U() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, n, r;
           o("WALogger").LOG(
             y ||
@@ -947,25 +978,25 @@ __d(
           var a = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
             i = { receiptsEnabled: a.readReceipts !== "none" },
             l = yield o("WAWebApiPrivacyDisallowedList").queryDisallowedLists();
-          ((i.privacySettingsAbout = q(a.about)),
+          ((i.privacySettingsAbout = V(a.about)),
             (i.privacySettingsAboutExceptNum =
               a.about === "contact_blacklist"
-                ? U((e = l.about) == null ? void 0 : e.disallowedList.length)
+                ? H((e = l.about) == null ? void 0 : e.disallowedList.length)
                 : null),
-            (i.privacySettingsGroups = q(a.groupAdd)),
+            (i.privacySettingsGroups = V(a.groupAdd)),
             (i.privacySettingsGroupsExceptNum =
               a.groupAdd === "contact_blacklist"
-                ? U((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
+                ? H((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
                 : null),
-            (i.privacySettingsLastSeen = q(a.lastSeen)),
+            (i.privacySettingsLastSeen = V(a.lastSeen)),
             (i.privacySettingsLastSeenExceptNum =
               a.lastSeen === "contact_blacklist"
-                ? U((n = l.last) == null ? void 0 : n.disallowedList.length)
+                ? H((n = l.last) == null ? void 0 : n.disallowedList.length)
                 : null),
-            (i.privacySettingsProfilePhoto = q(a.profilePicture)),
+            (i.privacySettingsProfilePhoto = V(a.profilePicture)),
             (i.privacySettingsProfilePhotoExceptNum =
               a.profilePicture === "contact_blacklist"
-                ? U((r = l.profile) == null ? void 0 : r.disallowedList.length)
+                ? H((r = l.profile) == null ? void 0 : r.disallowedList.length)
                 : null));
           var s = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
             o("WAWebContactCollection").ContactCollection.getMeContact(),
@@ -978,7 +1009,7 @@ __d(
           ((i.defaultAfterReadEnabled = u),
             (i.defaultAfterReadDuration = u ? s : void 0),
             u && (i.defaultDisappearingDuration = 0),
-            (i.defenseMode = V(a.defenseMode)),
+            (i.defenseMode = G(a.defenseMode)),
             (i.isDefaultDisappearingMessagingUser =
               i.defaultDisappearingDuration !== 0));
           var c = yield o(
@@ -994,10 +1025,10 @@ __d(
             i
           );
         })),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function q(e) {
+    function V(e) {
       return e == null
         ? null
         : e === "all"
@@ -1019,7 +1050,7 @@ __d(
                     );
                   })();
     }
-    function U(e) {
+    function H(e) {
       return e == null
         ? null
         : e === 0
@@ -1067,7 +1098,7 @@ __d(
                                       "WAWebWamEnumPrivacySettingsContactsBuckets",
                                     ).PRIVACY_SETTINGS_CONTACTS_BUCKETS.B100;
     }
-    function V(e) {
+    function G(e) {
       if (e == null) return -1;
       switch (e) {
         case "off":
@@ -1076,12 +1107,12 @@ __d(
           return 1;
       }
     }
-    function H() {
-      return G.apply(this, arguments);
+    function z() {
+      return j.apply(this, arguments);
     }
-    function G() {
+    function j() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("WAWebLidAwareContactsDB")
               .equals(["isAddressBookContact"], 1)
               .then(function (e) {
@@ -1096,7 +1127,7 @@ __d(
               o("WAWebContactCollection").ContactCollection,
               {},
             ).length,
-            s = yield (C || (C = n("Promise"))).all([t, e, a, i]),
+            s = yield (b || (b = n("Promise"))).all([t, e, a, i]),
             u = s[0],
             c = s[1],
             d = s[2],
@@ -1111,28 +1142,28 @@ __d(
             ((p = h - y), (_ = h), (f = y));
           }
           return {
-            addressbookWhatsappSize: Y(c.length, 10),
+            addressbookWhatsappSize: te(c.length, 10),
             totalCountInNetworkUniquePhoneNumber: r("countWhere")(
               c,
               function (e) {
                 return e.isUsernameContact !== !0;
               },
             ),
-            storageAvailSize: Y(p, 100),
-            storageTotalSize: Y(_, 100),
-            storageUsed: Y(f, 100),
+            storageAvailSize: te(p, 100),
+            storageTotalSize: te(_, 100),
+            storageUsed: te(f, 100),
             mediaFolderFileCount: d,
-            webcContactsTableSize: Y(m, 10),
+            webcContactsTableSize: te(m, 10),
             webcFilteredContactsSize: l,
           };
         })),
-        G.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function z() {
+    function K() {
       return o("WAWebEstimateFtsStorageApi").getEstimatedFTSDbSize();
     }
-    function j() {
+    function Q() {
       var e = o("WAWebWamEnumNotificationSettingType").NOTIFICATION_SETTING_TYPE
         .UNKNOWN;
       if (window.Notification != null)
@@ -1158,12 +1189,50 @@ __d(
         { osNotificationSetting: e, isContactSyncToOsDefaultOn: t }
       );
     }
-    function K() {
-      return Q.apply(this, arguments);
+    function X() {
+      return Y.apply(this, arguments);
     }
-    function Q() {
+    function Y() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            if (!o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled())
+              return {};
+            var e = yield (b || (b = n("Promise"))).all([
+                o("WAWebCallReachability").readMediaWebPermissionState(
+                  "camera",
+                ),
+                o("WAWebCallReachability").readMediaWebPermissionState(
+                  "microphone",
+                ),
+              ]),
+              t = e[0],
+              a = e[1];
+            return { webPermissionCamera: t, webPermissionMic: a };
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "logDailyStats: failed to read the camera and microphone permissions",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("daily-stats-web-media-permissions-read-failed"),
+              {}
+            );
+          }
+        })),
+        Y.apply(this, arguments)
+      );
+    }
+    function J() {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = [],
             t = [],
             n = window.navigator.mediaCapabilities;
@@ -1235,26 +1304,26 @@ __d(
             supportedDecoders: t.join(","),
           };
         })),
-        Q.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function X() {
+    function ee() {
       return {
         screenAutoLockDuration: o(
           "WAWebUserPrefsScreenLock",
         ).getScreenLockDurationForLogging(),
       };
     }
-    function Y(e, t) {
+    function te(e, t) {
       return r("gkx")("26258") ? Math.round(e / t) * t : e;
     }
-    function J() {
-      return Z.apply(this, arguments);
+    function ne() {
+      return re.apply(this, arguments);
     }
-    function Z() {
+    function re() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (C || (C = n("Promise"))).all([
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (b || (b = n("Promise"))).all([
               o("WAWebChatThreadLoggingUtils").getMeHasUsername(),
               o("WAWebChatThreadLoggingUtils").getMeHasUsernamePin(),
             ]),
@@ -1270,15 +1339,15 @@ __d(
             { hasUsername: t, hasUsernamePin: r, usernameState: i }
           );
         })),
-        Z.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function ee() {
-      return te.apply(this, arguments);
+    function oe() {
+      return ae.apply(this, arguments);
     }
-    function te() {
+    function ae() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new Set(),
             t = 0,
             n = new Set(),
@@ -1304,13 +1373,13 @@ __d(
             contactsRequiringSyncBeforeDisplaySize: a,
           };
         })),
-        te.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    ((l.logDailyStats = k),
-      (l.getLidMigrationStatus = x),
-      (l.classifyGroupParticipants = A),
-      (l.tallyNonMemberPnOnlyGroup = O));
+    ((l.logDailyStats = T),
+      (l.getLidMigrationStatus = P),
+      (l.classifyGroupParticipants = O),
+      (l.tallyNonMemberPnOnlyGroup = W));
   },
   98,
 );

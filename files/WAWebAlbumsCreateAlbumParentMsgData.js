@@ -1,6 +1,7 @@
 __d(
   "WAWebAlbumsCreateAlbumParentMsgData",
   [
+    "WAWebGetEphemeralFieldsMsgActionsUtils",
     "WAWebMsgDataUtils",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -16,12 +17,15 @@ __d(
           var t = e.chat,
             n = e.expectedImageCount,
             r = e.expectedVideoCount,
-            a = babelHelpers.extends(
+            a = e.quotedMsg,
+            i = babelHelpers.extends(
               {},
+              a == null ? void 0 : a.msgContextInfo(t.id),
               yield o("WAWebMsgDataUtils").genOutgoingMsgData(
                 t,
                 o("WAWebMsgType").MSG_TYPE.ALBUM,
               ),
+              o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(t),
               {
                 type: o("WAWebMsgType").MSG_TYPE.ALBUM,
                 kind: o("WAWebMsgType").MsgKind.Album,
@@ -29,7 +33,7 @@ __d(
                 expectedVideoCount: r,
               },
             );
-          return new (o("WAWebMsgModel").Msg)(a);
+          return new (o("WAWebMsgModel").Msg)(i);
         })),
         s.apply(this, arguments)
       );

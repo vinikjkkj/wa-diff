@@ -230,7 +230,13 @@ __d(
       var l = { count: 0, first: null };
       for (var u of a)
         try {
-          f(u, i, r, t, l);
+          f({
+            downloadedMediaMsgIds: t,
+            failures: l,
+            includeMedia: r,
+            lines: i,
+            msg: u,
+          });
         } catch (e) {
           (o("WAWebExportChatFormatFailures").recordFailure(l, e),
             i.push(
@@ -247,41 +253,46 @@ __d(
         i.join("\n") + "\n"
       );
     }
-    function f(t, n, r, a, i) {
-      var l = o("WAWebMsgGetters").getT(t),
-        d = o("WAWebMsgGetters").getType(t);
+    function f(t) {
+      var n = t.downloadedMediaMsgIds,
+        r = t.failures,
+        a = t.includeMedia,
+        i = t.lines,
+        l = t.msg,
+        d = o("WAWebMsgGetters").getT(l),
+        m = o("WAWebMsgGetters").getType(l);
       if (
         !(
-          d === o("WAWebMsgType").MSG_TYPE.PROTOCOL ||
-          d === o("WAWebMsgType").MSG_TYPE.REACTION ||
-          d === o("WAWebMsgType").MSG_TYPE.REACTION_ENC ||
-          d === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ||
-          d === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT ||
-          d === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE
+          m === o("WAWebMsgType").MSG_TYPE.PROTOCOL ||
+          m === o("WAWebMsgType").MSG_TYPE.REACTION ||
+          m === o("WAWebMsgType").MSG_TYPE.REACTION_ENC ||
+          m === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ||
+          m === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT ||
+          m === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE
         )
       ) {
-        var m = u(l),
-          _ = e.has(d);
+        var _ = u(d),
+          f = e.has(m);
         try {
-          if (_) {
-            var f = p(t, r, a);
-            n.push("[" + m + "] - " + f);
+          if (f) {
+            var g = p(l, a, n);
+            i.push("[" + _ + "] - " + g);
             return;
           }
-          var g = c(t),
-            h = p(t, r, a);
-          if (o("WAWebMsgGetters").getIsForwarded(t)) {
-            var y = o("WAWebMsgGetters").getIsFrequentlyForwarded(t)
+          var h = c(l),
+            y = p(l, a, n);
+          if (o("WAWebMsgGetters").getIsForwarded(l)) {
+            var C = o("WAWebMsgGetters").getIsFrequentlyForwarded(l)
               ? "[" + s._(/*BTDS*/ "Forwarded many times").toString() + "] "
               : "[" + s._(/*BTDS*/ "Forwarded").toString() + "] ";
-            h = y + h;
+            y = C + y;
           }
-          n.push("[" + m + "] " + g + ": " + h);
+          i.push("[" + _ + "] " + h + ": " + y);
         } catch (e) {
-          (o("WAWebExportChatFormatFailures").recordFailure(i, e),
-            n.push(
+          (o("WAWebExportChatFormatFailures").recordFailure(r, e),
+            i.push(
               "[" +
-                m +
+                _ +
                 "] <" +
                 o("WAWebExportChatFormatFailures").unexportableMessageText() +
                 ">",

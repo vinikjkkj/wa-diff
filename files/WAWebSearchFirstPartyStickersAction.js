@@ -1,6 +1,7 @@
 __d(
   "WAWebSearchFirstPartyStickersAction",
   [
+    "WAWebABProps",
     "WAWebCurrentUser",
     "WAWebL10NCountryCodes",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
@@ -19,13 +20,17 @@ __d(
     var e = 250,
       s = "https://static.whatsapp.net",
       u = "/sticker",
-      c = "/wa/static/sticker";
-    function d(e, t) {
-      return m.apply(this, arguments);
+      c = "/wa/static/sticker",
+      d = 300 * 1e3,
+      m = 20,
+      p = new Map(),
+      _;
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function m() {
+    function g() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i =
               (a = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
@@ -37,53 +42,62 @@ __d(
             o(
               "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
             ).compareCountryCodeOutput(i, l, "searchFirstPartyStickers");
-          for (var d = l || "default", m = 0, p = 0; m <= e; )
-            m += 3 + encodeURIComponent(t[p++]).length;
-          var _ = t.slice(0, p - 1).join(","),
-            f = { country: d },
-            g = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
-            h = g === s ? "" + g + u : "" + g + c,
-            y = o("WAWebStickerUtils").getStickerFetchParamsFromABConfig(),
-            C = r("WAWebURLUtils").build(
-              h,
-              babelHelpers.extends(
-                {},
-                y,
-                { cat: "sticker_search", terms: _, _nc_cat: 1 },
-                f,
-              ),
+          for (var f = l || "default", g = 0, h = 0; g <= e; )
+            g += 3 + encodeURIComponent(t[h++]).length;
+          var y = t.slice(0, h - 1).join(","),
+            C = { country: f },
+            b = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
+            v = b === s ? "" + b + u : "" + b + c,
+            S = o("WAWebStickerUtils").getStickerFetchParamsFromABConfig(),
+            R = o("WAWebABProps").getABPropConfigValue(
+              "sticker_suggestion_enabled",
+            );
+          R && _ !== i && (p.clear(), (_ = i));
+          var L = r("WAWebURLUtils").build(
+            v,
+            babelHelpers.extends(
+              {},
+              S,
+              { cat: "sticker_search", terms: y, _nc_cat: 1 },
+              C,
             ),
-            b = new (o(
-              "WAWebStickerCommonQueryToStaticServerWamEvent",
-            ).StickerCommonQueryToStaticServerWamEvent)();
-          b.startQueryLatencyMs();
-          var v = yield r("WAWebPonyfillsFetch")(C, {
+          );
+          if (R) {
+            var E = p.get(L);
+            if (E != null && E.expiresAt > Date.now()) return E.stickers;
+            p.delete(L);
+          }
+          var k = new (o(
+            "WAWebStickerCommonQueryToStaticServerWamEvent",
+          ).StickerCommonQueryToStaticServerWamEvent)();
+          k.startQueryLatencyMs();
+          var I = yield r("WAWebPonyfillsFetch")(L, {
             signal: n == null ? void 0 : n.signal,
           });
           if (
-            (b.markQueryLatencyMs(),
-            b.set({
-              httpResponseCode: v.status,
-              params: new URLSearchParams(f).toString(),
+            (k.markQueryLatencyMs(),
+            k.set({
+              httpResponseCode: I.status,
+              params: new URLSearchParams(C).toString(),
               queryType: o("WAWebWamEnumQueryType").QUERY_TYPE.STICKER_SEARCH,
             }),
-            b.commit(),
-            !v.ok)
+            k.commit(),
+            !I.ok)
           )
             throw new (o("WAWebServerErrors").InvalidServerResponseError)(
-              C,
-              v.status.toString(),
+              L,
+              I.status.toString(),
               "Invalid response from WhatsApp stickers endpoint",
             );
-          var S = yield v.json();
-          if (S == null)
+          var T = yield I.json();
+          if (T == null)
             throw new (o("WAWebServerErrors").InvalidServerResponseError)(
-              C,
-              v.status.toString(),
+              L,
+              I.status.toString(),
               "Invalid response from WhatsApp stickers endpoint: " +
-                JSON.stringify(S),
+                JSON.stringify(T),
             );
-          return S.map(function (e, t) {
+          var D = T.map(function (e, t) {
             return new (o("WAWebStickerModel").StickerModel)({
               mimetype: e.mimetype,
               width: e.width,
@@ -97,11 +111,23 @@ __d(
               index: t,
             });
           });
+          if (
+            D.length > 0 &&
+            R &&
+            ((n == null ? void 0 : n.signal) == null || !n.signal.aborted)
+          ) {
+            if (p.size >= m) {
+              var x = p.keys().next().value;
+              x != null && p.delete(x);
+            }
+            p.set(L, { expiresAt: Date.now() + d, stickers: D });
+          }
+          return D;
         })),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.searchFirstPartyStickers = d;
+    l.searchFirstPartyStickers = f;
   },
   98,
 );

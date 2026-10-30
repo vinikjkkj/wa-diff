@@ -41,18 +41,17 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          return (
-            r.some(function (e) {
-              return e.fullKey != null;
-            }) ||
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "syncd: key share from device ",
-                    " has no keys with keydata.",
-                  ])),
-                t,
-              ),
+          (r.some(function (e) {
+            return e.fullKey != null;
+          }) ||
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: key share from device ",
+                  " has no keys with keydata.",
+                ])),
+              t,
+            ),
             yield (g || (g = n("Promise"))).all(
               r.map(
                 (function () {
@@ -324,8 +323,7 @@ __d(
               }),
               t,
             ),
-            o("WAWebSyncd").syncBlockedCollections()
-          );
+            o("WAWebSyncd").syncBlockedCollections());
         })),
         b.apply(this, arguments)
       );

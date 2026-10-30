@@ -26,7 +26,6 @@ __d(
               n != null &&
                 o("WAWebToastManager").ToastManager.open(
                   u.jsx(o("WAWebToast.react").Toast, {
-                    duration: 1e4,
                     id: t + n.toString(),
                     msg: n,
                     action: {

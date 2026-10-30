@@ -23,67 +23,62 @@ __d(
       m = d || (d = o("react"));
     function p(e) {
       var t = e.full,
-        n = e.onDismiss,
-        r = e.profilePicThumb,
-        a = e.thumb;
+        n = e.profilePicThumb,
+        r = e.thumb;
       return f({
         full: t,
-        onDismiss: n,
-        profilePicThumb: o("WAWebStateUtils").unproxy(r),
-        thumb: a,
+        profilePicThumb: o("WAWebStateUtils").unproxy(n),
+        thumb: r,
       });
     }
-    function _(e, t) {
-      return g({
-        onDismiss: t,
-        profilePicThumb: o("WAWebStateUtils").unproxy(e),
-      });
+    function _(e) {
+      return g({ profilePicThumb: o("WAWebStateUtils").unproxy(e) });
     }
     function f(t) {
       var r = t.full,
-        a = t.onDismiss,
-        i = t.profilePicThumb,
-        l = t.thumb,
-        u = t.toastId,
-        d = u === void 0 ? o("WAWebActionToast.react").genId() : u,
-        p = i.id;
-      if (!i.canSet())
+        a = t.profilePicThumb,
+        i = t.thumb,
+        l = t.toastId,
+        u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
+        d = a.id;
+      if (!a.canSet())
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var _ = o("WAWebContactProfilePicThumbBridge").sendSetPicture(p, l, r);
-      i.pendingPic = l;
-      var g = o("WAWebUserPrefsMeUser").isMeAccount(p),
-        h = g
+      var p = o("WAWebContactProfilePicThumbBridge").sendSetPicture(d, i, r);
+      a.pendingPic = i;
+      var _ = o("WAWebUserPrefsMeUser").isMeAccount(d),
+        g = _
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Setting profile picture"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Setting group icon"),
             ),
-        y = _.catch(function (t) {
-          throw (
-            o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "models:ProfilePicThumb:setPicture dropped",
-                ])),
-            ),
-            g
-              ? new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Couldn't set profile picture."),
-                )
-              : new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Couldn't set group icon."),
-                )
-          );
-        })
+        h = p
+          .catch(function (t) {
+            throw (
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "models:ProfilePicThumb:setPicture dropped",
+                  ])),
+              ),
+              _
+                ? new (o("WAWebActionToast.react").ActionType)(
+                    s._(/*BTDS*/ "Couldn't set profile picture."),
+                  )
+                : new (o("WAWebActionToast.react").ActionType)(
+                    s._(/*BTDS*/ "Couldn't set group icon."),
+                  )
+            );
+          })
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400) {
-                  var t = g
+                  var t = _
                     ? s._(/*BTDS*/ "Couldn't set profile picture.")
                     : s._(/*BTDS*/ "Couldn't set group icon.");
                   return new (o("WAWebActionToast.react").ActionType)(t, {
@@ -91,10 +86,9 @@ __d(
                     actionHandler: function () {
                       return f({
                         full: r,
-                        onDismiss: a,
-                        profilePicThumb: i,
-                        thumb: l,
-                        toastId: d,
+                        profilePicThumb: a,
+                        thumb: i,
+                        toastId: u,
                       });
                     },
                   });
@@ -103,7 +97,7 @@ __d(
             ),
           )
           .then(function () {
-            return g
+            return _
               ? new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Profile picture set"),
                 )
@@ -114,40 +108,40 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: d,
-            initialAction: h,
-            pendingAction: y,
-            onDismiss: a,
+            id: u,
+            initialAction: g,
+            pendingAction: h,
           }),
         ),
-        _.then(function (e) {
-          i.set({ tag: e.tag, eurl: e.eurl });
-        }).finally(function () {
-          i.pendingPic = void 0;
-        })
+        p
+          .then(function (e) {
+            a.set({ tag: e.tag, eurl: e.eurl });
+          })
+          .finally(function () {
+            a.pendingPic = void 0;
+          })
       );
     }
     function g(e) {
-      var t = e.onDismiss,
-        r = e.profilePicThumb,
-        a = e.toastId,
-        i = a === void 0 ? o("WAWebActionToast.react").genId() : a,
-        l = r.id;
-      if (!r.canDelete())
+      var t = e.profilePicThumb,
+        r = e.toastId,
+        a = r === void 0 ? o("WAWebActionToast.react").genId() : r,
+        i = t.id;
+      if (!t.canDelete())
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var d = o("WAWebContactProfilePicThumbBridge").requestDeletePicture(l);
-      r.pendingPic = o("WAWebProfilePicThumbGetters").getFallbackType(r);
-      var p = o("WAWebUserPrefsMeUser").isMeAccount(l),
-        _ = p
+      var l = o("WAWebContactProfilePicThumbBridge").requestDeletePicture(i);
+      t.pendingPic = o("WAWebProfilePicThumbGetters").getFallbackType(t);
+      var d = o("WAWebUserPrefsMeUser").isMeAccount(i),
+        p = d
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Removing profile picture"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Removing group icon"),
             ),
-        f = d
+        _ = l
           .catch(function (e) {
             throw (
               o("WALogger").WARN(
@@ -156,7 +150,7 @@ __d(
                     "models:ProfilePicThumb:deletePicture dropped",
                   ])),
               ),
-              p
+              d
                 ? new (o("WAWebActionToast.react").ActionType)(
                     s._(/*BTDS*/ "Couldn't remove profile picture."),
                   )
@@ -170,17 +164,13 @@ __d(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400) {
-                  var n = p
+                  var n = d
                     ? s._(/*BTDS*/ "Couldn't remove profile picture.")
                     : s._(/*BTDS*/ "Couldn't remove group icon.");
                   return new (o("WAWebActionToast.react").ActionType)(n, {
                     actionText: s._(/*BTDS*/ "Try again."),
                     actionHandler: function () {
-                      return g({
-                        onDismiss: t,
-                        profilePicThumb: r,
-                        toastId: i,
-                      });
+                      return g({ profilePicThumb: t, toastId: a });
                     },
                   });
                 }
@@ -188,7 +178,7 @@ __d(
             ),
           )
           .then(function () {
-            return p
+            return d
               ? new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Profile picture removed"),
                 )
@@ -199,18 +189,17 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            initialAction: _,
-            pendingAction: f,
-            onDismiss: t,
+            id: a,
+            initialAction: p,
+            pendingAction: _,
           }),
         ),
-        d
+        l
           .then(function () {
-            r.set({ tag: void 0, eurl: void 0 });
+            t.set({ tag: void 0, eurl: void 0 });
           })
           .finally(function () {
-            r.pendingPic = void 0;
+            t.pendingPic = void 0;
           })
       );
     }

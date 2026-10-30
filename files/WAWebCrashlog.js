@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WAThrottle",
-    "WAWebABProps",
     "WAWebBoolFunc",
     "WAWebBrokerGlobalAppState",
     "WAWebBrowserInfo",
@@ -14,7 +13,6 @@ __d(
     "WAWebCrashLogWamEvent",
     "WAWebCrashlogConstants",
     "WAWebCrashlogUserAgent",
-    "WAWebCurrentUser",
     "WAWebEnvironment",
     "WAWebGlobals",
     "WAWebLogLineSanitizer",
@@ -35,6 +33,7 @@ __d(
     "err",
     "gkx",
     "isStringNullOrEmpty",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -676,7 +675,7 @@ __d(
             de = yield (q || (q = n("Promise"))).all([se, ce]),
             me = de[0],
             pe = de[1];
-          r("gkx")("26258") &&
+          (r("justknobx")._("7009") ? !r("gkx")("9092") : r("gkx")("26258")) &&
             (me = me.map(o("WAWebLogLineSanitizer").sanitizeLine));
           var _e = me.join("\n"),
             fe = new Blob([_e], { type: "text/plain" });
@@ -751,9 +750,7 @@ __d(
       var t = e.isHighPri,
         n = new FormData();
       ((!r("gkx")("26258") || t) && n.append("forced", "true"),
-        o("WAWebABProps").getABPropConfigValue(
-          "is_meta_employee_or_internal_tester",
-        ) && n.append("is_internal", "true"),
+        r("gkx")("9092") && n.append("is_internal", "true"),
         n.append("from_jid", ye()));
       var a = r("WAWebBrowserInfo")(),
         i = o("WAWebCrashlogUserAgent").getLogUserAgent({
@@ -801,21 +798,21 @@ __d(
           if (!o("WAWebLoggerImpl").Logger.isTakeOver)
             try {
               var n,
-                r = e,
-                a = (n = t == null ? void 0 : t.sampling) != null ? n : 1;
+                a = e,
+                i = (n = t == null ? void 0 : t.sampling) != null ? n : 1;
               (t == null ? void 0 : t.separateEmployeeLog) !== !1 &&
-                o("WAWebCurrentUser").isEmployee() &&
-                ((r = e + "-employee"),
+                r("gkx")("9092") &&
+                ((a = e + "-employee"),
                 (t == null ? void 0 : t.employeeSampling) != null &&
-                  (a = t.employeeSampling));
-              var i = yield _e({
-                reason: r,
+                  (i = t.employeeSampling));
+              var l = yield _e({
+                reason: a,
                 hasTaggedMessage: !0,
-                clientSamplingRate: a,
+                clientSamplingRate: i,
                 tags: t == null ? void 0 : t.tags,
                 sendLogsType: t == null ? void 0 : t.sendLogsType,
               });
-              return i;
+              return l;
             } catch (e) {
               o("WALogger").ERROR(
                 B ||

@@ -357,7 +357,6 @@ __d(
             S.jsx(o("WAWebToast.react").Toast, {
               id: o("WAWebActionToast.react").genId(),
               msg: e,
-              duration: 4e3,
             }),
           );
         },

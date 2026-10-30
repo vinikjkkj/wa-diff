@@ -306,7 +306,7 @@ __d(
                           )
                           .sendLogs(
                             "sending-retry-response-with-empty-device-identity",
-                            { sampling: r("gkx")("26259") ? 1 : 0.1 },
+                            { sampling: r("gkx")("9092") ? 1 : 0.1 },
                           ),
                       o("WAWap").wap("device-identity", null, e)
                     );

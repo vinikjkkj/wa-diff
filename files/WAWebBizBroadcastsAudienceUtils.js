@@ -14,20 +14,16 @@ __d(
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebFbtCommon",
-    "WAWebToast.react",
-    "WAWebToastManager",
     "WAWebWidToJid",
+    "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c,
-      d = c || (c = o("react")),
-      m = 100;
-    function p() {
+      c = 100;
+    function d() {
       var e = o("WAWebChatCollection").ChatCollection.filter(function (e) {
         return o("WAWebChatGetters").getIsBroadcast(e) && !e.id.isStatus();
       });
@@ -65,13 +61,12 @@ __d(
         );
       });
     }
-    function _(e) {
+    function m(e) {
       var t = e.action,
-        a = e.audienceListItem,
-        i = e.onRefreshAudienceList,
-        l = a.broadcastJid,
-        s = o("WAWebToast.react").genId(),
-        u =
+        n = e.audienceListItem,
+        a = e.onRefreshAudienceList,
+        i = n.broadcastJid,
+        l =
           t === "create"
             ? o(
                 "WAWebBizBroadcastsCreationStrings",
@@ -86,110 +81,72 @@ __d(
                       t,
                   );
                 })();
-      o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
-          id: s,
-          msg: u,
-          action:
-            i == null
-              ? null
-              : {
-                  actionText: r("WAWebFbtCommon")("Undo"),
-                  onAction: function () {
-                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      yield o("WAWebBroadcastListAction")
-                        .deleteBroadcastListAction(l)
-                        .then(function () {
-                          return i();
-                        })
-                        .finally(function () {
-                          return o("WAWebToastManager").ToastManager.close(s);
-                        });
-                    })();
-                  },
+      o("WDSToastImperativeHost").showWDSToast({
+        action:
+          a == null
+            ? void 0
+            : {
+                label: r("WAWebFbtCommon")("Undo"),
+                onPress: function () {
+                  o("WAWebBroadcastListAction")
+                    .deleteBroadcastListAction(i)
+                    .then(function () {
+                      return a();
+                    });
                 },
-        }),
-      );
+              },
+        message: l,
+      });
     }
-    function f() {
-      o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
-          id: o("WAWebToast.react").genId(),
-          msg: o(
-            "WAWebBizBroadcastsCreationStrings",
-          ).getAudienceCreatedToastLabel(),
-          action: null,
-        }),
-      );
+    function p() {
+      o("WDSToastImperativeHost").showWDSToast({
+        message: o(
+          "WAWebBizBroadcastsCreationStrings",
+        ).getAudienceCreatedToastLabel(),
+      });
     }
-    function g(e, t, a, i) {
-      var l = o("WAWebToast.react").genId();
-      o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
-          id: l,
-          msg: o(
-            "WAWebBizBroadcastsCreationStrings",
-          ).getAudienceUpdatedToastLabel(),
-          action: {
-            actionText: r("WAWebFbtCommon")("Undo"),
-            onAction: function () {
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                yield o("WAWebBroadcastListAction")
-                  .editBroadcastListAction(e, a, t)
-                  .then(function () {
-                    return i();
-                  })
-                  .finally(function () {
-                    return o("WAWebToastManager").ToastManager.close(l);
-                  });
-              })();
-            },
+    function _(e, t, n, a) {
+      o("WDSToastImperativeHost").showWDSToast({
+        action: {
+          label: r("WAWebFbtCommon")("Undo"),
+          onPress: function () {
+            o("WAWebBroadcastListAction")
+              .editBroadcastListAction(e, n, t)
+              .then(function () {
+                return a();
+              });
           },
-        }),
-      );
+        },
+        message: o(
+          "WAWebBizBroadcastsCreationStrings",
+        ).getAudienceUpdatedToastLabel(),
+      });
+    }
+    function f(e, t) {
+      o("WDSToastImperativeHost").showWDSToast({
+        action: { label: r("WAWebFbtCommon")("Undo"), onPress: t },
+        message: o(
+          "WAWebBizBroadcastsAudienceSelectionStrings",
+        ).getEditErrorSuccessToastLabel(e),
+      });
+    }
+    function g(e, t) {
+      o("WDSToastImperativeHost").showWDSToast({
+        action: { label: r("WAWebFbtCommon")("Undo"), onPress: t },
+        message: o(
+          "WAWebBizBroadcastsAudienceSelectionStrings",
+        ).getDeleteAllErrorsSuccessToastLabel(e),
+      });
     }
     function h(e, t) {
-      var n = o("WAWebToast.react").genId();
-      o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
-          id: n,
-          msg: o(
-            "WAWebBizBroadcastsAudienceSelectionStrings",
-          ).getEditErrorSuccessToastLabel(e),
-          action: { actionText: r("WAWebFbtCommon")("Undo"), onAction: t },
-        }),
-      );
+      o("WDSToastImperativeHost").showWDSToast({
+        action: { label: r("WAWebFbtCommon")("Undo"), onPress: t },
+        message: o(
+          "WAWebBizBroadcastsAudienceSelectionStrings",
+        ).getDeleteErrorSuccessToastLabel(e),
+      });
     }
     function y(e, t) {
-      var n = o("WAWebToast.react").genId();
-      o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
-          id: n,
-          msg: o(
-            "WAWebBizBroadcastsAudienceSelectionStrings",
-          ).getDeleteAllErrorsSuccessToastLabel(e),
-          action: { actionText: r("WAWebFbtCommon")("Undo"), onAction: t },
-        }),
-      );
-    }
-    function C(e, t) {
-      var n = o("WAWebToast.react").genId();
-      o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
-          id: n,
-          msg: o(
-            "WAWebBizBroadcastsAudienceSelectionStrings",
-          ).getDeleteErrorSuccessToastLabel(e),
-          action: {
-            actionText: r("WAWebFbtCommon")("Undo"),
-            onAction: function () {
-              return t();
-            },
-          },
-        }),
-      );
-    }
-    function b(e, t) {
       if (e == null) return "";
       var n = o("WAWebBizBroadcastsAudienceStrings").getDurationLabelForDays(t);
       return e === "inactive_chats"
@@ -202,7 +159,7 @@ __d(
               .toString()
           : "";
     }
-    function v(e) {
+    function C(e) {
       if (e == null || e.length === 0) return "";
       var t = [];
       for (var n of e) {
@@ -226,12 +183,12 @@ __d(
             .toString()
         : t.join(", ");
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function R() {
+    function v() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = [],
             i = [];
           return (
@@ -241,7 +198,7 @@ __d(
                   function* (t, n) {
                     return (
                       yield t,
-                      L(n)
+                      S(n)
                         .then(function (e) {
                           i.push(e);
                         })
@@ -271,15 +228,15 @@ __d(
             { failedAudiences: a, savedAudiences: i }
           );
         })),
-        R.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function E() {
+    function R() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.contacts.map(function (e) {
               return { lid: e.lid, phone: e.phone };
             }),
@@ -297,20 +254,20 @@ __d(
             recipientCount: t.length,
           };
         })),
-        E.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.MAX_AUDIENCE_NAME_LENGTH = m),
-      (l.getBroadcastChatsAsAudiences = p),
-      (l.showCreateAudienceSuccessToast = _),
-      (l.showAudienceCreatedWithoutChatToast = f),
-      (l.showUpdateAudienceSuccessToast = g),
-      (l.showImportAudienceEditContactSuccessToast = h),
-      (l.showImportAudienceDeleteAllContactsSuccessToast = y),
-      (l.showImportAudienceDeleteErrorSuccessToast = C),
-      (l.buildAudienceNameForCard = b),
-      (l.buildAudienceNameFromRecipients = v),
-      (l.persistAudienceDraftsSequentially = S));
+    ((l.MAX_AUDIENCE_NAME_LENGTH = c),
+      (l.getBroadcastChatsAsAudiences = d),
+      (l.showCreateAudienceSuccessToast = m),
+      (l.showAudienceCreatedWithoutChatToast = p),
+      (l.showUpdateAudienceSuccessToast = _),
+      (l.showImportAudienceEditContactSuccessToast = f),
+      (l.showImportAudienceDeleteAllContactsSuccessToast = g),
+      (l.showImportAudienceDeleteErrorSuccessToast = h),
+      (l.buildAudienceNameForCard = y),
+      (l.buildAudienceNameFromRecipients = C),
+      (l.persistAudienceDraftsSequentially = b));
   },
   226,
 );

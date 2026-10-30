@@ -580,73 +580,75 @@ __d(
     function fe() {
       return (
         (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.eventFlow,
-            r = e.input,
-            a = e.mediaType,
-            i = e.rawMimeType,
-            l = e.strictJpegScanValidationEnabled,
-            s = e.strictMp4ValidationEnabled,
-            u = e.strictOggOpusValidationEnabled,
-            c = e.zipArchiveCheckEnabled,
-            d = ae();
+          var t = e.allowAv1VideoCodec,
+            r = e.eventFlow,
+            a = e.input,
+            i = e.mediaType,
+            l = e.rawMimeType,
+            s = e.strictJpegScanValidationEnabled,
+            u = e.strictMp4ValidationEnabled,
+            c = e.strictOggOpusValidationEnabled,
+            d = e.zipArchiveCheckEnabled,
+            m = ae();
           q().INFO(
             I ||
               (I = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classifiy in worker, requestId: ",
                 "",
               ])),
-            d,
+            m,
           );
-          var m = yield H.getNextConnectedPortWithTimeout(t);
-          if (!m.success)
+          var p = yield H.getNextConnectedPortWithTimeout(r);
+          if (!p.success)
             return {
-              transferredBuffer: r,
-              result: o("WAResultOrError").makeError({ errorName: m.error }),
+              transferredBuffer: a,
+              result: o("WAResultOrError").makeError({ errorName: p.error }),
             };
-          var p = m.value;
+          var _ = p.value;
           return ie(
-            p,
+            _,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = p.onMessageOnce(
+              var e = _.onMessageOnce(
                 "kaleidoscopeClassifyResponse",
                 function (e) {
-                  return e.requestId === d;
+                  return e.requestId === m;
                 },
               );
-              (p.postMessage(
+              (_.postMessage(
                 {
-                  mediaType: a,
-                  rawMimeType: i,
-                  strictJpegScanValidationEnabled: l,
-                  strictOggOpusValidationEnabled: u,
-                  strictMp4ValidationEnabled: s,
-                  zipArchiveCheckEnabled: c,
-                  input: r,
-                  requestId: d,
+                  mediaType: i,
+                  rawMimeType: l,
+                  strictJpegScanValidationEnabled: s,
+                  strictOggOpusValidationEnabled: c,
+                  strictMp4ValidationEnabled: u,
+                  zipArchiveCheckEnabled: d,
+                  allowAv1VideoCodec: t,
+                  input: a,
+                  requestId: m,
                   type: "kaleidoscopeClassifyRequest",
                 },
-                [r],
+                [a],
               ),
-                t.addPoint("sent_request_to_media_worker_start"));
+                r.addPoint("sent_request_to_media_worker_start"));
               var n = yield e,
-                m = n.output,
-                _ = n.transferredBuffer;
-              return m.success
+                p = n.output,
+                f = n.transferredBuffer;
+              return p.success
                 ? (q().INFO(
                     T ||
                       (T = babelHelpers.taggedTemplateLiteralLoose([
                         "received output from worker, requestId: ",
                         "",
                       ])),
-                    d,
+                    m,
                   ),
-                  t == null || t.addPoint("sent_request_to_media_worker_end"),
-                  { transferredBuffer: _, result: m })
-                : (t.addPoint("sent_request_to_media_worker_fail"),
+                  r == null || r.addPoint("sent_request_to_media_worker_end"),
+                  { transferredBuffer: f, result: p })
+                : (r.addPoint("sent_request_to_media_worker_fail"),
                   {
-                    transferredBuffer: _,
+                    transferredBuffer: f,
                     result: o("WAResultOrError").makeError({
-                      errorName: m.error,
+                      errorName: p.error,
                     }),
                   });
             }),

@@ -87,9 +87,13 @@ __d(
             var m = a.proofs.find(function (e) {
               return (
                 e.useCase ===
-                o("WAWebProtobufsAICommon.pb")
-                  .BotSignatureVerificationUseCaseProof$BotSignatureUseCase
-                  .WA_BOT_MSG
+                  o("WAWebProtobufsAICommon.pb")
+                    .BotSignatureVerificationUseCaseProof$BotSignatureUseCase
+                    .WA_BOT_MSG ||
+                e.useCase ===
+                  o("WAWebProtobufsAICommon.pb")
+                    .BotSignatureVerificationUseCaseProof$BotSignatureUseCase
+                    .WA_TEE_BOT_MSG
               );
             });
             if (m == null)
@@ -99,7 +103,7 @@ __d(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "",
-                        " No WA_BOT_MSG proof found",
+                        " No WA_BOT_MSG or WA_TEE_BOT_MSG proof found",
                       ])),
                     g,
                   )

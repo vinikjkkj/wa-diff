@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupSafetyCheckUtils",
   [
+    "WAWebActiveIntegrityHoldout",
     "WAWebChatGetters",
     "WAWebCmd",
     "WAWebFrontendMsgGetters",
@@ -49,13 +50,15 @@ __d(
       }
     }
     function m(e) {
-      o("WAWebModalManager").ModalManager.open(
-        s.jsx(
-          o("WAWebGroupSafetyCheckModalLoadable").GroupSafetyCheckModalLoadable,
-          { chat: e },
-        ),
-        { transition: "modal-flow" },
-      );
+      o("WAWebActiveIntegrityHoldout").isSuppressedByActiveIntegrityHoldout() ||
+        o("WAWebModalManager").ModalManager.open(
+          s.jsx(
+            o("WAWebGroupSafetyCheckModalLoadable")
+              .GroupSafetyCheckModalLoadable,
+            { chat: e },
+          ),
+          { transition: "modal-flow" },
+        );
     }
     function p(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
@@ -72,7 +75,7 @@ __d(
     ((l.isGroupSafetyChecked = u),
       (l.handleGroupSafetyCheckStateUpdate = c),
       (l.handleIsTrustedChangeForGroupSafety = d),
-      (l.openGroupSafetyCheckModal = m),
+      (l.openGroupSafetyCheckModalUnlessHeldOut = m),
       (l.shouldMuteMentionWhileGroupSafetyChecked = p),
       (l.shouldShowGroupSafetyCheckUI = f));
   },

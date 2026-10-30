@@ -25,7 +25,6 @@ __d(
         u.jsx(o("WAWebToast.react").Toast, {
           id: o("WAWebActionToast.react").genId(),
           msg: t,
-          duration: 4e3,
         }),
       );
     }

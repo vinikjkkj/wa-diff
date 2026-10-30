@@ -1,14 +1,6 @@
 __d(
   "WAWebProfiler",
-  [
-    "WALogger",
-    "WAShiftTimer",
-    "WATypeUtils",
-    "WAWebIdentityFunction",
-    "WAWebNoop",
-    "gkx",
-    "sumBy",
-  ],
+  ["WALogger", "WAShiftTimer", "WATypeUtils", "WAWebNoop", "gkx"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = function (t) {
@@ -36,45 +28,8 @@ __d(
           e
         );
       })(),
-      c = 60;
-    function d(e, t) {
-      return {
-        table: t,
-        "# reads": e.readCount,
-        "# writes": e.writeCount,
-        "mean query time (ms)":
-          e.queryTimes && e.queryTimes.length > 0
-            ? Number(
-                (
-                  r("sumBy")(
-                    e.queryTimes,
-                    o("WAWebIdentityFunction").identityFunction,
-                  ) / e.queryTimes.length
-                ).toFixed(2),
-              )
-            : 0,
-        "max query time (ms)":
-          e.queryTimes && e.queryTimes.length > 0
-            ? Number(Math.max.apply(Math, e.queryTimes).toFixed(2))
-            : 0,
-        "mean records":
-          e.recordCounts && e.recordCounts.length > 0
-            ? Number(
-                (
-                  r("sumBy")(
-                    e.recordCounts,
-                    o("WAWebIdentityFunction").identityFunction,
-                  ) / e.recordCounts.length
-                ).toFixed(2),
-              )
-            : 0,
-        "max records":
-          e.recordCounts && e.recordCounts.length > 0
-            ? Math.max.apply(Math, e.recordCounts)
-            : 0,
-      };
-    }
-    var m = (function () {
+      c = 60,
+      d = (function () {
         function t() {
           var e = this;
           if (r("gkx")("26258")) {
@@ -209,8 +164,8 @@ __d(
           t
         );
       })(),
-      p = new m();
-    ((l.calculateStats = d), (l.Profiler = p));
+      m = new d();
+    l.Profiler = m;
   },
   98,
 );

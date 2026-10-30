@@ -28,9 +28,11 @@ __d(
     "WAWebVoipIncomingOfferRoute",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipLidUtils",
+    "WAWebVoipLobbyVisibilityStore",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipSendGroupCallRekeyRetryReceiptJob",
     "WAWebVoipSignalingEnums",
+    "WAWebVoipTabStateAtOfferStore",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
     "cr:6324",
@@ -809,7 +811,15 @@ __d(
             ),
             o(
               "WAWebVoipIncomingOfferReceivedWallClockStore",
-            ).recordIncomingOfferReceivedWallClock(l.call_id)),
+            ).recordIncomingOfferReceivedWallClock(l.call_id),
+            o("WAWebVoipTabStateAtOfferStore").recordTabStateAtOffer(
+              l.call_id,
+              t.visibility,
+            ),
+            o("WAWebVoipLobbyVisibilityStore").recordIncomingRing(
+              l.call_id,
+              o("WAWebVoipGatingUtils").isGroupCallMessage(l),
+            )),
             le(l, m, t));
           try {
             (u != null &&

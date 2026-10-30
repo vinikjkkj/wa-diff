@@ -7,23 +7,36 @@ __d(
       s = (e || (e = o("react"))).useSyncExternalStore,
       u = 0,
       c = null,
-      d = null,
-      m = new Set();
-    function p(e, t) {
+      d = new Set();
+    function m(e, t, n) {
       ((u += 1),
-        (c = { id: u, destination: e, sessionId: t }),
-        m.forEach(function (e) {
+        (c = { id: u, destination: e, sessionId: t, opened: !1, onFailure: n }),
+        d.forEach(function (e) {
           return e();
         }));
     }
+    function p(e) {
+      var t = c;
+      return t == null || t.id !== e || t.opened
+        ? !1
+        : ((c = babelHelpers.extends({}, t, { opened: !0 })),
+          d.forEach(function (e) {
+            return e();
+          }),
+          !0);
+    }
     function _(e) {
-      return d === e ? !1 : ((d = e), !0);
+      var t = c;
+      if (!(t == null || t.id !== e)) {
+        var n = t.onFailure;
+        (f(e), n == null || n());
+      }
     }
     function f(e) {
       var t;
       ((t = c) == null ? void 0 : t.id) === e &&
         ((c = null),
-        m.forEach(function (e) {
+        d.forEach(function (e) {
           return e();
         }));
     }
@@ -32,17 +45,18 @@ __d(
     }
     function h(e) {
       return (
-        m.add(e),
+        d.add(e),
         function () {
-          m.delete(e);
+          d.delete(e);
         }
       );
     }
     function y() {
       return c;
     }
-    ((l.requestMetaOneDialog = p),
-      (l.claimMetaOneDialogRequest = _),
+    ((l.requestMetaOneDialog = m),
+      (l.claimMetaOneDialogRequest = p),
+      (l.failMetaOneDialogRequest = _),
       (l.clearMetaOneDialogRequest = f),
       (l.useMetaOneDialogRequest = g));
   },

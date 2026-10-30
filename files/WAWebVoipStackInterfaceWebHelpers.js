@@ -8,16 +8,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s() {
+    var e, s;
+    function u() {
       var e = o("WAWebVoipChromiumDesktopBrowser").isChromiumDesktopBrowser();
       return r("WAWebVoipABPropConfig").filter(function (t) {
         var n = t.chromiumDesktopOnly;
         return n !== !0 || e;
       });
     }
-    function u(t) {
-      for (var n of s()) {
+    function c(t) {
+      for (var n of u()) {
         var r = n.abProp,
           a = n.type,
           i = n.wasmKey;
@@ -40,7 +40,30 @@ __d(
         }
       }
     }
-    ((l.getForwardedVoipABProps = s), (l.setABPropsOnWasm = u));
+    function d() {
+      var e = {};
+      for (var t of u()) {
+        var n = t.abProp,
+          r = t.type,
+          a = t.wasmKey;
+        try {
+          e[a] = { value: o("WAWebABProps").getABPropConfigValue(n), type: r };
+        } catch (e) {
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: skipping unknown AB prop ",
+                "",
+              ])),
+            n,
+          );
+        }
+      }
+      return e;
+    }
+    ((l.getForwardedVoipABProps = u),
+      (l.setABPropsOnWasm = c),
+      (l.buildABPropsBag = d));
   },
   98,
 );

@@ -579,26 +579,28 @@ __d(
         o(
           "WAWebVoipUiPopoutWindowPortalContainer.react",
         ).getIsPopoutWindowOpening()
-      ) {
-        o("WALogger").LOG(
-          v ||
-            (v = babelHelpers.taggedTemplateLiteralLoose([
-              "[voip] openPopout skipped: popout already active or opening",
-            ])),
+      )
+        return (
+          o("WALogger").LOG(
+            v ||
+              (v = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] openPopout skipped: popout already active or opening",
+              ])),
+          ),
+          !1
         );
-        return;
-      }
       var t = r("WAWebCallCollection").activeCall,
         n = t == null ? void 0 : t.msg;
-      if (!n) {
-        o("WALogger").WARN(
-          S ||
-            (S = babelHelpers.taggedTemplateLiteralLoose([
-              "[voip] openPopout called without active call msg",
-            ])),
+      if (!n)
+        return (
+          o("WALogger").WARN(
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] openPopout called without active call msg",
+              ])),
+          ),
+          !1
         );
-        return;
-      }
       var a = le(oe, (t == null ? void 0 : t.isGroup) === !0),
         i = a.height,
         l = a.width,
@@ -683,8 +685,9 @@ __d(
             String(e),
           ));
       }
-      if (!f) {
-        (c(),
+      if (!f)
+        return (
+          c(),
           o("WALogger").WARN(
             I ||
               (I = babelHelpers.taggedTemplateLiteralLoose([
@@ -696,9 +699,9 @@ __d(
               messaging: o("WAWebGuidePopup.react").Messaging.POPUPS_BLOCKED,
               featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
             }),
-          ));
-        return;
-      }
+          ),
+          !1
+        );
       var g = f;
       o("WAWebVoipQplHelpers").voipUiLifecycleQplAddPoint(
         o("WAWebVoipQplHelpers").VoipUiLifecycleQplPoint.POPOUT_OPENED,
@@ -721,17 +724,18 @@ __d(
           c();
         }
       };
-      if (!d) {
-        (o("WALogger").LOG(
-          D ||
-            (D = babelHelpers.taggedTemplateLiteralLoose([
-              "[voip] SW disabled/gated, using manual doc bootstrap",
-            ])),
-        ),
+      if (!d)
+        return (
+          o("WALogger").LOG(
+            D ||
+              (D = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] SW disabled/gated, using manual doc bootstrap",
+              ])),
+          ),
           se(g),
-          h());
-        return;
-      }
+          h(),
+          !0
+        );
       var y = null,
         C = null,
         b = !1,
@@ -782,7 +786,8 @@ __d(
               w());
           }
         };
-      (window.addEventListener("message", F),
+      return (
+        window.addEventListener("message", F),
         (y = window.setTimeout(function () {
           if (
             (o("WALogger").WARN(
@@ -817,7 +822,9 @@ __d(
                 ])),
             ),
             w());
-        }, 500)));
+        }, 500)),
+        !0
+      );
     }
     function pe(e) {
       o(

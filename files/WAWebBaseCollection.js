@@ -13,7 +13,7 @@ __d(
     "WAWebMiscErrors",
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
-    "cr:5292",
+    "cr:18506",
     "err",
     "gkx",
     "uniqueID",
@@ -89,18 +89,18 @@ __d(
           (i.add = function (a, i) {
             var e = this;
             if (
-              (r("gkx")("26258") ||
-                ((n("cr:5292") == null
+              (r("gkx")("16539") &&
+                (n("cr:18506") == null
                   ? void 0
-                  : n("cr:5292").currentTransaction) != null &&
-                  o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "UI change in txn for ",
-                        ". See https://fburl.com/aleoj4tt",
-                      ])),
-                    this.constructor.name,
-                  )),
+                  : n("cr:18506").currentTransaction) != null &&
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "UI change in txn for ",
+                      ". See https://fburl.com/aleoj4tt",
+                    ])),
+                  this.constructor.name,
+                ),
               a)
             ) {
               if (o("WAWebConnModel").Conn.blockStoreAdds)

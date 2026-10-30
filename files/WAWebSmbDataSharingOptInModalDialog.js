@@ -18,11 +18,10 @@ __d(
     "WAWebFlex.react",
     "WAWebModal.react",
     "WAWebModalManager",
+    "WAWebNoop",
     "WAWebSMBDataSharingSettingAction",
     "WAWebSmbDataSharingConsentScreenWamEvent",
     "WAWebSpinner.react",
-    "WAWebToast.react",
-    "WAWebToastManager",
     "WAWebTosUrl",
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumSmbDataSharingConsentScreenEntryPoint",
@@ -33,6 +32,7 @@ __d(
     "WDSIconIcVisibilityOff.react",
     "WDSIllustrationWdsSmbPictoArrowsTransfer.react",
     "WDSText.react",
+    "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "compactMap",
     "react",
@@ -92,25 +92,19 @@ __d(
     }
     var S = function () {
         var e = s._(/*BTDS*/ "OK");
-        o("WAWebToastManager").ToastManager.open(
-          p.jsx(o("WAWebToast.react").Toast, {
-            action: { dismiss: !0, actionText: e },
-            msg: s._(/*BTDS*/ "Error updating Data Sharing setting."),
-            id: o("WAWebToast.react").genId(),
-          }),
-        );
+        o("WDSToastImperativeHost").showWDSToast({
+          action: { label: e, onPress: r("WAWebNoop") },
+          message: s._(/*BTDS*/ "Error updating Data Sharing setting."),
+        });
       },
       R = function () {
         var e = r("WAWebFbtCommon")("OK");
-        o("WAWebToastManager").ToastManager.open(
-          p.jsx(o("WAWebToast.react").Toast, {
-            action: { dismiss: !0, actionText: e },
-            msg: s._(
-              /*BTDS*/ "Couldn't update some per-customer Data Sharing settings",
-            ),
-            id: o("WAWebToast.react").genId(),
-          }),
-        );
+        o("WDSToastImperativeHost").showWDSToast({
+          action: { label: e, onPress: r("WAWebNoop") },
+          message: s._(
+            /*BTDS*/ "Couldn't update some per-customer Data Sharing settings",
+          ),
+        });
       },
       L = function (n, r, a) {
         var t = new (o(

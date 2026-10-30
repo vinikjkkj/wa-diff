@@ -17,8 +17,7 @@ __d(
     "WAWebProductCollectionLogEvents",
     "WAWebProductCollectionsJob",
     "WAWebQplFlowWrapper",
-    "WAWebToast.react",
-    "WAWebToastManager",
+    "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "qpl",
@@ -66,14 +65,9 @@ __d(
                   product: t,
                   productCount: 1,
                 }),
-                o("WAWebToastManager").ToastManager.open(
-                  m.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Couldn't delete product"),
-                    id: o("WAWebToast.react").genId(
-                      "catalog_delete_product_failed",
-                    ),
-                  }),
-                ),
+                o("WDSToastImperativeHost").showWDSToast({
+                  message: s._(/*BTDS*/ "Couldn't delete product"),
+                }),
                 !1
               );
             throw e;
@@ -262,14 +256,9 @@ __d(
                         )
                         .verbose()
                         .sendLogs("Deleteing collection failed"),
-                      o("WAWebToastManager").ToastManager.open(
-                        m.jsx(o("WAWebToast.react").Toast, {
-                          msg: s._(/*BTDS*/ "Couldn't delete collection"),
-                          id: o("WAWebToast.react").genId(
-                            "catalog_delete_product_failed",
-                          ),
-                        }),
-                      ),
+                      o("WDSToastImperativeHost").showWDSToast({
+                        message: s._(/*BTDS*/ "Couldn't delete collection"),
+                      }),
                       !1
                     );
                   },
@@ -340,14 +329,7 @@ __d(
               })),
         l.catch(function (e) {
           var t = function (t) {
-              o("WAWebToastManager").ToastManager.open(
-                m.jsx(o("WAWebToast.react").Toast, {
-                  msg: t,
-                  id: o("WAWebToast.react").genId(
-                    "catalog_save_collection_failed",
-                  ),
-                }),
-              );
+              o("WDSToastImperativeHost").showWDSToast({ message: t });
             },
             n = s._(/*BTDS*/ "Couldn't save collection");
           if (e.text === "not-acceptable")

@@ -5,6 +5,7 @@ __d(
     "WAWebVoipBridgeActivityHandlers",
     "WAWebVoipBridgeCallEntryHandlers",
     "WAWebVoipBridgeCallLogHandlers",
+    "WAWebVoipBridgeCallReachabilityHandlers",
     "WAWebVoipBridgeCallStateHandlers",
     "WAWebVoipBridgeCallTransferHandlers",
     "WAWebVoipBridgeChatHandlers",
@@ -33,6 +34,8 @@ __d(
       o("WAWebVoipBridgeAVSyncHandlers").VoipBridgeAVSyncHandlers,
       o("WAWebVoipBridgeActivityHandlers").VoipBridgeActivityHandlers,
       o("WAWebVoipBridgeCallTransferHandlers").VoipBridgeCallTransferHandlers,
+      o("WAWebVoipBridgeCallReachabilityHandlers")
+        .VoipBridgeCallReachabilityHandlers,
     );
     ((l.MICROPHONE_SILENCE_TOAST_ID = o(
       "WAWebVoipBridgeMicSilenceToast",

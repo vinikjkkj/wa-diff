@@ -7,6 +7,8 @@ __d(
     "WAWebCmd",
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendChatGetters",
+    "WAWebSocketModel",
+    "WAWebUserPrefsHistorySync",
     "cr:18403",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,6 +52,11 @@ __d(
       });
     }
     function p() {
+      if (
+        !o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete() &&
+        o("WAWebSocketModel").Socket.hasSynced !== !0
+      )
+        return !1;
       if (o("WAWebCmd").Cmd.isOfflineDeliveryEnd) return !0;
       var e = o("WAWebChatCollection").ChatCollection.filter(
         o("WAWebFrontendChatGetters").getShouldAppearInList,
@@ -96,18 +103,8 @@ __d(
       return m(function (e) {
         return [
           f(e),
-          r("WAWebEventsWaitForBbEvent")(
-            o("WAWebCmd").Cmd,
-            "on_initial_chat_synced_from_bridge",
-            void 0,
-            e,
-          ),
-          r("WAWebEventsWaitForBbEvent")(
-            o("WAWebCmd").Cmd,
-            "offline_delivery_end_from_bridge",
-            void 0,
-            e,
-          ),
+          _(o("WAWebSocketModel").Socket, "change:hasSynced", p, e),
+          _(o("WAWebCmd").Cmd, "offline_delivery_end_from_bridge", p, e),
         ];
       });
     });

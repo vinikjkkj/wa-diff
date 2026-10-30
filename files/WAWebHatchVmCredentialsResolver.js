@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebHatchAuthCredentials",
     "WAWebHatchVmFetcher",
     "asyncToGeneratorRuntime",
@@ -37,9 +38,7 @@ __d(
             (this.$2 =
               (t = e.allowConfidentialConnection) != null
                 ? t
-                : function () {
-                    return !1;
-                  }),
+                : o("WAWebBoolFunc").returnFalse),
             (this.$4 =
               (r = e.clock) != null
                 ? r
@@ -47,7 +46,7 @@ __d(
                     return Date.now();
                   }),
             (this.$5 = new (o("WAWebHatchVmFetcher").WAWebHatchVmFetcher)(
-              (a = e.fetch) != null ? a : T,
+              (a = e.fetch) != null ? a : D,
               this.$4,
             )),
             (this.$9 = e.mintAbraToken),
@@ -157,7 +156,7 @@ __d(
           (r.$16 = function (t, n) {
             if (n !== this.$6) return f;
             var e = t.entry;
-            if (!I(e) && !this.$2())
+            if (!T(e) && !this.$2())
               return {
                 cause: "unsupported_vm_type",
                 detail: "Confidential access was turned off during the resolve",
@@ -263,20 +262,18 @@ __d(
             return t;
           })()),
           (r.$19 = function (t) {
-            var e;
-            return (e = t.state) != null && e.toUpperCase().startsWith(h)
-              ? {
-                  cause: "cvm_replacement_in_progress",
-                  detail: "VM is being replaced by a confidential VM",
-                  kind: "failure",
-                }
-              : I(t)
-                ? null
-                : t.vmType !== g || !this.$2()
+            return T(t)
+              ? null
+              : t.vmType !== g || !this.$2()
+                ? {
+                    cause: "unsupported_vm_type",
+                    detail: "VM type " + String(t.vmType) + " is not supported",
+                    kind: "failure",
+                  }
+                : I(t)
                   ? {
-                      cause: "unsupported_vm_type",
-                      detail:
-                        "VM type " + String(t.vmType) + " is not supported",
+                      cause: "cvm_replacement_in_progress",
+                      detail: "Confidential VM is being replaced",
                       kind: "failure",
                     }
                   : this.$21(t)
@@ -413,7 +410,7 @@ __d(
       var o = (n = r.state) == null ? void 0 : n.toUpperCase();
       return o === "RUNNING"
         ? { cacheable: !0, entry: r, kind: "ok" }
-        : (o == null ? void 0 : o.startsWith(h)) === !0
+        : !T(r) && I(r)
           ? {
               cause: "cvm_replacement_in_progress",
               detail: "Confidential VM is being replaced",
@@ -427,12 +424,12 @@ __d(
       var t = e.find(function (e) {
         return e.isDefault;
       });
-      return t != null ? t : e.every(I) || e.length === 1 ? e[0] : null;
+      return t != null ? t : e.every(T) || e.length === 1 ? e[0] : null;
     }
     function E(e) {
       var t = e.after,
         n = e.before;
-      return !I(n) && I(t)
+      return !T(n) && T(t)
         ? {
             cause: "unsupported_vm_type",
             detail: "Confidential VM came back as a standard VM",
@@ -453,15 +450,24 @@ __d(
       return n !== "" && o.toLowerCase() === n.toLowerCase();
     }
     function I(e) {
+      var t;
+      return (
+        ((t = e.state) == null ? void 0 : t.toUpperCase().startsWith(h)) === !0
+      );
+    }
+    function T(e) {
       return o("WAWebHatchVmFetcher").isStandardVmType(e.vmType);
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield self.fetch(e, t);
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield self.fetch(
+            e,
+            babelHelpers.extends({}, t, { redirect: "error" }),
+          );
           return {
             json: function () {
               return n.json();
@@ -470,7 +476,7 @@ __d(
             status: n.status,
           };
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     l.WAWebHatchVmCredentialsResolver = b;

@@ -23,67 +23,68 @@ __d(
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.chatWid,
-            a = t.mapping,
-            i = t.msgInfo,
-            l = t.msgMeta,
-            m = null;
-          if ((l == null ? void 0 : l.origin) === "ctwa") {
-            if (!n.isLid())
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatWid,
+            n = e.mapping,
+            a = e.msgInfo,
+            i = e.msgMeta;
+          h(a, t);
+          var l = null;
+          if ((i == null ? void 0 : i.origin) === "ctwa") {
+            if (!t.isLid())
               throw r("err")("received ctwa message but remote id is not Lid");
-            m = n;
-          } else if ((l == null ? void 0 : l.targetSenderJid) != null)
-            m = o("WAWebLidMigrationUtils").toUserLidOrThrow(
-              o("WAWebWidFactory").asUserWidOrThrow(i.chat),
+            l = t;
+          } else if ((i == null ? void 0 : i.targetSenderJid) != null)
+            l = o("WAWebLidMigrationUtils").toUserLidOrThrow(
+              o("WAWebWidFactory").asUserWidOrThrow(a.chat),
             );
-          else if (a == null) {
+          else if (n == null) {
             var p = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
               _ =
                 p &&
-                (i.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT ||
-                  i.type ===
+                (a.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT ||
+                  a.type ===
                     o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST ||
-                  i.type ===
+                  a.type ===
                     o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST) &&
-                i.author.isLid() &&
-                n.isLid(),
+                a.author.isLid() &&
+                t.isLid(),
               f =
                 r("justknobx")._("2459") &&
-                (i.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT ||
-                  i.type ===
+                (a.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT ||
+                  a.type ===
                     o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST ||
-                  i.type ===
+                  a.type ===
                     o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST) &&
-                i.author.isHosted() &&
-                i.author.isHostedLid() &&
-                n.isLid(),
+                a.author.isHosted() &&
+                a.author.isHostedLid() &&
+                t.isLid(),
               g =
-                i.author.isFbidBot() &&
-                o("WAWebBotUtils").isMaibaAiHubFbid(i.author) &&
-                n.isLid(),
-              h =
-                i.author.isFbidBot() &&
-                i.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
-                n.isLid() &&
+                a.author.isFbidBot() &&
+                o("WAWebBotUtils").isMaibaAiHubFbid(a.author) &&
+                t.isLid(),
+              y =
+                a.author.isFbidBot() &&
+                a.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+                t.isLid() &&
                 o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled();
-            if (((_ = _ || f || g || h), _))
-              m = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
-            else if (i.username != null || i.participantUsername != null) {
-              var y = p
+            if (((_ = _ || f || g || y), _))
+              l = o("WAWebLidMigrationUtils").toUserLidOrThrow(t);
+            else if (a.username != null || a.participantUsername != null) {
+              var C = p
                 ? "missing-pn-lid-mapping-in-1-1-message-with-username-UN-enabled"
                 : "missing-pn-lid-mapping-in-1-1-message-with-username-UN-off";
               if (
                 (o("WALogger")
                   .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message with username, sender: ",
                         ", type: ",
                         ", author: ",
@@ -91,16 +92,16 @@ __d(
                         "",
                       ])),
                     o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
-                      i.externalId,
+                      a.externalId,
                     ),
-                    i.type,
-                    i.author.toLogString(),
-                    n.toLogString(),
+                    a.type,
+                    a.author.toLogString(),
+                    t.toLogString(),
                   )
-                  .sendLogs(y),
+                  .sendLogs(C),
                 !p)
               )
-                m = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
+                l = o("WAWebLidMigrationUtils").toUserLidOrThrow(t);
               else
                 throw r("err")(
                   "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message",
@@ -109,13 +110,13 @@ __d(
               throw (
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message, sender: ",
                         "",
                       ])),
                     o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
-                      i.externalId,
+                      a.externalId,
                     ),
                   )
                   .sendLogs("misssing-pn-lid-mapping-in-1-1-message"),
@@ -123,70 +124,88 @@ __d(
                   "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message",
                 )
               );
-          } else if (a === "missing-peer-recipient-pn") {
-            var C;
+          } else if (n === "missing-peer-recipient-pn") {
+            var b;
             if (
               (o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "findDestinationChatForSingleMapping: missing peer recipient pn in 1-1 message from device ",
                       "",
                     ])),
-                  (C = i.author.device) != null ? C : 0,
+                  (b = a.author.device) != null ? b : 0,
                 )
                 .sendLogs("misssing-peer-recipient-pn-in-1-1-message"),
-              n.isLid() &&
-                o("WAWebApiContact").lidPnCache.getPhoneNumber(n) != null &&
-                (m = n),
-              m == null)
+              t.isLid() &&
+                o("WAWebApiContact").lidPnCache.getPhoneNumber(t) != null &&
+                (l = t),
+              l == null)
             ) {
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "findDestinationChatForSingleMapping: missing peer recipient pn and local mapping, processing message anyway",
                   ])),
               );
               return;
             }
-          } else if (a === "missing-peer-recipient-lid") {
+          } else if (n === "missing-peer-recipient-lid") {
             if (
               (o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "findDestinationChatForSingleMapping: missing peer recipient lid in 1-1 message",
                     ])),
                 )
                 .sendLogs("misssing-peer-recipient-lid-in-1-1-message"),
               o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "syncContactListJob",
-                { contactIds: [n], shouldSyncDevice: !1, mode: "query" },
+                { contactIds: [t], shouldSyncDevice: !1, mode: "query" },
               ),
-              (m = o("WAWebApiContact").lidPnCache.getCurrentLid(n)),
-              m == null)
+              (l = o("WAWebApiContact").lidPnCache.getCurrentLid(t)),
+              l == null)
             )
               throw r("err")(
                 "findDestinationChatForSingleMapping: missing peer recipient lid in 1-1 message",
               );
-          } else m = a.lid;
-          var b = yield o(
+          } else l = n.lid;
+          var v = yield o(
               "WAWebMessageProcessUtils",
-            ).selectChatForOneOnOneMessage({ lid: m }),
-            v = b.chatId;
-          return v.isSameAccountAndAddressingMode(n)
-            ? { accountLid: b.accountLid }
-            : { newRemote: v, accountLid: b.accountLid };
+            ).selectChatForOneOnOneMessage({ lid: l }),
+            S = v.chatId;
+          return S.isSameAccountAndAddressingMode(t)
+            ? { accountLid: v.accountLid }
+            : { newRemote: S, accountLid: v.accountLid };
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(t, n) {
+      !n.isLid() &&
+        !n.isHostedLid() &&
+        o("WALogger").ERROR(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "findDestinationChatForSingleMapping: received PN-addressed 1:1 message ",
+              " of type ",
+              " in ",
+              " from ",
+              "",
+            ])),
+          t.externalId,
+          t.type,
+          n.toLogString(),
+          t.author.toLogString(),
+        );
     }
-    function h() {
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgInfo,
             a = e.msgMeta,
             i = yield o(
@@ -201,8 +220,8 @@ __d(
               if (!l.equals(s)) {
                 var u;
                 (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "maybeProcessMsgInfoForLid: converting status message from ",
                       " to ",
                       "",
@@ -235,7 +254,7 @@ __d(
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e, n) {
                       var r = t.bclParticipants[n],
-                        i = yield _({
+                        i = yield f({
                           msgInfo: t,
                           msgMeta: a,
                           mapping: e,
@@ -253,7 +272,7 @@ __d(
                   };
                 })(),
               );
-              yield (p || (p = n("Promise"))).all(c);
+              yield (_ || (_ = n("Promise"))).all(c);
             } else {
               if (i.type !== "not-peer-broadcast")
                 throw r("err")(
@@ -263,13 +282,13 @@ __d(
               var d =
                   t.type ===
                   o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST,
-                f = d ? t.author : t.chat;
-              if (!f.isRegularUser()) return;
-              var g = yield _({
+                m = d ? t.author : t.chat;
+              if (!m.isRegularUser()) return;
+              var g = yield f({
                 msgInfo: t,
                 msgMeta: a,
                 mapping: i.mapping,
-                chatWid: f,
+                chatWid: m,
               });
               if (g == null) return;
               var h = g.accountLid,
@@ -277,14 +296,14 @@ __d(
               if ((h != null && (t.accountLid = h), y == null)) return;
               d
                 ? ((t.preMatChat = t.author), (t.author = y))
-                : ((t.preMatChat = f), (t.chat = y));
+                : ((t.preMatChat = m), (t.chat = y));
             }
           }
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    l.maybeProcessMsgInfoForLid = g;
+    l.maybeProcessMsgInfoForLid = y;
   },
   98,
 );

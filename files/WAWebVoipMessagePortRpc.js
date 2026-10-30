@@ -1,6 +1,13 @@
 __d(
   "WAWebVoipMessagePortRpc",
-  ["Promise", "WALogger", "WAWebVisibilityAwareTimeout", "err"],
+  [
+    "Promise",
+    "WACustomError",
+    "WALogger",
+    "WAWebVisibilityAwareTimeout",
+    "WAWebVoipRecentRpcMethods",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -69,7 +76,7 @@ __d(
           }),
           (a.invoke = function (t) {
             var e = this,
-              o = t.args,
+              r = t.args,
               a = t.method,
               i = t.transferList,
               l = this.$2++;
@@ -77,7 +84,7 @@ __d(
               var s = window.setTimeout(function () {
                 (e.$3.delete(l),
                   n(
-                    r("err")(
+                    new (o("WACustomError").TimeoutError)(
                       "voip: [RPC] timeout for " + a + " (id=" + l + ")",
                     ),
                   ));
@@ -91,9 +98,10 @@ __d(
                 },
               }),
                 e.$4.postMessage(
-                  { id: l, method: a, args: o },
+                  { id: l, method: a, args: r },
                   i != null ? i : [],
-                ));
+                ),
+                o("WAWebVoipRecentRpcMethods").recordSentRpcMethod(a));
             });
           }),
           (a.invokeWithVisibilityAwareTimeout = function (t, a, i, l) {
@@ -172,17 +180,19 @@ __d(
                 e.$4.postMessage(
                   { id: f, method: t, args: a },
                   l != null ? l : [],
-                ));
+                ),
+                o("WAWebVoipRecentRpcMethods").recordSentRpcMethod(t));
             });
           }),
           (a.fire = function (t) {
             var e = t.args,
               n = t.method,
               r = t.transferList;
-            this.$4.postMessage(
+            (this.$4.postMessage(
               { id: p, method: n, args: e },
               r != null ? r : [],
-            );
+            ),
+              o("WAWebVoipRecentRpcMethods").recordSentRpcMethod(n));
           }),
           (a.clearPending = function (t) {
             for (var e of this.$3) {

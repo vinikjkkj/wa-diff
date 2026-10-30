@@ -52,6 +52,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.isGranularNotificationsEnabled = !1),
+            (e.hasRestoredGlobalSettings = !1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -136,7 +137,8 @@ __d(
               ),
               this.setGlobalStatusSoundsEnabled(
                 o("WAWebUserPrefsNotifications").getGlobalStatusSoundsEnabled(),
-              ));
+              ),
+              (this.hasRestoredGlobalSettings = !0));
           }),
           (a.saveToCache = function () {
             if (o("WAWebConnModel").Conn.shouldSaveToCache()) {

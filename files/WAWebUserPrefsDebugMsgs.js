@@ -37,9 +37,7 @@ __d(
       }
       return t;
     }
-    ((l.DEFAULT_VALUES = e),
-      (l.setDebugShownMsgs = s),
-      (l.getDebugShownMsgs = u));
+    ((l.setDebugShownMsgs = s), (l.getDebugShownMsgs = u));
   },
   98,
 );

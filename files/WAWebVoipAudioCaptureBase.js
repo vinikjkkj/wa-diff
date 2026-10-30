@@ -1073,7 +1073,7 @@ __d(
           return t;
         })()),
         (t.stopCapture = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             if (
               (o("WALogger").LOG(
                 Y ||
@@ -1101,30 +1101,30 @@ __d(
                     ])),
                 );
                 try {
-                  var e,
-                    t,
-                    a = 5e3,
-                    i = null;
+                  var t,
+                    a,
+                    i = 5e3,
+                    l = null;
                   yield (Je || (Je = n("Promise")))
                     .race([
-                      (e =
-                        (t = this.audioCaptureInitResolvable) == null
+                      (t =
+                        (a = this.audioCaptureInitResolvable) == null
                           ? void 0
-                          : t.promise) != null
-                        ? e
+                          : a.promise) != null
+                        ? t
                         : (Je || (Je = n("Promise"))).resolve(),
                       new Je(function (e, t) {
-                        i = window.setTimeout(function () {
+                        l = window.setTimeout(function () {
                           t(
                             r("err")(
                               "voip: [AV:stopCapture] timed out waiting for init",
                             ),
                           );
-                        }, a);
+                        }, i);
                       }),
                     ])
                     .finally(function () {
-                      i != null && window.clearTimeout(i);
+                      l != null && window.clearTimeout(l);
                     });
                 } catch (e) {
                   o("WALogger").WARN(
@@ -1144,15 +1144,15 @@ __d(
                   ])),
               );
             }
-            return this.cleanup();
+            return this.cleanup(e);
           });
-          function t() {
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;
         })()),
         (t.cleanup = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             (o("WALogger").LOG(
               ne ||
                 (ne = babelHelpers.taggedTemplateLiteralLoose([
@@ -1161,16 +1161,16 @@ __d(
             ),
               this.captureGeneration++);
             try {
-              var e;
+              var t, n;
               if (
                 (this.$9(!0),
-                (e = this.cancelDeviceChangeHandler) == null || e.call(this),
+                (t = this.cancelDeviceChangeHandler) == null || t.call(this),
                 (this.cancelDeviceChangeHandler = null),
                 this.deviceChangeHandler != null)
               ) {
-                var t;
-                ((t = navigator.mediaDevices) == null ||
-                  t.removeEventListener(
+                var r;
+                ((r = navigator.mediaDevices) == null ||
+                  r.removeEventListener(
                     "devicechange",
                     this.deviceChangeHandler,
                   ),
@@ -1181,8 +1181,9 @@ __d(
                 (this.pendingAutomaticDeviceChange = null),
                 this.$1.stop(),
                 this.$17(),
-                this.implementation != null &&
-                  (yield this.implementation.stopAudioCapture()),
+                yield (n = this.implementation) == null
+                  ? void 0
+                  : n.stopAudioCapture(void 0, { nativeStopped: e }),
                 this.mediaStreamSource &&
                   (this.mediaStreamSource.disconnect(),
                   (this.mediaStreamSource = null),
@@ -1194,8 +1195,8 @@ __d(
                   )),
                 this.audioStream)
               ) {
-                var n = this.audioStream.getTracks();
-                (n.forEach(function (e) {
+                var a = this.audioStream.getTracks();
+                (a.forEach(function (e) {
                   e.stop();
                 }),
                   o("WALogger").LOG(
@@ -1205,8 +1206,8 @@ __d(
                         " tracks. Kinds: ",
                         "",
                       ])),
-                    n.length,
-                    n.slice(0, 3).map(function (e) {
+                    a.length,
+                    a.slice(0, 3).map(function (e) {
                       return e.kind;
                     }),
                   ),
@@ -1219,12 +1220,12 @@ __d(
                   ));
               }
               if (this.audioContext) {
-                var r = this.audioContext;
+                var i = this.audioContext;
                 (!o(
                   "WAWebVoipSharedCallAudioContext",
-                ).releaseSharedCallAudioContext("capture", r) &&
-                  r.state !== "closed" &&
-                  r.close().catch(function (e) {
+                ).releaseSharedCallAudioContext("capture", i) &&
+                  i.state !== "closed" &&
+                  i.close().catch(function (e) {
                     o("WALogger").LOG(
                       ie ||
                         (ie = babelHelpers.taggedTemplateLiteralLoose([
@@ -1238,8 +1239,8 @@ __d(
               }
             } finally {
               if (this.audioBuffer != null) {
-                var a = this.audioBuffer;
-                yield this.$20(a);
+                var l = this.audioBuffer;
+                yield this.$20(l);
               }
               ((this.audioCaptureInitState = tt.Uninitialized),
                 o("WALogger").LOG(
@@ -1250,7 +1251,7 @@ __d(
                 ));
             }
           });
-          function t() {
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

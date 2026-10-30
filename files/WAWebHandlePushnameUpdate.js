@@ -2,8 +2,6 @@ __d(
   "WAWebHandlePushnameUpdate",
   [
     "WALogger",
-    "WAWebABProps",
-    "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebDBBulkPersistContact",
     "WAWebEnvironment",
@@ -26,27 +24,19 @@ __d(
       return s.enqueue(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = void 0;
-          if (!i || r("WAWebEnvironment").isGuest) t = yield u(l, a);
-          else if (
-            o("WAWebABProps").getABPropConfigValue(
-              "wa_web_anr_pushname_check_enabled",
-            )
-          ) {
-            var n = yield o("WAWebApiContact").getContactRecord(l);
-            t = (n == null ? void 0 : n.pushname) !== a;
-          }
-          (t === !0 || t === void 0) &&
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "updatePushName: set pushname for ",
-                  "",
-                ])),
-              l.toLogString(),
-            ),
-            o("WAWebDBBulkPersistContact").persistContactUpdateBatched(l, {
-              pushname: a,
-            }));
+          ((!i || r("WAWebEnvironment").isGuest) && (t = yield u(l, a)),
+            (t === !0 || t === void 0) &&
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "updatePushName: set pushname for ",
+                    "",
+                  ])),
+                l.toLogString(),
+              ),
+              o("WAWebDBBulkPersistContact").persistContactUpdateBatched(l, {
+                pushname: a,
+              })));
         }),
       );
     }

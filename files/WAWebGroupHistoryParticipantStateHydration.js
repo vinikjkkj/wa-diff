@@ -27,11 +27,7 @@ __d(
         : (s || (s = n("Promise"))).resolve();
     }
     function d(e) {
-      return o(
-        "WAWebGroupHistoryGating",
-      ).isGroupHistoryAfterJoinPrerequisitesEnabled()
-        ? m(e)
-        : (s || (s = n("Promise"))).resolve();
+      return m(e);
     }
     function m(e) {
       var t;

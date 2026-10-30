@@ -69,6 +69,9 @@ __d(
               zipArchiveCheckEnabled: t.getABPropConfigValue(
                 "ks_zip_archive_check_enabled",
               ),
+              allowAv1VideoCodec: t.getABPropConfigValue(
+                "ks_allow_av1_video_codec",
+              ),
             }),
           );
         })),

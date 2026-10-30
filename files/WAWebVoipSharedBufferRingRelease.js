@@ -99,7 +99,9 @@ __d(
         g.apply(this, arguments)
       );
     }
-    ((l.WORKLET_STOP_TIMEOUT_MS = d), (l.freeRingBufferAfterWorkletStop = m));
+    ((l.WORKLET_STOP_TIMEOUT_MS = d),
+      (l.freeRingBufferAfterWorkletStop = m),
+      (l.didWorkletStop = _));
   },
   98,
 );

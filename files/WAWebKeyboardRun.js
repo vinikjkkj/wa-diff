@@ -55,6 +55,7 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipVideoStateUtils",
     "WAWebWamEnumMuteEntryPoint",
+    "WAWebWamEnumSubSurface",
     "asyncToGeneratorRuntime",
     "cr:13920",
     "cr:1923",
@@ -538,6 +539,7 @@ __d(
                 .TURN_OFF_CAMERA
             : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
                 .TURN_ON_CAMERA,
+          o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
         ),
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
@@ -580,6 +582,7 @@ __d(
                           .TAP_UNMUTE
                       : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
                           .TAP_MUTE,
+                    o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
                   );
                 },
                 targetWindow: t ? null : n,
@@ -634,6 +637,7 @@ __d(
                     .TAP_LOWER_HAND
                 : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
                     .TAP_RAISE_HAND,
+              o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
             ),
               yield t.raiseHand(!r));
           }
@@ -649,6 +653,7 @@ __d(
           o("WAWebCallUserJourneyInCallAction").logInCallAction(
             o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
               .START_SCREEN_SHARE,
+            o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
           ),
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
@@ -662,6 +667,7 @@ __d(
       e != null &&
         (o("WAWebCallUserJourneyInCallAction").logInCallAction(
           o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE.END_CALL,
+          o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
         ),
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();

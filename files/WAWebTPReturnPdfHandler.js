@@ -34,6 +34,7 @@ __d(
                 strictOggOpusValidationEnabled: !1,
                 strictMp4ValidationEnabled: !1,
                 zipArchiveCheckEnabled: !1,
+                allowAv1VideoCodec: !1,
               },
             );
           if (

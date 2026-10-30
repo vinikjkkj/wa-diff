@@ -4,6 +4,7 @@ __d(
     "fbt",
     "Promise",
     "WALogger",
+    "WAWebActiveIntegrityHoldout",
     "WAWebCmd",
     "WAWebDocStateControls.react",
     "WAWebEnvironment",
@@ -301,15 +302,15 @@ __d(
         c = u[0],
         d = u[1],
         m = u[2],
-        N = u[3],
-        w = u[4],
-        A = u[5],
-        F = u[6],
-        O = u[7],
-        G = u[8],
-        j = u[9],
-        K = u[10],
-        Q = o("useWAWebMediaDataValues").useMediaDataValues(N, [
+        P = u[3],
+        N = u[4],
+        w = u[5],
+        A = u[6],
+        F = u[7],
+        O = u[8],
+        G = u[9],
+        j = u[10],
+        Q = o("useWAWebMediaDataValues").useMediaDataValues(P, [
           o("WAWebMediaDataGetters").getMediaStage,
           o("WAWebMediaDataGetters").getFilename,
           o("WAWebMediaDataGetters").getSize,
@@ -324,14 +325,14 @@ __d(
         ee = Q[4],
         te = Q[5],
         ne = o("WAWebFilenameManager").getDefaultName({
-          caption: j,
-          filename: G,
+          caption: G,
+          filename: O,
           isVcardOverMmsDocument: c,
-          mimetype: F,
-          t: w,
-          type: A,
-          vcardFormattedName: O,
-          vcardList: K,
+          mimetype: A,
+          t: N,
+          type: w,
+          vcardFormattedName: F,
+          vcardList: j,
         }),
         re = function (n) {
           V(n);
@@ -386,7 +387,7 @@ __d(
             });
         },
         se = (function () {
-          var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (a) {
+          var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (r) {
             (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -399,9 +400,9 @@ __d(
               X,
               J || "unknown",
             ),
-              V(a));
-            var s = o("WAWebMsgCollection").MsgCollection.get(e);
-            if (s != null) {
+              V(r));
+            var a = o("WAWebMsgCollection").MsgCollection.get(e);
+            if (a != null) {
               if (n("cr:7565") != null && l === !0)
                 o("WALogger").LOG(
                   g ||
@@ -431,7 +432,7 @@ __d(
                         source: "pdfPreviewClick",
                         force: !0,
                       })),
-                    yield s.downloadMedia({
+                    yield a.downloadMedia({
                       downloadEvenIfExpensive: J <= B,
                       rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                         .WEBC_RMR_REASON_CODE.MSG_CLICK,
@@ -471,31 +472,13 @@ __d(
                 ),
                 o(
                   "WAWebHarmfulFileWarningGate",
-                ).shouldOpenHarmfulFileWarningModal(s))
+                ).shouldOpenHarmfulFileWarningModal(a))
               ) {
-                var u = o(
-                    "WAWebHarmfulFileSenderRelationshipResolver",
-                  ).resolveHarmfulFileSenderRelationship(s),
-                  d = yield new (P || (P = n("Promise")))(function (e) {
-                    o("WAWebModalManager").ModalManager.open(
-                      M.jsx(r("WAWebHarmfulFileWarningModal.react"), {
-                        learnMoreUrl: o(
-                          "WAWebHarmfulFileWarningGate",
-                        ).getHarmfulFileLearnMoreUrl(),
-                        onCancel: function () {
-                          (o("WAWebModalManager").closeModalManager(), e(!1));
-                        },
-                        onOpen: function () {
-                          (o("WAWebModalManager").closeModalManager(), e(!0));
-                        },
-                        senderRelationship: u,
-                      }),
-                    );
-                  });
-                if (!d) return;
+                var s = yield K(a);
+                if (!s) return;
                 o(
                   "WAWebHarmfulFileWarningGate",
-                ).markUserAcceptedHarmfulFileWarning(s);
+                ).markUserAcceptedHarmfulFileWarning(a);
               }
               if (
                 o(
@@ -511,7 +494,7 @@ __d(
                   e.toString(),
                 ),
                   o("WAWebCmd").Cmd.mediaViewerModal({
-                    msg: s,
+                    msg: a,
                     getZoomNode: t.getZoomNode,
                     shouldShowAllMedia: !1,
                   }));
@@ -530,13 +513,13 @@ __d(
                           ])),
                         e.toString(),
                       ),
-                        q(s),
+                        q(a),
                         yield o("WAWebFileSaver").FileSaver.downloadAsync({
-                          msg: s,
+                          msg: a,
                         }));
                       break;
                     }
-                    var m = n("cr:7565") != null && (l === !0 || i === !0);
+                    var u = n("cr:7565") != null && (l === !0 || i === !0);
                     (o("WALogger").LOG(
                       R ||
                         (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -545,9 +528,9 @@ __d(
                           "",
                         ])),
                       e.toString(),
-                      m,
+                      u,
                     ),
-                      n("cr:7565") && m === !0
+                      n("cr:7565") && u === !0
                         ? (o("WALogger").LOG(
                             L ||
                               (L = babelHelpers.taggedTemplateLiteralLoose([
@@ -556,9 +539,9 @@ __d(
                               ])),
                             e.toString(),
                           ),
-                          U(s),
-                          yield n("cr:7565").openMediaFile(s))
-                        : n("cr:7565") && m === !1
+                          U(a),
+                          yield n("cr:7565").openMediaFile(a))
+                        : n("cr:7565") && u === !1
                           ? (o("WALogger").LOG(
                               E ||
                                 (E = babelHelpers.taggedTemplateLiteralLoose([
@@ -567,13 +550,13 @@ __d(
                                 ])),
                               e.toString(),
                             ),
-                            q(s),
-                            yield n("cr:7565").saveMediaFile(s))
+                            q(a),
+                            yield n("cr:7565").saveMediaFile(a))
                           : o(
                                 "WAWebHtmlViewerGatingUtils",
                               ).isHtmlViewerEnabledForMimeType(te, e.remote)
                             ? o("WAWebCmd").Cmd.mediaViewerModal({
-                                msg: s,
+                                msg: a,
                                 getZoomNode: t.getZoomNode,
                                 shouldShowAllMedia: !1,
                               })
@@ -585,9 +568,9 @@ __d(
                                   ])),
                                 e.toString(),
                               ),
-                              q(s),
+                              q(a),
                               yield o("WAWebFileSaver").FileSaver.downloadAsync(
-                                { msg: s },
+                                { msg: a },
                               )));
                   }
                   break;
@@ -613,8 +596,8 @@ __d(
                           ])),
                         e.toString(),
                       ),
-                      U(s),
-                      yield n("cr:7565").openMediaFile(s))
+                      U(a),
+                      yield n("cr:7565").openMediaFile(a))
                     : o("WALogger").LOG(
                         D ||
                           (D = babelHelpers.taggedTemplateLiteralLoose([
@@ -637,7 +620,7 @@ __d(
             }
           });
           return function (t) {
-            return a.apply(this, arguments);
+            return r.apply(this, arguments);
           };
         })(),
         ue = function (n) {
@@ -753,6 +736,31 @@ __d(
           });
       }
       return [de, ce];
+    }
+    function K(e) {
+      if (
+        o("WAWebActiveIntegrityHoldout").isSuppressedByActiveIntegrityHoldout()
+      )
+        return (P || (P = n("Promise"))).resolve(!0);
+      var t = o(
+        "WAWebHarmfulFileSenderRelationshipResolver",
+      ).resolveHarmfulFileSenderRelationship(e);
+      return new (P || (P = n("Promise")))(function (e) {
+        o("WAWebModalManager").ModalManager.open(
+          M.jsx(r("WAWebHarmfulFileWarningModal.react"), {
+            learnMoreUrl: o(
+              "WAWebHarmfulFileWarningGate",
+            ).getHarmfulFileLearnMoreUrl(),
+            onCancel: function () {
+              (o("WAWebModalManager").closeModalManager(), e(!1));
+            },
+            onOpen: function () {
+              (o("WAWebModalManager").closeModalManager(), e(!0));
+            },
+            senderRelationship: t,
+          }),
+        );
+      });
     }
     ((l.displayDownloadingToast = q),
       (l.displayFileOpeningToast = U),

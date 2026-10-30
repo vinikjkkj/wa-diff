@@ -22,7 +22,8 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.isViewOnce,
-            a = e.medias;
+            a = e.medias,
+            i = e.quotedMsg;
           if (
             !o("WAWebAlbumsSendEligibility").isAlbumSendEligible({
               chat: t,
@@ -31,34 +32,35 @@ __d(
             })
           )
             return null;
-          var i = o("WAWebAlbumsSendEligibility").countAlbumItems(a),
-            l = i.imageCount,
-            c = i.videoCount;
+          var l = o("WAWebAlbumsSendEligibility").countAlbumItems(a),
+            c = l.imageCount,
+            d = l.videoCount;
           try {
-            var d = yield o(
+            var p = yield o(
               "WAWebAlbumsCreateAlbumParentMsgData",
             ).createAlbumParentMsg({
               chat: t,
-              expectedImageCount: l,
-              expectedVideoCount: c,
+              expectedImageCount: c,
+              expectedVideoCount: d,
+              quotedMsg: i,
             });
             if (o("WAWebChatGetters").getIsNewsletter(t)) {
-              var p = yield o(
+              var _ = yield o(
                 "WAWebNewsletterSendMsgAction",
-              ).sendNewsletterAlbumMsg({ chat: t, msg: d });
-              return p.messageSendResult ===
+              ).sendNewsletterAlbumMsg({ chat: t, msg: p });
+              return _.messageSendResult ===
                 o("WAWebSendMsgResultAction").SendMsgResult.OK
-                ? d.id
-                : (m(p), null);
+                ? p.id
+                : (m(_), null);
             }
-            var _ = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+            var f = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                 t,
-                o("WAWebMsgDataFromModel").msgDataFromMsgModel(d),
+                o("WAWebMsgDataFromModel").msgDataFromMsgModel(p),
               ),
-              f = _[0],
-              g = _[1];
+              g = f[0],
+              h = f[1];
             return (
-              g.then(m).catch(function (e) {
+              h.then(m).catch(function (e) {
                 o("WALogger")
                   .ERROR(
                     s ||
@@ -69,8 +71,8 @@ __d(
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("album-parent-send-failed");
               }),
-              yield f,
-              d.id
+              yield g,
+              p.id
             );
           } catch (e) {
             return (
