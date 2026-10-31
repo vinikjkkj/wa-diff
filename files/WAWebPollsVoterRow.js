@@ -125,16 +125,17 @@ __d(
     function g(t) {
       var n,
         a = t.onOpenContactInfo,
-        i = t.vote,
-        l = o("useWAWebPollVoteValues").usePollVoteValues(i.id, [
+        i = t.onOpenGroupAgentProfile,
+        l = t.vote,
+        s = o("useWAWebPollVoteValues").usePollVoteValues(l.id, [
           o("WAWebFrontendPollVoteGetters").getSenderObj,
           o("WAWebPollVoteGetters").getTimestamp,
           o("WAWebFrontendPollVoteGetters").getParentMsg,
         ]),
-        s = l[0],
-        u = l[1],
-        d = l[2],
-        p = o("useWAWebContactValues").useContactValues(s.id, [
+        u = s[0],
+        d = s[1],
+        p = s[2],
+        _ = o("useWAWebContactValues").useContactValues(u.id, [
           (n = o("WAWebContactGetters")).getId,
           o("WAWebFrontendContactGetters").getFormattedName,
           n.getNotifyName,
@@ -143,43 +144,43 @@ __d(
           n.getVerifiedName,
           n.getIsMe,
         ]),
-        _ = p[0],
-        f = p[1],
-        g = p[2],
-        b = p[3],
-        v = p[4],
-        S = p[5],
-        R = p[6],
-        L = o("WAWebFrontendMsgGetters").getChat(d.unsafe()),
-        E =
+        f = _[0],
+        g = _[1],
+        v = _[2],
+        S = _[3],
+        R = _[4],
+        L = _[5],
+        E = _[6],
+        k = o("WAWebFrontendMsgGetters").getChat(p.unsafe()),
+        I =
           a != null &&
-          !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(L) &&
-          !R &&
+          !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(k) &&
+          !E &&
           o("WAWebABProps").getABPropConfigValue(
             "enable_poll_results_contact_info_entry_point",
           ),
-        k = E
+        T = I
           ? function () {
               var t = ++m;
               if (
                 !(
-                  o("WAWebChatGetters").getIsGroup(L) &&
-                  o("WAWebOpenGroupAgentProfile.react").openGroupAgentProfile(
+                  o("WAWebChatGetters").getIsGroup(k) &&
+                  b(
                     o(
                       "WAWebGroupAgentProfileRouting",
-                    ).getGroupAgentProfileDestination(_, L),
-                    s,
-                    L,
-                    "pollVoterRow",
+                    ).getGroupAgentProfileDestination(f, k),
+                    u,
+                    k,
+                    i,
                   )
                 )
               ) {
-                var n = o("WAWebChatGetters").getIsGroup(L)
+                var n = o("WAWebChatGetters").getIsGroup(k)
                   ? o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
-                      _,
+                      f,
                       "poll_voter_row",
                     )
-                  : _;
+                  : f;
                 n != null &&
                   o("WAWebFindChatAction")
                     .findOrCreateLatestChat(n, "pollVoterRow")
@@ -200,53 +201,53 @@ __d(
               }
             }
           : null,
-        I = r("useWAWebContactFormattedUsernameOrPhoneByChat")(L, s),
-        T = I.formattedUsernameOrPhone,
-        D = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(L),
-        x =
-          o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(s) &&
-          (D ||
-            (v && b === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH)),
-        $,
-        P;
+        D = r("useWAWebContactFormattedUsernameOrPhoneByChat")(k, u),
+        x = D.formattedUsernameOrPhone,
+        $ = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(k),
+        P =
+          o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(u) &&
+          ($ ||
+            (R && S === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH)),
+        N,
+        M;
       return (
-        x
-          ? (($ = c.jsx(h, {
+        P
+          ? ((N = c.jsx(h, {
               accessibleUserName: o(
                 "WAWebChatContactUtils",
-              ).getAccessibleNotifyName(g),
+              ).getAccessibleNotifyName(v),
               formattedUserName: o(
                 "WAWebChatContactUtils",
-              ).getFormattedNotifyName(g),
+              ).getFormattedNotifyName(v),
             })),
-            (P = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+            (M = c.jsx(o("WAWebEmojiText.react").EmojiText, {
               direction: "auto",
-              text: T,
+              text: x,
             })))
-          : v && S != null
-            ? (($ = c.jsx(h, {
+          : R && L != null
+            ? ((N = c.jsx(h, {
                 accessibleUserName: o(
                   "WAWebChatContactUtils",
-                ).getAccessibleNotifyName(S),
+                ).getAccessibleNotifyName(L),
                 formattedUserName: o(
                   "WAWebChatContactUtils",
-                ).getFormattedNotifyName(S),
+                ).getFormattedNotifyName(L),
               })),
-              (P = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+              (M = c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 direction: "auto",
-                text: T,
+                text: x,
               })))
-            : (($ = c.jsx(h, {
+            : ((N = c.jsx(h, {
                 accessibleUserName: void 0,
-                formattedUserName: f,
+                formattedUserName: g,
               })),
-              (P = null)),
+              (M = null)),
         c.jsx(C, {
-          id: _,
-          onClick: k,
-          primary: $,
-          primaryDetail: P,
-          secondary: c.jsx(y, { timestamp: u }),
+          id: f,
+          onClick: T,
+          primary: N,
+          primaryDetail: M,
+          secondary: c.jsx(y, { timestamp: d }),
         })
       );
     }
@@ -362,25 +363,46 @@ __d(
         _
       );
     }
-    function b(e) {
-      var t = o("react-compiler-runtime").c(3),
+    function b(e, t, n, r) {
+      return r == null
+        ? o("WAWebOpenGroupAgentProfile.react").openGroupAgentProfile(
+            e,
+            t,
+            n,
+            "pollVoterRow",
+          )
+        : o("WAWebOpenGroupAgentProfile.react").openGroupAgentProfileStep(
+            e,
+            t,
+            n,
+            r,
+          );
+    }
+    function v(e) {
+      var t = o("react-compiler-runtime").c(4),
         n = e.onOpenContactInfo,
-        r = e.vote,
-        a;
+        r = e.onOpenGroupAgentProfile,
+        a = e.vote,
+        i;
       return (
-        t[0] !== n || t[1] !== r
-          ? ((a =
-              r instanceof o("WAWebPollsPollVoteModel").PollVote
-                ? c.jsx(g, { vote: r, onOpenContactInfo: n })
-                : c.jsx(p, { vote: r })),
+        t[0] !== n || t[1] !== r || t[2] !== a
+          ? ((i =
+              a instanceof o("WAWebPollsPollVoteModel").PollVote
+                ? c.jsx(g, {
+                    vote: a,
+                    onOpenContactInfo: n,
+                    onOpenGroupAgentProfile: r,
+                  })
+                : c.jsx(p, { vote: a })),
             (t[0] = n),
             (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
+            (t[2] = a),
+            (t[3] = i))
+          : (i = t[3]),
+        i
       );
     }
-    l.default = b;
+    l.default = v;
   },
   98,
 );

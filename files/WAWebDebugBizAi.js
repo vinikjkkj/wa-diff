@@ -17,101 +17,106 @@ __d(
       c = "28842015168716468",
       d = "mock-lead-gen-flow",
       m = "mock-lead-gen-response",
-      p = null;
-    function _(e) {
+      p = "https://www.internalfb.com/mock-lead-gen-response.csv",
+      _ = "Name\nMock customer\n",
+      f = null;
+    function g(e) {
       (r("vulture")("r7Jlb1ulf7rZZGpdqmcRwo8X8xw="),
         o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(
           o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME + "/" + e,
         ));
     }
-    function f() {
+    function h() {
       (r("vulture")("IewoAA1fAv_cfsAPn0LjD4pdpFY="),
         o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-          u.jsx(
-            o("WAWebBizAiKnowledgeReviewDrawerLoadable.react")
-              .WAWebBizAiKnowledgeReviewDrawerLoadable,
-            {},
-          ),
+          u.jsx(r("WAWebBizAiKnowledgeReviewDrawerLoadable.react"), {}),
         ));
     }
-    ((f.doc =
+    ((h.doc =
       "biz-ai-hub deeplink: open Knowledge Review drawer (/review-knowledge)"),
-      (f.paramsToExecute = []));
-    function g() {
-      (r("vulture")("6XGZ_Qmr4QzsSROgI7SrWmnt1wI="), _("ai-replies"));
-    }
-    ((g.doc = "biz-ai-hub deeplink: open AI replies drawer (/ai-replies)"),
-      (g.paramsToExecute = []));
-    function h() {
-      (r("vulture")("bY8evAVCsiOWUgyrIveSIg-4oaE="), _("appointments"));
-    }
-    ((h.doc = "biz-ai-hub deeplink: open Appointments drawer (/appointments)"),
       (h.paramsToExecute = []));
     function y() {
-      (r("vulture")("_ZuIzajj_SarQ4pNeL8bTfUGHD4="), _("business-info"));
+      (r("vulture")("6XGZ_Qmr4QzsSROgI7SrWmnt1wI="), g("ai-replies"));
     }
-    ((y.doc =
-      "biz-ai-hub deeplink: open Business info drawer (/business-info)"),
+    ((y.doc = "biz-ai-hub deeplink: open AI replies drawer (/ai-replies)"),
       (y.paramsToExecute = []));
     function C() {
-      (r("vulture")("tPgbCq3fvXcJVcWEbLH8207wsAA="), _("chat-history"));
+      (r("vulture")("bY8evAVCsiOWUgyrIveSIg-4oaE="), g("appointments"));
     }
-    ((C.doc =
-      "biz-ai-hub deeplink: open Knowledge drawer via chat history (/chat-history)"),
+    ((C.doc = "biz-ai-hub deeplink: open Appointments drawer (/appointments)"),
       (C.paramsToExecute = []));
     function b() {
-      (r("vulture")("9HkHlRxSIkNtIsKXNa6fwZMu-Tw="), _("faq"));
+      (r("vulture")("_ZuIzajj_SarQ4pNeL8bTfUGHD4="), g("business-info"));
     }
-    ((b.doc = "biz-ai-hub deeplink: open Knowledge drawer via FAQ (/faq)"),
+    ((b.doc =
+      "biz-ai-hub deeplink: open Business info drawer (/business-info)"),
       (b.paramsToExecute = []));
     function v() {
-      (r("vulture")("KGF6jW424ylawRWXSuB8uxKTW5A="), _("instructions"));
+      (r("vulture")("tPgbCq3fvXcJVcWEbLH8207wsAA="), g("chat-history"));
     }
-    ((v.doc = "biz-ai-hub deeplink: open Instructions drawer (/instructions)"),
+    ((v.doc =
+      "biz-ai-hub deeplink: open Knowledge drawer via chat history (/chat-history)"),
       (v.paramsToExecute = []));
     function S() {
-      (r("vulture")("p1wGGzqS8OvypYqhj5x8V48zen0="), _("knowledge-center"));
+      (r("vulture")("9HkHlRxSIkNtIsKXNa6fwZMu-Tw="), g("faq"));
     }
-    ((S.doc = "biz-ai-hub deeplink: open Knowledge drawer (/knowledge-center)"),
+    ((S.doc = "biz-ai-hub deeplink: open Knowledge drawer via FAQ (/faq)"),
       (S.paramsToExecute = []));
     function R() {
-      (r("vulture")("RSdUiqj01NPAABeeBqPvIjp3CM4="),
-        _("lead-gen-collect-info"));
+      (r("vulture")("KGF6jW424ylawRWXSuB8uxKTW5A="), g("instructions"));
     }
-    ((R.doc =
-      "biz-ai-hub deeplink: open Lead gen drawer (/lead-gen-collect-info)"),
+    ((R.doc = "biz-ai-hub deeplink: open Instructions drawer (/instructions)"),
       (R.paramsToExecute = []));
     function L() {
-      (r("vulture")("N1M_oDpWgnDR_HcIAI4getfquVI="), _("purchase-info"));
+      (r("vulture")("p1wGGzqS8OvypYqhj5x8V48zen0="), g("knowledge-center"));
     }
-    ((L.doc =
-      "biz-ai-hub deeplink: open Purchase info drawer (/purchase-info)"),
+    ((L.doc = "biz-ai-hub deeplink: open Knowledge drawer (/knowledge-center)"),
       (L.paramsToExecute = []));
     function E() {
-      (r("vulture")("-fWxDThty_CwTQuftPOihKJwUPY="), _("select-catalog"));
+      (r("vulture")("RSdUiqj01NPAABeeBqPvIjp3CM4="),
+        g("lead-gen-collect-info"));
     }
-    ((E.doc = "biz-ai-hub deeplink: open Bestsellers drawer (/select-catalog)"),
+    ((E.doc =
+      "biz-ai-hub deeplink: open Lead gen drawer (/lead-gen-collect-info)"),
       (E.paramsToExecute = []));
     function k() {
-      if (p == null) {
+      (r("vulture")("N1M_oDpWgnDR_HcIAI4getfquVI="), g("purchase-info"));
+    }
+    ((k.doc =
+      "biz-ai-hub deeplink: open Purchase info drawer (/purchase-info)"),
+      (k.paramsToExecute = []));
+    function I() {
+      (r("vulture")("-fWxDThty_CwTQuftPOihKJwUPY="), g("select-catalog"));
+    }
+    ((I.doc = "biz-ai-hub deeplink: open Bestsellers drawer (/select-catalog)"),
+      (I.paramsToExecute = []));
+    function T() {
+      if (f == null) {
         var t = self.fetch.bind(self),
           r = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
-        ((p = function () {
+        ((f = function () {
           Reflect.set(self, "fetch", t);
         }),
           Reflect.set(self, "fetch", function (o, a) {
             var i,
               l,
-              s = o instanceof Request ? o.url : String(o),
-              u = a == null ? void 0 : a.body;
+              s = o instanceof Request ? o.url : String(o);
+            if (s === p)
+              return (e || (e = n("Promise"))).resolve(
+                new Response(_, {
+                  headers: { "Content-Type": "text/csv" },
+                  status: 200,
+                }),
+              );
+            var u = a == null ? void 0 : a.body;
             if (s !== r || typeof u != "string") return t(o, a);
-            var p;
+            var f;
             try {
-              p = JSON.parse(u);
+              f = JSON.parse(u);
             } catch (e) {
               return t(o, a);
             }
-            return p.doc_id === c
+            return f.doc_id === c
               ? (e || (e = n("Promise"))).resolve(
                   new Response(
                     JSON.stringify({
@@ -163,7 +168,7 @@ __d(
                     },
                   ),
                 )
-              : ((i = p.variables) == null || (i = i.input) == null
+              : ((i = f.variables) == null || (i = i.input) == null
                     ? void 0
                     : i.lead_gen_data_id) === m
                 ? (e || (e = n("Promise"))).resolve(
@@ -171,7 +176,7 @@ __d(
                       JSON.stringify({
                         data: {
                           maiba_download_single_lead_gen_data_mutation: {
-                            cdn_url: "https://www.internalfb.com/",
+                            cdn_url: p,
                           },
                         },
                       }),
@@ -181,7 +186,7 @@ __d(
                       },
                     ),
                   )
-                : ((l = p.variables) == null || (l = l.input) == null
+                : ((l = f.variables) == null || (l = l.input) == null
                       ? void 0
                       : l.lead_gen_flow_id) === d
                   ? (e || (e = n("Promise"))).resolve(
@@ -203,29 +208,29 @@ __d(
           }));
       }
     }
-    ((k.doc = "Mock Lead Gen list and download responses (E2E)"),
-      (k.paramsToExecute = []));
-    function I() {
-      (p == null || p(), (p = null));
+    ((T.doc = "Mock Lead Gen list and download responses (E2E)"),
+      (T.paramsToExecute = []));
+    function D() {
+      (f == null || f(), (f = null));
     }
-    ((I.doc = "Restore Facebook GraphQL after the Lead Gen E2E mock"),
-      (I.paramsToExecute = []));
-    var T = {
-      maibaOpenAiReplies: g,
-      maibaOpenAppointments: h,
-      maibaOpenBusinessInfo: y,
-      maibaOpenChatHistory: C,
-      maibaOpenFaq: b,
-      maibaOpenInstructions: v,
-      maibaOpenKnowledgeCenter: S,
-      maibaOpenLeadGenCollectInfo: R,
-      maibaOpenPurchaseInfo: L,
-      maibaOpenReviewKnowledge: f,
-      maibaOpenSelectCatalog: E,
-      mockLeadGenGraphQLResponses: k,
-      restoreLeadGenGraphQLResponses: I,
+    ((D.doc = "Restore Facebook GraphQL after the Lead Gen E2E mock"),
+      (D.paramsToExecute = []));
+    var x = {
+      maibaOpenAiReplies: y,
+      maibaOpenAppointments: C,
+      maibaOpenBusinessInfo: b,
+      maibaOpenChatHistory: v,
+      maibaOpenFaq: S,
+      maibaOpenInstructions: R,
+      maibaOpenKnowledgeCenter: L,
+      maibaOpenLeadGenCollectInfo: E,
+      maibaOpenPurchaseInfo: k,
+      maibaOpenReviewKnowledge: h,
+      maibaOpenSelectCatalog: I,
+      mockLeadGenGraphQLResponses: T,
+      restoreLeadGenGraphQLResponses: D,
     };
-    l.default = T;
+    l.default = x;
   },
   98,
 );

@@ -20,28 +20,24 @@ __d(
         ).clearMessageEditEducationState());
       var e = Object.keys(o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX);
       e.forEach(function (e) {
-        (r("vulture")("DUSBWmf1b3PFjBGoNNUXerxzd9Q="),
-          o("WAWebUserPrefsNuxPreferences").removeNUX(
-            o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX[e],
-          ));
+        o("WAWebUserPrefsNuxPreferences").removeNUX(
+          o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX[e],
+        );
       });
       var t = o("WAWebUserPrefsNuxPreferences").getNuxSyncList();
       (t.forEach(function (e) {
-        (r("vulture")("KzdyblXjbIuM5t8wOSwOfRqPF-Y="),
-          r("WAWebUserPrefsStore").setUser(e));
+        r("WAWebUserPrefsStore").setUser(e);
       }),
         o("WAWebUserPrefsNuxPreferences").removeAllNuxSync());
     }
     ((e.doc = "Clear all data for ViewCountNux banners from storage."),
       (e.paramsToExecute = []));
     function s() {
-      r("vulture")("vGv0z2vA1phlHrFIxXcltyEL0Mc=");
       var e = Object.keys(o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX);
       e.forEach(function (e) {
-        (r("vulture")("91tfUkwvi_yIJtM-boBWnz5qAXE="),
-          o("WAWebNuxAction").dismissNux(
-            o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX[e],
-          ));
+        o("WAWebNuxAction").dismissNux(
+          o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX[e],
+        );
       });
     }
     ((s.doc = "Set Data for for ViewCountNux banners from storage."),

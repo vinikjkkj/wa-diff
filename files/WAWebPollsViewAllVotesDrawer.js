@@ -56,91 +56,99 @@ __d(
     }
     var p = m;
     function _(e) {
-      var t = o("react-compiler-runtime").c(8),
+      var t = o("react-compiler-runtime").c(9),
         n = e.associatedMessages,
         r = e.msgKey,
         a = e.onBack,
         i = e.onOpenContactInfo,
-        l = e.optionLocalId,
-        s = e.ref,
-        u = o("WAWebPollsUseResults").useResults(r),
-        c;
+        l = e.onOpenGroupAgentProfile,
+        s = e.optionLocalId,
+        u = e.ref,
+        c = o("WAWebPollsUseResults").useResults(r),
+        m;
       return (
         t[0] !== n ||
         t[1] !== r ||
         t[2] !== a ||
         t[3] !== i ||
         t[4] !== l ||
-        t[5] !== u ||
-        t[6] !== s
-          ? ((c = d.jsx(g, {
+        t[5] !== s ||
+        t[6] !== c ||
+        t[7] !== u
+          ? ((m = d.jsx(g, {
               associatedMessages: n,
               mode: "e2ee",
               onBack: a,
               onOpenContactInfo: i,
-              optionsToResults: u,
-              optionLocalId: l,
+              onOpenGroupAgentProfile: l,
+              optionsToResults: c,
+              optionLocalId: s,
               msgKey: r,
-              ref: s,
+              ref: u,
             })),
             (t[0] = n),
             (t[1] = r),
             (t[2] = a),
             (t[3] = i),
             (t[4] = l),
-            (t[5] = u),
-            (t[6] = s),
-            (t[7] = c))
-          : (c = t[7]),
-        c
+            (t[5] = s),
+            (t[6] = c),
+            (t[7] = u),
+            (t[8] = m))
+          : (m = t[8]),
+        m
       );
     }
     function f(e) {
-      var t = o("react-compiler-runtime").c(10),
+      var t = o("react-compiler-runtime").c(11),
         n = e.associatedMessages,
         r = e.msgKey,
         a = e.onBack,
         i = e.onOpenContactInfo,
-        l = e.optionLocalId,
-        s = e.ref,
-        u;
-      t[0] !== l
-        ? ((u = { pollVoteLocalId: l }), (t[0] = l), (t[1] = u))
-        : (u = t[1]);
-      var c = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(
+        l = e.onOpenGroupAgentProfile,
+        s = e.optionLocalId,
+        u = e.ref,
+        c;
+      t[0] !== s
+        ? ((c = { pollVoteLocalId: s }), (t[0] = s), (t[1] = c))
+        : (c = t[1]);
+      var m = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(
           r,
-          u,
+          c,
         ),
-        m;
+        p;
       return (
         t[2] !== n ||
         t[3] !== r ||
         t[4] !== a ||
         t[5] !== i ||
         t[6] !== l ||
-        t[7] !== c ||
-        t[8] !== s
-          ? ((m = d.jsx(g, {
+        t[7] !== s ||
+        t[8] !== m ||
+        t[9] !== u
+          ? ((p = d.jsx(g, {
               associatedMessages: n,
               mode: "newsletter",
               withSectioning: !0,
               onBack: a,
               onOpenContactInfo: i,
-              optionsToResults: c,
-              optionLocalId: l,
+              onOpenGroupAgentProfile: l,
+              optionsToResults: m,
+              optionLocalId: s,
               msgKey: r,
-              ref: s,
+              ref: u,
             })),
             (t[2] = n),
             (t[3] = r),
             (t[4] = a),
             (t[5] = i),
             (t[6] = l),
-            (t[7] = c),
-            (t[8] = s),
-            (t[9] = m))
-          : (m = t[9]),
-        m
+            (t[7] = s),
+            (t[8] = m),
+            (t[9] = u),
+            (t[10] = p))
+          : (p = t[10]),
+        p
       );
     }
     function g(t) {
@@ -150,38 +158,39 @@ __d(
         l = t.msgKey,
         u = t.onBack,
         c = t.onOpenContactInfo,
-        m = t.optionLocalId,
-        p = t.optionsToResults,
-        _ = t.ref,
-        f = t.withSectioning,
-        g = r("useWAWebPollOptionDecorations")(l, p, a),
-        h = g.addOptionMsgs,
-        y = g.options,
-        C = g.optionsMsgsMap,
-        b = o("useWAWebMsgValues").useMsgValues(l, [
+        m = t.onOpenGroupAgentProfile,
+        p = t.optionLocalId,
+        _ = t.optionsToResults,
+        f = t.ref,
+        g = t.withSectioning,
+        h = r("useWAWebPollOptionDecorations")(l, _, a),
+        y = h.addOptionMsgs,
+        C = h.options,
+        b = h.optionsMsgsMap,
+        v = o("useWAWebMsgValues").useMsgValues(l, [
           (n = o("WAWebMsgGetters")).getSender,
           n.getPollCorrectOptionIndex,
           n.getPollHideVoterNames,
           n.getIsSentByMe,
           n.getIsSpoiler,
         ]),
-        v = b[0],
-        S = b[1],
-        R = b[2],
-        L = b[3],
-        E = b[4],
-        k = r("useWAWebIsMsgTrusted")(l),
-        I = o("WAWebSpoilerRevealLogger").getSpoilerRevealContextFromValues(
+        S = v[0],
+        R = v[1],
+        L = v[2],
+        E = v[3],
+        k = v[4],
+        I = r("useWAWebIsMsgTrusted")(l),
+        T = o("WAWebSpoilerRevealLogger").getSpoilerRevealContextFromValues(
           l.remote,
-          L,
+          E,
         ),
-        T = y.find(function (e) {
-          return e.localId === m;
+        D = C.find(function (e) {
+          return e.localId === p;
         }),
-        D = r("useLazyRef")(function () {
+        x = r("useLazyRef")(function () {
           return new (r("WAWebFlatListController"))();
         });
-      if (T == null)
+      if (D == null)
         return (
           o("WALogger")
             .ERROR(
@@ -193,11 +202,11 @@ __d(
             .sendLogs("null-poll-option"),
           null
         );
-      var x = r("nullthrows")(p.get(T));
+      var $ = r("nullthrows")(_.get(D));
       return d.jsxs(
         r("WAWebDrawer.react"),
         {
-          ref: _,
+          ref: f,
           theme: "striped",
           testid: "poll-details-drawer",
           tsNavigationData: {
@@ -212,28 +221,29 @@ __d(
               focusBackOrCancel: !0,
             }),
             d.jsx(r("WAWebDrawerBody.react"), {
-              flatListControllers: [D.current],
+              flatListControllers: [x.current],
               children: d.jsx(r("WAWebPollsOptionSection"), {
-                addOptionMsg: h.get(T),
-                associatedMsg: C.get(T),
+                addOptionMsg: y.get(D),
+                associatedMsg: b.get(D),
                 mode: i,
-                option: T,
-                result: x,
-                links: k
-                  ? o("WAWebMsgLinks").getLinksFromText(T.name, v)
+                option: D,
+                result: $,
+                links: I
+                  ? o("WAWebMsgLinks").getLinksFromText(D.name, S)
                   : null,
-                trusted: k,
+                trusted: I,
                 isPollFromMe: l.fromMe,
-                messageHasSpoiler: E,
-                spoilerRevealContext: I,
+                messageHasSpoiler: k,
+                spoilerRevealContext: T,
                 onOpenContactInfo: c,
-                flatListController: D.current,
-                withSectioning: f,
-                testid: "poll-details-option-" + T.localId,
+                onOpenGroupAgentProfile: m,
+                flatListController: x.current,
+                withSectioning: g,
+                testid: "poll-details-option-" + D.localId,
                 isCorrectOption: o(
                   "WAWebPollOptionsRenderUtils",
-                ).getIsCorrectOption(S, T),
-                hideVoterNames: R === !0,
+                ).getIsCorrectOption(R, D),
+                hideVoterNames: L === !0,
               }),
             }),
           ],

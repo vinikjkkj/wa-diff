@@ -15,8 +15,8 @@ __d(
     function c() {
       f("cvm_pin_submit");
     }
-    function d(e) {
-      f("cvm_pin_result", e);
+    function d(e, t) {
+      f("cvm_pin_result", t != null ? e + "(" + t + ")" : e);
     }
     function m(e) {
       f("cvm_pin_result", "failed:" + g(e));

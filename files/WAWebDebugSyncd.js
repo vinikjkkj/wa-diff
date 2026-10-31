@@ -108,8 +108,14 @@ __d(
               ).syncActionToSyncData(e.binarySyncAction);
               return o(
                 "WAWebSyncdCollectionHandlerTypesConverter",
-              ).setMutationToSyncAction(
-                {
+              ).setMutationToSyncAction({
+                action: o("WAWebSyncdConst").Actions.Star,
+                actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
+                modelId: o("WAWebSyncdIndexUtils")
+                  .getMsgKeyFromStarActionIndex(e.index)
+                  .toString(),
+                modelType: o("WAWebSyncdConst").SyncModelType.Msg,
+                setMutation: {
                   index: e.index,
                   version: e.version,
                   keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(
@@ -121,13 +127,7 @@ __d(
                   binarySyncData: t,
                   timestamp: e.timestamp,
                 },
-                o("WAWebSyncdConst").SyncActionState.Orphan,
-                o("WAWebSyncdConst").Actions.Star,
-                o("WAWebSyncdIndexUtils")
-                  .getMsgKeyFromStarActionIndex(e.index)
-                  .toString(),
-                o("WAWebSyncdConst").SyncModelType.Msg,
-              );
+              });
             });
           yield o("WAWebSyncdDb").setSyncActionRows(
             a.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
@@ -173,8 +173,14 @@ __d(
                   .readBuffer();
               return o(
                 "WAWebSyncdCollectionHandlerTypesConverter",
-              ).setMutationToSyncAction(
-                {
+              ).setMutationToSyncAction({
+                action: o("WAWebSyncdConst").Actions.DeleteMessageForMe,
+                actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
+                modelId: o("WAWebSyncdIndexUtils")
+                  .getMsgKeyFromStarActionIndex(e.index)
+                  .toString(),
+                modelType: o("WAWebSyncdConst").SyncModelType.Msg,
+                setMutation: {
                   index: e.index,
                   version: e.version,
                   keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(
@@ -186,13 +192,7 @@ __d(
                   binarySyncData: n,
                   timestamp: e.timestamp,
                 },
-                o("WAWebSyncdConst").SyncActionState.Orphan,
-                o("WAWebSyncdConst").Actions.DeleteMessageForMe,
-                o("WAWebSyncdIndexUtils")
-                  .getMsgKeyFromStarActionIndex(e.index)
-                  .toString(),
-                o("WAWebSyncdConst").SyncModelType.Msg,
-              );
+              });
             });
           yield o("WAWebSyncdDb").setSyncActionRows(
             n.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
@@ -236,23 +236,16 @@ __d(
     E.doc = "current primary app version";
     function k() {
       return (
-        r("vulture")("5D4JuWb-GybUYOhHv5QHXGU_y9w="),
-        o("WAWebPrimaryVersion").getPrimarySessionStartVersion()
-      );
-    }
-    k.doc = "primary app version at the time of syncd session start";
-    function I() {
-      return (
         r("vulture")("It9Sc515Sf7ORGDmMfZ4IWlrwj0="),
         r("WAWebSentinel")()
       );
     }
-    function T() {
-      return D.apply(this, arguments);
+    function I() {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("Ou62mX8YKqZDjvqTUTd-nsOPFuo=");
           var e = o("WAWebSchemaSyncActions").getSyncActionsTable(),
             t = yield e.all(),
@@ -319,12 +312,12 @@ __d(
                 ])),
             ));
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    T.doc =
+    I.doc =
       "Issues a REMOVE mutation for the last stored SyncD mutation in regular collection";
-    function x(e) {
+    function D(e) {
       return (
         r("vulture")("ja4uV4saOhjbe7trd3RbAmuzKIA="),
         o("WAWebSendNonMessageDataRequest").sendPeerDataOperationRequest(
@@ -337,8 +330,8 @@ __d(
         )
       );
     }
-    x.doc = "requestSyncdSnapshotRecovery";
-    var $ = {
+    D.doc = "requestSyncdSnapshotRecovery";
+    var x = {
       enterSyncdFatalState: f,
       getActiveMessageRanges: g,
       decodeBinarySyncAction: p,
@@ -348,12 +341,11 @@ __d(
       getSyncdKeyStats: S,
       getPrimaryVersion: R,
       getPrimaryCurrentVersion: E,
-      getPrimarySessionStartVersion: k,
-      sendSentinelPatch: I,
-      removeLastStoredSyncDMutationForCollectionRegular: T,
-      requestSyncdSnapshotRecovery: x,
+      sendSentinelPatch: k,
+      removeLastStoredSyncDMutationForCollectionRegular: I,
+      requestSyncdSnapshotRecovery: D,
     };
-    l.default = $;
+    l.default = x;
   },
   98,
 );

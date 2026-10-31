@@ -43,10 +43,7 @@ __d(
     }
     p.doc = "Sync AB Props";
     function f(e) {
-      return (
-        r("vulture")("H4WjeUkV5blMPZGwmwMNk8rQ_BE="),
-        o("WAWebABProps").getABPropConfigValue(e)
-      );
+      return o("WAWebABProps").getABPropConfigValue(e);
     }
     f.doc = "get an ABProp config value from cache";
     function g(e, t) {

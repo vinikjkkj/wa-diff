@@ -96,7 +96,7 @@ __d(
     function ie() {
       o("WAWebCmd").Cmd.on("open_chat", function (e) {
         var t = e.chat;
-        (r("vulture")("xBUKpDL6kQMXGownAgNIoBG_GxM="), (ae = t));
+        ae = t;
       });
     }
     var le = (function () {
@@ -760,69 +760,68 @@ __d(
     var Pe = function () {
       var e,
         t,
-        n,
-        r = {
-          ctwa_coex_state_sync_enabled: (n =
+        n = {
+          ctwa_coex_state_sync_enabled: (t =
             o("WAWebABPropsCache")).peekABPropConfigValue(
             "ctwa_coex_state_sync_enabled",
           ),
-          ctwa_smb_ae_onboarding_compatability_code: n.peekABPropConfigValue(
+          ctwa_smb_ae_onboarding_compatability_code: t.peekABPropConfigValue(
             "ctwa_smb_ae_onboarding_compatability_code",
           ),
-          ctwa_smb_ae_onboarding_enabled: n.peekABPropConfigValue(
+          ctwa_smb_ae_onboarding_enabled: t.peekABPropConfigValue(
             "ctwa_smb_ae_onboarding_enabled",
           ),
-          ctwa_smb_ae_companion_onboarding_enabled: n.peekABPropConfigValue(
+          ctwa_smb_ae_companion_onboarding_enabled: t.peekABPropConfigValue(
             "ctwa_smb_ae_companion_onboarding_enabled",
           ),
         },
-        a = o("WAWebMobilePlatforms").isSMB(),
-        i = o("WAWebUserPrefsGeneral").getCTWAMessageReceived(),
-        l = o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
+        r = o("WAWebMobilePlatforms").isSMB(),
+        a = o("WAWebUserPrefsGeneral").getCTWAMessageReceived(),
+        i = o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
           "ctwa_message_received",
         ),
-        s =
-          (e =
-            (t = o("WAWebCoexProductStateStore").getCoexProductState()) == null
-              ? void 0
-              : t.surfaces) != null
-            ? e
-            : null,
-        u = {
+        l = o("WAWebCoexProductStateStore").getCoexProductState(),
+        s = (e = l == null ? void 0 : l.surfaces) != null ? e : null,
+        u = (l == null ? void 0 : l.isBspHosted) === !0,
+        c = {
           isBusinessAccount: function () {
-            return a;
+            return r;
           },
           hasCtwaContext: function () {
-            return i || l;
+            return a || i;
           },
           getCoexSurfaces: function () {
-            return r.ctwa_coex_state_sync_enabled.value === !0 ? s : null;
+            return n.ctwa_coex_state_sync_enabled.value === !0 ? s : null;
           },
           getCompatibilityBits: function () {
-            return Number(r.ctwa_smb_ae_onboarding_compatability_code.value);
+            return Number(n.ctwa_smb_ae_onboarding_compatability_code.value);
           },
           isOnboardingFeatureEnabled: function () {
-            return r.ctwa_smb_ae_onboarding_enabled.value === !0;
+            return n.ctwa_smb_ae_onboarding_enabled.value === !0;
+          },
+          isBspHosted: function () {
+            return u;
           },
           isCompanionGateEnabled: function () {
-            return r.ctwa_smb_ae_companion_onboarding_enabled.value === !0;
+            return n.ctwa_smb_ae_companion_onboarding_enabled.value === !0;
           },
         },
-        c = o("WAWebAECompanionEligibility").getAEOnboardingRouteResult(u),
-        d = {
+        d = o("WAWebAECompanionEligibility").getAEOnboardingRouteResult(c),
+        m = {
           aeSwitch: (function (e) {
             return Array.isArray(e) && e.length === 2 && e[0] === !0
               ? "on"
               : Array.isArray(e) && e.length === 2 && e[1] === "presented"
                 ? "off"
                 : "hidden";
-          })([o("WAWebAECompanionEligibility").isAEOffboardingAvailable(u), c]),
-          route: c,
-          isBusinessAccount: a,
-          webCtwaMessageReceived: i,
-          primaryCtwaMessageReceived: l,
+          })([o("WAWebAECompanionEligibility").isAEOffboardingAvailable(c), d]),
+          route: d,
+          isBusinessAccount: r,
+          webCtwaMessageReceived: a,
+          primaryCtwaMessageReceived: i,
           storedCoexSurfaces: s,
-          props: r,
+          storedIsBspHosted: u,
+          props: n,
         };
       return (
         o("WALogger").LOG(
@@ -831,9 +830,9 @@ __d(
               "debug: AE companion eligibility: ",
               "",
             ])),
-          JSON.stringify(d),
+          JSON.stringify(m),
         ),
-        d
+        m
       );
     };
     ((Pe.doc =

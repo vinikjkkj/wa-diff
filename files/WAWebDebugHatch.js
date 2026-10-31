@@ -231,10 +231,7 @@ __d(
     I.doc =
       "Inject a synthetic checkout approval: hatchInjectCheckout({kind, cards, items, funding}). kind: 'browser' (default) or 'shopify'. cards (default 2): 0 for no wallet and no funding card, 1 for the read-only payment details, 2+ for the wallet picker, 4+ to split it into two wallets; 10+ to push it past the height it scrolls at; max 24. items (default 3): Shopify cart size, ignored for a browser checkout; 20+ to scroll the cart, max 60. funding: 'offered' (default) funds the order with the first offered card, 'unmatched' funds it with one the wallet does not contain, so the picker opens with nothing ticked. Returns the approvalId for hatchResolveApproval.";
     function T(e) {
-      return (
-        r("vulture")("WZzMFhNyIFgn9XdRAZUZJ1bl_oU="),
-        o("WAWebHatchApprovalDebug").debugInjectHatchNotification(e)
-      );
+      return o("WAWebHatchApprovalDebug").debugInjectHatchNotification(e);
     }
     T.doc =
       "Inject a synthetic Hatch channel notification through the real decode -> bus -> banner pipeline: hatchInjectNotification({subjectId, deduplicationKey, title, body, notificationType, expiresAtMs, withApproval}). Every field is optional; both ids default to a fresh value per call, so repeated calls do not read as repeats of each other. Pass a deduplicationKey you have already used to see a repeat suppressed, or reuse a subjectId under a fresh key to see one approval re-raised. withApproval also injects a matching pending approval, so the banner has a card to open. Nothing appears if the banner is suppressed \u2014 the usual reasons are the Hatch chat being on screen, muted, archived or absent, notifications being off for it, and ai_hatch_approval_notification_enabled being off; `hatch-approval-notif:` console lines say which. notificationType other than 'approval_request' exercises the drop path; expiresAtMs: 1 exercises the expired path. Returns the subjectId.";
@@ -416,11 +413,14 @@ __d(
       ai_hatch_theme_enabled: !0,
       ai_hatch_response_ux_parity_enabled: !0,
       ai_hatch_connectors_enabled: !0,
+      ai_hatch_permission_enable: !0,
       ai_hatch_secure_credentials_enabled: !0,
+      ai_hatch_custom_connectors_enabled: !0,
       ai_hatch_browser_enabled: !0,
       ai_hatch_space_enabled: !0,
       ai_hatch_activity_enabled: !0,
       ai_hatch_vm_capability_sync_enabled: !0,
+      ai_hatch_cvm_enabled: !0,
       ai_hatch_media_enabled: !0,
       ai_hatch_revoke_enabled: !0,
       ai_hatch_manage_subscription_enabled: !0,
@@ -430,6 +430,7 @@ __d(
       ai_hatch_identity_enabled: !0,
       ai_hatch_data_controls_enabled: !0,
       ai_hatch_scheduled_tasks_enabled: !0,
+      ai_hatch_approval_history_enabled: !0,
       ai_meta_ai_muse_default_assistant_variant_1: !0,
       ai_meta_ai_muse_default_assistant_variant_2: !0,
       ai_meta_ai_muse_default_assistant_variant_3: !0,
@@ -501,21 +502,17 @@ __d(
       (q.paramsToExecute = []));
     function U() {
       var e;
-      return (
-        r("vulture")("UCWY-_zkVJMKGYnnpmIh5kcCQAQ="),
-        {
-          isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
-          isUnlinked: e.isUnlinked(),
-          linkedStatusState: e.getLinkedStatusState(),
-          status: e.getLinkedStatus(),
-        }
-      );
+      return {
+        isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
+        isUnlinked: e.isUnlinked(),
+        linkedStatusState: e.getLinkedStatusState(),
+        status: e.getLinkedStatus(),
+      };
     }
     ((U.doc =
       "Report the latest Hatch linked-status fetch result and the last confirmed status."),
       (U.paramsToExecute = []));
     function V() {
-      r("vulture")("51nQQa3hGNvY-WEGwPWdrQAVt6U=");
       var e = o("WAWebHatchReadinessDebug").formatHatchReadinessReport(
         o("WAWebHatchReadinessDebug").collectHatchReadinessInputs(U()),
       );

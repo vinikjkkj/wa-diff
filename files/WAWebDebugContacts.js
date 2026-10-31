@@ -8,34 +8,12 @@ __d(
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
     "getErrorSafe",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m,
-      p,
-      _,
-      f,
-      g = { delaySaveMs: 0, simulateErrorOnSaveOrDeleteContact: null };
-    function h(e) {
-      (e === void 0 && (e = 1e4),
-        r("vulture")("i8mSeGdhGHrViMspkXGRaPXR4rc="),
-        (g.delaySaveMs = Math.max(e, 0)));
-    }
-    function y(e) {
-      r("vulture")("A05v3yrXRG_SRuvUJ3qNm901U_Q=");
-      var t = e == null ? void 0 : e.toUpperCase();
-      if (t !== "USYNC" && t !== "NETWORK" && t !== "CLIENT")
-        throw r("err")("Unsupported error type");
-      g.simulateErrorOnSaveOrDeleteContact = t;
-    }
-    function C(t) {
+    var e, s, u, c, d, m, p, _, f;
+    function g(t) {
       return (
         t === void 0 && (t = !0),
         r("vulture")("99MOd1H0UBSc8pE4Dclxa6UFLlA="),
@@ -68,8 +46,8 @@ __d(
           : o("WAWebContactSyncBridge").doFullContactSync(!1)
       );
     }
-    C.doc = "Sync Contacts (initial sync)";
-    function b(e) {
+    g.doc = "Sync Contacts (initial sync)";
+    function h(e) {
       return (
         e === void 0 && (e = !0),
         r("vulture")("D-xFwMBLroiKersrmDEBuxgSRpw="),
@@ -102,13 +80,13 @@ __d(
           : o("WAWebContactSyncBridge").doFullContactSync(!1)
       );
     }
-    b.doc = "Sync Contacts (periodic full sync)";
-    function v(e) {
-      return S.apply(this, arguments);
+    h.doc = "Sync Contacts (periodic full sync)";
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function S() {
+    function C() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("mvFwOfmC9Ac7vlA26dt1fA8xnEo=");
           var t = o("WAWebWidFactory").createUserLidOrThrow(e),
             n = o("WAWebApiContact").getPhoneNumber(t),
@@ -165,21 +143,18 @@ __d(
               t.toString(),
             ));
         })),
-        S.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((v.doc =
+    ((y.doc =
       "Force a LID contact into the 'phone number unknown' state: nullify phoneNumber on the LID row, delete the paired PN row, and evict the LID\u2194PN mapping. Reload afterwards."),
-      (v.paramsToExecute = ["lid"]));
-    var R = {
-      delaySaveContactAction: h,
-      simulateErrorOnSaveOrDeleteContact: y,
-      debugConfigs: g,
-      syncContact: C,
-      syncContactPeriodicFullSync: b,
-      makeContactPhoneNumberUnknown: v,
+      (y.paramsToExecute = ["lid"]));
+    var b = {
+      syncContact: g,
+      syncContactPeriodicFullSync: h,
+      makeContactPhoneNumberUnknown: y,
     };
-    l.default = R;
+    l.default = b;
   },
   98,
 );

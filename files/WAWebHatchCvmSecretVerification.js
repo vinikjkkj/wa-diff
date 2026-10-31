@@ -15,38 +15,40 @@ __d(
       u,
       c,
       d,
-      m = 2e4;
+      m = 3e4;
     function p() {
       return _.apply(this, arguments);
     }
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebHatchVmConnection")
-              .connectHatchVmApiWithResult()
+          var e = new AbortController(),
+            t = o("WAWebHatchVmConnection")
+              .connectHatchVmApiWithResult(e.signal)
               .catch(f),
-            t = yield o("WAPromiseDelays").withTimeout(
-              e,
+            n = yield o("WAPromiseDelays").withTimeout(
+              t,
               m,
               o("WAWebNullFunc").returnNull,
             );
-          return t == null
-            ? (o("WALogger").LOG(
+          return n == null
+            ? (e.abort(),
+              o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "hatch-cvm: s-unconfirmed failure=timeout",
                   ])),
               ),
-              "unconfirmed")
-            : t.kind === "ready"
+              { kind: "unconfirmed", reason: "timeout" })
+            : n.kind === "ready"
               ? (o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
                       "hatch-cvm: s-verified",
                     ])),
                 ),
-                "verified")
-              : t.cause === "cvm_key_rejected"
+                { kind: "verified" })
+              : n.cause === "cvm_key_rejected"
                 ? (o("WALogger")
                     .LOG(
                       c ||
@@ -55,7 +57,7 @@ __d(
                         ])),
                     )
                     .sendLogs("hatch-cvm-pin-secret-rejected"),
-                  "rejected")
+                  { kind: "rejected" })
                 : (o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -63,10 +65,16 @@ __d(
                         " cause=",
                         "",
                       ])),
-                    t.failure,
-                    String(t.cause),
+                    n.failure,
+                    String(n.cause),
                   ),
-                  "unconfirmed");
+                  {
+                    kind: "unconfirmed",
+                    reason:
+                      n.cause != null
+                        ? n.failure + "(" + n.cause + ")"
+                        : n.failure,
+                  });
         })),
         _.apply(this, arguments)
       );

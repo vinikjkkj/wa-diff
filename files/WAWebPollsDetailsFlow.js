@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupAgentProfileDrawerLoadable",
     "WAWebInfoFlowLoadable",
     "WAWebInfoFlowStep",
     "WAWebMsgCollection",
@@ -21,7 +22,12 @@ __d(
       u = e,
       c = u.useEffect,
       d = u.useState,
-      m = n("$InternalEnum").Mirrored(["Details", "ViewAll", "ContactInfo"]);
+      m = n("$InternalEnum").Mirrored([
+        "Details",
+        "ViewAll",
+        "ContactInfo",
+        "GroupAgentProfile",
+      ]);
     function p(e) {
       var t = e.associatedMessages,
         n = e.msg,
@@ -36,11 +42,17 @@ __d(
         f = d(null),
         g = f[0],
         h = f[1],
-        y = n.unsafe(),
-        C = y.id,
-        b = o("WAWebFrontendMsgGetters").getChat(y),
-        v = function (t) {
+        y = d(null),
+        C = y[0],
+        b = y[1],
+        v = n.unsafe(),
+        S = v.id,
+        R = o("WAWebFrontendMsgGetters").getChat(v),
+        L = function (t) {
           (h(t), l.push(m.ContactInfo));
+        },
+        E = function (t) {
+          (b(t), l.push(m.GroupAgentProfile));
         };
       if (
         (c(function () {
@@ -49,7 +61,7 @@ __d(
               {
                 action: o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
                   .VIEW_RESULTS_MODAL,
-                chat: b,
+                chat: R,
               },
               o(
                 "WAWebPollsActionsMetricUtils",
@@ -57,24 +69,24 @@ __d(
             ),
           );
         }, []),
-        o("useWAWebListener").useListener(y, "revoked", function () {
+        o("useWAWebListener").useListener(v, "revoked", function () {
           l.end();
         }),
         o("useWAWebListener").useListener(
           o("WAWebMsgCollection").MsgCollection,
           "remove",
           function (e) {
-            e.id.equals(C) && l.end();
+            e.id.equals(S) && l.end();
           },
         ),
         l.step == null)
       )
         return null;
-      var S;
+      var k;
       switch (l.step) {
         case m.Details:
-          S = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
-            msgKey: C,
+          k = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
+            msgKey: S,
             associatedMessages: t,
             onClose: function () {
               l.pop();
@@ -82,22 +94,24 @@ __d(
             onViewAllVotes: function (t) {
               (_(t), l.push(m.ViewAll));
             },
-            onOpenContactInfo: v,
+            onOpenContactInfo: L,
+            onOpenGroupAgentProfile: E,
           });
           break;
         case m.ViewAll:
-          S = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
-            msgKey: C,
+          k = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
+            msgKey: S,
             associatedMessages: t,
             optionLocalId: r("nullthrows")(p),
             onBack: function () {
               l.pop();
             },
-            onOpenContactInfo: v,
+            onOpenContactInfo: L,
+            onOpenGroupAgentProfile: E,
           });
           break;
         case m.ContactInfo:
-          S = s.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
+          k = s.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
             chat: r("nullthrows")(g),
             initialStep: o("WAWebInfoFlowStep").InfoFlowStep.ContactInfo,
             onBack: l.pop,
@@ -106,8 +120,28 @@ __d(
             },
           });
           break;
+        case m.GroupAgentProfile:
+          k =
+            C == null
+              ? null
+              : s.jsx(
+                  o("WAWebGroupAgentProfileDrawerLoadable")
+                    .GroupAgentProfileDrawerLoadable,
+                  {
+                    contact: C,
+                    onBack: function () {
+                      return l.pop();
+                    },
+                    onClose: function () {
+                      return l.end();
+                    },
+                    origin: "pollVoterRow",
+                    sourceGroupChat: R,
+                  },
+                );
+          break;
       }
-      return s.jsx(i, { flow: l, children: S });
+      return s.jsx(i, { flow: l, children: k });
     }
     ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },

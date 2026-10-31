@@ -46,83 +46,91 @@ __d(
         },
       };
     function _(e) {
-      var t = o("react-compiler-runtime").c(8),
+      var t = o("react-compiler-runtime").c(9),
         n = e.associatedMessages,
         r = e.msgKey,
         a = e.onClose,
         i = e.onOpenContactInfo,
-        l = e.onViewAllVotes,
-        s = e.ref,
-        u = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(r),
-        c;
+        l = e.onOpenGroupAgentProfile,
+        s = e.onViewAllVotes,
+        u = e.ref,
+        c = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(r),
+        m;
       return (
         t[0] !== n ||
         t[1] !== r ||
         t[2] !== a ||
         t[3] !== i ||
         t[4] !== l ||
-        t[5] !== u ||
-        t[6] !== s
-          ? ((c = d.jsx(g, {
-              ref: s,
+        t[5] !== s ||
+        t[6] !== c ||
+        t[7] !== u
+          ? ((m = d.jsx(g, {
+              ref: u,
               mode: "newsletter",
               msgKey: r,
               associatedMessages: n,
-              optionsToResults: u,
+              optionsToResults: c,
               onClose: a,
               onOpenContactInfo: i,
-              onViewAllVotes: l,
+              onOpenGroupAgentProfile: l,
+              onViewAllVotes: s,
             })),
             (t[0] = n),
             (t[1] = r),
             (t[2] = a),
             (t[3] = i),
             (t[4] = l),
-            (t[5] = u),
-            (t[6] = s),
-            (t[7] = c))
-          : (c = t[7]),
-        c
+            (t[5] = s),
+            (t[6] = c),
+            (t[7] = u),
+            (t[8] = m))
+          : (m = t[8]),
+        m
       );
     }
     function f(e) {
-      var t = o("react-compiler-runtime").c(8),
+      var t = o("react-compiler-runtime").c(9),
         n = e.associatedMessages,
         r = e.msgKey,
         a = e.onClose,
         i = e.onOpenContactInfo,
-        l = e.onViewAllVotes,
-        s = e.ref,
-        u = o("WAWebPollsUseResults").useResults(r),
-        c;
+        l = e.onOpenGroupAgentProfile,
+        s = e.onViewAllVotes,
+        u = e.ref,
+        c = o("WAWebPollsUseResults").useResults(r),
+        m;
       return (
         t[0] !== n ||
         t[1] !== r ||
         t[2] !== a ||
         t[3] !== i ||
         t[4] !== l ||
-        t[5] !== u ||
-        t[6] !== s
-          ? ((c = d.jsx(g, {
+        t[5] !== s ||
+        t[6] !== c ||
+        t[7] !== u
+          ? ((m = d.jsx(g, {
               mode: "e2ee",
-              ref: s,
+              ref: u,
               msgKey: r,
               associatedMessages: n,
-              optionsToResults: u,
+              optionsToResults: c,
               onClose: a,
               onOpenContactInfo: i,
-              onViewAllVotes: l,
+              onOpenGroupAgentProfile: l,
+              onViewAllVotes: s,
             })),
             (t[0] = n),
             (t[1] = r),
             (t[2] = a),
             (t[3] = i),
             (t[4] = l),
-            (t[5] = u),
-            (t[6] = s),
-            (t[7] = c))
-          : (c = t[7]),
-        c
+            (t[5] = s),
+            (t[6] = c),
+            (t[7] = u),
+            (t[8] = m))
+          : (m = t[8]),
+        m
       );
     }
     function g(e) {
@@ -133,17 +141,18 @@ __d(
         l = e.msgKey,
         c = e.onClose,
         _ = e.onOpenContactInfo,
-        f = e.onViewAllVotes,
-        g = e.optionsToResults,
-        h = e.ref,
-        y =
+        f = e.onOpenGroupAgentProfile,
+        g = e.onViewAllVotes,
+        h = e.optionsToResults,
+        y = e.ref,
+        C =
           o("WAWebTextSizeUtils").getWAWebTextSizeStyles()
             .pollDetailsQuestionTextSize,
-        C = r("useWAWebPollOptionDecorations")(l, g, a),
-        b = C.addOptionMsgs,
-        v = C.optionsMsgsMap,
-        S = o("WAWebPollsUseVoteCount").useVoteCount(l),
-        R = o("useWAWebMsgValues").useMsgValues(l, [
+        b = r("useWAWebPollOptionDecorations")(l, h, a),
+        v = b.addOptionMsgs,
+        S = b.optionsMsgsMap,
+        R = o("WAWebPollsUseVoteCount").useVoteCount(l),
+        L = o("useWAWebMsgValues").useMsgValues(l, [
           (n = o("WAWebMsgGetters")).getPollName,
           n.getId,
           n.getPollInvalidated,
@@ -155,44 +164,44 @@ __d(
           n.getIsSentByMe,
           n.getIsSpoiler,
         ]),
-        L = R[0],
-        E = R[1],
-        k = R[2],
-        I = R[3],
-        T = R[4],
-        D = R[5],
-        x = R[6],
-        $ = R[7],
-        P = R[8],
-        N = R[9],
-        M = o("WAWebFrontendMsgGetters").getChatByMsgKey(l, $),
-        w = o("WAWebPollsUseStickySortedResults").useStickySortedResults(g),
-        A = r("useWAWebIsMsgTrusted")(l),
-        F = o("WAWebSpoilerRevealLogger").getSpoilerRevealContextFromValues(
+        E = L[0],
+        k = L[1],
+        I = L[2],
+        T = L[3],
+        D = L[4],
+        x = L[5],
+        $ = L[6],
+        P = L[7],
+        N = L[8],
+        M = L[9],
+        w = o("WAWebFrontendMsgGetters").getChatByMsgKey(l, P),
+        A = o("WAWebPollsUseStickySortedResults").useStickySortedResults(h),
+        F = r("useWAWebIsMsgTrusted")(l),
+        O = o("WAWebSpoilerRevealLogger").getSpoilerRevealContextFromValues(
           l.remote,
-          P,
+          N,
         ),
-        O = o("WAWebFormatConfigurationConversation").Conversation({
-          links: L == null ? [] : o("WAWebMsgLinks").getLinksFromText(L, T),
+        B = o("WAWebFormatConfigurationConversation").Conversation({
+          links: E == null ? [] : o("WAWebMsgLinks").getLinksFromText(E, D),
           phoneNumbers: [],
           selectable: !0,
-          trusted: A,
-          fromMe: E.fromMe,
-          messageHasSpoiler: N,
-          spoilerRevealContext: F,
+          trusted: F,
+          fromMe: k.fromMe,
+          messageHasSpoiler: M,
+          spoilerRevealContext: O,
         }),
-        B = m(function () {
+        W = m(function () {
           return new (r("WAWebFlatListController"))();
         }, []),
-        W = o("WAWebChatGetters").getIsGroup(M)
-          ? (t = M.groupMetadata) == null
+        q = o("WAWebChatGetters").getIsGroup(w)
+          ? (t = w.groupMetadata) == null
             ? void 0
             : t.participants.length
           : 0;
       return d.jsxs(
         r("WAWebDrawer.react"),
         {
-          ref: h,
+          ref: y,
           theme: "striped",
           testid: "poll-details-drawer",
           tsNavigationData: {
@@ -202,7 +211,7 @@ __d(
           children: [
             d.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
               title:
-                D === o("WAWebPollCreationUtils").PollType.QUIZ
+                x === o("WAWebPollCreationUtils").PollType.QUIZ
                   ? s._(/*BTDS*/ "Quiz responses")
                   : s._(/*BTDS*/ "Poll details"),
               type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
@@ -210,12 +219,12 @@ __d(
               focusBackOrCancel: !0,
             }),
             d.jsxs(r("WAWebDrawerBody.react"), {
-              flatListControllers: [B],
+              flatListControllers: [W],
               children: [
                 d.jsxs(r("WAWebDrawerSection.react"), {
                   theme: "no-padding",
                   children: [
-                    k &&
+                    I &&
                       d.jsx("div", {
                         className: "x1380le5 xefnzgg x1uvdrpn x14mko6t",
                         children: d.jsx(r("WDSBanner.react"), {
@@ -230,20 +239,20 @@ __d(
                       className: "x1h678fw xv6tirj x1m4z3lf x1evaxtz",
                       children: [
                         d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                          text: L,
+                          text: E,
                           selectable: !0,
-                          formatters: O,
-                          className: (u || (u = r("stylex")))(p.pollName, y),
+                          formatters: B,
+                          className: (u || (u = r("stylex")))(p.pollName, C),
                         }),
-                        W != null &&
-                          W > 1 &&
+                        q != null &&
+                          q > 1 &&
                           d.jsx("span", {
                             className: "x1nxh6w3 x1fc57z9 x1rg5ohu x1380le5",
                             children: s._(
                               /*BTDS*/ '_j{"*":"{vote_count} of {group_length} members voted","_1":"{vote_count} of 1 member voted"}',
                               [
-                                s._plural(W, "group_length"),
-                                s._param("vote_count", S),
+                                s._plural(q, "group_length"),
+                                s._param("vote_count", R),
                               ],
                             ),
                           }),
@@ -251,34 +260,35 @@ __d(
                     }),
                   ],
                 }),
-                w.map(function (e) {
+                A.map(function (e) {
                   var t = e[0],
                     n = e[1];
                   return d.jsx(
                     r("WAWebPollsOptionSection"),
                     {
-                      associatedMsg: v.get(t),
-                      addOptionMsg: b.get(t),
+                      associatedMsg: S.get(t),
+                      addOptionMsg: v.get(t),
                       mode: i,
                       option: t,
                       result: n,
-                      isPollFromMe: E.fromMe,
-                      messageHasSpoiler: N,
-                      spoilerRevealContext: F,
-                      links: A
-                        ? o("WAWebMsgLinks").getLinksFromText(t.name, T)
+                      isPollFromMe: k.fromMe,
+                      messageHasSpoiler: M,
+                      spoilerRevealContext: O,
+                      links: F
+                        ? o("WAWebMsgLinks").getLinksFromText(t.name, D)
                         : null,
-                      trusted: A,
+                      trusted: F,
                       onViewAllVotes: function () {
-                        f(t.localId);
+                        g(t.localId);
                       },
                       onOpenContactInfo: _,
-                      flatListController: B,
+                      onOpenGroupAgentProfile: f,
+                      flatListController: W,
                       testid: "poll-details-option-" + t.localId,
                       isCorrectOption: o(
                         "WAWebPollOptionsRenderUtils",
-                      ).getIsCorrectOption(x, t),
-                      hideVoterNames: I === !0,
+                      ).getIsCorrectOption($, t),
+                      hideVoterNames: T === !0,
                     },
                     t.localId,
                   );

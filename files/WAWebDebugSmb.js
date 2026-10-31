@@ -17,6 +17,7 @@ __d(
     "WAWebContactInfoFieldsNuxModal.react",
     "WAWebContactType",
     "WAWebCustomerDataAction",
+    "WAWebCustomerManagerEducationUnitsDebugOverride",
     "WAWebCustomerManagerNuxModal.react",
     "WAWebDOIntroPopup.react",
     "WAWebDebugPerCustomerDataSharing",
@@ -500,15 +501,29 @@ __d(
     };
     ((te.doc = "Opens the Customer Manager Intro NUX Modal"),
       (te.paramsToExecute = []));
-    var ne = function () {
+    function ne(e) {
+      (e === void 0 && (e = "hatch"),
+        o(
+          "WAWebCustomerManagerEducationUnitsDebugOverride",
+        ).setCustomerManagerEducationUnitsOverride(
+          e == null
+            ? null
+            : o(
+                "WAWebCustomerManagerEducationUnitsDebugOverride",
+              ).buildCustomerManagerEducationUnitsFixture(e),
+        ));
+    }
+    ne.doc =
+      "Stand in for the Customer Manager education feed: no argument seeds the fixture on the small clip, 'login_hq' on the large one, null clears it. Reopen Customer Manager to pick up the change.";
+    var re = function () {
       (r("vulture")("PYqA_8qsJoy-fHeXOWOuW_RL3bs="),
         o("WAWebModalManager").ModalManager.open(
           L.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
         ));
     };
-    ((ne.doc = "Opens the new contact info fields NUX Modal"),
-      (ne.paramsToExecute = []));
-    var re = function () {
+    ((re.doc = "Opens the new contact info fields NUX Modal"),
+      (re.paramsToExecute = []));
+    var oe = function () {
       (r("vulture")("dycd9a5Q2zDU0zqyDcgot5wg1bg="),
         o("WAWebModalManager").ModalManager.open(
           L.jsx(
@@ -522,19 +537,19 @@ __d(
           ),
         ));
     };
-    function oe(e) {
-      return ae.apply(this, arguments);
+    function ae(e) {
+      return ie.apply(this, arguments);
     }
-    function ae() {
+    function ie() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("URCJo3asnFPvtAtNZV6yK6p9q3U=");
         })),
-        ae.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    oe.doc = "send delete mutation";
-    var ie = function (t) {
+    ae.doc = "send delete mutation";
+    var le = function (t) {
         (r("vulture")("JXo1zqXpQyDXicQM4ARZUAaPfUI="),
           o("WAWebModalManager").ModalManager.open(
             L.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
@@ -546,7 +561,7 @@ __d(
             }),
           ));
       },
-      le = function (t) {
+      se = function (t) {
         (r("vulture")("9o4hSAZFGJYyC0NFJk4XvkW3FRo="),
           o("WAWebModalManager").ModalManager.open(
             L.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
@@ -558,40 +573,40 @@ __d(
             }),
           ));
       };
-    function se(e, t) {
-      return ue.apply(this, arguments);
+    function ue(e, t) {
+      return ce.apply(this, arguments);
     }
-    function ue() {
+    function ce() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           r("vulture")("_JNijRQYrgerRjMV2PYdu86YDXE=");
           var n = o("WAJids").unsafeCoerceToChatJid(e);
           yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
         })),
-        ue.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    se.doc = "Add or update customer data for a contact";
-    function ce(e) {
-      return de.apply(this, arguments);
+    ue.doc = "Add or update customer data for a contact";
+    function de(e) {
+      return me.apply(this, arguments);
     }
-    function de() {
+    function me() {
       return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           r("vulture")("GG9DhR7bkaQ2Z5qDs9gJGAJ6Meg=");
           var t = o("WAJids").unsafeCoerceToChatJid(e);
           return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
         })),
-        de.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    ce.doc = "Get customer data for a contact";
-    function me() {
-      return pe.apply(this, arguments);
-    }
+    de.doc = "Get customer data for a contact";
     function pe() {
+      return _e.apply(this, arguments);
+    }
+    function _e() {
       return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("LRb1CYVECHaSxkRQU8VSnniG_2k=");
           var e = o("WAWebChatCollection")
             .ChatCollection.filter(function (e) {
@@ -691,18 +706,18 @@ __d(
               JSON.stringify(s),
             ));
         })),
-        pe.apply(this, arguments)
+        _e.apply(this, arguments)
       );
     }
-    ((me.doc =
+    ((pe.doc =
       "Seed 10 customer management test records with distributed lead stages"),
-      (me.paramsToExecute = []));
-    function _e(e) {
-      return fe.apply(this, arguments);
+      (pe.paramsToExecute = []));
+    function fe(e) {
+      return ge.apply(this, arguments);
     }
-    function fe() {
+    function ge() {
       return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (r("vulture")("Kzdf44boSW1xC0EN0dcmKlEKeXQ="),
             o("WALogger").LOG(
               b ||
@@ -725,12 +740,12 @@ __d(
             t
           );
         })),
-        fe.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    _e.doc =
+    fe.doc =
       "Fetch SMB BP access token and session cookies via xwa_bp_access_token_and_session_cookies GQL endpoint";
-    var ge = babelHelpers.extends(
+    var he = babelHelpers.extends(
       {
         createOrReplaceLabel: I,
         createOrReplaceQuickReply: D,
@@ -752,18 +767,19 @@ __d(
         openDOIntroPopup: Z,
         openSMBListsIntroPopup: ee,
         openCustomerManagerNuxModal: te,
-        openContactInfoFieldsNuxModal: ne,
-        openSmbDataSharingDialog: re,
-        syncQuickReplyDelete: oe,
-        showPerCustomerDataSharingOptOutModal: ie,
-        showPerCustomerDataSharingOptInModal: le,
-        addCustomerData: se,
-        getCustomerData: ce,
-        gen10CustomerManagementTestDataFromChats: me,
-        fetchBPAccessTokenGQL: _e,
+        setCustomerManagerEducationUnits: ne,
+        openContactInfoFieldsNuxModal: re,
+        openSmbDataSharingDialog: oe,
+        syncQuickReplyDelete: ae,
+        showPerCustomerDataSharingOptOutModal: le,
+        showPerCustomerDataSharingOptInModal: se,
+        addCustomerData: ue,
+        getCustomerData: de,
+        gen10CustomerManagementTestDataFromChats: pe,
+        fetchBPAccessTokenGQL: fe,
       },
     );
-    l.default = ge;
+    l.default = he;
   },
   98,
 );

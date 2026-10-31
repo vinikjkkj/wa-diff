@@ -107,7 +107,6 @@ __d(
           if (
             (a === void 0 &&
               (a = "Group name filter as a RegExp excluding leading ^"),
-            r("vulture")("uUytsgMHwgLG4r5f3VmdCBuoZEE="),
             !(e > 1 && a.length < 2))
           ) {
             var i = self.performance.now(),

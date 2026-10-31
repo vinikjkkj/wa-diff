@@ -14,18 +14,16 @@ __d(
       s = new Set(),
       u = 0;
     function c() {
-      var e = r("WAWebHatchLinkedStatusManager").isLinked();
-      if ((!e && !y()) || !o("WAWebHatchFrontendGating").isHatchCvmEnabled())
+      if (
+        (!r("WAWebHatchLinkedStatusManager").isLinked() && !y()) ||
+        !o("WAWebHatchFrontendGating").isHatchCvmEnabled()
+      )
         return null;
-      var t = o("WAWebHatchCvmSecretPref").peekHatchCvmReadOnlyInputs(),
-        n = t.hasSecret,
-        a = t.isConfidential,
-        i = t.isTransferring;
-      return i
-        ? "transferring"
-        : e && a && (!n || u > 0)
-          ? "pin_required"
-          : null;
+      var e = o("WAWebHatchCvmSecretPref").peekHatchCvmReadOnlyInputs(),
+        t = e.hasSecret,
+        n = e.isConfidential,
+        a = e.isTransferring;
+      return a ? "transferring" : n && (!t || u > 0) ? "pin_required" : null;
     }
     function d(e) {
       return m.apply(this, arguments);

@@ -18,6 +18,9 @@ __d(
     function u(e) {
       return o("WAWebMultiStepFormPayloadParser").parseMultiStepFormPayload(e);
     }
+    function c(e) {
+      return e.isSupportAgentBot();
+    }
     ((l.A2UI_FORM_PAYLOAD_TYPE = (e = o(
       "WAWebMultiStepFormPayloadParser",
     )).A2UI_FORM_PAYLOAD_TYPE),
@@ -25,7 +28,8 @@ __d(
       (l.A2UIChoicePickerVariant = e.A2UIChoicePickerVariant),
       (l.A2UIComponentType = e.A2UIComponentType),
       (l.getMultiStepFormInfo = s),
-      (l.parseMultiStepFormButton = u));
+      (l.parseMultiStepFormButton = u),
+      (l.opensMultiStepFormFromButton = c));
   },
   98,
 );

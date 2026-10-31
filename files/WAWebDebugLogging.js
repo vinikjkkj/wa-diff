@@ -148,8 +148,7 @@ __d(
     }
     b.doc = "Get wam global fields";
     function v(e) {
-      (r("vulture")("z8nZqfpLXYltMcH4PxEzIqa5D2w="),
-        r("WAWebDebugABProps").overrideABProp("wa_web_console_log_level", e));
+      r("WAWebDebugABProps").overrideABProp("wa_web_console_log_level", e);
     }
     v.doc = "Set console log level. 1: All logs, 2: Log, 3: Warn, 4: Error";
     function S() {
@@ -169,18 +168,17 @@ __d(
       "Send logs without employee separation (does not add -employee suffix for employees)"),
       (S.paramsToExecute = []));
     function R(e) {
-      (r("vulture")("igoDMUUWnZDMblkJwzbOtuv_FJ8="),
-        r("WAWebLocalStorage") != null &&
-          (o("WAWebLoggerDev").clearContextBuffer(),
-          e == null
-            ? r("WAWebLocalStorage").removeItem(
-                o("WAWebLoggerDev").LOG_FILTER_STORAGE_KEY,
-              )
-            : (r("WAWebLocalStorage").setItem(
-                o("WAWebLoggerDev").LOG_FILTER_STORAGE_KEY,
-                e,
-              ),
-              "" + e)));
+      r("WAWebLocalStorage") != null &&
+        (o("WAWebLoggerDev").clearContextBuffer(),
+        e == null
+          ? r("WAWebLocalStorage").removeItem(
+              o("WAWebLoggerDev").LOG_FILTER_STORAGE_KEY,
+            )
+          : (r("WAWebLocalStorage").setItem(
+              o("WAWebLoggerDev").LOG_FILTER_STORAGE_KEY,
+              e,
+            ),
+            "" + e));
     }
     R.doc =
       "Set a filter pattern for logs (string or regex). Only matching logs will be shown. Pass null to clear the filter.";

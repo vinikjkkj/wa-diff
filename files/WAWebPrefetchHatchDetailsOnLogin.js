@@ -24,19 +24,19 @@ __d(
           : o("WAWebCmd").Cmd.on(
               "main_stream_mode_ready_from_bridge",
               function () {
-                ((s = !0), m(), p());
+                ((s = !0), m(), _());
               },
             ),
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures.on(
           "change:aiHatchIntegrationEnabled",
           function () {
-            p();
+            _();
           },
         ),
         o("WAWebCmd").Cmd.on("on_ab_props_update_from_bridge", function () {
-          p();
+          _();
         }),
-        p());
+        _());
     }
     function m() {
       c ||
@@ -45,9 +45,26 @@ __d(
           "WAWebHatchLinkedStatusManager",
         ).getKnownConfirmedLinkedStatusState() === "unlinked" &&
           o("WAWebHatchCvmSecretPref").clearHatchCvmState(),
-        o("WAWebHatchCvmReadOnlyCanSend").watchHatchCvmReadOnlyCanSend());
+        o("WAWebHatchCvmReadOnlyCanSend").watchHatchCvmReadOnlyCanSend(),
+        p());
     }
     function p() {
+      var e =
+        r(
+          "WAWebHatchLinkedStatusManager",
+        ).getLastConfirmedLinkedStatusState() !== "unlinked";
+      r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(function () {
+        var t = r(
+          "WAWebHatchLinkedStatusManager",
+        ).getLastConfirmedLinkedStatusState();
+        if (t != null) {
+          var n = e;
+          ((e = t === "linked"),
+            n && !e && o("WAWebHatchCvmSecretPref").clearHatchCvmState());
+        }
+      });
+    }
+    function _() {
       u ||
         !s ||
         !o("WAWebHatchFrontendGating").isHatchIntegrationEnabled() ||

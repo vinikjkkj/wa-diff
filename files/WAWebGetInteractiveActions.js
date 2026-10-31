@@ -24,6 +24,7 @@ __d(
     "WAWebGetInteractiveActionsFromButtons",
     "WAWebGetInteractiveCtaActions",
     "WAWebGetMessageWithLinkAction",
+    "WAWebGetMultiStepFormAction",
     "WAWebGetQuickPayAction",
     "WAWebGetShopStorefrontInteractiveAction",
     "WAWebInteractiveMessageType",
@@ -145,6 +146,13 @@ __d(
                 type: f,
               });
               q && x.push(q);
+            } else if (
+              I === r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE
+            ) {
+              var U = o(
+                "WAWebGetMultiStepFormAction",
+              ).getOpenMultiStepFormAction(n, s, l);
+              U && x.push(U);
             }
             if (
               I != null &&
@@ -152,14 +160,14 @@ __d(
                 "WAWebBizTemplateAndInteractiveMessagesUtils",
               ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(I)
             ) {
-              var U = o("WAWebGetInteractiveCtaActions").getNativeFlowCtasFor({
+              var V = o("WAWebGetInteractiveCtaActions").getNativeFlowCtasFor({
                 interactivePayload: u,
                 interactiveType: d,
                 nativeFlowName: I,
                 t: p,
                 type: f,
               });
-              U != null && x.push.apply(x, h(U, n, C));
+              V != null && x.push.apply(x, h(V, n, C));
             }
           }
           break;

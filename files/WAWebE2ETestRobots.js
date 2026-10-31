@@ -29,8 +29,6 @@ __d(
       "settings-drawer": "SettingsRobot",
       "me-tab-drawer": "SettingsRobot",
       "multi-select-bar": "MultiselectBarRobot",
-      "link-device-phone-number-code-view":
-        "LoggedOutPhoneNumberCodeScreenRobot",
       "link-device-phone-number-entry-screen":
         "LoggedOutPhoneNumberEntryScreenRobot",
       qrcode: "LoggedOutQrScreenRobot",
@@ -54,8 +52,6 @@ __d(
       "pin-message-modal": "PinMessageModalRobot",
       "checkmark-large": "ProfilePicEditModalRobot",
       "popup-contents": "ProfilePicSetOrRemoveModalRobot",
-      "svg-components-modal": "SVGComponentsModalRobot",
-      "status-main-panel": "StatusMainModalRobot",
       "status-player-uie": "StatusPlayerModalRobot",
       "highlight-e2e-message-modal": "UnifyE2EEBottomSheetModalRobot",
       "attach-menu-popup": "AttachMenuPopupRobot",

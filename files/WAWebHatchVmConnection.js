@@ -6,6 +6,7 @@ __d(
     "WAAbortError",
     "WAExponentialBackoff",
     "WALogger",
+    "WAWebHatchCvmAttestedVms",
     "WAWebHatchCvmConnect",
     "WAWebHatchCvmSecretPref",
     "WAWebHatchLinkedStatusManager",
@@ -361,6 +362,7 @@ __d(
       return (
         (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!t()) return R;
+          o("WAWebHatchCvmConnect").reportHatchStandardDialWithStoredCvmKey();
           var n = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
             acceptLanguage: r("WAWebL10N").getFullLocale(),
             credentials: e,
@@ -506,6 +508,7 @@ __d(
     }
     function pe() {
       ((T = null),
+        o("WAWebHatchCvmAttestedVms").clearHatchCvmAttestedVms(),
         o("WAWebHatchVmCredentials").waWebHatchVmCredentials.invalidate(),
         o("WAWebHatchVmSession").waWebHatchVmSession.disconnect());
     }
