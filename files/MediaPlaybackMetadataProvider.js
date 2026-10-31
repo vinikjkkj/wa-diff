@@ -2,6 +2,7 @@ __d(
   "MediaPlaybackMetadataProvider",
   [
     "MediaPlaybackCompoundEventUtils",
+    "SiteData",
     "VideoPlayerConnectionQuality",
     "VideoPlayerImplementationErrorNormalization",
     "getPlayerFormatForLogData",
@@ -296,6 +297,7 @@ __d(
         view_width: o(
           "MediaPlaybackCompoundEventUtils",
         ).stringifyMediaPlaybackMetadata(Math.floor(n.dimensions.width)),
+        web_client_revision: String(r("SiteData").client_revision),
       };
     }
     ((l.getSNAPLErrorMetadataCommon = m),

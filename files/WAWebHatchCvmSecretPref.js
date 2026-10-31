@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebUserPrefsIndexedDBStorage",
+    "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -32,13 +33,13 @@ __d(
             r = n.importCvmAccountSecret,
             a = yield r(e.secret);
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var i = P(e.ownerLid),
+          var i = N(e.ownerLid),
             l = Math.max(
               ((t = i == null ? void 0 : i.generation) != null ? t : 0) + 1,
               o("WATimeUtils").unixTimeMs(),
             );
           return (
-            yield M({
+            yield w({
               generation: l,
               ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e.ownerLid),
               secret: a,
@@ -57,10 +58,10 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var t = P(e.ownerLid);
+          var t = N(e.ownerLid);
           (t == null ? void 0 : t.secret) == null ||
             t.generation !== e.generation ||
-            (yield M(babelHelpers.extends({}, t, { secret: null })));
+            (yield w(babelHelpers.extends({}, t, { secret: null })));
         })),
         h.apply(this, arguments)
       );
@@ -93,7 +94,7 @@ __d(
               .sendLogs("hatch-cvm-clear-failed");
             return;
           }
-          W();
+          q();
         })),
         C.apply(this, arguments)
       );
@@ -106,7 +107,7 @@ __d(
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            ((n = P(e)) == null ? void 0 : n.vmType) !== t && (yield N(e, t)));
+            ((n = N(e)) == null ? void 0 : n.vmType) !== t && (yield M(e, t)));
         })),
         v.apply(this, arguments)
       );
@@ -121,58 +122,59 @@ __d(
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
           var a = e.ownerLid,
             i = e.status,
-            l = (t = (r = P(a)) == null ? void 0 : r.vmType) != null ? t : null,
+            l = (t = (r = N(a)) == null ? void 0 : r.vmType) != null ? t : null,
             s = i.vmState === "TRANSFERRING",
-            c = O(a),
-            d = B({ current: l, status: i, transferEnded: c && !s }),
-            m = d === l ? null : N(a, d),
-            p = s === c ? null : A({ ownerLid: a, transferring: s });
+            c = B(a),
+            d = W({ current: l, status: i, transferEnded: c && !s }),
+            m = d === l ? null : M(a, d),
+            p = s === c ? null : F({ ownerLid: a, transferring: s });
           yield (u || (u = n("Promise"))).all([m, p]);
         })),
         R.apply(this, arguments)
       );
     }
-    function L(e) {
+    function L() {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var t = P(e);
-          return (t == null ? void 0 : t.secret) == null || t.generation == null
+          var e = P();
+          return (e == null ? void 0 : e.secret) == null || e.generation == null
             ? null
-            : { generation: t.generation, key: t.secret };
+            : { generation: e.generation, key: e.secret };
         })),
         E.apply(this, arguments)
       );
     }
-    function k(e) {
+    function k() {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e, t;
           return (
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            (t = (n = P(e)) == null ? void 0 : n.vmType) != null ? t : null
+            (e = (t = P()) == null ? void 0 : t.vmType) != null ? e : null
           );
         })),
         I.apply(this, arguments)
       );
     }
-    function T(e) {
-      var t = P(e);
+    function T() {
+      var e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
+        t = e == null ? null : N(e);
       return {
         hasSecret: (t == null ? void 0 : t.secret) != null,
         isConfidential: (t == null ? void 0 : t.vmType) === "confidential",
-        isTransferring: O(e),
+        isTransferring: e != null && B(e),
       };
     }
-    function D(e) {
-      var t, n;
-      return (t = (n = P(e)) == null ? void 0 : n.vmType) != null ? t : null;
+    function D() {
+      var e, t;
+      return (e = (t = P()) == null ? void 0 : t.vmType) != null ? e : null;
     }
     function x(e) {
       return (
@@ -188,40 +190,44 @@ __d(
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m) != null
       );
     }
-    function P(e) {
+    function P() {
+      var e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
+      return e == null ? null : N(e);
+    }
+    function N(e) {
       var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(c);
       return (t == null ? void 0 : t.ownerLid) ===
         o("WAWebWidToJid").userLidtoLidUserJid(e)
         ? t
         : null;
     }
-    function N(e, t) {
-      var n = P(e);
-      return M({
+    function M(e, t) {
+      var n = N(e);
+      return w({
         generation: n == null ? void 0 : n.generation,
         ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e),
         secret: n == null ? void 0 : n.secret,
         vmType: t,
       });
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(c, e),
-            W());
+            q());
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ownerLid,
             n = e.transferring;
           (yield n
@@ -230,18 +236,18 @@ __d(
                 o("WAWebWidToJid").userLidtoLidUserJid(t),
               )
             : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(m),
-            W());
+            q());
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e) {
+    function B(e) {
       return (
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m) ===
         o("WAWebWidToJid").userLidtoLidUserJid(e)
       );
     }
-    function B(e) {
+    function W(e) {
       var t = e.current,
         n = e.status,
         r = e.transferEnded;
@@ -255,7 +261,7 @@ __d(
               ? "standard"
               : t;
     }
-    function W() {
+    function q() {
       for (var t of Array.from(p))
         try {
           t();

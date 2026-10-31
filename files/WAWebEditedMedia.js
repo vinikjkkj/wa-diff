@@ -1,6 +1,6 @@
 __d(
   "WAWebEditedMedia",
-  ["WAWebCreateFile", "WAWebURLUtils"],
+  ["WAWeb-easeljs", "WAWebCreateFile", "WAWebURLUtils"],
   function (t, n, r, o, a, i, l) {
     var e = function e(t) {
       var n = this,
@@ -34,6 +34,16 @@ __d(
           n.previous &&
             ((n.editData = n.previous.editData),
             (n.previous = n.previous.previous));
+        }),
+        (this.initFromLoadedImage = function () {
+          n.editedImage = null;
+          var e = n.originalImage;
+          (!n.editData.width &&
+            !n.editData.height &&
+            ((n.editData.width = e.naturalWidth),
+            (n.editData.height = e.naturalHeight)),
+            n.editData.baseItem ||
+              (n.editData.baseItem = new (o("WAWeb-easeljs").Easel.Bitmap)(e)));
         }),
         (this.saveEditsFromCanvas = function (e) {
           var t = e.toDataURL();

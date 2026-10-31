@@ -8,16 +8,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r, o, a) {
-      if ((a === void 0 && (a = null), !e || E(r, o, a))) return t;
-      var i = b(n);
+      if ((a === void 0 && (a = null), !e || I(r, o, a))) return t;
+      var i = S(n);
       return t.filter(function (e) {
         var t;
-        return v(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
+        return R(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
       });
     }
     function s(e, t, n, r, o, a) {
       if (!t || (o === "" && a == null)) return [];
-      var i = b(n),
+      var i = S(n),
         l = new Set(
           e.map(function (e) {
             return e.lid;
@@ -27,7 +27,7 @@ __d(
         var t;
         if (l.has(e.lid)) return !1;
         var n = (t = i.get(e.lid)) != null ? t : [];
-        return v(e, n, o, a, null);
+        return R(e, n, o, a, null);
       });
     }
     function u(e, t, n, r, o, a) {
@@ -39,7 +39,7 @@ __d(
       );
       return t.filter(function (e) {
         return (
-          (e.memberLID == null || !i.has(e.memberLID)) && L(e, o, a) && I(e, r)
+          (e.memberLID == null || !i.has(e.memberLID)) && k(e, o, a) && D(e, r)
         );
       });
     }
@@ -73,7 +73,10 @@ __d(
             : "invite_expired"
           : "not_invited";
     }
-    function p(e, t) {
+    function p(e) {
+      return m(e) === "not_invited" && e.status !== "JOINED";
+    }
+    function _(e, t) {
       return e === "all" || e === "member" || e === "owner" || e === "admin"
         ? !0
         : e === "not_joined"
@@ -87,21 +90,23 @@ __d(
                 );
               })();
     }
-    function _(e, t) {
+    function f(e, t) {
       return t === "all" || t === "not_joined"
         ? !0
         : t === "member" || t === "owner" || t === "admin"
           ? !1
-          : t === "invited" || t === "invite_expired" || t === "not_invited"
-            ? m(e) === t
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    t,
-                );
-              })();
+          : t === "not_invited"
+            ? p(e)
+            : t === "invited" || t === "invite_expired"
+              ? m(e) === t
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
     }
-    function f(t, n, r, o, a, i, l, s) {
+    function g(t, n, r, o, a, i, l, s) {
       (o === void 0 && (o = ""),
         a === void 0 && (a = null),
         i === void 0 && (i = "all"),
@@ -114,16 +119,16 @@ __d(
         },
         m = function (r, a) {
           return u(!0, n, t, o, r, a).filter(function (e) {
-            return _(e, i);
+            return f(e, i);
           }).length;
         },
         p = function (t, n) {
           return d(t, n) + m(t, n);
         },
-        f = k(r, function (e) {
+        _ = T(r, function (e) {
           return p(e, s);
         }),
-        g = k(l, function (e) {
+        g = T(l, function (e) {
           return p(a, e);
         }),
         h = e(!0, t, n, o, a, s),
@@ -135,13 +140,13 @@ __d(
               return c(e, t);
             }).length +
             y.filter(function (e) {
-              return _(e, t);
+              return f(e, t);
             }).length
           );
         };
       return {
         memberCount: h.length,
-        memberTagCounts: f,
+        memberTagCounts: _,
         notJoinedCount: C,
         secondaryMemberTagCounts: g,
         statusCounts: {
@@ -156,16 +161,28 @@ __d(
         },
       };
     }
-    function g(e) {
-      return e.flatMap(function (e) {
-        var t = e.emailAddress;
-        return t != null &&
-          o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(t)
-          ? [t]
-          : [];
+    function h(e) {
+      return e.filter(function (e) {
+        return (
+          p(e) &&
+          e.emailAddress != null &&
+          o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
+            e.emailAddress,
+          )
+        );
       });
     }
-    function h(e) {
+    function y(e) {
+      var t = m(e);
+      return (
+        (t === "invite_expired" || t === "invited") &&
+        e.emailAddress != null &&
+        o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
+          e.emailAddress,
+        )
+      );
+    }
+    function C(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -173,7 +190,7 @@ __d(
           t.set(n.memberLID, n.emailAddress);
       return t;
     }
-    function y(e) {
+    function b(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -181,7 +198,7 @@ __d(
           t.set(n.memberLID, n.phoneNumber);
       return t;
     }
-    function C(e) {
+    function v(e) {
       var t = new Map();
       for (var n of e)
         n.memberLID != null &&
@@ -189,7 +206,7 @@ __d(
           t.set(n.memberLID, n.secondaryMemberTag);
       return t;
     }
-    function b(e) {
+    function S(e) {
       var t = new Map();
       for (var n of e) {
         var r,
@@ -201,7 +218,7 @@ __d(
       }
       return t;
     }
-    function v(e, t, n, r, a) {
+    function R(e, t, n, r, a) {
       var i,
         l =
           o(
@@ -211,11 +228,11 @@ __d(
             ? void 0
             : i.toLocaleLowerCase().includes(n)) === !0 ||
           t.some(function (e) {
-            return I(e, n);
+            return D(e, n);
           });
-      return l && S(e, t, r) && R(t, a);
+      return l && L(e, t, r) && E(t, a);
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       return (
         n == null ||
         e.memberTag === n ||
@@ -224,7 +241,7 @@ __d(
         })
       );
     }
-    function R(e, t) {
+    function E(e, t) {
       return (
         t == null ||
         e.some(function (e) {
@@ -232,23 +249,23 @@ __d(
         })
       );
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       return (
         (t == null || e.memberTag === t) &&
         (n == null || e.secondaryMemberTag === n)
       );
     }
-    function E(e, t, n) {
+    function I(e, t, n) {
       return e === "" && t == null && n == null;
     }
-    function k(e, t) {
+    function T(e, t) {
       return new Map(
         e.map(function (e) {
           return [e, t(e)];
         }),
       );
     }
-    function I(e, t) {
+    function D(e, t) {
       return t === ""
         ? !0
         : [
@@ -271,13 +288,15 @@ __d(
       (l.orgAdminMemberMatchesStatus = c),
       (l.getOrgAdminMemberStatus = d),
       (l.getOrgAdminRosterInviteStatus = m),
-      (l.isOrgAdminPeopleStatusOffered = p),
-      (l.orgAdminRosterOnlyEntryMatchesStatus = _),
-      (l.getWAWebOrgAdminPeopleCounts = f),
-      (l.getWAWebOrgAdminRosterInviteEmails = g),
-      (l.getWAWebOrgAdminRosterEmailsByMemberLID = h),
-      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = y),
-      (l.getWAWebOrgAdminRosterSecondaryMemberTagsByMemberLID = C));
+      (l.isOrgAdminRosterEntryNeverInvited = p),
+      (l.isOrgAdminPeopleStatusOffered = _),
+      (l.orgAdminRosterOnlyEntryMatchesStatus = f),
+      (l.getWAWebOrgAdminPeopleCounts = g),
+      (l.getWAWebOrgAdminRosterInvitees = h),
+      (l.canResendOrgAdminRosterInvite = y),
+      (l.getWAWebOrgAdminRosterEmailsByMemberLID = C),
+      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = b),
+      (l.getWAWebOrgAdminRosterSecondaryMemberTagsByMemberLID = v));
   },
   98,
 );

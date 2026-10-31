@@ -21,12 +21,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE &&
-            o(
-              "WAWebGroupHistoryGating",
-            ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
-          ) {
+          if (t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE) {
             var n = t.groupHistoryBundleMetadata;
             if (n != null) {
               var r = n.historyReceivers;

@@ -10,21 +10,27 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e) {
-      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
-        o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-          o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
-            ? { descriptorType: "sharable_event_guest_list", eventId: e }
-            : s.jsx(
-                r("WAWebSharableEventGuestListFlowLoadable"),
-                {
+    function u(e, t) {
+      (t === void 0 && (t = !1),
+        o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
+          o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+            o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
+              ? {
+                  descriptorType: "sharable_event_guest_list",
                   eventId: e,
-                  onClose: o("WAWebDrawerManager").closeDrawerRight,
-                },
-                e,
-              ),
-          { focusOnUnMount: !0, transition: "slide-left" },
-        );
+                  startsWithInvite: t,
+                }
+              : s.jsx(
+                  r("WAWebSharableEventGuestListFlowLoadable"),
+                  {
+                    eventId: e,
+                    onClose: o("WAWebDrawerManager").closeDrawerRight,
+                    startsWithInvite: t,
+                  },
+                  t ? e + "-invite" : e,
+                ),
+            { focusOnUnMount: !0, transition: "slide-left" },
+          ));
     }
     l.openSharableEventGuestList = u;
   },

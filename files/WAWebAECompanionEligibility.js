@@ -19,9 +19,11 @@ __d(
           ? "already_onboarded"
           : d(t, e.getCompatibilityBits())
             ? e.isOnboardingFeatureEnabled()
-              ? e.isCompanionGateEnabled()
-                ? "presented"
-                : "not_primary_device"
+              ? e.isBspHosted()
+                ? "bsp_hosted"
+                : e.isCompanionGateEnabled()
+                  ? "presented"
+                  : "not_primary_device"
               : "feature_disabled"
             : "coex_incompatible";
     }

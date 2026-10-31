@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebCanonicalHatchLinkedStatusGetQuery",
-    "WAWebHatchBackendGating",
     "WAWebHatchCvmSecretPref",
     "WAWebHatchLinkedStatusManager",
     "WAWebUserPrefsMeUser",
@@ -34,13 +33,7 @@ __d(
             n();
           }
           var i = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-          if (
-            a == null ||
-            i == null ||
-            t ||
-            !o("WAWebHatchBackendGating").isHatchCvmEnabledOnBackend()
-          )
-            return a;
+          if (a == null || i == null || t) return a;
           try {
             yield o("WAWebHatchCvmSecretPref").applyHatchCvmLinkedStatus({
               ownerLid: i,

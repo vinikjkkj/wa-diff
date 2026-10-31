@@ -39,6 +39,7 @@ __d(
       "HatchPermissionScheduledTasks",
       "HatchPermissionWebsites",
       "HatchPermissionProtocols",
+      "HatchScheduledTasks",
       "HatchSecureCredentials",
       "HatchSubscription",
       "HatchWallet",

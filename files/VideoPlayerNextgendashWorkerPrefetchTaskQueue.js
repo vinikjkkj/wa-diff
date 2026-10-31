@@ -65,9 +65,33 @@ __d(
             l = r.promise,
             u = s();
           return (
-            l.finally(function () {
-              a({ taskID: u, type: "task_completed" });
-            }),
+            l
+              .then(
+                function () {
+                  return a({ taskID: u, type: "task_completed" });
+                },
+                function (e) {
+                  (n.logging.log(n, {
+                    error: o("nextgendasherr").nextgendasherrFromCause(
+                      n,
+                      e,
+                      "VideoPlayerNextgendashPrefetchTaskRejection",
+                    ),
+                    type: "generic_error_as_warning",
+                  }),
+                    a({ taskID: u, type: "task_completed" }));
+                },
+              )
+              .catch(function (e) {
+                a({
+                  exception: o("nextgendasherr").nextgendasherrFromCause(
+                    n,
+                    e,
+                    "VideoPlayerNextgendashPrefetchTaskCompletionException",
+                  ),
+                  type: "__exception",
+                });
+              }),
             { abort: i, promise: l, task: e, taskID: u }
           );
         }

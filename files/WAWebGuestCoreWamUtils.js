@@ -3,8 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebGuestCoreCommonUtils",
+    "WAWebGuestCoreGetDeviceClass",
     "WAWebGuestCoreLocalStorage",
     "WAWebGuestUpsellInteractionWamEvent",
+    "WAWebWamEnumDeviceClassification",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -44,6 +46,21 @@ __d(
       return {
         browser: e.browserName,
         browserVersion: e.browserVersion,
+        deviceClassification: (function (e) {
+          if (e === "mobile")
+            return o("WAWebWamEnumDeviceClassification").DEVICE_CLASSIFICATION
+              .MOBILE;
+          if (e === "tablet")
+            return o("WAWebWamEnumDeviceClassification").DEVICE_CLASSIFICATION
+              .TABLET;
+          if (e === "desktop")
+            return o("WAWebWamEnumDeviceClassification").DEVICE_CLASSIFICATION
+              .DESKTOP;
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              e,
+          );
+        })(o("WAWebGuestCoreGetDeviceClass").getGuestDeviceClass()),
         deviceName: e.osName,
         deviceVersion: e.osVersion,
         webcTabId: o("WAWebGuestCoreLocalStorage").getGuestExperienceType(),

@@ -250,7 +250,7 @@ __d(
                         type: "from_worker_to_main_player_new_media_source",
                         workerType: l,
                       },
-                      [E],
+                      s.config.mediaSinkType === "HYBRID" ? [] : [E],
                     );
                   } else
                     i(

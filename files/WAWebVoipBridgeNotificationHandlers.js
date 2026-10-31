@@ -19,6 +19,7 @@ __d(
     "WAWebVoipHandleNativeCallEvent",
     "WAWebVoipLinkPreviewCallLink",
     "WAWebVoipNackHandlers",
+    "WAWebVoipScreeningPrompt",
     "WAWebVoipStartCall",
     "WAWebVoipWaCallEnums",
     "WAWebWamEnumLobbyEntryPointType",
@@ -288,6 +289,12 @@ __d(
       },
       stopBusyTone: function () {
         o("WAWebCallBusyTone").stopBusyTone();
+      },
+      playScreeningPrompt: function () {
+        return o("WAWebVoipScreeningPrompt").playScreeningPrompt();
+      },
+      stopScreeningPrompt: function () {
+        o("WAWebVoipScreeningPrompt").stopScreeningPrompt();
       },
       setPeerBusy: function () {
         var e;

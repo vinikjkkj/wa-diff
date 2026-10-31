@@ -5,6 +5,7 @@ __d(
     "WAWebChatMsgDisplayClass",
     "WAWebDocumentMsgDisplayClass",
     "WAWebImageMsgDisplayClass",
+    "WAWebInteractiveMsgDisplayClass",
     "WAWebListMsgDisplayClass",
     "WAWebLocationMsgDisplayClass",
     "WAWebMessageChatMsgDisplayClass",
@@ -96,7 +97,11 @@ __d(
           subtype: void 0,
           msgDisplayClass: r("WAWebImageMsgDisplayClass"),
         },
-        { type: "interactive", subtype: void 0, msgDisplayClass: null },
+        {
+          type: "interactive",
+          subtype: void 0,
+          msgDisplayClass: r("WAWebInteractiveMsgDisplayClass"),
+        },
         {
           type: "interactive_response",
           subtype: void 0,

@@ -23,6 +23,7 @@ __d(
         t.forEach(function (t) {
           [
             t.startTsSec - e,
+            t.startTsSec,
             o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(
               t,
             ),

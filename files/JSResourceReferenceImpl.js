@@ -49,20 +49,27 @@ __d(
               var l = o("BootloaderEvents").onBootloadEndpointError(
                 function (e) {
                   if (e.module === i) {
-                    var t;
                     l == null || l.unsubscribe();
-                    var o = r("err")(
-                      "[INTERNAL ONLY] Bootloading module %s failed with error MID opes:%s. This issue may cause infinite spinners in production.",
-                      i,
-                      e.errorMID,
-                    );
-                    ((o.forcedKey = i + ":" + e.errorMID),
-                      (o.opes_mids = [e.errorMID]));
-                    var a =
-                      (t = o.metadata) != null ? t : new (r("ErrorMetadata"))();
-                    (a.addEntry("OPES", "MID", e.errorMID),
-                      (o.metadata = a),
-                      n(o));
+                    var t = e.errorMID,
+                      o = r("err")(
+                        "[INTERNAL ONLY] Bootloading module %s failed%s. This issue may cause infinite spinners in production.",
+                        i,
+                        t == null
+                          ? " without an error MID"
+                          : " with error MID opes:" + t,
+                      );
+                    if (
+                      ((o.forcedKey = t == null ? i : i + ":" + t), t != null)
+                    ) {
+                      var a;
+                      o.opes_mids = [t];
+                      var s =
+                        (a = o.metadata) != null
+                          ? a
+                          : new (r("ErrorMetadata"))();
+                      (s.addEntry("OPES", "MID", t), (o.metadata = s));
+                    }
+                    n(o);
                   }
                 },
               );

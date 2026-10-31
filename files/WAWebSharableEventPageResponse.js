@@ -14,29 +14,34 @@ __d(
         : {
             selectedResponse:
               e.viewerResponse ===
-              o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
-                .Going
-                ? "going"
+                o("WAWebSharableEventStorageEnums")
+                  .SharableEventStoredRsvpStatus.Going &&
+              e.viewerExtraGuestCount > 0
+                ? "going_with_guest"
                 : e.viewerResponse ===
                     o("WAWebSharableEventStorageEnums")
-                      .SharableEventStoredRsvpStatus.Maybe
-                  ? "maybe"
+                      .SharableEventStoredRsvpStatus.Going
+                  ? "going"
                   : e.viewerResponse ===
                       o("WAWebSharableEventStorageEnums")
-                        .SharableEventStoredRsvpStatus.NotGoing
-                    ? "not_going"
+                        .SharableEventStoredRsvpStatus.Maybe
+                    ? "maybe"
                     : e.viewerResponse ===
-                          o("WAWebSharableEventStorageEnums")
-                            .SharableEventStoredRsvpStatus.NoResponse ||
-                        e.viewerResponse === null ||
-                        e.viewerResponse === void 0
-                      ? null
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              e.viewerResponse,
-                          );
-                        })(),
+                        o("WAWebSharableEventStorageEnums")
+                          .SharableEventStoredRsvpStatus.NotGoing
+                      ? "not_going"
+                      : e.viewerResponse ===
+                            o("WAWebSharableEventStorageEnums")
+                              .SharableEventStoredRsvpStatus.NoResponse ||
+                          e.viewerResponse === null ||
+                          e.viewerResponse === void 0
+                        ? null
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                e.viewerResponse,
+                            );
+                          })(),
           };
     }
     l.getSharableEventPageResponse = e;

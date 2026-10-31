@@ -27,7 +27,8 @@ __d(
         (t.RelayFeatureFlags.ENABLE_IF_EMPTY_CANCELLATION = e("9750")),
         (t.RelayFeatureFlags.ENABLE_FRAGMENT_SUBSCRIPTION_UPDATE_FIX =
           e("28181")),
-        (t.RelayFeatureFlags.ENABLE_PERF_STORAGE_KEYS = e("28191")));
+        (t.RelayFeatureFlags.ENABLE_PERF_STORAGE_KEYS = e("28191")),
+        (t.RelayFeatureFlags.ENABLE_PERF_READER = e("1860")));
     }
     l.default = e;
   },

@@ -2,6 +2,7 @@ __d(
   "WAWebHatchCvmPinModalLoadable",
   [
     "JSResourceForInteraction",
+    "WAWebHatchCvmPinLogging",
     "WAWebModalLoadable",
     "WAWebModalManager",
     "react",
@@ -17,10 +18,11 @@ __d(
         "HatchCvmPinModal",
       );
     function c(e) {
-      o("WAWebModalManager").ModalManager.open(
-        s.jsx(u, { botName: e.botName }),
-        { transition: "modal-flow" },
-      );
+      (o("WAWebHatchCvmPinLogging").logHatchCvmPinPromptShown(e.trigger),
+        o("WAWebModalManager").ModalManager.open(
+          s.jsx(u, { botName: e.botName }),
+          { transition: "modal-flow" },
+        ));
     }
     ((l.WAWebHatchCvmPinModalLoadable = u), (l.openHatchCvmPinModal = c));
   },

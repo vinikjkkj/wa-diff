@@ -5,6 +5,7 @@ __d(
     "WAWebHatchAttestationLoader",
     "WAWebHatchCvmKey",
     "WAWebHatchCvmSecretPref",
+    "WAWebHatchFrontendGating",
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchVmCredentials",
     "WAWebHatchVmSession",
@@ -31,7 +32,7 @@ __d(
             n = e.credentials,
             a = e.isStillWanted,
             i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            l = yield o("WAWebHatchCvmSecretPref").readHatchCvmSecret(i);
+            l = yield o("WAWebHatchCvmSecretPref").readHatchCvmSecret();
           if (l == null)
             return {
               cause: "cvm_key_not_found",
@@ -86,15 +87,18 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e) {
+    function f() {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.ownerLid,
-            n = yield o("WAWebHatchCvmSecretPref").readHatchCvmVmType(t);
-          if (n === "confidential") return !0;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebHatchCvmSecretPref").readHatchCvmVmType();
+          if (
+            e === "confidential" &&
+            o("WAWebHatchFrontendGating").isHatchCvmEnabled()
+          )
+            return !0;
           if (r("WAWebHatchLinkedStatusManager").getLinkedStatus() == null)
             throw r("err")("Muse linked status not fetched yet");
           return R() === "CVM";
@@ -109,9 +113,7 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.confidential === !0) return !1;
-          var t = yield f({
-            ownerLid: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-          });
+          var t = yield f();
           return t ? (C(e), !0) : !1;
         })),
         y.apply(this, arguments)

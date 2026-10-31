@@ -115,75 +115,78 @@ __d(
     }
     function C(e) {
       var t = {},
-        n = e.initialLoggingMetaData,
-        o = e.initialCoreVideoPlayerMetaData,
-        a = [],
-        i = y(),
-        l = [],
-        s = {};
-      function C(t) {
-        var r,
-          l,
-          u = t.events,
-          c = t.state,
-          d = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, s),
-          p =
-            (r =
-              (l = e.metadataProvider) == null
+        n =
+          e.initialCoreVideoPlayerMetaData.loggingConfig
+            .loggingToSNAPLPlayRequestRefactorEnabled === !0,
+        o = e.initialLoggingMetaData,
+        a = e.initialCoreVideoPlayerMetaData,
+        i = [],
+        l = y(),
+        s = [],
+        C = {};
+      function b(t) {
+        var n,
+          r,
+          s = t.events,
+          u = t.state,
+          c = babelHelpers.extends({}, a.loggingToSNAPLAdditionalData, C),
+          d =
+            (n =
+              (r = e.metadataProvider) == null
                 ? void 0
-                : l.getRequiredMetadata({
-                    coreVideoPlayerMetaData: o,
-                    logDataAdditions: d,
-                    loggingMetaData: n,
-                    state: c,
+                : r.getRequiredMetadata({
+                    coreVideoPlayerMetaData: a,
+                    logDataAdditions: c,
+                    loggingMetaData: o,
+                    state: u,
                   })) != null
-              ? r
+              ? n
               : {
                   current_watching_module: "",
                   media_id: "",
                   tracking_type: "none",
                 },
-          _ = { events: u, required_metadata: p };
-        (a.push(_),
+          p = { events: s, required_metadata: d };
+        (i.push(p),
           g &&
             m(
               e.debugLogId,
               "[_push] " +
-                _.events
+                p.events
                   .map(function (e) {
                     return e.event_name;
                   })
                   .join(","),
               {
-                loggedEvent: _,
-                loggerEventsLength: a.length,
-                loggingState: JSON.stringify(i),
+                loggedEvent: p,
+                loggerEventsLength: i.length,
+                loggingState: JSON.stringify(l),
               },
             ));
       }
-      function b(n) {
+      function v(n) {
         var r = n.event,
           o = n.state;
         if (
-          (l.push(r),
+          (s.push(r),
           g &&
             m(e.debugLogId, "[_addEvent] " + r.event_name, {
               event: r,
-              eventsListLength: l.length,
-              loggingState: JSON.stringify(i),
+              eventsListLength: s.length,
+              loggingState: JSON.stringify(l),
             }),
           d.includes(r.event_name))
         ) {
-          var a = [].concat(l);
-          ((l = []), C({ events: a, state: o }));
+          var a = [].concat(s);
+          ((s = []), b({ events: a, state: o }));
         }
         return t;
       }
-      function v() {
-        return i.hasLoggedStartedPlaying ? "unpaused" : "started";
+      function S() {
+        return l.hasLoggedStartedPlaying ? "unpaused" : "started";
       }
-      function S(e, t) {
-        var o = e.uncontrolledState.videoElementDuration;
+      function R(e, t) {
+        var n = e.uncontrolledState.videoElementDuration;
         return {
           client_time_ms: r("gkx")("18028")
             ? Math.floor(e.uncontrolledState.clockTimestamp).toString()
@@ -196,236 +199,274 @@ __d(
                 ).toString()
               : "0",
           player_instance_id: Math.abs(
-            r("hashString")(n.instanceKey),
+            r("hashString")(o.instanceKey),
           ).toString(),
-          player_instance_key: n.instanceKey,
+          player_instance_key: o.instanceKey,
           video_client_duration:
-            o != null ? Math.trunc(o * 1e3).toString() : void 0,
+            n != null ? Math.trunc(n * 1e3).toString() : void 0,
         };
       }
-      function R(t) {
+      function L(t) {
         if (t.type === "notify_logging_metadata_change") {
-          var r = t.payload,
-            a = r.coreVideoPlayerMetaData,
-            i = r.loggingMetaData;
+          var n = t.payload,
+            r = n.coreVideoPlayerMetaData,
+            i = n.loggingMetaData;
           if (g) {
-            var l = a.initialTracePolicy !== o.initialTracePolicy;
-            p(e.debugLogId, n, i, { initialTracePolicyChanged: l });
+            var l = r.initialTracePolicy !== a.initialTracePolicy;
+            p(e.debugLogId, o, i, { initialTracePolicyChanged: l });
           }
-          ((n = i), (o = a));
+          ((o = i), (a = r));
         }
       }
-      function L(e, n, r) {
+      function E(e, n, r) {
         if (
           e.controlledState.playbackState !== n.controlledState.playbackState &&
           n.controlledState.playbackState === "ended" &&
-          i.canLogPausedOrFinishedPlaying
+          l.canLogPausedOrFinishedPlaying
         ) {
-          k(n);
-          var o = S(n, "completed");
+          I(n);
+          var o = R(n, "completed");
           return (
-            b({ event: o, state: n }),
-            (i.canLogPausedOrFinishedPlaying = !1),
+            v({ event: o, state: n }),
+            (l.canLogPausedOrFinishedPlaying = !1),
             t
           );
         } else return t;
       }
-      function E(e, n) {
-        var r = S(e, "requested_playing"),
+      function k(e, n) {
+        var r = R(e, "requested_playing"),
           o =
             n != null
               ? babelHelpers.extends({}, r, {
                   media_time_ms: Math.round(n * 1e3).toString(),
-                  start_state: v(),
+                  start_state: S(),
                 })
-              : babelHelpers.extends({}, r, { start_state: v() });
+              : babelHelpers.extends({}, r, { start_state: S() });
         return (
-          b({ event: o, state: e }),
-          (i.hasPendingRequestedPlaying = !0),
-          (i.canLogPausedOrFinishedPlaying = !0),
+          v({ event: o, state: e }),
+          (l.hasPendingRequestedPlaying = !0),
+          (l.canLogPausedOrFinishedPlaying = !0),
           t
         );
       }
-      function k(r, a) {
+      function I(n, r) {
         var i,
-          l = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, s),
-          u =
+          l = babelHelpers.extends({}, a.loggingToSNAPLAdditionalData, C),
+          s =
             (i = e.metadataProvider) == null
               ? void 0
               : i.getTagMetadata({
-                  coreVideoPlayerMetaData: o,
+                  coreVideoPlayerMetaData: a,
                   logDataAdditions: l,
-                  loggingMetaData: n,
-                  state: r,
+                  loggingMetaData: o,
+                  state: n,
                 });
-        if (u != null) {
-          var c =
+        if (s != null) {
+          var u =
             e.getEncodingCostMetadata == null
               ? void 0
               : e.getEncodingCostMetadata();
-          c != null &&
-            (u = babelHelpers.extends({}, u, { encoding_playback_cost: c }));
+          u != null &&
+            (s = babelHelpers.extends({}, s, { encoding_playback_cost: u }));
         }
-        if (Object.keys(u != null ? u : {}).length > 0) {
-          a && (u = babelHelpers.extends({}, u, a));
-          var d = babelHelpers.extends({}, S(r, "tags_changed"), {
-            tag_metadata: u,
+        if (Object.keys(s != null ? s : {}).length > 0) {
+          r && (s = babelHelpers.extends({}, s, r));
+          var c = babelHelpers.extends({}, R(n, "tags_changed"), {
+            tag_metadata: s,
           });
-          b({ event: d, state: r });
+          v({ event: c, state: n });
         }
         return t;
       }
-      function I(e) {
-        if (i.canLogPausedOrFinishedPlaying) {
-          if (i.hasPendingRequestedPlaying)
+      function T(e) {
+        if (l.canLogPausedOrFinishedPlaying) {
+          if (l.hasPendingRequestedPlaying)
             return (
-              k(e),
-              T(e),
-              (i.canLogPausedOrFinishedPlaying = !1),
-              (i.hasPendingRequestedPlaying = !1),
+              I(e),
+              D(e),
+              (l.canLogPausedOrFinishedPlaying = !1),
+              (l.hasPendingRequestedPlaying = !1),
               t
             );
-          k(e);
-          var n = S(e, "paused");
+          I(e);
+          var n = R(e, "paused");
           return (
-            b({ event: n, state: e }),
-            (i.canLogPausedOrFinishedPlaying = !1),
-            (i.hasPendingRequestedPlaying = !1),
+            v({ event: n, state: e }),
+            (l.canLogPausedOrFinishedPlaying = !1),
+            (l.hasPendingRequestedPlaying = !1),
             t
           );
         } else return t;
       }
-      function T(e) {
-        var n = S(e, "cancelled");
-        return (b({ event: n, state: e }), t);
-      }
-      function D(e, n, r) {
-        if (
-          r.type === "dom_event_play_promise_rejected" &&
-          i.hasPendingRequestedPlaying
-        ) {
-          var o = r.payload.playPromiseRejectionReason;
-          return (o != null && o.name === "NotAllowedError" && T(n), t);
-        } else return t;
-      }
-      function x(e, n, r) {
+      function D(e) {
+        var r = babelHelpers.extends(
+          {},
+          R(e, "cancelled"),
+          n ? { start_state: S() } : {},
+        );
         return (
-          (r.type === "controller_play_requested" ||
-            (r.type === "dom_event_play" && !i.shouldIgnoreDomPlay)) &&
-            e.controlledState.playbackState !==
-              n.controlledState.playbackState &&
-            E(n),
+          v({ event: r, state: e }),
+          n &&
+            ((l.canLogPausedOrFinishedPlaying = !1),
+            (l.hasPendingRequestedPlaying = !1)),
           t
         );
       }
-      function $(e) {
-        var n = S(e, "requested_seek");
-        return (b({ event: n, state: e }), t);
+      function x(e, r, o) {
+        if (!n) {
+          if (
+            o.type === "dom_event_play_promise_rejected" &&
+            l.hasPendingRequestedPlaying
+          )
+            e: {
+              if (
+                ((typeof o.payload.playPromiseRejectionReason == "object" &&
+                  o.payload.playPromiseRejectionReason !== null) ||
+                  typeof o.payload.playPromiseRejectionReason == "function") &&
+                o.payload.playPromiseRejectionReason.name === "NotAllowedError"
+              ) {
+                D(r);
+                break e;
+              }
+              return t;
+            }
+          return t;
+        }
+        return (
+          l.hasPendingRequestedPlaying &&
+            r.controlledState.playbackState === "paused" &&
+            ((o.type === "dom_event_play_promise_rejected" &&
+              e.controlledState.hostCallPlayIDLast ===
+                o.payload.hostCallPlayID) ||
+              (o.type === "dom_event_durationchange" &&
+                e.controlledState.playbackState === "stalling")) &&
+            D(r),
+          t
+        );
       }
-      function P(e, n, r) {
+      function $(e, n, r) {
+        return (
+          (r.type === "controller_play_requested" ||
+            (r.type === "dom_event_play" && !l.shouldIgnoreDomPlay)) &&
+            e.controlledState.playbackState !==
+              n.controlledState.playbackState &&
+            k(n),
+          t
+        );
+      }
+      function P(e) {
+        var n = R(e, "requested_seek");
+        return (v({ event: n, state: e }), t);
+      }
+      function N(e, n, r) {
         var o = n.controlledState.playbackState,
           a = e.controlledState.playbackState;
         return r.type === "controller_scrub_begin_requested" &&
           !e.controlledState.scrubbing &&
           o !== "paused" &&
           o !== "ended"
-          ? (I(n), $(n), (i.isLoggingScrubbingSequence = !0), t)
+          ? (T(n), P(n), (l.isLoggingScrubbingSequence = !0), t)
           : !e.controlledState.seeking &&
               n.controlledState.seeking &&
-              !i.isLoggingScrubbingSequence &&
+              !l.isLoggingScrubbingSequence &&
               o !== "paused" &&
               o !== "ended" &&
-              !i.hasPendingRequestedPlaying
-            ? (I(n), $(n), (i.shouldLogRequestedPlayingForScrub = !0), t)
+              !l.hasPendingRequestedPlaying
+            ? (T(n), P(n), (l.shouldLogRequestedPlayingForScrub = !0), t)
             : r.type === "controller_scrub_end_requested" &&
                 e.controlledState.scrubbing &&
                 o !== "paused" &&
                 o !== "ended"
-              ? (E(n, r.payload.seekTargetPosition), t)
+              ? (k(n, r.payload.seekTargetPosition), t)
               : (e.controlledState.seeking &&
                   !n.controlledState.seeking &&
-                  (i.shouldLogRequestedPlayingForScrub &&
+                  (l.shouldLogRequestedPlayingForScrub &&
                     o !== "paused" &&
                     o !== "ended" &&
-                    E(n),
-                  (i.isLoggingScrubbingSequence = !1),
-                  (i.shouldLogRequestedPlayingForScrub = !1),
+                    k(n),
+                  (l.isLoggingScrubbingSequence = !1),
+                  (l.shouldLogRequestedPlayingForScrub = !1),
                   a !== "paused" &&
                     a !== "ended" &&
-                    (i.canLogPlayingEvent = !0)),
+                    (l.canLogPlayingEvent = !0)),
                 t);
       }
-      function N(e, n, o) {
+      function M(e, n, o) {
         if (
           e.controlledState.playbackState === "stalling" &&
           n.controlledState.playbackState === "playing" &&
-          i.canLogPlayingEvent
+          l.canLogPlayingEvent
         ) {
-          var a = babelHelpers.extends({}, S(n, "started_playing"), {
-            start_state: v(),
+          var a = babelHelpers.extends({}, R(n, "started_playing"), {
+            start_state: S(),
           });
           return (
-            b({ event: a, state: n }),
-            (i.canLogPlayingEvent = !1),
-            (i.hasPendingRequestedPlaying = !1),
-            (i.hasLoggedStartedPlaying = !0),
-            k(n, {
+            v({ event: a, state: n }),
+            (l.canLogPlayingEvent = !1),
+            (l.hasPendingRequestedPlaying = !1),
+            (l.hasLoggedStartedPlaying = !0),
+            I(n, {
               web_client_revision: String(r("SiteData").client_revision),
             }),
             t
           );
         } else return t;
       }
-      function M(e, n, r) {
+      function w(e, n, r) {
         return (
           (r.type === "controller_pause_requested" ||
-            (r.type === "dom_event_pause" && !i.shouldIgnoreDomPause)) &&
+            (r.type === "dom_event_pause" && !l.shouldIgnoreDomPause)) &&
             e.controlledState.playbackState !==
               n.controlledState.playbackState &&
-            I(n),
+            T(n),
           t
         );
       }
-      function w(e, n, r) {
+      function A(e, n, r) {
         var o = n.controlledState.playbackState;
         return (
           o !== "paused" &&
             o !== "ended" &&
             (r.type === "implementation_video_node_unmounted"
-              ? I(e)
+              ? T(e)
               : (r.type === "implementation_unmounted" ||
                   r.type === "implementation_engine_destroy_requested") &&
-                I(n)),
+                T(n)),
           t
         );
       }
-      function A(r, a, l) {
-        var s = a.controlledState.error;
-        if (s != null && s !== i.lastLoggedError && s.errorCode !== "410") {
-          var u;
-          k(a);
-          var c = babelHelpers.extends(
+      function F(r, i, s) {
+        var u = i.controlledState.error;
+        if (u != null && u !== l.lastLoggedError && u.errorCode !== "410") {
+          var c;
+          I(i);
+          var d = babelHelpers.extends(
               {},
-              (u = e.metadataProvider) == null
+              (c = e.metadataProvider) == null
                 ? void 0
-                : u.getErrorMetadata({
-                    action: l,
-                    coreVideoPlayerMetaData: o,
-                    loggingMetaData: n,
-                    state: a,
-                    videoPlayerError: s,
+                : c.getErrorMetadata({
+                    action: s,
+                    coreVideoPlayerMetaData: a,
+                    loggingMetaData: o,
+                    state: i,
+                    videoPlayerError: u,
                   }),
               { name: "failed_playing" },
             ),
-            d = babelHelpers.extends({}, S(a, "error"), { error_metadata: c });
-          (b({ event: d, state: a }), (i.lastLoggedError = s));
+            m = babelHelpers.extends({}, R(i, "error"), { error_metadata: d });
+          (v({ event: m, state: i }),
+            (l.lastLoggedError = u),
+            n &&
+              l.hasPendingRequestedPlaying &&
+              ((l.canLogPausedOrFinishedPlaying = !1),
+              (l.hasPendingRequestedPlaying = !1)));
         }
         return t;
       }
-      function F(a, l, s) {
+      function O(n, i, s) {
         if (
           s.type === "error_recovery_attempt" &&
-          i.errorRecoveryAttemptState.eventsLogged < c
+          l.errorRecoveryAttemptState.eventsLogged < c
         ) {
           var u,
             d = s.payload.recoverableError;
@@ -441,48 +482,48 @@ __d(
                 ? void 0
                 : u.getErrorMetadata({
                     action: s,
-                    coreVideoPlayerMetaData: o,
-                    loggingMetaData: n,
-                    state: l,
+                    coreVideoPlayerMetaData: a,
+                    loggingMetaData: o,
+                    state: i,
                     videoPlayerError: d,
                   }),
               { name: "error_recovery_attempt" },
             ),
-            p = babelHelpers.extends({}, S(l, "error"), { error_metadata: m });
-          (b({ event: p, state: l }),
-            i.errorRecoveryAttemptState.eventsLogged++);
+            p = babelHelpers.extends({}, R(i, "error"), { error_metadata: m });
+          (v({ event: p, state: i }),
+            l.errorRecoveryAttemptState.eventsLogged++);
         }
         return t;
       }
-      function O(e, n, r) {
+      function B(e, n, r) {
         var o = e.controlledState.playbackState,
           a = n.controlledState.playbackState;
         if (
-          i.hasPendingRequestedPlaying ||
-          i.shouldLogRequestedPlayingForScrub ||
-          i.bufferingSequenceStartClockTimestamp != null
+          l.hasPendingRequestedPlaying ||
+          l.shouldLogRequestedPlayingForScrub ||
+          l.bufferingSequenceStartClockTimestamp != null
         )
           return t;
         if (o !== "stalling" && a === "stalling") {
-          var l = S(n, "started_buffering");
-          (b({ event: l, state: n }),
-            (i.bufferingSequenceStartClockTimestamp =
+          var i = R(n, "started_buffering");
+          (v({ event: i, state: n }),
+            (l.bufferingSequenceStartClockTimestamp =
               n.uncontrolledState.clockTimestamp),
-            (i.shouldIgnoreDomPause = !0),
-            (i.shouldIgnoreDomPlay = !0));
+            (l.shouldIgnoreDomPause = !0),
+            (l.shouldIgnoreDomPlay = !0));
         }
         return t;
       }
-      function B(e, n, o) {
+      function W(e, n, o) {
         var a = e.controlledState.playbackState,
-          l = n.controlledState.playbackState,
-          s = i.bufferingSequenceStartClockTimestamp;
+          i = n.controlledState.playbackState,
+          s = l.bufferingSequenceStartClockTimestamp;
         if (s == null) return t;
         if (
           (o.type === "dom_event_playing" ||
             o.type === "buffering_end_requested") &&
           a === "stalling" &&
-          l !== "stalling"
+          i !== "stalling"
         ) {
           var u = 0;
           o.payload.domEventPerfTimestamp != null &&
@@ -496,152 +537,152 @@ __d(
                 ? Math.max(s, n.uncontrolledState.clockTimestamp - u)
                 : n.uncontrolledState.clockTimestamp - u,
             ),
-            d = babelHelpers.extends({}, S(n, "stopped_buffering"), {
+            d = babelHelpers.extends({}, R(n, "stopped_buffering"), {
               client_time_ms: c.toString(),
             });
-          (b({ event: d, state: n }),
-            (i.bufferingSequenceStartClockTimestamp = null),
-            (i.shouldIgnoreDomPause = !1),
-            (i.shouldIgnoreDomPlay = !1));
+          (v({ event: d, state: n }),
+            (l.bufferingSequenceStartClockTimestamp = null),
+            (l.shouldIgnoreDomPause = !1),
+            (l.shouldIgnoreDomPlay = !1));
         }
         return t;
       }
-      function W(e, n, r) {
+      function q(e, n, r) {
         var o = n.controlledState.playbackState;
         o === "paused" || o === "ended"
-          ? (i.nextHeartbeatTime = null)
+          ? (l.nextHeartbeatTime = null)
           : o !== "stalling" &&
-            i.nextHeartbeatTime == null &&
-            (i.nextHeartbeatTime = n.uncontrolledState.clockTimestamp + u);
-        var a = i.nextHeartbeatTime;
+            l.nextHeartbeatTime == null &&
+            (l.nextHeartbeatTime = n.uncontrolledState.clockTimestamp + u);
+        var a = l.nextHeartbeatTime;
         if (a != null) {
-          var l = n.uncontrolledState.clockTimestamp;
-          if (l >= a) {
+          var i = n.uncontrolledState.clockTimestamp;
+          if (i >= a) {
             if (o !== "stalling") {
-              var s = S(n, "heartbeat");
-              b({ event: s, state: n });
+              var s = R(n, "heartbeat");
+              v({ event: s, state: n });
             }
-            i.nextHeartbeatTime = l + u;
+            l.nextHeartbeatTime = i + u;
           }
         }
         return t;
       }
-      function q(e) {
+      function U(e) {
         var t = e.errorMessageFormat,
           n = e.errorName,
           r = e.errorCode == null || e.errorCode === "" ? n : e.errorCode,
-          o = n + "#" + r + ": " + U(t);
+          o = n + "#" + r + ": " + V(t);
         return o;
       }
-      function U(e) {
+      function V(e) {
         return e.replace(/([0-9]{2,})/g, function (e) {
           for (var t = ""; t.length < e.length; ) t += "#";
           return t;
         });
       }
-      function V(a, l, s) {
+      function H(n, i, s) {
         if (r("justknobx")._("3727")) return t;
         if (s.type === "implementation_warning") {
           var u,
             c = s.payload.warningError,
-            d = q(c),
-            m = i.warningState.eventsLoggedTotal,
-            p = (u = i.warningState.eventsLoggedPerKey.get(d)) != null ? u : 0;
+            d = U(c),
+            m = l.warningState.eventsLoggedTotal,
+            p = (u = l.warningState.eventsLoggedPerKey.get(d)) != null ? u : 0;
           if (
-            m < i.warningState.eventsMaxLoggedTotal &&
-            p < i.warningState.eventsMaxLoggedPerKey
+            m < l.warningState.eventsMaxLoggedTotal &&
+            p < l.warningState.eventsMaxLoggedPerKey
           ) {
             var _;
-            (i.warningState.eventsLoggedTotal++,
-              i.warningState.eventsLoggedPerKey.set(d, p + 1));
+            (l.warningState.eventsLoggedTotal++,
+              l.warningState.eventsLoggedPerKey.set(d, p + 1));
             var f = babelHelpers.extends(
                 {},
                 (_ = e.metadataProvider) == null
                   ? void 0
                   : _.getErrorMetadata({
                       action: s,
-                      coreVideoPlayerMetaData: o,
-                      loggingMetaData: n,
-                      state: l,
+                      coreVideoPlayerMetaData: a,
+                      loggingMetaData: o,
+                      state: i,
                       videoPlayerError: c,
                     }),
                 { name: "player_warning" },
               ),
-              g = babelHelpers.extends({}, S(l, "error"), {
+              g = babelHelpers.extends({}, R(i, "error"), {
                 error_metadata: f,
               });
-            b({ event: g, state: l });
+            v({ event: g, state: i });
           }
         }
         return t;
       }
-      function H(a, l, u) {
-        var c,
-          d = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, s),
-          m = i.lastLoggedTagMetadata,
-          p =
-            (c = e.metadataProvider) == null
+      function G(n, i, s) {
+        var u,
+          c = babelHelpers.extends({}, a.loggingToSNAPLAdditionalData, C),
+          d = l.lastLoggedTagMetadata,
+          m =
+            (u = e.metadataProvider) == null
               ? void 0
-              : c.getTagMetadata({
-                  coreVideoPlayerMetaData: o,
-                  logDataAdditions: d,
-                  loggingMetaData: n,
-                  state: l,
+              : u.getTagMetadata({
+                  coreVideoPlayerMetaData: a,
+                  logDataAdditions: c,
+                  loggingMetaData: o,
+                  state: i,
                 });
-        if (p != null && !h(p, m)) {
-          var _ = {};
-          Object.keys(p).forEach(function (e) {
-            if (p[e] !== m[e]) {
+        if (m != null && !h(m, d)) {
+          var p = {};
+          Object.keys(m).forEach(function (e) {
+            if (m[e] !== d[e]) {
               var t;
-              _ = babelHelpers.extends({}, _, ((t = {}), (t[e] = p[e]), t));
+              p = babelHelpers.extends({}, p, ((t = {}), (t[e] = m[e]), t));
             }
           });
-          var f = Object.values(
+          var _ = Object.values(
               r("MediaPlaybackTagMetadataHighFrequencyCategory"),
             ),
-            g = Object.keys(_).every(function (e) {
-              return f.includes(e);
+            f = Object.keys(p).every(function (e) {
+              return _.includes(e);
             });
-          if (g) return t;
-          var y = babelHelpers.extends({}, S(l, "tags_changed"), {
-            tag_metadata: _,
+          if (f) return t;
+          var g = babelHelpers.extends({}, R(i, "tags_changed"), {
+            tag_metadata: p,
           });
-          (b({ event: y, state: l }),
-            (i.lastLoggedTagMetadata = babelHelpers.extends({}, m, p)));
+          (v({ event: g, state: i }),
+            (l.lastLoggedTagMetadata = babelHelpers.extends({}, d, m)));
         }
         return t;
       }
       return {
         checkpointEncodingCost: function (n) {
-          if (e.getEncodingCostMetadata != null && (k(n), l.length > 0)) {
-            var t = l;
-            ((l = []), C({ events: t, state: n }));
+          if (e.getEncodingCostMetadata != null && (I(n), s.length > 0)) {
+            var t = s;
+            ((s = []), b({ events: t, state: n }));
           }
         },
         consumeLoggerEvents: function () {
-          return a.length > 0 ? a.splice(0) : [];
+          return i.length > 0 ? i.splice(0) : [];
         },
         handleStateMachine: function (n, r, o) {
-          R(o);
+          L(o);
           var t = r.controlledState.playbackState,
-            a = [H, D, x, P, O, B, N, L, M, w, A, F, V, W];
+            a = [G, x, $, N, B, W, M, E, w, A, F, O, H, q];
           (a.forEach(function (e) {
             e(n, r, o);
           }),
             g && _(e.debugLogId, n, r, o),
-            (t === "paused" || t === "ended") && (i.canLogPlayingEvent = !0),
+            (t === "paused" || t === "ended") && (l.canLogPlayingEvent = !0),
             o.type === "controller_pause_requested" &&
-              (i.shouldIgnoreDomPause = !0),
+              (l.shouldIgnoreDomPause = !0),
             o.type === "controller_play_requested" &&
-              (i.shouldIgnoreDomPlay = !0),
-            o.type === "dom_event_pause" && (i.shouldIgnoreDomPause = !1),
-            o.type === "dom_event_play" && (i.shouldIgnoreDomPlay = !1));
+              (l.shouldIgnoreDomPlay = !0),
+            o.type === "dom_event_pause" && (l.shouldIgnoreDomPause = !1),
+            o.type === "dom_event_play" && (l.shouldIgnoreDomPlay = !1));
         },
         logPausedOnBeforeUnload: function (t) {
-          I(t);
+          T(t);
         },
         setLoggingToSNAPLAdditionalData: function (n) {
-          ((s = babelHelpers.extends({}, s, n)), g && f(e.debugLogId, n));
+          ((C = babelHelpers.extends({}, C, n)), g && f(e.debugLogId, n));
         },
       };
     }

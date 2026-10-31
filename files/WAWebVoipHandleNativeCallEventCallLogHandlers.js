@@ -14,7 +14,9 @@ __d(
     "WAWebSyncdCoreApi",
     "WAWebVoipCallStartUnifiedSessionStore",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+    "WAWebVoipPersistentFS",
     "WAWebVoipQplHelpers",
+    "WAWebVoipScreeningVoicemail",
     "WAWebVoipStackInterface",
     "WAWebVoipTimeSeriesUpload",
     "WAWebVoipWaCallEnums",
@@ -26,18 +28,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
             i = a.parsers.parseSyncDeviceData(t);
-          (yield (p || (p = n("Promise"))).all(
+          (yield (_ || (_ = n("Promise"))).all(
             i.map(function (e) {
               return o("WAWebAdvSyncDeviceListApi").syncDeviceList({
                 wids: [e.UserJid],
@@ -55,15 +57,15 @@ __d(
               i.length,
             ));
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebVoipQplHelpers").startVoipEndCallQpl(),
             o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
               o("WAWebVoipQplHelpers").VoipEndCallQplPoint
@@ -128,37 +130,65 @@ __d(
                       ])),
                     e,
                   );
-                }),
-            n.fromMe && n.isCallLink !== !0 && (yield y(n)),
+                }));
+          var i = n.screeningVoicemail;
+          (i != null &&
+            t.type === "web" &&
+            o("WAWebBackendApi")
+              .frontendSendAndReceive("initializeVoipWasm")
+              .then(function (e) {
+                return o(
+                  "WAWebVoipScreeningVoicemail",
+                ).handOffScreeningVoicemail({
+                  call: n,
+                  fs: e.FS,
+                  persistFS: function () {
+                    return o("WAWebVoipPersistentFS").syncPersistentFS(e);
+                  },
+                  voicemail: i,
+                });
+              })
+              .catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: screening voicemail hand-off failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("voip-screening-voicemail-handoff-failed");
+              }),
+            n.fromMe && n.isCallLink !== !0 && (yield C(n)),
             o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
               o("WAWebVoipQplHelpers").VoipEndCallQplPoint
                 .CALL_ENDING_HANDLER_END,
             ));
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WATimeUtils").unixTimeMs(),
             a = r("WAWebCallLogSync").getCallLogMutation(t, e);
           yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
-            return (p || (p = n("Promise"))).resolve();
+            return (_ || (_ = n("Promise"))).resolve();
           });
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -181,15 +211,15 @@ __d(
               n.CallId,
             ));
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -199,15 +229,15 @@ __d(
             { joinableCallLogData: n },
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -222,22 +252,22 @@ __d(
               "generateCallLogFromEventCallMissed",
               { callMissedData: n },
             ),
-            n.ShouldUploadFieldStats === !0 && k(n));
+            n.ShouldUploadFieldStats === !0 && I(n));
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.MissedCallFieldStats;
           if (t == null) {
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: missed call fieldstats: no stats to send",
                 ])),
             );
@@ -265,8 +295,8 @@ __d(
                   } catch (e) {
                     return (
                       o("WALogger").ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: missed call fieldstats: metric undefined for ",
                             "",
                           ])),
@@ -288,31 +318,31 @@ __d(
             (i != null && l.set({ unifiedSessionId: i }),
               l.commit(),
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: missed call WAM event committed",
                   ])),
               ));
           } catch (e) {
             o("WALogger")
               .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: failed to send missed call fieldstats",
                   ])),
               )
               .catching(r("getErrorSafe")(e));
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -322,13 +352,13 @@ __d(
             { call1to1LogData: n },
           );
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x() {
+    function $() {
       o("WAWebBackendApi").frontendFireAndForget("handleMuteRequestFailed", {});
     }
-    function $(e) {
+    function P(e) {
       var t = null;
       try {
         var n,
@@ -344,16 +374,16 @@ __d(
         muterJid: t,
       });
     }
-    function P(e) {}
-    ((l.handleSyncDevices = _),
-      (l.handleCallEnding = g),
-      (l.handleRejectedDecryptionFailure = b),
-      (l.handleUpdateJoinableCallLog = S),
-      (l.handleCallMissed = L),
-      (l.handleUpdate1to1CallLog = T),
-      (l.handleMuteRequestFailed = x),
-      (l.handleMutedByOthers = $),
-      (l.handleNoOpEvent = P));
+    function N(e) {}
+    ((l.handleSyncDevices = f),
+      (l.handleCallEnding = h),
+      (l.handleRejectedDecryptionFailure = v),
+      (l.handleUpdateJoinableCallLog = R),
+      (l.handleCallMissed = E),
+      (l.handleUpdate1to1CallLog = D),
+      (l.handleMuteRequestFailed = $),
+      (l.handleMutedByOthers = P),
+      (l.handleNoOpEvent = N));
   },
   98,
 );

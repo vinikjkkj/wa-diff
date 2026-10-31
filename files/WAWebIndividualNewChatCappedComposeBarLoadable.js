@@ -19,7 +19,7 @@ __d(
           )
             .__setRef("WAWebIndividualNewChatCappedComposeBarLoadable")
             .load();
-          return e.IndividualNewChatMessageCappedComposeBar;
+          return e;
         }),
         "IndividualNewChatMessageCappedComposeBar",
       ),

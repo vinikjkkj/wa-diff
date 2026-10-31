@@ -1,53 +1,104 @@
 __d(
   "WAWebHatchCvmReadOnlyState",
   [
+    "WALogger",
     "WAWebHatchCvmSecretPref",
     "WAWebHatchFrontendGating",
     "WAWebHatchLinkedStatusManager",
-    "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e,
+      s = new Set(),
+      u = 0;
+    function c() {
       var e = r("WAWebHatchLinkedStatusManager").isLinked();
-      if ((!e && !c()) || !o("WAWebHatchFrontendGating").isHatchCvmEnabled())
+      if ((!e && !y()) || !o("WAWebHatchFrontendGating").isHatchCvmEnabled())
         return null;
-      var t = o("WAWebHatchCvmSecretPref").peekHatchCvmReadOnlyInputs(
-          o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        ),
+      var t = o("WAWebHatchCvmSecretPref").peekHatchCvmReadOnlyInputs(),
         n = t.hasSecret,
         a = t.isConfidential,
         i = t.isTransferring;
-      return i ? "transferring" : e && a && !n ? "pin_required" : null;
+      return i
+        ? "transferring"
+        : e && a && (!n || u > 0)
+          ? "pin_required"
+          : null;
     }
-    function s() {
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        o("WAWebHatchCvmSecretPref").peekHatchCvmVmType(
-          o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        ) === "standard"
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          h(1);
+          try {
+            return yield e();
+          } finally {
+            h(-1);
+          }
+        })),
+        m.apply(this, arguments)
       );
     }
-    function u(e) {
+    function p() {
+      return c() != null || g();
+    }
+    function _() {
+      return o("WAWebHatchCvmSecretPref").peekHatchCvmVmType() === "standard";
+    }
+    function f(e) {
       var t = o("WAWebHatchCvmSecretPref").subscribeToHatchCvmSecretChanges(e),
         n = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
           function () {
             return e();
           },
         );
-      return function () {
-        (t(), n());
-      };
+      return (
+        s.add(e),
+        function () {
+          (t(), n(), s.delete(e));
+        }
+      );
     }
-    function c() {
+    function g() {
+      return (
+        (r("WAWebHatchLinkedStatusManager").isLinked() || y()) &&
+        !o("WAWebHatchFrontendGating").isHatchCvmEnabled() &&
+        o("WAWebHatchCvmSecretPref").peekHatchCvmVmType() === "confidential"
+      );
+    }
+    function h(t) {
+      u += t;
+      for (var n of Array.from(s))
+        try {
+          n();
+        } catch (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-cvm: read-only listener failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("hatch-cvm-read-only-listener-failed");
+        }
+    }
+    function y() {
       return (
         r(
           "WAWebHatchLinkedStatusManager",
         ).getKnownConfirmedLinkedStatusState() === "linked"
       );
     }
-    ((l.getHatchCvmReadOnlyReason = e),
-      (l.isHatchCvmTransferToConfidential = s),
-      (l.subscribeToHatchCvmReadOnly = u));
+    ((l.getHatchCvmReadOnlyReason = c),
+      (l.holdHatchCvmReadOnlyDuringPinCheck = d),
+      (l.areHatchVmFeaturesHidden = p),
+      (l.isHatchCvmTransferToConfidential = _),
+      (l.subscribeToHatchCvmReadOnly = f));
   },
   98,
 );

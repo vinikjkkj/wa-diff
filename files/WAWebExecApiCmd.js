@@ -1332,24 +1332,20 @@ __d(
                 o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER,
               ),
               o("WAWebModalManager").ModalManager.open(
-                O.jsx(
-                  o("WAWebBizBroadcastsUploadModalLoadable.react")
-                    .WAWebBizBroadcastsUploadModalLoadable,
-                  {
-                    entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
-                      .CHAT_BANNER,
-                    onCancel: function (t, n) {
-                      (o("WAWebModalManager").ModalManager.close(),
-                        n !== !0 &&
-                          o(
-                            "WAWebBusinessBroadcastUserJourneyLogger",
-                          ).BusinessBroadcastUserJourneyLogger.contactImportCancelClicked(
-                            o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER,
-                          ));
-                    },
-                    onUploadSuccess: z,
+                O.jsx(r("WAWebBizBroadcastsUploadModalLoadable.react"), {
+                  entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+                    .CHAT_BANNER,
+                  onCancel: function (t, n) {
+                    (o("WAWebModalManager").ModalManager.close(),
+                      n !== !0 &&
+                        o(
+                          "WAWebBusinessBroadcastUserJourneyLogger",
+                        ).BusinessBroadcastUserJourneyLogger.contactImportCancelClicked(
+                          o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER,
+                        ));
                   },
-                ),
+                  onUploadSuccess: z,
+                }),
               ),
               !0)
             : !1;

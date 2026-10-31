@@ -42,6 +42,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidFormat",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "err",
     "react",
@@ -188,7 +189,7 @@ __d(
               return;
             }
             l.sharingLimited !== !0 && !D(e)
-              ? o("WAWebModalManager").ModalManager.open(
+              ? o("WDSDialogBridge").openWDSDialog(
                   c.jsx(r("WAWebLimitSharingDisableConfirmationPopup.react"), {
                     onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {

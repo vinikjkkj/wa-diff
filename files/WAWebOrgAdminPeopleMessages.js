@@ -38,7 +38,22 @@ __d(
               )
             : s._(/*BTDS*/ "They'll be taken off the organization's list.");
     }
-    function u(e, t, n) {
+    function u(e, t) {
+      return t
+        ? s._(/*BTDS*/ "Organization invite resent to {person name}", [
+            s._param("person name", e),
+          ])
+        : s._(/*BTDS*/ "Organization invite sent to {person name}", [
+            s._param("person name", e),
+          ]);
+    }
+    function c(e) {
+      return s._(
+        /*BTDS*/ '_j{"*":"{number} invites resent","_1":"1 invite resent"}',
+        [s._plural(e, "number")],
+      );
+    }
+    function d(e, t, n) {
       return e === "skipped"
         ? null
         : e === "removed" && t
@@ -93,7 +108,7 @@ __d(
                         );
                       })();
     }
-    function c(e, t, n) {
+    function m(e, t, n) {
       if (e.includes("row_failed"))
         return {
           message: s._(
@@ -105,7 +120,7 @@ __d(
         return e === "removed" || e === "removed_unreconciled";
       }).length;
       return r !== e.length || !n
-        ? d(r, e.length)
+        ? p(r, e.length)
         : t
           ? {
               message: s._(
@@ -122,7 +137,7 @@ __d(
               success: !0,
             };
     }
-    function d(e, t) {
+    function p(e, t) {
       return e === t
         ? {
             message: s._(
@@ -148,10 +163,10 @@ __d(
             success: !1,
           };
     }
-    function m(e, t, n, r) {
+    function _(e, t, n, r) {
       var o,
         a = n - r;
-      if (r === 0) return p(e, t, a);
+      if (r === 0) return f(e, t, a);
       if (
         a === ((o = t == null ? void 0 : t.alreadyMemberCount) != null ? o : 0)
       )
@@ -174,7 +189,7 @@ __d(
           ),
           success: !0,
         };
-      var i = p(e, t, a),
+      var i = f(e, t, a),
         l = i.message,
         u = i.success;
       return {
@@ -188,7 +203,7 @@ __d(
         success: u,
       };
     }
-    function p(e, t, n) {
+    function f(e, t, n) {
       var o,
         a =
           n - ((o = t == null ? void 0 : t.alreadyMemberCount) != null ? o : 0);
@@ -215,9 +230,9 @@ __d(
               ),
               success: !1,
             }
-          : { message: _(e, t, a), success: !0 };
+          : { message: g(e, t, a), success: !0 };
     }
-    function _(e, t, n) {
+    function g(e, t, n) {
       return n === 0
         ? s._(/*BTDS*/ "Already in \u201c{group name}\u201d", [
             s._param("group name", e),
@@ -254,11 +269,13 @@ __d(
               );
     }
     ((l.getOrgAdminRemovePeopleDescription = e),
-      (l.getOrgAdminRemovedPersonMessage = u),
-      (l.getOrgAdminRemovedPeopleMessage = c),
-      (l.getOrgAdminRemovedMembersMessage = d),
-      (l.getOrgAdminAddPeopleToGroupMessage = m),
-      (l.getOrgAdminAddMembersToGroupMessage = p));
+      (l.getOrgAdminPersonInviteSentMessage = u),
+      (l.getOrgAdminInvitesResentMessage = c),
+      (l.getOrgAdminRemovedPersonMessage = d),
+      (l.getOrgAdminRemovedPeopleMessage = m),
+      (l.getOrgAdminRemovedMembersMessage = p),
+      (l.getOrgAdminAddPeopleToGroupMessage = _),
+      (l.getOrgAdminAddMembersToGroupMessage = f));
   },
   226,
 );

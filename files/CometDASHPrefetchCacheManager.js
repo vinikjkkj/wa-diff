@@ -47,6 +47,10 @@ __d(
             }
             p({ prefetchKey: t, representations: n });
           }),
+          (t.fetchUsingNextgendashOnly = function (t, n) {
+            p == null ||
+              p({ prefetchKey: t, representations: n }, { nativeOnly: !0 });
+          }),
           (t.fetch = function (t, n) {
             var e = this.$1.get(t),
               o = r("oz-player/configs/OzGlobalConfig").getBool(
@@ -65,7 +69,9 @@ __d(
           }),
           (t.releaseUsingNextgendash = function (t) {
             var e = this.$1.get(t);
-            (e != null && (e.clear(), this.$1.delete(t)), f == null || f(t));
+            (e != null && (e.clear(), this.$1.delete(t)),
+              f == null || f(t),
+              f == null || f(t, { nativeOnly: !0 }));
           }),
           (t.schedulePrefetchTask = function (t, n) {
             var e = this.$1.get(t);

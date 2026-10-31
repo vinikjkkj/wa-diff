@@ -21,6 +21,7 @@ __d(
         ENCRYPTED_BACKUPS: "encrypted_backups",
         HOUSE_AD: "house_ad",
         LOGIN_FLOW: "login_flow",
+        MA_HOME_PASSKEY_LINKING_UPSELL: "ma_home_passkey_linking_upsell",
         MEGAPHONE: "megaphone",
         META_AI_SUPPORT_ASSISTANT: "meta_ai_support_assistant",
         MIGRATION_MOMENT_NUX: "migration_moment_nux",

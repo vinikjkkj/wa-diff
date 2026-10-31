@@ -2,24 +2,21 @@ __d(
   "WAWebSharableEventCardLayout",
   [
     "WAWebSharableEventPeople",
-    "WAWebSharableEventStorageEnums",
     "WAWebSharableEventStrings",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 1,
-      s = 8,
-      u = 24,
-      c = 20,
-      d = 9 / 16;
-    function m(e) {
+    var e = 8,
+      s = 12,
+      u = 56,
+      c = 68,
+      d = 16,
+      m = 24,
+      p = 20;
+    function _(e) {
       return {
-        hasCover: e.coverImageUrl != null && e.coverImageUrl !== "",
-        hasHostLine: f(e.creatorLid),
+        hasHostLine: h(e.creatorLid),
         hasPlaceLine:
-          e.status ===
-            o("WAWebSharableEventStorageEnums").SharableEventStoredStatus
-              .Suspended ||
           o("WAWebSharableEventStrings").getSharableEventPlaceLine({
             callLinkMediaType: e.callLinkMediaType,
             callLinkToken: e.callLinkToken,
@@ -27,25 +24,32 @@ __d(
           }) != null,
       };
     }
-    function p(t, n) {
-      var r = t.hasCover ? Math.round(n * d) : 0,
-        o = u + (t.hasHostLine ? c : 0) + c + (t.hasPlaceLine ? c : 0);
-      return e + r + s + o + s;
+    function f(t, n) {
+      n === void 0 && (n = !1);
+      var r =
+          (n ? d : 0) +
+          m +
+          p +
+          (t.hasHostLine ? p : 0) +
+          (t.hasPlaceLine ? p : 0),
+        o = n ? s : e,
+        a = n ? c : u;
+      return o + Math.max(a, r) + o;
     }
-    function _(e) {
+    function g(e) {
       return e != null && o("WAWebUserPrefsMeUser").isMeAccount(e);
     }
-    function f(e) {
+    function h(e) {
       return (
         e != null &&
-        !_(e) &&
+        !g(e) &&
         o("WAWebSharableEventPeople").getSharableEventPersonName(e, null, !1) !=
           null
       );
     }
-    ((l.getSharableEventCardContent = m),
-      (l.getSharableEventCardHeight = p),
-      (l.isSharableEventHostedByViewer = _));
+    ((l.getSharableEventCardContent = _),
+      (l.getSharableEventCardHeight = f),
+      (l.isSharableEventHostedByViewer = g));
   },
   98,
 );

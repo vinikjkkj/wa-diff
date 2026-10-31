@@ -32,7 +32,13 @@ __d(
         if (r.type === "rejected") return r;
         r.surface != null && t.add(r.surface);
       }
-      return { type: "authoritative", surfaces: Array.from(t).sort() };
+      return {
+        type: "authoritative",
+        surfaces: Array.from(t).sort(),
+        isBspHosted: e.some(function (e) {
+          return e.product === "EMBEDDED_SIGNUP";
+        }),
+      };
     }
     function f(e) {
       if (e.onboardingStatus !== "COMPLETED")

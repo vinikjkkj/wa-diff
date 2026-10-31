@@ -30,8 +30,14 @@ __d(
         ),
         m = new (o(
           "WorkerSyncedMessagePortWithErrored",
-        ).WorkerSyncedMessagePortWithErrored)(u, a),
-        p = n("cr:9585") != null ? n("cr:9585") : e.getModuleIfRequireable();
+        ).WorkerSyncedMessagePortWithErrored)(u, a);
+      (m.onError.add(function () {
+        return l.disposeNativeMedia == null ? void 0 : l.disposeNativeMedia();
+      }),
+        m.fullyConnected.catch(function () {
+          return l.disposeNativeMedia == null ? void 0 : l.disposeNativeMedia();
+        }));
+      var p = n("cr:9585") != null ? n("cr:9585") : e.getModuleIfRequireable();
       return (
         p != null
           ? p.createVideoPlayerNextgendashWorkerEnvironment(

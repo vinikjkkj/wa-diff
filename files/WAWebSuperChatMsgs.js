@@ -1,13 +1,6 @@
 __d(
   "WAWebSuperChatMsgs",
-  [
-    "WALogger",
-    "WAWebBaseModel",
-    "WAWebChatMsgsCollection",
-    "WAWebGroupHistoryGating",
-    "WAWebWid",
-    "err",
-  ],
+  ["WALogger", "WAWebBaseModel", "WAWebChatMsgsCollection", "WAWebWid", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -51,19 +44,13 @@ __d(
             (this.listenTo(this.msgs, "add", n),
               this.listenTo(this.msgs, "remove", n),
               this.listenTo(this.msgs, "bulk_add", n));
-            var a = this.id;
-            if (
-              a instanceof r("WAWebWid") &&
-              a.isGroup() &&
-              o(
-                "WAWebGroupHistoryGating",
-              ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
-            ) {
-              var i = function () {
+            var o = this.id;
+            if (o instanceof r("WAWebWid") && o.isGroup()) {
+              var a = function () {
                 var t = e.msgs.msgLoadState.noEarlierMsgs;
                 e.noEarlierMsgs !== t && (e.noEarlierMsgs = t);
               };
-              ((this.$ChatMsgs$p_1 = this.msgs.onMsgLoadStateChange(i)), i());
+              ((this.$ChatMsgs$p_1 = this.msgs.onMsgLoadStateChange(a)), a());
             }
           }),
           (a.onEmptyMRM = function () {

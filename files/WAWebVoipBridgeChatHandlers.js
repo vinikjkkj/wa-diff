@@ -10,6 +10,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebVoipEventConstants",
     "WAWebVoipOngoingCallCollection",
+    "WAWebVoipSendScreeningVoicemail",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -140,6 +141,9 @@ __d(
             ),
             { name: n },
           );
+        },
+        sendScreeningVoicemail: function (t) {
+          return o("WAWebVoipSendScreeningVoicemail").sendScreeningVoicemail(t);
         },
       };
     l.VoipBridgeChatHandlers = m;

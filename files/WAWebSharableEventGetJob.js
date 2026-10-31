@@ -1,38 +1,39 @@
 __d(
   "WAWebSharableEventGetJob",
   [
+    "Promise",
     "WAWebBackendApi",
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
     "WAWebDBSharableEvent",
-    "WAWebDBSharableEventInvitationList",
     "WAWebDBSharableEventMetadata",
     "WAWebRelayClient",
     "WAWebSharableEventGetJobQuery.graphql",
-    "WAWebSharableEventServerInvitationRows",
     "WAWebSharableEventServerRows",
+    "WAWebSharableEventStoreInvitation",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e !== void 0 ? e : (e = n("WAWebSharableEventGetJobQuery.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
+      s,
+      u = e !== void 0 ? e : (e = n("WAWebSharableEventGetJobQuery.graphql"));
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           o("WAWebCanonicalGating").isCanonicalEnabled() &&
             !o("WAWebCanonicalUtils").isCanonicalPresent() &&
             (yield o("WAWebCanonicalUtils").waitForCanonicalPresent());
           var n = yield o("WAWebDBSharableEvent").getSharableEvent(e),
-            r = yield d(e, n),
+            r = yield m(e, n),
             a = r.reader,
             i = r.result,
-            l = yield p(i, a),
-            s = yield f(e, i, a),
+            l = yield _(i, a),
+            s = yield g(e, i, a),
             u = (t = s == null ? void 0 : s.row) != null ? t : l;
           u != null &&
             o("WAWebBackendApi").frontendFireAndForget(
@@ -53,18 +54,18 @@ __d(
               },
             );
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = null,
             a = yield o("WAWebRelayClient").fetchQuery(
-              s,
+              u,
               {
                 input: {
                   event_id: e,
@@ -88,15 +89,15 @@ __d(
             throw r("err")("[sharable_event] xwa_event_get returned no event");
           return { reader: l, result: i };
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
               e.is_event_metadata_unchanged === !0
                 ? null
@@ -115,47 +116,23 @@ __d(
             i = a[0];
           return i == null ? void 0 : i.row;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    function g(e, t, r) {
+      var a =
+        t.is_invitation_metadata_unchanged === !0
+          ? null
+          : t.privacy_aware_invitation;
+      return a == null
+        ? (s || (s = n("Promise"))).resolve(null)
+        : o("WAWebSharableEventStoreInvitation").storeSharableEventInvitation(
+            e,
+            r,
+            a,
+          );
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a =
-              t.is_invitation_metadata_unchanged === !0
-                ? null
-                : t.privacy_aware_invitation,
-            i =
-              a == null
-                ? null
-                : o(
-                    "WAWebSharableEventServerInvitationRows",
-                  ).readSharableEventInvitationSummary(n, a);
-          if (a == null || i == null) return null;
-          var l = ((r = a.invitation_list) != null ? r : []).flatMap(
-              function (e) {
-                var t =
-                  e == null
-                    ? null
-                    : o(
-                        "WAWebSharableEventServerInvitationRows",
-                      ).readSharableEventInvitee(n, e);
-                return t == null ? [] : [t];
-              },
-            ),
-            s = yield o(
-              "WAWebDBSharableEventInvitationList",
-            ).replaceSharableEventInvitationsIfNewer(e, i, l);
-          return s == null ? null : { row: s, invitees: l };
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    l.syncSharableEvent = u;
+    l.syncSharableEvent = c;
   },
   98,
 );

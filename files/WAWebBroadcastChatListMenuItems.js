@@ -13,7 +13,6 @@ __d(
     "WAWebChatContextMenuItemPin.react",
     "WAWebChatEntryPoint",
     "WAWebCmd",
-    "WAWebDropdownItemSeparator.react",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
@@ -140,7 +139,7 @@ __d(
             "MarkUnread",
           ),
         ),
-        p.push(s.jsx(r("WAWebDropdownItemSeparator.react"), {})),
+        p.push(s.jsx(r("WDSMenuItem.react"), { type: "separator" })),
         p.push(
           s.jsx(
             r("WAWebChatContextMenuItemDelete.react"),

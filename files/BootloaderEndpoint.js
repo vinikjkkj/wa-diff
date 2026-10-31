@@ -90,19 +90,18 @@ __d(
       var o = e.getAllResponseHeaders(),
         a =
           o.indexOf("error-mid") >= 0 ? e.getResponseHeader("error-mid") : null;
-      if (a != null)
-        for (var i of [t, r])
-          for (var l of i.entries()) {
-            var s = l[0],
-              u = l[1];
-            n("BootloaderEvents").notifyBootloadEndpointError({
-              module: s,
-              hash: u,
-              errorMID: a,
-              blockingMods: t,
-              nonblockingMods: r,
-            });
-          }
+      for (var i of [t, r])
+        for (var l of i.entries()) {
+          var s = l[0],
+            u = l[1];
+          n("BootloaderEvents").notifyBootloadEndpointError({
+            module: s,
+            hash: u,
+            errorMID: a,
+            blockingMods: t,
+            nonblockingMods: r,
+          });
+        }
       return a;
     }
     function C(e, t) {

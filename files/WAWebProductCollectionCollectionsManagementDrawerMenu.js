@@ -3,8 +3,8 @@ __d(
   [
     "fbt",
     "WAWebNoop",
-    "WAWebReorderRefreshedIcons",
     "WDSIconIcMoreVert.react",
+    "WDSIconIcSwapVert.react",
     "WDSMenu.react",
     "WDSMenuBarItem.react",
     "WDSMenuItem.react",
@@ -35,7 +35,7 @@ __d(
             children: u.jsx(r("WDSMenuItem.react"), {
               testid: "menu-item",
               onPress: l,
-              Icon: r("WAWebReorderRefreshedIcons"),
+              Icon: r("WDSIconIcSwapVert.react"),
               title: d,
             }),
           })),

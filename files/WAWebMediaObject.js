@@ -54,6 +54,7 @@ __d(
             (this.userUploadAttemptCount = 0),
             (this.userDownloadAttemptCount = 0),
             (this.hashMismatchRetryCount = 0),
+            (this.lastDownloadFailureResult = null),
             (this.$4 = null),
             (this.$5 = null),
             (this.$6 = new Map()),

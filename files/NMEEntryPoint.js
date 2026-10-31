@@ -760,6 +760,8 @@ __d(
         "ig_prodash_megaphone_friction_upsell_qp",
       IG_PRODASH_MEGAPHONE_QP: "ig_prodash_megaphone_qp",
       IG_PRODASH_MEGAPHONE_QP_META_ONE: "ig_prodash_megaphone_qp_meta_one",
+      IG_PRODASH_META_ONE_RESUBSCRIBE_TIP:
+        "ig_prodash_meta_one_resubscribe_tip",
       IG_PRODASH_META_ONE_VERIFICATION_BENEFIT_UPSELL:
         "ig_prodash_meta_one_verification_benefit_upsell",
       IG_PROFILE_MENU: "nme_ig_slideout_menu",
@@ -1188,6 +1190,8 @@ __d(
       MSO_IG_EDIT_PROFILE: "mso_ig_edit_profile",
       MSO_IG_POST_BOOST_UPSELL: "mso_ig_post_boost_upsell",
       MSO_IG_PRODASH_MEGAPHONE_QP: "mso_ig_prodash_megaphone_qp",
+      MSO_IG_PRO_ONBOARDING_CHECKLIST_STEP:
+        "mso_ig_pro_onboarding_checklist_step",
       MUSE_CODE_ACCOUNTS_CENTER_DIRECT: "muse_code_accounts_center_direct",
       MUSE_CODE_ACCOUNTS_CENTER_HOME: "muse_code_accounts_center_home",
       MV4B_ADMIN_LIMIT_WARNING_EMAIL_1DAY:

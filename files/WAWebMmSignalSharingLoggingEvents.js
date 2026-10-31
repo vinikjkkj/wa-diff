@@ -563,7 +563,8 @@ __d(
     function T(e) {
       var t,
         n = e.chat,
-        r = e.newMsg;
+        r = e.isLatestConversionToken,
+        a = e.newMsg;
       ((t = n.contact) == null || (t = t.privacyMode) == null
         ? void 0
         : t.hostStorage) !==
@@ -574,49 +575,53 @@ __d(
         (o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingPostDcOldSchemaEnabled() &&
-          x({ chat: n, newMsg: r }),
+          x({ chat: n, newMsg: a }),
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingPostDcNewSchemaEnabled() &&
           o(
             "WAWebMmSignalSharingConversationCounters",
-          ).isMmSignalSharingCountedMsg(r) &&
+          ).isMmSignalSharingCountedMsg(a) &&
           (o(
             "WAWebMmSignalSharingConversationCounters",
-          ).advanceMmSignalSharingConversationCounters(n, r.id.fromMe),
-          D(n, r)));
+          ).advanceMmSignalSharingConversationCounters(n, a.id.fromMe),
+          D(n, a, r)));
     }
-    function D(t, n) {
-      var r = n.type,
-        a = o(
+    function D(t, n, r) {
+      var a = n.type,
+        i = o(
           "WAWebMmSignalSharingConversationCounters",
         ).getMmSignalSharingConversationCounters(t),
-        i = a.depth,
-        l = a.lastMessageFromMe,
-        s = a.repeat,
-        u =
-          l === !0
+        l = i.depth,
+        s = i.lastMessageFromMe,
+        u = i.repeat,
+        c =
+          s === !0
             ? o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.CUSTOMER
             : o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.BUSINESS;
       if (
         !(
-          u === o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.BUSINESS &&
-          i === 0
+          c === o("WAWebWamEnumMmDirectionFrom").MM_DIRECTION_FROM.BUSINESS &&
+          l === 0
         )
       ) {
-        var c = o("WAWebABProps").getABPropConfigValue(
+        var d = o("WAWebABProps").getABPropConfigValue(
           "mm_1pd_post_dc_depth_limit",
         );
-        if (!(c > 0 && i > c)) {
-          var d = {
-            mmConversationDepth: i,
-            mmConversationRepeat: s,
-            mmDirectionFrom: u,
-          };
+        if (!(d > 0 && l > d)) {
+          var m = babelHelpers.extends(
+            {},
+            r != null ? { isLatestConversionToken: r } : {},
+            {
+              mmConversationDepth: l,
+              mmConversationRepeat: u,
+              mmDirectionFrom: c,
+            },
+          );
           (N({
             chat: t,
             mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.MESSAGE,
-            postDcParams: babelHelpers.extends({}, d, {
+            postDcParams: babelHelpers.extends({}, m, {
               mmConversionSchemaVersion: e,
             }),
           }),
@@ -625,11 +630,11 @@ __d(
             ).logMmSignalSharingVerificationEvent({
               chat: t,
               msg: n,
-              signalNativeMessageType: r,
+              signalNativeMessageType: a,
               signal: {
                 mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
                   .MESSAGE,
-                postDcParams: d,
+                postDcParams: m,
                 sharingStatus: o(
                   "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
                 ).isMmSignalSharingUserDisclosedInCollectionWindow(

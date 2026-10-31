@@ -55,6 +55,14 @@ __d(
       getCompatibilityBits: o("WAWebAECompanionGating").getAECompatibilityBits,
       isOnboardingFeatureEnabled: o("WAWebAECompanionGating")
         .isAEOnboardingEnabled,
+      isBspHosted: function () {
+        var e;
+        return (
+          ((e = o("WAWebCoexProductStateStore").getCoexProductState()) == null
+            ? void 0
+            : e.isBspHosted) === !0
+        );
+      },
       isCompanionGateEnabled: o("WAWebAECompanionGating")
         .isAECompanionOnboardingEnabled,
     };

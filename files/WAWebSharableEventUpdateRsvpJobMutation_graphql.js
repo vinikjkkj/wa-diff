@@ -1,0 +1,248 @@
+__d(
+  "WAWebSharableEventUpdateRsvpJobMutation.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [{ defaultValue: null, kind: "LocalArgument", name: "input" }],
+        t = [{ kind: "Variable", name: "input", variableName: "input" }],
+        n = {
+          alias: null,
+          args: null,
+          concreteType: "XWAWAPrivacyAwareInvitationRsvpStatusCounts",
+          kind: "LinkedField",
+          name: "count_by_rsvp_status",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "going",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "not_going",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "maybe",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "no_response",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "last_updated_ts_usec",
+          storageKey: null,
+        },
+        o = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "total_invited_count",
+          storageKey: null,
+        },
+        a = [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "invitee_lid",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "created_ts_sec",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "last_updated_ts_sec",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "is_wa_user",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "username",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "phone_number",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "guest_name",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "rsvp_status",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "extra_guest_count",
+            storageKey: null,
+          },
+        ];
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "WAWebSharableEventUpdateRsvpJobMutation",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: "WAUpdateEventRsvpResponse",
+              kind: "LinkedField",
+              name: "event_update_rsvp",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "XWAWAPrivacyAwareEventInvitationMetadata",
+                  kind: "LinkedField",
+                  name: "privacy_aware_invitation",
+                  plural: !1,
+                  selections: [
+                    {
+                      kind: "InlineDataFragmentSpread",
+                      name: "WAWebSharableEventStoreInvitation_invitation",
+                      selections: [
+                        {
+                          kind: "InlineDataFragmentSpread",
+                          name: "WAWebSharableEventServerInvitationRows_summary",
+                          selections: [n, r, o],
+                          args: null,
+                          argumentDefinitions: [],
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: "XWAWAPrivacyAwareInvitation",
+                          kind: "LinkedField",
+                          name: "invitation_list",
+                          plural: !0,
+                          selections: [
+                            {
+                              kind: "InlineDataFragmentSpread",
+                              name: "WAWebSharableEventServerInvitationRows_invitation",
+                              selections: a,
+                              args: null,
+                              argumentDefinitions: [],
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                      ],
+                      args: null,
+                      argumentDefinitions: [],
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Mutation",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "WAWebSharableEventUpdateRsvpJobMutation",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: "WAUpdateEventRsvpResponse",
+              kind: "LinkedField",
+              name: "event_update_rsvp",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "XWAWAPrivacyAwareEventInvitationMetadata",
+                  kind: "LinkedField",
+                  name: "privacy_aware_invitation",
+                  plural: !1,
+                  selections: [
+                    n,
+                    r,
+                    o,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XWAWAPrivacyAwareInvitation",
+                      kind: "LinkedField",
+                      name: "invitation_list",
+                      plural: !0,
+                      selections: a,
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: "29299336146421342",
+          metadata: {},
+          name: "WAWebSharableEventUpdateRsvpJobMutation",
+          operationKind: "mutation",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

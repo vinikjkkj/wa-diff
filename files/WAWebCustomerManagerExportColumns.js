@@ -13,7 +13,9 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e;
     function u(e) {
-      return new Date(e * 1e3).toISOString().slice(0, 10);
+      return e == null || e <= 0
+        ? ""
+        : new Date(e * 1e3).toISOString().slice(0, 10);
     }
     function c(e) {
       return e.birthday == null
@@ -139,7 +141,7 @@ __d(
         id: "lastMessage",
         header: s._(/*BTDS*/ "Last message").toString(),
         getValue: function (t) {
-          return t.lastMessage == null ? "" : u(t.lastMessage);
+          return u(t.lastMessage);
         },
       },
     ];

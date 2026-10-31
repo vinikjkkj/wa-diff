@@ -382,32 +382,34 @@ __d(
         .resolve()
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = t.input,
-              n = t.mediaType,
-              r = t.rawMimeType,
-              a = t.requestId,
-              i = t.strictJpegScanValidationEnabled,
-              l = t.strictMp4ValidationEnabled,
-              s = t.strictOggOpusValidationEnabled,
-              u = t.zipArchiveCheckEnabled,
-              c = yield o(
+            var e = t.allowAv1VideoCodec,
+              n = t.input,
+              r = t.mediaType,
+              a = t.rawMimeType,
+              i = t.requestId,
+              l = t.strictJpegScanValidationEnabled,
+              s = t.strictMp4ValidationEnabled,
+              u = t.strictOggOpusValidationEnabled,
+              c = t.zipArchiveCheckEnabled,
+              d = yield o(
                 "WAKaleidoscopeClassify",
-              ).kaleidoscopeClassifyByMediaType(e, n, r, {
-                strictJpegScanValidationEnabled: i,
-                strictOggOpusValidationEnabled: s,
-                strictMp4ValidationEnabled: l,
-                zipArchiveCheckEnabled: u,
+              ).kaleidoscopeClassifyByMediaType(n, r, a, {
+                strictJpegScanValidationEnabled: l,
+                strictOggOpusValidationEnabled: u,
+                strictMp4ValidationEnabled: s,
+                zipArchiveCheckEnabled: c,
+                allowAv1VideoCodec: e,
               });
             return p({
-              output: c.success
+              output: d.success
                 ? o("WAResultOrError").makeResult({
-                    mimetype: c.value.mimetype,
-                    extension: c.value.extension,
-                    score: c.value.score,
+                    mimetype: d.value.mimetype,
+                    extension: d.value.extension,
+                    score: d.value.score,
                   })
-                : c,
-              input: e,
-              requestId: a,
+                : d,
+              input: n,
+              requestId: i,
             });
           }),
         )

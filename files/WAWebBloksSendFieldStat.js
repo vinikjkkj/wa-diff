@@ -24,7 +24,11 @@ __d(
       (new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
         babelHelpers.extends({}, s, { id: r }),
       ).commit(),
-        o("WAWebA2UIRenderTiming").maybeEndA2UIRenderMarkerFromFieldStat(r, s));
+        o("WAWebA2UIRenderTiming").maybeEndA2UIRenderMarkerFromFieldStat(r, s),
+        o("WAWebA2UIRenderTiming").maybeNotifyA2UIServerFallbackFromFieldStat(
+          r,
+          s,
+        ));
     }
     l.default = s;
   },

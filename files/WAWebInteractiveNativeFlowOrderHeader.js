@@ -369,7 +369,7 @@ __d(
             isSentByMe: l,
             payIcons: m(t, a),
             orderPaymentStatus: c,
-            chat: t,
+            chatId: t.id,
             isPaymentRequest: o("WAWebOrderStatus").isPaymentRequest(t, a),
             msgKey: u,
             paymentSettings: a.paymentSettings,

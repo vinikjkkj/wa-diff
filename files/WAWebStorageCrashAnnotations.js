@@ -1,33 +1,55 @@
 __d(
   "WAWebStorageCrashAnnotations",
-  ["WAWebLogForCrash", "WAWebSafeCrashAnnotation"],
+  ["WAWebHeapCrashAnnotations", "WAWebLogForCrash", "WAWebSafeCrashAnnotation"],
   function (t, n, r, o, a, i, l) {
     var e = 100,
       s = 32,
-      u = 1024 * 1024,
-      c = new Set(),
-      d = null,
-      m = !1,
-      p = {},
-      _ = !1;
-    function f(t, n) {
+      u = new Set(),
+      c = null,
+      d = !1,
+      m = {},
+      p = !1;
+    function _(t, n) {
       return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:bulk",
         function () {
-          if (n.length < e || c.size >= s) return null;
-          var r = { t: t.name, n: n.length, h: S() };
-          return (c.add(r), C(), r);
+          if (n.length < e || u.size >= s) return null;
+          var r = {
+            t: t.name,
+            n: n.length,
+            h: o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
+          };
+          return (
+            o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(r.h),
+            u.add(r),
+            y(),
+            r
+          );
         },
       );
     }
-    function g(e, t) {
+    function f(e, t) {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:bulk",
         function () {
           e != null &&
-            (c.delete(e),
-            (d = { t: e.t, n: e.n, h: S(), ms: Math.round(t) }),
-            C());
+            (u.delete(e),
+            (c = {
+              t: e.t,
+              n: e.n,
+              h: o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
+              ms: Math.round(t),
+            }),
+            o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(c.h),
+            y());
+        },
+      );
+    }
+    function g(e) {
+      o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+        "wa:resume",
+        function () {
+          ((m.m = e.message), C());
         },
       );
     }
@@ -35,27 +57,19 @@ __d(
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:resume",
         function () {
-          ((p.m = e.message), b());
+          ((m.pr = e.length), C());
         },
       );
     }
-    function y(e) {
-      o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
-        "wa:resume",
-        function () {
-          ((p.pr = e.length), b());
-        },
-      );
-    }
-    function C() {
-      if (!m) {
-        m = !0;
+    function y() {
+      if (!d) {
+        d = !0;
         var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
           "wa:bulk",
           function () {
             return (
               o("WAWebLogForCrash").onLogForCrashReady(function () {
-                ((m = !1),
+                ((d = !1),
                   o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                     "wa:bulk",
                     function () {
@@ -63,8 +77,8 @@ __d(
                       return o("WAWebLogForCrash").logForCrash(
                         "wa:bulk",
                         JSON.stringify({
-                          cur: (e = v()) != null ? e : void 0,
-                          last: d != null ? d : void 0,
+                          cur: (e = b()) != null ? e : void 0,
+                          last: c != null ? c : void 0,
                         }),
                       );
                     },
@@ -74,24 +88,24 @@ __d(
             );
           },
         );
-        e !== !0 && (m = !1);
+        e !== !0 && (d = !1);
       }
     }
-    function b() {
-      if (!_) {
-        _ = !0;
+    function C() {
+      if (!p) {
+        p = !0;
         var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
           "wa:resume",
           function () {
             return (
               o("WAWebLogForCrash").onLogForCrashReady(function () {
-                ((_ = !1),
+                ((p = !1),
                   o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                     "wa:resume",
                     function () {
                       return o("WAWebLogForCrash").logForCrash(
                         "wa:resume",
-                        JSON.stringify(p),
+                        JSON.stringify(m),
                       );
                     },
                   ));
@@ -100,25 +114,18 @@ __d(
             );
           },
         );
-        e !== !0 && (_ = !1);
+        e !== !0 && (p = !1);
       }
     }
-    function v() {
-      return Array.from(c).reduce(function (e, t) {
+    function b() {
+      return Array.from(u).reduce(function (e, t) {
         return e == null || t.n > e.n ? t : e;
       }, null);
     }
-    function S() {
-      var e = R(R(self.performance, "memory"), "usedJSHeapSize");
-      return typeof e == "number" ? Math.round(e / u) : void 0;
-    }
-    function R(e, t) {
-      return e != null && typeof e == "object" ? e[t] : void 0;
-    }
-    ((l.startBulkWriteForCrash = f),
-      (l.endBulkWriteForCrash = g),
-      (l.logOfflineResumeMessagesForCrash = h),
-      (l.logPeerReceiptRowsForCrash = y));
+    ((l.startBulkWriteForCrash = _),
+      (l.endBulkWriteForCrash = f),
+      (l.logOfflineResumeMessagesForCrash = g),
+      (l.logPeerReceiptRowsForCrash = h));
   },
   98,
 );

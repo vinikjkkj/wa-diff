@@ -1,7 +1,6 @@
 __d(
   "WAWebSharableEventAddToCalendarAction",
   [
-    "WAWebABProps",
     "WAWebGuestCoreConsts",
     "WAWebGuestEventsCalendarUtils",
     "WAWebSharableEventGatingUtils",
@@ -14,7 +13,7 @@ __d(
       if (o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled()) {
         var t = o("WAWebGuestEventsCalendarUtils").getGuestEventCalendarDetails(
           {
-            description: u(e),
+            description: c(e),
             endTsSec: o(
               "WAWebSharableEventTiming",
             ).computeSharableEventEffectiveEndTsSec(e),
@@ -35,16 +34,11 @@ __d(
         );
       }
     }
-    function s(e, t) {
-      return Math.min(
-        t,
-        e +
-          o("WAWebABProps").getABPropConfigValue(
-            "events_v2_hide_add_to_calendar_post_start_window_sec",
-          ),
-      );
+    var s = 1800;
+    function u(e, t) {
+      return Math.min(t, e + s);
     }
-    function u(e) {
+    function c(e) {
       var t,
         n = o("WAWebVoipCallLinkUrl").getCallLinkUrl(
           e.callLinkToken,
@@ -60,7 +54,7 @@ __d(
         .join("\n\n");
     }
     ((l.addSharableEventToCalendar = e),
-      (l.getSharableEventAddToCalendarHiddenTsSec = s));
+      (l.getSharableEventAddToCalendarHiddenTsSec = u));
   },
   98,
 );

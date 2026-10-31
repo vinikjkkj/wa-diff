@@ -55,11 +55,7 @@ __d(
       return m(t) && f(e, n).eligible;
     }
     function m(e) {
-      return o(
-        "WAWebGroupHistoryGating",
-      ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
-        ? p(e)
-        : !1;
+      return p(e);
     }
     function p(e) {
       return !s(e.groupType) || e.hasCapi === !0

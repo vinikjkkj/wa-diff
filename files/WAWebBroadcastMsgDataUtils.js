@@ -148,7 +148,8 @@ __d(
         type: o("WAWebMsgType").MSG_TYPE.PRODUCT,
       });
     }
-    ((l.createBroadcastTextMsgData = c),
+    ((l.createBroadcastMsgDataBase = e),
+      (l.createBroadcastTextMsgData = c),
       (l.addBroadcastFieldsToMediaMsg = m),
       (l.createBroadcastInteractiveMsgData = f),
       (l.addBroadcastInteractiveFieldsToMediaMsg = h),

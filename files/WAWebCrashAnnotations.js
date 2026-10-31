@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebBuildConstants",
     "WAWebEnvironment",
+    "WAWebHeapCrashAnnotations",
     "WAWebLogForCrash",
     "WAWebSafeCrashAnnotation",
     "WAWebTemporaryStorage",
@@ -68,7 +69,10 @@ __d(
           (C("used_js_heap_size", R(e, "usedJSHeapSize")),
             C("js_heap_size_limit", R(e, "jsHeapSizeLimit")));
           var t = R(navigator, "deviceMemory");
-          C("device_memory", typeof t == "number" ? t * _ : void 0);
+          (C("device_memory", typeof t == "number" ? t * _ : void 0),
+            o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(
+              o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
+            ));
         },
       );
     }

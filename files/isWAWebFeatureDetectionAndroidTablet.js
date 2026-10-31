@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "android",
-      s = 6,
+      s = 7,
       u = 500,
       c = [
         o("WAWebAndroidTabletDetectionUtils").MINIMUM_TABLET_SCREEN_SIZE,
@@ -19,10 +19,9 @@ __d(
         840,
       ],
       d = "tablet",
-      m = new Set(["desktop", "tablet", "unavailable"]),
-      p =
+      m =
         /^(?:pixel tablet|(?:samsung )?sm-[ptx]\d+[a-z]*|(?:lenovo )?tb[-_a-z0-9]*|(?:lenovo )?yt\d?-[a-z0-9]+|\d{4}[0-9a-z]rp[0-9a-z]{3}|21051182[cg]|22081283[cg]|opd\d+[a-z]*|rmp\d{4}|(?:agm|bky|btkr?|cga|eln|hey|ndl|rod|rol|txz|yag|yle)\d*-[a-z]\d{2}[a-z]*|infinix x11\d{2}[a-z]*|tecno t1[01]\d{2}|itel p100\d{2}[a-z]?|pa2473|(?:nokia|hmd) t\d+|moto tab\b.*|8491x|zte k\d+|asus_p\w+|b\d+-a\d+|sgp\d+|(?:lg-)?v(?:4|5|7|9)\d{2}|(?:lm-)?t\d{3})$/i,
-      _ = new Set([
+      p = new Set([
         "automotive",
         "desktop",
         "mobile",
@@ -32,6 +31,7 @@ __d(
         "wearable",
         "xr",
       ]),
+      _ = new Set(["runtime", "unavailable"]),
       f,
       g,
       h = null,
@@ -44,28 +44,35 @@ __d(
     }
     function b(t, n, r, a, i) {
       var l = o("WAWebUA").parseUA(t),
-        s =
+        s = l.parser.getDevice(),
+        u = o("WAWebAndroidTabletDetectionUtils").isGooglebookClientHintRuntime(
+          t,
+          r,
+          a,
+          i,
+        ),
+        c =
           l.os === e
             ? o("WAWebAndroidTabletDetectionUtils").isSupportedAndroidVersion(
                 l.osVersion,
               )
-            : (i == null ? void 0 : i.clientHintPlatform) === "Android" &&
-              o("WAWebAndroidTabletDetectionUtils").isGooglebookModel(n),
-        u = K(t, r, a, i);
-      if (!s && !u) return null;
-      var c = l.parser.getDevice();
-      return W(
-        c.type,
-        l.isOculusBrowser,
-        l.parser.getUA(),
-        c.vendor,
-        c.model,
-        n,
-        r,
-        a,
-        i,
-        u,
-      );
+            : (i == null ? void 0 : i.clientHintPlatform) === "Android" && u,
+        d = K(t, r, a, i);
+      return !c && !d
+        ? null
+        : W(
+            s.type,
+            l.isOculusBrowser,
+            l.parser.getUA(),
+            s.vendor,
+            s.model,
+            n,
+            r,
+            a,
+            i,
+            d,
+            u,
+          );
     }
     function v() {
       var e;
@@ -125,9 +132,7 @@ __d(
         r,
         a = o("WAWebUA").UA.parser.getDevice();
       if (
-        ((t = self.navigator.userAgentData) == null ? void 0 : t.mobile) ===
-          !0 ||
-        o("WAWebAndroidTabletDetectionUtils").isGooglebookModel(a.model)
+        ((t = self.navigator.userAgentData) == null ? void 0 : t.mobile) === !0
       )
         return !1;
       var i =
@@ -140,7 +145,7 @@ __d(
         ).getWAWebAndroidTabletRuntimeSignals(),
         s = o("WAWebUA").UA.parser.getUA(),
         u = i
-          ? X(
+          ? Y(
               a.type,
               s,
               a.model,
@@ -240,60 +245,52 @@ __d(
         outcome: e,
       };
     }
-    function W(e, t, n, r, a, i, l, u, c, d) {
-      var m = Q(a, i),
-        p = q(a, i, m),
-        _ = U(e, n, p, l, u, d),
-        f = J(u),
-        g = V(f, d, c, p),
-        h = G(d, m, l, f, c, g);
-      if (_ == null || t) return null;
-      var y = j(_, h);
-      return !g ||
-        !H(f, m, p) ||
-        !z(y, m) ||
+    function W(e, t, n, r, a, i, l, u, c, d, m) {
+      var p = Q(a, i, m),
+        _ = q(a, i, p),
+        f = U(e, n, _, l, u, d),
+        g = Z(u),
+        h = V(g, d, m, c),
+        y = G(d, p, l, g, c, h);
+      if (f == null || t) return null;
+      var C = j(f, y);
+      return !h ||
+        !H(g, p, _) ||
+        !z(C, p) ||
         o("WAWebAndroidTabletDetectionUtils").isUnsupportedAndroidDevice(
           n,
           r,
-          p,
+          _,
         )
         ? null
         : {
-            detectionSource: y,
+            detectionSource: C,
             detectorVersion: s,
-            deviceClass: o(
-              "WAWebAndroidTabletDetectionUtils",
-            ).isGooglebookModel(p)
-              ? "googlebook"
-              : "tablet",
-            modelSource: m,
+            deviceClass: m ? "googlebook" : "tablet",
+            modelSource: p,
           };
     }
     function q(e, t, n) {
       return n === "user_agent" ? e : t == null ? void 0 : t.trim();
     }
     function U(e, t, n, r, o, a) {
-      return a ? "desktop_mode_signals" : Y(e, t, n, r, o);
+      return a ? "desktop_mode_signals" : J(e, t, n, r, o);
     }
     function V(e, t, n, r) {
       if (e !== "desktop") return !0;
-      if (o("WAWebAndroidTabletDetectionUtils").isGooglebookModel(r) && !t)
+      if (n && !t)
         return (
-          (n == null ? void 0 : n.clientHintPlatform) === "Android" &&
-          o("WAWebAndroidTabletDetectionUtils").isTabletScreenSize(n.screenSize)
+          (r == null ? void 0 : r.clientHintPlatform) === "Android" &&
+          o("WAWebAndroidTabletDetectionUtils").isTabletScreenSize(r.screenSize)
         );
       var a = t ? "Linux" : "Android";
       return (
-        (n == null ? void 0 : n.clientHintPlatform) === a &&
-        o("WAWebAndroidTabletDetectionUtils").isTabletClassArmTouchDevice(n)
+        (r == null ? void 0 : r.clientHintPlatform) === a &&
+        o("WAWebAndroidTabletDetectionUtils").isTabletClassArmTouchDevice(r)
       );
     }
     function H(e, t, n) {
-      return e !== "desktop" || t === "unavailable"
-        ? !0
-        : n != null &&
-            (o("WAWebAndroidTabletDetectionUtils").isGooglebookModel(n) ||
-              p.test(n));
+      return e !== "desktop" || _.has(t) ? !0 : n != null && m.test(n);
     }
     function G(e, t, n, r, o, a) {
       return (
@@ -318,39 +315,39 @@ __d(
     function K(e, t, n, r) {
       return (
         t === !1 &&
-        J(n) === "desktop" &&
+        Z(n) === "desktop" &&
         o(
           "WAWebAndroidTabletDetectionUtils",
         ).isAndroidDesktopModeRuntimeCandidate(e, r)
       );
     }
-    function Q(e, t) {
+    function Q(e, t, n) {
+      return n ? "runtime" : X(e, t);
+    }
+    function X(e, t) {
       return o("WAWebAndroidTabletDetectionUtils").isResolvedAndroidModel(e)
         ? "user_agent"
         : o("WAWebAndroidTabletDetectionUtils").isResolvedAndroidModel(t)
           ? "ua_ch"
           : "unavailable";
     }
-    function X(e, t, n, r, o) {
-      return Y(e, t, n, r, o) != null;
+    function Y(e, t, n, r, o) {
+      return J(e, t, n, r, o) != null;
     }
-    function Y(e, t, n, r, a) {
+    function J(e, t, n, r, o) {
       if (r === !0 || /\bmobile\b/i.test(t)) return null;
-      var i = J(a);
-      return o("WAWebAndroidTabletDetectionUtils").isGooglebookModel(n) &&
-        m.has(i)
-        ? "googlebook_model"
-        : i !== "unavailable"
-          ? Z(i, r)
-          : r === !1
-            ? "ua_ch_mobile_false"
-            : e === d
-              ? "ua_parser_device_type"
-              : n != null && p.test(n)
-                ? "known_model_pattern"
-                : null;
+      var a = Z(o);
+      return a !== "unavailable"
+        ? ee(a, r)
+        : r === !1
+          ? "ua_ch_mobile_false"
+          : e === d
+            ? "ua_parser_device_type"
+            : n != null && m.test(n)
+              ? "known_model_pattern"
+              : null;
     }
-    function J(e) {
+    function Z(e) {
       if (e == null || e.length === 0) return "unavailable";
       var t = new Set(
         e.map(function (e) {
@@ -359,7 +356,7 @@ __d(
       );
       return t.size !== 1 ||
         Array.from(t).some(function (e) {
-          return !_.has(e);
+          return !p.has(e);
         })
         ? "unknown"
         : t.has("mobile")
@@ -370,7 +367,7 @@ __d(
               ? "desktop"
               : "non_handheld";
     }
-    function Z(e, t) {
+    function ee(e, t) {
       return e === "tablet"
         ? "ua_ch_form_factor"
         : e === "desktop" && t === !1

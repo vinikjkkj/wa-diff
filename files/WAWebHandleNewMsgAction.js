@@ -34,6 +34,7 @@ __d(
     "WAWebHandleMsgReceiptCommon",
     "WAWebInvisiblePlaceholderViewModeProcessor",
     "WAWebLidMigrationLogging",
+    "WAWebMmSignalSharingConversionTokenUtils",
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -567,7 +568,13 @@ __d(
                 }
                 (o(
                   "WAWebMmSignalSharingLoggingEvents",
-                ).logMmSignalSharingNewMessageEvent({ chat: e, newMsg: t }),
+                ).logMmSignalSharingNewMessageEvent({
+                  chat: e,
+                  newMsg: t,
+                  isLatestConversionToken: o(
+                    "WAWebMmSignalSharingConversionTokenUtils",
+                  ).isLatestMmConversionToken(e),
+                }),
                   o(
                     "WAWebRichOrderStatusLogger",
                   ).logRichOrderStatusInconsistencies(t));

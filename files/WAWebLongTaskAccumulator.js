@@ -1,24 +1,24 @@
 __d(
   "WAWebLongTaskAccumulator",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebFeatureDetectionLongTaskSupport"],
+  function (t, n, r, o, a, i, l) {
     var e = { count: 0, totalMs: 0 },
-      l = null;
-    function s() {
-      l != null ||
-        !d() ||
-        ((l = new self.PerformanceObserver(function (t) {
+      s = null;
+    function u() {
+      s != null ||
+        !o("WAWebFeatureDetectionLongTaskSupport").isLongTaskSupported() ||
+        ((s = new self.PerformanceObserver(function (t) {
           t.getEntries().forEach(function (t) {
             (e.count++, (e.totalMs += t.duration));
           });
         })),
-        l.observe({ type: "longtask", buffered: !1 }));
+        s.observe({ type: "longtask", buffered: !1 }));
     }
-    function u() {
+    function c() {
       return babelHelpers.extends({}, e);
     }
-    function c(t) {
-      return l == null
+    function d(t) {
+      return s == null
         ? null
         : {
             int: {
@@ -27,19 +27,9 @@ __d(
             },
           };
     }
-    function d() {
-      var e;
-      return (
-        typeof ((e = self.PerformanceObserver) == null ||
-        (e = e.supportedEntryTypes) == null
-          ? void 0
-          : e.includes) == "function" &&
-        self.PerformanceObserver.supportedEntryTypes.includes("longtask")
-      );
-    }
-    ((i.startLongTaskAccumulator = s),
-      (i.getLongTaskTotals = u),
-      (i.getLongTaskAnnotationsSince = c));
+    ((l.startLongTaskAccumulator = u),
+      (l.getLongTaskTotals = c),
+      (l.getLongTaskAnnotationsSince = d));
   },
-  66,
+  98,
 );

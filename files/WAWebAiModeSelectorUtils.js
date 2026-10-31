@@ -42,21 +42,6 @@ __d(
             })();
     }
     function c(e) {
-      return e ===
-        o("WAWebBotModeSelectionTypes").BotUserSelectionMode.ThinkHard
-        ? r("WDSIconWdsIcMetaAiReasoning.react")
-        : e === o("WAWebBotModeSelectionTypes").BotUserSelectionMode.Default ||
-            e === null ||
-            e === void 0
-          ? r("WDSIconIcBolt.react")
-          : (function () {
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  e,
-              );
-            })();
-    }
-    function d(e) {
       return (function (e) {
         if (e === "THINKING") return r("WDSIconWdsIcMetaAiReasoning.react");
         if (e === "SHOPPING") return r("WDSIconIcShoppingBag.react");
@@ -67,15 +52,14 @@ __d(
         }
       })(e);
     }
-    function m() {
+    function d() {
       var t = o("WAWebDynamicAIModesCache").getDefaultDynamicAIMode();
-      return { icon: d(t.type), title: String(e()), subtitle: String(u()) };
+      return { icon: c(t.type), title: String(e()), subtitle: String(u()) };
     }
     ((l.getBotUserSelectModeTitle = e),
       (l.getBotUserSelectModeSubtitle = u),
-      (l.getBotUserSelectModeIcon = c),
-      (l.getDynamicModeIcon = d),
-      (l.getDefaultDynamicResolvedBotMode = m));
+      (l.getDynamicModeIcon = c),
+      (l.getDefaultDynamicResolvedBotMode = d));
   },
   226,
 );

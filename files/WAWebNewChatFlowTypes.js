@@ -9,6 +9,7 @@ __d(
       "NewContactFlow",
       "DialerPadFlow",
       "NewBroadcastFlow",
+      "PinnedItemFlow",
     ]);
     i.NewChatFlowStep = e;
   },

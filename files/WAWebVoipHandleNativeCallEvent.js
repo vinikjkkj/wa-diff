@@ -37,6 +37,7 @@ __d(
     "WAWebVoipIncomingCallNotificationStateStore",
     "WAWebVoipIncomingCallUiActionStore",
     "WAWebVoipInitEventEmitter",
+    "WAWebVoipLastCallRecorder",
     "WAWebVoipLobbyVisibilityStore",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipOneOnOneJoinableCall",
@@ -1159,6 +1160,7 @@ __d(
               u,
               l,
             ),
+            o("WAWebVoipLastCallRecorder").maybeRecordLastCall(u, l),
             o(
               "WAWebVoipCallStartUnifiedSessionStore",
             ).maybeRecordCallStartUnifiedSessionId(
@@ -1315,7 +1317,11 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(e));
-              }));
+              }),
+            o("WAWebVoipCallScreeningCaller").maybeStopScreeningPrompt({
+              callState: l,
+              previousCallState: u,
+            }));
           var _ = o(
             "WAWebVoipThreadPoolManagerRegistry",
           ).getVoipThreadPoolManager();

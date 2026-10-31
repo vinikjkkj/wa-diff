@@ -3,8 +3,9 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = new Map(),
-      l = new Set();
-    function s(t, n) {
+      l = new Set(),
+      s = new Map();
+    function u(t, n) {
       var r = e.get(t),
         o = r != null ? r : new Set();
       return (
@@ -15,7 +16,7 @@ __d(
         }
       );
     }
-    function u(e) {
+    function c(e) {
       return (
         l.add(e),
         function () {
@@ -23,14 +24,19 @@ __d(
         }
       );
     }
-    function c(t) {
+    function d(e, t) {
+      var n = s.get(e);
+      return ((n == null || t > n) && s.set(e, t), n != null && t > n);
+    }
+    function m(t) {
       var n = e.get(t);
       if (n != null) for (var r of Array.from(n)) r();
       for (var o of Array.from(l)) o(t);
     }
-    ((i.subscribeToCustomerProfileChanges = s),
-      (i.subscribeToAnyCustomerProfileChange = u),
-      (i.notifyCustomerProfileChanged = c));
+    ((i.subscribeToCustomerProfileChanges = u),
+      (i.subscribeToAnyCustomerProfileChange = c),
+      (i.noteCustomerProfileVersion = d),
+      (i.notifyCustomerProfileChanged = m));
   },
   66,
 );

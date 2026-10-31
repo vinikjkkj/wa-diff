@@ -207,6 +207,7 @@ __d(
               osBuildNumber: e.osBuild,
               localeLanguageIso6391: e.lg,
               localeCountryIso31661Alpha2: e.lc,
+              deviceType: e.deviceType,
             });
           if (r("WAWebEnvironment").isWindows) {
             var n;

@@ -75,7 +75,7 @@ __d(
             }),
           ),
         );
-        r("gkx")("26258") ||
+        r("gkx")("16539") &&
           r("WAWebDebug")
             .setDeviceListEntry(l, e)
             .then(function () {

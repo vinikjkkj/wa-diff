@@ -8,7 +8,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = { RealWorker: null, RealWorkerV2: null, VirtualWorker: null };
+    var e = {};
     function s(e) {
       var t = e.envForErrors,
         n = e.virtualWorkerHostAPI,
@@ -30,25 +30,26 @@ __d(
       );
     }
     function c(t, n, r, a, i) {
-      var l = e[n];
-      if (l != null) {
-        if (l.port != null) return l.port;
-        throw l.exception;
+      var l = n + ":" + r.mediaSinkType,
+        s = e[l];
+      if (s != null) {
+        if (s.port != null) return s.port;
+        throw s.exception;
       }
-      var s = "VideoPlayerNextgendashConnectionMainToWorker_" + n,
-        c = t[n];
-      if (c == null)
-        throw o("nextgendasherr").nextgendasherr(a, s + "/PortFactoryMissing");
+      var c = "VideoPlayerNextgendashConnectionMainToWorker_" + n,
+        d = t[n];
+      if (d == null)
+        throw o("nextgendasherr").nextgendasherr(a, c + "/PortFactoryMissing");
       try {
-        var d = c(s, babelHelpers.extends({}, r, { isInWorkerType: n }), i);
-        return (u(d), (e[n] = { port: d }), d);
+        var m = d(c, babelHelpers.extends({}, r, { isInWorkerType: n }), i);
+        return (u(m), (e[l] = { port: m }), m);
       } catch (t) {
-        var m = o("nextgendasherr").nextgendasherrFromCause(
+        var p = o("nextgendasherr").nextgendasherrFromCause(
           a,
           t,
-          s + "/PortFactoryException",
+          c + "/PortFactoryException",
         );
-        throw ((e[n] = { exception: m }), m);
+        throw ((e[l] = { exception: p }), p);
       }
     }
     function d(e, t, n, r, a) {

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinTypes",
@@ -20,11 +19,7 @@ __d(
       s,
       u = new Set();
     function c(e) {
-      return o(
-        "WAWebGroupHistoryGating",
-      ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
-        ? m(e)
-        : (s || (s = n("Promise"))).resolve();
+      return m(e);
     }
     function d(e) {
       return m(e);

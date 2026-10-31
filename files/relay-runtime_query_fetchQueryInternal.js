@@ -54,7 +54,7 @@ __d(
                 unsubscribe: function (n) {
                   var e = h(a, t);
                   (e.subject.unsubscribe(),
-                    e.subjectForInFlightStatus.unsubscribe());
+                    e.subjectForInFlightStatus.complete());
                 },
               }),
           i != null || l(0, 15078),
@@ -78,25 +78,21 @@ __d(
       });
     }
     function p(e, t, r) {
-      return n("relay-runtime/network/RelayObservable").create(function (n) {
-        if (t.get(r.identifier) !== r) {
-          n.complete();
-          return;
-        }
-        var o = r.subjectForInFlightStatus.subscribe({
-          error: n.error,
+      return n("relay-runtime/network/RelayObservable").create(function (t) {
+        var n = r.subjectForInFlightStatus.subscribe({
+          error: t.error,
           next: function (o) {
             if (!e.isRequestActive(r.identifier)) {
-              n.complete();
+              t.complete();
               return;
             }
-            n.next();
+            t.next();
           },
-          complete: n.complete,
-          unsubscribe: n.complete,
+          complete: t.complete,
+          unsubscribe: t.complete,
         });
         return function () {
-          o.unsubscribe();
+          n.unsubscribe();
         };
       });
     }

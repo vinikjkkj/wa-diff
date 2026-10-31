@@ -43,7 +43,7 @@ __d(
           (n.getEntryPoints = function () {
             return this.$CallTransferEntryPointStore$p_2;
           }),
-          (n.getForChat = function (t) {
+          (n.getForChatId = function (t) {
             for (var e of this.$CallTransferEntryPointStore$p_1.values()) {
               var n;
               if (
@@ -51,7 +51,7 @@ __d(
                   "WAWebChatCollection",
                 ).ChatCollection.getLatestChatForWid(e.peerWid)) == null
                   ? void 0
-                  : n.id.equals(t.id)) === !0
+                  : n.id.equals(t)) === !0
               )
                 return e;
             }

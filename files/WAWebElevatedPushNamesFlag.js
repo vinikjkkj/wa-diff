@@ -11,13 +11,19 @@ __d(
     function e(e) {
       if (!e) return !1;
       var t = o("WAWebStateUtils").unproxy(e);
-      return (
-        o("WAWebChatGetters").getIsGroup(t) &&
-        (o("WAWebFrontendChatGetters").getIsCAG(t) ||
-          t.getParticipantCount() > 2)
-      );
+      return s({
+        isCAG: o("WAWebFrontendChatGetters").getIsCAG(t),
+        isGroup: o("WAWebChatGetters").getIsGroup(t),
+        participantCount: t.getParticipantCount(),
+      });
     }
     function s(e) {
+      var t = e.isCAG,
+        n = e.isGroup,
+        r = e.participantCount;
+      return n && (t || r > 2);
+    }
+    function u(e) {
       if (!e) return !1;
       var t = o("WAWebStateUtils").unproxy(e);
       return (
@@ -26,7 +32,7 @@ __d(
           t.getParticipantCount() > 2)
       );
     }
-    function u(e) {
+    function c(e) {
       if (e == null) return !1;
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebContactGetters").getNotifyName(t);
@@ -38,8 +44,9 @@ __d(
       );
     }
     ((l.elevatedPushNamesEnabled = e),
-      (l.elevatedPushNamesM2Enabled = s),
-      (l.pushNameCanBeUsed = u));
+      (l.elevatedPushNamesEnabledFor = s),
+      (l.elevatedPushNamesM2Enabled = u),
+      (l.pushNameCanBeUsed = c));
   },
   98,
 );

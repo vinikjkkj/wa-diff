@@ -8,33 +8,43 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
       All: "all",
+      Hosting: "hosting",
       ScheduledCalls: "scheduled-calls",
       NotResponded: "not-responded",
     });
     function s(t, n, r) {
-      var o = t.upcoming;
+      var a = t.upcoming;
       return n === e.All
         ? t
-        : n === e.ScheduledCalls
+        : n === e.Hosting
           ? {
-              upcoming: o.filter(function (e) {
-                return e.isScheduledCall;
+              upcoming: a.filter(function (e) {
+                return o(
+                  "WAWebSharableEventCardLayout",
+                ).isSharableEventHostedByViewer(e.creatorLid);
               }),
               past: [],
             }
-          : n === e.NotResponded
+          : n === e.ScheduledCalls
             ? {
-                upcoming: o.filter(function (e) {
-                  return c(e, r.get(e.id));
+                upcoming: a.filter(function (e) {
+                  return e.isScheduledCall;
                 }),
                 past: [],
               }
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    n,
-                );
-              })();
+            : n === e.NotResponded
+              ? {
+                  upcoming: a.filter(function (e) {
+                    return c(e, r.get(e.id));
+                  }),
+                  past: [],
+                }
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      n,
+                  );
+                })();
     }
     function u(t, n, r) {
       if (n === e.All) return null;

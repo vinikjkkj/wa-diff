@@ -3,7 +3,6 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
-    "WAWebBroadcastConsts",
     "WAWebMsgCollection",
     "WAWebMsgModelUtils",
     "WAWebSchemaMessage",
@@ -26,10 +25,7 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           r === void 0 && (r = o("WAWebSchemaMessage").getMessageTable());
           var a = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(t);
-          if (
-            a == null ||
-            a.length < o("WAWebBroadcastConsts").MIN_BROADCAST_RECIPIENTS
-          )
+          if (a == null || a.length === 0)
             return (
               o("WALogger")
                 .ERROR(

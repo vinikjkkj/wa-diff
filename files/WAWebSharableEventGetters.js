@@ -26,10 +26,13 @@ __d(
       k = c("countMaybe"),
       I = c("countNotGoing"),
       T = c("countNoResponse"),
-      D = c("totalInvitedCount"),
-      x = c("isScheduledCall"),
-      $ = c("unseenChangeFlags"),
-      P = u(
+      D = c("reminderTsSec"),
+      x = c("callLinkWaitingRoomEnabled"),
+      $ = c("maxAdditionalGuests"),
+      P = c("totalInvitedCount"),
+      N = c("isScheduledCall"),
+      M = c("unseenChangeFlags"),
+      w = u(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -60,10 +63,13 @@ __d(
       (l.getSharableEventCountMaybe = k),
       (l.getSharableEventCountNotGoing = I),
       (l.getSharableEventCountNoResponse = T),
-      (l.getSharableEventTotalInvitedCount = D),
-      (l.getSharableEventIsScheduledCall = x),
-      (l.getSharableEventUnseenChangeFlags = $),
-      (l.getSharableEventEffectiveEndTsSec = P));
+      (l.getSharableEventReminderTsSec = D),
+      (l.getSharableEventCallLinkWaitingRoomEnabled = x),
+      (l.getSharableEventMaxAdditionalGuests = $),
+      (l.getSharableEventTotalInvitedCount = P),
+      (l.getSharableEventIsScheduledCall = N),
+      (l.getSharableEventUnseenChangeFlags = M),
+      (l.getSharableEventEffectiveEndTsSec = w));
   },
   98,
 );

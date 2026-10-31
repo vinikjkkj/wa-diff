@@ -59,6 +59,7 @@ __d(
     "WAWebPttGenerateAudioOrPttMessageProto",
     "WAWebQuestionsGenerateQuestionResponseMessageProto",
     "WAWebReactionsGenerateReactionMessageProto",
+    "WAWebSharableEventInviteGenerateEventInviteMessageProto",
     "WAWebStickersGenerateStickerMessageProto",
   ],
   function (t, n, r, o, a, i, l) {
@@ -455,7 +456,9 @@ __d(
         {
           type: "sharable_event_invite",
           subtype: void 0,
-          generateProtobuf: null,
+          generateProtobuf: r(
+            "WAWebSharableEventInviteGenerateEventInviteMessageProto",
+          ),
         },
         {
           type: "status_notification",

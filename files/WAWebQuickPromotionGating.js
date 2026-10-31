@@ -1,22 +1,9 @@
 __d(
   "WAWebQuickPromotionGating",
-  [
-    "WALogger",
-    "WATimeUtils",
-    "WAWebABProps",
-    "WAWebCTWAConstants",
-    "WAWebMobilePlatforms",
-  ],
+  ["WALogger", "WAWebABProps", "WAWebCTWAConstants", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
-      return o("WATimeUtils").castToUnixTime(
-        o("WAWebABProps").getABPropConfigValue(
-          "updates_privacy_notice_rollout_date",
-        ),
-      );
-    }
-    function u() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -24,7 +11,7 @@ __d(
         )
       );
     }
-    function c() {
+    function u() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue(
             "smb_graphql_to_fetch_qp_frequency_mins",
@@ -33,10 +20,10 @@ __d(
             "consumer_web_qp_graphql_to_fetch_qp_frequency_mins",
           );
     }
-    function d() {
-      return !o("WAWebMobilePlatforms").isSMB() || u();
+    function c() {
+      return !o("WAWebMobilePlatforms").isSMB() || s();
     }
-    function m(t) {
+    function d(t) {
       var n = new Map(
           Array.from(
             o("WAWebCTWAConstants").KNOWN_QP_SURFACES.values(),
@@ -67,30 +54,29 @@ __d(
         r
       );
     }
-    function p() {
-      return m(
+    function m() {
+      return d(
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function _() {
-      return m(
+    function p() {
+      return d(
         o("WAWebABProps").getABPropConfigValue(
           "consumer_graphql_web_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function f() {
-      return o("WAWebMobilePlatforms").isSMB() ? p() : _();
+    function _() {
+      return o("WAWebMobilePlatforms").isSMB() ? m() : p();
     }
-    ((l.getUpdatesTabPrivacyNoticeRolloutDate = s),
-      (l.qpGraphQLEnabledSMB = u),
-      (l.qpGraphQLFetchIntervalMinutes = c),
-      (l.qpGraphQLEnabled = d),
-      (l.qpSurfaceIdsUsingGraphQLSMB = p),
-      (l.qpSurfaceIdsUsingGraphQLConsumer = _),
-      (l.qpSurfaceIdsUsingGraphQL = f));
+    ((l.qpGraphQLEnabledSMB = s),
+      (l.qpGraphQLFetchIntervalMinutes = u),
+      (l.qpGraphQLEnabled = c),
+      (l.qpSurfaceIdsUsingGraphQLSMB = m),
+      (l.qpSurfaceIdsUsingGraphQLConsumer = p),
+      (l.qpSurfaceIdsUsingGraphQL = _));
   },
   98,
 );

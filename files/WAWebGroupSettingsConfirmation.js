@@ -1,90 +1,57 @@
 __d(
   "WAWebGroupSettingsConfirmation",
   [
-    "fbt",
     "Promise",
-    "WAWebConfirmPopup.react",
-    "WAWebFbtCommon",
+    "WAWebGroupSettingsConfirmationContent.react",
     "WAWebModalManager",
     "react",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u,
-      c = u || (u = o("react"));
+      s,
+      u = s || (s = o("react"));
+    function c() {
+      return p({ type: "pendingRequests" });
+    }
     function d() {
+      return p({ type: "deleteReports" });
+    }
+    function m(e, t) {
+      return p({ type: "groupFull", available: e, pending: t });
+    }
+    function p(t) {
       return new (e || (e = n("Promise")))(function (e) {
-        o("WAWebModalManager").ModalManager.open(
-          c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            title: s._(
-              /*BTDS*/ "Approve all pending requests to join this group?",
-            ),
-            onOK: function () {
-              (e(!0), o("WAWebModalManager").ModalManager.close());
-            },
-            onCancel: function () {
-              (e(!1), o("WAWebModalManager").ModalManager.close());
-            },
-            tsNavigationData: {
-              surface: "unknown",
-              viewName: "group-settings-pending-requests",
-            },
-            children: s._(
-              /*BTDS*/ "If this setting is turned off, all pending requests to join this group will be approved.",
-            ),
-          }),
-        );
+        var n = !1,
+          a = function (r) {
+            n ||
+              ((n = !0),
+              o("WAWebModalManager").ModalManager.off("close_modal", i),
+              e(r));
+          },
+          i = function () {
+            return a(!1);
+          },
+          l = function (t) {
+            n || (a(t), o("WAWebModalManager").ModalManager.close());
+          };
+        (o("WAWebModalManager").ModalManager.on("close_modal", i),
+          o("WAWebModalManager").ModalManager.open(
+            u.jsx(r("WAWebGroupSettingsConfirmationContent.react"), {
+              confirmation: t,
+              onConfirm: function () {
+                return l(!0);
+              },
+              onCancel: function () {
+                return l(!1);
+              },
+              onDismiss: i,
+            }),
+          ));
       });
     }
-    function m() {
-      return new (e || (e = n("Promise")))(function (e) {
-        o("WAWebModalManager").ModalManager.open(
-          c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            title: s._(/*BTDS*/ "Clear messages sent for admin review?"),
-            onOK: function () {
-              (e(!0), o("WAWebModalManager").ModalManager.close());
-            },
-            onCancel: function () {
-              (e(!1), o("WAWebModalManager").ModalManager.close());
-            },
-            tsNavigationData: {
-              surface: "unknown",
-              viewName: "group-settings-delete-reports",
-            },
-            children: s._(
-              /*BTDS*/ "If this setting is turned off, past messages sent for review will be removed.",
-            ),
-          }),
-        );
-      });
-    }
-    function p(t, a) {
-      return new (e || (e = n("Promise")))(function (e) {
-        o("WAWebModalManager").ModalManager.open(
-          c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            title: s._(/*BTDS*/ "Group is full"),
-            okText: r("WAWebFbtCommon")("Continue"),
-            onOK: function () {
-              (e(!0), o("WAWebModalManager").ModalManager.close());
-            },
-            onCancel: function () {
-              (e(!1), o("WAWebModalManager").ModalManager.close());
-            },
-            tsNavigationData: {
-              surface: "unknown",
-              viewName: "group-settings-full",
-            },
-            children: s._(
-              /*BTDS*/ '_j{"*":{"*":"Only {available} of {pending} pending requests will be approved because this group has reached capacity.","_1":"Only {available} of 1 pending request will be approved because this group has reached capacity."}}',
-              [s._param("available", t, [0]), s._plural(a, "pending")],
-            ),
-          }),
-        );
-      });
-    }
-    ((l.confirmPendingRequests = d),
-      (l.confirmDeleteReportsForAdminReview = m),
-      (l.confirmGroupFull = p));
+    ((l.confirmPendingRequests = c),
+      (l.confirmDeleteReportsForAdminReview = d),
+      (l.confirmGroupFull = m));
   },
-  226,
+  98,
 );

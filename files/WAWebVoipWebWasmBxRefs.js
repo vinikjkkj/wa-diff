@@ -3,6 +3,22 @@ __d(
   ["bx"],
   function (t, n, r, o, a, i, l) {
     var e = {
+      c73edd705435d0d22b19fd3817c9bed536d8bc6a5fbe8a927cbd277fa26fff4f: {
+        wasm: function () {
+          return r("bx")("110937");
+        },
+        workerGlue: function () {
+          return r("bx")("110938");
+        },
+      },
+      e170c01ca2d47ec61a0969ffff1c08157667de3020a5d541e00f0ab19291641a: {
+        wasm: function () {
+          return r("bx")("110929");
+        },
+        workerGlue: function () {
+          return r("bx")("110930");
+        },
+      },
       "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb": {
         wasm: function () {
           return r("bx")("110809");
@@ -115,30 +131,12 @@ __d(
           return r("bx")("110636");
         },
       },
-      "7ae86920305f9935162e6e2b549c6155dd7efed0473caacc2e88d2d5e25e4ff1": {
-        wasm: function () {
-          return r("bx")("110629");
-        },
-        workerGlue: function () {
-          return r("bx")("110630");
-        },
-      },
-      fbc52c2a11d28ce1f96972b16167cc5fde92851d60501e7ee6eba91476c0d150: {
-        wasm: function () {
-          return r("bx")("110621");
-        },
-        workerGlue: function () {
-          return r("bx")("110622");
-        },
-      },
     };
     function s() {
       return r("bx")("32180");
     }
     function u() {
-      return e[
-        "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb"
-      ].wasm();
+      return e.c73edd705435d0d22b19fd3817c9bed536d8bc6a5fbe8a927cbd277fa26fff4f.wasm();
     }
     ((l.getUnversionedVoipWasmBxRef = s),
       (l.getContentAddressedVoipWasmBxRef = u));

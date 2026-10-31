@@ -2,10 +2,13 @@ __d(
   "WAWebVoipCallScreeningCaller",
   [
     "WALogger",
+    "WAWebABProps",
+    "WAWebBackendApi",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,23 +17,25 @@ __d(
       u,
       c,
       d,
-      m = 70002,
-      p = 70020,
-      _ = 90,
-      f = 30;
-    function g(e) {
-      return h.apply(this, arguments);
+      m,
+      p,
+      _ = 70002,
+      f = 70020,
+      g = 90,
+      h = 30;
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.type !== "web") return _;
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t.type !== "web") return g;
           try {
             var n = parseInt(
               yield t.getVoipParam("options.screening_duration_ms"),
               10,
             );
-            if (!isNaN(n) && n > 0) return Math.ceil(n / 1e3) + f;
+            if (!isNaN(n) && n > 0) return Math.ceil(n / 1e3) + h;
           } catch (t) {
             o("WALogger").WARN(
               e ||
@@ -41,17 +46,17 @@ __d(
               String(t),
             );
           }
-          return _;
+          return g;
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callState,
             n = e.isCaller,
             r = e.previousCallState,
@@ -64,8 +69,9 @@ __d(
               !n
             )
           ) {
+            yield S();
             var i = yield a.screeningPromptFinished();
-            i === 0 || i === m
+            i === 0 || i === _
               ? o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -74,7 +80,7 @@ __d(
                     ])),
                   i,
                 )
-              : i === p
+              : i === f
                 ? o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -91,21 +97,67 @@ __d(
                   );
           }
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "screening_audio_hint_enabled",
+            )
+          ) {
+            var e = yield o("WAWebBackendApi")
+              .frontendSendAndReceive("playScreeningPrompt", {})
+              .catch(function (e) {
+                return (
+                  o("WALogger")
+                    .WARN(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: screening prompt failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("voip-screening-prompt-failed"),
+                  !1
+                );
+              });
+            e ||
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: screening prompt did not play in full, recording without it",
+                  ])),
+              );
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      var t = e.callState,
+        n = e.previousCallState;
+      n === o("WAWebVoipWaCallEnums").CallState.Screening &&
+        t !== o("WAWebVoipWaCallEnums").CallState.Screening &&
+        o("WAWebBackendApi").frontendFireAndForget("stopScreeningPrompt", {});
+    }
+    function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
           (o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: screening duration expired, ending call",
               ])),
           ),
@@ -114,12 +166,13 @@ __d(
               !0,
             ));
         })),
-        v.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.getScreeningTimeoutSec = g),
-      (l.maybeStartCallerScreeningRecording = y),
-      (l.handleScreeningTimeout = b));
+    ((l.getScreeningTimeoutSec = y),
+      (l.maybeStartCallerScreeningRecording = b),
+      (l.maybeStopScreeningPrompt = L),
+      (l.handleScreeningTimeout = E));
   },
   98,
 );

@@ -1,10 +1,11 @@
 __d(
   "WAWebSelfReminderGating",
-  ["WAWebABProps", "gkx"],
+  ["WAWebABProps", "WAWebEnvironment", "gkx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
         r("gkx")("9092") &&
+        r("WAWebEnvironment").getEnvironment() !== "prod" &&
         o("WAWebABProps").getABPropConfigValue(
           "web_employee_slash_commands_enabled",
         ) === !0

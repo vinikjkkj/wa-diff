@@ -23,24 +23,27 @@ __d(
       d,
       m = 32,
       p = 4,
-      _ = "NOT_REGISTERED",
-      f = "VESTA_CLIENT_ERROR",
-      g = "InvalidUserPassword",
-      h = r("JSResourceForInteraction")("VestaHatchLoginModule").__setRef(
+      _ = "VESTA_CLIENT_ERROR",
+      f = 400,
+      g = 401,
+      h = 500,
+      y = new Set(["AbortError", "TimeoutError", "TypeError"]),
+      C = "InvalidUserPassword",
+      b = r("JSResourceForInteraction")("VestaHatchLoginModule").__setRef(
         "WAWebHatchCvmPinRecovery",
       );
-    function y(e) {
-      return C.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             n = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-            r = yield b(e);
+            r = yield R(e);
           if (r.kind !== "secret") return r;
           try {
-            return yield I({
+            return yield M({
               accountGeneration: n,
               ownerLid: t,
               secret: r.secret,
@@ -49,27 +52,27 @@ __d(
             o("WAWebHatchNoiseBytes").zeroBytes(r.secret);
           }
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield x();
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield F();
           if (t == null) return { cause: "abra_token", kind: "failed" };
           var n;
           try {
-            var r = yield h.load(),
+            var r = yield b.load(),
               a = r.hatchVestaLogin;
             n = yield a({ config: { accessToken: t }, pin: e });
           } catch (e) {
-            return S(e);
+            return E(e);
           }
-          if (n.status !== "success") return E(n);
-          var i = P(n.userSecret);
+          if (n.status !== "success") return P(n);
+          var i = B(n.userSecret);
           return (
             o("WAWebHatchNoiseBytes").zeroBytes(n.userSecret),
             i == null
@@ -77,34 +80,76 @@ __d(
               : { kind: "secret", secret: i }
           );
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(t) {
-      return R(t) === _
-        ? { kind: "not_registered" }
-        : L(t)
-          ? { attemptsRemaining: null, kind: "wrong_pin" }
-          : (o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "hatch-cvm: Vesta login failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("hatch-cvm-vesta-login-failed"),
-            { cause: "vesta", kind: "failed" });
+    function E(t) {
+      if (T(t))
+        return {
+          attemptsRemaining: null,
+          kind: "wrong_pin",
+          retryAfterSecs: null,
+        };
+      var n = D(t);
+      return (
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-cvm: Vesta login failed cause=",
+                "",
+              ])),
+            n,
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("hatch-cvm-vesta-login-failed"),
+        { cause: n, kind: "failed" }
+      );
     }
-    function R(e) {
+    function k(e) {
       return typeof e == "object" && e != null ? e.errorType : null;
     }
-    function L(e) {
-      if (R(e) !== f) return !1;
-      var t = typeof e == "object" && e != null ? e.detailedError : null;
-      return typeof t == "object" && t != null && t.name === g;
+    function I(e) {
+      return typeof e == "object" && e != null ? e.detailedError : null;
     }
-    function E(e) {
+    function T(e) {
+      if (k(e) !== _) return !1;
+      var t = I(e);
+      return typeof t == "object" && t != null && t.name === C;
+    }
+    function D(e) {
+      return (function (t) {
+        return t === "VESTA_CLIENT_ERROR"
+          ? "vesta_crypto"
+          : t === "VESTA_SERVER_ERROR"
+            ? "vesta_malformed"
+            : t === "ISLAND_PUB_RSA_KEY_INVALID" ||
+                t === "ISLAND_PUB_ED25519_KEY_INVALID"
+              ? "vesta_hsm_check"
+              : t === "NETWORK_PROVIDER_ERROR"
+                ? x(I(e))
+                : "vesta";
+      })(k(e));
+    }
+    function x(e) {
+      return typeof e != "object" || e == null
+        ? "vesta_malformed"
+        : typeof e.status == "number"
+          ? $(e.status)
+          : y.has(e.name)
+            ? "vesta_transport"
+            : "vesta_malformed";
+    }
+    function $(e) {
+      return e === g
+        ? "vesta_http_401"
+        : e >= h
+          ? "vesta_http_5xx"
+          : e >= f
+            ? "vesta_http_4xx"
+            : "vesta_transport";
+    }
+    function P(e) {
       return (function (t) {
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -115,23 +160,40 @@ __d(
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.status === "invalid_pin" &&
-          "attemptsRemaining" in t
+          "attemptsRemaining" in t &&
+          "loginTimeoutRemainingSecs" in t
         ) {
-          var n = t.attemptsRemaining;
-          return { attemptsRemaining: n, kind: "wrong_pin" };
+          var n = t.attemptsRemaining,
+            r = t.loginTimeoutRemainingSecs;
+          return { attemptsRemaining: n, kind: "wrong_pin", retryAfterSecs: r };
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.status === "locked_out" &&
+          t.status === "attempts_exhausted"
+        )
+          return { kind: "locked_out" };
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.status === "login_timeout" &&
+          "attemptsRemaining" in t &&
           "loginTimeoutRemainingSecs" in t
         ) {
-          var r = t.loginTimeoutRemainingSecs;
-          return { kind: "rate_limited", retryAfterSecs: r };
+          var o = t.attemptsRemaining,
+            a = t.loginTimeoutRemainingSecs;
+          return {
+            attemptsRemaining: o,
+            kind: "rate_limited",
+            retryAfterSecs: a,
+          };
         }
-        return k(String(e.status));
+        return ((typeof t == "object" && t !== null) ||
+          typeof t == "function") &&
+          t.status === "not_registered"
+          ? { kind: "not_registered" }
+          : N(String(e.status));
       })(e);
     }
-    function k(e) {
+    function N(e) {
       return (
         o("WALogger")
           .WARN(
@@ -146,16 +208,16 @@ __d(
         { cause: "vesta", kind: "failed" }
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function T() {
+    function w() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.accountGeneration,
             n = e.ownerLid,
             a = e.secret;
-          if (!D({ accountGeneration: t, ownerLid: n }))
+          if (!A({ accountGeneration: t, ownerLid: n }))
             return { cause: "unlinked", kind: "failed" };
           var i;
           try {
@@ -177,7 +239,7 @@ __d(
               { cause: "storage", kind: "failed" }
             );
           }
-          return D({ accountGeneration: t, ownerLid: n })
+          return A({ accountGeneration: t, ownerLid: n })
             ? { kind: "recovered" }
             : (yield o("WAWebHatchCvmSecretPref")
                 .removeHatchCvmSecret({ generation: i, ownerLid: n })
@@ -194,10 +256,10 @@ __d(
                 }),
               { cause: "unlinked", kind: "failed" });
         })),
-        T.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function D(e) {
+    function A(e) {
       var t,
         n = e.accountGeneration,
         a = e.ownerLid;
@@ -209,12 +271,12 @@ __d(
           : t.equals(a)) === !0
       );
     }
-    function x() {
-      return $.apply(this, arguments);
+    function F() {
+      return O.apply(this, arguments);
     }
-    function $() {
+    function O() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebHatchAuthCredentials").readHatchAuthAbraToken();
           if (e != null) return e;
           var t = yield o("WAWebHatchGenAbraTokenJob").genHatchAbraToken();
@@ -230,10 +292,10 @@ __d(
               null)
             : t.token;
         })),
-        $.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function P(e) {
+    function B(e) {
       if (e.length === m) return e.slice();
       var t;
       try {
@@ -254,7 +316,7 @@ __d(
         return null;
       }
     }
-    ((l.recoverHatchCvmSecretWithPin = y), (l.decodeEscrowedSecret = P));
+    ((l.recoverHatchCvmSecretWithPin = v), (l.decodeEscrowedSecret = B));
   },
   98,
 );

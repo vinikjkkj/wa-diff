@@ -3,11 +3,11 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WARandomHex",
     "WAWebBackendApi",
     "WAWebCallWamEvent",
     "WAWebPonyfillsIdleCallback",
     "WAWebVoipClosedTabCallRingFields",
+    "WAWebVoipNativeMissedCallRandomId",
     "WAWebWamEnumCallResultType",
     "WAWebWamEnumCallSide",
     "WAWebWamEnumCallTermReason",
@@ -21,11 +21,10 @@ __d(
       s,
       u,
       c,
-      d = 16,
-      m = 1e3,
-      p = 27,
-      _ = 127,
-      f = new Set([
+      d = 1e3,
+      m = 27,
+      p = 127,
+      _ = new Set([
         "android",
         "capi",
         "ios_tablet",
@@ -44,7 +43,7 @@ __d(
         "windows_electron",
         "wp",
       ]),
-      g = new Map([
+      f = new Map([
         [
           "accepted_elsewhere",
           (c = o("WAWebWamEnumCallTermReason")).CALL_TERM_REASON
@@ -64,13 +63,13 @@ __d(
         ["user_invisible", c.CALL_TERM_REASON.USER_INVISIBLE],
         ["user_removed", c.CALL_TERM_REASON.USER_REMOVED],
       ]);
-    function h(t, n, a) {
+    function g(t, n, a) {
       if (n.hasChild("uploadfieldstat")) {
         var i = !1,
           l = function () {
             i ||
               ((i = !0),
-              C(t, n, a).catch(function (t) {
+              y(t, n, a).catch(function (t) {
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -90,32 +89,32 @@ __d(
               }));
           };
         (o("WAWebPonyfillsIdleCallback").requestIdleCallback(l),
-          self.setTimeout(l, m));
+          self.setTimeout(l, d));
       }
     }
-    function y(e, t, n, r) {
+    function h(e, t, n, r) {
       return t === "terminate"
-        ? I(e, n, r)
+        ? k(e, n, r)
         : t === "accept"
-          ? T(
+          ? I(
               e,
               o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
                 .ACCEPTED_ELSEWHERE,
             )
           : t === "reject"
-            ? T(
+            ? I(
                 e,
                 o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
                   .REJECTED_ELSEWHERE,
               )
             : e;
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = yield (u || (u = n("Promise"))).all([
               o("WAWebBackendApi").frontendSendAndReceive(
                 "getUnifiedSessionId",
@@ -126,21 +125,23 @@ __d(
             ]),
             i = a[0],
             l = a[1],
-            c = v(e, r());
+            c = b(e, r());
           (new (o("WAWebCallWamEvent").CallWamEvent)(
             babelHelpers.extends(
               {
                 callOfferElapsedT: e.e,
-                callPeerAppVersion: e.peer_app_version.slice(0, p),
-                callPeerPlatform: f.has(e.peer_platform)
+                callPeerAppVersion: e.peer_app_version.slice(0, m),
+                callPeerPlatform: _.has(e.peer_platform)
                   ? e.peer_platform
                   : "unknown",
-                callRandomId: o("WARandomHex").randomHex(d).toLowerCase(),
+                callRandomId: o(
+                  "WAWebVoipNativeMissedCallRandomId",
+                ).getNativeMissedCallRandomId(Date.now()),
                 callReplayerId: "",
-                callResult: R(c),
+                callResult: S(c),
                 callSide: o("WAWebWamEnumCallSide").CALL_SIDE.CALLEE,
                 callTermReason: c,
-                callTestBucket: L(t),
+                callTestBucket: R(t),
                 callWakeupSource: o("WAWebWamEnumCallWakeupSource")
                   .CALL_WAKEUP_SOURCE.NONE,
                 fieldStatsRowType: o("WAWebWamEnumFieldStatsRowType")
@@ -159,27 +160,27 @@ __d(
                 ])),
             ));
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e, t) {
+    function b(e, t) {
       var n,
         r = t == null ? void 0 : t.terminated;
       return r != null
         ? r
         : e.is_call_ended === !0
-          ? S(e.terminate_reason)
+          ? v(e.terminate_reason)
           : (n = t == null ? void 0 : t.answered) != null
             ? n
             : o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.RINGING_TIMEOUT;
     }
-    function S(e) {
+    function v(e) {
       var t;
-      return (t = g.get(e != null ? e : "")) != null
+      return (t = f.get(e != null ? e : "")) != null
         ? t
         : o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ENDED_BY_PEER;
     }
-    function R(e) {
+    function S(e) {
       return e ===
         o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ACCEPTED_ELSEWHERE ||
         e === o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.DEVICE_SWITCH
@@ -189,40 +190,40 @@ __d(
           ? o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.REJECTED_ELSEWHERE
           : o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.MISSED_NO_RECEIPT;
     }
-    function L(e) {
+    function R(e) {
       try {
         var t = e.maybeChild("voip_settings");
         if (t == null) return "";
-        var n = k(JSON.parse(E(t)));
-        return n == null ? "" : n.slice(0, _);
+        var n = E(JSON.parse(L(t)));
+        return n == null ? "" : n.slice(0, p);
       } catch (e) {
         return "";
       }
     }
-    function E(e) {
+    function L(e) {
       var t = e.contentBytes();
       return t instanceof Uint8Array ? new TextDecoder().decode(t) : String(t);
     }
-    function k(e) {
+    function E(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.test;
       if (t == null || typeof t != "object") return null;
       var n = t.name;
       return typeof n == "string" ? n : null;
     }
-    function I(e, t, n) {
+    function k(e, t, n) {
       return e.terminated != null || n.maybeAttrString("joinable") === "1"
         ? e
-        : babelHelpers.extends({}, e, { terminated: S(t.terminate_reason) });
+        : babelHelpers.extends({}, e, { terminated: v(t.terminate_reason) });
     }
-    function T(e, t) {
+    function I(e, t) {
       return e.answered == null
         ? babelHelpers.extends({}, e, { answered: t })
         : e;
     }
-    ((l.logStaleOfferMissedCallFieldstats = h),
-      (l.applyFollowUpStanza = y),
-      (l.getStaleOfferCallTermReason = v));
+    ((l.logStaleOfferMissedCallFieldstats = g),
+      (l.applyFollowUpStanza = h),
+      (l.getStaleOfferCallTermReason = b));
   },
   98,
 );

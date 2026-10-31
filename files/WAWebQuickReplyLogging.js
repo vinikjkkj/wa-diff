@@ -51,20 +51,11 @@ __d(
       });
       e.commit();
     }
-    function m(e) {
-      var t = new (o("WAWebQuickReplyWamEvent").QuickReplyWamEvent)({
-        quickReplyAction: o("WAWebWamEnumQuickReplyAction").QUICK_REPLY_ACTION
-          .QUICK_REPLY_MESSAGE_SENT,
-        quickReplyEntryPoint: e,
-      });
-      t.commit();
-    }
     ((l.logQuickReplyAddedEvent = e),
       (l.logQuickReplyAddClickEvent = s),
       (l.logQuickReplyAddAbandonEvent = u),
       (l.logQuickReplyDeleteEvent = c),
-      (l.logQuickReplyEditEvent = d),
-      (l.logQuickReplySendEvent = m));
+      (l.logQuickReplyEditEvent = d));
   },
   98,
 );

@@ -1,49 +1,90 @@
 __d(
   "WAWebA2UIRenderTiming",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebWamEnumBizAiRenderOutcomeType"],
+  function (t, n, r, o, a, i, l) {
     var e = 8490,
-      l = 4,
-      s = 8,
-      u = new Map(),
-      c = 0;
-    function d() {
-      return ((c += 1), c);
+      s = 4,
+      u = 8,
+      c = new Map(),
+      d = new Map(),
+      m = new Set(),
+      p = 0;
+    function _() {
+      return ((p += 1), p);
     }
-    var m = 256,
-      p = new Set();
-    function _(e) {
-      if (p.has(e)) return !1;
-      if (p.size >= m) {
-        var t = p.values().next().value;
-        t != null && p.delete(t);
-      }
-      return (p.add(e), !0);
-    }
-    function f(e) {
-      p.delete(e);
-    }
-    function g(e, t) {
-      u.set(e, t);
-    }
+    var f = 256,
+      g = new Set();
     function h(e) {
-      u.delete(e);
+      return g.has(e) ? !1 : (E(g, e), !0);
     }
-    function y(t, n) {
-      if (t === e && n[l] != null) {
-        var r = n[s];
+    function y(e) {
+      g.delete(e);
+    }
+    function C(e, t) {
+      c.set(e, t);
+    }
+    function b(e) {
+      c.delete(e);
+    }
+    function v(t, n) {
+      if (t === e && n[s] != null) {
+        var r = n[u];
         if (typeof r == "string") {
-          var o = u.get(r);
-          o != null && (u.delete(r), o());
+          var o = c.get(r);
+          o != null && (c.delete(r), o());
         }
       }
     }
-    ((i.nextA2UIRenderInstanceKey = d),
-      (i.markA2UIRenderStartedIfAbsent = _),
-      (i.clearA2UIRenderStarted = f),
-      (i.registerA2UIRenderCallback = g),
-      (i.unregisterA2UIRenderCallback = h),
-      (i.maybeEndA2UIRenderMarkerFromFieldStat = y));
+    function S(e) {
+      return m.has(e);
+    }
+    function R(e, t) {
+      var n = d.get(e);
+      return (
+        n == null && ((n = new Set()), d.set(e, n)),
+        n.add(t),
+        function () {
+          var n = d.get(e);
+          (n == null || n.delete(t),
+            (n == null ? void 0 : n.size) === 0 && d.delete(e));
+        }
+      );
+    }
+    function L(t, n) {
+      var r;
+      if (
+        !(
+          t !== e ||
+          n[s] !==
+            o("WAWebWamEnumBizAiRenderOutcomeType").BIZ_AI_RENDER_OUTCOME_TYPE
+              .FALLBACK
+        )
+      ) {
+        var a = n[u];
+        typeof a == "string" &&
+          (m.has(a) || E(m, a),
+          (r = d.get(a)) == null ||
+            r.forEach(function (e) {
+              return e();
+            }));
+      }
+    }
+    function E(e, t) {
+      if (e.size >= f) {
+        var n = e.values().next().value;
+        n != null && e.delete(n);
+      }
+      e.add(t);
+    }
+    ((l.nextA2UIRenderInstanceKey = _),
+      (l.markA2UIRenderStartedIfAbsent = h),
+      (l.clearA2UIRenderStarted = y),
+      (l.registerA2UIRenderCallback = C),
+      (l.unregisterA2UIRenderCallback = b),
+      (l.maybeEndA2UIRenderMarkerFromFieldStat = v),
+      (l.hasA2UIServerFallback = S),
+      (l.subscribeA2UIServerFallback = R),
+      (l.maybeNotifyA2UIServerFallbackFromFieldStat = L));
   },
-  66,
+  98,
 );

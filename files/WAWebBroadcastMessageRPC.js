@@ -39,35 +39,35 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.businessMetadata,
-            r = t.deviceIdentity,
-            a = t.encryptedMessage,
-            i = t.keyDistribution,
-            l = t.messageId,
-            s = t.messageType,
-            u = t.nativeFlowName,
-            c = t.phash,
-            d = t.recipientJid,
-            m = e(n, u),
-            p = n
-              ? o("WAWap").wap("meta", {
-                  metering_type: o("WAWap").CUSTOM_STRING("smb_mm"),
-                })
-              : null,
-            _ = o("WAWap").wap(
+            r = t.contextSource,
+            a = t.deviceIdentity,
+            i = t.encryptedMessage,
+            l = t.keyDistribution,
+            s = t.messageId,
+            u = t.messageType,
+            c = t.nativeFlowName,
+            d = t.phash,
+            m = t.recipientJid,
+            p = e(n, c),
+            _ = {};
+          (n != null && (_.metering_type = o("WAWap").CUSTOM_STRING("smb_mm")),
+            r != null && (_.context_source = o("WAWap").CUSTOM_STRING(r)));
+          var f = Object.keys(_).length > 0 ? o("WAWap").wap("meta", _) : null,
+            g = o("WAWap").wap(
               "message",
               {
-                id: o("WAWap").CUSTOM_STRING(l),
-                to: o("WAWebCommsWapMd").CHAT_JID(d),
-                phash: o("WAWap").CUSTOM_STRING(c),
-                type: o("WAWap").CUSTOM_STRING(s),
+                id: o("WAWap").CUSTOM_STRING(s),
+                to: o("WAWebCommsWapMd").CHAT_JID(m),
+                phash: o("WAWap").CUSTOM_STRING(d),
+                type: o("WAWap").CUSTOM_STRING(u),
               },
+              f,
               p,
-              m,
-              a,
               i,
-              r,
+              l,
+              a,
             );
-          return o("WAComms").sendSmaxStanza(_);
+          return o("WAComms").sendSmaxStanza(g);
         })),
         u.apply(this, arguments)
       );

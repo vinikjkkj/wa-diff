@@ -19,7 +19,7 @@ __d(
           )
             .__setRef("WAWebCappingWarningBannerLoadable")
             .load();
-          return e.CappingWarningBanner;
+          return e;
         }),
         "CappingWarningBanner",
       ),

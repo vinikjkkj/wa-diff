@@ -44,18 +44,12 @@ __d(
                 .USER_ACTIVATED)
       );
     }
-    function y() {
-      ((u = !1),
-        (c = o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH),
-        (d = null));
-    }
     ((l.isWindowsBackgroundRun = m),
       (l.getWindowsBackgroundRunConnectReason = p),
       (l.applyWindowsBackgroundRunConnectReason = _),
       (l.endWindowsBackgroundRun = f),
       (l.recordWindowsLoginConnectReason = g),
-      (l.hasLoggedInWithOtherConnectReason = h),
-      (l.resetWindowsBackgroundRunForTesting = y));
+      (l.hasLoggedInWithOtherConnectReason = h));
   },
   98,
 );

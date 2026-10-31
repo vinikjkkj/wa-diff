@@ -4,16 +4,20 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [
-          { defaultValue: null, kind: "LocalArgument", name: "orgID" },
-          { defaultValue: null, kind: "LocalArgument", name: "rosterEntryIDs" },
-        ],
-        t = [
+      var e = { defaultValue: null, kind: "LocalArgument", name: "orgID" },
+        t = { defaultValue: null, kind: "LocalArgument", name: "resend" },
+        n = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "rosterEntryIDs",
+        },
+        r = [
           {
             alias: null,
             args: [
               { kind: "Literal", name: "emails", value: [] },
               { kind: "Variable", name: "org_id", variableName: "orgID" },
+              { kind: "Variable", name: "resend", variableName: "resend" },
               {
                 kind: "Variable",
                 name: "roster_entry_ids",
@@ -45,23 +49,23 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, t, n],
           kind: "Fragment",
           metadata: null,
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
-          selections: t,
+          selections: r,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, n, t],
           kind: "Operation",
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
-          selections: t,
+          selections: r,
         },
         params: {
-          id: "39921184154161445",
+          id: "28461077290259979",
           metadata: {},
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
           operationKind: "mutation",

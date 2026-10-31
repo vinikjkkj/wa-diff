@@ -27,46 +27,46 @@ __d(
         i,
         l,
         s = String(e.chatJid),
-        d = o("WAWebCustomerContactResolver").resolveCustomerContact(
+        m = o("WAWebCustomerContactResolver").resolveCustomerContact(
           o("WAWebWidFactory").createWid(s),
         ),
-        m = (r = t.get(s)) != null ? r : null,
-        p = Array.from(
+        p = (r = t.get(s)) != null ? r : null,
+        _ = Array.from(
           new Set(
             [].concat(
               o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
                 s,
                 o("WAWebListItemParentType").LabelItemParentType.Chat,
               ),
-              (a = d == null ? void 0 : d.labels) != null ? a : [],
+              (a = m == null ? void 0 : m.labels) != null ? a : [],
               o("WAWebCustomerContactResolver").resolveCustomerLabelIds(s),
             ),
           ),
         ),
-        _ = [];
-      for (var f of p) {
-        var g,
-          h =
-            (g = o("WAWebLabelCollection").LabelCollection.get(f)) == null
+        f = [];
+      for (var g of _) {
+        var h,
+          y =
+            (h = o("WAWebLabelCollection").LabelCollection.get(g)) == null
               ? void 0
-              : g.name;
-        h != null && _.push(h);
+              : h.name;
+        y != null && f.push(c(y));
       }
       return {
         displayName:
-          d != null ? o("WAWebFrontendContactGetters").getDisplayName(d) : "",
+          m != null ? o("WAWebFrontendContactGetters").getDisplayName(m) : "",
         phone:
-          d != null
+          m != null
             ? u(
-                o("WAWebFrontendContactGetters").getFormattedPhoneAndType(d)
+                o("WAWebFrontendContactGetters").getFormattedPhoneAndType(m)
                   .displayName,
               )
             : "",
-        username: d != null ? c(d) : "",
+        username: m != null ? d(m) : "",
         email: e.email,
         leadStage: e.leadStage,
         acquisitionSource: e.acquisitionSource,
-        notes: m,
+        notes: p,
         birthday: e.birthday,
         birthdayIso: e.birthdayIso,
         lastOrderDescription: e.lastOrderDescription,
@@ -82,7 +82,7 @@ __d(
         address: e.address,
         altPhoneNumbers:
           e.altPhoneNumbers != null ? u(e.altPhoneNumbers) : null,
-        lists: _,
+        lists: f,
         createdAt: e.createdAt,
         modifiedAt: e.modifiedAt,
         customFieldValues: n,
@@ -92,6 +92,12 @@ __d(
       return e.replace(/\+(?=\d)/g, "");
     }
     function c(e) {
+      return e.replace(
+        /^[\u200E\u200F\u061C\u202A-\u202E\u2066-\u2069]+|[\u200E\u200F\u061C\u202A-\u202E\u2066-\u2069]+$/g,
+        "",
+      );
+    }
+    function d(e) {
       var t = o("WAWebFrontendContactGetters").getUsername(e);
       return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
         o("WAWebUsernameTypes").isPresentUsername(t)

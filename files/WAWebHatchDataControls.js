@@ -5,6 +5,7 @@ __d(
     "WAWebHatchJsonReaders",
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
+    "WAWebNetworkStatus",
     "WAWebNullFunc",
     "asyncToGeneratorRuntime",
   ],
@@ -17,29 +18,45 @@ __d(
       d = { kind: "account_changed" },
       m = { kind: "failed" },
       p = { kind: "not_landed" },
-      _ = { kind: "unavailable" },
-      f = new Set(),
-      g = 0;
-    function h() {
-      return y.apply(this, arguments);
-    }
+      _ = { kind: "offline" },
+      f = { kind: "unavailable" },
+      g = new Set(),
+      h = 0;
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-            r = g,
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
+            n = yield I(t, _);
+          if (n != null) return n;
+          var r = yield b(t);
+          return r.kind !== "failed" ? r : (e = yield I(t, _)) != null ? e : r;
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = h,
             a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
             return d;
           if (a == null) return m;
-          var i = yield S(a);
+          var i = yield E(a);
           return (
-            i.kind === "Failure" && (i = yield S(a)),
+            i.kind === "Failure" && (i = yield E(a)),
             o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t
               ? d
-              : f.size > 0 || g !== r
+              : g.size > 0 || h !== r
                 ? (yield (e || (e = n("Promise"))).all(
-                    Array.from(f, function (e) {
+                    Array.from(g, function (e) {
                       return e.then(
                         o("WAWebNullFunc").returnNull,
                         o("WAWebNullFunc").returnNull,
@@ -49,32 +66,34 @@ __d(
                   o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !==
                   t
                     ? d
-                    : h())
-                : R(i)
+                    : y())
+                : k(i)
           );
         })),
-        y.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function C(e) {
-      var t = b(e),
+    function S(e) {
+      var t = R(e),
         n = function () {
-          (f.delete(t), g++);
+          (g.delete(t), h++);
         };
-      return (f.add(t), t.then(n, n), t);
+      return (g.add(t), t.then(n, n), t);
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-            n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+            n = yield I(t, p);
+          if (n != null) return n;
+          var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
             return d;
-          if (n == null) return p;
-          var r = yield n.request(
+          if (r == null) return p;
+          var a = yield r.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.PRODUCT_IMPROVEMENTS,
             {
@@ -87,29 +106,60 @@ __d(
           );
           if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
             return d;
-          var a =
-            r.kind === "Ok"
-              ? o("WAWebHatchJsonReaders").readBool(r.value, "training_enabled")
+          var i =
+            a.kind === "Ok"
+              ? o("WAWebHatchJsonReaders").readBool(a.value, "training_enabled")
               : null;
-          return a == null ? p : { enabled: a, kind: "settled" };
+          return i == null ? p : { enabled: i, kind: "settled" };
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(e) {
+    function E(e) {
       return e.request(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.PRODUCT_IMPROVEMENTS,
         { responseShape: "flat-or-envelope", timeoutMs: s },
       );
     }
-    function R(e) {
-      if (e.kind === "Rejected" && e.statusCode === c) return _;
+    function k(e) {
+      if (e.kind === "Rejected" && e.statusCode === c) return f;
       if (e.kind !== "Ok") return m;
       var t = o("WAWebHatchJsonReaders").readBool(e.value, "training_enabled");
       return t == null ? m : { enabled: t, kind: "ready" };
     }
-    ((l.readHatchAiTraining = h), (l.writeHatchAiTraining = C));
+    function I(e, t) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield D();
+          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== e
+            ? d
+            : n
+              ? t
+              : null;
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return navigator.onLine
+            ? (r("WAWebNetworkStatus").online ||
+                (yield r("WAWebNetworkStatus").checkOnline()),
+              !r("WAWebNetworkStatus").online)
+            : !0;
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    ((l.readHatchAiTraining = y), (l.writeHatchAiTraining = S));
   },
   98,
 );

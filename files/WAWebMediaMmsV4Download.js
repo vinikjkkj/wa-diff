@@ -40,6 +40,7 @@ __d(
     "WAWebVcardParsingUtils",
     "WAWebWamEnumStickerErrorType",
     "WAWebWamEnumStickerLatencyAction",
+    "WAWebWamMediaMetricUtils",
     "WAWebWebcProgressiveImageWamEvent",
     "asyncToGeneratorRuntime",
     "err",
@@ -428,7 +429,7 @@ __d(
                 s = (function () {
                   var l = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
-                      if (re) ae = re;
+                      if (((P.lastDownloadFailureResult = null), re)) ae = re;
                       else {
                         var n, l, s;
                         if (
@@ -667,14 +668,19 @@ __d(
                       var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (e) {
                           if (
+                            ((P.lastDownloadFailureResult = o(
+                              "WAWebWamMediaMetricUtils",
+                            ).getMetricDownloadErrorResultType(
+                              r("getErrorSafe")(e),
+                            )),
                             oe == null ||
-                            !ee({
-                              downloadEvenIfExpensive: a,
-                              error: e,
-                              isFinalRmrRetry: T,
-                              mediaType: N,
-                              mode: A,
-                            })
+                              !ee({
+                                downloadEvenIfExpensive: a,
+                                error: e,
+                                isFinalRmrRetry: T,
+                                mediaType: N,
+                                mode: A,
+                              }))
                           )
                             throw e;
                           return (

@@ -1,6 +1,10 @@
 __d(
   "WAWebLongTaskObserver",
-  ["WAWebDocumentVisibilityObserver", "WAWebMainThreadStallReporter"],
+  [
+    "WAWebDocumentVisibilityObserver",
+    "WAWebFeatureDetectionLongTaskSupport",
+    "WAWebMainThreadStallReporter",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e() {
@@ -11,14 +15,9 @@ __d(
       var t = e.prototype;
       return (
         (t.isSupported = function () {
-          var e;
-          return (
-            typeof ((e = window.PerformanceObserver) == null ||
-            (e = e.supportedEntryTypes) == null
-              ? void 0
-              : e.includes) == "function" &&
-            window.PerformanceObserver.supportedEntryTypes.includes("longtask")
-          );
+          return o(
+            "WAWebFeatureDetectionLongTaskSupport",
+          ).isLongTaskSupported();
         }),
         (t.observe = function (t) {
           (t.observe({ type: "longtask", buffered: !1 }),

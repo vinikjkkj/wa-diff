@@ -46,14 +46,15 @@ __d(
           var n,
             a = t.authorId,
             i = t.businessMetadata,
-            l = t.ephSettingMap,
-            f = t.msgProtobuf,
-            g = t.recipients,
-            h = t.sendMsgRecord,
-            C = h.data.id,
-            b = o("WAWebWidFactory").createWid(C.remote.toString()),
-            v = b.toString();
-          if (g.length === 0) {
+            l = t.contextSource,
+            f = t.ephSettingMap,
+            g = t.msgProtobuf,
+            h = t.recipients,
+            C = t.sendMsgRecord,
+            b = C.data.id,
+            v = o("WAWebWidFactory").createWid(b.remote.toString()),
+            S = v.toString();
+          if (h.length === 0) {
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -61,12 +62,12 @@ __d(
                   " msg=",
                   "",
                 ])),
-              v,
-              C.id,
+              S,
+              b.id,
             );
             return;
           }
-          var S = i != null ? ", campaign=" + i.campaign_id : "";
+          var R = i != null ? ", campaign=" + i.campaign_id : "";
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -76,30 +77,30 @@ __d(
                 "",
                 "",
               ])),
-            C.id,
-            g.length,
-            v,
+            b.id,
+            h.length,
             S,
+            R,
           );
-          var R = yield o("WAWebDBDeviceListFanout").getFanOutList({
-              wids: [].concat(g, [a]),
+          var L = yield o("WAWebDBDeviceListFanout").getFanOutList({
+              wids: [].concat(h, [a]),
               shouldMergeAltDevices: !0,
             }),
-            L = R.map(function (e) {
+            E = L.map(function (e) {
               return o("WAWebWidFactory").createDeviceWidFromWidOrThrow(e);
             }),
-            E = yield o(
+            k = yield o(
               "WAWebBroadcastSenderKeyManager",
-            ).getBroadcastSkDistribList(L, g, v, a),
-            k = E.participantList,
-            I = E.rotateKey,
-            T = E.skDistribList,
-            D = [],
-            x = [];
-          k.forEach(function (e) {
-            o("WAWebUserPrefsMeUser").isMeAccount(e) ? x.push(e) : D.push(e);
+            ).getBroadcastSkDistribList(E, h, S, a),
+            I = k.participantList,
+            T = k.rotateKey,
+            D = k.skDistribList,
+            x = [],
+            $ = [];
+          I.forEach(function (e) {
+            o("WAWebUserPrefsMeUser").isMeAccount(e) ? $.push(e) : x.push(e);
           });
-          var $ = I === !0 ? ", rotate=1" : "";
+          var P = T === !0 ? ", rotate=1" : "";
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -110,47 +111,47 @@ __d(
                 "",
                 "",
               ])),
-            v,
-            T.length,
+            S,
             D.length,
             x.length,
-            $,
+            $.length,
+            P,
           ),
-            (I === !0 || (D.length === 0 && x.length === 0)) &&
-              (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(b, a)),
+            (T === !0 || (x.length === 0 && $.length === 0)) &&
+              (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(v, a)),
             yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(
-              L.map(function (e) {
-                return { msgKey: C, receiverId: e };
+              E.map(function (e) {
+                return { msgKey: b, receiverId: e };
               }),
             ));
-          var P = new Set();
-          T.forEach(function (e) {
-            var t =
-              e.device == null || e.device === o("WAJids").DEFAULT_DEVICE_ID;
-            t && P.add(o("WAWebWidFactory").asUserWidOrThrow(e).toString());
-          });
           var N = new Set();
           D.forEach(function (e) {
-            var t = o("WAWebWidFactory").asUserWidOrThrow(e).toString();
-            P.has(t) || N.add(t);
+            var t =
+              e.device == null || e.device === o("WAJids").DEFAULT_DEVICE_ID;
+            t && N.add(o("WAWebWidFactory").asUserWidOrThrow(e).toString());
           });
-          var M = [].concat(T, x);
-          if (M.length > 0)
+          var M = new Set();
+          x.forEach(function (e) {
+            var t = o("WAWebWidFactory").asUserWidOrThrow(e).toString();
+            N.has(t) || M.add(t);
+          });
+          var w = [].concat(D, $);
+          if (w.length > 0)
             try {
-              var w,
-                A,
-                F = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              var A,
+                F,
+                O = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                   identityChanged: !1,
                   sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-                  wids: M,
+                  wids: w,
                 }),
-                O =
-                  (w = F == null ? void 0 : F.missedPrekeyCount) != null
-                    ? w
-                    : 0,
                 B =
-                  (A = F == null ? void 0 : F.depletedPrekeyCount) != null
+                  (A = O == null ? void 0 : O.missedPrekeyCount) != null
                     ? A
+                    : 0,
+                W =
+                  (F = O == null ? void 0 : O.depletedPrekeyCount) != null
+                    ? F
                     : 0;
               (o("WALogger").LOG(
                 c ||
@@ -160,19 +161,19 @@ __d(
                     " depleted=",
                     "",
                   ])),
-                M.length,
-                O,
+                w.length,
                 B,
+                W,
               ),
                 o(
                   "WAWebPostPrekeysDepletionMetric",
                 ).maybePostPrekeysDepletionMetric({
-                  count: F == null ? void 0 : F.depletedPrekeyCount,
+                  count: O == null ? void 0 : O.depletedPrekeyCount,
                   prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                     .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                   messageType: o("WAWebWamEnumMessageType").MESSAGE_TYPE
                     .BROADCAST,
-                  deviceSizeBucket: r("WAWebWamNumberToSizeBucket")(L.length),
+                  deviceSizeBucket: r("WAWebWamNumberToSizeBucket")(E.length),
                 }));
             } catch (e) {
               o("WALogger")
@@ -183,39 +184,39 @@ __d(
                       ": ",
                       "",
                     ])),
-                  M.length,
+                  w.length,
                   e,
                 )
                 .tags("messaging")
                 .sendLogs("broadcast-ensure-e2e-sessions-failed");
             }
-          var W = yield o("WAWebPhashUtils").phashV2(g),
-            q = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            U = yield o("WAWebPhashUtils").phashV2([].concat(L, [q])),
-            V = new Map(),
+          var q = yield o("WAWebPhashUtils").phashV2(h),
+            U = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            V = yield o("WAWebPhashUtils").phashV2([].concat(E, [U])),
             H = new Map(),
-            G = [];
+            G = new Map(),
+            z = [];
           if (
-            (g.forEach(function (e) {
+            (h.forEach(function (e) {
               if (e.isLid()) {
-                G.push(e);
+                z.push(e);
                 var t = o("WAWebApiContact").getPhoneNumber(e);
-                t != null && V.set(e.toString(), t);
+                t != null && H.set(e.toString(), t);
               }
             }),
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-              G.length > 0)
+              z.length > 0)
           ) {
-            var z = yield o("WAWebApiContact").bulkGetContactRecord(G);
-            z.forEach(function (e, t) {
+            var j = yield o("WAWebApiContact").bulkGetContactRecord(z);
+            j.forEach(function (e, t) {
               var n = e == null ? void 0 : e.username;
-              n != null && H.set(G[t].toString(), n);
+              n != null && G.set(z[t].toString(), n);
             });
           }
-          var j,
-            K = T;
+          var K,
+            Q = D;
           try {
-            j = yield y(b, a, T, N, x, f, W, V, H, l != null ? l : new Map());
+            K = yield y(v, a, D, M, $, g, q, H, G, f != null ? f : new Map());
           } catch (e) {
             if (
               e instanceof Error &&
@@ -229,58 +230,59 @@ __d(
                     ])),
                 )
                 .sendLogs("broadcast-sender-key-recovery");
-              var Q =
-                b.toString({ legacy: !0 }) +
+              var X =
+                v.toString({ legacy: !0 }) +
                 "::" +
                 o("WAWebSignalCommonUtils").createSignalAddress(a);
               (yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
-                .storeSenderKey(Q, ""),
-                yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(b, a),
+                .storeSenderKey(X, ""),
+                yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(v, a),
                 yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                   identityChanged: !1,
                   sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-                  wids: L,
+                  wids: E,
                 }),
-                (K = L),
-                (j = yield y(
-                  b,
+                (Q = E),
+                (K = yield y(
+                  v,
                   a,
-                  L,
+                  E,
                   new Set(),
                   [],
-                  f,
-                  W,
-                  V,
+                  g,
+                  q,
                   H,
-                  l != null ? l : new Map(),
+                  G,
+                  f != null ? f : new Map(),
                 )));
             } else throw e;
           }
-          var X = j,
-            Y = X[0],
-            J = X[1],
-            Z = X[2],
-            ee = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(f),
-            te = o("WAWebE2EProtoUtils").getBizNativeFlowName(f);
-          (yield o("WAWebSendMsgCommonApi").updateIdentityRange(h, L),
+          var Y = K,
+            J = Y[0],
+            Z = Y[1],
+            ee = Y[2],
+            te = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(g),
+            ne = o("WAWebE2EProtoUtils").getBizNativeFlowName(g);
+          (yield o("WAWebSendMsgCommonApi").updateIdentityRange(C, E),
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode());
-          var ne = yield o("WAWebBroadcastMessageRPC").sendBroadcastMessageRPC({
-              messageId: C.id,
-              recipientJid: b,
-              phash: U,
-              messageType: ee,
-              encryptedMessage: J,
-              keyDistribution: Y,
-              deviceIdentity: Z,
+          var re = yield o("WAWebBroadcastMessageRPC").sendBroadcastMessageRPC({
+              messageId: b.id,
+              recipientJid: v,
+              phash: V,
+              messageType: te,
+              encryptedMessage: Z,
+              keyDistribution: J,
+              deviceIdentity: ee,
               businessMetadata: i,
-              nativeFlowName: te,
+              contextSource: l,
+              nativeFlowName: ne,
             }),
-            re = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(ne);
-          if (re.error) throw r("err")("[broadcast] Invalid ack from server");
-          if (((n = re.success) == null ? void 0 : n.error) != null)
+            oe = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(re);
+          if (oe.error) throw r("err")("[broadcast] Invalid ack from server");
+          if (((n = oe.success) == null ? void 0 : n.error) != null)
             throw (
               o("WALogger").LOG(
                 p ||
@@ -288,15 +290,15 @@ __d(
                     "[broadcast] server rejected message with error code ",
                     "",
                   ])),
-                re.success.error,
+                oe.success.error,
               ),
               new (o("WAWebHandleMsgError").MessageSentAckError)(
-                re.success.error,
+                oe.success.error,
               )
             );
           (yield o("WAWebBroadcastSenderKeyManager").markBroadcastHasSenderKey(
-            K,
-            v,
+            Q,
+            S,
           ),
             o("WALogger").LOG(
               _ ||
@@ -305,8 +307,8 @@ __d(
                   " skDist=",
                   "",
                 ])),
-              g.length,
-              K.length,
+              h.length,
+              Q.length,
             ));
         })),
         h.apply(this, arguments)

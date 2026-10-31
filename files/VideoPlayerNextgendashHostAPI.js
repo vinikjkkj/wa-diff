@@ -60,10 +60,27 @@ __d(
       return e;
     }
     function v(e) {
-      return e;
+      return "nativeSourceId" in e &&
+        typeof e.nativeSourceId == "string" &&
+        "client" in e &&
+        typeof e.client == "string"
+        ? { client: e.client, nativeSourceId: e.nativeSourceId }
+        : null;
     }
     function S(e) {
-      if (R(e) != null)
+      return e;
+    }
+    function R(e) {
+      return e;
+    }
+    function L(e) {
+      if ("nativeSourceId" in e)
+        throw r("fb-error")
+          .FBLogger("comet_video_player_nextgendash")
+          .mustfixThrow(
+            "VideoPlayerNextgendashHybridHandleIsNotAMediaSourceHandle",
+          );
+      if (E(e) != null)
         throw r("fb-error")
           .FBLogger("comet_video_player_nextgendash")
           .mustfixThrow(
@@ -71,12 +88,12 @@ __d(
           );
       return e;
     }
-    function R(e) {
+    function E(e) {
       return typeof MessagePort == "function" && e instanceof MessagePort
         ? e
         : null;
     }
-    function L(e) {
+    function k(e) {
       return e;
     }
     ((l.diffVideoPlayerNextgendashClockstamp = e),
@@ -92,11 +109,13 @@ __d(
       (l.opaqueVideoPlayerNextgendashHostSourceBufferFromSink = h),
       (l.unopaqueVideoPlayerNextgendashHostSourceBuffer = y),
       (l.unopaqueVideoPlayerNextgendashHostSourceBufferAsSink = C),
-      (l.opaqueVideoPlayerNextgendashHostMediaSourceHandle = b),
-      (l.opaqueVideoPlayerNextgendashHostMediaSourceHandleFromSinkPort = v),
-      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandle = S),
-      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandleAsSinkPort = R),
-      (l.unopaqueVideoPlayerNextgendashHostEventTarget = L));
+      (l.opaqueVideoPlayerNextgendashHybridMediaSourceHandle = b),
+      (l.unopaqueVideoPlayerNextgendashHybridMediaSourceHandle = v),
+      (l.opaqueVideoPlayerNextgendashHostMediaSourceHandle = S),
+      (l.opaqueVideoPlayerNextgendashHostMediaSourceHandleFromSinkPort = R),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandle = L),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandleAsSinkPort = E),
+      (l.unopaqueVideoPlayerNextgendashHostEventTarget = k));
   },
   98,
 );

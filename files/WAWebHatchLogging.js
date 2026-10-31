@@ -1,6 +1,7 @@
 __d(
   "WAWebHatchLogging",
   [
+    "ArtifactSharedFalcoEvent",
     "WALogger",
     "WAWebBotJourneyLogger",
     "WAWebBotLoggingUtils",
@@ -46,7 +47,7 @@ __d(
       );
     }
     function p(e, t) {
-      j(e, {
+      K(e, {
         hatchUserJourneyMetadata:
           t != null ? JSON.stringify({ browser_surface: t }) : void 0,
       });
@@ -58,13 +59,13 @@ __d(
       if (!(!t.isEligible || o.trim() === "")) {
         var a = _.get(e);
         ((r = a) == null ? void 0 : r.has(o)) !== !0 &&
-          j(e, { hatchUserJourneyMetadata: n }) &&
+          K(e, { hatchUserJourneyMetadata: n }) &&
           (a == null && ((a = new Set()), _.set(e, a)), a.add(o));
       }
     }
     function g(e) {
       try {
-        j(
+        K(
           e === "surface_impression"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .IDEA_SURFACE_IMPRESSION
@@ -86,23 +87,23 @@ __d(
       } catch (e) {}
     }
     function h(e) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function y(e) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function C(e) {
-      j(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      K(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function b(e, t, n) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: v(t) }),
@@ -116,55 +117,55 @@ __d(
         .join(", ");
     }
     function S(e) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function R(e, t) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function L(e, t) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function E(e, t) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_CART_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function k(e, t) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_ORDER_SUMMARY_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function I(e, t) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function T(e, t) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function D(e, t, n) {
-      j(
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -205,11 +206,11 @@ __d(
         settings: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
       };
     function N(e, t) {
-      j(x[e], w(t));
+      K(x[e], w(t));
     }
     function M(t, n) {
       try {
-        j(
+        K(
           o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
             .SECURE_CREDENTIAL_SAVE_ERROR,
           babelHelpers.extends({}, w(n), {
@@ -290,7 +291,7 @@ __d(
       if (o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()) {
         var n = t == null ? void 0 : t.connectorType,
           r = t == null ? void 0 : t.permissionFlow;
-        j(A[e], {
+        K(A[e], {
           connectorId: t == null ? void 0 : t.connectorId,
           connectorPermissionDecisionType:
             t == null ? void 0 : t.permissionDecisionType,
@@ -347,10 +348,20 @@ __d(
       artifact_pinned: s.HATCH_ACTION_TYPE.ARTIFACT_PINNED,
     };
     function V(e, t) {
-      j(U[e], { featureEntryPoint: $[t] });
+      K(U[e], { featureEntryPoint: $[t] });
     }
-    function H(e, t) {
-      j(
+    function H(e) {
+      r("ArtifactSharedFalcoEvent").log(function () {
+        return {
+          ai_session_id: o(
+            "WAWebThreadJourneyLogger",
+          ).ThreadJourneyLogger.getAiSessionId(),
+          feature_entry_point: e,
+        };
+      });
+    }
+    function G(e, t) {
+      K(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .ARTIFACT_OVERFLOW_MENU_TAP,
         {
@@ -359,9 +370,9 @@ __d(
         },
       );
     }
-    function G(e) {
+    function z(e) {
       try {
-        j(
+        K(
           e.outcome === "success"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .SUBSCRIPTION_READ_SUCCESS
@@ -369,12 +380,12 @@ __d(
                 .SUBSCRIPTION_READ_ERROR,
           {
             hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
-            hatchUserJourneyMetadata: JSON.stringify(z(e)),
+            hatchUserJourneyMetadata: JSON.stringify(j(e)),
           },
         );
       } catch (e) {}
     }
-    function z(e) {
+    function j(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -416,7 +427,7 @@ __d(
         );
       })(e);
     }
-    function j(e, t) {
+    function K(e, t) {
       var n, r, a, i, l;
       if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) return !1;
       var s = new (o("WAWebHatchUserJourneyWamEvent").HatchUserJourneyWamEvent)(
@@ -460,12 +471,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : K(t == null ? void 0 : t.botEntryPoint),
+              : Q(t == null ? void 0 : t.botEntryPoint),
         },
       );
       return (s.commit(), !0);
     }
-    function K(e) {
+    function Q(e) {
       var t,
         n =
           e != null
@@ -506,8 +517,9 @@ __d(
       (l.logHatchConnector = B),
       (l.logHatchConnectorCardImpression = q),
       (l.logHatchArtifact = V),
-      (l.logHatchArtifactMenuOpened = H),
-      (l.logHatchSubscriptionRead = G));
+      (l.logHatchArtifactShared = H),
+      (l.logHatchArtifactMenuOpened = G),
+      (l.logHatchSubscriptionRead = z));
   },
   98,
 );

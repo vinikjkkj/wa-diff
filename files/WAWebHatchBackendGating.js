@@ -78,10 +78,7 @@ __d(
       });
     }
     function f() {
-      return g({
-        abProp: "ai_hatch_cvm_enabled",
-        primaryFeature: "ai_hatch_cvm_enabled",
-      });
+      return g({ abProp: "ai_hatch_cvm_enabled" });
     }
     function g(e) {
       var t = e.abProp,

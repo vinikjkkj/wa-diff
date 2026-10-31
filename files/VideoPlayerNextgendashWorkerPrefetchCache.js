@@ -8,54 +8,60 @@ __d(
     "VideoPlayerNextgendashManifestParser",
     "VideoPlayerNextgendashMediaUtils",
     "VideoPlayerNextgendashNetworkDiagnosticsUtils",
+    "VideoPlayerNextgendashStateMachine",
     "VideoPlayerNextgendashURLUtils",
     "VideoPlayerNextgendashWebCodecsDimensions",
     "nextgendasherr",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = new Map(),
-      u = 200;
-    function c(e) {
-      if (!(!e.config.enablePrefetchBandwidthSampling || s.size === 0)) {
+    var e;
+    function s(e, t) {
+      return t === "HYBRID" && !e.startsWith("native:") ? "native:" + e : e;
+    }
+    var u = new Map(),
+      c = 200;
+    function d(e) {
+      if (!(!e.config.enablePrefetchBandwidthSampling || u.size === 0)) {
         var t = e.host.clock();
-        s.forEach(function (n, r) {
+        u.forEach(function (n, r) {
           var a = o(
             "VideoPlayerNextgendashNetworkDiagnosticsUtils",
           ).computeNetworkDiagnosticsSampleFromResourceTiming(e, r, t, n);
           a.status !== "pending" &&
-            (s.delete(r),
+            (u.delete(r),
             a.status === "sampled" &&
               e.host.networkDiagnosticsUpdate(a.sample));
         });
       }
     }
-    function d(e, t) {
+    function m(e, t) {
       if (
         !(!e.config.enablePrefetchBandwidthSampling || typeof t != "string")
       ) {
-        if (s.size >= u) {
-          var n = s.keys().next().value;
-          n != null && s.delete(n);
+        if (u.size >= c) {
+          var n = u.keys().next().value;
+          n != null && u.delete(n);
         }
-        (s.delete(t), s.set(t, e.host.clock().perfMs));
+        (u.delete(t), u.set(t, e.host.clock().perfMs));
       }
     }
-    function m(e) {
-      typeof e == "string" && s.delete(e);
+    function p(e) {
+      typeof e == "string" && u.delete(e);
     }
-    var p = new Map(),
-      _ = new Map();
-    function f(e) {
+    var _ = new Map(),
+      f = 16 * 1024 * 1024,
+      g = 0,
+      h = new Map();
+    function y(e) {
       var t,
         n,
-        r = p.get(e),
-        o = h.get(e),
+        r = _.get(e),
+        o = b.get(e),
         a =
           ((t = r == null ? void 0 : r.size) != null ? t : 0) +
           ((n = o == null ? void 0 : o.size) != null ? n : 0),
-        i = _.get(e);
+        i = h.get(e);
       return i == null
         ? { cacheEntryCount: a, firstSegment: null, init: null, sidx: null }
         : {
@@ -65,12 +71,12 @@ __d(
             sidx: i.sidx,
           };
     }
-    function g(e, t, n) {
+    function C(e, t, n) {
       if (!(!t.startsWith("video_") && !t.startsWith("combo_"))) {
-        var r = _.get(e);
+        var r = h.get(e);
         if (r == null) {
           var o = { firstSegment: null, init: null, sidx: null };
-          ((r = o), _.set(e, r));
+          ((r = o), h.set(e, r));
         }
         var a = n ? "hit" : "miss";
         ((t.endsWith("_init") || t.endsWith("_init_sidx_combined")) &&
@@ -84,9 +90,9 @@ __d(
             (r.firstSegment = a));
       }
     }
-    var h = new Map();
-    function y(e, t) {
-      var n = h.get(e);
+    var b = new Map();
+    function v(e, t) {
+      var n = b.get(e);
       if (n == null) return null;
       var r = n.get(t);
       return r == null
@@ -100,21 +106,21 @@ __d(
             },
           };
     }
-    function C(e) {
-      var t = p.get(e);
-      return (t || ((t = new Map()), p.set(e, t)), t);
+    function S(e) {
+      var t = _.get(e);
+      return (t || ((t = new Map()), _.set(e, t)), t);
     }
-    function b(e, t) {}
-    function v(e, t, n) {
+    function R(e, t) {}
+    function L(e, t, n) {
       try {
-        var r = k(e, t.prefetchKey);
-        if (I(e, t.prefetchKey, r)) return;
+        var r = D(e, t.prefetchKey);
+        if (x(e, t.prefetchKey, r)) return;
         var a = e.host.networkDiagnosticsReadBandwidth(
           e.config.enableBandwidthDiagnosticsFallback,
           e.config.bandwidthDiagnosticsFallbackDefaultEstimate,
         );
-        (O(e, r, t.representations, n, a != null ? a : n.bandwidthDiagnostics),
-          w(e, r, t.representations));
+        (q(e, r, t.representations, n, a != null ? a : n.bandwidthDiagnostics),
+          O(e, r, t.representations));
       } catch (t) {
         e.logging.log(e, {
           error: o("nextgendasherr").nextgendasherrFromCause(
@@ -126,29 +132,29 @@ __d(
         });
       }
     }
-    function S(e, t) {}
-    var R = new Set(),
-      L = new Map(),
-      E = new WeakMap();
-    function k(e, t) {
+    function E(e, t) {}
+    var k = new Set(),
+      I = new Map(),
+      T = new WeakMap();
+    function D(e, t) {
       var n = e.config.prefetchCacheMaxEntries;
-      if (n > 0 && !L.has(t))
-        for (; L.size >= n; ) {
-          var r = L.keys().next().value;
+      if (n > 0 && !I.has(t))
+        for (; I.size >= n; ) {
+          var r = I.keys().next().value;
           if (r == null) break;
-          Q(r);
+          te(r);
         }
-      var o = C(t);
-      return (n > 0 && L.set(t, o), o);
+      var o = S(t);
+      return (n > 0 && I.set(t, o), o);
     }
-    function I(e, t, n) {
+    function x(e, t, n) {
       return e.config.blockDuplicatePrefetch
-        ? R.has(t)
+        ? k.has(t)
           ? !0
-          : (R.add(t), !1)
+          : (k.add(t), !1)
         : n.size !== 0;
     }
-    function T(e, t, n, r) {
+    function $(e, t, n, r) {
       var o = {
         audio: n != null ? { audioRepresentation: n } : null,
         prefetchKey: e,
@@ -166,15 +172,15 @@ __d(
       };
       return o.video == null && o.audio == null ? null : o;
     }
-    function D(e, t, n) {
+    function P(e, t, n) {
       try {
-        var r = k(e, t.prefetchKey);
-        if (I(e, t.prefetchKey, r)) return [];
-        var a = A(e, t.representations, n),
-          i = M(t.representations),
-          l = T(t.prefetchKey, a, i, n);
+        var r = D(e, t.prefetchKey);
+        if (x(e, t.prefetchKey, r)) return [];
+        var a = B(e, t.representations, n),
+          i = F(t.representations),
+          l = $(t.prefetchKey, a, i, n);
         return (
-          l != null && e.config.prefetchCacheMaxEntries > 0 && E.set(l, r),
+          l != null && e.config.prefetchCacheMaxEntries > 0 && T.set(l, r),
           l != null ? [l] : []
         );
       } catch (t) {
@@ -191,9 +197,9 @@ __d(
         );
       }
     }
-    function x(e, t, n, r) {
+    function N(e, t, n, r) {
       if (n == null) return null;
-      var o = F(
+      var o = W(
         n.videoRepresentationsByBandwidthAsc,
         n.devicePixelRatio,
         n.isDocumentHidden,
@@ -203,12 +209,12 @@ __d(
         e.config.useSimpleBandwidthEstimate,
         n.playerDimensions,
       );
-      return o == null ? null : K(e, t, o);
+      return o == null ? null : ee(e, t, o);
     }
-    function $(e, t, n) {
-      return n == null ? null : K(e, t, n.audioRepresentation);
+    function M(e, t, n) {
+      return n == null ? null : ee(e, t, n.audioRepresentation);
     }
-    function P(t) {
+    function w(t) {
       return {
         abort: function () {
           t.forEach(function (e) {
@@ -226,24 +232,24 @@ __d(
           }),
       };
     }
-    function N(e) {
+    function A(e) {
       var t = e.env,
         n = e.task;
       try {
         if (t.config.prefetchCacheMaxEntries > 0) {
-          var r = E.get(n);
-          if (r == null || p.get(n.prefetchKey) !== r) return null;
+          var r = T.get(n);
+          if (r == null || _.get(n.prefetchKey) !== r) return null;
         }
-        var a = C(n.prefetchKey),
+        var a = S(n.prefetchKey),
           i = t.host.networkDiagnosticsReadBandwidth(
             t.config.enableBandwidthDiagnosticsFallback,
             t.config.bandwidthDiagnosticsFallbackDefaultEstimate,
           ),
           l = [],
-          s = x(t, a, n.video, i);
+          s = N(t, a, n.video, i);
         s != null && l.push(s);
-        var u = $(t, a, n.audio);
-        return (u != null && l.push(u), l.length === 0 ? null : P(l));
+        var u = M(t, a, n.audio);
+        return (u != null && l.push(u), l.length === 0 ? null : w(l));
       } catch (e) {
         return (
           t.logging.log(t, {
@@ -258,21 +264,21 @@ __d(
         );
       }
     }
-    function M(e) {
+    function F(e) {
       var t = e.find(function (e) {
         return e.mimeType.indexOf("audio") > -1;
       });
       return t;
     }
-    function w(e, t, n) {
-      var r = M(n);
-      r != null && K(e, t, r);
+    function O(e, t, n) {
+      var r = F(n);
+      r != null && ee(e, t, r);
     }
-    function A(e, t, n) {
+    function B(e, t, n) {
       var r = t.filter(function (e) {
           return e.mimeType.indexOf("video") > -1;
         }),
-        o = H(e, r, {
+        o = j(e, r, {
           devicePixelRatio: n.devicePixelRatio,
           enableSmartPlayerStaticCapabilityFiltering:
             n.enableSmartPlayerStaticCapabilityFiltering,
@@ -287,16 +293,16 @@ __d(
         o
       );
     }
-    function F(e, t, n, r, o, a, i, l) {
+    function W(e, t, n, r, o, a, i, l) {
       if (e.length === 0) return null;
       var s = e[0],
-        u = q(e, t, n, r, o, a, i, l),
+        u = H(e, t, n, r, o, a, i, l),
         c = u != null ? u : s;
       return c;
     }
-    function O(e, t, n, r, o) {
-      var a = A(e, n, r),
-        i = F(
+    function q(e, t, n, r, o) {
+      var a = B(e, n, r),
+        i = W(
           a,
           r.devicePixelRatio,
           r.isDocumentHidden,
@@ -306,15 +312,15 @@ __d(
           e.config.useSimpleBandwidthEstimate,
           r.playerDimensions,
         );
-      i != null && K(e, t, i);
+      i != null && ee(e, t, i);
     }
-    var B = 500,
-      W = 400;
-    function q(e, t, n, r, a, i, l, s) {
+    var U = 500,
+      V = 400;
+    function H(e, t, n, r, a, i, l, s) {
       var u = e.map(function (e) {
-          return V(e, i);
+          return z(e, i);
         }),
-        c = s != null ? s : { height: B, width: W },
+        c = s != null ? s : { height: U, width: V },
         d = o(
           "VideoPlayerNextgendashABR",
         ).evaluateVideoPlayerNextgendashABRForVideo(u, {
@@ -341,12 +347,12 @@ __d(
         });
       return p;
     }
-    function U(e, t) {
+    function G(e, t) {
       return !e || t == null
         ? null
         : o("QualityScoreUtils").parseQualityScoreCurve(t);
     }
-    function V(e, t) {
+    function z(e, t) {
       return {
         abrPolicyTags: [],
         bandwidth: e.bandwidth,
@@ -360,12 +366,12 @@ __d(
           ),
         ),
         playbackResolutionCsvqmScoreCurve: e.playbackResolutionCSVQM,
-        playbackResolutionCsvqmScoreCurveParsed: U(
+        playbackResolutionCsvqmScoreCurveParsed: G(
           t,
           e.playbackResolutionCSVQM,
         ),
         playbackResolutionMosScoreCurve: e.playbackResolutionMOS,
-        playbackResolutionMosScoreCurveParsed: U(t, e.playbackResolutionMOS),
+        playbackResolutionMosScoreCurveParsed: G(t, e.playbackResolutionMOS),
         qualityLabel: null,
         representationId: o(
           "VideoPlayerNextgendashManifestParser",
@@ -384,7 +390,7 @@ __d(
         width: e.width,
       };
     }
-    function H(e, t, n) {
+    function j(e, t, n) {
       var r = t.filter(function (t) {
           var n = o(
             "VideoPlayerNextgendashMediaUtils",
@@ -407,7 +413,7 @@ __d(
             "VideoPlayerNextgendashDecodeCapabilityMatcher",
           ).isVideoPlayerNextgendashRepresentationPlayable(
             n.smartPlayerVideoDecodeCapabilities,
-            V(e, !1),
+            z(e, !1),
           );
         }));
       var i =
@@ -422,11 +428,11 @@ __d(
         });
       return l.length > 0 ? l : i.length > 0 ? [i[0]] : [];
     }
-    function G(e, t, n) {
+    function K(e, t, n) {
       var r = e.get(t);
       r && e.set(t, babelHelpers.extends({}, r, { resultState: n }));
     }
-    function z(e, t, n) {
+    function Q(e, t, n) {
       if (!e) return n;
       try {
         var r = new URL(n);
@@ -441,20 +447,194 @@ __d(
         return n;
       }
     }
-    function j(t, r, a, i) {
-      var l = z(
-        t.config.enablePrefetchCacheKeyNormalization,
-        t.config.enableFBPrefetchCacheKeyNormalization,
-        a,
-      );
-      (c(t), d(t, a));
-      var s = new AbortController(),
-        u = new (e || (e = n("Promise")))(function (e) {
+    function X(e, t) {
+      var n = e.timing,
+        r = n.bodyDurationMs,
+        o = n.requestToHeadersMs,
+        a = e.byteLength;
+      return !Number.isFinite(r) ||
+        !Number.isFinite(o) ||
+        r < 0 ||
+        o < 0 ||
+        a <= 0
+        ? null
+        : {
+            bandwidthSample:
+              a >= 2e5 && r >= 10 && (a * 8e3) / r <= 1e8
+                ? { bytes: a, timeInMs: r }
+                : void 0,
+            clock: t,
+            navigationTimingSample: {
+              bytes: a,
+              timeToFirstByteMs: o,
+              timeToLastByteMs: o + r,
+            },
+          };
+    }
+    function Y(e) {
+      if (!e.abortController.signal.aborted) {
+        e.abortController.abort();
+        var t = e.nativeTransfer;
+        t != null &&
+          (e.resultState.resultState === "pending" && t.cancel(), t.release());
+      }
+    }
+    function J(e) {
+      if (!(e == null || !Number.isSafeInteger(e) || e <= 0)) {
+        var t = 0,
+          n = [];
+        _.forEach(function (e) {
+          e.forEach(function (r, o) {
+            if (
+              r.nativeTransfer != null &&
+              r.nativeExpectedBodyBytes != null &&
+              !r.abortController.signal.aborted
+            ) {
+              var a;
+              ((t += r.nativeExpectedBodyBytes),
+                n.push({
+                  cacheEntry: e,
+                  cacheKey: o,
+                  index: (a = r.nativePrefetchIndex) != null ? a : 0,
+                  value: r,
+                }));
+            }
+          });
+        });
+        var r = Math.max(0, f - e);
+        if (!(t <= r)) {
+          n.sort(function (e, t) {
+            return e.index - t.index;
+          });
+          for (var o of n) {
+            var a,
+              i = o.cacheEntry,
+              l = o.cacheKey,
+              s = o.value;
+            if (t <= r) break;
+            (i.delete(l),
+              (t -= (a = s.nativeExpectedBodyBytes) != null ? a : 0),
+              Y(s));
+          }
+        }
+      }
+    }
+    function Z(t, r, a, i, l) {
+      var s = Q(
+          t.config.enablePrefetchCacheKeyNormalization,
+          t.config.enableFBPrefetchCacheKeyNormalization,
+          a,
+        ),
+        u = t.host.nativeMedia;
+      if (u != null) {
+        var c,
+          _ = r.get(s);
+        if (
+          (_ == null ? void 0 : _.nativeTransfer) != null &&
+          !_.abortController.signal.aborted &&
+          _.resultState.resultState !== "errored"
+        ) {
+          var h = _.resultState;
+          return babelHelpers.extends({}, _, {
+            resultState:
+              h.resultState === "pending"
+                ? h
+                : {
+                    resultPromise: (e || (e = n("Promise"))).resolve(h),
+                    resultState: "pending",
+                  },
+          });
+        }
+        _ != null && (r.delete(s), Y(_));
+        var y = new AbortController();
+        if (
+          l == null ||
+          !Number.isSafeInteger(l) ||
+          l <= 0 ||
+          l >
+            Math.min(
+              f,
+              (c = u.getMaxBodyBytes == null ? void 0 : u.getMaxBodyBytes()) !=
+                null
+                ? c
+                : f,
+            )
+        ) {
+          var C = {
+            error: o("nextgendasherr").nextgendasherr(
+              t,
+              "VideoPlayerNextgendashNativePrefetchOutsideCacheBudget",
+            ),
+            resultState: "errored",
+          };
+          return {
+            abortController: y,
+            representationID: i,
+            resultState: {
+              resultPromise: (e || (e = n("Promise"))).resolve(C),
+              resultState: "pending",
+            },
+          };
+        }
+        J(l);
+        var b = o(
+            "VideoPlayerNextgendashStateMachine",
+          ).skipAutoDisposeInsideThisObject(
+            u.start({ expectedBodyBytes: l, url: a }),
+          ),
+          v = (e || (e = n("Promise"))).all([b.headers, b.body]).then(
+            function (e) {
+              var n,
+                o = e[0],
+                a = e[1],
+                i = { resultState: "has_native_body" };
+              if (
+                (((n = r.get(s)) == null ? void 0 : n.nativeTransfer) === b &&
+                  K(r, s, i),
+                t.config.enablePrefetchBandwidthSampling &&
+                  o.status >= 200 &&
+                  o.status < 300)
+              ) {
+                var l = X(a, t.host.clock());
+                l != null && t.host.networkDiagnosticsUpdate(l);
+              }
+              return i;
+            },
+            function (e) {
+              var n,
+                a = {
+                  error: o("nextgendasherr").nextgendasherrFromFetchRejection(
+                    t,
+                    e,
+                    "VideoPlayerNextgendashNativePrefetchRejection",
+                  ),
+                  resultState: "errored",
+                };
+              if (((n = r.get(s)) == null ? void 0 : n.nativeTransfer) === b) {
+                var i = r.get(s);
+                (i != null && Y(i), K(r, s, a));
+              }
+              return a;
+            },
+          ),
+          S = {
+            abortController: y,
+            nativeExpectedBodyBytes: l,
+            nativePrefetchIndex: g++,
+            nativeTransfer: b,
+            representationID: i,
+            resultState: { resultPromise: v, resultState: "pending" },
+          };
+        return (r.set(s, S), S);
+      }
+      (d(t), m(t, a));
+      var R = new AbortController(),
+        L = new (e || (e = n("Promise")))(function (e) {
           t.host
-            .fetch(t, a, { signal: s.signal })
+            .fetch(t, a, { signal: R.signal })
             .then(function (n) {
               var o = { response: n, resultState: "has_response" };
-              (G(r, l, o), e(o), c(t));
+              (K(r, s, o), e(o), d(t));
             })
             .catch(function (n) {
               var i = {
@@ -465,17 +645,17 @@ __d(
                 ),
                 resultState: "errored",
               };
-              (G(r, l, i), e(i), m(a), c(t));
+              (K(r, s, i), e(i), p(a), d(t));
             });
         }),
-        p = {
-          abortController: s,
+        E = {
+          abortController: R,
           representationID: i,
-          resultState: { resultPromise: u, resultState: "pending" },
+          resultState: { resultPromise: L, resultState: "pending" },
         };
-      return (r.set(l, p), p);
+      return (r.set(s, E), E);
     }
-    function K(t, r, a) {
+    function ee(t, r, a) {
       var i = [].concat(a.segments),
         l = [],
         s = [];
@@ -493,9 +673,9 @@ __d(
                 ).makeByteRangeFromStartEndByteIndex(t, u.start, c.end),
               ),
             ),
-            m = j(t, r, d, a.representationID);
+            m = Z(t, r, d, a.representationID, c.end - u.start + 1);
           (l.push(m.resultState.resultPromise),
-            s.push(m.abortController),
+            s.push({ url: d, value: m }),
             i.shift(),
             i.shift());
         } else
@@ -521,34 +701,48 @@ __d(
                 ).makeByteRangeFromStartEndByteIndex(t, e.start, e.end),
               ),
             ),
-            i = j(t, r, n, a.representationID);
-          (l.push(i.resultState.resultPromise), s.push(i.abortController));
+            i = Z(t, r, n, a.representationID, e.end - e.start + 1);
+          (l.push(i.resultState.resultPromise), s.push({ url: n, value: i }));
         }),
         {
           abort: function () {
             s.forEach(function (e) {
-              e.abort();
+              var n = e.url,
+                o = e.value,
+                a = Q(
+                  t.config.enablePrefetchCacheKeyNormalization,
+                  t.config.enableFBPrefetchCacheKeyNormalization,
+                  n,
+                ),
+                i = r.get(a);
+              Y(
+                o.nativeTransfer != null &&
+                  i != null &&
+                  i.nativeTransfer === o.nativeTransfer
+                  ? i
+                  : o,
+              );
             });
           },
           promise: (e || (e = n("Promise"))).allSettled(l),
         }
       );
     }
-    function Q(e) {
-      L.delete(e);
-      var t = p.get(e);
+    function te(e) {
+      I.delete(e);
+      var t = _.get(e);
       (t != null &&
         (t.forEach(function (e) {
-          e.abortController.abort();
+          Y(e);
         }),
         t.clear(),
-        p.delete(e)),
-        h.delete(e),
-        R.delete(e),
-        _.delete(e));
+        _.delete(e)),
+        b.delete(e),
+        k.delete(e),
+        h.delete(e));
     }
-    function X(e, t) {
-      var n = p.get(t),
+    function ne(e, t) {
+      var n = _.get(t),
         r = new Set();
       if (
         (n == null ||
@@ -557,9 +751,9 @@ __d(
               t.resultState.resultState !== "errored") &&
               r.add(t.representationID);
           }),
-        e.config.prefetchCacheReplaySize > 0)
+        e.config.prefetchCacheReplaySize > 0 && e.host.nativeMedia == null)
       ) {
-        var o = h.get(t);
+        var o = b.get(t);
         o == null ||
           o.forEach(function (e) {
             r.add(e.representationID);
@@ -572,10 +766,10 @@ __d(
           }
         : null;
     }
-    function Y(e, t) {
-      t.size === 0 && p.delete(e);
+    function re(e, t) {
+      t.size === 0 && _.delete(e);
     }
-    function J(e, t) {
+    function oe(e, t) {
       t != null
         ? e.logging.log(e, {
             odsCall: {
@@ -594,42 +788,73 @@ __d(
             type: "ods_call",
           });
     }
-    function Z(e, t, n) {
-      var r = p.get(t),
-        a = z(
+    function ae(e, t, n, r) {
+      if ((r === void 0 && (r = e.host.nativeMedia != null), r)) {
+        var a = _.get(t),
+          i = Q(
+            e.config.enablePrefetchCacheKeyNormalization,
+            e.config.enableFBPrefetchCacheKeyNormalization,
+            n,
+          ),
+          l = a == null ? void 0 : a.get(i),
+          s = null;
+        if (a != null && l != null) {
+          (a.delete(i), re(t, a));
+          var u = l.nativeTransfer;
+          u != null &&
+          !l.abortController.signal.aborted &&
+          l.resultState.resultState !== "errored"
+            ? (s = babelHelpers.extends({}, l, {
+                abortController: new AbortController(),
+                nativeTransfer: o(
+                  "VideoPlayerNextgendashStateMachine",
+                ).skipAutoDisposeInsideThisObject(u.adopt()),
+              }))
+            : Y(l);
+        }
+        return (oe(e, s), s);
+      }
+      var c = _.get(t),
+        m = Q(
           e.config.enablePrefetchCacheKeyNormalization,
           e.config.enableFBPrefetchCacheKeyNormalization,
           n,
         ),
-        i = null,
-        l =
+        p = null,
+        f =
           e.config.prefetchCacheReplaySize > 0 &&
           e.config.preferReplayCacheOverInflightPrefetch;
       if (
-        (l && (i = y(t, a)),
-        i == null && r != null && ((i = r.get(a)), i != null))
+        (f && (p = v(t, m)),
+        p == null &&
+          c != null &&
+          ((p = c.get(m)),
+          p != null &&
+            p.nativeTransfer != null &&
+            (Y(p), c.delete(m), re(t, c), (p = null)),
+          p != null))
       ) {
-        var s = i.resultState;
+        var g = p.resultState;
         if (
           e.config.prefetchCacheReplaySize > 0 &&
-          s.resultState === "has_response"
+          g.resultState === "has_response"
         ) {
-          var u = e.config.prefetchCacheReplaySize,
-            d = i.representationID;
-          if (!h.has(t)) {
-            if (h.size >= u) {
-              var m = h.keys().next().value;
-              m != null && h.delete(m);
+          var h = e.config.prefetchCacheReplaySize,
+            y = p.representationID;
+          if (!b.has(t)) {
+            if (b.size >= h) {
+              var C = b.keys().next().value;
+              C != null && b.delete(C);
             }
-            h.set(t, new Map());
+            b.set(t, new Map());
           }
-          s.response
+          g.response
             .clone()
             .arrayBuffer()
             .then(
               function (e) {
-                var n = h.get(t);
-                n != null && n.set(a, { body: e, representationID: d });
+                var n = b.get(t);
+                n != null && n.set(m, { body: e, representationID: y });
               },
               function (t) {
                 e.logging.log(e, {
@@ -643,12 +868,12 @@ __d(
               },
             );
         }
-        (s.resultState === "errored" && (i = null), r.delete(a), Y(t, r));
+        (g.resultState === "errored" && (p = null), c.delete(m), re(t, c));
       }
-      if (i == null && e.config.prefetchCacheReplaySize > 0 && !l) {
-        var _ = y(t, a);
-        _ != null
-          ? ((i = _),
+      if (p == null && e.config.prefetchCacheReplaySize > 0 && !f) {
+        var S = v(t, m);
+        S != null
+          ? ((p = S),
             e.logging.log(e, {
               odsCall: {
                 entity: "comet_video_player",
@@ -666,19 +891,22 @@ __d(
               type: "ods_call",
             });
       }
-      return (c(e), J(e, i), i);
+      return (d(e), oe(e, p), p);
     }
-    ((l.getPrefetchCacheStatsForKey = f),
-      (l.trackPrefetchCacheResourceResult = g),
-      (l.internal_getOrAddPrefetchCacheEntry = C),
-      (l.initiatePrefetch = v),
-      (l.getPrefetchTasks = D),
-      (l.processPrefetchTask = N),
-      (l.internal_filterVideoRepresentations = H),
-      (l.internal_startFetchForPrefetch = j),
-      (l.releasePrefetchKey = Q),
-      (l.getCachedRepresentationsForPrefetchKey = X),
-      (l.getCachedValueForPrefetchKeyAndURL = Z));
+    ((l.getVideoPlayerNextgendashPrefetchKeyForSink = s),
+      (l.getPrefetchCacheStatsForKey = y),
+      (l.trackPrefetchCacheResourceResult = C),
+      (l.internal_getOrAddPrefetchCacheEntry = S),
+      (l.initiatePrefetch = L),
+      (l.getPrefetchTasks = P),
+      (l.processPrefetchTask = A),
+      (l.internal_filterVideoRepresentations = j),
+      (l.computeVideoPlayerNextgendashNativeNetworkDiagnosticsSample = X),
+      (l.evictVideoPlayerNextgendashNativePrefetchesForRequest = J),
+      (l.internal_startFetchForPrefetch = Z),
+      (l.releasePrefetchKey = te),
+      (l.getCachedRepresentationsForPrefetchKey = ne),
+      (l.getCachedValueForPrefetchKeyAndURL = ae));
   },
   98,
 );

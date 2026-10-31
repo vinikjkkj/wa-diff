@@ -88,6 +88,17 @@ __d(
               ? e
               : r("WAWebNoop");
           }),
+          (a.registerCloseGuardMid = function (t) {
+            var e, n;
+            return (e =
+              (n = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
+                "mid",
+              )) == null
+                ? void 0
+                : n.registerCloseGuard(t)) != null
+              ? e
+              : r("WAWebNoop");
+          }),
           (a.hasCloseGuardLeft = function () {
             var e, t;
             return (e =

@@ -312,9 +312,9 @@ __d(
                     ),
                     s = l.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
                     u = s.openCursor();
-                  ((u.onsuccess = function (n) {
-                    var r = n.target.result;
-                    if (r == null) {
+                  ((u.onsuccess = function () {
+                    var n = u.result;
+                    if (n == null) {
                       (o("RSTUtils").debugLog(
                         "Finished " + a + " over incidents in indexDB",
                       ),
@@ -322,31 +322,31 @@ __d(
                       return;
                     }
                     try {
-                      var l = i.$8(r.value);
-                      if (l == null)
+                      var r = i.$8(n.value);
+                      if (r == null)
                         (o("RSTUtils").debugLog(
                           "Unable to parse an incident, deleting it from indexDB",
                         ),
-                          r.delete());
+                          n.delete());
                       else {
-                        var s = t(l);
-                        s === "delete"
+                        var l = t(r);
+                        l === "delete"
                           ? (o("RSTUtils").debugLog(
                               "Deleting incident " +
-                                l.incidentID +
+                                r.incidentID +
                                 " from indexDB",
                             ),
-                            r.delete())
-                          : s === "update" &&
+                            n.delete())
+                          : l === "update" &&
                             (o("RSTUtils").debugLog(
-                              "Update incident " + l.incidentID + " in indexDB",
+                              "Update incident " + r.incidentID + " in indexDB",
                             ),
-                            r.update(i.$7(l)));
+                            n.update(i.$7(r)));
                       }
                     } catch (e) {
-                      r.delete();
+                      n.delete();
                     }
-                    r.continue();
+                    n.continue();
                   }),
                     i.$11(u, n, a),
                     i.$12(l, n, a));

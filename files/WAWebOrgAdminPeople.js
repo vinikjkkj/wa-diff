@@ -86,6 +86,7 @@ __d(
         memberTag: e.memberTag,
         name: e.name,
         phoneNumber: e.phoneNumber,
+        rosterStatus: e.status,
         secondaryMemberTag: e.secondaryMemberTag,
         username: null,
       };

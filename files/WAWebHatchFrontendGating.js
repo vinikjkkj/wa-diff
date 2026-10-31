@@ -29,13 +29,13 @@ __d(
       );
     }
     function u() {
-      return A({
+      return F({
         abProp: "ai_hatch_approval_history_enabled",
         primaryFeature: "ai_hatch_approval_history_enabled",
       });
     }
     function c() {
-      return A({
+      return F({
         abProp: "ai_hatch_approval_notification_enabled",
         primaryFeature: "ai_hatch_approval_notification_enabled",
       });
@@ -46,7 +46,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        A({
+        F({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
@@ -68,31 +68,28 @@ __d(
       );
     }
     function _() {
-      return A({
+      return F({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
     }
     function f() {
-      return A({
+      return F({
         abProp: "ai_hatch_vm_capability_sync_enabled",
         primaryFeature: "ai_hatch_vm_capability_sync_enabled",
       });
     }
     function g() {
-      return A({
-        abProp: "ai_hatch_cvm_enabled",
-        primaryFeature: "ai_hatch_cvm_enabled",
-      });
+      return F({ abProp: "ai_hatch_cvm_enabled" });
     }
     function h() {
-      return A({
+      return F({
         abProp: "ai_hatch_ideas_enabled",
         primaryFeature: "ai_hatch_ideas_enabled",
       });
     }
     function y() {
-      return A({
+      return F({
         abProp: "ai_hatch_identity_enabled",
         primaryFeature: "ai_hatch_identity_enabled",
       });
@@ -105,7 +102,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        A({
+        F({
           abProp: "ai_hatch_browser_enabled",
           primaryFeature: "ai_hatch_browser_enabled",
         })
@@ -115,7 +112,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        A({
+        F({
           abProp: "ai_hatch_theme_enabled",
           primaryFeature: "ai_hatch_theme_enabled",
         })
@@ -125,7 +122,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        A({
+        F({
           abProp: "ai_hatch_avatar_working_video_enabled",
           primaryFeature: "ai_hatch_avatar_working_video_enabled",
         })
@@ -137,46 +134,60 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        A({
+        F({
           abProp: "ai_hatch_secure_credentials_enabled",
           primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
       );
     }
     function R() {
-      return A({ abProp: "ai_hatch_permission_enable" });
+      return (
+        S() &&
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
+          "ai_hatch_custom_connectors_enabled",
+        ) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_custom_connectors_enabled",
+        )
+      );
     }
     function L() {
+      return F({
+        abProp: "ai_hatch_permission_enable",
+        primaryFeature: "ai_hatch_permission_enable",
+      });
+    }
+    function E() {
       return (
         o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        A({
+        F({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
-    function E() {
-      return A({
+    function k() {
+      return F({
         abProp: "ai_hatch_media_enabled",
         primaryFeature: "ai_hatch_media_enabled",
       });
     }
-    function k() {
-      return A({
+    function I() {
+      return F({
         abProp: "ai_hatch_revoke_enabled",
         primaryFeature: "ai_hatch_revoke_enabled",
       });
     }
-    function I() {
-      return A({
+    function T() {
+      return F({
         abProp: "ai_hatch_data_controls_enabled",
         primaryFeature: "ai_hatch_data_controls_enabled",
       });
     }
-    function T() {
+    function D() {
       return (
         e() &&
         (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(
@@ -190,36 +201,36 @@ __d(
         )
       );
     }
-    function D() {
+    function x() {
       return (
-        T() &&
+        D() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_in_app_additional_tokens_enabled",
         )
       );
     }
-    function x() {
-      return A({
+    function $() {
+      return F({
         abProp: "ai_hatch_scheduled_tasks_enabled",
         primaryFeature: "ai_hatch_scheduled_tasks_enabled",
       });
     }
-    function $() {
-      return A({
+    function P() {
+      return F({
         abProp: "ai_hatch_activity_enabled",
         primaryFeature: "ai_hatch_activity_enabled",
       });
     }
-    function P() {
-      return $() && r("gkx")("16539");
-    }
     function N() {
-      return A({
+      return P() && r("gkx")("16539");
+    }
+    function M() {
+      return F({
         abProp: "ai_hatch_video_avatars_enabled",
         primaryFeature: "ai_hatch_video_avatars_enabled",
       });
     }
-    function M() {
+    function w() {
       var e = o(
         "WAWebMuseDefaultAssistantVariant",
       ).MuseDefaultAssistantVariant.cast(
@@ -237,8 +248,8 @@ __d(
         : r("WAWebHatchLinkedStatusManager").isLinked() &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
-    function w(e) {
-      return e || !N()
+    function A(e) {
+      return e || !M()
         ? "static"
         : (function (e) {
             return e === 1 ? "loop" : e === 2 ? "once" : "static";
@@ -248,7 +259,7 @@ __d(
             ),
           );
     }
-    function A(t) {
+    function F(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -273,19 +284,20 @@ __d(
       (l.isHatchThemeEnabled = b),
       (l.isHatchAvatarWorkingVideoEnabled = v),
       (l.isHatchSecureCredentialsEnabled = S),
-      (l.isHatchPermissionsEnabled = R),
-      (l.isHatchSpaceEnabled = L),
-      (l.isHatchMediaEnabled = E),
-      (l.isHatchRevokeEnabled = k),
-      (l.isHatchDataControlsEnabled = I),
-      (l.isHatchManageSubscriptionEnabled = T),
-      (l.isHatchAdditionalTokensEnabled = D),
-      (l.isHatchScheduledTasksEnabled = x),
-      (l.isHatchActivityEnabled = $),
-      (l.isHatchGoalsEnabled = P),
-      (l.isHatchVideoAvatarsEnabled = N),
-      (l.isMuseNavBarEntryPointSelected = M),
-      (l.getHatchNavBarAnimationMode = w));
+      (l.isHatchCustomConnectorsEnabled = R),
+      (l.isHatchPermissionsEnabled = L),
+      (l.isHatchSpaceEnabled = E),
+      (l.isHatchMediaEnabled = k),
+      (l.isHatchRevokeEnabled = I),
+      (l.isHatchDataControlsEnabled = T),
+      (l.isHatchManageSubscriptionEnabled = D),
+      (l.isHatchAdditionalTokensEnabled = x),
+      (l.isHatchScheduledTasksEnabled = $),
+      (l.isHatchActivityEnabled = P),
+      (l.isHatchGoalsEnabled = N),
+      (l.isHatchVideoAvatarsEnabled = M),
+      (l.isMuseNavBarEntryPointSelected = w),
+      (l.getHatchNavBarAnimationMode = A));
   },
   98,
 );

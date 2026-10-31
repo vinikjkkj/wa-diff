@@ -212,6 +212,7 @@ __d(
             );
           var l = o("WAWebCoexProductStateStore").saveCoexProductState({
             surfaces: i.surfaces,
+            isBspHosted: i.isBspHosted,
             fetchedAtMs: a,
           })
             ? "changed"
@@ -240,26 +241,28 @@ __d(
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.type === "authoritative" &&
-          "surfaces" in e
+          "surfaces" in e &&
+          "isBspHosted" in e
         ) {
-          var t = e.surfaces;
-          return "authoritative/[" + t.join(",") + "]";
+          var t = e.surfaces,
+            n = e.isBspHosted;
+          return "authoritative/[" + t.join(",") + "]" + (n ? "/bsp" : "");
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.type === "rejected" &&
           "reason" in e
         ) {
-          var n = e.reason;
-          return "rejected/" + n;
+          var r = e.reason;
+          return "rejected/" + r;
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.type === "failed" &&
           "reason" in e
         ) {
-          var r = e.reason;
-          return "failed/" + r;
+          var o = e.reason;
+          return "failed/" + o;
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

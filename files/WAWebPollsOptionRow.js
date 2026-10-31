@@ -1,7 +1,6 @@
 __d(
   "WAWebPollsOptionRow",
   [
-    "WAWebCheckBox.react",
     "WAWebDrawerSection.react",
     "WAWebFlex.react",
     "WAWebFlexItem.react",
@@ -161,11 +160,7 @@ __d(
                       babelHelpers.extends(
                         {
                           disabled: !T,
-                          theme: w
-                            ? o("WAWebCheckBox.react").CheckboxTheme
-                                .POLLS_SENDER
-                            : o("WAWebCheckBox.react").CheckboxTheme
-                                .POLLS_RECEIVER,
+                          isSentByMe: w,
                           testid: "poll-option-" + g,
                         },
                         U,

@@ -26,25 +26,13 @@ __d(
     function _() {
       return s._(/*BTDS*/ "Strong");
     }
-    function f() {
-      return s._(/*BTDS*/ "Privacy screen on");
-    }
-    function g() {
-      return s._(/*BTDS*/ "Privacy screen off");
-    }
-    function h() {
-      return s._(/*BTDS*/ "Undo");
-    }
     ((l.privacyScreenModeTitle = e),
       (l.privacyScreenModeDescription = u),
       (l.privacyScreenUpsellCta = c),
       (l.privacyModeGeneralLabel = d),
       (l.privacyModeMediaLabel = m),
       (l.privacyModePresetLight = p),
-      (l.privacyModePresetStrong = _),
-      (l.privacyModeToastEnabled = f),
-      (l.privacyModeToastDisabled = g),
-      (l.privacyModeToastUndo = h));
+      (l.privacyModePresetStrong = _));
   },
   226,
 );
