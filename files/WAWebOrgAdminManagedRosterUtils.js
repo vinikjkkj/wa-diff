@@ -4,20 +4,21 @@ __d(
     "WATimeUtils",
     "WAWebOrgAdminDirectoryMemberDisplay",
     "WAWebOrgAdminInviteMembersUtils",
+    "WAWebOrgMemberDisplayName",
     "WAWebPhoneUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r, o, a) {
-      if ((a === void 0 && (a = null), !e || I(r, o, a))) return t;
-      var i = S(n);
+      if ((a === void 0 && (a = null), !e || E(r, o, a))) return t;
+      var i = b(n);
       return t.filter(function (e) {
         var t;
-        return R(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
+        return v(e, (t = i.get(e.lid)) != null ? t : [], r, o, a);
       });
     }
     function s(e, t, n, r, o, a) {
       if (!t || (o === "" && a == null)) return [];
-      var i = S(n),
+      var i = b(n),
         l = new Set(
           e.map(function (e) {
             return e.lid;
@@ -27,7 +28,7 @@ __d(
         var t;
         if (l.has(e.lid)) return !1;
         var n = (t = i.get(e.lid)) != null ? t : [];
-        return R(e, n, o, a, null);
+        return v(e, n, o, a, null);
       });
     }
     function u(e, t, n, r, o, a) {
@@ -39,7 +40,7 @@ __d(
       );
       return t.filter(function (e) {
         return (
-          (e.memberLID == null || !i.has(e.memberLID)) && k(e, o, a) && D(e, r)
+          (e.memberLID == null || !i.has(e.memberLID)) && L(e, o, a) && I(e, r)
         );
       });
     }
@@ -125,10 +126,10 @@ __d(
         p = function (t, n) {
           return d(t, n) + m(t, n);
         },
-        _ = T(r, function (e) {
+        _ = k(r, function (e) {
           return p(e, s);
         }),
-        g = T(l, function (e) {
+        g = k(l, function (e) {
           return p(a, e);
         }),
         h = e(!0, t, n, o, a, s),
@@ -184,29 +185,46 @@ __d(
     }
     function C(e) {
       var t = new Map();
-      for (var n of e)
-        n.memberLID != null &&
-          n.emailAddress != null &&
-          t.set(n.memberLID, n.emailAddress);
+      for (var n of e) {
+        var r,
+          a,
+          i,
+          l,
+          s = n.memberLID;
+        if (s != null) {
+          var u = t.get(s),
+            c = o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+              n.name,
+              n.lastName,
+            );
+          t.set(s, {
+            emailAddress:
+              (r = n.emailAddress) != null
+                ? r
+                : u == null
+                  ? void 0
+                  : u.emailAddress,
+            fullName: c === "" ? (u == null ? void 0 : u.fullName) : c,
+            memberTag:
+              (a = n.memberTag) != null ? a : u == null ? void 0 : u.memberTag,
+            phoneNumber:
+              (i = n.phoneNumber) != null
+                ? i
+                : u == null
+                  ? void 0
+                  : u.phoneNumber,
+            secondaryMemberTag:
+              (l = n.secondaryMemberTag) != null
+                ? l
+                : u == null
+                  ? void 0
+                  : u.secondaryMemberTag,
+          });
+        }
+      }
       return t;
     }
     function b(e) {
-      var t = new Map();
-      for (var n of e)
-        n.memberLID != null &&
-          n.phoneNumber != null &&
-          t.set(n.memberLID, n.phoneNumber);
-      return t;
-    }
-    function v(e) {
-      var t = new Map();
-      for (var n of e)
-        n.memberLID != null &&
-          n.secondaryMemberTag != null &&
-          t.set(n.memberLID, n.secondaryMemberTag);
-      return t;
-    }
-    function S(e) {
       var t = new Map();
       for (var n of e) {
         var r,
@@ -218,7 +236,7 @@ __d(
       }
       return t;
     }
-    function R(e, t, n, r, a) {
+    function v(e, t, n, r, a) {
       var i,
         l =
           o(
@@ -228,11 +246,11 @@ __d(
             ? void 0
             : i.toLocaleLowerCase().includes(n)) === !0 ||
           t.some(function (e) {
-            return D(e, n);
+            return I(e, n);
           });
-      return l && L(e, t, r) && E(t, a);
+      return l && S(e, t, r) && R(t, a);
     }
-    function L(e, t, n) {
+    function S(e, t, n) {
       return (
         n == null ||
         e.memberTag === n ||
@@ -241,7 +259,7 @@ __d(
         })
       );
     }
-    function E(e, t) {
+    function R(e, t) {
       return (
         t == null ||
         e.some(function (e) {
@@ -249,27 +267,30 @@ __d(
         })
       );
     }
-    function k(e, t, n) {
+    function L(e, t, n) {
       return (
         (t == null || e.memberTag === t) &&
         (n == null || e.secondaryMemberTag === n)
       );
     }
-    function I(e, t, n) {
+    function E(e, t, n) {
       return e === "" && t == null && n == null;
     }
-    function T(e, t) {
+    function k(e, t) {
       return new Map(
         e.map(function (e) {
           return [e, t(e)];
         }),
       );
     }
-    function D(e, t) {
+    function I(e, t) {
       return t === ""
         ? !0
         : [
-            e.name,
+            o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+              e.name,
+              e.lastName,
+            ),
             e.memberTag,
             e.emailAddress,
             e.phoneNumber,
@@ -294,9 +315,7 @@ __d(
       (l.getWAWebOrgAdminPeopleCounts = g),
       (l.getWAWebOrgAdminRosterInvitees = h),
       (l.canResendOrgAdminRosterInvite = y),
-      (l.getWAWebOrgAdminRosterEmailsByMemberLID = C),
-      (l.getWAWebOrgAdminRosterPhoneNumbersByMemberLID = b),
-      (l.getWAWebOrgAdminRosterSecondaryMemberTagsByMemberLID = v));
+      (l.getWAWebOrgAdminRosterDetailsByMemberLID = C));
   },
   98,
 );

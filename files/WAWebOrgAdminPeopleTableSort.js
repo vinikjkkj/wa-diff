@@ -51,12 +51,13 @@ __d(
       })(e);
     }
     function f(e, t) {
+      var n = o("WAWebOrgAdminPeople").getOrgAdminMemberPerson(e, t);
       return o(
         "WAWebOrgMemberDisplayName",
       ).getOrgMemberNameWithUsernameFallback(
-        e.displayName,
-        e.username,
-        g(t != null ? t : e.phoneNumber),
+        n.name,
+        n.username,
+        g(n.phoneNumber),
       );
     }
     function g(e) {
@@ -70,7 +71,7 @@ __d(
           "member" in e
         ) {
           var n = e.member;
-          return f(n, t.phoneNumbersByMemberLID.get(n.lid));
+          return f(n, t.rosterDetailsByMemberLID.get(n.lid));
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -78,7 +79,10 @@ __d(
           "entry" in e
         ) {
           var r = e.entry;
-          return r.name;
+          return o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+            r.name,
+            r.lastName,
+          );
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -123,37 +127,22 @@ __d(
           e.type === "member" &&
           "member" in e
         ) {
-          var n,
-            r,
-            o = e.member;
-          return {
-            email: t.emailsByMemberLID.get(o.lid),
-            lid: o.lid,
-            memberTag: o.memberTag,
-            phoneNumber:
-              (n = t.phoneNumbersByMemberLID.get(o.lid)) != null
-                ? n
-                : o.phoneNumber,
-            secondaryMemberTag:
-              (r = t.secondaryMemberTagsByMemberLID) == null
-                ? void 0
-                : r.get(o.lid),
-            status: v(o.role),
-          };
+          var n = e.member;
+          return b(n, t.rosterDetailsByMemberLID.get(n.lid));
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.type === "roster" &&
           "entry" in e
         ) {
-          var a = e.entry;
+          var r = e.entry;
           return {
-            email: a.emailAddress,
-            lid: a.memberLID,
-            memberTag: a.memberTag,
-            phoneNumber: a.phoneNumber,
-            secondaryMemberTag: a.secondaryMemberTag,
-            status: b(a, t.showInviteStatus),
+            email: r.emailAddress,
+            lid: r.memberLID,
+            memberTag: r.memberTag,
+            phoneNumber: r.phoneNumber,
+            secondaryMemberTag: r.secondaryMemberTag,
+            status: v(r, t.showInviteStatus),
           };
         }
         throw Error(
@@ -162,7 +151,18 @@ __d(
         );
       })(e);
     }
-    function b(t, n) {
+    function b(e, t) {
+      var n = o("WAWebOrgAdminPeople").getOrgAdminMemberPerson(e, t);
+      return {
+        email: n.emailAddress,
+        lid: e.lid,
+        memberTag: n.memberTag,
+        phoneNumber: n.phoneNumber,
+        secondaryMemberTag: n.secondaryMemberTag,
+        status: S(e.role),
+      };
+    }
+    function v(t, n) {
       return t.memberLID != null
         ? null
         : (function (t) {
@@ -175,7 +175,7 @@ __d(
               : null,
           );
     }
-    function v(e) {
+    function S(e) {
       return e === "CREATOR" ? m : e === "ADMIN" ? d : c;
     }
     ((l.sortOrgAdminPeopleRows = p),

@@ -949,6 +949,7 @@ __d(
         var a = Qe(
           o.id,
           o.name,
+          o.last_name,
           o.member_tag,
           o.email_address,
           o.phone_number,
@@ -981,22 +982,23 @@ __d(
             : null,
       };
     }
-    function Qe(e, t, n, r, o, a, i, l, s) {
+    function Qe(e, t, n, r, o, a, i, l, s, u) {
       return typeof e != "string" ||
         typeof t != "string" ||
-        ![n, r, o, a, i].every(Xe) ||
-        (s != null && typeof s != "number")
+        ![n, r, o, a, i, l].every(Xe) ||
+        (u != null && typeof u != "number")
         ? null
         : {
-            emailAddress: r,
+            emailAddress: o,
             id: e,
-            inviteExpiry: s,
-            memberLID: a,
-            memberTag: n,
+            inviteExpiry: u,
+            lastName: n,
+            memberLID: i,
+            memberTag: r,
             name: t,
-            phoneNumber: o,
-            secondaryMemberTag: i,
-            status: l,
+            phoneNumber: a,
+            secondaryMemberTag: l,
+            status: s,
           };
     }
     function Xe(e) {
@@ -1015,6 +1017,7 @@ __d(
       var t, n;
       return {
         email_address: (t = e.emailAddress) != null ? t : "",
+        last_name: e.lastName,
         member_tag: e.memberTag,
         name: e.name,
         phone_number: (n = e.phoneNumber) != null ? n : "",
@@ -1044,6 +1047,7 @@ __d(
           return {
             entry_id: r.id,
             update: {
+              last_name: r.lastName,
               member_tag: r.memberTag,
               name: r.name,
               phone_number: r.phoneNumber,

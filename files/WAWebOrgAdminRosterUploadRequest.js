@@ -126,23 +126,29 @@ __d(
     function p(e) {
       var t,
         n,
-        r = e.changes,
-        o = e.entry,
-        a = e.match;
-      return a == null
+        r,
+        o = e.changes,
+        a = e.entry,
+        i = e.match;
+      return i == null
         ? null
         : {
-            id: a.id,
-            memberTag: r.includes("member_tag")
-              ? (t = o.memberTag) != null
+            id: i.id,
+            lastName: o.includes("last_name")
+              ? (t = a.lastName) != null
                 ? t
                 : ""
               : null,
-            name: r.includes("name") ? o.name : null,
-            phoneNumber: r.includes("phone") ? o.phoneNumber : null,
-            secondaryMemberTag: r.includes("secondary_member_tag")
-              ? (n = o.secondaryMemberTag) != null
+            memberTag: o.includes("member_tag")
+              ? (n = a.memberTag) != null
                 ? n
+                : ""
+              : null,
+            name: o.includes("name") ? a.name : null,
+            phoneNumber: o.includes("phone") ? a.phoneNumber : null,
+            secondaryMemberTag: o.includes("secondary_member_tag")
+              ? (r = a.secondaryMemberTag) != null
+                ? r
                 : ""
               : null,
           };

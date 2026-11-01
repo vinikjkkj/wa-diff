@@ -69,7 +69,7 @@ __d(
             ),
             i = new Map(
               r("compactMap")(a, function (e) {
-                return e.value;
+                return e.status === "fulfilled" ? e.value : null;
               }),
             );
           o("WAWebBackendApi").frontendFireAndForget(

@@ -53,9 +53,9 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield v(e),
-            n = D(t.columns);
+            n = x(t.columns);
           return t.rows.map(function (e) {
-            return T(e, n);
+            return D(e, n);
           });
         })),
         b.apply(this, arguments)
@@ -67,52 +67,53 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          L(t);
+          E(t);
           var n = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
             yield t.text(),
             d,
           );
           if (
             n.errors.some(function (e) {
-              return E(e);
+              return k(e);
             }) ||
             n.data.length === 0
           )
             throw new e("invalid_file");
           if (n.meta.truncated) throw new e("too_many_lines");
-          var r = k(n.data),
+          var r = I(n.data),
             a = n.data[r],
-            i = I(n.data, r, a.length);
+            i = T(n.data, r, a.length);
           if (i.length === 0) throw new e("empty_roster");
-          return { columns: a.map(P), rows: i };
+          return { columns: a.map(N), rows: i };
         })),
         S.apply(this, arguments)
       );
     }
     function R(e) {
-      var t = $(e);
-      return p.has(t)
-        ? "name"
-        : _.has(t)
-          ? "first_name"
-          : f.has(t)
-            ? "last_name"
-            : h.has(t)
-              ? "email"
-              : y.has(t)
-                ? "phone"
-                : g.has(t)
-                  ? "member_tag"
-                  : null;
+      var t = P(e);
+      return _.has(t)
+        ? "first_name"
+        : f.has(t)
+          ? "last_name"
+          : h.has(t)
+            ? "email"
+            : y.has(t)
+              ? "phone"
+              : g.has(t)
+                ? "member_tag"
+                : null;
     }
-    function L(t) {
+    function L(e) {
+      return p.has(P(e));
+    }
+    function E(t) {
       if (t.size > c) throw new e("file_too_large");
       if (!t.name.toLowerCase().endsWith(".csv")) throw new e("invalid_file");
     }
-    function E(e) {
+    function k(e) {
       return e.type !== "FieldMismatch" && e.code !== "UndetectableDelimiter";
     }
-    function k(t) {
+    function I(t) {
       var n = t.findIndex(function (e) {
         return e.some(function (e) {
           return String(e).trim() !== "";
@@ -121,9 +122,9 @@ __d(
       if (n < 0) throw new e("invalid_headers");
       return n;
     }
-    function I(t, n, r) {
+    function T(t, n, r) {
       for (var o = [], a = n + 1; a < t.length; a++) {
-        var i = t[a].map(N);
+        var i = t[a].map(M);
         if (
           !i.every(function (e) {
             return e === "";
@@ -137,25 +138,25 @@ __d(
       }
       return o;
     }
-    function T(t, n) {
-      var r = M(t.cells, n.name),
-        o = w(t.cells, n.memberTag),
-        a = w(t.cells, n.email),
-        i = w(t.cells, n.phone);
+    function D(t, n) {
+      var r = w(t.cells, n.name),
+        o = A(t.cells, n.memberTag),
+        a = A(t.cells, n.email),
+        i = A(t.cells, n.phone);
       if (r === "" || (a == null && i == null))
         throw new e("invalid_row", t.rowNumber);
       return { emailAddress: a, memberTag: o, name: r, phoneNumber: i };
     }
-    function D(t) {
-      var n = t.map($),
-        r = x(n, p),
-        o = x(n, g),
-        a = x(n, h),
-        i = x(n, y);
+    function x(t) {
+      var n = t.map(P),
+        r = $(n, p),
+        o = $(n, g),
+        a = $(n, h),
+        i = $(n, y);
       if (r == null || (a == null && i == null)) throw new e("invalid_headers");
       return { email: a, memberTag: o, name: r, phone: i };
     }
-    function x(t, n) {
+    function $(t, n) {
       var r,
         o = t.flatMap(function (e, t) {
           return n.has(e) ? [t] : [];
@@ -163,22 +164,22 @@ __d(
       if (o.length > 1) throw new e("invalid_headers");
       return (r = o[0]) != null ? r : null;
     }
-    function $(e) {
-      return P(e).toLowerCase();
-    }
     function P(e) {
-      return N(String(e).replace(/^\uFEFF/, ""));
+      return N(e).toLowerCase();
     }
     function N(e) {
+      return M(String(e).replace(/^\uFEFF/, ""));
+    }
+    function M(e) {
       return String(e).trim().replace(m, "").trim();
     }
-    function M(e, t) {
+    function w(e, t) {
       var n;
       return String((n = e[t]) != null ? n : "").trim();
     }
-    function w(e, t) {
+    function A(e, t) {
       if (t == null) return null;
-      var n = M(e, t);
+      var n = w(e, t);
       return n === "" ? null : n;
     }
     ((l.WAWebOrgAdminRosterCSVError = e),
@@ -187,7 +188,8 @@ __d(
       (l.MAX_ORG_ADMIN_ROSTER_FILE_BYTES = c),
       (l.parseOrgAdminRosterCSV = C),
       (l.parseOrgAdminRosterCSVTable = v),
-      (l.getOrgAdminRosterCSVHeaderField = R));
+      (l.getOrgAdminRosterCSVHeaderField = R),
+      (l.isOrgAdminRosterCSVWholeNameHeader = L));
   },
   98,
 );

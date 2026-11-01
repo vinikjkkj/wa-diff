@@ -5,40 +5,39 @@ __d(
     "WAWebOrgAdminInviteMembersUtils",
     "WAWebOrgAdminMemberTagOptions",
     "WAWebOrgAdminRosterCSVParser",
+    "WAWebOrgMemberDisplayName",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["name", "email", "phone"],
-      s = ["first_name", "last_name"],
+      s = ["name", "last_name", "email", "phone"],
       u = 256,
       c = /[\u200c\u200d]/g,
       d =
         /(?:[\0-\x1F\x7F-\x9F\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F])/;
     function m(e, t) {
-      var n = new Set(),
-        r = e.map(function (e) {
-          var r,
-            a =
-              (r = o(
-                "WAWebOrgAdminRosterCSVParser",
-              ).getOrgAdminRosterCSVHeaderField(e)) != null
-                ? r
-                : w(e, t);
-          return a == null || n.has(a) ? "skip" : (n.add(a), a);
-        });
-      return n.has("name")
-        ? r.map(function (e) {
-            return s.includes(e) ? "skip" : e;
-          })
-        : r;
+      var n = new Set();
+      return e.map(function (e) {
+        var r,
+          a = o(
+            "WAWebOrgAdminRosterCSVParser",
+          ).isOrgAdminRosterCSVWholeNameHeader(e)
+            ? null
+            : (r = o(
+                  "WAWebOrgAdminRosterCSVParser",
+                ).getOrgAdminRosterCSVHeaderField(e)) != null
+              ? r
+              : w(e, t);
+        return a == null || n.has(a) ? "skip" : (n.add(a), a);
+      });
     }
     function p(e, t, n) {
       return e.map(function (e, r) {
-        return r === t ? n : n !== "skip" && S(e, n) ? "skip" : e;
+        return r === t ? n : n !== "skip" && e === n ? "skip" : e;
       });
     }
     function _(t) {
       var n = t.map(function (e) {
-        return s.includes(e) ? "name" : e;
+        return e === "first_name" ? "name" : e;
       });
       return e.filter(function (e) {
         return !n.includes(e);
@@ -51,51 +50,53 @@ __d(
         o = e.getSecondaryMemberTag,
         a = e.roster,
         i = e.table,
-        l = D(a),
+        l = T(a),
         s = new Set(),
         u = {
           memberTag: t.includes("member_tag"),
           secondaryMemberTag: t.includes("secondary_member_tag"),
         },
-        c = i.rows.map(function (e) {
+        c = t.includes("last_name"),
+        d = i.rows.map(function (e) {
           var a,
             i = n.get(e.rowNumber),
-            c = L(e, t, i, { getMemberTag: r, getSecondaryMemberTag: o }),
-            d = v(c),
-            m = c.email == null ? null : x(c.email),
-            p = m == null ? null : (a = l.get(m)) != null ? a : null,
-            _ = m != null && s.has(m);
+            d = R(e, t, i, { getMemberTag: r, getSecondaryMemberTag: o }),
+            m = v(d),
+            p = d.email == null ? null : D(d.email),
+            _ = p == null ? null : (a = l.get(p)) != null ? a : null,
+            f = p != null && s.has(p);
           return (
-            d.length === 0 && m != null && !_ && s.add(m),
+            m.length === 0 && p != null && !f && s.add(p),
             b({
-              cells: c,
+              cells: d,
               fixed: i != null,
-              match: p,
-              missing: d,
-              repeated: _,
+              lastNameMapped: c,
+              match: _,
+              missing: m,
+              repeated: f,
               row: e,
               tagColumnsMapped: u,
             })
           );
         });
       return {
-        added: c.filter(function (e) {
+        added: d.filter(function (e) {
           return e.status === "added";
         }),
-        incomplete: c.filter(function (e) {
+        incomplete: d.filter(function (e) {
           return e.status === "incomplete";
         }),
-        repeated: c.filter(function (e) {
+        repeated: d.filter(function (e) {
           return e.status === "repeated";
         }),
-        rows: c,
-        unchanged: c.filter(function (e) {
+        rows: d,
+        unchanged: d.filter(function (e) {
           return e.status === "unchanged";
         }),
-        unnamed: c.filter(function (e) {
+        unnamed: d.filter(function (e) {
           return e.status === "unnamed";
         }),
-        updated: c.filter(function (e) {
+        updated: d.filter(function (e) {
           return e.status === "updated";
         }),
       };
@@ -147,26 +148,28 @@ __d(
         }),
       };
     }
-    function y(t) {
-      return e.filter(function (e) {
-        return e === "name"
-          ? t.name != null && !$(t.name.trim())
-          : e === "email"
-            ? t.email != null &&
-              !o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
-                t.email.trim(),
-              )
-            : e === "phone"
-              ? t.phone != null &&
-                o(
-                  "WAWebOrgAdminGroupCandidate",
-                ).normalizeOrgAdminRosterPhoneNumberInput(t.phone) == null
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
+    function y(e) {
+      return s.filter(function (t) {
+        return t === "name"
+          ? e.name != null && !x(e.name.trim())
+          : t === "last_name"
+            ? e.lastName != null && !$(e.lastName.trim())
+            : t === "email"
+              ? e.email != null &&
+                !o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(
+                  e.email.trim(),
+                )
+              : t === "phone"
+                ? e.phone != null &&
+                  o(
+                    "WAWebOrgAdminGroupCandidate",
+                  ).normalizeOrgAdminRosterPhoneNumberInput(e.phone) == null
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        t,
+                    );
+                  })();
       });
     }
     function C(e) {
@@ -179,56 +182,56 @@ __d(
     function b(e) {
       var t = e.cells,
         n = e.fixed,
-        r = e.match,
-        o = e.missing,
-        a = e.repeated,
-        i = e.row,
-        l = e.tagColumnsMapped,
-        s = r == null ? N(t) : E(r, t, l),
-        u = r == null ? [] : k(r, s);
+        r = e.lastNameMapped,
+        a = e.match,
+        i = e.missing,
+        l = e.repeated,
+        s = e.row,
+        u = e.tagColumnsMapped,
+        c = a == null ? N(t) : L(a, t, u, r),
+        d = a == null ? [] : E(a, c);
       return {
-        cells: i.cells,
-        changes: u,
+        cells: s.cells,
+        changes: d,
         emailText: t.emailText,
-        entry: s,
+        entry: c,
         fixed: n,
-        match: r,
+        match: a,
         memberTag: t.memberTag,
-        missing: o,
-        name: t.name,
+        missing: i,
+        name: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+          c.name,
+          c.lastName,
+        ),
         phoneText: t.phoneText,
-        rowNumber: i.rowNumber,
+        rowNumber: s.rowNumber,
         secondaryMemberTag: t.secondaryMemberTag,
-        status: R(o, a, r, u),
+        status: S(i, l, a, d),
       };
     }
-    function v(t) {
-      return e.filter(function (e) {
-        return e === "name"
-          ? !$(t.name)
-          : e === "email"
-            ? t.email == null
-            : e === "phone"
-              ? t.phone == null
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
+    function v(e) {
+      return s.filter(function (t) {
+        var n;
+        return t === "name"
+          ? !x(e.name)
+          : t === "last_name"
+            ? !$((n = e.lastName) != null ? n : "")
+            : t === "email"
+              ? e.email == null
+              : t === "phone"
+                ? e.phone == null
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        t,
+                    );
+                  })();
       });
     }
-    function S(e, t) {
-      return (
-        e === t ||
-        (e === "name" && s.includes(t)) ||
-        (s.includes(e) && t === "name")
-      );
-    }
-    function R(e, t, n, r) {
+    function S(e, t, n, r) {
       return e.includes("email") || e.includes("phone")
         ? "incomplete"
-        : e.includes("name")
+        : e.length > 0
           ? "unnamed"
           : t
             ? "repeated"
@@ -238,94 +241,107 @@ __d(
                 ? "updated"
                 : "unchanged";
     }
-    function L(e, t, n, r) {
+    function R(e, t, n, r) {
       var a,
         i,
         l,
-        s = r.getMemberTag,
-        u = r.getSecondaryMemberTag,
-        c = function (r) {
+        s,
+        u = r.getMemberTag,
+        c = r.getSecondaryMemberTag,
+        d = function (r) {
           var n,
             o = t.indexOf(r);
           return o === -1 ? "" : ((n = e.cells[o]) != null ? n : "").trim();
         },
-        d = (
-          (a = n == null ? void 0 : n.email) != null ? a : c("email")
-        ).trim(),
         m = (
-          (i = n == null ? void 0 : n.phone) != null ? i : c("phone")
+          (a = n == null ? void 0 : n.email) != null ? a : d("email")
         ).trim(),
-        p = c("member_tag"),
-        _ = c("secondary_member_tag"),
-        f =
-          c("name") ||
-          [c("first_name"), c("last_name")].filter(Boolean).join(" ");
+        p = (
+          (i = n == null ? void 0 : n.phone) != null ? i : d("phone")
+        ).trim(),
+        _ = d("member_tag"),
+        f = d("secondary_member_tag"),
+        g = (
+          (l = n == null ? void 0 : n.lastName) != null ? l : d("last_name")
+        ).trim();
       return {
-        email: o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(d)
-          ? d
+        email: o("WAWebOrgAdminInviteMembersUtils").isWellFormedOrgEmail(m)
+          ? m
           : null,
-        emailText: d,
-        memberTag: p === "" ? null : s(p),
-        name: ((l = n == null ? void 0 : n.name) != null ? l : f).trim(),
+        emailText: m,
+        lastName: g === "" ? null : g,
+        memberTag: _ === "" ? null : u(_),
+        name: ((s = n == null ? void 0 : n.name) != null
+          ? s
+          : d("first_name")
+        ).trim(),
         phone: o(
           "WAWebOrgAdminGroupCandidate",
-        ).normalizeOrgAdminRosterPhoneNumberInput(m),
-        phoneText: m,
-        secondaryMemberTag: _ === "" ? null : u(_),
+        ).normalizeOrgAdminRosterPhoneNumberInput(p),
+        phoneText: p,
+        secondaryMemberTag: f === "" ? null : c(f),
       };
     }
-    function E(e, t, n) {
-      var r, o;
+    function L(e, t, n, r) {
+      var o, a;
       return {
         emailAddress: e.emailAddress,
+        lastName: r ? t.lastName : e.lastName,
         memberTag: n.memberTag ? t.memberTag : e.memberTag,
         name: t.name,
-        phoneNumber: (r = t.phone) != null ? r : e.phoneNumber,
+        phoneNumber: (o = t.phone) != null ? o : e.phoneNumber,
         secondaryMemberTag: n.secondaryMemberTag
-          ? (o = t.secondaryMemberTag) != null
-            ? o
+          ? (a = t.secondaryMemberTag) != null
+            ? a
             : ""
           : e.secondaryMemberTag,
       };
     }
-    function k(e, t) {
+    function E(e, t) {
       var n,
         r,
-        a = [];
+        a,
+        i,
+        l = [];
       return (
-        t.name !== e.name && a.push("name"),
-        ((n = t.memberTag) != null ? n : null) !==
-          ((r = e.memberTag) != null ? r : null) && a.push("member_tag"),
-        I(t.secondaryMemberTag) !== I(e.secondaryMemberTag) &&
-          a.push("secondary_member_tag"),
-        T(
+        t.name !== e.name && l.push("name"),
+        ((n = t.lastName) != null ? n : null) !==
+          ((r = e.lastName) != null ? r : null) && l.push("last_name"),
+        ((a = t.memberTag) != null ? a : null) !==
+          ((i = e.memberTag) != null ? i : null) && l.push("member_tag"),
+        k(t.secondaryMemberTag) !== k(e.secondaryMemberTag) &&
+          l.push("secondary_member_tag"),
+        I(
           t.phoneNumber,
           e.phoneNumber,
           o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber,
-        ) || a.push("phone"),
-        a
+        ) || l.push("phone"),
+        l
       );
     }
-    function I(e) {
+    function k(e) {
       return e === "" ? null : e != null ? e : null;
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       return (e == null ? null : n(e)) === (t == null ? null : n(t));
     }
-    function D(e) {
+    function T(e) {
       var t = new Map();
       for (var n of e) {
         var r = n.emailAddress;
-        r != null && !t.has(x(r)) && t.set(x(r), n);
+        r != null && !t.has(D(r)) && t.set(D(r), n);
       }
       return t;
     }
-    function x(e) {
+    function D(e) {
       return e.trim().toLowerCase();
     }
-    function $(e) {
+    function x(e) {
       var t = e.normalize("NFC");
       return t !== "" && P(t) <= u && !d.test(t.replace(c, ""));
+    }
+    function $(e) {
+      return e === "" || x(e);
     }
     function P(e) {
       var t = 0;
@@ -345,6 +361,7 @@ __d(
     function N(e) {
       var t = {
         emailAddress: e.email,
+        lastName: e.lastName,
         memberTag: e.memberTag,
         name: e.name,
         phoneNumber: e.phone,
@@ -358,6 +375,7 @@ __d(
     function M(e) {
       return {
         emailAddress: e.emailAddress,
+        lastName: e.lastName,
         memberTag: e.memberTag,
         name: e.name,
         phoneNumber: e.phoneNumber,

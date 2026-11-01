@@ -112,25 +112,28 @@ __d(
     }
     function _(e, t) {
       var n,
-        r = t.memberTag,
-        a = t.name,
-        i = t.phoneNumber;
+        r,
+        a = t.lastName,
+        i = t.memberTag,
+        l = t.name,
+        s = t.phoneNumber;
       return {
         id: e.id,
+        lastName: a === ((n = e.lastName) != null ? n : "") ? null : a,
         memberTag:
-          (r != null ? r : null) === ((n = e.memberTag) != null ? n : null)
+          (i != null ? i : null) === ((r = e.memberTag) != null ? r : null)
             ? null
-            : r != null
-              ? r
+            : i != null
+              ? i
               : "",
-        name: a === e.name ? null : a,
+        name: l === e.name ? null : l,
         phoneNumber:
-          i ===
+          s ===
           o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber(
             e.phoneNumber,
           )
             ? null
-            : i,
+            : s,
         secondaryMemberTag: null,
       };
     }

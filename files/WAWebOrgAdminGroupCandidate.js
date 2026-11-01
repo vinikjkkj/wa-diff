@@ -27,7 +27,10 @@ __d(
     }
     function p(e) {
       return {
-        displayName: e.name,
+        displayName: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+          e.name,
+          e.lastName,
+        ),
         key: "roster:" + e.id,
         memberTag: e.memberTag,
         rosterEntry: e,
@@ -130,7 +133,7 @@ __d(
       if (t === "") return !0;
       var r = e.rosterEntry;
       if (
-        [r.name, r.memberTag, r.emailAddress].some(function (e) {
+        [e.displayName, r.memberTag, r.emailAddress].some(function (e) {
           return (
             (e == null ? void 0 : e.toLocaleLowerCase().includes(t)) === !0
           );

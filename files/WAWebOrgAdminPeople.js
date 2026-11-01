@@ -14,25 +14,21 @@ __d(
     function m(e, t, n) {
       if (e.startsWith(s)) {
         var r = e.slice(s.length),
-          o = t.find(function (e) {
+          a = t.find(function (e) {
             return e.lid === r;
           });
-        if (o == null) return null;
-        var a = n.filter(function (e) {
-          return e.memberLID === o.lid;
-        });
-        return f(
-          o,
-          E(a, function (e) {
-            return e.emailAddress;
-          }),
-          E(a, function (e) {
-            return e.phoneNumber;
-          }),
-          E(a, function (e) {
-            return e.secondaryMemberTag;
-          }),
-        );
+        return a == null
+          ? null
+          : f(
+              a,
+              o("WAWebOrgAdminManagedRosterUtils")
+                .getWAWebOrgAdminRosterDetailsByMemberLID(
+                  n.filter(function (e) {
+                    return e.memberLID === a.lid;
+                  }),
+                )
+                .get(a.lid),
+            );
       }
       if (e.startsWith(u)) {
         var i = e.slice(u.length),
@@ -57,17 +53,20 @@ __d(
           })
         : null;
     }
-    function f(e, t, n, r) {
+    function f(e, t) {
+      var n, r, o;
       return {
-        emailAddress: t,
+        emailAddress: t == null ? void 0 : t.emailAddress,
         key: c(e.lid),
         lid: e.lid,
         member: e,
         memberRole: e.role,
-        memberTag: e.memberTag,
-        name: e.displayName,
-        phoneNumber: n != null ? n : e.phoneNumber,
-        secondaryMemberTag: r,
+        memberTag:
+          (n = t == null ? void 0 : t.memberTag) != null ? n : e.memberTag,
+        name: (r = t == null ? void 0 : t.fullName) != null ? r : e.displayName,
+        phoneNumber:
+          (o = t == null ? void 0 : t.phoneNumber) != null ? o : e.phoneNumber,
+        secondaryMemberTag: t == null ? void 0 : t.secondaryMemberTag,
         username: e.username,
       };
     }
@@ -80,6 +79,7 @@ __d(
           "WAWebOrgAdminManagedRosterUtils",
         ).getOrgAdminRosterInviteStatus(e),
         key: d(e.id),
+        lastName: e.lastName,
         lid: (t = e.memberLID) != null ? t : null,
         member: null,
         memberRole: null,
@@ -157,13 +157,6 @@ __d(
     }
     function L(e) {
       return e.type === "roster" ? [e.entry.id] : [];
-    }
-    function E(e, t) {
-      for (var n = e.length - 1; n >= 0; n--) {
-        var r = t(e[n]);
-        if (r != null) return r;
-      }
-      return null;
     }
     ((l.ORG_ADMIN_ROSTER_REMOVE_BATCH_LIMIT = e),
       (l.getOrgAdminMemberPersonKey = c),
