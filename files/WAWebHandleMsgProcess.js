@@ -7,7 +7,6 @@ __d(
     "WAWebABProps",
     "WAWebAddonGatingUtils",
     "WAWebAddonQueryUtils",
-    "WAWebApiDeferredMessagesStorage",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendJobs.flow",
@@ -16,6 +15,7 @@ __d(
     "WAWebConditionalRevealPreProcessor",
     "WAWebCurrentUser",
     "WAWebDBMsgUtils",
+    "WAWebDeferrableProtocolMsg",
     "WAWebGalaxyFlowsUtils",
     "WAWebGetGroupAddressingMode",
     "WAWebGetMessageCache",
@@ -37,10 +37,8 @@ __d(
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgType",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-    "WAWebParsedProtocolMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebQuarantineActionUtils",
-    "WAWebRuntimeEnvironmentUtils",
     "WAWebSessionScopeWamUtils",
     "WAWebSignal",
     "WAWebUserPrefsMeUser",
@@ -51,7 +49,6 @@ __d(
     "WAWebWasaRootSecretWriter",
     "WAWebWid",
     "WAWebWidFactory",
-    "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "cr:10197",
     "cr:37440",
@@ -457,74 +454,23 @@ __d(
                 s.retryCount > 0 && (e.backgroundColor = 16711680);
               });
           }
-          ce == null || ce();
-          var _e = null;
           if (
-            (me.history
-              ? (_e = o("WAWebParsedProtocolMsgType")
-                  .PARSED_PROTOCOL_MESSAGE_TYPE.HISTORY)
-              : me.appStateSyncKeyShare
-                ? (_e = o("WAWebParsedProtocolMsgType")
-                    .PARSED_PROTOCOL_MESSAGE_TYPE.APP_STATE_SYNC_KEY_SHARE)
-                : me.appStateSyncKeyRequest
-                  ? (_e = o("WAWebParsedProtocolMsgType")
-                      .PARSED_PROTOCOL_MESSAGE_TYPE.APP_STATE_SYNC_KEY_REQUEST)
-                  : me.peerDataOperationRequestResponseMessage
-                    ? (_e = o("WAWebParsedProtocolMsgType")
-                        .PARSED_PROTOCOL_MESSAGE_TYPE
-                        .PEER_DATA_OPERATION_REQUEST_RESPONSE_MESSAGE)
-                    : me.peerDataOperationRequestMessage &&
-                      (_e = o("WAWebParsedProtocolMsgType")
-                        .PARSED_PROTOCOL_MESSAGE_TYPE
-                        .PEER_DATA_OPERATION_REQUEST_MESSAGE),
-            o("WAWebRuntimeEnvironmentUtils").isWorker() && _e)
-          )
-            yield o("WAWebApiDeferredMessagesStorage").updateDeferredMessages([
-              {
-                id: c.externalId,
-                type: _e,
-                plaintext: $,
-                info: c,
-                paymentInfo: f,
-                bizInfo: i,
-              },
-            ]);
-          else if (me.history)
-            o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-              "handleHistorySyncNotification",
-              {
-                historySyncMetaData: me.history,
-                from: Z,
-                externalId: c.externalId,
-              },
-            );
-          else if (me.appStateSyncKeyShare)
-            yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-              "handleAppStateSyncKeyShare",
-              { keyShare: me.appStateSyncKeyShare, from: Z },
-            );
-          else if (me.appStateSyncKeyRequest)
-            o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-              "handleAppStateSyncKeyRequest",
-              { keyRequest: me.appStateSyncKeyRequest, from: Z },
-            );
-          else if (me.peerDataOperationRequestResponseMessage)
-            o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-              "handlePeerDataOperationRequestResponse",
-              {
-                stanzaId: c.externalId,
-                response: me.peerDataOperationRequestResponseMessage,
-              },
-            );
-          else if (me.peerDataOperationRequestMessage)
-            o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-              "handlePeerDataOperationRequest",
-              {
-                stanzaId: c.externalId,
-                request: me.peerDataOperationRequestMessage,
-              },
-            );
-          else if (me.securityNotificationEnabled)
+            (ce == null || ce(),
+            o("WAWebDeferrableProtocolMsg").isDeferrableProtocolMsg(me))
+          ) {
+            var _e = o(
+              "WAWebDeferrableProtocolMsg",
+            ).handleDeferrableProtocolMsg({
+              bizInfo: i,
+              from: Z,
+              info: c,
+              parsed: me,
+              paymentInfo: f,
+              plaintext: $,
+            });
+            return (_e != null && (yield _e), { hasInactiveMsg: !1 });
+          }
+          if (me.securityNotificationEnabled)
             Z == null || !(Z instanceof r("WAWebWid"))
               ? o("WALogger")
                   .ERROR(

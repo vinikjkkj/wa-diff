@@ -14,10 +14,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      (r("vulture")("E0nMS9sF5wKdGMIqOQ0OvDjYXM8="),
-        o(
-          "WAWebBizAiMessageEditEducationState",
-        ).clearMessageEditEducationState());
+      o("WAWebBizAiMessageEditEducationState").clearMessageEditEducationState();
       var e = Object.keys(o("WAWebNux").NuxKeyTypes.VIEW_COUNT_NUX);
       e.forEach(function (e) {
         o("WAWebUserPrefsNuxPreferences").removeNUX(

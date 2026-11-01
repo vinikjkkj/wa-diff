@@ -155,7 +155,7 @@ __d(
     function k(e) {
       return e == null
         ? !1
-        : N(e).some(function (e) {
+        : w(e).some(function (e) {
             return c(e.view_model).some(T);
           });
     }
@@ -179,30 +179,43 @@ __d(
     function D(e) {
       return e == null
         ? !1
-        : M(e).some(function (e) {
-            return c(e).some($);
+        : w(e).some(function (e) {
+            return c(e.view_model).some(x);
           });
     }
     function x(e) {
+      return (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.__typename === "GenAIBrowserTaskPrimitive"
+      );
+    }
+    function $(e) {
+      return e == null
+        ? !1
+        : A(e).some(function (e) {
+            return c(e).some(N);
+          });
+    }
+    function P(e) {
       var t,
         n = e.sections;
       if (
         n.length !== 1 ||
         ((t = e.footer_sections) != null ? t : []).length > 0 ||
-        j(e) ||
+        Q(e) ||
         e.streaming_action != null
       )
         return !1;
       var r = c(n[0].view_model);
-      return r.length === 1 && P(r[0]);
+      return r.length === 1 && M(r[0]);
     }
-    function $(e) {
+    function N(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAISpaceCardPrimitive"
       );
     }
-    function P(e) {
+    function M(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -217,23 +230,23 @@ __d(
         return !1;
       })(e);
     }
-    function N(e) {
+    function w(e) {
       var t;
       return [].concat(
-        A(e),
-        ((t = e.nested_responses) != null ? t : []).flatMap(A),
+        O(e),
+        ((t = e.nested_responses) != null ? t : []).flatMap(O),
       );
     }
-    function M(e) {
+    function A(e) {
       var t;
       return [].concat(
-        N(e).map(function (e) {
+        w(e).map(function (e) {
           return e.view_model;
         }),
-        [e].concat((t = e.nested_responses) != null ? t : []).flatMap(w),
+        [e].concat((t = e.nested_responses) != null ? t : []).flatMap(F),
       );
     }
-    function w(e) {
+    function F(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -248,15 +261,15 @@ __d(
         return [];
       })(e.streaming_action);
     }
-    function A(e) {
+    function O(e) {
       var t, n, r;
       return [].concat(
         (t = e.sections) != null ? t : [],
         (n = e.footer_sections) != null ? n : [],
-        ((r = e.embedded_screens) != null ? r : []).flatMap(F),
+        ((r = e.embedded_screens) != null ? r : []).flatMap(B),
       );
     }
-    function F(e) {
+    function B(e) {
       var t;
       return ((t = e.content) != null ? t : []).flatMap(function (e) {
         if ("view_model" in e) return [e];
@@ -274,20 +287,20 @@ __d(
         return [];
       });
     }
-    function O(e) {
+    function W(e) {
       return e == null
         ? !1
-        : N(e).some(function (e) {
-            return c(e.view_model).some(B);
+        : w(e).some(function (e) {
+            return c(e.view_model).some(q);
           });
     }
-    function B(e) {
+    function q(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAISecureCredentialRequestPrimitive"
       );
     }
-    function W(e) {
+    function U(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -305,20 +318,20 @@ __d(
         }
       return n;
     }
-    function q(e) {
+    function V(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
-    function U(e) {
+    function H(e) {
       var t = e.sections,
-        n = t.map(V),
+        n = t.map(G),
         r = new Map();
       n.forEach(function (e, t) {
         if (e != null) {
           var o = r.get(e.browser_task_id),
             a = o != null ? n[o] : null;
-          (a == null || H(e, a)) && r.set(e.browser_task_id, t);
+          (a == null || z(e, a)) && r.set(e.browser_task_id, t);
         }
       });
       var o = t.filter(function (e, t) {
@@ -329,7 +342,7 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { sections: o });
     }
-    function V(e) {
+    function G(e) {
       var t = c(e.view_model);
       return t.length !== 1
         ? null
@@ -345,36 +358,36 @@ __d(
             return null;
           })(t[0]);
     }
-    function H(e, t) {
+    function z(e, t) {
       var n,
         r,
         o = (n = e.version) != null ? n : 0,
         a = (r = t.version) != null ? r : 0;
-      return o !== a ? o > a : G(e) >= G(t);
+      return o !== a ? o > a : j(e) >= j(t);
     }
-    function G(e) {
+    function j(e) {
       var t,
         n = Number((t = e.updated_at_ms) != null ? t : 0);
       return Number.isFinite(n) ? n : 0;
     }
-    function z(e) {
+    function K(e) {
       var t;
-      if (e == null || j(e)) return !1;
+      if (e == null || Q(e)) return !1;
       var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
-      return n.length > 0 && n.every(K);
+      return n.length > 0 && n.every(X);
     }
-    function j(e) {
+    function Q(e) {
       var t, n;
       return (
         ((t = e.nested_responses) != null ? t : []).length > 0 ||
         ((n = e.embedded_screens) != null ? n : []).length > 0
       );
     }
-    function K(e) {
+    function X(e) {
       var t = c(e.view_model);
-      return t.length > 0 && t.every(Q);
+      return t.length > 0 && t.every(Y);
     }
-    function Q(e) {
+    function Y(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBotProgressStatusPrimitive" &&
@@ -396,15 +409,16 @@ __d(
       (l.unifiedResponseHasMediaContent = E),
       (l.unifiedResponseHasConnectorActionCard = k),
       (l.hasMultipleConnectorActionCards = I),
-      (l.unifiedResponseHasSpaceCard = D),
-      (l.isSoleSpaceCardResponse = x),
-      (l.unifiedResponseHasSecureCredentialRequest = O),
-      (l.isSecureCredentialRequest = B),
-      (l.getMetaAiEmbeddedSources = W),
-      (l.stripEmbeddedScreens = q),
-      (l.highestVersionBrowserTasks = U),
-      (l.isSettledProgressStatusOnly = z),
-      (l.hasNestedOrEmbeddedContent = j));
+      (l.unifiedResponseHasBrowserTaskCard = D),
+      (l.unifiedResponseHasSpaceCard = $),
+      (l.isSoleSpaceCardResponse = P),
+      (l.unifiedResponseHasSecureCredentialRequest = W),
+      (l.isSecureCredentialRequest = q),
+      (l.getMetaAiEmbeddedSources = U),
+      (l.stripEmbeddedScreens = V),
+      (l.highestVersionBrowserTasks = H),
+      (l.isSettledProgressStatusOnly = K),
+      (l.hasNestedOrEmbeddedContent = Q));
   },
   98,
 );

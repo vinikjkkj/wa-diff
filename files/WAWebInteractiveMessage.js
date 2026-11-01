@@ -1,12 +1,12 @@
 __d(
   "WAWebInteractiveMessage",
   [
+    "WAWebA2uiInteractiveBubble.react",
     "WAWebChatGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetInteractiveActions",
     "WAWebGetInteractiveFooterText",
     "WAWebInteractiveActionMenuDialogLoadable.react",
-    "WAWebInteractiveBubble.react",
     "WAWebInteractiveHeader",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebIsBloksOnlyMessage",
@@ -131,7 +131,8 @@ __d(
                 };
               }),
         F = m === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS;
-      return s.jsx(r("WAWebInteractiveBubble.react"), {
+      return s.jsx(r("WAWebA2uiInteractiveBubble.react"), {
+        bloksWidget: C,
         msgKey: i,
         displayAuthor: n,
         displayType: a,

@@ -3237,6 +3237,7 @@ __d(
       username_numeric_code_v4: [14286, "int", 0, 0],
       username_peer_learning_gate_killswitch: [40532, "bool", !0, !0],
       username_pn_contact_info_display: [40979, "bool", !1, !1],
+      username_pn_sharing_enabled: [41304, "bool", !1, !1],
       username_prevent_pn_populate_new_contact_creation: [
         16495,
         "bool",
@@ -3252,6 +3253,7 @@ __d(
       utility_order_status_logging_enabled: [19059, "bool", !1, !1],
       utility_order_view_mbs_enabled: [31282, "bool", !1, !0],
       utility_payment_reminder_m1_enabled: [22434, "bool", !1, !1],
+      utility_payment_reminder_m1_logging_enabled: [22785, "bool", !1, !1],
       utm_tracking_enabled: [2895, "bool", !1, !1],
       utm_tracking_expiration_hours: [2896, "int", 24, 24],
       uwp_voip_incoming_call_notification_version: [7541, "int", 0, 0],
@@ -4019,6 +4021,7 @@ __d(
       web_ai_group_open_support: [23530, "bool", !1, !1],
       web_ai_sticker_emission_enabled: [36294, "bool", !1, !0],
       web_album_group_cancel_retry_enabled: [41087, "bool", !1, !0],
+      web_album_star_as_one_message_enabled: [41329, "bool", !1, !0],
       web_anr_app_launch_skew_rtt_guard_enabled: [40496, "bool", !1, !1],
       web_anr_async_contacts_restore_from_db_enabled: [27775, "bool", !1, !1],
       web_anr_async_media_decryption_enabled: [23200, "bool", !1, !1],
@@ -4394,6 +4397,7 @@ __d(
       web_voip_dynamic_thread_preallocate_count: [23789, "int", 6, 6],
       web_voip_icce_bubble_voice_and_video_enabled: [39981, "bool", !1, !0],
       web_voip_incoming_offer_init_freshness_ms: [34925, "int", 0, 0],
+      web_voip_init_reliability_level: [41354, "int", 0, 0],
       web_voip_live_caption_probe_enabled: [36276, "bool", !1, !1],
       web_voip_load_wasm_variant: [
         23045,

@@ -21,18 +21,18 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.accountName,
-            a = t.amountOffset,
-            i = t.amountValue,
-            l = t.cardNumber,
-            c = t.currency,
-            d = t.daysOverdue,
-            m = t.dueDateMs,
-            p = t.isOverdue,
-            _ = t.url;
+          var n = t.accountCard,
+            a = t.amountDue,
+            i = t.amountDueLabel,
+            l = t.dueDate,
+            c = t.dueDateLabel,
+            d = t.isOverdue,
+            p = t.payNowButtonText,
+            _ = t.title,
+            f = t.url;
           r("vulture")("iqZTfO_pEJWlmMwTXSiQxgTFOHk=");
-          var f = window.chat;
-          if (!f) {
+          var g = window.chat;
+          if (!g) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -41,33 +41,34 @@ __d(
             );
             return;
           }
-          var g = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            h = {
-              cta_action_url: _,
-              due_date: String(Math.floor(m / 1e3)),
-              amount_due: { value: i, offset: a },
-              amount_due_currency: c,
-              is_overdue: p,
-            };
-          (d != null && (h.days_overdue = d),
-            n != null && (h.account_name = n),
-            l != null && (h.card_number_last_4_digits = l));
-          var y = JSON.stringify(h),
-            C = {
+          var h = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            y = m({
+              accountCard: n,
+              amountDue: a,
+              amountDueLabel: i,
+              dueDate: l,
+              dueDateLabel: c,
+              isOverdue: d,
+              payNowButtonText: p,
+              title: _,
+              url: f,
+            }),
+            C = JSON.stringify(y),
+            b = {
               type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
               ack: o("WAWebAck").ACK.READ,
-              from: f.id,
+              from: g.id,
               id: new (r("WAWebMsgKey"))({
                 fromMe: !1,
-                remote: f.id,
+                remote: g.id,
                 id: yield r("WAWebMsgKey").newId(),
                 participant: void 0,
               }),
               local: !1,
               isNewMsg: !0,
               t: o("WATimeUtils").unixTime(),
-              to: g,
-              caption: p
+              to: h,
+              caption: d
                 ? "Your payment is overdue! Please settle your balance."
                 : "You have a payment due. Please make your payment on time.",
               footer: "If you've paid, please ignore.",
@@ -76,12 +77,12 @@ __d(
               interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
               nativeFlowInteractiveMsg: !0,
               interactivePayload: {
-                buttons: [{ name: "payment_reminder", buttonParamsJson: y }],
+                buttons: [{ name: "payment_reminder", buttonParamsJson: C }],
                 messageVersion: 1,
               },
             };
           try {
-            (yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(f, C)[1],
+            (yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(g, b)[1],
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -105,64 +106,85 @@ __d(
         d.apply(this, arguments)
       );
     }
+    function m(e) {
+      var t = e.accountCard,
+        n = e.amountDue,
+        r = e.amountDueLabel,
+        o = e.dueDate,
+        a = e.dueDateLabel,
+        i = e.isOverdue,
+        l = e.payNowButtonText,
+        s = e.title,
+        u = e.url,
+        c = { is_overdue: i };
+      return (
+        t != null && (c.account_card = t),
+        n != null && (c.amount_due = n),
+        r != null && (c.amount_due_label = r),
+        o != null && (c.due_date = o),
+        a != null && (c.due_date_label = a),
+        l != null && (c.pay_now_button_text = l),
+        s != null && (c.title = s),
+        u != null && (c.url = u),
+        c
+      );
+    }
     c.doc =
       "Receive a payment reminder message with custom parameters in the active chat";
-    function m() {
-      return p.apply(this, arguments);
-    }
     function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("vulture")("0Z8PqgHOzuI-5qMrzf-hak8lgKw=");
-          var e = Date.now() + 864e5;
-          yield c({
-            accountName: "Electric Company",
-            amountOffset: 100,
-            amountValue: 12345,
-            cardNumber: "4242",
-            currency: "USD",
-            daysOverdue: null,
-            dueDateMs: e,
-            isOverdue: !1,
-            url: "https://example.com/pay/12345",
-          });
-        })),
-        p.apply(this, arguments)
-      );
+      return _.apply(this, arguments);
     }
-    ((m.doc = "Receive a payment due example message in the active chat"),
-      (m.paramsToExecute = []));
     function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("vulture")("yl7dkwQ2lVbh1npRBvKO-z2TBxE=");
-          var e = Date.now() - 2592e5;
-          yield c({
-            accountName: "Credit Card Co",
-            amountOffset: 100,
-            amountValue: 25e3,
-            cardNumber: "1234",
-            currency: "USD",
-            daysOverdue: 3,
-            dueDateMs: e,
-            isOverdue: !0,
-            url: "https://example.com/pay/67890",
-          });
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("0Z8PqgHOzuI-5qMrzf-hak8lgKw="),
+            yield c({
+              accountCard: "Electric Company \xB7 Account 4242",
+              amountDue: "$123.45",
+              amountDueLabel: "Amount due",
+              dueDate: "November 30, 2026",
+              dueDateLabel: "Due date",
+              isOverdue: !1,
+              payNowButtonText: "Pay electricity bill",
+              title: "Electricity bill due",
+              url: "https://example.com/pay/12345",
+            }));
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((_.doc = "Receive a payment overdue example message in the active chat"),
-      (_.paramsToExecute = []));
-    var g = {
+    ((p.doc = "Receive a payment due example message in the active chat"),
+      (p.paramsToExecute = []));
+    function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("yl7dkwQ2lVbh1npRBvKO-z2TBxE="),
+            yield c({
+              accountCard: "Credit Card Co \xB7 Card 1234",
+              amountDue: "$250.00",
+              amountDueLabel: "Balance due",
+              dueDate: "November 20, 2026",
+              dueDateLabel: "Due date",
+              isOverdue: !0,
+              payNowButtonText: "Pay card balance",
+              title: "Credit card payment overdue",
+              url: "https://example.com/pay/67890",
+            }));
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    ((f.doc = "Receive a payment overdue example message in the active chat"),
+      (f.paramsToExecute = []));
+    var h = {
       receivePaymentReminderMessage: c,
-      receivePaymentDueExample: m,
-      receivePaymentOverdueExample: _,
+      receivePaymentDueExample: p,
+      receivePaymentOverdueExample: f,
     };
-    l.default = g;
+    l.default = h;
   },
   98,
 );

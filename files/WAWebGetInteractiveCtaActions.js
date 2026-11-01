@@ -183,57 +183,63 @@ __d(
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER: {
-          var C = o("WAWebPaymentReminder").parsePaymentReminderButton(i);
-          return C == null
+          var C,
+            b = o(
+              "WAWebPaymentReminder",
+            ).parseSmartHydratedPaymentReminderButton(i);
+          return (b == null ? void 0 : b.url) == null
             ? null
             : {
                 name: "payment_reminder",
                 index: l,
                 data: {
-                  label: s._(/*BTDS*/ "Pay now").toString(),
-                  paymentReminderInfo: C,
+                  label:
+                    (C = b.payNowButtonText) != null
+                      ? C
+                      : s._(/*BTDS*/ "Pay now").toString(),
+                  paymentReminderInfo: b,
                 },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION: {
-          var b = o("WAWebBookingConfirmation").parseBookingConfirmationButton(
+          var v = o("WAWebBookingConfirmation").parseBookingConfirmationButton(
             i,
           );
-          return b == null
+          return v == null
             ? null
             : {
                 name: "booking_confirmation",
                 index: l,
                 data: {
                   label: s._(/*BTDS*/ "View details").toString(),
-                  bookingInfo: b,
+                  bookingInfo: v,
                 },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST: {
-          var v,
-            S = o("WAWebBrPaymentRequest").parsePaymentRequestButton(i);
-          return S == null
+          var S,
+            R = o("WAWebBrPaymentRequest").parsePaymentRequestButton(i);
+          return R == null
             ? null
             : {
                 name: "payment_request",
                 index: l,
                 data: {
-                  label: (v = f.display_text) != null ? v : "",
-                  paymentRequestInfo: S,
+                  label: (S = f.display_text) != null ? S : "",
+                  paymentRequestInfo: R,
                 },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP: {
-          var R = o(
+          var L = o(
             "WAWebInAppSignupPrompt",
           ).parseInAppSignupPromptButtonParams(_);
-          if (R == null) break;
-          var L = d().toString();
+          if (L == null) break;
+          var E = d().toString();
           return {
             name: "api_signup",
             index: l,
-            data: { label: L, signupId: R.signupId },
+            data: { label: E, signupId: L.signupId },
           };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT:
@@ -253,16 +259,16 @@ __d(
         case r("WAWebInteractiveMessagesNativeFlowName").A2UI_REPLY_ACTION:
           break;
         case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP: {
-          var E = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
+          var k = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
             i.buttonParamsJson,
           );
-          if (E != null)
+          if (k != null)
             return {
               name: "cta_copy",
               index: l,
               data: {
                 label: s._(/*BTDS*/ "Copy code").toString(),
-                copyCode: E,
+                copyCode: k,
               },
             };
           break;

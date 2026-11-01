@@ -40,6 +40,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNoop",
+    "WAWebPaymentReminderLoggerLazy",
     "WAWebRichOrderStatusLogger",
     "WAWebSchemaChat",
     "WAWebSendNotSpamAction",
@@ -575,6 +576,13 @@ __d(
                     "WAWebMmSignalSharingConversionTokenUtils",
                   ).isLatestMmConversionToken(e),
                 }),
+                  o(
+                    "WAWebPaymentReminderLoggerLazy",
+                  ).logPaymentReminderInteraction(
+                    t,
+                    o("WAWebPaymentReminderLoggerLazy")
+                      .PaymentReminderActionType.MESSAGE_RECEIVE,
+                  ),
                   o(
                     "WAWebRichOrderStatusLogger",
                   ).logRichOrderStatusInconsistencies(t));

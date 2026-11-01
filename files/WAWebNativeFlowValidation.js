@@ -17,6 +17,7 @@ __d(
     "WAWebOrderDetails",
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
+    "WAWebPaymentReminder",
     "WAWebPaymentsGatingUtils",
     "WAWebSignupGating",
     "WAWebVoipGatingUtils",
@@ -60,7 +61,9 @@ __d(
                   : i.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName")
                         .PAYMENT_REMINDER
-                    ? !1
+                    ? o(
+                        "WAWebPaymentReminder",
+                      ).getSmartHydratedPaymentReminderInfo(i) != null
                     : i.nativeFlowName ===
                         r("WAWebInteractiveMessagesNativeFlowName")
                           .BOOKING_CONFIRMATION

@@ -173,7 +173,6 @@ __d(
       coex_calling_enabled_business: [23933, "bool", !1, !0],
       coex_calling_permissions_3p_enabled: [23464, "bool", !1, !0],
       cross_device_message_editing: [28340, "bool", !1, !0],
-      ctwa_ctx_disclosure_update_enabled: [35558, "bool", !1, !1],
       ctwa_fix_unknown_agm_insertion_issue_for_businesses: [
         28964,
         "bool",

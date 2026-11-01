@@ -50,6 +50,7 @@ __d(
     "WAWebMuseCtaLinkOverride",
     "WAWebOpenBizAiHubDeeplink",
     "WAWebOrderStatus",
+    "WAWebPaymentReminderLoggerLazy",
     "WAWebPaymentRequestWamLogger",
     "WAWebPremiumMessagesGatingUtils",
     "WAWebQbmMessageClickLogEvent",
@@ -133,7 +134,7 @@ __d(
               u = D(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER:
-              u = w(s);
+              u = w(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .BOOKING_CONFIRMATION:
@@ -875,14 +876,15 @@ __d(
         M.apply(this, arguments)
       );
     }
-    function w(e) {
-      var t = e.data,
-        n = t.label,
-        a = t.paymentReminderInfo;
-      return a == null || a.url == null
+    function w(e, t) {
+      var n = e.data,
+        a = n.label,
+        i = n.paymentReminderInfo,
+        l = i == null ? void 0 : i.url;
+      return l == null
         ? null
         : {
-            label: n,
+            label: a,
             Icon: function (t) {
               return f.jsx(
                 r("WDSIconIcOpenInNew.react"),
@@ -890,7 +892,40 @@ __d(
               );
             },
             onClick: function () {
-              o("WAWebExternalLink.react").openExternalLink(a.url);
+              var e = h(t);
+              if (
+                (e != null &&
+                  o(
+                    "WAWebPaymentReminderLoggerLazy",
+                  ).logPaymentReminderInteraction(
+                    e.unsafe(),
+                    o("WAWebPaymentReminderLoggerLazy")
+                      .PaymentReminderActionType.MESSAGE_CTA_PAY_NOW_CLICK,
+                  ),
+                o("WAWebExternalLink.react").openExternalLink(l),
+                e != null)
+              ) {
+                var n = e.unsafe(),
+                  r = o("WAWebFrontendMsgGetters").getChat(n);
+                (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+                  msg: n,
+                  chat: r,
+                  buttonClickedType: o(
+                    "WAWebWamEnumQbmMessageClickButtonClickedType",
+                  ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
+                }),
+                  o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction(
+                    {
+                      msg: n,
+                      chat: r,
+                      messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                        .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
+                      messageActionEntryPoint: o(
+                        "WAWebWamEnumMessageActionEntryPoint",
+                      ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                    },
+                  ));
+              }
             },
           };
     }

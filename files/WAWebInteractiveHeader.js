@@ -23,6 +23,7 @@ __d(
     "WAWebOrderDetails",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
+    "WAWebPaymentReminder",
     "WAWebPaymentReminderHeader.react",
     "WAWebPaymentRequestHeader.react",
     "WAWebVideoPreview.react",
@@ -78,10 +79,10 @@ __d(
         l = t.headerRef,
         s = t.isMsgVisible,
         d = t.minTextHeight,
-        p = t.msgKey,
-        _ = t.quotedMsg,
-        f = r("useWAWebUIM")(),
-        g = o("useWAWebMsgValues").useMsgValues(p, [
+        _ = t.msgKey,
+        f = t.quotedMsg,
+        g = r("useWAWebUIM")(),
+        h = o("useWAWebMsgValues").useMsgValues(_, [
           (a = o("WAWebMsgGetters")).getType,
           a.getNativeFlowName,
           a.getInteractiveType,
@@ -94,176 +95,182 @@ __d(
           a.getPmCampaignId,
           a.getIsNewsletterMsg,
         ]),
-        h = g[0],
-        y = g[1],
-        C = g[2],
-        b = g[3],
-        v = g[4],
-        S = g[5],
-        R = g[6],
-        L = g[7],
-        E = g[8],
-        k = g[9],
-        I = g[10],
-        T = o("WAWebFrontendMsgGetters").getChatByMsgKey(p, I),
-        D = r("useWAWebIsBizBroadcastProChat")(T.id),
-        x = r("useWAWebConversationPanelCanCompose")(T),
-        $ = x[0],
-        P = r("useWAWebIsMsgTrusted")(p),
-        N = o("WAWebOrderDetails").getOrderInfoFor({
-          interactivePayload: b,
-          interactiveType: C,
-          nativeFlowButtons: v,
-          nativeFlowName: y,
-          type: h,
+        y = h[0],
+        C = h[1],
+        b = h[2],
+        v = h[3],
+        S = h[4],
+        R = h[5],
+        L = h[6],
+        E = h[7],
+        k = h[8],
+        I = h[9],
+        T = h[10],
+        D = o("WAWebFrontendMsgGetters").getChatByMsgKey(_, T),
+        x = r("useWAWebIsBizBroadcastProChat")(D.id),
+        $ = r("useWAWebConversationPanelCanCompose")(D),
+        P = $[0],
+        N = r("useWAWebIsMsgTrusted")(_),
+        M = o("WAWebOrderDetails").getOrderInfoFor({
+          interactivePayload: v,
+          interactiveType: b,
+          nativeFlowButtons: S,
+          nativeFlowName: C,
+          type: y,
         }),
-        M = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          T,
-          N == null ? void 0 : N.referenceId,
-          o("WAWebOrderStatus").isSimplifiedOrder(N),
+        w = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+          D,
+          M == null ? void 0 : M.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(M),
         ),
-        w =
-          (n = o("useWAWebMediaDataValues").useOptionalMediaDataValues(L, [
+        A =
+          (n = o("useWAWebMediaDataValues").useOptionalMediaDataValues(E, [
             o("WAWebMediaDataGetters").getFilehash,
           ])) != null
             ? n
             : [null],
-        A = w[0],
-        F = r("useWAWebIsBlobInMemoryCache")(A);
-      if (h !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE) return null;
-      var O = o("WAWebInAppSignupPrompt").getInAppSignupPromptInfoFor({
-          interactivePayload: b,
-          interactiveType: C,
-          nativeFlowName: y,
-          type: h,
+        F = A[0],
+        O = r("useWAWebIsBlobInMemoryCache")(F);
+      if (y !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE) return null;
+      var B = o("WAWebInAppSignupPrompt").getInAppSignupPromptInfoFor({
+          interactivePayload: v,
+          interactiveType: b,
+          nativeFlowName: C,
+          type: y,
         }),
-        B,
         W,
-        q = !1,
+        q,
         U = !1,
-        V = !1;
+        V = !1,
+        H = !1;
       (o("WAWebOrderStatusButton").getOrderStatusButtonFor({
-        interactivePayload: b,
-        type: h,
+        interactivePayload: v,
+        type: y,
       }) == null &&
-        S != null &&
-        S.mediaType &&
-        (W = m({
-          campaignId: k,
+        R != null &&
+        R.mediaType &&
+        (q = p({
+          campaignId: I,
           displayType: i,
-          hasLocalMediaBlob: F,
+          hasLocalMediaBlob: O,
           headerRef: l,
-          isBizBroadcastProChat: D,
-          isLocal: E,
+          isBizBroadcastProChat: x,
+          isLocal: k,
           isMsgVisible: s,
-          mediaData: L,
-          mediaType: S.mediaType,
-          msgKey: p,
-          trusted: P,
+          mediaData: E,
+          mediaType: R.mediaType,
+          msgKey: _,
+          trusted: N,
         })),
-        y === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
-        y === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
-        y === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS ||
-        y === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
-        y === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
-          ? ((B = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
-              msgKey: p,
-              quotedMsg: _,
+        C === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
+        C === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
+        C === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS ||
+        C === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
+        C === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
+          ? ((W = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+              msgKey: _,
+              quotedMsg: f,
               displayType: i,
             })),
-            (q =
-              y === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-              o("WAWebOrderStatus").isPaymentRequest(T, N)))
-          : y === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER
-            ? (B = u.jsx(r("WAWebPaymentReminderHeader.react"), { msgKey: p }))
-            : y ===
+            (U =
+              C === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+              o("WAWebOrderStatus").isPaymentRequest(D, M)))
+          : m({
+                interactivePayload: v,
+                interactiveType: b,
+                nativeFlowButtons: S,
+                nativeFlowName: C,
+                type: y,
+              })
+            ? (W = u.jsx(r("WAWebPaymentReminderHeader.react"), { msgKey: _ }))
+            : C ===
                 r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
-              ? (B = u.jsx(r("WAWebBookingConfirmationHeader.react"), {
-                  msgKey: p,
+              ? (W = u.jsx(r("WAWebBookingConfirmationHeader.react"), {
+                  msgKey: _,
                 }))
-              : y === r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
-                ? (B = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
-                    msgKey: p,
+              : C === r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
+                ? (W = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
+                    msgKey: _,
                   }))
-                : y ===
+                : C ===
                       r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP &&
-                    O != null
-                  ? ((B = u.jsx(r("WAWebInAppSignupPromptHeader.react"), {
-                      info: O,
-                      msgKey: p,
+                    B != null
+                  ? ((W = u.jsx(r("WAWebInAppSignupPromptHeader.react"), {
+                      info: B,
+                      msgKey: _,
                     })),
-                    (V = !0))
-                  : y ===
+                    (H = !0))
+                  : C ===
                       r("WAWebInteractiveMessagesNativeFlowName")
                         .PAYMENT_REQUEST
                     ? o(
                         "WAWebBrPaymentRequest",
-                      ).shouldShowPaymentRequestPayWithHeader(R) &&
-                      ((B = u.jsx(r("WAWebPaymentRequestHeader.react"), {
-                        msgKey: p,
+                      ).shouldShowPaymentRequestPayWithHeader(L) &&
+                      ((W = u.jsx(r("WAWebPaymentRequestHeader.react"), {
+                        msgKey: _,
                       })),
-                      (U = !0))
-                    : S &&
-                      (S.title != null || S.subtitle != null) &&
-                      (B = W
-                        ? u.jsx(r("WAWebInteractiveTitleHeader"), { msgKey: p })
+                      (V = !0))
+                    : R &&
+                      (R.title != null || R.subtitle != null) &&
+                      (W = q
+                        ? u.jsx(r("WAWebInteractiveTitleHeader"), { msgKey: _ })
                         : u.jsx("div", {
                             className: "x1k70j0n",
                             children: u.jsx(r("WAWebInteractiveTitleHeader"), {
-                              msgKey: p,
+                              msgKey: _,
                             }),
                           })));
-      var H = S == null ? void 0 : S.mediaType;
+      var G = R == null ? void 0 : R.mediaType;
       if (
-        (W != null &&
-          y === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-          N != null &&
-          (H ===
+        (q != null &&
+          C === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+          M != null &&
+          (G ===
             o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.DOCUMENT ||
-            (H ===
+            (G ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.IMAGE &&
-              o("WAWebOrderStatus").isSimplifiedOrder(N))) &&
-          (W = null),
-        B)
+              o("WAWebOrderStatus").isSimplifiedOrder(M))) &&
+          (q = null),
+        W)
       ) {
-        var G = r("WAWebGetInteractiveHeaderAction")({
-          canCompose: $,
-          interactivePayload: b,
-          interactiveType: C,
-          msgKey: p,
-          nativeFlowName: y,
-          orderInfo: N,
-          type: h,
-          uimContext: f,
+        var z = r("WAWebGetInteractiveHeaderAction")({
+          canCompose: P,
+          interactivePayload: v,
+          interactiveType: b,
+          msgKey: _,
+          nativeFlowName: C,
+          orderInfo: M,
+          type: y,
+          uimContext: g,
         });
-        if (G) {
-          var z = M == null,
-            j = z && o("WAWebOrderStatus").isSimplifiedOrder(N);
-          B = u.jsx("div", {
+        if (z) {
+          var j = w == null,
+            K = j && o("WAWebOrderStatus").isSimplifiedOrder(M);
+          W = u.jsx("div", {
             role: "button",
-            onClick: j ? null : G.onClick,
-            children: B,
+            onClick: K ? null : z.onClick,
+            children: W,
           });
         }
       }
-      if (B == null && W == null) return null;
-      var K;
+      if (W == null && q == null) return null;
+      var Q;
       return (
-        q
-          ? (K = c.paymentRequestHeaderSpacing)
-          : U
-            ? (K = c.paymentRequestCtaHeaderSpacing)
-            : V
-              ? (K = c.signupPromptHeaderSpacing)
-              : (K = c.headerSpacing),
+        U
+          ? (Q = c.paymentRequestHeaderSpacing)
+          : V
+            ? (Q = c.paymentRequestCtaHeaderSpacing)
+            : H
+              ? (Q = c.signupPromptHeaderSpacing)
+              : (Q = c.headerSpacing),
         u.jsxs(
           "div",
-          babelHelpers.extends({}, (e || (e = r("stylex"))).props(K), {
+          babelHelpers.extends({}, (e || (e = r("stylex"))).props(Q), {
             children: [
-              B && W ? u.jsx("div", { className: "xzueoph", children: W }) : W,
-              B,
+              W && q ? u.jsx("div", { className: "xzueoph", children: q }) : q,
+              W,
             ],
           }),
         )
@@ -271,6 +278,25 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowButtons,
+        i = e.nativeFlowName,
+        l = e.type;
+      if (i !== r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER)
+        return !1;
+      var s = o("WAWebPaymentReminder").getSmartHydratedPaymentReminderInfoFor({
+        interactivePayload: t,
+        interactiveType: n,
+        nativeFlowButtons: a,
+        nativeFlowName: i,
+        type: l,
+      });
+      return (s == null ? void 0 : s.url) == null
+        ? !1
+        : o("WAWebPaymentReminder").isPaymentReminderEnabled();
+    }
+    function p(e) {
       var t = e.campaignId,
         n = e.displayType,
         a = e.hasLocalMediaBlob,
@@ -341,7 +367,7 @@ __d(
                     );
                   })();
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = d));
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

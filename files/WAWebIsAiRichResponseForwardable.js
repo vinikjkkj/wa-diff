@@ -33,6 +33,9 @@ __d(
         d(e, t.unifiedResponse) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasSpaceCard(
           t.unifiedResponse,
+        ) ||
+        o("WAWebUnifiedResponseUtils").unifiedResponseHasBrowserTaskCard(
+          t.unifiedResponse,
         )
       )
         return !1;
