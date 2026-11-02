@@ -38,7 +38,7 @@ __d(
       } catch (e) {
         r = !1;
       }
-      return (t.removeChild(o), n != null && n.focus(), r);
+      return (t.removeChild(o), n instanceof HTMLElement && n.focus(), r);
     }
     i.default = e;
   },

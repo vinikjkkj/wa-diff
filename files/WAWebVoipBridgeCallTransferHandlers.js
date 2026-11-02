@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipBridgeCallTransferHandlers",
-  ["WAWebVoipCallTransferEntryPointStore"],
+  ["WAWebVoipCallTransferEntryPointStore", "WAWebVoipHandleCallTransferFailed"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -9,6 +9,12 @@ __d(
         o(
           "WAWebVoipCallTransferEntryPointStore",
         ).WAWebVoipCallTransferEntryPointStore.applyChange(e);
+      },
+      handleCallTransferFailed: function (t) {
+        var e = t.failureData;
+        return o("WAWebVoipHandleCallTransferFailed").handleCallTransferFailed(
+          e,
+        );
       },
     };
     l.VoipBridgeCallTransferHandlers = e;

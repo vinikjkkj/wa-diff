@@ -48,6 +48,7 @@ __d(
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoWebCodecsRenderer",
     "WAWebVoipWaCallEnums",
+    "WAWebVoipWasmArtifactRecoveryEvents",
     "WAWebVoipWasmArtifactSkewErrors",
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
@@ -159,8 +160,13 @@ __d(
       var a = ue();
       o("WAWebCrashAnnotations").logVoipWorkerBootstrapModeForCrash(a);
       var i = new (r("WAWebVoipInitializationBarrier"))(),
-        l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
-        ce = 0,
+        l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
+      o("WAWebVoipWasmArtifactRecoveryEvents").onVoipWasmArtifactRecovered(
+        function () {
+          l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
+        },
+      );
+      var ce = 0,
         de = null,
         me = new (r("WAWebVoipJsWorkerRespawnGate"))(),
         pe = !1,
@@ -571,17 +577,20 @@ __d(
           Re.apply(this, arguments)
         );
       }
-      function Le(e, t, n) {
+      function Le(e, t, n, r) {
         return Ee.apply(this, arguments);
       }
       function Ee() {
         return (
           (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
+            function* (e, t, n, r) {
               (ve(), a && (yield i.wait()), ve());
-              var r = yield be(),
-                o = r.rpc;
-              return (ve(), o.invoke({ args: t, method: e, transferList: n }));
+              var o = yield be(),
+                l = o.rpc;
+              return (
+                ve(),
+                l.invoke({ args: t, method: e, timeoutMs: r, transferList: n })
+              );
             },
           )),
           Ee.apply(this, arguments)
@@ -1293,7 +1302,9 @@ __d(
           },
           o(
             "WAWebVoipWorkerProxyVoiceChatCalls",
-          ).createWorkerProxyVoiceChatCalls(Le, l),
+          ).createWorkerProxyVoiceChatCalls(Le, function () {
+            return l;
+          }),
           o(
             "WAWebVoipWorkerProxyFieldstatsCalls",
           ).createWorkerProxyFieldstatsCalls(Le, function () {

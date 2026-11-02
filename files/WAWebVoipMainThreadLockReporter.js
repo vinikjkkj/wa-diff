@@ -10,7 +10,9 @@ __d(
     var e,
       s,
       u = 5e3,
-      c = 35e3,
+      c =
+        o("WAWebVoipMainThreadLockMarker").MAIN_THREAD_LOCK_OFFLOAD_TIMEOUT_MS +
+        5e3,
       d = 336 * 60 * 6e4,
       m = 6e4,
       p = 0.01,

@@ -22,7 +22,13 @@ __d(
               "WAWebVoipMainThreadLockMarker",
             ).startMainThreadLockMarker("fs_cleanup", "offload");
             try {
-              yield e("cleanupUnfinishedCallStats", {});
+              yield e(
+                "cleanupUnfinishedCallStats",
+                {},
+                void 0,
+                o("WAWebVoipMainThreadLockMarker")
+                  .MAIN_THREAD_LOCK_OFFLOAD_TIMEOUT_MS,
+              );
             } finally {
               o("WAWebVoipMainThreadLockMarker").finishMainThreadLockMarker(n);
             }

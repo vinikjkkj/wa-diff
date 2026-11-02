@@ -26,36 +26,44 @@ __d(
     }
     function c() {
       return (
+        u() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_smb_meta_one_mobile_signup_enabled",
+        )
+      );
+    }
+    function d() {
+      return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_smb_aura_benefits_enabled",
         )
       );
     }
-    function d() {
+    function m() {
       return (
-        m() ||
+        p() ||
         e() ||
         (o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebMetaOneGating").isMetaOneRolloutEnabled())
       );
     }
-    function m() {
+    function p() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue("premium_blue_enabled")
         : !1;
     }
-    function p() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_meta_verified_context_card",
       );
     }
-    function _() {
+    function f() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
         "profile_edit_for_mv_users_enabled",
       );
     }
-    function f() {
+    function g() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -69,12 +77,13 @@ __d(
     ((l.billingEnabled = e),
       (l.customerManagerSubscriptionGatingEnabled = s),
       (l.customerManagerMetaOneUpsellEnabled = u),
-      (l.smbAuraBenefitsEnabled = c),
-      (l.subscriptionFetchEnabled = d),
-      (l.isMetaVerifiedEnabled = m),
-      (l.isMetaVerifiedContextCardEnabled = p),
-      (l.isMetaVerifiedLockedProfileEditingV1Enabled = _),
-      (l.isMetaOneSubscriptionNotificationsEnabled = f));
+      (l.customerManagerMetaOneMobileSignupEnabled = c),
+      (l.smbAuraBenefitsEnabled = d),
+      (l.subscriptionFetchEnabled = m),
+      (l.isMetaVerifiedEnabled = p),
+      (l.isMetaVerifiedContextCardEnabled = _),
+      (l.isMetaVerifiedLockedProfileEditingV1Enabled = f),
+      (l.isMetaOneSubscriptionNotificationsEnabled = g));
   },
   98,
 );

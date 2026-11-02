@@ -17,7 +17,8 @@ __d(
       d,
       m,
       p = -1,
-      _ = (function () {
+      _ = 3e4,
+      f = (function () {
         function t(e) {
           ((this.$1 = !1), (this.$2 = 0), (this.$3 = new Map()), (this.$4 = e));
         }
@@ -78,28 +79,30 @@ __d(
             var e = this,
               r = t.args,
               a = t.method,
-              i = t.transferList,
-              l = this.$2++;
+              i = t.timeoutMs,
+              l = i === void 0 ? _ : i,
+              s = t.transferList,
+              u = this.$2++;
             return new (m || (m = n("Promise")))(function (t, n) {
-              var s = window.setTimeout(function () {
-                (e.$3.delete(l),
+              var i = window.setTimeout(function () {
+                (e.$3.delete(u),
                   n(
                     new (o("WACustomError").TimeoutError)(
-                      "voip: [RPC] timeout for " + a + " (id=" + l + ")",
+                      "voip: [RPC] timeout for " + a + " (id=" + u + ")",
                     ),
                   ));
-              }, 3e4);
-              (e.$3.set(l, {
+              }, l);
+              (e.$3.set(u, {
                 resolve: function (n) {
-                  (window.clearTimeout(s), t(n));
+                  (window.clearTimeout(i), t(n));
                 },
                 reject: function (t) {
-                  (window.clearTimeout(s), n(t));
+                  (window.clearTimeout(i), n(t));
                 },
               }),
                 e.$4.postMessage(
-                  { id: l, method: a, args: r },
-                  i != null ? i : [],
+                  { id: u, method: a, args: r },
+                  s != null ? s : [],
                 ),
                 o("WAWebVoipRecentRpcMethods").recordSentRpcMethod(a));
             });
@@ -208,7 +211,7 @@ __d(
           t
         );
       })();
-    l.MessagePortRpc = _;
+    l.MessagePortRpc = f;
   },
   98,
 );

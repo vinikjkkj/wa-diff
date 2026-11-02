@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebChatGetters",
+    "WAWebCommonMsgUtils",
     "WAWebContactGetters",
     "WAWebEnvironment",
     "WAWebFrontendChatGetters",
@@ -26,7 +27,15 @@ __d(
         ? t
         : e.getContainerElement();
     }
-    function c(e) {
+    function c(e, t) {
+      return (
+        e === !0 &&
+        t.every(function (e) {
+          return o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype);
+        })
+      );
+    }
+    function d(e) {
       return e == null
         ? null
         : e.key != null
@@ -35,7 +44,7 @@ __d(
             })
           : e;
     }
-    function d(e) {
+    function m(e) {
       var t = e.msgLoadState;
       return {
         noEarlierMsgs: t.noEarlierMsgs,
@@ -46,7 +55,7 @@ __d(
         isRepairingMsgHistory: t.isRepairingMsgHistory,
       };
     }
-    function m(t, n, r, a) {
+    function p(t, n, r, a) {
       var i = o("WAWebThreadModelResolver").resolveThreadOrChat(t, a),
         l =
           r.noEarlierMsgs &&
@@ -78,11 +87,11 @@ __d(
         l
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = e.chat,
         r = e.focusCtx,
         a = e.msgCollection,
-        i = c(r) || _(e, t),
+        i = d(r) || f(e, t),
         l = i == null ? void 0 : i.msg,
         s = l == null ? void 0 : l.id;
       return {
@@ -96,13 +105,13 @@ __d(
         focusCtx: i,
       };
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = e.chat,
         r = e.focusCtx,
         a = e.msgCollection,
         i;
       if (
-        (n.unreadCount ? (i = n.unreadCount) : (i = t), !((r && !f(e)) || !i))
+        (n.unreadCount ? (i = n.unreadCount) : (i = t), !((r && !g(e)) || !i))
       ) {
         var l = a
             .filter(function (e) {
@@ -141,20 +150,20 @@ __d(
         };
       }
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebThreadModelResolver").resolveThreadOrChat(
         e.chat,
         e.threadId,
       );
       return t.msgs === e.msgCollection;
     }
-    function g(e) {
+    function h(e) {
       return (
         o("WAWebMsgGetters").getIsSentByMe(e) &&
         (o("WAWebMsgGetters").getLocal(e) || !r("justknobx")._("6643"))
       );
     }
-    function h(e) {
+    function y(e) {
       var t =
         o("WAWebContactGetters").getIsUser(e) ||
         o("WAWebContactGetters").getIsGroup(e) ||
@@ -167,7 +176,7 @@ __d(
             ) === !0
         : !1;
     }
-    function y(e) {
+    function C(e) {
       var t = e.msg,
         n = e.msgCollection,
         r = e.threadId;
@@ -182,15 +191,16 @@ __d(
         : !1;
     }
     ((l.getMessageAnchor = u),
-      (l.validateFocusCtx = c),
-      (l.getMsgLoadState = d),
-      (l.noEarlierMsgStateIsIncorrect = m),
-      (l.getInitialCursorAndFocusContext = p),
-      (l.getUnreadFocusCtx = _),
-      (l.isMostRecentCMC = f),
-      (l.shouldJumpToBottomForNewOwnMsg = g),
-      (l.isSimplifiedChatConversationMenuEnabled = h),
-      (l.isMsgVisibleInConversation = y));
+      (l.shouldAlignConversationTopWhenEmpty = c),
+      (l.validateFocusCtx = d),
+      (l.getMsgLoadState = m),
+      (l.noEarlierMsgStateIsIncorrect = p),
+      (l.getInitialCursorAndFocusContext = _),
+      (l.getUnreadFocusCtx = f),
+      (l.isMostRecentCMC = g),
+      (l.shouldJumpToBottomForNewOwnMsg = h),
+      (l.isSimplifiedChatConversationMenuEnabled = y),
+      (l.isMsgVisibleInConversation = C));
   },
   98,
 );

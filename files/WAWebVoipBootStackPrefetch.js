@@ -6,6 +6,7 @@ __d(
     "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
+    "WAWebVoipInitReliability",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
   ],
@@ -34,6 +35,7 @@ __d(
             );
             return;
           }
+          o("WAWebVoipInitReliability").latchVoipInitReliabilityLevel();
           var t = o("WAWebVoipGatingUtils").isCallingEnabled(),
             n =
               t &&

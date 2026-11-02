@@ -47,6 +47,7 @@ __d(
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoWebCodecsRenderer",
     "WAWebVoipWaCallEnums",
+    "WAWebVoipWasmArtifactRecoveryEvents",
     "WAWebVoipWasmHeapBuffer",
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
@@ -151,8 +152,13 @@ __d(
         return a.createWorkerProxyStackInterface();
       }
       var i = o("WAWebVoipWasmHeapBuffer").createHeapBufferState(),
-        l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
-        K = null;
+        l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
+      o("WAWebVoipWasmArtifactRecoveryEvents").onVoipWasmArtifactRecovered(
+        function () {
+          l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
+        },
+      );
+      var K = null;
       function Y() {
         o("WAWebVoipWebTransportConnectionManager").registerPacketHandler(
           function (e, t, n) {

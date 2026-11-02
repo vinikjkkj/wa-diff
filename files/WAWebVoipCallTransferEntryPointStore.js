@@ -24,17 +24,25 @@ __d(
               r = t.peerActiveDeviceJid,
               o = t.peerWid,
               a = t.rootCallCreatorJid,
-              i = t.rootCallId,
-              l = i + "|" + a;
-            if (e)
-              this.$CallTransferEntryPointStore$p_1.set(l, {
-                rootCallId: i,
-                rootCallCreatorJid: a,
-                peerActiveDeviceJid: r,
-                peerWid: o,
-                isVideoCall: n,
-              });
-            else if (!this.$CallTransferEntryPointStore$p_1.delete(l)) return;
+              i = t.rootCallId;
+            if (!e) {
+              this.remove(i, a);
+              return;
+            }
+            (this.$CallTransferEntryPointStore$p_1.set(i + "|" + a, {
+              rootCallId: i,
+              rootCallCreatorJid: a,
+              peerActiveDeviceJid: r,
+              peerWid: o,
+              isVideoCall: n,
+            }),
+              this.$CallTransferEntryPointStore$p_3());
+          }),
+          (n.remove = function (t, n) {
+            this.$CallTransferEntryPointStore$p_1.delete(t + "|" + n) &&
+              this.$CallTransferEntryPointStore$p_3();
+          }),
+          (n.$CallTransferEntryPointStore$p_3 = function () {
             ((this.$CallTransferEntryPointStore$p_2 = Array.from(
               this.$CallTransferEntryPointStore$p_1.values(),
             )),

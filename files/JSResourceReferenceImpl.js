@@ -28,7 +28,7 @@ __d(
         }
         t.setBootloader = function (t) {
           d = t;
-          for (var e of c) e(d);
+          for (var e of c) e(t);
           c = [];
         };
         var a = t.prototype;

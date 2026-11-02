@@ -10,6 +10,7 @@ __d(
     "WAWebDBMessageSerialization",
     "WAWebE2eRetryRejectWamEvent",
     "WAWebLidMigrationUtils",
+    "WAWebManageE2ESessionsJob",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -30,13 +31,13 @@ __d(
     "cr:17732",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g;
-    function h(e, t) {
-      return y.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = new (r("WAWebMsgKey"))({
               id: t,
@@ -92,26 +93,26 @@ __d(
                 }
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return e.isGroup() ? h(e, t) : null;
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return e.isGroup() ? y(e, t) : null;
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.chat,
             r = t.identity,
             a = t.isPq,
@@ -120,7 +121,7 @@ __d(
             c = t.requester,
             d = t.retryCount,
             m = t.sessionScope,
-            p = i != null ? i : yield h(n, l);
+            p = i != null ? i : yield y(n, l);
           if (p == null)
             return (
               o("WALogger").WARN(
@@ -136,7 +137,7 @@ __d(
           var _ = p.messageRowId,
             f = p.msgKey,
             g = p.msgRecord,
-            y =
+            h =
               g.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon
                 ? r == null
                   ? void 0
@@ -165,7 +166,7 @@ __d(
                 : yield o(
                     "WAWebApiMessageInfoStore",
                   ).getRetryEligibilityWithMetadata({
-                    identityRowId: y,
+                    identityRowId: h,
                     messageRowId: _,
                     msgKey: f,
                     receiver: c,
@@ -185,7 +186,7 @@ __d(
             var E = yield o(
               "WAWebApiMessageInfoStore",
             ).getRetryEligibilityWithMetadata({
-              identityRowId: y,
+              identityRowId: h,
               messageRowId: _,
               msgKey: f,
               receiver: L,
@@ -222,7 +223,7 @@ __d(
               return {
                 msgRecord: g,
                 retryContext: { hasAdditionalRetryTargets: v },
-                isIdentityChangedSinceSend: C == null && (y == null || _ < y),
+                isIdentityChangedSinceSend: C == null && (h == null || _ < h),
               };
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult
               .INELIGIBLE_ALREADY_DELIVERED:
@@ -269,15 +270,15 @@ __d(
             null
           );
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.is1on1,
             n = e.keyBundle,
             r = e.offline,
@@ -304,7 +305,7 @@ __d(
                       "processKeyBundle: missing session for retry",
                     ])),
                 ),
-                yield E(i),
+                yield D(i),
                 !1
               );
             if (l !== a)
@@ -319,7 +320,7 @@ __d(
                   l,
                   a,
                 ),
-                yield E(i),
+                yield D(i),
                 !1
               );
             o("WALogger").LOG(
@@ -335,8 +336,8 @@ __d(
                   "processKeyBundle: update session w/ retry bundle",
                 ])),
             );
-          if (
-            (yield o("WAWebSignal").Session.createSignalSession(
+          return (
+            yield o("WAWebSignal").Session.createSignalSession(
               {
                 wid: i,
                 regId: a,
@@ -347,57 +348,99 @@ __d(
               },
               s,
             ),
-            n.kyberKey != null &&
-              t === !0 &&
-              (s == null ||
-                s === o("WAWebSessionScope").SessionScope.DEFAULT) &&
-              !i.isBot() &&
-              !i.isFbidBot() &&
-              !i.isHosted() &&
-              o("WAWebPQGatingUtils").isPq1on1MessageEnabled())
-          )
-            try {
-              (yield o("WAWebSignal").Session.createSignalSession(
-                {
-                  wid: i,
-                  regId: a,
-                  identity: n.identity,
-                  deviceIdentity: n.deviceIdentity,
-                  key: n.key,
-                  skey: n.skey,
-                  kyberKey: n.kyberKey,
-                },
-                o("WAWebSessionScope").SessionScope.PQ,
-              ),
+            k({ is1on1: t, requester: i, sessionScope: s }) &&
+              (yield I({ keyBundle: n, regId: a, requester: i })),
+            !0
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e) {
+      var t = e.is1on1,
+        n = e.requester,
+        r = e.sessionScope;
+      return (
+        t === !0 &&
+        (r == null || r === o("WAWebSessionScope").SessionScope.DEFAULT) &&
+        !n.isBot() &&
+        !n.isFbidBot() &&
+        !n.isHosted() &&
+        o("WAWebPQGatingUtils").isPq1on1MessageEnabled()
+      );
+    }
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.keyBundle,
+            n = e.regId,
+            r = e.requester,
+            a = t.kyberKey;
+          try {
+            var i = yield o("WAWebManageE2ESessionsJob").getSignalSessionWids([
+                r,
+              ]),
+              l = i.pq;
+            if (
+              (l.length > 0 &&
+                (yield o("WAWebSignal").Session.deleteRemoteSession(
+                  r,
+                  o("WAWebSessionScope").SessionScope.PQ,
+                ),
                 o("WALogger").LOG(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "processKeyBundle: established PQXDH session from retry bundle",
-                    ])),
-                ));
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "processKeyBundle: failed to build PQXDH session from retry bundle: ",
+                      "processKeyBundle: dropped PQ session, retry bundle has PQ prekey: ",
                       "",
                     ])),
-                  e,
-                )
-                .sendLogs("retry-pqxdh-session-fail");
-            }
-          return !0;
+                  String(a != null),
+                )),
+              a == null)
+            )
+              return;
+            (yield o("WAWebSignal").Session.createSignalSession(
+              {
+                wid: r,
+                regId: n,
+                identity: t.identity,
+                deviceIdentity: t.deviceIdentity,
+                key: t.key,
+                skey: t.skey,
+                kyberKey: a,
+              },
+              o("WAWebSessionScope").SessionScope.PQ,
+            ),
+              o("WALogger").LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "processKeyBundle: established PQXDH session from retry bundle",
+                  ])),
+              ));
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "processKeyBundle: failed to build PQXDH session from retry bundle: ",
+                    "",
+                  ])),
+                e,
+              )
+              .sendLogs("retry-pqxdh-session-fail");
+          }
         })),
-        L.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function k() {
+    function x() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           (((t = e.device) != null ? t : o("WAJids").DEFAULT_DEVICE_ID) ===
             o("WAJids").DEFAULT_DEVICE_ID &&
@@ -406,12 +449,12 @@ __d(
               : n("cr:17732").saveAeaIdentityChangeBaseline(e)),
             yield o("WAWebSignal").Session.deleteRemoteInfo(e));
         })),
-        k.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.loadGroupSentMessage = C),
-      (l.getMsgIfAuthorized = v),
-      (l.processKeyBundle = R));
+    ((l.loadGroupSentMessage = b),
+      (l.getMsgIfAuthorized = S),
+      (l.processKeyBundle = L));
   },
   98,
 );

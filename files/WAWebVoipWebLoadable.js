@@ -16,6 +16,7 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebVoipBootInitDecision",
     "WAWebVoipGatingUtils",
+    "WAWebVoipInitReliabilityGates",
     "WAWebVoipInitReloadRecovery",
     "WAWebVoipMainThreadLockFixes",
     "WAWebVoipPthreadGlueFailureTracker",
@@ -24,6 +25,7 @@ __d(
     "WAWebVoipThreadPoolManager",
     "WAWebVoipThreadPoolManagerRegistry",
     "WAWebVoipWasmArtifactGating",
+    "WAWebVoipWasmArtifactRecovery",
     "WAWebVoipWasmArtifactSkewErrors",
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWasmResourceTiming",
@@ -47,8 +49,9 @@ __d(
       C = null,
       b = !1,
       v = !1,
-      S = null;
-    function R() {
+      S = !1,
+      R = null;
+    function L() {
       var e = C;
       if (e != null) return e;
       var t = o("WAWebVoipWasmArtifactGating").selectVoipWasmArtifacts();
@@ -65,26 +68,26 @@ __d(
         t
       );
     }
-    function L() {
-      return E.apply(this, arguments);
-    }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield R();
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield L();
           return e.useContentAddressedWasm;
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(t) {
+    function I(t) {
       return !t.pinWorkerGlue ||
         !o(
           "WAWebVoipPthreadGlueFailureTracker",
         ).isPinnedWorkerGlueUnpinnedForPage()
         ? t
-        : (v ||
-            ((v = !0),
+        : (S ||
+            ((S = !0),
             o(
               "WAWebCoreActionsODS",
             ).logCallVoipInitWasmArtifactWorkerGlueUnpinnedFallback()),
@@ -96,13 +99,13 @@ __d(
           ),
           babelHelpers.extends({}, t, { pinWorkerGlue: !1 }));
     }
-    function I() {
-      return T.apply(this, arguments);
-    }
     function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield L();
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield E();
           if (e) {
             yield r("JSResourceForInteraction")(
               "WAWebVoipWebWasmLoader_ContentAddressed_internal",
@@ -115,10 +118,10 @@ __d(
             .__setRef("WAWebVoipWebLoadable")
             .load();
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
+    function x(e) {
       var t = e.name + ": " + e.message;
       return t.includes(
         o("WAWebVoipWasmArtifactSkewErrors").WORKER_GLUE_BUILD_MISMATCH_TOKEN,
@@ -128,13 +131,13 @@ __d(
           ? t.toLowerCase().includes("unknown file path")
           : !1;
     }
-    function x(e) {
+    function $(e) {
       return (e.name + ": " + e.message).includes(
         o("WAWebVoipWasmArtifactSkewErrors")
           .PINNED_WORKER_GLUE_LOAD_FAILED_TOKEN,
       );
     }
-    function $(e) {
+    function P(e) {
       if (y || navigator.onLine === !1) return !0;
       var t = (e.name + ": " + e.message).toLowerCase();
       return (
@@ -146,7 +149,14 @@ __d(
         t.includes("loadable:voipwebwasmloader")
       );
     }
-    var P = r("WAWebLazyLoadedRetriable")(
+    function N(e) {
+      return (
+        !y &&
+        navigator.onLine !== !1 &&
+        (e.name + ": " + e.message).toLowerCase().includes("bootload")
+      );
+    }
+    var M = r("WAWebLazyLoadedRetriable")(
       n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         o("WALogger").LOG(
           s ||
@@ -154,15 +164,15 @@ __d(
               "voip: Loading VoIP WASM with AB prop-based variant selection",
             ])),
         );
-        var e = yield R();
-        return O(k(e));
+        var e = I(yield L());
+        return ((v = e.pinWorkerGlue), W(e));
       }),
       "voipWebWasmLoader",
       {
-        isTerminalError: D,
+        isTerminalError: x,
         onAttemptFailure: function (t, n) {
           (navigator.onLine === !1 && (y = !0),
-            x(t) &&
+            $(t) &&
               (o(
                 "WAWebCoreActionsODS",
               ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailed(),
@@ -171,17 +181,26 @@ __d(
               ).markPinnedWorkerGlueUnpinnedForPage()));
         },
         onFinalFailure: function (t, n) {
-          var e = $(t),
-            r = D(t);
+          var e = P(t),
+            r = N(t),
+            a = x(t),
+            i = { error: t, isContentAddressed: b, pinWorkerGlue: v };
           if (
             ((y = !1),
             (C = null),
             (b = !1),
-            (S = null),
-            r &&
-              o(
+            (v = !1),
+            (R = null),
+            a &&
+              (o(
                 "WAWebVoipInitReloadRecovery",
               ).markVoipWasmArtifactUnavailable(),
+              o("WAWebVoipWasmArtifactRecovery").armVoipWasmArtifactRecovery(
+                i,
+              )),
+            r &&
+              o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled() &&
+              o("WAWebVoipInitReloadRecovery").markVoipChunkUnavailable(),
             e)
           ) {
             o("WALogger").LOG(
@@ -210,7 +229,7 @@ __d(
         },
       },
     );
-    function N(e, t) {
+    function w(e, t) {
       return t
         ? {
             initialPthreadPoolSize: f,
@@ -229,12 +248,12 @@ __d(
               isDynamicPoolEnabled: !1,
             };
     }
-    function M() {
-      return w.apply(this, arguments);
+    function A() {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           (e = o("WAWebVoipQplHelpers")).voipInitQplAddPoint(
             e.VoipInitQplPoint.WAIT_OFFLINE_DELIVER_START,
@@ -248,7 +267,7 @@ __d(
                 o("WAWebEventsWaitForOfflineDeliveryEnd")
                   .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
                   .then(o("WAWebBoolFunc").returnFalse),
-                A(t).then(o("WAWebBoolFunc").returnTrue),
+                O(t).then(o("WAWebBoolFunc").returnTrue),
               ]),
               g,
             );
@@ -268,15 +287,15 @@ __d(
               },
             ));
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
             return new (p || (p = n("Promise")))(r("WAWebNoop"));
           if (
@@ -294,15 +313,15 @@ __d(
           )
             return new (p || (p = n("Promise")))(r("WAWebNoop"));
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebVoipPthreadHardening").latchVoipPthreadHardeningLevel(
             function () {
               return o("WAWebABProps").getABPropConfigValue(
@@ -320,7 +339,7 @@ __d(
           ),
             o("WAWebVoipQplHelpers").voipInitQplAnnotatePthreadHardening(t),
             o("WAWebVoipMainThreadLockFixes").readMainThreadLockFixAtBoot(),
-            o("WAWebVoipGatingUtils").isGuestViewer() || (yield M()),
+            o("WAWebVoipGatingUtils").isGuestViewer() || (yield A()),
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_START,
               {
@@ -341,8 +360,8 @@ __d(
               pinWorkerGlue: e.pinWorkerGlue,
             });
             var a = self.performance.now(),
-              i = U(a),
-              l = W(e, n),
+              i = H(a),
+              l = U(e, n),
               s = yield o(
                 "WAWebVoipInitReloadRecovery",
               ).observeVoipWasmLoaderPromise(
@@ -358,7 +377,7 @@ __d(
                 a,
               ),
             ),
-              V(i),
+              G(i),
               o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(s, "wasm_load"),
               o(
                 "WAWebVoipPthreadGlueFailureTracker",
@@ -367,7 +386,7 @@ __d(
             var u = o("WAWebABProps").getABPropConfigValue(
                 "web_voip_dynamic_thread_preallocate_count",
               ),
-              c = N(u, n),
+              c = w(u, n),
               p = c.initialPthreadPoolSize,
               _ = c.isDynamicPoolEnabled,
               f = c.targetPoolSize;
@@ -416,16 +435,16 @@ __d(
             );
           }
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e, t) {
+    function U(e, t) {
       var n = self.performance.now(),
         r = document.visibilityState;
       return function () {
         return {
           isContentAddressed: e.useContentAddressedWasm,
-          isLoaderModuleLoaded: q(e.useContentAddressedWasm),
+          isLoaderModuleLoaded: V(e.useContentAddressedWasm),
           isPinnedGlueUnpinned: o(
             "WAWebVoipPthreadGlueFailureTracker",
           ).isPinnedWorkerGlueUnpinnedForPage(),
@@ -438,7 +457,7 @@ __d(
         };
       };
     }
-    function q(e) {
+    function V(e) {
       return e
         ? r("JSResourceForInteraction")(
             "WAWebVoipWebWasmLoader_ContentAddressed_internal",
@@ -449,23 +468,23 @@ __d(
             .__setRef("WAWebVoipWebLoadable")
             .getModuleIfRequired() != null;
     }
-    function U(e) {
-      var t = S != null ? S : e;
-      return ((S = t), t);
+    function H(e) {
+      var t = R != null ? R : e;
+      return ((R = t), t);
     }
-    function V(e) {
+    function G(e) {
       var t = o("WAWebVoipQplHelpers").getVoipInitQplTriggeredAtMs();
       t != null &&
         o("WAWebVoipQplHelpers").voipInitQplAnnotateWasmPrefetch(
           o("WAWebVoipWasmResourceTiming").getVoipWasmPrefetchState(e, t),
         );
     }
-    function H() {
+    function z() {
       return h;
     }
-    ((l.prefetchVoipWasmLoaderModule = I),
-      (l.requireVoip = P),
-      (l.getVoipThreadPoolManager = H));
+    ((l.prefetchVoipWasmLoaderModule = T),
+      (l.requireVoip = M),
+      (l.getVoipThreadPoolManager = z));
   },
   98,
 );

@@ -1,6 +1,8 @@
 __d(
   "WAWebSharableEventNotificationPersistence",
   [
+    "WALogger",
+    "WAWebSharableEventGetJob",
     "WAWebSharableEventNotificationPersistJob",
     "WAWebSharableEventNotificationRows",
     "WAWebSharableEventServerRows",
@@ -9,14 +11,16 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
             "WAWebSharableEventNotificationRows",
           ).toSharableEventMetadataFromNotification(e);
@@ -36,15 +40,15 @@ __d(
             ).toSelfInviteeFromNotification(e, n),
           );
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
             "WAWebSharableEventNotificationRows",
           ).toSharableEventMetadataFromNotification(e);
@@ -62,15 +66,15 @@ __d(
             "WAWebSharableEventNotificationPersistJob",
           ).persistUpdatedSharableEvent(t);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidToJid").userLidtoLidUserJid(
             o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
           );
@@ -79,26 +83,42 @@ __d(
               "WAWebSharableEventNotificationPersistJob",
             ).deleteSharableEventFromNotification(e.event_id));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o(
             "WAWebSharableEventNotificationPersistJob",
           ).deleteSharableEventFromNotification(e);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.persistSharableEventInviteNotification = e),
-      (l.persistSharableEventUpdateNotification = u),
-      (l.persistSharableEventInviteRemoveNotification = d),
-      (l.persistSharableEventDeleteNotification = p));
+    function g(t) {
+      o("WAWebSharableEventGetJob")
+        .syncSharableEvent(t)
+        .catch(function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event] refetching the event after an RSVP failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("sharable-event-rsvp-refetch-failed");
+        });
+    }
+    ((l.persistSharableEventInviteNotification = s),
+      (l.persistSharableEventUpdateNotification = c),
+      (l.persistSharableEventInviteRemoveNotification = m),
+      (l.persistSharableEventDeleteNotification = _),
+      (l.refreshSharableEventAfterRsvpNotification = g));
   },
   98,
 );

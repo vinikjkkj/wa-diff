@@ -588,6 +588,11 @@ __d(
       IG_CONNECT_UPSELL_PICKER_IMPRESSION:
         "ig_connect_upsell_picker_impression",
       IG_CONNECT_UPSELL_PICKER_CLICK: "ig_connect_upsell_picker_click",
+      IG_CONNECT_UPSELL_MBS_PICKER_IMPRESSION:
+        "ig_connect_upsell_mbs_picker_impression",
+      IG_CONNECT_UPSELL_MBS_PICKER_CLICK: "ig_connect_upsell_mbs_picker_click",
+      IG_CONNECT_UPSELL_MBS_PICKER_CONNECT_SUCCESS:
+        "ig_connect_upsell_mbs_picker_connect_success",
       IG_CONNECT_UPSELL_SETTINGS_IMPRESSION:
         "ig_connect_upsell_settings_impression",
       IG_CONNECT_UPSELL_SETTINGS_CONNECT_CLICK:

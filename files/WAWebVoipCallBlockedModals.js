@@ -9,6 +9,7 @@ __d(
     "WAWebModalManager",
     "WAWebToast.react",
     "WAWebToastManager",
+    "WAWebVoipAvailabilityCheckpoints",
     "WAWebVoipBackendLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
@@ -125,6 +126,7 @@ __d(
           onCancel: o("WAWebModalManager").closeModalManager,
           onOK: function () {
             (o("WAWebModalManager").closeModalManager(),
+              o("WAWebVoipAvailabilityCheckpoints").logVoipUnavailableReload(),
               r("WAWebMiscBrowserUtils").hardRefresh());
           },
           onOverlayClick: o("WAWebModalManager").closeModalManager,

@@ -201,7 +201,7 @@ __d(
           return o("WAWebBackendJobs.flow").EncMediaType.Order;
         if (e.productMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Product;
-        if (e.groupInviteMessage)
+        if (e.groupInviteMessage || e.eventInviteMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Url;
         if (e.interactiveResponseMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.NativeFlowResponse;

@@ -681,6 +681,22 @@ __d(
             enabled: e.enabled,
           };
         },
+        parseCallTransferFailedData: function (t) {
+          var e,
+            n = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if ((n == null ? void 0 : n.root_call_creator) == null)
+            throw r("err")("Invalid call transfer failed data");
+          return {
+            rootCallId: n.root_call_id,
+            rootCallCreatorJid: n.root_call_creator.raw_jid,
+            failure:
+              (e = o("WAWebVoipWaCallEnums").CallTransferFailure.cast(
+                n.failure,
+              )) != null
+                ? e
+                : o("WAWebVoipWaCallEnums").CallTransferFailure.Terminal,
+          };
+        },
       },
       m = d;
     function p(e) {

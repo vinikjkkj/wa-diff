@@ -3,68 +3,77 @@ __d(
   [
     "WABase64",
     "WALogger",
+    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebODS",
     "WAWebSerializeVoipWapNode",
+    "WAWebVoipBridgePhoneNumberJidBatcher",
     "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = (function () {
+      u,
+      c,
+      d = (function () {
         function t(t, n) {
           var a = this;
-          ((this.handleVoipReady = function () {
-            var e;
-            (o("WAWebBackendApi").frontendFireAndForget(
-              "addStartingLogoutListener",
-              function () {
-                return a.handleSignOut();
-              },
-            ),
-              (e = a.$3) == null || e.onVoipReady());
-          }),
-            (this.sendSignalingXmpp = function (t) {
-              var n,
-                r = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+          ((this.$4 = new (o(
+            "WAWebVoipBridgePhoneNumberJidBatcher",
+          ).VoipBridgePhoneNumberJidBatcher)({
+            isEnabled: function () {
+              return o("WAWebABProps").getABPropConfigValue(
+                "web_anr_batch_voip_pn_jid_bridge_operations",
+              );
+            },
+            sendReply: function (t) {
+              return a.$5(t);
+            },
+            sendReplies: function (t) {
+              return a.$6(t);
+            },
+          })),
+            (this.handleVoipReady = function () {
+              var e;
+              (o("WAWebBackendApi").frontendFireAndForget(
+                "addStartingLogoutListener",
+                function () {
+                  return a.handleSignOut();
+                },
+              ),
+                (e = a.$3) == null || e.onVoipReady());
+            }),
+            (this.sendSignalingXmpp = function (e) {
+              var t = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
                   { bridge: "voip", method: "handleSignalingXmppEvent" },
                   function () {
                     return {
-                      callId: t.callId,
-                      payload: t.payload,
-                      peerJid: t.peerJid,
-                      shouldEncryptBeforeSending: t.shouldEncryptBeforeSending,
+                      callId: e.callId,
+                      payload: e.payload,
+                      peerJid: e.peerJid,
+                      shouldEncryptBeforeSending: e.shouldEncryptBeforeSending,
                     };
                   },
                 ),
-                i = r.callId,
-                l = r.payload,
-                s = r.peerJid,
-                u = r.shouldEncryptBeforeSending,
-                c = function (t) {
-                  return t.replace(
-                    /^([^@]*)([^@][^@][^@][^@])@(.*)$/,
-                    "...$2@$3",
-                  );
-                };
-              (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoipWinRTBridge] sendSignalingXmpp peer=",
-                    " call=",
-                    " encrypt=",
-                    "",
-                  ])),
-                c(s),
-                i,
-                u,
-              ),
-                (n = a.$3) == null || n.onSignalingXmpp(s, i, l, u));
+                n = t.callId,
+                r = t.payload,
+                i = t.peerJid,
+                l = t.shouldEncryptBeforeSending;
+              a.$10({
+                callId: n,
+                payload: r,
+                peerJid: i,
+                shouldEncryptBeforeSending: l,
+              });
+            }),
+            (this.$8 = function (e) {
+              var t = m(e, "signalingXmppJsonEvent");
+              t != null && a.$10(t);
             }),
             (this.handleCallEvent = function (e) {
-              var t,
-                n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+              var t = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
                   { bridge: "voip", method: "handleVoipCallEvent" },
                   function () {
                     return {
@@ -74,10 +83,14 @@ __d(
                     };
                   },
                 ),
-                r = n.eventDataJson,
-                i = n.eventType,
-                l = n.userData;
-              (t = a.$3) == null || t.onCallEvent(i, l, r);
+                n = t.eventDataJson,
+                r = t.eventType,
+                i = t.userData;
+              a.$11({ eventDataJson: n, eventType: r, userData: i });
+            }),
+            (this.$7 = function (e) {
+              var t = m(e, "voipCallEventJsonEvent");
+              t != null && a.$11(t);
             }),
             (this.requestOpenChat = function (e) {
               var t;
@@ -110,22 +123,7 @@ __d(
               (t = a.$3) == null ||
                 t.onRequestPhoneNumberJid == null ||
                 t.onRequestPhoneNumberJid(e).then(function (t) {
-                  (r("WAWebODS").incr(
-                    "web.hybrid.bridge.voip.send.handle_phone_number_jid",
-                  ),
-                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                      {
-                        bridge: "voip",
-                        method: "handlePhoneNumberJid",
-                        type: "async",
-                      },
-                      function () {
-                        var n;
-                        return (n = a.$1) == null
-                          ? void 0
-                          : n.handlePhoneNumberJid(e.toString(), t);
-                      },
-                    ));
+                  return a.$4.send({ lidJid: e.toString(), phoneNumberJid: t });
                 });
             }),
             (this.requestLidJid = function (e) {
@@ -148,24 +146,27 @@ __d(
                 });
             }),
             (this.callAgain = function (e) {
-              var t,
-                n = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
+              var t = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
                   { bridge: "voip", method: "handleCallAgainEvent" },
                   function () {
                     return { isVideoCall: e.isVideoCall, peerJid: e.peerJid };
                   },
                 ),
-                r = n.isVideoCall,
-                i = n.peerJid;
-              (t = a.$3) == null || t.onCallAgain(i, r);
+                n = t.isVideoCall,
+                r = t.peerJid;
+              a.$12({ isVideoCall: n, peerJid: r });
+            }),
+            (this.$9 = function (e) {
+              var t = m(e, "callAgainJsonEvent");
+              t != null && a.$12(t);
             }),
             (this.handleLidCallerDisplayInfo = function (e) {
               var t;
               (t = a.$3) == null || t.onLidCallerDisplayInfo(e);
             }),
             (this.requestOngoingCallInfo = function () {
-              var e,
-                t = function (t) {
+              var t,
+                n = function (t) {
                   var e, n, r, o;
                   return a.handleOngoingCallInfo(
                     t != null,
@@ -177,24 +178,24 @@ __d(
                       : [],
                   );
                 },
-                n =
-                  (e = a.$3) == null || e.onRequestOngoingCallInfo == null
+                r =
+                  (t = a.$3) == null || t.onRequestOngoingCallInfo == null
                     ? void 0
-                    : e.onRequestOngoingCallInfo();
-              if (n == null) {
-                t(null);
+                    : t.onRequestOngoingCallInfo();
+              if (r == null) {
+                n(null);
                 return;
               }
-              n.then(t).catch(function (e) {
+              r.then(n).catch(function (t) {
                 (o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "VoipWinRTBridge: onRequestOngoingCallInfo failed",
                       ])),
                   )
                   .sendLogs("voip-ongoing-call-info-failed"),
-                  t(null));
+                  n(null));
               });
             }),
             (this.requestJoinCall = function (e) {
@@ -213,10 +214,12 @@ __d(
               "handleVoipCallEvent",
               this.handleCallEvent,
             ),
+            this.$1.addEventListener("voipCallEventJsonEvent", this.$7),
             this.$1.addEventListener(
               "handleSignalingXmppEvent",
               this.sendSignalingXmpp,
             ),
+            this.$1.addEventListener("signalingXmppJsonEvent", this.$8),
             this.$1.addEventListener(
               "handleRequestOpenChatEvent",
               this.requestOpenChat,
@@ -234,6 +237,7 @@ __d(
               this.requestLidJid,
             ),
             this.$1.addEventListener("handleCallAgainEvent", this.callAgain),
+            this.$1.addEventListener("callAgainJsonEvent", this.$9),
             this.$1.addEventListener(
               "handleLidCallerDisplayInfoEvent",
               this.handleLidCallerDisplayInfo,
@@ -299,6 +303,91 @@ __d(
                 "handleRequestOngoingCallInfoEvent",
                 this.requestOngoingCallInfo,
               ));
+          }),
+          (a.$10 = function (t) {
+            var e,
+              n = t.callId,
+              r = t.payload,
+              a = t.peerJid,
+              i = t.shouldEncryptBeforeSending,
+              l = function (t) {
+                return t.replace(
+                  /^([^@]*)([^@][^@][^@][^@])@(.*)$/,
+                  "...$2@$3",
+                );
+              };
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[VoipWinRTBridge] sendSignalingXmpp peer=",
+                  " call=",
+                  " encrypt=",
+                  "",
+                ])),
+              l(a),
+              n,
+              i,
+            ),
+              (e = this.$3) == null || e.onSignalingXmpp(a, n, r, i));
+          }),
+          (a.$11 = function (t) {
+            var e,
+              n = t.eventDataJson,
+              r = t.eventType,
+              o = t.userData;
+            (e = this.$3) == null || e.onCallEvent(r, o, n);
+          }),
+          (a.$5 = function (t) {
+            var e = this,
+              n = t.lidJid,
+              a = t.phoneNumberJid;
+            (r("WAWebODS").incr(
+              "web.hybrid.bridge.voip.send.handle_phone_number_jid",
+            ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voip",
+                  method: "handlePhoneNumberJid",
+                  type: "async",
+                },
+                function () {
+                  var t;
+                  return (t = e.$1) == null
+                    ? void 0
+                    : t.handlePhoneNumberJid(n, a);
+                },
+              ));
+          }),
+          (a.$6 = function (t) {
+            var e = this;
+            return (
+              r("WAWebODS").incr(
+                "web.hybrid.bridge.voip.send.handle_phone_number_jid_batch",
+              ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voip",
+                  method: "handlePhoneNumberJidBatch",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.handlePhoneNumberJidBatch(
+                    t.map(function (e) {
+                      return e.lidJid;
+                    }),
+                    t.map(function (e) {
+                      return e.phoneNumberJid;
+                    }),
+                  );
+                },
+              )
+            );
+          }),
+          (a.$12 = function (t) {
+            var e,
+              n = t.isVideoCall,
+              r = t.peerJid;
+            (e = this.$3) == null || e.onCallAgain(r, n);
           }),
           (a.handleIncomingSignalingOffer = function (
             t,
@@ -936,7 +1025,41 @@ __d(
           t
         );
       })();
-    l.VoipWinRTBridge = u;
+    function m(e, t) {
+      var n;
+      try {
+        n = JSON.parse(e);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "VoipWinRTBridge: malformed ",
+                  " payload",
+                ])),
+              t,
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("voip-bridge-json-event-malformed"),
+          null
+        );
+      }
+      return n == null || typeof n != "object" || Array.isArray(n)
+        ? (o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "VoipWinRTBridge: ",
+                  " payload is not an object",
+                ])),
+              t,
+            )
+            .sendLogs("voip-bridge-json-event-malformed"),
+          null)
+        : n;
+    }
+    l.VoipWinRTBridge = d;
   },
   98,
 );

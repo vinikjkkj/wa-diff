@@ -19,7 +19,7 @@ __d(
             (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!0),
               o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(null),
               o("WAWebMLModelManager")
-                .initMLModelsForCall(yield r)
+                .initMLModelsForCall(yield r())
                 .catch(function (t) {
                   o("WALogger").WARN(
                     e ||

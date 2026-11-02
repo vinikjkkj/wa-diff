@@ -771,7 +771,7 @@ __d(
       return (
         t[4] !== s
           ? ((u = c.jsx(r("WDSText.react"), {
-              type: "Body2",
+              type: "Body1",
               colorName: "contentDefault",
               maxLines: 1,
               children: s,
@@ -816,7 +816,7 @@ __d(
       return (
         n[4] !== d
           ? ((m = c.jsx(r("WDSText.react"), {
-              type: "Body2",
+              type: "Body1",
               colorName: "contentDefault",
               maxLines: 1,
               children: d,
@@ -1016,7 +1016,7 @@ __d(
           _("email", s._(/*BTDS*/ "Email"), function (e) {
             var t;
             return c.jsx(r("WDSText.react"), {
-              type: "Body2",
+              type: "Body1",
               colorName: "contentDefault",
               maxLines: 1,
               children: (t = e.item.leadData.email) != null ? t : "\u2014",
@@ -1025,7 +1025,7 @@ __d(
           _("address", s._(/*BTDS*/ "Address"), function (e) {
             var t;
             return c.jsx(r("WDSText.react"), {
-              type: "Body2",
+              type: "Body1",
               colorName: "contentDefault",
               maxLines: 1,
               children: (t = e.item.leadData.address) != null ? t : "\u2014",
@@ -1033,7 +1033,7 @@ __d(
           }),
           _("birthday", s._(/*BTDS*/ "Birthday"), function (e) {
             return c.jsx(r("WDSText.react"), {
-              type: "Body2",
+              type: "Body1",
               colorName: "contentDefault",
               maxLines: 1,
               children: o(
@@ -1046,7 +1046,7 @@ __d(
               "WAWebCustomerManagerChatResolver",
             ).resolveCustomerManagerChat(e.item.chatJid);
             return c.jsx(r("WDSText.react"), {
-              type: "Body2",
+              type: "Body1",
               colorName: "contentDefault",
               maxLines: 1,
               children: o(
@@ -1058,7 +1058,7 @@ __d(
             cell: function (t) {
               var e;
               return c.jsx(r("WDSText.react"), {
-                type: "Body2",
+                type: "Body1",
                 colorName: "contentDefault",
                 maxLines: 1,
                 children:

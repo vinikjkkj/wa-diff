@@ -13,27 +13,28 @@ __d(
         "playback_start",
         "capture_start",
       ],
-      s = "wa_voip_lock_marker:",
-      u = 1,
-      c = new Map(),
-      d = null,
-      m = 0,
-      p = !1;
-    function _() {
-      var e = d != null ? d : E();
-      return ((d = e), e);
+      s = 6e5,
+      u = "wa_voip_lock_marker:",
+      c = 1,
+      d = new Map(),
+      m = null,
+      p = 0,
+      _ = !1;
+    function f() {
+      var e = m != null ? m : k();
+      return ((m = e), e);
     }
-    function f(e) {
-      return "" + s + e;
+    function g(e) {
+      return "" + u + e;
     }
-    function g(e, t, n) {
-      m++;
-      var r = _(),
+    function h(e, t, n) {
+      p++;
+      var r = f(),
         a = {
           monotonicStartedAt: self.performance.now(),
           site: e,
           startedAt: Date.now(),
-          token: r + "." + m,
+          token: r + "." + p,
         },
         i = {
           a: o("WAWebVoipMainThreadLockArm").getMainThreadLockArm(),
@@ -43,47 +44,47 @@ __d(
           m: t,
           s: r,
           t: a.startedAt,
-          v: u,
+          v: c,
           x: 0,
         };
-      return (S(e, i), t === "offload" && b(e, i), a);
+      return (R(e, i), t === "offload" && v(e, i), a);
     }
-    function h(e) {
+    function y(e) {
       return (
-        c.delete(e.token),
-        R(e.site) === e.token && C(e.site),
+        d.delete(e.token),
+        L(e.site) === e.token && b(e.site),
         self.performance.now() - e.monotonicStartedAt
       );
     }
-    function y(e) {
-      return L(null, function (t) {
-        return t.getItem(f(e));
-      });
-    }
     function C(e) {
-      L(void 0, function (t) {
-        return t.removeItem(f(e));
+      return E(null, function (t) {
+        return t.getItem(g(e));
       });
     }
-    function b(e, t) {
-      (c.set(t.k, { record: t, site: e }),
-        !(p || typeof window == "undefined") &&
-          ((p = !0), window.addEventListener("pagehide", v)));
+    function b(e) {
+      E(void 0, function (t) {
+        return t.removeItem(g(e));
+      });
     }
-    function v() {
-      c.forEach(function (e, t) {
+    function v(e, t) {
+      (d.set(t.k, { record: t, site: e }),
+        !(_ || typeof window == "undefined") &&
+          ((_ = !0), window.addEventListener("pagehide", S)));
+    }
+    function S() {
+      d.forEach(function (e, t) {
         var n = e.record,
           r = e.site;
-        R(r) === t && S(r, babelHelpers.extends({}, n, { x: 1 }));
+        L(r) === t && R(r, babelHelpers.extends({}, n, { x: 1 }));
       });
     }
-    function S(e, t) {
-      L(void 0, function (n) {
-        return n.setItem(f(e), JSON.stringify(t));
+    function R(e, t) {
+      E(void 0, function (n) {
+        return n.setItem(g(e), JSON.stringify(t));
       });
     }
-    function R(e) {
-      var t = y(e);
+    function L(e) {
+      var t = C(e);
       if (t == null) return null;
       try {
         var n = JSON.parse(t),
@@ -93,7 +94,7 @@ __d(
         return null;
       }
     }
-    function L(e, t) {
+    function E(e, t) {
       var n = r("WAWebLocalStorage");
       if (n == null) return e;
       try {
@@ -102,7 +103,7 @@ __d(
         return e;
       }
     }
-    function E() {
+    function k() {
       try {
         var e = self.crypto.getRandomValues(new Uint32Array(2));
         return "" + e[0].toString(36) + e[1].toString(36);
@@ -111,12 +112,13 @@ __d(
       }
     }
     ((l.MAIN_THREAD_LOCK_SITES = e),
-      (l.getMainThreadLockPageSession = _),
-      (l.getMainThreadLockMarkerKey = f),
-      (l.startMainThreadLockMarker = g),
-      (l.finishMainThreadLockMarker = h),
-      (l.readMainThreadLockMarkerValue = y),
-      (l.removeMainThreadLockMarker = C));
+      (l.MAIN_THREAD_LOCK_OFFLOAD_TIMEOUT_MS = s),
+      (l.getMainThreadLockPageSession = f),
+      (l.getMainThreadLockMarkerKey = g),
+      (l.startMainThreadLockMarker = h),
+      (l.finishMainThreadLockMarker = y),
+      (l.readMainThreadLockMarkerValue = C),
+      (l.removeMainThreadLockMarker = b));
   },
   98,
 );

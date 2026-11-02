@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebContactGetters",
+    "WAWebMetaOneGating",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsMeUser",
   ],
@@ -20,6 +21,9 @@ __d(
       );
     }
     function u() {
+      return s() && o("WAWebMetaOneGating").isMetaOneRolloutEnabled();
+    }
+    function c() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -27,7 +31,7 @@ __d(
         )
       );
     }
-    function c() {
+    function d() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -35,7 +39,7 @@ __d(
         )
       );
     }
-    function d() {
+    function m() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -43,7 +47,7 @@ __d(
         )
       );
     }
-    function m() {
+    function p() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -51,7 +55,7 @@ __d(
         )
       );
     }
-    function p() {
+    function _() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -59,7 +63,7 @@ __d(
         )
       );
     }
-    function _() {
+    function f() {
       return (
         s() &&
         (o("WAWebABProps").getABPropConfigValue(
@@ -70,14 +74,14 @@ __d(
           ))
       );
     }
-    function f() {
+    function g() {
       return e;
     }
-    function g(e) {
-      var t = e.id;
-      return t != null && !o("WAWebContactGetters").getIsMe(e) && h(t);
-    }
     function h(e) {
+      var t = e.id;
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && y(t);
+    }
+    function y(e) {
       return (
         e.isUser() &&
         !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -91,15 +95,16 @@ __d(
       );
     }
     ((l.customerManagerEnabled = s),
-      (l.customerManagerDateRangeFilterEnabled = u),
-      (l.customerManagerExportEnabled = c),
-      (l.customerManagerImportExportEnabled = d),
-      (l.customerManagerCustomFieldsEnabled = m),
-      (l.customerManagerBulkEditEnabled = p),
-      (l.customerManagerSublistEnabled = _),
-      (l.customerManagerEducationBannerMaxViewDays = f),
-      (l.isEligibleForCustomerFields = g),
-      (l.isWidEligibleForCustomerFields = h));
+      (l.customerManagerPanelEnabled = u),
+      (l.customerManagerDateRangeFilterEnabled = c),
+      (l.customerManagerExportEnabled = d),
+      (l.customerManagerImportExportEnabled = m),
+      (l.customerManagerCustomFieldsEnabled = p),
+      (l.customerManagerBulkEditEnabled = _),
+      (l.customerManagerSublistEnabled = f),
+      (l.customerManagerEducationBannerMaxViewDays = g),
+      (l.isEligibleForCustomerFields = h),
+      (l.isWidEligibleForCustomerFields = y));
   },
   98,
 );

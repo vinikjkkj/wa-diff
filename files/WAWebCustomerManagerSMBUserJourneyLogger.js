@@ -811,6 +811,15 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
+          (n.clickTrialNuxLearnMore = function () {
+            this.$2({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "trial_nux_learn_more_button",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
           (n.trialStartResult = function (t, n) {
             this.$2({
               extraAttributes: {
@@ -884,6 +893,36 @@ __d(
               userActionTarget: "meta_one_result",
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.API,
+            });
+          }),
+          (n.viewMetaOnePhoneSignup = function (t) {
+            this.$2({
+              extraAttributes: { source: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "meta_one_phone_signup",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.clickMetaOnePhoneSignupDone = function (t) {
+            this.$2({
+              extraAttributes: { source: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "meta_one_phone_signup_done",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickMetaOnePhoneSignupHelp = function (t) {
+            this.$2({
+              extraAttributes: { source: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "meta_one_phone_signup_help",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
           (n.accessStateLoadFailed = function (t) {

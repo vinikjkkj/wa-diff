@@ -6,11 +6,13 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebABPropsCache",
+    "WAWebBackendApi",
     "WAWebEnvironment",
     "WAWebLazyLoadedRetriable",
     "WAWebVoipBootInitDecision",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
+    "WAWebVoipInitReliabilityGates",
     "WAWebVoipWaitForRequiredModule",
     "asyncToGeneratorRuntime",
     "err",
@@ -30,8 +32,10 @@ __d(
       g,
       h = null,
       y = "WAWebVoipStackInterfaceImpl",
-      C = "wa_web_voip_stack_interface";
-    function b() {
+      C = "wa_web_voip_stack_interface",
+      b = !1,
+      v = null;
+    function S() {
       return (
         h == null &&
           (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -46,13 +50,13 @@ __d(
         h
       );
     }
-    function v() {
+    function R() {
       return y;
     }
-    function S() {
+    function L() {
       return C;
     }
-    function R() {
+    function E() {
       return (
         g == null &&
           (g = r("JSResourceForInteraction")(
@@ -66,8 +70,8 @@ __d(
         g
       );
     }
-    function L(t) {
-      R()
+    function k(t) {
+      E()
         .then(t)
         .catch(function (t) {
           o("WALogger")
@@ -80,19 +84,19 @@ __d(
             .catching(r("getErrorSafe")(t));
         });
     }
-    function E() {
-      return k.apply(this, arguments);
+    function I() {
+      return T.apply(this, arguments);
     }
-    function k() {
+    function T() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: getVoipStackInterface awaiting lazy bundle",
               ])),
           );
-          var e = yield b();
+          var e = yield S();
           ((y = e
             ? "WAWebVoipStackInterfaceWindows"
             : "WAWebVoipStackInterfaceImpl"),
@@ -103,7 +107,7 @@ __d(
               ? r("JSResourceForInteraction")("WAWebVoipStackInterfaceWindows")
                   .__setRef("WAWebVoipStackInterface")
                   .load()
-              : I(),
+              : D(),
             a = null,
             i = new (m || (m = n("Promise")))(function (e, t) {
               a = self.setTimeout(function () {
@@ -117,11 +121,14 @@ __d(
             a != null && self.clearTimeout(a);
           }
         })),
-        k.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function I() {
-      if (!T())
+    function D() {
+      if (
+        !$() &&
+        !o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled()
+      )
         return r("JSResourceForInteraction")("WAWebVoipStackInterfaceImpl")
           .__setRef("WAWebVoipStackInterface")
           .load();
@@ -144,9 +151,11 @@ __d(
                         ])),
                     )
                     .catching(r("getErrorSafe")(t));
-                  var n = yield o(
-                    "WAWebVoipWaitForRequiredModule",
-                  ).waitForRequiredModule(e, _);
+                  var n = yield x(function () {
+                    return o(
+                      "WAWebVoipWaitForRequiredModule",
+                    ).waitForRequiredModule(e, _);
+                  });
                   if (n == null) throw t;
                   return n;
                 },
@@ -157,7 +166,12 @@ __d(
             })(),
           );
     }
-    function T() {
+    function x(e) {
+      return o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled()
+        ? (v != null || (v = e()), v)
+        : e();
+    }
+    function $() {
       try {
         return o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled();
       } catch (e) {
@@ -174,16 +188,24 @@ __d(
         );
       }
     }
-    var D = r("WAWebLazyLoadedRetriable")(E, p, {
+    function P(e) {
+      e &&
+        o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled() &&
+        o("WAWebBackendApi").frontendFireAndForget("markVoipChunkUnavailable");
+    }
+    var N = r("WAWebLazyLoadedRetriable")(I, p, {
       onAttemptFailure: function () {
-        L(function (e) {
-          e.logVoipStackInterfaceLoadAttemptFailure();
-        });
+        (navigator.onLine === !1 && (b = !0),
+          k(function (e) {
+            e.logVoipStackInterfaceLoadAttemptFailure();
+          }));
       },
       onFinalFailure: function (t, n) {
-        (L(function (e) {
-          e.logVoipStackInterfaceLoadRetryExhausted();
-        }),
+        var e = !b && navigator.onLine !== !1;
+        ((b = !1),
+          k(function (e) {
+            e.logVoipStackInterfaceLoadRetryExhausted();
+          }),
           o("WALogger")
             .ERROR(
               c ||
@@ -195,60 +217,62 @@ __d(
                   "",
                 ])),
               p,
-              v(),
-              S(),
+              R(),
+              L(),
               n,
             )
             .catching(t)
-            .sendLogs("voip-stack-interface-lazy-load-failed"));
+            .sendLogs("voip-stack-interface-lazy-load-failed"),
+          P(e));
       },
       onRetrySuccess: function () {
-        L(function (e) {
-          e.logVoipStackInterfaceLoadRetrySuccess();
-        });
+        ((b = !1),
+          k(function (e) {
+            e.logVoipStackInterfaceLoadRetrySuccess();
+          }));
       },
     });
-    function x() {
-      return $.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function $() {
+    function w() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebVoipGatingUtils").isVoipDownloadEnabled() && (yield E());
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebVoipGatingUtils").isVoipDownloadEnabled() && (yield I());
         })),
-        $.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function P() {
-      return N.apply(this, arguments);
+    function A() {
+      return F.apply(this, arguments);
     }
-    function N() {
+    function F() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebVoipGatingUtils").isVoipDownloadEnabled()) return null;
-          var e = yield D(),
+          var e = yield N(),
             t = e.createWAWebVoipStackInterface,
             n = e.getVoipStackInterfaceImpl;
-          if (n != null) return ((f = n()), M(f), f);
+          if (n != null) return ((f = n()), O(f), f);
           if (t == null)
             throw r("err")("voip stack interface module has no factory");
           return (f == null && (f = t()), f);
         })),
-        N.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function M(e) {
+    function O(e) {
       e.type === "web" &&
         o(
           "WAWebVoipInitEventEmitter",
         ).VoipInitEventEmitter.markVoipWebStackCreated(Date.now());
     }
-    function w() {
+    function B() {
       return f;
     }
-    ((l.prefetchVoipStackInterfaceModule = x),
-      (l.getVoipStackInterface = P),
-      (l.getCachedVoipStackInterface = w));
+    ((l.prefetchVoipStackInterfaceModule = M),
+      (l.getVoipStackInterface = A),
+      (l.getCachedVoipStackInterface = B));
   },
   98,
 );

@@ -44,6 +44,7 @@ __d(
     "WAWebVoipJoinVoiceChat",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipOngoingCallJoinDevices",
+    "WAWebVoipOutgoingCallBlockedLog",
     "WAWebVoipOutgoingCallConsent",
     "WAWebVoipOutgoingCallPreSetup",
     "WAWebVoipOutgoingCallQpl",
@@ -198,14 +199,18 @@ __d(
         );
       e.isJoin || o("WAWebVoipCallAudioUnlock").releaseCallAudioUnlock();
       var t = new AbortController();
+      fe({
+        abortController: t,
+        isGroup: e.isGroup,
+        isJoin: e.isJoin,
+        isVideo: e.isVideo,
+      });
+      var n = Ce(t);
       return (
-        fe({
-          abortController: t,
-          isGroup: e.isGroup,
-          isJoin: e.isJoin,
-          isVideo: e.isVideo,
-        }),
-        { abortController: t, readiness: Ce(t), status: "started" }
+        o("WAWebVoipOutgoingCallBlockedLog").logOutgoingCallBlockedWhenNotReady(
+          n,
+        ),
+        { abortController: t, readiness: n, status: "started" }
       );
     }
     function Ce(e) {
