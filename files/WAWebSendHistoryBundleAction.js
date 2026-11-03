@@ -7,6 +7,7 @@ __d(
     "WAWebGenerateGroupHistoryNoticeMsgData",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryNoticeHandler",
+    "WAWebGroupHistorySenderUserJourneyLogger",
     "WAWebJidToWid",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -16,14 +17,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e, t, n, r, o) {
+    function c(e, t, n, r, o, a) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i) {
-            var l = yield o(
+          function* (t, n, r, a, i, l) {
+            var u = yield o(
                 "WAWebGenerateGroupHistoryBundleMsgData",
               ).generateGroupHistoryBundleMsgData({
                 chatId: t,
@@ -32,16 +33,22 @@ __d(
                 selectedMessageCount: a,
                 targetStartMessageTime: i,
               }),
-              u = yield o("WAWebFindChatAction").findExistingChat(
+              c = u.msgData,
+              d = u.stats,
+              p = yield o("WAWebFindChatAction").findExistingChat(
                 o("WAWebJidToWid").groupJidToWid(t),
                 "messageHistorySend",
               ),
-              c = o("WAWebSendMsgChatAction").addAndSendMsgToChat(u, l),
-              d = c[0],
-              p = c[1],
-              _ = yield p,
-              f = _.messageSendResult;
-            if (f !== o("WAWebSendMsgResultAction").SendMsgResult.OK)
+              _ = o("WAWebSendMsgChatAction").addAndSendMsgToChat(p, c),
+              f = _[0],
+              g = _[1];
+            l != null &&
+              o(
+                "WAWebGroupHistorySenderUserJourneyLogger",
+              ).GroupHistorySenderUserJourneyLogger.bundleMessageSent(l, d);
+            var h = yield g,
+              y = h.messageSendResult;
+            if (y !== o("WAWebSendMsgResultAction").SendMsgResult.OK)
               return (
                 o("WALogger")
                   .ERROR(
@@ -53,8 +60,8 @@ __d(
                   .sendLogs("group-history-bundle-send-failed"),
                 { bundleAcked: !1, noticeAcked: !1 }
               );
-            var g = l.groupHistoryBundleMetadata;
-            if (g == null)
+            var C = c.groupHistoryBundleMetadata;
+            if (C == null)
               return (
                 o("WALogger").ERROR(
                   s ||
@@ -64,31 +71,35 @@ __d(
                 ),
                 { bundleAcked: !0, noticeAcked: !1 }
               );
-            var h = yield m(u, g);
-            return { bundleAcked: !0, noticeAcked: h };
+            var b = yield m(p, C, l);
+            return { bundleAcked: !0, noticeAcked: b };
           },
         )),
         d.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function m(e, t, n) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield o(
               "WAWebGenerateGroupHistoryNoticeMsgData",
             ).generateGroupHistoryNoticeMsgData({
               chat: e,
               groupHistoryBundleMetadata: t,
             }),
-            r = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, n),
-            a = r[0],
-            i = r[1],
-            l = yield i,
-            s = l.messageSendResult;
-          return s !== o("WAWebSendMsgResultAction").SendMsgResult.OK
+            a = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, r),
+            i = a[0],
+            l = a[1];
+          n != null &&
+            o(
+              "WAWebGroupHistorySenderUserJourneyLogger",
+            ).GroupHistorySenderUserJourneyLogger.noticeMessageSent(n);
+          var s = yield l,
+            c = s.messageSendResult;
+          return c !== o("WAWebSendMsgResultAction").SendMsgResult.OK
             ? (o("WALogger")
                 .ERROR(
                   u ||

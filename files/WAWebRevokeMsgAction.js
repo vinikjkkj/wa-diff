@@ -403,8 +403,9 @@ __d(
       );
     }
     function S(e) {
-      var t,
-        n = function (n) {
+      var t;
+      if (o("WAWebBotUtils").isHatchBot(e.id.remote)) return null;
+      var n = function (n) {
           return (
             n.isBot() &&
             !(

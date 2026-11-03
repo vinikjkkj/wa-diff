@@ -59,20 +59,23 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = yield (e || (e = n("Promise"))).all([
+          var a,
+            i = yield (e || (e = n("Promise"))).all([
               s(t),
               r != null && r.length > 0 ? s(r) : void 0,
             ]),
-            i = a[0],
-            l = a[1],
-            u = yield o("encodeProtobuf").encodeProtobuf(
+            l = i[0],
+            u = i[1],
+            c = yield o("encodeProtobuf").encodeProtobuf(
               o("WAWebProtobufsGroupHistory.pb").GroupHistorySpec,
-              { messages: i, outOfWindowPinnedMessages: l },
+              { messages: l, outOfWindowPinnedMessages: u },
             ),
-            c = u.readByteArrayView();
+            d = c.readByteArrayView();
           return {
-            compressedBundle: o("fflate").zlibSync(c).buffer,
-            encodedBytes: new Uint8Array(c).buffer,
+            compressedBundle: o("fflate").zlibSync(d).buffer,
+            encodedBytes: new Uint8Array(d).buffer,
+            oowPinsCount: (a = u == null ? void 0 : u.length) != null ? a : 0,
+            packedCount: l.length,
           };
         })),
         d.apply(this, arguments)

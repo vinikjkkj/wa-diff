@@ -12,6 +12,7 @@ __d(
     "WAWebSubscriptionsGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsSubscription",
+    "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -96,7 +97,13 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          (n === void 0 && (n = "update"), yield v(e, n), yield R(t, n));
+          (n === void 0 && (n = "update"),
+            yield v(e, n),
+            yield R(t, n),
+            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+              "loadQuickPromotions",
+              { trigger: "prefetch" },
+            ));
         })),
         y.apply(this, arguments)
       );

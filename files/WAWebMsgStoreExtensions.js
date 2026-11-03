@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WAWebDBSharableEventInviteMessage",
     "WAWebLazyLoadedRetriable",
     "WAWebPollNameHashAppend",
     "WAWebPollNameHashSeed",
@@ -24,47 +25,73 @@ __d(
         "WAWebApplyStoredPollAddOptions",
       );
     function c(e) {
-      return o("WAWebPollNameHashSeed").maybeSeedInitialPollNameHashes(e);
+      return d.apply(this, arguments);
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebPollNameHashSeed",
+          ).maybeSeedInitialPollNameHashes(e);
+          return (
+            yield o(
+              "WAWebDBSharableEventInviteMessage",
+            ).recordSharableEventInviteMessagesFrom(t),
+            t
+          );
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (yield o("WAWebPollNameHashAppend").appendPollNameHashesForEdits(e),
             yield o(
               "WAWebResolvePendingPollUpdates",
             ).resolvePendingUpdatesForPollEdits(e));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
       return (delete e.pollNameHashHistory, e);
     }
-    function _(e) {
-      return e.length === 0
-        ? (s || (s = n("Promise"))).resolve()
-        : g(function (t) {
-            var n = t.applyStoredPollAddOptionsForMsgs;
-            return n(e);
-          });
-    }
     function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e.length !== 0 &&
+            (yield o(
+              "WAWebDBSharableEventInviteMessage",
+            ).recordSharableEventInviteMessagesFrom(e),
+            yield y(function (t) {
+              var n = t.applyStoredPollAddOptionsForMsgs;
+              return n(e);
+            }));
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
       return e.length === 0
         ? (s || (s = n("Promise"))).resolve()
-        : g(function (t) {
+        : y(function (t) {
             var n = t.applyAttachedPollAddOptions;
             return n(e);
           });
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled())
             try {
               yield t(yield u());
@@ -80,14 +107,14 @@ __d(
                 .sendLogs("poll-add-option-apply-stored-load-failed");
             }
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
     ((l.prepareNewMsgsForStore = c),
-      (l.handleStoredMessageEdits = d),
-      (l.omitColumnsPreservedAcrossEdits = p),
-      (l.handleStoredSyncedMsgs = _),
-      (l.handleAttachedAssociatedMsgs = f));
+      (l.handleStoredMessageEdits = m),
+      (l.omitColumnsPreservedAcrossEdits = _),
+      (l.handleStoredSyncedMsgs = f),
+      (l.handleAttachedAssociatedMsgs = h));
   },
   98,
 );

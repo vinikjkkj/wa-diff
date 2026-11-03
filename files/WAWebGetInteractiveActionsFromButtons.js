@@ -8,6 +8,7 @@ __d(
     "WAWebBizAiHubDeeplinkScheme",
     "WAWebBizAiHubReplyButtonUtils",
     "WAWebBizAiKnowledgeReviewDrawerLoadable.react",
+    "WAWebBizAiMetaOneSubscriptionDeeplink",
     "WAWebBizAiPaymentRequestWamLogger",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebBizMessageOpenCallModal",
@@ -195,12 +196,25 @@ __d(
           ),
           s =
             i.startsWith("whatsapp-smb://") &&
-            o("WAWebContactGetters").getIsAiHub(a.contact),
-          u = i.startsWith(
-            o("WAWebBizAiHubDeeplinkScheme")
-              .BIZ_AI_HUB_REVIEW_KNOWLEDGE_DEEPLINK,
-          );
-        return u && o("WAWebBizAiAgentGating").isAiAgentAutoSaveEnabled()
+            o("WAWebContactGetters").getIsAiHub(a.contact);
+        if (s) {
+          var u = o(
+            "WAWebBizAiMetaOneSubscriptionDeeplink",
+          ).getBizAiMetaOneSubscriptionActions(t, e.index, i, function () {
+            return o("WAWebModalManager").ModalManager.open(
+              f.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+            );
+          });
+          if (u != null)
+            return babelHelpers.extends({ label: e.data.label }, u, {
+              Icon: r("WDSIconIcOpenInNew.react"),
+              testid: "cta-url-button",
+            });
+        }
+        var c = i.startsWith(
+          o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_REVIEW_KNOWLEDGE_DEEPLINK,
+        );
+        return c && o("WAWebBizAiAgentGating").isAiAgentAutoSaveEnabled()
           ? {
               label: e.data.label,
               onClick: function () {

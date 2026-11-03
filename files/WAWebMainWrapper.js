@@ -61,7 +61,7 @@ __d(
               var t = navigator.serviceWorker;
               t != null &&
                 t.controller &&
-                !e.tag &&
+                (e.tag == null || e.tag === "") &&
                 r("WAWebSWBus")
                   .request(t.controller, r("WAWebSWBusActions").REMOVE_PP, e.id)
                   .catch(r("WAWebNoop"));

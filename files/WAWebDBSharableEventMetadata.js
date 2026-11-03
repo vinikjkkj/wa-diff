@@ -1,6 +1,11 @@
 __d(
   "WAWebDBSharableEventMetadata",
-  ["WAWebDBSharableEvent", "WAWebModelStorageUtils", "asyncToGeneratorRuntime"],
+  [
+    "WAWebDBSharableEvent",
+    "WAWebModelStorageUtils",
+    "WAWebSharableEventInviteMessageRefreshJob",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = {
       countGoing: 0,
@@ -61,6 +66,13 @@ __d(
                   };
                 })(),
               ),
+            yield o(
+              "WAWebSharableEventInviteMessageRefreshJob",
+            ).refreshSharableEventInviteMessages(
+              a.map(function (e) {
+                return e.row;
+              }),
+            ),
             a
           );
         })),

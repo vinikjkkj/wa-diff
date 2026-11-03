@@ -13,20 +13,39 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u() {
-      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
+      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
+        "open-create",
+      ) &&
         o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-          s.jsx(r("WAWebSharableEventCreateDialogLoadable"), { onClose: d }),
+          s.jsx(r("WAWebSharableEventCreateDialogLoadable"), { onClose: m }),
         );
     }
-    function c() {
-      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
+    function c(e) {
+      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
+        "open-create-from-chat",
+      ) &&
+        o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
+          s.jsx(r("WAWebSharableEventCreateDialogLoadable"), {
+            chat: e,
+            onClose: function () {
+              return o(
+                "WAWebDrawerManager",
+              ).DrawerManager.closeDrawerFullscreen();
+            },
+          }),
+        );
+    }
+    function d() {
+      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
+        "open-create",
+      ) &&
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           s.jsx(r("WAWebSharableEventCreateFlowLoadable"), {
             onEnd: o("WAWebDrawerManager").closeDrawerLeft,
           }),
         );
     }
-    function d() {
+    function m() {
       o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
         o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
           ? { descriptorType: "sharable_event_home" }
@@ -35,8 +54,9 @@ __d(
       );
     }
     ((l.openSharableEventCreateDialog = u),
-      (l.openSharableEventCreateFlowFromNewChat = c),
-      (l.reopenSharableEventHome = d));
+      (l.openSharableEventCreateDialogForChat = c),
+      (l.openSharableEventCreateFlowFromNewChat = d),
+      (l.reopenSharableEventHome = m));
   },
   98,
 );

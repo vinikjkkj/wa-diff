@@ -31,7 +31,7 @@ __d(
             r,
             a,
           )
-          .sendLogs("to-e164-phone-number-invalid-input");
+          .sendLogs("to-e164-phone-number-invalid-input", { sampling: 0.01 });
       }
       return "+" + t.replace(/\D/g, "");
     }

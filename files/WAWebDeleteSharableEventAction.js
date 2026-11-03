@@ -2,31 +2,29 @@ __d(
   "WAWebDeleteSharableEventAction",
   [
     "fbt",
-    "WALogger",
     "WAWebOpenSharableEventPageAction",
     "WAWebSharableEventDeleteJob",
+    "WAWebSharableEventFailureLogger",
     "WAWebToast.react",
     "WAWebToastManager",
     "WDSConfirmDialog.react",
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react"));
-    function d(e) {
+      u = e || (e = o("react"));
+    function c(e) {
       o("WDSDialogBridge").openWDSDialog(
-        c.jsx(r("WDSConfirmDialog.react"), {
+        u.jsx(r("WDSConfirmDialog.react"), {
           confirmLabel: s._(/*BTDS*/ "Delete event"),
           description: s._(
             /*BTDS*/ "This will delete the event for other members but the invitations in chats will remain visible. People on the guest list will see the event has been deleted.",
           ),
           destructive: !0,
           onConfirm: function () {
-            (o("WDSDialogBridge").closeWDSDialog(), m(e));
+            (o("WDSDialogBridge").closeWDSDialog(), d(e));
           },
           onDismiss: o("WDSDialogBridge").closeWDSDialog,
           open: !0,
@@ -35,38 +33,33 @@ __d(
         }),
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            yield o("WAWebSharableEventDeleteJob").deleteSharableEvent(t);
-          } catch (t) {
-            (o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event] deleting the event failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("sharable-event-delete-failed"),
+            yield o("WAWebSharableEventDeleteJob").deleteSharableEvent(e);
+          } catch (e) {
+            (o("WAWebSharableEventFailureLogger").logSharableEventFailure(
+              "delete",
+              e,
+            ),
               o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
+                u.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Couldn't delete event. Please try again."),
                 }),
               ));
             return;
           }
           o("WAWebOpenSharableEventPageAction").getSelectedSharableEventId() ===
-            t && o("WAWebOpenSharableEventPageAction").closeSharableEventPage();
+            e && o("WAWebOpenSharableEventPageAction").closeSharableEventPage();
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.confirmDeleteSharableEvent = d;
+    l.confirmDeleteSharableEvent = c;
   },
   226,
 );

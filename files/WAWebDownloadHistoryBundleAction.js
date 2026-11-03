@@ -8,6 +8,7 @@ __d(
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReceiverUserJourneyLogger",
     "WAWebGroupHistoryUtils",
+    "WAWebGroupJoinRequestMetricUtils",
     "WAWebSerializeError",
     "WAWebUpdateGroupHistoryBundleStateAction",
     "asyncToGeneratorRuntime",
@@ -29,7 +30,9 @@ __d(
               o(
                 "WAWebGroupHistoryReceiverUserJourneyLogger",
               ).GroupHistoryReceiverUserJourneyLogger.downloadExpired(
-                t.id.remote.toJid(),
+                o("WAWebGroupJoinRequestMetricUtils").getSanitizedJid(
+                  t.id.remote,
+                ),
               );
             return;
           }
@@ -57,7 +60,9 @@ __d(
               );
               return;
             }
-            var l = t.id.remote.toJid();
+            var l = o("WAWebGroupJoinRequestMetricUtils").getSanitizedJid(
+              t.id.remote,
+            );
             try {
               (o(
                 "WAWebGroupHistoryReceiverUserJourneyLogger",

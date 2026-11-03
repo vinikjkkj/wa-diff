@@ -25,7 +25,9 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
-            !o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled()
+            !o(
+              "WAWebSharableEventGatingUtils",
+            ).isEventsV2OnCompanionEnabledForAction("dirty-bit")
           )
             return !0;
           try {
@@ -38,7 +40,7 @@ __d(
                 .ERROR(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sharable_event] event_metadata dirty bit reconcile failed",
+                      "[sharable_event][dirty-bit] event_metadata reconcile failed",
                     ])),
                 )
                 .catching(r("getErrorSafe")(t))

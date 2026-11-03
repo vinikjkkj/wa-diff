@@ -67,6 +67,13 @@ __d(
                 alias: null,
                 args: null,
                 kind: "ScalarField",
+                name: "error_code",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
                 name: "update_timestamp_ms",
                 storageKey: null,
               },

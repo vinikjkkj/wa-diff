@@ -146,6 +146,7 @@ __d(
             POSTCODE_TOOLTIP_VIEWED_IN_SESSION:
               "postcode_tooltip_viewed_in_session",
             LAST_PUSHNAME: "last-pushname",
+            STARTUP_PROFILE_PHOTO: "WAStartupProfilePhoto",
             PTT_PLAYBACK_RATE: "WAPttPlaybackRate",
             LOGOUT_DIRTY_BIT: "post-logout",
             DAILY_STATS_START_TIME: "WADailyStatsStartTime",

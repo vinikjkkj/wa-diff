@@ -2,8 +2,8 @@ __d(
   "WAWebSharableEventListFilters",
   [
     "$InternalEnum",
-    "WAWebSharableEventCardLayout",
     "WAWebSharableEventStorageEnums",
+    "WAWebSharableEventViewerState",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
@@ -20,7 +20,7 @@ __d(
           ? {
               upcoming: a.filter(function (e) {
                 return o(
-                  "WAWebSharableEventCardLayout",
+                  "WAWebSharableEventViewerState",
                 ).isSharableEventHostedByViewer(e.creatorLid);
               }),
               past: [],
@@ -56,7 +56,7 @@ __d(
         t ===
           o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
             .NoResponse &&
-        !o("WAWebSharableEventCardLayout").isSharableEventHostedByViewer(
+        !o("WAWebSharableEventViewerState").isSharableEventHostedByViewer(
           e.creatorLid,
         ) &&
         e.status !==

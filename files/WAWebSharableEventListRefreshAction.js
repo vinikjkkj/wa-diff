@@ -1,15 +1,20 @@
 __d(
   "WAWebSharableEventListRefreshAction",
   [
-    "$InternalEnum",
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebApplySharableEventUpdate",
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
+    "WAWebSharableEventFailureLogger",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventListJob",
+    "WAWebSharableEventLoadStates",
     "WAWebSharableEventServerError",
+    "WAWebSharableEventStoredDataJob",
+    "WAWebUserPrefsMeUser",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -17,117 +22,114 @@ __d(
     var e,
       s,
       u,
-      c = n("$InternalEnum")({
-        Idle: "idle",
-        Loading: "loading",
-        WaitingForCredentials: "waitingForCredentials",
-        Loaded: "loaded",
-        Error: "error",
-      }),
-      d = new Set([
-        o("WAWebSharableEventServerError").SharableEventErrorKind.Transport,
-        o("WAWebSharableEventServerError").SharableEventErrorKind
-          .CredentialsNotReady,
-      ]),
-      m = { status: c.Idle, errorKind: null, lastRefreshedTs: null },
-      p = null,
-      _ = new Set();
-    function f() {
-      if (!o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled())
+      c = null,
+      d = !1;
+    function m() {
+      if (
+        !o(
+          "WAWebSharableEventGatingUtils",
+        ).isEventsV2OnCompanionEnabledForAction("list-refresh")
+      )
         return (u || (u = n("Promise"))).resolve();
-      if (p != null) return p;
-      v({
+      if (c != null) return c;
+      h({
         status:
           o("WAWebCanonicalGating").isCanonicalEnabled() &&
           !o("WAWebCanonicalUtils").isCanonicalPresent()
-            ? c.WaitingForCredentials
-            : c.Loading,
+            ? o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+                .WaitingForCredentials
+            : o("WAWebSharableEventLoadStates").SharableEventLoadStatus.Loading,
         errorKind: null,
       });
-      var e = y().finally(function () {
-        p = null;
+      var e = p().finally(function () {
+        c = null;
       });
-      return ((p = e), e);
+      return ((c = e), e);
     }
-    function g() {
-      return m;
+    function p() {
+      return _.apply(this, arguments);
     }
-    function h(e) {
+    function _() {
       return (
-        _.add(e),
-        function () {
-          _.delete(e);
-        }
-      );
-    }
-    function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          d || (yield f());
           try {
             (yield o("WAWebSharableEventListJob").syncSharableEventList(),
-              v({
-                status: c.Loaded,
+              h({
+                status: o("WAWebSharableEventLoadStates")
+                  .SharableEventLoadStatus.Loaded,
                 errorKind: null,
                 lastRefreshedTs: o("WATimeUtils").unixTime(),
               }));
-          } catch (t) {
+          } catch (n) {
             var e = o(
-              "WAWebSharableEventServerError",
-            ).getSharableEventErrorKind(t);
-            (b(e, t),
-              v({
-                status:
-                  e ===
-                  o("WAWebSharableEventServerError").SharableEventErrorKind
-                    .CredentialsNotReady
-                    ? c.WaitingForCredentials
-                    : c.Error,
-                errorKind: e,
-              }));
+                "WAWebSharableEventFailureLogger",
+              ).logSharableEventFailure("list-refresh", n),
+              t = e.kind;
+            h({
+              status:
+                t ===
+                o("WAWebSharableEventServerError").SharableEventErrorKind
+                  .CredentialsNotReady
+                  ? o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+                      .WaitingForCredentials
+                  : o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+                      .Error,
+              errorKind: t,
+            });
           }
         })),
-        C.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function b(t, n) {
-      if (d.has(t)) {
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[sharable_event] list refresh failed: ",
-                "",
-              ])),
-            t,
-          )
-          .catching(r("getErrorSafe")(n));
-        return;
-      }
-      o("WALogger")
-        .ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[sharable_event] list refresh failed: ",
-              "",
-            ])),
-          t,
-        )
-        .catching(r("getErrorSafe")(n))
-        .sendLogs("sharable-event-list-refresh-failed");
+    function f() {
+      return g.apply(this, arguments);
     }
-    function v(e) {
-      ((m = babelHelpers.extends({}, m, e)),
-        _.forEach(function (e) {
-          return e();
-        }));
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var t = yield o(
+              "WAWebSharableEventStoredDataJob",
+            ).loadStoredSharableEventViewerInvitations(
+              o("WAWebWidToJid").userLidtoLidUserJid(
+                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              ),
+            );
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][list] restored viewer invitations=",
+                  "",
+                ])),
+              t.length,
+            ),
+              o("WAWebApplySharableEventUpdate").applySharableEventUpdate({
+                invitees: t,
+              }),
+              (d = !0));
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][list] restoring the viewer's invitations failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("sharable-event-restore-invitations-failed");
+          }
+        })),
+        g.apply(this, arguments)
+      );
     }
-    ((l.SharableEventListLoadStatus = c),
-      (l.refreshSharableEventList = f),
-      (l.getSharableEventListLoadState = g),
-      (l.subscribeToSharableEventListLoadState = h));
+    function h(e) {
+      o("WAWebSharableEventLoadStates").updateSharableEventLoadState(
+        o("WAWebSharableEventLoadStates").SHARABLE_EVENT_LIST_LOAD_KEY,
+        e,
+      );
+    }
+    l.refreshSharableEventList = m;
   },
   98,
 );

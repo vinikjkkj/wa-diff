@@ -5,7 +5,6 @@ __d(
     "WAWebGroupHistoryNewMemberSurface",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryRestrictionHelper",
-    "WAWebGroupHistorySenderUserJourneyLogger",
     "WAWebGroupHistorySentOnceAction",
     "WAWebSendHistoryBundleAction",
     "WAWebWamEnumBundleSendSource",
@@ -35,45 +34,31 @@ __d(
                 ).filterParticipants([n]),
                 u = s.historyReceivers,
                 c = s.nonHistoryReceivers;
-              if (u.length !== 0) {
-                o(
+              u.length !== 0 &&
+                (o(
                   "WAWebGroupHistoryGating",
                 ).isGroupHistorySendOnceDefaultOnEnabled() &&
                   o(
                     "WAWebGroupHistorySentOnceAction",
-                  ).markGroupHistorySentOnce();
-                var d = o(
-                  "WAWebGroupHistoryNewMemberSurface",
-                ).getGroupHistoryNewMemberLogging(a);
-                (o(
-                  "WAWebGroupHistorySenderUserJourneyLogger",
-                ).GroupHistorySenderUserJourneyLogger.bundleMessageSent(
-                  babelHelpers.extends({}, d, {
-                    bundleSendSource: o("WAWebWamEnumBundleSendSource")
-                      .BUNDLE_SEND_SOURCE.IQ_RESPONSE,
-                    groupHistoryMessagesCount: r.selectedMessageCount,
-                    recipientCount: e,
-                  }),
-                ),
-                  o(
-                    "WAWebGroupHistorySenderUserJourneyLogger",
-                  ).GroupHistorySenderUserJourneyLogger.noticeMessageSent(
-                    babelHelpers.extends({}, d, {
+                  ).markGroupHistorySentOnce(),
+                yield o("WAWebSendHistoryBundleAction").sendHistoryBundleAction(
+                  o("WAWebWidToJid").widToGroupJid(t.id),
+                  u,
+                  c,
+                  r.selectedMessageCount,
+                  r.targetStartMessageTime,
+                  babelHelpers.extends(
+                    {},
+                    o(
+                      "WAWebGroupHistoryNewMemberSurface",
+                    ).getGroupHistoryNewMemberLogging(a),
+                    {
                       bundleSendSource: o("WAWebWamEnumBundleSendSource")
                         .BUNDLE_SEND_SOURCE.IQ_RESPONSE,
                       recipientCount: e,
-                    }),
+                    },
                   ),
-                  yield o(
-                    "WAWebSendHistoryBundleAction",
-                  ).sendHistoryBundleAction(
-                    o("WAWebWidToJid").widToGroupJid(t.id),
-                    u,
-                    c,
-                    r.selectedMessageCount,
-                    r.targetStartMessageTime,
-                  ));
-              }
+                ));
             }
           },
         )),

@@ -1,10 +1,10 @@
 __d(
   "WAWebSharableEventServerInvitationRows",
   [
+    "WAWebSharableEventServerEnums",
     "WAWebSharableEventServerInvitationRows_invitation.graphql",
     "WAWebSharableEventServerInvitationRows_summary.graphql",
     "WAWebSharableEventServerRows",
-    "WAWebSharableEventStorageEnums",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -63,7 +63,9 @@ __d(
         : {
             inviteeLid: s,
             username: (t = e.username) != null ? t : void 0,
-            rsvpStatus: f(e.rsvp_status),
+            rsvpStatus: o("WAWebSharableEventServerEnums").toStoredRsvpStatus(
+              e.rsvp_status,
+            ),
             isWaUser: e.is_wa_user === !0,
             extraGuestCount: (n = e.extra_guest_count) != null ? n : 0,
             createdTsSec:
@@ -81,19 +83,6 @@ __d(
             phoneNumber: (i = e.phone_number) != null ? i : void 0,
             guestName: (l = e.guest_name) != null ? l : void 0,
           };
-    }
-    function f(e) {
-      return e === "GOING"
-        ? o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
-            .Going
-        : e === "MAYBE"
-          ? o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
-              .Maybe
-          : e === "NOT_GOING"
-            ? o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
-                .NotGoing
-            : o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
-                .NoResponse;
     }
     ((l.readSharableEventInvitee = d),
       (l.readSharableEventInvitationSummary = m),

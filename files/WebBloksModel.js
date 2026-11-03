@@ -38,10 +38,7 @@ __d(
     function y(e) {
       return e;
     }
-    function C(e) {
-      return e;
-    }
-    function b(e, t, n) {
+    function C(e, t, n) {
       var r = {},
         a = o("WebBloksUtils").cast(r);
       for (var i of Object.entries(t)) {
@@ -52,7 +49,7 @@ __d(
           continue;
         }
         var u = String(e),
-          c = v(u, l),
+          c = b(u, l),
           d =
             c != null
               ? c
@@ -73,7 +70,7 @@ __d(
       }
       return r;
     }
-    function v(e, t) {
+    function b(e, t) {
       return e !== "flex" && e !== "bk.style.Base"
         ? null
         : t === "margin"
@@ -84,7 +81,7 @@ __d(
               ? o("WebBloksInternalAttributeKeys").MARGIN_VERTICAL_ATTRIBUTE_KEY
               : null;
     }
-    var S = (function () {
+    var v = (function () {
       function e(e, t, n, r) {
         (n === void 0 && (n = o("WebBloksUtils").getNextGlobalBloksClientId()),
           r === void 0 && (r = String(e)),
@@ -168,7 +165,7 @@ __d(
         }),
         (t.getStyle = function (t) {
           var e = this.getUntyped(d);
-          return I(e) && (e == null ? void 0 : e.styleId) === t ? e : null;
+          return k(e) && (e == null ? void 0 : e.styleId) === t ? e : null;
         }),
         (t.getValues = function () {
           return this.$2;
@@ -253,13 +250,13 @@ __d(
           if (o)
             for (var a of o) {
               var i = this.getUntyped(a);
-              if (I(i) && i.traverse(t, n)) return !0;
+              if (k(i) && i.traverse(t, n)) return !0;
             }
           if (r)
             for (var l of r) {
               var s = this.getUntyped(l);
               if (Array.isArray(s)) {
-                for (var u of s) if (I(u) && u.traverse(t, n)) return !0;
+                for (var u of s) if (k(u) && u.traverse(t, n)) return !0;
               }
             }
           return !1;
@@ -274,9 +271,9 @@ __d(
               .map(function (e) {
                 var t = e[0],
                   n = e[1];
-                return I(n)
+                return k(n)
                   ? [t, n.toJSON()]
-                  : Array.isArray(n) && n[0] && I(n[0])
+                  : Array.isArray(n) && n[0] && k(n[0])
                     ? [
                         t,
                         n.map(function (e) {
@@ -294,26 +291,26 @@ __d(
         e
       );
     })();
-    function R(e, t, n) {
+    function S(e, t, n) {
       var r = n[e];
       if (r == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "No minification-map entry found for WebBloks style " + e + ".",
         );
-      return new S(e, b(e, t, r), void 0, r.styleId);
+      return new v(e, C(e, t, r), void 0, r.styleId);
     }
-    function L(e, t, n) {
-      var r = E(e, n);
+    function R(e, t, n) {
+      var r = L(e, n);
       return (
         o("WebBloksRenderDiagnostics").isWebBloksRenderDiagnosticsInstalled() &&
           o("WebBloksRenderDiagnostics").reportUndeclaredWireAttributes(
             r,
             Object.keys(t),
           ),
-        new S(o("WebBloksUtils").cast(r), t, void 0, e)
+        new v(o("WebBloksUtils").cast(r), t, void 0, e)
       );
     }
-    function E(e, t) {
+    function L(e, t) {
       var n = t[e];
       if (n == null)
         throw new (o("WebBloksErrors").WebBloksError)(
@@ -323,10 +320,10 @@ __d(
         );
       return n;
     }
-    function k(e) {
-      return new S(e, {});
+    function E(e) {
+      return new v(e, {});
     }
-    function I(e) {
+    function k(e) {
       return e != null && (e == null ? void 0 : e.$isBloksModel) === !0;
     }
     ((l.defineWebBloksAttributeKey = p),
@@ -335,13 +332,12 @@ __d(
       (l.defineWebBloksStyleKey = g),
       (l.defineWebBloksMinifiedTraversalKeys = h),
       (l.defineWebBloksMinificationMap = y),
-      (l.defineWebBloksUnminificationMap = C),
-      (l.WebBloksModel = S),
-      (l.createWebBloksModelFromLogicalValues = R),
-      (l.createWebBloksModelFromMinifiedValues = L),
-      (l.getLogicalWebBloksStyleId = E),
-      (l.createSyntheticWebBloksModel = k),
-      (l.isWebBloksModel = I));
+      (l.WebBloksModel = v),
+      (l.createWebBloksModelFromLogicalValues = S),
+      (l.createWebBloksModelFromMinifiedValues = R),
+      (l.getLogicalWebBloksStyleId = L),
+      (l.createSyntheticWebBloksModel = E),
+      (l.isWebBloksModel = k));
   },
   98,
 );

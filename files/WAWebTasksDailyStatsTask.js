@@ -318,8 +318,9 @@ __d(
       r.commit();
     }
     function I() {
-      return !o("WAWebMuteCollection").MuteCollection
-        .hasRestoredGlobalSettings ||
+      return !o(
+        "WAWebMuteCollection",
+      ).MuteCollection.isGlobalSettingsRestored() ||
         !o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled()
         ? {}
         : {

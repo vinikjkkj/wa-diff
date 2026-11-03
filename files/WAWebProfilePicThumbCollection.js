@@ -173,11 +173,15 @@ __d(
                 );
           return (
             l &&
-              i.listenTo(i, "add remove change:timestamp", function (e, t, n) {
-                var r;
-                (r = l.pictures) == null || r.notifyUpdate(e);
-              }),
-            i.listenTo(i, "add change", function (e) {
+              i.listenTo(
+                i,
+                ["add", "remove", "change:timestamp"],
+                function (e, t, n) {
+                  var r;
+                  (r = l.pictures) == null || r.notifyUpdate(e);
+                },
+              ),
+            i.listenTo(i, ["add", "change"], function (e) {
               i._mirrorMeRow(e);
             }),
             i

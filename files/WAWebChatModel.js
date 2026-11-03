@@ -444,11 +444,6 @@ __d(
                 this.listenTo(s, "change:stale", this.$ChatImpl$p_17),
                 this.listenTo(s, "change:suspended", this.$ChatImpl$p_17),
                 this.listenTo(s, "change:terminated", this.$ChatImpl$p_17),
-                this.listenTo(
-                  s.participants,
-                  "change:contact.formattedShortName",
-                  this.$ChatImpl$p_10,
-                ),
                 this.$ChatImpl$p_14(),
                 o("WAWebChatGroupUtils").updateReadOnly(this),
                 this.listenTo(
@@ -482,16 +477,7 @@ __d(
                   ((this.broadcastRecipientCount = d.recipients.length),
                   this.listenTo(d.recipients, "add", this.$ChatImpl$p_20),
                   this.listenTo(d.recipients, "remove", this.$ChatImpl$p_20),
-                  this.listenTo(d.recipients, "reset", this.$ChatImpl$p_20),
-                  this.listenTo(
-                    d.recipients,
-                    "change:contact.formattedShortName",
-                    function (e, t) {
-                      var r = d.recipients.get(e.id);
-                      (r != null && (r.formattedShortName = t),
-                        o("WAWebChatGroupUtils").updateTitle(n));
-                    },
-                  )));
+                  this.listenTo(d.recipients, "reset", this.$ChatImpl$p_20)));
             }
             if (o("WAWebChatGetters").getIsNewsletter(this)) {
               var m = r("WAWebNewsletterMetadataCollection").gadd(this.id);

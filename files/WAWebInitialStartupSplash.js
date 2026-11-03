@@ -2,11 +2,16 @@ __d(
   "WAWebInitialStartupSplash",
   [],
   function (t, n, r, o, a, i) {
-    var e = 1200,
-      l = "1100";
-    function s(t) {
+    var e = "wa_web_initial_startup",
+      l = "wa_web_initial_startup_logo",
+      s = "wa_web_initial_startup_footer",
+      u = 1200,
+      c = 0.35,
+      d = 1.2,
+      m = "1100";
+    function p(t) {
       var n = t.animate,
-        r = document.getElementById("wa_web_initial_startup");
+        r = document.getElementById(e);
       if (!(r == null || r.parentNode == null)) {
         var o = function () {
             r.parentNode != null && r.parentNode.removeChild(r);
@@ -20,44 +25,48 @@ __d(
           o();
           return;
         }
-        var i = document.getElementById("wa_web_initial_startup_logo");
+        var i = document.getElementById(l);
         if (!(i instanceof SVGElement)) {
           o();
           return;
         }
         try {
-          var s = window.getComputedStyle(i).transform,
-            u = window.getComputedStyle(r).backgroundColor,
-            c = document.getElementById("wa_web_initial_startup_footer");
-          ((r.style.zIndex = l),
-            (i.style.transform = s),
+          var p = window.getComputedStyle(i).transform,
+            _ = window.getComputedStyle(r).backgroundColor,
+            f = document.getElementById(s);
+          ((r.style.zIndex = m),
+            (i.style.transform = p),
             (i.style.animation = "none"));
-          var d = i.animate(
+          var g = i.animate(
             [
-              { easing: "ease-out", offset: 0, transform: s },
-              { easing: "ease-in-out", offset: 0.35, transform: "scale(1.2)" },
+              { easing: "ease-out", offset: 0, transform: p },
+              {
+                easing: "ease-in-out",
+                offset: c,
+                transform: "scale(" + d + ")",
+              },
               { offset: 1, transform: "scale(0)" },
             ],
-            { duration: e, fill: "forwards" },
+            { duration: u, fill: "forwards" },
           );
           (r.animate(
             [
-              { backgroundColor: u, offset: 0 },
-              { backgroundColor: u, offset: 0.35 },
+              { backgroundColor: _, offset: 0 },
+              { backgroundColor: _, offset: c },
               { backgroundColor: "transparent", offset: 1 },
             ],
-            { duration: e, fill: "forwards" },
+            { duration: u, fill: "forwards" },
           ),
-            c instanceof HTMLElement &&
-              c.animate(
+            f instanceof HTMLElement &&
+              f.animate(
                 [
                   { offset: 0, opacity: 1 },
-                  { offset: 0.35, opacity: 1 },
+                  { offset: c, opacity: 1 },
                   { offset: 1, opacity: 0 },
                 ],
-                { duration: e, fill: "forwards" },
+                { duration: u, fill: "forwards" },
               ),
-            d.finished.then(function () {
+            g.finished.then(function () {
               window.requestAnimationFrame(function () {
                 window.requestAnimationFrame(o);
               });
@@ -67,8 +76,14 @@ __d(
         }
       }
     }
-    ((i.INITIAL_STARTUP_SPLASH_EXIT_DURATION_MS = e),
-      (i.removeInitialStartupSplash = s));
+    ((i.INITIAL_STARTUP_SPLASH_ID = e),
+      (i.INITIAL_STARTUP_SPLASH_LOGO_ID = l),
+      (i.INITIAL_STARTUP_SPLASH_FOOTER_ID = s),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_DURATION_MS = u),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_ZOOM_PEAK_OFFSET = c),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_ZOOM_PEAK_SCALE = d),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_Z_INDEX = m),
+      (i.removeInitialStartupSplash = p));
   },
   66,
 );

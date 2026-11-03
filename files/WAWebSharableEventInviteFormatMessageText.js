@@ -5,6 +5,7 @@ __d(
     "WAWebFormatEventDateString",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
+    "WAWebSharableEventGatingUtils",
     "WAWebSharableEventInviteCoerceTimestampSeconds",
     "nullthrows",
   ],
@@ -26,7 +27,10 @@ __d(
       var i = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
         a.sharableEventInviteStartTime,
       );
-      return i != null
+      return i != null &&
+        o(
+          "WAWebSharableEventGatingUtils",
+        ).isSharableEventInviteDatetimeEnabled()
         ? s._(/*BTDS*/ "{event-title} \u2022 {event-time}", [
             s._param("event-title", a.sharableEventInviteTitle),
             s._param(

@@ -114,9 +114,7 @@ __d(
     }
     ((l.receiveResetSmbLastQpPrefetchTimestampRPC = e),
       (l.parseResetSmbLastQpPrefetchTimestampRequest = s),
-      (l.parseServerNotificationMixin = u),
-      (l.makeResetSmbLastQpPrefetchTimestampResponseAck = c),
-      (l.mergeNotificationClientAckMixin = m));
+      (l.makeResetSmbLastQpPrefetchTimestampResponseAck = c));
   },
   98,
 );

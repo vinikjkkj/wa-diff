@@ -1,6 +1,7 @@
 __d(
   "WAWebCustomerManagerSearchValueMatcher",
   [
+    "WAWebBoolFunc",
     "WAWebCustomerManagerChatResolver",
     "WAWebCustomerManagerDateFormatUtils",
     "WAWebL10NAccentFold",
@@ -16,18 +17,15 @@ __d(
       return a !== "" && a.includes(n);
     }
     function u(e, t, n) {
-      if (/^[0-9]{1,7}$/.test(e))
-        return function () {
-          return !1;
-        };
+      if (/^[0-9]{1,7}$/.test(e)) return o("WAWebBoolFunc").returnFalse;
       var r = t != null && t.length >= 8 ? t : null;
       if (!n)
         return function (t) {
           return d(t, e, r);
         };
-      var o = c(e, r);
+      var a = c(e, r);
       return function (t) {
-        return o(t.birthday) || m(t, e, r);
+        return a(t.birthday) || m(t, e, r);
       };
     }
     function c(t, n) {

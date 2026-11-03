@@ -2,33 +2,24 @@ __d(
   "WAWebRespondToSharableEventAction",
   [
     "fbt",
-    "WALogger",
+    "WAWebSharableEventFailureLogger",
     "WAWebSharableEventPageLoadAction",
     "WAWebSharableEventServerError",
     "WAWebSharableEventUpdateRsvpJob",
     "WAWebToast.react",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c,
-      d = c || (c = o("react")),
-      m = new Set([
-        o("WAWebSharableEventServerError").SharableEventErrorKind.Transport,
-        o("WAWebSharableEventServerError").SharableEventErrorKind
-          .CredentialsNotReady,
-        o("WAWebSharableEventServerError").SharableEventErrorKind.Unavailable,
-      ]);
-    function p(e, t) {
-      return _.apply(this, arguments);
+      u = e || (e = o("react"));
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function _() {
+    function d() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             yield o("WAWebSharableEventUpdateRsvpJob").updateSharableEventRsvp(
               e,
@@ -36,22 +27,22 @@ __d(
             );
           } catch (t) {
             var n = o(
-              "WAWebSharableEventServerError",
-            ).getSharableEventErrorKind(t);
-            (g(n, t),
-              o("WAWebToastManager").ToastManager.open(
-                d.jsx(o("WAWebToast.react").Toast, { msg: f(n) }),
-              ),
-              n ===
+                "WAWebSharableEventFailureLogger",
+              ).logSharableEventFailure("respond", t),
+              r = n.kind;
+            (o("WAWebToastManager").ToastManager.open(
+              u.jsx(o("WAWebToast.react").Toast, { msg: m(r) }),
+            ),
+              r ===
                 o("WAWebSharableEventServerError").SharableEventErrorKind
                   .Unavailable &&
                 o("WAWebSharableEventPageLoadAction").loadSharableEventPage(e));
           }
         })),
-        _.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function f(e) {
+    function m(e) {
       return e ===
         o("WAWebSharableEventServerError").SharableEventErrorKind.Transport
         ? s._(
@@ -63,33 +54,7 @@ __d(
           ? s._(/*BTDS*/ "This event is no longer available.")
           : s._(/*BTDS*/ "Failed to update response");
     }
-    function g(t, n) {
-      if (m.has(t)) {
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[sharable_event] respond failed: ",
-                "",
-              ])),
-            t,
-          )
-          .catching(r("getErrorSafe")(n));
-        return;
-      }
-      o("WALogger")
-        .ERROR(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[sharable_event] respond failed: ",
-              "",
-            ])),
-          t,
-        )
-        .catching(r("getErrorSafe")(n))
-        .sendLogs("sharable-event-respond-failed");
-    }
-    l.respondToSharableEvent = p;
+    l.respondToSharableEvent = c;
   },
   226,
 );

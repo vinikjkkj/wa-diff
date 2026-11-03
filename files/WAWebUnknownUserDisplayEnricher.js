@@ -81,6 +81,7 @@ __d(
         "group_message_cag_masked",
         "group_message_cag_masked_bare",
         "group_message_cag_masked_noparent",
+        "group_message_cag_masked_noparent_inactive",
         "group_message_cag_masked_nochat",
         "group_message_cag_masked_noadmin",
         "group_message_cag",

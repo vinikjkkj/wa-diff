@@ -1,14 +1,15 @@
 __d(
   "WAWebSharableEventListJob",
   [
+    "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
-    "WAWebCanonicalGating",
-    "WAWebCanonicalUtils",
+    "WAWebDBSharableEventDeletion",
     "WAWebDBSharableEventInvitee",
     "WAWebDBSharableEventMetadata",
-    "WAWebRelayClient",
+    "WAWebSharableEventCredentials",
     "WAWebSharableEventListJobQuery.graphql",
+    "WAWebSharableEventServerClient",
     "WAWebSharableEventServerInvitationRows",
     "WAWebSharableEventServerRows",
     "asyncToGeneratorRuntime",
@@ -16,60 +17,76 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 100,
-      u = 720 * 60 * 60,
-      c = 365 * 24 * 60 * 60,
-      d = e !== void 0 ? e : (e = n("WAWebSharableEventListJobQuery.graphql"));
-    function m() {
-      return p.apply(this, arguments);
+      s,
+      u,
+      c = 100,
+      d = 720 * 60 * 60,
+      m = 365 * 24 * 60 * 60,
+      p = e !== void 0 ? e : (e = n("WAWebSharableEventListJobQuery.graphql"));
+    function _() {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebCanonicalGating").isCanonicalEnabled() &&
-            !o("WAWebCanonicalUtils").isCanonicalPresent() &&
-            (yield o("WAWebCanonicalUtils").waitForCanonicalPresent());
-          var e = o("WATimeUtils").unixTime(),
-            t = null,
-            n = yield o("WAWebRelayClient").fetchQuery(
-              d,
-              {
-                input: {
-                  categories: ["UPCOMING", "PAST", "SCHEDULED_CALLS"],
-                  page_size: s,
-                  time_range: { start_ts_sec: e - u, end_ts_sec: e + c },
-                },
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o(
+            "WAWebSharableEventCredentials",
+          ).waitForSharableEventCredentials("list");
+          var e = o("WATimeUtils").monotonicTime(),
+            t = o("WATimeUtils").unixTime(),
+            n = yield o(
+              "WAWebSharableEventServerClient",
+            ).querySharableEventServer(p, {
+              input: {
+                categories: ["UPCOMING", "PAST", "SCHEDULED_CALLS"],
+                page_size: c,
+                time_range: { start_ts_sec: t - d, end_ts_sec: t + m },
               },
-              {
-                environmentType: "whatsapp_web",
-                fetchPolicy: "network-only",
-                getInlineDataReader: function (n) {
-                  t = n;
-                },
-              },
-            ),
-            a = n == null ? void 0 : n.xwa_event_list,
-            i = t;
-          if (a == null || i == null)
+            }),
+            a = n.reader,
+            i = n.response,
+            l = i == null ? void 0 : i.xwa_event_list;
+          if (l == null)
             throw r("err")(
               "[sharable_event] xwa_event_list returned no events",
             );
-          var l = _(i, a.upcoming),
-            m = _(i, a.scheduled_calls),
-            p = f([].concat(l, _(i, a.past), m)),
-            y = yield o(
+          var _ = h(a, l.upcoming),
+            f = h(a, l.past),
+            v = h(a, l.scheduled_calls),
+            S =
+              g(l.upcoming, l.past, l.scheduled_calls) -
+              _.length -
+              f.length -
+              v.length;
+          S > 0 &&
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][list] dropped ",
+                  " server events missing required fields",
+                ])),
+              S,
+            );
+          var R = function (n) {
+              var t = n.event;
+              return !o(
+                "WAWebDBSharableEventDeletion",
+              ).wasSharableEventDeletedSince(t.eventId, e);
+            },
+            L = y([].concat(_, f, v)).filter(R),
+            E = yield o(
               "WAWebDBSharableEventMetadata",
             ).upsertSharableEventMetadataIfNewer(
-              p.map(function (e) {
+              L.map(function (e) {
                 var t = e.event;
                 return t;
               }),
               { insertMissing: !0 },
             ),
-            C = yield o(
+            k = yield o(
               "WAWebDBSharableEventInvitee",
             ).upsertSharableEventInvitees(
-              p.flatMap(function (e) {
+              L.flatMap(function (e) {
                 var t = e.event,
                   n = e.myInvitation,
                   r =
@@ -77,31 +94,57 @@ __d(
                       ? null
                       : o(
                           "WAWebSharableEventServerInvitationRows",
-                        ).readSharableEventInvitee(i, n);
+                        ).readSharableEventInvitee(a, n);
                 return r == null
                   ? []
                   : [babelHelpers.extends({}, r, { eventId: t.eventId })];
               }),
             ),
-            b = yield o(
+            I = yield o(
               "WAWebDBSharableEventMetadata",
-            ).updateSharableEventsScheduledCall(g(l, m)),
-            v = h(
-              y.map(function (e) {
+            ).updateSharableEventsScheduledCall(C(_.filter(R), v.filter(R))),
+            T = b(
+              E.map(function (e) {
                 return e.row;
               }),
-              b,
+              I,
             );
-          (v.length > 0 || C.length > 0) &&
-            o("WAWebBackendApi").frontendFireAndForget(
-              "applySharableEventUpdate",
-              { events: v, invitees: C },
-            );
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][list] synced upcoming=",
+                " past=",
+                " calls=",
+                " written=",
+                " invitees=",
+                " callFlagChanges=",
+                "",
+              ])),
+            _.length,
+            f.length,
+            v.length,
+            E.length,
+            k.length,
+            I.length,
+          ),
+            (T.length > 0 || k.length > 0) &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "applySharableEventUpdate",
+                { events: T, invitees: k },
+              ));
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e, t) {
+    function g() {
+      for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
+        t[n] = arguments[n];
+      return t.reduce(function (e, t) {
+        var n;
+        return e + ((n = t == null ? void 0 : t.length) != null ? n : 0);
+      }, 0);
+    }
+    function h(e, t) {
       return t == null
         ? []
         : t.flatMap(function (t) {
@@ -123,7 +166,7 @@ __d(
                 ];
           });
     }
-    function f(e) {
+    function y(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -132,7 +175,7 @@ __d(
         Array.from(t.values())
       );
     }
-    function g(e, t) {
+    function C(e, t) {
       var n = new Map(
         e.map(function (e) {
           var t = e.event;
@@ -147,7 +190,7 @@ __d(
         n
       );
     }
-    function h(e, t) {
+    function b(e, t) {
       var n = new Map();
       return (
         [].concat(e, t).forEach(function (e) {
@@ -156,7 +199,7 @@ __d(
         Array.from(n.values())
       );
     }
-    l.syncSharableEventList = m;
+    l.syncSharableEventList = _;
   },
   98,
 );

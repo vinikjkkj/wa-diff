@@ -2,23 +2,21 @@ __d(
   "WAWebRemoveSharableEventGuestAction",
   [
     "fbt",
-    "WALogger",
+    "WAWebSharableEventFailureLogger",
     "WAWebSharableEventRemoveInvitationsJob",
     "WAWebToast.react",
     "WAWebToastManager",
     "WDSConfirmDialog.react",
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react"));
-    function d(e, t, n) {
+      u = e || (e = o("react"));
+    function c(e, t, n) {
       o("WDSDialogBridge").openWDSDialog(
-        c.jsx(r("WDSConfirmDialog.react"), {
+        u.jsx(r("WDSConfirmDialog.react"), {
           description: s._(
             /*BTDS*/ "{guest name} will be removed from the guest list and won't be able to access the event details. Removing a guest who responded via link won't stop others with the link from responding.",
             [s._param("guest name", n)],
@@ -27,7 +25,7 @@ __d(
           confirmLabel: s._(/*BTDS*/ "Remove guest"),
           destructive: !0,
           onConfirm: function () {
-            (o("WDSDialogBridge").closeWDSDialog(), m(e, t, n));
+            (o("WDSDialogBridge").closeWDSDialog(), d(e, t, n));
           },
           onDismiss: o("WDSDialogBridge").closeWDSDialog,
           open: !0,
@@ -36,28 +34,23 @@ __d(
         }),
       );
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    function d(e, t, n) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             yield o(
               "WAWebSharableEventRemoveInvitationsJob",
-            ).removeSharableEventInvitations(t, [n]);
-          } catch (t) {
-            (o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event] removing a guest failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("sharable-event-remove-guest-failed"),
+            ).removeSharableEventInvitations(e, [t]);
+          } catch (e) {
+            (o("WAWebSharableEventFailureLogger").logSharableEventFailure(
+              "remove-guest",
+              e,
+            ),
               o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
+                u.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ "Couldn't remove from event. Please try again.",
                   ),
@@ -66,17 +59,17 @@ __d(
             return;
           }
           o("WAWebToastManager").ToastManager.open(
-            c.jsx(o("WAWebToast.react").Toast, {
+            u.jsx(o("WAWebToast.react").Toast, {
               msg: s._(/*BTDS*/ "Removed {guest name} from this event", [
-                s._param("guest name", a),
+                s._param("guest name", n),
               ]),
             }),
           );
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.removeSharableEventGuest = d;
+    l.removeSharableEventGuest = c;
   },
   226,
 );

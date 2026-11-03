@@ -2,24 +2,25 @@ __d(
   "WAWebSharableEventNotificationBridgeApi",
   [
     "WALogger",
+    "WAWebNotificationController",
     "WAWebSharableEventNotification",
     "WAWebSharableEventNotificationConstants",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e, s;
+    function u(e) {
       return o(
         "WAWebSharableEventNotificationConstants",
       ).SharableEventNotificationType.cast(e);
     }
-    var u = {
+    var c = {
       showSharableEventNotification: (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.payload,
             a = t.typeRaw,
-            i = s(a);
+            i = u(a);
           if (i == null)
             throw (
               o("WALogger")
@@ -39,7 +40,21 @@ __d(
           var l = new (o(
             "WAWebSharableEventNotification",
           ).WAWebSharableEventNotification)({ payload: n, type: i });
-          yield l.triggerNotification(null);
+          (yield o(
+            "WAWebNotificationController",
+          ).WANotificationController.triggerNotification(l),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][notification] ",
+                  " type=",
+                  " eventId=",
+                  "",
+                ])),
+              l.notificationBanner == null ? "not shown" : "shown",
+              a,
+              n.eventId,
+            ));
         });
         function a(e) {
           return t.apply(this, arguments);
@@ -47,7 +62,7 @@ __d(
         return a;
       })(),
     };
-    l.SharableEventNotificationBridgeApi = u;
+    l.SharableEventNotificationBridgeApi = c;
   },
   98,
 );

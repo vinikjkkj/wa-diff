@@ -37,7 +37,6 @@ __d(
     ((l.isOrgMemberQueryLongEnough = u),
       (l.toOrgMemberQuery = c),
       (l.matchesOrgMember = d),
-      (l.matchesOrgName = m),
       (l.findOrgMembers = p));
   },
   98,

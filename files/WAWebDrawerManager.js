@@ -99,6 +99,17 @@ __d(
               ? e
               : r("WAWebNoop");
           }),
+          (a.registerCloseGuardFullscreen = function (t) {
+            var e, n;
+            return (e =
+              (n = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
+                "fullscreen",
+              )) == null
+                ? void 0
+                : n.registerCloseGuard(t)) != null
+              ? e
+              : r("WAWebNoop");
+          }),
           (a.hasCloseGuardLeft = function () {
             var e, t;
             return (e =

@@ -31,16 +31,19 @@ __d(
       }),
       d = {
         DeferredRoot: u,
-        buildRootComponent: o("WAWebCometBuildRoot").buildRootComponent,
+        buildRootComponent: function (t, n) {
+          return o("WAWebCometBuildRoot").buildRootComponent(t, n, p());
+        },
         initClient: function (t) {
-          return r("justknobx")._("6879")
-            ? void o("WAWebAppBootstrap").bootstrapApp()
-            : c(t);
+          return p() ? void o("WAWebAppBootstrap").bootstrapApp() : c(t);
         },
         initDarkMode: null,
         strictModeEnabled: !1,
       },
       m = d;
+    function p() {
+      return r("justknobx")._("6879");
+    }
     l.default = m;
   },
   98,

@@ -1,6 +1,10 @@
 __d(
   "WAWebSharableEventMapPickerStore",
-  ["WAWebSharableEventCollection", "WAWebSharableEventMapMath"],
+  [
+    "WAWebSharableEventCollection",
+    "WAWebSharableEventExternalStore",
+    "WAWebSharableEventMapMath",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = 12,
       s = {
@@ -9,47 +13,36 @@ __d(
       },
       u = 17;
     function c(e) {
-      var t = { camera: d(e), dropKey: 0, selection: { kind: "pin" } },
-        n = new Set(),
-        r = function (r) {
-          ((t = r),
-            n.forEach(function (e) {
-              return e();
-            }));
-        };
+      var t = o("WAWebSharableEventExternalStore").createSharableEventStore({
+        camera: d(e),
+        dropKey: 0,
+        selection: { kind: "pin" },
+      });
       return {
-        getState: function () {
-          return t;
-        },
-        subscribe: function (t) {
-          return (
-            n.add(t),
-            function () {
-              n.delete(t);
-            }
-          );
-        },
+        getState: t.get,
+        subscribe: t.subscribe,
         moveCamera: function (n) {
-          return r({
+          return t.set({
             camera: n,
-            dropKey: t.dropKey + 1,
+            dropKey: t.get().dropKey + 1,
             selection: { kind: "pin" },
           });
         },
         select: function (n) {
+          var e = t.get();
           if (n.kind === "pin") {
-            r(babelHelpers.extends({}, t, { selection: n }));
+            t.set(babelHelpers.extends({}, e, { selection: n }));
             return;
           }
-          var e = n.place,
-            o = e.latitude,
-            a = e.longitude;
-          r({
+          var r = n.place,
+            o = r.latitude,
+            a = r.longitude;
+          t.set({
             camera: {
               center: { latitude: o, longitude: a },
-              zoom: Math.max(t.camera.zoom, u),
+              zoom: Math.max(e.camera.zoom, u),
             },
-            dropKey: t.dropKey + 1,
+            dropKey: e.dropKey + 1,
             selection: n,
           });
         },

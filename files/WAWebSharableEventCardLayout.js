@@ -3,7 +3,7 @@ __d(
   [
     "WAWebSharableEventPeople",
     "WAWebSharableEventStrings",
-    "WAWebUserPrefsMeUser",
+    "WAWebSharableEventViewerState",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 8,
@@ -15,7 +15,7 @@ __d(
       p = 20;
     function _(e) {
       return {
-        hasHostLine: h(e.creatorLid),
+        hasHostLine: g(e.creatorLid),
         hasPlaceLine:
           o("WAWebSharableEventStrings").getSharableEventPlaceLine({
             callLinkMediaType: e.callLinkMediaType,
@@ -37,19 +37,14 @@ __d(
       return o + Math.max(a, r) + o;
     }
     function g(e) {
-      return e != null && o("WAWebUserPrefsMeUser").isMeAccount(e);
-    }
-    function h(e) {
       return (
         e != null &&
-        !g(e) &&
+        !o("WAWebSharableEventViewerState").isSharableEventHostedByViewer(e) &&
         o("WAWebSharableEventPeople").getSharableEventPersonName(e, null, !1) !=
           null
       );
     }
-    ((l.getSharableEventCardContent = _),
-      (l.getSharableEventCardHeight = f),
-      (l.isSharableEventHostedByViewer = g));
+    ((l.getSharableEventCardContent = _), (l.getSharableEventCardHeight = f));
   },
   98,
 );

@@ -17,14 +17,20 @@ __d(
       u,
       c,
       d = {
-        "business-tools": {
+        "ai-mode-limit": {
           actionTarget: (e = o("WAWebWamEnumWsuaActionTarget"))
-            .WSUA_ACTION_TARGET.META_ONE_BUSINESS_ENTRY_POINT,
+            .WSUA_ACTION_TARGET.GET_META_ONE_BUSINESS,
           referral: (s = o("WAWebWamEnumWsuaReferral")).WSUA_REFERRAL
-            .BUSINESS_TOOLS,
-          screen: (u = o("WAWebWamEnumWsuaScreen")).WSUA_SCREEN.BUSINESS_TOOLS,
+            .BIZ_AI_THREAD,
+          screen: (u = o("WAWebWamEnumWsuaScreen")).WSUA_SCREEN.SMART_COMPOSER,
           screenElement: (c = o("WAWebWamEnumWsuaScreenElement"))
-            .WSUA_SCREEN_ELEMENT.LIST_ITEM,
+            .WSUA_SCREEN_ELEMENT.BIZ_AI_LIMIT_REACHED,
+        },
+        "business-tools": {
+          actionTarget: e.WSUA_ACTION_TARGET.META_ONE_BUSINESS_ENTRY_POINT,
+          referral: s.WSUA_REFERRAL.BUSINESS_TOOLS,
+          screen: u.WSUA_SCREEN.BUSINESS_TOOLS,
+          screenElement: c.WSUA_SCREEN_ELEMENT.LIST_ITEM,
         },
         mba: {
           actionTarget: e.WSUA_ACTION_TARGET.GET_META_ONE_BUSINESS,

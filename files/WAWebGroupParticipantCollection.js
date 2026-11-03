@@ -108,7 +108,7 @@ __d(
             "locale_change",
             a.$ParticipantCollection$p_1,
           ),
-          a.listenTo(a, "add remove", a.$ParticipantCollection$p_2),
+          a.listenTo(a, ["add", "remove"], a.$ParticipantCollection$p_2),
           a
         );
       }

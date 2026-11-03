@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebCustomerContactResolver",
     "WAWebCustomerManagerChatJid",
     "WAWebCustomerManagerProfileQueryPlan",
@@ -26,9 +27,7 @@ __d(
     }
     function c(e, t) {
       if (!o("WAWebCustomerManagerProfileQueryPlan").isSearchQueryActive(e))
-        return function () {
-          return !0;
-        };
+        return o("WAWebBoolFunc").returnTrue;
       var n = o("WAWebL10NAccentFold").accentFold(e.trim()),
         r = o("WAWebPhoneNumberSearch").numberSearch(n) || null,
         a = o(

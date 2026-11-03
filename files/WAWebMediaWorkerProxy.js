@@ -103,6 +103,17 @@ __d(
       );
     }
     function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return yield n("cr:36997").writeMediaMetadataInWorker(e);
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
       n("cr:36997").prewarmMediaWasmWorker(e);
     }
     ((l.calculateFilehashInWorker = e),
@@ -111,7 +122,8 @@ __d(
       (l.mp4RepairMuxInWorker = p),
       (l.kaleidoscopeClassifyInWorker = f),
       (l.detectAiProvenanceInWorker = y),
-      (l.prewarmMediaWasmWorker = b));
+      (l.writeMediaMetadataInWorker = b),
+      (l.prewarmMediaWasmWorker = S));
   },
   98,
 );

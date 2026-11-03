@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebGroupHistoryDeflatedBytesBucket",
     "WAWebGroupHistorySenderUserJourneyWamEvent",
     "WAWebUnifiedSession",
     "WAWebWamEnumGroupHistoryIneligibilityReason",
@@ -202,22 +203,32 @@ __d(
             t,
           );
         }),
-        (n.bundleMessageSent = function (t) {
+        (n.bundleMessageSent = function (t, n) {
           var e = t.bundleSendSource,
-            n = t.groupAddMemberEntryPoint,
-            r = t.groupHistoryMessagesCount,
+            r = t.groupAddMemberEntryPoint,
             a = t.groupHistorySystemMessageType,
             i = t.recipientCount,
-            l = t.uiSurface;
+            l = t.uiSurface,
+            s = n.buildDurationMs,
+            u = n.deflatedBytes,
+            c = n.oowPinsCount,
+            d = n.packedCount,
+            m = n.uncountedCount;
           this.$1({
             bundleSendSource: e,
-            groupAddMemberEntryPoint: n != null ? n : void 0,
-            groupHistoryMessagesCount: r != null ? r : void 0,
+            groupAddMemberEntryPoint: r != null ? r : void 0,
+            groupHistoryBundleBuildDurationMs: s,
+            groupHistoryBundleDeflatedBytes: o(
+              "WAWebGroupHistoryDeflatedBytesBucket",
+            ).bucketGroupHistoryDeflatedBytes(u),
+            groupHistoryMessagesCount: d,
+            groupHistoryOutWindowPinsCount: c,
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE
               .GROUP_HISTORY_BUNDLE_MESSAGE_SENT,
             groupHistorySystemMessageType: a != null ? a : void 0,
+            groupHistoryUncountedMessagesCount: m,
             recipientCount: i,
             uiSurface: l,
           });

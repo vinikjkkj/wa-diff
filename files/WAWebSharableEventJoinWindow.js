@@ -41,7 +41,8 @@ __d(
           o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(t)
       );
     }
-    ((l.canJoinSharableEventCall = s),
+    ((l.JOIN_WINDOW_LEAD_SEC = e),
+      (l.canJoinSharableEventCall = s),
       (l.getNextSharableEventJoinWindowChangeSec = u));
   },
   98,

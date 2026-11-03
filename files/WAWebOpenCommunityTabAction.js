@@ -6,6 +6,7 @@ __d(
     "WAWebCommunityFlowLoadable",
     "WAWebDrawerManager",
     "WAWebNavBarTypes",
+    "WAWebOpenLastActiveChatAction",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,7 +26,9 @@ __d(
         ),
         o("WAWebCmd").Cmd.setActiveNavBarItem(
           o("WAWebNavBarTypes").NavBarItems.Communities,
-        ));
+        ),
+        o("WAWebOpenLastActiveChatAction").cancelPendingLastActiveChatRestore(),
+        o("WAWebCmd").Cmd.closeActiveChat());
     }
     l.default = u;
   },

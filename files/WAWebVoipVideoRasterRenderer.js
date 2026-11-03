@@ -155,7 +155,7 @@ __d(
           }),
           (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
             i === void 0 && (i = !1);
-            var e = this.$8(t, n, r),
+            var e = this.$8({ height: r, videoFrame: t, width: n }),
               l = {
                 height: r,
                 mirror: a,
@@ -191,16 +191,19 @@ __d(
               (this.$10 = null),
               (this.$11 = null));
           }),
-          (a.$8 = function (t, n, a) {
+          (a.$8 = function (t) {
+            var e = t.height,
+              n = t.videoFrame,
+              a = t.width;
             if (this.$12 || (Math.abs(this.$13) < f && Math.abs(this.$14) < f))
               return (
                 this.$5 != null && (this.$5.cleanup(), (this.$5 = null)),
-                t
+                n
               );
             try {
               this.$5 == null &&
                 (this.$5 = new (r("WAWebVoipVideoEnhancementPass"))());
-              var e = this.$5.render(t, n, a, this.$13, this.$14);
+              var i = this.$5.render(n, a, e, this.$13, this.$14);
               return (
                 this.$15 ||
                   ((this.$15 = !0),
@@ -215,16 +218,16 @@ __d(
                       ])),
                     this.$13,
                     this.$14,
-                    n,
                     a,
+                    e,
                   )),
-                e
+                i
               );
             } catch (e) {
-              var i;
+              var l;
               return (
                 (this.$12 = !0),
-                (i = this.$5) == null || i.cleanup(),
+                (l = this.$5) == null || l.cleanup(),
                 (this.$5 = null),
                 o("WAWebVoipVideoRendererLogging").WARN(
                   d ||
@@ -234,7 +237,7 @@ __d(
                     ])),
                   e,
                 ),
-                t
+                n
               );
             }
           }),

@@ -378,14 +378,14 @@ __d(
         h;
       if (o("WAWebChatGetters").getIsGroup(a)) {
         var y;
-        (t[2] !== n || t[3] !== a
+        (t[2] !== n || t[3] !== a.id
           ? ((y = s.jsx(o("WAWebName.react").ContactAndGroupName, {
               contact: n,
-              chat: a,
+              chatId: a.id,
               xstyle: b.senderName,
             })),
             (t[2] = n),
-            (t[3] = a),
+            (t[3] = a.id),
             (t[4] = y))
           : (y = t[4]),
           (h = y));

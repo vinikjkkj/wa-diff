@@ -600,8 +600,6 @@ __d(
     }
     ((l.getShortMdSessionId = C),
       (l.syncReportMutationToWam = v),
-      (l.encodeKeyDataForWam = R),
-      (l.getSyncdWamAllowlist = I),
       (l.createSyncdWamAccumulator = P),
       (l.reportSyncdWamAccumulator = N),
       (l.syncReportOutgoingToWam = F));

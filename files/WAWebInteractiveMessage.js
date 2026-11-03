@@ -127,6 +127,7 @@ __d(
                   label: e.label,
                   disabled: e.disabled === !0 || t === !0,
                   onClick: c(e),
+                  onImpression: e.onImpression,
                   Icon: e.Icon,
                 };
               }),

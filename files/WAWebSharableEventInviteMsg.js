@@ -4,11 +4,11 @@ __d(
     "Promise",
     "WALogger",
     "WAWebMsgType",
-    "WAWebSharableEventStorageEnums",
+    "WAWebSharableEventCallLinkUrl",
+    "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventInviteStatus",
     "WAWebViewMode.flow",
-    "WAWebVoipCallLinkUrl",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -24,7 +24,8 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r =
+            r,
+            a =
               e.coverImageUrl == null || e.coverImageUrl === ""
                 ? null
                 : yield _(e.coverImageUrl);
@@ -32,20 +33,26 @@ __d(
             type: o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE,
             kind: o("WAWebMsgType").MsgKind.SharableEventInvite,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            sharableEventInviteId: e.id,
+            sharableEventInviteId: e.eventId,
             sharableEventInviteTitle: e.name,
             sharableEventInviteStartTime: e.startTsSec,
             sharableEventInviteEndTime: (t = e.endTsSec) != null ? t : void 0,
             sharableEventInviteCallLink:
-              (n = o("WAWebVoipCallLinkUrl").getCallLinkUrl(
-                e.callLinkToken,
-                e.callLinkMediaType !==
-                  o("WAWebSharableEventStorageEnums")
-                    .SharableEventCallLinkMediaType.Voice,
-              )) != null
+              (n = o(
+                "WAWebSharableEventCallLinkUrl",
+              ).getSharableEventCallLinkUrl(e)) != null
                 ? n
                 : void 0,
-            sharableEventInviteJpegThumbnail: r != null ? r : void 0,
+            sharableEventInviteJpegThumbnail: a != null ? a : void 0,
+            sharableEventInviteStatus:
+              (r = o(
+                "WAWebSharableEventInviteStatus",
+              ).toSharableEventInviteStatusFromStored(e.status)) != null
+                ? r
+                : void 0,
+            sharableEventInviteLocationName: e.locationName,
+            sharableEventInviteCoverImageHandle: e.coverImageHandle,
+            sharableEventInviteLastUpdatedTsUsec: e.lastUpdatedTsUsec,
           };
         })),
         p.apply(this, arguments)
@@ -58,28 +65,30 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var a,
-              i = yield window.fetch(t),
-              l = yield createImageBitmap(yield i.blob()),
-              m = document.createElement("canvas");
-            ((m.width = u),
-              (m.height = c),
-              (a = m.getContext("2d")) == null || a.drawImage(l, 0, 0, u, c),
-              l.close());
-            var p = yield new (s || (s = n("Promise")))(function (e) {
-              return m.toBlob(e, "image/jpeg", d);
+            var r,
+              a = yield window.fetch(t),
+              i = yield createImageBitmap(yield a.blob()),
+              l = document.createElement("canvas");
+            ((l.width = u),
+              (l.height = c),
+              (r = l.getContext("2d")) == null || r.drawImage(i, 0, 0, u, c),
+              i.close());
+            var m = yield new (s || (s = n("Promise")))(function (e) {
+              return l.toBlob(e, "image/jpeg", d);
             });
-            return p == null ? null : yield p.arrayBuffer();
+            return m == null ? null : yield m.arrayBuffer();
           } catch (t) {
             return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sharable_event] invite thumbnail failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t)),
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][invite] thumbnail failed ",
+                    "",
+                  ])),
+                o("WAWebSharableEventFailureLogger").describeSharableEventError(
+                  t,
+                ),
+              ),
               null
             );
           }
@@ -87,7 +96,8 @@ __d(
         f.apply(this, arguments)
       );
     }
-    l.buildSharableEventInviteMsgFields = m;
+    ((l.buildSharableEventInviteMsgFields = m),
+      (l.makeSharableEventCoverThumbnail = _));
   },
   98,
 );

@@ -55,6 +55,7 @@ __d(
         enableLive: !1,
         enableMediaElementUnmountNotification: !1,
         enableNonOverlappingStreamBandwidthSampling: !1,
+        enableOwnedBandwidthEstimator: !1,
         enablePlayerScopedWorkerToMainEventCoalescing: !1,
         enablePredictiveSidxPrefetch: !1,
         enablePrefetchBandwidthSampling: !1,

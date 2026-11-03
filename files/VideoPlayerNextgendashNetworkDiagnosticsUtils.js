@@ -1,6 +1,6 @@
 __d(
   "VideoPlayerNextgendashNetworkDiagnosticsUtils",
-  ["oz-player/networks/OzBandwidthUtils"],
+  ["VideoPlayerNextgendashBandwidthUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -13,8 +13,9 @@ __d(
               return e.bandwidthEstimate;
             }
           : function (t, n) {
+              if (t === 0) return 0;
               var r = o(
-                "oz-player/networks/OzBandwidthUtils",
+                "VideoPlayerNextgendashBandwidthUtils",
               ).getEstimatedRequestTimeToLastByteMs(e, t, n);
               return (t / r) * 8e3;
             };

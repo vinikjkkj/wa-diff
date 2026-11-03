@@ -110,8 +110,7 @@ __d(
         "change:fullPreview",
         "change:fullPreviewSize",
         "change:preview",
-      ],
-      B = O.join(" ");
+      ];
     ((l.getAttachMediaUnsafe = m),
       (l.clearAttachMediaGetterCacheFor = g),
       (l.getFile = h),
@@ -135,8 +134,7 @@ __d(
       (l.getFilesize = w),
       (l.getFileExt = A),
       (l.getPreviewable = F),
-      (l.PREVIEWABLE_ROOT_EVENTS = O),
-      (l.PREVIEWABLE_ROOT_EVENTS_STR = B));
+      (l.PREVIEWABLE_ROOT_EVENTS = O));
   },
   98,
 );

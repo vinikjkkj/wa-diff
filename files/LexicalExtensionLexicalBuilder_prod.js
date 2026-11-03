@@ -54,7 +54,7 @@ __d(
     function s() {
       var t;
       try {
-        t = "0.52.0+prod.cjs";
+        t = "0.53.0+prod.cjs";
       } catch (_unused) {}
       return t != null ? t : '"<unknown>+source"';
     }

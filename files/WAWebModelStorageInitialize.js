@@ -108,6 +108,7 @@ __d(
     "WAWebSchemaSharableEventChange",
     "WAWebSchemaSharableEventCreatorPushName",
     "WAWebSchemaSharableEventInviteLinkToken",
+    "WAWebSchemaSharableEventInviteMessage",
     "WAWebSchemaSharableEventInvitee",
     "WAWebSchemaStickerDownload",
     "WAWebSchemaSubgroupSuggestion",
@@ -261,6 +262,7 @@ __d(
             o("WAWebSchemaSharableEventCreatorPushName").addTable(),
             o("WAWebSchemaSharableEventInvitee").addTable(),
             o("WAWebSchemaSharableEventInviteLinkToken").addTable(),
+            o("WAWebSchemaSharableEventInviteMessage").addTable(),
             o("WAWebModelStorageUtils")
               .getStorage()
               .initialize()

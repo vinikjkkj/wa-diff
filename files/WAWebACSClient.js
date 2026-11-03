@@ -1,8 +1,9 @@
 __d(
   "WAWebACSClient",
   [
+    "ACSCachedTokenModule",
     "ACSClient",
-    "ACSClientBuilder",
+    "ACSClientBuilderWasmV3",
     "WAWebACSServerProvider",
     "WAWebACSStorageManager",
     "asyncToGeneratorRuntime",
@@ -16,12 +17,19 @@ __d(
         a = e.get(r);
       return (
         a == null &&
-          ((a = o("ACSClientBuilder").buildACSClient(
-            t,
-            n,
-            new (o("WAWebACSServerProvider").WAWebACSServerProvider)(),
-            new (o("WAWebACSStorageManager").WAWebACSStorageManager)(),
-          )),
+          ((a = o("ACSClientBuilderWasmV3")
+            .buildACSClient(
+              t,
+              n,
+              new (o("WAWebACSServerProvider").WAWebACSServerProvider)(),
+              new (o("WAWebACSStorageManager").WAWebACSStorageManager)(
+                r,
+                o("ACSCachedTokenModule").isCachedTokenRedeemable,
+              ),
+            )
+            .catch(function (t) {
+              throw (e.delete(r), t);
+            })),
           e.set(r, a)),
         a
       );

@@ -15,39 +15,36 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e != null && e.isGroup()) {
             var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-            if (t != null) return u(t);
+            if (t != null)
+              return o("WAWebGroupType").groupTypeToWamEnum(
+                o("WAWebGroupMetadataGetters").getGroupType(t),
+              );
           }
         })),
         s.apply(this, arguments)
       );
     }
     function u(e) {
-      return o("WAWebGroupType").groupTypeToWamEnum(
-        o("WAWebGroupMetadataGetters").getGroupType(e),
-      );
+      return c.apply(this, arguments);
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-          return t == null ? null : m(t);
+          return t == null ? null : d(t);
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function m(e) {
+    function d(e) {
       return (
         o("WAWebGroupMetadataGetters").getGroupType(e) ===
         o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       );
     }
     ((l.getGroupTypeFromChatWid = e),
-      (l.getGroupTypeFromGroupMetadata = u),
-      (l.isCagFromChatWid = c),
-      (l.isCagFromGroupMetadata = m));
+      (l.isCagFromChatWid = u),
+      (l.isCagFromGroupMetadata = d));
   },
   98,
 );

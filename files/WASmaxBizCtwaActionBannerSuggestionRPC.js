@@ -313,22 +313,9 @@ __d(
         : a;
     }
     ((l.receiveBannerSuggestionRPC = e),
-      (l.parseBannerSuggestionRequestCtwaSuggestionBannerAction = s),
-      (l.parseBannerSuggestionRequestCtwaSuggestionBannerContentLocalisedHeading =
-        u),
-      (l.parseBannerSuggestionRequestCtwaSuggestionBannerContentLocalisedBody =
-        c),
-      (l.parseBannerSuggestionRequestCtwaSuggestionBannerContentLocalisedHighlight =
-        d),
-      (l.parseBannerSuggestionRequestCtwaSuggestionBanner = m),
       (l.parseBannerSuggestionRequest = p),
       (l.ENUM_FALSE_TRUE = _),
-      (l.ENUM_INFO_WARNING = f),
-      (l.parseLocalisationMetadataParameter = g),
-      (l.parseLocalisationMetadataMixin = h),
-      (l.parseNativeActionsMixinNativeAction = y),
-      (l.parseNativeActionsMixinMixin = C),
-      (l.parseServerNotificationMixin = b));
+      (l.ENUM_INFO_WARNING = f));
   },
   98,
 );

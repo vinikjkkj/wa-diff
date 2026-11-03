@@ -29,25 +29,25 @@ __d(
         var n = t.prototype;
         return (
           (n.subscribe = function (t, n, o) {
-            var e = this;
-            ((t = u(t)),
-              t.forEach(function (e) {
-                (e && typeof e == "string") || s(0, 1966, e);
-              }),
-              typeof n == "function" || s(0, 1967, n),
-              (o = o || "all"),
-              o === "new" || o === "all" || s(0, 1968, o));
-            var a = t.map(function (t) {
+            var e = this,
+              a = u(t);
+            (a.forEach(function (e) {
+              (e && typeof e == "string") || s(0, 1966, e);
+            }),
+              typeof n == "function" || s(0, 1967, n));
+            var i = o || "all";
+            i === "new" || i === "all" || s(0, 1968, i);
+            var l = a.map(function (t) {
               var r = function (o) {
                 return e.$5(n, t, o);
               };
-              if (((r.__SMmeta = n.__SMmeta), o === "new"))
+              if (((r.__SMmeta = n.__SMmeta), i === "new"))
                 return e.$2.addListener(t, r);
               e.$4.push({});
-              var a = e.$2.addRetroactiveListener(t, r);
-              return (e.$4.pop(), a);
+              var o = e.$2.addRetroactiveListener(t, r);
+              return (e.$4.pop(), o);
             });
-            return new (r("ArbiterToken"))(this, a);
+            return new (r("ArbiterToken"))(this, l);
           }),
           (n.$5 = function (n, o, a) {
             var t = this.$4[this.$4.length - 1];
@@ -80,19 +80,20 @@ __d(
             (t.isForArbiterInstance(this) || s(0, 1969), t.unsubscribe());
           }),
           (n.inform = function (t, n, r) {
-            var e = Array.isArray(t);
-            ((t = u(t)), (r = r || "event"));
-            var o = r === "state" || r === "persistent";
+            var e = Array.isArray(t),
+              o = u(t),
+              a = r || "event",
+              i = a === "state" || a === "persistent";
             this.$4.push({});
-            for (var a = 0; a < t.length; a++) {
-              var i = t[a];
-              (i || s(0, 1970, i),
-                this.$3.setHoldingBehavior(i, r),
-                this.$2.emitAndHold(i, n),
-                this.$6(i, n, o));
+            for (var l = 0; l < o.length; l++) {
+              var c = o[l];
+              (c || s(0, 1970, c),
+                this.$3.setHoldingBehavior(c, a),
+                this.$2.emitAndHold(c, n),
+                this.$6(c, n, i));
             }
-            var l = this.$4.pop();
-            return e ? l : l[t[0]];
+            var d = this.$4.pop();
+            return e ? d : d[o[0]];
           }),
           (n.query = function (t) {
             var e = this.$3.getHoldingBehavior(t);

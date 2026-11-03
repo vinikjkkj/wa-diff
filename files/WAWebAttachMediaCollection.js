@@ -295,7 +295,7 @@ __d(
                   f.forEach(function (e) {
                     d.listenTo(
                       e,
-                      o("WAWebAttachMediaGetters").PREVIEWABLE_ROOT_EVENTS_STR,
+                      o("WAWebAttachMediaGetters").PREVIEWABLE_ROOT_EVENTS,
                       function () {
                         d.$AttachMediaCollection$p_4(f, g);
                       },

@@ -1,6 +1,12 @@
 __d(
   "WAWebRevoke",
-  ["WAWebMsgKey", "WAWebRevokeMsgConstants", "WAWebWid"],
+  [
+    "WAWebBotUtils",
+    "WAWebMsgKey",
+    "WAWebRevokeMsgConstants",
+    "WAWebUserPrefsMeUser",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.originalKey,
@@ -22,7 +28,21 @@ __d(
         l = i + o("WAWebRevokeMsgConstants").REVOKE_WINDOW_RECEIVER_MARGIN;
       return a - n <= l;
     }
-    ((l.getMsgKeyAfterRevoke = e), (l.isWithinRevokeWindow = s));
+    function u(e) {
+      var t = e.revokeKey,
+        n = e.revoker,
+        r = e.targetKey;
+      return (
+        o("WAWebBotUtils").isHatchBot(r.remote) &&
+        !r.fromMe &&
+        t.fromMe &&
+        t.remote.equals(r.remote) &&
+        o("WAWebUserPrefsMeUser").isMeAccount(n)
+      );
+    }
+    ((l.getMsgKeyAfterRevoke = e),
+      (l.isWithinRevokeWindow = s),
+      (l.isMyRevokeOfHatchAgentReply = u));
   },
   98,
 );

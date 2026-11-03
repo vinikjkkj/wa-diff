@@ -43,8 +43,8 @@ __d(
                   ),
                   maxEvals: a.max_evals,
                   maxNumberOfRedemptionsPerToken: a.redemption_limit,
-                  configExpiresOnMillis: Number(a.expire_time),
-                  tokenTTLOnMillis: a.token_ttl,
+                  configExpiresOnMillis: Number(a.expire_time) * 1e3,
+                  tokenTTLOnMillis: a.token_ttl * 1e3,
                 };
               },
             );

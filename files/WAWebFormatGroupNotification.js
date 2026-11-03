@@ -317,7 +317,8 @@ __d(
           ).communityWelcomeAdminTitle({
             templateParams: t.templateParams,
             author: c,
-            chat: o("WAWebFrontendMsgGetters").getChat(t),
+            groupMetadata: o("WAWebFrontendMsgGetters").getChat(t)
+              .groupMetadata,
           });
           break;
         case "membership_approval_mode":

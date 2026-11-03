@@ -2,6 +2,9 @@ __d(
   "VideoPlayerNextgendashHostAPIDefault",
   [
     "VideoPlayerNextgendashHostAPIDefaultFactory",
+    "oz-player/configs/OzGlobalConfig",
+    "oz-player/networks/OzBandwidthEstimator",
+    "oz-player/networks/OzBandwidthUtils",
     "performance",
     "performanceAbsoluteNow",
     "performanceNow",
@@ -29,6 +32,42 @@ __d(
                 );
               }
             : null,
+        networkDiagnostics: {
+          networkDiagnosticsReadBandwidth: function (t, n) {
+            var e = r(
+              "oz-player/networks/OzBandwidthEstimator",
+            ).getBandwidthDiagnostics(r("oz-player/configs/OzGlobalConfig"));
+            return e != null || !t
+              ? e
+              : o(
+                  "oz-player/networks/OzBandwidthUtils",
+                ).createFallbackBandwidthDiagnostics(
+                  r(
+                    "oz-player/networks/OzBandwidthEstimator",
+                  ).getDefaultEstimate(
+                    r("oz-player/configs/OzGlobalConfig"),
+                    n,
+                  ),
+                );
+          },
+          networkDiagnosticsUpdate: function (t) {
+            (t.navigationTimingSample &&
+              r(
+                "oz-player/networks/OzBandwidthEstimator",
+              ).addNavigationTimingSample(
+                t.navigationTimingSample.timeToFirstByteMs,
+                t.navigationTimingSample.timeToLastByteMs,
+                t.navigationTimingSample.bytes,
+                t.clock.unixMs,
+              ),
+              t.bandwidthSample &&
+                r("oz-player/networks/OzBandwidthEstimator").addBandwidthSample(
+                  t.bandwidthSample.bytes,
+                  t.bandwidthSample.timeInMs,
+                  t.clock.unixMs,
+                ));
+          },
+        },
         networkIsOnline: function () {
           return navigator.onLine;
         },

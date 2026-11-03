@@ -6,9 +6,9 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebPhoneUtils",
-    "WAWebSharableEventCardLayout",
     "WAWebSharableEventPeople",
     "WAWebSharableEventStorageEnums",
+    "WAWebSharableEventViewerState",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
     "WAWebWamEnumOppositeVisibleIdentificationType",
@@ -26,7 +26,7 @@ __d(
       c = [e.Going, e.Maybe, e.NotGoing, e.NotResponded];
     function d(t, n) {
       var r,
-        a = o("WAWebSharableEventCardLayout").isSharableEventHostedByViewer(
+        a = o("WAWebSharableEventViewerState").isSharableEventHostedByViewer(
           t.creatorLid,
         ),
         i =
@@ -48,18 +48,18 @@ __d(
           return (s.set(t, n), n);
         };
       n.forEach(function (n) {
-        var r = d(l ? e.GuestList : m(n.rsvpStatus)),
-          o = f(n, t.creatorLid, a);
+        var r = d(l ? e.GuestList : p(n.rsvpStatus)),
+          o = g(n, t.creatorLid, a);
         o != null ? r.rows.push(o) : r.hiddenLids.push(n.inviteeLid);
       });
-      var h = g(t.creatorLid, n, a);
-      h != null && d(l ? e.GuestList : e.Going).rows.push(h);
+      var m = h(t.creatorLid, n, a);
+      m != null && d(l ? e.GuestList : e.Going).rows.push(m);
       var y = l ? [e.GuestList] : c;
       return y.flatMap(function (e) {
         var n,
           r = (n = s.get(e)) != null ? n : { hiddenLids: [], rows: [] },
-          o = p(e, r.rows),
-          a = Math.max(_(t, e), o);
+          o = _(e, r.rows),
+          a = Math.max(f(t, e), o);
         return a === 0
           ? []
           : [
@@ -67,7 +67,7 @@ __d(
                 count: a,
                 guests: []
                   .concat(r.rows)
-                  .sort(R)
+                  .sort(L)
                   .map(function (e) {
                     var t = e.row;
                     return t;
@@ -79,7 +79,31 @@ __d(
             ];
       });
     }
-    function m(t) {
+    function m(e, t) {
+      var n = e
+          .map(function (e) {
+            var t = e.inviteeLid;
+            return t;
+          })
+          .filter(function (e) {
+            return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+          }),
+        r = n.filter(o("WAWebSharableEventPeople").isSharableEventKnownPerson),
+        a = n.filter(function (e) {
+          return !o("WAWebSharableEventPeople").isSharableEventKnownPerson(e);
+        });
+      return []
+        .concat(
+          r.map(function (e) {
+            return { lid: e, loadPicture: !0 };
+          }),
+          a.map(function (e) {
+            return { lid: e, loadPicture: !1 };
+          }),
+        )
+        .slice(0, t);
+    }
+    function p(t) {
       return t ===
         o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus.Going
         ? e.Going
@@ -102,7 +126,7 @@ __d(
                   );
                 })();
     }
-    function p(t, n) {
+    function _(t, n) {
       return t === e.Going
         ? n.reduce(function (e, t) {
             var n = t.row;
@@ -110,7 +134,7 @@ __d(
           }, 0)
         : n.length;
     }
-    function _(t, n) {
+    function f(t, n) {
       return n === e.Going
         ? t.countGoing
         : n === e.Maybe
@@ -133,7 +157,7 @@ __d(
                     );
                   })();
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       var r = e.inviteeLid,
         a = o("WAWebUserPrefsMeUser").isMeAccount(r),
         i = t != null && t.equals(r),
@@ -152,22 +176,22 @@ __d(
             isPhoneNumber:
               (l == null ? void 0 : l.source) ===
               o("WAWebSharableEventPeople").SharableEventNameSource.PhoneNumber,
-            priority: y(l, a, i),
+            priority: C(l, a, i),
             row: {
               extraGuestCount: e.extraGuestCount,
               isKnownPerson:
                 a ||
                 o("WAWebSharableEventPeople").isSharableEventKnownPerson(r),
-              isTappable: b(r, l, a, i),
+              isTappable: v(r, l, a, i),
               lid: r,
               name: l == null ? void 0 : l.name,
-              role: i ? h(n) : null,
-              secondaryName: C(l, e, n),
+              role: i ? y(n) : null,
+              secondaryName: b(l, e, n),
             },
             sortKey: l != null ? String(l.name) : "",
           };
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       if (
         e == null ||
         t.some(function (t) {
@@ -184,25 +208,25 @@ __d(
         ? null
         : {
             isPhoneNumber: !1,
-            priority: y(r, o("WAWebUserPrefsMeUser").isMeAccount(e), !0),
+            priority: C(r, o("WAWebUserPrefsMeUser").isMeAccount(e), !0),
             row: {
               extraGuestCount: 0,
               isKnownPerson:
                 o("WAWebUserPrefsMeUser").isMeAccount(e) ||
                 o("WAWebSharableEventPeople").isSharableEventKnownPerson(e),
-              isTappable: b(e, r, o("WAWebUserPrefsMeUser").isMeAccount(e), !0),
+              isTappable: v(e, r, o("WAWebUserPrefsMeUser").isMeAccount(e), !0),
               lid: e,
               name: r.name,
-              role: h(n),
+              role: y(n),
               secondaryName: null,
             },
             sortKey: String(r.name),
           };
     }
-    function h(e) {
+    function y(e) {
       return e ? s.Creator : s.Host;
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       return t
         ? 0
         : n
@@ -229,10 +253,10 @@ __d(
                       : 6;
             })(e == null ? void 0 : e.source);
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       var r,
         a =
-          n && L(t.phoneNumber) != null
+          n && E(t.phoneNumber) != null
             ? o("WAWebPhoneUtils").formatPhone(
                 (r = t.phoneNumber) != null ? r : "",
               )
@@ -242,13 +266,13 @@ __d(
           e === o("WAWebSharableEventPeople").SharableEventNameSource.PushName
         ) {
           var n, r;
-          return L(t.username) != null
+          return E(t.username) != null
             ? o("WAWebUsernameTypes").displayUsername(
                 o("WAWebUsernameTypes").asUsername(
                   (n = t.username) != null ? n : "",
                 ),
               )
-            : (r = S(t.inviteeLid)) != null
+            : (r = R(t.inviteeLid)) != null
               ? r
               : a;
         }
@@ -258,7 +282,7 @@ __d(
           : null;
       })(e == null ? void 0 : e.source);
     }
-    function b(e, t, n, r) {
+    function v(e, t, n, r) {
       return n
         ? !1
         : r
@@ -268,7 +292,7 @@ __d(
               o("WAWebSharableEventPeople").getKnownPushName(e) != null)
           : !0;
     }
-    function v(e) {
+    function S(e) {
       var t,
         n = o("WAWebLidMigrationUtils").toPn(e);
       return (t = o("WAWebContactCollection").ContactCollection.get(e)) != null
@@ -277,8 +301,8 @@ __d(
           ? o("WAWebContactCollection").ContactCollection.get(n)
           : null;
     }
-    function S(e) {
-      var t = v(e);
+    function R(e) {
+      var t = S(e);
       if (t == null) return null;
       var n = o(
           "WAWebFrontendContactGetters",
@@ -294,7 +318,7 @@ __d(
         ? r
         : null;
     }
-    function R(e, t) {
+    function L(e, t) {
       return e.priority !== t.priority
         ? e.priority - t.priority
         : e.isPhoneNumber && t.isPhoneNumber
@@ -305,13 +329,14 @@ __d(
               })
           : e.sortKey.localeCompare(t.sortKey, void 0, { sensitivity: "base" });
     }
-    function L(e) {
+    function E(e) {
       return e != null && e.trim() !== "" ? e : null;
     }
     ((l.SharableEventGuestListSectionKind = e),
       (l.SharableEventGuestRole = s),
       (l.SHARABLE_EVENT_GUEST_FACEPILE_SIZE = u),
-      (l.getSharableEventGuestListSections = d));
+      (l.getSharableEventGuestListSections = d),
+      (l.getSharableEventPageFaces = m));
   },
   98,
 );

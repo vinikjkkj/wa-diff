@@ -6,6 +6,7 @@ __d(
     "WAWebMuteCollection",
     "WAWebNotificationIconUtils",
     "WAWebScheduleSelfReminderAction",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -51,12 +52,15 @@ __d(
             wid: this.$WASelfReminderNotification$p_1.id,
             msgId: this.$WASelfReminderNotification$p_2.toString(),
             alwaysHighlightMsg: !0,
-            title: s._(/*BTDS*/ "Reminder").toString(),
-            body:
-              o("WAWebMuteCollection").MuteCollection.getGlobalPreviews() &&
-              this.$WASelfReminderNotification$p_1.isLocked !== !0
-                ? u(this.$WASelfReminderNotification$p_3)
-                : s._(/*BTDS*/ "You have a reminder").toString(),
+            title: c(
+              this.$WASelfReminderNotification$p_1,
+              u(this.$WASelfReminderNotification$p_1),
+            ),
+            body: u(this.$WASelfReminderNotification$p_1)
+              ? o("WAWebScheduleSelfReminderAction").withoutReminderPrefix(
+                  this.$WASelfReminderNotification$p_3,
+                )
+              : s._(/*BTDS*/ "You have a reminder").toString(),
             requireInteraction: !0,
           };
         }),
@@ -64,12 +68,21 @@ __d(
       );
     })(o("WAWebBaseNotification").WABaseNotification);
     function u(e) {
-      var t = o("WAWebScheduleSelfReminderAction")
-        .buildSelfReminderText("")
-        .trim();
-      return e.startsWith(t) ? e.slice(t.length).trimStart() : e;
+      return (
+        o("WAWebMuteCollection").MuteCollection.getGlobalPreviews() &&
+        e.isLocked !== !0
+      );
     }
-    l.WASelfReminderNotification = e;
+    function c(e, t) {
+      return t && !o("WAWebUserPrefsMeUser").isMeAccount(e.id)
+        ? s
+            ._(/*BTDS*/ "Reminder \u00b7 {chat name}", [
+              s._param("chat name", e.title()),
+            ])
+            .toString()
+        : s._(/*BTDS*/ "Reminder").toString();
+    }
+    ((l.WASelfReminderNotification = e), (l.canShowReminderContent = u));
   },
   226,
 );

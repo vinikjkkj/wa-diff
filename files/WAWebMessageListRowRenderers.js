@@ -169,6 +169,18 @@ __d(
             "msg-unread",
           );
         },
+        pendingSends: function () {
+          return s.jsx(
+            s.Fragment,
+            {
+              children:
+                e.renderPendingSendsMarker == null
+                  ? void 0
+                  : e.renderPendingSendsMarker(),
+            },
+            "msg-pending-sends",
+          );
+        },
         botPluginCarousel: function (n) {
           var t = n.botPluginCarouselId,
             o = n.isFocused,
@@ -216,11 +228,7 @@ __d(
               : null;
           return s.jsx(
             r("WAWebMessageHistoryBundleInfoNotification.react"),
-            {
-              authorName: n,
-              firstBundleMsgElement: u,
-              groupId: a.remote.toJid(),
-            },
+            { authorName: n, firstBundleMsgElement: u, groupWid: a.remote },
             "history-bundle-info-" + a.toString(),
           );
         },

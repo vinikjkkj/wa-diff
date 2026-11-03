@@ -54,15 +54,24 @@ __d(
                           ))
                             .filter(Boolean)
                             .map(function (e) {
-                              return [_(e), e.createdTsSec];
+                              return [_(e), e];
                             }),
                         );
-                      ((t = u.map(function (e) {
-                        var t;
-                        return babelHelpers.extends({}, e, {
-                          createdTsSec:
-                            (t = c.get(_(e))) != null ? t : e.createdTsSec,
-                        });
+                      ((t = u.flatMap(function (e) {
+                        var t,
+                          n = c.get(_(e));
+                        return n != null &&
+                          n.lastUpdatedTsSec > e.lastUpdatedTsSec
+                          ? []
+                          : [
+                              babelHelpers.extends({}, e, {
+                                createdTsSec:
+                                  (t = n == null ? void 0 : n.createdTsSec) !=
+                                  null
+                                    ? t
+                                    : e.createdTsSec,
+                              }),
+                            ];
                       })),
                         t.length > 0 && (yield l.bulkCreateOrReplace(t)));
                     },

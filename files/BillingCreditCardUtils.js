@@ -3,15 +3,19 @@ __d(
   [
     "fbt",
     "BillingContactFieldValidators",
+    "BillingCountryCurrencyUtils",
     "BillingCreditCardConstants",
     "BillingCreditCardNumber",
     "BillingCreditCardTypes",
     "BillingPTTSharedUtils",
     "BillingPTTUtils",
     "BillingWizardRootUPLogger",
+    "FrontierCardNumberUtils",
+    "ISOCountryCode",
     "Promise",
     "XPlatReactCrypto",
     "asyncToGeneratorRuntime",
+    "castToEnum",
     "enumUtils",
     "nullthrows",
     "pm_capability_PaymentMethodUsabilityIntent",
@@ -31,7 +35,7 @@ __d(
               /*BTDS*/ "Enter a name that's {max length} characters or less.",
               [s._param("max length", e)],
             )
-          : $(t)
+          : A(t)
             ? s._(/*BTDS*/ "Enter name on card.")
             : null;
       },
@@ -39,8 +43,8 @@ __d(
         var e,
           i = o("BillingCreditCardTypes").BillingCreditCardTypes.unknown;
         (n == null ? void 0 : n.cardNumber) != null
-          ? (i = S(n.cardNumber))
-          : a != null && (i = v(a));
+          ? (i = I(n.cardNumber))
+          : a != null && (i = k(a));
         var l = t.getValue_DO_NOT_USE();
         return !/^\d+$/.test(l) ||
           ((e = i) == null ? void 0 : e.securityCodeLength) !== l.length
@@ -54,25 +58,69 @@ __d(
               ? p
               : m
           : null;
-      },
-      g = function (t, n, o) {
+      };
+    function g(e, t, n) {
+      var a = o("FrontierCardNumberUtils").getCardType(e),
+        i = e.replace(/\D/g, "");
+      if (a.name !== "amex" && i.length < 8) return null;
+      if (a.name === "unknown" || t == null || t === "")
+        return r("BillingCreditCardConstants").unsupportedCardErrorMessage;
+      var l = n === 6,
+        u = o("BillingCountryCurrencyUtils").getCountryName(
+          r("castToEnum")(t, r("ISOCountryCode"), null),
+        );
+      return u.toString() === ""
+        ? l
+          ? s._(
+              /*BTDS*/ "{card type} cards aren\u2019t supported for auto reload. Try adding a different card.",
+              [s._param("card type", F(a.type))],
+            )
+          : s._(
+              /*BTDS*/ "{card type} cards aren\u2019t supported for adding funds. Try adding a different card.",
+              [s._param("card type", F(a.type))],
+            )
+        : l
+          ? s._(
+              /*BTDS*/ "{card type} cards aren\u2019t supported in {country} for auto reload. Try adding a different card.",
+              [s._param("card type", F(a.type)), s._param("country", u)],
+            )
+          : s._(
+              /*BTDS*/ "{card type} cards aren\u2019t supported in {country} for adding funds. Try adding a different card.",
+              [s._param("card type", F(a.type)), s._param("country", u)],
+            );
+    }
+    function h(e, t) {
+      return g(e, t, 3);
+    }
+    function y(e, t, n) {
+      return o("FrontierCardNumberUtils").getCardType(e).name !== "amex"
+        ? null
+        : g(e, t, n);
+    }
+    function C(e, t) {
+      return y(e, t, 3);
+    }
+    function b(e) {
+      return e === 3;
+    }
+    var v = function (t, n, o) {
         n === void 0 && (n = !1);
         var e = s._(/*BTDS*/ "Enter the correct debit or credit card number."),
-          a = S(t);
+          a = I(t);
         return !a.isSupported && !(o != null && o())
           ? r("BillingCreditCardConstants").unsupportedCardErrorMessage
           : t.validate_DO_NOT_LOG(function (e) {
                 return e.length !== a.cardLength;
               }) ||
-              (!n && !R(t))
+              (!n && !T(t))
             ? e
             : null;
       },
-      h = function (t, n, r) {
+      S = function (t, n, r) {
         r === void 0 && (r = new Date());
         var e = s._(/*BTDS*/ "The expiration date you entered is in the past."),
           o = s._(/*BTDS*/ "Enter the correct expiration date."),
-          a = y(t),
+          a = R(t),
           i = a.expirationMonth,
           l = a.expirationYear;
         if (l <= 0 || l > 99 || i <= 0 || i > 12 || t === "/") return o;
@@ -81,7 +129,7 @@ __d(
           d = new Date(c, i - 1);
         return d.getTime() < u.getTime() ? e : null;
       },
-      y = function (t) {
+      R = function (t) {
         var e = t.split("/");
         if (e.length !== 2)
           return {
@@ -97,7 +145,7 @@ __d(
           o = parseInt(e[0], 10);
         return { expirationMonth: o, expirationYear: n, fullExpirationYear: r };
       },
-      C = function (t) {
+      L = function (t) {
         return t.cardNumber !== void 0
           ? t.cardNumber.getLastFour()
           : t.__DO_NOT_USE_LAST_FOUR !== void 0
@@ -106,7 +154,7 @@ __d(
               )
             : "";
       },
-      b = function (t) {
+      E = function (t) {
         for (
           var e = [
               [401178, 401179],
@@ -158,7 +206,7 @@ __d(
           if (n >= e[r][0] && n <= e[r][1]) return !0;
         return !1;
       },
-      v = function (t) {
+      k = function (t) {
         for (var e in o("BillingCreditCardTypes").BillingCreditCardTypes) {
           var n = o("BillingCreditCardTypes").BillingCreditCardTypes[e];
           if (
@@ -169,8 +217,8 @@ __d(
         }
         return o("BillingCreditCardTypes").BillingCreditCardTypes.unknown;
       },
-      S = function (t) {
-        if (b(t)) return o("BillingCreditCardTypes").BillingCreditCardTypes.elo;
+      I = function (t) {
+        if (E(t)) return o("BillingCreditCardTypes").BillingCreditCardTypes.elo;
         if (t.getBin().substring(0, 2) === "65") {
           var e = parseInt(t.getBin(), 10);
           return e >= 652150 && e <= 653143
@@ -183,7 +231,7 @@ __d(
         }
         return o("BillingCreditCardTypes").BillingCreditCardTypes.unknown;
       },
-      R = function (t) {
+      T = function (t) {
         return t.validate_DO_NOT_LOG(function (e) {
           for (
             var t = e.split("").reverse(), n = "", r = 0;
@@ -198,9 +246,9 @@ __d(
           return a !== 0 && a % 10 === 0;
         });
       },
-      L = function (t) {
+      D = function (t) {
         return t.transform_DO_NOT_LOG(function (e) {
-          var n = S(t),
+          var n = I(t),
             a = e.replace(/\D/g, "").substring(0, n.cardLength);
           if (
             n ===
@@ -216,7 +264,7 @@ __d(
           return new (r("BillingCreditCardNumber"))(a);
         });
       },
-      E = function (t) {
+      x = function (t) {
         if (t == null) return "";
         var e = t.replace(/[^\d/]+/g, "");
         return (
@@ -229,42 +277,40 @@ __d(
           e.substring(0, 5)
         );
       },
-      k = function (t, n) {
-        return babelHelpers.extends({}, n, { expiration: E(t) });
+      $ = function (t, n) {
+        return babelHelpers.extends({}, n, { expiration: x(t) });
       },
-      I = function (t, n) {
-        return babelHelpers.extends({}, n, { cardNumber: L(t) });
+      P = function (t, n) {
+        return babelHelpers.extends({}, n, { cardNumber: D(t) });
       };
-    function T(e, t, n, r) {
+    function N(e, t, n, r) {
       return babelHelpers.extends({}, e, {
         cardNetwork: n,
         lastFour: r,
         paymentMethodID: t,
       });
     }
-    function D(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
-      return x.apply(this, arguments);
+    function M(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+      return w.apply(this, arguments);
     }
-    function x() {
+    function w() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, s, u, c, d, m, p, _, f, g, h, C) {
-            var b, v, S, R, L, E;
-            (f === void 0 && (f = !1),
-              g === void 0 && (g = !1),
-              h === void 0 && (h = null));
-            var k = y((b = t.expiration) != null ? b : ""),
-              I = String(k.expirationMonth),
-              T = String(k.fullExpirationYear),
-              D = t.securityCode,
-              x = r("nullthrows")(
-                (v = t.cardNumber) == null
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l, s, u, c, d, m, p, _, f, g, h) {
+            var y, C, b, v, S, L;
+            (f === void 0 && (f = !1), g === void 0 && (g = null));
+            var E = R((y = t.expiration) != null ? y : ""),
+              k = String(E.expirationMonth),
+              I = String(E.fullExpirationYear),
+              T = t.securityCode,
+              D = r("nullthrows")(
+                (C = t.cardNumber) == null
                   ? void 0
-                  : v.getCleanValue_DO_NOT_USE(),
+                  : C.getCleanValue_DO_NOT_USE(),
               ),
-              $ = r("nullthrows")(D == null ? void 0 : D.getValue_DO_NOT_USE()),
-              P = null,
-              N = yield (e || (e = n("Promise"))).all([
+              x = r("nullthrows")(T == null ? void 0 : T.getValue_DO_NOT_USE()),
+              $ = null,
+              P = yield (e || (e = n("Promise"))).all([
                 yield p == null
                   ? void 0
                   : p.ama_user_fq.enabled
@@ -281,51 +327,51 @@ __d(
                   ? void 0
                   : m.AMA_TRUSTED_DEVICE_KEY_REGISTRATION_ENABLED.get(),
               ]),
-              M = N[0],
-              w = N[1],
-              A = o("BillingPTTSharedUtils").generatePTTInputFields($),
-              F = A.authDataFields,
-              O = A.paymentType,
-              B = A.secretPayload,
-              W = babelHelpers.extends(
-                { credit_card: "$e2ee", expiry_month: I, expiry_year: T },
-                F,
+              N = P[0],
+              M = P[1],
+              w = o("BillingPTTSharedUtils").generatePTTInputFields(x),
+              A = w.authDataFields,
+              F = w.paymentType,
+              O = w.secretPayload,
+              B = babelHelpers.extends(
+                { credit_card: "$e2ee", expiry_month: k, expiry_year: I },
+                A,
               ),
-              q =
-                B.csc != null
-                  ? { credit_card: x, csc: B.csc }
-                  : { credit_card: x },
-              U = {
-                authData: W,
+              W =
+                O.csc != null
+                  ? { credit_card: D, csc: O.csc }
+                  : { credit_card: D },
+              q = {
+                authData: B,
                 authInputOperation: f ? "CHARGE" : "ADD_CARD",
                 paymentAccountID: a,
-                paymentType: O,
-                secretPayload: q,
+                paymentType: F,
+                secretPayload: W,
               };
             if (
-              ((P = yield o("BillingPTTUtils").generatePTTWithRequirement(
+              (($ = yield o("BillingPTTUtils").generatePTTWithRequirement(
                 function () {
                   return o("BillingPTTUtils").generatePTT(
-                    U,
+                    q,
                     "save_credit_card",
                     !0,
                     !0,
                     p,
                     m,
                     _,
-                    w && !f,
                     M && !f,
+                    N && !f,
                   );
                 },
-                C,
+                h,
               )),
-              P != null && P !== "")
+              $ != null && $ !== "")
             ) {
-              var V;
-              ((x = U.authData.credit_card),
-                ($ = (V = U.authData.csc) != null ? V : $));
+              var U;
+              ((D = q.authData.credit_card),
+                (x = (U = q.authData.csc) != null ? U : x));
             }
-            var H = {
+            var V = {
                 bin: (function (e, n, r) {
                   var o = (e = t.cardNumber) == null ? void 0 : e.getBin8();
                   return (n =
@@ -338,72 +384,74 @@ __d(
                     : "";
                 })(),
                 cardholder_email:
-                  t.cardHolderEmail != null && t.cardHolderEmail !== ""
+                  t.requirePhoneNumberOrEmail === !0 &&
+                  t.cardHolderEmail != null &&
+                  t.cardHolderEmail !== ""
                     ? t.cardHolderEmail
                     : void 0,
-                cardholder_name: (S = t.firstName) != null ? S : "",
+                cardholder_name: (b = t.firstName) != null ? b : "",
                 cardholder_phone_number:
+                  t.requirePhoneNumberOrEmail === !0 &&
                   t.cardHolderPhoneNumber != null &&
                   t.cardHolderPhoneNumber !== ""
                     ? t.cardHolderPhoneNumber
                     : void 0,
-                credit_card_number: { sensitive_string_value: x },
-                csc: { sensitive_string_value: $ },
-                expiry_month: I,
-                expiry_year: T,
+                credit_card_number: { sensitive_string_value: D },
+                csc: { sensitive_string_value: x },
+                expiry_month: k,
+                expiry_year: I,
                 last_4:
-                  (R = (L = t.cardNumber) == null ? void 0 : L.getLastFour()) !=
+                  (v = (S = t.cardNumber) == null ? void 0 : S.getLastFour()) !=
                   null
-                    ? R
+                    ? v
                     : "",
               },
-              G = {
+              H = {
                 country_code: i,
                 zip:
-                  ((E = t.postalCode) != null ? E : "").length === 0
+                  ((L = t.postalCode) != null ? L : "").length === 0
                     ? void 0
                     : t.postalCode,
               },
-              z = yield o("XPlatReactCrypto").isHardwareBackedAvailable();
+              G = yield o("XPlatReactCrypto").isHardwareBackedAvailable();
             return {
-              billing_address: G,
+              billing_address: H,
               biz_credential_is_sharable:
                 t.credentialSharability != null
                   ? t.credentialSharability === "BUSINESS_SHARABLE"
                   : void 0,
-              card_data: H,
+              card_data: V,
               client_info: d,
               currency: l,
               intent: o("enumUtils").enumValueToKey(
                 u,
                 r("pm_capability_PaymentMethodUsabilityIntent"),
               ),
-              is_hardware_backed_crypto_available: z,
+              is_hardware_backed_crypto_available: G,
               network_tokenization_consent_given: t.verifyTokenizationCheckbox,
               payment_account_id: a,
               payment_intent: s,
-              platform_trust_token: P != null ? P : "",
+              platform_trust_token: $ != null ? $ : "",
               recurring_payment_consent_given: t.verifyRecurringCheckbox,
               set_default: c,
-              share_to_child_payment_account_id: h,
-              skip_cvv_for_eea_save: g,
+              share_to_child_payment_account_id: g,
               upl_logging_data: babelHelpers.extends(
                 {},
                 r("BillingWizardRootUPLogger").getLoggingData(
                   "useBillingAddCreditCardMutation",
                 ),
-                h != null ? { share_to_payment_account_id: h } : {},
+                g != null ? { share_to_payment_account_id: g } : {},
               ),
             };
           },
         )),
-        x.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    var $ = function (t) {
+    var A = function (t) {
       return d.test(t) || c.test(t) || u.test(t);
     };
-    function P(e) {
+    function F(e) {
       return e
         ? e
             .toLowerCase()
@@ -421,20 +469,25 @@ __d(
       ).validatePhoneNumberInput),
       (l.validateFullName = _),
       (l.validateSecurityCode = f),
-      (l.validateCardNumber = g),
-      (l.validateExpiration = h),
-      (l.splitExpirationDate = y),
-      (l.getLastFour = C),
-      (l.isElo = b),
-      (l.getCreditCardTypeFromGraphQLType = v),
-      (l.getCreditCardType = S),
-      (l.formatCardNumber = L),
-      (l.formatExpiration = E),
-      (l.onExpirationChange = k),
-      (l.onCardNumberChange = I),
-      (l.updateCreditCardAfterSave = T),
-      (l.buildSaveCardCredentialInput = D),
-      (l.formatCardType = P));
+      (l.getCardTypeUnsupportedForPrepaidIntentMessage = g),
+      (l.getCardTypeUnsupportedForAddingFundsMessage = h),
+      (l.getAmExUnsupportedForPrepaidIntentMessage = y),
+      (l.getAmExUnsupportedForAddingFundsMessage = C),
+      (l.isPrepaidFundingIntent = b),
+      (l.validateCardNumber = v),
+      (l.validateExpiration = S),
+      (l.splitExpirationDate = R),
+      (l.getLastFour = L),
+      (l.isElo = E),
+      (l.getCreditCardTypeFromGraphQLType = k),
+      (l.getCreditCardType = I),
+      (l.formatCardNumber = D),
+      (l.formatExpiration = x),
+      (l.onExpirationChange = $),
+      (l.onCardNumberChange = P),
+      (l.updateCreditCardAfterSave = N),
+      (l.buildSaveCardCredentialInput = M),
+      (l.formatCardType = F));
   },
   226,
 );

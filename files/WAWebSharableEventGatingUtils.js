@@ -1,38 +1,39 @@
 __d(
   "WAWebSharableEventGatingUtils",
-  ["$InternalEnum", "WATimeUtils", "WAWebABProps"],
+  ["$InternalEnum", "WALogger", "WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (e = n("$InternalEnum"))({
+      s,
+      u = (s = n("$InternalEnum"))({
         Futureproof: 0,
         FutureproofCustomText: 1,
         FullBubble: 2,
       });
-    function u() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "events_v2_invitation_message_version",
       );
     }
-    function c() {
-      return u() > Number(s.Futureproof);
-    }
     function d() {
-      return u() >= Number(s.FullBubble);
+      return c() > Number(u.Futureproof);
     }
-    var m = e({
+    function m() {
+      return c() >= Number(u.FullBubble);
+    }
+    var p = s({
       MessageBubble: 1,
       MessageContextMenu: 2,
       EventDetails: 4,
       RsvpConfirmation: 8,
     });
-    function p(e) {
+    function _(e) {
       var t = Number(e),
         n = o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_add_to_calendar",
         );
       return Math.floor(n / t) % 2 === 1;
     }
-    var _ = e({
+    var f = s({
       EventsList: 1,
       IndividualChatAttachmentTray: 2,
       GroupChatAttachmentTray: 4,
@@ -40,70 +41,79 @@ __d(
       IndividualChatDateDetector: 16,
       GroupChatDateDetector: 32,
     });
-    function f(e) {
+    function g(e) {
       var t = Number(e),
         n = o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_entry_points_creation",
         );
       return Math.floor(n / t) % 2 === 1;
     }
-    var g = e({
+    var h = s({
       EventsList: 1,
       CallsTabHScroll: 2,
       NewCallPicker: 4,
       GroupChat: 8,
       IndividualChat: 16,
     });
-    function h(e) {
+    function y(e) {
       var t = Number(e),
         n = o("WAWebABProps").getABPropConfigValue(
           "enable_scheduled_calls_v2_entry_points_creation",
         );
       return Math.floor(n / t) % 2 === 1;
     }
-    function y() {
+    function C() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "events_v2_enable_notifications",
         ) === !0
       );
     }
-    function C() {
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_on_companion",
         ) === !0
       );
     }
-    function b() {
+    var v = new Set();
+    function S(t) {
+      var n = b();
+      return (
+        !n &&
+          !v.has(t) &&
+          (v.add(t),
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][gate] ",
+                " skipped, enable_events_v2_on_companion is off",
+              ])),
+            t,
+          )),
+        n
+      );
+    }
+    function R() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_invite_message_with_datetime",
         ) === !0
       );
     }
-    function v(e, t) {
-      var n = o("WATimeUtils").unixTime();
-      if (t != null && n > t) return !0;
-      if (e == null) return !1;
-      var r = o("WAWebABProps").getABPropConfigValue(
-        "events_v2_hide_add_to_calendar_post_start_window_sec",
-      );
-      return n >= e + r;
-    }
-    ((l.SharableEventInviteReceivingVersion = s),
-      (l.isSharableEventInviteReceiveEnabled = c),
-      (l.shouldRenderSharableEventInviteBubble = d),
-      (l.SharableEventAddToCalendarEntryPoint = m),
-      (l.isSharableEventAddToCalendarEnabled = p),
-      (l.SharableEventCreationEntryPoint = _),
-      (l.isSharableEventCreationEnabled = f),
-      (l.SharableScheduledCallCreationEntryPoint = g),
-      (l.isSharableScheduledCallCreationEnabled = h),
-      (l.isSharableEventNotificationsEnabled = y),
-      (l.isEventsV2OnCompanionEnabled = C),
-      (l.isSharableEventInviteDatetimeEnabled = b),
-      (l.isAddToCalendarHiddenByEventTime = v));
+    ((l.SharableEventInviteReceivingVersion = u),
+      (l.isSharableEventInviteReceiveEnabled = d),
+      (l.shouldRenderSharableEventInviteBubble = m),
+      (l.SharableEventAddToCalendarEntryPoint = p),
+      (l.isSharableEventAddToCalendarEnabled = _),
+      (l.SharableEventCreationEntryPoint = f),
+      (l.isSharableEventCreationEnabled = g),
+      (l.SharableScheduledCallCreationEntryPoint = h),
+      (l.isSharableScheduledCallCreationEnabled = y),
+      (l.isSharableEventNotificationsEnabled = C),
+      (l.isEventsV2OnCompanionEnabled = b),
+      (l.isEventsV2OnCompanionEnabledForAction = S),
+      (l.isSharableEventInviteDatetimeEnabled = R));
   },
   98,
 );

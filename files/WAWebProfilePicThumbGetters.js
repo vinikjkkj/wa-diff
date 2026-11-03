@@ -124,6 +124,7 @@ __d(
     );
     ((l.FALLBACK = e),
       (l.clearProfilePicThumbGetterCacheFor = h),
+      (l.getTag = b),
       (l.getId = x),
       (l.getImg = $),
       (l.getImgFull = P),

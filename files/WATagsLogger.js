@@ -184,6 +184,9 @@ __d(
               reason: r,
               sampling: o == null ? void 0 : o.sampling,
               sendLogsType: o == null ? void 0 : o.sendLogsType,
+              skipFBLoggerReporting:
+                o == null ? void 0 : o.skipFBLoggerReporting,
+              reportFreshFileLink: o == null ? void 0 : o.reportFreshFileLink,
               separateEmployeeLog: o == null ? void 0 : o.separateEmployeeLog,
               employeeSampling: o == null ? void 0 : o.employeeSampling,
             }),

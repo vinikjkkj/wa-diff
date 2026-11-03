@@ -230,11 +230,8 @@ __d(
     ((l.sendGetGroupExperimentConfigRPC = e),
       (l.parseGetGroupExperimentConfigResponseErrorNoRetry = u),
       (l.parseGetGroupExperimentConfigResponseErrorRetry = c),
-      (l.parseGetGroupExperimentConfigResponseSuccessPropsProp = d),
       (l.parseGetGroupExperimentConfigResponseSuccess = m),
-      (l.parseIQErrorBadRequestOrFeatureNotImplementedMixinGroup = p),
-      (l.makeGetGroupExperimentConfigRequest = _),
-      (l.parseExperimentOrSamplingConfigMixinGroup = f));
+      (l.makeGetGroupExperimentConfigRequest = _));
   },
   98,
 );

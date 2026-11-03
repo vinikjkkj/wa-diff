@@ -1,11 +1,11 @@
 __d(
   "WAWebSharableEventUpdateJob",
   [
+    "WALogger",
     "WAWebBackendApi",
-    "WAWebCanonicalGating",
-    "WAWebCanonicalUtils",
     "WAWebDBSharableEventMetadata",
-    "WAWebRelayClient",
+    "WAWebSharableEventCredentials",
+    "WAWebSharableEventServerClient",
     "WAWebSharableEventServerRows",
     "WAWebSharableEventUpdateJobMutation.graphql",
     "asyncToGeneratorRuntime",
@@ -13,61 +13,92 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u,
+      c,
+      d =
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventUpdateJobMutation.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function c() {
+    function p() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
-          o("WAWebCanonicalGating").isCanonicalEnabled() &&
-            !o("WAWebCanonicalUtils").isCanonicalPresent() &&
-            (yield o("WAWebCanonicalUtils").waitForCanonicalPresent());
-          var n = null,
-            a = yield o("WAWebRelayClient").commitMutation(
-              s,
-              { input: e },
-              {
-                environmentType: "whatsapp_web",
-                getInlineDataReader: function (t) {
-                  n = t;
-                },
-              },
-            ),
-            i =
-              a == null || (t = a.xwa_event_update) == null
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][update] start eventId=",
+                " fields=",
+                "",
+              ])),
+            e.event_id,
+            _(e),
+          ),
+            yield o(
+              "WAWebSharableEventCredentials",
+            ).waitForSharableEventCredentials("update"));
+          var n = yield o(
+              "WAWebSharableEventServerClient",
+            ).mutateSharableEventServer(d, { input: e }),
+            a = n.reader,
+            i = n.response,
+            l =
+              i == null || (t = i.xwa_event_update) == null
                 ? void 0
                 : t.privacy_aware_event,
-            l = n,
-            u =
-              i == null || l == null
+            m =
+              l == null
                 ? null
                 : o("WAWebSharableEventServerRows").readSharableEventMetadata(
+                    a,
                     l,
-                    i,
                   );
-          if (u == null)
+          if (m == null)
             throw r("err")(
               "[sharable_event] xwa_event_update returned no event",
             );
-          var c = yield o(
+          var p = yield o(
               "WAWebDBSharableEventMetadata",
-            ).upsertSharableEventMetadataIfNewer([u], { insertMissing: !1 }),
-            d = c[0];
-          (d == null ? void 0 : d.row) != null &&
+            ).upsertSharableEventMetadataIfNewer([m], { insertMissing: !1 }),
+            f = p[0];
+          if ((f == null ? void 0 : f.row) == null) {
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][update] saved eventId=",
+                  " but not stored: the stored copy is newer or missing",
+                ])),
+              e.event_id,
+            );
+            return;
+          }
+          (o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][update] saved eventId=",
+                "",
+              ])),
+            e.event_id,
+          ),
             o("WAWebBackendApi").frontendFireAndForget(
               "applySharableEventUpdate",
-              { events: [d.row], inviteeLists: [] },
-            );
+              { events: [f.row], inviteeLists: [] },
+            ));
         })),
-        c.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.updateSharableEvent = u;
+    function _(e) {
+      return Object.keys(e)
+        .filter(function (e) {
+          return e !== "event_id" && !e.startsWith("last_updated");
+        })
+        .join(",");
+    }
+    l.updateSharableEvent = m;
   },
   98,
 );

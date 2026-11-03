@@ -7,6 +7,7 @@ __d(
     "WAWebDBSharableEventInvitee",
     "WAWebDBSharableEventMetadata",
     "WAWebSharableEventChangeFlags",
+    "WAWebSharableEventInviteMessageRefreshJob",
     "WAWebSharableEventStorageEnums",
     "asyncToGeneratorRuntime",
   ],
@@ -84,19 +85,22 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e) {
+    function d(e, t) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o("WAWebDBSharableEventDeletion").deleteSharableEventsLocally([
             e,
           ]),
             o("WAWebBackendApi").frontendFireAndForget(
               "applySharableEventUpdate",
               { deletedEventIds: [e] },
-            ));
+            ),
+            yield o(
+              "WAWebSharableEventInviteMessageRefreshJob",
+            ).markSharableEventInviteMessagesEnded([e], t));
         })),
         m.apply(this, arguments)
       );

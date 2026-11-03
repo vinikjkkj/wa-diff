@@ -1,6 +1,7 @@
 __d(
   "WAWebApplySharableEventUpdate",
   [
+    "WAWebMsgCollection",
     "WAWebSharableEventCollection",
     "WAWebSharableEventCreatorPushNameCollection",
     "WAWebSharableEventInviteeCollection",
@@ -14,21 +15,36 @@ __d(
         i,
         l,
         s,
-        u = (t = e.deletedEventIds) != null ? t : [];
-      (u.length > 0 &&
+        u,
+        c = (t = e.deletedEventIds) != null ? t : [];
+      (c.length > 0 &&
         (o(
           "WAWebSharableEventInviteeCollection",
-        ).SharableEventInviteeCollection.removeEvents(u),
-        o("WAWebSharableEventCollection").SharableEventCollection.remove(u)),
+        ).SharableEventInviteeCollection.removeEvents(c),
+        o("WAWebSharableEventCollection").SharableEventCollection.remove(c)),
         o(
           "WAWebSharableEventCreatorPushNameCollection",
         ).SharableEventCreatorPushNameCollection.addRows(
           (n = e.creatorPushNames) != null ? n : [],
-        ),
-        o("WAWebSharableEventCollection").SharableEventCollection.addRows(
-          (r = e.events) != null ? r : [],
-        ),
-        ((a = e.inviteeLists) != null ? a : []).forEach(function (e) {
+        ));
+      var d = (r = e.events) != null ? r : [],
+        m = ((a = e.inviteeLists) != null ? a : []).filter(function (e) {
+          var t = e.eventId,
+            n = d.find(function (e) {
+              return e.eventId === t;
+            });
+          return (
+            n == null ||
+            !o(
+              "WAWebSharableEventCollection",
+            ).SharableEventCollection.hasNewerInvitationThan(
+              t,
+              n.lastInvitationUpdatedTsUsec,
+            )
+          );
+        });
+      (o("WAWebSharableEventCollection").SharableEventCollection.addRows(d),
+        m.forEach(function (e) {
           var t = e.eventId,
             n = e.rows;
           return o(
@@ -45,7 +61,14 @@ __d(
         ).SharableEventCollection.applyUnseenChanges(
           (l = e.unseenChanges) != null ? l : [],
           (s = e.seenEventIds) != null ? s : [],
-        ));
+        ),
+        ((u = e.inviteMessages) != null ? u : []).forEach(function (e) {
+          var t,
+            n = e.fields,
+            r = e.msgKey;
+          (t = o("WAWebMsgCollection").MsgCollection.get(r)) == null ||
+            t.set(n);
+        }));
     }
     l.applySharableEventUpdate = e;
   },

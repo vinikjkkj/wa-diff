@@ -652,8 +652,15 @@ __d(
         r = require("Lexical").$getRoot(),
         i = require("Lexical").$getSelectionSlotFrame(n),
         l = (require("Lexical").$isElementNode(i) ? i : r).getChildren();
-      for (var _e9 = 0; _e9 < l.length; _e9++) E(t, n, l[_e9], o);
-      return { namespace: t._config.namespace, nodes: o };
+      return (
+        require("Lexical").INTERNAL_$withExportMemo(function () {
+          for (var _e9 = 0; _e9 < l.length; _e9++) {
+            var _r8 = l[_e9];
+            E(t, n, _r8, o);
+          }
+        }),
+        { namespace: t._config.namespace, nodes: o }
+      );
     }
     function R(t) {
       var n = [];
@@ -664,8 +671,8 @@ __d(
     function b(t, n, o) {
       if (void 0 === o) {
         var _n0 = require("Lexical").getDOMSelection(t._window),
-          _r8 = require("Lexical").$getSelection();
-        if (!_r8 || _r8.isCollapsed()) return !1;
+          _r9 = require("Lexical").$getSelection();
+        if (!_r9 || _r9.isCollapsed()) return !1;
         if (!_n0) return !1;
         var _i6 = require("Lexical").getDOMSelectionPoints(
             _n0,
@@ -679,7 +686,7 @@ __d(
           !require("Lexical").isSelectionWithinEditor(t, _l4, _s2)
         )
           return !1;
-        o = w(_r8);
+        o = w(_r9);
       }
       n.preventDefault();
       var r = n.clipboardData;
@@ -697,9 +704,9 @@ __d(
         var n = { "text/plain": "" };
         for (var _ref4 of Object.entries(e)) {
           var _o11 = _ref4[0];
-          var _r9 = _ref4[1];
-          if (_r9) {
-            var _e0 = L(_r9, t);
+          var _r0 = _ref4[1];
+          if (_r0) {
+            var _e0 = L(_r0, t);
             null !== _e0 && (n[_o11] = _e0);
           }
         }

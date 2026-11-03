@@ -32,7 +32,7 @@ __d(
             p = i.privateKey,
             _ = c.privateKey,
             f = (l = a.oneTimeKey) == null ? void 0 : l.publicKey,
-            g = r("gkx")("7643")
+            g = r("gkx")("28506")
               ? o("WABinary")
                   .Binary.build.apply(
                     o("WABinary").Binary,
@@ -54,7 +54,7 @@ __d(
             C = h[1],
             b = a.ratchetKey,
             S = o("WASignalSessions").makeFreshRecvChain(b, C),
-            L = r("gkx")("7643")
+            L = r("gkx")("28506")
               ? yield o("WASignalKeys").makeSerializedKeyPairAsync()
               : o("WASignalKeys").makeSerializedKeyPair(),
             k = yield v(y, L, b),
@@ -91,7 +91,7 @@ __d(
               _ = i,
               f = a.pubKey,
               g = (u = l.oneTime) == null ? void 0 : u.privateKey,
-              h = r("gkx")("7643")
+              h = r("gkx")("28506")
                 ? o("WABinary")
                     .Binary.build.apply(
                       o("WABinary").Binary,
@@ -235,7 +235,7 @@ __d(
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = t.privateKey,
             i = n,
-            l = r("gkx")("7643")
+            l = r("gkx")("28506")
               ? yield o("WASignalKeys").ecdhAsync(a, i)
               : o("WASignalKeys").ecdh(a, i),
             s = yield R(new Uint8Array(l), "WhisperRatchet", e),

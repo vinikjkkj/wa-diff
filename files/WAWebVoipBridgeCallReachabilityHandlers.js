@@ -5,7 +5,9 @@ __d(
     "use strict";
     var e = {
       getVoipCallReachability: function () {
-        return o("WAWebMuteCollection").MuteCollection.hasRestoredGlobalSettings
+        return o(
+          "WAWebMuteCollection",
+        ).MuteCollection.isGlobalSettingsRestored()
           ? o("WAWebCallReachability").readCallReachability({
               backgroundSync: o(
                 "WAWebMuteCollection",

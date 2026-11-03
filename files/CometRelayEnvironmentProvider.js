@@ -1,6 +1,12 @@
 __d(
   "CometRelayEnvironmentProvider",
-  ["CometRelay", "CometRelayEnvironment", "react", "react-compiler-runtime"],
+  [
+    "CometRelay",
+    "CometRelayEnvironment",
+    "react",
+    "react-compiler-runtime",
+    "vulture",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -8,8 +14,9 @@ __d(
     function u(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.children,
-        a = e.environment,
-        i = a || r("CometRelayEnvironment"),
+        a = e.environment;
+      r("vulture")("l57QcDnLMiZNlxko1LanENmiINw=");
+      var i = a || r("CometRelayEnvironment"),
         l;
       return (
         t[0] !== n || t[1] !== i

@@ -8,14 +8,18 @@ __d(
     "WAWebFavoriteStickerJob",
     "WAWebMiscGatingUtils",
     "WAWebMsgType",
+    "WAWebShowExternalStickerFavoriteErrorToast.react",
     "WAWebSoundStickerUtils",
     "WAWebStickerAddToFavoriteWamEvent",
     "WAWebStickerModel",
     "WAWebStickerPremiumStatus",
+    "WAWebUploadExternalStickerAction",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(t) {
+    var e, s, u, c, d, m, p, _;
+    function f(t) {
       var n = t
         .filter(function (e) {
           return (
@@ -47,7 +51,7 @@ __d(
             stickerAudio: e.stickerAudio,
           });
         });
-        for (var i of n) y(i);
+        for (var i of n) C(i);
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -70,11 +74,50 @@ __d(
             }));
       }
     }
-    function f(e) {
+    function g(e) {
+      if (e.externalUrl != null) {
+        o("WAWebUploadExternalStickerAction")
+          .withExternalStickerSelection(
+            e,
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  yield o(
+                    "WAWebUploadExternalStickerAction",
+                  ).uploadExternalSticker(e);
+                  var t = new (o("WAWebStickerModel").StickerModel)(
+                    e.toDbData(),
+                  );
+                  ((t.mediaData.accessibilityLabel =
+                    e.mediaData.accessibilityLabel),
+                    g(t));
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          )
+          .catch(function (e) {
+            (o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "External sticker favorite failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("external-sticker-favorite-failed"),
+              o(
+                "WAWebShowExternalStickerFavoriteErrorToast.react",
+              ).showExternalStickerFavoriteErrorToast());
+          });
+        return;
+      }
       r("WAWebAuraGating").canUsePremiumSticker(
         e.mediaData.stickerPremiumStatus,
       ) &&
-        (h(e),
+        (y(e),
         o("WAWebMiscGatingUtils").isFavoriteStickersEnabled()
           ? o("WAWebFavoriteStickerJob")
               .sendFavoriteStickerMutation(
@@ -85,8 +128,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "Favorite Stickers: failed to add favorite sticker: ",
                         "",
                       ])),
@@ -115,8 +158,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "Favorite Stickers: failed to add favorite sticker locally: ",
                         "",
                       ])),
@@ -125,15 +168,15 @@ __d(
                   .sendLogs("favorite-sticker-local-add-failed");
               }));
     }
-    function g(e) {
+    function h(e) {
       o("WAWebMiscGatingUtils").isFavoriteStickersEnabled()
         ? o("WAWebFavoriteStickerJob")
             .sendFavoriteStickerMutation([e], !1, o("WATimeUtils").unixTimeMs())
             .catch(function (e) {
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "Favorite Stickers: failed to remove favorite sticker: ",
                       "",
                     ])),
@@ -145,7 +188,7 @@ __d(
             "WAWebFavoriteStickerCollection",
           ).FavoriteStickerCollection.removeAndSave(e.filehash);
     }
-    function h(e) {
+    function y(e) {
       var t, n, r, a;
       new (o("WAWebStickerAddToFavoriteWamEvent").StickerAddToFavoriteWamEvent)(
         {
@@ -160,7 +203,7 @@ __d(
         },
       ).commit();
     }
-    function y(e) {
+    function C(e) {
       var t, n, r, a;
       new (o("WAWebStickerAddToFavoriteWamEvent").StickerAddToFavoriteWamEvent)(
         {
@@ -177,7 +220,7 @@ __d(
         },
       ).commit();
     }
-    function C(e) {
+    function b(e) {
       var t = new (o("WAWebStickerModel").StickerModel)({
         id: e.filehash,
         mimetype: e.mimetype,
@@ -190,8 +233,8 @@ __d(
         mediaKeyTimestamp: e.mediaKeyTimestamp,
       });
       (o("WALogger").LOG(
-        m ||
-          (m = babelHelpers.taggedTemplateLiteralLoose([
+        p ||
+          (p = babelHelpers.taggedTemplateLiteralLoose([
             "Favorite Stickers: remove favorite sticker with msg.",
           ])),
       ),
@@ -200,8 +243,8 @@ __d(
           .catch(function (e) {
             o("WALogger")
               .ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "Favorite Stickers: failed to remove favorite sticker from msg: ",
                     "",
                   ])),
@@ -210,17 +253,17 @@ __d(
               .sendLogs("favorite-sticker-remove-from-msg-failed");
           }));
     }
-    function b(e) {
+    function v(e) {
       return (
         o("WAWebFavoriteStickerCollection").FavoriteStickerCollection.get(e) !=
         null
       );
     }
-    ((l.addStickerMsgsToFavorites = _),
-      (l.addStickerToFavorites = f),
-      (l.removeStickerFromFavorites = g),
-      (l.removeStickerMsgFromFavorites = C),
-      (l.isStickerFilehashFavorited = b));
+    ((l.addStickerMsgsToFavorites = f),
+      (l.addStickerToFavorites = g),
+      (l.removeStickerFromFavorites = h),
+      (l.removeStickerMsgFromFavorites = b),
+      (l.isStickerFilehashFavorited = v));
   },
   98,
 );

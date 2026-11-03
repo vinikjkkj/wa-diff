@@ -1,6 +1,7 @@
 __d(
   "WAWebQuickPromotionFilters",
   [
+    "WAWebBizAiQuotaReachedEligibleQuickPromotionFilter",
     "WAWebBizBroadcastDeviceCapabilityQuickPromotionFilter",
     "WAWebBizBroadcastDeviceCapabilitySyncQuickPromotionFilter",
     "WAWebBizBroadcastMarketingMessagesEligibilityQuickPromotionFilter",
@@ -16,6 +17,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Map([
+      [
+        o("WAWebBizAiQuotaReachedEligibleQuickPromotionFilter")
+          .bizAiQuotaReachedEligibleFilter.name,
+        o("WAWebBizAiQuotaReachedEligibleQuickPromotionFilter")
+          .bizAiQuotaReachedEligibleFilter,
+      ],
       [
         o("WAWebBizBroadcastDeviceCapabilityQuickPromotionFilter")
           .bizBroadcastDeviceCapabilityFilter.name,

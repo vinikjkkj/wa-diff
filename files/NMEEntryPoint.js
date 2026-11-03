@@ -1801,6 +1801,7 @@ __d(
       NME_IG_PRODASH_NEXT_STEPS_SUPPORT_AWARENESS:
         "nme_ig_prodash_next_steps_support_awareness",
       NME_IG_PRODASH_TOOLS: "nme_ig_prodash_tools",
+      NME_IG_REELS_QP: "nme_ig_reels_qp",
       NME_IG_RENEWAL_PAYMENT_FAILURE_NOTIF:
         "nme_ig_renewal_payment_failure_notif",
       NME_IG_RESUBSCRIBE_NOTIF: "nme_ig_resubscribe_notif",

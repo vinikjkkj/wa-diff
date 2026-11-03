@@ -255,12 +255,8 @@ __d(
     ((l.sendGetExperimentConfigRPC = e),
       (l.parseGetExperimentConfigResponseErrorNoRetry = u),
       (l.parseGetExperimentConfigResponseErrorRetry = c),
-      (l.parseGetExperimentConfigResponseSuccessPropsProp = d),
-      (l.parseGetExperimentConfigResponseSuccessErid = m),
       (l.parseGetExperimentConfigResponseSuccess = p),
-      (l.parseNoRetryErrors = _),
       (l.makeGetExperimentConfigRequest = f),
-      (l.parseConfigs = g),
       (l.ENUM_FALSE_TRUE = h));
   },
   98,

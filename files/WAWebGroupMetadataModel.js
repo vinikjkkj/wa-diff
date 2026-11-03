@@ -233,7 +233,6 @@ __d(
           };
           (this.listenTo(this.participants, "change:isAdmin", t),
             this.listenTo(this.participants, "change:isSuperAdmin", t),
-            this.listenTo(this.participants, "change:contact.isMyContact", t),
             this.listenTo(this.participants, "sort", t),
             this.listenTo(this.participants, "remove", t),
             this.listenTo(this.participants, "reset", t));

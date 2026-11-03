@@ -77,33 +77,38 @@ __d(
     function m(e) {
       var t,
         n,
-        o = r("velocity-animate").Utilities.data(e),
-        a = r("velocity-animate").State.delayedElements;
-      Object.keys(a).forEach(function (t) {
-        var n = a[t];
-        t !== "count" && (n === e || !n) && delete a[t];
+        a = r("velocity-animate").Utilities.data(e),
+        i = r("velocity-animate").State.delayedElements;
+      Object.keys(i).forEach(function (t) {
+        var n = i[t];
+        t !== "count" && (n === e || !n) && delete i[t];
       });
-      var i = (t = r("velocity-animate").State) == null ? void 0 : t.calls;
-      if (i && Array.isArray(i))
-        for (var l = 0; l < i.length; l++) {
-          var s = i[l];
-          if (s) {
-            var u = s[0];
-            if (Array.isArray(u))
-              for (var c = 0; c < u.length; c++) {
-                var d = u[c];
-                if (d && d.element === e) {
-                  i[l] = !1;
+      var l = (t = r("velocity-animate").State) == null ? void 0 : t.calls;
+      if (l && Array.isArray(l))
+        for (var s = 0; s < l.length; s++) {
+          var u = l[s];
+          if (u) {
+            var c = u[0];
+            if (Array.isArray(c))
+              for (var d = 0; d < c.length; d++) {
+                var m = c[d];
+                if (m && m.element === e) {
+                  l[s] = !1;
                   break;
                 }
               }
           }
         }
-      (o != null &&
-        (n = o.velocity) != null &&
+      (a != null &&
+        (n = a.velocity) != null &&
         n.tweensContainer &&
-        (o.velocity.tweensContainer.element = null),
-        r("velocity-animate").Utilities.removeData(e, ["fxqueue", "velocity"]));
+        (a.velocity.tweensContainer.element = null),
+        o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4")
+          ? r("velocity-animate").Utilities.removeData(e)
+          : r("velocity-animate").Utilities.removeData(e, [
+              "fxqueue",
+              "velocity",
+            ]));
     }
     l.default = u;
   },

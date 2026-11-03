@@ -1,6 +1,7 @@
 __d(
   "WAWebSharableEventStoreInvitation",
   [
+    "WAWebBackendApi",
     "WAWebDBSharableEventInvitationList",
     "WAWebSharableEventServerInvitationRows",
     "WAWebSharableEventStoreInvitation_invitation.graphql",
@@ -43,7 +44,48 @@ __d(
         c.apply(this, arguments)
       );
     }
-    l.storeSharableEventInvitation = u;
+    function d(e, t, n, r) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = n == null ? null : yield u(e, t, n);
+            return (
+              a != null
+                ? o("WAWebBackendApi").frontendFireAndForget(
+                    "applySharableEventUpdate",
+                    p(e, a),
+                  )
+                : r != null &&
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "applySharableEventUpdate",
+                    { events: [r], inviteeLists: [] },
+                  ),
+              a
+            );
+          },
+        )),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return {
+        events: [t.row],
+        inviteeLists: [
+          {
+            eventId: e,
+            rows: t.invitees.map(function (t) {
+              return babelHelpers.extends({}, t, { eventId: e });
+            }),
+          },
+        ],
+      };
+    }
+    ((l.storeSharableEventInvitation = u),
+      (l.storeAndSendSharableEventInvitation = d),
+      (l.toSharableEventInvitationUpdate = p));
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebCanonicalUtils",
     "WAWebDeviceIdHeader",
@@ -31,6 +32,10 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4")) {
+            var e = m();
+            if (e != null) return e;
+          }
           return p(yield u.load());
         })),
         d.apply(this, arguments)

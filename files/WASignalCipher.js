@@ -435,7 +435,7 @@ __d(
               f = yield R(_, a);
             if (!f.success) return f;
             var g = f.value,
-              h = r("gkx")("7643")
+              h = r("gkx")("28506")
                 ? yield o("WASignalKeys").makeSerializedKeyPairAsync()
                 : o("WASignalKeys").makeSerializedKeyPair(),
               y = yield o("WASignalWhitepaper").calculateRatchet(

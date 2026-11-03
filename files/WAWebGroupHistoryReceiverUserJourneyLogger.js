@@ -109,19 +109,27 @@ __d(
             });
           }),
           (n.dbInserted = function (t) {
-            var e = t.groupHistoryDbIgnoredOlderMessages,
-              n = t.groupHistoryMessagesCount,
-              r = t.groupHistoryOutWindowPinsCount,
-              a = t.groupHistoryReceiverGroupId;
+            var e = t.groupHistoryBundleApplyDurationMs,
+              n = t.groupHistoryDbIgnoredOlderMessages,
+              r = t.groupHistoryMessagesCount,
+              a = t.groupHistoryOutWindowPinsCount,
+              i = t.groupHistoryPinsCount,
+              l = t.groupHistoryReceiverGroupId,
+              s = t.groupHistoryUncountedMessagesCount,
+              u = t.receiverFailureReason;
             this.$1({
               groupHistoryReceiverActionType: o(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
               ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
                 .GROUP_HISTORY_DB_INSERTED,
-              groupHistoryReceiverGroupId: a,
-              groupHistoryMessagesCount: n,
-              groupHistoryDbIgnoredOlderMessages: e,
-              groupHistoryOutWindowPinsCount: r,
+              groupHistoryReceiverGroupId: l,
+              groupHistoryMessagesCount: r,
+              groupHistoryDbIgnoredOlderMessages: n,
+              groupHistoryOutWindowPinsCount: a,
+              groupHistoryPinsCount: i,
+              groupHistoryUncountedMessagesCount: s,
+              groupHistoryBundleApplyDurationMs: e,
+              receiverFailureReason: u,
             });
           }),
           (n.downloadButtonClicked = function (t) {

@@ -44,7 +44,7 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           var i = o("WACryptoDependencies").getCrypto().subtle,
             l = i.deriveBits;
-          if (!r("gkx")("7643") || _ === i || l == null)
+          if (!r("gkx")("28506") || _ === i || l == null)
             return n("cr:8712").scalarMult(t, a);
           var s = new Uint8Array(p.length + 32);
           (s.set(p), s.set(t, p.length));
@@ -79,7 +79,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!r("gkx")("7643")) return n("cr:8712").box.keyPair();
+          if (!r("gkx")("28506")) return n("cr:8712").box.keyPair();
           var e = n("cr:8712").randomBytes(32),
             t = yield f(e, h);
           return { publicKey: t, secretKey: e };

@@ -255,7 +255,21 @@ __d(
           _ = p[p.length - 1];
         return _ == null ? null : y(_, t);
       }
-      if (e.tokens == null) return null;
+      if (
+        e.type === "br" ||
+        e.type === "codespan" ||
+        e.type === "def" ||
+        e.type === "escape" ||
+        e.type === "hr" ||
+        e.type === "html" ||
+        e.type === "image" ||
+        e.type === "space" ||
+        e.type === "ur-inline-entity" ||
+        e.type === "katex-inline" ||
+        e.type === "katex-block" ||
+        e.tokens == null
+      )
+        return null;
       var f = (n = e.tokens) != null ? n : [];
       return ((e.tokens = (r = t(f)) != null ? r : f), f);
     }

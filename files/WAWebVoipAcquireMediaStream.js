@@ -841,7 +841,12 @@ __d(
         (o("WAWebCoreActionsODS").logCallPermissionDenied(),
           a &&
             St(
-              Lt(e, t, n, r),
+              Lt({
+                captureType: t,
+                error: e,
+                prePromptPermissions: r,
+                shouldCheckVideo: n,
+              }),
               o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK,
               i,
             ));
@@ -895,8 +900,12 @@ __d(
           ? o("WAWebGuidePopup.react").Messaging.CAMERA_UNAVAILABLE
           : o("WAWebGuidePopup.react").Messaging.CAMERA_AND_MIC_UNAVAILABLE;
     }
-    function Lt(e, t, n, r) {
-      return Et(e) ? kt(t) : nt(n, r);
+    function Lt(e) {
+      var t = e.captureType,
+        n = e.error,
+        r = e.prePromptPermissions,
+        o = e.shouldCheckVideo;
+      return Et(n) ? kt(t) : nt(o, r);
     }
     function Et(e) {
       return (

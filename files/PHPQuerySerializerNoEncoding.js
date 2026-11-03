@@ -7,7 +7,7 @@ __d(
       var t = [],
         n = r("flattenPHPQueryData")(e);
       for (var o in n)
-        if (Object.prototype.hasOwnProperty.call(n, o)) {
+        if (Object.hasOwn(n, o)) {
           var a = o;
           n[o] === void 0 ? t.push(a) : t.push(a + "=" + String(n[o]));
         }

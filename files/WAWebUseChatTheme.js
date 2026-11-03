@@ -1,6 +1,11 @@
 __d(
   "WAWebUseChatTheme",
-  ["JSResourceForInteraction", "react", "react-compiler-runtime"],
+  [
+    "JSResourceForInteraction",
+    "WAWebABProps",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -9,9 +14,10 @@ __d(
       c = s.useState,
       d = r("JSResourceForInteraction")(
         "WAWebChatThemeDefinitions.stylex",
-      ).__setRef("WAWebUseChatTheme");
-    function m(e) {
-      var t = o("react-compiler-runtime").c(5),
+      ).__setRef("WAWebUseChatTheme"),
+      m = null;
+    function p(e) {
+      var t = o("react-compiler-runtime").c(6),
         n;
       t[0] !== e
         ? ((n = e === void 0 ? { isChatThemeEnabled: !1 } : e),
@@ -20,29 +26,23 @@ __d(
         : (n = t[1]);
       var r = n,
         a = r.isChatThemeEnabled,
-        i = c(null),
+        i = c(_),
         l = i[0],
         s = i[1],
-        m,
-        p;
+        p,
+        g;
       return (
-        t[2] !== a
-          ? ((m = function () {
-              if (a === !0) {
+        t[2] !== a || t[3] !== l
+          ? ((p = function () {
+              if (!(a !== !0 || l != null)) {
                 var e = !1;
                 return (
                   d.load().then(function (t) {
-                    e ||
-                      s({
-                        getAllColorSchemes: t.getAllColorSchemes,
-                        getAllThemes: t.getAllThemes,
-                        getBaseTheme: t.getBaseTheme,
-                        getBubbleTheme: t.getBubbleTheme,
-                        getChatTheme: t.getChatTheme,
-                        getColorSchemeName: t.getColorSchemeName,
-                        getDoodleThemeOrder: t.getDoodleThemeOrder,
-                        isMinimalScheme: t.isMinimalScheme,
-                      });
+                    var n = f(t);
+                    (o("WAWebABProps").getABPropConfigValue(
+                      "web_memlab_fixes_4",
+                    ) && (m = n),
+                      e || s(n));
                   }),
                   function () {
                     e = !0;
@@ -50,16 +50,34 @@ __d(
                 );
               }
             }),
-            (p = [a]),
+            (g = [a, l]),
             (t[2] = a),
-            (t[3] = m),
-            (t[4] = p))
-          : ((m = t[3]), (p = t[4])),
-        u(m, p),
+            (t[3] = l),
+            (t[4] = p),
+            (t[5] = g))
+          : ((p = t[4]), (g = t[5])),
+        u(p, g),
         a === !0 ? l : null
       );
     }
-    l.useLazyChatThemeDefinitions = m;
+    function _() {
+      return o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4")
+        ? m
+        : null;
+    }
+    function f(e) {
+      return {
+        getAllColorSchemes: e.getAllColorSchemes,
+        getAllThemes: e.getAllThemes,
+        getBaseTheme: e.getBaseTheme,
+        getBubbleTheme: e.getBubbleTheme,
+        getChatTheme: e.getChatTheme,
+        getColorSchemeName: e.getColorSchemeName,
+        getDoodleThemeOrder: e.getDoodleThemeOrder,
+        isMinimalScheme: e.isMinimalScheme,
+      };
+    }
+    l.useLazyChatThemeDefinitions = p;
   },
   98,
 );

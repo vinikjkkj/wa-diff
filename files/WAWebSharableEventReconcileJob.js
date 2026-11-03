@@ -1,36 +1,37 @@
 __d(
   "WAWebSharableEventReconcileJob",
   [
+    "WALogger",
     "WAWebBackendApi",
-    "WAWebCanonicalGating",
-    "WAWebCanonicalUtils",
     "WAWebDBSharableEvent",
     "WAWebDBSharableEventDeletion",
     "WAWebRelayClient",
+    "WAWebSharableEventCredentials",
     "WAWebSharableEventReconcileJobQuery.graphql",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventReconcileJobQuery.graphql"));
-    function u() {
-      return c.apply(this, arguments);
-    }
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = yield o("WAWebDBSharableEvent").getSharableEventIds();
           if (t.length !== 0) {
-            o("WAWebCanonicalGating").isCanonicalEnabled() &&
-              !o("WAWebCanonicalUtils").isCanonicalPresent() &&
-              (yield o("WAWebCanonicalUtils").waitForCanonicalPresent());
+            yield o(
+              "WAWebSharableEventCredentials",
+            ).waitForSharableEventCredentials("reconcile");
             var n = yield o("WAWebRelayClient").fetchQuery(
-                s,
+                u,
                 { input: { event_ids: Array.from(t) } },
                 {
                   environmentType: "whatsapp_web",
@@ -49,20 +50,30 @@ __d(
               l = t.filter(function (e) {
                 return !i.has(e);
               });
-            l.length !== 0 &&
-              (yield o(
-                "WAWebDBSharableEventDeletion",
-              ).deleteSharableEventsLocally(l),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "applySharableEventUpdate",
-                { deletedEventIds: l },
-              ));
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][reconcile] checked=",
+                  " expired=",
+                  "",
+                ])),
+              t.length,
+              l.length,
+            ),
+              l.length !== 0 &&
+                (yield o(
+                  "WAWebDBSharableEventDeletion",
+                ).deleteSharableEventsLocally(l),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "applySharableEventUpdate",
+                  { deletedEventIds: l },
+                )));
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.reconcileSharableEventCache = u;
+    l.reconcileSharableEventCache = c;
   },
   98,
 );

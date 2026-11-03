@@ -86,6 +86,10 @@ __d(
         qrUrl: [62, e.TYPES.STRING],
         musicData: [63, e.TYPES.MESSAGE, p],
         pollAddedOptionName: [64, e.TYPES.STRING],
+        sharableEventInviteStatus: [65, e.TYPES.STRING],
+        sharableEventInviteLocationName: [66, e.TYPES.STRING],
+        sharableEventInviteCoverImageHandle: [67, e.TYPES.STRING],
+        sharableEventInviteLastUpdatedTsUsec: [68, e.TYPES.INT64],
       }),
       (p.name = "MsgOpaqueData$MusicData"),
       (p.internalSpec = {

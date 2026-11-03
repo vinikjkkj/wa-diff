@@ -20,14 +20,17 @@ __d(
       return n == null ? null : o("WAWebChatCollection").ChatCollection.get(n);
     }
     function s(e) {
-      var t = e.groupMetadata;
-      return t == null || !u(t)
-        ? !1
-        : o("WAWebABProps").getABPropConfigValue(
-            "web_invite_options_in_add_membes_enabled",
-          );
+      var t = e == null ? void 0 : e.groupMetadata;
+      if (t == null || !c(t)) return null;
+      var n = o("WAWebABProps").getABPropConfigValue(
+        "web_invite_options_in_add_members_variant",
+      );
+      return n === 1 || n === 2 ? n : null;
     }
     function u(e) {
+      return s(e) != null;
+    }
+    function c(e) {
       if (
         e.support ||
         e.isSuspendedOrTerminated() ||
@@ -44,7 +47,9 @@ __d(
             o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK)
       );
     }
-    ((l.getAddMemberInviteChat = e), (l.shouldShowAddMemberInviteTiles = s));
+    ((l.getAddMemberInviteChat = e),
+      (l.getAddMemberInviteVariant = s),
+      (l.shouldShowAddMemberInviteTiles = u));
   },
   98,
 );

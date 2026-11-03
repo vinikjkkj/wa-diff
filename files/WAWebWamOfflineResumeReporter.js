@@ -328,6 +328,9 @@ __d(
                 ? (this.offlineResume.preackMessageCount += t)
                 : (this.offlineResume.preackReceiptCount += t)));
         }),
+        (a.logPendingPreackCount = function (t) {
+          this.offlineResume && (this.offlineResume.preacksCount = t);
+        }),
         (a.logOfflineBatchRequest = function () {
           this.offlineBatch.requestCount++;
         }),

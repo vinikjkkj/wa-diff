@@ -7,7 +7,7 @@ __d(
       if (e == null) return "";
       if (typeof e == "string") return e;
       try {
-        return String.fromCharCode.apply(null, new Uint16Array(e));
+        return String.fromCharCode.apply(String, new Uint16Array(e));
       } catch (e) {
         return "<error parsing ArrayBuffer>";
       }

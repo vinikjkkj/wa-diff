@@ -1,38 +1,26 @@
 __d(
   "WAWebSharableEventGuestListDrawerWidth",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = null,
-      l = new Set();
+  ["WAWebSharableEventExternalStore"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WAWebSharableEventExternalStore").createSharableEventStore(null);
     function s(t, n, r) {
-      var o,
-        a = ((o = e) == null ? void 0 : o.drawer) === t ? e : null;
-      if (r == null) {
-        if (a == null) return;
-        e = null;
-      } else {
-        if (a != null && a.widthPx === r) return;
-        e = { drawer: t, eventId: n, widthPx: r };
-      }
-      l.forEach(function (e) {
-        return e();
-      });
+      var o = e.get(),
+        a = (o == null ? void 0 : o.drawer) === t ? o : null;
+      r == null
+        ? a != null && e.set(null)
+        : (a == null || a.widthPx !== r) &&
+          e.set({ drawer: t, eventId: n, widthPx: r });
     }
     function u(t) {
-      var n = e;
+      var n = e.get();
       return n != null && n.eventId === t ? n.widthPx : 0;
     }
-    function c(e) {
-      return (
-        l.add(e),
-        function () {
-          l.delete(e);
-        }
-      );
+    function c(t) {
+      return e.subscribe(t);
     }
-    ((i.reportSharableEventGuestListDrawerWidth = s),
-      (i.getSharableEventGuestListDrawerWidth = u),
-      (i.subscribeToSharableEventGuestListDrawerWidth = c));
+    ((l.reportSharableEventGuestListDrawerWidth = s),
+      (l.getSharableEventGuestListDrawerWidth = u),
+      (l.subscribeToSharableEventGuestListDrawerWidth = c));
   },
-  66,
+  98,
 );

@@ -1,6 +1,10 @@
 __d(
   "WAWebSharableEventNotificationStrings",
-  ["fbt", "WAWebSharableEventNotificationConstants"],
+  [
+    "fbt",
+    "WAWebSharableEventNotificationConstants",
+    "WAWebSharableEventStorageEnums",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return (function (e) {
@@ -89,32 +93,31 @@ __d(
     }
     function p(e, t) {
       return e ===
-        o("WAWebSharableEventNotificationConstants")
-          .SharableEventNotificationRsvpStatus.Going
+        o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus.Going
         ? s
             ._(/*BTDS*/ "\ud83d\uddd3 Going to {eventName}", [
               s._param("eventName", t),
             ])
             .toString()
         : e ===
-            o("WAWebSharableEventNotificationConstants")
-              .SharableEventNotificationRsvpStatus.Maybe
+            o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
+              .Maybe
           ? s
               ._(/*BTDS*/ "\ud83d\uddd3 Maybe going to {eventName}", [
                 s._param("eventName", t),
               ])
               .toString()
           : e ===
-              o("WAWebSharableEventNotificationConstants")
-                .SharableEventNotificationRsvpStatus.NotGoing
+              o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
+                .NotGoing
             ? s
                 ._(/*BTDS*/ "\ud83d\uddd3 Not going to {eventName}", [
                   s._param("eventName", t),
                 ])
                 .toString()
             : e ===
-                o("WAWebSharableEventNotificationConstants")
-                  .SharableEventNotificationRsvpStatus.NoResponse
+                o("WAWebSharableEventStorageEnums")
+                  .SharableEventStoredRsvpStatus.NoResponse
               ? null
               : (function () {
                   throw Error(

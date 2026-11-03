@@ -22,12 +22,40 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t, n) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            e.length === 0 ||
+            !o("WAWebDBSharableEvent").canUseSharableEventStorage()
+          )
+            return [];
+          var n = yield o("WAWebSchemaSharableEventInvitee")
+            .getSharableEventInviteeTable()
+            .bulkGet(
+              e.map(function (e) {
+                return o(
+                  "WAWebSchemaSharableEventInvitee",
+                ).createSharableEventInviteePrimaryKey({
+                  eventId: e,
+                  inviteeLid: t,
+                });
+              }),
+            );
+          return n.filter(Boolean);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t, n) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (!o("WAWebDBSharableEvent").canUseSharableEventStorage())
             return null;
           var a = null;
@@ -77,11 +105,12 @@ __d(
             a
           );
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
     ((l.getSharableEventInvitees = e),
-      (l.replaceSharableEventInvitationsIfNewer = u));
+      (l.getSharableEventInviteeRowsFor = u),
+      (l.replaceSharableEventInvitationsIfNewer = d));
   },
   98,
 );

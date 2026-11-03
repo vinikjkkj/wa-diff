@@ -45,14 +45,14 @@ __d(
       x = !1,
       $ = !1,
       P = !0,
-      N = (function (t) {
+      N = !1,
+      M = (function (t) {
         function n() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.isGranularNotificationsEnabled = !1),
-            (e.hasRestoredGlobalSettings = !1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -138,7 +138,10 @@ __d(
               this.setGlobalStatusSoundsEnabled(
                 o("WAWebUserPrefsNotifications").getGlobalStatusSoundsEnabled(),
               ),
-              (this.hasRestoredGlobalSettings = !0));
+              (N = !0));
+          }),
+          (a.isGlobalSettingsRestored = function () {
+            return N;
           }),
           (a.saveToCache = function () {
             if (o("WAWebConnModel").Conn.shouldSaveToCache()) {
@@ -202,13 +205,13 @@ __d(
                 this.setGlobalStatusNotificationsEnabled(t)));
           }),
           (a.getGlobalCallNotifications = function () {
-            return m || w();
+            return m || A();
           }),
           (a.setGlobalCallNotifications = function (t) {
             (this.$MuteCollectionImpl$p_2(), this.$MuteCollectionImpl$p_3(t));
           }),
           (a.setGlobalCallNotificationsFromSync = function (t, n) {
-            (!t && A(n)) || this.setGlobalCallNotifications(t);
+            (!t && F(n)) || this.setGlobalCallNotifications(t);
           }),
           (a.getGlobalCallNotificationsMuteExpiration = function () {
             return this.getGlobalCallNotifications() ? null : p;
@@ -249,7 +252,7 @@ __d(
           }),
           (a.$MuteCollectionImpl$p_4 = function () {
             var e = this;
-            W();
+            q();
             var t = p;
             if (!(m || t == null)) {
               var n = Math.max(
@@ -258,12 +261,12 @@ __d(
                   1e3,
               );
               f = self.setTimeout(function () {
-                (e.setGlobalCallNotifications(!0), O());
+                (e.setGlobalCallNotifications(!0), B());
               }, n);
             }
           }),
           (a.$MuteCollectionImpl$p_2 = function () {
-            (W(),
+            (q(),
               (p = null),
               o(
                 "WAWebUserPrefsNotifications",
@@ -410,37 +413,37 @@ __d(
           n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    ((N.model = o("WAWebMuteModel").Mute),
-      (N.cachePolicy = {
+    ((M.model = o("WAWebMuteModel").Mute),
+      (M.cachePolicy = {
         id: o("WAWebUserPrefsKeys").COLLECTIONS_KEYS.MUTE_COLLECTION,
         policy: o("WAWebBaseCachePolicy").CACHE_POLICY.LOAD,
         delay: 1e3,
       }));
-    var M = new N();
-    function w() {
+    var w = new M();
+    function A() {
       return (
         !m &&
         p != null &&
         p <= o("WATimeUtils").unixTimeWithoutClockSkewCorrection()
       );
     }
-    function A(e) {
+    function F(e) {
       var t = _;
       return !m && p != null && t != null && e != null && e <= t + g;
     }
-    var F = r("WAWebLazyLoadedRetriable")(function () {
+    var O = r("WAWebLazyLoadedRetriable")(function () {
       return r("JSResourceForInteraction")("WAWebSettingsSyncBridge")
         .__setRef("WAWebMuteCollection")
         .load();
     }, "SettingsSyncBridge");
-    function O() {
-      return B.apply(this, arguments);
-    }
     function B() {
+      return W.apply(this, arguments);
+    }
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            var e = yield F(),
+            var e = yield O(),
               t = e.sendSettingChange;
             yield t("isCallsNotificationEnabled", !0);
           } catch (e) {
@@ -455,13 +458,13 @@ __d(
               .sendLogs("calls-notification-unmute-sync-failed");
           }
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W() {
+    function q() {
       f != null && (self.clearTimeout(f), (f = null));
     }
-    l.MuteCollection = M;
+    l.MuteCollection = w;
   },
   98,
 );

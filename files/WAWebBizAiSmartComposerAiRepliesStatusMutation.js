@@ -73,13 +73,15 @@ __d(
                   e == null
                     ? void 0
                     : e.xfb_whatsapp_smb_maiba_ai_replies_status_update;
-                return (t == null ? void 0 : t.success) !== !0
-                  ? f
-                  : {
-                      success: !0,
-                      suggestedRepliesEnabled: t.suggested_replies_enabled,
-                      updateTimestampMs: v(t.update_timestamp_ms),
-                    };
+                if ((t == null ? void 0 : t.success) !== !0) {
+                  var n = t == null ? void 0 : t.error_code;
+                  return n != null ? { errorCode: n, success: !1 } : f;
+                }
+                return {
+                  success: !0,
+                  suggestedRepliesEnabled: t.suggested_replies_enabled,
+                  updateTimestampMs: v(t.update_timestamp_ms),
+                };
               })
               .catch(function (e) {
                 return (

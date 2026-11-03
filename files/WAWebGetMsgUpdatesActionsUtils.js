@@ -30,6 +30,7 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebPaymentRequestMsgAction",
     "WAWebPollsInvalidateChatPollMsgsAction",
+    "WAWebRevoke",
     "WAWebRevokeMsgAction",
     "WAWebTemplateButtonCollection",
     "WAWebTemplateButtonModel",
@@ -54,28 +55,28 @@ __d(
             L = t.msgObjs,
             k = [],
             I = [],
-            $ = [],
-            P = 0,
+            P = [],
             N = 0,
             M = 0,
-            w = [],
-            A = 0,
+            w = 0,
+            A = [],
             F = 0,
-            O = [],
-            B = 0,
-            W = [],
-            q = 0,
-            U = [],
-            V = 0,
-            H = [],
-            G = 0,
-            z = [],
-            j = 0,
-            K = [],
-            Q = 0,
-            X = [],
-            Y = 0,
-            J = self.performance.now();
+            O = 0,
+            B = [],
+            W = 0,
+            q = [],
+            U = 0,
+            V = [],
+            H = 0,
+            G = [],
+            z = 0,
+            j = [],
+            K = 0,
+            Q = [],
+            X = 0,
+            Y = [],
+            J = 0,
+            Z = self.performance.now();
           (yield (E || (E = n("Promise"))).all(
             L.map(
               (function () {
@@ -84,7 +85,7 @@ __d(
                     var n, s;
                     (t.id instanceof r("WAWebMsgKey") ||
                       (t.self != null,
-                      Y++,
+                      J++,
                       (t.id = new (r("WAWebMsgKey"))({
                         from: t.from,
                         to: t.to,
@@ -112,8 +113,8 @@ __d(
                         t.ack < o("WAWebAck").ACK.CLOCK &&
                         (t.ack = o("WAWebAck").ACK.CLOCK),
                       r("WAWebWid").isNewsletter(t.id.remote) ||
-                        (t.hydratedButtons != null && T(t),
-                        t.dynamicReplyButtons != null && D(t)),
+                        (t.hydratedButtons != null && D(t),
+                        t.dynamicReplyButtons != null && x(t)),
                       (s = o("WAWebInvisiblePlaceholderViewModeProcessor")
                         .InvisiblePlaceholderViewModeProcessor
                         .compatibleMessageTypes) != null &&
@@ -166,13 +167,13 @@ __d(
                               (!o("WAWebMsgGetters").getIsGroupMsg(u) &&
                                 !o("WAWebMsgGetters").getIsNewsletterMsg(u))
                             )
-                              P++;
+                              N++;
                             else if (
                               !r("WAWebWid").equals(u.id.remote, t.id.remote)
                             )
-                              N++;
+                              M++;
                             else {
-                              (M++, w.length < 3 && w.push(u.id.toString()));
+                              (w++, A.length < 3 && A.push(u.id.toString()));
                               var f = new (o("WAWebMsgModel").Msg)(t),
                                 g = r("nullthrows")(p);
                               if (o("WAWebMsgGetters").getIsGroupMsg(u)) {
@@ -205,7 +206,7 @@ __d(
                                       ],
                                       reason: null,
                                     };
-                                    A++;
+                                    F++;
                                     var v = yield o(
                                       "WAWebGroupSystemMsg",
                                     ).genGroupNotificationMsg({
@@ -290,76 +291,64 @@ __d(
                             u)
                           ) {
                             var E,
-                              J,
                               Z,
-                              ee = new (o("WAWebMsgModel").Msg)(t),
-                              te =
+                              ee,
+                              te = new (o("WAWebMsgModel").Msg)(t),
+                              ne =
                                 (E = u) == null ? void 0 : E.botTargetSenderJid,
-                              ne = o("WAWebMsgGetters").getSender(ee),
-                              re = o(
+                              re = o("WAWebMsgGetters").getSender(te),
+                              oe = o(
                                 "WAWebCoexV2RevokeAuthorization",
                               ).getCoexV2RevokeAuthorization(
                                 u.senderWithDevice,
                                 u.metaFrom,
-                                (J = ee.senderWithDevice) != null ? J : ne,
+                                (Z = te.senderWithDevice) != null ? Z : re,
                                 !1,
                               );
                             if (
-                              re == null &&
-                              te != null &&
-                              (Z = u.id.participant) != null &&
-                              Z.isBot() &&
+                              oe == null &&
+                              ne != null &&
+                              (ee = u.id.participant) != null &&
+                              ee.isBot() &&
                               r("WAWebWid").equals.apply(
                                 r("WAWebWid"),
                                 o(
                                   "WAWebLidMigrationUtils",
-                                ).toCommonAddressingMode(te, ne),
+                                ).toCommonAddressingMode(ne, re),
                               ) &&
-                              ne != null
+                              re != null
                             )
-                              (F++,
-                                O.length < 3 && O.push(u.id.toString()),
+                              (O++,
+                                B.length < 3 && B.push(u.id.toString()),
                                 o("WAWebRevokeMsgAction").revoke(u, {
-                                  msgKey: ee.id,
-                                  subtype: ee.subtype,
-                                  sender: ne,
-                                  revokeTimestamp: ee.t,
+                                  msgKey: te.id,
+                                  subtype: te.subtype,
+                                  sender: re,
+                                  revokeTimestamp: te.t,
                                 }));
                             else if (
-                              ne != null &&
-                              (re === !0 ||
-                                (re == null &&
-                                  r("WAWebWid").equals.apply(
-                                    r("WAWebWid"),
-                                    o(
-                                      "WAWebLidMigrationUtils",
-                                    ).toCommonAddressingMode(
-                                      o("WAWebMsgGetters").getIsGroupStatus(u)
-                                        ? u.id.participant
-                                        : o("WAWebMsgGetters").getSender(u),
-                                      ne,
-                                    ),
-                                  )))
+                              re != null &&
+                              (oe === !0 || (oe == null && T(u, te, re)))
                             ) {
                               if (
-                                (B++,
-                                W.length < 3 && W.push(u.id.toString()),
+                                (W++,
+                                q.length < 3 && q.push(u.id.toString()),
                                 o("WAWebMsgGetters").getIsStatus(u))
                               ) {
-                                var oe = u.getMsgChunk();
-                                oe && oe.remove(u);
+                                var ae = u.getMsgChunk();
+                                ae && ae.remove(u);
                               }
                               o("WAWebRevokeMsgAction").revoke(u, {
-                                msgKey: ee.id,
-                                subtype: ee.subtype,
-                                sender: ne,
-                                revokeTimestamp: ee.t,
+                                msgKey: te.id,
+                                subtype: te.subtype,
+                                sender: re,
+                                revokeTimestamp: te.t,
                               });
                             } else
-                              (q++,
-                                U.length < 3 &&
-                                  U.push(
-                                    ee.id.toString() + " <> " + u.id.toString(),
+                              (U++,
+                                V.length < 3 &&
+                                  V.push(
+                                    te.id.toString() + " <> " + u.id.toString(),
                                   ));
                           }
                           break;
@@ -372,7 +361,7 @@ __d(
                         case "biz_ai_metadata_sync":
                           break;
                         default:
-                          (V++, H.length < 3 && H.push(t.id.toString()));
+                          (H++, G.length < 3 && G.push(t.id.toString()));
                           break;
                       }
                     else if (
@@ -380,70 +369,70 @@ __d(
                       !o("WAWebFrontendMsgGetters").getAsRevoked(u)
                     ) {
                       t.ack < u.ack && delete t.ack;
-                      for (var ae in t)
-                        Object.hasOwn(t, ae) &&
-                          typeof t[ae] == "undefined" &&
-                          delete t[ae];
+                      for (var ie in t)
+                        Object.hasOwn(t, ie) &&
+                          typeof t[ie] == "undefined" &&
+                          delete t[ie];
                       (u.type !== t.type && (t.subtype = t.subtype || void 0),
                         l.isHistory === !0 && (t.isNewMsg = !1));
-                      var ie = u.t
+                      var le = u.t
                           ? r("omit")(t, ["t", "id", "from", "to"])
                           : t,
-                        le = u.applyUpdate(ie).then(function () {
+                        se = u.applyUpdate(le).then(function () {
                           return u;
                         });
                       if (
-                        ($.push(le), r("WAWebWid").isBroadcast(u.id.remote))
+                        (P.push(se), r("WAWebWid").isBroadcast(u.id.remote))
                       ) {
-                        var se =
+                        var ue =
                           o("WAWebMsgModelUtils").getBroadcastFanoutKeys(u);
-                        se &&
-                          se.forEach(function (e) {
+                        ue &&
+                          ue.forEach(function (e) {
                             var t =
                               o("WAWebMsgCollection").MsgCollection.get(e);
                             t &&
-                              $.push(
-                                t.applyUpdate(ie).then(function () {
+                              P.push(
+                                t.applyUpdate(le).then(function () {
                                   return u;
                                 }),
                               );
                           });
                       }
                       l.isHistory === !0 && (u.recvFresh || i) && !u.search
-                        ? (G++,
-                          z.length < 3 &&
-                            z.push(
+                        ? (z++,
+                          j.length < 3 &&
+                            j.push(
                               (u.recvFresh ? "dup:" : "overlap:") +
                                 String(u.id),
                             ),
                           I.push(u))
                         : l.isHistory === !0 && u.search
                           ? ((u.search = !1),
-                            j++,
-                            K.length < 3 && K.push(String(u.id)),
+                            K++,
+                            Q.length < 3 && Q.push(String(u.id)),
                             k.push({ id: u.id }))
                           : l.add === "search" && k.push({ id: u.id });
                     } else {
-                      var ue;
+                      var ce;
                       t.subtype === "payment_action_request_declined" ||
                       t.subtype === "payment_transaction_request_cancelled"
-                        ? $.push(
+                        ? P.push(
                             o(
                               "WAWebPaymentRequestMsgAction",
                             ).cancelOrDeclinePaymentRequest(t),
                           )
                         : t.type === o("WAWebMsgType").MSG_TYPE.PAYMENT &&
                           t.subtype === "send" &&
-                          $.push(
+                          P.push(
                             o(
                               "WAWebPaymentRequestMsgAction",
                             ).fulfillPaymentRequest(t),
                           );
-                      var ce =
-                        (ue = o("WAWebChatCollection").ChatCollection.get(
+                      var de =
+                        (ce = o("WAWebChatCollection").ChatCollection.get(
                           t.id.remote,
                         )) != null
-                          ? ue
+                          ? ce
                           : r("WAWebNewsletterCollection").get(t.id.remote);
                       if (
                         (l.add === "search" && (t.search = !0),
@@ -457,18 +446,18 @@ __d(
                         l.update !== !0 && k.push(t),
                         l.isHistory !== !0 &&
                           l.add !== "search" &&
-                          ce &&
-                          $.push(x(t, ce)),
-                        t.ephemeralOutOfSync && (Q++, X.length < 3))
+                          de &&
+                          P.push($(t, de)),
+                        t.ephemeralOutOfSync && (X++, Y.length < 3))
                       ) {
-                        var de;
-                        X.push(
+                        var me;
+                        Y.push(
                           "msgId=" +
                             t.id.toString() +
                             " chatId=" +
-                            ((de = ce == null ? void 0 : ce.id.toString()) !=
+                            ((me = de == null ? void 0 : de.id.toString()) !=
                             null
-                              ? de
+                              ? me
                               : "unknown"),
                         );
                       }
@@ -481,14 +470,14 @@ __d(
               })(),
             ),
           ),
-            P > 0 &&
+            N > 0 &&
               (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "getMsgUpdates: ",
                     " messages not revoked (non-group)",
                   ])),
-                P,
+                N,
               ),
               o("WALogger").ERROR(
                 u ||
@@ -496,16 +485,16 @@ __d(
                     "getMsgUpdates: admin revoke was sent to ",
                     " non-group chats",
                   ])),
-                P,
+                N,
               )),
-            N > 0 &&
+            M > 0 &&
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "getMsgUpdates: ",
                     " messages not revoked (remote mismatch)",
                   ])),
-                N,
+                M,
               ),
               o("WALogger").ERROR(
                 d ||
@@ -513,9 +502,9 @@ __d(
                     "getMsgUpdates: admin revoke group mismatch cnt=",
                     "",
                   ])),
-                N,
+                M,
               )),
-            M > 0 &&
+            w > 0 &&
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -523,19 +512,19 @@ __d(
                     " messages => ",
                     "",
                   ])),
-                M,
                 w,
+                A,
               ),
-            A > 0 &&
+            F > 0 &&
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[system message] msg updates - ADD - ADMIN: ",
                     " messages",
                   ])),
-                A,
+                F,
               ),
-            F > 0 &&
+            O > 0 &&
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -543,10 +532,10 @@ __d(
                     " bot responses => ",
                     "",
                   ])),
-                F,
                 O,
+                B,
               ),
-            B > 0 &&
+            W > 0 &&
               o("WALogger").LOG(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -554,10 +543,10 @@ __d(
                     " messages => ",
                     "",
                   ])),
-                B,
                 W,
+                q,
               ),
-            q > 0 &&
+            U > 0 &&
               o("WALogger").WARN(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -565,10 +554,10 @@ __d(
                     " sender mismatches => ",
                     "",
                   ])),
-                q,
                 U,
+                V,
               ),
-            V > 0 &&
+            H > 0 &&
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -576,10 +565,10 @@ __d(
                     " messages => ",
                     "",
                   ])),
-                V,
                 H,
+                G,
               ),
-            G > 0 &&
+            z > 0 &&
               o("WALogger").WARN(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -587,10 +576,10 @@ __d(
                     " dup/overlap messages => ",
                     "",
                   ])),
-                G,
                 z,
+                j,
               ),
-            j > 0 &&
+            K > 0 &&
               o("WALogger").WARN(
                 C ||
                   (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -598,10 +587,10 @@ __d(
                     " msgs => ",
                     "",
                   ])),
-                j,
                 K,
+                Q,
               ),
-            Q > 0 &&
+            X > 0 &&
               o("WALogger").LOG(
                 b ||
                   (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -609,10 +598,10 @@ __d(
                     " messages => ",
                     "",
                   ])),
-                Q,
                 X,
+                Y,
               ),
-            Y > 0 &&
+            J > 0 &&
               (o("WALogger").LOG(
                 v ||
                   (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -620,7 +609,7 @@ __d(
                     " of ",
                     " messages",
                   ])),
-                Y,
+                J,
                 L.length,
               ),
               r("gkx")("26258") ||
@@ -632,9 +621,9 @@ __d(
                       ])),
                   )
                   .sendLogs("forgot-to-create-msgkey")));
-          var Z = self.performance.now() - J;
+          var ee = self.performance.now() - Z;
           return (
-            Z >= 500 &&
+            ee >= 500 &&
               o("WALogger").LOG(
                 R ||
                   (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -647,19 +636,38 @@ __d(
                     "",
                   ])),
                 L.length,
-                Math.round(Z),
+                Math.round(ee),
                 k.length,
                 I.length,
-                $.length,
-                Q,
+                P.length,
+                X,
               ),
-            { filteredRecs: k, reorderRecs: I, updates: $ }
+            { filteredRecs: k, reorderRecs: I, updates: P }
           );
         })),
         I.apply(this, arguments)
       );
     }
-    function T(e) {
+    function T(e, t, n) {
+      var a;
+      return (
+        r("WAWebWid").equals.apply(
+          r("WAWebWid"),
+          o("WAWebLidMigrationUtils").toCommonAddressingMode(
+            o("WAWebMsgGetters").getIsGroupStatus(e)
+              ? e.id.participant
+              : o("WAWebMsgGetters").getSender(e),
+            n,
+          ),
+        ) ||
+        o("WAWebRevoke").isMyRevokeOfHatchAgentReply({
+          revokeKey: t.id,
+          revoker: (a = t.senderWithDevice) != null ? a : n,
+          targetKey: e.id,
+        })
+      );
+    }
+    function D(e) {
       var t = function (t, n) {
         var e,
           o,
@@ -691,7 +699,7 @@ __d(
       ).TemplateButtonCollection)()),
         e.buttons.add(e.hydratedButtons.map(t)));
     }
-    function D(e) {
+    function x(e) {
       var t = function (t) {
         var e = t.buttonId,
           n = t.buttonText;
@@ -703,12 +711,12 @@ __d(
       ((e.replyButtons = new (r("WAWebButtonCollection"))()),
         e.replyButtons.add(e.dynamicReplyButtons.map(t)));
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!e.isNewMsg || !e.recvFresh)
             return (
               o("WALogger")
@@ -740,7 +748,7 @@ __d(
             o("WAWebInvalidateEventsAction").invalidateEventMsgsForChat(t)),
             yield o("WAWebEphemeralSyncResponse").syncEphemeralSetting(e, t));
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     l.default = k;

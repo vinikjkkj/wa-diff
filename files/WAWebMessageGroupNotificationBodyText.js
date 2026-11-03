@@ -431,13 +431,13 @@ __d(
                   "WAWebMessageCommunityWelcomeAdminTitle.react",
                 ).communityWelcomeAdminTitle({
                   author: c,
-                  chat: y,
+                  groupMetadata: y.groupMetadata,
                   templateParams: g,
                 })
               : d.jsx(
                   o("WAWebMessageCommunityWelcomeAdmin.react")
                     .MessageCommunityWelcomeAdmin,
-                  { author: c, chat: y, templateParams: g },
+                  { author: c, chatId: y.id, templateParams: g },
                 ),
           };
         case "community_participant_add_rich":
@@ -451,7 +451,7 @@ __d(
               : d.jsx(
                   o("WAWebMessageCommunityWelcomeMember.react")
                     .MessageCommunityWelcomeMember,
-                  { templateParams: g, clickable: a, author: c, chat: y },
+                  { templateParams: g, clickable: a, author: c, chatId: y.id },
                 ),
           };
         case "subgroup_admin_triggered_auto_add":
@@ -479,7 +479,7 @@ __d(
               : d.jsx(
                   o("WAWebMessageCommunitySubgroupWelcome.react")
                     .MessageCommunitySubgroupWelcome,
-                  { chat: y, author: c, templateParams: g, clickable: a },
+                  { chatId: y.id, author: c, templateParams: g, clickable: a },
                 ),
           };
         case "community_link_parent_group_rich":
@@ -495,7 +495,7 @@ __d(
               : d.jsx(
                   o("WAWebMessageCommunityLinkGroup.react")
                     .MessageCommunityLinkGroup,
-                  { chat: y, author: c, templateParams: g, clickable: a },
+                  { chatId: y.id, author: c, templateParams: g, clickable: a },
                 ),
           };
         case "ephemeral_keep_in_chat":
@@ -536,7 +536,7 @@ __d(
                 ).communityEmptySubgroupWelcomeTitle(y.formattedTitle)
               : d.jsx(r("WAWebMessageCommunityEmptySubgroupWelcome.react"), {
                   templateParams: g,
-                  subgroupChat: y,
+                  subgroupChatId: y.id,
                 }),
           };
         case "member_add_mode": {
@@ -586,7 +586,7 @@ __d(
                 ).communityGeneralChatWelcomeTitle(y.formattedTitle)
               : d.jsx(r("WAWebMessageCommunityGeneralChatWelcome.react"), {
                   templateParams: g,
-                  subgroupChat: y,
+                  subgroupChatId: y.id,
                   author: c,
                 }),
           };

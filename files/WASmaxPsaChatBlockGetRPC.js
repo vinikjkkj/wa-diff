@@ -106,8 +106,7 @@ __d(
     ((l.sendChatBlockGetRPC = e),
       (l.parseChatBlockGetResponseServerError = u),
       (l.parseChatBlockGetResponseSuccess = c),
-      (l.makeChatBlockGetRequest = d),
-      (l.mergeBaseIQGetRequestMixin = p));
+      (l.makeChatBlockGetRequest = d));
   },
   98,
 );

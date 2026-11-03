@@ -61,7 +61,12 @@ __d(
           : m(v, S, h)
         : L != null
           ? f(v, S, y.length - 1, h, L)
-          : p(v, S, y.length - 1, h);
+          : p({
+              authorName: v,
+              firstReceiverName: S,
+              otherReceiverCount: y.length - 1,
+              timestampString: h,
+            });
     }
     function d() {
       return s._(/*BTDS*/ "Message history was sent");
@@ -76,14 +81,18 @@ __d(
         ],
       );
     }
-    function p(e, t, n, o) {
+    function p(e) {
+      var t = e.authorName,
+        n = e.firstReceiverName,
+        o = e.otherReceiverCount,
+        a = e.timestampString;
       return s._(
         /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}"}',
         [
-          s._plural(n, "number", r("WAWebL10N").n(n)),
-          s._param("author name", e),
-          s._param("receiver name", t),
-          s._param("timestamp", o),
+          s._plural(o, "number", r("WAWebL10N").n(o)),
+          s._param("author name", t),
+          s._param("receiver name", n),
+          s._param("timestamp", a),
         ],
       );
     }

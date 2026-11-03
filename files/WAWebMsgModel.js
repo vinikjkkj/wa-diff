@@ -287,6 +287,12 @@ __d(
             (e.sharableEventInviteIsCanceled = o("WAWebBaseModel").prop()),
             (e.sharableEventInviteJpegThumbnail = o("WAWebBaseModel").prop()),
             (e.sharableEventInviteCallLink = o("WAWebBaseModel").prop()),
+            (e.sharableEventInviteStatus = o("WAWebBaseModel").prop()),
+            (e.sharableEventInviteLocationName = o("WAWebBaseModel").prop()),
+            (e.sharableEventInviteCoverImageHandle =
+              o("WAWebBaseModel").prop()),
+            (e.sharableEventInviteLastUpdatedTsUsec =
+              o("WAWebBaseModel").prop()),
             (e.musicData = o("WAWebBaseModel").prop()),
             (e.selectedId = o("WAWebBaseModel").prop()),
             (e.selectedIndex = o("WAWebBaseModel").prop()),

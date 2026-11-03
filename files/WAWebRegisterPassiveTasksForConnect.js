@@ -14,6 +14,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
     "WAWebSchemaDanglingReceipt",
+    "WAWebWamOfflineResumeReporter",
     "asyncToGeneratorRuntime",
     "cr:10195",
     "getErrorSafe",
@@ -34,24 +35,25 @@ __d(
       C,
       b,
       v,
-      S = 4,
-      R = 60 * 1e3,
-      L = {
-        registerPassiveTasksForConnect: E,
+      S,
+      R = 4,
+      L = 60 * 1e3,
+      E = {
+        registerPassiveTasksForConnect: k,
         shouldConnectAsPassiveMode: function () {
-          return (v || (v = n("Promise"))).resolve(
+          return (S || (S = n("Promise"))).resolve(
             o(
               "WAWebPassiveModeManager",
             ).PassiveTaskManager.shouldConnectAsPassiveMode(),
           );
         },
       };
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebOnlineDanglingReceipts").hasOnlineDanglingReceipts() &&
             o("WAWebPassiveModeManager").PassiveTaskManager.registerPassiveTask(
               "SendOnlineDanglingReceipts",
@@ -104,12 +106,28 @@ __d(
           }
           var a = yield o("WAWebSchemaDanglingReceipt").getTable().all(),
             i = a.length > 0,
-            l =
-              (yield o("WAWebGetMessageCache").getMessageCache().size()) > 0 ||
-              (yield o("WAWebGetMessageCache")
-                .getMessageCache()
-                .checkpointQueueSize()) > 0;
-          (i || l) &&
+            l = a.reduce(function (e, t) {
+              return e + t.acks.length;
+            }, 0);
+          (o(
+            "WAWebWamOfflineResumeReporter",
+          ).OfflineResumeReporter.logPendingPreackCount(l),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[passive] dangling receipts: ",
+                  " rows, ",
+                  " pending pre-acks",
+                ])),
+              a.length,
+              l,
+            ));
+          var f =
+            (yield o("WAWebGetMessageCache").getMessageCache().size()) > 0 ||
+            (yield o("WAWebGetMessageCache")
+              .getMessageCache()
+              .checkpointQueueSize()) > 0;
+          (i || f) &&
             o("WAWebPassiveModeManager").PassiveTaskManager.registerPassiveTask(
               "SendDanglingReceipts",
               (function () {
@@ -118,8 +136,8 @@ __d(
                     if (i)
                       try {
                         (o("WALogger").LOG(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "[passive] sending dangling receipts",
                             ])),
                         ),
@@ -127,8 +145,8 @@ __d(
                             "WAWebClearDanglingReceipts",
                           ).sendAndClearDanglingReceipts(a, e),
                           o("WALogger").LOG(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
                                 "[passive] sending dangling receipts: done",
                               ])),
                           ));
@@ -140,8 +158,8 @@ __d(
                           throw e;
                         o("WALogger")
                           .ERROR(
-                            p ||
-                              (p = babelHelpers.taggedTemplateLiteralLoose([
+                            _ ||
+                              (_ = babelHelpers.taggedTemplateLiteralLoose([
                                 "[passive] sending dangling receipts failed: ",
                                 "",
                               ])),
@@ -150,7 +168,7 @@ __d(
                           .verbose()
                           .sendLogs("send-and-clear-dangling-receipts-failed");
                       }
-                    l && (yield T());
+                    f && (yield D());
                   },
                 );
                 return function (t) {
@@ -159,30 +177,30 @@ __d(
               })(),
             );
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    var I = null;
-    function T() {
-      return D.apply(this, arguments);
-    }
+    var T = null;
     function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (I)
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (T)
             return (
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[passive] flush message cache: skip",
                   ])),
               ),
-              I
+              T
             );
           try {
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[passive] flush message cache",
                 ])),
             );
@@ -191,8 +209,8 @@ __d(
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, t, n) {
                     (o("WALogger").LOG(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
                           "[passive] flush msg cache: sz=",
                           " qsz=",
                           " gen=",
@@ -220,14 +238,14 @@ __d(
                         .getMessageCache()
                         .checkpointQueueSize()) === 0
                         ? e()
-                        : n + 1 >= S &&
+                        : n + 1 >= R &&
                           (o("WALogger").WARN(
-                            h ||
-                              (h = babelHelpers.taggedTemplateLiteralLoose([
+                            y ||
+                              (y = babelHelpers.taggedTemplateLiteralLoose([
                                 "[passive] flush message cache: stop after ",
                                 " attempts",
                               ])),
-                            S,
+                            R,
                           ),
                           e()));
                   },
@@ -237,11 +255,11 @@ __d(
                 };
               })(),
             );
-            ((I = o("WAPromiseTimeout").promiseTimeout(e, R)),
-              yield I,
+            ((T = o("WAPromiseTimeout").promiseTimeout(e, L)),
+              yield T,
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[passive] flush message cache: done",
                   ])),
               ));
@@ -249,8 +267,8 @@ __d(
             e instanceof o("WACustomError").TimeoutError
               ? o("WALogger")
                   .ERROR(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
                         "[passive] flush message cache: timeout",
                       ])),
                   )
@@ -259,8 +277,8 @@ __d(
                   })
               : o("WALogger")
                   .ERROR(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "[passive] flush message cache failed: ",
                         "",
                       ])),
@@ -271,13 +289,13 @@ __d(
                     sampling: 0.01,
                   });
           } finally {
-            I = null;
+            T = null;
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    l.registerPassiveTasksForConnectMainThread = L;
+    l.registerPassiveTasksForConnectMainThread = E;
   },
   98,
 );

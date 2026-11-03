@@ -301,14 +301,14 @@ __d(
         addTracedInteraction: function (t, n, r) {
           var e = {
             annotations: {
-              string: {},
-              int: {},
-              double: {},
-              bool: {},
-              string_array: {},
-              int_array: {},
-              double_array: {},
-              bool_array: {},
+              string: babelHelpers.extends({}, d.string),
+              int: babelHelpers.extends({}, d.int),
+              double: babelHelpers.extends({}, d.double),
+              bool: babelHelpers.extends({}, d.bool),
+              string_array: babelHelpers.extends({}, d.string_array),
+              int_array: babelHelpers.extends({}, d.int_array),
+              double_array: babelHelpers.extends({}, d.double_array),
+              bool_array: babelHelpers.extends({}, d.bool_array),
             },
             commitSet: new Set(),
             factoryTimings: [],
@@ -335,7 +335,6 @@ __d(
             wasCanceled: !1,
             wasOffline: !1,
           };
-          for (var o in d) for (var a in d[o]) e.annotations[o][a] = d[o][a];
           return (
             u.set(t, e),
             c.set(t, e),

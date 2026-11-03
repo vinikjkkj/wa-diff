@@ -1,33 +1,36 @@
 __d(
   "WAWebSharableEventDeleteJob",
   [
+    "WALogger",
     "WAWebBackendApi",
-    "WAWebCanonicalGating",
-    "WAWebCanonicalUtils",
     "WAWebDBSharableEventDeletion",
     "WAWebRelayClient",
+    "WAWebSharableEventCredentials",
     "WAWebSharableEventDeleteJobMutation.graphql",
+    "WAWebSharableEventInviteMessageRefreshJob",
+    "WAWebSharableEventInviteStatus",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventDeleteJobMutation.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
-          o("WAWebCanonicalGating").isCanonicalEnabled() &&
-            !o("WAWebCanonicalUtils").isCanonicalPresent() &&
-            (yield o("WAWebCanonicalUtils").waitForCanonicalPresent());
+          yield o(
+            "WAWebSharableEventCredentials",
+          ).waitForSharableEventCredentials("delete");
           var n = yield o("WAWebRelayClient").commitMutation(
-            s,
+            u,
             { input: { event_id: e } },
             { environmentType: "whatsapp_web" },
           );
@@ -37,18 +40,33 @@ __d(
               : t.success) !== !0
           )
             throw r("err")("[sharable_event] xwa_event_delete did not succeed");
-          (yield o("WAWebDBSharableEventDeletion").deleteSharableEventsLocally([
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][delete] deleted eventId=",
+                "",
+              ])),
             e,
-          ]),
+          ),
+            yield o("WAWebDBSharableEventDeletion").deleteSharableEventsLocally(
+              [e],
+            ),
             o("WAWebBackendApi").frontendFireAndForget(
               "applySharableEventUpdate",
               { deletedEventIds: [e] },
+            ),
+            yield o(
+              "WAWebSharableEventInviteMessageRefreshJob",
+            ).markSharableEventInviteMessagesEnded(
+              [e],
+              o("WAWebSharableEventInviteStatus").SharableEventInviteStatus
+                .Deleted,
             ));
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.deleteSharableEvent = u;
+    l.deleteSharableEvent = c;
   },
   98,
 );

@@ -32,14 +32,12 @@ __d(
               ? u.OneDay
               : u.ThreeDays;
     }
-    var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
-      m = e.Mirrored(["Active", "Canceled", "Suspended"]),
-      p = e.Mirrored(["DeletedByHost", "Expired"]),
-      _ = new Set([l.Update, l.Rsvp, l.Delete, l.GuestJoinedWa]);
-    function f(e) {
-      return _.has(e);
+    var d = e.Mirrored(["DeletedByHost", "Expired"]),
+      m = new Set([l.Update, l.Rsvp, l.Delete, l.GuestJoinedWa]);
+    function p(e) {
+      return m.has(e);
     }
-    function g(e) {
+    function _(e) {
       return e === l.Invite
         ? "invite"
         : e === l.Update
@@ -67,11 +65,9 @@ __d(
       (i.SharableEventReminderType = s),
       (i.SharableEventReminderLeadTimeBucket = u),
       (i.nearestReminderBucket = c),
-      (i.SharableEventNotificationRsvpStatus = d),
-      (i.SharableEventStatus = m),
-      (i.SharableEventDeleteReason = p),
-      (i.isSenderAttributed = f),
-      (i.getIdentifierTag = g));
+      (i.SharableEventDeleteReason = d),
+      (i.isSenderAttributed = p),
+      (i.getIdentifierTag = _));
   },
   66,
 );

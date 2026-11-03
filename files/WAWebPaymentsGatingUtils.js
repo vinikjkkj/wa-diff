@@ -25,7 +25,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        E(t) &&
+        k(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -43,7 +43,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        E(t) &&
+        k(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -61,7 +61,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        E(t) &&
+        k(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "pix_payment_request_web_enabled",
         )
@@ -76,7 +76,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        E(t) &&
+        k(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -94,7 +94,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        E(t) &&
+        k(t) &&
         (o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         ) ||
@@ -114,7 +114,7 @@ __d(
           (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
             ? void 0
             : e.user;
-      return t != null && E(t) && p();
+      return t != null && k(t) && p();
     }
     function f() {
       return (
@@ -163,7 +163,7 @@ __d(
       if (!e) return !1;
       var n =
         (t = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : t.user;
-      return n == null ? !1 : k(n) || E(n);
+      return n == null ? !1 : I(n) || k(n);
     }
     function R() {
       return o("WAWebABProps").getABPropConfigValue(
@@ -171,21 +171,24 @@ __d(
       );
     }
     function L(e) {
+      return E(e.contact.id);
+    }
+    function E(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
           t == null ? void 0 : t.user,
         ),
-        r = o("WAWebLidMigrationUtils").toPn(e.contact.id),
+        r = o("WAWebLidMigrationUtils").toPn(e),
         a = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
           r == null ? void 0 : r.user,
         );
       return n === "BR" && a === "BR";
     }
-    function E(e) {
+    function k(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e);
       return t === "BR";
     }
-    function k(e) {
+    function I(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""),
         n = o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA;
       return (
@@ -211,7 +214,8 @@ __d(
       (l.isPixCodeReceiptAndStateP2mEnabled = b),
       (l.isWidInPaymentsCountry = S),
       (l.isMessageWithLinkNfmEnabled = R),
-      (l.isBrazilToBrazilOrder = L));
+      (l.isBrazilToBrazilOrder = L),
+      (l.isBrazilToBrazilOrderFor = E));
   },
   98,
 );

@@ -1,14 +1,15 @@
 __d(
   "WAWebSharableEventPageLoadAction",
   [
-    "$InternalEnum",
     "Promise",
     "WALogger",
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
     "WAWebLoadSharableEventInviteesAction",
+    "WAWebSharableEventFailureLogger",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventGetJob",
+    "WAWebSharableEventLoadStates",
     "WAWebSharableEventServerError",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -18,137 +19,116 @@ __d(
       s,
       u,
       c,
-      d = n("$InternalEnum")({
-        Idle: "idle",
-        Loading: "loading",
-        WaitingForCredentials: "waitingForCredentials",
-        Loaded: "loaded",
-        Error: "error",
-        Unavailable: "unavailable",
-      }),
-      m = { status: d.Idle, errorKind: null },
-      p = new Set([
-        o("WAWebSharableEventServerError").SharableEventErrorKind.Transport,
-        o("WAWebSharableEventServerError").SharableEventErrorKind
-          .CredentialsNotReady,
-        o("WAWebSharableEventServerError").SharableEventErrorKind.Unavailable,
-      ]),
-      _ = new Map(),
-      f = new Map(),
-      g = new Set();
-    function h(e) {
-      if (!o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled())
+      d = new Map();
+    function m(e) {
+      if (
+        !o(
+          "WAWebSharableEventGatingUtils",
+        ).isEventsV2OnCompanionEnabledForAction("page-load")
+      )
         return (c || (c = n("Promise"))).resolve();
-      var t = f.get(e);
-      if (t != null) return t;
-      R(e, {
-        status:
-          o("WAWebCanonicalGating").isCanonicalEnabled() &&
-          !o("WAWebCanonicalUtils").isCanonicalPresent()
-            ? d.WaitingForCredentials
-            : d.Loading,
-        errorKind: null,
+      var t = d.get(e);
+      if (
+        (t != null &&
+          o("WAWebSharableEventLoadStates").SharableEventLoadStates.has(e)) ||
+        (o("WAWebSharableEventLoadStates").updateSharableEventLoadState(e, {
+          status:
+            o("WAWebCanonicalGating").isCanonicalEnabled() &&
+            !o("WAWebCanonicalUtils").isCanonicalPresent()
+              ? o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+                  .WaitingForCredentials
+              : o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+                  .Loading,
+          errorKind: null,
+        }),
+        t != null)
+      )
+        return t;
+      var r = _(e).finally(function () {
+        d.delete(e);
       });
-      var r = b(e).finally(function () {
-        f.delete(e);
-      });
-      return (f.set(e, r), r);
+      return (d.set(e, r), r);
     }
-    function y(e) {
-      var t;
-      return (t = _.get(e)) != null ? t : m;
+    function p(e) {
+      o("WAWebSharableEventLoadStates").SharableEventLoadStates.delete(e);
     }
-    function C(e) {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        g.add(e),
-        function () {
-          g.delete(e);
-        }
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             yield o(
               "WAWebLoadSharableEventInviteesAction",
-            ).loadSharableEventInvitees(e);
-          } catch (e) {
+            ).loadSharableEventInvitees(t);
+          } catch (t) {
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event] loading stored invitees for the page failed",
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][page-load] loading stored invitees failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(e))
+              .catching(r("getErrorSafe")(t))
               .sendLogs("sharable-event-page-load-invitees-failed");
           }
           try {
-            (yield o("WAWebSharableEventGetJob").syncSharableEvent(e),
-              R(e, { status: d.Loaded, errorKind: null }));
-          } catch (n) {
-            var t = o(
-              "WAWebSharableEventServerError",
-            ).getSharableEventErrorKind(n);
-            (S(t, n),
-              R(e, {
+            (yield o("WAWebSharableEventGetJob").syncSharableEvent(t),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][page-load] loaded eventId=",
+                    "",
+                  ])),
+                t,
+              ),
+              g(t, {
+                status: o("WAWebSharableEventLoadStates")
+                  .SharableEventLoadStatus.Loaded,
+                errorKind: null,
+              }));
+          } catch (e) {
+            var n = o(
+                "WAWebSharableEventFailureLogger",
+              ).logSharableEventFailure("page-load", e),
+              a = n.kind;
+            (o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][page-load] not loaded eventId=",
+                  " kind=",
+                  "",
+                ])),
+              t,
+              a,
+            ),
+              g(t, {
                 status:
-                  t ===
+                  a ===
                   o("WAWebSharableEventServerError").SharableEventErrorKind
                     .Unavailable
-                    ? d.Unavailable
-                    : t ===
+                    ? o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+                        .Unavailable
+                    : a ===
                         o("WAWebSharableEventServerError")
                           .SharableEventErrorKind.CredentialsNotReady
-                      ? d.WaitingForCredentials
-                      : d.Error,
-                errorKind: t,
+                      ? o("WAWebSharableEventLoadStates")
+                          .SharableEventLoadStatus.WaitingForCredentials
+                      : o("WAWebSharableEventLoadStates")
+                          .SharableEventLoadStatus.Error,
+                errorKind: a,
               }));
           }
         })),
-        v.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function S(t, n) {
-      if (p.has(t)) {
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[sharable_event] page load failed: ",
-                "",
-              ])),
-            t,
-          )
-          .catching(r("getErrorSafe")(n));
-        return;
-      }
-      o("WALogger")
-        .ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[sharable_event] page load failed: ",
-              "",
-            ])),
-          t,
-        )
-        .catching(r("getErrorSafe")(n))
-        .sendLogs("sharable-event-page-load-failed");
+    function g(e, t) {
+      o("WAWebSharableEventLoadStates").SharableEventLoadStates.has(e) &&
+        o("WAWebSharableEventLoadStates").updateSharableEventLoadState(e, t);
     }
-    function R(e, t) {
-      (_.set(e, t),
-        g.forEach(function (e) {
-          return e();
-        }));
-    }
-    ((l.SharableEventPageLoadStatus = d),
-      (l.loadSharableEventPage = h),
-      (l.getSharableEventPageLoadState = y),
-      (l.subscribeToSharableEventPageLoadStates = C));
+    ((l.loadSharableEventPage = m), (l.clearSharableEventPageLoadState = p));
   },
   98,
 );

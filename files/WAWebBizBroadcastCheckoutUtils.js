@@ -9,7 +9,15 @@ __d(
         a = t - o;
       return { numberOfCreditsUsed: o, numberOfPaidRecipients: a };
     }
-    i.calculateCreditsAndPaidRecipients = e;
+    function l(e, t) {
+      var n = e;
+      return t.map(function (e) {
+        var t = Math.max(0, Math.min(n, e));
+        return ((n -= t), t > 0 ? t : null);
+      });
+    }
+    ((i.calculateCreditsAndPaidRecipients = e),
+      (i.allocateFreeCreditsAcrossAudiences = l));
   },
   66,
 );

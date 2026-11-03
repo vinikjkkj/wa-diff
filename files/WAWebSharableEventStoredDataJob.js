@@ -45,7 +45,25 @@ __d(
         e,
       );
     }
-    ((l.loadStoredSharableEvents = s), (l.loadStoredSharableEventInvitees = c));
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o(
+            "WAWebDBSharableEventInvitationList",
+          ).getSharableEventInviteeRowsFor(
+            yield o("WAWebDBSharableEvent").getSharableEventIds(),
+            e,
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    ((l.loadStoredSharableEvents = s),
+      (l.loadStoredSharableEventInvitees = c),
+      (l.loadStoredSharableEventViewerInvitations = d));
   },
   98,
 );

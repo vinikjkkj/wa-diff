@@ -7,6 +7,7 @@ __d(
     "WAWebJidToWid",
     "WAWebSharableEventGetters",
     "WAWebSharableEventModel",
+    "WAWebSharableEventUnseenStore",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -41,6 +42,7 @@ __d(
                   e,
                 );
             }),
+            this.updateHasUnseenChanges(),
             t
           );
         }),
@@ -50,10 +52,31 @@ __d(
               "WAWebSharableEventGetters",
             ).clearSharableEventGetterCacheFor(e);
           }),
-            e.prototype.reset.call(this));
+            e.prototype.reset.call(this),
+            this.updateHasUnseenChanges());
         }),
         (n.addRows = function (t) {
-          return this.add(t.map(u), { merge: !0 });
+          var e = this;
+          return this.add(
+            t
+              .filter(function (t) {
+                return !e.isOlderThanShown(t);
+              })
+              .map(u),
+            { merge: !0 },
+          );
+        }),
+        (n.isOlderThanShown = function (t) {
+          var e = this.get(t.eventId);
+          return (
+            e != null &&
+            (t.lastUpdatedTsUsec < e.lastUpdatedTsUsec ||
+              t.lastInvitationUpdatedTsUsec < e.lastInvitationUpdatedTsUsec)
+          );
+        }),
+        (n.hasNewerInvitationThan = function (t, n) {
+          var e = this.get(t);
+          return e != null && n < e.lastInvitationUpdatedTsUsec;
         }),
         (n.applyUnseenChanges = function (t, n) {
           var e = this;
@@ -71,7 +94,17 @@ __d(
                     unseenChangeFlags: t.changeFlags,
                     lastChangeTsUsec: t.lastChangeTsUsec,
                   });
-            }));
+            }),
+            this.updateHasUnseenChanges());
+        }),
+        (n.updateHasUnseenChanges = function () {
+          o(
+            "WAWebSharableEventUnseenStore",
+          ).updateSharableEventsHaveUnseenChanges(
+            this.some(function (e) {
+              return e.unseenChangeFlags > 0;
+            }),
+          );
         }),
         t
       );

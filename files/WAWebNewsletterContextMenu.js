@@ -186,10 +186,10 @@ __d(
         ? ((u = function () {
             var e = i
               ? s._(
-                  /*BTDS*/ "Could not unmute channel. Check your connection and try again.",
+                  /*BTDS*/ "Couldn't unmute channel. Check your connection and try again.",
                 )
               : s._(
-                  /*BTDS*/ "Could not mute channel. Check your connection and try again.",
+                  /*BTDS*/ "Couldn't mute channel. Check your connection and try again.",
                 );
             o("WAWebRunWithInternetCheck").runWithInternetCheck(function () {
               return l();

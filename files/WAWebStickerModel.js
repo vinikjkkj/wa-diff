@@ -1,6 +1,8 @@
 __d(
   "WAWebStickerModel",
   [
+    "JSResourceForInteraction",
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
@@ -9,19 +11,25 @@ __d(
     "WAWebMediaStickers",
     "WAWebMediaTypes",
     "WAWebStickerGetters",
+    "err",
     "getErrorSafe",
     "once",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("once")(function () {
-        return new d({ id: "placeholder", isPlaceholder: !0 });
+      s,
+      u,
+      c = r("JSResourceForInteraction")(
+        "WAWebDownloadExternalStickerAction",
+      ).__setRef("WAWebStickerModel"),
+      d = r("once")(function () {
+        return new _({ id: "placeholder", isPlaceholder: !0 });
       }),
-      u = r("once")(function () {
-        return new d({ id: "createButton", isCreateButton: !0 });
+      m = r("once")(function () {
+        return new _({ id: "createButton", isCreateButton: !0 });
       }),
-      c = (function (t) {
-        function n() {
+      p = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -29,6 +37,9 @@ __d(
             (e.id = o("WAWebBaseModel").prop()),
             (e.mediaData = o("WAWebBaseModel").session()),
             (e.mediaObject = o("WAWebBaseModel").prop()),
+            (e.externalUrl = o("WAWebBaseModel").session()),
+            (e.$Sticker$p_1 = null),
+            (e.$Sticker$p_2 = null),
             (e.deprecatedMms3Url = o("WAWebBaseModel").prop()),
             (e.directPath = o("WAWebBaseModel").prop()),
             (e.filehash = o("WAWebBaseModel").prop()),
@@ -55,10 +66,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.initialize = function () {
+          (i.initialize = function () {
             var e = this;
             t.prototype.initialize.call(this);
             var n = new (r("WAWebMediaData"))();
@@ -72,36 +83,107 @@ __d(
                       e.trigger("sticker_mediaData_emojis_updated"),
                     e.stopListening(n, "change:emojis"));
                 }),
-              !this.isPlaceholder &&
-                !this.isCreateButton &&
-                o("WAWebMediaStickers").registerSticker(this));
+              this.externalUrl != null
+                ? (this.filehash &&
+                    o("WAWebMediaStickers").registerSticker(this),
+                  n.set({
+                    type: o("WAWebMediaTypes").OUTWARD_TYPES.STICKER,
+                    mimetype: this.mimetype,
+                    fullWidth: this.width,
+                    fullHeight: this.height,
+                  }))
+                : !this.isPlaceholder &&
+                  !this.isCreateButton &&
+                  o("WAWebMediaStickers").registerSticker(this));
           }),
-          (a.downloadMedia = function (n) {
+          (i.downloadMedia = function (a) {
             var t = this;
+            if (this.externalUrl != null) {
+              var i, l, d;
+              if ((i = this.$Sticker$p_2) != null && i.signal.aborted) {
+                var m = this.$Sticker$p_1,
+                  p = function () {
+                    return (
+                      t.$Sticker$p_1 === m &&
+                        ((t.$Sticker$p_1 = null), (t.$Sticker$p_2 = null)),
+                      t.downloadMedia(a)
+                    );
+                  };
+                return (u || (u = n("Promise"))).resolve(m).then(p, p);
+              }
+              var _ =
+                (l = this.$Sticker$p_2) != null ? l : new AbortController();
+              this.$Sticker$p_2 = _;
+              var f =
+                (d = this.$Sticker$p_1) != null
+                  ? d
+                  : c.load().then(function (e) {
+                      var n = e.downloadExternalSticker;
+                      return (_.signal.throwIfAborted(), n(t, _.signal));
+                    });
+              return (
+                (this.$Sticker$p_1 = f),
+                f
+                  .catch(function (n) {
+                    if (_.signal.aborted) {
+                      if (
+                        (t.$Sticker$p_2 === _ &&
+                          (t.mediaData.mediaStage =
+                            o("WAWebMediaTypes").MediaDataStage.INIT),
+                        a === !0)
+                      )
+                        throw r("err")("External sticker download cancelled");
+                      return;
+                    }
+                    if (
+                      ((t.mediaData.mediaStage =
+                        o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING),
+                      o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "External sticker download failed",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(n))
+                        .sendLogs("external-sticker-download-failed"),
+                      a === !0)
+                    )
+                      throw r("err")("External sticker download failed");
+                  })
+                  .finally(function () {
+                    t.$Sticker$p_1 === f &&
+                      ((t.$Sticker$p_1 = null), (t.$Sticker$p_2 = null));
+                  })
+              );
+            }
             return o("WAWebMediaStickers")
               .downloadStickerOrStickerPackIcon({
-                shouldThrow: n,
+                shouldThrow: a,
                 sticker: this,
                 type: "STICKER",
               })
-              .catch(function (n) {
+              .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "id: ",
                         ", error",
                       ])),
                     t.id,
                   )
-                  .catching(r("getErrorSafe")(n))
+                  .catching(r("getErrorSafe")(e))
                   .tags("non-sad")
                   .sendLogs("sticker-panel:sticker download failed");
               });
           }),
-          (a.toDbData = function () {
+          (i.toDbData = function () {
             return {
-              id: this.id || this.filehash,
+              id:
+                this.externalUrl != null
+                  ? this.filehash || this.id
+                  : this.id || this.filehash,
               index: this.index || 0,
               width: this.width,
               height: this.height,
@@ -122,17 +204,19 @@ __d(
               stickerAudio: this.stickerAudio,
             };
           }),
-          (a.delete = function () {
-            (t.prototype.delete.call(this),
+          (i.delete = function () {
+            var e;
+            ((e = this.$Sticker$p_2) == null || e.abort(),
+              t.prototype.delete.call(this),
               o("WAWebStickerGetters").clearStickerGetterCacheFor(this),
               o("WAWebMediaStickers").deregisterSticker(this));
           }),
-          n
+          a
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((c.Proxy = "sticker"), (c.getPlaceholder = s), (c.getCreateButton = u));
-    var d = o("WAWebBaseModel").defineModel(c);
-    ((d.getPlaceholder = s), (l.Sticker = c), (l.StickerModel = d));
+    ((p.Proxy = "sticker"), (p.getPlaceholder = d), (p.getCreateButton = m));
+    var _ = o("WAWebBaseModel").defineModel(p);
+    ((_.getPlaceholder = d), (l.Sticker = p), (l.StickerModel = _));
   },
   98,
 );

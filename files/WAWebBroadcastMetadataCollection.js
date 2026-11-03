@@ -87,7 +87,7 @@ __d(
             ),
             e.listenTo(
               o("WAWebContactCollection").ContactCollection,
-              "add remove",
+              ["add", "remove"],
               e.$BroadcastMetadataCollection$p_1,
             ),
             e

@@ -8,41 +8,63 @@ __d(
     "WAWebChatCollection",
     "WAWebCmd",
     "WAWebMsgKey",
+    "WAWebNoop",
     "WAWebSelfReminderAlert.react",
     "WAWebSelfReminderGating",
     "WAWebSelfReminderMarkStore",
     "WAWebUpdateUnreadChatAction",
-    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f;
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function p() {
+    function h() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
-          !e.id.fromMe ||
-            !o("WAWebUserPrefsMeUser").isMeAccount(e.id.remote) ||
-            e.isScheduledMsg === !0 ||
-            !o("WAWebCmd").Cmd.isOfflineDeliveryEnd ||
-            ((yield o("WAWebSelfReminderMarkStore").getSelfReminderMark(
+          if (
+            !(
+              !e.id.fromMe ||
+              e.isScheduledMsg === !0 ||
+              !o("WAWebCmd").Cmd.isOfflineDeliveryEnd
+            )
+          ) {
+            var n = yield o("WAWebSelfReminderMarkStore").getSelfReminderMark(
               e.id.id,
-            )) != null &&
-              (yield g(e.id, (t = e.body) != null ? t : "")));
+            );
+            if (n != null) {
+              if (!b(e.t, n.scheduledTimestampS)) {
+                var r;
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[self_reminder] marked message added before its time, waiting: t=",
+                      " scheduled=",
+                      " now=",
+                      "",
+                    ])),
+                  (r = e.t) != null ? r : 0,
+                  n.scheduledTimestampS,
+                  o("WATimeUtils").unixTime(),
+                );
+                return;
+              }
+              yield v(e.id, (t = e.body) != null ? t : "");
+            }
+          }
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function _() {
-      return f.apply(this, arguments);
+    function y() {
+      return C.apply(this, arguments);
     }
-    function f() {
+    function C() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebSelfReminderGating").isSelfReminderEnabled()) {
             yield o("WAWebSelfReminderMarkStore").pruneExpiredSelfReminderMarks(
               o("WATimeUtils").unixTime(),
@@ -58,75 +80,80 @@ __d(
                 i = [];
               for (var l of e) {
                 var s = a.get(l.msgKey);
-                if (s != null && s.isScheduledMsg !== !0) {
+                if (
+                  s != null &&
+                  s.isScheduledMsg !== !0 &&
+                  b(s.t, l.scheduledTimestampS)
+                ) {
                   var u;
-                  i.push(g(s.id, (u = s.body) != null ? u : ""));
+                  i.push(v(s.id, (u = s.body) != null ? u : ""));
                 }
               }
-              yield (d || (d = n("Promise"))).all(i);
+              yield (f || (f = n("Promise"))).all(i);
             }
           }
         })),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function b(e, t) {
+      return e != null && e >= t;
     }
-    function h() {
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            var a = o("WAWebChatCollection").ChatCollection.get(t.remote);
-            if (a == null) {
+            var n = o("WAWebChatCollection").ChatCollection.get(e.remote);
+            if (n == null) {
               o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[self_reminder] self chat not loaded, keeping the mark for catch-up",
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[self_reminder] chat not loaded, keeping the mark for catch-up",
                   ])),
               );
               return;
             }
             if (
               !(yield o("WAWebSelfReminderMarkStore").removeSelfReminderMark(
-                t.id,
+                e.id,
               ))
             )
               return;
             o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[self_reminder] reminder posted, alerting",
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[self_reminder] reminder posted, alerting: now=",
+                  "",
                 ])),
+              o("WATimeUtils").unixTime(),
             );
             try {
               o("WAWebSelfReminderAlert.react").alertSelfReminder({
-                chat: a,
-                msgKey: t,
-                text: n,
+                chat: n,
+                msgKey: e,
+                text: t,
               });
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[self_reminder] alerting failed",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("self-reminder-alert-failed");
             }
-            if (a.active) return;
-            yield o("WAWebUpdateUnreadChatAction").markUnread(a, {
-              allowAction: !1,
-              showToast: !1,
-              unread: !0,
-            });
+            if (n.active) return;
+            yield L(n);
           } catch (e) {
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[self_reminder] completing reminder failed",
                   ])),
               )
@@ -134,10 +161,84 @@ __d(
               .sendLogs("self-reminder-complete-failed");
           }
         })),
-        h.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.handleSelfReminderMsgAdded = m), (l.processPostedSelfReminders = _));
+    var R = 1e4;
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = function () {
+              return o("WAWebUpdateUnreadChatAction").markUnread(e, {
+                allowAction: !1,
+                showToast: !1,
+                unread: !0,
+              });
+            },
+            a = (f || (f = n("Promise"))).resolve(),
+            i = (function () {
+              var o = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  (yield (f || (f = n("Promise"))).resolve(),
+                    yield a.catch(r("WAWebNoop")),
+                    e.unreadCount === 0 && !e.active && (yield t()));
+                },
+              );
+              return function () {
+                return o.apply(this, arguments);
+              };
+            })(),
+            l = function () {
+              e.unreadCount !== 0 ||
+                e.active ||
+                (u(),
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[self_reminder] unread count reset after the reminder posted, marking again",
+                    ])),
+                ),
+                i().catch(k));
+            },
+            s = window.setTimeout(function () {
+              return u();
+            }, R);
+          function u() {
+            (window.clearTimeout(s), e.off("change:unreadCount", l));
+          }
+          (e.on("change:unreadCount", l), (a = t()));
+          try {
+            yield a;
+          } catch (e) {
+            throw (u(), e);
+          }
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[self_reminder] marked unread, unread count ",
+                "",
+              ])),
+            e.unreadCount,
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(t) {
+      o("WALogger")
+        .ERROR(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[self_reminder] marking the chat unread again failed",
+            ])),
+        )
+        .catching(r("getErrorSafe")(t))
+        .sendLogs("self-reminder-mark-unread-failed");
+    }
+    ((l.handleSelfReminderMsgAdded = g), (l.processPostedSelfReminders = y));
   },
   98,
 );

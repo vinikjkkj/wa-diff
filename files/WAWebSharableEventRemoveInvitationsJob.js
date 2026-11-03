@@ -1,65 +1,69 @@
 __d(
   "WAWebSharableEventRemoveInvitationsJob",
   [
-    "WAWebCanonicalGating",
-    "WAWebCanonicalUtils",
-    "WAWebRelayClient",
-    "WAWebSharableEventInvitationStore",
+    "WALogger",
+    "WAWebSharableEventCredentials",
     "WAWebSharableEventRemoveInvitationsJobMutation.graphql",
+    "WAWebSharableEventServerClient",
+    "WAWebSharableEventStoreInvitation",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventRemoveInvitationsJobMutation.graphql"));
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          o("WAWebCanonicalGating").isCanonicalEnabled() &&
-            !o("WAWebCanonicalUtils").isCanonicalPresent() &&
-            (yield o("WAWebCanonicalUtils").waitForCanonicalPresent());
-          var a = null,
-            i = yield o("WAWebRelayClient").commitMutation(
-              s,
-              {
-                input: {
-                  event_id: e,
-                  invited_user_lids: t.map(function (e) {
-                    return e.toString();
-                  }),
-                },
+          yield o(
+            "WAWebSharableEventCredentials",
+          ).waitForSharableEventCredentials("remove-invitations");
+          var a = yield o(
+              "WAWebSharableEventServerClient",
+            ).mutateSharableEventServer(u, {
+              input: {
+                event_id: e,
+                invited_user_lids: t.map(function (e) {
+                  return e.toString();
+                }),
               },
-              {
-                environmentType: "whatsapp_web",
-                getInlineDataReader: function (t) {
-                  a = t;
-                },
-              },
-            ),
-            l =
-              i == null || (n = i.xwa_event_remove_invitations) == null
+            }),
+            i = a.reader,
+            l = a.response,
+            c =
+              l == null || (n = l.xwa_event_remove_invitations) == null
                 ? void 0
-                : n.privacy_aware_invitation,
-            u = a;
-          if (l == null || u == null)
+                : n.privacy_aware_invitation;
+          if (c == null)
             throw r("err")(
               "[sharable_event] xwa_event_remove_invitations returned nothing",
             );
-          yield o(
-            "WAWebSharableEventInvitationStore",
-          ).storeSharableEventInvitationList(e, u, l, l.invitation_list);
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][remove-guest] removed eventId=",
+                " count=",
+                "",
+              ])),
+            e,
+            t.length,
+          ),
+            yield o(
+              "WAWebSharableEventStoreInvitation",
+            ).storeAndSendSharableEventInvitation(e, i, c));
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.removeSharableEventInvitations = u;
+    l.removeSharableEventInvitations = c;
   },
   98,
 );

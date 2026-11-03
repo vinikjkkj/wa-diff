@@ -185,20 +185,22 @@ __d(
     function h(t, n) {
       !n.isLid() &&
         !n.isHostedLid() &&
-        o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "findDestinationChatForSingleMapping: received PN-addressed 1:1 message ",
-              " of type ",
-              " in ",
-              " from ",
-              "",
-            ])),
-          t.externalId,
-          t.type,
-          n.toLogString(),
-          t.author.toLogString(),
-        );
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "findDestinationChatForSingleMapping: received PN-addressed 1:1 message ",
+                " of type ",
+                " in ",
+                " from ",
+                "",
+              ])),
+            t.externalId,
+            t.type,
+            n.toLogString(),
+            t.author.toLogString(),
+          )
+          .sendLogs("pn-addressed-1-1-message");
     }
     function y(e) {
       return C.apply(this, arguments);

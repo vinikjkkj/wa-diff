@@ -9,16 +9,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s = "web_group_email_invite",
+      u =
         e !== void 0 ? e : (e = n("WAWebEmailInviteSendGroupMutation.graphql"));
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebRelayClient").commitMutation(
-            s,
+            u,
             {
               input: {
                 emails: [].concat(t),
@@ -26,6 +27,7 @@ __d(
                 source: "GROUP_INFO_PANEL",
                 target_id: e,
                 target_type: "GROUP",
+                utm_campaign: s,
               },
             },
             { environmentType: "whatsapp_web" },
@@ -35,10 +37,10 @@ __d(
             "sendGroupEmailInvites: empty response",
           );
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.sendGroupEmailInvites = u;
+    l.sendGroupEmailInvites = c;
   },
   98,
 );

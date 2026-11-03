@@ -14,27 +14,31 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSoundStickerUtils",
     "WAWebStateUtils",
+    "WAWebStickerModel",
     "WAWebStickerPremiumStatus",
     "WAWebStickerSendWamEvent",
+    "WAWebUploadExternalStickerAction",
     "WAWebWaPlusBenefitJourneyLogger",
     "WAWebWamEnumWpbujBenefitType",
     "WAWebWamEnumWpbujSurface",
     "WAWebWebpMetadata",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = ["stickerSendOrigin"],
       u,
       c,
-      d = c || (c = o("react"));
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+      d,
+      m = d || (d = o("react"));
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
             i,
             l,
@@ -48,7 +52,7 @@ __d(
             return (
               o("WAWebCmd").Cmd.closeExpressionPanels(),
               o("WAWebModalManager").ModalManager.openAlert(
-                d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                   title: s._(/*BTDS*/ "This is a premium sticker"),
                   onOK: function () {
                     return o("WAWebModalManager").ModalManager.closeAlert();
@@ -63,13 +67,13 @@ __d(
                   .ERROR_CANCELLED,
               }
             );
-          var m =
+          var d =
               ((i = t.mediaData) == null ? void 0 : i.stickerPremiumStatus) ===
               o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM,
             p = (l = t.mediaData) == null ? void 0 : l.filehash;
-          if (m && p != null && p !== "")
+          if (d && p != null && p !== "")
             try {
-              var f = new (o(
+              var _ = new (o(
                 "WAWebWaPlusBenefitJourneyLogger",
               ).WaPlusBenefitJourneyLogger)({
                 benefitType: o("WAWebWamEnumWpbujBenefitType")
@@ -77,8 +81,8 @@ __d(
                 surface: o("WAWebWamEnumWpbujSurface").WPBUJ_SURFACE
                   .STICKER_TRAY,
               });
-              (f.logSelect({ success: !0, actionTarget: p }),
-                f.logApply({ success: !0, actionTarget: p }));
+              (_.logSelect({ success: !0, actionTarget: p }),
+                _.logApply({ success: !0, actionTarget: p }));
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -90,38 +94,69 @@ __d(
                 .catching(e instanceof Error ? e : r("err")(String(e)))
                 .sendLogs("wpbuj-sticker-send-telemetry-failed");
             }
-          return _(c, t, n);
+          return o(
+            "WAWebUploadExternalStickerAction",
+          ).withExternalStickerSelection(t, function (e) {
+            return f(c, e, n);
+          });
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i, l;
-          (o("WAWebRecentStickerCollection").RecentStickerCollection.enqueue([
-            n,
-          ]),
+          if (n.externalUrl != null)
+            try {
+              yield o("WAWebUploadExternalStickerAction").uploadExternalSticker(
+                n,
+              );
+            } catch (e) {
+              return (
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "External sticker upload failed during send",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("external-sticker-send-upload-failed"),
+                {
+                  messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
+                    .ERROR_UPLOAD,
+                }
+              );
+            }
+          var s =
+            n.externalUrl != null
+              ? new (o("WAWebStickerModel").StickerModel)(n.toDbData())
+              : n;
+          ((s.mediaData.accessibilityLabel = n.mediaData.accessibilityLabel),
+            o("WAWebRecentStickerCollection").RecentStickerCollection.enqueue([
+              s,
+            ]),
             n.mediaData &&
               n.mediaData.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
               n.mediaData.mediaBlob.retain());
-          var s = a.stickerSendOrigin,
-            u = babelHelpers.objectWithoutPropertiesLoose(a, e),
-            c = yield o("WAWebMediaStickers")
+          var u = a.stickerSendOrigin,
+            d = babelHelpers.objectWithoutPropertiesLoose(a, e),
+            m = yield o("WAWebMediaStickers")
               .prepSticker(n)
               .sendToChat({
                 chat: t,
-                options: babelHelpers.extends({}, u, {
+                options: babelHelpers.extends({}, d, {
                   stickerAudio: o(
                     "WAWebSoundStickerUtils",
                   ).getSendableStickerAudio(n.stickerAudio, t.id),
                 }),
               }),
-            d = {
-              stickerSendOrigin: s,
+            p = {
+              stickerSendOrigin: u,
               stickerIsAi: !!n.mediaData.isAiSticker,
               stickerIsAnimated: !!n.mediaData.isAnimated,
               stickerIsFirstParty: !!n.mediaData.isFirstParty,
@@ -133,16 +168,16 @@ __d(
                   : l.stickerPremiumStatus) ===
                 o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM,
             },
-            m = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(d),
-            p = o("WAWebWebpMetadata").getStickerMakerSourceType(
+            _ = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(p),
+            f = o("WAWebWebpMetadata").getStickerMakerSourceType(
               n.mediaData.stickerMakerSourceType,
             );
-          return (p != null && (m.stickerMakerSourceType = p), m.commit(), c);
+          return (f != null && (_.stickerMakerSourceType = f), _.commit(), m);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.sendStickerToChat = m;
+    l.sendStickerToChat = p;
   },
   226,
 );

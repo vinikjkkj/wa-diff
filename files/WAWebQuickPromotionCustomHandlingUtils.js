@@ -7,6 +7,7 @@ __d(
     "WAWebApiParse",
     "WAWebBannerEventWamEvent",
     "WAWebBizAiHubDeeplinkScheme",
+    "WAWebBizAiMetaOneDialogRequestStore",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastNewBroadcastFlowLoadable",
     "WAWebBizNativeAdsEntryPointUtils",
@@ -20,8 +21,11 @@ __d(
     "WAWebExecApiCmd",
     "WAWebExternalLink.react",
     "WAWebKeyboardTabUtils",
+    "WAWebMAIBAPrimaryRedirectPopup.react",
     "WAWebMobilePlatforms",
+    "WAWebModalManager",
     "WAWebNavBarTypes",
+    "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumBannerOperations",
     "WAWebWamEnumBusinessToolsEntryPointType",
@@ -136,21 +140,21 @@ __d(
               type: "openCatalogBanner",
               onPrimaryClick: function () {
                 (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
-                  S(
+                  E(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                S(
+                E(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                S(
+                E(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -175,21 +179,21 @@ __d(
                 o("WAWebApi").BrazilPaymentResultSubtype.PIX_ONBOARDING
                   ? r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 })
                   : o("WAWebExternalLink.react").openExternalLink(a),
-                  S(
+                  E(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                S(
+                E(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                S(
+                E(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -248,7 +252,7 @@ __d(
                     n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME,
                 }),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    S(
+                    E(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
@@ -263,7 +267,7 @@ __d(
                   u,
                 ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    S(
+                    E(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
@@ -278,7 +282,7 @@ __d(
                   u,
                 ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    S(
+                    E(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS
@@ -403,28 +407,72 @@ __d(
           };
       }
     }
-    function v(e) {
-      var t = [],
-        n = d(e);
-      n && t.push(n);
-      var r = m(e);
-      r && t.push(r);
-      var o = p(e);
-      o && t.push(o);
-      var a = _(e);
-      a && t.push(a);
-      var i = f(e);
-      i && t.push(i);
-      var l = g(e);
-      l && t.push(l);
-      var s = h(e);
-      s && t.push(s);
-      var u = C(e);
-      u && t.push(u);
-      var c = b(e);
-      return (c && t.push(c), t);
+    var v = "MP4B";
+    function S(e) {
+      var t;
+      if (
+        !(
+          e.surfaceId !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP ||
+          !R((t = e.data.primaryAction) == null ? void 0 : t.deepLink)
+        )
+      )
+        return {
+          type: "metaOneSubscription",
+          onPrimaryClick: function () {
+            o("WAWebBizAiMetaOneDialogRequestStore").requestMetaOneDialog(
+              null,
+              r("WAWebPonyfillsCryptoRandomUUID")(),
+              function () {
+                return o("WAWebModalManager").ModalManager.open(
+                  c.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+                );
+              },
+            );
+          },
+        };
     }
-    function S(e, t, n) {
+    function R(e) {
+      if (e == null) return !1;
+      try {
+        var t = new URL(e);
+        if (
+          t.protocol !== "https:" ||
+          t.hostname !== "wa.me" ||
+          t.pathname !== "/subscriptions"
+        )
+          return !1;
+        var n = t.searchParams.get("deeplink_params");
+        if (n == null) return !1;
+        var r = JSON.parse(n);
+        return typeof r == "object" && r != null && r.product_type === v;
+      } catch (e) {
+        return !1;
+      }
+    }
+    function L(e) {
+      var t = S(e);
+      if (t != null) return [t];
+      var n = [],
+        r = d(e);
+      r && n.push(r);
+      var o = m(e);
+      o && n.push(o);
+      var a = p(e);
+      a && n.push(a);
+      var i = _(e);
+      i && n.push(i);
+      var l = f(e);
+      l && n.push(l);
+      var s = g(e);
+      s && n.push(s);
+      var u = h(e);
+      u && n.push(u);
+      var c = C(e);
+      c && n.push(c);
+      var y = b(e);
+      return (y && n.push(y), n);
+    }
+    function E(e, t, n) {
       new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
         bannerType: o(
           "WAWebBizNativeAdsEntryPointUtils",
@@ -433,9 +481,9 @@ __d(
         bannerId: t,
       }).commit();
     }
-    function R(e, t) {
-      var n = v(e);
-      (L(e, t, n),
+    function k(e, t) {
+      var n = L(e);
+      (I(e, t, n),
         n.forEach(function (e) {
           switch (t) {
             case "primaryActionClick":
@@ -449,7 +497,7 @@ __d(
           }
         }));
     }
-    function L(e, t, n) {
+    function I(e, t, n) {
       var r;
       if (
         !(
@@ -475,7 +523,7 @@ __d(
           .sendLogs("quick-promotion-primary-action-unhandled");
       }
     }
-    l.maybeExecuteQuickPromotionCustomHandlingSpec = R;
+    l.maybeExecuteQuickPromotionCustomHandlingSpec = k;
   },
   98,
 );

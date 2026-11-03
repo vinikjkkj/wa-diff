@@ -32,27 +32,37 @@ __d(
       logGroupHistoryParseHistoryProtoFailed: function (t) {
         var e = t.groupId,
           n = t.messagesCount,
-          r = t.oowPinsCount;
+          r = t.oowPinsCount,
+          a = t.receiverFailureReason;
         o(
           "WAWebGroupHistoryReceiverUserJourneyLogger",
         ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed({
           groupHistoryMessagesCount: n,
           groupHistoryOutWindowPinsCount: r,
           groupHistoryReceiverGroupId: e,
+          receiverFailureReason: a,
         });
       },
       logGroupHistoryDbInserted: function (t) {
-        var e = t.dbIgnoredOlderMessages,
-          n = t.groupId,
-          r = t.messagesCount,
-          a = t.oowPinsCount;
+        var e = t.applyDurationMs,
+          n = t.dbIgnoredOlderMessages,
+          r = t.groupId,
+          a = t.messagesCount,
+          i = t.oowPinsCount,
+          l = t.pinsCount,
+          s = t.receiverFailureReason,
+          u = t.uncountedCount;
         o(
           "WAWebGroupHistoryReceiverUserJourneyLogger",
         ).GroupHistoryReceiverUserJourneyLogger.dbInserted({
-          groupHistoryDbIgnoredOlderMessages: e,
-          groupHistoryMessagesCount: r,
-          groupHistoryOutWindowPinsCount: a,
-          groupHistoryReceiverGroupId: n,
+          groupHistoryBundleApplyDurationMs: e,
+          groupHistoryDbIgnoredOlderMessages: n,
+          groupHistoryMessagesCount: a,
+          groupHistoryOutWindowPinsCount: i,
+          groupHistoryPinsCount: l,
+          groupHistoryReceiverGroupId: r,
+          groupHistoryUncountedMessagesCount: u,
+          receiverFailureReason: s,
         });
       },
     };

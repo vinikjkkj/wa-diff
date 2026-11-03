@@ -57,7 +57,7 @@ __d(
                 "WAWebSendScheduledMsgAction",
               ).sendScheduledTextMsgToChat({
                 chat: u,
-                text: f(l, c ? null : n),
+                text: g(l, c ? null : n),
                 options: c ? { quotedMsg: n } : {},
                 scheduledTimestampS: a,
                 onScheduled: function (t) {
@@ -89,35 +89,40 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            yield o("WAWebSelfReminderMarkStore").addSelfReminderMark(e.id, {
-              msgKey: e.toString(),
-              scheduledTimestampS: t,
-            });
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[self_reminder] storing reminder mark failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("self-reminder-mark-store-failed");
-          }
+          if (o("WAWebSelfReminderGating").isSelfReminderEnabled())
+            try {
+              yield o("WAWebSelfReminderMarkStore").addSelfReminderMark(e.id, {
+                msgKey: e.toString(),
+                scheduledTimestampS: t,
+              });
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[self_reminder] storing reminder mark failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("self-reminder-mark-store-failed");
+            }
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e) {
+      var t = g("").trim();
+      return e.startsWith(t) ? e.slice(t.length).trimStart() : e;
+    }
+    function g(e, t) {
       var n = s
           ._(/*BTDS*/ "Reminder: {reminder text}", [
             s._param("reminder text", e.trim()),
           ])
           .toString(),
-        r = t != null ? y(t) : null;
+        r = t != null ? C(t) : null;
       if (t == null || r == null) return n;
-      var o = g(t),
+      var o = h(t),
         a =
           o === ""
             ? r
@@ -129,8 +134,8 @@ __d(
                 .toString();
       return n + "\n> " + a;
     }
-    function g(e) {
-      var t = e.id.fromMe ? s._(/*BTDS*/ "You").toString() : h(e),
+    function h(e) {
+      var t = e.id.fromMe ? s._(/*BTDS*/ "You").toString() : y(e),
         n = o("WAWebChatCollection").ChatCollection.get(e.id.remote);
       return n == null || !o("WAWebChatGetters").getIsGroup(n)
         ? t
@@ -143,7 +148,7 @@ __d(
               ])
               .toString();
     }
-    function h(e) {
+    function y(e) {
       var t = o("WAWebMsgGetters").getSender(e),
         n =
           t != null
@@ -153,7 +158,7 @@ __d(
         ? o("WAWebFrontendContactGetters").getDisplayName(n)
         : "";
     }
-    function y(e) {
+    function C(e) {
       var t = e.type === o("WAWebMsgType").MSG_TYPE.CHAT ? e.body : e.caption,
         n = t == null ? void 0 : t.replace(/\s+/g, " ").trim();
       return n == null || n === ""
@@ -162,7 +167,10 @@ __d(
           ? n.slice(0, c) + "\u2026"
           : n;
     }
-    ((l.scheduleSelfReminder = d), (l.buildSelfReminderText = f));
+    ((l.scheduleSelfReminder = d),
+      (l.storeReminderMark = p),
+      (l.withoutReminderPrefix = f),
+      (l.buildSelfReminderText = g));
   },
   226,
 );

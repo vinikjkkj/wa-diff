@@ -1,8 +1,9 @@
 __d(
   "WAWebSharableEventUpdateRsvpJob",
   [
+    "WALogger",
     "WAWebBackendApi",
-    "WAWebRelayClient",
+    "WAWebSharableEventServerClient",
     "WAWebSharableEventStoreInvitation",
     "WAWebSharableEventUpdateRsvpJobMutation.graphql",
     "asyncToGeneratorRuntime",
@@ -10,67 +11,76 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 0,
-      u = 1,
-      c =
+      s,
+      u,
+      c = 0,
+      d = 1,
+      m =
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventUpdateRsvpJobMutation.graphql"));
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = null,
-            i = yield o("WAWebRelayClient").commitMutation(
-              c,
-              {
-                input: babelHelpers.extends(
-                  { event_id: e, rsvp_status: p(t) },
-                  _(t),
-                ),
-              },
-              {
-                environmentType: "whatsapp_web",
-                getInlineDataReader: function (t) {
-                  a = t;
-                },
-              },
-            ),
-            l =
-              i == null || (n = i.event_update_rsvp) == null
+            a = yield o(
+              "WAWebSharableEventServerClient",
+            ).mutateSharableEventServer(m, {
+              input: babelHelpers.extends(
+                { event_id: e, rsvp_status: f(t) },
+                g(t),
+              ),
+            }),
+            i = a.reader,
+            l = a.response,
+            c =
+              l == null || (n = l.event_update_rsvp) == null
                 ? void 0
-                : n.privacy_aware_invitation,
-            s = a;
-          if (l == null || s == null)
+                : n.privacy_aware_invitation;
+          if (c == null)
             throw r("err")(
               "[sharable_event] event_update_rsvp returned no invitation",
             );
-          var u = yield o(
+          var d = yield o(
             "WAWebSharableEventStoreInvitation",
-          ).storeSharableEventInvitation(e, s, l);
-          u != null &&
+          ).storeSharableEventInvitation(e, i, c);
+          if (d == null) {
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][respond] sent eventId=",
+                  " response=",
+                  " but not stored: a newer invitation is stored",
+                ])),
+              e,
+              t,
+            );
+            return;
+          }
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][respond] sent eventId=",
+                " response=",
+                "",
+              ])),
+            e,
+            t,
+          ),
             o("WAWebBackendApi").frontendFireAndForget(
               "applySharableEventUpdate",
-              {
-                events: [u.row],
-                inviteeLists: [
-                  {
-                    eventId: e,
-                    rows: u.invitees.map(function (t) {
-                      return babelHelpers.extends({}, t, { eventId: e });
-                    }),
-                  },
-                ],
-              },
-            );
+              o(
+                "WAWebSharableEventStoreInvitation",
+              ).toSharableEventInvitationUpdate(e, d),
+            ));
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p(e) {
+    function f(e) {
       return e === "going" || e === "going_with_guest"
         ? "GOING"
         : e === "maybe"
@@ -84,11 +94,11 @@ __d(
                 );
               })();
     }
-    function _(e) {
+    function g(e) {
       return e === "going"
-        ? { extra_guest_count: s }
+        ? { extra_guest_count: c }
         : e === "going_with_guest"
-          ? { extra_guest_count: u }
+          ? { extra_guest_count: d }
           : e === "maybe" || e === "not_going"
             ? {}
             : (function () {
@@ -98,7 +108,7 @@ __d(
                 );
               })();
     }
-    l.updateSharableEventRsvp = d;
+    l.updateSharableEventRsvp = p;
   },
   98,
 );

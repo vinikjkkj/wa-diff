@@ -658,29 +658,11 @@ __d(
             _ = p.historyReceivers,
             g = p.nonHistoryReceivers;
           if (_.length !== 0) {
-            t != null &&
-              (o(
-                "WAWebGroupHistorySenderUserJourneyLogger",
-              ).GroupHistorySenderUserJourneyLogger.bundleMessageSent({
-                bundleSendSource: t,
-                groupHistoryMessagesCount: l,
-                groupHistorySystemMessageType: r,
-                recipientCount: _.length,
-                uiSurface: d,
-              }),
-              o(
-                "WAWebGroupHistorySenderUserJourneyLogger",
-              ).GroupHistorySenderUserJourneyLogger.noticeMessageSent({
-                bundleSendSource: t,
-                groupHistorySystemMessageType: r,
-                recipientCount: _.length,
-                uiSurface: d,
-              }));
             var h = o("WAWebWidToJid").widToGroupJid(a);
             try {
               var y = yield o(
                   "WAWebSendHistoryBundleAction",
-                ).sendHistoryBundleAction(h, _, g, l, i),
+                ).sendHistoryBundleAction(h, _, g, l, i, q(t, r, _.length, d)),
                 C = y.bundleAcked,
                 b = y.noticeAcked;
               if (
@@ -760,24 +742,6 @@ __d(
                 m = d.historyReceivers,
                 _ = d.nonHistoryReceivers;
               if (m.length !== 0) {
-                a != null &&
-                  (o(
-                    "WAWebGroupHistorySenderUserJourneyLogger",
-                  ).GroupHistorySenderUserJourneyLogger.bundleMessageSent({
-                    bundleSendSource: a,
-                    groupHistoryMessagesCount: r,
-                    groupHistorySystemMessageType: l,
-                    recipientCount: m.length,
-                    uiSurface: i,
-                  }),
-                  o(
-                    "WAWebGroupHistorySenderUserJourneyLogger",
-                  ).GroupHistorySenderUserJourneyLogger.noticeMessageSent({
-                    bundleSendSource: a,
-                    groupHistorySystemMessageType: l,
-                    recipientCount: m.length,
-                    uiSurface: i,
-                  }));
                 var g = o("WAWebFrontendContactGetters").getFormattedShortName(
                     t[0].contact,
                   ),
@@ -786,7 +750,14 @@ __d(
                 try {
                   var C = yield o(
                       "WAWebSendHistoryBundleAction",
-                    ).sendHistoryBundleAction(y, m, _, r, c),
+                    ).sendHistoryBundleAction(
+                      y,
+                      m,
+                      _,
+                      r,
+                      c,
+                      q(a, l, m.length, i),
+                    ),
                     b = C.bundleAcked,
                     v = C.noticeAcked;
                   if (
@@ -849,6 +820,16 @@ __d(
         )),
         W.apply(this, arguments)
       );
+    }
+    function q(e, t, n, r) {
+      return e == null
+        ? null
+        : {
+            bundleSendSource: e,
+            groupHistorySystemMessageType: t,
+            recipientCount: n,
+            uiSurface: r,
+          };
     }
     l.startPostJoinSendFlow = C;
   },

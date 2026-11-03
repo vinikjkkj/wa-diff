@@ -64,19 +64,15 @@ __d(
       ]),
       x = "server_unspecified";
     function $(e) {
-      var t,
-        n = e == null ? void 0 : e.weightsVersion;
-      return n == null
+      var t = e == null ? void 0 : e.weightsVersion;
+      return t == null
         ? {
             payment_method_weights_version: void 0,
             payment_method_rank_changed: void 0,
-            payment_method_pinned: void 0,
           }
         : {
-            payment_method_weights_version: n,
+            payment_method_weights_version: t,
             payment_method_rank_changed: e == null ? void 0 : e.rankChanged,
-            payment_method_pinned:
-              (t = e == null ? void 0 : e.pinnedEntry) != null ? t : void 0,
           };
     }
     function P(e) {

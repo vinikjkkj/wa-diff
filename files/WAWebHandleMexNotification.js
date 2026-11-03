@@ -510,17 +510,26 @@ __d(
                                                                                             )
                                                                                               .mexHandleSharableEventGuestJoinedWaNotification,
                                                                                           )
-                                                                                        : (
-                                                                                            c ||
-                                                                                            (c =
-                                                                                              n(
-                                                                                                "Promise",
-                                                                                              ))
-                                                                                          ).reject(
-                                                                                            new y(
-                                                                                              e.OperationName,
-                                                                                            ),
-                                                                                          );
+                                                                                        : e.OperationName ===
+                                                                                            "NotificationEventHostPushNamePublish"
+                                                                                          ? C(
+                                                                                              e,
+                                                                                              o(
+                                                                                                "WAWebSharableEventNotificationHandler",
+                                                                                              )
+                                                                                                .mexHandleSharableEventHostPushNamePublishNotification,
+                                                                                            )
+                                                                                          : (
+                                                                                              c ||
+                                                                                              (c =
+                                                                                                n(
+                                                                                                  "Promise",
+                                                                                                ))
+                                                                                            ).reject(
+                                                                                              new y(
+                                                                                                e.OperationName,
+                                                                                              ),
+                                                                                            );
     }
     var y = (function (e) {
       function t(n) {

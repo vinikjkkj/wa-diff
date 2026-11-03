@@ -82,10 +82,7 @@ __d(
         toMinifiedStyle: o("WebBloksModel").defineWebBloksMinificationMap({}),
         toMinifiedSignature: {},
       };
-    function d(e) {
-      return e;
-    }
-    function m(e, t) {
+    function d(e, t) {
       for (
         var n,
           a,
@@ -95,16 +92,16 @@ __d(
           c = babelHelpers.extends({}, u, e, { locale: l, isRtl: s }),
           d = arguments.length,
           m = new Array(d > 2 ? d - 2 : 0),
-          p = 2;
-        p < d;
-        p++
+          f = 2;
+        f < d;
+        f++
       )
-        m[p - 2] = arguments[p];
+        m[f - 2] = arguments[f];
       var g = m.reduce(
         function (e, t) {
-          return _(e, t);
+          return p(e, t);
         },
-        _(c, t),
+        p(c, t),
       );
       if (
         !g.useMinification &&
@@ -153,7 +150,7 @@ __d(
         actions: new (r("WebBloksModuleStore"))(
           g.useMinification
             ? g.actions
-            : f(g.actions, g.minificationMaps.toMinifiedSignature),
+            : _(g.actions, g.minificationMaps.toMinifiedSignature),
         ),
         components: new (r("WebBloksModuleStore"))(g.components),
         extensionHandlers: new (r("WebBloksModuleStore"))(g.extensionHandlers),
@@ -161,10 +158,10 @@ __d(
       });
       return y;
     }
-    function p(e) {
+    function m(e) {
       return s(e)[0];
     }
-    function _(e, t) {
+    function p(e, t) {
       var n,
         r,
         o,
@@ -178,7 +175,7 @@ __d(
         m,
         p,
         _,
-        f,
+        g,
         h,
         y,
         C,
@@ -249,8 +246,8 @@ __d(
                 ? _
                 : e.enableBindSubtreeReuse,
             enableNoOpVariableWriteFilter:
-              (f = t.enableNoOpVariableWriteFilter) != null
-                ? f
+              (g = t.enableNoOpVariableWriteFilter) != null
+                ? g
                 : e.enableNoOpVariableWriteFilter,
             cssOnlyAspectRatio:
               (h = t.cssOnlyAspectRatio) != null ? h : e.cssOnlyAspectRatio,
@@ -268,7 +265,7 @@ __d(
                 : e.enableBindInstrumentation,
             loadingFallback:
               (v = t.loadingFallback) != null ? v : e.loadingFallback,
-            dataModulesStore: g(e.dataModulesStore, t.dataModulesStore),
+            dataModulesStore: f(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
               (S = t.navigationTrackingUtils) != null
                 ? S
@@ -303,7 +300,7 @@ __d(
           }
         : e;
     }
-    function f(e, t) {
+    function _(e, t) {
       if (t == null) return e;
       var n = {};
       for (var r of Object.entries(t)) {
@@ -325,7 +322,7 @@ __d(
       }
       return i;
     }
-    function g(e, t) {
+    function f(e, t) {
       if (!t || t.size === 0) return e;
       var n = new Map(e);
       for (var r of t) {
@@ -341,10 +338,9 @@ __d(
     }
     ((l.WEBLOKS_DEFAULT_ENVIRONMENT = u),
       (l.EMPTY_WEBLOKS_MINIFICATION_MAPS = c),
-      (l.createWebBloksUnminificationMap = d),
-      (l.createEnvironment = m),
-      (l.useWebBloksEnvironmentStore = p),
-      (l.addWebBloksSignatureAliases = f));
+      (l.createEnvironment = d),
+      (l.useWebBloksEnvironmentStore = m),
+      (l.addWebBloksSignatureAliases = _));
   },
   98,
 );

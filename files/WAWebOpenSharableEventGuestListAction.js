@@ -12,7 +12,9 @@ __d(
       s = e || (e = o("react"));
     function u(e, t) {
       (t === void 0 && (t = !1),
-        o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
+        o(
+          "WAWebSharableEventGatingUtils",
+        ).isEventsV2OnCompanionEnabledForAction("open-guest-list") &&
           o("WAWebDrawerManager").DrawerManager.openDrawerRight(
             o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
               ? {

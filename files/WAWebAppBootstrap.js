@@ -43,6 +43,7 @@ __d(
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
+    "WAWebUserPrefsMultiDevice",
     "WAWebWam",
     "WAWebWamPageLoadReporter",
     "WAWebWamWorkerSpecificEvents",
@@ -177,7 +178,8 @@ __d(
             myJids: g,
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
           }),
-            g != null && o("WAWebBackendWorkerInitState").resolveJidsReady(),
+            o("WAWebUserPrefsMultiDevice").isRegistered() &&
+              o("WAWebBackendWorkerInitState").resolveJidsReady(),
             o("WAWebCacheStoreGatingUtil").initStorageOptimizationFlags(),
             o("WAWebAppSwInitializer").initializeSw({
               swScriptPath: "/sw.js",

@@ -13,7 +13,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("WAWebLazyLoadedRetriable")(
+      s,
+      u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return r("JSResourceForInteraction")(
             "WAWebSharableEventStoredDataJob",
@@ -23,9 +24,9 @@ __d(
         }),
         "WAWebSharableEventStoredDataJob",
       );
-    function u() {
+    function c() {
       if (o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled()) {
-        c();
+        d();
         return;
       }
       var e = function () {
@@ -34,41 +35,52 @@ __d(
             o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
             e,
           ),
-          c());
+          d());
       };
       o("WAWebBackendEventBus").BackendEventBus.onAbPropsUpdate(e);
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
     function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            var t = yield s(),
+            var t = yield u(),
               n = t.loadStoredSharableEvents,
               a = yield n();
-            if (a.events.length === 0) return;
+            if (
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][startup] restored events=",
+                    "",
+                  ])),
+                a.events.length,
+              ),
+              a.events.length === 0)
+            )
+              return;
             o("WAWebBackendApi").frontendFireAndForget(
               "applySharableEventUpdate",
               a,
             );
-          } catch (t) {
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event] restoring stored events failed",
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][startup] restoring stored events failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .sendLogs("sharable-event-restore-failed");
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.restoreSharableEventsWhenEnabled = u;
+    l.restoreSharableEventsWhenEnabled = c;
   },
   98,
 );
