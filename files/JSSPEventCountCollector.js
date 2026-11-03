@@ -1,65 +1,41 @@
 __d(
   "JSSPEventCountCollector",
-  ["JSSPTraceBaseDataCollector", "asyncToGeneratorRuntime", "performance"],
+  ["JSSPTraceBaseDataCollector", "performance"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = new Set(["click", "input"]),
       u = new Map(),
       c = (function (t) {
-        function o() {
+        function n() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(o, t);
-        var a = o.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var o = n.prototype;
         return (
-          (a.onProfilerStarts = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = 0;
-                for (var o of s) {
-                  var a, i;
-                  n +=
-                    (a =
-                      (i = (e || (e = r("performance"))).eventCounts) == null
-                        ? void 0
-                        : i.get(o)) != null
-                      ? a
-                      : 0;
-                }
-                u.set(t, n);
-              },
-            );
-            function o(e) {
-              return t.apply(this, arguments);
+          (o.onProfilerStarts = async function (n) {
+            var t = 0;
+            for (var o of s) {
+              var a, i;
+              t +=
+                (a =
+                  (i = (e || (e = r("performance"))).eventCounts) == null
+                    ? void 0
+                    : i.get(o)) != null
+                  ? a
+                  : 0;
             }
-            return o;
-          })()),
-          (a.onProfilerEnds = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r,
-                  o = (r = u.get(e)) != null ? r : null;
-                return (u.delete(e), (n.totalEventCount = o), n);
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.onProfilerAborts = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                u.delete(e);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          o
+            u.set(n, t);
+          }),
+          (o.onProfilerEnds = async function (t, n, r) {
+            var e,
+              o = (e = u.get(t)) != null ? e : null;
+            return (u.delete(t), (r.totalEventCount = o), r);
+          }),
+          (o.onProfilerAborts = async function (t) {
+            u.delete(t);
+          }),
+          n
         );
       })(r("JSSPTraceBaseDataCollector"));
     l.default = c;

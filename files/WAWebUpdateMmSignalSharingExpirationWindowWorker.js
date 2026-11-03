@@ -1,6 +1,6 @@
 __d(
   "WAWebUpdateMmSignalSharingExpirationWindowWorker",
-  ["WAWebMmSignalSharingGatingUtils"],
+  ["WAWebMmSignalSharingContextInfo", "WAWebMmSignalSharingGatingUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -13,7 +13,12 @@ __d(
           e.fireAndForget(
             "mainthread_callbacks",
             "updateMmSignalSharingExpirationWindow",
-            { msg: t, contextInfo: n },
+            {
+              msg: t,
+              contextInfo: o(
+                "WAWebMmSignalSharingContextInfo",
+              ).getCappedMmSignalSharingContextInfo(n),
+            },
           );
       };
     }

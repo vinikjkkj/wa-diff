@@ -258,7 +258,6 @@ __d(
       (l.makeDeliverResponseBadStanzaInvalidProtobuf = d),
       (l.makeDeliverResponseDelivery = m),
       (l.makeDeliverResponseNoEnc = p),
-      (l.parseDeliverEncMixin = _),
       (l.BROADCASTJID_CALLJID_DEVICEJID_DOMAINJID_GROUPJID_STATUSJID_USERJID =
         f));
   },

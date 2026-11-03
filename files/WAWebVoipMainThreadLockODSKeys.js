@@ -5,15 +5,15 @@ __d(
     function e(e, t) {
       e: {
         if (t === "test") {
-          v(e);
+          R(e);
           break e;
         }
         if (t === "control") {
-          S(e);
+          L(e);
           break e;
         }
         if (t === "none") {
-          R(e);
+          E(e);
           break e;
         }
         throw Error(
@@ -25,15 +25,15 @@ __d(
     function s(e, t) {
       e: {
         if (t === "test") {
-          L(e);
+          k(e);
           break e;
         }
         if (t === "control") {
-          E(e);
+          I(e);
           break e;
         }
         if (t === "none") {
-          k(e);
+          T(e);
           break e;
         }
         throw Error(
@@ -65,18 +65,18 @@ __d(
       }
     }
     function c(e, t) {
-      var n = I(e);
+      var n = D(e);
       e: {
         if (t === "test") {
-          T(n);
+          x(n);
           break e;
         }
         if (t === "control") {
-          D(n);
+          $(n);
           break e;
         }
         if (t === "none") {
-          x(n);
+          P(n);
           break e;
         }
         throw Error(
@@ -86,8 +86,8 @@ __d(
       }
     }
     function d(e, t, n) {
-      var r = I(e);
-      t === "done" ? $(r, n) : P(r, n);
+      var r = D(e);
+      t === "done" ? N(r, n) : M(r, n);
     }
     function m(e) {
       e: {
@@ -112,15 +112,15 @@ __d(
     function p(e, t, n) {
       e: {
         if (t === "1s") {
-          B(e, n);
+          q(e, n);
           break e;
         }
         if (t === "5s") {
-          W(e, n);
+          U(e, n);
           break e;
         }
         if (t === "15s") {
-          q(e, n);
+          V(e, n);
           break e;
         }
         throw Error(
@@ -185,14 +185,96 @@ __d(
         );
       }
     }
-    function f(e, t, n) {
+    function f(e) {
+      e: {
+        if (e === "timeout_not_sent") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_not_sent",
+          );
+          break e;
+        }
+        if (e === "timeout_overlapped") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_overlapped",
+          );
+          break e;
+        }
+        if (e === "timeout_rpcs_behind") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_rpcs_behind",
+          );
+          break e;
+        }
+        if (e === "timeout_offer_behind") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_offer_behind",
+          );
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    function g(e) {
+      e: {
+        if (e === "timeout_in_native") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_in_native",
+          );
+          break e;
+        }
+        if (e === "timeout_in_queue") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_in_queue",
+          );
+          break e;
+        }
+        if (e === "timeout_start_unknown") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_timeout_start_unknown",
+          );
+          break e;
+        }
+        if (e === "no_reply_in_native") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_no_reply_in_native",
+          );
+          break e;
+        }
+        if (e === "no_reply_in_queue") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_no_reply_in_queue",
+          );
+          break e;
+        }
+        if (e === "no_reply_start_unknown") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_no_reply_start_unknown",
+          );
+          break e;
+        }
+        if (e === "start_unreported") {
+          r("WAWebODS").incr(
+            "web.call.voip.main_lock.fs_cleanup.offload_start_unreported",
+          );
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    function h(e, t, n) {
       t >= 15e3
         ? p(e, "15s", n)
         : t >= 5e3
           ? p(e, "5s", n)
           : t >= 1e3 && p(e, "1s", n);
     }
-    function g(e) {
+    function y(e) {
       e: {
         if (e === "no_file") {
           r("WAWebODS").incr(
@@ -212,19 +294,19 @@ __d(
         );
       }
     }
-    function h() {
+    function C() {
       r("WAWebODS").incr(
         "web.call.voip.main_lock.jsworker_create.prewarm_deferred",
       );
     }
-    function y(e, t) {
+    function b(e, t) {
       e: {
         if (e === "playback_stop") {
-          Y(t);
+          Z(t);
           break e;
         }
         if (e === "capture_stop") {
-          J(t);
+          ee(t);
           break e;
         }
         throw Error(
@@ -233,7 +315,7 @@ __d(
         );
       }
     }
-    function C(e) {
+    function v(e) {
       e: {
         if (e === "quarantined") {
           r("WAWebODS").incr("web.call.voip.main_lock.ring.quarantined");
@@ -253,10 +335,10 @@ __d(
         );
       }
     }
-    function b() {
+    function S() {
       r("WAWebODS").flush();
     }
-    function v(e) {
+    function R(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr("web.call.voip.main_lock.fs_cleanup.reached.test");
@@ -316,7 +398,7 @@ __d(
         );
       }
     }
-    function S(e) {
+    function L(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -378,7 +460,7 @@ __d(
         );
       }
     }
-    function R(e) {
+    function E(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr("web.call.voip.main_lock.fs_cleanup.reached.none");
@@ -438,7 +520,7 @@ __d(
         );
       }
     }
-    function L(e) {
+    function k(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -500,7 +582,7 @@ __d(
         );
       }
     }
-    function E(e) {
+    function I(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -562,7 +644,7 @@ __d(
         );
       }
     }
-    function k(e) {
+    function T(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -624,7 +706,7 @@ __d(
         );
       }
     }
-    function I(e) {
+    function D(e) {
       return e === "rpc_bootstrap"
         ? "rpc_bootstrap"
         : e === "wt_prewarm"
@@ -635,7 +717,7 @@ __d(
               ? "video_capture"
               : "other";
     }
-    function T(e) {
+    function x(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -673,7 +755,7 @@ __d(
         );
       }
     }
-    function D(e) {
+    function $(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -711,7 +793,7 @@ __d(
         );
       }
     }
-    function x(e) {
+    function P(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -749,38 +831,18 @@ __d(
         );
       }
     }
-    function $(e, t) {
+    function N(e, t) {
       e: {
         if (t === "test") {
-          N(e);
-          break e;
-        }
-        if (t === "control") {
-          M(e);
-          break e;
-        }
-        if (t === "none") {
           w(e);
           break e;
         }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
-        );
-      }
-    }
-    function P(e, t) {
-      e: {
-        if (t === "test") {
+        if (t === "control") {
           A(e);
           break e;
         }
-        if (t === "control") {
-          F(e);
-          break e;
-        }
         if (t === "none") {
-          O(e);
+          F(e);
           break e;
         }
         throw Error(
@@ -789,7 +851,27 @@ __d(
         );
       }
     }
-    function N(e) {
+    function M(e, t) {
+      e: {
+        if (t === "test") {
+          O(e);
+          break e;
+        }
+        if (t === "control") {
+          B(e);
+          break e;
+        }
+        if (t === "none") {
+          W(e);
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            t,
+        );
+      }
+    }
+    function w(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -827,7 +909,7 @@ __d(
         );
       }
     }
-    function M(e) {
+    function A(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -865,7 +947,7 @@ __d(
         );
       }
     }
-    function w(e) {
+    function F(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -903,7 +985,7 @@ __d(
         );
       }
     }
-    function A(e) {
+    function O(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -941,7 +1023,7 @@ __d(
         );
       }
     }
-    function F(e) {
+    function B(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -979,7 +1061,7 @@ __d(
         );
       }
     }
-    function O(e) {
+    function W(e) {
       e: {
         if (e === "rpc_bootstrap") {
           r("WAWebODS").incr(
@@ -1017,58 +1099,18 @@ __d(
         );
       }
     }
-    function B(e, t) {
-      e: {
-        if (t === "test") {
-          U(e);
-          break e;
-        }
-        if (t === "control") {
-          V(e);
-          break e;
-        }
-        if (t === "none") {
-          H(e);
-          break e;
-        }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
-        );
-      }
-    }
-    function W(e, t) {
-      e: {
-        if (t === "test") {
-          G(e);
-          break e;
-        }
-        if (t === "control") {
-          z(e);
-          break e;
-        }
-        if (t === "none") {
-          j(e);
-          break e;
-        }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
-        );
-      }
-    }
     function q(e, t) {
       e: {
         if (t === "test") {
-          K(e);
+          H(e);
           break e;
         }
         if (t === "control") {
-          Q(e);
+          G(e);
           break e;
         }
         if (t === "none") {
-          X(e);
+          z(e);
           break e;
         }
         throw Error(
@@ -1077,7 +1119,47 @@ __d(
         );
       }
     }
-    function U(e) {
+    function U(e, t) {
+      e: {
+        if (t === "test") {
+          j(e);
+          break e;
+        }
+        if (t === "control") {
+          K(e);
+          break e;
+        }
+        if (t === "none") {
+          Q(e);
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            t,
+        );
+      }
+    }
+    function V(e, t) {
+      e: {
+        if (t === "test") {
+          X(e);
+          break e;
+        }
+        if (t === "control") {
+          Y(e);
+          break e;
+        }
+        if (t === "none") {
+          J(e);
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            t,
+        );
+      }
+    }
+    function H(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1139,7 +1221,7 @@ __d(
         );
       }
     }
-    function V(e) {
+    function G(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1201,7 +1283,7 @@ __d(
         );
       }
     }
-    function H(e) {
+    function z(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1263,7 +1345,7 @@ __d(
         );
       }
     }
-    function G(e) {
+    function j(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1325,7 +1407,7 @@ __d(
         );
       }
     }
-    function z(e) {
+    function K(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1387,7 +1469,7 @@ __d(
         );
       }
     }
-    function j(e) {
+    function Q(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1449,7 +1531,7 @@ __d(
         );
       }
     }
-    function K(e) {
+    function X(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1511,7 +1593,7 @@ __d(
         );
       }
     }
-    function Q(e) {
+    function Y(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1573,7 +1655,7 @@ __d(
         );
       }
     }
-    function X(e) {
+    function J(e) {
       e: {
         if (e === "fs_cleanup") {
           r("WAWebODS").incr(
@@ -1635,7 +1717,7 @@ __d(
         );
       }
     }
-    function Y(e) {
+    function Z(e) {
       e: {
         if (e === "skipped_native_stopped") {
           r("WAWebODS").incr(
@@ -1661,7 +1743,7 @@ __d(
         );
       }
     }
-    function J(e) {
+    function ee(e) {
       e: {
         if (e === "skipped_native_stopped") {
           r("WAWebODS").incr(
@@ -1695,12 +1777,14 @@ __d(
       (l.logMainThreadLockBoot = m),
       (l.logMainThreadLockSlowMainCall = p),
       (l.logMainThreadLockOffloadEvent = _),
-      (l.logMainThreadLockCallDuration = f),
-      (l.logMainThreadLockRecoveryPrecheck = g),
-      (l.logMainThreadLockPrewarmDeferred = h),
-      (l.logMainThreadLockAudioStopEvent = y),
-      (l.logMainThreadLockRingEvent = C),
-      (l.flushMainThreadLockCounts = b));
+      (l.logMainThreadLockOffloadQueueEvent = f),
+      (l.logMainThreadLockOffloadStartEvent = g),
+      (l.logMainThreadLockCallDuration = h),
+      (l.logMainThreadLockRecoveryPrecheck = y),
+      (l.logMainThreadLockPrewarmDeferred = C),
+      (l.logMainThreadLockAudioStopEvent = b),
+      (l.logMainThreadLockRingEvent = v),
+      (l.flushMainThreadLockCounts = S));
   },
   98,
 );

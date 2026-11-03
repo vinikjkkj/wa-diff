@@ -1,0 +1,36 @@
+__d(
+  "LSContactTypeExact",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      UNKNOWN: 0,
+      FB_USER: 1,
+      MESSENGER_ONLY: 2,
+      DEACTIVATED_ALLOWED_ON_MESSENGER: 3,
+      MESSENGER_KID: 4,
+      FB_PAGE: 5,
+      FB_PAGE_PERSONA: 6,
+      IG_USER: 7,
+      MESSENGER_CALL_GUEST: 8,
+      WHATSAPP: 9,
+      GUEST_USER: 10,
+      IG_BUSINESS_USER: 11,
+      IG_CREATOR_USER: 12,
+      FB_SINGLE_OWNER_ADDITIONAL_PROFILE: 13,
+      PROXY_OCULUS_USER: 14,
+      WORK_VC_ENDPOINT: 15,
+      GENERATIVE_AI_BOT: 16,
+      COMMUNITY_CHAT: 17,
+      INTEROP_3P_USER: 18,
+      FB_ONLY_NOT_ALLOWED_ON_MESSENGER: 19,
+      MESSENGER_ONLY_NOT_ALLOWED_ON_FB: 20,
+      ADDITIONAL_PROFILE_PLUS: 21,
+      MESSENGER_SPECTRA: 22,
+      GROUP_ANONYMOUS_PROFILE: 50,
+      USER_FOR_SUPPORT: 51,
+      FB_AI_AGENT: 52,
+    });
+    i.default = e;
+  },
+  66,
+);

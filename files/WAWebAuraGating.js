@@ -8,6 +8,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebStickerPremiumStatus",
     "WAWebSubscriptionsGatingUtils",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -152,6 +153,16 @@ __d(
           (t.isStatusSearchBenefitActive = function () {
             return this.$7(
               o("WAWebAuraBenefitTypes").AuraBenefitId.STATUS_SEARCH,
+            );
+          }),
+          (t.isGroupReactionsEditorEnabled = function () {
+            return !!o("WAWebABProps").getABPropConfigValue(
+              "aura_group_reactions_editor_enabled",
+            );
+          }),
+          (t.isGroupReactionsDescriptionTransportEnabled = function () {
+            return (
+              r("gkx")("26258") === !1 && this.isGroupReactionsEditorEnabled()
             );
           }),
           (t.canUsePremiumSticker = function (t) {

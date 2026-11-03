@@ -1,6 +1,6 @@
 __d(
   "LexicalCode.prod",
-  ["LexicalCodeCore", "LexicalCodePrism"],
+  ["LexicalCodeCore"],
   function $module_LexicalCode_prod(
     global,
     require,
@@ -11,22 +11,6 @@ __d(
   ) {
     "use strict";
     var _require_LexicalCodeCore;
-    function t(e) {
-      var o = Object.create(null);
-      if (e) for (var t in e) o[t] = e[t];
-      return ((o["default"] = e), o);
-    }
-    var d = t(require("LexicalCodePrism"));
-    var i = d.CODE_LANGUAGE_FRIENDLY_NAME_MAP,
-      n = d.CODE_LANGUAGE_MAP,
-      g = d.getCodeLanguageOptions,
-      r = d.getCodeLanguages,
-      s = d.getCodeThemeOptions,
-      a = d.getLanguageFriendlyName,
-      C = d.normalizeCodeLanguage,
-      L = d.normalizeCodeLanguage,
-      p = d.PrismTokenizer,
-      x = d.registerCodeHighlighting;
     ((exports.$createCodeHighlightNode =
       (_require_LexicalCodeCore = require("LexicalCodeCore")).$createCodeHighlightNode),
       (exports.$createCodeNode = _require_LexicalCodeCore.$createCodeNode),
@@ -53,17 +37,7 @@ __d(
       (exports.DEFAULT_CODE_LANGUAGE =
         _require_LexicalCodeCore.DEFAULT_CODE_LANGUAGE),
       (exports.getDefaultCodeLanguage =
-        _require_LexicalCodeCore.getDefaultCodeLanguage),
-      (exports.CODE_LANGUAGE_FRIENDLY_NAME_MAP = i),
-      (exports.CODE_LANGUAGE_MAP = n),
-      (exports.PrismTokenizer = p),
-      (exports.getCodeLanguageOptions = g),
-      (exports.getCodeLanguages = r),
-      (exports.getCodeThemeOptions = s),
-      (exports.getLanguageFriendlyName = a),
-      (exports.normalizeCodeLang = C),
-      (exports.normalizeCodeLanguage = L),
-      (exports.registerCodeHighlighting = x));
+        _require_LexicalCodeCore.getDefaultCodeLanguage));
   },
   null,
 );

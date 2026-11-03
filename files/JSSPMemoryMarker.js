@@ -1,6 +1,6 @@
 __d(
   "JSSPMemoryMarker",
-  ["JSSPTraceBaseTransformer", "asyncToGeneratorRuntime"],
+  ["JSSPTraceBaseTransformer"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -8,35 +8,27 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.transform = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              var r;
-              e.metadata = (r = e.metadata) != null ? r : {};
-              var o = n.memoryData,
-                a = null,
-                i = null;
-              if (o != null) {
-                var l, s;
-                ((a = (l = o.start) == null ? void 0 : l.usedJSHeapSize),
-                  (i = (s = o.end) == null ? void 0 : s.usedJSHeapSize));
-              }
-              return (
-                a != null &&
-                  i != null &&
-                  ((e.metadata.usedJSHeapSizeWhenStart = a),
-                  (e.metadata.usedJSHeapSizeWhenEnd = i)),
-                e
-              );
-            },
-          );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
+        (n.transform = async function (t, n, r) {
+          var e;
+          t.metadata = (e = t.metadata) != null ? e : {};
+          var o = r.memoryData,
+            a = null,
+            i = null;
+          if (o != null) {
+            var l, s;
+            ((a = (l = o.start) == null ? void 0 : l.usedJSHeapSize),
+              (i = (s = o.end) == null ? void 0 : s.usedJSHeapSize));
           }
-          return t;
-        })()),
+          return (
+            a != null &&
+              i != null &&
+              ((t.metadata.usedJSHeapSizeWhenStart = a),
+              (t.metadata.usedJSHeapSizeWhenEnd = i)),
+            t
+          );
+        }),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

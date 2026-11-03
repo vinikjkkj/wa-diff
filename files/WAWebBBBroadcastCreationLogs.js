@@ -1,6 +1,6 @@
 __d(
   "WAWebBBBroadcastCreationLogs",
-  ["WAWebBBLoggerTypes"],
+  ["WAWebBBLoggerTypes", "WAWebBroadcastODS"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -259,27 +259,86 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function D(e, t, n, r, a, i, l, s, u, c, d, m, p) {
-      var _ = { contact_count: t, save_result: n };
-      (s != null && ((_.audience_count = s), (_.is_multi_audience = s > 1)),
-        a != null && (_.errorType = a),
-        i != null && (_.campaign_sent_error_type = i),
-        r != null && (_.attachmentExt = r),
-        l != null && (_.attachment_type = l),
-        c === !0 && (_.is_duplicate_bb = !0),
-        d != null && (_.created_from_client_campaign_id = d),
-        m != null && (_.ai_assisted_text = m),
-        p != null && (_.ai_assisted_text_edited = p),
+    function D(e, t, n, r, a, i, l, s, u, c, d, m, p, _) {
+      _ === void 0 && (_ = "campaign_creation");
+      var f = { contact_count: t, phase: _, save_result: n };
+      (n === "failure" && (f.error_category = P(i)),
+        s != null && ((f.audience_count = s), (f.is_multi_audience = s > 1)),
+        a != null && (f.errorType = a),
+        i != null && (f.campaign_sent_error_type = i),
+        r != null && (f.attachmentExt = r),
+        l != null && (f.attachment_type = l),
+        c === !0 && (f.is_duplicate_bb = !0),
+        d != null && (f.created_from_client_campaign_id = d),
+        m != null && (f.ai_assisted_text = m),
+        p != null && (f.ai_assisted_text_edited = p));
+      var g = {
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        entryPoint: u,
+        extraAttributes: f,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          _ === "delivery"
+            ? "send_broadcast_delivery"
+            : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+      };
+      (e(g),
+        _ === "delivery" &&
+          n === "failure" &&
+          e(
+            babelHelpers.extends({}, g, {
+              userActionTarget:
+                o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+            }),
+          ));
+    }
+    function x(e, t, n, r, a, i, l) {
+      (n === "success"
+        ? o("WAWebBroadcastODS").bumpCoreBroadcastDeliverySuccess()
+        : o("WAWebBroadcastODS").bumpCoreBroadcastDeliveryError(P(i)),
+        D(
+          e,
+          t,
+          n,
+          r,
+          a,
+          i,
+          l,
+          void 0,
+          void 0,
+          void 0,
+          void 0,
+          void 0,
+          void 0,
+          "delivery",
+        ));
+    }
+    function $(e, t, n) {
+      (o("WAWebBroadcastODS").bumpCoreBroadcastPostSendError(),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
-          entryPoint: u,
-          extraAttributes: _,
+          extraAttributes: {
+            contact_count: t,
+            error_category: "unknown",
+            errorType: n,
+            phase: "post_send",
+            save_result: "failure",
+          },
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
-          userActionTarget:
-            o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+          userActionTarget: "send_broadcast_post_send",
         }));
     }
-    function x(e, t) {
+    function P(e) {
+      return e === "not_authorized" ||
+        e === "no_available_funds" ||
+        e === "insufficient_free_quota" ||
+        e === "integrity_permanent_blocked"
+        ? "account"
+        : e === "invalid_catalog_state"
+          ? "service"
+          : "unknown";
+    }
+    function N(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         extraAttributes: t,
@@ -288,7 +347,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_CAMPAIGN_ACK,
       });
     }
-    function $(e, t, n) {
+    function M(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -298,7 +357,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CHOOSE_AUDIENCE_BUTTON,
       });
     }
-    function P(e, t, n) {
+    function w(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -307,7 +366,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.MENU,
       });
     }
-    function N(e, t, n) {
+    function A(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -316,7 +375,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CREATE_AUDIENCE_BUTTON,
       });
     }
-    function M(e, t, n) {
+    function F(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -325,7 +384,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
       });
     }
-    function w(e, t) {
+    function O(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -334,7 +393,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_BUTTON,
       });
     }
-    function A(e, t) {
+    function B(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -342,7 +401,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function F(e, t, n, r, a, i, l, s, u, c) {
+    function W(e, t, n, r, a, i, l, s, u, c) {
       var d = t.length,
         m = {
           audience_count: d,
@@ -365,7 +424,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
         }));
     }
-    function O(e, t, n) {
+    function q(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -390,7 +449,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function B(e, t) {
+    function U(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -400,7 +459,7 @@ __d(
             .EXIT_CONFIRMATION_DISMISS_BUTTON,
       });
     }
-    function W(e, t) {
+    function V(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -410,7 +469,7 @@ __d(
             .EXIT_CONFIRMATION_CONTINUE_BUTTON,
       });
     }
-    function q(e, t) {
+    function H(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -419,7 +478,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_MODAL,
       });
     }
-    function U(e, t, n) {
+    function G(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -452,19 +511,21 @@ __d(
       (l.addAudienceButtonClicked = I),
       (l.addCTAButtonClicked = T),
       (l.sendBroadcastResult = D),
-      (l.sendCampaignAck = x),
-      (l.createBroadcastChooseAudienceClicked = $),
-      (l.createBroadcastAudienceMenuViewed = P),
-      (l.createAudienceButtonClicked = N),
-      (l.importAudienceButtonClicked = M),
-      (l.createBroadcastAudienceMenuExistingAudiencesClicked = w),
-      (l.createBroadcastBackClicked = A),
-      (l.createBroadcastSendClicked = F),
-      (l.sendBroadcastButtonViewed = O),
-      (l.createBroadcastExitConfirmationDismissed = B),
-      (l.createBroadcastExitConfirmationConfirmed = W),
-      (l.existingAudiencesModalViewed = q),
-      (l.existingAudiencesModalSaved = U));
+      (l.sendBroadcastDeliveryResult = x),
+      (l.sendBroadcastPostSendError = $),
+      (l.sendCampaignAck = N),
+      (l.createBroadcastChooseAudienceClicked = M),
+      (l.createBroadcastAudienceMenuViewed = w),
+      (l.createAudienceButtonClicked = A),
+      (l.importAudienceButtonClicked = F),
+      (l.createBroadcastAudienceMenuExistingAudiencesClicked = O),
+      (l.createBroadcastBackClicked = B),
+      (l.createBroadcastSendClicked = W),
+      (l.sendBroadcastButtonViewed = q),
+      (l.createBroadcastExitConfirmationDismissed = U),
+      (l.createBroadcastExitConfirmationConfirmed = V),
+      (l.existingAudiencesModalViewed = H),
+      (l.existingAudiencesModalSaved = G));
   },
   98,
 );

@@ -206,7 +206,6 @@ __d(
     ((l.sendGetAccessTokenAndSessionCookiesRPC = e),
       (l.parseGetAccessTokenAndSessionCookiesResponseError = u),
       (l.parseGetAccessTokenAndSessionCookiesResponseIncorrectNonce = c),
-      (l.parseGetAccessTokenAndSessionCookiesResponseSuccessTokenType = d),
       (l.parseGetAccessTokenAndSessionCookiesResponseSuccess = m),
       (l.parseGetAccessTokenAndSessionCookiesResponseTooManyAttempts = p),
       (l.makeGetAccessTokenAndSessionCookiesRequest = _));

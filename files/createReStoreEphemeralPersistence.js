@@ -1,39 +1,38 @@
 __d(
   "createReStoreEphemeralPersistence",
-  ["FBLogger", "Promise", "ReStorePersistence", "asyncToGeneratorRuntime"],
+  ["FBLogger", "ReStorePersistence"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e, t, n) {
+    function e(e, t, n) {
       var r = e.get(t);
       if (r !== void 0) return r;
       var o = n();
       return (e.set(t, o), o);
     }
-    function u(t, a) {
-      var i = (e || (e = n("Promise"))).resolve(),
-        l = new Map();
-      function u(e) {
-        return s(l, e, function () {
+    function s(t, n) {
+      var a = Promise.resolve(),
+        i = new Map();
+      function l(t) {
+        return e(i, t, function () {
           return new Map();
         });
       }
       return {
-        flush: function (r) {
+        flush: function (t) {
           return (
-            r.forEach(function (e, t) {
-              var n = u(t);
+            t.forEach(function (e, t) {
+              var n = l(t);
               e.forEach(function (e, t) {
                 o("ReStorePersistence").isDeletedValue(e)
                   ? n.delete(t)
                   : n.set(t, e);
               });
             }),
-            (e || (e = n("Promise"))).resolve()
+            Promise.resolve()
           );
         },
         get: function (t, n, r) {
-          var e = u(n);
+          var e = l(n);
           return e.get(r);
         },
         logError: function (t, n, o, a) {
@@ -52,32 +51,30 @@ __d(
           return !0;
         },
         queueCommitWork: void 0,
-        runExclusively: function (r) {
-          var t = a == null ? void 0 : a.startTracking(!1);
+        runExclusively: function (t) {
+          var e = n == null ? void 0 : n.startTracking(!1);
           return (
-            t == null ||
-              t.addAnnotations({
+            e == null ||
+              e.addAnnotations({
                 string: {
                   source: "createReStoreEphemeralPersistence",
                   type: "runExclusivelyPromiseChain",
                 },
               }),
-            new (e || (e = n("Promise")))(function (e, o) {
-              i = i
-                .then(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var n = yield r(),
-                      a = n[0],
-                      i = n[1];
-                    try {
-                      (e(yield a()), t == null || t.end());
-                    } catch (e) {
-                      (o(e), t == null || t.fail());
-                    }
-                  }),
-                )
+            new Promise(function (n, r) {
+              a = a
+                .then(async function () {
+                  var o = await t(),
+                    a = o[0],
+                    i = o[1];
+                  try {
+                    (n(await a()), e == null || e.end());
+                  } catch (t) {
+                    (r(t), e == null || e.fail());
+                  }
+                })
                 .catch(function (e) {
-                  o(e);
+                  r(e);
                 });
             })
           );
@@ -95,7 +92,7 @@ __d(
         uniqueId: t,
       };
     }
-    l.default = u;
+    l.default = s;
   },
   98,
 );

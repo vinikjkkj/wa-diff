@@ -80,6 +80,7 @@ __d(
               r("groupAbPropsHash"),
               r("groupAbPropsRefreshSec"),
               r("groupAbPropsLastFetchTimestampSec"),
+              r("groupReactionSettings"),
             ],
           )
           .version(n.migrateSubgroupsArray(), [

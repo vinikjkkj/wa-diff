@@ -27,13 +27,29 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = "api_receiver_event_log_key";
-    function c(e) {
-      return d.apply(this, arguments);
+      u = "api_receiver_event_log_key",
+      c = new Map([
+        [
+          o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
+          o("WAWebWamEnumInteractionType").INTERACTION_TYPE.COPY_PIX_CODE,
+        ],
+        [
+          o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
+          o("WAWebWamEnumInteractionType").INTERACTION_TYPE.COPY_BOLETO_CODE,
+        ],
+      ]);
+    function d(e) {
+      var t;
+      return (t = c.get(e)) != null
+        ? t
+        : o("WAWebWamEnumInteractionType").INTERACTION_TYPE.USER_PAY_NOW;
     }
-    function d() {
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           if (!o("WAWebMsgGetters").getIsSentByMe(t.unsafe())) {
             var r = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
@@ -88,15 +104,15 @@ __d(
               }));
           }
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (!o("WAWebMsgGetters").getIsSentByMe(e.unsafe())) {
             var r = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
@@ -170,15 +186,15 @@ __d(
               }));
           }
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a = e.msg,
@@ -187,43 +203,44 @@ __d(
             s = e.renderedSnapshot,
             c = e.surface;
           if (!o("WAWebMsgGetters").getIsSentByMe(a.unsafe())) {
-            var d = [];
+            var m = [];
             o("WAWebBrPaymentSettingsUtils").hasValidDynamicPix(l) &&
-              d.push(
+              m.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               );
-            var m = o("WAWebFrontendMsgGetters").getChat(a.unsafe());
-            (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(m) &&
+            var p = o("WAWebFrontendMsgGetters").getChat(a.unsafe());
+            (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(p) &&
               o("WAWebBrPaymentSettingsUtils").hasValidBoletoCode(l) &&
-              d.push(
+              m.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
               ),
-              o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(m) &&
+              o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(p) &&
                 o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(l) &&
-                d.push(
+                m.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .PAYMENT_LINK,
                 ),
               o("WAWebBrPaymentSettingsUtils").hasValidCard(l) &&
-                d.push(
+                m.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .NATIVE,
                 ));
-            var p =
+            var _ =
                 s == null
-                  ? JSON.stringify(d)
+                  ? JSON.stringify(m)
                   : o(
                       "WAWebPaymentRequestWamLogger",
                     ).getRenderedAcceptedPaymentMethods(s),
-              _ =
+              f =
                 s == null
                   ? void 0
                   : o("WAWebPaymentRequestWamLogger").getRenderedRankSource(s),
-              f = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
+              g = d(i),
+              h = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
                 a,
                 u,
               ),
-              g = new (o(
+              y = new (o(
                 "WAWebPsStructuredMessageInteractionWamEvent",
               ).PsStructuredMessageInteractionWamEvent)({
                 bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
@@ -232,7 +249,7 @@ __d(
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
                 messageClassAttributes: JSON.stringify({
-                  order_funnel_id: f,
+                  order_funnel_id: h,
                   wa_pay_registered: !1,
                   is_template: !1,
                   is_cta_available: !0,
@@ -241,31 +258,25 @@ __d(
                   ).P2MFlow.ORDER,
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
-                  accepted_pay_methods: p,
+                  accepted_pay_methods: _,
                   p2m_type: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
                   payment_method_choice: i,
                   is_simplified_order: l.isOrderNodeOmitted,
                   payment_method_surface: c,
-                  payment_method_rank_source: _,
+                  payment_method_rank_source: f,
                 }),
-                messageInteraction:
-                  i ===
-                  o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX
-                    ? o("WAWebWamEnumInteractionType").INTERACTION_TYPE
-                        .COPY_PIX_CODE
-                    : o("WAWebWamEnumInteractionType").INTERACTION_TYPE
-                        .USER_PAY_NOW,
+                messageInteraction: g,
                 messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
               });
-            (g.commit(),
-              y({ msg: a, orderAcceptedPaymentMethod: i, orderInfo: l }),
+            (y.commit(),
+              b({ msg: a, orderAcceptedPaymentMethod: i, orderInfo: l }),
               o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
                 isLoggingEnabled: o(
                   "WAWebBizFrontendGatingUtils",
                 ).isCopyPixCodeBuyerLoggingEnabled(
                   (n = a.senderObj) == null ? void 0 : n.id.toJid(),
                 ),
-                psFunnelId: f,
+                psFunnelId: h,
                 attributes: {
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
@@ -276,35 +287,29 @@ __d(
                   ).P2MFlow.ORDER,
                   currency: "BRL",
                   isTemplate: !1,
-                  acceptedPaymentMethod: d.map(function (e) {
+                  acceptedPaymentMethod: m.map(function (e) {
                     return e;
                   }),
                   p2mType: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
                   chatType: o(
                     "WAWebBrPixRequestRowAttributes",
-                  ).getChatTypeString(m),
+                  ).getChatTypeString(p),
                   isSimplifiedOrder: l.isOrderNodeOmitted,
                 },
-                interaction:
-                  i ===
-                  o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX
-                    ? o("WAWebWamEnumInteractionType").INTERACTION_TYPE
-                        .COPY_PIX_CODE
-                    : o("WAWebWamEnumInteractionType").INTERACTION_TYPE
-                        .USER_PAY_NOW,
+                interaction: g,
                 bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
               }));
           }
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msg,
             n = e.renderedSnapshot,
             r = e.weights;
@@ -359,10 +364,10 @@ __d(
                 .sendLogs("br-payment-options-shown-log-failed");
             }
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e) {
+    function b(e) {
       var t = e.msg,
         n = e.orderAcceptedPaymentMethod,
         r = e.orderInfo,
@@ -381,10 +386,10 @@ __d(
         });
       }
     }
-    ((l.logPaymentInfoOrderDetailsInteractiveActionForRecepient = c),
-      (l.logPaymentRequestInteractiveAction = m),
-      (l.logAPIMerchantPaymentMethodClickEvent = _),
-      (l.logAPIMerchantPaymentOptionsShownEvent = g));
+    ((l.logPaymentInfoOrderDetailsInteractiveActionForRecepient = m),
+      (l.logPaymentRequestInteractiveAction = _),
+      (l.logAPIMerchantPaymentMethodClickEvent = g),
+      (l.logAPIMerchantPaymentOptionsShownEvent = y));
   },
   98,
 );

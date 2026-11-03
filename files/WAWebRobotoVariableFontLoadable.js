@@ -1,39 +1,22 @@
 __d(
   "WAWebRobotoVariableFontLoadable",
-  [
-    "JSResourceForInteraction",
-    "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["JSResourceForInteraction", "WAWebLazyLoadedRetriable", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useEffect,
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WDSLoadRobotoVariableFont",
-          )
-            .__setRef("WAWebRobotoVariableFontLoadable")
-            .load();
-          return e;
-        }),
-        "WDSLoadRobotoVariableFont",
-      );
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")("WDSLoadRobotoVariableFont")
+          .__setRef("WAWebRobotoVariableFontLoadable")
+          .load();
+        return e;
+      }, "WDSLoadRobotoVariableFont");
     function c() {
       u();
     }
     function d() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]),
-        s(m, t));
-    }
-    function m() {
-      c();
+      s(function () {
+        c();
+      }, []);
     }
     ((l.requireRobotoVariableFont = u),
       (l.applyRobotoFont = c),

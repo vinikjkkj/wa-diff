@@ -636,7 +636,7 @@ __d(
             return {
               next: function* (o) {
                 var n = yield* e.next(o);
-                if (n.done) return n;
+                if (n.done === !0) return n;
                 var a = n.value,
                   i = a[0],
                   l = a[1],
@@ -652,7 +652,7 @@ __d(
             return {
               next: function* (a) {
                 var r = yield* e.next(a);
-                if (r.done) return r;
+                if (r.done === !0) return r;
                 var i = r.value,
                   l = i[0],
                   s = i[1],
@@ -667,7 +667,7 @@ __d(
             return {
               next: function* (n) {
                 var t = yield* e.next(n);
-                if (t.done) return t;
+                if (t.done === !0) return t;
                 var r = t.value,
                   o = r[0];
                 return { done: !1, value: o };

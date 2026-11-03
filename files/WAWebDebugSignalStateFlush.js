@@ -1,83 +1,73 @@
 __d(
   "WAWebDebugSignalStateFlush",
   [
-    "Promise",
     "WALogger",
     "WAWebMessageQueueImpl",
     "WAWebSignalProtocolStore",
     "WAWebSignalStorage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    var e;
+    async function s() {
+      var t = o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .cache_TESTONLY(),
+        n = await Promise.all([
+          o("WAWebSignalStorage").getSessionTable().all(),
+          o("WAWebSignalStorage").getSenderKeyTable().all(),
+        ]),
+        r = n[0],
+        a = n[1],
+        i = u(
+          new Map(
+            Array.from(t.SessionStore.entries(), function (e) {
+              var t = e[0],
+                n = e[1];
+              return [t, n == null || n.deleted === !0 ? null : n.session];
+            }),
+          ),
+          new Map(
+            r.map(function (e) {
+              var t = e.address,
+                n = e.session;
+              return [t, n];
+            }),
+          ),
+        ),
+        l = u(
+          t.SenderKeyStore,
+          new Map(
+            a.map(function (e) {
+              var t = e.senderKey,
+                n = e.senderKeyName;
+              return [n, t];
+            }),
+          ),
+        ),
+        s = {
+          queueImpl: o("WAWebMessageQueueImpl").getMessageQueueImpl(),
+          senderKeys: l,
+          sessions: i,
+        };
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .cache_TESTONLY(),
-            r = yield (s || (s = n("Promise"))).all([
-              o("WAWebSignalStorage").getSessionTable().all(),
-              o("WAWebSignalStorage").getSenderKeyTable().all(),
-            ]),
-            a = r[0],
-            i = r[1],
-            l = d(
-              new Map(
-                Array.from(t.SessionStore.entries(), function (e) {
-                  var t = e[0],
-                    n = e[1];
-                  return [t, n == null || n.deleted === !0 ? null : n.session];
-                }),
-              ),
-              new Map(
-                a.map(function (e) {
-                  var t = e.address,
-                    n = e.session;
-                  return [t, n];
-                }),
-              ),
-            ),
-            u = d(
-              t.SenderKeyStore,
-              new Map(
-                i.map(function (e) {
-                  var t = e.senderKey,
-                    n = e.senderKeyName;
-                  return [n, t];
-                }),
-              ),
-            ),
-            c = {
-              queueImpl: o("WAWebMessageQueueImpl").getMessageQueueImpl(),
-              senderKeys: u,
-              sessions: l,
-            };
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "compareSignalStateWithDisk: queue=",
-                  " sessions: ",
-                  "; sender keys: ",
-                  "",
-                ])),
-              c.queueImpl,
-              p(l),
-              p(u),
-            ),
-            c
-          );
-        })),
-        c.apply(this, arguments)
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "compareSignalStateWithDisk: queue=",
+              " sessions: ",
+              "; sender keys: ",
+              "",
+            ])),
+          s.queueImpl,
+          d(i),
+          d(l),
+        ),
+        s
       );
     }
-    u.doc =
+    s.doc =
       "Manual test for the OneQueue signal state flushable: compares the Signal sessions and sender keys in memory with those on disk. Once received messages have settled, every differing entry is signal state that a crash would lose. Run it with wmi_wa_web_one_queue_adoption on and off and compare.";
-    function d(e, t) {
+    function u(e, t) {
       var n = [],
         r = [],
         o = [],
@@ -89,7 +79,7 @@ __d(
             ? l != null && n.push(i)
             : l == null
               ? o.push(i)
-              : m(l) !== m(e)
+              : c(l) !== c(e)
                 ? r.push(i)
                 : a++;
         }),
@@ -101,7 +91,7 @@ __d(
         }
       );
     }
-    function m(e) {
+    function c(e) {
       var t;
       return typeof e == "string"
         ? e
@@ -109,7 +99,7 @@ __d(
           ? t
           : "";
     }
-    function p(e) {
+    function d(e) {
       var t = e.deletedOnlyInMemory,
         n = e.differentOnDisk,
         r = e.matching,
@@ -131,8 +121,8 @@ __d(
         "]"
       );
     }
-    var _ = { compareSignalStateWithDisk: u };
-    l.default = _;
+    var m = { compareSignalStateWithDisk: s };
+    l.default = m;
   },
   98,
 );

@@ -12,42 +12,69 @@ __d(
       r("WAWebODS").incr("web.broadcast.send.error");
     }
     function c() {
-      r("WAWebODS").incr("web.broadcast.send.ephemeral_setup.error");
+      r("WAWebODS").incr("web.broadcast.core.delivery.success");
     }
     function d() {
-      r("WAWebODS").incr("web.broadcast.campaign.create");
+      r("WAWebODS").incr("web.broadcast.core.post_send.error");
     }
-    function m() {
-      r("WAWebODS").incr("web.broadcast.campaign.create.success");
+    function m(e) {
+      r("WAWebODS").incr("web.broadcast.core.delivery.error");
+      e: {
+        if (e === "account") {
+          r("WAWebODS").incr("web.broadcast.core.delivery.error.account");
+          break e;
+        }
+        if (e === "service") {
+          r("WAWebODS").incr("web.broadcast.core.delivery.error.service");
+          break e;
+        }
+        if (e === "unknown") {
+          r("WAWebODS").incr("web.broadcast.core.delivery.error.unknown");
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
     }
     function p() {
-      r("WAWebODS").incr("web.broadcast.campaign.create.error");
+      r("WAWebODS").incr("web.broadcast.send.ephemeral_setup.error");
     }
     function _() {
-      r("WAWebODS").incr("web.broadcast.retry");
+      r("WAWebODS").incr("web.broadcast.campaign.create");
     }
     function f() {
-      r("WAWebODS").incr("web.broadcast.retry.success");
+      r("WAWebODS").incr("web.broadcast.campaign.create.success");
     }
     function g() {
-      r("WAWebODS").incr("web.broadcast.retry.error");
+      r("WAWebODS").incr("web.broadcast.campaign.create.error");
     }
     function h() {
-      r("WAWebODS").incr("web.broadcast.audience.save");
+      r("WAWebODS").incr("web.broadcast.retry");
     }
     function y() {
-      r("WAWebODS").incr("web.broadcast.audience.save.success");
+      r("WAWebODS").incr("web.broadcast.retry.success");
     }
     function C() {
-      r("WAWebODS").incr("web.broadcast.audience.save.error");
+      r("WAWebODS").incr("web.broadcast.retry.error");
     }
     function b() {
-      r("WAWebODS").incr("web.broadcast.audience.import");
+      r("WAWebODS").incr("web.broadcast.audience.save");
     }
     function v() {
+      r("WAWebODS").incr("web.broadcast.audience.save.success");
+    }
+    function S() {
+      r("WAWebODS").incr("web.broadcast.audience.save.error");
+    }
+    function R() {
+      r("WAWebODS").incr("web.broadcast.audience.import");
+    }
+    function L() {
       r("WAWebODS").incr("web.broadcast.audience.import.success");
     }
-    function S(e) {
+    function E(e) {
       r("WAWebODS").incr("web.broadcast.audience.import.error");
       e: {
         if (e === "account") {
@@ -65,74 +92,77 @@ __d(
         );
       }
     }
-    function R() {
+    function k() {
       r("WAWebODS").incr("web.broadcast.pro.campaign.create");
     }
-    function L() {
+    function I() {
       r("WAWebODS").incr("web.broadcast.pro.campaign.create.success");
     }
-    function E() {
+    function T() {
       r("WAWebODS").incr("web.broadcast.pro.campaign.create.error");
     }
-    function k() {
+    function D() {
       r("WAWebODS").incr("web.broadcast.pro.audience.save");
     }
-    function I() {
+    function x() {
       r("WAWebODS").incr("web.broadcast.pro.audience.save.success");
     }
-    function T() {
+    function $() {
       r("WAWebODS").incr("web.broadcast.pro.audience.save.error");
     }
-    function D() {
+    function P() {
       r("WAWebODS").incr("web.broadcast.pro.audience.edit");
     }
-    function x() {
+    function N() {
       r("WAWebODS").incr("web.broadcast.pro.audience.edit.success");
     }
-    function $() {
+    function M() {
       r("WAWebODS").incr("web.broadcast.pro.audience.edit.error");
     }
-    function P() {
+    function w() {
       r("WAWebODS").incr("web.broadcast.pro.subscriber_pool.setup");
     }
-    function N() {
+    function A() {
       r("WAWebODS").incr("web.broadcast.pro.subscriber_pool.setup.success");
     }
-    function M() {
+    function F() {
       r("WAWebODS").incr("web.broadcast.pro.subscriber_pool.setup.error");
     }
-    function w() {
+    function O() {
       r("WAWebODS").incr("web.broadcast.campaign.transform.msg_unavailable");
     }
     ((l.bumpBroadcastSend = e),
       (l.bumpBroadcastSendSuccess = s),
       (l.bumpBroadcastSendError = u),
-      (l.bumpBroadcastEphemeralSetupError = c),
-      (l.bumpCampaignCreate = d),
-      (l.bumpCampaignCreateSuccess = m),
-      (l.bumpCampaignCreateError = p),
-      (l.bumpBroadcastRetry = _),
-      (l.bumpBroadcastRetrySuccess = f),
-      (l.bumpBroadcastRetryError = g),
-      (l.logAudienceSave = h),
-      (l.logAudienceSaveSuccess = y),
-      (l.logAudienceSaveError = C),
-      (l.logAudienceImport = b),
-      (l.logAudienceImportSuccess = v),
-      (l.logAudienceImportError = S),
-      (l.bumpProCampaignCreate = R),
-      (l.bumpProCampaignCreateSuccess = L),
-      (l.bumpProCampaignCreateError = E),
-      (l.logProAudienceSave = k),
-      (l.logProAudienceSaveSuccess = I),
-      (l.logProAudienceSaveError = T),
-      (l.logProAudienceEdit = D),
-      (l.logProAudienceEditSuccess = x),
-      (l.logProAudienceEditError = $),
-      (l.logProSubscriberPoolSetup = P),
-      (l.logProSubscriberPoolSetupSuccess = N),
-      (l.logProSubscriberPoolSetupError = M),
-      (l.logCampaignTransformMsgUnavailable = w));
+      (l.bumpCoreBroadcastDeliverySuccess = c),
+      (l.bumpCoreBroadcastPostSendError = d),
+      (l.bumpCoreBroadcastDeliveryError = m),
+      (l.bumpBroadcastEphemeralSetupError = p),
+      (l.bumpCampaignCreate = _),
+      (l.bumpCampaignCreateSuccess = f),
+      (l.bumpCampaignCreateError = g),
+      (l.bumpBroadcastRetry = h),
+      (l.bumpBroadcastRetrySuccess = y),
+      (l.bumpBroadcastRetryError = C),
+      (l.logAudienceSave = b),
+      (l.logAudienceSaveSuccess = v),
+      (l.logAudienceSaveError = S),
+      (l.logAudienceImport = R),
+      (l.logAudienceImportSuccess = L),
+      (l.logAudienceImportError = E),
+      (l.bumpProCampaignCreate = k),
+      (l.bumpProCampaignCreateSuccess = I),
+      (l.bumpProCampaignCreateError = T),
+      (l.logProAudienceSave = D),
+      (l.logProAudienceSaveSuccess = x),
+      (l.logProAudienceSaveError = $),
+      (l.logProAudienceEdit = P),
+      (l.logProAudienceEditSuccess = N),
+      (l.logProAudienceEditError = M),
+      (l.logProSubscriberPoolSetup = w),
+      (l.logProSubscriberPoolSetupSuccess = A),
+      (l.logProSubscriberPoolSetupError = F),
+      (l.logCampaignTransformMsgUnavailable = O));
   },
   98,
 );

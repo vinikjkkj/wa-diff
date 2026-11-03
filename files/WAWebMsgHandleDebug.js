@@ -1,10 +1,6 @@
 __d(
   "WAWebMsgHandleDebug",
-  [
-    "WALogger",
-    "WAWebMsgProcessingDecryptionHandler",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebMsgProcessingDecryptionHandler"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -62,8 +58,10 @@ __d(
     function C(e) {
       return ((g = e == null ? !0 : e), "ok");
     }
-    C.doc =
-      "The next incoming message is postponed until:\na) passed argument in seconds expired\nb) Debug.serializePostponedMessage is called\n";
+    C.doc = `The next incoming message is postponed until:
+a) passed argument in seconds expired
+b) Debug.serializePostponedMessage is called
+`;
     function b() {
       return h != null ? (h(), "done") : "no postponed messages";
     }
@@ -103,39 +101,28 @@ __d(
     }
     L.doc =
       "Store the next incoming message as a ciphertext placeholder instead of decrypting it. It is acked, but not as delivered and not as a retry, so the server neither resends it nor is asked to. It keeps the position it arrived at. Release it with Debug.decryptHeldMessage.";
-    function E() {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            (v = !1),
-            S == null ? "no held messages" : (yield S(), "done")
-          );
-        })),
-        k.apply(this, arguments)
-      );
+    async function E() {
+      return ((v = !1), S == null ? "no held messages" : (await S(), "done"));
     }
     E.doc =
       "Decrypt the message held by Debug.dontDecryptNextMessage, and cancel a pending request that never caught one. Replays the stanza through handleMsg, so a second ack is sent.";
-    var I = [];
-    function T(e, t) {
-      for (var n = 0; n < t; n++) I.push(e);
+    var k = [];
+    function I(e, t) {
+      for (var n = 0; n < t; n++) k.push(e);
       o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
             "[msg] Message drop queue = ",
             "",
           ])),
-        I.join(", "),
+        k.join(", "),
       );
     }
-    function D() {
-      if (I.length === 0) return null;
-      var e = I.shift();
+    function T() {
+      if (k.length === 0) return null;
+      var e = k.shift();
       return (
-        I.length === 0
+        k.length === 0
           ? o("WALogger").LOG(
               _ ||
                 (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -152,62 +139,62 @@ __d(
                   "",
                 ])),
               e,
-              I.join(", "),
+              k.join(", "),
             ),
         e
       );
     }
-    function x(e) {
+    function D(e) {
       (e === void 0 && (e = 1),
-        T(
+        I(
           o("WAWebMsgProcessingDecryptionHandler").DecryptionErrorType
             .SignalRetryable,
           e,
         ));
     }
-    x.doc = "Drop next N=1 incoming message with a signal decryption error";
-    function $(e) {
+    D.doc = "Drop next N=1 incoming message with a signal decryption error";
+    function x(e) {
       (e === void 0 && (e = 1),
-        T(
+        I(
           o("WAWebMsgProcessingDecryptionHandler").DecryptionErrorType
             .SignalDuplicateMessage,
           e,
         ));
     }
-    $.doc =
+    x.doc =
       "Drop next N=1 incoming message with a signal duplicate message error";
-    function P(e) {
+    function $(e) {
       (e === void 0 && (e = 1),
-        T(
+        I(
           o("WAWebMsgProcessingDecryptionHandler").DecryptionErrorType
             .InvalidProtobuf,
           e,
         ));
     }
-    P.doc = "Drop next N=1 incoming message with an invalid protobuf error";
-    function N(e) {
+    $.doc = "Drop next N=1 incoming message with an invalid protobuf error";
+    function P(e) {
       (e === void 0 && (e = 1),
-        T(
+        I(
           o("WAWebMsgProcessingDecryptionHandler").DecryptionErrorType
             .DeviceSentMessage,
           e,
         ));
     }
-    N.doc = "Drop next N=1 incoming message with a device sent error";
-    var M = {
+    P.doc = "Drop next N=1 incoming message with a device sent error";
+    var N = {
       isNextMessagePostponed: y,
       postponeNextMessageSerialization: C,
       serializePostponedMessage: b,
       consumeSkipDecryptRequest: R,
       dontDecryptNextMessage: L,
       decryptHeldMessage: E,
-      isNextMessageDropped: D,
-      dropWithDecryptionError: x,
-      dropWithDuplicateMessageError: $,
-      dropWithInvalidProtobufError: P,
-      dropWithDeviceSentError: N,
+      isNextMessageDropped: T,
+      dropWithDecryptionError: D,
+      dropWithDuplicateMessageError: x,
+      dropWithInvalidProtobufError: $,
+      dropWithDeviceSentError: P,
     };
-    l.default = M;
+    l.default = N;
   },
   98,
 );

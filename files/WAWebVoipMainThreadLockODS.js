@@ -14,63 +14,73 @@ __d(
       c = null,
       d = null;
     function m() {
-      var e = d != null ? d : R();
+      var e = d != null ? d : E();
       return ((d = e), e);
     }
     function p(e, t) {
-      S(function (n) {
+      L(function (n) {
         return n.logMainThreadLockReached(e, t);
       });
     }
     function _(e) {
-      S(function (t) {
+      L(function (t) {
         return t.logMainThreadLockBoot(e);
       });
     }
     function f(e) {
-      S(function (t) {
+      L(function (t) {
         return t.logMainThreadLockOffloadEvent(e);
       });
     }
-    function g(e, t) {
-      var n = o("WAWebVoipMainThreadLockArm").getMainThreadLockArm();
-      S(function (r) {
-        return r.logMainThreadLockCallDuration(e, t, n);
+    function g(e) {
+      L(function (t) {
+        return t.logMainThreadLockOffloadQueueEvent(e);
       });
     }
     function h(e) {
-      S(function (t) {
+      L(function (t) {
+        return t.logMainThreadLockOffloadStartEvent(e);
+      });
+    }
+    function y(e, t) {
+      var n = o("WAWebVoipMainThreadLockArm").getMainThreadLockArm();
+      L(function (r) {
+        return r.logMainThreadLockCallDuration(e, t, n);
+      });
+    }
+    function C(e) {
+      L(function (t) {
         return t.logMainThreadLockRecoveryPrecheck(e);
       });
     }
-    function y() {
-      S(function (e) {
+    function b() {
+      L(function (e) {
         return e.logMainThreadLockPrewarmDeferred();
       });
     }
-    function C(e, t) {
-      S(function (n) {
+    function v(e, t) {
+      L(function (n) {
         return n.logMainThreadLockAudioStopEvent(e, t);
       });
     }
-    function b(e) {
-      S(function (t) {
+    function S(e) {
+      L(function (t) {
         return t.logMainThreadLockRingEvent(e);
       });
     }
-    function v(e, t) {
-      S(function (n) {
+    function R(e, t) {
+      L(function (n) {
         return n.logMainThreadLockJsWorkerReached(e, t);
       });
     }
-    function S(e) {
+    function L(e) {
       if (c != null) {
         e(c);
         return;
       }
       (u.push(e), m());
     }
-    function R() {
+    function E() {
       return (s || (s = n("Promise")))
         .resolve()
         .then(function () {
@@ -78,14 +88,14 @@ __d(
             .__setRef("WAWebVoipMainThreadLockODS")
             .load();
         })
-        .then(L)
-        .catch(E);
+        .then(k)
+        .catch(I);
     }
-    function L(e) {
+    function k(e) {
       c = e;
       for (var t of u.splice(0)) t(e);
     }
-    function E(t) {
+    function I(t) {
       ((u.length = 0),
         (d = null),
         o("WALogger")
@@ -101,12 +111,14 @@ __d(
       (l.logMainThreadLockReached = p),
       (l.logMainThreadLockBoot = _),
       (l.logMainThreadLockOffloadEvent = f),
-      (l.logMainThreadLockCallDuration = g),
-      (l.logMainThreadLockRecoveryPrecheck = h),
-      (l.logMainThreadLockPrewarmDeferred = y),
-      (l.logMainThreadLockAudioStopEvent = C),
-      (l.logMainThreadLockRingEvent = b),
-      (l.logMainThreadLockJsWorkerReached = v));
+      (l.logMainThreadLockOffloadQueueEvent = g),
+      (l.logMainThreadLockOffloadStartEvent = h),
+      (l.logMainThreadLockCallDuration = y),
+      (l.logMainThreadLockRecoveryPrecheck = C),
+      (l.logMainThreadLockPrewarmDeferred = b),
+      (l.logMainThreadLockAudioStopEvent = v),
+      (l.logMainThreadLockRingEvent = S),
+      (l.logMainThreadLockJsWorkerReached = R));
   },
   98,
 );

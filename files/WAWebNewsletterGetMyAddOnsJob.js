@@ -1,7 +1,6 @@
 __d(
   "WAWebNewsletterGetMyAddOnsJob",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WAWebCRUDOperationsNewsletterMyVotes",
     "WAWebDBCreateOrUpdateReactions",
@@ -10,63 +9,53 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPollOptionHashUtils",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getMyNewsletterAddOns",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t = yield o("WAWebGetMyAddOnsRPC").getMyNewsletterAddOnsRPC(e),
+          async function () {
+            var t = await o("WAWebGetMyAddOnsRPC").getMyNewsletterAddOnsRPC(e),
               n = t.messagesByNewsletter;
-            return u(n, e.newsletterJid);
-          }),
+            return s(n, e.newsletterJid);
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = t.reduce(
-            function (e, t) {
-              var n = t.jid,
-                o = t.message,
-                a = n != null ? n : r;
-              return (
-                a == null ||
-                  o.forEach(function (t) {
-                    var n = d(t, a);
-                    n != null && e.reactions.push(n);
-                    var r = m(t, a);
-                    r != null && e.pollVotes.push(r);
-                  }),
-                e
-              );
-            },
-            { reactions: [], pollVotes: [] },
-          );
+    async function s(e, t) {
+      var n = e.reduce(
+        function (e, n) {
+          var r = n.jid,
+            o = n.message,
+            a = r != null ? r : t;
           return (
-            yield (e || (e = n("Promise"))).all([
-              o("WAWebDBCreateOrUpdateReactions").createOrUpdateReactions(
-                a.reactions,
-              ),
-              o(
-                "WAWebCRUDOperationsNewsletterMyVotes",
-              ).bulkCreateOrUpdateMyVotes(a.pollVotes),
-            ]),
-            a
+            a == null ||
+              o.forEach(function (t) {
+                var n = u(t, a);
+                n != null && e.reactions.push(n);
+                var r = c(t, a);
+                r != null && e.pollVotes.push(r);
+              }),
+            e
           );
-        })),
-        c.apply(this, arguments)
+        },
+        { reactions: [], pollVotes: [] },
+      );
+      return (
+        await Promise.all([
+          o("WAWebDBCreateOrUpdateReactions").createOrUpdateReactions(
+            n.reactions,
+          ),
+          o("WAWebCRUDOperationsNewsletterMyVotes").bulkCreateOrUpdateMyVotes(
+            n.pollVotes,
+          ),
+        ]),
+        n
       );
     }
-    function d(e, t) {
+    function u(e, t) {
       var n,
         r,
         a = o("WAWebNewsletterDBUtils")
@@ -91,7 +80,7 @@ __d(
             msgKey: a,
           };
     }
-    function m(e, t) {
+    function c(e, t) {
       var n = e.newsletterMyPollVoteMixin;
       if (n == null) return null;
       var r = n.votesT,
@@ -109,7 +98,7 @@ __d(
         }),
       };
     }
-    l.getMyNewsletterAddOnsJob = s;
+    l.getMyNewsletterAddOnsJob = e;
   },
   98,
 );

@@ -63,12 +63,15 @@ __d(
       d = 5,
       m = 3480,
       p = 3478;
-    function _(e, t, n) {
-      return e[t % n];
+    function _(e) {
+      var t = e.dataU8,
+        n = e.pos,
+        r = e.ringBufferDataSize;
+      return t[n % r];
     }
     function f(e, t, n) {
-      var r = _(e, t, n),
-        o = _(e, t + 1, n);
+      var r = _({ dataU8: e, pos: t, ringBufferDataSize: n }),
+        o = _({ dataU8: e, pos: t + 1, ringBufferDataSize: n });
       return r + o * 256;
     }
     function g(e, t, n, r) {

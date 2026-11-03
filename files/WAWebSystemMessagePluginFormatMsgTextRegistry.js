@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBrazilPaymentReceiptAddedFormatMsgText",
     "WAWebFormatCallLog",
+    "WAWebGroupDefaultReactionsFormatSystemMessageText",
     "WAWebGroupsGp2AddFormatSystemMessageText",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
   ],
@@ -22,6 +23,11 @@ __d(
           type: "gp2",
           subtype: "add",
           formatMsgText: r("WAWebGroupsGp2AddFormatSystemMessageText"),
+        },
+        {
+          type: "gp2",
+          subtype: "group_default_reactions",
+          formatMsgText: r("WAWebGroupDefaultReactionsFormatSystemMessageText"),
         },
         {
           type: "gp2",

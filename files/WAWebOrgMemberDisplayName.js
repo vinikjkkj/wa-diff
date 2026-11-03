@@ -18,23 +18,27 @@ __d(
     function u(e) {
       var t = e.isBusiness,
         n = t === void 0 ? !1 : t,
-        r = e.memberName,
-        a = e.pushName,
-        i = e.savedName,
-        l = e.verifiedLevel,
-        s = e.verifiedName;
+        r = e.isSavedContact,
+        a = r === void 0 ? !1 : r,
+        i = e.memberName,
+        l = e.pushName,
+        s = e.savedName,
+        u = e.verifiedLevel,
+        c = e.verifiedName;
       return n &&
-        l === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
-        s != null &&
-        s !== ""
+        u === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
+        c != null &&
+        c !== ""
         ? null
-        : i != null && i !== ""
-          ? i
-          : r != null && r !== ""
-            ? r
-            : a != null && a !== ""
-              ? a
-              : null;
+        : s != null && s !== ""
+          ? s
+          : a
+            ? null
+            : i != null && i !== ""
+              ? i
+              : l != null && l !== ""
+                ? l
+                : null;
     }
     ((l.getOrgMemberFullName = e),
       (l.getOrgMemberNameWithUsernameFallback = s),

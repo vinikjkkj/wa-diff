@@ -10,6 +10,7 @@ __d(
     "WAWebCallWamEvent",
     "WAWebCoreActionsODS",
     "WAWebLocalStorage",
+    "WAWebODS",
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
     "WAWebVoipCallRatingStore",
@@ -371,7 +372,7 @@ __d(
               return;
             }
             (u === o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.CRASH &&
-              o("WAWebCoreActionsODS").logCallWasmCrash(),
+              r("WAWebODS").incr("web.call.wasm_crash"),
               yield c.commitAndWaitForFlush(),
               o("WAWebVoipCallRatingStore").markPersistedFieldstatsHandedOff(l),
               o("WALogger").LOG(

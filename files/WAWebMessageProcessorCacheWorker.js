@@ -19,6 +19,13 @@ __d(
         createSnapshot: function () {
           e.fireAndForget("mainthread_messagecache", "createSnapshot", void 0);
         },
+        writeSignalState: function (n) {
+          return e.sendAndReceive(
+            "mainthread_messagecache",
+            "writeSignalState",
+            { snapshotInMemoryMode: n },
+          );
+        },
         checkpointQueueWait: function () {
           return e.sendAndReceive(
             "mainthread_messagecache",

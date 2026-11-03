@@ -276,9 +276,6 @@ __d(
           (i.isActive = function () {
             return this.$4;
           }),
-          (i.getVoipWasm = function () {
-            return this.$1;
-          }),
           (i.ping = function () {
             if (!this.$4) {
               o("WALogger").WARN(

@@ -144,18 +144,10 @@ __d(
           (n.getLines = function () {
             return this.$1.lines;
           }),
-          (n.getLinesOfText = function () {
-            return this.getLines().map(function (e) {
-              return e.text;
-            });
-          }),
           (n.getLineWidths = function () {
             return this.getLines().map(function (e) {
               return e.width;
             });
-          }),
-          (n.getNumberOfLines = function () {
-            return this.getLines().length;
           }),
           (n.getFontSize = function () {
             return e;

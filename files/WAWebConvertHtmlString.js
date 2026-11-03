@@ -62,7 +62,9 @@ __d(
                   s = i.getListType() === "number",
                   u = "";
                 l ? (u = "* ") : s && (u = "1. ");
-                for (var d of i.getChildren())
+                for (var d of i
+                  .getChildren()
+                  .filter(o("LexicalList").$isListItemNode))
                   (r.push("" + u + c(d.getChildren())),
                     s && (u = parseInt(u, 10) + 1 + ". "));
                 r.push("");

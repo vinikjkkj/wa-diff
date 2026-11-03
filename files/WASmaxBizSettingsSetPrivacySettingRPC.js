@@ -139,10 +139,7 @@ __d(
     ((l.sendSetPrivacySettingRPC = e),
       (l.parseSetPrivacySettingResponseError = u),
       (l.parseSetPrivacySettingResponseSuccess = c),
-      (l.makeSetPrivacySettingRequest = d),
-      (l.mergeSmbDataSharingSettingMixin = p),
-      (l.mergeSmbDataSharingSettingValueMixin = f),
-      (l.mergeBaseIQSetRequestMixin = h));
+      (l.makeSetPrivacySettingRequest = d));
   },
   98,
 );

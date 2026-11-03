@@ -259,133 +259,146 @@ __d(
         l,
         d,
         m,
-        g = t.appealStatus,
-        h = t.appealUpdateTime,
-        y = t.creation,
-        C = t.description,
-        b = t.descriptionGroupInfoDescriptionMixin,
-        v = t.ephemeral,
-        S = t.groupAddressingModeMixin,
-        R = t.groupMemberAddModeMixin,
-        L = t.groupMemberShareGroupHistoryModeMixin,
-        E = t.growthLocked,
-        k = t.hasAllowAdminReports,
-        I = t.hasAllowNonAdminSubGroupCreation,
-        T = t.hasAnnouncement,
-        D = t.hasAutoAddDisabled,
-        x = t.hasCapi,
-        $ = t.hasDefaultSubGroup,
-        P = t.hasGeneralChat,
-        N = t.hasLocked,
-        M = t.hasMissingParticipantIdentification,
-        w = t.hasNoFrequentlyForwarded,
-        A = t.hasSupport,
-        F = t.id,
-        O = t.linkedParent,
-        B = t.membershipApprovalMode,
-        W = t.membershipApprovalRequest,
-        q = t.namedSubjectOrUnnamedSubjectFallbackMixinGroup,
-        U = t.parent,
-        V = t.participant,
-        H = t.size,
-        G = t.sO,
-        z = t.sT,
-        j = t.subjectOwnerIdentityMixin,
-        K = t.suspended;
-      if (F == null) throw r("err")("parseGroupSmax: invalid group id");
-      var Q = q == null ? void 0 : q.value.subject;
-      if (Q == null) throw r("err")("parseGroupSmax: invalid group subject");
-      var X = V != null ? p(V) : [],
-        Y =
+        g,
+        h = t.appealStatus,
+        y = t.appealUpdateTime,
+        C = t.creation,
+        b = t.description,
+        v = t.descriptionGroupInfoDescriptionMixin,
+        S = t.ephemeral,
+        R = t.groupAddressingModeMixin,
+        L = t.groupMemberAddModeMixin,
+        E = t.groupMemberShareGroupHistoryModeMixin,
+        k = t.groupReactionSettings,
+        I = t.growthLocked,
+        T = t.hasAllowAdminReports,
+        D = t.hasAllowNonAdminSubGroupCreation,
+        x = t.hasAnnouncement,
+        $ = t.hasAutoAddDisabled,
+        P = t.hasCapi,
+        N = t.hasDefaultSubGroup,
+        M = t.hasGeneralChat,
+        w = t.hasLocked,
+        A = t.hasMissingParticipantIdentification,
+        F = t.hasNoFrequentlyForwarded,
+        O = t.hasSupport,
+        B = t.id,
+        W = t.linkedParent,
+        q = t.membershipApprovalMode,
+        U = t.membershipApprovalRequest,
+        V = t.namedSubjectOrUnnamedSubjectFallbackMixinGroup,
+        H = t.parent,
+        G = t.participant,
+        z = t.size,
+        j = t.sO,
+        K = t.sT,
+        Q = t.subjectOwnerIdentityMixin,
+        X = t.suspended;
+      if (B == null) throw r("err")("parseGroupSmax: invalid group id");
+      var Y = V == null ? void 0 : V.value.subject;
+      if (Y == null) throw r("err")("parseGroupSmax: invalid group subject");
+      var J = G != null ? p(G) : [],
+        Z =
           (n =
-            B == null ||
-            (a = B.membershipApprovalGroupJoinModeEnabledMixin) == null
+            q == null ||
+            (a = q.membershipApprovalGroupJoinModeEnabledMixin) == null
               ? void 0
               : a.state) != null
             ? n
-            : B == null
+            : q == null
               ? void 0
-              : B.state,
-        J = o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
-          R == null || (i = R.memberAddModeMemberAddModes) == null
+              : q.state,
+        ee = o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
+          L == null || (i = L.memberAddModeMemberAddModes) == null
             ? void 0
             : i.value.elementValue,
         ),
-        Z = o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode.cast(
-          L == null ||
-            (l = L.memberShareGroupHistoryModeMemberShareGroupHistoryModes) ==
+        te = o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode.cast(
+          E == null ||
+            (l = E.memberShareGroupHistoryModeMemberShareGroupHistoryModes) ==
               null
             ? void 0
             : l.value.elementValue,
         ),
-        ee =
-          (d = C == null ? void 0 : C.groupInfoDescriptionMixin) != null
+        ne =
+          (d = b == null ? void 0 : b.groupInfoDescriptionMixin) != null
             ? d
-            : b,
-        te = _(t),
-        ne = te.creator,
-        re = te.creatorCountryCode,
-        oe = te.creatorPn,
-        ae = te.creatorUsername,
-        ie = f(G, j),
-        le = ie.subjectOwner,
-        se = ie.subjectOwnerPn,
-        ue = ie.subjectOwnerUsername,
-        ce = babelHelpers.extends(
+            : v,
+        re = _(t),
+        oe = re.creator,
+        ae = re.creatorCountryCode,
+        ie = re.creatorPn,
+        le = re.creatorUsername,
+        se = f(j, Q),
+        ue = se.subjectOwner,
+        ce = se.subjectOwnerPn,
+        de = se.subjectOwnerUsername,
+        me = babelHelpers.extends(
           {
-            id: o("WAWebWidFactory").createWid(F + "@g.us"),
-            owner: ne,
-            creatorPn: oe,
-            creatorUsername: ae,
-            creatorCountryCode: re,
-            creation: y,
-            restrict: !!N,
-            announce: !!T,
-            noFrequentlyForwarded: !!w,
-            support: A,
-            suspended: K != null,
+            id: o("WAWebWidFactory").createWid(B + "@g.us"),
+            owner: oe,
+            creatorPn: ie,
+            creatorUsername: le,
+            creatorCountryCode: ae,
+            creation: C,
+            restrict: !!w,
+            announce: !!x,
+            noFrequentlyForwarded: !!F,
+            support: O,
+            suspended: X != null,
             suspendAppealStatus: o(
               "WAWebSuspendAppealStatusType",
-            ).toSuspendAppealStatus(g == null ? void 0 : g.type),
+            ).toSuspendAppealStatus(h == null ? void 0 : h.type),
             suspendAppealUpdateTime:
-              (h == null ? void 0 : h.value) != null ? h.value : null,
-            isParentGroup: U != null,
-            numSubgroups: U == null ? void 0 : U.numSubGroups,
-            participants: X,
+              (y == null ? void 0 : y.value) != null ? y.value : null,
+            isParentGroup: H != null,
+            numSubgroups: H == null ? void 0 : H.numSubGroups,
+            participants: J,
             isParentGroupClosed:
-              (U == null ||
-              (m = U.parentGroupDefaultMembershipApprovalModeMixin) == null
+              (H == null ||
+              (m = H.parentGroupDefaultMembershipApprovalModeMixin) == null
                 ? void 0
                 : m.defaultMembershipApprovalMode) === "request_required",
-            defaultSubgroup: $,
-            generalSubgroup: P,
-            membershipApprovalMode: Y === "on",
-            reportToAdminMode: k,
-            membershipApprovalRequest: W,
+            defaultSubgroup: N,
+            generalSubgroup: M,
+            membershipApprovalMode: Z === "on",
+            reportToAdminMode: T,
+            membershipApprovalRequest: U,
             isLidAddressingMode:
-              (S == null ? void 0 : S.addressingMode) == null ||
-              (S == null ? void 0 : S.addressingMode) === "lid",
-            memberAddMode: J,
-            memberShareGroupHistoryMode: Z,
-            allowNonAdminSubGroupCreation: I,
+              (R == null ? void 0 : R.addressingMode) == null ||
+              (R == null ? void 0 : R.addressingMode) === "lid",
+            memberAddMode: ee,
+            memberShareGroupHistoryMode: te,
+            groupReactionSettings:
+              k != null
+                ? {
+                    defaultReactions: ((g = k.defaultReaction) != null
+                      ? g
+                      : []
+                    ).map(function (e) {
+                      return e.elementValue;
+                    }),
+                  }
+                : void 0,
+            allowNonAdminSubGroupCreation: D,
           },
-          ee && e(ee),
-          v && s(v),
-          u(E),
-          c(O),
+          ne && e(ne),
+          S && s(S),
+          u(I),
+          c(W),
           {
-            subject: Q,
-            subjectTime: z,
-            subjectOwner: le,
-            subjectOwnerUsername: ue,
-            subjectOwnerPn: se,
-            size: H,
-            generalChatAutoAddDisabled: !!D,
-            hasCapi: x,
-            hasIncompleteParticipantInformation: M === !0,
+            subject: Y,
+            subjectTime: K,
+            subjectOwner: ue,
+            subjectOwnerUsername: de,
+            subjectOwnerPn: ce,
+            size: z,
+            generalChatAutoAddDisabled: !!$,
+            hasCapi: P,
+            hasIncompleteParticipantInformation: A === !0,
           },
         );
-      return ce;
+      return me;
     }
     function h(e) {
       var t = e.maybeChild("linked_parent"),

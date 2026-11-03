@@ -94,8 +94,6 @@ __d(
         : c;
     }
     ((l.receiveOffboardingNotificationRPC = e),
-      (l.parseOffboardingNotificationRequestOffboardingCoexConnectionDescriptor =
-        s),
       (l.parseOffboardingNotificationRequest = u));
   },
   98,

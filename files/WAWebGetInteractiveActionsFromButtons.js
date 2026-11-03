@@ -51,7 +51,6 @@ __d(
     "WAWebMuseCtaLinkOverride",
     "WAWebOpenBizAiHubDeeplink",
     "WAWebOrderStatus",
-    "WAWebPaymentReminderLoggerLazy",
     "WAWebPaymentRequestWamLogger",
     "WAWebPremiumMessagesGatingUtils",
     "WAWebQbmMessageClickLogEvent",
@@ -908,16 +907,7 @@ __d(
             onClick: function () {
               var e = h(t);
               if (
-                (e != null &&
-                  o(
-                    "WAWebPaymentReminderLoggerLazy",
-                  ).logPaymentReminderInteraction(
-                    e.unsafe(),
-                    o("WAWebPaymentReminderLoggerLazy")
-                      .PaymentReminderActionType.MESSAGE_CTA_PAY_NOW_CLICK,
-                  ),
-                o("WAWebExternalLink.react").openExternalLink(l),
-                e != null)
+                (o("WAWebExternalLink.react").openExternalLink(l), e != null)
               ) {
                 var n = e.unsafe(),
                   r = o("WAWebFrontendMsgGetters").getChat(n);

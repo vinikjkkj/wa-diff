@@ -12,6 +12,7 @@ __d(
     "WAWebGroupsPrivacyTokenUtils",
     "WAWebJidToWid",
     "WAWebLidMigrationUtils",
+    "WAWebODS",
     "WAWebSchemaChat",
     "WAWebSetUsernameJob",
     "WAWebUsernameGatingUtils",
@@ -176,24 +177,24 @@ __d(
     }
     function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          r === void 0 && (r = []);
-          var a = t.map(function (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          a === void 0 && (a = []);
+          var i = t.map(function (e) {
               return e.lid ? e.lid : e.phoneNumber;
             }),
-            i = yield o("WAWebSchemaChat")
+            l = yield o("WAWebSchemaChat")
               .getChatTable()
               .bulkGet(
-                a.map(function (e) {
+                i.map(function (e) {
                   return e.toString();
                 }),
               ),
-            l;
-          i.length > 0 &&
-            (l = o("WAWebGroupsPrivacyTokenUtils").getPermissionTokenMap(i, a));
-          var s = {
+            s;
+          l.length > 0 &&
+            (s = o("WAWebGroupsPrivacyTokenUtils").getPermissionTokenMap(l, i));
+          var u = {
               participantArgs: [].concat(
-                a.map(function (e, n) {
+                i.map(function (e, n) {
                   var r,
                     a = t[n];
                   return {
@@ -204,36 +205,36 @@ __d(
                         : void 0,
                     participantUsername: e.isLid() ? a.username : void 0,
                     permissionTokenMixinArgs:
-                      (r = l) == null ? void 0 : r.get(e),
+                      (r = s) == null ? void 0 : r.get(e),
                   };
                 }),
-                r.map(function (e) {
+                a.map(function (e) {
                   var t;
                   return {
                     participantJid: o("WAWebWidToJid").widToUserJid(e),
                     permissionTokenMixinArgs:
-                      (t = l) == null ? void 0 : t.get(e),
+                      (t = s) == null ? void 0 : t.get(e),
                   };
                 }),
               ),
               iqTo: o("WAWebWidToJid").widToGroupJid(e),
             },
-            u;
+            m;
           try {
-            u = yield o(
+            m = yield o(
               "WASmaxGroupsAddParticipantsRPC",
-            ).sendAddParticipantsRPC(s);
+            ).sendAddParticipantsRPC(u);
           } catch (e) {
             throw (o("WAWebCoreActionsODS").logGroupAddParticipantError(), e);
           }
-          switch (u.name) {
+          switch (m.name) {
             case "AddParticipantsResponseSuccess": {
-              var m = u.value.addParticipant;
+              var p = m.value.addParticipant;
               if (
-                (o("WAWebCoreActionsODS").logGroupAddParticipant(),
+                (r("WAWebODS").incr("web.group.add_participant"),
                 o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
               ) {
-                var p = m.reduce(function (e, t) {
+                var _ = p.reduce(function (e, t) {
                   var n,
                     r =
                       t
@@ -255,25 +256,25 @@ __d(
                     e
                   );
                 }, []);
-                p.length > 0 &&
-                  (yield o("WAWebSetUsernameJob").setUsernamesJob(p));
+                _.length > 0 &&
+                  (yield o("WAWebSetUsernameJob").setUsernamesJob(_));
               }
               return {
                 status: 207,
-                participants: m.flatMap(function (e) {
+                participants: p.flatMap(function (e) {
                   return E(e);
                 }),
-                invitedOutContacts: m.flatMap(function (e) {
+                invitedOutContacts: p.flatMap(function (e) {
                   return k(e);
                 }),
               };
             }
             case "AddParticipantsResponseClientError": {
-              var _ = u.value.errorAddParticipantsClientErrors.value,
-                f = _.code,
-                g = _.text,
-                h =
-                  u.value.errorAddParticipantsClientErrors.value
+              var f = m.value.errorAddParticipantsClientErrors.value,
+                g = f.code,
+                h = f.text,
+                y =
+                  m.value.errorAddParticipantsClientErrors.value
                     .rateLimitAddParticipantTimeOrCountRateLimitMixinGroup;
               if (
                 (o("WAWebCoreActionsODS").logGroupAddParticipantError(),
@@ -283,19 +284,19 @@ __d(
                       "error sending add group participants iq: ",
                       "",
                     ])),
-                  f,
+                  g,
                 ),
-                h != null)
+                y != null)
               )
-                switch (h.name) {
+                switch (y.name) {
                   case "AddParticipantTimeRateLimit":
                     return (b || (b = n("Promise"))).reject(
                       new (o(
                         "WAWebBackendErrors",
                       ).GroupAddParticipantTimeRateLimitServerError)(
-                        f,
-                        h.value.backoff,
-                        h.value.type,
+                        g,
+                        y.value.backoff,
+                        y.value.type,
                       ),
                     );
                   case "AddParticipantCountRateLimit":
@@ -303,19 +304,19 @@ __d(
                       new (o(
                         "WAWebBackendErrors",
                       ).GroupAddParticipantCountRateLimitServerError)(
-                        f,
-                        h.value.participantLimit,
+                        g,
+                        y.value.participantLimit,
                       ),
                     );
                 }
               return (b || (b = n("Promise"))).reject(
-                new (o("WAWebBackendErrors").ServerStatusCodeError)(+f, g),
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(+g, h),
               );
             }
             case "AddParticipantsResponseServerError": {
-              var y = u.value.errorServerErrors.value,
-                C = y.code,
-                v = y.text;
+              var C = m.value.errorServerErrors.value,
+                v = C.code,
+                S = C.text;
               return (
                 o("WAWebCoreActionsODS").logGroupAddParticipantError(),
                 o("WALogger").WARN(
@@ -324,10 +325,10 @@ __d(
                       "error sending add group participants iq: ",
                       "",
                     ])),
-                  C,
+                  v,
                 ),
                 (b || (b = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(+C, v),
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(+v, S),
                 )
               );
             }

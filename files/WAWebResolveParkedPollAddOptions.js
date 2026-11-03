@@ -1,7 +1,6 @@
 __d(
   "WAWebResolveParkedPollAddOptions",
   [
-    "Promise",
     "WALogger",
     "WAWebAddonQueryUtils",
     "WAWebApplyPollAddOptionToParent",
@@ -9,72 +8,61 @@ __d(
     "WAWebMsgType",
     "WAWebSchemaMessage",
     "WAWebStorePollAddOptionDecryptedMsgs",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e.length !== 0) {
-            var r = (yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([
-              t,
-            ])).get(t.toString());
-            if (r != null) {
-              var a = e.flatMap(function (e) {
-                  var t = d(e);
-                  return t != null
-                    ? [{ parentMsg: r, decryptedAddOption: t }]
-                    : [];
-                }),
-                i = new Set(
-                  (yield o("WAWebSchemaMessage")
-                    .getMessageTable()
-                    .bulkGet(
-                      a.map(function (e) {
-                        return e.decryptedAddOption.id.toString();
-                      }),
-                    ))
-                    .filter(Boolean)
-                    .map(function (e) {
-                      return e.id;
+    var e;
+    async function s(e, t) {
+      if (e.length !== 0) {
+        var n = (
+          await o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([t])
+        ).get(t.toString());
+        if (n != null) {
+          var r = e.flatMap(function (e) {
+              var t = u(e);
+              return t != null ? [{ parentMsg: n, decryptedAddOption: t }] : [];
+            }),
+            a = new Set(
+              (
+                await o("WAWebSchemaMessage")
+                  .getMessageTable()
+                  .bulkGet(
+                    r.map(function (e) {
+                      return e.decryptedAddOption.id.toString();
                     }),
-                ),
-                l = function (t) {
-                  return i.has(t.decryptedAddOption.id.toString());
-                },
-                u = yield (s || (s = n("Promise"))).all([
-                  o(
-                    "WAWebApplyPollAddOptionToParent",
-                  ).applyPollAddOptionsToParent(a.filter(l)),
-                  o(
-                    "WAWebStorePollAddOptionDecryptedMsgs",
-                  ).storePollAddOptionDecryptedMsgs(
-                    a.filter(function (e) {
-                      return !l(e);
-                    }),
-                  ),
-                ]),
-                c = u[0];
-              yield o(
-                "WAWebApplyPollAddOptionToParent",
-              ).removePollAddOptionMsgs(
-                c.map(function (e) {
-                  var t = e.decryptedAddOption;
-                  return t.id.toString();
+                  )
+              )
+                .filter(Boolean)
+                .map(function (e) {
+                  return e.id;
                 }),
-              );
-            }
-          }
-        })),
-        c.apply(this, arguments)
-      );
+            ),
+            i = function (t) {
+              return a.has(t.decryptedAddOption.id.toString());
+            },
+            l = await Promise.all([
+              o("WAWebApplyPollAddOptionToParent").applyPollAddOptionsToParent(
+                r.filter(i),
+              ),
+              o(
+                "WAWebStorePollAddOptionDecryptedMsgs",
+              ).storePollAddOptionDecryptedMsgs(
+                r.filter(function (e) {
+                  return !i(e);
+                }),
+              ),
+            ]),
+            s = l[0];
+          await o("WAWebApplyPollAddOptionToParent").removePollAddOptionMsgs(
+            s.map(function (e) {
+              var t = e.decryptedAddOption;
+              return t.id.toString();
+            }),
+          );
+        }
+      }
     }
-    function d(t) {
+    function u(t) {
       try {
         var n =
           t.parkedMsgPayload != null
@@ -108,7 +96,7 @@ __d(
         );
       }
     }
-    l.resolveParkedPollAddOptions = u;
+    l.resolveParkedPollAddOptions = s;
   },
   98,
 );

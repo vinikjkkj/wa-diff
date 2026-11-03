@@ -178,6 +178,8 @@ __d(
                           e.memberShareGroupHistoryMode !== void 0 &&
                             (k.memberShareGroupHistoryMode =
                               e.memberShareGroupHistoryMode),
+                          e.groupReactionSettings !== void 0 &&
+                            (k.groupReactionSettings = e.groupReactionSettings),
                           e.groupAdder != null
                             ? babelHelpers.extends({}, k, {
                                 groupAdder:
@@ -246,6 +248,7 @@ __d(
                   (a = f.membershipApprovalMode) != null ? a : !1,
                 memberAddMode: f.memberAddMode,
                 memberLinkMode: f.memberLinkMode,
+                groupReactionSettings: f.groupReactionSettings,
                 subject: f.subject,
                 support: f.support === !0,
                 lastActivityTimestamp:

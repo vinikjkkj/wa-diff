@@ -3,6 +3,7 @@ __d(
   [
     "SecurePostMessage",
     "WAWebVoipJsWorkerMessageHandlerHelpers",
+    "WAWebVoipSelfPreviewSender",
     "WAWebVoipStatsTracker",
     "WAWebVoipVideoCaptureOffThread",
     "WAWebVoipWasmHeapBuffer",
@@ -147,7 +148,7 @@ __d(
               n.channel.bufferedAmount +
               ")",
           );
-          var i = z({
+          var i = j({
             connectionId: t,
             errorReason: "rx_stall_timeout",
             event: "error",
@@ -165,7 +166,7 @@ __d(
         t.stats.firstResponseRecvTime !== 0 ||
         t.channel.readyState !== "open" ||
         (t.noFirstResponseWatchdog = self.setTimeout(function () {
-          ((t.noFirstResponseWatchdog = null), j(e));
+          ((t.noFirstResponseWatchdog = null), K(e));
         }, c));
     }
     function P(e, t, n) {
@@ -202,11 +203,11 @@ __d(
                 a + 2,
                 _,
               ),
-              c = o("WAWebVoipJsWorkerMessageHandlerHelpers").readRingByte(
-                n,
-                a + 4,
-                _,
-              ),
+              c = o("WAWebVoipJsWorkerMessageHandlerHelpers").readRingByte({
+                dataU8: n,
+                pos: a + 4,
+                ringBufferDataSize: _,
+              }),
               d =
                 i -
                 o("WAWebVoipJsWorkerMessageHandlerHelpers")
@@ -346,38 +347,40 @@ __d(
         "" + t;
         return;
       }
-      (r.stats.receivedPackets++,
-        (r.stats.receivedBytes += n.byteLength),
-        (r.lastRxPacketTime = Date.now()),
-        r.stats.firstResponseRecvTime === 0 &&
-          ((r.stats.firstResponseRecvTime = r.lastRxPacketTime), k(r)),
-        !r.receivedMedia &&
-          !o("WAWebVoipJsWorkerMessageHandlerHelpers").isStunPacket(n) &&
-          ((r.receivedMedia = !0), T({ connectionId: t, state: r })));
-      var a = B;
-      if (a == null) {
-        r.rxBuffer.push(n);
-        return;
+      if (!r.standby) {
+        (r.stats.receivedPackets++,
+          (r.stats.receivedBytes += n.byteLength),
+          (r.lastRxPacketTime = Date.now()),
+          r.stats.firstResponseRecvTime === 0 &&
+            ((r.stats.firstResponseRecvTime = r.lastRxPacketTime), k(r)),
+          !r.receivedMedia &&
+            !o("WAWebVoipJsWorkerMessageHandlerHelpers").isStunPacket(n) &&
+            ((r.receivedMedia = !0), T({ connectionId: t, state: r })));
+        var a = B;
+        if (a == null) {
+          r.rxBuffer.push(n);
+          return;
+        }
+        var i = n.byteLength,
+          l = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(a, r.wasmBuffer, i);
+        if (l === 0) {
+          (o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
+            1,
+            "voip: [DCThread] Failed to allocate WASM heap memory for packet (size=" +
+              i +
+              ", rxBuffered=" +
+              r.rxBuffer.length +
+              ")",
+          ),
+            r.rxBuffer.push(n));
+          return;
+        }
+        try {
+          var s = new Uint8Array(n);
+          (a.GROWABLE_HEAP_U8().set(s, l),
+            a.handleOnMessageFromHeap(l, i, r.ip, r.port));
+        } catch (e) {}
       }
-      var i = n.byteLength,
-        l = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(a, r.wasmBuffer, i);
-      if (l === 0) {
-        (o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
-          1,
-          "voip: [DCThread] Failed to allocate WASM heap memory for packet (size=" +
-            i +
-            ", rxBuffered=" +
-            r.rxBuffer.length +
-            ")",
-        ),
-          r.rxBuffer.push(n));
-        return;
-      }
-      try {
-        var s = new Uint8Array(n);
-        (a.GROWABLE_HEAP_U8().set(s, l),
-          a.handleOnMessageFromHeap(l, i, r.ip, r.port));
-      } catch (e) {}
     }
     function q(t) {
       var n = e.get(t);
@@ -409,44 +412,48 @@ __d(
         for (var o of r) o != null && W(t, o);
       }
     }
-    function V(t, n) {
-      var r = n.channel;
-      ((r.onmessage = function (e) {
-        var n = e.data;
-        (n instanceof ArrayBuffer && W(t, n), M());
+    function V(e, t) {
+      var n = t.channel;
+      ((n.onmessage = function (t) {
+        var n = t.data;
+        (n instanceof ArrayBuffer && W(e, n), M());
       }),
-        (r.onopen = function () {
+        (n.onopen = function () {
           try {
             globalThis.postMessage({
               type: "waWasmWorkerCompatibleCallback",
               __name: "dataChannelStateCallback",
               event: "open",
-              connectionId: t,
+              connectionId: e,
             });
           } catch (e) {}
-          (q(t), U(t));
+          (q(e), U(e));
         }),
-        (r.onclose = function () {
-          e.has(t) &&
-            z({ connectionId: t, errorReason: "remote_close", event: "error" });
+        (n.onclose = function () {
+          H(e, n) &&
+            j({ connectionId: e, errorReason: "remote_close", event: "error" });
         }),
-        (r.onerror = function (n) {
-          var a = o(
+        (n.onerror = function (t) {
+          var r = o(
             "WAWebVoipJsWorkerMessageHandlerHelpers",
-          ).getDataChannelErrorDetails(r, n);
+          ).getDataChannelErrorDetails(n, t);
           (o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
             1,
             "voip: [DCThread] Channel " +
-              t +
+              e +
               " error: " +
               o(
                 "WAWebVoipJsWorkerMessageHandlerHelpers",
-              ).formatDataChannelErrorDetails(a),
+              ).formatDataChannelErrorDetails(r),
           ),
-            e.has(t) && z({ connectionId: t, event: "error" }));
+            H(e, n) && j({ connectionId: e, event: "error" }));
         }));
     }
-    function H(t, n, r) {
+    function H(t, n) {
+      var r;
+      return ((r = e.get(t)) == null ? void 0 : r.channel) === n;
+    }
+    function G(t, n, r) {
       var o = e.get(t);
       if (o != null)
         try {
@@ -473,7 +480,7 @@ __d(
           );
         } catch (e) {}
     }
-    function G(t) {
+    function z(t) {
       var n = e.get(t);
       n != null &&
         o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
@@ -492,7 +499,7 @@ __d(
             n.stats.txBufferedPackets,
         );
     }
-    function z(t) {
+    function j(t) {
       var n = t.connectionId,
         r = t.errorReason,
         a = t.event,
@@ -501,8 +508,8 @@ __d(
         ? null
         : (k(i),
           I(i),
-          G(n),
-          H(n, a, r),
+          z(n),
+          G(n, a, r),
           B != null &&
             o("WAWebVoipWasmHeapBuffer").freeHeapBuffer(B, i.wasmBuffer),
           e.delete(n),
@@ -510,7 +517,7 @@ __d(
           e.size === 0 && E(),
           i);
     }
-    function j(t) {
+    function K(t) {
       var n = e.get(t);
       if (
         !(
@@ -535,7 +542,7 @@ __d(
             n.channel.bufferedAmount +
             ")",
         );
-        var a = z({
+        var a = j({
           connectionId: t,
           errorReason: "no_first_response_timeout",
           event: "error",
@@ -546,8 +553,8 @@ __d(
           } catch (e) {}
       }
     }
-    function K(t, n, r, a, i) {
-      var l = {
+    function Q(t, n, r, a, i, l) {
+      var u = {
         channel: r,
         ip: a,
         port: i,
@@ -559,6 +566,7 @@ __d(
         receivedMedia: !1,
         lastTxPacketTime: 0,
         txActiveSince: 0,
+        standby: l,
         wasmBuffer: o("WAWebVoipWasmHeapBuffer").createHeapBufferState(),
         stats: {
           sentPackets: 0,
@@ -570,15 +578,19 @@ __d(
           firstResponseRecvTime: 0,
         },
       };
-      e.set(n, l);
-      var u = s.get(n);
-      if (u != null) {
+      e.set(n, u);
+      var c = s.get(n);
+      if (c != null) {
         s.delete(n);
-        for (var c of u) (l.txBuffer.push(c), l.stats.txBufferedPackets++);
+        for (var d of c) (u.txBuffer.push(d), u.stats.txBufferedPackets++);
       }
-      (V(n, l), L());
+      (V(n, u), L());
     }
-    function Q(t, n) {
+    function X(t) {
+      var n = e.get(t);
+      n != null && (n.standby = !1);
+    }
+    function Y(t, n) {
       var r = e.get(t);
       if (r != null) {
         var a = r.channel;
@@ -597,11 +609,11 @@ __d(
         }
       }
     }
-    function X(t) {
+    function J(t) {
       if (t != null) {
         var n = e.get(t);
         if (n != null) {
-          z({ connectionId: t, event: "close" });
+          j({ connectionId: t, event: "close" });
           try {
             n.channel.close();
           } catch (e) {}
@@ -611,7 +623,7 @@ __d(
         for (var o of Array.from(e.entries())) {
           var a = o[0],
             i = o[1];
-          (z({ connectionId: a, event: "close" }), r.push(i.channel));
+          (j({ connectionId: a, event: "close" }), r.push(i.channel));
         }
         for (var l of r)
           try {
@@ -619,14 +631,14 @@ __d(
           } catch (e) {}
       }
     }
-    function Y(e, t) {
+    function Z(e, t) {
       if ((B == null && (B = e), t.jsWorkerCmd === "shutdown")) {
-        (E(),
-          F(),
-          s.clear(),
-          X(),
-          o("WAWebVoipWebTransportWorkerHandler").closeWebTransport(e),
-          (B = null));
+        try {
+          (E(), F(), s.clear(), J());
+        } finally {
+          o("WAWebVoipWebTransportWorkerHandler").closeWebTransport(e);
+        }
+        B = null;
         try {
           e.exitJsWorkerThread();
         } catch (e) {
@@ -654,6 +666,7 @@ __d(
                       isScreenShare: t.isScreenShare === !0,
                       normalizeVideoElementPresentationFrames:
                         t.normalizeVideoElementPresentationFrames,
+                      selfPreviewVideoFrame: t.selfPreviewVideoFrame === !0,
                       videoElementCapture: t.videoElementCapture,
                     },
                   )
@@ -710,6 +723,10 @@ __d(
             t.frame,
             t.frameMetadata,
           );
+        else if (t.jsWorkerCmd === "disableSelfPreviewVideoFrame")
+          o("WAWebVoipSelfPreviewSender").disableSelfPreviewVideoFrame(
+            "renderer transfer failed",
+          );
         else if (t.jsWorkerCmd === "startVoipRpc") {
           o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
             3,
@@ -736,10 +753,21 @@ __d(
               type: "voipRpcReady",
               token: t.token,
             }));
-        } else if (t.jsWorkerCmd === "transferDataChannel")
-          K(e, t.connectionId, t.channel, t.ip, t.port);
-        else if (t.jsWorkerCmd === "sendPacket") Q(t.connectionId, t.data);
-        else if (t.jsWorkerCmd === "closeDataChannel") X(t.connectionId);
+        } else if (
+          t.jsWorkerCmd === "transferDataChannel" ||
+          t.jsWorkerCmd === "transferStandbyDataChannel"
+        )
+          Q(
+            e,
+            t.connectionId,
+            t.channel,
+            t.ip,
+            t.port,
+            t.jsWorkerCmd === "transferStandbyDataChannel",
+          );
+        else if (t.jsWorkerCmd === "activateDataChannel") X(t.connectionId);
+        else if (t.jsWorkerCmd === "sendPacket") Y(t.connectionId, t.data);
+        else if (t.jsWorkerCmd === "closeDataChannel") J(t.connectionId);
         else if (t.jsWorkerCmd === "initRingBuffer")
           A(t.heapBuffer, t.heapBufferOffset, t.dataSize);
         else if (t.jsWorkerCmd === "shutdownRingBuffer") F();
@@ -756,6 +784,7 @@ __d(
             t.relayGeneration,
             t.attemptId,
             t.sendRing,
+            t.datagramConfig,
           );
         else if (t.jsWorkerCmd === "resetWebTransportDatagramHealth")
           o(
@@ -778,7 +807,7 @@ __d(
         }
       }
     }
-    ((l.trySendDirectOnTransferredChannel = O), (l.handleJsWorkerMessage = Y));
+    ((l.trySendDirectOnTransferredChannel = O), (l.handleJsWorkerMessage = Z));
   },
   98,
 );

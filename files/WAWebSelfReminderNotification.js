@@ -6,6 +6,7 @@ __d(
     "WAWebMuteCollection",
     "WAWebNotificationIconUtils",
     "WAWebScheduleSelfReminderAction",
+    "WAWebSlashCommandsUsageLogger",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
@@ -48,6 +49,7 @@ __d(
           return t;
         })()),
         (r.getBannerOptions = function () {
+          var e = this;
           return {
             wid: this.$WASelfReminderNotification$p_1.id,
             msgId: this.$WASelfReminderNotification$p_2.toString(),
@@ -62,6 +64,12 @@ __d(
                 )
               : s._(/*BTDS*/ "You have a reminder").toString(),
             requireInteraction: !0,
+            onClick: function () {
+              return o("WAWebSlashCommandsUsageLogger").logReminderUsage(
+                "reminder_open",
+                e.$WASelfReminderNotification$p_1,
+              );
+            },
           };
         }),
         t

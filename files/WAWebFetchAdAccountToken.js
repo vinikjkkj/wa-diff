@@ -6,6 +6,7 @@ __d(
     "WAPromiseTimeout",
     "WAResolvable",
     "WASmaxBizCtwaAdAccountGetAccessTokenAndSessionCookiesRPC",
+    "WAWebAdAccountTokenThrottle",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCommonAdsTypes",
     "WAWebFailureErrorCodes",
@@ -42,7 +43,9 @@ __d(
       var r = o("WAWebUserPrefsCTWA").getAdAccountToken();
       return e !== !0 && r != null && r.bp_id !== ""
         ? ((m = r), n.resolve({ token: r, type: "success" }), n.promise)
-        : (g(n), n.promise);
+        : o("WAWebAdAccountTokenThrottle").isAdAccountTokenFetchThrottled()
+          ? (b(n), n.resolve({ type: "too-many-attempts" }), n.promise)
+          : (g(n), n.promise);
     }
     function g(e) {
       var t = e.promise,
@@ -61,7 +64,11 @@ __d(
       var i = { retriedAfterIncorrectNonce: !1 };
       T(_, i)
         .then(function (t) {
-          (a(), y(e, t, i, n));
+          (a(),
+            o("WAWebAdAccountTokenThrottle").recordAdAccountTokenFetchResult(
+              t.type,
+            ),
+            y(e, t, i, n));
         })
         .catch(function (t) {
           (a(), C(e, t));
@@ -181,7 +188,13 @@ __d(
                   return n.type === "incorrect-nonce" && e > 0
                     ? ((t.retriedAfterIncorrectNonce = !0),
                       T(e - 1, t).then(function (e) {
-                        return e.type === "success" ? e : (e.type, n);
+                        return e.type === "success" ||
+                          (e.type === "too-many-attempts" &&
+                            o(
+                              "WAWebAdAccountTokenThrottle",
+                            ).isAdAccountTokenThrottleBackoffEnabled())
+                          ? e
+                          : (e.type, n);
                       }))
                     : n;
                 })

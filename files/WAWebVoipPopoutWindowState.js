@@ -31,46 +31,55 @@ __d(
       m = null,
       p = !1,
       _ = !1,
-      f = 0,
-      g = new Set();
-    function h() {
+      f = !1,
+      g = 0,
+      h = new Set();
+    function y() {
       return d;
     }
-    function y(e) {
-      d = e;
+    function C(e) {
+      d !== e &&
+        ((d = e), s.trigger("callActiveInPopoutChanged", { isActive: e }));
     }
-    function C() {
+    function b() {
       return p;
     }
-    function b(e) {
+    function v(e) {
       p !== e &&
         ((p = e), s.trigger("popoutWindowOpeningChanged", { isOpening: e }));
     }
-    function v() {
+    function S() {
       return _;
     }
-    function S() {
-      _ = !0;
-    }
-    function R() {
-      _ = !1;
+    function R(e) {
+      _ !== e &&
+        ((_ = e), s.trigger("autoPopoutPendingChanged", { isPending: e }));
     }
     function L() {
-      return g.size > 0;
+      return f;
     }
     function E() {
-      var e = f++;
+      f = !0;
+    }
+    function k() {
+      f = !1;
+    }
+    function I() {
+      return h.size > 0;
+    }
+    function T() {
+      var e = g++;
       return (
-        g.add(e),
+        h.add(e),
         function () {
-          g.delete(e);
+          h.delete(e);
         }
       );
     }
-    function k() {
-      g.clear();
+    function D() {
+      h.clear();
     }
-    function I() {
+    function x() {
       if (m == null || !d) return !1;
       try {
         return !(m.document.hidden || m.innerWidth <= 0 || m.innerHeight <= 0);
@@ -78,21 +87,21 @@ __d(
         return !1;
       }
     }
-    function T() {
+    function $() {
       return m;
     }
-    function D(e) {
+    function P(e) {
       m = e;
     }
-    function x() {
+    function N() {
       if (m == null) return !1;
       try {
-        return !$(m);
+        return !M(m);
       } catch (e) {
         return !1;
       }
     }
-    function $(e) {
+    function M(e) {
       return (
         e != null && typeof e == "object" && "closed" in e && e.closed === !0
       );
@@ -100,21 +109,23 @@ __d(
     ((l.WAWebVoipUiPopoutWindowEventEmitter = s),
       (l.MAIN_WINDOW_NAME = u),
       (l.focusMainWindowForMediaPrompt = c),
-      (l.getIsCallActiveInPopoutWindow = h),
-      (l.setIsCallActiveInPopoutWindow = y),
-      (l.getIsPopoutWindowOpening = C),
-      (l.setIsPopoutWindowOpening = b),
-      (l.getIsPopoutUiReady = v),
-      (l.markPopoutUiReady = S),
-      (l.resetPopoutUiReady = R),
-      (l.getIsCameraStreamReacquisitionInProgress = L),
-      (l.beginCameraStreamReacquisition = E),
-      (l.resetCameraStreamReacquisitions = k),
-      (l.getIsPopoutWindowActiveAndVisible = I),
-      (l.getPopoutWindow = T),
-      (l.setPopoutWindow = D),
-      (l.isPopoutWindowAlive = x),
-      (l.isWindowClosed = $));
+      (l.getIsCallActiveInPopoutWindow = y),
+      (l.setIsCallActiveInPopoutWindow = C),
+      (l.getIsPopoutWindowOpening = b),
+      (l.setIsPopoutWindowOpening = v),
+      (l.getIsAutoPopoutPending = S),
+      (l.setIsAutoPopoutPending = R),
+      (l.getIsPopoutUiReady = L),
+      (l.markPopoutUiReady = E),
+      (l.resetPopoutUiReady = k),
+      (l.getIsCameraStreamReacquisitionInProgress = I),
+      (l.beginCameraStreamReacquisition = T),
+      (l.resetCameraStreamReacquisitions = D),
+      (l.getIsPopoutWindowActiveAndVisible = x),
+      (l.getPopoutWindow = $),
+      (l.setPopoutWindow = P),
+      (l.isPopoutWindowAlive = N),
+      (l.isWindowClosed = M));
   },
   98,
 );

@@ -151,10 +151,8 @@ __d(
     ((l.sendSetResultRPC = e),
       (l.parseSetResultResponseClientError = u),
       (l.parseSetResultResponseServerError = c),
-      (l.parseSetResultResponseSuccessTrackable = d),
       (l.parseSetResultResponseSuccess = m),
-      (l.makeSetResultRequest = p),
-      (l.parseIQErrorBadRequestOrRateOverlimitMixinGroup = _));
+      (l.makeSetResultRequest = p));
   },
   98,
 );

@@ -1,20 +1,13 @@
 __d(
   "WAWebVoipCallRatingStore",
-  [
-    "WALogger",
-    "WAMd5",
-    "WAWebCoreActionsODS",
-    "WAWebLocalStorage",
-    "err",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAMd5", "WAWebLocalStorage", "WAWebODS", "err", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = null,
       u = "wa_voip_fieldstats_handoff_dedup_v1";
     function c(t) {
-      (o("WAWebCoreActionsODS").logCallFieldstatsDedupMarkerFailed(),
+      (r("WAWebODS").incr("web.call.fieldstats.dedup_marker_failed"),
         o("WALogger")
           .ERROR(
             e ||

@@ -14,7 +14,7 @@ __d(
     function m() {
       var e = new SharedArrayBuffer(s),
         t = new Int32Array(e);
-      return { buffer: t.buffer, view: t };
+      return { buffer: e, view: t };
     }
     function p(t) {
       var n = t.jid,

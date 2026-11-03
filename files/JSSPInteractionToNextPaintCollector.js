@@ -4,7 +4,6 @@ __d(
     "JSSPSetting",
     "JSSPTraceBaseDataCollector",
     "JSSelfProfilerUtils",
-    "asyncToGeneratorRuntime",
     "one-trace",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,59 +12,35 @@ __d(
       s = new Map(),
       u = new Map(),
       c = (function (t) {
-        function a() {
+        function n() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.onProfilerStarts = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n) {
-                (n === void 0 && (n = null),
-                  e.set(t, []),
-                  u.set(t, Date.now()),
-                  n != null && s.set(t, new Set(n)));
-              },
+          (a.onProfilerStarts = async function (n, r) {
+            (r === void 0 && (r = null),
+              e.set(n, []),
+              u.set(n, Date.now()),
+              r != null && s.set(n, new Set(r)));
+          }),
+          (a.onProfilerEnds = async function (n, r, a) {
+            var t, i;
+            return (
+              (a.INPEntryList = o("JSSelfProfilerUtils").mergeList(
+                (t = a.INPEntryList) != null ? t : [],
+                (i = e.get(n)) != null ? i : [],
+              )),
+              e.delete(n),
+              u.delete(n),
+              s.delete(n),
+              a
             );
-            function r(e, n) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.onProfilerEnds = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n, r) {
-                var a, i;
-                return (
-                  (r.INPEntryList = o("JSSelfProfilerUtils").mergeList(
-                    (a = r.INPEntryList) != null ? a : [],
-                    (i = e.get(t)) != null ? i : [],
-                  )),
-                  e.delete(t),
-                  u.delete(t),
-                  s.delete(t),
-                  r
-                );
-              },
-            );
-            function r(e, n, r) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.onProfilerAborts = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                (e.delete(t), u.delete(t), s.delete(t));
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.startINPObserver = function () {
+          }),
+          (a.onProfilerAborts = async function (n) {
+            (e.delete(n), u.delete(n), s.delete(n));
+          }),
+          (n.startINPObserver = function () {
             (r("one-trace").subscribe("trace-end", function (t) {
               if (t.traceType === "INP") {
                 var n, r, o, a, i, l, s;
@@ -135,7 +110,7 @@ __d(
                 },
               ));
           }),
-          a
+          n
         );
       })(r("JSSPTraceBaseDataCollector"));
     (o("JSSPSetting").isCollectingINP && c.startINPObserver(), (l.default = c));

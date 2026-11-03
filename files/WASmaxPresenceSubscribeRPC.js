@@ -66,10 +66,7 @@ __d(
       var n = m(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    ((l.sendSubscribeRPC = e),
-      (l.makeSubscribeRequest = u),
-      (l.mergeTCTokenMixin = d),
-      (l.mergePrivacyTokenContentsMixin = p));
+    ((l.sendSubscribeRPC = e), (l.makeSubscribeRequest = u));
   },
   98,
 );

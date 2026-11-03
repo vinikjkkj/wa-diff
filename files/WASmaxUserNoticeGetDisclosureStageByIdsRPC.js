@@ -170,10 +170,8 @@ __d(
     }
     ((l.sendGetDisclosureStageByIdsRPC = e),
       (l.parseGetDisclosureStageByIdsResponseClientError = u),
-      (l.parseGetDisclosureStageByIdsResponseClientSuccessNotice = c),
       (l.parseGetDisclosureStageByIdsResponseClientSuccess = d),
       (l.parseGetDisclosureStageByIdsResponseServerError = m),
-      (l.makeGetDisclosureStageByIdsRequestGetDisclosureStageById = p),
       (l.makeGetDisclosureStageByIdsRequest = _));
   },
   98,

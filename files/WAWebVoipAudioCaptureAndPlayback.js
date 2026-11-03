@@ -55,102 +55,112 @@ __d(
       A,
       F,
       O,
-      B = null,
-      W = 0;
-    function q() {
-      return (W++, W);
+      B,
+      W = null,
+      q = 0;
+    function U() {
+      return (q++, q);
     }
-    var U = null,
-      V = !1,
-      H = 0,
-      G = new (o("WAResolvable").Resolvable)();
-    function z() {
-      return ((V = !1), H++, (G = new (o("WAResolvable").Resolvable)()), H);
+    var V = null,
+      H = !1,
+      G = 0,
+      z = new (o("WAResolvable").Resolvable)();
+    function j() {
+      return ((H = !1), G++, (z = new (o("WAResolvable").Resolvable)()), G);
     }
-    function j(e, t) {
-      (t === void 0 && (t = H), t === H && ((V = e), G.resolve(e)));
+    function K(e, t) {
+      (t === void 0 && (t = G), t === G && ((H = e), z.resolve(e)));
     }
-    function K() {
-      return (G.resolve(!1), z());
+    function Q() {
+      return (z.resolve(!1), j());
     }
-    function Q(e) {
-      e === H && (G.resolve(!1), z());
+    function X(e) {
+      e === G && (z.resolve(!1), j());
     }
-    function X() {
+    function Y() {
       var e, t;
       return (e =
-        (t = U) == null ? void 0 : t.getEstimatedOutputLagSamples()) != null
+        (t = V) == null ? void 0 : t.getEstimatedOutputLagSamples()) != null
         ? e
         : 0;
     }
-    function Y(e) {
-      return J.apply(this, arguments);
+    function J(e) {
+      return Z.apply(this, arguments);
     }
-    function J() {
+    function Z() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return V
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return H
             ? !0
             : yield o("WAPromiseDelays").withTimeout(
-                G.promise,
+                z.promise,
                 e,
                 o("WAWebBoolFunc").returnFalse,
               );
         })),
-        J.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    var Z = 15e3,
-      ee = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+    var ee = 15e3,
+      te = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "AudioCapture",
       ),
-      te = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+      ne = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "AudioPlayback",
       ),
-      ne = !1;
-    function re() {
+      re = !1;
+    function oe() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_audio_driver_lifetime_fix",
         ) === !0
       );
     }
-    function oe(e) {
-      return ae.apply(this, arguments);
+    function ae(e) {
+      return ie.apply(this, arguments);
     }
-    function ae() {
+    function ie() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.deviceId,
             n = e.targetWindow;
+          if (W == null) {
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV] requestAudioReacquisition: no capture yet, skipping",
+                ])),
+            );
+            return;
+          }
           o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV] requestAudioReacquisition: ",
                 "",
               ])),
             t,
           );
           try {
-            var r = yield Ge(t, n, !0, !0);
+            var r = yield ze(t, n, !0, !0);
             r
               ? o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV] audio re-acquisition completed",
                     ])),
                 )
               : o("WALogger").WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV] audio re-acquisition failed",
                     ])),
                 );
           } catch (e) {
             o("WALogger")
               .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV] audio re-acquisition error: ",
                     "",
                   ])),
@@ -159,58 +169,58 @@ __d(
               .sendLogs("voip: audio re-acquisition failed");
           }
         })),
-        ae.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    function ie() {
-      ne ||
+    function le() {
+      re ||
         (o("WAWebVoipPopoutWindowState").WAWebVoipUiPopoutWindowEventEmitter.on(
           "requestAudioReacquisition",
-          oe,
+          ae,
         ),
-        (ne = !0));
+        (re = !0));
     }
-    function le() {
+    function se() {
       var e,
         t,
         n,
-        r = (e = B) == null ? void 0 : e.captureParams;
+        r = (e = W) == null ? void 0 : e.captureParams;
       return {
         sampleRate: (t = r == null ? void 0 : r.sampleRate) != null ? t : 16e3,
         framesPerChunk:
           (n = r == null ? void 0 : r.framesPerChunk) != null ? n : 320,
       };
     }
-    function se() {
-      var e;
-      return ((e = B) == null ? void 0 : e.hasLiveAudioTrack()) === !0;
-    }
     function ue() {
       var e;
-      return ((e = B) == null ? void 0 : e.silentSource) != null;
+      return ((e = W) == null ? void 0 : e.hasLiveAudioTrack()) === !0;
     }
-    function ce(e) {
-      return de.apply(this, arguments);
+    function ce() {
+      var e;
+      return ((e = W) == null ? void 0 : e.silentSource) != null;
     }
-    function de() {
+    function de(e) {
+      return me.apply(this, arguments);
+    }
+    function me() {
       return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             e.device_type !==
             o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
           ) {
-            var t = re(),
-              r = t ? q() : W;
-            (ie(),
-              ee.enqueue(
+            var t = oe(),
+              r = t ? U() : q;
+            (le(),
+              te.enqueue(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  if (!(t && r !== W)) {
-                    B == null &&
-                      (B = new (o(
+                  if (!(t && r !== q)) {
+                    W == null &&
+                      (W = new (o(
                         "WAWebVoipAudioCaptureBase",
-                      ).WAWebVoipAudioCaptureBase)(ke));
-                    var n = B;
-                    Ne = null;
+                      ).WAWebVoipAudioCaptureBase)(Ie));
+                    var n = W;
+                    Me = null;
                     var a = o(
                       "WAWebVoipAvDriverInitQpl",
                     ).startVoipAvDriverInitQpl();
@@ -245,30 +255,30 @@ __d(
               ));
           }
         })),
-        de.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    function me(e) {
-      return pe.apply(this, arguments);
+    function pe(e) {
+      return _e.apply(this, arguments);
     }
-    function pe() {
+    function _e() {
       return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             (e == null ? void 0 : e.device_type) !==
             o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
           ) {
-            var t = re(),
-              r = W;
-            ee.enqueue(
+            var t = oe(),
+              r = q;
+            te.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 var e;
-                if (!(t && r !== W)) {
-                  if (B == null) {
+                if (!(t && r !== q)) {
+                  if (W == null) {
                     o("WALogger")
                       .ERROR(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:startCaptureJS] capture instance is null. Call initCaptureDriverJS first.",
                           ])),
                       )
@@ -276,16 +286,16 @@ __d(
                     return;
                   }
                   if (
-                    (yield B.startCapture(
+                    (yield W.startCapture(
                       t
                         ? function () {
-                            return r !== W;
+                            return r !== q;
                           }
                         : void 0,
                     ),
-                    !(t && r !== W))
+                    !(t && r !== q))
                   ) {
-                    var n = (e = U) == null ? void 0 : e.playbackAudioContext;
+                    var n = (e = V) == null ? void 0 : e.playbackAudioContext;
                     if (n != null && n.state === "suspended")
                       try {
                         if (
@@ -295,28 +305,28 @@ __d(
                             n,
                             "startCaptureJS",
                           ),
-                          t && r !== W)
+                          t && r !== q)
                         )
                           return;
-                        (he(n),
+                        (ye(n),
                           o("WALogger").LOG(
-                            h ||
-                              (h = babelHelpers.taggedTemplateLiteralLoose([
+                            y ||
+                              (y = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: [AV:startCaptureJS] Also resumed playback AudioContext",
                               ])),
                           ));
                       } catch (e) {
-                        if (t && r !== W) return;
+                        if (t && r !== q) return;
                         o("WALogger").WARN(
-                          y ||
-                            (y = babelHelpers.taggedTemplateLiteralLoose([
+                          C ||
+                            (C = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [AV:startCaptureJS] Failed to resume playback AudioContext: ",
                               "",
                             ])),
                           e,
                         );
                       }
-                    else n != null && n.state === "running" && ge() && ye(n);
+                    else n != null && n.state === "running" && he() && Ce(n);
                   }
                 }
               }),
@@ -324,12 +334,12 @@ __d(
             );
           }
         })),
-        pe.apply(this, arguments)
+        _e.apply(this, arguments)
       );
     }
-    var _e = 2e3,
-      fe = new WeakSet();
-    function ge() {
+    var fe = 2e3,
+      ge = new WeakSet();
+    function he() {
       return (
         o("WAWebUA").UA.isBlink &&
         o(
@@ -340,59 +350,59 @@ __d(
         ) === 1
       );
     }
-    function he(e) {
-      se() && fe.add(e);
-    }
     function ye(e) {
-      te.enqueue(
+      ue() && ge.add(e);
+    }
+    function Ce(e) {
+      ne.enqueue(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          Ce(e) && (yield be(e)) && fe.add(e);
+          be(e) && (yield ve(e)) && ge.add(e);
         }),
         "restartPlaybackOutput",
       );
     }
-    function Ce(e) {
-      var t = U;
+    function be(e) {
+      var t = V;
       return (
         t != null &&
         t.playbackAudioContext === e &&
         t.getAudioElement() == null &&
         e.state === "running" &&
-        !fe.has(e) &&
-        se()
+        !ge.has(e) &&
+        ue()
       );
     }
-    function be(e) {
-      return ve.apply(this, arguments);
+    function ve(e) {
+      return Se.apply(this, arguments);
     }
-    function ve() {
+    function Se() {
       return (
-        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
-          return (yield Se(e.suspend(), "suspend"))
-            ? (yield Se(e.resume(), "resume"))
+          return (yield Re(e.suspend(), "suspend"))
+            ? (yield Re(e.resume(), "resume"))
               ? (o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:restartPlaybackOutput] recreated playback output after microphone start",
                     ])),
                 ),
                 !0)
-              : ((t = U) == null ? void 0 : t.playbackAudioContext) !== e
+              : ((t = V) == null ? void 0 : t.playbackAudioContext) !== e
                 ? !1
-                : (yield Se(e.resume(), "resume"))
+                : (yield Re(e.resume(), "resume"))
                   ? (o("WALogger").WARN(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:restartPlaybackOutput] playback output resumed on the second attempt",
                         ])),
                     ),
                     !0)
-                  : (Le(e),
+                  : (Ee(e),
                     o("WALogger")
                       .ERROR(
-                        S ||
-                          (S = babelHelpers.taggedTemplateLiteralLoose([
+                        R ||
+                          (R = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:restartPlaybackOutput] playback output did not resume, state=",
                             "",
                           ])),
@@ -400,11 +410,11 @@ __d(
                       )
                       .sendLogs("voip: playback output restart did not resume"),
                     !1)
-            : (Le(e),
+            : (Ee(e),
               o("WALogger")
                 .ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:restartPlaybackOutput] playback output did not suspend, state=",
                       "",
                     ])),
@@ -413,24 +423,24 @@ __d(
                 .sendLogs("voip: playback output restart did not suspend"),
               !1);
         })),
-        ve.apply(this, arguments)
+        Se.apply(this, arguments)
       );
     }
-    function Se(e, t) {
-      return Re.apply(this, arguments);
+    function Re(e, t) {
+      return Le.apply(this, arguments);
     }
-    function Re() {
+    function Le() {
       return (
-        (Re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield o("WAPromiseDelays").withTimeout(
               e.then(o("WAWebBoolFunc").returnTrue),
-              _e,
+              fe,
               function () {
                 return (
                   o("WALogger").WARN(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:restartPlaybackOutput] playback output ",
                         " timed out",
                       ])),
@@ -443,8 +453,8 @@ __d(
           } catch (e) {
             return (
               o("WALogger").WARN(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:restartPlaybackOutput] playback output ",
                     " failed: ",
                     "",
@@ -456,10 +466,10 @@ __d(
             );
           }
         })),
-        Re.apply(this, arguments)
+        Le.apply(this, arguments)
       );
     }
-    function Le(t) {
+    function Ee(t) {
       t.resume().catch(function (t) {
         o("WALogger").WARN(
           e ||
@@ -471,15 +481,15 @@ __d(
         );
       });
     }
-    var Ee = 300;
-    function ke() {
+    var ke = 300;
+    function Ie() {
       o("WAWebUA").UA.isWebkit &&
-        te.enqueue(
+        ne.enqueue(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e,
-              t = (e = U) == null ? void 0 : e.getAudioElement();
-            if (!(t == null || t.paused || !De(t) || !xe())) {
-              if ((t.pause(), (yield $e(t)) || (yield $e(t)))) {
+              t = (e = V) == null ? void 0 : e.getAudioElement();
+            if (!(t == null || t.paused || !xe(t) || !$e())) {
+              if ((t.pause(), (yield Pe(t)) || (yield Pe(t)))) {
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -496,18 +506,18 @@ __d(
                     ])),
                 )
                 .sendLogs("voip-playback-element-restart-did-not-resume"),
-                Te(t));
+                De(t));
             }
           }),
           "restartPlaybackElement",
         );
     }
-    var Ie = null;
-    function Te(e) {
-      Ie == null || Ie();
+    var Te = null;
+    function De(e) {
+      Te == null || Te();
       var t = e.ownerDocument,
         n = function () {
-          (Ie == null || Ie(),
+          (Te == null || Te(),
             e.paused &&
               e.play().catch(function (e) {
                 o("WALogger").WARN(
@@ -522,36 +532,36 @@ __d(
         };
       (t.addEventListener("pointerdown", n, !0),
         t.addEventListener("keydown", n, !0),
-        (Ie = function () {
+        (Te = function () {
           (t.removeEventListener("pointerdown", n, !0),
             t.removeEventListener("keydown", n, !0),
-            (Ie = null));
+            (Te = null));
         }));
     }
-    function De(e) {
+    function xe(e) {
       return e.sinkId == null || e.sinkId === "" || e.sinkId === "default";
     }
-    function xe() {
+    function $e() {
       var e,
         t =
-          (e = B) == null || (e = e.audioStream) == null
+          (e = W) == null || (e = e.audioStream) == null
             ? void 0
             : e.getAudioTracks()[0];
       return (
         t instanceof MediaStreamTrack && t.readyState === "live" && !t.muted
       );
     }
-    function $e(e) {
-      return Pe.apply(this, arguments);
+    function Pe(e) {
+      return Ne.apply(this, arguments);
     }
-    function Pe() {
+    function Ne() {
       return (
-        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAPromiseDelays").delayMs(Ee);
+        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAPromiseDelays").delayMs(ke);
           try {
             return yield o("WAPromiseDelays").withTimeout(
               e.play().then(o("WAWebBoolFunc").returnTrue),
-              _e,
+              fe,
               function () {
                 return !e.paused;
               },
@@ -559,8 +569,8 @@ __d(
           } catch (e) {
             return (
               o("WALogger").WARN(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:restartPlaybackElement] play failed: ",
                     "",
                   ])),
@@ -570,62 +580,62 @@ __d(
             );
           }
         })),
-        Pe.apply(this, arguments)
+        Ne.apply(this, arguments)
       );
     }
-    var Ne = null;
-    function Me() {
-      if (B != null) return B.consumeAudioCaptureMetrics();
-      var e = Ne;
-      return ((Ne = null), e);
+    var Me = null;
+    function we() {
+      if (W != null) return W.consumeAudioCaptureMetrics();
+      var e = Me;
+      return ((Me = null), e);
     }
-    function we(e, t) {
-      return Ae.apply(this, arguments);
+    function Ae(e, t) {
+      return Fe.apply(this, arguments);
     }
-    function Ae() {
+    function Fe() {
       return (
-        (Ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (e == null ? void 0 : e.device_type) !==
             o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio &&
-            (re() && q(),
-            ee.enqueue(
+            (oe() && U(),
+            te.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e = B;
+                var e = W;
                 if (e == null) {
                   o("WALogger").WARN(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:stopCaptureJS] capture instance is null, nothing to stop.",
                       ])),
                   );
                   return;
                 }
-                ((Ne = e.consumeAudioCaptureMetrics()),
+                ((Me = e.consumeAudioCaptureMetrics()),
                   yield e.stopCapture(t == null ? void 0 : t.nativeStopped),
-                  (B = null));
+                  (W = null));
               }),
               "stopCapture",
             ));
         })),
-        Ae.apply(this, arguments)
+        Fe.apply(this, arguments)
       );
     }
-    function Fe(e) {
-      return Oe.apply(this, arguments);
+    function Oe(e) {
+      return Be.apply(this, arguments);
     }
-    function Oe() {
+    function Be() {
       return (
-        (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = K();
-          te.enqueue(
+        (Be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = Q();
+          ne.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (t === H) {
-                U == null &&
-                  (U = new (o(
+              if (t === G) {
+                V == null &&
+                  (V = new (o(
                     "WAWebVoipAudioPlaybackBase",
                   ).WAWebVoipAudioPlaybackBase)());
-                var n = U;
-                qe = null;
+                var n = V;
+                Ue = null;
                 var r = o(
                   "WAWebVoipAvDriverInitQpl",
                 ).startVoipAvDriverInitQpl();
@@ -653,7 +663,7 @@ __d(
                     e
                   );
                 }
-                t === H &&
+                t === G &&
                   o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
                     e.sample_rate,
                   );
@@ -662,26 +672,26 @@ __d(
             "initPlaybackDriver",
           );
         })),
-        Oe.apply(this, arguments)
+        Be.apply(this, arguments)
       );
     }
-    function Be() {
-      return We.apply(this, arguments);
-    }
     function We() {
+      return qe.apply(this, arguments);
+    }
+    function qe() {
       return (
-        (We = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = re(),
-            t = H;
-          te.enqueue(
+        (qe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = oe(),
+            t = G;
+          ne.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (t === H) {
-                if (U == null) {
-                  (j(!1, t),
+              if (t === G) {
+                if (V == null) {
+                  (K(!1, t),
                     o("WALogger")
                       .ERROR(
-                        I ||
-                          (I = babelHelpers.taggedTemplateLiteralLoose([
+                        T ||
+                          (T = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:startPlaybackJS] playback instance is null. Call initPlaybackDriverJS first.",
                           ])),
                       )
@@ -689,95 +699,95 @@ __d(
                   return;
                 }
                 try {
-                  (yield U.startPlayback(
+                  (yield V.startPlayback(
                     e
                       ? function () {
-                          return t !== H;
+                          return t !== G;
                         }
                       : void 0,
                   ),
-                    j(!0, t));
+                    K(!0, t));
                 } catch (e) {
-                  throw (j(!1, t), e);
+                  throw (K(!1, t), e);
                 }
               }
             }),
             "startPlayback",
           );
         })),
-        We.apply(this, arguments)
+        qe.apply(this, arguments)
       );
     }
-    var qe = null;
-    function Ue() {
-      if (U != null) return U.consumeAudioPlaybackMetrics();
-      var e = qe;
-      return ((qe = null), e);
+    var Ue = null;
+    function Ve() {
+      if (V != null) return V.consumeAudioPlaybackMetrics();
+      var e = Ue;
+      return ((Ue = null), e);
     }
-    function Ve(e) {
-      return He.apply(this, arguments);
+    function He(e) {
+      return Ge.apply(this, arguments);
     }
-    function He() {
+    function Ge() {
       return (
-        (He = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = re(),
-            r = t ? null : H;
-          (t && K(),
-            te.enqueue(
+        (Ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = oe(),
+            r = t ? null : G;
+          (t && Q(),
+            ne.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = U;
+                var t = V;
                 if (t == null) {
-                  (r != null && Q(r),
+                  (r != null && X(r),
                     o("WALogger").WARN(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:stopPlaybackJS] playback instance is null, nothing to stop.",
                         ])),
                     ));
                   return;
                 }
-                qe = t.consumeAudioPlaybackMetrics();
+                Ue = t.consumeAudioPlaybackMetrics();
                 try {
                   yield t.stopPlayback(e);
                 } finally {
-                  (r != null && Q(r),
-                    (U = null),
+                  (r != null && X(r),
+                    (V = null),
                     o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
                       null,
                     ),
-                    Ie == null || Ie());
+                    Te == null || Te());
                 }
               }),
               "stopPlayback",
             ));
         })),
-        He.apply(this, arguments)
+        Ge.apply(this, arguments)
       );
     }
-    function Ge(e, t, n, r) {
-      return ze.apply(this, arguments);
+    function ze(e, t, n, r) {
+      return je.apply(this, arguments);
     }
-    function ze() {
+    function je() {
       return (
-        (ze = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (je = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = new (o("WAResolvable").Resolvable)();
             return (
-              ee.enqueue(
+              te.enqueue(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   try {
-                    var n = B;
+                    var n = W;
                     if (n == null) {
                       (o("WALogger").ERROR(
-                        D ||
-                          (D = babelHelpers.taggedTemplateLiteralLoose([
+                        x ||
+                          (x = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchAudioDevice] capture instance is null.",
                           ])),
                       ),
                         i.resolve(!1));
                       return;
                     }
-                    if (je(n, e, r, a)) {
+                    if (Ke(n, e, r, a)) {
                       i.resolve(!0);
                       return;
                     }
@@ -786,8 +796,8 @@ __d(
                   } catch (e) {
                     (o("WALogger")
                       .ERROR(
-                        x ||
-                          (x = babelHelpers.taggedTemplateLiteralLoose([
+                        $ ||
+                          ($ = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchAudioInputDevice] failed: ",
                             "",
                           ])),
@@ -803,30 +813,30 @@ __d(
             );
           },
         )),
-        ze.apply(this, arguments)
+        je.apply(this, arguments)
       );
     }
-    function je(e, t, n, r) {
+    function Ke(e, t, n, r) {
       return (
         r === !0 &&
         n !== !0 &&
         o("WAWebVoipSilentCapture").isLiveOnGrantedMicrophone(e, t)
       );
     }
-    function Ke(e) {
-      return Qe.apply(this, arguments);
+    function Qe(e) {
+      return Xe.apply(this, arguments);
     }
-    function Qe() {
+    function Xe() {
       return (
-        (Qe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.isRecoveryCurrent,
             a = e.targetWindow,
-            i = B;
+            i = W;
           if (i == null)
             return (
               o("WALogger").WARN(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                P ||
+                  (P = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:reacquireAudioInputDevice] current capture is unavailable",
                   ])),
               ),
@@ -834,15 +844,15 @@ __d(
             );
           var l = new (o("WAResolvable").Resolvable)();
           return (
-            ee.enqueue(
+            te.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  if (B !== i || !t()) {
+                  if (W !== i || !t()) {
                     l.resolve(!1);
                     return;
                   }
-                  if (yield Xe(i)) {
-                    l.resolve(B === i && t());
+                  if (yield Ye(i)) {
+                    l.resolve(W === i && t());
                     return;
                   }
                   var e = o(
@@ -850,8 +860,8 @@ __d(
                   ).getCurrentSelectedAudioDevice();
                   if (e == null) {
                     (o("WALogger").WARN(
-                      P ||
-                        (P = babelHelpers.taggedTemplateLiteralLoose([
+                      N ||
+                        (N = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:reacquireAudioInputDevice] current device is unavailable",
                         ])),
                     ),
@@ -860,15 +870,15 @@ __d(
                   }
                   var n = yield o("WAPromiseDelays").withTimeout(
                     i.switchDevice(e, a, void 0, !0),
-                    Z,
+                    ee,
                     o("WAWebBoolFunc").returnFalse,
                   );
-                  l.resolve(B === i && t() && n);
+                  l.resolve(W === i && t() && n);
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(
-                      N ||
-                        (N = babelHelpers.taggedTemplateLiteralLoose([
+                      M ||
+                        (M = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:reacquireAudioInputDevice] failed",
                         ])),
                     )
@@ -882,35 +892,35 @@ __d(
             l.promise
           );
         })),
-        Qe.apply(this, arguments)
+        Xe.apply(this, arguments)
       );
     }
-    function Xe(e) {
-      return Ye.apply(this, arguments);
+    function Ye(e) {
+      return Je.apply(this, arguments);
     }
-    function Ye() {
+    function Je() {
       return (
-        (Ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.automaticDeviceChangePromise;
           return t == null ||
             (yield t.catch(o("WAWebBoolFunc").returnFalse),
             !e.hasLiveAudioTrack())
             ? !1
             : (o("WALogger").LOG(
-                M ||
-                  (M = babelHelpers.taggedTemplateLiteralLoose([
+                w ||
+                  (w = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:reacquireAudioInputDevice] an automatic switch already provided a live microphone",
                   ])),
               ),
               !0);
         })),
-        Ye.apply(this, arguments)
+        Je.apply(this, arguments)
       );
     }
-    function Je(e, t) {
+    function Ze(e, t) {
       var n = e
         .then(function (e) {
-          return e == null ? !1 : Ze(e, t);
+          return e == null ? !1 : et(e, t);
         })
         .catch(o("WAWebBoolFunc").returnFalse);
       return (
@@ -919,21 +929,21 @@ __d(
           if (!e && t()) {
             var n;
             o("WAWebVoipSilentCapture").retrySwitchFromSilence(
-              (n = B) == null ? void 0 : n.silentSource,
+              (n = W) == null ? void 0 : n.silentSource,
             );
           }
         }),
         n
       );
     }
-    function Ze(e, t) {
+    function et(e, t) {
       var a = new (o("WAResolvable").Resolvable)();
       return (
-        ee.enqueue(
+        te.enqueue(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var n = !1;
             try {
-              n = yield et(e, t);
+              n = yield tt(e, t);
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -956,14 +966,14 @@ __d(
         a.promise
       );
     }
-    function et(e, t) {
-      return tt.apply(this, arguments);
+    function tt(e, t) {
+      return nt.apply(this, arguments);
     }
-    function tt() {
+    function nt() {
       return (
-        (tt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (nt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            r = B,
+            r = W,
             a =
               (n = e.getAudioTracks()[0]) == null
                 ? void 0
@@ -972,15 +982,15 @@ __d(
             a == null ||
             !t()
             ? (o("WALogger").LOG(
-                w ||
-                  (w = babelHelpers.taggedTemplateLiteralLoose([
+                A ||
+                  (A = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:adoptMicrophoneStream] capture isn't waiting for a microphone, releasing the granted one",
                   ])),
               ),
               !1)
             : (o("WALogger").LOG(
-                A ||
-                  (A = babelHelpers.taggedTemplateLiteralLoose([
+                F ||
+                  (F = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:adoptMicrophoneStream] adopting the granted microphone ",
                     "",
                   ])),
@@ -989,24 +999,24 @@ __d(
               o("WAWebVoipSilentCapture").markGrantedMicrophoneStream(e, a),
               r.switchDevice(a, void 0, void 0, !0, e));
         })),
-        tt.apply(this, arguments)
+        nt.apply(this, arguments)
       );
     }
-    function nt(e) {
-      return rt.apply(this, arguments);
+    function rt(e) {
+      return ot.apply(this, arguments);
     }
-    function rt() {
+    function ot() {
       return (
-        (rt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ot = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o("WAResolvable").Resolvable)();
           return (
-            te.enqueue(
+            ne.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  if (U == null) {
+                  if (V == null) {
                     (o("WALogger").WARN(
-                      F ||
-                        (F = babelHelpers.taggedTemplateLiteralLoose([
+                      O ||
+                        (O = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchAudioOutputDevice] playback instance is null, saving preference only",
                         ])),
                     ),
@@ -1019,13 +1029,13 @@ __d(
                       t.resolve(!1));
                     return;
                   }
-                  var n = yield U.switchOutputDevice(e);
+                  var n = yield V.switchOutputDevice(e);
                   t.resolve(n);
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(
-                      O ||
-                        (O = babelHelpers.taggedTemplateLiteralLoose([
+                      B ||
+                        (B = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchAudioOutputDevice] failed: ",
                           "",
                         ])),
@@ -1040,29 +1050,29 @@ __d(
             t.promise
           );
         })),
-        rt.apply(this, arguments)
+        ot.apply(this, arguments)
       );
     }
     ((l.getPlaybackSampleRate = o(
       "WAWebVoipAudioPlaybackState",
     ).getPlaybackSampleRate),
-      (l.getEstimatedPlaybackOutputLagSamples = X),
-      (l.waitForPlaybackStart = Y),
-      (l.getCaptureParams = le),
-      (l.isCurrentAudioInputTrackLive = se),
-      (l.isCurrentAudioInputSilent = ue),
-      (l.initCaptureDriverJS = ce),
-      (l.startCaptureJS = me),
-      (l.consumeAudioCaptureMetrics = Me),
-      (l.stopCaptureJS = we),
-      (l.initPlaybackDriverJS = Fe),
-      (l.startPlaybackJS = Be),
-      (l.consumeAudioPlaybackMetrics = Ue),
-      (l.stopPlaybackJS = Ve),
-      (l.switchAudioInputDevice = Ge),
-      (l.reacquireCurrentAudioInputDevice = Ke),
-      (l.adoptGrantedMicrophoneStream = Je),
-      (l.switchAudioOutputDevice = nt));
+      (l.getEstimatedPlaybackOutputLagSamples = Y),
+      (l.waitForPlaybackStart = J),
+      (l.getCaptureParams = se),
+      (l.isCurrentAudioInputTrackLive = ue),
+      (l.isCurrentAudioInputSilent = ce),
+      (l.initCaptureDriverJS = de),
+      (l.startCaptureJS = pe),
+      (l.consumeAudioCaptureMetrics = we),
+      (l.stopCaptureJS = Ae),
+      (l.initPlaybackDriverJS = Oe),
+      (l.startPlaybackJS = We),
+      (l.consumeAudioPlaybackMetrics = Ve),
+      (l.stopPlaybackJS = He),
+      (l.switchAudioInputDevice = ze),
+      (l.reacquireCurrentAudioInputDevice = Qe),
+      (l.adoptGrantedMicrophoneStream = Ze),
+      (l.switchAudioOutputDevice = rt));
   },
   98,
 );

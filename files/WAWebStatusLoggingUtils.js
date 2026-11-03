@@ -8,7 +8,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,145 +16,89 @@ __d(
     function u(e) {
       return s.encode(e).buffer;
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      var t,
+        n,
+        r,
+        a = e.id.id,
+        i = (t = e.id.remote) == null ? void 0 : t.toString({ legacy: !0 }),
+        l = await y();
+      if (!l || !i) return a;
+      var s = e.id.fromMe ? 1 : 0,
+        c = e.id.fromMe
+          ? "0"
+          : (n =
+                (r = e.id.participant) == null
+                  ? void 0
+                  : r.toString({ legacy: !0 })) != null
+            ? n
+            : "0",
+        d = u([i, a, s, c].join("_")),
+        m = await o("WACryptoHmac").hmacSha256(l, d);
+      return o("WABase64").encodeB64(m);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r,
-            a = e.id.id,
-            i = (t = e.id.remote) == null ? void 0 : t.toString({ legacy: !0 }),
-            l = yield E();
-          if (!l || !i) return a;
-          var s = e.id.fromMe ? 1 : 0,
-            c = e.id.fromMe
-              ? "0"
-              : (n =
-                    (r = e.id.participant) == null
-                      ? void 0
-                      : r.toString({ legacy: !0 })) != null
-                ? n
-                : "0",
-            d = u([i, a, s, c].join("_")),
-            m = yield o("WACryptoHmac").hmacSha256(l, d);
-          return o("WABase64").encodeB64(m);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          try {
-            return yield c(t);
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[StatusLogging] could not hash the status id",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs(n);
-            return;
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebMsgGetters").getIsGroupStatus(e) ? v(e, t) : g(e, t);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !o(
-              "WAWebStatusGatingUtils",
-            ).isStatusViewerSidePosterIdentifiersEnabled()
+    async function d(t, n) {
+      try {
+        return await c(t);
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[StatusLogging] could not hash the status id",
+              ])),
           )
-            return null;
-          if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
-            var n,
-              r = (n = e.id.remote) == null ? void 0 : n.toJid();
-            return r == null ? null : R(r, t);
-          }
-          return e.author ? R(e.author.toJid(), t) : null;
-        })),
-        h.apply(this, arguments)
-      );
+          .catching(r("getErrorSafe")(t))
+          .sendLogs(n);
+        return;
+      }
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    async function m(e, t) {
+      return o("WAWebMsgGetters").getIsGroupStatus(e) ? g(e, t) : p(e, t);
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o(
-            "WAWebStatusGatingUtils",
-          ).isStatusViewerSidePosterIdentifiersEnabled()
-            ? R(e.toJid(), t)
-            : null;
-        })),
-        C.apply(this, arguments)
-      );
+    async function p(e, t) {
+      if (
+        !o(
+          "WAWebStatusGatingUtils",
+        ).isStatusViewerSidePosterIdentifiersEnabled()
+      )
+        return null;
+      if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
+        var n,
+          r = (n = e.id.remote) == null ? void 0 : n.toJid();
+        return r == null ? null : h(r, t);
+      }
+      return e.author ? h(e.author.toJid(), t) : null;
     }
-    function b(e) {
+    async function _(e, t) {
+      return o(
+        "WAWebStatusGatingUtils",
+      ).isStatusViewerSidePosterIdentifiersEnabled()
+        ? h(e.toJid(), t)
+        : null;
+    }
+    function f(e) {
       return e != null && e.isNewsletter() ? e.user : void 0;
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    async function g(e, t) {
+      var n = e.id.remote;
+      return !o(
+        "WAWebStatusGatingUtils",
+      ).isStatusViewerSidePosterIdentifiersEnabled() ||
+        !o("WAWebMsgGetters").getIsGroupStatus(e) ||
+        n == null
+        ? null
+        : h(n.toJid(), t);
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.id.remote;
-          return !o(
-            "WAWebStatusGatingUtils",
-          ).isStatusViewerSidePosterIdentifiersEnabled() ||
-            !o("WAWebMsgGetters").getIsGroupStatus(e) ||
-            n == null
-            ? null
-            : R(n.toJid(), t);
-        })),
-        S.apply(this, arguments)
-      );
+    async function h(e, t) {
+      var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
+        r = await y();
+      if (n === -1 || !r) return null;
+      var a = C(t, n),
+        i = await o("WACryptoHmac").hmacSha256(r, u(e + a));
+      return o("WABase64").encodeB64(i);
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
-            r = yield E();
-          if (n === -1 || !r) return null;
-          var a = k(t, n),
-            i = yield o("WACryptoHmac").hmacSha256(r, u(e + a));
-          return o("WABase64").encodeB64(i);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
+    function y() {
       var e = o("WAWebUserPrefsMultiDevice")
         .getChatThreadLoggingSecretB64()
         .then(function (e) {
@@ -163,10 +106,10 @@ __d(
         });
       return e;
     }
-    function k(e, t) {
-      return t === 0 ? "" : I(e, t);
+    function C(e, t) {
+      return t === 0 ? "" : b(e, t);
     }
-    function I(e, t) {
+    function b(e, t) {
       var n = new Date(e.getTime() - 28800),
         r = n.getUTCFullYear(),
         a = (n.getUTCMonth() + 1).toString().padStart(2, "0"),
@@ -186,12 +129,12 @@ __d(
               : r + "/" + a + "/" + s;
     }
     ((l.statusIdForLogging = c),
-      (l.statusIdForLoggingOrUndefined = m),
-      (l.statusPosterHashIdForLogging = _),
-      (l.statusPosterIdForLogging = g),
-      (l.channelStatusPosterHashId = y),
-      (l.channelStatusCid = b),
-      (l.statusGroupIdForLogging = v));
+      (l.statusIdForLoggingOrUndefined = d),
+      (l.statusPosterHashIdForLogging = m),
+      (l.statusPosterIdForLogging = p),
+      (l.channelStatusPosterHashId = _),
+      (l.channelStatusCid = f),
+      (l.statusGroupIdForLogging = g));
   },
   98,
 );

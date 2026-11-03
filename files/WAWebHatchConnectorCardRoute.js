@@ -19,11 +19,11 @@ __d(
               ? p(r)
               : "fallback_url";
     }
-    function u(e) {
+    function u(e, t) {
       return (
         e != null &&
-        d(e) &&
-        o("WAWebHatchConnectorDetail").hasHatchConnectorDetail(e)
+        d(e, t) &&
+        o("WAWebHatchConnectorDetail").hasHatchConnectorDetail(e, t)
       );
     }
     function c(e, t) {
@@ -33,10 +33,10 @@ __d(
           ? p(t) !== "fallback_url"
           : !1;
     }
-    function d(e) {
+    function d(e, t) {
       return (
         !o("WAWebHatchConnectorsEligibility").isHatchWalletConnector(e) &&
-        o("WAWebHatchConnectorsEligibility").isManageableHatchConnector(e) &&
+        o("WAWebHatchConnectorsEligibility").isManageableHatchConnector(e, t) &&
         e.state === "connected"
       );
     }

@@ -11,6 +11,7 @@ __d(
     "relay-runtime/store/RelayOperationTracker",
     "relay-runtime/store/RelayPublishQueue",
     "relay-runtime/store/RelayRecordSource",
+    "relay-runtime/store/RelayRecordSourceOverlay",
     "relay-runtime/store/RelayStoreUtils",
     "relay-runtime/store/StoreInspector",
     "relay-runtime/store/defaultGetDataID",
@@ -170,7 +171,7 @@ __d(
           (r.check = function (t) {
             return this.$7.length === 0 && !d(t)
               ? this.$6.check(t)
-              : this.$17(t, this.$7);
+              : this.$17(t, this.$7, this.$6.getSource());
           }),
           (r.commitPayload = function (t, r) {
             this.$16({
@@ -223,26 +224,35 @@ __d(
           (r.isServer = function () {
             return this.$13;
           }),
-          (r.$17 = function (r, o) {
+          (r.$17 = function (r, o, a) {
             var t = this,
-              a = n("relay-runtime/store/RelayRecordSource").create(),
-              i = this.$6.getSource(),
+              i = n("relay-runtime/store/RelayRecordSource").create(),
               l = this.$6.check(r, {
                 defaultActorIdentifier: e,
                 getSourceForActor: function (t) {
-                  return (s(t), i);
+                  return (s(t), a);
                 },
                 getTargetForActor: function (t) {
-                  return (s(t), a);
+                  return (s(t), i);
                 },
                 handlers: o,
               });
             return (
-              a.size() > 0 &&
+              i.size() > 0 &&
                 this.$15(function () {
-                  (t.$4.commitSource(a), t.$4.run());
+                  (t.$4.commitSource(i), t.$4.run());
                 }),
               l
+            );
+          }),
+          (r.$18 = function (t, r) {
+            return this.$17(
+              t,
+              this.$7,
+              new (n("relay-runtime/store/RelayRecordSourceOverlay"))(
+                this.$6.getSource(),
+                r,
+              ),
             );
           }),
           (r.$15 = function (t) {
@@ -267,6 +277,9 @@ __d(
                     {
                       checkOperation: function (n) {
                         return e.check(n);
+                      },
+                      checkOperationWithUnpublished: function (n, r) {
+                        return e.$18(n, r);
                       },
                       parentOperation: n,
                     },

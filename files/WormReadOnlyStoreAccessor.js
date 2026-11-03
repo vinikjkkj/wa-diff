@@ -1,13 +1,6 @@
 __d(
   "WormReadOnlyStoreAccessor",
-  [
-    "FBLogger",
-    "QPLFlow",
-    "Worm",
-    "WormStoreFunctions",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["FBLogger", "QPLFlow", "Worm", "WormStoreFunctions", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -16,42 +9,31 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.$4 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              var n = this.$2 + "." + t + "_inline",
-                a =
-                  this.$3 != null
-                    ? o("QPLFlow").startQPLFlow(this.$3, {
-                        annotations: { string: { operationType: n } },
-                        timeoutInMs: o("Worm").OP_TIMEOUT_MS,
-                      })
-                    : void 0;
-              try {
-                var i = yield this.$1.runInTransaction(
-                  [this.$2],
-                  "readonly",
-                  e,
-                  { eventFlow: a },
-                );
-                return (a == null || a.endSuccess(), i);
-              } catch (e) {
-                a == null || a.endFail("error");
-                var l = r("getErrorSafe")(e);
-                throw (
-                  r("FBLogger")("worm")
-                    .catching(l)
-                    .mustfix("Error performing %s", n),
-                  l
-                );
-              }
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
+        (t.$4 = async function (t, n) {
+          var e = this.$2 + "." + n + "_inline",
+            a =
+              this.$3 != null
+                ? o("QPLFlow").startQPLFlow(this.$3, {
+                    annotations: { string: { operationType: e } },
+                    timeoutInMs: o("Worm").OP_TIMEOUT_MS,
+                  })
+                : void 0;
+          try {
+            var i = await this.$1.runInTransaction([this.$2], "readonly", t, {
+              eventFlow: a,
+            });
+            return (a == null || a.endSuccess(), i);
+          } catch (t) {
+            a == null || a.endFail("error");
+            var l = r("getErrorSafe")(t);
+            throw (
+              r("FBLogger")("worm")
+                .catching(l)
+                .mustfix("Error performing %s", e),
+              l
+            );
           }
-          return t;
-        })()),
+        }),
         (t.bulkGet = function (t) {
           var e = this;
           return this.$4(function (n) {

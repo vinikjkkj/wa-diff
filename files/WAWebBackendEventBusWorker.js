@@ -248,6 +248,13 @@ __d(
             void 0,
           );
         }),
+        (t.triggerPrimaryFeaturesSynced = function (t) {
+          this.$1.fireAndForget(
+            "backendEventBus",
+            "triggerPrimaryFeaturesSynced",
+            { changedFeatures: Array.from(t) },
+          );
+        }),
         (t.triggerStartingLogout = function () {
           o("WAWebBackendApi").frontendFireAndForget(
             "triggerStartingLogoutFromBridge",

@@ -5,37 +5,28 @@ __d(
     "WAWap",
     "WAWebGdprConstants",
     "WAWebGdprHookUtils",
-    "asyncToGeneratorRuntime",
     "err",
     "useWAWebGdprStatus",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          r("vulture")("s1jGzlcj-SCWUSo4iVDbrLlfgFI=");
-          var t = o("WAWebGdprConstants").ReportType.cast(e);
-          if (t == null) throw r("err")("reportType string must be passed");
-          var n = o("WAWebGdprHookUtils").getGdprIq(
-            o("WAWap").generateId(),
-            t,
-            "delete",
-          );
-          return o("WADeprecatedSendIq").deprecatedSendIq(
-            n,
-            o("useWAWebGdprStatus").GdprStatusWapParser,
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      r("vulture")("s1jGzlcj-SCWUSo4iVDbrLlfgFI=");
+      var t = o("WAWebGdprConstants").ReportType.cast(e);
+      if (t == null) throw r("err")("reportType string must be passed");
+      var n = o("WAWebGdprHookUtils").getGdprIq(
+        o("WAWap").generateId(),
+        t,
+        "delete",
+      );
+      return o("WADeprecatedSendIq").deprecatedSendIq(
+        n,
+        o("useWAWebGdprStatus").GdprStatusWapParser,
       );
     }
     e.doc = "cancels any current existing GDPR request";
-    var u = { cancelGDPRRequest: e };
-    l.default = u;
+    var s = { cancelGDPRRequest: e };
+    l.default = s;
   },
   98,
 );

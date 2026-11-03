@@ -12,9 +12,11 @@ __d(
     "WAKaleidoscopeClassify",
     "WAKaleidoscopeMp4RepairMux",
     "WAKaleidoscopeProvenance",
+    "WAKaleidoscopeProvenanceWrite",
     "WAMediaWasmWorkerMainThreadBridge",
     "WAMediaWasmWorkerQplProxy",
     "WAResultOrError",
+    "WAWebNoop",
     "WorkerMessagePort",
     "WorkerSelf",
     "asyncToGeneratorRuntime",
@@ -451,8 +453,61 @@ __d(
             );
           });
       }));
-    function L() {}
-    ((l.default = L), (l.sendLogToMainThread = u));
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.output,
+            n = e.requestId,
+            r = yield s.fullyConnected;
+          r.postMessage(
+            {
+              type: "kaleidoscopeProvenanceWriteResponse",
+              output: t,
+              requestId: n,
+            },
+            t.success ? [t.value] : [],
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    s.addMessageListener("kaleidoscopeProvenanceWriteRequest", function (t) {
+      return (e || (e = n("Promise")))
+        .resolve()
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = t.fields,
+              n = t.hints,
+              r = t.input,
+              a = t.requestId,
+              i = yield o("WAKaleidoscopeProvenanceWrite").provenanceWrite({
+                fields: e,
+                hints: n,
+                input: r,
+              });
+            return L({ output: i, requestId: a });
+          }),
+        )
+        .catch(function (e) {
+          return (
+            u(
+              "error",
+              "kaleidoscopeProvenanceWrite has runtime-error " +
+                o("WAErrorMessage").maybeGetMessageFromError(e),
+            ),
+            L({
+              output: o("WAResultOrError").makeError("internal-error"),
+              requestId: t.requestId,
+            })
+          );
+        })
+        .catch(r("WAWebNoop"));
+    });
+    function k() {}
+    ((l.default = k), (l.sendLogToMainThread = u));
   },
   98,
 );

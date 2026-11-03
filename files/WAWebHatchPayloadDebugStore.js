@@ -54,14 +54,6 @@ __d(
             }
           );
         }),
-        (t.__resetForTesting = function () {
-          ((this.$1 = []),
-            (this.$2 = []),
-            (this.$3 = []),
-            (this.$4 = 0),
-            (this.$5 = new Set()),
-            (this.$6 = new Map()));
-        }),
         (t.$7 = function (t) {
           if (t.msgId != null) return t.msgId;
           var e = t.action;

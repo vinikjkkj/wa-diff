@@ -11,7 +11,6 @@ __d(
     "WAWebFileSaver",
     "WAWebFilenameManager",
     "WAWebFrontendMsgGetters",
-    "WAWebHarmfulFileSenderRelationshipResolver",
     "WAWebHarmfulFileWarningGate",
     "WAWebHarmfulFileWarningModal.react",
     "WAWebHtmlViewerGatingUtils",
@@ -474,7 +473,7 @@ __d(
                   "WAWebHarmfulFileWarningGate",
                 ).shouldOpenHarmfulFileWarningModal(a))
               ) {
-                var s = yield K(a);
+                var s = yield K();
                 if (!s) return;
                 o(
                   "WAWebHarmfulFileWarningGate",
@@ -737,30 +736,26 @@ __d(
       }
       return [de, ce];
     }
-    function K(e) {
-      if (
-        o("WAWebActiveIntegrityHoldout").isSuppressedByActiveIntegrityHoldout()
-      )
-        return (P || (P = n("Promise"))).resolve(!0);
-      var t = o(
-        "WAWebHarmfulFileSenderRelationshipResolver",
-      ).resolveHarmfulFileSenderRelationship(e);
-      return new (P || (P = n("Promise")))(function (e) {
-        o("WAWebModalManager").ModalManager.open(
-          M.jsx(r("WAWebHarmfulFileWarningModal.react"), {
-            learnMoreUrl: o(
-              "WAWebHarmfulFileWarningGate",
-            ).getHarmfulFileLearnMoreUrl(),
-            onCancel: function () {
-              (o("WAWebModalManager").closeModalManager(), e(!1));
-            },
-            onOpen: function () {
-              (o("WAWebModalManager").closeModalManager(), e(!0));
-            },
-            senderRelationship: t,
-          }),
-        );
-      });
+    function K() {
+      return o(
+        "WAWebActiveIntegrityHoldout",
+      ).isSuppressedByActiveIntegrityHoldout()
+        ? (P || (P = n("Promise"))).resolve(!0)
+        : new (P || (P = n("Promise")))(function (e) {
+            o("WAWebModalManager").ModalManager.open(
+              M.jsx(r("WAWebHarmfulFileWarningModal.react"), {
+                learnMoreUrl: o(
+                  "WAWebHarmfulFileWarningGate",
+                ).getHarmfulFileLearnMoreUrl(),
+                onCancel: function () {
+                  (o("WAWebModalManager").closeModalManager(), e(!1));
+                },
+                onOpen: function () {
+                  (o("WAWebModalManager").closeModalManager(), e(!0));
+                },
+              }),
+            );
+          });
     }
     ((l.displayDownloadingToast = q),
       (l.displayFileOpeningToast = U),

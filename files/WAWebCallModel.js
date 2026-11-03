@@ -268,10 +268,15 @@ __d(
             );
           }),
           (a.isConnectingToCallLinkLobbyOutsideWaitingRoom = function () {
-            var e =
+            return (
+              this.isConnectingToCallLinkLobby() && !this.isHeldByWaitingRoom()
+            );
+          }),
+          (a.isHeldByWaitingRoom = function () {
+            return (
               this.isInWaitingRoom ||
-              (this.isWaitingRoomEnabled && !this.isWaitingRoomAdmin);
-            return this.isConnectingToCallLinkLobby() && !e;
+              (this.isWaitingRoomEnabled && !this.isWaitingRoomAdmin)
+            );
           }),
           (a.isWaitingRoomToggleOn = function (t) {
             return o("WAWebVoipWaCallEnums").wireStringToWaitingRoomFilter(

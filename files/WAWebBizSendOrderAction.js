@@ -18,6 +18,7 @@ __d(
     "WAWebMsgType",
     "WAWebOrderCollection",
     "WAWebOrderDetailMathDefaultOffset",
+    "WAWebOrderMessageSendResultError",
     "WAWebOrderStatus",
     "WAWebPaymentsGatingUtils",
     "WAWebPaymentsPixBannerUtils",
@@ -133,7 +134,9 @@ __d(
               h.messageSendResult !==
                 o("WAWebSendMsgResultAction").SendMsgResult.OK
             )
-              throw r("err")("Order message SendMsgResult failure status");
+              throw new (r("WAWebOrderMessageSendResultError"))(
+                h == null ? void 0 : h.messageSendResult,
+              );
           } catch (e) {
             throw (
               o("WALogger").WARN(

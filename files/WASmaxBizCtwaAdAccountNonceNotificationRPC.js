@@ -79,8 +79,7 @@ __d(
         : a;
     }
     ((l.receiveNonceNotificationRPC = e),
-      (l.parseNonceNotificationRequest = s),
-      (l.parseServerNotificationMixin = u));
+      (l.parseNonceNotificationRequest = s));
   },
   98,
 );

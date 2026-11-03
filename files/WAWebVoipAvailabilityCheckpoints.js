@@ -2,6 +2,7 @@ __d(
   "WAWebVoipAvailabilityCheckpoints",
   [
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebVoipCappedVisibleClock",
     "WAWebVoipInitEventEmitter",
@@ -22,9 +23,7 @@ __d(
       y = !1,
       C = null,
       b = null,
-      v = function () {
-        return !1;
-      };
+      v = o("WAWebBoolFunc").returnFalse;
     function S(e) {
       o("WAWebRuntimeEnvironmentUtils").isWorker() || ((v = e), I());
     }

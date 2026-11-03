@@ -2,6 +2,7 @@ __d(
   "getVisualCompletionDefaultConfig",
   [
     "JSScheduler",
+    "VisualCompletionCssBgScanOverride",
     "cr:13699",
     "getReactComponentName",
     "getReactComponentStackFromDOMElement_THIS_CAN_BREAK",
@@ -20,6 +21,14 @@ __d(
         SSRInjectedElements: n("cr:13699"),
         bypass_detached_element: s,
         check_css_bg_elements: !(t = r("gkx"))("13291"),
+        cssBgScanChildrenFirst: function () {
+          var e;
+          return (e = o(
+            "VisualCompletionCssBgScanOverride",
+          ).getCssBgScanChildrenFirstOverride()) != null
+            ? e
+            : r("gkx")("28579");
+        },
         defer_expensive_calculation: function (n) {
           (e || (e = o("JSScheduler"))).scheduleLoggingPriCallback(n);
         },

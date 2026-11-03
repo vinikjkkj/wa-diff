@@ -67,6 +67,7 @@ __d(
           (t.afterReadDuration = o("WAWebBaseModel").prop()),
           (t.membershipApprovalMode = o("WAWebBaseModel").prop()),
           (t.memberAddMode = o("WAWebBaseModel").prop()),
+          (t.groupReactionSettings = o("WAWebBaseModel").prop()),
           (t.memberLinkMode = o("WAWebBaseModel").prop()),
           (t.growthLockExpiration = o("WAWebBaseModel").prop()),
           (t.growthLockType = o("WAWebBaseModel").prop()),

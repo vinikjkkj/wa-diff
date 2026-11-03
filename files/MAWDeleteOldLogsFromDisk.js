@@ -6,7 +6,6 @@ __d(
     "MAWSaveLogToDisk",
     "MAWTransactionMode",
     "WALogger",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -106,65 +105,49 @@ __d(
         return n.length < e;
       };
     }
-    function b() {
-      return v.apply(this, arguments);
+    async function b() {
+      try {
+        var t = await _();
+        if (t === 0) return;
+        var n = t - m;
+        if (n > 0) {
+          var r = await f(C(n));
+          await h(r);
+          return;
+        }
+        var a = await f(y);
+        a.length > 0 && (await h(a));
+      } catch (t) {
+        o("WALogger").ERROR(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "Failed to delete old logs: ",
+              "",
+            ])),
+          t,
+        );
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield _();
-            if (t === 0) return;
-            var n = t - m;
-            if (n > 0) {
-              var r = yield f(C(n));
-              yield h(r);
-              return;
-            }
-            var a = yield f(y);
-            a.length > 0 && (yield h(a));
-          } catch (t) {
-            o("WALogger").ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Failed to delete old logs: ",
-                  "",
-                ])),
-              t,
-            );
-          }
-        })),
-        v.apply(this, arguments)
-      );
+    async function v() {
+      try {
+        var e = await _();
+        if (e === 0) return;
+        if (e >= d) {
+          await g();
+          return;
+        }
+      } catch (e) {
+        o("WALogger").ERROR(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "Failed to delete old logs: ",
+              "",
+            ])),
+          e,
+        );
+      }
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield _();
-            if (e === 0) return;
-            if (e >= d) {
-              yield g();
-              return;
-            }
-          } catch (e) {
-            o("WALogger").ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "Failed to delete old logs: ",
-                  "",
-                ])),
-              e,
-            );
-          }
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    ((l.clearLogs = g), (l.deleteOldLogs = b), (l.deleteOldLogsOnStartup = S));
+    ((l.clearLogs = g), (l.deleteOldLogs = b), (l.deleteOldLogsOnStartup = v));
   },
   98,
 );

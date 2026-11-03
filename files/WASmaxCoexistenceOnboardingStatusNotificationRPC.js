@@ -110,10 +110,7 @@ __d(
         : t;
     }
     ((l.receiveOnboardingStatusNotificationRPC = e),
-      (l.parseOnboardingStatusNotificationRequestOnboardingStatusCoexConnectionDescriptor =
-        s),
-      (l.parseOnboardingStatusNotificationRequest = u),
-      (l.parseProductSurfaceMixin = c));
+      (l.parseOnboardingStatusNotificationRequest = u));
   },
   98,
 );

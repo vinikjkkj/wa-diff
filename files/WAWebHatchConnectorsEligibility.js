@@ -8,12 +8,12 @@ __d(
       s = new Set(["stripe_link", "shop_pay", "meta_pay"]),
       u = new Set(["stripe_link", "shop_pay"]),
       c = "local.";
-    function d(e) {
-      var t = [],
-        n = [];
-      for (var r of e)
-        g(r) || !y(r) || (r.state === "connected" ? t.push(r) : n.push(r));
-      return { connected: t, available: n };
+    function d(e, t) {
+      var n = [],
+        r = [];
+      for (var o of e)
+        g(o) || !y(o, t) || (o.state === "connected" ? n.push(o) : r.push(o));
+      return { connected: n, available: r };
     }
     function m(e) {
       var t = e.filter(function (e) {
@@ -66,7 +66,8 @@ __d(
     function h(e) {
       return e.trim().toLowerCase().replace(/[- ]/g, "_");
     }
-    function y(t) {
+    function y(t, n) {
+      if (b(t, n)) return C(t, n);
       switch (t.state) {
         case "connected":
           return e.has(t.managementKind) || f(t);
@@ -76,12 +77,21 @@ __d(
           return !1;
       }
     }
+    function C(e, t) {
+      return b(e, t) && e.state === "connected";
+    }
+    function b(e, t) {
+      return (
+        (t == null ? void 0 : t.customConnectorsEnabled) === !0 && e.isCustom
+      );
+    }
     ((i.groupEligibleHatchConnectors = d),
       (i.listEligibleHatchWalletConnectors = m),
       (i.listHatchPermissionsConnectors = p),
       (i.isHatchPermissionsOnlyConnector = f),
       (i.isHatchWalletConnector = g),
-      (i.isManageableHatchConnector = y));
+      (i.isManageableHatchConnector = y),
+      (i.isConnectedHatchCustomConnector = C));
   },
   66,
 );

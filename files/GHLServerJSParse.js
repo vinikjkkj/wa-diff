@@ -22,7 +22,7 @@ __d(
       return o + t.slice(a);
     }
     function m(e) {
-      return e + "/*x*/";
+      return "\xA0" + e;
     }
     function p(e) {
       var t = null,
@@ -84,7 +84,7 @@ __d(
             } catch (e) {
               R = !1;
             }
-          R || (t = r("json5").fromSegment(m(p)));
+          R || (t = r("json5").fromExcerpt(m(p)));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
@@ -100,7 +100,7 @@ __d(
         t
       );
     }
-    l.readBootRecord = p;
+    l.readBootEntry = p;
   },
   98,
 );

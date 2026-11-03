@@ -6,33 +6,24 @@ __d(
     "WAWebRecoverableQueue",
     "WAWebScheduledOperations",
     "WAWormQueueDef",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = Number.POSITIVE_INFINITY,
       s = null;
     function u() {
-      m().start();
+      d().start();
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function c(e, t) {
+      var n = await o(
+        "WAWebMetaAiThreadServerDeleteQueueDef",
+      ).META_AI_THREAD_SERVER_DELETE_QUEUE.read({
+        limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
+      });
+      n.some(function (t) {
+        return t.botFbid === e;
+      }) || (await d().addAndDrain({ botFbid: e, meLid: t }));
     }
     function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-            "WAWebMetaAiThreadServerDeleteQueueDef",
-          ).META_AI_THREAD_SERVER_DELETE_QUEUE.read({
-            limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
-          });
-          n.some(function (t) {
-            return t.botFbid === e;
-          }) || (yield m().addAndDrain({ botFbid: e, meLid: t }));
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m() {
       return (
         s == null &&
           (s = new (o("WAWebRecoverableQueue").WAWebRecoverableQueue)({

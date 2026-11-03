@@ -54,7 +54,7 @@ __d(
     function f(e, t, n) {
       var o = (n != null ? n : navigator).permissions;
       if (o == null) return r("WAWebNoop");
-      var a = v(o, e),
+      var a = S(o, e),
         i = a.listeners,
         l = function (n) {
           return t(n);
@@ -81,7 +81,7 @@ __d(
             r = !1;
           }
         );
-      var i = v(a, e),
+      var i = S(a, e),
         l = i.listeners,
         s = i.status;
       return (
@@ -98,18 +98,30 @@ __d(
         }
       );
     }
-    function h(e) {
+    function h(e, t) {
+      var n,
+        r,
+        o,
+        a = (t != null ? t : navigator).permissions;
+      if (a == null) return "unknown";
+      var i = (n = c.get(a)) == null ? void 0 : n.get(e);
+      return (r =
+        i == null || (o = i.resolved.status) == null ? void 0 : o.state) != null
+        ? r
+        : "unknown";
+    }
+    function y(e) {
       var t = e.permissions;
       t != null &&
-        (o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed() && v(t, "camera"),
-        v(t, "microphone"));
+        (o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed() && S(t, "camera"),
+        S(t, "microphone"));
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield (u || (u = n("Promise"))).all(
             e.map(function (e) {
               return d(e, t);
@@ -119,10 +131,10 @@ __d(
             return e.denied;
           });
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       return (function (e) {
         return ((typeof e == "object" && e !== null) ||
           typeof e == "function") &&
@@ -136,23 +148,25 @@ __d(
             : "camera_and_mic";
       })({ micGranted: e, camGranted: t });
     }
-    function v(t, n) {
-      var a = S(t),
+    function S(t, n) {
+      var a = R(t),
         i = a.get(n);
       if (i != null) return i;
       var l = new Set(),
-        s = t.query({ name: n }).then(function (e) {
+        s = { status: null },
+        u = t.query({ name: n }).then(function (e) {
           return (
+            (s.status = e),
             e.addEventListener("change", function () {
-              return R(l, e.state);
+              return L(l, e.state);
             }),
             e
           );
         }),
-        u = { listeners: l, status: s };
+        c = { listeners: l, resolved: s, status: u };
       return (
-        a.set(n, u),
-        s.catch(function (t) {
+        a.set(n, c),
+        u.catch(function (t) {
           o("WALogger")
             .WARN(
               e ||
@@ -164,16 +178,16 @@ __d(
             )
             .catching(r("getErrorSafe")(t));
         }),
-        u
+        c
       );
     }
-    function S(e) {
+    function R(e) {
       var t = c.get(e);
       if (t != null) return t;
       var n = new Map();
       return (c.set(e, n), n);
     }
-    function R(e, t) {
+    function L(e, t) {
       for (var n of Array.from(e))
         if (e.has(n))
           try {
@@ -194,9 +208,10 @@ __d(
       (l.queryMediaPermissionStateStrict = p),
       (l.subscribeToMediaPermissionChange = f),
       (l.watchMediaPermissionState = g),
-      (l.listenForMediaPermissionChanges = h),
-      (l.isAnyMediaPermissionDenied = y),
-      (l.getDeviceSpecificPermissionMessaging = b));
+      (l.getKnownMediaPermissionState = h),
+      (l.listenForMediaPermissionChanges = y),
+      (l.isAnyMediaPermissionDenied = C),
+      (l.getDeviceSpecificPermissionMessaging = v));
   },
   98,
 );

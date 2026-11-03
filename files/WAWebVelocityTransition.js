@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebIdleTaskRunner",
+    "WAWebNoop",
     "WAWebThirdPartyMigrationGatingUtils",
     "WAWebTransitionPrimitive.react",
     "WAWebTransitions",
@@ -52,17 +53,17 @@ __d(
         _ = t.onAnimationComplete,
         g = t.onEnter,
         S = t.onExit,
-        E = t.transitionName,
-        k = babelHelpers.objectWithoutPropertiesLoose(t, d),
-        I = b(!0),
-        T = b(),
+        k = t.transitionName,
+        I = babelHelpers.objectWithoutPropertiesLoose(t, d),
+        T = b(!0),
         D = b(),
         x = b(),
-        $ = b(0),
-        P = function (n) {
+        $ = b(),
+        P = b(0),
+        N = function (n) {
           if ((n === void 0 && (n = !0), c != null && c.current != null))
             return c.current;
-          var t = T.current;
+          var t = D.current;
           if (t != null) {
             if (
               t instanceof HTMLElement ||
@@ -73,7 +74,7 @@ __d(
             if (r) return r;
           }
           if (!n) return null;
-          var a = D.current;
+          var a = x.current;
           return (
             a != null &&
               o("WALogger")
@@ -89,51 +90,51 @@ __d(
             a
           );
         },
-        N = r("useWAWebStableCallback")(function () {
+        M = r("useWAWebStableCallback")(function () {
           var e;
-          return (e = P(!1)) != null ? e : D.current;
+          return (e = N(!1)) != null ? e : x.current;
         }),
-        M = b(0);
+        w = b(0);
       C(
         function () {
-          M.current += 1;
-          var e = M.current;
+          w.current += 1;
+          var e = w.current;
           return (
-            (I.current = !0),
+            (T.current = !0),
             function () {
-              I.current = !1;
-              var t = N();
+              T.current = !1;
+              var t = M();
               queueMicrotask(function () {
-                M.current === e &&
-                  !I.current &&
-                  (($.current += 1),
-                  (x.current = null),
+                w.current === e &&
+                  !T.current &&
+                  ((P.current += 1),
+                  ($.current = null),
                   r("WAWebVelocityAnimate")(t, "finish"));
               });
             }
           );
         },
-        [N],
+        [M],
       );
-      var w = b(!1),
-        A = b(),
-        F = function () {
-          ((A.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
-            A.current,
+      var A = b(!1),
+        F = b(),
+        O = function () {
+          ((F.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
+            F.current,
           )),
-            w.current ||
-              ((w.current = !0),
+            A.current ||
+              ((A.current = !0),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0)));
         },
-        O = function () {
-          (A.current != null &&
-            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(A.current),
-            delete A.current),
-            w.current &&
-              ((w.current = !1),
+        B = function () {
+          (F.current != null &&
+            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(F.current),
+            delete F.current),
+            A.current &&
+              ((A.current = !1),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1)));
         },
-        B = function (t, n) {
+        W = function (t, n) {
           var e = n;
           if (!e) return [];
           Array.isArray(e) || (e = [e]);
@@ -154,110 +155,132 @@ __d(
             );
           });
         },
-        W = function (t) {
+        q = function (t) {
           var e = t;
           (e === v.APPEAR && (e = v.ENTER),
             e === "enter" || e === "leave" || s(0, 66980));
-          var o = R(E),
-            a = o[e];
-          if (!o || !a) return (p || (p = n("Promise"))).resolve();
-          var i = r("omit")(o, ["enter", "leave"]),
-            u = P(),
-            c = B(u, a);
+          var a = R(k),
+            i = a[e];
+          if (!a || !i) return (p || (p = n("Promise"))).resolve();
+          var u = r("omit")(a, ["enter", "leave"]),
+            c = N(),
+            d = W(c, i);
+          e === v.LEAVE &&
+            (c == null || c.setAttribute("pointerEvents", "none"),
+            c == null || c.addEventListener("keypress", L, !0),
+            c == null || c.addEventListener("keydown", L, !0));
+          var m = 0,
+            f = (p || (p = n("Promise"))).all(
+              d.map(function (e) {
+                var t,
+                  n,
+                  o,
+                  a = e.delay,
+                  i = e.drag,
+                  s = e.duration,
+                  c = e.easing,
+                  d = e.nodes,
+                  p = e.props,
+                  _ = e.stagger,
+                  f = (t = u.delay) != null ? t : 0;
+                l ? (f = l) : a != null && a !== 0 && (f = a);
+                var g =
+                    typeof s == "number" && s
+                      ? s
+                      : (n = u.duration) != null
+                        ? n
+                        : 0,
+                  h = Array.isArray(d) ? d.length : 1;
+                return (
+                  (m = Math.max(
+                    m,
+                    f +
+                      (i === !0 ? Math.max(g, 200) : g) +
+                      (_ != null ? _ : 0) * Math.max(h - 1, 0),
+                  )),
+                  r("WAWebVelocityAnimate")(d, p, {
+                    easing:
+                      (o = c != null ? c : u.easing) != null ? o : "easeInSine",
+                    duration: g,
+                    delay: f,
+                    queue: u.queue || !1,
+                    stagger: _ != null ? _ : !1,
+                    drag: i || !1,
+                  })
+                );
+              }),
+            );
           return (
-            e === v.LEAVE &&
-              (u == null || u.setAttribute("pointerEvents", "none"),
-              u == null || u.addEventListener("keypress", L, !0),
-              u == null || u.addEventListener("keydown", L, !0)),
-            (p || (p = n("Promise")))
-              .all(
-                c.map(function (e) {
-                  var t,
-                    n,
-                    o,
-                    a = e.delay,
-                    s = e.drag,
-                    u = e.duration,
-                    c = e.easing,
-                    d = e.nodes,
-                    m = e.props,
-                    p = e.stagger,
-                    _ = (t = i.delay) != null ? t : 0;
-                  return (
-                    l ? (_ = l) : a != null && a !== 0 && (_ = a),
-                    r("WAWebVelocityAnimate")(d, m, {
-                      easing:
-                        (n = c != null ? c : i.easing) != null
-                          ? n
-                          : "easeInSine",
-                      duration: u || ((o = i.duration) != null ? o : 0),
-                      delay: _,
-                      queue: i.queue || !1,
-                      stagger: p != null ? p : !1,
-                      drag: s || !1,
-                    })
-                  );
-                }),
-              )
-              .finally(function () {
-                (i.cleanOnComplete === !0 &&
-                  e === v.ENTER &&
-                  c.forEach(function (e) {
-                    var t = e.nodes,
-                      n = Array.isArray(t) ? t : [t];
-                    n.forEach(function (e) {
-                      return e == null ? void 0 : e.removeAttribute("style");
-                    });
-                  }),
-                  e === v.LEAVE &&
-                    (u == null || u.removeEventListener("keypress", L, !0),
-                    u == null || u.removeEventListener("keydown", L, !0)),
-                  _ == null || _());
-              })
-          );
+            o(
+              "WAWebThirdPartyMigrationGatingUtils",
+            ).isVelocityAnimateMigrationEnabled()
+              ? E(f, m, function () {
+                  for (var e of d) {
+                    var t = e.nodes;
+                    r("WAWebVelocityAnimate")(t, "finish");
+                  }
+                })
+              : f
+          ).finally(function () {
+            (u.cleanOnComplete === !0 &&
+              e === v.ENTER &&
+              d.forEach(function (e) {
+                var t = e.nodes,
+                  n = Array.isArray(t) ? t : [t];
+                n.forEach(function (e) {
+                  return e == null ? void 0 : e.removeAttribute("style");
+                });
+              }),
+              e === v.LEAVE &&
+                (c == null || c.removeEventListener("keypress", L, !0),
+                c == null || c.removeEventListener("keydown", L, !0)),
+              _ == null || _());
+          });
         },
-        q = function (n) {
+        U = function (n) {
           var e = t.appear,
-            r = e === void 0 ? !1 : e,
-            o = t.enter,
-            a = o === void 0 ? !0 : o,
-            i = t.exit,
+            a = e === void 0 ? !1 : e,
+            i = t.enter,
             l = i === void 0 ? !0 : i,
-            s =
+            s = t.exit,
+            u = s === void 0 ? !0 : s,
+            c =
               n === v.ENTER
-                ? a
+                ? l
                 : n === v.LEAVE
-                  ? l
+                  ? u
                   : n === v.APPEAR
-                    ? r
+                    ? a
                     : (function () {
                         throw Error(
                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                             n,
                         );
                       })();
-          if (s) {
-            (F(), ($.current += 1));
-            var u = $.current;
-            W(n)
-              .finally(function () {
-                O();
-              })
-              .then(function () {
-                !I.current ||
-                  u !== $.current ||
-                  x.current == null ||
-                  x.current();
-              });
-          } else x.current == null || x.current();
+          if (c) {
+            (O(), (P.current += 1));
+            var d = P.current,
+              m = o(
+                "WAWebThirdPartyMigrationGatingUtils",
+              ).isVelocityAnimateMigrationEnabled()
+                ? q(n).catch(function (e) {
+                    r("WAWebNoop")(e);
+                  })
+                : q(n);
+            m.finally(function () {
+              B();
+            }).then(function () {
+              !T.current || d !== P.current || $.current == null || $.current();
+            });
+          } else $.current == null || $.current();
         },
-        U = function (t, n) {
-          (g == null || g(), (D.current = t), q(n ? v.APPEAR : v.ENTER));
-        },
-        V = function (t) {
-          (S == null || S(), (D.current = t), q(v.LEAVE));
+        V = function (t, n) {
+          (g == null || g(), (x.current = t), U(n ? v.APPEAR : v.ENTER));
         },
         H = function (t) {
+          (S == null || S(), (x.current = t), U(v.LEAVE));
+        },
+        G = function (t) {
           var e,
             n =
               (e =
@@ -266,14 +289,14 @@ __d(
                   : t.getComponent()) != null
                 ? e
                 : t;
-          T.current = n;
+          D.current = n;
           var r = a == null ? void 0 : a.ref;
           r && (typeof r == "function" ? r(n) : (r.current = n));
         },
-        G = a;
+        z = a;
       if (c == null) {
-        var z = h.only(G);
-        G = y(z, { ref: H });
+        var j = h.only(z);
+        z = y(j, { ref: G });
       }
       return o(
         "WAWebThirdPartyMigrationGatingUtils",
@@ -283,29 +306,29 @@ __d(
             babelHelpers.extends(
               {
                 resolveNode: function () {
-                  return P();
+                  return N();
                 },
               },
-              k,
+              I,
               {
                 addEndListener: function (t, n) {
-                  x.current = n;
+                  $.current = n;
                 },
-                onEnter: U,
-                onExit: V,
-                children: G,
+                onEnter: V,
+                onExit: H,
+                children: z,
               },
             ),
           )
         : f.jsx(
             o("react-transition-group").Transition,
-            babelHelpers.extends({ nodeRef: c }, k, {
+            babelHelpers.extends({ nodeRef: c }, I, {
               addEndListener: function (t, n) {
-                x.current = n;
+                $.current = n;
               },
-              onEnter: U,
-              onExit: V,
-              children: G,
+              onEnter: V,
+              onExit: H,
+              children: z,
             }),
           );
     }
@@ -330,6 +353,23 @@ __d(
     function L(e) {
       (e.preventDefault(), e.stopPropagation());
     }
+    function E(e, t, o) {
+      var a = r("WAWebNoop"),
+        i = new (p || (p = n("Promise")))(function (e) {
+          a = e;
+        }),
+        l = self.setTimeout(
+          function () {
+            (o(), a());
+          },
+          Math.max(k, 2 * t + I),
+        );
+      return p.race([e, i]).finally(function () {
+        self.clearTimeout(l);
+      });
+    }
+    var k = 1e3,
+      I = 500;
     l.default = S;
   },
   98,

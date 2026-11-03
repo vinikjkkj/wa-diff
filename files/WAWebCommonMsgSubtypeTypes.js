@@ -49,6 +49,7 @@ __d(
       MemberLinkMode: "member_link_mode",
       JoinFloodNotification: "join_flood_notification",
       MemberShareGroupHistoryMode: "member_share_group_history_mode",
+      GroupDefaultReactions: "group_default_reactions",
       CreatedMembershipRequests: "created_membership_requests",
       RevokedMembershipRequests: "revoked_membership_requests",
       AutoAdd: "auto_add",

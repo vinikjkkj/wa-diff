@@ -15,7 +15,7 @@ __d(
     function _() {
       var e = new SharedArrayBuffer(u),
         t = new Int32Array(e);
-      return { buffer: t.buffer, view: t };
+      return { buffer: e, view: t };
     }
     function f(t) {
       var n = t.onTimeout,
@@ -64,11 +64,7 @@ __d(
       }
       return ((p = v), v);
     }
-    function g() {
-      p = null;
-    }
-    ((l.resolveBrowserAudioProcessingStatusSync = f),
-      (l.resetBrowserAudioProcessingStatusSyncCacheForTests = g));
+    l.resolveBrowserAudioProcessingStatusSync = f;
   },
   98,
 );

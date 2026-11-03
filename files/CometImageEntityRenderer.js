@@ -30,6 +30,7 @@ __d(
                 children: [
                   u.jsx(r("CometImage.react"), {
                     height: l / s,
+                    isDecorative: !0,
                     src: d,
                     width: m / s,
                     xstyle: [c.image, e.imageXStyle],

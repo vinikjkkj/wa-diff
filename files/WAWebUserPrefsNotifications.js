@@ -472,6 +472,20 @@ __d(
         !0,
       );
     }
+    function pe() {
+      var e = r("WAWebUserPrefsStore").get(
+        o("WAWebUserPrefsKeys").UserPrefs
+          .NotReceivingNotificationsBannerEligibleSince,
+      );
+      return typeof e == "number" ? o("WATimeUtils").castToUnixTime(e) : null;
+    }
+    function _e(e) {
+      r("WAWebUserPrefsStore").set(
+        o("WAWebUserPrefsKeys").UserPrefs
+          .NotReceivingNotificationsBannerEligibleSince,
+        e,
+      );
+    }
     ((l.getGlobalSounds = e),
       (l.setGlobalSounds = s),
       (l.getGlobalCallRingtone = u),
@@ -530,7 +544,9 @@ __d(
       (l.getNotificationClickedOnce = ue),
       (l.setNotificationClickedOnce = ce),
       (l.getNotReceivingNotificationsBannerDismissed = de),
-      (l.setNotReceivingNotificationsBannerDismissed = me));
+      (l.setNotReceivingNotificationsBannerDismissed = me),
+      (l.getNotReceivingNotificationsBannerEligibleSince = pe),
+      (l.setNotReceivingNotificationsBannerEligibleSince = _e));
   },
   98,
 );

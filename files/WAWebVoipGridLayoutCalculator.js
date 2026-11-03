@@ -51,18 +51,25 @@ __d(
     function _(e) {
       return e <= 2 ? 1 : e <= 8 ? 2 : 3;
     }
-    function f(e, t, n, r, o, a) {
-      if ((a === void 0 && (a = "fill"), n <= 0 || e <= 0 || t <= 0))
+    function f(e) {
+      var t = e.containerHeight,
+        n = e.containerWidth,
+        r = e.isLandscape,
+        o = e.numItems,
+        a = e.spacing,
+        i = e.tileShape,
+        l = i === void 0 ? "fill" : i;
+      if (o <= 0 || n <= 0 || t <= 0)
         return { cellWidth: 0, cellHeight: 0, columns: 0, rows: 0 };
-      var i = g(n, a),
-        l = h(n, o, i),
-        s = l.columns,
-        u = l.rows,
-        c = Math.max(0, (e - (s - 1) * r) / s),
-        d = Math.max(0, (t - (u - 1) * r) / u);
-      return i === "fill"
-        ? { cellWidth: c, cellHeight: d, columns: s, rows: u }
-        : babelHelpers.extends({}, y(c, d), { columns: s, rows: u });
+      var s = g(o, l),
+        u = h(o, r, s),
+        c = u.columns,
+        d = u.rows,
+        m = Math.max(0, (n - (c - 1) * a) / c),
+        p = Math.max(0, (t - (d - 1) * a) / d);
+      return s === "fill"
+        ? { cellWidth: m, cellHeight: p, columns: c, rows: d }
+        : babelHelpers.extends({}, y(m, p), { columns: c, rows: d });
     }
     function g(e, t) {
       return e >= 3 && e <= 4 ? t : "fill";

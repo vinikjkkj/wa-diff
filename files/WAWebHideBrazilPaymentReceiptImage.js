@@ -8,47 +8,35 @@ __d(
     "WAWebCommonMsgUtils",
     "WAWebMsgKey",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          o("WAWebBrazilPaymentStateUpdateMsgUtils").awaitBrazilPaymentReceipt(
-            e,
-            t,
-            n,
-          );
-          var a = new (r("WAWebMsgKey"))({ fromMe: t, remote: e, id: n }),
-            i = (yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([
-              a,
-            ])).get(a.toString());
-          if (!(i == null || u(i))) {
-            var l = yield o("WAWebBrazilPaymentStateDb")
-              .hideStoredReceiptImage(i.id)
-              .finally(function () {
-                return o(
-                  "WAWebBrazilPaymentStateUpdateMsgUtils",
-                ).stopAwaitingBrazilPaymentReceipt(e, t, n);
-              });
-            l != null &&
-              o("WAWebBackendApi").frontendFireAndForget(
-                "updateViewModeForMsgs",
-                {
-                  msgIdsViewModeMap: new Map([
-                    [l.toString(), o("WAWebViewMode.flow").ViewModeType.HIDDEN],
-                  ]),
-                },
-              );
-          }
-        })),
-        s.apply(this, arguments)
+    async function e(e, t, n) {
+      o("WAWebBrazilPaymentStateUpdateMsgUtils").awaitBrazilPaymentReceipt(
+        e,
+        t,
+        n,
       );
+      var a = new (r("WAWebMsgKey"))({ fromMe: t, remote: e, id: n }),
+        i = (await o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([a])).get(
+          a.toString(),
+        );
+      if (!(i == null || s(i))) {
+        var l = await o("WAWebBrazilPaymentStateDb")
+          .hideStoredReceiptImage(i.id)
+          .finally(function () {
+            return o(
+              "WAWebBrazilPaymentStateUpdateMsgUtils",
+            ).stopAwaitingBrazilPaymentReceipt(e, t, n);
+          });
+        l != null &&
+          o("WAWebBackendApi").frontendFireAndForget("updateViewModeForMsgs", {
+            msgIdsViewModeMap: new Map([
+              [l.toString(), o("WAWebViewMode.flow").ViewModeType.HIDDEN],
+            ]),
+          });
+      }
     }
-    function u(e) {
+    function s(e) {
       return (
         o("WAWebCommonMsgUtils").isPlaceholderMsg(e.type) ||
         o("WAWebCommonMsgUtils").isFutureproofMsg(e.type)

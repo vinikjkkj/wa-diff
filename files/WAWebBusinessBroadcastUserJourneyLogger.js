@@ -487,6 +487,24 @@ __d(
               n,
             );
           }),
+          (t.sendBroadcastDeliveryResult = function (t, n, r, a, i, l) {
+            o("WAWebBBBroadcastCreationLogs").sendBroadcastDeliveryResult(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+              i,
+              l,
+            );
+          }),
+          (t.sendBroadcastPostSendError = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").sendBroadcastPostSendError(
+              this.$1,
+              t,
+              n,
+            );
+          }),
           (t.sendCampaignAck = function (t) {
             o("WAWebBBBroadcastCreationLogs").sendCampaignAck(this.$1, t);
           }),

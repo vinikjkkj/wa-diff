@@ -12,6 +12,7 @@ __d(
     "WAWebSelfReminderAlert.react",
     "WAWebSelfReminderGating",
     "WAWebSelfReminderMarkStore",
+    "WAWebSlashCommandsUsageLogger",
     "WAWebUpdateUnreadChatAction",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -131,11 +132,15 @@ __d(
               o("WATimeUtils").unixTime(),
             );
             try {
-              o("WAWebSelfReminderAlert.react").alertSelfReminder({
+              (o("WAWebSelfReminderAlert.react").alertSelfReminder({
                 chat: n,
                 msgKey: e,
                 text: t,
-              });
+              }),
+                o("WAWebSlashCommandsUsageLogger").logReminderUsage(
+                  "reminder_fired",
+                  n,
+                ));
             } catch (e) {
               o("WALogger")
                 .ERROR(

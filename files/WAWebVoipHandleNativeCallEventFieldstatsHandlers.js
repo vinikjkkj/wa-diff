@@ -41,6 +41,7 @@ __d(
     "WAWebVoipMainThreadLockFixes",
     "WAWebVoipMainThreadLockMarker",
     "WAWebVoipMainThreadLockODS",
+    "WAWebVoipOffloadedCleanupQueue",
     "WAWebVoipPersistentFS",
     "WAWebVoipRecentRpcMethods",
     "WAWebVoipStackInterface",
@@ -1247,11 +1248,21 @@ __d(
       return (
         (at = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = window.setTimeout(ut, Z),
-            n = it(),
-            a = !0;
+            n = o(
+              "WAWebVoipOffloadedCleanupQueue",
+            ).startOffloadedCleanupQueueTracking(),
+            a = it(n),
+            i = !0;
           try {
-            var i = yield e.cleanupUnfinishedCallStats();
-            if (((a = !1), n.clearAfterReply(), !i)) {
+            var l = yield e.cleanupUnfinishedCallStats();
+            if (
+              ((i = !1),
+              a.clearAfterReply(),
+              o("WAWebVoipOffloadedCleanupQueue").reportOffloadedCleanupReply(
+                n,
+              ),
+              !l)
+            ) {
               (o("WAWebVoipMainThreadLockODS").logMainThreadLockOffloadEvent(
                 "no_worker",
               ),
@@ -1263,11 +1274,11 @@ __d(
                 ));
               return;
             }
-            var l =
+            var s =
               yield o("WAWebBackendApi").frontendSendAndReceive(
                 "initializeVoipWasm",
               );
-            (yield o("WAWebVoipPersistentFS").syncPersistentFS(l),
+            (yield o("WAWebVoipPersistentFS").syncPersistentFS(s),
               o("WALogger").LOG(
                 V ||
                   (V = babelHelpers.taggedTemplateLiteralLoose([
@@ -1275,11 +1286,11 @@ __d(
                   ])),
               ));
           } catch (e) {
-            if (a && e instanceof o("WACustomError").TimeoutError) {
-              n.keepAfterNoReply();
+            if (i && e instanceof o("WACustomError").TimeoutError) {
+              a.keepAfterNoReply();
               return;
             }
-            (a && n.clearAfterReply(),
+            (i && a.clearAfterReply(),
               o("WALogger")
                 .WARN(
                   H ||
@@ -1301,16 +1312,17 @@ __d(
         at.apply(this, arguments)
       );
     }
-    function it() {
-      var e = !1,
-        t = window.setTimeout(function () {
-          ((e = !0), te++, lt());
+    function it(e) {
+      var t = !1,
+        n = null,
+        r = window.setTimeout(function () {
+          ((t = !0), te++, (n = lt(e)));
         }, ee);
       return {
         clearAfterReply: function () {
-          (window.clearTimeout(t),
-            e &&
-              ((e = !1),
+          (window.clearTimeout(r),
+            t &&
+              ((t = !1),
               te--,
               o("WAWebVoipMainThreadLockODS").logMainThreadLockOffloadEvent(
                 "late_reply",
@@ -1318,27 +1330,32 @@ __d(
               te === 0 && st()));
         },
         keepAfterNoReply: function () {
-          (window.clearTimeout(t),
-            e
-              ? ((e = !1),
+          (window.clearTimeout(r),
+            t
+              ? ((t = !1),
                 te--,
                 o(
                   "WAWebVoipInitEventEmitter",
                 ).VoipInitEventEmitter.markVoipStackUnresponsive())
-              : lt(),
+              : (n = lt(e)),
             o("WAWebVoipMainThreadLockODS").logMainThreadLockOffloadEvent(
               "no_reply",
-            ),
-            o("WALogger").WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [Fieldstats] VoIP stack never answered the offloaded persisted fieldstats cleanup, keeping it marked unresponsive",
-                ])),
             ));
+          var a = o(
+            "WAWebVoipOffloadedCleanupQueue",
+          ).reportOffloadedCleanupNoReply(n);
+          o("WALogger").WARN(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [Fieldstats] VoIP stack never answered the offloaded persisted fieldstats cleanup, keeping it marked unresponsive workerStarted=",
+                "",
+              ])),
+            a,
+          );
         },
       };
     }
-    function lt() {
+    function lt(e) {
       (o(
         "WAWebVoipInitEventEmitter",
       ).VoipInitEventEmitter.markVoipStackUnresponsive(),
@@ -1347,26 +1364,40 @@ __d(
         ),
         o("WAWebVoipMainThreadLockODS").logMainThreadLockOffloadEvent(
           "marked_unresponsive",
-        ),
+        ));
+      var t = o(
+        "WAWebVoipOffloadedCleanupQueue",
+      ).reportOffloadedCleanupQueueAtTimeout(e);
+      return (
         o("WALogger")
           .WARN(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [Fieldstats] offloaded persisted fieldstats cleanup timed out, marked the VoIP stack unresponsive callState=",
                 " recentRpcMethods=",
+                " queue=",
+                " rpcsBehind=",
+                " offerBehind=",
+                " workerStarted=",
                 "",
               ])),
             o("WAWebVoipWaCallEnums").CallState.getName(
               o("WAWebVoipLocalCallStateStore").getLocalCallState(),
             ),
             o("WAWebVoipRecentRpcMethods").getRecentRpcMethods().join(","),
+            t.state,
+            t.rpcsBehind,
+            t.isOfferBehind,
+            t.isStarted,
           )
           .tags("non-sad")
           .sendLogs("voip-fieldstats-offloaded-cleanup-timeout", {
             employeeSampling: 1,
             sampling: 0.01,
             sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-          }));
+          }),
+        t
+      );
     }
     function st() {
       (o(

@@ -486,12 +486,6 @@ __d(
           enter: { props: { translateY: ["0%", "100%"], opacity: [1, 0] } },
           leave: { props: { opacity: [0, 1] } },
         },
-        "slide-up-down": {
-          duration: 300,
-          easing: e,
-          enter: { props: { translateY: ["0%", "100%"] } },
-          leave: { props: { translateY: ["100%", "0%"] } },
-        },
         "slide-up-down-footer": {
           duration: 200,
           easing: e,
@@ -601,14 +595,6 @@ __d(
         },
         noop: { duration: 0 },
         pip: {
-          enter: { props: { opacity: [1, 0] }, duration: 400 },
-          leave: {
-            props: { scaleX: [0.5, 1], scaleY: [0.5, 1], opacity: [0, 1] },
-            duration: 200,
-            easing: u,
-          },
-        },
-        voip: {
           enter: { props: { opacity: [1, 0] }, duration: 400 },
           leave: {
             props: { scaleX: [0.5, 1], scaleY: [0.5, 1], opacity: [0, 1] },

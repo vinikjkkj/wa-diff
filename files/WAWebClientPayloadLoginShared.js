@@ -8,7 +8,6 @@ __d(
     "WAWebProtobufsWa6.pb",
     "WAWebUserPrefsGeneral",
     "WAWebWamPlatform",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -39,32 +38,24 @@ __d(
         )
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return babelHelpers.extends(
-            {
-              appVersion: {
-                primary: Number(o("WAWebBuildConstants").VERSION_PRIMARY),
-                secondary: Number(o("WAWebBuildConstants").VERSION_SECONDARY),
-                tertiary: Number(o("WAWebBuildConstants").VERSION_TERTIARY),
-              },
-              platform: o("WAWebProtobufsWa6.pb")
-                .ClientPayload$UserAgent$Platform.WEB,
-              releaseChannel: yield o(
-                "WAWebClientPayloadReleaseChannel",
-              ).getReleaseChannel(),
-            },
-            e,
-          );
-        })),
-        m.apply(this, arguments)
+    async function d(e) {
+      return babelHelpers.extends(
+        {
+          appVersion: {
+            primary: Number(o("WAWebBuildConstants").VERSION_PRIMARY),
+            secondary: Number(o("WAWebBuildConstants").VERSION_SECONDARY),
+            tertiary: Number(o("WAWebBuildConstants").VERSION_TERTIARY),
+          },
+          platform: o("WAWebProtobufsWa6.pb").ClientPayload$UserAgent$Platform
+            .WEB,
+          releaseChannel: await o(
+            "WAWebClientPayloadReleaseChannel",
+          ).getReleaseChannel(),
+        },
+        e,
       );
     }
-    function p() {
+    function m() {
       return (function (e) {
         if (e === "WEB" || e === "PWA")
           return o("WAWebProtobufsWa6.pb").ClientPayload$WebInfo$WebSubPlatform
@@ -87,7 +78,7 @@ __d(
     ((l.incrementSuccessfulLoginCounter = u),
       (l.getLoginClientPayloadFields = c),
       (l.getWebUserAgent = d),
-      (l.getWebSubPlatform = p));
+      (l.getWebSubPlatform = m));
   },
   98,
 );

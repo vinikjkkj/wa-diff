@@ -52,13 +52,15 @@ __d(
     }
     function u(e) {
       var t = e.flowID,
-        n = e.scenario;
+        n = e.routesToAdCreation,
+        r = e.scenario;
       new (o(
         "WAWebCtwaAdCreationAndManagementJourneyWamEvent",
       ).CtwaAdCreationAndManagementJourneyWamEvent)({
         extraAttributes: JSON.stringify({
           event_type: "scenario_resolved",
-          scenario: n,
+          routes_to_ad_creation: n,
+          scenario: r,
         }),
         lwiFlowId: t,
         seqId: 1,

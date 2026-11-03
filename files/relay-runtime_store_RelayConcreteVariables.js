@@ -1,6 +1,10 @@
 __d(
   "relay-runtime/store/RelayConcreteVariables",
-  ["invariant", "relay-runtime/store/RelayStoreUtils"],
+  [
+    "invariant",
+    "relay-runtime/store/RelayStoreUtils",
+    "relay-runtime/util/RelayFeatureFlags",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("relay-runtime/store/RelayStoreUtils").getArgumentValues;
@@ -42,17 +46,22 @@ __d(
         r
       );
     }
-    function c(t, n, r) {
-      if (n == null) return t;
-      var o = babelHelpers.extends({}, t),
-        a = r ? e(r, t) : {};
+    function c(t, r, o) {
+      if (r == null) return t;
+      var a = babelHelpers.extends({}, t),
+        i = o ? e(o, t) : {};
       return (
-        n.forEach(function (e) {
-          var t,
-            n = (t = a[e.name]) != null ? t : e.defaultValue;
-          o[e.name] = n;
+        r.forEach(function (e) {
+          var t = i[e.name];
+          a[e.name] =
+            t !== void 0 &&
+            (t !== null ||
+              n("relay-runtime/util/RelayFeatureFlags")
+                .ENABLE_EXPLICIT_NULL_FRAGMENT_ARGUMENTS)
+              ? t
+              : e.defaultValue;
         }),
-        o
+        a
       );
     }
     a.exports = {

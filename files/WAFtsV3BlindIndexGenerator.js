@@ -1,23 +1,20 @@
 __d(
   "WAFtsV3BlindIndexGenerator",
   [
-    "Promise",
     "WAArrayBufferUtils",
     "WACryptoDependencies",
     "WAFtsGenBlindIndex",
     "WAFtsIsSearchQueryEligibleForMessageSearch",
     "WALruCache",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 32,
-      u = 3,
-      c = (function () {
-        function t(e, t, n) {
-          (t === void 0 && (t = s),
-            n === void 0 && (n = u),
+    var e = 32,
+      s = 3,
+      u = (function () {
+        function t(t, n, r) {
+          (n === void 0 && (n = e),
+            r === void 0 && (r = s),
             (this.$1 = new (o("WALruCache").LruCache)({
               sizeLimit: 5e4,
               getSize: function (t) {
@@ -30,140 +27,89 @@ __d(
                 return 1;
               },
             })),
-            (this.keyGenFn = e),
-            (this.blindIndexByteLength = t),
-            (this.$3 = n));
+            (this.keyGenFn = t),
+            (this.blindIndexByteLength = n),
+            (this.$3 = r));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.generateForToken = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.$4(e);
-                return this.$5(n, t);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.generatePrefixes = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a) {
-                var i = this,
-                  l = [],
-                  s = this.$1.get(t);
-                if (s != null) l = s;
-                else {
-                  for (var u = 0; u < t.length; ++u) {
-                    var c = t.slice(0, u + 1);
-                    (u === 0 &&
-                      !r("WAFtsIsSearchQueryEligibleForMessageSearch")(c)) ||
-                      l.push(
-                        yield o("WAFtsGenBlindIndex").genBlindIndexBuffer(
-                          c,
-                          this.keyGenFn(),
-                        ),
-                      );
-                  }
-                  this.$1.put(t, l);
-                }
-                return (e || (e = n("Promise"))).all(
-                  l.map(function (e) {
-                    return i.$5(e, a);
-                  }),
-                );
-              },
-            );
-            function a(e, n) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (a.generateBoundsForToken = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = yield this.$4(t),
-                  o = new Uint8Array(this.blindIndexByteLength).fill(0),
-                  a = new Uint8Array(this.blindIndexByteLength).fill(255);
-                return (e || (e = n("Promise"))).all([
-                  this.$5(r, o),
-                  this.$5(r, a),
-                ]);
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.$4 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this.$1.get(e),
-                  n;
-                return (
-                  t != null
-                    ? (n = t[t.length - 1])
-                    : (n = yield o("WAFtsGenBlindIndex").genBlindIndexBuffer(
-                        e,
-                        this.keyGenFn(),
-                      )),
-                  n
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$5 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = e.slice(0, this.blindIndexByteLength);
-                if (t == null) return n;
-                var r;
-                return (
-                  typeof t == "string"
-                    ? (r = new Uint8Array(yield this.$6(t)))
-                    : (r = t),
-                  o("WAArrayBufferUtils").concatBuffers([
-                    n.slice(0, this.blindIndexByteLength),
-                    r.slice(0, this.$3).buffer,
-                  ])
-                );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$6 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this.$2.get(e);
-                if (t != null) return t;
-                var n = yield o("WACryptoDependencies")
-                  .getCrypto()
-                  .subtle.digest(
-                    "SHA-1",
-                    o("WAArrayBufferUtils").stringToArrayBuffer(e),
+          (n.generateForToken = async function (t, n) {
+            var e = await this.$4(t);
+            return this.$5(e, n);
+          }),
+          (n.generatePrefixes = async function (t, n) {
+            var e = this,
+              a = [],
+              i = this.$1.get(t);
+            if (i != null) a = i;
+            else {
+              for (var l = 0; l < t.length; ++l) {
+                var s = t.slice(0, l + 1);
+                (l === 0 &&
+                  !r("WAFtsIsSearchQueryEligibleForMessageSearch")(s)) ||
+                  a.push(
+                    await o("WAFtsGenBlindIndex").genBlindIndexBuffer(
+                      s,
+                      this.keyGenFn(),
+                    ),
                   );
-                return (this.$2.put(e, n), n);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+              }
+              this.$1.put(t, a);
             }
-            return t;
-          })()),
+            return Promise.all(
+              a.map(function (t) {
+                return e.$5(t, n);
+              }),
+            );
+          }),
+          (n.generateBoundsForToken = async function (t) {
+            var e = await this.$4(t),
+              n = new Uint8Array(this.blindIndexByteLength).fill(0),
+              r = new Uint8Array(this.blindIndexByteLength).fill(255);
+            return Promise.all([this.$5(e, n), this.$5(e, r)]);
+          }),
+          (n.$4 = async function (t) {
+            var e = this.$1.get(t),
+              n;
+            return (
+              e != null
+                ? (n = e[e.length - 1])
+                : (n = await o("WAFtsGenBlindIndex").genBlindIndexBuffer(
+                    t,
+                    this.keyGenFn(),
+                  )),
+              n
+            );
+          }),
+          (n.$5 = async function (t, n) {
+            var e = t.slice(0, this.blindIndexByteLength);
+            if (n == null) return e;
+            var r;
+            return (
+              typeof n == "string"
+                ? (r = new Uint8Array(await this.$6(n)))
+                : (r = n),
+              o("WAArrayBufferUtils").concatBuffers([
+                e.slice(0, this.blindIndexByteLength),
+                r.slice(0, this.$3).buffer,
+              ])
+            );
+          }),
+          (n.$6 = async function (t) {
+            var e = this.$2.get(t);
+            if (e != null) return e;
+            var n = await o("WACryptoDependencies")
+              .getCrypto()
+              .subtle.digest(
+                "SHA-1",
+                o("WAArrayBufferUtils").stringToArrayBuffer(t),
+              );
+            return (this.$2.put(t, n), n);
+          }),
           t
         );
       })();
-    l.default = c;
+    l.default = u;
   },
   98,
 );

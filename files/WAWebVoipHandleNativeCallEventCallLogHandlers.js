@@ -11,6 +11,7 @@ __d(
     "WAWebCallWamEvent",
     "WAWebCoreActionsODS",
     "WAWebHandleRetryRequest",
+    "WAWebODS",
     "WAWebSyncdCoreApi",
     "WAWebVoipCallStartUnifiedSessionStore",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
@@ -81,7 +82,7 @@ __d(
               a === o("WAWebVoipWaCallEnums").CallLogResult.Connected ||
               a === o("WAWebVoipWaCallEnums").CallLogResult.ConnectedLonely
             ) {
-              o("WAWebCoreActionsODS").logCallSuccess();
+              r("WAWebODS").incr("web.call.success");
               break e;
             }
             if (a === o("WAWebVoipWaCallEnums").CallLogResult.Failed) {

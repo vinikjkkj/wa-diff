@@ -34,6 +34,7 @@ __d(
               memberAddMode: e.memberAddMode,
               memberLinkMode: e.memberLinkMode,
               memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
+              groupReactionSettings: e.groupReactionSettings,
               participants: o(
                 "WAWebGroupHistoryParticipantStateHydration",
               ).guardGroupHistorySentStateDowngrade(e.id, e.participants),

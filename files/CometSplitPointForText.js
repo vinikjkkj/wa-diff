@@ -19,16 +19,17 @@ __d(
     }
     function c(t, n) {
       var a =
-        n > 0 &&
-        (e || (e = r("EmojiRendererData"))).isZWJ(
-          (s || (s = o("UnicodeUtils"))).charAt(t, n - 1).codePointAt(0),
-        );
-      return d(t, a ? n - 1 : n);
+          n > 0
+            ? (s || (s = o("UnicodeUtils"))).charAt(t, n - 1).codePointAt(0)
+            : null,
+        i = a != null && (e || (e = r("EmojiRendererData"))).isZWJ(a);
+      return d(t, i ? n - 1 : n);
     }
     function d(t, n) {
       var a = (s || (s = o("UnicodeUtils"))).charAt(t, n);
       if (a !== "") {
         var i = a.codePointAt(0);
+        if (i == null) return 0;
         if (
           (e || (e = r("EmojiRendererData"))).isEmojiModifier(i) ||
           (e || (e = r("EmojiRendererData"))).isEmojiVariationSelector(i) ||
@@ -36,11 +37,11 @@ __d(
         )
           return 1 + d(t, n + 1);
         if ((e || (e = r("EmojiRendererData"))).isZWJ(i)) {
-          var l = (s || (s = o("UnicodeUtils"))).charAt(t, n + 1);
+          var l = (s || (s = o("UnicodeUtils"))).charAt(t, n + 1),
+            u = l.codePointAt(0);
           if (
-            (e || (e = r("EmojiRendererData"))).isEmojiModifierBase(
-              l.codePointAt(0),
-            )
+            u != null &&
+            (e || (e = r("EmojiRendererData"))).isEmojiModifierBase(u)
           )
             return 2 + d(t, n + 2);
         }

@@ -89,10 +89,7 @@ __d(
       if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS)
         return K(e, t);
       var r = v(e, t);
-      return n("relay-runtime/util/RelayFeatureFlags")
-        .ENABLE_READ_TIME_RESOLVER_STORAGE_KEY_PREFIX
-        ? "$r:" + r
-        : r;
+      return "$r:" + r;
     }
     function R(e) {
       if (e.kind === "RelayResolver" || e.kind === "RelayLiveResolver") {
@@ -346,15 +343,10 @@ __d(
     var z = 1024,
       j = new WeakMap();
     function K(e, t) {
-      if (
-        !n("relay-runtime/util/RelayFeatureFlags")
-          .ENABLE_READ_TIME_RESOLVER_STORAGE_KEY_PREFIX
-      )
-        return v(e, t);
-      var r = Q.get(e);
-      if (r != null) return r;
-      var o = "$r:" + v(e, t);
-      return (r === void 0 && Q.set(e, X(R(e)) ? null : o), o);
+      var n = Q.get(e);
+      if (n != null) return n;
+      var r = "$r:" + v(e, t);
+      return (n === void 0 && Q.set(e, X(R(e)) ? null : r), r);
     }
     var Q = new WeakMap();
     function X(e) {

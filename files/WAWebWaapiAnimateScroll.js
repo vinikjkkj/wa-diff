@@ -1,10 +1,10 @@
 __d(
   "WAWebWaapiAnimateScroll",
-  ["Promise"],
-  function (t, n, r, o, a, i) {
+  ["Promise", "WAWebWaapiAnimateVisibility"],
+  function (t, n, r, o, a, i, l) {
     var e,
-      l = new WeakMap();
-    function s(e) {
+      s = new WeakMap();
+    function u(e) {
       var t = e.axis,
         n = e.container,
         r = e.node,
@@ -15,90 +15,104 @@ __d(
         ? n.scrollLeft + (i.left - a.left) + o
         : n.scrollTop + (i.top - a.top) + o;
     }
-    function u(e, t) {
-      return self.setTimeout(t, e + c);
-    }
-    var c = 100;
-    function d(t, r, o, a, i, l) {
-      p(r);
-      var s = o === "x" ? r.scrollLeft : r.scrollTop,
-        c = a - s;
-      return i <= 0 || c === 0
-        ? (f(r, o, a), (e || (e = n("Promise"))).resolve())
+    function c(t, r, a, i, l, s) {
+      m(r);
+      var u = a === "x" ? r.scrollLeft : r.scrollTop,
+        c = i - u;
+      return l <= 0 ||
+        c === 0 ||
+        o("WAWebWaapiAnimateVisibility").isInHiddenDocument(r)
+        ? (_(r, a, i), (e || (e = n("Promise"))).resolve())
         : new (e || (e = n("Promise")))(function (e) {
             var n = null,
               d = !1,
               m = function () {
-                ((d = !0), self.clearTimeout(p), h(t, m), h(r, m), e());
+                ((d = !0), h(), g(t, m), g(r, m), e());
               };
-            (g(t, m), r !== t && g(r, m));
-            var p = u(i, function () {
-                (f(r, o, a), m());
-              }),
+            (f(t, m), r !== t && f(r, m));
+            var h = o("WAWebWaapiAnimateVisibility").settleWhenOverdue(
+                r,
+                l,
+                function () {
+                  try {
+                    _(r, a, i);
+                  } finally {
+                    m();
+                  }
+                },
+              ),
               y = function (t) {
                 if (!d) {
                   n = n != null ? n : t;
-                  var e = Math.min((t - n) / i, 1);
-                  (f(r, o, s + c * l(e)), e < 1 ? _(r, y) : m());
+                  var e = Math.min((t - n) / l, 1);
+                  (_(r, a, u + c * s(e)), e < 1 ? p(r, y) : m());
                 }
               };
-            _(r, y);
+            p(r, y);
           });
     }
-    function m(t, r, o, a) {
-      return r <= 0 && o <= 0
-        ? (a(), (e || (e = n("Promise"))).resolve())
+    function d(t, r, a, i) {
+      return (r <= 0 && a <= 0) ||
+        o("WAWebWaapiAnimateVisibility").isInHiddenDocument(t)
+        ? (i(), (e || (e = n("Promise"))).resolve())
         : new (e || (e = n("Promise")))(function (e) {
             var n = null,
-              i = !1,
-              l = function () {
-                ((i = !0), self.clearTimeout(s), h(t, l), e());
+              l = !1,
+              s = function () {
+                ((l = !0), u(), g(t, s), e());
               };
-            g(t, l);
-            var s = u(o + r, function () {
-                (a(), l());
-              }),
-              c = function (s) {
-                if (!i) {
-                  n = n != null ? n : s;
-                  var e = s - n - o;
-                  (e >= 0 && a(), e < r ? _(t, c) : l());
+            f(t, s);
+            var u = o("WAWebWaapiAnimateVisibility").settleWhenOverdue(
+                t,
+                a + r,
+                function () {
+                  try {
+                    i();
+                  } finally {
+                    s();
+                  }
+                },
+              ),
+              c = function (o) {
+                if (!l) {
+                  n = n != null ? n : o;
+                  var e = o - n - a;
+                  (e >= 0 && i(), e < r ? p(t, c) : s());
                 }
               };
-            _(t, c);
+            p(t, c);
           });
     }
-    function p(e) {
-      var t = l.get(e);
+    function m(e) {
+      var t = s.get(e);
       t != null &&
         Array.from(t).forEach(function (e) {
           return e();
         });
     }
-    function _(e, t) {
+    function p(e, t) {
       var n;
       ((n = e.ownerDocument.defaultView) != null
         ? n
         : window
       ).requestAnimationFrame(t);
     }
-    function f(e, t, n) {
+    function _(e, t, n) {
       t === "x" ? (e.scrollLeft = n) : (e.scrollTop = n);
     }
-    function g(e, t) {
+    function f(e, t) {
       var n,
-        r = (n = l.get(e)) != null ? n : new Set();
-      (r.add(t), l.set(e, r));
+        r = (n = s.get(e)) != null ? n : new Set();
+      (r.add(t), s.set(e, r));
     }
-    function h(e, t) {
-      var n = l.get(e);
-      n != null && (n.delete(t), n.size === 0 && l.delete(e));
+    function g(e, t) {
+      var n = s.get(e);
+      n != null && (n.delete(t), n.size === 0 && s.delete(e));
     }
-    ((i.computeScrollTarget = s),
-      (i.settleWhenOverdue = u),
-      (i.tweenScroll = d),
-      (i.runProgressTween = m),
-      (i.cancelScrollTweens = p));
+    ((l.computeScrollTarget = u),
+      (l.tweenScroll = c),
+      (l.runProgressTween = d),
+      (l.cancelScrollTweens = m));
   },
-  66,
+  98,
 );

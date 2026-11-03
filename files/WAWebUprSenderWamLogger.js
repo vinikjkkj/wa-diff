@@ -1,11 +1,13 @@
 __d(
   "WAWebUprSenderWamLogger",
   [
+    "WAWebOrderMessageSendResultError",
     "WAWebPaymentsUserActionWamEvent",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumPaymentActionTargets",
     "WAWebWamEnumPaymentActionTypes",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,11 +16,24 @@ __d(
       u = "upr_send",
       c = "pux";
     function d(e) {
-      return m.apply(this, arguments);
+      var t = r("getErrorSafe")(e).name;
+      return e instanceof r("WAWebOrderMessageSendResultError")
+        ? {
+            errorName: t,
+            failureStage: "send_result",
+            sendResult:
+              e.messageSendResult == null
+                ? "missing"
+                : String(e.messageSendResult),
+          }
+        : { errorName: t, failureStage: "exception" };
     }
-    function m() {
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.country,
             n = e.eventParams,
             r = e.queryParams;
@@ -34,16 +49,16 @@ __d(
             }),
           ).commit();
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d({
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          yield m({
             country: t,
             eventParams: {
               paymentActionType: o("WAWebWamEnumPaymentActionTypes")
@@ -53,16 +68,16 @@ __d(
             },
           });
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d({
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          yield m({
             country: t,
             eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
@@ -74,16 +89,16 @@ __d(
             },
           });
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d({
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          yield m({
             country: t,
             eventParams: {
               paymentActionType: o("WAWebWamEnumPaymentActionTypes")
@@ -94,15 +109,15 @@ __d(
             queryParams: { flow_type: c },
           });
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
+    function b(e, t, n, r) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a) {
             var i = n === 1,
               l = { flow_type: c };
@@ -110,7 +125,7 @@ __d(
               ? (r != null && (l.account_type = r),
                 a != null && (l.identifier_type = a))
               : (l.account_count = n),
-              yield d({
+              yield m({
                 country: t,
                 eventParams: {
                   actionTarget: i
@@ -127,16 +142,16 @@ __d(
               }));
           },
         )),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          yield d({
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          yield m({
             country: t,
             eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
@@ -152,16 +167,16 @@ __d(
             ),
           });
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d({
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          yield m({
             country: t,
             eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
@@ -174,16 +189,16 @@ __d(
             queryParams: { flow_type: c },
           });
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          yield d({
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          yield m({
             country: t,
             eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
@@ -193,19 +208,28 @@ __d(
               referral: e,
               screen: u,
             },
-            queryParams: { flow_type: c, result: n },
+            queryParams: babelHelpers.extends(
+              { flow_type: c, result: n },
+              r == null
+                ? {}
+                : babelHelpers.extends(
+                    { error_name: r.errorName, failure_stage: r.failureStage },
+                    r.sendResult == null ? {} : { send_result: r.sendResult },
+                  ),
+            ),
           });
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    ((l.logUprAttachmentTrayView = p),
-      (l.logUprAttachmentTrayClick = f),
-      (l.logUprSendSheetView = h),
-      (l.logUprSendSummaryCardView = C),
-      (l.logUprSendButtonClick = v),
-      (l.logUprSendSheetDismiss = R),
-      (l.logUprSendResult = E));
+    ((l.getUprSendFailureDetails = d),
+      (l.logUprAttachmentTrayView = _),
+      (l.logUprAttachmentTrayClick = g),
+      (l.logUprSendSheetView = y),
+      (l.logUprSendSummaryCardView = b),
+      (l.logUprSendButtonClick = S),
+      (l.logUprSendSheetDismiss = L),
+      (l.logUprSendResult = k));
   },
   98,
 );

@@ -235,30 +235,26 @@ __d(
     function _(e) {
       var t = e.action,
         n = e.chat,
-        r = e.eventType,
-        a = e.msg,
-        i = e.onCancel,
-        l = e.onDismissed,
-        s = e.onLearnMore,
-        c = e.onOk;
+        a = e.eventType,
+        i = e.msg,
+        l = e.onCancel,
+        s = e.onDismissed,
+        c = e.onLearnMore,
+        d = e.onOk;
       o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingDisclosureEnabled() &&
         o("WAWebModalManager").ModalManager.open(
-          u.jsx(
-            o("WAWebMmSignalSharingDisclosureModalLoadable.react")
-              .MmSignalSharingDisclosureModal,
-            {
-              action: t,
-              eventType: r,
-              chat: n,
-              msg: a,
-              onOk: c,
-              onCancel: i,
-              onDismissed: l,
-              onLearnMore: s,
-            },
-          ),
+          u.jsx(r("WAWebMmSignalSharingDisclosureModalLoadable.react"), {
+            action: t,
+            eventType: a,
+            chat: n,
+            msg: i,
+            onOk: d,
+            onCancel: l,
+            onDismissed: s,
+            onLearnMore: c,
+          }),
         );
     }
     ((l.getMmSignalSharingLearnMoreHCAURL = c),

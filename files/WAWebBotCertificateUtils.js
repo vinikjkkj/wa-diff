@@ -1,12 +1,6 @@
 __d(
   "WAWebBotCertificateUtils",
-  [
-    "WAHex",
-    "WALogger",
-    "WAWebCertificateUtils",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WAHex", "WALogger", "WAWebCertificateUtils", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(t, n) {
@@ -32,41 +26,33 @@ __d(
         );
       }
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      if (e.length === 0) return [];
+      var t = await o("WAWebCertificateUtils").getPkiJs(),
+        n = t.Certificate,
+        r = await o("WAWebCertificateUtils").getAsn1FromBER(),
+        a = [];
+      for (var i of e) {
+        var l = r(new Uint8Array(i).buffer),
+          u = l.offset,
+          c = l.result;
+        if (u === -1 || (c.error != null && c.error !== ""))
+          return (
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[certificate-utils] Failed to parse certificate DER",
+                  ])),
+              )
+              .sendLogs("certificate-utils-cert-parse-error"),
+            []
+          );
+        a.push(new n({ schema: c }));
+      }
+      return a;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return [];
-          var t = yield o("WAWebCertificateUtils").getPkiJs(),
-            n = t.Certificate,
-            r = yield o("WAWebCertificateUtils").getAsn1FromBER(),
-            a = [];
-          for (var i of e) {
-            var l = r(new Uint8Array(i).buffer),
-              s = l.offset,
-              c = l.result;
-            if (s === -1 || (c.error != null && c.error !== ""))
-              return (
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[certificate-utils] Failed to parse certificate DER",
-                      ])),
-                  )
-                  .sendLogs("certificate-utils-cert-parse-error"),
-                []
-              );
-            a.push(new n({ schema: c }));
-          }
-          return a;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       try {
         var t,
           n = e.serialNumber;
@@ -79,8 +65,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[certificate-utils] extract cert serial failed",
                 ])),
             )
@@ -92,7 +78,7 @@ __d(
     }
     ((l.isCertificateValidAtTime = c),
       (l.parseCertificateChain = d),
-      (l.getCertificateSerialNumber = p));
+      (l.getCertificateSerialNumber = m));
   },
   98,
 );

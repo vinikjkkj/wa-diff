@@ -296,7 +296,7 @@ __d(
                 o(
                   "WAWebQrDeviceLinkingQpl",
                 ).companionDeviceLinkingScreenQpl.pairSuccess(),
-                o("WAWebCoreActionsODS").logPairSuccess(),
+                r("WAWebODS").incr("web.pair.success"),
                 n("cr:1064") == null || n("cr:1064").setMdSessionId(W),
                 q != null &&
                   (n("cr:1064") == null ||

@@ -31,6 +31,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupAgentAddAttribution",
     "WAWebGroupAgentProfileRouting",
+    "WAWebGroupDefaultReactionsFormatSystemMessageText",
     "WAWebGroupMetadataGetters",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
     "WAWebMessageCommunityEmptySubgroupWelcome.react",
@@ -628,6 +629,12 @@ __d(
             l10nBodyTextInstance: s._(
               /*BTDS*/ "You set the group visibility to hidden",
             ),
+          };
+        case "group_default_reactions":
+          return {
+            l10nBodyTextInstance: r(
+              "WAWebGroupDefaultReactionsFormatSystemMessageText",
+            )({ msg: l.unsafe(), options: {} }),
           };
         case "member_share_group_history_mode":
           return {

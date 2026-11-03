@@ -471,6 +471,15 @@ __d(
       );
     }
     function ve() {
+      return (
+        Se() &&
+        o("WAWebABProps").getABPropConfigValue("web_calling_auto_popout_video")
+      );
+    }
+    function Se() {
+      return o("WAWebUA").UA.isBlink && !g();
+    }
+    function Re() {
       return R() && r("justknobx")._("4943");
     }
     ((l.isWebKitBrowser = g),
@@ -526,7 +535,9 @@ __d(
       (l.isPopoutReuseCaptureEnabled = ye),
       (l.doesPopoutEndMainWindowScreenShare = Ce),
       (l.isDocPipEnabled = be),
-      (l.areRichCallNotificationsEnabled = ve));
+      (l.isAutoPopoutVideoEnabled = ve),
+      (l.isAutoPopoutVideoBrowser = Se),
+      (l.areRichCallNotificationsEnabled = Re));
   },
   98,
 );

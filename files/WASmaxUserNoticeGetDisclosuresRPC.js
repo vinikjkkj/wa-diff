@@ -151,7 +151,6 @@ __d(
     }
     ((l.sendGetDisclosuresRPC = e),
       (l.parseGetDisclosuresResponseClientError = u),
-      (l.parseGetDisclosuresResponseClientSuccessNotice = c),
       (l.parseGetDisclosuresResponseClientSuccess = d),
       (l.parseGetDisclosuresResponseServerError = m),
       (l.makeGetDisclosuresRequest = p));

@@ -170,12 +170,6 @@ __d(
     var f = { deny: "deny", error: "error", none: "none" };
     ((l.receiveServerUpdateRPC = e),
       (l.parseServerUpdateRequest = s),
-      (l.parsePresenceUpdates = u),
-      (l.parseUserUnavailableMixin = c),
-      (l.parseAvailableMixin = d),
-      (l.parseGroupAvailableMixin = m),
-      (l.parseGroupUnavailableMixin = p),
-      (l.parseLastSeenWithOtherValueMixin = _),
       (l.ENUM_DENY_ERROR_NONE = f));
   },
   98,

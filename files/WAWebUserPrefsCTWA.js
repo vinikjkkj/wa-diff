@@ -1,6 +1,7 @@
 __d(
   "WAWebUserPrefsCTWA",
   [
+    "$InternalEnum",
     "WAWebCTWAGatingUtils",
     "WAWebCommonAdsTypes",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -104,7 +105,25 @@ __d(
           null,
         ));
     }
-    function f() {
+    var f = n("$InternalEnum")({
+      AdAccountTokenThrottle: "ad_account_token_throttle",
+    });
+    function g() {
+      var e = r("WAWebUserPrefsStore").getUser(f.AdAccountTokenThrottle);
+      return e == null ||
+        typeof e != "object" ||
+        typeof e.consecutiveCount != "number" ||
+        typeof e.untilMs != "number" ||
+        !Number.isInteger(e.consecutiveCount) ||
+        e.consecutiveCount < 1 ||
+        !Number.isFinite(e.untilMs)
+        ? null
+        : { consecutiveCount: e.consecutiveCount, untilMs: e.untilMs };
+    }
+    function h(e) {
+      r("WAWebUserPrefsStore").setUser(f.AdAccountTokenThrottle, e);
+    }
+    function y() {
       (r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.FB_ACCOUNT_TOKEN,
         null,
@@ -114,7 +133,7 @@ __d(
           null,
         ));
     }
-    function g() {
+    function C() {
       var e = r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").KEYS.FB_ACCOUNT_TOKEN,
         ),
@@ -132,7 +151,7 @@ __d(
             type: "FB",
           });
     }
-    function h(e) {
+    function b(e) {
       (r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.FB_ACCOUNT_TOKEN,
         e.token,
@@ -149,9 +168,11 @@ __d(
       (l.getAdAccountToken = m),
       (l.setAdAccountToken = p),
       (l.clearAdAccountToken = _),
-      (l.clearFBIdentity = f),
-      (l.getFBIdentity = g),
-      (l.setFbIdentity = h));
+      (l.getAdAccountTokenThrottle = g),
+      (l.setAdAccountTokenThrottle = h),
+      (l.clearFBIdentity = y),
+      (l.getFBIdentity = C),
+      (l.setFbIdentity = b));
   },
   98,
 );

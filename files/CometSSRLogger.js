@@ -158,7 +158,7 @@ __d(
               startTime: _,
             });
           }
-          (n.addMetadata("ssr_inline_status", d + " " + (u || "")),
+          (n.addMetadata("ssr_inline_status", (d + " " + (u || "")).trim()),
             p != null && n.addMetadata("ssr_inline_click_events", String(p)),
             c &&
               c.forEach(function (e) {

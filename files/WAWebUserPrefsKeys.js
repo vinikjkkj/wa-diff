@@ -74,6 +74,7 @@ __d(
         "CanonicalFalcoBuffer",
         "NotificationClickedOnce",
         "NotReceivingNotificationsBannerDismissed",
+        "NotReceivingNotificationsBannerEligibleSince",
       ]),
       u = Object.freeze(
         babelHelpers.extends(

@@ -253,34 +253,38 @@ __d(
     function I(e) {
       if (!e.reported) {
         var t = (s || (s = r("performanceNow")))();
-        (e.checkViewport(),
-          e.mutationRoots.forEach(function (t) {
-            if (t && typeof t.querySelectorAll == "function") {
-              var n = t.querySelectorAll("div,i,span,li");
-              Array.prototype.forEach.call(n, function (t) {
-                if (
-                  !(
-                    t.textContent ||
-                    t.children.length ||
-                    e.cssBgElements.has(t) ||
-                    b(t, e) ||
-                    !e.inViewport(t)
-                  )
-                ) {
-                  var n = k(t);
-                  if ((e.bgCheckCount++, n != null)) {
-                    var r = {
-                      element: new (o("WebAPIs").WeakRef)(t),
-                      url: n,
-                      resourceTiming:
-                        o("ResourceTimingAPI").getResourceTiming(n),
-                    };
-                    e.cssBgElements.set(t, r);
-                  }
+        e.checkViewport();
+        var n =
+          (e.config.cssBgScanChildrenFirst == null
+            ? void 0
+            : e.config.cssBgScanChildrenFirst()) === !0;
+        (e.mutationRoots.forEach(function (t) {
+          if (t && typeof t.querySelectorAll == "function") {
+            var r = t.querySelectorAll("div,i,span,li");
+            Array.prototype.forEach.call(r, function (t) {
+              if (
+                !(
+                  (n
+                    ? t.children.length || t.textContent
+                    : t.textContent || t.children.length) ||
+                  e.cssBgElements.has(t) ||
+                  b(t, e) ||
+                  !e.inViewport(t)
+                )
+              ) {
+                var r = k(t);
+                if ((e.bgCheckCount++, r != null)) {
+                  var a = {
+                    element: new (o("WebAPIs").WeakRef)(t),
+                    url: r,
+                    resourceTiming: o("ResourceTimingAPI").getResourceTiming(r),
+                  };
+                  e.cssBgElements.set(t, a);
                 }
-              });
-            }
-          }),
+              }
+            });
+          }
+        }),
           (e.cssBgScanOverhead = s() - t));
       }
     }

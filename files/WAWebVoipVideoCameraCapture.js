@@ -1,7 +1,9 @@
 __d(
   "WAWebVoipVideoCameraCapture",
   [
+    "Promise",
     "WALogger",
+    "WAWebAudioDeviceManager",
     "WAWebBackendApi",
     "WAWebEventEmitter",
     "WAWebNoop",
@@ -90,23 +92,29 @@ __d(
       ge,
       he,
       ye,
-      Ce = (function (e) {
+      Ce,
+      be,
+      ve,
+      Se,
+      Re,
+      Le,
+      Ee = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(r("WAWebEventEmitter")),
-      be = new Ce(),
-      ve = new Set(),
-      Se = 2e3,
-      Re = 2e3,
-      Le = o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderSource.self(
+      ke = new Ee(),
+      Ie = new Set(),
+      Te = 2e3,
+      De = 2e3,
+      xe = o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderSource.self(
         o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderStream.CAMERA,
       );
-    function Ee(t) {
+    function $e(t) {
       var n = 0,
         r = 0;
-      for (var a of ve) {
+      for (var a of Ie) {
         var i = a.getTracks().filter(function (e) {
           return e.readyState === "live";
         });
@@ -116,7 +124,7 @@ __d(
           }),
           r++,
           (n += i.length)),
-          ve.delete(a));
+          Ie.delete(a));
       }
       n > 0
         ? o("WALogger")
@@ -142,12 +150,12 @@ __d(
             t,
           );
     }
-    function ke(e, t) {
+    function Pe(e, t) {
       if (e.readyState !== "live" || e.muted) return !1;
       var n = e.getSettings().deviceId;
       return r("isStringNullOrEmpty")(n) || n === t;
     }
-    var Ie = (function (e) {
+    var Ne = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -238,8 +246,9 @@ __d(
                   })));
                 var E = r("nullthrows")(this.getOpenCaptureParams()),
                   k = null,
-                  I = null,
-                  T = (function () {
+                  I = "",
+                  T = null,
+                  D = (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
                         if (
@@ -272,7 +281,7 @@ __d(
                               null
                             );
                           }
-                          ((t.__lastCapturedStream = e), ve.add(e));
+                          ((t.__lastCapturedStream = e), Ie.add(e));
                           var l = e.getVideoTracks().at(0);
                           if (l != null) {
                             var u,
@@ -281,9 +290,10 @@ __d(
                             (g.deviceId != null &&
                               g.deviceId !== "" &&
                               (k = g.deviceId),
+                              (I = l.label),
                               (g.facingMode === "user" ||
                                 g.facingMode === "environment") &&
-                                (I = g.facingMode),
+                                (T = g.facingMode),
                               o("WALogger").LOG(
                                 m ||
                                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -366,7 +376,7 @@ __d(
                   (yield this.__startCapture(
                     babelHelpers.extends(
                       {
-                        getMediaStream: T,
+                        getMediaStream: D,
                         isStopped: function () {
                           return t.__stopBeganSince(R);
                         },
@@ -385,21 +395,25 @@ __d(
                   );
                   return;
                 }
-                var D = this.__lastCapturedStream;
-                D != null &&
+                var x = this.__lastCapturedStream;
+                (x != null &&
                   (o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.resetFirstFrameReceivedForSource(Le),
-                  this.__monitorFrameProduction(D),
-                  be.trigger("cameraCaptureStarted"));
-                var x = this.__updateDeviceFromAcquiredTrack(k, L);
-                (o(
-                  "WAWebVoipCameraFingerprintLogging",
-                ).retryCameraFingerprint(),
-                  this.__updateFacingFromAcquiredTrack(I, i, x),
+                  ).videoRendererRegistry.resetFirstFrameReceivedForSource(xe),
+                  this.__monitorFrameProduction(x),
+                  ke.trigger("cameraCaptureStarted")),
+                  yield this.__updateFromAcquiredCamera({
+                    deviceId: k,
+                    facing: T,
+                    label: I,
+                    requestedDeviceId: L,
+                    requestedFacing: i,
+                    stream: x,
+                    targetWindow: v,
+                  }),
                   o("WAWebUA").UA.isFirefox &&
                     v != null &&
-                    (be.trigger("deviceListRefreshRequested"),
+                    (ke.trigger("deviceListRefreshRequested"),
                     o("WALogger").LOG(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -430,7 +444,7 @@ __d(
           (a.$WAWebVoipVideoCameraCaptureImpl$p_4 = function (t) {
             this.$WAWebVoipVideoCameraCaptureImpl$p_2 !== t &&
               ((this.$WAWebVoipVideoCameraCaptureImpl$p_2 = t),
-              be.trigger("cameraTrackMutedChanged"));
+              ke.trigger("cameraTrackMutedChanged"));
           }),
           (a.__recordStartRequest = function (t, n, o) {
             ((this.__lastTargetWindow = o != null ? o : null),
@@ -531,6 +545,76 @@ __d(
             }
             return t;
           })()),
+          (a.__getMainWindowDeviceId = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, r) {
+                var a;
+                if (e == null || !we(e, n, r)) return e;
+                var i = yield Ae();
+                if (
+                  i.some(function (t) {
+                    return t.deviceId === e;
+                  })
+                )
+                  return e;
+                var l = (a = Fe(i, t)) != null ? a : n;
+                return (
+                  o("WALogger").LOG(
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                        "[AV:startCameraCapture] call window camera ",
+                        " isn't a main window id, using ",
+                        "",
+                      ])),
+                    e,
+                    l,
+                  ),
+                  l
+                );
+              },
+            );
+            function t(t, n, r, o) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.__updateFromAcquiredCamera = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.__getMainWindowDeviceId(
+                  e.deviceId,
+                  e.label,
+                  e.requestedDeviceId,
+                  e.targetWindow,
+                );
+                if (this.__lastCapturedStream !== e.stream) {
+                  o("WALogger").LOG(
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                        "[AV:startCameraCapture] capture changed while matching the main window camera, not updating the device",
+                      ])),
+                  );
+                  return;
+                }
+                var n = this.__updateDeviceFromAcquiredTrack(
+                  t,
+                  e.requestedDeviceId,
+                );
+                (o(
+                  "WAWebVoipCameraFingerprintLogging",
+                ).retryCameraFingerprint(),
+                  this.__updateFacingFromAcquiredTrack(
+                    e.facing,
+                    e.requestedFacing,
+                    n,
+                  ));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (a.__updateDeviceFromAcquiredTrack = function (t, n) {
             var e = t != null ? t : n;
             return this.currentDeviceId === e
@@ -539,10 +623,10 @@ __d(
                 !this.__facingFlipActive &&
                   !r("isStringNullOrEmpty")(e) &&
                   o("WAWebUserPrefsVoip").setSelectedVideoInputDevice(e),
-                be.trigger("deviceSelectionChanged", e),
+                ke.trigger("deviceSelectionChanged", e),
                 o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "[AV:startCameraCapture] device changed: requested=",
                       ", actual=",
                       "",
@@ -562,10 +646,10 @@ __d(
                     : this.currentFacing;
             this.currentFacing !== a &&
               ((this.currentFacing = a),
-              be.trigger("facingChanged", a),
+              ke.trigger("facingChanged", a),
               o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "[AV:startCameraCapture] facing changed: ",
                     "",
                   ])),
@@ -578,8 +662,8 @@ __d(
                 var s = this;
                 (l === void 0 && (l = !1),
                   o("WALogger").LOG(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "[AV:startWithStream] w=",
                         " h=",
                         " fps=",
@@ -618,8 +702,8 @@ __d(
                   this.__stopBeganSince(u))
                 ) {
                   (o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    E ||
+                      (E = babelHelpers.taggedTemplateLiteralLoose([
                         "[AV:startWithStream] stop began during the start, releasing the stream",
                       ])),
                   ),
@@ -631,13 +715,13 @@ __d(
                 if (
                   (o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.resetFirstFrameReceivedForSource(Le),
+                  ).videoRendererRegistry.resetFirstFrameReceivedForSource(xe),
                   l)
                 ) {
                   var c = this.__lastCapturedStream;
-                  (c != null && c !== e && ve.delete(c),
+                  (c != null && c !== e && Ie.delete(c),
                     (this.__lastCapturedStream = e),
-                    ve.add(e));
+                    Ie.add(e));
                   var d = e.getVideoTracks().at(0);
                   d == null ||
                     d.addEventListener(
@@ -653,8 +737,8 @@ __d(
                             )
                           ) {
                             o("WALogger").LOG(
-                              L ||
-                                (L = babelHelpers.taggedTemplateLiteralLoose([
+                              k ||
+                                (k = babelHelpers.taggedTemplateLiteralLoose([
                                   "[AV:startWithStream] stream ended, muting video",
                                 ])),
                             );
@@ -667,8 +751,8 @@ __d(
                             } catch (e) {
                               o("WALogger")
                                 .ERROR(
-                                  E ||
-                                    (E =
+                                  I ||
+                                    (I =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "[AV:startWithStream] mute on stream-ended failed",
                                       ])),
@@ -726,17 +810,17 @@ __d(
                 : [];
             if (
               !i.some(function (e) {
-                return ke(e, a);
+                return Pe(e, a);
               })
             )
               return !1;
             var l =
               (n = o(
                 "WAWebVoipVideoRendererRegistry",
-              ).videoRendererRegistry.getDecodeStatsForSource(Le)) == null
+              ).videoRendererRegistry.getDecodeStatsForSource(xe)) == null
                 ? void 0
                 : n.lastFrameTimestampMs;
-            return l != null && window.performance.now() - l < Re;
+            return l != null && window.performance.now() - l < De;
           }),
           (a.isStackCaptureWanted = function () {
             return this.__stackCaptureWanted;
@@ -746,8 +830,8 @@ __d(
               function* (e, t) {
                 var n = "voip: switchVideoDevice (" + this.name + ")";
                 o("WALogger").LOG(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                  T ||
+                    (T = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " switching to device: ",
                       "",
@@ -761,8 +845,8 @@ __d(
                 if (a == null)
                   return (
                     o("WALogger").ERROR(
-                      I ||
-                        (I = babelHelpers.taggedTemplateLiteralLoose([
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " capture params not available",
                         ])),
@@ -777,8 +861,8 @@ __d(
                 if (!i)
                   return (
                     o("WALogger").ERROR(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " device not found in available devices: ",
                           "",
@@ -791,8 +875,8 @@ __d(
                 if (this.__stopBeganSince(r))
                   return (
                     o("WALogger").LOG(
-                      D ||
-                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                      $ ||
+                        ($ = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " stop started before the switch cleaned up, aborting",
                         ])),
@@ -806,8 +890,8 @@ __d(
                   if ((yield this.__cleanup(), this.__stopBeganSince(r)))
                     return (
                       o("WALogger").LOG(
-                        x ||
-                          (x = babelHelpers.taggedTemplateLiteralLoose([
+                        P ||
+                          (P = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " stop started during switch, aborting before re-acquire",
                           ])),
@@ -829,8 +913,8 @@ __d(
                   )
                     return (
                       o("WALogger").LOG(
-                        $ ||
-                          ($ = babelHelpers.taggedTemplateLiteralLoose([
+                        N ||
+                          (N = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " stop started during switch, device not acquired",
                           ])),
@@ -841,8 +925,8 @@ __d(
                 } catch (e) {
                   if (
                     (o("WALogger").ERROR(
-                      P ||
-                        (P = babelHelpers.taggedTemplateLiteralLoose([
+                      M ||
+                        (M = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchVideoDevice] error switching device: ",
                           "",
                         ])),
@@ -851,8 +935,8 @@ __d(
                     l != null && l !== "")
                   ) {
                     o("WALogger").LOG(
-                      N ||
-                        (N = babelHelpers.taggedTemplateLiteralLoose([
+                      w ||
+                        (w = babelHelpers.taggedTemplateLiteralLoose([
                           "[AV:switchVideoDevice] rollback to: ",
                           "",
                         ])),
@@ -872,8 +956,8 @@ __d(
                         }));
                     } catch (e) {
                       o("WALogger").ERROR(
-                        M ||
-                          (M = babelHelpers.taggedTemplateLiteralLoose([
+                        A ||
+                          (A = babelHelpers.taggedTemplateLiteralLoose([
                             "[AV:switchVideoDevice] rollback failed: ",
                             "",
                           ])),
@@ -885,8 +969,8 @@ __d(
                 }
                 return (
                   o("WALogger").LOG(
-                    w ||
-                      (w = babelHelpers.taggedTemplateLiteralLoose([
+                    F ||
+                      (F = babelHelpers.taggedTemplateLiteralLoose([
                         "[AV:switchVideoDevice] switched to: ",
                         "",
                       ])),
@@ -907,8 +991,8 @@ __d(
                 var n = "voip: switchVideoFacing (" + this.name + ")";
                 if (
                   (o("WALogger").LOG(
-                    A ||
-                      (A = babelHelpers.taggedTemplateLiteralLoose([
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " switching to facing: ",
                         "",
@@ -920,8 +1004,8 @@ __d(
                 )
                   return (
                     o("WALogger").LOG(
-                      F ||
-                        (F = babelHelpers.taggedTemplateLiteralLoose([
+                      B ||
+                        (B = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " stop in progress, skipping flip",
                         ])),
@@ -936,8 +1020,8 @@ __d(
                   return (
                     o("WALogger")
                       .ERROR(
-                        O ||
-                          (O = babelHelpers.taggedTemplateLiteralLoose([
+                        W ||
+                          (W = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " capture params not available",
                           ])),
@@ -949,8 +1033,8 @@ __d(
                 if (this.__stopBeganSince(r))
                   return (
                     o("WALogger").LOG(
-                      B ||
-                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                      q ||
+                        (q = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " stop started before the flip cleaned up, aborting",
                         ])),
@@ -969,8 +1053,8 @@ __d(
                   )
                     return (
                       o("WALogger").LOG(
-                        W ||
-                          (W = babelHelpers.taggedTemplateLiteralLoose([
+                        U ||
+                          (U = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " stop started during flip, aborting before re-acquire",
                           ])),
@@ -993,8 +1077,8 @@ __d(
                   )
                     return (
                       o("WALogger").LOG(
-                        q ||
-                          (q = babelHelpers.taggedTemplateLiteralLoose([
+                        V ||
+                          (V = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " stop started during flip, camera not acquired",
                           ])),
@@ -1006,8 +1090,8 @@ __d(
                   return (
                     o("WALogger")
                       .ERROR(
-                        U ||
-                          (U = babelHelpers.taggedTemplateLiteralLoose([
+                        H ||
+                          (H = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchVideoFacing] error switching facing to ",
                             ": ",
                             "",
@@ -1029,8 +1113,8 @@ __d(
                 }
                 return (
                   o("WALogger").LOG(
-                    V ||
-                      (V = babelHelpers.taggedTemplateLiteralLoose([
+                    G ||
+                      (G = babelHelpers.taggedTemplateLiteralLoose([
                         "[AV:switchVideoFacing] switched to: ",
                         "",
                       ])),
@@ -1056,8 +1140,8 @@ __d(
                   s = e.targetWindow;
                 if (this.__stopping || this.__stopBeganSince(l)) {
                   o("WALogger").LOG(
-                    H ||
-                      (H = babelHelpers.taggedTemplateLiteralLoose([
+                    z ||
+                      (z = babelHelpers.taggedTemplateLiteralLoose([
                         "[AV:switchVideoFacing] stop in progress, skipping rollback",
                       ])),
                   );
@@ -1067,8 +1151,8 @@ __d(
                 if (!(!u && a == null)) {
                   var c = !u || (i && a != null);
                   o("WALogger").LOG(
-                    G ||
-                      (G = babelHelpers.taggedTemplateLiteralLoose([
+                    j ||
+                      (j = babelHelpers.taggedTemplateLiteralLoose([
                         "[AV:switchVideoFacing] rollback to previous camera (facing=",
                         ", device=",
                         ", byFacing=",
@@ -1092,8 +1176,8 @@ __d(
                   } catch (e) {
                     o("WALogger")
                       .ERROR(
-                        z ||
-                          (z = babelHelpers.taggedTemplateLiteralLoose([
+                        K ||
+                          (K = babelHelpers.taggedTemplateLiteralLoose([
                             "[AV:switchVideoFacing] rollback failed: ",
                             "",
                           ])),
@@ -1120,8 +1204,8 @@ __d(
                 ) {
                   var t = this.captureInitResolvable;
                   o("WALogger").LOG(
-                    j ||
-                      (j = babelHelpers.taggedTemplateLiteralLoose([
+                    Q ||
+                      (Q = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " capture still initializing, waiting for ready",
                       ])),
@@ -1133,8 +1217,8 @@ __d(
                   } catch (t) {
                     ((n = !0),
                       o("WALogger").ERROR(
-                        K ||
-                          (K = babelHelpers.taggedTemplateLiteralLoose([
+                        X ||
+                          (X = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " capture initialization failed while waiting",
                           ])),
@@ -1144,8 +1228,8 @@ __d(
                   if (this.captureInitResolvable !== t)
                     return (
                       o("WALogger").LOG(
-                        Q ||
-                          (Q = babelHelpers.taggedTemplateLiteralLoose([
+                        Y ||
+                          (Y = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " capture init resolvable changed while waiting, aborting switch",
                           ])),
@@ -1160,8 +1244,8 @@ __d(
                   )
                     return (
                       o("WALogger").LOG(
-                        X ||
-                          (X = babelHelpers.taggedTemplateLiteralLoose([
+                        J ||
+                          (J = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " capture not ready after init wait, aborting switch",
                           ])),
@@ -1171,8 +1255,8 @@ __d(
                     );
                   n &&
                     o("WALogger").LOG(
-                      Y ||
-                        (Y = babelHelpers.taggedTemplateLiteralLoose([
+                      Z ||
+                        (Z = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " continuing switch after failed capture initialization",
                         ])),
@@ -1187,8 +1271,8 @@ __d(
                     o("WAWebVoipVideoCaptureBase").CaptureInitState
                       .Uninitialized
                   ? (o("WALogger").ERROR(
-                      J ||
-                        (J = babelHelpers.taggedTemplateLiteralLoose([
+                      ee ||
+                        (ee = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " video capture not restartable,\n      current state: ",
                           "",
@@ -1200,8 +1284,8 @@ __d(
                   : (this.captureInitState !==
                       o("WAWebVoipVideoCaptureBase").CaptureInitState.Ready &&
                       o("WALogger").LOG(
-                        Z ||
-                          (Z = babelHelpers.taggedTemplateLiteralLoose([
+                        te ||
+                          (te = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             " restarting capture from state: ",
                             "",
@@ -1231,7 +1315,9 @@ __d(
               d = c ? u : s,
               m = 5,
               p = 0,
-              _ =
+              _ = 15,
+              f = 0,
+              g =
                 (n =
                   (a = o("WAWebVoipPopoutWindowState").getPopoutWindow()) ==
                   null
@@ -1239,85 +1325,135 @@ __d(
                     : a.document) != null
                   ? n
                   : null,
-              f = _ != null ? _ : document;
+              h = g != null ? g : document,
+              y = h.hidden,
+              C = null;
             o("WALogger").LOG(
-              ee ||
-                (ee = babelHelpers.taggedTemplateLiteralLoose([
+              ne ||
+                (ne = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [CameraHealthCheck] monitoring frame production (doc=",
                   ")",
                 ])),
-              _ != null ? "popout" : "main",
+              g != null ? "popout" : "main",
             );
-            var g = f.createElement("video");
-            (g.setAttribute("playsinline", ""),
-              g.setAttribute("aria-hidden", "true"),
-              (g.muted = !0),
-              (g.style.cssText =
+            var b = h.createElement("video");
+            (b.setAttribute("playsinline", ""),
+              b.setAttribute("aria-hidden", "true"),
+              (b.muted = !0),
+              (b.style.cssText =
                 "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;"),
-              (g.srcObject = t));
-            var h = (i = f.body) != null ? i : document.body;
-            if (h == null) {
+              (b.srcObject = t));
+            var v = (i = h.body) != null ? i : document.body;
+            if (v == null) {
               (o("WALogger")
                 .ERROR(
-                  te ||
-                    (te = babelHelpers.taggedTemplateLiteralLoose([
+                  re ||
+                    (re = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [CameraHealthCheck] no document body to host probe video; skipping monitor",
                     ])),
                 )
                 .sendLogs("voip-camera-health-check-no-body"),
-                (g.srcObject = null));
+                (b.srcObject = null));
               return;
             }
-            h.appendChild(g);
-            var y = !1,
-              C = null,
-              b = function () {
-                y ||
-                  ((y = !0),
-                  C != null && (self.clearTimeout(C), (C = null)),
-                  (g.srcObject = null),
-                  g.remove(),
-                  l.__frameMonitorCleanup === b &&
+            v.appendChild(b);
+            var S = function () {
+              h.hidden && (y = !0);
+            };
+            h.addEventListener("visibilitychange", S);
+            var R = !1,
+              L = null,
+              E = function () {
+                R ||
+                  ((R = !0),
+                  L != null && (self.clearTimeout(L), (L = null)),
+                  h.removeEventListener("visibilitychange", S),
+                  (b.srcObject = null),
+                  b.remove(),
+                  l.__frameMonitorCleanup === E &&
                     (l.__frameMonitorCleanup = null));
               };
-            this.__frameMonitorCleanup = b;
-            var v = function () {
-                y ||
+            this.__frameMonitorCleanup = E;
+            var k = function () {
+                R ||
                   (o("WALogger").LOG(
-                    ne ||
-                      (ne = babelHelpers.taggedTemplateLiteralLoose([
+                    oe ||
+                      (oe = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraHealthCheck] frame received",
                       ])),
                   ),
-                  be.trigger("cameraFrameReceived"),
-                  b());
+                  ke.trigger("cameraFrameReceived"),
+                  E());
               },
-              S = function () {
-                if (!y) {
+              I = function () {
+                return !h.hidden && !y
+                  ? ((C = null), !1)
+                  : ((y = h.hidden),
+                    C !== h.hidden &&
+                      ((C = h.hidden),
+                      o("WALogger").LOG(
+                        ae ||
+                          (ae = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [CameraHealthCheck] probe doc hidden recently, deferring verdict (hidden=",
+                            ")",
+                          ])),
+                        String(h.hidden),
+                      )),
+                    !0);
+              },
+              T = function () {
+                o(
+                  "WAWebVoipPopoutWindowState",
+                ).getIsCameraStreamReacquisitionInProgress() || (f = 0);
+              },
+              D = function () {
+                return !o(
+                  "WAWebVoipPopoutWindowState",
+                ).getIsCameraStreamReacquisitionInProgress() || f >= _
+                  ? !1
+                  : (f++,
+                    o("WALogger").LOG(
+                      ie ||
+                        (ie = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [CameraHealthCheck] stream swapping, deferring verdict (deferral=",
+                          "/",
+                          ")",
+                        ])),
+                      f,
+                      _,
+                    ),
+                    !0);
+              },
+              x = function () {
+                if (!R) {
                   if (
                     o(
                       "WAWebVoipVideoRendererRegistry",
-                    ).videoRendererRegistry.hasReceivedFirstFrameForSource(Le)
+                    ).videoRendererRegistry.hasReceivedFirstFrameForSource(xe)
                   ) {
                     (o("WALogger").LOG(
-                      re ||
-                        (re = babelHelpers.taggedTemplateLiteralLoose([
+                      le ||
+                        (le = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [CameraHealthCheck] self preview already rendered a frame",
                         ])),
                     ),
-                      v());
+                      k());
+                    return;
+                  }
+                  if ((T(), I())) {
+                    L = self.setTimeout(x, s);
                     return;
                   }
                   if (
                     !o(
                       "WAWebVoipVideoRendererRegistry",
-                    ).videoRendererRegistry.hasCanvasForSource(Le) &&
+                    ).videoRendererRegistry.hasCanvasForSource(xe) &&
                     p < m
                   ) {
                     (p++,
                       o("WALogger").LOG(
-                        oe ||
-                          (oe = babelHelpers.taggedTemplateLiteralLoose([
+                        se ||
+                          (se = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [CameraHealthCheck] no consumer canvas yet, deferring verdict (deferral=",
                             "/",
                             ")",
@@ -1325,51 +1461,55 @@ __d(
                         p,
                         m,
                       ),
-                      (C = self.setTimeout(S, s)));
+                      (L = self.setTimeout(x, s)));
+                    return;
+                  }
+                  if (D()) {
+                    L = self.setTimeout(x, s);
                     return;
                   }
                   (o("WALogger").LOG(
-                    ae ||
-                      (ae = babelHelpers.taggedTemplateLiteralLoose([
+                    ue ||
+                      (ue = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraHealthCheck] no frames within timeout (retryCount=",
                         ")",
                       ])),
                     l.__healthCheckRetryCount,
                   ),
-                    be.trigger("cameraNotProducingFrames"),
-                    b(),
+                    ke.trigger("cameraNotProducingFrames"),
+                    E(),
                     l.__healthCheckRetryCount === 0
                       ? ((l.__healthCheckRetryCount = 1),
                         o("WALogger").LOG(
-                          ie ||
-                            (ie = babelHelpers.taggedTemplateLiteralLoose([
+                          ce ||
+                            (ce = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [CameraHealthCheck] auto-retrying camera capture",
                             ])),
                         ),
                         l.retryCameraCapture())
                       : (o("WALogger").LOG(
-                          le ||
-                            (le = babelHelpers.taggedTemplateLiteralLoose([
+                          de ||
+                            (de = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [CameraHealthCheck] retry exhausted, notifying UI",
                             ])),
                         ),
-                        be.trigger("cameraHealthCheckFailed")));
+                        ke.trigger("cameraHealthCheckFailed")));
                 }
               };
-            ((C = self.setTimeout(S, d)),
-              typeof g.requestVideoFrameCallback == "function"
-                ? g.requestVideoFrameCallback(v)
+            ((L = self.setTimeout(x, d)),
+              typeof b.requestVideoFrameCallback == "function"
+                ? b.requestVideoFrameCallback(k)
                 : o("WALogger").LOG(
-                    se ||
-                      (se = babelHelpers.taggedTemplateLiteralLoose([
+                    me ||
+                      (me = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraHealthCheck] requestVideoFrameCallback not available, relying on timeout",
                       ])),
                   ),
-              g.play().then(function () {
+              b.play().then(function () {
                 !c ||
-                  y ||
-                  (C != null && self.clearTimeout(C),
-                  (C = self.setTimeout(S, s)));
+                  R ||
+                  (L != null && self.clearTimeout(L),
+                  (L = self.setTimeout(x, s)));
               }, r("WAWebNoop")));
           }),
           (a.stopCapture = (function () {
@@ -1390,8 +1530,8 @@ __d(
                 ) {
                   var a = r.getTracks();
                   o("WALogger").LOG(
-                    ue ||
-                      (ue = babelHelpers.taggedTemplateLiteralLoose([
+                    pe ||
+                      (pe = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:stopCapture] stopping ",
                         " track(s): ",
                         "",
@@ -1428,8 +1568,8 @@ __d(
                     }),
                       u > 0 &&
                         o("WALogger").LOG(
-                          ce ||
-                            (ce = babelHelpers.taggedTemplateLiteralLoose([
+                          _e ||
+                            (_e = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [AV:stopCapture] stopped ",
                               " track(s) => ",
                               "",
@@ -1440,8 +1580,8 @@ __d(
                   }
                   if (l != null && l !== r) {
                     o("WALogger").LOG(
-                      de ||
-                        (de = babelHelpers.taggedTemplateLiteralLoose([
+                      fe ||
+                        (fe = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:stopCapture] cleaning up stream leaked during stop",
                         ])),
                     );
@@ -1454,8 +1594,8 @@ __d(
                     }),
                       d > 0 &&
                         o("WALogger").LOG(
-                          me ||
-                            (me = babelHelpers.taggedTemplateLiteralLoose([
+                          ge ||
+                            (ge = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [AV:stopCapture] stopped ",
                               " leaked track(s) => ",
                               "",
@@ -1464,15 +1604,15 @@ __d(
                           c,
                         ));
                   }
-                  (Ee("stopCapture"),
+                  ($e("stopCapture"),
                     o(
                       "WAWebVoipVideoRendererRegistry",
                     ).videoRendererRegistry.resetFirstFrameReceivedForSource(
-                      Le,
+                      xe,
                     ),
                     this.currentFacing != null &&
                       ((this.currentFacing = null),
-                      be.trigger("facingChanged", null)),
+                      ke.trigger("facingChanged", null)),
                     this.__facingFlipActive && (this.currentDeviceId = null),
                     (this.__facingFlipActive = !1),
                     (this.__stopping = !1));
@@ -1488,8 +1628,8 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (
                 (o("WALogger").LOG(
-                  pe ||
-                    (pe = babelHelpers.taggedTemplateLiteralLoose([
+                  he ||
+                    (he = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [CameraHealthCheck] retrying camera capture",
                     ])),
                 ),
@@ -1497,8 +1637,8 @@ __d(
               )
                 return (
                   o("WALogger").LOG(
-                    _e ||
-                      (_e = babelHelpers.taggedTemplateLiteralLoose([
+                    ye ||
+                      (ye = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraHealthCheck] stop in progress, skipping retry",
                       ])),
                   ),
@@ -1507,8 +1647,8 @@ __d(
               if (this.captureParams == null)
                 return (
                   o("WALogger").ERROR(
-                    fe ||
-                      (fe = babelHelpers.taggedTemplateLiteralLoose([
+                    Ce ||
+                      (Ce = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraHealthCheck] cannot retry, no capture params",
                       ])),
                   ),
@@ -1524,8 +1664,8 @@ __d(
                   yield this.__cleanup(),
                   this.__stopBeganSince(r)
                     ? (o("WALogger").LOG(
-                        ge ||
-                          (ge = babelHelpers.taggedTemplateLiteralLoose([
+                        be ||
+                          (be = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [CameraHealthCheck] stop started during retry, aborting before re-acquire",
                           ])),
                       ),
@@ -1545,14 +1685,14 @@ __d(
               } catch (e) {
                 return (
                   o("WALogger").ERROR(
-                    he ||
-                      (he = babelHelpers.taggedTemplateLiteralLoose([
+                    ve ||
+                      (ve = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraHealthCheck] retry failed: ",
                         "",
                       ])),
                     e,
                   ),
-                  be.trigger("cameraHealthCheckFailed"),
+                  ke.trigger("cameraHealthCheckFailed"),
                   !1
                 );
               }
@@ -1575,7 +1715,7 @@ __d(
             }
           }),
           (a.scheduleCallEndCameraRelease = function () {
-            var e = Array.from(ve);
+            var e = Array.from(Ie);
             e.length !== 0 &&
               self.setTimeout(function () {
                 var t = 0,
@@ -1590,13 +1730,13 @@ __d(
                     }),
                     n++,
                     (t += a.length)),
-                    ve.delete(r));
+                    Ie.delete(r));
                 }
                 t > 0 &&
                   o("WALogger")
                     .WARN(
-                      ye ||
-                        (ye = babelHelpers.taggedTemplateLiteralLoose([
+                      Se ||
+                        (Se = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:cameraReconciliation] callEndBackstop: stopped ",
                           " leaked live camera track(s) across ",
                           " stream(s) the WASM teardown never released",
@@ -1605,13 +1745,60 @@ __d(
                       n,
                     )
                     .sendLogs("voip-camera-callend-backstop");
-              }, Se);
+              }, Te);
           }),
           t
         );
       })(o("WAWebVoipVideoCaptureBase").WAWebVoipVideoCaptureBase),
-      Te = new Ie();
-    ((l.VideoDeviceEvents = be), (l.WAWebVoipVideoCameraCapture = Te));
+      Me = new Ne();
+    function we(e, t, n) {
+      return (
+        n != null &&
+        !o("WAWebUA").UA.isFirefox &&
+        !o("WAWebUA").UA.isSafari &&
+        e !== t &&
+        !r("isStringNullOrEmpty")(t)
+      );
+    }
+    function Ae() {
+      var e = navigator.mediaDevices;
+      return e == null
+        ? (Le || (Le = n("Promise"))).resolve([])
+        : o("WAWebAudioDeviceManager")
+            .coalescedEnumerateDevices(e)
+            .then(
+              function (e) {
+                return e.filter(function (e) {
+                  return e.kind === "videoinput";
+                });
+              },
+              function (e) {
+                return (
+                  o("WALogger").LOG(
+                    Re ||
+                      (Re = babelHelpers.taggedTemplateLiteralLoose([
+                        "[AV:startCameraCapture] main window camera list failed: ",
+                        "",
+                      ])),
+                    e,
+                  ),
+                  []
+                );
+              },
+            );
+    }
+    function Fe(e, t) {
+      var n;
+      if (t === "") return null;
+      var o =
+        (n = e.find(function (e) {
+          return e.label === t;
+        })) == null
+          ? void 0
+          : n.deviceId;
+      return r("isStringNullOrEmpty")(o) ? null : o;
+    }
+    ((l.VideoDeviceEvents = ke), (l.WAWebVoipVideoCameraCapture = Me));
   },
   98,
 );

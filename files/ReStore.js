@@ -163,7 +163,7 @@ __d(
                 i = w(a, r),
                 l = t.values();
               await (c || (c = o("PromiseOrValue"))).loop(function (t) {
-                if (t.done) return { action: "break", value: void 0 };
+                if (t.done === !0) return { action: "break", value: void 0 };
                 var r = t.value,
                   a = r[0],
                   s = r[1];
@@ -374,14 +374,14 @@ __d(
           var G = x.entries();
           if (
             (await (c || (c = o("PromiseOrValue"))).loop(function (e) {
-              if (e.done) return { action: "break", value: void 0 };
+              if (e.done === !0) return { action: "break", value: void 0 };
               var t = e.value,
                 n = t[0],
                 r = t[1],
                 a = r.values();
               return (c || (c = o("PromiseOrValue"))).map(
                 c.loop(function (e) {
-                  if (e.done) return { action: "break", value: void 0 };
+                  if (e.done === !0) return { action: "break", value: void 0 };
                   var t = e.value,
                     r = t[0],
                     i = t[1];

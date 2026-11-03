@@ -80,6 +80,13 @@ __d(
                       name: "useActorCometLiveRing_actor",
                     },
                     {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "name",
+                      storageKey: null,
+                    },
+                    {
                       kind: "InlineFragment",
                       selections: [
                         {
@@ -195,7 +202,7 @@ __d(
                   passingValue: !0,
                   selections: [
                     {
-                      alias: "th_dat_spo",
+                      alias: "qrz_ctx_seg",
                       args: null,
                       concreteType: "SponsoredData",
                       kind: "LinkedField",
@@ -210,13 +217,26 @@ __d(
               storageKey: null,
             },
             action: "THROW",
-            path: "story",
           },
           {
             alias: null,
             args: null,
             kind: "ScalarField",
             name: "has_commerce_attachment",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "pfp_swap_ig_photo_uri",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "pfp_swap_ig_profile_url",
             storageKey: null,
           },
         ],

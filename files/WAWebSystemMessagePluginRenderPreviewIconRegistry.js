@@ -16,6 +16,11 @@ __d(
         { type: "gp2", subtype: "add", renderPreviewIcon: null },
         {
           type: "gp2",
+          subtype: "group_default_reactions",
+          renderPreviewIcon: null,
+        },
+        {
+          type: "gp2",
           subtype: "member_share_group_history_mode",
           renderPreviewIcon: null,
         },

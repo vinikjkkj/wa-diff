@@ -532,23 +532,24 @@ __d(
                   }
                 }
                 for (
-                  var v = this.$14.getRecordIDs(), S = 0;
-                  S < v.length;
-                  S++
+                  var S = this.$14.getRecordIDs(), R = 0;
+                  R < S.length;
+                  R++
                 ) {
-                  var R = v[S];
-                  if (!o.has(R)) {
-                    var L = this.$14.get(R);
-                    if (L != null) {
-                      var E = (
+                  var L = S[R];
+                  if (!o.has(L)) {
+                    var E = this.$14.get(L);
+                    if (E != null) {
+                      var k = (
                         e || (e = n("relay-runtime/store/RelayModernRecord"))
-                      ).getValue(L, p);
-                      E != null && E();
+                      ).getValue(E, p);
+                      k != null && k();
                     }
-                    (this.$14.remove(R), this.$18 && this.$17.delete(R));
+                    (this.$14.remove(L), this.$18 && this.$17.delete(L));
                   }
                 }
-                t != null && t({ name: "store.gc.end", references: o });
+                (v(this.$14),
+                  t != null && t({ name: "store.gc.end", references: o }));
                 return;
               }
             }

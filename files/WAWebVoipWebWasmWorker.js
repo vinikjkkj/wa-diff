@@ -229,6 +229,23 @@ __d(
             [n],
           );
         },
+        onSelfPreviewVideoFrameWasmToJs: function (t) {
+          var e = t.frame,
+            n = t.height,
+            r = t.orientation,
+            o = t.width;
+          _.postMessage(
+            {
+              type: "waWasmWorkerCompatibleCallback",
+              __name: "onSelfPreviewVideoFrameWasmToJs",
+              frame: e,
+              width: o,
+              height: n,
+              orientation: r,
+            },
+            [e],
+          );
+        },
         startDesktopCaptureJS: function (t) {
           _.postMessage(
             babelHelpers.extends(

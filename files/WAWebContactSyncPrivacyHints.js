@@ -60,12 +60,13 @@ __d(
           var t = new Map(),
             n = new Map();
           for (var r of e) {
-            var a = R(r),
-              i = a != null ? o("WAWebLidMigrationUtils").toUserLid(a) : null;
-            if (i != null) {
-              var l,
-                s = (l = n.get(i)) != null ? l : [];
-              (s.push(r), n.set(i, s));
+            var a = r.isUser()
+              ? o("WAWebLidMigrationUtils").toUserLid(r)
+              : null;
+            if (a != null) {
+              var i,
+                l = (i = n.get(a)) != null ? i : [];
+              (l.push(r), n.set(a, l));
             }
           }
           return (n.size === 0 || (yield p(t, n), yield f(t, n)), t);
@@ -193,9 +194,6 @@ __d(
         })),
         S.apply(this, arguments)
       );
-    }
-    function R(e) {
-      return e.isUser() ? e : null;
     }
     ((l.usyncPrivacyHintsEnabled = s),
       (l.getUsyncPrivacyHints = u),

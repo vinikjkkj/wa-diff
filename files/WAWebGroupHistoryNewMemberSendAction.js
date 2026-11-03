@@ -14,54 +14,53 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 1;
-    function s(e, t, n, r) {
+    function s(e) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i,
-              l =
-                (i = t.groupMetadata) == null ? void 0 : i.participants.get(n);
-            if (
-              !o("WAWebGroupHistoryPostJoinEligibility").isAlreadyReceivedState(
-                l == null ? void 0 : l.groupHistorySentState,
-              )
-            ) {
-              var s = o(
-                  "WAWebGroupHistoryRestrictionHelper",
-                ).filterParticipants([n]),
-                u = s.historyReceivers,
-                c = s.nonHistoryReceivers;
-              u.length !== 0 &&
-                (o(
-                  "WAWebGroupHistoryGating",
-                ).isGroupHistorySendOnceDefaultOnEnabled() &&
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            r = t.chat,
+            a = t.newMemberWid,
+            i = t.send,
+            l = t.surface,
+            s = (n = r.groupMetadata) == null ? void 0 : n.participants.get(a);
+          if (
+            !o("WAWebGroupHistoryPostJoinEligibility").isAlreadyReceivedState(
+              s == null ? void 0 : s.groupHistorySentState,
+            )
+          ) {
+            var u = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([
+                a,
+              ]),
+              c = u.historyReceivers,
+              d = u.nonHistoryReceivers;
+            c.length !== 0 &&
+              (o(
+                "WAWebGroupHistoryGating",
+              ).isGroupHistorySendOnceDefaultOnEnabled() &&
+                o("WAWebGroupHistorySentOnceAction").markGroupHistorySentOnce(),
+              yield o("WAWebSendHistoryBundleAction").sendHistoryBundleAction(
+                o("WAWebWidToJid").widToGroupJid(r.id),
+                c,
+                d,
+                i.selectedMessageCount,
+                i.targetStartMessageTime,
+                babelHelpers.extends(
+                  {},
                   o(
-                    "WAWebGroupHistorySentOnceAction",
-                  ).markGroupHistorySentOnce(),
-                yield o("WAWebSendHistoryBundleAction").sendHistoryBundleAction(
-                  o("WAWebWidToJid").widToGroupJid(t.id),
-                  u,
-                  c,
-                  r.selectedMessageCount,
-                  r.targetStartMessageTime,
-                  babelHelpers.extends(
-                    {},
-                    o(
-                      "WAWebGroupHistoryNewMemberSurface",
-                    ).getGroupHistoryNewMemberLogging(a),
-                    {
-                      bundleSendSource: o("WAWebWamEnumBundleSendSource")
-                        .BUNDLE_SEND_SOURCE.IQ_RESPONSE,
-                      recipientCount: e,
-                    },
-                  ),
-                ));
-            }
-          },
-        )),
+                    "WAWebGroupHistoryNewMemberSurface",
+                  ).getGroupHistoryNewMemberLogging(l),
+                  {
+                    bundleSendSource: o("WAWebWamEnumBundleSendSource")
+                      .BUNDLE_SEND_SOURCE.IQ_RESPONSE,
+                    recipientCount: e,
+                  },
+                ),
+              ));
+          }
+        })),
         u.apply(this, arguments)
       );
     }

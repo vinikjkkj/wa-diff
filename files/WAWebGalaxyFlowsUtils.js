@@ -121,8 +121,8 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a = new TextEncoder(),
-            i = a.encode(t + r + "_qpl"),
-            l = a.encode(t + r + "_wam"),
+            i = a.encode("" + t + r + "_qpl"),
+            l = a.encode("" + t + r + "_wam"),
             s = yield (e || (e = n("Promise"))).all([
               crypto.subtle.digest({ name: "SHA-256" }, i),
               crypto.subtle.digest({ name: "SHA-256" }, l),

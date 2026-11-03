@@ -78,8 +78,7 @@ __d(
         : a;
     }
     ((l.receiveSyncPrivacySettingRPC = e),
-      (l.parseSyncPrivacySettingRequest = s),
-      (l.parseServerNotificationMixin = u));
+      (l.parseSyncPrivacySettingRequest = s));
   },
   98,
 );

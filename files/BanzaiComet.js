@@ -89,12 +89,11 @@ __d(
         for (var e of g.values()) {
           var t,
             n,
-            o = e.posts[0],
-            a =
-              (t = o.__meta.priority) != null
+            o =
+              (t = e.priority) != null
                 ? t
                 : (c || (c = r("BanzaiConsts"))).BASIC;
-          (n = E._getPostBuffer(a)).push.apply(n, e.posts);
+          (n = E._getPostBuffer(o)).push.apply(n, e.posts);
         }
         g.clear();
       },
@@ -142,7 +141,7 @@ __d(
           );
         }
         if (i != null && i.expiryTime > e) return (i.posts.push(t), !0);
-        var s = { expiryTime: e + o, posts: [t] };
+        var s = { expiryTime: e + o, posts: [t], priority: n };
         return (
           g.set(a, s),
           (h == null || h === 0) &&

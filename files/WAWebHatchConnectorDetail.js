@@ -3,8 +3,12 @@ __d(
   ["WAWebHatchConnectorsEligibility", "WAWebHatchFirstPartyConnectors"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    function e(e, t) {
       return (
+        o("WAWebHatchConnectorsEligibility").isConnectedHatchCustomConnector(
+          e,
+          t,
+        ) ||
         o("WAWebHatchFirstPartyConnectors").isHatchFirstPartyConnector(e.id) ||
         e.consent != null ||
         e.description != null ||
